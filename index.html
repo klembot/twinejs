@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Storybook</title>
+</head>
+
+<body>
+
+<section id="stories">
+
+<h1>Stories</h1>
+
+<ul></ul>
+
+<p>
+<button class="add">Add New Story</button>
+</p>
+
+</section>
+
+
+<script type="text/html" id="storyview_template">
+<p>
+Title: <%- title %>
+</p>
+</script>
+
+<script src="js/lib/jquery.js"></script>
+<script src="js/lib/json2.js"></script>
+<script src="js/lib/underscore.js"></script>
+<script src="js/lib/backbone.js"></script>
+<script src="js/lib/backbone.localstorage.js"></script>
+<script src="js/lib/backbone.marionette.js"></script>
+
+<script src="js/models/story.js"></script>
+
+<script src="js/collections/storycollection.js"></script>
+
+<script src="js/views/storyview.js"></script>
+<script src="js/views/storiesview.js"></script>
+
+
+<script>
+var story1 = new Story({ title: 'Moby Dick' });
+var story2 = new Story({ title: 'Alice in Wonderland' });
+var story3 = new Story({ title: 'The Handmaid\'s Tale' });
+
+var coll = new StoryCollection([story1, story2, story3]);
+
+var view = new StoriesView({ collection: coll });
+view.render();
+</script>
+
+</body>
+</html>
