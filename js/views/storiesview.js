@@ -15,7 +15,7 @@ StoriesView = Backbone.Marionette.CollectionView.extend({
 	{
 		'click .add': function()
 		{
-			this.collection.add(new Story());
+			this.collection.create({ title: this.$('#newName').val() });
 		}
 	}
 });

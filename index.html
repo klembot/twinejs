@@ -14,6 +14,7 @@
 
 <p>
 <button class="add">Add New Story</button>
+<input id="newName" type="text">
 </p>
 
 </section>
@@ -46,7 +47,8 @@ var story1 = new Story({ title: 'Moby Dick' });
 var story2 = new Story({ title: 'Alice in Wonderland' });
 var story3 = new Story({ title: 'The Handmaid\'s Tale' });
 
-var coll = new StoryCollection([story1, story2, story3]);
+var coll = new StoryCollection();
+coll.fetch();
 
 var view = new StoriesView({ collection: coll });
 view.render();
