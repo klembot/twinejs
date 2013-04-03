@@ -4,5 +4,13 @@
 
 StoryView = Marionette.ItemView.extend({
 	tagName: 'li',
-	template: '#storyview_template'
+	template: '#storyview_template',
+
+	events:
+	{
+		'click .delete': function()
+		{
+			this.model.destroy();
+		}
+	}
 });
