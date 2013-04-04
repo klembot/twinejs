@@ -1,0 +1,10 @@
+#stories table h4
+{
+	float: left;
+	margin-top: 0;
+}
+
+#stories table p.buttons
+{
+	float: right;
+}
