@@ -8,7 +8,9 @@
 <link href="css/storyview.css" rel="stylesheet" media="screen">
 </head>
 
-<body id="main">
+<body>
+
+<div id="main"></div>
 
 <section id="stories" class="container">
 
@@ -43,6 +45,11 @@ Add New Story
 </td>
 </script>
 
+<script type="text/html" id="passageminiview_template">
+<h5><%- title %></h5>
+<p><%- excerpt %></p>
+</script>
+
 <script src="js/lib/jquery.js"></script>
 <script src="js/lib/json2.js"></script>
 <script src="js/lib/underscore.js"></script>
@@ -59,6 +66,7 @@ Add New Story
 
 <script src="js/views/storyview.js"></script>
 <script src="js/views/storiesview.js"></script>
+<script src="js/views/passageminiview.js"></script>
 
 <script src="js/router.js"></script>
 <script src="js/app.js"></script>
