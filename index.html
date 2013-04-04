@@ -2,18 +2,28 @@
 <html>
 <head>
 <title>Storybook</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<link href="bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+<link href="css/storyview.css" rel="stylesheet" media="screen">
 </head>
 
-<body>
+<body id="main">
 
-<section id="stories">
+<section id="stories" class="container">
 
 <h1>Stories</h1>
 
-<ul></ul>
+<table class="table table-bordered">
+<tbody>
+</tbody>
+</table>
 
 <p>
-<button class="add">Add New Story</button>
+<button class="add btn btn-success">
+<i class="icon-plus icon-white"></i>
+Add New Story
+</button>
 <input id="newName" type="text">
 </p>
 
@@ -21,38 +31,37 @@
 
 
 <script type="text/html" id="storyview_template">
-<p>
-Title: <%- title %>
-<button class="delete">Delete</button>
+<td>
+<h4>
+<%- title %>
+</h4>
+<p class="buttons">
+<button class="delete btn btn-danger" title="Delete <%- title %>">
+<i class="icon-trash icon-white"></i>
+</button>
 </p>
+</td>
 </script>
 
 <script src="js/lib/jquery.js"></script>
 <script src="js/lib/json2.js"></script>
 <script src="js/lib/underscore.js"></script>
+<script src="bootstrap/js/bootstrap.js"></script>
 <script src="js/lib/backbone.js"></script>
 <script src="js/lib/backbone.localstorage.js"></script>
 <script src="js/lib/backbone.marionette.js"></script>
 
 <script src="js/models/story.js"></script>
+<script src="js/models/passage.js"></script>
 
 <script src="js/collections/storycollection.js"></script>
+<script src="js/collections/passagecollection.js"></script>
 
 <script src="js/views/storyview.js"></script>
 <script src="js/views/storiesview.js"></script>
 
-
-<script>
-var story1 = new Story({ title: 'Moby Dick' });
-var story2 = new Story({ title: 'Alice in Wonderland' });
-var story3 = new Story({ title: 'The Handmaid\'s Tale' });
-
-var coll = new StoryCollection();
-coll.fetch();
-
-var view = new StoriesView({ collection: coll });
-view.render();
-</script>
+<script src="js/router.js"></script>
+<script src="js/app.js"></script>
 
 </body>
 </html>

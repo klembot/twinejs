@@ -3,7 +3,7 @@
 // Shows an individual story list item.
 
 StoryView = Marionette.ItemView.extend({
-	tagName: 'li',
+	tagName: 'tr',
 	template: '#storyview_template',
 
 	events:

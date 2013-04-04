@@ -8,7 +8,7 @@ StoriesView = Backbone.Marionette.CollectionView.extend({
 
 	appendHtml: function (collectionVw, itemVw)
 	{
-		collectionVw.$('ul').append(itemVw.el);
+		collectionVw.$('tbody').append(itemVw.el);
 	},
 
 	events:
