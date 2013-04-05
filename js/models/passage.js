@@ -12,8 +12,8 @@ Passage = Backbone.Model.extend({
 	{
 		var text = this.get('text');
 
-		if (text.length > 20)
-			return text.substr(0, 19) + '&hellip;';
+		if (text.length > 100)
+			return text.substr(0, 99) + '&hellip;';
 		else
 			return text;
 	}

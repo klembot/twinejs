@@ -32,6 +32,7 @@ body
 
 #storyEditView .passages .frame
 {
+	background-color: white;
 	width: 10em;
 	height: 10em;
 	box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
