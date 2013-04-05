@@ -21,7 +21,19 @@
 <script type="text/html" class="storyListView">
 <div id="storyListView" class="container">
 
-<h1>Stories</h1>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+
+<span class="brand">Twine</span>
+
+<ul class="nav">
+<li class="active"><a href="#stories"><i class="icon-home"></i> Stories</a></li>
+</ul>
+
+</div>
+</div>
+</div>
 
 <table class="table table-bordered">
 <tbody>
@@ -60,23 +72,46 @@ Add New Story
 <%- name %>
 </h4>
 <p class="buttons">
+
 <button class="edit btn" title="Edit &ldquo;<%- name %>&rdquo;">
 <i class="icon-pencil"></i>
 </button>
+
 <button class="delete btn btn-danger" title="Delete &ldquo;<%- name %>&rdquo;">
 <i class="icon-trash icon-white"></i>
 </button>
+
 </p>
 </td>
 </script>
 
 <script type="text/html" class="storyEditView">
-<h1>
-<button class="btn home">
-<i class="icon-home"></i>
+<div id="storyEditView">
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+
+<span class="brand">Twine</span>
+
+<ul class="nav">
+<li><a href="#stories"><i class="icon-home"></i> Stories</a></li>
+<li class="active"><a href="#stories/<%= id %>"><%- name %></a></li>
+</ul>
+
+<div class="pull-right">
+<button class="storyProperties btn">
+<i class="icon-cog"></i> Properties
 </button>
-<%- name %>
-</h1>
+
+<button class="storyProperties btn">
+<i class="icon-play"></i> Play
+</button>
+
+</div>
+
+</div>
+</div>
+</div>
 
 <div class="controls">
 <button class="add btn" title="Add New Passage">
@@ -85,6 +120,7 @@ Add New Story
 </div>
 
 <div class="passages"></div>
+</div>
 </script>
 
 <script type="text/html" class="passageItemView">
