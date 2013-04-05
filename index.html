@@ -12,6 +12,7 @@
 
 <div id="regions">
 <div class="storyList"></div>
+<div class="storyEdit"></div>
 </div>
 
 
@@ -44,6 +45,9 @@ Add New Story
 <%- title %>
 </h4>
 <p class="buttons">
+<button class="edit btn" title="Edit <%- title %>">
+<i class="icon-pencil"></i>
+</button>
 <button class="delete btn btn-danger" title="Delete <%- title %>">
 <i class="icon-trash icon-white"></i>
 </button>
@@ -51,8 +55,12 @@ Add New Story
 </td>
 </script>
 
-<script type="text/html" id="">
+<script type="text/html" class="storyeditview">
+<h1>
+<%- title %>
+</h1>
 
+<div class="passages"></div>
 </script>
 
 <script type="text/html" class="passageminiview">
@@ -76,8 +84,9 @@ Add New Story
 <script src="js/collections/storycollection.js"></script>
 <script src="js/collections/passagecollection.js"></script>
 
-<script src="js/views/storyview.js"></script>
 <script src="js/views/passageminiview.js"></script>
+<script src="js/views/storyview.js"></script>
+<script src="js/views/storyeditview.js"></script>
 <script src="js/views/storylistview.js"></script>
 
 <script src="js/router.js"></script>
