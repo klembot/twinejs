@@ -10,6 +10,7 @@ StoryListView = Backbone.Marionette.CompositeView.extend({
 		'click .add': function()
 		{
 			this.collection.create({ name: this.$('input.newName').val() });
+			$('#addDialog').modal('hide');
 		}
 	}
 });
