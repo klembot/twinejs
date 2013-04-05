@@ -15,7 +15,7 @@ app.addInitializer(function (options)
 });
 
 app.addRegions({
-	mainRegion: '#main'
+	storyListRegion: '#regions .storyList'
 });
 
 app.start();
