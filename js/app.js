@@ -17,9 +17,7 @@ app.addInitializer(function (options)
 });
 
 app.addRegions({
-	storyListRegion: '#regions .storyList',
-	storyEditRegion: '#regions .storyEdit',
-	passageEditRegion: '#regions .passageEdit'
+	mainRegion: '#regions .main'
 });
 
 app.start();

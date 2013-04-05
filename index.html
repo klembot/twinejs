@@ -13,15 +13,13 @@
 <body>
 
 <div id="regions">
-<div class="storyList"></div>
-<div class="storyEdit"></div>
-<div class="passageEdit"></div>
+<div class="main"></div>
 </div>
 
 <div id="templates">
 
 <script type="text/html" class="storyListView">
-<div class="container">
+<div id="storyListView" class="container">
 
 <h1>Stories</h1>
 
@@ -31,14 +29,29 @@
 </table>
 
 <p class="form-inline">
-<button class="add btn btn-success">
+<a href="#addDialog" class="btn btn-success" data-toggle="modal">
 <i class="icon-plus icon-white"></i>
 Add New Story
-</button>
-<input class="newName" type="text" placeholder="Title">
+</a>
 </p>
 
 </div>
+
+<div id="addDialog" class="modal hide fade">
+<div class="modal-body">
+<p>
+<b>What should your new story be named?</b>
+<p>
+<input class="newName" type="text">
+</p>
+</div>
+
+<div class="modal-footer">
+<button class="btn" data-dismiss="modal">Cancel</button>
+<button class="add btn btn-primary">Add</button>
+</div>
+</div>
+
 </script>
 
 <script type="text/html" class="storyItemView">
