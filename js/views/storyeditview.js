@@ -10,6 +10,12 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 		this.collection = new PassageCollection(app.passages.where({ story: this.model.cid }));
 	},
 
+	onRender: function()
+	{
+		console.log(this.$('.passages > div'));
+		this.$('.passages > div').draggable();
+	},
+
 	events:
 	{
 		'click .add': function()
