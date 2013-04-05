@@ -19,7 +19,7 @@ PassageItemView = Marionette.ItemView.extend({
 
 		'click .edit': function()
 		{
-			window.location.hash = '#stories/' + this.model.get('story') + '/passage/' + this.model.cid;
+			window.location.hash = '#stories/' + this.model.get('story') + '/passages/' + this.model.cid;
 		}
 	}
 });

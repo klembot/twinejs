@@ -18,7 +18,8 @@ app.addInitializer(function (options)
 
 app.addRegions({
 	storyListRegion: '#regions .storyList',
-	storyEditorRegion: '#regions .storyEdit'
+	storyEditRegion: '#regions .storyEdit',
+	passageEditRegion: '#regions .passageEdit'
 });
 
 app.start();

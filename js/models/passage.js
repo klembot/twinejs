@@ -4,7 +4,7 @@ Passage = Backbone.Model.extend({
 	defaults:
 	{
 		story: -1,
-		title: 'Untitled Passage',
+		name: 'Untitled Passage',
 		text: 'Double-click this passage to edit it.'
 	},
 

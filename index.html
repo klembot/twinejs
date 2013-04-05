@@ -18,7 +18,6 @@
 <div class="passageEdit"></div>
 </div>
 
-
 <div id="templates">
 
 <script type="text/html" class="storyListView">
@@ -45,13 +44,13 @@ Add New Story
 <script type="text/html" class="storyItemView">
 <td>
 <h4>
-<%- title %>
+<%- name %>
 </h4>
 <p class="buttons">
-<button class="edit btn" title="Edit <%- title %>">
+<button class="edit btn" title="Edit <%- name %>">
 <i class="icon-pencil"></i>
 </button>
-<button class="delete btn btn-danger" title="Delete <%- title %>">
+<button class="delete btn btn-danger" title="Delete <%- name %>">
 <i class="icon-trash icon-white"></i>
 </button>
 </p>
@@ -60,7 +59,7 @@ Add New Story
 
 <script type="text/html" class="storyEditView">
 <h1>
-<%- title %>
+<%- name %>
 </h1>
 
 <div class="controls">
@@ -74,18 +73,36 @@ Add New Story
 
 <script type="text/html" class="passageItemView">
 <div class="frame">
-<h5><%- title %></h5>
+<h5><%- name %></h5>
 <p class="excerpt"><%= excerpt %></p>
 </div>
 
 <p class="buttons">
-<button class="btn edit">
+<button class="btn edit" class="Edit <%- name %>">
 <i class="icon-pencil"></i>
 </button>
-<button class="btn btn-danger delete">
+<button class="btn btn-danger delete" class="Delete <%- name %>">
 <i class="icon-trash"></i>
 </button>
 </p>
+</script>
+
+<script type="text/html" class="passageEditView">
+<p class="form-inline">
+<label for="passageName">Name</label>
+<input type="text" id="passageName" value="<%- name %>">
+</p>
+
+<p>
+<textarea id="passageText"><%- text %></textarea>
+</p>
+
+<p>
+<button class="btn close">
+Close
+</button>
+</p>
+
 </script>
 
 </div>
@@ -104,6 +121,7 @@ Add New Story
 <script src="js/collections/storycollection.js"></script>
 <script src="js/collections/passagecollection.js"></script>
 
+<script src="js/views/passageeditview.js"></script>
 <script src="js/views/passageitemview.js"></script>
 <script src="js/views/storyitemview.js"></script>
 <script src="js/views/storyeditview.js"></script>
