@@ -1,9 +1,9 @@
 // Shows a single story's passages and allows editing.
 
 StoryEditView = Backbone.Marionette.CompositeView.extend({
-	itemView: PassageMiniView,
+	itemView: PassageItemView,
 	itemViewContainer: '.passages',
-	template: '#templates .storyeditview',
+	template: '#templates .storyEditView',
 
 	initialize: function (options)
 	{

@@ -15,12 +15,13 @@
 <div id="regions">
 <div class="storyList"></div>
 <div class="storyEdit"></div>
+<div class="passageEdit"></div>
 </div>
 
 
 <div id="templates">
 
-<script type="text/html" class="storylistview">
+<script type="text/html" class="storyListView">
 <div class="container">
 
 <h1>Stories</h1>
@@ -41,7 +42,7 @@ Add New Story
 </div>
 </script>
 
-<script type="text/html" class="storyview">
+<script type="text/html" class="storyItemView">
 <td>
 <h4>
 <%- title %>
@@ -57,7 +58,7 @@ Add New Story
 </td>
 </script>
 
-<script type="text/html" class="storyeditview">
+<script type="text/html" class="storyEditView">
 <h1>
 <%- title %>
 </h1>
@@ -71,7 +72,7 @@ Add New Story
 <div class="passages"></div>
 </script>
 
-<script type="text/html" class="passageminiview">
+<script type="text/html" class="passageItemView">
 <div class="frame">
 <h5><%- title %></h5>
 <p class="excerpt"><%= excerpt %></p>
@@ -103,8 +104,8 @@ Add New Story
 <script src="js/collections/storycollection.js"></script>
 <script src="js/collections/passagecollection.js"></script>
 
-<script src="js/views/passageminiview.js"></script>
-<script src="js/views/storyview.js"></script>
+<script src="js/views/passageitemview.js"></script>
+<script src="js/views/storyitemview.js"></script>
 <script src="js/views/storyeditview.js"></script>
 <script src="js/views/storylistview.js"></script>
 

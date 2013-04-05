@@ -1,8 +1,8 @@
 // Shows an individual story list item.
 
-StoryView = Marionette.ItemView.extend({
+StoryItemView = Marionette.ItemView.extend({
 	tagName: 'tr',
-	template: '#templates .storyview',
+	template: '#templates .storyItemView',
 
 	events:
 	{
