@@ -16,10 +16,16 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 		{
 			this.collection.create({ story: this.model.cid });
 		},
-
-		'click .home': function()
+		
+		'click .savePassage': function()
 		{
-			window.location.hash = '#stories';
+			var model = this.collection.get($('#passageId').val());
+			model.save({
+				name: $('#passageName').val(),
+				text: $('#passageText').val()
+			});
+
+			$('#passageEditDialog').modal('hide');
 		}
 	}
 });

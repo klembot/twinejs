@@ -69,7 +69,7 @@ Add New Story
 <script type="text/html" class="storyItemView">
 <td>
 <h4>
-<a href="#stories/<%- id %>"><%- name %></a>
+<a href="javascript:void(0)" class="edit"><%- name %></a>
 </h4>
 <p class="buttons">
 
@@ -121,6 +121,34 @@ Add New Story
 
 <div class="passages"></div>
 </div>
+
+<div id="passageEditDialog" class="modal hide" data-backdrop="false">
+<input type="hidden" id="passageId">
+
+<div class="modal-body">
+
+<button class="savePassage btn close" data-dismiss="modal">
+&times;
+</button>
+
+<p class="form-inline">
+<label for="passageName">Name</label>
+<input type="text" id="passageName" value="">
+</p>
+
+<p>
+<textarea id="passageText"></textarea>
+</p>
+
+</div>
+
+<div class="modal-footer">
+<button class="btn savePassage">
+<i class="icon-ok"></i> Done
+</button>
+</div>
+</div>
+
 </script>
 
 <script type="text/html" class="passageItemView">
@@ -137,24 +165,6 @@ Add New Story
 <i class="icon-trash"></i>
 </button>
 </p>
-</script>
-
-<script type="text/html" class="passageEditView">
-<p class="form-inline">
-<label for="passageName">Name</label>
-<input type="text" id="passageName" value="<%- name %>">
-</p>
-
-<p>
-<textarea id="passageText"><%- text %></textarea>
-</p>
-
-<p>
-<button class="btn close">
-Close
-</button>
-</p>
-
 </script>
 
 </div>
