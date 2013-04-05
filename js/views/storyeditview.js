@@ -15,6 +15,11 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 		'click .add': function()
 		{
 			this.collection.create({ story: this.model.cid });
+		},
+
+		'click .home': function()
+		{
+			window.location.hash = '#stories';
 		}
 	}
 });
