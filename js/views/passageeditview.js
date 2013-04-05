@@ -7,7 +7,7 @@ PassageEditView = Backbone.Marionette.ItemView.extend({
 	{
 		'click .close': function()
 		{
-			this.model.set({
+			this.model.save({
 				name: this.$('#passageName').val(),
 				text: this.$('#passageText').val()
 			});
