@@ -21,6 +21,13 @@ StorybookRouter = Backbone.Router.extend({
 		{
 			// publish a particular story
 			console.log('publishing story ', id);
+		},
+
+		'*path': function()
+		{
+			// default route -- show story list
+			app.mainRegion.show(new StoryListView({ collection: app.stories }));	
+			$('a[title], button[title]').tooltip();
 		}
 	}
 });
