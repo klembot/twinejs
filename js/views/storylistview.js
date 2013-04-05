@@ -2,7 +2,7 @@
 
 StoryListView = Backbone.Marionette.CompositeView.extend({
 	itemView: StoryView,
-	template: '#storylistview_template',
+	template: '#templates .storylistview',
 
 	// place item views into our ul
 

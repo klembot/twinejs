@@ -4,7 +4,7 @@
 
 StoryView = Marionette.ItemView.extend({
 	tagName: 'tr',
-	template: '#storyview_template',
+	template: '#templates .storyview',
 
 	events:
 	{

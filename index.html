@@ -11,14 +11,14 @@
 <body>
 
 <div id="regions">
-<div id="main"></div>
+<div class="storyList"></div>
 </div>
 
 
 <div id="templates">
 
-<script type="text/html" id="storylistview_template">
-<div id="storylistview" class="container">
+<script type="text/html" class="storylistview">
+<div class="container">
 
 <h1>Stories</h1>
 
@@ -38,7 +38,7 @@ Add New Story
 </div>
 </script>
 
-<script type="text/html" id="storyview_template">
+<script type="text/html" class="storyview">
 <td>
 <h4>
 <%- title %>
@@ -51,7 +51,11 @@ Add New Story
 </td>
 </script>
 
-<script type="text/html" id="passageminiview_template">
+<script type="text/html" id="">
+
+</script>
+
+<script type="text/html" class="passageminiview">
 <h5><%- title %></h5>
 <p><%- excerpt %></p>
 </script>
