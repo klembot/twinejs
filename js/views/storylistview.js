@@ -1,9 +1,9 @@
 // Shows a list of stories.
 
 StoryListView = Backbone.Marionette.CompositeView.extend({
-	itemView: StoryView,
+	itemView: StoryItemView,
 	itemViewContainer: 'tbody',
-	template: '#templates .storylistview',
+	template: '#templates .storyListView',
 
 	events:
 	{
