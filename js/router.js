@@ -3,13 +3,15 @@ StorybookRouter = Backbone.Router.extend({
 	{
 		'stories': function()
 		{
-			console.log('listing all stories');
+			$(app.storyListRegion.el).css({ display: 'block' });
+			$(app.storyEditorRegion.el).css({ display: 'none' });
 			app.storyListRegion.show(new StoryListView({ collection: app.stories }));	
 		},
 
 		'stories/:id': function (id)
 		{
-			console.log('editing story ', id);
+			$(app.storyListRegion.el).css({ display: 'none' });
+			$(app.storyEditorRegion.el).css({ display: 'block' });
 			app.storyEditorRegion.show(new StoryEditView({ model: app.stories.get(id) }));
 		},
 

@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="utf-8">
 <link href="bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+<link href="fontawesome/css/font-awesome.css" rel="stylesheet" media="screen">
 <link href="css/storyview.css" rel="stylesheet" media="screen">
+<link href="css/app.css" rel="stylesheet" media="screen">
 </head>
 
 <body>
@@ -60,12 +62,29 @@ Add New Story
 <%- title %>
 </h1>
 
+<div class="controls">
+<button class="add btn" title="Add New Passage">
+<i class="icon-plus icon-2x"></i>
+</button>
+</div>
+
 <div class="passages"></div>
 </script>
 
 <script type="text/html" class="passageminiview">
+<div class="frame">
 <h5><%- title %></h5>
-<p><%- excerpt %></p>
+<p class="excerpt"><%= excerpt %></p>
+</div>
+
+<p class="buttons">
+<button class="btn edit">
+<i class="icon-pencil"></i>
+</button>
+<button class="btn btn-danger delete">
+<i class="icon-trash"></i>
+</button>
+</p>
 </script>
 
 </div>

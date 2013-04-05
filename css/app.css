@@ -1,0 +1,48 @@
+#regions .storyList table h4
+{
+	float: left;
+	margin-top: 0;
+}
+
+#regions .storyList table p.buttons
+{
+	float: right;
+}
+
+#regions .storyEdit .controls
+{
+	position: fixed;
+	top: 1em;
+	right: 1em;
+	background-color: rgba(0, 0, 0, 0.2);
+	padding: 0.5em;
+	border-radius: 0.5em;
+}
+
+#regions .storyEdit .passages div
+{
+	float: left;
+	margin: 1em;
+}
+
+#regions .storyEdit .passages .frame
+{
+	width: 10em;
+	height: 10em;
+	box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
+	border-radius: 0.5em;
+	padding: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+#regions .storyEdit .passages div .buttons
+{
+	display: none;
+	text-align: right;
+	padding-right: 1em;
+}
+
+#regions .storyEdit .passages div:hover .buttons
+{
+	display: block;
+}
