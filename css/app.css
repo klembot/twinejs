@@ -71,3 +71,18 @@ body
 	width: 100%;
 	height: 10em;
 }
+
+.modal.fade
+{
+    -webkit-transition: opacity .1s linear, none;
+    -moz-transition: opacity .1s linear, none;
+    -ms-transition: opacity .1s linear, none;
+    -o-transition: opacity .1s linear, none;
+    transition: opacity .1s linear, none;
+    top: 10%;
+}
+
+.modal.fade.in
+{
+	top: 10%;	
+}
