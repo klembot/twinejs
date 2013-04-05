@@ -1,3 +1,8 @@
+body
+{
+	padding-top: 60px;
+}
+
 #storyListView table h4
 {
 	float: left;
@@ -9,23 +14,23 @@
 	float: right;
 }
 
-#regions .storyEdit .controls
+#storyEditView .controls
 {
-	position: fixed;
-	top: 1em;
-	right: 1em;
+	position:  fixed;
+	top: 60px;
+	right: 20px;
 	background-color: rgba(0, 0, 0, 0.2);
 	padding: 0.5em;
 	border-radius: 0.5em;
 }
 
-#regions .storyEdit .passages div
+#storyEditView .passages div
 {
 	float: left;
 	margin: 1em;
 }
 
-#regions .storyEdit .passages .frame
+#storyEditView .passages .frame
 {
 	width: 10em;
 	height: 10em;
@@ -35,14 +40,14 @@
 	margin-bottom: 0.5em;
 }
 
-#regions .storyEdit .passages div .buttons
+#storyEditView .passages div .buttons
 {
 	display: none;
 	text-align: right;
 	padding-right: 1em;
 }
 
-#regions .storyEdit .passages div:hover .buttons
+#storyEditView .passages div:hover .buttons
 {
 	display: block;
 }
