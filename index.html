@@ -10,9 +10,15 @@
 
 <body>
 
+<div id="regions">
 <div id="main"></div>
+</div>
 
-<section id="stories" class="container">
+
+<div id="templates">
+
+<script type="text/html" id="storylistview_template">
+<div id="storylistview" class="container">
 
 <h1>Stories</h1>
 
@@ -26,11 +32,11 @@
 <i class="icon-plus icon-white"></i>
 Add New Story
 </button>
-<input id="newName" type="text" placeholder="Title">
+<input class="newName" type="text" placeholder="Title">
 </p>
 
-</section>
-
+</div>
+</script>
 
 <script type="text/html" id="storyview_template">
 <td>
@@ -50,6 +56,8 @@ Add New Story
 <p><%- excerpt %></p>
 </script>
 
+</div>
+
 <script src="js/lib/jquery.js"></script>
 <script src="js/lib/json2.js"></script>
 <script src="js/lib/underscore.js"></script>
@@ -65,8 +73,8 @@ Add New Story
 <script src="js/collections/passagecollection.js"></script>
 
 <script src="js/views/storyview.js"></script>
-<script src="js/views/storiesview.js"></script>
 <script src="js/views/passageminiview.js"></script>
+<script src="js/views/storylistview.js"></script>
 
 <script src="js/router.js"></script>
 <script src="js/app.js"></script>
