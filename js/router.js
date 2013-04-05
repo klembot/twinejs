@@ -4,7 +4,7 @@ StorybookRouter = Backbone.Router.extend({
 		'stories': function()
 		{
 			console.log('listing all stories');
-			app.mainRegion.show(new StoriesView({ collection: app.stories }));	
+			app.mainRegion.show(new StoryListView({ collection: app.stories }));	
 		},
 
 		'stories/:id': function (id)

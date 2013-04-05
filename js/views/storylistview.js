@@ -1,8 +1,8 @@
 // Shows a list of stories.
 
-StoriesView = Backbone.Marionette.CollectionView.extend({
-	el: '#stories',
+StoryListView = Backbone.Marionette.CompositeView.extend({
 	itemView: StoryView,
+	template: '#storylistview_template',
 
 	// place item views into our ul
 
@@ -15,7 +15,7 @@ StoriesView = Backbone.Marionette.CollectionView.extend({
 	{
 		'click .add': function()
 		{
-			this.collection.create({ title: this.$('#newName').val() });
+			this.collection.create({ title: this.$('input.newName').val() });
 		}
 	}
 });
