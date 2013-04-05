@@ -9,8 +9,8 @@ StorybookRouter = Backbone.Router.extend({
 
 		'stories/:id': function (id)
 		{
-			// show editor for particular story
 			console.log('editing story ', id);
+			app.storyEditorRegion.show(new StoryEditView({ model: app.stories.get(id) }));
 		},
 
 		'stories/:id/publish': function (id)

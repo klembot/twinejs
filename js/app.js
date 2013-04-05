@@ -4,6 +4,8 @@ app.addInitializer(function (options)
 {
 	app.stories = new StoryCollection();
 	app.stories.fetch();
+	app.passages = new PassageCollection();
+	app.passages.fetch();
 
 	app.router = new StorybookRouter();
 	Backbone.history.start();
@@ -15,7 +17,8 @@ app.addInitializer(function (options)
 });
 
 app.addRegions({
-	storyListRegion: '#regions .storyList'
+	storyListRegion: '#regions .storyList',
+	storyEditorRegion: '#regions .storyEdit'
 });
 
 app.start();
