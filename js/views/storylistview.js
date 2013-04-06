@@ -5,6 +5,11 @@ StoryListView = Backbone.Marionette.CompositeView.extend({
 	itemViewContainer: 'tbody',
 	template: '#templates .storyListView',
 
+	onRender: function()
+	{
+		$('a[title], button[title]').tooltip();
+	},
+
 	events:
 	{
 		'click .add': function()
