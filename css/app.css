@@ -16,41 +16,45 @@ body
 
 #storyEditView .controls
 {
-	position:  fixed;
+	position: fixed;
 	top: 60px;
 	right: 20px;
 	background-color: rgba(0, 0, 0, 0.2);
 	padding: 0.5em;
 	border-radius: 0.5em;
+	z-index: 1;
 }
 
-#storyEditView .passages div
+#storyEditView .passages
 {
-	float: left;
-	margin: 1em;
+	position: relative;
 }
 
-#storyEditView .passages .frame
+#storyEditView .passage
 {
-	background-color: white;
+	position: absolute;
 	width: 10em;
+}
+
+#storyEditView .passage .frame
+{
 	height: 10em;
-	box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
 	border-radius: 0.5em;
+	background-color: white;
+	box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
 	padding: 0.5em;
-	margin-bottom: 0.5em;
 }
 
-#storyEditView .passages div .buttons
+#storyEditView .passage .buttons
 {
-	display: none;
+	visibility: hidden;
 	text-align: right;
-	padding-right: 1em;
+	margin-top: 0.5em;
 }
 
-#storyEditView .passages div:hover .buttons
+#storyEditView .passage:hover .buttons
 {
-	display: block;
+	visibility: visible;
 }
 
 #passageEditDialog textarea
