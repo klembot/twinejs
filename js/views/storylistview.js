@@ -7,7 +7,7 @@ StoryListView = Backbone.Marionette.CompositeView.extend({
 
 	onRender: function()
 	{
-		$('a[title], button[title]').tooltip();
+		this.$('a[title], button[title]').tooltip();
 	},
 
 	events:
@@ -15,7 +15,7 @@ StoryListView = Backbone.Marionette.CompositeView.extend({
 		'click .add': function()
 		{
 			this.collection.create({ name: this.$('input.newName').val() });
-			$('#addDialog').modal('hide');
+			this.$('#addDialog').modal('hide');
 		}
 	}
 });
