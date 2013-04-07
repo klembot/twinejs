@@ -99,7 +99,7 @@ Add New Story
 <i class="icon-cog"></i> Properties
 </button>
 
-<button class="storyProperties btn">
+<button class="playStory btn">
 <i class="icon-play"></i> Play
 </button>
 
@@ -127,21 +127,57 @@ Add New Story
 &times;
 </button>
 
-<p class="form-inline">
+<div class="form-inline">
+
+<p class="control-group">
 <label for="passageName">Name</label>
 <input type="text" id="passageName" value="">
 </p>
 
-<p>
-<textarea id="passageText"></textarea>
+<p class="control-group">
+<textarea id="passageText" class="span6"></textarea>
 </p>
 
 </div>
-
+</div>
 <div class="modal-footer">
+
 <button class="btn savePassage">
 <i class="icon-ok"></i> Done
 </button>
+
+</div>
+</div>
+
+<div id="storyPropertiesDialog" class="popover">
+<div class="form-inline">
+
+<p class="control-group">
+<label for="storyName">Name</label>
+<input type="text" id="storyName" value="<%- name %>">
+</p>
+
+<p class="control-group">
+<label for="startPassage">Start At</label>
+
+<select id="startPassage">
+<option>What</option>
+<option>Hmm</option>
+</select>
+</p>
+
+<p class="control-group">
+<button class="btn">
+<i class="icon-font"></i>
+Stylesheet
+</button>
+
+<button class="btn">
+<i class="icon-cogs"></i>
+JavaScript
+</button>
+</p>
+
 </div>
 </div>
 
