@@ -3,15 +3,22 @@ body
 	padding-top: 60px;
 }
 
-#storyListView table h4
+#storyListView h4
 {
-	float: left;
-	margin-top: 0;
+	display: inline;
+	position: relative;
+	top: 0.2em;
 }
 
-#storyListView table p.buttons
+#storyListView td.buttons
 {
-	float: right;
+	border-left: none;
+	text-align: right;
+}
+
+#storyListView td.buttons button
+{
+	margin-left: 0.75em;
 }
 
 #storyEditView .controls
