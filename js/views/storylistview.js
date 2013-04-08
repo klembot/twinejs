@@ -7,14 +7,21 @@ StoryListView = Backbone.Marionette.CompositeView.extend({
 
 	onRender: function()
 	{
+		var self = this;
+
 		this.$('a[title], button[title]').tooltip();
 
-		this.$('.addStory')
+		this.$('button.addStory')
 		.popover({
 			html: true,
 			placement: 'right',
 			content: function() { return $('#addStoryDialog').html() }
 		})
+
+		this.$el.on('click', 'button.cancelAdd', function()
+		{
+			self.$('.addStory').popover('hide');
+		});
 	},
 
 	events:
