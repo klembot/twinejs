@@ -19,6 +19,12 @@ body
 #storyListView td.buttons button
 {
 	margin-left: 0.75em;
+	margin-right: 0em;
+}
+
+#storyListView td.buttons .delete
+{
+	margin-right: 1.5em;
 }
 
 #storyEditView .controls
