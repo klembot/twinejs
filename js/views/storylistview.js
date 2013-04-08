@@ -8,6 +8,13 @@ StoryListView = Backbone.Marionette.CompositeView.extend({
 	onRender: function()
 	{
 		this.$('a[title], button[title]').tooltip();
+
+		this.$('.addStory')
+		.popover({
+			html: true,
+			placement: 'right',
+			content: function() { return $('#addStoryDialog').html() }
+		})
 	},
 
 	events:
@@ -15,7 +22,7 @@ StoryListView = Backbone.Marionette.CompositeView.extend({
 		'click .add': function()
 		{
 			this.collection.create({ name: this.$('input.newName').val() });
-			this.$('#addDialog').modal('hide');
+			this.$('.addStory').popover('hide');
 		}
 	}
 });
