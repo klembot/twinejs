@@ -18,5 +18,12 @@ Passage = Backbone.Model.extend({
 			return text.substr(0, 99) + '&hellip;';
 		else
 			return text;
+	},
+
+	publish: function()
+	{
+		return '<section data-name="' + this.get('name') + '" ' +
+			   'data-twine-pos="' + this.get('left') + ',' + this.get('top') + '">' +
+			   this.get('text') + '</section>';	
 	}
 });

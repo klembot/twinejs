@@ -16,6 +16,14 @@ StorybookRouter = Backbone.Router.extend({
 			$('a[title], button[title]').tooltip();
 		},
 
+		'stories/:id/play': function (id)
+		{
+			// play a story
+
+			console.log('playing story ', id);
+			$('html').replaceWith(app.stories.get(id).publish());
+		},
+
 		'stories/:id/publish': function (id)
 		{
 			// publish a particular story

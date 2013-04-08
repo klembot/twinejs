@@ -94,6 +94,11 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 		'change #storyName': function()
 		{
 			this.model.save({ name: this.$('#storyName').val() });
+		},
+
+		'click .playStory': function()
+		{
+			window.open('#stories/' + this.model.cid + '/play', 'twinestory_' + this.model.cid);
 		}
 	}
 });
