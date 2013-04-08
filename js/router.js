@@ -6,7 +6,6 @@ StorybookRouter = Backbone.Router.extend({
 			// list of all stories
 
 			app.mainRegion.show(new StoryListView({ collection: app.stories }));	
-			$('a[title], button[title]').tooltip();
 		},
 
 		'stories/:id': function (id)
