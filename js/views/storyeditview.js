@@ -8,14 +8,20 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 	initialize: function (options)
 	{
 		this.collection = new PassageCollection(app.passages.where({ story: this.model.cid }));
+		var self = this;
+
+		// keep story name in sync
+
+		this.model.on('change:name', function (model)
+		{
+			self.$('.nav .storyName').text(model.get('name'));
+		});
 
 		// keep start passage menu in sync
 
-		var self = this;
-
 		this.collection.on('change:name', function (item)
 		{
-			self.$('#startPassage option').each(function()
+			self.$('select.startPassage option').each(function()
 			{
 				if ($(this).val() == item.cid)
 					$(this).text(item.get('name'));
@@ -24,12 +30,12 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 
 		this.collection.on('add', function (item)
 		{
-			self.$('#startPassage').append($('<option value="' + item.cid + '">' + item.get('name') + '</option>'));
+			self.$('select.startPassage').append($('<option value="' + item.cid + '">' + item.get('name') + '</option>'));
 		});
 
 		this.collection.on('remove', function (item)
 		{
-			self.$('#startPassage option').each(function()
+			self.$('select.startPassage option').each(function()
 			{
 				if ($(this).val() == item.cid)
 					$(this).remove();
@@ -39,11 +45,22 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 
 	onRender: function()
 	{
+		var self = this;
+
 		this.$('a[title], button[title]').tooltip();
-		this.$('.storyProperties').popover({
+
+		// we use #storyPropertiesDialog as a template, but set the values
+		// according to the model whenever the popover is shown.
+
+		this.$('.storyProperties')
+		.popover({
 			html: true,
 			placement: 'bottom',
 			content: function() { return $('#storyPropertiesDialog').html() }
+		})
+		.click(function()
+		{
+			$('.popover input.storyName').val(self.model.get('name'));			
 		});
 
 		// build the initial start passage menu
@@ -72,6 +89,11 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 			});
 
 			$('#passageEditDialog').modal('hide');
+		},
+
+		'change #storyName': function()
+		{
+			this.model.save({ name: this.$('#storyName').val() });
 		}
 	}
 });
