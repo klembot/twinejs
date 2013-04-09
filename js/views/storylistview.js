@@ -14,13 +14,18 @@ StoryListView = Backbone.Marionette.CompositeView.extend({
 		this.$('button.addStory')
 		.popover({
 			html: true,
-			placement: 'right',
+			placement: 'bottom',
 			content: function() { return $('#addStoryDialog').html() }
-		})
+		});
 
 		this.$el.on('click', 'button.cancelAdd', function()
 		{
 			self.$('.addStory').popover('hide');
+		});
+
+		this.$el.on('click', 'button.cancelDelete', function()
+		{
+			self.$('.deleteStory').popover('hide');
 		});
 	},
 

@@ -4,6 +4,19 @@ var Story = Backbone.Model.extend({
 		name: 'Untitled Story',
 		startPassage: -1
 	},
+	
+	initialize: function()
+	{
+		this.on('destroy', function()
+		{
+			// delete all child passages
+
+			var passages = app.passages.where({ story: this.cid });
+
+			for (var i = 0; i < passages.length; i++)
+				passages[i].destroy();
+		});
+	},
 
 	publish: function()
 	{
