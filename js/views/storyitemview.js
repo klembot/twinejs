@@ -4,6 +4,16 @@ StoryItemView = Marionette.ItemView.extend({
 	tagName: 'tr',
 	template: '#templates .storyItemView',
 
+	onRender: function()
+	{
+		this.$('button.deleteStory')
+		.popover({
+			html: true,
+			placement: 'bottom',
+			content: function() { return $('#deleteStoryDialog').html() }
+		});
+	},
+
 	events:
 	{
 		'click .delete': function()
