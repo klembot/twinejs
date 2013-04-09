@@ -98,7 +98,7 @@ This cannot be undone.
 </button>
 
 <button class="publish btn" title="Publish &ldquo;<%- name %>&rdquo;">
-<i class="icon-share-alt icon-large"></i>
+<i class="icon-truck icon-large"></i>
 </button>
 
 </td>
@@ -114,6 +114,11 @@ This cannot be undone.
 <li><a href="#stories"><i class="icon-home icon-large"></i> Stories</a></li>
 <li class="active"><a href="javascript:void(0)"><span class="storyName"><%- name %></span></a></li>
 </ul>
+
+<button class="add btn" title="Add New Passage">
+<i class="icon-plus"></i>
+Passage
+</button>
 
 <div class="pull-right">
 <button class="storyProperties btn">
@@ -131,9 +136,6 @@ This cannot be undone.
 </div>
 
 <div class="controls">
-<button class="add btn" title="Add New Passage">
-<i class="icon-plus icon-2x"></i>
-</button>
 </div>
 
 <div class="passages">
@@ -184,6 +186,13 @@ This cannot be undone.
 <label for="startPassage">Start At</label>
 
 <select id="startPassage" class="startPassage"></select>
+</p>
+
+<p class="control-group">
+<label for="snapToGrid" class="checkbox">
+<input type="checkbox" id="snapToGrid">
+Snap to Grid
+</label>
 </p>
 
 <p class="control-group">
