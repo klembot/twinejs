@@ -91,6 +91,12 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 			$('#passageEditDialog').modal('hide');
 		},
 
+		'change #startPassage': function()
+		{
+			console.log('setting startPassage');
+			this.model.save({ startPassage: this.$('#startPassage').val() });
+		},
+
 		'change #storyName': function()
 		{
 			this.model.save({ name: this.$('#storyName').val() });
