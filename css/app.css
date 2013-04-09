@@ -43,6 +43,11 @@ body
 	position: relative;
 }
 
+#storyEditView canvas
+{
+	position: absolute;
+}
+
 #storyEditView .passage
 {
 	position: absolute;
