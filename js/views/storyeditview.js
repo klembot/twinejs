@@ -47,6 +47,8 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 	{
 		var self = this;
 
+		this.canvas = this.$('.passages canvas');
+
 		this.$('a[title], button[title]').tooltip();
 
 		// we use #storyPropertiesDialog as a template, but set the values
@@ -71,6 +73,9 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 		{
 			menu.append($('<option value="' + item.cid + '">' + item.get('name') + '</option>'));
 		});
+
+		self.drawLinks();
+		window.setTimeout(function() { self.drawLinks() }, 0);
 	},
 
 	events:
@@ -105,5 +110,58 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 		{
 			window.open('#stories/' + this.model.cid + '/play', 'twinestory_' + this.model.cid);
 		}
+	},
+
+	drawLinks: function()
+	{
+		var container = this.$('.passages');
+		var canvas = this.$('canvas:first');
+		var gc = canvas[0].getContext('2d');
+		var passages = {};
+		var passageNames = [];
+
+		this.collection.each(function (item)
+		{
+			var name = item.get('name');
+
+			passageNames.push(name);
+
+			passages[name] =
+			{
+				cid: item.cid,
+				position: container.children('div[data-cid="' + item.cid + '"]:first').position(),
+				links: item.links(),
+			};
+		});
+
+		container.css({
+			width: $(window).width(),
+			height: $(window).height()
+		});
+		canvas.width = $(window).width();
+		canvas.height = $(window).height();
+		canvas.attr({
+			width: canvas.width,
+			height: canvas.height
+		});
+
+		for (var i = 0; i < passageNames.length; i++)
+		{
+			var p = passages[passageNames[i]];
+
+			for (var j = 0; j < p.links.length; j++)
+			{
+				if (passages[p.links[j]])
+				{
+					var q = passages[p.links[j]];
+					console.log('line', p.position.left, q.position.top, q.position.left, q.position.top);
+					gc.moveTo(p.position.left, p.position.top);
+					gc.lineTo(q.position.left, q.position.top);
+				};
+			};
+		};
+
+		gc.strokeStyle = '1px black';
+		gc.stroke();
 	}
 });

@@ -14,13 +14,17 @@ PassageItemView = Marionette.ItemView.extend({
 		// have to set absolute positioning manually,
 		// or draggable() will manually apply absolute for us
 
-		this.$el.css({
+		this.$el
+		.attr('data-cid', this.model.cid)
+		.css({
 			position: 'absolute',
 			top: this.model.get('top'),
 			left: this.model.get('left')
+		})
+		.draggable({
+			cursor: 'move',
+			addClasses: false
 		});
-
-		this.$el.draggable({ cursor: 'move', addClasses: false });
 	},
 
 	serializeData: function()
