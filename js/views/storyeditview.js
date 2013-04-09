@@ -119,6 +119,10 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 		var gc = canvas[0].getContext('2d');
 		var passages = {};
 		var passageNames = [];
+		var offsetX = this.$('.passage:first').width() / 2;
+		var offsetY = this.$('.passage:first').height() / 2;
+
+		// this can be memoized
 
 		this.collection.each(function (item)
 		{
@@ -128,11 +132,12 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 
 			passages[name] =
 			{
-				cid: item.cid,
 				position: container.children('div[data-cid="' + item.cid + '"]:first').position(),
 				links: item.links(),
 			};
 		});
+
+		// reset the size of the canvas
 
 		container.css({
 			width: $(window).width(),
@@ -145,6 +150,8 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 			height: canvas.height
 		});
 
+		// draw connections
+
 		for (var i = 0; i < passageNames.length; i++)
 		{
 			var p = passages[passageNames[i]];
@@ -154,14 +161,13 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 				if (passages[p.links[j]])
 				{
 					var q = passages[p.links[j]];
-					console.log('line', p.position.left, q.position.top, q.position.left, q.position.top);
-					gc.moveTo(p.position.left, p.position.top);
-					gc.lineTo(q.position.left, q.position.top);
+					gc.moveTo(p.position.left + offsetX, p.position.top + offsetY);
+					gc.lineTo(q.position.left + offsetX, q.position.top + offsetY);
 				};
 			};
 		};
 
-		gc.strokeStyle = '1px black';
+		gc.strokeStyle = 'black';
 		gc.stroke();
 	}
 });
