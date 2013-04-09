@@ -93,7 +93,6 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 
 		'change #startPassage': function()
 		{
-			console.log('setting startPassage');
 			this.model.save({ startPassage: this.$('#startPassage').val() });
 		},
 
