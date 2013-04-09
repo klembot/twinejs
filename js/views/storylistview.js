@@ -16,6 +16,10 @@ StoryListView = Backbone.Marionette.CompositeView.extend({
 			html: true,
 			placement: 'bottom',
 			content: function() { return $('#addStoryDialog').html() }
+		})
+		.click(function()
+		{
+			$('.popover .newName').focus();
 		});
 
 		this.$el.on('click', 'button.cancelAdd', function()
