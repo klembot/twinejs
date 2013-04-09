@@ -49,6 +49,11 @@ PassageItemView = Marionette.ItemView.extend({
 			this.model.destroy();
 		},
 
+		'drag': function (e, ui)
+		{
+			app.mainRegion.currentView.drawLinks();
+		},
+
 		'dragstop': function (e, ui)
 		{
 			this.model.save({
