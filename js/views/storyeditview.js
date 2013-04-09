@@ -7,7 +7,7 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 
 	initialize: function (options)
 	{
-		this.collection = new PassageCollection(app.passages.where({ story: this.model.cid }));
+		this.collection = new PassageCollection(app.passages.where({ story: this.model.id }));
 		var self = this;
 
 		// keep story name in sync
@@ -23,21 +23,21 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 		{
 			self.$('select.startPassage option').each(function()
 			{
-				if ($(this).val() == item.cid)
+				if ($(this).val() == item.id)
 					$(this).text(item.get('name'));
 			});
 		});
 
 		this.collection.on('add', function (item)
 		{
-			self.$('select.startPassage').append($('<option value="' + item.cid + '">' + item.get('name') + '</option>'));
+			self.$('select.startPassage').append($('<option value="' + item.id + '">' + item.get('name') + '</option>'));
 		});
 
 		this.collection.on('remove', function (item)
 		{
 			self.$('select.startPassage option').each(function()
 			{
-				if ($(this).val() == item.cid)
+				if ($(this).val() == item.id)
 					$(this).remove();
 			});
 		});
@@ -71,7 +71,7 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 
 		this.collection.each(function (item)
 		{
-			menu.append($('<option value="' + item.cid + '">' + item.get('name') + '</option>'));
+			menu.append($('<option value="' + item.id + '">' + item.get('name') + '</option>'));
 		});
 
 		self.drawLinks();
@@ -82,7 +82,7 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 	{
 		'click .add': function()
 		{
-			this.collection.create({ story: this.model.cid });
+			this.collection.create({ story: this.model.id });
 		},
 		
 		'click .savePassage': function()
@@ -108,7 +108,7 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 
 		'click .playStory': function()
 		{
-			window.open('#stories/' + this.model.cid + '/play', 'twinestory_' + this.model.cid);
+			window.open('#stories/' + this.model.id + '/play', 'twinestory_' + this.model.id);
 		}
 	},
 
@@ -132,7 +132,7 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 
 			passages[name] =
 			{
-				position: container.children('div[data-cid="' + item.cid + '"]:first').position(),
+				position: container.children('div[data-id="' + item.id + '"]:first').position(),
 				links: item.links(),
 			};
 		});

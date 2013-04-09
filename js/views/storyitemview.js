@@ -23,12 +23,12 @@ StoryItemView = Marionette.ItemView.extend({
 
 		'click .edit': function()
 		{
-			window.location.hash = '#stories/' + this.model.cid;
+			window.location.hash = '#stories/' + this.model.id;
 		},
 
 		'click .play': function()
 		{
-			window.open('#stories/' + this.model.cid + '/play', 'twinestory_' + this.model.cid);
+			window.open('#stories/' + this.model.id + '/play', 'twinestory_' + this.model.id);
 		}
 	}
 });

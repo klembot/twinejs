@@ -15,7 +15,7 @@ PassageItemView = Marionette.ItemView.extend({
 		// or draggable() will manually apply absolute for us
 
 		this.$el
-		.attr('data-cid', this.model.cid)
+		.attr('data-id', this.model.id)
 		.css({
 			position: 'absolute',
 			top: this.model.get('top'),
@@ -36,7 +36,7 @@ PassageItemView = Marionette.ItemView.extend({
 
 	edit: function()
 	{
-		$('#passageId').val(this.model.cid);
+		$('#passageId').val(this.model.id);
 		$('#passageName').val(this.model.get('name'));
 		$('#passageText').val(this.model.get('text'));
 		$('#passageEditDialog').modal('show');	

@@ -5,6 +5,7 @@ StorybookRouter = Backbone.Router.extend({
 		{
 			// list of all stories
 
+			app.stories.fetch();
 			app.mainRegion.show(new StoryListView({ collection: app.stories }));	
 		},
 
@@ -12,6 +13,8 @@ StorybookRouter = Backbone.Router.extend({
 		{
 			// editing a specific story
 
+			app.stories.fetch();
+			app.passages.fetch();
 			app.mainRegion.show(new StoryEditView({ model: app.stories.get(id) }));
 			$('a[title], button[title]').tooltip();
 		},
@@ -20,7 +23,8 @@ StorybookRouter = Backbone.Router.extend({
 		{
 			// play a story
 
-			console.log('playing story ', id);
+			app.stories.fetch();
+			app.passages.fetch();
 			$('html').replaceWith(app.stories.get(id).publish());
 		},
 

@@ -25,8 +25,9 @@ Passage = Backbone.Model.extend({
 		var matches = this.get('text').match(/\[\[.*?\]\]/g);
 		var result = [];
 
-		for (var i = 0; i < matches.length; i++)
-			result.push(matches[i].replace(/[\[\]]/g, '').replace(/\|.*/, ''));
+		if (matches)
+			for (var i = 0; i < matches.length; i++)
+				result.push(matches[i].replace(/[\[\]]/g, '').replace(/\|.*/, ''));
 
 		return result;
 	},
