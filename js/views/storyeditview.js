@@ -7,8 +7,12 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 
 	initialize: function (options)
 	{
-		this.collection = new PassageCollection(app.passages.where({ story: this.model.id }));
 		var self = this;
+		this.collection = new PassageCollection(app.passages.where({ story: this.model.id }));
+
+		// this tracks passage positions and links to speed up drawing
+
+		this.drawCache = {};
 
 		// keep story name in sync
 
@@ -17,24 +21,40 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 			self.$('.nav .storyName').text(model.get('name'));
 		});
 
-		// keep start passage menu in sync
+		// keep start passage menu and draw cache in sync
 
-		this.collection.on('change:name', function (item)
+		this.collection
+		.on('change:name', function (item)
 		{
+			delete self.drawCache[item.previous('name')];
+			self.cachePassage(item);
+			self.drawLinks();
+
 			self.$('select.startPassage option').each(function()
 			{
 				if ($(this).val() == item.id)
 					$(this).text(item.get('name'));
 			});
-		});
-
-		this.collection.on('add', function (item)
+		})
+		.on('change:left', function (item)
+		{
+			self.cachePassage(item);
+		})
+		.on('change:top', function (item)
+		{
+			self.cachePassage(item);
+		})
+		.on('add', function (item)
 		{
 			self.$('select.startPassage').append($('<option value="' + item.id + '">' + item.get('name') + '</option>'));
-		});
-
-		this.collection.on('remove', function (item)
+			self.cachePassage(item);
+			self.drawLinks();
+		})
+		.on('remove', function (item)
 		{
+			delete self.drawCache[item.get('name')];
+			self.drawLinks();
+
 			self.$('select.startPassage option').each(function()
 			{
 				if ($(this).val() == item.id)
@@ -78,7 +98,17 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 		$(window).on('resize', function() { self.resizeCanvas() });
 
 		// for some reason, jQuery can't see the position of the passages yet, so we defer... kind of
-		window.setTimeout(function() { self.drawLinks() }, 0);
+
+		window.setTimeout(function()
+		{
+			self.collection.each(function(item) { self.cachePassage(item) });
+			self.drawLinks();
+		}, 0);
+	},
+
+	close: function()
+	{
+		$(window).off('resize');
 	},
 
 	events:
@@ -112,6 +142,14 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 		'click .playStory': function()
 		{
 			window.open('#stories/' + this.model.id + '/play', 'twinestory_' + this.model.id);
+		},
+
+		// keeps track of passages as they are dragged
+
+		'drag .passage': function (event)
+		{
+			this.cachePassage(this.collection.get($(event.target).closest('.passage').attr('data-id')));
+			this.drawLinks();
 		}
 	},
 
@@ -124,41 +162,23 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 		var offsetX = this.$('.passage:first').width() / 2;
 		var offsetY = this.$('.passage:first').height() / 2;
 
-		// this can be memoized
-
-		var container = this.$('.passages');
-
-		this.collection.each(function (item)
-		{
-			var name = item.get('name');
-
-			passageNames.push(name);
-
-			passages[name] =
-			{
-				position: container.children('div[data-id="' + item.id + '"]:first').position(),
-				links: item.links(),
-			};
-		});
-
 		// draw connections
 
 		canvas.width = canvas.width;
 
-		for (var i = 0; i < passageNames.length; i++)
-		{
-			var p = passages[passageNames[i]];
-
-			for (var j = 0; j < p.links.length; j++)
+		for (var name in this.drawCache)
+			if (this.drawCache.hasOwnProperty(name))
 			{
-				if (passages[p.links[j]])
-				{
-					var q = passages[p.links[j]];
-					gc.moveTo(p.position.left + offsetX, p.position.top + offsetY);
-					gc.lineTo(q.position.left + offsetX, q.position.top + offsetY);
-				};
+				var p = this.drawCache[name];
+
+				for (var i = 0; i < p.links.length; i++)
+					if (this.drawCache[p.links[i]])
+					{
+						var q = this.drawCache[p.links[i]];
+						gc.moveTo(p.position.left + offsetX, p.position.top + offsetY);
+						gc.lineTo(q.position.left + offsetX, q.position.top + offsetY);
+					};
 			};
-		};
 
 		gc.lineWidth = 2;
 		gc.strokeStyle = '#7088ac';
@@ -179,5 +199,18 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 			width: width,
 			height: height
 		});
+
+		this.drawLinks();
+	},
+
+	cachePassage: function (item)
+	{
+		var container = this.$('.passages');
+
+		this.drawCache[item.get('name')] =
+		{
+			position: container.children('div[data-id="' + item.id + '"]:first').position(),
+			links: item.links()
+		};
 	}
 });
