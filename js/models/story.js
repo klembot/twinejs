@@ -11,7 +11,7 @@ var Story = Backbone.Model.extend({
 		{
 			// delete all child passages
 
-			var passages = app.passages.where({ story: this.cid });
+			var passages = app.passages.where({ story: this.id });
 
 			for (var i = 0; i < passages.length; i++)
 				passages[i].destroy();
@@ -20,7 +20,7 @@ var Story = Backbone.Model.extend({
 
 	publish: function()
 	{
-		var passages = app.passages.get(this.id);
+		var passages = app.passages.where({ story: this.id });
 		var result = '<article data-name="' + this.get('name') + '" data-start-passage="' +
 					 this.get('startPassage') + '"><h1>' + this.get('name') + '</h1>';
 
