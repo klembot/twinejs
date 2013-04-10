@@ -23,8 +23,7 @@ PassageItemView = Marionette.ItemView.extend({
 		})
 		.draggable({
 			cursor: 'move',
-			addClasses: false,
-			grid: [25, 25]
+			addClasses: false
 		});
 	},
 

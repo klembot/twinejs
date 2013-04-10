@@ -33,17 +33,6 @@ body
 	margin-right: 1.5em;
 }
 
-#storyEditView .controls
-{
-	position: fixed;
-	top: 60px;
-	right: 20px;
-	background-color: rgba(0, 0, 0, 0.2);
-	padding: 0.5em;
-	border-radius: 0.5em;
-	z-index: 1;
-}
-
 #storyEditView .passages
 {
 	position: relative;
@@ -64,7 +53,7 @@ body
 #storyEditView .passage .frame
 {
 	height: 100px;
-	border: 2px solid #ccd4e1;
+	border: 1px solid #ccd4e1;
 	background-color: #24497e;
 	border-radius: 2px;
 	box-shadow: 0 0 6px #ccd4e1;
@@ -77,10 +66,12 @@ body
 
 #storyEditView .passage .title
 {
-	border-bottom: 2px solid #ccd4e1;
+	border-bottom: 1px solid #ccd4e1;
+	font-size: 0.9em;
 	height: 25px;
 	line-height: 25px;
 	margin: 0 0 5px 0;
+	overflow: hidden;
 }
 
 #storyEditView .passage .excerpt
@@ -96,10 +87,12 @@ body
 	margin-top: 0.5em;
 }
 
+/*
 #storyEditView .passage:hover .buttons
 {
 	visibility: visible;
 }
+*/
 
 #passageEditDialog textarea
 {
