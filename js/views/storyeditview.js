@@ -74,7 +74,10 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 			menu.append($('<option value="' + item.id + '">' + item.get('name') + '</option>'));
 		});
 
-		self.drawLinks();
+		self.resizeCanvas();
+		$(window).on('resize', function() { self.resizeCanvas() });
+
+		// for some reason, jQuery can't see the position of the passages yet, so we defer... kind of
 		window.setTimeout(function() { self.drawLinks() }, 0);
 	},
 
@@ -114,15 +117,16 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 
 	drawLinks: function()
 	{
-		var container = this.$('.passages');
-		var canvas = this.$('canvas:first');
-		var gc = canvas[0].getContext('2d');
+		var canvas = this.$('canvas')[0];
+		var gc = canvas.getContext('2d');
 		var passages = {};
 		var passageNames = [];
 		var offsetX = this.$('.passage:first').width() / 2;
 		var offsetY = this.$('.passage:first').height() / 2;
 
 		// this can be memoized
+
+		var container = this.$('.passages');
 
 		this.collection.each(function (item)
 		{
@@ -137,20 +141,9 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 			};
 		});
 
-		// reset the size of the canvas
-
-		container.css({
-			width: $(window).width(),
-			height: $(window).height()
-		});
-		canvas.width = $(window).width();
-		canvas.height = $(window).height();
-		canvas.attr({
-			width: canvas.width,
-			height: canvas.height
-		});
-
 		// draw connections
+
+		canvas.width = canvas.width;
 
 		for (var i = 0; i < passageNames.length; i++)
 		{
@@ -170,5 +163,21 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 		gc.lineWidth = 2;
 		gc.strokeStyle = '#7088ac';
 		gc.stroke();
+	},
+
+	resizeCanvas: function()
+	{
+		var width = $(document).width();
+		var height = $(document).height();
+
+		this.$('.passages').css({
+			width: width,
+			height: height
+		});
+		
+		this.$('canvas').attr({
+			width: width,
+			height: height
+		});
 	}
 });
