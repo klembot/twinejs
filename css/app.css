@@ -1,6 +1,7 @@
 body
 {
 	padding-top: 60px;
+	background: #24497e url(../img/blueprint.png);
 }
 
 #storyListView h4
@@ -8,6 +9,11 @@ body
 	display: inline;
 	position: relative;
 	top: 0.2em;
+}
+
+#storyListView tbody
+{
+	background-color: white;
 }
 
 #storyListView td.buttons
@@ -51,16 +57,36 @@ body
 #storyEditView .passage
 {
 	position: absolute;
-	width: 10em;
+	width: 100px;
+	color: #ccd4e1;
 }
 
 #storyEditView .passage .frame
 {
-	height: 10em;
-	border-radius: 0.5em;
-	background-color: white;
-	box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
-	padding: 0.5em;
+	height: 100px;
+	border: 2px solid #ccd4e1;
+	background-color: #24497e;
+	border-radius: 2px;
+	box-shadow: 0 0 6px #ccd4e1;
+}
+
+#storyEditView .passage .title, #storyEditView .passage .excerpt
+{
+	padding: 0 5px;
+}
+
+#storyEditView .passage .title
+{
+	border-bottom: 2px solid #ccd4e1;
+	height: 25px;
+	line-height: 25px;
+	margin: 0 0 5px 0;
+}
+
+#storyEditView .passage .excerpt
+{
+	font-size: 0.75em;
+	line-height: 130%;
 }
 
 #storyEditView .passage .buttons

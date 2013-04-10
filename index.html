@@ -20,7 +20,7 @@
 <script type="text/html" class="storyListView">
 <div id="storyListView" class="container">
 
-<div class="navbar navbar-fixed-top">
+<div class="navbar navbar-inverse navbar-fixed-top">
 <div class="navbar-inner">
 <div class="container">
 
@@ -98,7 +98,7 @@ This cannot be undone.
 </button>
 
 <button class="publish btn" title="Publish &ldquo;<%- name %>&rdquo;">
-<i class="icon-truck icon-large"></i>
+<i class="icon-download-alt icon-large"></i>
 </button>
 
 </td>
@@ -106,7 +106,7 @@ This cannot be undone.
 
 <script type="text/html" class="storyEditView">
 <div id="storyEditView">
-<div class="navbar navbar-fixed-top">
+<div class="navbar navbar-inverse navbar-fixed-top">
 <div class="navbar-inner">
 <div class="container">
 
@@ -115,17 +115,17 @@ This cannot be undone.
 <li class="active"><a href="javascript:void(0)"><span class="storyName"><%- name %></span></a></li>
 </ul>
 
-<button class="add btn" title="Add New Passage">
+<button class="add btn btn-inverse" title="Add New Passage">
 <i class="icon-plus"></i>
 Passage
 </button>
 
 <div class="pull-right">
-<button class="storyProperties btn">
+<button class="storyProperties btn btn-inverse">
 <i class="icon-cog"></i> Properties
 </button>
 
-<button class="playStory btn">
+<button class="playStory btn btn-inverse">
 <i class="icon-play"></i> Play
 </button>
 
@@ -133,9 +133,6 @@ Passage
 
 </div>
 </div>
-</div>
-
-<div class="controls">
 </div>
 
 <div class="passages">
@@ -214,7 +211,7 @@ JavaScript
 
 <script type="text/html" class="passageItemView">
 <div class="frame">
-<h5><%- name %></h5>
+<h5 class="title"><%- name %></h5>
 <p class="excerpt"><%= excerpt %></p>
 </div>
 
@@ -232,6 +229,7 @@ JavaScript
 
 <script src="js/lib/jquery.js"></script>
 <script src="js/lib/jquery.ui.js"></script>
+<script src="js/lib/jquery.ui.touchpunch.js"></script>
 <script src="js/lib/json2.js"></script>
 <script src="js/lib/underscore.js"></script>
 <script src="bootstrap/js/bootstrap.js"></script>

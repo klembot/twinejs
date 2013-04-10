@@ -167,7 +167,8 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 			};
 		};
 
-		gc.strokeStyle = 'black';
+		gc.lineWidth = 2;
+		gc.strokeStyle = '#7088ac';
 		gc.stroke();
 	}
 });
