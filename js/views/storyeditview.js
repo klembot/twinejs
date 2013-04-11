@@ -27,8 +27,6 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 		.on('change:name', function (item)
 		{
 			delete self.drawCache[item.previous('name')];
-			self.cachePassage(item);
-			self.drawLinks();
 
 			self.$('select.startPassage option').each(function()
 			{
@@ -36,13 +34,10 @@ StoryEditView = Backbone.Marionette.CompositeView.extend({
 					$(this).text(item.get('name'));
 			});
 		})
-		.on('change:left', function (item)
+		.on('change', function (item)
 		{
 			self.cachePassage(item);
-		})
-		.on('change:top', function (item)
-		{
-			self.cachePassage(item);
+			self.drawLinks();
 		})
 		.on('add', function (item)
 		{
