@@ -87,12 +87,10 @@ body
 	margin-top: 0.5em;
 }
 
-/*
 #storyEditView .passage:hover .buttons
 {
 	visibility: visible;
 }
-*/
 
 #passageEditDialog textarea
 {
