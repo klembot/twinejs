@@ -28,6 +28,13 @@
 <li class="active"><a href="#stories"><i class="icon-home icon-large"></i> Stories</a></li>
 </ul>
 
+<div class="pull-right">
+<button class="saveArchive btn btn-inverse" title="Download a backup archive of all your stories." data-placement="bottom">
+<i class="icon-download-alt icon-white"></i>
+Archive
+</button>
+</div>
+
 </div>
 </div>
 </div>
@@ -41,11 +48,6 @@
 <button class="addStory btn btn-success">
 <i class="icon-plus icon-white"></i>
 Add New Story
-</button>
-
-<button class="saveArchive btn">
-<i class="icon-download-alt icon-white"></i>
-Download Archive
 </button>
 </p>
 
@@ -120,24 +122,23 @@ This cannot be undone.
 <li class="active"><a href="javascript:void(0)"><span class="storyName"><%- name %></span></a></li>
 </ul>
 
-<button class="add btn btn-inverse" title="Add New Passage">
-<i class="icon-plus"></i>
-Passage
-</button>
-
 <div class="pull-right">
 <button class="storyProperties btn btn-inverse">
 <i class="icon-cog"></i> Properties
 </button>
-
 <button class="playStory btn btn-inverse">
 <i class="icon-play"></i> Play
 </button>
-
 </div>
 
 </div>
 </div>
+</div>
+
+<div class="controls">
+<button class="add btn btn-success below" title="Add New Passage" data-placement="bottom">
+<i class="icon-plus icon-2x"></i>
+</button>
 </div>
 
 <div class="passages">
