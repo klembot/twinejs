@@ -29,6 +29,11 @@ StoryItemView = Marionette.ItemView.extend({
 		'click .play': function()
 		{
 			window.open('#stories/' + this.model.id + '/play', 'twinestory_' + this.model.id);
+		},
+		
+		'click .publish': function()
+		{
+			window.location.hash = '#stories/' + this.model.id + '/publish';
 		}
 	}
 });
