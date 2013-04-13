@@ -10,6 +10,10 @@ Passage = Backbone.Model.extend({
 		text: 'Double-click this passage to edit it.'
 	},
 
+	template: _.template('<div data-id="<%- id %>" data-name="<%- name %>" ' +
+						 'data-type="text/markdown" data-twine-position="<%- left %>,<%- top %>">' +
+						 '<%- text %></div>'),
+
 	excerpt: function()
 	{
 		var text = this.get('text');
@@ -32,10 +36,14 @@ Passage = Backbone.Model.extend({
 		return result;
 	},
 
-	publish: function()
+	publish: function (id)
 	{
-		return '<section data-name="' + this.get('name') + '" ' +
-			   'data-twine-pos="' + this.get('left') + ',' + this.get('top') + '">' +
-			   this.get('text') + '</section>';	
+		return this.template({
+			id: id,
+			name: this.get('name'),
+			left: this.get('left'),
+			top: this.get('top'),
+			text: this.get('text')
+		});
 	}
 });

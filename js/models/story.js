@@ -2,8 +2,12 @@ var Story = Backbone.Model.extend({
 	defaults:
 	{
 		name: 'Untitled Story',
-		startPassage: -1
+		startPassage: -1,
 	},
+
+	template: _.template('<div data-role="twinestory" data-name="<%- storyName %>" ' +
+						 'data-startnode="<%- startNode %>" data-creator="<%- appName %>" ' +
+						 'data-creator-version="<%- appVersion %>"><%= passageData %></div>'),
 	
 	initialize: function()
 	{
@@ -18,15 +22,20 @@ var Story = Backbone.Model.extend({
 		});
 	},
 
-	publish: function()
+	publish: function (template)
 	{
 		var passages = app.passages.where({ story: this.id });
-		var result = '<article data-name="' + this.get('name') + '" data-start-passage="' +
-					 this.get('startPassage') + '"><h1>' + this.get('name') + '</h1>';
+		var passageData = '';
 
 		for (var i = 0; i < passages.length; i++)
-			result += passages[i].publish();
+			passageData += passages[i].publish();
 
-		return result + '</article>';
+		return this.template({
+			storyName: this.get('name'),
+			startNode: this.get('startPassage'),
+			appName: app.name,
+			appVersion: app.version,
+			passageData: passageData
+		});
 	}
 });

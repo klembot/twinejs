@@ -16,7 +16,6 @@ StorybookRouter = Backbone.Router.extend({
 			app.stories.fetch();
 			app.passages.fetch();
 			app.mainRegion.show(new StoryEditView({ model: app.stories.get(id) }));
-			$('a[title], button[title]').tooltip();
 		},
 
 		'stories/:id/play': function (id)
@@ -25,20 +24,25 @@ StorybookRouter = Backbone.Router.extend({
 
 			app.stories.fetch();
 			app.passages.fetch();
-			$('html').replaceWith(app.stories.get(id).publish());
+			$('html').replaceWith(defaultTemplate.publish(app.stories.get(id)));
 		},
 
 		'stories/:id/publish': function (id)
 		{
 			// publish a particular story
-			console.log('publishing story ', id);
+
+			app.stories.fetch();
+			app.passages.fetch();
+			var story = app.stories.get(id);
+			var blob = new Blob([defaultTemplate.publish(story)], { type: 'text/html;charset=utf-8' });
+			saveAs(blob, story.get('name') + '.html');
 		},
 
 		'*path': function()
 		{
 			// default route -- show story list
+			
 			app.mainRegion.show(new StoryListView({ collection: app.stories }));	
-			$('a[title], button[title]').tooltip();
 		}
 	}
 });

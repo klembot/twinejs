@@ -1,4 +1,6 @@
 var app = new Backbone.Marionette.Application();
+app.name = 'Twine';
+app.version = '2.0a';
 
 app.addInitializer(function (options)
 {
