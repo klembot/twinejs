@@ -26,13 +26,20 @@ var Story = Backbone.Model.extend({
 	{
 		var passages = app.passages.where({ story: this.id });
 		var passageData = '';
+		var startDbId = this.get('startPassage');
+		var startId = -1;
 
 		for (var i = 0; i < passages.length; i++)
-			passageData += passages[i].publish();
+		{
+			passageData += passages[i].publish(i + 1);
+			
+			if (passages[i].id == startDbId)
+				startId = i + 1;
+		}
 
 		return this.template({
 			storyName: this.get('name'),
-			startNode: this.get('startPassage'),
+			startNode: startId,
 			appName: app.name,
 			appVersion: app.version,
 			passageData: passageData
