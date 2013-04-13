@@ -41,7 +41,16 @@ body
 	right: 50%;
 	margin-right: -470px;
 	z-index: 1;
-	text-align: right;
+}
+
+#storyEditView .controls .frame
+{
+	float: right;
+	width: 50px;
+	padding: 10px;
+	background-color: rgba(255, 255, 255, 0.1);
+	border-radius: 6px;
+	text-align: center;
 }
 
 #storyEditView .passages
