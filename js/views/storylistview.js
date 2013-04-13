@@ -34,7 +34,7 @@ StoryListView = Backbone.Marionette.CompositeView.extend({
 
 		'click .saveArchive': function()
 		{
-			window.location.hash = '#archive';
+			app.saveArchive();
 		},
 
 		'click .cancelAdd': function()
