@@ -33,6 +33,17 @@ body
 	margin-right: 1.5em;
 }
 
+#storyEditView .controls
+{
+	position: fixed;
+	top: 50px;
+	width: 940px;
+	right: 50%;
+	margin-right: -470px;
+	z-index: 1;
+	text-align: right;
+}
+
 #storyEditView .passages
 {
 	position: relative;
