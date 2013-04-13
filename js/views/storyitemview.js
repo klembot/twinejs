@@ -33,7 +33,7 @@ StoryItemView = Marionette.ItemView.extend({
 		
 		'click .publish': function()
 		{
-			window.location.hash = '#stories/' + this.model.id + '/publish';
+			app.publishStory(this.model);
 		}
 	}
 });
