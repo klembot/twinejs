@@ -28,7 +28,7 @@ body
 	margin-right: 0em;
 }
 
-#storyListView td.buttons .delete
+#storyListView td.buttons .deleteStory
 {
 	margin-right: 1.5em;
 }

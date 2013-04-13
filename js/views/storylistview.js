@@ -22,15 +22,6 @@ StoryListView = Backbone.Marionette.CompositeView.extend({
 			$('.popover .newName').focus();
 		});
 
-		this.$el.on('click', 'button.cancelAdd', function()
-		{
-			self.$('.addStory').popover('hide');
-		});
-
-		this.$el.on('click', 'button.cancelDelete', function()
-		{
-			self.$('.deleteStory').popover('hide');
-		});
 	},
 
 	events:
@@ -39,6 +30,21 @@ StoryListView = Backbone.Marionette.CompositeView.extend({
 		{
 			this.collection.create({ name: this.$('input.newName').val() });
 			this.$('.addStory').popover('hide');
+		},
+
+		'click .saveArchive': function()
+		{
+			window.location.hash = '#archive';
+		},
+
+		'click .cancelAdd': function()
+		{
+			this.$('.addStory').popover('hide');
+		},
+
+		'click .cancelDelete': function()
+		{
+			this.$('.deleteStory').popover('hide');
 		}
 	}
 });
