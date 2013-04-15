@@ -1,6 +1,6 @@
-define(['backbone', 'views/storylistview', 'views/storyeditview'],
+define(['jquery', 'backbone', 'views/storylistview', 'views/storyeditview', 'templates/default'],
 
-function (Backbone, StoryListView, StoryEditView)
+function ($, Backbone, StoryListView, StoryEditView, defaultTemplate)
 {
 	var TwineRouter = Backbone.Router.extend(
 	{
@@ -29,7 +29,23 @@ function (Backbone, StoryListView, StoryEditView)
 
 				app.stories.fetch();
 				app.passages.fetch();
-				$('html').replaceWith(defaultTemplate.publish(app.stories.get(id)));
+
+				// publish to hidden element, then replace head and body
+				// this is roundabout, but I'm not sure how else to do it
+
+				var html = defaultTemplate.publish(app.stories.get(id));
+				$('head').html(html.substring(html.indexOf('<head>') + 6, html.indexOf('</head>')));
+				$('body').html(html.substring(html.indexOf('<body>') + 6, html.indexOf('</body>')));
+
+				/*
+				var iframe = $('<iframe></iframe>');
+				iframe.css({
+					width: '100%',
+					height: '80%'
+				});
+				iframe.attr('src', 'data:text/html;charset=utf-8,' + html);
+				$('body').append(iframe);
+				*/
 			},
 
 			'*path': function()
