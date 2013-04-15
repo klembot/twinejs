@@ -28,7 +28,8 @@ function (Marionette)
 			})
 			.draggable({
 				cursor: 'move',
-				addClasses: false
+				addClasses: false,
+				containment: 'parent'
 			});
 		},
 
