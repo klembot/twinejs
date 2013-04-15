@@ -1,49 +1,57 @@
 // A passage belongs to a story.
 
-Passage = Backbone.Model.extend({
-	defaults:
+define(['backbone', 'backbone.localstorage'],
+
+function (Backbone)
+{
+	Passage = Backbone.Model.extend(
 	{
-		story: -1,
-		top: 0,
-		left: 0,
-		name: 'Untitled Passage',
-		text: 'Double-click this passage to edit it.'
-	},
+		defaults:
+		{
+			story: -1,
+			top: 0,
+			left: 0,
+			name: 'Untitled Passage',
+			text: 'Double-click this passage to edit it.'
+		},
 
-	template: _.template('<div data-id="<%- id %>" data-name="<%- name %>" ' +
-						 'data-type="text/markdown" data-twine-position="<%- left %>,<%- top %>">' +
-						 '<%- text %></div>'),
+		template: _.template('<div data-id="<%- id %>" data-name="<%- name %>" ' +
+							 'data-type="text/markdown" data-twine-position="<%- left %>,<%- top %>">' +
+							 '<%- text %></div>'),
 
-	excerpt: function()
-	{
-		var text = this.get('text');
+		excerpt: function()
+		{
+			var text = this.get('text');
 
-		if (text.length > 100)
-			return text.substr(0, 99) + '&hellip;';
-		else
-			return text;
-	},
+			if (text.length > 100)
+				return text.substr(0, 99) + '&hellip;';
+			else
+				return text;
+		},
 
-	links: function()
-	{
-		var matches = this.get('text').match(/\[\[.*?\]\]/g);
-		var result = [];
+		links: function()
+		{
+			var matches = this.get('text').match(/\[\[.*?\]\]/g);
+			var result = [];
 
-		if (matches)
-			for (var i = 0; i < matches.length; i++)
-				result.push(matches[i].replace(/[\[\]]/g, '').replace(/\|.*/, ''));
+			if (matches)
+				for (var i = 0; i < matches.length; i++)
+					result.push(matches[i].replace(/[\[\]]/g, '').replace(/\|.*/, ''));
 
-		return result;
-	},
+			return result;
+		},
 
-	publish: function (id)
-	{
-		return this.template({
-			id: id,
-			name: this.get('name'),
-			left: this.get('left'),
-			top: this.get('top'),
-			text: this.get('text')
-		});
-	}
+		publish: function (id)
+		{
+			return this.template({
+				id: id,
+				name: this.get('name'),
+				left: this.get('left'),
+				top: this.get('top'),
+				text: this.get('text')
+			});
+		}
+	});
+
+	return Passage;
 });
