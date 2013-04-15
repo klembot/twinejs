@@ -1,38 +1,45 @@
-StorybookRouter = Backbone.Router.extend({
-	routes:
+define(['backbone', 'views/storylistview', 'views/storyeditview'],
+
+function (Backbone, StoryListView, StoryEditView)
+{
+	var TwineRouter = Backbone.Router.extend(
 	{
-		'stories': function()
+		routes:
 		{
-			// list of all stories
+			'stories': function()
+			{
+				// list of all stories
 
-			app.stories.fetch();
-			app.mainRegion.show(new StoryListView({ collection: app.stories }));	
-		},
+				app.stories.fetch();
+				app.mainRegion.show(new StoryListView({ collection: app.stories }));	
+			},
 
-		'stories/:id': function (id)
-		{
-			// editing a specific story
+			'stories/:id': function (id)
+			{
+				// editing a specific story
 
-			app.stories.fetch();
-			app.passages.fetch();
-			app.mainRegion.show(new StoryEditView({ model: app.stories.get(id) }));
-		},
+				app.stories.fetch();
+				app.passages.fetch();
+				app.mainRegion.show(new StoryEditView({ model: app.stories.get(id) }));
+			},
 
-		'stories/:id/play': function (id)
-		{
-			// play a story
+			'stories/:id/play': function (id)
+			{
+				// play a story
 
-			app.stories.fetch();
-			app.passages.fetch();
-			$('html').replaceWith(defaultTemplate.publish(app.stories.get(id)));
-		},
+				app.stories.fetch();
+				app.passages.fetch();
+				$('html').replaceWith(defaultTemplate.publish(app.stories.get(id)));
+			},
 
-		'*path': function()
-		{
-			// default route -- show story list
-			
-			app.mainRegion.show(new StoryListView({ collection: app.stories }));	
+			'*path': function()
+			{
+				// default route -- show story list
+				
+				app.mainRegion.show(new StoryListView({ collection: app.stories }));	
+			}
 		}
-	}
-});
+	});
 
+	return TwineRouter;
+});

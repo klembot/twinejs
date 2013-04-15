@@ -1,50 +1,58 @@
 // Shows a list of stories.
 
-StoryListView = Backbone.Marionette.CompositeView.extend({
-	itemView: StoryItemView,
-	itemViewContainer: 'tbody',
-	template: '#templates .storyListView',
+define(['marionette', 'views/storyitemview', 'bootstrap'],
 
-	onRender: function()
+function (Marionette, StoryItemView)
+{
+	var StoryListView = Backbone.Marionette.CompositeView.extend(
 	{
-		var self = this;
+		itemView: StoryItemView,
+		itemViewContainer: 'tbody',
+		template: '#templates .storyListView',
 
-		this.$('a[title], button[title]').tooltip();
-
-		this.$('button.addStory')
-		.popover({
-			html: true,
-			placement: 'bottom',
-			content: function() { return $('#addStoryDialog').html() }
-		})
-		.click(function()
+		onRender: function()
 		{
-			$('.popover .newName').focus();
-		});
+			var self = this;
 
-	},
+			this.$('a[title], button[title]').tooltip();
 
-	events:
-	{
-		'click .add': function()
-		{
-			this.collection.create({ name: this.$('input.newName').val() });
-			this.$('.addStory').popover('hide');
+			this.$('button.addStory')
+			.popover({
+				html: true,
+				placement: 'bottom',
+				content: function() { return $('#addStoryDialog').html() }
+			})
+			.click(function()
+			{
+				$('.popover .newName').focus();
+			});
+
 		},
 
-		'click .saveArchive': function()
+		events:
 		{
-			app.saveArchive();
-		},
+			'click .add': function()
+			{
+				this.collection.create({ name: this.$('input.newName').val() });
+				this.$('.addStory').popover('hide');
+			},
 
-		'click .cancelAdd': function()
-		{
-			this.$('.addStory').popover('hide');
-		},
+			'click .saveArchive': function()
+			{
+				app.saveArchive();
+			},
 
-		'click .cancelDelete': function()
-		{
-			this.$('.deleteStory').popover('hide');
+			'click .cancelAdd': function()
+			{
+				this.$('.addStory').popover('hide');
+			},
+
+			'click .cancelDelete': function()
+			{
+				this.$('.deleteStory').popover('hide');
+			}
 		}
-	}
+	});
+
+	return StoryListView;
 });
