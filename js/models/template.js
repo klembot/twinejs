@@ -10,7 +10,7 @@ function (Backbone)
 	{
 		defaults:
 		{
-			source: '{{STORY_TITLE}} {{STORY_DATA}}',
+			source: '{{STORY_NAME}} {{STORY_DATA}}',
 			placeholders: []
 		},
 
@@ -20,7 +20,7 @@ function (Backbone)
 			
 			// builtin placeholders
 
-			output = output.replace(/{{STORY_TITLE}}/g, _.escape(story.get('name')));
+			output = output.replace(/{{STORY_NAME}}/g, _.escape(story.get('name')));
 			output = output.replace(/{{STORY_DATA}}/g, story.publish());
 
 			// user-defined placeholders

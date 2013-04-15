@@ -1,5 +1,6 @@
 require.config({
-	urlArgs: 'bust=' +  (new Date()).getTime(),
+	// this is to help with debugging, to prevent caching -- remove for release
+	urlArgs: 'bust=' + (new Date()).getTime(),
 
 	paths:
 	{
@@ -13,6 +14,7 @@ require.config({
 		'marionette': 'lib/backbone.marionette',
 		'blob': 'lib/blob',
 		'filesaver': 'lib/filesaver',
+		'defaulttemplatesrc': '../defaulttemplate/template'
 	},
 
 	shim:
@@ -52,9 +54,9 @@ require.config({
 });
 
 define(['backbone', 'marionette', 'blob', 'filesaver', 'collections/storycollection',
-        'collections/passagecollection', 'router'],
+        'collections/passagecollection', 'templates/default', 'router'],
 
-function (Backbone, Marionette, Blob, saveAs, StoryCollection, PassageCollection, TwineRouter)
+function (Backbone, Marionette, Blob, saveAs, StoryCollection, PassageCollection, defaultTemplate, TwineRouter)
 {
 	window.app = new Backbone.Marionette.Application({
 		name: 'Twine',
