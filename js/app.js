@@ -41,6 +41,10 @@ require.config({
 			deps: ['backbone'],
 			exports: 'Marionette'
 		},
+		'filereader':
+		{
+			deps: ['jquery']
+		},
 		'blob':
 		{
 			exports: 'Blob'
@@ -53,10 +57,11 @@ require.config({
 	}
 });
 
-define(['backbone', 'marionette', 'blob', 'filesaver', 'collections/storycollection',
-        'collections/passagecollection', 'templates/default', 'router'],
+define(['backbone', 'marionette', 'blob', 'filesaver', 'models/passage', 'models/story',
+        'collections/storycollection', 'collections/passagecollection', 'templates/default', 'router'],
 
-function (Backbone, Marionette, Blob, saveAs, StoryCollection, PassageCollection, defaultTemplate, TwineRouter)
+function (Backbone, Marionette, Blob, saveAs, Passage, Story,
+          StoryCollection, PassageCollection, defaultTemplate, TwineRouter)
 {
 	window.app = new Backbone.Marionette.Application({
 		name: 'Twine',
@@ -82,6 +87,50 @@ function (Backbone, Marionette, Blob, saveAs, StoryCollection, PassageCollection
 
 			var blob = new Blob([output], { type: 'text/html;charset=utf-8' });
 			saveAs(blob, new Date().toLocaleString().replace(/[\/:\\]/g, '.') + ' Twine Archive.html');
+		},
+
+		importFile: function (data)
+		{
+			// parse data into a DOM
+
+			var parsed = $('<html></html>');
+
+			// remove surrounding <html>, if there is one
+
+			if (data.indexOf('<html>') != -1)
+				parsed.html(data.substring(data.indexOf('<html>') + 6, data.indexOf('</html>')));
+			else
+				parsed.html(data);
+
+			parsed.find('[data-role="twinestory"]').each(function()
+			{
+				var $story = $(this);
+				var startPassageId = $story.attr('data-startnode');
+
+				// create a story object
+
+				var story = window.app.stories.create({ name: $story.attr('data-name') });
+
+				// and child passages
+
+				$story.find('[data-type="text/markdown"]').each(function()
+				{
+					var $passage = $(this);
+					var posBits = $passage.attr('data-twine-position').split(',');
+
+					passage = window.app.passages.create(
+					{
+						name: $passage.attr('data-name'),
+						text: $passage.html(),
+						story: story.id,
+						left: parseInt(posBits[0]),
+						top: parseInt(posBits[1])
+					});	
+
+					if ($passage.attr('data-id') == startPassageId)
+						story.save({ startPassage: passage.id });
+				});
+			});
 		}
 	});
 

@@ -131,3 +131,8 @@ body
 {
 	top: 10%;	
 }
+
+.popover .popover-title
+{
+	display: none;
+}
