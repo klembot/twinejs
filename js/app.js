@@ -94,6 +94,7 @@ function (Backbone, Marionette, Blob, saveAs, Passage, Story,
 			// parse data into a DOM
 
 			var parsed = $('<html></html>');
+			var count = 0;
 
 			// remove surrounding <html>, if there is one
 
@@ -130,7 +131,11 @@ function (Backbone, Marionette, Blob, saveAs, Passage, Story,
 					if ($passage.attr('data-id') == startPassageId)
 						story.save({ startPassage: passage.id });
 				});
+
+				count++;
 			});
+
+			return count;
 		}
 	});
 
