@@ -29,7 +29,7 @@
 </ul>
 
 <div class="pull-right">
-<button class="saveArchive btn" title="Download a backup archive of all your stories." data-placement="bottom">
+<button class="saveArchive btn" title="Download a backup archive of all your stories" data-placement="bottom">
 <i class="icon-suitcase icon-white"></i>
 Archive
 </button>
@@ -39,23 +39,39 @@ Archive
 </div>
 </div>
 
+<div class="alert alert-info hide">
+
+<h3>Welcome to Twine!</h3>
+
+<p>
+To get started, create a new story
+by clicking the <b>New Story</b> button below.
+</p>
+
+</div>
+
 <table class="table table-bordered">
 <tbody>
 </tbody>
 </table>
 
 <p class="form-inline">
-<button class="addStory btn btn-success">
+<button class="addStory btn btn-success" title="Create a brand-new story">
 <i class="icon-plus icon-white"></i>
-Add New Story
+New Story
 </button>
+
+<button class="importStory btn" title="Import a published story file or archive">
+<i class="icon-upload-alt"></i>
+Import
 </p>
 
 </div>
 
 <div id="addStoryDialog" class="hide">
 <p>
-<b>What should your new story be named?</b>
+What should your story be named?
+(You can change this later.)
 </p>
 
 <p>
@@ -78,6 +94,36 @@ This cannot be undone.
 <p>
 <button class="cancelDelete btn">Cancel</button>
 <button class="delete btn btn-danger">Delete Forever</button>
+</p>
+
+</div>
+
+<div id="importStoryDialog" class="hide">
+<p>
+Import this file:
+</p>
+
+<p>
+<input class="importFile" type="file">
+</p>
+
+<p>
+<button class="cancelImport btn">Cancel</button>
+</p>
+
+</div>
+
+</script>
+
+<script type="text/html" class="emptyStoryListView">
+
+</tbody></table>
+
+<div class="alert alert-info">
+
+<p>
+<b>Welcome to Twine!</b> To get started, create a new story
+with the green <i>New Story</i> below.
 </p>
 
 </div>
