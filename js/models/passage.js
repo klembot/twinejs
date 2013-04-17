@@ -19,6 +19,28 @@ function (Backbone)
 							 'data-type="text/markdown" data-twine-position="<%- left %>,<%- top %>">' +
 							 '<%- text %></div>'),
 
+		initialize: function()
+		{
+			var self = this;
+
+			this.on('sync', function()
+			{
+				// if any stories are using this passage's cid
+				// as their start passage, update with a real id
+
+				window.app.stories.fetch(
+				{
+					success: function (stories)
+					{
+						var parents = stories.where({ startPassage: self.cid });
+
+						for (var i = 0; i < parents.length; i++)
+							parents[i].save({ startPassage: self.id });
+					}
+				});
+			});
+		},
+
 		excerpt: function()
 		{
 			var text = this.get('text');
