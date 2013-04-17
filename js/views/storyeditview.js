@@ -46,7 +46,15 @@ function (Marionette, PassageItemView, PassageCollection)
 			})
 			.on('add', function (item)
 			{
-				self.$('select.startPassage').append($('<option value="' + item.id + '">' + item.get('name') + '</option>'));
+				// set as starting passage if we only have one
+
+				if (self.collection.length == 1)
+				{
+					self.model.save({ startPassage: item.cid });
+				};
+
+				self.$('select.startPassage').append($('<option value="' + (item.id || item.cid) +
+				                                     '">' + item.get('name') + '</option>'));
 				self.cachePassage(item);
 				self.drawLinks();
 			})

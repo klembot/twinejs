@@ -14,26 +14,31 @@ function (Backbone)
 			placeholders: []
 		},
 
-		publish: function (story)
+		publish: function (story, callback)
 		{
-			var output = this.get('source');
-			
-			// builtin placeholders
+			var self = this;
 
-			output = output.replace(/{{STORY_NAME}}/g, _.escape(story.get('name')));
-			output = output.replace(/{{STORY_DATA}}/g, story.publish());
-
-			// user-defined placeholders
-
-			_.each(this.get('placeholders'), function (p)
+			story.publish(function (storyData)
 			{
-				var value = story.get(p.name);
+				var output = self.get('source');
+				
+				// builtin placeholders
 
-				if (value !== null)
-					output = output.replace(p.name, value);
+				output = output.replace(/{{STORY_NAME}}/g, _.escape(story.get('name')));
+				output = output.replace(/{{STORY_DATA}}/g, storyData);
+
+				// user-defined placeholders
+
+				_.each(self.get('placeholders'), function (p)
+				{
+					var value = story.get(p.name);
+
+					if (value !== null)
+						output = output.replace(p.name, value);
+				});
+
+				callback(output);
 			});
-
-			return output;
 		}
 	});
 
