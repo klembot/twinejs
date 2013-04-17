@@ -15,12 +15,12 @@ function (Marionette, StoryItemView)
 			if (this.collection.length > 0)
 			{
 				this.$('table').show();
-				this.$('.alert').hide();
+				this.$('.alert.intro').hide();
 			}
 			else
 			{
 				this.$('table').hide();
-				this.$('.alert').show();
+				this.$('.alert.intro').show();
 			}
 		},
 
