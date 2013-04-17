@@ -1,7 +1,10 @@
+@import url(../bootstrap/css/bootstrap.css);
+@import url(../fontawesome/css/font-awesome.css);
+
 body
 {
 	padding-top: 60px;
-	background: #24497e url(../img/blueprint.png);
+	background: #24497e url("../img/blueprint.png");
 }
 
 #storyListView h4

@@ -19,6 +19,10 @@ require.config({
 
 	shim:
 	{
+		'bootstrap':
+		{
+			deps: ['jquery']
+		},
 		'jqueryui':
 		{
 			deps: ['jquery']
@@ -40,10 +44,6 @@ require.config({
 		{
 			deps: ['backbone'],
 			exports: 'Marionette'
-		},
-		'filereader':
-		{
-			deps: ['jquery']
 		},
 		'blob':
 		{
