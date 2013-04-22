@@ -160,6 +160,11 @@ function (Marionette, PassageItemView, PassageCollection)
 				window.open('#stories/' + this.model.id + '/play', 'twinestory_' + this.model.id);
 			},
 
+			'click .publishStory': function()
+			{
+				window.app.publishStory(this.model);
+			},
+
 			// keeps track of passages as they are dragged
 
 			'drag .passage': function (event)
