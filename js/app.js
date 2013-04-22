@@ -69,24 +69,38 @@ function (Backbone, Marionette, Blob, saveAs, Passage, Story,
 
 		publishStory: function (story)
 		{
-			var blob = new Blob([defaultTemplate.publish(story)], { type: 'text/html;charset=utf-8' });
-			saveAs(blob, story.get('name') + '.html');
+			defaultTemplate.publish(story, function (html)
+			{
+				var blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+				saveAs(blob, story.get('name') + '.html');
+			});
 		},
 
 		saveArchive: function()
 		{
-			this.stories.fetch();
-			this.passages.fetch();
-
 			var output = '';
+			var stories = this.stories.toArray();
+			var i = 0;
 
-			this.stories.each(function (story)
+			function archiveStory()
 			{
-				output += story.publish() + '\n\n';
-			});
+				// output, stories, and i are defined above
+				
+				stories[i].publish(function (html)
+				{
+					output += html + '\n\n';
+					
+					if (++i < stories.length)
+						archiveStory();
+					else
+					{
+						var blob = new Blob([output], { type: 'text/html;charset=utf-8' });
+						saveAs(blob, new Date().toLocaleString().replace(/[\/:\\]/g, '.') + ' Twine Archive.html');
+					}
+				});
+			};
 
-			var blob = new Blob([output], { type: 'text/html;charset=utf-8' });
-			saveAs(blob, new Date().toLocaleString().replace(/[\/:\\]/g, '.') + ' Twine Archive.html');
+			archiveStory();
 		},
 
 		importFile: function (data)
