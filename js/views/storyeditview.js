@@ -123,7 +123,15 @@ function (Marionette, PassageItemView, PassageCollection)
 		{
 			'click .add': function()
 			{
-				this.collection.create({ story: this.model.id });
+				var container = this.$('.passages');
+				var offsetX = this.$('.passage:first').width() / 2;
+				var offsetY = this.$('.passage:first').height() / 2;
+
+				this.collection.create({
+					story: this.model.id,
+					top: ($(window).scrollTop() + $(window).height() / 2) - offsetY,
+					left: ($(window).scrollLeft() + $(window).width() / 2) - offsetX
+				});
 			},
 			
 			'click .savePassage': function()
