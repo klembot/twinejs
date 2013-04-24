@@ -180,8 +180,8 @@ function (Marionette, PassageItemView, PassageCollection)
 			var gc = canvas.getContext('2d');
 			var passages = {};
 			var passageNames = [];
-			var offsetX = this.$('.passage:first').width() / 2;
-			var offsetY = this.$('.passage:first').height() / 2;
+			var width = this.$('.passage:first .frame').width();
+			var height = this.$('.passage:first .frame').height();
 
 			// draw connections
 
@@ -196,8 +196,48 @@ function (Marionette, PassageItemView, PassageCollection)
 						if (this.drawCache[p.links[i]])
 						{
 							var q = this.drawCache[p.links[i]];
-							gc.moveTo(p.position.left + offsetX, p.position.top + offsetY);
-							gc.lineTo(q.position.left + offsetX, q.position.top + offsetY);
+
+							var xDist = q.position.left - p.position.left;
+							var yDist = q.position.top - p.position.top;
+
+							if (Math.abs(xDist) > Math.abs(yDist))
+							{
+								// connect horizontal sides
+
+								if (xDist > 0)
+								{
+									// right side of p to left side of q
+
+									gc.moveTo(p.position.left + width, p.position.top + height / 2);
+									gc.lineTo(q.position.left, q.position.top + height / 2);
+								}
+								else
+								{
+									// left side of p to right side of q
+
+									gc.moveTo(p.position.left, p.position.top + height / 2);
+									gc.lineTo(q.position.left + width, q.position.top + height / 2);
+								};
+							}
+							else
+							{
+								// connect vertical sides
+
+								if (yDist > 0)
+								{
+									// bottom side of p to top side of q
+
+									gc.moveTo(p.position.left + width / 2, p.position.top + height);
+									gc.lineTo(q.position.left + width / 2, q.position.top);
+								}
+								else
+								{
+									// top side of p to top side of q
+
+									gc.moveTo(p.position.left + width / 2, p.position.top);
+									gc.lineTo(q.position.left + width / 2, q.position.top + height);
+								};
+							};
 						};
 				};
 
