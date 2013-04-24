@@ -6,6 +6,7 @@ require.config({
 	{
 		'jquery': 'lib/jquery',
 		'jqueryui': 'lib/jquery.ui',
+		'jqueryuitouchpunch': 'lib/jquery.ui.touchpunch',
 		'bootstrap': '../bootstrap/js/bootstrap',
 		'underscore': 'lib/underscore',
 		'json': 'lib/json2',
@@ -25,7 +26,7 @@ require.config({
 		},
 		'jqueryui':
 		{
-			deps: ['jquery']
+			deps: ['jquery', 'jqueryuitouchpunch']
 		},
 		'underscore':
 		{
