@@ -10,12 +10,9 @@ function ($, Backbone, StoryListView, StoryEditView, defaultTemplate)
 			{
 				// list of all stories
 
-				window.app.stories.fetch(
+				window.app.sync(function()
 				{
-					success: function (stories)
-					{
-						window.app.mainRegion.show(new StoryListView({ collection: stories }));
-					}
+					window.app.mainRegion.show(new StoryListView({ collection: window.app.stories }));
 				});
 			},
 
@@ -23,18 +20,9 @@ function ($, Backbone, StoryListView, StoryEditView, defaultTemplate)
 			{
 				// editing a specific story
 
-				window.app.stories.fetch(
+				window.app.sync(function()
 				{
-					success: function (stories)
-					{
-						window.app.passages.fetch(
-						{
-							success: function()
-							{
-								window.app.mainRegion.show(new StoryEditView({ model: stories.get(id) }));
-							}
-						});
-					}
+					window.app.mainRegion.show(new StoryEditView({ model: window.app.stories.get(id) }));
 				});
 			},
 
@@ -42,24 +30,15 @@ function ($, Backbone, StoryListView, StoryEditView, defaultTemplate)
 			{
 				// play a story
 
-				window.app.stories.fetch(
+				window.app.sync(function()
 				{
-					success: function (stories)
+					defaultTemplate.publish(window.app.stories.get(id), function (html)
 					{
-						window.app.passages.fetch(
-						{
-							success: function()
-							{
-								defaultTemplate.publish(stories.get(id), function (html)
-								{
-									// inject head and body separately -- otherwise DOM errors crop up
+						// inject head and body separately -- otherwise DOM errors crop up
 
-									$('head').html(html.substring(html.indexOf('<head>') + 6, html.indexOf('</head>')));
-									$('body').html(html.substring(html.indexOf('<body>') + 6, html.indexOf('</body>')));
-								});
-							}
-						});
-					}
+						$('head').html(html.substring(html.indexOf('<head>') + 6, html.indexOf('</head>')));
+						$('body').html(html.substring(html.indexOf('<body>') + 6, html.indexOf('</body>')));
+					});
 				});
 			},
 

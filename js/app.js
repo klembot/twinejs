@@ -68,6 +68,20 @@ function (Backbone, Marionette, Blob, saveAs, Passage, Story,
 		name: 'Twine',
 		version: '2.0a',
 
+		sync: function (callback)
+		{
+			var self = this;
+
+			this.stories.fetch({
+				success: function()
+				{
+					self.passages.fetch({
+						success: function() { if (callback) callback() }
+					});
+				}
+			});
+		},
+
 		publishStory: function (story)
 		{
 			defaultTemplate.publish(story, function (html)
@@ -157,9 +171,8 @@ function (Backbone, Marionette, Blob, saveAs, Passage, Story,
 	window.app.addInitializer(function (options)
 	{
 		window.app.stories = new StoryCollection();
-		window.app.stories.fetch();
 		window.app.passages = new PassageCollection();
-		window.app.passages.fetch();
+		window.app.sync();
 
 		window.app.router = new TwineRouter();
 		Backbone.history.start();
