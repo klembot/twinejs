@@ -27,7 +27,13 @@ function ($, Backbone, StoryListView, StoryEditView, defaultTemplate)
 				{
 					success: function (stories)
 					{
-						window.app.mainRegion.show(new StoryEditView({ model: stories.get(id) }));
+						window.app.passages.fetch(
+						{
+							success: function()
+							{
+								window.app.mainRegion.show(new StoryEditView({ model: stories.get(id) }));
+							}
+						});
 					}
 				});
 			},
@@ -40,12 +46,18 @@ function ($, Backbone, StoryListView, StoryEditView, defaultTemplate)
 				{
 					success: function (stories)
 					{
-						defaultTemplate.publish(stories.get(id), function (html)
+						window.app.passages.fetch(
 						{
-							// inject head and body separately -- otherwise DOM errors crop up
+							success: function()
+							{
+								defaultTemplate.publish(stories.get(id), function (html)
+								{
+									// inject head and body separately -- otherwise DOM errors crop up
 
-							$('head').html(html.substring(html.indexOf('<head>') + 6, html.indexOf('</head>')));
-							$('body').html(html.substring(html.indexOf('<body>') + 6, html.indexOf('</body>')));
+									$('head').html(html.substring(html.indexOf('<head>') + 6, html.indexOf('</head>')));
+									$('body').html(html.substring(html.indexOf('<body>') + 6, html.indexOf('</body>')));
+								});
+							}
 						});
 					}
 				});
