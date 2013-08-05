@@ -35,7 +35,7 @@ function (Marionette, PassageItemView, PassageCollection)
 
 				self.$('select.startPassage option').each(function()
 				{
-					if ($(this).val() == item.id)
+					if ($(this).val() == item.id || $(this).val() == item.cid)
 						$(this).text(item.get('name'));
 				});
 			})
