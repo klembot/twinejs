@@ -8,6 +8,7 @@ function (Backbone)
 		{
 			name: 'Untitled Story',
 			startPassage: -1,
+			stylesheet: '',
 		},
 
 		template: _.template('<div data-role="twinestory" data-name="<%- storyName %>" ' +

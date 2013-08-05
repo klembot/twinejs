@@ -289,7 +289,7 @@ Snap to Grid
 </p>
 
 <p class="control-group">
-<button class="btn">
+<button class="btn editStylesheet">
 <i class="icon-font"></i>
 Stylesheet
 </button>
@@ -299,6 +299,30 @@ Stylesheet
 JavaScript
 </button>
 </p>
+
+</div>
+</div>
+
+<div id="stylesheetEditDialog" class="modal hide" data-backdrop="false">
+<div class="modal-body">
+
+<button class="savePassage btn close" data-dismiss="modal">
+&times;
+</button>
+
+<p>
+Any CSS you enter below will be included in your story.
+</p>
+
+<p>
+<textarea id="stylesheetSource" rows="14" class="span6"></textarea>
+</p>
+
+<div class="modal-footer">
+
+<button class="btn saveStylesheet">
+<i class="icon-ok"></i> Done
+</button>
 
 </div>
 </div>
