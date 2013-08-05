@@ -165,6 +165,19 @@ function (Marionette, PassageItemView, PassageCollection)
 				window.app.publishStory(this.model);
 			},
 
+			'click .editStylesheet': function()
+			{
+				this.$('#stylesheetSource').val(this.model.get('stylesheet'));
+				this.$('.storyProperties').popover('hide');
+				this.$('#stylesheetEditDialog').modal('show');	
+			},
+
+			'click .saveStylesheet': function()
+			{
+				this.model.save({ stylesheet: this.$('#stylesheetSource').val() });
+				this.$('#stylesheetEditDialog').modal('hide');	
+			},
+
 			// keeps track of passages as they are dragged
 
 			'drag .passage': function (event)
