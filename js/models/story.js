@@ -59,8 +59,14 @@ function (Backbone)
 			window.app.passages.fetch({
 				success: function (passages)
 				{
-					var children = passages.where({ story: self.id });
 					var passageData = '';
+
+					// JavaScript and CSS go at the start
+
+					if (self.get('stylesheet') != '')
+						passageData += '<style id="twine-user-stylesheet" type="text/css">' + self.get('stylesheet') + '</style>';
+
+					var children = passages.where({ story: self.id });
 					var startDbId = self.get('startPassage');
 					var startId = 1; // last-ditch default, shows first passage defined
 
