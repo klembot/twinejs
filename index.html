@@ -294,7 +294,7 @@ Snap to Grid
 Stylesheet
 </button>
 
-<button class="btn">
+<button class="btn editScript">
 <i class="icon-cogs"></i>
 JavaScript
 </button>
@@ -306,7 +306,7 @@ JavaScript
 <div id="stylesheetEditDialog" class="modal hide" data-backdrop="false">
 <div class="modal-body">
 
-<button class="savePassage btn close" data-dismiss="modal">
+<button class="btn close" data-dismiss="modal">
 &times;
 </button>
 
@@ -324,6 +324,32 @@ Any CSS you enter below will be included in your story.
 <i class="icon-ok"></i> Done
 </button>
 
+</div>
+</div>
+</div>
+
+<div id="scriptEditDialog" class="modal hide" data-backdrop="false">
+<div class="modal-body">
+
+<button class="btn close" data-dismiss="modal">
+&times;
+</button>
+
+<p>
+Any JavaScript you enter below will be included in your story.
+</p>
+
+<p>
+<textarea id="scriptSource" rows="14" class="span6"></textarea>
+</p>
+
+<div class="modal-footer">
+
+<button class="btn saveScript">
+<i class="icon-ok"></i> Done
+</button>
+
+</div>
 </div>
 </div>
 

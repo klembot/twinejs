@@ -178,6 +178,19 @@ function (Marionette, PassageItemView, PassageCollection)
 				this.$('#stylesheetEditDialog').modal('hide');	
 			},
 
+			'click .editScript': function()
+			{
+				this.$('#scriptSource').val(this.model.get('script'));
+				this.$('.storyProperties').popover('hide');
+				this.$('#scriptEditDialog').modal('show');	
+			},
+
+			'click .saveScript': function()
+			{
+				this.model.save({ script: this.$('#scriptSource').val() });
+				this.$('#scriptEditDialog').modal('hide');	
+			},
+
 			// keeps track of passages as they are dragged
 
 			'drag .passage': function (event)

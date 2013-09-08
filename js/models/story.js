@@ -9,11 +9,15 @@ function (Backbone)
 			name: 'Untitled Story',
 			startPassage: -1,
 			stylesheet: '',
+			script: '',
 		},
 
 		template: _.template('<div data-role="twinestory" data-name="<%- storyName %>" ' +
 							 'data-startnode="<%- startNode %>" data-creator="<%- appName %>" ' +
-							 'data-creator-version="<%- appVersion %>"><%= passageData %></div>'),
+							 'data-creator-version="<%- appVersion %>">' +							 
+							 '<style id="twine-user-stylesheet" type="text/css"><%= stylesheet %></style>' +
+							 '<script id="twine-user-script" type="text/javascript"><%= script %></script>' + 
+							 '<%= passageData %></div>'),
 		
 		initialize: function()
 		{
@@ -60,12 +64,6 @@ function (Backbone)
 				success: function (passages)
 				{
 					var passageData = '';
-
-					// JavaScript and CSS go at the start
-
-					if (self.get('stylesheet') != '')
-						passageData += '<style id="twine-user-stylesheet" type="text/css">' + self.get('stylesheet') + '</style>';
-
 					var children = passages.where({ story: self.id });
 					var startDbId = self.get('startPassage');
 					var startId = 1; // last-ditch default, shows first passage defined
@@ -84,7 +82,9 @@ function (Backbone)
 						startNode: startId,
 						appName: window.app.name,
 						appVersion: window.app.version,
-						passageData: passageData
+						passageData: passageData,
+						stylesheet: self.get('stylesheet'),
+						script: self.get('script')
 					}));
 				}
 			});
