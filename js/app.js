@@ -161,6 +161,27 @@ function (Backbone, Marionette, Blob, saveAs, Passage, Story,
 						story.save({ startPassage: passage.id });
 				});
 
+				// for now, glom all style nodes into the stylesheet property
+
+				var stylesheet = '';
+
+				$story.find('[data-type="text/css"]').each(function()
+				{
+					stylesheet += $(this).text() + '\n';
+				});
+
+				// likewise for script nodes
+
+				var script = '';
+
+				$story.find('[data-type="text/javascript"]').each(function()
+				{
+					script += $(this).text() + '\n';
+				});
+
+				if (stylesheet != '' || script != '')
+					story.save({ stylesheet: stylesheet, script: script });
+
 				count++;
 			});
 

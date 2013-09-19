@@ -15,8 +15,8 @@ function (Backbone)
 		template: _.template('<div data-role="twinestory" data-name="<%- storyName %>" ' +
 							 'data-startnode="<%- startNode %>" data-creator="<%- appName %>" ' +
 							 'data-creator-version="<%- appVersion %>">' +							 
-							 '<style id="twine-user-stylesheet" type="text/css"><%= stylesheet %></style>' +
-							 '<script id="twine-user-script" type="text/javascript"><%= script %></script>' + 
+							 '<style id="twine-user-stylesheet" type="text/css" data-type="text/css"><%= stylesheet %></style>' +
+							 '<script id="twine-user-script" type="text/javascript" data-type="text/javascript"><%= script %></script>' + 
 							 '<%= passageData %></div>'),
 		
 		initialize: function()
