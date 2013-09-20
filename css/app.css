@@ -56,6 +56,29 @@ body
 	text-align: center;
 }
 
+#storyEditView .controls .btn
+{
+	width: 50px;
+	text-align: center;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+#storyEditView .controls .btn-group
+{
+	margin-top: 10px;
+}
+
+#storyEditView .controls .btn-group .btn
+{
+	color: #666;
+}
+
+#storyEditView .controls .btn-group .active
+{
+	color: black;
+}
+
 #storyEditView .passages
 {
 	position: relative;
