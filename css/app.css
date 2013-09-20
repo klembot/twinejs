@@ -126,6 +126,42 @@ body
 	line-height: 130%;
 }
 
+.zoom-medium #storyEditView .passage .frame
+{
+	width: 60px;
+	height: 60px;
+}
+
+.zoom-medium #storyEditView .passage .title
+{
+	border-bottom: none;
+	font-size: 0.8em;
+	font-weight: normal;
+	line-height: 120%;
+	text-align: center;
+	margin: 5px;
+	height: 60px;
+	width: 60px;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.zoom-medium #storyEditView .passage .excerpt
+{
+	display: none;
+}
+
+.zoom-small #storyEditView .passage .frame
+{
+	width: 25px;
+	height: 25px;
+}
+
+.zoom-small #storyEditView .passage .title, .zoom-small #storyEditView .passage .excerpt
+{
+	display: none;
+}
+
 #storyEditView .passage .buttons
 {
 	visibility: hidden;
