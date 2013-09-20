@@ -19,6 +19,10 @@ function (Marionette, PassageItemView, PassageCollection)
 
 			this.drawCache = {};
 
+			// zoom setting; this should eventually be saved with the story
+
+			this.zoom = 1;
+
 			// keep story name in sync
 
 			this.model.on('change:name', function (model)
@@ -104,6 +108,26 @@ function (Marionette, PassageItemView, PassageCollection)
 
 			self.resizeCanvas();
 			$(window).on('resize', function() { self.resizeCanvas() });
+
+			// zoom button handlers
+			// default to big zoom
+
+			self.$el.addClass('zoom-big');
+
+			this.$('.zoomBig').click(function()
+			{
+				self.zoomTo('big');
+			});
+
+			this.$('.zoomMedium').click(function()
+			{
+				self.zoomTo('medium');
+			});
+
+			this.$('.zoomSmall').click(function()
+			{
+				self.zoomTo('small');
+			});
 
 			// for some reason, jQuery can't see the position of the passages yet, so we defer... kind of
 
@@ -287,6 +311,30 @@ function (Marionette, PassageItemView, PassageCollection)
 				height: height
 			});
 
+			this.drawLinks();
+		},
+
+		zoomTo: function (scale)
+		{
+			switch (scale)
+			{
+				case 'small':
+				this.zoom = 0.25;
+				break;
+
+				case 'medium':
+				this.zoom = 0.5;
+				break;
+
+				case 'big':
+				this.zoom = 1;
+				break;
+
+				default:
+				throw new Error("Unknown zoom scale: " + scale);
+			};
+
+			this.$el.removeClass('zoom-small zoom-medium zoom-big').addClass('zoom-' + scale);
 			this.drawLinks();
 		},
 
