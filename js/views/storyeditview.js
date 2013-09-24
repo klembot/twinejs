@@ -350,7 +350,6 @@ function (Marionette, PassageItemView, PassageCollection)
 			this.children.each(function (view)
 			{
 				view.trigger('zoom');
-				self.cachePassage(view.model);
 			});
 
 			this.drawLinks();
