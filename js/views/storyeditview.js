@@ -8,6 +8,7 @@ function (Marionette, PassageItemView, PassageCollection)
 	{
 		itemView: PassageItemView,
 		itemViewContainer: '.passages',
+		itemViewOptions: function() { return { parentView: this } },
 		template: '#templates .storyEditView',
 
 		initialize: function (options)
@@ -72,6 +73,11 @@ function (Marionette, PassageItemView, PassageCollection)
 					if ($(this).val() == item.id)
 						$(this).remove();
 				});
+			});
+
+			this.on('itemview:move', function (childView)
+			{
+				this.cachePassage(childView.model);
 			});
 		},
 
@@ -141,6 +147,9 @@ function (Marionette, PassageItemView, PassageCollection)
 		close: function()
 		{
 			$(window).off('resize');
+			this.$('.zoomBig').off('click');
+			this.$('.zoomMedium').off('click');
+			this.$('.zoomSmall').off('click');
 		},
 
 		events:
@@ -221,7 +230,8 @@ function (Marionette, PassageItemView, PassageCollection)
 			{
 				this.cachePassage(this.collection.get($(event.target).closest('.passage').attr('data-id')));
 				this.drawLinks();
-			}
+			},
+
 		},
 
 		drawLinks: function()
@@ -316,6 +326,8 @@ function (Marionette, PassageItemView, PassageCollection)
 
 		zoomTo: function (scale)
 		{
+			var self = this;
+
 			switch (scale)
 			{
 				case 'small':
@@ -335,18 +347,27 @@ function (Marionette, PassageItemView, PassageCollection)
 			};
 
 			this.$el.removeClass('zoom-small zoom-medium zoom-big').addClass('zoom-' + scale);
+			this.children.each(function (view)
+			{
+				view.trigger('zoom');
+				self.cachePassage(view.model);
+			});
+
 			this.drawLinks();
 		},
 
 		cachePassage: function (item)
 		{
-			var container = this.$('.passages');
+			var pos = this.$('.passages').children('div[data-id="' + item.id + '"]:first').position();
 
-			this.drawCache[item.get('name')] =
-			{
-				position: container.children('div[data-id="' + item.id + '"]:first').position(),
-				links: item.links()
-			};
+			// if the passage hasn't been rendered yet, there's nothing to cache yet
+
+			if (pos)
+				this.drawCache[item.get('name')] =
+				{
+					position: pos,
+					links: item.links()
+				};
 		}
 	});
 
