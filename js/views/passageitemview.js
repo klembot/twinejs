@@ -9,9 +9,18 @@ function (Marionette)
 		template: '#templates .passageItemView',
 		className: 'passage',
 
-		initialize: function()
+		initialize: function (options)
 		{
 			this.model.on('change', this.render, this);
+			this.parentView = options.parentView;
+
+			// we have to bind zoom events manually
+			// because they are a custom event, not DOM-related
+
+			this.bind('zoom', function (e)
+			{
+				this.position();
+			});
 		},
 
 		onRender: function()
@@ -23,14 +32,14 @@ function (Marionette)
 			.attr('data-id', this.model.id)
 			.css({
 				position: 'absolute',
-				top: this.model.get('top'),
-				left: this.model.get('left')
 			})
 			.draggable({
 				cursor: 'move',
 				addClasses: false,
 				containment: 'parent'
 			});
+
+			this.position();
 		},
 
 		serializeData: function()
@@ -38,6 +47,16 @@ function (Marionette)
 			var data = this.model.toJSON();
 			data.excerpt = this.model.excerpt();
 			return data;
+		},
+		
+		position: function()
+		{
+			this.$el.css({
+				top: this.model.get('top') * this.parentView.zoom,
+				left: this.model.get('left') * this.parentView.zoom
+			});
+
+			this.trigger('move');
 		},
 
 		edit: function()
@@ -63,8 +82,8 @@ function (Marionette)
 			'dragstop': function (e, ui)
 			{
 				this.model.save({
-					top: ui.position.top,	
-					left: ui.position.left	
+					top: ui.position.top / this.parentView.zoom,
+					left: ui.position.left / this.parentView.zoom	
 				});
 			},
 
