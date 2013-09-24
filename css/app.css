@@ -1,0 +1,200 @@
+@import url(../bootstrap/css/bootstrap.css);
+@import url(../fontawesome/css/font-awesome.css);
+
+body
+{
+	padding-top: 60px;
+	background: #24497e url("../img/blueprint.png");
+}
+
+#storyListView h4
+{
+	display: inline;
+	position: relative;
+	top: 0.2em;
+}
+
+#storyListView tbody
+{
+	background-color: white;
+}
+
+#storyListView td.buttons
+{
+	border-left: none;
+	text-align: right;
+}
+
+#storyListView td.buttons button
+{
+	margin-left: 0.75em;
+	margin-right: 0em;
+}
+
+#storyListView td.buttons .deleteStory
+{
+	margin-right: 1.5em;
+}
+
+#storyEditView .controls
+{
+	position: fixed;
+	top: 50px;
+	width: 940px;
+	right: 50%;
+	margin-right: -470px;
+	z-index: 1;
+}
+
+#storyEditView .controls .frame
+{
+	float: right;
+	width: 50px;
+	padding: 10px;
+	background-color: rgba(255, 255, 255, 0.1);
+	border-radius: 6px;
+	text-align: center;
+}
+
+#storyEditView .controls .btn
+{
+	width: 50px;
+	text-align: center;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+#storyEditView .controls .btn-group
+{
+	margin-top: 10px;
+}
+
+#storyEditView .controls .btn-group .btn
+{
+	color: #666;
+}
+
+#storyEditView .controls .btn-group .active
+{
+	color: black;
+}
+
+#storyEditView .passages
+{
+	position: relative;
+}
+
+#storyEditView canvas
+{
+	position: absolute;
+}
+
+#storyEditView .passage
+{
+	position: absolute;
+	width: 100px;
+	color: #ccd4e1;
+}
+
+#storyEditView .passage .frame
+{
+	height: 100px;
+	border: 1px solid #ccd4e1;
+	background-color: #24497e;
+	border-radius: 2px;
+	box-shadow: 0 0 6px #ccd4e1;
+}
+
+#storyEditView .passage .title, #storyEditView .passage .excerpt
+{
+	padding: 0 5px;
+}
+
+#storyEditView .passage .title
+{
+	border-bottom: 1px solid #ccd4e1;
+	font-size: 0.9em;
+	height: 25px;
+	line-height: 25px;
+	margin: 0 0 5px 0;
+	overflow: hidden;
+}
+
+#storyEditView .passage .excerpt
+{
+	font-size: 0.75em;
+	line-height: 130%;
+}
+
+.zoom-medium #storyEditView .passage .frame
+{
+	width: 60px;
+	height: 60px;
+}
+
+.zoom-medium #storyEditView .passage .title
+{
+	border-bottom: none;
+	font-size: 0.8em;
+	font-weight: normal;
+	line-height: 120%;
+	text-align: center;
+	margin: 5px;
+	height: 60px;
+	width: 60px;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.zoom-medium #storyEditView .passage .excerpt
+{
+	display: none;
+}
+
+.zoom-small #storyEditView .passage .frame
+{
+	width: 25px;
+	height: 25px;
+}
+
+.zoom-small #storyEditView .passage .title, .zoom-small #storyEditView .passage .excerpt
+{
+	display: none;
+}
+
+#storyEditView .passage .buttons
+{
+	visibility: hidden;
+	text-align: right;
+	margin-top: 0.5em;
+}
+
+#storyEditView .passage:hover .buttons
+{
+	visibility: visible;
+}
+
+#passageEditDialog textarea
+{
+	height: 20em;
+}
+
+.modal.fade
+{
+    -webkit-transition: opacity .1s linear, none;
+    -moz-transition: opacity .1s linear, none;
+    -ms-transition: opacity .1s linear, none;
+    -o-transition: opacity .1s linear, none;
+    transition: opacity .1s linear, none;
+    top: 10%;
+}
+
+.modal.fade.in
+{
+	top: 10%;	
+}
+
+.popover .popover-title
+{
+	display: none;
+}
