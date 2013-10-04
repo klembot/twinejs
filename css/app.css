@@ -44,6 +44,7 @@ body
 	right: 50%;
 	margin-right: -470px;
 	z-index: 1;
+    pointer-events: none;
 }
 
 #storyEditView .controls .frame
@@ -54,6 +55,7 @@ body
 	background-color: rgba(255, 255, 255, 0.1);
 	border-radius: 6px;
 	text-align: center;
+    pointer-events: all;
 }
 
 #storyEditView .controls .btn
@@ -191,7 +193,7 @@ body
 
 .modal.fade.in
 {
-	top: 10%;	
+	top: 10%;
 }
 
 .popover .popover-title
