@@ -100,7 +100,7 @@ function (Marionette, PassageItemView, PassageCollection)
 			})
 			.click(function()
 			{
-				$('.popover input.storyName').val(self.model.get('name'));			
+				$('.popover input.storyName').val(self.model.get('name'));
 			});
 
 			// build the initial start passage menu
@@ -166,7 +166,7 @@ function (Marionette, PassageItemView, PassageCollection)
 					left: ($(window).scrollLeft() + $(window).width() / 2) - offsetX
 				});
 			},
-			
+
 			'click .savePassage': function()
 			{
 				var model = this.collection.get($('#passageId').val());
@@ -202,26 +202,26 @@ function (Marionette, PassageItemView, PassageCollection)
 			{
 				this.$('#stylesheetSource').val(this.model.get('stylesheet'));
 				this.$('.storyProperties').popover('hide');
-				this.$('#stylesheetEditDialog').modal('show');	
+				this.$('#stylesheetEditDialog').modal('show');
 			},
 
 			'click .saveStylesheet': function()
 			{
 				this.model.save({ stylesheet: this.$('#stylesheetSource').val() });
-				this.$('#stylesheetEditDialog').modal('hide');	
+				this.$('#stylesheetEditDialog').modal('hide');
 			},
 
 			'click .editScript': function()
 			{
 				this.$('#scriptSource').val(this.model.get('script'));
 				this.$('.storyProperties').popover('hide');
-				this.$('#scriptEditDialog').modal('show');	
+				this.$('#scriptEditDialog').modal('show');
 			},
 
 			'click .saveScript': function()
 			{
 				this.model.save({ script: this.$('#scriptSource').val() });
-				this.$('#scriptEditDialog').modal('hide');	
+				this.$('#scriptEditDialog').modal('hide');
 			},
 
 			// keeps track of passages as they are dragged
@@ -242,6 +242,7 @@ function (Marionette, PassageItemView, PassageCollection)
 			var passageNames = [];
 			var width = this.$('.passage:first .frame').width();
 			var height = this.$('.passage:first .frame').height();
+            var arrowSize = 5;
 
 			// draw connections
 
@@ -269,14 +270,24 @@ function (Marionette, PassageItemView, PassageCollection)
 									// right side of p to left side of q
 
 									gc.moveTo(p.position.left + width, p.position.top + height / 2);
-									gc.lineTo(q.position.left, q.position.top + height / 2);
+									gc.lineTo(q.position.left - arrowSize, q.position.top + height / 2);
+
+                                    gc.moveTo(q.position.left, q.position.top + height / 2);
+									gc.lineTo(q.position.left - arrowSize, (q.position.top + height / 2 ) - arrowSize);
+									gc.lineTo(q.position.left - arrowSize, q.position.top + height / 2 + arrowSize);
+                                    gc.closePath();
 								}
 								else
 								{
 									// left side of p to right side of q
 
 									gc.moveTo(p.position.left, p.position.top + height / 2);
-									gc.lineTo(q.position.left + width, q.position.top + height / 2);
+									gc.lineTo(q.position.left + width + arrowSize, q.position.top + height / 2);
+
+                                    gc.moveTo(q.position.left + width, q.position.top + height / 2);
+									gc.lineTo(q.position.left + width + arrowSize, (q.position.top + height / 2 ) - arrowSize);
+									gc.lineTo(q.position.left + width + arrowSize, q.position.top + height / 2 + arrowSize);
+                                    gc.closePath();
 								};
 							}
 							else
@@ -288,14 +299,24 @@ function (Marionette, PassageItemView, PassageCollection)
 									// bottom side of p to top side of q
 
 									gc.moveTo(p.position.left + width / 2, p.position.top + height);
-									gc.lineTo(q.position.left + width / 2, q.position.top);
+									gc.lineTo(q.position.left + width / 2, q.position.top - arrowSize);
+
+                                    gc.moveTo(q.position.left + width / 2, q.position.top);
+									gc.lineTo(q.position.left + width / 2 + arrowSize, q.position.top - arrowSize);
+									gc.lineTo(q.position.left + width / 2 - arrowSize, q.position.top - arrowSize);
+                                    gc.closePath();
 								}
 								else
 								{
 									// top side of p to top side of q
 
 									gc.moveTo(p.position.left + width / 2, p.position.top);
-									gc.lineTo(q.position.left + width / 2, q.position.top + height);
+									gc.lineTo(q.position.left + width / 2, q.position.top + height + arrowSize);
+
+                                    gc.moveTo(q.position.left + width / 2, q.position.top + height);
+                                    gc.lineTo(q.position.left + width / 2 + arrowSize, q.position.top + height + arrowSize);
+                                    gc.lineTo(q.position.left + width / 2 - arrowSize, q.position.top + height + arrowSize);
+                                    gc.closePath();
 								};
 							};
 						};
@@ -303,7 +324,9 @@ function (Marionette, PassageItemView, PassageCollection)
 
 			gc.lineWidth = 2;
 			gc.strokeStyle = '#7088ac';
+			gc.fillStyle = '#7088ac';
 			gc.stroke();
+			gc.fill();
 		},
 
 		resizeCanvas: function()
@@ -315,7 +338,7 @@ function (Marionette, PassageItemView, PassageCollection)
 				width: width,
 				height: height
 			});
-			
+
 			this.$('canvas').attr({
 				width: width,
 				height: height
