@@ -1,55 +1,48 @@
-define(['jquery', 'backbone', 'views/storylistview', 'views/storyeditview', 'templates/default'],
-
-function ($, Backbone, StoryListView, StoryEditView, defaultTemplate)
+TwineRouter = Backbone.Router.extend(
 {
-	var TwineRouter = Backbone.Router.extend(
+	routes:
 	{
-		routes:
+		'stories': function()
 		{
-			'stories': function()
-			{
-				// list of all stories
+			// list of all stories
 
-				window.app.sync(function()
+			window.app.sync(function()
+			{
+				window.app.mainRegion.show(new StoryListView({ collection: window.app.stories }));
+			});
+		},
+
+		'stories/:id': function (id)
+		{
+			// editing a specific story
+
+			window.app.sync(function()
+			{
+				window.app.mainRegion.show(new StoryEditView({ model: window.app.stories.get(id) }));
+			});
+		},
+
+		'stories/:id/play': function (id)
+		{
+			// play a story
+
+			window.app.sync(function()
+			{
+				RuntimeTemplate.publish(window.app.stories.get(id), function (html)
 				{
-					window.app.mainRegion.show(new StoryListView({ collection: window.app.stories }));
+					// inject head and body separately -- otherwise DOM errors crop up
+
+					$('head').html(html.substring(html.indexOf('<head>') + 6, html.indexOf('</head>')));
+					$('body').html(html.substring(html.indexOf('<body>') + 6, html.indexOf('</body>')));
 				});
-			},
+			});
+		},
 
-			'stories/:id': function (id)
-			{
-				// editing a specific story
-
-				window.app.sync(function()
-				{
-					window.app.mainRegion.show(new StoryEditView({ model: window.app.stories.get(id) }));
-				});
-			},
-
-			'stories/:id/play': function (id)
-			{
-				// play a story
-
-				window.app.sync(function()
-				{
-					defaultTemplate.publish(window.app.stories.get(id), function (html)
-					{
-						// inject head and body separately -- otherwise DOM errors crop up
-
-						$('head').html(html.substring(html.indexOf('<head>') + 6, html.indexOf('</head>')));
-						$('body').html(html.substring(html.indexOf('<body>') + 6, html.indexOf('</body>')));
-					});
-				});
-			},
-
-			'*path': function()
-			{
-				// default route -- show story list
-				
-				window.location.hash = '#stories';
-			}
+		'*path': function()
+		{
+			// default route -- show story list
+			
+			window.location.hash = '#stories';
 		}
-	});
-
-	return TwineRouter;
+	}
 });
