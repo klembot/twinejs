@@ -1,47 +1,40 @@
 // Shows an individual story list item.
 
-define(['marionette', 'bootstrap'],
-
-function (Marionette)
+StoryItemView = Marionette.ItemView.extend(
 {
-	var StoryItemView = Marionette.ItemView.extend(
-	{
-		tagName: 'tr',
-		template: '#templates .storyItemView',
+	tagName: 'tr',
+	template: '#templates .storyItemView',
 
-		onRender: function()
+	onRender: function()
+	{
+		this.$('button.deleteStory')
+		.popover({
+			html: true,
+			placement: 'bottom',
+			content: function() { return $('#deleteStoryDialog').html() }
+		});
+	},
+
+	events:
+	{
+		'click .delete': function()
 		{
-			this.$('button.deleteStory')
-			.popover({
-				html: true,
-				placement: 'bottom',
-				content: function() { return $('#deleteStoryDialog').html() }
-			});
+			this.model.destroy();
 		},
 
-		events:
+		'click .edit': function()
 		{
-			'click .delete': function()
-			{
-				this.model.destroy();
-			},
+			window.location.hash = '#stories/' + this.model.id;
+		},
 
-			'click .edit': function()
-			{
-				window.location.hash = '#stories/' + this.model.id;
-			},
-
-			'click .play': function()
-			{
-				window.open('#stories/' + this.model.id + '/play', 'twinestory_' + this.model.id);
-			},
-			
-			'click .publish': function()
-			{
-				app.publishStory(this.model);
-			}
+		'click .play': function()
+		{
+			window.open('#stories/' + this.model.id + '/play', 'twinestory_' + this.model.id);
+		},
+		
+		'click .publish': function()
+		{
+			app.publishStory(this.model);
 		}
-	});
-
-	return StoryItemView;
+	}
 });

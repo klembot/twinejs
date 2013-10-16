@@ -1,10 +1,15 @@
-@import url(../bootstrap/css/bootstrap.css);
-@import url(../fontawesome/css/font-awesome.css);
+@import url(../lib/bootstrap/css/bootstrap.css);
+@import url(../lib/fontawesome/css/font-awesome.css);
 
 body
 {
 	padding-top: 60px;
 	background: #24497e url("../img/blueprint.png");
+}
+
+#runtime
+{
+	display: none;
 }
 
 #storyListView h4

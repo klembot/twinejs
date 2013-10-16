@@ -1,3 +1,5 @@
 syntax: glob
 *.swp
-build/dist/*
+test.html
+node_modules/*
+dist/*

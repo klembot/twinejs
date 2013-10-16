@@ -1,95 +1,88 @@
-define(['backbone', 'backbone.localstorage'],
-
-function (Backbone)
+Story = Backbone.Model.extend(
 {
-	var Story = Backbone.Model.extend(
+	defaults:
 	{
-		defaults:
-		{
-			name: 'Untitled Story',
-			startPassage: -1,
-			stylesheet: '',
-			script: '',
-		},
+		name: 'Untitled Story',
+		startPassage: -1,
+		stylesheet: '',
+		script: '',
+	},
 
-		template: _.template('<div data-role="twinestory" data-name="<%- storyName %>" ' +
-							 'data-startnode="<%- startNode %>" data-creator="<%- appName %>" ' +
-							 'data-creator-version="<%- appVersion %>">' +							 
-							 '<style id="twine-user-stylesheet" type="text/css" data-type="text/css"><%= stylesheet %></style>' +
-							 '<script id="twine-user-script" type="text/javascript" data-type="text/javascript"><%= script %></script>' + 
-							 '<%= passageData %></div>'),
-		
-		initialize: function()
-		{
-			var self = this;
+	template: _.template('<div data-role="twinestory" data-name="<%- storyName %>" ' +
+						 'data-startnode="<%- startNode %>" data-creator="<%- appName %>" ' +
+						 'data-creator-version="<%- appVersion %>">' +							 
+						 '<style id="twine-user-stylesheet" type="text/css" data-type="text/css"><%= stylesheet %></style>' +
+						 '<script id="twine-user-script" type="text/javascript" data-type="text/javascript"><%= script %></script>' + 
+						 '<%= passageData %></div>'),
+	
+	initialize: function()
+	{
+		var self = this;
 
-			this.on('destroy', function()
+		this.on('destroy', function()
+		{
+			// delete all child passages
+
+			window.app.passages.fetch(
 			{
-				// delete all child passages
-
-				window.app.passages.fetch(
-				{
-					success: function (passages)
-					{
-						var children = passages.where({ story: self.id });
-
-						for (var i = 0; i < children.length; i++)
-							children[i].destroy();
-					}
-				});
-			});
-
-			this.on('sync', function()
-			{
-				// update any passages using our cid as id
-
-				window.app.passages.fetch(
-				{
-					success: function (passages)
-					{
-						var children = passages.where({ story: self.cid });
-
-						for (var i = 0; i < children.length; i++)
-							children[i].save({ story: self.id });
-					}
-				});
-			});
-		},
-
-		publish: function (callback)
-		{
-			var self = this;
-
-			window.app.passages.fetch({
 				success: function (passages)
 				{
-					var passageData = '';
 					var children = passages.where({ story: self.id });
-					var startDbId = self.get('startPassage');
-					var startId = 1; // last-ditch default, shows first passage defined
 
 					for (var i = 0; i < children.length; i++)
-					{
-						passageData += children[i].publish(i + 1);
-						
-						if (children[i].id == startDbId)
-							startId = i + 1;
-					};
-
-					callback(self.template(
-					{
-						storyName: self.get('name'),
-						startNode: startId,
-						appName: window.app.name,
-						appVersion: window.app.version,
-						passageData: passageData,
-						stylesheet: self.get('stylesheet'),
-						script: self.get('script')
-					}));
+						children[i].destroy();
 				}
 			});
-		}
-	});
+		});
 
-	return Story;
+		this.on('sync', function()
+		{
+			// update any passages using our cid as id
+
+			window.app.passages.fetch(
+			{
+				success: function (passages)
+				{
+					var children = passages.where({ story: self.cid });
+
+					for (var i = 0; i < children.length; i++)
+						children[i].save({ story: self.id });
+				}
+			});
+		});
+	},
+
+	publish: function (callback)
+	{
+		var self = this;
+
+		window.app.passages.fetch({
+			success: function (passages)
+			{
+				var passageData = '';
+				var children = passages.where({ story: self.id });
+				var startDbId = self.get('startPassage');
+				var startId = 1; // last-ditch default, shows first passage defined
+
+				for (var i = 0; i < children.length; i++)
+				{
+					passageData += children[i].publish(i + 1);
+					
+					if (children[i].id == startDbId)
+						startId = i + 1;
+				};
+
+				callback(self.template(
+				{
+					storyName: self.get('name'),
+					startNode: startId,
+					appName: window.app.name,
+					appVersion: window.app.version,
+					passageData: passageData,
+					stylesheet: self.get('stylesheet'),
+					script: self.get('script')
+				}));
+			}
+		});
+	}
 });

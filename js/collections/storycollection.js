@@ -1,16 +1,9 @@
-define(['backbone', 'backbone.localstorage', 'models/story'],
-
-function (Backbone, ls, Story)
+StoryCollection = Backbone.Collection.extend(
 {
-	var StoryCollection = Backbone.Collection.extend(
+	model: Story,
+	localStorage: new Backbone.LocalStorage('storybook-stories'),
+	comparator: function (story)
 	{
-		model: Story,
-		localStorage: new Backbone.LocalStorage('storybook-stories'),
-		comparator: function (story)
-		{
-			return story.get('title');
-		}
-	});
-
-	return StoryCollection;
+		return story.get('title');
+	}
 });
