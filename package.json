@@ -14,6 +14,12 @@
 		"require": "*",
 		"grunt": "*",
 		"grunt-bake": "*",
-		"grunt-contrib-watch": "*"
+		"grunt-contrib-clean": "*",
+		"grunt-contrib-concat": "*",
+		"grunt-contrib-copy": "*",
+		"grunt-contrib-cssmin": "*",
+		"grunt-contrib-uglify": "*",
+		"grunt-contrib-watch": "*",
+		"grunt-usemin": "*"
 	}
 }
