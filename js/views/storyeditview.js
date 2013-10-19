@@ -262,8 +262,8 @@ function (Marionette, PassageItemView, PassageCollection)
 			var gc = canvas.getContext('2d');
 			var passages = {};
 			var passageNames = [];
-			var width = this.$('.passage:first .frame').width();
-			var height = this.$('.passage:first .frame').height();
+			var width = this.$('.passage:first .frame').outerWidth();
+			var height = this.$('.passage:first .frame').outerHeight();
 
 			// draw connections
 
@@ -326,7 +326,7 @@ function (Marionette, PassageItemView, PassageCollection)
 
 								}
 							}
-                            console.log(this.endPointProjectedFrom(line, 0.17, 20));
+
                             var arrow = [
                               this.endPointProjectedFrom(line, 0.17, 20),
                               this.endPointProjectedFrom(line, -0.17, 20)
