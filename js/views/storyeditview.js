@@ -234,6 +234,28 @@ function (Marionette, PassageItemView, PassageCollection)
 
 		},
 
+        lineLength: function(line){
+          return Math.sqrt(Math.pow(line[1].x - line[0].x, 2) +
+                            Math.pow (line[1].y - line[0].y, 2));
+        },
+
+        endPointProjectedFrom: function(line, angle, distance)
+        {
+            var length = this.lineLength(line);
+            if (length == 0) { return line[1]; }
+
+            // taken from http://mathforum.org/library/drmath/view/54146.html
+
+            var lengthRatio = distance / length;
+
+            var x = line[1].x - ((line[1].x - line[0].x) * Math.cos(angle) -
+                           (line[1].y - line[0].y) * Math.sin(angle)) * lengthRatio;
+            var y = line[1].y - ((line[1].y - line[0].y) * Math.cos(angle) +
+                           (line[1].x - line[0].x) * Math.sin(angle)) * lengthRatio;
+
+          return {x : x, y : y};
+        },
+
 		drawLinks: function()
 		{
 			var canvas = this.$('canvas')[0];
@@ -242,13 +264,13 @@ function (Marionette, PassageItemView, PassageCollection)
 			var passageNames = [];
 			var width = this.$('.passage:first .frame').width();
 			var height = this.$('.passage:first .frame').height();
-            var arrowSize = 5;
 
 			// draw connections
 
 			canvas.width = canvas.width;
 
-			for (var name in this.drawCache)
+     		for (var name in this.drawCache)
+            {
 				if (this.drawCache.hasOwnProperty(name))
 				{
 					var p = this.drawCache[name];
@@ -259,7 +281,8 @@ function (Marionette, PassageItemView, PassageCollection)
 							var q = this.drawCache[p.links[i]];
 
 							var xDist = q.position.left - p.position.left;
-							var yDist = q.position.top - p.position.top;
+						    var yDist = q.position.top - p.position.top;
+                            var line = {};
 
 							if (Math.abs(xDist) > Math.abs(yDist))
 							{
@@ -269,25 +292,17 @@ function (Marionette, PassageItemView, PassageCollection)
 								{
 									// right side of p to left side of q
 
-									gc.moveTo(p.position.left + width, p.position.top + height / 2);
-									gc.lineTo(q.position.left - arrowSize, q.position.top + height / 2);
+                                    var line = [{x : p.position.left + width, y : p.position.top + height / 2},
+                                                {x : q.position.left, y : q.position.top + height / 2}];
 
-                                    gc.moveTo(q.position.left, q.position.top + height / 2);
-									gc.lineTo(q.position.left - arrowSize, (q.position.top + height / 2 ) - arrowSize);
-									gc.lineTo(q.position.left - arrowSize, q.position.top + height / 2 + arrowSize);
-                                    gc.closePath();
 								}
 								else
 								{
 									// left side of p to right side of q
 
-									gc.moveTo(p.position.left, p.position.top + height / 2);
-									gc.lineTo(q.position.left + width + arrowSize, q.position.top + height / 2);
+                                    var line = [{x : p.position.left, y : p.position.top + height / 2},
+                                                {x : q.position.left + width, y : q.position.top + height / 2}];
 
-                                    gc.moveTo(q.position.left + width, q.position.top + height / 2);
-									gc.lineTo(q.position.left + width + arrowSize, (q.position.top + height / 2 ) - arrowSize);
-									gc.lineTo(q.position.left + width + arrowSize, q.position.top + height / 2 + arrowSize);
-                                    gc.closePath();
 								};
 							}
 							else
@@ -298,36 +313,45 @@ function (Marionette, PassageItemView, PassageCollection)
 								{
 									// bottom side of p to top side of q
 
-									gc.moveTo(p.position.left + width / 2, p.position.top + height);
-									gc.lineTo(q.position.left + width / 2, q.position.top - arrowSize);
+                                    var line = [{x : p.position.left + width / 2, y : p.position.top + height},
+                                                {x : q.position.left + width / 2, y : q.position.top}];
 
-                                    gc.moveTo(q.position.left + width / 2, q.position.top);
-									gc.lineTo(q.position.left + width / 2 + arrowSize, q.position.top - arrowSize);
-									gc.lineTo(q.position.left + width / 2 - arrowSize, q.position.top - arrowSize);
-                                    gc.closePath();
 								}
 								else
 								{
 									// top side of p to top side of q
 
-									gc.moveTo(p.position.left + width / 2, p.position.top);
-									gc.lineTo(q.position.left + width / 2, q.position.top + height + arrowSize);
+                                    var line = [{x : p.position.left + width / 2, y : p.position.top},
+                                                {x : q.position.left + width / 2, y : q.position.top + height}];
 
-                                    gc.moveTo(q.position.left + width / 2, q.position.top + height);
-                                    gc.lineTo(q.position.left + width / 2 + arrowSize, q.position.top + height + arrowSize);
-                                    gc.lineTo(q.position.left + width / 2 - arrowSize, q.position.top + height + arrowSize);
-                                    gc.closePath();
-								};
-							};
-						};
+								}
+							}
+                            console.log(this.endPointProjectedFrom(line, 0.17, 20));
+                            var arrow = [
+                              this.endPointProjectedFrom(line, 0.17, 20),
+                              this.endPointProjectedFrom(line, -0.17, 20)
+                            ];
+
+		                    gc.moveTo(line[0].x, line[0].y);
+ 		                    gc.lineTo(line[1].x, line[1].y);
+
+                            gc.moveTo(line[1].x, line[1].y);
+		                    gc.lineTo(arrow[0].x, arrow[0].y);
+    		                gc.lineTo(arrow[1].x, arrow[1].y);
+
+                            gc.closePath();
+				        };
+
+			        gc.lineWidth = 2;
+ 			        gc.strokeStyle = '#7088ac';
+			        gc.fillStyle = '#7088ac';
+			        gc.stroke();
+		   	       gc.fill();
+
 				};
+            };
 
-			gc.lineWidth = 2;
-			gc.strokeStyle = '#7088ac';
-			gc.fillStyle = '#7088ac';
-			gc.stroke();
-			gc.fill();
-		},
+        },
 
 		resizeCanvas: function()
 		{
