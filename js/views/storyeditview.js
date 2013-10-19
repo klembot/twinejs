@@ -96,7 +96,7 @@ StoryEditView = Marionette.CompositeView.extend(
 		})
 		.click(function()
 		{
-			$('.popover input.storyName').val(self.model.get('name'));			
+			$('.popover input.storyName').val(self.model.get('name'));
 		});
 
 		// build the initial start passage menu
@@ -162,7 +162,7 @@ StoryEditView = Marionette.CompositeView.extend(
 				left: ($(window).scrollLeft() + $(window).width() / 2) - offsetX
 			});
 		},
-		
+
 		'click .savePassage': function()
 		{
 			var model = this.collection.get($('#passageId').val());
@@ -198,26 +198,26 @@ StoryEditView = Marionette.CompositeView.extend(
 		{
 			this.$('#stylesheetSource').val(this.model.get('stylesheet'));
 			this.$('.storyProperties').popover('hide');
-			this.$('#stylesheetEditDialog').modal('show');	
+			this.$('#stylesheetEditDialog').modal('show');
 		},
 
 		'click .saveStylesheet': function()
 		{
 			this.model.save({ stylesheet: this.$('#stylesheetSource').val() });
-			this.$('#stylesheetEditDialog').modal('hide');	
+			this.$('#stylesheetEditDialog').modal('hide');
 		},
 
 		'click .editScript': function()
 		{
 			this.$('#scriptSource').val(this.model.get('script'));
 			this.$('.storyProperties').popover('hide');
-			this.$('#scriptEditDialog').modal('show');	
+			this.$('#scriptEditDialog').modal('show');
 		},
 
 		'click .saveScript': function()
 		{
 			this.model.save({ script: this.$('#scriptSource').val() });
-			this.$('#scriptEditDialog').modal('hide');	
+			this.$('#scriptEditDialog').modal('hide');
 		},
 
 		// keeps track of passages as they are dragged
@@ -230,27 +230,57 @@ StoryEditView = Marionette.CompositeView.extend(
 
 	},
 
+    lineLength: function(line){
+        return Math.sqrt(Math.pow(line[1].x - line[0].x, 2) +
+                         Math.pow (line[1].y - line[0].y, 2));
+    },
+
+    endPointProjectedFrom: function(line, angle, distance)
+    {
+        var length = this.lineLength(line);
+        if (length == 0) { return line[1]; }
+
+        // taken from http://mathforum.org/library/drmath/view/54146.html
+
+        var lengthRatio = distance / length;
+
+        var x = line[1].x - ((line[1].x - line[0].x) * Math.cos(angle) -
+                             (line[1].y - line[0].y) * Math.sin(angle)) * lengthRatio;
+        var y = line[1].y - ((line[1].y - line[0].y) * Math.cos(angle) +
+                             (line[1].x - line[0].x) * Math.sin(angle)) * lengthRatio;
+
+        return {x : x, y : y};
+    },
+
+    arrowMinLength: 5,
+
+    arrowLength: 10,
+
+    arrowAngle: Math.PI/6,
+
 	drawLinks: function()
 	{
 		var canvas = this.$('canvas')[0];
 		var gc = canvas.getContext('2d');
 		var passages = {};
 		var passageNames = [];
-		var width = this.$('.passage:first .frame').width();
-		var height = this.$('.passage:first .frame').height();
+		var width = this.$('.passage:first .frame').outerWidth();
+		var height = this.$('.passage:first .frame').outerHeight();
 
 		// draw connections
 
 		canvas.width = canvas.width;
 
 		for (var name in this.drawCache)
+        {
 			if (this.drawCache.hasOwnProperty(name))
-			{
-				var p = this.drawCache[name];
+  		    {
+			    var p = this.drawCache[name];
 
 				for (var i = 0; i < p.links.length; i++)
+                {
 					if (this.drawCache[p.links[i]])
-					{
+				    {
 						var q = this.drawCache[p.links[i]];
 
 						var xDist = q.position.left - p.position.left;
@@ -260,47 +290,65 @@ StoryEditView = Marionette.CompositeView.extend(
 						{
 							// connect horizontal sides
 
-							if (xDist > 0)
-							{
-								// right side of p to left side of q
+						    if (xDist > 0)
+						    {
+							    // right side of p to left side of q
 
-								gc.moveTo(p.position.left + width, p.position.top + height / 2);
-								gc.lineTo(q.position.left, q.position.top + height / 2);
+                                var line = [{x : p.position.left + width, y : p.position.top + height / 2},
+                                            {x : q.position.left, y : q.position.top + height / 2}];
 							}
-							else
-							{
-								// left side of p to right side of q
+						    else
+						    {
+							    // left side of p to right side of q
 
-								gc.moveTo(p.position.left, p.position.top + height / 2);
-								gc.lineTo(q.position.left + width, q.position.top + height / 2);
+                                var line = [{x : p.position.left, y : p.position.top + height / 2},
+                                            {x : q.position.left + width, y : q.position.top + height / 2}];
 							};
 						}
 						else
 						{
 							// connect vertical sides
-
 							if (yDist > 0)
 							{
 								// bottom side of p to top side of q
 
-								gc.moveTo(p.position.left + width / 2, p.position.top + height);
-								gc.lineTo(q.position.left + width / 2, q.position.top);
+                                var line = [{x : p.position.left + width / 2, y : p.position.top + height},
+                                            {x : q.position.left + width / 2, y : q.position.top}];
 							}
-							else
-							{
-								// top side of p to top side of q
+						    else
+						    {
+							    // top side of p to top side of q
 
-								gc.moveTo(p.position.left + width / 2, p.position.top);
-								gc.lineTo(q.position.left + width / 2, q.position.top + height);
-							};
-						};
-					};
-			};
+                                var line = [{x : p.position.left + width / 2, y : p.position.top},
+                                            {x : q.position.left + width / 2, y : q.position.top + height}];
+						    }
+						}
 
-		gc.lineWidth = 2;
-		gc.strokeStyle = '#7088ac';
-		gc.stroke();
-	},
+                        var arrow = [
+                            this.endPointProjectedFrom(line, this.arrowAngle, 20),
+                            this.endPointProjectedFrom(line, -this.arrowAngle, 20)
+                        ];
+
+		                gc.moveTo(line[0].x, line[0].y);
+ 		                gc.lineTo(line[1].x, line[1].y);
+
+                        gc.moveTo(line[1].x, line[1].y);
+		                gc.lineTo(arrow[0].x, arrow[0].y);
+    		            gc.lineTo(arrow[1].x, arrow[1].y);
+
+                        gc.closePath();
+				    };
+
+			        gc.lineWidth = 2;
+ 			        gc.strokeStyle = '#7088ac';
+			        gc.fillStyle = '#7088ac';
+			        gc.stroke();
+		   	       gc.fill();
+
+				};
+            };
+        };
+    },
 
 	resizeCanvas: function()
 	{
@@ -311,7 +359,7 @@ StoryEditView = Marionette.CompositeView.extend(
 			width: width,
 			height: height
 		});
-		
+
 		this.$('canvas').attr({
 			width: width,
 			height: height
@@ -323,48 +371,47 @@ StoryEditView = Marionette.CompositeView.extend(
 	zoomTo: function (scale)
 	{
 		var self = this;
-		var oldZoom = this.zoom;
 
 		switch (scale)
 		{
-			case 'small':
+		case 'small':
 			this.zoom = 0.25;
 			break;
 
-			case 'medium':
+		case 'medium':
 			this.zoom = 0.5;
 			break;
 
-			case 'big':
+		case 'big':
 			this.zoom = 1;
 			break;
 
-			default:
+		default:
 			throw new Error("Unknown zoom scale: " + scale);
-		};
+	    };
 
-		// change appearance
+	    // change appearance
 
-		this.$el.removeClass('zoom-small zoom-medium zoom-big').addClass('zoom-' + scale);
-		this.children.each(function (view)
-		{
-			view.trigger('zoom');
-		});
+	    this.$el.removeClass('zoom-small zoom-medium zoom-big').addClass('zoom-' + scale);
+	    this.children.each(function (view)
+		                   {
+			                   view.trigger('zoom');
+		                   });
 
-		this.drawLinks();
-	},
+	    this.drawLinks();
+    },
 
-	cachePassage: function (item)
-	{
-		var pos = this.$('.passages').children('div[data-id="' + item.id + '"]:first').position();
+    cachePassage: function (item)
+    {
+	    var pos = this.$('.passages').children('div[data-id="' + item.id + '"]:first').position();
 
-		// if the passage hasn't been rendered yet, there's nothing to cache yet
+	    // if the passage hasn't been rendered yet, there's nothing to cache yet
 
-		if (pos)
-			this.drawCache[item.get('name')] =
-			{
-				position: pos,
-				links: item.links()
-			};
-	}
+	    if (pos)
+		    this.drawCache[item.get('name')] =
+		    {
+			    position: pos,
+			    links: item.links()
+		    };
+    }
 });
