@@ -254,8 +254,6 @@ StoryEditView = Marionette.CompositeView.extend(
 
     arrowMinLength: 5,
 
-    arrowLength: 10,
-
     arrowAngle: Math.PI/6,
 
 	drawLinks: function()
@@ -266,6 +264,7 @@ StoryEditView = Marionette.CompositeView.extend(
 		var passageNames = [];
 		var width = this.$('.passage:first .frame').outerWidth();
 		var height = this.$('.passage:first .frame').outerHeight();
+        var arrowSize = Math.max(width / 8);
 
 		// draw connections
 
@@ -325,8 +324,8 @@ StoryEditView = Marionette.CompositeView.extend(
 						}
 
                         var arrow = [
-                            this.endPointProjectedFrom(line, this.arrowAngle, 20),
-                            this.endPointProjectedFrom(line, -this.arrowAngle, 20)
+                            this.endPointProjectedFrom(line, this.arrowAngle, arrowSize),
+                            this.endPointProjectedFrom(line, -this.arrowAngle, arrowSize)
                         ];
 
 		                gc.moveTo(line[0].x, line[0].y);
