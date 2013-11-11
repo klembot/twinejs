@@ -11,7 +11,7 @@ module.exports = function (grunt)
 				process: function (content, options)
 				{
 					// do really basic HTML entity replacement
-					// to avoid breaking out of the data div
+					// to avoid breaking out of the <script> element
 					// 0xe000 is the start of the Unicode private use range
 
 					if (options.encode)

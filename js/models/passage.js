@@ -11,9 +11,9 @@ Passage = Backbone.Model.extend(
 		text: 'Double-click this passage to edit it.'
 	},
 
-	template: _.template('<div data-id="<%- id %>" data-name="<%- name %>" ' +
-						 'data-type="text/markdown" data-twine-position="<%- left %>,<%- top %>">' +
-						 '<%- text %></div>'),
+	template: _.template('<script data-role="passage" data-id="<%- id %>" data-name="<%- name %>" ' +
+						 'type="text/twine" data-twine-position="<%- left %>,<%- top %>">' +
+						 '<%- text %></script>'),
 
 	initialize: function()
 	{

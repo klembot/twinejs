@@ -56,7 +56,7 @@ var app = new Backbone.Marionette.Application({
 	{
 		// parse data into a DOM
 
-		var parsed = $('<html></html>');
+		var parsed = $('<html>');
 		var count = 0;
 
 		// remove surrounding <html>, if there is one
@@ -77,7 +77,7 @@ var app = new Backbone.Marionette.Application({
 
 			// and child passages
 
-			$story.find('[data-type="text/markdown"]').each(function()
+			$story.find('[data-role="passage"]').each(function()
 			{
 				var $passage = $(this);
 				var posBits = $passage.attr('data-twine-position').split(',');
@@ -99,7 +99,7 @@ var app = new Backbone.Marionette.Application({
 
 			var stylesheet = '';
 
-			$story.find('[data-type="text/css"]').each(function()
+			$story.find('[data-role="stylesheet"]').each(function()
 			{
 				stylesheet += $(this).text() + '\n';
 			});
@@ -108,7 +108,7 @@ var app = new Backbone.Marionette.Application({
 
 			var script = '';
 
-			$story.find('[data-type="text/javascript"]').each(function()
+			$story.find('[data-role="script"]').each(function()
 			{
 				script += $(this).text() + '\n';
 			});
