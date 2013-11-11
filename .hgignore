@@ -1,0 +1,5 @@
+syntax: glob
+*.swp
+test.html
+node_modules/*
+dist/*

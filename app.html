@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Twine</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+
+<!-- build:css rsrc/css/twine.css -->
+<link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+<link href="lib/fontawesome/css/font-awesome.css" rel="stylesheet" media="screen">
+<link href="css/app.css" rel="stylesheet" media="screen">
+<!-- endbuild -->
+
+</head>
+
+<body>
+
+<div id="regions">
+<div class="main"></div>
+</div>
+
+<div id="templates">
+
+<script type="text/html" class="storyListView">
+<!--(bake /templates/storylistview.html)-->
+</script>
+
+<script type="text/html" class="emptyStoryListView">
+<!--(bake /templates/emptystorylistview.html)-->
+</script>
+
+<script type="text/html" class="storyItemView">
+<!--(bake /templates/storyitemview.html)-->
+</script>
+
+<script type="text/html" class="storyEditView">
+<!--(bake /templates/storyeditview.html)-->
+</script>
+
+<script type="text/html" class="passageItemView">
+<!--(bake /templates/passageitemview.html)-->
+</script>
+
+<script type="text/html" class="runtimeTemplate">
+<!--(bake /templates/runtime.html encode="yes")-->
+</script>
+
+</div>
+
+</div>
+
+<!-- build:js rsrc/js/twine.js -->
+
+<script src="lib/jquery/jquery.js"></script>
+<script src="lib/jquery/jquery.ui.js"></script>
+<script src="lib/jquery/jquery.ui.touchpunch.js"></script>
+
+<script src="lib/bootstrap/js/bootstrap.js"></script>
+
+<script src="lib/json2.js"></script>
+<script src="lib/underscore.js"></script>
+<script src="lib/backbone/backbone.js"></script>
+<script src="lib/backbone/backbone.localstorage.js"></script>
+<script src="lib/backbone/backbone.localstorage.js"></script>
+<script src="lib/backbone/backbone.marionette.js"></script>
+
+<script src="lib/blob.js"></script>
+<script src="lib/filesaver.js"></script>
+
+<script src="js/models/passage.js"></script>
+<script src="js/models/template.js"></script>
+<script src="js/models/story.js"></script>
+
+<script src="js/collections/passagecollection.js"></script>
+<script src="js/collections/storycollection.js"></script>
+
+<script src="js/views/storyitemview.js"></script>
+<script src="js/views/storylistview.js"></script>
+<script src="js/views/passageitemview.js"></script>
+<script src="js/views/storyeditview.js"></script>
+
+<script src="js/router.js"></script>
+<script src="js/runtimetemplate.js"></script>
+<script src="js/app.js"></script>
+
+<!-- endbuild -->
+
+</body>
+</html>
