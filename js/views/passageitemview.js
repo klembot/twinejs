@@ -55,10 +55,10 @@ PassageItemView = Marionette.ItemView.extend(
 
 	edit: function()
 	{
-		$('#passageId').val(this.model.id);
-		$('#passageName').val(this.model.get('name'));
-		$('#passageText').val(this.model.get('text'));
-		$('#passageEditDialog').modal('show');	
+		$('#passageEditModal .passageId').val(this.model.id);
+		$('#passageEditModal .passageName').val(this.model.get('name'));
+		$('#passageEditModal .passageText').val(this.model.get('text'));
+		$('#passageEditModal').modal('show');	
 	},
 
 	events:

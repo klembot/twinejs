@@ -1,82 +1,48 @@
-<div id="storyListView" class="container">
+<div id="storyListView" class="paper shadow">
 
-<div class="navbar navbar-fixed-top">
-<div class="navbar-inner">
-<div class="container">
+<p>
+<img src="img/twine.png" width="172" height="50" alt="Twine">
+</p>
 
-<ul class="nav">
-<li class="active"><a href="#stories"><i class="icon-home icon-large"></i> Stories</a></li>
-</ul>
-
-<div class="pull-right">
-<button class="saveArchive btn" title="Download a backup archive of all your stories" data-placement="bottom">
-<i class="icon-suitcase icon-white"></i>
-Archive
+<p class="topControls">
+<button class="addStory btn btn-success" title="Create a brand-new story">
+<i class="icon-plus"></i> Story
 </button>
-</div>
 
-</div>
-</div>
-</div>
-
-<div class="alert">
-
-<p>
-<i class="icon-warning-sign icon-4x pull-left" style="padding-bottom: 0.5em"></i>
-<b>This is not even an alpha-quality release</b> and may eat your work at any
-point. Use the Archive button (in the top-right corner) liberally to prevent heartbreak.
-All data is stored in your browser's local storage, so if you visit this site
-with a different browser, you won't see anything. Likewise, if you delete the
-local storage for this site (e.g. clear browsing history), everything saved
-here will disappear in a poof of regret forever. 
+<button class="importStory btn btn-default" title="Import a published story or Twine archive">
+<i class="icon-upload-alt"></i> Import From File
+</button>
 </p>
 
-<p>
-Lots of stuff is left to be done. Some obvious things: arrows for passage connections,
-snap to grid, JS/CSS editing, zoom, preventing passage
-overlap, dragging passages on mobile browsers. Markdown syntax works in passages, but only
-the &lt;&lt;set&gt;&gt;, &lt;&lt;print&gt;&gt;, and &lt;&lt;if&gt;&gt; macros work. (You can
-only use a single if statement for now -- no nesting or else statements.)
-</p>
+<table class="table stories">
+<thead>
+<tr>
+<th>
+Story
+</th>
+<th></th>
+</tr>
+</thead>
 
-<p>
-Thanks for trying this out! Please post feedback to
-the <a href="https://groups.google.com/forum/#!forum/tweecode">discussion group</a>.
-
-I've made the repos for the <a
-href="https://bitbucket.org/klembot/twinejs">app</a> and <a
-href="https://bitbucket.org/klembot/harlowe">template</a> available.
-Contributions are welcome! &mdash; Chris
-</p>
-
-</div>
-
-<div class="alert alert-info intro hide">
-
-<h3>Welcome to Twine!</h3>
-
-<p>
-To get started, create a new story
-by clicking the <b>New Story</b> button below.
-</p>
-
-</div>
-
-<table class="table table-bordered">
 <tbody>
 </tbody>
 </table>
 
-<p class="form-inline">
-<button class="addStory btn btn-success" title="Create a brand-new story">
-<i class="icon-plus icon-white"></i>
-New Story
-</button>
+<footer>
 
-<button class="importStory btn" title="Import a published story file or archive">
-<i class="icon-upload-alt"></i>
-Import
+<div class="pull-left" style="padding-top: 15px">
+<a href="#"><i class="icon-question-sign"></i> Help</a>
+&middot;
+version 2pre1
+</div>
+
+<div class="pull-right">
+<button class="saveArchive btn btn-default navbar-btn">
+<i class="icon-briefcase"></i> Archive
 </button>
+</div>
+
+</footer>
 
 </div>
 

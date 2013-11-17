@@ -1,62 +1,166 @@
 <div id="storyEditView">
-<div class="navbar navbar-fixed-top">
-<div class="navbar-inner">
-<div class="container">
 
-<ul class="nav">
-<li><a href="#stories"><i class="icon-home icon-large"></i> Stories</a></li>
-<li class="active"><a href="javascript:void(0)"><span class="storyName"><%- name %></span></a></li>
-</ul>
+<p class="home">
+<a href="#stories"><i class="icon-home"></i></a>
+</p>
 
-<div class="pull-right">
-<button class="storyProperties btn">
-<i class="icon-cog"></i> Properties
-</button>
+<h4 class="storyName">
+<%- name %>
+</h4>
 
-<div class="btn-group">
-<button class="playStory btn">
-<i class="icon-play"></i> Play
-</button>
-
-<button class="btn dropdown-toggle" data-toggle="dropdown">
-<span class="caret"></span>
-</button>
-
-<ul class="dropdown-menu">
-<li><a class="publishStory"><i class="icon-download-alt"></i> Publish to File</a></li>
-</ul>
-
-</div>
-</div>
-
-</div>
-</div>
-</div>
-
-<div class="controls">
-<div class="frame">
+<div class="toolbox" class="shadow">
 
 <p>
-<button class="add btn btn-success" title="Add New Passage" data-placement="left">
-<i class="icon-plus icon-2x"></i>
+<button class="add btn btn-success btn-block">
+<i class="icon-plus"></i> Passage
 </button>
 </p>
 
-<div class="btn-group btn-group-vertical" data-toggle="buttons-radio">
+<p class="btn-group full" data-toggle="buttons">
+<label class="btn btn-default third">
+<input type="radio" name="zoom" class="zoomSmall"><i class="icon-th"></i>
+</label>
+<label class="btn btn-default third">
+<input type="radio" name="zoom" class="zoomMedium"><i class="icon-th-large"></i>
+</label>
+<label class="btn btn-default third">
+<input type="radio" name="zoom" class="zoomBig"><i class="icon-stop"></i>
+</label>
+</p>
 
-<button class="zoomBig btn" title="Show Passage Titles and Excerpts" data-placement="left" data-container="body">
-<i class="icon-stop icon-2x"></i>
+<p>
+<button class="search btn btn-default btn-block" data-original-title="" title="">
+<i class="icon-search"></i> Search
+</button>
+</p>
+
+<div id="searchPopover" class="hide">
+<div class="form-horizontal">
+
+<p class="form-group">
+<span class="col-md-6">
+<label for="searchText" class="control-label">
+Search For
+</label>
+</span>
+
+<span class="col-md-6">
+<input type="text" id="searchText" class="form-control">
+</span>
+</p>
+
+<p class="form-group">
+<span class="col-md-6">
+<label for="replaceText" class="control-label">
+Replace With
+</label>
+</span>
+
+<span class="col-md-6">
+<input type="text" id="replaceText" class="form-control">
+</span>
+</p>
+
+<p class="form-group col-md-12">
+<span class="checkbox">
+<label>
+<input type="checkbox" id="snapToGrid">
+Use Regular Expressions
+</label>
+</span>
+</p>
+
+<p class="form-group col-md-12">
+<button class="btn btn-primary">
+Find Next
 </button>
 
-<button class="zoomMedium btn" title="Show Passage Titles" data-placement="left" data-container="body">
-<i class="icon-th-large icon-2x"></i>
+<button class="btn btn-default">
+Replace All
 </button>
-
-<button class="zoomSmall btn" title="Show Only Passage Rectangles" data-placement="left" data-container="body">
-<i class="icon-th icon-2x"></i>
-</button>
+</p>
 
 </div>
+</div>
+
+<p>
+<button class="storyProperties btn btn-default btn-block" data-original-title="" title="">
+<i class="icon-cog"></i> Properties
+</button>
+</p>
+
+<div id="propertiesPopover" class="hide">
+
+<div class="form-horizontal">
+
+<p class="form-group">
+<span class="col-md-5">
+<label for="storyNameField" class="control-label">
+Story Name
+</label>
+</span>
+
+<span class="col-md-7">
+<input type="text" id="storyNameField" class="form-control" value="My Story: In Fifteen Parts">
+</span>
+</p>
+
+<p class="form-group">
+<span class="col-md-5">
+<label for="startPassage" class="control-label">
+Start At
+</label>
+</span>
+
+<span class="col-md-7">
+<select class="form-control">
+<option>First Passage</option>
+<option>Second Passage</option>
+<option>Third Passage</option>
+<option>Fourth Passage</option>
+</select>
+</span>
+</p>
+
+<p class="form-group col-md-12">
+<span class="checkbox">
+<label>
+<input type="checkbox" class="snapToGrid">
+Snap To Grid
+</label>
+</span>
+</p>
+
+<p class="form-group">
+<span class="col-md-6">
+<button class="btn btn-default">
+<i class="icon-font"></i> Stylesheet
+</button>
+</span>
+
+<span class="col-md-6">
+<button class="btn btn-default btn-block">
+<i class="icon-cogs"></i> Script
+</button>
+</span>
+</p>
+
+</div>
+</div>
+
+<div class="btn-group full">
+<button class="btn btn-default dropdown-default">
+<i class="icon-play"></i> Play
+</button>
+
+<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+<span class="caret"></span>
+</button>
+
+<ul class="dropdown-menu" role="menu">
+<li><a href="#"><i class="icon-download-alt"></i> Publish to File</a></li>
+<li><a href="#"><i class="icon-file-alt"></i> Proofing Copy</a></li>
+</ul>
 
 </div>
 </div>
@@ -64,121 +168,30 @@
 <div class="passages">
 <canvas></canvas>
 </div>
-</div>
 
-<div id="passageEditDialog" class="modal hide" data-backdrop="false">
-<input type="hidden" id="passageId">
+<div id="passageEditModal" class="modal fade">
+<input type="hidden" name="passageId" class="passageId">
 
-<div class="modal-body">
+<div class="modal-content">
 
-<button class="savePassage btn close" data-dismiss="modal">
-&times;
-</button>
+<div class="modal-header">
 
-<div class="form-inline">
-
-<p class="control-group">
-<label for="passageName">Name</label>
-<input type="text" id="passageName" value="">
-</p>
-
-<p class="control-group">
-<textarea id="passageText" class="span6"></textarea>
-</p>
-
-</div>
-</div>
-<div class="modal-footer">
-
-<button class="btn savePassage">
+<button class="savePassage btn btn-primary" data-dismiss="modal">
 <i class="icon-ok"></i> Done
 </button>
 
-</div>
-</div>
-
-<div id="storyPropertiesDialog" class="hide">
-<div class="form-inline">
-
-<p class="control-group">
-<label for="storyName">Name</label>
-<input type="text" id="storyName" class="storyName" value="">
+<p class="modal-title">
+<input type="text" class="passageName" placeholder="Passage Name">
 </p>
-
-<p class="control-group">
-<label for="startPassage">Start At</label>
-
-<select id="startPassage" class="startPassage"></select>
-</p>
-
-<p class="control-group">
-<label for="snapToGrid" class="checkbox">
-<input type="checkbox" id="snapToGrid">
-Snap to Grid
-</label>
-</p>
-
-<p class="control-group">
-<button class="btn editStylesheet">
-<i class="icon-font"></i>
-Stylesheet
-</button>
-
-<button class="btn editScript">
-<i class="icon-cogs"></i>
-JavaScript
-</button>
-</p>
-
-</div>
 </div>
 
-<div id="stylesheetEditDialog" class="modal hide" data-backdrop="false">
 <div class="modal-body">
 
-<button class="btn close" data-dismiss="modal">
-&times;
-</button>
+<textarea class="passageText" placeholder="Enter the body text of your passage here. To link to another passage, put two square brackets around its name, [[like this]]."></textarea>
 
-<p>
-Any CSS you enter below will be included in your story.
-</p>
-
-<p>
-<textarea id="stylesheetSource" rows="14" class="span6"></textarea>
-</p>
-
-<div class="modal-footer">
-
-<button class="btn saveStylesheet">
-<i class="icon-ok"></i> Done
-</button>
+</div>
 
 </div>
 </div>
-</div>
 
-<div id="scriptEditDialog" class="modal hide" data-backdrop="false">
-<div class="modal-body">
-
-<button class="btn close" data-dismiss="modal">
-&times;
-</button>
-
-<p>
-Any JavaScript you enter below will be included in your story.
-</p>
-
-<p>
-<textarea id="scriptSource" rows="14" class="span6"></textarea>
-</p>
-
-<div class="modal-footer">
-
-<button class="btn saveScript">
-<i class="icon-ok"></i> Done
-</button>
-
-</div>
-</div>
 </div>
