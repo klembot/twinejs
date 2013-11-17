@@ -165,13 +165,11 @@ StoryEditView = Marionette.CompositeView.extend(
 		
 		'click .savePassage': function()
 		{
-			var model = this.collection.get($('#passageId').val());
+			var model = this.collection.get($('#passageEditModal .passageId').val());
 			model.save({
-				name: $('#passageName').val(),
-				text: $('#passageText').val()
+				name: $('#passageEditModal .passageName').val(),
+				text: $('#passageEditModal .passageText').val()
 			});
-
-			$('#passageEditDialog').modal('hide');
 		},
 
 		'change #startPassage': function()
@@ -356,7 +354,7 @@ StoryEditView = Marionette.CompositeView.extend(
 
 	cachePassage: function (item)
 	{
-		var pos = this.$('.passages').children('div[data-id="' + item.id + '"]:first').position();
+		var pos = this.$('.passages div[data-id="' + item.id + '"] .frame').offset();
 
 		// if the passage hasn't been rendered yet, there's nothing to cache yet
 
