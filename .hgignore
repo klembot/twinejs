@@ -1,5 +1,6 @@
 syntax: glob
 *.swp
-test.html
+index.html
 node_modules/*
 dist/*
+.tmp/*
