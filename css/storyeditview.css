@@ -193,6 +193,11 @@
 	display: none;
 }
 
+.zoom-medium #storyEditView .passage .frame:after
+{
+	display: none;
+}
+
 .zoom-small #storyEditView .passage .frame
 {
 	width: 25px;

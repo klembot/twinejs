@@ -116,17 +116,17 @@ StoryEditView = Marionette.CompositeView.extend(
 
 		self.$el.addClass('zoom-big');
 
-		this.$('.zoomBig').click(function()
+		this.$('.zoomBig').change(function()
 		{
 			self.zoomTo('big');
 		});
 
-		this.$('.zoomMedium').click(function()
+		this.$('.zoomMedium').change(function()
 		{
 			self.zoomTo('medium');
 		});
 
-		this.$('.zoomSmall').click(function()
+		this.$('.zoomSmall').change(function()
 		{
 			self.zoomTo('small');
 		});
