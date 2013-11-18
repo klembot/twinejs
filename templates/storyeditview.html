@@ -46,7 +46,7 @@ Story Name
 </span>
 
 <span class="col-md-7">
-<input type="text" id="storyNameField" class="form-control" value="My Story: In Fifteen Parts">
+<input type="text" id="storyNameField" class="form-control">
 </span>
 </p>
 
@@ -59,20 +59,7 @@ Start At
 
 <span class="col-md-7">
 <select class="form-control">
-<option>First Passage</option>
-<option>Second Passage</option>
-<option>Third Passage</option>
-<option>Fourth Passage</option>
 </select>
-</span>
-</p>
-
-<p class="form-group col-md-12">
-<span class="checkbox">
-<label>
-<input type="checkbox" class="snapToGrid">
-Snap To Grid
-</label>
 </span>
 </p>
 
@@ -111,6 +98,56 @@ Snap To Grid
 
 <div class="passages">
 <canvas></canvas>
+</div>
+
+<div id="storyPropertiesPopover" class="hide">
+<div class="form-horizontal">
+
+<p class="form-group">
+<span class="col-md-5">
+<label for="storyName" class="control-label">Name</label>
+</span>
+<span class="col-md-7">
+<input type="text" id="storyName" class="storyName form-control" value="">
+</span>
+</p>
+
+<p class="form-group">
+<span class="col-md-5">
+<label for="startPassage">Start At</label>
+</span>
+
+<span class="col-md-7">
+<select id="startPassage" class="startPassage form-control"></select>
+</span>
+</p>
+
+<p class="form-group col-md-12">
+<span class="checkbox">
+<label for="snapToGrid">
+<input type="checkbox" id="snapToGrid">
+Snap to Grid
+</label>
+</span>
+</p>
+
+<p class="form-group">
+<span class="col-md-6">
+<button class="editStylesheet btn btn-default">
+<i class="icon-font"></i>
+Stylesheet
+</button>
+</span>
+
+<span class="col-md-6">
+<button class="editScript btn btn-default">
+<i class="icon-cogs"></i>
+JavaScript
+</button>
+</span>
+</p>
+
+</div>
 </div>
 
 <div id="passageEditModal" class="modal fade">
