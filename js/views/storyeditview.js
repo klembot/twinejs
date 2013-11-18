@@ -91,8 +91,9 @@ StoryEditView = Marionette.CompositeView.extend(
 		this.$('.storyProperties')
 		.popover({
 			html: true,
-			placement: 'bottom',
-			content: function() { return $('#storyPropertiesDialog').html() }
+			placement: 'left',
+			container: 'body',
+			content: function() { return $('#storyPropertiesPopover').html() }
 		})
 		.click(function()
 		{
