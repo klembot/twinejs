@@ -21,7 +21,7 @@
 	color: white;
 }
 
-#storyEditView .storyName
+#storyEditView h4.storyName
 {
 	position: fixed;
 	top: 22px;
@@ -209,7 +209,7 @@
 	display: none;
 }
 
-#passageEditModal
+.editModal
 {
 	width: 80%;
 	left: 10%;
@@ -218,19 +218,24 @@
 	overflow: auto;
 }
 
-#passageEditModal .modal-content
+.editModal .save
+{
+	float: right;
+}
+
+.editModal .modal-content
 {
 	height: 100%;
 	border-bottom-left-radius: 0;
 	border-bottom-right-radius: 0;
 }
 
-#passageEditModal .modal-header
+.editModal .modal-header
 {
 	border: none;
 }
 
-#passageEditModal .modal-body
+.editModal .modal-body
 {
 	position: absolute;
 	top: 40px;
@@ -239,28 +244,13 @@
 	bottom: 0;
 }
 
-#passageEditModal input[type="text"], textarea
+.editModal input[type="text"], textarea
 {
 	font: 16px Cousine;
 	line-height: 145%;
 }
 
-#passageEditModal input[type="text"]
-{
-	background: none;
-	border-top: none;
-	border-left: none;
-	border-right: none;
-	border-bottom: 1px dotted hsl(0, 0%, 75%);
-	width: 80%;
-}
-
-#passageEditModal input.passageName
-{
-	font-size: 24px;
-}
-
-#passageEditModal .passageText
+.editModal textarea
 {
 	display: block;
 	position: absolute;
@@ -275,7 +265,18 @@
 	outline: none;
 }
 
-#passageEditModal .savePassage
+#passageEditModal input[type="text"]
 {
-	float: right;
+	background: none;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-bottom: 1px dotted hsl(0, 0%, 75%);
+	width: 80%;
+}
+
+
+#passageEditModal input.passageName
+{
+	font-size: 24px;
 }

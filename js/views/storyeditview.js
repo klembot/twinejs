@@ -92,7 +92,7 @@ StoryEditView = Marionette.CompositeView.extend(
 		.popover({
 			html: true,
 			placement: 'left',
-			container: 'body',
+			container: '#storyEditView',
 			content: function() { return $('#storyPropertiesPopover').html() }
 		})
 		.click(function()
@@ -195,15 +195,16 @@ StoryEditView = Marionette.CompositeView.extend(
 
 		'click .editStylesheet': function()
 		{
-			this.$('#stylesheetSource').val(this.model.get('stylesheet'));
+			console.log('editing stylesheet');
+			this.$('#stylesheetModal .stylesheetSource').val(this.model.get('stylesheet'));
 			this.$('.storyProperties').popover('hide');
-			this.$('#stylesheetEditDialog').modal('show');	
+			this.$('#stylesheetModal').modal('show');	
 		},
 
 		'click .saveStylesheet': function()
 		{
-			this.model.save({ stylesheet: this.$('#stylesheetSource').val() });
-			this.$('#stylesheetEditDialog').modal('hide');	
+			this.model.save({ stylesheet: this.$('#stylesheetModal .stylesheetSource').val() });
+			this.$('#stylesheetModal').modal('hide');	
 		},
 
 		'click .editScript': function()
