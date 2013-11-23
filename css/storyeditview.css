@@ -244,6 +244,11 @@
 	bottom: 0;
 }
 
+.editModal .modal-header h3
+{
+	margin-top: 6px;
+}
+
 .editModal input[type="text"], textarea
 {
 	font: 16px Cousine;
@@ -260,9 +265,16 @@
 	bottom: 50px;
 	background: none;
 	border: none;
+	padding: 6px;
 	box-sizing: border-box;
 	resize: none;
 	outline: none;
+}
+
+.editModal textarea:hover
+{
+	background-color: white;
+	box-shadow: inset 0 0 10px rgb(243, 243, 243);
 }
 
 #passageEditModal input[type="text"]
@@ -274,7 +286,6 @@
 	border-bottom: 1px dotted hsl(0, 0%, 75%);
 	width: 80%;
 }
-
 
 #passageEditModal input.passageName
 {

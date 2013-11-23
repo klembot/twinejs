@@ -209,15 +209,15 @@ StoryEditView = Marionette.CompositeView.extend(
 
 		'click .editScript': function()
 		{
-			this.$('#scriptSource').val(this.model.get('script'));
+			this.$('.scriptSource').val(this.model.get('script'));
 			this.$('.storyProperties').popover('hide');
-			this.$('#scriptEditDialog').modal('show');	
+			this.$('#scriptModal').modal('show');	
 		},
 
 		'click .saveScript': function()
 		{
-			this.model.save({ script: this.$('#scriptSource').val() });
-			this.$('#scriptEditDialog').modal('hide');	
+			this.model.save({ script: this.$('.scriptSource').val() });
+			this.$('#scriptModal').modal('hide');	
 		},
 
 		// keeps track of passages as they are dragged
