@@ -226,19 +226,21 @@ StoryEditView = Marionette.CompositeView.extend(
 		{
 			this.cachePassage(this.collection.get($(event.target).closest('.passage').attr('data-id')));
 			this.drawLinks();
-		},
-
+		}
 	},
 
-    lineLength: function(line){
+    lineLength: function (line)
+	{
         return Math.sqrt(Math.pow(line[1].x - line[0].x, 2) +
-                         Math.pow (line[1].y - line[0].y, 2));
+                         Math.pow(line[1].y - line[0].y, 2));
     },
 
-    endPointProjectedFrom: function(line, angle, distance)
+    endPointProjectedFrom: function (line, angle, distance)
     {
         var length = this.lineLength(line);
-        if (length == 0) { return line[1]; }
+
+        if (length == 0)
+			return line[1];
 
         // taken from http://mathforum.org/library/drmath/view/54146.html
 
@@ -249,11 +251,10 @@ StoryEditView = Marionette.CompositeView.extend(
         var y = line[1].y - ((line[1].y - line[0].y) * Math.cos(angle) +
                              (line[1].x - line[0].x) * Math.sin(angle)) * lengthRatio;
 
-        return {x : x, y : y};
+        return {x: x, y: y};
     },
 
     arrowMinLength: 5,
-
     arrowAngle: Math.PI/6,
 
 	drawLinks: function()
@@ -320,10 +321,11 @@ StoryEditView = Marionette.CompositeView.extend(
 
                                 var line = [{x : p.position.left + width / 2, y : p.position.top},
                                             {x : q.position.left + width / 2, y : q.position.top + height}];
-						    }
-						}
+						    };
+						};
 
-                        var arrow = [
+                        var arrow =
+						[
                             this.endPointProjectedFrom(line, this.arrowAngle, arrowSize),
                             this.endPointProjectedFrom(line, -this.arrowAngle, arrowSize)
                         ];
@@ -342,8 +344,7 @@ StoryEditView = Marionette.CompositeView.extend(
  			        gc.strokeStyle = '#7088ac';
 			        gc.fillStyle = '#7088ac';
 			        gc.stroke();
-		   	       gc.fill();
-
+					gc.fill();
 				};
             };
         };
@@ -402,7 +403,7 @@ StoryEditView = Marionette.CompositeView.extend(
 
     cachePassage: function (item)
     {
-		var pos = this.$('.passages').children('div[data-id="' + item.id + '"]:first').position();
+		var pos = this.$('.passages div[data-id="' + item.id + '"] .frame').offset();
 
 	    // if the passage hasn't been rendered yet, there's nothing to cache yet
 
