@@ -8,6 +8,8 @@ body
 	display: none;
 }
 
+    pointer-events: none;
+    pointer-events: all;
 .modal.fade
 {
     -webkit-transition: opacity .1s linear, none;
@@ -20,7 +22,7 @@ body
 
 .modal.fade.in
 {
-	top: 10%;	
+	top: 10%;
 }
 
 .paper, .popover, .modal-content
