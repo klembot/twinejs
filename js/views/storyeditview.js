@@ -294,15 +294,15 @@ StoryEditView = Marionette.CompositeView.extend(
 						    {
 							    // right side of p to left side of q
 
-                                var line = [{x : p.position.left + width, y : p.position.top + height / 2},
-                                            {x : q.position.left, y : q.position.top + height / 2}];
+                                var line = [{ x: p.position.left + width, y: p.position.top + height / 2 },
+                                            { x: q.position.left, y: q.position.top + height / 2 }];
 							}
 						    else
 						    {
 							    // left side of p to right side of q
 
-                                var line = [{x : p.position.left, y : p.position.top + height / 2},
-                                            {x : q.position.left + width, y : q.position.top + height / 2}];
+                                var line = [{x: p.position.left, y: p.position.top + height / 2 },
+                                            {x: q.position.left + width, y: q.position.top + height / 2 }];
 							};
 						}
 						else
@@ -312,15 +312,15 @@ StoryEditView = Marionette.CompositeView.extend(
 							{
 								// bottom side of p to top side of q
 
-                                var line = [{x : p.position.left + width / 2, y : p.position.top + height},
-                                            {x : q.position.left + width / 2, y : q.position.top}];
+                                var line = [{x: p.position.left + width / 2, y: p.position.top + height },
+                                            {x: q.position.left + width / 2, y: q.position.top }];
 							}
 						    else
 						    {
 							    // top side of p to top side of q
 
-                                var line = [{x : p.position.left + width / 2, y : p.position.top},
-                                            {x : q.position.left + width / 2, y : q.position.top + height}];
+                                var line = [{ x: p.position.left + width / 2, y: p.position.top },
+                                            { x: q.position.left + width / 2, y: q.position.top + height }];
 						    };
 						};
 
