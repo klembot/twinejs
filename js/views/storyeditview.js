@@ -335,6 +335,7 @@ StoryEditView = Marionette.CompositeView.extend(
 
                         gc.moveTo(line[1].x, line[1].y);
 		                gc.lineTo(arrow[0].x, arrow[0].y);
+                        gc.moveTo(line[1].x, line[1].y);
     		            gc.lineTo(arrow[1].x, arrow[1].y);
 
                         gc.closePath();
@@ -344,7 +345,6 @@ StoryEditView = Marionette.CompositeView.extend(
  			        gc.strokeStyle = '#7088ac';
 			        gc.fillStyle = '#7088ac';
 			        gc.stroke();
-					gc.fill();
 				};
             };
         };
