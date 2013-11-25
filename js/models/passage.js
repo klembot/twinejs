@@ -37,6 +37,12 @@ Passage = Backbone.Model.extend(
 		});
 	},
 
+	validate: function (attrs)
+	{
+		if (! attrs.name || attrs.name == '')
+			return 'You must give this passage a name.';
+	},
+
 	excerpt: function()
 	{
 		var text = this.get('text');

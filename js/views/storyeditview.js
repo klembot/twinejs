@@ -167,10 +167,27 @@ StoryEditView = Marionette.CompositeView.extend(
 		'click .savePassage': function()
 		{
 			var model = this.collection.get($('#passageEditModal .passageId').val());
-			model.save({
+
+			if (model.save({
 				name: $('#passageEditModal .passageName').val(),
 				text: $('#passageEditModal .passageText').val()
-			});
+			}))
+			{
+				$('#passageEditModal .alert').remove();
+				$('#passageEditModal').modal('hide');	
+			}
+			else
+			{
+				var message = $('#passageEditModal .alert');
+				
+				if (message.size() == 0)
+					message = $('<p class="alert alert-danger">')
+					.text(model.validationError)
+
+				$('#passageEditModal textarea').before(message);
+				message.hide.fadeIn();
+				$('#passageEditModal .passageName').focus();
+			};
 		},
 
 		'change #startPassage': function()

@@ -271,6 +271,11 @@
 	outline: none;
 }
 
+.editModal .alert + textarea
+{
+	top: 80px;
+}
+
 .editModal textarea:hover
 {
 	background-color: white;
