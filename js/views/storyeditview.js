@@ -185,7 +185,7 @@ StoryEditView = Marionette.CompositeView.extend(
 					.text(model.validationError)
 
 				$('#passageEditModal textarea').before(message);
-				message.hide.fadeIn();
+				message.hide().fadeIn();
 				$('#passageEditModal .passageName').focus();
 			};
 		},

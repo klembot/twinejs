@@ -41,6 +41,17 @@ Passage = Backbone.Model.extend(
 	{
 		if (! attrs.name || attrs.name == '')
 			return 'You must give this passage a name.';
+
+		var dupe = _.find(app.passages.where({ story: this.get('story') }),
+		function (passage)
+		{
+			return (attrs.id != passage.id &&
+			        attrs.name.toLowerCase() == passage.get('name').toLowerCase());
+		});
+
+		if (dupe)
+			return 'There is already a passage named "' + dupe.get('name') +
+			       '." Please give this one a unique name.';
 	},
 
 	excerpt: function()
