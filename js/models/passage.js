@@ -2,6 +2,11 @@
 
 Passage = Backbone.Model.extend(
 {
+	// the largest dimensions a passage will have onscreen, in pixels
+	
+	width: 100,
+	height: 100,
+
 	defaults:
 	{
 		story: -1,
@@ -85,5 +90,69 @@ Passage = Backbone.Model.extend(
 			top: this.get('top'),
 			text: this.get('text')
 		});
+	},
+
+	intersects: function (other)
+	{
+		console.log(this.get('left'), this.width, other.get('left'), other.width);
+
+		return (this.get('left') < other.get('left') + other.width &&
+		        this.get('left') + this.width > other.get('left') &&
+		        this.get('top') < other.get('top') + other.height &&
+				this.get('top') + this.height > other.get('top'));
+	},
+
+	displace: function (other)
+	{
+		var tLeft = this.get('left');
+		var tRight = tLeft + this.width;
+		var tTop = this.get('top');
+		var tBottom = tTop + this.height;
+		var oLeft = other.get('left');
+		var oRight = oLeft + other.width;
+		var oTop = other.get('top');
+		var oBottom = oTop + other.height;
+
+		// calculate overlap amounts
+		// this is cribbed from
+		// http://frey.co.nz/old/2007/11/area-of-two-rectangles-algorithm/
+
+		var xOverlap = Math.min(tRight, oRight) - Math.max(tLeft, oLeft);
+		var yOverlap = Math.min(tBottom, oBottom) - Math.max(tTop, oTop);
+
+		// resolve horizontal overlap
+
+		var xChange, yChange;
+
+		if (xOverlap != 0)
+		{
+			var leftMove = (oLeft - tLeft) + other.width;
+			var rightMove = tRight - oLeft;
+			
+			if (leftMove < rightMove)
+				xChange = - leftMove
+			else
+				xChange = rightMove;
+		};
+		
+		// resolve vertical overlap
+
+		if (yOverlap != 0)
+		{
+			var upMove = (oTop - tTop) + other.height;
+			var downMove = tBottom - oTop;
+			
+			if (upMove < downMove)
+				yChange = - upMove;
+			else
+				yChange = downMove;
+		};
+		
+		// choose the option that moves the other passage the least
+		
+		if (Math.abs(xChange) > Math.abs(yChange))
+			other.set('top', oTop + yChange);
+		else
+			other.set('left', oLeft + xChange);
 	}
 });

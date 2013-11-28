@@ -75,10 +75,14 @@ PassageItemView = Marionette.ItemView.extend(
 
 		'dragstop': function (e, ui)
 		{
-			this.model.save({
+			this.model.set({
 				top: ui.position.top / this.parentView.zoom,
 				left: ui.position.left / this.parentView.zoom	
 			});
+			
+			app.mainRegion.currentView.positionPassage(this.model);	
+
+			this.model.save();
 		},
 
 		'click .edit': 'edit',

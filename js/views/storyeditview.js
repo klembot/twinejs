@@ -418,6 +418,18 @@ StoryEditView = Marionette.CompositeView.extend(
 	    this.drawLinks();
     },
 
+	positionPassage: function (passage)
+	{
+		this.collection.each(function (p)
+		{
+			if (p.id != passage.id && p.intersects(passage))
+			{
+				done = false;
+				p.displace(passage);
+			};
+		});
+	},
+
     cachePassage: function (item)
     {
 		var pos = this.$('.passages div[data-id="' + item.id + '"] .frame').offset();
