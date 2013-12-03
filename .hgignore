@@ -3,4 +3,5 @@ syntax: glob
 index.html
 node_modules/*
 dist/*
+doc/*
 .tmp/*
