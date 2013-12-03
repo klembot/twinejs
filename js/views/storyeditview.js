@@ -1,4 +1,12 @@
-// Shows a single story's passages and allows editing.
+/**
+ Offers an interface for editing a story. This class is concerned
+ with editing the story itself; editing individual passages is handled
+ through PassageItemViews. This sets up links from the passage views to
+ this one by setting each child's parentView property to this one.
+
+ @class StoryEditView
+ @extends Marionette.CompositeView
+**/
 
 StoryEditView = Marionette.CompositeView.extend(
 {
@@ -7,24 +15,41 @@ StoryEditView = Marionette.CompositeView.extend(
 	itemViewOptions: function() { return { parentView: this } },
 	template: '#templates .storyEditView',
 
+	/**
+	 Maps numeric zoom settings (that are in our model) to
+	 nice adjectives that we use in our CSS.
+
+	 @property ZOOM_MAPPINGS
+	 @type Object
+	 @final
+	**/
+
+	ZOOM_MAPPINGS:
+	{
+		big: 1,
+		medium: 0.5,
+		small: 0.25
+	},
+
 	initialize: function (options)
 	{
 		var self = this;
 		this.collection = new PassageCollection(app.passages.where({ story: this.model.id }));
 
-		// this tracks passage positions and links to speed up drawing
+		/**
+		 Tracks passage positions and links to speed up drawing operations.
+		 Call cachePassage() to update a passage in the cache.
+
+		 @propert drawCache
+		**/
 
 		this.drawCache = {};
-
-		// zoom setting; this should eventually be saved with the story
-
-		this.zoom = 1;
 
 		// keep story name in sync
 
 		this.model.on('change:name', function (model)
 		{
-			self.$('.nav .storyName').text(model.get('name'));
+			self.$('.storyName').text(model.get('name'));
 		});
 
 		// keep start passage menu and draw cache in sync
@@ -80,8 +105,8 @@ StoryEditView = Marionette.CompositeView.extend(
 	onRender: function()
 	{
 		var self = this;
-
-		this.canvas = this.$('.passages canvas');
+		
+		// set up tooltips
 
 		this.$('a[title], button[title]').tooltip();
 
@@ -109,28 +134,14 @@ StoryEditView = Marionette.CompositeView.extend(
 			menu.append($('<option value="' + item.id + '">' + item.get('name') + '</option>'));
 		});
 
-		self.resizeCanvas();
+		// resize the canvas whenever the browser window resizes
+
+		this.resizeCanvas();
 		$(window).on('resize', function() { self.resizeCanvas() });
 
-		// zoom button handlers
-		// default to big zoom
+		// sync the DOM zoom attributes with the model
 
-		self.$el.addClass('zoom-big');
-
-		this.$('.zoomBig').change(function()
-		{
-			self.zoomTo('big');
-		});
-
-		this.$('.zoomMedium').change(function()
-		{
-			self.zoomTo('medium');
-		});
-
-		this.$('.zoomSmall').change(function()
-		{
-			self.zoomTo('small');
-		});
+		this.setZoom();
 
 		// for some reason, jQuery can't see the position of the passages yet, so we defer... kind of
 
@@ -144,117 +155,176 @@ StoryEditView = Marionette.CompositeView.extend(
 	close: function()
 	{
 		$(window).off('resize');
-		this.$('.zoomBig').off('click');
-		this.$('.zoomMedium').off('click');
-		this.$('.zoomSmall').off('click');
 	},
 
-	events:
+	/**
+	 Changes the model's zoom and updates the view accordingly.
+
+	 @method setZoom
+	 @param {Number} zoom New zoom level -- 1 is 100%, 0.5 is 50%.
+	                      If omitted, then this simply updates the view.
+	**/
+
+	setZoom: function (zoom)
 	{
-		'click .add': function()
-		{
-			var container = this.$('.passages');
-			var offsetX = this.$('.passage:first').width() / 2;
-			var offsetY = this.$('.passage:first').height() / 2;
+		if (zoom)
+			this.model.save({ zoom: zoom });
+		else
+			zoom = this.model.get('zoom');
 
-			this.collection.create({
-				story: this.model.id,
-				top: ($(window).scrollTop() + $(window).height() / 2) - offsetY,
-				left: ($(window).scrollLeft() + $(window).width() / 2) - offsetX
-			});
-		},
+		// select the appropriate toolbar button
+		// and change CSS class
 
-		'click .savePassage': function()
-		{
-			var model = this.collection.get($('#passageEditModal .passageId').val());
-
-			if (model.save({
-				name: $('#passageEditModal .passageName').val(),
-				text: $('#passageEditModal .passageText').val()
-			}))
+		for (var desc in this.ZOOM_MAPPINGS)
+			if (this.ZOOM_MAPPINGS[desc] == zoom)
 			{
-				$('#passageEditModal .alert').remove();
-				$('#passageEditModal').modal('hide');	
-			}
-			else
-			{
-				var message = $('#passageEditModal .alert');
-				
-				if (message.size() == 0)
-					message = $('<p class="alert alert-danger">')
-					.text(model.validationError)
-
-				$('#passageEditModal textarea').before(message);
-				message.hide().fadeIn();
-				$('#passageEditModal .passageName').focus();
+				this.$('radio.zoom' + desc).attr('checked', 'checked');
+				this.$el.removeClass('zoom-small zoom-medium zoom-big').addClass('zoom-' + desc);
 			};
-		},
+		
+		/**
+		 Triggered whenever the zoom level of the view changes.
+		 @event zoom 
+		**/
 
-		'change #startPassage': function()
-		{
-			this.model.save({ startPassage: this.$('#startPassage').val() });
-		},
+	    this.trigger('zoom');
+	    this.drawLinks();
+    },
 
-		'change #storyName': function()
-		{
-			this.model.save({ name: this.$('#storyName').val() });
-		},
+	/**
+	 Sets the model's start passage.
 
-		'click .playStory': function()
-		{
-			window.open('#stories/' + this.model.id + '/play', 'twinestory_' + this.model.id);
-		},
+	 @method setStartPassage
+	 @param {Number} id id of the passage
+	**/
 
-		'click .publishStory': function()
-		{
-			window.app.publishStory(this.model);
-		},
-
-		'click .editStylesheet': function()
-		{
-			console.log('editing stylesheet');
-			this.$('#stylesheetModal .stylesheetSource').val(this.model.get('stylesheet'));
-			this.$('.storyProperties').popover('hide');
-			this.$('#stylesheetModal').modal('show');	
-		},
-
-		'click .saveStylesheet': function()
-		{
-			this.model.save({ stylesheet: this.$('#stylesheetModal .stylesheetSource').val() });
-			this.$('#stylesheetModal').modal('hide');	
-		},
-
-		'click .editScript': function()
-		{
-			this.$('.scriptSource').val(this.model.get('script'));
-			this.$('.storyProperties').popover('hide');
-			this.$('#scriptModal').modal('show');	
-		},
-
-		'click .saveScript': function()
-		{
-			this.model.save({ script: this.$('.scriptSource').val() });
-			this.$('#scriptModal').modal('hide');	
-		},
-
-		// keeps track of passages as they are dragged
-
-		'drag .passage': function (event)
-		{
-			this.cachePassage(this.collection.get($(event.target).closest('.passage').attr('data-id')));
-			this.drawLinks();
-		}
+	setStartPassage: function (id)
+	{
+		this.model.save({ startPassage: id });
 	},
 
-    lineLength: function (line)
+	/**
+	 Set the model's name.
+
+	 @method setName
+	 @param {String} name New name to set
+	**/
+
+	setName: function (name)
 	{
-        return Math.sqrt(Math.pow(line[1].x - line[0].x, 2) +
-                         Math.pow(line[1].y - line[0].y, 2));
-    },
+		this.model.save({ name: name });
+	},
+
+	/**
+	 Adds a new passage to the center of the view.
+
+	 @method addPassage
+	**/
+
+	addPassage: function()
+	{
+		var offsetX = this.$('.passage:first').width() / 2;
+		var offsetY = this.$('.passage:first').height() / 2;
+
+		this.collection.create({
+			story: this.model.id,
+			top: ($(window).scrollTop() + $(window).height() / 2) - offsetY,
+			left: ($(window).scrollLeft() + $(window).width() / 2) - offsetX
+		});
+	},
+
+	/**
+	 Opens a new tab with the playable version of this story. This
+	 will re-use the same tab for a particular story.
+
+	 @method play
+	**/
+
+	play: function()
+	{
+		window.open('#stories/' + this.model.id + '/play', 'twinestory_' + this.model.id);
+	},
+
+	/**
+	 Publishes a story by passing control over to TwineApp.publishStory.	
+
+	 @method publish
+	**/
+
+	publish: function()
+	{
+		window.app.publishStory(this.model);
+	},
+
+	/**
+	 Opens a modal dialog for editing the story's stylesheet, e.g. #stylesheetModal.
+	 This sets .stylesheetSource's value to the current stylesheet.
+
+	 @method editStylesheet
+	**/
+
+	editStylesheet: function()
+	{
+		this.$('#stylesheetModal .stylesheetSource').val(this.model.get('stylesheet'));
+		this.$('.storyProperties').popover('hide');
+		this.$('#stylesheetModal').modal('show');	
+	},
+
+	/**
+	 Saves changes to the story's stylesheet based on the contents of .stylesheetSource
+	 and hides .stylesheetModal.
+
+	 @method setStylesheet
+	 @param {String} src Source code for the stylesheet.
+	**/
+
+	setStylesheet: function (src)
+	{
+		this.model.save({ stylesheet: src });
+		this.$('#stylesheetModal').modal('hide');	
+	},
+
+	/**
+	 Opens a modal dialog for editing the story's stylesheet, e.g. #scriptModal.
+	 This sets .scriptSource's value to the current stylesheet.
+
+	 @method editScript
+	**/
+
+	editScript: function()
+	{
+		this.$('.scriptSource').val(this.model.get('script'));
+		this.$('.storyProperties').popover('hide');
+		this.$('#scriptModal').modal('show');	
+	},
+
+	/**
+	 Saves changes to the story's script based on the contents of .scriptSource
+	 and hides #scriptModal.
+
+	 @method setScript
+	 @param {String} src Source code for the script.
+	**/
+
+	setScript: function (src)
+	{
+		this.model.save({ script: src });
+		this.$('#scriptModal').modal('hide');	
+	},
+
+	/**
+	 Projects a point from the endpoint of a line at a certain angle and distance.
+	 
+	 @method endPointProjectedFrom
+	 @param {Array} line An array of two points, each an object with x and y properties
+	 @param {Number} angle Angle in radians to project from the endpoints
+	 @param {Number} distance Distance the projected line should have
+	**/
 
     endPointProjectedFrom: function (line, angle, distance)
     {
-        var length = this.lineLength(line);
+        var length = Math.sqrt(Math.pow(line[1].x - line[0].x, 2) +
+                               Math.pow(line[1].y - line[0].y, 2));
 
         if (length == 0)
 			return line[1];
@@ -271,113 +341,137 @@ StoryEditView = Marionette.CompositeView.extend(
         return {x: x, y: y};
     },
 
-    arrowMinLength: 5,
-    arrowAngle: Math.PI/6,
+	/**
+	 Draws arrows between passages to indicate links, using the <canvas> element of this view.
+
+	 @method drawLinks
+	**/
 
 	drawLinks: function()
 	{
+		// canvas properties
+
 		var canvas = this.$('canvas')[0];
 		var gc = canvas.getContext('2d');
-		var passages = {};
-		var passageNames = [];
+
+		// dimensions of a passage
+
 		var width = this.$('.passage:first .frame').outerWidth();
 		var height = this.$('.passage:first .frame').outerHeight();
-        var arrowSize = Math.max(width / 8);
 
-		// draw connections
+		// configuration of arrowheads
+		
+        var arrowSize = Math.max(width / 8);
+		var arrowAngle = Math.PI / 6;
 
 		canvas.width = canvas.width;
+		gc.strokeStyle = '#7088ac';
+		gc.fillStyle = '#7088ac';
+		gc.lineWidth = 2;
 
 		for (var name in this.drawCache)
-        {
-			if (this.drawCache.hasOwnProperty(name))
-  		    {
-			    var p = this.drawCache[name];
+		{
+			if (! this.drawCache.hasOwnProperty(name))
+				continue;
 
-				for (var i = 0; i < p.links.length; i++)
-                {
-					if (this.drawCache[p.links[i]])
-				    {
-						var q = this.drawCache[p.links[i]];
+			var p = this.drawCache[name];
 
-						var xDist = q.position.left - p.position.left;
-						var yDist = q.position.top - p.position.top;
+			for (var i = 0; i < p.links.length; i++)
+			{
+				if (! this.drawCache[p.links[i]])
+					continue;
+				
+				var q = this.drawCache[p.links[i]];
 
-						if (Math.abs(xDist) > Math.abs(yDist))
-						{
-							// connect horizontal sides
+				// p is the start passage; q is the destination
+				// find the closest sides to connect
 
-						    if (xDist > 0)
-						    {
-							    // right side of p to left side of q
+				var xDist = q.position.left - p.position.left;
+				var yDist = q.position.top - p.position.top;
 
-                                var line = [{ x: p.position.left + width, y: p.position.top + height / 2 },
-                                            { x: q.position.left, y: q.position.top + height / 2 }];
-							}
-						    else
-						    {
-							    // left side of p to right side of q
+				if (Math.abs(xDist) > Math.abs(yDist))
+				{
+					// connect horizontal sides
 
-                                var line = [{x: p.position.left, y: p.position.top + height / 2 },
-                                            {x: q.position.left + width, y: q.position.top + height / 2 }];
-							};
-						}
-						else
-						{
-							// connect vertical sides
-							if (yDist > 0)
-							{
-								// bottom side of p to top side of q
+					if (xDist > 0)
+					{
+						// right side of p to left side of q
 
-                                var line = [{x: p.position.left + width / 2, y: p.position.top + height },
-                                            {x: q.position.left + width / 2, y: q.position.top }];
-							}
-						    else
-						    {
-							    // top side of p to top side of q
+						var line = [{ x: p.position.left + width, y: p.position.top + height / 2 },
+									{ x: q.position.left, y: q.position.top + height / 2 }];
+					}
+					else
+					{
+						// left side of p to right side of q
 
-                                var line = [{ x: p.position.left + width / 2, y: p.position.top },
-                                            { x: q.position.left + width / 2, y: q.position.top + height }];
-						    };
-						};
+						var line = [{x: p.position.left, y: p.position.top + height / 2 },
+									{x: q.position.left + width, y: q.position.top + height / 2 }];
+					};
+				}
+				else
+				{
+					// connect vertical sides
 
-                        var arrow =
-						[
-                            this.endPointProjectedFrom(line, this.arrowAngle, arrowSize),
-                            this.endPointProjectedFrom(line, -this.arrowAngle, arrowSize)
-                        ];
+					if (yDist > 0)
+					{
+						// bottom side of p to top side of q
 
-		                gc.moveTo(line[0].x, line[0].y);
- 		                gc.lineTo(line[1].x, line[1].y);
+						var line = [{x: p.position.left + width / 2, y: p.position.top + height },
+									{x: q.position.left + width / 2, y: q.position.top }];
+					}
+					else
+					{
+						// top side of p to top side of q
 
-                        gc.moveTo(line[1].x, line[1].y);
-		                gc.lineTo(arrow[0].x, arrow[0].y);
-                        gc.moveTo(line[1].x, line[1].y);
-    		            gc.lineTo(arrow[1].x, arrow[1].y);
+						var line = [{ x: p.position.left + width / 2, y: p.position.top },
+									{ x: q.position.left + width / 2, y: q.position.top + height }];
+					};
+				}
 
-                        gc.closePath();
-				    };
+				// line is now an array of two points: 0 is the start, 1 is the end
 
-			        gc.lineWidth = 2;
- 			        gc.strokeStyle = '#7088ac';
-			        gc.fillStyle = '#7088ac';
-			        gc.stroke();
-				};
-            };
-        };
+				var arrow =
+				[
+					this.endPointProjectedFrom(line, arrowAngle, arrowSize),
+					this.endPointProjectedFrom(line, -arrowAngle, arrowSize)
+				];
+
+				// draw it
+
+				gc.moveTo(line[0].x, line[0].y);
+				gc.lineTo(line[1].x, line[1].y);
+
+				gc.moveTo(line[1].x, line[1].y);
+				gc.lineTo(arrow[0].x, arrow[0].y);
+				gc.moveTo(line[1].x, line[1].y);
+				gc.lineTo(arrow[1].x, arrow[1].y);
+
+				gc.closePath();
+				gc.stroke();
+			};
+		};
     },
+
+	/**
+	 Resizes the view's <canvas> element to match the size of the .passages div,
+	 e.g. so that lines can be drawn between passage DOM elements.
+
+	 @method resizeCanvas
+	**/
 
 	resizeCanvas: function()
 	{
 		var width = $(document).width();
 		var height = $(document).height();
 
-		this.$('.passages').css({
+		this.$('.passages').css(
+		{
 			width: width,
 			height: height
 		});
 
-		this.$('canvas').attr({
+		this.$('canvas').attr(
+		{
 			width: width,
 			height: height
 		});
@@ -385,38 +479,12 @@ StoryEditView = Marionette.CompositeView.extend(
 		this.drawLinks();
 	},
 
-	zoomTo: function (scale)
-	{
-		var self = this;
+	/**
+	 Nudges a passage so that it does not overlap any other passage in the view.
 
-		switch (scale)
-		{
-		case 'small':
-			this.zoom = 0.25;
-			break;
-
-		case 'medium':
-			this.zoom = 0.5;
-			break;
-
-		case 'big':
-			this.zoom = 1;
-			break;
-
-		default:
-			throw new Error("Unknown zoom scale: " + scale);
-	    };
-
-	    // change appearance
-
-	    this.$el.removeClass('zoom-small zoom-medium zoom-big').addClass('zoom-' + scale);
-	    this.children.each(function (view)
-		                   {
-			                   view.trigger('zoom');
-		                   });
-
-	    this.drawLinks();
-    },
+	 @method positionPassage
+	 @param {Passage} passage Passage to nudge.
+	**/
 
 	positionPassage: function (passage)
 	{
@@ -430,17 +498,71 @@ StoryEditView = Marionette.CompositeView.extend(
 		});
 	},
 
-    cachePassage: function (item)
+	/**
+	 Updates the draw cache for a passage. This must occur whenever a passage's position,
+	 name, or body changes. All of these can affect links drawn.
+
+	 Normally, you don't need to call this manually.
+
+	 @method cachePassage
+	 @param {Passage} passage Passage to cache.
+	**/
+
+    cachePassage: function (passage)
     {
-		var pos = this.$('.passages div[data-id="' + item.id + '"] .frame').offset();
+		var pos = this.$('.passages div[data-id="' + passage.id + '"] .frame').offset();
 
 	    // if the passage hasn't been rendered yet, there's nothing to cache yet
 
 	    if (pos)
-		    this.drawCache[item.get('name')] =
+		    this.drawCache[passage.get('name')] =
 		    {
 			    position: pos,
-			    links: item.links()
+			    links: passage.links()
 		    };
-    }
+    },
+
+	events:
+	{
+		'change .startPassage': function (e)
+		{
+			this.setStartPassage($(e.target).val());
+		},
+
+		'change .storyName': function (e)
+		{
+			this.setName($(e.target).val());
+		},
+
+		'click .addPassage': 'addPassage',
+		'click .playStory': 'play',
+		'click .publishStory': 'publish',
+		'click .editScript': 'editScript',
+
+		'click .saveScript': function (e)
+		{
+			this.setScript(this.$('.scriptSource').val());
+		},
+
+		'click .editStylesheet': 'editStylesheet',
+
+		'click .saveStylesheet': function (e)
+		{
+			this.setStylesheet(this.$('#stylesheetModal .stylesheetSource').val());
+		},
+
+		'change .zoomBig, .zoomMedium, .zoomSmall': function (e)
+		{
+			var desc = $(e.target).attr('class').replace('zoom', '').toLowerCase();
+			this.setZoom(this.ZOOM_MAPPINGS[desc]);
+		},
+
+		'drag .passage': function (event)
+		{
+			// draw links between passages as they are dragged around
+
+			this.cachePassage(this.collection.get($(event.target).closest('.passage').attr('data-id')));
+			this.drawLinks();
+		}
+	},
 });

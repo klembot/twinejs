@@ -67,8 +67,24 @@ module.exports = function (grunt)
 		{
 			templates:
 			{
-				files: ['app.html', 'templates/*.html'],
+				files: ['app.html', 'templates/*.html', 'js/**'],
 				tasks: ['default']
+			}
+		},
+
+		yuidoc:
+		{
+			compile:
+			{
+				name: '<%= pkg.name %>',
+				description: '<%= pkg.description %>',
+				version: '<%= pkg.version %>',
+				url: '<%= pkg.homepage %>',
+				options:
+				{
+					paths: 'js/',
+					outdir: 'doc/'
+				}
 			}
 		}
 	});
@@ -80,10 +96,11 @@ module.exports = function (grunt)
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-yuidoc');
 	grunt.loadNpmTasks('grunt-usemin');
-	grunt.registerTask('default', ['bake']);
+	grunt.registerTask('default', ['bake', 'yuidoc']);
 	grunt.registerTask('release',
 	[
-		'clean', 'bake', 'copy', 'useminPrepare', 'concat', 'uglify', 'cssmin', 'usemin'
+		'clean', 'bake', 'yuidoc', 'copy', 'useminPrepare', 'concat', 'uglify', 'cssmin', 'usemin'
 	]);
 };

@@ -1,9 +1,18 @@
+/**
+ A story contains many passages, and has a name, stylesheet, script, and zoom.
+
+ @class Story
+ @extends Backbone.Model
+**/
+
+
 Story = Backbone.Model.extend(
 {
 	defaults:
 	{
 		name: 'Untitled Story',
 		startPassage: -1,
+		zoom: 1,
 		stylesheet: '',
 		script: '',
 	},
@@ -51,6 +60,15 @@ Story = Backbone.Model.extend(
 			});
 		});
 	},
+
+	/**
+	 Publishes a story to an HTML fragment, e.g. a collection of DOM elements. It's up to a
+	 Template to create a full-fledged HTML document from this.
+
+	 @method publish
+	 @param {Function} callback Callback function called after finishing the publication process.
+	                            This is passed the resulting HTML.
+	**/
 
 	publish: function (callback)
 	{

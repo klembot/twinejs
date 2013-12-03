@@ -1,10 +1,25 @@
-// A passage belongs to a story.
+/**
+ A single node in a story.
+ 
+ @class Passage
+ @extends Backbone.Model
+**/
 
 Passage = Backbone.Model.extend(
 {
-	// the largest dimensions a passage will have onscreen, in pixels
+	/**
+	 The largest width a passage will have onscreen, in pixels.
+	 This is used by intersects() and displace().
+	 @property {Number} width
+	**/ 
 	
 	width: 100,
+
+	/**
+	 The largest height a passage will have onscreen, in pixels.
+	 This is used by intersects() and displace().
+	 @property {Number} height
+	**/ 
 	height: 100,
 
 	defaults:
@@ -59,6 +74,14 @@ Passage = Backbone.Model.extend(
 			       '." Please give this one a unique name.';
 	},
 
+	/**
+	 Returns a short excerpt of this passage's text, truncating with
+	 ellipses if needed.
+
+	 @method excerpt
+	 @return {String} Excerpt.
+	**/
+
 	excerpt: function()
 	{
 		var text = this.get('text');
@@ -68,6 +91,13 @@ Passage = Backbone.Model.extend(
 		else
 			return text;
 	},
+
+	/**
+	 Returns an array of all passage names that are linked from this one.
+
+	 @method links
+	 @return {Array} Array of string names.
+	**/
 
 	links: function()
 	{
@@ -81,9 +111,16 @@ Passage = Backbone.Model.extend(
 		return result;
 	},
 
+	/**
+	 Publishes the passage to an HTML fragment.
+
+	 @method publish
+	**/
+
 	publish: function (id)
 	{
-		return this.template({
+		return this.template(
+		{
 			id: id,
 			name: this.get('name'),
 			left: this.get('left'),
@@ -92,15 +129,30 @@ Passage = Backbone.Model.extend(
 		});
 	},
 
+	/**
+	 Checks whether this passage intersects another onscreen.
+
+	 @method intersects
+	 @param {Passage} other Other passage to check.
+	 @return {Boolean} Whether there is an intersection.
+	**/
+
 	intersects: function (other)
 	{
-		console.log(this.get('left'), this.width, other.get('left'), other.width);
-
 		return (this.get('left') < other.get('left') + other.width &&
 		        this.get('left') + this.width > other.get('left') &&
 		        this.get('top') < other.get('top') + other.height &&
 				this.get('top') + this.height > other.get('top'));
 	},
+
+	/**
+	 Moves another passage so that it no longer intersects this one.
+	 This moves the passage along either the X or Y axis only --
+	 whichever direction will cause the passage to move the least.
+
+	 @method displace
+	 @param {Passage} other Other passage to displace.
+	**/
 
 	displace: function (other)
 	{
