@@ -1,3 +1,10 @@
+/**
+ A collection of stories. This sorts stories by name by default.
+
+ @class StoryCollection
+ @extends Backbone.Collection
+**/
+
 StoryCollection = Backbone.Collection.extend(
 {
 	model: Story,

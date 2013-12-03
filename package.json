@@ -20,6 +20,7 @@
 		"grunt-contrib-cssmin": "*",
 		"grunt-contrib-uglify": "*",
 		"grunt-contrib-watch": "*",
+		"grunt-contrib-yuidoc": "*",
 		"grunt-usemin": "*"
 	}
 }

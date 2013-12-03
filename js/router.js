@@ -1,3 +1,16 @@
+/**
+ Handles URL-based routes. These right now are:
+ 
+ * `#stories`: Show a list of all stories.
+ * `#stories/[id]`: Edit a particular story.
+ * `#stories/[id]/play`: Plays a particular story.
+ 
+ If a route isn't recognized, this defaults to a list of all stories.
+
+ @class TwineRouter
+ @extends Backbone.Router
+**/
+
 TwineRouter = Backbone.Router.extend(
 {
 	routes:

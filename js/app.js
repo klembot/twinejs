@@ -1,6 +1,36 @@
-var app = new Backbone.Marionette.Application({
+/**
+ The main Backbone app running the show. This is accessible via the
+ global variable `window.app`.
+ 
+ @module Twine
+ @class TwineApp
+ @extends Backbone.Marionette.Application
+**/
+
+TwineApp = Backbone.Marionette.Application.extend(
+{
+	/**
+	 Name of the app.
+
+	 @property name
+	**/
+
 	name: 'Twine',
+
+	/**
+	 Version number of the app.
+
+	 @property version
+	**/
+
 	version: '2.0a',
+
+	/**
+	 Synchronizes all stories and passages in memory with what's been stored.
+
+	 @method sync
+	 @param {Function} callback Callback function to invoke once the sync is done.
+	**/
 
 	sync: function (callback)
 	{
@@ -16,6 +46,14 @@ var app = new Backbone.Marionette.Application({
 		});
 	},
 
+	/**
+	 Publishes a story to a file to be downloaded by binding it with the
+	 runtime template. 
+
+	 @method publishStory
+	 @param {Story} story Story model to publish.
+	**/
+
 	publishStory: function (story)
 	{
 		RuntimeTemplate.publish(story, function (html)
@@ -24,6 +62,12 @@ var app = new Backbone.Marionette.Application({
 			saveAs(blob, story.get('name') + '.html');
 		});
 	},
+
+	/**
+	 Saves an archive of all stories to a file to be downloaded.
+
+	 @method saveArchive
+	**/
 
 	saveArchive: function()
 	{
@@ -51,6 +95,15 @@ var app = new Backbone.Marionette.Application({
 
 		archiveStory();
 	},
+
+	/**
+	 Imports a file containing either a single published story, or an
+	 archive of several stories. The stories are immediately saved to storage.
+	 This does not yet work with stories published by Twine 1.x.
+
+	 @method importFile
+	 @param {String} data Contents of the file to be imported.
+	**/
 
 	importFile: function (data)
 	{
@@ -123,17 +176,49 @@ var app = new Backbone.Marionette.Application({
 	}
 });
 
-app.addInitializer(function (options)
+window.app = new TwineApp();
+
+window.app.addInitializer(function (options)
 {
+	/**
+	 The master collection of all stories.
+
+	 @property stories
+	 @type StoryCollection
+	**/
+
 	app.stories = new StoryCollection();
+
+	/**
+	 The master collection of all passages. This is not differentiated
+	 by story at all -- you'd need to query by a parent story's ID.
+
+	 @property passages
+	 @type PassageCollection
+	**/
+
 	app.passages = new PassageCollection();
 	app.sync();
+
+	/**
+	 The app router.
+
+	 @property router
+	 @type TwineRouter
+	**/
 
 	app.router = new TwineRouter();
 	Backbone.history.start();
 });
 
-app.addRegions({
+window.app.addRegions(
+{
+	/**
+	 The top-level container for views.
+
+	 @property mainRegion
+	**/
+
 	mainRegion: '#regions .main'
 });
 
