@@ -151,11 +151,12 @@ JavaScript
 </div> <!-- #storyPropertiesPopover -->
 
 <div id="passageEditModal" class="editModal modal fade">
-<input type="hidden" name="passageId" class="passageId">
-
+<div class="modal-dialog">
 <div class="modal-content">
 
 <div class="modal-header">
+
+<input type="hidden" name="passageId" class="passageId">
 
 <!-- this button does not auto-dismiss the modal, as we need to validate -->
 <button class="save savePassage btn btn-primary">
@@ -169,15 +170,15 @@ JavaScript
 </div> <!-- .modal-header -->
 
 <div class="modal-body">
-
 <textarea class="passageText" placeholder="Enter the body text of your passage here. To link to another passage, put two square brackets around its name, [[like this]]."></textarea>
-
 </div> <!-- .modal-body -->
+
 </div> <!-- .modal-content -->
+</div> <!-- .modal-dialog -->
 </div> <!-- #passageEditModal -->
 
 <div id="stylesheetModal" class="editModal modal fade">
-
+<div class="modal-dialog">
 <div class="modal-content">
 
 <div class="modal-header">
@@ -193,15 +194,15 @@ Stylesheet
 </div> <!-- .modal-header -->
 
 <div class="modal-body">
-
 <textarea class="stylesheetSource" placeholder="Any CSS you enter here will override the default appearance of your story."></textarea>
-
 </div> <!-- .modal-body -->
+
 </div> <!-- .modal-content -->
+</div> <!-- .modal-dialog -->
 </div> <!-- #stylesheetModal -->
 
 <div id="scriptModal" class="editModal modal fade">
-
+<div class="modal-dialog">
 <div class="modal-content">
 
 <div class="modal-header">
@@ -217,12 +218,12 @@ JavaScript
 </div> <!-- .modal-header -->
 
 <div class="modal-body">
-
 <textarea class="scriptSource" placeholder="Any JavaScript you enter here will immediately run when your story is opened in a Web browser."></textarea>
-
 </div> <!-- .modal-body -->
+
 </div> <!-- .modal-content -->
-</div> <!-- #stylesheetModal -->
+</div> <!-- .modal-dialog -->
+</div> <!-- #scriptModal -->
 
 </div> <!-- .toolbox -->
 

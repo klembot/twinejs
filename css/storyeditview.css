@@ -209,18 +209,37 @@
 	display: none;
 }
 
-.editModal
+.editModal .modal-dialog
 {
+	position: fixed;
 	width: 80%;
 	left: 10%;
 	top: 10px;
 	bottom: 0;
+	margin: 0;
+	padding: 0;
 	overflow: auto;
 }
 
 .editModal .save
 {
 	float: right;
+}
+
+.editModal.modal.fade .modal-dialog
+{
+	-ms-transform: translate(0, 10%);
+	-o-transform: translate(0, 10%);
+	-webkit-transform: translate(0, 10%);
+	transform: translate(0, 10%);
+}
+
+.editModal.modal.in .modal-dialog
+{
+	-ms-transform: translate(0, 0);
+	-o-transform: translate(0, 0);
+	-webkit-transform: translate(0, 0);
+	transform: translate(0, 0);
 }
 
 .editModal .modal-content

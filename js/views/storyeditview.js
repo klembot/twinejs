@@ -143,6 +143,29 @@ StoryEditView = Marionette.CompositeView.extend(
 
 		this.setZoom();
 
+		// automatically focus textareas on edit modals when they are shown
+
+		$(document).on('shown.bs.modal', '.editModal', function()
+		{
+			var textarea = $(this).find('textarea')[0];
+			var textLen = $(textarea).val().length;
+			textarea.focus();
+
+			// ugh feature detection
+			// http://stackoverflow.com/questions/499126/jquery-set-cursor-position-in-text-area
+
+			if (textarea.setSelectionRange)
+				textarea.setSelectionRange(textLen, textLen);
+			else if (textarea.createTextRange)
+			{
+				var range = textarea.createTextRange();
+				range.collapse(true);
+				range.moveEnd('character', textLen);
+				range.moveStart('character', textLen);
+				range.select();
+			};
+		});
+
 		// for some reason, jQuery can't see the position of the passages yet, so we defer... kind of
 
 		window.setTimeout(function()

@@ -8,23 +8,6 @@ body
 	display: none;
 }
 
-    pointer-events: none;
-    pointer-events: all;
-.modal.fade
-{
-    -webkit-transition: opacity .1s linear, none;
-    -moz-transition: opacity .1s linear, none;
-    -ms-transition: opacity .1s linear, none;
-    -o-transition: opacity .1s linear, none;
-    transition: opacity .1s linear, none;
-    top: 10%;
-}
-
-.modal.fade.in
-{
-	top: 10%;
-}
-
 .paper, .popover, .modal-content
 {
 	background: linear-gradient(white, hsl(0, 0%, 95%) 80px);
