@@ -19,6 +19,10 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 
 		this.$('a[title], button[title]').tooltip();
 
+		// enable table sorting
+
+		this.$('table.stories').tablesorter();
+
 		// enable popovers
 
 		this.$('button.addStory')

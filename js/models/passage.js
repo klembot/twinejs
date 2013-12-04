@@ -55,6 +55,13 @@ Passage = Backbone.Model.extend(
 				}
 			});
 		});
+		
+		this.on('change', function()
+		{
+			// set our parent story's update date
+
+			this.get('story').set('lastUpdate', new Date());
+		});
 	},
 
 	validate: function (attrs)

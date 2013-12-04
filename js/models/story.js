@@ -1,5 +1,6 @@
 /**
- A story contains many passages, and has a name, stylesheet, script, and zoom.
+ A story contains many passages, and has a name, stylesheet, script, zoom,
+ and last updated date.
 
  @class Story
  @extends Backbone.Model
@@ -15,6 +16,7 @@ Story = Backbone.Model.extend(
 		zoom: 1,
 		stylesheet: '',
 		script: '',
+		lastUpdate: new Date(),
 	},
 
 	template: _.template('<div data-role="twinestory" data-name="<%- storyName %>" ' +
@@ -58,6 +60,15 @@ Story = Backbone.Model.extend(
 						children[i].save({ story: self.id });
 				}
 			});
+		});
+
+		// any time we change, update our last updated date
+		// we *shouldn't* save ourselves here, since it may not
+		// be appropriate yet
+
+		this.on('change', function()
+		{
+			this.set('lastUpdate', new Date());
 		});
 	},
 
