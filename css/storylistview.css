@@ -41,9 +41,20 @@
 	visibility: visible;
 }
 
-#storyListView .stories th
+#storyListView table.stories th
 {
 	color: hsl(0, 0%, 60%);
+	cursor: pointer;
+}
+
+#storyListView table.stories th.tablesorter-headerAsc div:after
+{
+	content: " \25bC";
+}
+
+#storyListView table.stories th.tablesorter-headerDesc div:after
+{
+	content: " \25b2";
 }
 
 #storyListView .table.stories td
