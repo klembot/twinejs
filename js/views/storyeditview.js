@@ -201,7 +201,9 @@ StoryEditView = Marionette.CompositeView.extend(
 		for (var desc in this.ZOOM_MAPPINGS)
 			if (this.ZOOM_MAPPINGS[desc] == zoom)
 			{
-				this.$('radio.zoom' + desc).attr('checked', 'checked');
+				var radio = this.$('input.zoom' + desc[0].toUpperCase() + desc.substr(1));
+				radio.attr('checked', 'checked');
+				radio.closest('label').addClass('active');
 				this.$el.removeClass('zoom-small zoom-medium zoom-big').addClass('zoom-' + desc);
 			};
 		
