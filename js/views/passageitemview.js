@@ -13,32 +13,32 @@ PassageItemView = Marionette.ItemView.extend(
 
 	initialize: function (options)
 	{
-		this.model.on('change', this.render, this);
+		this.listenTo(this.model, 'change', this.render);
 		this.parentView = options.parentView;
-
-		// we have to bind zoom events manually
-		// because they are a custom event, not DOM-related
-
-		this.listenTo(this.parentView, 'zoom', this.positionEl);
+		this.listenTo(this.parentView, 'zoom', this.render);
 	},
 
 	onRender: function()
 	{
+		var zoom = this.parentView.model.get('zoom');
+
 		// have to set absolute positioning manually,
 		// or draggable() will manually apply absolute for us
 
 		this.$el
 		.attr('data-id', this.model.id)
-		.css({
+		.css(
+		{
 			position: 'absolute',
+			top: this.model.get('top') * zoom,
+			left: this.model.get('left') * zoom
 		})
-		.draggable({
+		.draggable(
+		{
 			cursor: 'move',
 			addClasses: false,
 			containment: 'parent'
 		});
-
-		this.positionEl();
 	},
 
 	serializeData: function()
@@ -48,32 +48,6 @@ PassageItemView = Marionette.ItemView.extend(
 		var data = this.model.toJSON();
 		data.excerpt = this.model.excerpt();
 		return data;
-	},
-
-	/**
-	 Positions the DOM element for this passage based on its
-	 top and left attributes, and taking into account the 
-	 parent view's zoom level.
-
-	 @method position
-	**/
-	
-	positionEl: function()
-	{
-		var zoom = this.parentView.model.get('zoom');
-
-		this.$el.css({
-			top: this.model.get('top') * zoom,
-			left: this.model.get('left') * zoom
-		});
-
-		/**
-		 Fired whenever the passage's position changes.
-
-		 @event move
-		**/
-
-		this.trigger('move');
 	},
 
 	/**
@@ -152,18 +126,21 @@ PassageItemView = Marionette.ItemView.extend(
 	
 		// set initial position based on the user's drag
 
-		this.model.set({
+		this.model.set(
+		{
 			top: ui.position.top / zoom,
 			left: ui.position.left / zoom	
 		});
 
 		// push the passage so it doesn't overlap any other
 		
-		app.mainRegion.currentView.positionPassage(this.model);	
+		this.parentView.positionPassage(this.model);	
 
 		// and finally save changes
+		// I don't get it, but we have to specify the attributes manually
+		// or this will save our pre-drag position
 
-		this.model.save();
+		this.model.save({ top: this.model.get('top'), left: this.model.get('left') });
 	},
 
 	events:
