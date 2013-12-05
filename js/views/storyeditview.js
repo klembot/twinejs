@@ -96,7 +96,7 @@ StoryEditView = Marionette.CompositeView.extend(
 			});
 		});
 
-		this.on('itemview:move', function (childView)
+		this.on('itemview:change', function (childView)
 		{
 			this.cachePassage(childView.model);
 		});
@@ -248,12 +248,30 @@ StoryEditView = Marionette.CompositeView.extend(
 	{
 		var offsetX = this.$('.passage:first').width() / 2;
 		var offsetY = this.$('.passage:first').height() / 2;
+		var untitledIndex = 0;
 
-		this.collection.create({
+		var passage = this.collection.create(
+		{
 			story: this.model.id,
 			top: ($(window).scrollTop() + $(window).height() / 2) - offsetY,
 			left: ($(window).scrollLeft() + $(window).width() / 2) - offsetX
 		});
+		
+		// catch dupe passage names
+
+		if (! passage.isValid())
+		{
+			var origName = passage.get('name');
+
+			do
+			{
+				passage.save({ name: origName + ' ' + (++untitledIndex) });
+			}
+			while (! passage.isValid() &&
+			       passage.validationError = Passage.DUPE_NAME_ERROR.replace('%s', origName + ' ' + untitledIndex));
+		};
+
+		console.log(passage);
 	},
 
 	/**
@@ -384,6 +402,7 @@ StoryEditView = Marionette.CompositeView.extend(
 
 		// configuration of arrowheads
 		
+		var drawArrows = (this.model.get('zoom') > 0.25);
         var arrowSize = Math.max(width / 8);
 		var arrowAngle = Math.PI / 6;
 
@@ -453,21 +472,27 @@ StoryEditView = Marionette.CompositeView.extend(
 
 				// line is now an array of two points: 0 is the start, 1 is the end
 
-				var arrow =
-				[
-					this.endPointProjectedFrom(line, arrowAngle, arrowSize),
-					this.endPointProjectedFrom(line, -arrowAngle, arrowSize)
-				];
+				var arrow;
+
+				if (drawArrows)
+					arrow =
+					[
+						this.endPointProjectedFrom(line, arrowAngle, arrowSize),
+						this.endPointProjectedFrom(line, -arrowAngle, arrowSize)
+					];
 
 				// draw it
 
 				gc.moveTo(line[0].x, line[0].y);
 				gc.lineTo(line[1].x, line[1].y);
 
-				gc.moveTo(line[1].x, line[1].y);
-				gc.lineTo(arrow[0].x, arrow[0].y);
-				gc.moveTo(line[1].x, line[1].y);
-				gc.lineTo(arrow[1].x, arrow[1].y);
+				if (drawArrows)
+				{
+					gc.moveTo(line[1].x, line[1].y);
+					gc.lineTo(arrow[0].x, arrow[0].y);
+					gc.moveTo(line[1].x, line[1].y);
+					gc.lineTo(arrow[1].x, arrow[1].y);
+				};
 
 				gc.closePath();
 				gc.stroke();
