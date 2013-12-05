@@ -22,6 +22,24 @@ Passage = Backbone.Model.extend(
 	**/ 
 	height: 100,
 
+	/**
+	 Error message for when a passage has no name, or an empty string
+	 for a name.
+
+	 @property {String} NO_NAME_ERROR
+	 @final
+	**/
+	NO_NAME_ERROR: 'You must give this passage a name.',
+
+	/**
+	 Error message for when a passage with the same name is created.
+	 %s is a placeholder for the passage's name.
+
+	 @property {String} DUPE_NAME_ERROR
+	 @final
+	**/
+	DUPE_NAME_ERROR: 'There is already a passage named "%s." Please give this one a unique name.',
+
 	defaults:
 	{
 		story: -1,
@@ -41,44 +59,50 @@ Passage = Backbone.Model.extend(
 
 		this.on('sync', function()
 		{
-			// if any stories are using this passage's cid
-			// as their start passage, update with a real id
-
 			window.app.stories.fetch(
 			{
 				success: function (stories)
 				{
-					var parents = stories.where({ startPassage: self.cid });
+					// if any stories are using this passage's cid
+					// as their start passage, update with a real id
 
-					for (var i = 0; i < parents.length; i++)
-						parents[i].save({ startPassage: self.id });
+					var starters = stories.where({ startPassage: self.cid });
+
+					for (var i = 0; i < starters.length; i++)
+						starters[i].save({ startPassage: self.id });
+
+					// update parent's last update date
+
+					var parent = stories.where({ id: self.get('story') })[0];
+					parent.save('lastUpdate', new Date());
 				}
 			});
-		});
-		
-		this.on('change', function()
-		{
-			// set our parent story's update date
-
-			this.get('story').set('lastUpdate', new Date());
 		});
 	},
 
 	validate: function (attrs)
 	{
 		if (! attrs.name || attrs.name == '')
-			return 'You must give this passage a name.';
+			return this.NO_NAME_ERROR;
 
-		var dupe = _.find(app.passages.where({ story: this.get('story') }),
-		function (passage)
+		var dupe;
+		var story = this.get('story');
+
+		window.app.passages.fetch(
 		{
-			return (attrs.id != passage.id &&
-			        attrs.name.toLowerCase() == passage.get('name').toLowerCase());
+			success: function()
+			{
+				dupe = _.find(window.app.passages.where({ story: story }),
+				function (passage)
+				{
+					return (attrs.id != passage.id &&
+							attrs.name.toLowerCase() == passage.get('name').toLowerCase());
+				});
+			}
 		});
 
 		if (dupe)
-			return 'There is already a passage named "' + dupe.get('name') +
-			       '." Please give this one a unique name.';
+			return this.DUPE_NAME_ERROR.replace('%s', dupe.get('name'));
 	},
 
 	/**
@@ -208,7 +232,7 @@ Passage = Backbone.Model.extend(
 		};
 		
 		// choose the option that moves the other passage the least
-		
+
 		if (Math.abs(xChange) > Math.abs(yChange))
 			other.set('top', oTop + yChange);
 		else
