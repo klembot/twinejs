@@ -211,6 +211,10 @@ StoryEditView = Marionette.CompositeView.extend(
 		**/
 
 	    this.trigger('zoom');
+
+		// all of our cached passage positions are now out of date
+
+		this.collection.each(this.cachePassage, this);
 	    this.drawLinks();
     },
 
