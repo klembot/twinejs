@@ -93,6 +93,7 @@ PassageItemView = Marionette.ItemView.extend(
 			// successful save;
 
 			$('#passageEditModal .alert').remove();
+			$('#passageEditModal .savePassage').off('click');
 			$('#passageEditModal').modal('hide');	
 		}
 		else
@@ -103,7 +104,7 @@ PassageItemView = Marionette.ItemView.extend(
 			
 			if (message.size() == 0)
 				message = $('<p class="alert alert-danger">')
-				.text(model.validationError)
+				.text(e.data.model.validationError)
 
 			$('#passageEditModal textarea').before(message);
 			message.hide().fadeIn();
