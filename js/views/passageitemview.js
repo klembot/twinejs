@@ -13,7 +13,7 @@ PassageItemView = Marionette.ItemView.extend(
 
 	initialize: function (options)
 	{
-		this.listenTo(this.model, 'change sync', this.render);
+		this.listenTo(this.model, 'change', this.render);
 		this.parentView = options.parentView;
 		this.listenTo(this.parentView, 'zoom', this.render);
 	},
