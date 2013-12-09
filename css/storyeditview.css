@@ -28,6 +28,36 @@
 	}
 }
 
+@keyframes disappear
+{
+	from
+	{
+		transform: scale(1, 1);
+		opacity: 1;
+	}
+
+	to
+	{
+		transform: scale(0, 0);
+		opacity: 0;
+	}
+}
+
+@-webkit-keyframes disappear
+{
+	from
+	{
+		-webkit-transform: scale(1, 1);
+		opacity: 1;
+	}
+
+	to
+	{
+		-webkit-transform: scale(0, 0);
+		opacity: 0;
+	}
+}
+
 #storyEditView .home
 {
 	position: fixed;
@@ -124,6 +154,12 @@
 {
 	animation: 0.4s appear;
 	-webkit-animation: 0.4s appear;
+}
+
+#storyEditView .passage.disappear
+{
+	animation: 0.4s disappear;
+	-webkit-animation: 0.4s disappear;
 }
 
 #storyEditView .passage:hover
