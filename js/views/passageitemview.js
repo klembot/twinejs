@@ -125,6 +125,17 @@ PassageItemView = Marionette.ItemView.extend(
 	},
 
 	/**
+	 Animates the view as if it were apppearing onscreen for the first time.
+
+	 @method appear
+	**/
+
+	appear: function()
+	{
+		this.$el.addClass('appear');
+	},
+
+	/**
 	 Performs all operations needed for the end of a drag of the DOM
 	 element, including updating the model.
 

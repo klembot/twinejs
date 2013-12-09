@@ -280,6 +280,7 @@ StoryEditView = Marionette.CompositeView.extend(
 
 		this.positionPassage(passage);
 		passage.save();
+		this.children.findByModel(passage).appear();
 	},
 
 	/**

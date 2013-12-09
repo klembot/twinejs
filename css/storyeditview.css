@@ -1,3 +1,33 @@
+@keyframes appear
+{
+	from
+	{
+		transform: scale(1.5, 1.5);
+		opacity: 0;
+	}
+
+	to
+	{
+		transform: scale(1, 1);
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes appear
+{
+	from
+	{
+		-webkit-transform: scale(1.5, 1.5);
+		opacity: 0;
+	}
+
+	to
+	{
+		-webkit-transform: scale(1, 1);
+		opacity: 1;
+	}
+}
+
 #storyEditView .home
 {
 	position: fixed;
@@ -88,6 +118,12 @@
 	padding: 10px;
 	border-radius: 10px;
 	color: hsla(0, 0%, 100%, 0.75);
+}
+
+#storyEditView .passage.appear
+{
+	animation: 0.4s appear;
+	-webkit-animation: 0.4s appear;
 }
 
 #storyEditView .passage:hover
