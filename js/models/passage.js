@@ -22,24 +22,6 @@ Passage = Backbone.Model.extend(
 	**/ 
 	height: 100,
 
-	/**
-	 Error message for when a passage has no name, or an empty string
-	 for a name.
-
-	 @property {String} NO_NAME_ERROR
-	 @final
-	**/
-	NO_NAME_ERROR: 'You must give this passage a name.',
-
-	/**
-	 Error message for when a passage with the same name is created.
-	 %s is a placeholder for the passage's name.
-
-	 @property {String} DUPE_NAME_ERROR
-	 @final
-	**/
-	DUPE_NAME_ERROR: 'There is already a passage named "%s." Please give this one a unique name.',
-
 	defaults:
 	{
 		story: -1,
@@ -83,7 +65,7 @@ Passage = Backbone.Model.extend(
 	validate: function (attrs)
 	{
 		if (! attrs.name || attrs.name == '')
-			return this.NO_NAME_ERROR;
+			return Passage.NO_NAME_ERROR;
 
 		var dupe;
 		var story = this.get('story');
@@ -102,7 +84,7 @@ Passage = Backbone.Model.extend(
 		});
 
 		if (dupe)
-			return this.DUPE_NAME_ERROR.replace('%s', dupe.get('name'));
+			return Passage.DUPE_NAME_ERROR.replace('%s', attrs.name);
 	},
 
 	/**
@@ -238,4 +220,25 @@ Passage = Backbone.Model.extend(
 		else
 			other.set('left', oLeft + xChange);
 	}
+},
+{
+	/**
+	 Error message for when a passage has no name, or an empty string
+	 for a name.
+
+	 @property {String} NO_NAME_ERROR
+	 @static
+	 @final
+	**/
+	NO_NAME_ERROR: 'You must give this passage a name.',
+
+	/**
+	 Error message for when a passage with the same name is created.
+	 %s is a placeholder for the passage's name.
+
+	 @property {String} DUPE_NAME_ERROR
+	 @static
+	 @final
+	**/
+	DUPE_NAME_ERROR: 'There is already a passage named "%s." Please give this one a unique name.'
 });
