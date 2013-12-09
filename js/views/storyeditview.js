@@ -274,9 +274,12 @@ StoryEditView = Marionette.CompositeView.extend(
 				passage.set({ name: origName + ' ' + (++untitledIndex) });
 			}
 			while (! passage.isValid() && passage.validationError == Passage.DUPE_NAME_ERROR.replace('%s', passage.get('name')));
-
-			passage.save();
 		};
+
+		// position the passage so it doesn't overlap any others
+
+		this.positionPassage(passage);
+		passage.save();
 	},
 
 	/**
