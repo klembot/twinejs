@@ -11,6 +11,17 @@ PassageItemView = Marionette.ItemView.extend(
 	template: '#templates .passageItemView',
 	className: 'passage',
 
+	/**
+	 If true, then any change in the model's position
+	 properties will be animated instead of immediately
+	 changed.
+
+	 @property animateMovement
+	 @type Boolean
+	**/
+
+	animateMovement: false,
+
 	initialize: function (options)
 	{
 		this.listenTo(this.model, 'change', this.render);
@@ -27,18 +38,19 @@ PassageItemView = Marionette.ItemView.extend(
 
 		this.$el
 		.attr('data-id', this.model.id)
-		.css(
-		{
-			position: 'absolute',
-			top: this.model.get('top') * zoom,
-			left: this.model.get('left') * zoom
-		})
+		.css('position', 'absolute')
 		.draggable(
 		{
 			cursor: 'move',
 			addClasses: false,
 			containment: 'parent'
 		});
+
+		this.$el.animate(
+		{
+			top: this.model.get('top') * zoom,
+			left: this.model.get('left') * zoom
+		}, this.animateMovement ? 100 : 0);
 	},
 
 	serializeData: function()
@@ -135,7 +147,9 @@ PassageItemView = Marionette.ItemView.extend(
 
 		// push the passage so it doesn't overlap any other
 		
+		this.animateMovement = true;
 		this.parentView.positionPassage(this.model);	
+		this.animateMovement = false;
 
 		// and finally save changes
 		// I don't get it, but we have to specify the attributes manually
