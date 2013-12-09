@@ -254,7 +254,6 @@ StoryEditView = Marionette.CompositeView.extend(
 	{
 		var offsetX = this.$('.passage:first').width() / 2;
 		var offsetY = this.$('.passage:first').height() / 2;
-		var untitledIndex = 0;
 
 		var passage = this.collection.create(
 		{
@@ -268,16 +267,16 @@ StoryEditView = Marionette.CompositeView.extend(
 		if (! passage.isValid())
 		{
 			var origName = passage.get('name');
+			var untitledIndex = 0;
 
 			do
 			{
-				passage.save({ name: origName + ' ' + (++untitledIndex) });
+				passage.set({ name: origName + ' ' + (++untitledIndex) });
 			}
-			while (! passage.isValid() &&
-			       passage.validationError = Passage.DUPE_NAME_ERROR.replace('%s', origName + ' ' + untitledIndex));
-		};
+			while (! passage.isValid() && passage.validationError == Passage.DUPE_NAME_ERROR.replace('%s', passage.get('name')));
 
-		console.log(passage);
+			passage.save();
+		};
 	},
 
 	/**
