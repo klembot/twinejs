@@ -317,7 +317,11 @@ StoryEditView = Marionette.CompositeView.extend(
 	{
 		this.$('#stylesheetModal .stylesheetSource').val(this.model.get('stylesheet'));
 		this.$('.storyProperties').popover('hide');
-		this.$('#stylesheetModal').modal('show');	
+		this.$('#stylesheetModal').modal(
+		{
+			keyboard: false,
+			backdrop: 'static'
+		});
 	},
 
 	/**
@@ -345,7 +349,10 @@ StoryEditView = Marionette.CompositeView.extend(
 	{
 		this.$('.scriptSource').val(this.model.get('script'));
 		this.$('.storyProperties').popover('hide');
-		this.$('#scriptModal').modal('show');	
+		this.$('#scriptModal').modal({
+			keyboard: false,
+			backdrop: 'static'
+		});	
 	},
 
 	/**

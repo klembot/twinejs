@@ -90,7 +90,11 @@ PassageItemView = Marionette.ItemView.extend(
 		$('#passageEditModal .passageName').val(this.model.get('name'));
 		$('#passageEditModal .passageText').val(this.model.get('text'));
 		$('#passageEditModal .savePassage').on('click', { model: this.model }, this.finishEdit);
-		$('#passageEditModal').modal('show');
+		$('#passageEditModal').modal(
+		{
+			keyboard: false,
+			backdrop: 'static'
+		});
 	},
 
 	/**
