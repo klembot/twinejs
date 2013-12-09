@@ -70,7 +70,12 @@ PassageItemView = Marionette.ItemView.extend(
 
 	delete: function()
 	{
-		this.model.destroy();
+		var model = this.model;
+
+		this.disappear(function()
+		{
+			model.destroy();
+		});
 	},
 
 	/**
@@ -128,11 +133,38 @@ PassageItemView = Marionette.ItemView.extend(
 	 Animates the view as if it were apppearing onscreen for the first time.
 
 	 @method appear
+	 @param {Function} callback Function to call when the animation is done.
 	**/
 
-	appear: function()
+	appear: function (callback)
 	{
+		if (callback)
+			this.$el.on('animationend webkitAnimationEnd MSAnimationEnd', function()
+			{
+				callback();
+				$(this).off('animationend webkitAnimationEnd MSAnimationEnd');
+			});
+
 		this.$el.addClass('appear');
+	},
+
+	/**
+	 Animates the view as if it were disappearing onscreen.
+
+	 @method disappear
+	 @param {Function} callback Function to call when the animation is done.
+	**/
+
+	disappear: function (callback)
+	{
+		if (callback)
+			this.$el.on('animationend webkitAnimationEnd MSAnimationEnd', function()
+			{
+				callback();
+				$(this).off('animationend webkitAnimationEnd MSAnimationEnd');
+			});
+
+		this.$el.addClass('disappear');
 	},
 
 	/**
