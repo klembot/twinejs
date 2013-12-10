@@ -292,7 +292,19 @@ StoryEditView = Marionette.CompositeView.extend(
 
 	play: function()
 	{
-		window.open('#stories/' + this.model.id + '/play', 'twinestory_' + this.model.id);
+		window.open('#stories/' + this.model.id + '/play', 'twinestory_play_' + this.model.id);
+	},
+
+	/**
+	 Opens a new tab with the proofing copy of this story. This
+	 will re-use the same tab for a particular story.
+
+	 @method proof
+	**/
+
+	proof: function()
+	{
+		window.open('#stories/' + this.model.id + '/proof', 'twinestory_proof_' + this.model.id);
 	},
 
 	/**
@@ -600,6 +612,7 @@ StoryEditView = Marionette.CompositeView.extend(
 
 		'click .addPassage': 'addPassage',
 		'click .playStory': 'play',
+		'click .proofStory': 'proof',
 		'click .publishStory': 'publish',
 		'click .editScript': 'editScript',
 
