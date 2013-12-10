@@ -53,6 +53,22 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 			self.$('.importStory').popover('hide');
 		});
 
+		// force popover content to hide completely
+		// otherwise, inputs would still steal focus --
+		// they were set at opacity 0 but display: block still
+
+		this.$el.on('hidden.bs.popover', function (e)
+		{
+			self.$('.popover').hide();
+		});
+
+		// force only one popover visible at a time
+
+		this.$el.on('show.bs.popover', function (e)
+		{
+			self.$('.pop').not(e.target).popover('hide');	
+		});
+
 		// delete popover is set up in StoryItemView
 	},
 
