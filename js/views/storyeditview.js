@@ -65,6 +65,11 @@ StoryEditView = Marionette.CompositeView.extend(
 					$(this).text(item.get('name'));
 			});
 		})
+		.on('change:top change:left', function (e)
+		{
+			console.log('passage moved', e);
+			self.resizeStorymap();
+		})
 		.on('change', function (item)
 		{
 			self.cachePassage(item);
@@ -134,10 +139,10 @@ StoryEditView = Marionette.CompositeView.extend(
 			menu.append($('<option value="' + item.id + '">' + item.get('name') + '</option>'));
 		});
 
-		// resize the canvas whenever the browser window resizes
+		// resize the story map whenever the browser window resizes
 
-		this.resizeCanvas();
-		$(window).on('resize', function() { self.resizeCanvas() });
+		this.resizeStorymap();
+		$(window).on('resize', function() { self.resizeStorymap() });
 
 		// sync the DOM zoom attributes with the model
 
@@ -215,7 +220,9 @@ StoryEditView = Marionette.CompositeView.extend(
 	    this.trigger('zoom');
 
 		// all of our cached passage positions are now out of date
+		// as is our window size
 
+		this.resizeStorymap();
 		this.collection.each(this.cachePassage, this);
 	    this.drawLinks();
     },
@@ -529,16 +536,44 @@ StoryEditView = Marionette.CompositeView.extend(
     },
 
 	/**
-	 Resizes the view's <canvas> element to match the size of the .passages div,
-	 e.g. so that lines can be drawn between passage DOM elements.
+	 This resizes the .passages div to either:
+		* the size of the browser window
+		* the minimum amount of space needed to enclose all existing passages
 
-	 @method resizeCanvas
+	 ... whichever is bigger, plus 75% of the browser window's width and height, so
+	 that there's always room for the story to expand.
+
+	 This then resizes the view's <canvas> element to match the size of the .passages div,
+	 so that lines can be drawn between passage DOM elements properly.
+
+	 @method resizeStorymap
 	**/
 
-	resizeCanvas: function()
+	resizeStorymap: function()
 	{
-		var width = $(document).width();
-		var height = $(document).height();
+		var winWidth = $(window).width();
+		var winHeight = $(window).height();
+		var zoom = this.model.get('zoom');
+		var width = winWidth;
+		var height = winHeight;
+
+		var rightPassage = this.collection.max(function (item)
+		{
+			return item.get('left');
+		});
+
+		var bottomPassage = this.collection.max(function (item)
+		{
+			return item.get('top');
+		});
+
+		var passagesWidth = zoom * (rightPassage.get('left') + Passage.width);
+		var passagesHeight = zoom * (bottomPassage.get('top') + Passage.height);
+		width = Math.max(passagesWidth, winWidth);
+		height = Math.max(passagesHeight, winHeight);
+
+		width += winWidth * 0.5;
+		height += winHeight * 0.5;
 
 		this.$('.passages').css(
 		{
