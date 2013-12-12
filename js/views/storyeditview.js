@@ -67,7 +67,6 @@ StoryEditView = Marionette.CompositeView.extend(
 		})
 		.on('change:top change:left', function (e)
 		{
-			console.log('passage moved', e);
 			self.resizeStorymap();
 		})
 		.on('change', function (item)
@@ -142,7 +141,7 @@ StoryEditView = Marionette.CompositeView.extend(
 		// resize the story map whenever the browser window resizes
 
 		this.resizeStorymap();
-		$(window).on('resize', function() { self.resizeStorymap() });
+		$(window).on('resize', _.debounce(function() { self.resizeStorymap() }, 500));
 
 		// sync the DOM zoom attributes with the model
 
