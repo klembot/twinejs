@@ -57,10 +57,11 @@
 	content: " \25b2";
 }
 
-#storyListView .table.stories td
+#storyListView .table.stories td > p
 {
 	font-size: 18px;
 	line-height: 30px;
+	margin: 0;
 }
 
 #storyListView footer
