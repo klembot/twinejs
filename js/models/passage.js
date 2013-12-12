@@ -7,20 +7,6 @@
 
 Passage = Backbone.Model.extend(
 {
-	/**
-	 The largest width a passage will have onscreen, in pixels.
-	 This is used by intersects() and displace().
-	 @property {Number} width
-	**/ 
-	
-	width: 100,
-
-	/**
-	 The largest height a passage will have onscreen, in pixels.
-	 This is used by intersects() and displace().
-	 @property {Number} height
-	**/ 
-	height: 100,
 
 	defaults:
 	{
@@ -152,10 +138,10 @@ Passage = Backbone.Model.extend(
 
 	intersects: function (other)
 	{
-		return (this.get('left') < other.get('left') + other.width &&
-		        this.get('left') + this.width > other.get('left') &&
-		        this.get('top') < other.get('top') + other.height &&
-				this.get('top') + this.height > other.get('top'));
+		return (this.get('left') < other.get('left') + Passage.width &&
+		        this.get('left') + Passage.width > other.get('left') &&
+		        this.get('top') < other.get('top') + Passage.height &&
+				this.get('top') + Passage.height > other.get('top'));
 	},
 
 	/**
@@ -170,13 +156,13 @@ Passage = Backbone.Model.extend(
 	displace: function (other)
 	{
 		var tLeft = this.get('left');
-		var tRight = tLeft + this.width;
+		var tRight = tLeft + Passage.width;
 		var tTop = this.get('top');
-		var tBottom = tTop + this.height;
+		var tBottom = tTop + Passage.height;
 		var oLeft = other.get('left');
-		var oRight = oLeft + other.width;
+		var oRight = oLeft + Passage.width;
 		var oTop = other.get('top');
-		var oBottom = oTop + other.height;
+		var oBottom = oTop + Passage.height;
 
 		// calculate overlap amounts
 		// this is cribbed from
@@ -222,6 +208,25 @@ Passage = Backbone.Model.extend(
 	}
 },
 {
+	/**
+	 The largest width a passage will have onscreen, in pixels.
+	 This is used by intersects() and displace().
+	 @property {Number} width
+	 @static
+	 @final
+	**/ 
+	
+	width: 100,
+
+	/**
+	 The largest height a passage will have onscreen, in pixels.
+	 This is used by intersects() and displace().
+	 @property {Number} height
+	 @static
+	 @final
+	**/ 
+	height: 100,
+
 	/**
 	 Error message for when a passage has no name, or an empty string
 	 for a name.
