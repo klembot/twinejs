@@ -98,6 +98,11 @@
 	right: 10px;
 }
 
+body.modal-open #storyEditView .toolbox
+{
+	right: 27px;
+}
+
 #storyEditView .toolbox p
 {
 	margin: 0;
