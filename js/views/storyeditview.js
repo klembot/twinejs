@@ -27,7 +27,7 @@ StoryEditView = Marionette.CompositeView.extend(
 	ZOOM_MAPPINGS:
 	{
 		big: 1,
-		medium: 0.5,
+		medium: 0.6,
 		small: 0.25
 	},
 
@@ -197,7 +197,7 @@ StoryEditView = Marionette.CompositeView.extend(
 				var radio = this.$('input.zoom' + desc[0].toUpperCase() + desc.substr(1));
 				radio.attr('checked', 'checked');
 				radio.closest('label').addClass('active');
-				this.$el.removeClass('zoom-small zoom-medium zoom-big').addClass('zoom-' + desc);
+				this.$el.add('body').removeClass('zoom-small zoom-medium zoom-big').addClass('zoom-' + desc);
 			};
 		
 		/**

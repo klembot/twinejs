@@ -250,6 +250,12 @@ body.modal-open #storyEditView .toolbox
 	color: hsla(0, 100%, 50%, 1);
 }
 
+body.zoom-medium
+{
+	background-image: url('../img/blueprint_medium.png');
+	background-position: 0 15px;
+}
+
 .zoom-medium #storyEditView .passage .frame
 {
 	width: 60px;
@@ -279,6 +285,12 @@ body.modal-open #storyEditView .toolbox
 .zoom-medium #storyEditView .passage .frame:after
 {
 	display: none;
+}
+
+body.zoom-small
+{
+	background-image: url('../img/blueprint_small.png');
+	background-position: 0 25px;
 }
 
 .zoom-small #storyEditView .passage .frame
