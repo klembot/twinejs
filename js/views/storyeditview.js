@@ -71,8 +71,6 @@ StoryEditView = Marionette.CompositeView.extend(
 		})
 		.listenTo(this.collection, 'add', function (item)
 		{
-			console.log('collection item added');
-
 			// set as starting passage if we only have one
 
 			if (this.collection.length == 1)
