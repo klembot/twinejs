@@ -612,6 +612,7 @@ StoryEditView = Marionette.CompositeView.extend(
 
     cachePassage: function (passage)
     {
+		var offset = this.$('.passages').offset();
 		var pos = this.$('.passages div[data-id="' + passage.id + '"] .frame').offset();
 
 	    // if the passage hasn't been rendered yet, there's nothing to cache yet
@@ -619,7 +620,7 @@ StoryEditView = Marionette.CompositeView.extend(
 	    if (pos)
 		    this.drawCache[passage.get('name')] =
 		    {
-			    position: pos,
+			    position: { left: pos.left - offset.left, top: pos.top - offset.top },
 			    links: passage.links()
 		    };
     },

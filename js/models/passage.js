@@ -138,10 +138,14 @@ Passage = Backbone.Model.extend(
 
 	intersects: function (other)
 	{
-		return (this.get('left') < other.get('left') + Passage.width &&
-		        this.get('left') + Passage.width > other.get('left') &&
-		        this.get('top') < other.get('top') + Passage.height &&
-				this.get('top') + Passage.height > other.get('top'));
+		var pP = Passage.padding;
+		var pW = Passage.width;
+		var pH = Passage.height;
+
+		return (this.get('left') - pP < other.get('left') + pW + pP &&
+		        this.get('left') + pW + pP > other.get('left') - pP &&
+		        this.get('top') - pP < other.get('top') + pH + pP &&
+				this.get('top') + pH + pP > other.get('top') - pP);
 	},
 
 	/**
@@ -155,14 +159,15 @@ Passage = Backbone.Model.extend(
 
 	displace: function (other)
 	{
-		var tLeft = this.get('left');
-		var tRight = tLeft + Passage.width;
-		var tTop = this.get('top');
-		var tBottom = tTop + Passage.height;
-		var oLeft = other.get('left');
-		var oRight = oLeft + Passage.width;
-		var oTop = other.get('top');
-		var oBottom = oTop + Passage.height;
+		var p = Passage.padding;
+		var tLeft = this.get('left') - p;
+		var tRight = tLeft + Passage.width + p * 2;
+		var tTop = this.get('top') - p;
+		var tBottom = tTop + Passage.height + p * 2;
+		var oLeft = other.get('left') - p;
+		var oRight = oLeft + Passage.width + p * 2;
+		var oTop = other.get('top') - p;
+		var oBottom = oTop + Passage.height + p * 2;
 
 		// calculate overlap amounts
 		// this is cribbed from
@@ -177,8 +182,8 @@ Passage = Backbone.Model.extend(
 
 		if (xOverlap != 0)
 		{
-			var leftMove = (oLeft - tLeft) + other.width;
-			var rightMove = tRight - oLeft;
+			var leftMove = (oLeft - tLeft) + Passage.width + p;
+			var rightMove = tRight - oLeft + p; 
 			
 			if (leftMove < rightMove)
 				xChange = - leftMove
@@ -190,8 +195,8 @@ Passage = Backbone.Model.extend(
 
 		if (yOverlap != 0)
 		{
-			var upMove = (oTop - tTop) + other.height;
-			var downMove = tBottom - oTop;
+			var upMove = (oTop - tTop) + Passage.height + p;
+			var downMove = tBottom - oTop + p;
 			
 			if (upMove < downMove)
 				yChange = - upMove;
@@ -211,6 +216,7 @@ Passage = Backbone.Model.extend(
 	/**
 	 The largest width a passage will have onscreen, in pixels.
 	 This is used by intersects() and displace().
+
 	 @property {Number} width
 	 @static
 	 @final
@@ -221,11 +227,22 @@ Passage = Backbone.Model.extend(
 	/**
 	 The largest height a passage will have onscreen, in pixels.
 	 This is used by intersects() and displace().
+
 	 @property {Number} height
 	 @static
 	 @final
 	**/ 
 	height: 100,
+
+	/**
+	 The amount of padding around a passage that should still trigger
+	 intersection. This is used by intersects() and displace().
+
+	 @property {Number} padding
+	 @static
+	 @final
+	**/
+	padding: 12.5,
 
 	/**
 	 Error message for when a passage has no name, or an empty string
