@@ -71,12 +71,12 @@ StoryEditView = Marionette.CompositeView.extend(
 		})
 		.listenTo(this.collection, 'add', function (item)
 		{
+			console.log('collection item added');
+
 			// set as starting passage if we only have one
 
 			if (this.collection.length == 1)
-			{
 				this.model.save({ startPassage: item.cid });
-			};
 
 			this.$('select.startPassage').append($('<option value="' + (item.id || item.cid) +
 												 '">' + item.get('name') + '</option>'));
@@ -252,7 +252,7 @@ StoryEditView = Marionette.CompositeView.extend(
 		var offsetX = this.$('.passage:first').width() / 2;
 		var offsetY = this.$('.passage:first').height() / 2;
 
-		var passage = this.collection.create(
+		var passage = new Passage(
 		{
 			story: this.model.id,
 			top: ($(window).scrollTop() + $(window).height() / 2) - offsetY,
@@ -275,6 +275,7 @@ StoryEditView = Marionette.CompositeView.extend(
 
 		// position the passage so it doesn't overlap any others
 
+		this.collection.add(passage);
 		this.positionPassage(passage);
 		passage.save();
 		this.children.findByModel(passage).appear();
