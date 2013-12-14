@@ -147,6 +147,11 @@ body.modal-open #storyEditView .toolbox
 	box-sizing: border-box;
 }
 
+#storyEditView .passages
+{
+	margin-top: 50px;
+}
+
 #storyEditView .passage
 {
 	position: absolute;
