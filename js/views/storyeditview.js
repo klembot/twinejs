@@ -33,7 +33,6 @@ StoryEditView = Marionette.CompositeView.extend(
 
 	initialize: function (options)
 	{
-		var self = this;
 		this.collection = new PassageCollection(app.passages.where({ story: this.model.id }));
 
 		/**
@@ -47,63 +46,55 @@ StoryEditView = Marionette.CompositeView.extend(
 
 		// keep story name in sync
 
-		this.model.on('change:name', function (model)
+		this.listenTo(this.model, 'change:name', function (model)
 		{
-			self.$('.storyName').text(model.get('name'));
+			this.$('.storyName').text(model.get('name'));
 		});
 
 		// keep start passage menu and draw cache in sync
 
-		this.collection
-		.on('change:name', function (item)
+		this.listenTo(this.collection, 'change:name', function (item)
 		{
-			delete self.drawCache[item.previous('name')];
+			delete this.drawCache[item.previous('name')];
 
-			self.$('select.startPassage option').each(function()
+			this.$('select.startPassage option').each(function()
 			{
 				if ($(this).val() == item.id || $(this).val() == item.cid)
 					$(this).text(item.get('name'));
 			});
 		})
-		.on('change:top change:left', function (e)
+		.listenTo(this.collection, 'change:top change:left', this.resizeStorymap)
+		.listenTo(this.collection, 'change', function (item)
 		{
-			self.resizeStorymap();
+			this.cachePassage(item);
+			this.drawLinks();
 		})
-		.on('change', function (item)
-		{
-			self.cachePassage(item);
-			self.drawLinks();
-		})
-		.on('add', function (item)
+		.listenTo(this.collection, 'add', function (item)
 		{
 			// set as starting passage if we only have one
 
-			if (self.collection.length == 1)
+			if (this.collection.length == 1)
 			{
-				self.model.save({ startPassage: item.cid });
+				this.model.save({ startPassage: item.cid });
 			};
 
-			self.$('select.startPassage').append($('<option value="' + (item.id || item.cid) +
+			this.$('select.startPassage').append($('<option value="' + (item.id || item.cid) +
 												 '">' + item.get('name') + '</option>'));
-			self.cachePassage(item);
-			self.drawLinks();
+			this.cachePassage(item);
+			this.drawLinks();
 		})
-		.on('remove', function (item)
+		.listenTo(this.collection, 'remove', function (item)
 		{
-			delete self.drawCache[item.get('name')];
-			self.drawLinks();
+			delete this.drawCache[item.get('name')];
+			this.drawLinks();
 
-			self.$('select.startPassage option').each(function()
+			this.$('select.startPassage option').each(function()
 			{
 				if ($(this).val() == item.id)
 					$(this).remove();
 			});
 		});
 
-		this.on('itemview:change', function (childView)
-		{
-			this.cachePassage(childView.model);
-		});
 	},
 
 	onRender: function()

@@ -13,8 +13,6 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 
 	onRender: function()
 	{
-		var self = this;
-
 		// enable tooltips
 
 		this.$('a[title], button[title]').tooltip();
@@ -38,8 +36,8 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 
 		this.$el.on('click', 'button.cancelAdd', function()
 		{
-			self.$('.addStory').popover('hide');
-		});
+			this.$('.addStory').popover('hide');
+		}, this);
 
 		this.$('button.importStory')
 		.popover({
@@ -50,8 +48,8 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 
 		this.$el.on('click', 'button.cancelImport', function()
 		{
-			self.$('.importStory').popover('hide');
-		});
+			this.$('.importStory').popover('hide');
+		}, this);
 
 		// force popover content to hide completely
 		// otherwise, inputs would still steal focus --
@@ -59,15 +57,15 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 
 		this.$el.on('hidden.bs.popover', function (e)
 		{
-			self.$('.popover').hide();
-		});
+			this.$('.popover').hide();
+		}, this);
 
 		// force only one popover visible at a time
 
 		this.$el.on('show.bs.popover', function (e)
 		{
-			self.$('.pop').not(e.target).popover('hide');	
-		});
+			this.$('.pop').not(e.target).popover('hide');	
+		}, this);
 
 		// delete popover is set up in StoryItemView
 	},
@@ -103,7 +101,7 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 	 @method importFile
 	**/
 
-	importFile: function()
+	importFile: function (e)
 	{
 		var self = this;
 		var reader = new FileReader();
@@ -128,13 +126,13 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 				}
 				else
 				{
-					className = 'alert-error';
+					className = 'alert-danger';
 					message = 'Sorry, no stories could be found in this file.';
 				}
 			}
 			catch (e)
 			{
-				className = 'alert-error';
+				className = 'alert-danger';
 				message = 'An error occurred while trying to import this file. (' + e.message + ')';
 			};
 
@@ -143,7 +141,7 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 									  message + '</p>');
 		};
 
-		reader.readAsText(this.$('input.importFile').files[0], 'UTF-8');
+		reader.readAsText(e.target.files[0], 'UTF-8');
 		this.$('.importStory').popover('hide');
 	},
 
