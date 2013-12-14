@@ -264,6 +264,7 @@ body.modal-open #storyEditView .toolbox
 	line-height: 120%;
 	text-align: center;
 	margin: 5px;
+	padding: 0;
 	height: 60px;
 	width: 60px;
 	display: table-cell;
