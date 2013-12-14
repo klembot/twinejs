@@ -32,6 +32,8 @@ PassageItemView = Marionette.ItemView.extend(
 	onRender: function()
 	{
 		var zoom = this.parentView.model.get('zoom');
+		var top = this.model.get('top') * zoom;
+		var left = this.model.get('left') * zoom;
 
 		// have to set absolute positioning manually,
 		// or draggable() will manually apply absolute for us
@@ -46,11 +48,10 @@ PassageItemView = Marionette.ItemView.extend(
 			containment: 'parent'
 		});
 
-		this.$el.animate(
-		{
-			top: this.model.get('top') * zoom,
-			left: this.model.get('left') * zoom
-		}, this.animateMovement ? 100 : 0);
+		if (this.animateMovement)
+			this.$el.animate({ left: left, top: top }, 100);
+		else
+			this.$el.css({ left: left, top: top });
 	},
 
 	serializeData: function()
@@ -203,6 +204,7 @@ PassageItemView = Marionette.ItemView.extend(
 		// or this will save our pre-drag position
 
 		this.model.save({ top: this.model.get('top'), left: this.model.get('left') });
+		console.log('endDrag complete');
 	},
 
 	events:
