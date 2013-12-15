@@ -593,7 +593,8 @@ StoryEditView = Marionette.CompositeView.extend(
 	},
 
 	/**
-	 Nudges a passage so that it does not overlap any other passage in the view.
+	 Nudges a passage so that it does not overlap any other passage in the view,
+	 and so that it snaps to the grid if that's set in the model.
 
 	 @method positionPassage
 	 @param {Passage} passage Passage to nudge.
@@ -601,6 +602,8 @@ StoryEditView = Marionette.CompositeView.extend(
 
 	positionPassage: function (passage)
 	{
+		// displace
+
 		this.collection.each(function (p)
 		{
 			if (p.id != passage.id && p.intersects(passage))
@@ -609,6 +612,31 @@ StoryEditView = Marionette.CompositeView.extend(
 				p.displace(passage);
 			};
 		});
+
+		// snap to grid
+
+		if (this.model.get('snapToGrid'))
+		{
+			var xMove, yMove;
+			var hGrid = Passage.width / 4;
+			var vGrid = Passage.height / 4;
+
+			var leftMove = passage.get('left') % hGrid;
+
+			if (leftMove < hGrid / 2)
+				xMove = - leftMove;
+			else
+				xMove = hGrid - leftMove;
+
+			var upMove = passage.get('top') % vGrid;
+
+			if (upMove < vGrid / 2)
+				yMove = - upMove;
+			else
+				yMove = vGrid - upMove;
+
+			passage.set({ left: passage.get('left') + xMove, top: passage.get('top') + yMove });
+		};
 	},
 
 	/**
