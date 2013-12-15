@@ -253,7 +253,7 @@ body.modal-open #storyEditView .toolbox
 body.zoom-medium
 {
 	background-image: url('../img/blueprint_medium.png');
-	background-position: 0 15px;
+	background-position: 10px 10px;
 }
 
 .zoom-medium #storyEditView .passage .frame
@@ -290,7 +290,7 @@ body.zoom-medium
 body.zoom-small
 {
 	background-image: url('../img/blueprint_small.png');
-	background-position: 0 25px;
+	background-position: -15px 10px;
 }
 
 .zoom-small #storyEditView .passage .frame
