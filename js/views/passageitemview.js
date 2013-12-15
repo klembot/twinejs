@@ -204,7 +204,6 @@ PassageItemView = Marionette.ItemView.extend(
 		// or this will save our pre-drag position
 
 		this.model.save({ top: this.model.get('top'), left: this.model.get('left') });
-		console.log('endDrag complete');
 	},
 
 	events:
