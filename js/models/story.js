@@ -14,6 +14,7 @@ Story = Backbone.Model.extend(
 		name: 'Untitled Story',
 		startPassage: -1,
 		zoom: 1,
+		snapToGrid: false,
 		stylesheet: '',
 		script: '',
 		lastUpdate: new Date(),

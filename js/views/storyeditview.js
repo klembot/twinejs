@@ -174,6 +174,19 @@ StoryEditView = Marionette.CompositeView.extend(
 	},
 
 	/**
+	 Changes the model's snap to grid setting.
+
+	 @method setSna
+	 @param {Boolean} snap Whether to snap to the grid or not.
+	**/
+
+	setSnap: function (snap)
+	{
+		this.model.save({ snapToGrid: snap });
+		this.$('.snapToGrid').prop('checked', snap);
+	},
+
+	/**
 	 Changes the model's zoom and updates the view accordingly.
 
 	 @method setZoom
@@ -651,6 +664,11 @@ StoryEditView = Marionette.CompositeView.extend(
 		'click .saveStylesheet': function (e)
 		{
 			this.setStylesheet(this.$('#stylesheetModal .stylesheetSource').val());
+		},
+
+		'change .snapToGrid': function (e)
+		{
+			this.setSnap($(e.target).prop('checked'));
 		},
 
 		'change .zoomBig, .zoomMedium, .zoomSmall': function (e)
