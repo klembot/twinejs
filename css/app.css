@@ -1,6 +1,6 @@
 body
 {
-	background: #24497e url("../img/blueprint_large.png");
+	background: #24497e url("../img/blueprint_large.png") 10px -15px;
 }
 
 #runtime
