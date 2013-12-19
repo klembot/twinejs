@@ -559,20 +559,28 @@ StoryEditView = Marionette.CompositeView.extend(
 		var width = winWidth;
 		var height = winHeight;
 
-		var rightPassage = this.collection.max(function (item)
+		if (this.collection.length > 0)
 		{
-			return item.get('left');
-		});
+			var rightPassage = this.collection.max(function (item)
+			{
+				return item.get('left');
+			});
 
-		var bottomPassage = this.collection.max(function (item)
+			var bottomPassage = this.collection.max(function (item)
+			{
+				return item.get('top');
+			});
+
+			var passagesWidth = zoom * (rightPassage.get('left') + Passage.width);
+			var passagesHeight = zoom * (bottomPassage.get('top') + Passage.height);
+			width = Math.max(passagesWidth, winWidth);
+			height = Math.max(passagesHeight, winHeight);
+		}
+		else
 		{
-			return item.get('top');
-		});
-
-		var passagesWidth = zoom * (rightPassage.get('left') + Passage.width);
-		var passagesHeight = zoom * (bottomPassage.get('top') + Passage.height);
-		width = Math.max(passagesWidth, winWidth);
-		height = Math.max(passagesHeight, winHeight);
+			width = winWidth;
+			height = winHeight;
+		};
 
 		width += winWidth * 0.5;
 		height += winHeight * 0.5;
