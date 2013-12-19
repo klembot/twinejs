@@ -14,6 +14,8 @@ StoryItemView = Marionette.ItemView.extend(
 
 	onRender: function()
 	{
+		var self = this;
+
 		this.$('a.confirmDelete')
 		.popover({
 			html: true,
@@ -24,7 +26,7 @@ StoryItemView = Marionette.ItemView.extend(
 		this.$el.on('click', 'button.cancelDelete', function()
 		{
 			self.$('a.confirmDelete').popover('hide');
-		}, this);
+		});
 	},
 
 	/**

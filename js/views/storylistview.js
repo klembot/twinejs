@@ -13,6 +13,8 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 
 	onRender: function()
 	{
+		var self = this;
+
 		// enable tooltips
 
 		this.$('a[title], button[title]').tooltip();
@@ -36,8 +38,8 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 
 		this.$el.on('click', 'button.cancelAdd', function()
 		{
-			this.$('.addStory').popover('hide');
-		}, this);
+			self.$('.addStory').popover('hide');
+		});
 
 		this.$('button.importStory')
 		.popover({
@@ -48,8 +50,8 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 
 		this.$el.on('click', 'button.cancelImport', function()
 		{
-			this.$('.importStory').popover('hide');
-		}, this);
+			self.$('.importStory').popover('hide');
+		});
 
 		// force popover content to hide completely
 		// otherwise, inputs would still steal focus --
@@ -57,15 +59,15 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 
 		this.$el.on('hidden.bs.popover', function (e)
 		{
-			this.$('.popover').hide();
-		}, this);
+			self.$('.popover').hide();
+		});
 
 		// force only one popover visible at a time
 
 		this.$el.on('show.bs.popover', function (e)
 		{
-			this.$('.pop').not(e.target).popover('hide');	
-		}, this);
+			self.$('.pop').not(e.target).popover('hide');	
+		});
 
 		// delete popover is set up in StoryItemView
 	},
