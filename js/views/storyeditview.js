@@ -92,6 +92,15 @@ StoryEditView = Marionette.CompositeView.extend(
 					$(this).remove();
 			});
 		});
+		
+		// init code mirror on CSS and JS editors
+		/*this.cssEditor = CodeMirror.fromTextArea($('textarea.stylesheetSource')[0], {
+			mode: 'text/css'
+		});
+		
+		this.jsEditor = CodeMirror.fromTextArea($('textarea.scriptSource')[0], {
+			mode: 'text/javascript'
+		});*/
 
 	},
 
@@ -336,13 +345,27 @@ StoryEditView = Marionette.CompositeView.extend(
 
 	editStylesheet: function()
 	{
-		this.$('#stylesheetModal .stylesheetSource').val(this.model.get('stylesheet'));
 		this.$('.storyProperties').popover('hide');
-		this.$('#stylesheetModal').modal(
+		
+		var stylesheetEditor = this.stylesheetEditor || CodeMirror.fromTextArea(this.$('#stylesheetModal .stylesheetSource')[0], {
+			lineWrapping: true,
+			lineNumbers: true,
+			mode: 'css'
+		});
+		
+		this.stylesheetEditor = stylesheetEditor;
+		this.stylesheetEditor.doc.setValue(this.model.get('stylesheet'));
+		
+		this.$('#stylesheetModal')
+		.off('shown.bs.modal')
+		.on('shown.bs.modal', function() {
+			stylesheetEditor.refresh();
+		})
+		.modal(
 		{
 			keyboard: false,
 			backdrop: 'static'
-		});
+		})
 	},
 
 	/**
@@ -356,7 +379,7 @@ StoryEditView = Marionette.CompositeView.extend(
 	setStylesheet: function (src)
 	{
 		this.model.save({ stylesheet: src });
-		this.$('#stylesheetModal').modal('hide');	
+		this.$('#stylesheetModal').modal('hide');
 	},
 
 	/**
@@ -368,12 +391,27 @@ StoryEditView = Marionette.CompositeView.extend(
 
 	editScript: function()
 	{
-		this.$('.scriptSource').val(this.model.get('script'));
 		this.$('.storyProperties').popover('hide');
-		this.$('#scriptModal').modal({
+		
+		var scriptEditor = this.scriptEditor || CodeMirror.fromTextArea(this.$('#scriptModal .scriptSource')[0], {
+			lineWrapping: true,
+			lineNumbers: true,
+			mode: 'javascript'
+		});
+		
+		this.scriptEditor = scriptEditor;
+		this.scriptEditor.doc.setValue(this.model.get('script'));
+		
+		this.$('#scriptModal')
+		.off('shown.bs.modal')
+		.on('shown.bs.modal', function() {
+			scriptEditor.refresh();
+		})
+		.modal(
+		{
 			keyboard: false,
 			backdrop: 'static'
-		});	
+		})	
 	},
 
 	/**
@@ -695,14 +733,14 @@ StoryEditView = Marionette.CompositeView.extend(
 
 		'click .saveScript': function (e)
 		{
-			this.setScript(this.$('.scriptSource').val());
+			this.setScript(this.scriptEditor.doc.getValue());
 		},
 
 		'click .editStylesheet': 'editStylesheet',
 
 		'click .saveStylesheet': function (e)
 		{
-			this.setStylesheet(this.$('#stylesheetModal .stylesheetSource').val());
+			this.setStylesheet(this.stylesheetEditor.doc.getValue());
 		},
 
 		'change .snapToGrid': function (e)
