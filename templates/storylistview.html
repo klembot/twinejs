@@ -1,0 +1,93 @@
+<div id="storyListView" class="paper shadow">
+
+<p>
+<img src="img/twine.png" width="172" height="50" alt="Twine">
+</p>
+
+<p class="topControls">
+<button class="addStory pop btn btn-success" title="Create a brand-new story">
+<i class="icon-plus"></i> Story
+</button>
+
+<button class="importStory pop btn btn-default" title="Import a published story or Twine archive">
+<i class="icon-upload-alt"></i> Import From File
+</button>
+</p>
+
+<table class="table stories">
+<thead>
+<tr>
+<th>
+Story
+</th>
+<th>Last Updated</th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+</tbody>
+</table>
+
+<footer>
+
+<div class="pull-left" style="padding-top: 15px">
+<a href="#"><i class="icon-question-sign"></i> Help</a>
+&middot;
+version 2pre1
+</div>
+
+<div class="pull-right">
+<button class="saveArchive btn btn-default navbar-btn">
+<i class="icon-briefcase"></i> Archive
+</button>
+</div>
+
+</footer>
+
+</div> <!-- #storyListView -->
+
+<div id="addStoryDialog" class="hide">
+<p>
+What should your story be named?
+(You can change this later.)
+</p>
+
+<p>
+<input class="newName" type="text">
+</p>
+
+<p>
+<button class="cancelAdd btn btn-default">Cancel</button>
+<button class="add btn btn-primary">Add</button>
+</p>
+
+</div> <!-- #addStoryDialog -->
+
+<div id="deleteStoryDialog" class="hide">
+<p>
+Are you sure you want to delete this story?
+This cannot be undone.
+</p>
+
+<p>
+<button class="cancelDelete btn btn-default">Cancel</button>
+<button class="delete btn btn-danger">Delete Forever</button>
+</p>
+
+</div> <!-- #deleteStoryDialog -->
+
+<div id="importStoryDialog" class="hide">
+<p>
+Import this file:
+</p>
+
+<p>
+<input class="importFile" type="file">
+</p>
+
+<p>
+<button class="cancelImport btn btn-default">Cancel</button>
+</p>
+
+</div> <!-- #importStoryDialog -->

@@ -1,0 +1,27 @@
+<td>
+<p>
+<a href="javascript:void(0)" class="edit"><%- name %></a>
+</p>
+</td>
+
+<td>
+<p>
+<%- new XDate(lastUpdate).toString('d MMMM yyyy, h:mm tt') %>
+</p>
+</td>
+
+<td class="controls">
+
+<a class="confirmDelete pop danger" title="Delete &ldquo;<%- name %>&rdquo;">
+<i class="icon-trash"></i>
+</a>
+
+<a class="edit" title="Edit &ldquo;<%- name %>&rdquo;">
+<i class="icon-pencil"></i>
+</a>
+
+<a class="play" title="Play &ldquo;<%- name %>&rdquo;">
+<i class="icon-play"></i>
+</a>
+
+</td>

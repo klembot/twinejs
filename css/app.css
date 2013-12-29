@@ -1,0 +1,25 @@
+body
+{
+	background: #24497e url("../img/blueprint_large.png") 10px -15px;
+}
+
+#runtime
+{
+	display: none;
+}
+
+.paper, .popover, .modal-content
+{
+	background: linear-gradient(white, hsl(0, 0%, 95%) 80px);
+	border-radius: 4px;
+}
+
+.popover .popover-title
+{
+	display: none;
+}
+
+.shadow
+{
+	box-shadow: 0 5px 10px hsl(0, 0%, 20%);
+}
