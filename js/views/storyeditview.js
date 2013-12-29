@@ -350,6 +350,8 @@ StoryEditView = Marionette.CompositeView.extend(
 		var stylesheetEditor = this.stylesheetEditor || CodeMirror.fromTextArea(this.$('#stylesheetModal .stylesheetSource')[0], {
 			lineWrapping: true,
 			lineNumbers: true,
+			tabSize: 2,
+			indentWithTabs: true,
 			mode: 'css'
 		});
 		
@@ -396,6 +398,8 @@ StoryEditView = Marionette.CompositeView.extend(
 		var scriptEditor = this.scriptEditor || CodeMirror.fromTextArea(this.$('#scriptModal .scriptSource')[0], {
 			lineWrapping: true,
 			lineNumbers: true,
+			tabSize: 2,
+			indentWithTabs: true,
 			mode: 'javascript'
 		});
 		

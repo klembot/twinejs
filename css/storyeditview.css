@@ -372,6 +372,7 @@ body.zoom-small
 .editModal .textareaContainer
 {
 	position: absolute;
+	overflow-y: auto;
 	top: 30px;
 	left: 20px;
 	right: 20px;
@@ -414,4 +415,9 @@ body.zoom-small
 #passageEditModal input.passageName
 {
 	font-size: 24px;
+}
+
+.CodeMirror
+{
+	height: auto;
 }
