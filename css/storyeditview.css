@@ -1,0 +1,417 @@
+@keyframes appear
+{
+	from
+	{
+		transform: scale(1.5, 1.5);
+		opacity: 0;
+	}
+
+	to
+	{
+		transform: scale(1, 1);
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes appear
+{
+	from
+	{
+		-webkit-transform: scale(1.5, 1.5);
+		opacity: 0;
+	}
+
+	to
+	{
+		-webkit-transform: scale(1, 1);
+		opacity: 1;
+	}
+}
+
+@keyframes disappear
+{
+	from
+	{
+		transform: scale(1, 1);
+		opacity: 1;
+	}
+
+	to
+	{
+		transform: scale(0, 0);
+		opacity: 0;
+	}
+}
+
+@-webkit-keyframes disappear
+{
+	from
+	{
+		-webkit-transform: scale(1, 1);
+		opacity: 1;
+	}
+
+	to
+	{
+		-webkit-transform: scale(0, 0);
+		opacity: 0;
+	}
+}
+
+#storyEditView .home
+{
+	position: fixed;
+	top: 10px;
+	left: 10px;
+	width: 40px;
+}
+
+#storyEditView .home a
+{
+	display: block;
+	text-align: center;
+
+	font-size: 30px;
+	color: hsla(0, 0%, 100%, 0.4);
+	text-decoration: none;
+}
+
+#storyEditView .home a:hover
+{
+	color: white;
+}
+
+#storyEditView h4.storyName
+{
+	position: fixed;
+	top: 22px;
+	left: 60px;
+	height: 40px;
+	margin-top: 0px;
+	color: hsla(0, 0%, 100%, 0.75);
+}
+
+#storyEditView .toolbox
+{
+	position: fixed;
+	top: 11px;
+	right: 10px;
+}
+
+body.modal-open #storyEditView .toolbox
+{
+	right: 27px;
+}
+
+#storyEditView .toolbox p
+{
+	margin: 0;
+}
+
+#storyEditView .toolbox .btn
+{
+	padding: 8px 16px;
+	margin-top: -1px;
+}
+
+#storyEditView .toolbox p:first-child .btn
+{
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+#storyEditView .toolbox div:last-child .btn
+{
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+#storyEditView .toolbox p:not(:first-child) .btn
+{
+	border-radius: 0;
+}
+
+#storyEditView .toolbox .full
+{
+	width: 100%;
+}
+
+#storyEditView .toolbox .full .dropdown-default
+{
+	width: 98px;
+	box-sizing: border-box;
+}
+
+#storyEditView .toolbox .full .dropdown-toggle
+{
+	box-sizing: border-box;
+}
+
+#storyEditView .passages
+{
+	margin-top: 50px;
+}
+
+#storyEditView .passage
+{
+	position: absolute;
+	padding: 10px;
+	border-radius: 10px;
+	color: hsla(0, 0%, 100%, 0.75);
+}
+
+#storyEditView .passage.appear
+{
+	animation: 0.4s appear;
+	-webkit-animation: 0.4s appear;
+}
+
+#storyEditView .passage.disappear
+{
+	animation: 0.4s disappear;
+	-webkit-animation: 0.4s disappear;
+}
+
+#storyEditView .passage:hover
+{
+	background-color: hsla(0, 0%, 0%, 0.25);
+}
+
+#storyEditView .passage .frame
+{
+	border: 1px solid hsla(0, 0%, 100%, 0.75);
+	box-shadow: 0 0 2px hsla(0, 0%, 100%, 0.75), inset 0 0 2px hsla(0, 0%, 100%, 0.75);
+
+	width: 100px;
+	height: 100px;
+	overflow: hidden;
+	position: relative;
+}
+
+#storyEditView .passage .frame:after
+{
+	content: '';
+	display: block;
+	width: 100px;
+	height: 1px;
+	position: absolute;
+	top: 22px;
+	left: 0;
+	background-color: hsla(0, 0%, 100%, 0.75);
+	box-shadow: 0 0 1px hsla(0, 0%, 100%, 0.75), inset 0 0 1px hsla(0, 0%, 100%, 0.75);
+}
+
+#storyEditView .passage .title
+{
+	font-size: 11px;
+	line-height: 15px;
+	padding: 4px 4px 0 4px;
+	height: 24px;
+	overflow: hidden;
+	margin-bottom: 0;
+}
+
+#storyEditView .passage .excerpt
+{
+	font-size: 10px;
+	line-height: 14px;
+	padding: 4px;
+}
+
+#storyEditView .passage .controls
+{
+	display: none;
+	text-align: right;
+	font-size: 18px;
+}
+
+#storyEditView .passage:hover .controls
+{
+	display: block;
+	margin: 0;
+	padding: 0;
+}
+
+#storyEditView .passage .controls a
+{
+	display: inline-block;
+	padding: 5px 3px 0 3px;
+	color: hsla(0, 0%, 100%, 0.5);
+	text-decoration: none;
+}
+
+#storyEditView .passage .controls a:hover
+{
+	color: white;
+}
+
+#storyEditView .passage .controls a.danger:hover
+{
+	color: hsla(0, 100%, 50%, 1);
+}
+
+body.zoom-medium
+{
+	background-image: url('../img/blueprint_medium.png');
+	background-position: 10px 10px;
+}
+
+.zoom-medium #storyEditView .passage .frame
+{
+	width: 60px;
+	height: 60px;
+}
+
+.zoom-medium #storyEditView .passage .title
+{
+	border-bottom: none;
+	font-size: 0.8em;
+	font-weight: normal;
+	line-height: 120%;
+	text-align: center;
+	margin: 5px;
+	padding: 0;
+	height: 60px;
+	width: 60px;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.zoom-medium #storyEditView .passage .excerpt
+{
+	display: none;
+}
+
+.zoom-medium #storyEditView .passage .frame:after
+{
+	display: none;
+}
+
+body.zoom-small
+{
+	background-image: url('../img/blueprint_small.png');
+	background-position: -15px 10px;
+}
+
+.zoom-small #storyEditView .passage .frame
+{
+	width: 25px;
+	height: 25px;
+}
+
+.zoom-small #storyEditView .passage .title, .zoom-small #storyEditView .passage .excerpt
+{
+	display: none;
+}
+
+.editModal .modal-dialog
+{
+	position: fixed;
+	width: 80%;
+	left: 10%;
+	top: 10px;
+	bottom: 0;
+	margin: 0;
+	padding: 0;
+	overflow: auto;
+}
+
+.editModal .save
+{
+	float: right;
+}
+
+.editModal.modal.fade .modal-dialog
+{
+	-ms-transform: translate(0, 10%);
+	-o-transform: translate(0, 10%);
+	-webkit-transform: translate(0, 10%);
+	transform: translate(0, 10%);
+}
+
+.editModal.modal.in .modal-dialog
+{
+	-ms-transform: translate(0, 0);
+	-o-transform: translate(0, 0);
+	-webkit-transform: translate(0, 0);
+	transform: translate(0, 0);
+}
+
+.editModal .modal-content
+{
+	height: 100%;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.editModal .modal-header
+{
+	border: none;
+}
+
+.editModal .modal-body
+{
+	position: absolute;
+	top: 40px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.editModal .modal-header h3
+{
+	margin-top: 6px;
+}
+
+.editModal input[type="text"], textarea
+{
+	font: 16px Cousine;
+	line-height: 145%;
+}
+
+.editModal .textareaContainer
+{
+	position: absolute;
+	top: 30px;
+	left: 20px;
+	right: 20px;
+	bottom: 50px;
+}
+
+.editModal .alert + .textareaContainer
+{
+	top: 80px;
+}
+
+.editModal textarea
+{
+	width: 100%;
+	height: 100%;
+	border: none;
+	background: none;
+	padding: 6px;
+	box-sizing: border-box;
+	resize: none;
+	outline: none;
+}
+
+.editModal textarea:hover
+{
+	background-color: white;
+	box-shadow: inset 0 0 10px rgb(243, 243, 243);
+}
+
+#passageEditModal input[type="text"]
+{
+	background: none;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-bottom: 1px dotted hsl(0, 0%, 75%);
+	width: 80%;
+}
+
+#passageEditModal input.passageName
+{
+	font-size: 24px;
+}
