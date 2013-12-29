@@ -645,6 +645,9 @@ StoryEditView = Marionette.CompositeView.extend(
 
 			passage.set({ left: passage.get('left') + xMove, top: passage.get('top') + yMove });
 		};
+		
+		//Redraw the links
+		this.drawLinks();
 	},
 
 	/**
