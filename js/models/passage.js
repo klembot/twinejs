@@ -1,6 +1,6 @@
 /**
  A single node in a story.
- 
+
  @class Passage
  @extends Backbone.Model
 **/
@@ -105,7 +105,7 @@ Passage = Backbone.Model.extend(
 
 		if (matches)
 			for (var i = 0; i < matches.length; i++)
-				result.push(matches[i].replace(/[\[\]]/g, '').replace(/\|.*/, ''));
+				result.push(matches[i].replace(/[\[\]]/g, '').replace(/.*\|/, ''));
 
 		return result;
 	},
@@ -183,27 +183,27 @@ Passage = Backbone.Model.extend(
 		if (xOverlap != 0)
 		{
 			var leftMove = (oLeft - tLeft) + Passage.width + p;
-			var rightMove = tRight - oLeft + p; 
-			
+			var rightMove = tRight - oLeft + p;
+
 			if (leftMove < rightMove)
 				xChange = - leftMove
 			else
 				xChange = rightMove;
 		};
-		
+
 		// resolve vertical overlap
 
 		if (yOverlap != 0)
 		{
 			var upMove = (oTop - tTop) + Passage.height + p;
 			var downMove = tBottom - oTop + p;
-			
+
 			if (upMove < downMove)
 				yChange = - upMove;
 			else
 				yChange = downMove;
 		};
-		
+
 		// choose the option that moves the other passage the least
 
 		if (Math.abs(xChange) > Math.abs(yChange))
@@ -220,8 +220,8 @@ Passage = Backbone.Model.extend(
 	 @property {Number} width
 	 @static
 	 @final
-	**/ 
-	
+	**/
+
 	width: 100,
 
 	/**
@@ -231,7 +231,7 @@ Passage = Backbone.Model.extend(
 	 @property {Number} height
 	 @static
 	 @final
-	**/ 
+	**/
 	height: 100,
 
 	/**
