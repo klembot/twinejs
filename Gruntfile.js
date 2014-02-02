@@ -47,6 +47,7 @@ module.exports = function (grunt)
 				files:
 				[
 					{ expand: true, src: ['img/*.png'], dest: 'dist/rsrc/' },
+					{ expand: true, cwd: 'font', src: ['*'], dest: 'dist/rsrc/font/' },
 					{ expand: true, cwd: 'lib/fontawesome/font', src: ['*'], dest: 'dist/rsrc/font/' }
 				]
 			}
