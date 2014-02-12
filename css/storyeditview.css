@@ -94,6 +94,7 @@
 #storyEditView .toolbox
 {
 	position: fixed;
+	z-index: 1;
 	top: 11px;
 	right: 10px;
 }
@@ -150,6 +151,7 @@ body.modal-open #storyEditView .toolbox
 #storyEditView .passages
 {
 	margin-top: 50px;
+	position: relative;
 }
 
 #storyEditView .passage
