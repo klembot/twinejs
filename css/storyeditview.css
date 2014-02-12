@@ -417,3 +417,14 @@ body.zoom-small
 {
 	font-size: 24px;
 }
+
+#storyEditView .popover
+{
+	max-width: 350px;
+	width: 350px !important;
+}
+
+#storyEditView .popover .col-md-6 button
+{
+	width: 100%;
+}
