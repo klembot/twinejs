@@ -118,6 +118,14 @@ StoryEditView = Marionette.CompositeView.extend(
 			$('.popover input.storyName').val(self.model.get('name'));
 		});
 
+		// we hide the popover on any click elsewhere
+
+		$('body').on('click', function (e)
+		{
+			if ($(e.target).closest('.popover, .storyProperties').length == 0)
+				$('.storyProperties').popover('hide');
+		});
+
 		// build the initial start passage menu
 
 		var menu = this.$('#startPassage');
