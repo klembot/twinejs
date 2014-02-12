@@ -143,6 +143,7 @@ StoryEditView = Marionette.CompositeView.extend(
 		// sync the DOM zoom attributes with the model
 
 		this.setZoom();
+		this.setSnap();
 
 		// automatically focus textareas on edit modals when they are shown
 
@@ -184,14 +185,22 @@ StoryEditView = Marionette.CompositeView.extend(
 	/**
 	 Changes the model's snap to grid setting.
 
-	 @method setSna
+	 @method setSnap
 	 @param {Boolean} snap Whether to snap to the grid or not.
+	                       If omitted, then this simply updates the view.
 	**/
 
 	setSnap: function (snap)
 	{
-		this.model.save({ snapToGrid: snap });
-		this.$('.snapToGrid').prop('checked', snap);
+		if (snap)
+			this.model.save({ snapToGrid: snap });
+		else
+			snap = this.model.get('snap');
+
+		if (snap)
+			this.$('.snapToGrid').attr('checked', true);
+		else
+			this.$('.snapToGrid').removeAttr('checked');
 	},
 
 	/**
