@@ -96,6 +96,8 @@ PassageItemView = Marionette.ItemView.extend(
 			keyboard: false,
 			backdrop: 'static'
 		});
+
+		$('body').on('keyup', this.handleShortcuts);
 	},
 
 	/**
@@ -117,6 +119,7 @@ PassageItemView = Marionette.ItemView.extend(
 			$('#passageEditModal .alert').remove();
 			$('#passageEditModal .savePassage').off('click');
 			$('#passageEditModal').modal('hide');	
+			$('body').off('keyup', this.handleShortcuts);
 		}
 		else
 		{
@@ -170,6 +173,22 @@ PassageItemView = Marionette.ItemView.extend(
 			});
 
 		this.$el.addClass('disappear');
+	},
+
+	/**
+	 Listens for the Escape key during editing of a passage, simulating a
+	 click of the Done button.
+
+	 @method handleShortcuts
+	 @param {Object} event Standard jQuery event object.
+	**/
+
+	handleShortcuts: function (event)
+	{
+		// escape key
+
+		if (event.keyCode == 27)
+			$('#passageEditModal .savePassage').click();
 	},
 
 	/**
