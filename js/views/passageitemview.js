@@ -54,7 +54,7 @@ PassageItemView = Marionette.ItemView.extend(
 		var broken = false;
 
 		for (var i = 0; i < links.length; i++)
-			if (! this.parentView.drawCache[links[i]])
+			if (! this.parentView.collection.findWhere({ name: links[i] }))
 			{
 				this.$el.addClass('brokenLink');
 				broken = true;
