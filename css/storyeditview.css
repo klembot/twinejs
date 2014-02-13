@@ -190,6 +190,11 @@ body.modal-open #storyEditView .toolbox
 	position: relative;
 }
 
+#storyEditView .passage.brokenLink .frame
+{
+	background-color: hsla(0, 100%, 60%, 0.5);
+}
+
 #storyEditView .passage .frame:after
 {
 	content: '';
