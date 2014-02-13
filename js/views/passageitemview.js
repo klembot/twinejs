@@ -111,7 +111,11 @@ PassageItemView = Marionette.ItemView.extend(
 
 		$('#passageEditModal .passageId').val(this.model.id);
 		$('#passageEditModal .passageName').val(this.model.get('name'));
-		$('#passageEditModal .passageText').val(this.model.get('text'));
+
+		// don't prepopulate textarea if all we have is default text
+
+		var text = this.model.get('text');
+		$('#passageEditModal .passageText').val((text == Passage.prototype.defaults.text) ? '' : text);
 		$('#passageEditModal .savePassage').on('click', { view: this }, this.finishEdit);
 		$('#passageEditModal').modal(
 		{
