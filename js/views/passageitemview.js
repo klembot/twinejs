@@ -53,16 +53,13 @@ PassageItemView = Marionette.ItemView.extend(
 		var links = this.model.links();
 		var broken = false;
 
-		for (var i = 0; i < links.length; i++)
-			if (! this.parentView.collection.findWhere({ name: links[i] }))
-			{
-				this.$el.addClass('brokenLink');
-				broken = true;
-				break;
-			};
-
-		if (! broken)
+		if (_.every(this.model.links(), function (link)
+		{
+			return this.parentView.collection.findWhere({ name: link });
+		}, this))
 			this.$el.removeClass('brokenLink');
+		else
+			this.$el.addClass('brokenLink');
 
 		if (this.animateMovement)
 			this.$el.animate({ left: left, top: top }, 100);
@@ -103,10 +100,19 @@ PassageItemView = Marionette.ItemView.extend(
 
 	edit: function()
 	{
+		// remember current set of broken links 
+		// so if the user adds one during editing, we'll
+		// create a passage for them
+
+		this.oldBrokenLinks = _.filter(this.model.links(), function (link)
+		{
+			return this.parentView.collection.findWhere({ name: link });
+		}, this);
+
 		$('#passageEditModal .passageId').val(this.model.id);
 		$('#passageEditModal .passageName').val(this.model.get('name'));
 		$('#passageEditModal .passageText').val(this.model.get('text'));
-		$('#passageEditModal .savePassage').on('click', { model: this.model }, this.finishEdit);
+		$('#passageEditModal .savePassage').on('click', { view: this }, this.finishEdit);
 		$('#passageEditModal').modal(
 		{
 			keyboard: false,
@@ -124,18 +130,44 @@ PassageItemView = Marionette.ItemView.extend(
 	
 	finishEdit: function (e)
 	{
-		if (e.data.model.save(
+		var view = e.data.view;
+
+		if (view.model.save(
 		{
 			name: $('#passageEditModal .passageName').val(),
 			text: $('#passageEditModal .passageText').val()
 		}))
 		{
-			// successful save;
+			// successful save
+			// create passages for new broken links
+
+			var newTop = view.model.get('top') + Passage.height * 1.5;
+			var newLeft = view.model.get('left');
+
+			_.each(view.model.links(), function (link)
+			{
+				if (! view.parentView.collection.findWhere({ name: link }) &&
+					view.oldBrokenLinks.indexOf(link) == -1)
+				{
+					var passage = new Passage(
+					{
+						story: view.model.get('story'),
+						name: link,
+						top: newTop,
+						left: newLeft
+					});
+
+					view.parentView.collection.add(passage);
+					view.parentView.positionPassage(passage);
+					passage.save();
+					view.parentView.children.findByModel(passage).appear();
+					newLeft += Passage.width * 1.5;
+				};
+			});
 
 			$('#passageEditModal .alert').remove();
 			$('#passageEditModal .savePassage').off('click');
 			$('#passageEditModal').modal('hide');	
-			$('body').off('keyup', this.handleShortcuts);
 		}
 		else
 		{
@@ -145,7 +177,7 @@ PassageItemView = Marionette.ItemView.extend(
 			
 			if (message.size() == 0)
 				message = $('<p class="alert alert-danger">')
-				.text(e.data.model.validationError)
+				.text(e.data.model.validationError);
 
 			$('#passageEditModal textarea').before(message);
 			message.hide().fadeIn();
