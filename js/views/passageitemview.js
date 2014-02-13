@@ -48,6 +48,22 @@ PassageItemView = Marionette.ItemView.extend(
 			containment: 'parent'
 		});
 
+		// set CSS class for broken links
+
+		var links = this.model.links();
+		var broken = false;
+
+		for (var i = 0; i < links.length; i++)
+			if (! this.parentView.drawCache[links[i]])
+			{
+				this.$el.addClass('brokenLink');
+				broken = true;
+				break;
+			};
+
+		if (! broken)
+			this.$el.removeClass('brokenLink');
+
 		if (this.animateMovement)
 			this.$el.animate({ left: left, top: top }, 100);
 		else
