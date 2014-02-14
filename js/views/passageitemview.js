@@ -106,7 +106,7 @@ PassageItemView = Marionette.ItemView.extend(
 
 		this.oldBrokenLinks = _.filter(this.model.links(), function (link)
 		{
-			return this.parentView.collection.findWhere({ name: link });
+			return ! this.parentView.collection.findWhere({ name: link });
 		}, this);
 
 		$('#passageEditModal .passageId').val(this.model.id);
