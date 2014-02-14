@@ -67,6 +67,25 @@ StoryEditView = Marionette.CompositeView.extend(
 		.listenTo(this.collection, 'change', function (item)
 		{
 			this.cachePassage(item);
+
+			// any passage that links or linked to this one
+			// needs to be re-rendered
+
+			var oldName = item.previous('name');
+			var newName = item.get('name');
+
+			this.collection.each(function (item)
+			{
+				_.some(item.links(), function (link)
+				{
+					if (link == oldName || link == newName)
+					{
+						this.children.findByModel(item).render();
+						return true;
+					};
+				}, this);
+			}, this);
+
 			this.drawLinks();
 		})
 		.listenTo(this.collection, 'add', function (item)
@@ -83,7 +102,9 @@ StoryEditView = Marionette.CompositeView.extend(
 		})
 		.listenTo(this.collection, 'remove', function (item)
 		{
-			delete this.drawCache[item.get('name')];
+			var name = item.get('name');
+
+			delete this.drawCache[name];
 			this.drawLinks();
 
 			this.$('select.startPassage option').each(function()
@@ -91,6 +112,21 @@ StoryEditView = Marionette.CompositeView.extend(
 				if ($(this).val() == item.id)
 					$(this).remove();
 			});
+
+			// any passage that links or linked to this one
+			// needs to be re-rendered
+
+			this.collection.each(function (item)
+			{
+				_.some(item.links(), function (link)
+				{
+					if (link == name)
+					{
+						this.children.findByModel(item).render();
+						return true;
+					};
+				}, this);
+			}, this);
 		});
 
 	},
@@ -661,8 +697,10 @@ StoryEditView = Marionette.CompositeView.extend(
 			passage.set({ left: passage.get('left') + xMove, top: passage.get('top') + yMove });
 		};
 		
-		//Redraw the links
-		this.drawLinks();
+		// redraw the links
+
+		var self = this;
+		window.setTimeout(function() { self.drawLinks() }, 100);
 	},
 
 	/**
