@@ -370,10 +370,11 @@ body.zoom-small
 	margin-top: 6px;
 }
 
-.editModal input[type="text"], textarea
+.editModal input[type="text"], textarea, .CodeMirror
 {
 	font: 16px Cousine;
 	line-height: 145%;
+	background: inherit;
 }
 
 .editModal .textareaContainer
@@ -391,7 +392,7 @@ body.zoom-small
 	top: 80px;
 }
 
-.editModal textarea
+.editModal textarea, .editModal .CodeMirror
 {
 	width: 100%;
 	height: 100%;
@@ -403,7 +404,7 @@ body.zoom-small
 	outline: none;
 }
 
-.editModal textarea:hover
+.editModal textarea:hover, .CodeMirror:hover
 {
 	background-color: white;
 	box-shadow: inset 0 0 10px rgb(243, 243, 243);
