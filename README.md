@@ -1,7 +1,7 @@
 twinejs
 -------
 
-by Chris Klimas, Leon Arnott, and Ingrid Cheung
+by Chris Klimas, Leon Arnott, Ingrid Cheung, and Ross Smith
 
 ### SYNOPSIS
 
