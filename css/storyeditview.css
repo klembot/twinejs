@@ -229,7 +229,7 @@ body.modal-open #storyEditView .toolbox
 {
 	display: none;
 	text-align: right;
-	font-size: 18px;
+	font-size: 22px;
 }
 
 #storyEditView .passage:hover .controls
