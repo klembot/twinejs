@@ -16,6 +16,11 @@ TwineRouter = Backbone.Router.extend(
 {
 	routes:
 	{
+		'welcome': function()
+		{
+			window.app.mainRegion.show(new WelcomeView());
+		},
+
 		'stories': function()
 		{
 			// list of all stories
