@@ -33,6 +33,8 @@ StoryEditView = Marionette.CompositeView.extend(
 
 	initialize: function (options)
 	{
+		var self = this;
+
 		this.collection = new PassageCollection(app.passages.where({ story: this.model.id }));
 
 		/**
@@ -45,11 +47,10 @@ StoryEditView = Marionette.CompositeView.extend(
 		this.drawCache = {};
 
 		// keep story name in sync
+		// we have to force setName() to be called with no args
+		// as listenTo() would normally pass it some
 
-		this.listenTo(this.model, 'change:name', function (model)
-		{
-			this.$('.storyName').text(model.get('name'));
-		});
+		this.listenTo(this.model, 'change:name', function() { this.setName() });
 
 		// keep start passage menu and draw cache in sync
 
@@ -153,6 +154,8 @@ StoryEditView = Marionette.CompositeView.extend(
 			// sync data
 
 			self.setSnap();
+			self.setName();
+			self.setStartPassage();
 			$('.popover input.storyName').val(self.model.get('name'));
 		});
 
@@ -286,24 +289,34 @@ StoryEditView = Marionette.CompositeView.extend(
 	 Sets the model's start passage.
 
 	 @method setStartPassage
-	 @param {Number} id id of the passage
+	 @param {Number} id id of the passage. If omitted, this simply updates the view.
 	**/
 
 	setStartPassage: function (id)
 	{
-		this.model.save({ startPassage: id });
+		if (id)
+			this.model.save({ startPassage: id });
+		else
+			id = this.model.get('startPassage');
+
+		$('.startPassage').val(id);
 	},
 
 	/**
 	 Set the model's name.
 
 	 @method setName
-	 @param {String} name New name to set
+	 @param {String} name New name to set. If omitted, then this simply updates the view.
 	**/
 
 	setName: function (name)
 	{
-		this.model.save({ name: name });
+		if (name)
+			this.model.save({ name: name });
+		else
+			name = this.model.get('name');
+
+		this.$('.storyName').val(name);
 	},
 
 	/**
