@@ -6,6 +6,14 @@
 	box-sizing: border-box;
 }
 
+#storyListView h1
+{
+	width: 172px;
+	height: 50px;
+	background-image: url('../img/twine.png');
+	text-indent: -9999px;
+}
+
 #storyListView .topControls
 {
 	padding: 10px 0;
