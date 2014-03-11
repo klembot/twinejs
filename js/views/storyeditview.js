@@ -128,16 +128,6 @@ StoryEditView = Marionette.CompositeView.extend(
 				}, this);
 			}, this);
 		});
-		
-		// init code mirror on CSS and JS editors
-		/*this.cssEditor = CodeMirror.fromTextArea($('textarea.stylesheetSource')[0], {
-			mode: 'text/css'
-		});
-		
-		this.jsEditor = CodeMirror.fromTextArea($('textarea.scriptSource')[0], {
-			mode: 'text/javascript'
-		});*/
-
 	},
 
 	onRender: function()
