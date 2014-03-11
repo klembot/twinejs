@@ -160,6 +160,9 @@ StoryEditView = Marionette.CompositeView.extend(
 		})
 		.click(function()
 		{
+			// sync data
+
+			self.setSnap();
 			$('.popover input.storyName').val(self.model.get('name'));
 		});
 
@@ -237,15 +240,14 @@ StoryEditView = Marionette.CompositeView.extend(
 
 	setSnap: function (snap)
 	{
-		if (snap)
+		if (snap != null)
 			this.model.save({ snapToGrid: snap });
 		else
-			snap = this.model.get('snap');
+			snap = this.model.get('snapToGrid');
 
-		if (snap)
-			this.$('.snapToGrid').attr('checked', true);
-		else
-			this.$('.snapToGrid').removeAttr('checked');
+		// have to coerce this to a boolean -- null will take no action
+
+		this.$('.snapToGrid').attr('checked', snap == true);
 	},
 
 	/**
