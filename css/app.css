@@ -15,6 +15,14 @@ body
 	background: #24497e url("../img/blueprint_large.png") 10px -15px;
 }
 
+h1.logo
+{
+	width: 172px;
+	height: 50px;
+	background-image: url('../img/twine.png');
+	text-indent: -9999px;
+}
+
 #runtime
 {
 	display: none;

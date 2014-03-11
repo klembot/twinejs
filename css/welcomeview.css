@@ -1,0 +1,80 @@
+#welcomeView
+{
+	padding: 20px;
+	width: 40em;
+	margin: 20px auto 0 auto;
+	box-sizing: border-box;
+}
+
+#welcomeView p
+{
+	font-size: 120%;
+}
+
+#welcomeView h1
+{
+	margin: 0 auto;
+	position: relative;
+	left: -32px;
+}
+
+/* taken from https://github.com/daneden/animate.css/blob/master/animate.css */
+
+@-webkit-keyframes bounceIn {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(.3);
+    transform: scale(.3);
+  }
+
+  50% {
+    opacity: 1;
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
+  }
+
+  70% {
+    -webkit-transform: scale(.9);
+    transform: scale(.9);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(.3);
+    -ms-transform: scale(.3);
+    transform: scale(.3);
+  }
+
+  50% {
+    opacity: 1;
+    -webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
+  }
+
+  70% {
+    -webkit-transform: scale(.9);
+    -ms-transform: scale(.9);
+    transform: scale(.9);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+.bounceIn {
+  -webkit-animation: 0.5s bounceIn;
+  animation: 0.5s bounceIn;
+}
