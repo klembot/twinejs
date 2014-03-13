@@ -205,7 +205,7 @@ PassageItemView = Marionette.ItemView.extend(
 				$(this).off('animationend webkitAnimationEnd MSAnimationEnd');
 			});
 
-		this.$el.addClass('appear');
+		this.$el.addClass('fallIn');
 	},
 
 	/**
