@@ -1,4 +1,4 @@
-#welcomeView
+#welcomeView > div
 {
 	padding: 20px;
 	width: 40em;
@@ -6,16 +6,57 @@
 	box-sizing: border-box;
 }
 
+#welcomeView h1
+{
+	text-align: center;
+	padding-top: 220px;
+	background-position: top center;
+	background-repeat: no-repeat;
+}
+
+#welcomeView .hi h1
+{
+	background-image: url('../img/welcome_logo.png');
+}
+
+#welcomeView .hi aside
+{
+	float: right;
+	margin-top: 0.5em;
+}
+
+#welcomeView .alpha h1
+{
+	/* http://thenounproject.com/term/construction/5853/ */
+	background-image: url('../img/welcome_alpha.png');
+}
+
+#welcomeView .save h1
+{
+	/* http://thenounproject.com/term/document/12036/ */
+	background-image: url('../img/welcome_save.png');
+}
+
+#welcomeView .help h1
+{
+	/* http://thenounproject.com/term/question/2036/ */
+	background-image: url('../img/welcome_help.png');
+}
+
+#welcomeView .thanks h1
+{
+	/* http://thenounproject.com/term/smile/10696/ */
+	background-image: url('../img/welcome_thanks.png');
+}
+
 #welcomeView p
 {
 	font-size: 120%;
 }
 
-#welcomeView h1
+#welcomeView .buttons
 {
-	margin: 0 auto;
-	position: relative;
-	left: -32px;
+	text-align: center;
 }
 
 /* taken from https://github.com/daneden/animate.css/blob/master/animate.css */
