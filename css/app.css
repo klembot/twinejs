@@ -9,6 +9,178 @@
     font-style: normal;
 }
 
+@keyframes fadeIn
+{
+	from
+	{
+		opacity: 0;
+	}
+
+	to
+	{
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes fadeIn
+{
+	from
+	{
+		opacity: 0;
+	}
+
+	to
+	{
+		opacity: 1;
+	}
+}
+
+@keyframes fadeOut
+{
+	from
+	{
+		opacity: 1;
+	}
+
+	to
+	{
+		opacity: 0;
+	}
+}
+
+@-webkit-keyframes fadeOut
+{
+	from
+	{
+		opacity: 1;
+	}
+
+	to
+	{
+		opacity: 0;
+	}
+}
+
+@keyframes appear
+{
+	from
+	{
+		transform: scale(0.5, 0.5);
+		opacity: 0;
+	}
+
+	to
+	{
+		transform: scale(1, 1);
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes appear
+{
+	from
+	{
+		-webkit-transform: scale(0.5, 0.5);
+		opacity: 0;
+	}
+
+	to
+	{
+		-webkit-transform: scale(1, 1);
+		opacity: 1;
+	}
+}
+
+@keyframes disappear
+{
+	from
+	{
+		transform: scale(1, 1);
+		opacity: 1;
+	}
+
+	to
+	{
+		transform: scale(0, 0);
+		opacity: 0;
+	}
+}
+
+@-webkit-keyframes disappear
+{
+	from
+	{
+		-webkit-transform: scale(1, 1);
+		opacity: 1;
+	}
+
+	to
+	{
+		-webkit-transform: scale(0, 0);
+		opacity: 0;
+	}
+}
+
+@keyframes fallIn
+{
+	from
+	{
+		transform: scale(1.5, 1.5);
+		opacity: 0;
+	}
+
+	to
+	{
+		transform: scale(1, 1);
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes fallIn
+{
+	from
+	{
+		-webkit-transform: scale(1.5, 1.5);
+		opacity: 0;
+	}
+
+	to
+	{
+		-webkit-transform: scale(1, 1);
+		opacity: 1;
+	}
+}
+
+@keyframes slideDown
+{
+	from
+	{
+		transform: translate(0, -100px);
+		opacity: 0;
+	}
+
+	to
+	{
+		transform: translate(0, 0);
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes slideDown
+{
+	from
+	{
+		-webkit-transform: translate(0, -100px);
+		opacity: 0;
+	}
+
+	to
+	{
+		-webkit-transform: translate(0, 0);
+		opacity: 1;
+	}
+}
+
 body
 {
 	background: #24497e url("../img/blueprint_large.png") 10px -15px;
@@ -33,4 +205,40 @@ body
 .shadow
 {
 	box-shadow: 0 5px 10px hsl(0, 0%, 20%);
+}
+
+.appear
+{
+	animation: 0.4s appear forwards;
+	-webkit-animation: 0.4s appear forwards;
+}
+
+.disappear
+{
+	animation: 0.4s disappear forwards;
+	-webkit-animation: 0.4s disappear forwards;
+}
+
+.fadeIn
+{
+	animation: 0.4s fadeIn forwards;
+	-webkit-animation: 0.4s fadeIn forwards;
+}
+
+.fadeOut
+{
+	animation: 0.4s fadeOut forwards;
+	-webkit-animation: 0.4s fadeOut forwards;
+}
+
+.fallIn
+{
+	animation: 0.4s fallIn forwards;
+	-webkit-animation: 0.4s fallIn forwards;
+}
+
+.slideDown
+{
+	animation: 0.4s slideDown forwards;
+	-webkit-animation: 0.4s slideDown forwards;
 }

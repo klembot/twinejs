@@ -11,21 +11,28 @@ WelcomeView = Backbone.Marionette.ItemView.extend(
 
 	onRender: function()
 	{
-		this.$('div:first-child').css('display', 'block').addClass('bounceIn');
+		this.$('div:first-child').css('display', 'block').addClass('appear');
 
 		this.$el.on('click', 'button, a.done', function()
 		{
 			var $t = $(this);
-			var div = $t.closest('div');
-			var next = div.next('div');
+			var next = $t.closest('div').next('div');
 
-			div.fadeOut(400, function()
+			// fade out existing buttons
+
+			$t.closest('p').addClass('fadeOut');
+
+			// either show the next div, or move on to the story list
+			// have to offset the position because we're animating it
+			// downward, I think
+
+			if ($t.hasClass('done'))
+				window.location.hash = '#stories';
+			else
 			{
-				if ($t.hasClass('done'))
-					window.location.hash = '#stories';
-				else
-					next.fadeIn();
-			});
+				next.css('display', 'block').addClass('slideDown');
+				$('body').animate({ scrollTop: next.position().top + 100 });
+			};
 		});
 	}
 });

@@ -70,8 +70,6 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 		});
 
 		// delete popover is set up in StoryItemView
-
-		this.$el.fadeIn();
 	},
 
 	/**

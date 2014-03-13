@@ -1,53 +1,50 @@
 #welcomeView > div
 {
 	display: none;
-	position: absolute;
-	top: 1%;
-	left: 22.5%;
-	padding: 20px;
-	width: 55%;
-	margin: 20px auto 0 auto;
-	box-sizing: border-box;
+	padding: 20px 20px 20px 240px;
+	width: 60%;
+	margin: 5% auto;
+	min-height: 240px;
+	position: relative;
 }
 
-#welcomeView h1
+#welcomeView > div:before
 {
-	text-align: center;
-	padding-top: 220px;
-	background-position: top center;
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 20px;
+	width: 200px;
+	bottom: 0;
+	background-position: center;
 	background-repeat: no-repeat;
 }
 
-#welcomeView .hi h1
+#welcomeView .hi:before
 {
 	background-image: url('../img/welcome_logo.png');
 }
 
-#welcomeView .hi aside
-{
-	float: right;
-	margin-top: 0.5em;
-}
-
-#welcomeView .alpha h1
+#welcomeView .alpha:before
 {
 	/* http://thenounproject.com/term/construction/5853/ */
 	background-image: url('../img/welcome_alpha.png');
 }
 
-#welcomeView .save h1
+#welcomeView .save:before
 {
 	/* http://thenounproject.com/term/document/12036/ */
 	background-image: url('../img/welcome_save.png');
 }
 
-#welcomeView .help h1
+#welcomeView .help:before
 {
 	/* http://thenounproject.com/term/question/2036/ */
 	background-image: url('../img/welcome_help.png');
 }
 
-#welcomeView .thanks h1
+#welcomeView .thanks:before
 {
 	/* http://thenounproject.com/term/smile/10696/ */
 	background-image: url('../img/welcome_thanks.png');
@@ -58,68 +55,7 @@
 	font-size: 120%;
 }
 
-#welcomeView .buttons
+#welcomeView .buttons .done
 {
-	text-align: center;
-}
-
-/* taken from https://github.com/daneden/animate.css/blob/master/animate.css */
-
-@-webkit-keyframes bounceIn {
-  0% {
-    opacity: 0;
-    -webkit-transform: scale(.3);
-    transform: scale(.3);
-  }
-
-  50% {
-    opacity: 1;
-    -webkit-transform: scale(1.05);
-    transform: scale(1.05);
-  }
-
-  70% {
-    -webkit-transform: scale(.9);
-    transform: scale(.9);
-  }
-
-  100% {
-    opacity: 1;
-    -webkit-transform: scale(1);
-    transform: scale(1);
-  }
-}
-
-@keyframes bounceIn {
-  0% {
-    opacity: 0;
-    -webkit-transform: scale(.3);
-    -ms-transform: scale(.3);
-    transform: scale(.3);
-  }
-
-  50% {
-    opacity: 1;
-    -webkit-transform: scale(1.05);
-    -ms-transform: scale(1.05);
-    transform: scale(1.05);
-  }
-
-  70% {
-    -webkit-transform: scale(.9);
-    -ms-transform: scale(.9);
-    transform: scale(.9);
-  }
-
-  100% {
-    opacity: 1;
-    -webkit-transform: scale(1);
-    -ms-transform: scale(1);
-    transform: scale(1);
-  }
-}
-
-.bounceIn {
-  -webkit-animation: 0.5s bounceIn;
-  animation: 0.5s bounceIn;
+	padding-left: 1em;
 }

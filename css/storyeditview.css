@@ -1,63 +1,3 @@
-@keyframes appear
-{
-	from
-	{
-		transform: scale(1.5, 1.5);
-		opacity: 0;
-	}
-
-	to
-	{
-		transform: scale(1, 1);
-		opacity: 1;
-	}
-}
-
-@-webkit-keyframes appear
-{
-	from
-	{
-		-webkit-transform: scale(1.5, 1.5);
-		opacity: 0;
-	}
-
-	to
-	{
-		-webkit-transform: scale(1, 1);
-		opacity: 1;
-	}
-}
-
-@keyframes disappear
-{
-	from
-	{
-		transform: scale(1, 1);
-		opacity: 1;
-	}
-
-	to
-	{
-		transform: scale(0, 0);
-		opacity: 0;
-	}
-}
-
-@-webkit-keyframes disappear
-{
-	from
-	{
-		-webkit-transform: scale(1, 1);
-		opacity: 1;
-	}
-
-	to
-	{
-		-webkit-transform: scale(0, 0);
-		opacity: 0;
-	}
-}
-
 #storyEditView .home
 {
 	position: fixed;
@@ -160,18 +100,6 @@ body.modal-open #storyEditView .toolbox
 	padding: 10px;
 	border-radius: 10px;
 	color: hsla(0, 0%, 100%, 0.75);
-}
-
-#storyEditView .passage.appear
-{
-	animation: 0.4s appear;
-	-webkit-animation: 0.4s appear;
-}
-
-#storyEditView .passage.disappear
-{
-	animation: 0.4s disappear;
-	-webkit-animation: 0.4s disappear;
 }
 
 #storyEditView .passage:hover
