@@ -12,5 +12,10 @@ WelcomeView = Backbone.Marionette.ItemView.extend(
 	onRender: function()
 	{
 		this.$el.addClass('bounceIn');
+
+		this.$el.on('click btn-default', function()
+		{
+
+		});
 	}
 });
