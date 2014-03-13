@@ -1,7 +1,11 @@
 #welcomeView > div
 {
+	display: none;
+	position: absolute;
+	top: 1%;
+	left: 22.5%;
 	padding: 20px;
-	width: 40em;
+	width: 55%;
 	margin: 20px auto 0 auto;
 	box-sizing: border-box;
 }
