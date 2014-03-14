@@ -168,8 +168,6 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 
 	syncStoryCount: function ()
 	{
-		console.log('hi');
-
 		if (this.collection.length > 0)
 		{
 			this.$('.stories').css('display', 'table');
