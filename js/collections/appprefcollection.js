@@ -8,5 +8,5 @@
 AppPrefCollection = Backbone.Collection.extend(
 {
 	model: AppPref,
-	localStorage: new Backbone.LocalStorage('storybook-prefs')
+	localStorage: new Backbone.LocalStorage('twine-prefs')
 });
