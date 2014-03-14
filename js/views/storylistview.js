@@ -15,6 +15,8 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 	{
 		var self = this;
 
+		this.syncStoryCount();
+
 		// enable tooltips
 
 		this.$('a[title], button[title]').tooltip();
@@ -70,6 +72,16 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 		});
 
 		// delete popover is set up in StoryItemView
+	},
+
+	onAfterItemAdded: function()
+	{
+		this.syncStoryCount();
+	},
+
+	onItemRemoved: function()
+	{
+		this.syncStoryCount();
 	},
 
 	/**
@@ -147,10 +159,33 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 		this.$('.importStory').popover('hide');
 	},
 
+	/**
+	 Syncs onscreen appearance of the story table and our 'there are no stories'
+	 message with the collection.
+
+	 @method syncStoryCount
+	**/
+
+	syncStoryCount: function ()
+	{
+		console.log('hi');
+
+		if (this.collection.length > 0)
+		{
+			this.$('.stories').css('display', 'table');
+			this.$('.noStories').css('display', 'none');
+		}
+		else
+		{
+			this.$('.stories').css('display', 'none');
+			this.$('.noStories').css('display', 'block');
+		};
+	},
+
 	events:
 	{
 		'click .add': 'addStory',
 		'click .saveArchive': 'saveArchive',
-		'change .importFile': 'importFile'
+		'change .importFile': 'importFile',
 	}
 });
