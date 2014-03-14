@@ -23,7 +23,7 @@ TwineApp = Backbone.Marionette.Application.extend(
 	 @property version
 	**/
 
-	version: '2.0a',
+	version: '2.0a1',
 
 	/**
 	 Synchronizes all stories and passages in memory with what's been stored.
@@ -36,11 +36,16 @@ TwineApp = Backbone.Marionette.Application.extend(
 	{
 		var self = this;
 
-		this.stories.fetch({
+		this.prefs.fetch({
 			success: function()
 			{
-				self.passages.fetch({
-					success: function() { if (callback) callback() }
+				self.stories.fetch({
+					success: function()
+					{
+						self.passages.fetch({
+							success: function() { if (callback) callback() }
+						});
+					}
 				});
 			}
 		});
@@ -198,6 +203,15 @@ window.app.addInitializer(function (options)
 	**/
 
 	app.passages = new PassageCollection();
+
+	/**
+	 The master collection of all preferences.
+
+	 @property prefs
+	 @type AppPrefCollection
+	**/
+
+	app.prefs = new AppPrefCollection();
 	app.sync();
 
 	/**

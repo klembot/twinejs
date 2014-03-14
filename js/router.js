@@ -67,9 +67,17 @@ TwineRouter = Backbone.Router.extend(
 
 		'*path': function()
 		{
-			// default route -- show story list
-			
-			window.location.hash = '#stories';
+			// default route -- show welcome if the user hasn't already seen it
+
+			window.app.sync(function()
+			{
+				var welcomePref = window.app.prefs.findWhere({ name: 'welcomeSeen' });
+
+				if (welcomePref && welcomePref.get('value') === true)
+					window.location.hash = '#stories';
+				else
+					window.location.hash = '#welcome';
+			});
 		}
 	},
 
