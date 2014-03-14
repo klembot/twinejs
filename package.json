@@ -14,6 +14,7 @@
 		"require": "*",
 		"grunt": "*",
 		"grunt-bake": "*",
+		"grunt-cdnify": "*",
 		"grunt-contrib-clean": "*",
 		"grunt-contrib-concat": "*",
 		"grunt-contrib-copy": "*",
