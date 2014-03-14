@@ -27,6 +27,42 @@ module.exports = function (grunt)
 			}
 		},
 
+		cdnify:
+		{
+			all:
+			{
+				options:
+				{
+					rewriter: function (url)
+					{
+						// Bootstrap
+
+						if (url.indexOf('lib/bootstrap') == 0)
+							return url.replace('lib/bootstrap', '//netdna.bootstrapcdn.com/bootstrap/3.1.1/');
+
+						// Font Awesome
+
+						if (url == 'lib/fontawesome/css/font-awesome.css')
+							return '//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css';
+
+						// jQuery
+
+						if (url == 'lib/jquery/jquery.js')
+							return '//code.jquery.com/jquery-1.9.1.min.js';
+
+						if (url == 'lib/jquery/jquery.ui.js')
+							return '//code.jquery.com/ui/1.10.2/jquery-ui.min.js';
+					}
+				},
+
+				files:
+				[{
+					src: 'index.html',
+					dest: 'index.html'
+				}]
+			}
+		},
+
 		clean:
 		{
 			dist: ['dist/']
@@ -91,6 +127,7 @@ module.exports = function (grunt)
 	});
 
 	grunt.loadNpmTasks('grunt-bake');
+	grunt.loadNpmTasks('grunt-cdnify');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-copy');
@@ -103,5 +140,9 @@ module.exports = function (grunt)
 	grunt.registerTask('release',
 	[
 		'clean', 'bake', 'yuidoc', 'copy', 'useminPrepare', 'concat', 'uglify', 'cssmin', 'usemin'
+	]);
+	grunt.registerTask('release-cdn',
+	[
+		'clean', 'bake', 'cdnify', 'yuidoc', 'copy', 'useminPrepare', 'concat', 'uglify', 'cssmin', 'usemin'
 	]);
 };
