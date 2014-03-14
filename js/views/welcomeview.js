@@ -1,5 +1,6 @@
 /**
- Doesn't do much of anything as yet.
+ Manages showing the user a quick set of intro information, and then
+ records that it's been shown.
 
  @class WelcomeView
  @extends Backbone.Marionette.ItemView
@@ -9,8 +10,31 @@ WelcomeView = Backbone.Marionette.ItemView.extend(
 {
 	template: '#templates .welcomeView',
 
+	initialize: function()
+	{
+		var self = this;
+		window.app.sync(function()
+		{
+			self.welcomePref = window.app.prefs.findWhere({ name: 'welcomeSeen' });
+		});
+	},
+
+	finish: function()
+	{
+		if (! this.welcomePref)
+		{
+			this.welcomePref = new AppPref({ name: 'welcomeSeen' });
+			window.app.prefs.add(this.welcomePref);
+		};
+
+		this.welcomePref.save({ value: true });
+		window.location.hash = '#stories';
+	},
+
 	onRender: function()
 	{
+		var self = this;
+
 		this.$('div:first-child').css('display', 'block').addClass('appear');
 
 		this.$el.on('click', 'button, a.done', function()
@@ -27,7 +51,7 @@ WelcomeView = Backbone.Marionette.ItemView.extend(
 			// downward, I think
 
 			if ($t.hasClass('done'))
-				window.location.hash = '#stories';
+				self.finish();
 			else
 			{
 				next.css('display', 'block').addClass('slideDown');
