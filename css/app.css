@@ -209,36 +209,36 @@ body
 
 .appear
 {
-	animation: 0.4s appear forwards;
-	-webkit-animation: 0.4s appear forwards;
+	animation: 0.4s appear;
+	-webkit-animation: 0.4s appear;
 }
 
 .disappear
 {
-	animation: 0.4s disappear forwards;
-	-webkit-animation: 0.4s disappear forwards;
+	animation: 0.4s disappear;
+	-webkit-animation: 0.4s disappear;
 }
 
 .fadeIn
 {
-	animation: 0.4s fadeIn forwards;
-	-webkit-animation: 0.4s fadeIn forwards;
+	animation: 0.4s fadeIn;
+	-webkit-animation: 0.4s fadeIn;
 }
 
 .fadeOut
 {
-	animation: 0.4s fadeOut forwards;
-	-webkit-animation: 0.4s fadeOut forwards;
+	animation: 0.4s fadeOut;
+	-webkit-animation: 0.4s fadeOut;
 }
 
 .fallIn
 {
-	animation: 0.4s fallIn forwards;
-	-webkit-animation: 0.4s fallIn forwards;
+	animation: 0.4s fallIn;
+	-webkit-animation: 0.4s fallIn;
 }
 
 .slideDown
 {
-	animation: 0.4s slideDown forwards;
-	-webkit-animation: 0.4s slideDown forwards;
+	animation: 0.4s slideDown;
+	-webkit-animation: 0.4s slideDown;
 }
