@@ -44,7 +44,11 @@ WelcomeView = Backbone.Marionette.ItemView.extend(
 
 			// fade out existing buttons
 
-			$t.closest('p').addClass('fadeOut');
+			$t.closest('p').addClass('fadeOut')
+			.on('animationend webkitAnimationEnd MSAnimationEnd', function ()
+			{
+				$(this).remove();
+			});
 
 			// either show the next div, or move on to the story list
 			// have to offset the position because we're animating it
