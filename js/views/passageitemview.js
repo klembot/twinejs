@@ -181,9 +181,9 @@ PassageItemView = Marionette.ItemView.extend(
 			
 			if (message.size() == 0)
 				message = $('<p class="alert alert-danger">')
-				.text(e.data.model.validationError);
+				.text(view.model.validationError);
 
-			$('#passageEditModal textarea').before(message);
+			$('#passageEditModal .textareaContainer').before(message);
 			message.hide().fadeIn();
 			$('#passageEditModal .passageName').focus();
 		};
