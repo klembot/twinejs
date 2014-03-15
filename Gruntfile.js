@@ -136,7 +136,7 @@ module.exports = function (grunt)
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-yuidoc');
 	grunt.loadNpmTasks('grunt-usemin');
-	grunt.registerTask('default', ['bake', 'yuidoc']);
+	grunt.registerTask('default', ['bake']);
 	grunt.registerTask('release',
 	[
 		'clean', 'bake', 'yuidoc', 'copy', 'useminPrepare', 'concat', 'uglify', 'cssmin', 'usemin'
