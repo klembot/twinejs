@@ -191,9 +191,9 @@ body
 	display: none;
 }
 
-.paper, .popover, .modal-content
+.paper
 {
-	background: linear-gradient(white, hsl(0, 0%, 95%) 80px);
+	background-color: #f8f8f8;
 	border-radius: 4px;
 }
 
