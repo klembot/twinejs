@@ -1,0 +1,201 @@
+<div id="storyEditView" class="fadeIn">
+
+<p class="home">
+<a href="#stories"><i class="icon-home"></i></a>
+</p>
+
+<h4 class="storyName">
+<%- name %>
+</h4>
+
+<div class="toolbox shadow">
+
+<p>
+<button class="addPassage btn btn-success btn-block">
+<i class="icon-plus"></i> Passage
+</button>
+</p>
+
+<p class="btn-group full" data-toggle="buttons">
+<label class="btn btn-default third">
+<input type="radio" name="zoom" class="zoomSmall"><i class="icon-th"></i>
+</label>
+<label class="btn btn-default third">
+<input type="radio" name="zoom" class="zoomMedium"><i class="icon-th-large"></i>
+</label>
+<label class="btn btn-default third">
+<input type="radio" name="zoom" class="zoomBig"><i class="icon-stop"></i>
+</label>
+</p>
+
+<p>
+<button class="storyProperties btn btn-default btn-block" data-original-title="" title="">
+<i class="icon-cog"></i> Properties
+</button>
+</p>
+
+<div id="storyPropertiesPopover" class="hide">
+
+<div class="form-horizontal">
+
+<p class="form-group">
+<span class="col-md-3">
+<label for="storyName" class="control-label">Name</label>
+</span>
+<span class="col-md-9">
+<input type="text" id="storyName" class="storyName form-control" value="">
+</span>
+</p>
+
+<p class="form-group">
+<span class="col-md-3">
+<label for="startPassage">Start At</label>
+</span>
+
+<span class="col-md-9">
+<select id="startPassage" class="startPassage form-control"></select>
+</span>
+</p>
+
+<p class="form-group col-md-12">
+<span class="checkbox">
+<label>
+<input type="checkbox" id="snapToGrid" class="snapToGrid" checked="<%= snapToGrid %>">
+Snap to Grid
+</label>
+</span>
+</p>
+
+<p class="form-group">
+<span class="col-md-6">
+<button class="editStylesheet btn btn-default">
+<i class="icon-font"></i>
+Stylesheet
+</button>
+</span>
+
+<span class="col-md-6">
+<button class="editScript btn btn-default">
+<i class="icon-cogs"></i>
+JavaScript
+</button>
+</span>
+
+<!--span class="col-md-4">
+<button class="btn btn-primary">
+<i class="icon-ok"></i>
+Done
+</button>
+</span-->
+
+</p>
+
+</div> <!-- .form-horizontal -->
+</div> <!-- #storyPropertiesPopover -->
+
+<div class="btn-group full">
+<button class="playStory btn btn-default dropdown-default">
+<i class="icon-play"></i> Play
+</button>
+
+<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+<span class="caret"></span>
+</button>
+
+<ul class="dropdown-menu" role="menu">
+<li><a href="javascript:void(0)" class="publishStory"><i class="icon-download-alt"></i> Publish to File</a></li>
+<li><a href="javascript:void(0)" class="proofStory"><i class="icon-file-text-alt"></i> Proofing Copy</a></li>
+</ul>
+
+</div>
+</div>
+
+<div class="passages">
+<canvas></canvas>
+</div>
+
+
+<div id="passageEditModal" class="editModal modal fade">
+<div class="modal-dialog">
+<div class="modal-content">
+
+<div class="modal-header">
+
+<input type="hidden" name="passageId" class="passageId">
+
+<!-- this button does not auto-dismiss the modal, as we need to validate -->
+<button class="save savePassage btn btn-primary">
+<i class="icon-ok"></i> Done
+</button>
+
+<p class="modal-title">
+<input type="text" class="passageName" placeholder="Passage Name">
+</p>
+
+</div> <!-- .modal-header -->
+
+<div class="modal-body">
+<div class="textareaContainer">
+<textarea class="passageText" placeholder="Enter the body text of your passage here. To link to another passage, put two square brackets around its name, [[like this]]."></textarea>
+</div> <!-- editContainer -->
+</div> <!-- .modal-body -->
+
+</div> <!-- .modal-content -->
+</div> <!-- .modal-dialog -->
+</div> <!-- #passageEditModal -->
+
+<div id="stylesheetModal" class="editModal modal fade">
+<div class="modal-dialog">
+<div class="modal-content">
+
+<div class="modal-header">
+
+<button class="save saveStylesheet btn btn-primary" data-dismiss="modal">
+<i class="icon-ok"></i> Done
+</button>
+
+<h3>
+Stylesheet
+</h3>
+
+</div> <!-- .modal-header -->
+
+<div class="modal-body">
+<div class="textareaContainer">
+<textarea class="stylesheetSource" placeholder="Any CSS you enter here will override the default appearance of your story."></textarea>
+</div> <!-- .editContainer -->
+</div> <!-- .modal-body -->
+
+</div> <!-- .modal-content -->
+</div> <!-- .modal-dialog -->
+</div> <!-- #stylesheetModal -->
+
+<div id="scriptModal" class="editModal modal fade">
+<div class="modal-dialog">
+<div class="modal-content">
+
+<div class="modal-header">
+
+<button class="save saveScript btn btn-primary" data-dismiss="modal">
+<i class="icon-ok"></i> Done
+</button>
+
+<h3>
+JavaScript
+</h3>
+
+</div> <!-- .modal-header -->
+
+<div class="modal-body">
+<div class="textareaContainer">
+<textarea class="scriptSource" placeholder="Any JavaScript you enter here will immediately run when your story is opened in a Web browser."></textarea>
+</div> <!-- .editContainer -->
+</div> <!-- .modal-body -->
+
+</div> <!-- .modal-content -->
+</div> <!-- .modal-dialog -->
+</div> <!-- #scriptModal -->
+
+</div> <!-- .toolbox -->
+
+</div> <!-- #storyEditView -->
