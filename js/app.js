@@ -134,7 +134,13 @@ TwineApp = Backbone.Marionette.Application.extend(
 			var story = window.app.stories.create({ name: $story.attr('data-name') }, { wait: true });
 
 			// and child passages
-
+			
+			function htmlDecode(input){
+			  var e = document.createElement('div');
+			  e.innerHTML = input;
+			  return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+			}
+			
 			$story.find('[data-role="passage"]').each(function()
 			{
 				var $passage = $(this);
@@ -143,7 +149,7 @@ TwineApp = Backbone.Marionette.Application.extend(
 				passage = window.app.passages.create(
 				{
 					name: $passage.attr('data-name'),
-					text: $passage.html(),
+					text: htmlDecode($passage.html()),
 					story: story.id,
 					left: parseInt(posBits[0]),
 					top: parseInt(posBits[1])
