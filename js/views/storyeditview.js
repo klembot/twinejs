@@ -410,7 +410,8 @@ StoryEditView = Marionette.CompositeView.extend(
 			lineNumbers: false,
 			tabSize: 2,
 			indentWithTabs: true,
-			mode: 'css'
+			mode: 'css',
+			autofocus: true
 		});
 		
 		this.stylesheetEditor = stylesheetEditor;
@@ -457,7 +458,8 @@ StoryEditView = Marionette.CompositeView.extend(
 			lineNumbers: false,
 			tabSize: 2,
 			indentWithTabs: true,
-			mode: 'javascript'
+			mode: 'javascript',
+			autofocus: true
 		});
 		
 		this.scriptEditor = scriptEditor;
