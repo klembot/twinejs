@@ -131,7 +131,7 @@ TwineApp = Backbone.Marionette.Application.extend(
 
 			// create a story object
 
-			var story = window.app.stories.create({ name: $story.attr('data-name') });
+			var story = window.app.stories.create({ name: $story.attr('data-name') }, { wait: true });
 
 			// and child passages
 
@@ -147,7 +147,7 @@ TwineApp = Backbone.Marionette.Application.extend(
 					story: story.id,
 					left: parseInt(posBits[0]),
 					top: parseInt(posBits[1])
-				});	
+				}, { wait: true });	
 
 				if ($passage.attr('data-id') == startPassageId)
 					story.save({ startPassage: passage.id });
