@@ -93,7 +93,7 @@
 
 #aboutModal .credits
 {
-	max-height: 25em;
+	max-height: 20em;
 	overflow-y: auto;
 	margin-bottom: 1em;
 }
