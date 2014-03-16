@@ -10,6 +10,11 @@ module.exports = function (grunt)
 			{
 				process: function (content, options)
 				{
+					// insert build number
+					var d = new Date();
+
+					content = content.replace('{{build_number}}', grunt.template.today('yyyymmddhhMM'));
+
 					// do really basic HTML entity replacement
 					// to avoid breaking out of the <script> element
 					// 0xe000 is the start of the Unicode private use range
@@ -89,6 +94,34 @@ module.exports = function (grunt)
 			}
 		},
 
+		replace:
+		{
+			dist:
+			{
+				options:
+				{
+					patterns:
+					[{
+						match: 'BUILD',
+						replacement: 'hi'
+						/*
+						replacement: function()
+						{
+							var d = new Date();
+							return d.getFullYear() + d.getMonth() + d.getDay() + d.getHours();
+						}
+						*/
+					}]
+				},
+				
+				files:
+				[{
+					src: 'index.html',
+					dest: 'index.html'
+				}]
+			}
+		},
+
 		useminPrepare:
 		{
 			html: 'index.html',
@@ -135,6 +168,7 @@ module.exports = function (grunt)
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-yuidoc');
+	grunt.loadNpmTasks('grunt-replace');
 	grunt.loadNpmTasks('grunt-usemin');
 	grunt.registerTask('default', ['bake']);
 	grunt.registerTask('release',
