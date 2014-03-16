@@ -8,10 +8,13 @@
 
 #storyListView h1.logo
 {
+	margin-top: 0;
 	width: 172px;
 	height: 50px;
 	background-image: url('../img/twine.png');
-	text-indent: -9999px;
+	text-indent: 100%;
+	white-space: no-wrap;
+	overflow: hidden;
 }
 
 
