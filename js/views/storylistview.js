@@ -17,6 +17,10 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 
 		this.syncStoryCount();
 
+		// set the version number in the HTML
+
+		this.$('.app-version').text(window.app.version);
+
 		// enable tooltips
 
 		this.$('a[title], button[title]').tooltip();

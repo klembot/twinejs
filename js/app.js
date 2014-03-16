@@ -23,7 +23,7 @@ TwineApp = Backbone.Marionette.Application.extend(
 	 @property version
 	**/
 
-	version: '2.0a1',
+	version: '2.0p2',
 
 	/**
 	 Synchronizes all stories and passages in memory with what's been stored.
