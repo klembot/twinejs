@@ -35,9 +35,9 @@ Story
 <footer>
 
 <div class="pull-left" style="padding-top: 15px">
-<a href="#"><i class="icon-question-sign"></i> Help</a>
+version <a data-toggle="modal" href="#aboutModal"><span class="app-version"></span></a>
 &middot;
-version 2pre1
+<a href="https://bitbucket.org/klembot/twinejs/issues"><i class="icon-bug"></i> Report a bug</a>
 </div>
 
 <div class="pull-right">
@@ -94,3 +94,84 @@ Import this file:
 </p>
 
 </div> <!-- #importStoryDialog -->
+
+<div id="aboutModal" class="modal fade">
+<div class="modal-dialog">
+<div class="modal-content">
+
+<div class="modal-body">
+
+<h2>About Twine <span class="app-version"></span></h2>
+
+<p>
+Twine is an open-source tool for telling interactive, nonlinear stories.
+</p>
+
+<p>
+Twine 2.0 is released under the <a href="http://www.gnu.org/licenses/gpl-3.0.html">GPL v3</a>
+license, but any work created with it may be released under any terms, including commercial ones.
+</p>
+
+<div class="credits">
+
+<h4>
+Code
+</h4>
+
+<p>
+Chris Klimas<br>
+Leon Arnott<br>
+Ingrid Cheung<br>
+Ross Smith
+</p>
+
+<h4>
+Libraries
+</h4>
+
+<p>
+<a href="http://backbonejs.org/">Backbone</a><br>
+<a href="https://github.com/jeromegn/Backbone.localStorage">Backbone Local Storage</a><br>
+<a href="https://github.com/eligrey/Blob.js/">Blob.js</a><br>
+<a href="http://getbootstrap.com/">Bootstrap</a><br>
+<a href="http://codemirror.net/">CodeMirror</a><br>
+<a href="https://github.com/eligrey/FileSaver.js">FileSaver.js</a><br>
+<a href="http://jquery.com/">jQuery</a><br>
+<a href="https://github.com/douglascrockford/JSON-js">JSON-js</a><br>
+<a href="http://marionettejs.com/">Marionette</a><br>
+<a href="http://underscorejs.org/">Underscore</a><br>
+<a href="http://arshaw.com/xdate/">XDate</a>
+</p>
+
+<h4>
+Fonts
+</h4>
+
+<p>
+Cousine was designed by Steve Matteson for <a href="http://www.ascenderfonts.com/">Ascender Fonts</a>
+</p>
+
+<h4>
+Icons
+</h4>
+
+<p>
+<a href="http://fontawesome.io/">Font Awesome</a><br>
+<a href="http://thenounproject.com/term/construction/5853/">Construction designed by Anuar Zhumaev from the Noun Project</a><br>
+<a href="http://thenounproject.com/term/document/12036/">Document designed by Rob Gill from the Noun Project</a><br>
+<a href="http://thenounproject.com/term/question/2036/">Question designed by Henry Ryder from the Noun Project</a><br>
+<a href="http://thenounproject.com/term/smile/10696/">Smile designed by jelio dimitrov from the Noun Project</a><br>
+</p>
+
+</div> <!-- .credits -->
+
+<p>
+<button class="btn btn-primary" data-dismiss="modal">
+<i class="icon-ok"></i> OK
+</button>
+</p>
+
+</div> <!-- .modal-body -->
+</div> <!-- .modal-content -->
+</div> <!-- .modal-dialog -->
+</div> <!-- #aboutModal -->

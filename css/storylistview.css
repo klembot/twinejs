@@ -80,3 +80,20 @@
 {
 	overflow: auto;
 }
+
+#aboutModal .modal-body
+{
+	text-align: center;
+}
+
+#aboutModal .modal-body h2
+{
+	margin-top: 0;
+}
+
+#aboutModal .credits
+{
+	max-height: 25em;
+	overflow-y: auto;
+	margin-bottom: 1em;
+}
