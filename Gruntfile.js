@@ -96,24 +96,20 @@ module.exports = function (grunt)
 
 		replace:
 		{
-			dist:
+			blockUseminCdn:
 			{
 				options:
 				{
 					patterns:
-					[{
-						match: 'BUILD',
-						replacement: 'hi'
-						/*
-						replacement: function()
+					[
 						{
-							var d = new Date();
-							return d.getFullYear() + d.getMonth() + d.getDay() + d.getHours();
+							match: /<!-- build.*_cdn.*?>/g,
+							replacement: '<!-- cdn -->',
+							expression: true
 						}
-						*/
-					}]
+					]
 				},
-				
+
 				files:
 				[{
 					src: 'index.html',
@@ -177,6 +173,10 @@ module.exports = function (grunt)
 	]);
 	grunt.registerTask('release-cdn',
 	[
-		'clean', 'bake', 'cdnify', 'yuidoc', 'copy', 'useminPrepare', 'concat', 'uglify', 'cssmin', 'usemin'
+		'clean', 'bake', 'replace:blockUseminCdn','cdnify', 'yuidoc', 'copy', 'useminPrepare', 'concat', 'uglify', 'cssmin', 'usemin'
+	]);
+	grunt.registerTask('release-test',
+	[
+		'bake', 'cdnify'
 	]);
 };

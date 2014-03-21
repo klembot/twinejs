@@ -22,6 +22,7 @@
 		"grunt-contrib-uglify": "*",
 		"grunt-contrib-watch": "*",
 		"grunt-contrib-yuidoc": "*",
+		"grunt-replace": "*",
 		"grunt-usemin": "*"
 	}
 }
