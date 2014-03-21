@@ -135,21 +135,21 @@ TwineApp = Backbone.Marionette.Application.extend(
 
 			// and child passages
 			
-			function htmlDecode(input){
-			  var e = document.createElement('div');
-			  e.innerHTML = input;
-			  return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
-			}
-			
 			$story.find('[data-role="passage"]').each(function()
 			{
 				var $passage = $(this);
 				var posBits = $passage.attr('data-twine-position').split(',');
 
+				// decode HTML entities in source
+
+				var e = document.createElement('div');
+				e.innerHTML = $passage.html();
+				var text = (e.childNodes.length === 0) ? '' : e.childNodes[0].nodeValue;
+
 				passage = window.app.passages.create(
 				{
 					name: $passage.attr('data-name'),
-					text: htmlDecode($passage.html()),
+					text: text,
 					story: story.id,
 					left: parseInt(posBits[0]),
 					top: parseInt(posBits[1])
