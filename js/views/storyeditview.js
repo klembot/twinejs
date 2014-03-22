@@ -544,7 +544,8 @@ StoryEditView = Marionette.CompositeView.extend(
         var arrowSize = Math.max(width / 8);
 		var arrowAngle = Math.PI / 6;
 
-		canvas.width = canvas.width;
+		gc.beginPath();
+		gc.clearRect(0, 0, canvas.width, canvas.height);
 		gc.strokeStyle = '#7088ac';
 		gc.fillStyle = '#7088ac';
 		gc.lineWidth = 2;
