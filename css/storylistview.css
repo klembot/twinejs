@@ -1,0 +1,99 @@
+#storyListView
+{
+	padding: 20px;
+	width: 80%;
+	margin: 20px auto 0 auto;
+	box-sizing: border-box;
+}
+
+#storyListView h1.logo
+{
+	margin-top: 0;
+	width: 172px;
+	height: 50px;
+	background-image: url('../img/twine.png');
+	text-indent: 100%;
+	white-space: no-wrap;
+	overflow: hidden;
+}
+
+
+#storyListView .topControls
+{
+	padding: 10px 0;
+}
+
+#storyListView .controls
+{
+	text-align: right;
+}
+
+#storyListView .controls a
+{
+	visibility: hidden;
+	font-size: 30px;
+	color: hsl(0, 0%, 30%);
+	text-shadow: 0 1px 0 white;
+	padding-left: 10px;
+	text-decoration: none;
+}
+
+#storyListView .controls a:hover
+{
+	color: #2a6496;
+}
+
+#storyListView .controls a.danger:hover
+{
+	color: hsl(0, 100%, 30%);
+}
+
+#storyListView tr:hover .controls a
+{
+	visibility: visible;
+}
+
+#storyListView table.stories th
+{
+	color: hsl(0, 0%, 60%);
+	cursor: pointer;
+}
+
+#storyListView table.stories th.tablesorter-headerAsc div:after
+{
+	content: " \25bC";
+}
+
+#storyListView table.stories th.tablesorter-headerDesc div:after
+{
+	content: " \25b2";
+}
+
+#storyListView .table.stories td > p
+{
+	font-size: 18px;
+	line-height: 30px;
+	margin: 0;
+}
+
+#storyListView footer
+{
+	overflow: auto;
+}
+
+#aboutModal .modal-body
+{
+	text-align: center;
+}
+
+#aboutModal .modal-body h2
+{
+	margin-top: 0;
+}
+
+#aboutModal .credits
+{
+	max-height: 20em;
+	overflow-y: auto;
+	margin-bottom: 1em;
+}
