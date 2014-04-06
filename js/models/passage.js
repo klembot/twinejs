@@ -19,7 +19,7 @@ Passage = Backbone.Model.extend(
 
 	template: _.template('<script data-role="passage" data-id="<%- id %>" data-name="<%- name %>" ' +
 						 'type="text/twine" data-twine-position="<%- left %>,<%- top %>">' +
-						 '<%- text %></script>'),
+						 '<%= text %></script>'),
 
 	initialize: function()
 	{
@@ -124,7 +124,7 @@ Passage = Backbone.Model.extend(
 			name: this.get('name'),
 			left: this.get('left'),
 			top: this.get('top'),
-			text: this.get('text')
+			text: this.get('text').replace(/<\/?script.*?>/g,'')
 		});
 	},
 
