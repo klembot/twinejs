@@ -105,7 +105,26 @@ Passage = Backbone.Model.extend(
 
 		if (matches)
 			for (var i = 0; i < matches.length; i++)
-				result.push(matches[i].replace(/[\[\]]/g, '').replace(/.*\|/, ''));
+			{
+				/*
+					Arrow links
+					[[display text->link]] format
+					[[link<-display text]] format
+					This regex will interpret the rightmost '->' and the leftmost '<-' as the divider.
+				*/
+				result.push(matches[i].replace(/\[\[(?:([^\]]*)\->|([^\]]*?)<\-)([^\]]*)\]\]/g, function(a,b,c,d) {
+					return c ? c : d;
+				})
+				/*
+					TiddlyWiki links
+					[[display text|link]] format
+				*/
+					.replace(/\[\[([^\|\]]*?)\|([^\|\]]*)?\]\]/g, "$2")
+				/*
+					[[link]] format
+				*/
+					.replace(/\[\[|\]\]/g,""));
+			}
 
 		return result;
 	},
@@ -124,7 +143,7 @@ Passage = Backbone.Model.extend(
 			name: this.get('name'),
 			left: this.get('left'),
 			top: this.get('top'),
-			text: this.get('text').replace(/<\/?script.*?>/g,'')
+			text: this.get('text').replace(/<(?=\/script\b)/gi, '\ue000')
 		});
 	},
 

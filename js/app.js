@@ -100,23 +100,6 @@ TwineApp = Backbone.Marionette.Application.extend(
 
 		archiveStory();
 	},
-
-	/**
-	 A static namespace of DOM selectors for Harlowe HTML elements.
-	 This is aligned with utils/selectors.js in Harlowe.
-	
-	 @property selectors
-	 @type Object
-	 @final
-	*/
-	selectors: {
-		passage: "tw-passage",
-		story: "tw-story",
-		script: "[data-role=script]",
-		stylesheet: "[data-role=stylesheet]",
-		storyData: "tw-storydata, [data-role=twinestory]", // 2.0p2 legacy selector
-		passageData: "[data-role=passage]"
-	},
 	
 	/**
 	 Imports a file containing either a single published story, or an
@@ -221,6 +204,23 @@ TwineApp = Backbone.Marionette.Application.extend(
 		});
 
 		return count;
+	}
+},{
+	/**
+	 A static namespace of DOM selectors for Harlowe HTML elements.
+	 This is aligned with utils/selectors.js in Harlowe.
+	
+	 @property selectors
+	 @type Object
+	 @final
+	*/
+	selectors: {
+		passage: "tw-passage",
+		story: "tw-story",
+		script: "[data-role=script]",
+		stylesheet: "[data-role=stylesheet]",
+		storyData: "tw-storydata, [data-role=twinestory]", // 2.0p2 legacy selector
+		passageData: "[data-role=passage]"
 	}
 });
 
