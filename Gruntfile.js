@@ -91,6 +91,14 @@ module.exports = function (grunt)
 					{ expand: true, cwd: 'font', src: ['*'], dest: 'dist/rsrc/font/' },
 					{ expand: true, cwd: 'lib/fontawesome/font', src: ['*'], dest: 'dist/rsrc/font/' }
 				]
+			},
+
+			license:
+			{
+				files:
+				[
+					{ expand: true, src: ['LICENSE'], dest: 'dist/' }
+				]
 			}
 		},
 
