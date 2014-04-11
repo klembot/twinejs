@@ -41,7 +41,7 @@ StoryEditView = Marionette.CompositeView.extend(
 		 Tracks passage positions and links to speed up drawing operations.
 		 Call cachePassage() to update a passage in the cache.
 
-		 @propert drawCache
+		 @property drawCache
 		**/
 
 		this.drawCache = {};
@@ -176,6 +176,26 @@ StoryEditView = Marionette.CompositeView.extend(
 			menu.append($('<option value="' + item.id + '">' + item.get('name') + '</option>'));
 		});
 
+		// enable space bar scrolling
+
+		$(document).on('keydown', function (e)
+		{
+			if (e.keyCode == 32)
+			{
+				self.startMouseScrolling();
+				e.preventDefault();
+			};
+		});
+
+		$(document).on('keyup', function (e)
+		{
+			if (e.keyCode == 32)
+			{
+				self.stopMouseScrolling();
+				e.preventDefault();
+			};
+		});
+
 		// resize the story map whenever the browser window resizes
 
 		this.resizeStorymap();
@@ -221,6 +241,7 @@ StoryEditView = Marionette.CompositeView.extend(
 	close: function()
 	{
 		$(window).off('resize');
+		$(document).off('keydown');
 	},
 
 	/**
@@ -489,6 +510,72 @@ StoryEditView = Marionette.CompositeView.extend(
 	{
 		this.model.save({ script: src });
 		this.$('#scriptModal').modal('hide');	
+	},
+
+	/**
+	 Begins scrolling the document in response to mouse motion events.
+
+	 @method startMouseScrolling
+	**/
+
+	startMouseScrolling: function()
+	{
+		var self = this;
+
+		/**
+		 The mouse position that space bar scrolling began at,
+		 with x and y properties.
+
+		 @property mouseScrollStart
+		 @type Object
+		**/
+
+		this.mouseScrollStart = this.mouseScrollStart || {};
+		this.mouseScrollStart.x = null;
+		this.mouseScrollStart.y = null;
+		
+		/**
+		 The scroll position of the document when space bar scrolling began,
+		 with x and y properties.
+
+		 @property pageScrollStart
+		 @type Object
+		**/
+
+		this.pageScrollStart = this.pageScrollStart || {};
+		this.pageScrollStart.x = $(window).scrollLeft();
+		this.pageScrollStart.y = $(window).scrollTop();
+
+		$(window).on('mousemove', { self: this }, this.mouseScroll);
+	},
+
+	/**
+	 Stops scrolling the document in response to mouse motion events.
+
+	 @method stopMouseScrolling
+	**/
+
+	stopMouseScrolling: function()
+	{
+		$(window).off('mousemove', this.mouseScroll);
+	},
+
+	mouseScroll: function (e)
+	{	
+		var self = e.data.self;
+
+		if (! self.mouseScrollStart.x && ! self.mouseScrollStart.y)
+		{
+			// this is our first mouse motion event, record position
+
+			self.mouseScrollStart.x = e.pageX;
+			self.mouseScrollStart.y = e.pageY;
+		}
+		else
+		{
+			$(window).scrollLeft(self.pageScrollStart.x - (e.pageX - self.mouseScrollStart.x));
+			$(window).scrollTop(self.pageScrollStart.y - (e.pageY - self.mouseScrollStart.y));
+		};
 	},
 
 	/**
