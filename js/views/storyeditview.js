@@ -546,6 +546,7 @@ StoryEditView = Marionette.CompositeView.extend(
 		this.pageScrollStart.x = $(window).scrollLeft();
 		this.pageScrollStart.y = $(window).scrollTop();
 
+		$('#storyEditView').addClass('scrolling');
 		$(window).on('mousemove', { self: this }, this.mouseScroll);
 	},
 
@@ -557,6 +558,7 @@ StoryEditView = Marionette.CompositeView.extend(
 
 	stopMouseScrolling: function()
 	{
+		$('#storyEditView').removeClass('scrolling');
 		$(window).off('mousemove', this.mouseScroll);
 	},
 
