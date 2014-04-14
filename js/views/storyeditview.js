@@ -180,7 +180,7 @@ StoryEditView = Marionette.CompositeView.extend(
 
 		$(document).on('keydown', function (e)
 		{
-			if (e.keyCode == 32)
+			if (e.keyCode == 32 && $('input:focus, textarea:focus').length == 0)
 			{
 				self.startMouseScrolling();
 				e.preventDefault();
@@ -189,7 +189,7 @@ StoryEditView = Marionette.CompositeView.extend(
 
 		$(document).on('keyup', function (e)
 		{
-			if (e.keyCode == 32)
+			if (e.keyCode == 32 && $('input:focus, textarea:focus').length == 0)
 			{
 				self.stopMouseScrolling();
 				e.preventDefault();
