@@ -25,7 +25,7 @@ Story = Backbone.Model.extend(
 						 'creator-version="<%- appVersion %>">' +
 						 '<style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"><%= stylesheet %></style>' +
 						 '<script role="script" id="twine-user-script" type="text/twine-javascript"><%= script %></script>' + 
-						 '<%= passageData %></div>'),
+						 '<%= passageData %></tw-storydata>'),
 	
 	initialize: function()
 	{
