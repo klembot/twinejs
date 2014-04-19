@@ -48,15 +48,15 @@ module.exports = function (grunt)
 						// Font Awesome
 
 						if (url == 'lib/fontawesome/css/font-awesome.css')
-							return '//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css';
+							return '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css';
 
 						// jQuery
 
 						if (url == 'lib/jquery/jquery.js')
-							return '//code.jquery.com/jquery-1.9.1.min.js';
+							return '//code.jquery.com/jquery-1.11.0.min.js';
 
 						if (url == 'lib/jquery/jquery.ui.js')
-							return '//code.jquery.com/ui/1.10.2/jquery-ui.min.js';
+							return '//code.jquery.com/ui/1.10.4/jquery-ui.min.js';
 					}
 				},
 
@@ -90,6 +90,14 @@ module.exports = function (grunt)
 					{ expand: true, src: ['img/*.png'], dest: 'dist/rsrc/' },
 					{ expand: true, cwd: 'font', src: ['*'], dest: 'dist/rsrc/font/' },
 					{ expand: true, cwd: 'lib/fontawesome/font', src: ['*'], dest: 'dist/rsrc/font/' }
+				]
+			},
+
+			license:
+			{
+				files:
+				[
+					{ expand: true, src: ['LICENSE'], dest: 'dist/' }
 				]
 			}
 		},

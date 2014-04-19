@@ -6,6 +6,13 @@
 	width: 40px;
 }
 
+#storyEditView.scrolling
+{
+	cursor: all-scroll;
+	cursor: -webkit-grab;
+	cursor: -moz-grab;
+}
+
 #storyEditView .home a
 {
 	display: block;
