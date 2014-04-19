@@ -100,7 +100,7 @@ TwineApp = Backbone.Marionette.Application.extend(
 
 		archiveStory();
 	},
-
+	
 	/**
 	 Imports a file containing either a single published story, or an
 	 archive of several stories. The stories are immediately saved to storage.
@@ -114,48 +114,76 @@ TwineApp = Backbone.Marionette.Application.extend(
 	{
 		// parse data into a DOM
 
-		var parsed = $('<html>');
+		var $parsed = $('<html>');
 		var count = 0;
 
 		// remove surrounding <html>, if there is one
 
 		if (data.indexOf('<html>') != -1)
-			parsed.html(data.substring(data.indexOf('<html>') + 6, data.indexOf('</html>')));
+			$parsed.html(data.substring(data.indexOf('<html>') + 6, data.indexOf('</html>')));
 		else
-			parsed.html(data);
+			$parsed.html(data);
 
-		parsed.find('[data-role="twinestory"]').each(function()
+		$parsed.find(TwineApp.selectors.story).each(function()
 		{
 			var $story = $(this);
-			var startPassageId = $story.attr('data-startnode');
+			var startPassageId = $story.attr('startnode')
+				
+				// 2.0p2 legacy
+				
+				|| $story.attr('data-startnode');
 
 			// create a story object
 
-			var story = window.app.stories.create({ name: $story.attr('data-name') }, { wait: true });
+			var story = window.app.stories.create(
+				{
+					name: $story.attr('name')
+					
+						// 2.0p2 legacy
+						
+						|| $story.attr('data-name')
+				},
+				{ wait: true });
 
 			// and child passages
 			
-			$story.find('[data-role="passage"]').each(function()
+			$story.find(TwineApp.selectors.passageData).each(function()
 			{
 				var $passage = $(this);
-				var posBits = $passage.attr('data-twine-position').split(',');
+				var id = $passage.attr('pid')
+					// 2.0p2 legacy
+					|| $passage.attr('data-id'); 
+				var pos = $passage.attr('twine-position')
+					// 2.0p2 legacy
+					|| $passage.attr('data-twine-position');
+				var posBits = pos.split(',');
 
 				// decode HTML entities in source
-
-				var e = document.createElement('div');
-				e.innerHTML = $passage.html();
-				var text = (e.childNodes.length === 0) ? '' : e.childNodes[0].nodeValue;
+				// if it's a 2.0p2 legacy file
+				
+				if ($story[0].tagName === 'div')
+				{
+					var e = document.createElement('div');
+					e.innerHTML = $passage.html();
+					var text = (e.childNodes.length === 0) ? '' : e.childNodes[0].nodeValue;
+				}
+				else
+				{
+					text = $passage.text();
+				}
 
 				passage = window.app.passages.create(
 				{
-					name: $passage.attr('data-name'),
+					name: $passage.attr('name')
+						// 2.0p2 legacy
+						|| $passage.attr('data-name'),
 					text: text,
 					story: story.id,
 					left: parseInt(posBits[0]),
 					top: parseInt(posBits[1])
 				}, { wait: true });	
 
-				if ($passage.attr('data-id') == startPassageId)
+				if (id == startPassageId)
 					story.save({ startPassage: passage.id });
 			});
 
@@ -163,7 +191,7 @@ TwineApp = Backbone.Marionette.Application.extend(
 
 			var stylesheet = '';
 
-			$story.find('[data-role="stylesheet"]').each(function()
+			$story.find(TwineApp.selectors.stylesheet).each(function()
 			{
 				stylesheet += $(this).text() + '\n';
 			});
@@ -172,7 +200,7 @@ TwineApp = Backbone.Marionette.Application.extend(
 
 			var script = '';
 
-			$story.find('[data-role="script"]').each(function()
+			$story.find(TwineApp.selectors.script).each(function()
 			{
 				script += $(this).text() + '\n';
 			});
@@ -184,6 +212,23 @@ TwineApp = Backbone.Marionette.Application.extend(
 		});
 
 		return count;
+	}
+},{
+	/**
+	 A static namespace of DOM selectors for Harlowe HTML elements.
+	 This is aligned with utils/selectors.js in Harlowe.
+	
+	 @property selectors
+	 @type Object
+	 @final
+	*/
+	selectors: {
+		passage: "tw-passage",
+		story: "tw-story",
+		script: "[data-role=script]",
+		stylesheet: "[data-role=stylesheet]",
+		storyData: "tw-storydata, [data-role=twinestory]", // 2.0p2 legacy selector
+		passageData: "tw-passagedata, [data-role=passage]" // 2.0p2 legacy selector
 	}
 });
 

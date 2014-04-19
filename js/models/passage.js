@@ -17,9 +17,9 @@ Passage = Backbone.Model.extend(
 		text: 'Double-click this passage to edit it.'
 	},
 
-	template: _.template('<script data-role="passage" data-id="<%- id %>" data-name="<%- name %>" ' +
-						 'type="text/twine" data-twine-position="<%- left %>,<%- top %>">' +
-						 '<%- text %></script>'),
+	template: _.template('<tw-passagedata pid="<%- id %>" name="<%- name %>" ' +
+						 'position="<%- left %>,<%- top %>">' +
+						 '<%- text %></tw-passagedata>'),
 
 	initialize: function()
 	{
@@ -105,7 +105,26 @@ Passage = Backbone.Model.extend(
 
 		if (matches)
 			for (var i = 0; i < matches.length; i++)
-				result.push(matches[i].replace(/[\[\]]/g, '').replace(/.*\|/, ''));
+			{
+				/*
+					Arrow links
+					[[display text->link]] format
+					[[link<-display text]] format
+					This regex will interpret the rightmost '->' and the leftmost '<-' as the divider.
+				*/
+				result.push(matches[i].replace(/\[\[(?:([^\]]*)\->|([^\]]*?)<\-)([^\]]*)\]\]/g, function(a,b,c,d) {
+					return c ? c : d;
+				})
+				/*
+					TiddlyWiki links
+					[[display text|link]] format
+				*/
+					.replace(/\[\[([^\|\]]*?)\|([^\|\]]*)?\]\]/g, "$2")
+				/*
+					[[link]] format
+				*/
+					.replace(/\[\[|\]\]/g,""));
+			}
 
 		return result;
 	},
