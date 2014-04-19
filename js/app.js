@@ -150,7 +150,13 @@ TwineApp = Backbone.Marionette.Application.extend(
 			$story.find(TwineApp.selectors.passageData).each(function()
 			{
 				var $passage = $(this);
-				var posBits = $passage.attr('data-twine-position').split(',');
+				var id = $passage.attr('pid')
+					// 2.0p2 legacy
+					|| $passage.attr('data-id'); 
+				var pos = $passage.attr('twine-position')
+					// 2.0p2 legacy
+					|| $passage.attr('data-twine-position');
+				var posBits = pos.split(',');
 
 				// decode HTML entities in source
 				// if it's a 2.0p2 legacy file
@@ -168,14 +174,16 @@ TwineApp = Backbone.Marionette.Application.extend(
 
 				passage = window.app.passages.create(
 				{
-					name: $passage.attr('data-name'),
+					name: $passage.attr('name')
+						// 2.0p2 legacy
+						|| $passage.attr('data-name'),
 					text: text,
 					story: story.id,
 					left: parseInt(posBits[0]),
 					top: parseInt(posBits[1])
 				}, { wait: true });	
 
-				if ($passage.attr('data-id') == startPassageId)
+				if (id == startPassageId)
 					story.save({ startPassage: passage.id });
 			});
 
@@ -220,7 +228,7 @@ TwineApp = Backbone.Marionette.Application.extend(
 		script: "[data-role=script]",
 		stylesheet: "[data-role=stylesheet]",
 		storyData: "tw-storydata, [data-role=twinestory]", // 2.0p2 legacy selector
-		passageData: "[data-role=passage]"
+		passageData: "tw-passagedata, [data-role=passage]" // 2.0p2 legacy selector
 	}
 });
 
