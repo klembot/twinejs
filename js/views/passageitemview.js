@@ -24,9 +24,10 @@ PassageItemView = Marionette.ItemView.extend(
 
 	initialize: function (options)
 	{
-		this.listenTo(this.model, 'change', this.render);
 		this.parentView = options.parentView;
-		this.listenTo(this.parentView, 'zoom', this.render);
+		this.listenTo(this.model, 'change', this.render)
+		.listenTo(this.model, 'change:text', this.createLinkedPassages)
+		.listenTo(this.parentView, 'zoom', this.render);
 	},
 
 	onRender: function()
@@ -100,93 +101,61 @@ PassageItemView = Marionette.ItemView.extend(
 
 	edit: function()
 	{
-		// remember current set of broken links 
-		// so if the user adds one during editing, we'll
-		// create a passage for them
-
-		this.oldBrokenLinks = _.filter(this.model.links(), function (link)
-		{
-			return ! this.parentView.collection.findWhere({ name: link });
-		}, this);
-
-		$('#passageEditModal .passageId').val(this.model.id);
-		$('#passageEditModal .passageName').val(this.model.get('name'));
-
-		// don't prepopulate textarea if all we have is default text
-
-		var text = this.model.get('text');
-		$('#passageEditModal .passageText').val((text == Passage.prototype.defaults.text) ? '' : text);
-		$('#passageEditModal .savePassage').on('click', { view: this }, this.finishEdit);
-		$('#passageEditModal').modal(
-		{
-			keyboard: false,
-			backdrop: 'static'
-		});
-
-		$('body').on('keyup', this.handleShortcuts);
+		this.parentView.passageEditor.model = this.model;
+		this.parentView.passageEditor.open();
 	},
 
 	/**
-	 Updates the model after editing it in the modal created by edit().
+	 Creates passage models for any broken links that are in this model's
+	 text, but are not contained in the previous state's text. This is called
+	 automatically whenever the model's text property is changed.
 
-	 @method finishEdit
+	 @method createLinkedPassages
 	**/
-	
-	finishEdit: function (e)
+
+	createLinkedPassages: function()
 	{
-		var view = e.data.view;
+		// derive the previous set of links
 
-		if (view.model.save(
+		var oldBroken = [];
+
+		if (this.model.previous('text'))
 		{
-			name: $('#passageEditModal .passageName').val(),
-			text: $('#passageEditModal .passageText').val()
-		}))
-		{
-			// successful save
-			// create passages for new broken links
-
-			var newTop = view.model.get('top') + Passage.height * 1.5;
-			var newLeft = view.model.get('left');
-
-			_.each(view.model.links(), function (link)
+			var currentText = this.model.get('text');
+			this.model.set({ text: this.model.previous('text') }, { silent: true })
+			oldBroken = _.filter(this.model.links(), function()
 			{
-				if (! view.parentView.collection.findWhere({ name: link }) &&
-					view.oldBrokenLinks.indexOf(link) == -1)
-				{
-					var passage = new Passage(
-					{
-						story: view.model.get('story'),
-						name: link,
-						top: newTop,
-						left: newLeft
-					});
-
-					view.parentView.collection.add(passage);
-					view.parentView.positionPassage(passage);
-					passage.save();
-					view.parentView.children.findByModel(passage).appear();
-					newLeft += Passage.width * 1.5;
-				};
-			});
-
-			$('#passageEditModal .alert').remove();
-			$('#passageEditModal .savePassage').off('click');
-			$('#passageEditModal').modal('hide');	
-		}
-		else
-		{
-			// show the error message
-
-			var message = $('#passageEditModal .alert');
-			
-			if (message.size() == 0)
-				message = $('<p class="alert alert-danger">')
-				.text(view.model.validationError);
-
-			$('#passageEditModal .textareaContainer').before(message);
-			message.hide().fadeIn();
-			$('#passageEditModal .passageName').focus();
+				return (this.parentView.collection.findWhere({ name: link }) !== null);
+			}, this);
+			this.model.set({ text: currentText }, { silent: true });
 		};
+
+		// we start new passages directly below this one
+
+		var newTop = this.model.get('top') + Passage.height * 1.5;
+		var newLeft = this.model.get('left');
+
+		// actually create them
+
+		_.each(this.model.links(), function (link)
+		{
+			if (! this.parentView.collection.findWhere({ name: link }) &&
+				oldBroken.indexOf(link) == -1)
+			{
+				var passage = new Passage({
+					story: this.model.get('story'),
+					name: link,
+					top: newTop,
+					left: newLeft
+				});
+
+				this.parentView.collection.add(passage);
+				this.parentView.positionPassage(passage);
+				passage.save();
+				this.parentView.children.findByModel(passage).appear();
+				newLeft += Passage.width * 1.5;
+			};
+		}, this);
 	},
 
 	/**
@@ -225,22 +194,6 @@ PassageItemView = Marionette.ItemView.extend(
 			});
 
 		this.$el.removeClass('fallIn').addClass('disappear');
-	},
-
-	/**
-	 Listens for the Escape key during editing of a passage, simulating a
-	 click of the Done button.
-
-	 @method handleShortcuts
-	 @param {Object} event Standard jQuery event object.
-	**/
-
-	handleShortcuts: function (event)
-	{
-		// escape key
-
-		if (event.keyCode == 27)
-			$('#passageEditModal .savePassage').click();
 	},
 
 	/**
