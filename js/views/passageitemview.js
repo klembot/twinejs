@@ -123,10 +123,12 @@ PassageItemView = Marionette.ItemView.extend(
 		{
 			var currentText = this.model.get('text');
 			this.model.set({ text: this.model.previous('text') }, { silent: true })
-			oldBroken = _.filter(this.model.links(), function()
+
+			oldBroken = _.filter(this.model.links(), function (link)
 			{
 				return (this.parentView.collection.findWhere({ name: link }) !== null);
 			}, this);
+
 			this.model.set({ text: currentText }, { silent: true });
 		};
 
