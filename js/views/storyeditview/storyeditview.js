@@ -99,7 +99,7 @@ StoryEditView = Marionette.CompositeView.extend(
 		// resize the story map whenever the browser window resizes
 
 		this.resize();
-		$(window).on('resize', _.debounce(_.bind(function() { this.resize() }, this), 500));
+		$(window).on('resize', _.debounce(_.bind(this.resize, this), 500));
 
 		this.syncZoom();
 		this.linkManager = new StoryEditView.LinkManager({ el: this.el, parent: this });
@@ -113,6 +113,7 @@ StoryEditView = Marionette.CompositeView.extend(
 	close: function()
 	{
 		$(document).off('keydown');
+		$(window).off('resize');
 	},
 
 	/**
