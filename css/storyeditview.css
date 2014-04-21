@@ -107,11 +107,13 @@ body.modal-open #storyEditView .toolbox
 	padding: 10px;
 	border-radius: 10px;
 	color: hsla(0, 0%, 100%, 0.75);
+	cursor: default;
 }
 
 #storyEditView .passage:hover
 {
-	background-color: hsla(0, 0%, 0%, 0.25);
+	background-color: hsla(0, 0%, 0%, 0.7);
+	z-index: 2;
 }
 
 #storyEditView .passage .frame
