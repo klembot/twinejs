@@ -89,6 +89,10 @@ StoryEditView.LinkManager = Backbone.View.extend(
 		})
 		.listenTo(this.parent.model, 'change:zoom', this.reset);
 
+		// as the window resizes, we need to redraw links because our canvas element is changing size
+
+		$(window).on('resize', _.debounce(_.bind(this.drawLinks, this), 500));
+
 		// for some reason, jQuery can't see the position of the passages yet, so we defer
 
 		_.defer(_.bind(this.reset, this));
