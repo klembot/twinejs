@@ -33,6 +33,7 @@ StoryEditView = Marionette.CompositeView.extend(
 
 	initialize: function (options)
 	{
+		this.listenTo(this.model, 'change:zoom', this.syncZoom);
 		this.collection = new PassageCollection(app.passages.where({ story: this.model.id }));
 		this.listenTo(this.collection, 'change:top change:left', this.resize)
 		.listenTo(this.collection, 'add', function()
@@ -115,21 +116,33 @@ StoryEditView = Marionette.CompositeView.extend(
 	},
 
 	/**
-	 Adds a new passage to the center of the view.
+	 Adds a new passage.
 
 	 @method addPassage
+	 @param {String} name name of the passage; defaults to model default
+	 @param {Number} left left position; defaults to horizontal center of the window
+	 @param {Number} top top position; defaults to vertical center of the window
 	**/
 
-	addPassage: function()
+	addPassage: function (name, left, top)
 	{
-		var offsetX = this.$('.passage:first').width() / 2;
-		var offsetY = this.$('.passage:first').height() / 2;
-
-		var passage = new Passage(
+		if (! left)
 		{
+			var offsetX = this.$('.passage:first').width() / 2;
+			left = ($(window).scrollLeft() + $(window).width() / 2) - offsetX;
+		};
+
+		if (! top)
+		{
+			var offsetY = this.$('.passage:first').height() / 2;
+			top = ($(window).scrollTop() + $(window).height() / 2) - offsetY;
+		};
+
+		var passage = new Passage({
+			name: name,
 			story: this.model.id,
-			top: ($(window).scrollTop() + $(window).height() / 2) - offsetY,
-			left: ($(window).scrollLeft() + $(window).width() / 2) - offsetX
+			left: left,
+			top: top
 		});
 		
 		// catch dupe passage names

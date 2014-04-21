@@ -27,7 +27,7 @@ PassageItemView = Marionette.ItemView.extend(
 		this.parentView = options.parentView;
 		this.listenTo(this.model, 'change', this.render)
 		.listenTo(this.model, 'change:text', this.createLinkedPassages)
-		.listenTo(this.parentView, 'zoom', this.render);
+		.listenTo(this.parentView.model, 'change:zoom', this.render);
 	},
 
 	onRender: function()
@@ -122,13 +122,13 @@ PassageItemView = Marionette.ItemView.extend(
 		if (this.model.previous('text'))
 		{
 			var currentText = this.model.get('text');
-			this.model.set({ text: this.model.previous('text') }, { silent: true })
+			this.model.set({ text: this.model.previous('text') }, { silent: true });
 
 			oldBroken = _.filter(this.model.links(), function (link)
 			{
 				return (this.parentView.collection.findWhere({ name: link }) !== null);
 			}, this);
-
+	
 			this.model.set({ text: currentText }, { silent: true });
 		};
 
@@ -138,23 +138,15 @@ PassageItemView = Marionette.ItemView.extend(
 		var newLeft = this.model.get('left');
 
 		// actually create them
+		// this needs to be deferred so that the current chain of execution
+		// (e.g. a pending save operation, if there is one) can finish off
 
 		_.each(this.model.links(), function (link)
 		{
 			if (! this.parentView.collection.findWhere({ name: link }) &&
 				oldBroken.indexOf(link) == -1)
 			{
-				var passage = new Passage({
-					story: this.model.get('story'),
-					name: link,
-					top: newTop,
-					left: newLeft
-				});
-
-				this.parentView.collection.add(passage);
-				this.parentView.positionPassage(passage);
-				passage.save();
-				this.parentView.children.findByModel(passage).appear();
+				_.defer(_.bind(this.parentView.addPassage, this.parentView), link, newLeft, newTop);
 				newLeft += Passage.width * 1.5;
 			};
 		}, this);
