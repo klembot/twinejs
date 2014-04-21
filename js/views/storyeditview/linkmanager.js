@@ -81,20 +81,30 @@ StoryEditView.LinkManager = Backbone.View.extend(
 				{
 					if (link == name)
 					{
-						this.children.findByModel(item).render();
+						this.parent.children.findByModel(item).render();
 						return true;
 					};
 				}, this);
 			}, this);
-		});
+		})
+		.listenTo(this.parent.model, 'change:zoom', this.reset);
 
-		// for some reason, jQuery can't see the position of the passages yet, so we defer... kind of
+		// for some reason, jQuery can't see the position of the passages yet, so we defer
 
-		window.setTimeout(_.bind(function()
-		{
-			this.parent.collection.each(function(item) { this.cachePassage(item) }, this);
-			this.drawLinks();
-		}, this), 0);
+		_.defer(_.bind(this.reset, this));
+	},
+
+	/**
+	 Forces a re-cache of all passages.
+
+	 @method reset
+	**/
+
+	reset: function()
+	{
+		this.drawCache = {};
+		this.parent.collection.each(function(item) { this.cachePassage(item) }, this);
+		this.drawLinks();
 	},
 
 	/**
