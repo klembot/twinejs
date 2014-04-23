@@ -36,12 +36,12 @@ StoryEditView = Marionette.CompositeView.extend(
 		this.listenTo(this.model, 'change:zoom', this.syncZoom);
 		this.collection = this.model.fetchPassages();
 		this.listenTo(this.collection, 'change:top change:left', this.resize)
-		.listenTo(this.collection, 'add', function()
+		.listenTo(this.collection, 'add', function (p)
 		{
 			// set as starting passage if we only have one
 
 			if (this.collection.length == 1)
-				this.model.save({ startPassage: item.cid });
+				this.model.save({ startPassage: p.cid });
 		});
 	},
 

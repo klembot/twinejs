@@ -28,14 +28,13 @@ Passage = Backbone.Model.extend(
 			// if any stories are using this passage's cid
 			// as their start passage, update with a real id
 
-			StoryCollection.all().where({ startPassage: self.cid }).invoke('save', { startPassage: this.id });
+			_.invoke(StoryCollection.all().where({ startPassage: self.cid }), 'save', { startPassage: this.id });
 		}, this);
 
 		this.on('change', function()
 		{
 			// update parent's last update date
 
-			console.log(this.fetchStory());
 			this.fetchStory().set('lastUpdate', new Date());
 		}, this);
 	},
@@ -62,12 +61,11 @@ Passage = Backbone.Model.extend(
 		if (! attrs.name || attrs.name == '')
 			return Passage.NO_NAME_ERROR;
 
-		if (_.find(this.fetchStory().fetchPassages(),
-				   function (passage)
-				   {
-				   		return (attrs.id != passage.id &&
-				   		        attrs.name.toLowerCase() == passage.get('name').toLowerCase());
-				   }))
+		if (this.fetchStory().fetchPassages().find(function (passage)
+		    {
+				return (attrs.id != passage.id &&
+						attrs.name.toLowerCase() == passage.get('name').toLowerCase());
+		    }))
 			return Passage.DUPE_NAME_ERROR.replace('%s', attrs.name);
 	},
 
