@@ -8,8 +8,22 @@
 
 StoryEditView.LinkManager = Backbone.View.extend(
 {
+	/**
+	 Color used to draw links.
+
+	 @property {String} linkColor
+	**/
+
+	linkColor: '#7088ac',
+
 	initialize: function (options)
 	{
+		/**
+		 The parent view.
+
+		 @property {StoryEditView} parent
+		**/
+
 		this.parent = options.parent;
 
 		/**
@@ -20,14 +34,6 @@ StoryEditView.LinkManager = Backbone.View.extend(
 		**/
 
 		this.drawCache = {};
-
-		/**
-		 Color used to draw links.
-
-		 @property {String} linkColor
-		**/
-
-		this.linkColor = '#7088ac';
 
 		// keep draw cache in sync with collection changes
 
@@ -91,11 +97,53 @@ StoryEditView.LinkManager = Backbone.View.extend(
 
 		// as the window resizes, we need to redraw links because our canvas element is changing size
 
-		$(window).on('resize', _.debounce(_.bind(this.drawLinks, this), 500));
+		/**
+		 A bound event listener for window resize events, so we can later disconnect it.
+
+		 @property {Function} drawLinksBound
+		 @private
+		**/
+
+		this.drawLinksBound = _.debounce(_.bind(this.drawLinks, this), 500);
+		$(window).on('resize', this.drawLinksBound);
+
+		/**
+		 A bound event listener for the start of a passage drag event, so we can later disconnect it.
+
+		 @property {Function} prepDragBound
+		 @private
+		**/
+
+		this.prepDragBound = _.bind(this.prepDrag, this);
+		$('body').on('passagedragstart', this.prepDragBound);
+
+		/**
+		 A bound event listener for a passage drag event, so we can later disconnect it.
+
+		 @property {Function} followDragBound
+		 @private
+		**/
+
+		this.followDragBound = _.bind(this.followDrag, this);
+		$('body').on('passagedrag', this.followDragBound);
 
 		// for some reason, jQuery can't see the position of the passages yet, so we defer
 
 		_.defer(_.bind(this.reset, this));
+	},
+
+	/**
+	 Does cleanup of stuff set up in onRender().
+
+	 @method close
+	 @private
+	**/
+
+	close: function()
+	{
+		$(window).off('resize', this.drawLinksBound);
+		$('body').off('passagedragstart', this.prepDragBound);
+		$('body').off('passagedrag', this.followDragBound);
 	},
 
 	/**
@@ -258,6 +306,46 @@ StoryEditView.LinkManager = Backbone.View.extend(
 			};
 		};
     },
+
+	/**
+	 Prepares for the user dragging passages around by remembering
+	 which ones are selected, so we don't have to keep asking during the drag.
+
+	 @method prepDrag
+	 @internal
+	**/
+
+	prepDrag: function()
+	{
+		/**
+		 An array of PassageItemViews currently being dragged.
+
+		 @property draggedPassages
+		 @private
+		**/
+
+		this.draggedPassages = this.parent.children.filter(function (view)
+		{
+			return view.selected;	
+		});
+	},
+
+	/**
+	 Re-caches dragged passages in flight and redraws links.
+
+	 @method followDrag
+	 @internal
+	**/
+
+	followDrag: function()
+	{
+		_.each(this.draggedPassages, function (view)
+		{
+			this.cachePassage(view.model);
+		}, this);
+
+		this.drawLinks();
+	},
 
 	/**
 	 Updates the draw cache for a passage. This must occur whenever a passage's position,

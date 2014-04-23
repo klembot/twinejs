@@ -110,8 +110,16 @@ StoryEditView = Marionette.CompositeView.extend(
 		this.styleEditor = new StoryEditView.StyleEditor({ el: this.$('#stylesheetEditModal'), parent: this });
 	},
 
+	/**
+	 Does cleanup of stuff set up in initialize().
+
+	 @method close
+	 @private
+	**/
+
 	close: function()
 	{
+		this.linkManager.close();
 		$(document).off('keydown');
 		$(window).off('resize');
 	},
@@ -399,12 +407,23 @@ StoryEditView = Marionette.CompositeView.extend(
 
 	events:
 	{
-		'drag .passage': function (event)
+		'drag .passage': function (e)
 		{
 			// draw links between passages as they are dragged around
 
-			this.linkManager.cachePassage(this.collection.get($(event.target).closest('.passage').attr('data-id')));
+			this.linkManager.cachePassage(this.collection.get($(e.target).closest('.passage').attr('data-id')));
 			this.linkManager.drawLinks();
+		},
+
+		'mouseup': function (e)
+		{
+			// if no passsage was clicked, deselect all
+
+			if ($(e.target).closest('.passage').length == 0)
+				this.children.each(function (view)
+				{
+					view.deselect();
+				});
 		}
 	},
 });
