@@ -13,6 +13,12 @@
 	cursor: -moz-grab;
 }
 
+#storyEditView.draggingPassages *,
+#storyEditView.marqueeing *
+{
+	cursor: default !important;
+}
+
 #storyEditView .home a
 {
 	display: block;
@@ -95,6 +101,14 @@ body.modal-open #storyEditView .toolbox
 	box-sizing: border-box;
 }
 
+#storyEditView .marquee
+{
+	display: none;
+	z-index: 3;
+	position: absolute;
+	border: 2px dashed hsla(0, 0%, 100%, 0.5);
+}
+
 #storyEditView .passages
 {
 	margin-top: 50px;
@@ -120,6 +134,13 @@ body.modal-open #storyEditView .toolbox
 {
 	background-color: hsla(0, 0%, 0%, 0.7);
 	z-index: 2;
+}
+
+#storyEditView.scrolling .passage:hover,
+#storyEditView.draggingPassages .passage:hover
+{
+	background-color: transparent;
+	z-index: 0;
 }
 
 #storyEditView .passage .frame
@@ -186,6 +207,12 @@ body.modal-open #storyEditView .toolbox
 	display: block;
 	margin: 0;
 	padding: 0;
+}
+
+#storyEditView.scrolling .passage:hover .controls,
+#storyEditView.draggingPassages .passage:hover .controls
+{
+	display: none;
 }
 
 #storyEditView .passage .controls a
