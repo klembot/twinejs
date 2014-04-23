@@ -14,3 +14,18 @@ StoryCollection = Backbone.Collection.extend(
 		return story.get('title');
 	}
 });
+
+/**
+ Returns a collection of all stories saved.
+
+ @method all
+ @return {StoryCollection} a collection of all stories
+ @static
+**/
+
+StoryCollection.all = function()
+{
+	var result = new StoryCollection();
+	result.fetch();
+	return result;
+};

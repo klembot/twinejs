@@ -35,33 +35,15 @@ Story = Backbone.Model.extend(
 		{
 			// delete all child passages
 
-			window.app.passages.fetch(
-			{
-				success: function (passages)
-				{
-					var children = passages.where({ story: self.id });
-
-					for (var i = 0; i < children.length; i++)
-						children[i].destroy();
-				}
-			});
-		});
+			this.fetchPassages().invoke('destroy');
+		}, this);
 
 		this.on('sync', function()
 		{
-			// update any passages using our cid as id
+			// update any passages using our cid as link
 
-			window.app.passages.fetch(
-			{
-				success: function (passages)
-				{
-					var children = passages.where({ story: self.cid });
-
-					for (var i = 0; i < children.length; i++)
-						children[i].save({ story: self.id });
-				}
-			});
-		});
+			_.invoke(PassageCollection.all().where({ story: this.cid }), 'save', { story: this.id });
+		}, this);
 
 		// any time we change, update our last updated date
 		// we *shouldn't* save ourselves here, since it may not
@@ -70,7 +52,28 @@ Story = Backbone.Model.extend(
 		this.on('change', function()
 		{
 			this.set('lastUpdate', new Date());
-		});
+		}, this);
+	},
+
+	/**
+	 Fetches a PassageCollection of all passages currently linked to this
+	 story. Beware: this collection represents the passages currently in existence
+	 at the time of the call, and will not reflect future changes. If there are
+	 no passages for this story, this returns an empty collection.
+
+	 @method fetchPassages
+	 @return {PassageCollection} collection of matching passages
+	**/
+
+	fetchPassages: function()
+	{
+		var passages = PassageCollection.all();
+		passages.reset(passages.filter(function (p)
+		{
+			return p.get('story') == this.id || p.get('story') == this.cid;
+		}, this));
+		
+		return passages;
 	},
 
 	/**
@@ -78,41 +81,46 @@ Story = Backbone.Model.extend(
 	 Template to create a full-fledged HTML document from this.
 
 	 @method publish
-	 @param {Function} callback Callback function called after finishing the publication process.
-	                            This is passed the resulting HTML.
+	 @return {String} HTML fragment
 	**/
 
-	publish: function (callback)
+	publish: function()
 	{
-		var self = this;
+		var passageData = '';
+		var startDbId = this.get('startPassage');
+		var startId = 1; // last-ditch default, shows first passage defined
 
-		window.app.passages.fetch({
-			success: function (passages)
-			{
-				var passageData = '';
-				var children = passages.where({ story: self.id });
-				var startDbId = self.get('startPassage');
-				var startId = 1; // last-ditch default, shows first passage defined
+		this.fetchPassages().each(function (p, index)
+		{
+			passageData += p.publish(index + 1);
 
-				for (var i = 0; i < children.length; i++)
-				{
-					passageData += children[i].publish(i + 1);
-					
-					if (children[i].id == startDbId)
-						startId = i + 1;
-				};
+			if (p.id == startDbId)
+				startId = index + 1;
+		});
 
-				callback(self.template(
-				{
-					storyName: self.get('name'),
-					startNode: startId,
-					appName: window.app.name,
-					appVersion: window.app.version,
-					passageData: passageData,
-					stylesheet: self.get('stylesheet'),
-					script: self.get('script')
-				}));
-			}
+		return this.template(
+		{
+			storyName: this.get('name'),
+			startNode: startId,
+			appName: window.app.name,
+			appVersion: window.app.version,
+			passageData: passageData,
+			stylesheet: this.get('stylesheet'),
+			script: this.get('script')
 		});
 	}
 });
+
+/**
+ Locates a story by ID. If none exists, then this returns null.
+
+ @method withId
+ @param {Number} id id of the story 
+ @static
+ @return {Passage} matching story
+**/
+
+Story.withId = function (id)
+{
+	return StoryCollection.all().findWhere({ id: id });
+};

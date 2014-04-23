@@ -26,32 +26,6 @@ TwineApp = Backbone.Marionette.Application.extend(
 	version: '2.0p2',
 
 	/**
-	 Synchronizes all stories and passages in memory with what's been stored.
-
-	 @method sync
-	 @param {Function} callback Callback function to invoke once the sync is done.
-	**/
-
-	sync: function (callback)
-	{
-		var self = this;
-
-		this.prefs.fetch({
-			success: function()
-			{
-				self.stories.fetch({
-					success: function()
-					{
-						self.passages.fetch({
-							success: function() { if (callback) callback() }
-						});
-					}
-				});
-			}
-		});
-	},
-
-	/**
 	 Publishes a story to a file to be downloaded by binding it with the
 	 runtime template. 
 
@@ -61,11 +35,9 @@ TwineApp = Backbone.Marionette.Application.extend(
 
 	publishStory: function (story)
 	{
-		RuntimeTemplate.publish(story, function (html)
-		{
-			var blob = new Blob([html], { type: 'text/html;charset=utf-8' });
-			saveAs(blob, story.get('name') + '.html');
-		});
+		var source = RuntimeTemplate.publish(story);
+		var blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+		saveAs(blob, story.get('name') + '.html');
 	},
 
 	/**
@@ -77,28 +49,14 @@ TwineApp = Backbone.Marionette.Application.extend(
 	saveArchive: function()
 	{
 		var output = '';
-		var stories = this.stories.toArray();
-		var i = 0;
 
-		function archiveStory()
+		_.each(new StoryCollection().fetch(), function (story)
 		{
-			// output, stories, and i are defined above
-			
-			stories[i].publish(function (html)
-			{
-				output += html + '\n\n';
-				
-				if (++i < stories.length)
-					archiveStory();
-				else
-				{
-					var blob = new Blob([output], { type: 'text/html;charset=utf-8' });
-					saveAs(blob, new Date().toLocaleString().replace(/[\/:\\]/g, '.') + ' Twine Archive.html');
-				}
-			});
-		};
+			output += story.publish() + '\n\n';
+		});
 
-		archiveStory();
+		var blob = new Blob([output], { type: 'text/html;charset=utf-8' });
+		saveAs(blob, new Date().toLocaleString().replace(/[\/:\\]/g, '.') + ' Twine Archive.html');
 	},
 	
 	/**
@@ -135,15 +93,15 @@ TwineApp = Backbone.Marionette.Application.extend(
 
 			// create a story object
 
-			var story = window.app.stories.create(
-				{
+			var story = new Story();
+			story.save(
+			{
 					name: $story.attr('name')
 					
 						// 2.0p2 legacy
 						
 						|| $story.attr('data-name')
-				},
-				{ wait: true });
+			}, { wait: true });
 
 			// and child passages
 			
@@ -172,7 +130,8 @@ TwineApp = Backbone.Marionette.Application.extend(
 					text = $passage.text();
 				}
 
-				passage = window.app.passages.create(
+				var passage = new Passage();
+				passage.save(
 				{
 					name: $passage.attr('name')
 						// 2.0p2 legacy
@@ -236,35 +195,6 @@ window.app = new TwineApp();
 
 window.app.addInitializer(function (options)
 {
-	/**
-	 The master collection of all stories.
-
-	 @property stories
-	 @type StoryCollection
-	**/
-
-	app.stories = new StoryCollection();
-
-	/**
-	 The master collection of all passages. This is not differentiated
-	 by story at all -- you'd need to query by a parent story's ID.
-
-	 @property passages
-	 @type PassageCollection
-	**/
-
-	app.passages = new PassageCollection();
-
-	/**
-	 The master collection of all preferences.
-
-	 @property prefs
-	 @type AppPrefCollection
-	**/
-
-	app.prefs = new AppPrefCollection();
-	app.sync();
-
 	/**
 	 The app router.
 
