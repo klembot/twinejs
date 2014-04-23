@@ -23,29 +23,38 @@ Passage = Backbone.Model.extend(
 
 	initialize: function()
 	{
-		var self = this;
-
 		this.on('sync', function()
 		{
-			window.app.stories.fetch(
-			{
-				success: function (stories)
-				{
-					// if any stories are using this passage's cid
-					// as their start passage, update with a real id
+			// if any stories are using this passage's cid
+			// as their start passage, update with a real id
 
-					var starters = stories.where({ startPassage: self.cid });
+			StoryCollection.all().where({ startPassage: self.cid }).invoke('save', { startPassage: this.id });
+		}, this);
 
-					for (var i = 0; i < starters.length; i++)
-						starters[i].save({ startPassage: self.id });
+		this.on('change', function()
+		{
+			// update parent's last update date
 
-					// update parent's last update date
+			console.log(this.fetchStory());
+			this.fetchStory().set('lastUpdate', new Date());
+		}, this);
+	},
 
-					var parent = stories.where({ id: self.get('story') })[0];
-					parent.save('lastUpdate', new Date());
-				}
-			});
-		});
+	/**
+	 Fetches this passage's parent story. Beware: this model represents the
+	 state of the story at the time of the call, and will not reflect future changes.
+	 If the story does not exist, this returns null.
+
+	 @method fetchStory
+	 @return {Story} Story model
+	**/
+
+	fetchStory: function()
+	{
+		return StoryCollection.all().find(function (s)
+		{
+			return s.id == this.get('story') || s.cid == this.get('story');
+		}, this);
 	},
 
 	validate: function (attrs)
@@ -53,23 +62,12 @@ Passage = Backbone.Model.extend(
 		if (! attrs.name || attrs.name == '')
 			return Passage.NO_NAME_ERROR;
 
-		var dupe;
-		var story = this.get('story');
-
-		window.app.passages.fetch(
-		{
-			success: function()
-			{
-				dupe = _.find(window.app.passages.where({ story: story }),
-				function (passage)
-				{
-					return (attrs.id != passage.id &&
-							attrs.name.toLowerCase() == passage.get('name').toLowerCase());
-				});
-			}
-		});
-
-		if (dupe)
+		if (_.find(this.fetchStory().fetchPassages(),
+				   function (passage)
+				   {
+				   		return (attrs.id != passage.id &&
+				   		        attrs.name.toLowerCase() == passage.get('name').toLowerCase());
+				   }))
 			return Passage.DUPE_NAME_ERROR.replace('%s', attrs.name);
 	},
 
@@ -133,6 +131,8 @@ Passage = Backbone.Model.extend(
 	 Publishes the passage to an HTML fragment.
 
 	 @method publish
+	 @param {Number} id numeric id to assign to the passage, *not* this one's DB id
+	 @return {String} HTML fragment
 	**/
 
 	publish: function (id)
@@ -283,3 +283,17 @@ Passage = Backbone.Model.extend(
 	**/
 	DUPE_NAME_ERROR: 'There is already a passage named "%s." Please give this one a unique name.'
 });
+
+/**
+ Locates a passage by ID. If none exists, then this returns null.
+
+ @method withId
+ @param {Number} id id of the passage 
+ @static
+ @return {Passage} matching passage 
+**/
+
+Passage.withId = function (id)
+{
+	return PassageCollection.all().findWhere({ id: id });
+};

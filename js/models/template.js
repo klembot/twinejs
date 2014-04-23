@@ -16,37 +16,32 @@ var Template = Backbone.Model.extend(
 	},
 
 	/**
+	 Publishes a story with this template.
+
 	 @method publish
 	 @param {Story} story Story to publish.
-	 @param {Function} callback Function to call when done; this is passed the
-	                            final HTML output.
+	 @return {String} HTML source
 	**/
 
-	publish: function (story, callback)
+	publish: function (story)
 	{
-		var self = this;
+		var output = this.get('source');
+		
+		// builtin placeholders
 
-		story.publish(function (storyData)
+		output = output.replace(/{{STORY_NAME}}/g, _.escape(story.get('name')));
+		output = output.replace(/{{STORY_DATA}}/g, story.publish());
+
+		// user-defined placeholders
+
+		_.each(this.get('placeholders'), function (p)
 		{
-			var output = self.get('source');
-			
-			// builtin placeholders
+			var value = story.get(p.name);
 
-			output = output.replace(/{{STORY_NAME}}/g, _.escape(story.get('name')));
-			output = output.replace(/{{STORY_DATA}}/g, storyData);
-
-			// user-defined placeholders
-
-			_.each(self.get('placeholders'), function (p)
-			{
-				var value = story.get(p.name);
-
-				if (value !== null)
-					output = output.replace(p.name, value);
-			});
-
-			callback(output);
+			if (value !== null)
+				output = output.replace(p.name, value);
 		});
+
+		return output;
 	}
 });
-

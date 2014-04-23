@@ -14,3 +14,17 @@ AppPref = Backbone.Model.extend(
 		value: null
 	}
 });
+
+/**
+ Locates an AppPref by name. If none exists, then this returns null.
+
+ @method withName
+ @param {String} name name of the preference
+ @static
+ @return {AppPref} pref with matching name
+ **/
+
+AppPref.withName = function (name)
+{
+	return AppPrefCollection.all().findWhere({ name: name });
+};

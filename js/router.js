@@ -25,59 +25,42 @@ TwineRouter = Backbone.Router.extend(
 		{
 			// list of all stories
 
-			window.app.sync(function()
-			{
-				window.app.mainRegion.show(new StoryListView({ collection: window.app.stories }));
-			});
+			window.app.mainRegion.show(new StoryListView({ collection: StoryCollection.all() }));
 		},
 
 		'stories/:id': function (id)
 		{
 			// editing a specific story
 
-			window.app.sync(function()
-			{
-				window.app.mainRegion.show(new StoryEditView({ model: window.app.stories.get(id) }));
-			});
+			window.app.mainRegion.show(new StoryEditView({ model: Story.withId(id) }));
 		},
 
 		'stories/:id/play': function (id)
 		{
 			// play a story
 
-			var self = this;
-
-			window.app.sync(function()
-			{
-				RuntimeTemplate.publish(window.app.stories.get(id), function (html) { self.replaceContent(html) });
-			});
+			var output = RuntimeTemplate.publish(Story.withId(id), function (html) { self.replaceContent(html) });
+			this.replaceContent(output);
 		},
 
 		'stories/:id/proof': function (id)
 		{
 			// proof a story
 
-			var self = this;
-
-			window.app.sync(function()
-			{
-				ProofingTemplate.publish(window.app.stories.get(id), function (html) { self.replaceContent(html) });
-			});
+			var output = ProofingTemplate.publish(Story.withId(id), function (html) { self.replaceContent(html) });
+			this.replaceContent(output);
 		},
 
 		'*path': function()
 		{
 			// default route -- show welcome if the user hasn't already seen it
 
-			window.app.sync(function()
-			{
-				var welcomePref = window.app.prefs.findWhere({ name: 'welcomeSeen' });
+			var welcomePref = AppPref.withName('welcomeSeen');
 
-				if (welcomePref && welcomePref.get('value') === true)
-					window.location.hash = '#stories';
-				else
-					window.location.hash = '#welcome';
-			});
+			if (welcomePref && welcomePref.get('value') === true)
+				window.location.hash = '#stories';
+			else
+				window.location.hash = '#welcome';
 		}
 	},
 
