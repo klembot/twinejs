@@ -111,7 +111,7 @@ StoryEditView.Marquee = Backbone.View.extend(
 				item.view.select();
 			else
 				item.view.deselect();
-		});
+		}, this);
 	},
 
 	endDrag: function()
