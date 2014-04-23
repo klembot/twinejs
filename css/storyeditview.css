@@ -99,6 +99,12 @@ body.modal-open #storyEditView .toolbox
 {
 	margin-top: 50px;
 	position: relative;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 #storyEditView .passage
@@ -130,6 +136,12 @@ body.modal-open #storyEditView .toolbox
 #storyEditView .passage.brokenLink .frame
 {
 	background-color: hsla(0, 100%, 60%, 0.5);
+}
+
+#storyEditView .passage.selected .frame
+{
+	color: hsla(0, 0%, 100%, 1);
+	background-color: hsla(0, 0%, 100%, 0.25);
 }
 
 #storyEditView .passage .frame:after
