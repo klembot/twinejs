@@ -54,9 +54,6 @@ module.exports = function (grunt)
 
 						if (url == 'lib/jquery/jquery.js')
 							return '//code.jquery.com/jquery-1.11.0.min.js';
-
-						if (url == 'lib/jquery/jquery.ui.js')
-							return '//code.jquery.com/ui/1.10.4/jquery-ui.min.js';
 					}
 				},
 
