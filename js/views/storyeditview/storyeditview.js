@@ -416,17 +416,19 @@ StoryEditView = Marionette.CompositeView.extend(
 			this.linkManager.drawLinks();
 		},
 
-		/*
-		'mouseup': function (e)
+		'mousedown': function (e)
 		{
-			// if no passsage was clicked, deselect all
+			// record the click target
 
-			if ($(e.target).closest('.passage').length == 0)
-				this.children.each(function (view)
-				{
-					view.deselect();
-				});
+			/**
+			 The last element that was the target of a mousedown event.
+			 This is used by child views to see if they should pay attention to a
+			 mouseup event, for example.
+
+			 @property {jQuery Object} lastMousedown
+			**/
+
+			this.lastMousedown = $(e.target);
 		}
-		*/
 	},
 });
