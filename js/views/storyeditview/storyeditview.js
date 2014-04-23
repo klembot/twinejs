@@ -108,10 +108,11 @@ StoryEditView = Marionette.CompositeView.extend(
 		this.passageEditor = new StoryEditView.PassageEditor({ el: this.$('#passageEditModal'), parent: this });
 		this.scriptEditor = new StoryEditView.ScriptEditor({ el: this.$('#scriptEditModal'), parent: this });
 		this.styleEditor = new StoryEditView.StyleEditor({ el: this.$('#stylesheetEditModal'), parent: this });
+		this.marquee = new StoryEditView.Marquee({ el: this.$('.passages'), parent: this });
 	},
 
 	/**
-	 Does cleanup of stuff set up in initialize().
+	 Does cleanup of stuff set up in onRender().
 
 	 @method close
 	 @private
@@ -415,6 +416,7 @@ StoryEditView = Marionette.CompositeView.extend(
 			this.linkManager.drawLinks();
 		},
 
+		/*
 		'mouseup': function (e)
 		{
 			// if no passsage was clicked, deselect all
@@ -425,5 +427,6 @@ StoryEditView = Marionette.CompositeView.extend(
 					view.deselect();
 				});
 		}
+		*/
 	},
 });

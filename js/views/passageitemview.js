@@ -306,6 +306,7 @@ PassageItemView = Marionette.ItemView.extend(
 		};
 
 		this.beginDrag(e);
+		e.stopPropagation();
 	},
 
 	/**
@@ -346,9 +347,14 @@ PassageItemView = Marionette.ItemView.extend(
 	{
 		this.dragMouseStart = { x: e.pageX, y: e.pageY };	
 		this.actuallyDragged = false;
-		$('body').on('mousemove', this.trackDragBound);
-		$('body').on('mouseup', this.endDragBound);
-		$('body').trigger('passagedragstart', this.dragMouseStart);
+		$('#storyEditView').addClass('draggingPassages');
+
+		$('body').on(
+		{
+			mousemove: this.trackDragBound,
+			mouseup: this.endDragBound
+		})
+		.trigger('passagedragstart', this.dragMouseStart);
 	},
 
 	/**
@@ -410,9 +416,14 @@ PassageItemView = Marionette.ItemView.extend(
 
 	endDrag: function (e)
 	{
-		$('body').off('mousemove', this.trackDragBound);
-		$('body').off('mouseup', this.endDragBound);
-		$('body').trigger('passagedragend');
+		$('#storyEditView').removeClass('draggingPassages');
+		$('body').off(
+		{
+			mousemove: this.trackDragBound,
+			mouseup: this.endDragBound
+		})
+		.trigger('passagedragend');
+
 		_.defer(_.bind(function() { this.actuallyDragged = false }, this));
 	},
 
