@@ -132,14 +132,12 @@ body.modal-open #storyEditView .toolbox
 
 #storyEditView .passage:hover
 {
-	background-color: hsla(0, 0%, 0%, 0.7);
 	z-index: 2;
 }
 
 #storyEditView.scrolling .passage:hover,
 #storyEditView.draggingPassages .passage:hover
 {
-	background-color: transparent;
 	z-index: 0;
 }
 
@@ -198,8 +196,8 @@ body.modal-open #storyEditView .toolbox
 #storyEditView .passage .controls
 {
 	display: none;
-	text-align: right;
-	font-size: 22px;
+	text-align: center;
+	font-size: 24px;
 }
 
 #storyEditView .passage:hover .controls
@@ -207,6 +205,8 @@ body.modal-open #storyEditView .toolbox
 	display: block;
 	margin: 0;
 	padding: 0;
+	position: absolute;
+	left: 50%;
 }
 
 #storyEditView.scrolling .passage:hover .controls,
@@ -215,17 +215,31 @@ body.modal-open #storyEditView .toolbox
 	display: none;
 }
 
+#storyEditView .passage:hover .controls .popover
+{
+	display: block;
+	position: relative;
+	left: -50%;
+	top: -0.3em;
+	white-space: nowrap;
+}
+
+#storyEditView .passage:hover .controls .popover-content
+{
+	padding: 2px 9px;
+}
+
 #storyEditView .passage .controls a
 {
 	display: inline-block;
 	padding: 5px 3px 0 3px;
-	color: hsla(0, 0%, 100%, 0.5);
+	color: hsl(0, 0%, 30%);
 	text-decoration: none;
 }
 
 #storyEditView .passage .controls a:hover
 {
-	color: white;
+	color: #2a6496;
 }
 
 #storyEditView .passage .controls a.danger:hover
@@ -394,13 +408,13 @@ body.zoom-small
 	font-size: 24px;
 }
 
-#storyEditView .popover
+#storyEditView > .popover
 {
 	max-width: 350px;
 	width: 350px !important;
 }
 
-#storyEditView .popover .col-md-6 button
+#storyEditView > .popover .col-md-6 button
 {
 	width: 100%;
 }
