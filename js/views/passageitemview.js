@@ -322,7 +322,7 @@ PassageItemView = Marionette.ItemView.extend(
 	handleMouseUp: function (e)
 	{
 		if (e.shiftKey || e.ctrlKey || this.actuallyDragged ||
-			this.$el == this.parent.lastMousedown ||
+			this.$el == this.parentView.lastMousedown ||
 			this.$el.contains(this.parentView.lastMousedown))
 			return;
 
