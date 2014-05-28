@@ -12,11 +12,7 @@ WelcomeView = Backbone.Marionette.ItemView.extend(
 
 	initialize: function()
 	{
-		var self = this;
-		window.app.sync(function()
-		{
-			self.welcomePref = window.app.prefs.findWhere({ name: 'welcomeSeen' });
-		});
+		this.welcomePref = AppPref.withName('welcomeSeen');
 	},
 
 	finish: function()
@@ -24,7 +20,7 @@ WelcomeView = Backbone.Marionette.ItemView.extend(
 		if (! this.welcomePref)
 		{
 			this.welcomePref = new AppPref({ name: 'welcomeSeen' });
-			window.app.prefs.add(this.welcomePref);
+			AppPrefCollection.all().add(this.welcomePref);
 		};
 
 		this.welcomePref.save({ value: true });
