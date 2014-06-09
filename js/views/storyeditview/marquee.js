@@ -18,9 +18,9 @@ StoryEditView.Marquee = Backbone.View.extend(
 
 	startDrag: function (e)
 	{
-		// bail out if this is a touch device
+		// bail out if the target is a .passage element
 
-		if (window.app.hasPrimaryTouchUI())
+		if ($(e.target).closest('.passage').length > 0)
 			return;
 
 		this.startX = e.pageX;

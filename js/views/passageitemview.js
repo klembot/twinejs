@@ -196,6 +196,17 @@ PassageItemView = Marionette.ItemView.extend(
 	},
 
 	/**
+	 Tests the parent story, starting with this passage.
+
+	 @method test
+	**/
+
+	test: function()
+	{
+		this.parentView.test(this.model.id);
+	},
+
+	/**
 	 Animates the view as if it were apppearing onscreen for the first time.
 
 	 @method appear
@@ -474,6 +485,7 @@ PassageItemView = Marionette.ItemView.extend(
 		'mouseup .frame': 'handleMouseUp',
 		'click .delete': 'delete',
 		'click .edit': 'edit',
+		'click .test': 'test',
 		'dblclick': 'edit'
 	}
 });

@@ -108,7 +108,9 @@ StoryEditView = Marionette.CompositeView.extend(
 		this.passageEditor = new StoryEditView.PassageEditor({ el: this.$('#passageEditModal'), parent: this });
 		this.scriptEditor = new StoryEditView.ScriptEditor({ el: this.$('#scriptEditModal'), parent: this });
 		this.styleEditor = new StoryEditView.StyleEditor({ el: this.$('#stylesheetEditModal'), parent: this });
-		this.marquee = new StoryEditView.Marquee({ el: this.$('.passages'), parent: this });
+
+		if (! window.app.hasPrimaryTouchUI())
+			this.marquee = new StoryEditView.Marquee({ el: this.$('.passages'), parent: this });
 	},
 
 	/**
@@ -196,9 +198,12 @@ StoryEditView = Marionette.CompositeView.extend(
 	 @method test
 	**/
 
-	test: function()
+	test: function (startId)
 	{
-		window.open('#stories/' + this.model.id + '/test', 'twinestory_test_' + this.model.id);
+		if (startId)
+			window.open('#stories/' + this.model.id + '/test/' + startId, 'twinestory_test_' + this.model.id);
+		else
+			window.open('#stories/' + this.model.id + '/test', 'twinestory_test_' + this.model.id);
 	},
 
 	/**

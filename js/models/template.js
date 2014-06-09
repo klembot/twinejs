@@ -21,17 +21,18 @@ var Template = Backbone.Model.extend(
 	 @method publish
 	 @param {Story} story Story to publish.
 	 @param {Array} options Array of options to pass to the story, optional
+	 @param {Number} startId passage database ID to start with, overriding the model; optional
 	 @return {String} HTML source
 	**/
 
-	publish: function (story, options)
+	publish: function (story, options, startId)
 	{
 		var output = this.get('source');
 		
 		// builtin placeholders
 
 		output = output.replace(/{{STORY_NAME}}/g, _.escape(story.get('name')));
-		output = output.replace(/{{STORY_DATA}}/g, story.publish(options));
+		output = output.replace(/{{STORY_DATA}}/g, story.publish(options, startId));
 
 		// user-defined placeholders
 
