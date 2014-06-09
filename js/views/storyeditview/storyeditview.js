@@ -190,6 +190,18 @@ StoryEditView = Marionette.CompositeView.extend(
 	},
 
 	/**
+	 Opens a new tab with the playable version of this story, in test mode. This
+	 will re-use the same tab for a particular story.
+
+	 @method test
+	**/
+
+	test: function()
+	{
+		window.open('#stories/' + this.model.id + '/test', 'twinestory_test_' + this.model.id);
+	},
+
+	/**
 	 Opens a new tab with the proofing copy of this story. This
 	 will re-use the same tab for a particular story.
 
@@ -205,11 +217,12 @@ StoryEditView = Marionette.CompositeView.extend(
 	 Publishes a story by passing control over to TwineApp.publishStory.	
 
 	 @method publish
+	 @param {Array} options options to pass to the runtime, optional
 	**/
 
-	publish: function()
+	publish: function (options)
 	{
-		window.app.publishStory(this.model);
+		window.app.publishStory(this.model, options);
 	},
 
 	/**

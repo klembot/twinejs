@@ -31,12 +31,13 @@ TwineApp = Backbone.Marionette.Application.extend(
 
 	 @method publishStory
 	 @param {Story} story Story model to publish.
+	 @param {Array} options options to pass to runtime, optional
 	**/
 
-	publishStory: function (story)
+	publishStory: function (story, options)
 	{
-		var source = RuntimeTemplate.publish(story);
-		var blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+		var source = RuntimeTemplate.publish(story, options);
+		var blob = new Blob([source], { type: 'text/html;charset=utf-8' });
 		saveAs(blob, story.get('name') + '.html');
 	},
 
