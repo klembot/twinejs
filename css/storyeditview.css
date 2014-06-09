@@ -4,6 +4,7 @@
 	top: 10px;
 	left: 10px;
 	width: 40px;
+	z-index: 5;
 }
 
 #storyEditView.scrolling
@@ -117,8 +118,8 @@ body.modal-open #storyEditView .toolbox
 
 #storyEditView .passages
 {
-	margin-top: 50px;
 	position: relative;
+	margin-top: 50px;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 	-khtml-user-select: none;
