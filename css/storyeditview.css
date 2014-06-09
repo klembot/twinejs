@@ -19,6 +19,12 @@
 	cursor: default !important;
 }
 
+#storyEditView.draggingPassages .popover,
+#storyEditView.marqueeing .popover
+{
+	display: none !important;
+}
+
 #storyEditView .home a
 {
 	display: block;
