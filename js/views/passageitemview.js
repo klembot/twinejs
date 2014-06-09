@@ -323,7 +323,7 @@ PassageItemView = Marionette.ItemView.extend(
 	{
 		if (e.shiftKey || e.ctrlKey || this.actuallyDragged ||
 			this.$el == this.parentView.lastMousedown ||
-			this.$el.contains(this.parentView.lastMousedown))
+			$.contains(this.$el, this.parentView.lastMousedown))
 			return;
 
 		// deselect everything else
