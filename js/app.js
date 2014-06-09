@@ -171,8 +171,23 @@ TwineApp = Backbone.Marionette.Application.extend(
 		});
 
 		return count;
-	}
-},{
+	},
+
+	/**
+	 Checks to see if the app is running a browser whose main UI is
+	 touch-based. This doesn't necessarily mean that the browser doesn't
+	 support touch at all, just that we expect the user to be interacting
+	 through touchonly.
+
+	 @method hasPrimaryTouchUI
+	 @return {Boolean} whether the browser is primarily touch-based
+	**/
+
+	hasPrimaryTouchUI: function()
+	{
+		return /Android|iPod|iPad|iPhone|IEMobile/.test(window.navigator.userAgent);
+	},
+
 	/**
 	 A static namespace of DOM selectors for Harlowe HTML elements.
 	 This is aligned with utils/selectors.js in Harlowe.
