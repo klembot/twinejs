@@ -83,13 +83,14 @@ Story = Backbone.Model.extend(
 
 	 @method publish
 	 @param {Array} options	A list of options to pass to the runtime, optional
+	 @param {Number} startId passage database ID to start with, overriding the model; optional
 	 @return {String} HTML fragment
 	**/
 
-	publish: function (options)
+	publish: function (options, startId)
 	{
 		var passageData = '';
-		var startDbId = this.get('startPassage');
+		var startDbId = startId || this.get('startPassage');
 		var startId = 1; // last-ditch default, shows first passage defined
 
 		this.fetchPassages().each(function (p, index)

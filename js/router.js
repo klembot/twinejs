@@ -51,6 +51,14 @@ TwineRouter = Backbone.Router.extend(
 			this.replaceContent(output);
 		},
 
+		'stories/:storyId/test/:passageId': function (storyId, passageId)
+		{
+			// test a story from a certain passage
+
+			var output = RuntimeTemplate.publish(Story.withId(storyId), ['debug'], passageId);
+			this.replaceContent(output);
+		},
+
 		'stories/:id/proof': function (id)
 		{
 			// proof a story
