@@ -95,10 +95,11 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 	 @method addStory
 	**/
 
-	addStory: function()
+	addStory: function (e)
 	{
 		this.collection.create({ name: this.$('input.newName').val() });
 		this.$('.addStory').popover('hide');
+		e.preventDefault();
 	},
 
 	/**
@@ -186,7 +187,7 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 
 	events:
 	{
-		'click .add': 'addStory',
+		'submit #addStoryForm': 'addStory',
 		'click .saveArchive': 'saveArchive',
 		'change .importFile': 'importFile',
 	}

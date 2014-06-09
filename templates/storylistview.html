@@ -51,20 +51,21 @@ version <a data-toggle="modal" href="#aboutModal"><span class="app-version"></sp
 </div> <!-- #storyListView -->
 
 <div id="addStoryDialog" class="hide">
+<form id="addStoryForm">
 <p>
 What should your story be named?
 (You can change this later.)
 </p>
 
 <p>
-<input class="newName" type="text">
+<input class="newName" type="text" required>
 </p>
 
 <p>
-<button class="cancelAdd btn btn-default">Cancel</button>
-<button class="add btn btn-primary">Add</button>
+<button type="button" class="cancelAdd btn btn-default">Cancel</button>
+<button type="submit" class="add btn btn-primary">Add</button>
 </p>
-
+</form>
 </div> <!-- #addStoryDialog -->
 
 <div id="deleteStoryDialog" class="hide">
