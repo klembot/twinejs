@@ -22,7 +22,8 @@ Story = Backbone.Model.extend(
 
 	template: _.template('<tw-storydata name="<%- storyName %>" ' +
 						 'startnode="<%- startNode %>" creator="<%- appName %>" ' +
-						 'creator-version="<%- appVersion %>">' +
+						 'creator-version="<%- appVersion %>"' +
+						 'options="<%= options %>">' +
 						 '<style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"><%= stylesheet %></style>' +
 						 '<script role="script" id="twine-user-script" type="text/twine-javascript"><%= script %></script>' + 
 						 '<%= passageData %></tw-storydata>'),
@@ -81,14 +82,17 @@ Story = Backbone.Model.extend(
 	 Template to create a full-fledged HTML document from this.
 
 	 @method publish
+	 @param {Array} options	A list of options to pass to the runtime, optional
 	 @return {String} HTML fragment
 	**/
 
-	publish: function()
+	publish: function (options)
 	{
 		var passageData = '';
 		var startDbId = this.get('startPassage');
 		var startId = 1; // last-ditch default, shows first passage defined
+
+		console.log(options);
 
 		this.fetchPassages().each(function (p, index)
 		{
@@ -106,7 +110,8 @@ Story = Backbone.Model.extend(
 			appVersion: window.app.version,
 			passageData: passageData,
 			stylesheet: this.get('stylesheet'),
-			script: this.get('script')
+			script: this.get('script'),
+			options: (options) ? options.join(' ') : null
 		});
 	}
 });

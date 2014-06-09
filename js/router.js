@@ -39,7 +39,15 @@ TwineRouter = Backbone.Router.extend(
 		{
 			// play a story
 
-			var output = RuntimeTemplate.publish(Story.withId(id), function (html) { self.replaceContent(html) });
+			var output = RuntimeTemplate.publish(Story.withId(id));
+			this.replaceContent(output);
+		},
+
+		'stories/:id/test': function (id)
+		{
+			// test a story
+
+			var output = RuntimeTemplate.publish(Story.withId(id), ['debug']);
 			this.replaceContent(output);
 		},
 
@@ -47,7 +55,7 @@ TwineRouter = Backbone.Router.extend(
 		{
 			// proof a story
 
-			var output = ProofingTemplate.publish(Story.withId(id), function (html) { self.replaceContent(html) });
+			var output = ProofingTemplate.publish(Story.withId(id));
 			this.replaceContent(output);
 		},
 
