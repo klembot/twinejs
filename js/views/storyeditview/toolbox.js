@@ -41,6 +41,11 @@ StoryEditView.Toolbox = Backbone.View.extend(
 			this.parent.addPassage();
 		},
 
+		'click .testStory': function (e)
+		{
+			this.parent.test();
+		},
+
 		'click .playStory': function (e)
 		{
 			this.parent.play();
