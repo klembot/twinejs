@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'Cousine';
-    src: url('../font/cousine.eot');
-    src: url('../font/cousine.eot?#iefix') format('embedded-opentype'),
-         url('../font/cousine.woff') format('woff'),
-         url('../font/cousine.ttf') format('truetype'),
-         url('../font/cousine.svg#cousineregular') format('svg');
+    src: url('../fonts/cousine.eot');
+    src: url('../fonts/cousine.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/cousine.woff') format('woff'),
+         url('../fonts/cousine.ttf') format('truetype'),
+         url('../fonts/cousine.svg#cousineregular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
