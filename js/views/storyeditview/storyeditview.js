@@ -73,6 +73,50 @@ StoryEditView = Marionette.CompositeView.extend(
 			};
 		});
 
+		// delete selected passages with the delete key
+
+		$(document).on('keyup', _.bind(function (e)
+		{
+			if (e.keyCode == 46)
+			{
+				var selected = this.children.filter(function (v)
+				{
+					return v.selected;
+				});
+
+				switch (selected.length)
+				{
+					// bug out if none are selected
+					case 0:
+					return;
+
+					// immediately delete if it's just one passage
+					case 1:
+					this.deleteSelectedPassages();
+					break;
+
+					// show a confirmation modal if it's more than just 1
+					// we have to monkey with the placement of the overlay
+					// so that it doesn't appear above the modal
+					default:
+
+					// set count appropriately
+					// yikes, localization issues here
+
+					var countString = selected.length + ' passage';
+
+					if (selected.length != 1)
+						countString = 'these ' + selected.length + ' passages';
+					else
+						countString = 'this passage';
+
+					this.$('#deletePassagesModal .passageCount').text(countString);
+					this.$('#deletePassagesModal').modal();
+					$('#storyEditView').append($('.modal-backdrop'));
+				};
+			};
+		}, this));
+
 		// automatically focus textareas on edit modals when they are shown
 
 		$(document).on('shown.bs.modal', '.editModal', function()
@@ -124,6 +168,7 @@ StoryEditView = Marionette.CompositeView.extend(
 	{
 		this.linkManager.close();
 		$(document).off('keydown');
+		$(document).off('keyup');
 		$(window).off('resize');
 	},
 
@@ -177,6 +222,20 @@ StoryEditView = Marionette.CompositeView.extend(
 		this.positionPassage(passage);
 		passage.save();
 		this.children.findByModel(passage).appear();
+	},
+
+	/**
+	 Deletes all currently selected passages.
+
+	 @method deleteSelectedPassages
+	**/
+
+	deleteSelectedPassages: function()
+	{
+		_.invoke(this.children.filter(function (v)
+		{
+			return v.selected;
+		}), 'delete');
 	},
 
 	/**
@@ -447,6 +506,8 @@ StoryEditView = Marionette.CompositeView.extend(
 			**/
 
 			this.lastMousedown = $(e.target);
-		}
+		},
+
+		'click .deleteSelectedPassages': 'deleteSelectedPassages'
 	},
 });
