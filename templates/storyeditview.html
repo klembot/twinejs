@@ -113,14 +113,13 @@ Done
 <li><a href="javascript:void(0)" class="proofStory"><i class="fa fa-file-text-o"></i> Proofing Copy</a></li>
 </ul>
 
-</div>
-</div>
+</div> <!-- .btn-group -->
+</div> <!-- .toolbox -->
 
 <div class="passages">
 <div class="marquee"></div>
 <canvas></canvas>
-</div>
-
+</div> <!-- .passages -->
 
 <div id="passageEditModal" class="editModal modal fade">
 <div class="modal-dialog">
@@ -141,7 +140,7 @@ Done
 <div class="modal-body">
 <div class="textareaContainer">
 <textarea class="passageText" placeholder="Enter the body text of your passage here. To link to another passage, put two square brackets around its name, [[like this]]."></textarea>
-</div> <!-- editContainer -->
+</div> <!-- .textareaContainer -->
 </div> <!-- .modal-body -->
 
 </div> <!-- .modal-content -->
@@ -167,7 +166,7 @@ Stylesheet
 <div class="modal-body">
 <div class="textareaContainer">
 <textarea class="stylesheetSource" placeholder="Any CSS you enter here will override the default appearance of your story."></textarea>
-</div> <!-- .editContainer -->
+</div> <!-- .textareaContainer -->
 </div> <!-- .modal-body -->
 
 </div> <!-- .modal-content -->
@@ -193,13 +192,33 @@ JavaScript
 <div class="modal-body">
 <div class="textareaContainer">
 <textarea class="scriptSource" placeholder="Any JavaScript you enter here will immediately run when your story is opened in a Web browser."></textarea>
-</div> <!-- .editContainer -->
+</div> <!-- .textareaContainer -->
 </div> <!-- .modal-body -->
 
 </div> <!-- .modal-content -->
 </div> <!-- .modal-dialog -->
 </div> <!-- #scriptEditModal -->
 
-</div> <!-- .toolbox -->
+<div id="deletePassagesModal" class="modal fade">
+<div class="modal-dialog modal-sm">
+<div class="modal-content">
+
+<div class="modal-body">
+
+<p>
+Are you sure you want to delete <span class="passageCount"></span>? This cannot
+be undone.
+</p>
+
+</div> <!-- .modal-body -->
+
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+<button type="button" class="btn btn-danger deleteSelectedPassages" data-dismiss="modal">Delete</button>
+</div> <!-- .modal-footer -->
+
+</div> <!-- .modal-content -->
+</div> <!-- .modal-dialog -->
+</div> <!-- #deletePassagesModal -->
 
 </div> <!-- #storyEditView -->
