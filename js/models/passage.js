@@ -136,6 +136,8 @@ Passage = Backbone.Model.extend(
 
 	publish: function (id)
 	{
+		var tags = this.get('tags');
+
 		return this.template(
 		{
 			id: id,
@@ -143,7 +145,7 @@ Passage = Backbone.Model.extend(
 			left: this.get('left'),
 			top: this.get('top'),
 			text: this.get('text'),
-			tags: this.get('tags').join(' ')
+			tags: tags ? this.get('tags').join(' ') : ''
 		});
 	},
 

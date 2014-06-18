@@ -378,7 +378,7 @@ body.zoom-small
 .editModal .textareaContainer
 {
 	position: absolute;
-	top: 30px;
+	top: 90px;
 	left: 16px;
 	right: 16px;
 	bottom: 20px;
@@ -386,7 +386,7 @@ body.zoom-small
 
 .editModal .alert + .textareaContainer
 {
-	top: 80px;
+	top: 140px;
 }
 
 .editModal textarea, .editModal .CodeMirror
@@ -401,7 +401,7 @@ body.zoom-small
 	outline: none;
 }
 
-#passageEditModal input[type="text"]
+#passageEditModal .passageName
 {
 	background: none;
 	border-top: none;
@@ -414,6 +414,53 @@ body.zoom-small
 #passageEditModal input.passageName
 {
 	font-size: 24px;
+}
+
+#passageEditModal .passageTags
+{
+	position: relative;
+	top: -4px;
+}
+
+#passageEditModal .passageTags form
+{
+	display: inline;
+}
+
+#passageEditModal .passageTags .fa
+{
+	position: relative;
+	top: 0.1em;
+	font-size: 125%;
+}
+
+#passageEditModal .passageTags .tag
+{
+	margin: 0 0.4em;
+}
+
+#passageEditModal .passageTags .tag .remove
+{
+	color: white;
+	margin-left: 0.5em;
+}
+
+#passageEditModal .passageTags .tag .remove:hover
+{
+	color: black;
+}
+
+#passageEditModal .passageTags .newTag
+{
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	line-height: 100%;
+	border: 1px solid hsl(0, 0%, 90%);
+	border-radius: 0.25em;
+	padding: 0.2em 0.6em 0.3em;
+	margin: 0.3em 0;
+	width: 10em;
+	font-size: 80%;
+	display: none;
 }
 
 #storyEditView > .popover
