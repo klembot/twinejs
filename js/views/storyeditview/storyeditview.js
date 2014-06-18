@@ -96,8 +96,6 @@ StoryEditView = Marionette.CompositeView.extend(
 					break;
 
 					// show a confirmation modal if it's more than just 1
-					// we have to monkey with the placement of the overlay
-					// so that it doesn't appear above the modal
 					default:
 
 					// set count appropriately
@@ -112,7 +110,6 @@ StoryEditView = Marionette.CompositeView.extend(
 
 					this.$('#deletePassagesModal .passageCount').text(countString);
 					this.$('#deletePassagesModal').modal();
-					$('#storyEditView').append($('.modal-backdrop'));
 				};
 			};
 		}, this));
@@ -508,6 +505,15 @@ StoryEditView = Marionette.CompositeView.extend(
 			this.lastMousedown = $(e.target);
 		},
 
-		'click .deleteSelectedPassages': 'deleteSelectedPassages'
+		'click .deleteSelectedPassages': 'deleteSelectedPassages',
+
+		'shown.bs.modal': function()
+		{
+			// we have to monkey with the placement of the overlay
+			// so that it doesn't appear above the modal, because the modal's
+			// parent element is lower in the DOM hierarchy than the modal itself
+
+			$('#storyEditView').append($('.modal-backdrop'));
+		}
 	},
 });
