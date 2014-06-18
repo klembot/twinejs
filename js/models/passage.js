@@ -14,11 +14,12 @@ Passage = Backbone.Model.extend(
 		top: 0,
 		left: 0,
 		name: 'Untitled Passage',
-		text: 'Double-click this passage to edit it.'
+		text: 'Double-click this passage to edit it.',
+		tags: []
 	},
 
 	template: _.template('<tw-passagedata pid="<%- id %>" name="<%- name %>" ' +
-						 'position="<%- left %>,<%- top %>">' +
+						 'tags="<%- tags %>" position="<%- left %>,<%- top %>">' +
 						 '<%- text %></tw-passagedata>'),
 
 	initialize: function()
@@ -141,7 +142,8 @@ Passage = Backbone.Model.extend(
 			name: this.get('name'),
 			left: this.get('left'),
 			top: this.get('top'),
-			text: this.get('text')
+			text: this.get('text'),
+			tags: this.get('tags').join(' ')
 		});
 	},
 
