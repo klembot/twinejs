@@ -420,6 +420,7 @@ body.zoom-small
 {
 	position: relative;
 	top: -4px;
+	left: -4px;
 }
 
 #passageEditModal .passageTags form
@@ -436,7 +437,7 @@ body.zoom-small
 
 #passageEditModal .passageTags .tag
 {
-	margin: 0 0.4em;
+	margin: 0.1em 0.4em 0 0;
 }
 
 #passageEditModal .passageTags .tag .remove
@@ -452,15 +453,18 @@ body.zoom-small
 
 #passageEditModal .passageTags .newTag
 {
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	line-height: 100%;
-	border: 1px solid hsl(0, 0%, 90%);
-	border-radius: 0.25em;
-	padding: 0.2em 0.6em 0.3em;
-	margin: 0.3em 0;
-	width: 10em;
-	font-size: 80%;
 	display: none;
+}
+
+#passageEditModal .passageTags .newTag .newTagName
+{
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	height: 2em;
+	padding: 1px 5px;
+	line-height: 1.5;
+	font-size: 12px;
+	display: inline;
+	width: 10em;
 }
 
 #storyEditView > .popover
