@@ -140,18 +140,21 @@ Done
 <div class="modal-body">
 
 <div class="passageTags">
-<form>
+<form class="inline-form">
 <p>
-<i class="fa fa-tag"></i>
 <span class="tags">
 
 <span class="tag label label-info">script <a href="javascript:void(0)" class="remove"><i class="fa fa-times"></i></a></span>
 
 </span>
 
-<a class="showNewTag" href="javascript:void(0)" title="Add a tag"><i class="fa fa-plus-circle"></i></a>
+<a class="showNewTag btn btn-xs btn-default" href="javascript:void(0)"><i class="fa fa-plus"></i> Tag</a>
 
-<input class="newTag" type="text" placeholder="Tag name" required>
+<span class="newTag">
+<input class="newTagName form-control" type="text" placeholder="Tag name" required>
+<button type="button" class="hideNewTag btn btn-xs btn-default"><i class="fa fa-times"></i></button>
+<button type="submit" class="btn btn-xs btn-primary"><i class="fa fa-check"></i></button>
+</span>
 </p>
 </form>
 </div>

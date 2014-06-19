@@ -18,12 +18,14 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 		this.$el.modal({ show: false, backdrop: 'static' });
 		this.$el.on('hide.bs.modal', _.bind(this.save, this)); 
 		this.$el.on('click', '.showNewTag', _.bind(this.showNewTag, this));
-		this.$el.on('blur', '.newTag', _.bind(this.hideNewTag, this));
-		this.$el.on('submit', _.bind(function()
+		this.$el.on('click', '.hideNewTag', _.bind(this.hideNewTag, this));
+		this.$el.on('submit', _.bind(function(e)
 		{
-			this.addTag(this.$('.newTag').val());	
+			this.addTag(this.$('.newTagName').val());	
 			this.hideNewTag();
+			e.preventDefault();
 		}, this));
+
 		this.$el.on('click', '.tag .remove', function()
 		{
 			$(this).closest('.tag').remove();
@@ -114,7 +116,8 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 	showNewTag: function()
 	{
 		this.$('.showNewTag').hide();
-		this.$('.newTag').val('').show().focus();
+		this.$('.newTag').show();
+		this.$('.newTagName').val('').focus();
 	},
 
 	hideNewTag: function()
