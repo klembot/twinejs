@@ -419,13 +419,8 @@ body.zoom-small
 #passageEditModal .passageTags
 {
 	position: relative;
-	top: -4px;
+	top: -2px;
 	left: -4px;
-}
-
-#passageEditModal .passageTags form
-{
-	display: inline;
 }
 
 #passageEditModal .passageTags .fa
