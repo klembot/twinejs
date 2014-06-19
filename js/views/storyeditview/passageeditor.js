@@ -21,7 +21,13 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 		this.$el.on('click', '.hideNewTag', _.bind(this.hideNewTag, this));
 		this.$el.on('submit', _.bind(function(e)
 		{
-			this.addTag(this.$('.newTagName').val());	
+			var name = this.$('.newTagName').val().replace(/\s/g, '-');
+
+			// don't add duplicate tags
+
+			if (this.model.get('tags').indexOf(name) == -1)
+				this.addTag(name);	
+
 			this.hideNewTag();
 			e.preventDefault();
 		}, this));
@@ -113,6 +119,12 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 		};
 	},
 
+	/**
+	 Shows the UI for adding a new tag.
+
+	 @method showNewTag
+	**/
+
 	showNewTag: function()
 	{
 		this.$('.showNewTag').hide();
@@ -120,14 +132,29 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 		this.$('.newTagName').val('').focus();
 	},
 
+	/**
+	 Hides the UI for adding a new tag.
+
+	 @method showNewTag
+	**/
+
 	hideNewTag: function()
 	{
 		this.$('.showNewTag').show();
 		this.$('.newTag').hide();
 	},
 
+	/**
+	 Adds a new tag to the list. This does not affect the model
+	 at all and thus has no validation associated with it.
+
+	 @method addTag
+	 @param {String} name name of the tag to add
+	**/
+
 	addTag: function (name)
 	{
+
 		this.tagContainer.append(this.tagTemplate({ name: name }));
 	}
 });
