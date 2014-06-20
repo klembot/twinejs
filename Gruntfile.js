@@ -138,7 +138,7 @@ module.exports = function (grunt)
 		{
 			templates:
 			{
-				files: ['app.html', 'templates/*.html', 'js/**'],
+				files: ['app.html', 'templates/**/*.html', 'js/**'],
 				tasks: ['default']
 			}
 		},
