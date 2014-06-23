@@ -281,6 +281,28 @@ PassageItemView = Marionette.ItemView.extend(
 	},
 
 	/**
+	 Highlights this view, i.e. when performing a search.
+
+	 @method highlight
+	**/
+
+	highlight: function()
+	{
+		this.$el.addClass('highlight');
+	},
+
+	/**
+	 Removes highlighting from this view.
+
+	 @method unhighlight
+	**/
+
+	unhighlight: function()
+	{
+		this.$el.removeClass('highlight');
+	},
+
+	/**
 	 Handles a mouse down event on this view, adjusting the
 	 selection and beginning a potential drag.
 
