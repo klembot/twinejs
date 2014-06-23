@@ -170,6 +170,13 @@
 	background-color: hsla(0, 0%, 100%, 0.25);
 }
 
+#storyEditView .passage.highlight .frame
+{
+	color: hsl(60, 100%, 50%);
+	border-color: hsla(60, 100%, 50%, 0.75);
+	box-shadow: 0 0 2px hsla(60, 100%, 50%, 0.75), inset 0 0 2px hsla(60, 100%, 50%, 0.75);
+}
+
 #storyEditView .passage .frame:after
 {
 	content: '';

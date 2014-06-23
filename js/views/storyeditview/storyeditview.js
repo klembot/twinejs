@@ -149,6 +149,7 @@ StoryEditView = Marionette.CompositeView.extend(
 		this.passageEditor = new StoryEditView.PassageEditor({ el: this.$('#passageEditModal'), parent: this });
 		this.scriptEditor = new StoryEditView.ScriptEditor({ el: this.$('#scriptEditModal'), parent: this });
 		this.styleEditor = new StoryEditView.StyleEditor({ el: this.$('#stylesheetEditModal'), parent: this });
+		this.search = new StoryEditView.Search({ el: this.$('.searchContainer'), parent: this });
 
 		if (! window.app.hasPrimaryTouchUI())
 			this.marquee = new StoryEditView.Marquee({ el: this.$('.passages'), parent: this });
