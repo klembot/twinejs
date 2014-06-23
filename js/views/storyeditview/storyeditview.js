@@ -144,7 +144,7 @@ StoryEditView = Marionette.CompositeView.extend(
 
 		this.syncZoom();
 		this.linkManager = new StoryEditView.LinkManager({ el: this.el, parent: this });
-		this.toolbox = new StoryEditView.Toolbox({ el: this.$('.toolbox'), parent: this });
+		this.navbar = new StoryEditView.Navbar({ el: this.$('.navbar'), parent: this });
 		this.properties = new StoryEditView.Properties({ el: this.el, parent: this });
 		this.passageEditor = new StoryEditView.PassageEditor({ el: this.$('#passageEditModal'), parent: this });
 		this.scriptEditor = new StoryEditView.ScriptEditor({ el: this.$('#scriptEditModal'), parent: this });

@@ -1,12 +1,3 @@
-#storyEditView .home
-{
-	position: fixed;
-	top: 10px;
-	left: 10px;
-	width: 40px;
-	z-index: 5;
-}
-
 #storyEditView.scrolling
 {
 	cursor: all-scroll;
@@ -26,86 +17,95 @@
 	display: none !important;
 }
 
-#storyEditView .home a
+#storyEditView .navbar
 {
-	display: block;
-	text-align: center;
-
-	font-size: 30px;
-	color: hsla(0, 0%, 100%, 0.4);
-	text-decoration: none;
-}
-
-#storyEditView .home a:hover
-{
-	color: white;
-}
-
-#storyEditView h4.storyName
-{
-	position: fixed;
-	top: 22px;
-	left: 60px;
+	z-index: 5;
+	border-radius: 0;
+	border-width: 0;
 	height: 40px;
-	margin-top: 0px;
-	color: hsla(0, 0%, 100%, 0.75);
+	min-height: 40px;
 }
 
-#storyEditView .toolbox
+#storyEditView .navbar a
 {
-	position: fixed;
-	z-index: 1;
-	top: 11px;
-	right: 10px;
+	color: #4c4c4c;
 }
 
-body.modal-open #storyEditView .toolbox
+#storyEditView .navbar a:hover,
+#storyEditView .navbar .btn-default:hover,
+#storyEditView .navbar .btn-default.active
 {
-	right: 27px;
+	color: #428bca;
+	text-decoration: none;
+	background-color: #e7e7e7;
 }
 
-#storyEditView .toolbox p
+#storyEditView .navbar .navbar-brand
+{
+	padding: 0;
+}
+
+#storyEditView .navbar .navbar-brand a.home
+{
+	display: inline-block;
+	padding: 10px;
+	float: left;
+}
+
+#storyEditView .navbar .navbar-brand button.storyName
+{
+	padding: 8px 10px 12px 10px;
+}
+
+#storyEditView .navbar .btn
 {
 	margin: 0;
-}
-
-#storyEditView .toolbox .btn
-{
-	padding: 8px 16px;
-	margin-top: -1px;
-}
-
-#storyEditView .toolbox p:first-child .btn
-{
-	border-bottom-left-radius: 0;
-	border-bottom-right-radius: 0;
-}
-
-#storyEditView .toolbox div:last-child .btn
-{
-	border-top-left-radius: 0;
-	border-top-right-radius: 0;
-}
-
-#storyEditView .toolbox p:not(:first-child) .btn
-{
+	padding: 10px 16px;
 	border-radius: 0;
 }
 
-#storyEditView .toolbox .full
+#storyEditView .navbar .searchContainer
 {
-	width: 100%;
+	position: relative;
 }
 
-#storyEditView .toolbox .full .dropdown-default
+#storyEditView .navbar .searchContainer input
 {
-	width: 98px;
-	box-sizing: border-box;
+	display: inline;
+	width: auto;
+	border-radius: 15px;
 }
 
-#storyEditView .toolbox .full .dropdown-toggle
+#storyEditView .navbar .searchContainer button
 {
-	box-sizing: border-box;
+	position: absolute;
+	top: -6px;
+	right: 10px;
+	padding: 5px;
+}
+
+#storyEditView .navbar .searchContainer button:hover
+{
+	background: transparent;
+}
+
+#storyEditView .navbar .btn-default
+{
+	border: none;
+	background: transparent;
+}
+
+#storyEditView .navbar .btn-default:not(.active)
+{
+	box-shadow: none;
+}
+
+#storyEditView .navbar .btn-success,
+#storyEditView .navbar .btn-success:hover
+{
+	border-top: none;
+	border-right: none;
+	color: white;
 }
 
 #storyEditView .marquee

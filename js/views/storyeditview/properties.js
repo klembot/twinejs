@@ -18,7 +18,7 @@ StoryEditView.Properties = Backbone.View.extend(
 		this.button.popover(
 		{
 			html: true,
-			placement: 'left',
+			placement: 'top',
 			container: '#storyEditView',
 			content: function() { return $('#storyPropertiesPopover').html() },
 			trigger: 'manual'
