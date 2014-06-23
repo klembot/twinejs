@@ -207,6 +207,11 @@ body
 	box-shadow: 0 5px 10px hsl(0, 0%, 20%);
 }
 
+.shadowUp
+{
+	box-shadow: 0 -5px 10px hsl(0, 0%, 20%);
+}
+
 .appear
 {
 	animation: 0.4s appear;
