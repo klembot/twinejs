@@ -45,6 +45,7 @@ StoryEditView.Search = Backbone.View.extend(
 	clear: function()
 	{
 		this.searchField.val('');
+		this.$('.clearSearch').addClass('hide');
 
 		this.parent.children.each(function (view)
 		{
@@ -73,7 +74,6 @@ StoryEditView.Search = Backbone.View.extend(
 			else
 			{
 				this.clear();
-				this.$('.clearSearch').addClass('hide');
 			};
 
 		}, 100)
