@@ -44,6 +44,8 @@ StoryEditView.Search = Backbone.View.extend(
 
 	clear: function()
 	{
+		this.searchField.val('');
+
 		this.parent.children.each(function (view)
 		{
 			view.unhighlight();
@@ -52,6 +54,8 @@ StoryEditView.Search = Backbone.View.extend(
 
 	events:
 	{
+		'click .clearSearch': 'clear',
+
 		'keyup .searchField': _.debounce(function (e)
 		{
 			// Escape key clears the field
@@ -62,10 +66,16 @@ StoryEditView.Search = Backbone.View.extend(
 			var search = this.searchField.val();
 
 			if (search != '')
+			{
+				this.$('.clearSearch').removeClass('hide');
 				this.searchFor(this.searchField.val());
+			}
 			else
+			{
 				this.clear();
+				this.$('.clearSearch').addClass('hide');
+			};
 
-		}, 250)
+		}, 100)
 	}
 });
