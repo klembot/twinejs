@@ -202,6 +202,22 @@ body
 	display: none;
 }
 
+a.subtle
+{
+	color: hsl(0, 0%, 30%);
+}
+
+a.subtle:hover
+{
+	color: #2a6496;
+	text-decoration: none;
+}
+
+a.danger:hover
+{
+	color: hsla(0, 100%, 50%, 1);
+}
+
 .shadow
 {
 	box-shadow: 0 5px 10px hsl(0, 0%, 20%);
@@ -246,4 +262,39 @@ body
 {
 	animation: 0.4s slideDown;
 	-webkit-animation: 0.4s slideDown;
+}
+
+.modal button.close
+{
+	float: none;
+	opacity: 1;
+
+	position: absolute;
+	display: block;
+	top: 0;
+	right: 0;
+	padding: 6px 12px;
+
+	color: white;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	background: linear-gradient(to bottom, #444, #222);
+	border-color: black;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.modal .modal-header button.close
+{
+	top: 2px;
+}
+
+.modal button.close:hover
+{
+	background: linear-gradient(to bottom, #555, #333);
+}
+
+.modal button.close:active
+{
+	background: linear-gradient(to bottom, #333, #111);
 }

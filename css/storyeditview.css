@@ -265,11 +265,6 @@
 	color: #2a6496;
 }
 
-#storyEditView .passage .controls a.danger:hover
-{
-	color: hsla(0, 100%, 50%, 1);
-}
-
 body.zoom-medium
 {
 	background-image: url('../img/blueprint_medium.png');
@@ -334,16 +329,6 @@ body.zoom-small
 	margin: 0;
 	padding: 0;
 	overflow: auto;
-}
-
-.editModal .save
-{
-	position: absolute;
-	top: 0;
-	right: 0;
-	border-top-left-radius: 0;
-	border-bottom-left-radius: 0;
-	border-bottom-right-radius: 0;
 }
 
 .editModal.modal.fade .modal-dialog
@@ -480,6 +465,44 @@ body.zoom-small
 	font-size: 12px;
 	display: inline;
 	width: 10em;
+}
+
+#searchModal .resultSummary .controls .btn-danger
+{
+	margin-left: 15px;
+}
+
+#searchModal .passageName .fa-plus-square-o,
+#searchModal .passageName .collapsed .fa-minus-square-o
+{
+	display: none;
+}
+
+#searchModal .passageName .fa-minus-square-o,
+#searchModal .passageName .collapsed .fa-plus-square-o
+{
+	display: inline;
+}
+
+#searchModal .passageName .controls a
+{
+	display: none;
+}
+
+#searchModal .passageName:hover .controls a
+{
+	display: inline;
+}
+
+#searchModal .passageBody
+{
+	max-height: 6em;
+	overflow: auto;
+}
+
+#searchModal .highlight
+{
+	background-color: hsl(60, 100%, 50%);
 }
 
 #storyEditView > .popover
