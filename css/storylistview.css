@@ -43,11 +43,6 @@
 	color: #2a6496;
 }
 
-#storyListView .controls a.danger:hover
-{
-	color: hsl(0, 100%, 30%);
-}
-
 #storyListView tr:hover .controls a
 {
 	visibility: visible;
