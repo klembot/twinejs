@@ -1,3 +1,8 @@
+#storyEditView
+{
+	background: #24497e url("../img/blueprint_large.png") 10px -15px;
+}
+
 #storyEditView.scrolling
 {
 	cursor: all-scroll;
