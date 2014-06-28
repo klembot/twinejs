@@ -36,12 +36,12 @@ a.danger:hover
 
 .shadow
 {
-	box-shadow: 0 5px 10px hsla(0, 0%, 20%, 0.25);
+	box-shadow: 0 5px 10px hsla(0, 0%, 20%, 0.4);
 }
 
 .shadowUp
 {
-	box-shadow: 0 -5px 10px hsla(0, 0%, 20%, 0.25);
+	box-shadow: 0 -5px 10px hsla(0, 0%, 20%, 0.4);
 }
 
 /* Bootstrap customizations */
