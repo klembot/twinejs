@@ -8,7 +8,7 @@
 StoryListView = Backbone.Marionette.CompositeView.extend(
 {
 	itemView: StoryItemView,
-	itemViewContainer: 'tbody',
+	itemViewContainer: '.stories',
 	template: '#templates .storyListView',
 
 	onRender: function()
@@ -21,64 +21,18 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 
 		this.$('.app-version').text(window.app.version);
 
-		// enable tooltips
+		// fade in our views in a staggered manner
 
-		this.$('a[title], button[title]').tooltip();
+		this.$('.story').hide();
+		var APPEAR_INTERVAL = 150;
 
-		// enable table sorting
-
-		this.$('table.stories').tablesorter();
-
-		// enable popovers
-
-		this.$('button.addStory')
-		.popover({
-			html: true,
-			placement: 'bottom',
-			content: function() { return $('#addStoryDialog').html() }
-		})
-		.click(function()
+		this.children.each(function (view, index)
 		{
-			$('.popover .newName').focus();
+			_.delay(_.bind(view.fadeIn, view), APPEAR_INTERVAL * index);
 		});
-
-		this.$el.on('click', 'button.cancelAdd', function()
-		{
-			self.$('.addStory').popover('hide');
-		});
-
-		this.$('button.importStory')
-		.popover({
-			html: true,
-			placement: 'bottom',
-			content: function() { return $('#importStoryDialog').html() }
-		});
-
-		this.$el.on('click', 'button.cancelImport', function()
-		{
-			self.$('.importStory').popover('hide');
-		});
-
-		// force popover content to hide completely
-		// otherwise, inputs would still steal focus --
-		// they were set at opacity 0 but display: block still
-
-		this.$el.on('hidden.bs.popover', function (e)
-		{
-			self.$('.popover').hide();
-		});
-
-		// force only one popover visible at a time
-
-		this.$el.on('show.bs.popover', function (e)
-		{
-			self.$('.pop').not(e.target).popover('hide');	
-		});
-
-		// delete popover is set up in StoryItemView
 	},
 
-	onAfterItemAdded: function()
+	onAfterItemAdded: function (view)
 	{
 		this.syncStoryCount();
 	},
@@ -97,8 +51,8 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 
 	addStory: function (e)
 	{
-		this.collection.create({ name: this.$('input.newName').val() });
-		this.$('.addStory').popover('hide');
+		var story = this.collection.create({ name: this.$('input.newName').val() });
+		this.children.findByModel(story).appear();
 		e.preventDefault();
 	},
 
@@ -136,8 +90,6 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 
 				if (count > 0)
 				{
-					className = 'alert-success';
-
 					if (count == 1)
 						message = '1 story was imported.';
 					else
@@ -145,23 +97,20 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 				}
 				else
 				{
-					className = 'alert-danger';
+					className = 'danger';
 					message = 'Sorry, no stories could be found in this file.';
 				}
 			}
 			catch (e)
 			{
-				className = 'alert-danger';
+				className = 'danger';
 				message = 'An error occurred while trying to import this file. (' + e.message + ')';
 			};
 
-			self.$('.stories').before('<div class="alert ' + className + 
-			                          '"><button class="close" data-dismiss="alert">&times;</button><p>' +
-									  message + '</p>');
+			window.notify(message, className);
 		};
 
 		reader.readAsText(e.target.files[0], 'UTF-8');
-		this.$('.importStory').popover('hide');
 	},
 
 	/**
@@ -175,7 +124,7 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 	{
 		if (this.collection.length > 0)
 		{
-			this.$('.stories').css('display', 'table');
+			this.$('.stories').css('display', 'block');
 			this.$('.noStories').css('display', 'none');
 		}
 		else
@@ -189,6 +138,6 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 	{
 		'submit #addStoryForm': 'addStory',
 		'click .saveArchive': 'saveArchive',
-		'change .importFile': 'importFile',
+		'change .importFile': 'importFile'
 	}
 });

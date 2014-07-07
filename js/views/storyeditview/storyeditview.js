@@ -49,10 +49,6 @@ StoryEditView = Marionette.CompositeView.extend(
 	{
 		var self = this;
 		
-		// set up tooltips
-
-		this.$('a[title], button[title]').tooltip();
-
 		// enable space bar scrolling
 
 		$(document).on('keydown', function (e)
