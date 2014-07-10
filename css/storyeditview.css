@@ -17,95 +17,82 @@
 	display: none !important;
 }
 
-#storyEditView .navbar
+#storyEditView .toolbar.main
 {
 	z-index: 5;
-	border-radius: 0;
-	border-width: 0;
-	height: 40px;
-	min-height: 40px;
+	position: fixed;
+	overflow: visible;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 2.75em;
+	background-color: white;
+	box-shadow: 0 0 1em hsl(0, 0%, 15%);
 }
 
-#storyEditView .navbar a
+#storyEditView .toolbar.main button,
+#storyEditView .toolbar.main a
 {
-	color: #4c4c4c;
+	height: 2.75em;
+	padding-left: 1em;
+	padding-right: 1em;
 }
 
-#storyEditView .navbar a:hover,
-#storyEditView .navbar .btn-default:hover,
-#storyEditView .navbar .btn-default.active
+#storyEditView .toolbar.main .left
 {
-	color: #428bca;
-	text-decoration: none;
-	background-color: #e7e7e7;
-}
-
-#storyEditView .navbar .navbar-brand
-{
-	padding: 0;
-}
-
-#storyEditView .navbar .navbar-brand a.home
-{
-	display: inline-block;
-	padding: 10px;
 	float: left;
 }
 
-#storyEditView .navbar .navbar-brand button.storyName
+#storyEditView .toolbar.main .right
 {
-	padding: 8px 10px 12px 10px;
+	float: right;
 }
 
-#storyEditView .navbar .btn
-{
-	margin: 0;
-	padding: 10px 16px;
-	border-radius: 0;
-}
-
-#storyEditView .navbar .searchContainer
+#storyEditView .toolbar.main .home
 {
 	position: relative;
+	top: -0.75em;
+	font-size: 125%;
+	padding-left: 0.75em;
+	padding-right: 0.325em;
 }
 
-#storyEditView .navbar .searchContainer input
+#storyEditView .toolbar.main .storyName
+{
+	min-width: 15em;
+	text-align: left;
+	font-size: 125%;
+	height: 2.2em; /* 2.75em / 1.25 */
+	line-height: 100%;
+	padding-left: 0.325em;
+}
+
+#storyEditView .toolbar.main .searchContainer
+{
+	float: left;
+	position: relative;
+	top: 0.3em;
+}
+
+#storyEditView .toolbar.main .searchContainer input
 {
 	display: inline;
-	width: auto;
-	border-radius: 15px;
-	width: 175px;
-	padding-right: 45px;
+	width: 11em;
+	padding-right: 2.25em;
 }
 
-#storyEditView .navbar .searchContainer button
+#storyEditView .toolbar.main .searchContainer button
 {
 	position: absolute;
-	top: -6px;
-	right: 10px;
-	padding: 5px;
+	top: -0.05em;
+	right: 0.35em;
+	padding: 0.5em;
+	height: 1.5em;
 }
 
-#storyEditView .navbar .searchContainer button.clearSearch
-{
-	top: -7px;
-	right: 30px;
-}
-
-#storyEditView .navbar .searchContainer button:hover
+#storyEditView .toolbar.main .searchContainer button:hover
 {
 	background: transparent;
-}
-
-#storyEditView .navbar .btn-default
-{
-	border: none;
-	background: transparent;
-}
-
-#storyEditView .navbar .btn-default:not(.active)
-{
-	box-shadow: none;
 }
 
 #storyEditView .marquee

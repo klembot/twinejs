@@ -91,6 +91,13 @@ $(document).ready(function()
 		$(this).css('margin-top', 0 - $(this).outerHeight() / 2);
 	});
 
+	// push bubbles pointing down above their sources
+
+	$('.bubble.down').each(function()
+	{
+		$(this).css('top', 0 - $(this).outerHeight());
+	});
+
 	// click handlers for showing and hiding bubbles
 
 	$.fn.bubble = function (action)

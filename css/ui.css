@@ -14,6 +14,11 @@ a
 	text-decoration: none;
 }
 
+a.subtle
+{
+	color: hsl(0, 0%, 30%);
+}
+
 a:hover
 {
 	color: hsl(212, 88%, 50%);
@@ -203,10 +208,25 @@ p, li
 	box-shadow: 0 0 0.5em hsl(0, 0%, 75%);
 }
 
+.bubble.smaller
+{
+	width: 15em;
+}
+
 .bubble.up, .bubble.down
 {
 	left: 50%;
 	margin-left: -10em;
+}
+
+.bubble.smaller.up, .bubble.smaller.down
+{
+	margin-left: -7.5em;
+}
+
+.bubble.down
+{
+	top: -100%;
 }
 
 .bubble.left
@@ -219,7 +239,7 @@ p, li
 {
 	content: '\25bc';
 	position: absolute;
-	bottom: -1em;
+	bottom: -0.9em;
 	width: 100%;
 	text-align: center;
 
