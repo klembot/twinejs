@@ -24,7 +24,7 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 		// fade in our views in a staggered manner
 
 		this.$('.story').hide();
-		var APPEAR_INTERVAL = 150;
+		var APPEAR_INTERVAL = 100;
 
 		this.children.each(function (view, index)
 		{

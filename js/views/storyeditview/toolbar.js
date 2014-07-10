@@ -1,11 +1,11 @@
 /**
- Manages the navbar of a StoryEditView.
+ Manages the toolbar of a StoryEditView.
 
- @class StoryEditView.Navbar
+ @class StoryEditView.Toolbar
  @extends Backbone.View
 **/
 
-StoryEditView.Navbar = Backbone.View.extend(
+StoryEditView.Toolbar = Backbone.View.extend(
 {
 	initialize: function (options)
 	{

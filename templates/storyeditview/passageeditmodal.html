@@ -1,20 +1,12 @@
-<div id="passageEditModal" class="editModal modal fade">
-<div class="modal-dialog">
-<div class="modal-content">
+<div id="passageEditModal" class="editModal modal hide">
 
-<div class="modal-header">
-
-<p class="modal-title">
+<p>
 <input type="text" class="passageName" placeholder="Passage Name">
 </p>
 
-<button class="btn save close" data-dismiss="modal">
+<button class="save close" data-modal-hide="this">
 <i class="fa fa-times"></i>
 </button>
-
-</div> <!-- .modal-header -->
-
-<div class="modal-body">
 
 <div class="passageTags">
 <form class="inline-form">
@@ -41,8 +33,5 @@
 <div class="textareaContainer">
 <textarea class="passageText" placeholder="Enter the body text of your passage here. To link to another passage, put two square brackets around its name, [[like this]]."></textarea>
 </div> <!-- .textareaContainer -->
-</div> <!-- .modal-body -->
 
-</div> <!-- .modal-content -->
-</div> <!-- .modal-dialog -->
 </div> <!-- #passageEditModal -->

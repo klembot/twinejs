@@ -139,13 +139,12 @@ StoryEditView = Marionette.CompositeView.extend(
 		$(window).on('resize', _.debounce(_.bind(this.resize, this), 500));
 
 		this.syncZoom();
-		this.linkManager = new StoryEditView.LinkManager({ el: this.el, parent: this });
-		this.navbar = new StoryEditView.Navbar({ el: this.$('.navbar'), parent: this });
-		this.properties = new StoryEditView.Properties({ el: this.el, parent: this });
-		this.passageEditor = new StoryEditView.PassageEditor({ el: this.$('#passageEditModal'), parent: this });
-		this.scriptEditor = new StoryEditView.ScriptEditor({ el: this.$('#scriptEditModal'), parent: this });
-		this.styleEditor = new StoryEditView.StyleEditor({ el: this.$('#stylesheetEditModal'), parent: this });
-		this.search = new StoryEditView.Search({ el: this.$('.searchContainer'), parent: this });
+		//this.linkManager = new StoryEditView.LinkManager({ el: this.el, parent: this });
+		//this.toolbar = new StoryEditView.Toolbar({ el: this.$('.toolbar'), parent: this });
+		//this.passageEditor = new StoryEditView.PassageEditor({ el: this.$('#passageEditModal'), parent: this });
+		//this.scriptEditor = new StoryEditView.ScriptEditor({ el: this.$('#scriptEditModal'), parent: this });
+		//this.styleEditor = new StoryEditView.StyleEditor({ el: this.$('#stylesheetEditModal'), parent: this });
+		//this.search = new StoryEditView.Search({ el: this.$('.searchContainer'), parent: this });
 
 		if (! window.app.hasPrimaryTouchUI())
 			this.marquee = new StoryEditView.Marquee({ el: this.$('.passages'), parent: this });
