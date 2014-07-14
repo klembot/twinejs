@@ -12,6 +12,9 @@ This is a port of Twine to a local browser-based app. See
 
 Run `npm install` at the top level of the directory to install all goodies.
 
+You need [Grunt](http://gruntjs.com) to continue. Run `npm install -g grunt-cli`
+(you need to have root privileges to achieve this task)
+
 ### BUILDING
 
 Run `grunt` to perform a basic build, including creating documentation in doc/;
