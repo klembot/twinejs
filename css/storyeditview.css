@@ -1,0 +1,529 @@
+#storyEditView
+{
+	background: #24497e url("../img/blueprint_large.png") 10px -15px;
+}
+
+#storyEditView.scrolling
+{
+	cursor: all-scroll;
+	cursor: -webkit-grab;
+	cursor: -moz-grab;
+}
+
+#storyEditView.draggingPassages *,
+#storyEditView.marqueeing *
+{
+	cursor: default !important;
+}
+
+#storyEditView.draggingPassages .popover,
+#storyEditView.marqueeing .popover
+{
+	display: none !important;
+}
+
+#storyEditView .navbar
+{
+	z-index: 5;
+	border-radius: 0;
+	border-width: 0;
+	height: 40px;
+	min-height: 40px;
+}
+
+#storyEditView .navbar a
+{
+	color: #4c4c4c;
+}
+
+#storyEditView .navbar a:hover,
+#storyEditView .navbar .btn-default:hover,
+#storyEditView .navbar .btn-default.active
+{
+	color: #428bca;
+	text-decoration: none;
+	background-color: #e7e7e7;
+}
+
+#storyEditView .navbar .navbar-brand
+{
+	padding: 0;
+}
+
+#storyEditView .navbar .navbar-brand a.home
+{
+	display: inline-block;
+	padding: 10px;
+	float: left;
+}
+
+#storyEditView .navbar .navbar-brand button.storyName
+{
+	padding: 8px 10px 12px 10px;
+}
+
+#storyEditView .navbar .btn
+{
+	margin: 0;
+	padding: 10px 16px;
+	border-radius: 0;
+}
+
+#storyEditView .navbar .searchContainer
+{
+	position: relative;
+}
+
+#storyEditView .navbar .searchContainer input
+{
+	display: inline;
+	width: auto;
+	border-radius: 15px;
+	width: 145px;
+	padding-right: 45px;
+}
+
+#storyEditView .navbar .searchContainer button
+{
+	position: absolute;
+	top: -6px;
+	right: 10px;
+	padding: 5px;
+}
+
+#storyEditView .navbar .searchContainer button.clearSearch
+{
+	top: -7px;
+	right: 30px;
+}
+
+#storyEditView .navbar .searchContainer button:hover
+{
+	background: transparent;
+}
+
+#storyEditView .navbar .btn-default
+{
+	border: none;
+	background: transparent;
+}
+
+#storyEditView .navbar .btn-default:not(.active)
+{
+	box-shadow: none;
+}
+
+#storyEditView .navbar .btn-success,
+#storyEditView .navbar .btn-success:hover
+{
+	border-top: none;
+	border-right: none;
+	color: white;
+}
+
+#storyEditView .marquee
+{
+	display: none;
+	z-index: 3;
+	position: absolute;
+	border: 2px dashed hsla(0, 0%, 100%, 0.5);
+}
+
+#storyEditView .passages
+{
+	position: relative;
+	margin-top: 50px;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+#storyEditView .passage
+{
+	position: absolute;
+	padding: 10px;
+	border-radius: 10px;
+	color: hsla(0, 0%, 100%, 0.75);
+	cursor: default;
+}
+
+#storyEditView .passage:hover
+{
+	z-index: 2;
+}
+
+#storyEditView.scrolling .passage:hover,
+#storyEditView.draggingPassages .passage:hover
+{
+	z-index: 0;
+}
+
+#storyEditView .passage .frame
+{
+	border: 1px solid hsla(0, 0%, 100%, 0.75);
+	box-shadow: 0 0 2px hsla(0, 0%, 100%, 0.75), inset 0 0 2px hsla(0, 0%, 100%, 0.75);
+
+	width: 100px;
+	height: 100px;
+	overflow: hidden;
+	position: relative;
+}
+
+#storyEditView .passage.brokenLink .frame
+{
+	background-color: hsla(0, 100%, 60%, 0.5);
+}
+
+#storyEditView .passage.selected .frame
+{
+	color: hsla(0, 0%, 100%, 1);
+	background-color: hsla(0, 0%, 100%, 0.25);
+}
+
+#storyEditView .passage.highlight .frame
+{
+	color: hsl(60, 100%, 50%);
+	border-color: hsla(60, 100%, 50%, 0.75);
+	box-shadow: 0 0 2px hsla(60, 100%, 50%, 0.75), inset 0 0 2px hsla(60, 100%, 50%, 0.75);
+}
+
+#storyEditView .passage .frame:after
+{
+	content: '';
+	display: block;
+	width: 100px;
+	height: 1px;
+	position: absolute;
+	top: 22px;
+	left: 0;
+	background-color: hsla(0, 0%, 100%, 0.75);
+	box-shadow: 0 0 1px hsla(0, 0%, 100%, 0.75), inset 0 0 1px hsla(0, 0%, 100%, 0.75);
+}
+
+#storyEditView .passage .title
+{
+	font-size: 11px;
+	line-height: 15px;
+	padding: 4px 4px 0 4px;
+	height: 24px;
+	overflow: hidden;
+	margin-bottom: 0;
+}
+
+#storyEditView .passage .excerpt
+{
+	font-size: 10px;
+	line-height: 14px;
+	padding: 4px;
+}
+
+#storyEditView .passage .controls
+{
+	display: none;
+	text-align: center;
+	font-size: 24px;
+}
+
+#storyEditView .passage:hover .controls
+{
+	display: block;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	left: 50%;
+	z-index: 5;
+}
+
+#storyEditView.scrolling .passage:hover .controls,
+#storyEditView.draggingPassages .passage:hover .controls
+{
+	display: none;
+}
+
+#storyEditView .passage:hover .controls .popover
+{
+	display: block;
+	position: relative;
+	left: -50%;
+	top: -0.3em;
+	white-space: nowrap;
+}
+
+#storyEditView .passage:hover .controls .popover-content
+{
+	padding: 2px 9px;
+}
+
+#storyEditView .passage .controls a
+{
+	display: inline-block;
+	padding: 5px 3px 0 3px;
+	color: hsl(0, 0%, 30%);
+	text-decoration: none;
+}
+
+#storyEditView .passage .controls a:hover
+{
+	color: #2a6496;
+}
+
+body.zoom-medium
+{
+	background-image: url('../img/blueprint_medium.png');
+	background-position: 10px 10px;
+}
+
+.zoom-medium #storyEditView .passage .frame
+{
+	width: 60px;
+	height: 60px;
+}
+
+.zoom-medium #storyEditView .passage .title
+{
+	border-bottom: none;
+	font-size: 0.8em;
+	font-weight: normal;
+	line-height: 120%;
+	text-align: center;
+	margin: 5px;
+	padding: 0;
+	height: 60px;
+	width: 60px;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.zoom-medium #storyEditView .passage .excerpt
+{
+	display: none;
+}
+
+.zoom-medium #storyEditView .passage .frame:after
+{
+	display: none;
+}
+
+body.zoom-small
+{
+	background-image: url('../img/blueprint_small.png');
+	background-position: -15px 10px;
+}
+
+.zoom-small #storyEditView .passage .frame
+{
+	width: 25px;
+	height: 25px;
+}
+
+.zoom-small #storyEditView .passage .title, .zoom-small #storyEditView .passage .excerpt
+{
+	display: none;
+}
+
+.editModal .modal-dialog
+{
+	position: fixed;
+	width: 80%;
+	left: 10%;
+	top: 10px;
+	bottom: 0;
+	margin: 0;
+	padding: 0;
+	overflow: auto;
+}
+
+.editModal.modal.fade .modal-dialog
+{
+	-ms-transform: translate(0, 10%);
+	-o-transform: translate(0, 10%);
+	-webkit-transform: translate(0, 10%);
+	transform: translate(0, 10%);
+}
+
+.editModal.modal.in .modal-dialog
+{
+	-ms-transform: translate(0, 0);
+	-o-transform: translate(0, 0);
+	-webkit-transform: translate(0, 0);
+	transform: translate(0, 0);
+}
+
+.editModal .modal-content
+{
+	height: 100%;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.editModal .modal-header
+{
+	border: none;
+}
+
+.editModal .modal-body
+{
+	position: absolute;
+	top: 40px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.editModal .modal-header h3
+{
+	margin-top: 6px;
+}
+
+.editModal input[type="text"], textarea, .CodeMirror
+{
+	font: 16px Cousine;
+	line-height: 145%;
+	background: inherit;
+}
+
+.editModal .textareaContainer
+{
+	position: absolute;
+	top: 90px;
+	left: 16px;
+	right: 16px;
+	bottom: 20px;
+}
+
+.editModal .alert + .textareaContainer
+{
+	top: 140px;
+}
+
+.editModal textarea, .editModal .CodeMirror
+{
+	height: 100%;
+	width: 100%;
+	border: none;
+	background: none;
+	padding: 0;
+	box-sizing: border-box;
+	resize: none;
+	outline: none;
+}
+
+#passageEditModal .passageName
+{
+	background: none;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-bottom: 1px dotted hsl(0, 0%, 75%);
+	width: 80%;
+}
+
+#passageEditModal input.passageName
+{
+	font-size: 24px;
+}
+
+#passageEditModal .passageTags
+{
+	position: relative;
+	top: -2px;
+	left: -4px;
+}
+
+#passageEditModal .passageTags .fa
+{
+	position: relative;
+	top: 0.1em;
+	font-size: 125%;
+}
+
+#passageEditModal .passageTags .tag
+{
+	margin: 0.1em 0.4em 0 0;
+	padding-top: 0.4em;
+	padding-bottom: 0.5em;
+}
+
+#passageEditModal .passageTags .tag .remove
+{
+	color: white;
+	margin-left: 0.5em;
+}
+
+#passageEditModal .passageTags .tag .remove:hover
+{
+	color: black;
+}
+
+#passageEditModal .passageTags .newTag
+{
+	display: none;
+}
+
+#passageEditModal .passageTags .newTag .newTagName
+{
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	height: 2em;
+	padding: 1px 5px;
+	line-height: 1.5;
+	font-size: 12px;
+	display: inline;
+	width: 10em;
+}
+
+#searchModal .resultSummary .controls .btn-danger
+{
+	margin-left: 15px;
+}
+
+#searchModal .passageName .fa-plus-square-o,
+#searchModal .passageName .collapsed .fa-minus-square-o
+{
+	display: none;
+}
+
+#searchModal .passageName .fa-minus-square-o,
+#searchModal .passageName .collapsed .fa-plus-square-o
+{
+	display: inline;
+}
+
+#searchModal .passageName .controls a
+{
+	display: none;
+}
+
+#searchModal .passageName:hover .controls a
+{
+	display: inline;
+}
+
+#searchModal .passageBody
+{
+	max-height: 6em;
+	overflow: auto;
+}
+
+#searchModal .highlight
+{
+	background-color: hsl(60, 100%, 50%);
+}
+
+#storyEditView > .popover
+{
+	max-width: 350px;
+	width: 350px !important;
+}
+
+#storyEditView > .popover .col-md-6 button
+{
+	width: 100%;
+}
+
+.CodeMirror
+{
+	height: auto;
+}
