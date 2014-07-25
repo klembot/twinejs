@@ -126,10 +126,26 @@ button.link
 	padding: 0;
 }
 
+button.link.subtle
+{
+	color: hsl(0, 0%, 25%);
+}
+
+button.link.danger
+{
+	color: hsl(0, 88%, 40%);
+}
+
 button.link:hover, button.subtle:hover
 {
 	color: hsl(212, 88%, 50%);
 	text-decoration: underline;
+}
+
+button.link.danger:hover
+{
+	background-color: transparent;
+	color: hsl(0, 88%, 50%);
 }
 
 button.subtle:hover
@@ -157,6 +173,12 @@ button.subtle.create.active
 	color: hsl(212, 88%, 50%);
 	box-shadow: inset 0 0.1em 0.2em hsla(0, 0%, 0%, 0.5);
 	background-color: hsla(0, 0%, 0%, 0.05);
+}
+
+button.link.subtle:active
+{
+	background-color: transparent;
+	box-shadow: none;
 }
 
 button.block, input.block
@@ -205,7 +227,12 @@ p, li
 	text-align: left;
 	background-color: white;
 	border-radius: 0.5em;
-	box-shadow: 0 0 0.5em hsl(0, 0%, 75%);
+	box-shadow: 0 0.1em 0.25em hsla(0, 0%, 0%, 0.5);
+}
+
+.bubble.alwaysVisible
+{
+	display: block;
 }
 
 .bubble.smaller
@@ -224,47 +251,56 @@ p, li
 	margin-left: -7.5em;
 }
 
+.bubble.up
+{
+	margin-top: 0.75em;
+}
+
 .bubble.down
 {
 	top: -100%;
+	margin-top: -0.75em;
 }
 
 .bubble.left
 {
 	right: 100%;
 	top: 50%;
+	margin-right: 0.75em;
 }
 
 .bubble:before
 {
 	content: '\25bc';
 	position: absolute;
-	bottom: -0.9em;
+	bottom: -0.8em;
 	width: 100%;
 	text-align: center;
 
-	font-size: 150%;
-	transform: scaleX(2);
-	-webkit-transform: scaleX(2);
+	transform: scaleX(2.5);
+	-webkit-transform: scaleX(2.5);
 	color: white;
-	text-shadow: 0 0 0.5em hsl(0, 0%, 75%);
+	text-shadow: 0 0.1em 0.25em hsla(0, 0%, 0%, 0.5);
+	overflow: hidden;
 }
 
 .bubble:after
 {
 	content: '';
 	position: absolute;
-	left: 2em;
-	right: 2em;
+	width: 4em;
+	margin-left: -2em;
+	left: 50%;
+	height: 0.75em;
 	bottom: 0;
-	height: 0.8em;
 	background-color: white;
+	z-index: 11;
 }
 
 .bubble.up:before
 {
 	content: '\25b2';
-	top: -0.9em;
+	top: -0.8em;
 	bottom: auto;
 }
 
@@ -277,8 +313,8 @@ p, li
 .bubble.left:before
 {
 	content: '\25b6';
-	transform: scaleY(2);
-	-webkit-transform: scaleY(2);
+	transform: scaleY(2.5);
+	-webkit-transform: scaleY(2.5);
 	width: auto;
 	top: 50%;
 	right: -0.8em;
@@ -335,6 +371,26 @@ p, li
 	border-bottom-right-radius: 0.5em;
 }
 
+.collapse
+{
+	display: none;
+}
+
+.collapseContainer .showRevealed
+{
+	display: none;
+}
+
+.collapseContainer.revealed .showRevealed
+{
+	display: inline-block;
+}
+
+.collapseContainer.revealed .showCollapsed
+{
+	display: none;
+}
+
 .dialogButtons
 {
 	text-align: right;
@@ -357,25 +413,48 @@ ul.menu
 	margin: 0;
 }
 
+.bubble ul.menu
+{
+	position: relative;
+	z-index: 15;
+}
+
 ul.menu li.divider
 {
-	height: 0.05em;
+	height: 0.1em;
 	margin: 0.25em 0;
 	background-color: hsl(0, 0%, 85%);
 }
 
-ul.menu a
+ul.menu button
 {
 	color: hsl(0, 0%, 30%);
 	text-decoration: none;
 	display: block;
+	width: 100%;
+	text-align: left;
+	height: auto;
 	padding: 0.75em 1em;
+	background-color: transparent;
+	box-shadow: none;
 }
 
-ul.menu a:hover
+ul.menu button:hover
 {
 	color: hsl(212, 88%, 50%);
 	background-color: hsl(212, 5%, 92%);
+}
+
+.bubble ul.menu li:first-child button
+{
+	border-top-left-radius: 0.5em;
+	border-top-right-radius: 0.5em;
+}
+
+.bubble ul.menu li:last-child button
+{
+	border-bottom-left-radius: 0.5em;
+	border-bottom-right-radius: 0.5em;
 }
 
 .modal
@@ -390,6 +469,44 @@ ul.menu a:hover
 	width: 40em;
 	border-radius: 1em;
 	padding: 2em;
+}
+
+.modal.wide
+{
+	width: 50em;
+}
+
+.modal .close
+{
+	position: absolute;
+	top: 0;
+	right: 0;
+	border-radius: 0;
+	border-bottom-left-radius: 0.25em;
+	border-top-right-radius: 0.5em;
+	font-size: 150%;
+	padding: 0.5em 0.75em;
+	margin: 0;
+}
+
+.modal .title
+{
+	position: absolute;
+	top: 0.5em;
+	left: 2em;
+	right: 4em;
+	margin: 0;
+}
+
+.modal h2.title
+{
+	left: 1.25em;
+	text-align: left;
+}
+
+.modal .content
+{
+	margin-top: 2em;
 }
 
 .tag
@@ -412,6 +529,7 @@ ul.menu a:hover
 	background-color: transparent;
 	box-shadow: none;
 	padding-left: 0.4em;
+	padding-top: 0.5em;
 	text-shadow: 0 -0.05em 0 hsla(0, 0%, 0%, 0.3);
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
@@ -448,6 +566,11 @@ ul.menu a:hover
 	height: 100%;
 }
 
+.toolbar .bubble button
+{
+	float: none;
+}
+
 .bubble .toolbar
 {
 	margin: -0.1em;
@@ -455,19 +578,19 @@ ul.menu a:hover
 
 .bubble .toolbar button
 {
-	padding: 0.75em 1em;
+	padding: 0.75em 0.6em;
 }
 
 .bubble .toolbar button:first-child
 {
-	padding-left: 1.5em;
+	padding-left: 1em;
 	border-top-left-radius: 0.5em;
 	border-bottom-left-radius: 0.5em;
 }
 
 .bubble .toolbar button:last-child
 {
-	padding-right: 1.5em;
+	padding-right: 1em;
 	border-top-right-radius: 0.5em;
 	border-bottom-right-radius: 0.5em;
 }
@@ -502,6 +625,29 @@ ul.menu a:hover
 	font-size: 80%;
 	border-radius: 0.5em;
 	margin: 1em; 
+}
+
+#notifications button.close
+{
+	float: left;
+	background: none;
+	color: white;
+	border: none;
+	box-shadow: none;
+	margin-top: -0.5em;
+	margin-left: -0.5em;
+	border-top-left-radius: 0.5em;
+	border-bottom-left-radius: 0.5em;
+}
+
+#notifications button.close:hover
+{
+	background-color: hsla(0, 0%, 0%, 0.2);
+}
+
+#notifications button.close:active
+{
+	background-color: hsla(0, 0%, 0%, 0.5);
 }
 
 #notifications .danger
