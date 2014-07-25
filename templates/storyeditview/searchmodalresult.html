@@ -1,0 +1,27 @@
+<!-- this must be included outside any other template, to avoid data binding errors -->
+
+<div class="result collapseContainer hoverContainer" data-passage="<%- passageId %>">
+
+<p class="passageName">
+
+<button class="subtle link" data-collapse="toggle">
+<i class="fa fa-plus-square-o showCollapsed"></i>
+<i class="fa fa-minus-square-o showRevealed"></i>
+<%- passageName %> (<%- numMatches %> matches)</a>
+</button>
+
+<span class="controls hover">
+
+<button class="link showPassage" title="Show this passage in the story map"><i class="fa fa-search fa-fw"></i>
+Show in Story Map</button>
+
+<button class="link danger replacePassage" title="Replace in this passage"><i class="fa fa-bolt fa-fw"></i>
+Replace in Passage</button>
+
+</span>
+
+</p>
+
+<pre id="searchResult<%- resultNumber %>" class="collapse passageBody"><%= searchPreview %></pre>
+
+</div> <!-- .hoverContainer -->
