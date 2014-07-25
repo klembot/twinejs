@@ -19,14 +19,13 @@ StoryEditView.ScriptEditor = Backbone.View.extend(
 			mode: 'javascript'
 		});
 
-		this.$el.modal({ backdrop: 'static', show: false })
 		this.$el.on({
-			'shown.bs.modal': _.bind(function()
+			'modalShown': _.bind(function()
 			{
 				this.scriptEditor.refresh();
 				this.scriptEditor.focus();
 			}, this),
-			'hide.bs.modal': _.bind(function()
+			'modalHide': _.bind(function()
 			{
 				this.save();
 			}, this)
@@ -42,7 +41,7 @@ StoryEditView.ScriptEditor = Backbone.View.extend(
 	open: function()
 	{
 		this.scriptEditor.doc.setValue(this.parent.model.get('script'));
-		this.$el.modal('show');
+		this.$el.data('modal').trigger('show');
 	},
 
 	/**
@@ -53,7 +52,7 @@ StoryEditView.ScriptEditor = Backbone.View.extend(
 
 	close: function()
 	{
-		this.$el.modal('hide');
+		this.$el.data('modal').trigger('hide');
 	},
 
 	/**
