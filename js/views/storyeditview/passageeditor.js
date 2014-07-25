@@ -8,18 +8,17 @@
 StoryEditView.PassageEditor = Backbone.View.extend(
 {
 	tagTemplate:
-	'<span class="tag label label-info" data-name="<%- name %>"><%- name %><a href="javascript:void(0)" class="remove danger"><i class="fa fa-times"></i></a></span>',
+	'<span class="tag label label-info" data-name="<%- name %>"><%- name %><button class="remove"><i class="fa fa-times"></i></button></span>',
 
 	initialize: function()
 	{
 		this.tagContainer = this.$('.tags');
 		this.tagTemplate = _.template(this.tagTemplate);
 
-		this.$el.modal({ show: false, backdrop: 'static' });
-		this.$el.on('hide.bs.modal', _.bind(this.save, this)); 
+		this.$el.on('modalHide', _.bind(this.save, this)); 
 		this.$el.on('click', '.showNewTag', _.bind(this.showNewTag, this));
 		this.$el.on('click', '.hideNewTag', _.bind(this.hideNewTag, this));
-		this.$el.on('submit', _.bind(function(e)
+		this.$el.on('submit', _.bind(function (e)
 		{
 			var name = this.$('.newTagName').val().replace(/\s/g, '-');
 
@@ -56,7 +55,7 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 		this.tagContainer.empty();
 		_.each(this.model.get('tags'), this.addTag, this);
 
-		this.$el.modal('show');
+		this.$el.data('modal').trigger('show');
 	},
 
 	/**
@@ -67,7 +66,7 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 
 	close: function()
 	{
-		this.$el.modal('hide');
+		this.$el.data('modal').trigger('hide');
 	},
 
 	/**
@@ -154,7 +153,6 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 
 	addTag: function (name)
 	{
-
 		this.tagContainer.append(this.tagTemplate({ name: name }));
 	}
 });
