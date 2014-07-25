@@ -72,19 +72,10 @@
 	margin: 0;
 }
 
-#aboutModal
-{
-	text-align: center;
-}
-
-#aboutModal h2
-{
-	margin-top: 0;
-}
-
 #aboutModal .credits
 {
 	max-height: 20em;
 	overflow-y: auto;
 	margin-bottom: 1em;
+	text-align: center;
 }
