@@ -36,6 +36,16 @@ StoryEditView.Toolbar = Backbone.View.extend(
 
 	events:
 	{
+		'click .editScript': function (e)
+		{
+			this.parent.scriptEditor.open();
+		},
+
+		'click .editStyle': function (e)
+		{
+			this.parent.styleEditor.open();
+		},
+
 		'click .addPassage': function (e)
 		{
 			this.parent.addPassage();
