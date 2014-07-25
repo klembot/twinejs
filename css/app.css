@@ -257,3 +257,8 @@ h2
 	-webkit-animation: 0.4s slideDown;
 }
 
+.fast
+{
+	animation-duration: 0.2s;
+	-webkit-animation-duration: 0.2s;
+}
