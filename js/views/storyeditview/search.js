@@ -23,13 +23,14 @@ StoryEditView.Search = Backbone.View.extend(
 
 	searchFor: function (search, flags)
 	{
-		var search = new RegExp(search, flags || 'i');
+		// convert entered text to regexp, escaping text
+		// cribbed from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+
+		var search = new RegExp(search.replace(/([.*+?^${}()|\[\]\/\\])/g, "\\$1"), flags || 'i');
 
 		this.parent.children.each(function (view)
 		{
-			var model = view.model;
-
-			if (search.test(model.get('name')) || search.test(model.get('text')))
+			if (view.model.matches(search))
 				view.highlight();
 			else
 				view.unhighlight();
@@ -55,8 +56,6 @@ StoryEditView.Search = Backbone.View.extend(
 
 	events:
 	{
-		'click .clearSearch': 'clear',
-
 		'keyup .searchField': _.debounce(function (e)
 		{
 			// Escape key clears the field
