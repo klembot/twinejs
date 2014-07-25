@@ -112,7 +112,7 @@ StoryEditView = Marionette.CompositeView.extend(
 
 		// automatically focus textareas on edit modals when they are shown
 
-		$(document).on('shown.bs.modal', '.editModal', function()
+		$(document).on('modalShown', '.editModal', function()
 		{
 			var textarea = $(this).find('textarea')[0];
 			var textLen = $(textarea).val().length;
@@ -133,18 +133,27 @@ StoryEditView = Marionette.CompositeView.extend(
 			};
 		});
 
+		// always hide the story bubble when a click occurs on it
+		// (e.g. when a menu item is selected)
+
+		this.$el.on('click', '.storyBubble', function()
+		{
+			$('.storyBubble').bubble('hide');
+		});
+
 		// resize the story map whenever the browser window resizes
 
 		this.resize();
 		$(window).on('resize', _.debounce(_.bind(this.resize, this), 500));
 
 		this.syncZoom();
-		//this.linkManager = new StoryEditView.LinkManager({ el: this.el, parent: this });
-		//this.toolbar = new StoryEditView.Toolbar({ el: this.$('.toolbar'), parent: this });
-		//this.passageEditor = new StoryEditView.PassageEditor({ el: this.$('#passageEditModal'), parent: this });
-		//this.scriptEditor = new StoryEditView.ScriptEditor({ el: this.$('#scriptEditModal'), parent: this });
-		//this.styleEditor = new StoryEditView.StyleEditor({ el: this.$('#stylesheetEditModal'), parent: this });
-		//this.search = new StoryEditView.Search({ el: this.$('.searchContainer'), parent: this });
+		this.linkManager = new StoryEditView.LinkManager({ el: this.el, parent: this });
+		this.toolbar = new StoryEditView.Toolbar({ el: this.$('.toolbar'), parent: this });
+		this.passageEditor = new StoryEditView.PassageEditor({ el: this.$('#passageEditModal'), parent: this });
+		this.scriptEditor = new StoryEditView.ScriptEditor({ el: this.$('#scriptEditModal'), parent: this });
+		this.styleEditor = new StoryEditView.StyleEditor({ el: this.$('#stylesheetEditModal'), parent: this });
+		this.search = new StoryEditView.Search({ el: this.$('.searchContainer'), parent: this });
+		this.search = new StoryEditView.SearchModal({ el: this.$('#searchModal'), parent: this });
 
 		if (! window.app.hasPrimaryTouchUI())
 			this.marquee = new StoryEditView.Marquee({ el: this.$('.passages'), parent: this });
