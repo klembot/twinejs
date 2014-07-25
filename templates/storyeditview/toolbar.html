@@ -2,40 +2,40 @@
 
 <div class="left">
 
-<a href="#stories" class="home subtle" title="Go to the story list"><i class="fa fa-home fa-lg"></i></a>
+<a href="#stories" class="home subtle" title="Go to the story list" data-tooltip-dir="ne"><i class="fa fa-home fa-lg"></i></a>
 
 <div class="bubbleContainer inline">
 
 <button class="storyName subtle" data-bubble="toggle">
 <%- name %>
-<i class="fa fa-caret-up"></i>
+<i class="fa fa-caret-up fa-lg"></i>
 </button>
 
-<div class="bubble down smaller">
+<div class="storyBubble bubble down smaller">
 
 <ul class="menu">
 
 <li>
-<a href="#">Edit Story JavaScript</a>
+<button class="editScript">Edit Story JavaScript</button>
 </li>
 <li>
-<a href="#">Edit Story Stylesheet</a>
+<button class="editStyle">Edit Story Stylesheet</button>
 </li>
 <li>
-<a href="#">Rename Story</a>
+<button class="renameStory">Rename Story</button>
 </li>
 <li>
-<a href="#"><i class="fa fa-check fa-fw"></i> Snap to Grid</a>
+<button class="snapToGrid"><i class="fa fa-check fa-fw"></i> Snap to Grid</button>
 </li>
 
 <li class="divider"></li>
 
 <li>
-<a href="#">Download Proofing Copy</a>
+<button class="proofStory">Download Proofing Copy</button>
 </li>
 
 <li>
-<a href="#">Publish to File</a>
+<button class="publishStory">Publish to File</button>
 </li>
 
 </ul>
@@ -49,30 +49,30 @@
 
 <span class="searchContainer">
 <input type="search" placeholder="Quick Find" class="searchField">
-<button class="showSearch subtle"><i class="fa fa-list-alt"></i></button>
+<button class="showSearch subtle" title="Find and replace across the entire story" data-tooltip-dir="n" data-modal-show="#searchModal"><i class="fa fa-list-alt"></i></button>
 </span>
 
-<button class="zoomSmall subtle" title="Show only story structure">
-<i class="fa fa-th"></i>
+<button class="zoomSmall subtle" title="Show only story structure" data-tooltip-dir="n">
+<i class="fa fa-th fa-lg"></i>
 </button>
 
-<button class="zoomMedium subtle" title="Show only passage titles">
-<i class="fa fa-th-large"></i>
+<button class="zoomMedium subtle" title="Show only passage titles" data-tooltip-dir="n">
+<i class="fa fa-th-large fa-lg"></i>
 </button>
 
-<button class="zoomBig subtle" title="Show passage titles and excerpts">
-<i class="fa fa-stop"></i>
+<button class="zoomBig subtle" title="Show passage titles and excerpts" data-tooltip-dir="n">
+<i class="fa fa-stop fa-l"></i>
 </button>
 
-<button class="testStory subtle" title="Play this story in test mode">
+<button class="testStory subtle" title="Play this story in test mode" data-tooltip-dir="n">
 <i class="fa fa-bug fa-lg"></i> Test
 </button>
 
-<button class="playStory subtle" title="Play this story">
+<button class="playStory subtle" title="Play this story" data-tooltip-dir="n">
 <i class="fa fa-play fa-lg"></i> Play
 </button>
 
-<button class="addPassage create" title="Add a new passage">
+<button class="addPassage create" title="Add a new passage" data-tooltip-dir="nw">
 <i class="fa fa-plus fa-lg"></i> Passage
 </button>
 
