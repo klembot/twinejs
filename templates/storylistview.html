@@ -98,7 +98,13 @@ story or import an existing one from a file.
 
 <div id="aboutModal" class="modal hide">
 
-<h2>About Twine <span class="app-version"></span></h2>
+<button class="save close subtle" data-modal-hide="this">
+<i class="fa fa-times"></i>
+</button>
+
+<h2 class="title">
+About Twine <span class="app-version"></span>
+</h2>
 
 <p>
 Build {{build_number}}
@@ -111,7 +117,6 @@ Twine is an open-source tool for telling interactive, nonlinear stories.
 <p>
 Twine 2.0 is released under the <a href="http://www.gnu.org/licenses/gpl-3.0.html">GPL v3</a>
 license, but any work created with it may be released under any terms, including commercial ones.
-<br>
 <a href="https://bitbucket.org/klembot/twinejs">Source Code Repository</a>
 </p>
 
@@ -170,11 +175,5 @@ Icons
 </p>
 
 </div> <!-- .credits -->
-
-<p>
-<button data-modal-hide="this">
-OK
-</button>
-</p>
 
 </div> <!-- #aboutModal -->
