@@ -183,12 +183,9 @@ window.uiInitEl = function (el)
 
 	// set up modals
 
-	console.log('about to init modals', el, el.find('.modal'));
-
 	el.find('.modal').each(function()
 	{
 		var $t = $(this);
-		console.log('initing modal', this);
 
 		if ($t.data('modal'))
 			return;
@@ -206,6 +203,7 @@ window.uiInitEl = function (el)
 				afterShow: function (els, internalCallback)
 				{
 					els.modal.trigger('modalshown');
+					window.uiInitEl(els.modal);
 					return internalCallback(els);
 				},
 
@@ -261,8 +259,7 @@ window.uiInitEl = function (el)
 
 	el.find('button[title], a[title]').each(function()
 	{
-		var $t = $(this);
-		$t.powerTip({ placement: $t.attr('data-tooltip-dir') || 's' });
+		$(this).powerTip({ placement: $(this).attr('data-tooltip-dir') || 's' });
 	});
 
 	// vertically center bubbles that are displayed to the side
