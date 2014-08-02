@@ -11,6 +11,7 @@ StoryEditView.Toolbar = Backbone.View.extend(
 	{
 		this.parent = options.parent;
 		this.syncZoomButtons();
+		this.parent.model.on('change:zoom', this.syncZoomButtons, this);
 	},
 
 	/**
@@ -23,15 +24,23 @@ StoryEditView.Toolbar = Backbone.View.extend(
 	{
 		var zoom = this.parent.model.get('zoom');
 
-		// select the appropriate toolbar button
+		// find the correct zoom description
 
 		for (var desc in this.parent.ZOOM_MAPPINGS)
 			if (this.parent.ZOOM_MAPPINGS[desc] == zoom)
-			{
-				var radio = this.$('input.zoom' + desc[0].toUpperCase() + desc.substr(1));
-				radio.attr('checked', 'checked');
-				radio.closest('label').addClass('active');
-			};
+				var className = 'zoom' + desc[0].toUpperCase() + desc.substr(1);
+
+		// set toolbar active states accordingly
+
+		this.$('.zooms button').each(function()
+		{
+			var $t = $(this);
+
+			if ($t.hasClass(className))
+				$t.addClass('active');
+			else
+				$t.removeClass('active');
+		});
 	},
 
 	events:
@@ -78,9 +87,10 @@ StoryEditView.Toolbar = Backbone.View.extend(
 
 		'click .editStylesheet': 'editStylesheet',
 
-		'change .zoomBig, .zoomMedium, .zoomSmall': function (e)
+		'click .zoomBig, .zoomMedium, .zoomSmall': function (e)
 		{
-			var desc = $(e.target).attr('class').replace('zoom', '').toLowerCase();
+			var desc = $(e.target).closest('button').attr('class');
+			desc = desc.replace(/^zoom/, '').replace(/ .*/, '').toLowerCase();
 			this.parent.model.save({ zoom: this.parent.ZOOM_MAPPINGS[desc] }); 
 		},
 	}
