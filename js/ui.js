@@ -203,7 +203,7 @@ window.uiInitEl = function (el)
 				afterShow: function (els, internalCallback)
 				{
 					els.modal.trigger('modalshown');
-					window.uiInitEl(els.modal);
+					_.defer(function() { window.uiInitEl(els.modal) });
 					return internalCallback(els);
 				},
 
@@ -262,17 +262,23 @@ window.uiInitEl = function (el)
 		$(this).powerTip({ placement: $(this).attr('data-tooltip-dir') || 's' });
 	});
 
-	// vertically center bubbles that are displayed to the side
+	// this must be deferred to allow DOM layout to happen
+	// otherwise the elements's height will appear to be 0
 
-	el.find('.bubble.left, .bubble.right').each(function()
+	_.defer(function()
 	{
-		$(this).css('margin-top', 0 - $(this).outerHeight() / 2);
-	});
+		// vertically center bubbles that are displayed to the side
 
-	// push bubbles pointing down above their sources
+		el.find('.bubble.left, .bubble.right').each(function()
+		{
+			$(this).css('margin-top', 0 - $(this).outerHeight() / 2);
+		});
 
-	el.find('.bubble.down').each(function()
-	{
-		$(this).css('top', 0 - $(this).outerHeight());
+		// push bubbles pointing down above their sources
+
+		el.find('.bubble.down').each(function()
+		{
+			$(this).css('top', 0 - $(this).outerHeight());
+		});
 	});
 };
