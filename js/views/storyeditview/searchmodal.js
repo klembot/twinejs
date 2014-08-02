@@ -156,7 +156,7 @@ StoryEditView.SearchModal = Backbone.View.extend(
 			};
 		}, this));
 
-		this.$el.one('modalHide', function()
+		this.$el.one('modalhide', function()
 		{
 			window.notify(totalMatches + ' replacements were made in ' + passagesMatched + ' passages.');	
 		});
@@ -178,7 +178,7 @@ StoryEditView.SearchModal = Backbone.View.extend(
 
 	events:
 	{
-		'modalShow': 'syncSearch',
+		'modalshow': 'syncSearch',
 		'keyup #searchFor': 'updateResults',
 		'click .expandAll': 'showAllResults',
 		'click .collapseAll': 'hideAllResults',

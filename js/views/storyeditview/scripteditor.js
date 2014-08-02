@@ -20,12 +20,12 @@ StoryEditView.ScriptEditor = Backbone.View.extend(
 		});
 
 		this.$el.on({
-			'modalShown': _.bind(function()
+			'modalshown': _.bind(function()
 			{
 				this.scriptEditor.refresh();
 				this.scriptEditor.focus();
 			}, this),
-			'modalHide': _.bind(function()
+			'modalhide': _.bind(function()
 			{
 				this.save();
 			}, this)

@@ -15,7 +15,7 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 		this.tagContainer = this.$('.tags');
 		this.tagTemplate = _.template(this.tagTemplate);
 
-		this.$el.on('modalHide', _.bind(this.save, this)); 
+		this.$el.on('modalhide', _.bind(this.save, this)); 
 		this.$el.on('click', '.showNewTag', _.bind(this.showNewTag, this));
 		this.$el.on('click', '.hideNewTag', _.bind(this.hideNewTag, this));
 		this.$el.on('submit', _.bind(function (e)
