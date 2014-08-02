@@ -47,27 +47,27 @@ StoryEditView = Marionette.CompositeView.extend(
 
 	onRender: function()
 	{
-		var self = this;
-		
+		window.uiInitEl(this.$el);
+
 		// enable space bar scrolling
 
-		$(document).on('keydown', function (e)
+		$(document).on('keydown', _.bind(function (e)
 		{
 			if (e.keyCode == 32 && $('input:focus, textarea:focus').length == 0)
 			{
-				self.startMouseScrolling();
+				this.startMouseScrolling();
 				e.preventDefault();
 			};
-		});
+		}, this));
 
-		$(document).on('keyup', function (e)
+		$(document).on('keyup', _.bind(function (e)
 		{
 			if (e.keyCode == 32 && $('input:focus, textarea:focus').length == 0)
 			{
-				self.stopMouseScrolling();
+				this.stopMouseScrolling();
 				e.preventDefault();
 			};
-		});
+		}, this));
 
 		// delete selected passages with the delete key
 
@@ -112,7 +112,7 @@ StoryEditView = Marionette.CompositeView.extend(
 
 		// automatically focus textareas on edit modals when they are shown
 
-		$(document).on('modalShown', '.editModal', function()
+		$(document).on('modalshown', '.editModal', function()
 		{
 			var textarea = $(this).find('textarea')[0];
 			var textLen = $(textarea).val().length;

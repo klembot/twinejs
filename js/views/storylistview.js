@@ -13,8 +13,7 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 
 	onRender: function()
 	{
-		var self = this;
-
+		window.uiInitEl(this.$el);
 		this.syncStoryCount();
 
 		// set the version number in the HTML
