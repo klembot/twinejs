@@ -11,6 +11,11 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 	itemViewContainer: '.stories',
 	template: '#templates .storyListView',
 
+	initialize: function()
+	{
+		this.collection.on('sort', this.render);
+	},
+
 	onRender: function()
 	{
 		window.uiInitEl(this.$el);
@@ -113,13 +118,43 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 	},
 
 	/**
+	 Sorts the story list by alphabetical order.
+
+	 @method sortByName
+	**/
+
+	sortByName: function()
+	{
+		this.collection.order = 'name';
+		this.collection.reverseOrder = false;
+		this.collection.sort();
+		this.$('.sortByDate').removeClass('active');
+		this.$('.sortByName').addClass('active');
+	},
+
+	/**
+	 Sorts the story list by last edit date.
+
+	 @method sortByDate
+	**/
+
+	sortByDate: function()
+	{
+		this.collection.order = 'lastUpdate';
+		this.collection.reverseOrder = true;
+		this.collection.sort();
+		this.$('.sortByDate').addClass('active');
+		this.$('.sortByName').removeClass('active');
+	},
+
+	/**
 	 Syncs onscreen appearance of the story table and our 'there are no stories'
 	 message with the collection.
 
 	 @method syncStoryCount
 	**/
 
-	syncStoryCount: function ()
+	syncStoryCount: function()
 	{
 		if (this.collection.length > 0)
 		{
@@ -137,6 +172,8 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 	{
 		'submit #addStoryForm': 'addStory',
 		'click .saveArchive': 'saveArchive',
-		'change .importFile': 'importFile'
+		'change .importFile': 'importFile',
+		'click .sortByDate': 'sortByDate',
+		'click .sortByName': 'sortByName'
 	}
 });
