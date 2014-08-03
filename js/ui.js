@@ -183,92 +183,91 @@ window.uiInitEl = function (el)
 {
 	el = $(el);
 
-	// set up modals
-
-	el.find('.modal').each(function()
-	{
-		var $t = $(this);
-
-		if ($t.data('modal'))
-			return;
-
-		$t.data('modal', $t.omniWindow(
-		{
-			callbacks:
-			{
-				beforeShow: function (els, internalCallback)
-				{
-					els.modal.trigger('modalshow');
-					return internalCallback(els);
-				},
-
-				afterShow: function (els, internalCallback)
-				{
-					els.modal.trigger('modalshown');
-					_.defer(function() { window.uiInitEl(els.modal) });
-					return internalCallback(els);
-				},
-
-				beforeHide: function (els, internalCallback)
-				{
-					els.modal.trigger('modalhide');
-					return internalCallback(els);
-				},
-
-				afterHide: function (els, internalCallback)
-				{
-					els.modal.trigger('modalhidden');
-					return internalCallback(els);
-				}
-			},
-
-			overlay:
-			{
-				selector: '#modalOverlay',
-				hideClass: 'hide',
-				animations:
-				{
-					show: function (els, internalCallback)
-					{
-						els.overlay.addClass('fadeIn');	
-						els.modal.addClass('appear');	
-						internalCallback(els);
-					},
-
-					hide: function (els, internalCallback)
-					{
-						els.overlay.removeClass('fadeIn').addClass('fadeOut');	
-						els.modal.removeClass('appear').addClass('fadeOut');	
-						els.overlay.one('animationend', function()
-						{
-							els.overlay.removeClass('fadeOut');
-							els.modal.removeClass('fadeOut').addClass('hide');
-							internalCallback(els);
-						});
-
-					},
-				}
-			},
-
-			modal:
-			{
-				hideClass: 'hide'
-			}
-		}));
-	});
-
-	// activate tooltips
-
-	el.find('button[title], a[title]').each(function()
-	{
-		$(this).powerTip({ placement: $(this).attr('data-tooltip-dir') || 's' });
-	});
-
-	// this must be deferred to allow DOM layout to happen
-	// otherwise the elements's height will appear to be 0
+	// we defer execution so that the DOM is ready to be inspected
 
 	_.defer(function()
 	{
+		// activate tooltips
+
+		el.find('button[title], a[title]').each(function()
+		{
+			$(this).powerTip({ placement: $(this).attr('data-tooltip-dir') || 's' });
+		});
+
+		// set up modals
+
+		el.find('.modal').each(function()
+		{
+			var $t = $(this);
+
+			if ($t.data('modal'))
+				return;
+
+			$t.data('modal', $t.omniWindow(
+			{
+				callbacks:
+				{
+					beforeShow: function (els, internalCallback)
+					{
+						els.modal.trigger('modalshow');
+						return internalCallback(els);
+					},
+
+					afterShow: function (els, internalCallback)
+					{
+						els.modal.trigger('modalshown');
+						_.defer(function() { window.uiInitEl(els.modal) });
+						return internalCallback(els);
+					},
+
+					beforeHide: function (els, internalCallback)
+					{
+						els.modal.trigger('modalhide');
+						return internalCallback(els);
+					},
+
+					afterHide: function (els, internalCallback)
+					{
+						els.modal.trigger('modalhidden');
+						return internalCallback(els);
+					}
+				},
+
+				overlay:
+				{
+					selector: '#modalOverlay',
+					hideClass: 'hide',
+					animations:
+					{
+						show: function (els, internalCallback)
+						{
+							els.overlay.addClass('fadeIn');	
+							els.modal.addClass('appear');	
+							internalCallback(els);
+						},
+
+						hide: function (els, internalCallback)
+						{
+							els.overlay.removeClass('fadeIn').addClass('fadeOut');	
+							els.modal.removeClass('appear').addClass('fadeOut');	
+							els.overlay.one('animationend', function()
+							{
+								els.overlay.removeClass('fadeOut');
+								els.modal.removeClass('fadeOut').addClass('hide');
+								internalCallback(els);
+							});
+
+						},
+					}
+				},
+
+				modal:
+				{
+					hideClass: 'hide'
+				}
+			}));
+		});
+
 		// vertically center bubbles that are displayed to the side
 
 		el.find('.bubble.left, .bubble.right').each(function()
