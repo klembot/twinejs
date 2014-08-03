@@ -64,6 +64,7 @@ window.uiInitBody = function()
 
 				$t.addClass('active');
 				$bubble.css('display', 'block').addClass('fadeIn fast');
+				$bubble.trigger('bubbleshow');
 				break;
 
 				case 'hide':
@@ -77,6 +78,7 @@ window.uiInitBody = function()
 				{
 					$bubble.removeClass('fadeIn fadeOut').css('display', 'none');
 				});
+				$bubble.trigger('bubblehide');
 				break;
 
 				case 'toggle':

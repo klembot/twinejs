@@ -30,7 +30,7 @@
 	box-shadow: 0 0 1em hsl(0, 0%, 15%);
 }
 
-#storyEditView .toolbar.main button
+#storyEditView .toolbar.main .right button
 {
 	height: 3.5em;
 	padding-left: 1em;

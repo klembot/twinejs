@@ -43,6 +43,22 @@ StoryEditView.Toolbar = Backbone.View.extend(
 		});
 	},
 
+	/**
+	 Synchronizes the checked state of the Snap to Grid menu item with the model.
+
+	 @method syncSnapToGrid
+	**/
+
+	syncSnapToGrid: function()
+	{
+		var menu = this.$('.snapToGrid').closest('li');
+
+		if (this.parent.model.get('snapToGrid'))
+			menu.addClass('checked');
+		else
+			menu.removeClass('checked');
+	},
+
 	events:
 	{
 		'click .editScript': function (e)
@@ -93,5 +109,12 @@ StoryEditView.Toolbar = Backbone.View.extend(
 			desc = desc.replace(/^zoom/, '').replace(/ .*/, '').toLowerCase();
 			this.parent.model.save({ zoom: this.parent.ZOOM_MAPPINGS[desc] }); 
 		},
+
+		'click .snapToGrid': function()
+		{
+			this.parent.model.save({ snapToGrid: ! this.parent.model.get('snapToGrid') });
+		},
+
+		'bubbleshow .storyBubble': 'syncSnapToGrid'
 	}
 });
