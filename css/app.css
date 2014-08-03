@@ -195,7 +195,7 @@ h2
 {
 	from
 	{
-		transform: translate(0, -100px);
+		transform: translate(0, -15px);
 		opacity: 0;
 	}
 
@@ -210,7 +210,7 @@ h2
 {
 	from
 	{
-		-webkit-transform: translate(0, -100px);
+		-webkit-transform: translate(0, -15px);
 		opacity: 0;
 	}
 

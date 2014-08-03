@@ -55,9 +55,9 @@ StoryItemView = Marionette.ItemView.extend(
 
 	fadeIn: function()
 	{
-		this.$('.story').show().addClass('fadeIn').one('animationend', function()
+		this.$('.story').show().addClass('fadeIn slideDown').one('animationend', function()
 		{
-			$(this).removeClass('fadeIn');
+			$(this).removeClass('fadeIn slideDown');
 		});
 	},
 
