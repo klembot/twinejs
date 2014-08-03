@@ -434,7 +434,7 @@ ul.menu button
 	width: 100%;
 	text-align: left;
 	height: auto;
-	padding: 0.75em 1em;
+	padding: 0.75em 2em;
 	background-color: transparent;
 	box-shadow: none;
 }
@@ -443,6 +443,14 @@ ul.menu button:hover
 {
 	color: hsl(212, 88%, 50%);
 	background-color: hsl(212, 5%, 92%);
+}
+
+ul.menu li.checked button:before
+{
+	content: '\f00c';
+	font-family: FontAwesome;
+	margin-left: -1.5em;
+	padding-right: 0.5em;
 }
 
 .bubble ul.menu li:first-child button
