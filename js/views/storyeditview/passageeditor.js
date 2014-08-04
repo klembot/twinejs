@@ -74,7 +74,7 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 	 errors. If this is passed an event and validation fails, this stops the event's
 	 propagation.
 
-	 @method close
+	 @method save
 	 @param {Event} e Event to stop
 	**/
 

@@ -396,6 +396,20 @@ p, li
 	text-align: right;
 }
 
+.error
+{
+	background-color: hsl(0, 50%, 97%);
+	padding: 0.5em;
+}
+
+.error:before
+{
+	content: '\f071';
+	font-family: FontAwesome;
+	color: hsl(0, 100%, 50%);
+	padding-right: 0.5em;
+}
+
 .hover
 {
 	visibility: hidden;
