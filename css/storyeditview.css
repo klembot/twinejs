@@ -331,6 +331,11 @@ body.zoom-small
 	top: 6.5em;
 }
 
+#renameStoryModal input[type="text"]
+{
+	width: 100%;
+}
+
 #searchModal textarea
 {
 	display: block;
