@@ -12,6 +12,18 @@ StoryEditView.Toolbar = Backbone.View.extend(
 		this.parent = options.parent;
 		this.syncZoomButtons();
 		this.parent.model.on('change:zoom', this.syncZoomButtons, this);
+		this.parent.model.on('change:name', this.syncStoryName, this);
+	},
+
+	/**
+	 Synchronizes the story name shown with the model.
+
+	 @method syncStoryName
+	**/
+
+	syncStoryName: function()
+	{
+		this.$('.storyNameVal').text(this.parent.model.get('name'));
 	},
 
 	/**
@@ -69,6 +81,11 @@ StoryEditView.Toolbar = Backbone.View.extend(
 		'click .editStyle': function (e)
 		{
 			this.parent.styleEditor.open();
+		},
+
+		'click .renameStory': function (e)
+		{
+			this.parent.renameModal.open();
 		},
 
 		'click .addPassage': function (e)
