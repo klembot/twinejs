@@ -1,0 +1,693 @@
+/* a lightweight replacement for Bootstrap styles */
+
+body
+{
+	color: hsl(0, 0%, 30%);
+	background-color: white;
+	margin: 0;
+	font: 90% "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+a
+{
+	color: hsl(212, 88%, 40%);
+	text-decoration: none;
+}
+
+a.subtle
+{
+	color: hsl(0, 0%, 30%);
+}
+
+a:hover
+{
+	color: hsl(212, 88%, 50%);
+	text-decoration: underline;
+}
+
+input, button, textarea
+{
+	font: 100% "Helvetica Neue", Helvetica, Arial, sans-serif;
+	border: 1px solid hsl(0, 0%, 80%);
+	padding: 0.25em;
+	border-radius: 0.25em;
+}
+
+input, textarea
+{
+	box-shadow: inset 0 0 0.25em hsl(0, 0%, 80%);
+}
+
+input[type="search"]
+{
+	border-radius: 1em;
+}
+
+input[type="file"]
+{
+	border-color: transparent;
+	box-shadow: none;
+}
+
+input.fillin
+{
+	box-shadow: none;
+	border-radius: 0;
+	border: none;
+	padding-left: 0;
+	padding-right: 0;
+	border-bottom: 0.1em dotted hsl(0, 0%, 20%);
+}
+
+button
+{
+	color: white;
+	background-color: hsl(212, 88%, 40%);
+	border: none;
+	padding: 0.6em 0.75em;
+	box-shadow: inset 0 0.15em 0.1em hsla(0, 0%, 100%, 0.5),
+	            inset 0 -0.05em 0.1em hsla(0, 0%, 0%, 0.25);
+}
+
+button:hover
+{
+	background-color: hsl(212, 88%, 45%);
+	cursor: pointer;
+}
+
+button:active, button.active
+{
+	background-color: hsl(212, 88%, 35%);
+	box-shadow: inset 0 0.1em 0.2em hsla(0, 0%, 0%, 0.5);
+	outline: none;
+}
+
+button.create
+{
+	background-color: hsl(141, 88%, 40%);
+}
+
+button.create:hover
+{
+	background-color: hsl(141, 88%, 45%);
+}
+
+button.create:active, button.create.active
+{
+	background-color: hsl(141, 88%, 35%);
+}
+
+button.danger
+{
+	background-color: hsl(10, 88%, 40%);
+}
+
+button.danger:hover
+{
+	background-color: hsl(10, 88%, 45%);
+}
+
+button.danger:active, button.danger.active
+{
+	background-color: hsl(10, 88%, 35%);
+}
+
+button.link, button.subtle
+{
+	color: hsl(0, 0%, 25%);	
+	background: none;
+	box-shadow: none;
+	text-shadow: none;
+}
+
+button.link
+{
+	color: hsl(212, 88%, 40%);
+	padding: 0;
+}
+
+button.link.subtle
+{
+	color: hsl(0, 0%, 25%);
+}
+
+button.link.danger
+{
+	color: hsl(0, 88%, 40%);
+}
+
+button.link:hover, button.subtle:hover
+{
+	color: hsl(212, 88%, 50%);
+	text-decoration: underline;
+}
+
+button.link.danger:hover
+{
+	background-color: transparent;
+	color: hsl(0, 88%, 50%);
+}
+
+button.subtle:hover
+{
+	text-decoration: none;
+}
+
+button.subtle.danger:hover
+{
+	color: hsl(10, 88%, 40%);
+	background-color: transparent;
+}
+
+button.subtle.create:hover
+{
+	color: hsl(141, 88%, 40%);
+	background-color: transparent;
+}
+
+button.subtle:active, button.subtle.danger:active,
+button.subtle.create:active,
+button.subtle.active, button.subtle.danger.active,
+button.subtle.create.active
+{
+	color: hsl(212, 88%, 50%);
+	box-shadow: inset 0 0.1em 0.2em hsla(0, 0%, 0%, 0.5);
+	background-color: hsla(0, 0%, 0%, 0.05);
+}
+
+button.link.subtle:active
+{
+	background-color: transparent;
+	box-shadow: none;
+}
+
+button.block, input.block
+{
+	display: block;
+	width: 100%;
+}
+
+p, li
+{
+	line-height: 130%;
+}
+
+.hide
+{
+	display: none;
+}
+
+.shadow
+{
+	box-shadow: 0 0 0.8em hsl(0, 0%, 75%);
+}
+
+.small
+{
+	font-size: 80%;
+}
+
+.bubbleContainer
+{
+	position: relative;
+}
+
+.bubbleContainer.inline
+{
+	display: inline-block;
+}
+
+.bubble
+{
+	position: absolute;
+	z-index: 10;
+	width: 20em;
+	display: none;
+
+	text-align: left;
+	background-color: white;
+	border-radius: 0.5em;
+	box-shadow: 0 0.1em 0.25em hsla(0, 0%, 0%, 0.5);
+}
+
+.bubble.alwaysVisible
+{
+	display: block;
+}
+
+.bubble.smaller
+{
+	width: 15em;
+}
+
+.bubble.up, .bubble.down
+{
+	left: 50%;
+	margin-left: -10em;
+}
+
+.bubble.smaller.up, .bubble.smaller.down
+{
+	margin-left: -7.5em;
+}
+
+.bubble.up
+{
+	margin-top: 0.75em;
+}
+
+.bubble.down
+{
+	top: -100%;
+	margin-top: -0.75em;
+}
+
+.bubble.left
+{
+	right: 100%;
+	top: 50%;
+	margin-right: 0.75em;
+}
+
+.bubble:before
+{
+	content: '\25bc';
+	position: absolute;
+	bottom: -0.8em;
+	width: 100%;
+	text-align: center;
+
+	transform: scaleX(2.5);
+	-webkit-transform: scaleX(2.5);
+	color: white;
+	text-shadow: 0 0.1em 0.25em hsla(0, 0%, 0%, 0.5);
+	overflow: hidden;
+}
+
+.bubble:after
+{
+	content: '';
+	position: absolute;
+	width: 4em;
+	margin-left: -2em;
+	left: 50%;
+	height: 0.5em;
+	bottom: 0;
+	background-color: white;
+	z-index: 11;
+}
+
+.bubble.up:before
+{
+	content: '\25b2';
+	top: -0.8em;
+	bottom: auto;
+}
+
+.bubble.up:after
+{
+	top: 0;
+	bottom: auto;
+}
+
+.bubble.left:before
+{
+	content: '\25b6';
+	transform: scaleY(2.5);
+	-webkit-transform: scaleY(2.5);
+	width: auto;
+	top: 50%;
+	right: -0.8em;
+	bottom: auto;
+	margin-top: -0.5em;
+}
+
+.bubble.left:after
+{
+	width: 0.8em;
+	height: auto;
+	right: 0;
+	left: auto;
+	top: 2em;
+	bottom: 2em;
+}
+
+.bubble p
+{
+	padding: 0 1.5em;
+}
+
+.bubble p:first-child
+{
+	padding-top: 0.75em;
+}
+
+.bubble p:last-child
+{
+	padding-bottom: 0.75em;
+}
+
+.buttonGroup
+{
+	display: table;
+}
+
+.buttonGroup button
+{
+	border-radius: 0;
+	display: table-cell;
+	margin: 0;
+}
+
+.buttonGroup button:first-child
+{
+	border-top-left-radius: 0.5em;
+	border-bottom-left-radius: 0.5em;
+}
+
+.buttonGroup button:last-child
+{
+	border-top-right-radius: 0.5em;
+	border-bottom-right-radius: 0.5em;
+}
+
+.collapse
+{
+	display: none;
+}
+
+.collapseContainer .showRevealed
+{
+	display: none;
+}
+
+.collapseContainer.revealed .showRevealed
+{
+	display: inline-block;
+}
+
+.collapseContainer.revealed .showCollapsed
+{
+	display: none;
+}
+
+.dialogButtons
+{
+	text-align: right;
+}
+
+.error
+{
+	background-color: hsl(0, 50%, 97%);
+	padding: 0.5em;
+}
+
+.error:before
+{
+	content: '\f071';
+	font-family: FontAwesome;
+	color: hsl(0, 100%, 50%);
+	padding-right: 0.5em;
+}
+
+.hover
+{
+	visibility: hidden;
+}
+
+.hoverContainer:hover .hover
+{
+	visibility: visible;
+}
+
+ul.menu
+{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.bubble ul.menu
+{
+	position: relative;
+	z-index: 15;
+}
+
+ul.menu li.divider
+{
+	height: 0.1em;
+	margin: 0.25em 0;
+	background-color: hsl(0, 0%, 85%);
+}
+
+ul.menu button
+{
+	color: hsl(0, 0%, 30%);
+	text-decoration: none;
+	display: block;
+	width: 100%;
+	text-align: left;
+	height: auto;
+	padding: 0.75em 2em;
+	background-color: transparent;
+	box-shadow: none;
+}
+
+ul.menu button:hover
+{
+	color: hsl(212, 88%, 50%);
+	background-color: hsl(212, 5%, 92%);
+}
+
+ul.menu li.checked button:before
+{
+	content: '\f00c';
+	font-family: FontAwesome;
+	margin-left: -1.5em;
+	padding-right: 0.5em;
+}
+
+.bubble ul.menu li:first-child button
+{
+	border-top-left-radius: 0.5em;
+	border-top-right-radius: 0.5em;
+}
+
+.bubble ul.menu li:last-child button
+{
+	border-bottom-left-radius: 0.5em;
+	border-bottom-right-radius: 0.5em;
+}
+
+.modal
+{
+	position: fixed;
+	z-index: 101;
+
+	top: 1em;
+	left: 50%;
+
+	background: white;
+	width: 40em;
+	border-radius: 1em;
+	padding: 2em;
+}
+
+.modal.wide
+{
+	width: 50em;
+}
+
+.modal .close
+{
+	position: absolute;
+	top: 0;
+	right: 0;
+	border-radius: 0;
+	border-bottom-left-radius: 0.25em;
+	border-top-right-radius: 0.5em;
+	font-size: 150%;
+	padding: 0.5em 0.75em;
+	margin: 0;
+}
+
+.modal .title
+{
+	position: absolute;
+	top: 0.5em;
+	left: 2em;
+	right: 4em;
+	margin: 0;
+}
+
+.modal h2.title
+{
+	left: 1.25em;
+	text-align: left;
+}
+
+.modal .content
+{
+	margin-top: 2em;
+}
+
+.tag
+{
+	background-color: hsl(212, 5%, 92%);
+	padding: 0.5em 2.25em 0.5em 0.75em;
+	border-radius: 1em;
+	border: 1px solid hsl(212, 5%, 82%);
+	position: relative;
+}
+
+.tag button
+{
+	position: absolute;
+	right: 0;
+	top: 0;
+	margin: 0;
+	border: none;
+	color: hsl(0, 0%, 30%);
+	background-color: transparent;
+	box-shadow: none;
+	padding-left: 0.4em;
+	padding-top: 0.5em;
+	text-shadow: 0 -0.05em 0 hsla(0, 0%, 0%, 0.3);
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	border-top-right-radius: 1em;
+	border-bottom-right-radius: 1em;
+}
+
+.tag button:hover
+{
+	color: white;
+	background-color: hsl(10, 88%, 45%);
+	box-shadow: inset 0 0.05em 0.1em hsla(0, 0%, 100%, 0.75),
+	            inset 0 -0.05em 0.1em hsla(0, 0%, 0%, 0.25);
+}
+
+.tag button:active
+{
+	background-color: hsl(10, 88%, 35%);
+	box-shadow: inset 0 0.1em 0.2em hsla(0, 0%, 0%, 0.5);
+}
+
+.toolbar
+{
+	overflow: auto;
+}
+
+.toolbar button
+{
+	float: left;
+	margin: 0;
+	box-sizing: border-box;
+	border: none;
+	border-radius: 0;
+	height: 100%;
+}
+
+.toolbar .bubble button
+{
+	float: none;
+}
+
+.bubble .toolbar
+{
+	margin: 0 -0.1em -0.1em -0.1em;
+	position: relative;
+	z-index: 15;
+}
+
+.bubble .toolbar button
+{
+	padding: 0.75em 0.6em;
+}
+
+.bubble .toolbar button:first-child
+{
+	padding-left: 1em;
+	border-top-left-radius: 0.5em;
+	border-bottom-left-radius: 0.5em;
+}
+
+.bubble .toolbar button:last-child
+{
+	padding-right: 1em;
+	border-top-right-radius: 0.5em;
+	border-bottom-right-radius: 0.5em;
+}
+
+#modalOverlay
+{
+	position: fixed;
+	z-index: 100;
+
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: hsla(0, 0%, 0%, 0.8);
+}
+
+#notifications
+{
+	position: fixed;
+	top: 0;
+	left: 50%;
+	width: 50%;
+	margin-left: -25%;
+	text-align: center;
+}
+
+#notifications > div
+{
+	background-color: hsla(0, 0%, 0%, 0.8);
+	color: white;
+	padding: 0.5em;
+	font-size: 80%;
+	border-radius: 0.5em;
+	margin: 1em; 
+}
+
+#notifications button.close
+{
+	float: left;
+	background: none;
+	color: white;
+	border: none;
+	box-shadow: none;
+	margin-top: -0.5em;
+	margin-left: -0.5em;
+	border-top-left-radius: 0.5em;
+	border-bottom-left-radius: 0.5em;
+}
+
+#notifications button.close:hover
+{
+	background-color: hsla(0, 0%, 0%, 0.2);
+}
+
+#notifications button.close:active
+{
+	background-color: hsla(0, 0%, 0%, 0.5);
+}
+
+#notifications .danger
+{
+	background-color: hsla(10, 88%, 40%, 0.8);
+}
+
+#powerTip
+{
+	position: absolute;
+	display: none;
+	background-color: black;
+	color: white;
+	padding: 0.5em;
+	opacity: 0.8;
+	font-size: 80%;
+	text-align: center;
+	border-radius: 0.5em;
+}

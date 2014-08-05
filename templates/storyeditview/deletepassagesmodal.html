@@ -1,21 +1,13 @@
-<div id="deletePassagesModal" class="modal fade">
-<div class="modal-dialog modal-sm">
-<div class="modal-content">
-
-<div class="modal-body">
+<div id="deletePassagesModal" class="modal hide">
 
 <p>
 Are you sure you want to delete <span class="passageCount"></span>? This cannot
 be undone.
 </p>
 
-</div> <!-- .modal-body -->
+<p class="buttons">
+<button type="button" class="subtle" data-modal-dismiss="this"><i class="fa fa-times"></i> Cancel</button>
+<button type="button" class="danger deleteSelectedPassages" data-modal-dismiss="this"><i class="fa fa-trash-o"></i> Delete</button>
+</p> 
 
-<div class="modal-footer">
-<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-<button type="button" class="btn btn-danger deleteSelectedPassages" data-dismiss="modal">Delete</button>
-</div> <!-- .modal-footer -->
-
-</div> <!-- .modal-content -->
-</div> <!-- .modal-dialog -->
 </div> <!-- #deletePassagesModal -->

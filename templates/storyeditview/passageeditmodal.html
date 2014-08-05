@@ -1,48 +1,34 @@
-<div id="passageEditModal" class="editModal modal fade">
-<div class="modal-dialog">
-<div class="modal-content">
+<div id="passageEditModal" class="editModal modal hide">
 
-<div class="modal-header">
-
-<p class="modal-title">
-<input type="text" class="passageName" placeholder="Passage Name">
-</p>
-
-<button class="btn save close" data-dismiss="modal">
+<button class="save close subtle" data-modal-hide="this">
 <i class="fa fa-times"></i>
 </button>
 
-</div> <!-- .modal-header -->
+<p class="title">
+<input type="text" class="passageName fillin" placeholder="Passage Name">
+</p>
 
-<div class="modal-body">
+<div class="content">
 
 <div class="passageTags">
-<form class="inline-form">
+<form>
 <p>
-<span class="tags">
+<span class="tags"></span>
 
-<span class="tag label label-info">script <a href="javascript:void(0)" class="remove"><i class="fa fa-times"></i></a></span>
+<button class="showNewTag subtle" type="button"><i class="fa fa-plus"></i> Tag</button>
 
-</span>
-
-<a class="showNewTag btn btn-xs btn-default" href="javascript:void(0)"><i class="fa fa-plus"></i> Tag</a>
-
-<span class="newTag">
-<input class="newTagName form-control" type="text" placeholder="Tag name" required>
-<button type="button" class="hideNewTag btn btn-xs btn-default"><i class="fa fa-times"></i></button>
-<button type="submit" class="btn btn-xs btn-primary"><i class="fa fa-check"></i></button>
+<span class="newTag hide">
+<input class="newTagName" type="text" placeholder="Tag name" required>
+<button type="button" class="hideNewTag link"><i class="fa fa-times"></i></button>
+<button type="submit" class="link"><i class="fa fa-check"></i></button>
 </span>
 </p>
 </form>
-</div>
+</div> <!-- .passageTags -->
 
-</div>
-
-<div class="textareaContainer">
+<div class="fullEdit">
 <textarea class="passageText" placeholder="Enter the body text of your passage here. To link to another passage, put two square brackets around its name, [[like this]]."></textarea>
-</div> <!-- .textareaContainer -->
-</div> <!-- .modal-body -->
+</div> <!-- .fullEdit -->
 
-</div> <!-- .modal-content -->
-</div> <!-- .modal-dialog -->
+</div> <!-- .content -->
 </div> <!-- #passageEditModal -->
