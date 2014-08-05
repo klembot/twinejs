@@ -29,13 +29,11 @@ WelcomeView = Backbone.Marionette.ItemView.extend(
 
 	onRender: function()
 	{
-		var self = this;
-
 		this.$('div:first-child').css('display', 'block').addClass('appear');
 
-		this.$el.on('click', 'button, a.done', function()
+		this.$el.on('click', 'button, a.done', _.bind(function (e)
 		{
-			var $t = $(this);
+			var $t = $(e.target);
 			var next = $t.closest('div').next('div');
 
 			// fade out existing buttons
@@ -51,12 +49,12 @@ WelcomeView = Backbone.Marionette.ItemView.extend(
 			// downward, I think
 
 			if ($t.hasClass('done'))
-				self.finish();
+				this.finish();
 			else
 			{
 				next.css('display', 'block').addClass('slideDown');
 				$('body').animate({ scrollTop: next.position().top + 100 });
 			};
-		});
+		}, this));
 	}
 });

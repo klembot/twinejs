@@ -9,25 +9,7 @@
 
 StoryItemView = Marionette.ItemView.extend(
 {
-	tagName: 'tr',
 	template: '#templates .storyItemView',
-
-	onRender: function()
-	{
-		var self = this;
-
-		this.$('a.confirmDelete')
-		.popover({
-			html: true,
-			placement: 'bottom',
-			content: function() { return $('#deleteStoryDialog').html() }
-		});
-
-		this.$el.on('click', 'button.cancelDelete', function()
-		{
-			self.$('a.confirmDelete').popover('hide');
-		});
-	},
 
 	/**
 	 Opens a StoryEditView for this story.
@@ -59,7 +41,35 @@ StoryItemView = Marionette.ItemView.extend(
 
 	delete: function()
 	{
-		this.model.destroy();
+		this.$('.story').addClass('disappear').one('animationend', _.bind(function()
+		{
+			this.model.destroy();
+		}, this));
+	},
+
+	/**
+	 Fades in the view, used to highlight views when the parent view is loaded.
+
+	 @method fadeIn
+	**/
+
+	fadeIn: function()
+	{
+		this.$('.story').show().addClass('fadeIn slideDown').one('animationend', function()
+		{
+			$(this).removeClass('fadeIn slideDown');
+		});
+	},
+
+	/**
+	 Animates the view appearing, as in when it is newly created.
+
+	 @method appear
+	**/
+
+	appear: function()
+	{
+		this.$('.story').addClass('appear');
 	},
 
 	events:
