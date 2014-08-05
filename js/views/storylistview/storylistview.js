@@ -21,6 +21,8 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 		window.uiInitEl(this.$el);
 		this.syncStoryCount();
 
+		this.storageQuota = new StoryListView.StorageQuota({ parent: this, el: this.$('.quota') });
+
 		// set the version number in the HTML
 
 		this.$('.app-version').text(window.app.version);
