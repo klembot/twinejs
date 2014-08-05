@@ -152,6 +152,26 @@
 	background-color: hsla(0, 100%, 60%, 0.5);
 }
 
+#storyEditView .passage.start .frame
+{
+	border-width: 4px;
+}
+
+#storyEditView .passage.start .frame:after
+{
+	height: 2px;
+}
+
+#storyEditView .passage.start .setAsStart
+{
+	color: hsl(212, 88%, 40%);
+}
+
+#storyEditView .passage.start .setAsStart:hover
+{
+	color: hsl(212, 88%, 50%);
+}
+
 #storyEditView .passage.selected .frame
 {
 	color: hsla(0, 0%, 100%, 1);
