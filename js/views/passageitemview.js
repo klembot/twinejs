@@ -29,7 +29,8 @@ PassageItemView = Marionette.ItemView.extend(
 		this.parentView = options.parentView;
 		this.listenTo(this.model, 'change', this.render)
 		.listenTo(this.model, 'change:text', this.createLinkedPassages)
-		.listenTo(this.parentView.model, 'change:zoom', this.render);
+		.listenTo(this.parentView.model, 'change:zoom', this.render)
+		.listenTo(this.parentView.model, 'change:startPassage', this.render);
 
 		/**
 		 A bound event listener for the start of a passage drag event, so we can later disconnect it.
@@ -104,6 +105,13 @@ PassageItemView = Marionette.ItemView.extend(
 			this.$el.removeClass('brokenLink');
 		else
 			this.$el.addClass('brokenLink');
+
+		// set CSS class for starting point
+
+		if (this.parentView.model.get('startPassage') == this.model.id)
+			this.$el.addClass('start');
+		else
+			this.$el.removeClass('start');
 
 		if (this.animateMovement)
 			this.$el.animate({ left: left, top: top }, 100);
@@ -204,6 +212,17 @@ PassageItemView = Marionette.ItemView.extend(
 	test: function()
 	{
 		this.parentView.test(this.model.id);
+	},
+
+	/**
+	 Sets this passage as the starting one for the parent story.
+
+	 @method setAsStart
+	**/
+
+	setAsStart: function()
+	{
+		this.parentView.model.save({ startPassage: this.model.id });
 	},
 
 	/**
@@ -508,6 +527,7 @@ PassageItemView = Marionette.ItemView.extend(
 		'click .delete': 'delete',
 		'click .edit': 'edit',
 		'click .test': 'test',
+		'click .setAsStart': 'setAsStart',
 		'dblclick': 'edit'
 	}
 });

@@ -6,13 +6,13 @@
 <meta charset="utf-8">
 
 <!-- build:css rsrc/css/twine_cdn.css -->
-<link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
 <link href="lib/fontawesome/css/font-awesome.css" rel="stylesheet" media="screen">
 <!-- endbuild -->
 
 <!-- build:css rsrc/css/twine.css -->
-<link href="css/app.css" rel="stylesheet" media="screen">
 <link href="lib/codemirror/css/codemirror.css" rel="stylesheet" media="screen">
+<link href="css/ui.css" rel="stylesheet" media="screen">
+<link href="css/app.css" rel="stylesheet" media="screen">
 <link href="css/welcomeview.css" rel="stylesheet" media="screen">
 <link href="css/storylistview.css" rel="stylesheet" media="screen">
 <link href="css/storyeditview.css" rel="stylesheet" media="screen">
@@ -44,6 +44,10 @@
 <!--(bake /templates/storyeditview/storyeditview.html)-->
 </script>
 
+<script type="text/html" class="searchModalResult">
+<!--(bake /templates/storyeditview/searchmodalresult.html)-->
+</script>
+
 <script type="text/html" class="passageItemView">
 <!--(bake /templates/passageitemview.html)-->
 </script>
@@ -62,11 +66,11 @@
 
 <!-- build:js rsrc/js/twine_cdn.js -->
 <script src="lib/jquery/jquery.js"></script>
-<script src="lib/bootstrap/js/bootstrap.js"></script>
 <!-- endbuild -->
 
 <!-- build:js rsrc/js/twine.js -->
-<script src="lib/jquery/jquery.tablesorter.js"></script>
+<script src="lib/jquery/jquery.omniwindow.js"></script>
+<script src="lib/jquery/jquery.powertip.js"></script>
 
 <script src="lib/underscore.js"></script>
 <script src="lib/backbone/backbone.js"></script>
@@ -80,6 +84,8 @@
 <script src="lib/codemirror/js/codemirror.js"></script>
 <script src="lib/codemirror/js/mode/javascript/javascript.js"></script>
 <script src="lib/codemirror/js/mode/css/css.js"></script>
+
+<script src="js/ui.js"></script>
 
 <script src="js/models/apppref.js"></script>
 <script src="js/models/passage.js"></script>
@@ -96,13 +102,14 @@
 <script src="js/views/passageitemview.js"></script>
 <script src="js/views/storyeditview/storyeditview.js"></script>
 <script src="js/views/storyeditview/linkmanager.js"></script>
-<script src="js/views/storyeditview/properties.js"></script>
-<script src="js/views/storyeditview/navbar.js"></script>
+<script src="js/views/storyeditview/toolbar.js"></script>
 <script src="js/views/storyeditview/scripteditor.js"></script>
 <script src="js/views/storyeditview/styleeditor.js"></script>
 <script src="js/views/storyeditview/passageeditor.js"></script>
 <script src="js/views/storyeditview/marquee.js"></script>
+<script src="js/views/storyeditview/renamestorymodal.js"></script>
 <script src="js/views/storyeditview/search.js"></script>
+<script src="js/views/storyeditview/searchmodal.js"></script>
 
 <script src="js/router.js"></script>
 <script src="js/proofingtemplate.js"></script>
