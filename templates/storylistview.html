@@ -1,87 +1,43 @@
-<div id="storyListView" class="paper shadow fadeIn">
+<div id="storyListView">
+
+<nav class="listControls">
 
 <h1 class="logo">Twine</h1>
 
-<p class="noStories">
-There are no stories saved in Twine right now. To get started, you can either create a new
-story or import an existing one from a file.
-</p>
-
-<p class="topControls">
-<button class="addStory pop btn btn-success" title="Create a brand-new story">
+<div class="bubbleContainer">
+<p>
+<button class="addStory create block" title="Create a brand-new story" data-bubble="toggle" data-bubble-dir="right" data-tooltip-dir="w">
 <i class="fa fa-plus"></i> Story
 </button>
-
-<button class="importStory pop btn btn-default" title="Import a published story or Twine archive">
-<i class="fa fa-upload"></i> Import From File
-</button>
 </p>
 
-<table class="table stories">
-<thead>
-<tr>
-<th>
-Story
-</th>
-<th>Last Updated</th>
-<th></th>
-</tr>
-</thead>
-
-<tbody>
-</tbody>
-</table>
-
-<footer>
-
-<div class="pull-left" style="padding-top: 15px">
-version <a data-toggle="modal" href="#aboutModal"><span class="app-version"></span></a>
-&middot;
-<a href="https://bitbucket.org/klembot/twinejs/issues"><i class="fa fa-bug"></i> Report a bug</a>
-</div>
-
-<div class="pull-right">
-<button class="saveArchive btn btn-default navbar-btn">
-<i class="fa fa-briefcase"></i> Archive
-</button>
-</div>
-
-</footer>
-
-</div> <!-- #storyListView -->
-
-<div id="addStoryDialog" class="hide">
+<div class="bubble left">
 <form id="addStoryForm">
 <p>
-What should your story be named?
+What should your story be named?<br>
 (You can change this later.)
 </p>
 
 <p>
-<input class="newName" type="text" required>
+<input class="newName block" type="text" required>
 </p>
 
-<p>
-<button type="button" class="cancelAdd btn btn-default">Cancel</button>
-<button type="submit" class="add btn btn-primary">Add</button>
+<p class="dialogButtons">
+<button type="button" class="cancelAdd subtle" data-bubble="hide"><i class="fa fa-times"></i> Cancel</button>
+<button type="submit" class="add create" data-bubble="hide"><i class="fa fa-plus"></i> Add</button>
 </p>
 </form>
-</div> <!-- #addStoryDialog -->
+</div> <!-- .bubble -->
+</div> <!-- .bubbleContainer -->
 
-<div id="deleteStoryDialog" class="hide">
+<div class="bubbleContainer">
 <p>
-Are you sure you want to delete this story?
-This cannot be undone.
+<button class="importStory subtle block" title="Import a published story or Twine archive" data-bubble="toggle" data-bubble-dir="left" data-tooltip-dir="w">
+<i class="fa fa-upload"></i> Import From File
+</button>
 </p>
 
-<p>
-<button class="cancelDelete btn btn-default">Cancel</button>
-<button class="delete btn btn-danger">Delete Forever</button>
-</p>
-
-</div> <!-- #deleteStoryDialog -->
-
-<div id="importStoryDialog" class="hide">
+<div class="bubble left">
 <p>
 Import this file:
 </p>
@@ -91,18 +47,64 @@ Import this file:
 </p>
 
 <p>
-<button class="cancelImport btn btn-default">Cancel</button>
+<button class="subtle" data-bubble="hide"><i class="fa fa-times"></i> Cancel</button>
 </p>
 
-</div> <!-- #importStoryDialog -->
+</div> <!-- .bubble -->
+</div> <!-- .bubbleContainer -->
 
-<div id="aboutModal" class="modal fade">
-<div class="modal-dialog">
-<div class="modal-content">
+<button class="saveArchive subtle block" title="Save all stories to a Twine archive file" data-tooltip-dir="w">
+<i class="fa fa-briefcase"></i> Archive
+</button>
+</p>
 
-<div class="modal-body">
+<footer>
+<p>
+version <button class="link" data-modal-show="#aboutModal"><span class="app-version"></span></button>
+<br>
+<a href="https://bitbucket.org/klembot/twinejs/issues"><i class="fa fa-bug"></i> Report a bug</a>
+</p>
+</footer>
 
-<h2>About Twine <span class="app-version"></span></h2>
+</nav>
+
+<div class="main">
+
+<h1>Stories
+
+<span class="pull-right normal buttonGroup">
+Sort By
+
+<button class="sortByDate subtle active" title="Last changed date">
+Edit Date
+</button>
+
+<button class="sortByName subtle" title="Story name">
+Name
+</button>
+</span>
+
+</h1>
+
+<p class="noStories">
+There are no stories saved in Twine right now. To get started, you can either create a new
+story or import an existing one from a file.
+</p>
+
+<div class="stories"></div>
+</div> <!-- .main -->
+
+</div> <!-- #storyListView -->
+
+<div id="aboutModal" class="modal hide">
+
+<button class="save close subtle" data-modal-hide="this">
+<i class="fa fa-times"></i>
+</button>
+
+<h2 class="title">
+About Twine <span class="app-version"></span>
+</h2>
 
 <p>
 Build {{build_number}}
@@ -115,7 +117,6 @@ Twine is an open-source tool for telling interactive, nonlinear stories.
 <p>
 Twine 2.0 is released under the <a href="http://www.gnu.org/licenses/gpl-3.0.html">GPL v3</a>
 license, but any work created with it may be released under any terms, including commercial ones.
-<br>
 <a href="https://bitbucket.org/klembot/twinejs">Source Code Repository</a>
 </p>
 
@@ -142,12 +143,12 @@ Libraries
 <a href="http://backbonejs.org/">Backbone</a><br>
 <a href="https://github.com/jeromegn/Backbone.localStorage">Backbone Local Storage</a><br>
 <a href="https://github.com/eligrey/Blob.js/">Blob.js</a><br>
-<a href="http://getbootstrap.com/">Bootstrap</a><br>
 <a href="http://codemirror.net/">CodeMirror</a><br>
 <a href="https://github.com/eligrey/FileSaver.js">FileSaver.js</a><br>
 <a href="http://jquery.com/">jQuery</a><br>
-<a href="https://github.com/douglascrockford/JSON-js">JSON-js</a><br>
 <a href="http://marionettejs.com/">Marionette</a><br>
+<a href="http://0x000000.github.io/OmniWindow/">OmniWindow</a><br>
+<a href="https://iamceege.github.io/tooltipster/">Tooltipster</a><br>
 <a href="http://underscorejs.org/">Underscore</a><br>
 <a href="http://arshaw.com/xdate/">XDate</a>
 </p>
@@ -175,13 +176,4 @@ Icons
 
 </div> <!-- .credits -->
 
-<p>
-<button class="btn btn-primary" data-dismiss="modal">
-OK
-</button>
-</p>
-
-</div> <!-- .modal-body -->
-</div> <!-- .modal-content -->
-</div> <!-- .modal-dialog -->
 </div> <!-- #aboutModal -->

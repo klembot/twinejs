@@ -127,6 +127,60 @@ Passage = Backbone.Model.extend(
 	},
 
 	/**
+	 Checks whether the passage name or body matches a search string.
+
+	 @method matches
+	 @param {RegExp} search regular expression to search for
+	 @return {Boolean} whether a match is found
+	**/
+
+	matches: function (search)
+	{
+		return search.test(this.get('name')) || search.test(this.get('text'));
+	},
+
+	/**
+	 Returns the total number of string matches in this passage for a regular expression.
+
+	 @method numMatches
+	 @param {RegExp} search regular expression to search for
+	 @return {Number} number of matches; 0 if none
+	**/
+
+	numMatches: function (search)
+	{
+		var result = 0;
+		var oldGlobal = search.global;
+		search.global = true;
+		var nameMatches = this.get('name').match(search);
+		var textMatches = this.get('text').match(search);
+		result = (nameMatches ? nameMatches.length : 0) + (textMatches ? textMatches.length : 0);
+		search.global = oldGlobal;
+		return result;
+	},
+
+	/**
+	 Performs a regexp replacement on this passage's text, and optionally its name.
+
+	 @method replace
+	 @param {RegExp} search regular expression to replace
+	 @param {String} replacement replacement string
+	 @param {Boolean} inTitle perform this replacement in the passage title too? default false
+	**/
+
+	replace: function (search, replacement, inTitle)
+	{
+		if (inTitle)
+			this.save(
+			{
+				title: this.get('title').replace(search, replacement),
+				text: this.get('text').replace(search, replacement)
+			});
+		else
+			this.save({ text: this.get('text').replace(search, replacement) });
+	},
+
+	/**
 	 Publishes the passage to an HTML fragment.
 
 	 @method publish

@@ -1,25 +1,22 @@
-<div id="stylesheetEditModal" class="editModal modal fade">
-<div class="modal-dialog">
-<div class="modal-content">
+<div id="stylesheetEditModal" class="editModal modal hide">
 
-<div class="modal-header">
-
-<button class="save close btn" data-dismiss="modal">
+<button class="save close subtle" data-modal-hide="this">
 <i class="fa fa-times"></i>
 </button>
 
-<h3>
+<h2 class="title">
 Stylesheet
-</h3>
+</h2>
 
-</div> <!-- .modal-header -->
+<div class="content">
 
-<div class="modal-body">
-<div class="textareaContainer">
-<textarea class="stylesheetSource" placeholder="Any CSS you enter here will override the default appearance of your story."></textarea>
-</div> <!-- .textareaContainer -->
-</div> <!-- .modal-body -->
+<p>
+Any CSS entered here will override the default appearance of your story.
+</p>
 
-</div> <!-- .modal-content -->
-</div> <!-- .modal-dialog -->
-</div> <!-- #stylesheetModal -->
+<div class="fullEdit">
+<textarea class="stylesheetSource" placeholder=""></textarea>
+</div> <!-- .fullEdit -->
+</div> <!-- .content -->
+
+</div> <!-- #stylesheetEditModal -->
