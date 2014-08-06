@@ -322,8 +322,8 @@ PassageItemView = Marionette.ItemView.extend(
 	},
 
 	/**
-	 Handles a mouse down event on this view, adjusting the
-	 selection and beginning a potential drag.
+	 Handles a mouse down or touch start event on this view,
+	 adjusting the selection and beginning a potential drag.
 
 	 @method handleMouseDown
 	 @param {Object} e event object
@@ -362,8 +362,8 @@ PassageItemView = Marionette.ItemView.extend(
 	},
 
 	/**
-	 Handles a mouse up event on this view, adjusting the
-	 selection. A mouseup that ends a drag event is handled
+	 Handles a mouse up or touch end event on this view, adjusting the
+	 selection. A mouseup or touch end that ends a drag event is handled
 	 over in endDrag().
 
 	 @method handleMouseUp
@@ -399,14 +399,29 @@ PassageItemView = Marionette.ItemView.extend(
 
 	beginDrag: function (e)
 	{
-		this.dragMouseStart = { x: e.pageX, y: e.pageY };	
+		console.log(e);
+
+		if (e.pageX && e.pageY)
+			this.dragMouseStart = { x: e.pageX, y: e.pageY };	
+		else if (e.originalEvent.targetTouches)
+		{
+			e = e.originalEvent;
+
+			// emulate pageX and pageY for touch events
+			this.dragMouseStart = { x: e.targetTouches[0].pageX, y: e.targetTouches[0].pageY };
+			this.dragTouchId = e.targetTouches[0].identifier;
+		}
+		else
+			throw new Error("Don't see either mouse or touch coordinates on event");
+
 		this.actuallyDragged = false;
 		$('#storyEditView').addClass('draggingPassages');
 
-		$('body').on(
-		{
+		$('body').on({
+			touchmove: this.trackDragBound,
 			mousemove: this.trackDragBound,
-			mouseup: this.endDragBound
+			mouseup: this.endDragBound,
+			touchend: this.endDragBound
 		})
 		.trigger('passagedragstart', this.dragMouseStart);
 	},
@@ -424,7 +439,7 @@ PassageItemView = Marionette.ItemView.extend(
 	},
 
 	/**
-	 Handles the user moving the mouse during a drag, generating events for
+	 Handles the user moving the mouse or a finger during a drag, generating events for
 	 other selected passage views to listen to. This is only called if the passage
 	 is the control handle for the drag -- e.g. it is the one the
 	 user grabbed to drag around.
@@ -436,8 +451,31 @@ PassageItemView = Marionette.ItemView.extend(
 
 	trackDrag: function (e)
 	{
+		var eventOrigin;
 		this.actuallyDragged = true;
-		$('body').trigger($.Event('passagedrag', { x: e.pageX - this.dragMouseStart.x, y: e.pageY - this.dragMouseStart.y }));
+
+		console.log(this.dragTouchId, e.originalEvent.touches);
+
+		if (this.dragTouchId !== null && e.originalEvent.touches)
+		{
+			e = e.originalEvent; 
+
+			// emulate mouse events for touches
+
+			for (var i = 0; i < e.touches.length; i++)
+				if (e.touches[i].identifier == this.dragTouchId)
+				{
+					eventOrigin = e.touches[i];
+					break;
+				};
+
+			if (! eventOrigin)
+				throw new Error("Couldn't find original touch ID in movement event");
+		}
+		else
+			eventOrigin = e;
+
+		$('body').trigger($.Event('passagedrag', { x: eventOrigin.pageX - this.dragMouseStart.x, y: eventOrigin.pageY - this.dragMouseStart.y }));
 	},
 
 	/**
@@ -473,8 +511,10 @@ PassageItemView = Marionette.ItemView.extend(
 		$('#storyEditView').removeClass('draggingPassages');
 		$('body').off(
 		{
+			touchmove: this.trackDragBound,
 			mousemove: this.trackDragBound,
-			mouseup: this.endDragBound
+			mouseup: this.endDragBound,
+			touchend: this.endDragBound
 		})
 		.trigger('passagedragend');
 
@@ -513,8 +553,6 @@ PassageItemView = Marionette.ItemView.extend(
 			this.animateMovement = false;
 
 			// and finally save changes
-			// I don't get it, but we have to specify the attributes manually
-			// or this will save our pre-drag position
 
 			this.model.save();
 		}, this));
@@ -523,7 +561,9 @@ PassageItemView = Marionette.ItemView.extend(
 	events:
 	{
 		'mousedown .frame': 'handleMouseDown',
+		'touchstart .frame': 'handleMouseDown',
 		'mouseup .frame': 'handleMouseUp',
+		'touchend .frame': 'handleMouseUp',
 		'click .delete': 'delete',
 		'click .edit': 'edit',
 		'click .test': 'test',
