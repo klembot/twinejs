@@ -23,7 +23,7 @@ TwineApp = Backbone.Marionette.Application.extend(
 	 @property version
 	**/
 
-	version: '2.0p3',
+	version: '2.0p4',
 
 	/**
 	 Publishes a story to a file to be downloaded by binding it with the
