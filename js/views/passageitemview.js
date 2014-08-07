@@ -454,10 +454,11 @@ PassageItemView = Marionette.ItemView.extend(
 		var eventOrigin;
 		this.actuallyDragged = true;
 
-		console.log(this.dragTouchId, e.originalEvent.touches);
-
 		if (this.dragTouchId !== null && e.originalEvent.touches)
 		{
+			// prevent default to block any resizing done by the browser
+		
+			e.preventDefault();
 			e = e.originalEvent; 
 
 			// emulate mouse events for touches
