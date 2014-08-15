@@ -8,21 +8,9 @@ module.exports = function (grunt)
 		{
 			options:
 			{
-				process: function (content, options)
+				content:
 				{
-					// insert build number
-					var d = new Date();
-
-					content = content.replace('{{build_number}}', grunt.template.today('yyyymmddhhMM'));
-
-					// do really basic HTML entity replacement
-					// to avoid breaking out of the <script> element
-					// 0xe000 is the start of the Unicode private use range
-
-					if (options.encode)
-						return content.replace(/</g, '\ue000').replace(/>/g, '\ue001');
-					else
-						return content;
+					build_number: grunt.template.today('yyyymmddhhMM')
 				}
 			},
 
