@@ -26,17 +26,17 @@ TwineApp = Backbone.Marionette.Application.extend(
 	version: '2.0p4',
 
 	/**
-	 Publishes a story to a file to be downloaded by binding it with the
-	 runtime template. 
+	 Publishes a story to a file to be downloaded by binding it to a story format.
 
 	 @method publishStory
 	 @param {Story} story Story model to publish.
+	 @param {StoryFormat} format Story format to publish using.
 	 @param {Array} options options to pass to runtime, optional
 	**/
 
-	publishStory: function (story, options)
+	publishStory: function (story, format, options)
 	{
-		var source = RuntimeTemplate.publish(story, options);
+		var source = format.publish(story, options);
 		var blob = new Blob([source], { type: 'text/html;charset=utf-8' });
 		saveAs(blob, story.get('name') + '.html');
 	},

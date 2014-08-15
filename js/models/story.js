@@ -17,13 +17,14 @@ Story = Backbone.Model.extend(
 		snapToGrid: false,
 		stylesheet: '',
 		script: '',
+		storyFormat: 'Harlowe',
 		lastUpdate: new Date(),
 	},
 
 	template: _.template('<tw-storydata name="<%- storyName %>" ' +
 						 'startnode="<%- startNode %>" creator="<%- appName %>" ' +
-						 'creator-version="<%- appVersion %>"' +
-						 'options="<%= options %>">' +
+						 'creator-version="<%- appVersion %>" ' +
+						 'format="<%- storyFormat %>" options="<%= options %>">' +
 						 '<style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"><%= stylesheet %></style>' +
 						 '<script role="script" id="twine-user-script" type="text/twine-javascript"><%= script %></script>' + 
 						 '<%= passageData %></tw-storydata>'),
@@ -79,10 +80,11 @@ Story = Backbone.Model.extend(
 
 	/**
 	 Publishes a story to an HTML fragment, e.g. a collection of DOM elements. It's up to a
-	 Template to create a full-fledged HTML document from this.
+	 StoryFormat to create a full-fledged HTML document from this.
 
 	 @method publish
-	 @param {Array} options	A list of options to pass to the runtime, optional
+	 @param {StoryFormat} format The story format to use, defaults to 
+	 @param {Array} options	A list of options to pass to the format, optional
 	 @param {Number} startId passage database ID to start with, overriding the model; optional
 	 @return {String} HTML fragment
 	**/
