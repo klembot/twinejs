@@ -1,9 +1,11 @@
 /**
  A story format transforms a story's HTML output into a full-fledged
  HTML page. It contains placeholders, by convention named like UPPERCASE_CONSTANTS,
- that the story's published output is plugged into.
+ that the story's published output is plugged into. Although this has a traditional
+ numeric id, a story format's true primary key is its name. This is so that if
+ stories are traded among users, links between stories and formats will be retained.
 
- This model is just a pointer to data that is loaded via JSONP.
+ This model is just a pointer to data that is loaded via JSONP. 
 
  @class StoryFormat
  @extends Backbone.Model
@@ -46,12 +48,12 @@ var StoryFormat = Backbone.Model.extend(
 	 and the callback will be called immediately.
 
 	 @method load
-	 @param {Function} success Function to call if loading completes successfully
-	 @param {Function} failure Function to call if loading completes unsuccessfully;
-	                           will be passed error message
+	 @param {Function} callback Function to call when loading completes; if it did
+	                            not succeed, the function will be passed an Error object.
+								If none is specified, an error is raised directly.
 	**/
 
-	load: function (success, failure)
+	load: function (callback)
 	{
 		if (this.loaded)
 		{
@@ -67,8 +69,8 @@ var StoryFormat = Backbone.Model.extend(
 			this.loaded = true;
 			window.storyFormat = null;
 
-			if (success)
-				success();
+			if (callback)
+				callback();
 		}, this);
 
 		// We have to do a song and dance here
@@ -78,66 +80,115 @@ var StoryFormat = Backbone.Model.extend(
 		// tag with a src attribute immediately, it does an XHR on our behalf.
 
 		var loader = $('<script></script>');
-
 		$('body').append(loader);
+
 		loader.on('load', _.bind(function()
 		{
 			// if our loaded property is not set,
 			// then something went wrong
 
-			if (failure && ! this.loaded)
-				failure('Story format source did not call window.storyFormat()');
+			if (! this.loaded)
+			{
+				var err = new Error('Story format source did not call window.storyFormat()');
+
+				if (callback)
+					callback(err);
+				else
+					throw err;
+			};
 
 			// regardless, remove the loader
 
+			loader.remove();
+		}, this))
+		.on('error', _.bind(function (e)
+		{
+			var err = new Error('Could not load story format source');
+
+			if (callback)
+				callback(err);
+			else
+				throw err;
+			
 			loader.remove();
 		}, this));
 
 		// add cache-busting
 		loader.attr('src', this.get('url') + '?' + new Date().getTime());
 
-		// because there's no load failure event to listen to,
-		// we set a timeout (10 seconds) that removes the loader
+		// in case the error event doesn't fire on a loading error,
+		// we set a timeout (15 seconds) that removes the loader
 		// element and triggers the failure handler
 
 		var failTimer = window.setTimeout(_.bind(function()
 		{
-			if (failure && ! this.loaded)
-				failure('Could not load story format source');
+			if (loader.parent().length > 0)
+			{
+				var err = new Error('Could not load story format source');
+
+				if (callback)
+					callback(err);
+				else
+					throw err;
+				
+				loader.remove();
+			};
 			
-			loader.remove();
-		}, this), 10000);
+		}, this), 15000);
 	},
 
 	/**
-	 Publishes a story with this story format.
+	 Publishes a story with this story format. This method is asynchronous.
 
 	 @method publish
 	 @param {Story} story Story to publish.
 	 @param {Array} options Array of options to pass to the story, optional
-	 @param {Number} startId passage database ID to start with, overriding the model; optional
-	 @return {String} HTML source
+	 @param {Number} startId Passage database ID to start with, overriding the model; optional
+	 @param {Function} callback Function called with the resulting HTML, signature callback(err, result)
 	**/
 
-	publish: function (story, options, startId)
+	publish: function (story, options, startId, callback)
 	{
-		var output = this.properties.source;
-		
-		// builtin placeholders
-
-		output = output.replace(/{{STORY_NAME}}/g, _.escape(story.get('name')));
-		output = output.replace(/{{STORY_DATA}}/g, story.publish(options, startId));
-
-		// user-defined placeholders
-
-		_.each(this.get('placeholders'), function (p)
+		this.load(_.bind(function (err)
 		{
-			var value = story.get(p.name);
+			if (err)
+			{
+				callback(err);
+				return;
+			};
 
-			if (value !== null)
-				output = output.replace(p.name, value);
-		});
+			var output = this.properties.source;
+			
+			// builtin placeholders
 
-		return output;
+			output = output.replace(/{{STORY_NAME}}/g, _.escape(story.get('name')));
+			output = output.replace(/{{STORY_DATA}}/g, story.publish(options, startId));
+
+			// user-defined placeholders
+
+			_.each(this.get('placeholders'), function (p)
+			{
+				var value = story.get(p.name);
+
+				if (value !== null)
+					output = output.replace(p.name, value);
+			});
+
+			callback(null, output);
+		}, this));
 	}
 });
+
+/**
+ Locates a StoryFormat by name. If none exists, then this returns null.
+
+ @method withName
+ @param {String} name name of the story format
+ @static
+ @return {StoryFormat} matching story format
+ **/
+
+StoryFormat.withName = function (name)
+{
+	return StoryFormatCollection.all().findWhere({ name: name });
+};

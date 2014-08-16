@@ -36,9 +36,28 @@ TwineApp = Backbone.Marionette.Application.extend(
 
 	publishStory: function (story, format, options)
 	{
-		var source = format.publish(story, options);
-		var blob = new Blob([source], { type: 'text/html;charset=utf-8' });
-		saveAs(blob, story.get('name') + '.html');
+		var storyName = '&ldquo;' + story.get('name') + '&rdquo';
+
+		format.publish(story, options, null, function(err, output)
+		{
+			if (err)
+				window.notify('There was an error publishing ' + storyName + ' (' +
+				              err.message + ').', 'danger');
+			else
+			{
+				try
+				{
+					var blob = new Blob([output], { type: 'text/html;charset=utf-8' });
+					saveAs(blob, story.get('name') + '.html');
+					window.notify(storyName + ' was published successfully.');
+				}
+				catch (err)
+				{
+					window.notify('There was an error publishing ' + storyName + ' (' +
+				                  err.message + ').', 'danger');
+				};
+			};
+		});
 	},
 
 	/**
@@ -220,6 +239,26 @@ window.app.addInitializer(function (options)
 
 	app.router = new TwineRouter();
 	Backbone.history.start();
+
+	// create built-in story formats if they don't already exist
+
+	var formats = StoryFormatCollection.all();
+
+	if (! formats.findWhere({ name: 'Harlowe' }))
+		formats.create({ name: 'Harlowe', url: 'storyformats/harlowe/format.js' });
+
+	if (! formats.findWhere({ name: 'Paperthin' }))
+		formats.create({ name: 'Paperthin', url: 'storyformats/paperthin/format.js' });
+
+	// set default formats if not already set
+
+	var prefs = AppPrefCollection.all();
+
+	if (! prefs.findWhere({ name: 'defaultFormat' }))
+		prefs.create({ name: 'defaultFormat', value: 'Harlowe' });
+
+	if (! prefs.findWhere({ name: 'proofingFormat' }))
+		prefs.create({ name: 'proofingFormat', value: 'Paperthin' });
 });
 
 window.app.addRegions(

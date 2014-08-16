@@ -38,33 +38,59 @@ TwineRouter = Backbone.Router.extend(
 		'stories/:id/play': function (id)
 		{
 			// play a story
+			// FIXME: error handling
 
-			var output = RuntimeTemplate.publish(Story.withId(id));
-			this.replaceContent(output);
+			var story = Story.withId(id);
+			var formatName = story.get('storyFormat') || AppPref.withName('defaultFormat').get('value');
+			var format = StoryFormat.withName(formatName);
+
+			format.publish(story, null, null, _.bind(function (err, output)
+			{
+				this.replaceContent(output);
+			}, this));
 		},
 
 		'stories/:id/test': function (id)
 		{
 			// test a story
+			// FIXME: error handling
 
-			var output = RuntimeTemplate.publish(Story.withId(id), ['debug']);
-			this.replaceContent(output);
+			var story = Story.withId(id);
+			var formatName = story.get('storyFormat') || AppPref.withName('defaultFormat').get('value');
+			var format = StoryFormat.withName(formatName);
+
+			format.publish(story, ['debug'], null, _.bind(function (err, output)
+			{
+				this.replaceContent(output);
+			}, this));
 		},
 
 		'stories/:storyId/test/:passageId': function (storyId, passageId)
 		{
-			// test a story from a certain passage
+			// test a story
+			// FIXME: error handling
 
-			var output = RuntimeTemplate.publish(Story.withId(storyId), ['debug'], passageId);
-			this.replaceContent(output);
+			var story = Story.withId(storyId);
+			var formatName = story.get('storyFormat') || AppPref.withName('defaultFormat').get('value');
+			var format = StoryFormat.withName(formatName);
+
+			format.publish(story, ['debug'], storyId, _.bind(function (err, output)
+			{
+				this.replaceContent(output);
+			}, this));
 		},
 
 		'stories/:id/proof': function (id)
 		{
 			// proof a story
+			// FIXME: error handling
 
-			var output = ProofingTemplate.publish(Story.withId(id));
-			this.replaceContent(output);
+			var format = StoryFormat.withName(AppPref.withName('proofingFormat').get('value'));
+
+			format.publish(Story.withId(id), null, null, _.bind(function (err, output)
+			{
+				this.replaceContent(output);
+			}, this));
 		},
 
 		'*path': function()
