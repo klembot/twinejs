@@ -6,7 +6,6 @@
  @extends Backbone.Model
 **/
 
-
 Story = Backbone.Model.extend(
 {
 	defaults:
