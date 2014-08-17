@@ -1,0 +1,43 @@
+<div class="story hoverContainer">
+
+<h2>
+<a href="javascript:void(0)" class="edit"><%- name %></a>
+</h2>
+
+<p class="changeDate">
+edited <%- new XDate(lastUpdate).toString('d MMMM yyyy, h:mm tt') %>
+</p>
+
+<div class="controls hover">
+
+<button class="edit subtle" title="Edit &ldquo;<%- name %>&rdquo;">
+<i class="fa fa-pencil fa-lg"></i>
+</button>
+
+<button class="play subtle" title="Play &ldquo;<%- name %>&rdquo;">
+<i class="fa fa-play fa-lg"></i>
+</button>
+
+<div class="bubbleContainer inline">
+
+<button class="confirmDelete danger subtle" title="Delete &ldquo;<%- name %>&rdquo;" data-bubble="toggle">
+<i class="fa fa-trash-o fa-lg"></i>
+</button>
+
+<div class="bubble up">
+
+<p>
+Are you sure you want to delete &ldquo;<%- name %>&rdquo;?
+This cannot be undone.
+</p>
+
+<p class="dialogButtons">
+<button class="cancelDelete subtle" data-bubble="hide"><i class="fa fa-times"></i> Cancel</button>
+<button class="delete danger" data-bubble="hide"><i class="fa fa-trash-o"></i> Delete Forever</button>
+</p>
+
+</div> <!-- .bubble -->
+</div> <!-- .bubbleContainer -->
+</div> <!-- .controls -->
+</div> <!-- #deleteStoryBubble -->
+</div> <!-- .story -->
