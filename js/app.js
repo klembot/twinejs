@@ -245,10 +245,10 @@ window.app.addInitializer(function (options)
 	var formats = StoryFormatCollection.all();
 
 	if (! formats.findWhere({ name: 'Harlowe' }))
-		formats.create({ name: 'Harlowe', url: 'storyformats/harlowe/format.js' });
+		formats.create({ name: 'Harlowe', url: 'storyformats/Harlowe/format.js' });
 
 	if (! formats.findWhere({ name: 'Paperthin' }))
-		formats.create({ name: 'Paperthin', url: 'storyformats/paperthin/format.js' });
+		formats.create({ name: 'Paperthin', url: 'storyformats/Paperthin/format.js' });
 
 	// set default formats if not already set
 
