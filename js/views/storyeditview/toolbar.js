@@ -118,6 +118,11 @@ StoryEditView.Toolbar = Backbone.View.extend(
 			this.parent.properties.open();
 		},
 
+		'click .changeFormat': function (e)
+		{
+			this.parent.storyFormatModal.open();
+		},
+
 		'click .zoomBig, .zoomMedium, .zoomSmall': function (e)
 		{
 			var desc = $(e.target).closest('button').attr('class');

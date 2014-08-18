@@ -399,6 +399,25 @@ body.zoom-small
 	background-color: hsl(60, 100%, 50%);
 }
 
+#storyFormatModal .format
+{
+	clear: left;
+	margin-bottom: 1em;
+	overflow: auto;
+}
+
+#storyFormatModal .format img
+{
+	width: 100px;
+	height: 100px;
+	float: left;
+}
+
+#storyFormatModal .formats .description
+{
+	margin-left: 125px;
+}
+
 .CodeMirror
 {
 	height: auto;
