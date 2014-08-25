@@ -10,8 +10,7 @@ Story = Backbone.Model.extend(
 {
 	defaults: function()
 	{
-		return
-		{
+		return {
 			name: 'Untitled Story',
 			startPassage: -1,
 			zoom: 1,
@@ -19,7 +18,7 @@ Story = Backbone.Model.extend(
 			stylesheet: '',
 			script: '',
 			storyFormat: AppPref.withName('defaultFormat') || 'Harlowe',
-			lastUpdate: new Date(),
+			lastUpdate: new Date()
 		};
 	},
 
