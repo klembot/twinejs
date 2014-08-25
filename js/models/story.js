@@ -114,7 +114,8 @@ Story = Backbone.Model.extend(
 			passageData: passageData,
 			stylesheet: this.get('stylesheet'),
 			script: this.get('script'),
-			options: (options) ? options.join(' ') : null
+			options: (options) ? options.join(' ') : null,
+			storyFormat: this.get('storyFormat')
 		});
 	}
 });
