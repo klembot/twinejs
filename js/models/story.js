@@ -8,16 +8,19 @@
 
 Story = Backbone.Model.extend(
 {
-	defaults:
+	defaults: function()
 	{
-		name: 'Untitled Story',
-		startPassage: -1,
-		zoom: 1,
-		snapToGrid: false,
-		stylesheet: '',
-		script: '',
-		storyFormat: 'Harlowe',
-		lastUpdate: new Date(),
+		return
+		{
+			name: 'Untitled Story',
+			startPassage: -1,
+			zoom: 1,
+			snapToGrid: false,
+			stylesheet: '',
+			script: '',
+			storyFormat: AppPref.withName('defaultFormat') || 'Harlowe',
+			lastUpdate: new Date(),
+		};
 	},
 
 	template: _.template('<tw-storydata name="<%- storyName %>" ' +
