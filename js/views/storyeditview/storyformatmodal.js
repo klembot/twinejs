@@ -96,8 +96,6 @@ StoryEditView.StoryFormatModal = Backbone.View.extend(
 					var buttonContent = $(this.buttonTemplate(fullContent));
 					var detailContent = $(this.detailTemplate(fullContent));
 
-					console.log(buttonContent, buttonContent.filter('button.select'));
-
 					this.$('.formats .buttons').append(buttonContent);
 					this.$('.formats .details').append(detailContent);
 
