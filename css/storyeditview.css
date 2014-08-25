@@ -399,23 +399,61 @@ body.zoom-small
 	background-color: hsl(60, 100%, 50%);
 }
 
-#storyFormatModal .format
+#storyFormatModal .formats
 {
-	clear: left;
-	margin-bottom: 1em;
 	overflow: auto;
+	margin-left: -2em;
+	margin-bottom: -2em;
 }
 
-#storyFormatModal .format img
+#storyFormatModal .formats .buttons
 {
-	width: 100px;
-	height: 100px;
 	float: left;
+	width: 20%;
+	background: hsl(212, 0%, 95%);
+	box-shadow: inset 0 0 0.5em hsl(0, 0%, 85%);
+	border-bottom-left-radius: 1em;
 }
 
-#storyFormatModal .formats .description
+#storyFormatModal .formats button.select
 {
-	margin-left: 125px;
+	border-radius: 0;
+	display: block;
+	margin: 0;
+	width: 100%;
+}
+
+#storyFormatModal .formats button.select:last-child
+{
+	border-bottom-left-radius: 1em;
+}
+
+#storyFormatModal .formats button.select img
+{
+	width: 75px;
+	height: 75px;
+}
+
+#storyFormatModal .formats .details
+{
+	margin-top: 1em;
+	margin-left: 22%;
+}
+
+#storyFormatModal .formats button.select .showActive
+{
+	display: none;
+}
+
+#storyFormatModal .formats button.select.active
+{
+	background: white;
+	box-shadow: none;
+}
+
+#storyFormatModal .formats button.select.active .showActive
+{
+	display: inline;
 }
 
 .CodeMirror
