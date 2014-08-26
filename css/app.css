@@ -40,6 +40,12 @@ h2
 	font: 150% "Nunito Light", sans-serif;
 }
 
+h3
+{
+	color: black;
+	font: 125% "Nunito Light", sans-serif;
+}
+
 /* library customizations */
 
 .simplemodal-overlay
