@@ -285,7 +285,8 @@ body.zoom-small
 	height: 25px;
 }
 
-.zoom-small #storyEditView .passage .title, .zoom-small #storyEditView .passage .excerpt
+.zoom-small #storyEditView .passage .title, .zoom-small #storyEditView .passage .excerpt,
+.zoom-small #storyEditView .passage .frame:after
 {
 	display: none;
 }
