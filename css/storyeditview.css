@@ -400,61 +400,59 @@ body.zoom-small
 	background-color: hsl(60, 100%, 50%);
 }
 
-#storyFormatModal .formats
-{
-	overflow: auto;
-	margin-left: -2em;
-	margin-bottom: -2em;
-}
-
-#storyFormatModal .formats .buttons
-{
-	float: left;
-	width: 20%;
-	background: hsl(212, 0%, 95%);
-	box-shadow: inset 0 0 0.5em hsl(0, 0%, 85%);
-	border-bottom-left-radius: 1em;
-}
-
 #storyFormatModal .formats button.select
 {
-	border-radius: 0;
-	display: block;
+	float: left;
+	line-height: 2.4em; /* 6em / 2.5 */
+	font-size: 2.5em;
+	padding: 0 0.5em 0 0;
 	margin: 0;
-	width: 100%;
 }
 
-#storyFormatModal .formats button.select:last-child
+#storyFormatModal .formats button.select:active,
+#storyFormatModal .formats button.select.active
 {
-	border-bottom-left-radius: 1em;
+	box-shadow: none;
+	background: transparent;
 }
 
-#storyFormatModal .formats button.select img
-{
-	width: 75px;
-	height: 75px;
-}
-
-#storyFormatModal .formats .details
-{
-	margin-top: 1em;
-	margin-left: 22%;
-}
-
-#storyFormatModal .formats button.select .showActive
+#storyFormatModal .formats .select .showActive
 {
 	display: none;
 }
 
-#storyFormatModal .formats button.select.active
-{
-	background: white;
-	box-shadow: none;
-}
-
-#storyFormatModal .formats button.select.active .showActive
+#storyFormatModal .formats .select.active .showActive
 {
 	display: inline;
+}
+
+#storyFormatModal .formats .select.active .hideActive
+{
+	display: none;
+}
+
+#storyFormatModal .formats img,
+#storyFormatModal .formats .placeholder
+{
+	width: 6em;
+	float: left;
+	margin-right: 1.5em;
+}
+
+#storyFormatModal .formats .placeholder
+{
+	height: 1.5em; /* 6em / 4 */
+	width: 1.5em;
+	margin-right: 0.375em; /* 1.5em / 4 */
+	padding-top: 0.125em;
+	line-height: 2.5em;
+	text-align: center;
+	background-color: hsl(0, 0%, 80%);
+	color: hsl(0, 0%, 90%);
+	font: 4em "Nunito Light", Helvetica, sans-serif;
+	border-radius: 0.25em;
+	box-sizing: border-box;
+	overflow: hidden;
 }
 
 .CodeMirror
