@@ -3,8 +3,7 @@ StoryEditView.StoryFormatModal = Backbone.View.extend(
 	initialize: function (options)
 	{
 		this.parent = options.parent;
-		this.buttonTemplate = _.template($('.storyFormatButton').html());
-		this.detailTemplate = _.template($('.storyFormatDetail').html());
+		this.itemTemplate = _.template($('.singleStoryFormatItem').html());
 	},
 
 	/**
@@ -17,7 +16,7 @@ StoryEditView.StoryFormatModal = Backbone.View.extend(
 	{
 		// begin loading formats immediately
 
-		this.$('.buttons, .details').empty();
+		this.$('.formats').empty();
 		this.formatsToLoad = StoryFormatCollection.all();
 		this.loadNextFormat();
 
@@ -44,28 +43,6 @@ StoryEditView.StoryFormatModal = Backbone.View.extend(
 	changeFormat: function (name)
 	{
 		this.parent.model.save({ storyFormat: name });
-
-		// update buttons and details
-
-		this.$('.buttons button.select').each(function()
-		{
-			var $t = $(this);
-
-			if ($t.data('format') == name)
-				$t.addClass('active');
-			else
-				$t.removeClass('active');
-		});
-
-		this.$('.details .detail').each(function()
-		{
-			var $t = $(this);
-
-			if ($t.data('format') == name)
-				$t.css('display', 'block');
-			else
-				$t.css('display', 'none');
-		});
 	},
 
 	/**
@@ -93,16 +70,12 @@ StoryEditView.StoryFormatModal = Backbone.View.extend(
 
 					var path = format.get('url').replace(/\/[^\/]*?$/, '');
 					var fullContent = _.extend(format.properties, { path: path });
-					var buttonContent = $(this.buttonTemplate(fullContent));
-					var detailContent = $(this.detailTemplate(fullContent));
+					var content = $(this.itemTemplate(fullContent));
 
-					this.$('.formats .buttons').append(buttonContent);
-					this.$('.formats .details').append(detailContent);
+					this.$('.formats').append(content);
 
 					if (fullContent.name == this.parent.model.get('storyFormat'))
-						buttonContent.filter('button.select').addClass('active');
-					else
-						detailContent.css('display', 'none');
+						content.find('button.select').addClass('active');
 				};
 
 				this.formatsToLoad.remove(format);
