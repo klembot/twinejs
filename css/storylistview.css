@@ -103,3 +103,19 @@
 	margin-bottom: 1em;
 	text-align: center;
 }
+
+#formatsModal h2.storyHeading
+{
+	margin-top: 0;
+}
+
+#formatsModal h2.proofingHeading
+{
+	margin-top: 2em;
+}
+
+#formatsModal .format .buttons
+{
+	float: right;
+	margin-top: 0;
+}

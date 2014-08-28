@@ -431,15 +431,15 @@ body.zoom-small
 	display: none;
 }
 
-#storyFormatModal .formats img,
-#storyFormatModal .formats .placeholder
+.format img,
+.format .placeholder
 {
 	width: 6em;
 	float: left;
 	margin-right: 1.5em;
 }
 
-#storyFormatModal .formats .placeholder
+.format .placeholder
 {
 	height: 1.5em; /* 6em / 4 */
 	width: 1.5em;
@@ -453,6 +453,16 @@ body.zoom-small
 	border-radius: 0.25em;
 	box-sizing: border-box;
 	overflow: hidden;
+}
+
+.format .text
+{
+	margin-left: 7.5em;
+}
+
+.format .description
+{
+	font-size: 90%;
 }
 
 .CodeMirror
