@@ -15,18 +15,22 @@ else
 	print('<span class="placeholder">' + name.replace(/[a-z]/g, '') + '</span>');
 %>
 
+<div class="text">
+
 <h3><%- name %> <%- version %>
 
 <% if (typeof author == 'string') print('<br>by ' + author); %>
 
 </h3>
 
-<div>
+<div class="description">
 <%= description %>
-</div>
 
 <%
 if (typeof license == 'string') print('<p>License: ' + license + '</p>');
 %>
 
+</div>
+
+</div>
 </div>

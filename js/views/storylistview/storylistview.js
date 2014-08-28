@@ -22,6 +22,7 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 		this.syncStoryCount();
 
 		this.storageQuota = new StoryListView.StorageQuota({ parent: this, el: this.$('.quota') });
+		this.formatsModal = new StoryListView.FormatsModal({ parent: this, el: this.$('#formatsModal') });
 
 		// set the version number in the HTML
 
@@ -176,6 +177,10 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 		'click .saveArchive': 'saveArchive',
 		'change .importFile': 'importFile',
 		'click .sortByDate': 'sortByDate',
-		'click .sortByName': 'sortByName'
+		'click .sortByName': 'sortByName',
+		'click .showFormats': function()
+		{
+			this.formatsModal.open();	
+		},
 	}
 });
