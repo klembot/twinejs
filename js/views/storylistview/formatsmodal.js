@@ -80,6 +80,18 @@ StoryListView.FormatsModal = Backbone.View.extend(
 			this.$('.loading').hide();
 	},
 
+	/**
+	 Removes a story format.
+
+	 @method removeFormat
+	 @param {String} name the name of the story format
+	 **/
+
+	removeFormat: function (name)
+	{
+		StoryFormat.withName(name).destroy();
+	},
+
 	events:
 	{
 		'click .showRemoveConfirm': function (e)
@@ -94,6 +106,13 @@ StoryListView.FormatsModal = Backbone.View.extend(
 			var container = $(e.target).closest('.buttons');
 			container.find('.normalButtons').fadeIn();
 			container.find('.removeConfirm').hide();
+		},
+
+		'click .remove': function (e)
+		{
+			var container = $(e.target).closest('.format');
+			this.removeFormat(container.data('format'));
+			container.slideUp();
 		}
 	}
 });
