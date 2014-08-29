@@ -104,6 +104,11 @@
 	text-align: center;
 }
 
+#formatsModal h2
+{
+	border-bottom: 0.05em solid hsl(0, 0%, 85%)
+}
+
 #formatsModal h2.storyHeading
 {
 	margin-top: 0;
@@ -111,7 +116,7 @@
 
 #formatsModal h2.proofingHeading
 {
-	margin-top: 2em;
+	margin-top: 2.5em;
 }
 
 #formatsModal .format .buttons
