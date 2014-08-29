@@ -16,7 +16,7 @@ StoryListView.FormatsModal = Backbone.View.extend(
 	{
 		// begin loading formats immediately
 
-		this.$('.formats').empty();
+		this.$('.storyFormats, .proofingFormats').empty();
 		this.formatsToLoad = StoryFormatCollection.all();
 		this.loadNextFormat();
 
