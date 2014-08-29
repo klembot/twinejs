@@ -58,26 +58,19 @@ StoryListView.FormatsModal = Backbone.View.extend(
 				var content = $(this.itemTemplate(fullContent));
 
 				if (fullContent.proofing)
-				{
 					this.$('.proofingFormats').append(content);
-
-					if (AppPref.withName('proofingFormat').get('value') == fullContent.name)
-						content.find('button.setDefault').addClass('active');
-				}
 				else
-				{
 					this.$('.storyFormats').append(content);
-
-					if (AppPref.withName('defaultFormat').get('value') == fullContent.name)
-						content.find('button.setDefault').addClass('active');
-				};
 
 				this.formatsToLoad.remove(format);
 				this.loadNextFormat();
 			}, this));
 		}
 		else
+		{
+			this.syncButtons();
 			this.$('.loading').hide();
+		};
 	},
 
 	/**
@@ -85,11 +78,67 @@ StoryListView.FormatsModal = Backbone.View.extend(
 
 	 @method removeFormat
 	 @param {String} name the name of the story format
-	 **/
+	**/
 
 	removeFormat: function (name)
 	{
 		StoryFormat.withName(name).destroy();
+	},
+
+	/**
+	 Sets the default story format.
+
+	 @method setDefaultFormat
+	 @param {String} name the name of the story format
+	**/
+
+	setDefaultFormat: function (name)
+	{
+		AppPref.withName('defaultFormat').save({ value: name });
+	},
+
+	/**
+	 Sets the default proofing format.
+
+	 @method setProofingFormat
+	 @param {String} name the name of the story format
+	**/
+
+	setProofingFormat: function (name)
+	{
+		AppPref.withName('proofingFormat').save({ value: name });
+	},
+
+	/**
+	 Syncs the active state of setDefault buttons with user preferences.
+
+	 @method syncButtons
+	**/
+
+	syncButtons: function()
+	{
+		var defaultFormat = AppPref.withName('defaultFormat').get('value');
+		var proofingFormat = AppPref.withName('proofingFormat').get('value');
+
+		this.$('.storyFormats .format').each(function()
+		{
+			var $t = $(this);
+
+			if ($t.data('format') == defaultFormat)
+				$t.find('.setDefault').addClass('active');
+			else
+				$t.find('.setDefault').removeClass('active');
+		});
+
+		this.$('.proofingFormats .format').each(function()
+		{
+			var $t = $(this);
+
+			if ($t.data('format') == proofingFormat)
+				$t.find('.setDefault').addClass('active');
+			else
+				$t.find('.setDefault').removeClass('active');
+		});
 	},
 
 	events:
@@ -113,6 +162,21 @@ StoryListView.FormatsModal = Backbone.View.extend(
 			var container = $(e.target).closest('.format');
 			this.removeFormat(container.data('format'));
 			container.slideUp();
+		},
+
+		'click .setDefault': function (e)
+		{
+			var container = $(e.target).closest('.format');
+			var format = container.data('format');
+			
+			if (container.closest('.storyFormats').length > 0)
+				this.setDefaultFormat(format);
+			else if (container.closest('.proofingFormats').length > 0)
+				this.setProofingFormat(format);
+			else
+				throw new Error("don't know what kind of format to set as default");
+
+			this.syncButtons();
 		}
 	}
 });
