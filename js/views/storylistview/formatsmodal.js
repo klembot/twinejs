@@ -78,5 +78,22 @@ StoryListView.FormatsModal = Backbone.View.extend(
 		}
 		else
 			this.$('.loading').hide();
+	},
+
+	events:
+	{
+		'click .showRemoveConfirm': function (e)
+		{
+			var container = $(e.target).closest('.buttons');
+			container.find('.normalButtons').hide();
+			container.find('.removeConfirm').fadeIn();
+		},
+
+		'click .hideRemoveConfirm': function (e)
+		{
+			var container = $(e.target).closest('.buttons');
+			container.find('.normalButtons').fadeIn();
+			container.find('.removeConfirm').hide();
+		}
 	}
 });

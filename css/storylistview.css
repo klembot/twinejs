@@ -124,3 +124,8 @@
 	float: right;
 	margin-top: 0;
 }
+
+#formatsModal .removeConfirm
+{
+	display: none;
+}
