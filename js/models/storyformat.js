@@ -34,6 +34,7 @@ var StoryFormat = Backbone.Model.extend(
 	{
 		name: 'Untitled Story Format',
 		url: '',
+		userAdded: true,
 	},
 
 	/**
