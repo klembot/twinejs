@@ -143,7 +143,6 @@ TwineApp = Backbone.Marionette.Application.extend(
 				{
 					var e = document.createElement('div');
 					e.innerHTML = $passage.html();
-					var text = (e.childNodes.length === 0) ? '' : e.childNodes[0].nodeValue;
 				}
 				else
 				{
@@ -228,7 +227,7 @@ TwineApp = Backbone.Marionette.Application.extend(
 
 window.app = new TwineApp();
 
-window.app.addInitializer(function (options)
+window.app.addInitializer(function ()
 {
 	/**
 	 The app router.

@@ -95,9 +95,6 @@ PassageItemView = Marionette.ItemView.extend(
 
 		// set CSS class for broken links
 
-		var links = this.model.links();
-		var broken = false;
-
 		if (_.every(this.model.links(), function (link)
 		{
 			return this.parentView.collection.findWhere({ name: link });

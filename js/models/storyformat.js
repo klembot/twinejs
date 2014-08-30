@@ -102,7 +102,7 @@ var StoryFormat = Backbone.Model.extend(
 
 			loader.remove();
 		}, this))
-		.on('error', _.bind(function (e)
+		.on('error', _.bind(function ()
 		{
 			var err = new Error('Could not load story format source');
 
@@ -121,7 +121,7 @@ var StoryFormat = Backbone.Model.extend(
 		// we set a timeout (15 seconds) that removes the loader
 		// element and triggers the failure handler
 
-		var failTimer = window.setTimeout(_.bind(function()
+		window.setTimeout(_.bind(function()
 		{
 			if (loader.parent().length > 0)
 			{
