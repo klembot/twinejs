@@ -8,20 +8,17 @@ module.exports = function (grunt)
 			all: ['js/**'],
 			options: {
 				// Enforcing options
-				//eqeqeq   : true,
-				//immed    : true,
-				//latedef  : "nofunc",
-				//noarg    : true,
-				//nonew    : true,
-				//undef    : true,
+				immed    : true,
+				latedef  : "nofunc", // Used a variable before its var statement
+				noarg    : true, // Used arguments.caller
+				nonew    : true, // Called 'new X()' but didn't assign the result to anything
 				//unused   : true,
-				//strict   : true,
 				// Relaxing options
-				laxbreak : true,
+				laxbreak : true, // Used a line break before an operator, rather than after
 				debug    : true, // Used console.log()
+				funcscope: true, // Declared a var in a block, then used it outside the block
 				"-W002"  : true, // Value of 'err' may be overwritten in IE8 and earlier
 				"-W032"  : true, // Unnecessary semicolon
-				"-W038"  : true, // Declared a var in a block, then used it outside the block
 				"-W041"  : true, // Used != instead of !== in comparison with '' or 0
 				"-W083"  : true, // Created a function while inside a for-loop
 				// Environments

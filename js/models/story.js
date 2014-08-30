@@ -32,8 +32,6 @@ Story = Backbone.Model.extend(
 	
 	initialize: function()
 	{
-		var self = this;
-
 		this.on('destroy', function()
 		{
 			// delete all child passages
