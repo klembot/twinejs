@@ -28,7 +28,7 @@ StoryEditView = Marionette.CompositeView.extend(
 
 	itemView: PassageItemView,
 	itemViewContainer: '.passages',
-	itemViewOptions: function() { return { parentView: this } },
+	itemViewOptions: function() { return { parentView: this }; },
 	template: '#templates .storyEditView',
 
 	initialize: function (options)

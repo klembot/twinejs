@@ -26,7 +26,7 @@ StoryEditView.Search = Backbone.View.extend(
 		// convert entered text to regexp, escaping text
 		// cribbed from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
 
-		var search = new RegExp(search.replace(/([.*+?^${}()|\[\]\/\\])/g, "\\$1"), flags || 'i');
+		search = new RegExp(search.replace(/([.*+?^${}()|\[\]\/\\])/g, "\\$1"), flags || 'i');
 
 		this.parent.children.each(function (view)
 		{

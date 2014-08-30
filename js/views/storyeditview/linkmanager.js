@@ -155,7 +155,7 @@ StoryEditView.LinkManager = Backbone.View.extend(
 	reset: function()
 	{
 		this.drawCache = {};
-		this.parent.collection.each(function(item) { this.cachePassage(item) }, this);
+		this.parent.collection.each(function(item) { this.cachePassage(item); }, this);
 		this.drawLinks();
 	},
 
@@ -237,7 +237,8 @@ StoryEditView.LinkManager = Backbone.View.extend(
 
 				var xDist = q.position.left - p.position.left;
 				var yDist = q.position.top - p.position.top;
-
+				var line;
+				
 				if (Math.abs(xDist) > Math.abs(yDist))
 				{
 					// connect horizontal sides
@@ -246,15 +247,15 @@ StoryEditView.LinkManager = Backbone.View.extend(
 					{
 						// right side of p to left side of q
 
-						var line = [{ x: p.position.left + width, y: p.position.top + height / 2 },
-									{ x: q.position.left, y: q.position.top + height / 2 }];
+						line = [{ x: p.position.left + width, y: p.position.top + height / 2 },
+								{ x: q.position.left, y: q.position.top + height / 2 }];
 					}
 					else
 					{
 						// left side of p to right side of q
 
-						var line = [{x: p.position.left, y: p.position.top + height / 2 },
-									{x: q.position.left + width, y: q.position.top + height / 2 }];
+						line = [{x: p.position.left, y: p.position.top + height / 2 },
+								{x: q.position.left + width, y: q.position.top + height / 2 }];
 					};
 				}
 				else
@@ -265,15 +266,15 @@ StoryEditView.LinkManager = Backbone.View.extend(
 					{
 						// bottom side of p to top side of q
 
-						var line = [{x: p.position.left + width / 2, y: p.position.top + height },
-									{x: q.position.left + width / 2, y: q.position.top }];
+						line = [{x: p.position.left + width / 2, y: p.position.top + height },
+								{x: q.position.left + width / 2, y: q.position.top }];
 					}
 					else
 					{
 						// top side of p to top side of q
 
-						var line = [{ x: p.position.left + width / 2, y: p.position.top },
-									{ x: q.position.left + width / 2, y: q.position.top + height }];
+						line = [{ x: p.position.left + width / 2, y: p.position.top },
+								{ x: q.position.left + width / 2, y: q.position.top + height }];
 					};
 				}
 
