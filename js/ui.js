@@ -157,7 +157,7 @@ window.uiInitBody = function()
 					.one('animationend', function()
 					{
 						$(this).remove();
-					})
+					});
 				}, notification), 3000);
 		};
 
@@ -216,7 +216,7 @@ window.uiInitEl = function (el)
 					afterShow: function (els, internalCallback)
 					{
 						els.modal.trigger('modalshown');
-						_.defer(function() { window.uiInitEl(els.modal) });
+						_.defer(function() { window.uiInitEl(els.modal); });
 						return internalCallback(els);
 					},
 

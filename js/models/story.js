@@ -94,7 +94,7 @@ Story = Backbone.Model.extend(
 	{
 		var passageData = '';
 		var startDbId = startId || this.get('startPassage');
-		var startId = 1; // last-ditch default, shows first passage defined
+		startId = 1; // last-ditch default, shows first passage defined
 
 		this.fetchPassages().each(function (p, index)
 		{

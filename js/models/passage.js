@@ -261,7 +261,7 @@ Passage = Backbone.Model.extend(
 			var rightMove = tRight - oLeft + p;
 
 			if (leftMove < rightMove)
-				xChange = - leftMove
+				xChange = -leftMove;
 			else
 				xChange = rightMove;
 		};

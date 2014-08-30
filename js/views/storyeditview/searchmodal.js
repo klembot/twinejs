@@ -127,7 +127,7 @@ StoryEditView.SearchModal = Backbone.View.extend(
 		var model = this.parent.children.findByModelCid(container.attr('data-passage')).model;
 
 		model.replace(this.$('#searchFor').val(), this.$('#replaceWith').val());
-		container.slideUp(null, function() { container.remove() });
+		container.slideUp(null, function() { container.remove(); });
 	},
 
 	/**

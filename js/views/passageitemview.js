@@ -293,7 +293,7 @@ PassageItemView = Marionette.ItemView.extend(
 			return;
 
 		this.selected = false;
-		this.$el.removeClass('selected')
+		this.$el.removeClass('selected');
 		$('body').off('passagedragstart', this.prepDragBound);
 		$('body').off('passagedrag', this.followDragBound);
 		$('body').off('passagedragend', this.finishDragBound);
@@ -519,7 +519,7 @@ PassageItemView = Marionette.ItemView.extend(
 		})
 		.trigger('passagedragend');
 
-		_.defer(_.bind(function() { this.actuallyDragged = false }, this));
+		_.defer(_.bind(function() { this.actuallyDragged = false; }, this));
 	},
 
 	/**
