@@ -28,10 +28,10 @@ StoryEditView = Marionette.CompositeView.extend(
 
 	itemView: PassageItemView,
 	itemViewContainer: '.passages',
-	itemViewOptions: function() { return { parentView: this } },
+	itemViewOptions: function() { return { parentView: this }; },
 	template: '#templates .storyEditView',
 
-	initialize: function (options)
+	initialize: function ()
 	{
 		this.listenTo(this.model, 'change:zoom', this.syncZoom);
 		this.collection = this.model.fetchPassages();
@@ -362,8 +362,6 @@ StoryEditView = Marionette.CompositeView.extend(
 
 	startMouseScrolling: function()
 	{
-		var self = this;
-
 		/**
 		 The mouse position that space bar scrolling began at,
 		 with x and y properties.

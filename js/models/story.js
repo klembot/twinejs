@@ -32,8 +32,6 @@ Story = Backbone.Model.extend(
 	
 	initialize: function()
 	{
-		var self = this;
-
 		this.on('destroy', function()
 		{
 			// delete all child passages
@@ -94,7 +92,7 @@ Story = Backbone.Model.extend(
 	{
 		var passageData = '';
 		var startDbId = startId || this.get('startPassage');
-		var startId = 1; // last-ditch default, shows first passage defined
+		startId = 1; // last-ditch default, shows first passage defined
 
 		this.fetchPassages().each(function (p, index)
 		{

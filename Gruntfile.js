@@ -3,7 +3,30 @@ module.exports = function (grunt)
 	grunt.initConfig(
 	{
 		pkg: grunt.file.readJSON('package.json'),
-
+		
+		jshint: {
+			all: ['js/**'],
+			options: {
+				// Enforcing options
+				immed    : true,
+				latedef  : "nofunc", // Used a variable before its var statement
+				noarg    : true, // Used arguments.caller
+				nonew    : true, // Called 'new X()' but didn't assign the result to anything
+				//unused   : true,
+				// Relaxing options
+				laxbreak : true, // Used a line break before an operator, rather than after
+				debug    : true, // Used console.log()
+				funcscope: true, // Declared a var in a block, then used it outside the block
+				"-W002"  : true, // Value of 'err' may be overwritten in IE8 and earlier
+				"-W032"  : true, // Unnecessary semicolon
+				"-W041"  : true, // Used != instead of !== in comparison with '' or 0
+				"-W083"  : true, // Created a function while inside a for-loop
+				// Environments
+				browser  : true,
+				devel    : true,
+			}
+		},
+		
 		bake:
 		{
 			options:
@@ -156,6 +179,7 @@ module.exports = function (grunt)
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-yuidoc');
@@ -164,14 +188,14 @@ module.exports = function (grunt)
 	grunt.registerTask('default', ['bake']);
 	grunt.registerTask('release',
 	[
-		'clean', 'bake', 'yuidoc', 'copy', 'useminPrepare', 'concat', 'uglify', 'cssmin', 'usemin'
+		'clean', 'jshint', 'bake', 'yuidoc', 'copy', 'useminPrepare', 'concat', 'uglify', 'cssmin', 'usemin'
 	]);
 	grunt.registerTask('release-cdn',
 	[
-		'clean', 'bake', 'replace:blockUseminCdn','cdnify', 'yuidoc', 'copy', 'useminPrepare', 'concat', 'uglify', 'cssmin', 'usemin'
+		'clean', 'jshint', 'bake', 'replace:blockUseminCdn','cdnify', 'yuidoc', 'copy', 'useminPrepare', 'concat', 'uglify', 'cssmin', 'usemin'
 	]);
 	grunt.registerTask('release-test',
 	[
-		'bake', 'cdnify'
+		'bake', 'jshint', 'cdnify'
 	]);
 };

@@ -39,7 +39,7 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 		});
 	},
 
-	onAfterItemAdded: function (view)
+	onAfterItemAdded: function ()
 	{
 		this.syncStoryCount();
 	},
@@ -83,7 +83,6 @@ StoryListView = Backbone.Marionette.CompositeView.extend(
 
 	importFile: function (e)
 	{
-		var self = this;
 		var reader = new FileReader();
 
 		reader.onload = function (e)

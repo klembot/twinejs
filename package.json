@@ -18,6 +18,7 @@
 		"grunt-contrib-clean": "*",
 		"grunt-contrib-concat": "*",
 		"grunt-contrib-copy": "*",
+		"grunt-contrib-jshint": "*",
 		"grunt-contrib-cssmin": "*",
 		"grunt-contrib-uglify": "*",
 		"grunt-contrib-watch": "*",
