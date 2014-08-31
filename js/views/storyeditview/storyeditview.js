@@ -8,7 +8,9 @@
  @extends Marionette.CompositeView
 **/
 
-StoryEditView = Marionette.CompositeView.extend(
+'use strict';
+
+var StoryEditView = Marionette.CompositeView.extend(
 {
 	/**
 	 Maps numeric zoom settings (that are in our model) to

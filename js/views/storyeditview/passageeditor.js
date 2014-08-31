@@ -5,6 +5,8 @@
  @extends Backbone.View
 **/
 
+'use strict';
+
 StoryEditView.PassageEditor = Backbone.View.extend(
 {
 	tagTemplate:

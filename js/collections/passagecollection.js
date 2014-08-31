@@ -5,8 +5,9 @@
  @extends Backbone.Collection
 **/
 
+'use strict';
 
-PassageCollection = Backbone.Collection.extend(
+var PassageCollection = Backbone.Collection.extend(
 {
 	model: Passage,
 	localStorage: new Backbone.LocalStorage('twine-passages')

@@ -6,7 +6,9 @@
  @extends Backbone.Model
 **/
 
-AppPref = Backbone.Model.extend(
+'use strict';
+
+var AppPref = Backbone.Model.extend(
 {
 	defaults:
 	{

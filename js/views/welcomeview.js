@@ -6,7 +6,9 @@
  @extends Backbone.Marionette.ItemView
 **/
 
-WelcomeView = Backbone.Marionette.ItemView.extend(
+'use strict';
+
+var WelcomeView = Backbone.Marionette.ItemView.extend(
 {
 	template: '#templates .welcomeView',
 

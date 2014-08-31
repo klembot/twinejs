@@ -1,3 +1,4 @@
+'use strict';
 
 StoryListView.StorageQuota = Backbone.View.extend(
 {

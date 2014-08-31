@@ -5,7 +5,9 @@
  @extends Backbone.Model
 **/
 
-Passage = Backbone.Model.extend(
+'use strict';
+
+var Passage = Backbone.Model.extend(
 {
 
 	defaults:

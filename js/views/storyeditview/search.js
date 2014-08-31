@@ -5,6 +5,8 @@
  @extends Backbone.View
 **/
 
+'use strict';
+
 StoryEditView.Search = Backbone.View.extend(
 {
 	initialize: function (options)

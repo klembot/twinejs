@@ -1,3 +1,5 @@
+'use strict';
+
 StoryEditView.SearchModal = Backbone.View.extend(
 {
 	initialize: function (options)

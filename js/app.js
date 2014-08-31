@@ -7,7 +7,9 @@
  @extends Backbone.Marionette.Application
 **/
 
-TwineApp = Backbone.Marionette.Application.extend(
+'use strict';
+
+var TwineApp = Backbone.Marionette.Application.extend(
 {
 	/**
 	 Name of the app.

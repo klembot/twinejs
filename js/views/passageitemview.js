@@ -6,7 +6,9 @@
  @extends Marionette.ItemView
 **/
 
-PassageItemView = Marionette.ItemView.extend(
+'use strict';
+
+var PassageItemView = Marionette.ItemView.extend(
 {
 	template: '#templates .passageItemView',
 	className: 'passage',

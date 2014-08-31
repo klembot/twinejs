@@ -12,7 +12,9 @@
  @extends Backbone.Router
 **/
 
-TwineRouter = Backbone.Router.extend(
+'use strict';
+
+var TwineRouter = Backbone.Router.extend(
 {
 	routes:
 	{

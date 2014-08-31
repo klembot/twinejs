@@ -11,6 +11,8 @@
  @extends Backbone.Model
 **/
 
+'use strict';
+
 var StoryFormat = Backbone.Model.extend(
 {
 	/**

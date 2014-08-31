@@ -1,3 +1,5 @@
+'use strict';
+
 StoryEditView.StoryFormatModal = Backbone.View.extend(
 {
 	initialize: function (options)

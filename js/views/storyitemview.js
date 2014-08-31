@@ -7,7 +7,9 @@
  @extends Marionette.ItemView
 **/
 
-StoryItemView = Marionette.ItemView.extend(
+'use strict';
+
+var StoryItemView = Marionette.ItemView.extend(
 {
 	template: '#templates .storyItemView',
 

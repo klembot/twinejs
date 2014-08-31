@@ -1,3 +1,6 @@
+'use strict';
+
+
 StoryListView.FormatsModal = Backbone.View.extend(
 {
 	initialize: function (options)
