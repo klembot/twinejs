@@ -42,7 +42,6 @@ StoryEditView.RenameStoryModal = Backbone.View.extend(
 	{
 		e.stopImmediatePropagation();
 		var storyName = this.$('.storyName').val();
-		console.log(storyName);
 
 		if (storyName.trim() == '')
 		{

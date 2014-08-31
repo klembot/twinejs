@@ -396,8 +396,6 @@ PassageItemView = Marionette.ItemView.extend(
 
 	beginDrag: function (e)
 	{
-		console.log(e);
-
 		if (e.pageX && e.pageY)
 			this.dragMouseStart = { x: e.pageX, y: e.pageY };	
 		else if (e.originalEvent.targetTouches)
