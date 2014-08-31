@@ -1,0 +1,131 @@
+#storyListView .listControls
+{
+	text-align: center;	
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: 12em;
+	padding: 1.25em 1em 1em 1em;
+	background-color: hsl(212, 0%, 95%);
+	box-shadow: inset 0.25em 0 0.25em hsl(0, 0%, 85%);
+}
+
+#storyListView .listControls h1
+{
+	margin-top: 0;
+	padding-top: 3.25em;
+	background: center top no-repeat url(../img/logo.svg);
+	background-size: 50%;
+	font: normal 200% "Nunito Light", sans-serif;
+}
+
+#storyListView .listControls footer
+{
+	position: absolute;
+	bottom: 1em;
+	left: 1em;
+	right: 1em;
+	font-size: 90%;
+}
+
+#storyListView .main
+{
+	padding: 0 2em;
+	margin-right: 15em;
+}
+
+#storyListView .main h1
+{
+	border-bottom: 0.05em solid hsl(0, 0%, 85%);
+	margin-bottom: 0;
+}
+
+#storyListView .main h1 .normal
+{
+	color: hsl(0, 0%, 50%);
+	font-size: 45%;
+}
+
+#storyListView .story
+{
+	width: 18em;
+	min-width: 30%;
+	height: 12em;
+	float: left;
+	margin-right: 3%;
+}
+
+#storyListView .story h2
+{
+	font: normal 150% "Nunito Light", sans-serif;
+	margin-bottom: 0;
+}
+
+#storyListView .story .controls
+{
+	margin: 0 0 0 -0.5em;
+}
+
+#storyListView .story .changeDate
+{
+	margin: 0;
+}
+
+#storyListView .quota .total
+{
+	display: inline-block;
+	position: relative;
+	width: 100%;
+	height: 1em;
+	border-radius: 0.25em;
+	border: 0.1em solid hsl(0, 0%, 80%);
+	background-color: hsl(0, 0%, 92%);
+	box-shadow: inset 0 0 0.2em hsl(0, 0%, 70%);
+}
+
+#storyListView .quota .used
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	background-color: hsl(212, 50%, 50%);
+	border-top-left-radius: 0.25em;
+	border-bottom-left-radius: 0.25em;
+	box-shadow: inset 0 0.15em 0.1em hsla(0, 0%, 0%, 0.25);
+}
+
+#aboutModal .credits
+{
+	max-height: 20em;
+	overflow-y: auto;
+	margin-bottom: 1em;
+	text-align: center;
+}
+
+#formatsModal h2
+{
+	border-bottom: 0.05em solid hsl(0, 0%, 85%)
+}
+
+#formatsModal h2.storyHeading
+{
+	margin-top: 0;
+}
+
+#formatsModal h2.proofingHeading
+{
+	margin-top: 2.5em;
+}
+
+#formatsModal .format .buttons
+{
+	float: right;
+	margin-top: 0;
+}
+
+#formatsModal .removeConfirm
+{
+	display: none;
+}
