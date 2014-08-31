@@ -6,6 +6,8 @@
  @extends Backbone.View
 **/
 
+'use strict';
+
 StoryEditView.LinkManager = Backbone.View.extend(
 {
 	/**

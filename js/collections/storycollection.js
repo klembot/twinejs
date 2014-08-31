@@ -5,7 +5,9 @@
  @extends Backbone.Collection
 **/
 
-StoryCollection = Backbone.Collection.extend(
+'use strict';
+
+var StoryCollection = Backbone.Collection.extend(
 {
 	model: Story,
 	localStorage: new Backbone.LocalStorage('twine-stories'),

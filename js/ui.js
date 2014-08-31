@@ -1,3 +1,5 @@
+'use strict';
+
 window.uiInitBody = function()
 {
 	if (! $('body').data('uiInited'))

@@ -5,6 +5,8 @@
  @extends Backbone.View
 **/
 
+'use strict';
+
 StoryEditView.Toolbar = Backbone.View.extend(
 {
 	initialize: function (options)

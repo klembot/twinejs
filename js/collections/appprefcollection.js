@@ -5,7 +5,9 @@
  @extends Backbone.Collection
 **/
 
-AppPrefCollection = Backbone.Collection.extend(
+'use strict';
+
+var AppPrefCollection = Backbone.Collection.extend(
 {
 	model: AppPref,
 	localStorage: new Backbone.LocalStorage('twine-prefs')

@@ -5,7 +5,9 @@
  @extends Backbone.Collection
 **/
 
-StoryFormatCollection = Backbone.Collection.extend(
+'use strict';
+
+var StoryFormatCollection = Backbone.Collection.extend(
 {
 	model: StoryFormat,
 	localStorage: new Backbone.LocalStorage('twine-storyformats')

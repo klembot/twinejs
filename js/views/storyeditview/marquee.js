@@ -6,6 +6,8 @@
  @extends Backbone.View
 **/
 
+'use strict';
+
 StoryEditView.Marquee = Backbone.View.extend(
 {
 	initialize: function (options)

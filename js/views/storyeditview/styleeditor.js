@@ -5,6 +5,8 @@
  @extends Backbone.View
 **/
 
+'use strict';
+
 StoryEditView.StyleEditor = Backbone.View.extend(
 {
 	initialize: function (options)

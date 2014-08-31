@@ -6,7 +6,9 @@
  @extends Backbone.Model
 **/
 
-Story = Backbone.Model.extend(
+'use strict';
+
+var Story = Backbone.Model.extend(
 {
 	defaults: function()
 	{

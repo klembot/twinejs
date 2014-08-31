@@ -1,3 +1,5 @@
+'use strict';
+
 StoryEditView.RenameStoryModal = Backbone.View.extend(
 {
 	initialize: function (options)

@@ -5,7 +5,9 @@
  @extends Backbone.Marionette.CompositeView
 **/
 
-StoryListView = Backbone.Marionette.CompositeView.extend(
+'use strict';
+
+var StoryListView = Backbone.Marionette.CompositeView.extend(
 {
 	itemView: StoryItemView,
 	itemViewContainer: '.stories',
