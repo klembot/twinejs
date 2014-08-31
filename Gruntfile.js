@@ -7,6 +7,35 @@ module.exports = function (grunt)
 		jshint: {
 			all: ['js/**'],
 			options: {
+				globals: {
+					// Libraries
+					$: true,
+					_: true,
+					Backbone: true,
+					Marionette: true,
+					CodeMirror: true,
+					saveAs: true,
+					// Misc.
+					app: true,
+					TwineRouter: true,
+					uiInitBody: true,
+					// Collections
+					AppPrefCollection: true,
+					PassageCollection: true,
+					StoryCollection: true,
+					StoryFormatCollection: true,
+					// Models
+					AppPref: true,
+					Passage: true,
+					Story: true,
+					StoryFormat: true,
+					// Views
+					PassageItemView: true,
+					StoryItemView: true,
+					StoryEditView: true,
+					StoryListView: true,
+					WelcomeView: true,
+				},
 				// Enforcing options
 				immed    : true,
 				latedef  : "nofunc", // Used a variable before its var statement
@@ -14,6 +43,7 @@ module.exports = function (grunt)
 				nonew    : true, // Called 'new X()' but didn't assign the result to anything
 				//unused   : true,
 				// Relaxing options
+				globalstrict: true,
 				laxbreak : true, // Used a line break before an operator, rather than after
 				debug    : true, // Used console.log()
 				funcscope: true, // Declared a var in a block, then used it outside the block

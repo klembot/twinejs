@@ -31,7 +31,7 @@ var Passage = Backbone.Model.extend(
 			// if any stories are using this passage's cid
 			// as their start passage, update with a real id
 
-			_.invoke(StoryCollection.all().where({ startPassage: self.cid }), 'save', { startPassage: this.id });
+			_.invoke(StoryCollection.all().where({ startPassage: this.cid }), 'save', { startPassage: this.id });
 		}, this);
 
 		this.on('change', function()

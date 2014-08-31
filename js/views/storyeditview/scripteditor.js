@@ -5,6 +5,8 @@
  @extends Backbone.View
 **/
 
+'use strict';
+
 StoryEditView.ScriptEditor = Backbone.View.extend(
 {
 	initialize: function (options)

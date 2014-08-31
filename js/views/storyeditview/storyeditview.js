@@ -438,7 +438,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 		{
 			if (p.id != passage.id && p.intersects(passage))
 			{
-				done = false;
+				var done = false;
 				p.displace(passage);
 			};
 		});
