@@ -41,7 +41,6 @@ module.exports = function (grunt)
 				latedef  : "nofunc", // Used a variable before its var statement
 				noarg    : true, // Used arguments.caller
 				nonew    : true, // Called 'new X()' but didn't assign the result to anything
-				//unused   : true,
 				// Relaxing options
 				globalstrict: true,
 				laxbreak : true, // Used a line break before an operator, rather than after
