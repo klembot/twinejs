@@ -72,7 +72,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 	{
 		var output = '';
 
-		StoryCollection().all().each(function (story)
+		StoryCollection.all().each(function (story)
 		{
 			output += story.publish() + '\n\n';
 		});
