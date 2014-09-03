@@ -526,9 +526,42 @@ ul.menu li.checked button:before
 	text-align: left;
 }
 
+.modal .title .tabs
+{
+	margin: 0;
+}
+
 .modal .content
 {
 	margin-top: 2em;
+}
+
+.tabs
+{
+	display: table;
+	width: 100%;
+	border-bottom: 0.1em solid hsl(0, 0%, 90%);
+}
+
+.tabs button
+{
+	color: hsl(0, 0%, 30%);
+	background: none;
+	box-shadow: none;
+	display: table-cell;
+	border-radius: 0;
+	margin: 0;
+}
+
+.tabs button:hover
+{
+	color: hsl(212, 88%, 50%);
+}
+
+.tabs button:active, .tabs button.active
+{
+	color: hsl(212, 88%, 50%);
+	border-bottom: 0.4em solid hsl(212, 88%, 50%);
 }
 
 .tag
