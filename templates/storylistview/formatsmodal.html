@@ -4,24 +4,53 @@
 <i class="fa fa-times"></i>
 </button>
 
-<h2 class="storyHeading">Story Formats</h2>
+<div class="title">
+<p class="tabs">
+<button class="showStoryFormats" data-content=".storyFormatsContent">Story Formats</button>
+<button class="showProofingFormats" data-content=".proofingFormatsContent">Proofing Formats</button>
+<button class="showAddFormat" data-content=".addFormatContent">Add a New Format</button>
+</p>
+</div>
+
+<div class="tabContent">
+
+<div class="storyFormatsContent">
 
 <p>
 Story formats control the appearance and behavior of stories during play.
 </p>
 
-<div class="storyFormats"></div>
+<div class="storyFormatList"></div>
 
-<h2 class="proofingHeading">Proofing Formats</h2>
+</div>
+
+<div class="proofingFormatsContent">
 
 <p>
 Proofing formats create a versions of stories tailored for editing and proofreading.
 </p>
 
-<div class="proofingFormats"></div>
+<div class="proofingFormatList"></div>
+
+</div>
+
+<div class="addFormatContent">
+
+<p>
+To add a story format, enter its address below.
+</p>
+
+<p>
+<input type="text" id="newFormatUrl">
+<button class="create"><i class="fa fa-plus"></i> Add</button>
+</p>
+
+</div>
 
 <p class="loading">
 <i class="fa fa-circle-o-notch fa-lg fa-spin"></i> Loading...
 </p>
+
+</div> <!-- .tabContent -->
 
 </div> <!-- #formatsModal -->

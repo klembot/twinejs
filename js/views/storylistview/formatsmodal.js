@@ -61,9 +61,9 @@ StoryListView.FormatsModal = Backbone.View.extend(
 				var content = $(this.itemTemplate(fullContent));
 
 				if (fullContent.proofing)
-					this.$('.proofingFormats').append(content);
+					this.$('.proofingFormatList').append(content);
 				else
-					this.$('.storyFormats').append(content);
+					this.$('.storyFormatList').append(content);
 
 				this.formatsToLoad.remove(format);
 				this.loadNextFormat();
@@ -123,7 +123,7 @@ StoryListView.FormatsModal = Backbone.View.extend(
 		var defaultFormat = AppPref.withName('defaultFormat').get('value');
 		var proofingFormat = AppPref.withName('proofingFormat').get('value');
 
-		this.$('.storyFormats .format').each(function()
+		this.$('.storyFormatList .format').each(function()
 		{
 			var $t = $(this);
 
@@ -133,7 +133,7 @@ StoryListView.FormatsModal = Backbone.View.extend(
 				$t.find('.setDefault').removeClass('active');
 		});
 
-		this.$('.proofingFormats .format').each(function()
+		this.$('.proofingFormatList .format').each(function()
 		{
 			var $t = $(this);
 
