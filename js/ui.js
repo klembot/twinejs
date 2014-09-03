@@ -145,6 +145,22 @@ window.uiInitBody = function()
 			$t.collapse($t.data('collapse'));
 		});
 
+		// click handler for tabs
+
+		$b.on('click', '.tabs button', function()
+		{
+			var $t = $(this);
+
+			// update appearance
+
+			$t.addClass('active');
+			$t.closest('.tabs').find('button').not($t).removeClass('active');
+
+			// show matching content
+
+			$($t.data('content')).show().siblings().hide();
+		});
+
 		// set up notifications
 
 		window.notify = function (message, className)
@@ -283,5 +299,10 @@ window.uiInitEl = function (el)
 		{
 			$(this).css('top', 0 - $(this).outerHeight());
 		});
+
+		// activate the first tab and content area
+
+		el.find('.tabs button').first().addClass('active');
+		el.find('.tabContent > div:gt(0)').hide();
 	});
 };

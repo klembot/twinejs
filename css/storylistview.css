@@ -104,19 +104,14 @@
 	text-align: center;
 }
 
-#formatsModal h2
+#formatsModal .tabs button
 {
-	border-bottom: 0.05em solid hsl(0, 0%, 85%)
+	width: 33.3333%;
 }
 
-#formatsModal h2.storyHeading
+#formatsModal .tabContent
 {
-	margin-top: 0;
-}
-
-#formatsModal h2.proofingHeading
-{
-	margin-top: 2.5em;
+	margin-top: 3em;
 }
 
 #formatsModal .format .buttons
