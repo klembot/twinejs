@@ -90,6 +90,7 @@ StoryListView.FormatsModal = Backbone.View.extend(
 		// create a temporary model and try loading it
 
 		var test = new StoryFormat({ url: url });	
+		this.$('.loading').fadeIn();
 
 		test.load(_.bind(function (err)
 		{
@@ -123,6 +124,8 @@ StoryListView.FormatsModal = Backbone.View.extend(
 				window.notify("The story format at " + url + " could not be added (" +
 				              err.message + ').', 'danger');
 			};
+
+			this.$('.loading').hide();
 		}, this));
 	},
 
