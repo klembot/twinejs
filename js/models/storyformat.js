@@ -117,6 +117,7 @@ var StoryFormat = Backbone.Model.extend(
 		}, this));
 
 		// add cache-busting
+
 		loader.attr('src', this.get('url') + '?' + new Date().getTime());
 
 		// in case the error event doesn't fire on a loading error,
@@ -137,7 +138,7 @@ var StoryFormat = Backbone.Model.extend(
 				loader.remove();
 			};
 			
-		}, this), 15000);
+		}, this), 2000);
 	},
 
 	/**

@@ -77,6 +77,56 @@ StoryListView.FormatsModal = Backbone.View.extend(
 	},
 
 	/**
+	 Tries to add a story format and update the list in the modal. If this
+	 fails, a notification will be displayed to the user. This call is
+	 asynchronous.
+
+	 @method addFormat
+	 @param {String} url URL of the new story format
+	**/
+
+	addFormat: function (url)
+	{
+		// create a temporary model and try loading it
+
+		var test = new StoryFormat({ url: url });	
+
+		test.load(_.bind(function (err)
+		{
+			if (! err)
+			{
+				// save it for real
+
+				StoryFormatCollection.all().create({ name: test.properties.name, url: url });
+				
+				// add it to the appropriate list
+
+				var path = url.replace(/\/[^\/]*?$/, '');
+				var fullContent = _.extend(test.properties, { path: path });
+				var content = $(this.itemTemplate(fullContent));
+
+				if (fullContent.proofing)
+					this.$('.proofingFormatList').append(content);
+				else
+					this.$('.storyFormatList').append(content);
+
+				// clear the URL input
+
+				this.$('.addFormat input[type="text"]').val('');
+
+				window.notify('The ' + (test.properties.proofing ? 'proofing' : 'story') +
+				              ' format &ldquo;' + test.properties.name + '&rdquo; has been added.');
+
+			}
+			else
+			{
+				window.notify("The story format at " + url + " could not be added (" +
+				              err.message + ').', 'danger');
+			};
+		}, this));
+	},
+
+	/**
 	 Removes a story format.
 
 	 @method removeFormat
@@ -180,6 +230,12 @@ StoryListView.FormatsModal = Backbone.View.extend(
 				throw new Error("don't know what kind of format to set as default");
 
 			this.syncButtons();
+		},
+
+		'submit .addFormat': function (e)
+		{
+			this.addFormat(this.$('.addFormat input[type="text"]').val());
+			e.preventDefault();
 		}
 	}
 });
