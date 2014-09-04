@@ -124,3 +124,8 @@
 {
 	display: none;
 }
+
+#formatsModal .addFormat input[type="text"]
+{
+	width: 81%;
+}
