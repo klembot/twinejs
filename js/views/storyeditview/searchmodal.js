@@ -53,7 +53,7 @@ StoryEditView.SearchModal = Backbone.View.extend(
 		var passagesMatched = 0;
 		var resultHtml = '';
 
-		this.$('.results').html('<i class="fa fa-circle-o-notch fa-spin"></i> Searching...');
+		this.$('.loading').show();
 
 		this.parent.children.each(_.bind(function (view)
 		{
@@ -79,6 +79,8 @@ StoryEditView.SearchModal = Backbone.View.extend(
 			};
 		}, this));
 
+		this.$('.loading').hide();
+
 		if (resultHtml != '')
 		{
 			this.$('.matchCount').text(passagesMatched);
@@ -90,6 +92,7 @@ StoryEditView.SearchModal = Backbone.View.extend(
 			this.$('.resultSummary').hide();
 			this.$('.results').html('<p>No matching passages found.</p>');
 		};
+
 	},
 
 	/**
@@ -211,6 +214,9 @@ StoryEditView.SearchModal = Backbone.View.extend(
 	{
 		'modalshow': 'syncSearch',
 		'keyup #searchFor': 'updateResults',
+		'change #searchNames': 'updateResults',
+		'change #searchCaseSensitive': 'updateResults',
+		'change #searchRegexp': 'updateResults',
 		'click .expandAll': 'showAllResults',
 		'click .collapseAll': 'hideAllResults',
 		'click .replacePassage': 'replaceInPassage',
