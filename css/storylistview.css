@@ -20,6 +20,11 @@
 	font: normal 200% "Nunito Light", sans-serif;
 }
 
+#storyListView .listControls button
+{
+	width: 100%;
+}
+
 #storyListView .listControls footer
 {
 	position: absolute;
