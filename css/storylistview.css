@@ -119,6 +119,12 @@
 	margin-top: 3em;
 }
 
+#formatsModal .format
+{
+	overflow: auto;
+	clear: both;
+}
+
 #formatsModal .format .buttons
 {
 	float: right;
