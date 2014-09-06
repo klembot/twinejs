@@ -17,6 +17,8 @@ StoryListView.FormatsModal = Backbone.View.extend(
 
 	open: function()
 	{
+		this.$('.error').hide();
+
 		// begin loading formats immediately
 
 		this.$('.storyFormatList, .proofingFormatList').empty();
@@ -77,8 +79,9 @@ StoryListView.FormatsModal = Backbone.View.extend(
 	},
 
 	/**
-	 Tries to add a story format and update the list in the modal. If this
-	 fails, a notification will be displayed to the user. This call is
+	 Tries to add a story format and update the list in the modal. If this succeeds,
+	 the tab where the format now belongs to is shown and the format description is
+	 animated in. If this fails, an error message is shown to the user. This call is
 	 asynchronous.
 
 	 @method addFormat
@@ -107,23 +110,26 @@ StoryListView.FormatsModal = Backbone.View.extend(
 				var content = $(this.itemTemplate(fullContent));
 
 				if (fullContent.proofing)
+				{
 					this.$('.proofingFormatList').append(content);
+					this.$('.showProofingFormats').tab();
+					content.hide().slideDown();
+				}
 				else
+				{
 					this.$('.storyFormatList').append(content);
+					this.$('.showStoryFormats').tab();
+					content.hide().slideDown();
+				};
 
 				// clear the URL input
 
 				this.$('.addFormat input[type="text"]').val('');
-
-				window.notify('The ' + (test.properties.proofing ? 'proofing' : 'story') +
-				              ' format &ldquo;' + test.properties.name + '&rdquo; has been added.');
-
+				this.$('.error').hide();
 			}
 			else
-			{
-				window.notify("The story format at " + url + " could not be added (" +
-				              err.message + ').', 'danger');
-			};
+				this.$('.error').fadeIn().html('The story format at ' + url +
+				      ' could not be added (' + err.message + ').');
 
 			this.$('.loading').hide();
 		}, this));
