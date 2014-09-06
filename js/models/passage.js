@@ -146,18 +146,21 @@ var Passage = Backbone.Model.extend(
 
 	 @method numMatches
 	 @param {RegExp} search regular expression to search for
+	 @param {Boolean} checkName include the passage name in the search?
 	 @return {Number} number of matches; 0 if none
 	**/
 
-	numMatches: function (search)
+	numMatches: function (search, checkName)
 	{
 		var result = 0;
-		var oldGlobal = search.global;
-		search.global = true;
-		var nameMatches = this.get('name').match(search);
+		search = new RegExp(search.source, 'g' + (search.ignoreCase ? 'i' : ''));
 		var textMatches = this.get('text').match(search);
+		var nameMatches = 0;
+
+		if (checkName)
+			nameMatches = this.get('name').match(search);
+
 		result = (nameMatches ? nameMatches.length : 0) + (textMatches ? textMatches.length : 0);
-		search.global = oldGlobal;
 		return result;
 	},
 
@@ -167,15 +170,15 @@ var Passage = Backbone.Model.extend(
 	 @method replace
 	 @param {RegExp} search regular expression to replace
 	 @param {String} replacement replacement string
-	 @param {Boolean} inTitle perform this replacement in the passage title too? default false
+	 @param {Boolean} inName perform this replacement in the passage name too? default false
 	**/
 
-	replace: function (search, replacement, inTitle)
+	replace: function (search, replacement, inName)
 	{
-		if (inTitle)
+		if (inName)
 			this.save(
 			{
-				title: this.get('title').replace(search, replacement),
+				name: this.get('name').replace(search, replacement),
 				text: this.get('text').replace(search, replacement)
 			});
 		else

@@ -38,9 +38,10 @@ StoryEditView.SearchModal = Backbone.View.extend(
 
 	updateResults: function()
 	{
-		var searchVal = this.$('#searchFor').val();
+		var searchTerm = this.searchRegexp();
+		var searchNames = this.$('#searchNames').prop('checked');
 
-		if (searchVal == '')
+		if (searchTerm.source == '')
 		{
 			// bug out early if there was no text entered
 
@@ -49,7 +50,6 @@ StoryEditView.SearchModal = Backbone.View.extend(
 			return;
 		};
 
-		var searchTerm = new RegExp('(' + this.$('#searchFor').val() + ')', 'g');
 		var passagesMatched = 0;
 		var resultHtml = '';
 
@@ -57,16 +57,21 @@ StoryEditView.SearchModal = Backbone.View.extend(
 
 		this.parent.children.each(_.bind(function (view)
 		{
-			var numMatches = view.model.numMatches(searchTerm);
+			var numMatches = view.model.numMatches(searchTerm, searchNames);
 
 			if (numMatches != 0)
 			{
 				passagesMatched++;
 
+				var name = _.escape(view.model.get('name'));
+
+				if (searchNames)
+					name = name.replace(searchTerm, '<span class="highlight">$1</span>');
+
 				resultHtml += this.resultTemplate(
 				{
 					passageId: view.model.cid,
-					passageName: view.model.get('name'),
+					passageName: name,
 					numMatches: numMatches,
 					resultNumber: passagesMatched,
 					searchPreview: view.model.get('text').replace(searchTerm, '<span class="highlight">$1</span>')
@@ -128,7 +133,8 @@ StoryEditView.SearchModal = Backbone.View.extend(
 		var container = $(e.target).closest('.result');	
 		var model = this.parent.children.findByModelCid(container.attr('data-passage')).model;
 
-		model.replace(this.$('#searchFor').val(), this.$('#replaceWith').val());
+		model.replace(this.searchRegexp(), this.$('#replaceWith').val(),
+		              this.$('#searchNames').prop('checked'));
 		container.slideUp(null, function() { container.remove(); });
 	},
 
@@ -143,8 +149,9 @@ StoryEditView.SearchModal = Backbone.View.extend(
 	{
 		var passagesMatched = 0;
 		var totalMatches = 0;
-		var searchTerm = this.$('#searchFor').val();
+		var searchTerm = this.searchRegexp();
 		var replaceWith = this.$('#replaceWith').val();
+		var inNames = this.$('#searchNames').prop('checked');
 
 		this.parent.children.each(_.bind(function (view)
 		{
@@ -154,7 +161,7 @@ StoryEditView.SearchModal = Backbone.View.extend(
 			{
 				passagesMatched++;
 				totalMatches += numMatches;
-				view.model.replace(searchTerm, replaceWith);
+				view.model.replace(searchTerm, replaceWith, searchNames);
 			};
 		}, this));
 
@@ -163,6 +170,28 @@ StoryEditView.SearchModal = Backbone.View.extend(
 			window.notify(totalMatches + ' replacements were made in ' + passagesMatched + ' passages.');	
 		});
 		this.close();
+	},
+
+	/**
+	 Creates a RegExp object to match the entered text and checkboxes selected.
+
+	 @method searchRegexp
+	 @return {RegExp} the resulting regular expression
+	**/
+
+	searchRegexp: function()
+	{
+		var flags = 'g';
+
+		if (! this.$('#searchCaseSensitive').prop('checked'))
+			flags += 'i';
+
+		var source = this.$('#searchFor').val();
+
+		if (this.$('#searchRegexp').prop('checked'))
+			source = source.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+
+		return new RegExp('(' + source + ')', flags);
 	},
 
 	/**
