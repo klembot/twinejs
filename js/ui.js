@@ -145,9 +145,10 @@ window.uiInitBody = function()
 			$t.collapse($t.data('collapse'));
 		});
 
-		// click handler for tabs
+		// function to do the work of showing a tab
+		// this must be called on the button triggering a tab
 
-		$b.on('click', '.tabs button', function()
+		$.fn.tab = function()
 		{
 			var $t = $(this);
 
@@ -159,7 +160,13 @@ window.uiInitBody = function()
 			// show matching content
 
 			$($t.data('content')).show().siblings().hide();
-		});
+
+			return this;
+		};
+
+		// click handler for tabs
+
+		$b.on('click', '.tabs button', function() { $(this).tab(); });
 
 		// set up notifications
 

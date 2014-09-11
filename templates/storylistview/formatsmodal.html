@@ -40,16 +40,22 @@ Proofing formats create a versions of stories tailored for editing and proofread
 To add a story format, enter its address below.
 </p>
 
+<form class="addFormat">
+
 <p>
-<input type="text" id="newFormatUrl">
-<button class="create"><i class="fa fa-plus"></i> Add</button>
+<input type="text" name="newFormatUrl" required>
+<button class="create" type="submit"><i class="fa fa-plus"></i> Add</button>
 </p>
+
+</form>
 
 </div>
 
 <p class="loading">
 <i class="fa fa-circle-o-notch fa-lg fa-spin"></i> Loading...
 </p>
+
+<p class="error"></p>
 
 </div> <!-- .tabContent -->
 

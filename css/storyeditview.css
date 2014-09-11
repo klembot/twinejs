@@ -364,6 +364,11 @@ body.zoom-small
 	box-sizing: border-box;
 }
 
+#searchModal label
+{
+	padding-right: 2em;
+}
+
 #searchModal .passageName
 {
 	margin: 0.125em inherit;

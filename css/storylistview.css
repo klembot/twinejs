@@ -20,6 +20,11 @@
 	font: normal 200% "Nunito Light", sans-serif;
 }
 
+#storyListView .listControls button
+{
+	width: 100%;
+}
+
 #storyListView .listControls footer
 {
 	position: absolute;
@@ -114,6 +119,12 @@
 	margin-top: 3em;
 }
 
+#formatsModal .format
+{
+	overflow: auto;
+	clear: both;
+}
+
 #formatsModal .format .buttons
 {
 	float: right;
@@ -123,4 +134,9 @@
 #formatsModal .removeConfirm
 {
 	display: none;
+}
+
+#formatsModal .addFormat input[type="text"]
+{
+	width: 81%;
 }
