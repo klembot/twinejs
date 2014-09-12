@@ -21,3 +21,11 @@ Run `grunt` to perform a basic build, including creating documentation in doc/;
 `grunt watch` will perform the same tasks whenever you make changes to the
 source code. `grunt release` will minify everything to as few files as possible
 into dist/.
+
+### TESTING
+
+This uses [Selenium IDE](http://docs.seleniumhq.org/projects/ide/) for
+automated browser testing. Unfortunately, Selenium IDE does not like running on
+the file:// protocol because of JavaScript security restrictions. To facilitate
+testing, run `grunt server`, which will spin up a basic web server on port
+8000.
