@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Delete All Local Storage</title>
+</head>
+
+<body>
+
+<p>
+This page is used for automated browser testing purposes only.
+</p>
+
+<p style="display: none">
+<button onClick="deleteAll()" id="deleteAll">Delete everything :(</button>
+</p>
+
+<p id="result"></p>
+
+<script>
+
+function deleteAll()
+{
+	window.localStorage.clear();
+	document.getElementById('result').innerHTML = 'All data deleted.';
+}
+
+</script>
+
+</body>
+</html>
