@@ -110,6 +110,14 @@ module.exports = function (grunt)
 			dist: ['dist/']
 		},
 
+		connect:
+		{
+			server:
+			{
+				options: { keepalive: true }
+			}
+		},
+
 		copy:
 		{
 			html:
@@ -206,6 +214,7 @@ module.exports = function (grunt)
 	grunt.loadNpmTasks('grunt-cdnify');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-concat');
+	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -227,4 +236,5 @@ module.exports = function (grunt)
 	[
 		'bake', 'jshint', 'cdnify'
 	]);
+	grunt.registerTask('server', ['connect']);
 };

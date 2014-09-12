@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Walkthrough</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Walkthrough</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>${baseURL}</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>window.location.hash='welcome'</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=div.hi button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.hi button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>css=div.help &gt; h1</td>
+	<td>New here?</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.help button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>css=div.alpha &gt; h1</td>
+	<td>Twine 2 is under construction.</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.alpha button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>css=div.save &gt; h1</td>
+	<td>Your work is saved only in your browser.</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.save button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>css=div.thanks.slideDown &gt; h1</td>
+	<td>That's it!</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.thanks button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=#storyListView h1</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>
