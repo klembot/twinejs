@@ -25,6 +25,11 @@
 	width: 100%;
 }
 
+#storyListView .listControls .bubble button
+{
+	width: 45%;
+}
+
 #storyListView .listControls footer
 {
 	position: absolute;
