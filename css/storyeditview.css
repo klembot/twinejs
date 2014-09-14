@@ -216,6 +216,8 @@
 	height: 24px;
 	margin: 0;
 	box-sizing: border-box;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 #storyEditView .passage .excerpt
