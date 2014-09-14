@@ -59,9 +59,13 @@
 #storyEditView .toolbar.main .storyName
 {
 	min-width: 8em;
+	max-width: 18em;
+	overflow: hidden;
+	text-overflow: ellipsis;
 	text-align: left;
 	font: 150% "Nunito Light", sans-serif;
 	height: 2.4em; 
+	white-space: nowrap;
 	padding: 0em 0.325em;
 }
 
