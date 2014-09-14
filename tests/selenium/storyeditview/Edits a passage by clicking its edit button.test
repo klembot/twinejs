@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="file:///Users/Chris/" />
-<title>Returns to the story list with the home button</title>
+<title>Edits a passage by clicking its edit button</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">Returns to the story list with the home button</td></tr>
+<tr><td rowspan="1" colspan="3">Edits a passage by clicking its edit button</td></tr>
 </thead><tbody>
 <!--Open story-->
 <tr>
@@ -34,20 +34,21 @@
 </tr>
 <!--Test-->
 <tr>
-	<td>waitForElementPresent</td>
-	<td>css=a.home</td>
-	<td></td>
+	<td>waitForAttribute</td>
+	<td>css=#passageEditModal@class</td>
+	<td>*hide*</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>css=a.home</td>
+	<td>css=.passages .passage button.edit</td>
 	<td></td>
 </tr>
 <tr>
-	<td>waitForText</td>
-	<td>css=div.main &gt; h1</td>
-	<td>Stories*</td>
+	<td>waitForNotAttribute</td>
+	<td>css=#passageEditModal@class</td>
+	<td>*hide*</td>
 </tr>
+
 </tbody></table>
 </body>
 </html>

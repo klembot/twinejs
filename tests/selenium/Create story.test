@@ -11,6 +11,23 @@
 <thead>
 <tr><td rowspan="1" colspan="3">Create story</td></tr>
 </thead><tbody>
+<!--Reset local storage-->
+<tr>
+	<td>open</td>
+	<td>${baseURL}/tests/selenium/resetLocalStorage.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#deleteAll</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>css=#result</td>
+	<td>All data deleted.</td>
+</tr>
+<!--Create story-->
 <tr>
 	<td>open</td>
 	<td>${baseURL}</td>
@@ -19,6 +36,11 @@
 <tr>
 	<td>storeEval</td>
 	<td>window.location.hash = 'stories';</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=.addStory</td>
 	<td></td>
 </tr>
 <tr>
@@ -36,7 +58,6 @@
 	<td>css=button.add.create</td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>
