@@ -15,6 +15,8 @@
 <tr><td><a href="Creates a passage with the Create Passage button.test">Creates a passage with the Create Passage button</a></td></tr>
 <tr><td><a href="Edits a passage by double-clicking it.test">Edits a passage by double-clicking it</a></td></tr>
 <tr><td><a href="Edits a passage by clicking its edit button.test">Edits a passage by clicking its edit button</a></td></tr>
+<tr><td><a href="Saves changes to passage text.test">Saves changes to passage text</a></td></tr>
+<tr><td><a href="Changes zoom levels with toolbar.test">Changes zoom levels with toolbar</a></td></tr>
 </tbody></table>
 </body>
 </html>
