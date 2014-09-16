@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="file:///Users/Chris/" />
-<title>Creates a passage with the Create Passage button</title>
+<title>Changes zoom levels with toolbar</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">Creates a passage with the Create Passage button</td></tr>
+<tr><td rowspan="1" colspan="3">Changes zoom levels with toolbar</td></tr>
 </thead><tbody>
 <!--Open story-->
 <tr>
@@ -34,25 +34,36 @@
 </tr>
 <!--Test-->
 <tr>
-	<td>waitForElementNotPresent</td>
-	<td>css=.passages .passage</td>
+	<td>click</td>
+	<td>css=button.zoomSmall.subtle</td>
 	<td></td>
+</tr>
+<tr>
+	<td>waitForAttribute</td>
+	<td>css=body@class</td>
+	<td>*zoom-small*</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>css=button.addPassage</td>
+	<td>css=button.zoomMedium.subtle</td>
 	<td></td>
 </tr>
 <tr>
-	<td>refresh</td>
-	<td></td>
+	<td>waitForAttribute</td>
+	<td>css=body@class</td>
+	<td>*zoom-medium*</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.zoomBig.subtle</td>
 	<td></td>
 </tr>
 <tr>
-	<td>verifyElementPresent</td>
-	<td>css=.passages .passage</td>
-	<td></td>
+	<td>waitForAttribute</td>
+	<td>css=body@class</td>
+	<td>*zoom-big*</td>
 </tr>
+
 </tbody></table>
 </body>
 </html>

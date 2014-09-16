@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="file:///Users/Chris/" />
-<title>Creates a passage with the Create Passage button</title>
+<title>Saves changes to passage text</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">Creates a passage with the Create Passage button</td></tr>
+<tr><td rowspan="1" colspan="3">Saves changes to passage text</td></tr>
 </thead><tbody>
 <!--Open story-->
 <tr>
@@ -34,13 +34,23 @@
 </tr>
 <!--Test-->
 <tr>
-	<td>waitForElementNotPresent</td>
-	<td>css=.passages .passage</td>
-	<td></td>
+	<td>waitForAttribute</td>
+	<td>css=#passageEditModal@class</td>
+	<td>*hide*</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>css=button.addPassage</td>
+	<td>css=.passages .passage button.edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=#passageEditModal textarea.passageText</td>
+	<td>${longUni}</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#passageEditModal &gt; .save</td>
 	<td></td>
 </tr>
 <tr>
@@ -49,9 +59,19 @@
 	<td></td>
 </tr>
 <tr>
-	<td>verifyElementPresent</td>
-	<td>css=.passages .passage</td>
+	<td>pause</td>
+	<td>150</td>
 	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=.passages .passage button.edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>window.$('#passageEditModal textarea').val()</td>
+	<td>${longUni}</td>
 </tr>
 </tbody></table>
 </body>
