@@ -232,8 +232,14 @@
 #storyEditView .passage .bubble
 {
 	font-size: 150%;
-	width: 9.1em;
+	width: 10em;
 	margin-left: -4.5em;
+}
+
+#storyEditView .passage .bubble button
+{
+	width: 2.55em;
+	box-sizing: border-box;
 }
 
 #storyEditView.scrolling .passage:hover .bubble,
