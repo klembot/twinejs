@@ -55,7 +55,7 @@ var TwineRouter = Backbone.Router.extend(
 		{
 			// test a story from a particular passage
 			
-			window.app.publishStory(Story.withId(id), null,
+			window.app.publishStory(Story.withId(storyId), null,
 			{
 				formatOptions: ['debug'],
 				startPassageId: passageId
