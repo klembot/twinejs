@@ -19,7 +19,7 @@ var Story = Backbone.Model.extend(
 			snapToGrid: false,
 			stylesheet: '',
 			script: '',
-			storyFormat: AppPref.withName('defaultFormat') || 'Harlowe',
+			storyFormat: AppPref.withName('defaultFormat').get('value') || 'Harlowe',
 			lastUpdate: new Date()
 		};
 	},
