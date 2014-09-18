@@ -28,38 +28,89 @@ var TwineApp = Backbone.Marionette.Application.extend(
 	version: '2.0p4',
 
 	/**
-	 Publishes a story to a file to be downloaded by binding it to a story format.
+	 Saves data to a file. This appears to the user as if they had clicked
+	 a link to a downloadable file in their browser. If no failure method is specified,
+	 then this will show a notification when errors occur.
+
+	 @method saveFile
+	 @param {String} data data to save
+	 @param {String} filename filename to save to
+	 @param {Function} success callback function on a successful save, optional
+	 @param {Function} failure callback function on a failed save (passed error), optional
+	**/
+
+	saveFile: function (data, filename, success, failure)
+	{
+		try
+		{
+			var blob = new Blob([data], { type: 'text/html;charset=utf-8' });
+			saveAs(blob, filename);
+
+			if (success)
+				success();
+		}
+		catch (e)
+		{
+			if (failure)
+				failure(e);
+			else
+				window.notify('&ldquo;' + filename + '&rdquo; could not be saved (' +
+				              e.message + ').', 'danger');
+		};
+	},
+
+	/**
+	 Completely replaces the document with HTML source.
+
+	 @method replaceContent
+	 @param {String} html HTML source to replace, including DOCTYPE, <head>, and <body>.
+	**/
+
+	replaceContent: function (html)
+	{
+		// inject head and body separately -- otherwise DOM errors crop up
+
+		$('head').html(html.substring(html.indexOf('<head>') + 6, html.indexOf('</head>')));
+		$('body').html(html.substring(html.indexOf('<body>') + 6, html.indexOf('</body>')));
+	},
+
+	/**
+	 Publishes a story by binding it to a story format, either resulting in a downloadable
+	 file or displaying it in the browser window.
 
 	 @method publishStory
 	 @param {Story} story Story model to publish.
-	 @param {StoryFormat} format Story format to publish using.
-	 @param {Array} options options to pass to runtime, optional
+	 @param {String} filename filename to save to; if null, displays the result in the browser
+	 @param {Object} options options for publishing: format overrides the story's format with a
+	                         StoryFormat object; formatOptions passes additional options to the format;
+							 startPassageId overrides the story's start passage
 	**/
 
-	publishStory: function (story, format, options)
+	publishStory: function (story, filename, options)
 	{
-		var storyName = '&ldquo;' + story.get('name') + '&rdquo';
+		options = options || {};
+		var format;
 
-		format.publish(story, options, null, function(err, output)
+		if (options.format)
+			format = options.format;
+		else
 		{
-			if (err)
-				window.notify('There was an error publishing ' + storyName + ' (' +
-				              err.message + ').', 'danger');
+			var formatName = options.format || story.get('storyFormat') ||
+							 AppPref.withName('defaultFormat').get('value');
+
+			format = StoryFormat.withName(formatName);
+		};
+
+		format.publish(story, options.formatOptions, options.startPassageId,
+		               _.bind(function (err, output)
+		{
+			// TODO: catch errors
+
+			if (filename)
+				this.saveFile(output, filename);
 			else
-			{
-				try
-				{
-					var blob = new Blob([output], { type: 'text/html;charset=utf-8' });
-					saveAs(blob, story.get('name') + '.html');
-					window.notify(storyName + ' was published successfully.');
-				}
-				catch (err)
-				{
-					window.notify('There was an error publishing ' + storyName + ' (' +
-				                  err.message + ').', 'danger');
-				};
-			};
-		});
+				this.replaceContent(output);
+		}, this));
 	},
 
 	/**
@@ -77,8 +128,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 			output += story.publish() + '\n\n';
 		});
 
-		var blob = new Blob([output], { type: 'text/html;charset=utf-8' });
-		saveAs(blob, new Date().toLocaleString().replace(/[\/:\\]/g, '.') + ' Twine Archive.html');
+		this.saveFile(output, new Date().toLocaleString().replace(/[\/:\\]/g, '.') + ' Twine Archive.html');
 	},
 	
 	/**

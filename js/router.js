@@ -32,7 +32,7 @@ var TwineRouter = Backbone.Router.extend(
 
 		'stories/:id': function (id)
 		{
-			// editing a specific story
+			// edit a specific story
 
 			window.app.mainRegion.show(new StoryEditView({ model: Story.withId(id) }));
 		},
@@ -40,59 +40,36 @@ var TwineRouter = Backbone.Router.extend(
 		'stories/:id/play': function (id)
 		{
 			// play a story
-			// FIXME: error handling
 
-			var story = Story.withId(id);
-			var formatName = story.get('storyFormat') || AppPref.withName('defaultFormat').get('value');
-			var format = StoryFormat.withName(formatName);
-
-			format.publish(story, null, null, _.bind(function (err, output)
-			{
-				this.replaceContent(output);
-			}, this));
+			window.app.publishStory(Story.withId(id));
 		},
 
 		'stories/:id/test': function (id)
 		{
-			// test a story
-			// FIXME: error handling
+			// test a story from the beginning
 
-			var story = Story.withId(id);
-			var formatName = story.get('storyFormat') || AppPref.withName('defaultFormat').get('value');
-			var format = StoryFormat.withName(formatName);
-
-			format.publish(story, ['debug'], null, _.bind(function (err, output)
-			{
-				this.replaceContent(output);
-			}, this));
+			window.app.publishStory(Story.withId(id), null, { formatOptions: ['debug'] });
 		},
 
 		'stories/:storyId/test/:passageId': function (storyId, passageId)
 		{
-			// test a story
-			// FIXME: error handling
-
-			var story = Story.withId(storyId);
-			var formatName = story.get('storyFormat') || AppPref.withName('defaultFormat').get('value');
-			var format = StoryFormat.withName(formatName);
-
-			format.publish(story, ['debug'], storyId, _.bind(function (err, output)
+			// test a story from a particular passage
+			
+			window.app.publishStory(Story.withId(id), null,
 			{
-				this.replaceContent(output);
-			}, this));
+				formatOptions: ['debug'],
+				startPassageId: passageId
+			});
 		},
 
 		'stories/:id/proof': function (id)
 		{
 			// proof a story
-			// FIXME: error handling
 
+			var story = Story.withId(id);
 			var format = StoryFormat.withName(AppPref.withName('proofingFormat').get('value'));
-
-			format.publish(Story.withId(id), null, null, _.bind(function (err, output)
-			{
-				this.replaceContent(output);
-			}, this));
+			
+			window.app.publishStory(story, null, { format: format });
 		},
 
 		'*path': function()
@@ -106,21 +83,5 @@ var TwineRouter = Backbone.Router.extend(
 			else
 				window.location.hash = '#welcome';
 		}
-	},
-
-	/**
-	 Completely replaces the document with HTML source.
-
-	 @method replaceContent
-	 @param {String} html HTML source to replace, including DOCTYPE, <head>, and <body>.
-	**/
-
-	replaceContent: function (html)
-	{
-		// inject head and body separately -- otherwise DOM errors crop up
-
-		$('head').html(html.substring(html.indexOf('<head>') + 6, html.indexOf('</head>')));
-		$('body').html(html.substring(html.indexOf('<body>') + 6, html.indexOf('</body>')));
-
 	}
 });

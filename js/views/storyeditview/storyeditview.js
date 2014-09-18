@@ -284,15 +284,14 @@ var StoryEditView = Marionette.CompositeView.extend(
 	},
 
 	/**
-	 Publishes a story by passing control over to TwineApp.publishStory.	
+	 Publishes the story to a file.	
 
 	 @method publish
-	 @param {Array} options options to pass to the runtime, optional
 	**/
 
 	publish: function (options)
 	{
-		window.app.publishStory(this.model, options);
+		window.app.publishStory(this.model, this.model.get('name') + '.html');
 	},
 
 	/**
