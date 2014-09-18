@@ -164,7 +164,7 @@ StoryEditView.SearchModal = Backbone.View.extend(
 			{
 				passagesMatched++;
 				totalMatches += numMatches;
-				view.model.replace(searchTerm, replaceWith, searchNames);
+				view.model.replace(searchTerm, replaceWith, this.$('#searchNames').prop('checked'));
 			};
 		}, this));
 
