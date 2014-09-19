@@ -453,6 +453,7 @@ ul.menu button
 	text-decoration: none;
 	display: block;
 	width: 100%;
+	white-space: nowrap;
 	text-align: left;
 	height: auto;
 	padding: 0.75em 2em;
