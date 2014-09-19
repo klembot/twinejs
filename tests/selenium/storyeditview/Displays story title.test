@@ -23,6 +23,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>waitForElementPresent</td>
+	<td>css=a.edit</td>
+	<td></td>
+</tr>
+<tr>
 	<td>click</td>
 	<td>css=a.edit</td>
 	<td></td>
@@ -33,7 +38,6 @@
 	<td>css=button.storyName</td>
 	<td>A good day, World! Schönen Tag, Welt! Une bonne journée, tout le monde! يوم جيد، العالم 좋은 일, 세계! Một ngày tốt lành, thế giới! こんにちは、世界！</td>
 </tr>
-
 </tbody></table>
 </body>
 </html>
