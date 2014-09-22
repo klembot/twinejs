@@ -73,7 +73,16 @@
 	<td>window.$('.passages .passage').length</td>
 	<td>${startPassageCount}</td>
 </tr>
-
+<tr>
+	<td>refresh</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForEval</td>
+	<td>window.$('.passages .passage').length</td>
+	<td>${startPassageCount}</td>
+</tr>
 </tbody></table>
 </body>
 </html>
