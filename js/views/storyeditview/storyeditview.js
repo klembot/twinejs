@@ -511,15 +511,6 @@ var StoryEditView = Marionette.CompositeView.extend(
 			this.lastMousedown = $(e.target);
 		},
 
-		'click .deleteSelectedPassages': 'deleteSelectedPassages',
-
-		'shown.bs.modal': function()
-		{
-			// we have to monkey with the placement of the overlay
-			// so that it doesn't appear above the modal, because the modal's
-			// parent element is lower in the DOM hierarchy than the modal itself
-
-			$('#storyEditView').append($('.modal-backdrop'));
-		}
+		'click .deleteSelectedPassages': 'deleteSelectedPassages'
 	},
 });
