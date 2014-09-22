@@ -346,6 +346,7 @@ body.zoom-small
 	display: block;
 	width: 100%;
 	font-size: 125%;
+	line-height: 100%;
 }
 
 #passageEditModal .passageTags
