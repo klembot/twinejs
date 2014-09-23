@@ -25,6 +25,11 @@
 	width: 100%;
 }
 
+#storyListView .listControls button.link
+{
+	width: auto;
+}
+
 #storyListView .listControls .bubble button
 {
 	width: 45%;
