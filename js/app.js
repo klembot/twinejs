@@ -142,6 +142,12 @@ var TwineApp = Backbone.Marionette.Application.extend(
 
 	importFile: function (data)
 	{
+		var selectors = this.selectors;
+
+		// containers for the new stories and passages we will create
+		var allStories = StoryCollection.all();
+		var allPassages = PassageCollection.all();
+
 		// parse data into a DOM
 
 		var $parsed = $('<html>');
@@ -154,30 +160,28 @@ var TwineApp = Backbone.Marionette.Application.extend(
 		else
 			$parsed.html(data);
 
-		$parsed.find(TwineApp.selectors.story).each(function()
+		$parsed.find(selectors.storyData).each(function()
 		{
 			var $story = $(this);
 			var startPassageId = $story.attr('startnode');
 
 			// create a story object
 
-			var story = new Story();
-			story.save(
+			var story = allStories.create(
 			{
 				name: $story.attr('name')
 			}, { wait: true });
 
 			// and child passages
 			
-			$story.find(TwineApp.selectors.passageData).each(function()
+			$story.find(selectors.passageData).each(function()
 			{
 				var $passage = $(this);
 				var id = $passage.attr('pid'); 
-				var pos = $passage.attr('twine-position');
+				var pos = $passage.attr('position');
 				var posBits = pos.split(',');
 
-				var passage = new Passage();
-				passage.save(
+				var passage = allPassages.create(
 				{
 					name: $passage.attr('name'),
 					text: $passage.text(),
@@ -194,7 +198,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 
 			var stylesheet = '';
 
-			$story.find(TwineApp.selectors.stylesheet).each(function()
+			$story.find(selectors.stylesheet).each(function()
 			{
 				stylesheet += $(this).text() + '\n';
 			});
@@ -203,7 +207,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 
 			var script = '';
 
-			$story.find(TwineApp.selectors.script).each(function()
+			$story.find(selectors.script).each(function()
 			{
 				script += $(this).text() + '\n';
 			});
