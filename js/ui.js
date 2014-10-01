@@ -7,10 +7,26 @@ window.uiInitBody = function()
 		var $b = $('body');
 		$b.data('uiInited', true);
 
+		// modals only allow Escape keypresses out, which close the modal
+
+		$b.on('keydown, keyup', '.modal', function (e)
+		{
+			if (e.keyCode != 27)
+				e.stopPropagation();
+		});
+
 		// create modal overlay element as needed
+		// this blocks mouse events
 
 		if ($('#modalOverlay').length == 0)
-			$b.append('<div id="modalOverlay" class="hide"></div>');
+		{
+			var overlay = $('<div id="modalOverlay" class="hide"></div>');
+			overlay.on('mousedown, mouseup', function (e)
+			{
+				e.stopPropagation();
+			});
+			$b.append(overlay);
+		};
 
 		// set up notifications
 

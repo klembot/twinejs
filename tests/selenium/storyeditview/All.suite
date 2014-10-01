@@ -25,6 +25,7 @@
 <tr><td><a href="Creates a published version of the story via menu.test">Creates a published version of the story via menu</a></td></tr>
 <tr><td><a href="Saves changes to story script.test">Saves changes to story script</a></td></tr>
 <tr><td><a href="Saves changes to story stylesheet.test">Saves changes to story stylesheet</a></td></tr>
+<tr><td><a href="Disables keyboard shortcuts when editing a passage.test">Disables keyboard shortcuts when editing a passage</a></td></tr>
 </tbody></table>
 </body>
 </html>
