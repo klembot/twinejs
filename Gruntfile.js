@@ -135,7 +135,7 @@ module.exports = function (grunt)
 					{ expand: true, src: ['img/*.png'], dest: 'dist/rsrc/' },
 					{ expand: true, src: ['img/*.svg'], dest: 'dist/rsrc/' },
 					{ expand: true, cwd: 'fonts', src: ['*'], dest: 'dist/rsrc/fonts/' },
-					{ expand: true, cwd: 'storyformats', src: ['*'], dest: 'dist/storyformats' },
+					{ expand: true, cwd: 'storyformats', src: ['**'], dest: 'dist/storyformats' },
 					{ expand: true, cwd: 'lib/fontawesome/fonts', src: ['*'], dest: 'dist/rsrc/fonts/' }
 				]
 			},
