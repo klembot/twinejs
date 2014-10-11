@@ -91,13 +91,14 @@ var Passage = Backbone.Model.extend(
 	},
 
 	/**
-	 Returns an array of all passage names that are linked from this one.
+	 Returns an array of all links in this passage's text.
 
 	 @method links
+	 @param {Boolean} internalOnly only return internal links? (i.e. not http://twinery.org)
 	 @return {Array} Array of string names.
 	**/
 
-	links: function()
+	links: function (internalOnly)
 	{
 		var matches = this.get('text').match(/\[\[.*?\]\]/g);
 		var result = [];
@@ -123,9 +124,16 @@ var Passage = Backbone.Model.extend(
 					[[link]] format
 				*/
 					.replace(/\[\[|\]\]/g,""));
-			}
+			};
 
-		return result;
+		if (internalOnly)
+			return _.filter(result, function (link)
+			{
+				console.log(link, /^\w+:\/\/\/?\w/i.test(link));
+				return ! /^\w+:\/\/\/?\w/i.test(link);
+			});
+		else
+			return result;
 	},
 
 	/**
