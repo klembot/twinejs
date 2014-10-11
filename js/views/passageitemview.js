@@ -97,7 +97,7 @@ var PassageItemView = Marionette.ItemView.extend(
 
 		// set CSS class for broken links
 
-		if (_.every(this.model.links(), function (link)
+		if (_.every(this.model.links(true), function (link)
 		{
 			return this.parentView.collection.findWhere({ name: link });
 		}, this))
@@ -174,7 +174,7 @@ var PassageItemView = Marionette.ItemView.extend(
 			var currentText = this.model.get('text');
 			this.model.set({ text: this.model.previous('text') }, { silent: true });
 
-			oldBroken = _.filter(this.model.links(), function (link)
+			oldBroken = _.filter(this.model.links(true), function (link)
 			{
 				return (this.parentView.collection.findWhere({ name: link }) !== null);
 			}, this);
@@ -191,7 +191,7 @@ var PassageItemView = Marionette.ItemView.extend(
 		// this needs to be deferred so that the current chain of execution
 		// (e.g. a pending save operation, if there is one) can finish off
 
-		_.each(this.model.links(), function (link)
+		_.each(this.model.links(true), function (link)
 		{
 			if (! this.parentView.collection.findWhere({ name: link }) &&
 				oldBroken.indexOf(link) == -1)

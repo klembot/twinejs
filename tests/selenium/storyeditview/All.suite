@@ -16,6 +16,8 @@
 <tr><td><a href="Edits a passage by double-clicking it.test">Edits a passage by double-clicking it</a></td></tr>
 <tr><td><a href="Edits a passage by clicking its edit button.test">Edits a passage by clicking its edit button</a></td></tr>
 <tr><td><a href="Saves changes to passage text.test">Saves changes to passage text</a></td></tr>
+<tr><td><a href="Adds passages that are newly linked.test">Adds passages that are newly linked</a></td></tr>
+<tr><td><a href="Does not add passages for linked URLs.test">Does not add passages for linked URLs</a></td></tr>
 <tr><td><a href="Deletes a passages by clicking its delete button.test">Deletes a passages by clicking its delete button</a></td></tr>
 <tr><td><a href="Changes zoom levels with toolbar.test">Changes zoom levels with toolbar</a></td></tr>
 <tr><td><a href="Tests a story with the Test button.test">Tests a story with the Test button</a></td></tr>
