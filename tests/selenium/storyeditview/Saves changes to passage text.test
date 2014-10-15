@@ -64,6 +64,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>waitForElementPresent</td>
+	<td>css=.passages .passage button.edit</td>
+	<td></td>
+</tr>
+<tr>
 	<td>click</td>
 	<td>css=.passages .passage button.edit</td>
 	<td></td>
