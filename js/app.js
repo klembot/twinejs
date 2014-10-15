@@ -25,7 +25,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 	 @property version
 	**/
 
-	version: '2.0b1',
+	version: '2.0b2',
 
 	/**
 	 Saves data to a file. This appears to the user as if they had clicked
