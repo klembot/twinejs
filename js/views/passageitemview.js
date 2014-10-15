@@ -113,7 +113,18 @@ var PassageItemView = Marionette.ItemView.extend(
 			this.$el.removeClass('start');
 
 		if (this.animateMovement)
+		{
 			this.$el.animate({ left: left, top: top }, 100);
+
+			// we need to trigger a change event once the
+			// animation ends, so that link arrows update with
+			// the correct position
+
+			_.delay(function (model)
+			{
+				model.set({ left: model.get('left') + 0.0001 });
+			}, 100, this.model);
+		}
 		else
 			this.$el.css({ left: left, top: top });
 	},
@@ -405,6 +416,7 @@ var PassageItemView = Marionette.ItemView.extend(
 			e = e.originalEvent;
 
 			// emulate pageX and pageY for touch events
+
 			this.dragMouseStart = { x: e.targetTouches[0].pageX, y: e.targetTouches[0].pageY };
 			this.dragTouchId = e.targetTouches[0].identifier;
 		}

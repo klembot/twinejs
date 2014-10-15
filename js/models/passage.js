@@ -129,7 +129,6 @@ var Passage = Backbone.Model.extend(
 		if (internalOnly)
 			return _.filter(result, function (link)
 			{
-				console.log(link, /^\w+:\/\/\/?\w/i.test(link));
 				return ! /^\w+:\/\/\/?\w/i.test(link);
 			});
 		else

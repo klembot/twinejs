@@ -205,8 +205,8 @@ StoryEditView.LinkManager = Backbone.View.extend(
 
 		// dimensions of a passage
 
-		var width = this.$('.passage:first .frame').outerWidth();
-		var height = this.$('.passage:first .frame').outerHeight();
+		var width = this.$('.passage:first .frame').width();
+		var height = this.$('.passage:first .frame').height();
 
 		// configuration of arrowheads
 		
@@ -352,7 +352,9 @@ StoryEditView.LinkManager = Backbone.View.extend(
 
 	/**
 	 Updates the draw cache for a passage. This must occur whenever a passage's position,
-	 name, or text changes. All of these can affect links drawn.
+	 name, or text changes. All of these can affect links drawn. This uses the passage's
+	 position onscreen instead of its model's position, since we need to draw links as
+	 the passage is dragged around onscreen, i.e. before any changes are saved to the model.
 
 	 @method cachePassage
 	 @param {Passage} passage Passage to cache.
