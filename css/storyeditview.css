@@ -73,7 +73,7 @@
 {
 	float: left;
 	position: relative;
-	top: 0.75em;
+	top: 0.5em;
 	margin-right: 1em;
 }
 
@@ -87,10 +87,10 @@
 #storyEditView .toolbar.main .searchContainer button
 {
 	position: absolute;
-	top: -0.05em;
-	right: 0.35em;
-	padding: 0.5em;
-	height: 1.5em;
+	top: 0;
+	right: 0;
+	padding: 0.7em;
+	height: 2.5em;
 }
 
 #storyEditView .toolbar.main .searchContainer button:hover
