@@ -61,8 +61,7 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 	addStory: function (e)
 	{
 		var story = this.collection.create({ name: this.$('input.newName').val() });
-		this.children.findByModel(story).appear();
-		this.$('.addStory').bubble('hide');
+		this.children.findByModel(story).edit();
 		e.preventDefault();
 	},
 
