@@ -725,6 +725,7 @@ ul.menu li.checked button:before
 #powerTip
 {
 	position: absolute;
+	z-index: 1000;
 	display: none;
 	background-color: black;
 	color: white;
