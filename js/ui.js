@@ -74,6 +74,11 @@ window.uiInitBody = function()
 			switch (action)
 			{
 				case 'show':
+				// ignore repeated show calls
+
+				if ($t.hasClass('active'))
+					return this;
+
 				// hide any existing
 
 				$('.active[data-bubble]').bubble('hide');
@@ -86,6 +91,11 @@ window.uiInitBody = function()
 				break;
 
 				case 'hide':
+				// ignore repeated hide calls
+
+				if (! $t.hasClass('active'))
+					return this;
+
 				// deactivate any toggle buttons
 
 				$cont.find('button[data-bubble="toggle"]').removeClass('active');
@@ -94,7 +104,7 @@ window.uiInitBody = function()
 
 				$bubble.addClass('fadeOut fast').one('animationend', function()
 				{
-					$bubble.removeClass('fadeIn fadeOut').css('display', 'none');
+					$bubble.removeClass('active fadeIn fadeOut').css('display', 'none');
 				});
 				$bubble.trigger('bubblehide');
 				break;
