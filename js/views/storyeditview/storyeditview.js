@@ -161,6 +161,11 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 		if (! window.app.hasPrimaryTouchUI())
 			this.marquee = new StoryEditView.Marquee({ el: this.$('.passages'), parent: this });
+
+		// if we have no passages in this story, give the user one to start with
+
+		if (this.collection.length == 0)
+			this.addPassage();
 	},
 
 	/**
