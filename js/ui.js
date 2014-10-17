@@ -79,9 +79,10 @@ window.uiInitBody = function()
 				if ($cont.hasClass('active'))
 					return this;
 
-				// hide any existing
+				// hide any existing bubble and tooltips
 
 				$('.active[data-bubble]').bubble('hide');
+				$t.powerTip('hide');
 
 				// show this one
 
