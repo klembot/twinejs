@@ -5,7 +5,7 @@ body
 	color: hsl(0, 0%, 30%);
 	background-color: white;
 	margin: 0;
-	font: 90% "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font: 90% "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 a
@@ -27,7 +27,7 @@ a:hover
 
 input, button, textarea
 {
-	font: 100% "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font: 100% "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	border: 1px solid hsl(0, 0%, 80%);
 	padding: 0.25em;
 	border-radius: 0.25em;
