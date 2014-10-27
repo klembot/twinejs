@@ -82,7 +82,9 @@ window.uiInitBody = function()
 				// hide any existing bubble and tooltips
 
 				$('.active[data-bubble]').bubble('hide');
-				$t.powerTip('hide');
+
+				if ($t.attr('title'))
+					$t.powerTip('hide');
 
 				// show this one
 
@@ -96,10 +98,7 @@ window.uiInitBody = function()
 				// ignore repeated hide calls
 
 				if (! $cont.hasClass('active'))
-				{
-					console.log('ignoring repeat');
 					return this;
-				};
 
 				// deactivate any toggle buttons
 
@@ -134,7 +133,6 @@ window.uiInitBody = function()
 		$b.on('click', '.bubbleContainer [data-bubble]', function()
 		{
 			var $t = $(this);
-			console.log($t);
 			$t.bubble($t.data('bubble'));
 		});
 
