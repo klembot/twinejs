@@ -449,15 +449,15 @@ body.zoom-small
 	display: none;
 }
 
-.format img,
-.format .placeholder
+.formatDetail img,
+.formatDetail .placeholder
 {
 	width: 6em;
 	float: left;
 	margin-right: 1.5em;
 }
 
-.format .placeholder
+.formatDetail .placeholder
 {
 	height: 1.5em; /* 6em / 4 */
 	width: 1.5em;
@@ -473,12 +473,12 @@ body.zoom-small
 	overflow: hidden;
 }
 
-.format .text
+.formatDetail .text
 {
 	margin-left: 7.5em;
 }
 
-.format .description
+.formatDetail .description
 {
 	font-size: 90%;
 }
