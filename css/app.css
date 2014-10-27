@@ -1,12 +1,62 @@
 /* fonts */
 
 @font-face {
-    font-family: 'Cousine';
-    src: url('../fonts/cousine.eot');
-    src: url('../fonts/cousine.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/cousine.woff') format('woff'),
-         url('../fonts/cousine.ttf') format('truetype'),
-         url('../fonts/cousine.svg#cousineregular') format('svg');
+    font-family: 'Source Sans Pro';
+    src: url('../fonts/sourcesanspro-regular.eot');
+    src: url('../fonts/sourcesanspro-regular.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/sourcesanspro-regular.woff2') format('woff2'),
+         url('../fonts/sourcesanspro-regular.woff') format('woff'),
+         url('../fonts/sourcesanspro-regular.ttf') format('truetype'),
+         url('../fonts/sourcesanspro-regular.svg#source_sans_proregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    src: url('../fonts/sourcesanspro-italic.eot');
+    src: url('../fonts/sourcesanspro-italic.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/sourcesanspro-italic.woff2') format('woff2'),
+         url('../fonts/sourcesanspro-italic.woff') format('woff'),
+         url('../fonts/sourcesanspro-italic.ttf') format('truetype'),
+         url('../fonts/sourcesanspro-italic.svg#source_sans_proitalic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    src: url('../fonts/sourcesanspro-bold.eot');
+    src: url('../fonts/sourcesanspro-bold.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/sourcesanspro-bold.woff2') format('woff2'),
+         url('../fonts/sourcesanspro-bold.woff') format('woff'),
+         url('../fonts/sourcesanspro-bold.ttf') format('truetype'),
+         url('../fonts/sourcesanspro-bold.svg#source_sans_probold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    src: url('../fonts/sourcesanspro-bolditalic.eot');
+    src: url('../fonts/sourcesanspro-bolditalic.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/sourcesanspro-bolditalic.woff2') format('woff2'),
+         url('../fonts/sourcesanspro-bolditalic.woff') format('woff'),
+         url('../fonts/sourcesanspro-bolditalic.ttf') format('truetype'),
+         url('../fonts/sourcesanspro-bolditalic.svg#source_sans_probold_italic') format('svg');
+    font-weight: bold;
+    font-style: italic;
+
+}
+
+@font-face {
+    font-family: 'Source Code Pro';
+    src: url('../fonts/sourcecodepro.eot');
+    src: url('../fonts/sourcecodepro.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/sourcecodepro.woff2') format('woff2'),
+         url('../fonts/sourcecodepro.woff') format('woff'),
+         url('../fonts/sourcecodepro.ttf') format('truetype'),
+         url('../fonts/sourcecodepro.svg#sourcecodepro') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -17,7 +67,7 @@
     src: url('../fonts/nunito-light.eot?#iefix') format('embedded-opentype'),
          url('../fonts/nunito-light.woff') format('woff'),
          url('../fonts/nunito-light.ttf') format('truetype'),
-         url('../fonts/nunito-light.svg#cousineregular') format('svg');
+         url('../fonts/nunito-light.svg#nunito_light') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -30,7 +80,7 @@ h1
 
 h1 .normal
 {
-	font: 50% "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font: 50% "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	line-height: 200%;
 }
 

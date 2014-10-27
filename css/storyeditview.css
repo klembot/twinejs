@@ -314,7 +314,7 @@ body.zoom-small
 
 .editModal input[type="text"], textarea, .CodeMirror
 {
-	font-family: Cousine, monospace;
+	font-family: "Source Code Pro", monospace;
 	line-height: 145%;
 	background: inherit;
 }
