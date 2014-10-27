@@ -12,6 +12,10 @@ StoryEditView.ScriptEditor = Backbone.View.extend(
 	initialize: function (options)
 	{
 		this.parent = options.parent;
+
+		// we have to use the [0] index here because CodeMirror
+		// expects a DOM element, not a jQuery object
+
 		this.scriptEditor = CodeMirror.fromTextArea(this.$('.scriptSource')[0],
 		{
 			lineWrapping: true,
@@ -20,6 +24,7 @@ StoryEditView.ScriptEditor = Backbone.View.extend(
 			indentWithTabs: true,
 			mode: 'javascript'
 		});
+		this.$('.scriptSource:first').data('codemirror', this.scriptEditor);
 
 		this.$el.on({
 			'modalshown': _.bind(function()

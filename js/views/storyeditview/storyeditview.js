@@ -117,21 +117,25 @@ var StoryEditView = Marionette.CompositeView.extend(
 		$(document).on('modalshown', '.editModal', function()
 		{
 			var textarea = $(this).find('textarea')[0];
-			var textLen = $(textarea).val().length;
-			textarea.focus();
 
-			// ugh feature detection
-			// http://stackoverflow.com/questions/499126/jquery-set-cursor-position-in-text-area
-
-			if (textarea.setSelectionRange)
-				textarea.setSelectionRange(textLen, textLen);
-			else if (textarea.createTextRange)
+			if (! textarea.data('codemirror'))
 			{
-				var range = textarea.createTextRange();
-				range.collapse(true);
-				range.moveEnd('character', textLen);
-				range.moveStart('character', textLen);
-				range.select();
+				var textLen = $(textarea).val().length;
+				textarea.focus();
+
+				// ugh feature detection
+				// http://stackoverflow.com/questions/499126/jquery-set-cursor-position-in-text-area
+
+				if (textarea.setSelectionRange)
+					textarea.setSelectionRange(textLen, textLen);
+				else if (textarea.createTextRange)
+				{
+					var range = textarea.createTextRange();
+					range.collapse(true);
+					range.moveEnd('character', textLen);
+					range.moveStart('character', textLen);
+					range.select();
+				};
 			};
 		});
 
