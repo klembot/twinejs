@@ -45,6 +45,15 @@ StoryEditView.StoryFormatModal = Backbone.View.extend(
 	changeFormat: function (name)
 	{
 		this.parent.model.save({ storyFormat: name });
+		this.$('.detail button.select').each(function()
+		{
+			var $t = $(this);
+
+			if ($t.closest('.detail').data('format') == name)
+				$t.addClass('active');
+			else
+				$t.removeClass('active');
+		});
 	},
 
 	/**
