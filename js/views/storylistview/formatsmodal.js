@@ -231,9 +231,9 @@ StoryListView.FormatsModal = Backbone.View.extend(
 			var container = $(e.target).closest('.format');
 			var format = container.data('format');
 			
-			if (container.closest('.storyFormats').length > 0)
+			if (container.closest('.storyFormatList').length > 0)
 				this.setDefaultFormat(format);
-			else if (container.closest('.proofingFormats').length > 0)
+			else if (container.closest('.proofingFormatList').length > 0)
 				this.setProofingFormat(format);
 			else
 				throw new Error("don't know what kind of format to set as default");
