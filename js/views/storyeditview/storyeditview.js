@@ -116,7 +116,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 		$(document).on('modalshown', '.editModal', function()
 		{
-			var textarea = $(this).find('textarea')[0];
+			var textarea = $(this).find('textarea:first');
 
 			if (! textarea.data('codemirror'))
 			{
