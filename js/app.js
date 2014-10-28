@@ -275,6 +275,9 @@ window.app.addInitializer(function ()
 	if (! formats.findWhere({ name: 'Harlowe' }))
 		formats.create({ name: 'Harlowe', url: 'storyformats/Harlowe/format.js', userAdded: false });
 
+	if (! formats.findWhere({ name: 'Snowman' }))
+		formats.create({ name: 'Snowman', url: 'storyformats/Snowman/format.js', userAdded: false });
+
 	if (! formats.findWhere({ name: 'Paperthin' }))
 		formats.create({ name: 'Paperthin', url: 'storyformats/Paperthin/format.js', userAdded: false });
 
