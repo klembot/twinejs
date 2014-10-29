@@ -358,6 +358,12 @@ body.zoom-small
 #passageEditModal .passageTags p
 {
 	margin-top: 0;
+	padding-top: 0.5em;
+}
+
+#passageEditModal .passageTags button.link
+{
+	margin-left: 1em;
 }
 
 #passageEditModal .fullEdit
