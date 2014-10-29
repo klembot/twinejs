@@ -427,7 +427,6 @@ body.zoom-small
 #storyFormatModal .formats button.select
 {
 	float: left;
-	line-height: 2.4em; /* 6em / 2.5 */
 	font-size: 2.5em;
 	padding: 0 0.5em 0 0;
 	margin: 0;
@@ -459,6 +458,13 @@ body.zoom-small
 .formatDetail .placeholder
 {
 	width: 6em;
+	float: left;
+	margin-right: 1.5em;
+}
+
+#storyEditView .formatDetail img,
+#storyEditView .formatDetail .placeholder
+{
 	float: right;
 	margin-left: 1.5em;
 }
@@ -481,7 +487,13 @@ body.zoom-small
 
 .formatDetail .text
 {
+	margin-left: 7.5em;
+}
+
+#storyEditView .formatDetail .text
+{
 	margin-right: 7.5em;
+	margin-left: 3em;
 }
 
 .formatDetail .description
