@@ -66,10 +66,9 @@ button
 	color: white;
 	background-color: hsl(212, 88%, 40%);
 	border: none;
-	padding: 0.6em 0.75em;
-	box-shadow: inset 0 0.15em 0.1em hsla(0, 0%, 100%, 0.5),
-	            inset 0 -0.05em 0.1em hsla(0, 0%, 0%, 0.25),
-				0 0.05em 0.1em hsla(0, 0%, 0%, 0.15);
+	border-radius: 0.4em;
+	padding: 0.5em 0.75em;
+	box-shadow: inset 0 -0.1em 0.2em hsla(0, 0%, 0%, 0.2);
 }
 
 button:hover
@@ -97,6 +96,7 @@ button.create:hover
 
 button.create:active, button.create.active
 {
+	box-shadow: inset 0 0.1em 0.2em hsla(0, 0%, 0%, 0.5);
 	background-color: hsl(141, 88%, 35%);
 }
 
@@ -119,6 +119,7 @@ button.link, button.subtle
 {
 	color: hsl(0, 0%, 25%);	
 	background: none;
+	border-color: transparent;
 	box-shadow: none;
 	text-shadow: none;
 }
@@ -175,7 +176,7 @@ button.subtle.create.active
 {
 	color: hsl(212, 88%, 50%);
 	box-shadow: inset 0 0.1em 0.2em hsla(0, 0%, 0%, 0.5);
-	background-color: hsla(0, 0%, 0%, 0.05);
+	background-color: hsla(0, 0%, 0%, 0.025);
 }
 
 button.link.subtle:active
@@ -364,14 +365,15 @@ p, li
 
 .buttonGroup button:first-child
 {
-	border-top-left-radius: 0.5em;
-	border-bottom-left-radius: 0.5em;
+	margin-left: 0.5em;
+	border-top-left-radius: 0.4em;
+	border-bottom-left-radius: 0.4em;
 }
 
 .buttonGroup button:last-child
 {
-	border-top-right-radius: 0.5em;
-	border-bottom-right-radius: 0.5em;
+	border-top-right-radius: 0.4em;
+	border-bottom-right-radius: 0.4em;
 }
 
 .collapse
