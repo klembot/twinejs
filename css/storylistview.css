@@ -94,10 +94,10 @@
 	position: relative;
 	width: 100%;
 	height: 1em;
+	overflow: hidden;
 	border-radius: 0.25em;
-	border: 0.1em solid hsl(0, 0%, 80%);
-	background-color: hsl(0, 0%, 92%);
-	box-shadow: inset 0 0 0.2em hsl(0, 0%, 70%);
+	background-color: hsl(0, 0%, 90%);
+	box-shadow: inset 0 0.1em 0.1em hsl(0, 0%, 65%);
 }
 
 #storyListView .quota .used
@@ -109,7 +109,7 @@
 	background-color: hsl(212, 50%, 50%);
 	border-top-left-radius: 0.25em;
 	border-bottom-left-radius: 0.25em;
-	box-shadow: inset 0 0.15em 0.1em hsla(0, 0%, 0%, 0.25);
+	box-shadow: 0 0 0.1em hsl(0, 0%, 65%);
 }
 
 #aboutModal .credits
