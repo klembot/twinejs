@@ -99,15 +99,18 @@ var StoryEditView = Marionette.CompositeView.extend(
 					// set count appropriately
 					// yikes, localization issues here
 
-					var countString = selected.length + ' passage';
+					var message = 'Are you sure you want to delete these ' +
+					              selected.length + ' passages? This cannot be undone.';
 
-					if (selected.length != 1)
-						countString = 'these ' + selected.length + ' passages';
-					else
-						countString = 'this passage';
-
-					this.$('#deletePassagesModal .passageCount').text(countString);
-					this.$('#deletePassagesModal').modal();
+					ui.confirm(message, '<i class="fa fa-trash-o"></i> Delete', _.bind(function()
+					{
+						_.invoke(this.children.filter(function (v)
+						{
+							return v.selected;
+						}), 'delete');
+						
+					}, this),
+					{ buttonClass: 'danger' });
 				};
 			};
 		}, this));
@@ -237,20 +240,6 @@ var StoryEditView = Marionette.CompositeView.extend(
 		this.positionPassage(passage);
 		passage.save();
 		this.children.findByModel(passage).appear();
-	},
-
-	/**
-	 Deletes all currently selected passages.
-
-	 @method deleteSelectedPassages
-	**/
-
-	deleteSelectedPassages: function()
-	{
-		_.invoke(this.children.filter(function (v)
-		{
-			return v.selected;
-		}), 'delete');
 	},
 
 	/**
@@ -518,8 +507,6 @@ var StoryEditView = Marionette.CompositeView.extend(
 			**/
 
 			this.lastMousedown = $(e.target);
-		},
-
-		'click .deleteSelectedPassages': 'deleteSelectedPassages'
+		}
 	},
 });
