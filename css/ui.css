@@ -547,6 +547,28 @@ ul.menu li.checked button:before
 	margin-top: 2em;
 }
 
+.modal .buttons
+{
+	text-align: right;
+	margin-bottom: 0;
+}
+
+.modal.confirm .message
+{
+	font-size: 125%;
+}
+
+.modal.confirm .message:before
+{
+	content: '\f071';
+	font: 200% FontAwesome;
+	float: left;
+	margin-right: 0.5em;
+	position: relative;
+	top: 0.1em;
+	color: hsl(0, 0%, 80%);
+}
+
 .tabs
 {
 	display: table;

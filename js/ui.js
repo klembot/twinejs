@@ -233,7 +233,9 @@ var ui =
 
 	/**
 	 Performs startup tasks on a DOM element. This must be called on
-	 any element that's dynamically added to the document.
+	 any element that's dynamically added to the document. Note that
+	 this defers execution until the current call stack clears so that
+	 the DOM is completely ready.
 
 	 @method initEl
 	 @param {DOMElement} el
@@ -376,14 +378,75 @@ var ui =
 	/**
 	 The Underscore template used to display notifications.
 
-	 @property notifyTempalte
+	 @property notifyTemplate
 	 @type string
 	 @static
 	**/
 
 	notifyTemplate: _.template('<div class="fadeIn <%= className %>">' +
 	                           '<button class="close"><i class="fa fa-times"></i></button>' +
-	                           '<%= message %></div>')
+	                           '<%= message %></div>'),
+
+	/**
+	 Shows a modal confirmation dialog, with one button (to continue the action)
+	 and a Cancel button. 
+
+	 @method confirm
+	 @param {String} message HTML source of the message
+	 @param {String} buttonLabel HTML label for the button
+	 @param {Function} callback function to call if the user continues the button
+	 @param {Object} options Object with optional parameters:
+	                         modalClass (CSS class to apply to the modal),
+							 buttonClass (CSS class to apply to the action button)
+	**/
+
+	confirm: function (message, buttonLabel, callback, options)
+	{
+		options = options || {};
+
+		var modalContainer = $(ui.confirmTemplate(
+		{
+			message: message,
+			buttonLabel: buttonLabel,
+			modalClass: options.modalClass || '',
+			buttonClass: options.buttonClass || ''
+		}));
+
+		var modal = modalContainer.find('.modal');
+
+		modal.on('click', 'button', function()
+		{
+			if ($(this).data('action') == 'yes' && callback)
+				callback();
+
+			modal.data('modal').trigger('hide');		
+		});
+
+		$('body').append(modalContainer);
+		ui.initEl(modalContainer);
+
+		// initEl defers execution, so we have to defer this too
+
+		_.defer(function()
+		{
+			modal.data('modal').trigger('show');
+		});
+	},
+
+	/**
+	 The Underscore template used to display confirmation modals.
+
+	 @property confirmTemplate
+	 @type string
+	 @static
+	**/
+
+	confirmTemplate: _.template('<div><div class="modal confirm <%- modalClass %>">' +
+	                            '<div class="message"><%= message %></div><p class="buttons">' +
+	                            '<button type="button" class="subtle cancel">' +
+								'<i class="fa fa-times"></i> Cancel</button>' +
+								'<button type="button" class="<%- buttonClass %>" data-action="yes">' +
+								'<%= buttonLabel %></button></p></div></div>')
 };
 
 $(document).ready(ui.initBody);
