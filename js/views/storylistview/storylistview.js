@@ -20,7 +20,7 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 
 	onRender: function()
 	{
-		window.uiInitEl(this.$el);
+		ui.initEl(this.$el);
 		this.syncStoryCount();
 
 		this.storageQuota = new StoryListView.StorageQuota({ parent: this, el: this.$('.quota') });
