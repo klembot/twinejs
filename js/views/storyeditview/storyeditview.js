@@ -102,15 +102,9 @@ var StoryEditView = Marionette.CompositeView.extend(
 					var message = 'Are you sure you want to delete these ' +
 					              selected.length + ' passages? This cannot be undone.';
 
-					ui.confirm(message, '<i class="fa fa-trash-o"></i> Delete', _.bind(function()
-					{
-						_.invoke(this.children.filter(function (v)
-						{
-							return v.selected;
-						}), 'delete');
-						
-					}, this),
-					{ buttonClass: 'danger' });
+					ui.confirm(message, '<i class="fa fa-trash-o"></i> Delete',
+					           _.bind(this.deleteSelectedPassages, this),
+					           { buttonClass: 'danger' });
 				};
 			};
 		}, this));
@@ -240,6 +234,20 @@ var StoryEditView = Marionette.CompositeView.extend(
 		this.positionPassage(passage);
 		passage.save();
 		this.children.findByModel(passage).appear();
+	},
+
+	/**
+	 Deletes all currently selected passages.
+
+	 @method deleteSelectedPassages
+	**/
+
+	deleteSelectedPassages: function()
+	{
+		_.invoke(this.children.filter(function (v)
+		{
+			return v.selected;
+		}), 'delete');
 	},
 
 	/**
