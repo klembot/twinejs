@@ -441,7 +441,7 @@ var ui =
 	 @static
 	**/
 
-	confirmTemplate: _.template('<div><div class="modal confirm <%- modalClass %>">' +
+	confirmTemplate: _.template('<div><div class="modal hide confirm <%- modalClass %>">' +
 	                            '<div class="message"><%= message %></div><p class="buttons">' +
 	                            '<button type="button" class="subtle cancel">' +
 								'<i class="fa fa-times"></i> Cancel</button>' +
