@@ -49,7 +49,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 	onRender: function()
 	{
-		window.uiInitEl(this.$el);
+		ui.initEl(this.$el);
 
 		// enable space bar scrolling
 

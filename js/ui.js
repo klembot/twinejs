@@ -1,346 +1,389 @@
+/**
+ A collection of utility functions related to basic UI tasks such as
+ modal dialogs and notifications.
+
+ @class ui
+ @static
+**/
+
 'use strict';
 
-window.uiInitBody = function()
+var ui =
 {
-	if (! $('body').data('uiInited'))
+	/**
+	 Performs one-time startup tasks.
+
+	 @method initBody
+	**/
+
+	initBody: function()
 	{
-		var $b = $('body');
-		$b.data('uiInited', true);
-
-		// modals only allow Escape keypresses out, which close the modal
-
-		$b.on('keydown, keyup', '.modal', function (e)
+		if (! $('body').data('uiInited'))
 		{
-			if (e.keyCode != 27)
-				e.stopPropagation();
-		});
+			var $b = $('body');
+			$b.data('uiInited', true);
 
-		// create modal overlay element as needed
-		// this blocks mouse events
+			// modals only allow Escape keypresses out, which close the modal
 
-		if ($('#modalOverlay').length == 0)
-		{
-			var overlay = $('<div id="modalOverlay" class="hide"></div>');
-			overlay.on('mousedown, mouseup', function (e)
+			$b.on('keydown, keyup', '.modal', function (e)
 			{
-				e.stopPropagation();
+				if (e.keyCode != 27)
+					e.stopPropagation();
 			});
-			$b.append(overlay);
-		};
 
-		// set up notifications
+			// create modal overlay element as needed
+			// this blocks mouse events
 
-		if ($('#notifications').length == 0)
-			$b.append('<div id="notifications"></div>');
-
-		// polyfill browser animation-related events
-
-		$b.on('webkitAnimationEnd oanimationend msAnimationEnd', function (e)
-		{
-			e.type = 'animationend';
-			$(e.target).trigger(e);
-		});
-
-		// click handlers for showing and hiding modals
-
-		$b.on('click', '[data-modal-show]', function (e)
-		{
-			$($(this).data('modal-show')).data('modal').trigger('show');
-			e.preventDefault();
-		});
-
-		$b.on('click', '[data-modal-hide]', function (e)
-		{
-			var modal = $(this).data('modal-hide');
-
-			// special 'this' selector for hiding modals chooses
-			// the closest up upward in the DOM tree
-
-			if (modal == 'this')
-				$(this).closest('.modal').data('modal').trigger('hide');
-			else
-				$(modal).data('modal').trigger('hide');
-		});
-
-		// function to do the actual work of showing/hiding bubbles
-		// syntax is $(...).bubble('show' | 'hide' | 'toggle')
-
-		$.fn.bubble = function (action)
-		{
-			var $t = $(this);
-			var $cont = $t.closest('.bubbleContainer');
-			var $bubble = $cont.find('.bubble');
-
-			switch (action)
+			if ($('#modalOverlay').length == 0)
 			{
-				case 'show':
-				// ignore repeated show calls
+				var overlay = $('<div id="modalOverlay" class="hide"></div>');
+				overlay.on('mousedown, mouseup', function (e)
+				{
+					e.stopPropagation();
+				});
+				$b.append(overlay);
+			};
 
-				if ($cont.hasClass('active'))
-					return this;
+			// set up notifications
 
-				// hide any existing bubble and tooltips
+			if ($('#notifications').length == 0)
+				$b.append('<div id="notifications"></div>');
 
-				$('.active[data-bubble]').bubble('hide');
+			// polyfill browser animation-related events
 
-				if ($t.attr('title'))
-					$t.powerTip('hide');
+			$b.on('webkitAnimationEnd oanimationend msAnimationEnd', function (e)
+			{
+				e.type = 'animationend';
+				$(e.target).trigger(e);
+			});
 
-				// show this one
+			// click handlers for showing and hiding modals
+
+			$b.on('click', '[data-modal-show]', function (e)
+			{
+				$($(this).data('modal-show')).data('modal').trigger('show');
+				e.preventDefault();
+			});
+
+			$b.on('click', '[data-modal-hide]', function (e)
+			{
+				var modal = $(this).data('modal-hide');
+
+				// special 'this' selector for hiding modals chooses
+				// the closest up upward in the DOM tree
+
+				if (modal == 'this')
+					$(this).closest('.modal').data('modal').trigger('hide');
+				else
+					$(modal).data('modal').trigger('hide');
+			});
+
+			// function to do the actual work of showing/hiding bubbles
+			// syntax is $(...).bubble('show' | 'hide' | 'toggle')
+
+			$.fn.bubble = function (action)
+			{
+				var $t = $(this);
+				var $cont = $t.closest('.bubbleContainer');
+				var $bubble = $cont.find('.bubble');
+
+				switch (action)
+				{
+					case 'show':
+					// ignore repeated show calls
+
+					if ($cont.hasClass('active'))
+						return this;
+
+					// hide any existing bubble and tooltips
+
+					$('.active[data-bubble]').bubble('hide');
+
+					if ($t.attr('title'))
+						$t.powerTip('hide');
+
+					// show this one
+
+					$t.addClass('active');
+					$cont.addClass('active');
+					$bubble.css('display', 'block').addClass('fadeIn fast');
+					$bubble.trigger('bubbleshow');
+					break;
+
+					case 'hide':
+					// ignore repeated hide calls
+
+					if (! $cont.hasClass('active'))
+						return this;
+
+					// deactivate any toggle buttons
+
+					$cont.find('button[data-bubble="toggle"]').removeClass('active');
+					$cont.removeClass('active');
+
+					// hide the bubble
+
+					$bubble.addClass('fadeOut fast').one('animationend', function()
+					{
+						$bubble.removeClass('fadeIn fadeOut').css('display', 'none');
+					});
+					$bubble.trigger('bubblehide');
+					break;
+
+					case 'toggle':
+					if ($bubble.css('display') == 'block')
+						$t.bubble('hide');
+					else
+						$t.bubble('show');
+					break;
+
+					default:
+					throw new Error("Don't know how to do bubble action " + action);
+				};
+
+				return this;
+			};
+
+			// click handler for showing and hiding bubbles
+
+			$b.on('click', '.bubbleContainer [data-bubble]', function()
+			{
+				var $t = $(this);
+				$t.bubble($t.data('bubble'));
+			});
+
+			// function to do the actual work of showing/hiding collapsible elements
+			// syntax is $(...).collapse('show' | 'hide' | 'toggle')
+
+			$.fn.collapse = function (action)
+			{
+				var $t = $(this);
+				var $cont = $t.closest('.collapseContainer');
+
+				switch (action)
+				{
+					case 'show':
+					$cont.addClass('revealed').find('.collapse').slideDown();
+					break;
+
+					case 'hide':
+					$cont.removeClass('revealed').find('.collapse').slideUp();
+					break;
+
+					case 'toggle':
+					if ($cont.hasClass('revealed'))
+						$t.collapse('hide');
+					else
+						$t.collapse('show');
+					break;
+
+					default:
+					throw new Error("Don't know how to do collapse action " + action);
+				};
+
+				return this;
+			};
+
+			// click handler for showing and hiding collapsed elements
+
+			$b.on('click', '.collapseContainer [data-collapse]', function()
+			{
+				var $t = $(this);
+				$t.collapse($t.data('collapse'));
+			});
+
+			// function to do the work of showing a tab
+			// this must be called on the button triggering a tab
+
+			$.fn.tab = function()
+			{
+				var $t = $(this);
+
+				// update appearance
 
 				$t.addClass('active');
-				$cont.addClass('active');
-				$bubble.css('display', 'block').addClass('fadeIn fast');
-				$bubble.trigger('bubbleshow');
-				break;
+				$t.closest('.tabs').find('button').not($t).removeClass('active');
 
-				case 'hide':
-				// ignore repeated hide calls
+				// show matching content
 
-				if (! $cont.hasClass('active'))
-					return this;
+				$($t.data('content')).show().siblings().hide();
 
-				// deactivate any toggle buttons
+				return this;
+			};
 
-				$cont.find('button[data-bubble="toggle"]').removeClass('active');
-				$cont.removeClass('active');
+			// click handler for tabs
 
-				// hide the bubble
+			$b.on('click', '.tabs button', function() { $(this).tab(); });
 
-				$bubble.addClass('fadeOut fast').one('animationend', function()
+			// set up notifications
+
+
+			$b.on('click', '#notifications .close', function()
+			{
+				var notification = $(this).closest('div');
+				notification.addClass('fadeOut');
+				notification.one('animationend', function()
 				{
-					$bubble.removeClass('fadeIn fadeOut').css('display', 'none');
+					$(this).remove();
 				});
-				$bubble.trigger('bubblehide');
-				break;
-
-				case 'toggle':
-				if ($bubble.css('display') == 'block')
-					$t.bubble('hide');
-				else
-					$t.bubble('show');
-				break;
-
-				default:
-				throw new Error("Don't know how to do bubble action " + action);
-			};
-
-			return this;
-		};
-
-		// click handler for showing and hiding bubbles
-
-		$b.on('click', '.bubbleContainer [data-bubble]', function()
-		{
-			var $t = $(this);
-			$t.bubble($t.data('bubble'));
-		});
-
-		// function to do the actual work of showing/hiding collapsible elements
-		// syntax is $(...).collapse('show' | 'hide' | 'toggle')
-
-		$.fn.collapse = function (action)
-		{
-			var $t = $(this);
-			var $cont = $t.closest('.collapseContainer');
-
-			switch (action)
-			{
-				case 'show':
-				$cont.addClass('revealed').find('.collapse').slideDown();
-				break;
-
-				case 'hide':
-				$cont.removeClass('revealed').find('.collapse').slideUp();
-				break;
-
-				case 'toggle':
-				if ($cont.hasClass('revealed'))
-					$t.collapse('hide');
-				else
-					$t.collapse('show');
-				break;
-
-				default:
-				throw new Error("Don't know how to do collapse action " + action);
-			};
-
-			return this;
-		};
-
-		// click handler for showing and hiding collapsed elements
-
-		$b.on('click', '.collapseContainer [data-collapse]', function()
-		{
-			var $t = $(this);
-			$t.collapse($t.data('collapse'));
-		});
-
-		// function to do the work of showing a tab
-		// this must be called on the button triggering a tab
-
-		$.fn.tab = function()
-		{
-			var $t = $(this);
-
-			// update appearance
-
-			$t.addClass('active');
-			$t.closest('.tabs').find('button').not($t).removeClass('active');
-
-			// show matching content
-
-			$($t.data('content')).show().siblings().hide();
-
-			return this;
-		};
-
-		// click handler for tabs
-
-		$b.on('click', '.tabs button', function() { $(this).tab(); });
-
-		// set up notifications
-
-		window.notify = function (message, className)
-		{
-			var notification = $(window.notify.template({ message: message, className: className }));
-			$('#notifications').append(notification);
-
-			if (className != 'danger')
-				window.setTimeout(_.bind(function()
-				{
-					$(this).addClass('fadeOut')
-					.one('animationend', function()
-					{
-						$(this).remove();
-					});
-				}, notification), 3000);
-		};
-
-		$b.on('click', '#notifications .close', function()
-		{
-			var notification = $(this).closest('div');
-			notification.addClass('fadeOut');
-			notification.one('animationend', function()
-			{
-				$(this).remove();
 			});
-		});
 
-		window.notify.template = _.template('<div class="fadeIn <%= className %>">' +
-											'<button class="close"><i class="fa fa-times"></i></button>' +
-											'<%= message %></div>');
-	};
-};
+		};
+	},
 
-$(document).ready(uiInitBody);
+	/**
+	 Performs startup tasks on a DOM element. This must be called on
+	 any element that's dynamically added to the document.
 
-window.uiInitEl = function (el)
-{
-	el = $(el);
+	 @method initEl
+	 @param {DOMElement} el
+	**/
 
-	// we defer execution so that the DOM is ready to be inspected
-
-	_.defer(function()
+	initEl: function (el)
 	{
-		// activate tooltips
+		el = $(el);
 
-		el.find('button[title], a[title]').each(function()
+		// we defer execution so that the DOM is ready to be inspected
+
+		_.defer(function()
 		{
-			$(this).powerTip({ placement: $(this).attr('data-tooltip-dir') || 's' });
-		});
+			// activate tooltips
 
-		// set up modals
-
-		el.find('.modal').each(function()
-		{
-			var $t = $(this);
-
-			if ($t.data('modal'))
-				return;
-
-			$t.data('modal', $t.omniWindow(
+			el.find('button[title], a[title]').each(function()
 			{
-				callbacks:
+				$(this).powerTip({ placement: $(this).attr('data-tooltip-dir') || 's' });
+			});
+
+			// set up modals
+
+			el.find('.modal').each(function()
+			{
+				var $t = $(this);
+
+				if ($t.data('modal'))
+					return;
+
+				$t.data('modal', $t.omniWindow(
 				{
-					beforeShow: function (els, internalCallback)
+					callbacks:
 					{
-						els.modal.trigger('modalshow');
-						return internalCallback(els);
-					},
-
-					afterShow: function (els, internalCallback)
-					{
-						els.modal.trigger('modalshown');
-						_.defer(function() { window.uiInitEl(els.modal); });
-						return internalCallback(els);
-					},
-
-					beforeHide: function (els, internalCallback)
-					{
-						els.modal.trigger('modalhide');
-						return internalCallback(els);
-					},
-
-					afterHide: function (els, internalCallback)
-					{
-						els.modal.trigger('modalhidden');
-						return internalCallback(els);
-					}
-				},
-
-				overlay:
-				{
-					selector: '#modalOverlay',
-					hideClass: 'hide',
-					animations:
-					{
-						show: function (els, internalCallback)
+						beforeShow: function (els, internalCallback)
 						{
-							els.overlay.addClass('fadeIn');	
-							els.modal.addClass('appear');	
-							internalCallback(els);
+							els.modal.trigger('modalshow');
+							return internalCallback(els);
 						},
 
-						hide: function (els, internalCallback)
+						afterShow: function (els, internalCallback)
 						{
-							els.overlay.removeClass('fadeIn').addClass('fadeOut');	
-							els.modal.removeClass('appear').addClass('fadeOut');	
-							els.overlay.one('animationend', function()
+							els.modal.trigger('modalshown');
+							_.defer(function() { ui.initEl(els.modal); });
+							return internalCallback(els);
+						},
+
+						beforeHide: function (els, internalCallback)
+						{
+							els.modal.trigger('modalhide');
+							return internalCallback(els);
+						},
+
+						afterHide: function (els, internalCallback)
+						{
+							els.modal.trigger('modalhidden');
+							return internalCallback(els);
+						}
+					},
+
+					overlay:
+					{
+						selector: '#modalOverlay',
+						hideClass: 'hide',
+						animations:
+						{
+							show: function (els, internalCallback)
 							{
-								els.overlay.removeClass('fadeOut');
-								els.modal.removeClass('fadeOut').addClass('hide');
+								els.overlay.addClass('fadeIn');	
+								els.modal.addClass('appear');	
 								internalCallback(els);
-							});
+							},
 
-						},
+							hide: function (els, internalCallback)
+							{
+								els.overlay.removeClass('fadeIn').addClass('fadeOut');	
+								els.modal.removeClass('appear').addClass('fadeOut');	
+								els.overlay.one('animationend', function()
+								{
+									els.overlay.removeClass('fadeOut');
+									els.modal.removeClass('fadeOut').addClass('hide');
+									internalCallback(els);
+								});
+
+							},
+						}
+					},
+
+					modal:
+					{
+						hideClass: 'hide'
 					}
-				},
+				}));
+			});
 
-				modal:
+			// vertically center bubbles that are displayed to the side
+
+			el.find('.bubble.left, .bubble.right').each(function()
+			{
+				$(this).css('margin-top', 0 - $(this).outerHeight() / 2);
+			});
+
+			// push bubbles pointing down above their sources
+
+			el.find('.bubble.down').each(function()
+			{
+				$(this).css('top', 0 - $(this).outerHeight());
+			});
+
+			// activate the first tab and content area
+
+			el.find('.tabs button').first().addClass('active');
+			el.find('.tabContent > div:gt(0)').hide();
+		});
+	},
+
+	/**
+	 Shows a notification at the top of the browser window.
+
+	 @method notify
+	 @param {String} message HTML source of the message to display
+	 @param {String} className CSS class to apply to the notification
+	**/
+
+	notify: function (message, className)
+	{
+		var notification = $(ui.notifyTemplate({ message: message, className: className }));
+		$('#notifications').append(notification);
+
+		if (className != 'danger')
+			window.setTimeout(_.bind(function()
+			{
+				$(this).addClass('fadeOut')
+				.one('animationend', function()
 				{
-					hideClass: 'hide'
-				}
-			}));
-		});
+					$(this).remove();
+				});
+			}, notification), 3000);
+	},
 
-		// vertically center bubbles that are displayed to the side
+	/**
+	 The Underscore template used to display notifications.
 
-		el.find('.bubble.left, .bubble.right').each(function()
-		{
-			$(this).css('margin-top', 0 - $(this).outerHeight() / 2);
-		});
+	 @property notifyTempalte
+	 @type string
+	 @static
+	**/
 
-		// push bubbles pointing down above their sources
-
-		el.find('.bubble.down').each(function()
-		{
-			$(this).css('top', 0 - $(this).outerHeight());
-		});
-
-		// activate the first tab and content area
-
-		el.find('.tabs button').first().addClass('active');
-		el.find('.tabContent > div:gt(0)').hide();
-	});
+	notifyTemplate: _.template('<div class="fadeIn <%= className %>">' +
+	                           '<button class="close"><i class="fa fa-times"></i></button>' +
+	                           '<%= message %></div>')
 };
+
+$(document).ready(ui.initBody);
