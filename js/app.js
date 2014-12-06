@@ -54,8 +54,8 @@ var TwineApp = Backbone.Marionette.Application.extend(
 			if (failure)
 				failure(e);
 			else
-				window.notify('&ldquo;' + filename + '&rdquo; could not be saved (' +
-				              e.message + ').', 'danger');
+				ui.notify('&ldquo;' + filename + '&rdquo; could not be saved (' +
+				          e.message + ').', 'danger');
 		};
 	},
 

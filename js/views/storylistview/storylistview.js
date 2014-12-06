@@ -115,7 +115,7 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 				message = 'An error occurred while trying to import this file. (' + e.message + ')';
 			};
 
-			window.notify(message, className);
+			ui.notify(message, className);
 		};
 
 		reader.readAsText(e.target.files[0], 'UTF-8');
