@@ -58,8 +58,7 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 
 		if (! firstRunPref)
 		{
-			console.log('creating firstRun');
-			var firstRunPref = new AppPref({ name: 'firstRunTime', value: new Date().getTime() });
+			firstRunPref = new AppPref({ name: 'firstRunTime', value: new Date().getTime() });
 			AppPrefCollection.all().add(firstRunPref);
 			firstRunPref.save();
 		}
