@@ -13,6 +13,17 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 	itemViewContainer: '.stories',
 	template: '#templates .storyListView',
 
+	/**
+	 How long we wait after the user first loads this view
+	 to show a message asking for a donation, in milliseconds.
+
+	 @property DONATION_DELAY
+	 @final
+	**/
+
+	// 14 days
+	DONATION_DELAY: 1000 * 60 * 60 * 24 * 14,
+
 	initialize: function()
 	{
 		this.collection.on('sort', this.render);
@@ -39,6 +50,36 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 		{
 			_.delay(_.bind(view.fadeIn, view), APPEAR_INTERVAL * index);
 		});
+
+		// is it time to ask for a donation?
+
+		var firstRunPref = AppPref.withName('firstRunTime');
+		var donateShown = AppPref.withName('donateShown');
+
+		if (! firstRunPref)
+		{
+			console.log('creating firstRun');
+			var firstRunPref = new AppPref({ name: 'firstRunTime', value: new Date().getTime() });
+			AppPrefCollection.all().add(firstRunPref);
+			firstRunPref.save();
+		}
+		else if ((! donateShown || ! donateShown.get('value')) &&
+			     new Date().getTime() > firstRunPref.get('value') + this.DONATION_DELAY)
+		{
+			_.delay(_.bind(function()
+			{
+				this.$('#donateModal').data('modal').trigger('show');
+			}, this), 50);
+
+			if (! donateShown)
+			{
+				donateShown = new AppPref({ name: 'donateShown', value: true });
+				AppPrefCollection.all().add(donateShown);
+				donateShown.save();
+			}
+			else
+				donateShown.save({ value: true });
+		};
 	},
 
 	onAfterItemAdded: function ()

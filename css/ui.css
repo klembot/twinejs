@@ -61,7 +61,7 @@ input.fillin
 	border-bottom: 0.1em dotted hsl(0, 0%, 20%);
 }
 
-button
+button, a.button
 {
 	color: white;
 	background-color: hsl(212, 88%, 40%);
@@ -71,46 +71,49 @@ button
 	box-shadow: inset 0 -0.1em 0.2em hsla(0, 0%, 0%, 0.2);
 }
 
-button:hover
+button:hover, a.button:hover
 {
 	background-color: hsl(212, 88%, 45%);
+	text-decoration: none;
 	cursor: pointer;
 }
 
-button:active, button.active
+button:active, button.active, a.button.active, a.button:active
 {
 	background-color: hsl(212, 88%, 35%);
 	box-shadow: inset 0 0.1em 0.2em hsla(0, 0%, 0%, 0.5);
 	outline: none;
 }
 
-button.create
+button.create, a.button.create
 {
 	background-color: hsl(141, 88%, 40%);
 }
 
-button.create:hover
+button.create:hover, a.button.create:hover
 {
 	background-color: hsl(141, 88%, 45%);
 }
 
-button.create:active, button.create.active
+button.create:active, button.create.active,
+a.button.create:active, a.button.create.active
 {
 	box-shadow: inset 0 0.1em 0.2em hsla(0, 0%, 0%, 0.5);
 	background-color: hsl(141, 88%, 35%);
 }
 
-button.danger
+button.danger, a.button.danger
 {
 	background-color: hsl(10, 88%, 40%);
 }
 
-button.danger:hover
+button.danger:hover, a.button.danger:hover
 {
 	background-color: hsl(10, 88%, 45%);
 }
 
-button.danger:active, button.danger.active
+button.danger:active, button.danger.active,
+a.button.danger:active, a.button.danger.active
 {
 	background-color: hsl(10, 88%, 35%);
 }
