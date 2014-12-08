@@ -17,8 +17,8 @@ module.exports = function (grunt)
 					saveAs: true,
 					// Misc.
 					app: true,
+					ui: true,
 					TwineRouter: true,
-					uiInitBody: true,
 					// Collections
 					AppPrefCollection: true,
 					PassageCollection: true,
