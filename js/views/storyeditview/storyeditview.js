@@ -115,7 +115,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 		{
 			var textarea = $(this).find('textarea:first');
 
-			if (! textarea.data('codemirror'))
+			if (! textarea.data('codemirror') && false)
 			{
 				var textLen = $(textarea).val().length;
 				textarea.focus();

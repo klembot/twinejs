@@ -312,6 +312,22 @@ body.zoom-small
 	border-bottom-right-radius: 0;
 }
 
+body.iOS .editModal
+{
+	bottom: auto;
+	height: 25em;
+	border-bottom-left-radius: 2em;
+	border-bottom-right-radius: 2em;
+}
+
+@media screen and (orientation: portrait)
+{
+	body.iOS .editModal
+	{
+		height: 40em;
+	}
+}
+
 .editModal input[type="text"], textarea, .CodeMirror
 {
 	font-family: "Source Code Pro", monospace;
