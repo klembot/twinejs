@@ -361,6 +361,7 @@ body.iOS .editModal
 {
 	display: block;
 	width: 100%;
+	padding-bottom: 0.1em;
 	font-size: 125%;
 	line-height: 100%;
 }
