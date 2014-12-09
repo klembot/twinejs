@@ -23,6 +23,15 @@ var ui =
 			var $b = $('body');
 			$b.data('uiInited', true);
 
+			// enable FastClick, which cuts input delays on mobile
+
+			FastClick.attach(document.body);
+
+			// note iOS for some custom styles
+
+			if (navigator.userAgent.match(/iPhone|iPad|iPod/i))
+				$b.addClass('iOS');
+
 			// modals only allow Escape keypresses out, which close the modal
 
 			$b.on('keydown, keyup', '.modal', function (e)
@@ -217,7 +226,6 @@ var ui =
 
 			// set up notifications
 
-
 			$b.on('click', '#notifications .close', function()
 			{
 				var notification = $(this).closest('div');
@@ -271,7 +279,22 @@ var ui =
 					{
 						beforeShow: function (els, internalCallback)
 						{
+							$('body').addClass('modalOpen');
 							els.modal.trigger('modalshow');
+
+							// ugly hack to fix weirdo scrolling on iOS when the keyboard
+							// comes up while editing a text field in a modal window
+							// http://www.abeautifulsite.net/bootstrap-3-modals-and-the-ios-virtual-keyboard/
+
+							if ($('body').hasClass('iOS'))
+							{
+								els.modal.css(
+								{
+									position: 'absolute',
+									top: $(window).scrollTop() + 'px'
+								});
+							};
+
 							return internalCallback(els);
 						},
 
@@ -284,6 +307,7 @@ var ui =
 
 						beforeHide: function (els, internalCallback)
 						{
+							$('body').removeClass('modalOpen');
 							els.modal.trigger('modalhide');
 							return internalCallback(els);
 						},

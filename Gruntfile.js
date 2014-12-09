@@ -12,9 +12,11 @@ module.exports = function (grunt)
 					$: true,
 					_: true,
 					Backbone: true,
+					FastClick: true,
 					Marionette: true,
 					CodeMirror: true,
 					saveAs: true,
+					Tar: true,
 					// Misc.
 					app: true,
 					ui: true,

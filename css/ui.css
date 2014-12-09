@@ -8,6 +8,11 @@ body
 	font: 90% "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+body.modalOpen
+{
+	overflow: hidden;
+}
+
 a
 {
 	color: hsl(212, 88%, 40%);

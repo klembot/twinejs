@@ -43,11 +43,34 @@ var TwineApp = Backbone.Marionette.Application.extend(
 	{
 		try
 		{
-			var blob = new Blob([data], { type: 'text/html;charset=utf-8' });
-			saveAs(blob, filename);
+			if (! $('body').hasClass('iOS') && false)
+			{
+				// standard style
 
-			if (success)
-				success();
+				var blob = new Blob([data], { type: 'text/html;charset=utf-8' });
+				saveAs(blob, filename);
+
+				if (success)
+					success();
+			}
+			else
+			{
+				// package it into a .tar; this will trigger iOS to try to
+				// hand it off to Google Drive, Dropbox, and the like
+				// cribbed from http://stackoverflow.com/questions/12710001/how-to-convert-uint8-array-to-base64-encoded-string
+
+				var archive = new Tar();
+				archive.append(filename, data);
+				var rawData = '';
+
+				for (var i = 0; i < archive.out.length; i += 0x8000)
+					rawData += String.fromCharCode.apply(null, archive.out.subarray(i, i + 0x8000));
+
+				window.location.href = 'data:application/x-tar;base64,' + window.btoa(rawData);
+
+				if (success)
+					success();
+			};
 		}
 		catch (e)
 		{
