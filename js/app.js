@@ -43,7 +43,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 	{
 		try
 		{
-			if (! $('body').hasClass('iOS') && false)
+			if (! $('body').hasClass('iOS'))
 			{
 				// standard style
 
@@ -55,18 +55,12 @@ var TwineApp = Backbone.Marionette.Application.extend(
 			}
 			else
 			{
-				// package it into a .tar; this will trigger iOS to try to
+				// package it into a .zip; this will trigger iOS to try to
 				// hand it off to Google Drive, Dropbox, and the like
-				// cribbed from http://stackoverflow.com/questions/12710001/how-to-convert-uint8-array-to-base64-encoded-string
 
-				var archive = new Tar();
-				archive.append(filename, data);
-				var rawData = '';
-
-				for (var i = 0; i < archive.out.length; i += 0x8000)
-					rawData += String.fromCharCode.apply(null, archive.out.subarray(i, i + 0x8000));
-
-				window.location.href = 'data:application/x-tar;base64,' + window.btoa(rawData);
+				var zip = new JSZip();
+				zip.file(filename, data);
+				window.location.href = 'data:application/zip;base64, ' + zip.generate({ type: 'base64' });
 
 				if (success)
 					success();
