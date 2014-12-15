@@ -16,7 +16,7 @@ module.exports = function (grunt)
 					Marionette: true,
 					CodeMirror: true,
 					saveAs: true,
-					Tar: true,
+					JSZip: true,
 					// Misc.
 					app: true,
 					ui: true,
