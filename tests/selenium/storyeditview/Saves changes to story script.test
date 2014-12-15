@@ -59,6 +59,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>pause</td>
+	<td>10</td>
+	<td></td>
+</tr>
+<tr>
 	<td>waitForElementPresent</td>
 	<td>css=button.storyName</td>
 	<td></td>

@@ -21,6 +21,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>pause</td>
+	<td>10</td>
+	<td></td>
+</tr>
+<tr>
 	<td>click</td>
 	<td>css=.addStory</td>
 	<td></td>
@@ -33,6 +38,11 @@
 <tr>
 	<td>click</td>
 	<td>css=.add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>window.location.hash = 'stories';</td>
 	<td></td>
 </tr>
 <tr>
@@ -50,7 +60,6 @@
 	<td>title=Twine</td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

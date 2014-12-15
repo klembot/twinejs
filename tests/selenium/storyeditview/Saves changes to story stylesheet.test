@@ -59,6 +59,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>pause</td>
+	<td>10</td>
+	<td></td>
+</tr>
+<tr>
 	<td>waitForElementPresent</td>
 	<td>css=button.storyName</td>
 	<td></td>
@@ -78,7 +83,6 @@
 	<td>window.$('#stylesheetEditModal .CodeMirror')[0].CodeMirror.getValue()</td>
 	<td>${longUni}</td>
 </tr>
-
 </tbody></table>
 </body>
 </html>
