@@ -21,6 +21,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>pause</td>
+	<td>10</td>
+	<td></td>
+</tr>
+<tr>
 	<td>click</td>
 	<td>css=.confirmDelete</td>
 	<td></td>
@@ -40,7 +45,6 @@
 	<td>css=.story .bubble@style</td>
 	<td>*display: block*</td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

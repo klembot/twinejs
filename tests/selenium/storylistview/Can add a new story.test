@@ -38,6 +38,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>pause</td>
+	<td>10</td>
+	<td></td>
+</tr>
+<tr>
 	<td>click</td>
 	<td>css=.addStory</td>
 	<td></td>
@@ -54,7 +59,7 @@
 </tr>
 <tr>
 	<td>waitForText</td>
-	<td>css=.story h2 a</td>
+	<td>css=.storyName</td>
 	<td>${shortUni}</td>
 </tr>
 </tbody></table>

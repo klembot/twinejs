@@ -34,13 +34,18 @@
 </tr>
 <!--Test-->
 <tr>
-	<td>waitForElementNotPresent</td>
-	<td>css=.passages .passage</td>
-	<td></td>
+	<td>storeCssCount</td>
+	<td>.passages .passage</td>
+	<td>existingPassages</td>
 </tr>
 <tr>
 	<td>click</td>
 	<td>css=button.addPassage</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>10</td>
 	<td></td>
 </tr>
 <tr>
@@ -49,9 +54,24 @@
 	<td></td>
 </tr>
 <tr>
-	<td>verifyElementPresent</td>
+	<td>waitForElementPresent</td>
 	<td>css=.passages .passage</td>
 	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>100</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeCssCount</td>
+	<td>css=.passages .passage</td>
+	<td>newPassages</td>
+</tr>
+<tr>
+	<td>verifyEval</td>
+	<td>${newPassages} == ${existingPassages} + 1</td>
+	<td>true</td>
 </tr>
 </tbody></table>
 </body>
