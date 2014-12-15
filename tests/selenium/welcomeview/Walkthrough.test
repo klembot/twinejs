@@ -42,16 +42,6 @@
 </tr>
 <tr>
 	<td>waitForText</td>
-	<td>css=div.alpha &gt; h1</td>
-	<td>Twine 2 is under construction.</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>css=div.alpha button</td>
-	<td></td>
-</tr>
-<tr>
-	<td>waitForText</td>
 	<td>css=div.save &gt; h1</td>
 	<td>Your work is saved only in your browser.</td>
 </tr>
