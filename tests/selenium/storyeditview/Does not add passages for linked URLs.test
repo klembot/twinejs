@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="file:///Users/Chris/" />
+<title>Does not add passages for linked URLs</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Does not add passages for linked URLs</td></tr>
+</thead><tbody>
+<!--Open story-->
+<tr>
+	<td>open</td>
+	<td>${baseURL}</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>window.location.hash = 'stories';</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=a.edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=a.edit</td>
+	<td></td>
+</tr>
+<!--Test-->
+<tr>
+	<td>waitForAttribute</td>
+	<td>css=#passageEditModal@class</td>
+	<td>*hide*</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=.passages .passage button.edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForNotAttribute</td>
+	<td>css=#passageEditModal@class</td>
+	<td>*hide*</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=#passageEditModal textarea.passageText</td>
+	<td>[[http://twinery.org]]</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#passageEditModal &gt; .save</td>
+	<td></td>
+</tr>
+<tr>
+	<td>refresh</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyNotText</td>
+	<td>css=div.passage:last .title</td>
+	<td>http:/twinery.org</td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

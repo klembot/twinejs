@@ -1,0 +1,320 @@
+/* fonts */
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    src: url('../fonts/sourcesanspro-regular.eot');
+    src: url('../fonts/sourcesanspro-regular.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/sourcesanspro-regular.woff2') format('woff2'),
+         url('../fonts/sourcesanspro-regular.woff') format('woff'),
+         url('../fonts/sourcesanspro-regular.ttf') format('truetype'),
+         url('../fonts/sourcesanspro-regular.svg#source_sans_proregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    src: url('../fonts/sourcesanspro-italic.eot');
+    src: url('../fonts/sourcesanspro-italic.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/sourcesanspro-italic.woff2') format('woff2'),
+         url('../fonts/sourcesanspro-italic.woff') format('woff'),
+         url('../fonts/sourcesanspro-italic.ttf') format('truetype'),
+         url('../fonts/sourcesanspro-italic.svg#source_sans_proitalic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    src: url('../fonts/sourcesanspro-bold.eot');
+    src: url('../fonts/sourcesanspro-bold.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/sourcesanspro-bold.woff2') format('woff2'),
+         url('../fonts/sourcesanspro-bold.woff') format('woff'),
+         url('../fonts/sourcesanspro-bold.ttf') format('truetype'),
+         url('../fonts/sourcesanspro-bold.svg#source_sans_probold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    src: url('../fonts/sourcesanspro-bolditalic.eot');
+    src: url('../fonts/sourcesanspro-bolditalic.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/sourcesanspro-bolditalic.woff2') format('woff2'),
+         url('../fonts/sourcesanspro-bolditalic.woff') format('woff'),
+         url('../fonts/sourcesanspro-bolditalic.ttf') format('truetype'),
+         url('../fonts/sourcesanspro-bolditalic.svg#source_sans_probold_italic') format('svg');
+    font-weight: bold;
+    font-style: italic;
+
+}
+
+@font-face {
+    font-family: 'Source Code Pro';
+    src: url('../fonts/sourcecodepro.eot');
+    src: url('../fonts/sourcecodepro.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/sourcecodepro.woff2') format('woff2'),
+         url('../fonts/sourcecodepro.woff') format('woff'),
+         url('../fonts/sourcecodepro.ttf') format('truetype'),
+         url('../fonts/sourcecodepro.svg#sourcecodepro') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Nunito Light';
+    src: url('../fonts/nunito-light.eot');
+    src: url('../fonts/nunito-light.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/nunito-light.woff') format('woff'),
+         url('../fonts/nunito-light.ttf') format('truetype'),
+         url('../fonts/nunito-light.svg#nunito_light') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+h1
+{
+	color: black;
+	font: 200% "Nunito Light", sans-serif;
+}
+
+h1 .normal
+{
+	font: 50% "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	line-height: 200%;
+}
+
+h2
+{
+	color: black;
+	font: 150% "Nunito Light", sans-serif;
+}
+
+h3
+{
+	color: black;
+	font: 125% "Nunito Light", sans-serif;
+}
+
+/* library customizations */
+
+.simplemodal-overlay
+{
+	background: hsla(0, 0%, 0%, 0.75);
+}
+
+/* animations */
+
+@keyframes fadeIn
+{
+	from
+	{
+		opacity: 0;
+	}
+
+	to
+	{
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes fadeIn
+{
+	from
+	{
+		opacity: 0;
+	}
+
+	to
+	{
+		opacity: 1;
+	}
+}
+
+@keyframes fadeOut
+{
+	from
+	{
+		opacity: 1;
+	}
+
+	to
+	{
+		opacity: 0;
+	}
+}
+
+@-webkit-keyframes fadeOut
+{
+	from
+	{
+		opacity: 1;
+	}
+
+	to
+	{
+		opacity: 0;
+	}
+}
+
+@keyframes appear
+{
+	from
+	{
+		transform: scale(0.5, 0.5);
+		opacity: 0;
+	}
+
+	to
+	{
+		transform: scale(1, 1);
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes appear
+{
+	from
+	{
+		-webkit-transform: scale(0.5, 0.5);
+		opacity: 0;
+	}
+
+	to
+	{
+		-webkit-transform: scale(1, 1);
+		opacity: 1;
+	}
+}
+
+@keyframes disappear
+{
+	from
+	{
+		transform: scale(1, 1);
+		opacity: 1;
+	}
+
+	to
+	{
+		transform: scale(0, 0);
+		opacity: 0;
+	}
+}
+
+@-webkit-keyframes disappear
+{
+	from
+	{
+		-webkit-transform: scale(1, 1);
+		opacity: 1;
+	}
+
+	to
+	{
+		-webkit-transform: scale(0, 0);
+		opacity: 0;
+	}
+}
+
+@keyframes fallIn
+{
+	from
+	{
+		transform: scale(1.5, 1.5);
+		opacity: 0;
+	}
+
+	to
+	{
+		transform: scale(1, 1);
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes fallIn
+{
+	from
+	{
+		-webkit-transform: scale(1.5, 1.5);
+		opacity: 0;
+	}
+
+	to
+	{
+		-webkit-transform: scale(1, 1);
+		opacity: 1;
+	}
+}
+
+@keyframes slideDown
+{
+	from
+	{
+		transform: translate(0, -15px);
+		opacity: 0;
+	}
+
+	to
+	{
+		transform: translate(0, 0);
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes slideDown
+{
+	from
+	{
+		-webkit-transform: translate(0, -15px);
+		opacity: 0;
+	}
+
+	to
+	{
+		-webkit-transform: translate(0, 0);
+		opacity: 1;
+	}
+}
+
+.appear
+{
+	animation: 0.4s appear;
+	-webkit-animation: 0.4s appear;
+}
+
+.disappear
+{
+	animation: 0.4s disappear;
+	-webkit-animation: 0.4s disappear;
+}
+
+.fadeIn
+{
+	animation: 0.4s fadeIn;
+	-webkit-animation: 0.4s fadeIn;
+}
+
+.fadeOut
+{
+	animation: 0.4s fadeOut;
+	-webkit-animation: 0.4s fadeOut;
+}
+
+.fallIn
+{
+	animation: 0.4s fallIn;
+	-webkit-animation: 0.4s fallIn;
+}
+
+.slideDown
+{
+	animation: 0.4s slideDown;
+	-webkit-animation: 0.4s slideDown;
+}
+
+.fast
+{
+	animation-duration: 0.2s;
+	-webkit-animation-duration: 0.2s;
+}
