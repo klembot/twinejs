@@ -186,7 +186,8 @@ var TwineApp = Backbone.Marionette.Application.extend(
 
 			var story = allStories.create(
 			{
-				name: $story.attr('name')
+				name: $story.attr('name'),
+				storyFormat: $story.attr('format')
 			}, { wait: true });
 
 			// and child passages
