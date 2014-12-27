@@ -162,11 +162,20 @@ var StoryFormat = Backbone.Model.extend(
 			};
 
 			var output = this.properties.source;
-			
+
+			// use function replacements to protect the data from accidental
+			// interactions with the special string replacement patterns
+
 			// builtin placeholders
 
-			output = output.replace(/{{STORY_NAME}}/g, _.escape(story.get('name')));
-			output = output.replace(/{{STORY_DATA}}/g, story.publish(options, startId));
+			output = output.replace(/{{STORY_NAME}}/g, function ()
+			{
+				return _.escape(story.get('name'));
+			});
+			output = output.replace(/{{STORY_DATA}}/g, function ()
+			{
+				return story.publish(options, startId);
+			});
 
 			// user-defined placeholders
 
@@ -175,7 +184,10 @@ var StoryFormat = Backbone.Model.extend(
 				var value = story.get(p.name);
 
 				if (value !== null)
-					output = output.replace(p.name, value);
+					output = output.replace(p.name, function ()
+					{
+						return value;
+					});
 			});
 
 			callback(null, output);
