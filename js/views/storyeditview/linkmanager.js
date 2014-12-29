@@ -18,6 +18,24 @@ StoryEditView.LinkManager = Backbone.View.extend(
 
 	linkColor: '#7088ac',
 
+	/**
+	 Angle at which arrowheads are drawn, in radians.
+	 
+	 @property {Number} ARROW_ANGLE
+	 @final
+	**/
+
+	ARROW_ANGLE: Math.PI / 6,
+
+	/**
+	 Length of arrowheads, in pixels.
+
+	 @property {Number} ARROW_SIZE
+	 @final
+	**/
+	
+	ARROW_SIZE: 10,
+
 	initialize: function (options)
 	{
 		/**
@@ -27,6 +45,14 @@ StoryEditView.LinkManager = Backbone.View.extend(
 		**/
 
 		this.parent = options.parent;
+
+		/**
+		 The SVG element we draw to.
+
+		 @property svg
+		**/
+
+		this.svg = SVG(this.parent.$('.passages')[0]);
 
 		/**
 		 Tracks passage positions and links to speed up drawing operations.
@@ -97,18 +123,6 @@ StoryEditView.LinkManager = Backbone.View.extend(
 		})
 		.listenTo(this.parent.model, 'change:zoom', this.reset);
 
-		// as the window resizes, we need to redraw links because our canvas element is changing size
-
-		/**
-		 A bound event listener for window resize events, so we can later disconnect it.
-
-		 @property {Function} drawLinksBound
-		 @private
-		**/
-
-		this.drawLinksBound = _.debounce(_.bind(this.drawLinks, this), 500);
-		$(window).on('resize', this.drawLinksBound);
-
 		/**
 		 A bound event listener for the start of a passage drag event, so we can later disconnect it.
 
@@ -143,7 +157,6 @@ StoryEditView.LinkManager = Backbone.View.extend(
 
 	close: function()
 	{
-		$(window).off('resize', this.drawLinksBound);
 		$('body').off('passagedragstart', this.prepDragBound);
 		$('body').off('passagedrag', this.followDragBound);
 	},
@@ -165,15 +178,16 @@ StoryEditView.LinkManager = Backbone.View.extend(
 	 Projects a point from the endpoint of a line at a certain angle and distance.
 	 
 	 @method endPointProjectedFrom
-	 @param {Array} line An array of two points, each an object with x and y properties
+	 @param {Array} line An array of two points, each an array in [x, y] format
 	 @param {Number} angle Angle in radians to project from the endpoints
 	 @param {Number} distance Distance the projected line should have
+	 @return Array
 	**/
 
     endPointProjectedFrom: function (line, angle, distance)
     {
-        var length = Math.sqrt(Math.pow(line[1].x - line[0].x, 2) +
-                               Math.pow(line[1].y - line[0].y, 2));
+        var length = Math.sqrt(Math.pow(line[1][0] - line[0][0], 2) +
+                               Math.pow(line[1][1] - line[0][1], 2));
 
         if (length == 0)
 			return line[1];
@@ -182,12 +196,12 @@ StoryEditView.LinkManager = Backbone.View.extend(
 
         var lengthRatio = distance / length;
 
-        var x = line[1].x - ((line[1].x - line[0].x) * Math.cos(angle) -
-                             (line[1].y - line[0].y) * Math.sin(angle)) * lengthRatio;
-        var y = line[1].y - ((line[1].y - line[0].y) * Math.cos(angle) +
-                             (line[1].x - line[0].x) * Math.sin(angle)) * lengthRatio;
+        var x = line[1][0] - ((line[1][0] - line[0][0]) * Math.cos(angle) -
+                             (line[1][1] - line[0][1]) * Math.sin(angle)) * lengthRatio;
+        var y = line[1][1] - ((line[1][1] - line[0][1]) * Math.cos(angle) +
+                             (line[1][0] - line[0][0]) * Math.sin(angle)) * lengthRatio;
 
-        return {x: x, y: y};
+        return [x, y];
     },
 
 	/**
@@ -198,27 +212,8 @@ StoryEditView.LinkManager = Backbone.View.extend(
 
 	drawLinks: function()
 	{
-		// canvas properties
-
-		var canvas = this.$('canvas')[0];
-		var gc = canvas.getContext('2d');
-
-		// dimensions of a passage
-
-		var width = this.$('.passage:first .frame').width();
-		var height = this.$('.passage:first .frame').height();
-
-		// configuration of arrowheads
-		
 		var drawArrows = (this.parent.model.get('zoom') > 0.25);
-        var arrowSize = Math.max(width / 8);
-		var arrowAngle = Math.PI / 6;
-
-		gc.beginPath();
-		gc.clearRect(0, 0, canvas.width, canvas.height);
-		gc.strokeStyle = this.linkColor;
-		gc.fillStyle = this.linkColor;
-		gc.lineWidth = 2;
+		this.svg.clear();
 
 		for (var name in this.drawCache)
 		{
@@ -237,8 +232,8 @@ StoryEditView.LinkManager = Backbone.View.extend(
 				// p is the start passage; q is the destination
 				// find the closest sides to connect
 
-				var xDist = q.position.left - p.position.left;
-				var yDist = q.position.top - p.position.top;
+				var xDist = q.top[0] - p.top[0];
+				var yDist = q.top[1] - p.top[1];
 				var line;
 				
 				if (Math.abs(xDist) > Math.abs(yDist))
@@ -246,66 +241,31 @@ StoryEditView.LinkManager = Backbone.View.extend(
 					// connect horizontal sides
 
 					if (xDist > 0)
-					{
-						// right side of p to left side of q
-
-						line = [{ x: p.position.left + width, y: p.position.top + height / 2 },
-								{ x: q.position.left, y: q.position.top + height / 2 }];
-					}
+						line = [p.right, q.left];
 					else
-					{
-						// left side of p to right side of q
-
-						line = [{x: p.position.left, y: p.position.top + height / 2 },
-								{x: q.position.left + width, y: q.position.top + height / 2 }];
-					};
+						line = [p.left, q.right];
 				}
 				else
 				{
 					// connect vertical sides
 
 					if (yDist > 0)
-					{
-						// bottom side of p to top side of q
-
-						line = [{x: p.position.left + width / 2, y: p.position.top + height },
-								{x: q.position.left + width / 2, y: q.position.top }];
-					}
+						line = [p.bottom, q.top];
 					else
-					{
-						// top side of p to top side of q
-
-						line = [{ x: p.position.left + width / 2, y: p.position.top },
-								{ x: q.position.left + width / 2, y: q.position.top + height }];
-					};
+						line = [p.top, q.bottom];
 				}
 
 				// line is now an array of two points: 0 is the start, 1 is the end
-
-				var arrow;
-
-				if (drawArrows)
-					arrow =
-					[
-						this.endPointProjectedFrom(line, arrowAngle, arrowSize),
-						this.endPointProjectedFrom(line, -arrowAngle, arrowSize)
-					];
-
-				// draw it
-
-				gc.moveTo(line[0].x, line[0].y);
-				gc.lineTo(line[1].x, line[1].y);
+				// add arrowheads as needed
 
 				if (drawArrows)
 				{
-					gc.moveTo(line[1].x, line[1].y);
-					gc.lineTo(arrow[0].x, arrow[0].y);
-					gc.moveTo(line[1].x, line[1].y);
-					gc.lineTo(arrow[1].x, arrow[1].y);
-				};
+					var head1 = this.endPointProjectedFrom(line, this.ARROW_ANGLE, this.ARROW_SIZE);
+					var head2 = this.endPointProjectedFrom(line, -this.ARROW_ANGLE, this.ARROW_SIZE);
+					line.push(head1, [line[1][0], line[1][1]], head2);
+				}
 
-				gc.closePath();
-				gc.stroke();
+				this.svg.polyline(line);
 			};
 		};
     },
@@ -363,15 +323,26 @@ StoryEditView.LinkManager = Backbone.View.extend(
     cachePassage: function (passage)
     {
 		var offset = this.$('.passages').offset();
+		var passEl = this.$('.passages div[data-id="' + passage.id + '"] .frame');
 		var pos = this.$('.passages div[data-id="' + passage.id + '"] .frame').offset();
+		var width = passEl.width();
+		var height = passEl.height();
 
 	    // if the passage hasn't been rendered yet, there's nothing to cache yet
 
 	    if (pos)
+		{
+			var x = pos.left - offset.left;
+			var y = pos.top - offset.top;
+
 		    this.drawCache[passage.get('name')] =
 		    {
-			    position: { left: pos.left - offset.left, top: pos.top - offset.top },
+				top: [x + width / 2, y],
+				right: [x + width, y + height / 2],
+				bottom: [x + width / 2, y + height],
+				left: [x, y + height / 2],
 			    links: passage.links()
 		    };
+		};
     }
 });
