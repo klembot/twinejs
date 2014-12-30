@@ -95,7 +95,12 @@ StoryEditView.LinkManager = Backbone.View.extend(
 				}, this);
 			}, this);
 		})
-		.listenTo(this.parent.model, 'change:zoom', this.reset);
+		.listenTo(this.parent.model, 'change:zoom', function()
+		{
+			// this must be deferred so that the DOM has a chance to update
+
+			_.defer(_.bind(this.reset, this));
+		});
 
 		// as the window resizes, we need to redraw links because our canvas element is changing size
 
