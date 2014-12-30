@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="file:///Users/Chris/" />
+<title>Saves changes to story script</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Saves changes to story script</td></tr>
+</thead><tbody>
+<!--Open story-->
+<tr>
+	<td>open</td>
+	<td>${baseURL}</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>window.location.hash = 'stories';</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=a.edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=a.edit</td>
+	<td></td>
+</tr>
+<!--Test-->
+<tr>
+	<td>click</td>
+	<td>css=button.storyName</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.editScript</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>window.$('#scriptEditModal .CodeMirror')[0].CodeMirror.setValue(storedVars.longUni)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#scriptEditModal .close</td>
+	<td></td>
+</tr>
+<tr>
+	<td>refresh</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>10</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=button.storyName</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.storyName</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.editScript</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>window.$('#scriptEditModal .CodeMirror')[0].CodeMirror.getValue()</td>
+	<td>${longUni}</td>
+</tr>
+</tbody></table>
+</body>
+</html>

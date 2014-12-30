@@ -1,0 +1,56 @@
+<div id="searchModal" class="modal wide hide">
+
+<button class="close subtle" data-modal-hide="this">
+<i class="fa fa-times"></i>
+</button>
+
+<h2 class="title">Find and Replace</h2>
+
+<div class="content">
+
+<p>
+<label for="searchFor">Search For</label>
+<textarea id="searchFor"></textarea>
+</p>
+
+<p>
+<input type="checkbox" id="searchNames" checked>
+<label for="searchNames">Include passage names</label>
+
+<input type="checkbox" id="searchCaseSensitive">
+<label for="searchCaseSensitive">Match case</label>
+
+<input type="checkbox" id="searchRegexp">
+<label for="searchRegexp">Regular expression</label>
+</p>
+
+<p>
+<label for="replaceWith">Replace With</label>
+<textarea id="replaceWith"></textarea>
+</p>
+
+<p class="resultSummary hide">
+<span class="controls">
+<button class="expandAll subtle" title="Expand all search results">
+<i class="fa fa-expand"></i>
+</button>
+
+<button class="collapseAll subtle" title="Collapse all search results">
+<i class="fa fa-compress"></i>
+</button>
+
+<button class="replaceAll danger">
+<i class="fa fa-bolt"></i> Replace All
+</button>
+</span>
+
+<span class="matches"><span class="matchCount"></span> passages match.</span>
+</p>
+
+<p class="loading hide">
+<i class="fa fa-circle-o-notch fa-spin"></i> Searching...
+</p>
+
+<div class="results"></div> <!-- .results -->
+</div> <!-- .content -->
+</div> <!-- #searchModal -->
