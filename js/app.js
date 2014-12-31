@@ -265,10 +265,10 @@ var TwineApp = Backbone.Marionette.Application.extend(
 	selectors: {
 		passage: "tw-passage",
 		story: "tw-story",
-		script: "[data-role=script]",
-		stylesheet: "[data-role=stylesheet]",
-		storyData: "tw-storydata, [data-role=twinestory]", // 2.0p2 legacy selector
-		passageData: "tw-passagedata, [data-role=passage]" // 2.0p2 legacy selector
+		script: "[role=script]",
+		stylesheet: "[role=stylesheet]",
+		storyData: "tw-storydata",
+		passageData: "tw-passagedata"
 	}
 });
 
