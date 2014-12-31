@@ -37,7 +37,7 @@ AppPref.withName = function (name, defaultVal)
 	if (result)
 		return result;
 	else if (defaultVal !== null)
-		return allPrefs.create({ name: name, value: defaultVal })
+		return allPrefs.create({ name: name, value: defaultVal });
 	else
 		return;
 };
