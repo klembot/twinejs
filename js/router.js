@@ -76,9 +76,9 @@ var TwineRouter = Backbone.Router.extend(
 		{
 			// default route -- show welcome if the user hasn't already seen it
 
-			var welcomePref = AppPref.withName('welcomeSeen');
+			var welcomePref = AppPref.withName('welcomeSeen', false);
 
-			if (welcomePref && welcomePref.get('value') === true)
+			if (welcomePref.get('value') === true)
 				window.location.hash = '#stories';
 			else
 				window.location.hash = '#welcome';

@@ -24,6 +24,16 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 	// 14 days
 	DONATION_DELAY: 1000 * 60 * 60 * 24 * 14,
 
+	/**
+	 How often we check for a new version of Twine, in milliseconds.
+
+	 @property UPDATE_CHECK_DELAY
+	 @final
+	**/
+
+	// 1 day
+	UPDATE_CHECK_DELAY: 1000 * 60 * 60 * 24,
+
 	initialize: function()
 	{
 		this.collection.on('sort', this.render);
@@ -51,33 +61,40 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 			_.delay(_.bind(view.fadeIn, view), APPEAR_INTERVAL * index);
 		});
 
+		// is there a new update to Twine?
+
+		var lastUpdateSeenPref = AppPref.withName('lastUpdateSeen', window.app.buildNumber); 
+		var lastUpdateCheckPref = AppPref.withName('lastUpdateCheckTime', new Date().getTime());
+
+		if (new Date().getTime() > lastUpdateCheckPref.get('value') + this.UPDATE_CHECK_DELAY)
+		{
+			window.app.checkForUpdate(lastUpdateSeenPref.get('value'), function (data)
+			{
+				lastUpdateSeenPref.save({ value: data.buildNumber });
+				$('#appUpdateModal .version').text(data.version);
+				$('#appUpdateModal a.download').attr('href', data.url);
+
+				_.delay(_.bind(function()
+				{
+					$('#appUpdateModal').data('modal').trigger('show');
+				}, this), 50);
+			});
+		};
+
 		// is it time to ask for a donation?
 
-		var firstRunPref = AppPref.withName('firstRunTime');
-		var donateShown = AppPref.withName('donateShown');
+		var firstRunPref = AppPref.withName('firstRunTime', new Date().getTime());
+		var donateShown = AppPref.withName('donateShown', false);
 
-		if (! firstRunPref)
-		{
-			firstRunPref = new AppPref({ name: 'firstRunTime', value: new Date().getTime() });
-			AppPrefCollection.all().add(firstRunPref);
-			firstRunPref.save();
-		}
-		else if ((! donateShown || ! donateShown.get('value')) &&
-			     new Date().getTime() > firstRunPref.get('value') + this.DONATION_DELAY)
+		if (! donateShown.get('value') &&
+            new Date().getTime() > firstRunPref.get('value') + this.DONATION_DELAY)
 		{
 			_.delay(_.bind(function()
 			{
 				this.$('#donateModal').data('modal').trigger('show');
 			}, this), 50);
 
-			if (! donateShown)
-			{
-				donateShown = new AppPref({ name: 'donateShown', value: true });
-				AppPrefCollection.all().add(donateShown);
-				donateShown.save();
-			}
-			else
-				donateShown.save({ value: true });
+			donateShown.save({ value: true });
 		};
 	},
 

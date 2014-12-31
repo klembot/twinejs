@@ -577,6 +577,11 @@ ul.menu li.checked button:before
 	color: hsl(0, 0%, 80%);
 }
 
+.modal.confirm.info .message:before
+{
+	content: '\f05a';
+}
+
 .tabs
 {
 	display: table;
