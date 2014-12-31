@@ -312,7 +312,7 @@ p, li
 .bubble.up:before
 {
 	content: '\25b2';
-	top: -0.8em;
+	top: -0.9em;
 	bottom: auto;
 }
 
@@ -575,6 +575,11 @@ ul.menu li.checked button:before
 	position: relative;
 	top: 0.1em;
 	color: hsl(0, 0%, 80%);
+}
+
+.modal.confirm.info .message:before
+{
+	content: '\f05a';
 }
 
 .tabs
