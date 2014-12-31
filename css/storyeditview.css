@@ -303,6 +303,13 @@ body.zoom-small
 	display: none;
 }
 
+#storyEditView svg polyline
+{
+	stroke: hsla(0, 0%, 100%, 0.75);
+	fill: none;
+	stroke-width: 2px;
+}
+
 .editModal
 {
 	bottom: 0;

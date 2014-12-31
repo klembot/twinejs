@@ -207,30 +207,30 @@ var StoryEditView = Marionette.CompositeView.extend(
 			top = ($(window).scrollTop() + $(window).height() / 2) - offsetY;
 		};
 
-		var passage = new Passage({
+		// make sure the name is unique
+
+		if (this.collection.findWhere({ name: name }))
+		{
+			var origName = name;
+			var nameIndex = 0;
+
+			do
+				nameIndex++;
+			while
+				(this.collection.findWhere({ name: origName + ' ' + nameIndex }));
+
+			name = origName + ' ' + nameIndex;
+		};
+
+		var passage = this.collection.create({
 			name: name,
 			story: this.model.id,
 			left: left,
 			top: top
 		});
-		
-		// catch dupe passage names
-
-		if (! passage.isValid())
-		{
-			var origName = passage.get('name');
-			var untitledIndex = 0;
-
-			do
-			{
-				passage.set({ name: origName + ' ' + (++untitledIndex) });
-			}
-			while (! passage.isValid() && passage.validationError == Passage.DUPE_NAME_ERROR.replace('%s', passage.get('name')));
-		};
 
 		// position the passage so it doesn't overlap any others
 
-		this.collection.add(passage);
 		this.positionPassage(passage);
 		passage.save();
 		this.children.findByModel(passage).appear();
