@@ -143,8 +143,11 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 	importFile: function (e)
 	{
 		var reader = new FileReader();
+		var bubble = this.$('.importStory').closest('.bubbleContainer');
+		bubble.find('.form').addClass('hide');
+		bubble.find('.working').removeClass('hide');
 
-		reader.onload = function (e)
+		reader.onload = _.bind(function (e)
 		{
 			var className = '';
 			var message = '';
@@ -173,7 +176,9 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 			};
 
 			ui.notify(message, className);
-		};
+			this.collection.reset(StoryCollection.all().models);
+			this.$('.importStory').bubble('hide');
+		}, this);
 
 		reader.readAsText(e.target.files[0], 'UTF-8');
 	},
