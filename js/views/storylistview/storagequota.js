@@ -25,9 +25,9 @@ StoryListView.StorageQuota = Backbone.View.extend(
 		// otherwise, we test in 100k chunks 
 		
 		var used = JSON.stringify(window.localStorage).length;
-		var testString = new Array(102400).join('x');
+		var testChunk = new Array(102400).join('x');
+		var testString = testChunk;
 		var free = 102400;
-		var storageIndex = 0;
 
 		var interval = window.setInterval(function()
 		{
@@ -35,9 +35,9 @@ StoryListView.StorageQuota = Backbone.View.extend(
 
 			try
 			{
-				window.localStorage.setItem('__quotatest' + storageIndex, testString);
+				window.localStorage.setItem('__test', testString);
+				testString += testChunk;
 				free += 102400;
-				storageIndex++;
 
 				var percent = Math.round(used / (used + free) * 100);
 
@@ -59,9 +59,7 @@ StoryListView.StorageQuota = Backbone.View.extend(
 
 			if (stop)
 			{
-				for (var i = 0; i <= storageIndex; i++)
-					window.localStorage.removeItem('__quotatest' + i);
-
+				window.localStorage.removeItem('__test');
 				window.clearInterval(interval);
 			};
 		}, 20);
