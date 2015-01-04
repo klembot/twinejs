@@ -39,6 +39,16 @@ var Passage = Backbone.Model.extend(
 			// update parent's last update date
 
 			this.fetchStory().set('lastUpdate', new Date());
+
+			// clamp our position to positive coordinates
+
+			var attrs = this.changedAttributes();
+
+			if (attrs.top !== null && attrs.top < 0)
+				this.set('top', 0);
+
+			if (attrs.left !== null && attrs.left < 0)
+				this.set('left', 0);
 		}, this);
 	},
 
