@@ -178,6 +178,7 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 			ui.notify(message, className);
 			this.collection.reset(StoryCollection.all().models);
 			this.$('.importStory').bubble('hide');
+			ui.initEl(this.$el);
 		}, this);
 
 		reader.readAsText(e.target.files[0], 'UTF-8');
