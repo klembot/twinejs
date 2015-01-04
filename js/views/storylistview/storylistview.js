@@ -177,6 +177,8 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 
 			ui.notify(message, className);
 			this.collection.reset(StoryCollection.all().models);
+			bubble.find('.form').removeClass('hide');
+			bubble.find('.working').addClass('hide');
 			this.$('.importStory').bubble('hide');
 			ui.initEl(this.$el);
 		}, this);
