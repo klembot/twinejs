@@ -115,7 +115,11 @@ var ui =
 
 					$t.addClass('active');
 					$cont.addClass('active');
-					$bubble.css('display', 'block').addClass('fadeIn fast');
+					$bubble.css(
+					{
+						display: 'block',
+						height: $bubble.height()
+					}).addClass('fadeIn fast');
 					$bubble.trigger('bubbleshow');
 					break;
 
