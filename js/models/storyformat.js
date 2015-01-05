@@ -121,7 +121,7 @@ var StoryFormat = Backbone.Model.extend(
 		loader.attr('src', this.get('url') + '?' + new Date().getTime());
 
 		// in case the error event doesn't fire on a loading error,
-		// we set a timeout (15 seconds) that removes the loader
+		// we set a timeout (10 seconds) that removes the loader
 		// element and triggers the failure handler
 
 		window.setTimeout(_.bind(function()
@@ -138,7 +138,7 @@ var StoryFormat = Backbone.Model.extend(
 				loader.remove();
 			};
 			
-		}, this), 2000);
+		}, this), 10000);
 	},
 
 	/**
