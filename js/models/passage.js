@@ -122,7 +122,7 @@ var Passage = Backbone.Model.extend(
 					[[link<-display text]] format
 					This regex will interpret the rightmost '->' and the leftmost '<-' as the divider.
 				*/
-				result.push(matches[i].replace(/\[\[(?:([^\]]*)\->|([^\]]*?)<\-)([^\]]*)\]\]/g, function(a,b,c,d) {
+				var link = matches[i].replace(/\[\[(?:([^\]]*)\->|([^\]]*?)<\-)([^\]]*)\]\]/g, function(a,b,c,d) {
 					return c ? c : d;
 				})
 				/*
@@ -133,7 +133,12 @@ var Passage = Backbone.Model.extend(
 				/*
 					[[link]] format
 				*/
-					.replace(/\[\[|\]\]/g,""));
+					.replace(/\[\[|\]\]/g,"");
+
+				// catch empty links, i.e. [[]]
+
+				if (link != '')
+					result.push(link);
 			};
 
 		if (internalOnly)
