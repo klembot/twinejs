@@ -59,7 +59,7 @@ StoryListView.FormatsModal = Backbone.View.extend(
 				// so that image URLs, for example, are correct
 
 				var path = format.get('url').replace(/\/[^\/]*?$/, '');
-				var fullContent = _.extend(format.properties, { path: path });
+				var fullContent = _.extend(format.properties, { path: path, userAdded: format.get('userAdded') });
 				var content = $(this.itemTemplate(fullContent));
 
 				if (fullContent.proofing)
@@ -106,7 +106,7 @@ StoryListView.FormatsModal = Backbone.View.extend(
 				// add it to the appropriate list
 
 				var path = url.replace(/\/[^\/]*?$/, '');
-				var fullContent = _.extend(test.properties, { path: path });
+				var fullContent = _.extend(test.properties, { path: path, userAdded: true });
 				var content = $(this.itemTemplate(fullContent));
 
 				if (fullContent.proofing)
