@@ -36,6 +36,7 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 
 	initialize: function()
 	{
+		this.sortByDate();
 		this.collection.on('sort', this.render);
 	},
 

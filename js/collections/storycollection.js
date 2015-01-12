@@ -27,7 +27,7 @@ var StoryCollection = Backbone.Collection.extend(
 			case 'lastUpdate':
 			var aDate = new Date(a.get('lastUpdate'));
 			var bDate = new Date(b.get('lastUpdate'));
-			sortVal = aDate.getTime() < bDate.getTime() ? 1 : 1;
+			sortVal = aDate.getTime() < bDate.getTime() ? -1 : 1;
 			break;
 			
 			default:
