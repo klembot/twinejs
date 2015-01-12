@@ -235,6 +235,9 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 			this.$('.stories').css('display', 'none');
 			this.$('.noStories').css('display', 'block');
 		};
+
+		document.title = 'Twine (' + this.collection.length + ' stor' +
+		                 ((this.collection.length == 1) ? 'y' : 'ies') + ')';
 	},
 
 	events:

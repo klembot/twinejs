@@ -36,6 +36,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 	initialize: function ()
 	{
 		this.listenTo(this.model, 'change:zoom', this.syncZoom);
+		this.listenTo(this.model, 'change:name', this.syncName);
 		this.collection = this.model.fetchPassages();
 		this.listenTo(this.collection, 'change:top change:left', this.resize)
 		.listenTo(this.collection, 'add', function (p)
@@ -50,6 +51,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 	onRender: function()
 	{
 		ui.initEl(this.$el);
+		this.syncName();
 
 		// enable space bar scrolling
 
@@ -512,6 +514,17 @@ var StoryEditView = Marionette.CompositeView.extend(
 				this.$el.add('body').removeClass('zoom-small zoom-medium zoom-big').addClass('zoom-' + desc);
 				break;
 			};
+	},
+
+	/**
+	 Syncs the window title with the story name.
+
+	 @method syncName
+	**/
+
+	syncName: function()
+	{
+		document.title = this.model.get('name');
 	},
 
 	events:

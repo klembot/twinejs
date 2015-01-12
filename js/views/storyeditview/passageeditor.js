@@ -18,6 +18,7 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 		this.tagTemplate = _.template(this.tagTemplate);
 
 		this.$el.on('modalhide', _.bind(this.save, this)); 
+		this.$el.on('modalhide', _.bind(this.restoreTitle, this)); 
 		this.$el.on('click', '.showNewTag', _.bind(this.showNewTag, this));
 		this.$el.on('click', '.hideNewTag', _.bind(this.hideNewTag, this));
 		this.$el.on('submit', _.bind(function (e)
@@ -47,6 +48,11 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 
 	open: function()
 	{
+		// remember previous window title
+
+		this.prevTitle = document.title;
+		document.title = this.model.get('name');
+
 		this.$('.passageId').val(this.model.id);
 		this.$('.passageName').val(this.model.get('name'));
 		var text = this.model.get('text');
@@ -156,5 +162,16 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 	addTag: function (name)
 	{
 		this.tagContainer.append(this.tagTemplate({ name: name }));
+	},
+
+	/**
+	 Restores the window title after finishing editing.
+
+	 @method restoreTitle
+	**/
+
+	restoreTitle: function()
+	{
+		document.title = this.prevTitle;
 	}
 });
