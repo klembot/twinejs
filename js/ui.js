@@ -162,7 +162,11 @@ var ui =
 			$b.on('click', '.bubbleContainer [data-bubble]', function()
 			{
 				var $t = $(this);
-				$t.bubble($t.data('bubble'));
+				var bubbleAction = $t.data('bubble');
+				$t.bubble(bubbleAction);
+
+				if (bubbleAction == 'show' || bubbleAction == 'toggle')
+					$.powerTip.hide();
 			});
 
 			// function to do the actual work of showing/hiding collapsible elements
