@@ -61,26 +61,6 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 			_.delay(_.bind(view.fadeIn, view), APPEAR_INTERVAL * index);
 		});
 
-		// is there a new update to Twine?
-
-		var lastUpdateSeenPref = AppPref.withName('lastUpdateSeen', window.app.buildNumber); 
-		var lastUpdateCheckPref = AppPref.withName('lastUpdateCheckTime', new Date().getTime());
-
-		if (new Date().getTime() > lastUpdateCheckPref.get('value') + this.UPDATE_CHECK_DELAY)
-		{
-			window.app.checkForUpdate(lastUpdateSeenPref.get('value'), function (data)
-			{
-				lastUpdateSeenPref.save({ value: data.buildNumber });
-				$('#appUpdateModal .version').text(data.version);
-				$('#appUpdateModal a.download').attr('href', data.url);
-
-				_.delay(_.bind(function()
-				{
-					$('#appUpdateModal').data('modal').trigger('show');
-				}, this), 50);
-			});
-		};
-
 		// is it time to ask for a donation?
 
 		var firstRunPref = AppPref.withName('firstRunTime', new Date().getTime());
@@ -95,6 +75,28 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 			}, this), 50);
 
 			donateShown.save({ value: true });
+		}
+		else
+		{
+			// is there a new update to Twine?
+
+			var lastUpdateSeenPref = AppPref.withName('lastUpdateSeen', window.app.buildNumber); 
+			var lastUpdateCheckPref = AppPref.withName('lastUpdateCheckTime', new Date().getTime());
+
+			if (new Date().getTime() > lastUpdateCheckPref.get('value') + this.UPDATE_CHECK_DELAY)
+			{
+				window.app.checkForUpdate(lastUpdateSeenPref.get('value'), function (data)
+				{
+					lastUpdateSeenPref.save({ value: data.buildNumber });
+					$('#appUpdateModal .version').text(data.version);
+					$('#appUpdateModal a.download').attr('href', data.url);
+
+					_.delay(_.bind(function()
+					{
+						$('#appUpdateModal').data('modal').trigger('show');
+					}, this), 50);
+				});
+			};
 		};
 	},
 
