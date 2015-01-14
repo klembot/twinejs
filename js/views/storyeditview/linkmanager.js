@@ -329,10 +329,10 @@ StoryEditView.LinkManager = Backbone.View.extend(
     {
 		var offset = this.$('.passages').offset();
 		var passEl = this.$('.passages div[data-id="' + passage.id + '"] .frame');
-		var pos = this.$('.passages div[data-id="' + passage.id + '"] .frame').offset();
-		var width = passEl.width();
-		var height = passEl.height();
-
+		var pos = passEl.offset();
+		var width = passEl.outerWidth();
+		var height = passEl.outerHeight();
+		
 	    // if the passage hasn't been rendered yet, there's nothing to cache yet
 
 	    if (pos)
