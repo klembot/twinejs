@@ -404,7 +404,7 @@ StoryEditView.LinkManager = Backbone.View.extend(
 		for (var i = this.draggedPassages.length - 1; i >= 0; i--)
 			this.cachePassage(this.draggedPassages[i]);
 
-		for (var i = this.draggedConnectors.length - 1; i >= 0; i--)
+		for (i = this.draggedConnectors.length - 1; i >= 0; i--)
 			this.drawConnector(this.draggedConnectors[i][0], this.draggedConnectors[i][1],
 			                   this.drawArrowsWhileDragging);
 	},
