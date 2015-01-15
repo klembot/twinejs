@@ -121,7 +121,8 @@ var TwineApp = Backbone.Marionette.Application.extend(
 		format.publish(story, options.formatOptions, options.startPassageId,
 		               _.bind(function (err, output)
 		{
-			// TODO: catch errors
+			if (err)
+				ui.notify('An error occurred while publishing your story. (' + err.message + ')', 'danger');
 
 			if (filename)
 				this.saveFile(output, filename);
@@ -333,6 +334,9 @@ window.app.addInitializer(function ()
 
 	if (! formats.findWhere({ name: 'Paperthin' }))
 		formats.create({ name: 'Paperthin', url: 'storyformats/Paperthin/format.js', userAdded: false });
+
+	if (! formats.findWhere({ name: 'SugarCube' }))
+		formats.create({ name: 'SugarCube', url: 'http://www.motoslave.net/sugarcube/twine2/format.js', userAdded: false });
 
 	// set default formats if not already set
 	// (second param is a default)

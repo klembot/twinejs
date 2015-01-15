@@ -115,7 +115,11 @@ var ui =
 
 					$t.addClass('active');
 					$cont.addClass('active');
-					$bubble.css('display', 'block').addClass('fadeIn fast');
+					$bubble.css(
+					{
+						display: 'block',
+						height: $bubble.height()
+					}).addClass('fadeIn fast');
 					$bubble.trigger('bubbleshow');
 					break;
 
@@ -158,7 +162,11 @@ var ui =
 			$b.on('click', '.bubbleContainer [data-bubble]', function()
 			{
 				var $t = $(this);
-				$t.bubble($t.data('bubble'));
+				var bubbleAction = $t.data('bubble');
+				$t.bubble(bubbleAction);
+
+				if (bubbleAction == 'show' || bubbleAction == 'toggle')
+					$.powerTip.hide();
 			});
 
 			// function to do the actual work of showing/hiding collapsible elements

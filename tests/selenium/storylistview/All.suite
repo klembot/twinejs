@@ -8,7 +8,7 @@
 <body>
 <table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
 <tr><td><b>Test Suite</b></td></tr>
-<tr><td><a href="../Setup.test">Setup</a></td></tr>
+<tr><td><a href="../../../../../../../../../Setup.test">Setup</a></td></tr>
 <tr><td><a href="On stories route.test">On stories route</a></td></tr>
 <tr><td><a href="Shows initial message when no stories are saved.test">Shows initial message when no stories are saved</a></td></tr>
 <tr><td><a href="Can cancel out of adding story.test">Can cancel out of adding story</a></td></tr>

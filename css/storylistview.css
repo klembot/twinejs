@@ -88,6 +88,11 @@
 	margin: 0;
 }
 
+#storyListView .bubbleContainer .working
+{
+	text-align: center;
+}
+
 #storyListView .quota .total
 {
 	display: inline-block;

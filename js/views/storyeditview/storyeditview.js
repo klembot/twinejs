@@ -36,6 +36,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 	initialize: function ()
 	{
 		this.listenTo(this.model, 'change:zoom', this.syncZoom);
+		this.listenTo(this.model, 'change:name', this.syncName);
 		this.collection = this.model.fetchPassages();
 		this.listenTo(this.collection, 'change:top change:left', this.resize)
 		.listenTo(this.collection, 'add', function (p)
@@ -50,6 +51,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 	onRender: function()
 	{
 		ui.initEl(this.$el);
+		this.syncName();
 
 		// enable space bar scrolling
 
@@ -259,7 +261,17 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 	play: function()
 	{
-		window.open('#stories/' + this.model.id + '/play', 'twinestory_play_' + this.model.id);
+		// try re-using the same window
+
+		var playWindow = window.open('', 'twinestory_play_' + this.model.id);
+
+		if (playWindow.location.href == 'about:blank')
+			playWindow.location.href = '#stories/' + this.model.id + '/play';
+		else
+		{
+			playWindow.location.reload();
+			ui.notify('Refreshed the playable version of your story in the previously-opened tab or window.');
+		};
 	},
 
 	/**
@@ -271,10 +283,22 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 	test: function (startId)
 	{
+		var url = '#stories/' + this.model.id + '/test';
+
 		if (startId)
-			window.open('#stories/' + this.model.id + '/test/' + startId, 'twinestory_test_' + this.model.id);
+			url += '/' + startId;
+
+		// try re-using the same window
+
+		var testWindow = window.open('', 'twinestory_test_' + this.model.id);
+		
+		if (testWindow.location.href == 'about:blank')
+			testWindow.location.href = url;
 		else
-			window.open('#stories/' + this.model.id + '/test', 'twinestory_test_' + this.model.id);
+		{
+			testWindow.location.reload();
+			ui.notify('Refreshed the test version of your story in the previously-opened tab or window.');
+		};
 	},
 
 	/**
@@ -490,6 +514,17 @@ var StoryEditView = Marionette.CompositeView.extend(
 				this.$el.add('body').removeClass('zoom-small zoom-medium zoom-big').addClass('zoom-' + desc);
 				break;
 			};
+	},
+
+	/**
+	 Syncs the window title with the story name.
+
+	 @method syncName
+	**/
+
+	syncName: function()
+	{
+		document.title = this.model.get('name');
 	},
 
 	events:

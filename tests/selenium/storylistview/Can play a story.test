@@ -56,8 +56,13 @@
 	<td></td>
 </tr>
 <tr>
+	<td>pause</td>
+	<td>250</td>
+	<td></td>
+</tr>
+<tr>
 	<td>selectWindow</td>
-	<td>title=Twine</td>
+	<td>title=${shortUni}</td>
 	<td></td>
 </tr>
 </tbody></table>

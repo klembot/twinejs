@@ -36,6 +36,7 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 
 	initialize: function()
 	{
+		this.sortByDate();
 		this.collection.on('sort', this.render);
 	},
 
@@ -61,26 +62,6 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 			_.delay(_.bind(view.fadeIn, view), APPEAR_INTERVAL * index);
 		});
 
-		// is there a new update to Twine?
-
-		var lastUpdateSeenPref = AppPref.withName('lastUpdateSeen', window.app.buildNumber); 
-		var lastUpdateCheckPref = AppPref.withName('lastUpdateCheckTime', new Date().getTime());
-
-		if (new Date().getTime() > lastUpdateCheckPref.get('value') + this.UPDATE_CHECK_DELAY)
-		{
-			window.app.checkForUpdate(lastUpdateSeenPref.get('value'), function (data)
-			{
-				lastUpdateSeenPref.save({ value: data.buildNumber });
-				$('#appUpdateModal .version').text(data.version);
-				$('#appUpdateModal a.download').attr('href', data.url);
-
-				_.delay(_.bind(function()
-				{
-					$('#appUpdateModal').data('modal').trigger('show');
-				}, this), 50);
-			});
-		};
-
 		// is it time to ask for a donation?
 
 		var firstRunPref = AppPref.withName('firstRunTime', new Date().getTime());
@@ -95,6 +76,28 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 			}, this), 50);
 
 			donateShown.save({ value: true });
+		}
+		else
+		{
+			// is there a new update to Twine?
+
+			var lastUpdateSeenPref = AppPref.withName('lastUpdateSeen', window.app.buildNumber); 
+			var lastUpdateCheckPref = AppPref.withName('lastUpdateCheckTime', new Date().getTime());
+
+			if (new Date().getTime() > lastUpdateCheckPref.get('value') + this.UPDATE_CHECK_DELAY)
+			{
+				window.app.checkForUpdate(lastUpdateSeenPref.get('value'), function (data)
+				{
+					lastUpdateSeenPref.save({ value: data.buildNumber });
+					$('#appUpdateModal .version').text(data.version);
+					$('#appUpdateModal a.download').attr('href', data.url);
+
+					_.delay(_.bind(function()
+					{
+						$('#appUpdateModal').data('modal').trigger('show');
+					}, this), 50);
+				});
+			};
 		};
 	},
 
@@ -143,8 +146,11 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 	importFile: function (e)
 	{
 		var reader = new FileReader();
+		var bubble = this.$('.importStory').closest('.bubbleContainer');
+		bubble.find('.form').addClass('hide');
+		bubble.find('.working').removeClass('hide');
 
-		reader.onload = function (e)
+		reader.onload = _.bind(function (e)
 		{
 			var className = '';
 			var message = '';
@@ -173,7 +179,12 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 			};
 
 			ui.notify(message, className);
-		};
+			this.collection.reset(StoryCollection.all().models);
+			bubble.find('.form').removeClass('hide');
+			bubble.find('.working').addClass('hide');
+			this.$('.importStory').bubble('hide');
+			ui.initEl(this.$el);
+		}, this);
 
 		reader.readAsText(e.target.files[0], 'UTF-8');
 	},
@@ -227,6 +238,9 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 			this.$('.stories').css('display', 'none');
 			this.$('.noStories').css('display', 'block');
 		};
+
+		document.title = this.collection.length + ' Stor' +
+		                 ((this.collection.length == 1) ? 'y' : 'ies');
 	},
 
 	events:
