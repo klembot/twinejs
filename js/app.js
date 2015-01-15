@@ -335,6 +335,9 @@ window.app.addInitializer(function ()
 	if (! formats.findWhere({ name: 'Paperthin' }))
 		formats.create({ name: 'Paperthin', url: 'storyformats/Paperthin/format.js', userAdded: false });
 
+	if (! formats.findWhere({ name: 'SugarCube' }))
+		formats.create({ name: 'SugarCube', url: 'http://www.motoslave.net/sugarcube/twine2/format.js', userAdded: false });
+
 	// set default formats if not already set
 	// (second param is a default)
 
