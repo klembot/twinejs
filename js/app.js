@@ -196,13 +196,16 @@ var TwineApp = Backbone.Marionette.Application.extend(
 			$story.find(selectors.passageData).each(function()
 			{
 				var $passage = $(this);
-				var id = $passage.attr('pid'); 
+				var id = $passage.attr('pid');
 				var pos = $passage.attr('position');
 				var posBits = pos.split(',');
+				var tags = $passage.attr('tags').trim();
+				tags = tags === "" ? [] : tags.split(/\s+/);
 
 				var passage = allPassages.create(
 				{
 					name: $passage.attr('name'),
+					tags: tags,
 					text: $passage.text(),
 					story: story.id,
 					left: parseInt(posBits[0]),
