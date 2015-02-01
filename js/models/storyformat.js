@@ -161,36 +161,43 @@ var StoryFormat = Backbone.Model.extend(
 				return;
 			};
 
-			var output = this.properties.source;
-
-			// use function replacements to protect the data from accidental
-			// interactions with the special string replacement patterns
-
-			// builtin placeholders
-
-			output = output.replace(/{{STORY_NAME}}/g, function ()
+			try
 			{
-				return _.escape(story.get('name'));
-			});
-			output = output.replace(/{{STORY_DATA}}/g, function ()
+				var output = this.properties.source;
+
+				// use function replacements to protect the data from accidental
+				// interactions with the special string replacement patterns
+
+				// builtin placeholders
+
+				output = output.replace(/{{STORY_NAME}}/g, function ()
+				{
+					return _.escape(story.get('name'));
+				});
+				output = output.replace(/{{STORY_DATA}}/g, function ()
+				{
+					return story.publish(options, startId);
+				});
+
+				// user-defined placeholders
+
+				_.each(this.get('placeholders'), function (p)
+				{
+					var value = story.get(p.name);
+
+					if (value !== null)
+						output = output.replace(p.name, function ()
+						{
+							return value;
+						});
+				});
+
+				callback(null, output);
+			}
+			catch (e)
 			{
-				return story.publish(options, startId);
-			});
-
-			// user-defined placeholders
-
-			_.each(this.get('placeholders'), function (p)
-			{
-				var value = story.get(p.name);
-
-				if (value !== null)
-					output = output.replace(p.name, function ()
-					{
-						return value;
-					});
-			});
-
-			callback(null, output);
+				callback(e);
+			};
 		}, this));
 	}
 });
