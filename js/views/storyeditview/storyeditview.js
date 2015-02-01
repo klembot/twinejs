@@ -211,6 +211,8 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 		// make sure the name is unique
 
+		name = name || Passage.prototype.defaults.name;
+
 		if (this.collection.findWhere({ name: name }))
 		{
 			var origName = name;
