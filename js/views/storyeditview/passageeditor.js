@@ -17,7 +17,6 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 		this.tagContainer = this.$('.tags');
 		this.tagTemplate = _.template(this.tagTemplate);
 
-		this.$el.on('modalhide', _.bind(this.save, this)); 
 		this.$el.on('modalhide', _.bind(this.restoreTitle, this)); 
 		this.$el.on('click', '.showNewTag', _.bind(this.showNewTag, this));
 		this.$el.on('click', '.hideNewTag', _.bind(this.hideNewTag, this));
@@ -38,6 +37,11 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 		{
 			$(this).closest('.tag').remove();
 		});
+
+		this.$el.data('blockModalHide', _.bind(function()
+		{
+			return ! this.save();	
+		}, this));
 	},
 
 	/**
@@ -79,14 +83,14 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 
 	/**
 	 Saves changes made by the user to the model, displaying any validation
-	 errors. If this is passed an event and validation fails, this stops the event's
-	 propagation.
+	 errors.
 
 	 @method save
 	 @param {Event} e Event to stop
+	 @return {Boolean} whether the save was successful
 	**/
 
-	save: function (e)
+	save: function ()
 	{
 		// gather current tag names
 
@@ -104,25 +108,20 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 			text: this.$('.passageText').val(),
 			tags: tags
 		}))
-			this.$('.alert').remove();
+		{
+			this.$('.error').addClass('hide');
+			this.$el.removeClass('hasError');
+			return true;
+		}
 		else
 		{
 			// show the error message
 
-			var message = this.$('.alert');
-			
-			if (message.size() == 0)
-				message = $('<p class="alert alert-danger">')
-				.text(this.model.validationError);
-
-			this.$('.textareaContainer').before(message);
-			message.hide().fadeIn();
+			var message = this.$('.error');
+			message.removeClass('hide').text(this.model.validationError).hide().fadeIn();
+			this.$el.addClass('hasError');
 			this.$('.passageName').focus();
-
-			// if we are handling an event, stop it
-
-			if (e)
-				e.stopImmediatePropagation();
+			return false;
 		};
 	},
 

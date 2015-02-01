@@ -315,6 +315,12 @@ var ui =
 
 						beforeHide: function (els, internalCallback)
 						{
+							// allow the modal to block this event via a callback
+
+							if (els.modal.data('blockModalHide') &&
+								els.modal.data('blockModalHide')() === true)
+								return false;
+
 							$('body').removeClass('modalOpen');
 							els.modal.trigger('modalhide');
 							return internalCallback(els);

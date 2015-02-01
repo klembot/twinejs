@@ -373,6 +373,11 @@ body.iOS .editModal
 	line-height: 100%;
 }
 
+#passageEditModal .error
+{
+	margin-bottom: 0.5em;
+}
+
 #passageEditModal .passageTags
 {
 	margin-top: -0.5em;
@@ -393,6 +398,11 @@ body.iOS .editModal
 #passageEditModal .fullEdit
 {
 	top: 6.5em;
+}
+
+#passageEditModal.hasError .fullEdit
+{
+	top: 8.5em;
 }
 
 #renameStoryModal input[type="text"]
