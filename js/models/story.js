@@ -93,9 +93,18 @@ var Story = Backbone.Model.extend(
 	publish: function (options, startId)
 	{
 		var passageData = '';
-		var startDbId = startId || this.get('startPassage') || 1; // last-ditch default, shows first passage defined
+		var startDbId = startId || this.get('startPassage');
+		var passages = this.fetchPassages();
 
-		this.fetchPassages().each(function (p, index)
+		// verify that the start passage exists
+
+		if (! startDbId)
+			throw new Error("There is no starting point set for this story.");
+
+		if (! passages.findWhere({ id: startDbId }))
+			throw new Error("The passage set as starting point for this story does not exist.");
+
+		passages.each(function (p, index)
 		{
 			passageData += p.publish(index + 1);
 
