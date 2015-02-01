@@ -263,6 +263,14 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 	play: function()
 	{
+		// verify the starting point
+
+		if (Passage.withId(this.model.get('startPassage')) === undefined)
+		{
+			ui.notify('This story does not have a starting point. Use the <i class="fa fa-rocket"></i> icon on a passage to set this.', 'danger');
+			return;
+		};
+
 		// try re-using the same window
 
 		var playWindow = window.open('', 'twinestory_play_' + this.model.id);
@@ -281,6 +289,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 	 will re-use the same tab for a particular story.
 
 	 @method test
+	 @param {Number} startId id to start the story on; if unspecified; uses the user-set one
 	**/
 
 	test: function (startId)
@@ -289,6 +298,21 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 		if (startId)
 			url += '/' + startId;
+
+		// verify the starting point
+
+		var startOk = false;
+
+		if (! startId)
+			startOk = (Passage.withId(this.model.get('startPassage')) !== undefined);
+		else
+			startOk = (Passage.withId(startId) !== undefined);
+
+		if (! startOk)
+		{
+			ui.notify('This story does not have a starting point. Use the <i class="fa fa-rocket"></i> icon on a passage to set this.', 'danger');
+			return;
+		};
 
 		// try re-using the same window
 
@@ -323,7 +347,12 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 	publish: function (options)
 	{
-		window.app.publishStory(this.model, this.model.get('name') + '.html');
+		// verify the starting point
+
+		if (Passage.withId(this.model.get('startPassage')) === undefined)
+			ui.notify('This story does not have a starting point. Use the <i class="fa fa-rocket"></i> icon on a passage to set this.', 'danger');
+		else
+			window.app.publishStory(this.model, this.model.get('name') + '.html');
 	},
 
 	/**
