@@ -51,7 +51,7 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 		// remember previous window title
 
 		this.prevTitle = document.title;
-		document.title = this.model.get('name');
+		document.title = 'Editing \u201c' + this.model.get('name') + '\u201d';
 
 		this.$('.passageId').val(this.model.id);
 		this.$('.passageName').val(this.model.get('name'));
