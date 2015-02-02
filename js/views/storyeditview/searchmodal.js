@@ -68,13 +68,20 @@ StoryEditView.SearchModal = Backbone.View.extend(
 				if (searchNames)
 					name = name.replace(searchTerm, '<span class="highlight">$1</span>');
 
+				// we have to do a bit of a song and dance
+				// to escape things correctly for the preview
+
+				var preview = _.escape(view.model.get('text').replace(searchTerm, '\u3000$1\u3001'));
+				preview = preview.replace('\u3000', '<span class="highlight">');
+				preview = preview.replace('\u3001', '</span>');
+
 				resultHtml += this.resultTemplate(
 				{
 					passageId: view.model.cid,
 					passageName: name,
 					numMatches: numMatches,
 					resultNumber: passagesMatched,
-					searchPreview: view.model.get('text').replace(searchTerm, '<span class="highlight">$1</span>')
+					searchPreview: preview
 				});
 			};
 		}, this));
