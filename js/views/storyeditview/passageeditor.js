@@ -68,6 +68,13 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 		_.each(this.model.get('tags'), this.addTag, this);
 
 		this.$el.data('modal').trigger('show');
+
+		// warn the user about leaving before saving
+
+		window.onbeforeunload = function()
+		{
+			return 'Any changes to the passage you\'re editing haven\'t been saved yet. (To do so, close the passage editor.)';
+		};
 	},
 
 	/**
@@ -78,6 +85,7 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 
 	close: function()
 	{
+		window.onbeforeunload = null;
 		this.$el.data('modal').trigger('hide');
 	},
 
