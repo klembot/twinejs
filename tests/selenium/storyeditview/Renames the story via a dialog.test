@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="file:///Users/Chris/" />
+<title>Renames the story via a dialog</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Renames the story via a dialog</td></tr>
+</thead><tbody>
+<!--Open story-->
+<tr>
+	<td>open</td>
+	<td>${baseURL}</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>window.location.hash = 'stories';</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=a.edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=a.edit</td>
+	<td></td>
+</tr>
+<!--Test-->
+<tr>
+	<td>storeEval</td>
+	<td>Math.round(Math.random() * 10000)</td>
+	<td>randNumber</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=.renameStory</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForNotAttribute</td>
+	<td>css=#renameStoryModal@class</td>
+	<td>*hide*</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=input.storyName</td>
+	<td>This is different ${randNumber}</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#renameStoryModal button[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>css=.storyNameVal</td>
+	<td>This is different ${randNumber}</td>
+</tr>
+<tr>
+	<td>refresh</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>css=.storyNameVal</td>
+	<td>This is different ${randNumber}</td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
