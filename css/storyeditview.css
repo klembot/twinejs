@@ -388,6 +388,12 @@ body.iOS .editModal
 {
 	margin-top: 0;
 	padding-top: 0.5em;
+	float: left;
+}
+
+#passageEditModal .passageTags .tag
+{
+	margin-right: 0.5em;
 }
 
 #passageEditModal .passageTags button.link
