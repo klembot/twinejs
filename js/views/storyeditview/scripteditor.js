@@ -29,9 +29,13 @@ StoryEditView.ScriptEditor = Backbone.View.extend(
 		this.$el.on({
 			'modalshown': _.bind(function()
 			{
-				this.scriptEditor.refresh();
-				this.scriptEditor.focus();
+				this.$el.one('animationend', _.bind(function()
+				{
+					this.scriptEditor.refresh();
+					this.scriptEditor.focus();
+				}, this));
 			}, this),
+
 			'modalhide': _.bind(function()
 			{
 				this.save();

@@ -29,8 +29,11 @@ StoryEditView.StyleEditor = Backbone.View.extend(
 		this.$el.on({
 			'modalshown': _.bind(function()
 			{
-				this.styleEditor.refresh();
-				this.styleEditor.focus();
+				this.$el.one('animationend', _.bind(function()
+				{
+					this.styleEditor.refresh();
+					this.styleEditor.focus();
+				}, this));
 			}, this),
 			'modalhide': _.bind(function()
 			{
