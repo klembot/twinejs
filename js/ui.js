@@ -32,6 +32,13 @@ var ui =
 			if (navigator.userAgent.match(/iPhone|iPad|iPod/i))
 				$b.addClass('iOS');
 
+			// note Safari for some functionality
+			// Chrome includes Safari in its user agent
+
+			if (navigator.userAgent.indexOf('Safari') != -1 &&
+				navigator.userAgent.indexOf('Chrome') == -1)
+				$b.addClass('safari');
+
 			// modals only allow Escape keypresses out, which close the modal
 
 			$b.on('keydown, keyup', '.modal', function (e)
