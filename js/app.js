@@ -43,12 +43,23 @@ var TwineApp = Backbone.Marionette.Application.extend(
 	{
 		try
 		{
-			if (! $('body').hasClass('iOS'))
+			var $b = $('body');
+
+			if (! $b.hasClass('iOS'))
 			{
 				// standard style
 
 				var blob = new Blob([data], { type: 'text/html;charset=utf-8' });
-				saveAs(blob, filename);
+
+				// Safari requires us to use saveAs in direct response
+				// to a user event, so we punt and use a data: URI instead
+				// we can't even open it in a new window as that seems to
+				// trigger popup blocking
+
+				if ($b.hasClass('safari'))
+					window.location.href = URL.createObjectURL(blob);
+				else
+					saveAs(blob, filename);
 
 				if (success)
 					success();
