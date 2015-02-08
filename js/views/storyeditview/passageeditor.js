@@ -40,7 +40,12 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 
 		this.$el.data('blockModalHide', _.bind(function()
 		{
-			return ! this.save();	
+			var worked = this.save();	
+
+			if (worked)
+				window.onbeforeunload = null;
+			
+			return ! worked;
 		}, this));
 	},
 
@@ -85,7 +90,6 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 
 	close: function()
 	{
-		window.onbeforeunload = null;
 		this.$el.data('modal').trigger('hide');
 	},
 
@@ -117,7 +121,9 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 			tags: tags
 		}))
 		{
-			this.$('.error').addClass('hide');
+			// have to manually set the style here because of jQuery .fadeIn()
+
+			this.$('.error').addClass('hide').hide();
 			this.$el.removeClass('hasError');
 			return true;
 		}
