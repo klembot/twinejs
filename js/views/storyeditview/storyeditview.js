@@ -37,7 +37,6 @@ var StoryEditView = Marionette.CompositeView.extend(
 	{
 		this.listenTo(this.model, 'change:zoom', this.syncZoom);
 		this.listenTo(this.model, 'change:name', this.syncName);
-		console.log(this.model);
 		this.collection = this.model.fetchPassages();
 		this.listenTo(this.collection, 'change:top change:left', this.resize)
 		.listenTo(this.collection, 'add', function (p)
