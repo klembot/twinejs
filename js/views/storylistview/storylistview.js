@@ -9,8 +9,8 @@
 
 var StoryListView = Backbone.Marionette.CompositeView.extend(
 {
-	itemView: StoryItemView,
-	itemViewContainer: '.stories',
+	childView: StoryItemView,
+	childViewContainer: '.stories',
 	template: '#templates .storyListView',
 
 	/**
@@ -101,12 +101,12 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 		};
 	},
 
-	onAfterItemAdded: function ()
+	onAddChild: function ()
 	{
 		this.syncStoryCount();
 	},
 
-	onItemRemoved: function()
+	onRemoveChild: function()
 	{
 		this.syncStoryCount();
 	},
