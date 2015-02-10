@@ -28,15 +28,16 @@ var StoryEditView = Marionette.CompositeView.extend(
 		small: 0.25
 	},
 
-	itemView: PassageItemView,
-	itemViewContainer: '.passages',
-	itemViewOptions: function() { return { parentView: this }; },
+	childView: PassageItemView,
+	childViewContainer: '.passages',
+	childViewOptions: function() { return { parentView: this }; },
 	template: '#templates .storyEditView',
 
 	initialize: function ()
 	{
 		this.listenTo(this.model, 'change:zoom', this.syncZoom);
 		this.listenTo(this.model, 'change:name', this.syncName);
+		console.log(this.model);
 		this.collection = this.model.fetchPassages();
 		this.listenTo(this.collection, 'change:top change:left', this.resize)
 		.listenTo(this.collection, 'add', function (p)
@@ -174,13 +175,13 @@ var StoryEditView = Marionette.CompositeView.extend(
 	/**
 	 Does cleanup of stuff set up in onRender().
 
-	 @method close
+	 @method destroy
 	 @private
 	**/
 
-	close: function()
+	destroy: function()
 	{
-		this.linkManager.close();
+		this.linkManager.destroy();
 		$(document).off('keydown');
 		$(document).off('keyup');
 		$(window).off('resize');

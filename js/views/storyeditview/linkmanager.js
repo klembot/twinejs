@@ -157,11 +157,11 @@ StoryEditView.LinkManager = Backbone.View.extend(
 	/**
 	 Does cleanup of stuff set up in onRender().
 
-	 @method close
+	 @method destroy
 	 @private
 	**/
 
-	close: function()
+	destroy: function()
 	{
 		$('body').off('passagedragstart', this.prepDragBound);
 		$('body').off('passagedrag', this.followDragBound);
