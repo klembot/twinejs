@@ -183,7 +183,6 @@ var StoryEditView = Marionette.CompositeView.extend(
 		this.linkManager.destroy();
 		$(document).off('keydown');
 		$(document).off('keyup');
-		$('body').removeClass('zoom-small zoom-medium zoom-big');
 		$(window).off('resize');
 	},
 
@@ -543,7 +542,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 		for (var desc in this.ZOOM_MAPPINGS)
 			if (this.ZOOM_MAPPINGS[desc] == zoom)
 			{
-				this.$el.add('body').removeClass('zoom-small zoom-medium zoom-big').addClass('zoom-' + desc);
+				this.$el.removeClass('zoom-small zoom-medium zoom-big').addClass('zoom-' + desc);
 				break;
 			};
 	},
