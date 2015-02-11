@@ -30,6 +30,13 @@
 	box-shadow: 0 0 1em hsl(0, 0%, 15%);
 }
 
+#storyEditView.fullSlideUp .toolbar.main
+{
+	transform: translate(100%, 0);
+	-webkit-transform: translate(100%, 0);
+	-webkit-animation: 0.5s fullSlideUp 0.6s forwards; 
+}
+
 #storyEditView .toolbar.main .right button
 {
 	height: 3.5em;
@@ -120,6 +127,27 @@
 
 /* all passage CSS is in px because we need it to match
    the blueprint background image */
+
+.zoom-small #storyEditView .passages
+{
+	background-image: url('../img/blueprint_small.png');
+	background-position: -15px 10px;
+}
+
+.zoom-medium #storyEditView .passages
+{
+	background-image: url('../img/blueprint_medium.png');
+	background-position: 10px 10px;
+}
+
+#storyEditView .passages .content
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
 
 #storyEditView .passage
 {
@@ -248,12 +276,6 @@
 	display: none;
 }
 
-body.zoom-medium
-{
-	background-image: url('../img/blueprint_medium.png');
-	background-position: 10px 10px;
-}
-
 .zoom-medium #storyEditView .passage .frame
 {
 	width: 60px;
@@ -283,12 +305,6 @@ body.zoom-medium
 .zoom-medium #storyEditView .passage .frame:after
 {
 	display: none;
-}
-
-body.zoom-small
-{
-	background-image: url('../img/blueprint_small.png');
-	background-position: -15px 10px;
 }
 
 .zoom-small #storyEditView .passage .frame

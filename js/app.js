@@ -369,7 +369,11 @@ window.app.addRegions(
 	 @property mainRegion
 	**/
 
-	mainRegion: '#regions .main'
+	mainRegion:
+	{
+		selector: '#regions .main',
+		regionClass: AnimRegion
+	}
 });
 
 window.app.start();
