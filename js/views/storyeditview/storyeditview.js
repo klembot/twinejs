@@ -183,6 +183,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 		this.linkManager.destroy();
 		$(document).off('keydown');
 		$(document).off('keyup');
+		$('body').removeClass('zoom-small zoom-medium zoom-big');
 		$(window).off('resize');
 	},
 
