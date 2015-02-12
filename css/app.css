@@ -307,33 +307,33 @@ h3
 	}
 }
 
-@-webkit-keyframes fullSlideDown
+@-webkit-keyframes fullSlideDownOut
 {
 	0%
 	{
-		transform: translate(0, -100%);
-		-webkit-transform: translate(0, -100%);
+		transform: translate(0, 0);
+		-webkit-transform: translate(0, 0);
 	}
 
 	100%
 	{
-		transform: translate(0, 0);
-		-webkit-transform: translate(0, 0);
+		transform: translate(0, 100%);
+		-webkit-transform: translate(0, 100%);
 	}
 }
 
-@keyframes fullSlideDown
+@keyframes fullSlideDownOut
 {
 	0%
 	{
-		transform: translate(0, -100%);
-		-webkit-transform: translate(0, -100%);
+		transform: translate(0, 0);
+		-webkit-transform: translate(0, 0);
 	}
 
 	100%
 	{
-		transform: translate(0, 0);
-		-webkit-transform: translate(0, 0);
+		transform: translate(0, 100%);
+		-webkit-transform: translate(0, 100%);
 	}
 }
 
@@ -373,16 +373,16 @@ h3
 	-webkit-animation: 0.4s slideDown;
 }
 
-.fullSlideDown
-{
-	animation: 0.4s fullSlideDown;
-	-webkit-animation: 0.4s fullSlideDown;
-}
-
 .fullSlideUp
 {
 	animation: 0.4s fullSlideUp;
 	-webkit-animation: 0.4s fullSlideUp;
+}
+
+.fullSlideDownOut
+{
+	animation: 0.4s fullSlideDownOut;
+	-webkit-animation: 0.4s fullSlideDownOut;
 }
 
 .fast
@@ -407,7 +407,7 @@ h3
 	right: 0;
 	bottom: 0;
 	overflow: hidden;
-	box-shadow: 0 0 0.5em hsl(0, 0%, 10%); 
+	box-shadow: 0 0 1em hsl(0, 0%, 15%);
 }
 
 .transitioning.bottom

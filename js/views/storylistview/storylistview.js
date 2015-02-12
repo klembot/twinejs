@@ -34,13 +34,22 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 	// 1 day
 	UPDATE_CHECK_DELAY: 1000 * 60 * 60 * 24,
 
+	/**
+	 If true, then we do not animate the stories appearing, nor
+	 do we do a version or donation check.
+
+	 @property appearFast
+	 @default false
+	**/
+	appearFast: false,
+
 	initialize: function()
 	{
 		this.sortByDate();
 		this.collection.on('sort', this.render);
 	},
 
-	onRender: function()
+	onShow: function()
 	{
 		ui.initEl(this.$el);
 		this.syncStoryCount();
@@ -51,6 +60,11 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 		// set the version number in the HTML
 
 		this.$('.app-version').text(window.app.version);
+
+		// if we were asked to appear fast, we do nothing else
+
+		if (this.appearFast)
+			return;
 
 		// fade in our views in a staggered manner
 
