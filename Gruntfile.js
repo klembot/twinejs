@@ -22,6 +22,7 @@ module.exports = function (grunt)
 					app: true,
 					ui: true,
 					TwineRouter: true,
+					AnimRegion: true,
 					// Collections
 					AppPrefCollection: true,
 					PassageCollection: true,
