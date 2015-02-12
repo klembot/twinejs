@@ -6,6 +6,8 @@
  @extends Backbone.Marionette.Region
 **/
 
+'use strict';
+
 var AnimRegion = Backbone.Marionette.Region.extend(
 {
 	initialize: function()
