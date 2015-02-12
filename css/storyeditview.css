@@ -295,6 +295,7 @@
 	width: 60px;
 	display: table-cell;
 	vertical-align: middle;
+	white-space: normal;
 }
 
 .zoom-medium #storyEditView .passage .excerpt
