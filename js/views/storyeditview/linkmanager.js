@@ -155,7 +155,7 @@ StoryEditView.LinkManager = Backbone.View.extend(
 	},
 
 	/**
-	 Does cleanup of stuff set up in onRender().
+	 Does cleanup of stuff set up in initialize().
 
 	 @method destroy
 	 @private

@@ -82,7 +82,7 @@ var PassageItemView = Marionette.ItemView.extend(
 		this.endDragBound = _.bind(this.endDrag, this);
 	},
 
-	onRender: function()
+	onShow: function()
 	{
 		var zoom = this.parentView.model.get('zoom');
 		var top = this.model.get('top') * zoom;

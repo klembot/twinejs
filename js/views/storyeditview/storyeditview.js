@@ -48,7 +48,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 		});
 	},
 
-	onRender: function()
+	onShow: function()
 	{
 		ui.initEl(this.$el);
 		this.syncName();
@@ -172,7 +172,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 	},
 
 	/**
-	 Does cleanup of stuff set up in onRender().
+	 Does cleanup of stuff set up in onShow().
 
 	 @method destroy
 	 @private
