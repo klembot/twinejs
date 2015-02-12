@@ -30,7 +30,7 @@
 	box-shadow: 0 0 1em hsl(0, 0%, 15%);
 }
 
-#storyEditView.fullSlideUp .toolbar.main
+.fullSlideUp #storyEditView .toolbar.main
 {
 	transform: translate(100%, 0);
 	-webkit-transform: translate(100%, 0);

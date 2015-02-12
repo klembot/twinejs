@@ -12,12 +12,20 @@ var AnimRegion = Backbone.Marionette.Region.extend(
 	{
 		this.on('before:swapOut', _.bind(this.handleSwapOut, this));
 		this.on('swap', _.bind(this.handleSwap, this));
+		this.oldElContainer = $('<div class="oldView"></div>');
+		$('body').append(this.oldElContainer);
 	},
 
 	handleSwapOut: function (view)
 	{
 		this.oldView = view;
-		this.oldViewEl = view.$el;
+		this.oldViewEl = $(view.$el.parent().html());
+
+		// mimic current scroll position by positioning everything inside
+
+		this.oldViewEl.wrapInner('<div style="position:relative;top:-' +
+		                         $(window).scrollTop() + 'px;' + 'left:-' +
+								 $(window).scrollLeft() + 'px"></div>');
 	},
 
 	handleSwap: function (view)
@@ -26,16 +34,38 @@ var AnimRegion = Backbone.Marionette.Region.extend(
 		{
 			// keep old HTML underneath the incoming view
 
+			this.oldElContainer.append(this.oldViewEl);
 			this.oldViewEl.addClass('transitioning bottom');
-			view.$('#storyEditView').addClass('transitioning fullSlideUp slow')
+
+			// animate the new view
+
+			view.$el.addClass('transitioning fullSlideUp slow')
 			.one('animationend', _.bind(function()
 			{
-				this.oldViewEl.remove();
+				this.oldElContainer.empty();
+				view.$el.removeClass('transitioning');
+
+				// we have to tell the view that its overall size just changed
+				view.resize();
 			}, this));
-			$('body').append(this.oldViewEl);
 		};
 
 		if (view instanceof StoryListView && this.oldView instanceof StoryEditView)
-			console.log('going from edit to list');
+		{
+			// tell the incoming view not to animate
+
+			view.appearFast = true;
+
+			// transition old HTML out
+
+			this.oldElContainer.append(this.oldViewEl);
+
+			this.oldViewEl.removeClass('fullSlideUp')
+			.addClass('transitioning top fullSlideDownOut slow')
+			.one('animationend', _.bind(function()
+			{
+				this.oldElContainer.empty();
+			}, this));
+		};
 	}
 });
