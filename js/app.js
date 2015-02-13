@@ -372,7 +372,7 @@ window.app.addRegions(
 	mainRegion:
 	{
 		selector: '#regions .main',
-		regionClass: AnimRegion
+		regionClass: TransRegion
 	}
 });
 

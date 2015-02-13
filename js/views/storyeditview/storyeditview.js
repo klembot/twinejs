@@ -29,7 +29,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 	},
 
 	childView: PassageItemView,
-	childViewContainer: '.passages',
+	childViewContainer: '.passages .content',
 	childViewOptions: function() { return { parentView: this }; },
 	template: '#templates .storyEditView',
 
@@ -166,9 +166,12 @@ var StoryEditView = Marionette.CompositeView.extend(
 			this.marquee = new StoryEditView.Marquee({ el: this.$('.passages'), parent: this });
 
 		// if we have no passages in this story, give the user one to start with
+		// otherwise, fade in existing
 
 		if (this.collection.length == 0)
 			this.addPassage();
+		else
+			this.$('.passages .content').addClass('fadeIn fast');
 	},
 
 	/**
