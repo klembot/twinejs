@@ -70,10 +70,9 @@
 </tr>
 <tr>
 	<td>waitForText</td>
-	<td>//div[@id='storyEditView']/div[2]/div[3]/div/div/p</td>
+	<td>//div[@id='storyEditView']/div[2]/div/div[2]/div/div/p</td>
 	<td>Untitled Passage 1</td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

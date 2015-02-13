@@ -34,6 +34,11 @@
 </tr>
 <!--Test-->
 <tr>
+	<td>waitForElementPresent</td>
+	<td>css=button.addPassage</td>
+	<td></td>
+</tr>
+<tr>
 	<td>storeEval</td>
 	<td>window.$('.passages .passage').length</td>
 	<td>startPassageCount</td>

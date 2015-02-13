@@ -34,6 +34,16 @@
 </tr>
 <!--Test-->
 <tr>
+	<td>waitForElementPresent</td>
+	<td>css=.testStory</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=.passages .passage:first-of-type button.setAsStart</td>
+	<td></td>
+</tr>
+<tr>
 	<td>click</td>
 	<td>css=.testStory</td>
 	<td></td>
@@ -43,7 +53,6 @@
 	<td></td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

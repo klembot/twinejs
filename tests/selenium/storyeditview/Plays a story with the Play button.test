@@ -34,6 +34,11 @@
 </tr>
 <!--Test-->
 <tr>
+	<td>waitForElementPresent</td>
+	<td>css=.playStory</td>
+	<td></td>
+</tr>
+<tr>
 	<td>click</td>
 	<td>css=.playStory</td>
 	<td></td>
@@ -43,7 +48,6 @@
 	<td></td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>
