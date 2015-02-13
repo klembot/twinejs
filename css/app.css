@@ -377,8 +377,8 @@ h3
 
 .fullAppear
 {
-	animation: 0.4s fullAppear;
-	-webkit-animation: 0.4s fullAppear;
+	animation: 0.4s fullAppear forwards;
+	-webkit-animation: 0.4s fullAppear forwards;
 }
 
 .fast
