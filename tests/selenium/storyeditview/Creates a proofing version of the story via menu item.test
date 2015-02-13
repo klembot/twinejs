@@ -34,6 +34,11 @@
 </tr>
 <!--Test-->
 <tr>
+	<td>waitForElementPresent</td>
+	<td>css=.storyNameVal</td>
+	<td></td>
+</tr>
+<tr>
 	<td>storeText</td>
 	<td>css=.storyNameVal</td>
 	<td>storyName</td>
@@ -48,7 +53,6 @@
 	<td></td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

@@ -34,6 +34,11 @@
 </tr>
 <!--Test-->
 <tr>
+	<td>waitForElementPresent</td>
+	<td>css=button.storyName</td>
+	<td></td>
+</tr>
+<tr>
 	<td>click</td>
 	<td>css=button.storyName</td>
 	<td></td>

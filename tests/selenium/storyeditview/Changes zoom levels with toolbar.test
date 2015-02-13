@@ -34,13 +34,18 @@
 </tr>
 <!--Test-->
 <tr>
+	<td>waitForElementPresent</td>
+	<td>css=button.addPassage</td>
+	<td></td>
+</tr>
+<tr>
 	<td>click</td>
 	<td>css=button.zoomSmall.subtle</td>
 	<td></td>
 </tr>
 <tr>
 	<td>waitForAttribute</td>
-	<td>css=body@class</td>
+	<td>css=div.main div@class</td>
 	<td>*zoom-small*</td>
 </tr>
 <tr>
@@ -50,7 +55,7 @@
 </tr>
 <tr>
 	<td>waitForAttribute</td>
-	<td>css=body@class</td>
+	<td>css=div.main div@class</td>
 	<td>*zoom-medium*</td>
 </tr>
 <tr>
@@ -60,10 +65,9 @@
 </tr>
 <tr>
 	<td>waitForAttribute</td>
-	<td>css=body@class</td>
+	<td>css=div.main div@class</td>
 	<td>*zoom-big*</td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

@@ -39,8 +39,18 @@
 	<td>true</td>
 </tr>
 <tr>
+	<td>waitForElementPresent</td>
+	<td>css=button.edit.subtle</td>
+	<td></td>
+</tr>
+<tr>
 	<td>click</td>
 	<td>css=button.edit.subtle</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
 	<td></td>
 </tr>
 <tr>
@@ -54,11 +64,15 @@
 	<td></td>
 </tr>
 <tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
 	<td>verifyEval</td>
 	<td>window.onbeforeunload === null</td>
 	<td>true</td>
 </tr>
-
 </tbody></table>
 </body>
 </html>
