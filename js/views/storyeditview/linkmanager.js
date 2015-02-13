@@ -44,7 +44,7 @@ StoryEditView.LinkManager = Backbone.View.extend(
 		 @property svg
 		**/
 
-		this.svg = SVG(this.parent.$('.passages')[0]);
+		this.svg = SVG(this.parent.$('.passages .content')[0]);
 
 		/**
 		 Tracks passage positions and links to speed up drawing operations.

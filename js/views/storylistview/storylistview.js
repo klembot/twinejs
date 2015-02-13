@@ -11,6 +11,7 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 {
 	childView: StoryItemView,
 	childViewContainer: '.stories',
+	childViewOptions: function() { return { parentView: this }; },
 	template: '#templates .storyListView',
 
 	/**
@@ -60,6 +61,40 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 		// set the version number in the HTML
 
 		this.$('.app-version').text(window.app.version);
+
+		// if we were previously editing a story, show a proxy
+		// shrinking back into the appropriate item
+
+		if (this.previouslyEditing)
+		{
+			var proxy = $('<div id="storyEditProxy" class="fullAppear fast reverse">');
+			proxy.one('animationend', function()
+			{
+				this.remove();
+			});
+
+			this.children.find(_.bind(function (c)
+			{
+				if (c.model.get('id') == this.previouslyEditing)
+				{
+					var $s = c.$('.story');
+					var o = $s.offset();
+					o.left += $s.outerHeight() / 2;
+
+					// we don't vertically center because it zooms into empty
+					// space on short titles
+
+					proxy.css(
+					{
+						'-webkit-transform-origin': o.left + 'px ' + o.top + 'px',
+						transformOrigin: o.left + 'px ' + o.top + 'px',
+					});
+					return true;
+				};
+			}, this));
+
+			this.$el.append(proxy);
+		};
 
 		// if we were asked to appear fast, we do nothing else
 
