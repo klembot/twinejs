@@ -4,14 +4,30 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="file:///Users/Chris/" />
-<title>Tests a story with the Test button</title>
+<title>Numbers new passages to avoid name conflicts</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">Tests a story with the Test button</td></tr>
+<tr><td rowspan="1" colspan="3">Numbers new passages to avoid name conflicts</td></tr>
 </thead><tbody>
-<!--Open story-->
+<!--Reset local storage-->
+<tr>
+	<td>open</td>
+	<td>${baseURL}/tests/selenium/resetLocalStorage.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#deleteAll</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>css=#result</td>
+	<td>All data deleted.</td>
+</tr>
+<!--Create story-->
 <tr>
 	<td>open</td>
 	<td>${baseURL}</td>
@@ -24,34 +40,38 @@
 </tr>
 <tr>
 	<td>waitForElementPresent</td>
-	<td>css=a.edit</td>
+	<td>css=.addStory</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>css=a.edit</td>
+	<td>css=.addStory</td>
 	<td></td>
 </tr>
-<!--Test-->
+<tr>
+	<td>type</td>
+	<td>css=input.newName.block</td>
+	<td>${shortUni}</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.add.create</td>
+	<td></td>
+</tr>
 <tr>
 	<td>waitForElementPresent</td>
-	<td>css=.testStory</td>
+	<td>css=div.frame</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>css=.passages .passage:first-of-type button.setAsStart</td>
+	<td>css=button.addPassage.create</td>
 	<td></td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>css=.testStory</td>
-	<td></td>
-</tr>
-<tr>
-	<td>waitForPopUp</td>
-	<td></td>
-	<td></td>
+	<td>waitForText</td>
+	<td>//div[@id='storyEditView']/div[2]/div/div[2]/div/div/p</td>
+	<td>Untitled Passage 1</td>
 </tr>
 </tbody></table>
 </body>

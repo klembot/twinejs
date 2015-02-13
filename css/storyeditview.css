@@ -30,6 +30,14 @@
 	box-shadow: 0 0 1em hsl(0, 0%, 15%);
 }
 
+.fullSlideLeft #storyEditView .toolbar.main
+{
+	transform: translate(100%, 0);
+	-webkit-transform: translate(100%, 0);
+	animation: 0.5s fullSlideUp 0.6s forwards; 
+	-webkit-animation: 0.5s fullSlideUp 0.6s forwards; 
+}
+
 #storyEditView .toolbar.main .right button
 {
 	height: 3.5em;
@@ -120,6 +128,27 @@
 
 /* all passage CSS is in px because we need it to match
    the blueprint background image */
+
+.zoom-small #storyEditView .passages
+{
+	background-image: url('../img/blueprint_small.png');
+	background-position: -15px 10px;
+}
+
+.zoom-medium #storyEditView .passages
+{
+	background-image: url('../img/blueprint_medium.png');
+	background-position: 10px 10px;
+}
+
+#storyEditView .passages .content
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
 
 #storyEditView .passage
 {
@@ -248,12 +277,6 @@
 	display: none;
 }
 
-body.zoom-medium
-{
-	background-image: url('../img/blueprint_medium.png');
-	background-position: 10px 10px;
-}
-
 .zoom-medium #storyEditView .passage .frame
 {
 	width: 60px;
@@ -273,6 +296,7 @@ body.zoom-medium
 	width: 60px;
 	display: table-cell;
 	vertical-align: middle;
+	white-space: normal;
 }
 
 .zoom-medium #storyEditView .passage .excerpt
@@ -283,12 +307,6 @@ body.zoom-medium
 .zoom-medium #storyEditView .passage .frame:after
 {
 	display: none;
-}
-
-body.zoom-small
-{
-	background-image: url('../img/blueprint_small.png');
-	background-position: -15px 10px;
 }
 
 .zoom-small #storyEditView .passage .frame
@@ -373,6 +391,11 @@ body.iOS .editModal
 	line-height: 100%;
 }
 
+#passageEditModal .error
+{
+	margin-bottom: 0.5em;
+}
+
 #passageEditModal .passageTags
 {
 	margin-top: -0.5em;
@@ -383,6 +406,12 @@ body.iOS .editModal
 {
 	margin-top: 0;
 	padding-top: 0.5em;
+	float: left;
+}
+
+#passageEditModal .passageTags .tag
+{
+	margin-right: 0.5em;
 }
 
 #passageEditModal .passageTags button.link
@@ -393,6 +422,11 @@ body.iOS .editModal
 #passageEditModal .fullEdit
 {
 	top: 6.5em;
+}
+
+#passageEditModal.hasError .fullEdit
+{
+	top: 8.5em;
 }
 
 #renameStoryModal input[type="text"]

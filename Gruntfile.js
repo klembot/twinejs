@@ -21,6 +21,7 @@ module.exports = function (grunt)
 					// Misc.
 					app: true,
 					ui: true,
+					TransRegion: true,
 					TwineRouter: true,
 					// Collections
 					AppPrefCollection: true,
@@ -135,6 +136,7 @@ module.exports = function (grunt)
 			{
 				files:
 				[
+					{ expand: true, src: ['img/*.ico'], dest: 'dist/rsrc/' },
 					{ expand: true, src: ['img/*.png'], dest: 'dist/rsrc/' },
 					{ expand: true, src: ['img/*.svg'], dest: 'dist/rsrc/' },
 					{ expand: true, cwd: 'fonts', src: ['*'], dest: 'dist/rsrc/fonts/' },

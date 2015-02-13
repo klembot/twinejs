@@ -28,9 +28,9 @@ var StoryEditView = Marionette.CompositeView.extend(
 		small: 0.25
 	},
 
-	itemView: PassageItemView,
-	itemViewContainer: '.passages',
-	itemViewOptions: function() { return { parentView: this }; },
+	childView: PassageItemView,
+	childViewContainer: '.passages .content',
+	childViewOptions: function() { return { parentView: this }; },
 	template: '#templates .storyEditView',
 
 	initialize: function ()
@@ -48,7 +48,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 		});
 	},
 
-	onRender: function()
+	onShow: function()
 	{
 		ui.initEl(this.$el);
 		this.syncName();
@@ -166,21 +166,24 @@ var StoryEditView = Marionette.CompositeView.extend(
 			this.marquee = new StoryEditView.Marquee({ el: this.$('.passages'), parent: this });
 
 		// if we have no passages in this story, give the user one to start with
+		// otherwise, fade in existing
 
 		if (this.collection.length == 0)
 			this.addPassage();
+		else
+			this.$('.passages .content').addClass('fadeIn fast');
 	},
 
 	/**
-	 Does cleanup of stuff set up in onRender().
+	 Does cleanup of stuff set up in onShow().
 
-	 @method close
+	 @method destroy
 	 @private
 	**/
 
-	close: function()
+	destroy: function()
 	{
-		this.linkManager.close();
+		this.linkManager.destroy();
 		$(document).off('keydown');
 		$(document).off('keyup');
 		$(window).off('resize');
@@ -211,6 +214,8 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 		// make sure the name is unique
 
+		name = name || Passage.prototype.defaults.name;
+
 		if (this.collection.findWhere({ name: name }))
 		{
 			var origName = name;
@@ -229,7 +234,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 			story: this.model.id,
 			left: left,
 			top: top
-		});
+		}, { wait: true });
 
 		// position the passage so it doesn't overlap any others
 
@@ -261,6 +266,14 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 	play: function()
 	{
+		// verify the starting point
+
+		if (Passage.withId(this.model.get('startPassage')) === undefined)
+		{
+			ui.notify('This story does not have a starting point. Use the <i class="fa fa-rocket"></i> icon on a passage to set this.', 'danger');
+			return;
+		};
+
 		// try re-using the same window
 
 		var playWindow = window.open('', 'twinestory_play_' + this.model.id);
@@ -279,6 +292,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 	 will re-use the same tab for a particular story.
 
 	 @method test
+	 @param {Number} startId id to start the story on; if unspecified; uses the user-set one
 	**/
 
 	test: function (startId)
@@ -287,6 +301,21 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 		if (startId)
 			url += '/' + startId;
+
+		// verify the starting point
+
+		var startOk = false;
+
+		if (! startId)
+			startOk = (Passage.withId(this.model.get('startPassage')) !== undefined);
+		else
+			startOk = (Passage.withId(startId) !== undefined);
+
+		if (! startOk)
+		{
+			ui.notify('This story does not have a starting point. Use the <i class="fa fa-rocket"></i> icon on a passage to set this.', 'danger');
+			return;
+		};
 
 		// try re-using the same window
 
@@ -321,7 +350,12 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 	publish: function (options)
 	{
-		window.app.publishStory(this.model, this.model.get('name') + '.html');
+		// verify the starting point
+
+		if (Passage.withId(this.model.get('startPassage')) === undefined)
+			ui.notify('This story does not have a starting point. Use the <i class="fa fa-rocket"></i> icon on a passage to set this.', 'danger');
+		else
+			window.app.publishStory(this.model, this.model.get('name') + '.html');
 	},
 
 	/**
@@ -511,7 +545,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 		for (var desc in this.ZOOM_MAPPINGS)
 			if (this.ZOOM_MAPPINGS[desc] == zoom)
 			{
-				this.$el.add('body').removeClass('zoom-small zoom-medium zoom-big').addClass('zoom-' + desc);
+				this.$el.removeClass('zoom-small zoom-medium zoom-big').addClass('zoom-' + desc);
 				break;
 			};
 	},
@@ -524,7 +558,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 	syncName: function()
 	{
-		document.title = this.model.get('name');
+		document.title = 'Editing \u201c' + this.model.get('name') + '\u201d';
 	},
 
 	events:

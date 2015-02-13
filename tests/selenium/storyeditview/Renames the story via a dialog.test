@@ -39,6 +39,11 @@
 	<td>randNumber</td>
 </tr>
 <tr>
+	<td>waitForElementPresent</td>
+	<td>css=.renameStory</td>
+	<td></td>
+</tr>
+<tr>
 	<td>click</td>
 	<td>css=.renameStory</td>
 	<td></td>
@@ -73,7 +78,6 @@
 	<td>css=.storyNameVal</td>
 	<td>This is different ${randNumber}</td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

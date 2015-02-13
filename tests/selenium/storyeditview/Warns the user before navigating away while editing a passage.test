@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="file:///Users/Chris/" />
-<title>Changes zoom levels with toolbar</title>
+<title>Warns the user before navigating away while editing a passage</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">Changes zoom levels with toolbar</td></tr>
+<tr><td rowspan="1" colspan="3">Warns the user before navigating away while editing a passage</td></tr>
 </thead><tbody>
 <!--Open story-->
 <tr>
@@ -34,39 +34,44 @@
 </tr>
 <!--Test-->
 <tr>
+	<td>verifyEval</td>
+	<td>window.onbeforeunload === null</td>
+	<td>true</td>
+</tr>
+<tr>
 	<td>waitForElementPresent</td>
-	<td>css=button.addPassage</td>
+	<td>css=button.edit.subtle</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>css=button.zoomSmall.subtle</td>
+	<td>css=button.edit.subtle</td>
 	<td></td>
 </tr>
 <tr>
-	<td>waitForAttribute</td>
-	<td>css=div.main div@class</td>
-	<td>*zoom-small*</td>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyEval</td>
+	<td>window.onbeforeunload === null</td>
+	<td>false</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>css=button.zoomMedium.subtle</td>
+	<td>//div[@id='passageEditModal']/button</td>
 	<td></td>
 </tr>
 <tr>
-	<td>waitForAttribute</td>
-	<td>css=div.main div@class</td>
-	<td>*zoom-medium*</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>css=button.zoomBig.subtle</td>
+	<td>pause</td>
+	<td>500</td>
 	<td></td>
 </tr>
 <tr>
-	<td>waitForAttribute</td>
-	<td>css=div.main div@class</td>
-	<td>*zoom-big*</td>
+	<td>verifyEval</td>
+	<td>window.onbeforeunload === null</td>
+	<td>true</td>
 </tr>
 </tbody></table>
 </body>

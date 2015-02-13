@@ -622,8 +622,9 @@ ul.menu li.checked button:before
 .tag button
 {
 	position: absolute;
-	right: 0;
-	top: 0;
+	right: -1px;
+	top: -1px;
+	bottom: -1px;
 	margin: 0;
 	border: none;
 	color: hsl(0, 0%, 30%);

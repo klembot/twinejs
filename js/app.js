@@ -43,12 +43,23 @@ var TwineApp = Backbone.Marionette.Application.extend(
 	{
 		try
 		{
-			if (! $('body').hasClass('iOS'))
+			var $b = $('body');
+
+			if (! $b.hasClass('iOS'))
 			{
 				// standard style
 
 				var blob = new Blob([data], { type: 'text/html;charset=utf-8' });
-				saveAs(blob, filename);
+
+				// Safari requires us to use saveAs in direct response
+				// to a user event, so we punt and use a data: URI instead
+				// we can't even open it in a new window as that seems to
+				// trigger popup blocking
+
+				if ($b.hasClass('safari'))
+					window.location.href = URL.createObjectURL(blob);
+				else
+					saveAs(blob, filename);
 
 				if (success)
 					success();
@@ -119,15 +130,17 @@ var TwineApp = Backbone.Marionette.Application.extend(
 		};
 
 		format.publish(story, options.formatOptions, options.startPassageId,
-		               _.bind(function (err, output)
+					   _.bind(function (err, output)
 		{
 			if (err)
 				ui.notify('An error occurred while publishing your story. (' + err.message + ')', 'danger');
-
-			if (filename)
-				this.saveFile(output, filename);
 			else
-				this.replaceContent(output);
+			{
+				if (filename)
+					this.saveFile(output, filename);
+				else
+					this.replaceContent(output);
+			};
 		}, this));
 	},
 
@@ -196,13 +209,16 @@ var TwineApp = Backbone.Marionette.Application.extend(
 			$story.find(selectors.passageData).each(function()
 			{
 				var $passage = $(this);
-				var id = $passage.attr('pid'); 
+				var id = $passage.attr('pid');
 				var pos = $passage.attr('position');
 				var posBits = pos.split(',');
+				var tags = $passage.attr('tags').trim();
+				tags = tags === "" ? [] : tags.split(/\s+/);
 
 				var passage = allPassages.create(
 				{
 					name: $passage.attr('name'),
+					tags: tags,
 					text: $passage.text(),
 					story: story.id,
 					left: parseInt(posBits[0]),
@@ -353,7 +369,11 @@ window.app.addRegions(
 	 @property mainRegion
 	**/
 
-	mainRegion: '#regions .main'
+	mainRegion:
+	{
+		selector: '#regions .main',
+		regionClass: TransRegion
+	}
 });
 
 window.app.start();

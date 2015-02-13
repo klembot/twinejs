@@ -17,7 +17,6 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 		this.tagContainer = this.$('.tags');
 		this.tagTemplate = _.template(this.tagTemplate);
 
-		this.$el.on('modalhide', _.bind(this.save, this)); 
 		this.$el.on('modalhide', _.bind(this.restoreTitle, this)); 
 		this.$el.on('click', '.showNewTag', _.bind(this.showNewTag, this));
 		this.$el.on('click', '.hideNewTag', _.bind(this.hideNewTag, this));
@@ -38,6 +37,16 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 		{
 			$(this).closest('.tag').remove();
 		});
+
+		this.$el.data('blockModalHide', _.bind(function()
+		{
+			var worked = this.save();	
+
+			if (worked)
+				window.onbeforeunload = null;
+			
+			return ! worked;
+		}, this));
 	},
 
 	/**
@@ -51,7 +60,7 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 		// remember previous window title
 
 		this.prevTitle = document.title;
-		document.title = this.model.get('name');
+		document.title = 'Editing \u201c' + this.model.get('name') + '\u201d';
 
 		this.$('.passageId').val(this.model.id);
 		this.$('.passageName').val(this.model.get('name'));
@@ -64,6 +73,13 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 		_.each(this.model.get('tags'), this.addTag, this);
 
 		this.$el.data('modal').trigger('show');
+
+		// warn the user about leaving before saving
+
+		window.onbeforeunload = function()
+		{
+			return 'Any changes to the passage you\'re editing haven\'t been saved yet. (To do so, close the passage editor.)';
+		};
 	},
 
 	/**
@@ -79,14 +95,14 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 
 	/**
 	 Saves changes made by the user to the model, displaying any validation
-	 errors. If this is passed an event and validation fails, this stops the event's
-	 propagation.
+	 errors.
 
 	 @method save
 	 @param {Event} e Event to stop
+	 @return {Boolean} whether the save was successful
 	**/
 
-	save: function (e)
+	save: function ()
 	{
 		// gather current tag names
 
@@ -104,25 +120,22 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 			text: this.$('.passageText').val(),
 			tags: tags
 		}))
-			this.$('.alert').remove();
+		{
+			// have to manually set the style here because of jQuery .fadeIn()
+
+			this.$('.error').addClass('hide').hide();
+			this.$el.removeClass('hasError');
+			return true;
+		}
 		else
 		{
 			// show the error message
 
-			var message = this.$('.alert');
-			
-			if (message.size() == 0)
-				message = $('<p class="alert alert-danger">')
-				.text(this.model.validationError);
-
-			this.$('.textareaContainer').before(message);
-			message.hide().fadeIn();
+			var message = this.$('.error');
+			message.removeClass('hide').text(this.model.validationError).hide().fadeIn();
+			this.$el.addClass('hasError');
 			this.$('.passageName').focus();
-
-			// if we are handling an event, stop it
-
-			if (e)
-				e.stopImmediatePropagation();
+			return false;
 		};
 	},
 

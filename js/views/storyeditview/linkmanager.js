@@ -44,7 +44,7 @@ StoryEditView.LinkManager = Backbone.View.extend(
 		 @property svg
 		**/
 
-		this.svg = SVG(this.parent.$('.passages')[0]);
+		this.svg = SVG(this.parent.$('.passages .content')[0]);
 
 		/**
 		 Tracks passage positions and links to speed up drawing operations.
@@ -74,6 +74,7 @@ StoryEditView.LinkManager = Backbone.View.extend(
 		.listenTo(this.parent.collection, 'change', function (item)
 		{
 			this.cachePassage(item);
+			this.drawAll();
 
 			// any passage that links or linked to this one
 			// needs to be re-rendered, to update its broken-link status
@@ -81,45 +82,65 @@ StoryEditView.LinkManager = Backbone.View.extend(
 			var oldName = item.previous('name');
 			var newName = item.get('name');
 
-			this.parent.collection.each(function (item)
+			_.each(this.passageCache, function (props, pName)
 			{
-				_.some(item.links(), function (link)
+				if (_.contains(props.links, oldName) || _.contains(props.links, newName))
 				{
-					if (link == oldName || link == newName)
+					this.parent.children.find(function (v)
 					{
-						this.parent.children.findByModel(item).render();
-						return true;
-					};
-				}, this);
+						if (v.model.get('name') == pName)
+						{
+							v.render();
+							return true;
+						};
+					});
+				};
 			}, this);
-
-			this.drawAll();
 		})
 		.listenTo(this.parent.collection, 'add', function (item)
 		{
 			this.cachePassage(item);
 			this.drawAll();
+			
+			var name = item.get('name');
+
+			_.each(this.passageCache, function (props, pName)
+			{
+				if (_.contains(props.links, name))
+				{
+					this.parent.children.find(function (v)
+					{
+						if (v.model.get('name') == pName)
+						{
+							v.render();
+							return true;
+						};
+					});
+				};
+			}, this);
 		})
 		.listenTo(this.parent.collection, 'remove', function (item)
 		{
 			var name = item.get('name');
-
 			delete this.passageCache[name];
 			this.drawAll();
 
 			// any passage that links or linked to this one
 			// needs to be re-rendered
 
-			this.parent.collection.each(function (item)
+			_.each(this.passageCache, function (props, pName)
 			{
-				_.some(item.links(), function (link)
+				if (_.contains(props.links, name))
 				{
-					if (link == name)
+					this.parent.children.find(function (v)
 					{
-						this.parent.children.findByModel(item).render();
-						return true;
-					};
-				}, this);
+						if (v.model.get('name') == pName)
+						{
+							v.render();
+							return true;
+						};
+					});
+				};
 			}, this);
 		})
 		.listenTo(this.parent.model, 'change:zoom', function()
@@ -155,13 +176,13 @@ StoryEditView.LinkManager = Backbone.View.extend(
 	},
 
 	/**
-	 Does cleanup of stuff set up in onRender().
+	 Does cleanup of stuff set up in initialize().
 
-	 @method close
+	 @method destroy
 	 @private
 	**/
 
-	close: function()
+	destroy: function()
 	{
 		$('body').off('passagedragstart', this.prepDragBound);
 		$('body').off('passagedrag', this.followDragBound);

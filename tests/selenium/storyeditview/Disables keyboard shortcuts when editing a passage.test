@@ -34,6 +34,11 @@
 </tr>
 <!--Test-->
 <tr>
+	<td>waitForElementPresent</td>
+	<td>css=button.addPassage</td>
+	<td></td>
+</tr>
+<tr>
 	<td>click</td>
 	<td>css=button.addPassage</td>
 	<td></td>
@@ -83,7 +88,6 @@
 	<td>${beforePassageCount}</td>
 	<td>${afterPassageCount}</td>
 </tr>
-
 </tbody></table>
 </body>
 </html>
