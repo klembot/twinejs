@@ -234,7 +234,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 			story: this.model.id,
 			left: left,
 			top: top
-		});
+		}, { wait: true });
 
 		// position the passage so it doesn't overlap any others
 
