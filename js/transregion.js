@@ -8,7 +8,7 @@
 
 'use strict';
 
-TransRegion = Backbone.Marionette.Region.extend(
+var TransRegion = Backbone.Marionette.Region.extend(
 {
 	initialize: function()
 	{
