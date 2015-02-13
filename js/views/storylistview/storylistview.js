@@ -70,7 +70,7 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 			var proxy = $('<div id="storyEditProxy" class="fullAppear fast reverse">');
 			proxy.one('animationend', function()
 			{
-				this.remove();
+				proxy.remove();
 			});
 
 			this.children.find(_.bind(function (c)
