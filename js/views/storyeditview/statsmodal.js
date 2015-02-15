@@ -63,6 +63,63 @@ StoryEditView.StatsModal = Backbone.View.extend(
 		this.$('.linkCount').text(linkCount.toLocaleString());
 		this.$('.brokenLinkCount').text(brokenLinkCount.toLocaleString());
 
+		// adjust visibility of singular/plural nouns
+
+		if (charCount != 1)
+		{
+			this.$('.charDesc .singular').addClass('hide');
+			this.$('.charDesc .plural').removeClass('hide');
+		}
+		else
+		{
+			this.$('.charDesc .singular').removeClass('hide');
+			this.$('.charDesc .plural').addClass('hide');
+		};
+
+		if (wordCount != 1)
+		{
+			this.$('.wordDesc .singular').addClass('hide');
+			this.$('.wordDesc .plural').removeClass('hide');
+		}
+		else
+		{
+			this.$('.wordDesc .singular').removeClass('hide');
+			this.$('.wordDesc .plural').addClass('hide');
+		};
+
+		if (passageCount != 1)
+		{
+			this.$('.passageDesc .singular').addClass('hide');
+			this.$('.passageDesc .plural').removeClass('hide');
+		}
+		else
+		{
+			this.$('.passageDesc .singular').removeClass('hide');
+			this.$('.passageDesc .plural').addClass('hide');
+		};
+
+		if (linkCount != 1)
+		{
+			this.$('.linkDesc .singular').addClass('hide');
+			this.$('.linkDesc .plural').removeClass('hide');
+		}
+		else
+		{
+			this.$('.linkDesc .singular').removeClass('hide');
+			this.$('.linkDesc .plural').addClass('hide');
+		};
+
+		if (brokenLinkCount != 1)
+		{
+			this.$('.brokenLinkDesc .singular').addClass('hide');
+			this.$('.brokenLinkDesc .plural').removeClass('hide');
+		}
+		else
+		{
+			this.$('.brokenLinkDesc .singular').removeClass('hide');
+			this.$('.brokenLinkDesc .plural').addClass('hide');
+		};
+
 		this.$el.data('modal').trigger('show');
 	},
 
