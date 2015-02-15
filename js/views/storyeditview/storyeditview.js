@@ -161,6 +161,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 		this.searchModal = new StoryEditView.SearchModal({ el: this.$('#searchModal'), parent: this });
 		this.renameModal = new StoryEditView.RenameStoryModal({ el: this.$('#renameStoryModal'), parent: this });
 		this.storyFormatModal = new StoryEditView.StoryFormatModal({ el: this.$('#storyFormatModal'), parent: this });
+		this.statsModal = new StoryEditView.StatsModal({ el: this.$('#statsModal'), parent: this });
 
 		if (! window.app.hasPrimaryTouchUI())
 			this.marquee = new StoryEditView.Marquee({ el: this.$('.passages'), parent: this });

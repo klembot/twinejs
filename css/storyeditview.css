@@ -559,6 +559,17 @@ body.iOS .editModal
 	font-size: 90%;
 }
 
+#statsModal table
+{
+	margin: 0 auto;
+}
+
+#statsModal td:first-child
+{
+	text-align: right;
+	font-weight: bold;
+}
+
 .CodeMirror
 {
 	height: auto;

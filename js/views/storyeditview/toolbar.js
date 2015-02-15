@@ -115,9 +115,9 @@ StoryEditView.Toolbar = Backbone.View.extend(
 			this.parent.publish();
 		},
 
-		'click .storyProperties': function (e)
+		'click .storyStats': function (e)
 		{
-			this.parent.properties.open();
+			this.parent.statsModal.open();
 		},
 
 		'click .changeFormat': function (e)
