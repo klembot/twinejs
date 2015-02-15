@@ -20,7 +20,8 @@ var Story = Backbone.Model.extend(
 			stylesheet: '',
 			script: '',
 			storyFormat: AppPref.withName('defaultFormat').get('value') || 'Harlowe',
-			lastUpdate: new Date()
+			lastUpdate: new Date(),
+			ifid: UUID().toUpperCase()
 		};
 	},
 
