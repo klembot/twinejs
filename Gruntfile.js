@@ -18,6 +18,7 @@ module.exports = function (grunt)
 					saveAs: true,
 					SVG: true,
 					JSZip: true,
+					UUID: true,
 					// Misc.
 					app: true,
 					ui: true,
