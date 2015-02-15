@@ -562,6 +562,7 @@ body.iOS .editModal
 #statsModal table
 {
 	margin: 0 auto;
+	font-size: 120%;
 }
 
 #statsModal td:first-child
