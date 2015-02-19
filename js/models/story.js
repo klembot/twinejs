@@ -123,7 +123,8 @@ var Story = Backbone.Model.extend(
 			stylesheet: this.get('stylesheet'),
 			script: this.get('script'),
 			options: (options) ? options.join(' ') : null,
-			storyFormat: this.get('storyFormat')
+			storyFormat: this.get('storyFormat'),
+			ifid: this.get('ifid')
 		});
 	}
 });
