@@ -173,6 +173,7 @@ module.exports = function (grunt)
 			{
 				buildDir: 'dist-apps/',
 				buildType: 'versioned',
+				'chromium-args': '--enable-threaded-compositing',
 				macIcns: 'img/logo.icns',
 				platforms: ['win', 'osx', 'linux']
 			},
