@@ -22,6 +22,8 @@ module.exports = function (grunt)
 					// Misc.
 					app: true,
 					ui: true,
+					nwui: true,
+					require: true,
 					TransRegion: true,
 					TwineRouter: true,
 					// Collections
@@ -152,7 +154,28 @@ module.exports = function (grunt)
 				[
 					{ expand: true, src: ['LICENSE'], dest: 'dist/' }
 				]
+			},
+
+			package:
+			{
+				files:
+				[
+					{ expand: true, src: ['package.json'], dest: 'dist/' }
+				]
 			}
+		},
+
+		nodewebkit:
+		{
+			src:
+				['dist/**/*'],
+			options:
+			{
+				buildDir: 'dist-apps/',
+				buildType: 'versioned',
+				macIcns: 'img/logo.icns',
+				platforms: ['win', 'osx', 'linux']
+			},
 		},
 
 		replace:
@@ -227,6 +250,7 @@ module.exports = function (grunt)
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-yuidoc');
+	grunt.loadNpmTasks('grunt-node-webkit-builder');
 	grunt.loadNpmTasks('grunt-replace');
 	grunt.loadNpmTasks('grunt-usemin');
 	grunt.registerTask('default', ['bake']);
@@ -241,6 +265,10 @@ module.exports = function (grunt)
 	grunt.registerTask('release-test',
 	[
 		'bake', 'jshint', 'cdnify'
+	]);
+	grunt.registerTask('release-nw',
+	[
+		'clean', 'jshint', 'bake', 'yuidoc', 'copy', 'useminPrepare', 'concat', 'uglify', 'cssmin', 'usemin', 'nodewebkit'
 	]);
 	grunt.registerTask('server', ['connect']);
 };
