@@ -339,6 +339,9 @@ window.app.addInitializer(function ()
 	window.app.router = new TwineRouter();
 	Backbone.history.start();
 
+	if (nwui.active)
+		nwui.init();
+
 	// create built-in story formats if they don't already exist
 
 	var formats = StoryFormatCollection.all();
