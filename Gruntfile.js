@@ -23,6 +23,7 @@ module.exports = function (grunt)
 					app: true,
 					ui: true,
 					nwui: true,
+					process: true,
 					require: true,
 					TransRegion: true,
 					TwineRouter: true,
@@ -175,7 +176,8 @@ module.exports = function (grunt)
 				buildType: 'versioned',
 				'chromium-args': '--enable-threaded-compositing',
 				macIcns: 'img/logo.icns',
-				platforms: ['win', 'osx', 'linux']
+				platforms: ['win', 'osx', 'linux'],
+				winIco: 'img/logo.ico'
 			},
 		},
 
