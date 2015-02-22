@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Test Suite</title>
+</head>
+<body>
+<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
+<tr><td><b>Test Suite</b></td></tr>
+<tr><td><a href="../Setup.test">Setup</a></td></tr>
+<tr><td><a href="On stories route.test">On stories route</a></td></tr>
+<tr><td><a href="Shows initial message when no stories are saved.test">Shows initial message when no stories are saved</a></td></tr>
+<tr><td><a href="Can cancel out of adding story.test">Can cancel out of adding story</a></td></tr>
+<tr><td><a href="Does not allow blank story names.test">Does not allow blank story names</a></td></tr>
+<tr><td><a href="Can add a new story.test">Can add a new story</a></td></tr>
+<tr><td><a href="Can play a story.test">Can play a story</a></td></tr>
+<tr><td><a href="Can cancel out of deleting story.test">Can cancel out of deleting story</a></td></tr>
+<tr><td><a href="Can delete a story.test">Can delete a story</a></td></tr>
+<tr><td><a href="Try Archive button.test">Try Archive button</a></td></tr>
+</tbody></table>
+</body>
+</html>

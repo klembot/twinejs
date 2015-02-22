@@ -1,0 +1,577 @@
+#storyEditView.scrolling
+{
+	cursor: all-scroll;
+	cursor: -webkit-grab;
+	cursor: -moz-grab;
+}
+
+#storyEditView.draggingPassages *,
+#storyEditView.marqueeing *
+{
+	cursor: default !important;
+}
+
+#storyEditView.draggingPassages .popover,
+#storyEditView.marqueeing .popover
+{
+	display: none !important;
+}
+
+#storyEditView .toolbar.main
+{
+	z-index: 5;
+	position: fixed;
+	overflow: visible;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 3.5em;
+	background-color: white;
+	box-shadow: 0 0 1em hsl(0, 0%, 15%);
+}
+
+.fullSlideLeft #storyEditView .toolbar.main
+{
+	transform: translate(100%, 0);
+	-webkit-transform: translate(100%, 0);
+	animation: 0.5s fullSlideUp 0.6s forwards; 
+	-webkit-animation: 0.5s fullSlideUp 0.6s forwards; 
+}
+
+#storyEditView .toolbar.main .right button
+{
+	height: 3.5em;
+	padding-left: 1em;
+	padding-right: 1em;
+}
+
+#storyEditView .toolbar.main .left
+{
+	float: left;
+}
+
+#storyEditView .toolbar.main .right
+{
+	float: right;
+}
+
+#storyEditView .toolbar.main .home
+{
+	position: relative;
+	top: -1em;
+	font-size: 125%;
+	padding-left: 0.75em;
+	padding-right: 0.325em;
+}
+
+#storyEditView .toolbar.main .storyName
+{
+	min-width: 8em;
+	max-width: 18em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-align: left;
+	font: 150% "Nunito Light", sans-serif;
+	height: 2.4em; 
+	white-space: nowrap;
+	padding: 0em 0.325em;
+}
+
+#storyEditView .toolbar.main .searchContainer
+{
+	float: left;
+	position: relative;
+	top: 0.5em;
+	margin-right: 1em;
+}
+
+#storyEditView .toolbar.main .searchContainer input
+{
+	display: inline;
+	width: 11em;
+	padding-right: 2.25em;
+}
+
+#storyEditView .toolbar.main .searchContainer button
+{
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 0.7em;
+	height: 2.5em;
+}
+
+#storyEditView .toolbar.main .searchContainer button:hover
+{
+	background: transparent;
+}
+
+#storyEditView .marquee
+{
+	display: none;
+	z-index: 3;
+	position: absolute;
+	border: 2px dashed hsla(0, 0%, 100%, 0.5);
+}
+
+#storyEditView .passages
+{
+	position: relative;
+	background: #24497e url("../img/blueprint_large.png") 10px -15px;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+/* all passage CSS is in px because we need it to match
+   the blueprint background image */
+
+.zoom-small #storyEditView .passages
+{
+	background-image: url('../img/blueprint_small.png');
+	background-position: -15px 10px;
+}
+
+.zoom-medium #storyEditView .passages
+{
+	background-image: url('../img/blueprint_medium.png');
+	background-position: 10px 10px;
+}
+
+#storyEditView .passages .content
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+#storyEditView .passage
+{
+	position: absolute;
+	padding: 5px;
+	color: hsla(0, 0%, 100%, 0.75);
+	cursor: default;
+}
+
+#storyEditView .passage:hover
+{
+	z-index: 2;
+}
+
+#storyEditView.scrolling .passage:hover,
+#storyEditView.draggingPassages .passage:hover
+{
+	z-index: 0;
+}
+
+#storyEditView .passage .frame
+{
+	border: 1px solid hsla(0, 0%, 100%, 0.75);
+	box-shadow: 0 0 2px hsla(0, 0%, 100%, 0.75), inset 0 0 2px hsla(0, 0%, 100%, 0.75);
+
+	width: 100px;
+	height: 100px;
+	position: relative;
+	overflow: hidden;
+}
+
+#storyEditView .passage.brokenLink .frame
+{
+	background-color: hsla(0, 100%, 60%, 0.5);
+}
+
+#storyEditView .passage.start .frame
+{
+	border-width: 4px;
+}
+
+#storyEditView .passage.start .frame:after
+{
+	height: 2px;
+}
+
+#storyEditView .passage.start .setAsStart
+{
+	color: hsl(212, 88%, 40%);
+}
+
+#storyEditView .passage.start .setAsStart:hover
+{
+	color: hsl(212, 88%, 50%);
+}
+
+#storyEditView .passage.selected .frame
+{
+	color: hsla(0, 0%, 100%, 1);
+	background-color: hsla(0, 0%, 100%, 0.25);
+}
+
+#storyEditView .passage.highlight .frame
+{
+	color: hsl(60, 100%, 50%);
+	border-color: hsla(60, 100%, 50%, 0.75);
+	box-shadow: 0 0 2px hsla(60, 100%, 50%, 0.75), inset 0 0 2px hsla(60, 100%, 50%, 0.75);
+}
+
+#storyEditView .passage .frame:after
+{
+	content: '';
+	display: block;
+	width: 100px;
+	height: 1px;
+	position: absolute;
+	top: 22px;
+	left: 0;
+	background-color: hsla(0, 0%, 100%, 0.75);
+	box-shadow: 0 0 1px hsla(0, 0%, 100%, 0.75), inset 0 0 1px hsla(0, 0%, 100%, 0.75);
+}
+
+#storyEditView .passage.highlight .frame:after
+{
+	background-color: hsl(60, 100%, 50%);
+	box-shadow: 0 0 1px hsla(60, 100%, 50%, 0.75), inset 0 0 1px hsla(60, 100%, 50%, 0.75);
+}
+
+#storyEditView .passage .title
+{
+	font-size: 11px;
+	line-height: 15px;
+	padding: 4px 4px 0 4px;
+	height: 24px;
+	margin: 0;
+	box-sizing: border-box;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+#storyEditView .passage .excerpt
+{
+	font-size: 10px;
+	line-height: 14px;
+	padding: 4px;
+	margin: 0;
+	overflow: hidden;
+}
+
+#storyEditView .passage .bubble
+{
+	font-size: 150%;
+	width: 10em;
+	margin-left: -5em;
+}
+
+#storyEditView .passage .bubble button
+{
+	width: 2.55em;
+	box-sizing: border-box;
+}
+
+#storyEditView.scrolling .passage:hover .bubble,
+#storyEditView.draggingPassages .passage:hover .bubble
+{
+	display: none;
+}
+
+.zoom-medium #storyEditView .passage .frame
+{
+	width: 60px;
+	height: 60px;
+}
+
+.zoom-medium #storyEditView .passage .title
+{
+	border-bottom: none;
+	font-size: 0.8em;
+	font-weight: normal;
+	line-height: 120%;
+	text-align: center;
+	margin: 5px;
+	padding: 0;
+	height: 60px;
+	width: 60px;
+	display: table-cell;
+	vertical-align: middle;
+	white-space: normal;
+}
+
+.zoom-medium #storyEditView .passage .excerpt
+{
+	display: none;
+}
+
+.zoom-medium #storyEditView .passage .frame:after
+{
+	display: none;
+}
+
+.zoom-small #storyEditView .passage .frame
+{
+	width: 25px;
+	height: 25px;
+}
+
+.zoom-small #storyEditView .passage .title, .zoom-small #storyEditView .passage .excerpt,
+.zoom-small #storyEditView .passage .frame:after
+{
+	display: none;
+}
+
+#storyEditView svg polyline
+{
+	stroke: hsla(0, 0%, 100%, 0.75);
+	fill: none;
+	stroke-width: 2px;
+}
+
+.editModal
+{
+	bottom: 0;
+	width: 50em;
+	padding-bottom: 0;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+body.iOS .editModal
+{
+	bottom: auto;
+	height: 25em;
+	border-bottom-left-radius: 2em;
+	border-bottom-right-radius: 2em;
+}
+
+@media screen and (orientation: portrait)
+{
+	body.iOS .editModal
+	{
+		height: 40em;
+	}
+}
+
+.editModal input[type="text"], textarea, .CodeMirror
+{
+	font-family: "Source Code Pro", monospace;
+	line-height: 145%;
+	background: inherit;
+}
+
+.editModal .fullEdit
+{
+	position: absolute;
+	top: 6.5em;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.editModal .fullEdit textarea,
+.editModal .fullEdit .CodeMirror
+{
+	padding: 0.75em 2em 0.25em 2em;
+	box-sizing: border-box;
+	width: 100%;
+	height: 100%;
+	border: none;
+	box-shadow: none;
+	background: linear-gradient(to bottom, hsl(0, 0%, 90%) 0, hsl(0, 0%, 97%) 0.5em);
+	resize: none;
+}
+
+#passageEditModal .passageName
+{
+	display: block;
+	width: 100%;
+	padding-bottom: 0.1em;
+	font-size: 125%;
+	line-height: 100%;
+}
+
+#passageEditModal .error
+{
+	margin-bottom: 0.5em;
+}
+
+#passageEditModal .passageTags
+{
+	margin-top: -0.5em;
+	font-size: 90%;
+}
+
+#passageEditModal .passageTags p
+{
+	margin-top: 0;
+	padding-top: 0.5em;
+	float: left;
+}
+
+#passageEditModal .passageTags .tag
+{
+	margin-right: 0.5em;
+}
+
+#passageEditModal .passageTags button.link
+{
+	margin-left: 1em;
+}
+
+#passageEditModal .fullEdit
+{
+	top: 6.5em;
+}
+
+#passageEditModal.hasError .fullEdit
+{
+	top: 8.5em;
+}
+
+#renameStoryModal input[type="text"]
+{
+	width: 100%;
+}
+
+#searchModal textarea
+{
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+#searchModal label
+{
+	padding-right: 2em;
+}
+
+#searchModal .passageName
+{
+	margin: 0.125em inherit;
+}
+
+#searchModal .passageName .controls
+{
+	float: right;
+}
+
+#searchModal pre
+{
+	font: 100% Cousine, monospace;
+	white-space: pre-wrap;
+	max-height: 5em;
+	overflow: auto;
+	background-color: hsl(0, 0%, 95%);
+	padding: 0.5em;
+	margin-top: 0;	
+}
+
+#searchModal .resultSummary .matches
+{
+	line-height: 250%;
+}
+
+#searchModal .resultSummary .controls
+{
+	float: right;
+}
+
+#searchModal .highlight
+{
+	background-color: hsl(60, 100%, 50%);
+}
+
+#storyFormatModal .formats button.select
+{
+	float: left;
+	font-size: 2.5em;
+	padding: 0 0.5em 0 0;
+	margin: 0;
+}
+
+#storyFormatModal .formats button.select:active,
+#storyFormatModal .formats button.select.active
+{
+	box-shadow: none;
+	background: transparent;
+}
+
+#storyFormatModal .formats .select .showActive
+{
+	display: none;
+}
+
+#storyFormatModal .formats .select.active .showActive
+{
+	display: inline;
+}
+
+#storyFormatModal .formats .select.active .hideActive
+{
+	display: none;
+}
+
+.formatDetail img,
+.formatDetail .placeholder
+{
+	width: 6em;
+	float: left;
+	margin-right: 1.5em;
+}
+
+#storyEditView .formatDetail img,
+#storyEditView .formatDetail .placeholder
+{
+	float: right;
+	margin-left: 1.5em;
+}
+
+.formatDetail .placeholder
+{
+	height: 1.5em; /* 6em / 4 */
+	width: 1.5em;
+	margin-right: 0.375em; /* 1.5em / 4 */
+	padding-top: 0.125em;
+	line-height: 2.5em;
+	text-align: center;
+	background-color: hsl(0, 0%, 80%);
+	color: hsl(0, 0%, 90%);
+	font: 4em "Nunito Light", Helvetica, sans-serif;
+	border-radius: 0.25em;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+.formatDetail .text
+{
+	margin-left: 7.5em;
+}
+
+#storyEditView .formatDetail .text
+{
+	margin-right: 7.5em;
+	margin-left: 3em;
+}
+
+.formatDetail .description
+{
+	font-size: 90%;
+}
+
+#statsModal table
+{
+	margin: 0 auto;
+	font-size: 120%;
+}
+
+#statsModal td:first-child
+{
+	text-align: right;
+	font-weight: bold;
+}
+
+.CodeMirror
+{
+	height: auto;
+}
