@@ -19,6 +19,20 @@ var nwui =
 		nativeMenuBar.createMacBuiltin(window.app.name);
 		win.menu = nativeMenuBar;
 
+		// add fullscreen item
+
+		var fsItem = new nwui.gui.MenuItem({
+			label: 'Toggle Fullscreen',
+			key: 'f',
+			modifiers: 'cmd-alt',
+			click: function()
+			{
+				nwui.gui.Window.get().toggleFullscreen();
+			}
+		});
+
+		_.findWhere(nativeMenuBar.items, { label: '' }).submenu.insert(fsItem, 0);
+
 		// open external links outside the app
 
 		$('body').on('click', 'a', function (e)
