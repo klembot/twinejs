@@ -22,7 +22,7 @@
     "grunt-contrib-watch": "*",
     "grunt-contrib-yuidoc": "*",
     "grunt-replace": "*",
-    "grunt-usemin": "*",
+    "grunt-usemin": "2.0.x",
     "require": "*"
   }
 }
