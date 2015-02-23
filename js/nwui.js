@@ -118,6 +118,47 @@ var nwui =
 
 		win.menu = nativeMenuBar;
 
+		// create ~/Documents/Twine if it doesn't exist
+
+		var expandHomeDir = require('expand-home-dir');
+		nwui.fs = require('fs');
+
+		nwui.filePath = expandHomeDir('~/Documents/Twine/');
+
+		if (! nwui.fs.existsSync(nwui.filePath))
+		{
+			var docPath = expandHomeDir('~/Documents');
+
+			if (! nwui.fs.existsSync(docPath))
+				nwui.fs.mkdirSync(docPath);
+
+			nwui.fs.mkdirSync(nwui.filePath);
+		};
+
+		// monkey patch Story to save to a file
+		// under ~/Documents/Twine whenever the model changes
+
+		var oldInit = Story.prototype.initialize;
+
+		Story.prototype.initialize = function()
+		{
+			this.on('change', function()
+			{
+				try
+				{
+					var fd = nwui.fs.openSync(nwui.filePath + this.get('name') + '.html', 'w');
+					nwui.fs.writeSync(fd, this.publish());
+					nwui.fs.closeSync(fd);
+				}
+				catch (e)
+				{
+					ui.notify('An error occurred while saving your story (' + e.message + ').', 'danger');
+				};
+			}, this);
+
+			oldInit.call(this);
+		};
+
 		// open external links outside the app
 
 		$('body').on('click', 'a', function (e)
