@@ -11,11 +11,12 @@
   "main": "index.html",
   "window":
   {
-		"toolbar": false,
+		"toolbar": true,
 		"width": 1024,
 		"height": 600
   },
   "dependencies": {
+	"expand-home-dir": "*",
     "grunt": "*",
     "grunt-bake": "*",
     "grunt-cdnify": "*",
