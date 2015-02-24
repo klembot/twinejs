@@ -142,21 +142,26 @@ var nwui =
 
 		Story.prototype.initialize = function()
 		{
+			oldInit.call(this);
+
 			this.on('change', function()
 			{
-				try
-				{
-					var fd = nwui.fs.openSync(nwui.filePath + this.get('name') + '.html', 'w');
-					nwui.fs.writeSync(fd, this.publish());
-					nwui.fs.closeSync(fd);
-				}
-				catch (e)
-				{
-					ui.notify('An error occurred while saving your story (' + e.message + ').', 'danger');
-				};
-			}, this);
+				// this must be deferred in order for this to 'see' a passage change
 
-			oldInit.call(this);
+				_.defer(_.bind(function()
+				{
+					try
+					{
+						var fd = nwui.fs.openSync(nwui.filePath + this.get('name') + '.html', 'w');
+						nwui.fs.writeSync(fd, this.publish());
+						nwui.fs.closeSync(fd);
+					}
+					catch (e)
+					{
+						ui.notify('An error occurred while saving your story (' + e.message + ').', 'danger');
+					};
+				}, this));
+			}, this);
 		};
 
 		// open external links outside the app
