@@ -8,6 +8,8 @@ var nwui =
 	 typeof require !== "undefined" &&
 	 typeof require('nw.gui') !== 'undefined'),
 
+	syncFiles: true,
+
 	init: function()
 	{
 		nwui.gui = require('nw.gui');
@@ -138,14 +140,17 @@ var nwui =
 		// monkey patch Story to save to a file
 		// under ~/Documents/Twine whenever the model changes
 
-		var oldInit = Story.prototype.initialize;
+		var oldStoryInit = Story.prototype.initialize;
 
 		Story.prototype.initialize = function()
 		{
-			oldInit.call(this);
+			oldStoryInit.call(this);
 
-			this.on('change', function()
+			this.on('change', _.debounce(function()
 			{
+				if (! nwui.syncFiles || this.fetchPassages().length == 0)
+					return;
+
 				// this must be deferred in order for this to 'see' a passage change
 
 				_.defer(_.bind(function()
@@ -161,7 +166,48 @@ var nwui =
 						ui.notify('An error occurred while saving your story (' + e.message + ').', 'danger');
 					};
 				}, this));
-			}, this);
+			}, 100), this);
+		};
+
+		// monkey patch TwineRouter to sync the story list
+		// with files saved to disk
+
+		var oldListStories = TwineRouter.prototype.listStories;
+
+		TwineRouter.prototype.listStories = function()
+		{
+			nwui.syncFiles = false;
+			var localStories = StoryCollection.all();
+			var fileStories = nwui.fs.readdirSync(nwui.filePath);
+
+			// eliminate duplicates from both lists
+
+			for (var i = 0; i < localStories.length; i++)
+			{
+				var fileInd = fileStories.indexOf(localStories.at(i).get('name') + '.html');
+
+				if (fileInd != -1)
+				{
+					fileStories.splice(fileInd, 1);
+					localStories.remove(localStories.at(i));
+					i--;
+				};
+			};
+
+			// localStories contains stories that no longer have a backing file
+
+			localStories.invoke('destroy');
+
+			// fileStories contains stories that need to have a local version created
+
+			_.each(fileStories, function (filename)
+			{
+				if (filename.match(/\.html$/))
+					window.app.importFile(nwui.fs.readFileSync(nwui.filePath + filename, { encoding: 'utf-8' }));
+			});
+
+			nwui.syncFiles = true;
+			oldListStories.call(this);
 		};
 
 		// open external links outside the app

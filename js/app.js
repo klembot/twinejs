@@ -321,6 +321,8 @@ window.app = new TwineApp();
 
 window.app.addInitializer(function ()
 {
+	if (nwui.active)
+		nwui.init();
 	/**
 	 Build number of the app.
 
@@ -338,9 +340,6 @@ window.app.addInitializer(function ()
 
 	window.app.router = new TwineRouter();
 	Backbone.history.start();
-
-	if (nwui.active)
-		nwui.init();
 
 	// create built-in story formats if they don't already exist
 
