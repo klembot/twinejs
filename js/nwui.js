@@ -1,17 +1,53 @@
+/**
+ A singleton that adapts the Twine interface for NW.js,
+ adding menus and syncing changes to the filesystem.
+ This takes the approach of patching existing classes
+ instead of creating a separate set of classes just for
+ NW.js, to try to keep things as similar as possible.
+
+ @class nwui
+**/
 
 'use strict';
 
 var nwui =
 {
+	/**
+	 Whether Twine is running in a NW.js environment.
+	 @property active
+	 @static
+	 @const
+	**/
+
 	active: 
 	(typeof process !== "undefined" &&
 	 typeof require !== "undefined" &&
 	 typeof require('nw.gui') !== 'undefined'),
 
-	syncFiles: true,
+	/**
+	 Whether changes to a story should be saved to the filesystem.
+	 This is mainly so that internal nwui methods can do their work
+	 without tripping over each other.
+	 @property syncFs
+	 @static
+	 @const
+	**/
+
+	syncFs: true,
+
+	/**
+	 Performs one-time initialization, e.g. setting up menus.
+
+	 @method init
+	**/
 
 	init: function()
 	{
+		/**
+		 An instance of the nw.gui module, for manipulating the native UI.
+		 @property gui
+		**/
+
 		nwui.gui = require('nw.gui');
 
 		var win = nwui.gui.Window.get();
@@ -123,7 +159,18 @@ var nwui =
 		// create ~/Documents/Twine if it doesn't exist
 
 		var expandHomeDir = require('expand-home-dir');
+
+		/**
+		 An instance of the fs modules, for working with the native filesystem.
+		 @property fs
+		**/
+
 		nwui.fs = require('fs');
+
+		/**
+		 The path that stories will be saved to in the filesystem.
+		 @property filePath
+		**/
 
 		nwui.filePath = expandHomeDir('~/Documents/Twine/');
 
@@ -138,7 +185,8 @@ var nwui =
 		};
 
 		// monkey patch Story to save to a file
-		// under ~/Documents/Twine whenever the model changes
+		// under ~/Documents/Twine whenever the model changes,
+		// or delete it when it is destroyed
 
 		var oldStoryInit = Story.prototype.initialize;
 
@@ -148,7 +196,7 @@ var nwui =
 
 			this.on('change', _.debounce(function()
 			{
-				if (! nwui.syncFiles || this.fetchPassages().length == 0)
+				if (! nwui.syncFs || this.fetchPassages().length == 0)
 					return;
 
 				// this must be deferred in order for this to 'see' a passage change
@@ -167,47 +215,21 @@ var nwui =
 					};
 				}, this));
 			}, 100), this);
-		};
 
-		// monkey patch TwineRouter to sync the story list
-		// with files saved to disk
-
-		var oldListStories = TwineRouter.prototype.listStories;
-
-		TwineRouter.prototype.listStories = function()
-		{
-			nwui.syncFiles = false;
-			var localStories = StoryCollection.all();
-			var fileStories = nwui.fs.readdirSync(nwui.filePath);
-
-			// eliminate duplicates from both lists
-
-			for (var i = 0; i < localStories.length; i++)
+			this.on('destroy', function()
 			{
-				var fileInd = fileStories.indexOf(localStories.at(i).get('name') + '.html');
+				if (! nwui.syncFs)
+					return;
 
-				if (fileInd != -1)
+				try
 				{
-					fileStories.splice(fileInd, 1);
-					localStories.remove(localStories.at(i));
-					i--;
+					nwui.fs.unlinkSync(nwui.filePath + this.get('name') + '.html');
+				}
+				catch (e)
+				{
+					ui.notify('An error occurred while deleting your story (' + e.message + ').', 'danger');
 				};
-			};
-
-			// localStories contains stories that no longer have a backing file
-
-			localStories.invoke('destroy');
-
-			// fileStories contains stories that need to have a local version created
-
-			_.each(fileStories, function (filename)
-			{
-				if (filename.match(/\.html$/))
-					window.app.importFile(nwui.fs.readFileSync(nwui.filePath + filename, { encoding: 'utf-8' }));
-			});
-
-			nwui.syncFiles = true;
-			oldListStories.call(this);
+			}, this);
 		};
 
 		// open external links outside the app
@@ -222,5 +244,42 @@ var nwui =
 				e.preventDefault();
 			};
 		});
+
+		// do a file sync
+
+		nwui.syncStoryFiles();
+	},
+
+	/**
+	 Syncs local storage with the file system, obliterating
+	 any stories that happen to be saved to local storage only.
+
+	 @method syncStoryFiles
+	**/
+
+	syncStoryFiles: function()
+	{
+		nwui.syncFs = false;
+
+		// clear all existing stories and passages
+
+		StoryCollection.all().invoke('destroy');
+
+		// read from files
+
+		var fileStories = nwui.fs.readdirSync(nwui.filePath);
+
+		_.each(fileStories, function (filename)
+		{
+			if (filename.match(/\.html$/))
+			{
+				console.log('importing', nwui.filePath + filename);
+				console.log(nwui.fs.readFileSync(nwui.filePath + filename, { encoding: 'utf-8' }));
+				window.app.importFile(nwui.fs.readFileSync(nwui.filePath + filename, { encoding: 'utf-8' }));
+			};
+		});
+
+		console.log(StoryCollection.all());
+		nwui.syncFs = true;
 	}
 };
