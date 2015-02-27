@@ -154,6 +154,16 @@ var nwui =
 			}
 		}), 0);
 
+		// add item to show story library
+
+		mainMenu.submenu.insert(new nwui.gui.MenuItem({
+			label: 'Show Story Library',
+			click: function()
+			{
+				nwui.gui.Shell.openItem(nwui.filePath);
+			}
+		}), 0);
+
 		win.menu = nativeMenuBar;
 
 		// create ~/Documents/Twine if it doesn't exist
@@ -306,7 +316,6 @@ var nwui =
 
 	syncStoryFiles: function()
 	{
-		console.log('starting file sync');
 		nwui.syncFs = false;
 
 		// clear all existing stories and passages
@@ -324,6 +333,5 @@ var nwui =
 		});
 
 		nwui.syncFs = true;
-		console.log('file sync completed');
 	}
 };
