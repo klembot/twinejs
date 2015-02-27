@@ -182,14 +182,19 @@ var nwui =
 		 @property filePath
 		**/
 
-		nwui.filePath = expandHomeDir('~/Documents/Twine/');
+		nwui.filePath = expandHomeDir('~/Documents/Twine/Stories/');
 
 		if (! nwui.fs.existsSync(nwui.filePath))
 		{
-			var docPath = expandHomeDir('~/Documents');
+			var docPath = expandHomeDir('~/Documents/');
 
 			if (! nwui.fs.existsSync(docPath))
 				nwui.fs.mkdirSync(docPath);
+
+			var twinePath = expandHomeDir('~/Documents/Twine/');
+
+			if (! nwui.fs.existsSync(docPath))
+				nwui.fs.mkdirSync(twinePath);
 
 			nwui.fs.mkdirSync(nwui.filePath);
 		};
@@ -292,8 +297,6 @@ var nwui =
 
 	saveStoryFile: function (story)
 	{
-		console.log('saving', story);
-
 		try
 		{
 			var fd = nwui.fs.openSync(nwui.filePath + story.get('name') + '.html', 'w');
@@ -320,7 +323,7 @@ var nwui =
 
 		// clear all existing stories and passages
 
-		StoryCollection.all().invoke('destroy');
+		StoryCollection.all().invoke('destroy', { wait: true });
 
 		// read from files
 
