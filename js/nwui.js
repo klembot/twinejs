@@ -196,24 +196,22 @@ var nwui =
 
 			this.on('change', _.debounce(function()
 			{
+				// if the only thing that is changing is last modified date,
+				// then skip it
+
+				if (! _.some(_.keys(this.changedAttributes), function (key)
+				{
+					return (key != 'lastUpdated');
+				}))
+					return;
+
+				// if we aren't syncing changes or the story has no passages,
+				// give up early
+
 				if (! nwui.syncFs || this.fetchPassages().length == 0)
 					return;
 
-				// this must be deferred in order for this to 'see' a passage change
-
-				_.defer(_.bind(function()
-				{
-					try
-					{
-						var fd = nwui.fs.openSync(nwui.filePath + this.get('name') + '.html', 'w');
-						nwui.fs.writeSync(fd, this.publish());
-						nwui.fs.closeSync(fd);
-					}
-					catch (e)
-					{
-						ui.notify('An error occurred while saving your story (' + e.message + ').', 'danger');
-					};
-				}, this));
+				nwui.saveStoryFile(this);
 			}, 100), this);
 
 			this.on('destroy', function()
@@ -230,6 +228,30 @@ var nwui =
 					ui.notify('An error occurred while deleting your story (' + e.message + ').', 'danger');
 				};
 			}, this);
+		};
+
+		// monkey patch Passage to save its parent story whenever
+		// it is changed or destroyed
+
+		var oldPassageInit = Passage.prototype.initialize;
+
+		Passage.prototype.initialize = function()
+		{
+			oldPassageInit.call(this);
+
+			this.on('change destroy', _.debounce(function()
+			{
+				if (! nwui.syncFs)
+					return;
+
+				// if we have no parent, skip it
+				// (this happens during an import, for example)
+
+				var parent = this.fetchStory();
+
+				if (parent)
+					nwui.saveStoryFile(parent);
+			}, 100), this);
 		};
 
 		// open external links outside the app
@@ -251,6 +273,31 @@ var nwui =
 	},
 
 	/**
+	 Saves a story model to the file system. If a problem occurs,
+	 then a notification is shown to the user.
+
+	 @method saveStoryToFile
+	 @param {Story} story Story model to save
+	**/
+
+	saveStoryFile: function (story)
+	{
+		console.log('saving', story);
+
+		try
+		{
+			var fd = nwui.fs.openSync(nwui.filePath + story.get('name') + '.html', 'w');
+			nwui.fs.writeSync(fd, story.publish());
+			nwui.fs.closeSync(fd);
+		}
+		catch (e)
+		{
+			ui.notify('An error occurred while saving your story (' + e.message + ').', 'danger');
+			throw e;
+		};
+	},
+
+	/**
 	 Syncs local storage with the file system, obliterating
 	 any stories that happen to be saved to local storage only.
 
@@ -259,6 +306,7 @@ var nwui =
 
 	syncStoryFiles: function()
 	{
+		console.log('starting file sync');
 		nwui.syncFs = false;
 
 		// clear all existing stories and passages
@@ -272,14 +320,10 @@ var nwui =
 		_.each(fileStories, function (filename)
 		{
 			if (filename.match(/\.html$/))
-			{
-				console.log('importing', nwui.filePath + filename);
-				console.log(nwui.fs.readFileSync(nwui.filePath + filename, { encoding: 'utf-8' }));
 				window.app.importFile(nwui.fs.readFileSync(nwui.filePath + filename, { encoding: 'utf-8' }));
-			};
 		});
 
-		console.log(StoryCollection.all());
 		nwui.syncFs = true;
+		console.log('file sync completed');
 	}
 };
