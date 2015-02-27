@@ -227,7 +227,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 				}, { wait: true });	
 
 				if (id == startPassageId)
-					story.save({ startPassage: passage.id });
+					story.save({ startPassage: passage.id }, { wait: true });
 			});
 
 			// for now, glom all style nodes into the stylesheet property
