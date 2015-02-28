@@ -291,9 +291,16 @@ var nwui =
 			};
 		});
 
-		// do a file sync
+		// do a file sync if we're just starting up
+		// we have to stuff this in the global scope;
+		// otherwise, each new window will think it's starting afresh
+		// and screw up our model IDs
 
-		nwui.syncStoryFiles();
+		if (! global.nwuiFirstRun)
+		{
+			nwui.syncStoryFiles();
+			global.nwuiFirstRun = true;
+		};
 	},
 
 	/**
