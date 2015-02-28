@@ -270,6 +270,14 @@ var nwui =
 			}, 100), this);
 		};
 
+		// monkey patch StorageQuota to hide itself, since we
+		// don't have to sweat quota ourselves
+
+		StoryListView.StorageQuota.prototype.render = function()
+		{
+			this.$el.css('display', 'none');
+		};
+
 		// open external links outside the app
 
 		$('body').on('click', 'a', function (e)
