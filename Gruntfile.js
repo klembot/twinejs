@@ -21,10 +21,11 @@ module.exports = function (grunt)
 					UUID: true,
 					// Misc.
 					app: true,
-					ui: true,
+					global: true,
 					nwui: true,
 					process: true,
 					require: true,
+					ui: true,
 					TransRegion: true,
 					TwineRouter: true,
 					// Collections
