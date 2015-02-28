@@ -39,7 +39,10 @@ var Story = Backbone.Model.extend(
 		{
 			// delete all child passages
 
-			this.fetchPassages().invoke('destroy');
+			var passages = this.fetchPassages();
+
+			while (passages.length > 0)
+				passages.at(0).destroy();
 		}, this);
 
 		this.on('sync', function()

@@ -30,13 +30,14 @@ var nwui =
 	 without tripping over each other.
 	 @property syncFs
 	 @static
-	 @const
 	**/
 
 	syncFs: true,
 
 	/**
 	 Performs one-time initialization, e.g. setting up menus.
+	 This should be called as early in the app initialization process
+	 as possible.
 
 	 @method init
 	**/
@@ -323,7 +324,10 @@ var nwui =
 
 		// clear all existing stories and passages
 
-		StoryCollection.all().invoke('destroy', { wait: true });
+		var allStories = StoryCollection.all();
+
+		while (allStories.length > 0)
+			allStories.at(0).destroy();
 
 		// read from files
 
