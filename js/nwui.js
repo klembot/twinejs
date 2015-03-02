@@ -61,6 +61,20 @@ var nwui =
 
 			nativeMenuBar.createMacBuiltin(window.app.name);
 			mainMenu = _.findWhere(nativeMenuBar.items, { label: '' });
+
+			// add fullscreen item
+			// only on OS X for now -- hard to reverse on other platforms
+			// if you don't remember the keyboard shortcut
+
+			mainMenu.submenu.insert(new nwui.gui.MenuItem({
+				label: 'Toggle Fullscreen',
+				key: 'f',
+				modifiers: 'cmd-shift',
+				click: function()
+				{
+					nwui.gui.Window.get().toggleFullscreen();
+				}
+			}), 0);
 		}
 		else
 		{
@@ -143,18 +157,6 @@ var nwui =
 			nativeMenuBar.append(editMenu);
 		};
 
-		// add fullscreen item
-
-		mainMenu.submenu.insert(new nwui.gui.MenuItem({
-			label: 'Toggle Fullscreen',
-			key: 'f',
-			modifiers: (process.platform == 'darwin') ? 'cmd-shift' : 'ctrl-shift',
-			click: function()
-			{
-				nwui.gui.Window.get().toggleFullscreen();
-			}
-		}), 0);
-
 		// add item to show story library
 
 		mainMenu.submenu.insert(new nwui.gui.MenuItem({
@@ -182,16 +184,25 @@ var nwui =
 		**/
 
 		var homePath = process.env.HOME || process.env.HOMEPATH || process.env.USERPROFILE;
-		nwui.filePath = homePath + '/Documents/Twine/Stories/';
+
+		// if the user doesn't have a Documents folder,
+		// check for "My Documents" instead (thanks Windows)
+
+		var docPath = homePath + '/Documents';
+
+		if (! nwui.fs.existsSync(docPath))
+		{
+			if (nwui.fs.existsSync(homePath + '/My\\ Documents'))
+				docPath = homePath + '/My\\ Documents';
+			else
+				nwui.fs.mkdirSync(docPath);
+		};
+
+		nwui.filePath = docPath + '/Twine/Stories/';
 
 		if (! nwui.fs.existsSync(nwui.filePath))
 		{
-			var docPath = homePath + '/Documents/';
-
-			if (! nwui.fs.existsSync(docPath))
-				nwui.fs.mkdirSync(docPath);
-
-			var twinePath = homePath + '/Documents/Twine/';
+			var twinePath = docPath + '/Twine';
 
 			if (! nwui.fs.existsSync(twinePath))
 				nwui.fs.mkdirSync(twinePath);
