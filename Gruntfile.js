@@ -133,7 +133,7 @@ module.exports = function (grunt)
 			{
 				files:
 				[
-					{ expand: true, src: ['index.html'], dest: 'dist/' }
+					{ expand: true, src: ['index.html'], dest: 'dist/html/' }
 				]
 			},
 
@@ -141,12 +141,12 @@ module.exports = function (grunt)
 			{
 				files:
 				[
-					{ expand: true, src: ['img/*.ico'], dest: 'dist/rsrc/' },
-					{ expand: true, src: ['img/*.png'], dest: 'dist/rsrc/' },
-					{ expand: true, src: ['img/*.svg'], dest: 'dist/rsrc/' },
-					{ expand: true, cwd: 'fonts', src: ['*'], dest: 'dist/rsrc/fonts/' },
-					{ expand: true, cwd: 'storyformats', src: ['**'], dest: 'dist/storyformats' },
-					{ expand: true, cwd: 'lib/fontawesome/fonts', src: ['*'], dest: 'dist/rsrc/fonts/' }
+					{ expand: true, src: ['img/*.ico'], dest: 'dist/html/rsrc/' },
+					{ expand: true, src: ['img/*.png'], dest: 'dist/html/rsrc/' },
+					{ expand: true, src: ['img/*.svg'], dest: 'dist/html/rsrc/' },
+					{ expand: true, cwd: 'fonts', src: ['*'], dest: 'dist/html/rsrc/fonts/' },
+					{ expand: true, cwd: 'storyformats', src: ['**'], dest: 'dist/html/storyformats' },
+					{ expand: true, cwd: 'lib/fontawesome/fonts', src: ['*'], dest: 'dist/html/rsrc/fonts/' }
 				]
 			},
 
@@ -154,7 +154,7 @@ module.exports = function (grunt)
 			{
 				files:
 				[
-					{ expand: true, src: ['LICENSE'], dest: 'dist/' }
+					{ expand: true, src: ['LICENSE'], dest: 'dist/html/' }
 				]
 			},
 
@@ -162,7 +162,7 @@ module.exports = function (grunt)
 			{
 				files:
 				[
-					{ expand: true, src: ['package.json'], dest: 'dist/' }
+					{ expand: true, src: ['package.json'], dest: 'dist/html/' }
 				]
 			}
 		},
@@ -173,7 +173,7 @@ module.exports = function (grunt)
 				['dist/**/*'],
 			options:
 			{
-				buildDir: 'dist-apps/',
+				buildDir: 'dist/apps/',
 				buildType: 'versioned',
 				'chromium-args': '--enable-threaded-compositing',
 				macIcns: 'img/logo.icns',
@@ -209,12 +209,12 @@ module.exports = function (grunt)
 		useminPrepare:
 		{
 			html: 'index.html',
-			options: { dest: 'dist' }
+			options: { dest: 'dist/html/' }
 		},
 
 		usemin:
 		{
-			html: 'dist/index.html'
+			html: 'dist/html/index.html'
 		},
 
 		watch:
