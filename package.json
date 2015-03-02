@@ -16,7 +16,6 @@
 		"height": 600
   },
   "dependencies": {
-	"expand-home-dir": "*",
     "grunt": "*",
     "grunt-bake": "*",
     "grunt-cdnify": "*",
