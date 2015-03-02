@@ -13,7 +13,8 @@
   {
 		"toolbar": false,
 		"width": 1024,
-		"height": 600
+		"height": 600,
+		"icon": "rsrc/img/logo.ico"
   },
   "dependencies": {
     "grunt": "*",
