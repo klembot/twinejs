@@ -111,6 +111,7 @@ var nwui =
 				modifiers: 'ctrl',
 				click: function()
 				{
+					document.execCommand('undo');
 				}
 			}));
 
@@ -159,11 +160,18 @@ var nwui =
 
 		// add item to show story library
 
+		/**
+		 An instance of the node path module.
+		 @property path
+		**/
+
+		nwui.path = require('path');
+
 		mainMenu.submenu.insert(new nwui.gui.MenuItem({
 			label: 'Show Library',
 			click: function()
 			{
-				nwui.gui.Shell.openItem(nwui.filePath);
+				nwui.gui.Shell.openItem(nwui.path.resolve(nwui.filePath.replace(/\//g, nwui.path.sep)));
 			}
 		}), 0);
 
