@@ -158,7 +158,7 @@ var nwui =
 		// add item to show story library
 
 		mainMenu.submenu.insert(new nwui.gui.MenuItem({
-			label: 'Show Story Library',
+			label: 'Show Library',
 			click: function()
 			{
 				nwui.gui.Shell.openItem(nwui.filePath);
@@ -168,8 +168,6 @@ var nwui =
 		win.menu = nativeMenuBar;
 
 		// create ~/Documents/Twine if it doesn't exist
-
-		var expandHomeDir = require('expand-home-dir');
 
 		/**
 		 An instance of the fs modules, for working with the native filesystem.
@@ -183,18 +181,19 @@ var nwui =
 		 @property filePath
 		**/
 
-		nwui.filePath = expandHomeDir('~/Documents/Twine/Stories/');
+		var homePath = process.env.HOME || process.env.HOMEPATH || process.env.USERPROFILE;
+		nwui.filePath = homePath + '/Documents/Twine/Stories/';
 
 		if (! nwui.fs.existsSync(nwui.filePath))
 		{
-			var docPath = expandHomeDir('~/Documents/');
+			var docPath = homePath + '/Documents/';
 
 			if (! nwui.fs.existsSync(docPath))
 				nwui.fs.mkdirSync(docPath);
 
-			var twinePath = expandHomeDir('~/Documents/Twine/');
+			var twinePath = homePath + '/Documents/Twine/';
 
-			if (! nwui.fs.existsSync(docPath))
+			if (! nwui.fs.existsSync(twinePath))
 				nwui.fs.mkdirSync(twinePath);
 
 			nwui.fs.mkdirSync(nwui.filePath);
