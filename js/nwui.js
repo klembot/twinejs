@@ -227,6 +227,38 @@ var nwui =
 			nwui.fs.mkdirSync(nwui.filePath);
 		};
 
+		// do a file sync if we're just starting up
+		// we have to stuff this in the global scope;
+		// otherwise, each new window will think it's starting afresh
+		// and screw up our model IDs
+
+		if (! global.nwuiFirstRun)
+		{
+			nwui.syncStoryFiles();
+			nwui.lockStoryDirectory();
+			global.nwuiFirstRun = true;
+		};
+
+		// open external links outside the app
+
+		$('body').on('click', 'a', function (e)
+		{
+			var url = $(this).attr('href');
+
+			if (url.match(/^https?:/))
+			{
+				nwui.gui.Shell.openExternal(url);
+				e.preventDefault();
+			};
+		});
+	
+		// when quitting, unlock the story directory
+
+		process.on('exit', function()
+		{
+			nwui.unlockStoryDirectory();
+		});
+
 		// monkey patch Story to save to a file
 		// under ~/Documents/Twine whenever the model changes,
 		// or delete it when it is destroyed
@@ -296,38 +328,6 @@ var nwui =
 		StoryListView.StorageQuota.prototype.render = function()
 		{
 			this.$el.css('display', 'none');
-		};
-
-		// open external links outside the app
-
-		$('body').on('click', 'a', function (e)
-		{
-			var url = $(this).attr('href');
-
-			if (url.match(/^https?:/))
-			{
-				nwui.gui.Shell.openExternal(url);
-				e.preventDefault();
-			};
-		});
-	
-		// when quitting, unlock the story directory
-
-		process.on('exit', function()
-		{
-			nwui.unlockStoryDirectory();
-		});
-
-		// do a file sync if we're just starting up
-		// we have to stuff this in the global scope;
-		// otherwise, each new window will think it's starting afresh
-		// and screw up our model IDs
-
-		if (! global.nwuiFirstRun)
-		{
-			nwui.syncStoryFiles();
-			nwui.lockStoryDirectory();
-			global.nwuiFirstRun = true;
 		};
 	},
 
@@ -410,7 +410,11 @@ var nwui =
 		_.each(fileStories, function (filename)
 		{
 			if (filename.match(/\.html$/))
-				window.app.importFile(nwui.fs.readFileSync(nwui.filePath + filename, { encoding: 'utf-8' }));
+			{
+				var stats = nwui.fs.statSync(nwui.filePath + filename);
+				window.app.importFile(nwui.fs.readFileSync(nwui.filePath + filename, { encoding: 'utf-8' }),
+				                      new Date(Date.parse(stats.mtime)));
+			};
 		});
 
 		nwui.unlockStoryDirectory();

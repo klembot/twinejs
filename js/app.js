@@ -169,9 +169,10 @@ var TwineApp = Backbone.Marionette.Application.extend(
 
 	 @method importFile
 	 @param {String} data Contents of the file to be imported.
+	 @param {Date} lastUpdate If passed, overrides the last updated date of the stories.
 	**/
 
-	importFile: function (data)
+	importFile: function (data, lastUpdate)
 	{
 		var selectors = this.selectors;
 
@@ -250,6 +251,11 @@ var TwineApp = Backbone.Marionette.Application.extend(
 
 			if (stylesheet != '' || script != '')
 				story.save({ stylesheet: stylesheet, script: script });
+			
+			// override update date if requested
+			
+			if (lastUpdate)
+				story.save({ lastUpdate: lastUpdate });
 
 			count++;
 		});

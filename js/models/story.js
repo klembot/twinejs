@@ -58,7 +58,10 @@ var Story = Backbone.Model.extend(
 
 		this.on('change', function()
 		{
-			this.set('lastUpdate', new Date());
+			// if we're manually setting our last update, don't override that
+
+			if (this.changedAttributes().lastUpdate === undefined)
+				this.set('lastUpdate', new Date());
 		}, this);
 	},
 
