@@ -35,6 +35,15 @@ var nwui =
 	syncFs: true,
 
 	/**
+	 While the app is open, we lock story files in the filesystem so
+	 that the user can't make changes outside of Twine. This indexes
+	 the locks we maintain on these files so we can lift one when
+	 deleting a file.
+	**/
+
+	fileLocks: {},
+
+	/**
 	 Performs one-time initialization, e.g. setting up menus.
 	 This should be called as early in the app initialization process
 	 as possible.
@@ -91,7 +100,7 @@ var nwui =
 				modifiers: 'ctrl',
 				click: function()
 				{
-					nwui.gui.App.quit();
+					nwui.gui.App.closeAllWindows();
 				}
 			}));
 
@@ -253,14 +262,7 @@ var nwui =
 				if (! nwui.syncFs)
 					return;
 
-				try
-				{
-					nwui.fs.unlinkSync(nwui.filePath + this.get('name') + '.html');
-				}
-				catch (e)
-				{
-					ui.notify('An error occurred while deleting your story (' + e.message + ').', 'danger');
-				};
+					nwui.deleteStoryFile(this);
 			}, this);
 		};
 
@@ -308,6 +310,13 @@ var nwui =
 				e.preventDefault();
 			};
 		});
+	
+		// when quitting, unlock the story directory
+
+		process.on('exit', function()
+		{
+			nwui.unlockStoryDirectory();
+		});
 
 		// do a file sync if we're just starting up
 		// we have to stuff this in the global scope;
@@ -317,6 +326,7 @@ var nwui =
 		if (! global.nwuiFirstRun)
 		{
 			nwui.syncStoryFiles();
+			nwui.lockStoryDirectory();
 			global.nwuiFirstRun = true;
 		};
 	},
@@ -325,7 +335,7 @@ var nwui =
 	 Saves a story model to the file system. If a problem occurs,
 	 then a notification is shown to the user.
 
-	 @method saveStoryToFile
+	 @method saveStoryFile
 	 @param {Story} story Story model to save
 	**/
 
@@ -333,6 +343,7 @@ var nwui =
 	{
 		try
 		{
+			nwui.unlockStoryDirectory();
 			var fd = nwui.fs.openSync(nwui.filePath + story.get('name') + '.html', 'w');
 			nwui.fs.writeSync(fd, story.publish());
 			nwui.fs.closeSync(fd);
@@ -341,6 +352,35 @@ var nwui =
 		{
 			ui.notify('An error occurred while saving your story (' + e.message + ').', 'danger');
 			throw e;
+		}
+		finally
+		{
+			nwui.lockStoryDirectory();
+		};
+	},
+
+	/**
+	 Deletes a story file from the file system. If a problem occurs,
+	 then a notification is shown to the user.
+
+	 @method deleteStoryFile
+	 @param {Story} story Story model to delete
+	**/
+
+	deleteStoryFile: function (story)
+	{
+		try
+		{
+			nwui.unlockStoryDirectory();
+			nwui.fs.unlinkSync(nwui.filePath + this.get('name') + '.html');
+		}
+		catch (e)
+		{
+			ui.notify('An error occurred while deleting your story (' + e.message + ').', 'danger');
+		}
+		finally
+		{
+			nwui.lockStoryDirectory();
 		};
 	},
 
@@ -364,6 +404,7 @@ var nwui =
 
 		// read from files
 
+		nwui.unlockStoryDirectory();
 		var fileStories = nwui.fs.readdirSync(nwui.filePath);
 
 		_.each(fileStories, function (filename)
@@ -372,6 +413,47 @@ var nwui =
 				window.app.importFile(nwui.fs.readFileSync(nwui.filePath + filename, { encoding: 'utf-8' }));
 		});
 
+		nwui.unlockStoryDirectory();
 		nwui.syncFs = true;
-	}
+	},
+
+	/**
+	 Locks the story directory to prevent the user from changing it
+	 outside of Twine. The init() method must be called first.
+
+	 @method lockStoryDirectory
+	**/
+
+	lockStoryDirectory: function()
+	{
+		try
+		{
+			var stat = nwui.fs.statSync(nwui.filePath);
+			nwui.fs.chmodSync(nwui.filePath, stat.mode ^ 128); // u-w
+		}
+		catch (e)
+		{
+			ui.notify('An error occurred while locking your library (' + e.message + ').', 'danger');
+		};
+	},
+
+	/**
+	 Unlocks the story directory. The init() method must be called
+	 first.
+
+	 @method lockStoryDirectory
+	**/
+
+	unlockStoryDirectory: function()
+	{
+		try
+		{
+			var stat = nwui.fs.statSync(nwui.filePath);
+			nwui.fs.chmodSync(nwui.filePath, stat.mode | 128); // u+w
+		}
+		catch (e)
+		{
+			ui.notify('An error occurred while unlocking your library (' + e.message + ').', 'danger');
+		};
+	},
 };
