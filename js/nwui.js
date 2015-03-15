@@ -432,8 +432,16 @@ var nwui =
 	{
 		try
 		{
-			var stat = nwui.fs.statSync(nwui.filePath);
-			nwui.fs.chmodSync(nwui.filePath, stat.mode ^ 128); // u-w
+			if (process.platform == 'win32')
+				_.each(nwui.fs.readdirSync(nwui.filePath), function (filename)
+				{
+					nwui.fs.chmodSync(nwui.filePath + filename, 292); // a-w, 0444
+				});
+			else
+			{
+				var stat = nwui.fs.statSync(nwui.filePath);
+				nwui.fs.chmodSync(nwui.filePath, stat.mode ^ 128); // u-w
+			};
 		}
 		catch (e)
 		{
@@ -452,8 +460,16 @@ var nwui =
 	{
 		try
 		{
-			var stat = nwui.fs.statSync(nwui.filePath);
-			nwui.fs.chmodSync(nwui.filePath, stat.mode | 128); // u+w
+			if (process.platform == 'win32')
+				_.each(nwui.fs.readdirSync(nwui.filePath), function (filename)
+				{
+					nwui.fs.chmodSync(nwui.filePath + filename, 438); // a+w, 0666
+				});
+			else
+			{
+				var stat = nwui.fs.statSync(nwui.filePath);
+				nwui.fs.chmodSync(nwui.filePath, stat.mode | 128); // u+w
+			};
 		}
 		catch (e)
 		{
