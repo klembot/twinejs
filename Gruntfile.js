@@ -5,7 +5,7 @@ module.exports = function (grunt)
 		pkg: grunt.file.readJSON('package.json'),
 		
 		jshint: {
-			all: ['js/**'],
+			all: ['js/**/*.js'],
 			options: {
 				globals: {
 					// Libraries
@@ -257,7 +257,7 @@ module.exports = function (grunt)
 	grunt.loadNpmTasks('grunt-node-webkit-builder');
 	grunt.loadNpmTasks('grunt-replace');
 	grunt.loadNpmTasks('grunt-usemin');
-	grunt.registerTask('default', ['bake']);
+	grunt.registerTask('default', ['jshint', 'bake']);
 	grunt.registerTask('release',
 	[
 		'clean', 'jshint', 'bake', 'yuidoc', 'copy', 'useminPrepare', 'concat', 'uglify', 'cssmin', 'usemin'

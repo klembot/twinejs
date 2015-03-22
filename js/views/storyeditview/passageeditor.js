@@ -12,10 +12,19 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 	tagTemplate:
 	'<span class="tag label label-info" data-name="<%- name %>"><%- name %><button class="remove"><i class="fa fa-times"></i></button></span>',
 
-	initialize: function()
+	initialize: function(options)
 	{
 		this.tagContainer = this.$('.tags');
 		this.tagTemplate = _.template(this.tagTemplate);
+		// Required to identify the current story format
+		this.story = options.parent.model;
+
+		this.passageEditor = CodeMirror.fromTextArea(this.$('.passageText')[0],
+		{
+			lineWrapping: true,
+			lineNumbers: false,
+			mode: 'text',
+		});
 
 		this.$el.on('modalhide', _.bind(this.restoreTitle, this)); 
 		this.$el.on('click', '.showNewTag', _.bind(this.showNewTag, this));
@@ -27,7 +36,7 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 			// don't add duplicate tags
 
 			if (this.model.get('tags').indexOf(name) == -1)
-				this.addTag(name);	
+				this.addTag(name);
 
 			this.hideNewTag();
 			e.preventDefault();
@@ -40,7 +49,7 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 
 		this.$el.data('blockModalHide', _.bind(function()
 		{
-			var worked = this.save();	
+			var worked = this.save();
 
 			if (worked)
 				window.onbeforeunload = null;
@@ -55,7 +64,7 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 	 @method open
 	**/
 
-	open: function()
+	open: function(options)
 	{
 		// remember previous window title
 
@@ -64,9 +73,38 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 
 		this.$('.passageId').val(this.model.id);
 		this.$('.passageName').val(this.model.get('name'));
+
+		/*
+			Load the story format, which may install a CodeMirror mode named after itself.
+			We use that mode if it is found to exist after loading.
+		*/
+		var storyFormatName = this.story.get('storyFormat');
+		StoryFormat.withName(storyFormatName).load(function(err)
+		{
+			var modeName = storyFormatName.toLowerCase();
+
+			if (!err && modeName in CodeMirror.modes)
+			{
+				/*
+					This is a small hack to allow modes such as Harlowe to access the
+					full text of the textarea, permitting its lexer to grow
+					a syntax tree by itself.
+				*/
+				CodeMirror.modes[modeName].doc = this.passageEditor.doc;
+				/*
+					Now that's done, we can assign the mode and trigger a re-render.
+				*/
+				this.passageEditor.setOption('mode', modeName);
+			}
+			else
+			{
+				this.passageEditor.setOption('mode', 'text');
+			}
+		}.bind(this));
+
 		var text = this.model.get('text');
-		this.$('.passageText').val((text == Passage.prototype.defaults.text) ? '' : text);
-		
+		this.passageEditor.doc.setValue((text == Passage.prototype.defaults.text) ? '' : text);
+
 		// sync tags
 
 		this.tagContainer.empty();
@@ -117,7 +155,7 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 
 		if (this.model.save({
 			name: this.$('.passageName').val(),
-			text: this.$('.passageText').val(),
+			text: this.passageEditor.doc.getValue(),
 			tags: tags
 		}))
 		{
