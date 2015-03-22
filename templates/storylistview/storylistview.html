@@ -1,0 +1,129 @@
+<div id="storyListView">
+
+<nav class="listControls">
+
+<h1 class="logo">Twine</h1>
+
+<div class="bubbleContainer">
+<p>
+<button class="addStory create block" title="Create a brand-new story" data-bubble="toggle" data-bubble-dir="right" data-tooltip-dir="w">
+<i class="fa fa-plus"></i> Story
+</button>
+</p>
+
+<div class="bubble left">
+<form id="addStoryForm">
+<p>
+What should your story be named?<br>
+(You can change this later.)
+</p>
+
+<p>
+<input class="newName block" type="text" required>
+</p>
+
+<p class="dialogButtons">
+<button type="button" class="cancelAdd subtle" data-bubble="hide"><i class="fa fa-times"></i> Cancel</button>
+<button type="submit" class="add create"><i class="fa fa-plus"></i> Add</button>
+</p>
+</form>
+</div> <!-- .bubble -->
+</div> <!-- .bubbleContainer -->
+
+<div class="bubbleContainer">
+<p>
+<button class="importStory subtle block" title="Import a published story or Twine archive" data-bubble="toggle" data-bubble-dir="left" data-tooltip-dir="w">
+<i class="fa fa-upload"></i> Import From File
+</button>
+</p>
+
+<div class="bubble left">
+<div class="form">
+<p>
+Import this file:
+</p>
+
+<p>
+<input class="importFile" type="file">
+</p>
+
+<p>
+<button class="subtle" data-bubble="hide"><i class="fa fa-times"></i> Cancel</button>
+</p>
+</div>
+
+<div class="working hide">
+<p>
+<i class="fa fa-2x fa-circle-o-notch fa-spin"></i>
+</p>
+<p>
+Importing...
+</p>
+</div>
+
+</div> <!-- .bubble -->
+</div> <!-- .bubbleContainer -->
+
+<p>
+<button class="saveArchive subtle" title="Save all stories to a Twine archive file" data-tooltip-dir="w">
+<i class="fa fa-briefcase"></i> Archive
+</button>
+</p>
+
+<p>
+<button class="showFormats subtle" title="Work with story and proofing formats" data-tooltip-dir="w">
+<i class="fa fa-files-o"></i> Formats
+</button>
+</p>
+
+<footer>
+
+<p class="quota">
+<span class="total">
+<span class="used"></span>
+</span>
+
+<span class="percent"></span>% space available
+</p>
+
+<p>
+version <button class="link" data-modal-show="#aboutModal"><span class="app-version"></span></button>
+<br>
+<a href="https://bitbucket.org/klembot/twinejs/issues"><i class="fa fa-bug"></i> Report a bug</a>
+</p>
+</footer>
+
+</nav>
+
+<div class="main">
+
+<h1>Stories
+
+<span class="pull-right normal buttonGroup">
+Sort By
+
+<button class="sortByDate subtle active" title="Last changed date">
+Edit Date
+</button>
+
+<button class="sortByName subtle" title="Story name">
+Name
+</button>
+</span>
+
+</h1>
+
+<p class="noStories">
+There are no stories saved in Twine right now. To get started, you can either create a new
+story or import an existing one from a file.
+</p>
+
+<div class="stories"></div>
+</div> <!-- .main -->
+
+</div> <!-- #storyListView -->
+
+<!--(bake /templates/storylistview/aboutmodal.html)-->
+<!--(bake /templates/storylistview/appupdatemodal.html)-->
+<!--(bake /templates/storylistview/donatemodal.html)-->
+<!--(bake /templates/storylistview/formatsmodal.html)-->
