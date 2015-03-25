@@ -12,7 +12,7 @@
 **/
 
 'use strict';
-
+/*jshint evil:true */
 var StoryFormat = Backbone.Model.extend(
 {
 	/**
