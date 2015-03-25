@@ -26,7 +26,8 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 			mode: 'text',
 		});
 
-		this.$el.on('modalhide', _.bind(this.restoreTitle, this)); 
+		this.$el.on('modalhide', _.bind(this.restoreTitle, this));
+		this.$el.on('modalshown', function(){ this.passageEditor.refresh(); }.bind(this));
 		this.$el.on('click', '.showNewTag', _.bind(this.showNewTag, this));
 		this.$el.on('click', '.hideNewTag', _.bind(this.hideNewTag, this));
 		this.$el.on('submit', _.bind(function (e)
@@ -64,7 +65,7 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 	 @method open
 	**/
 
-	open: function(options)
+	open: function()
 	{
 		// remember previous window title
 
@@ -90,7 +91,7 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 					full text of the textarea, permitting its lexer to grow
 					a syntax tree by itself.
 				*/
-				CodeMirror.modes[modeName].doc = this.passageEditor.doc;
+				CodeMirror.modes[modeName].cm = this.passageEditor;
 				/*
 					Now that's done, we can assign the mode and trigger a re-render.
 				*/
@@ -103,7 +104,7 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 		}.bind(this));
 
 		var text = this.model.get('text');
-		this.passageEditor.doc.setValue((text == Passage.prototype.defaults.text) ? '' : text);
+		this.passageEditor.swapDoc(CodeMirror.Doc(text == Passage.prototype.defaults.text ? '' : text));
 
 		// sync tags
 
