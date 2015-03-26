@@ -12,7 +12,7 @@
 **/
 
 'use strict';
-/*jshint evil:true */
+
 var StoryFormat = Backbone.Model.extend(
 {
 	/**
@@ -77,9 +77,9 @@ var StoryFormat = Backbone.Model.extend(
 			// a TwineMarkup object to this, and its lex() method takes
 			// string source and returns a syntax tree.
 
-			if (this.properties.lexer)
+			if (this.properties.setup)
 			{
-				eval(this.properties.lexer);
+				this.properties.setup.call(this);
 			}
 
 			window.storyFormat = prevStoryFormatFn;

@@ -19,7 +19,7 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 		// Required to identify the current story format
 		this.story = options.parent.model;
 
-		this.passageEditor = CodeMirror.fromTextArea(this.$('.passageText')[0],
+		this.cm = CodeMirror.fromTextArea(this.$('.passageText')[0],
 		{
 			lineWrapping: true,
 			lineNumbers: false,
@@ -27,7 +27,11 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 		});
 
 		this.$el.on('modalhide', _.bind(this.restoreTitle, this));
-		this.$el.on('modalshown', function(){ this.passageEditor.refresh(); }.bind(this));
+		this.$el.on('modalshown', function() {
+			setTimeout(this.cm.refresh.bind(this.cm),
+			// This must equal the animation time of @keyframes appear in app.css
+			400);
+		}.bind(this));
 		this.$el.on('click', '.showNewTag', _.bind(this.showNewTag, this));
 		this.$el.on('click', '.hideNewTag', _.bind(this.hideNewTag, this));
 		this.$el.on('submit', _.bind(function (e)
@@ -83,7 +87,7 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 		StoryFormat.withName(storyFormatName).load(function(err)
 		{
 			var modeName = storyFormatName.toLowerCase();
-
+			
 			if (!err && modeName in CodeMirror.modes)
 			{
 				/*
@@ -91,21 +95,34 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 					full text of the textarea, permitting its lexer to grow
 					a syntax tree by itself.
 				*/
-				CodeMirror.modes[modeName].cm = this.passageEditor;
+				CodeMirror.modes[modeName].cm = this.cm;
 				/*
 					Now that's done, we can assign the mode and trigger a re-render.
 				*/
-				this.passageEditor.setOption('mode', modeName);
-			}
-			else
-			{
-				this.passageEditor.setOption('mode', 'text');
+				this.cm.setOption('mode', modeName);
 			}
 		}.bind(this));
 
+		/*
+			Set the mode to the default, 'text'. The above callback will reset it if it fires.
+		*/
+		this.cm.setOption('mode', 'text');
 		var text = this.model.get('text');
-		this.passageEditor.swapDoc(CodeMirror.Doc(text == Passage.prototype.defaults.text ? '' : text));
-
+		/*
+			Reset the placeholder, which may have been modified by a prior story format.
+		*/
+		this.cm.setOption('placeholder', "Enter the body text of your passage here.");
+		/*
+			swapDoc resets all of the attached events, undo history, etc. of the document.
+		*/
+		this.cm.swapDoc(CodeMirror.Doc(''));
+		/*
+			These lines must be used (instead of passing the text to the above constructor)
+			to work around a bug in the CodeMirror placeholder code.
+		*/
+		this.cm.setValue(text || '');
+		this.cm.clearHistory();
+		
 		// sync tags
 
 		this.tagContainer.empty();
@@ -156,7 +173,7 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 
 		if (this.model.save({
 			name: this.$('.passageName').val(),
-			text: this.passageEditor.doc.getValue(),
+			text: this.cm.doc.getValue(),
 			tags: tags
 		}))
 		{
