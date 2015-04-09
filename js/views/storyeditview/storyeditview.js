@@ -33,10 +33,15 @@ var StoryEditView = Marionette.CompositeView.extend(
 	childViewOptions: function() { return { parentView: this }; },
 	template: '#templates .storyEditView',
 
-	initialize: function ()
+	initialize: function()
 	{
-		this.listenTo(this.model, 'change:zoom', this.syncZoom);
-		this.listenTo(this.model, 'change:name', this.syncName);
+		this.listenTo(this.model, 'change:zoom', this.syncZoom)
+		.listenTo(this.model, 'change:name', this.syncName)
+		.listenTo(this.model, 'error', function (model, resp, options)
+		{
+			ui.notify('A problem occurred while saving your changes (' + resp + ').', 'danger');
+		});
+
 		this.collection = this.model.fetchPassages();
 		this.listenTo(this.collection, 'change:top change:left', this.resize)
 		.listenTo(this.collection, 'add', function (p)
@@ -45,6 +50,10 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 			if (this.collection.length == 1)
 				this.model.save({ startPassage: p.cid });
+		})
+		.listenTo(this.collection, 'error', function (model, resp, options)
+		{
+			ui.notify('A problem occurred while saving your changes (' + resp + ').', 'danger');
 		});
 	},
 
@@ -560,6 +569,17 @@ var StoryEditView = Marionette.CompositeView.extend(
 	syncName: function()
 	{
 		document.title = 'Editing \u201c' + this.model.get('name') + '\u201d';
+	},
+
+	updateSaved: function()
+	{
+		this.$('.saveIndicator').addClass('active fadeOut slow').one('animationend', function()
+		{
+			$(this).removeClass('active fadeOut');	
+		});	
+
+		this.$('.storyName').attr('title', 'Last saved at ' + new XDate().toString('h:mm TT, M/d/yyyy'));
+		this.$('.storyName').powerTip();
 	},
 
 	events:
