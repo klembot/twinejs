@@ -131,6 +131,12 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 			// is there a new update to Twine?
 
 			var lastUpdateSeenPref = AppPref.withName('lastUpdateSeen', window.app.buildNumber); 
+
+			// force last update to be at least the current app version
+
+			if (lastUpdateSeenPref.get('value') < window.app.buildNumber)
+				lastUpdateSeenPref.save({ value: window.app.buildNumber });
+
 			var lastUpdateCheckPref = AppPref.withName('lastUpdateCheckTime', new Date().getTime());
 
 			if (new Date().getTime() > lastUpdateCheckPref.get('value') + this.UPDATE_CHECK_DELAY)
