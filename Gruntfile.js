@@ -19,6 +19,7 @@ module.exports = function (grunt)
 					SVG: true,
 					JSZip: true,
 					UUID: true,
+					XDate: true,
 					// Misc.
 					app: true,
 					global: true,
@@ -26,6 +27,7 @@ module.exports = function (grunt)
 					process: true,
 					require: true,
 					ui: true,
+					EventedLocalStorage: true,
 					TransRegion: true,
 					TwineRouter: true,
 					// Collections
