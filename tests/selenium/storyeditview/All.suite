@@ -8,8 +8,8 @@
 <body>
 <table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
 <tr><td><b>Test Suite</b></td></tr>
-<tr><td><a href="../Setup.test">Setup</a></td></tr>
-<tr><td><a href="../Create story.test">Create story</a></td></tr>
+<tr><td><a href="../../../../../../../../../Setup.test">Setup</a></td></tr>
+<tr><td><a href="../../../../../../../../../Create story.test">Create story</a></td></tr>
 <tr><td><a href="Displays story title.test">Displays story title</a></td></tr>
 <tr><td><a href="Returns to the story list with the home button.test">Returns to the story list with the home button</a></td></tr>
 <tr><td><a href="Creates a passage with the Create Passage button.test">Creates a passage with the Create Passage button</a></td></tr>

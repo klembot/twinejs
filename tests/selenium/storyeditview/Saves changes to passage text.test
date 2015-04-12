@@ -44,9 +44,9 @@
 	<td></td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>css=#passageEditModal textarea.passageText</td>
-	<td>${longUni}</td>
+	<td>storeEval</td>
+	<td>window.$('#passageEditModal .CodeMirror')[0].CodeMirror.setValue(storedVars.longUni)</td>
+	<td></td>
 </tr>
 <tr>
 	<td>click</td>
@@ -75,7 +75,7 @@
 </tr>
 <tr>
 	<td>assertEval</td>
-	<td>window.$('#passageEditModal textarea').val()</td>
+	<td>window.$('#passageEditModal .CodeMirror')[0].CodeMirror.getValue()</td>
 	<td>${longUni}</td>
 </tr>
 </tbody></table>
