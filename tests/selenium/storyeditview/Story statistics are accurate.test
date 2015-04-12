@@ -75,6 +75,11 @@
 	<td>[[red]] [[green]] [[blue]] The quick brown fox jumps over the lazy dog.</td>
 </tr>
 <tr>
+	<td>storeEval</td>
+	<td>window.$('#passageEditModal .CodeMirror')[0].CodeMirror.setValue(&quot;[[red]] [[green]] [[blue]] The quick brown fox jumps over the lazy dog.&quot;)</td>
+	<td></td>
+</tr>
+<tr>
 	<td>click</td>
 	<td>//div[@id='passageEditModal']/button</td>
 	<td></td>
@@ -120,7 +125,6 @@
 	<td>css=td.brokenLinkCount</td>
 	<td>1</td>
 </tr>
-
 </tbody></table>
 </body>
 </html>
