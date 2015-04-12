@@ -13,8 +13,11 @@ StoryEditView.Toolbar = Backbone.View.extend(
 	{
 		this.parent = options.parent;
 		this.syncZoomButtons();
-		this.parent.model.on('change:zoom', this.syncZoomButtons, this);
-		this.parent.model.on('change:name', this.syncStoryName, this);
+		this.syncStorySaved();
+		this.listenTo(this.parent.model, 'change:zoom', this.syncZoomButtons);
+		this.listenTo(this.parent.model, 'change:name', this.syncStoryName);
+		this.listenTo(this.parent.model, 'update', this.syncStorySaved);
+		this.listenTo(this.parent.collection, 'update', this.syncStorySaved);
 	},
 
 	/**
@@ -73,6 +76,23 @@ StoryEditView.Toolbar = Backbone.View.extend(
 			menu.removeClass('checked');
 	},
 
+	/**
+	 Sets the tooltip of the story menu to indicate that a save has
+	 just occurred.
+
+	 @method syncStorySaved
+	 @param {Date} forceDate If passed, uses this date instead of the current one
+	**/
+
+	syncStorySaved: function (forceDate)
+	{
+		var $sn = this.$('.storyName');
+		var date = (forceDate) ? new XDate(forceDate) : new XDate();
+		
+		$sn.attr('title', $sn.data('datetext').replace('%', date.toString($sn.data('dateformat'))));
+		$sn.powerTip();
+	},
+
 	events:
 	{
 		'click .editScript': function (e)
@@ -115,9 +135,9 @@ StoryEditView.Toolbar = Backbone.View.extend(
 			this.parent.publish();
 		},
 
-		'click .storyProperties': function (e)
+		'click .storyStats': function (e)
 		{
-			this.parent.properties.open();
+			this.parent.statsModal.open();
 		},
 
 		'click .changeFormat': function (e)

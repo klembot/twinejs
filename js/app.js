@@ -25,7 +25,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 	 @property version
 	**/
 
-	version: '2.0.3',
+	version: '2.0.4',
 
 	/**
 	 Saves data to a file. This appears to the user as if they had clicked
@@ -169,9 +169,10 @@ var TwineApp = Backbone.Marionette.Application.extend(
 
 	 @method importFile
 	 @param {String} data Contents of the file to be imported.
+	 @param {Date} lastUpdate If passed, overrides the last updated date of the stories.
 	**/
 
-	importFile: function (data)
+	importFile: function (data, lastUpdate)
 	{
 		var selectors = this.selectors;
 
@@ -201,7 +202,8 @@ var TwineApp = Backbone.Marionette.Application.extend(
 			var story = allStories.create(
 			{
 				name: $story.attr('name'),
-				storyFormat: $story.attr('format')
+				storyFormat: $story.attr('format'),
+				ifid: $story.attr('ifid')
 			}, { wait: true });
 
 			// and child passages
@@ -226,7 +228,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 				}, { wait: true });	
 
 				if (id == startPassageId)
-					story.save({ startPassage: passage.id });
+					story.save({ startPassage: passage.id }, { wait: true });
 			});
 
 			// for now, glom all style nodes into the stylesheet property
@@ -249,6 +251,11 @@ var TwineApp = Backbone.Marionette.Application.extend(
 
 			if (stylesheet != '' || script != '')
 				story.save({ stylesheet: stylesheet, script: script });
+			
+			// override update date if requested
+			
+			if (lastUpdate)
+				story.save({ lastUpdate: lastUpdate });
 
 			count++;
 		});
@@ -320,6 +327,8 @@ window.app = new TwineApp();
 
 window.app.addInitializer(function ()
 {
+	if (nwui.active)
+		nwui.init();
 	/**
 	 Build number of the app.
 

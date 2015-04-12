@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="file:///Users/Chris/" />
+<title>Story statistics are accurate</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Story statistics are accurate</td></tr>
+</thead><tbody>
+<!--Reset local storage-->
+<tr>
+	<td>open</td>
+	<td>${baseURL}/tests/selenium/resetLocalStorage.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#deleteAll</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>css=#result</td>
+	<td>All data deleted.</td>
+</tr>
+<!--Create story-->
+<tr>
+	<td>open</td>
+	<td>${baseURL}</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>window.location.hash = 'stories';</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=.addStory</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=.addStory</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=input.newName.block</td>
+	<td>${shortUni}</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.add.create</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=div.frame</td>
+	<td></td>
+</tr>
+<!--Create test story (should be 148 chars, 24 words, 3 passages, 2 links, 1 broken link)-->
+<tr>
+	<td>click</td>
+	<td>css=button.edit.subtle</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=textarea.passageText</td>
+	<td>[[red]] [[green]] [[blue]] The quick brown fox jumps over the lazy dog.</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>window.$('#passageEditModal .CodeMirror')[0].CodeMirror.setValue(&quot;[[red]] [[green]] [[blue]] The quick brown fox jumps over the lazy dog.&quot;)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='passageEditModal']/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='storyEditView']/div[2]/div/div[2]/div/div[2]/div/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<!--Verify stats-->
+<tr>
+	<td>click</td>
+	<td>css=button.storyName.subtle</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.storyStats</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>css=td.charCount</td>
+	<td>145</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=td.wordCount</td>
+	<td>24</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=td.passageCount</td>
+	<td>3</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=td.brokenLinkCount</td>
+	<td>1</td>
+</tr>
+</tbody></table>
+</body>
+</html>

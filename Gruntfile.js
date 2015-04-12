@@ -5,7 +5,7 @@ module.exports = function (grunt)
 		pkg: grunt.file.readJSON('package.json'),
 		
 		jshint: {
-			all: ['js/**'],
+			all: ['js/**/*.js'],
 			options: {
 				globals: {
 					// Libraries
@@ -18,9 +18,16 @@ module.exports = function (grunt)
 					saveAs: true,
 					SVG: true,
 					JSZip: true,
+					UUID: true,
+					XDate: true,
 					// Misc.
 					app: true,
+					global: true,
+					nwui: true,
+					process: true,
+					require: true,
 					ui: true,
+					EventedLocalStorage: true,
 					TransRegion: true,
 					TwineRouter: true,
 					// Collections
@@ -128,7 +135,7 @@ module.exports = function (grunt)
 			{
 				files:
 				[
-					{ expand: true, src: ['index.html'], dest: 'dist/' }
+					{ expand: true, src: ['index.html'], dest: 'dist/html/' }
 				]
 			},
 
@@ -136,12 +143,12 @@ module.exports = function (grunt)
 			{
 				files:
 				[
-					{ expand: true, src: ['img/*.ico'], dest: 'dist/rsrc/' },
-					{ expand: true, src: ['img/*.png'], dest: 'dist/rsrc/' },
-					{ expand: true, src: ['img/*.svg'], dest: 'dist/rsrc/' },
-					{ expand: true, cwd: 'fonts', src: ['*'], dest: 'dist/rsrc/fonts/' },
-					{ expand: true, cwd: 'storyformats', src: ['**'], dest: 'dist/storyformats' },
-					{ expand: true, cwd: 'lib/fontawesome/fonts', src: ['*'], dest: 'dist/rsrc/fonts/' }
+					{ expand: true, src: ['img/*.ico'], dest: 'dist/html/rsrc/' },
+					{ expand: true, src: ['img/*.png'], dest: 'dist/html/rsrc/' },
+					{ expand: true, src: ['img/*.svg'], dest: 'dist/html/rsrc/' },
+					{ expand: true, cwd: 'fonts', src: ['*'], dest: 'dist/html/rsrc/fonts/' },
+					{ expand: true, cwd: 'storyformats', src: ['**'], dest: 'dist/html/storyformats' },
+					{ expand: true, cwd: 'lib/fontawesome/fonts', src: ['*'], dest: 'dist/html/rsrc/fonts/' }
 				]
 			},
 
@@ -149,9 +156,32 @@ module.exports = function (grunt)
 			{
 				files:
 				[
-					{ expand: true, src: ['LICENSE'], dest: 'dist/' }
+					{ expand: true, src: ['LICENSE'], dest: 'dist/html/' }
+				]
+			},
+
+			package:
+			{
+				files:
+				[
+					{ expand: true, src: ['package.json'], dest: 'dist/html/' }
 				]
 			}
+		},
+
+		nodewebkit:
+		{
+			src:
+				['dist/**/*'],
+			options:
+			{
+				buildDir: 'dist/apps/',
+				buildType: 'versioned',
+				'chromium-args': '--enable-threaded-compositing',
+				macIcns: 'img/logo.icns',
+				platforms: ['win', 'osx', 'linux'],
+				winIco: 'img/logo.ico'
+			},
 		},
 
 		replace:
@@ -181,12 +211,12 @@ module.exports = function (grunt)
 		useminPrepare:
 		{
 			html: 'index.html',
-			options: { dest: 'dist' }
+			options: { dest: 'dist/html/' }
 		},
 
 		usemin:
 		{
-			html: 'dist/index.html'
+			html: 'dist/html/index.html'
 		},
 
 		watch:
@@ -226,9 +256,10 @@ module.exports = function (grunt)
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-yuidoc');
+	grunt.loadNpmTasks('grunt-node-webkit-builder');
 	grunt.loadNpmTasks('grunt-replace');
 	grunt.loadNpmTasks('grunt-usemin');
-	grunt.registerTask('default', ['bake']);
+	grunt.registerTask('default', ['jshint', 'bake']);
 	grunt.registerTask('release',
 	[
 		'clean', 'jshint', 'bake', 'yuidoc', 'copy', 'useminPrepare', 'concat', 'uglify', 'cssmin', 'usemin'
@@ -240,6 +271,10 @@ module.exports = function (grunt)
 	grunt.registerTask('release-test',
 	[
 		'bake', 'jshint', 'cdnify'
+	]);
+	grunt.registerTask('release-nw',
+	[
+		'clean', 'jshint', 'bake', 'yuidoc', 'copy', 'useminPrepare', 'concat', 'uglify', 'cssmin', 'usemin', 'nodewebkit'
 	]);
 	grunt.registerTask('server', ['connect']);
 };

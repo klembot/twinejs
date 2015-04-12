@@ -27,7 +27,13 @@ You need [Grunt](http://gruntjs.com) to continue. Run `npm install -g grunt-cli`
 Run `grunt` to perform a basic build, including creating documentation in doc/;
 `grunt watch` will perform the same tasks whenever you make changes to the
 source code. `grunt release` will minify everything to as few files as possible
-into dist/.
+into dist/html/.
+
+To build executable versions of Twine with [NW.js](http://nwjs.io/), run `grunt
+release-nw`, which will publish the files to dist/apps/. In order to build
+Windows apps on OS X or Linux, you will need to have
+[Wine](https://www.winehq.org/) installed. **nb. NW.js builds are currently
+considered experimental, and have not been well-tested or documented.**
 
 ### TESTING
 

@@ -68,7 +68,7 @@ var StoryItemView = Marionette.ItemView.extend(
 		if (Passage.withId(this.model.get('startPassage')) === undefined)
 			ui.notify('This story does not have a starting point. Edit this story and use the <i class="fa fa-rocket"></i> icon on a passage to set this.', 'danger');
 		else
-			window.open('#stories/' + this.model.id + '/play', 'twinestory_' + this.model.id);
+			window.open('#stories/' + this.model.id + '/play', 'twinestory_play_' + this.model.id);
 	},
 
 	/**

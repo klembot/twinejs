@@ -7,3 +7,5 @@ doc/*
 .tmp/*
 *.DS_Store
 .idea
+cache
+dist-apps

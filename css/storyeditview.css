@@ -388,7 +388,6 @@ body.iOS .editModal
 	width: 100%;
 	padding-bottom: 0.1em;
 	font-size: 125%;
-	line-height: 100%;
 }
 
 #passageEditModal .error
@@ -557,6 +556,18 @@ body.iOS .editModal
 .formatDetail .description
 {
 	font-size: 90%;
+}
+
+#statsModal table
+{
+	margin: 0 auto;
+	font-size: 120%;
+}
+
+#statsModal td:first-child
+{
+	text-align: right;
+	font-weight: bold;
 }
 
 .CodeMirror

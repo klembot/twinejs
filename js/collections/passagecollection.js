@@ -10,7 +10,7 @@
 var PassageCollection = Backbone.Collection.extend(
 {
 	model: Passage,
-	localStorage: new Backbone.LocalStorage('twine-passages')
+	localStorage: new EventedLocalStorage('twine-passages')
 });
 
 /**

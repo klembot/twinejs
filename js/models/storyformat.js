@@ -66,11 +66,23 @@ var StoryFormat = Backbone.Model.extend(
 			return;
 		};
 
+		var prevStoryFormatFn = window.storyFormat || null;
+
 		window.storyFormat = _.bind(function (properties)
 		{
 			this.properties = properties;
 			this.loaded = true;
-			window.storyFormat = null;
+
+			// The lexer is a stringified JS function. When eval()ed, it adds
+			// a TwineMarkup object to this, and its lex() method takes
+			// string source and returns a syntax tree.
+
+			if (this.properties.setup)
+			{
+				this.properties.setup.call(this);
+			}
+
+			window.storyFormat = prevStoryFormatFn;
 
 			if (callback)
 				callback();
