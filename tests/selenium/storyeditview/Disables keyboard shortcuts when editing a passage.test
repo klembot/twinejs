@@ -65,7 +65,7 @@
 </tr>
 <tr>
 	<td>sendKeys</td>
-	<td>css=#passageEditModal textarea.passageText</td>
+	<td>css=#passageEditModal</td>
 	<td>${KEY_DELETE}</td>
 </tr>
 <tr>

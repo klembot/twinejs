@@ -1,12 +1,20 @@
 {
-  "name": "twine",
-  "version": "2.0.0",
-  "author": "Chris Klimas <klimas@gmail.com>",
+  "name": "Twine",
+  "version": "2.0.4",
+  "author": "Chris Klimas <chris@twinery.org>",
   "description": "a GUI for creating nonlinear stories",
   "license": "GPL v3",
   "repository": {
     "type": "hg",
     "url": "https://bitbucket.org/klembot/twinejs"
+  },
+  "main": "index.html",
+  "window":
+  {
+		"toolbar": false,
+		"width": 1024,
+		"height": 600,
+		"icon": "rsrc/img/logo.ico"
   },
   "dependencies": {
     "grunt": "*",
@@ -21,8 +29,9 @@
     "grunt-contrib-uglify": "*",
     "grunt-contrib-watch": "*",
     "grunt-contrib-yuidoc": "*",
+	"grunt-node-webkit-builder": "*",
     "grunt-replace": "*",
-    "grunt-usemin": "*",
+    "grunt-usemin": "2.0.x",
     "require": "*"
   }
 }

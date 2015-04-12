@@ -20,13 +20,14 @@ var Story = Backbone.Model.extend(
 			stylesheet: '',
 			script: '',
 			storyFormat: AppPref.withName('defaultFormat').get('value') || 'Harlowe',
-			lastUpdate: new Date()
+			lastUpdate: new Date(),
+			ifid: UUID().toUpperCase()
 		};
 	},
 
 	template: _.template('<tw-storydata name="<%- storyName %>" ' +
 						 'startnode="<%- startNode %>" creator="<%- appName %>" ' +
-						 'creator-version="<%- appVersion %>" ' +
+						 'creator-version="<%- appVersion %>" ifid="<%- ifid %>" ' +
 						 'format="<%- storyFormat %>" options="<%= options %>">' +
 						 '<style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"><%= stylesheet %></style>' +
 						 '<script role="script" id="twine-user-script" type="text/twine-javascript"><%= script %></script>' + 
@@ -38,7 +39,10 @@ var Story = Backbone.Model.extend(
 		{
 			// delete all child passages
 
-			this.fetchPassages().invoke('destroy');
+			var passages = this.fetchPassages();
+
+			while (passages.length > 0)
+				passages.at(0).destroy();
 		}, this);
 
 		this.on('sync', function()
@@ -54,7 +58,10 @@ var Story = Backbone.Model.extend(
 
 		this.on('change', function()
 		{
-			this.set('lastUpdate', new Date());
+			// if we're manually setting our last update, don't override that
+
+			if (this.changedAttributes().lastUpdate === undefined)
+				this.set('lastUpdate', new Date());
 		}, this);
 	},
 
@@ -122,7 +129,8 @@ var Story = Backbone.Model.extend(
 			stylesheet: this.get('stylesheet'),
 			script: this.get('script'),
 			options: (options) ? options.join(' ') : null,
-			storyFormat: this.get('storyFormat')
+			storyFormat: this.get('storyFormat'),
+			ifid: this.get('ifid')
 		});
 	}
 });

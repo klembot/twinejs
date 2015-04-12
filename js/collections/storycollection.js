@@ -10,7 +10,7 @@
 var StoryCollection = Backbone.Collection.extend(
 {
 	model: Story,
-	localStorage: new Backbone.LocalStorage('twine-stories'),
+	localStorage: new EventedLocalStorage('twine-stories'),
 	order: 'name',
 	reverseOrder: false,
 
