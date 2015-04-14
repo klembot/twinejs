@@ -52,6 +52,7 @@ StoryEditView.ScriptEditor = Backbone.View.extend(
 	open: function()
 	{
 		this.scriptEditor.doc.setValue(this.parent.model.get('script'));
+		this.scriptEditor.refresh();
 		this.$el.data('modal').trigger('show');
 	},
 

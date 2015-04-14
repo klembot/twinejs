@@ -51,6 +51,7 @@ StoryEditView.StyleEditor = Backbone.View.extend(
 	open: function()
 	{
 		this.styleEditor.doc.setValue(this.parent.model.get('stylesheet'));
+		this.styleEditor.refresh();
 		this.$el.data('modal').trigger('show');
 	},
 
