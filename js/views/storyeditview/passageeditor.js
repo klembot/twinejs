@@ -119,7 +119,7 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 
 		// Reset the placeholder, which may have been modified by a prior story format.
 		
-		this.cm.setOption('placeholder', "Enter the body text of your passage here.");
+		this.cm.setOption('placeholder', this.$('.passageText').attr('placeholder'));
 
 		// swapDoc resets all of the attached events, undo history, etc. of the document.
 
