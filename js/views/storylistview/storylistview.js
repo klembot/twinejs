@@ -73,7 +73,7 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 				proxy.remove();
 			});
 
-			this.children.find(_.bind(function (c)
+			this.children.find(function (c)
 			{
 				if (c.model.get('id') == this.previouslyEditing)
 				{
@@ -91,7 +91,7 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 					});
 					return true;
 				};
-			}, this));
+			}.bind(this));
 
 			this.$el.append(proxy);
 		};
@@ -108,7 +108,7 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 
 		this.children.each(function (view, index)
 		{
-			_.delay(_.bind(view.fadeIn, view), APPEAR_INTERVAL * index);
+			_.delay(view.fadeIn.bind(view), APPEAR_INTERVAL * index);
 		});
 
 		// is it time to ask for a donation?
@@ -119,10 +119,10 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 		if (! donateShown.get('value') &&
             new Date().getTime() > firstRunPref.get('value') + this.DONATION_DELAY)
 		{
-			_.delay(_.bind(function()
+			_.delay(function()
 			{
 				this.$('#donateModal').data('modal').trigger('show');
-			}, this), 50);
+			}.bind(this), 50);
 
 			donateShown.save({ value: true });
 		}
@@ -147,10 +147,10 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 					$('#appUpdateModal .version').text(data.version);
 					$('#appUpdateModal a.download').attr('href', data.url);
 
-					_.delay(_.bind(function()
+					_.delay(function()
 					{
 						$('#appUpdateModal').data('modal').trigger('show');
-					}, this), 50);
+					}.bind(this), 50);
 				});
 			};
 		};
@@ -205,7 +205,7 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 		bubble.find('.form').addClass('hide');
 		bubble.find('.working').removeClass('hide');
 
-		reader.onload = _.bind(function (e)
+		reader.onload = function (e)
 		{
 			var className = '';
 			var message = '';
@@ -239,7 +239,7 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 			bubble.find('.working').addClass('hide');
 			this.$('.importStory').bubble('hide');
 			ui.initEl(this.$el);
-		}, this);
+		}.bind(this);
 
 		reader.readAsText(e.target.files[0], 'UTF-8');
 	},

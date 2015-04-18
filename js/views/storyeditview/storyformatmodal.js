@@ -70,7 +70,7 @@ StoryEditView.StoryFormatModal = Backbone.View.extend(
 		{
 			var format = this.formatsToLoad.at(0);
 
-			format.load(_.bind(function()
+			format.load(function()
 			{
 				// skip proofing-only formats
 
@@ -91,7 +91,7 @@ StoryEditView.StoryFormatModal = Backbone.View.extend(
 
 				this.formatsToLoad.remove(format);
 				this.loadNextFormat();
-			}, this));
+			}.bind(this));
 		}
 		else
 			this.$('.loading').hide();

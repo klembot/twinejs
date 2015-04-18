@@ -14,8 +14,8 @@ StoryEditView.Marquee = Backbone.View.extend(
 	{
 		this.parent = options.parent;
 		this.$marquee = this.$('.marquee');
-		this.followDragBound = _.bind(this.followDrag, this);
-		this.endDragBound = _.bind(this.endDrag, this);
+		this.followDragBound = this.followDrag.bind(this);
+		this.endDragBound = this.endDrag.bind(this);
 	},
 
 	startDrag: function (e)

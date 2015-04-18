@@ -27,18 +27,18 @@ StoryEditView.StyleEditor = Backbone.View.extend(
 		this.$('.stylesheetSource:first').data('codemirror', this.styleEditor);
 
 		this.$el.on({
-			'modalshown': _.bind(function()
+			'modalshown': function()
 			{
-				this.$el.one('animationend', _.bind(function()
+				this.$el.one('animationend', function()
 				{
 					this.styleEditor.refresh();
 					this.styleEditor.focus();
-				}, this));
-			}, this),
-			'modalhide': _.bind(function()
+				}.bind(this));
+			}.bind(this),
+			'modalhide': function()
 			{
 				this.save();
-			}, this)
+			}.bind(this)
 		});
 	},
 

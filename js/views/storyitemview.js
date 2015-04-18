@@ -49,10 +49,10 @@ var StoryItemView = Marionette.ItemView.extend(
 			transformOrigin: originX + 'px ' + originY + 'px',
 			'-webkit-transform-origin': originX + 'px ' + originY + 'px'
 		})
-		.one('animationend', _.bind(function()
+		.one('animationend', function()
 		{
 			window.location.hash = '#stories/' + this.model.id;
-		}, this));
+		}.bind(this));
 
 		this.parentView.$el.append(proxy);
 	},
@@ -79,10 +79,10 @@ var StoryItemView = Marionette.ItemView.extend(
 
 	delete: function()
 	{
-		this.$('.story').addClass('disappear').one('animationend', _.bind(function()
+		this.$('.story').addClass('disappear').one('animationend', function()
 		{
 			this.model.destroy();
-		}, this));
+		}.bind(this));
 	},
 
 	/**

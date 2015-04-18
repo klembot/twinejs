@@ -41,7 +41,7 @@ var PassageItemView = Marionette.ItemView.extend(
 		 @private
 		**/
 
-		this.prepDragBound = _.bind(this.prepDrag, this);
+		this.prepDragBound = this.prepDrag.bind(this);
 
 		/**
 		 A bound event listener for a passage drag event, so we can later disconnect it.
@@ -50,7 +50,7 @@ var PassageItemView = Marionette.ItemView.extend(
 		 @private
 		**/
 
-		this.followDragBound = _.bind(this.followDrag, this);
+		this.followDragBound = this.followDrag.bind(this);
 
 		/**
 		 A bound event listener for a passage drag end event, so we can later disconnect it.
@@ -59,7 +59,7 @@ var PassageItemView = Marionette.ItemView.extend(
 		 @private
 		**/
 
-		this.finishDragBound = _.bind(this.finishDrag, this);
+		this.finishDragBound = this.finishDrag.bind(this);
 
 		/**
 		 A bound event listener for a mouse motion event while this passage is the control
@@ -69,7 +69,7 @@ var PassageItemView = Marionette.ItemView.extend(
 		 @private
 		**/
 
-		this.trackDragBound = _.bind(this.trackDrag, this);
+		this.trackDragBound = this.trackDrag.bind(this);
 
 		/**
 		 A bound event listener for a mouse up event while this passage is the control
@@ -79,7 +79,7 @@ var PassageItemView = Marionette.ItemView.extend(
 		 @private
 		**/
 
-		this.endDragBound = _.bind(this.endDrag, this);
+		this.endDragBound = this.endDrag.bind(this);
 	},
 
 	onDomRefresh: function()
@@ -207,7 +207,7 @@ var PassageItemView = Marionette.ItemView.extend(
 			if (! this.parentView.collection.findWhere({ name: link }) &&
 				oldBroken.indexOf(link) == -1)
 			{
-				_.defer(_.bind(this.parentView.addPassage, this.parentView), link, newLeft, newTop);
+				_.defer(this.parentView.addPassage.bind(this.parentView), link, newLeft, newTop);
 				newLeft += Passage.width * 1.5;
 			};
 		}, this);
@@ -528,7 +528,7 @@ var PassageItemView = Marionette.ItemView.extend(
 		})
 		.trigger('passagedragend');
 
-		_.defer(_.bind(function() { this.actuallyDragged = false; }, this));
+		_.defer(function() { this.actuallyDragged = false; }.bind(this));
 	},
 
 	/**
@@ -554,7 +554,7 @@ var PassageItemView = Marionette.ItemView.extend(
 		// defer the rest til all other drags have completed
 		// so we don't get displaced by any passage's previous positions
 
-		_.defer(_.bind(function()
+		_.defer(function()
 		{
 			// push the passage so it doesn't overlap any other
 			
@@ -565,7 +565,7 @@ var PassageItemView = Marionette.ItemView.extend(
 			// and finally save changes
 
 			this.model.save();
-		}, this));
+		}.bind(this));
 	},
 
 	events:

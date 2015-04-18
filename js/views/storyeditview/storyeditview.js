@@ -64,27 +64,27 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 		// enable space bar scrolling
 
-		$(document).on('keydown', _.bind(function (e)
+		$(document).on('keydown', function (e)
 		{
 			if (e.keyCode == 32 && $('input:focus, textarea:focus').length == 0)
 			{
 				this.startMouseScrolling();
 				e.preventDefault();
 			};
-		}, this));
+		}.bind(this));
 
-		$(document).on('keyup', _.bind(function (e)
+		$(document).on('keyup', function (e)
 		{
 			if (e.keyCode == 32 && $('input:focus, textarea:focus').length == 0)
 			{
 				this.stopMouseScrolling();
 				e.preventDefault();
 			};
-		}, this));
+		}.bind(this));
 
 		// delete selected passages with the delete key
 
-		$(document).on('keyup', _.bind(function (e)
+		$(document).on('keyup', function (e)
 		{
 			if (e.keyCode == 46)
 			{
@@ -114,11 +114,11 @@ var StoryEditView = Marionette.CompositeView.extend(
 					              selected.length + ' passages? This cannot be undone.';
 
 					ui.confirm(message, '<i class="fa fa-trash-o"></i> Delete',
-					           _.bind(this.deleteSelectedPassages, this),
+					           this.deleteSelectedPassages.bind(this),
 					           { buttonClass: 'danger' });
 				};
 			};
-		}, this));
+		}.bind(this));
 
 		// automatically focus textareas on edit modals when they are shown
 
@@ -158,7 +158,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 		// resize the story map whenever the browser window resizes
 
 		this.resize();
-		$(window).on('resize', _.debounce(_.bind(this.resize, this), 500));
+		$(window).on('resize', _.debounce(this.resize.bind(this), 500));
 
 		this.syncZoom();
 		this.linkManager = new StoryEditView.LinkManager({ el: this.el, parent: this });
