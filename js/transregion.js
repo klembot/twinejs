@@ -12,15 +12,15 @@ var TransRegion = Backbone.Marionette.Region.extend(
 {
 	initialize: function()
 	{
-		this.on('before:swapOut', _.bind(function (view)
+		this.on('before:swapOut', function (view)
 		{
 			this.prevView = view;
 			
 			if (view instanceof StoryEditView)
 				this.prevId = view.model.get('id');
-		}, this));
+		}.bind(this));
 
-		this.on('swap', _.bind(function (view)
+		this.on('swap', function (view)
 		{
 			// tell a StoryListView where we were coming from
 
@@ -30,6 +30,6 @@ var TransRegion = Backbone.Marionette.Region.extend(
 				view.previouslyEditing = this.prevId;
 			};
 
-		}, this));
+		}.bind(this));
 	}
 });

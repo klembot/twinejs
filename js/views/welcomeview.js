@@ -33,7 +33,7 @@ var WelcomeView = Backbone.Marionette.ItemView.extend(
 	{
 		this.$('div:first-child').css('display', 'block').addClass('appear');
 
-		this.$el.on('click', 'button, a.done', _.bind(function (e)
+		this.$el.on('click', 'button, a.done', function (e)
 		{
 			var $t = $(e.target);
 			var next = $t.closest('div').next('div');
@@ -57,6 +57,6 @@ var WelcomeView = Backbone.Marionette.ItemView.extend(
 				next.css('display', 'block').addClass('slideDown');
 				$('body').animate({ scrollTop: next.position().top + 100 });
 			};
-		}, this));
+		}.bind(this));
 	}
 });

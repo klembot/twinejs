@@ -18,6 +18,7 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 		this.tagTemplate = _.template(this.tagTemplate);
 
 		// Required to identify the current story format
+
 		this.story = options.parent.model;
 
 		this.cm = CodeMirror.fromTextArea(this.$('.passageText')[0],
@@ -27,18 +28,18 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 			mode: 'text',
 		});
 
-		this.$el.on('modalhide', _.bind(this.restoreTitle, this))
-		.on('modalshown', _.bind(function()
+		this.$el.on('modalhide', this.restoreTitle.bind(this))
+		.on('modalshown', function()
 		{
-			this.$el.one('animationend', _.bind(function()
+			this.$el.one('animationend', function()
 			{
 				this.cm.refresh();
 				this.cm.focus();
-			}, this));
-		}, this))
-		.on('click', '.showNewTag', _.bind(this.showNewTag, this))
-		.on('click', '.hideNewTag', _.bind(this.hideNewTag, this))
-		.on('submit', _.bind(function (e)
+			}.bind(this));
+		}.bind(this))
+		.on('click', '.showNewTag', this.showNewTag.bind(this))
+		.on('click', '.hideNewTag', this.hideNewTag.bind(this))
+		.on('submit', function (e)
 		{
 			var name = this.$('.newTagName').val().replace(/\s/g, '-');
 
@@ -49,12 +50,12 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 
 			this.hideNewTag();
 			e.preventDefault();
-		}, this))
+		}.bind(this))
 		.on('click', '.tag .remove', function()
 		{
 			$(this).closest('.tag').remove();
 		})
-		.data('blockModalHide', _.bind(function()
+		.data('blockModalHide', function()
 		{
 			var worked = this.save();
 
@@ -62,7 +63,7 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 				window.onbeforeunload = null;
 			
 			return ! worked;
-		}, this));
+		}.bind(this));
 	},
 
 	/**

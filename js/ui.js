@@ -410,14 +410,14 @@ var ui =
 		$('#notifications').append(notification);
 
 		if (className != 'danger')
-			window.setTimeout(_.bind(function()
+			window.setTimeout(function()
 			{
 				$(this).addClass('fadeOut')
 				.one('animationend', function()
 				{
 					$(this).remove();
 				});
-			}, notification), 3000);
+			}.bind(notification), 3000);
 	},
 
 	/**

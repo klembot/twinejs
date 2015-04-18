@@ -130,7 +130,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 		};
 
 		format.publish(story, options.formatOptions, options.startPassageId,
-					   _.bind(function (err, output)
+					   function (err, output)
 		{
 			if (err)
 				ui.notify('An error occurred while publishing your story. (' + err.message + ')', 'danger');
@@ -141,7 +141,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 				else
 					this.replaceContent(output);
 			};
-		}, this));
+		}.bind(this));
 	},
 
 	/**
