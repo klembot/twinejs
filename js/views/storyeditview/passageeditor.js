@@ -133,6 +133,15 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 		this.cm.setValue(text || '');
 		this.cm.focus();
 		this.cm.clearHistory();
+
+		// if the text is the default for a passage, select all of it
+		// so the user can just start typing to replace it;
+		// otherwise move the cursor to the end
+
+		if (text == Passage.prototype.defaults.text)
+			this.cm.execCommand('selectAll');
+		else
+			this.cm.execCommand('goDocEnd');
 		
 		// sync tags
 
