@@ -294,7 +294,7 @@ var nwui =
 				if (! nwui.syncFs)
 					return;
 
-					nwui.deleteStoryFile(this);
+				nwui.deleteStoryFile(this);
 			}, this);
 		};
 
@@ -372,7 +372,7 @@ var nwui =
 		try
 		{
 			nwui.unlockStoryDirectory();
-			nwui.fs.unlinkSync(nwui.filePath + this.get('name') + '.html');
+			nwui.fs.unlinkSync(nwui.filePath + story.get('name') + '.html');
 		}
 		catch (e)
 		{
