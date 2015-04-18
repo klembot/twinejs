@@ -89,25 +89,28 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 		*/
 
 		var storyFormatName = this.story.get('storyFormat');
-		StoryFormat.withName(storyFormatName).load(function (err)
-		{
-			var modeName = storyFormatName.toLowerCase();
-			
-			if (! err && modeName in CodeMirror.modes)
+		var storyFormat = StoryFormat.withName(storyFormatName);
+
+		if (storyFormat)
+			storyFormat.load(function (err)
 			{
-				/*
-					This is a small hack to allow modes such as Harlowe to access the
-					full text of the textarea, permitting its lexer to grow
-					a syntax tree by itself.
-				*/
+				var modeName = storyFormatName.toLowerCase();
+				
+				if (! err && modeName in CodeMirror.modes)
+				{
+					/*
+						This is a small hack to allow modes such as Harlowe to access the
+						full text of the textarea, permitting its lexer to grow
+						a syntax tree by itself.
+					*/
 
-				CodeMirror.modes[modeName].cm = this.cm;
+					CodeMirror.modes[modeName].cm = this.cm;
 
-				// Now that's done, we can assign the mode and trigger a re-render.
+					// Now that's done, we can assign the mode and trigger a re-render.
 
-				this.cm.setOption('mode', modeName);
-			}
-		}.bind(this));
+					this.cm.setOption('mode', modeName);
+				}
+			}.bind(this));
 
 		// Set the mode to the default, 'text'. The above callback will reset it if it fires.
 
