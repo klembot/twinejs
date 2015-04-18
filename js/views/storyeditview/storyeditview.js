@@ -120,33 +120,6 @@ var StoryEditView = Marionette.CompositeView.extend(
 			};
 		}.bind(this));
 
-		// automatically focus textareas on edit modals when they are shown
-
-		$(document).on('modalshown', '.editModal', function()
-		{
-			var textarea = $(this).find('textarea:first');
-
-			if (! textarea.data('codemirror'))
-			{
-				var textLen = $(textarea).val().length;
-				textarea.focus();
-
-				// ugh feature detection
-				// http://stackoverflow.com/questions/499126/jquery-set-cursor-position-in-text-area
-
-				if (textarea.setSelectionRange)
-					textarea.setSelectionRange(textLen, textLen);
-				else if (textarea.createTextRange)
-				{
-					var range = textarea.createTextRange();
-					range.collapse(true);
-					range.moveEnd('character', textLen);
-					range.moveStart('character', textLen);
-					range.select();
-				};
-			};
-		});
-
 		// always hide the story bubble when a click occurs on it
 		// (e.g. when a menu item is selected)
 
