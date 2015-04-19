@@ -12,17 +12,79 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 	tagTemplate:
 	'<span class="tag label label-info" data-name="<%- name %>"><%- name %><button class="remove"><i class="fa fa-times"></i></button></span>',
 
-	initialize: function(options)
+	initialize: function (options)
 	{
+		/**
+		 A reference to the DOM element containing all tags.
+
+		 @property tagContainer
+		**/
+
 		this.tagContainer = this.$('.tags');
+
+		/**
+		 An Underscore template for rendering individual tags.
+
+		 @property tagTemplate
+		**/
+
 		this.tagTemplate = _.template(this.tagTemplate);
 
-		// Required to identify the current story format
+		/**
+		 The parent StoryEditView.
+
+		 @property parent
+		**/
+
+		this.parent = options.parent;
+
+		/**
+		 The current story's object model.
+
+		 @property story
+		**/
 
 		this.story = options.parent.model;
 
+		/**
+		 The instance of CodeMirror used for editing.
+
+		 @property cm
+		**/
+
 		this.cm = CodeMirror.fromTextArea(this.$('.passageText')[0],
 		{
+			extraKeys:
+			{
+				'Ctrl-Space': function (cm)
+				{
+					cm.showHint({
+						hint: function (cm, options)	
+						{
+							var wordRange = cm.findWordAt(cm.getCursor());
+							var word = new RegExp(cm.getRange(wordRange.anchor, wordRange.head), 'i');
+							var matches = [];
+
+							return {
+								list: _.filter(cm.getOption('passageNames'), function (name)
+								{
+									return word.test(name);
+								}),
+								from: wordRange.anchor,
+								to: wordRange.head
+							};
+						},
+						completeSingle: false,
+						extraKeys:
+						{
+							']': function (cm, hint)
+							{
+								hint.close();
+							}
+						}
+					});
+				}
+			},
 			lineWrapping: true,
 			lineNumbers: false,
 			mode: 'text',
@@ -148,6 +210,13 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 
 		this.tagContainer.empty();
 		_.each(this.model.get('tags'), this.addTag, this);
+
+		// assemble a list of existing passage names for autocomplete
+
+		this.cm.setOption('passageNames', _.map(this.parent.collection.models, function (model)
+		{
+			return model.get('name');
+		}));		
 
 		// actually show it
 		// we refresh twice; now so the text will show properly
