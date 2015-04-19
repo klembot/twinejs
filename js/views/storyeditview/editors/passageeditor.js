@@ -54,36 +54,14 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 
 		this.cm = CodeMirror.fromTextArea(this.$('.passageText')[0],
 		{
+			prefixTrigger:
+			{
+				prefixes: ['[[', '->'],
+				callback: this.autocomplete.bind(this)
+			},
 			extraKeys:
 			{
-				'Ctrl-Space': function (cm)
-				{
-					cm.showHint({
-						hint: function (cm, options)	
-						{
-							var wordRange = cm.findWordAt(cm.getCursor());
-							var word = new RegExp(cm.getRange(wordRange.anchor, wordRange.head), 'i');
-							var matches = [];
-
-							return {
-								list: _.filter(cm.getOption('passageNames'), function (name)
-								{
-									return word.test(name);
-								}),
-								from: wordRange.anchor,
-								to: wordRange.head
-							};
-						},
-						completeSingle: false,
-						extraKeys:
-						{
-							']': function (cm, hint)
-							{
-								hint.close();
-							}
-						}
-					});
-				}
+				'Ctrl-Space': this.autocomplete.bind(this)
 			},
 			lineWrapping: true,
 			lineNumbers: false,
@@ -232,6 +210,57 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 		{
 			return 'Any changes to the passage you\'re editing haven\'t been saved yet. (To do so, close the passage editor.)';
 		};
+	},
+
+	/**
+	 Shows an autocomplete menu for the current cursor, showing existing passage names.
+
+	 @method autocomplete
+	**/
+
+	autocomplete: function()
+	{
+		this.cm.showHint({
+			hint: function (cm, options)	
+			{
+				var wordRange = cm.findWordAt(cm.getCursor());
+				var word = cm.getRange(wordRange.anchor, wordRange.head).toLowerCase();
+				var matches = [];
+
+				return {
+					list: _.filter(cm.getOption('passageNames'), function (name)
+					{
+						return name.toLowerCase().indexOf(word) != -1;
+					}),
+					from: wordRange.anchor,
+					to: wordRange.head
+				};
+			},
+			completeSingle: false,
+			extraKeys:
+			{
+				']': function (cm, hint)
+				{
+					var doc = cm.getDoc();
+					doc.replaceRange(']', doc.getCursor());
+					hint.close();
+				},
+
+				'-': function (cm, hint)
+				{
+					var doc = cm.getDoc();
+					doc.replaceRange('-', doc.getCursor());
+					hint.close();
+				},
+
+				'|': function (cm, hint)
+				{
+					var doc = cm.getDoc();
+					doc.replaceRange('|', doc.getCursor());
+					hint.close();
+				}
+			}
+		});
 	},
 
 	/**
