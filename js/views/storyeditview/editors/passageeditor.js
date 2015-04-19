@@ -227,7 +227,8 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 				var word = cm.getRange(wordRange.anchor, wordRange.head).toLowerCase();
 				var matches = [];
 
-				return {
+				var comps =
+				{
 					list: _.filter(cm.getOption('passageNames'), function (name)
 					{
 						return name.toLowerCase().indexOf(word) != -1;
@@ -235,6 +236,14 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 					from: wordRange.anchor,
 					to: wordRange.head
 				};
+
+				CodeMirror.on(comps, 'pick', function()
+				{
+					var doc = cm.getDoc();
+					doc.replaceRange(']] ', doc.getCursor());
+				});
+
+				return comps;
 			},
 			completeSingle: false,
 			extraKeys:
