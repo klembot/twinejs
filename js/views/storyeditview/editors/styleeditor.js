@@ -22,7 +22,14 @@ StoryEditView.StyleEditor = Backbone.View.extend(
 			lineNumbers: false,
 			tabSize: 2,
 			indentWithTabs: true,
-			mode: 'css'
+			mode: 'css',
+			extraKeys:
+			{
+				'Ctrl-Space': function (cm)
+				{
+					cm.showHint();
+				}
+			}
 		});
 		this.$('.stylesheetSource:first').data('codemirror', this.styleEditor);
 

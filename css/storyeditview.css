@@ -360,6 +360,12 @@ body.iOS .editModal
 	background: inherit;
 }
 
+.CodeMirror-hints
+{
+	z-index: 1000;
+	font-family: "Source Code Pro", monospace;
+}
+
 .editModal .fullEdit
 {
 	position: absolute;

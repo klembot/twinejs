@@ -22,7 +22,14 @@ StoryEditView.ScriptEditor = Backbone.View.extend(
 			lineNumbers: false,
 			tabSize: 2,
 			indentWithTabs: true,
-			mode: 'javascript'
+			mode: 'javascript',
+			extraKeys:
+			{
+				'Ctrl-Space': function (cm)
+				{
+					cm.showHint();
+				}
+			}
 		});
 		this.$('.scriptSource:first').data('codemirror', this.scriptEditor);
 
