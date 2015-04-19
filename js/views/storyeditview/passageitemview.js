@@ -139,6 +139,30 @@ var PassageItemView = Marionette.ItemView.extend(
 	},
 
 	/**
+	 Confirms that the user wants to delete this model,
+	 then calls delete().
+
+	 @method confirmDelete
+	 @param {Event} e Event, if any; if the shift key is pressed on this,
+	                  then the confirm is skipped
+	**/
+
+	confirmDelete: function (e)
+	{
+		if (e.shiftKey)
+			this.delete();
+		else
+		{
+			var message = 'Are you sure you want to delete &ldquo;' +
+						  this.model.get('name') + '?&rdquo; This cannot be undone.' +
+						  '<br><br>(Hold the Shift key when deleting to skip this message.)';
+			ui.confirm(message, '<i class="fa fa-trash-o"></i> Delete',
+					   this.delete.bind(this),
+					   { buttonClass: 'danger' });
+		};
+	},
+
+	/**
 	 Deletes the underlying passage model.
 
 	 @method delete
@@ -574,7 +598,7 @@ var PassageItemView = Marionette.ItemView.extend(
 		'touchstart .frame': 'handleMouseDown',
 		'mouseup .frame': 'handleMouseUp',
 		'touchend .frame': 'handleMouseUp',
-		'click .delete': 'delete',
+		'click .delete': 'confirmDelete',
 		'click .edit': 'edit',
 		'click .test': 'test',
 		'click .setAsStart': 'setAsStart',

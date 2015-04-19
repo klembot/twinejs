@@ -564,6 +564,7 @@ ul.menu li.checked button:before
 .modal.confirm .message
 {
 	font-size: 125%;
+	padding-left: 2.5em;
 }
 
 .modal.confirm .message:before
@@ -571,7 +572,7 @@ ul.menu li.checked button:before
 	content: '\f071';
 	font: 200% FontAwesome;
 	float: left;
-	margin-right: 0.5em;
+	margin-left: -1.5em;
 	position: relative;
 	top: 0.1em;
 	color: hsl(0, 0%, 80%);
