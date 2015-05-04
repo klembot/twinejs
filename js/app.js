@@ -156,7 +156,9 @@ var TwineApp = Backbone.Marionette.Application.extend(
 
 		StoryCollection.all().each(function (story)
 		{
-			output += story.publish() + '\n\n';
+			// force publishing even if there is no start point set
+
+			output += story.publish(null, null, true) + '\n\n';
 		});
 
 		this.saveFile(output, new Date().toLocaleString().replace(/[\/:\\]/g, '.') + ' Twine Archive.html');
