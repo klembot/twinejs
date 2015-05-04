@@ -111,6 +111,7 @@ var Passage = Backbone.Model.extend(
 	links: function (internalOnly)
 	{
 		var matches = this.get('text').match(/\[\[.*?\]\]/g);
+		var found = {};
 		var result = [];
 
 		if (matches)
@@ -137,8 +138,11 @@ var Passage = Backbone.Model.extend(
 
 				// catch empty links, i.e. [[]]
 
-				if (link != '')
+				if (link != '' && found[link] === undefined)
+				{
 					result.push(link);
+					found[link] = true;
+				};
 			};
 
 		if (internalOnly)
