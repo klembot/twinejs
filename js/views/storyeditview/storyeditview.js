@@ -44,6 +44,12 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 		this.collection = this.model.fetchPassages();
 		this.listenTo(this.collection, 'change:top change:left', this.resize)
+		.listenTo(this.collection, 'change:name', function (p)
+		{
+			// update passages linking to this one to preserve links
+
+			_.invoke(this.collection.models, 'replaceLink', p.previous('name'), p.get('name'));
+		})
 		.listenTo(this.collection, 'add', function (p)
 		{
 			// set as starting passage if we only have one
