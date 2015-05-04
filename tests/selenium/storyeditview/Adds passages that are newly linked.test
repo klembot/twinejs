@@ -50,7 +50,7 @@
 </tr>
 <tr>
 	<td>storeEval</td>
-	<td>window.$('#passageEditModal .CodeMirror')[0].CodeMirror.setValue('[[a new passage]]')</td>
+	<td>window.$('#passageEditModal .CodeMirror')[0].CodeMirror.setValue('[[a new passage]] [[a new passage]]')</td>
 	<td></td>
 </tr>
 <tr>
