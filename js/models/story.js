@@ -94,10 +94,11 @@ var Story = Backbone.Model.extend(
 	 @param {StoryFormat} format The story format to use, defaults to 
 	 @param {Array} options	A list of options to pass to the format, optional
 	 @param {Number} startId passage database ID to start with, overriding the model; optional
+	 @param {Boolean} startOptional If falsy, then an error is reported when no start passage has been set; optional
 	 @return {String} HTML fragment
 	**/
 
-	publish: function (options, startId)
+	publish: function (options, startId, startOptional)
 	{
 		var passageData = '';
 		var startDbId = startId || this.get('startPassage');
@@ -105,11 +106,14 @@ var Story = Backbone.Model.extend(
 
 		// verify that the start passage exists
 
-		if (! startDbId)
-			throw new Error("There is no starting point set for this story.");
+		if (! startOptional)
+		{
+			if (! startDbId)
+				throw new Error("There is no starting point set for this story.");
 
-		if (! passages.findWhere({ id: startDbId }))
-			throw new Error("The passage set as starting point for this story does not exist.");
+			if (! passages.findWhere({ id: startDbId }))
+				throw new Error("The passage set as starting point for this story does not exist.");
+		};
 
 		passages.each(function (p, index)
 		{
@@ -122,7 +126,7 @@ var Story = Backbone.Model.extend(
 		return this.template(
 		{
 			storyName: this.get('name'),
-			startNode: startId,
+			startNode: startId || '',
 			appName: window.app.name,
 			appVersion: window.app.version,
 			passageData: passageData,
