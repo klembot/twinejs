@@ -53,19 +53,24 @@ StoryListView.FormatsModal = Backbone.View.extend(
 		{
 			var format = this.formatsToLoad.at(0);
 
-			format.load(function()
+			format.load(function (e)
 			{
-				// calculate containing directory for the format
-				// so that image URLs, for example, are correct
+				if (e === undefined)
+				{
+					// calculate containing directory for the format
+					// so that image URLs, for example, are correct
 
-				var path = format.get('url').replace(/\/[^\/]*?$/, '');
-				var fullContent = _.extend(format.properties, { path: path, userAdded: format.get('userAdded') });
-				var content = $(this.itemTemplate(fullContent));
+					var path = format.get('url').replace(/\/[^\/]*?$/, '');
+					var fullContent = _.extend(format.properties, { path: path, userAdded: format.get('userAdded') });
+					var content = $(this.itemTemplate(fullContent));
 
-				if (fullContent.proofing)
-					this.$('.proofingFormatList').append(content);
+					if (fullContent.proofing)
+						this.$('.proofingFormatList').append(content);
+					else
+						this.$('.storyFormatList').append(content);
+				}
 				else
-					this.$('.storyFormatList').append(content);
+					ui.notify('The story format &ldquo;' + format.get('name') + '&rdquo; could not be loaded (' + e.message + ').', 'danger');
 
 				this.formatsToLoad.remove(format);
 				this.loadNextFormat();

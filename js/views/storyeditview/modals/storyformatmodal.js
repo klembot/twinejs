@@ -70,24 +70,29 @@ StoryEditView.StoryFormatModal = Backbone.View.extend(
 		{
 			var format = this.formatsToLoad.at(0);
 
-			format.load(function()
+			format.load(function (e)
 			{
-				// skip proofing-only formats
-
-				if (! format.properties.proofing)
+				if (e === undefined)
 				{
-					// calculate containing directory for the format
-					// so that image URLs, for example, are correct
+					// skip proofing-only formats
 
-					var path = format.get('url').replace(/\/[^\/]*?$/, '');
-					var fullContent = _.extend(format.properties, { path: path });
-					var content = $(this.itemTemplate(fullContent));
+					if (! format.properties.proofing)
+					{
+						// calculate containing directory for the format
+						// so that image URLs, for example, are correct
 
-					this.$('.formats').append(content);
+						var path = format.get('url').replace(/\/[^\/]*?$/, '');
+						var fullContent = _.extend(format.properties, { path: path });
+						var content = $(this.itemTemplate(fullContent));
 
-					if (fullContent.name == this.parent.model.get('storyFormat'))
-						content.find('button.select').addClass('active');
-				};
+						this.$('.formats').append(content);
+
+						if (fullContent.name == this.parent.model.get('storyFormat'))
+							content.find('button.select').addClass('active');
+					};
+				}
+				else
+					ui.notify('The story format &ldquo;' + format.get('name') + '&rdquo; could not be loaded (' + e.message + ').', 'danger');
 
 				this.formatsToLoad.remove(format);
 				this.loadNextFormat();
