@@ -9,7 +9,6 @@
 
 var Passage = Backbone.Model.extend(
 {
-
 	defaults:
 	{
 		story: -1,

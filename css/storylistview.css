@@ -63,29 +63,88 @@
 	font-size: 45%;
 }
 
+#storyListView .stories > div
+{
+	display: inline;
+}
+
 #storyListView .story
 {
-	width: 18em;
-	max-width: 30%;
-	height: 12em;
-	float: left;
-	margin-right: 3%;
+	display: inline-block;
+	position: relative;
+	height: 13em;
+	width: 13em;
+	border-radius: 0.5em;
+	margin: 1em 1em 0 0;
+	text-align: center;
+}
+
+#storyListView .story .preview
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+
+#storyListView .story .preview svg
+{
+	box-sizing: border-box;
+	padding: 0.25em;
+}
+
+#storyListView .story .label
+{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 0 1em 0.25em 1em;
 }
 
 #storyListView .story h2
 {
-	font: normal 150% "Nunito Light", sans-serif;
-	margin-bottom: 0;
+	font: normal 120% "Nunito Light", sans-serif;
+	margin: 0;
+	line-height: 110%;
 }
 
-#storyListView .story .controls
+#storyListView .story h2 a
 {
-	margin: 0 0 0 -0.5em;
+	color: black;
 }
 
 #storyListView .story .changeDate
 {
+	font-size: 90%;
+	color: hsla(0, 0%, 0%, 0.5);
 	margin: 0;
+}
+
+#storyListView .story .bubbleContainer
+{
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+#storyListView .story .bubbleContainer > button
+{
+	background: hsla(0, 0%, 0%, 0.05);
+	border-top-left-radius: 0;
+	border-top-right-radius: 0.5em;
+	border-bottom-right-radius: 0;
+	padding: 1em 1em 0.6em 1em;
+}
+
+#storyListView .story .bubbleContainer > button i
+{
+	font-size: 125%;
+}
+
+#storyListView .story .menu
+{
+	font-size: 120%;
 }
 
 #storyListView .bubbleContainer .working
