@@ -1,0 +1,52 @@
+<div class="story">
+
+<div class="preview"></div>
+
+<div class="label">
+<h2>
+<a href="javascript:void(0)" class="edit"><%- name %></a>
+</h2>
+
+<p class="changeDate">
+<%- new XDate(lastUpdate).toString('d MMMM yyyy, h:mm tt') %>
+</p>
+</div>
+
+<div class="bubbleContainer">
+<button class="subtle" data-bubble="toggle"><i class="fa fa-cog"></i></button>
+
+<div class="bubble small up">
+<ul class="menu">
+
+<li>
+<button class="play">Play Story</button>
+</li>
+
+<li>
+<button class="test">Test Story</button>
+</li>
+
+<li>
+<button class="publish">Publish to File</button>
+</li>
+
+<li>
+<button class="rename">Rename Story</button>
+</li>
+
+<li>
+<button class="confirmDuplicate">Duplicate Story</button>
+</li>
+
+<li class="divider"></li>
+
+<li>
+<button class="confirmDelete">Delete Story</button>
+</li>
+
+</ul>
+
+</div>
+</div>
+
+</div> <!-- .story -->
