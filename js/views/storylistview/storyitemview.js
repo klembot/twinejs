@@ -16,6 +16,17 @@ var StoryItemView = Marionette.ItemView.extend(
 	initialize: function (options)
 	{
 		this.parentView = options.parentView;
+		this.passages = options.passages;
+		this.listenTo(this.model, 'change:name', function()
+		{
+			this.render();
+			this.preview.renderPassages();
+		});
+	},
+
+	onDomRefresh: function()
+	{
+		this.preview = new StoryItemView.Preview({ el: this.$('.preview'), parent: this });
 	},
 
 	/**
@@ -72,6 +83,83 @@ var StoryItemView = Marionette.ItemView.extend(
 	},
 
 	/**
+	 Tests this story in a new tab.
+
+	 @method test
+	**/
+
+	test: function()
+	{
+		if (Passage.withId(this.model.get('startPassage')) === undefined)
+			ui.notify('This story does not have a starting point. Edit this story and use the <i class="fa fa-rocket"></i> icon on a passage to set this.', 'danger');
+		else
+			window.open('#stories/' + this.model.id + '/test', 'twinestory_test_' + this.model.id);
+	},
+
+	/**
+	 Downloads the story to a file.
+
+	 @method publish
+	**/
+
+	publish: function()
+	{
+		// verify the starting point
+
+		if (Passage.withId(this.model.get('startPassage')) === undefined)
+			ui.notify('This story does not have a starting point. Use the <i class="fa fa-rocket"></i> icon on a passage to set this.', 'danger');
+		else
+			window.app.publishStory(this.model, this.model.get('name') + '.html');
+	},
+
+	/**
+	 Shows a confirmation before deleting the model via delete().
+
+	 @method confirmDelete
+	**/
+
+	confirmDelete: function()
+	{
+		window.ui.confirm("Are you sure you want to delete &ldquo;" + this.model.get('name') +
+			              "&rdquo;? This cannot be undone.", '<i class="fa fa-trash-o"></i> Delete Forever', this.delete.bind(this),
+						  { buttonClass: 'danger' });
+	},
+
+	/**
+	 Prompts the user for a new name for the story, then saves it.
+
+	 @method rename
+	**/
+
+	rename: function()
+	{
+		window.ui.prompt("What should &ldquo;" + this.model.get('name') + "&rdquo; be renamed to?",
+		                 '<i class="fa fa-ok"></i> Rename', function (text)
+						 {
+						 	this.model.save({ name: text });
+						 }.bind(this),
+						 { defaultText: this.model.get('name') });
+	},
+
+	/**
+	 Prompts the user for a name, then creates a duplicate version of this
+	 story accordingly.
+
+	 @method confirmDuplicate
+	**/
+
+	confirmDuplicate: function()
+	{
+		window.ui.prompt("What should the duplicate be named?",
+		                 '<i class="fa fa-copy"></i> Duplicate', function (text)
+						 {
+						 	var dupe = this.model.duplicate(text);
+							this.parentView.collection.add(dupe);
+						 }.bind(this),
+						 { defaultText: this.model.get('name') + ' Copy' });
+	},
+
+	/**
 	 Deletes the model associated with this view.
 
 	 @method delete
@@ -83,20 +171,6 @@ var StoryItemView = Marionette.ItemView.extend(
 		{
 			this.model.destroy();
 		}.bind(this));
-	},
-
-	/**
-	 Fades in the view, used to highlight views when the parent view is loaded.
-
-	 @method fadeIn
-	**/
-
-	fadeIn: function()
-	{
-		this.$('.story').show().addClass('fadeIn slideDown').one('animationend', function()
-		{
-			$(this).removeClass('fadeIn slideDown');
-		});
 	},
 
 	/**
@@ -112,8 +186,12 @@ var StoryItemView = Marionette.ItemView.extend(
 
 	events:
 	{
-		'click .delete': 'delete',
+		'click .confirmDelete': 'confirmDelete',
+		'click .confirmDuplicate': 'confirmDuplicate',
+		'click .rename': 'rename',
 		'click .edit': 'edit',
-		'click .play': 'play'
+		'click .play': 'play',
+		'click .test': 'test',
+		'click .publish': 'publish'
 	}
 });

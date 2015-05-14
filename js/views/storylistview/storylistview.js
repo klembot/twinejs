@@ -11,7 +11,18 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 {
 	childView: StoryItemView,
 	childViewContainer: '.stories',
-	childViewOptions: function() { return { parentView: this }; },
+	childViewOptions: function (model)
+	{
+		/**
+		 A cached collection of all passages, to speed up rendering of previews.
+		 @property previewCache
+		**/
+
+		if (! this.previewCache)
+			this.previewCache = PassageCollection.all();
+
+		return { parentView: this, passages: this.previewCache.where({ story: model.get('id') }) };
+	},
 	template: '#templates .storyListView',
 
 	/**
@@ -47,7 +58,24 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 	initialize: function()
 	{
 		this.sortByDate();
-		this.collection.on('sort', this.render);
+		this.collection.on('sort', function()
+		{
+			this.render();
+
+			// reset SVG previews
+
+			this.children.each(function (view)
+			{
+				view.preview.passagesRendered = false;
+			});
+
+			this.showNextPreview();
+		}.bind(this));
+
+		this.collection.on('add', function()
+		{
+			this.previewCache = null;
+		}.bind(this));
 	},
 
 	onShow: function()
@@ -96,20 +124,14 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 			this.$el.append(proxy);
 		};
 
+		// trigger display of previews
+
+		_.defer(this.showNextPreview.bind(this));
+
 		// if we were asked to appear fast, we do nothing else
 
 		if (this.appearFast)
 			return;
-
-		// fade in our views in a staggered manner
-
-		this.$('.story').hide();
-		var APPEAR_INTERVAL = 100;
-
-		this.children.each(function (view, index)
-		{
-			_.delay(view.fadeIn.bind(view), APPEAR_INTERVAL * index);
-		});
 
 		// is it time to ask for a donation?
 
@@ -242,6 +264,19 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 		}.bind(this);
 
 		reader.readAsText(e.target.files[0], 'UTF-8');
+	},
+
+	showNextPreview: function()
+	{
+		var unrendered = this.children.find(function (view)
+		{
+			return ! view.preview.passagesRendered;
+		});
+		
+		if (unrendered !== undefined)
+		{
+			unrendered.preview.renderPassages(this.showNextPreview.bind(this));
+		};
 	},
 
 	/**
