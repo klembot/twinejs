@@ -6,7 +6,7 @@
 <meta charset="utf-8">
 <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
 
-<!-- build:css rsrc/css/twine_cdn.css -->
+<!-- build:css_cdn rsrc/css/twine_cdn.css -->
 <link href="lib/fontawesome/css/font-awesome.css" rel="stylesheet" media="screen">
 <!-- endbuild -->
 
@@ -31,42 +31,42 @@
 <div id="templates">
 
 <script type="text/html" class="welcomeView">
-<!--(bake /templates/welcomeview.html)-->
+#= include templates/welcomeview.html
 </script>
 
 <script type="text/html" class="storyListView">
-<!--(bake /templates/storylistview/storylistview.html)-->
+#= include templates/storylistview/storylistview.html
 </script>
 
 <script type="text/html" class="formatItem">
-<!--(bake /templates/storylistview/formatitem.html)-->
+#= include templates/storylistview/formatitem.html
 </script>
 
 <script type="text/html" class="storyItemView">
-<!--(bake /templates/storylistview/storyitemview.html)-->
+#= include templates/storylistview/storyitemview.html
 </script>
 
 <script type="text/html" class="storyEditView">
-<!--(bake /templates/storyeditview/storyeditview.html)-->
+#= include templates/storyeditview/storyeditview.html
 </script>
 
 <script type="text/html" class="searchModalResult">
-<!--(bake /templates/storyeditview/searchmodalresult.html)-->
+#= include templates/storyeditview/searchmodalresult.html
 </script>
 
 <script type="text/html" class="singleStoryFormatItem">
-<!--(bake /templates/storyeditview/singlestoryformatitem.html)-->
+#= include /templates/storyeditview/singlestoryformatitem.html
 </script>
 
 <script type="text/html" class="passageItemView">
-<!--(bake /templates/storyeditview/passageitemview.html)-->
+#= include /templates/storyeditview/passageitemview.html
 </script>
 
 </div>
 
 </div>
 
-<!-- build:js rsrc/js/twine_cdn.js -->
+<!-- build:js_cdn rsrc/js/twine_cdn.js -->
 <script src="lib/jquery/jquery.js"></script>
 <!-- endbuild -->
 
