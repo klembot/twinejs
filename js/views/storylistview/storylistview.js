@@ -76,6 +76,12 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 		{
 			this.previewCache = null;
 		}.bind(this));
+
+		this.collection.on('reset', function()
+		{
+			this.previewCache = null;
+			this.render();
+		}.bind(this));
 	},
 
 	onShow: function()
@@ -123,10 +129,6 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 
 			this.$el.append(proxy);
 		};
-
-		// trigger display of previews
-
-		_.defer(this.showNextPreview.bind(this));
 
 		// if we were asked to appear fast, we do nothing else
 
@@ -178,7 +180,14 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 		};
 	},
 
-	onAddChild: function ()
+	onDomRefresh: function()
+	{
+		// trigger display of previews
+
+		_.defer(this.showNextPreview.bind(this));
+	},
+
+	onAddChild: function()
 	{
 		this.syncStoryCount();
 	},
