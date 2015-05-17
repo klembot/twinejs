@@ -566,14 +566,14 @@ ul.menu li.checked button:before
 .modal.prompt .prompt
 {
 	font-size: 125%;
-	padding-left: 2.5em;
+	padding-left: 3.5em;
 }
 
 .modal.confirm .message:before,
 .modal.prompt .message:before
 {
 	content: '\f071';
-	font: 200% FontAwesome;
+	font: 250% FontAwesome;
 	float: left;
 	margin-left: -1.5em;
 	position: relative;
