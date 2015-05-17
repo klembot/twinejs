@@ -179,8 +179,8 @@ var TwineApp = Backbone.Marionette.Application.extend(
 		var selectors = this.selectors;
 
 		// containers for the new stories and passages we will create
-		var allStories = StoryCollection.all();
-		var allPassages = PassageCollection.all();
+		var allStories = new StoryCollection();
+		var allPassages = new PassageCollection();
 
 		// parse data into a DOM
 
