@@ -30,6 +30,7 @@
     "gulp-usemin": "^0.3.11",
     "gulp-yuidoc": "^0.1.2",
     "jshint-stylish": "^1.0.2",
-    "node-webkit-builder": "^1.0.11"
+    "node-webkit-builder": "^1.0.11",
+    "run-sequence": "^1.1.0"
   }
 }
