@@ -329,6 +329,18 @@ var nwui =
 		{
 			this.$el.css('display', 'none');
 		};
+
+		// monkey patch WelcomeView to display a different message
+		// about saving
+
+		var oldWelcomeViewRender = WelcomeView.prototype.onRender;
+
+		WelcomeView.prototype.onRender = function()
+		{
+			var saveHtml = _.template($('#templates .welcomeViewNw').html())();
+			this.$('.save').html(saveHtml);
+			oldWelcomeViewRender.call(this);
+		};
 	},
 
 	/**
