@@ -10,6 +10,7 @@ var nwBuilder = require('node-webkit-builder');
 var plumber = require('gulp-plumber');
 var rename = require('gulp-rename');
 var replace = require('gulp-replace');
+var runSequence = require('run-sequence');
 var uglify = require('gulp-uglify');
 var usemin = require('gulp-usemin');
 var XDate = require('./lib/xdate.js');
@@ -205,6 +206,8 @@ gulp.task('server', function()
 
 gulp.task('nw', ['release:web', 'copy:package'], function()
 {
+	del.sync('dist/nwjs');
+
 	var nw = new nwBuilder({
 		files: 'dist/web/**',
 		buildDir: 'dist/nwjs/',
@@ -218,22 +221,22 @@ gulp.task('nw', ['release:web', 'copy:package'], function()
 	return nw.build();
 });
 
-gulp.task('release:web', function()
+gulp.task('release:web', function (cb)
 {
 	buildDir = 'dist/web';
-	return gulp.start('bake', 'usemin', 'copy');
+	runSequence('bake', 'usemin', 'copy', cb);
 });
 
-gulp.task('release:web-cdn', function()
+gulp.task('release:web-cdn', function (cb)
 {
 	buildDir = 'dist/web-cdn';
-	return gulp.start('bake', 'injectcdn', 'usemin', 'copy');
+	runSequence('bake', 'injectcdn', 'usemin', 'copy', cb);
 });
 
-gulp.task('release:nw', function()
+gulp.task('release:nw', ['release:web'], function (cb)
 {
 	buildDir = 'dist/nwjs';
-	return gulp.start('nw');
+	runSequence('nw', cb);
 });
 
 gulp.task('release', ['release:web', 'release:web-cdn', 'release:nw']);
