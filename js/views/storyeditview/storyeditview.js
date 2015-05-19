@@ -55,7 +55,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 			// set as starting passage if we only have one
 
 			if (this.collection.length == 1)
-				this.model.save({ startPassage: p.cid });
+				this.model.save({ startPassage: p.id });
 		})
 		.listenTo(this.collection, 'error', function (model, resp, options)
 		{

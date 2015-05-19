@@ -107,7 +107,9 @@ var PassageItemView = Marionette.ItemView.extend(
 
 		// set CSS class for starting point
 
-		if (this.parentView.model.get('startPassage') == this.model.id)
+		var startId = this.parentView.model.get('startPassage');
+
+		if (this.model.id == startId || this.model.cid == startId)
 			this.$el.addClass('start');
 		else
 			this.$el.removeClass('start');
