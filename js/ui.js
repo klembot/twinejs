@@ -497,7 +497,7 @@ var ui =
 	confirmTemplate: _.template('<div><div class="modal hide confirm <%- modalClass %>">' +
 	                            '<div class="message"><%= message %></div><p class="buttons">' +
 	                            '<button type="button" class="subtle cancel">' +
-								'<i class="fa fa-times"></i> Cancel</button>' +
+								'<i class="fa fa-times"></i> Cancel</button> ' +
 								'<button type="button" class="<%- buttonClass %>" data-action="yes">' +
 								'<%= buttonLabel %></button></p></div></div>'),
 
@@ -570,7 +570,7 @@ var ui =
 							   '<p class="prompt"><input type="text" value="<%- defaultText %>" required></p>' +
 							   '<p class="buttons">' +
 							   '<button type="button" class="subtle cancel">' +
-							   '<i class="fa fa-times"></i> Cancel</button>' +
+							   '<i class="fa fa-times"></i> Cancel</button> ' +
 							   '<button type="button" class="<%- buttonClass %>" data-action="yes">' +
 							   '<%= buttonLabel %></button></p></form></div></div>'),
 };
