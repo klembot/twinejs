@@ -353,5 +353,9 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 		{
 			this.formatsModal.open();	
 		},
+		'click .showHelp': function()
+		{
+			window.open('http://twinery.org/2guide');
+		}
 	}
 });
