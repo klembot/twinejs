@@ -186,6 +186,11 @@ var nwui =
 
 		win.menu = nativeMenuBar;
 
+		window.onload = function()
+		{
+			win.show();
+		};
+
 		// create ~/Documents/Twine if it doesn't exist
 
 		/**
