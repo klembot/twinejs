@@ -586,9 +586,14 @@ var PassageItemView = Marionette.ItemView.extend(
 		_.defer(function()
 		{
 			// push the passage so it doesn't overlap any other
+			// nonselected one, i.e. that was part of the drag
 			
 			this.animateMovement = true;
-			this.parentView.positionPassage(this.model);	
+			this.parentView.positionPassage(this.model, function (p)
+			{
+				return ! this.parentView.children.findByModel(p).selected;
+			}.bind(this));
+
 			this.animateMovement = false;
 
 			// and finally save changes

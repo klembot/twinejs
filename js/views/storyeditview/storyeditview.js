@@ -480,14 +480,19 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 	 @method positionPassage
 	 @param {Passage} passage Passage to nudge.
+	 @param {Function} filter If passed, any passage this function returns false for
+	                          will be ignored when checking for overlaps.
 	**/
 
-	positionPassage: function (passage)
+	positionPassage: function (passage, filter)
 	{
 		// displace
 
 		this.collection.each(function (p)
 		{
+			if (filter && ! filter(p))
+				return;
+
 			if (p.id != passage.id && p.intersects(passage))
 			{
 				var done = false;
