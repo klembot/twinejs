@@ -500,8 +500,8 @@ var StoryEditView = Marionette.CompositeView.extend(
 		if (this.model.get('snapToGrid'))
 		{
 			var xMove, yMove;
-			var hGrid = Passage.width / 4;
-			var vGrid = Passage.height / 4;
+			var hGrid = Passage.width / 2;
+			var vGrid = Passage.height / 2;
 
 			var leftMove = passage.get('left') % hGrid;
 
