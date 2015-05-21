@@ -189,16 +189,18 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 	addPassage: function (name, left, top)
 	{
+		var zoom = this.model.get('zoom');
+
 		if (! left)
 		{
 			var offsetX = this.$('.passage:first').width() / 2;
-			left = ($(window).scrollLeft() + $(window).width() / 2) - offsetX;
+			left = (($(window).scrollLeft() + $(window).width() / 2) / zoom) - offsetX;
 		};
 
 		if (! top)
 		{
 			var offsetY = this.$('.passage:first').height() / 2;
-			top = ($(window).scrollTop() + $(window).height() / 2) - offsetY;
+			top = (($(window).scrollTop() + $(window).height() / 2) / zoom) - offsetY;
 		};
 
 		// make sure the name is unique
