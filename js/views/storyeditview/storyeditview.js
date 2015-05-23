@@ -166,11 +166,11 @@ var StoryEditView = Marionette.CompositeView.extend(
 	/**
 	 Does cleanup of stuff set up in onShow().
 
-	 @method destroy
+	 @method onDestroy
 	 @private
 	**/
 
-	destroy: function()
+	onDestroy: function()
 	{
 		this.linkManager.destroy();
 		$(document).off('keydown');
@@ -478,7 +478,8 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 	/**
 	 Nudges a passage so that it does not overlap any other passage in the view,
-	 and so that it snaps to the grid if that's set in the model.
+	 and so that it snaps to the grid if that's set in the model. This does *not*
+	 save changes to the passage model.
 
 	 @method positionPassage
 	 @param {Passage} passage Passage to nudge.

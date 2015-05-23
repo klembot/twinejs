@@ -29,7 +29,6 @@ var TransRegion = Backbone.Marionette.Region.extend(
 				view.appearFast = true;
 				view.previouslyEditing = this.prevId;
 			};
-
 		}.bind(this));
 	}
 });
