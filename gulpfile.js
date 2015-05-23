@@ -165,7 +165,7 @@ gulp.task('usemin', ['bake'], function()
 gulp.task('copy:fonts', function()
 {
 	del.sync(buildDir + '/rsrc/fonts');
-	return gulp.src('fonts/**')
+	return gulp.src(['fonts/**', 'lib/fontawesome/fonts/**'])
 	       .pipe(gulp.dest(buildDir + '/rsrc/fonts/'));
 });
 
@@ -182,13 +182,20 @@ gulp.task('copy:license', function()
 	       .pipe(gulp.dest(buildDir));
 });
 
+gulp.task('copy:formats', function()
+{
+	del.sync(buildDir + '/storyformats');
+	return gulp.src('storyformats/**')
+	       .pipe(gulp.dest(buildDir + '/storyformats/'));
+});
+
 gulp.task('copy:package', function()
 {
 	return gulp.src('package.json')
 	       .pipe(gulp.dest(buildDir));
 });
 
-gulp.task('copy', ['copy:fonts', 'copy:images', 'copy:license']);
+gulp.task('copy', ['copy:fonts', 'copy:images', 'copy:formats', 'copy:license']);
 
 gulp.task('doc', function()
 {
