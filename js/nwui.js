@@ -186,10 +186,21 @@ var nwui =
 
 		win.menu = nativeMenuBar;
 
+		// show window once we're finished loading
+
 		window.onload = function()
 		{
 			win.show();
+			win.focus();
 		};
+
+		// shift-ctrl-alt-D shortcut for displaying dev tools
+
+		$('body').on('keyup', function (e)
+		{
+			if (e.which == 68 && e.shiftKey && e.altKey && e.ctrlKey)
+				win.showDevTools();
+		});
 
 		// create ~/Documents/Twine if it doesn't exist
 
