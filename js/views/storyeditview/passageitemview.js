@@ -131,6 +131,13 @@ var PassageItemView = Marionette.ItemView.extend(
 			this.$el.css({ left: left, top: top });
 	},
 
+	onDestroy: function()
+	{
+		// removes mouse listeners
+
+		this.deselect();
+	},
+
 	serializeData: function()
 	{
 		// add the excerpt manually after saving data
