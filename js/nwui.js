@@ -39,6 +39,8 @@ var nwui =
 	 that the user can't make changes outside of Twine. This indexes
 	 the locks we maintain on these files so we can lift one when
 	 deleting a file.
+	 @property fileLocks
+	 @static
 	**/
 
 	fileLocks: {},
@@ -192,6 +194,10 @@ var nwui =
 		{
 			win.show();
 			win.focus();
+			_.delay(function()
+			{
+				$('button').blur();
+			});
 		};
 
 		// shift-ctrl-alt-D shortcut for displaying dev tools
