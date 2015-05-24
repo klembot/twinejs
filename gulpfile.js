@@ -152,6 +152,7 @@ gulp.task('usemin', ['bake'], function()
 
 	return gulp.src('./index.html')
 	       .pipe(plumber())
+		   .pipe(replace('"img/favicon.ico"', '"rsrc/img/favicon.ico"'))
 	       .pipe(usemin({
 		   	css: [minifyCss(), 'concat'],
 			css_cdn: [minifyCss(), 'concat'],
