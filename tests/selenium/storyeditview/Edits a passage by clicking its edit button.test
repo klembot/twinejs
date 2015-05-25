@@ -24,12 +24,12 @@
 </tr>
 <tr>
 	<td>waitForElementPresent</td>
-	<td>css=a.edit</td>
+	<td>css=button.edit</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>css=a.edit</td>
+	<td>css=button.edit</td>
 	<td></td>
 </tr>
 <!--Test-->
@@ -48,7 +48,6 @@
 	<td>css=#passageEditModal@class</td>
 	<td>*hide*</td>
 </tr>
-
 </tbody></table>
 </body>
 </html>
