@@ -95,7 +95,6 @@
 	<td>/[^0-9A-Z\-]/.test(storedVars.ifid)</td>
 	<td>false</td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

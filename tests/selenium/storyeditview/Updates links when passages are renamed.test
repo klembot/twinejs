@@ -24,12 +24,12 @@
 </tr>
 <tr>
 	<td>waitForElementPresent</td>
-	<td>css=a.edit</td>
+	<td>css=button.edit</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>css=a.edit</td>
+	<td>css=button.edit</td>
 	<td></td>
 </tr>
 <!--Test-->
@@ -88,7 +88,6 @@
 	<td>css=p.excerpt</td>
 	<td>[[link text2]] [[displayed text|link text2]] [[displayed text-&gt;link text2]] [[link text2&lt;-dis…</td>
 </tr>
-
 </tbody></table>
 </body>
 </html>
