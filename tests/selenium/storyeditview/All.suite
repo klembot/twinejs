@@ -20,6 +20,7 @@
 <tr><td><a href="Does not add passages for linked URLs.test">Does not add passages for linked URLs</a></td></tr>
 <tr><td><a href="Updates links when passages are renamed.test">Updates links when passages are renamed</a></td></tr>
 <tr><td><a href="Deletes a passages by clicking its delete button.test">Deletes a passages by clicking its delete button</a></td></tr>
+<tr><td><a href="Deletes a passage immediately with the shift key.test">Deletes a passage immediately with the shift key</a></td></tr>
 <tr><td><a href="Changes zoom levels with toolbar.test">Changes zoom levels with toolbar</a></td></tr>
 <tr><td><a href="Tests a story with the Test button.test">Tests a story with the Test button</a></td></tr>
 <tr><td><a href="Plays a story with the Play button.test">Plays a story with the Play button</a></td></tr>

@@ -60,7 +60,7 @@
 </tr>
 <tr>
 	<td>pause</td>
-	<td>150</td>
+	<td>500</td>
 	<td></td>
 </tr>
 <tr>
@@ -72,6 +72,11 @@
 	<td>click</td>
 	<td>//div[2]/div/div[2]/div/button[2]</td>
 	<td></td>
+</tr>
+<tr>
+	<td>waitForNotAttribute</td>
+	<td>css=#passageEditModal@class</td>
+	<td>*hide*</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -87,6 +92,31 @@
 	<td>waitForText</td>
 	<td>css=p.excerpt</td>
 	<td>[[link text2]] [[displayed text|link text2]] [[displayed text-&gt;link text2]] [[link text2&lt;-dis…</td>
+</tr>
+<tr>
+	<td>shiftKeyDown</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='storyEditView']/div[2]/div/div/div/div[2]/div/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>5</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='storyEditView']/div[2]/div/div/div/div[2]/div/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>shiftKeyUp</td>
+	<td></td>
+	<td></td>
 </tr>
 </tbody></table>
 </body>
