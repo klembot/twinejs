@@ -70,7 +70,7 @@
 </tr>
 <tr>
 	<td>pause</td>
-	<td>100</td>
+	<td>250</td>
 	<td></td>
 </tr>
 <tr>
@@ -82,6 +82,31 @@
 	<td>verifyEval</td>
 	<td>${newPassages} == ${existingPassages} + 1</td>
 	<td>true</td>
+</tr>
+<tr>
+	<td>shiftKeyDown</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='storyEditView']/div[2]/div/div[2]/div/div[2]/div/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='storyEditView']/div[2]/div/div/div/div[2]/div/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>shiftKeyUp</td>
+	<td></td>
+	<td></td>
 </tr>
 </tbody></table>
 </body>
