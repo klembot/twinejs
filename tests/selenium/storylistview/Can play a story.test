@@ -41,13 +41,18 @@
 	<td></td>
 </tr>
 <tr>
+	<td>pause</td>
+	<td>250</td>
+	<td></td>
+</tr>
+<tr>
 	<td>storeEval</td>
 	<td>window.location.hash = 'stories';</td>
 	<td></td>
 </tr>
 <tr>
 	<td>waitForText</td>
-	<td>css=.story h2 a</td>
+	<td>css=.story h2</td>
 	<td>${shortUni}</td>
 </tr>
 <tr>
