@@ -352,6 +352,13 @@ var nwui =
 			this.$el.css('display', 'none');
 		};
 
+		// monkey patch StoryListView to open the wiki in the user's browser
+
+		StoryListView.prototype.events['click .showHelp'] = function()
+		{
+			nwui.gui.Shell.openExternal('http://twinery.org/2guide');
+		};
+
 		// monkey patch WelcomeView to display a different message
 		// about saving
 
