@@ -70,23 +70,28 @@
 	<td></td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>css=textarea.passageText</td>
-	<td>[[red]] [[green]] [[blue]] The quick brown fox jumps over the lazy dog.</td>
-</tr>
-<tr>
 	<td>storeEval</td>
 	<td>window.$('#passageEditModal .CodeMirror')[0].CodeMirror.setValue(&quot;[[red]] [[green]] [[blue]] The quick brown fox jumps over the lazy dog.&quot;)</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//div[@id='passageEditModal']/button</td>
+	<td>css=#passageEditModal button.save</td>
+	<td></td>
+</tr>
+<tr>
+	<td>shiftKeyDown</td>
+	<td></td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
 	<td>//div[@id='storyEditView']/div[2]/div/div[2]/div/div[2]/div/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>shiftKeyUp</td>
+	<td></td>
 	<td></td>
 </tr>
 <tr>
@@ -118,6 +123,11 @@
 <tr>
 	<td>assertText</td>
 	<td>css=td.passageCount</td>
+	<td>3</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=td.linkCount</td>
 	<td>3</td>
 </tr>
 <tr>

@@ -561,25 +561,41 @@ ul.menu li.checked button:before
 	margin-bottom: 0;
 }
 
-.modal.confirm .message
+.modal.confirm .message,
+.modal.prompt .message,
+.modal.prompt .prompt
 {
 	font-size: 125%;
+	padding-left: 3.5em;
 }
 
-.modal.confirm .message:before
+.modal.confirm .message:before,
+.modal.prompt .message:before
 {
 	content: '\f071';
-	font: 200% FontAwesome;
+	font: 250% FontAwesome;
 	float: left;
-	margin-right: 0.5em;
+	margin-left: -1.5em;
 	position: relative;
 	top: 0.1em;
 	color: hsl(0, 0%, 80%);
 }
 
+.modal.prompt .message:before
+{
+	content: '\f059';
+}
+
 .modal.confirm.info .message:before
 {
 	content: '\f05a';
+}
+
+.modal.prompt .prompt input[type="text"]
+{
+	width: 100%;
+	box-sizing: border-box;
+	margin-right: 2em;
 }
 
 .tabs

@@ -22,23 +22,30 @@ StoryEditView.StyleEditor = Backbone.View.extend(
 			lineNumbers: false,
 			tabSize: 2,
 			indentWithTabs: true,
-			mode: 'css'
+			mode: 'css',
+			extraKeys:
+			{
+				'Ctrl-Space': function (cm)
+				{
+					cm.showHint();
+				}
+			}
 		});
 		this.$('.stylesheetSource:first').data('codemirror', this.styleEditor);
 
 		this.$el.on({
-			'modalshown': _.bind(function()
+			'modalshown': function()
 			{
-				this.$el.one('animationend', _.bind(function()
+				this.$el.one('animationend', function()
 				{
 					this.styleEditor.refresh();
 					this.styleEditor.focus();
-				}, this));
-			}, this),
-			'modalhide': _.bind(function()
+				}.bind(this));
+			}.bind(this),
+			'modalhide': function()
 			{
 				this.save();
-			}, this)
+			}.bind(this)
 		});
 	},
 
@@ -51,6 +58,7 @@ StoryEditView.StyleEditor = Backbone.View.extend(
 	open: function()
 	{
 		this.styleEditor.doc.setValue(this.parent.model.get('stylesheet'));
+		this.styleEditor.refresh();
 		this.$el.data('modal').trigger('show');
 	},
 

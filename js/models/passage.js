@@ -9,7 +9,6 @@
 
 var Passage = Backbone.Model.extend(
 {
-
 	defaults:
 	{
 		story: -1,
@@ -111,6 +110,7 @@ var Passage = Backbone.Model.extend(
 	links: function (internalOnly)
 	{
 		var matches = this.get('text').match(/\[\[.*?\]\]/g);
+		var found = {};
 		var result = [];
 
 		if (matches)
@@ -137,8 +137,11 @@ var Passage = Backbone.Model.extend(
 
 				// catch empty links, i.e. [[]]
 
-				if (link != '')
+				if (link != '' && found[link] === undefined)
+				{
 					result.push(link);
+					found[link] = true;
+				};
 			};
 
 		if (internalOnly)
@@ -148,6 +151,33 @@ var Passage = Backbone.Model.extend(
 			});
 		else
 			return result;
+	},
+
+	/**
+	 Replaces all links with another one.
+	 This is used most often to update links after a passage is renamed.
+
+	 @method replaceLink
+	 @param {String} oldLink passage name to replace
+	 @param {String} newLink passage name to replace with
+	**/
+
+	replaceLink: function (oldLink, newLink)
+	{
+		// TODO: add hook for story formats to be more sophisticated
+
+		var simpleLinkRegexp = new RegExp('\\[\\[' + oldLink + '\\]\\]', 'g');
+		var compoundLinkRegexp = new RegExp('\\[\\[(.*?)(\\||->)' + oldLink + '\\]\\]', 'g');
+		var reverseLinkRegexp = new RegExp('\\[\\[' + oldLink + '<-(.*?)\\]\\]', 'g');
+		var oldText = this.get('text');
+		var text = oldText;
+
+		text = text.replace(simpleLinkRegexp, '[[' + newLink + ']]');
+		text = text.replace(compoundLinkRegexp, '[[$1$2' + newLink + ']]');
+		text = text.replace(reverseLinkRegexp, '[[' + newLink + '<-$1]]');
+
+		if (text != oldText)
+			this.save({ text: text });
 	},
 
 	/**

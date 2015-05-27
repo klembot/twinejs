@@ -11,7 +11,18 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 {
 	childView: StoryItemView,
 	childViewContainer: '.stories',
-	childViewOptions: function() { return { parentView: this }; },
+	childViewOptions: function (model)
+	{
+		/**
+		 A cached collection of all passages, to speed up rendering of previews.
+		 @property previewCache
+		**/
+
+		if (! this.previewCache)
+			this.previewCache = PassageCollection.all();
+
+		return { parentView: this, passages: this.previewCache.where({ story: model.get('id') }) };
+	},
 	template: '#templates .storyListView',
 
 	/**
@@ -47,7 +58,30 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 	initialize: function()
 	{
 		this.sortByDate();
-		this.collection.on('sort', this.render);
+		this.collection.on('sort', function()
+		{
+			this.render();
+
+			// reset SVG previews
+
+			this.children.each(function (view)
+			{
+				view.preview.passagesRendered = false;
+			});
+
+			this.showNextPreview();
+		}.bind(this));
+
+		this.collection.on('add', function()
+		{
+			this.previewCache = null;
+		}.bind(this));
+
+		this.collection.on('reset', function()
+		{
+			this.previewCache = null;
+			this.render();
+		}.bind(this));
 	},
 
 	onShow: function()
@@ -73,7 +107,7 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 				proxy.remove();
 			});
 
-			this.children.find(_.bind(function (c)
+			this.children.find(function (c)
 			{
 				if (c.model.get('id') == this.previouslyEditing)
 				{
@@ -91,7 +125,7 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 					});
 					return true;
 				};
-			}, this));
+			}.bind(this));
 
 			this.$el.append(proxy);
 		};
@@ -101,16 +135,6 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 		if (this.appearFast)
 			return;
 
-		// fade in our views in a staggered manner
-
-		this.$('.story').hide();
-		var APPEAR_INTERVAL = 100;
-
-		this.children.each(function (view, index)
-		{
-			_.delay(_.bind(view.fadeIn, view), APPEAR_INTERVAL * index);
-		});
-
 		// is it time to ask for a donation?
 
 		var firstRunPref = AppPref.withName('firstRunTime', new Date().getTime());
@@ -119,10 +143,10 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 		if (! donateShown.get('value') &&
             new Date().getTime() > firstRunPref.get('value') + this.DONATION_DELAY)
 		{
-			_.delay(_.bind(function()
+			_.delay(function()
 			{
 				this.$('#donateModal').data('modal').trigger('show');
-			}, this), 50);
+			}.bind(this), 50);
 
 			donateShown.save({ value: true });
 		}
@@ -147,16 +171,23 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 					$('#appUpdateModal .version').text(data.version);
 					$('#appUpdateModal a.download').attr('href', data.url);
 
-					_.delay(_.bind(function()
+					_.delay(function()
 					{
 						$('#appUpdateModal').data('modal').trigger('show');
-					}, this), 50);
+					}.bind(this), 50);
 				});
 			};
 		};
 	},
 
-	onAddChild: function ()
+	onDomRefresh: function()
+	{
+		// trigger display of previews
+
+		_.defer(this.showNextPreview.bind(this));
+	},
+
+	onAddChild: function()
 	{
 		this.syncStoryCount();
 	},
@@ -205,7 +236,7 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 		bubble.find('.form').addClass('hide');
 		bubble.find('.working').removeClass('hide');
 
-		reader.onload = _.bind(function (e)
+		reader.onload = function (e)
 		{
 			var className = '';
 			var message = '';
@@ -239,9 +270,22 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 			bubble.find('.working').addClass('hide');
 			this.$('.importStory').bubble('hide');
 			ui.initEl(this.$el);
-		}, this);
+		}.bind(this);
 
 		reader.readAsText(e.target.files[0], 'UTF-8');
+	},
+
+	showNextPreview: function()
+	{
+		var unrendered = this.children.find(function (view)
+		{
+			return ! view.preview.passagesRendered;
+		});
+		
+		if (unrendered !== undefined)
+		{
+			unrendered.preview.renderPassages(this.showNextPreview.bind(this));
+		};
 	},
 
 	/**
@@ -309,5 +353,10 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 		{
 			this.formatsModal.open();	
 		},
+
+		'click .showHelp': function()
+		{
+			window.open('http://twinery.org/2guide');
+		}
 	}
 });

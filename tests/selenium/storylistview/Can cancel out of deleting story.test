@@ -31,19 +31,9 @@
 	<td></td>
 </tr>
 <tr>
-	<td>waitForAttribute</td>
-	<td>css=.story .bubble@style</td>
-	<td>*display: block*</td>
-</tr>
-<tr>
 	<td>click</td>
-	<td>css=.cancelDelete</td>
+	<td>xpath=(//button[@type='button'])[2]</td>
 	<td></td>
-</tr>
-<tr>
-	<td>waitForNotAttribute</td>
-	<td>css=.story .bubble@style</td>
-	<td>*display: block*</td>
 </tr>
 </tbody></table>
 </body>
