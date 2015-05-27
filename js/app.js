@@ -130,7 +130,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 		};
 
 		format.publish(story, options.formatOptions, options.startPassageId,
-					   _.bind(function (err, output)
+					   function (err, output)
 		{
 			if (err)
 				ui.notify('An error occurred while publishing your story. (' + err.message + ')', 'danger');
@@ -141,7 +141,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 				else
 					this.replaceContent(output);
 			};
-		}, this));
+		}.bind(this));
 	},
 
 	/**
@@ -156,7 +156,9 @@ var TwineApp = Backbone.Marionette.Application.extend(
 
 		StoryCollection.all().each(function (story)
 		{
-			output += story.publish() + '\n\n';
+			// force publishing even if there is no start point set
+
+			output += story.publish(null, null, true) + '\n\n';
 		});
 
 		this.saveFile(output, new Date().toLocaleString().replace(/[\/:\\]/g, '.') + ' Twine Archive.html');
@@ -177,8 +179,8 @@ var TwineApp = Backbone.Marionette.Application.extend(
 		var selectors = this.selectors;
 
 		// containers for the new stories and passages we will create
-		var allStories = StoryCollection.all();
-		var allPassages = PassageCollection.all();
+		var allStories = new StoryCollection();
+		var allPassages = new PassageCollection();
 
 		// parse data into a DOM
 

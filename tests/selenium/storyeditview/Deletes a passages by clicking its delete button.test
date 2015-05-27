@@ -24,12 +24,12 @@
 </tr>
 <tr>
 	<td>waitForElementPresent</td>
-	<td>css=a.edit</td>
+	<td>css=button.edit</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>css=a.edit</td>
+	<td>css=button.edit</td>
 	<td></td>
 </tr>
 <!--Test-->
@@ -69,6 +69,16 @@
 	<td></td>
 </tr>
 <tr>
+	<td>waitForElementPresent</td>
+	<td>css=div.modal.confirm</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=.modal.confirm button.danger</td>
+	<td></td>
+</tr>
+<tr>
 	<td>pause</td>
 	<td>500</td>
 	<td></td>
@@ -87,6 +97,26 @@
 	<td>waitForEval</td>
 	<td>window.$('.passages .passage').length</td>
 	<td>${startPassageCount}</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>shiftKeyDown</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='storyEditView']/div[2]/div/div/div/div[2]/div/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>shiftKeyUp</td>
+	<td></td>
+	<td></td>
 </tr>
 </tbody></table>
 </body>

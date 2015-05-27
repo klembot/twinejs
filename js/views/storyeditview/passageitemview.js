@@ -41,7 +41,7 @@ var PassageItemView = Marionette.ItemView.extend(
 		 @private
 		**/
 
-		this.prepDragBound = _.bind(this.prepDrag, this);
+		this.prepDragBound = this.prepDrag.bind(this);
 
 		/**
 		 A bound event listener for a passage drag event, so we can later disconnect it.
@@ -50,7 +50,7 @@ var PassageItemView = Marionette.ItemView.extend(
 		 @private
 		**/
 
-		this.followDragBound = _.bind(this.followDrag, this);
+		this.followDragBound = this.followDrag.bind(this);
 
 		/**
 		 A bound event listener for a passage drag end event, so we can later disconnect it.
@@ -59,7 +59,7 @@ var PassageItemView = Marionette.ItemView.extend(
 		 @private
 		**/
 
-		this.finishDragBound = _.bind(this.finishDrag, this);
+		this.finishDragBound = this.finishDrag.bind(this);
 
 		/**
 		 A bound event listener for a mouse motion event while this passage is the control
@@ -69,7 +69,7 @@ var PassageItemView = Marionette.ItemView.extend(
 		 @private
 		**/
 
-		this.trackDragBound = _.bind(this.trackDrag, this);
+		this.trackDragBound = this.trackDrag.bind(this);
 
 		/**
 		 A bound event listener for a mouse up event while this passage is the control
@@ -79,7 +79,7 @@ var PassageItemView = Marionette.ItemView.extend(
 		 @private
 		**/
 
-		this.endDragBound = _.bind(this.endDrag, this);
+		this.endDragBound = this.endDrag.bind(this);
 	},
 
 	onDomRefresh: function()
@@ -107,7 +107,9 @@ var PassageItemView = Marionette.ItemView.extend(
 
 		// set CSS class for starting point
 
-		if (this.parentView.model.get('startPassage') == this.model.id)
+		var startId = this.parentView.model.get('startPassage');
+
+		if (this.model.id == startId || this.model.cid == startId)
 			this.$el.addClass('start');
 		else
 			this.$el.removeClass('start');
@@ -129,6 +131,13 @@ var PassageItemView = Marionette.ItemView.extend(
 			this.$el.css({ left: left, top: top });
 	},
 
+	onDestroy: function()
+	{
+		// removes mouse listeners
+
+		this.deselect();
+	},
+
 	serializeData: function()
 	{
 		// add the excerpt manually after saving data
@@ -136,6 +145,33 @@ var PassageItemView = Marionette.ItemView.extend(
 		var data = this.model.toJSON();
 		data.excerpt = this.model.excerpt();
 		return data;
+	},
+
+	/**
+	 Confirms that the user wants to delete this model,
+	 then calls delete().
+
+	 @method confirmDelete
+	 @param {Event} e Event, if any; if the shift key is pressed on this,
+	                  then the confirm is skipped
+	**/
+
+	confirmDelete: function (e)
+	{
+		if (e.shiftKey)
+			this.delete();
+		else
+		{
+			var message = 'Are you sure you want to delete &ldquo;' +
+						  this.model.get('name') + '?&rdquo; This cannot be undone.';
+
+			if (! window.app.hasPrimaryTouchUI())
+				message += '<br><br>(Hold the Shift key when deleting to skip this message.)';
+
+			ui.confirm(message, '<i class="fa fa-trash-o"></i> Delete',
+					   this.delete.bind(this),
+					   { buttonClass: 'danger' });
+		};
 	},
 
 	/**
@@ -207,7 +243,7 @@ var PassageItemView = Marionette.ItemView.extend(
 			if (! this.parentView.collection.findWhere({ name: link }) &&
 				oldBroken.indexOf(link) == -1)
 			{
-				_.defer(_.bind(this.parentView.addPassage, this.parentView), link, newLeft, newTop);
+				_.defer(this.parentView.addPassage.bind(this.parentView), link, newLeft, newTop);
 				newLeft += Passage.width * 1.5;
 			};
 		}, this);
@@ -528,7 +564,7 @@ var PassageItemView = Marionette.ItemView.extend(
 		})
 		.trigger('passagedragend');
 
-		_.defer(_.bind(function() { this.actuallyDragged = false; }, this));
+		_.defer(function() { this.actuallyDragged = false; }.bind(this));
 	},
 
 	/**
@@ -554,18 +590,23 @@ var PassageItemView = Marionette.ItemView.extend(
 		// defer the rest til all other drags have completed
 		// so we don't get displaced by any passage's previous positions
 
-		_.defer(_.bind(function()
+		_.defer(function()
 		{
 			// push the passage so it doesn't overlap any other
+			// nonselected one, i.e. that was part of the drag
 			
 			this.animateMovement = true;
-			this.parentView.positionPassage(this.model);	
+			this.parentView.positionPassage(this.model, function (p)
+			{
+				return ! this.parentView.children.findByModel(p).selected;
+			}.bind(this));
+
 			this.animateMovement = false;
 
 			// and finally save changes
 
 			this.model.save();
-		}, this));
+		}.bind(this));
 	},
 
 	events:
@@ -574,7 +615,7 @@ var PassageItemView = Marionette.ItemView.extend(
 		'touchstart .frame': 'handleMouseDown',
 		'mouseup .frame': 'handleMouseUp',
 		'touchend .frame': 'handleMouseUp',
-		'click .delete': 'delete',
+		'click .delete': 'confirmDelete',
 		'click .edit': 'edit',
 		'click .test': 'test',
 		'click .setAsStart': 'setAsStart',

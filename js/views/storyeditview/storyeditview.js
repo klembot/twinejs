@@ -44,12 +44,18 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 		this.collection = this.model.fetchPassages();
 		this.listenTo(this.collection, 'change:top change:left', this.resize)
+		.listenTo(this.collection, 'change:name', function (p)
+		{
+			// update passages linking to this one to preserve links
+
+			_.invoke(this.collection.models, 'replaceLink', p.previous('name'), p.get('name'));
+		})
 		.listenTo(this.collection, 'add', function (p)
 		{
 			// set as starting passage if we only have one
 
 			if (this.collection.length == 1)
-				this.model.save({ startPassage: p.cid });
+				this.model.save({ startPassage: p.id });
 		})
 		.listenTo(this.collection, 'error', function (model, resp, options)
 		{
@@ -64,27 +70,27 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 		// enable space bar scrolling
 
-		$(document).on('keydown', _.bind(function (e)
+		$(document).on('keydown', function (e)
 		{
 			if (e.keyCode == 32 && $('input:focus, textarea:focus').length == 0)
 			{
 				this.startMouseScrolling();
 				e.preventDefault();
 			};
-		}, this));
+		}.bind(this));
 
-		$(document).on('keyup', _.bind(function (e)
+		$(document).on('keyup', function (e)
 		{
 			if (e.keyCode == 32 && $('input:focus, textarea:focus').length == 0)
 			{
 				this.stopMouseScrolling();
 				e.preventDefault();
 			};
-		}, this));
+		}.bind(this));
 
 		// delete selected passages with the delete key
 
-		$(document).on('keyup', _.bind(function (e)
+		$(document).on('keyup', function (e)
 		{
 			if (e.keyCode == 46)
 			{
@@ -114,38 +120,11 @@ var StoryEditView = Marionette.CompositeView.extend(
 					              selected.length + ' passages? This cannot be undone.';
 
 					ui.confirm(message, '<i class="fa fa-trash-o"></i> Delete',
-					           _.bind(this.deleteSelectedPassages, this),
+					           this.deleteSelectedPassages.bind(this),
 					           { buttonClass: 'danger' });
 				};
 			};
-		}, this));
-
-		// automatically focus textareas on edit modals when they are shown
-
-		$(document).on('modalshown', '.editModal', function()
-		{
-			var textarea = $(this).find('textarea:first');
-
-			if (! textarea.data('codemirror'))
-			{
-				var textLen = $(textarea).val().length;
-				textarea.focus();
-
-				// ugh feature detection
-				// http://stackoverflow.com/questions/499126/jquery-set-cursor-position-in-text-area
-
-				if (textarea.setSelectionRange)
-					textarea.setSelectionRange(textLen, textLen);
-				else if (textarea.createTextRange)
-				{
-					var range = textarea.createTextRange();
-					range.collapse(true);
-					range.moveEnd('character', textLen);
-					range.moveStart('character', textLen);
-					range.select();
-				};
-			};
-		});
+		}.bind(this));
 
 		// always hide the story bubble when a click occurs on it
 		// (e.g. when a menu item is selected)
@@ -158,7 +137,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 		// resize the story map whenever the browser window resizes
 
 		this.resize();
-		$(window).on('resize', _.debounce(_.bind(this.resize, this), 500));
+		$(window).on('resize', _.debounce(this.resize.bind(this), 500));
 
 		this.syncZoom();
 		this.linkManager = new StoryEditView.LinkManager({ el: this.el, parent: this });
@@ -187,11 +166,11 @@ var StoryEditView = Marionette.CompositeView.extend(
 	/**
 	 Does cleanup of stuff set up in onShow().
 
-	 @method destroy
+	 @method onDestroy
 	 @private
 	**/
 
-	destroy: function()
+	onDestroy: function()
 	{
 		this.linkManager.destroy();
 		$(document).off('keydown');
@@ -210,16 +189,18 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 	addPassage: function (name, left, top)
 	{
+		var zoom = this.model.get('zoom');
+
 		if (! left)
 		{
 			var offsetX = this.$('.passage:first').width() / 2;
-			left = ($(window).scrollLeft() + $(window).width() / 2) - offsetX;
+			left = (($(window).scrollLeft() + $(window).width() / 2) / zoom) - offsetX;
 		};
 
 		if (! top)
 		{
 			var offsetY = this.$('.passage:first').height() / 2;
-			top = ($(window).scrollTop() + $(window).height() / 2) - offsetY;
+			top = (($(window).scrollTop() + $(window).height() / 2) / zoom) - offsetY;
 		};
 
 		// make sure the name is unique
@@ -497,18 +478,24 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 	/**
 	 Nudges a passage so that it does not overlap any other passage in the view,
-	 and so that it snaps to the grid if that's set in the model.
+	 and so that it snaps to the grid if that's set in the model. This does *not*
+	 save changes to the passage model.
 
 	 @method positionPassage
 	 @param {Passage} passage Passage to nudge.
+	 @param {Function} filter If passed, any passage this function returns false for
+	                          will be ignored when checking for overlaps.
 	**/
 
-	positionPassage: function (passage)
+	positionPassage: function (passage, filter)
 	{
 		// displace
 
 		this.collection.each(function (p)
 		{
+			if (filter && ! filter(p))
+				return;
+
 			if (p.id != passage.id && p.intersects(passage))
 			{
 				var done = false;
@@ -521,8 +508,8 @@ var StoryEditView = Marionette.CompositeView.extend(
 		if (this.model.get('snapToGrid'))
 		{
 			var xMove, yMove;
-			var hGrid = Passage.width / 4;
-			var vGrid = Passage.height / 4;
+			var hGrid = Passage.width / 2;
+			var vGrid = Passage.height / 2;
 
 			var leftMove = passage.get('left') % hGrid;
 

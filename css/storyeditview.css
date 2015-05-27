@@ -172,6 +172,7 @@
 #storyEditView .passage .frame
 {
 	border: 1px solid hsla(0, 0%, 100%, 0.75);
+	border-radius: 2px;
 	box-shadow: 0 0 2px hsla(0, 0%, 100%, 0.75), inset 0 0 2px hsla(0, 0%, 100%, 0.75);
 
 	width: 100px;
@@ -358,6 +359,12 @@ body.iOS .editModal
 	font-family: "Source Code Pro", monospace;
 	line-height: 145%;
 	background: inherit;
+}
+
+.CodeMirror-hints
+{
+	z-index: 1000;
+	font-family: "Source Code Pro", monospace;
 }
 
 .editModal .fullEdit

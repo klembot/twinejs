@@ -22,24 +22,31 @@ StoryEditView.ScriptEditor = Backbone.View.extend(
 			lineNumbers: false,
 			tabSize: 2,
 			indentWithTabs: true,
-			mode: 'javascript'
+			mode: 'javascript',
+			extraKeys:
+			{
+				'Ctrl-Space': function (cm)
+				{
+					cm.showHint();
+				}
+			}
 		});
 		this.$('.scriptSource:first').data('codemirror', this.scriptEditor);
 
 		this.$el.on({
-			'modalshown': _.bind(function()
+			'modalshown': function()
 			{
-				this.$el.one('animationend', _.bind(function()
+				this.$el.one('animationend', function()
 				{
 					this.scriptEditor.refresh();
 					this.scriptEditor.focus();
-				}, this));
-			}, this),
+				}.bind(this));
+			}.bind(this),
 
-			'modalhide': _.bind(function()
+			'modalhide': function()
 			{
 				this.save();
-			}, this)
+			}.bind(this)
 		});
 	},
 
@@ -52,6 +59,7 @@ StoryEditView.ScriptEditor = Backbone.View.extend(
 	open: function()
 	{
 		this.scriptEditor.doc.setValue(this.parent.model.get('script'));
+		this.scriptEditor.refresh();
 		this.$el.data('modal').trigger('show');
 	},
 

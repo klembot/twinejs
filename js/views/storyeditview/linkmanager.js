@@ -147,7 +147,7 @@ StoryEditView.LinkManager = Backbone.View.extend(
 		{
 			// this must be deferred so that the DOM has a chance to update
 
-			_.defer(_.bind(this.reset, this));
+			_.defer(this.reset.bind(this));
 		});
 
 		/**
@@ -157,7 +157,7 @@ StoryEditView.LinkManager = Backbone.View.extend(
 		 @private
 		**/
 
-		this.prepDragBound = _.bind(this.prepDrag, this);
+		this.prepDragBound = this.prepDrag.bind(this);
 		$('body').on('passagedragstart', this.prepDragBound);
 
 		/**
@@ -167,12 +167,12 @@ StoryEditView.LinkManager = Backbone.View.extend(
 		 @private
 		**/
 
-		this.followDragBound = _.bind(this.followDrag, this);
+		this.followDragBound = this.followDrag.bind(this);
 		$('body').on('passagedrag', this.followDragBound);
 
 		// for some reason, jQuery can't see the position of the passages yet, so we defer
 
-		_.defer(_.bind(this.reset, this));
+		_.defer(this.reset.bind(this));
 	},
 
 	/**

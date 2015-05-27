@@ -55,7 +55,7 @@ StoryEditView.SearchModal = Backbone.View.extend(
 
 		this.$('.loading').show();
 
-		this.parent.children.each(_.bind(function (view)
+		this.parent.children.each(function (view)
 		{
 			var numMatches = view.model.numMatches(searchTerm, searchNames);
 
@@ -84,7 +84,7 @@ StoryEditView.SearchModal = Backbone.View.extend(
 					searchPreview: preview
 				});
 			};
-		}, this));
+		}.bind(this));
 
 		this.$('.loading').hide();
 
@@ -163,7 +163,7 @@ StoryEditView.SearchModal = Backbone.View.extend(
 		var replaceWith = this.$('#replaceWith').val();
 		var inNames = this.$('#searchNames').prop('checked');
 
-		this.parent.children.each(_.bind(function (view)
+		this.parent.children.each(function (view)
 		{
 			var numMatches = view.model.numMatches(searchTerm);
 
@@ -173,7 +173,7 @@ StoryEditView.SearchModal = Backbone.View.extend(
 				totalMatches += numMatches;
 				view.model.replace(searchTerm, replaceWith, this.$('#searchNames').prop('checked'));
 			};
-		}, this));
+		}.bind(this));
 
 		this.$el.one('modalhide', function()
 		{

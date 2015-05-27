@@ -164,6 +164,14 @@ var ui =
 				return this;
 			};
 
+			$b.on('click', function (e)
+			{
+				if ($(e.target).closest('.bubbleContainer').hasClass('active'))
+					return;
+
+				$('.active[data-bubble]').bubble('hide');
+			});
+
 			// click handler for showing and hiding bubbles
 
 			$b.on('click', '.bubbleContainer [data-bubble]', function()
@@ -410,14 +418,14 @@ var ui =
 		$('#notifications').append(notification);
 
 		if (className != 'danger')
-			window.setTimeout(_.bind(function()
+			window.setTimeout(function()
 			{
 				$(this).addClass('fadeOut')
 				.one('animationend', function()
 				{
 					$(this).remove();
 				});
-			}, notification), 3000);
+			}.bind(notification), 3000);
 	},
 
 	/**
@@ -489,9 +497,82 @@ var ui =
 	confirmTemplate: _.template('<div><div class="modal hide confirm <%- modalClass %>">' +
 	                            '<div class="message"><%= message %></div><p class="buttons">' +
 	                            '<button type="button" class="subtle cancel">' +
-								'<i class="fa fa-times"></i> Cancel</button>' +
+								'<i class="fa fa-times"></i> Cancel</button> ' +
 								'<button type="button" class="<%- buttonClass %>" data-action="yes">' +
-								'<%= buttonLabel %></button></p></div></div>')
+								'<%= buttonLabel %></button></p></div></div>'),
+
+	/**
+	 Shows a modal dialog asking for the user to enter some text, with one
+	 button (to continue the action) and a Cancel button. 
+
+	 @method confirm
+	 @param {String} message HTML source of the message
+	 @param {String} buttonLabel HTML label for the button
+	 @param {Function} callback function to call if the user continues the button;
+	                            passed the entered value
+	 @param {Object} options Object with optional parameters:
+	                         defaultText (default text for the input),
+	                         modalClass (CSS class to apply to the modal),
+							 buttonClass (CSS class to apply to the action button)
+	**/
+
+	prompt: function (message, buttonLabel, callback, options)
+	{
+		options = options || {};
+		options.defaultText = options.defaultText || '';
+
+		var modalContainer = $(ui.promptTemplate(
+		{
+			message: message,
+			defaultText: options.defaultText,
+			buttonLabel: buttonLabel,
+			modalClass: options.modalClass || '',
+			buttonClass: options.buttonClass || ''
+		}));
+
+		var modal = modalContainer.find('.modal');
+
+		modal.on('click', 'button', function()
+		{
+			if ($(this).data('action') == 'yes' && callback)
+				callback(modal.find('.prompt input[type="text"]').val());
+
+			modal.data('modal').trigger('hide');	
+		});
+
+		modal.on('submit', 'form', function()
+		{
+			modal.find('button[data-action="yes"]').click();
+		});
+
+		$('body').append(modalContainer);
+		ui.initEl(modalContainer);
+
+		// initEl defers execution, so we have to defer this too
+
+		_.defer(function()
+		{
+			modal.data('modal').trigger('show');
+			modal.find('input[type="text"]').focus()[0].setSelectionRange(0, options.defaultText.length);
+		});
+	},
+
+	/**
+	 The Underscore template used to display prompt modals.
+
+	 @property promptTemplate
+	 @type string
+	 @static
+	**/
+
+	promptTemplate: _.template('<div><div class="modal hide prompt <%- modalClass %>">' +
+	                           '<form><div class="message"><%= message %></div>' +
+							   '<p class="prompt"><input type="text" value="<%- defaultText %>" required></p>' +
+							   '<p class="buttons">' +
+							   '<button type="button" class="subtle cancel">' +
+							   '<i class="fa fa-times"></i> Cancel</button> ' +
+							   '<button type="button" class="<%- buttonClass %>" data-action="yes">' +
+							   '<%= buttonLabel %></button></p></form></div></div>'),
 };
 
 $(document).ready(ui.initBody);

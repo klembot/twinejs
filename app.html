@@ -6,12 +6,13 @@
 <meta charset="utf-8">
 <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
 
-<!-- build:css rsrc/css/twine_cdn.css -->
+<!-- build:css_cdn rsrc/css/twine_cdn.css -->
 <link href="lib/fontawesome/css/font-awesome.css" rel="stylesheet" media="screen">
 <!-- endbuild -->
 
 <!-- build:css rsrc/css/twine.css -->
 <link href="lib/codemirror/css/codemirror.css" rel="stylesheet" media="screen">
+<link href="lib/codemirror/js/addon/hint/show-hint.css" rel="stylesheet" media="screen">
 <link href="css/ui.css" rel="stylesheet" media="screen">
 <link href="css/app.css" rel="stylesheet" media="screen">
 <link href="css/welcomeview.css" rel="stylesheet" media="screen">
@@ -30,42 +31,46 @@
 <div id="templates">
 
 <script type="text/html" class="welcomeView">
-<!--(bake /templates/welcomeview.html)-->
+#= include templates/welcomeview.html
+</script>
+
+<script type="text/html" class="welcomeViewNw">
+#= include templates/welcomeviewnw.html
 </script>
 
 <script type="text/html" class="storyListView">
-<!--(bake /templates/storylistview/storylistview.html)-->
+#= include templates/storylistview/storylistview.html
 </script>
 
 <script type="text/html" class="formatItem">
-<!--(bake /templates/storylistview/formatitem.html)-->
+#= include templates/storylistview/formatitem.html
 </script>
 
 <script type="text/html" class="storyItemView">
-<!--(bake /templates/storyitemview.html)-->
+#= include templates/storylistview/storyitemview.html
 </script>
 
 <script type="text/html" class="storyEditView">
-<!--(bake /templates/storyeditview/storyeditview.html)-->
+#= include templates/storyeditview/storyeditview.html
 </script>
 
 <script type="text/html" class="searchModalResult">
-<!--(bake /templates/storyeditview/searchmodalresult.html)-->
+#= include templates/storyeditview/searchmodalresult.html
 </script>
 
 <script type="text/html" class="singleStoryFormatItem">
-<!--(bake /templates/storyeditview/singlestoryformatitem.html)-->
+#= include /templates/storyeditview/singlestoryformatitem.html
 </script>
 
 <script type="text/html" class="passageItemView">
-<!--(bake /templates/storyeditview/passageitemview.html)-->
+#= include /templates/storyeditview/passageitemview.html
 </script>
 
 </div>
 
 </div>
 
-<!-- build:js rsrc/js/twine_cdn.js -->
+<!-- build:js_cdn rsrc/js/twine_cdn.js -->
 <script src="lib/jquery/jquery.js"></script>
 <!-- endbuild -->
 
@@ -89,11 +94,15 @@
 
 <script src="lib/codemirror/js/codemirror.js"></script>
 <script src="lib/codemirror/js/addon/display/placeholder.js"></script>
+<script src="lib/codemirror/js/addon/hint/show-hint.js"></script>
+<script src="lib/codemirror/js/addon/hint/css-hint.js"></script>
+<script src="lib/codemirror/js/addon/hint/javascript-hint.js"></script>
 <script src="lib/codemirror/js/mode/javascript/javascript.js"></script>
 <script src="lib/codemirror/js/mode/css/css.js"></script>
 
 <script src="js/ui.js"></script>
 <script src="js/nwui.js"></script>
+<script src="js/codemirror/prefixtrigger.js"></script>
 
 <script src="js/models/apppref.js"></script>
 <script src="js/models/passage.js"></script>
@@ -106,23 +115,24 @@
 <script src="js/collections/storyformatcollection.js"></script>
 
 <script src="js/views/welcomeview.js"></script>
-<script src="js/views/storyitemview.js"></script>
+<script src="js/views/storylistview/storyitemview.js"></script>
+<script src="js/views/storylistview/storypreview.js"></script>
 <script src="js/views/storylistview/storylistview.js"></script>
-<script src="js/views/storylistview/formatsmodal.js"></script>
+<script src="js/views/storylistview/modals/formatsmodal.js"></script>
 <script src="js/views/storylistview/storagequota.js"></script>
-<script src="js/views/passageitemview.js"></script>
+<script src="js/views/storyeditview/passageitemview.js"></script>
 <script src="js/views/storyeditview/storyeditview.js"></script>
 <script src="js/views/storyeditview/linkmanager.js"></script>
-<script src="js/views/storyeditview/toolbar.js"></script>
-<script src="js/views/storyeditview/scripteditor.js"></script>
-<script src="js/views/storyeditview/styleeditor.js"></script>
-<script src="js/views/storyeditview/passageeditor.js"></script>
 <script src="js/views/storyeditview/marquee.js"></script>
-<script src="js/views/storyeditview/renamestorymodal.js"></script>
 <script src="js/views/storyeditview/search.js"></script>
-<script src="js/views/storyeditview/searchmodal.js"></script>
-<script src="js/views/storyeditview/statsmodal.js"></script>
-<script src="js/views/storyeditview/storyformatmodal.js"></script>
+<script src="js/views/storyeditview/toolbar.js"></script>
+<script src="js/views/storyeditview/editors/scripteditor.js"></script>
+<script src="js/views/storyeditview/editors/styleeditor.js"></script>
+<script src="js/views/storyeditview/editors/passageeditor.js"></script>
+<script src="js/views/storyeditview/modals/renamestorymodal.js"></script>
+<script src="js/views/storyeditview/modals/searchmodal.js"></script>
+<script src="js/views/storyeditview/modals/statsmodal.js"></script>
+<script src="js/views/storyeditview/modals/storyformatmodal.js"></script>
 
 <script src="js/router.js"></script>
 <script src="js/transregion.js"></script>

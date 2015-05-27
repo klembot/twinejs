@@ -39,6 +39,8 @@ var nwui =
 	 that the user can't make changes outside of Twine. This indexes
 	 the locks we maintain on these files so we can lift one when
 	 deleting a file.
+	 @property fileLocks
+	 @static
 	**/
 
 	fileLocks: {},
@@ -186,6 +188,26 @@ var nwui =
 
 		win.menu = nativeMenuBar;
 
+		// show window once we're finished loading
+
+		window.onload = function()
+		{
+			win.show();
+			win.focus();
+			_.delay(function()
+			{
+				$('button').blur();
+			});
+		};
+
+		// shift-ctrl-alt-D shortcut for displaying dev tools
+
+		$('body').on('keyup', function (e)
+		{
+			if (e.which == 68 && e.shiftKey && e.altKey && e.ctrlKey)
+				win.showDevTools();
+		});
+
 		// create ~/Documents/Twine if it doesn't exist
 
 		/**
@@ -294,7 +316,7 @@ var nwui =
 				if (! nwui.syncFs)
 					return;
 
-					nwui.deleteStoryFile(this);
+				nwui.deleteStoryFile(this);
 			}, this);
 		};
 
@@ -329,6 +351,40 @@ var nwui =
 		{
 			this.$el.css('display', 'none');
 		};
+
+		// monkey patch StoryListView to open the wiki in the user's browser
+
+		StoryListView.prototype.events['click .showHelp'] = function()
+		{
+			nwui.gui.Shell.openExternal('http://twinery.org/2guide');
+		};
+
+		// monkey patch WelcomeView to display a different message
+		// about saving
+
+		var oldWelcomeViewRender = WelcomeView.prototype.onRender;
+
+		WelcomeView.prototype.onRender = function()
+		{
+			var saveHtml = _.template($('#templates .welcomeViewNw').html())();
+			this.$('.save').html(saveHtml);
+			oldWelcomeViewRender.call(this);
+		};
+	},
+
+	/**
+	 Returns a filename for a story model that's guaranteed to be
+	 safe across all platforms. For this, we use POSIX's definition
+	 (http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap03.html#tag_03_276)
+	 with the addition of spaces, for legibility.
+
+	 @method storyFileName
+	 @param {Story} story Story model to create filename for
+	**/
+
+	storyFileName: function (story)
+	{
+		return story.get('name').replace(/[^\w\. -]/g, '_') + '.html';
 	},
 
 	/**
@@ -344,7 +400,7 @@ var nwui =
 		try
 		{
 			nwui.unlockStoryDirectory();
-			var fd = nwui.fs.openSync(nwui.filePath + story.get('name') + '.html', 'w');
+			var fd = nwui.fs.openSync(nwui.filePath + nwui.storyFileName(story), 'w');
 			nwui.fs.writeSync(fd, story.publish());
 			nwui.fs.closeSync(fd);
 		}
@@ -372,7 +428,7 @@ var nwui =
 		try
 		{
 			nwui.unlockStoryDirectory();
-			nwui.fs.unlinkSync(nwui.filePath + this.get('name') + '.html');
+			nwui.fs.unlinkSync(nwui.filePath + nwui.storyFileName(story));
 		}
 		catch (e)
 		{

@@ -68,7 +68,7 @@ var StoryFormat = Backbone.Model.extend(
 
 		var prevStoryFormatFn = window.storyFormat || null;
 
-		window.storyFormat = _.bind(function (properties)
+		window.storyFormat = function (properties)
 		{
 			this.properties = properties;
 			this.loaded = true;
@@ -86,7 +86,7 @@ var StoryFormat = Backbone.Model.extend(
 
 			if (callback)
 				callback();
-		}, this);
+		}.bind(this);
 
 		// We have to do a song and dance here
 		// because we can't use an XHR if we're running locally...
@@ -97,7 +97,7 @@ var StoryFormat = Backbone.Model.extend(
 		var loader = $('<script></script>');
 		$('body').append(loader);
 
-		loader.on('load', _.bind(function()
+		loader.on('load', function()
 		{
 			// if our loaded property is not set,
 			// then something went wrong
@@ -115,8 +115,8 @@ var StoryFormat = Backbone.Model.extend(
 			// regardless, remove the loader
 
 			loader.remove();
-		}, this))
-		.on('error', _.bind(function ()
+		}.bind(this))
+		.on('error', function()
 		{
 			var err = new Error('Could not load story format source');
 
@@ -126,7 +126,7 @@ var StoryFormat = Backbone.Model.extend(
 				throw err;
 			
 			loader.remove();
-		}, this));
+		}.bind(this));
 
 		// add cache-busting
 
@@ -136,7 +136,7 @@ var StoryFormat = Backbone.Model.extend(
 		// we set a timeout (10 seconds) that removes the loader
 		// element and triggers the failure handler
 
-		window.setTimeout(_.bind(function()
+		window.setTimeout(function()
 		{
 			if (loader.parent().length > 0)
 			{
@@ -150,7 +150,7 @@ var StoryFormat = Backbone.Model.extend(
 				loader.remove();
 			};
 			
-		}, this), 10000);
+		}.bind(this), 10000);
 	},
 
 	/**
@@ -165,7 +165,7 @@ var StoryFormat = Backbone.Model.extend(
 
 	publish: function (story, options, startId, callback)
 	{
-		this.load(_.bind(function (err)
+		this.load(function (err)
 		{
 			if (err)
 			{
@@ -210,7 +210,7 @@ var StoryFormat = Backbone.Model.extend(
 			{
 				callback(e);
 			};
-		}, this));
+		}.bind(this));
 	}
 });
 
