@@ -1,0 +1,11 @@
+syntax: glob
+*.swp
+index.html
+node_modules/*
+dist/*
+doc/*
+.tmp/*
+*.DS_Store
+.idea
+cache
+dist-apps

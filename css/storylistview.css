@@ -1,0 +1,321 @@
+#storyListView .listControls
+{
+	text-align: center;	
+	position: fixed;
+	z-index: 10;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: 12em;
+	padding: 1.25em 1em 1em 1em;
+	background-color: hsl(212, 0%, 95%);
+	box-shadow: inset 0.25em 0 0.25em hsl(0, 0%, 85%);
+}
+
+#storyListView .listControls h1
+{
+	margin-top: 0;
+	padding-top: 3.25em;
+	background: center top no-repeat url(../img/logo.svg);
+	background-size: 50%;
+	font: normal 200% "Nunito Light", sans-serif;
+}
+
+#storyListView .listControls button
+{
+	width: 100%;
+}
+
+#storyListView .listControls button.link
+{
+	width: auto;
+}
+
+#storyListView .listControls .bubble button
+{
+	width: 45%;
+}
+
+#storyListView .listControls footer
+{
+	position: absolute;
+	bottom: 1em;
+	left: 1em;
+	right: 1em;
+	font-size: 90%;
+}
+
+#storyListView .main
+{
+	padding: 0 2em;
+	margin-right: 15em;
+}
+
+#storyListView .main h1
+{
+	border-bottom: 0.05em solid hsl(0, 0%, 85%);
+	margin-bottom: 0;
+}
+
+#storyListView .main h1 .normal
+{
+	color: hsl(0, 0%, 50%);
+	font-size: 45%;
+}
+
+#storyListView .stories > div
+{
+	display: inline;
+}
+
+#storyListView .story
+{
+	display: inline-block;
+	position: relative;
+	height: 13em;
+	width: 13em;
+	border-radius: 0.5em;
+	margin: 1em 1em 0 0;
+	text-align: center;
+}
+
+#storyListView .story button.bg
+{
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#storyListView .story button.bg:hover
+{
+	background: hsla(0, 0%, 0%, 0.025);
+}
+
+#storyListView .story .preview
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+
+#storyListView .story .preview svg
+{
+	box-sizing: border-box;
+	padding: 0.25em;
+}
+
+#storyListView .story .label
+{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 0 1em 0.25em 1em;
+}
+
+#storyListView .story h2
+{
+	font: normal 120% "Nunito Light", sans-serif;
+	margin: 0;
+	line-height: 110%;
+}
+
+#storyListView .story .changeDate
+{
+	font-size: 90%;
+	color: hsla(0, 0%, 0%, 0.5);
+	margin: 0;
+}
+
+#storyListView .story .bubbleContainer
+{
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+#storyListView .story .bubbleContainer > button
+{
+	position: relative;
+	z-index: 2;
+	background: hsla(0, 0%, 0%, 0.05);
+	border-top-left-radius: 0;
+	border-top-right-radius: 0.5em;
+	border-bottom-right-radius: 0;
+	padding: 1em 1em 0.6em 1em;
+}
+
+#storyListView .story .bubbleContainer > button i
+{
+	font-size: 125%;
+}
+
+#storyListView .story .bubbleContainer .bubble
+{
+	position: absolute;
+	z-index: 3;
+}
+
+#storyListView .story .menu
+{
+	font-size: 120%;
+}
+
+#storyListView .bubbleContainer .working
+{
+	text-align: center;
+}
+
+#storyListView .quota .total
+{
+	display: inline-block;
+	position: relative;
+	width: 100%;
+	height: 1em;
+	overflow: hidden;
+	border-radius: 0.25em;
+	background-color: hsl(0, 0%, 90%);
+	box-shadow: inset 0 0.1em 0.1em hsl(0, 0%, 65%);
+}
+
+#storyListView .quota .used
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	background-color: hsl(212, 50%, 50%);
+	border-top-left-radius: 0.25em;
+	border-bottom-left-radius: 0.25em;
+	box-shadow: 0 0 0.1em hsl(0, 0%, 65%);
+}
+
+#storyEditProxy
+{
+	position: fixed;
+	z-index: 1000;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: #24497e url("../img/blueprint_large.png") 10px -15px;
+	box-shadow 0 0 1em hsl(0, 0%, 15);
+	animation-timing-function: linear;
+	-webkit-animation-timing-function: linear;
+}
+
+#storyEditProxy.zoom-small
+{
+	background-image: url('../img/blueprint_small.png');
+	background-position: -15px 10px;
+}
+
+#storyEditProxy.zoom-medium
+{
+	background-image: url('../img/blueprint_medium.png');
+	background-position: 10px 10px;
+}
+
+#aboutModal .credits
+{
+	max-height: 20em;
+	overflow-y: auto;
+	margin-bottom: 1em;
+}
+
+#formatsModal .tabs button
+{
+	width: 33.3333%;
+}
+
+#formatsModal .tabContent
+{
+	margin-top: 3em;
+}
+
+#formatsModal .format
+{
+	overflow: auto;
+	clear: both;
+}
+
+#formatsModal .format .buttons
+{
+	float: right;
+	margin-top: 0;
+}
+
+#formatsModal .removeConfirm
+{
+	display: none;
+}
+
+#formatsModal .addFormat input[type="text"]
+{
+	width: 81%;
+}
+
+#donateModal
+{
+	width: 60%;
+	margin: 5% auto;
+	text-align: center;
+}
+
+#donateModal h2:first-child .fa
+{
+	display: block;
+	font-size: 500%;
+}
+
+#donateModal .message,
+#donateModal .signature
+{
+	text-align: left;
+}
+
+#donateModal .message
+{
+	font-size: 120%;
+	background: url('../img/klimas.png') no-repeat left center;
+	padding-left: 135px;
+	min-height: 125px;
+}
+
+#donateModal .message p:first-child
+{
+	margin-top: 0;
+	padding-top: 0.3em;
+}
+
+#donateModal .message p
+{
+	line-height: 150%;
+}
+
+#donateModal .signature
+{
+	font-size: 75%;
+	margin-bottom: 0;
+}
+
+#donateModal p.buttons
+{
+	font-size: 120%;
+	margin: 1.5em 0;
+	text-align: center;
+}
+
+#donateModal p.buttons a:first-child
+{
+	margin-right: 1em;
+}
+
+#donateModal .coda
+{
+	color: hsl(0, 0%, 65%);
+}
