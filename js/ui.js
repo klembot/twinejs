@@ -23,9 +23,13 @@ var ui =
 			var $b = $('body');
 			$b.data('uiInited', true);
 
-			// enable FastClick, which cuts input delays on mobile
+			/**
+			 The FastClick instance used to cut input
+			 deplays on mobile.
+			 @property fastclick
+			**/
 
-			FastClick.attach(document.body);
+			ui.fastclick = FastClick.attach(document.body);
 
 			// note iOS for some custom styles
 
@@ -41,7 +45,7 @@ var ui =
 
 			// modals only allow Escape keypresses out, which close the modal
 
-			$b.on('keydown, keyup', '.modal', function (e)
+			$b.on('keydown.twineui keyup.twineui', '.modal', function (e)
 			{
 				if (e.keyCode != 27)
 					e.stopPropagation();
@@ -67,7 +71,7 @@ var ui =
 
 			// polyfill browser animation-related events
 
-			$b.on('webkitAnimationEnd oanimationend msAnimationEnd', function (e)
+			$b.on('webkitAnimationEnd.twineui oanimationend.twineui msAnimationEnd.twineui', function (e)
 			{
 				e.type = 'animationend';
 				$(e.target).trigger(e);
@@ -75,13 +79,13 @@ var ui =
 
 			// click handlers for showing and hiding modals
 
-			$b.on('click', '[data-modal-show]', function (e)
+			$b.on('click.twineui', '[data-modal-show]', function (e)
 			{
 				$($(this).data('modal-show')).data('modal').trigger('show');
 				e.preventDefault();
 			});
 
-			$b.on('click', '[data-modal-hide]', function (e)
+			$b.on('click.twineui', '[data-modal-hide]', function (e)
 			{
 				var modal = $(this).data('modal-hide');
 
@@ -164,7 +168,7 @@ var ui =
 				return this;
 			};
 
-			$b.on('click', function (e)
+			$b.on('click.twineui', function (e)
 			{
 				if ($(e.target).closest('.bubbleContainer').hasClass('active'))
 					return;
@@ -174,7 +178,7 @@ var ui =
 
 			// click handler for showing and hiding bubbles
 
-			$b.on('click', '.bubbleContainer [data-bubble]', function()
+			$b.on('click.twineui', '.bubbleContainer [data-bubble]', function()
 			{
 				var $t = $(this);
 				var bubbleAction = $t.data('bubble');
@@ -218,7 +222,7 @@ var ui =
 
 			// click handler for showing and hiding collapsed elements
 
-			$b.on('click', '.collapseContainer [data-collapse]', function()
+			$b.on('click.twineui', '.collapseContainer [data-collapse]', function()
 			{
 				var $t = $(this);
 				$t.collapse($t.data('collapse'));
@@ -245,11 +249,11 @@ var ui =
 
 			// click handler for tabs
 
-			$b.on('click', '.tabs button', function() { $(this).tab(); });
+			$b.on('click.twineui', '.tabs button', function() { $(this).tab(); });
 
 			// set up notifications
 
-			$b.on('click', '#notifications .close', function()
+			$b.on('click.twineui', '#notifications .close', function()
 			{
 				var notification = $(this).closest('div');
 				notification.addClass('fadeOut');
@@ -258,7 +262,39 @@ var ui =
 					$(this).remove();
 				});
 			});
+		};
+	},
 
+	/**
+	 Undoes all setup in initBody().
+
+	 @method uninitBody
+	**/
+
+	uninitBody: function()
+	{
+		if ($('body').data('uiInited'))
+		{
+			var $b = $('body');
+
+			// disable FastClick
+
+			ui.fastclick.destroy();
+
+			// remove DOM elements
+
+			$('#modalOverlay, #notifications').remove();
+
+			// classes
+
+			$b.removeClass('iOS safari');
+
+			// event handlers
+
+			$b.off('keydown.twineui keyup.twineui webkitAnimationEnd.twineui oanimationend.twineui' +
+			       'msAnimationEnd.twineui click.twineui');
+
+			$b.data('uiInited', null);
 		};
 	},
 

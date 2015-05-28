@@ -96,6 +96,10 @@ var TwineApp = Backbone.Marionette.Application.extend(
 
 	replaceContent: function (html)
 	{
+		// remove our ui hooks
+
+		window.ui.uninitBody();
+
 		// inject head and body separately -- otherwise DOM errors crop up
 
 		$('head').html(html.substring(html.indexOf('<head>') + 6, html.indexOf('</head>')));
@@ -363,7 +367,7 @@ window.app.addInitializer(function ()
 		formats.create({ name: 'Paperthin', url: 'storyformats/Paperthin/format.js', userAdded: false });
 
 	if (! formats.findWhere({ name: 'SugarCube' }))
-		formats.create({ name: 'SugarCube', url: 'http://www.motoslave.net/sugarcube/twine2/format.js', userAdded: false });
+		formats.create({ name: 'SugarCube', url: 'http://www.motoslave.net/sugarcube/1/twine2/format.js', userAdded: false });
 
 	// set default formats if not already set
 	// (second param is a default)
