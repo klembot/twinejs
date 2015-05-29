@@ -275,8 +275,6 @@ var ui =
 	{
 		if ($('body').data('uiInited'))
 		{
-			var $b = $('body');
-
 			// disable FastClick
 
 			ui.fastclick.destroy();
@@ -285,16 +283,10 @@ var ui =
 
 			$('#modalOverlay, #notifications').remove();
 
-			// classes
+			// remove classes and event handlers
+			// and mark the body as uninited
 
-			$b.removeClass('iOS safari');
-
-			// event handlers
-
-			$b.off('keydown.twineui keyup.twineui webkitAnimationEnd.twineui oanimationend.twineui' +
-			       'msAnimationEnd.twineui click.twineui');
-
-			$b.data('uiInited', null);
+			$('body').removeClass('iOS safari').off('.twineui').data('uiInited', null);
 		};
 	},
 
