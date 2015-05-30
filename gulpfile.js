@@ -1,6 +1,8 @@
 var gulp = require('gulp');
+var childProcess = require('child_process');
 var del = require('del');
 var fs = require('fs');
+var twinePackage = require('./package.json');
 var connect = require('gulp-connect');
 var include = require('gulp-include');
 var jshint = require('gulp-jshint');
@@ -230,9 +232,19 @@ gulp.task('nw', ['release:web', 'copy:package'], function()
 	return nw.build();
 });
 
+gulp.task('default', ['jshint', 'bake', 'doc']);
+
+gulp.task('watch', function()
+{
+	gulp.watch(['app.html', 'templates/**'], ['bake', 'doc']);
+	gulp.watch('js/**', ['jshint']);
+});
+
+// these tasks handle minifying the app into various raw
+// states, which are then packaged for download via the package tasks
+
 gulp.task('release:version', function (cb)
 {
-	var twinePackage = require('./package.json');
 	var props =
 	{
 		buildNumber: new XDate().toString(TIMESTAMP_FORMAT),
@@ -263,10 +275,67 @@ gulp.task('release:nw', ['release:version', 'release:web'], function (cb)
 
 gulp.task('release', ['release:web', 'release:web-cdn', 'release:nw']);
 
-gulp.task('watch', function()
+// these tasks package the releases for download
+// we assume both makensis and zip are available
+
+gulp.task('package:clean', function (cb)
 {
-	gulp.watch(['app.html', 'templates/**'], ['bake', 'doc']);
-	gulp.watch('js/**', ['jshint']);
+	del.sync('dist/download/');
+	fs.mkdir('dist/download/', cb);
 });
 
-gulp.task('default', ['jshint', 'bake', 'doc']);
+gulp.task('package:web', ['package:clean'], function (cb)
+{
+	var folderName = 'twine_' + twinePackage.version;
+
+	fs.renameSync('dist/web', 'dist/' + folderName);
+	childProcess.execSync('zip -r download/' + folderName + '.zip ' + folderName,
+	                      { cwd: 'dist/' });
+	fs.renameSync('dist/' + folderName, 'dist/web');
+	cb();
+});
+
+gulp.task('package:win32', ['release:nw', 'package:clean'], function (cb)
+{
+	childProcess.execSync('makensis nsis/install32.nsi');
+	cb();
+});
+
+gulp.task('package:win64', ['release:nw', 'package:clean'], function (cb)
+{
+	childProcess.execSync('makensis nsis/install64.nsi');
+	cb();
+});
+
+gulp.task('package:osx', ['release:nw', 'package:clean'], function (cb)
+{
+	var zipName = 'twine_' + twinePackage.version + '_osx.zip';
+
+	childProcess.execSync('zip -r ../../../download/' + zipName + ' Twine.app',
+	                      { cwd: 'dist/nwjs/Twine/osx64' });
+	cb();
+});
+
+gulp.task('package:linux32', ['release:nw', 'package:clean'], function (cb)
+{
+	var folderName = 'twine_' + twinePackage.version + '_linux32';
+
+	fs.renameSync('dist/nwjs/Twine/linux32', 'dist/nwjs/Twine/' + folderName);
+	childProcess.execSync('zip -r ../../download/' + folderName + '.zip ' + folderName,
+	                      { cwd: 'dist/nwjs/Twine' });
+	fs.renameSync('dist/nwjs/Twine/' + folderName, 'dist/nwjs/Twine/linux32');
+	cb();
+});
+
+gulp.task('package:linux64', ['release:nw', 'package:clean'], function (cb)
+{
+	var folderName = 'twine_' + twinePackage.version + '_linux64';
+
+	fs.renameSync('dist/nwjs/Twine/linux64', 'dist/nwjs/Twine/' + folderName);
+	childProcess.execSync('zip -r ../../download/' + folderName + '.zip ' + folderName,
+	                      { cwd: 'dist/nwjs/Twine' });
+	fs.renameSync('dist/nwjs/Twine/' + folderName, 'dist/nwjs/Twine/linux64', cb);
+	cb();
+});
+
+gulp.task('package', ['package:web', 'package:win32', 'package:win64', 'package:osx', 'package:linux32', 'package:linux64']);
