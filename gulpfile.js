@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var del = require('del');
+var fs = require('fs');
 var connect = require('gulp-connect');
 var include = require('gulp-include');
 var jshint = require('gulp-jshint');
@@ -229,19 +230,32 @@ gulp.task('nw', ['release:web', 'copy:package'], function()
 	return nw.build();
 });
 
-gulp.task('release:web', function (cb)
+gulp.task('release:version', function (cb)
+{
+	var twinePackage = require('./package.json');
+	var props =
+	{
+		buildNumber: new XDate().toString(TIMESTAMP_FORMAT),
+		version: twinePackage.version,
+		url: 'http://twinery.org'
+	};
+
+	fs.writeFile('dist/2.json', JSON.stringify(props), {}, cb);
+});
+
+gulp.task('release:web', ['release:version'], function (cb)
 {
 	buildDir = 'dist/web';
 	runSequence('bake', 'usemin', 'copy', cb);
 });
 
-gulp.task('release:web-cdn', function (cb)
+gulp.task('release:web-cdn', ['release:version'], function (cb)
 {
 	buildDir = 'dist/web-cdn';
 	runSequence('bake', 'injectcdn', 'usemin', 'copy', cb);
 });
 
-gulp.task('release:nw', ['release:web'], function (cb)
+gulp.task('release:nw', ['release:version', 'release:web'], function (cb)
 {
 	buildDir = 'dist/nwjs';
 	runSequence('nw', cb);
