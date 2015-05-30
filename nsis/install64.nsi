@@ -2,7 +2,7 @@
 ; and is shamelessly ripped from https://github.com/tweecode/twine/blob/master/install.nsi
 
 Name "Twine 2.0.5"
-OutFile "..\dist\nsis\twine-2.0.5-win64.exe"
+OutFile "..\dist\download\twine_2.0.5_win64.exe"
 
 ; Some default compiler settings (uncomment and change at will):
 ; SetCompress auto ; (can be off or force)
