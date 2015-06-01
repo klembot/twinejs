@@ -1,8 +1,8 @@
 ; NOTE: this .NSI script is designed for NSIS v1.8+
 ; and is shamelessly ripped from https://github.com/tweecode/twine/blob/master/install.nsi
 
-Name "Twine 2.0.5"
-OutFile "..\dist\download\twine_2.0.5_win64.exe"
+Name "Twine 2.0.6"
+OutFile "..\dist\download\twine_2.0.6_win64.exe"
 
 ; Some default compiler settings (uncomment and change at will):
 ; SetCompress auto ; (can be off or force)
@@ -35,7 +35,7 @@ CreateShortCut "$SMPROGRAMS\Twine 2\Uninstall.lnk" "$INSTDIR\uninstalltwine.exe"
 ; add uninstall entry in Add/Remove Programs
 
 WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\Twine2" "" "$INSTDIR"
-WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\Twine2" "DisplayName" "Twine 2.0.5 (remove only)"
+WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\Twine2" "DisplayName" "Twine 2.0.6 (remove only)"
 WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\Twine2" "UninstallString" '"$INSTDIR\uninstalltwine.exe"'
 
 ; write out uninstaller
@@ -47,7 +47,7 @@ SectionEnd ; end of default section
 
 ; begin uninstall settings/section
 
-UninstallText "This will uninstall Twine 2.0.5 from your system."
+UninstallText "This will uninstall Twine 2.0.6 from your system."
 
 Section Uninstall
 
