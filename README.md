@@ -28,13 +28,19 @@ Run `gulp` to perform a basic build, including creating documentation in doc/;
 `gulp watch` will perform the same tasks whenever you make changes to the
 source code. `gulp release` will minify everything to as few files as possible
 into dist/web (full HTML version), dist/web-cdn (HTML version, using CDN
-resources), and dist/nw (native app versions). If you'd like to build only one
+resources), and dist/nwjs (native app versions). If you'd like to build only one
 type of release, run `gulp release:web`, `gulp release:web-cdn`, or `gulp
 release:nw`.
 
+When running any `release` task, a file named `2.json` is created under
+release/. This contains information relevant to the autoupdater process, and
+is currently posted to http://twinery.org/latestversion/2.json.
+
+Downloads are built using the `gulp package` command, and results appear in
+dist/download/.
+
 In order to build Windows apps on OS X or Linux, you will need to have
-[Wine](https://www.winehq.org/) installed. **nb. NW.js builds are currently
-considered experimental, and have not been well-tested or documented.**
+[Wine](https://www.winehq.org/) and [makensis](http://nsis.sourceforge.net/) installed.
 
 ### TESTING
 
