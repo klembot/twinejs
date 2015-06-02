@@ -267,7 +267,7 @@ var nwui =
 		{
 			var url = $(this).attr('href');
 
-			if (url.match(/^https?:/))
+			if (typeof url == 'string' && url.match(/^https?:/))
 			{
 				nwui.gui.Shell.openExternal(url);
 				e.preventDefault();
