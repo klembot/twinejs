@@ -16,10 +16,10 @@ var Passage = Backbone.Model.extend(
 			top: 0,
 			left: 0,
 			tags: [],
-			name: window.app.translate('Untitled Passage'),
+			name: window.app.say('Untitled Passage'),
 			text: window.app.hasPrimaryTouchUI() ?
-			      window.app.translate('Tap this passage, then the pencil icon to edit it.') :
-			      window.app.translate('Double-click this passage to edit it.')
+			      window.app.say('Tap this passage, then the pencil icon to edit it.') :
+			      window.app.say('Double-click this passage to edit it.')
 		};
 	},
 
@@ -75,14 +75,14 @@ var Passage = Backbone.Model.extend(
 	validate: function (attrs)
 	{
 		if (! attrs.name || attrs.name == '')
-			return window.app.translate('You must give this passage a name.');
+			return window.app.say('You must give this passage a name.');
 
 		if (this.fetchStory().fetchPassages().find(function (passage)
 		    {
 				return (attrs.id != passage.id &&
 						attrs.name.toLowerCase() == passage.get('name').toLowerCase());
 		    }))
-			return window.app.translate('There is already a passage named "%s." Please give this one a unique name.',
+			return window.app.say('There is already a passage named "%s." Please give this one a unique name.',
 			                            attrs.name);
 	},
 

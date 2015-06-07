@@ -117,7 +117,7 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 		// remember previous window title
 
 		this.prevTitle = document.title;
-		document.title = window.app.translate('Editing \u201c%s\u201d', this.model.get('name'));
+		document.title = window.app.say('Editing \u201c%s\u201d', this.model.get('name'));
 
 		// id and name
 
@@ -208,7 +208,7 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 
 		window.onbeforeunload = function()
 		{
-			return window.app.translate("Any changes to the passage you're editing haven't been saved yet. " +
+			return window.app.say("Any changes to the passage you're editing haven't been saved yet. " +
 			                            "(To do so, close the passage editor.)");
 		};
 	},

@@ -97,7 +97,7 @@ StoryEditView.SearchModal = Backbone.View.extend(
 		else
 		{
 			this.$('.resultSummary').hide();
-			this.$('.results').html('<p>' + window.app.translate('No matching passages found.') + '</p>');
+			this.$('.results').html('<p>' + window.app.say('No matching passages found.') + '</p>');
 		};
 
 	},

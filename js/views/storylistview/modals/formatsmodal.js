@@ -69,7 +69,7 @@ StoryListView.FormatsModal = Backbone.View.extend(
 						this.$('.storyFormatList').append(content);
 				}
 				else
-					ui.notify(window.app.translate('The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s).', format.get('name'), e.message), 'danger'); // L10n: %1$s is the name of the story format; %2$s is the error message.
+					ui.notify(window.app.say('The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s).', format.get('name'), e.message), 'danger'); // L10n: %1$s is the name of the story format; %2$s is the error message.
 
 				this.formatsToLoad.remove(format);
 				this.loadNextFormat();
@@ -132,7 +132,7 @@ StoryListView.FormatsModal = Backbone.View.extend(
 				this.$('.error').hide();
 			}
 			else
-				this.$('.error').fadeIn().html(window.app.translate('The story format at %1$s could not be added (%2$s).', url, err.message));
+				this.$('.error').fadeIn().html(window.app.say('The story format at %1$s could not be added (%2$s).', url, err.message));
 
 			this.$('.loading').hide();
 		}.bind(this));
