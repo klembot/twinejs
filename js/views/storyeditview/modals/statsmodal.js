@@ -24,7 +24,7 @@ StoryEditView.StatsModal = Backbone.View.extend(
 	{
 		// format the date
 		
-		this.$('.lastUpdate').text(new XDate(this.parent.model.get('lastUpdate')).toString(window.app.translate('h:mm tt, d MMMM yyyy')));
+		this.$('.lastUpdate').text(new XDate(this.parent.model.get('lastUpdate')).toString(window.app.say('h:mm tt, d MMMM yyyy')));
 
 		// calculate counts
 

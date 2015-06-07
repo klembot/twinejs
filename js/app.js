@@ -95,13 +95,14 @@ var TwineApp = Backbone.Marionette.Application.extend(
 	/**
 	 Translates a string to the user-set locale, interpolating variables.
 	 Anything passed beyond the source text will be interpolated into it.
+	 Underscore templates receive access to this via the shorthand method s().
 
-	 @method translate
+	 @method say
 	 @param {String} source source text to translate
 	 @return string translation
 	**/
 
-	translate: function (source)
+	say: function (source)
 	{
 		if (arguments.length == 1)
 			return this.i18n.gettext(source);
@@ -110,6 +111,35 @@ var TwineApp = Backbone.Marionette.Application.extend(
 			// interpolation required
 
 			var sprintfArgs = [this.i18n.gettext(source)];
+
+			for (var i = 1; i < arguments.length; i++)
+				sprintfArgs.push(arguments[i]);
+
+			return this.i18n.sprintf.apply(this.i18n.sprintf, sprintfArgs);
+		};
+	},
+
+	/**
+	 Translates a string to the user-set locale, keeping in mind pluralization rules.
+	 Any additional arguments passed after the ones listed here are interpolated into
+	 the resulting string. Underscore template receive this as the shorthand method sp.
+	
+	 @method translatePlural
+	 @param {String} sourceSingular source text to translate with singular form
+	 @param {String} sourcePlural source text to translate with plural form
+	 @param {Number} count count to use for pluralization
+	 @return string translation
+	**/
+	
+	sayPlural: function (sourceSingular, sourcePlural, count)
+	{
+		if (arguments.length == 3)
+			return this.i18n.ngettext(sourceSingular, sourcePlural, count);
+		else
+		{
+			// interpolation required
+
+			var sprintfArgs = [this.i18n.gettext(sourceSingular, sourcePlural, count)];
 
 			for (var i = 1; i < arguments.length; i++)
 				sprintfArgs.push(arguments[i]);
@@ -173,8 +203,9 @@ var TwineApp = Backbone.Marionette.Application.extend(
 			if (failure)
 				failure(e);
 			else
-				ui.notify('&ldquo;' + filename + '&rdquo; could not be saved (' +
-				          e.message + ').', 'danger');
+				// L10n: %1$s is a filename; %2$s is the error message.
+				ui.notify(this.say('&ldquo;%1$s&rdquo; could not be saved (%2$s).', filename, e.message),
+				          'danger');
 		};
 	},
 
@@ -228,7 +259,11 @@ var TwineApp = Backbone.Marionette.Application.extend(
 					   function (err, output)
 		{
 			if (err)
-				ui.notify('An error occurred while publishing your story. (' + err.message + ')', 'danger');
+			{
+				// L10n: %s is the error message.
+				ui.notify(this.say('An error occurred while publishing your story. (%s)', err.message),
+				          'danger');
+			}
 			else
 			{
 				if (filename)
@@ -256,6 +291,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 			output += story.publish(null, null, true) + '\n\n';
 		});
 
+		// FIXME I18N
 		this.saveFile(output, new Date().toLocaleString().replace(/[\/:\\]/g, '.') + ' Twine Archive.html');
 	},
 	
@@ -437,12 +473,14 @@ window.app.addInitializer(function ()
 
 	// add i18n hook to Marionette's rendering
 
-	var boundTranslate = this.translate.bind(this);
+	var boundSay = this.say.bind(this);
+	var boundSayPlural = this.sayPlural.bind(this);
 
 	Backbone.Marionette.Renderer.render = function (template, data)
 	{
 		template = Marionette.TemplateCache.get(template);
-		data.t = boundTranslate;
+		data.s = boundSay;
+		data.sp = boundSayPlural;
 
 		if (typeof(template) == 'function')
 			return template(data);	

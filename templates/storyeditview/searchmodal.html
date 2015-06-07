@@ -4,43 +4,43 @@
 <i class="fa fa-times"></i>
 </button>
 
-<h2 class="title"><%= t('Find and Replace') %></h2>
+<h2 class="title"><%= s('Find and Replace') %></h2>
 
 <div class="content">
 
 <p>
-<label for="searchFor"><%= t('Search For') %></label>
+<label for="searchFor"><%= s('Search For') %></label>
 <textarea id="searchFor"></textarea>
 </p>
 
 <p>
 <input type="checkbox" id="searchNames" checked>
-<label for="searchNames"><%= t('Include passage names') %></label>
+<label for="searchNames"><%= s('Include passage names') %></label>
 
 <input type="checkbox" id="searchCaseSensitive">
-<label for="searchCaseSensitive"><%= t('Match case') /* L10n: As in uppercase or lowercase letters. */ %></label>
+<label for="searchCaseSensitive"><%= s('Match case') /* L10n: As in uppercase or lowercase letters. */ %></label>
 
 <input type="checkbox" id="searchRegexp">
-<label for="searchRegexp"><%= t('Regular expression') /* L10n: A technical term, see https://en.wikipedia.org/wiki/Regular_expression. */ %></label>
+<label for="searchRegexp"><%= s('Regular expression') /* L10n: A technical term, see https://en.wikipedia.org/wiki/Regular_expression. */ %></label>
 </p>
 
 <p>
-<label for="replaceWith"><%= t('Replace With') %></label>
+<label for="replaceWith"><%= s('Replace With') %></label>
 <textarea id="replaceWith"></textarea>
 </p>
 
 <p class="resultSummary hide">
 <span class="controls">
-<button class="expandAll subtle" title="<%= t('Expand all search results') %>">
+<button class="expandAll subtle" title="<%= s('Expand all search results') %>">
 <i class="fa fa-expand"></i>
 </button>
 
-<button class="collapseAll subtle" title="<%= t('Collapse all search results') %>">
+<button class="collapseAll subtle" title="<%= s('Collapse all search results') %>">
 <i class="fa fa-compress"></i>
 </button>
 
 <button class="replaceAll danger">
-<i class="fa fa-bolt"></i> <%= t('Replace All') %>
+<i class="fa fa-bolt"></i> <%= s('Replace All') %>
 </button>
 </span>
 
@@ -49,7 +49,7 @@
 </p>
 
 <p class="loading hide">
-<i class="fa fa-circle-o-notch fa-spin"></i> <%= t('Searching...') %>
+<i class="fa fa-circle-o-notch fa-spin"></i> <%= s('Searching...') %>
 </p>
 
 <div class="results"></div> <!-- .results -->

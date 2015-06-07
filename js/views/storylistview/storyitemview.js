@@ -77,7 +77,7 @@ var StoryItemView = Marionette.ItemView.extend(
 	play: function()
 	{
 		if (Passage.withId(this.model.get('startPassage')) === undefined)
-			ui.notify(window.app.translate('This story does not have a starting point. Edit this story and use the <i class="fa fa-rocket"></i> icon on a passage to set this.'), 'danger');
+			ui.notify(window.app.say('This story does not have a starting point. Edit this story and use the <i class="fa fa-rocket"></i> icon on a passage to set this.'), 'danger');
 		else
 			window.open('#stories/' + this.model.id + '/play', 'twinestory_play_' + this.model.id);
 	},
@@ -91,7 +91,7 @@ var StoryItemView = Marionette.ItemView.extend(
 	test: function()
 	{
 		if (Passage.withId(this.model.get('startPassage')) === undefined)
-			ui.notify(window.app.translate('This story does not have a starting point. Edit this story and use the <i class="fa fa-rocket"></i> icon on a passage to set this.'), 'danger');
+			ui.notify(window.app.say('This story does not have a starting point. Edit this story and use the <i class="fa fa-rocket"></i> icon on a passage to set this.'), 'danger');
 		else
 			window.open('#stories/' + this.model.id + '/test', 'twinestory_test_' + this.model.id);
 	},
@@ -107,7 +107,7 @@ var StoryItemView = Marionette.ItemView.extend(
 		// verify the starting point
 
 		if (Passage.withId(this.model.get('startPassage')) === undefined)
-			ui.notify(window.app.translate('This story does not have a starting point. Use the <i class="fa fa-rocket"></i> icon on a passage to set this.'), 'danger');
+			ui.notify(window.app.say('This story does not have a starting point. Use the <i class="fa fa-rocket"></i> icon on a passage to set this.'), 'danger');
 		else
 			window.app.publishStory(this.model, this.model.get('name') + '.html');
 	},
@@ -120,9 +120,9 @@ var StoryItemView = Marionette.ItemView.extend(
 
 	confirmDelete: function()
 	{
-		window.ui.confirm(window.app.translate("Are you sure you want to delete &ldquo;%s&rdquo;? " +
+		window.ui.confirm(window.app.say("Are you sure you want to delete &ldquo;%s&rdquo;? " +
 		                                       "This cannot be undone.", this.model.get('name')),
-		                  '<i class="fa fa-trash-o"></i> ' + window.app.translate('Delete Forever'),
+		                  '<i class="fa fa-trash-o"></i> ' + window.app.say('Delete Forever'),
 						  this.delete.bind(this), { buttonClass: 'danger' });
 	},
 
@@ -134,8 +134,8 @@ var StoryItemView = Marionette.ItemView.extend(
 
 	rename: function()
 	{
-		window.ui.prompt(window.app.translate("What should &ldquo;%s&rdquo; be renamed to?", this.model.get('name')),
-		                 '<i class="fa fa-ok"></i> ' + window.app.translate('Rename'),
+		window.ui.prompt(window.app.say("What should &ldquo;%s&rdquo; be renamed to?", this.model.get('name')),
+		                 '<i class="fa fa-ok"></i> ' + window.app.say('Rename'),
 						 function (text)
 						 {
 						 	this.model.save({ name: text });
@@ -152,14 +152,14 @@ var StoryItemView = Marionette.ItemView.extend(
 
 	confirmDuplicate: function()
 	{
-		window.ui.prompt(window.app.translate("What should the duplicate be named?"),
-		                 '<i class="fa fa-copy"></i> ' + window.app.translate('Duplicate'),
+		window.ui.prompt(window.app.say("What should the duplicate be named?"),
+		                 '<i class="fa fa-copy"></i> ' + window.app.say('Duplicate'),
 						 function (text)
 						 {
 						 	var dupe = this.model.duplicate(text);
 							this.parentView.collection.add(dupe);
 						 }.bind(this),
-						 { defaultText: window.app.translate('%s Copy', this.model.get('name')) });
+						 { defaultText: window.app.say('%s Copy', this.model.get('name')) });
 	},
 
 	/**

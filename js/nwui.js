@@ -78,7 +78,7 @@ var nwui =
 			// if you don't remember the keyboard shortcut
 
 			mainMenu.submenu.insert(new nwui.gui.MenuItem({
-				label: window.app.translate('Toggle Fullscreen'),
+				label: window.app.say('Toggle Fullscreen'),
 				key: 'f',
 				modifiers: 'cmd-shift',
 				click: function()
@@ -97,7 +97,7 @@ var nwui =
 			});
 
 			mainMenu.submenu.append(new nwui.gui.MenuItem({
-				label: window.app.translate('Quit'),
+				label: window.app.say('Quit'),
 				key: 'q',
 				modifiers: 'ctrl',
 				click: function()
@@ -112,12 +112,12 @@ var nwui =
 			// and a stand-in Edit menu
 
 			var editMenu = new nwui.gui.MenuItem({
-				label: window.app.translate('Edit'),
+				label: window.app.say('Edit'),
 				submenu: new nwui.gui.Menu()
 			});
 
 			editMenu.submenu.append(new nwui.gui.MenuItem({
-				label: window.app.translate('Undo'),
+				label: window.app.say('Undo'),
 				key: 'z',
 				modifiers: 'ctrl',
 				click: function()
@@ -129,7 +129,7 @@ var nwui =
 			editMenu.submenu.append(new nwui.gui.MenuItem({ type: 'separator' }));
 
 			editMenu.submenu.append(new nwui.gui.MenuItem({
-				label: window.app.translate('Cut'),
+				label: window.app.say('Cut'),
 				key: 'x',
 				modifiers: 'ctrl',
 				click: function()
@@ -139,7 +139,7 @@ var nwui =
 			}));
 
 			editMenu.submenu.append(new nwui.gui.MenuItem({
-				label: window.app.translate('Copy'),
+				label: window.app.say('Copy'),
 				key: 'c',
 				modifiers: 'ctrl',
 				click: function()
@@ -149,7 +149,7 @@ var nwui =
 			}));
 
 			editMenu.submenu.append(new nwui.gui.MenuItem({
-				label: window.app.translate('Paste'),
+				label: window.app.say('Paste'),
 				key: 'v',
 				modifiers: 'ctrl',
 				click: function()
@@ -159,7 +159,7 @@ var nwui =
 			}));
 
 			editMenu.submenu.append(new nwui.gui.MenuItem({
-				label: window.app.translate('Delete'),
+				label: window.app.say('Delete'),
 				click: function()
 				{
 					document.execCommand('delete');
@@ -179,7 +179,7 @@ var nwui =
 		nwui.path = require('path');
 
 		mainMenu.submenu.insert(new nwui.gui.MenuItem({
-			label: window.app.translate('Show Library'),
+			label: window.app.say('Show Library'),
 			click: function()
 			{
 				nwui.gui.Shell.openItem(nwui.path.resolve(nwui.filePath.replace(/\//g, nwui.path.sep)));
@@ -409,7 +409,7 @@ var nwui =
 		catch (e)
 		{
 			// L10n: %s is the error message.
-			ui.notify(window.app.translate('An error occurred while saving your story (%s).', e.message), 'danger');
+			ui.notify(window.app.say('An error occurred while saving your story (%s).', e.message), 'danger');
 			throw e;
 		}
 		finally
@@ -436,7 +436,7 @@ var nwui =
 		catch (e)
 		{
 			// L10n: %s is the error message.
-			ui.notify(window.app.translate('An error occurred while deleting your story (%s).', e.message), 'danger');
+			ui.notify(window.app.say('An error occurred while deleting your story (%s).', e.message), 'danger');
 		}
 		finally
 		{
@@ -506,7 +506,7 @@ var nwui =
 		catch (e)
 		{
 			// L10n: Locking in the sense of preventing changes to a file. %s is the error message.
-			ui.notify(window.app.translate('An error occurred while locking your library (%s).', e.message), 'danger');
+			ui.notify(window.app.say('An error occurred while locking your library (%s).', e.message), 'danger');
 		};
 	},
 
@@ -535,7 +535,7 @@ var nwui =
 		catch (e)
 		{
 			// L10n: Unlocking in the sense of allowing changes to a file. %s is the error message.
-			ui.notify(window.app.translate('An error occurred while unlocking your library (%s).', e.message), 'danger');
+			ui.notify(window.app.say('An error occurred while unlocking your library (%s).', e.message), 'danger');
 		};
 	},
 };
