@@ -123,6 +123,8 @@ var TwineApp = Backbone.Marionette.Application.extend(
 	 Translates a string to the user-set locale, keeping in mind pluralization rules.
 	 Any additional arguments passed after the ones listed here are interpolated into
 	 the resulting string. Underscore template receive this as the shorthand method sp.
+
+	 When interpolating, count will always be the first argument.
 	
 	 @method translatePlural
 	 @param {String} sourceSingular source text to translate with singular form
@@ -139,9 +141,9 @@ var TwineApp = Backbone.Marionette.Application.extend(
 		{
 			// interpolation required
 
-			var sprintfArgs = [this.i18n.gettext(sourceSingular, sourcePlural, count)];
+			var sprintfArgs = [this.i18n.gettext(sourceSingular, sourcePlural, count), count];
 
-			for (var i = 1; i < arguments.length; i++)
+			for (var i = 2; i < arguments.length; i++)
 				sprintfArgs.push(arguments[i]);
 
 			return this.i18n.sprintf.apply(this.i18n.sprintf, sprintfArgs);
