@@ -97,7 +97,7 @@ StoryEditView.SearchModal = Backbone.View.extend(
 		else
 		{
 			this.$('.resultSummary').hide();
-			this.$('.results').html('<p>No matching passages found.</p>');
+			this.$('.results').html('<p>' + window.app.translate('No matching passages found.') + '</p>');
 		};
 
 	},
@@ -177,6 +177,7 @@ StoryEditView.SearchModal = Backbone.View.extend(
 
 		this.$el.one('modalhide', function()
 		{
+			// FIXME I18N
 			ui.notify(totalMatches + ' replacements were made in ' + passagesMatched + ' passages.');	
 		});
 		this.close();

@@ -245,6 +245,8 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 			{
 				var count = window.app.importFile(e.target.result);
 
+				// FIXME I18N
+
 				if (count > 0)
 				{
 					if (count == 1)
@@ -337,6 +339,8 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 			this.$('.stories').css('display', 'none');
 			this.$('.noStories').css('display', 'block');
 		};
+
+		// FIXME I18N
 
 		document.title = this.collection.length + ' Stor' +
 		                 ((this.collection.length == 1) ? 'y' : 'ies');
