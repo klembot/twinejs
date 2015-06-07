@@ -92,7 +92,8 @@ StoryEditView.StoryFormatModal = Backbone.View.extend(
 					};
 				}
 				else
-					ui.notify('The story format &ldquo;' + format.get('name') + '&rdquo; could not be loaded (' + e.message + ').', 'danger');
+					// L10n: %1$s is the name of the story format, %2$s is the error message.
+					ui.notify(window.app.translate('The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s).', format.get('name'), e.message), 'danger');
 
 				this.formatsToLoad.remove(format);
 				this.loadNextFormat();

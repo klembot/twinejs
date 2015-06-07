@@ -13,7 +13,7 @@ var Story = Backbone.Model.extend(
 	defaults: function()
 	{
 		return {
-			name: 'Untitled Story',
+			name: window.app.translate('Untitled Story'),
 			startPassage: -1,
 			zoom: 1,
 			snapToGrid: false,
@@ -109,10 +109,10 @@ var Story = Backbone.Model.extend(
 		if (! startOptional)
 		{
 			if (! startDbId)
-				throw new Error("There is no starting point set for this story.");
+				throw new Error(window.app.translate('There is no starting point set for this story.'));
 
 			if (! passages.findWhere({ id: startDbId }))
-				throw new Error("The passage set as starting point for this story does not exist.");
+				throw new Error(window.app.translate("The passage set as starting point for this story does not exist."));
 		};
 
 		passages.each(function (p, index)

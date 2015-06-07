@@ -32,11 +32,13 @@ var StoryFormat = Backbone.Model.extend(
 	**/
 	properties: {},
 
-	defaults:
+	defaults: function()
 	{
-		name: 'Untitled Story Format',
-		url: '',
-		userAdded: true,
+		return {
+			name: window.app.translate('Untitled Story Format'),
+			url: '',
+			userAdded: true
+		};
 	},
 
 	/**

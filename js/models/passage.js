@@ -9,14 +9,18 @@
 
 var Passage = Backbone.Model.extend(
 {
-	defaults:
+	defaults: function()
 	{
-		story: -1,
-		top: 0,
-		left: 0,
-		name: 'Untitled Passage',
-		text: 'Double-click this passage to edit it.',
-		tags: []
+		return {
+			story: -1,
+			top: 0,
+			left: 0,
+			tags: [],
+			name: window.app.translate('Untitled Passage'),
+			text: window.app.hasPrimaryTouchUI() ?
+			      window.app.translate('Tap this passage, then the pencil icon to edit it.') :
+			      window.app.translate('Double-click this passage to edit it.')
+		};
 	},
 
 	template: _.template('<tw-passagedata pid="<%- id %>" name="<%- name %>" ' +
@@ -71,14 +75,15 @@ var Passage = Backbone.Model.extend(
 	validate: function (attrs)
 	{
 		if (! attrs.name || attrs.name == '')
-			return Passage.NO_NAME_ERROR;
+			return window.app.translate('You must give this passage a name.');
 
 		if (this.fetchStory().fetchPassages().find(function (passage)
 		    {
 				return (attrs.id != passage.id &&
 						attrs.name.toLowerCase() == passage.get('name').toLowerCase());
 		    }))
-			return Passage.DUPE_NAME_ERROR.replace('%s', attrs.name);
+			return window.app.translate('There is already a passage named "%s." Please give this one a unique name.',
+			                            attrs.name);
 	},
 
 	/**
@@ -375,26 +380,6 @@ var Passage = Backbone.Model.extend(
 	 @final
 	**/
 	padding: 12.5,
-
-	/**
-	 Error message for when a passage has no name, or an empty string
-	 for a name.
-
-	 @property {String} NO_NAME_ERROR
-	 @static
-	 @final
-	**/
-	NO_NAME_ERROR: 'You must give this passage a name.',
-
-	/**
-	 Error message for when a passage with the same name is created.
-	 %s is a placeholder for the passage's name.
-
-	 @property {String} DUPE_NAME_ERROR
-	 @static
-	 @final
-	**/
-	DUPE_NAME_ERROR: 'There is already a passage named "%s." Please give this one a unique name.'
 });
 
 /**
