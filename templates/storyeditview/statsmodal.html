@@ -9,6 +9,7 @@
 </h2>
 
 <div class="content">
+<!-- FIXME I18N -->
 
 <table>
 <tbody>
@@ -50,12 +51,13 @@
 </table>
 
 <p>
+<!-- FIXME I18N -->
 This story was last changed at <span class="lastUpdate"></span>.
 </p>
 
 <p>
-The IFID for this story is <span class="ifid"><%- ifid %></span>.
-(<a href="http://ifdb.tads.org/help-ifid" target="_blank">What's an IFID?</a>)
+<%= t('The IFID for this story is <span class="ifid">%s</span>. ' +
+      '(<a href="http://ifdb.tads.org/help-ifid" target="_blank">What\'s an IFID?</a>)') %>
 </p>
 
 </div> <!-- .content -->

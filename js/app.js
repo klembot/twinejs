@@ -93,7 +93,8 @@ var TwineApp = Backbone.Marionette.Application.extend(
 	},
 
 	/**
-	 Translates a string to the user-set locale.
+	 Translates a string to the user-set locale, interpolating variables.
+	 Anything passed beyond the source text will be interpolated into it.
 
 	 @method translate
 	 @param {String} source source text to translate
@@ -102,7 +103,19 @@ var TwineApp = Backbone.Marionette.Application.extend(
 
 	translate: function (source)
 	{
-		return this.i18n.gettext(source);
+		if (arguments.length == 1)
+			return this.i18n.gettext(source);
+		else
+		{
+			// interpolation required
+
+			var sprintfArgs = [this.i18n.gettext(source)];
+
+			for (var i = 1; i < arguments.length; i++)
+				sprintfArgs.push(arguments[i]);
+
+			return this.i18n.sprintf.apply(this.i18n.sprintf, sprintfArgs);
+		};
 	},
 
 	/**
