@@ -8,7 +8,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2015-06-07 16:56+0000\n"
+"POT-Creation-Date: 2015-06-07 17:29+0000\n"
 
 #: templates/storyeditview/passageeditmodal.html:8
 msgid "Passage Name"
@@ -30,12 +30,20 @@ msgid ""
 "two square brackets around its name, [[like this]]."
 msgstr ""
 
+#: templates/storyeditview/passageitemview.html:13
+msgid "Delete &ldquo;%s&rdquo;"
+msgstr ""
+
+#: templates/storyeditview/passageitemview.html:14
+msgid "Edit &ldquo;%s&rdquo;"
+msgstr ""
+
 #: templates/storyeditview/passageitemview.html:15
 msgid "Test story starting here"
 msgstr ""
 
 #: templates/storyeditview/renamestorymodal.html:8
-#: templates/storyeditview/toolbar.html:31
+#: templates/storyeditview/toolbar.html:32
 #: templates/storylistview/storyitemview.html:36
 msgid "Rename Story"
 msgstr ""
@@ -107,7 +115,7 @@ msgstr ""
 msgid "Replace All"
 msgstr ""
 
-#: templates/storyeditview/searchmodal.html:51
+#: templates/storyeditview/searchmodal.html:52
 msgid "Searching..."
 msgstr ""
 
@@ -120,8 +128,15 @@ msgid "Replace in Passage"
 msgstr ""
 
 #: templates/storyeditview/statsmodal.html:8
-#: templates/storyeditview/toolbar.html:39
+#: templates/storyeditview/toolbar.html:40
 msgid "Story Statistics"
+msgstr ""
+
+#: templates/storyeditview/statsmodal.html:60
+msgid ""
+"The IFID for this story is <span class=\"ifid\">%s</span>. (<a "
+"href=\"http://ifdb.tads.org/help-ifid\" target=\"_blank\">What's an "
+"IFID?</a>)"
 msgstr ""
 
 #: templates/storyeditview/storyformatmodal.html:5
@@ -151,73 +166,80 @@ msgstr ""
 msgid "Go to the story list"
 msgstr ""
 
-#: templates/storyeditview/toolbar.html:19
+#: templates/storyeditview/toolbar.html:20
 msgid "Edit Story JavaScript"
 msgstr ""
 
-#: templates/storyeditview/toolbar.html:23
+#: templates/storyeditview/toolbar.html:24
 msgid "Edit Story Stylesheet"
 msgstr ""
 
-#: templates/storyeditview/toolbar.html:27
+#: templates/storyeditview/toolbar.html:28
 msgid "Change Story Format"
 msgstr ""
 
-#: templates/storyeditview/toolbar.html:35
+#: templates/storyeditview/toolbar.html:36
 msgid "Snap to Grid"
 msgstr ""
 
-#: templates/storyeditview/toolbar.html:45
+#: templates/storyeditview/toolbar.html:46
 msgid "View Proofing Copy"
 msgstr ""
 
-#: templates/storyeditview/toolbar.html:49
+#: templates/storyeditview/toolbar.html:50
 #: templates/storylistview/storyitemview.html:32
 msgid "Publish to File"
 msgstr ""
 
-#: templates/storyeditview/toolbar.html:62
+#: templates/storyeditview/toolbar.html:63
 msgid "Quick Find"
 msgstr ""
 
-#: templates/storyeditview/toolbar.html:63
+#: templates/storyeditview/toolbar.html:64
 msgid "Find and replace across the entire story"
 msgstr ""
 
-#: templates/storyeditview/toolbar.html:67
+#: templates/storyeditview/toolbar.html:68
 msgid "Show only story structure"
 msgstr ""
 
-#: templates/storyeditview/toolbar.html:71
+#: templates/storyeditview/toolbar.html:72
 msgid "Show only passage titles"
 msgstr ""
 
-#: templates/storyeditview/toolbar.html:75
+#: templates/storyeditview/toolbar.html:76
 msgid "Show passage titles and excerpts"
 msgstr ""
 
-#: templates/storyeditview/toolbar.html:81
+#: templates/storyeditview/toolbar.html:82
 msgid "Play this story in test mode"
 msgstr ""
 
-#: templates/storyeditview/toolbar.html:82
+#: templates/storyeditview/toolbar.html:83
 msgid "Test"
 msgstr ""
 
-#: templates/storyeditview/toolbar.html:85
+#: templates/storyeditview/toolbar.html:86
 msgid "Play this story"
 msgstr ""
 
-#: templates/storyeditview/toolbar.html:86
+#: templates/storyeditview/toolbar.html:87
 msgid "Play"
 msgstr ""
 
-#: templates/storyeditview/toolbar.html:89
+#: templates/storyeditview/toolbar.html:90
 msgid "Add a new passage"
 msgstr ""
 
-#: templates/storyeditview/toolbar.html:90
+#: templates/storyeditview/toolbar.html:91
 msgid "Passage"
+msgstr ""
+
+#: templates/storyformatdetail.html:30
+#. L10n: %s is the name of an author. %/ ;
+#.  description ;
+#. if (typeof license == 'string') print('<p>' + t('License: %s', license) + '</p>'); /* L10n: %s is the name of a software license.
+msgid "by %s"
 msgstr ""
 
 #: templates/storylistview/formatitem.html:5
@@ -275,8 +297,32 @@ msgstr ""
 msgid "Fonts"
 msgstr ""
 
-#: templates/storylistview/modals/aboutmodal.html:79
+#: templates/storylistview/modals/aboutmodal.html:76
+msgid ""
+"Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the "
+"guidance of Robert Slimbach for <a href=\"http://adobe.com/\">Adobe</a><br> "
+"Nunito was designed by <a href=\"http://code.newtypography.co.uk/\">Vernon "
+"Adams</a>"
+msgstr ""
+
+#: templates/storylistview/modals/aboutmodal.html:82
 msgid "Icons"
+msgstr ""
+
+#: templates/storylistview/modals/aboutmodal.html:87
+msgid "Document designed by Rob Gill from the Noun Project"
+msgstr ""
+
+#: templates/storylistview/modals/aboutmodal.html:88
+msgid "Question designed by Henry Ryder from the Noun Project"
+msgstr ""
+
+#: templates/storylistview/modals/aboutmodal.html:89
+msgid "Smile designed by jelio dimitrov from the Noun Project"
+msgstr ""
+
+#: templates/storylistview/modals/appupdatemodal.html:8
+msgid "A new version of Twine, <span class=\"version\"></span>, has been released."
 msgstr ""
 
 #: templates/storylistview/modals/appupdatemodal.html:13
@@ -344,6 +390,11 @@ msgstr ""
 #: templates/storylistview/modals/formatsmodal.html:47
 #: templates/storylistview/storylistview.html:26
 msgid "Add"
+msgstr ""
+
+#: templates/storylistview/storyitemview.html:13
+#. L10n: An XDate format (http://arshaw.com/xdate/#Formatting) suitable for describing the date and time a story was last edited.
+msgid "d MMMM yyyy, h:mm tt"
 msgstr ""
 
 #: templates/storylistview/storyitemview.html:24

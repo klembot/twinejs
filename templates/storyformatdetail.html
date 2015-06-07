@@ -19,7 +19,7 @@ else
 
 <h3><%- name %> <%- version %>
 
-<% if (typeof author == 'string') print('<br>by ' + author); %>
+<% if (typeof author == 'string') print('<br> ' + t('by %s', author)); /* L10n: %s is the name of an author. %/ %>
 
 </h3>
 
@@ -27,7 +27,7 @@ else
 <%= description %>
 
 <%
-if (typeof license == 'string') print('<p>License: ' + license + '</p>');
+if (typeof license == 'string') print('<p>' + t('License: %s', license) + '</p>'); /* L10n: %s is the name of a software license. */
 %>
 
 </div>
