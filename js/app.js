@@ -28,33 +28,68 @@ var TwineApp = Backbone.Marionette.Application.extend(
 	version: '2.0.6',
 
 	/**
-	 Loads gettext strings via AJAX. This sets the app's i18nData property.
+	 Loads gettext strings via AJAX. This sets the app's i18nData and
+	 locale properties.
 
-	 @method loadTranslation
+	 @method loadLocale
 	 @param {String} locale locale (e.g. en_us) to load
 	 @param {Function} callback function to call once done
 	**/
 
-	loadTranslation: function (locale, callback)
+	loadLocale: function (locale, callback)
 	{
-		$.ajax({
-			url: 'locale/' + locale + '.js',
-			dataType: 'jsonp',
-			jsonpCallback: 'locale',
-			crossDomain: true
-		})
-		.done(function (data)
+		/**
+		 The app's current locale.
+
+		 @property locale
+		 @readonly
+		**/
+
+		this.locale = locale;
+
+		if (locale != 'en-us')
 		{
-			/**
-			 The raw JSON data used by the i18n object.
+			$.ajax({
+				url: 'locale/' + locale + '.js',
+				dataType: 'jsonp',
+				jsonpCallback: 'locale',
+				crossDomain: true
+			})
+			.always(function (data)
+			{
+				/**
+				 The raw JSON data used by the i18n object.
 
-			 @property i18nData
-			 @type {Object}
-			 **/
+				 @property i18nData
+				 @type {Object}
+				 **/
 
-			 this.i18nData = data;
-			 callback();
-		}.bind(this));
+				 this.i18nData = data;
+				 callback();
+			}.bind(this));
+		}
+		else
+		{
+			// dummy in data to get back source text as-is
+
+			this.i18nData =
+			{
+				domain: 'messages',
+				locale_data:
+				{
+					messages:
+					{
+						'':
+						{
+							domain: 'messages',
+							lang: 'en-us',
+							plural_forms: 'nplurals=2; plural=(n != 1);'
+						}
+					}
+				}
+			};
+			callback();
+		};
 	},
 
 	/**
@@ -458,7 +493,33 @@ window.app.addRegions(
 	}
 });
 
-window.app.loadTranslation('piglatin', function()
+// bootstrap app after loading localization, if any
+
+(function()
 {
-	window.app.start();
-});
+	var locale;
+
+	// URL parameter locale overrides everything
+
+	var localeUrlMatch = /locale=([^&]+)&?/.exec(window.location.search);
+
+	if (localeUrlMatch)
+		locale = localeUrlMatch[1];
+	else
+	{
+		// use app preference; default to best guess
+		// http://stackoverflow.com/questions/673905/best-way-to-determine-users-locale-within-browser
+
+		var localePref = AppPref.withName('locale',
+		                                  window.navigator.userLanguage || window.navigator.language ||
+		                                  window.navigator.browserLanguage || window.navigator.systemLanguage ||
+		                                  'en-us');
+
+		locale = localePref.get('value');
+	};
+	
+	window.app.loadLocale(locale.toLowerCase(), function()
+	{
+		window.app.start();
+	});
+})();
