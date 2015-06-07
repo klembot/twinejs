@@ -28,6 +28,49 @@ var TwineApp = Backbone.Marionette.Application.extend(
 	version: '2.0.6',
 
 	/**
+	 Loads gettext strings via AJAX. This sets the app's i18nData property.
+
+	 @method loadTranslation
+	 @param {String} locale locale (e.g. en_us) to load
+	 @param {Function} callback function to call once done
+	**/
+
+	loadTranslation: function (locale, callback)
+	{
+		$.ajax({
+			url: 'locale/' + locale + '.js',
+			dataType: 'jsonp',
+			jsonpCallback: 'locale',
+			crossDomain: true
+		})
+		.done(function (data)
+		{
+			/**
+			 The raw JSON data used by the i18n object.
+
+			 @property i18nData
+			 @type {Object}
+			 **/
+
+			 this.i18nData = data;
+			 callback();
+		}.bind(this));
+	},
+
+	/**
+	 Translates a string to the user-set locale.
+
+	 @method translate
+	 @param {String} source source text to translate
+	 @return string translation
+	**/
+
+	translate: function (source)
+	{
+		return this.i18n.gettext(source);
+	},
+
+	/**
 	 Saves data to a file. This appears to the user as if they had clicked
 	 a link to a downloadable file in their browser. If no failure method is specified,
 	 then this will show a notification when errors occur.
@@ -335,6 +378,30 @@ window.app.addInitializer(function ()
 {
 	if (nwui.active)
 		nwui.init();
+
+	/**
+	 The Jed instance used to manage translations.
+	 
+	 @property i18n
+	**/
+
+	this.i18n = new Jed(this.i18nData);
+
+	// add i18n hook to Marionette's rendering
+
+	var boundTranslate = this.translate.bind(this);
+
+	Backbone.Marionette.Renderer.render = function (template, data)
+	{
+		template = Marionette.TemplateCache.get(template);
+		data.t = boundTranslate;
+
+		if (typeof(template) == 'function')
+			return template(data);	
+		else
+			return _.template(template)(data);
+	};
+
 	/**
 	 Build number of the app.
 
@@ -391,4 +458,7 @@ window.app.addRegions(
 	}
 });
 
-window.app.start();
+window.app.loadTranslation('piglatin', function()
+{
+	window.app.start();
+});

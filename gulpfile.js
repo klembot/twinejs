@@ -11,6 +11,7 @@ var minifyHtml = require('gulp-minify-html');
 var minifyCss = require('gulp-minify-css');
 var nwBuilder = require('node-webkit-builder');
 var plumber = require('gulp-plumber');
+var po2json = require('gulp-po2json');
 var rename = require('gulp-rename');
 var replace = require('gulp-replace');
 var runSequence = require('run-sequence');
@@ -334,8 +335,27 @@ gulp.task('package:linux64', ['release:nw', 'package:clean'], function (cb)
 	fs.renameSync('dist/nwjs/Twine/linux64', 'dist/nwjs/Twine/' + folderName);
 	childProcess.execSync('zip -r ../../download/' + folderName + '.zip ' + folderName,
 	                      { cwd: 'dist/nwjs/Twine' });
-	fs.renameSync('dist/nwjs/Twine/' + folderName, 'dist/nwjs/Twine/linux64', cb);
+	fs.renameSync('dist/nwjs/Twine/' + folderName, 'dist/nwjs/Twine/linux64');
 	cb();
 });
 
 gulp.task('package', ['package:web', 'package:win32', 'package:win64', 'package:osx', 'package:linux32', 'package:linux64']);
+
+gulp.task('buildpot', function (cb)
+{
+	childProcess.execSync('jsxgettext -L ejs -k t templates/*.html -o locales/template.pot');
+	cb();
+});
+
+gulp.task('buildpojson', function()
+{
+	return gulp.src('locale/po/*.po')
+	       .pipe(po2json({ format: 'jed1.x', domain: 'messages' }))
+		   .pipe(replace(/^/, 'window.locale('))
+		   .pipe(replace(/$/, ')'))
+		   .pipe(rename(function (path)
+		   {
+	       	path.extname = '.js'
+		   }))
+		   .pipe(gulp.dest('locale/'));
+});
