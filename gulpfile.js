@@ -4,6 +4,7 @@ var del = require('del');
 var fs = require('fs');
 var twinePackage = require('./package.json');
 var connect = require('gulp-connect');
+var glob = require('glob');
 var include = require('gulp-include');
 var jshint = require('gulp-jshint');
 var jshintStylish = require('jshint-stylish');
@@ -343,7 +344,9 @@ gulp.task('package', ['package:web', 'package:win32', 'package:win64', 'package:
 
 gulp.task('buildpot', function (cb)
 {
-	childProcess.execSync('jsxgettext -L ejs -k t templates/*.html -o locales/template.pot');
+	del.sync('locale/template.pot');
+	var templates = glob.sync('templates/**/*.html');
+	childProcess.execSync('jsxgettext -L ejs -k t ' + templates.join(' ') + ' -o locale/template.pot');
 	cb();
 });
 

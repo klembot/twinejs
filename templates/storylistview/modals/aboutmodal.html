@@ -5,33 +5,34 @@
 </button>
 
 <h2 class="title">
-About Twine <span class="app-version"></span>
+<%= t('About Twine') %> <span class="app-version"></span>
 </h2>
 
 <p>
-Build {{build_number}}
+<%= t('Build') /* L10n: This is the noun form, to describe a version of the software. e.g. 'I am using Twine build 123' */ %>
+{{build_number}}
 </p>
 
 <p>
-Twine is an open-source tool for telling interactive, nonlinear stories.
+<%= t('Twine is an open-source tool for telling interactive, nonlinear stories.') %>
 </p>
 
 <p>
-Twine 2.0 is released under the <a href="http://www.gnu.org/licenses/gpl-3.0.html">GPL v3</a>
-license, but any work created with it may be released under any terms, including commercial ones.
-<a href="https://bitbucket.org/klembot/twinejs">Source Code Repository</a>
+<%= t('Twine 2.0 is released under the <a href="http://www.gnu.org/licenses/gpl-3.0.html">GPL v3</a> ' +
+      'license, but any work created with it may be released under any terms, including commercial ones. ' +
+      '<a href="https://bitbucket.org/klembot/twinejs">Source Code Repository</a>') %>
 </p>
 
 <p>
 <a href="http://twinery.org/donate" class="button">
 <i class="fa fa-heart-o"></i>
-Help Twine Grow With A Donation</a>
+<%= t('Help Twine Grow With A Donation') %></a>
 </p>
 
 <div class="credits">
 
 <h4>
-Code
+<%= t('Code') /* L10n: This is the noun form, as program code. */ %>
 </h4>
 
 <p>
@@ -46,7 +47,7 @@ Ross Smith
 </p>
 
 <h4>
-Libraries
+<%= t('Libraries') %>
 </h4>
 
 <p>
@@ -64,7 +65,7 @@ Libraries
 </p>
 
 <h4>
-Fonts
+<%= t('Fonts') %>
 </h4>
 
 <p>
@@ -73,7 +74,7 @@ Nunito was designed by <a href="http://code.newtypography.co.uk/">Vernon Adams</
 </p>
 
 <h4>
-Icons
+<%= t('Icons') %>
 </h4>
 
 <p>
