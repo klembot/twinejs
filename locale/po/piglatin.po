@@ -1,0 +1,140 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: node-gettext\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-06-05 18:01-0500\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Chris Klimas <chris@twinery.org>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.1\n"
+
+#: templates/welcomeview.html:6
+msgid "Hi!"
+msgstr "Ihay!"
+
+#: templates/welcomeview.html:11
+msgid ""
+"Twine is an open-source tool for telling interactive, nonlinear stories. "
+"There are a few things you should know before you get started."
+msgstr ""
+"Winetay isway anway openway-ourcesay ooltay orfay ellingfay interactiveway, "
+"onlinearnay toriesay. Heretay areway away ewfay hingstay ouyay houldsay "
+"owknay eforebay ouyay etgay tartedsay."
+
+#: templates/welcomeview.html:16
+msgid "Tell Me More"
+msgstr "Elltay Emay Oremay"
+
+#: templates/welcomeview.html:17
+msgid "Skip"
+msgstr "Kipsay"
+
+#: templates/welcomeview.html:25
+msgid "New here?"
+msgstr "Ewnay erehay?"
+
+#: templates/welcomeview.html:33
+msgid ""
+"<strong>If you've never used Twine before,</strong> then welcome! The <a "
+"href=\"http://twinery.org/2guide\" target=\"_blank\">Twine 2 Guide</a>, and "
+"the official wiki in general, are a great place to learn. Keep in mind that "
+"some articles on the wiki at large were written for Twine 1, which is a "
+"little bit different than this version. But most of the concepts are the "
+"same."
+msgstr ""
+"<strong>Ifway ou'veyay evernay usedway Inetway eforebay,</strong> enthay elcomeway! Ethay <a "
+"href=\"http://twinery.org/2guide\" target=\"_blank\">Inetway 2 Uidegay</a>, andway "
+"ethay officialway ikiway inway eneralgay, areway away eatgray aceplay otay earnlay. Eepkay inway indmay atthay "
+"omesay articlesway onway ethay ikiway atway argelay ereway ittenwray orfay Inetway 1, ichwhay isway away "
+"ittlelay itbay ifferentday anthay isthay ersionvay. Utbay ostmay ofway ethay onceptscay areway ethay "
+"amesay."
+
+#: templates/welcomeview.html:41
+msgid ""
+"You can also get help over at the <a href=\"http://twinery.org/forum\" "
+"target=\"_blank\">Twine forum</a>, too."
+msgstr ""
+"Ouyay ancay alsoway etgay elphay overway atway ethay  <a href=\"http://"
+"twinery.org/forum\" target=\"_blank\">Inetway orumfay</a>, ootay."
+
+#: templates/welcomeview.html:47
+msgid ""
+"<strong>If you have used Twine 1 before,</strong> the guide also has details "
+"on what has changed in this version. Chief among them is a new default story "
+"format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, "
+"try using SugarCube instead."
+msgstr ""
+"<strong>Ifway ou'veyay evernay usedway Inetway eforebay,</strong> enthay "
+"elcomeway! Ethay <a href=\"http://twinery.org/2guide\" target=\"_blank"
+"\">Winetay 2 Uidegay</a>, andway ethay officialway ikiway inway eneralgay, "
+"areway away eatgray aceplay otay earnlay. Eepkay inway indmay atthay omesay\n"
+"articlesway onway ethay ikiway atway argelay ereway ittenwray orfay Inetway "
+"1, ichwhay isway away ittlelay itbay ifferentday anthay isthay ersionvay. "
+"Utbay ostmay ofway ethay onceptscay areway ethay amesay."
+
+#: templates/welcomeview.html:53 templates/welcomeview.html:97
+msgid "OK"
+msgstr "OKWAY"
+
+#: templates/welcomeview.html:61
+msgid "Your work is saved only in your browser."
+msgstr "Ouryay orkway isway avedsay onlyway inway ouryay owserbray."
+
+#: templates/welcomeview.html:67
+msgid ""
+"That means you don't need to create an account to use Twine 2, and "
+"everything you create isn't stored on a server somewhere else &mdash; it "
+"stays right in your browser."
+msgstr ""
+"Atthay eansmay ouyay on'tday eednay otay eatecray anway \n"
+"accountway otay useway Inetway 2, andway everythingway ouyay \n"
+"eatecray isn'tway oredstay onway away erversay omewheresay \n"
+"elseway &mdash; itway aysstay ightray inway ouryay owserbray."
+
+#: templates/welcomeview.html:79
+msgid ""
+"Two <b>very important</b> things to remember, though. Since your work is "
+"saved only in your browser, if you clear its saved data, then you'll lose "
+"your work! Not good. Remember to use that <i class=\"fa fa-briefcase\"></"
+"i>&nbsp;<strong>Archive</strong> button often. You can also publish "
+"individual stories to files using the dropdown menu next to the <b><i class="
+"\"fa fa-play\"></i>&nbsp;Play</b> button in the story editor. Both archive "
+"and story files can always be re-imported into Twine."
+msgstr ""
+"Otway <b>eryvay importantway</b> ingsthay otay ememberray, oughthay. Incesay "
+"ouryay orkway isway avedsay onlyway inway ouryay owserbray, ifway ouyay "
+"earclay itsway avedsay ataday, enthay ou'llyay oselay ouryay orkway! Otnay "
+"oodgay. Ememberray otay useway atthay <i class=\"fa fa-briefcase\"></i>&nbsp;"
+"<strong>Archiveway</strong> uttonbay oftenway. Ouyay ancay alsoway ublishpay "
+"individualway oriesstay otay ilesfay usingway ethay opdowndray enumay extnay "
+"otay ethay <b><i class=\"fa fa-play\"></i>&nbsp;Ayplay</b> uttonbay inway "
+"ethay orystay editorway. Othbay archiveway andway orystay ilesfay ancay "
+"alwaysway ebay eray-importedway intoway Inetway."
+
+#: templates/welcomeview.html:91
+msgid ""
+"Secondly, <b>anyone who can use this browser can see and make changes to "
+"your work</b>. So if you've got a nosy kid brother, look into setting up a "
+"separate profile for yourself."
+msgstr ""
+"Econdlysay, <b>anyoneway owhay ancay useway isthay owserbray ancay eesay "
+"andway akemay \n"
+"angeschay otay ouryay orkway</b>. Osay ifway ou'veyay otgay away osynay "
+"idkay otherbray, ooklay intoway ettingsay upway away eparatesay ofilepray "
+"orfay ourselfyay."
+
+#: templates/welcomeview.html:105
+msgid "That's it!"
+msgstr "At'sthay itway!"
+
+#: templates/welcomeview.html:109
+msgid "Thanks for reading, and have fun with Twine."
+msgstr "Anksthay orfay eadingray, andway avehay unfay ithway Inetway."
+
+#: templates/welcomeview.html:113
+msgid "Go to the Story List"
+msgstr "Ogay otay ethay Orystay Istlay"

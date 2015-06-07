@@ -1,0 +1,39 @@
+{
+  "name": "Twine",
+  "version": "2.0.6",
+  "author": "Chris Klimas <chris@twinery.org>",
+  "description": "a GUI for creating nonlinear stories",
+  "license": "GPL v3",
+  "repository": {
+    "type": "hg",
+    "url": "https://bitbucket.org/klembot/twinejs"
+  },
+  "main": "index.html",
+  "window": {
+    "show": false,
+    "toolbar": false,
+    "width": 1024,
+    "height": 600,
+    "icon": "rsrc/img/logo.ico"
+  },
+  "dependencies": {
+    "del": "^1.1.1",
+    "gulp": "^3.8.11",
+    "gulp-connect": "^2.2.0",
+    "gulp-include": "^1.1.1",
+    "gulp-jshint": "^1.10.0",
+    "gulp-minify-css": "^1.1.1",
+    "gulp-minify-html": "^1.0.2",
+    "gulp-plumber": "^1.0.0",
+    "gulp-po2json": "^0.4.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.3",
+    "gulp-uglify": "^1.2.0",
+    "gulp-usemin": "^0.3.11",
+    "gulp-yuidoc": "^0.1.2",
+    "jshint-stylish": "^1.0.2",
+    "jsxgettext": "^0.7.0",
+    "node-webkit-builder": "^1.0.11",
+    "run-sequence": "^1.1.0"
+  }
+}

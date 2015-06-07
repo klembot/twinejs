@@ -1,0 +1,35 @@
+<div id="passageEditModal" class="editModal modal hide">
+
+<button class="save close subtle" data-modal-hide="this">
+<i class="fa fa-times"></i>
+</button>
+
+<p class="title">
+<input type="text" class="passageName fillin" placeholder="Passage Name">
+</p>
+
+<div class="content">
+
+<p class="error hide"></p>
+
+<div class="passageTags">
+<p>
+<span class="tags"></span>
+
+<button class="showNewTag subtle" type="button"><i class="fa fa-plus"></i> Tag</button>
+</p>
+
+<form class="newTag hide">
+<input class="newTagName" type="text" placeholder="Tag name" required>
+<button type="button" class="hideNewTag link"><i class="fa fa-times"></i></button>
+<button type="submit" class="link"><i class="fa fa-check"></i></button>
+</form>
+
+</div> <!-- .passageTags -->
+
+<div class="fullEdit">
+<textarea class="passageText" placeholder="Enter the body text of your passage here. To link to another passage, put two square brackets around its name, [[like this]]."></textarea>
+</div> <!-- .fullEdit -->
+
+</div> <!-- .content -->
+</div> <!-- #passageEditModal -->
