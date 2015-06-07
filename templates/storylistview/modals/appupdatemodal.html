@@ -9,8 +9,10 @@ A new version of Twine, <span class="version"></span>, has been released.
 </p>
 
 <p class="buttons">
-<button class="subtle cancel" data-modal-hide="this"><i class="fa fa-times"></i> Not Right Now</a></button>
-<a href="#stories" class="button download" target="_blank"><i class="fa fa-download"></i> Download</a>
+<button class="subtle cancel" data-modal-hide="this"><i class="fa fa-times"></i>
+<%= t('Not Right Now') /* L10n: A polite rejection of a request; answer may change in the future. */ %>
+</button>
+<a href="#stories" class="button download" target="_blank"><i class="fa fa-download"></i> <%= t('Download') %></a>
 </p>
 
 </div>

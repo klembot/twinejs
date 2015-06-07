@@ -1,0 +1,577 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2015-06-07 16:56+0000\n"
+
+#: templates/storyeditview/passageeditmodal.html:8
+msgid "Passage Name"
+msgstr ""
+
+#: templates/storyeditview/passageeditmodal.html:20
+#. L10n: this is the noun form, as in tags you would apply to content.
+msgid "Tag"
+msgstr ""
+
+#: templates/storyeditview/passageeditmodal.html:25
+#. L10n: A noun, i.e. what a tag is named.
+msgid "Tag name"
+msgstr ""
+
+#: templates/storyeditview/passageeditmodal.html:33
+msgid ""
+"Enter the body text of your passage here. To link to another passage, put "
+"two square brackets around its name, [[like this]]."
+msgstr ""
+
+#: templates/storyeditview/passageitemview.html:15
+msgid "Test story starting here"
+msgstr ""
+
+#: templates/storyeditview/renamestorymodal.html:8
+#: templates/storyeditview/toolbar.html:31
+#: templates/storylistview/storyitemview.html:36
+msgid "Rename Story"
+msgstr ""
+
+#: templates/storyeditview/renamestorymodal.html:14
+msgid "What should this story's name be?"
+msgstr ""
+
+#: templates/storyeditview/renamestorymodal.html:24
+msgid "Please enter a name."
+msgstr ""
+
+#: templates/storyeditview/renamestorymodal.html:28
+#: templates/storylistview/formatitem.html:7
+#: templates/storylistview/storylistview.html:25
+#: templates/storylistview/storylistview.html:50
+msgid "Cancel"
+msgstr ""
+
+#: templates/storyeditview/renamestorymodal.html:29
+msgid "Save"
+msgstr ""
+
+#: templates/storyeditview/scripteditmodal.html:8
+msgid "JavaScript"
+msgstr ""
+
+#: templates/storyeditview/scripteditmodal.html:15
+msgid ""
+"Any JavaScript entered here will immediately run when your story is opened "
+"in a Web browser."
+msgstr ""
+
+#: templates/storyeditview/searchmodal.html:7
+msgid "Find and Replace"
+msgstr ""
+
+#: templates/storyeditview/searchmodal.html:12
+msgid "Search For"
+msgstr ""
+
+#: templates/storyeditview/searchmodal.html:18
+msgid "Include passage names"
+msgstr ""
+
+#: templates/storyeditview/searchmodal.html:21
+#. L10n: As in uppercase or lowercase letters.
+msgid "Match case"
+msgstr ""
+
+#: templates/storyeditview/searchmodal.html:24
+#. L10n: A technical term, see https://en.wikipedia.org/wiki/Regular_expression.
+msgid "Regular expression"
+msgstr ""
+
+#: templates/storyeditview/searchmodal.html:28
+msgid "Replace With"
+msgstr ""
+
+#: templates/storyeditview/searchmodal.html:34
+msgid "Expand all search results"
+msgstr ""
+
+#: templates/storyeditview/searchmodal.html:38
+msgid "Collapse all search results"
+msgstr ""
+
+#: templates/storyeditview/searchmodal.html:43
+msgid "Replace All"
+msgstr ""
+
+#: templates/storyeditview/searchmodal.html:51
+msgid "Searching..."
+msgstr ""
+
+#: templates/storyeditview/searchmodalresult.html:19
+msgid "Replace in this passage"
+msgstr ""
+
+#: templates/storyeditview/searchmodalresult.html:20
+msgid "Replace in Passage"
+msgstr ""
+
+#: templates/storyeditview/statsmodal.html:8
+#: templates/storyeditview/toolbar.html:39
+msgid "Story Statistics"
+msgstr ""
+
+#: templates/storyeditview/storyformatmodal.html:5
+msgid "Story Format"
+msgstr ""
+
+#: templates/storyeditview/storyformatmodal.html:10
+msgid ""
+"A story format controls the appearance and behavior of your story during "
+"play."
+msgstr ""
+
+#: templates/storyeditview/storyformatmodal.html:14
+#: templates/storylistview/modals/formatsmodal.html:55
+msgid "Loading..."
+msgstr ""
+
+#: templates/storyeditview/stylesheeteditmodal.html:8
+msgid "Stylesheet"
+msgstr ""
+
+#: templates/storyeditview/stylesheeteditmodal.html:14
+msgid "Any CSS entered here will override the default appearance of your story."
+msgstr ""
+
+#: templates/storyeditview/toolbar.html:5
+msgid "Go to the story list"
+msgstr ""
+
+#: templates/storyeditview/toolbar.html:19
+msgid "Edit Story JavaScript"
+msgstr ""
+
+#: templates/storyeditview/toolbar.html:23
+msgid "Edit Story Stylesheet"
+msgstr ""
+
+#: templates/storyeditview/toolbar.html:27
+msgid "Change Story Format"
+msgstr ""
+
+#: templates/storyeditview/toolbar.html:35
+msgid "Snap to Grid"
+msgstr ""
+
+#: templates/storyeditview/toolbar.html:45
+msgid "View Proofing Copy"
+msgstr ""
+
+#: templates/storyeditview/toolbar.html:49
+#: templates/storylistview/storyitemview.html:32
+msgid "Publish to File"
+msgstr ""
+
+#: templates/storyeditview/toolbar.html:62
+msgid "Quick Find"
+msgstr ""
+
+#: templates/storyeditview/toolbar.html:63
+msgid "Find and replace across the entire story"
+msgstr ""
+
+#: templates/storyeditview/toolbar.html:67
+msgid "Show only story structure"
+msgstr ""
+
+#: templates/storyeditview/toolbar.html:71
+msgid "Show only passage titles"
+msgstr ""
+
+#: templates/storyeditview/toolbar.html:75
+msgid "Show passage titles and excerpts"
+msgstr ""
+
+#: templates/storyeditview/toolbar.html:81
+msgid "Play this story in test mode"
+msgstr ""
+
+#: templates/storyeditview/toolbar.html:82
+msgid "Test"
+msgstr ""
+
+#: templates/storyeditview/toolbar.html:85
+msgid "Play this story"
+msgstr ""
+
+#: templates/storyeditview/toolbar.html:86
+msgid "Play"
+msgstr ""
+
+#: templates/storyeditview/toolbar.html:89
+msgid "Add a new passage"
+msgstr ""
+
+#: templates/storyeditview/toolbar.html:90
+msgid "Passage"
+msgstr ""
+
+#: templates/storylistview/formatitem.html:5
+msgid "Are you sure?"
+msgstr ""
+
+#: templates/storylistview/formatitem.html:6
+msgid "Remove"
+msgstr ""
+
+#: templates/storylistview/formatitem.html:12
+msgid "Remove this format"
+msgstr ""
+
+#: templates/storylistview/formatitem.html:14
+msgid "Set this format as default for stories"
+msgstr ""
+
+#: templates/storylistview/modals/aboutmodal.html:8
+msgid "About Twine"
+msgstr ""
+
+#: templates/storylistview/modals/aboutmodal.html:12
+#. L10n: This is the noun form, to describe a version of the software. e.g. 'I am using Twine build 123'
+msgid "Build"
+msgstr ""
+
+#: templates/storylistview/modals/aboutmodal.html:17
+msgid "Twine is an open-source tool for telling interactive, nonlinear stories."
+msgstr ""
+
+#: templates/storylistview/modals/aboutmodal.html:23
+msgid ""
+"Twine 2.0 is released under the <a "
+"href=\"http://www.gnu.org/licenses/gpl-3.0.html\">GPL v3</a> license, but "
+"any work created with it may be released under any terms, including "
+"commercial ones. <a href=\"https://bitbucket.org/klembot/twinejs\">Source "
+"Code Repository</a>"
+msgstr ""
+
+#: templates/storylistview/modals/aboutmodal.html:31
+msgid "Help Twine Grow With A Donation"
+msgstr ""
+
+#: templates/storylistview/modals/aboutmodal.html:37
+#. L10n: This is the noun form, as program code.
+msgid "Code"
+msgstr ""
+
+#: templates/storylistview/modals/aboutmodal.html:52
+msgid "Libraries"
+msgstr ""
+
+#: templates/storylistview/modals/aboutmodal.html:70
+msgid "Fonts"
+msgstr ""
+
+#: templates/storylistview/modals/aboutmodal.html:79
+msgid "Icons"
+msgstr ""
+
+#: templates/storylistview/modals/appupdatemodal.html:13
+#. L10n: A polite rejection of a request; answer may change in the future.
+msgid "Not Right Now"
+msgstr ""
+
+#: templates/storylistview/modals/appupdatemodal.html:15
+msgid "Download"
+msgstr ""
+
+#: templates/storylistview/modals/donatemodal.html:8
+msgid ""
+"If you love Twine as much as I do, please consider helping it grow with a "
+"donation. Twine is as an open source project that will always be free to "
+"use &mdash; and with your help, Twine will continue to thrive."
+msgstr ""
+
+#: templates/storylistview/modals/donatemodal.html:14
+msgid "Chris Klimas, Twine creator"
+msgstr ""
+
+#: templates/storylistview/modals/donatemodal.html:20
+msgid "Donate"
+msgstr ""
+
+#: templates/storylistview/modals/donatemodal.html:21
+msgid "No Thanks"
+msgstr ""
+
+#: templates/storylistview/modals/donatemodal.html:27
+msgid ""
+"This message will only be shown to you once.<br>If you'd like to donate to "
+"Twine development in the future, you can do so at <a "
+"href=\"http://twinery.org/donate\" "
+"target=\"_blank\">http://twinery.org/donate</a>."
+msgstr ""
+
+#: templates/storylistview/modals/formatsmodal.html:9
+msgid "Story Formats"
+msgstr ""
+
+#: templates/storylistview/modals/formatsmodal.html:10
+msgid "Proofing Formats"
+msgstr ""
+
+#: templates/storylistview/modals/formatsmodal.html:11
+msgid "Add a New Format"
+msgstr ""
+
+#: templates/storylistview/modals/formatsmodal.html:20
+msgid "Story formats control the appearance and behavior of stories during play."
+msgstr ""
+
+#: templates/storylistview/modals/formatsmodal.html:30
+msgid ""
+"Proofing formats create a versions of stories tailored for editing and "
+"proofreading."
+msgstr ""
+
+#: templates/storylistview/modals/formatsmodal.html:40
+msgid "To add a story format, enter its address below."
+msgstr ""
+
+#: templates/storylistview/modals/formatsmodal.html:47
+#: templates/storylistview/storylistview.html:26
+msgid "Add"
+msgstr ""
+
+#: templates/storylistview/storyitemview.html:24
+msgid "Play Story"
+msgstr ""
+
+#: templates/storylistview/storyitemview.html:28
+msgid "Test Story"
+msgstr ""
+
+#: templates/storylistview/storyitemview.html:40
+msgid "Duplicate Story"
+msgstr ""
+
+#: templates/storylistview/storyitemview.html:46
+msgid "Delete Story"
+msgstr ""
+
+#: templates/storylistview/storylistview.html:5
+msgid "Twine"
+msgstr ""
+
+#: templates/storylistview/storylistview.html:9
+msgid "Create a brand-new story"
+msgstr ""
+
+#: templates/storylistview/storylistview.html:10
+msgid "Story"
+msgstr ""
+
+#: templates/storylistview/storylistview.html:17
+msgid "What should your story be named?<br>(You can change this later.)"
+msgstr ""
+
+#: templates/storylistview/storylistview.html:34
+msgid "Import a published story or Twine archive"
+msgstr ""
+
+#: templates/storylistview/storylistview.html:35
+msgid "Import From File"
+msgstr ""
+
+#: templates/storylistview/storylistview.html:42
+msgid "Import this file:"
+msgstr ""
+
+#: templates/storylistview/storylistview.html:59
+msgid "Importing..."
+msgstr ""
+
+#: templates/storylistview/storylistview.html:67
+msgid "Save all stories to a Twine archive file"
+msgstr ""
+
+#: templates/storylistview/storylistview.html:68
+msgid "Archive"
+msgstr ""
+
+#: templates/storylistview/storylistview.html:73
+msgid "Work with story and proofing formats"
+msgstr ""
+
+#: templates/storylistview/storylistview.html:74
+msgid "Formats"
+msgstr ""
+
+#: templates/storylistview/storylistview.html:79
+msgid "Browse online help"
+msgstr ""
+
+#: templates/storylistview/storylistview.html:80
+msgid "Help"
+msgstr ""
+
+#: templates/storylistview/storylistview.html:95
+msgid "version"
+msgstr ""
+
+#: templates/storylistview/storylistview.html:97
+msgid "Report a bug"
+msgstr ""
+
+#: templates/storylistview/storylistview.html:105
+msgid "Stories"
+msgstr ""
+
+#: templates/storylistview/storylistview.html:108
+msgid "Sort By"
+msgstr ""
+
+#: templates/storylistview/storylistview.html:110
+msgid "Last changed date"
+msgstr ""
+
+#: templates/storylistview/storylistview.html:111
+msgid "Edit Date"
+msgstr ""
+
+#: templates/storylistview/storylistview.html:114
+msgid "Story name"
+msgstr ""
+
+#: templates/storylistview/storylistview.html:115
+msgid "Name"
+msgstr ""
+
+#: templates/storylistview/storylistview.html:123
+msgid ""
+"There are no stories saved in Twine right now. To get started, you can "
+"either create a new story or import an existing one from a file."
+msgstr ""
+
+#: templates/welcomeview.html:6
+msgid "Hi!"
+msgstr ""
+
+#: templates/welcomeview.html:11
+msgid ""
+"Twine is an open-source tool for telling interactive, nonlinear stories. "
+"There are a few things you should know before you get started."
+msgstr ""
+
+#: templates/welcomeview.html:16
+msgid "Tell Me More"
+msgstr ""
+
+#: templates/welcomeview.html:17
+msgid "Skip"
+msgstr ""
+
+#: templates/welcomeview.html:25
+msgid "New here?"
+msgstr ""
+
+#: templates/welcomeview.html:33
+msgid ""
+"<strong>If you've never used Twine before,</strong> then welcome! The <a "
+"href=\"http://twinery.org/2guide\" target=\"_blank\">Twine 2 Guide</a>, and "
+"the official wiki in general, are a great place to learn. Keep in mind that "
+"some articles on the wiki at large were written for Twine 1, which is a "
+"little bit different than this version. But most of the concepts are the "
+"same."
+msgstr ""
+
+#: templates/welcomeview.html:41
+msgid ""
+"You can also get help over at the <a href=\"http://twinery.org/forum\" "
+"target=\"_blank\">Twine forum</a>, too."
+msgstr ""
+
+#: templates/welcomeview.html:47
+msgid ""
+"<strong>If you have used Twine 1 before,</strong> the guide also has "
+"details on what has changed in this version. Chief among them is a new "
+"default story format, Harlowe. But if you find you prefer the Twine 1 "
+"scripting syntax, try using SugarCube instead."
+msgstr ""
+
+#: templates/welcomeview.html:53
+#: templates/welcomeview.html:97
+#: templates/welcomeviewnw.html:37
+msgid "OK"
+msgstr ""
+
+#: templates/welcomeview.html:61
+msgid "Your work is saved only in your browser."
+msgstr ""
+
+#: templates/welcomeview.html:67
+msgid ""
+"That means you don't need to create an account to use Twine 2, and "
+"everything you create isn't stored on a server somewhere else &mdash; it "
+"stays right in your browser."
+msgstr ""
+
+#: templates/welcomeview.html:79
+msgid ""
+"Two <b>very important</b> things to remember, though. Since your work is "
+"saved only in your browser, if you clear its saved data, then you'll lose "
+"your work! Not good. Remember to use that <i class=\"fa "
+"fa-briefcase\"></i>&nbsp;<strong>Archive</strong> button often. You can "
+"also publish individual stories to files using the dropdown menu next to "
+"the <b><i class=\"fa fa-play\"></i>&nbsp;Play</b> button in the story "
+"editor. Both archive and story files can always be re-imported into Twine."
+msgstr ""
+
+#: templates/welcomeview.html:91
+msgid ""
+"Secondly, <b>anyone who can use this browser can see and make changes to "
+"your work</b>. So if you've got a nosy kid brother, look into setting up a "
+"separate profile for yourself."
+msgstr ""
+
+#: templates/welcomeview.html:105
+msgid "That's it!"
+msgstr ""
+
+#: templates/welcomeview.html:109
+msgid "Thanks for reading, and have fun with Twine."
+msgstr ""
+
+#: templates/welcomeview.html:113
+msgid "Go to the Story List"
+msgstr ""
+
+#: templates/welcomeviewnw.html:7
+msgid "Your work is automatically saved."
+msgstr ""
+
+#: templates/welcomeviewnw.html:15
+msgid ""
+"There's now a folder named Twine in your Documents folder. Inside that is a "
+"Stories folder, where all your work will be saved. Twine saves as you work, "
+"so you don't have to worry about remembering to save it yourself. You can "
+"always open the folder your stories are saved to by using the <b>Show "
+"Library</b> item in the <b>Twine</b> menu."
+msgstr ""
+
+#: templates/welcomeviewnw.html:24
+msgid ""
+"Because Twine is always saving your work, the files in your story library "
+"will be locked from editing while Twine is open."
+msgstr ""
+
+#: templates/welcomeviewnw.html:31
+msgid ""
+"If you'd like to open a Twine story file you received from someone else, "
+"you can import it into your library using the <i "
+"class=\"icon-upload-alt\"></i> <b>Import From File</b> link in the story "
+"list."
+msgstr ""

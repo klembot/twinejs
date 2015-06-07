@@ -5,7 +5,7 @@
 </button>
 
 <p class="title">
-<input type="text" class="passageName fillin" placeholder="Passage Name">
+<input type="text" class="passageName fillin" placeholder="<%= t('Passage Name') %>">
 </p>
 
 <div class="content">
@@ -16,11 +16,13 @@
 <p>
 <span class="tags"></span>
 
-<button class="showNewTag subtle" type="button"><i class="fa fa-plus"></i> Tag</button>
+<button class="showNewTag subtle" type="button"><i class="fa fa-plus"></i>
+<%= t('Tag') /* L10n: this is the noun form, as in tags you would apply to content. */ %>
+</button>
 </p>
 
 <form class="newTag hide">
-<input class="newTagName" type="text" placeholder="Tag name" required>
+<input class="newTagName" type="text" placeholder="<%= t('Tag name') /* L10n: A noun, i.e. what a tag is named. */ %>" required>
 <button type="button" class="hideNewTag link"><i class="fa fa-times"></i></button>
 <button type="submit" class="link"><i class="fa fa-check"></i></button>
 </form>
@@ -28,7 +30,7 @@
 </div> <!-- .passageTags -->
 
 <div class="fullEdit">
-<textarea class="passageText" placeholder="Enter the body text of your passage here. To link to another passage, put two square brackets around its name, [[like this]]."></textarea>
+<textarea class="passageText" placeholder="<%= t('Enter the body text of your passage here. To link to another passage, put two square brackets around its name, [[like this]].') %>"></textarea>
 </div> <!-- .fullEdit -->
 
 </div> <!-- .content -->

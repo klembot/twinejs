@@ -2,20 +2,19 @@
 
 <nav class="listControls">
 
-<h1 class="logo">Twine</h1>
+<h1 class="logo"><%= t('Twine') %></h1>
 
 <div class="bubbleContainer">
 <p>
-<button class="addStory create block" title="Create a brand-new story" data-bubble="toggle" data-bubble-dir="right" data-tooltip-dir="w">
-<i class="fa fa-plus"></i> Story
+<button class="addStory create block" title="<%= t('Create a brand-new story') %>" data-bubble="toggle" data-bubble-dir="right" data-tooltip-dir="w">
+<i class="fa fa-plus"></i> <%= t('Story') %>
 </button>
 </p>
 
 <div class="bubble left">
 <form id="addStoryForm">
 <p>
-What should your story be named?<br>
-(You can change this later.)
+<%= t("What should your story be named?<br>(You can change this later.)") %>
 </p>
 
 <p>
@@ -23,8 +22,8 @@ What should your story be named?<br>
 </p>
 
 <p class="dialogButtons">
-<button type="button" class="cancelAdd subtle" data-bubble="hide"><i class="fa fa-times"></i> Cancel</button>
-<button type="submit" class="add create"><i class="fa fa-plus"></i> Add</button>
+<button type="button" class="cancelAdd subtle" data-bubble="hide"><i class="fa fa-times"></i> <%= t('Cancel') %></button>
+<button type="submit" class="add create"><i class="fa fa-plus"></i> <%= t('Add') %></button>
 </p>
 </form>
 </div> <!-- .bubble -->
@@ -32,15 +31,15 @@ What should your story be named?<br>
 
 <div class="bubbleContainer">
 <p>
-<button class="importStory subtle block" title="Import a published story or Twine archive" data-bubble="toggle" data-bubble-dir="left" data-tooltip-dir="w">
-<i class="fa fa-upload"></i> Import From File
+<button class="importStory subtle block" title="<%= t('Import a published story or Twine archive') %>" data-bubble="toggle" data-bubble-dir="left" data-tooltip-dir="w">
+<i class="fa fa-upload"></i> <%= t('Import From File') %>
 </button>
 </p>
 
 <div class="bubble left">
 <div class="form">
 <p>
-Import this file:
+<%= t('Import this file:') %>
 </p>
 
 <p>
@@ -48,7 +47,7 @@ Import this file:
 </p>
 
 <p>
-<button class="subtle" data-bubble="hide"><i class="fa fa-times"></i> Cancel</button>
+<button class="subtle" data-bubble="hide"><i class="fa fa-times"></i> <%= t('Cancel') %></button>
 </p>
 </div>
 
@@ -57,7 +56,7 @@ Import this file:
 <i class="fa fa-2x fa-circle-o-notch fa-spin"></i>
 </p>
 <p>
-Importing...
+<%= t('Importing...') %>
 </p>
 </div>
 
@@ -65,20 +64,20 @@ Importing...
 </div> <!-- .bubbleContainer -->
 
 <p>
-<button class="saveArchive subtle" title="Save all stories to a Twine archive file" data-tooltip-dir="w">
-<i class="fa fa-briefcase"></i> Archive
+<button class="saveArchive subtle" title="<%= t('Save all stories to a Twine archive file') %>" data-tooltip-dir="w">
+<i class="fa fa-briefcase"></i> <%= t('Archive') %>
 </button>
 </p>
 
 <p>
-<button class="showFormats subtle" title="Work with story and proofing formats" data-tooltip-dir="w">
-<i class="fa fa-file-code-o"></i> Formats
+<button class="showFormats subtle" title="<%= t('Work with story and proofing formats') %>" data-tooltip-dir="w">
+<i class="fa fa-file-code-o"></i> <%= t('Formats') %>
 </button>
 </p>
 
 <p>
-<button class="showHelp subtle" title="Browse online help" data-tooltip-dir="w">
-<i class="fa fa-question-circle"></i> Help
+<button class="showHelp subtle" title="<%= t('Browse online help') %>" data-tooltip-dir="w">
+<i class="fa fa-question-circle"></i> <%= t('Help') %>
 </button>
 </p>
 
@@ -93,9 +92,9 @@ Importing...
 </p>
 
 <p>
-version <button class="link" data-modal-show="#aboutModal"><span class="app-version"></span></button>
+<%= t('version') %> <button class="link" data-modal-show="#aboutModal"><span class="app-version"></span></button>
 <br>
-<a href="https://bitbucket.org/klembot/twinejs/issues"><i class="fa fa-bug"></i> Report a bug</a>
+<a href="https://bitbucket.org/klembot/twinejs/issues"><i class="fa fa-bug"></i> <%= t('Report a bug') %></a>
 </p>
 </footer>
 
@@ -103,25 +102,25 @@ version <button class="link" data-modal-show="#aboutModal"><span class="app-vers
 
 <div class="main">
 
-<h1>Stories
+<h1><%= t('Stories') %>
 
 <span class="pull-right normal buttonGroup">
-Sort By
+<%= t('Sort By') %>
 
-<button class="sortByDate subtle active" title="Last changed date">
-Edit Date
+<button class="sortByDate subtle active" title="<%= t('Last changed date') %>">
+<%= t('Edit Date') %>
 </button>
 
-<button class="sortByName subtle" title="Story name">
-Name
+<button class="sortByName subtle" title="<%= t('Story name') %>">
+<%= t('Name') %>
 </button>
 </span>
 
 </h1>
 
 <p class="noStories">
-There are no stories saved in Twine right now. To get started, you can either create a new
-story or import an existing one from a file.
+<%= t('There are no stories saved in Twine right now. ' +
+      'To get started, you can either create a new story or import an existing one from a file.') %>
 </p>
 
 <div class="stories"></div>
