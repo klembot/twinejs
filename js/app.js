@@ -293,8 +293,8 @@ var TwineApp = Backbone.Marionette.Application.extend(
 			output += story.publish(null, null, true) + '\n\n';
 		});
 
-		// FIXME I18N
-		this.saveFile(output, new Date().toLocaleString().replace(/[\/:\\]/g, '.') + ' Twine Archive.html');
+		this.saveFile(output, new Date().toLocaleString().replace(/[\/:\\]/g, '.') + ' ' +
+		              window.app.say('Twine Archive.html'));
 	},
 	
 	/**
