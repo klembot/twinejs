@@ -348,10 +348,10 @@ gulp.task('buildpot', function (cb)
 	del.sync('locale/template.pot');
 
 	var templates = glob.sync('templates/**/*.html');
-	childProcess.execSync('jsxgettext -L ejs -k t ' + templates.join(' ') + ' -o locale/template.pot');
+	childProcess.execSync('jsxgettext -L ejs -k s,sp ' + templates.join(' ') + ' -o locale/template.pot');
 
 	var js = glob.sync('js/**/*.js');
-	childProcess.execSync('jsxgettext -j -L javascript -k window.app.translate ' + js.join(' ') + ' -o locale/template.pot');
+	childProcess.execSync('jsxgettext -j -L javascript -k say,sayPlural ' + js.join(' ') + ' -o locale/template.pot');
 	cb();
 });
 
