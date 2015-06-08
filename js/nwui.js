@@ -227,23 +227,38 @@ var nwui =
 		// if the user doesn't have a Documents folder,
 		// check for "My Documents" instead (thanks Windows)
 
-		// FIXME I18N
-
-		var docPath = homePath + '/Documents';
+		// L10n: This is the folder name on OS X, Linux, and recent versions of
+		// Windows that a user's documents are stored in, relative to the
+		// user's home directory. If you need to use a space in this name,
+		// then it should have two backslashes (\\) in front of it.
+		// Regardless, this must have a single forward slash (/) as its first
+		// character.
+		var docPath = homePath + window.app.say('/Documents');
 
 		if (! nwui.fs.existsSync(docPath))
 		{
-			if (nwui.fs.existsSync(homePath + '/My\\ Documents'))
-				docPath = homePath + '/My\\ Documents';
+			// L10n: This is the folder name on Windows XP that a user's
+			// documents are stored in, relative to the user's home directory.
+			// This is used if a folder with the name given by the translation
+			// key '/Documents' does not exist. If you need to use a space in
+			// this name, then it should have two backslashes (\\) in front of it.
+			// Regardless, this must have a single forward slash (/) as its first character.
+			if (nwui.fs.existsSync(homePath + window.app.say('/My\\ Documents')))
+				docPath = homePath + window.app.say('/My\\ Documents');
 			else
 				nwui.fs.mkdirSync(docPath);
 		};
 
-		nwui.filePath = docPath + '/Twine/Stories/';
+		// L10n: '/Twine' is a suitable name for Twine-related files to exist
+		// under on the user's hard drive. '/Stories' is a suitable name for
+		// story files specifically. If you need to use a space in this name,
+		// then it should have two backslashes in front of it. Regardless,
+		// this must have a single forward slash (/) as its first character.
+		nwui.filePath = docPath + window.app.say('/Twine') + window.app.say('/Stories');
 
 		if (! nwui.fs.existsSync(nwui.filePath))
 		{
-			var twinePath = docPath + '/Twine';
+			var twinePath = docPath + window.app.say('/Twine');
 
 			if (! nwui.fs.existsSync(twinePath))
 				nwui.fs.mkdirSync(twinePath);
