@@ -290,18 +290,18 @@ var nwui =
 		Story.prototype.initialize = function()
 		{
 			oldStoryInit.call(this);
-
-			this.on('change', _.debounce(function()
+			
+			this.on('change', _.throttle(function()
 			{
 				// if the only thing that is changing is last modified date,
 				// then skip it
-
-				if (! _.some(_.keys(this.changedAttributes), function (key)
+				
+				if (! _.some(_.keys(this.changedAttributes()), function (key)
 				{
 					return (key != 'lastUpdated');
 				}))
 					return;
-
+				
 				// if we aren't syncing changes or the story has no passages,
 				// give up early
 
