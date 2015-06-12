@@ -91,7 +91,7 @@ StoryEditView.Toolbar = Backbone.View.extend(
 
 		// L10n: An XDate format (http://arshaw.com/xdate/#Formatting) suitable
 		// for describing the date and time a story was last edited.
-		var dateFormatted = date.format(window.app.say('d MMMM yyyy, h:mm tt'));
+		var dateFormatted = date.toString(window.app.say('d MMMM yyyy, h:mm tt'));
 
 		// L10n: This refers to when a story was last saved by the user
 		// %s will be replaced with a date and time
