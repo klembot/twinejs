@@ -82,7 +82,7 @@ StoryEditView.StoryFormatModal = Backbone.View.extend(
 						// so that image URLs, for example, are correct
 
 						var path = format.get('url').replace(/\/[^\/]*?$/, '');
-						var fullContent = _.extend(format.properties, { path: path });
+						var fullContent = _.extend(format.properties, { path: path }, window.app.templateProperties);
 						var content = $(this.itemTemplate(fullContent));
 
 						this.$('.formats').append(content);
