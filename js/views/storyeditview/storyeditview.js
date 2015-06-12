@@ -560,7 +560,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 	syncName: function()
 	{
-		document.title = 'Editing \u201c' + this.model.get('name') + '\u201d';
+		document.title = window.app.say('Editing \u201c%s\u201d', this.model.get('name'));
 	},
 
 	updateSaved: function()

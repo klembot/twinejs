@@ -468,14 +468,24 @@ window.app.addInitializer(function ()
 
 	// add i18n hook to Marionette's rendering
 
-	var boundSay = this.say.bind(this);
-	var boundSayPlural = this.sayPlural.bind(this);
+	/**
+	 Properties that are always passed to templates.
+	 Right now, this is only used for 18n -- s() is a shorthand for TwineApp.say()
+	 and sp() is a shorthand for TwineApp.sayPlural().
+
+	 @property templateProperties
+	**/
+
+	this.templateProperties =
+	{
+		s: this.say.bind(this),
+		sp: this.sayPlural.bind(this)
+	};
 
 	Backbone.Marionette.Renderer.render = function (template, data)
 	{
 		template = Marionette.TemplateCache.get(template);
-		data.s = boundSay;
-		data.sp = boundSayPlural;
+		data = _.extend(data, window.app.templateProperties);
 
 		if (typeof(template) == 'function')
 			return template(data);	
