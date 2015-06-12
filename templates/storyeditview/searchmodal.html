@@ -18,10 +18,16 @@
 <label for="searchNames"><%= s('Include passage names') %></label>
 
 <input type="checkbox" id="searchCaseSensitive">
-<label for="searchCaseSensitive"><%= s('Match case') /* L10n: As in uppercase or lowercase letters. */ %></label>
+<label for="searchCaseSensitive"><%=
+/* L10n: As in uppercase or lowercase letters. */ 
+s('Match case')
+%></label>
 
 <input type="checkbox" id="searchRegexp">
-<label for="searchRegexp"><%= s('Regular expression') /* L10n: A technical term, see https://en.wikipedia.org/wiki/Regular_expression. */ %></label>
+<label for="searchRegexp"><%=
+/* L10n: A technical term, see https://en.wikipedia.org/wiki/Regular_expression. */
+s('Regular expression')
+%></label>
 </p>
 
 <p>
@@ -44,8 +50,7 @@
 </button>
 </span>
 
-<!-- FIXME I18N -->
-<span class="matches"><span class="matchCount"></span> passages match.</span>
+<span class="matches"></span>
 </p>
 
 <p class="loading hide">
