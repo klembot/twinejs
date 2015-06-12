@@ -6,8 +6,7 @@
 
 <div class="bubbleContainer inline">
 
-<!-- FIXME I18N -->
-<button class="storyName subtle" data-bubble="toggle" data-tooltip-dir="ne" data-datetext="Last saved at %" data-dateformat="h:mm tt, d MMMM yyyy">
+<button class="storyName subtle" data-bubble="toggle" data-tooltip-dir="ne">
 <span class="storyNameVal"><%- name %></span>
 <i class="fa fa-caret-up fa-lg"></i>
 </button>
@@ -80,11 +79,17 @@
 </span>
 
 <button class="testStory subtle" title="<%= s('Play this story in test mode') %>" data-tooltip-dir="n">
-<i class="fa fa-bug fa-lg"></i> <%= s('Test') %>
+<i class="fa fa-bug fa-lg"></i> <%=
+// L10n: The verb form, to try something or to check it for problems.
+s('Test')
+%>
 </button>
 
 <button class="playStory subtle" title="<%= s('Play this story') %>" data-tooltip-dir="n">
-<i class="fa fa-play fa-lg"></i> <%= s('Play') %>
+<i class="fa fa-play fa-lg"></i> <%=
+// L10n: The verb form, as in playing a game.
+s('Play')
+%>
 </button>
 
 <button class="addPassage create" title="<%= s('Add a new passage') %>" data-tooltip-dir="nw">

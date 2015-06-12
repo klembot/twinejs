@@ -116,10 +116,12 @@ var StoryEditView = Marionette.CompositeView.extend(
 					default:
 
 					// set count appropriately
-					// FIXME I18N
 
-					var message = 'Are you sure you want to delete these ' +
-					              selected.length + ' passages? This cannot be undone.';
+					// L10n: This message is always shown with more than one passage.
+					// %d is the number of passages.
+					var message = window.app.sayPlural('Are you sure you want to delete this passage?',
+					                                   'Are you sure you want to delete these %d' +
+					                                   'passages? This cannot be undone.', selected.length);
 
 					ui.confirm(message, '<i class="fa fa-trash-o"></i> ' + window.app.say('Delete'),
 					           this.deleteSelectedPassages.bind(this),
@@ -263,7 +265,8 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 		if (Passage.withId(this.model.get('startPassage')) === undefined)
 		{
-			ui.notify(window.app.say('This story does not have a starting point. Use the <i class="fa fa-rocket"></i> icon on a passage to set this.'), 'danger');
+			ui.notify(window.app.say('This story does not have a starting point. ' +
+			'Use the <i class="fa fa-rocket"></i> icon on a passage to set this.'), 'danger');
 			return;
 		};
 

@@ -21,7 +21,10 @@ else
 
 <%
 if (typeof author == 'string')
-	print('<br> ' + s('by %s', author)); /* L10n: %s is the name of an author. */
+{
+	/* L10n: %s is the name of an author. */
+	print('<br> ' + s('by %s', author)); 
+};
 %>
 
 </h3>
@@ -31,7 +34,10 @@ if (typeof author == 'string')
 
 <%
 if (typeof license == 'string')
-	print('<p>' + s('License: %s', license) + '</p>'); /* L10n: %s is the name of a software license. */
+{
+	/* L10n: %s is the name of a software license. */
+	print('<p>' + s('License: %s', license) + '</p>');
+};
 %>
 
 </div>

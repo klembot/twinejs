@@ -8,7 +8,10 @@
 <i class="fa fa-plus-square-o showCollapsed"></i>
 <i class="fa fa-minus-square-o showRevealed"></i>
 <%= passageName %> <!-- it's the view's responsibility to escape this -->
-(<%- numMatches %> matches) <!-- FIXME I18N --></a>
+(<%=
+/* L10n: %d is a number of text matches after a search. %/
+sp('%d match', '%d matches')
+%>)
 </button>
 
 <span class="controls hover">

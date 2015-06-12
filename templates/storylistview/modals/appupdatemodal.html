@@ -13,7 +13,10 @@ s('A new version of Twine, <span class="version"></span>, has been released.')
 
 <p class="buttons">
 <button class="subtle cancel" data-modal-hide="this"><i class="fa fa-times"></i>
-<%= s('Not Right Now') /* L10n: A polite rejection of a request, in the sense that the answer may change in the future. */ %>
+<%=
+/* L10n: A polite rejection of a request, in the sense that the answer may change in the future. */
+s('Not Right Now')
+%>
 </button>
 <a href="#stories" class="button download" target="_blank"><i class="fa fa-download"></i> <%= s('Download') %></a>
 </p>

@@ -345,13 +345,18 @@ gulp.task('package', ['package:web', 'package:win32', 'package:win64', 'package:
 
 gulp.task('buildpot', function (cb)
 {
-	del.sync('locale/template.pot');
+	del.sync('locale/po/template.pot');
+
+	// we use PHP mode with Underscore templates because it's used to parsing
+	// HTML sludge for nuggets of code :)
 
 	var templates = glob.sync('templates/**/*.html');
-	childProcess.execSync('jsxgettext -L ejs -k s,sp ' + templates.join(' ') + ' -o locale/template.pot');
+	childProcess.execSync('xgettext -L PHP -ks -ksp:1,2 -cL10n ' +
+	                      '-o locale/po/template.pot ' + templates.join(' '));
 
 	var js = glob.sync('js/**/*.js');
-	childProcess.execSync('jsxgettext -j -L javascript -k say,sayPlural ' + js.join(' ') + ' -o locale/template.pot');
+	childProcess.execSync('xgettext -j -L JavaScript -ksay -ksayPlural:1,2 -cL10n ' +
+	                      '-o locale/po/template.pot ' + js.join(' '));
 	cb();
 });
 

@@ -135,19 +135,12 @@ var TwineApp = Backbone.Marionette.Application.extend(
 	
 	sayPlural: function (sourceSingular, sourcePlural, count)
 	{
-		if (arguments.length == 3)
-			return this.i18n.ngettext(sourceSingular, sourcePlural, count);
-		else
-		{
-			// interpolation required
+		var sprintfArgs = [this.i18n.ngettext(sourceSingular, sourcePlural, count), count];
 
-			var sprintfArgs = [this.i18n.gettext(sourceSingular, sourcePlural, count), count];
-
-			for (var i = 2; i < arguments.length; i++)
-				sprintfArgs.push(arguments[i]);
-
-			return this.i18n.sprintf.apply(this.i18n.sprintf, sprintfArgs);
-		};
+		for (var i = 3; i < arguments.length; i++)
+			sprintfArgs.push(arguments[i]);
+			
+		return this.i18n.sprintf.apply(this.i18n.sprintf, sprintfArgs);
 	},
 
 	/**
