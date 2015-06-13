@@ -72,17 +72,17 @@ StoryEditView.SearchModal = Backbone.View.extend(
 				// to escape things correctly for the preview
 
 				var preview = _.escape(view.model.get('text').replace(searchTerm, '\u3000$1\u3001'));
-				preview = preview.replace('\u3000', '<span class="highlight">');
-				preview = preview.replace('\u3001', '</span>');
+				preview = preview.replace(/\u3000/g, '<span class="highlight">');
+				preview = preview.replace(/\u3001/g, '</span>', 'g');
 
-				resultHtml += this.resultTemplate(
+				resultHtml += this.resultTemplate(_.extend(
 				{
 					passageId: view.model.cid,
 					passageName: name,
 					numMatches: numMatches,
 					resultNumber: passagesMatched,
 					searchPreview: preview
-				});
+				}, window.app.templateProperties));
 			};
 		}.bind(this));
 
@@ -91,8 +91,8 @@ StoryEditView.SearchModal = Backbone.View.extend(
 		if (resultHtml != '')
 		{
 			// L10n: Matched in the sense of matching a search criteria. %d is the number of passages.
-			this.$('.matchCount').text(window.app.sayPlural('%d passage matches.',
-			                                                '%d passages match.', passagesMatched));
+			this.$('.matches').text(window.app.sayPlural('%d passage matches.',
+			                                             '%d passages match.', passagesMatched));
 			this.$('.resultSummary').show();
 			this.$('.results').html(resultHtml);
 		}
