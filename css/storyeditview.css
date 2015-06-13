@@ -464,7 +464,7 @@ body.iOS .editModal
 
 #searchModal pre
 {
-	font: 100% Cousine, monospace;
+	font: 90% "Source Code Pro", monospace;
 	white-space: pre-wrap;
 	max-height: 5em;
 	overflow: auto;
