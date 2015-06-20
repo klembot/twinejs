@@ -66,7 +66,7 @@
 
 #storyEditView .toolbar.main .storyName
 {
-	min-width: 8em;
+	min-width: 10em;
 	max-width: 18em;
 	overflow: hidden;
 	text-overflow: ellipsis;
