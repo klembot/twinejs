@@ -47,6 +47,10 @@ var TwineApp = Backbone.Marionette.Application.extend(
 
 		this.locale = locale;
 
+		// set locale in MomentJS
+
+		moment.locale(locale);
+
 		if (locale != 'en-us')
 		{
 			$.ajax({

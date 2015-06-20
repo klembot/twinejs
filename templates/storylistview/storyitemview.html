@@ -10,11 +10,7 @@
 </h2>
 
 <p class="changeDate">
-<%-
-/* L10n: An XDate format (http://arshaw.com/xdate/#Formatting) suitable
-         for describing the date and time a story was last edited. */
-new XDate(lastUpdate).toString(s('d MMMM yyyy, h:mm tt'))
-%>
+<%- moment(lastUpdate).format('lll') %>
 </p>
 </div>
 

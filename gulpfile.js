@@ -10,6 +10,7 @@ var jshint = require('gulp-jshint');
 var jshintStylish = require('jshint-stylish');
 var minifyHtml = require('gulp-minify-html');
 var minifyCss = require('gulp-minify-css');
+var moment = require('./lib/moment.js');
 var nwBuilder = require('node-webkit-builder');
 var plumber = require('gulp-plumber');
 var po2json = require('gulp-po2json');
@@ -18,13 +19,12 @@ var replace = require('gulp-replace');
 var runSequence = require('run-sequence');
 var uglify = require('gulp-uglify');
 var usemin = require('gulp-usemin');
-var XDate = require('./lib/xdate.js');
 var yuidoc = require('gulp-yuidoc');
 
-// the timestamp format (as passed to XDate)
+// the timestamp format (as passed to MomentJS)
 // for build numbers
 
-var TIMESTAMP_FORMAT = 'yyyyMMddHHmm';
+var TIMESTAMP_FORMAT = 'YYYYMMDDHHmm';
 
 // The directory releases will appear in.
 // This gets changed by the release:cdn task.
@@ -51,6 +51,7 @@ var JSHINT_OPTS =
 		// Libraries
 		$: true,
 		_: true,
+		moment: true,
 		Backbone: true,
 		FastClick: true,
 		Jed: true,
@@ -133,7 +134,7 @@ gulp.task('bake', function()
 	return gulp.src('./app.html')
 	       .pipe(plumber())
 	       .pipe(include())
-	       .pipe(replace('{{build_number}}', new XDate().toString(TIMESTAMP_FORMAT)))
+	       .pipe(replace('{{build_number}}', moment().format(TIMESTAMP_FORMAT)))
 	       .pipe(rename('index.html'))
 	       .pipe(gulp.dest('./'))
 		   .pipe(gulp.dest(buildDir));
@@ -250,7 +251,7 @@ gulp.task('release:version', function (cb)
 {
 	var props =
 	{
-		buildNumber: new XDate().toString(TIMESTAMP_FORMAT),
+		buildNumber: moment().format(TIMESTAMP_FORMAT),
 		version: twinePackage.version,
 		url: 'http://twinery.org'
 	};
