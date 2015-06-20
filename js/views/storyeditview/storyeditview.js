@@ -120,8 +120,8 @@ var StoryEditView = Marionette.CompositeView.extend(
 					// L10n: This message is always shown with more than one passage.
 					// %d is the number of passages.
 					var message = window.app.sayPlural('Are you sure you want to delete this passage?',
-					                                   'Are you sure you want to delete these %d' +
-					                                   'passages? This cannot be undone.', selected.length);
+					                                   'Are you sure you want to delete these %d passages? This cannot be undone.',
+													   selected.length);
 
 					ui.confirm(message, '<i class="fa fa-trash-o"></i> ' + window.app.say('Delete'),
 					           this.deleteSelectedPassages.bind(this),

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-11 00:18-0400\n"
+"POT-Creation-Date: 2015-06-19 23:44-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -137,48 +137,51 @@ msgstr ""
 msgid "Searching..."
 msgstr ""
 
-#. L10n: %d is a number of text matches after a search. %/
-#. sp('%d match', '%d matches')
-#. %>)
-#. </button>
-#.
-#. <span class="controls hover">
-#.
-#. <!--button class="link showPassage" title="Show this passage in the story map"><i class="fa fa-search fa-fw"></i>
-#. Show in Story Map</button-->
-#.
-#. <button class="link danger replacePassage" title="<%= s('Replace in this passage') %>"><i class="fa fa-bolt fa-fw"></i>
-#. <%= s('Replace in Passage') %></button>
-#.
-#. </span>
-#.
-#. </p>
-#.
-#. <pre id="searchResult<%- resultNumber %>" class="collapse passageBody"><%= searchPreview %></pre>
-#.
-#. </div> <!-- .hoverContainer -->
+#. L10n: %d is a number of text matches after a search.
+#: templates/storyeditview/searchmodalresult.html:13
+#, php-format
+msgid "%d match"
+msgid_plural "%d matches"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/storyeditview/searchmodalresult.html:22
+msgid "Replace in this passage"
+msgstr ""
+
+#: templates/storyeditview/searchmodalresult.html:23
+msgid "Replace in Passage"
+msgstr ""
+
 #: templates/storyeditview/statsmodal.html:8
 #: templates/storyeditview/toolbar.html:39
 msgid "Story Statistics"
 msgstr ""
 
-#. L10n: %s is the IFID of the story. Please keep the <span> element around it.
-#: templates/storyeditview/statsmodal.html:43
+#: templates/storyeditview/statsmodal.html:38
 #, php-format
-msgid "The IFID for this story is <span class=\"ifid\">%s</span>. "
+msgid "This story was last changed at %s"
 msgstr ""
 
-#: templates/storyeditview/storyformatmodal.html:5
+#. L10n: %s is the IFID of the story. Please keep the <span> element around it.
+#: templates/storyeditview/statsmodal.html:45
+#, php-format
+msgid ""
+"The IFID for this story is <span class=\"ifid\">%s</span>. <a href=\"http://"
+"ifdb.tads.org/help-ifid\" target=\"_blank\">What's an IFID?</a>)"
+msgstr ""
+
+#: templates/storyeditview/storyformatmodal.html:7
 msgid "Story Format"
 msgstr ""
 
-#: templates/storyeditview/storyformatmodal.html:10
+#: templates/storyeditview/storyformatmodal.html:12
 msgid ""
 "A story format controls the appearance and behavior of your story during "
 "play."
 msgstr ""
 
-#: templates/storyeditview/storyformatmodal.html:14
+#: templates/storyeditview/storyformatmodal.html:16
 #: templates/storylistview/modals/formatsmodal.html:58
 msgid "Loading..."
 msgstr ""
@@ -265,7 +268,7 @@ msgstr ""
 
 #. L10n: This does not actually show the count here, as it is used in a table.
 #: templates/storyeditview/toolbar.html:96
-#: js/views/storyeditview/modals/statsmodal.js:79
+#: js/views/storyeditview/modals/statsmodal.js:75
 msgid "Passage"
 msgid_plural "Passages"
 msgstr[0] ""
@@ -334,11 +337,11 @@ msgstr ""
 msgid "Libraries"
 msgstr ""
 
-#: templates/storylistview/modals/aboutmodal.html:73
+#: templates/storylistview/modals/aboutmodal.html:74
 msgid "Fonts"
 msgstr ""
 
-#: templates/storylistview/modals/aboutmodal.html:77
+#: templates/storylistview/modals/aboutmodal.html:78
 msgid ""
 "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the "
 "guidance of Robert Slimbach for <a href=\"http://adobe.com/\">Adobe</a><br> "
@@ -346,19 +349,19 @@ msgid ""
 "Adams</a>"
 msgstr ""
 
-#: templates/storylistview/modals/aboutmodal.html:81
+#: templates/storylistview/modals/aboutmodal.html:82
 msgid "Icons"
 msgstr ""
 
-#: templates/storylistview/modals/aboutmodal.html:86
+#: templates/storylistview/modals/aboutmodal.html:87
 msgid "Document designed by Rob Gill from the Noun Project"
 msgstr ""
 
-#: templates/storylistview/modals/aboutmodal.html:87
+#: templates/storylistview/modals/aboutmodal.html:88
 msgid "Question designed by Henry Ryder from the Noun Project"
 msgstr ""
 
-#: templates/storylistview/modals/aboutmodal.html:88
+#: templates/storylistview/modals/aboutmodal.html:89
 msgid "Smile designed by jelio dimitrov from the Noun Project"
 msgstr ""
 
@@ -547,7 +550,9 @@ msgid "Name"
 msgstr ""
 
 #: templates/storylistview/storylistview.html:122
-msgid "There are no stories saved in Twine right now. "
+msgid ""
+"There are no stories saved in Twine right now. To get started, you can "
+"either create a new story or import an existing one from a file."
 msgstr ""
 
 #: templates/welcomeview.html:6
@@ -557,69 +562,88 @@ msgstr ""
 #: templates/welcomeview.html:10
 msgid ""
 "Twine is an open-source tool for telling interactive, nonlinear stories. "
+"There are a few things you should know before you get started."
 msgstr ""
 
-#: templates/welcomeview.html:15
+#: templates/welcomeview.html:14
 msgid "Tell Me More"
 msgstr ""
 
-#: templates/welcomeview.html:16
+#: templates/welcomeview.html:15
 msgid "Skip"
 msgstr ""
 
-#: templates/welcomeview.html:24
+#: templates/welcomeview.html:23
 msgid "New here?"
 msgstr ""
 
-#: templates/welcomeview.html:28
-msgid "<strong>If you've never used Twine before,</strong> then welcome! "
+#: templates/welcomeview.html:27
+msgid ""
+"<strong>If you've never used Twine before,</strong> then welcome! The <a "
+"href=\"http://twinery.org/2guide\" target=\"_blank\">Twine 2 Guide</a> and "
+"the official wiki in general, are a great place to learn. Keep in mind that "
+"some articles on the wiki at large were written for Twine 1, which is a "
+"little bit different than this version. But most of the concepts are the "
+"same."
 msgstr ""
 
-#: templates/welcomeview.html:36
+#: templates/welcomeview.html:31
 msgid ""
 "You can also get help over at the <a href=\"http://twinery.org/forum\" "
 "target=\"_blank\">Twine forum</a>, too."
 msgstr ""
 
-#: templates/welcomeview.html:40
+#: templates/welcomeview.html:35
 msgid ""
 "<strong>If you have used Twine 1 before,</strong> the guide also has details "
-"on what has changed in this version. "
+"on what has changed in this version. Chief among them is a new default story "
+"format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, "
+"try using SugarCube instead."
 msgstr ""
 
-#: templates/welcomeview.html:46 templates/welcomeview.html:78
+#: templates/welcomeview.html:39 templates/welcomeview.html:63
 #: templates/welcomeviewnw.html:23
 msgid "OK"
 msgstr ""
 
-#: templates/welcomeview.html:54
+#: templates/welcomeview.html:47
 msgid "Your work is saved only in your browser."
 msgstr ""
 
-#: templates/welcomeview.html:58
-msgid "That means you don't need to create an account to use Twine 2, "
+#: templates/welcomeview.html:51
+msgid ""
+"That means you don't need to create an account to use Twine 2, and "
+"everything you create isn't stored on a server somewhere else &mdash; it "
+"stays right in your browser."
 msgstr ""
 
-#: templates/welcomeview.html:64
-msgid "Two <b>very important</b> things to remember, though. "
+#: templates/welcomeview.html:55
+msgid ""
+"Two <b>very important</b> things to remember, though. Since your work is "
+"saved only in your browser, if you clear its saved data, then you'll lose "
+"your work! Not good. Remember to use that <i class=\"fa fa-briefcase\"></"
+"i>&nbsp;<strong>Archive</strong> button often. You can also publish "
+"individual stories to files using the dropdown menu next to the <b><i class="
+"\"fa fa-play\"></i>&nbsp;Play</b> button in the story editor. Both archive "
+"and story files can always be re-imported into Twine."
 msgstr ""
 
-#: templates/welcomeview.html:74
+#: templates/welcomeview.html:59
 msgid ""
 "Secondly, <b>anyone who can use this browser can see and make changes to "
 "your work</b>. So if you've got a nosy kid brother, look into setting up a "
 "separate profile for yourself."
 msgstr ""
 
-#: templates/welcomeview.html:86
+#: templates/welcomeview.html:71
 msgid "That's it!"
 msgstr ""
 
-#: templates/welcomeview.html:90
+#: templates/welcomeview.html:75
 msgid "Thanks for reading, and have fun with Twine."
 msgstr ""
 
-#: templates/welcomeview.html:94
+#: templates/welcomeview.html:79
 msgid "Go to the Story List"
 msgstr ""
 
@@ -650,17 +674,17 @@ msgid ""
 msgstr ""
 
 #. L10n: %1$s is a filename; %2$s is the error message.
-#: js/app.js:209
+#: js/app.js:202
 msgid "&ldquo;%1$s&rdquo; could not be saved (%2$s)."
 msgstr ""
 
 #. L10n: %s is the error message.
-#: js/app.js:266
+#: js/app.js:259
 #, javascript-format
 msgid "An error occurred while publishing your story. (%s)"
 msgstr ""
 
-#: js/app.js:297
+#: js/app.js:290
 msgid "Twine Archive.html"
 msgstr ""
 
@@ -797,6 +821,7 @@ msgid "An error occurred while unlocking your library (%s)."
 msgstr ""
 
 #: js/views/storyeditview/editors/passageeditor.js:120
+#: js/views/storyeditview/storyeditview.js:563
 #, javascript-format
 msgid "Editing “%s”"
 msgstr ""
@@ -840,13 +865,9 @@ msgstr[1] ""
 msgid "%1$s %2$s"
 msgstr ""
 
-#: js/views/storyeditview/modals/statsmodal.js:27
-msgid "h:mm tt, d MMMM yyyy"
-msgstr ""
-
 #. L10n: Character in the sense of individual letters in a word.
 #. This does not actually show the count here, as it is used in a table.
-#: js/views/storyeditview/modals/statsmodal.js:72
+#: js/views/storyeditview/modals/statsmodal.js:68
 msgid "Character"
 msgid_plural "Characters"
 msgstr[0] ""
@@ -854,7 +875,7 @@ msgstr[1] ""
 
 #. L10n: Word in the sense of individual words in a sentence.
 #. This does not actually show the count here, as it is used in a table.
-#: js/views/storyeditview/modals/statsmodal.js:76
+#: js/views/storyeditview/modals/statsmodal.js:72
 msgid "Word"
 msgid_plural "Words"
 msgstr[0] ""
@@ -862,7 +883,7 @@ msgstr[1] ""
 
 #. L10n: Links in the sense of hypertext links.
 #. This does not actually show the count here, as it is used in a table.
-#: js/views/storyeditview/modals/statsmodal.js:83
+#: js/views/storyeditview/modals/statsmodal.js:79
 msgid "Link"
 msgid_plural "Links"
 msgstr[0] ""
@@ -870,7 +891,7 @@ msgstr[1] ""
 
 #. L10n: Links in the sense of hypertext links.
 #. This does not actually show the count here, as it is used in a table.
-#: js/views/storyeditview/modals/statsmodal.js:87
+#: js/views/storyeditview/modals/statsmodal.js:83
 msgid "Broken Link"
 msgid_plural "Broken Links"
 msgstr[0] ""
@@ -878,12 +899,11 @@ msgstr[1] ""
 
 #. L10n: %1$s is the name of the story format, %2$s is the error message.
 #: js/views/storyeditview/modals/storyformatmodal.js:96
-#: js/views/storylistview/modals/formatsmodal.js:72
+#: js/views/storylistview/modals/formatsmodal.js:74
 msgid "The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s)."
 msgstr ""
 
 #: js/views/storyeditview/passageitemview.js:165
-#: js/views/storylistview/storyitemview.js:123
 #, javascript-format
 msgid "Are you sure you want to delete &ldquo;%s&rdquo;? "
 msgstr ""
@@ -898,6 +918,16 @@ msgstr ""
 #, javascript-format
 msgid "A problem occurred while saving your changes (%s)."
 msgstr ""
+
+#. L10n: This message is always shown with more than one passage.
+#. %d is the number of passages.
+#: js/views/storyeditview/storyeditview.js:122
+#, javascript-format
+msgid "Are you sure you want to delete this passage?"
+msgid_plural ""
+"Are you sure you want to delete these %d passages? This cannot be undone."
+msgstr[0] ""
+msgstr[1] ""
 
 #: js/views/storyeditview/storyeditview.js:268
 msgid "This story does not have a starting point. "
@@ -938,8 +968,15 @@ msgstr ""
 msgid "Last updated at %s"
 msgstr ""
 
-#: js/views/storylistview/modals/formatsmodal.js:135
+#: js/views/storylistview/modals/formatsmodal.js:137
 msgid "The story format at %1$s could not be added (%2$s)."
+msgstr ""
+
+#: js/views/storylistview/storagequota.js:21
+#: js/views/storylistview/storagequota.js:44
+#: js/views/storylistview/storagequota.js:49
+#, javascript-format
+msgid "%d%% space available"
 msgstr ""
 
 #: js/views/storylistview/storyitemview.js:80
@@ -947,6 +984,12 @@ msgstr ""
 msgid ""
 "This story does not have a starting point. Edit this story and use the <i "
 "class=\"fa fa-rocket\"></i> icon on a passage to set this."
+msgstr ""
+
+#: js/views/storylistview/storyitemview.js:123
+#, javascript-format
+msgid ""
+"Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone."
 msgstr ""
 
 #: js/views/storylistview/storyitemview.js:125
