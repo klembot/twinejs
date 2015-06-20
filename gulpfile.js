@@ -39,7 +39,55 @@ var CDN_LINKS =
 	 '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css'],
 
 	['lib/jquery/jquery.js',
-	 '//code.jquery.com/jquery-2.1.4.min.js']
+	 '//code.jquery.com/jquery-2.1.4.min.js'],
+	
+	['lib/jquery/jquery.powertip.js',
+	 '//cdnjs.cloudflare.com/ajax/libs/jquery-powertip/1.2.0/jquery.powertip.min.js'],
+
+	['lib/underscore.js',
+	 '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js'],
+
+	['lib/backbone/backbone.js',
+	 '//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min.js'],
+
+	['lib/backbone/backbone.localstorage.js',
+	 '//cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.16/backbone.localStorage-min.js'],
+
+	['lib/backbone/backbone.marionette.js',
+	 '//cdnjs.cloudflare.com/ajax/libs/backbone.marionette/2.4.2/backbone.marionette.min.js'],
+
+	['lib/codemirror/js/codemirror.js',
+	 '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js'],
+	
+	['lib/codemirror/js/addon/display/placeholder.js',
+	 '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/addon/display/placeholder.min.js'],
+
+	['lib/codemirror/js/addon/hint/show-hint.js',
+	 '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/addon/hint/show-hint.css'],
+	
+	['lib/codemirror/js/addon/hint/css-hint.js',
+	 '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/addon/hint/css-hint.min.js'],
+	
+	['lib/codemirror/js/addon/hint/javascript-hint.js',
+	 '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/addon/hint/javascript-hint.min.js'],
+	
+	['lib/codemirror/js/mode/css/css.js',
+	 '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/css/css.min.js'],
+
+	['lib/codemirror/js/mode/javascript/javascript.js',
+	 '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/javascript/javascript.min.js'],
+
+	['lib/fastclick.js',
+	 '//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js'],
+	
+	['lib/jszip.js',
+	 '//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js'],
+	
+	['lib/moment.js',
+	 '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment-with-locales.min.js'],
+	
+	['lib/svg.js',
+	 '//cdnjs.cloudflare.com/ajax/libs/svg.js/2.0.0/svg.min.js']
 ];
 
 // Options passed to jshint
@@ -143,7 +191,7 @@ gulp.task('bake', function()
 gulp.task('injectcdn', ['bake'], function()
 {
 	var p = gulp.src('./index.html')
-	        .pipe(replace(/build:(css|js)_cdn/g, 'build:disabled'))
+	        .pipe(replace(/build:(css|js)_cdn/g, 'nobuild:disabled'))
 		    .pipe(rename('index.html'))
 
 	for (var i = 0; i < CDN_LINKS.length; i++)
@@ -153,6 +201,27 @@ gulp.task('injectcdn', ['bake'], function()
 });
 
 gulp.task('usemin', ['bake'], function()
+{
+	del.sync(buildDir + '/rsrc/js/**');
+	del.sync(buildDir + '/rsrc/css/**');
+
+	return gulp.src('./index.html')
+	       .pipe(plumber())
+		   .pipe(replace('"img/favicon.ico"', '"rsrc/img/favicon.ico"'))
+	       .pipe(usemin({
+		   	css: [minifyCss(), 'concat'],
+			css_cdn: [minifyCss(), 'concat'],
+			html: [minifyHtml({ empty: true })],
+			js: [uglify()],
+			js_cdn: [uglify()],
+		   }))
+		   .pipe(gulp.dest(buildDir));
+});
+
+// identical to task above, but without bake dependency
+// so we can remove build instructions for CDN'd resources first
+
+gulp.task('usemin:nobake', function()
 {
 	del.sync(buildDir + '/rsrc/js/**');
 	del.sync(buildDir + '/rsrc/css/**');
@@ -268,7 +337,7 @@ gulp.task('release:web', ['release:version'], function (cb)
 gulp.task('release:web-cdn', ['release:version'], function (cb)
 {
 	buildDir = 'dist/web-cdn';
-	runSequence('bake', 'injectcdn', 'usemin', 'copy', cb);
+	runSequence('bake', 'injectcdn', 'usemin:nobake', 'copy', cb);
 });
 
 gulp.task('release:nw', ['release:version', 'release:web'], function (cb)
