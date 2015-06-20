@@ -36,7 +36,7 @@ var buildDir = 'dist/web';
 var CDN_LINKS =
 [
 	['lib/fontawesome/css/font-awesome.css',
-	 '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css'],
+	 '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'],
 
 	['lib/jquery/jquery.js',
 	 '//code.jquery.com/jquery-2.1.4.min.js'],
@@ -63,7 +63,7 @@ var CDN_LINKS =
 	 '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/addon/display/placeholder.min.js'],
 
 	['lib/codemirror/js/addon/hint/show-hint.js',
-	 '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/addon/hint/show-hint.css'],
+	 '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/addon/hint/show-hint.js'],
 	
 	['lib/codemirror/js/addon/hint/css-hint.js',
 	 '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/addon/hint/css-hint.min.js'],
@@ -87,7 +87,7 @@ var CDN_LINKS =
 	 '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment-with-locales.min.js'],
 	
 	['lib/svg.js',
-	 '//cdnjs.cloudflare.com/ajax/libs/svg.js/2.0.0/svg.min.js']
+	 '//cdnjs.cloudflare.com/ajax/libs/svg.js/1.0.1/svg.min.js']
 ];
 
 // Options passed to jshint
