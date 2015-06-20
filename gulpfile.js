@@ -347,8 +347,9 @@ gulp.task('buildpot', function (cb)
 {
 	del.sync('locale/po/template.pot');
 
-	// we use PHP mode with Underscore templates because it's used to parsing
-	// HTML sludge for nuggets of code :)
+	// we use PHP mode with Underscore templates since it seems to be OK
+	// with random HTML interspersed everywhere :)
+	// only downside is we cannot use string concatenation
 
 	var templates = glob.sync('templates/**/*.html');
 	childProcess.execSync('xgettext -L PHP -ks -ksp:1,2 -cL10n ' +

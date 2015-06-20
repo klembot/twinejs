@@ -120,8 +120,8 @@ var StoryItemView = Marionette.ItemView.extend(
 
 	confirmDelete: function()
 	{
-		window.ui.confirm(window.app.say("Are you sure you want to delete &ldquo;%s&rdquo;? " +
-		                                       "This cannot be undone.", this.model.get('name')),
+		window.ui.confirm(window.app.say("Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone.",
+		                  this.model.get('name')),
 		                  '<i class="fa fa-trash-o"></i> ' + window.app.say('Delete Forever'),
 						  this.delete.bind(this), { buttonClass: 'danger' });
 	},
