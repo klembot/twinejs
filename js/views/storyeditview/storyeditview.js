@@ -570,7 +570,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 			$(this).removeClass('active fadeOut');	
 		});	
 
-		this.$('.storyName').attr('title', window.app.say('Last saved at') + new XDate().toString(window.app.say('h:mm TT, M/d/yyyy')));
+		this.$('.storyName').attr('title', window.app.say('Last saved at %s', moment().format('llll')));
 		this.$('.storyName').powerTip();
 	},
 
