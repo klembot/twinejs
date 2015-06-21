@@ -417,7 +417,7 @@ var nwui =
 		try
 		{
 			nwui.unlockStoryDirectory();
-			var fd = nwui.fs.openSync(nwui.filePath + nwui.storyFileName(story), 'w');
+			var fd = nwui.fs.openSync(nwui.filePath + '/' + nwui.storyFileName(story), 'w');
 			nwui.fs.writeSync(fd, story.publish());
 			nwui.fs.closeSync(fd);
 		}
@@ -446,7 +446,7 @@ var nwui =
 		try
 		{
 			nwui.unlockStoryDirectory();
-			nwui.fs.unlinkSync(nwui.filePath + nwui.storyFileName(story));
+			nwui.fs.unlinkSync(nwui.filePath + '/' + nwui.storyFileName(story));
 		}
 		catch (e)
 		{
@@ -486,8 +486,8 @@ var nwui =
 		{
 			if (filename.match(/\.html$/))
 			{
-				var stats = nwui.fs.statSync(nwui.filePath + filename);
-				window.app.importFile(nwui.fs.readFileSync(nwui.filePath + filename, { encoding: 'utf-8' }),
+				var stats = nwui.fs.statSync(nwui.filePath + '/' + filename);
+				window.app.importFile(nwui.fs.readFileSync(nwui.filePath + '/' + filename, { encoding: 'utf-8' }),
 				                      new Date(Date.parse(stats.mtime)));
 			};
 		});
@@ -510,7 +510,7 @@ var nwui =
 			if (process.platform == 'win32')
 				_.each(nwui.fs.readdirSync(nwui.filePath), function (filename)
 				{
-					nwui.fs.chmodSync(nwui.filePath + filename, 292); // a-w, 0444
+					nwui.fs.chmodSync(nwui.filePath + '/' + filename, 292); // a-w, 0444
 				});
 			else
 			{
@@ -539,7 +539,7 @@ var nwui =
 			if (process.platform == 'win32')
 				_.each(nwui.fs.readdirSync(nwui.filePath), function (filename)
 				{
-					nwui.fs.chmodSync(nwui.filePath + filename, 438); // a+w, 0666
+					nwui.fs.chmodSync(nwui.filePath + '/' + filename, 438); // a+w, 0666
 				});
 			else
 			{
