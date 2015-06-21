@@ -459,9 +459,6 @@ window.app = new TwineApp();
 
 window.app.addInitializer(function ()
 {
-	if (nwui.active)
-		nwui.init();
-
 	/**
 	 The Jed instance used to manage translations.
 	 
@@ -469,6 +466,9 @@ window.app.addInitializer(function ()
 	**/
 
 	this.i18n = new Jed(this.i18nData);
+
+	if (nwui.active)
+		nwui.init();
 
 	// add i18n hook to Marionette's rendering
 
