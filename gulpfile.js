@@ -8,6 +8,7 @@ var glob = require('glob');
 var include = require('gulp-include');
 var jshint = require('gulp-jshint');
 var jshintStylish = require('jshint-stylish');
+var lazypipe = require('lazypipe');
 var minifyHtml = require('gulp-minify-html');
 var minifyCss = require('gulp-minify-css');
 var moment = require('./lib/moment.js');
@@ -25,11 +26,6 @@ var yuidoc = require('gulp-yuidoc');
 // for build numbers
 
 var TIMESTAMP_FORMAT = 'YYYYMMDDHHmm';
-
-// The directory releases will appear in.
-// This gets changed by the release:cdn task.
-
-var buildDir = 'dist/web';
 
 // CDN replacements for local resources
 
@@ -172,108 +168,6 @@ gulp.task('jshint', function()
 		   .pipe(jshint.reporter(jshintStylish));
 });
 
-gulp.task('bake', function()
-{
-	var now = Date.now();
-
-	del.sync('./index.html');
-	del.sync(buildDir + '/index.html');
-
-	return gulp.src('./app.html')
-	       .pipe(plumber())
-	       .pipe(include())
-	       .pipe(replace('{{build_number}}', moment().format(TIMESTAMP_FORMAT)))
-	       .pipe(rename('index.html'))
-	       .pipe(gulp.dest('./'))
-		   .pipe(gulp.dest(buildDir));
-});
-
-gulp.task('injectcdn', ['bake'], function()
-{
-	var p = gulp.src('./index.html')
-	        .pipe(replace(/build:(css|js)_cdn/g, 'nobuild:disabled'))
-		    .pipe(rename('index.html'))
-
-	for (var i = 0; i < CDN_LINKS.length; i++)
-		p = p.pipe(replace(CDN_LINKS[i][0], CDN_LINKS[i][1]));
-		   
-	return p.pipe(gulp.dest('./'));
-});
-
-gulp.task('usemin', ['bake'], function()
-{
-	del.sync(buildDir + '/rsrc/js/**');
-	del.sync(buildDir + '/rsrc/css/**');
-
-	return gulp.src('./index.html')
-	       .pipe(plumber())
-		   .pipe(replace('"img/favicon.ico"', '"rsrc/img/favicon.ico"'))
-	       .pipe(usemin({
-		   	css: [minifyCss(), 'concat'],
-			css_cdn: [minifyCss(), 'concat'],
-			html: [minifyHtml({ empty: true })],
-			js: [uglify()],
-			js_cdn: [uglify()],
-		   }))
-		   .pipe(gulp.dest(buildDir));
-});
-
-// identical to task above, but without bake dependency
-// so we can remove build instructions for CDN'd resources first
-
-gulp.task('usemin:nobake', function()
-{
-	del.sync(buildDir + '/rsrc/js/**');
-	del.sync(buildDir + '/rsrc/css/**');
-
-	return gulp.src('./index.html')
-	       .pipe(plumber())
-		   .pipe(replace('"img/favicon.ico"', '"rsrc/img/favicon.ico"'))
-	       .pipe(usemin({
-		   	css: [minifyCss(), 'concat'],
-			css_cdn: [minifyCss(), 'concat'],
-			html: [minifyHtml({ empty: true })],
-			js: [uglify()],
-			js_cdn: [uglify()],
-		   }))
-		   .pipe(gulp.dest(buildDir));
-});
-
-gulp.task('copy:fonts', function()
-{
-	del.sync(buildDir + '/rsrc/fonts');
-	return gulp.src(['fonts/**', 'lib/fontawesome/fonts/**'])
-	       .pipe(gulp.dest(buildDir + '/rsrc/fonts/'));
-});
-
-gulp.task('copy:images', function()
-{
-	del.sync(buildDir + '/rsrc/img');
-	return gulp.src('img/**')
-	       .pipe(gulp.dest(buildDir + '/rsrc/img/'));
-});
-
-gulp.task('copy:license', function()
-{
-	return gulp.src('LICENSE')
-	       .pipe(gulp.dest(buildDir));
-});
-
-gulp.task('copy:formats', function()
-{
-	del.sync(buildDir + '/storyformats');
-	return gulp.src('storyformats/**')
-	       .pipe(gulp.dest(buildDir + '/storyformats/'));
-});
-
-gulp.task('copy:package', function()
-{
-	return gulp.src('package.json')
-	       .pipe(gulp.dest(buildDir));
-});
-
-gulp.task('copy', ['copy:fonts', 'copy:images', 'copy:formats', 'copy:license']);
-
 gulp.task('doc', function()
 {
 	del.sync('doc/');
@@ -288,6 +182,107 @@ gulp.task('server', function()
 	connect.server({ port: 8000 });
 });
 
+// baking expands all import statements and
+// stamps a build number into the HTML
+
+gulp.task('bake', function()
+{
+	return gulp.src('./app.html')
+	       .pipe(plumber())
+		   .pipe(include())
+		   .pipe(rename('index.html'))
+		   .pipe(replace('{{build_number}}', moment().format(TIMESTAMP_FORMAT)))
+		   .pipe(gulp.dest('./'));
+});
+
+// usemin minifies groups of references to CSS and JS
+// into a single file, rewriting HTML accordingly
+// for now, it appears we can't run usemin:web and usemin:web-cdn
+// simultaneously -- perhaps because they're both reading from index.html?
+
+var useminTasks = lazypipe()
+   .pipe(plumber)
+   .pipe(replace, '"img/favicon.ico"', '"rsrc/img/favicon.ico"')
+   .pipe(usemin,
+   {
+	css: [minifyCss(), 'concat'],
+	css_cdn: [minifyCss(), 'concat'],
+	html: [minifyHtml({ empty: true })],
+	js: [uglify()],
+	js_cdn: [uglify()],
+   });
+
+gulp.task('usemin:web', ['bake'], function()
+{
+	del.sync('dist/web/rsrc/js/**');
+	del.sync('dist/web/rsrc/css/**');
+
+	return gulp.src('index.html')
+	       .pipe(useminTasks())
+		   .pipe(gulp.dest('dist/web'));
+});
+
+gulp.task('usemin:web-cdn', ['bake'], function()
+{
+	del.sync('dist/web-cdn/rsrc/js/**');
+	del.sync('dist/web-cdn/rsrc/css/**');
+
+	var p = gulp.src('index.html')
+	        .pipe(replace(/build:(css|js)_cdn/g, 'nobuild'));
+
+	for (var i = 0; i < CDN_LINKS.length; i++)
+		p = p.pipe(replace(CDN_LINKS[i][0], CDN_LINKS[i][1]));
+
+	return p.pipe(useminTasks())
+		   .pipe(gulp.dest('dist/web-cdn'));
+});
+
+// copy tasks move resources into distribution directories
+
+gulp.task('copy:fonts', function()
+{
+	del.sync('dist/web/rsrc/fonts');
+	del.sync('dist/web-cdn/rsrc/fonts');
+	return gulp.src(['fonts/**', 'lib/fontawesome/fonts/**'])
+	       .pipe(gulp.dest('dist/web/rsrc/fonts/'))
+	       .pipe(gulp.dest('dist/web-cdn/rsrc/fonts/'));
+});
+
+gulp.task('copy:images', function()
+{
+	del.sync('dist/web/rsrc/img');
+	del.sync('dist/web-cdn/rsrc/img');
+	return gulp.src('img/**')
+	       .pipe(gulp.dest('dist/web/rsrc/img/'))
+	       .pipe(gulp.dest('dist/web-cdn/rsrc/img/'));
+});
+
+gulp.task('copy:license', function()
+{
+	return gulp.src('LICENSE')
+	       .pipe(gulp.dest('dist/web/'))
+	       .pipe(gulp.dest('dist/web-cdn/'));
+});
+
+gulp.task('copy:formats', function()
+{
+	del.sync('dist/web/storyformats');
+	del.sync('dist/web-cdn/storyformats');
+	return gulp.src('storyformats/**')
+	       .pipe(gulp.dest('dist/web/storyformats/'))
+	       .pipe(gulp.dest('dist/web-cdn/storyformats/'));
+});
+
+gulp.task('copy:package', function()
+{
+	return gulp.src('package.json')
+	       .pipe(gulp.dest('dist/web/'));
+});
+
+gulp.task('copy', ['copy:fonts', 'copy:images', 'copy:formats', 'copy:license']);
+
+// nw generates a NW.js app from dist/web
+
 gulp.task('nw', ['release:web', 'copy:package'], function()
 {
 	del.sync('dist/nwjs');
@@ -295,7 +290,7 @@ gulp.task('nw', ['release:web', 'copy:package'], function()
 	var nw = new nwBuilder({
 		files: 'dist/web/**',
 		buildDir: 'dist/nwjs/',
-		version: '0.12.1',
+		version: '0.12.2',
 		platforms: ['osx64', 'win', 'linux'],
 		'chromium-args': '--enable-threaded-compositing',
 		macIcns: 'img/logo.icns',
@@ -305,19 +300,14 @@ gulp.task('nw', ['release:web', 'copy:package'], function()
 	return nw.build();
 });
 
-gulp.task('default', ['jshint', 'bake', 'doc']);
-
-gulp.task('watch', function()
-{
-	gulp.watch(['app.html', 'templates/**'], ['bake', 'doc']);
-	gulp.watch('js/**', ['jshint']);
-});
-
-// these tasks handle minifying the app into various raw
+// release tasks handle minifying the app into various raw
 // states, which are then packaged for download via the package tasks
 
 gulp.task('release:version', function (cb)
 {
+	if (! fs.existsSync('dist/'))
+		fs.mkdirSync('dist/');
+
 	var props =
 	{
 		buildNumber: moment().format(TIMESTAMP_FORMAT),
@@ -328,32 +318,19 @@ gulp.task('release:version', function (cb)
 	fs.writeFile('dist/2.json', JSON.stringify(props), {}, cb);
 });
 
-gulp.task('release:web', ['release:version'], function (cb)
-{
-	buildDir = 'dist/web';
-	runSequence('bake', 'usemin', 'copy', cb);
-});
-
-gulp.task('release:web-cdn', ['release:version'], function (cb)
-{
-	buildDir = 'dist/web-cdn';
-	runSequence('bake', 'injectcdn', 'usemin:nobake', 'copy', cb);
-});
-
-gulp.task('release:nw', ['release:version', 'release:web'], function (cb)
-{
-	buildDir = 'dist/nwjs';
-	runSequence('nw', cb);
-});
-
+gulp.task('release:web', ['bake', 'usemin:web', 'copy', 'release:version']);
+gulp.task('release:web-cdn', ['bake', 'usemin:web-cdn', 'copy']);
+gulp.task('release:nw', ['release:version', 'release:web', 'nw']);
 gulp.task('release', ['release:web', 'release:web-cdn', 'release:nw']);
 
-// these tasks package the releases for download
+// package tasks package the releases for download
 // we assume both makensis and zip are available
 
 gulp.task('package:clean', function (cb)
 {
 	del.sync('dist/download/');
+	fs.mkdirSync('dist/');
+	fs.mkdirSync('dist/web/');
 	fs.mkdir('dist/download/', cb);
 });
 
@@ -413,6 +390,8 @@ gulp.task('package:linux64', ['release:nw', 'package:clean'], function (cb)
 
 gulp.task('package', ['package:web', 'package:win32', 'package:win64', 'package:osx', 'package:linux32', 'package:linux64']);
 
+// extracts text from JS and templates and creates a POT file
+
 gulp.task('buildpot', function (cb)
 {
 	del.sync('locale/po/template.pot');
@@ -431,6 +410,8 @@ gulp.task('buildpot', function (cb)
 	cb();
 });
 
+// builds JSONP files from PO files in the locale/po/ directory
+
 gulp.task('buildpojson', function()
 {
 	return gulp.src('locale/po/*.po')
@@ -443,3 +424,11 @@ gulp.task('buildpojson', function()
 		   }))
 		   .pipe(gulp.dest('locale/'));
 });
+
+gulp.task('watch', function()
+{
+	gulp.watch(['app.html', 'templates/**'], ['bake:dev', 'doc']);
+	gulp.watch('js/**', ['jshint']);
+});
+
+gulp.task('default', ['jshint', 'bake:dev', 'doc']);
