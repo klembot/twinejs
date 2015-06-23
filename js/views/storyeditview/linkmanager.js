@@ -351,7 +351,7 @@ StoryEditView.LinkManager = Backbone.View.extend(
 	 so we can be as efficient as possible.
 
 	 @method prepDrag
-	 @internal
+	 @private
 	**/
 
 	prepDrag: function()
@@ -417,7 +417,7 @@ StoryEditView.LinkManager = Backbone.View.extend(
 	 Re-caches dragged passages in flight and updates connectors.
 
 	 @method followDrag
-	 @internal
+	 @private
 	**/
 
 	followDrag: function()
