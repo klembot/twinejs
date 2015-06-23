@@ -554,7 +554,7 @@ var ui =
 			buttonLabel: buttonLabel,
 			modalClass: options.modalClass || '',
 			buttonClass: options.buttonClass || ''
-		}), window.app.templateProperties));
+		}, window.app.templateProperties)));
 
 		var modal = modalContainer.find('.modal');
 
