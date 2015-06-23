@@ -273,13 +273,22 @@ gulp.task('copy:formats', function()
 	       .pipe(gulp.dest('dist/web-cdn/storyformats/'));
 });
 
+gulp.task('copy:locale', function()
+{
+	del.sync('dist/web/locale');
+	del.sync('dist/web-cdn/locale');
+	return gulp.src('locale/*.js')
+	       .pipe(gulp.dest('dist/web/locale/'))
+	       .pipe(gulp.dest('dist/web-cdn/locale/'));
+});
+
 gulp.task('copy:package', function()
 {
 	return gulp.src('package.json')
 	       .pipe(gulp.dest('dist/web/'));
 });
 
-gulp.task('copy', ['copy:fonts', 'copy:images', 'copy:formats', 'copy:license']);
+gulp.task('copy', ['copy:fonts', 'copy:images', 'copy:formats', 'copy:locale', 'copy:license']);
 
 // nw generates a NW.js app from dist/web
 
@@ -427,8 +436,8 @@ gulp.task('buildpojson', function()
 
 gulp.task('watch', function()
 {
-	gulp.watch(['app.html', 'templates/**'], ['bake:dev', 'doc']);
+	gulp.watch(['app.html', 'templates/**'], ['bake', 'doc']);
 	gulp.watch('js/**', ['jshint']);
 });
 
-gulp.task('default', ['jshint', 'bake:dev', 'doc']);
+gulp.task('default', ['jshint', 'bake', 'doc']);
