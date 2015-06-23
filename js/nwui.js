@@ -222,7 +222,10 @@ var nwui =
 		 @property filePath
 		**/
 
-		var homePath = process.env.HOME || process.env.HOMEPATH || process.env.USERPROFILE;
+		// certain Windows installs will only have '\' as their home path
+
+		var homePath = process.env.HOME || ((process.env.HOMEPATH === '\\') ? false : process.env.HOMEPATH)
+		               || process.env.USERPROFILE;
 
 		// if the user doesn't have a Documents folder,
 		// check for "My Documents" instead (thanks Windows)
