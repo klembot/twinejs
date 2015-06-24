@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var _ = require('./lib/underscore.js');
 var childProcess = require('child_process');
 var del = require('del');
 var fs = require('fs');
@@ -85,6 +86,19 @@ var CDN_LINKS =
 	['lib/svg.js',
 	 '//cdnjs.cloudflare.com/ajax/libs/svg.js/1.0.1/svg.min.js']
 ];
+
+// Options passed to node-web-builder
+
+var NWBUILDER_OPTS =
+{
+	files: 'dist/web/**',
+	buildDir: 'dist/nwjs/',
+	version: '0.12.2',
+	platforms: ['osx64', 'win', 'linux'],
+	'chromium-args': '--enable-threaded-compositing',
+	macIcns: 'img/logo.icns',
+	winIco: 'img/logo.ico'
+};
 
 // Options passed to jshint
 
@@ -295,16 +309,23 @@ gulp.task('copy', ['copy:fonts', 'copy:images', 'copy:formats', 'copy:locale', '
 gulp.task('nw', ['release:web', 'copy:package'], function()
 {
 	del.sync('dist/nwjs');
+	var nw = new nwBuilder(NWBUILDER_OPTS);
+	return nw.build();
+});
 
-	var nw = new nwBuilder({
-		files: 'dist/web/**',
-		buildDir: 'dist/nwjs/',
-		version: '0.12.2',
-		platforms: ['osx64', 'win', 'linux'],
-		'chromium-args': '--enable-threaded-compositing',
-		macIcns: 'img/logo.icns',
-		winIco: 'img/logo.ico'
-	});
+// nw-debug generates a non-minified version of the app,
+// for tracing problems in the console
+
+gulp.task('nw-debug', ['bake'], function()
+{
+	del.sync('dist/nwjs');
+	var nw = new nwBuilder(_.extend(NWBUILDER_OPTS,
+	{
+		files: ['index.html', 'package.json', 'css/**', 'fonts/**',
+		        'img/**', 'js/**', 'lib/**', 'locale/**', 'storyformats/**'],
+		buildDir: 'dist/nwjs-debug/',
+		platforms: ['osx64', 'win']
+	}));
 
 	return nw.build();
 });
