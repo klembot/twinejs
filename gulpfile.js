@@ -141,6 +141,7 @@ var JSHINT_OPTS =
 		Story: true,
 		StoryFormat: true,
 		// Views
+		LocaleView: true,
 		PassageItemView: true,
 		StoryItemView: true,
 		StoryEditView: true,

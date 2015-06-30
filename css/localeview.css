@@ -1,0 +1,28 @@
+#localeView .prompt
+{
+    text-align: center;
+    font-size: 120%;
+}
+
+#localeView ul
+{
+    list-style-type: none;
+    text-align: center;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+#localeView ul li
+{
+    display: inline;
+}
+
+#localeView button img
+{
+    height: 6em;
+    width: auto;
+    display: block;
+    margin-bottom: 0.5em;
+    border-radius: 0.25em;
+    border-top: 0.1em inset solid red;
+}

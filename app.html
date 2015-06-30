@@ -15,6 +15,7 @@
 <link href="lib/codemirror/js/addon/hint/show-hint.css" rel="stylesheet" media="screen">
 <link href="css/ui.css" rel="stylesheet" media="screen">
 <link href="css/app.css" rel="stylesheet" media="screen">
+<link href="css/localeview.css" rel="stylesheet" media="screen">
 <link href="css/welcomeview.css" rel="stylesheet" media="screen">
 <link href="css/storylistview.css" rel="stylesheet" media="screen">
 <link href="css/storyeditview.css" rel="stylesheet" media="screen">
@@ -29,6 +30,10 @@
 </div>
 
 <div id="templates">
+
+<script type="text/html" class="localeView">
+#= include templates/localeview.html
+</script>
 
 <script type="text/html" class="welcomeView">
 #= include templates/welcomeview.html
@@ -112,6 +117,7 @@
 <script src="js/collections/storycollection.js"></script>
 <script src="js/collections/storyformatcollection.js"></script>
 
+<script src="js/views/localeview.js"></script>
 <script src="js/views/welcomeview.js"></script>
 <script src="js/views/storylistview/storyitemview.js"></script>
 <script src="js/views/storylistview/storypreview.js"></script>
