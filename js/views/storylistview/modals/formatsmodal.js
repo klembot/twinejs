@@ -241,7 +241,10 @@ StoryListView.FormatsModal = Backbone.View.extend(
 			else if (container.closest('.proofingFormatList').length > 0)
 				this.setProofingFormat(format);
 			else
-				throw new Error("don't know what kind of format to set as default");
+			{
+				// L10n: An internal error related to story formats.
+				throw new Error(window.app.say("Don't know what kind of format to set as default"));
+			};
 
 			this.syncButtons();
 		},

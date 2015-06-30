@@ -162,7 +162,8 @@ var ui =
 					break;
 
 					default:
-					throw new Error("Don't know how to do bubble action " + action);
+					// L10n: An internal error message related to UI components.
+					throw new Error(window.app.say("Don't know how to do bubble action %s", action));
 				};
 
 				return this;
@@ -214,7 +215,8 @@ var ui =
 					break;
 
 					default:
-					throw new Error("Don't know how to do collapse action " + action);
+					// L10n: An internal error message related to UI components.
+					throw new Error(window.app.say("Don't know how to do collapse action %s", action));
 				};
 
 				return this;

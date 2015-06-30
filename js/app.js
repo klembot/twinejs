@@ -108,18 +108,28 @@ var TwineApp = Backbone.Marionette.Application.extend(
 
 	say: function (source)
 	{
-		if (arguments.length == 1)
-			return this.i18n.gettext(source);
-		else
+		try
 		{
-			// interpolation required
+			if (arguments.length == 1)
+				return this.i18n.gettext(source);
+			else
+			{
+				// interpolation required
 
-			var sprintfArgs = [this.i18n.gettext(source)];
+				var sprintfArgs = [this.i18n.gettext(source)];
 
-			for (var i = 1; i < arguments.length; i++)
-				sprintfArgs.push(arguments[i]);
+				for (var i = 1; i < arguments.length; i++)
+					sprintfArgs.push(arguments[i]);
 
-			return this.i18n.sprintf.apply(this.i18n.sprintf, sprintfArgs);
+				return this.i18n.sprintf.apply(this.i18n.sprintf, sprintfArgs);
+			};
+		}
+		catch (e)
+		{
+			// if all else fails, return English, even with ugly %d placeholders
+			// so the user can see *something*
+
+			return source;
 		};
 	},
 
@@ -139,12 +149,22 @@ var TwineApp = Backbone.Marionette.Application.extend(
 	
 	sayPlural: function (sourceSingular, sourcePlural, count)
 	{
-		var sprintfArgs = [this.i18n.ngettext(sourceSingular, sourcePlural, count), count];
+		try
+		{
+			var sprintfArgs = [this.i18n.ngettext(sourceSingular, sourcePlural, count), count];
 
-		for (var i = 3; i < arguments.length; i++)
-			sprintfArgs.push(arguments[i]);
-			
-		return this.i18n.sprintf.apply(this.i18n.sprintf, sprintfArgs);
+			for (var i = 3; i < arguments.length; i++)
+				sprintfArgs.push(arguments[i]);
+				
+			return this.i18n.sprintf.apply(this.i18n.sprintf, sprintfArgs);
+		}
+		catch (e)
+		{
+			// if all else fails, return English, even with ugly placeholders
+			// so the user can see *something*
+
+			return sourcePlural.replace(/%d/g, count);
+		};
 	},
 
 	/**
