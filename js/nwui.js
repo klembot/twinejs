@@ -386,7 +386,7 @@ var nwui =
 
 		WelcomeView.prototype.onRender = function()
 		{
-			var saveHtml = _.template($('#templates .welcomeViewNw').html())();
+			var saveHtml = _.template($('#templates .welcomeViewNw').html())(window.app.templateProperties);
 			this.$('.save').html(saveHtml);
 			oldWelcomeViewRender.call(this);
 		};
