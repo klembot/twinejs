@@ -1,6 +1,6 @@
 #storyListView .listControls
 {
-	text-align: center;	
+	text-align: center;
 	position: fixed;
 	z-index: 10;
 	top: 0;
@@ -21,9 +21,19 @@
 	font: normal 200% "Nunito Light", sans-serif;
 }
 
+#storyListView .listControls p
+{
+	margin: 0.25em 0;
+}
+
 #storyListView .listControls button
 {
 	width: 100%;
+}
+
+#storyListView .listControls button.create
+{
+	margin-bottom: 1em;
 }
 
 #storyListView .listControls button.link

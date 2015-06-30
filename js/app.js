@@ -51,7 +51,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 
 		moment.locale(locale);
 
-		if (locale != 'en-us')
+		if (locale != 'en-us' && locale != 'en')
 		{
 			$.ajax({
 				url: 'locale/' + locale + '.js',
@@ -597,9 +597,24 @@ window.app.addRegions(
 
 		locale = localePref.get('value');
 	};
-	
-	window.app.loadLocale(locale.toLowerCase(), function()
-	{
-		window.app.start();
-	});
+
+	if (typeof locale == 'string')
+        window.app.loadLocale(locale.toLowerCase(), function()
+    	{
+    		window.app.start();
+    	});
+    else
+    {
+        window.app.loadLocale('en', function()
+    	{
+    		window.app.start();
+            _.defer(function()
+            {
+                // not localized because if we've reached this step,
+                // localization isn't working
+                ui.notify('Your locale preference has been reset to English due to a technical problem.<br>' +
+                          'Please change it with the <b>Language</b> option in the story list.', 'danger');
+            });
+    	});
+    };
 })();

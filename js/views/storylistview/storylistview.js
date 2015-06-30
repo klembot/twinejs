@@ -348,9 +348,15 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 		'change .importFile': 'importFile',
 		'click .sortByDate': 'sortByDate',
 		'click .sortByName': 'sortByName',
+
 		'click .showFormats': function()
 		{
-			this.formatsModal.open();	
+			this.formatsModal.open();
+		},
+
+		'click .showLocale': function()
+		{
+			window.location.hash = 'locale';
 		},
 
 		'click .showHelp': function()
