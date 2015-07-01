@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-22 19:06-0300\n"
-"PO-Revision-Date: 2015-06-22 19:41-0300\n"
+"POT-Creation-Date: 2015-06-30 06:28-0300\n"
+"PO-Revision-Date: 2015-06-30 06:39-0300\n"
 "Last-Translator: David T. Marchand\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -17,6 +17,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.8.1\n"
+
+#: templates/localeview.html:4
+msgid "Please choose which language you would like to use with Twine."
+msgstr "Por favor selecciona qué idioma te gustaría usar con Twine."
+
+#: templates/localeview.html:12
+msgid "English"
+msgstr "Inglés"
+
+#: templates/localeview.html:19
+msgid "Spanish"
+msgstr "Castellano"
 
 #: templates/storyeditview/passageeditmodal.html:8
 msgid "Passage Name"
@@ -151,13 +163,13 @@ msgstr "Estadísticas de la historia"
 #: templates/storyeditview/statsmodal.html:38
 #, php-format
 msgid "This story was last changed at %s"
-msgstr "Está historia se modificó por última vez %s"
+msgstr "Esta historia se modificó por última vez el %s"
 
 #. L10n: %s is the IFID of the story. Please keep the <span> element around it.
 #: templates/storyeditview/statsmodal.html:45
 #, php-format
-msgid "The IFID for this story is <span class=\"ifid\">%s</span>. <a href=\"http://ifdb.tads.org/help-ifid\" target=\"_blank\">What's an IFID?</a>)"
-msgstr "La IFID para esta historia es <span class=\"ifid\">%s</span>. <a href=\"http://ifdb.tads.org/help-ifid\" target=\"_blank\">¿Qué es una IFID? (Inglés)</a>)"
+msgid "The IFID for this story is <span class=\"ifid\">%s</span>. <a href=\"http:\\/\\/ifdb.tads.org/help-ifid\" target=\"_blank\">What's an IFID?</a>)"
+msgstr "La IFID de esta historia es <span class=\"ifid\">%s</span>. <a href=\"http:\\/\\/ifdb.tads.org/help-ifid\" target=\"_blank\">¿Qué es una IFID? (Inglés)</a>"
 
 #: templates/storyeditview/storyformatmodal.html:7
 msgid "Story Format"
@@ -300,9 +312,11 @@ msgid "Twine is an open-source tool for telling interactive, nonlinear stories."
 msgstr "Twine es una herramienta de código abierto para contar historias interactivas no lineales."
 
 #: templates/storylistview/modals/aboutmodal.html:25
-msgid "Twine 2.0 is released under the <a href=\"http://www.gnu.org/licenses/gpl-3.0.html\">GPL v3</a> license, but any work created with it may be released under any terms, including commercial ones. <a href=\"https://bitbucket.org/klembot/twinejs\">Source Code Repository</a>"
+msgid ""
+"Twine 2.0 is released under the <a href=\"http:\\/\\/www.gnu.org/licenses/gpl-3.0.html\">GPL v3</a> license, but any work created with it may be released under any terms, including commercial ones. <a href=\"https:\\/\\/bitbucket.org/klembot/twinejs\">Source Code Repository</"
+"a>"
 msgstr ""
-"Twine 2.0 se distribuye bajo la licencia <a href=\"http://www.gnu.org/licenses/gpl-3.0.html\">GPL v3</a>, pero cualquier trabajo creado con él puede distribuirse bajo otros términos cualesquiera, inclusive comerciales. <a href=\"https://bitbucket.org/klembot/twinejs"
+"Twine 2.0 se distribuye bajo la licencia <a href=\"http:\\/\\/www.gnu.org/licenses/gpl-3.0.html\">GPL v3</a>, pero cualquier trabajo creado con él puede distribuirse bajo otros términos cualesquiera, inclusive comerciales. <a href=\"https:\\/\\/bitbucket.org/klembot/twinejs"
 "\">Repositorio del código fuente</a>"
 
 #: templates/storylistview/modals/aboutmodal.html:31
@@ -312,7 +326,7 @@ msgstr "Ayuda a Twine a crecer con una donación"
 #. L10n: This is the noun form, as program code.
 #: templates/storylistview/modals/aboutmodal.html:39
 msgid "Code"
-msgstr "Código"
+msgstr "Programación"
 
 #: templates/storylistview/modals/aboutmodal.html:55
 msgid "Libraries"
@@ -323,8 +337,8 @@ msgid "Fonts"
 msgstr "Tipos de letra"
 
 #: templates/storylistview/modals/aboutmodal.html:78
-msgid "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the guidance of Robert Slimbach for <a href=\"http://adobe.com/\">Adobe</a><br> Nunito was designed by <a href=\"http://code.newtypography.co.uk/\">Vernon Adams</a>"
-msgstr "Source Sans Pro y Source Code Pro fueron diseñadas por Paul D. Hunt bajo la supervisión de Robert Slimbach para <a href=\"http://adobe.com/\">Adobe</a><br> Nunito fue diseñada por <a href=\"http://code.newtypography.co.uk/\">Vernon Adams</a>"
+msgid "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the guidance of Robert Slimbach for <a href=\"http:\\/\\/adobe.com/\">Adobe</a><br> Nunito was designed by <a href=\"http:\\/\\/code.newtypography.co.uk/\">Vernon Adams</a>"
+msgstr "Source Sans Pro y Source Code Pro fueron diseñadas por Paul D. Hunt bajo la supervisión de Robert Slimbach para <a href=\"http:\\/\\/adobe.com/\">Adobe</a><br>Nunito fue diseñada por <a href=\"http:\\/\\/code.newtypography.co.uk/\">Vernon Adams</a>"
 
 #: templates/storylistview/modals/aboutmodal.html:82
 msgid "Icons"
@@ -474,48 +488,56 @@ msgid "Formats"
 msgstr "Formatos"
 
 #: templates/storylistview/storylistview.html:79
+msgid "Change the language Twine uses"
+msgstr "Cambiar el idioma que usa Twine"
+
+#: templates/storylistview/storylistview.html:80
+msgid "Language"
+msgstr "Idioma"
+
+#: templates/storylistview/storylistview.html:85
 msgid "Browse online help"
 msgstr "Buscar ayuda en línea"
 
-#: templates/storylistview/storylistview.html:80
+#: templates/storylistview/storylistview.html:86
 msgid "Help"
 msgstr "Ayuda"
 
-#: templates/storylistview/storylistview.html:95
+#: templates/storylistview/storylistview.html:101
 msgid "version"
 msgstr "versión"
 
-#: templates/storylistview/storylistview.html:97
+#: templates/storylistview/storylistview.html:103
 msgid "Report a bug"
 msgstr "Reportar un bug"
 
-#: templates/storylistview/storylistview.html:105
+#: templates/storylistview/storylistview.html:111
 msgid "Stories"
 msgstr "Historias"
 
-#: templates/storylistview/storylistview.html:108
+#: templates/storylistview/storylistview.html:114
 msgid "Sort By"
 msgstr "Ordenar por"
 
-#: templates/storylistview/storylistview.html:110
+#: templates/storylistview/storylistview.html:116
 msgid "Last changed date"
 msgstr "Fecha de última modificación"
 
-#: templates/storylistview/storylistview.html:111
+#: templates/storylistview/storylistview.html:117
 msgid "Edit Date"
 msgstr "Fecha de modificación"
 
-#: templates/storylistview/storylistview.html:114
+#: templates/storylistview/storylistview.html:120
 msgid "Story name"
 msgstr "Nombre de la historia"
 
-#: templates/storylistview/storylistview.html:115
+#: templates/storylistview/storylistview.html:121
 msgid "Name"
 msgstr "Nombre"
 
-#: templates/storylistview/storylistview.html:122
+#: templates/storylistview/storylistview.html:128
 msgid "There are no stories saved in Twine right now. To get started, you can either create a new story or import an existing one from a file."
-msgstr "No hay historias guardadas en Twine ahora mismo. Para emprezar, puedes crear una historia nueva o bien importar una existente desde un archivo."
+msgstr "No hay historias guardadas en Twine ahora mismo. Para empezar, puedes crear una historia nueva o bien importar una existente desde un archivo."
 
 #: templates/welcomeview.html:6
 msgid "Hi!"
@@ -541,19 +563,20 @@ msgstr "¿Nueva/o por aquí?"
 
 #: templates/welcomeview.html:27
 msgid ""
-"<strong>If you've never used Twine before,</strong> then welcome! The <a href=\"http://twinery.org/2guide\" target=\"_blank\">Twine 2 Guide</a> and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki at large were written for "
-"Twine 1, which is a little bit different than this version. But most of the concepts are the same."
+"<strong>If you've never used Twine before,</strong> then welcome! The <a href=\"http:\\/\\/twinery.org/2guide\" target=\"_blank\">Twine 2 Guide</a> and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki at large were written "
+"for Twine 1, which is a little bit different than this version. But most of the concepts are the same."
 msgstr ""
-"<strong>Si nunca has usado Twine antes,</strong> ¡bienvenida/o! La <a href=\"http://twinery.org/2guide\" target=\"_blank\">Guía de Twine 2 (en inglés)</a> y la wiki oficial en general, son un muy buen lugar para aprender. Ten en cuenta que algunos artículos en la wiki en "
+"<strong>Si nunca has usado Twine antes,</strong> ¡bienvenida/o! La <a href=\"http:\\/\\/twinery.org/2guide\" target=\"_blank\">Guía de Twine 2 (en inglés)</a> y la wiki oficial en general, son un muy buen lugar para aprender. Ten en cuenta que algunos artículos de la wiki en "
 "general fueron escritos para Twine 1, que es un poco diferente a esta versión. Pero la mayoría de los conceptos son los mismos."
 
 #: templates/welcomeview.html:31
-msgid "You can also get help over at the <a href=\"http://twinery.org/forum\" target=\"_blank\">Twine forum</a>, too."
-msgstr "También puedes encontrar ayuda en el <a href=\"http://twinery.org/forum\" target=\"_blank\">foro de Twine</a>."
+msgid "You can also get help over at the <a href=\"http:\\/\\/twinery.org/forum\" target=\"_blank\">Twine forum</a>, too."
+msgstr "Puedes encontrar ayuda en el <a href=\"http:\\/\\/twinery.org/forum\" target=\"_blank\">foro de Twine</a>, también."
 
 #: templates/welcomeview.html:35
 msgid "<strong>If you have used Twine 1 before,</strong> the guide also has details on what has changed in this version. Chief among them is a new default story format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, try using SugarCube instead."
-msgstr "<strong>Si has usado Twine 1 antes,</strong> la guía también tiene detalles sobre qué cambió en esta versión. Lo principal es que hay un nuevo formato de historia predeterminado, Harlowe. Pero si prefieres la sintaxis de Twine 1, prueba en cambio con SugarCube."
+msgstr ""
+"<strong>Si has usado Twine 1 antes,</strong> la guía también tiene detalles sobre qué cambió en esta versión. Lo principal es que hay un nuevo formato de historia predeterminado, Harlowe. Pero si prefieres la sintaxis de Twine 1, prueba en cambio con el formato SugarCube."
 
 #: templates/welcomeview.html:39 templates/welcomeview.html:63 templates/welcomeviewnw.html:23
 msgid "OK"
@@ -565,16 +588,15 @@ msgstr "Tu trabajo se guardará sólo en tu navegador."
 
 #: templates/welcomeview.html:51
 msgid "That means you don't need to create an account to use Twine 2, and everything you create isn't stored on a server somewhere else &mdash; it stays right in your browser."
-msgstr "Eso quiere decir que no tendrás que crear una cuenta para usar Twine 2, y todo lo que crees no se guardará en ningún servidor en algún otro lugar; se queda ahí en tu navegador."
+msgstr "Eso quiere decir que no tendrás que crear una cuenta para usar Twine 2, y que todo lo que crees no se guardará en ningún servidor en algún otro lugar; se queda ahí en tu navegador."
 
 #: templates/welcomeview.html:55
 msgid ""
 "Two <b>very important</b> things to remember, though. Since your work is saved only in your browser, if you clear its saved data, then you'll lose your work! Not good. Remember to use that <i class=\"fa fa-briefcase\"></i>&nbsp;<strong>Archive</strong> button often. You can "
-"also publish individual stories to files using the dropdown menu next to the <b><i class=\"fa fa-play\"></i>&nbsp;Play</b> button in the story editor. Both archive and story files can always be re-imported into Twine."
+"also publish individual stories to files using the <i class=\"fa fa-cog\"></i> menu on each story in the story list. Both archive and story files can always be re-imported into Twine."
 msgstr ""
-"Dos cosas <b>muy importantes</b> para recordar, sin embargo.  Ya que tu trabajo se guarda sólo en tu navegador, si borras sus datos guardados ¡perderás todo tu trabajo! Nada bueno. Recuerda usar ese botón de <i class=\"fa fa-briefcase\"></i>&nbsp;<strong>Archivar</strong> "
-"seguido. También puedes publicar historias individuales a archivos usando el menú desplegable junto al botón <b><i class=\"fa fa-play\"></i>&nbsp;Reproducir</b> en el editor de historias. Tanto ficheros archivados como archivos de historia pueden siempre re-importarse a "
-"Twine."
+"Dos cosas <b>muy importantes</b> para recordar, sin embargo. Ya que tu trabajo se guarda sólo en tu navegador, si borras los datos guardados de tu navegador ¡perderás todo tu trabajo! Nada bueno. Recuerda usar el botón <i class=\"fa fa-briefcase\"></i>&nbsp;<strong>Archivar</"
+"strong> seguido. También puedes publicar historias individuales a archivos usando el <i class=\"fa fa-cog\"></i> menú de cada historia en la lista de historias. Tanto ficheros archivados como archivos de historia individuales pueden siempre re-importarse a Twine."
 
 #: templates/welcomeview.html:59
 msgid "Secondly, <b>anyone who can use this browser can see and make changes to your work</b>. So if you've got a nosy kid brother, look into setting up a separate profile for yourself."
@@ -613,21 +635,27 @@ msgid "If you'd like to open a Twine story file you received from someone else, 
 msgstr "Si quisieras abrir un archivo de historia Twine que recibiste de alguien más, puedes importarlo en tu librería usando el enlace <i class=\"icon-upload-alt\"></i> <b>Importar de archivo</b> en la lista de historias."
 
 #. L10n: %1$s is a filename; %2$s is the error message.
-#: js/app.js:206
+#: js/app.js:226
 msgid "&ldquo;%1$s&rdquo; could not be saved (%2$s)."
 msgstr "&ldquo;%1$s&rdquo; no pudo guardarse (%2$s)."
 
 #. L10n: %s is the error message.
-#: js/app.js:263
+#: js/app.js:283
 #, javascript-format
 msgid "An error occurred while publishing your story. (%s)"
 msgstr "Ocurrió un error mientras se publicaba tu historia. (%s)"
 
 # I guess this is not for me to change.
 # —DAVID
-#: js/app.js:294
+#: js/app.js:314
 msgid "Twine Archive.html"
 msgstr "Twine Archive.html"
+
+#. L10n: An internal error. %s is a bad sort criterion.
+#: js/collections/storycollection.js:35
+#, javascript-format
+msgid "don't know how to sort stories by %s"
+msgstr "No sé cómo ordenar historias por %s"
 
 #: js/models/passage.js:19
 msgid "Untitled Passage"
@@ -635,7 +663,7 @@ msgstr "Pasaje sin título"
 
 #: js/models/passage.js:21
 msgid "Tap this passage, then the pencil icon to edit it."
-msgstr "Haz clic sobre este pasaje, luego sobre el ícono de lápiz para editarlo."
+msgstr "Toca este pasaje, luego el ícono de lápiz para editarlo."
 
 #: js/models/passage.js:22
 msgid "Double-click this passage to edit it."
@@ -709,7 +737,7 @@ msgstr "Mostrar biblioteca"
 #. then it should have two backslashes (\\) in front of it.
 #. Regardless, this must have a single forward slash (/) as its first
 #. character.
-#: js/nwui.js:236
+#: js/nwui.js:239
 msgid "/Documents"
 msgstr "/Documents"
 
@@ -719,7 +747,7 @@ msgstr "/Documents"
 #. key '/Documents' does not exist. If you need to use a space in
 #. this name, then it should have two backslashes (\\) in front of it.
 #. Regardless, this must have a single forward slash (/) as its first character.
-#: js/nwui.js:246 js/nwui.js:247
+#: js/nwui.js:249 js/nwui.js:250
 msgid "/My\\ Documents"
 msgstr "/My\\ Documents"
 
@@ -728,37 +756,55 @@ msgstr "/My\\ Documents"
 #. story files specifically. If you need to use a space in this name,
 #. then it should have two backslashes in front of it. Regardless,
 #. this must have a single forward slash (/) as its first character.
-#: js/nwui.js:257 js/nwui.js:261
+#: js/nwui.js:260 js/nwui.js:264
 msgid "/Twine"
 msgstr "/Twine"
 
-#: js/nwui.js:257
+#: js/nwui.js:260
 msgid "/Stories"
 msgstr "/Stories"
 
 #. L10n: %s is the error message.
-#: js/nwui.js:427
+#: js/nwui.js:430
 #, javascript-format
 msgid "An error occurred while saving your story (%s)."
 msgstr "Ocurrió un error mientras se guardaba tu historia (%s)."
 
 #. L10n: %s is the error message.
-#: js/nwui.js:454
+#: js/nwui.js:457
 #, javascript-format
 msgid "An error occurred while deleting your story (%s)."
 msgstr "Ocurrió un error mientras se eliminaba tu historia (%s)."
 
 #. L10n: Locking in the sense of preventing changes to a file. %s is the error message.
-#: js/nwui.js:524
+#: js/nwui.js:527
 #, javascript-format
 msgid "An error occurred while locking your library (%s)."
 msgstr "Ocurrió un error mientras se bloqueaba tu biblioteca (%s)."
 
 #. L10n: Unlocking in the sense of allowing changes to a file. %s is the error message.
-#: js/nwui.js:553
+#: js/nwui.js:556
 #, javascript-format
 msgid "An error occurred while unlocking your library (%s)."
 msgstr "Ocurrió un error mientras se desbloqueaba tu biblioteca (%s)."
+
+#. L10n: An internal error message related to UI components.
+#: js/ui.js:166
+#, javascript-format
+msgid "Don't know how to do bubble action %s"
+msgstr "No sé cómo ejecutar acción burbuja %s"
+
+#. L10n: An internal error message related to UI components.
+#: js/ui.js:219
+#, javascript-format
+msgid "Don't know how to do collapse action %s"
+msgstr "No sé cómo ejecutar acción colapsar %s"
+
+#. L10n: An internal error when changing locale.
+#: js/views/localeview.js:27
+#, javascript-format
+msgid "Can't set locale to nonstring: %s"
+msgstr "No puedo establecer local nonstring: %s"
 
 #: js/views/storyeditview/editors/passageeditor.js:120 js/views/storyeditview/storyeditview.js:563
 #, javascript-format
@@ -775,7 +821,7 @@ msgstr "Cualquier modificación al pasaje que estás editando no se ha guardado 
 msgid "%d passage matches."
 msgid_plural "%d passages match."
 msgstr[0] "%d pasaje coincide."
-msgstr[1] "%d pasaje coinciden."
+msgstr[1] "%d pasajes coinciden."
 
 #: js/views/storyeditview/modals/searchmodal.js:102
 msgid "No matching passages found."
@@ -854,6 +900,16 @@ msgstr "¿Estás segura/o de que quieres eliminar &ldquo;%s&rdquo;?"
 msgid "(Hold the Shift key when deleting to skip this message.)"
 msgstr "(Mantén apretada la tecla Shift/Mayús al eliminar para omitir este mensaje.)"
 
+#. L10n: An internal error related to handling user input.
+#: js/views/storyeditview/passageitemview.js:461
+msgid "Don't see either mouse or touch coordinates on event"
+msgstr "No veo coordenadas de ratón ni de toque en evento"
+
+#. L10n: An internal error related to user input.
+#: js/views/storyeditview/passageitemview.js:523
+msgid "Couldn't find original touch ID in movement event"
+msgstr "No encontré ID de toque original en evento de movimiento"
+
 #. L10n: %s is the error message.
 #: js/views/storyeditview/storyeditview.js:43 js/views/storyeditview/storyeditview.js:64
 #, javascript-format
@@ -872,7 +928,7 @@ msgstr "Ocurrió un problema mientras se guardaban tus cambios (%s)."
 msgid "Are you sure you want to delete this passage?"
 msgid_plural "Are you sure you want to delete these %d passages? This cannot be undone."
 msgstr[0] "¿Estás segura/o de que quieres eliminar este pasaje (%d)?"
-msgstr[1] "¿Estás segura/o de que quieres eliminar estos %d? Esto no puede deshacerse."
+msgstr[1] "¿Estás segura/o de que quieres eliminar estos %d pasajes? Esto no puede deshacerse."
 
 #: js/views/storyeditview/storyeditview.js:268
 msgid "This story does not have a starting point. "
@@ -897,13 +953,18 @@ msgstr "Se refrescó la versión de prueba de tu historia en la pestaña o venta
 #: js/views/storyeditview/storyeditview.js:573 js/views/storyeditview/toolbar.js:94
 #, javascript-format
 msgid "Last saved at %s"
-msgstr "Guardada por última vez %s"
+msgstr "Guardada por última vez el %s"
 
 # Don’t really understand what %1s is here. Are we still talking about dates?
 # —DAVID
 #: js/views/storylistview/modals/formatsmodal.js:137
 msgid "The story format at %1$s could not be added (%2$s)."
 msgstr "El formato de historia en %1$s no pudo añadirse (%2$s)."
+
+#. L10n: An internal error related to story formats.
+#: js/views/storylistview/modals/formatsmodal.js:246
+msgid "Don't know what kind of format to set as default"
+msgstr "No sé qué formato establecer como predeterminado"
 
 #: js/views/storylistview/storagequota.js:21 js/views/storylistview/storagequota.js:44 js/views/storylistview/storagequota.js:49
 #, javascript-format
@@ -958,8 +1019,38 @@ msgstr[1] "Se importaron %d historias."
 #, javascript-format
 msgid "%d Story"
 msgid_plural "%d Stories"
-msgstr[0] "%d Historia"
-msgstr[1] "%d Historias"
+msgstr[0] "%d historia"
+msgstr[1] "%d historias"
+
+#~ msgid "The IFID for this story is <span class=\"ifid\">%s</span>. <a href=\"http://ifdb.tads.org/help-ifid\" target=\"_blank\">What's an IFID?</a>)"
+#~ msgstr "La IFID para esta historia es <span class=\"ifid\">%s</span>. <a href=\"http://ifdb.tads.org/help-ifid\" target=\"_blank\">¿Qué es una IFID? (Inglés)</a>)"
+
+#~ msgid ""
+#~ "Twine 2.0 is released under the <a href=\"http://www.gnu.org/licenses/gpl-3.0.html\">GPL v3</a> license, but any work created with it may be released under any terms, including commercial ones. <a href=\"https://bitbucket.org/klembot/twinejs\">Source Code Repository</a>"
+#~ msgstr ""
+#~ "Twine 2.0 se distribuye bajo la licencia <a href=\"http://www.gnu.org/licenses/gpl-3.0.html\">GPL v3</a>, pero cualquier trabajo creado con él puede distribuirse bajo otros términos cualesquiera, inclusive comerciales. <a href=\"https://bitbucket.org/klembot/twinejs"
+#~ "\">Repositorio del código fuente</a>"
+
+#~ msgid "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the guidance of Robert Slimbach for <a href=\"http://adobe.com/\">Adobe</a><br> Nunito was designed by <a href=\"http://code.newtypography.co.uk/\">Vernon Adams</a>"
+#~ msgstr "Source Sans Pro y Source Code Pro fueron diseñadas por Paul D. Hunt bajo la supervisión de Robert Slimbach para <a href=\"http://adobe.com/\">Adobe</a><br> Nunito fue diseñada por <a href=\"http://code.newtypography.co.uk/\">Vernon Adams</a>"
+
+#~ msgid ""
+#~ "<strong>If you've never used Twine before,</strong> then welcome! The <a href=\"http://twinery.org/2guide\" target=\"_blank\">Twine 2 Guide</a> and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki at large were written "
+#~ "for Twine 1, which is a little bit different than this version. But most of the concepts are the same."
+#~ msgstr ""
+#~ "<strong>Si nunca has usado Twine antes,</strong> ¡bienvenida/o! La <a href=\"http://twinery.org/2guide\" target=\"_blank\">Guía de Twine 2 (en inglés)</a> y la wiki oficial en general, son un muy buen lugar para aprender. Ten en cuenta que algunos artículos en la wiki en "
+#~ "general fueron escritos para Twine 1, que es un poco diferente a esta versión. Pero la mayoría de los conceptos son los mismos."
+
+#~ msgid "You can also get help over at the <a href=\"http://twinery.org/forum\" target=\"_blank\">Twine forum</a>, too."
+#~ msgstr "También puedes encontrar ayuda en el <a href=\"http://twinery.org/forum\" target=\"_blank\">foro de Twine</a>."
+
+#~ msgid ""
+#~ "Two <b>very important</b> things to remember, though. Since your work is saved only in your browser, if you clear its saved data, then you'll lose your work! Not good. Remember to use that <i class=\"fa fa-briefcase\"></i>&nbsp;<strong>Archive</strong> button often. You "
+#~ "can also publish individual stories to files using the dropdown menu next to the <b><i class=\"fa fa-play\"></i>&nbsp;Play</b> button in the story editor. Both archive and story files can always be re-imported into Twine."
+#~ msgstr ""
+#~ "Dos cosas <b>muy importantes</b> para recordar, sin embargo.  Ya que tu trabajo se guarda sólo en tu navegador, si borras sus datos guardados ¡perderás todo tu trabajo! Nada bueno. Recuerda usar ese botón de <i class=\"fa fa-briefcase\"></i>&nbsp;<strong>Archivar</strong> "
+#~ "seguido. También puedes publicar historias individuales a archivos usando el menú desplegable junto al botón <b><i class=\"fa fa-play\"></i>&nbsp;Reproducir</b> en el editor de historias. Tanto ficheros archivados como archivos de historia pueden siempre re-importarse a "
+#~ "Twine."
 
 #~ msgid "The IFID for this story is <span class=\"ifid\">%s</span>. "
 #~ msgstr "La IFID para esta historia es <span class=\"ifid\">%s</span>. "
