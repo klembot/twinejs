@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-30 00:06-0400\n"
+"POT-Creation-Date: 2015-06-30 22:38-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,14 +20,6 @@ msgstr ""
 
 #: templates/localeview.html:4
 msgid "Please choose which language you would like to use with Twine."
-msgstr ""
-
-#: templates/localeview.html:12
-msgid "English"
-msgstr ""
-
-#: templates/localeview.html:19
-msgid "Spanish"
 msgstr ""
 
 #: templates/storyeditview/passageeditmodal.html:8
@@ -345,15 +337,19 @@ msgstr ""
 msgid "Code"
 msgstr ""
 
-#: templates/storylistview/modals/aboutmodal.html:55
+#: templates/storylistview/modals/aboutmodal.html:54
+msgid "Translations"
+msgstr ""
+
+#: templates/storylistview/modals/aboutmodal.html:61
 msgid "Libraries"
 msgstr ""
 
-#: templates/storylistview/modals/aboutmodal.html:74
+#: templates/storylistview/modals/aboutmodal.html:80
 msgid "Fonts"
 msgstr ""
 
-#: templates/storylistview/modals/aboutmodal.html:78
+#: templates/storylistview/modals/aboutmodal.html:84
 msgid ""
 "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the "
 "guidance of Robert Slimbach for <a href=\"http:\\/\\/adobe.com/\">Adobe</"
@@ -361,19 +357,19 @@ msgid ""
 "\">Vernon Adams</a>"
 msgstr ""
 
-#: templates/storylistview/modals/aboutmodal.html:82
+#: templates/storylistview/modals/aboutmodal.html:88
 msgid "Icons"
 msgstr ""
 
-#: templates/storylistview/modals/aboutmodal.html:87
+#: templates/storylistview/modals/aboutmodal.html:93
 msgid "Document designed by Rob Gill from the Noun Project"
 msgstr ""
 
-#: templates/storylistview/modals/aboutmodal.html:88
+#: templates/storylistview/modals/aboutmodal.html:94
 msgid "Question designed by Henry Ryder from the Noun Project"
 msgstr ""
 
-#: templates/storylistview/modals/aboutmodal.html:89
+#: templates/storylistview/modals/aboutmodal.html:95
 msgid "Smile designed by jelio dimitrov from the Noun Project"
 msgstr ""
 
