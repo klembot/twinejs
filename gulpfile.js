@@ -218,6 +218,7 @@ gulp.task('bake', function()
 var useminTasks = lazypipe()
    .pipe(plumber)
    .pipe(replace, '"img/favicon.ico"', '"rsrc/img/favicon.ico"')
+   .pipe(replace, '"img/flags/', '"rsrc/img/flags/')
    .pipe(usemin,
    {
 	css: [minifyCss(), 'concat'],
