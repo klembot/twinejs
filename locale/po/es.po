@@ -22,13 +22,6 @@ msgstr ""
 msgid "Please choose which language you would like to use with Twine."
 msgstr "Por favor selecciona qué idioma te gustaría usar con Twine."
 
-#: templates/localeview.html:12
-msgid "English"
-msgstr "Inglés"
-
-#: templates/localeview.html:19
-msgid "Spanish"
-msgstr "Castellano"
 
 #: templates/storyeditview/passageeditmodal.html:8
 msgid "Passage Name"
@@ -327,6 +320,10 @@ msgstr "Ayuda a Twine a crecer con una donación"
 #: templates/storylistview/modals/aboutmodal.html:39
 msgid "Code"
 msgstr "Programación"
+
+#: templates/storylistview/modals/aboutmodal.html:54
+msgid "Translations"
+msgstr "Traducciones"
 
 #: templates/storylistview/modals/aboutmodal.html:55
 msgid "Libraries"
