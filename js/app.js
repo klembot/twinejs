@@ -106,7 +106,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 	 @return string translation
 	**/
 
-	say: _.memoize(function (source)
+	say: function (source)
 	{
 		try
 		{
@@ -131,7 +131,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 
 			return source;
 		};
-	}),
+	},
 
 	/**
 	 Translates a string to the user-set locale, keeping in mind pluralization rules.
@@ -147,7 +147,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 	 @return string translation
 	**/
 	
-	sayPlural: _.memoize(function (sourceSingular, sourcePlural, count)
+	sayPlural: function (sourceSingular, sourcePlural, count)
 	{
 		try
 		{
@@ -165,7 +165,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 
 			return sourcePlural.replace(/%d/g, count);
 		};
-	}),
+	},
 
 	/**
 	 Saves data to a file. This appears to the user as if they had clicked

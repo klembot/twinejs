@@ -10,7 +10,7 @@
 
 var Story = Backbone.Model.extend(
 {
-	defaults: function()
+	defaults: _.memoize(function()
 	{
 		return {
 			name: window.app.say('Untitled Story'),
@@ -23,7 +23,7 @@ var Story = Backbone.Model.extend(
 			lastUpdate: new Date(),
 			ifid: UUID().toUpperCase()
 		};
-	},
+	}),
 
 	template: _.template('<tw-storydata name="<%- storyName %>" ' +
 						 'startnode="<%- startNode %>" creator="<%- appName %>" ' +
