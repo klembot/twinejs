@@ -394,6 +394,7 @@ var nwui =
 				_.defer(function()
 				{
 					nwui.syncFs = true;
+					StoryCollection.all().each(nwui.saveStoryFile);
 				});
 			});
 		};
