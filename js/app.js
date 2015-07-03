@@ -334,66 +334,60 @@ var TwineApp = Backbone.Marionette.Application.extend(
 
 		// parse data into a DOM
 
-		var $parsed = $('<html>');
 		var count = 0;
+		var nodes = document.createElement('div');
+		nodes.innerHTML = data;
 
-		// remove surrounding <html>, if there is one
+		// remove surrounding <body>, if there is one
 
-		if (data.indexOf('<html>') != -1)
-			$parsed.html(data.substring(data.indexOf('<html>') + 6, data.indexOf('</html>')));
-		else
-			$parsed.html(data);
-
-		$parsed.find(selectors.storyData).each(function()
+		_.each(nodes.querySelectorAll(selectors.storyData), function (storyEl)
 		{
-			var $story = $(this);
-			var startPassageId = $story.attr('startnode');
+			var startPassageId = storyEl.attributes.startnode.value;
 
-			// for now, glom all style nodes into the stylesheet property
+			// glom all style nodes into the stylesheet property
 
 			var stylesheet = '';
 
-			$story.find(selectors.stylesheet).each(function()
+			_.each(storyEl.querySelectorAll(selectors.stylesheet), function (el)
 			{
-				stylesheet += $(this).text() + '\n';
+				stylesheet += el.innerHTML + '\n';
 			});
 
 			// likewise for script nodes
 
 			var script = '';
 
-			$story.find(selectors.script).each(function()
+			_.each(storyEl.querySelectorAll(selectors.script), function (el)
 			{
-				script += $(this).text() + '\n';
+				script += el.innerHTML + '\n';
 			});
 
 			// create a story object
 
 			var story = allStories.create(
 			{
-				name: $story.attr('name'),
-				storyFormat: $story.attr('format'),
-				ifid: $story.attr('ifid'),
-				stylesheet: (stylesheet != '') ? stylesheet : null,
-				script: (script != '') ? script : null
+				name: storyEl.attributes.name.value,
+				storyFormat: storyEl.attributes.format.value,
+				ifid: storyEl.attributes.ifid.value,
+				stylesheet: (stylesheet !== '') ? stylesheet : null,
+				script: (script !== '') ? script : null
 			}, { wait: true });
 
 			// and child passages
-			
-			$story.find(selectors.passageData).each(function()
+
+			_.each(storyEl.querySelectorAll(selectors.passageData), function (passage)
 			{
-				var $passage = $(this);
-				var id = $passage.attr('pid');
-				var pos = $passage.attr('position');
+				var id = passage.attributes.pid.value;
+				var pos = passage.attributes.position.value;
 				var posBits = pos.split(',');
-				var tags = $passage.attr('tags').trim();
-				tags = tags === "" ? [] : tags.split(/\s+/);
+				var tags = passage.attributes.tags.value;
+				tags = (tags === '') ? [] : tags.split(/\s+/);
 
 				var passage = allPassages.create(
 				{
-					name: $passage.attr('name'),
+					name: passage.attributes.name.value,
 					tags: tags,
-					text: $passage.text(),
+					text: passage.innerHTML,
 					story: story.id,
 					left: parseInt(posBits[0]),
 					top: parseInt(posBits[1])
