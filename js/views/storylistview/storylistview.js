@@ -236,7 +236,7 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 		bubble.find('.form').addClass('hide');
 		bubble.find('.working').removeClass('hide');
 
-		reader.onload = function (e)
+		reader.addEventListener('load', function (e)
 		{
 			var className = '';
 			var message = '';
@@ -269,9 +269,10 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 			bubble.find('.working').addClass('hide');
 			this.$('.importStory').bubble('hide');
 			ui.initEl(this.$el);
-		}.bind(this);
+		}.bind(this));
 
 		reader.readAsText(e.target.files[0], 'UTF-8');
+		return reader;
 	},
 
 	showNextPreview: function()
