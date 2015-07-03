@@ -349,13 +349,33 @@ var TwineApp = Backbone.Marionette.Application.extend(
 			var $story = $(this);
 			var startPassageId = $story.attr('startnode');
 
+			// for now, glom all style nodes into the stylesheet property
+
+			var stylesheet = '';
+
+			$story.find(selectors.stylesheet).each(function()
+			{
+				stylesheet += $(this).text() + '\n';
+			});
+
+			// likewise for script nodes
+
+			var script = '';
+
+			$story.find(selectors.script).each(function()
+			{
+				script += $(this).text() + '\n';
+			});
+
 			// create a story object
 
 			var story = allStories.create(
 			{
 				name: $story.attr('name'),
 				storyFormat: $story.attr('format'),
-				ifid: $story.attr('ifid')
+				ifid: $story.attr('ifid'),
+				stylesheet: (stylesheet != '') ? stylesheet : null,
+				script: (script != '') ? script : null
 			}, { wait: true });
 
 			// and child passages
@@ -380,29 +400,8 @@ var TwineApp = Backbone.Marionette.Application.extend(
 				}, { wait: true });	
 
 				if (id == startPassageId)
-					story.save({ startPassage: passage.id }, { wait: true });
+					story.save({ startPassage: passage.id });
 			});
-
-			// for now, glom all style nodes into the stylesheet property
-
-			var stylesheet = '';
-
-			$story.find(selectors.stylesheet).each(function()
-			{
-				stylesheet += $(this).text() + '\n';
-			});
-
-			// likewise for script nodes
-
-			var script = '';
-
-			$story.find(selectors.script).each(function()
-			{
-				script += $(this).text() + '\n';
-			});
-
-			if (stylesheet != '' || script != '')
-				story.save({ stylesheet: stylesheet, script: script });
 			
 			// override update date if requested
 			
