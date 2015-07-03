@@ -106,7 +106,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 	 @return string translation
 	**/
 
-	say: function (source)
+	say: _.memoize(function (source)
 	{
 		try
 		{
@@ -131,7 +131,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 
 			return source;
 		};
-	},
+	}),
 
 	/**
 	 Translates a string to the user-set locale, keeping in mind pluralization rules.
@@ -147,7 +147,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 	 @return string translation
 	**/
 	
-	sayPlural: function (sourceSingular, sourcePlural, count)
+	sayPlural: _.memoize(function (sourceSingular, sourcePlural, count)
 	{
 		try
 		{
@@ -165,7 +165,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 
 			return sourcePlural.replace(/%d/g, count);
 		};
-	},
+	}),
 
 	/**
 	 Saves data to a file. This appears to the user as if they had clicked
@@ -371,7 +371,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 				ifid: storyEl.attributes.ifid.value,
 				stylesheet: (stylesheet !== '') ? stylesheet : null,
 				script: (script !== '') ? script : null
-			}, { wait: true, noChildUpdate: true });
+			}, { wait: true, silent: true, validate: false });
 
 			// and child passages
 
@@ -391,16 +391,16 @@ var TwineApp = Backbone.Marionette.Application.extend(
 					story: story.id,
 					left: parseInt(posBits[0]),
 					top: parseInt(posBits[1])
-				}, { wait: true, noDupeValidation: true, noParentUpdate: true });	
+				}, { wait: true, silent: true, validate: false });
 
 				if (id == startPassageId)
-					story.save({ startPassage: passage.id }, { noChildUpdate: true });
+					story.save({ startPassage: passage.id }, { silent: true, validate: false });
 			});
 			
 			// override update date if requested
 			
 			if (lastUpdate)
-				story.save({ lastUpdate: lastUpdate }, { noChildUpdate: true });
+				story.save({ lastUpdate: lastUpdate }, { silent: true, validate: false });
 
 			count++;
 		});

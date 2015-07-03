@@ -373,10 +373,29 @@ var nwui =
 		};
 
 		// monkey patch StoryListView to open the wiki in the user's browser
+		// and to hold off on trying to update the filesystem midprocess
 
 		StoryListView.prototype.events['click .showHelp'] = function()
 		{
 			nwui.gui.Shell.openExternal('http://twinery.org/2guide');
+		};
+
+		var oldStoryListViewImportFile = StoryListView.prototype.importFile;
+
+		StoryListView.prototype.importFile = function (e)
+		{
+			nwui.syncFs = false;
+			var reader = oldStoryListViewImportFile.call(this, e);
+			reader.addEventListener('load', function()
+			{
+				// deferred to make sure that the normal event
+				// handler fires first
+
+				_.defer(function()
+				{
+					nwui.syncFs = true;
+				});
+			});
 		};
 
 		// monkey patch WelcomeView to display a different message
