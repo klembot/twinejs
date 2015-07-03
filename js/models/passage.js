@@ -9,7 +9,7 @@
 
 var Passage = Backbone.Model.extend(
 {
-	defaults: function()
+	defaults: _.memoize(function()
 	{
 		return {
 			story: -1,
@@ -21,7 +21,7 @@ var Passage = Backbone.Model.extend(
 			      window.app.say('Tap this passage, then the pencil icon to edit it.') :
 			      window.app.say('Double-click this passage to edit it.')
 		};
-	},
+	}),
 
 	template: _.template('<tw-passagedata pid="<%- id %>" name="<%- name %>" ' +
 						 'tags="<%- tags %>" position="<%- left %>,<%- top %>">' +
