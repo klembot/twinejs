@@ -371,36 +371,36 @@ var TwineApp = Backbone.Marionette.Application.extend(
 				ifid: storyEl.attributes.ifid.value,
 				stylesheet: (stylesheet !== '') ? stylesheet : null,
 				script: (script !== '') ? script : null
-			}, { wait: true });
+			}, { wait: true, noChildUpdate: true });
 
 			// and child passages
 
-			_.each(storyEl.querySelectorAll(selectors.passageData), function (passage)
+			_.each(storyEl.querySelectorAll(selectors.passageData), function (passageEl)
 			{
-				var id = passage.attributes.pid.value;
-				var pos = passage.attributes.position.value;
+				var id = passageEl.attributes.pid.value;
+				var pos = passageEl.attributes.position.value;
 				var posBits = pos.split(',');
-				var tags = passage.attributes.tags.value;
+				var tags = passageEl.attributes.tags.value;
 				tags = (tags === '') ? [] : tags.split(/\s+/);
 
 				var passage = allPassages.create(
 				{
-					name: passage.attributes.name.value,
+					name: passageEl.attributes.name.value,
 					tags: tags,
-					text: passage.innerHTML,
+					text: passageEl.innerHTML,
 					story: story.id,
 					left: parseInt(posBits[0]),
 					top: parseInt(posBits[1])
-				}, { wait: true });	
+				}, { wait: true, noDupeValidation: true, noParentUpdate: true });	
 
 				if (id == startPassageId)
-					story.save({ startPassage: passage.id });
+					story.save({ startPassage: passage.id }, { noChildUpdate: true });
 			});
 			
 			// override update date if requested
 			
 			if (lastUpdate)
-				story.save({ lastUpdate: lastUpdate });
+				story.save({ lastUpdate: lastUpdate }, { noChildUpdate: true });
 
 			count++;
 		});
