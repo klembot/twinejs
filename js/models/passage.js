@@ -29,19 +29,21 @@ var Passage = Backbone.Model.extend(
 
 	initialize: function()
 	{
-		this.on('sync', function()
+		this.on('sync', function (model, response, options)
 		{
 			// if any stories are using this passage's cid
 			// as their start passage, update with a real id
 
-			_.invoke(StoryCollection.all().where({ startPassage: this.cid }), 'save', { startPassage: this.id });
+			if (! options.noParentUpdate)
+				_.invoke(StoryCollection.all().where({ startPassage: this.cid }), 'save', { startPassage: this.id });
 		}, this);
 
-		this.on('change', function()
+		this.on('change', function (model, options)
 		{
 			// update parent's last update date
 
-			this.fetchStory().save('lastUpdate', new Date());
+			if (! options.noParentUpdate)
+				this.fetchStory().save('lastUpdate', new Date());
 
 			// clamp our position to positive coordinates
 
@@ -72,10 +74,16 @@ var Passage = Backbone.Model.extend(
 		}, this);
 	},
 
-	validate: function (attrs)
+	validate: function (attrs, options)
 	{
+		if (options.noValidation)
+			return;
+
 		if (! attrs.name || attrs.name == '')
 			return window.app.say('You must give this passage a name.');
+
+		if (options.noDupeValidation)
+			return;
 
 		if (this.fetchStory().fetchPassages().find(function (passage)
 		    {

@@ -45,11 +45,12 @@ var Story = Backbone.Model.extend(
 				passages.at(0).destroy();
 		}, this);
 
-		this.on('sync', function()
+		this.on('sync', function (model, response, options)
 		{
 			// update any passages using our cid as link
 
-			_.invoke(PassageCollection.all().where({ story: this.cid }), 'save', { story: this.id });
+			if (! options.noChildUpdate)
+				_.invoke(PassageCollection.all().where({ story: this.cid }), 'save', { story: this.id });
 		}, this);
 
 		// any time we change, update our last updated date

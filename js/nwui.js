@@ -483,6 +483,7 @@ var nwui =
 		// read from files
 
 		nwui.unlockStoryDirectory();
+
 		var fileStories = nwui.fs.readdirSync(nwui.filePath);
 
 		_.each(fileStories, function (filename)
