@@ -441,7 +441,7 @@ var nwui =
 		{
 			nwui.unlockStoryDirectory();
 			var fd = nwui.fs.openSync(nwui.filePath + '/' + nwui.storyFileName(story), 'w');
-			nwui.fs.writeSync(fd, story.publish());
+			nwui.fs.writeSync(fd, story.publish(null, null, true));
 			nwui.fs.closeSync(fd);
 		}
 		catch (e)
