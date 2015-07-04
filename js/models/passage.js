@@ -9,15 +9,19 @@
 
 var Passage = Backbone.Model.extend(
 {
-	defaults:
+	defaults: _.memoize(function()
 	{
-		story: -1,
-		top: 0,
-		left: 0,
-		name: 'Untitled Passage',
-		text: 'Double-click this passage to edit it.',
-		tags: []
-	},
+		return {
+			story: -1,
+			top: 0,
+			left: 0,
+			tags: [],
+			name: window.app.say('Untitled Passage'),
+			text: window.app.hasPrimaryTouchUI() ?
+			      window.app.say('Tap this passage, then the pencil icon to edit it.') :
+			      window.app.say('Double-click this passage to edit it.')
+		};
+	}),
 
 	template: _.template('<tw-passagedata pid="<%- id %>" name="<%- name %>" ' +
 						 'tags="<%- tags %>" position="<%- left %>,<%- top %>">' +
@@ -25,19 +29,21 @@ var Passage = Backbone.Model.extend(
 
 	initialize: function()
 	{
-		this.on('sync', function()
+		this.on('sync', function (model, response, options)
 		{
 			// if any stories are using this passage's cid
 			// as their start passage, update with a real id
 
-			_.invoke(StoryCollection.all().where({ startPassage: this.cid }), 'save', { startPassage: this.id });
+			if (! options.noParentUpdate)
+				_.invoke(StoryCollection.all().where({ startPassage: this.cid }), 'save', { startPassage: this.id });
 		}, this);
 
-		this.on('change', function()
+		this.on('change', function (model, options)
 		{
 			// update parent's last update date
 
-			this.fetchStory().save('lastUpdate', new Date());
+			if (! options.noParentUpdate)
+				this.fetchStory().save('lastUpdate', new Date());
 
 			// clamp our position to positive coordinates
 
@@ -68,17 +74,24 @@ var Passage = Backbone.Model.extend(
 		}, this);
 	},
 
-	validate: function (attrs)
+	validate: function (attrs, options)
 	{
+		if (options.noValidation)
+			return;
+
 		if (! attrs.name || attrs.name == '')
-			return Passage.NO_NAME_ERROR;
+			return window.app.say('You must give this passage a name.');
+
+		if (options.noDupeValidation)
+			return;
 
 		if (this.fetchStory().fetchPassages().find(function (passage)
 		    {
 				return (attrs.id != passage.id &&
 						attrs.name.toLowerCase() == passage.get('name').toLowerCase());
 		    }))
-			return Passage.DUPE_NAME_ERROR.replace('%s', attrs.name);
+			return window.app.say('There is already a passage named "%s." Please give this one a unique name.',
+			                            attrs.name);
 	},
 
 	/**
@@ -375,26 +388,6 @@ var Passage = Backbone.Model.extend(
 	 @final
 	**/
 	padding: 12.5,
-
-	/**
-	 Error message for when a passage has no name, or an empty string
-	 for a name.
-
-	 @property {String} NO_NAME_ERROR
-	 @static
-	 @final
-	**/
-	NO_NAME_ERROR: 'You must give this passage a name.',
-
-	/**
-	 Error message for when a passage with the same name is created.
-	 %s is a placeholder for the passage's name.
-
-	 @property {String} DUPE_NAME_ERROR
-	 @static
-	 @final
-	**/
-	DUPE_NAME_ERROR: 'There is already a passage named "%s." Please give this one a unique name.'
 });
 
 /**

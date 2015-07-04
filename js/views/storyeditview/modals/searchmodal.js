@@ -72,17 +72,17 @@ StoryEditView.SearchModal = Backbone.View.extend(
 				// to escape things correctly for the preview
 
 				var preview = _.escape(view.model.get('text').replace(searchTerm, '\u3000$1\u3001'));
-				preview = preview.replace('\u3000', '<span class="highlight">');
-				preview = preview.replace('\u3001', '</span>');
+				preview = preview.replace(/\u3000/g, '<span class="highlight">');
+				preview = preview.replace(/\u3001/g, '</span>', 'g');
 
-				resultHtml += this.resultTemplate(
+				resultHtml += this.resultTemplate(_.extend(
 				{
 					passageId: view.model.cid,
 					passageName: name,
 					numMatches: numMatches,
 					resultNumber: passagesMatched,
 					searchPreview: preview
-				});
+				}, window.app.templateProperties));
 			};
 		}.bind(this));
 
@@ -90,14 +90,16 @@ StoryEditView.SearchModal = Backbone.View.extend(
 
 		if (resultHtml != '')
 		{
-			this.$('.matchCount').text(passagesMatched);
+			// L10n: Matched in the sense of matching a search criteria. %d is the number of passages.
+			this.$('.matches').text(window.app.sayPlural('%d passage matches.',
+			                                             '%d passages match.', passagesMatched));
 			this.$('.resultSummary').show();
 			this.$('.results').html(resultHtml);
 		}
 		else
 		{
 			this.$('.resultSummary').hide();
-			this.$('.results').html('<p>No matching passages found.</p>');
+			this.$('.results').html('<p>' + window.app.say('No matching passages found.') + '</p>');
 		};
 
 	},
@@ -177,7 +179,17 @@ StoryEditView.SearchModal = Backbone.View.extend(
 
 		this.$el.one('modalhide', function()
 		{
-			ui.notify(totalMatches + ' replacements were made in ' + passagesMatched + ' passages.');	
+			// L10n: replacement in the sense of text search and replace. %d is the number.
+			var replacementDesc = window.app.sayPlural('%d replacement was made in',
+			                                           '%d replacements were made in', totalMatches);
+
+			// L10n: %d is a number of passages.
+			var passageDesc = window.app.sayPlural('%d passage', '%d passages', passagesMatched);
+
+			// L10n: This is the formatting used to combine two pluralizations.
+			// In English, %1$s equals "2 replacements were made in" and %2$s equals "5 passages."
+			// This is a way to reshape the sentence as needed.
+			ui.notify(window.say('%1$s %2$s', replacementDesc, passageDesc));
 		});
 		this.close();
 	},

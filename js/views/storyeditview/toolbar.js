@@ -87,9 +87,11 @@ StoryEditView.Toolbar = Backbone.View.extend(
 	syncStorySaved: function (forceDate)
 	{
 		var $sn = this.$('.storyName');
-		var date = (forceDate) ? new XDate(forceDate) : new XDate();
-		
-		$sn.attr('title', $sn.data('datetext').replace('%', date.toString($sn.data('dateformat'))));
+		var date = (forceDate) ? moment(forceDate) : moment();
+
+		// L10n: This refers to when a story was last saved by the user
+		// %s will be replaced with a localized date and time
+		$sn.attr('title', window.app.say('Last saved at %s', date.format('llll')));
 		$sn.powerTip();
 	},
 

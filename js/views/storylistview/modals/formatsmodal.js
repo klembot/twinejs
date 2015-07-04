@@ -60,7 +60,9 @@ StoryListView.FormatsModal = Backbone.View.extend(
 					// so that image URLs, for example, are correct
 
 					var path = format.get('url').replace(/\/[^\/]*?$/, '');
-					var fullContent = _.extend(format.properties, { path: path, userAdded: format.get('userAdded') });
+					var fullContent = _.extend(format.properties,
+					                           { path: path, userAdded: format.get('userAdded') },
+											   window.app.templateProperties);
 					var content = $(this.itemTemplate(fullContent));
 
 					if (fullContent.proofing)
@@ -69,7 +71,7 @@ StoryListView.FormatsModal = Backbone.View.extend(
 						this.$('.storyFormatList').append(content);
 				}
 				else
-					ui.notify('The story format &ldquo;' + format.get('name') + '&rdquo; could not be loaded (' + e.message + ').', 'danger');
+					ui.notify(window.app.say('The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s).', format.get('name'), e.message), 'danger'); // L10n: %1$s is the name of the story format; %2$s is the error message.
 
 				this.formatsToLoad.remove(format);
 				this.loadNextFormat();
@@ -132,8 +134,7 @@ StoryListView.FormatsModal = Backbone.View.extend(
 				this.$('.error').hide();
 			}
 			else
-				this.$('.error').fadeIn().html('The story format at ' + url +
-				      ' could not be added (' + err.message + ').');
+				this.$('.error').fadeIn().html(window.app.say('The story format at %1$s could not be added (%2$s).', url, err.message));
 
 			this.$('.loading').hide();
 		}.bind(this));
@@ -240,7 +241,10 @@ StoryListView.FormatsModal = Backbone.View.extend(
 			else if (container.closest('.proofingFormatList').length > 0)
 				this.setProofingFormat(format);
 			else
-				throw new Error("don't know what kind of format to set as default");
+			{
+				// L10n: An internal error related to story formats.
+				throw new Error(window.app.say("Don't know what kind of format to set as default"));
+			};
 
 			this.syncButtons();
 		},

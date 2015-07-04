@@ -39,7 +39,8 @@ var StoryEditView = Marionette.CompositeView.extend(
 		.listenTo(this.model, 'change:name', this.syncName)
 		.listenTo(this.model, 'error', function (model, resp, options)
 		{
-			ui.notify('A problem occurred while saving your changes (' + resp + ').', 'danger');
+			// L10n: %s is the error message.
+			ui.notify(window.app.say('A problem occurred while saving your changes (%s).', resp), 'danger');
 		});
 
 		this.collection = this.model.fetchPassages();
@@ -59,7 +60,8 @@ var StoryEditView = Marionette.CompositeView.extend(
 		})
 		.listenTo(this.collection, 'error', function (model, resp, options)
 		{
-			ui.notify('A problem occurred while saving your changes (' + resp + ').', 'danger');
+			// L10n: %s is the error message.
+			ui.notify(window.app.say('A problem occurred while saving your changes (%s).', resp), 'danger');
 		});
 	},
 
@@ -114,12 +116,14 @@ var StoryEditView = Marionette.CompositeView.extend(
 					default:
 
 					// set count appropriately
-					// yikes, localization issues here
 
-					var message = 'Are you sure you want to delete these ' +
-					              selected.length + ' passages? This cannot be undone.';
+					// L10n: This message is always shown with more than one passage.
+					// %d is the number of passages.
+					var message = window.app.sayPlural('Are you sure you want to delete this passage?',
+					                                   'Are you sure you want to delete these %d passages? This cannot be undone.',
+													   selected.length);
 
-					ui.confirm(message, '<i class="fa fa-trash-o"></i> Delete',
+					ui.confirm(message, '<i class="fa fa-trash-o"></i> ' + window.app.say('Delete'),
 					           this.deleteSelectedPassages.bind(this),
 					           { buttonClass: 'danger' });
 				};
@@ -205,7 +209,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 		// make sure the name is unique
 
-		name = name || Passage.prototype.defaults.name;
+		name = name || Passage.prototype.defaults().name;
 
 		if (this.collection.findWhere({ name: name }))
 		{
@@ -261,7 +265,8 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 		if (Passage.withId(this.model.get('startPassage')) === undefined)
 		{
-			ui.notify('This story does not have a starting point. Use the <i class="fa fa-rocket"></i> icon on a passage to set this.', 'danger');
+			ui.notify(window.app.say('This story does not have a starting point. ' +
+			'Use the <i class="fa fa-rocket"></i> icon on a passage to set this.'), 'danger');
 			return;
 		};
 
@@ -274,7 +279,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 		else
 		{
 			playWindow.location.reload();
-			ui.notify('Refreshed the playable version of your story in the previously-opened tab or window.');
+			ui.notify(window.app.say('Refreshed the playable version of your story in the previously-opened tab or window.'));
 		};
 	},
 
@@ -304,7 +309,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 		if (! startOk)
 		{
-			ui.notify('This story does not have a starting point. Use the <i class="fa fa-rocket"></i> icon on a passage to set this.', 'danger');
+			ui.notify(window.app.say('This story does not have a starting point. Use the <i class="fa fa-rocket"></i> icon on a passage to set this.'), 'danger');
 			return;
 		};
 
@@ -317,7 +322,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 		else
 		{
 			testWindow.location.reload();
-			ui.notify('Refreshed the test version of your story in the previously-opened tab or window.');
+			ui.notify(window.app.say('Refreshed the test version of your story in the previously-opened tab or window.'));
 		};
 	},
 
@@ -344,7 +349,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 		// verify the starting point
 
 		if (Passage.withId(this.model.get('startPassage')) === undefined)
-			ui.notify('This story does not have a starting point. Use the <i class="fa fa-rocket"></i> icon on a passage to set this.', 'danger');
+			ui.notify(window.app.say('This story does not have a starting point. Use the <i class="fa fa-rocket"></i> icon on a passage to set this.'), 'danger');
 		else
 			window.app.publishStory(this.model, this.model.get('name') + '.html');
 	},
@@ -555,7 +560,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 
 	syncName: function()
 	{
-		document.title = 'Editing \u201c' + this.model.get('name') + '\u201d';
+		document.title = window.app.say('Editing \u201c%s\u201d', this.model.get('name'));
 	},
 
 	updateSaved: function()
@@ -565,7 +570,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 			$(this).removeClass('active fadeOut');	
 		});	
 
-		this.$('.storyName').attr('title', 'Last saved at ' + new XDate().toString('h:mm TT, M/d/yyyy'));
+		this.$('.storyName').attr('title', window.app.say('Last saved at %s', moment().format('llll')));
 		this.$('.storyName').powerTip();
 	},
 

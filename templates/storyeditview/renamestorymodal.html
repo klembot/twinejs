@@ -5,13 +5,13 @@
 </button>
 
 <h2 class="title">
-Rename Story
+<%= s('Rename Story') %>
 </h2>
 
 <div class="content">
 
 <p>
-What should this story's name be?
+<%= s("What should this story's name be?") %>
 </p>
 
 <form id="renameStoryForm">
@@ -21,12 +21,12 @@ What should this story's name be?
 </p>
 
 <p class="noNameError error">
-Please enter a name.
+<%= s('Please enter a name.') %>
 </p>
 
 <p class="dialogButtons">
-<button class="subtle" data-modal-hide="this">Cancel</button>
-<button type="submit">Save</button>
+<button class="subtle" data-modal-hide="this"><%= s('Cancel') %></button>
+<button type="submit"><%= s('Save') %></button>
 </p>
 
 </form>

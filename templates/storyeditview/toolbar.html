@@ -2,51 +2,51 @@
 
 <div class="left">
 
-<a href="#stories" class="home subtle" title="Go to the story list" data-tooltip-dir="ne"><i class="fa fa-home fa-lg"></i></a>
+<a href="#stories" class="home subtle" title="<%= s('Go to the story list') %>" data-tooltip-dir="ne"><i class="fa fa-home fa-lg"></i></a>
 
 <div class="bubbleContainer inline">
 
-<button class="storyName subtle" data-bubble="toggle" data-tooltip-dir="ne" data-datetext="Last saved at %" data-dateformat="h:mm tt, d MMMM yyyy">
+<button class="storyName subtle" data-bubble="toggle" data-tooltip-dir="ne">
 <span class="storyNameVal"><%- name %></span>
 <i class="fa fa-caret-up fa-lg"></i>
 </button>
 
-<div class="storyBubble bubble down smaller">
+<div class="storyBubble bubble down">
 
 <ul class="menu">
 
 <li>
-<button class="editScript">Edit Story JavaScript</button>
+<button class="editScript"><%= s('Edit Story JavaScript') %></button>
 </li>
 
 <li>
-<button class="editStyle">Edit Story Stylesheet</button>
+<button class="editStyle"><%= s('Edit Story Stylesheet') %></button>
 </li>
 
 <li>
-<button class="changeFormat">Change Story Format</button>
+<button class="changeFormat"><%= s('Change Story Format') %></button>
 </li>
 
 <li>
-<button class="renameStory">Rename Story</button>
+<button class="renameStory"><%= s('Rename Story') %></button>
 </li>
 
 <li>
-<button class="snapToGrid">Snap to Grid</button>
+<button class="snapToGrid"><%= s('Snap to Grid') %></button>
 </li>
 
 <li>
-<button class="storyStats">Story Statistics</button>
+<button class="storyStats"><%= s('Story Statistics') %></button>
 </li>
 
 <li class="divider"></li>
 
 <li>
-<button class="proofStory">View Proofing Copy</button>
+<button class="proofStory"><%= s('View Proofing Copy') %></button>
 </li>
 
 <li>
-<button class="publishStory">Publish to File</button>
+<button class="publishStory"><%= s('Publish to File') %></button>
 </li>
 
 </ul>
@@ -59,35 +59,41 @@
 <div class="right">
 
 <span class="searchContainer">
-<input type="search" placeholder="Quick Find" class="searchField">
-<button class="showSearch subtle" title="Find and replace across the entire story" data-tooltip-dir="n" data-modal-show="#searchModal"><i class="fa fa-list-alt"></i></button>
+<input type="search" placeholder="<%= s('Quick Find') %>" class="searchField">
+<button class="showSearch subtle" title="<%= s('Find and replace across the entire story') %>" data-tooltip-dir="n" data-modal-show="#searchModal"><i class="fa fa-list-alt"></i></button>
 </span>
 
 <span class="zooms">
-<button class="zoomSmall subtle" title="Show only story structure" data-tooltip-dir="n">
+<button class="zoomSmall subtle" title="<%= s('Show only story structure') %>" data-tooltip-dir="n">
 <i class="fa fa-th fa-lg"></i>
 </button>
 
-<button class="zoomMedium subtle" title="Show only passage titles" data-tooltip-dir="n">
+<button class="zoomMedium subtle" title="<%= s('Show only passage titles') %>" data-tooltip-dir="n">
 <i class="fa fa-th-large fa-lg"></i>
 </button>
 
-<button class="zoomBig subtle" title="Show passage titles and excerpts" data-tooltip-dir="n">
+<button class="zoomBig subtle" title="<%= s('Show passage titles and excerpts') %>" data-tooltip-dir="n">
 <i class="fa fa-stop fa-l"></i>
 </button>
 
 </span>
 
-<button class="testStory subtle" title="Play this story in test mode" data-tooltip-dir="n">
-<i class="fa fa-bug fa-lg"></i> Test
+<button class="testStory subtle" title="<%= s('Play this story in test mode') %>" data-tooltip-dir="n">
+<i class="fa fa-bug fa-lg"></i> <%=
+/* L10n: The verb form, to try something or to check it for problems. */
+s('Test')
+%>
 </button>
 
-<button class="playStory subtle" title="Play this story" data-tooltip-dir="n">
-<i class="fa fa-play fa-lg"></i> Play
+<button class="playStory subtle" title="<%= s('Play this story') %>" data-tooltip-dir="n">
+<i class="fa fa-play fa-lg"></i> <%=
+/* L10n: The verb form, as in playing a game. */
+s('Play')
+%>
 </button>
 
-<button class="addPassage create" title="Add a new passage" data-tooltip-dir="nw">
-<i class="fa fa-plus fa-lg"></i> Passage
+<button class="addPassage create" title="<%= s('Add a new passage') %>" data-tooltip-dir="nw">
+<i class="fa fa-plus fa-lg"></i> <%= s('Passage') %>
 </button>
 
 </div> <!-- .right -->

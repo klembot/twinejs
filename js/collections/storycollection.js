@@ -31,7 +31,8 @@ var StoryCollection = Backbone.Collection.extend(
 			break;
 			
 			default:
-			throw new Error("don't know how to sort stories by " + this.order);
+			// L10n: An internal error. %s is a bad sort criterion.
+			throw new Error(window.app.say("don't know how to sort stories by %s", this.order));
 		};
 
 		return sortVal *(this.reverseOrder ? -1 : 1);

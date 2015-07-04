@@ -162,7 +162,8 @@ var ui =
 					break;
 
 					default:
-					throw new Error("Don't know how to do bubble action " + action);
+					// L10n: An internal error message related to UI components.
+					throw new Error(window.app.say("Don't know how to do bubble action %s", action));
 				};
 
 				return this;
@@ -214,7 +215,8 @@ var ui =
 					break;
 
 					default:
-					throw new Error("Don't know how to do collapse action " + action);
+					// L10n: An internal error message related to UI components.
+					throw new Error(window.app.say("Don't know how to do collapse action %s", action));
 				};
 
 				return this;
@@ -485,13 +487,12 @@ var ui =
 	{
 		options = options || {};
 
-		var modalContainer = $(ui.confirmTemplate(
-		{
+		var modalContainer = $(ui.confirmTemplate(_.extend({
 			message: message,
 			buttonLabel: buttonLabel,
 			modalClass: options.modalClass || '',
 			buttonClass: options.buttonClass || ''
-		}));
+		}, window.app.templateProperties)));
 
 		var modal = modalContainer.find('.modal');
 
@@ -525,7 +526,7 @@ var ui =
 	confirmTemplate: _.template('<div><div class="modal hide confirm <%- modalClass %>">' +
 	                            '<div class="message"><%= message %></div><p class="buttons">' +
 	                            '<button type="button" class="subtle cancel">' +
-								'<i class="fa fa-times"></i> Cancel</button> ' +
+								'<i class="fa fa-times"></i> <%= s("Cancel") %></button> ' +
 								'<button type="button" class="<%- buttonClass %>" data-action="yes">' +
 								'<%= buttonLabel %></button></p></div></div>'),
 
@@ -549,14 +550,13 @@ var ui =
 		options = options || {};
 		options.defaultText = options.defaultText || '';
 
-		var modalContainer = $(ui.promptTemplate(
-		{
+		var modalContainer = $(ui.promptTemplate(_.extend({
 			message: message,
 			defaultText: options.defaultText,
 			buttonLabel: buttonLabel,
 			modalClass: options.modalClass || '',
 			buttonClass: options.buttonClass || ''
-		}));
+		}, window.app.templateProperties)));
 
 		var modal = modalContainer.find('.modal');
 
@@ -598,7 +598,7 @@ var ui =
 							   '<p class="prompt"><input type="text" value="<%- defaultText %>" required></p>' +
 							   '<p class="buttons">' +
 							   '<button type="button" class="subtle cancel">' +
-							   '<i class="fa fa-times"></i> Cancel</button> ' +
+							   '<i class="fa fa-times"></i> <%= s("Cancel") %></button> ' +
 							   '<button type="button" class="<%- buttonClass %>" data-action="yes">' +
 							   '<%= buttonLabel %></button></p></form></div></div>'),
 };

@@ -10,7 +10,7 @@
   },
   "main": "index.html",
   "window": {
-	"show": false,
+    "show": false,
     "toolbar": false,
     "width": 1024,
     "height": 600,
@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "del": "^1.1.1",
+    "glob": "^5.0.10",
     "gulp": "^3.8.11",
     "gulp-connect": "^2.2.0",
     "gulp-include": "^1.1.1",
@@ -25,12 +26,15 @@
     "gulp-minify-css": "^1.1.1",
     "gulp-minify-html": "^1.0.2",
     "gulp-plumber": "^1.0.0",
+    "gulp-po2json": "^0.4.0",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.3",
     "gulp-uglify": "^1.2.0",
     "gulp-usemin": "^0.3.11",
     "gulp-yuidoc": "^0.1.2",
     "jshint-stylish": "^1.0.2",
+    "jsxgettext": "^0.7.0",
+    "lazypipe": "^0.2.4",
     "node-webkit-builder": "^1.0.11",
     "run-sequence": "^1.1.0"
   }

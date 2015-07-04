@@ -15,6 +15,7 @@
 <link href="lib/codemirror/js/addon/hint/show-hint.css" rel="stylesheet" media="screen">
 <link href="css/ui.css" rel="stylesheet" media="screen">
 <link href="css/app.css" rel="stylesheet" media="screen">
+<link href="css/localeview.css" rel="stylesheet" media="screen">
 <link href="css/welcomeview.css" rel="stylesheet" media="screen">
 <link href="css/storylistview.css" rel="stylesheet" media="screen">
 <link href="css/storyeditview.css" rel="stylesheet" media="screen">
@@ -29,6 +30,10 @@
 </div>
 
 <div id="templates">
+
+<script type="text/html" class="localeView">
+#= include templates/localeview.html
+</script>
 
 <script type="text/html" class="welcomeView">
 #= include templates/welcomeview.html
@@ -72,26 +77,11 @@
 
 <!-- build:js_cdn rsrc/js/twine_cdn.js -->
 <script src="lib/jquery/jquery.js"></script>
-<!-- endbuild -->
-
-<!-- build:js rsrc/js/twine.js -->
-<script src="lib/jquery/jquery.omniwindow.js"></script>
 <script src="lib/jquery/jquery.powertip.js"></script>
-
 <script src="lib/underscore.js"></script>
 <script src="lib/backbone/backbone.js"></script>
 <script src="lib/backbone/backbone.localstorage.js"></script>
-<script src="js/eventedlocalstorage.js"></script>
 <script src="lib/backbone/backbone.marionette.js"></script>
-
-<script src="lib/blob.js"></script>
-<script src="lib/filesaver.js"></script>
-<script src="lib/fastclick.js"></script>
-<script src="lib/jszip.js"></script>
-<script src="lib/svg.js"></script>
-<script src="lib/uuid.js"></script>
-<script src="lib/xdate.js"></script>
-
 <script src="lib/codemirror/js/codemirror.js"></script>
 <script src="lib/codemirror/js/addon/display/placeholder.js"></script>
 <script src="lib/codemirror/js/addon/hint/show-hint.js"></script>
@@ -99,9 +89,22 @@
 <script src="lib/codemirror/js/addon/hint/javascript-hint.js"></script>
 <script src="lib/codemirror/js/mode/javascript/javascript.js"></script>
 <script src="lib/codemirror/js/mode/css/css.js"></script>
+<script src="lib/fastclick.js"></script>
+<script src="lib/jszip.js"></script>
+<script src="lib/moment.js"></script>
+<script src="lib/svg.js"></script>
+<!-- endbuild -->
+
+<!-- build:js rsrc/js/twine.js -->
+<script src="lib/jquery/jquery.omniwindow.js"></script>
+<script src="lib/blob.js"></script>
+<script src="lib/filesaver.js"></script>
+<script src="lib/jed.js"></script>
+<script src="lib/uuid.js"></script>
 
 <script src="js/ui.js"></script>
 <script src="js/nwui.js"></script>
+<script src="js/eventedlocalstorage.js"></script>
 <script src="js/codemirror/prefixtrigger.js"></script>
 
 <script src="js/models/apppref.js"></script>
@@ -114,6 +117,7 @@
 <script src="js/collections/storycollection.js"></script>
 <script src="js/collections/storyformatcollection.js"></script>
 
+<script src="js/views/localeview.js"></script>
 <script src="js/views/welcomeview.js"></script>
 <script src="js/views/storylistview/storyitemview.js"></script>
 <script src="js/views/storylistview/storypreview.js"></script>

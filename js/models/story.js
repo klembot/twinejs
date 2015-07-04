@@ -10,10 +10,10 @@
 
 var Story = Backbone.Model.extend(
 {
-	defaults: function()
+	defaults: _.memoize(function()
 	{
 		return {
-			name: 'Untitled Story',
+			name: window.app.say('Untitled Story'),
 			startPassage: -1,
 			zoom: 1,
 			snapToGrid: false,
@@ -23,7 +23,7 @@ var Story = Backbone.Model.extend(
 			lastUpdate: new Date(),
 			ifid: UUID().toUpperCase()
 		};
-	},
+	}),
 
 	template: _.template('<tw-storydata name="<%- storyName %>" ' +
 						 'startnode="<%- startNode %>" creator="<%- appName %>" ' +
@@ -45,11 +45,12 @@ var Story = Backbone.Model.extend(
 				passages.at(0).destroy();
 		}, this);
 
-		this.on('sync', function()
+		this.on('sync', function (model, response, options)
 		{
 			// update any passages using our cid as link
 
-			_.invoke(PassageCollection.all().where({ story: this.cid }), 'save', { story: this.id });
+			if (! options.noChildUpdate)
+				_.invoke(PassageCollection.all().where({ story: this.cid }), 'save', { story: this.id });
 		}, this);
 
 		// any time we change, update our last updated date
@@ -109,10 +110,10 @@ var Story = Backbone.Model.extend(
 		if (! startOptional)
 		{
 			if (! startDbId)
-				throw new Error("There is no starting point set for this story.");
+				throw new Error(window.app.say('There is no starting point set for this story.'));
 
 			if (! passages.findWhere({ id: startDbId }))
-				throw new Error("The passage set as starting point for this story does not exist.");
+				throw new Error(window.app.say("The passage set as starting point for this story does not exist."));
 		};
 
 		passages.each(function (p, index)

@@ -5,12 +5,20 @@
 </button>
 
 <p class="message">
-A new version of Twine, <span class="version"></span>, has been released.
+<%=
+/* L10n: The <span> will have a version number, i.e. 2.0.6, interpolated into it. */
+s('A new version of Twine, <span class="version"></span>, has been released.')
+%>
 </p>
 
 <p class="buttons">
-<button class="subtle cancel" data-modal-hide="this"><i class="fa fa-times"></i> Not Right Now</a></button>
-<a href="#stories" class="button download" target="_blank"><i class="fa fa-download"></i> Download</a>
+<button class="subtle cancel" data-modal-hide="this"><i class="fa fa-times"></i>
+<%=
+/* L10n: A polite rejection of a request, in the sense that the answer may change in the future. */
+s('Not Right Now')
+%>
+</button>
+<a href="#stories" class="button download" target="_blank"><i class="fa fa-download"></i> <%= s('Download') %></a>
 </p>
 
 </div>

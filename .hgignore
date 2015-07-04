@@ -9,3 +9,4 @@ doc/*
 .idea
 cache
 dist-apps
+locale/*.js

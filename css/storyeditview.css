@@ -66,7 +66,7 @@
 
 #storyEditView .toolbar.main .storyName
 {
-	min-width: 8em;
+	min-width: 10em;
 	max-width: 18em;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -464,7 +464,7 @@ body.iOS .editModal
 
 #searchModal pre
 {
-	font: 100% Cousine, monospace;
+	font: 90% "Source Code Pro", monospace;
 	white-space: pre-wrap;
 	max-height: 5em;
 	overflow: auto;
