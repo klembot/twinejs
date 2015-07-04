@@ -22,10 +22,6 @@ StoryEditView.StatsModal = Backbone.View.extend(
 
 	open: function()
 	{
-		// format the date
-		
-		this.$('.lastUpdate').text(new XDate(this.parent.model.get('lastUpdate')).toString('h:mm tt, d MMMM yyyy'));
-
 		// calculate counts
 
 		var charCount = 0;
@@ -67,62 +63,24 @@ StoryEditView.StatsModal = Backbone.View.extend(
 		this.$('.linkCount').text(linkCount.toLocaleString());
 		this.$('.brokenLinkCount').text(brokenLinkCount.toLocaleString());
 
-		// adjust visibility of singular/plural nouns
+		// L10n: Character in the sense of individual letters in a word.
+		// This does not actually show the count here, as it is used in a table.
+		this.$('.charDesc').text(window.app.sayPlural('Character', 'Characters', charCount));
 
-		if (charCount != 1)
-		{
-			this.$('.charDesc .singular').addClass('hide');
-			this.$('.charDesc .plural').removeClass('hide');
-		}
-		else
-		{
-			this.$('.charDesc .singular').removeClass('hide');
-			this.$('.charDesc .plural').addClass('hide');
-		};
+		// L10n: Word in the sense of individual words in a sentence.
+		// This does not actually show the count here, as it is used in a table.
+		this.$('.wordDesc').text(window.app.sayPlural('Word', 'Words', wordCount));
 
-		if (wordCount != 1)
-		{
-			this.$('.wordDesc .singular').addClass('hide');
-			this.$('.wordDesc .plural').removeClass('hide');
-		}
-		else
-		{
-			this.$('.wordDesc .singular').removeClass('hide');
-			this.$('.wordDesc .plural').addClass('hide');
-		};
+		// L10n: This does not actually show the count here, as it is used in a table.
+		this.$('.passageDesc').text(window.app.sayPlural('Passage', 'Passages', passageCount));
 
-		if (passageCount != 1)
-		{
-			this.$('.passageDesc .singular').addClass('hide');
-			this.$('.passageDesc .plural').removeClass('hide');
-		}
-		else
-		{
-			this.$('.passageDesc .singular').removeClass('hide');
-			this.$('.passageDesc .plural').addClass('hide');
-		};
+		// L10n: Links in the sense of hypertext links.
+		// This does not actually show the count here, as it is used in a table.
+		this.$('.linkDesc').text(window.app.sayPlural('Link', 'Links', passageCount));
 
-		if (linkCount != 1)
-		{
-			this.$('.linkDesc .singular').addClass('hide');
-			this.$('.linkDesc .plural').removeClass('hide');
-		}
-		else
-		{
-			this.$('.linkDesc .singular').removeClass('hide');
-			this.$('.linkDesc .plural').addClass('hide');
-		};
-
-		if (brokenLinkCount != 1)
-		{
-			this.$('.brokenLinkDesc .singular').addClass('hide');
-			this.$('.brokenLinkDesc .plural').removeClass('hide');
-		}
-		else
-		{
-			this.$('.brokenLinkDesc .singular').removeClass('hide');
-			this.$('.brokenLinkDesc .plural').addClass('hide');
-		};
+		// L10n: Links in the sense of hypertext links.
+		// This does not actually show the count here, as it is used in a table.
+		this.$('.brokenLinkDesc').text(window.app.sayPlural('Broken Link', 'Broken Links', passageCount));
 
 		this.$el.data('modal').trigger('show');
 	},

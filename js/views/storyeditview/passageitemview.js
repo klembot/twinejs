@@ -162,15 +162,14 @@ var PassageItemView = Marionette.ItemView.extend(
 			this.delete();
 		else
 		{
-			var message = 'Are you sure you want to delete &ldquo;' +
-						  this.model.get('name') + '?&rdquo; This cannot be undone.';
+			var message = window.app.say('Are you sure you want to delete &ldquo;%s&rdquo;? ' +
+			                                   'This cannot be undone.', this.model.get('name'));
 
 			if (! window.app.hasPrimaryTouchUI())
-				message += '<br><br>(Hold the Shift key when deleting to skip this message.)';
+				message += '<br><br>' + window.app.say('(Hold the Shift key when deleting to skip this message.)');
 
-			ui.confirm(message, '<i class="fa fa-trash-o"></i> Delete',
-					   this.delete.bind(this),
-					   { buttonClass: 'danger' });
+			ui.confirm(message, '<i class="fa fa-trash-o"></i> ' + window.app.say('Delete'),
+					   this.delete.bind(this), { buttonClass: 'danger' });
 		};
 	},
 
@@ -457,7 +456,10 @@ var PassageItemView = Marionette.ItemView.extend(
 			this.dragTouchId = e.targetTouches[0].identifier;
 		}
 		else
-			throw new Error("Don't see either mouse or touch coordinates on event");
+		{
+			// L10n: An internal error related to handling user input.
+			throw new Error(window.app.say("Don't see either mouse or touch coordinates on event"));
+		};
 
 		this.actuallyDragged = false;
 		$('#storyEditView').addClass('draggingPassages');
@@ -516,7 +518,10 @@ var PassageItemView = Marionette.ItemView.extend(
 				};
 
 			if (! eventOrigin)
-				throw new Error("Couldn't find original touch ID in movement event");
+			{
+				// L10n: An internal error related to user input.
+				throw new Error(window.app.say("Couldn't find original touch ID in movement event"));
+			};
 		}
 		else
 			eventOrigin = e;

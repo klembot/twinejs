@@ -6,9 +6,9 @@
 
 <div class="title">
 <p class="tabs">
-<button class="showStoryFormats" data-content=".storyFormatsContent">Story Formats</button>
-<button class="showProofingFormats" data-content=".proofingFormatsContent">Proofing Formats</button>
-<button class="showAddFormat" data-content=".addFormatContent">Add a New Format</button>
+<button class="showStoryFormats" data-content=".storyFormatsContent"><%= s('Story Formats') %></button>
+<button class="showProofingFormats" data-content=".proofingFormatsContent"><%= s('Proofing Formats') %></button>
+<button class="showAddFormat" data-content=".addFormatContent"><%= s('Add a New Format') %></button>
 </p>
 </div>
 
@@ -17,7 +17,7 @@
 <div class="storyFormatsContent">
 
 <p>
-Story formats control the appearance and behavior of stories during play.
+<%= s('Story formats control the appearance and behavior of stories during play.') %>
 </p>
 
 <div class="storyFormatList"></div>
@@ -27,7 +27,7 @@ Story formats control the appearance and behavior of stories during play.
 <div class="proofingFormatsContent">
 
 <p>
-Proofing formats create a versions of stories tailored for editing and proofreading.
+<%= s('Proofing formats create a versions of stories tailored for editing and proofreading.') %>
 </p>
 
 <div class="proofingFormatList"></div>
@@ -37,14 +37,17 @@ Proofing formats create a versions of stories tailored for editing and proofread
 <div class="addFormatContent">
 
 <p>
-To add a story format, enter its address below.
+<%=
+/* L10n: Address in the sense of a URL. */
+s('To add a story format, enter its address below.')
+%>
 </p>
 
 <form class="addFormat">
 
 <p>
 <input type="text" name="newFormatUrl" required>
-<button class="create" type="submit"><i class="fa fa-plus"></i> Add</button>
+<button class="create" type="submit"><i class="fa fa-plus"></i> <%= s('Add') %></button>
 </p>
 
 </form>
@@ -52,7 +55,7 @@ To add a story format, enter its address below.
 </div>
 
 <p class="loading">
-<i class="fa fa-circle-o-notch fa-lg fa-spin"></i> Loading...
+<i class="fa fa-circle-o-notch fa-lg fa-spin"></i> <%= s('Loading...') %>
 </p>
 
 <p class="error"></p>

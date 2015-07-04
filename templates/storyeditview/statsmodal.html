@@ -5,57 +5,45 @@
 </button>
 
 <h2 class="title">
-Story Statistics
+<%= s('Story Statistics') %>
 </h2>
 
 <div class="content">
-
 <table>
 <tbody>
 <tr>
 <td class="charCount"></td>
-<td class="charDesc">
-<span class="singular">Character</span>
-<span class="plural">Characters</span>
-</td>
+<td class="charDesc"></td>
 </tr>
 <tr>
 <td class="wordCount"></td>
-<td class="wordDesc">
-<span class="singular">Word</span>
-<span class="plural">Words</span>
-</td>
+<td class="wordDesc"></td>
 </tr>
 <tr>
 <td class="passageCount"></td>
-<td class="passageDesc">
-<span class="singular">Passage</span>
-<span class="plural">Passages</span>
-</td>
+<td class="passageDesc"></td>
 </tr>
 <tr>
 <td class="linkCount"></td>
-<td class="linkDesc">
-<span class="singular">Link</span>
-<span class="plural">Links</span>
-</td>
+<td class="linkDesc"></td>
 </tr>
 <td class="brokenLinkCount"></td>
-<td class="brokenLinkDesc">
-<span class="singular">Broken link</span>
-<span class="plural">Broken links</span>
-</td>
+<td class="brokenLinkDesc"></td>
 </tr>
 </tbody>
 </table>
 
-<p>
-This story was last changed at <span class="lastUpdate"></span>.
+<p class="lastUpdate">
+<%=
+s('This story was last changed at %s', lastUpdate)
+%>
 </p>
 
 <p>
-The IFID for this story is <span class="ifid"><%- ifid %></span>.
-(<a href="http://ifdb.tads.org/help-ifid" target="_blank">What's an IFID?</a>)
+<%=
+/* L10n: %s is the IFID of the story. Please keep the <span> element around it. */
+s('The IFID for this story is <span class="ifid">%s</span>. <a href="http:\/\/ifdb.tads.org/help-ifid" target="_blank">What\'s an IFID?</a>)', ifid)
+%>
 </p>
 
 </div> <!-- .content -->

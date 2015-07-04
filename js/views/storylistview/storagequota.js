@@ -18,7 +18,7 @@ StoryListView.StorageQuota = Backbone.View.extend(
 		if (this.parent.collection.length == 0)
 		{
 			usedEl.css('display', 'none');
-			percentEl.text('100');
+			percentEl.text(window.app.say('%d%% space available', 100));
 			return;
 		};
 
@@ -41,12 +41,12 @@ StoryListView.StorageQuota = Backbone.View.extend(
 
 				var percent = Math.round(used / (used + free) * 100);
 
-				percentEl.text(100 - percent);
+				percentEl.text(window.app.say('%d%% space available', 100 - percent));
 
 				if (percent <= 1)
 				{
 					usedEl.css('width', '0.25em');
-					percentEl.text('99');
+					percentEl.text(window.app.say('%d%% space available', 99));
 					stop = true;
 				}
 				else

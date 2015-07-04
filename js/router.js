@@ -21,6 +21,11 @@ var TwineRouter = Backbone.Router.extend(
 		window.app.mainRegion.show(new WelcomeView());
 	},
 
+	locale: function()
+	{
+		window.app.mainRegion.show(new LocaleView());
+	},
+
 	listStories: function()
 	{
 		// list of all stories
@@ -78,6 +83,7 @@ var TwineRouter = Backbone.Router.extend(
 	routes:
 	{
 		'welcome': 'welcome',
+		'locale': 'locale',
 		'stories': 'listStories',
 		'stories/:id': 'editStory',
 		'stories/:id/play': 'playStory',

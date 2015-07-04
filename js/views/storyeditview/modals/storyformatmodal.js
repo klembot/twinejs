@@ -82,7 +82,7 @@ StoryEditView.StoryFormatModal = Backbone.View.extend(
 						// so that image URLs, for example, are correct
 
 						var path = format.get('url').replace(/\/[^\/]*?$/, '');
-						var fullContent = _.extend(format.properties, { path: path });
+						var fullContent = _.extend(format.properties, { path: path }, window.app.templateProperties);
 						var content = $(this.itemTemplate(fullContent));
 
 						this.$('.formats').append(content);
@@ -92,7 +92,8 @@ StoryEditView.StoryFormatModal = Backbone.View.extend(
 					};
 				}
 				else
-					ui.notify('The story format &ldquo;' + format.get('name') + '&rdquo; could not be loaded (' + e.message + ').', 'danger');
+					// L10n: %1$s is the name of the story format, %2$s is the error message.
+					ui.notify(window.app.say('The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s).', format.get('name'), e.message), 'danger');
 
 				this.formatsToLoad.remove(format);
 				this.loadNextFormat();

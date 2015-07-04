@@ -236,7 +236,7 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 		bubble.find('.form').addClass('hide');
 		bubble.find('.working').removeClass('hide');
 
-		reader.onload = function (e)
+		reader.addEventListener('load', function (e)
 		{
 			var className = '';
 			var message = '';
@@ -247,10 +247,9 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 
 				if (count > 0)
 				{
-					if (count == 1)
-						message = '1 story was imported.';
-					else
-						message = count + ' stories were imported.';
+					// L10n: %d is a number of stories.
+					message = window.app.sayPlural('%d story was imported.',
+					                               '%d stories were imported.', count);
 				}
 				else
 				{
@@ -270,9 +269,10 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 			bubble.find('.working').addClass('hide');
 			this.$('.importStory').bubble('hide');
 			ui.initEl(this.$el);
-		}.bind(this);
+		}.bind(this));
 
 		reader.readAsText(e.target.files[0], 'UTF-8');
+		return reader;
 	},
 
 	showNextPreview: function()
@@ -338,8 +338,8 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 			this.$('.noStories').css('display', 'block');
 		};
 
-		document.title = this.collection.length + ' Stor' +
-		                 ((this.collection.length == 1) ? 'y' : 'ies');
+		// L10n: %d is a number of stories
+		document.title = window.app.sayPlural('%d Story', '%d Stories', this.collection.length);
 	},
 
 	events:
@@ -349,9 +349,15 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 		'change .importFile': 'importFile',
 		'click .sortByDate': 'sortByDate',
 		'click .sortByName': 'sortByName',
+
 		'click .showFormats': function()
 		{
-			this.formatsModal.open();	
+			this.formatsModal.open();
+		},
+
+		'click .showLocale': function()
+		{
+			window.location.hash = 'locale';
 		},
 
 		'click .showHelp': function()
