@@ -25,7 +25,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 	 @property version
 	**/
 
-	version: '2.0.6',
+	version: '2.0.7',
 
 	/**
 	 Loads gettext strings via AJAX. This sets the app's i18nData and
