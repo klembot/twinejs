@@ -350,7 +350,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 
 			_.each(storyEl.querySelectorAll(selectors.stylesheet), function (el)
 			{
-				stylesheet += el.innerHTML + '\n';
+				stylesheet += el.textContent + '\n';
 			});
 
 			// likewise for script nodes
@@ -359,7 +359,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 
 			_.each(storyEl.querySelectorAll(selectors.script), function (el)
 			{
-				script += el.innerHTML + '\n';
+				script += el.textContent + '\n';
 			});
 
 			// create a story object
@@ -387,7 +387,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 				{
 					name: passageEl.attributes.name.value,
 					tags: tags,
-					text: passageEl.innerHTML,
+					text: passageEl.textContent,
 					story: story.id,
 					left: parseInt(posBits[0]),
 					top: parseInt(posBits[1])
