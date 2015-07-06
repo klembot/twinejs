@@ -361,9 +361,17 @@ gulp.task('release', ['release:web', 'release:web-cdn', 'release:nw']);
 gulp.task('package:clean', function (cb)
 {
 	del.sync('dist/download/');
-	fs.mkdirSync('dist/');
-	fs.mkdirSync('dist/web/');
-	fs.mkdir('dist/download/', cb);
+
+	if (! fs.existsSync('dist/'))
+		fs.mkdirSync('dist/');
+
+	if (! fs.existsSync('dist/web/'))
+		fs.mkdirSync('dist/web/');
+
+	if (! fs.existsSync('dist/web/'))
+		fs.mkdirSync('dist/download/');
+
+	cb();
 });
 
 gulp.task('package:web', ['package:clean'], function (cb)
