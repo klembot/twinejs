@@ -1,0 +1,139 @@
+<div id="storyListView">
+
+<nav class="listControls">
+
+<h1 class="logo"><%= s('Twine') %></h1>
+
+<div class="bubbleContainer">
+<p>
+<button class="addStory create block" title="<%= s('Create a brand-new story') %>" data-bubble="toggle" data-bubble-dir="right" data-tooltip-dir="w">
+<i class="fa fa-plus"></i> <%= s('Story') %>
+</button>
+</p>
+
+<div class="bubble left">
+<form id="addStoryForm">
+<p>
+<%= s("What should your story be named?<br>(You can change this later.)") %>
+</p>
+
+<p>
+<input class="newName block" type="text" required>
+</p>
+
+<p class="dialogButtons">
+<button type="button" class="cancelAdd subtle" data-bubble="hide"><i class="fa fa-times"></i> <%= s('Cancel') %></button>
+<button type="submit" class="add create"><i class="fa fa-plus"></i> <%= s('Add') %></button>
+</p>
+</form>
+</div> <!-- .bubble -->
+</div> <!-- .bubbleContainer -->
+
+<div class="bubbleContainer">
+<p>
+<button class="importStory subtle block" title="<%= s('Import a published story or Twine archive') %>" data-bubble="toggle" data-bubble-dir="left" data-tooltip-dir="w">
+<i class="fa fa-upload"></i> <%= s('Import From File') %>
+</button>
+</p>
+
+<div class="bubble left">
+<div class="form">
+<p>
+<%= s('Import this file:') %>
+</p>
+
+<p>
+<input class="importFile" type="file">
+</p>
+
+<p>
+<button class="subtle" data-bubble="hide"><i class="fa fa-times"></i> <%= s('Cancel') %></button>
+</p>
+</div>
+
+<div class="working hide">
+<p>
+<i class="fa fa-2x fa-circle-o-notch fa-spin"></i>
+</p>
+<p>
+<%= s('Importing...') %>
+</p>
+</div>
+
+</div> <!-- .bubble -->
+</div> <!-- .bubbleContainer -->
+
+<p>
+<button class="saveArchive subtle" title="<%= s('Save all stories to a Twine archive file') %>" data-tooltip-dir="w">
+<i class="fa fa-briefcase"></i> <%= s('Archive') %>
+</button>
+</p>
+
+<p>
+<button class="showFormats subtle" title="<%= s('Work with story and proofing formats') %>" data-tooltip-dir="w">
+<i class="fa fa-file-code-o"></i> <%= s('Formats') %>
+</button>
+</p>
+
+<p>
+<button class="showLocale subtle" title="<%= s('Change the language Twine uses') %>" data-tooltip-dir="w">
+<i class="fa fa-comment-o"></i> <%= s('Language') %>
+</button>
+</p>
+
+<p>
+<button class="showHelp subtle" title="<%= s('Browse online help') %>" data-tooltip-dir="w">
+<i class="fa fa-question-circle"></i> <%= s('Help') %>
+</button>
+</p>
+
+<footer>
+
+<p class="quota">
+<span class="total">
+<span class="used"></span>
+</span>
+
+<span class="percent"></span>
+</p>
+
+<p>
+<%= s('version') %> <button class="link" data-modal-show="#aboutModal"><span class="app-version"></span></button>
+<br>
+<a href="https://bitbucket.org/klembot/twinejs/issues"><i class="fa fa-bug"></i> <%= s('Report a bug') %></a>
+</p>
+</footer>
+
+</nav>
+
+<div class="main">
+
+<h1><%= s('Stories') %>
+
+<span class="pull-right normal buttonGroup">
+<%= s('Sort By') %>
+
+<button class="sortByDate subtle active" title="<%= s('Last changed date') %>">
+<%= s('Edit Date') %>
+</button>
+
+<button class="sortByName subtle" title="<%= s('Story name') %>">
+<%= s('Name') %>
+</button>
+</span>
+
+</h1>
+
+<p class="noStories">
+<%= s('There are no stories saved in Twine right now. To get started, you can either create a new story or import an existing one from a file.') %>
+</p>
+
+<div class="stories"></div>
+</div> <!-- .main -->
+
+</div> <!-- #storyListView -->
+
+#= include modals/aboutmodal.html
+#= include modals/appupdatemodal.html
+#= include modals/donatemodal.html
+#= include modals/formatsmodal.html
