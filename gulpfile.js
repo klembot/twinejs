@@ -368,7 +368,7 @@ gulp.task('package:clean', function (cb)
 	if (! fs.existsSync('dist/web/'))
 		fs.mkdirSync('dist/web/');
 
-	if (! fs.existsSync('dist/web/'))
+	if (! fs.existsSync('dist/download/'))
 		fs.mkdirSync('dist/download/');
 
 	cb();
