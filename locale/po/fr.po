@@ -1,9 +1,14 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-06-30 22:38-0400\n"
-"PO-Revision-Date: 2015-07-06 13:47+0100\n"
+"PO-Revision-Date: 2015-07-06 15:59+0100\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,7 +16,7 @@ msgstr ""
 "Last-Translator: Valentin Rocher <bishiboosh@gmail.com>\n"
 "Language-Team: \n"
 "X-Generator: Poedit 1.7.5\n"
-"Language: fr\n"
+"Language: fr_FR\n"
 
 #: templates/localeview.html:4
 msgid "Please choose which language you would like to use with Twine."
@@ -36,7 +41,7 @@ msgid ""
 "Enter the body text of your passage here. To link to another passage, put "
 "two square brackets around its name, [[like this]]."
 msgstr ""
-"Entrer le texte de votre passage ici. Pour ajouter un lien vers un autre "
+"Entrez le texte de votre passage ici. Pour ajouter un lien vers un autre "
 "passage, entourez son nom de deux crochets, [[comme ça]]."
 
 #. L10n: %s is the name of the thing to be deleted.
@@ -187,7 +192,7 @@ msgid ""
 "play."
 msgstr ""
 "Un format d'histoire contrôle l'apparence et le comportement de votre "
-"histoire durant la lecture"
+"histoire durant le jeu"
 
 #: templates/storyeditview/storyformatmodal.html:16
 #: templates/storylistview/modals/formatsmodal.html:58
@@ -441,7 +446,7 @@ msgstr "Formats de Correction"
 
 #: templates/storylistview/modals/formatsmodal.html:11
 msgid "Add a New Format"
-msgstr "Ajouter un Nouveau Formar"
+msgstr "Ajouter un Nouveau Format"
 
 #: templates/storylistview/modals/formatsmodal.html:20
 msgid ""
@@ -455,7 +460,7 @@ msgid ""
 "Proofing formats create a versions of stories tailored for editing and "
 "proofreading."
 msgstr ""
-"Les formats de corrections créent une version des histoire dédiée à "
+"Les formats de correction créent une version des histoires dédiée à "
 "l'édition et à la correction."
 
 #. L10n: Address in the sense of a URL.
@@ -500,7 +505,7 @@ msgstr "Histoire"
 msgid "What should your story be named?<br>(You can change this later.)"
 msgstr ""
 "Quel nom voulez-vous utiliser pour votre histoire ?<br>(Vous pourrez le "
-"changer ultérieurement.)"
+"changer après.)"
 
 #: templates/storylistview/storylistview.html:34
 msgid "Import a published story or Twine archive"
@@ -536,11 +541,11 @@ msgstr "Formats"
 
 #: templates/storylistview/storylistview.html:79
 msgid "Change the language Twine uses"
-msgstr "Changer le langage utilisé par Twine"
+msgstr "Changer la langue utilisée par Twine"
 
 #: templates/storylistview/storylistview.html:80
 msgid "Language"
-msgstr "Langage"
+msgstr "Langue"
 
 #: templates/storylistview/storylistview.html:85
 msgid "Browse online help"
@@ -556,7 +561,7 @@ msgstr "version"
 
 #: templates/storylistview/storylistview.html:103
 msgid "Report a bug"
-msgstr "Remonter un bogue"
+msgstr "Signaler un bug"
 
 #: templates/storylistview/storylistview.html:111
 msgid "Stories"
@@ -587,9 +592,9 @@ msgid ""
 "There are no stories saved in Twine right now. To get started, you can "
 "either create a new story or import an existing one from a file."
 msgstr ""
-"Il n'y a aucune histoire sauvée dans Twine pour le moment. Pour commencer, "
-"vous pouvez soit créer une nouvelle histoire soit en importer une depuis un "
-"fichier."
+"Il n'y a aucune histoire sauvegardée dans Twine pour le moment. Pour "
+"commencer, vous pouvez soit créer une nouvelle histoire soit en importer une "
+"depuis un fichier."
 
 #: templates/welcomeview.html:6
 msgid "Hi!"
@@ -601,8 +606,8 @@ msgid ""
 "There are a few things you should know before you get started."
 msgstr ""
 "Twine est un outil open-source pour raconter des histoires interactives et "
-"non-linéaires. Il y a quelques détails que vous devez connaître avant de "
-"commencer."
+"non-linéaires. Il y a quelques détails que vous devriez connaître avant de "
+"vous lancer."
 
 #: templates/welcomeview.html:14
 msgid "Tell Me More"
@@ -637,7 +642,7 @@ msgid ""
 "You can also get help over at the <a href=\"http:\\/\\/twinery.org/forum\" "
 "target=\"_blank\">Twine forum</a>, too."
 msgstr ""
-"Vous pouvez aussi obtenir de l'aider sur le <a href=\"http:\\/\\/twinery.org/"
+"Vous pouvez aussi obtenir de l'aide sur le <a href=\"http:\\/\\/twinery.org/"
 "forum\" target=\"_blank\">forum de Twine</a>."
 
 #: templates/welcomeview.html:35
@@ -682,7 +687,7 @@ msgid ""
 "imported into Twine."
 msgstr ""
 "Deux choses <b>très importantes</b> à noter, cela dit. Étant donné que votre "
-"travail est sauvé uniquement dans votre navigateur, si vous effacez ses "
+"travail est sauvegardé uniquement dans votre navigateur, si vous effacez ses "
 "données, vous perdrez votre travail ! Pas glop. N'oubliez pas d'utiliser le "
 "bouton <i class=\"fa fa-briefcase\"></i>&nbsp;<strong>Archive</strong> "
 "régulièrement. Vous pouvez aussi publier des histoires une par une en "
@@ -725,11 +730,11 @@ msgid ""
 "Library</b> item in the <b>Twine</b> menu."
 msgstr ""
 "Il y a maintenant un dossier nommé Twine dans votre dossier Documents. A "
-"l'intérieur vous trouverez un dossier Stories, où tout votre travail sera "
+"l'intérieur vous trouverez un dossier Histoires, où tout votre travail sera "
 "sauvegardé. Twine sauvegarde au cours de votre travail, pour que vous n'ayez "
 "pas à penser à le sauver vous-même. Vous pouvez toujours ouvrir le dossier "
 "où vos histoires sont sauvegardées en utilisant le choix <b>Montrer la "
-"Bibiliothèque</b> dans le menu <b>Twine</b>"
+"Bibliothèque</b> dans le menu <b>Twine</b>"
 
 #: templates/welcomeviewnw.html:15
 msgid ""
@@ -737,7 +742,7 @@ msgid ""
 "will be locked from editing while Twine is open."
 msgstr ""
 "Vu que Twine est toujours en train de sauvegarder votre travail, les "
-"fichiers dans votre bibliothèque d'histoires seront vérouillés tant que "
+"fichiers dans votre bibliothèque d'histoires seront verrouillés tant que "
 "Twine est ouvert."
 
 #: templates/welcomeviewnw.html:19
@@ -778,11 +783,11 @@ msgstr "Passage sans titre"
 
 #: js/models/passage.js:21
 msgid "Tap this passage, then the pencil icon to edit it."
-msgstr "Cliquez sur ce passage, puis sur l'icône du crayon pour l'éditer."
+msgstr "Cliquez sur ce passage, puis sur l'icône du crayon pour le modifier."
 
 #: js/models/passage.js:22
 msgid "Double-click this passage to edit it."
-msgstr "Double-cliquez sur ce passage pour l'éditer."
+msgstr "Double-cliquez sur ce passage pour le modifier."
 
 #: js/models/passage.js:78
 msgid "You must give this passage a name."
@@ -881,7 +886,7 @@ msgstr "/Twine"
 
 #: js/nwui.js:260
 msgid "/Stories"
-msgstr "/Stories"
+msgstr "/Histoires"
 
 #. L10n: %s is the error message.
 #: js/nwui.js:430
@@ -931,13 +936,13 @@ msgstr "Impossible de changer la locale vers : %s"
 #: js/views/storyeditview/storyeditview.js:563
 #, javascript-format
 msgid "Editing “%s”"
-msgstr "Édition \"%s\""
+msgstr "Modification \"%s\""
 
 #: js/views/storyeditview/editors/passageeditor.js:211
 msgid "Any changes to the passage you're editing haven't been saved yet. "
 msgstr ""
-"Tous les changements sur le passage que vous éditez n'ont pas encore été "
-"sauvés."
+"Les changements sur le passage que vous modifiez n'ont pas encore été "
+"sauvegardés."
 
 #. L10n: Matched in the sense of matching a search criteria. %d is the number of passages.
 #: js/views/storyeditview/modals/searchmodal.js:94
@@ -1015,18 +1020,18 @@ msgstr "Le format d'histoire &ldquo;%1$s&rdquo; n'a pas pu être chargé (%2$s).
 #: js/views/storyeditview/passageitemview.js:165
 #, javascript-format
 msgid "Are you sure you want to delete &ldquo;%s&rdquo;? "
-msgstr "Ếtes-vous sûr de vouloir supprimer &ldquo;%s&rdquo; ?"
+msgstr "Êtes-vous sûr de vouloir supprimer &ldquo;%s&rdquo; ?"
 
 #: js/views/storyeditview/passageitemview.js:169
 msgid "(Hold the Shift key when deleting to skip this message.)"
 msgstr ""
-"(Gardez la touche Shift appuyée lors de la suppression pour ne plus afficher "
+"(Gardez la touche Maj appuyée lors de la suppression pour ne plus afficher "
 "ce message.)"
 
 #. L10n: An internal error related to handling user input.
 #: js/views/storyeditview/passageitemview.js:461
 msgid "Don't see either mouse or touch coordinates on event"
-msgstr "Impossible de déterminer les coordonnées pour l'évènement"
+msgstr "Impossible de déterminer les coordonnées de curseur pour l'évènement"
 
 #. L10n: An internal error related to user input.
 #: js/views/storyeditview/passageitemview.js:523
@@ -1047,9 +1052,9 @@ msgstr "Un problème est survenu lors de la sauvegarde des modifications (%s)."
 msgid "Are you sure you want to delete this passage?"
 msgid_plural ""
 "Are you sure you want to delete these %d passages? This cannot be undone."
-msgstr[0] "Ếtes-vous sûr de vouloir supprimer %d passage ?"
+msgstr[0] "Êtes-vous sûr de vouloir supprimer %d passage ?"
 msgstr[1] ""
-"Ếtes-vous sûr de vouloir supprimer ces %d passages ? Cette action ne peut "
+"Êtes-vous sûr de vouloir supprimer ces %d passages ? Cette action ne peut "
 "être annulée."
 
 #: js/views/storyeditview/storyeditview.js:268
@@ -1121,7 +1126,7 @@ msgstr ""
 msgid ""
 "Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone."
 msgstr ""
-"Ếtes-vous sûr de vouloir supprimer &ldquo;%s&rdquo; ? Cette action ne peut "
+"Êtes-vous sûr de vouloir supprimer &ldquo;%s&rdquo; ? Cette action ne peut "
 "être annulée."
 
 #: js/views/storylistview/storyitemview.js:125
