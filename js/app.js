@@ -25,7 +25,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 	 @property version
 	**/
 
-	version: '2.0.6',
+	version: '2.0.8',
 
 	/**
 	 Loads gettext strings via AJAX. This sets the app's i18nData and
@@ -543,6 +543,7 @@ window.app.addInitializer(function ()
 
 	if (! formats.findWhere({ name: 'SugarCube' }))
 		formats.create({ name: 'SugarCube', url: 'http://www.motoslave.net/sugarcube/1/twine2/format.js', userAdded: false });
+		formats.create({ name: 'SugarCube', url: 'storyformats/SugarCube/format.js', userAdded: false });
 
 	// set default formats if not already set
 	// (second param is a default)
