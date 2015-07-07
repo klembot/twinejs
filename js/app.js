@@ -25,7 +25,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 	 @property version
 	**/
 
-	version: '2.0.7',
+	version: '2.0.8',
 
 	/**
 	 Loads gettext strings via AJAX. This sets the app's i18nData and
@@ -350,7 +350,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 
 			_.each(storyEl.querySelectorAll(selectors.stylesheet), function (el)
 			{
-				stylesheet += el.innerHTML + '\n';
+				stylesheet += el.textContent + '\n';
 			});
 
 			// likewise for script nodes
@@ -359,7 +359,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 
 			_.each(storyEl.querySelectorAll(selectors.script), function (el)
 			{
-				script += el.innerHTML + '\n';
+				script += el.textContent + '\n';
 			});
 
 			// create a story object
@@ -387,7 +387,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 				{
 					name: passageEl.attributes.name.value,
 					tags: tags,
-					text: passageEl.innerHTML,
+					text: passageEl.textContent,
 					story: story.id,
 					left: parseInt(posBits[0]),
 					top: parseInt(posBits[1])
@@ -543,6 +543,7 @@ window.app.addInitializer(function ()
 
 	if (! formats.findWhere({ name: 'SugarCube' }))
 		formats.create({ name: 'SugarCube', url: 'http://www.motoslave.net/sugarcube/1/twine2/format.js', userAdded: false });
+		formats.create({ name: 'SugarCube', url: 'storyformats/SugarCube/format.js', userAdded: false });
 
 	// set default formats if not already set
 	// (second param is a default)
