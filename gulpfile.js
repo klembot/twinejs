@@ -456,6 +456,8 @@ gulp.task('buildpojson', function()
 {
 	return gulp.src('locale/po/*.po')
 	       .pipe(po2json({ format: 'jed1.x', domain: 'messages' }))
+		   // \\/ => \/, because xgettext isn't handling backslashes in templates correctly
+		   .pipe(replace(/\\\\\//g, '\\/'))
 		   .pipe(replace(/^/, 'window.locale('))
 		   .pipe(replace(/$/, ')'))
 		   .pipe(rename(function (path)
