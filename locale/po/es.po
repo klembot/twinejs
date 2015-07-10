@@ -621,7 +621,7 @@ msgid ""
 "by using the <b>Show Library</b> item in the <b>Twine</b> menu."
 msgstr ""
 "A partir de este momento hay una carpeta llamada Twine en tu carpeta de Documentos. Dentro de ella hay una carpeta Stories, en la que se guardará todo tu trabajo. Twine guarda a medida que trabajas, así que no te preocupes por acordarte de guardar. Siempre puedes abrir la "
-"carpeta en la que se guardan tus historias usando el ítem <b>Mostrat biblioteca</b> en el menú <b>Twine</b>."
+"carpeta en la que se guardan tus historias usando el ítem <b>Mostrar biblioteca</b> en el menú <b>Twine</b>."
 
 #: templates/welcomeviewnw.html:15
 msgid "Because Twine is always saving your work, the files in your story library will be locked from editing while Twine is open."
