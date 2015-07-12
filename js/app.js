@@ -368,7 +368,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 			{
 				name: storyEl.attributes.name.value,
 				storyFormat: storyEl.attributes.format.value,
-				ifid: storyEl.attributes.ifid.value,
+				ifid: (storyEl.attributes.ifid) ? story.attributes.ifid.value : null,
 				stylesheet: (stylesheet !== '') ? stylesheet : null,
 				script: (script !== '') ? script : null
 			}, { wait: true, silent: true, validate: false });
