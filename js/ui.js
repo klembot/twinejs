@@ -118,9 +118,7 @@ var ui =
 					// hide any existing bubble and tooltips
 
 					$('.active[data-bubble]').bubble('hide');
-
-					if ($t.attr('title'))
-						$t.powerTip('hide');
+					$.powerTip.hide();
 
 					// show this one
 
