@@ -10,25 +10,24 @@
 
 var Story = Backbone.Model.extend(
 {
-	defaults: _.memoize(function()
+	defaults: function()
 	{
 		return {
-			name: window.app.say('Untitled Story'),
+			name: 'Untitled Story',
 			startPassage: -1,
 			zoom: 1,
 			snapToGrid: false,
 			stylesheet: '',
 			script: '',
 			storyFormat: AppPref.withName('defaultFormat').get('value') || 'Harlowe',
-			lastUpdate: new Date(),
-			ifid: UUID().toUpperCase()
+			lastUpdate: new Date()
 		};
-	}),
+	},
 
 	template: _.template('<tw-storydata name="<%- storyName %>" ' +
 						 'startnode="<%- startNode %>" creator="<%- appName %>" ' +
-						 'creator-version="<%- appVersion %>" ifid="<%- ifid %>" ' +
-						 'format="<%- storyFormat %>" options="<%= options %>">' +
+						 'creator-version="<%- appVersion %>" ' +
+						 'format="<%- storyFormat %>" options="<%= options %>" hidden>' +
 						 '<style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"><%= stylesheet %></style>' +
 						 '<script role="script" id="twine-user-script" type="text/twine-javascript"><%= script %></script>' + 
 						 '<%= passageData %></tw-storydata>'),
@@ -39,18 +38,14 @@ var Story = Backbone.Model.extend(
 		{
 			// delete all child passages
 
-			var passages = this.fetchPassages();
-
-			while (passages.length > 0)
-				passages.at(0).destroy();
+			this.fetchPassages().invoke('destroy');
 		}, this);
 
-		this.on('sync', function (model, response, options)
+		this.on('sync', function()
 		{
 			// update any passages using our cid as link
 
-			if (! options.noChildUpdate)
-				_.invoke(PassageCollection.all().where({ story: this.cid }), 'save', { story: this.id });
+			_.invoke(PassageCollection.all().where({ story: this.cid }), 'save', { story: this.id });
 		}, this);
 
 		// any time we change, update our last updated date
@@ -59,10 +54,7 @@ var Story = Backbone.Model.extend(
 
 		this.on('change', function()
 		{
-			// if we're manually setting our last update, don't override that
-
-			if (this.changedAttributes().lastUpdate === undefined)
-				this.set('lastUpdate', new Date());
+			this.set('lastUpdate', new Date());
 		}, this);
 	},
 
@@ -95,11 +87,10 @@ var Story = Backbone.Model.extend(
 	 @param {StoryFormat} format The story format to use, defaults to 
 	 @param {Array} options	A list of options to pass to the format, optional
 	 @param {Number} startId passage database ID to start with, overriding the model; optional
-	 @param {Boolean} startOptional If falsy, then an error is reported when no start passage has been set; optional
 	 @return {String} HTML fragment
 	**/
 
-	publish: function (options, startId, startOptional)
+	publish: function (options, startId)
 	{
 		var passageData = '';
 		var startDbId = startId || this.get('startPassage');
@@ -107,14 +98,11 @@ var Story = Backbone.Model.extend(
 
 		// verify that the start passage exists
 
-		if (! startOptional)
-		{
-			if (! startDbId)
-				throw new Error(window.app.say('There is no starting point set for this story.'));
+		if (! startDbId)
+			throw new Error("There is no starting point set for this story.");
 
-			if (! passages.findWhere({ id: startDbId }))
-				throw new Error(window.app.say("The passage set as starting point for this story does not exist."));
-		};
+		if (! passages.findWhere({ id: startDbId }))
+			throw new Error("The passage set as starting point for this story does not exist.");
 
 		passages.each(function (p, index)
 		{
@@ -127,62 +115,15 @@ var Story = Backbone.Model.extend(
 		return this.template(
 		{
 			storyName: this.get('name'),
-			startNode: startId || '',
+			startNode: startId,
 			appName: window.app.name,
 			appVersion: window.app.version,
 			passageData: passageData,
 			stylesheet: this.get('stylesheet'),
 			script: this.get('script'),
 			options: (options) ? options.join(' ') : null,
-			storyFormat: this.get('storyFormat'),
-			ifid: this.get('ifid')
+			storyFormat: this.get('storyFormat')
 		});
-	},
-
-	/**
-	 Duplicates this model and its passages. 
-
-	 @method duplicate
-	 @param {String} name new name of the story
-	 @return {Story} new Story model
-	**/
-
-	duplicate: function (name)
-	{
-		var storyC = new StoryCollection();
-		var passageC = new PassageCollection();
-
-		var dupeStory = this.clone();
-		dupeStory.unset('id');
-		dupeStory.collection = storyC;
-		dupeStory.save({ name: name }, { wait: true });
-
-		var startPassageId = this.get('startPassage');
-		var newStart;
-
-		this.fetchPassages().each(function (orig)
-		{
-			var dupePassage = orig.clone();
-			dupePassage.unset('id');
-			dupePassage.collection = passageC;
-
-			// we do this in two steps to avoid an ugly bug
-			// with passage validation; it needs to verify
-			// that our name isn't duplicated, but it can
-			// only do this by looking up the story with its ID,
-			// not by consulting the attrs hash passed to it
-
-			dupePassage.set('story', dupeStory.id);
-			dupePassage.save();
-
-			if (orig.id == startPassageId)
-				newStart = dupePassage;
-		});
-
-		if (newStart)
-			dupeStory.save({ startPassage: newStart.id });
-
-		return dupeStory;
 	}
 });
 
