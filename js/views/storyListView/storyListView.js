@@ -11,6 +11,7 @@ var AppPref = require('../../models/appPref');
 var FormatsModal = require('./modals/formatsModal');
 var PassageCollection = require('../../collections/passageCollection');
 var StorageQuota = require('./storageQuota');
+var StoryCollection = require('../../collections/storyCollection');
 var StoryItemView = require('./storyItemView');
 
 var StoryListView = Backbone.Marionette.CompositeView.extend(
