@@ -8,6 +8,8 @@
 **/
 
 'use strict';
+var ui = require ('../../ui');
+var Passage = require('../../models/passage');
 var Preview = require('./storyPreview');
 var StoryEditView = require('../storyEditView/storyEditView');
 
@@ -122,10 +124,10 @@ var StoryItemView = Marionette.ItemView.extend(
 
 	confirmDelete: function()
 	{
-		window.ui.confirm(window.app.say("Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone.",
-		                  this.model.get('name')),
-		                  '<i class="fa fa-trash-o"></i> ' + window.app.say('Delete Forever'),
-						  this.delete.bind(this), { buttonClass: 'danger' });
+		ui.confirm(window.app.say("Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone.",
+		           this.model.get('name')),
+		           '<i class="fa fa-trash-o"></i> ' + window.app.say('Delete Forever'),
+		           this.delete.bind(this), { buttonClass: 'danger' });
 	},
 
 	/**
@@ -136,13 +138,13 @@ var StoryItemView = Marionette.ItemView.extend(
 
 	rename: function()
 	{
-		window.ui.prompt(window.app.say("What should &ldquo;%s&rdquo; be renamed to?", this.model.get('name')),
-		                 '<i class="fa fa-ok"></i> ' + window.app.say('Rename'),
-						 function (text)
-						 {
-						 	this.model.save({ name: text });
-						 }.bind(this),
-						 { defaultText: this.model.get('name') });
+		ui.prompt(window.app.say("What should &ldquo;%s&rdquo; be renamed to?", this.model.get('name')),
+		          '<i class="fa fa-ok"></i> ' + window.app.say('Rename'),
+				  function (text)
+				  {
+				  	this.model.save({ name: text });
+				  }.bind(this),
+		          { defaultText: this.model.get('name') });
 	},
 
 	/**
