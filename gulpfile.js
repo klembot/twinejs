@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var _ = require('./lib/underscore.js');
+var browserify = require('browserify');
 var childProcess = require('child_process');
 var del = require('del');
 var fs = require('fs');
@@ -19,6 +20,7 @@ var po2json = require('gulp-po2json');
 var rename = require('gulp-rename');
 var replace = require('gulp-replace');
 var runSequence = require('run-sequence');
+var sourceStream = require('vinyl-source-stream');
 var uglify = require('gulp-uglify');
 var usemin = require('gulp-usemin');
 var yuidoc = require('gulp-yuidoc');
@@ -167,6 +169,7 @@ var JSHINT_OPTS =
 
 	// Environments
 	browser  : true,
+	browserify: true,
 	devel    : true,
 };
 
@@ -207,6 +210,15 @@ gulp.task('bake', function()
 		   .pipe(include())
 		   .pipe(rename('index.html'))
 		   .pipe(replace('{{build_number}}', moment().format(TIMESTAMP_FORMAT)))
+		   .pipe(gulp.dest('./'));
+});
+
+gulp.task('browserify', function()
+{
+	return browserify('js/init.js', { debug: true })
+	       .external('nw.gui')
+	       .bundle()
+		   .pipe(sourceStream('twine.js'))
 		   .pipe(gulp.dest('./'));
 });
 
@@ -470,7 +482,7 @@ gulp.task('buildpojson', function()
 gulp.task('watch', function()
 {
 	gulp.watch(['app.html', 'templates/**'], ['bake', 'doc']);
-	gulp.watch('js/**', ['jshint']);
+	gulp.watch('js/**', ['jshint', 'browserify']);
 });
 
-gulp.task('default', ['jshint', 'bake', 'doc']);
+gulp.task('default', ['jshint', 'browserify', 'bake', 'doc']);

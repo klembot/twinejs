@@ -8,6 +8,8 @@
 **/
 
 'use strict';
+var Preview = require('./storyPreview');
+var StoryEditView = require('../storyEditView/storyEditView');
 
 var StoryItemView = Marionette.ItemView.extend(
 {
@@ -26,7 +28,7 @@ var StoryItemView = Marionette.ItemView.extend(
 
 	onDomRefresh: function()
 	{
-		this.preview = new StoryItemView.Preview({ el: this.$('.preview'), parent: this });
+		this.preview = new Preview({ el: this.$('.preview'), parent: this });
 	},
 
 	/**
@@ -198,3 +200,5 @@ var StoryItemView = Marionette.ItemView.extend(
 		'click .publish': 'publish'
 	}
 });
+
+module.exports = StoryItemView;

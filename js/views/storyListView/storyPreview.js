@@ -5,7 +5,7 @@
 
 'use strict';
 
-StoryItemView.Preview = Backbone.View.extend(
+var Preview = Backbone.View.extend(
 {
 	/**
 	 How fast we animate passages appearing, in milliseconds.
@@ -150,3 +150,5 @@ StoryItemView.Preview = Backbone.View.extend(
 			callback();
 	}
 });
+
+module.exports = Preview;

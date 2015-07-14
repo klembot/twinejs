@@ -7,6 +7,7 @@
 **/
 
 'use strict';
+var AppPref = require('../models/appPref');
 
 var WelcomeView = Backbone.Marionette.ItemView.extend(
 {
@@ -60,3 +61,5 @@ var WelcomeView = Backbone.Marionette.ItemView.extend(
 		}.bind(this));
 	}
 });
+
+module.exports = WelcomeView;

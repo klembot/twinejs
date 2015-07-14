@@ -9,9 +9,15 @@
 
 var StoryFormatCollection = Backbone.Collection.extend(
 {
-	model: StoryFormat,
 	localStorage: new Backbone.LocalStorage('twine-storyformats')
 });
+
+// early export to avoid circular reference problems
+
+module.exports = StoryFormatCollection;
+var StoryFormat = require('../models/storyFormat');
+
+StoryFormatCollection.prototype.model = StoryFormat;
 
 /**
  Returns a collection of all story formats saved.
@@ -27,3 +33,4 @@ StoryFormatCollection.all = function()
 	result.fetch();
 	return result;
 };
+

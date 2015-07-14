@@ -627,3 +627,5 @@ var PassageItemView = Marionette.ItemView.extend(
 		'dblclick': 'edit'
 	}
 });
+
+module.exports = PassageItemView;

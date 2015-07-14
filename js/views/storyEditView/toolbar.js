@@ -7,7 +7,7 @@
 
 'use strict';
 
-StoryEditView.Toolbar = Backbone.View.extend(
+var Toolbar = Backbone.View.extend(
 {
 	initialize: function (options)
 	{
@@ -162,3 +162,5 @@ StoryEditView.Toolbar = Backbone.View.extend(
 		'bubbleshow .storyBubble': 'syncSnapToGrid'
 	}
 });
+
+module.exports = Toolbar;

@@ -20,9 +20,9 @@ var nwui =
 	**/
 
 	active: 
-	(typeof process !== "undefined" &&
-	 typeof require !== "undefined" &&
-	 typeof require('nw.gui') !== 'undefined'),
+	(typeof global.process !== "undefined" &&
+	 typeof global.require !== "undefined" &&
+	 typeof global.require('nw.gui') !== 'undefined'),
 
 	/**
 	 Whether changes to a story should be saved to the filesystem.
@@ -60,7 +60,7 @@ var nwui =
 		 @property gui
 		**/
 
-		nwui.gui = require('nw.gui');
+		nwui.gui = global.require('nw.gui');
 
 		var win = nwui.gui.Window.get();
 		var nativeMenuBar = new nwui.gui.Menu({ type: 'menubar' });
@@ -578,3 +578,5 @@ var nwui =
 		};
 	},
 };
+
+module.exports = nwui;

@@ -1,6 +1,7 @@
 'use strict';
+var StoryFormatCollection = require('../../../collections/storyFormatCollection');
 
-StoryEditView.StoryFormatModal = Backbone.View.extend(
+var StoryFormatModal = Backbone.View.extend(
 {
 	initialize: function (options)
 	{
@@ -111,3 +112,5 @@ StoryEditView.StoryFormatModal = Backbone.View.extend(
 		}
 	}
 });
+
+module.exports = StoryFormatModal;

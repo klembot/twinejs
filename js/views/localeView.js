@@ -6,6 +6,7 @@
 **/
 
 'use strict';
+var AppPref = require('../models/appPref');
 
 var LocaleView = Backbone.Marionette.ItemView.extend(
 {
@@ -40,3 +41,5 @@ var LocaleView = Backbone.Marionette.ItemView.extend(
 		}
 	}
 });
+
+module.exports = LocaleView;

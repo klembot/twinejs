@@ -601,4 +601,4 @@ var ui =
 							   '<%= buttonLabel %></button></p></form></div></div>'),
 };
 
-$(document).ready(ui.initBody);
+module.exports = ui;

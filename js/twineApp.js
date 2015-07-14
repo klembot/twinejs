@@ -1,6 +1,5 @@
 /**
- The main Backbone app running the show. This is accessible via the
- global variable `window.app`.
+ The main Backbone app running the show.
  
  @module Twine
  @class TwineApp
@@ -8,6 +7,13 @@
 **/
 
 'use strict';
+var nwui = require('./nwui');
+var ui = require('./ui');
+var AppPref = require('./models/appPref');
+var StoryFormat = require('./models/storyFormat');
+var StoryFormatCollection = require('./collections/storyFormatCollection');
+var TransRegion = require('./transRegion');
+var TwineRouter = require('./twineRouter');
 
 var TwineApp = Backbone.Marionette.Application.extend(
 {
@@ -26,6 +32,125 @@ var TwineApp = Backbone.Marionette.Application.extend(
 	**/
 
 	version: '2.0.8',
+
+	/**
+	 Just a hook to do our proper setup under init().
+
+	 @method initialize
+	 @private
+	**/
+	
+	initialize: function()
+	{
+		this.on('start', this.init);
+	},
+
+	/**
+	 Performs basic startup tasks associated with the app.
+
+	 @method init
+	**/
+
+	init: function()
+	{
+		ui.initBody();
+
+		/**
+		 Build number of the app.
+
+		 @property buildNumber
+		**/
+
+		this.buildNumber = parseInt($('html').data('build-number'));
+
+		// create built-in story formats if they don't already exist
+
+		var formats = StoryFormatCollection.all();
+
+		if (! formats.findWhere({ name: 'Harlowe' }))
+			formats.create({ name: 'Harlowe', url: 'storyformats/Harlowe/format.js', userAdded: false });
+
+		if (! formats.findWhere({ name: 'Snowman' }))
+			formats.create({ name: 'Snowman', url: 'storyformats/Snowman/format.js', userAdded: false });
+
+		if (! formats.findWhere({ name: 'Paperthin' }))
+			formats.create({ name: 'Paperthin', url: 'storyformats/Paperthin/format.js', userAdded: false });
+
+		if (! formats.findWhere({ name: 'SugarCube' }))
+			formats.create({ name: 'SugarCube', url: 'http://www.motoslave.net/sugarcube/1/twine2/format.js', userAdded: false });
+			formats.create({ name: 'SugarCube', url: 'storyformats/SugarCube/format.js', userAdded: false });
+
+		// set default formats if not already set
+		// (second param is a default)
+
+		AppPref.withName('defaultFormat', 'Harlowe');
+		AppPref.withName('proofingFormat', 'Paperthin');
+
+		/**
+		 The Jed instance used to manage translations.
+		 
+		 @property i18n
+		**/
+
+		this.i18n = new Jed(this.i18nData);
+
+		if (nwui.active)
+			nwui.init();
+
+		// add i18n hook to Marionette's rendering
+
+		/**
+		 Properties that are always passed to templates.
+		 Right now, this is only used for 18n -- s() is a shorthand for TwineApp.say()
+		 and sp() is a shorthand for TwineApp.sayPlural().
+
+		 @property templateProperties
+		**/
+
+		this.templateProperties =
+		{
+			s: this.say.bind(this),
+			sp: this.sayPlural.bind(this)
+		};
+
+		Backbone.Marionette.Renderer.render = function (template, data)
+		{
+			template = Marionette.TemplateCache.get(template);
+			data = _.extend(data, window.app.templateProperties);
+
+			if (typeof(template) == 'function')
+				return template(data);	
+			else
+				return _.template(template)(data);
+		};
+
+		// add our custom region
+
+		this.addRegions(
+		{
+			/**
+			 The top-level container for views.
+
+			 @property mainRegion
+			**/
+
+			mainRegion:
+			{
+				selector: '#regions .main',
+				regionClass: TransRegion
+			}
+		});
+
+		/**
+		 The app router.
+
+		 @property router
+		 @type TwineRouter
+		**/
+
+		this.router = new TwineRouter();
+		Backbone.history.start();
+	},
 
 	/**
 	 Loads gettext strings via AJAX. This sets the app's i18nData and
@@ -239,7 +364,7 @@ var TwineApp = Backbone.Marionette.Application.extend(
 	{
 		// remove our ui hooks
 
-		window.ui.uninitBody();
+		ui.uninitBody();
 
 		// inject head and body separately -- otherwise DOM errors crop up
 
@@ -468,147 +593,4 @@ var TwineApp = Backbone.Marionette.Application.extend(
 	}
 });
 
-window.app = new TwineApp();
-
-window.app.addInitializer(function ()
-{
-	/**
-	 The Jed instance used to manage translations.
-	 
-	 @property i18n
-	**/
-
-	this.i18n = new Jed(this.i18nData);
-
-	if (nwui.active)
-		nwui.init();
-
-	// add i18n hook to Marionette's rendering
-
-	/**
-	 Properties that are always passed to templates.
-	 Right now, this is only used for 18n -- s() is a shorthand for TwineApp.say()
-	 and sp() is a shorthand for TwineApp.sayPlural().
-
-	 @property templateProperties
-	**/
-
-	this.templateProperties =
-	{
-		s: this.say.bind(this),
-		sp: this.sayPlural.bind(this)
-	};
-
-	Backbone.Marionette.Renderer.render = function (template, data)
-	{
-		template = Marionette.TemplateCache.get(template);
-		data = _.extend(data, window.app.templateProperties);
-
-		if (typeof(template) == 'function')
-			return template(data);	
-		else
-			return _.template(template)(data);
-	};
-
-	/**
-	 Build number of the app.
-
-	 @property buildNumber
-	**/
-
-	window.app.buildNumber = parseInt($('html').data('build-number'));
-
-	/**
-	 The app router.
-
-	 @property router
-	 @type TwineRouter
-	**/
-
-	window.app.router = new TwineRouter();
-	Backbone.history.start();
-
-	// create built-in story formats if they don't already exist
-
-	var formats = StoryFormatCollection.all();
-
-	if (! formats.findWhere({ name: 'Harlowe' }))
-		formats.create({ name: 'Harlowe', url: 'storyformats/Harlowe/format.js', userAdded: false });
-
-	if (! formats.findWhere({ name: 'Snowman' }))
-		formats.create({ name: 'Snowman', url: 'storyformats/Snowman/format.js', userAdded: false });
-
-	if (! formats.findWhere({ name: 'Paperthin' }))
-		formats.create({ name: 'Paperthin', url: 'storyformats/Paperthin/format.js', userAdded: false });
-
-	if (! formats.findWhere({ name: 'SugarCube' }))
-		formats.create({ name: 'SugarCube', url: 'http://www.motoslave.net/sugarcube/1/twine2/format.js', userAdded: false });
-		formats.create({ name: 'SugarCube', url: 'storyformats/SugarCube/format.js', userAdded: false });
-
-	// set default formats if not already set
-	// (second param is a default)
-
-	AppPref.withName('defaultFormat', 'Harlowe');
-	AppPref.withName('proofingFormat', 'Paperthin');
-});
-
-window.app.addRegions(
-{
-	/**
-	 The top-level container for views.
-
-	 @property mainRegion
-	**/
-
-	mainRegion:
-	{
-		selector: '#regions .main',
-		regionClass: TransRegion
-	}
-});
-
-// bootstrap app after loading localization, if any
-
-(function()
-{
-	var locale;
-
-	// URL parameter locale overrides everything
-
-	var localeUrlMatch = /locale=([^&]+)&?/.exec(window.location.search);
-
-	if (localeUrlMatch)
-		locale = localeUrlMatch[1];
-	else
-	{
-		// use app preference; default to best guess
-		// http://stackoverflow.com/questions/673905/best-way-to-determine-users-locale-within-browser
-
-		var localePref = AppPref.withName('locale',
-		                                  window.navigator.userLanguage || window.navigator.language ||
-		                                  window.navigator.browserLanguage || window.navigator.systemLanguage ||
-		                                  'en-us');
-
-		locale = localePref.get('value');
-	};
-
-	if (typeof locale == 'string')
-        window.app.loadLocale(locale.toLowerCase(), function()
-    	{
-    		window.app.start();
-    	});
-    else
-    {
-        window.app.loadLocale('en', function()
-    	{
-    		window.app.start();
-            _.defer(function()
-            {
-                // not localized because if we've reached this step,
-                // localization isn't working
-                ui.notify('Your locale preference has been reset to English due to a technical problem.<br>' +
-                          'Please change it with the <b>Language</b> option in the story list.', 'danger');
-            });
-    	});
-    };
-})();
+module.exports = TwineApp;

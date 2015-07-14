@@ -7,7 +7,7 @@
 
 'use strict';
 
-StoryEditView.StatsModal = Backbone.View.extend(
+var StatsModal = Backbone.View.extend(
 {
 	initialize: function (options)
 	{
@@ -97,3 +97,5 @@ StoryEditView.StatsModal = Backbone.View.extend(
 	},
 
 });
+
+module.exports = StatsModal;

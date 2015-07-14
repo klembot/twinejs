@@ -8,7 +8,7 @@
 
 'use strict';
 
-StoryEditView.Marquee = Backbone.View.extend(
+var Marquee = Backbone.View.extend(
 {
 	initialize: function (options)
 	{
@@ -137,3 +137,5 @@ StoryEditView.Marquee = Backbone.View.extend(
 		'mousedown': 'startDrag'
 	}
 });
+
+module.exports = Marquee;

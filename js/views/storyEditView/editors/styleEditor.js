@@ -7,7 +7,7 @@
 
 'use strict';
 
-StoryEditView.StyleEditor = Backbone.View.extend(
+var StyleEditor = Backbone.View.extend(
 {
 	initialize: function (options)
 	{
@@ -84,3 +84,5 @@ StoryEditView.StyleEditor = Backbone.View.extend(
 		this.parent.model.save({ stylesheet: this.styleEditor.doc.getValue() });
 	}
 });
+
+module.exports = StyleEditor;

@@ -7,7 +7,7 @@
 
 'use strict';
 
-StoryEditView.Search = Backbone.View.extend(
+var Search = Backbone.View.extend(
 {
 	initialize: function (options)
 	{
@@ -80,3 +80,5 @@ StoryEditView.Search = Backbone.View.extend(
 		}, 100)
 	}
 });
+
+module.exports = Search;

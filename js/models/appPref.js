@@ -17,6 +17,11 @@ var AppPref = Backbone.Model.extend(
 	}
 });
 
+// early export to avoid circular reference problems
+
+module.exports = AppPref;
+var AppPrefCollection = require('../collections/appPrefCollection');;
+
 /**
  Locates an AppPref by name. If none exists and a default value is
  specified, then a new model is saved with the default and returned.
@@ -41,3 +46,4 @@ AppPref.withName = function (name, defaultVal)
 	else
 		return;
 };
+

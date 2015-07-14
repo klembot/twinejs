@@ -1,6 +1,6 @@
 'use strict';
 
-StoryEditView.RenameStoryModal = Backbone.View.extend(
+var RenameStoryModal = Backbone.View.extend(
 {
 	initialize: function (options)
 	{
@@ -60,3 +60,5 @@ StoryEditView.RenameStoryModal = Backbone.View.extend(
 		'submit #renameStoryForm': 'save'
 	}
 });
+
+module.exports = RenameStoryModal;

@@ -8,7 +8,7 @@
 
 'use strict';
 
-StoryEditView.LinkManager = Backbone.View.extend(
+var LinkManager = Backbone.View.extend(
 {
 	/**
 	 Angle at which arrowheads are drawn, in radians.
@@ -470,3 +470,5 @@ StoryEditView.LinkManager = Backbone.View.extend(
 		};
     }
 });
+
+module.exports = LinkManager;

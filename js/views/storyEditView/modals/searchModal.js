@@ -1,6 +1,6 @@
 'use strict';
 
-StoryEditView.SearchModal = Backbone.View.extend(
+var SearchModal = Backbone.View.extend(
 {
 	initialize: function (options)
 	{
@@ -242,3 +242,5 @@ StoryEditView.SearchModal = Backbone.View.extend(
 		'click .replaceAll': 'replaceAll'
 	}
 });
+
+module.exports = SearchModal;

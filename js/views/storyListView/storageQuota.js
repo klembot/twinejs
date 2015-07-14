@@ -1,6 +1,6 @@
 'use strict';
 
-StoryListView.StorageQuota = Backbone.View.extend(
+var StorageQuota = Backbone.View.extend(
 {
 	initialize: function (options)
 	{
@@ -67,3 +67,5 @@ StoryListView.StorageQuota = Backbone.View.extend(
 		}, 20);
 	}
 });
+
+module.exports = StorageQuota;

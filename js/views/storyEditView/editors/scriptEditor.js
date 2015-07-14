@@ -7,7 +7,7 @@
 
 'use strict';
 
-StoryEditView.ScriptEditor = Backbone.View.extend(
+var ScriptEditor = Backbone.View.extend(
 {
 	initialize: function (options)
 	{
@@ -85,3 +85,5 @@ StoryEditView.ScriptEditor = Backbone.View.extend(
 		this.parent.model.save({ script: this.scriptEditor.doc.getValue() });
 	}
 });
+
+module.exports = ScriptEditor;

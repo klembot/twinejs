@@ -8,6 +8,9 @@
 
 'use strict';
 
+var AppPref = require('./appPref');
+var PassageCollection = require('../collections/passageCollection');
+
 var Story = Backbone.Model.extend(
 {
 	defaults: function()
@@ -126,6 +129,11 @@ var Story = Backbone.Model.extend(
 		});
 	}
 });
+
+// early export to avoid circular reference problems
+
+module.exports = Story;
+var StoryCollection = require('../collections/storyCollection');
 
 /**
  Locates a story by ID. If none exists, then this returns null.

@@ -6,8 +6,10 @@
 **/
 
 'use strict';
+var Passage = require('../../../models/passage');
+var StoryFormat = require('../../../models/storyFormat');
 
-StoryEditView.PassageEditor = Backbone.View.extend(
+var PassageEditor = Backbone.View.extend(
 {
 	tagTemplate:
 	'<span class="tag label label-info" data-name="<%- name %>"><%- name %><button class="remove"><i class="fa fa-times"></i></button></span>',
@@ -379,3 +381,5 @@ StoryEditView.PassageEditor = Backbone.View.extend(
 		document.title = this.prevTitle;
 	}
 });
+
+module.exports = PassageEditor;

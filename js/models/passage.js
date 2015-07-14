@@ -390,6 +390,12 @@ var Passage = Backbone.Model.extend(
 	padding: 12.5,
 });
 
+// early export to avoid circular reference problems
+
+module.exports = Passage;
+var PassageCollection = require('../collections/passageCollection');
+var StoryCollection = require('../collections/storyCollection');
+
 /**
  Locates a passage by ID. If none exists, then this returns null.
 

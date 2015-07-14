@@ -17,6 +17,7 @@
     "icon": "rsrc/img/logo.ico"
   },
   "dependencies": {
+    "browserify": "^10.2.6",
     "del": "^1.1.1",
     "glob": "^5.0.10",
     "gulp": "^3.8.11",
@@ -36,6 +37,7 @@
     "jsxgettext": "^0.7.0",
     "lazypipe": "^0.2.4",
     "node-webkit-builder": "^1.0.11",
-    "run-sequence": "^1.1.0"
+    "run-sequence": "^1.1.0",
+    "vinyl-source-stream": "^1.1.0"
   }
 }

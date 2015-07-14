@@ -1,6 +1,6 @@
 'use strict';
 
-StoryListView.FormatsModal = Backbone.View.extend(
+var FormatsModal = Backbone.View.extend(
 {
 	initialize: function (options)
 	{
@@ -256,3 +256,5 @@ StoryListView.FormatsModal = Backbone.View.extend(
 		}
 	}
 });
+
+module.exports = FormatsModal;

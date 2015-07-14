@@ -9,6 +9,20 @@
 **/
 
 'use strict';
+var ui = require('../../ui');
+var LinkManager = require('./linkManager');
+var Marquee = require('./marquee');
+var Passage = require('../../models/passage');
+var PassageEditor = require('./editors/passageEditor');
+var PassageItemView = require('./passageItemView');
+var RenameStoryModal = require('./modals/renameStoryModal');
+var ScriptEditor = require('./editors/scriptEditor');
+var Search = require('./search');
+var SearchModal = require('./modals/searchModal');
+var StatsModal = require('./modals/statsModal');
+var StoryFormatModal = require('./modals/storyFormatModal');
+var StyleEditor = require('./editors/styleEditor');
+var Toolbar = require('./toolbar');
 
 var StoryEditView = Marionette.CompositeView.extend(
 {
@@ -144,19 +158,19 @@ var StoryEditView = Marionette.CompositeView.extend(
 		$(window).on('resize', _.debounce(this.resize.bind(this), 500));
 
 		this.syncZoom();
-		this.linkManager = new StoryEditView.LinkManager({ el: this.el, parent: this });
-		this.toolbar = new StoryEditView.Toolbar({ el: this.$('.toolbar'), parent: this });
-		this.passageEditor = new StoryEditView.PassageEditor({ el: this.$('#passageEditModal'), parent: this });
-		this.scriptEditor = new StoryEditView.ScriptEditor({ el: this.$('#scriptEditModal'), parent: this });
-		this.styleEditor = new StoryEditView.StyleEditor({ el: this.$('#stylesheetEditModal'), parent: this });
-		this.search = new StoryEditView.Search({ el: this.$('.searchContainer'), parent: this });
-		this.searchModal = new StoryEditView.SearchModal({ el: this.$('#searchModal'), parent: this });
-		this.renameModal = new StoryEditView.RenameStoryModal({ el: this.$('#renameStoryModal'), parent: this });
-		this.storyFormatModal = new StoryEditView.StoryFormatModal({ el: this.$('#storyFormatModal'), parent: this });
-		this.statsModal = new StoryEditView.StatsModal({ el: this.$('#statsModal'), parent: this });
+		this.linkManager = new LinkManager({ el: this.el, parent: this });
+		this.toolbar = new Toolbar({ el: this.$('.toolbar'), parent: this });
+		this.passageEditor = new PassageEditor({ el: this.$('#passageEditModal'), parent: this });
+		this.scriptEditor = new ScriptEditor({ el: this.$('#scriptEditModal'), parent: this });
+		this.styleEditor = new StyleEditor({ el: this.$('#stylesheetEditModal'), parent: this });
+		this.search = new Search({ el: this.$('.searchContainer'), parent: this });
+		this.searchModal = new SearchModal({ el: this.$('#searchModal'), parent: this });
+		this.renameModal = new RenameStoryModal({ el: this.$('#renameStoryModal'), parent: this });
+		this.storyFormatModal = new StoryFormatModal({ el: this.$('#storyFormatModal'), parent: this });
+		this.statsModal = new StatsModal({ el: this.$('#statsModal'), parent: this });
 
 		if (! window.app.hasPrimaryTouchUI())
-			this.marquee = new StoryEditView.Marquee({ el: this.$('.passages'), parent: this });
+			this.marquee = new Marquee({ el: this.$('.passages'), parent: this });
 
 		// if we have no passages in this story, give the user one to start with
 		// otherwise, fade in existing
@@ -600,3 +614,5 @@ var StoryEditView = Marionette.CompositeView.extend(
 		}
 	},
 });
+
+module.exports = StoryEditView;

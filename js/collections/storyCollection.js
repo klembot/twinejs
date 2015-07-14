@@ -6,10 +6,10 @@
 **/
 
 'use strict';
+var EventedLocalStorage = require('../eventedLocalStorage');
 
 var StoryCollection = Backbone.Collection.extend(
 {
-	model: Story,
 	localStorage: new EventedLocalStorage('twine-stories'),
 	order: 'name',
 	reverseOrder: false,
@@ -39,6 +39,13 @@ var StoryCollection = Backbone.Collection.extend(
 	}
 });
 
+// early export to avoid circular reference problems
+
+module.exports = StoryCollection;
+var Story = require('../models/story');
+
+StoryCollection.prototype.model = Story;
+
 /**
  Returns a collection of all stories saved.
 
@@ -53,3 +60,4 @@ StoryCollection.all = function()
 	result.fetch();
 	return result;
 };
+

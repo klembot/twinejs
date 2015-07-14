@@ -13,6 +13,13 @@
 **/
 
 'use strict';
+var AppPref = require('./models/appPref');
+var LocaleView = require('./views/localeView');
+var Story = require('./models/story');
+var StoryCollection = require('./collections/storyCollection');
+var StoryEditView = require('./views/storyEditView/storyEditView');
+var StoryListView = require('./views/storyListView/storyListView');
+var WelcomeView = require('./views/welcomeView');
 
 var TwineRouter = Backbone.Router.extend(
 {
@@ -93,3 +100,5 @@ var TwineRouter = Backbone.Router.extend(
 		'*path': 'startup'
 	}
 });
+
+module.exports = TwineRouter;

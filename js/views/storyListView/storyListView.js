@@ -6,6 +6,12 @@
 **/
 
 'use strict';
+var ui = require('../../ui');
+var AppPref = require('../../models/appPref');
+var FormatsModal = require('./modals/formatsModal');
+var PassageCollection = require('../../collections/passageCollection');
+var StorageQuota = require('./storageQuota');
+var StoryItemView = require('./storyItemView');
 
 var StoryListView = Backbone.Marionette.CompositeView.extend(
 {
@@ -89,8 +95,8 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 		ui.initEl(this.$el);
 		this.syncStoryCount();
 
-		this.storageQuota = new StoryListView.StorageQuota({ parent: this, el: this.$('.quota') });
-		this.formatsModal = new StoryListView.FormatsModal({ parent: this, el: this.$('#formatsModal') });
+		this.storageQuota = new StorageQuota({ parent: this, el: this.$('.quota') });
+		this.formatsModal = new FormatsModal({ parent: this, el: this.$('#formatsModal') });
 
 		// set the version number in the HTML
 
@@ -366,3 +372,5 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 		}
 	}
 });
+
+module.exports = StoryListView;

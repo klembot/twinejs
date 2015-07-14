@@ -30,3 +30,5 @@ _.extend(EventedLocalStorage.prototype,
 		return result;
 	}
 });
+
+module.exports = EventedLocalStorage;
