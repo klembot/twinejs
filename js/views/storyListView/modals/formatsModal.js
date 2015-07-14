@@ -1,4 +1,6 @@
 'use strict';
+var AppPref = require('../../../models/appPref');
+var StoryFormatCollection = require('../../../collections/storyFormatCollection');
 
 var FormatsModal = Backbone.View.extend(
 {
