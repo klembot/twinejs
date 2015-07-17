@@ -7,8 +7,8 @@
 **/
 
 'use strict';
-var StoryEditView = require('./views/storyEditView/storyEditView');
-var StoryListView = require('./views/storyListView/storyListView');
+var StoryEditView = require('views/storyEditView/storyEditView');
+var StoryListView = require('views/storyListView/storyListView');
 
 var TransRegion = Backbone.Marionette.Region.extend(
 {

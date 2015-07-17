@@ -9,6 +9,7 @@
 **/
 
 'use strict';
+var welcomeNwTemplate = require('templates/welcomeViewNw.html');
 
 var nwui =
 {
@@ -406,7 +407,7 @@ var nwui =
 
 		WelcomeView.prototype.onRender = function()
 		{
-			var saveHtml = _.template($('#templates .welcomeViewNw').html())(window.app.templateProperties);
+			var saveHtml = Marionette.Renderer.render(welcomeNwTemplate);
 			this.$('.save').html(saveHtml);
 			oldWelcomeViewRender.call(this);
 		};

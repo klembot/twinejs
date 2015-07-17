@@ -1,13 +1,14 @@
 'use strict';
-var AppPref = require('../../../models/appPref');
-var StoryFormatCollection = require('../../../collections/storyFormatCollection');
+var AppPref = require('models/appPref');
+var StoryFormatCollection = require('collections/storyFormatCollection');
+var formatItemTemplate = require('templates/storyListView/formatItem.html');
 
 var FormatsModal = Backbone.View.extend(
 {
 	initialize: function (options)
 	{
 		this.parent = options.parent;
-		this.itemTemplate = _.template($('.formatItem').html());
+		this.itemTemplate = formatItemTemplate;
 	},
 
 	/**
@@ -115,7 +116,7 @@ var FormatsModal = Backbone.View.extend(
 
 				var path = url.replace(/\/[^\/]*?$/, '');
 				var fullContent = _.extend(test.properties, { path: path, userAdded: true });
-				var content = $(this.itemTemplate(fullContent));
+				var content = Marionette.Renderer.render(this.itemTemplate, fullContent);
 
 				if (fullContent.proofing)
 				{
