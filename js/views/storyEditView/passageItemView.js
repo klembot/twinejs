@@ -7,10 +7,11 @@
 **/
 
 'use strict';
+var passageItemTemplate = require('templates/storyEditView/passageItemView.html');
 
 var PassageItemView = Marionette.ItemView.extend(
 {
-	template: '#templates .passageItemView',
+	template: passageItemTemplate,
 	className: 'passage',
 	selected: false,
 	actuallyDragged: false,

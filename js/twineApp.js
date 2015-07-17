@@ -7,15 +7,15 @@
 **/
 
 'use strict';
-var nwui = require('./nwui');
-var ui = require('./ui');
-var AppPref = require('./models/appPref');
-var PassageCollection = require('./collections/passageCollection');
-var StoryCollection = require('./collections/storyCollection');
-var StoryFormat = require('./models/storyFormat');
-var StoryFormatCollection = require('./collections/storyFormatCollection');
-var TransRegion = require('./transRegion');
-var TwineRouter = require('./twineRouter');
+var nwui = require('nwui');
+var ui = require('ui');
+var AppPref = require('models/appPref');
+var PassageCollection = require('collections/passageCollection');
+var StoryCollection = require('collections/storyCollection');
+var StoryFormat = require('models/storyFormat');
+var StoryFormatCollection = require('collections/storyFormatCollection');
+var TransRegion = require('transRegion');
+var TwineRouter = require('twineRouter');
 
 var TwineApp = Backbone.Marionette.Application.extend(
 {
@@ -115,16 +115,13 @@ var TwineApp = Backbone.Marionette.Application.extend(
 			sp: this.sayPlural.bind(this)
 		};
 
+		// change the renderer to expect precompiled templates,
+		// with default properties injected
+
 		Backbone.Marionette.Renderer.render = function (template, data)
 		{
-			template = Marionette.TemplateCache.get(template);
-			data = _.extend(data, window.app.templateProperties);
-
-			if (typeof(template) == 'function')
-				return template(data);	
-			else
-				return _.template(template)(data);
-		};
+			return template(_.extend(data, this.templateProperties));	
+		}.bind(this);
 
 		// add our custom region
 

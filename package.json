@@ -34,10 +34,12 @@
     "gulp-usemin": "^0.3.11",
     "gulp-yuidoc": "^0.1.2",
     "jshint-stylish": "^1.0.2",
+    "jstify": "^0.11.0",
     "jsxgettext": "^0.7.0",
     "lazypipe": "^0.2.4",
     "node-webkit-builder": "^1.0.11",
     "run-sequence": "^1.1.0",
+    "underscore": "^1.8.3",
     "vinyl-source-stream": "^1.1.0"
   }
 }

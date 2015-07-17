@@ -6,13 +6,14 @@
 **/
 
 'use strict';
-var ui = require('../../ui');
-var AppPref = require('../../models/appPref');
+var ui = require('ui');
+var AppPref = require('models/appPref');
 var FormatsModal = require('./modals/formatsModal');
-var PassageCollection = require('../../collections/passageCollection');
+var PassageCollection = require('collections/passageCollection');
 var StorageQuota = require('./storageQuota');
-var StoryCollection = require('../../collections/storyCollection');
+var StoryCollection = require('collections/storyCollection');
 var StoryItemView = require('./storyItemView');
+var storyListTemplate = require('templates/storyListView/storyListView.html');
 
 var StoryListView = Backbone.Marionette.CompositeView.extend(
 {
@@ -30,7 +31,7 @@ var StoryListView = Backbone.Marionette.CompositeView.extend(
 
 		return { parentView: this, passages: this.previewCache.where({ story: model.get('id') }) };
 	},
-	template: '#templates .storyListView',
+	template: storyListTemplate,
 
 	/**
 	 How long we wait after the user first loads this view

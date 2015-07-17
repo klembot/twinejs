@@ -6,8 +6,8 @@
 **/
 
 'use strict';
-var Passage = require('../../../models/passage');
-var StoryFormat = require('../../../models/storyFormat');
+var Passage = require('models/passage');
+var StoryFormat = require('models/storyFormat');
 
 var PassageEditor = Backbone.View.extend(
 {

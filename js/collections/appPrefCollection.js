@@ -7,7 +7,7 @@
 
 'use strict';
 
-var AppPref = require('../models/appPref');
+var AppPref = require('models/appPref');
 
 var AppPrefCollection = Backbone.Collection.extend(
 {

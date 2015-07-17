@@ -1,11 +1,12 @@
 'use strict';
+var searchResultTemplate = require('templates/storyEditView/searchModalResult.html');
 
 var SearchModal = Backbone.View.extend(
 {
 	initialize: function (options)
 	{
 		this.parent = options.parent;
-		this.resultTemplate = _.template($('.searchModalResult').html());
+		this.resultTemplate = Marionette.Renderer.render(searchResultTemplate);
 	},
 
 	/**

@@ -9,10 +9,10 @@
 **/
 
 'use strict';
-var ui = require('../../ui');
+var ui = require('ui');
 var LinkManager = require('./linkManager');
 var Marquee = require('./marquee');
-var Passage = require('../../models/passage');
+var Passage = require('models/passage');
 var PassageEditor = require('./editors/passageEditor');
 var PassageItemView = require('./passageItemView');
 var RenameStoryModal = require('./modals/renameStoryModal');
@@ -23,6 +23,7 @@ var StatsModal = require('./modals/statsModal');
 var StoryFormatModal = require('./modals/storyFormatModal');
 var StyleEditor = require('./editors/styleEditor');
 var Toolbar = require('./toolbar');
+var storyEditTemplate = require('templates/storyEditView/storyEditView.html');
 
 var StoryEditView = Marionette.CompositeView.extend(
 {
@@ -45,7 +46,7 @@ var StoryEditView = Marionette.CompositeView.extend(
 	childView: PassageItemView,
 	childViewContainer: '.passages .content',
 	childViewOptions: function() { return { parentView: this }; },
-	template: '#templates .storyEditView',
+	template: storyEditTemplate,
 
 	initialize: function()
 	{

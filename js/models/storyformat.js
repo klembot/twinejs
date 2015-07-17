@@ -219,7 +219,7 @@ var StoryFormat = Backbone.Model.extend(
 // early export to avoid circular reference problems
 
 module.exports = StoryFormat;
-var StoryFormatCollection = require('../collections/storyFormatCollection');
+var StoryFormatCollection = require('collections/storyFormatCollection');
 
 /**
  Locates a StoryFormat by name. If none exists, then this returns null.

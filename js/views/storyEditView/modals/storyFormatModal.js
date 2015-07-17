@@ -1,12 +1,13 @@
 'use strict';
-var StoryFormatCollection = require('../../../collections/storyFormatCollection');
+var StoryFormatCollection = require('collections/storyFormatCollection');
+var singleFormatTemplate = require('templates/storyEditView/singleStoryFormatItem.html');
 
 var StoryFormatModal = Backbone.View.extend(
 {
 	initialize: function (options)
 	{
 		this.parent = options.parent;
-		this.itemTemplate = _.template($('.singleStoryFormatItem').html());
+		this.itemTemplate = Marionette.Renderer.render(singleFormatTemplate);
 	},
 
 	/**

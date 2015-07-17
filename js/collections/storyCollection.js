@@ -6,7 +6,7 @@
 **/
 
 'use strict';
-var EventedLocalStorage = require('../eventedLocalStorage');
+var EventedLocalStorage = require('eventedLocalStorage');
 
 var StoryCollection = Backbone.Collection.extend(
 {

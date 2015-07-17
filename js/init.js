@@ -1,8 +1,8 @@
 // Bootstraps TwineApp after loading localization data, if any.
 
 'use strict';
-var AppPref = require('./models/appPref');
-var TwineApp = require('./twineApp');
+var AppPref = require('models/appPref');
+var TwineApp = require('twineApp');
 
 (function()
 {

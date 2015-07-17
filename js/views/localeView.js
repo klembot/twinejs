@@ -6,11 +6,12 @@
 **/
 
 'use strict';
-var AppPref = require('../models/appPref');
+var AppPref = require('models/appPref');
+var localeTemplate = require('templates/localeView.html');
 
 var LocaleView = Backbone.Marionette.ItemView.extend(
 {
-	template: '#templates .localeView',
+	template: localeTemplate,
 
 	/**
 	 Sets the application locale and forces a window reload

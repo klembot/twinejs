@@ -215,8 +215,9 @@ gulp.task('bake', function()
 
 gulp.task('browserify', function()
 {
-	return browserify('js/init.js', { debug: true })
+	return browserify('js/init.js', { debug: true, paths: ['./node_modules', './js', './'] })
 	       .external('nw.gui')
+		   .transform('jstify')
 	       .bundle()
 		   .pipe(sourceStream('twine.js'))
 		   .pipe(gulp.dest('./'));

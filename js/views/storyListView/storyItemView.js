@@ -8,14 +8,15 @@
 **/
 
 'use strict';
-var ui = require ('../../ui');
-var Passage = require('../../models/passage');
+var ui = require ('ui');
+var Passage = require('models/passage');
 var Preview = require('./storyPreview');
-var StoryEditView = require('../storyEditView/storyEditView');
+var StoryEditView = require('views/storyEditView/storyEditView');
+var storyItemTemplate = require('templates/storyListView/formatItem.html');
 
 var StoryItemView = Marionette.ItemView.extend(
 {
-	template: '#templates .storyItemView',
+	template: storyItemTemplate,
 
 	initialize: function (options)
 	{
