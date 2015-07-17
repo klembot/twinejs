@@ -6,6 +6,7 @@
 **/
 
 'use strict';
+var Backbone = require('backbone');
 
 var StoryFormatCollection = Backbone.Collection.extend(
 {

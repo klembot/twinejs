@@ -7,6 +7,7 @@
 **/
 
 'use strict';
+var Backbone = require('backbone');
 
 var Marquee = Backbone.View.extend(
 {

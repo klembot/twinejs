@@ -7,6 +7,10 @@
 **/
 
 'use strict';
+var $ = require('jquery');
+var _ = require('underscore');
+var Backbone = require('backbone');
+var Marionette = require('backbone.marionette');
 var nwui = require('nwui');
 var ui = require('ui');
 var AppPref = require('models/appPref');
@@ -17,7 +21,7 @@ var StoryFormatCollection = require('collections/storyFormatCollection');
 var TransRegion = require('transRegion');
 var TwineRouter = require('twineRouter');
 
-var TwineApp = Backbone.Marionette.Application.extend(
+var TwineApp = Marionette.Application.extend(
 {
 	/**
 	 Name of the app.
@@ -118,9 +122,9 @@ var TwineApp = Backbone.Marionette.Application.extend(
 		// change the renderer to expect precompiled templates,
 		// with default properties injected
 
-		Backbone.Marionette.Renderer.render = function (template, data)
+		Marionette.Renderer.render = function (template, data)
 		{
-			return template(_.extend(data, this.templateProperties));	
+			return template(_.extend(data || {}, this.templateProperties));	
 		}.bind(this);
 
 		// add our custom region

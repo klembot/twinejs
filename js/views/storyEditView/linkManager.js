@@ -7,6 +7,7 @@
 **/
 
 'use strict';
+var Backbone = require('backbone');
 
 var LinkManager = Backbone.View.extend(
 {

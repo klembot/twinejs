@@ -6,6 +6,7 @@
 **/
 
 'use strict';
+var Backbone = require('backbone');
 
 var ScriptEditor = Backbone.View.extend(
 {

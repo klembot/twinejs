@@ -6,10 +6,11 @@
 **/
 
 'use strict';
+var Marionette = require('backbone.marionette');
 var AppPref = require('models/appPref');
 var localeTemplate = require('templates/localeView.html');
 
-var LocaleView = Backbone.Marionette.ItemView.extend(
+var LocaleView = Marionette.ItemView.extend(
 {
 	template: localeTemplate,
 

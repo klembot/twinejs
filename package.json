@@ -16,9 +16,18 @@
     "height": 600,
     "icon": "rsrc/img/logo.ico"
   },
+  "browser": {
+    "jquery.omniwindow": "./lib/jquery/jquery.omniwindow.js",
+    "jquery.powertip": "./lib/jquery/jquery.powertip.js"
+  },
   "dependencies": {
+    "backbone": "^1.2.1",
+    "backbone.localstorage": "^1.1.16",
+    "backbone.marionette": "^2.4.2",
     "browserify": "^10.2.6",
+    "browserify-shim": "^3.8.9",
     "del": "^1.1.1",
+    "fastclick": "^1.0.6",
     "glob": "^5.0.10",
     "gulp": "^3.8.11",
     "gulp-connect": "^2.2.0",
@@ -33,12 +42,17 @@
     "gulp-uglify": "^1.2.0",
     "gulp-usemin": "^0.3.11",
     "gulp-yuidoc": "^0.1.2",
+    "jed": "^1.1.0",
+    "jquery": "^2.1.4",
     "jshint-stylish": "^1.0.2",
     "jstify": "^0.11.0",
     "jsxgettext": "^0.7.0",
+    "jszip": "^2.5.0",
     "lazypipe": "^0.2.4",
+    "moment": "^2.10.3",
     "node-webkit-builder": "^1.0.11",
     "run-sequence": "^1.1.0",
+    "svg.js": "^2.0.5",
     "underscore": "^1.8.3",
     "vinyl-source-stream": "^1.1.0"
   }

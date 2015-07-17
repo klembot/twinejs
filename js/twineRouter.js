@@ -13,6 +13,7 @@
 **/
 
 'use strict';
+var Backbone = require('backbone');
 var AppPref = require('models/appPref');
 var LocaleView = require('views/localeView');
 var Story = require('models/story');

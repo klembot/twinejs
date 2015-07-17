@@ -7,6 +7,7 @@
 **/
 
 'use strict';
+var Backbone = require('backbone');
 
 var AppPref = Backbone.Model.extend(
 {

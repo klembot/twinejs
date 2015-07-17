@@ -6,6 +6,7 @@
 **/
 
 'use strict';
+var Backbone = require('backbone');
 var EventedLocalStorage = require('eventedLocalStorage');
 
 var PassageCollection = Backbone.Collection.extend(

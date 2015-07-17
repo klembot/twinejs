@@ -7,6 +7,7 @@
 **/
 
 'use strict';
+var Marionette = require('backbone.marionette');
 var passageItemTemplate = require('templates/storyEditView/passageItemView.html');
 
 var PassageItemView = Marionette.ItemView.extend(

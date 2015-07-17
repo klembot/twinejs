@@ -6,6 +6,8 @@
 **/
 
 'use strict';
+var _ = require('underscore');
+var Backbone = require('backbone');
 
 var Search = Backbone.View.extend(
 {

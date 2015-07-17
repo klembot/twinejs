@@ -6,13 +6,14 @@
 **/
 
 'use strict';
-
+var Backbone = require('backbone');
+var LocalStorage = require('backbone.localstorage');
 var AppPref = require('models/appPref');
 
 var AppPrefCollection = Backbone.Collection.extend(
 {
 	model: AppPref,
-	localStorage: new Backbone.LocalStorage('twine-prefs')
+	localStorage: new LocalStorage('twine-prefs')
 });
 
 // early export to avoid circular reference problems
