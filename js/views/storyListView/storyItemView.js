@@ -8,12 +8,13 @@
 **/
 
 'use strict';
+var $ = require('jquery');
 var Marionette = require('backbone.marionette');
 var ui = require ('ui');
 var Passage = require('models/passage');
 var Preview = require('./storyPreview');
 var StoryEditView = require('views/storyEditView/storyEditView');
-var storyItemTemplate = require('templates/storyListView/storyItemView.html');
+var storyItemTemplate = require('templates/storyListView/storyItemView.ejs');
 
 var StoryItemView = Marionette.ItemView.extend(
 {

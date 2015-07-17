@@ -1,13 +1,15 @@
 'use strict';
+var $ = require('jquery');
+var _ = require('underscore');
 var Backbone = require('backbone');
-var searchResultTemplate = require('templates/storyEditView/searchModalResult.html');
+var Marionette = require('backbone.marionette');
+var resultTemplate = require('templates/storyEditView/modals/searchModalResult.ejs');
 
 var SearchModal = Backbone.View.extend(
 {
 	initialize: function (options)
 	{
 		this.parent = options.parent;
-		this.resultTemplate = Marionette.Renderer.render(searchResultTemplate);
 	},
 
 	/**
@@ -77,14 +79,14 @@ var SearchModal = Backbone.View.extend(
 				preview = preview.replace(/\u3000/g, '<span class="highlight">');
 				preview = preview.replace(/\u3001/g, '</span>', 'g');
 
-				resultHtml += this.resultTemplate(_.extend(
+				resultHtml += _.unescape(Marionette.Renderer.render(resultTemplate,
 				{
 					passageId: view.model.cid,
 					passageName: name,
 					numMatches: numMatches,
 					resultNumber: passagesMatched,
 					searchPreview: preview
-				}, window.app.templateProperties));
+				}));
 			};
 		}.bind(this));
 

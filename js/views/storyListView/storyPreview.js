@@ -6,6 +6,7 @@
 'use strict';
 var _ = require('underscore');
 var Backbone = require('backbone');
+var SVG = require('svg.js');
 
 var Preview = Backbone.View.extend(
 {

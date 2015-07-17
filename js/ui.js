@@ -10,7 +10,6 @@
 var _ = require('underscore');
 var FastClick = require('fastclick');
 
-// need to attach jQuery globally so the plugin can see it
 global.jQuery = require('jquery');
 require('jquery.powertip');
 require('jquery.omniwindow');
@@ -37,7 +36,7 @@ var ui =
 			 @property fastclick
 			**/
 
-			ui.fastclick = FastClick.attach(document.body);
+			ui.fastclick = FastClick(document.body);
 
 			// note iOS for some custom styles
 

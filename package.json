@@ -27,6 +27,7 @@
     "browserify": "^10.2.6",
     "browserify-shim": "^3.8.9",
     "del": "^1.1.1",
+    "ejsify": "^1.0.0",
     "fastclick": "^1.0.6",
     "glob": "^5.0.10",
     "gulp": "^3.8.11",

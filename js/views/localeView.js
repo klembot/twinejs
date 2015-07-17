@@ -8,7 +8,7 @@
 'use strict';
 var Marionette = require('backbone.marionette');
 var AppPref = require('models/appPref');
-var localeTemplate = require('templates/localeView.html');
+var localeTemplate = require('templates/localeView.ejs');
 
 var LocaleView = Marionette.ItemView.extend(
 {

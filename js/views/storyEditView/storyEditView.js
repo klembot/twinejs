@@ -9,6 +9,8 @@
 **/
 
 'use strict';
+var $ = require('jquery');
+var _ = require('underscore');
 var Marionette = require('backbone.marionette');
 var ui = require('ui');
 var LinkManager = require('./linkManager');
@@ -24,7 +26,7 @@ var StatsModal = require('./modals/statsModal');
 var StoryFormatModal = require('./modals/storyFormatModal');
 var StyleEditor = require('./editors/styleEditor');
 var Toolbar = require('./toolbar');
-var storyEditTemplate = require('templates/storyEditView/storyEditView.html');
+var storyEditTemplate = require('templates/storyEditView/storyEditView.ejs');
 
 var StoryEditView = Marionette.CompositeView.extend(
 {

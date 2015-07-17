@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var _ = require('./lib/underscore.js');
+var _ = require('underscore');
 var browserify = require('browserify');
 var childProcess = require('child_process');
 var del = require('del');
@@ -13,7 +13,7 @@ var jshintStylish = require('jshint-stylish');
 var lazypipe = require('lazypipe');
 var minifyHtml = require('gulp-minify-html');
 var minifyCss = require('gulp-minify-css');
-var moment = require('./lib/moment.js');
+var moment = require('moment');
 var nwBuilder = require('node-webkit-builder');
 var plumber = require('gulp-plumber');
 var po2json = require('gulp-po2json');
@@ -217,7 +217,7 @@ gulp.task('browserify', function()
 {
 	return browserify('js/init.js', { debug: true, paths: ['./node_modules', './js', './'] })
 	       .external('nw.gui')
-		   .transform('jstify')
+		   .transform('ejsify')
 	       .bundle()
 		   .pipe(sourceStream('twine.js'))
 		   .pipe(gulp.dest('./'));
