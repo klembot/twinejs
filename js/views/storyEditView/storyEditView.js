@@ -9,6 +9,7 @@
 **/
 
 'use strict';
+var Marionette = require('backbone.marionette');
 var ui = require('ui');
 var LinkManager = require('./linkManager');
 var Marquee = require('./marquee');

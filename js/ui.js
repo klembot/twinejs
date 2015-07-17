@@ -7,6 +7,14 @@
 **/
 
 'use strict';
+var _ = require('underscore');
+var FastClick = require('fastclick');
+
+// need to attach jQuery globally so the plugin can see it
+global.jQuery = require('jquery');
+require('jquery.powertip');
+require('jquery.omniwindow');
+var $ = global.jQuery;
 
 var ui =
 {

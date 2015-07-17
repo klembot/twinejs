@@ -1,4 +1,5 @@
 'use strict';
+var Backbone = require('backbone');
 var searchResultTemplate = require('templates/storyEditView/searchModalResult.html');
 
 var SearchModal = Backbone.View.extend(

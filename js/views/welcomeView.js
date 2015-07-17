@@ -7,10 +7,11 @@
 **/
 
 'use strict';
+var Marionette = require('backbone.marionette');
 var AppPref = require('models/appPref');
 var welcomeTemplate = require('templates/welcomeView.html');
 
-var WelcomeView = Backbone.Marionette.ItemView.extend(
+var WelcomeView = Marionette.ItemView.extend(
 {
 	template: welcomeTemplate,
 

@@ -7,7 +7,8 @@
 **/
 
 'use strict';
-
+var _ = require('underscore');
+var Backbone = require('backbone');
 var AppPref = require('models/appPref');
 var PassageCollection = require('collections/passageCollection');
 

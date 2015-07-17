@@ -1,4 +1,5 @@
 'use strict';
+var Backbone = require('backbone');
 
 var StorageQuota = Backbone.View.extend(
 {

@@ -1,4 +1,5 @@
 'use strict';
+var Backbone = require('backbone');
 var StoryFormatCollection = require('collections/storyFormatCollection');
 var singleFormatTemplate = require('templates/storyEditView/singleStoryFormatItem.html');
 
