@@ -6,7 +6,12 @@
 'use strict';
 var _ = require('underscore');
 var Backbone = require('backbone');
-var SVG = require('svg.js');
+
+// we have to expose SVG globally -- animations don't seem to work
+// otherwise
+
+global.SVG = require('svg.js');
+var SVG = global.SVG;
 
 var Preview = Backbone.View.extend(
 {
@@ -119,7 +124,7 @@ var Preview = Backbone.View.extend(
 					else
 						c.fill({ color: c3, opacity: ratio * 0.9 });
 
-				c.animate(this.appearDuration, '>').radius(size / 2);
+				c.radius(0).animate(this.appearDuration, '>').radius(size / 2);
 
 				if (x - size < minX)
 					minX = x - size;
