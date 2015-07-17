@@ -6,12 +6,7 @@
 'use strict';
 var _ = require('underscore');
 var Backbone = require('backbone');
-
-// we have to expose SVG globally -- animations don't seem to work
-// otherwise
-
-global.SVG = require('svg.js');
-var SVG = global.SVG;
+var SVG = require('svg.js');
 
 var Preview = Backbone.View.extend(
 {

@@ -8,7 +8,7 @@
 'use strict';
 var $ = require('jquery');
 var Backbone = require('backbone');
-var Moment = require('moment');
+var moment = require('moment');
 
 var Toolbar = Backbone.View.extend(
 {
@@ -90,7 +90,7 @@ var Toolbar = Backbone.View.extend(
 	syncStorySaved: function (forceDate)
 	{
 		var $sn = this.$('.storyName');
-		var date = (forceDate) ? Moment(forceDate) : Moment();
+		var date = (forceDate) ? moment(forceDate) : moment();
 
 		// L10n: This refers to when a story was last saved by the user
 		// %s will be replaced with a localized date and time

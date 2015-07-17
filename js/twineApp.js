@@ -10,7 +10,7 @@
 var $ = require('jquery');
 var _ = require('underscore');
 var Jed = require('jed');
-var Moment = require('moment');
+var moment = require('moment');
 var Backbone = require('backbone');
 var Marionette = require('backbone.marionette');
 var nwui = require('nwui');
@@ -117,7 +117,7 @@ var TwineApp = Marionette.Application.extend(
 
 		this.templateProperties =
 		{
-			Moment: Moment,
+			moment: moment,
 			s: this.say.bind(this),
 			sp: this.sayPlural.bind(this)
 		};
@@ -180,7 +180,7 @@ var TwineApp = Marionette.Application.extend(
 
 		// set locale in MomentJS
 
-		Moment.locale(locale);
+		moment.locale(locale);
 
 		if (locale != 'en-us' && locale != 'en')
 		{

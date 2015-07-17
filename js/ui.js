@@ -8,7 +8,7 @@
 
 'use strict';
 var _ = require('underscore');
-var FastClick = require('fastclick');
+var fastClick = require('fastclick');
 
 global.jQuery = require('jquery');
 require('jquery.powertip');
@@ -36,7 +36,7 @@ var ui =
 			 @property fastclick
 			**/
 
-			ui.fastclick = FastClick(document.body);
+			ui.fastclick = fastClick(document.body);
 
 			// note iOS for some custom styles
 
