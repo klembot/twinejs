@@ -7,8 +7,10 @@
 **/
 
 'use strict';
+var $ = require('jquery');
+var _ = require('underscore');
 var Marionette = require('backbone.marionette');
-var passageItemTemplate = require('templates/storyEditView/passageItemView.html');
+var passageItemTemplate = require('templates/storyEditView/passageItemView.ejs');
 
 var PassageItemView = Marionette.ItemView.extend(
 {

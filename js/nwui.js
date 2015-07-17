@@ -9,7 +9,7 @@
 **/
 
 'use strict';
-var welcomeNwTemplate = require('templates/welcomeViewNw.html');
+var welcomeNwTemplate = require('templates/welcomeViewNw.ejs');
 
 var nwui =
 {

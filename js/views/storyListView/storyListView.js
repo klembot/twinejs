@@ -15,7 +15,7 @@ var PassageCollection = require('collections/passageCollection');
 var StorageQuota = require('./storageQuota');
 var StoryCollection = require('collections/storyCollection');
 var StoryItemView = require('./storyItemView');
-var storyListTemplate = require('templates/storyListView/storyListView.html');
+var storyListTemplate = require('templates/storyListView/storyListView.ejs');
 
 var StoryListView = Marionette.CompositeView.extend(
 {

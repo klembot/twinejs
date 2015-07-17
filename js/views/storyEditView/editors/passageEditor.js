@@ -6,6 +6,7 @@
 **/
 
 'use strict';
+var _ = require('underscore');
 var Backbone = require('backbone');
 var Passage = require('models/passage');
 var StoryFormat = require('models/storyFormat');

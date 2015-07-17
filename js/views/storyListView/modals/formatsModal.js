@@ -5,8 +5,7 @@ var Backbone = require('backbone');
 var Marionette = require('backbone.marionette');
 var AppPref = require('models/appPref');
 var StoryFormatCollection = require('collections/storyFormatCollection');
-var formatsModalTemplate = require('templates/storyListView/modals/formatsModal.html');
-var formatItemTemplate = require('templates/storyListView/formatItem.html');
+var formatItemTemplate = require('templates/storyListView/formatItem.ejs');
 
 var FormatsModal = Backbone.View.extend(
 {
@@ -14,8 +13,7 @@ var FormatsModal = Backbone.View.extend(
 	{
 		this.parent = options.parent;
 		this.itemTemplate = formatItemTemplate;
-		this.$el = $(Marionette.Renderer.render(formatsModalTemplate));
-		this.parent.$el.append(this.$el);
+		this.$el = this.parent.$el.find('#formatsModal');
 	},
 
 	/**
