@@ -11,6 +11,7 @@
 **/
 
 'use strict';
+var CodeMirror = require('codemirror');
 
 CodeMirror.defineOption('prefixTrigger', [], function (cm, opts)
 {

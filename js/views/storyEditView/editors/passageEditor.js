@@ -14,6 +14,7 @@ var StoryFormat = require('models/storyFormat');
 require('codemirror/mode/javascript/javascript');
 require('codemirror/addon/display/placeholder');
 require('codemirror/addon/hint/show-hint');
+require('codemirror/prefixTrigger');
 
 var PassageEditor = Backbone.View.extend(
 {
