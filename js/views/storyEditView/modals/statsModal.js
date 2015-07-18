@@ -83,6 +83,12 @@ var StatsModal = Backbone.View.extend(
 		// This does not actually show the count here, as it is used in a table.
 		this.$('.brokenLinkDesc').text(window.app.sayPlural('Broken Link', 'Broken Links', passageCount));
 
+		this.$('.lastUpdate').text(window.app.say('This story was last changed at %s',
+		                                          this.parent.model.get('lastUpdate')));
+	
+		// L10n: %s is the IFID of the story. Please keep the <span> element around it.
+		this.$('.ifid').html(window.app.say('The IFID for this story is <span class="ifid">%s</span>. <a href="http:\/\/ifdb.tads.org/help-ifid" target="_blank">What\'s an IFID?</a>)', this.parent.model.get('ifid')));
+
 		this.$el.data('modal').trigger('show');
 	},
 
