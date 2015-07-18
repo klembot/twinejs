@@ -10,6 +10,8 @@
 var $ = require('jquery');
 var _ = require('underscore');
 var Marionette = require('backbone.marionette');
+var ui = require('ui');
+var Passage = require('models/passage');
 var passageItemTemplate = require('templates/storyEditView/passageItemView.ejs');
 
 var PassageItemView = Marionette.ItemView.extend(

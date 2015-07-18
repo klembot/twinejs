@@ -1,6 +1,9 @@
 'use strict';
+var _ = require('underscore');
+var $ = require('jquery');
 var Backbone = require('backbone');
 var Marionette = require('backbone.marionette');
+var ui = require('ui');
 var StoryFormatCollection = require('collections/storyFormatCollection');
 var singleFormatTemplate = require('templates/storyEditView/modals/singleStoryFormatItem.ejs');
 
@@ -9,7 +12,6 @@ var StoryFormatModal = Backbone.View.extend(
 	initialize: function (options)
 	{
 		this.parent = options.parent;
-		this.itemTemplate = Marionette.Renderer.render(singleFormatTemplate);
 	},
 
 	/**
@@ -86,8 +88,8 @@ var StoryFormatModal = Backbone.View.extend(
 						// so that image URLs, for example, are correct
 
 						var path = format.get('url').replace(/\/[^\/]*?$/, '');
-						var fullContent = _.extend(format.properties, { path: path }, window.app.templateProperties);
-						var content = $(this.itemTemplate(fullContent));
+						var fullContent = _.extend(format.properties, { path: path });
+						var content = $(Marionette.Renderer.render(singleFormatTemplate, fullContent));
 
 						this.$('.formats').append(content);
 

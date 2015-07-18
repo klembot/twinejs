@@ -86,7 +86,6 @@ var TwineApp = Marionette.Application.extend(
 
 		if (! formats.findWhere({ name: 'SugarCube' }))
 			formats.create({ name: 'SugarCube', url: 'http://www.motoslave.net/sugarcube/1/twine2/format.js', userAdded: false });
-			formats.create({ name: 'SugarCube', url: 'storyformats/SugarCube/format.js', userAdded: false });
 
 		// set default formats if not already set
 		// (second param is a default)
