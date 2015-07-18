@@ -5,7 +5,7 @@ var Backbone = require('backbone');
 var Marionette = require('backbone.marionette');
 var AppPref = require('models/appPref');
 var StoryFormatCollection = require('collections/storyFormatCollection');
-var formatItemTemplate = require('templates/storyListView/formatItem.ejs');
+var formatItemTemplate = require('templates/storyListView/modals/formatItem.ejs');
 
 var FormatsModal = Backbone.View.extend(
 {
