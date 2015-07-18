@@ -7,6 +7,10 @@
 
 'use strict';
 var Backbone = require('backbone');
+var CodeMirror = require('codemirror');
+require('codemirror/mode/css/css');
+require('codemirror/addon/display/placeholder');
+require('codemirror/addon/hint/show-hint');
 
 var StyleEditor = Backbone.View.extend(
 {

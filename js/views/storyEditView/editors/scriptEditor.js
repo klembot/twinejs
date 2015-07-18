@@ -7,6 +7,9 @@
 
 'use strict';
 var Backbone = require('backbone');
+var CodeMirror = require('codemirror');
+require('codemirror/addon/display/placeholder');
+require('codemirror/addon/hint/show-hint');
 
 var ScriptEditor = Backbone.View.extend(
 {

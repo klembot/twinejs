@@ -28,6 +28,7 @@
     "browser-filesaver": "^1.0.0",
     "browserify": "^10.2.6",
     "browserify-shim": "^3.8.9",
+    "codemirror": "^5.4.0",
     "del": "^1.1.1",
     "ejsify": "^1.0.0",
     "fastclick": "^1.0.6",
