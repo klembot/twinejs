@@ -13,6 +13,9 @@ var Jed = require('jed');
 var moment = require('moment');
 var Backbone = require('backbone');
 var Marionette = require('backbone.marionette');
+var saveAs = require('browser-filesaver');
+require('blob-polyfill');
+
 var nwui = require('nwui');
 var ui = require('ui');
 var AppPref = require('models/appPref');
