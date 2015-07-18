@@ -8,8 +8,12 @@
 'use strict';
 var _ = require('underscore');
 var Backbone = require('backbone');
+var CodeMirror = require('codemirror');
 var Passage = require('models/passage');
 var StoryFormat = require('models/storyFormat');
+require('codemirror/mode/javascript/javascript');
+require('codemirror/addon/display/placeholder');
+require('codemirror/addon/hint/show-hint');
 
 var PassageEditor = Backbone.View.extend(
 {
