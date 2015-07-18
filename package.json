@@ -24,6 +24,8 @@
     "backbone": "^1.2.1",
     "backbone.localstorage": "^1.1.16",
     "backbone.marionette": "^2.4.2",
+    "blob-polyfill": "^1.0.20150320",
+    "browser-filesaver": "^1.0.0",
     "browserify": "^10.2.6",
     "browserify-shim": "^3.8.9",
     "del": "^1.1.1",
