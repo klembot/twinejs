@@ -12,6 +12,7 @@
 var $ = require('jquery');
 var _ = require('underscore');
 var Marionette = require('backbone.marionette');
+var moment = require('moment');
 var ui = require('ui');
 var LinkManager = require('./linkManager');
 var Marquee = require('./marquee');

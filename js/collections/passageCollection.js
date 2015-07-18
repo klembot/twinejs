@@ -11,7 +11,6 @@ var EventedLocalStorage = require('eventedLocalStorage');
 
 var PassageCollection = Backbone.Collection.extend(
 {
-	model: Passage,
 	localStorage: new EventedLocalStorage('twine-passages')
 });
 

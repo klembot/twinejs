@@ -14,6 +14,7 @@ var moment = require('moment');
 var Backbone = require('backbone');
 var Marionette = require('backbone.marionette');
 var saveAs = require('browser-filesaver');
+var JSZip = require('jszip');
 require('blob-polyfill');
 
 var nwui = require('nwui');

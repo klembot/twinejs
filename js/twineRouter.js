@@ -17,6 +17,7 @@ var Backbone = require('backbone');
 var AppPref = require('models/appPref');
 var LocaleView = require('views/localeView');
 var Story = require('models/story');
+var StoryFormat = require('models/storyFormat');
 var StoryCollection = require('collections/storyCollection');
 var StoryEditView = require('views/storyEditView/storyEditView');
 var StoryListView = require('views/storyListView/storyListView');
