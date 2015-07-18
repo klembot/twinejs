@@ -9,6 +9,15 @@
 **/
 
 'use strict';
+var $ = require('jquery');
+var _ = require('underscore');
+var ui = require('ui');
+var Marionette = require('backbone.marionette');
+var Passage = require('models/passage');
+var Story = require('models/story');
+var StoryCollection = require('collections/storyCollection');
+var StoryListView = require('views/storyListView/storyListView');
+var WelcomeView = require('views/welcomeView');
 var welcomeNwTemplate = require('templates/welcomeViewNw.ejs');
 
 var nwui =

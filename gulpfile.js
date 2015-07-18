@@ -7,23 +7,19 @@ var fs = require('fs');
 var twinePackage = require('./package.json');
 var connect = require('gulp-connect');
 var glob = require('glob');
-var include = require('gulp-include');
 var jshint = require('gulp-jshint');
 var jshintStylish = require('jshint-stylish');
-var lazypipe = require('lazypipe');
 var minifyHtml = require('gulp-minify-html');
 var minifyCss = require('gulp-minify-css');
 var moment = require('moment');
 var nwBuilder = require('node-webkit-builder');
 var plumber = require('gulp-plumber');
 var po2json = require('gulp-po2json');
-var rename = require('gulp-rename');
 var replace = require('gulp-replace');
-var runSequence = require('run-sequence');
 var sourceStream = require('vinyl-source-stream');
 var uglify = require('gulp-uglify');
-var usemin = require('gulp-usemin');
 var yuidoc = require('gulp-yuidoc');
+var watchify = require('watchify');
 
 // the timestamp format (as passed to MomentJS)
 // for build numbers
@@ -106,51 +102,6 @@ var NWBUILDER_OPTS =
 
 var JSHINT_OPTS =
 {
-	globals:
-	{
-		// Libraries
-		$: true,
-		_: true,
-		moment: true,
-		Backbone: true,
-		FastClick: true,
-		Jed: true,
-		Marionette: true,
-		CodeMirror: true,
-		saveAs: true,
-		SVG: true,
-		JSZip: true,
-		UUID: true,
-		XDate: true,
-		// Misc.
-		app: true,
-		global: true,
-		nwui: true,
-		process: true,
-		require: true,
-		ui: true,
-		EventedLocalStorage: true,
-		TransRegion: true,
-		TwineRouter: true,
-		// Collections
-		AppPrefCollection: true,
-		PassageCollection: true,
-		StoryCollection: true,
-		StoryFormatCollection: true,
-		// Models
-		AppPref: true,
-		Passage: true,
-		Story: true,
-		StoryFormat: true,
-		// Views
-		LocaleView: true,
-		PassageItemView: true,
-		StoryItemView: true,
-		StoryEditView: true,
-		StoryListView: true,
-		WelcomeView: true,
-	},
-
 	// Enforcing options
 	immed    : true,
 	latedef  : "nofunc", // Used a variable before its var statement
@@ -168,9 +119,8 @@ var JSHINT_OPTS =
 	"-W083"  : true, // Created a function while inside a for-loop
 
 	// Environments
-	browser  : true,
 	browserify: true,
-	devel    : true,
+	devel: true
 };
 
 gulp.task('clean', function (cb)
@@ -200,70 +150,19 @@ gulp.task('server', function()
 	connect.server({ port: 8000 });
 });
 
-// baking expands all import statements and
-// stamps a build number into the HTML
-
-gulp.task('bake', function()
-{
-	return gulp.src('./app.html')
-	       .pipe(plumber())
-		   .pipe(include())
-		   .pipe(rename('index.html'))
-		   .pipe(replace('{{build_number}}', moment().format(TIMESTAMP_FORMAT)))
-		   .pipe(gulp.dest('./'));
-});
-
 gulp.task('browserify', function()
 {
-	return browserify('js/init.js', { debug: true, paths: ['./node_modules', './js', './'] })
-	       .external('nw.gui')
-		   .transform('ejsify')
-	       .bundle()
-		   .pipe(sourceStream('twine.js'))
-		   .pipe(gulp.dest('./'));
-});
+	var bundler = browserify('js/init.js', {
+		paths: ['./node_modules', './js', './'],
+		debug: true
+	})
+	.external('nw.gui')
+	.transform('ejsify');
+	watchify(bundler);
 
-// usemin minifies groups of references to CSS and JS
-// into a single file, rewriting HTML accordingly
-// for now, it appears we can't run usemin:web and usemin:web-cdn
-// simultaneously -- perhaps because they're both reading from index.html?
-
-var useminTasks = lazypipe()
-   .pipe(plumber)
-   .pipe(replace, '"img/favicon.ico"', '"rsrc/img/favicon.ico"')
-   .pipe(replace, '"img/flags/', '"rsrc/img/flags/')
-   .pipe(usemin,
-   {
-	css: [minifyCss(), 'concat'],
-	css_cdn: [minifyCss(), 'concat'],
-	html: [minifyHtml({ empty: true })],
-	js: [uglify()],
-	js_cdn: [uglify()],
-   });
-
-gulp.task('usemin:web', ['bake'], function()
-{
-	del.sync('dist/web/rsrc/js/**');
-	del.sync('dist/web/rsrc/css/**');
-
-	return gulp.src('index.html')
-	       .pipe(useminTasks())
-		   .pipe(gulp.dest('dist/web'));
-});
-
-gulp.task('usemin:web-cdn', ['bake'], function()
-{
-	del.sync('dist/web-cdn/rsrc/js/**');
-	del.sync('dist/web-cdn/rsrc/css/**');
-
-	var p = gulp.src('index.html')
-	        .pipe(replace(/build:(css|js)_cdn/g, 'nobuild'));
-
-	for (var i = 0; i < CDN_LINKS.length; i++)
-		p = p.pipe(replace(CDN_LINKS[i][0], CDN_LINKS[i][1]));
-
-	return p.pipe(useminTasks())
-		   .pipe(gulp.dest('dist/web-cdn'));
+	return bundler.bundle()
+	.pipe(sourceStream('twine.js'))
+	.pipe(gulp.dest('./'));
 });
 
 // copy tasks move resources into distribution directories

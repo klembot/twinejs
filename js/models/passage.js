@@ -8,6 +8,7 @@
 'use strict';
 var _ = require('underscore');
 var Backbone = require('backbone');
+var StoryCollection = require('collections/storyCollection');
 
 var Passage = Backbone.Model.extend(
 {
@@ -396,7 +397,6 @@ var Passage = Backbone.Model.extend(
 
 module.exports = Passage;
 var PassageCollection = require('collections/passageCollection');
-var StoryCollection = require('collections/storyCollection');
 
 /**
  Locates a passage by ID. If none exists, then this returns null.

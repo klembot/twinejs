@@ -3,7 +3,9 @@ var $ = require('jquery');
 var _ = require('underscore');
 var Backbone = require('backbone');
 var Marionette = require('backbone.marionette');
+var ui = require('ui');
 var AppPref = require('models/appPref');
+var StoryFormat = require('models/storyFormat');
 var StoryFormatCollection = require('collections/storyFormatCollection');
 var formatItemTemplate = require('templates/storyListView/modals/formatItem.ejs');
 

@@ -192,9 +192,12 @@ var Story = Backbone.Model.extend(
 });
 
 // early export to avoid circular reference problems
+// silence JSHint flagging that we use StoryCollection in a method above
 
+/*jshint -W003 */
 module.exports = Story;
 var StoryCollection = require('collections/storyCollection');
+/*jshint +W003 */
 
 /**
  Locates a story by ID. If none exists, then this returns null.

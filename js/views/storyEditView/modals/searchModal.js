@@ -3,6 +3,7 @@ var $ = require('jquery');
 var _ = require('underscore');
 var Backbone = require('backbone');
 var Marionette = require('backbone.marionette');
+var ui = require('ui');
 var resultTemplate = require('templates/storyEditView/modals/searchModalResult.ejs');
 
 var SearchModal = Backbone.View.extend(

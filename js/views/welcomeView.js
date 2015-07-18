@@ -10,6 +10,7 @@
 var $ = require('jquery');
 var Marionette = require('backbone.marionette');
 var AppPref = require('models/appPref');
+var AppPrefCollection = require('collections/appPrefCollection');
 var welcomeTemplate = require('templates/welcomeView.ejs');
 
 var WelcomeView = Marionette.ItemView.extend(
