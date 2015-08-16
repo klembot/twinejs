@@ -284,7 +284,7 @@ gulp.task('copy:formats', function()
 {
 	del.sync('dist/web/storyformats');
 	del.sync('dist/web-cdn/storyformats');
-	return gulp.src('storyformats/**')
+	return gulp.src('storyFormats/**')
 	       .pipe(gulp.dest('dist/web/storyformats/'))
 	       .pipe(gulp.dest('dist/web-cdn/storyformats/'));
 });
