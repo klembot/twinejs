@@ -13,6 +13,7 @@ var jshint = require('gulp-jshint');
 var lazypipe = require('lazypipe');
 var minifyify = require('minifyify');
 var minifyCss = require('gulp-minify-css');
+var mocha = require('gulp-mocha');
 var moment = require('moment');
 var nwBuilder = require('nw-builder');
 var plumber = require('gulp-plumber');
@@ -283,6 +284,14 @@ gulp.task('build', ['html', 'js', 'css', 'img', 'fonts', 'storyformats', 'manife
 gulp.task('build:cdn', ['html:cdn', 'js:cdn', 'css:cdn', 'img', 'fonts', 'storyformats', 'manifest', 'pojson']);
 gulp.task('build:release', ['html', 'js:release', 'css', 'img', 'fonts', 'storyformats', 'manifest', 'pojson']);
 
+// test runs tests on the standalone build.
+
+gulp.task('test', function()
+{
+	return gulp.src('./tests/**/*.js')
+	       .pipe(mocha());
+});
+
 // nw builds NW.js apps from the contents of build/standalone.
 
 function buildApp (cb)
@@ -420,4 +429,4 @@ gulp.task('package:win64', ['nw:release', 'package:clean', 'nsis:64'], function 
 	cb();
 });
 
-gulp.task('package', ['package:version', 'package:web', 'package:linux32', 'package:linux64', 'package:osx', 'package:win32', 'package:win64']);
+gulp.task('package', ['build:cdn', 'package:version', 'package:web', 'package:linux32', 'package:linux64', 'package:osx', 'package:win32', 'package:win64']);
