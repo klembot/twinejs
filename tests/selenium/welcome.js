@@ -13,6 +13,7 @@ test.describe('WelcomeView', function()
 	test.beforeEach(function()
 	{
 		driver = new firefox.Driver();
+		driver.get(testUrl + '#welcome');
 	});
 
 	test.afterEach(function()
@@ -22,14 +23,11 @@ test.describe('WelcomeView', function()
 
 	test.it('Is on the #welcome route', function()
 	{
-		driver.get(testUrl + '#welcome');
 		assert(driver.isElementPresent({ css: 'div.hi h1' }));
 	});
 
 	test.it('Can be walked through', function()
 	{
-		driver.get(testUrl + '#welcome');
-
 		var helpDiv = driver.findElement({ css: 'div.help' });
 		var saveDiv = driver.findElement({ css: 'div.save' });
 		var thanksDiv = driver.findElement({ css: 'div.thanks' });
