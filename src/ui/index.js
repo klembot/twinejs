@@ -29,7 +29,7 @@ var ui = module.exports =
 			 @property fastclick
 			**/
 
-			this.fastclick = fastclick.attach(document.body);
+			this.fastclick = fastclick(document.body);
 
 			// note iOS for some custom styles
 
