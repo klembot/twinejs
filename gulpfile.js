@@ -126,11 +126,9 @@ function runWatchify()
 	return runBrowserify();
 };
 
-gulp.task('js', runBrowserify);
-gulp.task('js:release', runMinifyify);
+gulp.task('js', function() { runBrowserify(false) });
+gulp.task('js:release', function() { runMinifyify(false) });
 gulp.task('js:cdn', function() { runMinifyify(true) });
-
-gulp.task('watchify', runWatchify);
 
 // css creates a single, minified CSS file, twine.css, from all CSS files under
 // src/.
@@ -284,6 +282,17 @@ gulp.task('build', ['html', 'js', 'css', 'img', 'fonts', 'storyformats', 'manife
 gulp.task('build:cdn', ['html:cdn', 'js:cdn', 'css:cdn', 'img', 'fonts', 'storyformats', 'manifest', 'pojson']);
 gulp.task('build:release', ['html', 'js:release', 'css', 'img', 'fonts', 'storyformats', 'manifest', 'pojson']);
 
+gulp.task('default', ['build']);
+gulp.task('watch', function()
+{
+	gulp.watch('./src/**/*.css', ['css']);	
+	gulp.watch('./src/**/img/**/*.{ico,png,svg}', ['img']);	
+	gulp.watch(['./src/**/fonts/*', './node_modules/font-awesome/fonts/*'], ['fonts']);
+	gulp.watch('src/locale/po/*.po', ['pojson']);
+	gulp.watch('storyFormats/**', ['storyformats']);
+	runWatchify();
+});
+
 // test runs tests on the standalone build.
 
 gulp.task('test', function()
@@ -430,3 +439,4 @@ gulp.task('package:win64', ['nw:release', 'package:clean', 'nsis:64'], function 
 });
 
 gulp.task('package', ['build:cdn', 'package:version', 'package:web', 'package:linux32', 'package:linux64', 'package:osx', 'package:win32', 'package:win64']);
+
