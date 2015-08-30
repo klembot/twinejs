@@ -90,11 +90,11 @@ module.exports = Backbone.View.extend(
 
 						var path = format.get('url').replace(/\/[^\/]*?$/, '');
 						format.properties.path = path;
-						var content = Marionette.Renderer.render(this.itemTemplate, format.properties);
+						var content = $(Marionette.Renderer.render(this.itemTemplate, format.properties));
 
 						this.$('.formats').append(content);
 
-						if (content.name == this.parent.model.get('storyFormat'))
+						if (format.properties.name == this.parent.model.get('storyFormat'))
 							content.find('button.select').addClass('active');
 					};
 				}
