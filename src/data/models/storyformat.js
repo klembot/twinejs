@@ -220,9 +220,14 @@ var StoryFormat = Backbone.Model.extend(
 	}
 });
 
+// Harlowe compatibility
+
+window.StoryFormat = StoryFormat;
+
 // early export to avoid circular reference problems
 
 module.exports = StoryFormat;
+
 var StoryFormatCollection = require('../collections/storyFormatCollection');
 
 /**
@@ -238,4 +243,3 @@ StoryFormat.withName = function (name)
 {
 	return StoryFormatCollection.all().findWhere({ name: name });
 };
-

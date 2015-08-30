@@ -1,3 +1,5 @@
+@import('../../../node_modules/codemirror/addon/hint/show-hint.css');
+
 #storyEditView.scrolling
 {
 	cursor: all-scroll;
@@ -361,10 +363,20 @@ body.iOS .editModal
 	background: inherit;
 }
 
+.CodeMirror
+{
+	overflow: auto;
+}
+
 .CodeMirror-hints
 {
-	z-index: 1000;
-	font-family: "Source Code Pro", monospace;
+	z-index: 1000 !important;
+	font-family: "Source Code Pro", monospace !important;
+}
+
+.CodeMirror-empty
+{
+	color: hsl(0, 0%, 50%) !important;
 }
 
 .editModal .fullEdit
@@ -575,9 +587,4 @@ body.iOS .editModal
 {
 	text-align: right;
 	font-weight: bold;
-}
-
-.CodeMirror
-{
-	height: auto;
 }
