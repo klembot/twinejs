@@ -19,6 +19,9 @@ require('codemirror/addon/display/placeholder');
 require('codemirror/addon/hint/show-hint');
 require('../../codemirror-ext/prefixTrigger');
 
+// Harlowe compatibility
+window.CodeMirror = CodeMirror;
+
 module.exports = Backbone.View.extend(
 {
 	tagTemplate: tagTemplate,
@@ -157,8 +160,6 @@ module.exports = Backbone.View.extend(
 					*/
 
 					CodeMirror.modes[modeName].cm = this.cm;
-					console.log(this.cm, this.cm.doc.getValue);
-					console.log('set mode link', window.CodeMirror.modes[modeName].cm);
 
 					// Now that's done, we can assign the mode and trigger a re-render.
 
