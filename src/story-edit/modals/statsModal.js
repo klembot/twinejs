@@ -8,6 +8,7 @@
 'use strict';
 var _ = require('underscore');
 var Backbone = require('backbone');
+var locale = require('../../locale');
 
 module.exports = Backbone.View.extend(
 {
@@ -67,22 +68,22 @@ module.exports = Backbone.View.extend(
 
 		// L10n: Character in the sense of individual letters in a word.
 		// This does not actually show the count here, as it is used in a table.
-		this.$('.charDesc').text(window.app.sayPlural('Character', 'Characters', charCount));
+		this.$('.charDesc').text(locale.sayPlural('Character', 'Characters', charCount));
 
 		// L10n: Word in the sense of individual words in a sentence.
 		// This does not actually show the count here, as it is used in a table.
-		this.$('.wordDesc').text(window.app.sayPlural('Word', 'Words', wordCount));
+		this.$('.wordDesc').text(locale.sayPlural('Word', 'Words', wordCount));
 
 		// L10n: This does not actually show the count here, as it is used in a table.
-		this.$('.passageDesc').text(window.app.sayPlural('Passage', 'Passages', passageCount));
+		this.$('.passageDesc').text(locale.sayPlural('Passage', 'Passages', passageCount));
 
 		// L10n: Links in the sense of hypertext links.
 		// This does not actually show the count here, as it is used in a table.
-		this.$('.linkDesc').text(window.app.sayPlural('Link', 'Links', passageCount));
+		this.$('.linkDesc').text(locale.sayPlural('Link', 'Links', passageCount));
 
 		// L10n: Links in the sense of hypertext links.
 		// This does not actually show the count here, as it is used in a table.
-		this.$('.brokenLinkDesc').text(window.app.sayPlural('Broken Link', 'Broken Links', passageCount));
+		this.$('.brokenLinkDesc').text(locale.sayPlural('Broken Link', 'Broken Links', passageCount));
 
 		this.$el.data('modal').trigger('show');
 	},

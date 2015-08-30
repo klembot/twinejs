@@ -13,6 +13,7 @@ var jshint = require('gulp-jshint');
 var lazypipe = require('lazypipe');
 var minifyify = require('minifyify');
 var minifyCss = require('gulp-minify-css');
+var minimist = require('minimist');
 var mocha = require('gulp-mocha');
 var moment = require('moment');
 var nwBuilder = require('nw-builder');
@@ -294,11 +295,15 @@ gulp.task('watch', function()
 });
 
 // test runs tests on the standalone build.
+// Add --bail to bail out at the first error, and --grep xxx to only run tests
+// matching a regexp.
 
 gulp.task('test', function()
 {
+	var args = minimist(process.argv.slice(2));
+
 	return gulp.src('./tests/**/*.js')
-	       .pipe(mocha());
+	       .pipe(mocha({ bail: args.bail, grep: args.grep }));
 });
 
 // nw builds NW.js apps from the contents of build/standalone.

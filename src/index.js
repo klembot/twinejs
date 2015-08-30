@@ -5,6 +5,7 @@ var locale = require('./locale');
 var notify = require('./ui/notify');
 var AppPref = require('./data/models/appPref');
 var TwineApp = require('./common/app');
+//require('./harlowe-compat');
 
 (function()
 {

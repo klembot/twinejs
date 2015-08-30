@@ -157,6 +157,8 @@ module.exports = Backbone.View.extend(
 					*/
 
 					CodeMirror.modes[modeName].cm = this.cm;
+					console.log(this.cm, this.cm.doc.getValue);
+					console.log('set mode link', window.CodeMirror.modes[modeName].cm);
 
 					// Now that's done, we can assign the mode and trigger a re-render.
 
@@ -255,6 +257,7 @@ module.exports = Backbone.View.extend(
 					doc.replaceRange(']] ', doc.getCursor());
 				});
 
+				console.log(comps);
 				return comps;
 			},
 			completeSingle: false,

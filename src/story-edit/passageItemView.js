@@ -11,6 +11,7 @@ var $ = require('jquery');
 var _ = require('underscore');
 var Marionette = require('backbone.marionette');
 var locale = require('../locale');
+var confirm = require('../ui/confirm');
 var ui = require('../ui');
 var Passage = require('../data/models/passage');
 var passageItemTemplate = require('./ejs/passageItemView.ejs');
@@ -175,8 +176,8 @@ module.exports = Marionette.ItemView.extend(
 			if (! ui.hasPrimaryTouchUI())
 				message += '<br><br>' + locale.say('(Hold the Shift key when deleting to skip this message.)');
 
-			ui.confirm(message, '<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
-					   this.delete.bind(this), { buttonClass: 'danger' });
+			confirm(message, '<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
+					this.delete.bind(this), { buttonClass: 'danger' });
 		};
 	},
 
