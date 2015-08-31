@@ -44,6 +44,7 @@
     "gulp-concat": "^2.6.0",
     "gulp-csslint": "^0.1.5",
     "gulp-jsdoc": "^0.1.4",
+    "gulp-jshint": "^1.11.2",
     "gulp-minify-css": "^1.2.0",
     "gulp-mocha": "^2.1.3",
     "gulp-plumber": "^1.0.1",
