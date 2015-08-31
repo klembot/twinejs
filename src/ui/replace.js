@@ -18,6 +18,8 @@ module.exports = function (html)
 	// rewrite the document
 
 	document.open();
+	/* jshint -W060 */
 	document.write(html);
+	/* jshint +W060 */
 	document.close();
 };

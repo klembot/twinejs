@@ -451,7 +451,9 @@ var nwui = module.exports =
 		}
 		catch (e)
 		{
+			/* jshint -W060 */
 			document.write(startupErrorTemplate({ task: startupTask, error: e }));
+			/* jshint +W060 */
 			throw e;
 		};
 	},
