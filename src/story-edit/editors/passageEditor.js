@@ -258,7 +258,6 @@ module.exports = Backbone.View.extend(
 					doc.replaceRange(']] ', doc.getCursor());
 				});
 
-				console.log(comps);
 				return comps;
 			},
 			completeSingle: false,
