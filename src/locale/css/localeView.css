@@ -30,4 +30,6 @@
     display: block;
     margin: 0.5em auto;
     border-radius: 0.25em;
+	border: 1px solid hsl(0, 0%, 90%);
+	box-shadow: 0 0 1px hsl(0, 0%, 90%);
 }
