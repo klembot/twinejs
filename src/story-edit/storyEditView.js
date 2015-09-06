@@ -403,6 +403,28 @@ module.exports = Marionette.CompositeView.extend(
 
 		if (this.collection.length > 0)
 		{
+			var rightPassage, bottomPassage;
+			var maxLeft = 0;
+			var maxTop = 0;
+
+			this.collection.each(function (p)
+			{
+				var left = p.get('left');
+				var top = p.get('top');
+
+				if (p.get('left') > maxLeft)
+				{
+					maxLeft = left;
+					rightPassage = p;
+				};
+
+				if (p.get('top') > maxTop)
+				{
+					maxTop = top;
+					bottomPassage = p;
+				};
+			});
+
 			var rightPassage = this.collection.max(function (item)
 			{
 				return item.get('left');
@@ -575,6 +597,8 @@ module.exports = Marionette.CompositeView.extend(
 				this.$el.removeClass('zoom-small zoom-medium zoom-big').addClass('zoom-' + desc);
 				break;
 			};
+
+		this.resize();
 	},
 
 	/**
