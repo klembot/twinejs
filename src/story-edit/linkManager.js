@@ -152,6 +152,15 @@ module.exports = Backbone.View.extend(
 			// this must be deferred so that the DOM has a chance to update
 
 			_.defer(this.reset.bind(this));
+		})
+		.listenTo(this.parent.model, 'change:startPassage', function()
+		{
+			var oldStart = this.parent.collection.findWhere({ id: this.parent.model.previous('startPassage') });
+			var newStart = this.parent.collection.findWhere({ id: this.parent.model.get('startPassage') });
+
+			this.cachePassage(oldStart);
+			this.cachePassage(newStart);
+			this.drawAll();
 		});
 
 		/**
