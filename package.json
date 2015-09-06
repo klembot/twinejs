@@ -9,6 +9,7 @@
     "url": "https://bitbucket.org/klembot/twinejs"
   },
   "main": "index.html",
+  "dom_storage_quota": 1000000,
   "window": {
     "show": false,
     "toolbar": false,
