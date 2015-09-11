@@ -240,6 +240,7 @@
 #formatsModal .tabs button
 {
 	width: 33.3333%;
+	float: left;
 }
 
 #formatsModal .tabContent
