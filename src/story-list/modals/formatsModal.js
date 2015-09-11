@@ -123,7 +123,7 @@ module.exports = Backbone.View.extend(
 
 				var path = url.replace(/\/[^\/]*?$/, '');
 				var fullContent = _.extend(test.properties, { path: path, userAdded: true });
-				var content = $(this.itemTemplate(fullContent));
+				var content = $(Marionette.Renderer.render(this.itemTemplate, fullContent));
 
 				if (fullContent.proofing)
 				{
@@ -159,7 +159,7 @@ module.exports = Backbone.View.extend(
 
 	removeFormat: function (name)
 	{
-		AppPref.withName(name).destroy();
+		StoryFormat.withName(name).destroy();
 	},
 
 	/**
