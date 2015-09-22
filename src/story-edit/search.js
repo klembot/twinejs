@@ -15,6 +15,14 @@ module.exports = Backbone.View.extend(
 	{
 		this.parent = options.parent;
 		this.searchField = this.$('.searchField');
+
+		this.parent.collection.on('change:name', refreshSearch.bind(this));
+		this.parent.collection.on('change:text', refreshSearch.bind(this));
+
+		function refreshSearch()
+		{
+			this.searchFor(this.searchField.val());
+		};
 	},
 
 	/**
