@@ -26,6 +26,7 @@ var sourceStream = require('vinyl-source-stream');
 var template = require('gulp-template');
 var twine = require('./package.json');
 var watchify = require('watchify');
+var wrench = require('wrench');
 
 var TIMESTAMP_FORMAT = 'YYYYMMDDHHmm';
 
@@ -324,6 +325,11 @@ function buildApp (cb)
 
 	new nwBuilder(options).build(function()
 	{
+		// fix OS X permission problem
+		// https://bitbucket.org/klembot/twinejs/issues/172/executables-in-built-app-on-os-x-should
+
+		wrench.chmodSyncRecursive('build/nwjs/Twine/osx64/Twine.app', 0755);
+
 		// workaround for Wine issue as noted at
 		// https://github.com/nwjs/nw-builder/issues/179
 

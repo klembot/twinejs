@@ -62,6 +62,7 @@
     "nw-builder": "^2.0.2",
     "selenium-webdriver": "^2.46.1",
     "vinyl-source-stream": "^1.1.0",
-    "watchify": "^3.3.0"
+    "watchify": "^3.3.0",
+    "wrench": "^1.5.8"
   }
 }
