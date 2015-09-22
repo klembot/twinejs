@@ -31,9 +31,6 @@ var TwineApp = module.exports = Marionette.Application.extend(
 
 	start: function()
 	{
-		if (nwui.active)
-			nwui.init();
-
 		/**
 		 Name of the app.
 
@@ -57,6 +54,9 @@ var TwineApp = module.exports = Marionette.Application.extend(
 		**/
 
 		this.buildNumber = parseInt($('html').data('build-number'));
+
+		if (nwui.active)
+			nwui.init();
 
 		// add i18n hook to Marionette's rendering
 
