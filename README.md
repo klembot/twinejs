@@ -44,11 +44,10 @@ In order to build Windows apps on OS X or Linux, you will need to have
 
 ### TESTING
 
-This uses [Selenium IDE](http://docs.seleniumhq.org/projects/ide/) for
-automated browser testing. Unfortunately, Selenium IDE does not like running on
-the file:// protocol because of JavaScript security restrictions. To facilitate
-testing, run `gulp server`, which will spin up a basic web server on port
-8000.
+Run `gulp test` to run through Selenium-based tests (for now, these only run on
+Firefox). To quit a test run as soon as any error is encountered, run `gulp
+test --bail`. To run a subset of tests, run `gulp test --grep=mysearch`. Only
+tests whose name match the argument you pass will be run.
 
 ### LOCALIZATION
 
