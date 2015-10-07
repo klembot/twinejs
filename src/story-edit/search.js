@@ -35,6 +35,9 @@ module.exports = Backbone.View.extend(
 
 	searchFor: function (search, flags)
 	{
+		if (search == '')
+			return;
+
 		// convert entered text to regexp, escaping text
 		// cribbed from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
 
