@@ -77,9 +77,10 @@ module.exports = Backbone.View.extend(
 			{
 				'Ctrl-Space': this.autocomplete.bind(this)
 			},
+			indentWithTabs: true,
 			lineWrapping: true,
 			lineNumbers: false,
-			mode: 'text',
+			mode: 'text'
 		});
 
 		this.$el.on('modalhide', this.restoreTitle.bind(this))
