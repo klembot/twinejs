@@ -356,16 +356,11 @@ body.iOS .editModal
 	}
 }
 
-.editModal input[type="text"], textarea, .CodeMirror
+.editModal input[type="text"], .editModal textarea, .editModal .CodeMirror
 {
 	font-family: "Source Code Pro", monospace;
 	line-height: 145%;
 	background: inherit;
-}
-
-.CodeMirror
-{
-	overflow: auto;
 }
 
 .CodeMirror-hints
@@ -388,17 +383,16 @@ body.iOS .editModal
 	bottom: 0;
 }
 
-.editModal .fullEdit textarea,
 .editModal .fullEdit .CodeMirror
 {
-	padding: 0.75em 2em 0.25em 2em;
-	box-sizing: border-box;
-	width: 100%;
-	height: 100%;
-	border: none;
-	box-shadow: none;
 	background: linear-gradient(to bottom, hsl(0, 0%, 90%) 0, hsl(0, 0%, 97%) 0.5em);
-	resize: none;
+	box-shadow: none;
+	height: 100%;
+}
+
+.editModal .fullEdit .CodeMirror-lines
+{
+	padding: 0.75em 2em 0.25em 2em;
 }
 
 #passageEditModal .passageName
