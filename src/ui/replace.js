@@ -15,6 +15,17 @@ module.exports = function (html)
 
 	ui.destroy();
 
+	// blast the last of our JS globals
+
+	CodeMirror = null;
+	CustomEvent = null;
+	SVG = null;
+	Store = null;
+	StoryFormat = null;
+	amdDefine = null;
+	app = null;
+	jQuery = null;
+
 	// rewrite the document
 
 	document.open();
