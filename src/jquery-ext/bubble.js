@@ -12,6 +12,7 @@
 **/
 
 var $ = require('jquery');
+var locale = require('../locale');
 
 // syntax is $(...).bubble('show' | 'hide' | 'toggle')
 
@@ -84,7 +85,7 @@ $.fn.bubble = function (action)
 
 		default:
 		// L10n: An internal error message related to UI components.
-		throw new Error(Twine.locale.say("Don't know how to do bubble action %s", action));
+		throw new Error(locale.say("Don't know how to do bubble action %s", action));
 	};
 
 	return this;

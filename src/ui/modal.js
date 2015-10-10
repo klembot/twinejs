@@ -81,7 +81,7 @@ var modalOpts =
 					internalCallback(els);
 				});
 
-			},
+			}
 		}
 	},
 
@@ -118,7 +118,7 @@ $(ui).on('init', function (e, options)
 		e.preventDefault();
 	});
 
-	$b.on('click.twineui', '[data-modal-hide]', function (e)
+	$b.on('click.twineui', '[data-modal-hide]', function ()
 	{
 		var modal = $(this).data('modal-hide');
 

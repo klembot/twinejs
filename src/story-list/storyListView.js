@@ -139,7 +139,7 @@ module.exports = Marionette.CompositeView.extend(
 					proxy.css(
 					{
 						'-webkit-transform-origin': o.left + 'px ' + o.top + 'px',
-						transformOrigin: o.left + 'px ' + o.top + 'px',
+						transformOrigin: o.left + 'px ' + o.top + 'px'
 					});
 					return true;
 				};

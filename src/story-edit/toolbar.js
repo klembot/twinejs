@@ -101,52 +101,52 @@ module.exports = Backbone.View.extend(
 
 	events:
 	{
-		'click .editScript': function (e)
+		'click .editScript': function()
 		{
 			this.parent.scriptEditor.open();
 		},
 
-		'click .editStyle': function (e)
+		'click .editStyle': function()
 		{
 			this.parent.styleEditor.open();
 		},
 
-		'click .renameStory': function (e)
+		'click .renameStory': function()
 		{
 			this.parent.renameModal.open();
 		},
 
-		'click .addPassage': function (e)
+		'click .addPassage': function()
 		{
 			this.parent.addPassage();
 		},
 
-		'click .testStory': function (e)
+		'click .testStory': function()
 		{
 			this.parent.test();
 		},
 
-		'click .playStory': function (e)
+		'click .playStory': function()
 		{
 			this.parent.play();
 		},
 
-		'click .proofStory': function (e)
+		'click .proofStory': function()
 		{
 			this.parent.proof();
 		},
 
-		'click .publishStory': function (e)
+		'click .publishStory': function()
 		{
 			this.parent.publish();
 		},
 
-		'click .storyStats': function (e)
+		'click .storyStats': function()
 		{
 			this.parent.statsModal.open();
 		},
 
-		'click .changeFormat': function (e)
+		'click .changeFormat': function()
 		{
 			this.parent.storyFormatModal.open();
 		},

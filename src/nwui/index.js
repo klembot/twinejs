@@ -613,5 +613,5 @@ var nwui = module.exports =
 			// L10n: Unlocking in the sense of allowing changes to a file. %s is the error message.
 			notify(locale.say('An error occurred while unlocking your library (%s).', e.message), 'danger');
 		};
-	},
+	}
 };

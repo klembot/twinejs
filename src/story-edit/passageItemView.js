@@ -488,7 +488,7 @@ module.exports = Marionette.ItemView.extend(
 	 @param {Object} e event object
 	**/
 
-	prepDrag: function (e)
+	prepDrag: function ()
 	{
 		this.dragStart = { left: parseInt(this.$el.css('left')), top: parseInt(this.$el.css('top')) };
 	},
@@ -565,7 +565,7 @@ module.exports = Marionette.ItemView.extend(
 	 @private
 	**/
 
-	endDrag: function (e)
+	endDrag: function()
 	{
 		$('#storyEditView').removeClass('draggingPassages');
 		$('body').off(
@@ -588,7 +588,7 @@ module.exports = Marionette.ItemView.extend(
 	 @private
 	**/
 
-	finishDrag: function (e)
+	finishDrag: function()
 	{
 		// set initial position based on the user's drag
 
