@@ -72,91 +72,30 @@ var StoryFormat = Backbone.Model.extend(
 			return;
 		};
 
-		var prevStoryFormatFn = window.storyFormat || null;
-
-		window.storyFormat = function (properties)
+		$.ajax({
+			url: this.get('url'),
+			dataType: 'jsonp',
+			jsonpCallback: 'storyFormat',
+			crossDomain: true
+		})
+		.done(function (properties)
 		{
 			this.properties = properties;
 			this.loaded = true;
 
-			// The lexer is a stringified JS function. When eval()ed, it adds
-			// a TwineMarkup object to this, and its lex() method takes
-			// string source and returns a syntax tree.
-
 			if (this.properties.setup)
-			{
 				this.properties.setup.call(this);
-			}
-
-			window.storyFormat = prevStoryFormatFn;
 
 			if (callback)
 				callback();
-		}.bind(this);
-
-		// We have to do a song and dance here
-		// because we can't use an XHR if we're running locally...
-		// but browsers will allow a <script> tag.
-		// jQuery also seems to be clever and notices that if we add a <script>
-		// tag with a src attribute immediately, it does an XHR on our behalf.
-
-		var loader = $('<script></script>');
-		$('body').append(loader);
-
-		loader.on('load', function()
-		{
-			// if our loaded property is not set,
-			// then something went wrong
-
-			if (! this.loaded)
-			{
-				var err = new Error('Story format source did not call window.storyFormat()');
-
-				if (callback)
-					callback(err);
-				else
-					throw err;
-			};
-
-			// regardless, remove the loader
-
-			loader.remove();
 		}.bind(this))
-		.on('error', function()
+		.fail(function (req, status, error)
 		{
-			var err = new Error('Could not load story format source');
-
 			if (callback)
-				callback(err);
+				callback(error);
 			else
-				throw err;
-			
-			loader.remove();
-		}.bind(this));
-
-		// add cache-busting
-
-		loader.attr('src', this.get('url') + '?' + new Date().getTime());
-
-		// in case the error event doesn't fire on a loading error,
-		// we set a timeout (10 seconds) that removes the loader
-		// element and triggers the failure handler
-
-		window.setTimeout(function()
-		{
-			if (loader.parent().length > 0)
-			{
-				var err = new Error('Could not load story format source');
-
-				if (callback)
-					callback(err);
-				else
-					throw err;
-				
-				loader.remove();
-			};
-			
-		}.bind(this), 10000);
+				throw error;
+		});
 	},
 
 	/**
