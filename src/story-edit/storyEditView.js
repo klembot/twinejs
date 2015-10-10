@@ -63,7 +63,7 @@ module.exports = Marionette.CompositeView.extend(
 	{
 		this.listenTo(this.model, 'change:zoom', this.syncZoom)
 		.listenTo(this.model, 'change:name', this.syncName)
-		.listenTo(this.model, 'error', function (model, resp, options)
+		.listenTo(this.model, 'error', function (model, resp)
 		{
 			// L10n: %s is the error message.
 			notify(locale.say('A problem occurred while saving your changes (%s).', resp), 'danger');
@@ -84,7 +84,7 @@ module.exports = Marionette.CompositeView.extend(
 			if (this.collection.length == 1)
 				this.model.save({ startPassage: p.id });
 		})
-		.listenTo(this.collection, 'error', function (model, resp, options)
+		.listenTo(this.collection, 'error', function (model, resp)
 		{
 			// L10n: %s is the error message.
 			notify(locale.say('A problem occurred while saving your changes (%s).', resp), 'danger');
@@ -369,7 +369,7 @@ module.exports = Marionette.CompositeView.extend(
 	 @method publish
 	**/
 
-	publish: function (options)
+	publish: function()
 	{
 		// verify the starting point
 
@@ -423,16 +423,6 @@ module.exports = Marionette.CompositeView.extend(
 					maxTop = top;
 					bottomPassage = p;
 				};
-			});
-
-			var rightPassage = this.collection.max(function (item)
-			{
-				return item.get('left');
-			});
-
-			var bottomPassage = this.collection.max(function (item)
-			{
-				return item.get('top');
 			});
 
 			var passagesWidth = zoom * (rightPassage.get('left') + Passage.width);
@@ -550,7 +540,6 @@ module.exports = Marionette.CompositeView.extend(
 
 			if (p.id != passage.id && p.intersects(passage))
 			{
-				var done = false;
 				p.displace(passage);
 			};
 		});
@@ -642,10 +631,10 @@ module.exports = Marionette.CompositeView.extend(
 			 This is used by child views to see if they should pay attention to a
 			 mouseup event, for example.
 
-			 @property {jQuery Object} lastMousedown
+			 @property {Object} lastMousedown
 			**/
 
 			this.lastMousedown = $(e.target);
 		}
-	},
+	}
 });

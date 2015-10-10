@@ -6,7 +6,6 @@
 **/
 
 'use strict';
-var $ = require('jquery');
 var ui = require('./index.js');
 
 module.exports = function (html)
@@ -17,14 +16,13 @@ module.exports = function (html)
 
 	// blast the last of our JS globals
 
-	CodeMirror = null;
-	CustomEvent = null;
-	SVG = null;
-	Store = null;
-	StoryFormat = null;
-	amdDefine = null;
-	app = null;
-	jQuery = null;
+	window.CodeMirror = null;
+	window.SVG = null;
+	window.Store = null;
+	window.StoryFormat = null;
+	window.amdDefine = null;
+	window.app = null;
+	window.jQuery = null;
 
 	// rewrite the document
 

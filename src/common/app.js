@@ -14,7 +14,6 @@ var moment = require('moment');
 var Backbone = require('backbone');
 var Marionette = require('backbone.marionette');
 var locale = require('../locale');
-var notify = require('../ui/notify');
 var nwui = require('../nwui');
 var ui = require('../ui');
 var AppPref = require('../data/models/appPref');
@@ -22,7 +21,7 @@ var StoryFormatCollection = require('../data/collections/storyFormatCollection')
 var TransRegion = require('../backbone-ext/transRegion');
 var TwineRouter = require('./router');
 
-var TwineApp = module.exports = Marionette.Application.extend(
+module.exports = Marionette.Application.extend(
 {
 	initialize: function()
 	{

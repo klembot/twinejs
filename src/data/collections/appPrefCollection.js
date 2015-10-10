@@ -8,7 +8,6 @@
 'use strict';
 var Backbone = require('backbone');
 var LocalStorage = require('backbone.localstorage');
-var AppPref = require('../models/appPref');
 
 var AppPrefCollection = Backbone.Collection.extend(
 {

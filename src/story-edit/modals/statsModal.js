@@ -97,6 +97,5 @@ module.exports = Backbone.View.extend(
 	close: function()
 	{
 		this.$el.data('modal').trigger('hide');
-	},
-
+	}
 });

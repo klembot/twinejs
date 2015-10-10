@@ -237,11 +237,10 @@ module.exports = Backbone.View.extend(
 	autocomplete: function()
 	{
 		this.cm.showHint({
-			hint: function (cm, options)	
+			hint: function (cm)	
 			{
 				var wordRange = cm.findWordAt(cm.getCursor());
 				var word = cm.getRange(wordRange.anchor, wordRange.head).toLowerCase();
-				var matches = [];
 
 				var comps =
 				{
