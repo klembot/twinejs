@@ -158,8 +158,12 @@ module.exports = Backbone.View.extend(
 			var oldStart = this.parent.collection.findWhere({ id: this.parent.model.previous('startPassage') });
 			var newStart = this.parent.collection.findWhere({ id: this.parent.model.get('startPassage') });
 
-			this.cachePassage(oldStart);
-			this.cachePassage(newStart);
+			if (oldStart)
+				this.cachePassage(oldStart);
+
+			if (newStart)
+				this.cachePassage(newStart);
+
 			this.drawAll();
 		});
 
@@ -377,11 +381,6 @@ module.exports = Backbone.View.extend(
 		**/
 
 		this.drawArrowsWhileDragging = (this.parent.model.get('zoom') > 0.25);
-
-		var draggedViews = this.parent.children.filter(function (view)
-		{
-			return view.selected;	
-		});
 
 		/**
 		 An array of passages models currently being dragged.
