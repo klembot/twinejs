@@ -29,7 +29,13 @@ var ui = module.exports =
 			 @property fastclick
 			**/
 
-			this.fastclick = fastclick(document.body);
+			// the API depends on whether we're using the CDN
+			// or the CommonJS module :(
+
+			if (fastclick.attach !== undefined)
+				this.fastclick = fastclick.attach(document.body);
+			else
+				this.fastclick = fastclick(document.body);
 
 			// note iOS for some custom styles
 
