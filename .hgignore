@@ -13,3 +13,4 @@ locale/*.js
 twine.js
 build
 nwbuilder-cache
+nsis/*
