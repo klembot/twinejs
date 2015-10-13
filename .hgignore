@@ -9,7 +9,6 @@ doc/*
 .idea
 cache
 dist-apps
-locale/*.js
 twine.js
 build
 nwbuilder-cache
