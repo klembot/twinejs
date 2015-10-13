@@ -10,6 +10,7 @@
 'use strict';
 var $ = require('jquery');
 var _ = require('underscore');
+var osenv = require('osenv');
 var importer = require('../file/importer');
 var locale = require('../locale');
 var notify = require('../ui/notify');
@@ -29,9 +30,7 @@ var nwui = module.exports =
 	**/
 
 	active: 
-	(typeof process !== "undefined" &&
-	 typeof require !== "undefined" &&
-	 typeof require('nw.gui') !== 'undefined'),
+	window.nwDispatcher !== undefined,
 
 	/**
 	 Whether changes to a story should be saved to the filesystem.
@@ -236,11 +235,7 @@ var nwui = module.exports =
 			 @property filePath
 			**/
 
-			// certain Windows installs will only have '\' as their home path
-
-			var homePath = process.env.HOME ||
-						   ((process.env.HOMEPATH === '\\') ? false : process.env.HOMEPATH) ||
-						   process.env.USERPROFILE;
+			var homePath = osenv.home();
 
 			// if the user doesn't have a Documents folder,
 			// check for "My Documents" instead (thanks Windows)
