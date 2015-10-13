@@ -19,34 +19,30 @@ repositories:
 
 Run `npm install` at the top level of the directory to install all goodies.
 
-You'll need [Gulp](http://gulpjs.com) to continue. Run `npm install -g gulp`
+You'll need [Grunt](http://gruntjs.com) to continue. Run `npm install -g grunt`
 (you will need to have administrator privileges to achieve this task).
 
 ### BUILDING
 
-Run `gulp` to perform a basic build, including creating documentation in doc/;
-`gulp watch` will perform the same tasks whenever you make changes to the
-source code. `gulp release` will minify everything to as few files as possible
-into dist/web (full HTML version), dist/web-cdn (HTML version, using CDN
-resources), and dist/nwjs (native app versions). If you'd like to build only one
-type of release, run `gulp release:web`, `gulp release:web-cdn`, or `gulp
-release:nw`.
+Run `grunt` to perform a basic build under `build/standalone`; `grunt dev` will
+perform the same tasks whenever you make changes to the source code. `grunt nw`
+will create executable app versions of Twine from this directory and place them
+under `build/nwjs/`. `grunt build:cdn` will build a version of Twine that makes
+as much use of CDN resources as possible, and place it under `build/cdn`.
 
-When running any `release` task, a file named `2.json` is created under
-release/. This contains information relevant to the autoupdater process, and
+To create downloadable versions of Twine, run `grunt package`. These will be
+placed in the `dist/` directory. An additional file named `2.json` is created
+under `dist/`. This contains information relevant to the autoupdater process, and
 is currently posted to http://twinery.org/latestversion/2.json.
-
-Downloads are built using the `gulp package` command, and results appear in
-dist/download/.
 
 In order to build Windows apps on OS X or Linux, you will need to have
 [Wine](https://www.winehq.org/) and [makensis](http://nsis.sourceforge.net/) installed.
 
 ### TESTING
 
-Run `gulp test` to run through Selenium-based tests (for now, these only run on
-Firefox). To quit a test run as soon as any error is encountered, run `gulp
-test --bail`. To run a subset of tests, run `gulp test --grep=mysearch`. Only
+Run `grunt test` to run through Selenium-based tests (for now, these only run on
+Firefox). To quit a test run as soon as any error is encountered, run `grunt
+test --bail`. To run a subset of tests, run `grunt test --grep=mysearch`. Only
 tests whose name match the argument you pass will be run.
 
 ### LOCALIZATION
@@ -75,4 +71,7 @@ your best bet for nice-looking SVG flags. Obviously, whatever image you provide
 must either be in the public domain or otherwise OK to use in Twine without any
 compensation.
 
-4. If you're comfortable using Mercurial, then you can open a pull request to have your localization added. Please place it in the `locale/po` directory. If you aren't, you can instead open a bug tracker issue and attach your PO file, flag image, and language name and we'll take it from there.
+4. If you're comfortable using Mercurial, then you can open a pull request to
+have your localization added. Please place it in the `src/locale/po` directory. If
+you aren't, you can instead open a bug tracker issue and attach your PO file,
+flag image, and language name and we'll take it from there.
