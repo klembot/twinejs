@@ -41,7 +41,7 @@ module.exports =
 				jsonpCallback: 'locale',
 				crossDomain: true
 			})
-			.alwa ys(function (data)
+			.always(function (data)
 			{
 				/**
 				 The raw JSON data used by Jed.
