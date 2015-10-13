@@ -19,8 +19,7 @@ module.exports = function (grunt)
 				{
 					browserifyOptions:
 					{
-						debug: true,
-						detectGlobals: false,
+						debug: true
 					},
 					exclude: ['fs'],
 					external: ['nw.gui'],
@@ -38,8 +37,7 @@ module.exports = function (grunt)
 				{
 					browserifyOptions:
 					{
-						debug: false,
-						detectGlobals: false,
+						debug: false
 					},
 					exclude: ['fs'],
 					external: ['nw.gui'],
@@ -60,8 +58,7 @@ module.exports = function (grunt)
 				{
 					browserifyOptions:
 					{
-						debug: false,
-						detectGlobals: false,
+						debug: false
 					},
 					exclude: ['fs'],
 					external: ['nw.gui'],
