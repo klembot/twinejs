@@ -10,7 +10,6 @@
 'use strict';
 var $ = require('jquery');
 var _ = require('underscore');
-var osenv = require('osenv');
 var importer = require('../file/importer');
 var locale = require('../locale');
 var notify = require('../ui/notify');
@@ -58,6 +57,12 @@ var nwui = module.exports =
 	init: function()
 	{
 		var startupTask = 'beginning startup tasks'; 
+
+		// we require it here instead of at the top of the file so that
+		// on the web platform, it doesn't try to do any detection 
+		// (and fail, because we are not shimming process).
+
+		var osenv = require('osenv');
 
 		try
 		{
