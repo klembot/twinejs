@@ -1,0 +1,54 @@
+<div class="story">
+
+<button class="edit subtle bg"></button>
+
+<div class="preview"></div>
+
+<div class="label">
+<h2>
+<%- name %>
+</h2>
+
+<p class="changeDate">
+<%- moment(lastUpdate).format('lll') %>
+</p>
+</div>
+
+<div class="bubbleContainer">
+<button class="subtle" data-bubble="toggle"><i class="fa fa-cog"></i></button>
+
+<div class="bubble small up">
+<ul class="menu">
+
+<li>
+<button class="play"><%= s('Play Story') %></button>
+</li>
+
+<li>
+<button class="test"><%= s('Test Story') %></button>
+</li>
+
+<li>
+<button class="publish"><%= s('Publish to File') %></button>
+</li>
+
+<li>
+<button class="rename"><%= s('Rename Story') %></button>
+</li>
+
+<li>
+<button class="confirmDuplicate"><%= s('Duplicate Story') %></button>
+</li>
+
+<li class="divider"></li>
+
+<li>
+<button class="confirmDelete"><%= s('Delete Story') %></button>
+</li>
+
+</ul>
+
+</div>
+</div>
+
+</div> <!-- .story -->
