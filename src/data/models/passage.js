@@ -147,8 +147,8 @@ var Passage = Backbone.Model.extend(
 						[[link<-display text]] format
 
 						Arrow links, with setter component
-						[[display text->link][…]] format
-						[[link<-display text][…]] format
+						[[display text->link][...]] format
+						[[link<-display text][...]] format
 
 						This regexp will interpret the rightmost '->' and the leftmost '<-' as the divider.
 					*/
@@ -158,13 +158,13 @@ var Passage = Backbone.Model.extend(
 						[[display text|link]] format
 
 						TiddlyWiki links, with setter component
-						[[display text|link][…]] format
+						[[display text|link][...]] format
 					*/
 					.replace(/\[\[([^\|\]]*?)\|([^\|\]]*)?(?:\]\[.*?)?\]\]/g, "$2")
 					/*
 						[[link]] format
 
-						[[link][…]] format, with setter component
+						[[link][...]] format, with setter component
 					*/
 					.replace(/\[\[|(?:\]\[.*?)?\]\]/g,"");
 
