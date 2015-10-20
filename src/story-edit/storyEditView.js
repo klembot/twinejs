@@ -404,8 +404,8 @@ module.exports = Marionette.CompositeView.extend(
 		if (this.collection.length > 0)
 		{
 			var rightPassage, bottomPassage;
-			var maxLeft = 0;
-			var maxTop = 0;
+			var maxLeft = -Infinity;
+			var maxTop = -Infinity;
 
 			this.collection.each(function (p)
 			{
