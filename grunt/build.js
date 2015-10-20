@@ -275,11 +275,6 @@ module.exports = function (grunt)
 				files: ['src/index.ejs'],
 				tasks: ['template:default']
 			},
-			js:
-			{
-				files: ['src/**/*.js'],
-				tasks: ['eslint']
-			},
 			images:
 			{
 				files: ['src/**/img/**/*.{ico,png,svg}'],
@@ -288,7 +283,7 @@ module.exports = function (grunt)
 			storyformats:
 			{
 				files: ['storyFormats/**'],
-				tasks: ['storyformats']
+				tasks: ['copy:storyformats']
 			}
 		}
 	});
