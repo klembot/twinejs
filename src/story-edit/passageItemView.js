@@ -597,10 +597,12 @@ module.exports = Marionette.ItemView.extend(
 		if (this.dragX === undefined || this.dragY === undefined)
 			return;
 
+		var zoom = this.parentView.model.get('zoom');
+
 		this.model.set(
 		{
-			top: this.dragY,
-			left: this.dragX
+			top: this.dragY / zoom,
+			left: this.dragX / zoom
 		});
 
 		this.dragX = this.dragY = undefined;
