@@ -103,12 +103,20 @@ $(ui).on('init', function (e, options)
 	if ($('#modalOverlay').length === 0)
 	{
 		var overlay = $(overlayTemplate());
-		overlay.on('mousedown, mouseup', function (e)
+		overlay.on('mousedown mouseup', function (e)
 		{
 			e.stopPropagation();
 		});
 		$b.append(overlay);
 	};
+
+	// prevent keyboard events from leaking out of modals
+
+	$b.on('keydown keyup', '.modal', function (e)
+	{
+		if (e.keyCode != 27)
+			e.stopPropagation();
+	});
 
 	// click handlers for showing and hiding modals
 
