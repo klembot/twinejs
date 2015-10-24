@@ -96,6 +96,13 @@ h3
 	font: 125% "Nunito Light", sans-serif;
 }
 
+/* fix appearance of search fields in Safari */
+
+input[type="search"]
+{
+	-webkit-appearance: none;
+}
+
 /* library customizations */
 
 .simplemodal-overlay
