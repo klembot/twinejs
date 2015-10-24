@@ -1,6 +1,6 @@
 <!-- this must be included outside any other template, to avoid data binding errors -->
 
-<div class="result collapseContainer hoverContainer" data-passage="<%- passageId %>">
+<div class="result collapseContainer hoverContainer" data-passage="<%= passageId %>">
 
 <p class="passageName">
 
@@ -26,6 +26,6 @@ Show in Story Map</button-->
 
 </p>
 
-<pre id="searchResult<%- resultNumber %>" class="collapse passageBody"><%= searchPreview %></pre>
+<pre id="searchResult<%= resultNumber %>" class="collapse passageBody"><%= searchPreview %></pre>
 
 </div> <!-- .hoverContainer -->
