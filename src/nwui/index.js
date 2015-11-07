@@ -10,6 +10,7 @@
 'use strict';
 var $ = require('jquery');
 var _ = require('underscore');
+var Marionette = require('backbone.marionette');
 var importer = require('../file/importer');
 var locale = require('../locale');
 var notify = require('../ui/notify');
@@ -20,6 +21,7 @@ var StoryCollection = require('../data/collections/storyCollection');
 var StoryListView = require('../story-list/storyListView');
 var WelcomeView = require('../welcome/welcomeView');
 var startupErrorTemplate = require('./ejs/startupError.ejs');
+var welcomeViewNwTemplate = require('./ejs/welcomeViewNw.ejs');
 
 var nwui = module.exports =
 {
@@ -57,12 +59,6 @@ var nwui = module.exports =
 	init: function()
 	{
 		var startupTask = 'beginning startup tasks'; 
-
-		// we require it here instead of at the top of the file so that
-		// on the web platform, it doesn't try to do any detection 
-		// (and fail, because we are not shimming process).
-
-		var osenv = require('osenv');
 
 		try
 		{
@@ -194,7 +190,7 @@ var nwui = module.exports =
 				label: locale.say('Show Library'),
 				click: function()
 				{
-					nwui.gui.Shell.openItem(nwui.path.resolve(nwui.filePath.replace(/\//g, nwui.path.sep)));
+					nwui.gui.Shell.openItem(nwui.filePath.replace(/\//g, nwui.path.sep));
 				}
 			}), 0);
 
@@ -235,12 +231,18 @@ var nwui = module.exports =
 			nwui.fs = require('fs');
 			startupTask = 'checking for the presence of a Documents or My Documents directory in your user directory';
 
+			// we require this here instead of at the top of the file so that
+			// on the web platform, it doesn't try to do any detection 
+			// (and fail, because we are not shimming process).
+
+			nwui.osenv = require('osenv');
+
 			/**
 			 The path that stories will be saved to in the filesystem.
 			 @property filePath
 			**/
 
-			var homePath = osenv.home();
+			var homePath = nwui.osenv.home();
 
 			// if the user doesn't have a Documents folder,
 			// check for "My Documents" instead (thanks Windows)
@@ -251,7 +253,7 @@ var nwui = module.exports =
 			// then it should have two backslashes (\\) in front of it.
 			// Regardless, this must have a single forward slash (/) as its first
 			// character.
-			var docPath = homePath + locale.say('/Documents');
+			var docPath = nwui.path.join(homePath, locale.say('/Documents'));
 
 			if (! nwui.fs.existsSync(docPath))
 			{
@@ -263,8 +265,8 @@ var nwui = module.exports =
 				// key '/Documents' does not exist. If you need to use a space in
 				// this name, then it should have two backslashes (\\) in front of it.
 				// Regardless, this must have a single forward slash (/) as its first character.
-				if (nwui.fs.existsSync(homePath + locale.say('/My\\ Documents')))
-					docPath = homePath + locale.say('/My\\ Documents');
+				if (nwui.fs.existsSync(nwui.path.join(homePath, locale.say('/My\\ Documents'))))
+					docPath = nwui.path.join(homePath, locale.say('/My\\ Documents'));
 				else
 					nwui.fs.mkdirSync(docPath);
 			};
@@ -276,12 +278,12 @@ var nwui = module.exports =
 			// story files specifically. If you need to use a space in this name,
 			// then it should have two backslashes in front of it. Regardless,
 			// this must have a single forward slash (/) as its first character.
-			nwui.filePath = docPath + locale.say('/Twine') + locale.say('/Stories');
+			nwui.filePath = nwui.path.join(docPath, locale.say('/Twine'), locale.say('/Stories'));
 
 			if (! nwui.fs.existsSync(nwui.filePath))
 			{
 				startupTask = 'creating a Twine directory in your Documents directory';
-				var twinePath = docPath + locale.say('/Twine');
+				var twinePath = nwui.path.join(docPath, locale.say('/Twine'));
 
 				if (! nwui.fs.existsSync(twinePath))
 					nwui.fs.mkdirSync(twinePath);
@@ -444,16 +446,14 @@ var nwui = module.exports =
 
 			WelcomeView.prototype.onRender = function()
 			{
-				var saveHtml = _.template($('#templates .welcomeViewNw').html())(window.app.templateProperties);
-				this.$('.save').html(saveHtml);
+				this.$('.save').html(Marionette.Renderer.render(welcomeViewNwTemplate, {}));
 				oldWelcomeViewRender.call(this);
 			};
 		}
 		catch (e)
 		{
-			/* jshint -W060 */
+			console.log('Startup crash', startupTask, e);
 			document.write(startupErrorTemplate({ task: startupTask, error: e }));
-			/* jshint +W060 */
 			throw e;
 		};
 	},
