@@ -1,0 +1,62 @@
+{
+  "name": "Twine",
+  "version": "2.0.9pre3",
+  "author": "Chris Klimas <chris@twinery.org>",
+  "description": "a GUI for creating nonlinear stories",
+  "license": "GPL v3",
+  "repository": {
+    "type": "hg",
+    "url": "https://bitbucket.org/klembot/twinejs"
+  },
+  "main": "index.html",
+  "dom_storage_quota": 1000000,
+  "window": {
+    "show": false,
+    "toolbar": false,
+    "width": 1024,
+    "height": 600,
+    "icon": "rsrc/img/logo.ico"
+  },
+  "browserify-shim": "./cdnShims.js",
+  "dependencies": {
+    "backbone": "^1.2.1",
+    "backbone.localstorage": "^1.1.16",
+    "backbone.marionette": "^2.4.2",
+    "blob-polyfill": "^1.0.20150320",
+    "browser-saveas": "^1.0.0",
+    "codemirror": "^5.5.0",
+    "fastclick": "^1.0.6",
+    "font-awesome": "^4.3.0",
+    "jed": "^1.1.0",
+    "jquery": "^2.1.4",
+    "jszip": "^2.5.0",
+    "moment": "^2.10.3",
+    "svg.js": "^1.0.1",
+    "tiny-uuid": "^1.0.0",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "browserify": "^11.0.0",
+    "browserify-shim": "^3.8.10",
+    "ejsify": "^1.0.0",
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^4.0.1",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-copy": "^0.8.1",
+    "grunt-contrib-cssmin": "^0.14.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-eslint": "^17.2.0",
+    "grunt-jsdoc": "^1.0.0",
+    "grunt-mocha-test": "^0.12.7",
+    "grunt-nw-builder": "^2.0.0",
+    "grunt-po2json": "^0.3.0",
+    "grunt-template": "^0.2.3",
+    "grunt-text-replace": "^0.4.0",
+    "load-grunt-tasks": "^3.3.0",
+    "mocha": "^2.3.3",
+    "selenium-webdriver": "^2.46.1",
+    "uglifyify": "^3.0.1",
+    "watchify": "^3.3.0",
+    "wrench": "^1.5.8"
+  }
+}
