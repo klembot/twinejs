@@ -70,5 +70,30 @@ module.exports = function (grunt)
 		});
 	});
 
+	grunt.registerTask('pojson2jsonp:cdn', function()
+	{
+		_.each(grunt.file.expand('build/cdn/locale/*.json'), function (path)
+		{
+			var src = grunt.file.read(path);
+
+			// \\/ => \/, because xgettext isn't handling backslashes in templates correctly
+
+			src = src.replace(/\\\\\//g, '\\/');
+
+			// add JSONP frame
+
+			src = 'window.locale(' + src + ')';
+
+			// write it out
+
+			var newPath = path.replace(/\.json$/, '.js');
+			grunt.file.write(newPath, src);
+			grunt.file.delete(path);
+
+			grunt.log.writeln(newPath + ' created.');
+		});
+	});
+
 	grunt.registerTask('po', ['po2json', 'pojson2jsonp']);
+	grunt.registerTask('po:cdn', ['po2json:cdn', 'pojson2jsonp:cdn']);
 };
