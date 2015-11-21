@@ -13,3 +13,4 @@ twine.js
 build
 nwbuilder-cache
 nsis/*
+phantomjsdriver.log

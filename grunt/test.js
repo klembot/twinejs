@@ -24,16 +24,34 @@ module.exports = function (grunt)
 	grunt.config.merge({
 		mochaTest:
 		{
-			src: ['./tests/**/*.js'],
-			options:
+			selenium:
 			{
-				bail: grunt.option('bail'),
-				grep: grunt.option('grep')
+				src: ['./tests/selenium/*.js'],
+				options:
+				{
+					bail: grunt.option('bail'),
+					grep: grunt.option('grep'),
+					slow: 5000
+				}
+			}
+		},
+		mochify:
+		{
+			unit:
+			{
+				src: ['./tests/unit/*.js'],
+				options:
+				{
+					reporter: 'spec',
+					transform: ['ejsify']
+				}
 			}
 		}
 	});
 
 	// test tests everything.
 
-	grunt.registerTask('test', ['mochaTest']);
+	grunt.registerTask('test', ['test:unit', 'test:selenium']);
+	grunt.registerTask('test:selenium', ['mochaTest:selenium']);
+	grunt.registerTask('test:unit', ['mochify:unit']);
 };
