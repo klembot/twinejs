@@ -143,24 +143,37 @@ var Passage = Backbone.Model.extend(
 			for (var i = 0; i < matches.length; i++)
 			{
 				/*
-					Arrow links
-					[[display text->link]] format
-					[[link<-display text]] format
-					This regex will interpret the rightmost '->' and the leftmost '<-' as the divider.
+					The link matching regexps ignore setter components, should they exist.
 				*/
-				var link = matches[i].replace(/\[\[(?:([^\]]*)\->|([^\]]*?)<\-)([^\]]*)\]\]/g, arrowReplacer)
-				/*
-					TiddlyWiki links
-					[[display text|link]] format
-				*/
-					.replace(/\[\[([^\|\]]*?)\|([^\|\]]*)?\]\]/g, "$2")
-				/*
-					[[link]] format
-				*/
-					.replace(/\[\[|\]\]/g,"");
+				var link = matches[i]
+					/*
+						Arrow links
+						[[display text->link]] format
+						[[link<-display text]] format
+
+						Arrow links, with setter component
+						[[display text->link][...]] format
+						[[link<-display text][...]] format
+
+						This regexp will interpret the rightmost '->' and the leftmost '<-' as the divider.
+					*/
+					.replace(/\[\[(?:([^\]]*)\->|([^\]]*?)<\-)([^\]]*)(?:\]\[.*?)?\]\]/g, arrowReplacer)
+					/*
+						TiddlyWiki links
+						[[display text|link]] format
+
+						TiddlyWiki links, with setter component
+						[[display text|link][...]] format
+					*/
+					.replace(/\[\[([^\|\]]*?)\|([^\|\]]*)?(?:\]\[.*?)?\]\]/g, "$2")
+					/*
+						[[link]] format
+
+						[[link][...]] format, with setter component
+					*/
+					.replace(/\[\[|(?:\]\[.*?)?\]\]/g,"");
 
 				// catch empty links, i.e. [[]]
-
 				if (link !== '' && found[link] === undefined)
 				{
 					result.push(link);
@@ -190,15 +203,15 @@ var Passage = Backbone.Model.extend(
 	{
 		// TODO: add hook for story formats to be more sophisticated
 
-		var simpleLinkRegexp = new RegExp('\\[\\[' + oldLink + '\\]\\]', 'g');
-		var compoundLinkRegexp = new RegExp('\\[\\[(.*?)(\\||->)' + oldLink + '\\]\\]', 'g');
-		var reverseLinkRegexp = new RegExp('\\[\\[' + oldLink + '<-(.*?)\\]\\]', 'g');
+		var simpleLinkRegexp = new RegExp('\\[\\[' + oldLink + '(\\]\\[.*?)?\\]\\]', 'g');
+		var compoundLinkRegexp = new RegExp('\\[\\[(.*?)(\\||->)' + oldLink + '(\\]\\[.*?)?\\]\\]', 'g');
+		var reverseLinkRegexp = new RegExp('\\[\\[' + oldLink + '(<-.*?)(\\]\\[.*?)?\\]\\]', 'g');
 		var oldText = this.get('text');
 		var text = oldText;
 
-		text = text.replace(simpleLinkRegexp, '[[' + newLink + ']]');
-		text = text.replace(compoundLinkRegexp, '[[$1$2' + newLink + ']]');
-		text = text.replace(reverseLinkRegexp, '[[' + newLink + '<-$1]]');
+		text = text.replace(simpleLinkRegexp, '[[' + newLink + '$1]]');
+		text = text.replace(compoundLinkRegexp, '[[$1$2' + newLink + '$3]]');
+		text = text.replace(reverseLinkRegexp, '[[' + newLink + '$1$2]]');
 
 		if (text != oldText)
 			this.save({ text: text });
