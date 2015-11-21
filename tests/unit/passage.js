@@ -43,16 +43,32 @@ describe('Passage', function()
 			assert(links.length == 1 && links[0] == 'link');
 		});
 
-		it('ignores [[setter][links]]', function()
+		it('parses [[simple links][setter]] while ignoring setter component', function()
 		{
-			p.set('text', '[[setter][links]]');
-			assert(p.links().length == 0);
+			p.set('text', '[[link][setter]]');
+			var links = p.links();
+			assert(links.length == 1 && links[0] == 'link');
 		});
 
-		it('ignores [[pipe|setter][links]]', function()
+		it('parses [[pipe|links][setter]] while ignoring setter component', function()
 		{
-			p.set('text', '[[pipe|setter][links]]');
-			assert(p.links().length == 0);
+			p.set('text', '[[display|link][setter]]');
+			var links = p.links();
+			assert(links.length == 1 && links[0] == 'link');
+		});
+
+		it('parses [[arrow->links][setter]] while ignoring setter component', function()
+		{
+			p.set('text', '[[display->link][setter]]');
+			var links = p.links();
+			assert(links.length == 1 && links[0] == 'link');
+		});
+
+		it('parses [[backarrow<-links][setter]] while ignoring setter component', function()
+		{
+			p.set('text', '[[link<-display][setter]]');
+			var links = p.links();
+			assert(links.length == 1 && links[0] == 'link');
 		});
 
 		it('ignores [[]]', function()
