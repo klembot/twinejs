@@ -46,7 +46,12 @@ var Passage = Backbone.Model.extend(
 			// update parent's last update date
 
 			if (! options.noParentUpdate)
-				this.fetchStory().save('lastUpdate', new Date());
+			{
+				var parent = this.fetchStory();
+				
+				if (parent !== undefined)
+					parent.save('lastUpdate', new Date());
+			};
 
 			// clamp our position to positive coordinates
 
@@ -63,7 +68,7 @@ var Passage = Backbone.Model.extend(
 	/**
 	 Fetches this passage's parent story. Beware: this model represents the
 	 state of the story at the time of the call, and will not reflect future changes.
-	 If the story does not exist, this returns null.
+	 If the story does not exist, this returns undefined.
 
 	 @method fetchStory
 	 @return {Story} Story model
