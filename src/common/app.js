@@ -107,16 +107,16 @@ module.exports = Marionette.Application.extend(
 		var formats = StoryFormatCollection.all();
 
 		if (! formats.findWhere({ name: 'Harlowe' }))
-			formats.create({ name: 'Harlowe', url: 'storyformats/Harlowe/format.js', userAdded: false });
+			formats.create({ name: 'Harlowe', url: 'storyFormats/Harlowe/format.js', userAdded: false });
 
 		if (! formats.findWhere({ name: 'Snowman' }))
-			formats.create({ name: 'Snowman', url: 'storyformats/Snowman/format.js', userAdded: false });
+			formats.create({ name: 'Snowman', url: 'storyFormats/Snowman/format.js', userAdded: false });
 
 		if (! formats.findWhere({ name: 'Paperthin' }))
-			formats.create({ name: 'Paperthin', url: 'storyformats/Paperthin/format.js', userAdded: false });
+			formats.create({ name: 'Paperthin', url: 'storyFormats/Paperthin/format.js', userAdded: false });
 
 		if (! formats.findWhere({ name: 'SugarCube' }))
-			formats.create({ name: 'SugarCube', url: 'storyformats/SugarCube/format.js', userAdded: false });
+			formats.create({ name: 'SugarCube', url: 'storyFormats/SugarCube/format.js', userAdded: false });
 
 		// set default formats if not already set
 		// (second param is a default)

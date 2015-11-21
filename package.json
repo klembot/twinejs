@@ -1,6 +1,6 @@
 {
   "name": "Twine",
-  "version": "2.0.9pre1",
+  "version": "2.0.10",
   "author": "Chris Klimas <chris@twinery.org>",
   "description": "a GUI for creating nonlinear stories",
   "license": "GPL v3",
@@ -48,6 +48,7 @@
     "grunt-eslint": "^17.2.0",
     "grunt-jsdoc": "^1.0.0",
     "grunt-mocha-test": "^0.12.7",
+    "grunt-mochify": "^0.3.0",
     "grunt-nw-builder": "^2.0.0",
     "grunt-po2json": "^0.3.0",
     "grunt-template": "^0.2.3",

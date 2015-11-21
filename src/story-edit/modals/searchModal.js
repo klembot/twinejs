@@ -2,9 +2,11 @@
 var $ = require('jquery');
 var _ = require('underscore');
 var Backbone = require('backbone');
+var Marionette = require('backbone.marionette');
 var locale = require('../../locale');
 var notify = require('../../ui/notify');
 var resultTemplate = require('../ejs/searchModalResult.ejs');
+require('../../ui/collapse');
 
 module.exports = Backbone.View.extend(
 {
@@ -81,14 +83,14 @@ module.exports = Backbone.View.extend(
 				preview = preview.replace(/\u3000/g, '<span class="highlight">');
 				preview = preview.replace(/\u3001/g, '</span>', 'g');
 
-				resultHtml += this.resultTemplate(_.extend(
+				resultHtml += Marionette.Renderer.render(this.resultTemplate,
 				{
 					passageId: view.model.cid,
 					passageName: name,
 					numMatches: numMatches,
 					resultNumber: passagesMatched,
 					searchPreview: preview
-				}, window.app.templateProperties));
+				});
 			};
 		}.bind(this));
 
@@ -97,15 +99,15 @@ module.exports = Backbone.View.extend(
 		if (resultHtml !== '')
 		{
 			// L10n: Matched in the sense of matching a search criteria. %d is the number of passages.
-			this.$('.matches').text(window.app.sayPlural('%d passage matches.',
-			                                             '%d passages match.', passagesMatched));
+			this.$('.matches').text(locale.sayPlural('%d passage matches.',
+			                                         '%d passages match.', passagesMatched));
 			this.$('.resultSummary').show();
 			this.$('.results').html(resultHtml);
 		}
 		else
 		{
 			this.$('.resultSummary').hide();
-			this.$('.results').html('<p>' + window.app.say('No matching passages found.') + '</p>');
+			this.$('.results').html('<p>' + locale.say('No matching passages found.') + '</p>');
 		};
 
 	},
@@ -186,11 +188,11 @@ module.exports = Backbone.View.extend(
 		this.$el.one('modalhide', function()
 		{
 			// L10n: replacement in the sense of text search and replace. %d is the number.
-			var replacementDesc = window.app.sayPlural('%d replacement was made in',
-			                                           '%d replacements were made in', totalMatches);
+			var replacementDesc = locale.sayPlural('%d replacement was made in',
+			                                       '%d replacements were made in', totalMatches);
 
 			// L10n: %d is a number of passages.
-			var passageDesc = window.app.sayPlural('%d passage', '%d passages', passagesMatched);
+			var passageDesc = locale.sayPlural('%d passage', '%d passages', passagesMatched);
 
 			// L10n: This is the formatting used to combine two pluralizations.
 			// In English, %1$s equals "2 replacements were made in" and %2$s equals "5 passages."

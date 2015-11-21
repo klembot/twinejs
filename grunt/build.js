@@ -247,11 +247,11 @@ module.exports = function (grunt)
 	// build tasks package everything up under build/standalone and build/cdn.
 
 	grunt.registerTask('build', ['browserify:default', 'cssmin:default', 'replace:cssfix', 'template:default',
-	                             'copy:fonts', 'copy:images', 'copy:storyformats']);
+	                             'copy:fonts', 'copy:images', 'copy:storyformats', 'po']);
 	grunt.registerTask('build:cdn', ['browserify:cdn', 'cssmin:cdn', 'replace:csscdnfix', 'template:cdn',
-	                                 'copy:fontsCdn', 'copy:imagesCdn', 'copy:storyformatsCdn']);
+	                                 'copy:fontsCdn', 'copy:imagesCdn', 'copy:storyformatsCdn', 'po:cdn']);
 	grunt.registerTask('build:release', ['browserify:release', 'cssmin:release', 'replace:cssfix', 'template:default',
-	                                     'copy:fonts', 'copy:images', 'copy:storyformats', 'copy:manifest']);
+	                                     'copy:fonts', 'copy:images', 'copy:storyformats', 'copy:manifest', 'po']);
 	grunt.registerTask('default', ['build']);
 
 	// watch observes changes to files outside of the browserify process and
@@ -275,11 +275,6 @@ module.exports = function (grunt)
 				files: ['src/index.ejs'],
 				tasks: ['template:default']
 			},
-			js:
-			{
-				files: ['src/**/*.js'],
-				tasks: ['eslint']
-			},
 			images:
 			{
 				files: ['src/**/img/**/*.{ico,png,svg}'],
@@ -288,7 +283,7 @@ module.exports = function (grunt)
 			storyformats:
 			{
 				files: ['storyFormats/**'],
-				tasks: ['storyformats']
+				tasks: ['copy:storyformats']
 			}
 		}
 	});

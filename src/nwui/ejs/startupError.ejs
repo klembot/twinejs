@@ -1,7 +1,7 @@
 <div id="nwuiError">
 
 <p>
-An error occurred during startup<% if (task !== undefined) { %> while <%- task %><% } %>.
+An error occurred during startup<% if (task !== undefined) { %> while <%= task %><% } %>.
 </p>
 
 <p>
@@ -12,23 +12,23 @@ project page</a>, including the information below:
 <% if (error !== undefined) { %>
 	<ul>
 		<li>
-		<b>Message:</b> <% if (error.message !== undefined) { %><%- error.message %><% } else { %><i>unknown</i><% } %>
+		<b>Message:</b> <% if (error.message !== undefined) { %><%= error.message %><% } else { %><i>unknown</i><% } %>
 		</li>
 
 		<li>
-		<b>File:</b> <% if (error.fileName !== undefined) { %><%- error.fileName %><% } else { %><i>unknown</i><% } %>
+		<b>File:</b> <% if (error.fileName !== undefined) { %><%= error.fileName %><% } else { %><i>unknown</i><% } %>
 		</li>
 
 		<li>
-		<b>Line:</b> <% if (error.lineNumber !== undefined) { %><%- error.lineNumber %><% } else { %><i>unknown</i><% } %>
+		<b>Line:</b> <% if (error.lineNumber !== undefined) { %><%= error.lineNumber %><% } else { %><i>unknown</i><% } %>
 		</li>
 
 		<li>
-		<b>Column:</b> <% if (error.columnNumber !== undefined) { %><%- error.columnNumber %><% } else { %><i>unknown</i><% } %>
+		<b>Column:</b> <% if (error.columnNumber !== undefined) { %><%= error.columnNumber %><% } else { %><i>unknown</i><% } %>
 		</li>
 
 		<li>
-		<b>Stack:</b> <% if (error.stack !== undefined) { %><br><%- error.stack %><% } else { %><i>unknown</i><% } %>
+		<b>Stack:</b> <% if (error.stack !== undefined) { %><br><%= error.stack %><% } else { %><i>unknown</i><% } %>
 		</li>
 	</ul>
 <% } else { %>

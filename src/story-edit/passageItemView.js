@@ -411,7 +411,6 @@ module.exports = Marionette.ItemView.extend(
 		};
 
 		this.beginDrag(e);
-		e.stopPropagation();
 	},
 
 	/**
@@ -547,10 +546,13 @@ module.exports = Marionette.ItemView.extend(
 
 	followDrag: function (e)
 	{
+		this.dragX = Math.max(this.dragStart.left + e.x, 0); 
+		this.dragY = Math.max(this.dragStart.top + e.y, 0); 
+
 		this.$el.css(
 		{
-			left: Math.max(this.dragStart.left + e.x, 0),
-			top: Math.max(this.dragStart.top + e.y, 0)
+			left: this.dragX,
+			top: this.dragY
 		});
 	},
 
@@ -592,14 +594,19 @@ module.exports = Marionette.ItemView.extend(
 	{
 		// set initial position based on the user's drag
 
+		if (this.dragX === undefined || this.dragY === undefined)
+			return;
+
 		var zoom = this.parentView.model.get('zoom');
 
 		this.model.set(
 		{
-			top: parseInt(this.$el.css('top')) / zoom,
-			left: parseInt(this.$el.css('left')) / zoom	
+			top: this.dragY / zoom,
+			left: this.dragX / zoom
 		});
-		
+
+		this.dragX = this.dragY = undefined;
+
 		// defer the rest til all other drags have completed
 		// so we don't get displaced by any passage's previous positions
 
