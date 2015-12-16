@@ -1,0 +1,23 @@
+@import '../common/colors.less';
+@import '../common/metrics.less';
+
+.gauge
+{
+	height: @len-large;
+	background: hsla(0, 0%, 0%, 0.1);
+	border-radius: @len-small;
+	position: relative;
+	.ui-border;
+
+	.used
+	{
+		position: absolute;
+		z-index: 2;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		background-color: desaturate(@color-link, 35%);
+		border-radius: @len-small;
+		.ui-border;
+	}
+}

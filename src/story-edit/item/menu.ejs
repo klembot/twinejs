@@ -1,0 +1,23 @@
+<ul class="menu horizontal">
+	<li>
+		<button class="delete" title="<%-
+		/* L10n: %s is the name of the thing to be deleted. */
+		s('Delete &ldquo;%s&rdquo;', name)
+		%>"><i class="fa fa-trash-o fa-2x"></i></button>
+	</li>
+	<li>
+		<button class="edit" title="<%-
+		/* L10n: %s is the name of the thing to be edited. */
+		s('Edit &ldquo;%s&rdquo;', name)
+		%>"><i class="fa fa-pencil fa-2x"></i></button>
+	</li>
+	<li>
+		<button class="test subtle" title="<%= s('Test story starting here') %>"><i class="fa fa-bug"></i></button>
+	</li>
+	<li>
+		<button class="setAsStart" title="<%=
+		/* L10n: %s is a name of a passage */
+		s('Set &ldquo;%s&rdquo; as starting point', name)
+		%>"><i class="fa fa-rocket fa-2x"></i></button>
+	</li>
+</ul>

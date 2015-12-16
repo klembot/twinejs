@@ -3,14 +3,13 @@
 var _ = require('underscore');
 var locale = require('./locale');
 var notify = require('./ui/notify');
-var AppPref = require('./data/models/appPref');
+var Pref = require('./data/pref');
 var TwineApp = require('./common/app');
-//require('./harlowe-compat');
 
 (function()
 {
 	var userLocale;
-	window.app = new TwineApp();
+	var app = new TwineApp();
 
 	// URL parameter locale overrides everything
 
@@ -23,10 +22,10 @@ var TwineApp = require('./common/app');
 		// use app preference; default to best guess
 		// http://stackoverflow.com/questions/673905/best-way-to-determine-users-locale-within-browser
 
-		var localePref = AppPref.withName('locale',
-		                                  window.navigator.userLanguage || window.navigator.language ||
-		                                  window.navigator.browserLanguage || window.navigator.systemLanguage ||
-		                                  'en-us');
+		var localePref = Pref.withName('locale',
+		                               window.navigator.userLanguage || window.navigator.language ||
+		                               window.navigator.browserLanguage || window.navigator.systemLanguage ||
+		                               'en-us');
 
 		userLocale = localePref.get('value');
 	};
@@ -34,13 +33,13 @@ var TwineApp = require('./common/app');
 	if (typeof userLocale == 'string')
         locale.load(userLocale.toLowerCase(), function()
     	{
-    		window.app.start();
+    		app.start();
     	});
     else
     {
         locale.load('en', function()
     	{
-    		window.app.start();
+    		app.start();
             _.defer(function()
             {
                 // not localized because if we've reached this step,

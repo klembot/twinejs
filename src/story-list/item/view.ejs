@@ -1,0 +1,21 @@
+<div class="story card">
+	<div class="image">
+		<button class="edit transparent"></button>
+		<div class="preview"></div>
+	</div>
+
+	<footer>
+		<div class="name">
+			<button class="edit transparent">
+				<h3>
+				<%= name %>
+				</h3>
+
+				<p class="changeDate">
+				<%= moment(lastUpdate).format('lll') %>
+				</p>
+			</button>
+		</div>
+		<button class="showMenu iconOnly transparent"><i class="fa fa-cog"></i></button>
+	</footer>
+</div>

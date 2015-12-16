@@ -1,0 +1,14 @@
+@import '../item/view.less';
+
+#storyEditView.marqueeing *
+{
+	cursor: default !important;
+}
+
+#storyEditView .marquee
+{
+	display: none;
+	position: absolute;
+	z-index: 100;
+	border: @len-hairline * 2 dashed @color-passage-frame;
+}

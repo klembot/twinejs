@@ -1,0 +1,76 @@
+#storyFormatModal .formats button.select
+{
+	float: left;
+	font-size: 2.5em;
+	padding: 0 0.5em 0 0;
+	margin: 0;
+}
+
+#storyFormatModal .formats button.select:active,
+#storyFormatModal .formats button.select.active
+{
+	box-shadow: none;
+	background: transparent;
+}
+
+#storyFormatModal .formats .select .showActive
+{
+	display: none;
+}
+
+#storyFormatModal .formats .select.active .showActive
+{
+	display: inline;
+}
+
+#storyFormatModal .formats .select.active .hideActive
+{
+	display: none;
+}
+
+.formatDetail img,
+.formatDetail .placeholder
+{
+	width: 6em;
+	float: left;
+	margin-right: 1.5em;
+}
+
+#storyEditView .formatDetail img,
+#storyEditView .formatDetail .placeholder
+{
+	float: right;
+	margin-left: 1.5em;
+}
+
+.formatDetail .placeholder
+{
+	height: 1.5em; /* 6em / 4 */
+	width: 1.5em;
+	margin-right: 0.375em; /* 1.5em / 4 */
+	padding-top: 0.125em;
+	line-height: 2.5em;
+	text-align: center;
+	background-color: hsl(0, 0%, 80%);
+	color: hsl(0, 0%, 90%);
+	font: 4em "Nunito Light", Helvetica, sans-serif;
+	border-radius: 0.25em;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+.formatDetail .text
+{
+	margin-left: 7.5em;
+}
+
+#storyEditView .formatDetail .text
+{
+	margin-right: 7.5em;
+	margin-left: 3em;
+}
+
+.formatDetail .description
+{
+	font-size: 90%;
+}

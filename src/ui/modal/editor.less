@@ -1,0 +1,45 @@
+@import '../../common/colors.less';
+@import '../../common/metrics.less';
+@import '../bubble/bubble.less';
+
+#modalContainer.editor
+{
+	justify-content: flex-end;
+
+	.bubble
+	{
+		display: flex;
+		flex-direction: column;
+		margin-top: 0;
+		margin-bottom: 0;
+		padding-bottom: 0;
+		height: 98vh;
+		max-height: 98vh;
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+
+		.expand
+		{
+			position: relative;
+			margin-left: -@len-bubble-padding;
+			margin-right: -@len-bubble-padding;
+			flex-grow: 1;
+			background-color: hsl(0, 0%, 95%);
+
+			textarea, .CodeMirror
+			{
+				font-size: 110%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				outline: none;
+				background: transparent;
+				border: none;
+				border-radius: 0;
+				padding: @len-large @len-bubble-padding @len-large @len-bubble-padding;
+			}
+		}
+	}
+}

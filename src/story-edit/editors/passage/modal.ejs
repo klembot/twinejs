@@ -1,0 +1,33 @@
+<header>
+	<h2>
+		<input type="text" class="passageName block" placeholder="<%= s('Passage Name') %>" value="<%= name %>">
+	</h2>
+
+	<button class="close" data-modal="close"><i class="fa fa-remove"></i></button>
+</header>
+
+<p class="error hide"></p>
+
+<div class="passageTags">
+	<p>
+		<span class="tags"></span>
+
+		<button class="showNewTag">
+			<i class="fa fa-plus"></i>
+			<%=
+			/* L10n: this is the noun form, as in tags you would apply to content. */
+			s('Tag')
+			%>
+		</button>
+	</p>
+
+	<form class="newTag hide">
+		<input class="newTagName" type="text" placeholder="<%= /* L10n: A noun, i.e. what a tag is named. */ s('Tag name') %>" required>
+		<button type="button" class="hideNewTag link"><i class="fa fa-times"></i></button>
+		<button type="submit" class="link"><i class="fa fa-check"></i></button>
+	</form>
+</div>
+
+<div class="expand">
+	<textarea class="passageText" placeholder="<%= s('Enter the body text of your passage here. To link to another passage, put two square brackets around its name, [[like this]].') %>"><%= text %></textarea>
+</div>

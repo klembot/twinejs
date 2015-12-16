@@ -125,11 +125,11 @@ module.exports = function (grunt)
 		}
 	});
 
-	// cssmin creates a single, minified CSS file, twine.css, from all CSS
+	// less creates a single CSS file, twine.css, from all LESS
 	// files under src/.
 
 	grunt.config.merge({
-		cssmin:
+		less:
 		{
 			default:
 			{
@@ -141,20 +141,22 @@ module.exports = function (grunt)
 					[
 						'node_modules/font-awesome/css/font-awesome.css',
 						'node_modules/codemirror/lib/codemirror.css',
-						'src/**/*.css',
+						'src/**/*.less',
 						'node_modules/codemirror/addon/hint/show-hint.css'
 					]
 				},
 				options:
 				{
-					sourceMap: true
+					plugins: [ new (require('less-plugin-autoprefix'))({ browsers: ['iOS 1-9', 'last 2 versions'] })],
+					sourceMap: true,
+					sourceMapFileInline: true
 				}
 			},
 			cdn:
 			{
 				files:
 				{
-					'build/cdn/twine.css': './src/**/*.css'
+					'build/cdn/twine.css': './src/**/*.less'
 				}
 			},
 			release:
@@ -167,41 +169,11 @@ module.exports = function (grunt)
 					[
 						'node_modules/font-awesome/css/font-awesome.css',
 						'node_modules/codemirror/lib/codemirror.css',
-						'src/**/*.css',
+						'src/**/*.less',
 						'node_modules/codemirror/addon/hint/show-hint.css'
 					]
 				}
 			}
-		}
-	});
-
-	// replace fixes up references in our CSS that fall out of date
-	// when everything is flattened under build/.
-
-	grunt.config.merge({
-		replace:
-		{
-			cssfix:
-			{
-				src: 'build/standalone/twine.css',
-				overwrite: true,
-				replacements:
-				[{
-					from: /url\(['"]?\.\.\//g,
-					to: 'url('
-				}]
-			},
-
-			csscdnfix:
-			{
-				src: 'build/cdn/twine.css',
-				overwrite: true,
-				replacements:
-				[{
-					from: /url\(['"]?\.\.\//g,
-					to: 'url('
-				}]
-			},
 		}
 	});
 
@@ -246,11 +218,11 @@ module.exports = function (grunt)
 
 	// build tasks package everything up under build/standalone and build/cdn.
 
-	grunt.registerTask('build', ['browserify:default', 'cssmin:default', 'replace:cssfix', 'template:default',
+	grunt.registerTask('build', ['browserify:default', 'less:default', 'template:default',
 	                             'copy:fonts', 'copy:images', 'copy:storyformats', 'po']);
-	grunt.registerTask('build:cdn', ['browserify:cdn', 'cssmin:cdn', 'replace:csscdnfix', 'template:cdn',
+	grunt.registerTask('build:cdn', ['browserify:cdn', 'less:cdn', 'template:cdn',
 	                                 'copy:fontsCdn', 'copy:imagesCdn', 'copy:storyformatsCdn', 'po:cdn']);
-	grunt.registerTask('build:release', ['browserify:release', 'cssmin:release', 'replace:cssfix', 'template:default',
+	grunt.registerTask('build:release', ['browserify:release', 'less:release', 'template:default',
 	                                     'copy:fonts', 'copy:images', 'copy:storyformats', 'copy:manifest', 'po']);
 	grunt.registerTask('default', ['build']);
 
@@ -262,8 +234,8 @@ module.exports = function (grunt)
 		{
 			css:
 			{
-				files: 'src/**/*.css',
-				tasks: ['cssmin']
+				files: 'src/**/*.less',
+				tasks: ['less']
 			},
 			fonts:
 			{
@@ -284,7 +256,12 @@ module.exports = function (grunt)
 			{
 				files: ['storyFormats/**'],
 				tasks: ['copy:storyformats']
-			}
+			},
+			templates:
+			{
+				files: ['src/**/*.ejs'],
+				tasks: ['browserify:default']
+			},
 		}
 	});
 

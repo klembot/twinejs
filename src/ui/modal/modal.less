@@ -1,0 +1,76 @@
+@import '../../common/colors.less';
+@import '../../common/metrics.less';
+@import '../bubble/bubble.less';
+
+body.modalOpen
+{
+	overflow: hidden;
+}
+
+#modalContainer
+{
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: @color-darken;
+
+	.bubble
+	{
+		display: block;
+		position: static;
+		width: 70vw;
+		max-height: 95vh;
+
+		header:first-child
+		{
+			display: flex;
+			align-items: stretch;
+			height: 3rem;
+			margin-left: -@len-bubble-padding;
+			margin-top: -@len-bubble-padding;
+			margin-right: -@len-bubble-padding;
+			margin-bottom: @len-extra-large;
+
+			h1, h2, h3
+			{
+				display: flex;
+				align-items: center;
+				margin: 0;
+				padding-left: @len-large;
+				padding-top: @len-medium;
+				flex-grow: 1;
+
+				input
+				{
+					font-size: 80%;
+					margin: -@len-small @len-medium 0 0;
+					flex-grow: 1;
+				}
+			}
+
+			button.close
+			{
+				border-top-left-radius: 0;
+				border-top-right-radius: @len-small;
+				border-bottom-left-radius: @len-small;
+				border-bottom-right-radius: 0;
+				font-size: 150%;
+				padding-left: @len-extra-large;
+				padding-right: @len-extra-large;
+				margin: 0;
+			}
+
+			+ *
+			{
+				margin-top: 0;
+			}
+		}
+	}
+}

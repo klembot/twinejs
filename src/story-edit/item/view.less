@@ -1,0 +1,121 @@
+@import '../../common/colors.less';
+@import '../../common/metrics.less';
+
+@color-passage-frame: hsla(0, 0%, 100%, 0.75);
+@color-passage-broken: fadeout(@color-danger, 25%);
+@color-passage-highlight: fadeout(@color-highlight, 25%);
+
+#storyEditView
+{
+	.passages
+	{
+		.content
+		{
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
+
+		.passage
+		{
+			position: absolute;
+			color: @color-passage-frame;
+			padding: @len-small;
+			cursor: default;
+			user-select: none;
+
+			.frame
+			{
+				display: flex;
+				flex-direction: column;
+				border: @len-hairline solid @color-passage-frame;
+				border-radius: @len-hairline;
+				box-shadow: 0 0 2px @color-passage-frame, inset 0 0 2px @color-passage-frame;
+				width: 100px;
+				height: 100px;
+				overflow: hidden;
+				font-size: 80%;
+
+				.name
+				{
+					padding: @len-small;
+					margin: 0;
+					border-bottom: @len-hairline solid @color-passage-frame;
+				}
+
+				.excerpt
+				{
+					flex-shrink: 1;
+					overflow: hidden;
+					padding: @len-small;
+					margin: 0;
+					font-size: 80%;
+				}
+			}
+
+			&.brokenLink .frame
+			{
+				border-color: @color-passage-broken;
+				box-shadow: 0 0 2px @color-passage-broken, inset 0 0 2px @color-passage-broken;
+
+				.name
+				{
+					border-color: @color-passage-broken;
+				}
+			}
+
+			&.highlight .frame
+			{
+				border-color: @color-passage-highlight;
+
+				.name
+				{
+					border-color: @color-passage-highlight;
+				}
+			}
+
+			&.selected .frame
+			{
+				background-color: fadeout(@color-passage-frame, 50%);
+			}
+
+			&.start .frame
+			{
+				border-width: @len-hairline * 4;
+			}
+
+		}
+	}
+
+	&.zoomMedium .passages .passage .frame
+	{
+		width: 60px;
+		height: 60px;
+		align-items: center;
+		justify-content: center;
+
+		.title
+		{
+			border-bottom: none;
+			text-align: center;
+		}
+
+		.excerpt
+		{
+			display: none;
+		}
+	}
+
+	&.zoomSmall .passages .passage .frame
+	{
+		width: 25px;
+		height: 25px;
+
+		.title, .excerpt
+		{
+			display: none;
+		}
+	}
+}

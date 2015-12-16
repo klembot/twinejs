@@ -1,0 +1,12 @@
+<div class="large">
+	<%- prompt %>
+
+	<p>
+	<input type="text" class="promptValue block" value="<%= defaultValue %>">
+	</p>
+</div>
+
+<footer>
+	<button class="cancel" data-modal="close"><i class="fa fa-times"></i> <%- cancelLabel %></button>
+	<button class="raised <%- confirmClass %>" data-action="yes" data-modal="close"><%- confirmLabel %></button>
+</footer>

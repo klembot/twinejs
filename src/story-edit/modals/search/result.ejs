@@ -1,0 +1,23 @@
+<div class="result">
+	<p class="name">
+		<button class="detailToggle">
+			<i class="fa fa-plus-square-o showCollapsed"></i>
+			<i class="fa fa-minus-square-o showRevealed"></i>
+			<%= name %>
+		</button> 
+		(<%=
+		/* L10n: %d is a number of text matches after a search. */
+		sp('%d match', '%d matches', numMatches())
+		%>)
+		</button>
+
+		<span>
+			<button class="danger small replacePassage" title="<%= s('Replace in this passage') %>"><i class="fa fa-bolt fa-fw"></i>
+		<%= s('Replace in Passage') %></button>
+		</span>
+	</p>
+
+	<blockquote class="collapse">
+		<pre><%- preview() %></pre>
+	</blockquote>
+</div>

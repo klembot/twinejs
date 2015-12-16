@@ -1,0 +1,56 @@
+<div class="toolbar">
+	<div class="group">
+		<button class="home" title="<%= s('Go to the story list') %>">
+			<i class="fa fa-home fa-lg"></i>
+		</button>
+
+		<button class="storyMenu narrow">
+			<h2>
+				<span class="storyName"><%= name %></h2>
+				<i class="fa fa-caret-up fa-lg"></i>
+			</h2>
+		</button>
+	</div>
+	<div class="group">
+		<div class="noStretch">
+			<input type="search" placeholder="<%= s('Quick Find') %>" class="searchField">
+		</div>
+
+		<button class="showSearch narrow" title="<%= s('Find and replace across the entire story') %>">
+			<i class="fa fa-search"></i>
+			<i class="fa fa-ellipsis-v"></i>
+		</button>
+
+		<div class="zooms group">
+			<button class="zoomSmall" title="<%= s('Show only story structure') %>">
+				<i class="fa fa-th"></i>
+			</button>
+
+			<button class="zoomMedium" title="<%= s('Show only passage titles') %>">
+				<i class="fa fa-th-large"></i>
+			</button>
+
+			<button class="zoomBig" title="<%= s('Show passage titles and excerpts') %>">
+				<i class="fa fa-stop"></i>
+			</button>
+		</div>
+
+		<button class="testStory" title="<%= s('Play this story in test mode') %>">
+			<i class="fa fa-bug"></i> <%=
+			/* L10n: The verb form, to try something or to check it for problems. */
+			s('Test')
+			%>
+		</button>
+
+		<button class="playStory" title="<%= s('Play this story') %>">
+			<i class="fa fa-play"></i> <%=
+			/* L10n: The verb form, as in playing a game. */
+			s('Play')
+			%>
+		</button>
+
+		<button class="addPassage raised create" title="<%= s('Add a new passage') %>" data-tooltip-dir="nw">
+			<i class="fa fa-plus"></i> <%= s('Passage') %>
+		</button>
+	</div> 
+</div> 

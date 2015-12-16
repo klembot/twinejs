@@ -6,9 +6,8 @@
 
 'use strict';
 var $ = require('jquery');
-var fastclick = require('fastclick');
 
-var ui = module.exports =
+module.exports =
 {
 	/**
 	 Performs one-time startup tasks, mainly setting up event listeners.
@@ -18,10 +17,11 @@ var ui = module.exports =
 
 	init: function()
 	{
-		if (! $('body').data('uiInited'))
+		if (! $('body').data('uiAttached'))
 		{
+			var fastclick = require('fastclick');
 			var $b = $('body');
-			$b.data('uiInited', true);
+			$b.data('uiAttached', true);
 
 			/**
 			 The FastClick instance used to cut input
@@ -49,19 +49,12 @@ var ui = module.exports =
 				navigator.userAgent.indexOf('Chrome') == -1)
 				$b.addClass('safari');
 
+			// polyfill browser animation-related events
+
 			$b.on('webkitAnimationEnd.twineui oanimationend.twineui msAnimationEnd.twineui', function (e)
 			{
-				// polyfill browser animation-related events
-
 				e.type = 'animationend';
 				$(e.target).trigger(e);
-			});
-
-			$(ui).trigger('init', { $body: $b });
-
-			window.app.mainRegion.on('show', function()
-			{
-				$(ui).trigger('attach', { $el: window.app.mainRegion.$el });
 			});
 		};
 	},
@@ -77,8 +70,6 @@ var ui = module.exports =
 			// disable FastClick
 
 			this.fastclick.destroy();
-
-			$(ui).triggerHandler('destroy');
 
 			// remove classes and event handlers
 			// and mark the body as uninited

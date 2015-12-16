@@ -1,0 +1,88 @@
+@import '../common/colors.less';
+@import '../common/fonts.less';
+@import '../common/metrics.less';
+
+body
+{
+	font: 90% @font-ui;
+}
+
+p, li
+{
+	line-height: 130%;
+}
+
+h1
+{
+	color: @color-text-em;
+	font: 200% @font-display;
+
+	.normal, .small
+	{
+		font: 50% @font-ui;
+		line-height: 200%;
+	}
+
+	.small
+	{
+		font-size: 45%;
+	}
+}
+
+h2
+{
+	color: @color-text-em;
+	font: 150% @font-display;
+
+	.normal
+	{
+		font: 75% @font-ui;
+		line-height: 200%;
+	}
+}
+
+h3
+{
+	color: @color-text-em;
+	font: 125% @font-display;
+}
+
+a
+{
+	color: @color-link;
+	text-decoration: none;
+
+	&:hover
+	{
+		text-decoration: underline;
+	}
+
+	.subtle
+	{
+		color: @color-text;
+	}
+}
+
+blockquote
+{
+	border-left: @len-small solid fadein(@color-shade, 10%);
+	margin-left: 0em;
+	padding-left: 1em;
+}
+
+pre
+{
+	font: 90% @font-user;
+}
+
+ul, ol
+{
+	margin-left: 2em;
+	padding-left: 1em;
+
+	li
+	{
+		padding-left: 0;
+		margin-bottom: 0.25em;
+	}
+}

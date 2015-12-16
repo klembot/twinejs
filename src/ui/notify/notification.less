@@ -1,0 +1,43 @@
+@import '../../common/colors.less';
+@import '../../common/metrics.less';
+
+.bubble.notification
+{
+	padding: 0;
+	flex-direction: row;
+	align-items: center;
+
+	.icon
+	{
+		color: darken(@color-link, 10%);
+		margin-left: @len-large;
+		margin-right: @len-large;
+	}
+
+	.message
+	{
+		flex-grow: 1;
+	}
+
+	button.close
+	{
+		margin-left: 0;
+		margin-right: 0;
+		border-top-left-radius: 0;
+		border-top-right-radius: @len-small;
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: @len-small;
+		padding-left: @len-large;
+		padding-right: @len-large;
+	}
+
+	&.success .icon
+	{
+		color: darken(@color-create, 5%);
+	}
+
+	&.danger .icon
+	{
+		color: darken(@color-danger, 5%);
+	}
+}

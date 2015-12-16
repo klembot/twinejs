@@ -1,0 +1,47 @@
+/* basic appearance */
+
+@import '../common/colors.less';
+@import '../common/fonts.less';
+@import '../common/metrics.less';
+
+body
+{
+	color: @color-text;
+	background-color: @color-paper;
+	margin: 0;
+}
+
+*
+{
+	box-sizing: border-box;
+}
+
+.hide
+{
+	display: none !important;
+}
+
+.large
+{
+	font-size: 120%;
+}
+
+.small
+{
+	font-size: 90%;
+}
+
+.error
+{
+	display: flex;
+	align-items: flex-start;
+}
+
+.error:before
+{
+	content: '\f071';
+	font-family: FontAwesome;
+	color: @color-danger;
+	padding: 0 @len-small * 2 0 0;
+}
+

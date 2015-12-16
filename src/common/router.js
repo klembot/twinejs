@@ -14,15 +14,15 @@
 
 'use strict';
 var Backbone = require('backbone');
-var publish = require('../story-publish');
-var AppPref = require('../data/models/appPref');
-var LocaleView = require('../locale/localeView');
-var Story = require('../data/models/story');
-var StoryCollection = require('../data/collections/storyCollection');
-var StoryEditView = require('../story-edit/storyEditView');
-var StoryFormat = require('../data/models/storyFormat');
-var StoryListView = require('../story-list/storyListView');
-var WelcomeView = require('../welcome/welcomeView');
+var replaceContent = require('../ui/replace');
+var LocaleView = require('../locale/view');
+var Pref = require('../data/pref');
+var Story = require('../data/story');
+var Stories = require('../data/stories');
+var StoryEditView = require('../story-edit/view');
+var StoryFormat = require('../data/story-format');
+var StoryListView = require('../story-list/view');
+var WelcomeView = require('../welcome/view');
 
 module.exports = Backbone.Router.extend(
 {
@@ -51,7 +51,7 @@ module.exports = Backbone.Router.extend(
 	{
 		// list of all stories
 
-		this.app.mainRegion.show(new StoryListView({ collection: StoryCollection.all() }));
+		this.app.mainRegion.show(new StoryListView({ collection: Stories.all() }));
 	},
 
 	editStory: function (id)
@@ -61,39 +61,50 @@ module.exports = Backbone.Router.extend(
 		this.app.mainRegion.show(new StoryEditView({ model: Story.withId(id) }));
 	},
 
-	playStory: function (id)
+	playStory: function (storyId)
 	{
 		// play a story
 
-		publish.publishStory(Story.withId(id));
+		var story = Story.withId(storyId);
+		var format = StoryFormat.withName(story.get('storyFormat'));
+
+		format.publish(story, {}, function (err, result)
+		{
+			replaceContent(result);
+		});
 	},
 
 	testStory: function (storyId, passageId)
 	{
 		// test a story from a particular passage
-		
-		publish.publishStory(Story.withId(storyId), null,
+
+		var story = Story.withId(storyId);
+		var format = StoryFormat.withName(story.get('storyFormat'));
+
+		format.publish(story, { formatOptions: ['debug'], startId: passageId }, function (err, result)
 		{
-			formatOptions: ['debug'],
-			startPassageId: passageId
+			replaceContent(result);
 		});
 	},
 
-	proofStory: function (id)
+	proofStory: function (storyId)
 	{
 		// proof a story
 
-		var story = Story.withId(id);
-		var format = StoryFormat.withName(AppPref.withName('proofingFormat').get('value'));
-		
-		publish.publishStory(story, null, { format: format });
+		var story = Story.withId(storyId);
+		var format = StoryFormat.withName(Pref.withName('proofingFormat').get('value'));
+
+		format.publish(story, {}, function (err, result)
+		{
+			replaceContent(result);
+		});
 	},
 
 	startup: function()
 	{
 		// default route -- show welcome if the user hasn't already seen it
 
-		var welcomePref = AppPref.withName('welcomeSeen', false);
+		var welcomePref = Pref.withName('welcomeSeen', false);
 
 		if (welcomePref.get('value') === true)
 			window.location.hash = '#stories';

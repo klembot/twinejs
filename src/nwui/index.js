@@ -11,17 +11,17 @@
 var $ = require('jquery');
 var _ = require('underscore');
 var Marionette = require('backbone.marionette');
-var importer = require('../file/importer');
+var archive = require('../data/archive');
 var locale = require('../locale');
 var notify = require('../ui/notify');
-var Passage = require('../data/models/passage');
-var StorageQuota = require('../story-list/storageQuota');
-var Story = require('../data/models/story');
-var StoryCollection = require('../data/collections/storyCollection');
-var StoryListView = require('../story-list/storyListView');
-var WelcomeView = require('../welcome/welcomeView');
-var startupErrorTemplate = require('./ejs/startupError.ejs');
-var welcomeViewNwTemplate = require('./ejs/welcomeViewNw.ejs');
+var Passage = require('../data/passage');
+var StorageQuota = require('../story-list/storage-quota');
+var Story = require('../data/story');
+var StoryCollection = require('../data/stories');
+var StoryListView = require('../story-list/view');
+var WelcomeView = require('../welcome/view');
+var startupErrorTemplate = require('./startup-error.ejs');
+var welcomeViewPatch = require('./welcome-view-patch.ejs');
 
 var nwui = module.exports =
 {
@@ -446,7 +446,7 @@ var nwui = module.exports =
 
 			WelcomeView.prototype.onRender = function()
 			{
-				this.$('.save').html(Marionette.Renderer.render(welcomeViewNwTemplate, {}));
+				this.$('.save').html(Marionette.Renderer.render(welcomeViewPatch, {}));
 				oldWelcomeViewRender.call(this);
 			};
 		}

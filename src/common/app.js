@@ -9,19 +9,10 @@
 
 'use strict';
 var $ = require('jquery');
-var _ = require('underscore');
-var moment = require('moment');
 var Backbone = require('backbone');
 var Marionette = require('backbone.marionette');
-var locale = require('../locale');
-var nwui = require('../nwui');
-var ui = require('../ui');
-var AppPref = require('../data/models/appPref');
-var StoryFormatCollection = require('../data/collections/storyFormatCollection');
-var TransRegion = require('../backbone-ext/transRegion');
-var TwineRouter = require('./router');
 
-module.exports = Marionette.Application.extend(
+var TwineApp = module.exports = Marionette.Application.extend(
 {
 	initialize: function()
 	{
@@ -30,53 +21,20 @@ module.exports = Marionette.Application.extend(
 
 	start: function()
 	{
-		/**
-		 Name of the app.
-
-		 @property name
-		**/
-
-		this.name = $('html').data('app-name');
-
-		/**
-		 Version number of the app.
-
-		 @property version
-		**/
-
-		this.version = $('html').data('version');
-
-		/**
-		 Build number of the app.
-
-		 @property buildNumber
-		**/
-
-		this.buildNumber = parseInt($('html').data('build-number'));
+		var customRenderer = require('../backbone-ext/custom-renderer');
+		var nwui = require('../nwui');
+		var ui = require('../ui');
+		var Pref = require('../data/pref');
+		var StoryFormats = require('../data/story-formats');
+		var TwineRegion = require('../backbone-ext/custom-region');
+		var TwineRouter = require('./router');
 
 		if (nwui.active)
 			nwui.init();
 
-		// add i18n hook to Marionette's rendering
-
-		var templateProperties =
-		{
-			moment: moment,
-			s: locale.say.bind(locale),
-			sp: locale.sayPlural.bind(locale)
-		};
-
-		Marionette.Renderer.render = function (template, data)
-		{
-			if (typeof template !== 'function')
-				throw new Error(locale.say('Asked to render a non-function template ' + template));
-			return template(_.extend(data, templateProperties));
-		};
-
 		// set up our main region
 
-		this.addRegions(
-		{
+		this.addRegions({
 			/**
 			 The top-level container for views.
 
@@ -86,10 +44,11 @@ module.exports = Marionette.Application.extend(
 			mainRegion:
 			{
 				selector: '#regions .main',
-				regionClass: TransRegion
+				regionClass: TwineRegion
 			}
 		});
 
+		customRenderer.init();
 		ui.init();
 
 		/**
@@ -104,7 +63,7 @@ module.exports = Marionette.Application.extend(
 
 		// create built-in story formats if they don't already exist
 
-		var formats = StoryFormatCollection.all();
+		var formats = StoryFormats.all();
 
 		if (! formats.findWhere({ name: 'Harlowe' }))
 			formats.create({ name: 'Harlowe', url: 'storyFormats/Harlowe/format.js', userAdded: false });
@@ -121,10 +80,11 @@ module.exports = Marionette.Application.extend(
 		// set default formats if not already set
 		// (second param is a default)
 
-		AppPref.withName('defaultFormat', 'Harlowe');
-		AppPref.withName('proofingFormat', 'Paperthin');
+		Pref.withName('defaultFormat', 'Harlowe');
+		Pref.withName('proofingFormat', 'Paperthin');
 	},
-
+},
+{
 	/**
 	 Checks for a newer version of the Twine app against
 	 http://twinery.org/latestversion/2.json, using build numbers which
@@ -149,5 +109,18 @@ module.exports = Marionette.Application.extend(
 			if (data.buildNumber > latestBuildNumber)
 				callback(data);
 		});
+	},
+
+	appName: function()
+	{
+		return $('html').data('app-name');
+	},
+
+	version: function()
+	{
+		return {
+			version: $('html').data('version'),
+			buildNumber: parseInt($('html').data('build-number'))
+		};
 	}
 });

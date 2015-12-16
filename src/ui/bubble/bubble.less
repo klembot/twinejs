@@ -1,0 +1,54 @@
+@import '../../common/animation.less';
+@import '../../common/colors.less';
+@import '../../common/metrics.less';
+@import '../ui.less';
+
+@len-bubble-padding: @len-large;
+
+.bubble
+{
+	display: none;
+	position: absolute;
+	z-index: 1001;
+	flex-direction: column;
+	padding: @len-bubble-padding;
+	border-radius: @len-small;
+	background: @color-paper;
+	border: 1px solid hsla(0, 0%, 0%, 0.15);
+	box-shadow: 0 2px 4px hsla(0, 0%, 0%, 0.2);
+
+	&.bubble-open
+	{
+		display: flex;
+	}
+
+	> *:first-child
+	{
+		margin-top: 0;
+	}
+
+	> *:last-child
+	{
+		margin-bottom: 0;
+	}
+
+	.controls
+	{
+		margin: 0 -@len-bubble-padding @len-extra-large -@len-bubble-padding;
+	}
+
+	footer
+	{
+		text-align: right;
+
+		button:last-child
+		{
+		  margin-right: 0;
+		}
+	}
+
+	.menu
+	{
+		margin: -@len-bubble-padding;
+	}
+}

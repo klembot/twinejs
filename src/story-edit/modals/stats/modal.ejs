@@ -1,0 +1,72 @@
+<header>
+	<h2><%= s('Story Statistics') %></h2>
+
+	<button class="close" data-modal="close"><i class="fa fa-remove"></i></button>
+</header>
+
+<table class="storyStats">
+	<tbody>
+		<tr>
+			<td>
+				<%= chars %>
+			</td>
+			<td class="charDesc">
+				<%= 
+				/* L10n: Character in the sense of individual letters in a word. This does not actually show the count here, as it is used in a table. */
+				sp('Character', 'Characters', chars) %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<%= words %>
+			</td>
+			<td>
+				<%=
+				/* L10n: Word in the sense of individual words in a sentence. This does not actually show the count here, as it is used in a table. */
+				sp('Word', 'Words', words) %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<%= passages %>
+			</td>
+			<td>
+				<%=
+				/* L10n: This does not actually show the count here, as it is used in a table. */
+				sp('Passage', 'Passages', passages) %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<%= links %>
+			</td>
+			<td>
+				<%=
+				/* L10n: Links in the sense of hypertext links. This does not actually show the count here, as it is used in a table. */
+				sp('Link', 'Links', links) %>
+			</td>
+		</tr>
+			<td>
+				<%=
+				/* L10n: Links in the sense of hypertext links. This does not actually show the count here, as it is used in a table. */
+				brokenLinks %>
+			</td>
+			<td>
+				<%= sp('Broken Link', 'Broken Links', brokenLinks) %>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>
+<%=
+s('This story was last changed at %s.', moment(lastUpdate, 'LLL'))
+%>
+</p>
+
+<p>
+<%-
+/* L10n: %s is the IFID of the story. Please keep the <span> element around it. */
+s('The IFID for this story is <span class="ifid">%s</span>. (<a href="http:\/\/ifdb.tads.org/help-ifid" target="_blank">What\'s an IFID?</a>)', ifid)
+%>
+</p>

@@ -1,0 +1,109 @@
+@import '../common/colors.less';
+@import '../common/metrics.less';
+
+#storyListView
+{
+	> nav
+	{
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		width: 13rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		padding: @len-large;
+		text-align: center;
+		background-color: hsl(0, 0%, 95%);
+
+		.main
+		{
+			h1
+			{
+				margin: 0;
+				padding-top: 3.25em;
+				background: center top no-repeat url('img/logo.svg');
+				background-size: 50%;
+			}
+
+			button.addStory
+			{
+				margin: @len-large 0;
+			}
+		}
+
+		footer *:last-child
+		{
+			margin-bottom: 0;
+		}
+	}
+
+	> .main
+	{
+		position: relative;
+		z-index: 20;
+		padding: @len-large;
+		margin-right: 13rem;
+		min-height: 100vh;
+		box-shadow: 0 2px 4px hsla(0, 0%, 0%, 0.2);
+
+		header
+		{
+			display: flex;
+
+			h1
+			{
+				margin: 0;
+				flex-grow: 1;
+			}
+
+			.sorter
+			{
+				display: flex;
+				align-items: center;
+
+				.buttonGroup
+				{
+					margin-left: 0.5em;
+				}
+			}
+		}
+
+		.stories
+		{
+			display: flex;
+			flex-wrap: wrap;
+
+			> div
+			{
+				display: inline;
+				margin-right: @len-large;
+			}
+		}
+	}
+}
+
+#storyEditProxy
+{
+	position: fixed;
+	z-index: 1000;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: #24497e url('img/blueprint_large.png') 10px -15px;
+	animation-timing-function: linear;
+
+	&.zoom-small
+	{
+		background-image: url('img/blueprint_small.png');
+		background-position: -15px 10px;
+	}
+
+	&.zoom-medium
+	{
+		background-image: url('img/blueprint_medium.png');
+		background-position: 10px 10px;
+	}
+}
