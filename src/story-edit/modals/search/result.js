@@ -6,17 +6,20 @@ module.exports = Marionette.ItemView.extend(
 {
 	template: resultTemplate,
 
-	templateHelpers:
+	templateHelpers: function templateHelpers()
 	{
-		numMatches: function()
-		{
-			return 13;
-		},
+		return {
+			numMatches:
+			this.model.numMatches(this.parent.searchTerm, this.parent.searchNames),
 
-		preview: function()
-		{
-			return 'Hello world!';
-		}
+			preview:
+			this.model.get('text').replace(this.parent.searchTerm, '<span class="highlight">$1</span>')
+		};
+	},
+
+	initialize: function (options)
+	{
+		this.parent = options.parent;
 	},
 
 	/**
@@ -31,8 +34,8 @@ module.exports = Marionette.ItemView.extend(
 	{
 		var container = $(e.target).closest('.result');	
 
-		model.replace(this.searchRegexp(), this.$('#replaceWith').val(),
-		              this.$('#searchNames').prop('checked'));
+		this.model.replace(this.searchRegexp(), this.$('#replaceWith').val(),
+		                   this.$('#searchNames').prop('checked'));
 		container.slideUp(null, function() { container.remove(); });
 	},
 });

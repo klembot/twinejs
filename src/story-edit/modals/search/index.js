@@ -13,6 +13,10 @@ var noMatchesTemplate = require('./no-matches.ejs');
 module.exports = Marionette.CollectionView.extend(
 {
 	childView: Result,
+	childViewOptions: function()
+	{
+		return { parent: this };
+	},
 	emptyView: Marionette.ItemView.extend(
 	{
 		template: noMatchesTemplate	
@@ -42,10 +46,10 @@ module.exports = Marionette.CollectionView.extend(
 
 	updateResults: function()
 	{
-		var searchTerm = this.searchRegexp();
-		var searchNames = this.$('#searchNames').prop('checked');
+		this.searchTerm = this.searchRegexp();
+		this.searchNames = this.$('#searchNames').prop('checked');
 
-		if (searchTerm.source === '')
+		if (this.searchTerm.source === '')
 		{
 			// bug out early if there was no text entered
 
@@ -57,7 +61,7 @@ module.exports = Marionette.CollectionView.extend(
 
 		this.sourceCollection.each(function (model)
 		{
-			var numMatches = model.numMatches(searchTerm, searchNames);
+			var numMatches = model.numMatches(this.searchTerm, this.searchNames);
 
 			if (numMatches !== 0)
 				matches.push(model);

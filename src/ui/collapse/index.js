@@ -1,15 +1,13 @@
 'use strict';
 var $ = require('jquery');
-require('../jquery-ext/collapse'); 
-var ui = require('./index');
 
-$(ui).on('init', function (e, options)
+module.exports =
 {
-	options.$body.on('click.twineui', '.collapseContainer [data-collapse]', function()
+	attach: function (el)
 	{
-		// click handler for showing and hiding collapsed elements
-
-		var $t = $(this);
-		$t.collapse($t.data('collapse'));
-	});
-});
+		$(el).on('click.twineui', '.collapseToggle', function (e)
+		{
+			$(e.target).closest('.collapse').toggleClass('expanded');
+		});
+	}
+};
