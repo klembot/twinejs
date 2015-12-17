@@ -1,43 +1,73 @@
 @import '../../common/colors.less';
 @import '../../common/metrics.less';
 
-.bubble.notification
+#notifications
 {
-	padding: 0;
-	flex-direction: row;
+	position: fixed;
+	display: flex;
+	flex-direction: column;
 	align-items: center;
+	z-index: 2000;
+	top: @len-large;
+	left: @len-large;
+	right: @len-large;
 
-	.icon
+	.bubble.notification
 	{
-		color: darken(@color-link, 10%);
-		margin-left: @len-large;
-		margin-right: @len-large;
-	}
+		position: static;
+		display: flex;
+		padding: 0;
+		flex-direction: row;
+		align-items: center;
+		margin-bottom: @len-medium;
 
-	.message
-	{
-		flex-grow: 1;
-	}
+		&:before
+		{
+			font-family: FontAwesome;
+			color: darken(@color-link, 10%);
+			content: '\f05a'; // fa-info-circle
+			display: block;
+			margin-left: @len-large;
+			margin-right: @len-large;
+		}
 
-	button.close
-	{
-		margin-left: 0;
-		margin-right: 0;
-		border-top-left-radius: 0;
-		border-top-right-radius: @len-small;
-		border-bottom-left-radius: 0;
-		border-bottom-right-radius: @len-small;
-		padding-left: @len-large;
-		padding-right: @len-large;
-	}
+		&.success:before
+		{
+			color: darken(@color-create, 10%);
+			content: '\f058'; // fa-check-circle
+		}
 
-	&.success .icon
-	{
-		color: darken(@color-create, 5%);
-	}
+		&.danger:before
+		{
+			color: darken(@color-danger, 10%);
+			content: '\f06a'; // fa-exclamation-circle
+		}
 
-	&.danger .icon
-	{
-		color: darken(@color-danger, 5%);
+		.message
+		{
+			flex-grow: 1;
+		}
+
+		button.close
+		{
+			margin-left: @len-large;
+			margin-right: 0;
+			border-top-left-radius: 0;
+			border-top-right-radius: @len-small;
+			border-bottom-left-radius: 0;
+			border-bottom-right-radius: @len-small;
+			padding-left: @len-large;
+			padding-right: @len-large;
+		}
+
+		&.success .icon
+		{
+			color: darken(@color-create, 5%);
+		}
+
+		&.danger .icon
+		{
+			color: darken(@color-danger, 5%);
+		}
 	}
 }

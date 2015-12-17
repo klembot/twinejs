@@ -39,6 +39,7 @@
     "underscore": "^1.8.3"
   },
   "devDependencies": {
+    "backbone.marionette": "^2.4.4",
     "browserify": "^11.0.0",
     "browserify-shim": "^3.8.10",
     "ejsify": "^1.0.0",

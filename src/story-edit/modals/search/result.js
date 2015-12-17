@@ -1,5 +1,6 @@
 'use strict';
 var Marionette = require('backbone.marionette');
+var collapse = require('../../../ui/collapse');
 var resultTemplate = require('./result.ejs');
 
 module.exports = Marionette.ItemView.extend(
@@ -20,6 +21,7 @@ module.exports = Marionette.ItemView.extend(
 	initialize: function (options)
 	{
 		this.parent = options.parent;
+		collapse.attach(this.$el);
 	},
 
 	/**
@@ -32,10 +34,17 @@ module.exports = Marionette.ItemView.extend(
 
 	replaceInPassage: function (e)
 	{
-		var container = $(e.target).closest('.result');	
+		this.model.replace(this.parent.searchTerm, this.parent.$('#replaceWith').val(),
+		                   this.parent.$('#searchNames').prop('checked'));
 
-		this.model.replace(this.searchRegexp(), this.$('#replaceWith').val(),
-		                   this.$('#searchNames').prop('checked'));
-		container.slideUp(null, function() { container.remove(); });
+		this.$el.slideUp('fast', function()
+		{
+			this.$el.remove();
+		});
 	},
+	
+	events:
+	{
+		'click .replacePassage': 'replaceInPassage'
+	}
 });

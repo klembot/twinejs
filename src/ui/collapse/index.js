@@ -7,7 +7,7 @@ module.exports =
 	{
 		$(el).on('click.twineui', '.collapseToggle', function (e)
 		{
-			$(e.target).closest('.collapse').toggleClass('expanded');
+			$(e.target).closest('.collapseContainer').toggleClass('expanded');
 		});
 	}
 };

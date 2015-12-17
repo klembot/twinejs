@@ -1,13 +1,26 @@
 .collapseContainer
 {
-	.collapse
+	.collapse, .collapseInline
 	{
 		display: none;
 	}
 
-	&.expanded .collapse
+	&.expanded
 	{
-		display: block;
+		.collapse
+		{
+			display: block;
+		}
+
+		.collapseInline
+		{
+			display: inline;
+		}
+
+		.collapseReverse
+		{
+			display: none;
+		}
 	}
 }
 

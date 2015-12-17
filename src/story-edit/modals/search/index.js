@@ -54,6 +54,7 @@ module.exports = Marionette.CollectionView.extend(
 			// bug out early if there was no text entered
 
 			this.collection.reset([]);
+			this.$('.resultSummary').addClass('hide');
 			return;
 		};
 
@@ -68,6 +69,8 @@ module.exports = Marionette.CollectionView.extend(
 		}.bind(this));
 
 		this.collection.reset(matches);
+		this.$('.resultSummary').removeClass('hide');
+		this.$('.resultSummary .matches').text(locale.sayPlural('%d match', '%d matches', matches.length));
 	},
 
 	/**
@@ -93,11 +96,11 @@ module.exports = Marionette.CollectionView.extend(
 			{
 				passagesMatched++;
 				totalMatches += numMatches;
-				model.replace(searchTerm, replaceWith, this.$('#searchNames').prop('checked'));
+				model.replace(searchTerm, replaceWith, inNames);
 			};
 		}.bind(this));
 
-		this.$el.one('modalhide', function()
+		this.$el.one('modalClose.twineui', function()
 		{
 			// L10n: replacement in the sense of text search and replace. %d is the number.
 			var replacementDesc = locale.sayPlural('%d replacement was made in',
@@ -109,7 +112,7 @@ module.exports = Marionette.CollectionView.extend(
 			// L10n: This is the formatting used to combine two pluralizations.
 			// In English, %1$s equals "2 replacements were made in" and %2$s equals "5 passages."
 			// This is a way to reshape the sentence as needed.
-			notify(locale.say('%1$s %2$s', replacementDesc, passageDesc));
+			notify(locale.say('%1$s %2$s.', replacementDesc, passageDesc), 'success');
 		});
 
 		modal.close();
@@ -148,8 +151,6 @@ module.exports = Marionette.CollectionView.extend(
 		'change #searchNames': 'updateResults',
 		'change #searchCaseSensitive': 'updateResults',
 		'change #searchRegexp': 'updateResults',
-		'click .expandAll': 'showAllResults',
-		'click .collapseAll': 'hideAllResults',
 		'click .replaceAll': 'replaceAll'
 	}
 });

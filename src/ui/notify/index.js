@@ -7,23 +7,7 @@
 'use strict';
 var $ = require('jquery');
 var Marionette = require('backbone.marionette');
-var ui = require('./index');
 var notificationTemplate = require('./notification.ejs');
-
-$(ui).on('init', function (e, options)
-{
-	options.$body.on('click.twineui', '#notifications .close', function()
-	{
-		// click handler for closing notifications
-
-		var notification = $(this).closest('div');
-		notification.addClass('fadeOut');
-		notification.one('animationend', function()
-		{
-			$(this).remove();
-		});
-	});
-});
 
 /**
  Shows a notification at the top of the browser window.
@@ -34,21 +18,34 @@ $(ui).on('init', function (e, options)
 
 module.exports = function (message, className)
 {
-	if ($('#notifications').length === 0)
-		$('body').append('<div id="notifications"></div>');
+	var $container = $('#notifications');
 
-	var n = Marionette.Renderer.render(notificationTemplate,
-	                                   { message: message, className: className });
+	if ($container.length == 0)
+	{
+		$container = $('<div id="notifications"></div>');
+		$container.on('click', '.close', function (e)
+		{
+			var notification = $(e.target).closest('.notification');
+			notification.removeClass('fadeIn').addClass('fadeOut').one('animationend', function()
+			{
+				notification.remove();
+			});
+		});
 
-	$('#notifications').append(n);
+		$('body').append($container);
+	};
+
+	var n = $(Marionette.Renderer.render(notificationTemplate,
+	                                   { message: message, className: className || 'info' }));
+
+	$container.append(n);
 
 	if (className != 'danger')
-		window.setTimeout(function()
+		window.setTimeout(function hideNotification()
 		{
-			$(this).addClass('fadeOut')
-			.one('animationend', function()
+			n.removeClass('fadeIn').addClass('fadeOut').one('animationend', function()
 			{
 				$(this).remove();
 			});
-		}.bind(n), 3000);
+		}, 3000);
 };
