@@ -12,8 +12,9 @@ var Marionette = require('backbone.marionette');
 var archive = require('../data/archive');
 var file = require('../file');
 var locale = require('../locale');
-var prompt = require('../ui/modal/prompt');
 var notify = require('../ui/notify');
+var prompt = require('../ui/modal/prompt');
+var upload = require('../ui/modal/upload');
 var AboutModal = require('./modals/about');
 var FormatsModal = require('./modals/formats');
 var Passages = require('../data/passages');
@@ -23,6 +24,7 @@ var Stories = require('../data/stories');
 var StoryItemView = require('./item/view');
 var TwineApp = require('../common/app');
 var UpdateModal = require('./modals/update');
+var importingTemplate = require('./importing.ejs');
 var viewTemplate = require('./view.ejs');
 
 module.exports = Marionette.CompositeView.extend(
@@ -194,51 +196,53 @@ module.exports = Marionette.CompositeView.extend(
 	},
 
 	/**
-	 Tries to import the file indicated by the view's input.importFile field.
-	 The result, either success or failure, is shown above the story table.
-	 
-	 @method importFile
+	 Prompts the user for a file to upload and attempts to import it.
+	 The result, either success or failure, is shown as a notification.
 	**/
 
 	importFile: function (e)
 	{
-		var bubble = this.$('.importStory').closest('.bubbleContainer');
-		bubble.find('.form').addClass('hide');
-		bubble.find('.working').removeClass('hide');
-
-		file.readInputEl(e.target, function()
-		{
-			var className = '';
-			var message = '';
-
-			try
+		var uploadModal = upload({
+			content: locale.say('You may import a Twine 2 archive file or a published Twine 2 stories. Stories created by Twine 1 cannot be imported.'),
+			autoclose: false,
+			callback: function parseUploadedFile (confirmed, data)
 			{
-				var count = archive.import(e.target.result);
-
-				if (count > 0)
+				if (confirmed)
 				{
-					// L10n: %d is a number of stories.
-					message = locale.sayPlural('%d story was imported.',
-					                           '%d stories were imported.', count);
-				}
-				else
-				{
-					className = 'danger';
-					message = locale.say('Sorry, no stories could be found in this file.');
-				}
-			}
-			catch (err)
-			{
-				className = 'danger';
-				message = locale.say('An error occurred while trying to import this file. (' + err.message + ')');
-			};
+					uploadModal.find('.uploadModal').html(Marionette.Renderer.render(importingTemplate));
 
-			notify(message, className);
-			this.collection.reset(Stories.all().models);
-			bubble.find('.form').removeClass('hide');
-			bubble.find('.working').addClass('hide');
-			this.$('.importStory').bubble('hide');
-		}.bind(this));
+					var className = 'success';
+					var message = '';
+
+					try
+					{
+						var count = archive.import(data);
+
+						if (count > 0)
+						{
+							// L10n: %d is a number of stories.
+							message = locale.sayPlural('%d story was imported.',
+													   '%d stories were imported.', count);
+						}
+						else
+						{
+							className = 'danger';
+							message = locale.say('Sorry, no stories could be found in this file.');
+						}
+					}
+					catch (err)
+					{
+						className = 'danger';
+						message = locale.say('An error occurred while trying to import this file. (' + err.message + ')');
+					};
+
+					notify(message, className);
+					this.collection.reset(Stories.all().models);
+				};
+				
+				upload.close();
+			}.bind(this),
+		});
 	},
 
 	showNextPreview: function()
@@ -312,7 +316,7 @@ module.exports = Marionette.CompositeView.extend(
 	{
 		'click .addStory': 'addStory',
 		'click .saveArchive': 'saveArchive',
-		'change .importFile': 'importFile',
+		'click .importFile': 'importFile',
 		'click .sortByDate': 'sortByDate',
 		'click .sortByName': 'sortByName',
 
