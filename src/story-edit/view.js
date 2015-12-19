@@ -15,6 +15,8 @@ var moment = require('moment');
 var Marionette = require('backbone.marionette');
 var file = require('../file');
 var locale = require('../locale');
+var keyboardDeletion = require('./keyboard-deletion');
+var mouseScrolling = require('./mouse-scrolling');
 var notify = require('../ui/notify');
 var ui = require('../ui');
 var LinkManager = require('./link-manager');
@@ -88,6 +90,8 @@ module.exports = Marionette.CompositeView.extend(
 
 		this.resize();
 		$(window).on('resize', _.debounce(this.resize.bind(this), 500));
+		keyboardDeletion.attach(this);
+		mouseScrolling.attach();
 
 		this.syncZoom();
 		this.linkManager = new LinkManager({ el: this.el, parent: this });
@@ -115,8 +119,8 @@ module.exports = Marionette.CompositeView.extend(
 	onDestroy: function()
 	{
 		this.linkManager.destroy();
-		$(document).off('keydown');
-		$(document).off('keyup');
+		keyboardDeletion.detach();
+		mouseScrolling.detach();
 		$(window).off('resize');
 	},
 
