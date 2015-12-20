@@ -1,10 +1,7 @@
-<div class="detail" data-format="<%= name %>">
-
-<button class="select subtle" data-format="<%= name %>">
-<i class="fa fa-square-o hideActive"></i>
-<i class="fa fa-check-square-o showActive"></i>
+<button data-format="<%= name %>" class="format <% if (active) { %>active<% } %>">
+	<img src="<%= path %>/<%= image %>" class="icon">
+	<div class="description">
+		<%= name %> <%= version %><br>
+		by <%= author %>
+	</div>
 </button>
-
-<% include ../../common/ejs/storyformatdetail.ejs %>
-
-</div>

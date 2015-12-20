@@ -5,6 +5,7 @@ var Marionette = require('backbone.marionette');
 var locale = require('../../locale');
 var prompt = require('../../ui/modal/prompt');
 var Bubble = require('../../ui/bubble');
+var FormatModal = require('../modals/format');
 var ScriptEditor = require('../editors/script');
 var StatsModal = require('../modals/stats');
 var StylesheetEditor = require('../editors/stylesheet');
@@ -32,6 +33,7 @@ module.exports = Backbone.View.extend(
 	{
 		'click .changeFormat': function()
 		{
+			new FormatModal().open(this.parent.model);
 		},
 
 		'click .editScript': function()

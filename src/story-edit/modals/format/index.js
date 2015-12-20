@@ -2,45 +2,29 @@
 var $ = require('jquery');
 var Backbone = require('backbone');
 var Marionette = require('backbone.marionette');
-var locale = require('../../locale');
-var notify = require('../../ui/notify');
-var StoryFormats = require('../../data/story-formats');
-var singleFormatTemplate = require('../ejs/singleStoryFormatItem.ejs');
+var locale = require('../../../locale');
+var modal = require('../../../ui/modal');
+var notify = require('../../../ui/notify');
+var StoryFormats = require('../../../data/story-formats');
+var modalTemplate = require('./modal.ejs');
+var itemTemplate = require('./item.ejs');
 
 module.exports = Backbone.View.extend(
 {
-	initialize: function (options)
-	{
-		this.parent = options.parent;
-		this.itemTemplate = singleFormatTemplate;
-	},
-
 	/**
 	 Opens a modal dialog for changing story formats.
-
-	 @method open
 	**/
 
-	open: function()
+	open: function (story)
 	{
 		// begin loading formats immediately
 
-		this.$('.formats').empty();
+		this.story = story;
 		this.formatsToLoad = StoryFormats.all();
 		this.loadNextFormat();
-
-		this.$el.data('modal').trigger('show');
-	},
-
-	/**
-	 Closes the modal dialog for changing story formats.
-
-	 @method close
-	**/
-
-	close: function()
-	{
-		this.$el.data('modal').trigger('hide');
+		this.setElement(modal.open({
+			content: Marionette.Renderer.render(modalTemplate, story.attributes)
+		}));
 	},
 
 	/**
@@ -51,12 +35,12 @@ module.exports = Backbone.View.extend(
 
 	changeFormat: function (name)
 	{
-		this.parent.model.save({ storyFormat: name });
-		this.$('.detail button.select').each(function()
+		this.story.save({ storyFormat: name });
+		this.$('button[data-format]').each(function()
 		{
 			var $t = $(this);
 
-			if ($t.closest('.detail').data('format') == name)
+			if ($t.data('format') == name)
 				$t.addClass('active');
 			else
 				$t.removeClass('active');
@@ -67,8 +51,6 @@ module.exports = Backbone.View.extend(
 	 Incrementally loads information about each story format.
  	 If there are more remaining to be loaded, then this calls itself
 	 once the load is complete.
-
-	 @method loadNextFormat
 	**/
 
 	loadNextFormat: function()
@@ -90,17 +72,19 @@ module.exports = Backbone.View.extend(
 
 						var path = format.get('url').replace(/\/[^\/]*?$/, '');
 						format.properties.path = path;
-						var content = $(Marionette.Renderer.render(this.itemTemplate, format.properties));
+						format.properties.active = (format.properties.name == this.story.get('storyFormat'));
+						var content = $(Marionette.Renderer.render(itemTemplate, format.properties));
 
 						this.$('.formats').append(content);
 
-						if (format.properties.name == this.parent.model.get('storyFormat'))
+						if (format.properties.name == this.story.get('storyFormat'))
 							content.find('button.select').addClass('active');
 					};
 				}
 				else
 					// L10n: %1$s is the name of the story format, %2$s is the error message.
-					notify(locale.say('The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s).', format.get('name'), e.message), 'danger');
+					notify(locale.say('The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s).',
+					                  format.get('name'), e.message), 'danger');
 
 				this.formatsToLoad.remove(format);
 				this.loadNextFormat();
@@ -112,7 +96,7 @@ module.exports = Backbone.View.extend(
 
 	events:
 	{
-		'click button.select': function (e)
+		'click button[data-format]': function (e)
 		{
 			this.changeFormat($(e.target).closest('button').data('format'));
 		}

@@ -1,22 +1,16 @@
-<div id="storyFormatModal" class="modal hide">
+<div id="storyFormatModal">
+	<header>
+		<h2><%= s('Story Format') %></h2>
+		<button class="close" data-modal="close"><i class="fa fa-remove"></i></button>
+	</header>
 
-<button class="close subtle" data-modal-hide="this">
-<i class="fa fa-times"></i>
-</button>
+	<p class="large">
+		<%= s('A story format controls the appearance and behavior of your story during play.') %>
+	</p>
 
-<h2 class="title"><%= s('Story Format') %></h2>
+	<div class="formats"></div>
 
-<div class="content">
-
-<p>
-<%= s('A story format controls the appearance and behavior of your story during play.') %>
-</p>
-
-<p class="loading">
-<i class="fa fa-circle-o-notch fa-lg fa-spin"></i> <%= s('Loading...') %>
-</p>
-
-<div class="formats"></div>
-
-</div> <!-- .content -->
-</div> <!-- #storyFormatModal -->
+	<p class="loading">
+	<i class="fa fa-circle-o-notch fa-lg fa-spin"></i> <%= s('Loading...') %>
+	</p>
+</div>
