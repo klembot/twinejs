@@ -12,7 +12,7 @@ var locale = require('../../locale');
 var ui = require('../../ui');
 var dataTemplate = require('./data.ejs');
 
-var Passage = Backbone.Model.extend(
+var Passage = module.exports = Backbone.Model.extend(
 {
 	defaults: _.memoize(function()
 	{
@@ -32,54 +32,18 @@ var Passage = Backbone.Model.extend(
 
 	initialize: function()
 	{
-		this.on('sync', function (model, response, options)
+		this.on('change', function (model)
 		{
-			// if any stories are using this passage's cid
-			// as their start passage, update with a real id
-
-			if (! options.noParentUpdate)
-				_.invoke(Stories.all().where({ startPassage: this.cid }), 'save', { startPassage: this.id });
-		}, this);
-
-		this.on('change', function (model, options)
-		{
-			// update parent's last update date
-
-			if (! options.noParentUpdate)
-			{
-				var parent = this.fetchStory();
-				
-				if (parent !== undefined)
-					parent.save('lastUpdate', new Date());
-			};
-
 			// clamp our position to positive coordinates
 
-			var attrs = this.changedAttributes();
+			var attrs = model.changedAttributes();
 
 			if (attrs.top !== null && attrs.top < 0)
-				this.set('top', 0);
+				model.set('top', 0);
 
 			if (attrs.left !== null && attrs.left < 0)
-				this.set('left', 0);
-		}, this);
-	},
-
-	/**
-	 Fetches this passage's parent story. Beware: this model represents the
-	 state of the story at the time of the call, and will not reflect future changes.
-	 If the story does not exist, this returns undefined.
-
-	 @method fetchStory
-	 @return {Story} Story model
-	**/
-
-	fetchStory: function()
-	{
-		return Stories.all().find(function (s)
-		{
-			return s.id == this.get('story') || s.cid == this.get('story');
-		}, this);
+				model.set('left', 0);
+		});
 	},
 
 	validate: function (attrs, options)
@@ -93,7 +57,11 @@ var Passage = Backbone.Model.extend(
 		if (options.noDupeValidation)
 			return;
 
-		if (this.fetchStory().fetchPassages().find(function (passage)
+		// we require it here to avoid problems with a cyclic dependency
+
+		var data = require('../index');
+
+		if (data.passagesForStory(data.storyForPassage(this)).find(function (passage)
 		    {
 				return (attrs.id != passage.id &&
 						attrs.name.toLowerCase() == passage.get('name').toLowerCase());
@@ -413,23 +381,3 @@ var Passage = Backbone.Model.extend(
 	**/
 	padding: 12.5
 });
-
-// early export to avoid circular reference problems
-
-module.exports = Passage;
-var Passages = require('../passages');
-var Stories = require('../stories');
-
-/**
- Locates a passage by ID. If none exists, then this returns null.
-
- @method withId
- @param {Number} id id of the passage 
- @static
- @return {Passage} matching passage 
-**/
-
-Passage.withId = function (id)
-{
-	return Passages.all().findWhere({ id: id });
-};

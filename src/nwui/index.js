@@ -452,7 +452,9 @@ var nwui = module.exports =
 		}
 		catch (e)
 		{
+			/*eslint-disable no-console*/
 			console.log('Startup crash', startupTask, e);
+			/*eslint-enable no-console*/
 			document.write(startupErrorTemplate({ task: startupTask, error: e }));
 			throw e;
 		};
@@ -552,8 +554,8 @@ var nwui = module.exports =
 			if (filename.match(/\.html$/))
 			{
 				var stats = nwui.fs.statSync(nwui.filePath + '/' + filename);
-				importer.import(nwui.fs.readFileSync(nwui.filePath + '/' + filename, { encoding: 'utf-8' }),
-				                new Date(Date.parse(stats.mtime)));
+				archive.import(nwui.fs.readFileSync(nwui.filePath + '/' + filename, { encoding: 'utf-8' }),
+				               new Date(Date.parse(stats.mtime)));
 			};
 		});
 

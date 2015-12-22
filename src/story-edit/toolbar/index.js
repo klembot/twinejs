@@ -7,7 +7,6 @@
 
 'use strict';
 var $ = require('jquery');
-var Backbone = require('backbone.marionette');
 var Marionette = require('backbone.marionette');
 var moment = require('moment');
 var locale = require('../../locale');

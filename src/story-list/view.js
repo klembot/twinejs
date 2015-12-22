@@ -10,6 +10,7 @@ var $ = require('jquery');
 var _ = require('underscore');
 var Marionette = require('backbone.marionette');
 var archive = require('../data/archive');
+var data = require('../data');
 var file = require('../file');
 var locale = require('../locale');
 var notify = require('../ui/notify');
@@ -17,10 +18,7 @@ var prompt = require('../ui/modal/prompt');
 var upload = require('../ui/modal/upload');
 var AboutModal = require('./modals/about');
 var FormatsModal = require('./modals/formats');
-var Passages = require('../data/passages');
-var Pref = require('../data/pref');
 var StorageQuota = require('./storage-quota');
-var Stories = require('../data/stories');
 var StoryItemView = require('./item/view');
 var TwineApp = require('../common/app');
 var UpdateModal = require('./modals/update');
@@ -39,7 +37,7 @@ module.exports = Marionette.CompositeView.extend(
 		**/
 
 		if (! this.previewCache)
-			this.previewCache = Passages.all();
+			this.previewCache = data.passages;
 
 		return { parentView: this, passages: this.previewCache.where({ story: model.get('id') }) };
 	},
@@ -200,7 +198,7 @@ module.exports = Marionette.CompositeView.extend(
 	 The result, either success or failure, is shown as a notification.
 	**/
 
-	importFile: function (e)
+	importFile: function()
 	{
 		var uploadModal = upload({
 			content: locale.say('You may import a Twine 2 archive file or a published Twine 2 stories. Stories created by Twine 1 cannot be imported.'),
@@ -237,11 +235,10 @@ module.exports = Marionette.CompositeView.extend(
 					};
 
 					notify(message, className);
-					this.collection.reset(Stories.all().models);
 				};
 				
 				upload.close();
-			}.bind(this),
+			}.bind(this)
 		});
 	},
 

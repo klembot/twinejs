@@ -1,7 +1,7 @@
 'use strict';
 var locale = require('../../../locale');
 var confirm = require('../../../ui/modal/confirm');
-var Pref = require('../../../data/pref');
+var data = require('../../../data');
 var TwineApp = require('../../../common/app');
 
 module.exports =
@@ -18,14 +18,14 @@ module.exports =
 	{
 		var now = new Date().getTime();
 		var currentBuild = TwineApp.version().buildNumber;
-		var lastUpdateSeenPref = Pref.withName('lastUpdateSeen', currentBuild); 
+		var lastUpdateSeenPref = data.pref('lastUpdateSeen', currentBuild); 
 
 		// force last update to be at least the current app version
 
 		if (lastUpdateSeenPref.get('value') < currentBuild)
 			lastUpdateSeenPref.save({ value: currentBuild });
 
-		var lastUpdateCheckPref = Pref.withName('lastUpdateCheckTime', now);
+		var lastUpdateCheckPref = data.pref('lastUpdateCheckTime', now);
 
 		if (now > lastUpdateCheckPref.get('value') + this.CHECK_INTERVAL)
 		{

@@ -24,4 +24,4 @@ module.exports =
 			return template(_.extend(data || {}, templateProperties));
 		};
 	}
-}
+};

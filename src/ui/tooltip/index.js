@@ -1,5 +1,4 @@
 'use strict';
-var _ = require('underscore');
 var $ = require('jquery');
 var Drop = require('tether-drop');
 var shorthands = require('../tether-shorthands');

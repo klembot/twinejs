@@ -32,7 +32,7 @@ module.exports = Marionette.ItemView.extend(
 	 @param {Event} e event object
 	**/
 
-	replaceInPassage: function (e)
+	replaceInPassage: function()
 	{
 		this.model.replace(this.parent.searchTerm, this.parent.$('#replaceWith').val(),
 		                   this.parent.$('#searchNames').prop('checked'));

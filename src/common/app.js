@@ -12,7 +12,7 @@ var $ = require('jquery');
 var Backbone = require('backbone');
 var Marionette = require('backbone.marionette');
 
-var TwineApp = module.exports = Marionette.Application.extend(
+module.exports = Marionette.Application.extend(
 {
 	initialize: function()
 	{
@@ -23,9 +23,8 @@ var TwineApp = module.exports = Marionette.Application.extend(
 	{
 		var customRenderer = require('../backbone-ext/custom-renderer');
 		var nwui = require('../nwui');
+		var data = require('../data');
 		var ui = require('../ui');
-		var Pref = require('../data/pref');
-		var StoryFormats = require('../data/story-formats');
 		var TwineRegion = require('../backbone-ext/custom-region');
 		var TwineRouter = require('./router');
 
@@ -63,26 +62,24 @@ var TwineApp = module.exports = Marionette.Application.extend(
 
 		// create built-in story formats if they don't already exist
 
-		var formats = StoryFormats.all();
+		if (! data.storyFormat('Harlowe'))
+			data.storyFormats.create({ name: 'Harlowe', url: 'storyFormats/Harlowe/format.js', userAdded: false });
 
-		if (! formats.findWhere({ name: 'Harlowe' }))
-			formats.create({ name: 'Harlowe', url: 'storyFormats/Harlowe/format.js', userAdded: false });
+		if (! data.storyFormat('Snowman'))
+			data.storyFormats.create({ name: 'Snowman', url: 'storyFormats/Snowman/format.js', userAdded: false });
 
-		if (! formats.findWhere({ name: 'Snowman' }))
-			formats.create({ name: 'Snowman', url: 'storyFormats/Snowman/format.js', userAdded: false });
+		if (! data.storyFormat('Paperthin'))
+			data.storyFormats.create({ name: 'Paperthin', url: 'storyFormats/Paperthin/format.js', userAdded: false });
 
-		if (! formats.findWhere({ name: 'Paperthin' }))
-			formats.create({ name: 'Paperthin', url: 'storyFormats/Paperthin/format.js', userAdded: false });
-
-		if (! formats.findWhere({ name: 'SugarCube' }))
-			formats.create({ name: 'SugarCube', url: 'storyFormats/SugarCube/format.js', userAdded: false });
+		if (! data.storyFormat('SugarCube'))
+			data.storyFormats.create({ name: 'SugarCube', url: 'storyFormats/SugarCube/format.js', userAdded: false });
 
 		// set default formats if not already set
 		// (second param is a default)
 
-		Pref.withName('defaultFormat', 'Harlowe');
-		Pref.withName('proofingFormat', 'Paperthin');
-	},
+		data.pref('defaultFormat', 'Harlowe');
+		data.pref('proofingFormat', 'Paperthin');
+	}
 },
 {
 	/**

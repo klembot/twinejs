@@ -14,13 +14,10 @@
 
 'use strict';
 var Backbone = require('backbone');
+var data = require('../data');
 var replaceContent = require('../ui/replace');
 var LocaleView = require('../locale/view');
-var Pref = require('../data/pref');
-var Story = require('../data/story');
-var Stories = require('../data/stories');
 var StoryEditView = require('../story-edit/view');
-var StoryFormat = require('../data/story-format');
 var StoryListView = require('../story-list/view');
 var WelcomeView = require('../welcome/view');
 
@@ -51,24 +48,23 @@ module.exports = Backbone.Router.extend(
 	{
 		// list of all stories
 
-		this.app.mainRegion.show(new StoryListView({ collection: Stories.all() }));
+		this.app.mainRegion.show(new StoryListView({ collection: data.stories }));
 	},
 
 	editStory: function (id)
 	{
 		// edit a specific story
 
-		this.app.mainRegion.show(new StoryEditView({ model: Story.withId(id) }));
+		this.app.mainRegion.show(new StoryEditView({ model: data.story(id) }));
 	},
 
 	playStory: function (storyId)
 	{
 		// play a story
 
-		var story = Story.withId(storyId);
-		var format = StoryFormat.withName(story.get('storyFormat'));
+		var story = data.story(storyId);
 
-		format.publish(story, {}, function (err, result)
+		data.storyFormatForStory(story).publish(story, {}, function (err, result)
 		{
 			replaceContent(result);
 		});
@@ -78,10 +74,9 @@ module.exports = Backbone.Router.extend(
 	{
 		// test a story from a particular passage
 
-		var story = Story.withId(storyId);
-		var format = StoryFormat.withName(story.get('storyFormat'));
+		var story = data.story(storyId);
 
-		format.publish(story, { formatOptions: ['debug'], startId: passageId }, function (err, result)
+		data.storyFormatForStory(story).publish(story, { formatOptions: ['debug'], startId: passageId }, function (err, result)
 		{
 			replaceContent(result);
 		});
@@ -91,10 +86,9 @@ module.exports = Backbone.Router.extend(
 	{
 		// proof a story
 
-		var story = Story.withId(storyId);
-		var format = StoryFormat.withName(Pref.withName('proofingFormat').get('value'));
+		var story = data.story(storyId);
 
-		format.publish(story, {}, function (err, result)
+		data.storyFormatForProofing().publish(story, {}, function (err, result)
 		{
 			replaceContent(result);
 		});
@@ -104,7 +98,7 @@ module.exports = Backbone.Router.extend(
 	{
 		// default route -- show welcome if the user hasn't already seen it
 
-		var welcomePref = Pref.withName('welcomeSeen', false);
+		var welcomePref = data.pref('welcomeSeen', false);
 
 		if (welcomePref.get('value') === true)
 			window.location.hash = '#stories';

@@ -1,8 +1,7 @@
 'use strict';
 var _ = require('underscore');
+var data = require('./index');
 var locale = require('../locale');
-var Passages = require('./passages');
-var Stories = require('./stories');
 
 var archive = module.exports =
 {
@@ -18,11 +17,6 @@ var archive = module.exports =
 	import: function (data, lastUpdate)
 	{
 		var sels = archive.selectors;
-
-		// containers for the new stories and passages we will create
-
-		var allStories = new Stories();
-		var allPassages = new Passages();
 
 		// parse data into a DOM
 
@@ -56,7 +50,7 @@ var archive = module.exports =
 
 			// create a story object
 
-			var story = allStories.create(
+			var story = data.stories.create(
 			{
 				name: storyEl.attributes.name.value,
 				storyFormat: storyEl.attributes.format.value,
@@ -75,7 +69,7 @@ var archive = module.exports =
 				var tags = passageEl.attributes.tags.value;
 				tags = (tags === '') ? [] : tags.split(/\s+/);
 
-				var passage = allPassages.create(
+				var passage = data.passages.create(
 				{
 					name: passageEl.attributes.name.value,
 					tags: tags,
@@ -110,7 +104,7 @@ var archive = module.exports =
 	{
 		var output = '';
 
-		Stories.all().each(function (story)
+		data.stories.each(function (story)
 		{
 			// force publishing even if there is no start point set
 

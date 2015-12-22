@@ -17,7 +17,7 @@ var $ = require('jquery');
 var Backbone = require('backbone');
 var locale = require('../../locale');
 
-var StoryFormat = Backbone.Model.extend(
+var StoryFormat = module.exports = Backbone.Model.extend(
 {
 	/**
 	 Remembers whether the format has been loaded yet.
@@ -161,22 +161,3 @@ var StoryFormat = Backbone.Model.extend(
 // Harlowe compatibility
 
 window.StoryFormat = StoryFormat;
-
-// early export to avoid circular reference problems
-
-module.exports = StoryFormat;
-var StoryFormats = require('../story-formats');
-
-/**
- Locates a StoryFormat by name. If none exists, then this returns null.
-
- @method withName
- @param {String} name name of the story format
- @static
- @return {StoryFormat} matching story format
- **/
-
-StoryFormat.withName = function (name)
-{
-	return StoryFormats.all().findWhere({ name: name });
-};

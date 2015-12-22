@@ -32,7 +32,7 @@ module.exports = Marionette.ItemView.extend(
 			brokenLinks: 0,
 			lastUpdate: story.get('lastUpdate'),
 			ifid: story.get('ifid')
-		}
+		};
 
 		var passageLinks = {};
 		var passageNames = [];

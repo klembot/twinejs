@@ -3,11 +3,10 @@ var $ = require('jquery');
 var _ = require('underscore');
 var Backbone = require('backbone');
 var Marionette = require('backbone.marionette');
+var data = require('../../../data');
 var locale = require('../../../locale');
 var notify = require('../../../ui/notify');
-var Pref = require('../../../data/pref');
 var StoryFormat = require('../../../data/story-format');
-var StoryFormats = require('../../../data/story-formats');
 var storyFormatTemplate = require('./item.ejs');
 require('../../../ui/tab');
 
@@ -32,7 +31,7 @@ module.exports = Backbone.View.extend(
 		// begin loading formats immediately
 
 		this.$('.storyFormatList, .proofingFormatList').empty();
-		this.formatsToLoad = StoryFormats.all();
+		this.formatsToLoad = data.storyFormats;
 		this.loadNextFormat();
 
 		this.$el.data('modal').trigger('show');
@@ -117,7 +116,7 @@ module.exports = Backbone.View.extend(
 			{
 				// save it for real
 
-				new StoryFormats().create({ name: test.properties.name, url: url });
+				data.storyFormats.create({ name: test.properties.name, url: url });
 				
 				// add it to the appropriate list
 
@@ -159,7 +158,7 @@ module.exports = Backbone.View.extend(
 
 	removeFormat: function (name)
 	{
-		StoryFormat.withName(name).destroy();
+		data.storyFormat(name).destroy();
 	},
 
 	/**
@@ -171,7 +170,7 @@ module.exports = Backbone.View.extend(
 
 	setDefaultFormat: function (name)
 	{
-		Pref.withName('defaultFormat').save({ value: name });
+		data.pref('defaultFormat').save({ value: name });
 	},
 
 	/**
@@ -183,7 +182,7 @@ module.exports = Backbone.View.extend(
 
 	setProofingFormat: function (name)
 	{
-		Pref.withName('proofingFormat').save({ value: name });
+		data.pref('proofingFormat').save({ value: name });
 	},
 
 	/**
@@ -194,8 +193,8 @@ module.exports = Backbone.View.extend(
 
 	syncButtons: function()
 	{
-		var defaultFormat = Pref.withName('defaultFormat').get('value');
-		var proofingFormat = Pref.withName('proofingFormat').get('value');
+		var defaultFormat = data.pref('defaultFormat').get('value');
+		var proofingFormat = data.pref('proofingFormat').get('value');
 
 		this.$('.storyFormatList .format').each(function()
 		{

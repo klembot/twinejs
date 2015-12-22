@@ -13,6 +13,7 @@ var $ = require('jquery');
 var _ = require('underscore');
 var moment = require('moment');
 var Marionette = require('backbone.marionette');
+var data = require('../data');
 var file = require('../file');
 var locale = require('../locale');
 var keyboardDeletion = require('./keyboard-deletion');
@@ -24,7 +25,6 @@ var Toolbar = require('./toolbar');
 var Marquee = require('./marquee');
 var Passage = require('../data/passage');
 var PassageItemView = require('./item/view');
-var StoryFormat = require('../data/story-format');
 var viewTemplate = require('./view.ejs');
 
 module.exports = Marionette.CompositeView.extend(
@@ -60,7 +60,7 @@ module.exports = Marionette.CompositeView.extend(
 			notify(locale.say('A problem occurred while saving your changes (%s).', resp), 'danger');
 		});
 
-		this.collection = this.model.fetchPassages();
+		this.collection = data.passagesForStory(this.model);
 		this.listenTo(this.collection, 'change:top change:left', this.resize)
 		.listenTo(this.collection, 'change:name', function (p)
 		{
@@ -174,12 +174,14 @@ module.exports = Marionette.CompositeView.extend(
 			name = origName + ' ' + nameIndex;
 		};
 
-		var passage = this.collection.create({
+		var passage = data.passages.create({
 			name: name,
 			story: this.model.id,
 			left: left,
 			top: top
 		}, { wait: true });
+
+		this.collection.add(passage);
 
 		// position the passage so it doesn't overlap any others
 
@@ -213,7 +215,7 @@ module.exports = Marionette.CompositeView.extend(
 	{
 		// verify the starting point
 
-		if (Passage.withId(this.model.get('startPassage')) === undefined)
+		if (data.passage(this.model.get('startPassage')) === undefined)
 		{
 			notify(locale.say('This story does not have a starting point. ' +
 			'Use the <i class="fa fa-rocket"></i> icon on a passage to set this.'), 'danger');
@@ -253,9 +255,9 @@ module.exports = Marionette.CompositeView.extend(
 		var startOk = false;
 
 		if (! startId)
-			startOk = (Passage.withId(this.model.get('startPassage')) !== undefined);
+			startOk = (data.passage(this.model.get('startPassage')) !== undefined);
 		else
-			startOk = (Passage.withId(startId) !== undefined);
+			startOk = (data.passage(startId) !== undefined);
 
 		if (! startOk)
 		{
@@ -296,9 +298,7 @@ module.exports = Marionette.CompositeView.extend(
 
 	publish: function()
 	{
-		var format = StoryFormat.withName(this.model.get('storyFormat'));
-
-		format.publish(this.model, {}, function (err, source)
+		data.storyFormatForStory(this.model).publish(this.model, {}, function (err, source)
 		{
 			file.save(source, this.model.get('name') + '.html');
 		}.bind(this));
