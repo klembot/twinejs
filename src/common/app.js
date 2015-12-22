@@ -12,7 +12,7 @@ var $ = require('jquery');
 var Backbone = require('backbone');
 var Marionette = require('backbone.marionette');
 
-var TwineApp = module.exports = Marionette.Application.extend(
+module.exports = Marionette.Application.extend(
 {
 	initialize: function()
 	{
@@ -79,7 +79,7 @@ var TwineApp = module.exports = Marionette.Application.extend(
 
 		data.pref('defaultFormat', 'Harlowe');
 		data.pref('proofingFormat', 'Paperthin');
-	},
+	}
 },
 {
 	/**

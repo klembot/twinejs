@@ -144,7 +144,7 @@ module.exports = Marionette.ItemView.extend(
 			callback: function (confirmed)
 			{
 				if (confirmed)
-					this.delete()
+					this.delete();
 			}.bind(this)
 		});
 	},

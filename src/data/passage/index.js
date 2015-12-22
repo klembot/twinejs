@@ -32,18 +32,18 @@ var Passage = module.exports = Backbone.Model.extend(
 
 	initialize: function()
 	{
-		this.on('change', function (model, options)
+		this.on('change', function (model)
 		{
 			// clamp our position to positive coordinates
 
-			var attrs = this.changedAttributes();
+			var attrs = model.changedAttributes();
 
 			if (attrs.top !== null && attrs.top < 0)
-				this.set('top', 0);
+				model.set('top', 0);
 
 			if (attrs.left !== null && attrs.left < 0)
-				this.set('left', 0);
-		}, this);
+				model.set('left', 0);
+		});
 	},
 
 	validate: function (attrs, options)

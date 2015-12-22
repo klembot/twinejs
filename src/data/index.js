@@ -130,12 +130,12 @@ var data = module.exports =
 
 	duplicateStory: function (origStory, name)
 	{
-		var dupeStory = orig.clone();
+		var dupeStory = origStory.clone();
 		dupeStory.unset('id');
 		dupeStory.collection = this.stories;
 		dupeStory.save({ name: name }, { wait: true });
 
-		var startPassageId = story.get('startPassage');
+		var startPassageId = origStory.get('startPassage');
 		var newStart;
 
 		this.passagesForStory(origStory).each(function (origPassage)

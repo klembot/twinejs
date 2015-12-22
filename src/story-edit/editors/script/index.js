@@ -72,7 +72,6 @@ module.exports = Marionette.ItemView.extend(
 
 	save: function()
 	{
-		console.log('save');
 		this.story.save({ script: this.cm.doc.getValue() });
 	},
 

@@ -198,7 +198,7 @@ module.exports = Marionette.CompositeView.extend(
 	 The result, either success or failure, is shown as a notification.
 	**/
 
-	importFile: function (e)
+	importFile: function()
 	{
 		var uploadModal = upload({
 			content: locale.say('You may import a Twine 2 archive file or a published Twine 2 stories. Stories created by Twine 1 cannot be imported.'),
@@ -238,7 +238,7 @@ module.exports = Marionette.CompositeView.extend(
 				};
 				
 				upload.close();
-			}.bind(this),
+			}.bind(this)
 		});
 	},
 

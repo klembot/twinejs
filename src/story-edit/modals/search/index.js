@@ -1,6 +1,4 @@
 'use strict';
-var $ = require('jquery');
-var _ = require('underscore');
 var Marionette = require('backbone.marionette');
 var locale = require('../../../locale');
 var modal = require('../../../ui/modal');
