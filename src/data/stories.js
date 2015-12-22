@@ -9,10 +9,12 @@
 var Backbone = require('backbone');
 var locale = require('../locale');
 var EventedLocalStorage = require('../backbone-ext/evented-local-storage');
+var Story = require('./story');
 
-var Stories = Backbone.Collection.extend(
+module.exports = Backbone.Collection.extend(
 {
 	localStorage: new EventedLocalStorage('twine-stories'),
+	model: Story,
 	order: 'name',
 	reverseOrder: false,
 
@@ -37,29 +39,6 @@ var Stories = Backbone.Collection.extend(
 			throw new Error(locale.say("don't know how to sort stories by %s", this.order));
 		};
 
-		return sortVal *(this.reverseOrder ? -1 : 1);
+		return sortVal * (this.reverseOrder ? -1 : 1);
 	}
 });
-
-// early export to avoid circular reference problems
-
-module.exports = Stories;
-var Story = require('./story');
-
-Stories.prototype.model = Story;
-
-/**
- Returns a collection of all stories saved.
-
- @method all
- @return {Stories} a collection of all stories
- @static
-**/
-
-Stories.all = function()
-{
-	var result = new Stories();
-	result.fetch();
-	return result;
-};
-

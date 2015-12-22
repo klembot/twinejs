@@ -10,10 +10,10 @@ var $ = require('jquery');
 var _ = require('underscore');
 var CodeMirror = require('codemirror');
 var Marionette = require('backbone.marionette');
+var data = require('../../../data');
 var locale = require('../../../locale');
 var modal = require('../../../ui/modal');
 var Passage = require('../../../data/passage');
-var StoryFormat = require('../../../data/story-format');
 var modalTemplate = require('./modal.ejs');
 var tagTemplate = require('./tag.ejs');
 require('codemirror/mode/javascript/javascript');
@@ -89,13 +89,12 @@ module.exports = Marionette.ItemView.extend(
 		// Load the story format, which may install a CodeMirror mode named after itself.
 		// We use that mode if it is found to exist after loading.
 
-		var storyFormatName = this.story.get('storyFormat');
-		var storyFormat = StoryFormat.withName(storyFormatName);
+		var storyFormat = data.storyFormatForStory(this.story);
 
 		if (storyFormat)
 			storyFormat.load(function (err)
 			{
-				var modeName = storyFormatName.toLowerCase();
+				var modeName = storyFormat.get('name').toLowerCase();
 				
 				if (! err && modeName in CodeMirror.modes)
 				{

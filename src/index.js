@@ -1,15 +1,16 @@
 // bootstrap app after loading localization, if any
 
 var _ = require('underscore');
+var data = require('./data');
 var locale = require('./locale');
 var notify = require('./ui/notify');
-var Pref = require('./data/pref');
 var TwineApp = require('./common/app');
 
 (function()
 {
 	var userLocale;
 	var app = new TwineApp();
+	data.initialize();
 
 	// URL parameter locale overrides everything
 
@@ -22,10 +23,10 @@ var TwineApp = require('./common/app');
 		// use app preference; default to best guess
 		// http://stackoverflow.com/questions/673905/best-way-to-determine-users-locale-within-browser
 
-		var localePref = Pref.withName('locale',
-		                               window.navigator.userLanguage || window.navigator.language ||
-		                               window.navigator.browserLanguage || window.navigator.systemLanguage ||
-		                               'en-us');
+		var localePref = data.pref('locale',
+		                           window.navigator.userLanguage || window.navigator.language ||
+		                           window.navigator.browserLanguage || window.navigator.systemLanguage ||
+		                           'en-us');
 
 		userLocale = localePref.get('value');
 	};
