@@ -25,24 +25,20 @@ var UpdateModal = require('./modals/update');
 var importingTemplate = require('./importing.ejs');
 var viewTemplate = require('./view.ejs');
 
-module.exports = Marionette.CompositeView.extend(
+var StoryListView = module.exports = Marionette.CompositeView.extend(
 {
 	childView: StoryItemView,
 	childViewContainer: '.stories',
 	childViewOptions: function (model)
 	{
-		/**
-		 A cached collection of all passages, to speed up rendering of previews.
-		 @property previewCache
-		**/
-
-		if (! this.previewCache)
-			this.previewCache = data.passages;
-
-		return { parentView: this, passages: this.previewCache.where({ story: model.get('id') }) };
+		return { parent: this };
 	},
 
 	template: viewTemplate,
+	templateHelpers:
+	{
+		appVersion: TwineApp.version().version
+	},
 
 	/**
 	 If true, then we do not animate the stories appearing, nor
@@ -54,48 +50,13 @@ module.exports = Marionette.CompositeView.extend(
 
 	appearFast: false,
 
-	initialize: function()
-	{
-		this.sortByDate();
-		this.collection.on('sort', function()
-		{
-			this.render();
-
-			// reset SVG previews
-
-			this.children.each(function (view)
-			{
-				view.preview.passagesRendered = false;
-			});
-
-			this.showNextPreview();
-		}.bind(this));
-
-		this.collection.on('add', function()
-		{
-			this.previewCache = null;
-		}.bind(this));
-
-		this.collection.on('reset', function()
-		{
-			this.previewCache = null;
-			this.render();
-		}.bind(this));
-	},
-
 	onShow: function()
 	{
-		var appVersion = TwineApp.version();
-
-		this.syncStoryCount();
+		this.sortByDate();
 
 		this.aboutModal = new AboutModal({ parent: this });
-		this.formatsModal = new FormatsModal({ parent: this, el: this.$('#formatsModal') });
+		this.formatsModal = new FormatsModal({ parent: this });
 		this.storageQuota = new StorageQuota({ parent: this, el: this.$('.quota') });
-
-		// set the version number in the HTML
-
-		this.$('.app-version').text(appVersion.version);
 
 		// if we were previously editing a story, show a proxy
 		// shrinking back into the appropriate item
@@ -143,19 +104,21 @@ module.exports = Marionette.CompositeView.extend(
 
 	onDomRefresh: function()
 	{
-		// trigger display of previews
-
-		_.defer(this.showNextPreview.bind(this));
-	},
-
-	onAddChild: function()
-	{
 		this.syncStoryCount();
-	},
 
-	onRemoveChild: function()
-	{
-		this.syncStoryCount();
+		// render previews
+		// this must be deferred so all initialization on child views has time
+		// to take place
+
+		_.defer(function()
+		{
+			this.children.each(function (view)
+			{
+				view.preview.rendered = false;
+			});
+
+			this.showNextPreview();		
+		}.bind(this));
 	},
 
 	addStory: function()
@@ -244,15 +207,31 @@ module.exports = Marionette.CompositeView.extend(
 
 	showNextPreview: function()
 	{
-		var unrendered = this.children.find(function (view)
+		var unrenderedIndex;
+
+		var unrendered = this.children.find(function (view, index)
 		{
-			return ! view.preview.passagesRendered;
+			if (! view.preview.rendered)
+			{
+				unrenderedIndex = index;
+				return true;
+			};
 		});
 		
 		if (unrendered !== undefined)
 		{
-			unrendered.preview.renderPassages(this.showNextPreview.bind(this));
-		};
+			unrendered.preview.render(function()
+			{
+				if (this.appearFast)
+					unrendered.display();
+				else
+					_.delay(unrendered.fadeIn.bind(unrendered), unrenderedIndex * StoryListView.APPEAR_DELAY);
+
+				this.showNextPreview();
+			}.bind(this));
+		}
+		else
+			this.appearFast = false;
 	},
 
 	/**
@@ -309,6 +288,14 @@ module.exports = Marionette.CompositeView.extend(
 		document.title = locale.sayPlural('%d Story', '%d Stories', this.collection.length);
 	},
 
+	collectionEvents:
+	{
+		'update reset sort': function()
+		{
+			this.render();
+		}
+	},
+
 	events:
 	{
 		'click .addStory': 'addStory',
@@ -337,4 +324,7 @@ module.exports = Marionette.CompositeView.extend(
 			window.open('http://twinery.org/2guide');
 		}
 	}
+},
+{
+	APPEAR_DELAY: 75
 });
