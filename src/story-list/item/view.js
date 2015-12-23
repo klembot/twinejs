@@ -12,6 +12,7 @@ var $ = require('jquery');
 var Marionette = require('backbone.marionette');
 var locale = require('../../locale');
 var confirm = require('../../ui/modal/confirm');
+var data = require('../../data');
 var file = require('../../file');
 var notify = require('../../ui/notify');
 var prompt = require('../../ui/modal/prompt');
@@ -28,20 +29,13 @@ module.exports = Marionette.ItemView.extend(
 
 	initialize: function (options)
 	{
-		this.parentView = options.parentView;
-		this.passages = options.passages;
-
-		this.listenTo(this.model, 'change:name', function()
-		{
-			this.render();
-			this.preview.renderPassages();
-		});
+		this.parent = options.parent;
 	},
 
 	onDomRefresh: function()
 	{
 		this.menu = new StoryMenu({ parent: this, trigger: this.$('.showMenu') });
-		this.preview = new Preview({ el: this.$('.preview'), parent: this });
+		this.preview = new Preview({ el: this.$('.preview'), parent: this, story: this.model });
 	},
 
 	/**
@@ -80,7 +74,7 @@ module.exports = Marionette.ItemView.extend(
 			window.location.hash = '#stories/' + this.model.id;
 		}.bind(this));
 
-		this.parentView.$el.append(proxy);
+		this.parent.$el.append(proxy);
 	},
 
 	/**
@@ -119,7 +113,7 @@ module.exports = Marionette.ItemView.extend(
 
 	publish: function()
 	{
-		var format = StoryFormat.withName(this.model.get('storyFormat'));
+		var format = data.storyFormatForStory(this.model);
 
 		format.publish(this.model, {}, function (err, source)
 		{
@@ -185,10 +179,7 @@ module.exports = Marionette.ItemView.extend(
 			callback: function (confirmed, text)
 			{
 				if (confirmed)
-				{
-					var dupe = this.model.duplicate(text);
-					this.parentView.collection.add(dupe);
-				};
+					data.duplicateStory(this.model, text);
 			}.bind(this)
 		});
 	},
@@ -207,6 +198,11 @@ module.exports = Marionette.ItemView.extend(
 		}.bind(this));
 	},
 
+	display: function()
+	{
+		this.$('.story').removeClass('hide');
+	},
+
 	/**
 	 Animates the view appearing, as in when it is newly created.
 
@@ -215,7 +211,27 @@ module.exports = Marionette.ItemView.extend(
 
 	appear: function()
 	{
-		this.$('.story').addClass('appear');
+		this.$('.story').removeClass('hide').addClass('appear');
+	},
+
+	/**
+	 Animates the view fading in.
+
+	 @method fadeIn
+	**/
+
+	fadeIn: function()
+	{
+		this.$('.story').removeClass('hide').addClass('fadeIn');
+	},
+
+	modelEvents:
+	{
+		'change:name': function()
+		{
+			this.render();
+			this.preview.render();
+		}
 	},
 
 	events:
