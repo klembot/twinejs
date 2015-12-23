@@ -10,11 +10,11 @@ var archive = module.exports =
 	 archive of several stories. The stories are immediately saved to storage.
 	 This does not yet work with stories published by Twine 1.x.
 
-	 @param {String} data Contents of the file to be imported.
+	 @param {String} fileData Contents of the file to be imported.
 	 @param {Date} lastUpdate If passed, overrides the last updated date of the stories.
 	**/
 
-	import: function (data, lastUpdate)
+	import: function (fileData, lastUpdate)
 	{
 		var sels = archive.selectors;
 
@@ -22,7 +22,7 @@ var archive = module.exports =
 
 		var count = 0;
 		var nodes = document.createElement('div');
-		nodes.innerHTML = data;
+		nodes.innerHTML = fileData;
 
 		// remove surrounding <body>, if there is one
 
