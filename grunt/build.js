@@ -157,6 +157,10 @@ module.exports = function (grunt)
 				files:
 				{
 					'build/cdn/twine.css': './src/**/*.less'
+				},
+				options:
+				{
+					plugins: [ new (require('less-plugin-autoprefix'))({ browsers: ['iOS 1-9', 'last 2 versions'] })],
 				}
 			},
 			release:
@@ -172,6 +176,10 @@ module.exports = function (grunt)
 						'src/**/*.less',
 						'node_modules/codemirror/addon/hint/show-hint.css'
 					]
+				},
+				options:
+				{
+					plugins: [ new (require('less-plugin-autoprefix'))({ browsers: ['iOS 1-9', 'last 2 versions'] })],
 				}
 			}
 		}
