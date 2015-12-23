@@ -55,7 +55,7 @@ module.exports = Backbone.Model.extend(
 		var startId;
 
 		// placed here to avoid problems with cyclic dependencies
-		var data = require('./index');
+		var data = require('../index');
 
 		var passages = data.passagesForStory(this);
 
