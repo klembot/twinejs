@@ -7,44 +7,54 @@
 	prefixes - an array of strings that will trigger the callback, case-sensitive
 	callback - the function that will be called
 
- @class CodeMirror.prefixTrigger
+ @module codemirror-ext/prefix-trigger
 **/
 
 'use strict';
 var CodeMirror = require('codemirror');
 
-CodeMirror.defineOption('prefixTrigger', [], function (cm, opts)
+module.exports =
 {
-	if (opts.prefixes && opts.callback)
-		cm.on('inputRead', checkTrigger);
-	else
-		cm.off('inputRead', checkTrigger);
+	/**
+	 Attaches the trigger to CodeMirror.
+	**/
 
-	var prefixes = opts.prefixes;
-	var callback = opts.callback;
-
-	function checkTrigger (cm)
+	initialize: function()
 	{
-		if (cm.state.completionActive)
-			return;
-
-		// back up two words from the cursor
-
-		var curWord = cm.findWordAt(cm.getDoc().getCursor());
-		curWord.anchor.ch--;
-		var prevWordRange = cm.findWordAt(curWord.anchor);
-		var prevWord = cm.getRange(prevWordRange.anchor, prevWordRange.head);
-
-		// do we have a match?
-		// only trigger this once
-
-		for (var i = prefixes.length; i >= 0; i--)
+		CodeMirror.defineOption('prefixTrigger', [], function (cm, opts)
 		{
-			if (prevWord == prefixes[i])
+			if (opts.prefixes && opts.callback)
+				cm.on('inputRead', checkTrigger);
+			else
+				cm.off('inputRead', checkTrigger);
+
+			var prefixes = opts.prefixes;
+			var callback = opts.callback;
+
+			function checkTrigger (cm)
 			{
-				callback();
-				return;
+				if (cm.state.completionActive)
+					return;
+
+				// back up two words from the cursor
+
+				var curWord = cm.findWordAt(cm.getDoc().getCursor());
+				curWord.anchor.ch--;
+				var prevWordRange = cm.findWordAt(curWord.anchor);
+				var prevWord = cm.getRange(prevWordRange.anchor, prevWordRange.head);
+
+				// do we have a match?
+				// only trigger this once
+
+				for (var i = prefixes.length; i >= 0; i--)
+				{
+					if (prevWord == prefixes[i])
+					{
+						callback();
+						return;
+					};
+				};
 			};
-		};
-	};
-});
+		});
+	}
+};

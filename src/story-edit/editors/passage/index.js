@@ -19,7 +19,7 @@ var tagTemplate = require('./tag.ejs');
 require('codemirror/mode/javascript/javascript');
 require('codemirror/addon/display/placeholder');
 require('codemirror/addon/hint/show-hint');
-require('../../../codemirror-ext/prefix-trigger');
+var prefixTrigger = require('../../../codemirror-ext/prefix-trigger');
 
 // Harlowe compatibility
 window.CodeMirror = CodeMirror;
@@ -63,6 +63,8 @@ module.exports = Marionette.ItemView.extend(
 
 	setupCodeMirror: function()
 	{
+		prefixTrigger.initialize();
+
 		/**
 		 The instance of CodeMirror used for editing.
 
@@ -142,10 +144,10 @@ module.exports = Marionette.ItemView.extend(
 		
 		// assemble a list of existing passage names for autocomplete
 
-		this.cm.setOption('passageNames', _.map(this.story.models, function (model)
+		this.cm.setOption('passageNames', data.passagesForStory(this.story).map(function (passage)
 		{
-			return model.get('name');
-		}));		
+			return passage.get('name');
+		}));	
 
 		// actually show it
 		// we refresh twice; now so the text will show properly
