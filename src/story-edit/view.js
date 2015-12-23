@@ -80,6 +80,13 @@ module.exports = Marionette.CompositeView.extend(
 			// L10n: %s is the error message.
 			notify(locale.say('A problem occurred while saving your changes (%s).', resp), 'danger');
 		});
+
+		// we must save this reference because Function#bind returns different references each call
+		// and we need this in order to properly unbind in onDestroy
+		this.onMouseWheelBound = this.onMouseWheel.bind(this);
+		$(document).on('wheel', this.onMouseWheelBound);
+
+		this.zoomLevels = _.values(this.ZOOM_MAPPINGS).sort();
 	},
 
 	onShow: function()
@@ -122,6 +129,7 @@ module.exports = Marionette.CompositeView.extend(
 		keyboardDeletion.detach();
 		mouseScrolling.detach();
 		$(window).off('resize');
+		$(document).off('wheel', this.onMouseWheelBound);
 	},
 
 	/**
@@ -481,5 +489,46 @@ module.exports = Marionette.CompositeView.extend(
 
 			this.lastMousedown = $(e.target);
 		}
+	},
+
+	onMouseWheel: function (event)
+	{
+		var delta;
+		if (event.altKey && !event.ctrlKey)
+		{
+			delta = event.originalEvent.wheelDeltaY; // consider only vertical scroll
+			if (delta > 0)
+			{
+				this.decreaseZoom();
+			}
+			else
+			{
+				this.increaseZoom();
+			}
+		}
+	},
+
+	increaseZoom: function ()
+	{
+		var zoomIndex = this.zoomLevels.indexOf(this.get('zoom'));
+
+		zoomIndex++;
+		if (zoomIndex === this.zoomLevels.length)
+		{
+			zoomIndex = 0;
+		}
+
+		this.set('zoom', this.zoomLevels[zoomIndex]);
+	},
+
+	decreaseZoom: function ()
+	{
+		var zoomIndex = this.zoomLevels.indexOf(this.get('zoom'));
+		zoomIndex--;
+		if (zoomIndex === -1)
+		{
+			zoomIndex = this.zoomLevels.length - 1;
+		}
+		this.set('zoom', this.zoomLevels[zoomIndex]);
 	}
 });
