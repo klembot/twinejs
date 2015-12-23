@@ -16,15 +16,6 @@ module.exports =
 		this.$modal = $(Marionette.Renderer.render(modalTemplate, _.defaults(options, this.defaults)));
 		this.$modal.on('click', '[data-modal="close"]', this.close.bind(this));
 
-		// block mouse events
-
-		this.$modal.on('click.twineui contextmenu.twineui dblclick.twineui ' +
-		               'mousemove.twineui mouseout.twineui mouseover.twineui ' +
-				       'mouseup.twineui', function (e)
-		{
-			e.stopImmediatePropagation();
-		}.bind(this));
-		
 		// block keyboard events
 
 		$(document).on('keydown.twineui keypress.twineui keyup.twineui', function (e)
