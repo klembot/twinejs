@@ -15,7 +15,7 @@ module.exports =
 	 in that module.
 	**/
 
-	init: function()
+	initialize: function()
 	{
 		if (! $('body').data('uiAttached'))
 		{

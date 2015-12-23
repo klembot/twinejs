@@ -56,7 +56,7 @@ var nwui = module.exports =
 	 as possible.
 	**/
 
-	init: function()
+	initialize: function()
 	{
 		var startupTask = 'beginning startup tasks'; 
 
