@@ -2,10 +2,10 @@
 var $ = require('jquery');
 var Backbone = require('backbone');
 var Marionette = require('backbone.marionette');
+var data = require('../../../data');
 var locale = require('../../../locale');
 var modal = require('../../../ui/modal');
 var notify = require('../../../ui/notify');
-var StoryFormats = require('../../../data/story-formats');
 var modalTemplate = require('./modal.ejs');
 var itemTemplate = require('./item.ejs');
 
@@ -20,7 +20,7 @@ module.exports = Backbone.View.extend(
 		// begin loading formats immediately
 
 		this.story = story;
-		this.formatsToLoad = StoryFormats.all();
+		this.formatsToLoad = data.storyFormats.clone();
 		this.loadNextFormat();
 		this.setElement(modal.open({
 			content: Marionette.Renderer.render(modalTemplate, story.attributes)
