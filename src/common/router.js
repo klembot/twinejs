@@ -1,16 +1,22 @@
-/**
- Handles URL-based routes. These right now are:
- 
- * `#stories`: Show a list of all stories.
- * `#stories/[id]`: Edit a particular story.
- * `#stories/[id]/play`: Plays a particular story.
- * `#stories/[id]/proof`: Produces a proofing copy of a particular story.
- 
- If a route isn't recognized, this defaults to a list of all stories.
+/*
+# router
 
- @class TwineRouter
- @extends Backbone.Router
-**/
+This exports a class extending [Backbone.Router](1) which handles URL-based
+routes. These right now are:
+
+- `#locale`: Allows the user to choose a locale for the application.
+- `#stories`: Show a list of all stories.
+- `#stories/[id]`: Edit a particular story.
+- `#stories/[id]/play`: Plays a particular story.
+- `#stories/[id]/test`: Plays a particular story in debug mode.
+- `#stories/[id]/test/[id]`: Plays a particular story in debug mode, starting
+  from a given passsage.
+- `#stories/[id]/proof`: Produces a proofing copy of a particular story.
+- `#welcome`: Shows an onboarding introduction.
+
+If a route isn't recognized, this defaults to the welcome route or story list,
+depending on whether the user has visited the welcome route before.
+*/
 
 'use strict';
 var Backbone = require('backbone');
@@ -25,11 +31,11 @@ module.exports = Backbone.Router.extend(
 {
 	initialize: function (options)
 	{
-		/**
-		 The app managed by this router.
-
-		 @property app
-		**/
+		/*
+		Our parent app.
+		@property app
+		@type `common/app`
+		*/
 
 		this.app = options.app;
 	},
@@ -46,22 +52,16 @@ module.exports = Backbone.Router.extend(
 
 	listStories: function()
 	{
-		// list of all stories
-
 		this.app.mainRegion.show(new StoryListView({ collection: data.stories }));
 	},
 
 	editStory: function (id)
 	{
-		// edit a specific story
-
 		this.app.mainRegion.show(new StoryEditView({ model: data.story(id) }));
 	},
 
 	playStory: function (storyId)
 	{
-		// play a story
-
 		var story = data.story(storyId);
 
 		data.storyFormatForStory(story).publish(story, {}, function (err, result)
@@ -72,8 +72,6 @@ module.exports = Backbone.Router.extend(
 
 	testStory: function (storyId, passageId)
 	{
-		// test a story from a particular passage
-
 		var story = data.story(storyId);
 
 		data.storyFormatForStory(story).publish(story, { formatOptions: ['debug'], startId: passageId }, function (err, result)
@@ -84,8 +82,6 @@ module.exports = Backbone.Router.extend(
 
 	proofStory: function (storyId)
 	{
-		// proof a story
-
 		var story = data.story(storyId);
 
 		data.storyFormatForProofing().publish(story, {}, function (err, result)
@@ -94,10 +90,10 @@ module.exports = Backbone.Router.extend(
 		});
 	},
 
+	// The default route.
+
 	startup: function()
 	{
-		// default route -- show welcome if the user hasn't already seen it
-
 		var welcomePref = data.pref('welcomeSeen', false);
 
 		if (welcomePref.get('value') === true)

@@ -2,26 +2,20 @@ var twine = require('../package.json');
 
 module.exports = function (grunt)
 {
-	// jsdoc generates API documentation under doc/.
+	// groc generates documentation under doc/.
 
 	grunt.config.merge({
-		jsdoc:
+		groc:
 		{
 			default:
 			{
-				src: 'src/**/*.js',
+				src: ['src/**/*.js', 'README.md'],
 				dest: 'doc/',
-				options:
-				{
-					path: 'ink-docstrap',
-					theme: 'cerulean',
-					systemName: twine.name + ' ' + twine.version
-				}
 			}
 		}
 	});
 
 	// doc runs all documentation-related tasks.
 
-	grunt.registerTask('doc', ['jsdoc']);
+	grunt.registerTask('doc', ['groc']);
 };

@@ -1,9 +1,8 @@
-/**
- A single node in a story.
+/*
+# passage
 
- @class Passage
- @extends Backbone.Model
-**/
+Exports a class representing a single node in a story, which extends `Backbone.Model`.
+*/
 
 'use strict';
 var _ = require('underscore');
@@ -34,7 +33,7 @@ var Passage = module.exports = Backbone.Model.extend(
 	{
 		this.on('change', function (model)
 		{
-			// clamp our position to positive coordinates
+			// Clamp our position to positive coordinates.
 
 			var attrs = model.changedAttributes();
 
@@ -57,7 +56,10 @@ var Passage = module.exports = Backbone.Model.extend(
 		if (options.noDupeValidation)
 			return;
 
-		// we require it here to avoid problems with a cyclic dependency
+		/*
+		Check for a duplicate name in this passage's story.  We require the
+		`data` module here to avoid problems with a cyclic dependency.
+		*/
 
 		var data = require('../index');
 
@@ -70,13 +72,13 @@ var Passage = module.exports = Backbone.Model.extend(
 			                  attrs.name);
 	},
 
-	/**
-	 Returns a short excerpt of this passage's text, truncating with
-	 ellipses if needed.
+	/*
+	Returns a short excerpt of this passage's text, truncating with
+	ellipses if needed.
 
-	 @method excerpt
-	 @return {String} Excerpt.
-	**/
+	@method excerpt
+	@return {String} the excerpt
+	*/
 
 	excerpt: function()
 	{
@@ -88,16 +90,18 @@ var Passage = module.exports = Backbone.Model.extend(
 			return text;
 	},
 
-	/**
-	 Returns an array of all links in this passage's text.
+	/*
+	Returns an array of all links in this passage's text.
 
-	 @method links
-	 @param {Boolean} internalOnly only return internal links? (i.e. not http://twinery.org)
-	 @return {Array} Array of string names.
-	**/
+	@method links
+	@param {Boolean} [internalOnly] only return internal links? (i.e. not http://twinery.org)
+	@return {Array} array of string names
+	*/
 
 	links: function (internalOnly)
 	{
+		// Begin with anything with double brackets around it.
+
 		var matches = this.get('text').match(/\[\[.*?\]\]/g);
 		var found = {};
 		var result = [];
@@ -111,43 +115,45 @@ var Passage = module.exports = Backbone.Model.extend(
 			for (var i = 0; i < matches.length; i++)
 			{
 				/*
-					The link matching regexps ignore setter components, should they exist.
+				The link matching regexps ignore setter components, should they exist.
 				*/
+
 				var link = matches[i]
 					/*
-						Arrow links
-						[[display text->link]] format
-						[[link<-display text]] format
+					Check for arrow links in either
+					`[[display text->link]]` or
+					`[[link<-display text]]` format.
 
-						Arrow links, with setter component
-						[[display text->link][...]] format
-						[[link<-display text][...]] format
+					They may also have a setter component, in
+					`[[display text->link][...]]` or
+					`[[link<-display text][...]]` format.
 
-						This regexp will interpret the rightmost '->' and the leftmost '<-' as the divider.
+					This regexp will interpret the rightmost `->` and the leftmost `<-` as the divider.
 					*/
 					.replace(/\[\[(?:([^\]]*)\->|([^\]]*?)<\-)([^\]]*)(?:\]\[.*?)?\]\]/g, arrowReplacer)
 					/*
-						TiddlyWiki links
-						[[display text|link]] format
-
-						TiddlyWiki links, with setter component
-						[[display text|link][...]] format
+					Check for TiddlyWiki-style links in
+					`[[display text|link]]` format, or with a settter component:
+					`[[display text|link][...]]`
 					*/
 					.replace(/\[\[([^\|\]]*?)\|([^\|\]]*)?(?:\]\[.*?)?\]\]/g, "$2")
 					/*
-						[[link]] format
-
-						[[link][...]] format, with setter component
+					Simple `[[link]]` format, or with a setter component:
+					`[[link][...]]`
 					*/
 					.replace(/\[\[|(?:\]\[.*?)?\]\]/g,"");
 
-				// catch empty links, i.e. [[]]
+				// Exclude empty links, i.e. `[[]]`.
+
 				if (link !== '' && found[link] === undefined)
 				{
 					result.push(link);
 					found[link] = true;
 				};
 			};
+
+		// We treat any link that begins with a URL protocol, e.g. `http://`,
+		// as an external link.
 
 		if (internalOnly)
 			return _.filter(result, function (link)
@@ -158,14 +164,14 @@ var Passage = module.exports = Backbone.Model.extend(
 			return result;
 	},
 
-	/**
-	 Replaces all links with another one.
-	 This is used most often to update links after a passage is renamed.
+	/*
+	Replaces all links with another one.
+	This is used most often to update links after a passage is renamed.
 
-	 @method replaceLink
-	 @param {String} oldLink passage name to replace
-	 @param {String} newLink passage name to replace with
-	**/
+	@method replaceLink
+	@param {String} oldLink passage name to replace
+	@param {String} newLink passage name to replace with
+	*/
 
 	replaceLink: function (oldLink, newLink)
 	{
@@ -185,27 +191,27 @@ var Passage = module.exports = Backbone.Model.extend(
 			this.save({ text: text });
 	},
 
-	/**
-	 Checks whether the passage name or body matches a search string.
+	/*
+	Checks whether the passage name or body matches a search string.
 
-	 @method matches
-	 @param {RegExp} search regular expression to search for
-	 @return {Boolean} whether a match is found
-	**/
+	@method matches
+	@param {RegExp} search regular expression to search for
+	@return {Boolean} whether a match is found
+	*/
 
 	matches: function (search)
 	{
 		return search.test(this.get('name')) || search.test(this.get('text'));
 	},
 
-	/**
-	 Returns the total number of string matches in this passage for a regular expression.
+	/*
+	Returns the total number of string matches in this passage for a regular expression.
 
-	 @method numMatches
-	 @param {RegExp} search regular expression to search for
-	 @param {Boolean} checkName include the passage name in the search?
-	 @return {Number} number of matches; 0 if none
-	**/
+	@method numMatches
+	@param {RegExp} search regular expression to search for
+	@param {Boolean} [checkName] include the passage name in the search?
+	@return {Number} number of matches; 0 if none
+	*/
 
 	numMatches: function (search, checkName)
 	{
@@ -221,14 +227,14 @@ var Passage = module.exports = Backbone.Model.extend(
 		return result;
 	},
 
-	/**
-	 Performs a regexp replacement on this passage's text, and optionally its name.
+	/*
+	Performs a regexp replacement on this passage's text, and optionally its name.
 
-	 @method replace
-	 @param {RegExp} search regular expression to replace
-	 @param {String} replacement replacement string
-	 @param {Boolean} inName perform this replacement in the passage name too? default false
-	**/
+	@method replace
+	@param {RegExp} search regular expression to replace
+	@param {String} replacement replacement string
+	@param {Boolean} [inName] perform this replacement in the passage name too?
+	*/
 
 	replace: function (search, replacement, inName)
 	{
@@ -242,13 +248,13 @@ var Passage = module.exports = Backbone.Model.extend(
 			this.save({ text: this.get('text').replace(search, replacement) });
 	},
 
-	/**
-	 Publishes the passage to an HTML fragment.
+	/*
+	Publishes the passage to an HTML fragment.
 
-	 @method publish
-	 @param {Number} id numeric id to assign to the passage, *not* this one's DB id
-	 @return {String} HTML fragment
-	**/
+	@method publish
+	@param {Number} id numeric id to assign to the passage, *not* this one's DB id
+	@return {String} HTML fragment
+	*/
 
 	publish: function (id)
 	{
@@ -265,13 +271,13 @@ var Passage = module.exports = Backbone.Model.extend(
 		});
 	},
 
-	/**
-	 Checks whether this passage intersects another onscreen.
+	/*
+	Checks whether this passage intersects another onscreen.
 
-	 @method intersects
-	 @param {Passage} other Other passage to check.
-	 @return {Boolean} Whether there is an intersection.
-	**/
+	@method intersects
+	@param {Passage} other Other passage to check.
+	@return {Boolean} Whether there is an intersection.
+	*/
 
 	intersects: function (other)
 	{
@@ -285,14 +291,14 @@ var Passage = module.exports = Backbone.Model.extend(
 				this.get('top') + pH + pP > other.get('top') - pP);
 	},
 
-	/**
-	 Moves another passage so that it no longer intersects this one.
-	 This moves the passage along either the X or Y axis only --
-	 whichever direction will cause the passage to move the least.
+	/*
+	Moves another passage so that it no longer intersects this one.
+	This moves the passage along either the X or Y axis only --
+	whichever direction will cause the passage to move the least.
 
-	 @method displace
-	 @param {Passage} other Other passage to displace.
-	**/
+	@method displace
+	@param {Passage} other Other passage to displace.
+	*/
 
 	displace: function (other)
 	{
@@ -306,14 +312,14 @@ var Passage = module.exports = Backbone.Model.extend(
 		var oTop = other.get('top') - p;
 		var oBottom = oTop + Passage.height + p * 2;
 
-		// calculate overlap amounts
-		// this is cribbed from
+		// Calculate overlap amounts. 
+		// This is cribbed from
 		// http://frey.co.nz/old/2007/11/area-of-two-rectangles-algorithm/
 
 		var xOverlap = Math.min(tRight, oRight) - Math.max(tLeft, oLeft);
 		var yOverlap = Math.min(tBottom, oBottom) - Math.max(tTop, oTop);
 
-		// resolve horizontal overlap
+		// Resolve horizontal overlap.
 
 		var xChange, yChange;
 
@@ -328,7 +334,7 @@ var Passage = module.exports = Backbone.Model.extend(
 				xChange = rightMove;
 		};
 
-		// resolve vertical overlap
+		// Resolve vertical overlap.
 
 		if (yOverlap !== 0)
 		{
@@ -341,7 +347,7 @@ var Passage = module.exports = Backbone.Model.extend(
 				yChange = downMove;
 		};
 
-		// choose the option that moves the other passage the least
+		// Choose the axis that moves the other passage the least.
 
 		if (Math.abs(xChange) > Math.abs(yChange))
 			other.set('top', oTop + yChange);
@@ -350,34 +356,37 @@ var Passage = module.exports = Backbone.Model.extend(
 	}
 },
 {
-	/**
-	 The largest width a passage will have onscreen, in pixels.
-	 This is used by intersects() and displace().
+	/*
+	The largest width a passage will have onscreen, in pixels.
+	This is used by intersects() and displace().
 
-	 @property {Number} width
-	 @static
-	 @final
-	**/
+	@property width
+	@type Number
+	@static
+	@constant
+	*/
 
 	width: 100,
 
 	/**
-	 The largest height a passage will have onscreen, in pixels.
-	 This is used by intersects() and displace().
+	The largest height a passage will have onscreen, in pixels.
+	This is used by intersects() and displace().
 
-	 @property {Number} height
-	 @static
-	 @final
-	**/
+	@property height
+	@type Number
+	@static
+	@constant
+	*/
 	height: 100,
 
-	/**
-	 The amount of padding around a passage that should still trigger
-	 intersection. This is used by intersects() and displace().
+	/*
+	The amount of padding around a passage that should still trigger
+	intersection. This is used by intersects() and displace().
 
-	 @property {Number} padding
-	 @static
-	 @final
-	**/
+	@property padding
+	@type Number
+	@static
+	@constant
+	*/
 	padding: 12.5
 });

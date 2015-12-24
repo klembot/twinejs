@@ -1,15 +1,16 @@
-/**
- A story format transforms a story's HTML output into a full-fledged
- HTML page. It contains placeholders, by convention named like UPPERCASE_CONSTANTS,
- that the story's published output is plugged into. Although this has a traditional
- numeric id, a story format's true primary key is its name. This is so that if
- stories are traded among users, links between stories and formats will be retained.
+/*
+# story-format
 
- This model is just a pointer to data that is loaded via JSONP. 
+This exports a class that extends `Backbone.Model`, which manages story
+formats.  A story format transforms a story's HTML output into a full-fledged
+HTML page. It contains placeholders, by convention named like
+UPPERCASE_CONSTANTS, that the story's published output is plugged into.
+Although this has a traditional numeric id, a story format's true primary key
+is its name. This is so that if stories are traded among users, links between
+stories and formats will be retained.
 
- @class StoryFormat
- @extends Backbone.Model
-**/
+This model is just a pointer to data that is loaded via JSONP. 
+*/
 
 'use strict';
 var _ = require('underscore');
@@ -19,21 +20,21 @@ var locale = require('../../locale');
 
 var StoryFormat = module.exports = Backbone.Model.extend(
 {
-	/**
-	 Remembers whether the format has been loaded yet.
+	/*
+	Remembers whether the format has been loaded yet.
 
-	 @property loaded
-	 @type Boolean
-	**/
+	@property loaded
+	@type Boolean
+	*/
 	loaded: false,
 
-	/**
-	 Properties set by the external format file-- notably,
-	 the format source. To load these, call load().
+	/*
+	Properties set by the external format file-- notably,
+	the format source. To load these, call `load()`.
 
-	 @property properties
-	 @type Object
-	**/
+	@property properties
+	@type Object
+	*/
 	properties: {},
 
 	defaults: _.memoize(function()
@@ -45,22 +46,22 @@ var StoryFormat = module.exports = Backbone.Model.extend(
 		};
 	}),
 
-	/**
-	 Loads the actual story format via a JSONP request. After this
-	 call, its data is available under the properties property.
+	/*
+	Loads the actual story format via a JSONP request. After this
+	call, its data is available under the properties property.
 
-	 Because the JSONP request is asynchronous, properties will almost
-	 certainly not be available immediately after this returns. Pass a
-	 callback to be guaranteed when properties are available.
+	Because the JSONP request is asynchronous, properties will almost
+	certainly not be available immediately after this returns. Pass a
+	callback to be guaranteed when properties are available.
 
-	 If the format has been previously loaded, then this will have no effect,
-	 and the callback will be called immediately.
+	If the format has been previously loaded, then this will have no effect,
+	and the callback will be called immediately.
 
-	 @method load
-	 @param {Function} callback Function to call when loading completes; if it did
-	                            not succeed, the function will be passed an Error object.
-								If none is specified, an error is raised directly.
-	**/
+	@method load
+	@param {Function} [callback] Function to call when loading completes; if it did
+	                             not succeed, the function will be passed an `Error` object.
+							     If no callback is passed, an error is raised directly.
+	*/
 
 	load: function (callback)
 	{
@@ -98,14 +99,14 @@ var StoryFormat = module.exports = Backbone.Model.extend(
 		});
 	},
 
-	/**
-	 Publishes a story with this story format. This method is asynchronous.
+	/*
+	Publishes a story with this story format. This method is asynchronous.
 
-	 @method publish
-	 @param {Story} story Story to publish.
-	 @param {Object} options options to pass to Story.publish()
-	 @param {Function} callback Function called with the resulting HTML, signature callback(err, result)
-	**/
+	@method publish
+	@param {Story} story story to publish
+	@param {Object} options options to pass to `Story.publish()`
+	@param {Function} callback function called with the resulting HTML, signature `callback(err, result)`
+	*/
 
 	publish: function (story, options, callback)
 	{
@@ -121,10 +122,10 @@ var StoryFormat = module.exports = Backbone.Model.extend(
 			{
 				var output = this.properties.source;
 
-				// use function replacements to protect the data from accidental
-				// interactions with the special string replacement patterns
+				// Use function replacements to protect the data from accidental
+				// interactions with the special string replacement patterns.
 
-				// builtin placeholders
+				// Start with builtin placeholders.
 
 				output = output.replace(/{{STORY_NAME}}/g, function ()
 				{
@@ -135,7 +136,7 @@ var StoryFormat = module.exports = Backbone.Model.extend(
 					return story.publish(options);
 				});
 
-				// user-defined placeholders
+				// User-defined placeholders. (These are not implemented yet.)
 
 				_.each(this.get('placeholders'), function (p)
 				{
@@ -158,6 +159,6 @@ var StoryFormat = module.exports = Backbone.Model.extend(
 	}
 });
 
-// Harlowe compatibility
+// Place the story format class into the global scope, for Harlowe compatibility.
 
 window.StoryFormat = StoryFormat;

@@ -1,9 +1,9 @@
-/**
- A collection of story formats.
+/*
+# story-formats
 
- @class StoryFormats
- @extends Backbone.Collection
-**/
+Exports a class extending `Backbone.Collection` which manages a collection of
+story formats.
+*/
 
 'use strict';
 var Backbone = require('backbone');

@@ -1,9 +1,11 @@
-/**
- A thin wrapper over Backbone.LocalStorage that emits an event after
- a model is successfully saved.
+/*
+# evented-local-storage
 
- @class EventedLocalStorage
-**/
+A thin wrapper over [Backbone.LocalStorage](1) that emits a `update` event after a
+model is successfully saved.
+
+[1]: https://github.com/jeromegn/Backbone.localStorage
+*/
 
 'use strict';
 var _ = require('underscore');
@@ -21,13 +23,6 @@ _.extend(EventedLocalStorage.prototype,
 	update: function (model)
 	{
 		var result = LocalStorage.prototype.update.call(this, model);
-	
-		/**
-		 Triggered after a successful update.
-
-		 @event update
-		**/
-
 		model.trigger('update');
 		return result;
 	}

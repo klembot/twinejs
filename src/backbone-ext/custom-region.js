@@ -1,10 +1,13 @@
-/**
- This passes information about the previous view to the current one,
- to help with animating transitions between them.
+/*
+# custom-region
 
- @class CustomRegion
- @extends Backbone.Region
-**/
+This exports a class extending [Marionette.Region](1) which passes information
+about the previous view to the current one, to help with animating transitions
+between them. This also attaches tooltips to every new view via the ui/tooltip
+module.
+
+[1]: http://marionettejs.com/docs/v2.4.4/marionette.region.html
+*/
 
 'use strict';
 var Marionette = require('backbone.marionette');
@@ -19,14 +22,18 @@ module.exports = Marionette.Region.extend(
 		this.on('before:swapOut', function (view)
 		{
 			this.prevView = view;
-			
+
 			if (view instanceof StoryEditView)
 				this.prevId = view.model.get('id');
 		}.bind(this));
 
 		this.on('swap', function (view)
 		{
-			// tell a StoryListView where we were coming from
+			/*
+			If we're going back to the story list from editing a story, tell
+			the view which story we're coming back from, and that it
+			shouldn't animate the stories appearing in the list.
+			*/
 
 			if (view instanceof StoryListView && this.prevView instanceof StoryEditView)
 			{
