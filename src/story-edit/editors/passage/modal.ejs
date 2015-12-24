@@ -10,7 +10,11 @@
 
 <div class="passageTags">
 	<p>
-		<span class="tags"></span>
+		<span class="tags">
+			<% tags.forEach(function (name) { %>
+				<% include ./tag %>
+			<% }) %>
+		</span>
 
 		<button class="showNewTag">
 			<i class="fa fa-plus"></i>
@@ -23,8 +27,8 @@
 
 	<form class="newTag hide">
 		<input class="newTagName" type="text" placeholder="<%= /* L10n: A noun, i.e. what a tag is named. */ s('Tag name') %>" required>
-		<button type="button" class="hideNewTag link"><i class="fa fa-times"></i></button>
-		<button type="submit" class="link"><i class="fa fa-check"></i></button>
+		<button type="reset" class="hideNewTag link" title="<%= s('Cancel') %>"><i class="fa fa-times"></i></button>
+		<button type="submit" class="link" title="<%= s('OK') %>"><i class="fa fa-check"></i></button>
 	</form>
 </div>
 

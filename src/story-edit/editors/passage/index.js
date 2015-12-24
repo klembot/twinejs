@@ -2,7 +2,7 @@
  Manages the passage editor modal of a StoryEditView.
 
  @class StoryEditView.PassageEditor
- @extends Backbone.View
+ @extends Marionette.ItemView
 **/
 
 'use strict';
@@ -15,11 +15,11 @@ var locale = require('../../../locale');
 var modal = require('../../../ui/modal');
 var Passage = require('../../../data/passage');
 var modalTemplate = require('./modal.ejs');
-var tagTemplate = require('./tag.ejs');
 require('codemirror/mode/javascript/javascript');
 require('codemirror/addon/display/placeholder');
 require('codemirror/addon/hint/show-hint');
 var prefixTrigger = require('../../../codemirror-ext/prefix-trigger');
+var TagsEditor = require('./tags');
 
 // Harlowe compatibility
 window.CodeMirror = CodeMirror;
@@ -51,6 +51,8 @@ module.exports = Marionette.ItemView.extend(
 		}));
 
 		this.setupCodeMirror();
+
+		this.tagsView = new TagsEditor({el: this.$('.passageTags'), parent: this});
 
 		// warn the user about leaving before saving
 
@@ -246,12 +248,7 @@ module.exports = Marionette.ItemView.extend(
 	{
 		// gather current tag names
 
-		var tags = [];
-
-		this.$('.passageTags .tag').each(function()
-		{
-			tags.push($(this).attr('data-name'));
-		});
+		var tags = this.tagsView.getTags();
 
 		// try to save; we might error out if the passage name is a duplicate
 
@@ -274,44 +271,6 @@ module.exports = Marionette.ItemView.extend(
 			e.preventDefault();
 			return false;
 		};
-	},
-
-	/**
-	 Shows the UI for adding a new tag.
-
-	 @method showNewTag
-	**/
-
-	showNewTag: function()
-	{
-		this.$('.showNewTag').hide();
-		this.$('.newTag').show();
-		this.$('.newTagName').val('').focus();
-	},
-
-	/**
-	 Hides the UI for adding a new tag.
-
-	 @method showNewTag
-	**/
-
-	hideNewTag: function()
-	{
-		this.$('.showNewTag').show();
-		this.$('.newTag').hide();
-	},
-
-	/**
-	 Adds a new tag to the list. This does not affect the model
-	 at all and thus has no validation associated with it.
-
-	 @method addTag
-	 @param {String} name name of the tag to add
-	**/
-
-	addTag: function (name)
-	{
-		this.tagContainer.append(this.tagTemplate({ name: name }));
 	},
 
 	/**
