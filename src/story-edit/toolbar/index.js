@@ -124,7 +124,7 @@ module.exports = Marionette.ItemView.extend(
 		'click .zoomBig, .zoomMedium, .zoomSmall': function (e)
 		{
 			var desc = $(e.target).closest('button').attr('class');
-			this.parent.model.save({ zoom: this.parent.ZOOM_MAPPINGS[desc] }); 
+			this.parent.model.save({ zoom: this.parent.ZOOM_MAPPINGS[desc] });
 		}
 	}
 });

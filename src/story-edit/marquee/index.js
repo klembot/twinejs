@@ -1,6 +1,6 @@
 /**
  Manages drawing a marquee selection if the user drags in an unoccupied area
- of the story map, and selecting/deselecting 
+ of the story map, and selecting/deselecting
 
  @class StoryEditView.Marquee
  @extends Backbone.View

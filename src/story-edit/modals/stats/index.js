@@ -23,7 +23,7 @@ module.exports = Marionette.ItemView.extend(
 	{
 		// calculate counts
 
-		var counts = 
+		var counts =
 		{
 			chars: 0,
 			words: 0,

@@ -25,11 +25,11 @@ var UpdateModal = require('./modals/update');
 var importingTemplate = require('./importing.ejs');
 var viewTemplate = require('./view.ejs');
 
-var StoryListView = module.exports = Marionette.CompositeView.extend(
+var StoryListView = Marionette.CompositeView.extend(
 {
 	childView: StoryItemView,
 	childViewContainer: '.stories',
-	childViewOptions: function (model)
+	childViewOptions: function ()
 	{
 		return { parent: this };
 	},
@@ -117,14 +117,14 @@ var StoryListView = module.exports = Marionette.CompositeView.extend(
 				view.preview.rendered = false;
 			});
 
-			this.showNextPreview();		
+			this.showNextPreview();
 		}.bind(this));
 	},
 
 	addStory: function()
 	{
 		prompt({
-			prompt: locale.say("What should your story be named? You can change this later."),
+			prompt: locale.say('What should your story be named? You can change this later.'),
 			confirmLabel: '<i class="fa fa-plus"></i> ' + locale.say('Add'),
 			confirmClass: 'create',
 			callback: function (confirmed, text)
@@ -199,7 +199,7 @@ var StoryListView = module.exports = Marionette.CompositeView.extend(
 
 					notify(message, className);
 				};
-				
+
 				upload.close();
 			}.bind(this)
 		});
@@ -217,7 +217,7 @@ var StoryListView = module.exports = Marionette.CompositeView.extend(
 				return true;
 			};
 		});
-		
+
 		if (unrendered !== undefined)
 		{
 			unrendered.preview.render(function()
@@ -328,3 +328,5 @@ var StoryListView = module.exports = Marionette.CompositeView.extend(
 {
 	APPEAR_DELAY: 75
 });
+
+module.exports = StoryListView;

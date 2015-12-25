@@ -7,7 +7,7 @@ var Tooltip = Drop.createContext({
 	classPrefix: 'tooltip'
 });
 
-function activateTooltip (e)
+function activateTooltip(e)
 {
 	var $t = $(e.target);
 
@@ -21,7 +21,7 @@ function activateTooltip (e)
 	}, tooltipModule.delay));
 };
 
-function deactivateTooltip (e)
+function deactivateTooltip(e)
 {
 	var $t = $(e.target);
 	var timeout = $t.data('tooltipActivation');
@@ -32,7 +32,7 @@ function deactivateTooltip (e)
 	$(e.target).data('tooltipObj').close();
 };
 
-var tooltipModule = module.exports =
+var tooltipModule =
 {
 	attach: function (el)
 	{
@@ -46,10 +46,10 @@ var tooltipModule = module.exports =
 
 			$t.data('tooltipObj', new Tooltip(
 					{
-			        	target: this,
-			        	content: $t.attr('title'),
+						target: this,
+						content: $t.attr('title'),
 						position: pos
-			        }));
+					}));
 
 			$t.on(
 			{
@@ -61,3 +61,5 @@ var tooltipModule = module.exports =
 
 	delay: 250
 };
+
+module.exports = tooltipModule;

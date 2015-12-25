@@ -42,7 +42,7 @@ module.exports = Marionette.ItemView.extend(
 			this.$el.remove();
 		});
 	},
-	
+
 	events:
 	{
 		'click .replacePassage': 'replaceInPassage'

@@ -28,8 +28,8 @@ module.exports = Backbone.View.extend(
 			return;
 		};
 
-		// otherwise, we test in 100k chunks 
-		
+		// otherwise, we test in 100k chunks
+
 		var used = JSON.stringify(window.localStorage).length;
 		var testString = new Array(102400).join('x');
 		var free = 102400;

@@ -1,5 +1,5 @@
 /**
- Manages localizing strings, dates, and times. 
+ Manages localizing strings, dates, and times.
 
  @module locale
 **/
@@ -123,7 +123,7 @@ module.exports =
 	 the resulting string. Underscore template receive this as the shorthand method sp.
 
 	 When interpolating, count will always be the first argument.
-	
+
 	 @param {String} sourceSingular source text to translate with singular form
 	 @param {String} sourcePlural source text to translate with plural form
 	 @param {Number} count count to use for pluralization
@@ -138,7 +138,7 @@ module.exports =
 
 			for (var i = 3; i < arguments.length; i++)
 				sprintfArgs.push(arguments[i]);
-				
+
 			return this.i18n.sprintf.apply(this.i18n.sprintf, sprintfArgs);
 		}
 		catch (e)

@@ -34,7 +34,7 @@ module.exports =
 			var prefixes = opts.prefixes;
 			var callback = opts.callback;
 
-			function checkTrigger (cm)
+			function checkTrigger(cm)
 			{
 				// If autocomplete is already active, stop.
 

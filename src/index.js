@@ -24,30 +24,30 @@ var TwineApp = require('./common/app');
 		// http://stackoverflow.com/questions/673905/best-way-to-determine-users-locale-within-browser
 
 		var localePref = data.pref('locale',
-		                           window.navigator.userLanguage || window.navigator.language ||
-		                           window.navigator.browserLanguage || window.navigator.systemLanguage ||
-		                           'en-us');
+								   window.navigator.userLanguage || window.navigator.language ||
+								   window.navigator.browserLanguage || window.navigator.systemLanguage ||
+								   'en-us');
 
 		userLocale = localePref.get('value');
 	};
 
 	if (typeof userLocale == 'string')
-        locale.load(userLocale.toLowerCase(), function()
-    	{
-    		app.start();
-    	});
-    else
-    {
-        locale.load('en', function()
-    	{
-    		app.start();
-            _.defer(function()
-            {
-                // not localized because if we've reached this step,
-                // localization isn't working
-                notify('Your locale preference has been reset to English due to a technical problem.<br>' +
-                       'Please change it with the <b>Language</b> option in the story list.', 'danger');
-            });
-    	});
-    };
+		locale.load(userLocale.toLowerCase(), function()
+		{
+			app.start();
+		});
+	else
+	{
+		locale.load('en', function()
+		{
+			app.start();
+			_.defer(function()
+			{
+				// not localized because if we've reached this step,
+				// localization isn't working
+				notify('Your locale preference has been reset to English due to a technical problem.<br>' +
+				       'Please change it with the <b>Language</b> option in the story list.', 'danger');
+			});
+		});
+	};
 })();

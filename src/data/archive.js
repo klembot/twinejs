@@ -10,7 +10,7 @@ var _ = require('underscore');
 var data = require('./index');
 var locale = require('../locale');
 
-var archive = module.exports =
+var archive =
 {
 	/*
 	Imports a file containing either a single published story, or an
@@ -91,9 +91,9 @@ var archive = module.exports =
 				if (id == startPassageId)
 					story.save({ startPassage: passage.id }, { silent: true, validate: false });
 			});
-			
+
 			// Override the update date if requested.
-			
+
 			if (lastUpdate)
 				story.save({ lastUpdate: lastUpdate }, { silent: true, validate: false });
 
@@ -156,3 +156,5 @@ var archive = module.exports =
 		passageData: 'tw-passagedata'
 	}
 };
+
+module.exports = archive;

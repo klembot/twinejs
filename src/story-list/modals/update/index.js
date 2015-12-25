@@ -14,11 +14,11 @@ module.exports =
 	**/
 	CHECK_INTERVAL: 1000 * 60 * 60 * 24, // 1 day
 
-	check: function (callback)
+	check: function ()
 	{
 		var now = new Date().getTime();
 		var currentBuild = TwineApp.version().buildNumber;
-		var lastUpdateSeenPref = data.pref('lastUpdateSeen', currentBuild); 
+		var lastUpdateSeenPref = data.pref('lastUpdateSeen', currentBuild);
 
 		// force last update to be at least the current app version
 

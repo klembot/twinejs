@@ -57,7 +57,7 @@ module.exports = Marionette.ItemView.extend(
 		window.onbeforeunload = function()
 		{
 			return locale.say("Any changes to the passage you're editing haven't been saved yet. " +
-			                  "(To do so, close the passage editor.)");
+			                  '(To do so, close the passage editor.)');
 		};
 	},
 
@@ -97,7 +97,7 @@ module.exports = Marionette.ItemView.extend(
 			storyFormat.load(function (err)
 			{
 				var modeName = storyFormat.get('name').toLowerCase();
-				
+
 				if (! err && modeName in CodeMirror.modes)
 				{
 					/*
@@ -120,7 +120,7 @@ module.exports = Marionette.ItemView.extend(
 		var text = this.passage.get('text');
 
 		// Reset the placeholder, which may have been modified by a prior story format.
-		
+
 		this.cm.setOption('placeholder', this.$('.passageText').attr('placeholder'));
 
 		// swapDoc resets all of the attached events, undo history, etc. of the document.
@@ -141,13 +141,13 @@ module.exports = Marionette.ItemView.extend(
 			this.cm.execCommand('selectAll');
 		else
 			this.cm.execCommand('goDocEnd');
-		
+
 		// assemble a list of existing passage names for autocomplete
 
 		this.cm.setOption('passageNames', data.passagesForStory(this.story).map(function (passage)
 		{
 			return passage.get('name');
-		}));	
+		}));
 
 		// actually show it
 		// we refresh twice; now so the text will show properly
@@ -172,7 +172,7 @@ module.exports = Marionette.ItemView.extend(
 	autocomplete: function()
 	{
 		this.cm.showHint({
-			hint: function (cm)	
+			hint: function (cm)
 			{
 				var wordRange = cm.findWordAt(cm.getCursor());
 				var word = cm.getRange(wordRange.anchor, wordRange.head).toLowerCase();

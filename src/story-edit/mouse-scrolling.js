@@ -23,8 +23,8 @@ function startScrolling()
 	});
 };
 
-function scroll (e)
-{	
+function scroll(e)
+{
 	if (! scrollStart)
 	{
 		// this is our first mouse motion event, record position

@@ -1,5 +1,5 @@
 /*
-# passage
+//passage
 
 Exports a class representing a single node in a story, which extends `Backbone.Model`.
 */
@@ -11,7 +11,7 @@ var locale = require('../../locale');
 var ui = require('../../ui');
 var dataTemplate = require('./data.ejs');
 
-var Passage = module.exports = Backbone.Model.extend(
+var Passage = Backbone.Model.extend(
 {
 	defaults: _.memoize(function()
 	{
@@ -106,7 +106,7 @@ var Passage = module.exports = Backbone.Model.extend(
 		var found = {};
 		var result = [];
 
-		var arrowReplacer = function(a, b, c, d)
+		function arrowReplacer(a, b, c, d)
 		{
 			return c || d;
 		};
@@ -136,12 +136,12 @@ var Passage = module.exports = Backbone.Model.extend(
 					`[[display text|link]]` format, or with a settter component:
 					`[[display text|link][...]]`
 					*/
-					.replace(/\[\[([^\|\]]*?)\|([^\|\]]*)?(?:\]\[.*?)?\]\]/g, "$2")
+					.replace(/\[\[([^\|\]]*?)\|([^\|\]]*)?(?:\]\[.*?)?\]\]/g, '$2')
 					/*
 					Simple `[[link]]` format, or with a setter component:
 					`[[link][...]]`
 					*/
-					.replace(/\[\[|(?:\]\[.*?)?\]\]/g,"");
+					.replace(/\[\[|(?:\]\[.*?)?\]\]/g, '');
 
 				// Exclude empty links, i.e. `[[]]`.
 
@@ -312,7 +312,7 @@ var Passage = module.exports = Backbone.Model.extend(
 		var oTop = other.get('top') - p;
 		var oBottom = oTop + Passage.height + p * 2;
 
-		// Calculate overlap amounts. 
+		// Calculate overlap amounts.
 		// This is cribbed from
 		// http://frey.co.nz/old/2007/11/area-of-two-rectangles-algorithm/
 
@@ -342,7 +342,7 @@ var Passage = module.exports = Backbone.Model.extend(
 			var downMove = tBottom - oTop + p;
 
 			if (upMove < downMove)
-				yChange = - upMove;
+				yChange = -upMove;
 			else
 				yChange = downMove;
 		};
@@ -390,3 +390,5 @@ var Passage = module.exports = Backbone.Model.extend(
 	*/
 	padding: 12.5
 });
+
+module.exports = Passage;

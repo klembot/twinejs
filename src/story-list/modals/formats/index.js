@@ -107,7 +107,7 @@ module.exports = Backbone.View.extend(
 	{
 		// create a temporary model and try loading it
 
-		var test = new StoryFormat({ url: url });	
+		var test = new StoryFormat({ url: url });
 		this.$('.loading').fadeIn();
 
 		test.load(function (err)
@@ -117,7 +117,7 @@ module.exports = Backbone.View.extend(
 				// save it for real
 
 				data.storyFormats.create({ name: test.properties.name, url: url });
-				
+
 				// add it to the appropriate list
 
 				var path = url.replace(/\/[^\/]*?$/, '');
@@ -244,7 +244,7 @@ module.exports = Backbone.View.extend(
 		{
 			var container = $(e.target).closest('.format');
 			var format = container.data('format');
-			
+
 			if (container.closest('.storyFormatList').length > 0)
 				this.setDefaultFormat(format);
 			else if (container.closest('.proofingFormatList').length > 0)

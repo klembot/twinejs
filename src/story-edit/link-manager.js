@@ -16,7 +16,7 @@ module.exports = Backbone.View.extend(
 {
 	/**
 	 Angle at which arrowheads are drawn, in radians.
-	 
+
 	 @property {Number} ARROW_ANGLE
 	 @final
 	**/
@@ -29,7 +29,7 @@ module.exports = Backbone.View.extend(
 	 @property {Number} ARROW_SIZE
 	 @final
 	**/
-	
+
 	ARROW_SIZE: 10,
 
 	initialize: function (options)
@@ -105,7 +105,7 @@ module.exports = Backbone.View.extend(
 		{
 			this.cachePassage(item);
 			this.drawAll();
-			
+
 			var name = item.get('name');
 
 			_.each(this.passageCache, function (props, pName)
@@ -214,7 +214,10 @@ module.exports = Backbone.View.extend(
 	reset: function()
 	{
 		this.passageCache = {};
-		this.parent.collection.each(function(item) { this.cachePassage(item); }, this);
+		this.parent.collection.each(function(item)
+		{
+			this.cachePassage(item);
+		}, this);
 		this.drawAll();
 	},
 
@@ -334,7 +337,7 @@ module.exports = Backbone.View.extend(
 
 	/**
 	 Projects a point from the endpoint of a line at a certain angle and distance.
-	 
+
 	 @method endPointProjectedFrom
 	 @param {Array} line An array of two points, each an array in [x, y] format
 	 @param {Number} angle Angle in radians to project from the endpoints
@@ -388,7 +391,7 @@ module.exports = Backbone.View.extend(
 		 @property draggedPassages
 		 @private
 		**/
-		
+
 		this.draggedPassages = [];
 		var draggedNames = [];
 
@@ -420,7 +423,7 @@ module.exports = Backbone.View.extend(
 				var endName = props.links[i];
 
 				if (alwaysInclude || draggedNames.indexOf(endName) != -1)
-					this.draggedConnectors.push([startName, endName]);	
+					this.draggedConnectors.push([startName, endName]);
 			};
 		}, this);
 	},
@@ -459,7 +462,7 @@ module.exports = Backbone.View.extend(
 		var pos = passEl.offset();
 		var width = passEl.outerWidth();
 		var height = passEl.outerHeight();
-		
+
 	    // if the passage hasn't been rendered yet, there's nothing to cache yet
 
 	    if (pos)

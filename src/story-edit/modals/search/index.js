@@ -17,7 +17,7 @@ module.exports = Marionette.CollectionView.extend(
 	},
 	emptyView: Marionette.ItemView.extend(
 	{
-		template: noMatchesTemplate	
+		template: noMatchesTemplate
 	}),
 
 	/**
@@ -133,7 +133,7 @@ module.exports = Marionette.CollectionView.extend(
 		var source = this.$('#searchFor').val();
 
 		if (this.$('#searchRegexp').prop('checked'))
-			source = source.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+			source = source.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 
 		return new RegExp('(' + source + ')', flags);
 	},

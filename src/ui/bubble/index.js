@@ -4,11 +4,12 @@ var $ = require('jquery');
 var Drop = require('tether-drop');
 var shorthands = require('../tether-shorthands');
 
-var BubbleDrop = Drop.createContext({
-	classPrefix: 'bubble'	 	
+var BubbleDrop = Drop.createContext(
+{
+	classPrefix: 'bubble'
 });
 
-function Bubble (options)
+function Bubble(options)
 {
 	var pos = options.position || 'top center';
 

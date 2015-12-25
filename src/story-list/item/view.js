@@ -1,6 +1,6 @@
 /**
  An individual item in the list managed by StoryListView.
- This offers quick links for editing, playing, and deleting 
+ This offers quick links for editing, playing, and deleting
  a story; StoryEditView handles more detailed changes.
 
  @class StoryItemView
@@ -50,7 +50,7 @@ module.exports = Marionette.ItemView.extend(
 		var proxy = $('<div id="storyEditProxy" class="fullAppear fast"></div>');
 
 		// match the proxy's zoom to the model
-		
+
 		for (var desc in StoryEditView.prototype.ZOOM_MAPPINGS)
 			if (StoryEditView.prototype.ZOOM_MAPPINGS[desc] == this.model.get('zoom'))
 			{
@@ -106,7 +106,7 @@ module.exports = Marionette.ItemView.extend(
 	},
 
 	/**
-	 Publishes the story to a file.	
+	 Publishes the story to a file.
 
 	 @method publish
 	**/
@@ -131,7 +131,7 @@ module.exports = Marionette.ItemView.extend(
 	{
 		confirm(
 		{
-			content: locale.say("Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone.",
+			content: locale.say('Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone.',
 			                    this.model.get('name')),
 			confirmLabel: '<i class="fa fa-trash-o"></i> ' + locale.say('Delete Forever'),
 			confirmClass: 'danger',
@@ -152,7 +152,7 @@ module.exports = Marionette.ItemView.extend(
 	rename: function()
 	{
 		prompt({
-			prompt: locale.say("What should &ldquo;%s&rdquo; be renamed to?", this.model.get('name')),
+			prompt: locale.say('What should &ldquo;%s&rdquo; be renamed to?', this.model.get('name')),
 			defaultValue: this.model.get('name'),
 			confirmLabel: '<i class="fa fa-ok"></i> ' + locale.say('Rename'),
 			callback: function (confirmed, text)
@@ -173,7 +173,7 @@ module.exports = Marionette.ItemView.extend(
 	confirmDuplicate: function()
 	{
 		prompt({
-			prompt: locale.say("What should the duplicate be named?"),
+			prompt: locale.say('What should the duplicate be named?'),
 			defaultValue: locale.say('%s Copy', this.model.get('name')),
 			confirmLabel: '<i class="fa fa-copy"></i> ' + locale.say('Duplicate'),
 			callback: function (confirmed, text)

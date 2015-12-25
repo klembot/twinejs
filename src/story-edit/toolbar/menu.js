@@ -48,7 +48,7 @@ module.exports = Backbone.View.extend(
 		'click .renameStory': function()
 		{
 			prompt({
-				prompt: locale.say("What should &ldquo;%s&rdquo; be renamed to?", this.parent.model.get('name')),
+				prompt: locale.say('What should &ldquo;%s&rdquo; be renamed to?', this.parent.model.get('name')),
 				defaultValue: this.parent.model.get('name'),
 				confirmLabel: '<i class="fa fa-ok"></i> ' + locale.say('Rename'),
 				callback: function (confirmed, text)

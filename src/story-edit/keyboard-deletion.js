@@ -46,7 +46,7 @@ module.exports =
 					content: message,
 					confirmLabel: '<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
 					confirmClass: 'danger',
-					callback: function afterConfirmation (confirmed)
+					callback: function (confirmed)
 					{
 						if (confirmed)
 							parent.deleteSelectedPassages();

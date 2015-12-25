@@ -47,7 +47,10 @@ module.exports = Marionette.CompositeView.extend(
 
 	childView: PassageItemView,
 	childViewContainer: '.passages .content',
-	childViewOptions: function() { return { parentView: this }; },
+	childViewOptions: function()
+	{
+		return { parentView: this };
+	},
 	template: viewTemplate,
 
 	initialize: function()
@@ -268,7 +271,7 @@ module.exports = Marionette.CompositeView.extend(
 		// try re-using the same window
 
 		var testWindow = window.open('', 'twinestory_test_' + this.model.id);
-		
+
 		if (testWindow.location.href == 'about:blank')
 			testWindow.location.href = url;
 		else
@@ -291,7 +294,7 @@ module.exports = Marionette.CompositeView.extend(
 	},
 
 	/**
-	 Publishes the story to a file.	
+	 Publishes the story to a file.
 
 	 @method publish
 	**/
@@ -414,14 +417,14 @@ module.exports = Marionette.CompositeView.extend(
 			var leftMove = passage.get('left') % hGrid;
 
 			if (leftMove < hGrid / 2)
-				xMove = - leftMove;
+				xMove = -leftMove;
 			else
 				xMove = hGrid - leftMove;
 
 			var upMove = passage.get('top') % vGrid;
 
 			if (upMove < vGrid / 2)
-				yMove = - upMove;
+				yMove = -upMove;
 			else
 				yMove = vGrid - upMove;
 
@@ -494,7 +497,7 @@ module.exports = Marionette.CompositeView.extend(
 	onMouseWheel: function (event)
 	{
 		var delta;
-		if (event.altKey && !event.ctrlKey)
+		if (event.altKey && ! event.ctrlKey)
 		{
 			delta = event.originalEvent.wheelDeltaY; // consider only vertical scroll
 			if (delta > 0)

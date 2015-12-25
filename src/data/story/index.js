@@ -73,7 +73,7 @@ module.exports = Backbone.Model.extend(
 				throw new Error(locale.say('There is no starting point set for this story.'));
 
 			if (! passages.findWhere({ id: startDbId }))
-				throw new Error(locale.say("The passage set as starting point for this story does not exist."));
+				throw new Error(locale.say('The passage set as starting point for this story does not exist.'));
 		};
 
 		// Publish each child passage.

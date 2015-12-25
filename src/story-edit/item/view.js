@@ -252,7 +252,7 @@ module.exports = Marionette.ItemView.extend(
 			{
 				return (this.parentView.collection.findWhere({ name: link }) !== null);
 			}, this);
-	
+
 			this.model.set({ text: currentText }, { silent: true });
 		};
 
@@ -472,7 +472,7 @@ module.exports = Marionette.ItemView.extend(
 	beginDrag: function (e)
 	{
 		if (e.pageX && e.pageY)
-			this.dragMouseStart = { x: e.pageX, y: e.pageY };	
+			this.dragMouseStart = { x: e.pageX, y: e.pageY };
 		else if (e.originalEvent.targetTouches)
 		{
 			e = e.originalEvent;
@@ -531,9 +531,9 @@ module.exports = Marionette.ItemView.extend(
 		if (this.dragTouchId !== null && e.originalEvent.touches)
 		{
 			// prevent default to block any resizing done by the browser
-		
+
 			e.preventDefault();
-			e = e.originalEvent; 
+			e = e.originalEvent;
 
 			// emulate mouse events for touches
 
@@ -566,8 +566,8 @@ module.exports = Marionette.ItemView.extend(
 
 	followDrag: function (e)
 	{
-		this.dragX = Math.max(this.dragStart.left + e.x, 0); 
-		this.dragY = Math.max(this.dragStart.top + e.y, 0); 
+		this.dragX = Math.max(this.dragStart.left + e.x, 0);
+		this.dragY = Math.max(this.dragStart.top + e.y, 0);
 
 		this.$el.css(
 		{
@@ -599,7 +599,10 @@ module.exports = Marionette.ItemView.extend(
 		})
 		.trigger('passagedragend');
 
-		_.defer(function() { this.actuallyDragged = false; }.bind(this));
+		_.defer(function()
+		{
+			this.actuallyDragged = false;
+		}.bind(this));
 	},
 
 	/**
@@ -634,7 +637,7 @@ module.exports = Marionette.ItemView.extend(
 		{
 			// push the passage so it doesn't overlap any other
 			// nonselected one, i.e. that was part of the drag
-			
+
 			this.animateMovement = true;
 			this.parentView.positionPassage(this.model, function (p)
 			{

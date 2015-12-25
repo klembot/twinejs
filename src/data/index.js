@@ -23,7 +23,7 @@ var Prefs = require('./prefs');
 var Stories = require('./stories');
 var StoryFormats = require('./story-formats');
 
-var data = module.exports =
+var data =
 {
 	/*
 	Sets up the collections and business logic of our data layer.
@@ -97,7 +97,7 @@ var data = module.exports =
 			if (! options.noParentUpdate)
 			{
 				var parent = data.storyForPassage(passage);
-				
+
 				if (parent !== undefined)
 					parent.save('lastUpdate', new Date());
 			};
@@ -144,7 +144,7 @@ var data = module.exports =
 
 	/*
 	Retreives a passage by its id.
-	
+
 	@method passage
 	@param {Number} id database ID
 	@return {`data/passage`}
@@ -158,9 +158,9 @@ var data = module.exports =
 
 	/*
 	Retreives all passages belonging to a story as a collection.
-	
+
 	@method passagesForStory
-	@param {`data/story`} story story to retrieve passages for 
+	@param {`data/story`} story story to retrieve passages for
 	@return {`data/passages`}
 	@static
 	*/
@@ -172,7 +172,7 @@ var data = module.exports =
 
 	/*
 	Retreives a preference by its name.
-	
+
 	@method pref
 	@param {String} name name of the preference
 	@param {Any} [defaultValue] if no preference is set, one will be created with this value
@@ -186,7 +186,7 @@ var data = module.exports =
 
 		if (! result)
 			result = this.prefs.create({ name: name, value: defaultValue });
-		
+
 		return result;
 	},
 
@@ -309,3 +309,5 @@ var data = module.exports =
 		return dupeStory;
 	}
 };
+
+module.exports = data;

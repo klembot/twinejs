@@ -27,12 +27,12 @@ module.exports = Backbone.View.extend(
 
 		 @property rendered
 		**/
-		
+
 		this.rendered = false;
 
 		/**
 		 The SVG element on the page.
-		 @property svg	
+		 @property svg
 		**/
 
 		this.svg = SVG(this.el);

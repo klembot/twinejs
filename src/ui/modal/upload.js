@@ -5,7 +5,7 @@ var file = require('../../file');
 var modal = require('./index.js');
 var uploadTemplate = require('./upload.ejs');
 
-function upload (options)
+function upload(options)
 {
 	var uploadModal = modal.open(
 	{

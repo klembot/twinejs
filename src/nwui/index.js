@@ -23,14 +23,14 @@ var WelcomeView = require('../welcome/view');
 var startupErrorTemplate = require('./startup-error.ejs');
 var welcomeViewPatch = require('./welcome-view-patch.ejs');
 
-var nwui = module.exports =
+var nwui =
 {
 	/**
 	 Whether Twine is running in a NW.js environment.
 	 @const
 	**/
 
-	active: 
+	active:
 	window.nwDispatcher !== undefined,
 
 	/**
@@ -58,7 +58,7 @@ var nwui = module.exports =
 
 	initialize: function()
 	{
-		var startupTask = 'beginning startup tasks'; 
+		var startupTask = 'beginning startup tasks';
 
 		try
 		{
@@ -232,7 +232,7 @@ var nwui = module.exports =
 			startupTask = 'checking for the presence of a Documents or My Documents directory in your user directory';
 
 			// we require this here instead of at the top of the file so that
-			// on the web platform, it doesn't try to do any detection 
+			// on the web platform, it doesn't try to do any detection
 			// (and fail, because we are not shimming process).
 
 			nwui.osenv = require('osenv');
@@ -321,7 +321,7 @@ var nwui = module.exports =
 			});
 
 			startupTask = 'setting up shutdown tasks';
-		
+
 			// when quitting, unlock the story directory
 
 			process.on('exit', function()
@@ -340,18 +340,18 @@ var nwui = module.exports =
 			Story.prototype.initialize = function()
 			{
 				oldStoryInit.call(this);
-				
+
 				this.on('change', _.throttle(function()
 				{
 					// if the only thing that is changing is last modified date,
 					// then skip it
-					
+
 					if (! _.some(_.keys(this.changedAttributes()), function (key)
 					{
 						return (key != 'lastUpdated');
 					}))
 						return;
-					
+
 					// if we aren't syncing changes or the story has no passages,
 					// give up early
 
@@ -617,3 +617,5 @@ var nwui = module.exports =
 		};
 	}
 };
+
+module.exports = nwui;

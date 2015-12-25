@@ -11,7 +11,7 @@ model is successfully saved.
 var _ = require('underscore');
 var LocalStorage = require('backbone.localstorage');
 
-function EventedLocalStorage (name, serializer)
+function EventedLocalStorage(name, serializer)
 {
 	return LocalStorage.call(this, name, serializer);
 };
