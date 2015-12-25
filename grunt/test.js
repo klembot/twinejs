@@ -18,18 +18,32 @@ module.exports = function (grunt)
 	grunt.config.merge({
 		jscs:
 		{
-			target: ['src/**/*.js'],
-			options:
+			check:
 			{
-				config: '.jscsrc',
-				verbose: true // If you need output with rule names http://jscs.info/overview.html#verbose
+				src: ['src/**/*.js'],
+				options:
+				{
+					config: '.jscsrc',
+					verbose: true // If you need output with rule names http://jscs.info/overview.html#verbose
+				}
+			},
+
+			fix:
+			{
+				src: ['src/**/*.js'],
+				options:
+				{
+					config: '.jscsrc',
+					fix: true,
+					verbose: true // If you need output with rule names http://jscs.info/overview.html#verbose
+				}
 			}
 		}
 	});
 
 	// lint lints everything.
 
-	grunt.registerTask('lint', ['jscs', 'eslint']);
+	grunt.registerTask('lint', ['jscs:check', 'eslint']);
 
 	// mocha runs browser-based tests.
 	// --grep only runs tests matching a regular expression.
