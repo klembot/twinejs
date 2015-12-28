@@ -20,7 +20,7 @@ repositories:
 
 Run `npm install` at the top level of the directory to install all goodies.
 
-You'll need [Grunt](http://gruntjs.com) to continue. Run `npm install -g grunt`
+You'll also need [Grunt](http://gruntjs.com) to continue. Run `npm install -g grunt-cli`
 (you will need to have administrator privileges to achieve this task).
 
 ### BUILDING
