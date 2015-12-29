@@ -51,10 +51,16 @@ a
 {
 	color: @color-link;
 	text-decoration: none;
+	outline: none;
 
 	&:hover
 	{
 		text-decoration: underline;
+	}
+
+	&:focus
+	{
+		.shadow-focus;
 	}
 
 	.subtle

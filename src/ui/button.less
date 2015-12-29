@@ -13,6 +13,11 @@
 		background: @color;
 	}
 
+	&:focus
+	{
+		.shadow-focus;
+	}
+
 	&:active, &.active
 	{
 		background: darken(@color, 5%);
@@ -52,10 +57,16 @@ button, a.button
 		text-decoration: none;
 	}
 
+	&:focus
+	{
+		.shadow-focus;
+	}
+
 	&:active, &.active
 	{
 		color: @color-link;
 		background: hsla(0, 0%, 0%, 0.1);
+		box-shadow: none;
 		.ui-border;
 	}
 
@@ -92,6 +103,7 @@ button, a.button
 		padding: 0;
 		margin: 0;
 		color: @color-link;
+		border-radius: 0;
 
 		&:hover
 		{

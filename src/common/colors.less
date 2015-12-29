@@ -1,3 +1,5 @@
+@import './metrics.less';
+
 /* base background color */
 @color-paper: white;
 
@@ -34,8 +36,12 @@
 	box-shadow: 0 2px 4px hsla(0, 0%, 0%, 0.2);
 }
 
-/* an effect that adds a subtle border around an element */
+.shadow-focus
+{
+	box-shadow: inset 0 0 0 2px fadeout(@color-link, 50%);
+}
 
+/* an effect that adds a subtle border around an element */
 .ui-border
 {
 	box-shadow: inset 0 0 1px hsla(0, 0%, 0%, 0.15);

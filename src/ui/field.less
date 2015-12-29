@@ -9,6 +9,7 @@ input[type="text"], input[type="search"], input[type="password"], textarea, .Cod
 	color: @color-text;
 	margin-right: @len-small;
 	margin-bottom: @len-small;
+	outline: none;
 
 	&.block
 	{
@@ -29,13 +30,24 @@ input[type="text"], input[type="search"], input[type="password"]
 	border-right: none;
 	border-bottom: @len-hairline dotted @color-text;
 	padding: 0.25em 0;
+
+	&:focus
+	{
+		border-bottom: 1px solid fadeout(@color-link, 50%);
+		box-shadow: 0 1px 0 0 fadeout(@color-link, 50%);
+	}
 }
 
 textarea, .CodeMirror
 {
-	border-radius: @len-small;
-	border: 1px solid @color-ui-border;
 	box-shadow: inset 0 1px 2px hsla(0, 0%, 0%, 0.15);
+	border: @len-hairline solid @color-ui-border;
+	border-radius: @len-small;
+
+	&:focus, &.CodeMirror-focused
+	{
+		.shadow-focus;
+	}
 }
 
 ::-webkit-input-placeholder
