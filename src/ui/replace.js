@@ -5,27 +5,26 @@
 'use strict';
 var ui = require('./index.js');
 
-module.exports = function (html)
-{
-	// remove our UI hooks
+module.exports = function(html) {
+  // Remove our UI hooks
 
-	ui.destroy();
+  ui.destroy();
 
-	// blast the last of our JS globals
+  // Blast the last of our JS globals
 
-	window.CodeMirror = null;
-	window.SVG = null;
-	window.Store = null;
-	window.StoryFormat = null;
-	window.amdDefine = null;
-	window.app = null;
-	window.jQuery = null;
+  window.CodeMirror = null;
+  window.SVG = null;
+  window.Store = null;
+  window.StoryFormat = null;
+  window.amdDefine = null;
+  window.app = null;
+  window.jQuery = null;
 
-	// rewrite the document
+  // Rewrite the document
 
-	document.open();
-	/* jshint -W060 */
-	document.write(html);
-	/* jshint +W060 */
-	document.close();
+  document.open();
+  /* jshint -W060 */
+  document.write(html);
+  /* jshint +W060 */
+  document.close();
 };
