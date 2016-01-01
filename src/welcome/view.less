@@ -1,11 +1,13 @@
+@import '../common/metrics.less';
+
 #welcomeView
 {
+	width: 80vw;
+	margin: @len-large auto;
+
 	> div
 	{
-		display: none;
-		padding: 20px 20px 20px 240px;
-		width: 60%;
-		margin: 5% auto;
+		padding: @len-large @len-large @len-large 200px;
 		min-height: 240px;
 		position: relative;
 
@@ -15,50 +17,50 @@
 			display: block;
 			position: absolute;
 			top: 0;
-			left: 20px;
+			left: @len-large;
 			width: 200px;
 			bottom: 0;
 			background-position: center;
 			background-repeat: no-repeat;
 		}
+
+		&:first-child
+		{
+			padding-top: 0;
+		}
+
+		h1, p
+		{
+			margin-left: @len-extra-large;
+		}
 	}
 
-	hi:before
+	.hi:before
 	{
-		background-image: url('../img/welcome_logo.png');
+		background-image: url('img/welcome_logo.png');
 	}
 
 	.alpha:before
 	{
 		/* http://thenounproject.com/term/construction/5853/ */
-		background-image: url('../img/welcome_alpha.png');
+		background-image: url('img/welcome_alpha.png');
 	}
 
 	.save:before
 	{
 		/* http://thenounproject.com/term/document/12036/ */
-		background-image: url('../img/welcome_save.png');
+		background-image: url('img/welcome_save.png');
 	}
 
 	.help:before
 	{
 		/* http://thenounproject.com/term/question/2036/ */
-		background-image: url('../img/welcome_help.png');
+		background-image: url('img/welcome_help.png');
 	}
 
 	.thanks:before
 	{
 		/* http://thenounproject.com/term/smile/10696/ */
-		background-image: url('../img/welcome_thanks.png');
-	}
-
-	p
-	{
-		font-size: 120%;
-	}
-
-	.buttons .done
-	{
-		padding-left: 1em;
+		background-image: url('img/welcome_thanks.png');
 	}
 }
