@@ -16,7 +16,7 @@ This model is just a pointer to data that is loaded via JSONP.
 var _ = require('underscore');
 var $ = require('jquery');
 var Backbone = require('backbone');
-var locale = require('../../locale');
+var locale = require('../locale');
 
 var StoryFormat = module.exports = Backbone.Model.extend(
 {

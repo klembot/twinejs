@@ -5,19 +5,14 @@ var Backbone = require('backbone');
 var Marionette = require('backbone.marionette');
 var data = require('../../../data');
 var locale = require('../../../locale');
+var modal = require('../../../ui/modal');
 var notify = require('../../../ui/notify');
+var tab = require('../../../ui/tab');
 var StoryFormat = require('../../../data/story-format');
-var storyFormatTemplate = require('./item.ejs');
-require('../../../ui/tab');
+var itemTemplate = require('./item.ejs');
+var modalTemplate = require('./modal.ejs');
 
-module.exports = Backbone.View.extend(
-{
-	initialize: function (options)
-	{
-		this.parent = options.parent;
-		this.itemTemplate = storyFormatTemplate;
-	},
-
+module.exports = Backbone.View.extend({
 	/**
 	 Opens a modal dialog for editing default formats.
 
@@ -26,26 +21,16 @@ module.exports = Backbone.View.extend(
 
 	open: function()
 	{
-		this.$('.error').hide();
+		this.setElement(modal.open({
+			content: Marionette.Renderer.render(modalTemplate)
+		}));
 
-		// begin loading formats immediately
+		tab.attach(this.$el);
 
-		this.$('.storyFormatList, .proofingFormatList').empty();
-		this.formatsToLoad = data.storyFormats;
+		// Begin loading formats immediately.
+
+		this.formatsToLoad = data.storyFormats.clone();
 		this.loadNextFormat();
-
-		this.$el.data('modal').trigger('show');
-	},
-
-	/**
-	 Closes the modal dialog for editing default formats.
-
-	 @method close
-	**/
-
-	close: function()
-	{
-		this.$el.data('modal').trigger('hide');
 	},
 
 	/**
@@ -65,20 +50,7 @@ module.exports = Backbone.View.extend(
 			format.load(function (e)
 			{
 				if (e === undefined)
-				{
-					// calculate containing directory for the format
-					// so that image URLs, for example, are correct
-
-					var path = format.get('url').replace(/\/[^\/]*?$/, '');
-					var fullContent = _.extend(format.properties,
-					                           { path: path, userAdded: format.get('userAdded') });
-					var content = $(Marionette.Renderer.render(this.itemTemplate, fullContent));
-
-					if (fullContent.proofing)
-						this.$('.proofingFormatList').append(content);
-					else
-						this.$('.storyFormatList').append(content);
-				}
+					this.addLoadedFormat(format);
 				else
 					notify(locale.say('The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s).', format.get('name'), e.message), 'danger'); // L10n: %1$s is the name of the story format; %2$s is the error message.
 
@@ -88,9 +60,25 @@ module.exports = Backbone.View.extend(
 		}
 		else
 		{
-			this.syncButtons();
+			this.syncDefaults();
 			this.$('.loading').hide();
 		};
+	},
+
+	addLoadedFormat: function (format)
+	{
+		// calculate containing directory for the format
+		// so that image URLs, for example, are correct
+
+		var path = format.get('url').replace(/\/[^\/]*?$/, '');
+		var fullContent = _.extend(format.properties,
+								   { path: path, userAdded: format.get('userAdded') });
+		var content = $(Marionette.Renderer.render(itemTemplate, fullContent));
+
+		if (fullContent.proofing)
+			this.$('.proofingFormats').append(content);
+		else
+			this.$('.storyFormats').append(content);
 	},
 
 	/**
@@ -117,33 +105,20 @@ module.exports = Backbone.View.extend(
 				// save it for real
 
 				data.storyFormats.create({ name: test.properties.name, url: url });
-				
-				// add it to the appropriate list
 
-				var path = url.replace(/\/[^\/]*?$/, '');
-				var fullContent = _.extend(test.properties, { path: path, userAdded: true });
-				var content = $(Marionette.Renderer.render(this.itemTemplate, fullContent));
-
-				if (fullContent.proofing)
-				{
-					this.$('.proofingFormatList').append(content);
-					this.$('.showProofingFormats').tab();
-					content.hide().slideDown();
-				}
-				else
-				{
-					this.$('.storyFormatList').append(content);
-					this.$('.showStoryFormats').tab();
-					content.hide().slideDown();
-				};
+				this.addLoadedFormat(test);
 
 				// clear the URL input
 
 				this.$('.addFormat input[type="text"]').val('');
-				this.$('.error').hide();
+				this.$('.error').addClass('hide');
+
+				notify(locale.say('Story format added.'));
 			}
 			else
-				this.$('.error').fadeIn().html(locale.say('The story format at %1$s could not be added (%2$s).', url, err.message));
+			{
+				this.$('.error').removeClass('hide').html(locale.say('The story format at %1$s could not be added (%2$s).', url, err.message));
+			};
 
 			this.$('.loading').hide();
 		}.bind(this));
@@ -186,68 +161,44 @@ module.exports = Backbone.View.extend(
 	},
 
 	/**
-	 Syncs the active state of setDefault buttons with user preferences.
+	 Syncs the active state of setDefault radio buttons with user preferences.
 
-	 @method syncButtons
+	 @method syncDefaults
 	**/
 
-	syncButtons: function()
+	syncDefaults: function()
 	{
 		var defaultFormat = data.pref('defaultFormat').get('value');
 		var proofingFormat = data.pref('proofingFormat').get('value');
 
-		this.$('.storyFormatList .format').each(function()
+		this.$('.storyFormats [data-format]').each(function()
 		{
-			var $t = $(this);
-
-			if ($t.data('format') == defaultFormat)
-				$t.find('.setDefault').addClass('active');
-			else
-				$t.find('.setDefault').removeClass('active');
+			$(this).find('.chooseFormat').attr('checked', $(this).data('format') == defaultFormat);
 		});
 
-		this.$('.proofingFormatList .format').each(function()
+		this.$('.proofingFormats [data-format]').each(function()
 		{
-			var $t = $(this);
-
-			if ($t.data('format') == proofingFormat)
-				$t.find('.setDefault').addClass('active');
-			else
-				$t.find('.setDefault').removeClass('active');
+			$(this).find('.chooseFormat').attr('checked', $(this).data('format') == proofingFormat);
 		});
 	},
 
 	events:
 	{
-		'click .showRemoveConfirm': function (e)
+		'click .removeFormat': function (e)
 		{
-			var container = $(e.target).closest('.buttons');
-			container.find('.normalButtons').hide();
-			container.find('.removeConfirm').fadeIn();
-		},
-
-		'click .hideRemoveConfirm': function (e)
-		{
-			var container = $(e.target).closest('.buttons');
-			container.find('.normalButtons').fadeIn();
-			container.find('.removeConfirm').hide();
-		},
-
-		'click .remove': function (e)
-		{
-			var container = $(e.target).closest('.format');
+			var container = $(e.target).closest('[data-format]');
 			this.removeFormat(container.data('format'));
-			container.slideUp();
+			container.remove();
 		},
 
-		'click .setDefault': function (e)
+		'click .chooseFormat': function (e)
 		{
-			var container = $(e.target).closest('.format');
+			var container = $(e.target).closest('[data-format]');
 			var format = container.data('format');
 			
-			if (container.closest('.storyFormatList').length > 0)
+			if (container.closest('.storyFormats').length > 0)
 				this.setDefaultFormat(format);
-			else if (container.closest('.proofingFormatList').length > 0)
+			else if (container.closest('.proofingFormats').length > 0)
 				this.setProofingFormat(format);
 			else
 			{
@@ -255,7 +206,7 @@ module.exports = Backbone.View.extend(
 				throw new Error(locale.say("Don't know what kind of format to set as default"));
 			};
 
-			this.syncButtons();
+			this.syncDefaults();
 		},
 
 		'submit .addFormat': function (e)

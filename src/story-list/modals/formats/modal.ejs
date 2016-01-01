@@ -1,65 +1,68 @@
-<div id="formatsModal" class="modal hide">
+<div id="formatsModal">
+	<header>
+		<div class="tabs">
+			<button class="showStoryFormats" data-content=".storyFormatsContent"><%= s('Story Formats') %></button>
+			<button class="showProofingFormats" data-content=".proofingFormatsContent"><%= s('Proofing Formats') %></button>
+			<button class="showAddFormat" data-content=".addFormatContent"><%= s('Add a New Format') %></button>
+		</div>
+		<button class="close" data-modal="close">
+			<i class="fa fa-remove"></i>
+		</button>
+	</header>
 
-<button class="close subtle" data-modal-hide="this">
-<i class="fa fa-times"></i>
-</button>
+	<div class="tabContent">
+		<div class="storyFormatsContent">
+			<p class="large">
+			<%= s('Story formats control the appearance and behavior of stories during play.') %>
+			</p>
 
-<div class="title">
-<p class="tabs">
-<button class="showStoryFormats" data-content=".storyFormatsContent"><%= s('Story Formats') %></button>
-<button class="showProofingFormats" data-content=".proofingFormatsContent"><%= s('Proofing Formats') %></button>
-<button class="showAddFormat" data-content=".addFormatContent"><%= s('Add a New Format') %></button>
-</p>
-</div>
+			<table>
+				<thead>
+					<tr>
+						<th><%= s('Use as Default') %></th>
+						<th></th>
+						<th></th>
+					</tr>
+				<tbody class="storyFormats">
+				</tbody>
+			</table>
+		</div>
+		<div class="proofingFormatsContent">
+			<p class="large">
+			<%= s('Proofing formats create a versions of stories tailored for editing and proofreading.') %>
+			</p>
 
-<div class="tabContent">
+			<table>
+				<thead>
+					<tr>
+						<th><%= s('Use as Default') %></th>
+						<th></th>
+						<th></th>
+					</tr>
+				<tbody class="proofingFormats">
+				</tbody>
+			</table>
+		</div>
+		<div class="addFormatContent">
+			<p class="large">
+			<%=
+			/* L10n: Address in the sense of a URL. */
+			s('To add a story format, enter its address below.')
+			%>
+			</p>
 
-<div class="storyFormatsContent">
+			<form class="addFormat">
+				<p>
+				<input type="text" name="newFormatUrl" required>
+				<button class="create" type="submit"><i class="fa fa-plus"></i> <%= s('Add') %></button>
+				</p>
 
-<p>
-<%= s('Story formats control the appearance and behavior of stories during play.') %>
-</p>
+				<p class="loading">
+				<i class="fa fa-circle-o-notch fa-lg fa-spin"></i> <%= s('Loading...') %>
+				</p>
 
-<div class="storyFormatList"></div>
-
-</div>
-
-<div class="proofingFormatsContent">
-
-<p>
-<%= s('Proofing formats create a versions of stories tailored for editing and proofreading.') %>
-</p>
-
-<div class="proofingFormatList"></div>
-
-</div>
-
-<div class="addFormatContent">
-
-<p>
-<%=
-/* L10n: Address in the sense of a URL. */
-s('To add a story format, enter its address below.')
-%>
-</p>
-
-<form class="addFormat">
-
-<p>
-<input type="text" name="newFormatUrl" required>
-<button class="create" type="submit"><i class="fa fa-plus"></i> <%= s('Add') %></button>
-</p>
-
-</form>
-
-</div>
-
-<p class="loading">
-<i class="fa fa-circle-o-notch fa-lg fa-spin"></i> <%= s('Loading...') %>
-</p>
-
-<p class="error"></p>
-
-</div> <!-- .tabContent -->
-
+				<p class="error hide"></p>
+			</form>
+		</div>
+	</div> <!-- .tabContent -->
 </div> <!-- #formatsModal -->
