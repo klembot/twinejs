@@ -1,94 +1,98 @@
 /**
- Provides some basic setup for UI elements.
+  Provides some basic setup for UI elements.
 
- @module ui
+  @module ui
 **/
 
 'use strict';
 var $ = require('jquery');
+var animEndEventString =
+  'webkitAnimationEnd.twineui oanimationend.twineui msAnimationEnd.twineui';
 
-module.exports =
-{
-	/**
-	 Performs one-time startup tasks, mainly setting up event listeners.
-	 The heavy lifting is done in submodules or jQuery plugins living
-	 in that module.
-	**/
+module.exports = {
+  /**
+    Performs one-time startup tasks, mainly setting up event listeners.
+    The heavy lifting is done in submodules or jQuery plugins living
+    in that module.
+  **/
 
-	initialize: function()
-	{
-		if (! $('body').data('uiAttached'))
-		{
-			var fastclick = require('fastclick');
-			var $b = $('body');
-			$b.data('uiAttached', true);
+  initialize: function() {
+    var $b = $('body');
+    if (!$b.data('uiAttached')) {
+      var fastclick = require('fastclick');
 
-			/**
-			 The FastClick instance used to cut input
-			 deplays on mobile.
-			 @property fastclick
-			**/
+      $b.data('uiAttached', true);
 
-			// the API depends on whether we're using the CDN
-			// or the CommonJS module :(
+      /**
+        The FastClick instance used to cut input delays on mobile.
+        @property fastclick
+      **/
 
-			if (fastclick.attach !== undefined)
-				this.fastclick = fastclick.attach(document.body);
-			else
-				this.fastclick = fastclick(document.body);
+      // The API depends on whether we're using the CDN
+      // or the CommonJS module :(
 
-			// note iOS for some custom styles
+      if (fastclick.attach !== undefined) {
+        this.fastclick = fastclick.attach(document.body);
+      } else {
+        this.fastclick = fastclick(document.body);
+      }
 
-			if (navigator.userAgent.match(/iPhone|iPad|iPod/i))
-				$b.addClass('iOS');
+      // Note iOS for some custom styles
 
-			// note Safari for some functionality
-			// Chrome includes Safari in its user agent
+      if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
+        $b.addClass('iOS');
+      }
 
-			if (navigator.userAgent.indexOf('Safari') != -1 &&
-				navigator.userAgent.indexOf('Chrome') == -1)
-				$b.addClass('safari');
+      // Note Safari for some functionality
+      // Chrome includes Safari in its user agent
 
-			// polyfill browser animation-related events
+      var hasSafari = navigator.userAgent.indexOf('Safari') !== -1;
+      var hasNoChrome = navigator.userAgent.indexOf('Chrome') === -1;
 
-			$b.on('webkitAnimationEnd.twineui oanimationend.twineui msAnimationEnd.twineui', function (e)
-			{
-				e.type = 'animationend';
-				$(e.target).trigger(e);
-			});
-		};
-	},
+      if (hasSafari && hasNoChrome) {
+        $b.addClass('safari');
+      }
 
-	/**
-	 Undoes all setup in init().
-	**/
+      // Polyfill browser animation-related events
 
-	destroy: function()
-	{
-		if ($('body').data('uiInited'))
-		{
-			// disable FastClick
+      $b.on(animEndEventString, function(e) {
+        e.type = 'animationend';
+        $(e.target).trigger(e);
+      });
+    }
+  },
 
-			this.fastclick.destroy();
+  /**
+    Undoes all setup in init().
+  **/
 
-			// remove classes and event handlers
-			// and mark the body as uninited
+  destroy: function() {
+    var $b = $('body');
+    if ($b.data('uiInited')) {
+      // Disable FastClick
 
-			$('body').removeClass('iOS safari').off('.twineui').data('uiInited', null);
-		};
-	},
+      this.fastclick.destroy();
 
-	/**
-	 Checks to see if the app is running a browser whose main UI is
-	 touch-based. This doesn't necessarily mean that the browser doesn't
-	 support touch at all, just that we expect the user to be interacting
-	 through touchonly.
+      // Remove classes and event handlers
+      // and mark the body as uninited
 
-	 @return {Boolean} whether the browser is primarily touch-based
-	**/
+      $b
+        .removeClass('iOS safari')
+        .off('.twineui')
+        .data('uiInited', null);
+    }
+  },
 
-	hasPrimaryTouchUI: function()
-	{
-		return /Android|iPod|iPad|iPhone|IEMobile/.test(window.navigator.userAgent);
-	}
+  /**
+    Checks to see if the app is running a browser whose main UI is
+    touch-based. This doesn't necessarily mean that the browser doesn't
+    support touch at all, just that we expect the user to be interacting
+    through touchonly.
+
+    @return {Boolean} whether the browser is primarily touch-based
+  **/
+
+  hasPrimaryTouchUI: function() {
+    return /Android|iPod|iPad|iPhone|IEMobile/.test(window.navigator.userAgent);
+  },
 };

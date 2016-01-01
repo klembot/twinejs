@@ -1,7 +1,7 @@
 /**
- Manages notifications that can be created on the fly.
+  Manages notifications that can be created on the fly.
 
- @module ui/notify
+  @module ui/notify
 **/
 
 'use strict';
@@ -16,36 +16,42 @@ var notificationTemplate = require('./notification.ejs');
  @param {String} className CSS class to apply to the notification
 **/
 
-module.exports = function (message, className)
-{
-	var $container = $('#notifications');
+module.exports = function(message, className) {
+  var $container = $('#notifications');
 
-	if ($container.length == 0)
-	{
-		$container = $('<div id="notifications"></div>');
-		$container.on('click', '.close', function (e)
-		{
-			var notification = $(e.target).closest('.notification');
-			notification.removeClass('fadeIn').addClass('fadeOut').one('animationend', function()
-			{
-				notification.remove();
-			});
-		});
+  if ($container.length == 0) {
+    $container = $('<div id="notifications"></div>');
+    $container.on('click', '.close', function(e) {
+      var notification = $(e.target).closest('.notification');
+      notification
+        .removeClass('fadeIn')
+        .addClass('fadeOut')
+        .one('animationend', function() {
+          notification.remove();
+        });
+    });
 
-		$('body').append($container);
-	};
+    $('body').append($container);
+  }
 
-	var n = $(Marionette.Renderer.render(notificationTemplate,
-	                                   { message: message, className: className || 'info' }));
+  var templateOptions = {
+    message: message,
+    className: className || 'info',
+  };
+  var n = $(Marionette.Renderer.render(notificationTemplate, templateOptions));
 
-	$container.append(n);
+  $container.append(n);
 
-	if (className != 'danger')
-		window.setTimeout(function hideNotification()
-		{
-			n.removeClass('fadeIn').addClass('fadeOut').one('animationend', function()
-			{
-				$(this).remove();
-			});
-		}, 3000);
+  function hideNotification() {
+    n
+      .removeClass('fadeIn')
+      .addClass('fadeOut')
+      .one('animationend', function() {
+        $(this).remove();
+      });
+  }
+
+  if (className != 'danger') {
+    window.setTimeout(hideNotification, 3000);
+  }
 };
