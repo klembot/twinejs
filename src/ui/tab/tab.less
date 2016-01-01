@@ -1,27 +1,19 @@
+@import '../../common/metrics.less';
+
 .tabs
 {
-	display: table;
-	width: 100%;
-	border-bottom: 0.1em solid hsl(0, 0%, 90%);
-}
+	display: flex;
+	flex-grow: 1;
 
-.tabs button
-{
-	color: hsl(0, 0%, 30%);
-	background: none;
-	box-shadow: none;
-	display: table-cell;
-	border-radius: 0;
-	margin: 0;
-}
+	button
+	{
+		flex-grow: 1;
+		border-radius: 0;
+		margin: 0;
+	}
 
-.tabs button:hover
-{
-	color: hsl(212, 88%, 50%);
-}
-
-.tabs button:active, .tabs button.active
-{
-	color: hsl(212, 88%, 50%);
-	border-bottom: 0.4em solid hsl(212, 88%, 50%);
+	.bubble .tabs button:first-of-type
+	{
+		border-top-left-radius: @len-small;
+	}
 }

@@ -1,20 +1,23 @@
 'use strict';
 var $ = require('jquery');
-var ui = require('./index');
-//require('../jquery-ext/tab');
 
-$(ui).on('init', function (e, options)
+function activateTab (e)
 {
-	options.$body.on('click.twineui', '.tabs button', function()
+	var $tab = $(e.target).closest('button[data-content]');
+	$tab.addClass('active').siblings('button[data-content]').removeClass('active');
+	$($tab.data('content')).show().siblings().hide();
+};
+
+module.exports =
+{
+	attach: function (el)
 	{
-		// click handler for tabs
+		// Add click event listener.
 
-		$(this).tab();
-	});
-})
-.on('attach', function (e, options)
-{
-	// show first tab in each group
+		$(el).on('click.twineui', 'button[data-content]', activateTab);
 
-	options.$el.find('.tabs button:first-of-type').tab();
-});
+		// Activate the first tab of each group.
+
+		$(el).find('button[data-content]:first-of-type').click();
+	}
+};
