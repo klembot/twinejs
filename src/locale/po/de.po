@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-01-01 22:43+0100\n"
-"PO-Revision-Date: 2016-01-01 23:11+0100\n"
+"PO-Revision-Date: 2016-01-01 23:17+0100\n"
 "Last-Translator: Moritz Rebbert <moritz.rebbert@udo.edu>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -24,11 +24,11 @@ msgstr "Bitte wähle die Sprache, in der du Twine verwenden möchtest."
 
 #: templates/localeview.html:12
 msgid "English"
-msgstr ""
+msgstr "Englisch"
 
 #: templates/localeview.html:19
 msgid "Spanish"
-msgstr ""
+msgstr "Spanisch"
 
 #: templates/storyeditview/passageeditmodal.html:8
 msgid "Passage Name"
@@ -464,13 +464,13 @@ msgid ""
 "Proofing formats create a versions of stories tailored for editing and "
 "proofreading."
 msgstr ""
-"Formate zum Gegenlesen erzeugen eine Version der Geschichte zum Redigieren "
-"und zur Fehlersuche."
+"Diese Formate erzeugen eine Version der Geschichte zum Redigieren und zur "
+"Fehlersuche."
 
 #. L10n: Address in the sense of a URL.
 #: templates/storylistview/modals/formatsmodal.html:42
 msgid "To add a story format, enter its address below."
-msgstr "Zum Hinzufügen eines Story-Formats, gib unten seine URL an."
+msgstr "Zum Hinzufügen eines Formates, gib hier die zugehörige URL an."
 
 #: templates/storylistview/modals/formatsmodal.html:50
 #: templates/storylistview/storylistview.html:26
