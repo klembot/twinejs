@@ -4,8 +4,7 @@
 	"version": "2.0.10",
 	"author": "Chris Klimas <chris@twinery.org>",
 	"browserify-shim": "./cdnShims.js",
-	"dependencies":
-	{
+	"dependencies": {
 		"backbone": "^1.2.1",
 		"backbone.localstorage": "^1.1.16",
 		"backbone.marionette": "^2.4.2",
@@ -25,8 +24,7 @@
 		"tiny-uuid": "^1.0.0",
 		"underscore": "^1.8.3"
 	},
-	"devDependencies":
-	{
+	"devDependencies": {
 		"browserify": "^11.0.0",
 		"browserify-shim": "^3.8.10",
 		"ejsify": "^1.0.0",
@@ -56,28 +54,23 @@
 		"wrench": "^1.5.8"
 	},
 	"dom_storage_quota": 1000000,
-	"eslintConfig":
-	{
-		"rules":
-		{
+	"eslintConfig": {
+		"rules": {
 			"semi": [2, "always"],
 			"no-extra-semi": 0,
 			"comma-dangle": 0
 		},
-		"env":
-		{
+		"env": {
 			"browser": true,
 			"commonjs": true,
 			"node": true
 		},
 		"extends": "eslint:recommended"
 	},
-	"jscsConfig":
-	{
+	"jscsConfig": {
 		"preset": "node-style-guide",
 		"disallowTrailingComma": true,
 		"disallowSpaceAfterPrefixUnaryOperators": false,
-		"disallowKeywordsOnNewLine": false,
 		"requireKeywordsOnNewLine": ["else"],
 		"requirePaddingNewLinesBeforeLineComments": { "allExcept": "firstAfterCurly" },
 		"requirePaddingNewLineAfterVariableDeclaration": true,
@@ -88,13 +81,11 @@
 	},
 	"license": "GPL-3.0",
 	"main": "index.html",
-	"repository":
-	{
+	"repository": {
 		"type": "hg",
 		"url": "https://bitbucket.org/klembot/twinejs"
 	},
-	"window":
-	{
+	"window": {
 		"show": false,
 		"toolbar": false,
 		"width": 1024,
