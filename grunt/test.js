@@ -1,5 +1,4 @@
-module.exports = function(grunt)
-{
+module.exports = function(grunt) {
 	// eslint checks JavaScript files for potential problems.
 
 	grunt.config.merge({
@@ -15,10 +14,11 @@ module.exports = function(grunt)
 				src: ['src/**/*.js'],
 				options: {
 					config: true,
+
 					// If you need output with rule names
 					// http://jscs.info/overview.html#verbose
 					verbose: true
-				},
+				}
 			},
 
 			fix: {
@@ -26,12 +26,13 @@ module.exports = function(grunt)
 				options: {
 					config: true,
 					fix: true,
+
 					// If you need output with rule names
 					// http://jscs.info/overview.html#verbose
 					verbose: true
-				},
-			},
-		},
+				}
+			}
+		}
 	});
 
 	// Lint lints everything.
