@@ -175,7 +175,7 @@ module.exports = Backbone.View.extend({
 
     this.followDragBound = this.followDrag.bind(this);
 
-    $(body).on({
+    $('body').on({
       passagedragstart: this.prepDragBound,
       passagedrag: this.followDragBound,
     });
@@ -194,7 +194,7 @@ module.exports = Backbone.View.extend({
   **/
 
   destroy: function() {
-    $(body).off({
+    $('body').off({
       passagedragstart: this.prepDragBound,
       passagedrag: this.followDragBound,
     });

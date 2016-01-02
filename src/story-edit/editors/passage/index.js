@@ -6,7 +6,6 @@
 **/
 
 'use strict';
-var $ = require('jquery');
 var _ = require('underscore');
 var CodeMirror = require('codemirror');
 var Marionette = require('backbone.marionette');

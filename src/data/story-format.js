@@ -1,5 +1,5 @@
 /*
-# story-format
+//story-format
 
 This exports a class that extends `Backbone.Model`, which manages story
 formats.  A story format transforms a story's HTML output into a full-fledged
@@ -9,7 +9,7 @@ Although this has a traditional numeric id, a story format's true primary key
 is its name. This is so that if stories are traded among users, links between
 stories and formats will be retained.
 
-This model is just a pointer to data that is loaded via JSONP. 
+This model is just a pointer to data that is loaded via JSONP.
 */
 
 'use strict';
@@ -18,147 +18,143 @@ var $ = require('jquery');
 var Backbone = require('backbone');
 var locale = require('../locale');
 
-var StoryFormat = module.exports = Backbone.Model.extend(
-{
-	/*
-	Remembers whether the format has been loaded yet.
+var StoryFormat = module.exports = Backbone.Model.extend({
+  /*
+    Remembers whether the format has been loaded yet.
 
-	@property loaded
-	@type Boolean
-	*/
-	loaded: false,
+    @property loaded
+    @type Boolean
+    */
+  loaded: false,
 
-	/*
-	Properties set by the external format file-- notably,
-	the format source. To load these, call `load()`.
+  /*
+    Properties set by the external format file-- notably,
+    the format source. To load these, call `load()`.
 
-	@property properties
-	@type Object
-	*/
-	properties: {},
+    @property properties
+    @type Object
+    */
+  properties: {},
 
-	defaults: _.memoize(function()
-	{
-		return {
-			name: locale.say('Untitled Story Format'),
-			url: '',
-			userAdded: true
-		};
-	}),
+  defaults: _.memoize(function()  {
+    return {
+      name: locale.say('Untitled Story Format'),
+      url: '',
+      userAdded: true,
+    };
+  }),
 
-	/*
-	Loads the actual story format via a JSONP request. After this
-	call, its data is available under the properties property.
+  /**
+    Loads the actual story format via a JSONP request. After this
+    call, its data is available under the properties property.
 
-	Because the JSONP request is asynchronous, properties will almost
-	certainly not be available immediately after this returns. Pass a
-	callback to be guaranteed when properties are available.
+    Because the JSONP request is asynchronous, properties will almost
+    certainly not be available immediately after this returns. Pass a
+    callback to be guaranteed when properties are available.
 
-	If the format has been previously loaded, then this will have no effect,
-	and the callback will be called immediately.
+    If the format has been previously loaded, then this will have no effect,
+    and the callback will be called immediately.
 
-	@method load
-	@param {Function} [callback] Function to call when loading completes; if it did
-	                             not succeed, the function will be passed an `Error` object.
-							     If no callback is passed, an error is raised directly.
-	*/
+    @method load
+    @param {Function} [callback] Function to call when loading completes; if it
+                                 did not succeed, the function will be passed an
+                                 `Error` object. If no callback is passed, an
+                                 error is raised directly.
+    */
 
-	load: function (callback)
-	{
-		if (this.loaded)
-		{
-			if (callback)
-				callback();
+  load: function(callback)  {
+    if (this.loaded) {
+      if (callback) {
+        callback();
+      }
 
-			return;
-		};
+      return;
+    }
 
-		$.ajax({
-			url: this.get('url'),
-			dataType: 'jsonp',
-			jsonpCallback: 'storyFormat',
-			crossDomain: true
-		})
-		.done(function (properties)
-		{
-			this.properties = properties;
-			this.loaded = true;
+    function onDone(properties) {
+      this.properties = properties;
+      this.loaded = true;
 
-			if (this.properties.setup)
-				this.properties.setup.call(this);
+      if (this.properties.setup) {
+        this.properties.setup.call(this);
+      }
 
-			if (callback)
-				callback();
-		}.bind(this))
-		.fail(function (req, status, error)
-		{
-			if (callback)
-				callback(error);
-			else
-				throw error;
-		});
-	},
+      if (callback) {
+        callback();
+      }
+    }
 
-	/*
-	Publishes a story with this story format. This method is asynchronous.
+    function onFail(req, status, error) {
+      if (callback) {
+        callback(error);
+      } else {
+        throw error;
+      }
+    }
 
-	@method publish
-	@param {Story} story story to publish
-	@param {Object} options options to pass to `Story.publish()`
-	@param {Function} callback function called with the resulting HTML, signature `callback(err, result)`
-	*/
+    $.ajax({
+      url: this.get('url'),
+      dataType: 'jsonp',
+      jsonpCallback: 'storyFormat',
+      crossDomain: true,
+    })
+    .done(onDone.bind(this))
+    .fail(onFail);
+  },
 
-	publish: function (story, options, callback)
-	{
-		this.load(function (err)
-		{
-			if (err)
-			{
-				callback(err);
-				return;
-			};
+  /**
+    Publishes a story with this story format. This method is asynchronous.
 
-			try
-			{
-				var output = this.properties.source;
+    @method publish
+    @param {Story} story story to publish
+    @param {Object} options options to pass to `Story.publish()`
+    @param {Function} callback function called with the resulting HTML,
+                               signature `callback(err, result)`
+    */
 
-				// Use function replacements to protect the data from accidental
-				// interactions with the special string replacement patterns.
+  publish: function(story, options, callback)  {
+    this.load(function(err)    {
+      if (err)      {
+        callback(err);
+        return;
+      }
 
-				// Start with builtin placeholders.
+      try {
+        var output = this.properties.source;
 
-				output = output.replace(/{{STORY_NAME}}/g, function ()
-				{
-					return _.escape(story.get('name'));
-				});
-				output = output.replace(/{{STORY_DATA}}/g, function ()
-				{
-					return story.publish(options);
-				});
+        // Use function replacements to protect the data from accidental
+        // interactions with the special string replacement patterns.
 
-				// User-defined placeholders. (These are not implemented yet.)
+        // Start with builtin placeholders.
 
-				_.each(this.get('placeholders'), function (p)
-				{
-					var value = story.get(p.name);
+        output = output.replace(/{{STORY_NAME}}/g, function()  {
+          return _.escape(story.get('name'));
+        });
+        output = output.replace(/{{STORY_DATA}}/g, function()  {
+          return story.publish(options);
+        });
 
-					if (value !== null)
-						output = output.replace(p.name, function ()
-						{
-							return value;
-						});
-				});
+        // User-defined placeholders. (These are not implemented yet.)
 
-				callback(null, output);
-			}
-			catch (e)
-			{
-				callback(e);
-			};
-		}.bind(this));
-	}
+        _.each(this.get('placeholders'), function(p)  {
+          var value = story.get(p.name);
+
+          if (value !== null) {
+            output = output.replace(p.name, function() {
+              return value;
+            });
+          }
+        });
+
+        callback(null, output);
+      } catch (e) {
+        callback(e);
+      }
+    }.bind(this));
+  },
 });
 
-// Place the story format class into the global scope, for Harlowe compatibility.
+// Place the story format class into the global scope,
+// for Harlowe compatibility.
 
 window.StoryFormat = StoryFormat;

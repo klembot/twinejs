@@ -19,7 +19,6 @@ var prompt = require('../../ui/modal/prompt');
 var Passage = require('../../data/passage');
 var Preview = require('./preview');
 var StoryEditView = require('../../story-edit/view');
-var StoryFormat = require('../../data/story-format');
 var StoryMenu = require('./menu');
 var viewTemplate = require('./view.ejs');
 

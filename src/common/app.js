@@ -136,7 +136,7 @@ module.exports = Marionette.Application.extend({
                        later version.
    */
   version: function() {
-    var $html = $(html);
+    var $html = $('html');
     return {
       version: $html.data('version'),
       buildNumber: parseInt($html.data('build-number')),

@@ -10,7 +10,6 @@ var $ = require('jquery');
 var _ = require('underscore');
 var Marionette = require('backbone.marionette');
 var archive = require('../data/archive');
-var data = require('../data');
 var file = require('../file');
 var locale = require('../locale');
 var notify = require('../ui/notify');

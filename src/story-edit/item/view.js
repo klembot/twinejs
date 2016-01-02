@@ -351,7 +351,7 @@ module.exports = Marionette.ItemView.extend({
       passagedragstart: this.prepDragBound,
       passagedrag: this.followDragBound,
       passagedragend: this.finishDragBound,
-    })
+    });
   },
 
   /**
@@ -371,7 +371,7 @@ module.exports = Marionette.ItemView.extend({
       passagedragstart: this.prepDragBound,
       passagedrag: this.followDragBound,
       passagedragend: this.finishDragBound,
-    })
+    });
   },
 
   /**

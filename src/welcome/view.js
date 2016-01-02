@@ -12,50 +12,43 @@ var Marionette = require('backbone.marionette');
 var data = require('../data');
 var viewTemplate = require('./view.ejs');
 
-module.exports = Marionette.ItemView.extend(
-{
-	template: viewTemplate,
+module.exports = Marionette.ItemView.extend({
+  template: viewTemplate,
 
-	initialize: function()
-	{
-		this.welcomePref = data.pref('welcomeSeen');
-	},
+  initialize: function()  {
+    this.welcomePref = data.pref('welcomeSeen');
+  },
 
-	onShow: function()
-	{
-		this.$('div:first-child').removeClass('hide').addClass('appear');
-	},
+  onShow: function()  {
+    this.$('div:first-child').removeClass('hide').addClass('appear');
+  },
 
-	finish: function()
-	{
-		this.welcomePref.save({ value: true });
-		window.location.hash = '#stories';
-	},
+  finish: function()  {
+    this.welcomePref.save({ value: true });
+    window.location.hash = '#stories';
+  },
 
-	next: function (e)
-	{
-		var $t = $(e.target);
-		var next = $t.closest('div').next('div');
+  next: function(e)  {
+    var $t = $(e.target);
+    var next = $t.closest('div').next('div');
 
-		// fade out existing buttons
+    // Fade out existing buttons
 
-		$t.closest('p').addClass('fadeOut')
-		.on('animationend', function ()
-		{
-			$(this).remove();
-		});
+    $t.closest('p').addClass('fadeOut')
+    .on('animationend', function() {
+      $(this).remove();
+    });
 
-		// either show the next div, or move on to the story list
-		// have to offset the position because we're animating it
-		// downward, I think
+    // Either show the next div, or move on to the story list
+    // have to offset the position because we're animating it
+    // downward, I think
 
-		next.removeClass('hide').addClass('slideDown');
-		$('body').animate({ scrollTop: next.position().top + 100 });
-	},
+    next.removeClass('hide').addClass('slideDown');
+    $('body').animate({ scrollTop: next.position().top + 100 });
+  },
 
-	events:
-	{
-		'click .next': 'next',
-		'click .done': 'finish'
-	}
+  events: {
+    'click .next': 'next',
+    'click .done': 'finish',
+  },
 });
