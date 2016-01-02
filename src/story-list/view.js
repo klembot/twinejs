@@ -25,288 +25,295 @@ var importingTemplate = require('./importing.ejs');
 var viewTemplate = require('./view.ejs');
 
 var StoryListView = Marionette.CompositeView.extend({
-  childView: StoryItemView,
-  childViewContainer: '.stories',
-  childViewOptions: function() {
-    return { parent: this };
-  },
+	childView: StoryItemView,
+	childViewContainer: '.stories',
+	childViewOptions: function() {
+		return { parent: this };
+	},
 
-  template: viewTemplate,
-  templateHelpers: {
-    appVersion: TwineApp.version().version,
-  },
+	template: viewTemplate,
+	templateHelpers: {
+		appVersion: TwineApp.version().version
+	},
 
-  /**
-    If true, then we do not animate the stories appearing, nor
-    do we do a version or donation check.
+	/**
+	    If true, then we do not animate the stories appearing, nor
+	    do we do a version or donation check.
 
-    @property appearFast
-    @default false
-  **/
+	    @property appearFast
+	    @default false
+	  **/
 
-  appearFast: false,
+	appearFast: false,
 
-  onShow: function() {
-    this.sortByDate();
+	onShow: function() {
+		this.sortByDate();
 
-    this.aboutModal = new AboutModal({ parent: this });
-    this.formatsModal = new FormatsModal({ parent: this });
-    this.storageQuota = new StorageQuota({
-      parent: this,
-      el: this.$('.quota'),
-    });
+		this.aboutModal = new AboutModal({ parent: this });
+		this.formatsModal = new FormatsModal({ parent: this });
+		this.storageQuota = new StorageQuota({
+			parent: this,
+			el: this.$('.quota')
+		});
 
-    // If we were previously editing a story, show a proxy
-    // shrinking back into the appropriate item
+		// If we were previously editing a story, show a proxy
+		// shrinking back into the appropriate item
 
-    if (this.previouslyEditing) {
-      var proxy =
-        $('<div id="storyEditProxy" class="fullAppear fast reverse">');
-      proxy.one('animationend', function() {
-        proxy.remove();
-      });
+		if (this.previouslyEditing) {
+			var proxy =
+			$('<div id="storyEditProxy" class="fullAppear fast reverse">');
 
-      this.children.find(function(c) {
-        if (c.model.get('id') == this.previouslyEditing) {
-          var $s = c.$('.story');
-          var o = $s.offset();
-          o.left += $s.outerHeight() / 2;
+			proxy.one('animationend', function() {
+				proxy.remove();
+			});
 
-          // We don't vertically center because it zooms into empty
-          // space on short titles
+			this.children.find(function(c) {
+				if (c.model.get('id') == this.previouslyEditing) {
+					var $s = c.$('.story');
+					var o = $s.offset();
 
-          proxy.css({
-            '-webkit-transform-origin': o.left + 'px ' + o.top + 'px',
-            transformOrigin: o.left + 'px ' + o.top + 'px',
-          });
-          return true;
-        }
-      }.bind(this));
+					o.left += $s.outerHeight() / 2;
 
-      this.$el.append(proxy);
-    }
+					// We don't vertically center because it zooms into empty
+					// space on short titles
 
-    // If we were asked to appear fast, we do nothing else
+					proxy.css({
+						'-webkit-transform-origin': o.left + 'px ' + o.top + 'px',
+						transformOrigin: o.left + 'px ' + o.top + 'px'
+					});
+					return true;
+				}
+			}.bind(this));
 
-    if (this.appearFast) {
-      return;
-    }
+			this.$el.append(proxy);
+		}
 
-    // Check for new version
+		// If we were asked to appear fast, we do nothing else
 
-    UpdateModal.check();
-  },
+		if (this.appearFast) {
+			return;
+		}
 
-  onDomRefresh: function() {
-    this.syncStoryCount();
+		// Check for new version
 
-    // Render previews
-    // this must be deferred so all initialization on child views has time
-    // to take place
+		UpdateModal.check();
+	},
 
-    _.defer(function() {
-      this.children.each(function(view) {
-        view.preview.rendered = false;
-      });
+	onDomRefresh: function() {
+		this.syncStoryCount();
 
-      this.showNextPreview();
-    }.bind(this));
-  },
+		// Render previews
+		// this must be deferred so all initialization on child views has time
+		// to take place
 
-  addStory: function() {
-    prompt({
-      prompt: locale.say(
-        'What should your story be named? You can change this later.'
-      ),
-      confirmLabel: '<i class="fa fa-plus"></i> ' + locale.say('Add'),
-      confirmClass: 'create',
-      callback: function(confirmed, text) {
-        if (confirmed) {
-          var story = this.collection.create({ name: text });
-          this.children.findByModel(story).edit();
-        }
-      }.bind(this),
-    });
-  },
+		_.defer(function() {
+			this.children.each(function(view) {
+				view.preview.rendered = false;
+			});
 
-  /**
-    Saves an archive of all stories.
+			this.showNextPreview();
+		}.bind(this));
+	},
 
-    @method saveArchive
-  **/
+	addStory: function() {
+		prompt({
+			prompt: locale.say(
+			'What should your story be named? You can change this later.'
+			),
+			confirmLabel: '<i class="fa fa-plus"></i> ' + locale.say('Add'),
+			confirmClass: 'create',
+			callback: function(confirmed, text) {
+				if (confirmed) {
+					var story = this.collection.create({ name: text });
 
-  saveArchive: function() {
-    try {
-      file.save(archive.create(), archive.name());
-    }
-    catch (e) {
-      // FIXME
-    }
-  },
+					this.children.findByModel(story).edit();
+				}
+			}.bind(this)
+		});
+	},
 
-  /**
-    Prompts the user for a file to upload and attempts to import it.
-    The result, either success or failure, is shown as a notification.
-  **/
+	/**
+	    Saves an archive of all stories.
 
-  importFile: function() {
-    var uploadModal = upload({
-      content: locale.say(
-        'You may import a Twine 2 archive file or a published ' +
-        'Twine 2 stories.  Stories created by Twine 1 cannot be imported.'
-      ),
-      autoclose: false,
-      callback: function parseUploadedFile(confirmed, data) {
-        if (confirmed) {
-          uploadModal.find('.uploadModal').html(
-            Marionette.Renderer.render(importingTemplate)
-          );
+	    @method saveArchive
+	  **/
 
-          var className = 'success';
-          var message = '';
+	saveArchive: function() {
+		try {
+			file.save(archive.create(), archive.name());
+		}
+		catch (e) {
+			// FIXME
+		}
+	},
 
-          try {
-            var count = archive.import(data);
+	/**
+	    Prompts the user for a file to upload and attempts to import it.
+	    The result, either success or failure, is shown as a notification.
+	  **/
 
-            if (count > 0) {
-              // L10n: %d is a number of stories.
-              message = locale.sayPlural('%d story was imported.',
-              '%d stories were imported.', count);
-            } else {
-              className = 'danger';
-              message = locale.say(
-                'Sorry, no stories could be found in this file.'
-              );
-            }
-          }
-          catch (err) {
-            className = 'danger';
-            message = locale.say(
-              'An error occurred while trying to import this file. (' +
-              err.message +
-              ')'
-            );
-          }
+	importFile: function() {
+		var uploadModal = upload({
+			content: locale.say(
+			'You may import a Twine 2 archive file or a published ' +
+			'Twine 2 stories.  Stories created by Twine 1 cannot be imported.'
+			),
+			autoclose: false,
+			callback: function parseUploadedFile(confirmed, data) {
+				if (confirmed) {
+					uploadModal.find('.uploadModal').html(
+					Marionette.Renderer.render(importingTemplate)
+					);
 
-          notify(message, className);
-        }
+					var className = 'success';
+					var message = '';
 
-        upload.close();
-      }.bind(this),
-    });
-  },
+					try {
+						var count = archive.import(data);
 
-  showNextPreview: function() {
-    var unrenderedIndex;
+						if (count > 0) {
+							// L10n: %d is a number of stories.
+							message = locale.sayPlural('%d story was imported.',
+							'%d stories were imported.', count);
+						}
+						else {
+							className = 'danger';
+							message = locale.say(
+							'Sorry, no stories could be found in this file.'
+							);
+						}
+					}
+					catch (err) {
+						className = 'danger';
+						message = locale.say(
+						'An error occurred while trying to import this file. (' +
+						err.message +
+						')'
+						);
+					}
 
-    var unrendered = this.children.find(function(view, index) {
-      if (!view.preview.rendered) {
-        unrenderedIndex = index;
-        return true;
-      }
-    });
+					notify(message, className);
+				}
 
-    if (unrendered !== undefined) {
-      unrendered.preview.render(function() {
-        if (this.appearFast) {
-          unrendered.display();
-        } else {
-          _.delay(
-            unrendered.fadeIn.bind(unrendered),
-            unrenderedIndex * StoryListView.APPEAR_DELAY
-          );
-        }
+				upload.close();
+			}.bind(this)
+		});
+	},
 
-        this.showNextPreview();
-      }.bind(this));
-    } else {
-      this.appearFast = false;
-    }
-  },
+	showNextPreview: function() {
+		var unrenderedIndex;
 
-  /**
-    Sorts the story list by alphabetical order.
+		var unrendered = this.children.find(function(view, index) {
+			if (! view.preview.rendered) {
+				unrenderedIndex = index;
+				return true;
+			}
+		});
 
-    @method sortByName
-  **/
+		if (unrendered !== undefined) {
+			unrendered.preview.render(function() {
+				if (this.appearFast) {
+					unrendered.display();
+				}
+				else {
+					_.delay(
+					unrendered.fadeIn.bind(unrendered),
+					unrenderedIndex * StoryListView.APPEAR_DELAY
+					);
+				}
 
-  sortByName: function() {
-    this.collection.order = 'name';
-    this.collection.reverseOrder = false;
-    this.collection.sort();
-    this.$('.sortByDate').removeClass('active');
-    this.$('.sortByName').addClass('active');
-  },
+				this.showNextPreview();
+			}.bind(this));
+		}
+		else {
+			this.appearFast = false;
+		}
+	},
 
-  /**
-    Sorts the story list by last edit date.
+	/**
+	    Sorts the story list by alphabetical order.
 
-    @method sortByDate
-  **/
+	    @method sortByName
+	  **/
 
-  sortByDate: function() {
-    this.collection.order = 'lastUpdate';
-    this.collection.reverseOrder = true;
-    this.collection.sort();
-    this.$('.sortByDate').addClass('active');
-    this.$('.sortByName').removeClass('active');
-  },
+	sortByName: function() {
+		this.collection.order = 'name';
+		this.collection.reverseOrder = false;
+		this.collection.sort();
+		this.$('.sortByDate').removeClass('active');
+		this.$('.sortByName').addClass('active');
+	},
 
-  /**
-    Syncs onscreen appearance of the story table and our 'there are no stories'
-    message with the collection.
+	/**
+	    Sorts the story list by last edit date.
 
-    @method syncStoryCount
-  **/
+	    @method sortByDate
+	  **/
 
-  syncStoryCount: function() {
-    if (this.collection.length > 0) {
-      this.$('.stories').css('display', 'flex');
-      this.$('.noStories').css('display', 'none');
-    } else {
-      this.$('.stories').css('display', 'none');
-      this.$('.noStories').css('display', 'block');
-    }
+	sortByDate: function() {
+		this.collection.order = 'lastUpdate';
+		this.collection.reverseOrder = true;
+		this.collection.sort();
+		this.$('.sortByDate').addClass('active');
+		this.$('.sortByName').removeClass('active');
+	},
 
-    // L10n: %d is a number of stories
-    document.title = locale.sayPlural(
-      '%d Story', '%d Stories',
-      this.collection.length
-    );
-  },
+	/**
+	    Syncs onscreen appearance of the story table and our 'there are no stories'
+	    message with the collection.
 
-  collectionEvents: {
-    'update reset sort': function() {
-      this.render();
-    },
-  },
+	    @method syncStoryCount
+	  **/
 
-  events: {
-    'click .addStory': 'addStory',
-    'click .saveArchive': 'saveArchive',
-    'click .importFile': 'importFile',
-    'click .sortByDate': 'sortByDate',
-    'click .sortByName': 'sortByName',
+	syncStoryCount: function() {
+		if (this.collection.length > 0) {
+			this.$('.stories').css('display', 'flex');
+			this.$('.noStories').css('display', 'none');
+		}
+		else {
+			this.$('.stories').css('display', 'none');
+			this.$('.noStories').css('display', 'block');
+		}
 
-    'click .showAbout': function() {
-      this.aboutModal.open();
-    },
+		// L10n: %d is a number of stories
+		document.title = locale.sayPlural(
+		'%d Story', '%d Stories',
+		this.collection.length
+		);
+	},
 
-    'click .showFormats': function() {
-      this.formatsModal.open();
-    },
+	collectionEvents: {
+		'update reset sort': function() {
+			this.render();
+		}
+	},
 
-    'click .showLocale': function() {
-      window.location.hash = 'locale';
-    },
+	events: {
+		'click .addStory': 'addStory',
+		'click .saveArchive': 'saveArchive',
+		'click .importFile': 'importFile',
+		'click .sortByDate': 'sortByDate',
+		'click .sortByName': 'sortByName',
 
-    'click .showHelp': function() {
-      window.open('http://twinery.org/2guide');
-    },
-  },
+		'click .showAbout': function() {
+			this.aboutModal.open();
+		},
+
+		'click .showFormats': function() {
+			this.formatsModal.open();
+		},
+
+		'click .showLocale': function() {
+			window.location.hash = 'locale';
+		},
+
+		'click .showHelp': function() {
+			window.open('http://twinery.org/2guide');
+		}
+	}
 },
 {
-  APPEAR_DELAY: 75,
+	APPEAR_DELAY: 75
 });
 
 module.exports = StoryListView;

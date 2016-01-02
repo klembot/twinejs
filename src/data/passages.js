@@ -11,6 +11,6 @@ var EventedLocalStorage = require('../backbone-ext/evented-local-storage');
 var Passage = require('./passage');
 
 module.exports = Backbone.Collection.extend({
-  localStorage: new EventedLocalStorage('twine-passages'),
-  model: Passage,
+	localStorage: new EventedLocalStorage('twine-passages'),
+	model: Passage
 });

@@ -75,24 +75,15 @@
 	"jscsConfig":
 	{
 		"preset": "node-style-guide",
-
-		// Allman-style braces.
-
+		"disallowTrailingComma": true,
+		"disallowSpaceAfterPrefixUnaryOperators": false,
 		"disallowKeywordsOnNewLine": false,
-		"disallowNewlineBeforeBlockStatements": false,
-		"requireNewlineBeforeBlockStatements": true,
-
-		// Require newlines after block statements and variable declarations.
-
-		"requirePaddingNewLinesAfterBlocks": true,
+		"requireKeywordsOnNewLine": ["else"],
+		"requirePaddingNewLinesBeforeLineComments": { "allExcept": "firstAfterCurly" },
 		"requirePaddingNewLineAfterVariableDeclaration": true,
-
-		// Don't require trailing commas.
-
+		"requirePaddingNewLinesAfterBlocks": true,
+		"requireSpaceAfterPrefixUnaryOperators": ["!", "~"],
 		"requireTrailingComma": false,
-
-		// Use tabs for indentation.
-
 		"validateIndentation": "\t"
 	},
 	"license": "GPL-3.0",

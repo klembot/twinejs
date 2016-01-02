@@ -9,140 +9,141 @@ var modalTemplate = require('./modal.ejs');
 var noMatchesTemplate = require('./no-matches.ejs');
 
 module.exports = Marionette.CollectionView.extend({
-  childView: Result,
-  childViewOptions: function() {
-    return {parent: this};
-  },
-  emptyView: Marionette.ItemView.extend({
-    template: noMatchesTemplate,
-  }),
+	childView: Result,
+	childViewOptions: function() {
+		return {parent: this};
+	},
 
-  /**
-    Opens a modal dialog for search/replace.
-  **/
+	emptyView: Marionette.ItemView.extend({
+		template: noMatchesTemplate
+	}),
 
-  open: function(collection) {
-    this.sourceCollection = collection;
-    this.collection = new Passages();
-    this.collection.on('reset', this.render);
+	/**
+	    Opens a modal dialog for search/replace.
+	  **/
 
-    this.setElement(modal.open({
-      content: Marionette.Renderer.render(modalTemplate),
-    }));
-  },
+	open: function(collection) {
+		this.sourceCollection = collection;
+		this.collection = new Passages();
+		this.collection.on('reset', this.render);
 
-  /**
-    Performs a search in story passages, updating the collection.
+		this.setElement(modal.open({
+			content: Marionette.Renderer.render(modalTemplate)
+		}));
+	},
 
-    @method updateResults
-  **/
+	/**
+	    Performs a search in story passages, updating the collection.
 
-  updateResults: function() {
-    this.searchTerm = this.searchRegexp();
-    this.searchNames = this.$('#searchNames').prop('checked');
+	    @method updateResults
+	  **/
 
-    if (this.searchTerm.source === '') {
-      // Bug out early if there was no text entered
+	updateResults: function() {
+		this.searchTerm = this.searchRegexp();
+		this.searchNames = this.$('#searchNames').prop('checked');
 
-      this.collection.reset([]);
-      this.$('.resultSummary').addClass('hide');
-      return;
-    }
+		if (this.searchTerm.source === '') {
+			// Bug out early if there was no text entered
 
-    var matches = [];
+			this.collection.reset([]);
+			this.$('.resultSummary').addClass('hide');
+			return;
+		}
 
-    this.sourceCollection.each(function(model) {
-      var numMatches = model.numMatches(this.searchTerm, this.searchNames);
+		var matches = [];
 
-      if (numMatches !== 0) {
-        matches.push(model);
-      }
-    }.bind(this));
+		this.sourceCollection.each(function(model) {
+			var numMatches = model.numMatches(this.searchTerm, this.searchNames);
 
-    this.collection.reset(matches);
-    this.$('.resultSummary').removeClass('hide');
-    this.$('.resultSummary .matches').text(
-      locale.sayPlural('%d match', '%d matches', matches.length)
-    );
-  },
+			if (numMatches !== 0) {
+				matches.push(model);
+			}
+		}.bind(this));
 
-  /**
-    Performs a replace in all passages, closes the modal,
-    then shows a notification as to how many replacements were made.
+		this.collection.reset(matches);
+		this.$('.resultSummary').removeClass('hide');
+		this.$('.resultSummary .matches').text(
+		locale.sayPlural('%d match', '%d matches', matches.length)
+		);
+	},
 
-    @method replaceAll
-  **/
+	/**
+	    Performs a replace in all passages, closes the modal,
+	    then shows a notification as to how many replacements were made.
 
-  replaceAll: function() {
-    var passagesMatched = 0;
-    var totalMatches = 0;
-    var searchTerm = this.searchRegexp();
-    var replaceWith = this.$('#replaceWith').val();
-    var inNames = this.$('#searchNames').prop('checked');
+	    @method replaceAll
+	  **/
 
-    this.collection.each(function(model) {
-      var numMatches = model.numMatches(searchTerm);
+	replaceAll: function() {
+		var passagesMatched = 0;
+		var totalMatches = 0;
+		var searchTerm = this.searchRegexp();
+		var replaceWith = this.$('#replaceWith').val();
+		var inNames = this.$('#searchNames').prop('checked');
 
-      if (numMatches !== 0) {
-        passagesMatched++;
-        totalMatches += numMatches;
-        model.replace(searchTerm, replaceWith, inNames);
-      }
-    }.bind(this));
+		this.collection.each(function(model) {
+			var numMatches = model.numMatches(searchTerm);
 
-    this.$el.one('modalClose.twineui', function() {
-      // L10n: replacement in the sense of text search and replace.
-      // %d is the number.
-      var replacementDesc = locale.sayPlural('%d replacement was made in',
-        '%d replacements were made in', totalMatches);
+			if (numMatches !== 0) {
+				passagesMatched++;
+				totalMatches += numMatches;
+				model.replace(searchTerm, replaceWith, inNames);
+			}
+		}.bind(this));
 
-      // L10n: %d is a number of passages.
-      var passageDesc = locale.sayPlural('%d passage', '%d passages',
-        passagesMatched);
+		this.$el.one('modalClose.twineui', function() {
+			// L10n: replacement in the sense of text search and replace.
+			// %d is the number.
+			var replacementDesc = locale.sayPlural('%d replacement was made in',
+			'%d replacements were made in', totalMatches);
 
-      // L10n: This is the formatting used to combine two pluralizations.
-      // In English, %1$s equals "2 replacements were made in" and
-      // %2$s equals "5 passages."
-      // This is a way to reshape the sentence as needed.
-      notify(locale.say('%1$s %2$s.', replacementDesc, passageDesc), 'success');
-    });
+			// L10n: %d is a number of passages.
+			var passageDesc = locale.sayPlural('%d passage', '%d passages',
+			passagesMatched);
 
-    modal.close();
-  },
+			// L10n: This is the formatting used to combine two pluralizations.
+			// In English, %1$s equals "2 replacements were made in" and
+			// %2$s equals "5 passages."
+			// This is a way to reshape the sentence as needed.
+			notify(locale.say('%1$s %2$s.', replacementDesc, passageDesc), 'success');
+		});
 
-  /**
-    Creates a RegExp object to match the entered text and checkboxes selected.
+		modal.close();
+	},
 
-    @method searchRegexp
-    @return {RegExp} the resulting regular expression
-  **/
+	/**
+	    Creates a RegExp object to match the entered text and checkboxes selected.
 
-  searchRegexp: function() {
-    var flags = 'g';
+	    @method searchRegexp
+	    @return {RegExp} the resulting regular expression
+	  **/
 
-    if (!this.$('#searchCaseSensitive').prop('checked')) {
-      flags += 'i';
+	searchRegexp: function() {
+		var flags = 'g';
 
-    }
+		if (! this.$('#searchCaseSensitive').prop('checked')) {
+			flags += 'i';
 
-    var source = this.$('#searchFor').val();
+		}
 
-    if (this.$('#searchRegexp').prop('checked')) {
-      source = source.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
-    }
+		var source = this.$('#searchFor').val();
 
-    return new RegExp('(' + source + ')', flags);
-  },
+		if (this.$('#searchRegexp').prop('checked')) {
+			source = source.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+		}
 
-  attachBuffer: function(view, buffer) {
-    view.$('.results').append(buffer);
-  },
+		return new RegExp('(' + source + ')', flags);
+	},
 
-  events: {
-    'keyup #searchFor': 'updateResults',
-    'change #searchNames': 'updateResults',
-    'change #searchCaseSensitive': 'updateResults',
-    'change #searchRegexp': 'updateResults',
-    'click .replaceAll': 'replaceAll',
-  },
+	attachBuffer: function(view, buffer) {
+		view.$('.results').append(buffer);
+	},
+
+	events: {
+		'keyup #searchFor': 'updateResults',
+		'change #searchNames': 'updateResults',
+		'change #searchCaseSensitive': 'updateResults',
+		'change #searchRegexp': 'updateResults',
+		'click .replaceAll': 'replaceAll'
+	}
 });

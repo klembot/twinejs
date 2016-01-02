@@ -8,31 +8,33 @@ var scrollStart;
 **/
 
 function startScrolling() {
-  $('body').addClass('mouseScrolling');
-  scrollStart = null;
+	$('body').addClass('mouseScrolling');
+	scrollStart = null;
 
-  $(window).on('mousemove.mouseScrolling', scroll)
+	$(window).on('mousemove.mouseScrolling', scroll)
   .on('keyup.mouseScrolling', function(e) {
-    if (e.keyCode === 32) {
-      stopScrolling();
-      e.preventDefault();
-    }
+	if (e.keyCode === 32) {
+		stopScrolling();
+		e.preventDefault();
+	}
   });
 }
 
 function scroll(e) {
-  var $win = $(window);
-  if (!scrollStart) {
-    // This is our first mouse motion event, record position
+	var $win = $(window);
 
-    scrollStart = {
-      mouse: { x: e.pageX, y: e.pageY },
-      window: { x: $win.scrollLeft(), y: $win.scrollTop() },
-    };
-  } else {
-    $win.scrollLeft(scrollStart.window.x - (e.pageX - scrollStart.mouse.x));
-    $win.scrollTop(scrollStart.window.y - (e.pageY - scrollStart.mouse.y));
-  }
+	if (! scrollStart) {
+		// This is our first mouse motion event, record position
+
+		scrollStart = {
+			mouse: { x: e.pageX, y: e.pageY },
+			window: { x: $win.scrollLeft(), y: $win.scrollTop() }
+		};
+	}
+	else {
+		$win.scrollLeft(scrollStart.window.x - (e.pageX - scrollStart.mouse.x));
+		$win.scrollTop(scrollStart.window.y - (e.pageY - scrollStart.mouse.y));
+	}
 }
 
 /**
@@ -40,21 +42,21 @@ function scroll(e) {
 **/
 
 function stopScrolling() {
-  $('body').removeClass('mouseScrolling');
-  $(window).off('mousemove', scroll);
+	$('body').removeClass('mouseScrolling');
+	$(window).off('mousemove', scroll);
 };
 
 module.exports = {
-  attach: function() {
-    $(window).on('keydown.mouseScrolling', function scrollListener(e) {
-      if (e.keyCode === 32 && $('input:focus, textarea:focus').length === 0) {
-        startScrolling();
-        e.preventDefault();
-      }
-    });
-  },
+	attach: function() {
+		$(window).on('keydown.mouseScrolling', function scrollListener(e) {
+			if (e.keyCode === 32 && $('input:focus, textarea:focus').length === 0) {
+				startScrolling();
+				e.preventDefault();
+			}
+		});
+	},
 
-  detach: function() {
-    $(window).off('.mouseScrolling');
-  },
+	detach: function() {
+		$(window).off('.mouseScrolling');
+	}
 };

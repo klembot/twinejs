@@ -5,75 +5,76 @@ var Marionette = require('backbone.marionette');
 var modalTemplate = require('./modal.ejs');
 
 module.exports = {
-  defaults: {
-    classes: '',
-  },
+	defaults: {
+		classes: ''
+	},
 
-  open: function(options) {
-    this.$modal = $(
-      Marionette.Renderer.render(
-        modalTemplate, _.defaults(options, this.defaults)
-      )
-    );
-    this.$modal.on('click', '[data-modal="close"]', this.close.bind(this));
+	open: function(options) {
+		this.$modal = $(
+		Marionette.Renderer.render(
+		modalTemplate, _.defaults(options, this.defaults)
+		)
+		);
+		this.$modal.on('click', '[data-modal="close"]', this.close.bind(this));
 
-    // Block keyboard events
+		// Block keyboard events
 
-    $(document).on(
-      'keydown.twineui keypress.twineui keyup.twineui',
+		$(document).on(
+		'keydown.twineui keypress.twineui keyup.twineui',
       function(e) {
-        // Escape key closes
+	// Escape key closes
 
-        if (e.type == 'keydown' && e.keyCode == 27) {
-          this.close();
-        }
+	if (e.type == 'keydown' && e.keyCode == 27) {
+		this.close();
+	}
 
-        e.stopImmediatePropagation();
+	e.stopImmediatePropagation();
       }.bind(this)
     );
 
-    // Add appearance animation and modalOpen event
+		// Add appearance animation and modalOpen event
 
-    this.$modal
-      .addClass('fadeIn')
+		this.$modal
+		.addClass('fadeIn')
       .one('animationend', function() {
-        this.$modal.trigger('modalOpen.twineui');
+	this.$modal.trigger('modalOpen.twineui');
       }.bind(this))
       .find('#modal')
       .addClass('appear');
 
-    // Trigger modalOpening event after execution stack completes
+		// Trigger modalOpening event after execution stack completes
 
-    _.defer(function() {
-      this.$modal.trigger('modalOpening.twineui');
-    }.bind(this));
+		_.defer(function() {
+			this.$modal.trigger('modalOpening.twineui');
+		}.bind(this));
 
-    $('body').addClass('modalOpen').append(this.$modal);
-    return this.$modal;
-  },
+		$('body').addClass('modalOpen').append(this.$modal);
+		return this.$modal;
+	},
 
-  close: function() {
-    // Trigger modalClosing event; bail if something canceled it
+	close: function() {
+		// Trigger modalClosing event; bail if something canceled it
 
-    var closingEvent = $.Event('modalClosing.twineui');
-    this.$modal.trigger(closingEvent);
+		var closingEvent = $.Event('modalClosing.twineui');
 
-    if (closingEvent.isDefaultPrevented()) {
-      return;
-    }
+		this.$modal.trigger(closingEvent);
 
-    // Animate it closing, then remove it from the DOM
+		if (closingEvent.isDefaultPrevented()) {
+			return;
+		}
 
-    this.$modal
-      .removeClass('fadeIn')
-      .addClass('fadeOut')
+		// Animate it closing, then remove it from the DOM
+
+		this.$modal
+		.removeClass('fadeIn')
+		.addClass('fadeOut')
       .one('animationend', function() {
-        this.$modal.trigger('modalClose.twineui').off('.twineui').remove();
-        $('body').removeClass('modalOpen');
-        $(document).off('.twineui');
+	this.$modal.trigger('modalClose.twineui').off('.twineui').remove();
+	$('body').removeClass('modalOpen');
+	$(document).off('.twineui');
       }.bind(this))
       .find('#modal')
       .removeClass('appear')
       .addClass('disappear');
-  },
+	}
 };

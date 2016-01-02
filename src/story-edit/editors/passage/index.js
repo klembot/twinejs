@@ -14,6 +14,7 @@ var locale = require('../../../locale');
 var modal = require('../../../ui/modal');
 var Passage = require('../../../data/passage');
 var modalTemplate = require('./modal.ejs');
+
 require('codemirror/mode/javascript/javascript');
 require('codemirror/addon/display/placeholder');
 require('codemirror/addon/hint/show-hint');
@@ -24,255 +25,267 @@ var TagsEditor = require('./tags');
 window.CodeMirror = CodeMirror;
 
 module.exports = Marionette.ItemView.extend({
-  /**
-    Opens a modal dialog for editing a passage.
+	/**
+	    Opens a modal dialog for editing a passage.
 
-    @method open
-  **/
+	    @method open
+	  **/
 
-  open: function(passage, story) {
-    this.passage = passage;
-    this.story = story;
+	open: function(passage, story) {
+		this.passage = passage;
+		this.story = story;
 
-    // Remember previous window title
+		// Remember previous window title
 
-    this.prevTitle = document.title;
-    document.title = locale.say('Editing \u201c%s\u201d', passage.get('name'));
+		this.prevTitle = document.title;
+		document.title = locale.say('Editing \u201c%s\u201d', passage.get('name'));
 
-    // Open it
+		// Open it
 
-    this.setElement(modal.open({
-      classes: 'editor',
-      content: Marionette.Renderer.render(modalTemplate, passage.attributes),
-    }));
+		this.setElement(modal.open({
+			classes: 'editor',
+			content: Marionette.Renderer.render(modalTemplate, passage.attributes)
+		}));
 
-    this.setupCodeMirror();
+		this.setupCodeMirror();
 
-    this.tagsView = new TagsEditor({el: this.$('.passageTags'), parent: this});
-    // Warn the user about leaving before saving
-    var warning = locale.say(
-        'Any changes to the passage you\'re editing haven\'t been saved yet. ' +
-        '(To do so, close the passage editor.)'
-    );
-    window.onbeforeunload = function() {
-      return warning;
-    };
-  },
+		this.tagsView = new TagsEditor({el: this.$('.passageTags'), parent: this});
 
-  setupCodeMirror: function() {
-    prefixTrigger.initialize();
+		// Warn the user about leaving before saving
+		var warning = locale.say(
+		'Any changes to the passage you\'re editing haven\'t been saved yet. ' +
+		'(To do so, close the passage editor.)'
+		);
 
-    /**
-      The instance of CodeMirror used for editing.
+		window.onbeforeunload = function() {
+			return warning;
+		};
+	},
 
-      @property cm
-    **/
+	setupCodeMirror: function() {
+		prefixTrigger.initialize();
 
-    this.cm = CodeMirror.fromTextArea(this.$('.passageText')[0], {
-      prefixTrigger: {
-        prefixes: ['[[', '->'],
-        callback: this.autocomplete.bind(this),
-      },
-      extraKeys: {
-        'Ctrl-Space': this.autocomplete.bind(this),
-      },
-      indentWithTabs: true,
-      lineWrapping: true,
-      lineNumbers: false,
-      mode: 'text',
-    });
+		/**
+		      The instance of CodeMirror used for editing.
 
-    // Load the story format, which may install a CodeMirror mode named after
-    // itself. We use that mode if it is found to exist after loading.
+		      @property cm
+		    **/
 
-    var storyFormat = data.storyFormatForStory(this.story);
+		this.cm = CodeMirror.fromTextArea(this.$('.passageText')[0], {
+			prefixTrigger: {
+				prefixes: ['[[', '->'],
+				callback: this.autocomplete.bind(this)
+			},
+			extraKeys: {
+				'Ctrl-Space': this.autocomplete.bind(this)
+			},
+			indentWithTabs: true,
+			lineWrapping: true,
+			lineNumbers: false,
+			mode: 'text'
+		});
 
-    if (storyFormat) {
-      storyFormat.load(function(err) {
-        var modeName = storyFormat.get('name').toLowerCase();
+		// Load the story format, which may install a CodeMirror mode named after
+		// itself. We use that mode if it is found to exist after loading.
 
-        if (!err && modeName in CodeMirror.modes) {
-          // This is a small hack to allow modes such as Harlowe to access the
-          // full text of the textarea, permitting its lexer to grow a syntax
-          // tree by itself.
+		var storyFormat = data.storyFormatForStory(this.story);
 
-          CodeMirror.modes[modeName].cm = this.cm;
+		if (storyFormat) {
+			storyFormat.load(function(err) {
+				var modeName = storyFormat.get('name').toLowerCase();
 
-          // Now that's done, we can assign the mode and trigger a re-render.
+				if (! err && modeName in CodeMirror.modes) {
+					// This is a small hack to allow modes such as Harlowe to access the
+					// full text of the textarea, permitting its lexer to grow a syntax
+					// tree by itself.
 
-          this.cm.setOption('mode', modeName);
-        }
-      }.bind(this));
-    }
+					CodeMirror.modes[modeName].cm = this.cm;
 
-    // Set the mode to the default, 'text'. The above callback will reset it if
-    // it fires.
+					// Now that's done, we can assign the mode and trigger a re-render.
 
-    this.cm.setOption('mode', 'text');
-    var text = this.passage.get('text');
+					this.cm.setOption('mode', modeName);
+				}
+			}.bind(this));
+		}
 
-    // Reset the placeholder, which may have been modified by a prior story
-    // format.
+		// Set the mode to the default, 'text'. The above callback will reset it if
+		// it fires.
 
-    this.cm.setOption(
-      'placeholder',
-      this.$('.passageText').attr('placeholder')
-    );
+		this.cm.setOption('mode', 'text');
+		var text = this.passage.get('text');
 
-    // SwapDoc resets all of the attached events, undo history, etc. of the
-    // document.
+		// Reset the placeholder, which may have been modified by a prior story
+		// format.
 
-    this.cm.swapDoc(CodeMirror.Doc(''));
+		this.cm.setOption(
+		'placeholder',
+		this.$('.passageText').attr('placeholder')
+		);
 
-    // These lines must be used (instead of passing the text to the above
-    // constructor) to work around a bug in the CodeMirror placeholder code.
+		// SwapDoc resets all of the attached events, undo history, etc. of the
+		// document.
 
-    this.cm.setValue(text || '');
-    this.cm.clearHistory();
+		this.cm.swapDoc(CodeMirror.Doc(''));
 
-    // If the text is the default for a passage, select all of it
-    // so the user can just start typing to replace it;
-    // otherwise move the cursor to the end
+		// These lines must be used (instead of passing the text to the above
+		// constructor) to work around a bug in the CodeMirror placeholder code.
 
-    if (text == Passage.prototype.defaults.text) {
-      this.cm.execCommand('selectAll');
-    } else {
-      this.cm.execCommand('goDocEnd');
-    }
+		this.cm.setValue(text || '');
+		this.cm.clearHistory();
 
-    // Assemble a list of existing passage names for autocomplete
+		// If the text is the default for a passage, select all of it
+		// so the user can just start typing to replace it;
+		// otherwise move the cursor to the end
 
-    this.cm.setOption(
-      'passageNames',
+		if (text == Passage.prototype.defaults.text) {
+			this.cm.execCommand('selectAll');
+		}
+		else {
+			this.cm.execCommand('goDocEnd');
+		}
+
+		// Assemble a list of existing passage names for autocomplete
+
+		this.cm.setOption(
+		'passageNames',
       data.passagesForStory(this.story).map(function(passage) {
-        return passage.get('name');
+	return passage.get('name');
       })
     );
 
-    // Actually show it
-    // we refresh twice; now so the text will show properly
-    // as the modal animates onscreen, later, once the animation
-    // completes, so scrolling works properly
+		// Actually show it
+		// we refresh twice; now so the text will show properly
+		// as the modal animates onscreen, later, once the animation
+		// completes, so scrolling works properly
 
-    this.cm.refresh();
+		this.cm.refresh();
 
-    this.$el.one('modalOpen.twineui', function() {
-      this.cm.refresh();
-      this.cm.focus();
-    }.bind(this));
-  },
+		this.$el.one('modalOpen.twineui', function() {
+			this.cm.refresh();
+			this.cm.focus();
+		}.bind(this));
+	},
 
-  /**
-    Shows an autocomplete menu for the current cursor, showing existing passage
-    names.
+	/**
+	    Shows an autocomplete menu for the current cursor, showing existing passage
+	    names.
 
-    @method autocomplete
-  **/
+	    @method autocomplete
+	  **/
 
-  autocomplete: function() {
-    this.cm.showHint({
-      hint: function(cm) {
-        var wordRange = cm.findWordAt(cm.getCursor());
-        var word = cm.getRange(wordRange.anchor, wordRange.head).toLowerCase();
+	autocomplete: function() {
+		this.cm.showHint({
+			hint: function(cm) {
+				var wordRange = cm.findWordAt(cm.getCursor());
+				var word = cm.getRange(wordRange.anchor, wordRange.head).toLowerCase();
 
-        var comps = {
-          list: _.filter(cm.getOption('passageNames'), function(name) {
-            return name.toLowerCase().indexOf(word) != -1;
-          }),
-          from: wordRange.anchor,
-          to: wordRange.head,
-        };
+				var comps = {
+					list: _.filter(cm.getOption('passageNames'), function(name) {
+						return name.toLowerCase().indexOf(word) != -1;
+					}),
 
-        CodeMirror.on(comps, 'pick', function() {
-          var doc = cm.getDoc();
-          doc.replaceRange(']] ', doc.getCursor());
-        });
+					from: wordRange.anchor,
+					to: wordRange.head
+				};
 
-        return comps;
-      },
-      completeSingle: false,
-      extraKeys: {
-        ']': function(cm, hint) {
-          var doc = cm.getDoc();
-          doc.replaceRange(']', doc.getCursor());
-          hint.close();
-        },
+				CodeMirror.on(comps, 'pick', function() {
+					var doc = cm.getDoc();
 
-        '-': function(cm, hint) {
-          var doc = cm.getDoc();
-          doc.replaceRange('-', doc.getCursor());
-          hint.close();
-        },
+					doc.replaceRange(']] ', doc.getCursor());
+				});
 
-        '|': function(cm, hint) {
-          var doc = cm.getDoc();
-          doc.replaceRange('|', doc.getCursor());
-          hint.close();
-        },
-      },
-    });
-  },
+				return comps;
+			},
 
-  /**
-    Closes the modal dialog for editing.
+			completeSingle: false,
+			extraKeys: {
+				']': function(cm, hint) {
+					var doc = cm.getDoc();
 
-    @method close
-  **/
+					doc.replaceRange(']', doc.getCursor());
+					hint.close();
+				},
 
-  close: function() {
-    modal.close();
-  },
+				'-': function(cm, hint) {
+					var doc = cm.getDoc();
 
-  /**
-    Saves changes made by the user to the model, displaying any validation
-    errors.
+					doc.replaceRange('-', doc.getCursor());
+					hint.close();
+				},
 
-    @method save
-    @param {Event} e Event to stop
-    @return {Boolean} whether the save was successful
-  **/
+				'|': function(cm, hint) {
+					var doc = cm.getDoc();
 
-  save: function(e) {
-    // Gather current tag names
+					doc.replaceRange('|', doc.getCursor());
+					hint.close();
+				}
+			}
+		});
+	},
 
-    var tags = this.tagsView.getTags();
+	/**
+	    Closes the modal dialog for editing.
 
-    // Try to save; we might error out if the passage name is a duplicate
-    var passageSavedOk = this.passage.save({
-      name: this.$('.passageName').val(),
-      text: this.cm.doc.getValue(),
-      tags: tags,
-    });
-    var result;
-    if (passageSavedOk) {
-      this.$('.error').addClass('hide');
-      result = true;
-    } else {
-      // Show the error message
+	    @method close
+	  **/
 
-      var message = this.$('.error');
-      message.removeClass('hide').text(this.passage.validationError);
-      this.$('.passageName').focus();
-      e.preventDefault();
-      result = false;
-    }
+	close: function() {
+		modal.close();
+	},
 
-    return result;
-  },
+	/**
+	    Saves changes made by the user to the model, displaying any validation
+	    errors.
 
-  /**
-	  Restores the window title after finishing editing.
+	    @method save
+	    @param {Event} e Event to stop
+	    @return {Boolean} whether the save was successful
+	  **/
 
-    @method restoreTitle
-  **/
+	save: function(e) {
+		// Gather current tag names
 
-  restoreTitle: function() {
-    document.title = this.prevTitle;
-    window.onbeforeunload = null;
-  },
+		var tags = this.tagsView.getTags();
 
-  events: {
-    'modalClosing.twineui': 'save',
-    'modalClose.twineui': 'restoreTitle',
-  },
+		// Try to save; we might error out if the passage name is a duplicate
+		var passageSavedOk = this.passage.save({
+			name: this.$('.passageName').val(),
+			text: this.cm.doc.getValue(),
+			tags: tags
+		});
+		var result;
+
+		if (passageSavedOk) {
+			this.$('.error').addClass('hide');
+			result = true;
+		}
+		else {
+			// Show the error message
+
+			var message = this.$('.error');
+
+			message.removeClass('hide').text(this.passage.validationError);
+			this.$('.passageName').focus();
+			e.preventDefault();
+			result = false;
+		}
+
+		return result;
+	},
+
+	/**
+		  Restores the window title after finishing editing.
+
+	    @method restoreTitle
+	  **/
+
+	restoreTitle: function() {
+		document.title = this.prevTitle;
+		window.onbeforeunload = null;
+	},
+
+	events: {
+		'modalClosing.twineui': 'save',
+		'modalClose.twineui': 'restoreTitle'
+	}
 });

@@ -10,64 +10,65 @@ var Marionette = require('backbone.marionette');
 var CodeMirror = require('codemirror');
 var modal = require('../../../ui/modal');
 var modalTemplate = require('./modal.ejs');
+
 require('codemirror/addon/display/placeholder');
 require('codemirror/addon/hint/show-hint');
 require('codemirror/mode/css/css');
 
 module.exports = Marionette.ItemView.extend({
-  open: function(story) {
-    this.story = story;
+	open: function(story) {
+		this.story = story;
 
-    this.setElement(modal.open({
-      classes: 'editor',
-      content: Marionette.Renderer.render(modalTemplate, story.attributes),
-    }));
+		this.setElement(modal.open({
+			classes: 'editor',
+			content: Marionette.Renderer.render(modalTemplate, story.attributes)
+		}));
 
-    this.setupCodeMirror();
-  },
+		this.setupCodeMirror();
+	},
 
-  setupCodeMirror: function() {
-    /**
-     The instance of CodeMirror used for editing.
+	setupCodeMirror: function() {
+		/**
+		     The instance of CodeMirror used for editing.
 
-     @property cm
-     **/
+		     @property cm
+		     **/
 
-    this.cm = CodeMirror.fromTextArea(this.$('.stylesheetSource')[0], {
-      lineWrapping: true,
-      lineNumbers: false,
-      tabSize: 2,
-      indentWithTabs: true,
-      mode: 'css',
-      extraKeys: {
-        'Ctrl-Space': function(cm) {
-          cm.showHint();
-        },
-      },
-    });
+		this.cm = CodeMirror.fromTextArea(this.$('.stylesheetSource')[0], {
+			lineWrapping: true,
+			lineNumbers: false,
+			tabSize: 2,
+			indentWithTabs: true,
+			mode: 'css',
+			extraKeys: {
+				'Ctrl-Space': function(cm) {
+					cm.showHint();
+				}
+			}
+		});
 
-    // Actually show it
-    // we refresh twice; now so the text will show properly
-    // as the modal animates onscreen, later, once the animation
-    // completes, so scrolling works properly
+		// Actually show it
+		// we refresh twice; now so the text will show properly
+		// as the modal animates onscreen, later, once the animation
+		// completes, so scrolling works properly
 
-    this.cm.refresh();
+		this.cm.refresh();
 
-    this.$el.one('modalOpen.twineui', function() {
-      this.cm.refresh();
-      this.cm.focus();
-    }.bind(this));
-  },
+		this.$el.one('modalOpen.twineui', function() {
+			this.cm.refresh();
+			this.cm.focus();
+		}.bind(this));
+	},
 
-  /**
-    Saves changes to the model.
-  **/
+	/**
+	    Saves changes to the model.
+	  **/
 
-  save: function() {
-    this.story.save({stylesheet: this.cm.doc.getValue()});
-  },
+	save: function() {
+		this.story.save({stylesheet: this.cm.doc.getValue()});
+	},
 
-  events: {
-    'modalClose.twineui': 'save',
-  },
+	events: {
+		'modalClose.twineui': 'save'
+	}
 });

@@ -1,63 +1,66 @@
 /**
-  //prefix-trigger
+//prefix-trigger
 
-  This module adds an option to CodeMirror which  automatically triggers a
-  function when typing a word that is prefixed by certain text. We use this to
-  automatically pop open the autocomplete when the user is probably typing a
-  passage name.
+This module adds an option to CodeMirror which  automatically triggers a
+function when typing a word that is prefixed by certain text. We use this to
+automatically pop open the autocomplete when the user is probably typing a
+passage name.
 
-  The format of options to this option is:
+The format of options to this option is:
 
-  - `prefixes`: an array of strings that will trigger the callback,
-                case-sensitive
-  - `callback`: the function that will be called
+- `prefixes`: an array of strings that will trigger the callback,
+	case-sensitive
+- `callback`: the function that will be called
 **/
 
 'use strict';
 var CodeMirror = require('codemirror');
 
 module.exports = {
-  /**
-    Attaches the trigger to CodeMirror.
-    @method initialize
-  **/
-  initialize: function() {
-    CodeMirror.defineOption('prefixTrigger', [], function(cm, opts) {
-      if (opts.prefixes && opts.callback) {
-        cm.on('inputRead', checkTrigger);
-      } else {
-        cm.off('inputRead', checkTrigger);
-      }
+	/**
+	Attaches the trigger to CodeMirror.
+	@method initialize
+	**/
 
-      var prefixes = opts.prefixes;
-      var callback = opts.callback;
+	initialize: function() {
+		CodeMirror.defineOption('prefixTrigger', [], function(cm, opts) {
+			if (opts.prefixes && opts.callback) {
+				cm.on('inputRead', checkTrigger);
+			}
+			else {
+				cm.off('inputRead', checkTrigger);
+			}
 
-      function checkTrigger(cm) {
-        // If autocomplete is already active, stop.
+			var prefixes = opts.prefixes;
+			var callback = opts.callback;
 
-        if (cm.state.completionActive) {
-          return;
-        }
+			function checkTrigger(cm) {
+				// If autocomplete is already active, stop.
 
-        // Back up two words from the current cursor position.
+				if (cm.state.completionActive) {
+					return;
+				}
 
-        var curWord = cm.findWordAt(cm.getDoc().getCursor());
-        curWord.anchor.ch--;
-        var prevWordRange = cm.findWordAt(curWord.anchor);
-        var prevWord = cm.getRange(prevWordRange.anchor, prevWordRange.head);
+				// Back up two words from the current cursor position.
 
-        // Do any of the words match?
+				var curWord = cm.findWordAt(cm.getDoc().getCursor());
 
-        for (var i = prefixes.length; i >= 0; i--) {
-          if (prevWord == prefixes[i]) {
-            callback();
+				curWord.anchor.ch--;
+				var prevWordRange = cm.findWordAt(curWord.anchor);
+				var prevWord = cm.getRange(prevWordRange.anchor, prevWordRange.head);
 
-            // Ensure we only call the callback once.
+				// Do any of the words match?
 
-            return;
-          }
-        }
-      }
-    });
-  },
+				for (var i = prefixes.length; i >= 0; i--) {
+					if (prevWord == prefixes[i]) {
+						callback();
+
+						// Ensure we only call the callback once.
+
+						return;
+					}
+				}
+			}
+		});
+	}
 };

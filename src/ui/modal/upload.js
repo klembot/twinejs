@@ -6,48 +6,48 @@ var modal = require('./index.js');
 var uploadTemplate = require('./upload.ejs');
 
 function upload(options) {
-  var templateOptions = _.defaults(options, {
-    autoclose: true,
-    confirmClass: 'primary',
-    confirmLabel: 'Choose File',
-    cancelLabel: 'Cancel',
-  });
-  var uploadModal = modal.open({
-    content: Marionette.Renderer.render(uploadTemplate, templateOptions),
-  });
-  var uploaded = false;
+	var templateOptions = _.defaults(options, {
+		autoclose: true,
+		confirmClass: 'primary',
+		confirmLabel: 'Choose File',
+		cancelLabel: 'Cancel'
+	});
+	var uploadModal = modal.open({
+		content: Marionette.Renderer.render(uploadTemplate, templateOptions)
+	});
+	var uploaded = false;
 
-  uploadModal.one(
+	uploadModal.one(
     'change.twineui', '.fileChooser input[type="file"]', function(e) {
-    if (options.onFileChosen) {
-      options.onFileChosen();
-    }
+	if (options.onFileChosen) {
+		options.onFileChosen();
+	}
 
-    file.readInputEl(e.target, function afterFileRead(readEvent) {
-      if (options.callback) {
-        options.callback(true, readEvent.target.result);
-      }
+	file.readInputEl(e.target, function afterFileRead(readEvent) {
+		if (options.callback) {
+			options.callback(true, readEvent.target.result);
+		}
 
-      uploaded = true;
+		uploaded = true;
 
-      if (options.autoclose) {
-        modal.close();
-      }
-    });
+		if (options.autoclose) {
+			modal.close();
+		}
+	});
   })
   .on('modalClose.twineui', function() {
-    if (!uploaded && options.callback) {
-      options.callback(false);
-    }
+	if (! uploaded && options.callback) {
+		options.callback(false);
+	}
 
-    uploadModal.off('.twineui');
+	uploadModal.off('.twineui');
   });
 
-  return uploadModal;
+	return uploadModal;
 }
 
 upload.close = function() {
-  modal.close();
+	modal.close();
 };
 
 module.exports = upload;

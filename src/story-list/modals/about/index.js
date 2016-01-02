@@ -5,17 +5,17 @@ var TwineApp = require('../../../common/app');
 var modalTemplate = require('./modal.ejs');
 
 module.exports = Marionette.View.extend({
-  initialize: function(options) {
-    this.parent = options.parent;
-  },
+	initialize: function(options) {
+		this.parent = options.parent;
+	},
 
-  open: function() {
-    modal.open({
-      content: Marionette.Renderer.render(modalTemplate, TwineApp.version()),
-    });
-  },
+	open: function() {
+		modal.open({
+			content: Marionette.Renderer.render(modalTemplate, TwineApp.version())
+		});
+	},
 
-  close: function() {
+	close: function() {
 
-  },
+	}
 });
