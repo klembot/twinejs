@@ -71,6 +71,7 @@
 		"preset": "node-style-guide",
 		"disallowTrailingComma": true,
 		"disallowSpaceAfterPrefixUnaryOperators": false,
+		"disallowKeywordsOnNewLine": false,
 		"requireKeywordsOnNewLine": ["else"],
 		"requirePaddingNewLinesBeforeLineComments": { "allExcept": "firstAfterCurly" },
 		"requirePaddingNewLineAfterVariableDeclaration": true,
