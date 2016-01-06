@@ -69,13 +69,10 @@
 	},
 	"jscsConfig": {
 		"preset": "node-style-guide",
-		"disallowTrailingComma": true,
-		"disallowSpaceAfterPrefixUnaryOperators": false,
 		"requireKeywordsOnNewLine": ["else"],
 		"requirePaddingNewLinesBeforeLineComments": { "allExcept": "firstAfterCurly" },
 		"requirePaddingNewLineAfterVariableDeclaration": true,
 		"requirePaddingNewLinesAfterBlocks": true,
-		"requireSpaceAfterPrefixUnaryOperators": ["!", "~"],
 		"requireTrailingComma": false,
 		"validateIndentation": "\t"
 	},
