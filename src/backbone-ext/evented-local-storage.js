@@ -1,11 +1,11 @@
-/**
+/*
 # evented-local-storage
 
 A thin wrapper over [Backbone.LocalStorage](1) that emits a `update` event
 after a model is successfully saved.
 
 [1]: https://github.com/jeromegn/Backbone.localStorage
-**/
+*/
 
 'use strict';
 var _ = require('underscore');

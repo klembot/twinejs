@@ -1,5 +1,5 @@
 /*
-//router
+# router
 
 This exports a class extending [Backbone.Router](1) which handles URL-based
 routes. These right now are:
@@ -29,12 +29,12 @@ var WelcomeView = require('../welcome/view');
 
 module.exports = Backbone.Router.extend({
 	initialize: function(options) {
-		/**
-		      Our parent app.
-		      @property app
-		      @type `common/app`
-		    **/
+		/*
+		Our parent app.
 
+		@property app
+		@type `common/app`
+		*/
 		this.app = options.app;
 	},
 

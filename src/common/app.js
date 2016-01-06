@@ -1,5 +1,5 @@
 /*
-//app
+# app
 
 This exports the main Backbone app running the show, which extends
 [Marionette.Application](1).
@@ -31,6 +31,7 @@ module.exports = Marionette.Application.extend({
 
 		/*
 		Our main (and only) region.
+
 		@property mainRegion
 		@type `backbone-ext/custom-region`
 		*/
@@ -52,9 +53,10 @@ module.exports = Marionette.Application.extend({
 
 		/*
 		Our router.
+
 		@property router
 		@type `common/router`
-		@type {*|exports|module.exports}
+		@type `backbone-ext/custom-renderer`
 		*/
 		this.router = new TwineRouter({ app: this });
 
@@ -125,6 +127,7 @@ module.exports = Marionette.Application.extend({
 	/*
 	Returns the human-readable name of the application, as set during the build
 	process from `package.json`.
+
 	@method appName
 	@returns {String}
 	*/
@@ -135,6 +138,7 @@ module.exports = Marionette.Application.extend({
 	/*
 	Returns version information about the application, as set during the build
 	process from `package.json`.
+
 	@method version
 	@static
 	@returns {Object} Has two properties; `version`, a human readable version

@@ -1,8 +1,8 @@
 /*
-  //passage
+# passage
 
-  Exports a class representing a single node in a story,
-  which extends `Backbone.Model`.
+Exports a class representing a single node in a story, which extends
+`Backbone.Model`.
 */
 
 'use strict';
@@ -82,7 +82,6 @@ var Passage = Backbone.Model.extend({
 	@method excerpt
 	@return {String} the excerpt
 	*/
-
 	excerpt: function() {
 		var text = _.escape(this.get('text'));
 
@@ -101,7 +100,6 @@ var Passage = Backbone.Model.extend({
 		(i.e. not http://twinery.org)
 	@return {Array} array of string names
 	*/
-
 	links: function(internalOnly) {
 		// Begin with anything with double brackets around it.
 
@@ -231,7 +229,7 @@ var Passage = Backbone.Model.extend({
 
 		if (checkName) {
 			nameMatches = this.get('name').match(search);
-		};
+		}
 
 		result = (nameMatches ? nameMatches.length : 0) +
 		(textMatches ? textMatches.length : 0);
@@ -257,7 +255,7 @@ var Passage = Backbone.Model.extend({
 		}
 		else {
 			this.save({ text: this.get('text').replace(search, replacement) });
-		};
+		}
 	},
 
 	/*
@@ -296,9 +294,9 @@ var Passage = Backbone.Model.extend({
 		var pH = Passage.height;
 
 		return (this.get('left') - pP < other.get('left') + pW + pP &&
-		this.get('left') + pW + pP > other.get('left') - pP &&
-		this.get('top') - pP < other.get('top') + pH + pP &&
-		this.get('top') + pH + pP > other.get('top') - pP);
+			this.get('left') + pW + pP > other.get('left') - pP &&
+			this.get('top') - pP < other.get('top') + pH + pP &&
+			this.get('top') + pH + pP > other.get('top') - pP);
 	},
 
 	/*
@@ -343,8 +341,8 @@ var Passage = Backbone.Model.extend({
 			}
 			else {
 				xChange = rightMove;
-			};
-		};
+			}
+		}
 
 		// Resolve vertical overlap.
 
@@ -357,8 +355,8 @@ var Passage = Backbone.Model.extend({
 			}
 			else {
 				yChange = downMove;
-			};
-		};
+			}
+		}
 
 		// Choose the axis that moves the other passage the least.
 
@@ -367,7 +365,7 @@ var Passage = Backbone.Model.extend({
 		}
 		else {
 			other.set('left', oLeft + xChange);
-		};
+		}
 	}
 },
 {

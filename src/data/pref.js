@@ -1,10 +1,9 @@
-/**
-  Exports a class extending `Backbone.Model` which manages application-level
-  preferences. As much as is feasible, we store preferences at the story level.
+/*
+# pref
 
-  @class Pref
-  @extends Backbone.Model
-**/
+Exports a class extending `Backbone.Model` which manages application-level
+preferences. As much as is feasible, we store preferences at the story level.
+*/
 
 'use strict';
 var Backbone = require('backbone');

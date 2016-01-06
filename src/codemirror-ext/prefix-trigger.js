@@ -1,5 +1,5 @@
-/**
-//prefix-trigger
+/*
+# prefix-trigger
 
 This module adds an option to CodeMirror which  automatically triggers a
 function when typing a word that is prefixed by certain text. We use this to
@@ -11,16 +11,17 @@ The format of options to this option is:
 - `prefixes`: an array of strings that will trigger the callback,
 	case-sensitive
 - `callback`: the function that will be called
-**/
+*/
 
 'use strict';
 var CodeMirror = require('codemirror');
 
 module.exports = {
-	/**
+	/*
 	Attaches the trigger to CodeMirror.
+
 	@method initialize
-	**/
+	*/
 
 	initialize: function() {
 		CodeMirror.defineOption('prefixTrigger', [], function(cm, opts) {

@@ -12,9 +12,11 @@ function upload(options) {
 		confirmLabel: 'Choose File',
 		cancelLabel: 'Cancel'
 	});
+
 	var uploadModal = modal.open({
 		content: Marionette.Renderer.render(uploadTemplate, templateOptions)
 	});
+
 	var uploaded = false;
 
 	uploadModal.one(

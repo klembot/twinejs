@@ -1,12 +1,11 @@
-/**
-  Offers an interface for editing a story. This class is concerned
-  with editing the story itself; editing individual passages is handled
-  through PassageItemViews. This sets up links from the passage views to
-  this one by setting each child's parentView property to this one.
+/*
+# story-edit/view
 
-  @class StoryEditView
-  @extends Marionette.CompositeView
-**/
+Offers an interface for editing a story. This class is concerned with editing
+the story itself; editing individual passages is handled through
+`story-edit/item`. This sets up links from the passage views to this one by
+setting each child's parentView property to this one.
+*/
 
 'use strict';
 var $ = require('jquery');
@@ -28,15 +27,13 @@ var PassageItemView = require('./item/view');
 var viewTemplate = require('./view.ejs');
 
 module.exports = Marionette.CompositeView.extend({
-	/**
-	    Maps numeric zoom settings (that are in our model) to
-	    nice adjectives that we use in our CSS.
+	/*
+	Maps numeric zoom settings (that are in our model) to
+	nice adjectives that we use in our CSS.
 
-	    @property ZOOM_MAPPINGS
-	    @type Object
-	    @final
-	  **/
-
+	@property ZOOM_MAPPINGS
+	@type {Object}
+	*/
 	ZOOM_MAPPINGS: {
 		zoomBig: 1,
 		zoomMedium: 0.6,
@@ -44,54 +41,24 @@ module.exports = Marionette.CompositeView.extend({
 	},
 
 	childView: PassageItemView,
+
 	childViewContainer: '.passages .content',
+
 	childViewOptions: function() {
-		return { parentView: this };
+		return {parentView: this};
 	},
 
 	template: viewTemplate,
 
 	initialize: function() {
-		this.listenTo(this.model, 'change:zoom', this.syncZoom)
-		.listenTo(this.model, 'change:name', this.syncName)
-    .listenTo(this.model, 'error', function(model, resp) {
-	// L10n: %s is the error message.
-	notify(
-	locale.say('A problem occurred while saving your changes (%s).', resp),
-	'danger'
-	);
-    });
-
 		this.collection = data.passagesForStory(this.model);
-		this.listenTo(this.collection, 'change:top change:left', this.resize)
-    .listenTo(this.collection, 'change:name', function(p) {
-	// Update passages linking to this one to preserve links
 
-	_.invoke(
-	this.collection.models,
-	'replaceLink',
-	p.previous('name'),
-	p.get('name')
-	);
-    })
-    .listenTo(this.collection, 'add', function(p) {
-	// Set as starting passage if we only have one
+		/*
+		We must save this reference because `Function.bind()` returns different
+		references on each call, and we need this in order to properly unbind
+		in `onDestroy`.
+		*/
 
-	if (this.collection.length == 1) {
-		this.model.save({ startPassage: p.id });
-	}
-    })
-    .listenTo(this.collection, 'error', function(model, resp) {
-	// L10n: %s is the error message.
-	notify(
-	locale.say('A problem occurred while saving your changes (%s).', resp),
-	'danger'
-	);
-    });
-
-		// We must save this reference because Function#bind returns different
-		// references each call and we need this in order to properly unbind in
-		// onDestroy
 		this.onMouseWheelBound = this.onMouseWheel.bind(this);
 		$(document).on('wheel', this.onMouseWheelBound);
 
@@ -100,25 +67,31 @@ module.exports = Marionette.CompositeView.extend({
 
 	onShow: function() {
 		this.syncName();
+		this.syncZoom();
 
-		// Resize the story map whenever the browser window resizes
+		// Resize the story map whenever the browser window resizes.
 
 		this.resize();
 		$(window).on('resize', _.debounce(this.resize.bind(this), 500));
+
+		// Attach our interface helpers.
+
 		keyboardDeletion.attach(this);
 		mouseScrolling.attach();
 
-		this.syncZoom();
-		this.linkManager = new LinkManager({ el: this.el, parent: this });
-		this.toolbar = new Toolbar({ parent: this });
+		this.linkManager = new LinkManager({el: this.el, parent: this});
+		this.toolbar = new Toolbar({parent: this});
+
+		// On mouse-based devices, add our selection marquee.
 
 		if (! ui.hasPrimaryTouchUI()) {
 			this.marquee = new Marquee({ el: this.$('.passages'), parent: this });
-
 		}
 
-		// If we have no passages in this story, give the user one to start with
-		// otherwise, fade in existing
+		/*
+		If we have no passages in this story, give the user one to start with.
+		Otherwise, fade in the existing ones.
+		*/
 
 		if (this.collection.length === 0) {
 			this.addPassage();
@@ -128,12 +101,11 @@ module.exports = Marionette.CompositeView.extend({
 		}
 	},
 
-	/**
-	    Does cleanup of stuff set up in onShow().
+	/*
+	Does cleanup of stuff set up in `onShow()`.
 
-	    @method onDestroy
-	    @private
-	  **/
+	@method onDestroy
+	*/
 
 	onDestroy: function() {
 		this.linkManager.destroy();
@@ -143,19 +115,21 @@ module.exports = Marionette.CompositeView.extend({
 		$(document).off('wheel', this.onMouseWheelBound);
 	},
 
-	/**
-	    Adds a new passage.
+	/*
+	Adds a new passage.
 
-	    @method addPassage
-	    @param {String} name name of the passage; defaults to model default
-	    @param {Number} left left position; defaults to horizontal center of the
-	                         window
-	    @param {Number} top top position; defaults to vertical center of the window
-	  **/
+	@method addPassage
+	@param {String} [name] name of the passage; defaults to model default
+	@param {Number} [left] left position; defaults to horizontal center of the
+		window
+	@param {Number} [top] top position; defaults to vertical center of the window
+	*/
 
 	addPassage: function(name, left, top) {
 		var zoom = this.model.get('zoom');
 		var $win = $(window);
+
+		// If coordinates aren't specified, calculate the center.
 
 		if (! left) {
 			var offsetX = this.$('.passage:first').width() / 2;
@@ -169,21 +143,23 @@ module.exports = Marionette.CompositeView.extend({
 			top = (($win.scrollTop() + $win.height() / 2) / zoom) - offsetY;
 		}
 
-		// Make sure the name is unique
+		// Make sure the name is unique by adding numbers to its end.
 
 		name = name || Passage.prototype.defaults().name;
 
-		if (this.collection.findWhere({ name: name })) {
+		if (this.collection.findWhere({name: name})) {
 			var origName = name;
 			var nameIndex = 0;
 
 			do {
 				nameIndex++;
 			}
-			while (this.collection.findWhere({ name: origName + ' ' + nameIndex }));
+			while (this.collection.findWhere({name: origName + ' ' + nameIndex}));
 
 			name = origName + ' ' + nameIndex;
 		}
+
+		// Create the passage.
 
 		var passage = data.passages.create({
 			name: name,
@@ -194,47 +170,48 @@ module.exports = Marionette.CompositeView.extend({
 
 		this.collection.add(passage);
 
-		// Position the passage so it doesn't overlap any others
+		// Position the passage so it doesn't overlap any others.
 
 		this.positionPassage(passage);
 		passage.save();
+
+		// Animate it appearing.
+
 		this.children.findByModel(passage).appear();
 	},
 
-	/**
-	    Deletes all currently selected passages.
+	/*
+	Deletes all currently selected passages.
 
-	    @method deleteSelectedPassages
-	  **/
-
+	@method deleteSelectedPassages
+	*/
 	deleteSelectedPassages: function() {
 		_.invoke(this.children.filter(function(v) {
 			return v.selected;
 		}), 'delete');
 	},
 
-	/**
-	    Opens a new tab with the playable version of this story. This
-	    will re-use the same tab for a particular story.
+	/*
+	Opens a new tab with the playable version of this story. This
+	will re-use the same tab for a particular story.
 
-	    @method play
-	  **/
-
+	@method play
+	*/
 	play: function() {
-		// Verify the starting point
+		// Make sure a starting point is set.
 
 		if (data.passage(this.model.get('startPassage')) === undefined) {
 			notify(
-			locale.say(
-			'This story does not have a starting point. ' +
-			'Use the <i class="fa fa-rocket"></i> icon on a passage to set this.'
-			),
-			'danger'
+				locale.say(
+					'This story does not have a starting point. ' +
+					'Use the <i class="fa fa-rocket"></i> icon on a passage to set this.'
+				),
+				'danger'
 			);
 			return;
 		}
 
-		// Try re-using the same window
+		// Try re-using the same window.
 
 		var playWindow = window.open('', 'twinestory_play_' + this.model.id);
 
@@ -244,23 +221,22 @@ module.exports = Marionette.CompositeView.extend({
 		else {
 			playWindow.location.reload();
 			notify(
-			locale.say(
-			'Refreshed the playable version of your story in the ' +
-			'previously-opened tab or window.'
-			)
+				locale.say(
+					'Refreshed the playable version of your story in the ' +
+					'previously-opened tab or window.'
+				)
 			);
 		}
 	},
 
-	/**
-	    Opens a new tab with the playable version of this story, in test mode. This
-	    will re-use the same tab for a particular story.
+	/*
+	Opens a new tab with the playable version of this story, in test mode. This
+	will re-use the same tab for a particular story.
 
-	    @method test
-	    @param {Number} startId id to start the story on; if unspecified; uses the
-	                            user-set one
-	  **/
-
+	@method test
+	@param {Number} [startId] id to start the story on; if unspecified; uses the
+		user-set one
+	*/
 	test: function(startId) {
 		var url = '#stories/' + this.model.id + '/test';
 
@@ -268,7 +244,10 @@ module.exports = Marionette.CompositeView.extend({
 			url += '/' + startId;
 		}
 
-		// Verify the starting point
+		/*
+		Verify that the starting point exists. If no startId was passed, we
+		default back to the one set in the model.
+		*/
 
 		var startOk = false;
 
@@ -281,16 +260,16 @@ module.exports = Marionette.CompositeView.extend({
 
 		if (! startOk) {
 			notify(
-			locale.say(
-			'This story does not have a starting point. ' +
-			'Use the <i class="fa fa-rocket"></i> icon on a passage to set this.'
-			),
-			'danger'
+				locale.say(
+					'This story does not have a starting point. ' +
+					'Use the <i class="fa fa-rocket"></i> icon on a passage to set this.'
+				),
+				'danger'
 			);
 			return;
 		}
 
-		// Try re-using the same window
+		// Try re-using the same window.
 
 		var testWindow = window.open('', 'twinestory_test_' + this.model.id);
 
@@ -300,32 +279,31 @@ module.exports = Marionette.CompositeView.extend({
 		else {
 			testWindow.location.reload();
 			notify(
-			locale.say(
-			'Refreshed the test version of your story in the ' +
-			'previously-opened tab or window.'));
+				locale.say(
+					'Refreshed the test version of your story in the ' +
+					'previously-opened tab or window.'
+			));
 		}
 	},
 
-	/**
-	    Opens a new tab with the proofing copy of this story. This
-	    will re-use the same tab for a particular story.
+	/*
+	Opens a new tab with the proofing copy of this story. This
+	will re-use the same tab for a particular story.
 
-	    @method proof
-	  **/
-
+	@method proof
+	*/
 	proof: function() {
 		window.open(
-		'#stories/' + this.model.id + '/proof',
-		'twinestory_proof_' + this.model.id
+			'#stories/' + this.model.id + '/proof',
+			'twinestory_proof_' + this.model.id
 		);
 	},
 
-	/**
-	    Publishes the story to a file.
+	/*
+	Publishes the story to a file.
 
-	    @method publish
-	  **/
-
+	@method publish
+	*/
 	publish: function() {
 		var storyFormat = data.storyFormatForStory(this.model);
 
@@ -334,21 +312,20 @@ module.exports = Marionette.CompositeView.extend({
 		}.bind(this));
 	},
 
-	/**
-	    This resizes the .passages div to either:
-	      * the size of the browser window
-	      * the minimum amount of space needed to enclose all existing passages
+	/*
+	This resizes the .passages div to either:
+	- the size of the browser window
+	- the minimum amount of space needed to enclose all existing passages
 
-	    ... whichever is bigger, plus 75% of the browser window's width and height,
-	    so that there's always room for the story to expand.
+	... whichever is bigger, plus 75% of the browser window's width and height, so
+	that there's always room for the story to expand.
 
-	    This then resizes the view's <canvas> element to match the size of the
-	    .passages div, so that lines can be drawn between passage DOM elements
-	    properly.
+	This then resizes the view's `<canvas>` element to match the size of the
+	`.passages` div, so that lines can be drawn between passage DOM elements
+	properly.
 
-	    @method resize
-	  **/
-
+	@method resize
+	*/
 	resize: function() {
 		var winWidth = $(window).width();
 		var winHeight = $(window).height();
@@ -401,19 +378,18 @@ module.exports = Marionette.CompositeView.extend({
 		});
 	},
 
-	/**
+	/*
 	Nudges a passage so that it does not overlap any other passage in the view,
 	and so that it snaps to the grid if that's set in the model. This does
 	*not* save changes to the passage model.
 
 	@method positionPassage
 	@param {Passage} passage Passage to nudge.
-	@param {Function} filter If passed, any passage this function returns false
+	@param {Function} [filter] If passed, any passage this function returns false
 		for will be ignored when checking for overlaps.
-	**/
-
+	*/
 	positionPassage: function(passage, filter) {
-		// Displace
+		// Displace the passage by any others.
 
 		this.collection.each(function(p) {
 			if (filter && ! filter(p)) {
@@ -425,12 +401,21 @@ module.exports = Marionette.CompositeView.extend({
 			}
 		});
 
-		// Snap to grid
+		/*
+		Snap it to the grid if we have that set. We do so in the way that will
+		move it the least from its current position.
+		*/
 
 		if (this.model.get('snapToGrid')) {
 			var xMove, yMove;
 			var hGrid = Passage.width / 2;
 			var vGrid = Passage.height / 2;
+
+			/*
+			Calculate the distance it would need to move to the left; if it is
+			more than half the grid spacing, we know moving it rightward will
+			be smaller.
+			*/
 
 			var leftMove = passage.get('left') % hGrid;
 
@@ -441,6 +426,10 @@ module.exports = Marionette.CompositeView.extend({
 				xMove = hGrid - leftMove;
 			}
 
+			/*
+			Same as above, but along the Y axis.
+			*/
+
 			var upMove = passage.get('top') % vGrid;
 
 			if (upMove < vGrid / 2) {
@@ -450,6 +439,8 @@ module.exports = Marionette.CompositeView.extend({
 				yMove = vGrid - upMove;
 			}
 
+			// Set what we came up with in the model.
+
 			passage.set({
 				left: passage.get('left') + xMove,
 				top: passage.get('top') + yMove
@@ -457,20 +448,19 @@ module.exports = Marionette.CompositeView.extend({
 		}
 	},
 
-	/**
-	    Syncs the CSS class associated with the view with model.
+	/*
+	Syncs the CSS class associated with the view with the model.
 
-	    @method syncZoom
-	  **/
-
+	@method syncZoom
+	*/
 	syncZoom: function() {
 		var zoom = this.model.get('zoom');
 
 		for (var desc in this.ZOOM_MAPPINGS) {
 			if (this.ZOOM_MAPPINGS[desc] == zoom) {
 				this.$('#storyEditView')
-				.removeClass('zoomSmall zoomMedium zoomBig')
-				.addClass(desc);
+					.removeClass('zoomSmall zoomMedium zoomBig')
+					.addClass(desc);
 				break;
 			}
 		}
@@ -478,64 +468,68 @@ module.exports = Marionette.CompositeView.extend({
 		this.resize();
 	},
 
-	/**
-	    Syncs the window title with the story name.
+	/*
+	Syncs the window title with the model's name.
 
-	    @method syncName
-	  **/
-
+	@method syncName
+	*/
 	syncName: function() {
-		document.title = locale.say(
-		'Editing \u201c%s\u201d',
-		this.model.get('name')
-		);
-	},
+		// Those Unicode escaped characters are curly quotes.
 
-	updateSaved: function() {
-		this.$('.storyName').attr(
-		'title',
-		locale.say('Last saved at %s', moment().format('llll'))
+		document.title = locale.say(
+			'Editing \u201c%s\u201d',
+			this.model.get('name')
 		);
 	},
 
 	events: {
 		'drag .passage': function(e) {
-			// Draw links between passages as they are dragged around
+			// Draw links between passages as they are dragged around.
+			// FIXME: should be moved into the link manager module
 
 			this.linkManager.cachePassage(
-			this.collection.get($(e.target).closest('.passage').attr('data-id'))
+				this.collection.get($(e.target).closest('.passage').attr('data-id'))
 			);
 			this.linkManager.drawLinks();
 		},
 
-		mousedown: function(e) {
-			// Record the click target
+		'mousedown': function(e) {
+			/*
+			The last element that was the target of a mousedown event.
+			This is used by child views to see if they should pay attention to a
+			mouseup event, for example.
 
-			/**
-			        The last element that was the target of a mousedown event.
-			        This is used by child views to see if they should pay attention to a
-			        mouseup event, for example.
-
-			        @property {Object} lastMousedown
-			      **/
-
+			@property {Object} lastMousedown
+			*/
 			this.lastMousedown = $(e.target);
+		},
+
+		'mousewheel': function (e) {
+			/*
+			Change the zoom level if the user rolls the mouse wheel and has the
+			Control or Alt key held down.
+			*/
+
+			if (event.altKey && ! event.ctrlKey) {
+				// Consider only the veritcal scroll.
+				var delta = event.originalEvent.wheelDeltaY;
+
+				if (delta > 0) {
+					this.decreaseZoom();
+				}
+				else {
+					this.increaseZoom();
+				}
+			}
 		}
 	},
 
-	onMouseWheel: function(event) {
-		var delta;
-
-		if (event.altKey && ! event.ctrlKey) {
-			delta = event.originalEvent.wheelDeltaY; // Consider only vertical scroll
-			if (delta > 0) {
-				this.decreaseZoom();
-			}
-			else {
-				this.increaseZoom();
-			}
-		}
-	},
+	/*
+	Increases the zoom level of the view by one increment. If we are already as
+	zoomed in as it gets, this does nothing.
+	
+	@method increaseZoom
+	*/
 
 	increaseZoom: function() {
 		var zoomIndex = this.zoomLevels.indexOf(this.get('zoom'));
@@ -545,8 +539,15 @@ module.exports = Marionette.CompositeView.extend({
 			zoomIndex = 0;
 		}
 
-		this.set('zoom', this.zoomLevels[zoomIndex]);
+		this.save('zoom', this.zoomLevels[zoomIndex]);
 	},
+
+	/*
+	Decreases the zoom level of the view by one increment. If we are already as
+	zoomed out as it gets, this does nothing.
+	
+	@method decreaseZoom
+	*/
 
 	decreaseZoom: function() {
 		var zoomIndex = this.zoomLevels.indexOf(this.get('zoom'));
@@ -556,6 +557,45 @@ module.exports = Marionette.CompositeView.extend({
 			zoomIndex = this.zoomLevels.length - 1;
 		}
 
-		this.set('zoom', this.zoomLevels[zoomIndex]);
+		this.save('zoom', this.zoomLevels[zoomIndex]);
+	},
+
+	collectionEvents: {
+		'change:top change:left': 'resize',
+		'change:name': function(p) {
+			// Update passages linking to this one to preserve links.
+
+			_.invoke(
+				this.collection.models,
+				'replaceLink',
+				p.previous('name'),
+				p.get('name')
+			);
+		},
+		'add': function(p) {
+			// Set as starting passage if we only have one.
+
+			if (this.collection.length == 1) {
+				this.model.save({startPassage: p.id});
+			}
+		},
+		'error': function(model, resp) {
+			// L10n: %s is the error message.
+			notify(
+				locale.say('A problem occurred while saving your changes (%s).', resp),
+				'danger'
+			);
+		}
+	},
+
+	modelEvents: {
+		'change:zoom': this.syncZoom,
+		'change:name'' this.syncName,
+		'error', function(model, resp) {
+			// L10n: %s is the error message.
+			notify(
+				locale.say('A problem occurred while saving your changes (%s).', resp),
+				'danger'
+			);
 	}
 });

@@ -1,9 +1,9 @@
-/**
-  //passages
+/*
+# passages
 
-  Exports a class extending `Backbone.Collection` which manages a collection of
-  passages.
-**/
+Exports a class extending `Backbone.Collection` which manages a collection of
+passages.
+*/
 
 'use strict';
 var Backbone = require('backbone');

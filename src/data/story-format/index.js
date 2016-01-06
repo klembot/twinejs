@@ -1,5 +1,5 @@
 /*
-//story-format
+# story-format
 
 This exports a class that extends `Backbone.Model`, which manages story
 formats.  A story format transforms a story's HTML output into a full-fledged
@@ -57,11 +57,9 @@ var StoryFormat = Backbone.Model.extend({
 
 	@method load
 	@param {Function} [callback] Function to call when loading completes;
-		if it did not succeed, the function  will be
-		passed an `Error` object. If no callback
-		is passed, an error is raised directly.
+		if it did not succeed, the function will be passed an `Error` object.
+		If no callback is passed, an error is raised directly.
 	*/
-
 	load: function(callback) {
 		if (this.loaded) {
 			if (callback) {
@@ -99,20 +97,19 @@ var StoryFormat = Backbone.Model.extend({
 			jsonpCallback: 'storyFormat',
 			crossDomain: true
 		})
-		.done(onDone.bind(this))
-		.fail(onFail);
+			.done(onDone.bind(this))
+			.fail(onFail);
 	},
 
-	/**
-	  	Publishes a story with this story format. This method is asynchronous.
+	/*
+	Publishes a story with this story format. This method is asynchronous.
 
-	  	@method publish
-	  	@param {Story} story story to publish
-	  	@param {Object} options options to pass to `Story.publish()`
-	  	@param {Function} callback function called with the resulting HTML,
-	  	                           signature `callback(err, result)`
-	  **/
-
+	@method publish
+	@param {Story} story story to publish
+	@param {Object} options options to pass to `Story.publish()`
+	@param {Function} callback function called with the resulting HTML,
+		signature `callback(err, result)`
+	*/
 	publish: function(story, options, callback) {
 		this.load(function(err) {
 			if (err) {
@@ -129,24 +126,24 @@ var StoryFormat = Backbone.Model.extend({
 				// Start with builtin placeholders.
 
 				output = output.replace(/{{STORY_NAME}}/g, function() {
-		return _.escape(story.get('name'));
-	});
+					return _.escape(story.get('name'));
+				});
 
 				output = output.replace(/{{STORY_DATA}}/g, function() {
-		return story.publish(options);
-	});
+					return story.publish(options);
+				});
 
 				// User-defined placeholders. (These are not implemented yet.)
 
 				_.each(this.get('placeholders'), function(p) {
-		var value = story.get(p.name);
+					var value = story.get(p.name);
 
-		if (value !== null) {
-			output = output.replace(p.name, function() {
-				return value;
-			});
-		}
-	});
+					if (value !== null) {
+						output = output.replace(p.name, function() {
+							return value;
+						});
+					}
+				});
 
 				callback(null, output);
 			}

@@ -1,4 +1,4 @@
-/**
+/*
 # custom-renderer
 
 This module sets Marionette's built-in template renderer to one that renders
@@ -8,8 +8,7 @@ helpful properties to the templates:
 - `moment`: direct access to Moment.js
 - `s`: access to locale.say()
 - `sp`: access to locale.sayPlural()
-**/
-
+*/
 
 'use strict';
 var _ = require('underscore');
@@ -18,10 +17,11 @@ var locale = require('../locale');
 var Marionette = require('backbone.marionette');
 
 module.exports = {
-	/**
+	/*
 	Sets this renderer as Marionette's default.
+
 	@method initialize
-	**/
+	*/
 	initialize: function() {
 		var templateProperties = {
 			moment: moment,

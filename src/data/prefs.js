@@ -1,9 +1,9 @@
-/**
-  //prefs
+/*
+# prefs
 
-  Exports a class extending `Backbone.Collection` which manages a collection of
-  preferences.
-**/
+Exports a class extending `Backbone.Collection` which manages a collection of
+preferences.
+*/
 
 'use strict';
 var Backbone = require('backbone');

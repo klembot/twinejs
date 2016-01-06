@@ -1,10 +1,10 @@
-/**
-  Manages drawing the arrows connecting linked passages, and re-renders passages
-  to keep their broken link status current.
+/*
+# link-manager
 
-  @class StoryEditView.LinkManager
-  @extends Backbone.View
-**/
+Manages drawing the arrows connecting linked passages, and re-renders passages
+to keep their broken link status current. Because this has internal state, it
+must be initialized before use.
+*/
 
 'use strict';
 var $ = require('jquery');
@@ -13,168 +13,166 @@ var Backbone = require('backbone');
 var SVG = require('svg.js');
 
 module.exports = Backbone.View.extend({
-	/**
-	    Angle at which arrowheads are drawn, in radians.
+	/*
+	Angle at which arrowheads are drawn, in radians.
 
-	    @property {Number} ARROW_ANGLE
-	    @final
-	  **/
-
+	@property ARROW_ANGLE
+	@type {Number}
+	*/
 	ARROW_ANGLE: Math.PI / 6,
 
-	/**
-	    Length of arrowheads, in pixels.
+	/*
+	Length of arrowheads, in pixels.
 
-	    @property {Number} ARROW_SIZE
-	    @final
-	  **/
-
+	@property ARROW_SIZE
+	@type {Number}
+	*/
 	ARROW_SIZE: 10,
 
+
 	initialize: function(options) {
-		/**
-		      The parent view.
+		/*
+		The parent view.
 
-		      @property {StoryEditView} parent
-		    **/
-
+		@property parent
+		@type {`story-edit/view`}
+		*/
 		this.parent = options.parent;
 
-		/**
-		      The SVG element we draw to.
+		/*
+		The SVG.js canvas we draw to.
 
-		      @property svg
-		    **/
-
+		@property svg
+		*/
 		this.svg = SVG(this.parent.$('.passages .content')[0]);
 
-		/**
-		      Tracks passage positions and links to speed up drawing operations.
-		      Call cachePassage() to update a passage in the cache.
+		/*
+		Tracks passage positions and links to speed up drawing operations.
+		Call `cachePassage()` to update a passage in the cache.
 
-		      @property {Object} passageCache
-		    **/
-
+		@property passageCache
+		@type {Object}
+		*/
 		this.passageCache = {};
 
-		/**
-		      A lookup for the drawn connector SVG objects, in the format
-		      this.lineCache[start passage name][end passage name].
+		/*
+		A lookup for the drawn connector SVG objects, in the format
+		this.lineCache[start passage name][end passage name].
 
-		      @property {Object} lineCache
-		    **/
-
+		@property lineCache
+		@type {Object}
+		*/
 		this.lineCache = {};
 
-		// Keep draw cache in sync with collection changes
+		// Keep the drawing cache in sync with collection changes.
 
 		this.listenTo(this.parent.collection, 'change:name', function(item) {
 			delete this.passageCache[item.previous('name')];
 
-			// Caching the new version is handled below
+			// Caching the new version is handled below.
 		})
-    .listenTo(this.parent.collection, 'change', function(item) {
-	this.cachePassage(item);
-	this.drawAll();
+			.listenTo(this.parent.collection, 'change', function(item) {
+				this.cachePassage(item);
+				this.drawAll();
 
-	// Any passage that links or linked to this one
-	// needs to be re-rendered, to update its broken-link status
+				// Any passage that links or linked to this one
+				// needs to be re-rendered, to update its broken-link status.
 
-	var oldName = item.previous('name');
-	var newName = item.get('name');
+				var oldName = item.previous('name');
+				var newName = item.get('name');
 
-	_.each(this.passageCache, function(props, pName) {
-		var containsOldName = _.contains(props.links, oldName);
-		var containsNewName =  _.contains(props.links, newName);
+				_.each(this.passageCache, function(props, pName) {
+					var containsOldName = _.contains(props.links, oldName);
+					var containsNewName = _.contains(props.links, newName);
 
-		if (containsOldName || containsNewName) {
-			this.parent.children.find(function(v) {
-				if (v.model.get('name') == pName) {
-					v.render();
-					return true;
+					if (containsOldName || containsNewName) {
+						this.parent.children.find(function(v) {
+							if (v.model.get('name') == pName) {
+								v.render();
+								return true;
+							}
+						});
+					}
+				}, this);
+			})
+			.listenTo(this.parent.collection, 'add', function(item) {
+				this.cachePassage(item);
+				this.drawAll();
+
+				var name = item.get('name');
+
+				_.each(this.passageCache, function(props, pName) {
+					if (_.contains(props.links, name)) {
+						this.parent.children.find(function(v) {
+							if (v.model.get('name') == pName) {
+								v.render();
+								return true;
+							}
+						});
+					}
+				}, this);
+			})
+			.listenTo(this.parent.collection, 'remove', function(item) {
+				var name = item.get('name');
+
+				delete this.passageCache[name];
+				this.drawAll();
+
+				// Any passage that links or linked to this one
+				// needs to be re-rendered.
+
+				_.each(this.passageCache, function(props, pName) {
+					if (_.contains(props.links, name)) {
+						this.parent.children.find(function(v) {
+							if (v.model.get('name') == pName) {
+								v.render();
+								return true;
+							}
+						});
+					}
+				}, this);
+			})
+			.listenTo(this.parent.model, 'change:zoom', function() {
+				// This must be deferred so that the DOM has a chance to update.
+
+				_.defer(this.reset.bind(this));
+			})
+			.listenTo(this.parent.model, 'change:startPassage', function() {
+				var oldStart = this.parent.collection.findWhere({
+					id: this.parent.model.previous('startPassage')
+				});
+				var newStart = this.parent.collection.findWhere({
+					id: this.parent.model.get('startPassage')
+				});
+
+				if (oldStart) {
+					this.cachePassage(oldStart);
 				}
-			});
-		}
-	}, this);
-    })
-    .listenTo(this.parent.collection, 'add', function(item) {
-	this.cachePassage(item);
-	this.drawAll();
 
-	var name = item.get('name');
-
-	_.each(this.passageCache, function(props, pName) {
-		if (_.contains(props.links, name)) {
-			this.parent.children.find(function(v) {
-				if (v.model.get('name') == pName) {
-					v.render();
-					return true;
+				if (newStart) {
+					this.cachePassage(newStart);
 				}
+
+				this.drawAll();
 			});
-		}
-	}, this);
-    })
-    .listenTo(this.parent.collection, 'remove', function(item) {
-	var name = item.get('name');
 
-	delete this.passageCache[name];
-	this.drawAll();
+		/*
+		A bound event listener for the start of a passage drag event, so we can
+		later disconnect it.
 
-	// Any passage that links or linked to this one
-	// needs to be re-rendered
-
-	_.each(this.passageCache, function(props, pName) {
-		if (_.contains(props.links, name)) {
-			this.parent.children.find(function(v) {
-				if (v.model.get('name') == pName) {
-					v.render();
-					return true;
-				}
-			});
-		}
-	}, this);
-    })
-    .listenTo(this.parent.model, 'change:zoom', function() {
-	// This must be deferred so that the DOM has a chance to update
-
-	_.defer(this.reset.bind(this));
-    })
-    .listenTo(this.parent.model, 'change:startPassage', function() {
-	var oldStart = this.parent.collection.findWhere({
-		id: this.parent.model.previous('startPassage')
-	});
-	var newStart = this.parent.collection.findWhere({
-		id: this.parent.model.get('startPassage')
-	});
-
-	if (oldStart) {
-		this.cachePassage(oldStart);
-	}
-
-	if (newStart) {
-		this.cachePassage(newStart);
-	}
-
-	this.drawAll();
-    });
-
-		/**
-		      A bound event listener for the start of a passage drag event, so we can
-		      later disconnect it.
-
-		      @property {Function} prepDragBound
-		      @private
-		    **/
+		@property prepDragBound
+		@type {Function}
+		*/
 
 		this.prepDragBound = this.prepDrag.bind(this);
 
-		/**
-		      A bound event listener for a passage drag event, so we can later
-		      disconnect it.
+		/*
+		A bound event listener for a passage drag event, so we can later
+		disconnect it.
 
-		      @property {Function} followDragBound
-		      @private
-		    **/
+		@property followDragBound
+		@type {Function}
+		*/
 
 		this.followDragBound = this.followDrag.bind(this);
 
@@ -183,19 +181,19 @@ module.exports = Backbone.View.extend({
 			passagedrag: this.followDragBound
 		});
 
-		// For some reason, jQuery can't see the position of the passages yet, so we
-		// defer
+		/*
+		jQuery can't see the position of the passages yet, so we defer
+		this.
+		*/
 
 		_.defer(this.reset.bind(this));
 	},
 
-	/**
-	    Does cleanup of stuff set up in initialize().
+	/*
+	Does cleanup of stuff set up in `initialize()`.
 
-	    @method destroy
-	    @private
-	  **/
-
+	@method destroy
+	*/
 	destroy: function() {
 		$('body').off({
 			passagedragstart: this.prepDragBound,
@@ -203,12 +201,11 @@ module.exports = Backbone.View.extend({
 		});
 	},
 
-	/**
-	    Forces a re-cache of all passages.
+	/*
+	Forces a re-cache of all passages.
 
-	    @method reset
-	  **/
-
+	@method reset
+	*/
 	reset: function() {
 		this.passageCache = {};
 		this.parent.collection.each(function(item) {
@@ -218,12 +215,11 @@ module.exports = Backbone.View.extend({
 		this.drawAll();
 	},
 
-	/**
-	    Draws all connectors, which is a fairly expensive operation.
+	/*
+	Draws all connectors, which is a fairly expensive operation.
 
-	    @method drawAll
-	  **/
-
+	@method drawAll
+	*/
 	drawAll: function() {
 		var drawArrows = (this.parent.model.get('zoom') > 0.25);
 
@@ -245,16 +241,15 @@ module.exports = Backbone.View.extend({
 		}
 	},
 
-	/**
-	    Draws or updates a single connector from one passage to another.
-	    If either is not previously cached via cachePassage, then this does
-	    nothing.
+	/*
+	Draws or updates a single SVG connector from one passage to another.  If either
+	is not previously cached via `cachePassage()`, then this does nothing.
 
-	    @method drawConnector
-	    @param {String} start Name of the start passage
-	    @param {String} end Name of the end passage
-	    @param {Boolean} arrowhead Include an arrowhead?
-	  **/
+	@method drawConnector
+	@param {String} start Name of the start passage
+	@param {String} end Name of the end passage
+	@param {Boolean} arrowhead Include an arrowhead?
+	*/
 
 	drawConnector: function(start, end, arrowhead) {
 		var p = this.passageCache[start];
@@ -264,7 +259,7 @@ module.exports = Backbone.View.extend({
 			return;
 		}
 
-		// Find the closest sides to connect
+		// Find the closest sides to connect.
 
 		var xDist = q.n[0] - p.n[0];
 		var yDist = q.n[1] - p.n[1];
@@ -274,7 +269,7 @@ module.exports = Backbone.View.extend({
 		// Hardcoded aesthetics :-|
 
 		if (slope < 0.8 || slope > 1.3) {
-			// Connect sides
+			// Draw the connector between the sides of the passages.
 
 			if (Math.abs(xDist) > Math.abs(yDist)) {
 				if (xDist > 0) {
@@ -294,7 +289,7 @@ module.exports = Backbone.View.extend({
 			}
 		}
 		else {
-			// Connect corners
+			// Draw the connector between the corners of the passages.
 
 			if (xDist < 0) {
 				if (yDist < 0) {
@@ -314,25 +309,27 @@ module.exports = Backbone.View.extend({
 			}
 		}
 
-		// Line is now an array of two points: 0 is the start, 1 is the end
-		// add arrowheads as needed
+		/*
+		The variable `line` is now an array of two points: 0 is the start, 1 is
+		the end. We now add arrowheads as needed.
+		*/
 
 		if (arrowhead) {
 			var head1 = this.endPointProjectedFrom(
-			line,
-			this.ARROW_ANGLE,
-			this.ARROW_SIZE
+				line,
+				this.ARROW_ANGLE,
+				this.ARROW_SIZE
 			);
 			var head2 = this.endPointProjectedFrom(
-			line,
-			-this.ARROW_ANGLE,
-			this.ARROW_SIZE
+				line,
+				-this.ARROW_ANGLE,
+				this.ARROW_SIZE
 			);
 
 			line.push(head1, [line[1][0], line[1][1]], head2);
 		}
 
-		// Cache the line as we draw it
+		// Cache the line as we draw it.
 
 		this.lineCache[start] = this.lineCache[start] || {};
 
@@ -343,65 +340,60 @@ module.exports = Backbone.View.extend({
 		this.lineCache[start][end] = this.svg.polyline(line);
 	},
 
-	/**
-	    Projects a point from the endpoint of a line at a certain angle and
-	    distance.
+	/*
+	Projects a point from the endpoint of a line at a certain angle and
+	distance.
 
-	    @method endPointProjectedFrom
-	    @param {Array} line An array of two points, each an array in [x, y] format
-	    @param {Number} angle Angle in radians to project from the endpoints
-	    @param {Number} distance Distance the projected line should have
-	    @return Array
-	  **/
-
+	@method endPointProjectedFrom
+	@param {Array} line An array of two points, each an array in [x, y] format
+	@param {Number} angle Angle in radians to project from the endpoints
+	@param {Number} distance Distance the projected line should have
+	@return {Array} projected point in [x, y] format
+	*/
 	endPointProjectedFrom: function(line, angle, distance) {
 		var length = Math.sqrt(Math.pow(line[1][0] - line[0][0], 2) +
-		Math.pow(line[1][1] - line[0][1], 2));
+			Math.pow(line[1][1] - line[0][1], 2));
 
 		if (length === 0) {
 			return line[1];
 		}
 
-		// taken from http://mathforum.org/library/drmath/view/54146.html
+		// Taken from http://mathforum.org/library/drmath/view/54146.html.
 
 		var lengthRatio = distance / length;
 
 		var x = line[1][0] -
-		((line[1][0] - line[0][0]) * Math.cos(angle) -
-		(line[1][1] - line[0][1]) * Math.sin(angle)) * lengthRatio;
+			((line[1][0] - line[0][0]) * Math.cos(angle) -
+			(line[1][1] - line[0][1]) * Math.sin(angle)) * lengthRatio;
 		var y = line[1][1] -
-		((line[1][1] - line[0][1]) * Math.cos(angle) +
-		(line[1][0] - line[0][0]) * Math.sin(angle)) * lengthRatio;
+			((line[1][1] - line[0][1]) * Math.cos(angle) +
+			(line[1][0] - line[0][0]) * Math.sin(angle)) * lengthRatio;
 
 		return [x, y];
 	},
 
-	/**
-	    Prepares for the user dragging passages around by remembering
-	    various things we'll need to now to update on each mouse motion event,
-	    so we can be as efficient as possible.
+	/*
+	Prepares for the user dragging passages around by remembering
+	various things we'll need to now to update on each mouse motion event,
+	so we can be as efficient as possible.
 
-	    @method prepDrag
-	    @private
-	  **/
-
+	@method prepDrag
+	*/
 	prepDrag: function() {
-		/**
-		      Should arrowheads be drawn while dragging?
+		/*
+		Should arrowheads be drawn while dragging? We compute this and store it in this
+		object so we don't have to recompute it during the drag.
 
-		      @property drawArrowsWhileDragging
-		      @private
-		    **/
-
+		@property drawArrowsWhileDragging
+		*/
 		this.drawArrowsWhileDragging = (this.parent.model.get('zoom') > 0.25);
 
-		/**
-		      An array of passages models currently being dragged.
+		/*
+		An array of passage models currently being dragged. We store this in
+		this object so we don't have to recompute it constantly, as above.
 
-		      @property draggedPassages
-		      @private
-		    **/
-
+		@property draggedPassages
+		*/
 		this.draggedPassages = [];
 		var draggedNames = [];
 
@@ -412,14 +404,12 @@ module.exports = Backbone.View.extend({
 			}
 		}, this);
 
-		/**
-		      An array of connections that are dependant on the dragged passages,
-		      e.g. need to be redrawn every frame the mouse is moved.
+		/*
+		An array of connections that are dependant on the dragged passages,
+		which will need to be redrawn every frame the mouse is moved.
 
-		      @property draggedConnectors
-		      @private
-		    **/
-
+		@property draggedConnectors
+		*/
 		this.draggedConnectors = [];
 
 		_.each(this.passageCache, function(props, startName) {
@@ -435,37 +425,35 @@ module.exports = Backbone.View.extend({
 		}, this);
 	},
 
-	/**
-	    Re-caches dragged passages in flight and updates connectors.
+	/*
+	Re-caches dragged passages in flight and updates connectors.
 
-	    @method followDrag
-	    @private
-	  **/
-
+	@method followDrag
+	*/
 	followDrag: function() {
 		for (var i = this.draggedPassages.length - 1; i >= 0; i--) {
 			this.cachePassage(this.draggedPassages[i]);
 		}
 
 		for (i = this.draggedConnectors.length - 1; i >= 0; i--) {
-			this.drawConnector(this.draggedConnectors[i][0],
+			this.drawConnector(
+				this.draggedConnectors[i][0],
 				this.draggedConnectors[i][1],
 				this.drawArrowsWhileDragging
 			);
 		}
 	},
 
-	/**
-	Updates the draw cache for a passage. This must occur whenever a passage's
-	position, name, or text changes. All of these can affect links drawn. This
-	uses the passage's position onscreen instead of its model's position, since
-	we need to draw links as the passage is dragged around onscreen, i.e. before
-	any changes are saved to the model.
+	/*
+	Updates the drawing cache for a passage. This must occur whenever a
+	passage's position, name, or text changes. All of these can affect links
+	drawn. This uses the passage's position onscreen instead of its model's
+	position, since we need to draw links as the passage is dragged around
+	onscreen, i.e. before any changes are saved to the model.
 
 	@method cachePassage
 	@param {Passage} passage Passage to cache.
-	**/
-
+	*/
 	cachePassage: function(passage) {
 		var offset = this.$('.passages').offset();
 		var passEl = this.$('.passages div[data-id="' + passage.id + '"] .frame');
@@ -473,7 +461,9 @@ module.exports = Backbone.View.extend({
 		var width = passEl.outerWidth();
 		var height = passEl.outerHeight();
 
-		// If the passage hasn't been rendered yet, there's nothing to cache yet
+		/*
+		If the passage hasn't been rendered yet, there's nothing to cache yet.
+		*/
 
 		if (pos) {
 			var x = pos.left - offset.left;

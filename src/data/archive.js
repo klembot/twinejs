@@ -1,10 +1,10 @@
-/**
-  //archive
+/*
+# archive
 
-  This exports functions that help with creating and importing story archives.
-  An archive is just a series of stories published to HTML without a story
-  format.
-**/
+This exports functions that help with creating and importing story archives.
+An archive is just a series of stories published to HTML without a story
+format.
+*/
 
 'use strict';
 var _ = require('underscore');
@@ -12,17 +12,16 @@ var data = require('./index');
 var locale = require('../locale');
 
 var archive = {
-	/**
-	    Imports a file containing either a single published story, or an
-	    archive of several stories. The stories are immediately saved to storage.
-	    This does not yet work with stories published by Twine 1.x.
+	/*
+	Imports a file containing either a single published story, or an
+	archive of several stories. The stories are immediately saved to storage.
+	This does not yet work with stories published by Twine 1.x.
 
-	    @method import
-	    @param {String} fileData Contents of the file to be imported.
-	    @param {Date} lastUpdate [Overrides the last updated date of the stories.]
-	    @static
-	  **/
-
+	@method import
+	@param {String} fileData Contents of the file to be imported.
+	@param {Date} lastUpdate [Overrides the last updated date of the stories.]
+	@static
+	*/
 	import: function(fileData, lastUpdate) {
 		var sels = archive.selectors;
 
@@ -55,27 +54,27 @@ var archive = {
 			});
 
 			// Create the parent story model...
+
 			var storyAttributes = {
 				name: storyEl.attributes.name.value,
 				storyFormat: storyEl.attributes.format.value,
 				ifid: (storyEl.attributes.ifid) ?
-				storyEl.attributes.ifid.value :
-				undefined,
+					storyEl.attributes.ifid.value :
+					undefined,
 				stylesheet: (stylesheet !== '') ?
-				stylesheet :
-				undefined,
+					stylesheet :
+					undefined,
 				script: (script !== '') ?
-				script :
-				undefined
+					script :
+					undefined
 			};
-			var story = data.stories.create(
-			storyAttributes,
-          {
-	wait: true,
-	silent: true,
-	validate: false
-          }
-      );
+
+			var story = data.stories.create(storyAttributes,
+				{
+					wait: true,
+					silent: true,
+					validate: false
+				});
 
 			// ... and its child passages.
 
@@ -97,10 +96,8 @@ var archive = {
 				}, { wait: true, silent: true, validate: false });
 
 				if (id == startPassageId) {
-					story.save(
-					{ startPassage: passage.id },
-					{ silent: true, validate: false }
-					);
+					story.save({ startPassage: passage.id },
+						{ silent: true, validate: false });
 				}
 			});
 
@@ -109,7 +106,8 @@ var archive = {
 			if (lastUpdate) {
 				story.save({
 					lastUpdate: lastUpdate
-				}, {
+				},
+				{
 					silent: true,
 					validate: false
 				});
@@ -121,13 +119,13 @@ var archive = {
 		return count;
 	},
 
-	/**
-	    Saves an archive of all stories to a file to be downloaded.
-	    @method create
-	    @return {String} HTML output
-	    @static
-	  **/
+	/*
+	Saves an archive of all stories to a file to be downloaded.
 
+	@method create
+	@return {String} HTML output
+	@static
+	*/
 	create: function() {
 		var output = '';
 
@@ -140,26 +138,28 @@ var archive = {
 		return output;
 	},
 
-	/**
-	    Returns a suitable filename for an archive file. This tries its best to
-	    offer unique names based on the current date and time.
-	    @method name
-	    @return {String} filename
-	    @static
-	  **/
+	/*
+	Returns a suitable filename for an archive file. This tries its best to
+	offer unique names based on the current date and time.
+
+	@method name
+	@return {String} filename
+	@static
+	*/
 
 	name: function() {
 		return new Date().toLocaleString().replace(/[\/:\\]/g, '.') + ' ' +
 		locale.say('Twine Archive.html');
 	},
 
-	/**
-	    A namespace of DOM selectors for published HTML elements.
-	    This is aligned with `utils/selectors.js` in Harlowe.
-	    @property selectors
-	    @type Object
-	    @static
-	  **/
+	/*
+	A namespace of DOM selectors for published HTML elements.
+	This is aligned with `utils/selectors.js` in Harlowe.
+
+	@property selectors
+	@type Object
+	@static
+	*/
 
 	selectors: {
 		passage: 'tw-passage',

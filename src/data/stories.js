@@ -1,10 +1,10 @@
-/**
-  //stories
+/*
+# stories
 
-  Exports a class extending `Backbone.Collection` which manages a collection of
-  stories. By default, this sorts stories by name, but can also sort by last
-  update date.
-**/
+Exports a class extending `Backbone.Collection` which manages a collection of
+stories. By default, this sorts stories by name, but can also sort by last
+update date.
+*/
 
 'use strict';
 var Backbone = require('backbone');

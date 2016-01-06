@@ -31,6 +31,7 @@ module.exports = Marionette.Region.extend({
 			the view which story we're coming back from, and that it
 			shouldn't animate the stories appearing in the list.
 			*/
+
 			var isStoryList = view instanceof StoryListView;
 			var isPrevViewStoryEdit = this.prevView instanceof StoryEditView;
 

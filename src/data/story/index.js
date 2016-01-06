@@ -1,10 +1,10 @@
-/**
-  //story
+/*
+# story
 
-  This exports a class extending `Backbone.Model` which manages stories. A story
-  contains many passages, and has a name, stylesheet, script, zoom, and last
-  updated date.
-**/
+This exports a class extending `Backbone.Model` which manages stories. A story
+contains many passages, and has a name, stylesheet, script, zoom, and last
+updated date.
+*/
 
 'use strict';
 var _ = require('underscore');
@@ -16,8 +16,10 @@ var storyDataTemplate = require('./data.ejs');
 
 module.exports = Backbone.Model.extend({
 	defaults: _.memoize(function() {
-		// We require the data module here to avoid problems with cyclic
-		// redundancy.
+		/*
+		We require the data module here to avoid problems with cyclic
+		redundancy.
+		*/
 		var data = require('../index');
 
 		return {
@@ -35,27 +37,27 @@ module.exports = Backbone.Model.extend({
 
 	template: storyDataTemplate,
 
-	/**
-	    Publishes a story to an HTML fragment, e.g. a collection of DOM elements.
-	    It's up to a StoryFormat to create a full-fledged HTML document from this.
+	/*
+	Publishes a story to an HTML fragment, e.g. a collection of DOM elements.
+	It's up to a StoryFormat to create a full-fledged HTML document from this.
 
-	    @method publish
-	    @param {Object} options can contain:
-	      `formatOptions`, an array of strings to pass to the story format
-	                       at runtime;
-	       `startId`, passage database ID to start with;
-	       `startOptional`, if falsy, then an error is reported when
-	                        no start passage has been set
-	    @return {String} HTML fragment
-	  **/
-
+	@method publish
+	@param {Object} options can contain:
+		`formatOptions`, an array of strings to pass to the story format
+		at runtime; `startId`, passage database ID to start with;
+		`startOptional`, if falsy, then an error is reported when no start
+		passage has been set
+	@return {String} HTML fragment
+	*/
 	publish: function(options) {
 		var passageData = '';
 		var startDbId = options.startId || this.get('startPassage');
 		var startId;
 
-		// The data module is included here to avoid problems with cyclic
-		// dependencies.
+		/*
+		The data module is included here to avoid problems with cyclic
+		dependencies.
+		*/
 		var data = require('../index');
 		var passages = data.passagesForStory(this);
 
@@ -64,13 +66,13 @@ module.exports = Backbone.Model.extend({
 		if (! options.startOptional) {
 			if (! startDbId) {
 				throw new Error(
-				locale.say('There is no starting point set for this story.'));
+					locale.say('There is no starting point set for this story.'));
 			}
 
 			if (! passages.findWhere({ id: startDbId })) {
 				throw new Error(
-				locale.say('The passage set as starting point for this story ' +
-				'does not exist.'));
+					locale.say('The passage set as starting point for this story ' +
+					'does not exist.'));
 			}
 		}
 
