@@ -69,6 +69,7 @@
 	},
 	"jscsConfig": {
 		"preset": "node-style-guide",
+		"disallowKeywordsOnNewLine": false,
 		"requireKeywordsOnNewLine": ["else"],
 		"requirePaddingNewLinesBeforeLineComments": { "allExcept": "firstAfterCurly" },
 		"requirePaddingNewLineAfterVariableDeclaration": true,
