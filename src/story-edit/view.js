@@ -589,13 +589,14 @@ module.exports = Marionette.CompositeView.extend({
 	},
 
 	modelEvents: {
-		'change:zoom': this.syncZoom,
-		'change:name'' this.syncName,
-		'error', function(model, resp) {
+		'change:zoom': 'syncZoom',
+		'change:name': 'syncName',
+		error: function(model, resp) {
 			// L10n: %s is the error message.
 			notify(
 				locale.say('A problem occurred while saving your changes (%s).', resp),
 				'danger'
 			);
+		}
 	}
 });
