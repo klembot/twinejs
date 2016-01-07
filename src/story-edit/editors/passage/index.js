@@ -1,5 +1,5 @@
 /*
-# passage
+# story-edit/editors/passage
 
 Exports methods to edit a passage in a story.
 */

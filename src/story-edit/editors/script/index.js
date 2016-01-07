@@ -1,9 +1,8 @@
-/**
-  Manages the script editor modal of a StoryEditView.
+/*
+# story-edit/editors/script
 
-  @class StoryEditView.ScriptEditor
-  @extends Backbone.View
-**/
+Handles editing a story's script in a modal editor.
+*/
 
 'use strict';
 var Marionette = require('backbone.marionette');
@@ -16,6 +15,13 @@ require('codemirror/addon/hint/show-hint');
 require('codemirror/mode/javascript/javascript');
 
 module.exports = Marionette.ItemView.extend({
+	/*
+	Opens a modal for a particular story.
+
+	@method open
+	@param {`data/story`} story story whose script to edit
+	@static
+	*/
 	open: function(story) {
 		this.story = story;
 
@@ -27,13 +33,17 @@ module.exports = Marionette.ItemView.extend({
 		this.setupCodeMirror();
 	},
 
+	/*
+	Sets up the CodeMirror instance the modal uses.
+
+	@method setupCodeMirror
+	*/
 	setupCodeMirror: function() {
-		/**
-		      The instance of CodeMirror used for editing.
+		/*
+		The instance of CodeMirror used for editing.
 
-		      @property cm
-		    **/
-
+		@property cm
+		*/
 		this.cm = CodeMirror.fromTextArea(this.$('.scriptSource')[0], {
 			lineWrapping: true,
 			lineNumbers: false,
@@ -47,10 +57,11 @@ module.exports = Marionette.ItemView.extend({
 			}
 		});
 
-		// Actually show it
-		// we refresh twice; now so the text will show properly
-		// as the modal animates onscreen, later, once the animation
-		// completes, so scrolling works properly
+		/*
+		Actually show the editor. We refresh twice; now so the text will show
+		properly as the modal animates onscreen, and later, once the animation
+		completes, so scrolling works properly.
+		*/
 
 		this.cm.refresh();
 
@@ -60,10 +71,12 @@ module.exports = Marionette.ItemView.extend({
 		}.bind(this));
 	},
 
-	/**
-	    Saves changes to the model.
-	  **/
+	/*
+	Saves changes to the model.
 
+	@method save
+	@static
+	*/
 	save: function() {
 		this.story.save({ script: this.cm.doc.getValue() });
 	},
