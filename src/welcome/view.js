@@ -1,10 +1,9 @@
-/**
- Manages showing the user a quick set of intro information, and then
- records that it's been shown.
+/*
+# welcome/view
 
- @class WelcomeView
- @extends Backbone.Marionette.ItemView
-**/
+Exports a view which shows the user a quick set of intro information, and then
+records that it's been shown so that next time, it's skipped.
+*/
 
 'use strict';
 var $ = require('jquery');
@@ -23,27 +22,40 @@ module.exports = Marionette.ItemView.extend({
 		this.$('div:first-child').removeClass('hide').addClass('appear');
 	},
 
+	/*
+	Saves that we've been viewed, and directs the user to the story list.
+
+	@method finish
+	*/
 	finish: function() {
 		this.welcomePref.save({ value: true });
 		window.location.hash = '#stories';
 	},
 
+	/*
+	Shows the next section of the view.
+
+	@method next
+	@param {Event} e triggering event
+	*/
 	next: function(e) {
 		var $t = $(e.target);
 		var next = $t.closest('div').next('div');
 
-		// Fade out existing buttons
+		// Fade out existing buttons.
 
-		$t.closest('p').addClass('fadeOut')
-    .on('animationend', function() {
-	$(this).remove();
-    });
+		$t.closest('p')
+			.addClass('fadeOut')
+			.on('animationend', function() {
+				$(this).remove();
+			});
 
-		// Either show the next div, or move on to the story list
-		// have to offset the position because we're animating it
-		// downward, I think
+		// Show the next section.
 
-		next.removeClass('hide').addClass('slideDown');
+		next
+			.removeClass('hide')
+			.addClass('slideDown');
+
 		$('body').animate({ scrollTop: next.position().top + 100 });
 	},
 
