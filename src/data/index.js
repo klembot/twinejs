@@ -78,8 +78,11 @@ var data = {
 			as their start passage, update it with a real id.
 			*/
 			if (! options.noParentUpdate) {
-				_.invoke(data.stories.where({ startPassage: this.cid }),
-					'save', { startPassage: this.id });
+				_.invoke(
+					data.stories.where({ startPassage: this.cid }),
+					'save',
+					{ startPassage: this.id }
+				);
 			}
 		});
 
@@ -105,9 +108,7 @@ var data = {
 
 			var passages = data.passagesForStory(story);
 
-			while (passages.length > 0) {
-				passages.at(0).destroy();
-			}
+			while (passages.length > 0) passages.at(0).destroy();
 		});
 
 		this.stories.on('sync', function(story, response, options) {
@@ -118,8 +119,11 @@ var data = {
 			*/
 
 			if (! options.noChildUpdate) {
-				_.invoke(data.passages.where({ story: this.cid }),
-					'save', { story: story.id });
+				_.invoke(
+					data.passages.where({ story: this.cid }),
+					'save',
+					{ story: story.id }
+				);
 			}
 		});
 
@@ -159,7 +163,7 @@ var data = {
 	@static
 	*/
 	passagesForStory: function(story) {
-		return new Passages(this.passages.filter({story: story.get('id')}));
+		return new Passages(this.passages.filter({ story: story.get('id') }));
 	},
 
 	/*
@@ -173,10 +177,10 @@ var data = {
 	@static
 	*/
 	pref: function(name, defaultValue) {
-		var result = this.prefs.find({name: name});
+		var result = this.prefs.find({ name: name });
 
 		if (! result) {
-			result = this.prefs.create({name: name, value: defaultValue});
+			result = this.prefs.create({ name: name, value: defaultValue });
 		}
 
 		return result;
@@ -191,7 +195,7 @@ var data = {
 	@static
 	*/
 	story: function(id) {
-		return this.stories.find({id: id});
+		return this.stories.find({ id: id });
 	},
 
 	/*
@@ -203,7 +207,7 @@ var data = {
 	@static
 	*/
 	storyForPassage: function(passage) {
-		return this.stories.find({id: passage.get('story')});
+		return this.stories.find({ id: passage.get('story') });
 	},
 
 	/*
@@ -215,7 +219,7 @@ var data = {
 	@static
 	*/
 	storyFormat: function(name) {
-		return this.storyFormats.find({name: name});
+		return this.storyFormats.find({ name: name });
 	},
 
 	/*
@@ -239,7 +243,7 @@ var data = {
 	@static
 	*/
 	storyFormatForStory: function(story) {
-		return this.storyFormats.find({name: story.get('storyFormat')});
+		return this.storyFormats.find({ name: story.get('storyFormat') });
 	},
 
 	/*

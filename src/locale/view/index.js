@@ -25,9 +25,10 @@ module.exports = Marionette.ItemView.extend({
 
 	setLocale: function(userLocale) {
 		if (typeof userLocale !== 'string') {
-			// L10n: An internal error when changing locale.
-			throw new Error(locale.say('Can\'t set locale to nonstring: %s',
-				userLocale));
+			throw new Error(
+				// L10n: An internal error when changing locale.
+				locale.say('Can\'t set locale to nonstring: %s', userLocale)
+			);
 		}
 
 		// FIXME

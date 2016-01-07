@@ -25,9 +25,7 @@ module.exports = Marionette.Application.extend({
 		var TwineRegion = require('../backbone-ext/custom-region');
 		var TwineRouter = require('./router');
 
-		if (nwui.active) {
-			nwui.initialize();
-		}
+		if (nwui.active) nwui.initialize();
 
 		/*
 		Our main (and only) region.

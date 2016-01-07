@@ -78,7 +78,7 @@ var nwui = {
 			startupTask = 'setting up menus';
 
 			var win = nwui.gui.Window.get();
-			var nativeMenuBar = new nwui.gui.Menu({type: 'menubar'});
+			var nativeMenuBar = new nwui.gui.Menu({ type: 'menubar' });
 			var mainMenu;
 
 			if (process.platform == 'darwin') {
@@ -119,8 +119,10 @@ var nwui = {
 					}
 				}));
 
-				mainMenu.submenu.insert(new nwui.gui.MenuItem({type: 'separator'}),
-					0);
+				mainMenu.submenu.insert(
+					new nwui.gui.MenuItem({type: 'separator'}),
+					0
+				);
 				nativeMenuBar.append(mainMenu);
 
 				// And a stand-in Edit menu
@@ -307,17 +309,15 @@ var nwui = {
 			then it should have two backslashes in front of it. Regardless,
 			this must have a single forward slash (/) as its first character.
 			*/
-			nwui.filePath = nwui.path.join(docPath, locale.say('/Twine'),
-				locale.say('/Stories'));
+			nwui.filePath = nwui.path.join(
+				docPath, locale.say('/Twine'), locale.say('/Stories')
+			);
 
 			if (!nwui.fs.existsSync(nwui.filePath)) {
 				startupTask = 'creating a Twine directory in your Documents directory';
 				var twinePath = nwui.path.join(docPath, locale.say('/Twine'));
 
-				if (!nwui.fs.existsSync(twinePath)) {
-					nwui.fs.mkdirSync(twinePath);
-				}
-
+				if (!nwui.fs.existsSync(twinePath)) nwui.fs.mkdirSync(twinePath);
 				nwui.fs.mkdirSync(nwui.filePath);
 			}
 
@@ -376,31 +376,27 @@ var nwui = {
 					*/
 
 					var changedAttributes = _.keys(this.changedAttributes());
-					var isLastUpdatedOnly = !_.some(changedAttributes,
+					var isLastUpdatedOnly = !_.some(
+						changedAttributes,
 						function(key) {
 							return (key != 'lastUpdated');
-						});
+						}
+					);
 
-					if (isLastUpdatedOnly) {
-						return;
-					}
+					if (isLastUpdatedOnly) return;
 
 					/*
 					If we aren't syncing changes or the story has no passages,
 					give up early.
 					*/
 
-					if (!nwui.syncFs || this.fetchPassages().length === 0) {
-						return;
-					}
+					if (!nwui.syncFs || this.fetchPassages().length === 0) return;
 
 					nwui.saveStoryFile(this);
 				}, 100), this);
 
 				this.on('destroy', function() {
-					if (! nwui.syncFs) {
-						return;
-					}
+					if (! nwui.syncFs) return;
 
 					nwui.deleteStoryFile(this);
 				}, this);
@@ -420,18 +416,14 @@ var nwui = {
 				oldPassageInit.call(this);
 
 				this.on('change destroy', _.debounce(function() {
-					if (! nwui.syncFs) {
-						return;
-					}
+					if (! nwui.syncFs) return;
 
 					// If we have no parent, skip it
 					// (this happens during an import, for example)
 
 					var parent = this.fetchStory();
 
-					if (parent) {
-						nwui.saveStoryFile(parent);
-					}
+					if (parent) nwui.saveStoryFile(parent);
 				}, 100), this);
 			};
 
@@ -534,7 +526,9 @@ var nwui = {
 	saveStoryFile: function(story) {
 		try {
 			nwui.unlockStoryDirectory();
-			var fd = nwui.fs.openSync(nwui.filePath + '/' +
+
+			var fd =
+				nwui.fs.openSync(nwui.filePath + '/' +
 				nwui.storyFileName(story), 'w');
 
 			nwui.fs.writeSync(fd, story.publish(null, null, true));
@@ -543,8 +537,11 @@ var nwui = {
 		catch (e) {
 			// L10n: %s is the error message.
 			notify(
-				locale.say('An error occurred while saving your story (%s).',
-				e.message), 'danger'
+				locale.say(
+					'An error occurred while saving your story (%s).',
+					e.message
+				),
+				'danger'
 			);
 			throw e;
 		}
@@ -570,8 +567,11 @@ var nwui = {
 		catch (e) {
 			// L10n: %s is the error message.
 			notify(
-				locale.say('An error occurred while deleting your story (%s).',
-				e.message), 'danger'
+				locale.say(
+					'An error occurred while deleting your story (%s).',
+					e.message
+				),
+				'danger'
 			);
 		}
 		finally {
@@ -594,9 +594,7 @@ var nwui = {
 
 		var allStories = StoryCollection.all();
 
-		while (allStories.length > 0) {
-			allStories.at(0).destroy();
-		}
+		while (allStories.length > 0) allStories.at(0).destroy();
 
 		// Read from files
 
@@ -610,7 +608,8 @@ var nwui = {
 
 				archive.import(
 					nwui.fs.readFileSync(
-						nwui.filePath + '/' + filename, { encoding: 'utf-8' }
+						nwui.filePath + '/' + filename,
+						{ encoding: 'utf-8' }
 					),
 					new Date(Date.parse(stats.mtime))
 				);
@@ -648,7 +647,8 @@ var nwui = {
 			// %s is the error message.
 			notify(
 				locale.say(
-					'An error occurred while locking your library (%s).', e.message
+					'An error occurred while locking your library (%s).',
+					e.message
 				),
 				'danger'
 			);
@@ -664,10 +664,13 @@ var nwui = {
 	unlockStoryDirectory: function() {
 		try {
 			if (process.platform == 'win32') {
-				_.each(nwui.fs.readdirSync(nwui.filePath), function(filename) {
-					// A+w, 0666
-					nwui.fs.chmodSync(nwui.filePath + '/' + filename, 438);
-				});
+				_.each(
+					nwui.fs.readdirSync(nwui.filePath),
+					function(filename) {
+						// A+w, 0666
+						nwui.fs.chmodSync(nwui.filePath + '/' + filename, 438);
+					}
+				);
 			}
 			else {
 				var stat = nwui.fs.statSync(nwui.filePath);
@@ -681,7 +684,8 @@ var nwui = {
 			// %s is the error message.
 			notify(
 				locale.say(
-					'An error occurred while unlocking your library (%s).', e.message
+					'An error occurred while unlocking your library (%s).',
+					e.message
 				),
 				'danger'
 			);

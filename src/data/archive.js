@@ -58,59 +58,71 @@ var archive = {
 			var storyAttributes = {
 				name: storyEl.attributes.name.value,
 				storyFormat: storyEl.attributes.format.value,
-				ifid: (storyEl.attributes.ifid) ?
-					storyEl.attributes.ifid.value :
-					undefined,
-				stylesheet: (stylesheet !== '') ?
-					stylesheet :
-					undefined,
-				script: (script !== '') ?
-					script :
-					undefined
+				ifid: (storyEl.attributes.ifid)
+					? storyEl.attributes.ifid.value
+					: undefined,
+				stylesheet: (stylesheet !== '')
+					? stylesheet
+					: undefined,
+				script: (script !== '')
+					? script
+					: undefined
 			};
 
-			var story = data.stories.create(storyAttributes,
+			var story = data.stories.create(
+				storyAttributes,
 				{
 					wait: true,
 					silent: true,
 					validate: false
-				});
+				}
+			);
 
 			// ... and its child passages.
 
-			_.each(storyEl.querySelectorAll(sels.passageData), function(passageEl) {
-				var id = passageEl.attributes.pid.value;
-				var pos = passageEl.attributes.position.value;
-				var posBits = pos.split(',');
-				var tags = passageEl.attributes.tags.value;
+			_.each(
+				storyEl.querySelectorAll(sels.passageData),
+				function(passageEl) {
+					var id = passageEl.attributes.pid.value;
+					var pos = passageEl.attributes.position.value;
+					var posBits = pos.split(',');
+					var tags = passageEl.attributes.tags.value;
 
-				tags = (tags === '') ? [] : tags.split(/\s+/);
+					tags = (tags === '') ? [] : tags.split(/\s+/);
 
-				var passage = data.passages.create({
-					name: passageEl.attributes.name.value,
-					tags: tags,
-					text: passageEl.textContent,
-					story: story.id,
-					left: parseInt(posBits[0]),
-					top: parseInt(posBits[1])
-				}, { wait: true, silent: true, validate: false });
+					var passage = data.passages.create(
+						{
+							name: passageEl.attributes.name.value,
+							tags: tags,
+							text: passageEl.textContent,
+							story: story.id,
+							left: parseInt(posBits[0]),
+							top: parseInt(posBits[1])
+						},
+						{ wait: true, silent: true, validate: false }
+					);
 
-				if (id == startPassageId) {
-					story.save({ startPassage: passage.id },
-						{ silent: true, validate: false });
+					if (id == startPassageId) {
+						story.save(
+							{ startPassage: passage.id },
+							{ silent: true, validate: false }
+						);
+					}
 				}
-			});
+			);
 
 			// Override the update date if requested.
 
 			if (lastUpdate) {
-				story.save({
-					lastUpdate: lastUpdate
-				},
-				{
-					silent: true,
-					validate: false
-				});
+				story.save(
+					{
+						lastUpdate: lastUpdate
+					},
+					{
+						silent: true,
+						validate: false
+					}
+				);
 			}
 
 			count++;

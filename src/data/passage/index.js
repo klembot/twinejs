@@ -45,17 +45,13 @@ var Passage = Backbone.Model.extend({
 	},
 
 	validate: function(attrs, options) {
-		if (options.noValidation) {
-			return;
-		};
+		if (options.noValidation) return;
 
 		if (! attrs.name || attrs.name === '') {
 			return locale.say('You must give this passage a name.');
 		};
 
-		if (options.noDupeValidation) {
-			return;
-		};
+		if (options.noDupeValidation) return;
 
 		/*
 		Check for a duplicate name in this passage's story.  We require the
@@ -85,10 +81,7 @@ var Passage = Backbone.Model.extend({
 	excerpt: function() {
 		var text = _.escape(this.get('text'));
 
-		if (text.length > 100) {
-			text = text.substr(0, 99) + '&hellip;';
-		};
-
+		if (text.length > 100) text = text.substr(0, 99) + '&hellip;';
 		return text;
 	},
 
@@ -116,20 +109,22 @@ var Passage = Backbone.Model.extend({
 		the divider.
 		*/
 		var arrowLinksRe =
-		/\[\[(?:([^\]]*)\->|([^\]]*?)<\-)([^\]]*)(?:\]\[.*?)?\]\]/g;
+			/\[\[(?:([^\]]*)\->|([^\]]*?)<\-)([^\]]*)(?:\]\[.*?)?\]\]/g;
 
 		/*
 		Check for TiddlyWiki-style links in
 		`[[display text|link]]` format, or with a setter component:
 		`[[display text|link][...]]`
 		*/
-		var tiddlyWikiLinksRe = /\[\[([^\|\]]*?)\|([^\|\]]*)?(?:\]\[.*?)?\]\]/g;
+		var tiddlyWikiLinksRe =
+			/\[\[([^\|\]]*?)\|([^\|\]]*)?(?:\]\[.*?)?\]\]/g;
 
 		/*
 		Simple `[[link]]` format, or with a setter component:
 		`[[link][...]]`
 		*/
-		var simpleLinksRe = /\[\[|(?:\]\[.*?)?\]\]/g;
+		var simpleLinksRe =
+			/\[\[|(?:\]\[.*?)?\]\]/g;
 
 		function arrowReplacer(a, b, c, d) {
 			return c || d;
@@ -138,7 +133,8 @@ var Passage = Backbone.Model.extend({
 		if (matches) {
 			for (var i = 0; i < matches.length; i++) {
 				// The link matching regexps ignore setter components, should they exist
-				var link = matches[i].replace(arrowLinksRe, arrowReplacer)
+				var link = matches[i]
+					.replace(arrowLinksRe, arrowReplacer)
 					.replace(tiddlyWikiLinksRe, '$2')
 					.replace(simpleLinksRe, '');
 			};
@@ -158,7 +154,7 @@ var Passage = Backbone.Model.extend({
 
 		if (internalOnly) {
 			result = _.filter(result, function(link) {
-				return ! /^\w+:\/\/\/?\w/i.test(link);
+				return !/^\w+:\/\/\/?\w/i.test(link);
 			});
 		};
 
@@ -179,13 +175,16 @@ var Passage = Backbone.Model.extend({
 
 		var simpleLinkRegexp = new RegExp(
 			'\\[\\[' + oldLink + '(\\]\\[.*?)?\\]\\]',
-			'g');
+			'g'
+		);
 		var compoundLinkRegexp = new RegExp(
 			'\\[\\[(.*?)(\\||->)' + oldLink + '(\\]\\[.*?)?\\]\\]',
-			'g');
+			'g'
+		);
 		var reverseLinkRegexp = new RegExp(
 			'\\[\\[' + oldLink + '(<-.*?)(\\]\\[.*?)?\\]\\]',
-			'g');
+			'g'
+		);
 		var oldText = this.get('text');
 		var text = oldText;
 
@@ -207,7 +206,10 @@ var Passage = Backbone.Model.extend({
 	*/
 
 	matches: function(search) {
-		return search.test(this.get('name')) || search.test(this.get('text'));
+		return search.test(
+			this.get('name')) ||
+			search.test(this.get('text')
+		);
 	},
 
 	/*
@@ -227,12 +229,10 @@ var Passage = Backbone.Model.extend({
 		var textMatches = this.get('text').match(search);
 		var nameMatches = 0;
 
-		if (checkName) {
-			nameMatches = this.get('name').match(search);
-		}
+		if (checkName) nameMatches = this.get('name').match(search);
 
 		result = (nameMatches ? nameMatches.length : 0) +
-		(textMatches ? textMatches.length : 0);
+			(textMatches ? textMatches.length : 0);
 		return result;
 	},
 

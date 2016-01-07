@@ -66,13 +66,15 @@ module.exports = Backbone.Model.extend({
 		if (! options.startOptional) {
 			if (! startDbId) {
 				throw new Error(
-					locale.say('There is no starting point set for this story.'));
+					locale.say('There is no starting point set for this story.')
+				);
 			}
 
 			if (! passages.findWhere({ id: startDbId })) {
 				throw new Error(
 					locale.say('The passage set as starting point for this story ' +
-					'does not exist.'));
+					'does not exist.')
+				);
 			}
 		}
 

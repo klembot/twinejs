@@ -31,8 +31,9 @@ module.exports = {
 
 		Marionette.Renderer.render = function(template, data) {
 			if (typeof template !== 'function') {
-				throw new Error(locale.say('Asked to render a non-function template '
-					+ template));
+				throw new Error(
+					locale.say('Asked to render a non-function template ' + template)
+				);
 			};
 
 			return template(_.extend(data || {}, templateProperties));

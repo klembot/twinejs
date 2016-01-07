@@ -73,13 +73,8 @@ var StoryFormat = Backbone.Model.extend({
 			this.properties = properties;
 			this.loaded = true;
 
-			if (this.properties.setup) {
-				this.properties.setup.call(this);
-			}
-
-			if (callback) {
-				callback();
-			}
+			if (this.properties.setup) this.properties.setup.call(this);
+			if (callback) callback();
 		}
 
 		function onFail(req, status, error) {

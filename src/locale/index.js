@@ -63,9 +63,9 @@ module.exports = {
 				locale_data: {
 					messages: {
 						'': {
-								domain: 'messages',
-								lang: 'en-us',
-								plural_forms: 'nplurals=2; plural=(n != 1);'
+							domain: 'messages',
+							lang: 'en-us',
+							plural_forms: 'nplurals=2; plural=(n != 1);'
 						}
 					}
 				}
@@ -142,7 +142,8 @@ module.exports = {
 		try {
 			var sprintfArgs = [
 				this.i18n.ngettext(sourceSingular, sourcePlural, count),
-				count];
+				count
+			];
 
 			for (var i = 3; i < arguments.length; i++) {
 				sprintfArgs.push(arguments[i]);

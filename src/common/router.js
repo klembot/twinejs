@@ -57,9 +57,13 @@ module.exports = Backbone.Router.extend({
 	playStory: function(storyId) {
 		var story = data.story(storyId);
 
-		data.storyFormatForStory(story).publish(story, {}, function(err, result) {
-			replaceContent(result);
-		});
+		data.storyFormatForStory(story).publish(
+			story,
+			{},
+			function(err, result) {
+				replaceContent(result);
+			}
+		);
 	},
 
 	testStory: function(storyId, passageId) {
@@ -87,13 +91,9 @@ module.exports = Backbone.Router.extend({
 
 	startup: function() {
 		var welcomePref = data.pref('welcomeSeen', false);
-
-		if (welcomePref.get('value') === true) {
-			window.location.hash = '#stories';
-		}
-		else {
-			window.location.hash = '#welcome';
-		};
+		window.location.hash = (welcomePref.get('value') === true)
+			? '#stories'
+			: '#welcome';
 	},
 
 	routes: {

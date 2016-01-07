@@ -1,5 +1,3 @@
-/*
-# file
 
 This exports functions that read and write files.
 */
@@ -73,9 +71,7 @@ module.exports = {
 				saveAs(blob, filename);
 			}
 
-			if (callback) {
-				callback();
-			}
+			if (callback) callback();
 		}
 		else {
 			// Package it into a .zip; this will trigger iOS to try to
@@ -84,12 +80,11 @@ module.exports = {
 			var zip = new JSZip();
 
 			zip.file(filename, data);
-			window.location.href = 'data:application/zip;base64, ' +
+			window.location.href =
+				'data:application/zip;base64, ' +
 				zip.generate({ type: 'base64' });
 
-			if (callback) {
-				callback();
-			}
+			if (callback) callback();
 		}
 	}
 };

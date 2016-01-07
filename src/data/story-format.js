@@ -20,20 +20,20 @@ var locale = require('../locale');
 
 var StoryFormat = module.exports = Backbone.Model.extend({
 	/*
-	    Remembers whether the format has been loaded yet.
+	Remembers whether the format has been loaded yet.
 
-	    @property loaded
-	    @type Boolean
-	    */
+	@property loaded
+	@type Boolean
+	*/
 	loaded: false,
 
 	/*
-	    Properties set by the external format file-- notably,
-	    the format source. To load these, call `load()`.
+	Properties set by the external format file-- notably,
+	the format source. To load these, call `load()`.
 
-	    @property properties
-	    @type Object
-	    */
+	@property properties
+	@type Object
+	*/
 	properties: {},
 
 	defaults: _.memoize(function() {
@@ -44,7 +44,7 @@ var StoryFormat = module.exports = Backbone.Model.extend({
 		};
 	}),
 
-	/**
+	/*
 	Loads the actual story format via a JSONP request. After this
 	call, its data is available under the properties property.
 
@@ -61,13 +61,9 @@ var StoryFormat = module.exports = Backbone.Model.extend({
 		`Error` object. If no callback is passed, an
 		error is raised directly.
 	*/
-
 	load: function(callback) {
 		if (this.loaded) {
-			if (callback) {
-				callback();
-			}
-
+			if (callback) callback();
 			return;
 		}
 
@@ -79,9 +75,7 @@ var StoryFormat = module.exports = Backbone.Model.extend({
 				this.properties.setup.call(this);
 			}
 
-			if (callback) {
-				callback();
-			}
+			if (callback) callback();
 		}
 
 		function onFail(req, status, error) {
@@ -99,22 +93,21 @@ var StoryFormat = module.exports = Backbone.Model.extend({
 			jsonpCallback: 'storyFormat',
 			crossDomain: true
 		})
-		.done(onDone.bind(this))
-		.fail(onFail);
+			.done(onDone.bind(this))
+			.fail(onFail);
 	},
 
-	/**
-	    Publishes a story with this story format. This method is asynchronous.
+	/*
+	Publishes a story with this story format. This method is asynchronous.
 
-	    @method publish
-	    @param {Story} story story to publish
-	    @param {Object} options options to pass to `Story.publish()`
-	    @param {Function} callback function called with the resulting HTML,
-	                               signature `callback(err, result)`
-	    */
-
+	@method publish
+	@param {Story} story story to publish
+	@param {Object} options options to pass to `Story.publish()`
+	@param {Function} callback function called with the resulting HTML,
+							   signature `callback(err, result)`
+	*/
 	publish: function(story, options, callback) {
-		this.load(function(err) {
+		this.load(function afterLoad(err) {
 			if (err) {
 				callback(err);
 				return;
@@ -129,24 +122,24 @@ var StoryFormat = module.exports = Backbone.Model.extend({
 				// Start with builtin placeholders.
 
 				output = output.replace(/{{STORY_NAME}}/g, function() {
-		return _.escape(story.get('name'));
-	});
+					return _.escape(story.get('name'));
+				});
 
 				output = output.replace(/{{STORY_DATA}}/g, function() {
-		return story.publish(options);
-	});
+					return story.publish(options);
+				});
 
 				// User-defined placeholders. (These are not implemented yet.)
 
 				_.each(this.get('placeholders'), function(p) {
-		var value = story.get(p.name);
+					var value = story.get(p.name);
 
-		if (value !== null) {
-			output = output.replace(p.name, function() {
-				return value;
-			});
-		}
-	});
+					if (value !== null) {
+						output = output.replace(p.name, function() {
+							return value;
+						});
+					}
+				});
 
 				callback(null, output);
 			}
