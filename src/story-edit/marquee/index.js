@@ -1,10 +1,9 @@
-/**
-  Manages drawing a marquee selection if the user drags in an unoccupied area
-  of the story map, and selecting/deselecting
+/*
+# story-edit/marquee
 
-  @class StoryEditView.Marquee
-  @extends Backbone.View
-**/
+Manages drawing a marquee selection if the user drags in an unoccupied area of
+the story map, and selecting/deselecting passages accordingly.
+*/
 
 'use strict';
 var $ = require('jquery');
@@ -20,8 +19,14 @@ module.exports = Backbone.View.extend({
 		this.endDragBound = this.endDrag.bind(this);
 	},
 
+	/*
+	Begin tracking a drag, in response to a mouse button down or a tap event.
+
+	@method startDrag
+	@param {Object} e event object
+	*/
 	startDrag: function(e) {
-		// Bail out if the target is a passage
+		// Bail out if the target is a passage.
 
 		if ($(e.target).closest('.passage').length > 0) {
 			return;
@@ -30,10 +35,14 @@ module.exports = Backbone.View.extend({
 		this.startX = e.pageX;
 		this.startY = e.pageY;
 
+		// Should we add onto an existing selection, or replace it?
+
 		this.inclusive = e.shiftKey || e.ctrlKey;
 
-		// Cache all passage positions so we can
-		// quickly figure out intersections
+		/*
+		Cache all passage positions so we can quickly figure out
+		intersections.
+		*/
 
 		this.cache = [];
 
@@ -57,8 +66,14 @@ module.exports = Backbone.View.extend({
 		});
 	},
 
+	/*
+	Follow a mouse or touch motion event.
+	
+	@method followDrag
+	@param {Event} e event
+	*/
 	followDrag: function(e) {
-		// Marquee appearance
+		// Calculate the position of the marquee.
 
 		var marqLeft, marqTop, marqRight, marqBottom;
 
@@ -88,15 +103,15 @@ module.exports = Backbone.View.extend({
 			height: marqBottom - marqTop
 		});
 
-		// Select passages
+		// Select passages that intersect the marquee.
 
 		_.each(this.cache, function checkIntersection(item) {
 			if (this.inclusive && item.originallySelected) {
 				return;
-
 			}
 
-			// Intersection of two rectangles
+			// Use the formula for the intersection of two rectangles.
+
 			var hitRight = item.rect.left < marqRight;
 			var hitLeft = item.rect.right > marqLeft;
 			var hitBottom = item.rect.top < marqBottom;
@@ -111,6 +126,11 @@ module.exports = Backbone.View.extend({
 		}, this);
 	},
 
+	/*
+	Stop listening to mouse or touch events.
+
+	@method endDrag
+	*/
 	endDrag: function() {
 		this.$el.css('display', 'none');
 		this.parent.$el.removeClass('marqueeing');
