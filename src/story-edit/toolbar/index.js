@@ -1,9 +1,8 @@
-/**
-  Manages the toolbar of a StoryEditView.
+/*
+# story-edit/toolbar
 
-  @class StoryEditView.Toolbar
-  @extends Backbone.View
-**/
+Manages the toolbar of a story editing view.
+*/
 
 'use strict';
 var $ = require('jquery');
@@ -23,10 +22,23 @@ module.exports = Marionette.ItemView.extend({
 		this.model = this.parent.model;
 		this.render();
 		this.parent.$('#storyEditView').append(this.$el);
+
+		/*
+		The view managing the menu attached to the toolbar, summoned by
+		clicking or tapping the story name.
+		@property menu
+		@type `story-edit/toolbar/menu`
+		*/
 		this.menu = new ToolbarMenu({
 			parent: this,
 			trigger: this.$('.storyMenu')
 		});
+
+		/*
+		The view managing the quicksearch field in the toolbar.
+		@property quickSearch
+		@type `story-edit/toolbar/search`
+		*/
 		this.quickSearch = new QuickSearch({
 			parent: this,
 			collectionOwner: this.parent,
@@ -37,30 +49,26 @@ module.exports = Marionette.ItemView.extend({
 		this.syncStorySaved();
 		this.listenTo(this.parent.model, 'change:zoom', this.syncZoomButtons);
 		this.listenTo(this.parent.model, 'change:name', this.syncStoryName);
-		this.listenTo(this.parent.model, 'update', this.syncStorySaved);
-		this.listenTo(this.parent.collection, 'update', this.syncStorySaved);
 	},
 
-	/**
-	     Synchronizes the story name shown with the model.
+	/*
+	Synchronizes the story name shown with the model.
 
-	     @method syncStoryName
-	    **/
-
+	@method syncStoryName
+	*/
 	syncStoryName: function() {
 		this.$('.storyName').text(this.parent.model.get('name'));
 	},
 
-	/**
-	     Synchronizes the selected state of the zoom buttons with the model.
+	/*
+	Synchronizes the selected state of the zoom buttons with the model.
 
-	     @method syncZoomButtons
-	    **/
-
+	@method syncZoomButtons
+	*/
 	syncZoomButtons: function() {
 		var zoom = this.parent.model.get('zoom');
 
-		// Find the correct zoom description
+		// Find the correct zoom description.
 
 		for (var desc in this.parent.ZOOM_MAPPINGS) {
 			if (this.parent.ZOOM_MAPPINGS[desc] == zoom) {
@@ -68,8 +76,7 @@ module.exports = Marionette.ItemView.extend({
 			}
 		}
 
-
-		// Set toolbar active states accordingly
+		// Set toolbar active states accordingly.
 
 		this.$('.zooms button').each(function() {
 			var $t = $(this);
@@ -81,23 +88,6 @@ module.exports = Marionette.ItemView.extend({
 				$t.removeClass('active');
 			}
 		});
-	},
-
-	/**
-	Sets the tooltip of the story menu to indicate that a save has
-	just occurred.
-
-	@method syncStorySaved
-	@param {Date} forceDate If passed, uses this date instead of the current one
-	**/
-
-	syncStorySaved: function(forceDate) {
-		var $sn = this.$('.storyName');
-		var date = (forceDate) ? moment(forceDate) : moment();
-
-		// L10n: This refers to when a story was last saved by the user
-		// %s will be replaced with a localized date and time
-		$sn.attr('title', locale.say('Last saved at %s', date.format('llll')));
 	},
 
 	events: {

@@ -1,3 +1,9 @@
+/*
+# story-edit/toolbar/menu
+
+Exports a view which manages a story menu in the editor.
+*/
+
 'use strict';
 var Backbone = require('backbone');
 var Marionette = require('backbone.marionette');
@@ -41,22 +47,20 @@ module.exports = Backbone.View.extend({
 		'click .renameStory': function() {
 			prompt({
 				prompt: locale.say(
-				'What should &ldquo;%s&rdquo; be renamed to?',
-				this.parent.model.get('name')
+					'What should &ldquo;%s&rdquo; be renamed to?',
+					this.parent.model.get('name')
 				),
 				defaultValue: this.parent.model.get('name'),
 				confirmLabel: '<i class="fa fa-ok"></i> ' + locale.say('Rename'),
 				callback: function(confirmed, text) {
-					if (confirmed) {
-						this.parent.model.save({name: text});
-					}
+					if (confirmed) this.parent.model.save({ name: text });
 				}.bind(this)
 			});
 		},
 
 		'click .snapToGrid': function() {
 			this.parent.model.save({
-				snapToGrid: ! this.parent.model.get('snapToGrid')
+				snapToGrid: !this.parent.model.get('snapToGrid')
 			});
 		},
 
