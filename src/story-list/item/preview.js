@@ -1,7 +1,8 @@
-/**
-  This class generates SVG previews of stories.
-  @class StoryItemView.Preview
-**/
+/*
+# story-list/item/preview
+
+Exports a class which renders previews of stories.
+*/
 
 'use strict';
 var Backbone = require('backbone');
@@ -10,37 +11,43 @@ var data = require('../../data');
 
 module.exports = Backbone.View.extend({
 	initialize: function(options) {
-		/**
-		     The parent item view.
+		/*
+		The parent item view.
 
-		     @property parent
-		     **/
-
+		@property parent
+		@type `story-list/item/view`
+		*/
 		this.parent = options.parent;
+
+		/*
+		The story to render.
+
+		@property story
+		@type `data/story`
+		*/
 		this.story = options.story;
 
-		/**
-		     Whether we have rendered our passages onscreen.
+		/*
+		Whether we have finished rendering.
 
-		     @property rendered
-		     **/
-
+		@property rendered
+		@type Boolean
+		*/
 		this.rendered = false;
 
-		/**
-		     The SVG element on the page.
-		     @property svg
-		     **/
-
+		/*
+		The SVG element on the page.
+		@property svg
+		*/
 		this.svg = SVG(this.el);
 
-		/**
-		     A hue derived from the story's name,
-		     represented as the H part of an HSL color.
+		/*
+		A hue derived from the story's name,
+		represented as the H part of an HSL color.
 
-		     @property hue
-		     **/
-
+		@property hue
+		@type Number
+		*/
 		this.hue = 0;
 
 		var storyName = this.story.get('name');
@@ -51,29 +58,28 @@ module.exports = Backbone.View.extend({
 
 		this.hue = this.hue % 360;
 
-		// Set overall background color
+		// Set the overall background color.
 
 		this.$el.closest('.story').css(
-		'background',
-		'hsl(' + this.hue + ', 25%, 92%)'
+			'background',
+			'hsl(' + this.hue + ', 25%, 92%)'
 		);
 
-		// Set background color of footer
+		// Set the background color of footer.
 
 		this.parent.$('footer').css(
-		'background-color',
-		'hsl(' + this.hue + ', 50%, 50%)'
+			'background-color',
+			'hsl(' + this.hue + ', 50%, 50%)'
 		);
 	},
 
-	/**
-	   Renders a visualization of passages.
+	/*
+	Renders SVG elements.
 
-	   @method renderPassages
-	   @param {Function} callback If passed, will be called once rendering
-	   completes
-	   **/
-
+	@method renderPassages
+	@param {Function} [callback] If passed, will be called once rendering
+		completes
+	*/
 	render: function(callback) {
 		var passages = data.passagesForStory(this.story);
 
@@ -85,9 +91,7 @@ module.exports = Backbone.View.extend({
 			passages.forEach(function(passage) {
 				var len = passage.get('text').length;
 
-				if (len > maxLength) {
-					maxLength = len;
-				}
+				if (len > maxLength) maxLength = len;
 			});
 
 			// Render passages
@@ -111,54 +115,46 @@ module.exports = Backbone.View.extend({
 				if (i % 3 === 0) {
 					c.fill({color: c1, opacity: ratio * 0.9});
 				}
-				else
- if (i % 2 === 0) {
-	c.fill({color: c2, opacity: ratio * 0.9});
-}
+				else if (i % 2 === 0) {
+					c.fill({color: c2, opacity: ratio * 0.9});
+				}
 				else {
 					c.fill({color: c3, opacity: ratio * 0.9});
 				}
 
-				if (x - size < minX) {
-					minX = x - size;
-				}
+				/*
+				Track the bounds of the entire drawing, so that we set the SVG
+				element's viewbox properly.
+				*/
 
-				if (x + size > maxX) {
-					maxX = x + size;
-				}
-
-				if (y - size < minY) {
-					minY = y - size;
-				}
-
-				if (y + size > maxY) {
-					maxY = y + size;
-				}
+				if (x - size < minX) minX = x - size;
+				if (x + size > maxX) maxX = x + size;
+				if (y - size < minY) minY = y - size;
+				if (y + size > maxY) maxY = y + size;
 			}.bind(this));
 
+			// Now that we're done, set the viewbox.
+
 			this.svg.viewbox(
-			minX,
-			minY,
-			Math.abs(minX) + maxX,
-			Math.abs(minY) + maxY
+				minX,
+				minY,
+				Math.abs(minX) + maxX,
+				Math.abs(minY) + maxY
 			);
 		}
 		else {
-			// Special case single or no passage
+			// Special case for a single or no passage.
 
 			if (passages.length == 1) {
 				this.svg.circle()
-				.center(5, 5)
-				.fill('hsl(' + this.hue + ', 88%, 40%)')
-				.radius(2.5);
+					.center(5, 5)
+					.fill('hsl(' + this.hue + ', 88%, 40%)')
+					.radius(2.5);
 				this.svg.viewbox(0, 0, 10, 10);
 			}
 		}
 
 		this.rendered = true;
-
-		if (callback) {
-			callback();
-		}
+		if (callback) callback();
 	}
 });

@@ -1,3 +1,9 @@
+/*
+# story-list/item/menu
+
+Exports a view that manages the menu with extra actions for a story.
+*/
+
 'use strict';
 var Backbone = require('backbone');
 var Marionette = require('backbone.marionette');

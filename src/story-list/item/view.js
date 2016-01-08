@@ -1,11 +1,8 @@
-/**
-  An individual item in the list managed by StoryListView.
-  This offers quick links for editing, playing, and deleting
-  a story; StoryEditView handles more detailed changes.
+/*
+# story-list/item
 
-  @class StoryItemView
-  @extends Marionette.ItemView
-**/
+An individual item in a story list.
+*/
 
 'use strict';
 var $ = require('jquery');
@@ -38,17 +35,18 @@ module.exports = Marionette.ItemView.extend({
 		});
 	},
 
-	/**
-	    Opens a StoryEditView for this story.
+	/*
+	Opens a story editing view for this story.
 
-	    @method edit
-	    @param {Object} e event object, used to animate the transition
-	  **/
+	@method edit
+	@param {Object} e event object, used to animate the transition
+	*/
 
 	edit: function(e) {
 		var proxy = $('<div id="storyEditProxy" class="fullAppear fast"></div>');
 
-		// Match the proxy's zoom to the model
+		// Match the proxy's zoom to the model.
+
 		var zoomMappings = StoryEditView.prototype.ZOOM_MAPPINGS;
 
 		for (var desc in zoomMappings) {
@@ -58,78 +56,79 @@ module.exports = Marionette.ItemView.extend({
 			}
 		}
 
-
-		// If we don't know where the edit event is coming from,
-		// default to the center of the window
+		/*
+		If we don't know where the edit event is coming from, default to the
+		center of the window.
+		*/
 
 		var originX = e ? e.pageX : $(window).width() / 2;
 		var originY = e ? e.pageY : $(window).height() / 2;
 
-		proxy.css({
-			transformOrigin: originX + 'px ' + originY + 'px',
-			'-webkit-transform-origin': originX + 'px ' + originY + 'px'
-		})
-    .one('animationend', function() {
-	window.location.hash = '#stories/' + this.model.id;
-    }.bind(this));
+		proxy
+			.css({
+				transformOrigin: originX + 'px ' + originY + 'px',
+				'-webkit-transform-origin': originX + 'px ' + originY + 'px'
+			})
+			.one('animationend', function() {
+				window.location.hash = '#stories/' + this.model.id;
+			}.bind(this));
 
 		this.parent.$el.append(proxy);
 	},
 
-	/**
-	     Plays this story in a new tab.
+	/*
+	Plays this story in a new tab.
 
-	     @method play
-	  **/
-
+	@method play
+	*/
 	play: function() {
 		if (Passage.withId(this.model.get('startPassage')) === undefined) {
 			notify(
-			locale.say(
-			'This story does not have a starting point. ' +
-			'Edit this story and use the <i class="fa fa-rocket"></i> icon ' +
-			'on a passage to set this.'),
-			'danger'
+				locale.say(
+					'This story does not have a starting point. Edit this ' +
+					'story and use the <i class="fa fa-rocket"></i> icon ' +
+					'on a passage to set this.'
+				),
+				'danger'
 			);
 		}
 		else {
 			window.open(
-			'#stories/' + this.model.id + '/play',
-			'twinestory_play_' + this.model.id
+				'#stories/' + this.model.id + '/play',
+				'twinestory_play_' + this.model.id
 			);
 		}
 	},
 
-	/**
-	    Tests this story in a new tab.
+	/*
+	Tests this story in a new tab.
 
-	    @method test
-	  **/
-
+	@method test
+	*/
 	test: function() {
 		if (Passage.withId(this.model.get('startPassage')) === undefined) {
 			notify(
-			locale.say(
-			'This story does not have a starting point. ' +
-			'Edit this story and use the <i class="fa fa-rocket"></i> icon ' +
-			'on a passage to set this.'),
-			'danger'
+				locale.say(
+					'This story does not have a starting point. Edit this ' +
+					'story and use the <i class="fa fa-rocket"></i> icon ' +
+					'on a passage to set this.'
+				),
+				'danger'
 			);
 		}
 		else {
 			window.open(
-			'#stories/' + this.model.id + '/test',
-			'twinestory_test_' + this.model.id
+				'#stories/' + this.model.id + '/test',
+				'twinestory_test_' + this.model.id
 			);
 		}
 	},
 
-	/**
-	    Publishes the story to a file.
+	/*
+	Publishes the story to a file.
 
-	    @method publish
-	  **/
-
+	@method publish
+	*/
 	publish: function() {
 		var format = data.storyFormatForStory(this.model);
 
@@ -138,104 +137,98 @@ module.exports = Marionette.ItemView.extend({
 		}.bind(this));
 	},
 
-	/**
-	    Shows a confirmation before deleting the model via delete().
+	/*
+	Shows a confirmation before deleting the model via delete().
 
-	    @method confirmDelete
-	  **/
-
+	@method confirmDelete
+	*/
 	confirmDelete: function() {
 		confirm({
 			content: locale.say(
-			'Are you sure you want to delete &ldquo;%s&rdquo;? ' +
-			'This cannot be undone.',
-			this.model.get('name')
+				'Are you sure you want to delete &ldquo;%s&rdquo;? ' +
+				'This cannot be undone.',
+				this.model.get('name')
 			),
 			confirmLabel:
-			'<i class="fa fa-trash-o"></i> ' + locale.say('Delete Forever'),
+				'<i class="fa fa-trash-o"></i> ' +
+				locale.say('Delete Forever'),
 			confirmClass: 'danger',
-			callback: function(confirmed) {
-				if (confirmed) {
-					this.delete();
-				}
+			callback: function reallyDelete(confirmed) {
+				if (confirmed) this.delete();
 			}.bind(this)
 		});
 	},
 
-	/**
-	    Prompts the user for a new name for the story, then saves it.
+	/*
+	Prompts the user for a new name for the story, then saves it.
 
-	    @method rename
-	  **/
-
+	@method rename
+	*/
 	rename: function() {
 		prompt({
 			prompt: locale.say(
-			'What should &ldquo;%s&rdquo; be renamed to?',
-			this.model.get('name')
+				'What should &ldquo;%s&rdquo; be renamed to?',
+				this.model.get('name')
 			),
 			defaultValue: this.model.get('name'),
 			confirmLabel: '<i class="fa fa-ok"></i> ' + locale.say('Rename'),
-			callback: function(confirmed, text) {
-				if (confirmed) {
-					this.model.save({ name: text });
-				}
+			callback: function reallySave(confirmed, text) {
+				if (confirmed) this.model.save({ name: text });
 			}.bind(this)
 		});
 	},
 
-	/**
-	    Prompts the user for a name, then creates a duplicate version of this
-	    story accordingly.
+	/*
+	Prompts the user for a name, then creates a duplicate version of this
+	story accordingly.
 
-	    @method confirmDuplicate
-	  **/
-
+	@method confirmDuplicate
+	*/
 	confirmDuplicate: function() {
 		prompt({
 			prompt: locale.say('What should the duplicate be named?'),
 			defaultValue: locale.say('%s Copy', this.model.get('name')),
 			confirmLabel: '<i class="fa fa-copy"></i> ' + locale.say('Duplicate'),
-			callback: function(confirmed, text) {
-				if (confirmed) {
-					data.duplicateStory(this.model, text);
-				}
+			callback: function reallyDupe(confirmed, text) {
+				if (confirmed) data.duplicateStory(this.model, text);
 			}.bind(this)
 		});
 	},
 
-	/**
-	    Deletes the model associated with this view.
+	/*
+	Deletes the model associated with this view.
 
-	    @method delete
-	  **/
-
+	@method delete
+	*/
 	delete: function() {
 		this.$('.story').addClass('disappear').one('animationend', function() {
 			this.model.destroy();
 		}.bind(this));
 	},
 
+	/*
+	Shows this view without any animation.
+
+	@method display
+	*/
 	display: function() {
 		this.$('.story').removeClass('hide');
 	},
 
-	/**
-	    Animates the view appearing, as in when it is newly created.
+	/*
+	Animates the view appearing, as in when it is newly created.
 
-	    @method appear
-	  **/
-
+	@method appear
+	*/
 	appear: function() {
 		this.$('.story').removeClass('hide').addClass('appear');
 	},
 
-	/**
-	    Animates the view fading in.
+	/*
+	Animates the view fading in.
 
-	    @method fadeIn
-	  **/
-
+	@method fadeIn
+	*/
 	fadeIn: function() {
 		this.$('.story').removeClass('hide').addClass('fadeIn');
 	},
