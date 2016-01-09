@@ -1,3 +1,10 @@
+/*
+# story-list/modals/about
+
+Exports a view that displays a modal with information about the application.
+*/
+
+
 'use strict';
 var Marionette = require('backbone.marionette');
 var modal = require('../../../ui/modal');
