@@ -471,6 +471,42 @@ module.exports = Marionette.CompositeView.extend({
 		);
 	},
 
+	/*
+	Increases the zoom level of the view by one increment. If we are already as
+	zoomed in as it gets, this does nothing.
+	
+	@method increaseZoom
+	*/
+
+	increaseZoom: function() {
+		var zoomIndex = this.zoomLevels.indexOf(this.get('zoom'));
+
+		zoomIndex++;
+		if (zoomIndex === this.zoomLevels.length) {
+			zoomIndex = 0;
+		}
+
+		this.save('zoom', this.zoomLevels[zoomIndex]);
+	},
+
+	/*
+	Decreases the zoom level of the view by one increment. If we are already as
+	zoomed out as it gets, this does nothing.
+	
+	@method decreaseZoom
+	*/
+
+	decreaseZoom: function() {
+		var zoomIndex = this.zoomLevels.indexOf(this.get('zoom'));
+
+		zoomIndex--;
+		if (zoomIndex === -1) {
+			zoomIndex = this.zoomLevels.length - 1;
+		}
+
+		this.save('zoom', this.zoomLevels[zoomIndex]);
+	},
+
 	events: {
 		'drag .passage': function(e) {
 			// Draw links between passages as they are dragged around.
@@ -512,42 +548,6 @@ module.exports = Marionette.CompositeView.extend({
 				}
 			}
 		}
-	},
-
-	/*
-	Increases the zoom level of the view by one increment. If we are already as
-	zoomed in as it gets, this does nothing.
-	
-	@method increaseZoom
-	*/
-
-	increaseZoom: function() {
-		var zoomIndex = this.zoomLevels.indexOf(this.get('zoom'));
-
-		zoomIndex++;
-		if (zoomIndex === this.zoomLevels.length) {
-			zoomIndex = 0;
-		}
-
-		this.save('zoom', this.zoomLevels[zoomIndex]);
-	},
-
-	/*
-	Decreases the zoom level of the view by one increment. If we are already as
-	zoomed out as it gets, this does nothing.
-	
-	@method decreaseZoom
-	*/
-
-	decreaseZoom: function() {
-		var zoomIndex = this.zoomLevels.indexOf(this.get('zoom'));
-
-		zoomIndex--;
-		if (zoomIndex === -1) {
-			zoomIndex = this.zoomLevels.length - 1;
-		}
-
-		this.save('zoom', this.zoomLevels[zoomIndex]);
 	},
 
 	collectionEvents: {
