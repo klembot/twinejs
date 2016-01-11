@@ -1,3 +1,11 @@
+/*
+# ui/tooltip
+
+This exports functions to show tooltips on all DOM elements with a title
+attribute. Currently, this only remembers titles at the moment when this UI is
+attached.
+*/
+
 'use strict';
 var $ = require('jquery');
 var Drop = require('tether-drop');
@@ -9,6 +17,8 @@ var Tooltip = Drop.createContext({
 
 function activateTooltip(e) {
 	var $t = $(e.target);
+
+	// Don't reactivate an already-active tooltip.
 
 	if ($t.data('tooltipActivation')) {
 		return;
@@ -32,6 +42,13 @@ function deactivateTooltip(e) {
 }
 
 var tooltipModule = {
+	/*
+	Attaches tooltips to a DOM element and its children.
+
+	@method attach
+	@param {DOMElement} el element to attach to
+	@static
+	*/
 	attach: function(el) {
 		$(el).find('[title]').each(function() {
 			var $t = $(this);
@@ -51,6 +68,24 @@ var tooltipModule = {
 				mouseenter: activateTooltip,
 				mouseleave: deactivateTooltip
 			});
+		});
+	},
+
+	/*
+	Detaches tooltips.
+
+	@method attach
+	@param {DOMElement} el element to detach from
+	@static
+	*/
+	detach: function(el) {
+		$(el).find('[title]').each(function() {
+			$(this)
+				.data('tooltipObj', null)
+				.off({
+					mouseenter: activateTooltip,
+					mouseleave: deactivateTooltip
+				});
 		});
 	},
 

@@ -1,3 +1,17 @@
+/*
+# ui/bubble
+
+Exports a class which creates 'bubbles'; this we define right now to mean any
+kind of popup over a piece of content. This includes dropdown menus, contextual
+menus (i.e. that appear when mousing over a passage in the story map), and
+modals.
+
+This is, more or less, a passthrough version of the [Drop library](1), with
+some appearance specified and basic behaviors set up for you.
+
+[1]: http://github.hubspot.com/drop/
+*/
+
 'use strict';
 var _ = require('underscore');
 var $ = require('jquery');
@@ -30,9 +44,9 @@ function Bubble(options) {
 	});
 
 	$(this.drop.content).on(
-	'click',
-	'[data-bubble="close"], .menu button',
-	this.close.bind(this)
+		'click',
+		'[data-bubble="close"], .menu button',
+		this.close.bind(this)
 	);
 };
 
