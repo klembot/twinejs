@@ -36,7 +36,7 @@ module.exports = function(grunt) {
 					'codemirror/mode/javascript/javascript',
 					'codemirror/addon/display/placeholder',
 					'codemirror/addon/hint/show-hint'],
-					transform: ['ejsify', 'uglifyify', 'browserify-shim']
+					transform: ['ejsify', ['uglifyify', { global: true }], 'browserify-shim']
 				}
 			},
 			release: {
@@ -50,7 +50,7 @@ module.exports = function(grunt) {
 					},
 					exclude: ['fs'],
 					external: ['nw.gui'],
-					transform: ['ejsify', 'uglifyify']
+					transform: ['ejsify', ['uglifyify', { global: true }]]
 				}
 			}
 		}
