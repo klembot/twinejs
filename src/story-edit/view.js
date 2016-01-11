@@ -52,16 +52,6 @@ module.exports = Marionette.CompositeView.extend({
 
 	initialize: function() {
 		this.collection = data.passagesForStory(this.model);
-
-		/*
-		We must save this reference because `Function.bind()` returns different
-		references on each call, and we need this in order to properly unbind
-		in `onDestroy`.
-		*/
-
-		this.onMouseWheelBound = this.onMouseWheel.bind(this);
-		$(document).on('wheel', this.onMouseWheelBound);
-
 		this.zoomLevels = _.values(this.ZOOM_MAPPINGS).sort();
 	},
 
@@ -112,7 +102,6 @@ module.exports = Marionette.CompositeView.extend({
 		keyboardDeletion.detach();
 		mouseScrolling.detach();
 		$(window).off('resize');
-		$(document).off('wheel', this.onMouseWheelBound);
 	},
 
 	/*
@@ -504,14 +493,15 @@ module.exports = Marionette.CompositeView.extend({
 			this.lastMousedown = $(e.target);
 		},
 
-		'mousewheel': function (e) {
+		'wheel': function (e) {
 			/*
 			Change the zoom level if the user rolls the mouse wheel and has the
 			Control or Alt key held down.
 			*/
 
-			if (event.altKey && ! event.ctrlKey) {
-				// Consider only the veritcal scroll.
+			if (e.altKey && ! e.ctrlKey) {
+				// Consider only the vertical scroll.
+
 				var delta = event.originalEvent.wheelDeltaY;
 
 				if (delta > 0) {
