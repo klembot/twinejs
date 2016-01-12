@@ -36,7 +36,7 @@ scroll.
 function scroll(e) {
 	var $win = $(window);
 
-	if (! scrollStart) {
+	if (!scrollStart) {
 		/*
 		This is our first mouse motion event, so we need record the initial
 		position of the mouse.

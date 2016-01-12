@@ -95,7 +95,7 @@ var StoryListView = Marionette.CompositeView.extend({
 
 		// If we were asked to appear fast, we do nothing else.
 
-		if (this.appearFast) return;
+		if (this.appearFast) { return; }
 
 		// Let the updater check for new version.
 
@@ -226,7 +226,7 @@ var StoryListView = Marionette.CompositeView.extend({
 		var unrenderedIndex;
 
 		var unrendered = this.children.find(function findUnrendered(view, index) {
-			if (! view.preview.rendered) {
+			if (!view.preview.rendered) {
 				unrenderedIndex = index;
 				return true;
 			}

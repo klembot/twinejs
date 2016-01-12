@@ -73,7 +73,7 @@ module.exports = {
 				saveAs(blob, filename);
 			}
 
-			if (callback) callback();
+			if (callback) { callback(); }
 		}
 		else {
 			// Package it into a .zip; this will trigger iOS to try to
@@ -86,7 +86,7 @@ module.exports = {
 				'data:application/zip;base64, ' +
 				zip.generate({ type: 'base64' });
 
-			if (callback) callback();
+			if (callback) { callback(); }
 		}
 	}
 };

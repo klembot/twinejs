@@ -108,7 +108,7 @@ module.exports = Marionette.ItemView.extend({
 			storyFormat.load(function(err) {
 				var modeName = storyFormat.get('name').toLowerCase();
 
-				if (! err && modeName in CodeMirror.modes) {
+				if (!err && modeName in CodeMirror.modes) {
 					/*
 					This is a small hack to allow modes such as Harlowe to
 					access the full text of the textarea, permitting its lexer

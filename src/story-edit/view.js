@@ -73,7 +73,7 @@ module.exports = Marionette.CompositeView.extend({
 
 		// On mouse-based devices, add our selection marquee.
 
-		if (! ui.hasPrimaryTouchUI()) {
+		if (!ui.hasPrimaryTouchUI()) {
 			this.marquee = new Marquee({ el: this.$('.passages'), parent: this });
 		}
 
@@ -119,13 +119,13 @@ module.exports = Marionette.CompositeView.extend({
 
 		// If coordinates aren't specified, calculate the center.
 
-		if (! left) {
+		if (!left) {
 			var offsetX = this.$('.passage:first').width() / 2;
 
 			left = (($win.scrollLeft() + $win.width() / 2) / zoom) - offsetX;
 		}
 
-		if (! top) {
+		if (!top) {
 			var offsetY = this.$('.passage:first').height() / 2;
 
 			top = (($win.scrollTop() + $win.height() / 2) / zoom) - offsetY;
@@ -135,7 +135,7 @@ module.exports = Marionette.CompositeView.extend({
 
 		name = name || Passage.prototype.defaults().name;
 
-		if (this.collection.findWhere({name: name})) {
+		if (this.collection.findWhere({ name: name })) {
 			var origName = name;
 			var nameIndex = 0;
 
@@ -239,14 +239,14 @@ module.exports = Marionette.CompositeView.extend({
 
 		var startOk = false;
 
-		if (! startId) {
+		if (!startId) {
 			startOk = (data.passage(this.model.get('startPassage')) !== undefined);
 		}
 		else {
 			startOk = (data.passage(startId) !== undefined);
 		}
 
-		if (! startOk) {
+		if (!startOk) {
 			notify(
 				locale.say(
 					'This story does not have a starting point. ' +
@@ -380,7 +380,7 @@ module.exports = Marionette.CompositeView.extend({
 		// Displace the passage by any others.
 
 		this.collection.each(function(p) {
-			if (filter && ! filter(p)) {
+			if (filter && !filter(p)) {
 				return;
 			}
 
@@ -528,13 +528,13 @@ module.exports = Marionette.CompositeView.extend({
 			this.lastMousedown = $(e.target);
 		},
 
-		'wheel': function (e) {
+		'wheel': function(e) {
 			/*
 			Change the zoom level if the user rolls the mouse wheel and has the
 			Control or Alt key held down.
 			*/
 
-			if (e.altKey && ! e.ctrlKey) {
+			if (e.altKey && !e.ctrlKey) {
 				// Consider only the vertical scroll.
 
 				var delta = event.originalEvent.wheelDeltaY;
@@ -561,6 +561,7 @@ module.exports = Marionette.CompositeView.extend({
 				p.get('name')
 			);
 		},
+
 		'add': function(p) {
 			// Set as starting passage if we only have one.
 
@@ -568,6 +569,7 @@ module.exports = Marionette.CompositeView.extend({
 				this.model.save({startPassage: p.id});
 			}
 		},
+
 		'error': function(model, resp) {
 			// L10n: %s is the error message.
 			notify(
@@ -580,7 +582,7 @@ module.exports = Marionette.CompositeView.extend({
 	modelEvents: {
 		'change:zoom': 'syncZoom',
 		'change:name': 'syncName',
-		error: function(model, resp) {
+		'error': function(model, resp) {
 			// L10n: %s is the error message.
 			notify(
 				locale.say('A problem occurred while saving your changes (%s).', resp),

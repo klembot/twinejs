@@ -317,7 +317,8 @@ var nwui = {
 				startupTask = 'creating a Twine directory in your Documents directory';
 				var twinePath = nwui.path.join(docPath, locale.say('/Twine'));
 
-				if (!nwui.fs.existsSync(twinePath)) nwui.fs.mkdirSync(twinePath);
+				if (!nwui.fs.existsSync(twinePath)) { nwui.fs.mkdirSync(twinePath); }
+
 				nwui.fs.mkdirSync(nwui.filePath);
 			}
 
@@ -327,7 +328,7 @@ var nwui = {
 			starting afresh and confuse our model IDs.
 			*/
 
-			if (! global.nwuiFirstRun) {
+			if (!global.nwuiFirstRun) {
 				startupTask = 'initially synchronizing story files';
 				nwui.syncStoryFiles();
 				startupTask = 'initially locking your Stories directory';
@@ -383,20 +384,22 @@ var nwui = {
 						}
 					);
 
-					if (isLastUpdatedOnly) return;
+					if (isLastUpdatedOnly) { return; }
 
 					/*
 					If we aren't syncing changes or the story has no passages,
 					give up early.
 					*/
 
-					if (!nwui.syncFs || this.fetchPassages().length === 0) return;
+					if (!nwui.syncFs || this.fetchPassages().length === 0) {
+						return;
+					}
 
 					nwui.saveStoryFile(this);
 				}, 100), this);
 
 				this.on('destroy', function() {
-					if (! nwui.syncFs) return;
+					if (!nwui.syncFs) { return; }
 
 					nwui.deleteStoryFile(this);
 				}, this);
@@ -416,14 +419,14 @@ var nwui = {
 				oldPassageInit.call(this);
 
 				this.on('change destroy', _.debounce(function() {
-					if (! nwui.syncFs) return;
+					if (!nwui.syncFs) { return; }
 
 					// If we have no parent, skip it
 					// (this happens during an import, for example)
 
 					var parent = this.fetchStory();
 
-					if (parent) nwui.saveStoryFile(parent);
+					if (parent) { nwui.saveStoryFile(parent); }
 				}, 100), this);
 			};
 
@@ -594,7 +597,7 @@ var nwui = {
 
 		var allStories = StoryCollection.all();
 
-		while (allStories.length > 0) allStories.at(0).destroy();
+		while (allStories.length > 0) { allStories.at(0).destroy(); }
 
 		// Read from files
 

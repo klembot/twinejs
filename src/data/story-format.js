@@ -63,7 +63,8 @@ var StoryFormat = module.exports = Backbone.Model.extend({
 	*/
 	load: function(callback) {
 		if (this.loaded) {
-			if (callback) callback();
+			if (callback) { callback(); }
+
 			return;
 		}
 
@@ -75,7 +76,7 @@ var StoryFormat = module.exports = Backbone.Model.extend({
 				this.properties.setup.call(this);
 			}
 
-			if (callback) callback();
+			if (callback) { callback(); }
 		}
 
 		function onFail(req, status, error) {

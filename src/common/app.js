@@ -25,7 +25,7 @@ module.exports = Marionette.Application.extend({
 		var TwineRegion = require('../backbone-ext/custom-region');
 		var TwineRouter = require('./router');
 
-		if (nwui.active) nwui.initialize();
+		if (nwui.active) { nwui.initialize(); }
 
 		/*
 		Our main (and only) region.
@@ -62,7 +62,7 @@ module.exports = Marionette.Application.extend({
 
 		// Create built-in story formats if they don't already exist.
 
-		if (! data.storyFormat('Harlowe')) {
+		if (!data.storyFormat('Harlowe')) {
 			data.storyFormats.create({
 				name: 'Harlowe',
 				url: 'storyFormats/Harlowe/format.js',
@@ -70,7 +70,7 @@ module.exports = Marionette.Application.extend({
 			});
 		};
 
-		if (! data.storyFormat('Snowman')) {
+		if (!data.storyFormat('Snowman')) {
 			data.storyFormats.create({
 				name: 'Snowman',
 				url: 'storyFormats/Snowman/format.js',
@@ -78,7 +78,7 @@ module.exports = Marionette.Application.extend({
 			});
 		};
 
-		if (! data.storyFormat('Paperthin')) {
+		if (!data.storyFormat('Paperthin')) {
 			data.storyFormats.create({
 				name: 'Paperthin',
 				url: 'storyFormats/Paperthin/format.js',
@@ -86,7 +86,7 @@ module.exports = Marionette.Application.extend({
 			});
 		};
 
-		if (! data.storyFormat('SugarCube')) {
+		if (!data.storyFormat('SugarCube')) {
 			data.storyFormats.create({
 				name: 'SugarCube',
 				url: 'storyFormats/SugarCube/format.js',

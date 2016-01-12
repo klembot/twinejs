@@ -37,7 +37,7 @@ module.exports = {
 			function checkTrigger(cm) {
 				// If autocomplete is already active, stop.
 
-				if (cm.state.completionActive) return;
+				if (cm.state.completionActive) { return; }
 
 				// Back up two words from the current cursor position.
 

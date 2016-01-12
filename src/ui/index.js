@@ -19,7 +19,7 @@ module.exports = {
 	initialize: function() {
 		var $b = $('body');
 
-		if (! $b.data('uiAttached')) {
+		if (!$b.data('uiAttached')) {
 			var fastclick = require('fastclick');
 
 			$b.data('uiAttached', true);

@@ -227,7 +227,7 @@ module.exports = Backbone.View.extend({
 		this.lineCache = {};
 
 		for (var startName in this.passageCache) {
-			if (! this.passageCache.hasOwnProperty(startName)) {
+			if (!this.passageCache.hasOwnProperty(startName)) {
 				continue;
 			}
 
@@ -255,7 +255,7 @@ module.exports = Backbone.View.extend({
 		var p = this.passageCache[start];
 		var q = this.passageCache[end];
 
-		if (! (p && q)) {
+		if (!(p && q)) {
 			return;
 		}
 
@@ -381,8 +381,8 @@ module.exports = Backbone.View.extend({
 	*/
 	prepDrag: function() {
 		/*
-		Should arrowheads be drawn while dragging? We compute this and store it in this
-		object so we don't have to recompute it during the drag.
+		Should arrowheads be drawn while dragging? We compute this and store it
+		in this object so we don't have to recompute it during the drag.
 
 		@property drawArrowsWhileDragging
 		*/

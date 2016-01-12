@@ -70,8 +70,11 @@
 	"jscsConfig": {
 		"preset": "node-style-guide",
 		"disallowKeywordsOnNewLine": false,
+		"disallowQuotedKeysInObjects": false,
+		"disallowTrailingWhitespace": "ignoreEmptyLines",
+		"requireCapitalizedComments": { "allExcept": ["jQuery"] },
+		"requireCurlyBraces": ["if", "else", "for", "while", "do", "try", "catch"],
 		"requireKeywordsOnNewLine": ["else"],
-		"requirePaddingNewLinesBeforeLineComments": { "allExcept": "firstAfterCurly" },
 		"requirePaddingNewLineAfterVariableDeclaration": true,
 		"requirePaddingNewLinesAfterBlocks": true,
 		"requireTrailingComma": false,

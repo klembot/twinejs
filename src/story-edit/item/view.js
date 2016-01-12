@@ -155,6 +155,7 @@ module.exports = Marionette.ItemView.extend({
 		// Add the excerpt manually after saving data.
 
 		var data = this.model.toJSON();
+
 		data.excerpt = this.model.excerpt();
 		return data;
 	},
@@ -196,7 +197,7 @@ module.exports = Marionette.ItemView.extend({
 			this.model.get('name')
 		);
 
-		if (! ui.hasPrimaryTouchUI()) {
+		if (!ui.hasPrimaryTouchUI()) {
 			message += '<br><br>' + locale.say(
 				'(Hold the Shift key when deleting to skip this message.)'
 			);

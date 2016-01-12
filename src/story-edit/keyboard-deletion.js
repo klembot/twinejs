@@ -11,7 +11,6 @@ var confirm = require('../ui/modal/confirm');
 var locale = require('../locale');
 
 module.exports = {
-	
 	/*
 	Adds deletion event handlers.
 
@@ -35,39 +34,39 @@ module.exports = {
 				// Bug out if none are selected.
 
 				case 0:
-				return;
+					return;
 
 				// Immediately delete the selection if it's just one passage.
 
 				case 1:
-				parent.deleteSelectedPassages();
-				break;
+					parent.deleteSelectedPassages();
+					break;
 
 				// Show a confirmation modal if it's more than just 1.
 
 				default:
-				// Set count appropriately.
+					// Set count appropriately.
 
-				// L10n: This message is always shown with more than one passage.
-				// %d is the number of passages.
-				var message = locale.sayPlural(
-					'Are you sure you want to delete this passage?',
-					'Are you sure you want to delete these %d passages? ' +
-					'This cannot be undone.',
-					selected.length
-				);
+					// L10n: This message is always shown with more than one passage.
+					// %d is the number of passages.
+					var message = locale.sayPlural(
+						'Are you sure you want to delete this passage?',
+						'Are you sure you want to delete these %d passages? ' +
+						'This cannot be undone.',
+						selected.length
+					);
 
-				confirm({
-					content: message,
-					confirmLabel:
-					'<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
-					confirmClass: 'danger',
-					callback: function(confirmed) {
-						if (confirmed) {
-							parent.deleteSelectedPassages();
+					confirm({
+						content: message,
+						confirmLabel:
+						'<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
+						confirmClass: 'danger',
+						callback: function(confirmed) {
+							if (confirmed) {
+								parent.deleteSelectedPassages();
+							}
 						}
-					}
-				});
+					});
 			}
 		});
 	},

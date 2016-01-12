@@ -77,7 +77,7 @@ var data = {
 			If any stories are using this passage's cid
 			as their start passage, update it with a real id.
 			*/
-			if (! options.noParentUpdate) {
+			if (!options.noParentUpdate) {
 				_.invoke(
 					data.stories.where({ startPassage: this.cid }),
 					'save',
@@ -92,7 +92,7 @@ var data = {
 			`noParentUpdate` option, update the parent story's last update property
 			anytime one of its passages changes.
 			*/
-			if (! options.noParentUpdate) {
+			if (!options.noParentUpdate) {
 				var parent = data.storyForPassage(passage);
 
 				if (parent !== undefined) {
@@ -108,7 +108,7 @@ var data = {
 
 			var passages = data.passagesForStory(story);
 
-			while (passages.length > 0) passages.at(0).destroy();
+			while (passages.length > 0) { passages.at(0).destroy(); }
 		});
 
 		this.stories.on('sync', function(story, response, options) {
@@ -118,7 +118,7 @@ var data = {
 			when a story gains a real id.
 			*/
 
-			if (! options.noChildUpdate) {
+			if (!options.noChildUpdate) {
 				_.invoke(
 					data.passages.where({ story: this.cid }),
 					'save',
@@ -179,7 +179,7 @@ var data = {
 	pref: function(name, defaultValue) {
 		var result = this.prefs.find({ name: name });
 
-		if (! result) {
+		if (!result) {
 			result = this.prefs.create({ name: name, value: defaultValue });
 		}
 

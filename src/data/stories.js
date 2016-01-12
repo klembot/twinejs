@@ -23,20 +23,22 @@ module.exports = Backbone.Collection.extend({
 
 		switch (this.order) {
 			case 'name':
-			sortVal = a.get('name') < b.get('name') ? -1 : 1;
-			break;
+				sortVal = a.get('name') < b.get('name') ? -1 : 1;
+				break;
 
 			case 'lastUpdate':
-			var aDate = new Date(a.get('lastUpdate'));
-			var bDate = new Date(b.get('lastUpdate'));
+				var aDate = new Date(a.get('lastUpdate'));
+				var bDate = new Date(b.get('lastUpdate'));
 
-			sortVal = aDate.getTime() < bDate.getTime() ? -1 : 1;
-			break;
+				sortVal = aDate.getTime() < bDate.getTime() ? -1 : 1;
+				break;
 
 			default:
-			// L10n: An internal error. %s is a bad sort criterion.
-			throw new Error(
-			locale.say('don\'t know how to sort stories by %s', this.order));
+				// L10n: An internal error. %s is a bad sort criterion.
+				throw new Error(
+					locale.say('don\'t know how to sort stories by %s',
+					this.order)
+				);
 		}
 
 		return sortVal * (this.reverseOrder ? -1 : 1);

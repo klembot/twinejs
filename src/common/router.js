@@ -91,6 +91,7 @@ module.exports = Backbone.Router.extend({
 
 	startup: function() {
 		var welcomePref = data.pref('welcomeSeen', false);
+
 		window.location.hash = (welcomePref.get('value') === true)
 			? '#stories'
 			: '#welcome';
