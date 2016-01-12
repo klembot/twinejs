@@ -317,9 +317,8 @@ module.exports = Marionette.ItemView.extend({
 	*/
 	appear: function(callback) {
 		if (callback) {
-			this.$el.on('animationend', function() {
+			this.$el.one('animationend', function() {
 				callback();
-				$(this).off(animEndEvent);
 			});
 		}
 
@@ -334,9 +333,8 @@ module.exports = Marionette.ItemView.extend({
 	*/
 	disappear: function(callback) {
 		if (callback) {
-			this.$el.on('animationend', function() {
+			this.$el.one('animationend', function() {
 				callback();
-				$(this).off(animEndEvent);
 			});
 		}
 

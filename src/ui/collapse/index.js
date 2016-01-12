@@ -32,6 +32,6 @@ module.exports = {
 	@static
 	*/
 	detach: function(el) {
-		$(el)off('click.twineui', '.collapseToggle', toggleExpand);
+		$(el).off('click.twineui', '.collapseToggle', toggleExpand);
 	}
 };

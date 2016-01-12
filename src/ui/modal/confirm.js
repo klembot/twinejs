@@ -38,7 +38,7 @@ module.exports = function(options) {
 		.on('click.twineui', '[data-action="yes"]', function() {
 			if (options.callback) options.callback(true);
 			confModal.off('.twineui');
-		},
+		})
 		.on('confModalClose.twineui', function() {
 			if (options.callback) options.callback(false);
 		});

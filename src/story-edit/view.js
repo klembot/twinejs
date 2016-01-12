@@ -10,7 +10,6 @@ setting each child's parentView property to this one.
 'use strict';
 var $ = require('jquery');
 var _ = require('underscore');
-var moment = require('moment');
 var Marionette = require('backbone.marionette');
 var data = require('../data');
 var file = require('../file');

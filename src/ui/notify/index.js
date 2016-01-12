@@ -53,7 +53,7 @@ module.exports = function(message, className) {
 			.addClass('fadeOut')
 			.one('animationend', function() {
 				$(this).remove();
-			  });
+			});
 	}
 
 	if (className !== 'danger') {

@@ -7,8 +7,6 @@ Manages the toolbar of a story editing view.
 'use strict';
 var $ = require('jquery');
 var Marionette = require('backbone.marionette');
-var moment = require('moment');
-var locale = require('../../locale');
 var QuickSearch = require('./search');
 var SearchModal = require('../modals/search');
 var ToolbarMenu = require('./menu');
