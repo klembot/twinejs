@@ -175,7 +175,20 @@ module.exports = function(grunt) {
 				options: {
 					data: _.extend({
 						buildNumber: require('./buildNumber')(),
-						cdn: false
+						cdn: false,
+						livereload: false
+					}, twine)
+				}
+			},
+			dev: {
+				files: {
+					'build/standalone/index.html': 'src/index.ejs'
+				},
+				options: {
+					data: _.extend({
+						buildNumber: require('./buildNumber')(),
+						cdn: false,
+						livereload: true
 					}, twine)
 				}
 			},
@@ -195,14 +208,44 @@ module.exports = function(grunt) {
 
 	// Build tasks package everything up under build/standalone and build/cdn.
 
-	grunt.registerTask('build', ['browserify:default', 'less:default',
-	'template:default', 'copy:fonts', 'copy:images', 'copy:storyformats',
-	'po']);
-	grunt.registerTask('build:cdn', ['browserify:cdn', 'less:cdn', 'template:cdn',
-	'copy:fontsCdn', 'copy:imagesCdn', 'copy:storyformatsCdn', 'po:cdn']);
-	grunt.registerTask('build:release', ['browserify:release', 'less:release',
-	'template:default', 'copy:fonts', 'copy:images', 'copy:storyformats',
-	'copy:manifest', 'po']);
+	grunt.registerTask('build', [
+		'browserify:default',
+		'less:default',
+		'template:default',
+		'copy:fonts',
+		'copy:images',
+		'copy:storyformats',
+		'po'
+	]);
+	grunt.registerTask('build:dev', [
+		'browserify:default',
+		'less:default',
+		'template:dev',
+		'copy:fonts',
+		'copy:images',
+		'copy:storyformats',
+		'po'
+	]);
+	grunt.registerTask('build:cdn', [
+		'browserify:cdn',
+		'less:cdn',
+		'template:cdn',
+		'copy:fontsCdn',
+		'copy:imagesCdn',
+		'copy:storyformatsCdn',
+		'po:cdn'
+	]);
+	grunt.registerTask('build:release', [
+		'browserify:release',
+		'less:release',
+		'template:default',
+		'copy:fonts',
+		'copy:images',
+		'copy:storyformats',
+		'copy:manifest',
+		'po'
+	]);
+
 	grunt.registerTask('default', ['build']);
 
 	// Watch observes changes to files outside of the browserify process and
@@ -220,7 +263,7 @@ module.exports = function(grunt) {
 			},
 			html: {
 				files: ['src/index.ejs'],
-				tasks: ['template:default']
+				tasks: ['template:dev']
 			},
 			images: {
 				files: ['src/**/img/**/*.{ico,png,svg}'],
@@ -233,6 +276,30 @@ module.exports = function(grunt) {
 			templates: {
 				files: ['src/**/*.ejs'],
 				tasks: ['browserify:default']
+			},
+
+			livereload: { // Trigger livereload only if built files changed
+				options: {
+					livereload: true
+				},
+				files: ['build/standalone/**/*'],
+			}
+		}
+	});
+
+	// TODO: move to config
+	var port = 9009;
+
+	grunt.config.merge({
+		connect: {
+			dev: {
+				options: {
+					port: port,
+					base: 'build/standalone',
+
+					// Open URL in default browser
+					open: true
+				},
 			}
 		}
 	});
@@ -240,4 +307,5 @@ module.exports = function(grunt) {
 	// Dev spins up everything needed for live development work.
 
 	grunt.registerTask('dev', ['browserify:default', 'watch']);
+	grunt.registerTask('lr', ['build:dev', 'connect:dev', 'watch']);
 };
