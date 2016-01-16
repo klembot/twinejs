@@ -478,14 +478,14 @@ module.exports = Marionette.CompositeView.extend({
 	*/
 
 	increaseZoom: function() {
-		var zoomIndex = this.zoomLevels.indexOf(this.get('zoom'));
+		var zoomIndex = this.zoomLevels.indexOf(this.model.get('zoom'));
 
 		zoomIndex++;
 		if (zoomIndex === this.zoomLevels.length) {
 			zoomIndex = 0;
 		}
 
-		this.save('zoom', this.zoomLevels[zoomIndex]);
+		this.model.save('zoom', this.zoomLevels[zoomIndex]);
 	},
 
 	/*
@@ -496,14 +496,14 @@ module.exports = Marionette.CompositeView.extend({
 	*/
 
 	decreaseZoom: function() {
-		var zoomIndex = this.zoomLevels.indexOf(this.get('zoom'));
+		var zoomIndex = this.zoomLevels.indexOf(this.model.get('zoom'));
 
 		zoomIndex--;
 		if (zoomIndex === -1) {
 			zoomIndex = this.zoomLevels.length - 1;
 		}
 
-		this.save('zoom', this.zoomLevels[zoomIndex]);
+		this.model.save('zoom', this.zoomLevels[zoomIndex]);
 	},
 
 	events: {
@@ -537,7 +537,7 @@ module.exports = Marionette.CompositeView.extend({
 			if (e.altKey && !e.ctrlKey) {
 				// Consider only the vertical scroll.
 
-				var delta = event.originalEvent.wheelDeltaY;
+				var delta = e.originalEvent.wheelDeltaY;
 
 				if (delta > 0) {
 					this.decreaseZoom();
