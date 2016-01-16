@@ -163,6 +163,21 @@ module.exports = function(grunt) {
 		}
 	});
 
+	grunt.config.merge({
+		cssnano: {
+			standalone: {
+				files: {
+					'build/standalone/twine.css': 'build/standalone/twine.css'
+				}
+			},
+			cdn: {
+				files: {
+					'build/cdn/twine.css': 'build/cdn/twine.css'
+				}
+			}
+		}
+	});
+
 	// Template creates an HTML file, index.html, by mixing properties
 	// into src/index.ejs.
 
@@ -229,6 +244,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('build:cdn', [
 		'browserify:cdn',
 		'less:cdn',
+		'cssnano:cdn',
 		'template:cdn',
 		'copy:fontsCdn',
 		'copy:imagesCdn',
@@ -238,6 +254,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('build:release', [
 		'browserify:release',
 		'less:release',
+		'cssnano:standalone',
 		'template:default',
 		'copy:fonts',
 		'copy:images',
