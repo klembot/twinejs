@@ -32,7 +32,8 @@ module.exports = function(grunt) {
 					},
 					exclude: ['fs'],
 					external: ['nw.gui'],
-					ignore: ['codemirror/mode/css/css',
+					ignore: [
+						'codemirror/mode/css/css',
 						'codemirror/mode/javascript/javascript',
 						'codemirror/addon/display/placeholder',
 						'codemirror/addon/hint/show-hint'
@@ -51,7 +52,7 @@ module.exports = function(grunt) {
 					},
 					exclude: ['fs'],
 					external: ['nw.gui'],
-					transform: ['ejsify', ['uglifyify', { global: true }]]
+					transform: ['ejsify', ['uglifyify', { global: true, compress: true }]]
 				}
 			}
 		}
