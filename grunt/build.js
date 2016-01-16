@@ -33,9 +33,10 @@ module.exports = function(grunt) {
 					exclude: ['fs'],
 					external: ['nw.gui'],
 					ignore: ['codemirror/mode/css/css',
-					'codemirror/mode/javascript/javascript',
-					'codemirror/addon/display/placeholder',
-					'codemirror/addon/hint/show-hint'],
+						'codemirror/mode/javascript/javascript',
+						'codemirror/addon/display/placeholder',
+						'codemirror/addon/hint/show-hint'
+					],
 					transform: ['ejsify', ['uglifyify', { global: true }], 'browserify-shim']
 				}
 			},
@@ -107,6 +108,9 @@ module.exports = function(grunt) {
 	// files under src/.
 
 	var LessPluginAutoprefix = require('less-plugin-autoprefix');
+	var autoprefixOptions = {
+		browsers: ['iOS 1-9', 'last 2 versions']
+	};
 
 	grunt.config.merge({
 		less: {
@@ -115,18 +119,16 @@ module.exports = function(grunt) {
 					// Order matters here, so we override properly
 
 					'build/standalone/twine.css': [
-					'node_modules/font-awesome/css/font-awesome.css',
-					'node_modules/codemirror/lib/codemirror.css',
-					'src/**/*.less',
-					'node_modules/codemirror/addon/hint/show-hint.css'
+						'node_modules/font-awesome/css/font-awesome.css',
+						'node_modules/codemirror/lib/codemirror.css',
+						'src/**/*.less',
+						'node_modules/codemirror/addon/hint/show-hint.css'
 					]
 				},
 				options: {
 					plugins: [
-            new LessPluginAutoprefix({
-	browsers: ['iOS 1-9', 'last 2 versions']
-            })
-          ],
+						new LessPluginAutoprefix(autoprefixOptions)
+					],
 					sourceMap: true,
 					sourceMapFileInline: true
 				}
@@ -137,10 +139,8 @@ module.exports = function(grunt) {
 				},
 				options: {
 					plugins: [
-            new LessPluginAutoprefix({
-	browsers: ['iOS 1-9', 'last 2 versions']
-            })
-          ]
+						new LessPluginAutoprefix(autoprefixOptions)
+					]
 				}
 			},
 			release: {
@@ -148,18 +148,16 @@ module.exports = function(grunt) {
 					// Order matters here, so we override properly
 
 					'build/standalone/twine.css': [
-					'node_modules/font-awesome/css/font-awesome.css',
-					'node_modules/codemirror/lib/codemirror.css',
-					'src/**/*.less',
-					'node_modules/codemirror/addon/hint/show-hint.css'
+						'node_modules/font-awesome/css/font-awesome.css',
+						'node_modules/codemirror/lib/codemirror.css',
+						'src/**/*.less',
+						'node_modules/codemirror/addon/hint/show-hint.css'
 					]
 				},
 				options: {
 					plugins: [
-            new LessPluginAutoprefix({
-	browsers: ['iOS 1-9', 'last 2 versions']
-            })
-          ]
+						new LessPluginAutoprefix(autoprefixOptions)
+					]
 				}
 			}
 		}

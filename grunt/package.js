@@ -59,14 +59,14 @@ module.exports = function(grunt) {
 	grunt.registerTask('package:web', function() {
 		var folderName = 'twine_' + twine.version;
 
-		if (! grunt.file.exists('dist/')) {
+		if (!grunt.file.exists('dist/')) {
 			grunt.file.mkdir('dist');
 		}
 
 		fs.renameSync('build/standalone', 'build/' + folderName);
 		childProcess.execSync(
-		'zip -r ../dist/' + folderName + '.zip ' + folderName,
-		{cwd: 'build/'}
+			'zip -r ../dist/' + folderName + '.zip ' + folderName,
+			{cwd: 'build/'}
 		);
 		fs.renameSync('build/' + folderName, 'build/standalone');
 	});
@@ -76,14 +76,14 @@ module.exports = function(grunt) {
 	grunt.registerTask('package:linux32', function() {
 		var folderName = 'twine_' + twine.version + '_linux32';
 
-		if (! grunt.file.exists('dist/')) {
+		if (!grunt.file.exists('dist/')) {
 			grunt.file.mkdir('dist');
 		}
 
 		fs.renameSync('build/nwjs/Twine/linux32', 'build/nwjs/Twine/' + folderName);
 		childProcess.execSync(
-		'zip -r ../../../dist/' + folderName + '.zip ' + folderName,
-		{cwd: 'build/nwjs/Twine'}
+			'zip -r ../../../dist/' + folderName + '.zip ' + folderName,
+			{cwd: 'build/nwjs/Twine'}
 		);
 		fs.renameSync('build/nwjs/Twine/' + folderName, 'build/nwjs/Twine/linux32');
 	});
@@ -93,14 +93,14 @@ module.exports = function(grunt) {
 	grunt.registerTask('package:linux64', function() {
 		var folderName = 'twine_' + twine.version + '_linux64';
 
-		if (! grunt.file.exists('dist/')) {
+		if (!grunt.file.exists('dist/')) {
 			grunt.file.mkdir('dist');
 		}
 
 		fs.renameSync('build/nwjs/Twine/linux64', 'build/nwjs/Twine/' + folderName);
 		childProcess.execSync(
-		'zip -r ../../../dist/' + folderName + '.zip ' + folderName,
-		{cwd: 'build/nwjs/Twine'}
+			'zip -r ../../../dist/' + folderName + '.zip ' + folderName,
+			{cwd: 'build/nwjs/Twine'}
 		);
 		fs.renameSync('build/nwjs/Twine/' + folderName, 'build/nwjs/Twine/linux64');
 	});
@@ -110,18 +110,20 @@ module.exports = function(grunt) {
 	grunt.registerTask('package:osx', function() {
 		var zipName = 'twine_' + twine.version + '_osx.zip';
 
-		if (! grunt.file.exists('dist/')) {
+		if (!grunt.file.exists('dist/')) {
 			grunt.file.mkdir('dist');
 		}
 
-		childProcess.execSync('zip -r ../../../../dist/' + zipName + ' Twine.app',
-		{cwd: 'build/nwjs/Twine/osx64'});
+		childProcess.execSync(
+			'zip -r ../../../../dist/' + zipName + ' Twine.app',
+			{cwd: 'build/nwjs/Twine/osx64'}
+		);
 	});
 
 	// Package:win32 packages up the Windows 32-bit NW.js version as an installer.
 
 	grunt.registerTask('package:win32', function() {
-		if (! grunt.file.exists('dist/')) {
+		if (!grunt.file.exists('dist/')) {
 			grunt.file.mkdir('dist');
 		}
 
@@ -131,7 +133,7 @@ module.exports = function(grunt) {
 	// Package:win32 packages up the Windows 32-bit NW.js version as an installer.
 
 	grunt.registerTask('package:win64', function() {
-		if (! grunt.file.exists('dist/')) {
+		if (!grunt.file.exists('dist/')) {
 			grunt.file.mkdir('dist');
 		}
 
