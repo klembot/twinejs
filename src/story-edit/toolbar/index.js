@@ -44,7 +44,7 @@ module.exports = Marionette.ItemView.extend({
 		});
 
 		this.syncZoomButtons();
-		this.syncStorySaved();
+		this.syncStoryName();
 		this.listenTo(this.parent.model, 'change:zoom', this.syncZoomButtons);
 		this.listenTo(this.parent.model, 'change:name', this.syncStoryName);
 	},
