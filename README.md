@@ -30,6 +30,9 @@ perform the same tasks whenever you make changes to the source code. `grunt nw`
 will create executable app versions of Twine from this directory and place them
 under `build/nwjs/`. `grunt build:cdn` will build a version of Twine that makes
 as much use of CDN resources as possible, and place it under `build/cdn`.
+`grunt lr` will build all files as in `standalone`, serve them from
+build/standalone folder, open default browser and will reload page on any change.
+
 
 To create downloadable versions of Twine, run `grunt package`. These will be
 placed in the `dist/` directory. An additional file named `2.json` is created

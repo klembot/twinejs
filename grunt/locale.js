@@ -13,17 +13,17 @@ module.exports = function(grunt) {
 		var templates = grunt.file.expand('src/**/ejs/*.ejs');
 
 		childProcess.execSync(
-		'xgettext -L PHP -ks -ksp:1,2 -cL10n ' +
-		'-o src/locale/po/template.pot '
-		+ templates.join(' ')
+			'xgettext -L PHP -ks -ksp:1,2 -cL10n ' +
+			'-o src/locale/po/template.pot '
+			+ templates.join(' ')
 		);
 
 		var js = grunt.file.expand('src/**/*.js');
 
 		childProcess.execSync(
-		'xgettext -j -L JavaScript -ksay -ksayPlural:1,2 -cL10n ' +
-		'-o src/locale/po/template.pot ' +
-		js.join(' ')
+			'xgettext -j -L JavaScript -ksay -ksayPlural:1,2 -cL10n ' +
+			'-o src/locale/po/template.pot ' +
+			js.join(' ')
 		);
 	});
 
