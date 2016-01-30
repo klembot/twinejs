@@ -9,9 +9,9 @@
 'use strict';
 var $ = require('jquery');
 var Marionette = require('backbone.marionette');
-var welcomeTemplate = require('./ejs/welcomeView.ejs');
-var AppPref = require('../data/models/appPref');
-var AppPrefCollection = require('../data/collections/appPrefCollection');
+var welcomeTemplate = require('./ejs/welcome-view.ejs');
+var AppPref = require('../data/models/app-pref');
+var AppPrefCollection = require('../data/collections/app-pref');
 
 module.exports = Marionette.ItemView.extend(
 {

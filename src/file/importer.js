@@ -6,8 +6,8 @@
 **/
 
 var _ = require('underscore');
-var StoryCollection = require('../data/collections/storyCollection');
-var PassageCollection = require('../data/collections/passageCollection');
+var StoryCollection = require('../data/collections/story');
+var PassageCollection = require('../data/collections/passage');
 
 var importer = module.exports =
 {

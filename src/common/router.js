@@ -15,14 +15,14 @@
 'use strict';
 var Backbone = require('backbone');
 var publish = require('../story-publish');
-var AppPref = require('../data/models/appPref');
-var LocaleView = require('../locale/localeView');
+var AppPref = require('../data/models/app-pref');
+var LocaleView = require('../locale/locale-view');
 var Story = require('../data/models/story');
-var StoryCollection = require('../data/collections/storyCollection');
-var StoryEditView = require('../story-edit/storyEditView');
-var StoryFormat = require('../data/models/storyFormat');
-var StoryListView = require('../story-list/storyListView');
-var WelcomeView = require('../welcome/welcomeView');
+var StoryCollection = require('../data/collections/story');
+var StoryEditView = require('../story-edit/story-edit-view');
+var StoryFormat = require('../data/models/story-format');
+var StoryListView = require('../story-list/story-list-view');
+var WelcomeView = require('../welcome/welcome-view');
 
 module.exports = Backbone.Router.extend(
 {

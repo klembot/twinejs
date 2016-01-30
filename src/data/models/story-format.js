@@ -167,7 +167,7 @@ window.StoryFormat = StoryFormat;
 
 module.exports = StoryFormat;
 
-var StoryFormatCollection = require('../collections/storyFormatCollection');
+var StoryFormatCollection = require('../collections/story-format');
 
 /**
  Locates a StoryFormat by name. If none exists, then this returns null.

@@ -15,9 +15,9 @@ var locale = require('../locale');
 var notify = require('../ui/notify');
 var replaceContent = require('../ui/replace');
 var saveFile = require('../file/save');
-var AppPref = require('../data/models/appPref');
-var StoryFormat = require('../data/models/storyFormat');
-var StoryCollection = require('../data/collections/storyCollection');
+var AppPref = require('../data/models/app-pref');
+var StoryFormat = require('../data/models/story-format');
+var StoryCollection = require('../data/collections/story');
 
 module.exports =
 {

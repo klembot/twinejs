@@ -1,4 +1,3 @@
-
 /**
  Duplicates this model and its passages. 
 
@@ -7,8 +6,8 @@
  @return {Story} new Story model
 **/
 
-var PassageCollection = require('../data/models/passageCollection');
-var StoryCollection = require('../data/models/storyCollection');
+var PassageCollection = require('../data/collections/passage');
+var StoryCollection = require('../data/collections/story');
 
 module.exports = function (story, name)
 {

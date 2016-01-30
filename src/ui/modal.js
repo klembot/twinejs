@@ -2,7 +2,7 @@
 var $ = window.jQuery = require('jquery');
 require('../../lib/jquery/jquery.omniwindow.js');
 var ui = require('./index');
-var overlayTemplate = require('./ejs/modalOverlay.ejs');
+var overlayTemplate = require('./ejs/modal-overlay.ejs');
 
 // default modal options for OmniWindow
 

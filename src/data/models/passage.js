@@ -10,7 +10,7 @@ var _ = require('underscore');
 var Backbone = require('backbone');
 var locale = require('../../locale');
 var ui = require('../../ui');
-var passageDataTemplate = require('./ejs/passageData.ejs');
+var passageDataTemplate = require('./ejs/passage-data.ejs');
 
 var Passage = Backbone.Model.extend(
 {
@@ -417,8 +417,8 @@ var Passage = Backbone.Model.extend(
 // early export to avoid circular reference problems
 
 module.exports = Passage;
-var PassageCollection = require('../collections/passageCollection');
-var StoryCollection = require('../collections/storyCollection');
+var PassageCollection = require('../collections/passage');
+var StoryCollection = require('../collections/story');
 
 /**
  Locates a passage by ID. If none exists, then this returns null.

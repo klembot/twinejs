@@ -5,7 +5,7 @@ var Backbone = require('backbone');
 var Marionette = require('backbone.marionette');
 var locale = require('../../locale');
 var notify = require('../../ui/notify');
-var resultTemplate = require('../ejs/searchModalResult.ejs');
+var resultTemplate = require('../ejs/search-modal-result.ejs');
 require('../../ui/collapse');
 
 module.exports = Backbone.View.extend(

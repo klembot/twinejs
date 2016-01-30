@@ -16,9 +16,9 @@ var notify = require('../ui/notify');
 var prompt = require('../ui/prompt');
 var publish = require('../story-publish');
 var Passage = require('../data/models/passage');
-var Preview = require('./storyPreview');
-var StoryEditView = require('../story-edit/storyEditView');
-var storyItemTemplate = require('./ejs/storyItemView.ejs');
+var Preview = require('./story-preview');
+var StoryEditView = require('../story-edit/story-edit-view');
+var storyItemTemplate = require('./ejs/story-item-view.ejs');
 
 module.exports = Marionette.ItemView.extend(
 {
