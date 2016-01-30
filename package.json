@@ -17,7 +17,7 @@
     "height": 600,
     "icon": "rsrc/img/logo.ico"
   },
-  "browserify-shim": "./cdnShims.js",
+  "browserify-shim": "./browserify/cdn-shims.js",
   "dependencies": {
     "backbone": "^1.2.1",
     "backbone.localstorage": "^1.1.16",
@@ -55,8 +55,6 @@
     "grunt-template": "^0.2.3",
     "grunt-text-replace": "^0.4.0",
     "jit-grunt": "^0.9.1",
-    "mocha": "^2.3.3",
-    "selenium-webdriver": "^2.46.1",
     "uglifyify": "^3.0.1",
     "watchify": "^3.3.0",
     "wrench": "^1.5.8"
