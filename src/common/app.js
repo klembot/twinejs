@@ -16,9 +16,9 @@ var Marionette = require('backbone.marionette');
 var locale = require('../locale');
 var nwui = require('../nwui');
 var ui = require('../ui');
-var AppPref = require('../data/models/appPref');
-var StoryFormatCollection = require('../data/collections/storyFormatCollection');
-var TransRegion = require('../backbone-ext/transRegion');
+var AppPref = require('../data/models/app-pref');
+var StoryFormatCollection = require('../data/collections/story-format');
+var TransRegion = require('../backbone-ext/trans-region');
 var TwineRouter = require('./router');
 
 module.exports = Marionette.Application.extend(
@@ -107,16 +107,24 @@ module.exports = Marionette.Application.extend(
 		var formats = StoryFormatCollection.all();
 
 		if (! formats.findWhere({ name: 'Harlowe' }))
-			formats.create({ name: 'Harlowe', url: 'storyFormats/Harlowe/format.js', userAdded: false });
+			formats.create({ name: 'Harlowe', url: 'story-formats/Harlowe/format.js', userAdded: false });
 
 		if (! formats.findWhere({ name: 'Snowman' }))
-			formats.create({ name: 'Snowman', url: 'storyFormats/Snowman/format.js', userAdded: false });
+			formats.create({ name: 'Snowman', url: 'story-formats/Snowman/format.js', userAdded: false });
 
 		if (! formats.findWhere({ name: 'Paperthin' }))
-			formats.create({ name: 'Paperthin', url: 'storyFormats/Paperthin/format.js', userAdded: false });
+			formats.create({ name: 'Paperthin', url: 'story-formats/Paperthin/format.js', userAdded: false });
 
 		if (! formats.findWhere({ name: 'SugarCube' }))
-			formats.create({ name: 'SugarCube', url: 'storyFormats/SugarCube/format.js', userAdded: false });
+			formats.create({ name: 'SugarCube', url: 'story-formats/SugarCube/format.js', userAdded: false });
+
+		// repair paths to use kebab case
+
+		formats.forEach(function(format) {
+			if (/^storyFormats\//i.test(format.get('url'))) {
+				format.save('url', format.get('url').replace(/^storyFormats\//i, 'story-formats/'));
+			}
+		});
 
 		// set default formats if not already set
 		// (second param is a default)

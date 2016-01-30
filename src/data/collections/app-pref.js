@@ -18,7 +18,7 @@ var AppPrefCollection = Backbone.Collection.extend(
 // early export to avoid circular reference problems
 
 module.exports = AppPrefCollection;
-var AppPref = require('../models/appPref');
+var AppPref = require('../models/app-pref');
 
 AppPrefCollection.prototype.model = AppPref;
 

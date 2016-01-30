@@ -14,7 +14,7 @@ var locale = require('../locale');
 var confirm = require('../ui/confirm');
 var ui = require('../ui');
 var Passage = require('../data/models/passage');
-var passageItemTemplate = require('./ejs/passageItemView.ejs');
+var passageItemTemplate = require('./ejs/passage-item-view.ejs');
 
 module.exports = Marionette.ItemView.extend(
 {

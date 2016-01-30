@@ -110,14 +110,14 @@ module.exports = function (grunt)
 			},
 			storyformats:
 			{
-				src: 'storyFormats/**',
+				src: 'story-formats/**',
 				dest: 'build/standalone/',
 				expand: true,
 				flatten: false
 			},
 			storyformatsCdn:
 			{
-				src: 'storyFormats/**',
+				src: 'story-formats/**',
 				dest: 'build/cdn/',
 				expand: true,
 				flatten: false

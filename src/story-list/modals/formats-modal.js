@@ -5,10 +5,10 @@ var Backbone = require('backbone');
 var Marionette = require('backbone.marionette');
 var locale = require('../../locale');
 var notify = require('../../ui/notify');
-var AppPref = require('../../data/models/appPref');
-var StoryFormat = require('../../data/models/storyFormat');
-var StoryFormatCollection = require('../../data/collections/storyFormatCollection');
-var storyFormatTemplate = require('../ejs/formatItem.ejs');
+var AppPref = require('../../data/models/app-pref');
+var StoryFormat = require('../../data/models/story-format');
+var StoryFormatCollection = require('../../data/collections/story-format');
+var storyFormatTemplate = require('../ejs/format-item.ejs');
 require('../../ui/tab');
 
 module.exports = Backbone.View.extend(

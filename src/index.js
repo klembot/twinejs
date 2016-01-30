@@ -3,9 +3,8 @@
 var _ = require('underscore');
 var locale = require('./locale');
 var notify = require('./ui/notify');
-var AppPref = require('./data/models/appPref');
+var AppPref = require('./data/models/app-pref');
 var TwineApp = require('./common/app');
-//require('./harlowe-compat');
 
 (function()
 {

@@ -119,7 +119,7 @@
 #storyEditView .passages
 {
 	position: relative;
-	background: #24497e url("../img/blueprint_large.png") 10px -15px;
+	background: #24497e url("img/blueprint-large.png") 10px -15px;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 	-khtml-user-select: none;
@@ -133,13 +133,13 @@
 
 .zoom-small #storyEditView .passages
 {
-	background-image: url('../img/blueprint_small.png');
+	background-image: url('img/blueprint-small.png');
 	background-position: -15px 10px;
 }
 
 .zoom-medium #storyEditView .passages
 {
-	background-image: url('../img/blueprint_medium.png');
+	background-image: url('img/blueprint-medium.png');
 	background-position: 10px 10px;
 }
 

@@ -4,8 +4,8 @@ var Backbone = require('backbone');
 var Marionette = require('backbone.marionette');
 var locale = require('../../locale');
 var notify = require('../../ui/notify');
-var StoryFormatCollection = require('../../data/collections/storyFormatCollection');
-var singleFormatTemplate = require('../ejs/singleStoryFormatItem.ejs');
+var StoryFormatCollection = require('../../data/collections/story-format');
+var singleFormatTemplate = require('../ejs/single-story-format-item.ejs');
 
 module.exports = Backbone.View.extend(
 {

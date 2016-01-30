@@ -12,12 +12,12 @@ var Backbone = require('backbone');
 var CodeMirror = require('codemirror');
 var locale = require('../../locale');
 var Passage = require('../../data/models/passage');
-var StoryFormat = require('../../data/models/storyFormat');
-var tagTemplate = require('../ejs/passageTag.ejs');
+var StoryFormat = require('../../data/models/story-format');
+var tagTemplate = require('../ejs/passage-tag.ejs');
 require('codemirror/mode/javascript/javascript');
 require('codemirror/addon/display/placeholder');
 require('codemirror/addon/hint/show-hint');
-require('../../codemirror-ext/prefixTrigger');
+require('../../codemirror-ext/prefix-trigger');
 
 // Harlowe compatibility
 window.CodeMirror = CodeMirror;

@@ -16,7 +16,7 @@ var StoryFormatCollection = Backbone.Collection.extend(
 // early export to avoid circular reference problems
 
 module.exports = StoryFormatCollection;
-var StoryFormat = require('../models/storyFormat');
+var StoryFormat = require('../models/story-format');
 
 StoryFormatCollection.prototype.model = StoryFormat;
 

@@ -9,8 +9,8 @@
 var $ = require('jquery');
 var Marionette = require('backbone.marionette');
 var locale = require('./index.js');
-var AppPref = require('../data/models/appPref');
-var localeTemplate = require('./ejs/localeView.ejs');
+var AppPref = require('../data/models/app-pref');
+var localeTemplate = require('./ejs/locale-view.ejs');
 
 module.exports = Marionette.ItemView.extend(
 {

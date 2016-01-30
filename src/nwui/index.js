@@ -15,13 +15,13 @@ var importer = require('../file/importer');
 var locale = require('../locale');
 var notify = require('../ui/notify');
 var Passage = require('../data/models/passage');
-var StorageQuota = require('../story-list/storageQuota');
+var StorageQuota = require('../story-list/storage-quota');
 var Story = require('../data/models/story');
-var StoryCollection = require('../data/collections/storyCollection');
-var StoryListView = require('../story-list/storyListView');
-var WelcomeView = require('../welcome/welcomeView');
-var startupErrorTemplate = require('./ejs/startupError.ejs');
-var welcomeViewNwTemplate = require('./ejs/welcomeViewNw.ejs');
+var StoryCollection = require('../data/collections/story');
+var StoryListView = require('../story-list/story-list-view');
+var WelcomeView = require('../welcome/welcome-view');
+var startupErrorTemplate = require('./ejs/startup-error.ejs');
+var welcomeViewNwTemplate = require('./ejs/welcome-view-nw.ejs');
 
 var nwui = module.exports =
 {

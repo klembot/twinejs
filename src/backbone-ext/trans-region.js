@@ -8,8 +8,8 @@
 
 'use strict';
 var Marionette = require('backbone.marionette');
-var StoryEditView = require('../story-edit/storyEditView');
-var StoryListView = require('../story-list/storyListView');
+var StoryEditView = require('../story-edit/story-edit-view');
+var StoryListView = require('../story-list/story-list-view');
 
 module.exports = Marionette.Region.extend(
 {

@@ -11,9 +11,9 @@ var _ = require('underscore');
 var uuid = require('tiny-uuid');
 var Backbone = require('backbone');
 var locale = require('../../locale');
-var AppPref = require('./appPref');
-var PassageCollection = require('../collections/passageCollection');
-var storyDataTemplate = require('./ejs/storyData.ejs');
+var AppPref = require('./app-pref');
+var PassageCollection = require('../collections/passage');
+var storyDataTemplate = require('./ejs/story-data.ejs');
 
 var Story = Backbone.Model.extend(
 {
@@ -192,7 +192,7 @@ var Story = Backbone.Model.extend(
 
 /*jshint -W003 */
 module.exports = Story;
-var StoryCollection = require('../collections/storyCollection');
+var StoryCollection = require('../collections/story');
 /*jshint +W003 */
 
 /**
