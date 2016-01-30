@@ -54,7 +54,7 @@
     "grunt-po2json": "^0.3.0",
     "grunt-template": "^0.2.3",
     "grunt-text-replace": "^0.4.0",
-    "load-grunt-tasks": "^3.3.0",
+    "jit-grunt": "^0.9.1",
     "mocha": "^2.3.3",
     "selenium-webdriver": "^2.46.1",
     "uglifyify": "^3.0.1",
