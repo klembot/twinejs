@@ -191,7 +191,7 @@ module.exports = function (grunt)
 				{
 					data: _.extend(
 					{
-						buildNumber: require('./buildNumber')(),
+						buildNumber: require('./build-number')(),
 						cdn: false
 					}, twine)
 				}
@@ -206,7 +206,7 @@ module.exports = function (grunt)
 				{
 					data: _.extend(
 					{
-						buildNumber: require('./buildNumber')(),
+						buildNumber: require('./build-number')(),
 						cdn: true
 					}, twine)
 				}
