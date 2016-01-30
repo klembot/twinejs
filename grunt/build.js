@@ -175,36 +175,6 @@ module.exports = function (grunt)
 		}
 	});
 
-	// replace fixes up references in our CSS that fall out of date
-	// when everything is flattened under build/.
-
-	grunt.config.merge({
-		replace:
-		{
-			cssfix:
-			{
-				src: 'build/standalone/twine.css',
-				overwrite: true,
-				replacements:
-				[{
-					from: /url\(['"]?\.\.\//g,
-					to: 'url('
-				}]
-			},
-
-			csscdnfix:
-			{
-				src: 'build/cdn/twine.css',
-				overwrite: true,
-				replacements:
-				[{
-					from: /url\(['"]?\.\.\//g,
-					to: 'url('
-				}]
-			},
-		}
-	});
-
 	// template creates an HTML file, index.html, by mixing properties
 	// into src/index.ejs.
 
@@ -246,11 +216,11 @@ module.exports = function (grunt)
 
 	// build tasks package everything up under build/standalone and build/cdn.
 
-	grunt.registerTask('build', ['browserify:default', 'cssmin:default', 'replace:cssfix', 'template:default',
+	grunt.registerTask('build', ['browserify:default', 'cssmin:default', 'template:default',
 	                             'copy:fonts', 'copy:images', 'copy:storyformats', 'po']);
-	grunt.registerTask('build:cdn', ['browserify:cdn', 'cssmin:cdn', 'replace:csscdnfix', 'template:cdn',
+	grunt.registerTask('build:cdn', ['browserify:cdn', 'cssmin:cdn', 'template:cdn',
 	                                 'copy:fontsCdn', 'copy:imagesCdn', 'copy:storyformatsCdn', 'po:cdn']);
-	grunt.registerTask('build:release', ['browserify:release', 'cssmin:release', 'replace:cssfix', 'template:default',
+	grunt.registerTask('build:release', ['browserify:release', 'cssmin:release', 'template:default',
 	                                     'copy:fonts', 'copy:images', 'copy:storyformats', 'copy:manifest', 'po']);
 	grunt.registerTask('default', ['build']);
 
