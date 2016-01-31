@@ -8,8 +8,7 @@ var _ = require('underscore');
 var Backbone = require('backbone');
 var SVG = require('svg.js');
 
-module.exports = Backbone.View.extend(
-{
+module.exports = Backbone.View.extend({
 	/**
 	 How fast we animate passages appearing, in milliseconds.
 	 @property appearDuration
@@ -18,8 +17,7 @@ module.exports = Backbone.View.extend(
 
 	appearDuration: 500,
 
-	initialize: function (options)
-	{
+	initialize: function(options) {
 		/**
 		 The parent StoryItemView.
 
@@ -38,7 +36,7 @@ module.exports = Backbone.View.extend(
 
 		/**
 		 The SVG element on the page.
-		 @property svg	
+		 @property svg
 		**/
 
 		this.svg = SVG(this.el);
@@ -54,42 +52,47 @@ module.exports = Backbone.View.extend(
 
 		var storyName = this.parent.model.get('name');
 
-		for (var i = storyName.length - 1; i >= 0; i--)
+		for (var i = storyName.length - 1; i >= 0; i--) {
 			this.hue += storyName.charCodeAt(i);
+		}
 
 		this.hue = this.hue % 360;
 
 		// set overall background color
 
-		this.$el.closest('.story').css('background', 'hsl(' + this.hue + ', 15%, 95%)');
+		this.$el.closest('.story').css(
+			'background', 'hsl(' + this.hue + ', 15%, 95%)'
+		);
 	},
 
 	/**
 	 Renders a visualization of passages.
 
 	 @method renderPassages
-	 @param {Function} callback If passed, will be called once rendering completes
+	 @param {Function} callback If passed, will be called once rendering
+		completes
 	**/
 
-	renderPassages: function (callback)
-	{
+	renderPassages: function(callback) {
 		// set height to fill the remaining space
 		// left by the label
 
-		this.svg.height(this.parent.$('.story').innerHeight() - this.parent.$('.label').outerHeight());
+		this.svg.height(
+			this.parent.$('.story').innerHeight() -
+			this.parent.$('.label').outerHeight()
+		);
 
-		if (this.parent.passages.length > 1)
-		{
+		if (this.parent.passages.length > 1) {
 			// find longest passage
 
 			var maxLength = 0;
 
-			_.each(this.parent.passages, function (passage)
-			{
+			_.each(this.parent.passages, function(passage) {
 				var len = passage.get('text').length;
 
-				if (len > maxLength)
+				if (len > maxLength) {
 					maxLength = len;
+				}
 			});
 
 			// render passages
@@ -103,53 +106,59 @@ module.exports = Backbone.View.extend(
 			var maxX = Number.NEGATIVE_INFINITY;
 			var maxY = Number.NEGATIVE_INFINITY;
 
-			_.each(this.parent.passages, function (passage, i)
-			{
+			_.each(this.parent.passages, function(passage, i) {
 				var ratio = passage.get('text').length / maxLength;
 				var size = 100 + 200 * ratio;
 				var x = passage.get('left');
 				var y = passage.get('top');
 				var c = this.svg.circle().center(x + 50, y + 50);
 
-				if (i % 3 === 0)
+				if (i % 3 === 0) {
 					c.fill({ color: c1, opacity: ratio * 0.9 });
-				else
-					if (i % 2 === 0)
+				}
+				else {
+					if (i % 2 === 0) {
 						c.fill({ color: c2, opacity: ratio * 0.9 });
-					else
+					}
+					else {
 						c.fill({ color: c3, opacity: ratio * 0.9 });
+					}
+				}
 
 				c.animate(this.appearDuration, '>').radius(size / 2);
 
-				if (x - size < minX)
-					minX = x - size;
+				if (x - size < minX) { minX = x - size; }
 
-				if (x + size > maxX)
-					maxX = x + size;
+				if (x + size > maxX) { maxX = x + size; }
 
-				if (y - size < minY)
-					minY = y - size;
+				if (y - size < minY) { minY = y - size; }
 
-				if (y + size > maxY)
-					maxY = y + size;
+				if (y + size > maxY) { maxY = y + size; }
 			}.bind(this));
 
-			this.svg.viewbox(minX, minY, Math.abs(minX) + maxX, Math.abs(minY) + maxY);
+			this.svg.viewbox(
+				minX,
+				minY,
+				Math.abs(minX) + maxX,
+				Math.abs(minY) + maxY
+			);
 		}
-		else
-		{
+		else {
 			// special case single or no passage
 
-			if (this.parent.passages.length == 1)
-			{
-				this.svg.circle().center(5, 5).fill('hsl(' + this.hue + ', 88%, 40%)').animate(this.appearDuration, '>').radius(2.5);
+			if (this.parent.passages.length == 1) {
+				this.svg
+					.circle()
+					.center(5, 5)
+					.fill('hsl(' + this.hue + ', 88%, 40%)')
+					.animate(this.appearDuration, '>')
+					.radius(2.5);
 				this.svg.viewbox(0, 0, 10, 10);
-			};
-		};
+			}
+		}
 
 		this.passagesRendered = true;
 
-		if (callback)
-			callback();
+		if (callback) { callback(); }
 	}
 });

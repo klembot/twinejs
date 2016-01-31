@@ -1,5 +1,5 @@
 /**
- Duplicates this model and its passages. 
+ Duplicates this model and its passages.
 
  @method duplicate
  @param {String} name new name of the story
@@ -9,12 +9,12 @@
 var PassageCollection = require('../data/collections/passage');
 var StoryCollection = require('../data/collections/story');
 
-module.exports = function (story, name)
-{
+module.exports = function(story, name) {
 	var storyC = new StoryCollection();
 	var passageC = new PassageCollection();
 
 	var dupeStory = story.clone();
+
 	dupeStory.unset('id');
 	dupeStory.collection = storyC;
 	dupeStory.save({ name: name }, { wait: true });
@@ -22,9 +22,9 @@ module.exports = function (story, name)
 	var startPassageId = story.get('startPassage');
 	var newStart;
 
-	this.fetchPassages().each(function (orig)
-	{
+	this.fetchPassages().each(function(orig) {
 		var dupePassage = orig.clone();
+
 		dupePassage.unset('id');
 		dupePassage.collection = passageC;
 
@@ -37,12 +37,14 @@ module.exports = function (story, name)
 		dupePassage.set('story', dupeStory.id);
 		dupePassage.save();
 
-		if (orig.id == startPassageId)
+		if (orig.id == startPassageId) {
 			newStart = dupePassage;
+		}
 	});
 
-	if (newStart)
+	if (newStart) {
 		dupeStory.save({ startPassage: newStart.id });
+	}
 
 	return dupeStory;
 };

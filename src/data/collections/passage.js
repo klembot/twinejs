@@ -9,8 +9,7 @@
 var Backbone = require('backbone');
 var EventedLocalStorage = require('../../backbone-ext/evented-local-storage');
 
-var PassageCollection = Backbone.Collection.extend(
-{
+var PassageCollection = Backbone.Collection.extend({
 	localStorage: new EventedLocalStorage('twine-passages')
 });
 
@@ -29,9 +28,9 @@ PassageCollection.prototype.model = Passage;
  @static
 **/
 
-PassageCollection.all = function()
-{
+PassageCollection.all = function() {
 	var result = new PassageCollection();
+
 	result.fetch();
 	return result;
 };

@@ -16,8 +16,7 @@ var ui = require('../ui');
 var Passage = require('../data/models/passage');
 var passageItemTemplate = require('./ejs/passage-item-view.ejs');
 
-module.exports = Marionette.ItemView.extend(
-{
+module.exports = Marionette.ItemView.extend({
 	template: passageItemTemplate,
 	className: 'passage',
 	selected: false,
@@ -34,16 +33,18 @@ module.exports = Marionette.ItemView.extend(
 
 	animateMovement: false,
 
-	initialize: function (options)
-	{
+	initialize: function(options) {
 		this.parentView = options.parentView;
-		this.listenTo(this.model, 'change', this.render)
-		.listenTo(this.model, 'change:text', this.createLinkedPassages)
-		.listenTo(this.parentView.model, 'change:zoom', this.render)
-		.listenTo(this.parentView.model, 'change:startPassage', this.render);
+		this
+			.listenTo(this.model, 'change', this.render)
+			.listenTo(this.model, 'change:text', this.createLinkedPassages)
+			.listenTo(this.parentView.model, 'change:zoom', this.render)
+			.listenTo(this.parentView.model, 'change:startPassage',
+				this.render);
 
 		/**
-		 A bound event listener for the start of a passage drag event, so we can later disconnect it.
+		 A bound event listener for the start of a passage drag event, so we
+		 can later disconnect it.
 
 		 @property {Function} prepDragBound
 		 @private
@@ -52,7 +53,8 @@ module.exports = Marionette.ItemView.extend(
 		this.prepDragBound = this.prepDrag.bind(this);
 
 		/**
-		 A bound event listener for a passage drag event, so we can later disconnect it.
+		 A bound event listener for a passage drag event, so we can later
+		 disconnect it.
 
 		 @property {Function} followDragBound
 		 @private
@@ -61,7 +63,8 @@ module.exports = Marionette.ItemView.extend(
 		this.followDragBound = this.followDrag.bind(this);
 
 		/**
-		 A bound event listener for a passage drag end event, so we can later disconnect it.
+		 A bound event listener for a passage drag end event, so we can later
+		 disconnect it.
 
 		 @property {Function} finishDragBound
 		 @private
@@ -70,8 +73,8 @@ module.exports = Marionette.ItemView.extend(
 		this.finishDragBound = this.finishDrag.bind(this);
 
 		/**
-		 A bound event listener for a mouse motion event while this passage is the control
-		 handle for a drag, so we can later disconnect it.
+		 A bound event listener for a mouse motion event while this passage is
+		 the control handle for a drag, so we can later disconnect it.
 
 		 @property {Function} trackDragBound
 		 @private
@@ -80,8 +83,8 @@ module.exports = Marionette.ItemView.extend(
 		this.trackDragBound = this.trackDrag.bind(this);
 
 		/**
-		 A bound event listener for a mouse up event while this passage is the control
-		 handle for a drag, so we can later disconnect it.
+		 A bound event listener for a mouse up event while this passage is the
+		 control handle for a drag, so we can later disconnect it.
 
 		 @property {Function} endDragBound
 		 @private
@@ -90,8 +93,7 @@ module.exports = Marionette.ItemView.extend(
 		this.endDragBound = this.endDrag.bind(this);
 	},
 
-	onDomRefresh: function()
-	{
+	onDomRefresh: function() {
 		var zoom = this.parentView.model.get('zoom');
 		var top = this.model.get('top') * zoom;
 		var left = this.model.get('left') * zoom;
@@ -100,57 +102,59 @@ module.exports = Marionette.ItemView.extend(
 		// or draggable() will manually apply absolute for us
 
 		this.$el
-		.attr('data-id', this.model.id)
-		.css('position', 'absolute');
+			.attr('data-id', this.model.id)
+			.css('position', 'absolute');
 
 		// set CSS class for broken links
 
-		if (_.every(this.model.links(true), function (link)
-		{
+		if (_.every(this.model.links(true), function(link) {
 			return this.parentView.collection.findWhere({ name: link });
-		}, this))
+		}, this)) {
+
 			this.$el.removeClass('brokenLink');
-		else
+		}
+		else {
 			this.$el.addClass('brokenLink');
+		}
 
 		// set CSS class for starting point
 
 		var startId = this.parentView.model.get('startPassage');
 
-		if (this.model.id == startId || this.model.cid == startId)
+		if (this.model.id == startId || this.model.cid == startId) {
 			this.$el.addClass('start');
-		else
+		}
+		else {
 			this.$el.removeClass('start');
+		}
 
-		if (this.animateMovement)
-		{
+		if (this.animateMovement) {
 			this.$el.animate({ left: left, top: top }, 100);
 
 			// we need to trigger a change event once the
 			// animation ends, so that link arrows update with
 			// the correct position
 
-			_.delay(function (model)
-			{
+			_.delay(function(model) {
 				model.set({ left: model.get('left') + 0.0001 });
 			}, 100, this.model);
 		}
-		else
+		else {
 			this.$el.css({ left: left, top: top });
+		}
 	},
 
-	onDestroy: function()
-	{
+	onDestroy: function() {
 		// removes mouse listeners
 
 		this.deselect();
 	},
 
-	serializeData: function()
-	{
+	serializeData: function() {
 		// add the excerpt manually after saving data
 
 		var data = this.model.toJSON();
+
 		data.excerpt = this.model.excerpt();
 		return data;
 	},
@@ -164,21 +168,30 @@ module.exports = Marionette.ItemView.extend(
 	                  then the confirm is skipped
 	**/
 
-	confirmDelete: function (e)
-	{
-		if (e.shiftKey)
+	confirmDelete: function(e) {
+		if (e.shiftKey) {
 			this.delete();
-		else
-		{
-			var message = locale.say('Are you sure you want to delete &ldquo;%s&rdquo;? ' +
-			                                   'This cannot be undone.', this.model.get('name'));
+		}
+		else {
+			var message = locale.say(
+				'Are you sure you want to delete &ldquo;%s&rdquo;? ' +
+				'This cannot be undone.',
+				this.model.get('name')
+			);
 
-			if (! ui.hasPrimaryTouchUI())
-				message += '<br><br>' + locale.say('(Hold the Shift key when deleting to skip this message.)');
+			if (!ui.hasPrimaryTouchUI()) {
+				message += '<br><br>' + locale.say(
+					'(Hold the Shift key when deleting to skip this message.)'
+				);
+			}
 
-			confirm(message, '<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
-					this.delete.bind(this), { buttonClass: 'danger' });
-		};
+			confirm(
+				message,
+				'<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
+				this.delete.bind(this),
+				{ buttonClass: 'danger' }
+			);
+		}
 	},
 
 	/**
@@ -187,12 +200,10 @@ module.exports = Marionette.ItemView.extend(
 	 @method delete
 	**/
 
-	delete: function()
-	{
+	delete: function() {
 		var model = this.model;
 
-		this.disappear(function()
-		{
+		this.disappear(function() {
 			model.destroy();
 		});
 	},
@@ -203,8 +214,7 @@ module.exports = Marionette.ItemView.extend(
 	 @method edit
 	**/
 
-	edit: function()
-	{
+	edit: function() {
 		this.parentView.passageEditor.model = this.model;
 		this.parentView.passageEditor.open();
 	},
@@ -217,24 +227,31 @@ module.exports = Marionette.ItemView.extend(
 	 @method createLinkedPassages
 	**/
 
-	createLinkedPassages: function()
-	{
+	createLinkedPassages: function() {
 		// derive the previous set of links
 
 		var oldBroken = [];
 
-		if (this.model.previous('text'))
-		{
+		if (this.model.previous('text')) {
 			var currentText = this.model.get('text');
-			this.model.set({ text: this.model.previous('text') }, { silent: true });
 
-			oldBroken = _.filter(this.model.links(true), function (link)
-			{
-				return (this.parentView.collection.findWhere({ name: link }) !== null);
-			}, this);
+			this.model.set(
+				{ text: this.model.previous('text') },
+				{ silent: true }
+			);
+
+			oldBroken = _.filter(
+				this.model.links(true),
+				function(link) {
+					return (
+						this.parentView.collection.findWhere({ name: link })
+						!== null
+					);
+				}, this
+			);
 	
 			this.model.set({ text: currentText }, { silent: true });
-		};
+		}
 
 		// we start new passages directly below this one
 
@@ -245,14 +262,17 @@ module.exports = Marionette.ItemView.extend(
 		// this needs to be deferred so that the current chain of execution
 		// (e.g. a pending save operation, if there is one) can finish off
 
-		_.each(this.model.links(true), function (link)
-		{
-			if (! this.parentView.collection.findWhere({ name: link }) &&
-				oldBroken.indexOf(link) == -1)
-			{
-				_.defer(this.parentView.addPassage.bind(this.parentView), link, newLeft, newTop);
+		_.each(this.model.links(true), function(link) {
+			if (!this.parentView.collection.findWhere({ name: link }) &&
+				oldBroken.indexOf(link) == -1) {
+				_.defer(
+					this.parentView.addPassage.bind(this.parentView),
+					link,
+					newLeft,
+					newTop
+				);
 				newLeft += Passage.width * 1.5;
-			};
+			}
 		}, this);
 	},
 
@@ -262,8 +282,7 @@ module.exports = Marionette.ItemView.extend(
 	 @method test
 	**/
 
-	test: function()
-	{
+	test: function() {
 		this.parentView.test(this.model.id);
 	},
 
@@ -273,8 +292,7 @@ module.exports = Marionette.ItemView.extend(
 	 @method setAsStart
 	**/
 
-	setAsStart: function()
-	{
+	setAsStart: function() {
 		this.parentView.model.save({ startPassage: this.model.id });
 	},
 
@@ -285,14 +303,18 @@ module.exports = Marionette.ItemView.extend(
 	 @param {Function} callback Function to call when the animation is done.
 	**/
 
-	appear: function (callback)
-	{
-		if (callback)
-			this.$el.on('animationend webkitAnimationEnd MSAnimationEnd', function()
-			{
-				callback();
-				$(this).off('animationend webkitAnimationEnd MSAnimationEnd');
-			});
+	appear: function(callback) {
+		if (callback) {
+			this.$el.on(
+				'animationend webkitAnimationEnd MSAnimationEnd',
+				function() {
+					callback();
+					$(this).off(
+						'animationend webkitAnimationEnd MSAnimationEnd'
+					);
+				}
+			);
+		}
 
 		this.$el.addClass('fallIn');
 	},
@@ -304,14 +326,18 @@ module.exports = Marionette.ItemView.extend(
 	 @param {Function} callback Function to call when the animation is done.
 	**/
 
-	disappear: function (callback)
-	{
-		if (callback)
-			this.$el.on('animationend webkitAnimationEnd MSAnimationEnd', function()
-			{
-				callback();
-				$(this).off('animationend webkitAnimationEnd MSAnimationEnd');
-			});
+	disappear: function(callback) {
+		if (callback) {
+			this.$el.on(
+				'animationend webkitAnimationEnd MSAnimationEnd',
+				function() {
+					callback();
+					$(this).off(
+						'animationend webkitAnimationEnd MSAnimationEnd'
+					);
+				}
+			);
+		}
 
 		this.$el.removeClass('fallIn').addClass('disappear');
 	},
@@ -322,10 +348,8 @@ module.exports = Marionette.ItemView.extend(
 	 @method select
 	**/
 
-	select: function()
-	{
-		if (this.selected)
-			return;
+	select: function() {
+		if (this.selected) { return; }
 
 		this.selected = true;
 		this.$el.addClass('selected');
@@ -340,10 +364,8 @@ module.exports = Marionette.ItemView.extend(
 	 @method deselect
 	**/
 
-	deselect: function()
-	{
-		if (! this.selected)
-			return;
+	deselect: function() {
+		if (!this.selected) { return; }
 
 		this.selected = false;
 		this.$el.removeClass('selected');
@@ -358,8 +380,7 @@ module.exports = Marionette.ItemView.extend(
 	 @method highlight
 	**/
 
-	highlight: function()
-	{
+	highlight: function() {
 		this.$el.addClass('highlight');
 	},
 
@@ -369,8 +390,7 @@ module.exports = Marionette.ItemView.extend(
 	 @method unhighlight
 	**/
 
-	unhighlight: function()
-	{
+	unhighlight: function() {
 		this.$el.removeClass('highlight');
 	},
 
@@ -383,29 +403,29 @@ module.exports = Marionette.ItemView.extend(
 	 @private
 	**/
 
-	handleMouseDown: function (e)
-	{
-		if (e.shiftKey || e.ctrlKey)
-		{
+	handleMouseDown: function(e) {
+		if (e.shiftKey || e.ctrlKey) {
 			// toggle selection
 
-			if (this.selected)
+			if (this.selected) {
 				this.deselect();
-			else
+			}
+			else {
 				this.select();
+			}
 		}
-		else
-		{
+		else {
 			// if we were not selected, then immediately
 			// deselect everything else so that only this
 			// passage is dragged
 
-			if (! this.selected)
-				this.parentView.children.each(function (view)
-				{
-					if (view != this)
+			if (!this.selected) {
+				this.parentView.children.each(function(view) {
+					if (view != this) {
 						view.deselect();
+					}
 				}, this);
+			}
 
 			this.select();
 		};
@@ -423,19 +443,19 @@ module.exports = Marionette.ItemView.extend(
 	 @private
 	**/
 
-	handleMouseUp: function (e)
-	{
+	handleMouseUp: function(e) {
 		if (e.shiftKey || e.ctrlKey || this.actuallyDragged ||
 			this.$el == this.parentView.lastMousedown ||
-			$.contains(this.$el, this.parentView.lastMousedown))
+			$.contains(this.$el, this.parentView.lastMousedown)) {
 			return;
+		}
 
 		// deselect everything else
 
-		this.parentView.children.each(function (view)
-		{
-			if (view != this)
+		this.parentView.children.each(function(view) {
+			if (view != this) {
 				view.deselect();
+			}
 		}, this);
 	},
 
@@ -449,35 +469,39 @@ module.exports = Marionette.ItemView.extend(
 	 @private
 	**/
 
-	beginDrag: function (e)
-	{
-		if (e.pageX && e.pageY)
-			this.dragMouseStart = { x: e.pageX, y: e.pageY };	
-		else if (e.originalEvent.targetTouches)
-		{
+	beginDrag: function(e) {
+		if (e.pageX && e.pageY) {
+			this.dragMouseStart = { x: e.pageX, y: e.pageY };
+		}
+		else if (e.originalEvent.targetTouches) {
 			e = e.originalEvent;
 
 			// emulate pageX and pageY for touch events
 
-			this.dragMouseStart = { x: e.targetTouches[0].pageX, y: e.targetTouches[0].pageY };
+			this.dragMouseStart = {
+				x: e.targetTouches[0].pageX,
+				y: e.targetTouches[0].pageY
+			};
 			this.dragTouchId = e.targetTouches[0].identifier;
 		}
-		else
-		{
+		else {
 			// L10n: An internal error related to handling user input.
-			throw new Error(locale.say("Don't see either mouse or touch coordinates on event"));
-		};
+			throw new Error(locale.say(
+				'Don\'t see either mouse or touch coordinates on event'
+			));
+		}
 
 		this.actuallyDragged = false;
 		$('#storyEditView').addClass('draggingPassages');
 
-		$('body').on({
-			touchmove: this.trackDragBound,
-			mousemove: this.trackDragBound,
-			mouseup: this.endDragBound,
-			touchend: this.endDragBound
-		})
-		.trigger('passagedragstart', this.dragMouseStart);
+		$('body')
+			.on({
+				touchmove: this.trackDragBound,
+				mousemove: this.trackDragBound,
+				mouseup: this.endDragBound,
+				touchend: this.endDragBound
+			})
+			.trigger('passagedragstart', this.dragMouseStart);
 	},
 
 	/**
@@ -487,53 +511,62 @@ module.exports = Marionette.ItemView.extend(
 	 @param {Object} e event object
 	**/
 
-	prepDrag: function ()
-	{
-		this.dragStart = { left: parseInt(this.$el.css('left')), top: parseInt(this.$el.css('top')) };
+	prepDrag: function() {
+		this.dragStart = {
+			left: parseInt(this.$el.css('left')),
+			top: parseInt(this.$el.css('top'))
+		};
 	},
 
 	/**
-	 Handles the user moving the mouse or a finger during a drag, generating events for
-	 other selected passage views to listen to. This is only called if the passage
-	 is the control handle for the drag -- e.g. it is the one the
-	 user grabbed to drag around.
+	 Handles the user moving the mouse or a finger during a drag, generating
+	 events for other selected passage views to listen to. This is only called
+	 if the passage is the control handle for the drag -- e.g. it is the one
+	 the user grabbed to drag around.
 
 	 @method trackDrag
 	 @param {Object} e event object
 	 @private
 	**/
 
-	trackDrag: function (e)
-	{
+	trackDrag: function(e) {
 		var eventOrigin;
+
 		this.actuallyDragged = true;
 
-		if (this.dragTouchId !== null && e.originalEvent.touches)
-		{
+		if (this.dragTouchId !== null && e.originalEvent.touches) {
 			// prevent default to block any resizing done by the browser
 		
 			e.preventDefault();
-			e = e.originalEvent; 
+			e = e.originalEvent;
 
 			// emulate mouse events for touches
 
-			for (var i = 0; i < e.touches.length; i++)
-				if (e.touches[i].identifier == this.dragTouchId)
-				{
+			for (var i = 0; i < e.touches.length; i++) {
+				if (e.touches[i].identifier == this.dragTouchId) {
 					eventOrigin = e.touches[i];
 					break;
-				};
+				}
+			}
 
-			if (! eventOrigin)
-			{
+			if (!eventOrigin) {
 				// L10n: An internal error related to user input.
-				throw new Error(locale.say("Couldn't find original touch ID in movement event"));
-			};
+				throw new Error(locale.say(
+					'Couldn\'t find original touch ID in movement event'
+				));
+			}
 		}
-		else
+		else {
 			eventOrigin = e;
+		}
 
-		$('body').trigger($.Event('passagedrag', { x: eventOrigin.pageX - this.dragMouseStart.x, y: eventOrigin.pageY - this.dragMouseStart.y }));
+		$('body').trigger($.Event(
+			'passagedrag',
+			{
+				x: eventOrigin.pageX - this.dragMouseStart.x,
+				y: eventOrigin.pageY - this.dragMouseStart.y
+			}
+		));
 	},
 
 	/**
@@ -544,40 +577,37 @@ module.exports = Marionette.ItemView.extend(
 	 @param {Object} e event object
 	**/
 
-	followDrag: function (e)
-	{
-		this.dragX = Math.max(this.dragStart.left + e.x, 0); 
-		this.dragY = Math.max(this.dragStart.top + e.y, 0); 
+	followDrag: function(e) {
+		this.dragX = Math.max(this.dragStart.left + e.x, 0);
+		this.dragY = Math.max(this.dragStart.top + e.y, 0);
 
-		this.$el.css(
-		{
+		this.$el.css({
 			left: this.dragX,
 			top: this.dragY
 		});
 	},
 
 	/**
-	 Handles the user letting go of the mouse button during a drag, generating events for
-	 other selected passage views to listen to. This is only called if the passage
-	 is the control handle for the drag -- e.g. it is the one the
-	 user grabbed to drag around.
+	 Handles the user letting go of the mouse button during a drag, generating
+	 events for other selected passage views to listen to. This is only called
+	 if the passage is the control handle for the drag -- e.g. it is the one
+	 the user grabbed to drag around.
 
 	 @method endDrag
 	 @param {Object} e event object
 	 @private
 	**/
 
-	endDrag: function()
-	{
+	endDrag: function() {
 		$('#storyEditView').removeClass('draggingPassages');
-		$('body').off(
-		{
-			touchmove: this.trackDragBound,
-			mousemove: this.trackDragBound,
-			mouseup: this.endDragBound,
-			touchend: this.endDragBound
-		})
-		.trigger('passagedragend');
+		$('body')
+			.off({
+				touchmove: this.trackDragBound,
+				mousemove: this.trackDragBound,
+				mouseup: this.endDragBound,
+				touchend: this.endDragBound
+			})
+			.trigger('passagedragend');
 
 		_.defer(function() { this.actuallyDragged = false; }.bind(this));
 	},
@@ -590,17 +620,16 @@ module.exports = Marionette.ItemView.extend(
 	 @private
 	**/
 
-	finishDrag: function()
-	{
+	finishDrag: function() {
 		// set initial position based on the user's drag
 
-		if (this.dragX === undefined || this.dragY === undefined)
+		if (this.dragX === undefined || this.dragY === undefined) {
 			return;
+		}
 
 		var zoom = this.parentView.model.get('zoom');
 
-		this.model.set(
-		{
+		this.model.set({
 			top: this.dragY / zoom,
 			left: this.dragX / zoom
 		});
@@ -610,15 +639,13 @@ module.exports = Marionette.ItemView.extend(
 		// defer the rest til all other drags have completed
 		// so we don't get displaced by any passage's previous positions
 
-		_.defer(function()
-		{
+		_.defer(function() {
 			// push the passage so it doesn't overlap any other
 			// nonselected one, i.e. that was part of the drag
 			
 			this.animateMovement = true;
-			this.parentView.positionPassage(this.model, function (p)
-			{
-				return ! this.parentView.children.findByModel(p).selected;
+			this.parentView.positionPassage(this.model, function(p) {
+				return !this.parentView.children.findByModel(p).selected;
 			}.bind(this));
 
 			this.animateMovement = false;
@@ -629,8 +656,7 @@ module.exports = Marionette.ItemView.extend(
 		}.bind(this));
 	},
 
-	events:
-	{
+	events: {
 		'mousedown .frame': 'handleMouseDown',
 		'touchstart .frame': 'handleMouseDown',
 		'mouseup .frame': 'handleMouseUp',

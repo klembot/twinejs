@@ -1,6 +1,6 @@
 /**
- A story contains many passages, and has a name, stylesheet, script, zoom,
- and last updated date.
+ A story contains many passages, and has a name, stylesheet, script, zoom, and
+ last updated date.
 
  @class Story
  @extends Backbone.Model
@@ -15,10 +15,8 @@ var AppPref = require('./app-pref');
 var PassageCollection = require('../collections/passage');
 var storyDataTemplate = require('./ejs/story-data.ejs');
 
-var Story = Backbone.Model.extend(
-{
-	defaults: _.memoize(function()
-	{
+var Story = Backbone.Model.extend({
+	defaults: _.memoize(function() {
 		return {
 			name: locale.say('Untitled Story'),
 			startPassage: -1,
@@ -26,7 +24,8 @@ var Story = Backbone.Model.extend(
 			snapToGrid: false,
 			stylesheet: '',
 			script: '',
-			storyFormat: AppPref.withName('defaultFormat').get('value') || 'Harlowe',
+			storyFormat: AppPref.withName('defaultFormat').get('value') ||
+				'Harlowe',
 			lastUpdate: new Date(),
 			ifid: uuid().toUpperCase()
 		};
@@ -34,54 +33,56 @@ var Story = Backbone.Model.extend(
 
 	template: storyDataTemplate,
 	
-	initialize: function()
-	{
-		this.on('destroy', function()
-		{
+	initialize: function() {
+		this.on('destroy', function() {
 			// delete all child passages
 
 			var passages = this.fetchPassages();
 
-			while (passages.length > 0)
+			while (passages.length > 0) {
 				passages.at(0).destroy();
+			}
 		}, this);
 
-		this.on('sync', function (model, response, options)
-		{
+		this.on('sync', function(model, response, options) {
 			// update any passages using our cid as link
 
-			if (! options.noChildUpdate)
-				_.invoke(PassageCollection.all().where({ story: this.cid }), 'save', { story: this.id });
+			if (!options.noChildUpdate) {
+				_.invoke(
+					PassageCollection.all().where({ story: this.cid }),
+					'save',
+					{ story: this.id }
+				);
+			}
 		}, this);
 
 		// any time we change, update our last updated date
 		// we *shouldn't* save ourselves here, since it may not
 		// be appropriate yet
 
-		this.on('change', function()
-		{
+		this.on('change', function() {
 			// if we're manually setting our last update, don't override that
 
-			if (this.changedAttributes().lastUpdate === undefined)
+			if (this.changedAttributes().lastUpdate === undefined) {
 				this.set('lastUpdate', new Date());
+			}
 		}, this);
 	},
 
 	/**
 	 Fetches a PassageCollection of all passages currently linked to this
-	 story. Beware: this collection represents the passages currently in existence
-	 at the time of the call, and will not reflect future changes. If there are
-	 no passages for this story, this returns an empty collection.
+	 story. Beware: this collection represents the passages currently in
+	 existence at the time of the call, and will not reflect future changes. If
+	 there are no passages for this story, this returns an empty collection.
 
 	 @method fetchPassages
 	 @return {PassageCollection} collection of matching passages
 	**/
 
-	fetchPassages: function()
-	{
+	fetchPassages: function() {
 		var passages = PassageCollection.all();
-		passages.reset(passages.filter(function (p)
-		{
+
+		passages.reset(passages.filter(function(p) {
 			return p.get('story') == this.id || p.get('story') == this.cid;
 		}, this));
 		
@@ -89,44 +90,48 @@ var Story = Backbone.Model.extend(
 	},
 
 	/**
-	 Publishes a story to an HTML fragment, e.g. a collection of DOM elements. It's up to a
-	 StoryFormat to create a full-fledged HTML document from this.
+	 Publishes a story to an HTML fragment, e.g. a collection of DOM elements.
+	 It's up to a StoryFormat to create a full-fledged HTML document from this.
 
 	 @method publish
-	 @param {StoryFormat} format The story format to use, defaults to 
+	 @param {StoryFormat} format The story format to use, defaults to
 	 @param {Array} options	A list of options to pass to the format, optional
-	 @param {Number} startId passage database ID to start with, overriding the model; optional
-	 @param {Boolean} startOptional If falsy, then an error is reported when no start passage has been set; optional
+	 @param {Number} startId passage database ID to start with, overriding the
+		model; optional
+	 @param {Boolean} startOptional If falsy, then an error is reported when no
+		 start passage has been set; optional
 	 @return {String} HTML fragment
 	**/
 
-	publish: function (options, startId, startOptional)
-	{
+	publish: function(options, startId, startOptional) {
 		var passageData = '';
 		var startDbId = startId || this.get('startPassage');
 		var passages = this.fetchPassages();
 
 		// verify that the start passage exists
 
-		if (! startOptional)
-		{
-			if (! startDbId)
-				throw new Error(locale.say('There is no starting point set for this story.'));
+		if (!startOptional) {
+			if (!startDbId) {
+				throw new Error(locale.say(
+					'There is no starting point set for this story.'
+				));
+			}
 
-			if (! passages.findWhere({ id: startDbId }))
-				throw new Error(locale.say("The passage set as starting point for this story does not exist."));
+			if (!passages.findWhere({ id: startDbId })) {
+				throw new Error(locale.say(
+					'The passage set as starting point for this story does ' +
+					'not exist.'
+				));
+			}
 		};
 
-		passages.each(function (p, index)
-		{
+		passages.each(function(p, index) {
 			passageData += p.publish(index + 1);
 
-			if (p.id == startDbId)
-				startId = index + 1;
+			if (p.id == startDbId) { startId = index + 1; }
 		});
 
-		return this.template(
-		{
+		return this.template({
 			storyName: this.get('name'),
 			startNode: startId || '',
 			appName: window.app.name,
@@ -141,19 +146,18 @@ var Story = Backbone.Model.extend(
 	},
 
 	/**
-	 Duplicates this model and its passages. 
+	 Duplicates this model and its passages.
 
 	 @method duplicate
 	 @param {String} name new name of the story
 	 @return {Story} new Story model
 	**/
 
-	duplicate: function (name)
-	{
+	duplicate: function(name) {
 		var storyC = new StoryCollection();
 		var passageC = new PassageCollection();
-
 		var dupeStory = this.clone();
+
 		dupeStory.unset('id');
 		dupeStory.collection = storyC;
 		dupeStory.save({ name: name }, { wait: true });
@@ -161,9 +165,9 @@ var Story = Backbone.Model.extend(
 		var startPassageId = this.get('startPassage');
 		var newStart;
 
-		this.fetchPassages().each(function (orig)
-		{
+		this.fetchPassages().each(function(orig) {
 			var dupePassage = orig.clone();
+
 			dupePassage.unset('id');
 			dupePassage.collection = passageC;
 
@@ -176,12 +180,14 @@ var Story = Backbone.Model.extend(
 			dupePassage.set('story', dupeStory.id);
 			dupePassage.save();
 
-			if (orig.id == startPassageId)
+			if (orig.id == startPassageId) {
 				newStart = dupePassage;
+			}
 		});
 
-		if (newStart)
+		if (newStart) {
 			dupeStory.save({ startPassage: newStart.id });
+		}
 
 		return dupeStory;
 	}
@@ -199,12 +205,11 @@ var StoryCollection = require('../collections/story');
  Locates a story by ID. If none exists, then this returns null.
 
  @method withId
- @param {Number} id id of the story 
+ @param {Number} id id of the story
  @static
  @return {Passage} matching story
 **/
 
-Story.withId = function (id)
-{
+Story.withId = function(id) {
 	return StoryCollection.all().findWhere({ id: id });
 };

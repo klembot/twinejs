@@ -10,16 +10,14 @@ var Marionette = require('backbone.marionette');
 var ui = require('./index');
 var notificationTemplate = require('./ejs/notification.ejs');
 
-$(ui).on('init', function (e, options)
-{
-	options.$body.on('click.twineui', '#notifications .close', function()
-	{
+$(ui).on('init', function(e, options) {
+	options.$body.on('click.twineui', '#notifications .close', function() {
 		// click handler for closing notifications
 
 		var notification = $(this).closest('div');
+
 		notification.addClass('fadeOut');
-		notification.one('animationend', function()
-		{
+		notification.one('animationend', function() {
 			$(this).remove();
 		});
 	});
@@ -32,23 +30,23 @@ $(ui).on('init', function (e, options)
  @param {String} className CSS class to apply to the notification
 **/
 
-module.exports = function (message, className)
-{
-	if ($('#notifications').length === 0)
+module.exports = function(message, className) {
+	if ($('#notifications').length === 0) {
 		$('body').append('<div id="notifications"></div>');
+	}
 
 	var n = Marionette.Renderer.render(notificationTemplate,
-	                                   { message: message, className: className });
+		{ message: message, className: className });
 
 	$('#notifications').append(n);
 
-	if (className != 'danger')
-		window.setTimeout(function()
-		{
-			$(this).addClass('fadeOut')
-			.one('animationend', function()
-			{
-				$(this).remove();
-			});
+	if (className != 'danger') {
+		window.setTimeout(function() {
+			$(this)
+				.addClass('fadeOut')
+				.one('animationend', function() {
+					$(this).remove();
+				});
 		}.bind(n), 3000);
+	}
 };

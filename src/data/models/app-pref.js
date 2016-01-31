@@ -9,8 +9,7 @@
 'use strict';
 var Backbone = require('backbone');
 
-var AppPref = Backbone.Model.extend(
-{
+var AppPref = Backbone.Model.extend({
 	defaults:
 	{
 		name: '',
@@ -35,16 +34,16 @@ var AppPrefCollection = require('../collections/app-pref');
  @return {AppPref} pref with matching name
 **/
 
-AppPref.withName = function (name, defaultVal)
-{
+AppPref.withName = function(name, defaultVal) {
 	var allPrefs = AppPrefCollection.all();
 	var result = allPrefs.findWhere({ name: name });
 
-	if (result)
+	if (result) {
 		return result;
-	else if (defaultVal !== null)
+	}
+
+	if (defaultVal !== null) {
 		return allPrefs.create({ name: name, value: defaultVal });
-	else
-		return;
+	}
 };
 

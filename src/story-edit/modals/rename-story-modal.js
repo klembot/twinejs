@@ -1,10 +1,8 @@
 'use strict';
 var Backbone = require('backbone');
 
-module.exports = Backbone.View.extend(
-{
-	initialize: function (options)
-	{
+module.exports = Backbone.View.extend({
+	initialize: function(options) {
 		this.parent = options.parent;
 	},
 
@@ -14,8 +12,7 @@ module.exports = Backbone.View.extend(
 	 @method open
 	**/
 
-	open: function()
-	{
+	open: function() {
 		this.$('.storyName').val(this.parent.model.get('name'));
 		this.$('.noNameError').hide();
 		this.$el.data('modal').trigger('show');
@@ -28,8 +25,7 @@ module.exports = Backbone.View.extend(
 	 @method close
 	**/
 
-	close: function()
-	{
+	close: function() {
 		this.$el.data('modal').trigger('hide');
 	},
 
@@ -41,23 +37,20 @@ module.exports = Backbone.View.extend(
 	 @method save
 	**/
 
-	save: function (e)
-	{
+	save: function(e) {
 		e.stopImmediatePropagation();
 		var storyName = this.$('.storyName').val();
 
-		if (storyName.trim() === '')
-		{
+		if (storyName.trim() === '') {
 			this.$('.noNameError').show().fadeIn();
 			return;
-		};
+		}
 
 		this.parent.model.save({ name: this.$('.storyName').val() });
 		this.close();
 	},
 
-	events:
-	{
+	events: {
 		'submit #renameStoryForm': 'save'
 	}
 });

@@ -8,8 +8,7 @@
 'use strict';
 var Backbone = require('backbone');
 
-var StoryFormatCollection = Backbone.Collection.extend(
-{
+var StoryFormatCollection = Backbone.Collection.extend({
 	localStorage: new Backbone.LocalStorage('twine-storyformats')
 });
 
@@ -28,9 +27,9 @@ StoryFormatCollection.prototype.model = StoryFormat;
  @static
 **/
 
-StoryFormatCollection.all = function()
-{
+StoryFormatCollection.all = function() {
 	var result = new StoryFormatCollection();
+	
 	result.fetch();
 	return result;
 };

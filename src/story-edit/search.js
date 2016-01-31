@@ -9,20 +9,17 @@
 var _ = require('underscore');
 var Backbone = require('backbone');
 
-module.exports = Backbone.View.extend(
-{
-	initialize: function (options)
-	{
+module.exports = Backbone.View.extend({
+	initialize: function(options) {
 		this.parent = options.parent;
 		this.searchField = this.$('.searchField');
 
 		this.parent.collection.on('change:name', refreshSearch.bind(this));
 		this.parent.collection.on('change:text', refreshSearch.bind(this));
 
-		function refreshSearch()
-		{
+		function refreshSearch() {
 			this.searchFor(this.searchField.val());
-		};
+		}
 	},
 
 	/**
@@ -33,22 +30,23 @@ module.exports = Backbone.View.extend(
 	 @param {String} flags Regexp flags to apply, defaults to 'i'
 	**/
 
-	searchFor: function (search, flags)
-	{
-		if (search === '')
+	searchFor: function(search, flags) {
+		if (search === '') {
 			return;
+		}
 
 		// convert entered text to regexp, escaping text
 		// cribbed from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
 
-		search = new RegExp(search.replace(/([.*+?^${}()|\[\]\/\\])/g, "\\$1"), flags || 'i');
+		search = new RegExp(search.replace(/([.*+?^${}()|\[\]\/\\])/g, '\\$1'), flags || 'i');
 
-		this.parent.children.each(function (view)
-		{
-			if (view.model.matches(search))
+		this.parent.children.each(function(view) {
+			if (view.model.matches(search)) {
 				view.highlight();
-			else
+			}
+			else {
 				view.unhighlight();
+			}
 		});
 	},
 
@@ -58,37 +56,32 @@ module.exports = Backbone.View.extend(
 	 @method clear
 	**/
 
-	clear: function()
-	{
+	clear: function() {
 		this.searchField.val('');
 		this.$('.clearSearch').addClass('hide');
 
-		this.parent.children.each(function (view)
-		{
+		this.parent.children.each(function(view) {
 			view.unhighlight();
 		});
 	},
 
-	events:
-	{
-		'keyup .searchField': _.debounce(function (e)
-		{
+	events: {
+		'keyup .searchField': _.debounce(function(e) {
 			// Escape key clears the field
 
-			if (e.keyCode == 27)
+			if (e.keyCode == 27) {
 				this.searchField.val('');
+			}
 
 			var search = this.searchField.val();
 
-			if (search !== '')
-			{
+			if (search !== '') {
 				this.$('.clearSearch').removeClass('hide');
 				this.searchFor(this.searchField.val());
 			}
-			else
-			{
+			else {
 				this.clear();
-			};
+			}
 
 		}, 100)
 	}

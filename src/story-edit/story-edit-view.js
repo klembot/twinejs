@@ -32,12 +32,12 @@ var StatsModal = require('./modals/stats-modal');
 var StyleEditor = require('./editors/style-editor');
 var Toolbar = require('./toolbar');
 var storyEditTemplate = require('./ejs/story-edit-view.ejs');
+
 require('../ui/bubble');
 require('../ui/modal');
 require('../ui/tooltip');
 
-module.exports = Marionette.CompositeView.extend(
-{
+module.exports = Marionette.CompositeView.extend({
 	/**
 	 Maps numeric zoom settings (that are in our model) to
 	 nice adjectives that we use in our CSS.
@@ -47,8 +47,7 @@ module.exports = Marionette.CompositeView.extend(
 	 @final
 	**/
 
-	ZOOM_MAPPINGS:
-	{
+	ZOOM_MAPPINGS: {
 		big: 1,
 		medium: 0.6,
 		small: 0.25
@@ -57,109 +56,125 @@ module.exports = Marionette.CompositeView.extend(
 	childView: PassageItemView,
 	childViewContainer: '.passages .content',
 	childViewOptions: function() { return { parentView: this }; },
+
 	template: storyEditTemplate,
 
-	initialize: function()
-	{
-		this.listenTo(this.model, 'change:zoom', this.syncZoom)
-		.listenTo(this.model, 'change:name', this.syncName)
-		.listenTo(this.model, 'error', function (model, resp)
-		{
-			// L10n: %s is the error message.
-			notify(locale.say('A problem occurred while saving your changes (%s).', resp), 'danger');
-		});
+	initialize: function() {
+		this
+			.listenTo(this.model, 'change:zoom', this.syncZoom)
+			.listenTo(this.model, 'change:name', this.syncName)
+			.listenTo(this.model, 'error', function(model, resp) {
+				// L10n: %s is the error message.
+				notify(
+					locale.say(
+						'A problem occurred while saving ' +
+						'your changes (%s).',
+						resp
+					),
+					'danger'
+				);
+			});
 
 		this.collection = this.model.fetchPassages();
-		this.listenTo(this.collection, 'change:top change:left', this.resize)
-		.listenTo(this.collection, 'change:name', function (p)
-		{
-			// update passages linking to this one to preserve links
 
-			_.invoke(this.collection.models, 'replaceLink', p.previous('name'), p.get('name'));
-		})
-		.listenTo(this.collection, 'add', function (p)
-		{
-			// set as starting passage if we only have one
+		this
+			.listenTo(this.collection, 'change:top change:left', this.resize)
+			.listenTo(this.collection, 'change:name', function(p) {
+				// update passages linking to this one to preserve links
 
-			if (this.collection.length == 1)
-				this.model.save({ startPassage: p.id });
-		})
-		.listenTo(this.collection, 'error', function (model, resp)
-		{
-			// L10n: %s is the error message.
-			notify(locale.say('A problem occurred while saving your changes (%s).', resp), 'danger');
-		});
+				_.invoke(
+					this.collection.models,
+					'replaceLink',
+					p.previous('name'),
+					p.get('name')
+				);
+			})
+			.listenTo(this.collection, 'add', function(p) {
+				// set as starting passage if we only have one
+
+				if (this.collection.length == 1) {
+					this.model.save({ startPassage: p.id });
+				}
+			})
+			.listenTo(this.collection, 'error', function(model, resp) {
+				// L10n: %s is the error message.
+				notify(
+					locale.say(
+						'A problem occurred while saving your changes (%s).',
+						resp
+					),
+					'danger'
+				);
+			});
 	},
 
-	onShow: function()
-	{
+	onShow: function() {
 		this.syncName();
 
 		// enable space bar scrolling
 
-		$(document).on('keydown', function (e)
-		{
-			if (e.keyCode === 32 && $('input:focus, textarea:focus').length === 0)
-			{
+		$(document).on('keydown', function(e) {
+			if (e.keyCode === 32 &&
+				$('input:focus, textarea:focus').length === 0) {
 				this.startMouseScrolling();
 				e.preventDefault();
-			};
+			}
 		}.bind(this));
 
-		$(document).on('keyup', function (e)
-		{
-			if (e.keyCode === 32 && $('input:focus, textarea:focus').length === 0)
-			{
+		$(document).on('keyup', function(e) {
+			if (e.keyCode === 32 &&
+				$('input:focus, textarea:focus').length === 0) {
 				this.stopMouseScrolling();
 				e.preventDefault();
-			};
+			}
 		}.bind(this));
 
 		// delete selected passages with the delete key
 
-		$(document).on('keyup', function (e)
-		{
-			if (e.keyCode == 46)
-			{
-				var selected = this.children.filter(function (v)
-				{
+		$(document).on('keyup', function(e) {
+			if (e.keyCode == 46) {
+				var selected = this.children.filter(function(v) {
 					return v.selected;
 				});
 
-				switch (selected.length)
-				{
+				switch (selected.length) {
 					// bug out if none are selected
 					case 0:
-					return;
+						return;
 
 					// immediately delete if it's just one passage
 					case 1:
-					this.deleteSelectedPassages();
-					break;
+						this.deleteSelectedPassages();
+						break;
 
 					// show a confirmation modal if it's more than just 1
 					default:
+						// set count appropriately
 
-					// set count appropriately
+						// L10n: This message is always shown with more than one passage.
+						// %d is the number of passages.
+						var message = locale.sayPlural(
+							'Are you sure you want to delete this passage?',
+							'Are you sure you want to delete these %d ' +
+							'passages? This cannot be undone.',
+							selected.length
+						);
 
-					// L10n: This message is always shown with more than one passage.
-					// %d is the number of passages.
-					var message = locale.sayPlural('Are you sure you want to delete this passage?',
-					                               'Are you sure you want to delete these %d passages? This cannot be undone.',
-													   selected.length);
-
-					confirm(message, '<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
-					        this.deleteSelectedPassages.bind(this),
-					        { buttonClass: 'danger' });
-				};
-			};
+						confirm(
+							message,
+							'<i class="fa fa-trash-o"></i> ' +
+							locale.say('Delete'),
+							this.deleteSelectedPassages.bind(this),
+							{ buttonClass: 'danger' }
+						);
+				}
+			}
 		}.bind(this));
 
 		// always hide the story bubble when a click occurs on it
 		// (e.g. when a menu item is selected)
 
-		this.$el.on('click', '.storyBubble', function()
-		{
+		this.$el.on('click', '.storyBubble', function() {
 			$('.storyBubble').bubble('hide');
 		});
 
@@ -169,27 +184,63 @@ module.exports = Marionette.CompositeView.extend(
 		$(window).on('resize', _.debounce(this.resize.bind(this), 500));
 
 		this.syncZoom();
-		this.linkManager = new LinkManager({ el: this.el, parent: this });
-		this.toolbar = new Toolbar({ el: this.$('.toolbar'), parent: this });
-		this.passageEditor = new PassageEditor({ el: this.$('#passageEditModal'), parent: this });
-		this.scriptEditor = new ScriptEditor({ el: this.$('#scriptEditModal'), parent: this });
-		this.styleEditor = new StyleEditor({ el: this.$('#stylesheetEditModal'), parent: this });
-		this.search = new Search({ el: this.$('.searchContainer'), parent: this });
-		this.searchModal = new SearchModal({ el: this.$('#searchModal'), parent: this });
-		this.renameModal = new RenameModal({ el: this.$('#renameStoryModal'), parent: this });
-		this.storyFormatModal = new StoryFormatModal({ el: this.$('#storyFormatModal'), parent: this });
-		this.statsModal = new StatsModal({ el: this.$('#statsModal'), parent: this });
+		this.linkManager = new LinkManager({
+			el: this.el,
+			parent: this
+		});
+		this.toolbar = new Toolbar({
+			el: this.$('.toolbar'),
+			parent: this
+		});
+		this.passageEditor = new PassageEditor({
+			el: this.$('#passageEditModal'),
+			parent: this
+		});
+		this.scriptEditor = new ScriptEditor({
+			el: this.$('#scriptEditModal'),
+			parent: this
+		});
+		this.styleEditor = new StyleEditor({
+			el: this.$('#stylesheetEditModal'),
+			parent: this
+		});
+		this.search = new Search({
+			el: this.$('.searchContainer'),
+			parent: this
+		});
+		this.searchModal = new SearchModal({
+			el: this.$('#searchModal'),
+			parent: this
+		});
+		this.renameModal = new RenameModal({
+			el: this.$('#renameStoryModal'),
+			parent: this
+		});
+		this.storyFormatModal = new StoryFormatModal({
+			el: this.$('#storyFormatModal'),
+			parent: this
+		});
+		this.statsModal = new StatsModal({
+			el: this.$('#statsModal'),
+			parent: this
+		});
 
-		if (! ui.hasPrimaryTouchUI())
-			this.marquee = new Marquee({ el: this.$('.passages'), parent: this });
+		if (!ui.hasPrimaryTouchUI()) {
+			this.marquee = new Marquee({
+				el: this.$('.passages'),
+				parent: this
+			});
+		}
 
-		// if we have no passages in this story, give the user one to start with
-		// otherwise, fade in existing
+		// if we have no passages in this story, give the user one to start
+		// with otherwise, fade in existing
 
-		if (this.collection.length === 0)
+		if (this.collection.length === 0) {
 			this.addPassage();
-		else
+		}
+		else {
 			this.$('.passages .content').addClass('fadeIn fast');
+		}
 	},
 
 	/**
@@ -199,8 +250,7 @@ module.exports = Marionette.CompositeView.extend(
 	 @private
 	**/
 
-	onDestroy: function()
-	{
+	onDestroy: function() {
 		this.linkManager.destroy();
 		$(document).off('keydown');
 		$(document).off('keyup');
@@ -212,42 +262,47 @@ module.exports = Marionette.CompositeView.extend(
 
 	 @method addPassage
 	 @param {String} name name of the passage; defaults to model default
-	 @param {Number} left left position; defaults to horizontal center of the window
-	 @param {Number} top top position; defaults to vertical center of the window
+	 @param {Number} left left position; defaults to horizontal center of the
+		 window
+	 @param {Number} top top position; defaults to vertical center of the
+		 window
 	**/
 
-	addPassage: function (name, left, top)
-	{
+	addPassage: function(name, left, top) {
 		var zoom = this.model.get('zoom');
 
-		if (! left)
-		{
+		if (!left) {
 			var offsetX = this.$('.passage:first').width() / 2;
-			left = (($(window).scrollLeft() + $(window).width() / 2) / zoom) - offsetX;
-		};
 
-		if (! top)
-		{
+			left = (($(window).scrollLeft() + $(window).width() / 2) / zoom) -
+				offsetX;
+		}
+
+		if (!top) {
 			var offsetY = this.$('.passage:first').height() / 2;
-			top = (($(window).scrollTop() + $(window).height() / 2) / zoom) - offsetY;
-		};
+
+			top = (($(window).scrollTop() + $(window).height() / 2) / zoom) -
+				offsetY;
+		}
 
 		// make sure the name is unique
 
 		name = name || Passage.prototype.defaults().name;
 
-		if (this.collection.findWhere({ name: name }))
-		{
+		if (this.collection.findWhere({ name: name })) {
 			var origName = name;
 			var nameIndex = 0;
 
-			do
+			do {
 				nameIndex++;
+			}
 			while
-				(this.collection.findWhere({ name: origName + ' ' + nameIndex }));
+				(this.collection.findWhere({
+					name: origName + ' ' + nameIndex
+				}));
 
 			name = origName + ' ' + nameIndex;
-		};
+		}
 
 		var passage = this.collection.create({
 			name: name,
@@ -269,10 +324,8 @@ module.exports = Marionette.CompositeView.extend(
 	 @method deleteSelectedPassages
 	**/
 
-	deleteSelectedPassages: function()
-	{
-		_.invoke(this.children.filter(function (v)
-		{
+	deleteSelectedPassages: function() {
+		_.invoke(this.children.filter(function(v) {
 			return v.selected;
 		}), 'delete');
 	},
@@ -284,71 +337,91 @@ module.exports = Marionette.CompositeView.extend(
 	 @method play
 	**/
 
-	play: function()
-	{
+	play: function() {
 		// verify the starting point
 
-		if (Passage.withId(this.model.get('startPassage')) === undefined)
-		{
-			notify(locale.say('This story does not have a starting point. ' +
-			'Use the <i class="fa fa-rocket"></i> icon on a passage to set this.'), 'danger');
+		if (Passage.withId(this.model.get('startPassage')) === undefined) {
+			notify(
+				locale.say(
+					'This story does not have a starting point. ' +
+					'Use the <i class="fa fa-rocket"></i> icon on a passage ' +
+					'to set this.'
+				),
+				'danger'
+			);
 			return;
-		};
+		}
 
 		// try re-using the same window
 
 		var playWindow = window.open('', 'twinestory_play_' + this.model.id);
 
-		if (playWindow.location.href == 'about:blank')
+		if (playWindow.location.href == 'about:blank') {
 			playWindow.location.href = '#stories/' + this.model.id + '/play';
-		else
-		{
+		}
+		else {
 			playWindow.location.reload();
-			notify(locale.say('Refreshed the playable version of your story in the previously-opened tab or window.'));
-		};
+			notify(locale.say(
+				'Refreshed the playable version of your story in the ' +
+				'previously-opened tab or window.'
+			));
+		}
 	},
 
 	/**
-	 Opens a new tab with the playable version of this story, in test mode. This
-	 will re-use the same tab for a particular story.
+	 Opens a new tab with the playable version of this story, in test mode.
+	 This will re-use the same tab for a particular story.
 
 	 @method test
-	 @param {Number} startId id to start the story on; if unspecified; uses the user-set one
+	 @param {Number} startId id to start the story on; if unspecified; uses the
+		 user-set one
 	**/
 
-	test: function (startId)
-	{
+	test: function(startId) {
 		var url = '#stories/' + this.model.id + '/test';
 
-		if (startId)
+		if (startId) {
 			url += '/' + startId;
+		}
 
 		// verify the starting point
 
 		var startOk = false;
 
-		if (! startId)
-			startOk = (Passage.withId(this.model.get('startPassage')) !== undefined);
-		else
+		if (!startId) {
+			startOk =
+				(Passage.withId(this.model.get('startPassage')) !== undefined);
+		}
+		else {
 			startOk = (Passage.withId(startId) !== undefined);
+		}
 
-		if (! startOk)
-		{
-			notify(locale.say('This story does not have a starting point. Use the <i class="fa fa-rocket"></i> icon on a passage to set this.'), 'danger');
+		if (!startOk) {
+			notify(
+				locale.say(
+					'This story does not have a starting point. Use the ' +
+					'<i class="fa fa-rocket"></i> icon on a passage to ' +
+					'set this.'
+				),
+				'danger'
+			);
 			return;
-		};
+		}
 
 		// try re-using the same window
 
 		var testWindow = window.open('', 'twinestory_test_' + this.model.id);
 		
-		if (testWindow.location.href == 'about:blank')
+		if (testWindow.location.href == 'about:blank') {
 			testWindow.location.href = url;
-		else
-		{
+		}
+		else {
 			testWindow.location.reload();
-			notify(locale.say('Refreshed the test version of your story in the previously-opened tab or window.'));
-		};
+			notify(locale.say(
+				'Refreshed the test version of your story in ' +
+				'the previously-opened tab or window.'
+			));
+		}
 	},
 
 	/**
@@ -358,25 +431,34 @@ module.exports = Marionette.CompositeView.extend(
 	 @method proof
 	**/
 
-	proof: function()
-	{
-		window.open('#stories/' + this.model.id + '/proof', 'twinestory_proof_' + this.model.id);
+	proof: function() {
+		window.open(
+			'#stories/' + this.model.id + '/proof',
+			'twinestory_proof_' + this.model.id
+		);
 	},
 
 	/**
-	 Publishes the story to a file.	
+	 Publishes the story to a file.
 
 	 @method publish
 	**/
 
-	publish: function()
-	{
+	publish: function() {
 		// verify the starting point
 
-		if (Passage.withId(this.model.get('startPassage')) === undefined)
-			notify(locale.say('This story does not have a starting point. Use the <i class="fa fa-rocket"></i> icon on a passage to set this.'), 'danger');
-		else
+		if (Passage.withId(this.model.get('startPassage')) === undefined) {
+			notify(
+				locale.say(
+					'This story does not have a starting point. ' +
+					'Use the <i class="fa fa-rocket"></i> icon on a ' +
+					'passage to set this.'
+				),
+			'danger');
+		}
+		else {
 			publish.publishStory(this.model, this.model.get('name') + '.html');
+		}
 	},
 
 	/**
@@ -384,69 +466,65 @@ module.exports = Marionette.CompositeView.extend(
 		* the size of the browser window
 		* the minimum amount of space needed to enclose all existing passages
 
-	 ... whichever is bigger, plus 75% of the browser window's width and height, so
-	 that there's always room for the story to expand.
+	 ... whichever is bigger, plus 75% of the browser window's width and
+	 height, so that there's always room for the story to expand.
 
-	 This then resizes the view's <canvas> element to match the size of the .passages div,
-	 so that lines can be drawn between passage DOM elements properly.
+	 This then resizes the view's <canvas> element to match the size of the
+	 .passages div, so that lines can be drawn between passage DOM elements
+	 properly.
 
 	 @method resize
 	**/
 
-	resize: function()
-	{
+	resize: function() {
 		var winWidth = $(window).width();
 		var winHeight = $(window).height();
 		var zoom = this.model.get('zoom');
 		var width = winWidth;
 		var height = winHeight;
 
-		if (this.collection.length > 0)
-		{
+		if (this.collection.length > 0) {
 			var rightPassage, bottomPassage;
 			var maxLeft = -Infinity;
 			var maxTop = -Infinity;
 
-			this.collection.each(function (p)
-			{
+			this.collection.each(function(p) {
 				var left = p.get('left');
 				var top = p.get('top');
 
-				if (p.get('left') > maxLeft)
-				{
+				if (p.get('left') > maxLeft) {
 					maxLeft = left;
 					rightPassage = p;
-				};
+				}
 
-				if (p.get('top') > maxTop)
-				{
+				if (p.get('top') > maxTop) {
 					maxTop = top;
 					bottomPassage = p;
-				};
+				}
 			});
 
-			var passagesWidth = zoom * (rightPassage.get('left') + Passage.width);
-			var passagesHeight = zoom * (bottomPassage.get('top') + Passage.height);
+			var passagesWidth =
+				zoom * (rightPassage.get('left') + Passage.width);
+			var passagesHeight =
+				zoom * (bottomPassage.get('top') + Passage.height);
+
 			width = Math.max(passagesWidth, winWidth);
 			height = Math.max(passagesHeight, winHeight);
 		}
-		else
-		{
+		else {
 			width = winWidth;
 			height = winHeight;
-		};
+		}
 
 		width += winWidth * 0.5;
 		height += winHeight * 0.5;
 
-		this.$('.passages').css(
-		{
+		this.$('.passages').css({
 			width: width,
 			height: height
 		});
 
-		this.$('canvas').attr(
-		{
+		this.$('canvas').attr({
 			width: width,
 			height: height
 		});
@@ -458,8 +536,7 @@ module.exports = Marionette.CompositeView.extend(
 	 @method startMouseScrolling
 	**/
 
-	startMouseScrolling: function()
-	{
+	startMouseScrolling: function() {
 		/**
 		 The mouse position that space bar scrolling began at,
 		 with x and y properties.
@@ -494,79 +571,83 @@ module.exports = Marionette.CompositeView.extend(
 	 @method stopMouseScrolling
 	**/
 
-	stopMouseScrolling: function()
-	{
+	stopMouseScrolling: function() {
 		$('#storyEditView').removeClass('scrolling');
 		$(window).off('mousemove', this.mouseScroll);
 	},
 
-	mouseScroll: function (e)
-	{	
+	mouseScroll: function(e) {
 		var self = e.data.self;
 
-		if (! self.mouseScrollStart.x && ! self.mouseScrollStart.y)
-		{
+		if (!self.mouseScrollStart.x && !self.mouseScrollStart.y) {
 			// this is our first mouse motion event, record position
 
 			self.mouseScrollStart.x = e.pageX;
 			self.mouseScrollStart.y = e.pageY;
 		}
-		else
-		{
-			$(window).scrollLeft(self.pageScrollStart.x - (e.pageX - self.mouseScrollStart.x));
-			$(window).scrollTop(self.pageScrollStart.y - (e.pageY - self.mouseScrollStart.y));
-		};
+		else {
+			$(window).scrollLeft(
+				self.pageScrollStart.x - (e.pageX - self.mouseScrollStart.x)
+			);
+			$(window).scrollTop(
+				self.pageScrollStart.y - (e.pageY - self.mouseScrollStart.y)
+			);
+		}
 	},
 
 	/**
-	 Nudges a passage so that it does not overlap any other passage in the view,
-	 and so that it snaps to the grid if that's set in the model. This does *not*
-	 save changes to the passage model.
+	 Nudges a passage so that it does not overlap any other passage in the
+	 view, and so that it snaps to the grid if that's set in the model. This
+	 does *not* save changes to the passage model.
 
 	 @method positionPassage
 	 @param {Passage} passage Passage to nudge.
-	 @param {Function} filter If passed, any passage this function returns false for
-	                          will be ignored when checking for overlaps.
+	 @param {Function} filter If passed, any passage this function returns
+		 false for will be ignored when checking for overlaps.
 	**/
 
-	positionPassage: function (passage, filter)
-	{
+	positionPassage: function(passage, filter) {
 		// displace
 
-		this.collection.each(function (p)
-		{
-			if (filter && ! filter(p))
+		this.collection.each(function(p) {
+			if (filter && !filter(p)) {
 				return;
+			}
 
-			if (p.id != passage.id && p.intersects(passage))
-			{
+			if (p.id != passage.id && p.intersects(passage)) {
 				p.displace(passage);
-			};
+			}
 		});
 
 		// snap to grid
 
-		if (this.model.get('snapToGrid'))
-		{
+		if (this.model.get('snapToGrid')) {
 			var xMove, yMove;
 			var hGrid = Passage.width / 2;
 			var vGrid = Passage.height / 2;
 
 			var leftMove = passage.get('left') % hGrid;
 
-			if (leftMove < hGrid / 2)
-				xMove = - leftMove;
-			else
+			if (leftMove < hGrid / 2) {
+				xMove = -leftMove;
+			}
+			else {
 				xMove = hGrid - leftMove;
+			}
 
 			var upMove = passage.get('top') % vGrid;
 
-			if (upMove < vGrid / 2)
-				yMove = - upMove;
-			else
+			if (upMove < vGrid / 2) {
+				yMove = -upMove;
+			}
+			else {
 				yMove = vGrid - upMove;
+			}
 
-			passage.set({ left: passage.get('left') + xMove, top: passage.get('top') + yMove });
+			passage.set({
+				left: passage.get('left') + xMove,
+				top: passage.get('top') + yMove
+			});
 		};
 	},
 
@@ -576,16 +657,17 @@ module.exports = Marionette.CompositeView.extend(
 	 @method syncZoom
 	**/
 
-	syncZoom: function()
-	{
+	syncZoom: function() {
 		var zoom = this.model.get('zoom');
 
-		for (var desc in this.ZOOM_MAPPINGS)
-			if (this.ZOOM_MAPPINGS[desc] == zoom)
-			{
-				this.$el.removeClass('zoom-small zoom-medium zoom-big').addClass('zoom-' + desc);
+		for (var desc in this.ZOOM_MAPPINGS) {
+			if (this.ZOOM_MAPPINGS[desc] == zoom) {
+				this.$el
+					.removeClass('zoom-small zoom-medium zoom-big')
+					.addClass('zoom-' + desc);
 				break;
-			};
+			}
+		}
 
 		this.resize();
 	},
@@ -596,39 +678,42 @@ module.exports = Marionette.CompositeView.extend(
 	 @method syncName
 	**/
 
-	syncName: function()
-	{
-		document.title = locale.say('Editing \u201c%s\u201d', this.model.get('name'));
+	syncName: function() {
+		document.title = locale.say(
+			'Editing \u201c%s\u201d',
+			this.model.get('name')
+		);
 	},
 
-	updateSaved: function()
-	{
-		this.$('.saveIndicator').addClass('active fadeOut slow').one('animationend', function()
-		{
-			$(this).removeClass('active fadeOut');	
-		});	
-
-		this.$('.storyName').attr('title', locale.say('Last saved at %s', moment().format('llll')));
+	updateSaved: function() {
+		this.$('.storyName').attr(
+			'title',
+			locale.say(
+				'Last saved at %s',
+				moment().format('llll')
+			)
+		);
 		this.$('.storyName').powerTip();
 	},
 
-	events:
-	{
-		'drag .passage': function (e)
-		{
+	events: {
+		'drag .passage': function(e) {
 			// draw links between passages as they are dragged around
 
-			this.linkManager.cachePassage(this.collection.get($(e.target).closest('.passage').attr('data-id')));
+			this.linkManager.cachePassage(
+				this.collection.get(
+					$(e.target).closest('.passage').attr('data-id')
+				)
+			);
 			this.linkManager.drawLinks();
 		},
 
-		'mousedown': function (e)
-		{
+		'mousedown': function(e) {
 			// record the click target
 
 			/**
-			 The last element that was the target of a mousedown event.
-			 This is used by child views to see if they should pay attention to a
+			 The last element that was the target of a mousedown event. This
+			 is used by child views to see if they should pay attention to a
 			 mouseup event, for example.
 
 			 @property {Object} lastMousedown

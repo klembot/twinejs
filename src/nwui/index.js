@@ -23,15 +23,13 @@ var WelcomeView = require('../welcome/welcome-view');
 var startupErrorTemplate = require('./ejs/startup-error.ejs');
 var welcomeViewNwTemplate = require('./ejs/welcome-view-nw.ejs');
 
-var nwui = module.exports =
-{
+var nwui = module.exports = {
 	/**
 	 Whether Twine is running in a NW.js environment.
 	 @const
 	**/
 
-	active: 
-	window.nwDispatcher !== undefined,
+	active: window.nwDispatcher !== undefined,
 
 	/**
 	 Whether changes to a story should be saved to the filesystem.
@@ -56,12 +54,10 @@ var nwui = module.exports =
 	 as possible.
 	**/
 
-	init: function()
-	{
-		var startupTask = 'beginning startup tasks'; 
+	init: function() {
+		var startupTask = 'beginning startup tasks';
 
-		try
-		{
+		try {
 			/**
 			 An instance of the nw.gui module, for manipulating the native UI.
 			 @property gui
@@ -75,8 +71,7 @@ var nwui = module.exports =
 			var nativeMenuBar = new nwui.gui.Menu({ type: 'menubar' });
 			var mainMenu;
 
-			if (process.platform == 'darwin')
-			{
+			if (process.platform == 'darwin') {
 				// create Mac menus
 
 				nativeMenuBar.createMacBuiltin(window.app.name);
@@ -90,14 +85,12 @@ var nwui = module.exports =
 					label: locale.say('Toggle Fullscreen'),
 					key: 'f',
 					modifiers: 'cmd-shift',
-					click: function()
-					{
+					click: function() {
 						nwui.gui.Window.get().toggleFullscreen();
 					}
 				}), 0);
 			}
-			else
-			{
+			else {
 				// create a basic menu on other platforms
 
 				mainMenu = new nwui.gui.MenuItem({
@@ -109,13 +102,15 @@ var nwui = module.exports =
 					label: locale.say('Quit'),
 					key: 'q',
 					modifiers: 'ctrl',
-					click: function()
-					{
+					click: function() {
 						nwui.gui.App.closeAllWindows();
 					}
 				}));
 
-				mainMenu.submenu.insert(new nwui.gui.MenuItem({ type: 'separator' }), 0);
+				mainMenu.submenu.insert(
+					new nwui.gui.MenuItem({ type: 'separator' }),
+					0
+				);
 				nativeMenuBar.append(mainMenu);
 
 				// and a stand-in Edit menu
@@ -129,20 +124,20 @@ var nwui = module.exports =
 					label: locale.say('Undo'),
 					key: 'z',
 					modifiers: 'ctrl',
-					click: function()
-					{
+					click: function() {
 						document.execCommand('undo');
 					}
 				}));
 
-				editMenu.submenu.append(new nwui.gui.MenuItem({ type: 'separator' }));
+				editMenu.submenu.append(
+					new nwui.gui.MenuItem({ type: 'separator' })
+				);
 
 				editMenu.submenu.append(new nwui.gui.MenuItem({
 					label: locale.say('Cut'),
 					key: 'x',
 					modifiers: 'ctrl',
-					click: function()
-					{
+					click: function() {
 						document.execCommand('cut');
 					}
 				}));
@@ -151,8 +146,7 @@ var nwui = module.exports =
 					label: locale.say('Copy'),
 					key: 'c',
 					modifiers: 'ctrl',
-					click: function()
-					{
+					click: function() {
 						document.execCommand('copy');
 					}
 				}));
@@ -161,16 +155,14 @@ var nwui = module.exports =
 					label: locale.say('Paste'),
 					key: 'v',
 					modifiers: 'ctrl',
-					click: function()
-					{
+					click: function() {
 						document.execCommand('paste');
 					}
 				}));
 
 				editMenu.submenu.append(new nwui.gui.MenuItem({
 					label: locale.say('Delete'),
-					click: function()
-					{
+					click: function() {
 						document.execCommand('delete');
 					}
 				}));
@@ -188,9 +180,10 @@ var nwui = module.exports =
 
 			mainMenu.submenu.insert(new nwui.gui.MenuItem({
 				label: locale.say('Show Library'),
-				click: function()
-				{
-					nwui.gui.Shell.openItem(nwui.filePath.replace(/\//g, nwui.path.sep));
+				click: function() {
+					nwui.gui.Shell.openItem(
+						nwui.filePath.replace(/\//g, nwui.path.sep)
+					);
 				}
 			}), 0);
 
@@ -200,12 +193,10 @@ var nwui = module.exports =
 
 			// show window once we're finished loading
 
-			window.onload = function()
-			{
+			window.onload = function() {
 				win.show();
 				win.focus();
-				_.delay(function()
-				{
+				_.delay(function deselectButton() {
 					$('button').blur();
 				});
 			};
@@ -214,25 +205,27 @@ var nwui = module.exports =
 
 			startupTask = 'adding the debugger keyboard shortcut';
 
-			$('body').on('keyup', function (e)
-			{
-				if (e.which == 68 && e.shiftKey && e.altKey && e.ctrlKey)
+			$('body').on('keyup', function(e) {
+				if (e.which == 68 && e.shiftKey && e.altKey && e.ctrlKey) {
 					win.showDevTools();
+				}
 			});
 
 			// create ~/Documents/Twine if it doesn't exist
 
 			/**
-			 An instance of the fs modules, for working with the native filesystem.
+			 An instance of the fs modules, for working with the native
+			 filesystem.
 			 @property fs
 			**/
 
 			startupTask = 'initializing filesystem functions';
 			nwui.fs = require('fs');
-			startupTask = 'checking for the presence of a Documents or My Documents directory in your user directory';
+			startupTask = 'checking for the presence of a Documents or My ' +
+				'Documents directory in your user directory';
 
 			// we require this here instead of at the top of the file so that
-			// on the web platform, it doesn't try to do any detection 
+			// on the web platform, it doesn't try to do any detection
 			// (and fail, because we are not shimming process).
 
 			nwui.osenv = require('osenv');
@@ -247,85 +240,95 @@ var nwui = module.exports =
 			// if the user doesn't have a Documents folder,
 			// check for "My Documents" instead (thanks Windows)
 
-			// L10n: This is the folder name on OS X, Linux, and recent versions of
-			// Windows that a user's documents are stored in, relative to the
-			// user's home directory. If you need to use a space in this name,
-			// then it should have two backslashes (\\) in front of it.
-			// Regardless, this must have a single forward slash (/) as its first
-			// character.
+			// L10n: This is the folder name on OS X, Linux, and recent
+			// versions of Windows that a user's documents are stored in,
+			// relative to the user's home directory. If you need to use a
+			// space in this name, then it should have two backslashes (\\)
+			// in front of it. Regardless, this must have a single forward
+			// slash (/) as its first character.
 			var docPath = nwui.path.join(homePath, locale.say('/Documents'));
 
-			if (! nwui.fs.existsSync(docPath))
-			{
-				startupTask = 'creating a My Documents directory in your user directory';
+			if (!nwui.fs.existsSync(docPath)) {
+				startupTask = 'creating a My Documents directory in your ' +
+					'user directory';
 
 				// L10n: This is the folder name on Windows XP that a user's
-				// documents are stored in, relative to the user's home directory.
-				// This is used if a folder with the name given by the translation
-				// key '/Documents' does not exist. If you need to use a space in
-				// this name, then it should have two backslashes (\\) in front of it.
-				// Regardless, this must have a single forward slash (/) as its first character.
-				if (nwui.fs.existsSync(nwui.path.join(homePath, locale.say('/My\\ Documents'))))
-					docPath = nwui.path.join(homePath, locale.say('/My\\ Documents'));
-				else
+				// documents are stored in, relative to the user's home
+				// directory. This is used if a folder with the name given
+				// by the translation key '/Documents' does not exist. If
+				// you need to use a space in // this name, then it should have
+				// two backslashes (\\) in front of it. Regardless, this
+				// must have a single forward slash (/) as its first character.
+				if (nwui.fs.existsSync(
+						nwui.path.join(homePath, locale.say('/My\\ Documents'))
+				)) {
+					docPath = nwui.path.join(
+						homePath, locale.say('/My\\ Documents')
+					);
+				}
+				else {
 					nwui.fs.mkdirSync(docPath);
+				}
 			};
 
-			startupTask = 'checking for the presence of a Twine directory in your Documents directory';
+			startupTask = 'checking for the presence of a Twine directory ' +
+				'in your Documents directory';
 
-			// L10n: '/Twine' is a suitable name for Twine-related files to exist
-			// under on the user's hard drive. '/Stories' is a suitable name for
-			// story files specifically. If you need to use a space in this name,
-			// then it should have two backslashes in front of it. Regardless,
-			// this must have a single forward slash (/) as its first character.
-			nwui.filePath = nwui.path.join(docPath, locale.say('/Twine'), locale.say('/Stories'));
+			// L10n: '/Twine' is a suitable name for Twine-related files to
+			// exist under on the user's hard drive. '/Stories' is a
+			// suitable name for story files specifically. If you need to
+			// use a space in this name, then it should have two backslashes
+			// in front of it. Regardless, this must have a single forward
+			// slash (/) as its first character.
+			nwui.filePath = nwui.path.join(
+				docPath,
+				locale.say('/Twine'),
+				locale.say('/Stories')
+			);
 
-			if (! nwui.fs.existsSync(nwui.filePath))
-			{
-				startupTask = 'creating a Twine directory in your Documents directory';
+			if (!nwui.fs.existsSync(nwui.filePath)) {
+				startupTask = 'creating a Twine directory in your ' +
+					'Documents directory';
 				var twinePath = nwui.path.join(docPath, locale.say('/Twine'));
 
-				if (! nwui.fs.existsSync(twinePath))
+				if (!nwui.fs.existsSync(twinePath)) {
 					nwui.fs.mkdirSync(twinePath);
+				}
 
 				nwui.fs.mkdirSync(nwui.filePath);
-			};
+			}
 
 			// do a file sync if we're just starting up
 			// we have to stuff this in the global scope;
 			// otherwise, each new window will think it's starting afresh
 			// and screw up our model IDs
 
-			if (! global.nwuiFirstRun)
-			{
+			if (!global.nwuiFirstRun) {
 				startupTask = 'initially synchronizing story files';
 				nwui.syncStoryFiles();
 				startupTask = 'initially locking your Stories directory';
 				nwui.lockStoryDirectory();
 				global.nwuiFirstRun = true;
-			};
+			}
 
 			startupTask = 'setting up a handler for external links';
 
 			// open external links outside the app
 
-			$('body').on('click', 'a', function (e)
-			{
+			$('body').on('click', 'a', function handleExternalLink(e) {
 				var url = $(this).attr('href');
 
-				if (typeof url == 'string' && url.match(/^https?:/))
-				{
+				if (typeof url == 'string' && url.match(/^https?:/)) {
 					nwui.gui.Shell.openExternal(url);
 					e.preventDefault();
-				};
+				}
 			});
 
 			startupTask = 'setting up shutdown tasks';
 		
 			// when quitting, unlock the story directory
 
-			process.on('exit', function()
-			{
+			process.on('exit', function() {
 				nwui.unlockStoryDirectory();
 			});
 
@@ -337,34 +340,36 @@ var nwui = module.exports =
 
 			var oldStoryInit = Story.prototype.initialize;
 
-			Story.prototype.initialize = function()
-			{
+			Story.prototype.initialize = function() {
 				oldStoryInit.call(this);
 				
-				this.on('change', _.throttle(function()
-				{
-					// if the only thing that is changing is last modified date,
-					// then skip it
+				this.on('change', _.throttle(function() {
+					// if the only thing that is changing is last modified
+					// date, then skip it
 					
-					if (! _.some(_.keys(this.changedAttributes()), function (key)
-					{
-						return (key != 'lastUpdated');
-					}))
+					if (!_.some(
+						_.keys(this.changedAttributes()),
+						function(key) {
+							return (key != 'lastUpdated');
+						}
+					)) {
 						return;
+					}
 					
-					// if we aren't syncing changes or the story has no passages,
-					// give up early
+					// if we aren't syncing changes or the story has no
+					// passages, give up early
 
-					if (! nwui.syncFs || this.fetchPassages().length === 0)
+					if (!nwui.syncFs || this.fetchPassages().length === 0) {
 						return;
+					}
 
 					nwui.saveStoryFile(this);
 				}, 100), this);
 
-				this.on('destroy', function()
-				{
-					if (! nwui.syncFs)
+				this.on('destroy', function() {
+					if (!nwui.syncFs) {
 						return;
+					}
 
 					nwui.deleteStoryFile(this);
 				}, this);
@@ -373,26 +378,27 @@ var nwui = module.exports =
 			// monkey patch Passage to save its parent story whenever
 			// it is changed or destroyed
 
-			startupTask = 'adding a hook to automatically save a story after editing a passage';
+			startupTask = 'adding a hook to automatically save a story ' +
+				'after editing a passage';
 
 			var oldPassageInit = Passage.prototype.initialize;
 
-			Passage.prototype.initialize = function()
-			{
+			Passage.prototype.initialize = function() {
 				oldPassageInit.call(this);
 
-				this.on('change destroy', _.debounce(function()
-				{
-					if (! nwui.syncFs)
+				this.on('change destroy', _.debounce(function() {
+					if (!nwui.syncFs) {
 						return;
+					}
 
 					// if we have no parent, skip it
 					// (this happens during an import, for example)
 
 					var parent = this.fetchStory();
 
-					if (parent)
+					if (parent) {
 						nwui.saveStoryFile(parent);
+					}
 				}, 100), this);
 			};
 
@@ -401,36 +407,34 @@ var nwui = module.exports =
 
 			startupTask = 'disabling the storage quota meter';
 
-			StorageQuota.prototype.render = function()
-			{
+			StorageQuota.prototype.render = function() {
 				this.$el.css('display', 'none');
 			};
 
-			// monkey patch StoryListView to open the wiki in the user's browser
-			// and to hold off on trying to update the filesystem midprocess
+			// monkey patch StoryListView to open the wiki in the user's
+			// browser and to hold off on trying to update the filesystem
+			// midprocess
 
 			startupTask = 'setting up the Help link';
 
-			StoryListView.prototype.events['click .showHelp'] = function()
-			{
+			StoryListView.prototype.events['click .showHelp'] = function() {
 				nwui.gui.Shell.openExternal('http://twinery.org/2guide');
 			};
 
 			startupTask = 'setting up a hook for importing story files';
 
-			var oldStoryListViewImportFile = StoryListView.prototype.importFile;
+			var oldStoryListViewImportFile =
+				StoryListView.prototype.importFile;
 
-			StoryListView.prototype.importFile = function (e)
-			{
+			StoryListView.prototype.importFile = function(e) {
 				nwui.syncFs = false;
 				var reader = oldStoryListViewImportFile.call(this, e);
-				reader.addEventListener('load', function()
-				{
+
+				reader.addEventListener('load', function() {
 					// deferred to make sure that the normal event
 					// handler fires first
 
-					_.defer(function()
-					{
+					_.defer(function() {
 						nwui.syncFs = true;
 						StoryCollection.all().each(nwui.saveStoryFile);
 					});
@@ -444,16 +448,20 @@ var nwui = module.exports =
 
 			var oldWelcomeViewRender = WelcomeView.prototype.onRender;
 
-			WelcomeView.prototype.onRender = function()
-			{
-				this.$('.save').html(Marionette.Renderer.render(welcomeViewNwTemplate, {}));
+			WelcomeView.prototype.onRender = function() {
+				this.$('.save').html(
+					Marionette.Renderer.render(welcomeViewNwTemplate, {})
+				);
 				oldWelcomeViewRender.call(this);
 			};
 		}
-		catch (e)
-		{
+		catch (e) {
+			/* eslint-disable no-console */
 			console.log('Startup crash', startupTask, e);
-			document.write(startupErrorTemplate({ task: startupTask, error: e }));
+
+			document.write(
+				startupErrorTemplate({ task: startupTask, error: e })
+			);
 			throw e;
 		};
 	},
@@ -467,8 +475,7 @@ var nwui = module.exports =
 	 @param {Story} story Story model to create filename for
 	**/
 
-	storyFileName: function (story)
-	{
+	storyFileName: function(story) {
 		return story.get('name').replace(/[^\w\. -]/g, '_') + '.html';
 	},
 
@@ -479,23 +486,28 @@ var nwui = module.exports =
 	 @param {Story} story Story model to save
 	**/
 
-	saveStoryFile: function (story)
-	{
-		try
-		{
+	saveStoryFile: function(story) {
+		try {
 			nwui.unlockStoryDirectory();
-			var fd = nwui.fs.openSync(nwui.filePath + '/' + nwui.storyFileName(story), 'w');
+			var fd = nwui.fs.openSync(
+				nwui.filePath + '/' + nwui.storyFileName(story), 'w'
+			);
+
 			nwui.fs.writeSync(fd, story.publish(null, null, true));
 			nwui.fs.closeSync(fd);
 		}
-		catch (e)
-		{
+		catch (e) {
 			// L10n: %s is the error message.
-			notify(locale.say('An error occurred while saving your story (%s).', e.message), 'danger');
+			notify(
+				locale.say(
+					'An error occurred while saving your story (%s).',
+					e.message
+				),
+				'danger'
+			);
 			throw e;
 		}
-		finally
-		{
+		finally {
 			nwui.lockStoryDirectory();
 		};
 	},
@@ -507,20 +519,24 @@ var nwui = module.exports =
 	 @param {Story} story Story model to delete
 	**/
 
-	deleteStoryFile: function (story)
-	{
-		try
-		{
+	deleteStoryFile: function(story) {
+		try {
 			nwui.unlockStoryDirectory();
-			nwui.fs.unlinkSync(nwui.filePath + '/' + nwui.storyFileName(story));
+			nwui.fs.unlinkSync(
+				nwui.filePath + '/' + nwui.storyFileName(story)
+			);
 		}
-		catch (e)
-		{
+		catch (e) {
 			// L10n: %s is the error message.
-			notify(locale.say('An error occurred while deleting your story (%s).', e.message), 'danger');
+			notify(
+				locale.say(
+					'An error occurred while deleting your story (%s).',
+					e.message
+				),
+				'danger'
+			);
 		}
-		finally
-		{
+		finally {
 			nwui.lockStoryDirectory();
 		};
 	},
@@ -530,16 +546,16 @@ var nwui = module.exports =
 	 any stories that happen to be saved to local storage only.
 	**/
 
-	syncStoryFiles: function()
-	{
+	syncStoryFiles: function() {
 		nwui.syncFs = false;
 
 		// clear all existing stories and passages
 
 		var allStories = StoryCollection.all();
 
-		while (allStories.length > 0)
+		while (allStories.length > 0) {
 			allStories.at(0).destroy();
+		}
 
 		// read from files
 
@@ -547,14 +563,18 @@ var nwui = module.exports =
 
 		var fileStories = nwui.fs.readdirSync(nwui.filePath);
 
-		_.each(fileStories, function (filename)
-		{
-			if (filename.match(/\.html$/))
-			{
+		_.each(fileStories, function(filename) {
+			if (filename.match(/\.html$/)) {
 				var stats = nwui.fs.statSync(nwui.filePath + '/' + filename);
-				importer.import(nwui.fs.readFileSync(nwui.filePath + '/' + filename, { encoding: 'utf-8' }),
-				                new Date(Date.parse(stats.mtime)));
-			};
+
+				importer.import(
+					nwui.fs.readFileSync(
+						nwui.filePath + '/' + filename,
+						{ encoding: 'utf-8' }
+					),
+					new Date(Date.parse(stats.mtime))
+				);
+			}
 		});
 
 		nwui.unlockStoryDirectory();
@@ -566,26 +586,32 @@ var nwui = module.exports =
 	 outside of Twine. The init() method must be called first.
 	**/
 
-	lockStoryDirectory: function()
-	{
-		try
-		{
-			if (process.platform == 'win32')
-				_.each(nwui.fs.readdirSync(nwui.filePath), function (filename)
-				{
-					nwui.fs.chmodSync(nwui.filePath + '/' + filename, 292); // a-w, 0444
+	lockStoryDirectory: function() {
+		try {
+			if (process.platform == 'win32') {
+				_.each(nwui.fs.readdirSync(nwui.filePath), function(filename) {
+					// a-w, 0444
+					nwui.fs.chmodSync(nwui.filePath + '/' + filename, 292);
 				});
-			else
-			{
+			}
+			else {
 				var stat = nwui.fs.statSync(nwui.filePath);
-				nwui.fs.chmodSync(nwui.filePath, stat.mode ^ 128); // u-w
-			};
+
+				// u-w
+				nwui.fs.chmodSync(nwui.filePath, stat.mode ^ 128);
+			}
 		}
-		catch (e)
-		{
-			// L10n: Locking in the sense of preventing changes to a file. %s is the error message.
-			notify(locale.say('An error occurred while locking your library (%s).', e.message), 'danger');
-		};
+		catch (e) {
+			// L10n: Locking in the sense of preventing changes to a file.
+			// %s is the error message.
+			notify(
+				locale.say(
+					'An error occurred while locking your library (%s).',
+					e.message
+				),
+				'danger'
+			);
+		}
 	},
 
 	/**
@@ -593,25 +619,31 @@ var nwui = module.exports =
 	 first.
 	**/
 
-	unlockStoryDirectory: function()
-	{
-		try
-		{
-			if (process.platform == 'win32')
-				_.each(nwui.fs.readdirSync(nwui.filePath), function (filename)
-				{
-					nwui.fs.chmodSync(nwui.filePath + '/' + filename, 438); // a+w, 0666
+	unlockStoryDirectory: function() {
+		try {
+			if (process.platform == 'win32') {
+				_.each(nwui.fs.readdirSync(nwui.filePath), function(filename) {
+					// a+w, 0666
+					nwui.fs.chmodSync(nwui.filePath + '/' + filename, 438);
 				});
-			else
-			{
+			}
+			else {
 				var stat = nwui.fs.statSync(nwui.filePath);
-				nwui.fs.chmodSync(nwui.filePath, stat.mode | 128); // u+w
-			};
+
+				// u+w
+				nwui.fs.chmodSync(nwui.filePath, stat.mode | 128);
+			}
 		}
-		catch (e)
-		{
-			// L10n: Unlocking in the sense of allowing changes to a file. %s is the error message.
-			notify(locale.say('An error occurred while unlocking your library (%s).', e.message), 'danger');
-		};
+		catch (e) {
+			// L10n: Unlocking in the sense of allowing changes to a file. %s
+			// is the error message.
+			notify(
+				locale.say(
+					'An error occurred while unlocking your library (%s).',
+					e.message
+				),
+				'danger'
+			);
+		}
 	}
 };

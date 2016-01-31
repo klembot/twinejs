@@ -21,15 +21,12 @@ var StoryFormatCollection = require('../data/collections/story-format');
 var TransRegion = require('../backbone-ext/trans-region');
 var TwineRouter = require('./router');
 
-module.exports = Marionette.Application.extend(
-{
-	initialize: function()
-	{
+module.exports = Marionette.Application.extend({
+	initialize: function() {
 		this.on('start', this.start);
 	},
 
-	start: function()
-	{
+	start: function() {
 		/**
 		 Name of the app.
 
@@ -54,37 +51,36 @@ module.exports = Marionette.Application.extend(
 
 		this.buildNumber = parseInt($('html').data('build-number'));
 
-		if (nwui.active)
-			nwui.init();
+		if (nwui.active) { nwui.init(); }
 
 		// add i18n hook to Marionette's rendering
 
-		var templateProperties =
-		{
+		var templateProperties = {
 			moment: moment,
 			s: locale.say.bind(locale),
 			sp: locale.sayPlural.bind(locale)
 		};
 
-		Marionette.Renderer.render = function (template, data)
-		{
-			if (typeof template !== 'function')
-				throw new Error(locale.say('Asked to render a non-function template ' + template));
+		Marionette.Renderer.render = function(template, data) {
+			if (typeof template !== 'function') {
+				throw new Error(
+					locale.say('Asked to render a non-function template ' + template)
+				);
+			}
+
 			return template(_.extend(data, templateProperties));
 		};
 
 		// set up our main region
 
-		this.addRegions(
-		{
+		this.addRegions({
 			/**
 			 The top-level container for views.
 
 			 @property mainRegion
 			**/
 
-			mainRegion:
-			{
+			mainRegion: {
 				selector: '#regions .main',
 				regionClass: TransRegion
 			}
@@ -106,23 +102,46 @@ module.exports = Marionette.Application.extend(
 
 		var formats = StoryFormatCollection.all();
 
-		if (! formats.findWhere({ name: 'Harlowe' }))
-			formats.create({ name: 'Harlowe', url: 'story-formats/Harlowe/format.js', userAdded: false });
+		if (!formats.findWhere({ name: 'Harlowe' })) {
+			formats.create({
+				name: 'Harlowe',
+				url: 'story-formats/Harlowe/format.js',
+				userAdded: false
+			});
+		}
 
-		if (! formats.findWhere({ name: 'Snowman' }))
-			formats.create({ name: 'Snowman', url: 'story-formats/Snowman/format.js', userAdded: false });
+		if (!formats.findWhere({ name: 'Snowman' })) {
+			formats.create({
+				name: 'Snowman',
+				url: 'story-formats/Snowman/format.js',
+				userAdded: false
+			});
+		}
 
-		if (! formats.findWhere({ name: 'Paperthin' }))
-			formats.create({ name: 'Paperthin', url: 'story-formats/Paperthin/format.js', userAdded: false });
+		if (!formats.findWhere({ name: 'Paperthin' })) {
+			formats.create({
+				name: 'Paperthin',
+				url: 'story-formats/Paperthin/format.js',
+				userAdded: false
+			});
+		}
 
-		if (! formats.findWhere({ name: 'SugarCube' }))
-			formats.create({ name: 'SugarCube', url: 'story-formats/SugarCube/format.js', userAdded: false });
+		if (!formats.findWhere({ name: 'SugarCube' })) {
+			formats.create({
+				name: 'SugarCube',
+				url: 'story-formats/SugarCube/format.js',
+				userAdded: false
+			});
+		}
 
 		// repair paths to use kebab case
 
 		formats.forEach(function(format) {
 			if (/^storyFormats\//i.test(format.get('url'))) {
-				format.save('url', format.get('url').replace(/^storyFormats\//i, 'story-formats/'));
+				format.save(
+					'url',
+					format.get('url').replace(/^storyFormats\//i, 'story-formats/')
+				);
 			}
 		});
 
@@ -141,21 +160,20 @@ module.exports = Marionette.Application.extend(
 	 If retrieving this information fails, then this does nothing.
 
 	 @method checkForUpdate
-	 @param {Number} latestBuildNumber build number to consider as current. This is
-	                                   required; the app's build number is stored in
-									   window.app.buildNumber.
-	 @param {Function} callback if a new version is available, this is called with
-	                            an object with the properties buildNumber, the newest
-								release's build number, version, the human-readable
-								version number, and url, the URL the download is available at.
+	 @param {Number} latestBuildNumber build number to consider as current.
+		This is required; the app's build number is stored in
+		window.app.buildNumber.
+	 @param {Function} callback if a new version is available, this is called
+		 with an object with the properties buildNumber, the newest release's
+		 build number, version, the human-readable version number, and url, the
+		 URL the download is available at.
 	**/
 
-	checkForUpdate: function (latestBuildNumber, callback)
-	{
-		$.getJSON('http://twinery.org/latestversion/2.json', function (data)
-		{
-			if (data.buildNumber > latestBuildNumber)
+	checkForUpdate: function(latestBuildNumber, callback) {
+		$.getJSON('http://twinery.org/latestversion/2.json', function(data) {
+			if (data.buildNumber > latestBuildNumber) {
 				callback(data);
+			}
 		});
 	}
 });

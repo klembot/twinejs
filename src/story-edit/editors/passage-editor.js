@@ -14,6 +14,7 @@ var locale = require('../../locale');
 var Passage = require('../../data/models/passage');
 var StoryFormat = require('../../data/models/story-format');
 var tagTemplate = require('../ejs/passage-tag.ejs');
+
 require('codemirror/mode/javascript/javascript');
 require('codemirror/addon/display/placeholder');
 require('codemirror/addon/hint/show-hint');
@@ -22,12 +23,10 @@ require('../../codemirror-ext/prefix-trigger');
 // Harlowe compatibility
 window.CodeMirror = CodeMirror;
 
-module.exports = Backbone.View.extend(
-{
+module.exports = Backbone.View.extend({
 	tagTemplate: tagTemplate,
 
-	initialize: function (options)
-	{
+	initialize: function(options) {
 		/**
 		 A reference to the DOM element containing all tags.
 
@@ -66,15 +65,12 @@ module.exports = Backbone.View.extend(
 		 @property cm
 		**/
 
-		this.cm = CodeMirror.fromTextArea(this.$('.passageText')[0],
-		{
-			prefixTrigger:
-			{
+		this.cm = CodeMirror.fromTextArea(this.$('.passageText')[0], {
+			prefixTrigger: {
 				prefixes: ['[[', '->'],
 				callback: this.autocomplete.bind(this)
 			},
-			extraKeys:
-			{
+			extraKeys: {
 				'Ctrl-Space': this.autocomplete.bind(this)
 			},
 			indentWithTabs: true,
@@ -83,42 +79,40 @@ module.exports = Backbone.View.extend(
 			mode: 'text'
 		});
 
-		this.$el.on('modalhide', this.restoreTitle.bind(this))
-		.on('modalshown', function()
-		{
-			this.$el.one('animationend', function()
-			{
-				this.cm.refresh();
-				this.cm.focus();
+		this.$el
+			.on('modalhide', this.restoreTitle.bind(this))
+			.on('modalshown', function() {
+				this.$el.one('animationend', function() {
+					this.cm.refresh();
+					this.cm.focus();
+				}.bind(this));
+			}.bind(this))
+			.on('click', '.showNewTag', this.showNewTag.bind(this))
+			.on('click', '.hideNewTag', this.hideNewTag.bind(this))
+			.on('submit', function(e) {
+				var name = this.$('.newTagName').val().replace(/\s/g, '-');
+
+				// don't add duplicate tags
+
+				if (this.model.get('tags').indexOf(name) == -1) {
+					this.addTag(name);
+				}
+
+				this.hideNewTag();
+				e.preventDefault();
+			}.bind(this))
+			.on('click', '.tag .remove', function() {
+				$(this).closest('.tag').remove();
+			})
+			.data('blockModalHide', function() {
+				var worked = this.save();
+
+				if (worked) {
+					window.onbeforeunload = null;
+				}
+				
+				return !worked;
 			}.bind(this));
-		}.bind(this))
-		.on('click', '.showNewTag', this.showNewTag.bind(this))
-		.on('click', '.hideNewTag', this.hideNewTag.bind(this))
-		.on('submit', function (e)
-		{
-			var name = this.$('.newTagName').val().replace(/\s/g, '-');
-
-			// don't add duplicate tags
-
-			if (this.model.get('tags').indexOf(name) == -1)
-				this.addTag(name);
-
-			this.hideNewTag();
-			e.preventDefault();
-		}.bind(this))
-		.on('click', '.tag .remove', function()
-		{
-			$(this).closest('.tag').remove();
-		})
-		.data('blockModalHide', function()
-		{
-			var worked = this.save();
-
-			if (worked)
-				window.onbeforeunload = null;
-			
-			return ! worked;
-		}.bind(this));
 	},
 
 	/**
@@ -127,64 +121,67 @@ module.exports = Backbone.View.extend(
 	 @method open
 	**/
 
-	open: function()
-	{
+	open: function() {
 		// remember previous window title
 
 		this.prevTitle = document.title;
-		document.title = locale.say('Editing \u201c%s\u201d', this.model.get('name'));
+		document.title = locale.say(
+			'Editing \u201c%s\u201d', this.model.get('name')
+		);
 
 		// id and name
 
 		this.$('.passageId').val(this.model.id);
 		this.$('.passageName').val(this.model.get('name'));
 
-		/*
-			Load the story format, which may install a CodeMirror mode named after itself.
-			We use that mode if it is found to exist after loading.
-		*/
+		// Load the story format, which may install a CodeMirror mode named
+		// after itself. We use that mode if it is found to exist after
+		// loading.
 
 		var storyFormatName = this.story.get('storyFormat');
 		var storyFormat = StoryFormat.withName(storyFormatName);
 
-		if (storyFormat)
-			storyFormat.load(function (err)
-			{
+		if (storyFormat) {
+			storyFormat.load(function(err) {
 				var modeName = storyFormatName.toLowerCase();
 				
-				if (! err && modeName in CodeMirror.modes)
-				{
-					/*
-						This is a small hack to allow modes such as Harlowe to access the
-						full text of the textarea, permitting its lexer to grow
-						a syntax tree by itself.
-					*/
+				if (!err && modeName in CodeMirror.modes) {
+					// This is a small hack to allow modes such as Harlowe to
+					// access the full text of the textarea, permitting its
+					// lexer to grow a syntax tree by itself.
 
 					CodeMirror.modes[modeName].cm = this.cm;
 
-					// Now that's done, we can assign the mode and trigger a re-render.
+					// Now that's done, we can assign the mode and trigger a
+					// re-render.
 
 					this.cm.setOption('mode', modeName);
 				}
 			}.bind(this));
+		}
 
-		// Set the mode to the default, 'text'. The above callback will reset it if it fires.
+		// Set the mode to the default, 'text'. The above callback will reset
+		// it if it fires.
 
 		this.cm.setOption('mode', 'text');
 		var text = this.model.get('text');
 
-		// Reset the placeholder, which may have been modified by a prior story format.
+		// Reset the placeholder, which may have been modified by a prior story
+		// format.
 		
-		this.cm.setOption('placeholder', this.$('.passageText').attr('placeholder'));
+		this.cm.setOption(
+			'placeholder',
+			this.$('.passageText').attr('placeholder')
+		);
 
-		// swapDoc resets all of the attached events, undo history, etc. of the document.
+		// swapDoc resets all of the attached events, undo history, etc. of the
+		// document.
 
 		this.cm.swapDoc(CodeMirror.Doc(''));
 
-		/*
-			These lines must be used (instead of passing the text to the above constructor)
-			to work around a bug in the CodeMirror placeholder code.
-		*/
+		// These lines must be used (instead of passing the text to the above
+		// constructor) to work around a bug in the CodeMirror placeholder
+		// code.
 
 		this.cm.setValue(text || '');
 		this.cm.focus();
@@ -194,10 +191,12 @@ module.exports = Backbone.View.extend(
 		// so the user can just start typing to replace it;
 		// otherwise move the cursor to the end
 
-		if (text == Passage.prototype.defaults.text)
+		if (text == Passage.prototype.defaults.text) {
 			this.cm.execCommand('selectAll');
-		else
+		}
+		else {
 			this.cm.execCommand('goDocEnd');
+		}
 		
 		// sync tags
 
@@ -206,10 +205,12 @@ module.exports = Backbone.View.extend(
 
 		// assemble a list of existing passage names for autocomplete
 
-		this.cm.setOption('passageNames', _.map(this.parent.collection.models, function (model)
-		{
-			return model.get('name');
-		}));		
+		this.cm.setOption(
+			'passageNames',
+			_.map(this.parent.collection.models, function(model) {
+				return model.get('name');
+			})
+		);
 
 		// actually show it
 		// we refresh twice; now so the text will show properly
@@ -221,65 +222,67 @@ module.exports = Backbone.View.extend(
 
 		// warn the user about leaving before saving
 
-		window.onbeforeunload = function()
-		{
-			return locale.say("Any changes to the passage you're editing haven't been saved yet. " +
-			                  "(To do so, close the passage editor.)");
+		window.onbeforeunload = function() {
+			return locale.say(
+				'Any changes to the passage you\'re editing haven\'t ' +
+				'been saved yet. (To do so, close the passage editor.)');
 		};
 	},
 
 	/**
-	 Shows an autocomplete menu for the current cursor, showing existing passage names.
+	 Shows an autocomplete menu for the current cursor, showing existing
+	 passage names.
 
 	 @method autocomplete
 	**/
 
-	autocomplete: function()
-	{
+	autocomplete: function() {
 		this.cm.showHint({
-			hint: function (cm)	
-			{
+			hint: function(cm) {
 				var wordRange = cm.findWordAt(cm.getCursor());
-				var word = cm.getRange(wordRange.anchor, wordRange.head).toLowerCase();
+				var word = cm.getRange(
+					wordRange.anchor,
+					wordRange.head
+				).toLowerCase();
 
-				var comps =
-				{
-					list: _.filter(cm.getOption('passageNames'), function (name)
-					{
-						return name.toLowerCase().indexOf(word) != -1;
-					}),
+				var comps = {
+					list: _.filter(
+						cm.getOption('passageNames'), function(name) {
+							return name.toLowerCase().indexOf(word) != -1;
+						}),
+
 					from: wordRange.anchor,
 					to: wordRange.head
 				};
 
-				CodeMirror.on(comps, 'pick', function()
-				{
+				CodeMirror.on(comps, 'pick', function() {
 					var doc = cm.getDoc();
+
 					doc.replaceRange(']] ', doc.getCursor());
 				});
 
 				return comps;
 			},
+
 			completeSingle: false,
-			extraKeys:
-			{
-				']': function (cm, hint)
-				{
+			extraKeys: {
+				']': function(cm, hint) {
 					var doc = cm.getDoc();
+
 					doc.replaceRange(']', doc.getCursor());
 					hint.close();
 				},
 
-				'-': function (cm, hint)
-				{
+				'-': function(cm, hint) {
 					var doc = cm.getDoc();
+
 					doc.replaceRange('-', doc.getCursor());
 					hint.close();
 				},
 
-				'|': function (cm, hint)
-				{
+				'|': function(cm, hint) {
 					var doc = cm.getDoc();
+
 					doc.replaceRange('|', doc.getCursor());
 					hint.close();
 				}
@@ -293,8 +296,7 @@ module.exports = Backbone.View.extend(
 	 @method close
 	**/
 
-	close: function()
-	{
+	close: function() {
 		this.$el.data('modal').trigger('hide');
 	},
 
@@ -307,14 +309,12 @@ module.exports = Backbone.View.extend(
 	 @return {Boolean} whether the save was successful
 	**/
 
-	save: function ()
-	{
+	save: function() {
 		// gather current tag names
 
 		var tags = [];
 
-		this.$('.passageTags .tag').each(function()
-		{
+		this.$('.passageTags .tag').each(function() {
 			tags.push($(this).attr('data-name'));
 		});
 
@@ -324,24 +324,26 @@ module.exports = Backbone.View.extend(
 			name: this.$('.passageName').val(),
 			text: this.cm.doc.getValue(),
 			tags: tags
-		}))
-		{
+		})) {
 			// have to manually set the style here because of jQuery .fadeIn()
 
 			this.$('.error').addClass('hide').hide();
 			this.$el.removeClass('hasError');
 			return true;
 		}
-		else
-		{
-			// show the error message
 
-			var message = this.$('.error');
-			message.removeClass('hide').text(this.model.validationError).hide().fadeIn();
-			this.$el.addClass('hasError');
-			this.$('.passageName').focus();
-			return false;
-		};
+		// show the error message
+
+		var message = this.$('.error');
+
+		message
+			.removeClass('hide')
+			.text(this.model.validationError)
+			.hide()
+			.fadeIn();
+		this.$el.addClass('hasError');
+		this.$('.passageName').focus();
+		return false;
 	},
 
 	/**
@@ -350,8 +352,7 @@ module.exports = Backbone.View.extend(
 	 @method showNewTag
 	**/
 
-	showNewTag: function()
-	{
+	showNewTag: function() {
 		this.$('.showNewTag').hide();
 		this.$('.newTag').show();
 		this.$('.newTagName').val('').focus();
@@ -363,8 +364,7 @@ module.exports = Backbone.View.extend(
 	 @method showNewTag
 	**/
 
-	hideNewTag: function()
-	{
+	hideNewTag: function() {
 		this.$('.showNewTag').show();
 		this.$('.newTag').hide();
 	},
@@ -377,8 +377,7 @@ module.exports = Backbone.View.extend(
 	 @param {String} name name of the tag to add
 	**/
 
-	addTag: function (name)
-	{
+	addTag: function(name) {
 		this.tagContainer.append(this.tagTemplate({ name: name }));
 	},
 
@@ -388,8 +387,7 @@ module.exports = Backbone.View.extend(
 	 @method restoreTitle
 	**/
 
-	restoreTitle: function()
-	{
+	restoreTitle: function() {
 		document.title = this.prevTitle;
 	}
 });

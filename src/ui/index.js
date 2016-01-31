@@ -8,19 +8,17 @@
 var $ = require('jquery');
 var fastclick = require('fastclick');
 
-var ui = module.exports =
-{
+var ui = module.exports = {
 	/**
 	 Performs one-time startup tasks, mainly setting up event listeners.
 	 The heavy lifting is done in submodules or jQuery plugins living
 	 in that module.
 	**/
 
-	init: function()
-	{
-		if (! $('body').data('uiInited'))
-		{
+	init: function() {
+		if (!$('body').data('uiInited')) {
 			var $b = $('body');
+
 			$b.data('uiInited', true);
 
 			/**
@@ -32,25 +30,29 @@ var ui = module.exports =
 			// the API depends on whether we're using the CDN
 			// or the CommonJS module :(
 
-			if (fastclick.attach !== undefined)
+			if (fastclick.attach !== undefined) {
 				this.fastclick = fastclick.attach(document.body);
-			else
+			}
+			else {
 				this.fastclick = fastclick(document.body);
+			}
 
 			// note iOS for some custom styles
 
-			if (navigator.userAgent.match(/iPhone|iPad|iPod/i))
+			if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
 				$b.addClass('iOS');
+			}
 
 			// note Safari for some functionality
 			// Chrome includes Safari in its user agent
 
 			if (navigator.userAgent.indexOf('Safari') != -1 &&
-				navigator.userAgent.indexOf('Chrome') == -1)
+				navigator.userAgent.indexOf('Chrome') == -1) {
 				$b.addClass('safari');
+			}
 
-			$b.on('webkitAnimationEnd.twineui oanimationend.twineui msAnimationEnd.twineui', function (e)
-			{
+			$b.on('webkitAnimationEnd.twineui oanimationend.twineui ' +
+				'msAnimationEnd.twineui', function(e) {
 				// polyfill browser animation-related events
 
 				e.type = 'animationend';
@@ -59,8 +61,7 @@ var ui = module.exports =
 
 			$(ui).trigger('init', { $body: $b });
 
-			window.app.mainRegion.on('show', function()
-			{
+			window.app.mainRegion.on('show', function() {
 				$(ui).trigger('attach', { $el: window.app.mainRegion.$el });
 			});
 		};
@@ -70,10 +71,8 @@ var ui = module.exports =
 	 Undoes all setup in init().
 	**/
 
-	destroy: function()
-	{
-		if ($('body').data('uiInited'))
-		{
+	destroy: function() {
+		if ($('body').data('uiInited')) {
 			// disable FastClick
 
 			this.fastclick.destroy();
@@ -83,8 +82,11 @@ var ui = module.exports =
 			// remove classes and event handlers
 			// and mark the body as uninited
 
-			$('body').removeClass('iOS safari').off('.twineui').data('uiInited', null);
-		};
+			$('body')
+				.removeClass('iOS safari')
+				.off('.twineui')
+				.data('uiInited', null);
+		}
 	},
 
 	/**
@@ -96,8 +98,9 @@ var ui = module.exports =
 	 @return {Boolean} whether the browser is primarily touch-based
 	**/
 
-	hasPrimaryTouchUI: function()
-	{
-		return /Android|iPod|iPad|iPhone|IEMobile/.test(window.navigator.userAgent);
+	hasPrimaryTouchUI: function() {
+		return /Android|iPod|iPad|iPhone|IEMobile/.test(
+			window.navigator.userAgent
+		);
 	}
 };

@@ -9,8 +9,7 @@ var _ = require('underscore');
 var StoryCollection = require('../data/collections/story');
 var PassageCollection = require('../data/collections/passage');
 
-var importer = module.exports =
-{
+var importer = module.exports = {
 	/**
 	 Imports a file containing either a single published story, or an
 	 archive of several stories. The stories are immediately saved to storage.
@@ -18,11 +17,11 @@ var importer = module.exports =
 
 	 @module file/importer
 	 @param {String} data Contents of the file to be imported.
-	 @param {Date} lastUpdate If passed, overrides the last updated date of the stories.
+	 @param {Date} lastUpdate If passed, overrides the last updated date of the
+		 stories.
 	**/
 
-	import: function (data, lastUpdate)
-	{
+	import: function(data, lastUpdate) {
 		var sels = importer.selectors;
 
 		// containers for the new stories and passages we will create
@@ -34,20 +33,19 @@ var importer = module.exports =
 
 		var count = 0;
 		var nodes = document.createElement('div');
+
 		nodes.innerHTML = data;
 
 		// remove surrounding <body>, if there is one
 
-		_.each(nodes.querySelectorAll(sels.storyData), function (storyEl)
-		{
+		_.each(nodes.querySelectorAll(sels.storyData), function(storyEl) {
 			var startPassageId = storyEl.attributes.startnode.value;
 
 			// glom all style nodes into the stylesheet property
 
 			var stylesheet = '';
 
-			_.each(storyEl.querySelectorAll(sels.stylesheet), function (el)
-			{
+			_.each(storyEl.querySelectorAll(sels.stylesheet), function(el) {
 				stylesheet += el.textContent + '\n';
 			});
 
@@ -55,50 +53,62 @@ var importer = module.exports =
 
 			var script = '';
 
-			_.each(storyEl.querySelectorAll(sels.script), function (el)
-			{
+			_.each(storyEl.querySelectorAll(sels.script), function(el) {
 				script += el.textContent + '\n';
 			});
 
 			// create a story object
 
-			var story = allStories.create(
-			{
+			var story = allStories.create({
 				name: storyEl.attributes.name.value,
 				storyFormat: storyEl.attributes.format.value,
-				ifid: (storyEl.attributes.ifid) ? storyEl.attributes.ifid.value : undefined,
+				ifid: (storyEl.attributes.ifid) ?
+					storyEl.attributes.ifid.value
+					: undefined,
 				stylesheet: (stylesheet !== '') ? stylesheet : undefined,
 				script: (script !== '') ? script : undefined
 			}, { wait: true, silent: true, validate: false });
 
 			// and child passages
 
-			_.each(storyEl.querySelectorAll(sels.passageData), function (passageEl)
-			{
-				var id = passageEl.attributes.pid.value;
-				var pos = passageEl.attributes.position.value;
-				var posBits = pos.split(',');
-				var tags = passageEl.attributes.tags.value;
-				tags = (tags === '') ? [] : tags.split(/\s+/);
+			_.each(
+				storyEl.querySelectorAll(sels.passageData),
+				function(passageEl) {
+					var id = passageEl.attributes.pid.value;
+					var pos = passageEl.attributes.position.value;
+					var posBits = pos.split(',');
+					var tags = passageEl.attributes.tags.value;
 
-				var passage = allPassages.create(
-				{
-					name: passageEl.attributes.name.value,
-					tags: tags,
-					text: passageEl.textContent,
-					story: story.id,
-					left: parseInt(posBits[0]),
-					top: parseInt(posBits[1])
-				}, { wait: true, silent: true, validate: false });
+					tags = (tags === '') ? [] : tags.split(/\s+/);
 
-				if (id == startPassageId)
-					story.save({ startPassage: passage.id }, { silent: true, validate: false });
-			});
+					var passage = allPassages.create(
+						{
+							name: passageEl.attributes.name.value,
+							tags: tags,
+							text: passageEl.textContent,
+							story: story.id,
+							left: parseInt(posBits[0]),
+							top: parseInt(posBits[1])
+						},
+						{ wait: true, silent: true, validate: false }
+					);
+
+					if (id == startPassageId) {
+						story.save(
+							{ startPassage: passage.id },
+							{ silent: true, validate: false }
+						);
+					}
+				});
 			
 			// override update date if requested
 			
-			if (lastUpdate)
-				story.save({ lastUpdate: lastUpdate }, { silent: true, validate: false });
+			if (lastUpdate) {
+				story.save(
+					{ lastUpdate: lastUpdate },
+					{ silent: true, validate: false }
+				);
+			}
 
 			count++;
 		});
@@ -115,8 +125,7 @@ var importer = module.exports =
 	 @final
 	**/
 
-	selectors:
-	{
+	selectors: {
 		passage: 'tw-passage',
 		story: 'tw-story',
 		script: '[role=script]',

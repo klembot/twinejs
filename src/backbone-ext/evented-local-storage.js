@@ -9,17 +9,14 @@
 var _ = require('underscore');
 var LocalStorage = require('backbone.localstorage');
 
-function EventedLocalStorage (name, serializer)
-{
+function EventedLocalStorage(name, serializer) {
 	return LocalStorage.call(this, name, serializer);
 };
 
 EventedLocalStorage.prototype = new LocalStorage();
 
-_.extend(EventedLocalStorage.prototype,
-{
-	update: function (model)
-	{
+_.extend(EventedLocalStorage.prototype, {
+	update: function(model) {
 		var result = LocalStorage.prototype.update.call(this, model);
 	
 		/**

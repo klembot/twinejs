@@ -10,10 +10,8 @@ var _ = require('underscore');
 var Backbone = require('backbone');
 var locale = require('../../locale');
 
-module.exports = Backbone.View.extend(
-{
-	initialize: function (options)
-	{
+module.exports = Backbone.View.extend({
+	initialize: function(options) {
 		this.parent = options.parent;
 	},
 
@@ -23,8 +21,7 @@ module.exports = Backbone.View.extend(
 	 @method open
 	**/
 
-	open: function()
-	{
+	open: function() {
 		// calculate counts
 
 		var charCount = 0;
@@ -35,18 +32,18 @@ module.exports = Backbone.View.extend(
 		var passageLinks = {};
 		var passageNames = [];
 
-		_.each(this.parent.collection.models, function (passage)
-		{
+		_.each(this.parent.collection.models, function(passage) {
 			passageCount++;
 			var text = passage.get('text');
+
 			charCount += text.length;
 			wordCount += text.split(/\s+/).length;
 			var links = passage.links();
+
 			linkCount += links.length;
 			passageNames.push(passage.get('name'));
 
-			_.each(links, function (link)
-			{
+			_.each(links, function(link) {
 				passageLinks[link] = (passageLinks[link] || 0) + 1;
 			});
 		});
@@ -54,10 +51,10 @@ module.exports = Backbone.View.extend(
 		// we calculate broken links now that we have
 		// a complete list of names
 
-		_.each(passageLinks, function (count, name)
-		{
-			if (passageNames.indexOf(name) == -1)
+		_.each(passageLinks, function(count, name) {
+			if (passageNames.indexOf(name) == -1) {
 				brokenLinkCount += count;
+			}
 		});
 
 		this.$('.charCount').text(charCount.toLocaleString());
@@ -68,22 +65,35 @@ module.exports = Backbone.View.extend(
 
 		// L10n: Character in the sense of individual letters in a word.
 		// This does not actually show the count here, as it is used in a table.
-		this.$('.charDesc').text(locale.sayPlural('Character', 'Characters', charCount));
+		this.$('.charDesc').text(
+			locale.sayPlural('Character', 'Characters', charCount)
+		);
 
 		// L10n: Word in the sense of individual words in a sentence.
 		// This does not actually show the count here, as it is used in a table.
-		this.$('.wordDesc').text(locale.sayPlural('Word', 'Words', wordCount));
+		this.$('.wordDesc').text(
+			locale.sayPlural('Word', 'Words', wordCount)
+		);
 
-		// L10n: This does not actually show the count here, as it is used in a table.
-		this.$('.passageDesc').text(locale.sayPlural('Passage', 'Passages', passageCount));
+		// L10n: This does not actually show the count here, as it is used in a
+		// table.
+		this.$('.passageDesc').text(
+			locale.sayPlural('Passage', 'Passages', passageCount)
+		);
 
 		// L10n: Links in the sense of hypertext links.
-		// This does not actually show the count here, as it is used in a table.
-		this.$('.linkDesc').text(locale.sayPlural('Link', 'Links', passageCount));
+		// This does not actually show the count here, as it is used in a
+		// table.
+		this.$('.linkDesc').text(
+			locale.sayPlural('Link', 'Links', passageCount)
+		);
 
 		// L10n: Links in the sense of hypertext links.
-		// This does not actually show the count here, as it is used in a table.
-		this.$('.brokenLinkDesc').text(locale.sayPlural('Broken Link', 'Broken Links', passageCount));
+		// This does not actually show the count here, as it is used in a
+		// table.
+		this.$('.brokenLinkDesc').text(
+			locale.sayPlural('Broken Link', 'Broken Links', passageCount)
+		);
 
 		this.$el.data('modal').trigger('show');
 	},
@@ -94,8 +104,7 @@ module.exports = Backbone.View.extend(
 	 @method close
 	**/
 
-	close: function()
-	{
+	close: function() {
 		this.$el.data('modal').trigger('hide');
 	}
 });
