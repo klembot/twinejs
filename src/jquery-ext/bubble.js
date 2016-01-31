@@ -16,8 +16,7 @@ var locale = require('../locale');
 
 // syntax is $(...).bubble('show' | 'hide' | 'toggle')
 
-$.fn.bubble = function (action)
-{
+$.fn.bubble = function(action) {
 	var $t = $(this);
 	var $cont = $t.closest('.bubbleContainer');
 	var $bubble = $cont.find('.bubble');
@@ -25,67 +24,75 @@ $.fn.bubble = function (action)
 	// vertically center bubbles that are displayed to the side,
 	// push bubbles pointing down above their sources
 
-	if ($bubble.hasClass('left') || $bubble.hasClass('right'))
+	if ($bubble.hasClass('left') || $bubble.hasClass('right')) {
 		$bubble.css('margin-top', 0 - $bubble.outerHeight() / 2);
-	else
-		if ($bubble.hasClass('down'))
+	}
+	else {
+		if ($bubble.hasClass('down')) {
 			$bubble.css('top', 0 - $bubble.outerHeight());
+		}
+	}
 
-	switch (action)
-	{
+	switch (action) {
 		case 'show':
-		// ignore repeated show calls
+			// ignore repeated show calls
 
-		if ($cont.hasClass('active'))
-			return this;
+			if ($cont.hasClass('active')) {
+				return this;
+			}
 
-		// hide any existing bubble and tooltips
+			// hide any existing bubble and tooltips
 
-		$('.active[data-bubble]').bubble('hide');
-		$.powerTip.hide();
+			$('.active[data-bubble]').bubble('hide');
+			$.powerTip.hide();
 
-		// show this one
+			// show this one
 
-		$t.addClass('active');
-		$cont.addClass('active');
-		$bubble.css(
-		{
-			display: 'block',
-			height: $bubble.height()
-		}).addClass('fadeIn fast');
-		$bubble.trigger('bubbleshow');
-		break;
+			$t.addClass('active');
+			$cont.addClass('active');
+			$bubble.css({
+				display: 'block',
+				height: $bubble.height()
+			}).addClass('fadeIn fast');
+			$bubble.trigger('bubbleshow');
+			break;
 
 		case 'hide':
-		// ignore repeated hide calls
+			// ignore repeated hide calls
 
-		if (! $cont.hasClass('active'))
-			return this;
+			if (!$cont.hasClass('active')) {
+				return this;
+			}
 
-		// deactivate any toggle buttons
+			// deactivate any toggle buttons
 
-		$cont.find('button[data-bubble="toggle"]').removeClass('active');
-		$cont.removeClass('active');
+			$cont.find('button[data-bubble="toggle"]').removeClass('active');
+			$cont.removeClass('active');
 
-		// hide the bubble
+			// hide the bubble
 
-		$bubble.addClass('fadeOut fast').one('animationend', function()
-		{
-			$bubble.removeClass('fadeIn fadeOut').css('display', 'none');
-		});
-		$bubble.trigger('bubblehide');
-		break;
+			$bubble.addClass('fadeOut fast').one('animationend', function() {
+				$bubble.removeClass('fadeIn fadeOut').css('display', 'none');
+			});
+
+			$bubble.trigger('bubblehide');
+			break;
 
 		case 'toggle':
-		if ($bubble.css('display') == 'block')
-			$t.bubble('hide');
-		else
-			$t.bubble('show');
-		break;
+			if ($bubble.css('display') == 'block') {
+				$t.bubble('hide');
+			}
+			else {
+				$t.bubble('show');
+			}
+
+			break;
 
 		default:
-		// L10n: An internal error message related to UI components.
-		throw new Error(locale.say("Don't know how to do bubble action %s", action));
+			// L10n: An internal error message related to UI components.
+			throw new Error(
+				locale.say('Don\'t know how to do bubble action %s', action)
+			);
 	};
 
 	return this;

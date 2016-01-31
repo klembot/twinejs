@@ -12,7 +12,7 @@ var confirmTemplate = require('./ejs/confirm.ejs');
 
 /**
  Shows a modal confirmation dialog, with one button (to continue the action)
- and a Cancel button. 
+ and a Cancel button.
 
  @param {String} message HTML source of the message
  @param {String} buttonLabel HTML label for the button
@@ -22,12 +22,10 @@ var confirmTemplate = require('./ejs/confirm.ejs');
 						 buttonClass (CSS class to apply to the action button)
 **/
 
-module.exports = function (message, buttonLabel, callback, options)
-{
+module.exports = function(message, buttonLabel, callback, options) {
 	options = options || {};
 
-	var modalContainer = $(Marionette.Renderer.render(confirmTemplate,
-	{
+	var modalContainer = $(Marionette.Renderer.render(confirmTemplate, {
 		message: message,
 		buttonLabel: buttonLabel,
 		modalClass: options.modalClass || '',
@@ -36,12 +34,12 @@ module.exports = function (message, buttonLabel, callback, options)
 
 	var modal = modalContainer.find('.modal');
 
-	modal.on('click', 'button', function()
-	{
-		if ($(this).data('action') == 'yes' && callback)
+	modal.on('click', 'button', function() {
+		if ($(this).data('action') == 'yes' && callback) {
 			callback();
+		}
 
-		modal.data('modal').trigger('hide');		
+		modal.data('modal').trigger('hide');
 	});
 
 	$('body').append(modalContainer);

@@ -20,25 +20,29 @@ var StorageQuota = require('./storage-quota');
 var StoryCollection = require('../data/collections/story');
 var StoryItemView = require('./story-item-view');
 var storyListTemplate = require('./ejs/story-list-view.ejs');
+
 require('../ui/bubble');
 require('../ui/modal');
 require('../ui/tooltip');
 
-module.exports = Marionette.CompositeView.extend(
-{
+module.exports = Marionette.CompositeView.extend({
 	childView: StoryItemView,
 	childViewContainer: '.stories',
-	childViewOptions: function (model)
-	{
+	childViewOptions: function(model) {
 		/**
-		 A cached collection of all passages, to speed up rendering of previews.
+		 A cached collection of all passages, to speed up rendering of
+		 previews.
 		 @property previewCache
 		**/
 
-		if (! this.previewCache)
+		if (!this.previewCache) {
 			this.previewCache = PassageCollection.all();
+		}
 
-		return { parentView: this, passages: this.previewCache.where({ story: model.get('id') }) };
+		return {
+			parentView: this,
+			passages: this.previewCache.where({ story: model.get('id') })
+		};
 	},
 
 	template: storyListTemplate,
@@ -74,41 +78,41 @@ module.exports = Marionette.CompositeView.extend(
 
 	appearFast: false,
 
-	initialize: function()
-	{
+	initialize: function() {
 		this.sortByDate();
-		this.collection.on('sort', function()
-		{
+		this.collection.on('sort', function() {
 			this.render();
 
 			// reset SVG previews
 
-			this.children.each(function (view)
-			{
+			this.children.each(function(view) {
 				view.preview.passagesRendered = false;
 			});
 
 			this.showNextPreview();
 		}.bind(this));
 
-		this.collection.on('add', function()
-		{
+		this.collection.on('add', function() {
 			this.previewCache = null;
 		}.bind(this));
 
-		this.collection.on('reset', function()
-		{
+		this.collection.on('reset', function() {
 			this.previewCache = null;
 			this.render();
 		}.bind(this));
 	},
 
-	onShow: function()
-	{
+	onShow: function() {
 		this.syncStoryCount();
 
-		this.storageQuota = new StorageQuota({ parent: this, el: this.$('.quota') });
-		this.formatsModal = new FormatsModal({ parent: this, el: this.$('#formatsModal') });
+		this.storageQuota = new StorageQuota({
+			parent: this,
+			el: this.$('.quota')
+		});
+		this.formatsModal = new FormatsModal({
+			parent: this,
+			el: this.$('#formatsModal')
+		});
 
 		// set the version number in the HTML
 
@@ -117,30 +121,30 @@ module.exports = Marionette.CompositeView.extend(
 		// if we were previously editing a story, show a proxy
 		// shrinking back into the appropriate item
 
-		if (this.previouslyEditing)
-		{
-			var proxy = $('<div id="storyEditProxy" class="fullAppear fast reverse">');
-			proxy.one('animationend', function()
-			{
+		if (this.previouslyEditing) {
+			var proxy =
+				$('<div id="storyEditProxy" class="fullAppear fast reverse">');
+
+			proxy.one('animationend', function() {
 				proxy.remove();
 			});
 
-			this.children.find(function (c)
-			{
-				if (c.model.get('id') == this.previouslyEditing)
-				{
+			this.children.find(function(c) {
+				if (c.model.get('id') == this.previouslyEditing) {
 					var $s = c.$('.story');
 					var o = $s.offset();
+
 					o.left += $s.outerHeight() / 2;
 
 					// we don't vertically center because it zooms into empty
 					// space on short titles
 
-					proxy.css(
-					{
-						'-webkit-transform-origin': o.left + 'px ' + o.top + 'px',
+					proxy.css({
+						'-webkit-transform-origin': o.left + 'px ' +
+							o.top + 'px',
 						transformOrigin: o.left + 'px ' + o.top + 'px'
 					});
+
 					return true;
 				};
 			}.bind(this));
@@ -150,68 +154,73 @@ module.exports = Marionette.CompositeView.extend(
 
 		// if we were asked to appear fast, we do nothing else
 
-		if (this.appearFast)
+		if (this.appearFast) {
 			return;
+		}
 
 		// is it time to ask for a donation?
 
-		var firstRunPref = AppPref.withName('firstRunTime', new Date().getTime());
+		var firstRunPref = AppPref.withName(
+			'firstRunTime', new Date().getTime()
+		);
 		var donateShown = AppPref.withName('donateShown', false);
 
-		if (! donateShown.get('value') &&
-            new Date().getTime() > firstRunPref.get('value') + this.DONATION_DELAY)
-		{
-			_.delay(function()
-			{
+		if (!donateShown.get('value') && new Date().getTime() >
+				firstRunPref.get('value') + this.DONATION_DELAY) {
+			_.delay(function() {
 				this.$('#donateModal').data('modal').trigger('show');
 			}.bind(this), 50);
 
 			donateShown.save({ value: true });
 		}
-		else
-		{
+		else {
 			// is there a new update to Twine?
 
-			var lastUpdateSeenPref = AppPref.withName('lastUpdateSeen', window.app.buildNumber); 
+			var lastUpdateSeenPref = AppPref.withName(
+				'lastUpdateSeen',
+				window.app.buildNumber
+			);
 
 			// force last update to be at least the current app version
 
-			if (lastUpdateSeenPref.get('value') < window.app.buildNumber)
+			if (lastUpdateSeenPref.get('value') < window.app.buildNumber) {
 				lastUpdateSeenPref.save({ value: window.app.buildNumber });
+			}
 
-			var lastUpdateCheckPref = AppPref.withName('lastUpdateCheckTime', new Date().getTime());
+			var lastUpdateCheckPref = AppPref.withName(
+				'lastUpdateCheckTime',
+				new Date().getTime()
+			);
 
-			if (new Date().getTime() > lastUpdateCheckPref.get('value') + this.UPDATE_CHECK_DELAY)
-			{
-				window.app.checkForUpdate(lastUpdateSeenPref.get('value'), function (data)
-				{
-					lastUpdateSeenPref.save({ value: data.buildNumber });
-					$('#appUpdateModal .version').text(data.version);
-					$('#appUpdateModal a.download').attr('href', data.url);
+			if (new Date().getTime() > lastUpdateCheckPref.get('value') +
+				this.UPDATE_CHECK_DELAY) {
+				window.app.checkForUpdate(
+					lastUpdateSeenPref.get('value'),
+					function(data) {
+						lastUpdateSeenPref.save({ value: data.buildNumber });
+						$('#appUpdateModal .version').text(data.version);
+						$('#appUpdateModal a.download').attr('href', data.url);
 
-					_.delay(function()
-					{
-						$('#appUpdateModal').data('modal').trigger('show');
-					}.bind(this), 50);
-				});
-			};
-		};
+						_.delay(function() {
+							$('#appUpdateModal').data('modal').trigger('show');
+						}.bind(this), 50);
+					}
+				);
+			}
+		}
 	},
 
-	onDomRefresh: function()
-	{
+	onDomRefresh: function() {
 		// trigger display of previews
 
 		_.defer(this.showNextPreview.bind(this));
 	},
 
-	onAddChild: function()
-	{
+	onAddChild: function() {
 		this.syncStoryCount();
 	},
 
-	onRemoveChild: function()
-	{
+	onRemoveChild: function() {
 		this.syncStoryCount();
 	},
 
@@ -222,21 +231,23 @@ module.exports = Marionette.CompositeView.extend(
 	 @method addStory
 	**/
 
-	addStory: function (e)
-	{
-		var story = this.collection.create({ name: this.$('input.newName').val() });
+	addStory: function(e) {
+		var story = this.collection.create({
+			name: this.$('input.newName').val()
+		});
+
 		this.children.findByModel(story).edit();
 		e.preventDefault();
 	},
 
 	/**
-	 Saves an archive of all stories by passing the request onto TwineApp.saveArchive().
+	 Saves an archive of all stories by passing the request onto
+	 TwineApp.saveArchive().
 
 	 @method saveArchive
 	**/
 
-	saveArchive: function()
-	{
+	saveArchive: function() {
 		publish.saveArchive();
 	},
 
@@ -247,39 +258,39 @@ module.exports = Marionette.CompositeView.extend(
 	 @method importFile
 	**/
 
-	importFile: function (e)
-	{
+	importFile: function(e) {
 		var reader = new FileReader();
 		var bubble = this.$('.importStory').closest('.bubbleContainer');
+
 		bubble.find('.form').addClass('hide');
 		bubble.find('.working').removeClass('hide');
 
-		reader.addEventListener('load', function (e)
-		{
+		reader.addEventListener('load', function(e) {
 			var className = '';
 			var message = '';
 
-			try
-			{
+			try {
 				var count = importer.import(e.target.result);
 
-				if (count > 0)
-				{
+				if (count > 0) {
 					// L10n: %d is a number of stories.
-					message = locale.sayPlural('%d story was imported.',
-					                           '%d stories were imported.', count);
+					message = locale.sayPlural(
+						'%d story was imported.',
+						'%d stories were imported.',
+						count
+					);
 				}
-				else
-				{
+				else {
 					className = 'danger';
 					message = 'Sorry, no stories could be found in this file.';
 				}
 			}
-			catch (err)
-			{
+			catch (err) {
 				className = 'danger';
-				message = 'An error occurred while trying to import this file. (' + err.message + ')';
-			};
+				message =
+					'An error occurred while trying to import this file. (' +
+					err.message + ')';
+			}
 
 			notify(message, className);
 			this.collection.reset(StoryCollection.all().models);
@@ -292,17 +303,14 @@ module.exports = Marionette.CompositeView.extend(
 		return reader;
 	},
 
-	showNextPreview: function()
-	{
-		var unrendered = this.children.find(function (view)
-		{
-			return ! view.preview.passagesRendered;
+	showNextPreview: function() {
+		var unrendered = this.children.find(function(view) {
+			return !view.preview.passagesRendered;
 		});
 		
-		if (unrendered !== undefined)
-		{
+		if (unrendered !== undefined) {
 			unrendered.preview.renderPassages(this.showNextPreview.bind(this));
-		};
+		}
 	},
 
 	/**
@@ -311,8 +319,7 @@ module.exports = Marionette.CompositeView.extend(
 	 @method sortByName
 	**/
 
-	sortByName: function()
-	{
+	sortByName: function() {
 		this.collection.order = 'name';
 		this.collection.reverseOrder = false;
 		this.collection.sort();
@@ -326,8 +333,7 @@ module.exports = Marionette.CompositeView.extend(
 	 @method sortByDate
 	**/
 
-	sortByDate: function()
-	{
+	sortByDate: function() {
 		this.collection.order = 'lastUpdate';
 		this.collection.reverseOrder = true;
 		this.collection.sort();
@@ -342,43 +348,40 @@ module.exports = Marionette.CompositeView.extend(
 	 @method syncStoryCount
 	**/
 
-	syncStoryCount: function()
-	{
-		if (this.collection.length > 0)
-		{
+	syncStoryCount: function() {
+		if (this.collection.length > 0) {
 			this.$('.stories').css('display', 'block');
 			this.$('.noStories').css('display', 'none');
 		}
-		else
-		{
+		else {
 			this.$('.stories').css('display', 'none');
 			this.$('.noStories').css('display', 'block');
-		};
+		}
 
 		// L10n: %d is a number of stories
-		document.title = locale.sayPlural('%d Story', '%d Stories', this.collection.length);
+		document.title = locale.sayPlural(
+			'%d Story',
+			'%d Stories',
+			this.collection.length
+		);
 	},
 
-	events:
-	{
+	events: {
 		'submit #addStoryForm': 'addStory',
 		'click .saveArchive': 'saveArchive',
 		'change .importFile': 'importFile',
 		'click .sortByDate': 'sortByDate',
 		'click .sortByName': 'sortByName',
 
-		'click .showFormats': function()
-		{
+		'click .showFormats': function() {
 			this.formatsModal.open();
 		},
 
-		'click .showLocale': function()
-		{
+		'click .showLocale': function() {
 			window.location.hash = 'locale';
 		},
 
-		'click .showHelp': function()
-		{
+		'click .showHelp': function() {
 			window.open('http://twinery.org/2guide');
 		}
 	}

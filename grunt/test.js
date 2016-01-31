@@ -13,9 +13,22 @@ module.exports = function (grunt)
 		}
 	});
 
+	// jscs checks JavaScript files for style issues.
+
+	grunt.config.merge({
+		jscs: {
+			check: {
+				src: 'src/**/*.js',
+				options: {
+					config: './jscs.json'
+				}
+			}
+		}
+	});
+
 	// lint lints everything.
 
-	grunt.registerTask('lint', ['eslint']);
+	grunt.registerTask('lint', ['eslint', 'jscs']);
 
 	// mocha runs browser-based tests.
 	// --grep only runs tests matching a regular expression.

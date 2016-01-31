@@ -47,6 +47,7 @@
     "grunt-contrib-cssmin": "^0.14.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-eslint": "^17.2.0",
+    "grunt-jscs": "^2.7.0",
     "grunt-jsdoc": "^1.0.0",
     "grunt-mocha-test": "^0.12.7",
     "grunt-mochify": "^0.3.0",

@@ -8,47 +8,43 @@
 'use strict';
 var Backbone = require('backbone');
 var CodeMirror = require('codemirror');
+
 require('codemirror/addon/display/placeholder');
 require('codemirror/addon/hint/show-hint');
 
-module.exports = Backbone.View.extend(
-{
-	initialize: function (options)
-	{
+module.exports = Backbone.View.extend({
+	initialize: function(options) {
 		this.parent = options.parent;
 
 		// we have to use the [0] index here because CodeMirror
 		// expects a DOM element, not a jQuery object
 
-		this.scriptEditor = CodeMirror.fromTextArea(this.$('.scriptSource')[0],
-		{
-			lineWrapping: true,
-			lineNumbers: false,
-			tabSize: 2,
-			indentWithTabs: true,
-			mode: 'javascript',
-			extraKeys:
+		this.scriptEditor = CodeMirror.fromTextArea(
+			this.$('.scriptSource')[0],
 			{
-				'Ctrl-Space': function (cm)
-				{
-					cm.showHint();
+				lineWrapping: true,
+				lineNumbers: false,
+				tabSize: 2,
+				indentWithTabs: true,
+				mode: 'javascript',
+				extraKeys: {
+					'Ctrl-Space': function(cm) {
+						cm.showHint();
+					}
 				}
 			}
-		});
+		);
 		this.$('.scriptSource:first').data('codemirror', this.scriptEditor);
 
 		this.$el.on({
-			'modalshown': function()
-			{
-				this.$el.one('animationend', function()
-				{
+			'modalshown': function() {
+				this.$el.one('animationend', function() {
 					this.scriptEditor.refresh();
 					this.scriptEditor.focus();
 				}.bind(this));
 			}.bind(this),
 
-			'modalhide': function()
-			{
+			'modalhide': function() {
 				this.save();
 			}.bind(this)
 		});
@@ -60,8 +56,7 @@ module.exports = Backbone.View.extend(
 	 @method open
 	**/
 
-	open: function()
-	{
+	open: function() {
 		this.scriptEditor.doc.setValue(this.parent.model.get('script'));
 		this.scriptEditor.refresh();
 		this.$el.data('modal').trigger('show');
@@ -73,8 +68,7 @@ module.exports = Backbone.View.extend(
 	 @method close
 	**/
 
-	close: function()
-	{
+	close: function() {
 		this.$el.data('modal').trigger('hide');
 	},
 
@@ -84,8 +78,7 @@ module.exports = Backbone.View.extend(
 	 @method save
 	**/
 
-	save: function()
-	{
+	save: function() {
 		this.parent.model.save({ script: this.scriptEditor.doc.getValue() });
 	}
 });

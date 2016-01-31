@@ -9,8 +9,7 @@
 var Backbone = require('backbone');
 var LocalStorage = require('backbone.localstorage');
 
-var AppPrefCollection = Backbone.Collection.extend(
-{
+var AppPrefCollection = Backbone.Collection.extend({
 	model: AppPref,
 	localStorage: new LocalStorage('twine-prefs')
 });
@@ -30,9 +29,9 @@ AppPrefCollection.prototype.model = AppPref;
  @static
 **/
 
-AppPrefCollection.all = function()
-{
+AppPrefCollection.all = function() {
 	var result = new AppPrefCollection();
+
 	result.fetch();
 	return result;
 };

@@ -7,10 +7,8 @@ var notify = require('../../ui/notify');
 var StoryFormatCollection = require('../../data/collections/story-format');
 var singleFormatTemplate = require('../ejs/single-story-format-item.ejs');
 
-module.exports = Backbone.View.extend(
-{
-	initialize: function (options)
-	{
+module.exports = Backbone.View.extend({
+	initialize: function(options) {
 		this.parent = options.parent;
 		this.itemTemplate = singleFormatTemplate;
 	},
@@ -21,8 +19,7 @@ module.exports = Backbone.View.extend(
 	 @method open
 	**/
 
-	open: function()
-	{
+	open: function() {
 		// begin loading formats immediately
 
 		this.$('.formats').empty();
@@ -38,8 +35,7 @@ module.exports = Backbone.View.extend(
 	 @method close
 	**/
 
-	close: function()
-	{
+	close: function() {
 		this.$el.data('modal').trigger('hide');
 	},
 
@@ -49,17 +45,17 @@ module.exports = Backbone.View.extend(
 	 @method changeFormat
 	**/
 
-	changeFormat: function (name)
-	{
+	changeFormat: function(name) {
 		this.parent.model.save({ storyFormat: name });
-		this.$('.detail button.select').each(function()
-		{
+		this.$('.detail button.select').each(function() {
 			var $t = $(this);
 
-			if ($t.closest('.detail').data('format') == name)
+			if ($t.closest('.detail').data('format') == name) {
 				$t.addClass('active');
-			else
+			}
+			else {
 				$t.removeClass('active');
+			}
 		});
 	},
 
@@ -71,49 +67,61 @@ module.exports = Backbone.View.extend(
 	 @method loadNextFormat
 	**/
 
-	loadNextFormat: function()
-	{
-		if (this.formatsToLoad.length > 0)
-		{
+	loadNextFormat: function() {
+		if (this.formatsToLoad.length > 0) {
 			var format = this.formatsToLoad.at(0);
 
-			format.load(function (e)
-			{
-				if (e === undefined)
-				{
+			format.load(function(e) {
+				if (e === undefined) {
 					// skip proofing-only formats
 
-					if (! format.properties.proofing)
-					{
+					if (!format.properties.proofing) {
 						// calculate containing directory for the format
 						// so that image URLs, for example, are correct
 
 						var path = format.get('url').replace(/\/[^\/]*?$/, '');
+
 						format.properties.path = path;
-						var content = $(Marionette.Renderer.render(this.itemTemplate, format.properties));
+						var content = $(
+							Marionette.Renderer.render(
+								this.itemTemplate,
+								format.properties
+							)
+						);
 
 						this.$('.formats').append(content);
 
-						if (format.properties.name == this.parent.model.get('storyFormat'))
+						if (format.properties.name ==
+							this.parent.model.get('storyFormat')) {
 							content.find('button.select').addClass('active');
-					};
+						}
+					}
 				}
-				else
-					// L10n: %1$s is the name of the story format, %2$s is the error message.
-					notify(locale.say('The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s).', format.get('name'), e.message), 'danger');
+				else {
+					// L10n: %1$s is the name of the story format, %2$s is the
+					// error message.
+					notify(
+						locale.say(
+							'The story format &ldquo;%1$s&rdquo; could not ' +
+							'be loaded (%2$s).',
+							format.get('name'),
+							e.message
+						),
+						'danger'
+					);
+				}
 
 				this.formatsToLoad.remove(format);
 				this.loadNextFormat();
 			}.bind(this));
 		}
-		else
+		else {
 			this.$('.loading').hide();
+		}
 	},
 
-	events:
-	{
-		'click button.select': function (e)
-		{
+	events: {
+		'click button.select': function(e) {
 			this.changeFormat($(e.target).closest('button').data('format'));
 		}
 	}

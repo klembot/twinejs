@@ -9,34 +9,36 @@
 var Backbone = require('backbone');
 var EventedLocalStorage = require('../../backbone-ext/evented-local-storage');
 
-var StoryCollection = Backbone.Collection.extend(
-{
+var StoryCollection = Backbone.Collection.extend({
 	localStorage: new EventedLocalStorage('twine-stories'),
 	order: 'name',
 	reverseOrder: false,
 
-	comparator: function (a, b)
-	{
+	comparator: function(a, b) {
 		var sortVal;
 		
-		switch (this.order)
-		{
+		switch (this.order) {
 			case 'name':
-			sortVal = a.get('name') < b.get('name') ? -1 : 1;
-			break;
+				sortVal = a.get('name') < b.get('name') ? -1 : 1;
+				break;
 
 			case 'lastUpdate':
-			var aDate = new Date(a.get('lastUpdate'));
-			var bDate = new Date(b.get('lastUpdate'));
-			sortVal = aDate.getTime() < bDate.getTime() ? -1 : 1;
-			break;
+				var aDate = new Date(a.get('lastUpdate'));
+				var bDate = new Date(b.get('lastUpdate'));
+
+				sortVal = aDate.getTime() < bDate.getTime() ? -1 : 1;
+				break;
 			
 			default:
-			// L10n: An internal error. %s is a bad sort criterion.
-			throw new Error(window.app.say("don't know how to sort stories by %s", this.order));
+				// FIXME
+				// L10n: An internal error. %s is a bad sort criterion.
+				throw new Error(
+					window.app.say('don\'t know how to sort stories by %s',
+					this.order
+				));
 		};
 
-		return sortVal *(this.reverseOrder ? -1 : 1);
+		return sortVal * (this.reverseOrder ? -1 : 1);
 	}
 });
 
@@ -55,9 +57,9 @@ StoryCollection.prototype.model = Story;
  @static
 **/
 
-StoryCollection.all = function()
-{
+StoryCollection.all = function() {
 	var result = new StoryCollection();
+
 	result.fetch();
 	return result;
 };

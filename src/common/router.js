@@ -24,10 +24,8 @@ var StoryFormat = require('../data/models/story-format');
 var StoryListView = require('../story-list/story-list-view');
 var WelcomeView = require('../welcome/welcome-view');
 
-module.exports = Backbone.Router.extend(
-{
-	initialize: function (options)
-	{
+module.exports = Backbone.Router.extend({
+	initialize: function(options) {
 		/**
 		 The app managed by this router.
 
@@ -37,72 +35,70 @@ module.exports = Backbone.Router.extend(
 		this.app = options.app;
 	},
 
-	welcome: function()
-	{
+	welcome: function() {
 		this.app.mainRegion.show(new WelcomeView());
 	},
 
-	locale: function()
-	{
+	locale: function() {
 		this.app.mainRegion.show(new LocaleView());
 	},
 
-	listStories: function()
-	{
+	listStories: function() {
 		// list of all stories
 
-		this.app.mainRegion.show(new StoryListView({ collection: StoryCollection.all() }));
+		this.app.mainRegion.show(
+			new StoryListView({ collection: StoryCollection.all() })
+		);
 	},
 
-	editStory: function (id)
-	{
+	editStory: function(id) {
 		// edit a specific story
 
-		this.app.mainRegion.show(new StoryEditView({ model: Story.withId(id) }));
+		this.app.mainRegion.show(
+			new StoryEditView({ model: Story.withId(id) })
+		);
 	},
 
-	playStory: function (id)
-	{
+	playStory: function(id) {
 		// play a story
 
 		publish.publishStory(Story.withId(id));
 	},
 
-	testStory: function (storyId, passageId)
-	{
+	testStory: function(storyId, passageId) {
 		// test a story from a particular passage
 		
-		publish.publishStory(Story.withId(storyId), null,
-		{
+		publish.publishStory(Story.withId(storyId), null, {
 			formatOptions: ['debug'],
 			startPassageId: passageId
 		});
 	},
 
-	proofStory: function (id)
-	{
+	proofStory: function(id) {
 		// proof a story
 
 		var story = Story.withId(id);
-		var format = StoryFormat.withName(AppPref.withName('proofingFormat').get('value'));
+		var format = StoryFormat.withName(
+			AppPref.withName('proofingFormat').get('value')
+		);
 		
 		publish.publishStory(story, null, { format: format });
 	},
 
-	startup: function()
-	{
+	startup: function() {
 		// default route -- show welcome if the user hasn't already seen it
 
 		var welcomePref = AppPref.withName('welcomeSeen', false);
 
-		if (welcomePref.get('value') === true)
+		if (welcomePref.get('value') === true) {
 			window.location.hash = '#stories';
-		else
+		}
+		else {
 			window.location.hash = '#welcome';
+		}
 	},
 
-	routes:
-	{
+	routes: {
 		'welcome': 'welcome',
 		'locale': 'locale',
 		'stories': 'listStories',

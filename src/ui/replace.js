@@ -2,14 +2,14 @@
  Completely replaces the document with HTML source.
 
  @method replaceContent
- @param {String} html HTML source to replace, including DOCTYPE, <head>, and <body>.
+ @param {String} html HTML source to replace, including DOCTYPE, <head>, and
+	<body>.
 **/
 
 'use strict';
 var ui = require('./index.js');
 
-module.exports = function (html)
-{
+module.exports = function(html) {
 	// remove our UI hooks
 
 	ui.destroy();

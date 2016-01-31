@@ -12,8 +12,7 @@ var locale = require('./index.js');
 var AppPref = require('../data/models/app-pref');
 var localeTemplate = require('./ejs/locale-view.ejs');
 
-module.exports = Marionette.ItemView.extend(
-{
+module.exports = Marionette.ItemView.extend({
 	template: localeTemplate,
 
 	/**
@@ -24,23 +23,21 @@ module.exports = Marionette.ItemView.extend(
 	 @param {String} userLocale locale to set
 	**/
 
-	setLocale: function (userLocale)
-	{
-		if (typeof userLocale !== 'string')
-		{
+	setLocale: function(userLocale) {
+		if (typeof userLocale !== 'string') {
 			// L10n: An internal error when changing locale.
-			throw new Error(locale.say("Can't set locale to nonstring: %s", userLocale));
-		};
+			throw new Error(
+				locale.say('Can\'t set locale to nonstring: %s', userLocale)
+			);
+		}
 
 		AppPref.withName('locale').save({ value: userLocale });
 		window.location.hash = 'stories';
 		window.location.reload();
 	},
 
-	events:
-	{
-		'click [data-locale]': function (e)
-		{
+	events: {
+		'click [data-locale]': function(e) {
 			this.setLocale($(e.target).closest('[data-locale]').data('locale'));
 		}
 	}
