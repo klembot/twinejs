@@ -2,31 +2,26 @@
 @import '../common/fonts.less';
 @import '../common/metrics.less';
 
-.colored-button (@color)
-{
+.colored-button (@color) {
 	color: white;
 	background: darken(@color, 5%);
 	.ui-border;
 
-	&:hover
-	{
+	&:hover {
 		background: @color;
 	}
 
-	&:focus
-	{
+	&:focus {
 		.shadow-focus;
 	}
 
-	&:active, &.active
-	{
+	&:active, &.active {
 		background: darken(@color, 5%);
 		color: darken(white, 2%);
 	}
 }
 
-button, a.button
-{
+button, a.button {
 	font: 100% @font-ui;
 	outline: none;
 	background: transparent;
@@ -42,121 +37,99 @@ button, a.button
 	user-select: none;
 	white-space: nowrap;
 
-	&.small
-	{
+	&.small {
 		font-size: 90%;
 	}
 
-	&.iconOnly
-	{
+	&.iconOnly {
 		font-size: 125%;
 	}
 
-	&:hover
-	{
+	&:hover {
 		color: @color-link;
 		text-decoration: none;
 	}
 
-	&:focus
-	{
+	&:focus {
 		.shadow-focus;
 	}
 
-	&:active, &.active
-	{
+	&:active, &.active {
 		color: @color-link;
 		background: hsla(0, 0%, 0%, 0.1);
 		box-shadow: none;
 		.ui-border;
 	}
 
-	&.active:focus
-	{
+	&.active:focus {
 		.shadow-focus;
 	}
 
-	&.transparent
-	{
-		&:hover
-		{
+	&.transparent {
+		&:hover {
 			background: hsla(0, 0%, 100%, 0.2);
 		}
 
-		&:active, &.active
-		{
+		&:active, &.active {
 			background: hsla(0, 0%, 0%, 0.2);
 		}
 	}
 
-	&.primary
-	{
+	&.primary {
 		.colored-button(@color-link);
 	}
 
-	&.create
-	{
+	&.create {
 		.colored-button(@color-create);
 	}
 
-	&.danger
-	{
+	&.danger {
 		.colored-button(@color-danger);
 	}
 
-	&.link
-	{
+	&.link {
 		padding: 0;
 		margin: 0;
 		color: @color-link;
 		border-radius: 0;
 
-		&:hover
-		{
+		&:hover {
 			text-decoration: underline;
 		}
 
-		&:active, &.active
-		{
+		&:active, &.active {
 			box-shadow: none;
 		}
 
-		&.danger
-		{
+		&.danger {
 			background: none;
 			color: @color-danger;
 			box-shadow: none;
 		}
 
-		&.subtle
-		{
+		&.subtle {
 			color: @color-text;
 
-			&:hover
-			{
+			&:hover {
 				color: @color-link;
 			}
 		}
 	}
 }
 
-.buttonGroup
-{
+.buttonGroup {
 	display: flex;
 
-	button
-	{
+	button {
 		margin: 0;
 		border-radius: 0;
 
-		&:first-child
-		{
+		&:first-child {
 			border-top-left-radius: @len-medium;
 			border-bottom-left-radius: @len-medium;
 		}
 
-		&:last-child
-		{
+		&:last-child {
 			border-top-right-radius: @len-medium;
 			border-bottom-right-radius: @len-medium;
 			margin-right: 0;

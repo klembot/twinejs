@@ -1,12 +1,11 @@
 @import '../common/colors.less';
 @import '../common/metrics.less';
 
-.toolbar
-{
+.toolbar {
 	position: fixed;
 	display: flex;
 	justify-content: space-between;
-	 	
+
 	z-index: 1000;
 	left: 0;
 	right: 0;
@@ -15,72 +14,59 @@
 	min-height: 50px;
 	.ui-border;
 
-	button
-	{
+	button {
 		padding-left: 0.75rem;
 		padding-right: 0.75rem;
 		border-radius: 0;
 		margin: 0;
 
-		&.narrow
-		{
+		&.narrow {
 			padding-left: 0.5rem;
 			padding-right: 0.5rem;
 		}
 
-		h1, h2, h3
-		{
+		h1, h2, h3 {
 			color: @color-text;
 			display: inline;
 		}
 
-		&:hover h1, &:hover h2, &:hover h3
-		{
+		&:hover h1, &:hover h2, &:hover h3 {
 			color: @color-link;
 		}
 	}
 
-	input[type="text"], input[type="search"], input[type="password"]
-	{
+	input[type="text"], input[type="search"], input[type="password"] {
 		margin: 0;
 	}
 
-	i.fa
-	{
+	i.fa {
 		font-size: 125%;
 
-		&.fa-lg
-		{
+		&.fa-lg {
 			font-size: 150%;
 		}
 	}
 
-	.group
-	{
+	.group {
 		display: flex;
 		margin-left: @len-large;
 		margin-right: @len-large;
 	}
 
-	.noStretch
-	{
+	.noStretch {
 		display: flex;
 		align-items: center;
 	}
-	
-	h1, h2, h3
-	{
+
+	h1, h2, h3 {
 		margin: 0;
 	}
 
-	> *:first-child
-	{
+	> *:first-child {
 		margin-left: 0;
 	}
 
-	> *:last-child
-	{
+	> *:last-child {
 		margin-right: 0;
 	}
-
 }

@@ -3,21 +3,18 @@
 @import '../../common/metrics.less';
 @import '../ui.less';
 
-.tooltip
-{
+.tooltip {
 	position: absolute;
 	z-index: 2000;
 	padding: @len-small;
 	display: none;
 
-	&.tooltip-open
-	{
+	&.tooltip-open {
 		display: block;
 		.fadeIn;
 	}
 
-	.tooltip-content
-	{
+	.tooltip-content {
 		color: white;
 		background-color: @color-darken;
 		padding: @len-medium;

@@ -1,85 +1,67 @@
 @import '../../common/colors.less';
 @import '../../common/metrics.less';
 
-.story.card
-{
+.story.card {
 	height: 16rem;
 	width: 15rem;
 	.ui-border;
 
-	.image
-	{
+	.image {
 		position: relative;
 
-		svg
-		{
+		svg {
 			position: absolute;
 			top: 0;
 			left: 0;
 			bottom: 0;
 		}
 
-		button
-		{
+		button {
 			position: absolute;
 			z-index: 2;
 			top: 0;
 			left: 0;
 			width: 100%;
 			bottom: 0;
-			border-top-left-radius: @len-small;
-			border-top-right-radius: @len-small;
-			border-bottom-left-radius: 0;
-			border-bottom-right-radius: 0;
+			border-radius: @len-small @len-small 0 0;
 			margin: 0;
 		}
 	}
 
-	footer
-	{
+	footer {
 		color: white;
 		background: transparent;
 		display: flex;
 		min-height: 3rem;
 
-		button
-		{
+		button {
 			color: white;
 		}
 
-		.name
-		{
+		.name {
 			display: flex;
 			flex-grow: 1;
 
-			button
-			{
+			button {
 				flex-grow: 1;
 				text-align: left;
-				padding: 0;
 				padding: @len-medium;
 				border-top-right-radius: 0;
 				border-bottom-right-radius: 0;
 			}
 
-			h3
-			{
+			h3 {
 				color: white;
 				margin-bottom: 0;
 			}
 
-			p
-			{
+			p {
 				margin-top: 0;
 			}
 		}
 
-		.showMenu
-		{
-			border-top-left-radius: 0;
-			border-bottom-left-radius: 0;
-			border-top-right-radius: 0;
-			border-bottom-right-radius: @len-small;
+		.showMenu {
+			border-radius: 0 0 @len-small 0;
 		}
 	}
 }

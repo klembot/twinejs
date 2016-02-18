@@ -2,108 +2,89 @@
 @import '../common/fonts.less';
 @import '../common/metrics.less';
 
-body
-{
+body {
 	font: 90% @font-ui;
 }
 
-p, li
-{
+p, li {
 	line-height: 130%;
 }
 
-h1
-{
+h1 {
 	color: @color-text-em;
 	font: 200% @font-display;
 
-	.normal, .small
-	{
+	.normal, .small {
 		font: 50% @font-ui;
 		line-height: 200%;
 	}
 
-	.small
-	{
+	.small {
 		font-size: 45%;
 	}
 }
 
-h2
-{
+h2 {
 	color: @color-text-em;
 	font: 150% @font-display;
 
-	.normal
-	{
+	.normal {
 		font: 75% @font-ui;
 		line-height: 200%;
 	}
 }
 
-h3
-{
+h3 {
 	color: @color-text-em;
 	font: 125% @font-display;
 }
 
-a
-{
+a {
 	color: @color-link;
 	text-decoration: none;
 	outline: none;
 
-	&:hover
-	{
+	&:hover {
 		text-decoration: underline;
 	}
 
-	&:focus
-	{
+	&:focus {
 		.shadow-focus;
 	}
 
-	.subtle
-	{
+	.subtle {
 		color: @color-text;
 	}
 }
 
-blockquote
-{
+blockquote {
 	border-left: @len-small solid fadein(@color-shade, 10%);
-	margin-left: 0em;
+	margin-left: 0;
 	padding-left: 1em;
 }
 
-pre
-{
+pre {
 	font: 90% @font-user;
 }
 
-table
-{
+table {
 	border-collapse: collapse;
 
-	th
-	{
+	th {
 		text-align: left;
 		border-bottom: @len-hairline solid @color-ui-border;
 	}
 
-	td, th
-	{
+	td, th {
 		padding: @len-small @len-medium;
 	}
 }
 
-ul, ol
-{
+ul, ol {
 	margin-left: 2em;
 	padding-left: 1em;
 
-	li
-	{
+	li {
 		padding-left: 0;
 		margin-bottom: 0.25em;
 	}

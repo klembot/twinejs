@@ -1,64 +1,54 @@
 @import '../common/colors.less';
 @import '../common/metrics.less';
 
-ul.menu
-{
+ul.menu {
 	list-style: none;
 	padding: 0;
 	margin: 0;
 
-	&.horizontal li
-	{
+	&.horizontal li {
 		display: inline;
 
-		button
-		{
+		button {
 			display: inline;
 			width: auto;
 			padding: @len-large 1.25 * @len-large;
 			border-radius: 0;
 			margin: 0;
 
-			i.fa
-			{
+			i.fa {
 				font-size: 150%;
 			}
 		}
 	}
 
-	button
-	{
+	button {
 		display: block;
 		width: 100%;
 		margin: 0;
 	}
 
-	&.dropdown button
-	{
+	&.dropdown button {
 		text-align: left;
 		border-radius: 0;
 
-		&:hover
-		{
+		&:hover {
 			background: hsla(0, 0%, 0%, 0.1);
 		}
 	}
 
-	&.centered button
-	{
+	&.centered button {
 		text-align: center;
 	}
 
-	li.divider
-	{
+	li.divider {
 		height: 1px;
 		margin: @len-small 0;
 		background-color: @color-ui-border;
 		.ui-border;
 	}
 
-	li.checked button:before
-	{
+	li.checked button:before {
 		content: '\f00c';
 		font-family: FontAwesome;
 		margin-left: -1.5em;

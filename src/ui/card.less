@@ -1,16 +1,14 @@
 @import '../common/colors.less';
 @import '../common/metrics.less';
 
-.card
-{
+.card {
 	display: flex;
 	flex-direction: column;
 	width: 18rem;
 	margin-top: @len-large;
 	border-radius: @len-small;
 
-	.image
-	{
+	.image {
 		position: relative;
 		flex-grow: 1;
 		flew-shrink: 1;
@@ -18,21 +16,18 @@
 		border-top-right-radius: @len-small;
 	}
 
-	footer
-	{
+	footer {
 		display: flex;
 		background: @color-paper;
 		border-bottom-left-radius: @len-small;
 		border-bottom-right-radius: @len-small;
 
-		*:first-child
-		{
-		  margin-top: 0;
+		*:first-child {
+			margin-top: 0;
 		}
 
-		*:last-child
-		{
-		  margin-bottom: 0;
+		*:last-child {
+			margin-bottom: 0;
 		}
 	}
 }

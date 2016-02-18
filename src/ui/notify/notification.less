@@ -1,8 +1,7 @@
 @import '../../common/colors.less';
 @import '../../common/metrics.less';
 
-#notifications
-{
+#notifications {
 	position: fixed;
 	display: flex;
 	flex-direction: column;
@@ -12,8 +11,7 @@
 	left: @len-large;
 	right: @len-large;
 
-	.bubble.notification
-	{
+	.bubble.notification {
 		position: static;
 		display: flex;
 		padding: 0;
@@ -21,8 +19,7 @@
 		align-items: center;
 		margin-bottom: @len-medium;
 
-		&:before
-		{
+		&:before {
 			font-family: FontAwesome;
 			color: darken(@color-link, 10%);
 			content: '\f05a'; // fa-info-circle
@@ -31,42 +28,33 @@
 			margin-right: @len-large;
 		}
 
-		&.success:before
-		{
+		&.success:before {
 			color: darken(@color-create, 10%);
 			content: '\f058'; // fa-check-circle
 		}
 
-		&.danger:before
-		{
+		&.danger:before {
 			color: darken(@color-danger, 10%);
 			content: '\f06a'; // fa-exclamation-circle
 		}
 
-		.message
-		{
+		.message {
 			flex-grow: 1;
 		}
 
-		button.close
-		{
+		button.close {
 			margin-left: @len-large;
 			margin-right: 0;
-			border-top-left-radius: 0;
-			border-top-right-radius: @len-small;
-			border-bottom-left-radius: 0;
-			border-bottom-right-radius: @len-small;
+			border-radius: 0 @len-small @len-small 0;
 			padding-left: @len-large;
 			padding-right: @len-large;
 		}
 
-		&.success .icon
-		{
+		&.success .icon {
 			color: darken(@color-create, 5%);
 		}
 
-		&.danger .icon
-		{
+		&.danger .icon {
 			color: darken(@color-danger, 5%);
 		}
 	}

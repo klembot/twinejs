@@ -1,46 +1,37 @@
 @import '../../../common/metrics.less';
 
-#formatsModal
-{
+#formatsModal {
 	min-height: 80vh;
 
-	table
-	{
+	table {
 		width: 100%;
 	}
 
 	td:not(:nth-child(2)),
-	th:not(:nth-child(2))
-	{
+	th:not(:nth-child(2)) {
 		white-space: nowrap;
 	}
 
-	td:first-child
-	{
+	td:first-child {
 		text-align: center;
 	}
-	
-	.format
-	{
+
+	.format {
 		display: flex;
 
-		img.icon
-		{
+		img.icon {
 			width: 50px;
 			height: 50px;
 			margin-right: @len-large;
 		}
 	}
 
-	.addFormat
-	{
-		p
-		{
+	.addFormat {
+		p {
 			display: flex;
 		}
 
-		input[type="text"]
-		{
+		input[type="text"] {
 			flex-grow: 1;
 		}
 	}

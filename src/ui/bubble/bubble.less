@@ -5,8 +5,7 @@
 
 @len-bubble-padding: @len-large;
 
-.bubble
-{
+.bubble {
 	display: none;
 	position: absolute;
 	z-index: 1001;
@@ -16,38 +15,31 @@
 	background: @color-paper;
 	box-shadow: 0 2px 4px hsla(0, 0%, 0%, 0.2);
 
-	&.bubble-open
-	{
+	&.bubble-open {
 		display: flex;
 	}
 
-	> *:first-child
-	{
+	> *:first-child {
 		margin-top: 0;
 	}
 
-	> *:last-child
-	{
+	> *:last-child {
 		margin-bottom: 0;
 	}
 
-	.controls
-	{
+	.controls {
 		margin: 0 -@len-bubble-padding @len-extra-large -@len-bubble-padding;
 	}
 
-	footer
-	{
+	footer {
 		text-align: right;
 
-		button:last-child
-		{
-		  margin-right: 0;
+		button:last-child {
+			margin-right: 0;
 		}
 	}
 
-	.menu
-	{
+	.menu {
 		margin: -@len-bubble-padding;
 	}
 }

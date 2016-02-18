@@ -1,44 +1,36 @@
 /* basic appearance */
-
 @import '../common/colors.less';
 @import '../common/fonts.less';
 @import '../common/metrics.less';
 
-body
-{
+body {
 	color: @color-text;
 	background-color: @color-paper;
 	margin: 0;
 }
 
-*
-{
+* {
 	box-sizing: border-box;
 }
 
-.hide
-{
+.hide {
 	display: none !important;
 }
 
-.large
-{
+.large {
 	font-size: 120%;
 }
 
-.small
-{
+.small {
 	font-size: 90%;
 }
 
-.error
-{
+.error {
 	display: flex;
 	align-items: flex-start;
 }
 
-.error:before
-{
+.error:before {
 	content: '\f071';
 	font-family: FontAwesome;
 	color: @color-danger;

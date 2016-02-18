@@ -2,12 +2,10 @@
 @import '../../common/metrics.less';
 @import '../bubble/bubble.less';
 
-#modalContainer.editor
-{
+#modalContainer.editor {
 	justify-content: flex-end;
 
-	.bubble
-	{
+	.bubble {
 		display: flex;
 		flex-direction: column;
 		margin-top: 0;
@@ -18,16 +16,14 @@
 		border-bottom-left-radius: 0;
 		border-bottom-right-radius: 0;
 
-		.expand
-		{
+		.expand {
 			position: relative;
 			margin-left: -@len-bubble-padding;
 			margin-right: -@len-bubble-padding;
 			flex-grow: 1;
 			background-color: hsl(0, 0%, 95%);
 
-			textarea, .CodeMirror
-			{
+			textarea, .CodeMirror {
 				font-size: 110%;
 				position: absolute;
 				top: 0;

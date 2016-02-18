@@ -2,13 +2,11 @@
 @import '../../common/metrics.less';
 @import '../bubble/bubble.less';
 
-body.modalOpen
-{
+body.modalOpen {
 	overflow: hidden;
 }
 
-#modalContainer
-{
+#modalContainer {
 	position: fixed;
 	display: flex;
 	flex-direction: column;
@@ -21,25 +19,19 @@ body.modalOpen
 	bottom: 0;
 	background: @color-darken;
 
-	.bubble
-	{
+	.bubble {
 		display: block;
 		position: static;
 		width: 70vw;
 		max-height: 95vh;
 
-		header:first-child
-		{
+		header:first-child {
 			display: flex;
 			align-items: stretch;
 			height: 3rem;
-			margin-left: -@len-bubble-padding;
-			margin-top: -@len-bubble-padding;
-			margin-right: -@len-bubble-padding;
-			margin-bottom: @len-extra-large;
+			margin: -@len-bubble-padding -@len-bubble-padding @len-extra-large;
 
-			h1, h2, h3
-			{
+			h1, h2, h3 {
 				display: flex;
 				align-items: center;
 				margin: 0;
@@ -47,28 +39,22 @@ body.modalOpen
 				padding-top: @len-medium;
 				flex-grow: 1;
 
-				input
-				{
+				input {
 					font-size: 80%;
 					margin: -@len-small @len-medium 0 0;
 					flex-grow: 1;
 				}
 			}
 
-			button.close
-			{
-				border-top-left-radius: 0;
-				border-top-right-radius: @len-small;
-				border-bottom-left-radius: @len-small;
-				border-bottom-right-radius: 0;
+			button.close {
+				border-radius: 0 @len-small 0 @len-small;
 				font-size: 150%;
 				padding-left: @len-extra-large;
 				padding-right: @len-extra-large;
 				margin: 0;
 			}
 
-			+ *
-			{
+			+ * {
 				margin-top: 0;
 			}
 		}

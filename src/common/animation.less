@@ -1,168 +1,133 @@
-@keyframes fadeIn
-{
-	from
-	{
+@keyframes fadeIn {
+	from {
 		opacity: 0;
 	}
 
-	to
-	{
+	to {
 		opacity: 1;
 	}
 }
 
-@keyframes fadeOut
-{
-	from
-	{
+@keyframes fadeOut {
+	from {
 		opacity: 1;
 	}
 
-	to
-	{
+	to {
 		opacity: 0;
 	}
 }
 
-@keyframes appear
-{
-	from
-	{
+@keyframes appear {
+	from {
 		transform: scale(0.5, 0.5);
 		opacity: 0;
 	}
 
-	to
-	{
+	to {
 		transform: scale(1, 1);
 		opacity: 1;
 	}
 }
 
-@keyframes disappear
-{
-	from
-	{
+@keyframes disappear {
+	from {
 		transform: scale(1, 1);
 		opacity: 1;
 	}
 
-	to
-	{
+	to {
 		transform: scale(0, 0);
 		opacity: 0;
 	}
 }
 
-@keyframes fallIn
-{
-	from
-	{
+@keyframes fallIn {
+	from {
 		transform: scale(1.5, 1.5);
 		opacity: 0;
 	}
 
-	to
-	{
+	to {
 		transform: scale(1, 1);
 		opacity: 1;
 	}
 }
 
-@keyframes slideDown
-{
-	from
-	{
+@keyframes slideDown {
+	from {
 		transform: translate(0, -15px);
 		opacity: 0;
 	}
 
-	to
-	{
+	to {
 		transform: translate(0, 0);
 		opacity: 1;
 	}
 }
 
-@keyframes fullSlideUp
-{
-	0%
-	{
+@keyframes fullSlideUp {
+	0% {
 		transform: translate(0, 100%);
 	}
 
-	100%
-	{
+	100% {
 		transform: translate(0, 0);
 	}
 }
 
-@keyframes fullAppear
-{
-	0%
-	{
+@keyframes fullAppear {
+	0% {
 		transform: scale(0);
 		opacity: 0;
 	}
 
-	100%
-	{
+	100% {
 		transform: scale(1);
 		opacity: 1;
 	}
 }
 
-.appear
-{
+.appear {
 	animation: 0.4s appear;
 }
 
-.disappear
-{
+.disappear {
 	animation: 0.4s disappear;
 }
 
-.fadeIn
-{
+.fadeIn {
 	animation: 0.4s fadeIn;
 }
 
-.fadeOut
-{
+.fadeOut {
 	animation: 0.4s fadeOut;
 }
 
-.fallIn
-{
+.fallIn {
 	animation: 0.4s fallIn;
 }
 
-.slideDown
-{
+.slideDown {
 	animation: 0.4s slideDown;
 }
 
-.fullSlideUp
-{
+.fullSlideUp {
 	animation: 0.4s fullSlideUp;
 }
 
-.fullAppear
-{
+.fullAppear {
 	animation: 0.4s fullAppear forwards;
 }
 
-.fast
-{
+.fast {
 	animation-duration: 0.2s;
 }
 
-.slow
-{
+.slow {
 	animation-duration: 0.8s;
 }
 
-.reverse
-{
+.reverse {
 	animation-direction: reverse;
 }

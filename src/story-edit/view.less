@@ -1,47 +1,44 @@
-#storyEditView.scrolling
-{
-	cursor: all-scroll;
-	cursor: -webkit-grab;
-	cursor: -moz-grab;
+#storyEditView {
+	&.scrolling {
+		cursor: all-scroll;
+		cursor: -webkit-grab;
+		cursor: -moz-grab;
+	}
+
+	&.draggingPassages * {
+		cursor: default !important;
+	}
+
+	/* all passage CSS is in px because we need it to match
+       the blueprint background image */
+	.passages {
+		position: relative;
+		background: #24497e url("img/blueprint_large.png") 10px -15px;
+		-webkit-touch-callout: none;
+		user-select: none;
+
+		.zoom-small & {
+			background-image: url('img/blueprint_small.png');
+			background-position: -15px 10px;
+		}
+
+		.zoom-medium & {
+			background-image: url('img/blueprint_medium.png');
+			background-position: 10px 10px;
+		}
+	}
+
+	svg polyline {
+		stroke: hsla(0, 0%, 100%, 0.75);
+		fill: none;
+		stroke-width: 2px;
+	}
+
+
+
 }
 
-#storyEditView.draggingPassages *
-{
-	cursor: default !important;
-}
-
-#storyEditView .passages
-{
-	position: relative;
-	background: #24497e url("img/blueprint_large.png") 10px -15px;
-	-webkit-touch-callout: none;
-	user-select: none;
-}
-
-/* all passage CSS is in px because we need it to match
-   the blueprint background image */
-
-.zoom-small #storyEditView .passages
-{
-	background-image: url('img/blueprint_small.png');
-	background-position: -15px 10px;
-}
-
-.zoom-medium #storyEditView .passages
-{
-	background-image: url('img/blueprint_medium.png');
-	background-position: 10px 10px;
-}
-
-#storyEditView svg polyline
-{
-	stroke: hsla(0, 0%, 100%, 0.75);
-	fill: none;
-	stroke-width: 2px;
-}
-
-.CodeMirror-hints
-{
+.CodeMirror-hints {
 	z-index: 1000 !important;
 	font-family: "Source Code Pro", monospace !important;
 }

@@ -5,12 +5,9 @@
 @color-passage-broken: fadeout(@color-danger, 25%);
 @color-passage-highlight: fadeout(@color-highlight, 25%);
 
-#storyEditView
-{
-	.passages
-	{
-		.content
-		{
+#storyEditView {
+	.passages {
+		.content {
 			position: absolute;
 			top: 0;
 			left: 0;
@@ -18,16 +15,14 @@
 			bottom: 0;
 		}
 
-		.passage
-		{
+		.passage {
 			position: absolute;
 			color: @color-passage-frame;
 			padding: @len-small;
 			cursor: default;
 			user-select: none;
 
-			.frame
-			{
+			.frame {
 				display: flex;
 				flex-direction: column;
 				border: @len-hairline solid @color-passage-frame;
@@ -38,8 +33,7 @@
 				overflow: hidden;
 				font-size: 80%;
 
-				.name
-				{
+				.name {
 					flex-shrink: 0;
 					padding: @len-small;
 					margin: 0;
@@ -47,8 +41,7 @@
 					overflow: hidden;
 				}
 
-				.excerpt
-				{
+				.excerpt {
 					flex-shrink: 1;
 					overflow: hidden;
 					padding: @len-small;
@@ -57,65 +50,54 @@
 				}
 			}
 
-			&.brokenLink .frame
-			{
+			&.brokenLink .frame {
 				border-color: @color-passage-broken;
 				box-shadow: 0 0 2px @color-passage-broken, inset 0 0 2px @color-passage-broken;
 
-				.name
-				{
+				.name {
 					border-color: @color-passage-broken;
 				}
 			}
 
-			&.highlight .frame
-			{
+			&.highlight .frame {
 				border-color: @color-passage-highlight;
 
-				.name
-				{
+				.name {
 					border-color: @color-passage-highlight;
 				}
 			}
 
-			&.selected .frame
-			{
+			&.selected .frame {
 				background-color: fadeout(@color-passage-frame, 50%);
 			}
 
-			&.start .frame
-			{
+			&.start .frame {
 				border-width: @len-hairline * 4;
 			}
 		}
 	}
 
-	&.zoomMedium .passages .passage .frame
-	{
+	&.zoomMedium .passages .passage .frame {
 		width: 60px;
 		height: 60px;
 		align-items: center;
 		justify-content: center;
 
-		.name
-		{
+		.name {
 			border-bottom: none;
 			text-align: center;
 		}
 
-		.excerpt
-		{
+		.excerpt {
 			display: none;
 		}
 	}
 
-	&.zoomSmall .passages .passage .frame
-	{
+	&.zoomSmall .passages .passage .frame {
 		width: 25px;
 		height: 25px;
 
-		.name, .excerpt
-		{
+		.name, .excerpt {
 			display: none;
 		}
 	}

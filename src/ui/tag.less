@@ -1,31 +1,21 @@
 @import '../common/colors.less';
 @import '../common/metrics.less';
 
-
-.tag
-{
+.tag {
 	display: inline-flex;
 	padding: @len-medium 0 @len-medium @len-extra-large;
 	border-radius: @len-extra-large;
 	color: white;
 	background: lighten(desaturate(@color-link, 50%), 15%);
 
-	&.small
-	{
+	&.small {
 		font-size: 90%;
 	}
 
-	button
-	{
+	button {
 		color: white;
 		padding: 0 @len-medium;
-		border-top-left-radius: 0;
-		border-top-right-radius: @len-extra-large;
-		border-bottom-left-radius: 0;
-		border-bottom-right-radius: @len-extra-large;
-		margin-top: -@len-medium;
-		margin-bottom: -@len-medium;
-		margin-left: @len-medium;
-		margin-right: 0;
+		border-radius: 0 @len-extra-large @len-extra-large 0;
+		margin: -@len-medium 0 -@len-medium @len-medium;
 	}
 }
