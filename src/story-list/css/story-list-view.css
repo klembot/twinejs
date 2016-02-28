@@ -213,7 +213,7 @@
 	right: 0;
 	bottom: 0;
 	background: #24497e url('img/blueprint_large.png') 10px -15px;
-	box-shadow 0 0 1em hsl(0, 0%, 15);
+	box-shadow: 0 0 1em hsl(0, 0%, 15);
 	animation-timing-function: linear;
 	-webkit-animation-timing-function: linear;
 }

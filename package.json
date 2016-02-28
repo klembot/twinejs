@@ -44,7 +44,7 @@
     "grunt-browserify": "^4.0.1",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-copy": "^0.8.1",
-    "grunt-contrib-cssmin": "^0.14.0",
+    "grunt-contrib-less": "^1.2.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-eslint": "^17.2.0",
     "grunt-jscs": "^2.7.0",
@@ -56,6 +56,8 @@
     "grunt-template": "^0.2.3",
     "grunt-text-replace": "^0.4.0",
     "jit-grunt": "^0.9.1",
+    "less-plugin-autoprefix": "^1.5.1",
+    "less-plugin-clean-css": "^1.5.1",
     "uglifyify": "^3.0.1",
     "watchify": "^3.3.0",
     "wrench": "^1.5.8"
