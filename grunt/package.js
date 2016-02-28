@@ -57,7 +57,7 @@ module.exports = function (grunt)
 	{
 		var props =
 		{
-			buildNumber: require('./buildNumber')(),
+			buildNumber: require('./build-number')(),
 			version: twine.version,
 			url: 'http://twinery.org'
 		};
