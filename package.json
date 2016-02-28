@@ -58,6 +58,7 @@
     "jit-grunt": "^0.9.1",
     "less-plugin-autoprefix": "^1.5.1",
     "less-plugin-clean-css": "^1.5.1",
+	"selenium-webdriver": "^2.52.0",
     "uglifyify": "^3.0.1",
     "watchify": "^3.3.0",
     "wrench": "^1.5.8"
