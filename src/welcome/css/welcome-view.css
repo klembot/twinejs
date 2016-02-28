@@ -1,0 +1,61 @@
+#welcomeView > div
+{
+	display: none;
+	padding: 20px 20px 20px 240px;
+	width: 60%;
+	margin: 5% auto;
+	min-height: 240px;
+	position: relative;
+}
+
+#welcomeView > div:before
+{
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 20px;
+	width: 200px;
+	bottom: 0;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+#welcomeView .hi:before
+{
+	background-image: url('../img/welcome_logo.png');
+}
+
+#welcomeView .alpha:before
+{
+	/* http://thenounproject.com/term/construction/5853/ */
+	background-image: url('../img/welcome_alpha.png');
+}
+
+#welcomeView .save:before
+{
+	/* http://thenounproject.com/term/document/12036/ */
+	background-image: url('../img/welcome_save.png');
+}
+
+#welcomeView .help:before
+{
+	/* http://thenounproject.com/term/question/2036/ */
+	background-image: url('../img/welcome_help.png');
+}
+
+#welcomeView .thanks:before
+{
+	/* http://thenounproject.com/term/smile/10696/ */
+	background-image: url('../img/welcome_thanks.png');
+}
+
+#welcomeView p
+{
+	font-size: 120%;
+}
+
+#welcomeView .buttons .done
+{
+	padding-left: 1em;
+}

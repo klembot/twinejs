@@ -1,0 +1,45 @@
+<div id="nwuiError">
+
+<p>
+An error occurred during startup<% if (task !== undefined) { %> while <%= task %><% } %>.
+</p>
+
+<p>
+Please report this error at the <a href="http://twinery.org/2bugs">Twine
+project page</a>, including the information below:
+</p>
+
+<% if (error !== undefined) { %>
+	<ul>
+		<li>
+		<b>Message:</b> <% if (error.message !== undefined) { %><%= error.message %><% } else { %><i>unknown</i><% } %>
+		</li>
+
+		<li>
+		<b>File:</b> <% if (error.fileName !== undefined) { %><%= error.fileName %><% } else { %><i>unknown</i><% } %>
+		</li>
+
+		<li>
+		<b>Line:</b> <% if (error.lineNumber !== undefined) { %><%= error.lineNumber %><% } else { %><i>unknown</i><% } %>
+		</li>
+
+		<li>
+		<b>Column:</b> <% if (error.columnNumber !== undefined) { %><%= error.columnNumber %><% } else { %><i>unknown</i><% } %>
+		</li>
+
+		<li>
+		<b>Stack:</b> <% if (error.stack !== undefined) { %><br><%= error.stack %><% } else { %><i>unknown</i><% } %>
+		</li>
+	</ul>
+<% } else { %>
+	<ul>
+		<li><i>No error information available</i><li>
+	</ul>
+<% } %>
+
+<p>
+You may also be able to get help with this problem on the <a
+href="http://twinery.org/forum">Twine forums</a>.
+</p>
+
+</div>
