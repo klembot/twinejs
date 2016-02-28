@@ -1,5 +1,12 @@
 var _ = require('underscore');
 var twine = require('../package.json');
+var autoprefix = require('less-plugin-autoprefix');
+var cleanCss = require('less-plugin-clean-css');
+
+// What browsers we intend to support.
+// See https://github.com/postcss/autoprefixer#browsers for details.
+
+var autoprefixBrowsers = ['iOS 1-9', 'last 2 versions'];
 
 module.exports = function(grunt) {
 	// browserify generates a single JS file from everything under src/
@@ -112,11 +119,11 @@ module.exports = function(grunt) {
 		}
 	});
 
-	// cssmin creates a single, minified CSS file, twine.css, from all CSS
+	// less creates a single, minified CSS file, twine.css, from all CSS and LESS
 	// files under src/.
 
 	grunt.config.merge({
-		cssmin: {
+		less: {
 			default: {
 				files: {
 					// order matters here, so we override properly
@@ -125,16 +132,24 @@ module.exports = function(grunt) {
 						'node_modules/font-awesome/css/font-awesome.css',
 						'node_modules/codemirror/lib/codemirror.css',
 						'src/**/*.css',
+						'src/**/*.less',
 						'node_modules/codemirror/addon/hint/show-hint.css'
 					]
 				},
 				options: {
+					plugins: [new autoprefix({ browsers: autoprefixBrowsers })],
 					sourceMap: true
 				}
 			},
 			cdn: {
 				files: {
-					'build/cdn/twine.css': './src/**/*.css'
+					'build/cdn/twine.css': [
+						'./src/**/*.css',
+						'./src/**/*.less'
+					]
+				},
+				options: {
+					plugins: [new autoprefix({ browsers: autoprefixBrowsers })],
 				}
 			},
 			release: {
@@ -145,8 +160,15 @@ module.exports = function(grunt) {
 						'node_modules/font-awesome/css/font-awesome.css',
 						'node_modules/codemirror/lib/codemirror.css',
 						'src/**/*.css',
+						'src/**/*.less',
 						'node_modules/codemirror/addon/hint/show-hint.css'
 					]
+				},
+				options: {
+					plugins: [
+						new autoprefix({ browsers: autoprefixBrowsers }),
+						new cleanCss()
+					],
 				}
 			}
 		}
@@ -192,7 +214,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('build', [
 		'browserify:default',
-		'cssmin:default',
+		'less:default',
 		'template:default',
 		'copy:fonts',
 		'copy:images',
@@ -202,7 +224,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('build:cdn', [
 		'browserify:cdn',
-		'cssmin:cdn',
+		'less:cdn',
 		'template:cdn',
 		'copy:fontsCdn',
 		'copy:imagesCdn',
@@ -212,7 +234,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('build:release', [
 		'browserify:release',
-		'cssmin:release',
+		'less:release',
 		'template:default',
 		'copy:fonts',
 		'copy:images',
@@ -229,8 +251,8 @@ module.exports = function(grunt) {
 	grunt.config.merge({
 		watch: {
 			css: {
-				files: 'src/**/*.css',
-				tasks: ['cssmin']
+				files: ['src/**/*.css', 'src/**/*.less'],
+				tasks: ['less']
 			},
 			fonts: {
 				files: ['src/**/fonts/*'],
