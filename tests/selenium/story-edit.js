@@ -8,56 +8,47 @@ var test = require('selenium-webdriver/testing');
 var until = require('selenium-webdriver').until;
 var helpers = require('./helpers');
 
-test.describe('StoryEditView', function()
-{
+test.describe('StoryEditView', function() {
 	var dr;
 	this.timeout(10000);
 
-	test.beforeEach(function()
-	{
+	test.beforeEach(function() {
 		dr = new firefox.Driver();
 		dr.manage().window().setSize(1024, 768);
 		helpers.createStory(dr, true);
 	});
 
-	test.afterEach(function()
-	{
+	test.afterEach(function() {
 		dr.quit();
 	});
 
-	function setCMText (dr, selector, text)
-	{
+	function setCMText(dr, selector, text) {
 		dr.executeScript("document.querySelector('" + selector +
 		                 " .CodeMirror').CodeMirror.setValue('" +
 		                 text + "')");
 	};
 
-	function getCMText (dr, selector)
-	{
+	function getCMText(dr, selector) {
 		return dr.executeScript("return document.querySelector('" + selector +
 		                        " .CodeMirror').CodeMirror.getValue()");
 	};
 
-	test.it('Displays the story title', function()
-	{
+	test.it('Displays the story title', function() {
 		assert(dr.findElement({ css: 'button.storyName' }).getText()).equalTo(helpers.shortUni);
 	});
 
-	test.it('Returns to the story list with the home button', function()
-	{
+	test.it('Returns to the story list with the home button', function() {
 		dr.findElement({ css: 'a.home' }).click();
 		dr.wait(until.elementLocated({ css: '#storyListView' }));
 	});
 
-	test.it('Creates a passage with the Create Passage button', function()
-	{
+	test.it('Creates a passage with the Create Passage button', function() {
 		assert(dr.isElementPresent({ css: '.passages .passage:nth-of-type(2)' })).isFalse();
 		dr.findElement({ css: 'button.addPassage' }).click();
 		assert(dr.isElementPresent({ css: '.passages .passage:nth-of-type(2)' })).isTrue();
 	});
 
-	test.it('Edits a passage by double-clicking it', function()
-	{
+	test.it('Edits a passage by double-clicking it', function() {
 		var modal = dr.findElement({ css: '#passageEditModal' });
 
 		dr.actions().doubleClick(dr.findElement({ css: '.passages .passage' })).perform();
@@ -66,8 +57,7 @@ test.describe('StoryEditView', function()
 		dr.wait(until.elementIsNotVisible(modal));
 	});
 
-	test.it('Edits a passage by clicking its edit button', function()
-	{
+	test.it('Edits a passage by clicking its edit button', function() {
 		var modal = dr.findElement({ css: '#passageEditModal' });
 
 		dr.actions().mouseMove(dr.findElement({ css: '.passages .passage' })).perform();
@@ -77,8 +67,7 @@ test.describe('StoryEditView', function()
 		dr.wait(until.elementIsNotVisible(modal));
 	});
 
-	test.it('Saves changes to passage text', function()
-	{
+	test.it('Saves changes to passage text', function() {
 		var modal = dr.findElement({ css: '#passageEditModal' });
 
 		dr.actions().doubleClick(dr.findElement({ css: '.passages .passage' })).perform();
@@ -97,8 +86,7 @@ test.describe('StoryEditView', function()
 		assert(getCMText(dr, '#passageEditModal')).equalTo(helpers.longUni);
 	});
 
-	test.it('Adds passages that are newly linked', function()
-	{
+	test.it('Adds passages that are newly linked', function() {
 		var modal = dr.findElement({ css: '#passageEditModal' });
 
 		dr.actions().doubleClick(dr.findElement({ css: '.passages .passage' })).perform();
@@ -111,8 +99,7 @@ test.describe('StoryEditView', function()
 		assert(dr.findElement({ css: '.passages .passage:nth-of-type(2) .title' }).getText()).equalTo('a new link');
 	});
 
-	test.it('Does not add passages for linked URLs', function()
-	{
+	test.it('Does not add passages for linked URLs', function() {
 		var modal = dr.findElement({ css: '#passageEditModal' });
 
 		dr.actions().doubleClick(dr.findElement({ css: '.passages .passage' })).perform();
@@ -121,14 +108,12 @@ test.describe('StoryEditView', function()
 		dr.findElement({ css: '#passageEditModal .close' }).click();
 		dr.wait(until.elementIsNotVisible(modal));
 
-		dr.findElements({ css: '.passages .passage' }).then(function (els)
-		{
+		dr.findElements({ css: '.passages .passage' }).then(function(els) {
 			assert(els.length).equalTo(1);
 		});
 	});
 
-	test.it('Updates links when passages are renamed', function()
-	{
+	test.it('Updates links when passages are renamed', function() {
 		var modal = dr.findElement({ css: '#passageEditModal' });
 
 		dr.actions().doubleClick(dr.findElement({ css: '.passages .passage' })).perform();
@@ -152,8 +137,7 @@ test.describe('StoryEditView', function()
 		.equalTo('[[2 linked passage]]');
 	});
 
-	test.it('Deletes a passage by clicking its delete button', function()
-	{
+	test.it('Deletes a passage by clicking its delete button', function() {
 		var passage = dr.findElement({ css: '.passages .passage' });
 
 		dr.actions().mouseMove(passage).perform();
@@ -163,8 +147,7 @@ test.describe('StoryEditView', function()
 		dr.wait(until.stalenessOf(passage));
 	});
 
-	test.it('Immediately deletes a passage by clicking its delete button with the shift key held', function()
-	{
+	test.it('Immediately deletes a passage by clicking its delete button with the shift key held', function() {
 		var passage = dr.findElement({ css: '.passages .passage' });
 
 		dr.actions().mouseMove(passage).sendKeys(key.SHIFT).perform();
@@ -172,8 +155,7 @@ test.describe('StoryEditView', function()
 		dr.wait(until.stalenessOf(passage));
 	});
 
-	test.it('Changes zoom levels with the toolbar', function()
-	{
+	test.it('Changes zoom levels with the toolbar', function() {
 		dr.findElement({ css: '.toolbar .zoomSmall' }).click();
 		dr.wait(until.elementLocated({ css: '.main .zoom-small' }));
 		dr.findElement({ css: '.toolbar .zoomMedium' }).click();
@@ -182,8 +164,7 @@ test.describe('StoryEditView', function()
 		dr.wait(until.elementLocated({ css: '.main .zoom-big' }));
 	});
 
-	test.it('Tests a story with the Test button', function()
-	{
+	test.it('Tests a story with the Test button', function() {
 		dr.findElement({ css: '.toolbar .testStory' }).click();
 		dr.getAllWindowHandles(function (winds)
 		{
@@ -197,8 +178,7 @@ test.describe('StoryEditView', function()
 		});
 	});
 
-	test.it('Plays a story with the Play button', function()
-	{
+	test.it('Plays a story with the Play button', function() {
 		dr.findElement({ css: '.toolbar .playStory' }).click();
 		dr.getAllWindowHandles(function (winds)
 		{
@@ -212,8 +192,7 @@ test.describe('StoryEditView', function()
 		});
 	});
 
-	test.it('Renames a story via a dialog', function()
-	{
+	test.it('Renames a story via a dialog', function() {
 		var modal = dr.findElement({ css: '#renameStoryModal' });
 
 		dr.findElement({ css: 'button.storyName' }).click();
@@ -226,8 +205,7 @@ test.describe('StoryEditView', function()
 		assert(dr.findElement({ css: '.storyNameVal' }).getText()).equalTo('This is different');
 	});
 
-	test.it('Creates a proofing version of the story via a menu item', function()
-	{
+	test.it('Creates a proofing version of the story via a menu item', function() {
 		dr.findElement({ css: 'button.storyName' }).click();
 		dr.findElement({ css: 'button.proofStory' }).click();
 		dr.getAllWindowHandles(function (winds)
@@ -242,14 +220,12 @@ test.describe('StoryEditView', function()
 		});
 	});
 
-	test.it('Creates a published version of the story via a menu item', function()
-	{
+	test.it('Creates a published version of the story via a menu item', function() {
 		dr.findElement({ css: 'button.storyName' }).click();
 		dr.findElement({ css: 'button.publishStory' }).click();
 	});
 
-	test.it('Saves changes to story script', function()
-	{
+	test.it('Saves changes to story script', function() {
 		var modal = dr.findElement({ css: '#scriptEditModal' });
 
 		dr.findElement({ css: 'button.storyName' }).click();
@@ -270,8 +246,7 @@ test.describe('StoryEditView', function()
 		assert(getCMText(dr, '#scriptEditModal')).equalTo(helpers.longUni);
 	});
 
-	test.it('Saves changes to story stylesheet', function()
-	{
+	test.it('Saves changes to story stylesheet', function() {
 		var modal = dr.findElement({ css: '#stylesheetEditModal' });
 
 		dr.findElement({ css: 'button.storyName' }).click();
@@ -292,8 +267,7 @@ test.describe('StoryEditView', function()
 		assert(getCMText(dr, '#stylesheetEditModal')).equalTo(helpers.longUni);
 	});
 
-	test.it('Disables keyboard shortcuts when editing a passage', function()
-	{
+	test.it('Disables keyboard shortcuts when editing a passage', function() {
 		var modal = dr.findElement({ css: '#scriptEditModal' });
 
 		dr.findElement({ css: 'button.storyName' }).click();
@@ -307,8 +281,7 @@ test.describe('StoryEditView', function()
 		dr.findElement({ css: '.passages .passage' });
 	});
 
-	test.it('Numbers new passages to avoid name conflicts', function()
-	{
+	test.it('Numbers new passages to avoid name conflicts', function() {
 		dr.findElement({ css: '.toolbar .addPassage' }).click();
 		dr.wait(until.elementLocated({ css: '.passages .passage:nth-of-type(2) .title' }));
 		assert(dr.findElement({ css: '.passages .passage:nth-of-type(2) .title' }).getText()).equalTo('Untitled Passage 1');
@@ -317,8 +290,7 @@ test.describe('StoryEditView', function()
 		assert(dr.findElement({ css: '.passages .passage:nth-of-type(3) .title' }).getText()).equalTo('Untitled Passage 2');
 	});
 
-	test.it('Warns a user before navigating away while editing a passage', function()
-	{
+	test.it('Warns a user before navigating away while editing a passage', function() {
 		var modal = dr.findElement({ css: '#passageEditModal' });
 
 		assert(dr.executeScript('return window.onbeforeunload')).isNull();
@@ -329,8 +301,7 @@ test.describe('StoryEditView', function()
 		assert(dr.executeScript('return window.onbeforeunload')).isNull();
 	});
 
-	test.it('Shows accurate story statistics', function()
-	{
+	test.it('Shows accurate story statistics', function() {
 		var modal = dr.findElement({ css: '#passageEditModal' });
 
 		assert(dr.executeScript('return window.onbeforeunload')).isNull();
@@ -359,8 +330,7 @@ test.describe('StoryEditView', function()
 		assert(dr.findElement({ css: 'td.brokenLinkCount' }).getText()).equalTo('1');
 	});
 
-	test.it('Generates IFIDs that meet Treaty of Babel standards', function()
-	{
+	test.it('Generates IFIDs that meet Treaty of Babel standards', function() {
 		var modal = dr.findElement({ css: '#statsModal' });
 		dr.findElement({ css: 'button.storyName' }).click();
 		dr.findElement({ css: 'button.storyStats' }).click();
@@ -374,8 +344,7 @@ test.describe('StoryEditView', function()
 		}); 
 	});
 
-	test.it('Generates IFIDs that are stable', function()
-	{
+	test.it('Generates IFIDs that are stable', function() {
 		var modal = dr.findElement({ css: '#statsModal' });
 		dr.findElement({ css: 'button.storyName' }).click();
 		dr.findElement({ css: 'button.storyStats' }).click();
