@@ -106,6 +106,11 @@ module.exports = Marionette.CompositeView.extend({
 					'danger'
 				);
 			});
+
+		// Memoize a sorted list of our zoom levels, so that we can increase
+		// and decrease zoom levels quickly.
+
+		this.zoomLevels = _.values(this.ZOOM_MAPPINGS).sort();
 	},
 
 	onShow: function() {
@@ -232,6 +237,12 @@ module.exports = Marionette.CompositeView.extend({
 			});
 		}
 
+		// Change zoom levels with the mouse wheel.
+		// We have to hold onto a bound reference so that it may be removed later.
+
+		this.zoomWheelBound = this.zoomWheel.bind(this);
+		$(window).on('wheel', this.zoomWheelBound);
+
 		// if we have no passages in this story, give the user one to start
 		// with otherwise, fade in existing
 
@@ -255,6 +266,7 @@ module.exports = Marionette.CompositeView.extend({
 		$(document).off('keydown');
 		$(document).off('keyup');
 		$(window).off('resize');
+		$(window).off('wheel', this.zoomWheelBound);
 	},
 
 	/**
@@ -649,6 +661,39 @@ module.exports = Marionette.CompositeView.extend({
 				top: passage.get('top') + yMove
 			});
 		};
+	},
+
+	/**
+	 Adjusts the zoom level based on the motion of the user's mouse wheel.
+	 The Alt or Option key must be held down.
+
+	 @method zoomWheel
+	**/
+
+	zoomWheel: function(e) {
+		if (e.altKey && !e.ctrlKey)
+		{
+			var zoomIndex = this.zoomLevels.indexOf(this.model.get('zoom'));
+
+			// Only consider the Y component of the motion.
+
+			if (e.originalEvent.wheelDeltaY > 0) {
+				// Zoom in.
+
+				zoomIndex = (zoomIndex === 0) ?
+					this.zoomLevels.length
+					: zoomIndex - 1;
+			}
+			else {
+				// Zoom out.
+
+				zoomIndex = (zoomIndex === this.zoomLevels.length) ?
+					0
+					: zoomIndex + 1;
+			}
+
+			this.model.save('zoom', this.zoomLevels[zoomIndex]);
+		}	
 	},
 
 	/**
