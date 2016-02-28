@@ -1,9 +1,10 @@
 'use strict';
 var until = require('selenium-webdriver').until;
+var path = require('path');
 
-var helpers = module.exports = 
+var helpers = module.exports =
 {
-	testUrl: 'file://' + __dirname.replace('/tests/selenium', '') + '/build/standalone/index.html',
+	testUrl: 'file://' + __dirname.replace(path.normalize('/tests/selenium'), '') + path.normalize('/build/standalone/index.html'),
 
 	createStory: function (dr, dontReturn)
 	{
