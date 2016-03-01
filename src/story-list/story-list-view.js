@@ -28,7 +28,7 @@ require('../ui/tooltip');
 module.exports = Marionette.CompositeView.extend({
 	childView: StoryItemView,
 	childViewContainer: '.stories',
-	childViewOptions: function(model) {
+	childViewOptions(model) {
 		/**
 		 A cached collection of all passages, to speed up rendering of
 		 previews.
@@ -78,7 +78,7 @@ module.exports = Marionette.CompositeView.extend({
 
 	appearFast: false,
 
-	initialize: function() {
+	initialize() {
 		this.sortByDate();
 		this.collection.on('sort', function() {
 			this.render();
@@ -102,7 +102,7 @@ module.exports = Marionette.CompositeView.extend({
 		}.bind(this));
 	},
 
-	onShow: function() {
+	onShow() {
 		this.syncStoryCount();
 
 		this.storageQuota = new StorageQuota({
@@ -210,17 +210,17 @@ module.exports = Marionette.CompositeView.extend({
 		}
 	},
 
-	onDomRefresh: function() {
+	onDomRefresh() {
 		// trigger display of previews
 
 		_.defer(this.showNextPreview.bind(this));
 	},
 
-	onAddChild: function() {
+	onAddChild() {
 		this.syncStoryCount();
 	},
 
-	onRemoveChild: function() {
+	onRemoveChild() {
 		this.syncStoryCount();
 	},
 
@@ -231,7 +231,7 @@ module.exports = Marionette.CompositeView.extend({
 	 @method addStory
 	**/
 
-	addStory: function(e) {
+	addStory(e) {
 		var story = this.collection.create({
 			name: this.$('input.newName').val()
 		});
@@ -247,7 +247,7 @@ module.exports = Marionette.CompositeView.extend({
 	 @method saveArchive
 	**/
 
-	saveArchive: function() {
+	saveArchive() {
 		publish.saveArchive();
 	},
 
@@ -258,7 +258,7 @@ module.exports = Marionette.CompositeView.extend({
 	 @method importFile
 	**/
 
-	importFile: function(e) {
+	importFile(e) {
 		var reader = new FileReader();
 		var bubble = this.$('.importStory').closest('.bubbleContainer');
 
@@ -303,7 +303,7 @@ module.exports = Marionette.CompositeView.extend({
 		return reader;
 	},
 
-	showNextPreview: function() {
+	showNextPreview() {
 		var unrendered = this.children.find(function(view) {
 			return !view.preview.passagesRendered;
 		});
@@ -319,7 +319,7 @@ module.exports = Marionette.CompositeView.extend({
 	 @method sortByName
 	**/
 
-	sortByName: function() {
+	sortByName() {
 		this.collection.order = 'name';
 		this.collection.reverseOrder = false;
 		this.collection.sort();
@@ -333,7 +333,7 @@ module.exports = Marionette.CompositeView.extend({
 	 @method sortByDate
 	**/
 
-	sortByDate: function() {
+	sortByDate() {
 		this.collection.order = 'lastUpdate';
 		this.collection.reverseOrder = true;
 		this.collection.sort();
@@ -348,7 +348,7 @@ module.exports = Marionette.CompositeView.extend({
 	 @method syncStoryCount
 	**/
 
-	syncStoryCount: function() {
+	syncStoryCount() {
 		if (this.collection.length > 0) {
 			this.$('.stories').css('display', 'block');
 			this.$('.noStories').css('display', 'none');
@@ -373,15 +373,15 @@ module.exports = Marionette.CompositeView.extend({
 		'click .sortByDate': 'sortByDate',
 		'click .sortByName': 'sortByName',
 
-		'click .showFormats': function() {
+		'click .showFormats'() {
 			this.formatsModal.open();
 		},
 
-		'click .showLocale': function() {
+		'click .showLocale'() {
 			window.location.hash = 'locale';
 		},
 
-		'click .showHelp': function() {
+		'click .showHelp'() {
 			window.open('http://twinery.org/2guide');
 		}
 	}

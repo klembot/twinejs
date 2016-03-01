@@ -33,7 +33,7 @@ var Story = Backbone.Model.extend({
 
 	template: storyDataTemplate,
 	
-	initialize: function() {
+	initialize() {
 		this.on('destroy', function() {
 			// delete all child passages
 
@@ -79,7 +79,7 @@ var Story = Backbone.Model.extend({
 	 @return {PassageCollection} collection of matching passages
 	**/
 
-	fetchPassages: function() {
+	fetchPassages() {
 		var passages = PassageCollection.all();
 
 		passages.reset(passages.filter(function(p) {
@@ -103,7 +103,7 @@ var Story = Backbone.Model.extend({
 	 @return {String} HTML fragment
 	**/
 
-	publish: function(options, startId, startOptional) {
+	publish(options, startId, startOptional) {
 		var passageData = '';
 		var startDbId = startId || this.get('startPassage');
 		var passages = this.fetchPassages();
@@ -153,7 +153,7 @@ var Story = Backbone.Model.extend({
 	 @return {Story} new Story model
 	**/
 
-	duplicate: function(name) {
+	duplicate(name) {
 		var storyC = new StoryCollection();
 		var passageC = new PassageCollection();
 		var dupeStory = this.clone();

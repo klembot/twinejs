@@ -10,7 +10,7 @@ var _ = require('underscore');
 var Backbone = require('backbone');
 
 module.exports = Backbone.View.extend({
-	initialize: function(options) {
+	initialize(options) {
 		this.parent = options.parent;
 		this.searchField = this.$('.searchField');
 
@@ -30,7 +30,7 @@ module.exports = Backbone.View.extend({
 	 @param {String} flags Regexp flags to apply, defaults to 'i'
 	**/
 
-	searchFor: function(search, flags) {
+	searchFor(search, flags) {
 		if (search === '') {
 			return;
 		}
@@ -56,7 +56,7 @@ module.exports = Backbone.View.extend({
 	 @method clear
 	**/
 
-	clear: function() {
+	clear() {
 		this.searchField.val('');
 		this.$('.clearSearch').addClass('hide');
 

@@ -2,7 +2,7 @@
 var Backbone = require('backbone');
 
 module.exports = Backbone.View.extend({
-	initialize: function(options) {
+	initialize(options) {
 		this.parent = options.parent;
 	},
 
@@ -12,7 +12,7 @@ module.exports = Backbone.View.extend({
 	 @method open
 	**/
 
-	open: function() {
+	open() {
 		this.$('.storyName').val(this.parent.model.get('name'));
 		this.$('.noNameError').hide();
 		this.$el.data('modal').trigger('show');
@@ -25,7 +25,7 @@ module.exports = Backbone.View.extend({
 	 @method close
 	**/
 
-	close: function() {
+	close() {
 		this.$el.data('modal').trigger('hide');
 	},
 
@@ -37,7 +37,7 @@ module.exports = Backbone.View.extend({
 	 @method save
 	**/
 
-	save: function(e) {
+	save(e) {
 		e.stopImmediatePropagation();
 		var storyName = this.$('.storyName').val();
 

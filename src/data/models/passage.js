@@ -29,7 +29,7 @@ var Passage = Backbone.Model.extend({
 
 	template: passageDataTemplate,
 
-	initialize: function() {
+	initialize() {
 		this.on('sync', function(model, response, options) {
 			// if any stories are using this passage's cid
 			// as their start passage, update with a real id
@@ -77,13 +77,13 @@ var Passage = Backbone.Model.extend({
 	 @return {Story} Story model
 	**/
 
-	fetchStory: function() {
+	fetchStory() {
 		return StoryCollection.all().find(function(s) {
 			return s.id == this.get('story') || s.cid == this.get('story');
 		}, this);
 	},
 
-	validate: function(attrs, options) {
+	validate(attrs, options) {
 		if (options.noValidation) { return; }
 
 		if (!attrs.name || attrs.name === '') {
@@ -115,7 +115,7 @@ var Passage = Backbone.Model.extend({
 	 @return {String} Excerpt.
 	**/
 
-	excerpt: function() {
+	excerpt() {
 		var text = _.escape(this.get('text'));
 
 		if (text.length > 100) {
@@ -134,7 +134,7 @@ var Passage = Backbone.Model.extend({
 	 @return {Array} Array of string names.
 	**/
 
-	links: function(internalOnly) {
+	links(internalOnly) {
 		var matches = this.get('text').match(/\[\[.*?\]\]/g);
 		var found = {};
 		var result = [];
@@ -204,7 +204,7 @@ var Passage = Backbone.Model.extend({
 	 @param {String} newLink passage name to replace with
 	**/
 
-	replaceLink: function(oldLink, newLink) {
+	replaceLink(oldLink, newLink) {
 		// TODO: add hook for story formats to be more sophisticated
 
 		var simpleLinkRegexp = new RegExp(
@@ -239,7 +239,7 @@ var Passage = Backbone.Model.extend({
 	 @return {Boolean} whether a match is found
 	**/
 
-	matches: function(search) {
+	matches(search) {
 		return search.test(this.get('name')) || search.test(this.get('text'));
 	},
 
@@ -253,7 +253,7 @@ var Passage = Backbone.Model.extend({
 	 @return {Number} number of matches; 0 if none
 	**/
 
-	numMatches: function(search, checkName) {
+	numMatches(search, checkName) {
 		var result = 0;
 
 		search = new RegExp(
@@ -284,7 +284,7 @@ var Passage = Backbone.Model.extend({
 		 default false
 	**/
 
-	replace: function(search, replacement, inName) {
+	replace(search, replacement, inName) {
 		if (inName) {
 			this.save({
 				name: this.get('name').replace(search, replacement),
@@ -305,7 +305,7 @@ var Passage = Backbone.Model.extend({
 	 @return {String} HTML fragment
 	**/
 
-	publish: function(id) {
+	publish(id) {
 		var tags = this.get('tags');
 
 		return this.template({
@@ -326,7 +326,7 @@ var Passage = Backbone.Model.extend({
 	 @return {Boolean} Whether there is an intersection.
 	**/
 
-	intersects: function(other) {
+	intersects(other) {
 		var pP = Passage.padding;
 		var pW = Passage.width;
 		var pH = Passage.height;
@@ -346,7 +346,7 @@ var Passage = Backbone.Model.extend({
 	 @param {Passage} other Other passage to displace.
 	**/
 
-	displace: function(other) {
+	displace(other) {
 		var p = Passage.padding;
 		var tLeft = this.get('left') - p;
 		var tRight = tLeft + Passage.width + p * 2;

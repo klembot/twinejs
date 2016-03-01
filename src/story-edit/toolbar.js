@@ -12,7 +12,7 @@ var moment = require('moment');
 var locale = require('../locale');
 
 module.exports = Backbone.View.extend({
-	initialize: function(options) {
+	initialize(options) {
 		this.parent = options.parent;
 		this.syncZoomButtons();
 		this.syncStorySaved();
@@ -28,7 +28,7 @@ module.exports = Backbone.View.extend({
 	 @method syncStoryName
 	**/
 
-	syncStoryName: function() {
+	syncStoryName() {
 		this.$('.storyNameVal').text(this.parent.model.get('name'));
 	},
 
@@ -38,7 +38,7 @@ module.exports = Backbone.View.extend({
 	 @method syncZoomButtons
 	**/
 
-	syncZoomButtons: function() {
+	syncZoomButtons() {
 		var zoom = this.parent.model.get('zoom');
 
 		// find the correct zoom description
@@ -70,7 +70,7 @@ module.exports = Backbone.View.extend({
 	 @method syncSnapToGrid
 	**/
 
-	syncSnapToGrid: function() {
+	syncSnapToGrid() {
 		var menu = this.$('.snapToGrid').closest('li');
 
 		if (this.parent.model.get('snapToGrid')) {
@@ -90,7 +90,7 @@ module.exports = Backbone.View.extend({
 		 one
 	**/
 
-	syncStorySaved: function(forceDate) {
+	syncStorySaved(forceDate) {
 		var $sn = this.$('.storyName');
 		var date = (forceDate) ? moment(forceDate) : moment();
 
@@ -101,54 +101,54 @@ module.exports = Backbone.View.extend({
 	},
 
 	events: {
-		'click .editScript': function() {
+		'click .editScript'() {
 			this.parent.scriptEditor.open();
 		},
 
-		'click .editStyle': function() {
+		'click .editStyle'() {
 			this.parent.styleEditor.open();
 		},
 
-		'click .renameStory': function() {
+		'click .renameStory'() {
 			this.parent.renameModal.open();
 		},
 
-		'click .addPassage': function() {
+		'click .addPassage'() {
 			this.parent.addPassage();
 		},
 
-		'click .testStory': function() {
+		'click .testStory'() {
 			this.parent.test();
 		},
 
-		'click .playStory': function() {
+		'click .playStory'() {
 			this.parent.play();
 		},
 
-		'click .proofStory': function() {
+		'click .proofStory'() {
 			this.parent.proof();
 		},
 
-		'click .publishStory': function() {
+		'click .publishStory'() {
 			this.parent.publish();
 		},
 
-		'click .storyStats': function() {
+		'click .storyStats'() {
 			this.parent.statsModal.open();
 		},
 
-		'click .changeFormat': function() {
+		'click .changeFormat'() {
 			this.parent.storyFormatModal.open();
 		},
 
-		'click .zoomBig, .zoomMedium, .zoomSmall': function(e) {
+		'click .zoomBig, .zoomMedium, .zoomSmall'(e) {
 			var desc = $(e.target).closest('button').attr('class');
 
 			desc = desc.replace(/^zoom/, '').replace(/ .*/, '').toLowerCase();
 			this.parent.model.save({ zoom: this.parent.ZOOM_MAPPINGS[desc] });
 		},
 
-		'click .snapToGrid': function() {
+		'click .snapToGrid'() {
 			this.parent.model.save({
 				snapToGrid: !this.parent.model.get('snapToGrid')
 			});

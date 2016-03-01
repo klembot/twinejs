@@ -14,7 +14,7 @@ require('codemirror/addon/display/placeholder');
 require('codemirror/addon/hint/show-hint');
 
 module.exports = Backbone.View.extend({
-	initialize: function(options) {
+	initialize(options) {
 		this.parent = options.parent;
 
 		// we have to use the [0] index here because CodeMirror
@@ -29,7 +29,7 @@ module.exports = Backbone.View.extend({
 				indentWithTabs: true,
 				mode: 'css',
 				extraKeys: {
-					'Ctrl-Space': function(cm) {
+					'Ctrl-Space'(cm) {
 						cm.showHint();
 					}
 				}
@@ -38,15 +38,15 @@ module.exports = Backbone.View.extend({
 		this.$('.stylesheetSource:first').data('codemirror', this.styleEditor);
 
 		this.$el.on({
-			'modalshown': function() {
+			'modalshown': () => {
 				this.$el.one('animationend', function() {
 					this.styleEditor.refresh();
 					this.styleEditor.focus();
 				}.bind(this));
-			}.bind(this),
-			'modalhide': function() {
+			},
+			'modalhide': () => {
 				this.save();
-			}.bind(this)
+			}
 		});
 	},
 
@@ -56,7 +56,7 @@ module.exports = Backbone.View.extend({
 	 @method open
 	**/
 
-	open: function() {
+	open() {
 		this.styleEditor.doc.setValue(this.parent.model.get('stylesheet'));
 		this.styleEditor.refresh();
 		this.$el.data('modal').trigger('show');
@@ -68,7 +68,7 @@ module.exports = Backbone.View.extend({
 	 @method close
 	**/
 
-	close: function() {
+	close() {
 		this.$el.data('modal').trigger('hide');
 	},
 
@@ -78,7 +78,7 @@ module.exports = Backbone.View.extend({
 	 @method save
 	**/
 
-	save: function() {
+	save() {
 		this.parent.model.save({
 			stylesheet: this.styleEditor.doc.getValue()
 		});

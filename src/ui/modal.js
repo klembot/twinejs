@@ -9,7 +9,7 @@ var overlayTemplate = require('./ejs/modal-overlay.ejs');
 
 var modalOpts = {
 	callbacks: {
-		beforeShow: function(els, internalCallback) {
+		beforeShow(els, internalCallback) {
 			$('body').addClass('modalOpen');
 			els.modal.trigger('modalshow');
 
@@ -27,12 +27,12 @@ var modalOpts = {
 			return internalCallback(els);
 		},
 
-		afterShow: function(els, internalCallback) {
+		afterShow(els, internalCallback) {
 			els.modal.trigger('modalshown');
 			return internalCallback(els);
 		},
 
-		beforeHide: function(els, internalCallback) {
+		beforeHide(els, internalCallback) {
 			// allow the modal to block this event via a callback
 
 			if (els.modal.data('blockModalHide') &&
@@ -45,7 +45,7 @@ var modalOpts = {
 			return internalCallback(els);
 		},
 
-		afterHide: function(els, internalCallback) {
+		afterHide(els, internalCallback) {
 			els.modal.trigger('modalhidden');
 			return internalCallback(els);
 		}
@@ -55,13 +55,13 @@ var modalOpts = {
 		selector: '#modalOverlay',
 		hideClass: 'hide',
 		animations: {
-			show: function(els, internalCallback) {
+			show(els, internalCallback) {
 				els.overlay.addClass('fadeIn');
 				els.modal.addClass('appear');
 				internalCallback(els);
 			},
 
-			hide: function(els, internalCallback) {
+			hide(els, internalCallback) {
 				els.overlay.removeClass('fadeIn').addClass('fadeOut');
 				els.modal.removeClass('appear').addClass('fadeOut');
 				els.overlay.one('animationend', function() {

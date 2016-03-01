@@ -3,12 +3,12 @@ var Backbone = require('backbone');
 var locale = require('../locale');
 
 module.exports = Backbone.View.extend({
-	initialize: function(options) {
+	initialize(options) {
 		this.parent = options.parent;
 		this.render();
 	},
 
-	render: function() {
+	render() {
 		var usedEl = this.$('.used');
 		var percentEl = this.$('.percent');
 

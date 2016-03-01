@@ -33,7 +33,7 @@ module.exports = Marionette.ItemView.extend({
 
 	animateMovement: false,
 
-	initialize: function(options) {
+	initialize(options) {
 		this.parentView = options.parentView;
 		this
 			.listenTo(this.model, 'change', this.render)
@@ -93,7 +93,7 @@ module.exports = Marionette.ItemView.extend({
 		this.endDragBound = this.endDrag.bind(this);
 	},
 
-	onDomRefresh: function() {
+	onDomRefresh() {
 		var zoom = this.parentView.model.get('zoom');
 		var top = this.model.get('top') * zoom;
 		var left = this.model.get('left') * zoom;
@@ -144,13 +144,13 @@ module.exports = Marionette.ItemView.extend({
 		}
 	},
 
-	onDestroy: function() {
+	onDestroy() {
 		// removes mouse listeners
 
 		this.deselect();
 	},
 
-	serializeData: function() {
+	serializeData() {
 		// add the excerpt manually after saving data
 
 		var data = this.model.toJSON();
@@ -168,7 +168,7 @@ module.exports = Marionette.ItemView.extend({
 	                  then the confirm is skipped
 	**/
 
-	confirmDelete: function(e) {
+	confirmDelete(e) {
 		if (e.shiftKey) {
 			this.delete();
 		}
@@ -200,7 +200,7 @@ module.exports = Marionette.ItemView.extend({
 	 @method delete
 	**/
 
-	delete: function() {
+	delete() {
 		var model = this.model;
 
 		this.disappear(function() {
@@ -214,7 +214,7 @@ module.exports = Marionette.ItemView.extend({
 	 @method edit
 	**/
 
-	edit: function() {
+	edit() {
 		this.parentView.passageEditor.model = this.model;
 		this.parentView.passageEditor.open();
 	},
@@ -227,7 +227,7 @@ module.exports = Marionette.ItemView.extend({
 	 @method createLinkedPassages
 	**/
 
-	createLinkedPassages: function() {
+	createLinkedPassages() {
 		// derive the previous set of links
 
 		var oldBroken = [];
@@ -282,7 +282,7 @@ module.exports = Marionette.ItemView.extend({
 	 @method test
 	**/
 
-	test: function() {
+	test() {
 		this.parentView.test(this.model.id);
 	},
 
@@ -292,7 +292,7 @@ module.exports = Marionette.ItemView.extend({
 	 @method setAsStart
 	**/
 
-	setAsStart: function() {
+	setAsStart() {
 		this.parentView.model.save({ startPassage: this.model.id });
 	},
 
@@ -303,7 +303,7 @@ module.exports = Marionette.ItemView.extend({
 	 @param {Function} callback Function to call when the animation is done.
 	**/
 
-	appear: function(callback) {
+	appear(callback) {
 		if (callback) {
 			this.$el.on(
 				'animationend webkitAnimationEnd MSAnimationEnd',
@@ -326,7 +326,7 @@ module.exports = Marionette.ItemView.extend({
 	 @param {Function} callback Function to call when the animation is done.
 	**/
 
-	disappear: function(callback) {
+	disappear(callback) {
 		if (callback) {
 			this.$el.on(
 				'animationend webkitAnimationEnd MSAnimationEnd',
@@ -348,7 +348,7 @@ module.exports = Marionette.ItemView.extend({
 	 @method select
 	**/
 
-	select: function() {
+	select() {
 		if (this.selected) { return; }
 
 		this.selected = true;
@@ -364,7 +364,7 @@ module.exports = Marionette.ItemView.extend({
 	 @method deselect
 	**/
 
-	deselect: function() {
+	deselect() {
 		if (!this.selected) { return; }
 
 		this.selected = false;
@@ -380,7 +380,7 @@ module.exports = Marionette.ItemView.extend({
 	 @method highlight
 	**/
 
-	highlight: function() {
+	highlight() {
 		this.$el.addClass('highlight');
 	},
 
@@ -390,7 +390,7 @@ module.exports = Marionette.ItemView.extend({
 	 @method unhighlight
 	**/
 
-	unhighlight: function() {
+	unhighlight() {
 		this.$el.removeClass('highlight');
 	},
 
@@ -403,7 +403,7 @@ module.exports = Marionette.ItemView.extend({
 	 @private
 	**/
 
-	handleMouseDown: function(e) {
+	handleMouseDown(e) {
 		if (e.shiftKey || e.ctrlKey) {
 			// toggle selection
 
@@ -443,7 +443,7 @@ module.exports = Marionette.ItemView.extend({
 	 @private
 	**/
 
-	handleMouseUp: function(e) {
+	handleMouseUp(e) {
 		if (e.shiftKey || e.ctrlKey || this.actuallyDragged ||
 			this.$el == this.parentView.lastMousedown ||
 			$.contains(this.$el, this.parentView.lastMousedown)) {
@@ -469,7 +469,7 @@ module.exports = Marionette.ItemView.extend({
 	 @private
 	**/
 
-	beginDrag: function(e) {
+	beginDrag(e) {
 		if (e.pageX && e.pageY) {
 			this.dragMouseStart = { x: e.pageX, y: e.pageY };
 		}
@@ -511,7 +511,7 @@ module.exports = Marionette.ItemView.extend({
 	 @param {Object} e event object
 	**/
 
-	prepDrag: function() {
+	prepDrag() {
 		this.dragStart = {
 			left: parseInt(this.$el.css('left')),
 			top: parseInt(this.$el.css('top'))
@@ -529,7 +529,7 @@ module.exports = Marionette.ItemView.extend({
 	 @private
 	**/
 
-	trackDrag: function(e) {
+	trackDrag(e) {
 		var eventOrigin;
 
 		this.actuallyDragged = true;
@@ -577,7 +577,7 @@ module.exports = Marionette.ItemView.extend({
 	 @param {Object} e event object
 	**/
 
-	followDrag: function(e) {
+	followDrag(e) {
 		this.dragX = Math.max(this.dragStart.left + e.x, 0);
 		this.dragY = Math.max(this.dragStart.top + e.y, 0);
 
@@ -598,7 +598,7 @@ module.exports = Marionette.ItemView.extend({
 	 @private
 	**/
 
-	endDrag: function() {
+	endDrag() {
 		$('#storyEditView').removeClass('draggingPassages');
 		$('body')
 			.off({
@@ -620,7 +620,7 @@ module.exports = Marionette.ItemView.extend({
 	 @private
 	**/
 
-	finishDrag: function() {
+	finishDrag() {
 		// set initial position based on the user's drag
 
 		if (this.dragX === undefined || this.dragY === undefined) {

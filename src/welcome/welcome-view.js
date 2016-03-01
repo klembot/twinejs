@@ -16,11 +16,11 @@ var AppPrefCollection = require('../data/collections/app-pref');
 module.exports = Marionette.ItemView.extend({
 	template: welcomeTemplate,
 
-	initialize: function() {
+	initialize() {
 		this.welcomePref = AppPref.withName('welcomeSeen');
 	},
 
-	finish: function() {
+	finish() {
 		if (!this.welcomePref) {
 			this.welcomePref = new AppPref({ name: 'welcomeSeen' });
 			new AppPrefCollection().add(this.welcomePref);
@@ -30,7 +30,7 @@ module.exports = Marionette.ItemView.extend({
 		window.location.hash = '#stories';
 	},
 
-	onRender: function() {
+	onRender() {
 		this.$('div:first-child').css('display', 'block').addClass('appear');
 
 		this.$el.on('click', 'button, a.done', function(e) {

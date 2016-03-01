@@ -12,14 +12,14 @@ var _ = require('underscore');
 var Backbone = require('backbone');
 
 module.exports = Backbone.View.extend({
-	initialize: function(options) {
+	initialize(options) {
 		this.parent = options.parent;
 		this.$marquee = this.$('.marquee');
 		this.followDragBound = this.followDrag.bind(this);
 		this.endDragBound = this.endDrag.bind(this);
 	},
 
-	startDrag: function(e) {
+	startDrag(e) {
 		// bail out if the target is a .passage element
 
 		if ($(e.target).closest('.passage').length > 0) {
@@ -67,7 +67,7 @@ module.exports = Backbone.View.extend({
 		});
 	},
 
-	followDrag: function(e) {
+	followDrag(e) {
 		// marquee appearance
 
 		var left, top, width, height;
@@ -117,7 +117,7 @@ module.exports = Backbone.View.extend({
 		}, this);
 	},
 
-	endDrag: function() {
+	endDrag() {
 		this.$marquee.css('display', 'none');
 		$('#storyEditView').removeClass('marqueeing');
 		$('body').off({

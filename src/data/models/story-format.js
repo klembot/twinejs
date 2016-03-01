@@ -61,7 +61,7 @@ var StoryFormat = Backbone.Model.extend({
 		is specified, an error is raised directly.
 	**/
 
-	load: function(callback) {
+	load(callback) {
 		if (this.loaded) {
 			if (callback) { callback(); }
 
@@ -106,7 +106,7 @@ var StoryFormat = Backbone.Model.extend({
 		signature callback(err, result)
 	**/
 
-	publish: function(story, options, startId, callback) {
+	publish(story, options, startId, callback) {
 		this.load(function(err) {
 			if (err) {
 				callback(err);

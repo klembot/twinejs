@@ -11,7 +11,7 @@ var Backbone = require('backbone');
 var locale = require('../../locale');
 
 module.exports = Backbone.View.extend({
-	initialize: function(options) {
+	initialize(options) {
 		this.parent = options.parent;
 	},
 
@@ -21,7 +21,7 @@ module.exports = Backbone.View.extend({
 	 @method open
 	**/
 
-	open: function() {
+	open() {
 		// calculate counts
 
 		var charCount = 0;
@@ -104,7 +104,7 @@ module.exports = Backbone.View.extend({
 	 @method close
 	**/
 
-	close: function() {
+	close() {
 		this.$el.data('modal').trigger('hide');
 	}
 });

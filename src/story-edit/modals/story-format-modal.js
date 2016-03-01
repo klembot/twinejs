@@ -8,7 +8,7 @@ var StoryFormatCollection = require('../../data/collections/story-format');
 var singleFormatTemplate = require('../ejs/single-story-format-item.ejs');
 
 module.exports = Backbone.View.extend({
-	initialize: function(options) {
+	initialize(options) {
 		this.parent = options.parent;
 		this.itemTemplate = singleFormatTemplate;
 	},
@@ -19,7 +19,7 @@ module.exports = Backbone.View.extend({
 	 @method open
 	**/
 
-	open: function() {
+	open() {
 		// begin loading formats immediately
 
 		this.$('.formats').empty();
@@ -35,7 +35,7 @@ module.exports = Backbone.View.extend({
 	 @method close
 	**/
 
-	close: function() {
+	close() {
 		this.$el.data('modal').trigger('hide');
 	},
 
@@ -45,7 +45,7 @@ module.exports = Backbone.View.extend({
 	 @method changeFormat
 	**/
 
-	changeFormat: function(name) {
+	changeFormat(name) {
 		this.parent.model.save({ storyFormat: name });
 		this.$('.detail button.select').each(function() {
 			var $t = $(this);
@@ -67,7 +67,7 @@ module.exports = Backbone.View.extend({
 	 @method loadNextFormat
 	**/
 
-	loadNextFormat: function() {
+	loadNextFormat() {
 		if (this.formatsToLoad.length > 0) {
 			var format = this.formatsToLoad.at(0);
 
@@ -121,7 +121,7 @@ module.exports = Backbone.View.extend({
 	},
 
 	events: {
-		'click button.select': function(e) {
+		'click button.select'(e) {
 			this.changeFormat($(e.target).closest('button').data('format'));
 		}
 	}

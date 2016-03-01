@@ -23,7 +23,7 @@ module.exports = Marionette.ItemView.extend({
 	 @param {String} userLocale locale to set
 	**/
 
-	setLocale: function(userLocale) {
+	setLocale(userLocale) {
 		if (typeof userLocale !== 'string') {
 			// L10n: An internal error when changing locale.
 			throw new Error(
@@ -37,7 +37,7 @@ module.exports = Marionette.ItemView.extend({
 	},
 
 	events: {
-		'click [data-locale]': function(e) {
+		'click [data-locale]'(e) {
 			this.setLocale($(e.target).closest('[data-locale]').data('locale'));
 		}
 	}
