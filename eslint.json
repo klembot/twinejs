@@ -4,13 +4,14 @@
             2,
             "always"
         ],
-		"no-extra-semi": 0,
-		"no-mixed-spaces-and-tabs": 0
+        "no-extra-semi": 0,
+        "no-mixed-spaces-and-tabs": 0
     },
     "env": {
         "browser": true,
-		"commonjs": true,
-		"node": true
+        "es6": true,
+        "commonjs": true,
+        "node": true
     },
     "extends": "eslint:recommended"
 }

@@ -25,7 +25,10 @@ module.exports = function(grunt) {
 					},
 					exclude: ['fs'],
 					external: ['nw.gui'],
-					transform: ['ejsify'],
+					transform: [
+						'ejsify',
+						['babelify', { presets: ["es2015"] }]
+					],
 					watch: true
 				}
 			},
@@ -47,6 +50,7 @@ module.exports = function(grunt) {
 					],
 					transform: [
 						'ejsify',
+						['babelify', { presets: ["es2015"] }],
 						['uglifyify', { global: true }],
 						'browserify-shim'
 					]
