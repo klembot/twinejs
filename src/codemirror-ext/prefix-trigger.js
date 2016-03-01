@@ -13,7 +13,7 @@
 'use strict';
 var CodeMirror = require('codemirror');
 
-CodeMirror.defineOption('prefixTrigger', [], function(cm, opts) {
+CodeMirror.defineOption('prefixTrigger', [], (cm, opts) => {
 	if (opts.prefixes && opts.callback) {
 		cm.on('inputRead', checkTrigger);
 	}

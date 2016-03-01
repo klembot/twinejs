@@ -71,7 +71,7 @@ $.fn.bubble = function(action) {
 
 			// hide the bubble
 
-			$bubble.addClass('fadeOut fast').one('animationend', function() {
+			$bubble.addClass('fadeOut fast').one('animationend', () => {
 				$bubble.removeClass('fadeIn fadeOut').css('display', 'none');
 			});
 

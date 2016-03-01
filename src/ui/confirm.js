@@ -22,7 +22,7 @@ var confirmTemplate = require('./ejs/confirm.ejs');
 						 buttonClass (CSS class to apply to the action button)
 **/
 
-module.exports = function(message, buttonLabel, callback, options) {
+module.exports = (message, buttonLabel, callback, options) => {
 	options = options || {};
 
 	var modalContainer = $(Marionette.Renderer.render(confirmTemplate, {

@@ -193,7 +193,7 @@ var nwui = module.exports = {
 
 			// show window once we're finished loading
 
-			window.onload = function() {
+			window.onload = () => {
 				win.show();
 				win.focus();
 				_.delay(function deselectButton() {
@@ -205,7 +205,7 @@ var nwui = module.exports = {
 
 			startupTask = 'adding the debugger keyboard shortcut';
 
-			$('body').on('keyup', function(e) {
+			$('body').on('keyup', e => {
 				if (e.which == 68 && e.shiftKey && e.altKey && e.ctrlKey) {
 					win.showDevTools();
 				}
@@ -328,7 +328,7 @@ var nwui = module.exports = {
 		
 			// when quitting, unlock the story directory
 
-			process.on('exit', function() {
+			process.on('exit', () => {
 				nwui.unlockStoryDirectory();
 			});
 
@@ -349,9 +349,7 @@ var nwui = module.exports = {
 					
 					if (!_.some(
 						_.keys(this.changedAttributes()),
-						function(key) {
-							return (key != 'lastUpdated');
-						}
+						key => key != 'lastUpdated'
 					)) {
 						return;
 					}
@@ -417,7 +415,7 @@ var nwui = module.exports = {
 
 			startupTask = 'setting up the Help link';
 
-			StoryListView.prototype.events['click .showHelp'] = function() {
+			StoryListView.prototype.events['click .showHelp'] = () => {
 				nwui.gui.Shell.openExternal('http://twinery.org/2guide');
 			};
 
@@ -430,11 +428,11 @@ var nwui = module.exports = {
 				nwui.syncFs = false;
 				var reader = oldStoryListViewImportFile.call(this, e);
 
-				reader.addEventListener('load', function() {
+				reader.addEventListener('load', () => {
 					// deferred to make sure that the normal event
 					// handler fires first
 
-					_.defer(function() {
+					_.defer(() => {
 						nwui.syncFs = true;
 						StoryCollection.all().each(nwui.saveStoryFile);
 					});
@@ -563,7 +561,7 @@ var nwui = module.exports = {
 
 		var fileStories = nwui.fs.readdirSync(nwui.filePath);
 
-		_.each(fileStories, function(filename) {
+		_.each(fileStories, filename => {
 			if (filename.match(/\.html$/)) {
 				var stats = nwui.fs.statSync(nwui.filePath + '/' + filename);
 
@@ -589,7 +587,7 @@ var nwui = module.exports = {
 	lockStoryDirectory() {
 		try {
 			if (process.platform == 'win32') {
-				_.each(nwui.fs.readdirSync(nwui.filePath), function(filename) {
+				_.each(nwui.fs.readdirSync(nwui.filePath), filename => {
 					// a-w, 0444
 					nwui.fs.chmodSync(nwui.filePath + '/' + filename, 292);
 				});
@@ -622,7 +620,7 @@ var nwui = module.exports = {
 	unlockStoryDirectory() {
 		try {
 			if (process.platform == 'win32') {
-				_.each(nwui.fs.readdirSync(nwui.filePath), function(filename) {
+				_.each(nwui.fs.readdirSync(nwui.filePath), filename => {
 					// a+w, 0666
 					nwui.fs.chmodSync(nwui.filePath + '/' + filename, 438);
 				});

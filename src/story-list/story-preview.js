@@ -87,7 +87,7 @@ module.exports = Backbone.View.extend({
 
 			var maxLength = 0;
 
-			_.each(this.parent.passages, function(passage) {
+			_.each(this.parent.passages, passage => {
 				var len = passage.get('text').length;
 
 				if (len > maxLength) {

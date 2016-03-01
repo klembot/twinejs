@@ -57,7 +57,7 @@ StoryCollection.prototype.model = Story;
  @static
 **/
 
-StoryCollection.all = function() {
+StoryCollection.all = () => {
 	var result = new StoryCollection();
 
 	result.fetch();

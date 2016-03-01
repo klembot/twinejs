@@ -85,7 +85,7 @@ module.exports = Backbone.View.extend({
 			_.each(this.passageCache, function(props, pName) {
 				if (_.contains(props.links, oldName) ||
 					_.contains(props.links, newName)) {
-					this.parent.children.find(function(v) {
+					this.parent.children.find(v => {
 						if (v.model.get('name') == pName) {
 							v.render();
 							return true;
@@ -102,7 +102,7 @@ module.exports = Backbone.View.extend({
 
 			_.each(this.passageCache, function(props, pName) {
 				if (_.contains(props.links, name)) {
-					this.parent.children.find(function(v) {
+					this.parent.children.find(v => {
 						if (v.model.get('name') == pName) {
 							v.render();
 							return true;
@@ -122,7 +122,7 @@ module.exports = Backbone.View.extend({
 
 			_.each(this.passageCache, function(props, pName) {
 				if (_.contains(props.links, name)) {
-					this.parent.children.find(function(v) {
+					this.parent.children.find(v => {
 						if (v.model.get('name') == pName) {
 							v.render();
 							return true;

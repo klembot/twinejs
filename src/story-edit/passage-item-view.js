@@ -135,7 +135,7 @@ module.exports = Marionette.ItemView.extend({
 			// animation ends, so that link arrows update with
 			// the correct position
 
-			_.delay(function(model) {
+			_.delay(model => {
 				model.set({ left: model.get('left') + 0.0001 });
 			}, 100, this.model);
 		}
@@ -203,7 +203,7 @@ module.exports = Marionette.ItemView.extend({
 	delete() {
 		var model = this.model;
 
-		this.disappear(function() {
+		this.disappear(() => {
 			model.destroy();
 		});
 	},

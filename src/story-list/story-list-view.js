@@ -85,7 +85,7 @@ module.exports = Marionette.CompositeView.extend({
 
 			// reset SVG previews
 
-			this.children.each(function(view) {
+			this.children.each(view => {
 				view.preview.passagesRendered = false;
 			});
 
@@ -125,7 +125,7 @@ module.exports = Marionette.CompositeView.extend({
 			var proxy =
 				$('<div id="storyEditProxy" class="fullAppear fast reverse">');
 
-			proxy.one('animationend', function() {
+			proxy.one('animationend', () => {
 				proxy.remove();
 			});
 
@@ -201,9 +201,9 @@ module.exports = Marionette.CompositeView.extend({
 						$('#appUpdateModal .version').text(data.version);
 						$('#appUpdateModal a.download').attr('href', data.url);
 
-						_.delay(function() {
+						_.delay(() => {
 							$('#appUpdateModal').data('modal').trigger('show');
-						}.bind(this), 50);
+						}, 50);
 					}
 				);
 			}
@@ -304,9 +304,7 @@ module.exports = Marionette.CompositeView.extend({
 	},
 
 	showNextPreview() {
-		var unrendered = this.children.find(function(view) {
-			return !view.preview.passagesRendered;
-		});
+		var unrendered = this.children.find(view => !view.preview.passagesRendered);
 		
 		if (unrendered !== undefined) {
 			unrendered.preview.renderPassages(this.showNextPreview.bind(this));

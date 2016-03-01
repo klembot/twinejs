@@ -36,13 +36,11 @@ var StoryFormat = Backbone.Model.extend({
 	**/
 	properties: {},
 
-	defaults: _.memoize(function() {
-		return {
-			name: locale.say('Untitled Story Format'),
-			url: '',
-			userAdded: true
-		};
-	}),
+	defaults: _.memoize(() => ({
+        name: locale.say('Untitled Story Format'),
+        url: '',
+        userAdded: true
+    })),
 
 	/**
 	 Loads the actual story format via a JSONP request. After this
@@ -122,23 +120,17 @@ var StoryFormat = Backbone.Model.extend({
 
 				// builtin placeholders
 
-				output = output.replace(/{{STORY_NAME}}/g, function() {
-					return _.escape(story.get('name'));
-				});
+				output = output.replace(/{{STORY_NAME}}/g, () => _.escape(story.get('name')));
 
-				output = output.replace(/{{STORY_DATA}}/g, function() {
-					return story.publish(options, startId);
-				});
+				output = output.replace(/{{STORY_DATA}}/g, () => story.publish(options, startId));
 
 				// user-defined placeholders
 
-				_.each(this.get('placeholders'), function(p) {
+				_.each(this.get('placeholders'), p => {
 					var value = story.get(p.name);
 
 					if (value !== null) {
-						output = output.replace(p.name, function() {
-							return value;
-						});
+						output = output.replace(p.name, () => value);
 					}
 				});
 
@@ -170,6 +162,4 @@ var StoryFormatCollection = require('../collections/story-format');
  @return {StoryFormat} matching story format
  **/
 
-StoryFormat.withName = function(name) {
-	return StoryFormatCollection.all().findWhere({ name: name });
-};
+StoryFormat.withName = name => StoryFormatCollection.all().findWhere({ name: name });

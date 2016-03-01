@@ -22,7 +22,7 @@ module.exports = function(story, name) {
 	var startPassageId = story.get('startPassage');
 	var newStart;
 
-	this.fetchPassages().each(function(orig) {
+	this.fetchPassages().each(orig => {
 		var dupePassage = orig.clone();
 
 		dupePassage.unset('id');

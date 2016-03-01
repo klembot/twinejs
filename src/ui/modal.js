@@ -64,7 +64,7 @@ var modalOpts = {
 			hide(els, internalCallback) {
 				els.overlay.removeClass('fadeIn').addClass('fadeOut');
 				els.modal.removeClass('appear').addClass('fadeOut');
-				els.overlay.one('animationend', function() {
+				els.overlay.one('animationend', () => {
 					els.overlay.removeClass('fadeOut');
 					els.modal.removeClass('fadeOut').addClass('hide');
 					internalCallback(els);
@@ -90,7 +90,7 @@ $(ui).on('init', function initModal(e, options) {
 	if ($('#modalOverlay').length === 0) {
 		var overlay = $(overlayTemplate());
 
-		overlay.on('mousedown mouseup', function(e) {
+		overlay.on('mousedown mouseup', e => {
 			e.stopPropagation();
 		});
 
@@ -99,7 +99,7 @@ $(ui).on('init', function initModal(e, options) {
 
 	// prevent keyboard events from leaking out of modals
 
-	$b.on('keydown keyup', '.modal', function(e) {
+	$b.on('keydown keyup', '.modal', e => {
 		if (e.keyCode != 27) {
 			e.stopPropagation();
 		}
@@ -126,7 +126,7 @@ $(ui).on('init', function initModal(e, options) {
 		}
 	});
 })
-.on('attach', function(e, options) {
+.on('attach', (e, options) => {
 	// set up modals
 
 	options.$el.find('.modal').each(function() {
@@ -137,6 +137,6 @@ $(ui).on('init', function initModal(e, options) {
 		$t.data('modal', $t.omniWindow(modalOpts));
 	});
 })
-.on('destroy', function() {
+.on('destroy', () => {
 	$('#modalOverlay').remove();
 });

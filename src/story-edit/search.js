@@ -40,7 +40,7 @@ module.exports = Backbone.View.extend({
 
 		search = new RegExp(search.replace(/([.*+?^${}()|\[\]\/\\])/g, '\\$1'), flags || 'i');
 
-		this.parent.children.each(function(view) {
+		this.parent.children.each(view => {
 			if (view.model.matches(search)) {
 				view.highlight();
 			}
@@ -60,7 +60,7 @@ module.exports = Backbone.View.extend({
 		this.searchField.val('');
 		this.$('.clearSearch').addClass('hide');
 
-		this.parent.children.each(function(view) {
+		this.parent.children.each(view => {
 			view.unhighlight();
 		});
 	},

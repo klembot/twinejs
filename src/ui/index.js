@@ -52,7 +52,7 @@ var ui = module.exports = {
 			}
 
 			$b.on('webkitAnimationEnd.twineui oanimationend.twineui ' +
-				'msAnimationEnd.twineui', function(e) {
+				'msAnimationEnd.twineui', e => {
 				// polyfill browser animation-related events
 
 				e.type = 'animationend';
@@ -61,7 +61,7 @@ var ui = module.exports = {
 
 			$(ui).trigger('init', { $body: $b });
 
-			window.app.mainRegion.on('show', function() {
+			window.app.mainRegion.on('show', () => {
 				$(ui).trigger('attach', { $el: window.app.mainRegion.$el });
 			});
 		};

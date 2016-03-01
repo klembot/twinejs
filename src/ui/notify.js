@@ -10,7 +10,7 @@ var Marionette = require('backbone.marionette');
 var ui = require('./index');
 var notificationTemplate = require('./ejs/notification.ejs');
 
-$(ui).on('init', function(e, options) {
+$(ui).on('init', (e, options) => {
 	options.$body.on('click.twineui', '#notifications .close', function() {
 		// click handler for closing notifications
 
@@ -30,7 +30,7 @@ $(ui).on('init', function(e, options) {
  @param {String} className CSS class to apply to the notification
 **/
 
-module.exports = function(message, className) {
+module.exports = (message, className) => {
 	if ($('#notifications').length === 0) {
 		$('body').append('<div id="notifications"></div>');
 	}

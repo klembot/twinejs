@@ -20,7 +20,7 @@ var notify = require('../ui/notify');
 
 require('blob-polyfill');
 
-module.exports = function(data, filename, success, failure) {
+module.exports = (data, filename, success, failure) => {
 	try {
 		var $b = $('body');
 

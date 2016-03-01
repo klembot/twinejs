@@ -39,7 +39,7 @@ module.exports = {
 			story,
 			options.formatOptions,
 			options.startPassageId,
-			function(err, output) {
+			(err, output) => {
 				if (err) {
 					// L10n: %s is the error message.
 					notify(
@@ -59,7 +59,7 @@ module.exports = {
 						replaceContent(output);
 					}
 				}
-			}.bind(this)
+			}
 		);
 	},
 
@@ -72,7 +72,7 @@ module.exports = {
 	saveArchive() {
 		var output = '';
 
-		StoryCollection.all().each(function(story) {
+		StoryCollection.all().each(story => {
 			// force publishing even if there is no start point set
 
 			output += story.publish(null, null, true) + '\n\n';
