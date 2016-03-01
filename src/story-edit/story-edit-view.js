@@ -671,8 +671,7 @@ module.exports = Marionette.CompositeView.extend({
 	**/
 
 	zoomWheel: function(e) {
-		if (e.altKey && !e.ctrlKey)
-		{
+		if (e.altKey && !e.ctrlKey) {
 			var zoomIndex = this.zoomLevels.indexOf(this.model.get('zoom'));
 
 			// Only consider the Y component of the motion.
@@ -693,7 +692,7 @@ module.exports = Marionette.CompositeView.extend({
 			}
 
 			this.model.save('zoom', this.zoomLevels[zoomIndex]);
-		}	
+		}
 	},
 
 	/**
