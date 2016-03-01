@@ -84,7 +84,7 @@ var importer = module.exports = {
 					var passage = allPassages.create(
 						{
 							name: passageEl.attributes.name.value,
-							tags: tags,
+							tags,
 							text: passageEl.textContent,
 							story: story.id,
 							left: parseInt(posBits[0]),
@@ -105,7 +105,7 @@ var importer = module.exports = {
 			
 			if (lastUpdate) {
 				story.save(
-					{ lastUpdate: lastUpdate },
+					{ lastUpdate },
 					{ silent: true, validate: false }
 				);
 			}

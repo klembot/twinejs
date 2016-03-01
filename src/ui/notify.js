@@ -36,7 +36,7 @@ module.exports = (message, className) => {
 	}
 
 	var n = Marionette.Renderer.render(notificationTemplate,
-		{ message: message, className: className });
+		{ message, className });
 
 	$('#notifications').append(n);
 

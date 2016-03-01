@@ -24,7 +24,7 @@ require('../../codemirror-ext/prefix-trigger');
 window.CodeMirror = CodeMirror;
 
 module.exports = Backbone.View.extend({
-	tagTemplate: tagTemplate,
+	tagTemplate,
 
 	initialize(options) {
 		/**
@@ -317,7 +317,7 @@ module.exports = Backbone.View.extend({
 		if (this.model.save({
 			name: this.$('.passageName').val(),
 			text: this.cm.doc.getValue(),
-			tags: tags
+			tags
 		})) {
 			// have to manually set the style here because of jQuery .fadeIn()
 
@@ -372,7 +372,7 @@ module.exports = Backbone.View.extend({
 	**/
 
 	addTag(name) {
-		this.tagContainer.append(this.tagTemplate({ name: name }));
+		this.tagContainer.append(this.tagTemplate({ name }));
 	},
 
 	/**

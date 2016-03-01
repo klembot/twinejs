@@ -129,7 +129,7 @@ module.exports = Marionette.ItemView.extend({
 		}
 
 		if (this.animateMovement) {
-			this.$el.animate({ left: left, top: top }, 100);
+			this.$el.animate({ left, top }, 100);
 
 			// we need to trigger a change event once the
 			// animation ends, so that link arrows update with
@@ -140,7 +140,7 @@ module.exports = Marionette.ItemView.extend({
 			}, 100, this.model);
 		}
 		else {
-			this.$el.css({ left: left, top: top });
+			this.$el.css({ left, top });
 		}
 	},
 

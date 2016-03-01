@@ -56,7 +56,7 @@ module.exports = Marionette.Application.extend({
 		// add i18n hook to Marionette's rendering
 
 		var templateProperties = {
-			moment: moment,
+			moment,
 			s: locale.say.bind(locale),
 			sp: locale.sayPlural.bind(locale)
 		};
