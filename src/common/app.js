@@ -22,11 +22,11 @@ var TransRegion = require('../backbone-ext/trans-region');
 var TwineRouter = require('./router');
 
 module.exports = Marionette.Application.extend({
-	initialize: function() {
+	initialize() {
 		this.on('start', this.start);
 	},
 
-	start: function() {
+	start() {
 		/**
 		 Name of the app.
 
@@ -169,7 +169,7 @@ module.exports = Marionette.Application.extend({
 		 URL the download is available at.
 	**/
 
-	checkForUpdate: function(latestBuildNumber, callback) {
+	checkForUpdate(latestBuildNumber, callback) {
 		$.getJSON('http://twinery.org/latestversion/2.json', function(data) {
 			if (data.buildNumber > latestBuildNumber) {
 				callback(data);

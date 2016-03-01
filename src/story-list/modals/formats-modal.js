@@ -13,7 +13,7 @@ var storyFormatTemplate = require('../ejs/format-item.ejs');
 require('../../ui/tab');
 
 module.exports = Backbone.View.extend({
-	initialize: function(options) {
+	initialize(options) {
 		this.parent = options.parent;
 		this.itemTemplate = storyFormatTemplate;
 	},
@@ -24,7 +24,7 @@ module.exports = Backbone.View.extend({
 	 @method open
 	**/
 
-	open: function() {
+	open() {
 		this.$('.error').hide();
 
 		// begin loading formats immediately
@@ -42,7 +42,7 @@ module.exports = Backbone.View.extend({
 	 @method close
 	**/
 
-	close: function() {
+	close() {
 		this.$el.data('modal').trigger('hide');
 	},
 
@@ -54,7 +54,7 @@ module.exports = Backbone.View.extend({
 	 @method loadNextFormat
 	**/
 
-	loadNextFormat: function() {
+	loadNextFormat() {
 		if (this.formatsToLoad.length > 0) {
 			var format = this.formatsToLoad.at(0);
 
@@ -115,7 +115,7 @@ module.exports = Backbone.View.extend({
 	 @param {String} url URL of the new story format
 	**/
 
-	addFormat: function(url) {
+	addFormat(url) {
 		// create a temporary model and try loading it
 
 		var test = new StoryFormat({ url: url });
@@ -179,7 +179,7 @@ module.exports = Backbone.View.extend({
 	 @param {String} name the name of the story format
 	**/
 
-	removeFormat: function(name) {
+	removeFormat(name) {
 		StoryFormat.withName(name).destroy();
 	},
 
@@ -190,7 +190,7 @@ module.exports = Backbone.View.extend({
 	 @param {String} name the name of the story format
 	**/
 
-	setDefaultFormat: function(name) {
+	setDefaultFormat(name) {
 		AppPref.withName('defaultFormat').save({ value: name });
 	},
 
@@ -201,7 +201,7 @@ module.exports = Backbone.View.extend({
 	 @param {String} name the name of the story format
 	**/
 
-	setProofingFormat: function(name) {
+	setProofingFormat(name) {
 		AppPref.withName('proofingFormat').save({ value: name });
 	},
 
@@ -211,7 +211,7 @@ module.exports = Backbone.View.extend({
 	 @method syncButtons
 	**/
 
-	syncButtons: function() {
+	syncButtons() {
 		var defaultFormat = AppPref.withName('defaultFormat').get('value');
 		var proofingFormat = AppPref.withName('proofingFormat').get('value');
 
@@ -239,28 +239,28 @@ module.exports = Backbone.View.extend({
 	},
 
 	events: {
-		'click .showRemoveConfirm': function(e) {
+		'click .showRemoveConfirm'(e) {
 			var container = $(e.target).closest('.buttons');
 
 			container.find('.normalButtons').hide();
 			container.find('.removeConfirm').fadeIn();
 		},
 
-		'click .hideRemoveConfirm': function(e) {
+		'click .hideRemoveConfirm'(e) {
 			var container = $(e.target).closest('.buttons');
 
 			container.find('.normalButtons').fadeIn();
 			container.find('.removeConfirm').hide();
 		},
 
-		'click .remove': function(e) {
+		'click .remove'(e) {
 			var container = $(e.target).closest('.format');
 
 			this.removeFormat(container.data('format'));
 			container.slideUp();
 		},
 
-		'click .setDefault': function(e) {
+		'click .setDefault'(e) {
 			var container = $(e.target).closest('.format');
 			var format = container.data('format');
 			
@@ -282,7 +282,7 @@ module.exports = Backbone.View.extend({
 			this.syncButtons();
 		},
 
-		'submit .addFormat': function(e) {
+		'submit .addFormat'(e) {
 			this.addFormat(this.$('.addFormat input[type="text"]').val());
 			e.preventDefault();
 		}

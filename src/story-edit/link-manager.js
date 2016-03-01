@@ -31,7 +31,7 @@ module.exports = Backbone.View.extend({
 	
 	ARROW_SIZE: 10,
 
-	initialize: function(options) {
+	initialize(options) {
 		/**
 		 The parent view.
 
@@ -190,7 +190,7 @@ module.exports = Backbone.View.extend({
 	 @private
 	**/
 
-	destroy: function() {
+	destroy() {
 		$('body').off('passagedragstart', this.prepDragBound);
 		$('body').off('passagedrag', this.followDragBound);
 	},
@@ -201,7 +201,7 @@ module.exports = Backbone.View.extend({
 	 @method reset
 	**/
 
-	reset: function() {
+	reset() {
 		this.passageCache = {};
 		this.parent.collection.each(function(item) {
 			this.cachePassage(item);
@@ -216,7 +216,7 @@ module.exports = Backbone.View.extend({
 	 @method drawAll
 	**/
 
-	drawAll: function() {
+	drawAll() {
 		var drawArrows = (this.parent.model.get('zoom') > 0.25);
 
 		this.svg.clear();
@@ -248,7 +248,7 @@ module.exports = Backbone.View.extend({
 	 @param {Boolean} arrowhead Include an arrowhead?
 	**/
 
-	drawConnector: function(start, end, arrowhead) {
+	drawConnector(start, end, arrowhead) {
 		var p = this.passageCache[start];
 		var q = this.passageCache[end];
 
@@ -344,7 +344,7 @@ module.exports = Backbone.View.extend({
 	 @return Array
 	**/
 
-	endPointProjectedFrom: function(line, angle, distance) {
+	endPointProjectedFrom(line, angle, distance) {
 		var length = Math.sqrt(Math.pow(line[1][0] - line[0][0], 2) +
 		Math.pow(line[1][1] - line[0][1], 2));
 
@@ -373,7 +373,7 @@ module.exports = Backbone.View.extend({
 	 @private
 	**/
 
-	prepDrag: function() {
+	prepDrag() {
 		/**
 		 Should arrowheads be drawn while dragging?
 
@@ -430,7 +430,7 @@ module.exports = Backbone.View.extend({
 	 @private
 	**/
 
-	followDrag: function() {
+	followDrag() {
 		for (var i = this.draggedPassages.length - 1; i >= 0; i--) {
 			this.cachePassage(this.draggedPassages[i]);
 		}
@@ -455,7 +455,7 @@ module.exports = Backbone.View.extend({
 	 @param {Passage} passage Passage to cache.
 	**/
 
-	cachePassage: function(passage) {
+	cachePassage(passage) {
 		var offset = this.$('.passages').offset();
 		var passEl = this.$(
 			'.passages div[data-id="' + passage.id + '"] .frame'

@@ -12,7 +12,7 @@ var StoryEditView = require('../story-edit/story-edit-view');
 var StoryListView = require('../story-list/story-list-view');
 
 module.exports = Marionette.Region.extend({
-	initialize: function() {
+	initialize() {
 		this.on('before:swapOut', function(view) {
 			this.prevView = view;
 			

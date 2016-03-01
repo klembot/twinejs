@@ -25,7 +25,7 @@ var StoryListView = require('../story-list/story-list-view');
 var WelcomeView = require('../welcome/welcome-view');
 
 module.exports = Backbone.Router.extend({
-	initialize: function(options) {
+	initialize(options) {
 		/**
 		 The app managed by this router.
 
@@ -35,15 +35,15 @@ module.exports = Backbone.Router.extend({
 		this.app = options.app;
 	},
 
-	welcome: function() {
+	welcome() {
 		this.app.mainRegion.show(new WelcomeView());
 	},
 
-	locale: function() {
+	locale() {
 		this.app.mainRegion.show(new LocaleView());
 	},
 
-	listStories: function() {
+	listStories() {
 		// list of all stories
 
 		this.app.mainRegion.show(
@@ -51,7 +51,7 @@ module.exports = Backbone.Router.extend({
 		);
 	},
 
-	editStory: function(id) {
+	editStory(id) {
 		// edit a specific story
 
 		this.app.mainRegion.show(
@@ -59,13 +59,13 @@ module.exports = Backbone.Router.extend({
 		);
 	},
 
-	playStory: function(id) {
+	playStory(id) {
 		// play a story
 
 		publish.publishStory(Story.withId(id));
 	},
 
-	testStory: function(storyId, passageId) {
+	testStory(storyId, passageId) {
 		// test a story from a particular passage
 		
 		publish.publishStory(Story.withId(storyId), null, {
@@ -74,7 +74,7 @@ module.exports = Backbone.Router.extend({
 		});
 	},
 
-	proofStory: function(id) {
+	proofStory(id) {
 		// proof a story
 
 		var story = Story.withId(id);
@@ -85,7 +85,7 @@ module.exports = Backbone.Router.extend({
 		publish.publishStory(story, null, { format: format });
 	},
 
-	startup: function() {
+	startup() {
 		// default route -- show welcome if the user hasn't already seen it
 
 		var welcomePref = AppPref.withName('welcomeSeen', false);

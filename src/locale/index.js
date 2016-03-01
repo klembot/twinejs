@@ -20,7 +20,7 @@ module.exports = {
 	 @param {Function} callback function to call once done
 	**/
 
-	load: function(locale, callback) {
+	load(locale, callback) {
 		/**
 		 The app's current locale.
 
@@ -84,7 +84,7 @@ module.exports = {
 	 @return string translation
 	**/
 
-	say: function(source) {
+	say(source) {
 		try {
 			if (arguments.length == 1) {
 				return this.i18n.gettext(source);
@@ -122,7 +122,7 @@ module.exports = {
 	 @return string translation
 	**/
 
-	sayPlural: function(sourceSingular, sourcePlural, count) {
+	sayPlural(sourceSingular, sourcePlural, count) {
 		try {
 			var sprintfArgs = [
 				this.i18n.ngettext(sourceSingular, sourcePlural, count), count

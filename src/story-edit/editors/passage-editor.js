@@ -26,7 +26,7 @@ window.CodeMirror = CodeMirror;
 module.exports = Backbone.View.extend({
 	tagTemplate: tagTemplate,
 
-	initialize: function(options) {
+	initialize(options) {
 		/**
 		 A reference to the DOM element containing all tags.
 
@@ -121,7 +121,7 @@ module.exports = Backbone.View.extend({
 	 @method open
 	**/
 
-	open: function() {
+	open() {
 		// remember previous window title
 
 		this.prevTitle = document.title;
@@ -236,9 +236,9 @@ module.exports = Backbone.View.extend({
 	 @method autocomplete
 	**/
 
-	autocomplete: function() {
+	autocomplete() {
 		this.cm.showHint({
-			hint: function(cm) {
+			hint(cm) {
 				var wordRange = cm.findWordAt(cm.getCursor());
 				var word = cm.getRange(
 					wordRange.anchor,
@@ -266,21 +266,21 @@ module.exports = Backbone.View.extend({
 
 			completeSingle: false,
 			extraKeys: {
-				']': function(cm, hint) {
+				']'(cm, hint) {
 					var doc = cm.getDoc();
 
 					doc.replaceRange(']', doc.getCursor());
 					hint.close();
 				},
 
-				'-': function(cm, hint) {
+				'-'(cm, hint) {
 					var doc = cm.getDoc();
 
 					doc.replaceRange('-', doc.getCursor());
 					hint.close();
 				},
 
-				'|': function(cm, hint) {
+				'|'(cm, hint) {
 					var doc = cm.getDoc();
 
 					doc.replaceRange('|', doc.getCursor());
@@ -296,7 +296,7 @@ module.exports = Backbone.View.extend({
 	 @method close
 	**/
 
-	close: function() {
+	close() {
 		this.$el.data('modal').trigger('hide');
 	},
 
@@ -309,7 +309,7 @@ module.exports = Backbone.View.extend({
 	 @return {Boolean} whether the save was successful
 	**/
 
-	save: function() {
+	save() {
 		// gather current tag names
 
 		var tags = [];
@@ -352,7 +352,7 @@ module.exports = Backbone.View.extend({
 	 @method showNewTag
 	**/
 
-	showNewTag: function() {
+	showNewTag() {
 		this.$('.showNewTag').hide();
 		this.$('.newTag').show();
 		this.$('.newTagName').val('').focus();
@@ -364,7 +364,7 @@ module.exports = Backbone.View.extend({
 	 @method showNewTag
 	**/
 
-	hideNewTag: function() {
+	hideNewTag() {
 		this.$('.showNewTag').show();
 		this.$('.newTag').hide();
 	},
@@ -377,7 +377,7 @@ module.exports = Backbone.View.extend({
 	 @param {String} name name of the tag to add
 	**/
 
-	addTag: function(name) {
+	addTag(name) {
 		this.tagContainer.append(this.tagTemplate({ name: name }));
 	},
 
@@ -387,7 +387,7 @@ module.exports = Backbone.View.extend({
 	 @method restoreTitle
 	**/
 
-	restoreTitle: function() {
+	restoreTitle() {
 		document.title = this.prevTitle;
 	}
 });

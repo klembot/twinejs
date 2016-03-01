@@ -21,7 +21,7 @@ var importer = module.exports = {
 		 stories.
 	**/
 
-	import: function(data, lastUpdate) {
+	import(data, lastUpdate) {
 		var sels = importer.selectors;
 
 		// containers for the new stories and passages we will create

@@ -14,7 +14,7 @@ var StoryCollection = Backbone.Collection.extend({
 	order: 'name',
 	reverseOrder: false,
 
-	comparator: function(a, b) {
+	comparator(a, b) {
 		var sortVal;
 		
 		switch (this.order) {

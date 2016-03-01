@@ -17,7 +17,7 @@ module.exports = Backbone.View.extend({
 
 	appearDuration: 500,
 
-	initialize: function(options) {
+	initialize(options) {
 		/**
 		 The parent StoryItemView.
 
@@ -73,7 +73,7 @@ module.exports = Backbone.View.extend({
 		completes
 	**/
 
-	renderPassages: function(callback) {
+	renderPassages(callback) {
 		// set height to fill the remaining space
 		// left by the label
 

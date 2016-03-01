@@ -54,7 +54,7 @@ var nwui = module.exports = {
 	 as possible.
 	**/
 
-	init: function() {
+	init() {
 		var startupTask = 'beginning startup tasks';
 
 		try {
@@ -85,7 +85,7 @@ var nwui = module.exports = {
 					label: locale.say('Toggle Fullscreen'),
 					key: 'f',
 					modifiers: 'cmd-shift',
-					click: function() {
+					click() {
 						nwui.gui.Window.get().toggleFullscreen();
 					}
 				}), 0);
@@ -102,7 +102,7 @@ var nwui = module.exports = {
 					label: locale.say('Quit'),
 					key: 'q',
 					modifiers: 'ctrl',
-					click: function() {
+					click() {
 						nwui.gui.App.closeAllWindows();
 					}
 				}));
@@ -124,7 +124,7 @@ var nwui = module.exports = {
 					label: locale.say('Undo'),
 					key: 'z',
 					modifiers: 'ctrl',
-					click: function() {
+					click() {
 						document.execCommand('undo');
 					}
 				}));
@@ -137,7 +137,7 @@ var nwui = module.exports = {
 					label: locale.say('Cut'),
 					key: 'x',
 					modifiers: 'ctrl',
-					click: function() {
+					click() {
 						document.execCommand('cut');
 					}
 				}));
@@ -146,7 +146,7 @@ var nwui = module.exports = {
 					label: locale.say('Copy'),
 					key: 'c',
 					modifiers: 'ctrl',
-					click: function() {
+					click() {
 						document.execCommand('copy');
 					}
 				}));
@@ -155,14 +155,14 @@ var nwui = module.exports = {
 					label: locale.say('Paste'),
 					key: 'v',
 					modifiers: 'ctrl',
-					click: function() {
+					click() {
 						document.execCommand('paste');
 					}
 				}));
 
 				editMenu.submenu.append(new nwui.gui.MenuItem({
 					label: locale.say('Delete'),
-					click: function() {
+					click() {
 						document.execCommand('delete');
 					}
 				}));
@@ -180,7 +180,7 @@ var nwui = module.exports = {
 
 			mainMenu.submenu.insert(new nwui.gui.MenuItem({
 				label: locale.say('Show Library'),
-				click: function() {
+				click() {
 					nwui.gui.Shell.openItem(
 						nwui.filePath.replace(/\//g, nwui.path.sep)
 					);
@@ -475,7 +475,7 @@ var nwui = module.exports = {
 	 @param {Story} story Story model to create filename for
 	**/
 
-	storyFileName: function(story) {
+	storyFileName(story) {
 		return story.get('name').replace(/[^\w\. -]/g, '_') + '.html';
 	},
 
@@ -486,7 +486,7 @@ var nwui = module.exports = {
 	 @param {Story} story Story model to save
 	**/
 
-	saveStoryFile: function(story) {
+	saveStoryFile(story) {
 		try {
 			nwui.unlockStoryDirectory();
 			var fd = nwui.fs.openSync(
@@ -519,7 +519,7 @@ var nwui = module.exports = {
 	 @param {Story} story Story model to delete
 	**/
 
-	deleteStoryFile: function(story) {
+	deleteStoryFile(story) {
 		try {
 			nwui.unlockStoryDirectory();
 			nwui.fs.unlinkSync(
@@ -546,7 +546,7 @@ var nwui = module.exports = {
 	 any stories that happen to be saved to local storage only.
 	**/
 
-	syncStoryFiles: function() {
+	syncStoryFiles() {
 		nwui.syncFs = false;
 
 		// clear all existing stories and passages
@@ -586,7 +586,7 @@ var nwui = module.exports = {
 	 outside of Twine. The init() method must be called first.
 	**/
 
-	lockStoryDirectory: function() {
+	lockStoryDirectory() {
 		try {
 			if (process.platform == 'win32') {
 				_.each(nwui.fs.readdirSync(nwui.filePath), function(filename) {
@@ -619,7 +619,7 @@ var nwui = module.exports = {
 	 first.
 	**/
 
-	unlockStoryDirectory: function() {
+	unlockStoryDirectory() {
 		try {
 			if (process.platform == 'win32') {
 				_.each(nwui.fs.readdirSync(nwui.filePath), function(filename) {

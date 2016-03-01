@@ -15,7 +15,7 @@ var ui = module.exports = {
 	 in that module.
 	**/
 
-	init: function() {
+	init() {
 		if (!$('body').data('uiInited')) {
 			var $b = $('body');
 
@@ -71,7 +71,7 @@ var ui = module.exports = {
 	 Undoes all setup in init().
 	**/
 
-	destroy: function() {
+	destroy() {
 		if ($('body').data('uiInited')) {
 			// disable FastClick
 
@@ -98,7 +98,7 @@ var ui = module.exports = {
 	 @return {Boolean} whether the browser is primarily touch-based
 	**/
 
-	hasPrimaryTouchUI: function() {
+	hasPrimaryTouchUI() {
 		return /Android|iPod|iPad|iPhone|IEMobile/.test(
 			window.navigator.userAgent
 		);

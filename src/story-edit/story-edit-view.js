@@ -55,11 +55,11 @@ module.exports = Marionette.CompositeView.extend({
 
 	childView: PassageItemView,
 	childViewContainer: '.passages .content',
-	childViewOptions: function() { return { parentView: this }; },
+	childViewOptions() { return { parentView: this }; },
 
 	template: storyEditTemplate,
 
-	initialize: function() {
+	initialize() {
 		this
 			.listenTo(this.model, 'change:zoom', this.syncZoom)
 			.listenTo(this.model, 'change:name', this.syncName)
@@ -113,7 +113,7 @@ module.exports = Marionette.CompositeView.extend({
 		this.zoomLevels = _.values(this.ZOOM_MAPPINGS).sort();
 	},
 
-	onShow: function() {
+	onShow() {
 		this.syncName();
 
 		// enable space bar scrolling
@@ -261,7 +261,7 @@ module.exports = Marionette.CompositeView.extend({
 	 @private
 	**/
 
-	onDestroy: function() {
+	onDestroy() {
 		this.linkManager.destroy();
 		$(document).off('keydown');
 		$(document).off('keyup');
@@ -280,7 +280,7 @@ module.exports = Marionette.CompositeView.extend({
 		 window
 	**/
 
-	addPassage: function(name, left, top) {
+	addPassage(name, left, top) {
 		var zoom = this.model.get('zoom');
 
 		if (!left) {
@@ -336,7 +336,7 @@ module.exports = Marionette.CompositeView.extend({
 	 @method deleteSelectedPassages
 	**/
 
-	deleteSelectedPassages: function() {
+	deleteSelectedPassages() {
 		_.invoke(this.children.filter(function(v) {
 			return v.selected;
 		}), 'delete');
@@ -349,7 +349,7 @@ module.exports = Marionette.CompositeView.extend({
 	 @method play
 	**/
 
-	play: function() {
+	play() {
 		// verify the starting point
 
 		if (Passage.withId(this.model.get('startPassage')) === undefined) {
@@ -389,7 +389,7 @@ module.exports = Marionette.CompositeView.extend({
 		 user-set one
 	**/
 
-	test: function(startId) {
+	test(startId) {
 		var url = '#stories/' + this.model.id + '/test';
 
 		if (startId) {
@@ -443,7 +443,7 @@ module.exports = Marionette.CompositeView.extend({
 	 @method proof
 	**/
 
-	proof: function() {
+	proof() {
 		window.open(
 			'#stories/' + this.model.id + '/proof',
 			'twinestory_proof_' + this.model.id
@@ -456,7 +456,7 @@ module.exports = Marionette.CompositeView.extend({
 	 @method publish
 	**/
 
-	publish: function() {
+	publish() {
 		// verify the starting point
 
 		if (Passage.withId(this.model.get('startPassage')) === undefined) {
@@ -488,7 +488,7 @@ module.exports = Marionette.CompositeView.extend({
 	 @method resize
 	**/
 
-	resize: function() {
+	resize() {
 		var winWidth = $(window).width();
 		var winHeight = $(window).height();
 		var zoom = this.model.get('zoom');
@@ -548,7 +548,7 @@ module.exports = Marionette.CompositeView.extend({
 	 @method startMouseScrolling
 	**/
 
-	startMouseScrolling: function() {
+	startMouseScrolling() {
 		/**
 		 The mouse position that space bar scrolling began at,
 		 with x and y properties.
@@ -583,12 +583,12 @@ module.exports = Marionette.CompositeView.extend({
 	 @method stopMouseScrolling
 	**/
 
-	stopMouseScrolling: function() {
+	stopMouseScrolling() {
 		$('#storyEditView').removeClass('scrolling');
 		$(window).off('mousemove', this.mouseScroll);
 	},
 
-	mouseScroll: function(e) {
+	mouseScroll(e) {
 		var self = e.data.self;
 
 		if (!self.mouseScrollStart.x && !self.mouseScrollStart.y) {
@@ -618,7 +618,7 @@ module.exports = Marionette.CompositeView.extend({
 		 false for will be ignored when checking for overlaps.
 	**/
 
-	positionPassage: function(passage, filter) {
+	positionPassage(passage, filter) {
 		// displace
 
 		this.collection.each(function(p) {
@@ -670,7 +670,7 @@ module.exports = Marionette.CompositeView.extend({
 	 @method zoomWheel
 	**/
 
-	zoomWheel: function(e) {
+	zoomWheel(e) {
 		if (e.altKey && !e.ctrlKey)
 		{
 			var zoomIndex = this.zoomLevels.indexOf(this.model.get('zoom'));
@@ -702,7 +702,7 @@ module.exports = Marionette.CompositeView.extend({
 	 @method syncZoom
 	**/
 
-	syncZoom: function() {
+	syncZoom() {
 		var zoom = this.model.get('zoom');
 
 		for (var desc in this.ZOOM_MAPPINGS) {
@@ -723,14 +723,14 @@ module.exports = Marionette.CompositeView.extend({
 	 @method syncName
 	**/
 
-	syncName: function() {
+	syncName() {
 		document.title = locale.say(
 			'Editing \u201c%s\u201d',
 			this.model.get('name')
 		);
 	},
 
-	updateSaved: function() {
+	updateSaved() {
 		this.$('.storyName').attr(
 			'title',
 			locale.say(
@@ -742,7 +742,7 @@ module.exports = Marionette.CompositeView.extend({
 	},
 
 	events: {
-		'drag .passage': function(e) {
+		'drag .passage'(e) {
 			// draw links between passages as they are dragged around
 
 			this.linkManager.cachePassage(
@@ -753,7 +753,7 @@ module.exports = Marionette.CompositeView.extend({
 			this.linkManager.drawLinks();
 		},
 
-		'mousedown': function(e) {
+		'mousedown'(e) {
 			// record the click target
 
 			/**

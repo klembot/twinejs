@@ -16,7 +16,7 @@ function EventedLocalStorage(name, serializer) {
 EventedLocalStorage.prototype = new LocalStorage();
 
 _.extend(EventedLocalStorage.prototype, {
-	update: function(model) {
+	update(model) {
 		var result = LocalStorage.prototype.update.call(this, model);
 	
 		/**

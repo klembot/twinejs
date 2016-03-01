@@ -10,7 +10,7 @@ var resultTemplate = require('../ejs/search-modal-result.ejs');
 require('../../ui/collapse');
 
 module.exports = Backbone.View.extend({
-	initialize: function(options) {
+	initialize(options) {
 		this.parent = options.parent;
 		this.resultTemplate = resultTemplate;
 	},
@@ -21,7 +21,7 @@ module.exports = Backbone.View.extend({
 	 @method open
 	**/
 
-	open: function() {
+	open() {
 		this.$el.data('modal').trigger('show');
 	},
 
@@ -31,7 +31,7 @@ module.exports = Backbone.View.extend({
 	 @method close
 	**/
 
-	close: function() {
+	close() {
 		this.$el.data('modal').trigger('hide');
 	},
 
@@ -41,7 +41,7 @@ module.exports = Backbone.View.extend({
 	 @method updateResults
 	**/
 
-	updateResults: function() {
+	updateResults() {
 		var searchTerm = this.searchRegexp();
 		var searchNames = this.$('#searchNames').prop('checked');
 
@@ -128,7 +128,7 @@ module.exports = Backbone.View.extend({
 	 @method showAllResults
 	**/
 
-	showAllResults: function() {
+	showAllResults() {
 		this.$('.results').find('.collapseContainer').each(function() {
 			$(this).collapse('show');
 		});
@@ -140,7 +140,7 @@ module.exports = Backbone.View.extend({
 	 @method hideAllResults
 	**/
 
-	hideAllResults: function() {
+	hideAllResults() {
 		this.$('.results').find('.collapseContainer').each(function() {
 			$(this).collapse('hide');
 		});
@@ -154,7 +154,7 @@ module.exports = Backbone.View.extend({
 	 @param {Event} e event object
 	**/
 
-	replaceInPassage: function(e) {
+	replaceInPassage(e) {
 		var container = $(e.target).closest('.result');
 		var model = this.parent.children.findByModelCid(
 			container.attr('data-passage')
@@ -175,7 +175,7 @@ module.exports = Backbone.View.extend({
 	 @method replaceAll
 	**/
 
-	replaceAll: function() {
+	replaceAll() {
 		var passagesMatched = 0;
 		var totalMatches = 0;
 		var searchTerm = this.searchRegexp();
@@ -229,7 +229,7 @@ module.exports = Backbone.View.extend({
 	 @return {RegExp} the resulting regular expression
 	**/
 
-	searchRegexp: function() {
+	searchRegexp() {
 		var flags = 'g';
 
 		if (!this.$('#searchCaseSensitive').prop('checked')) {
@@ -251,7 +251,7 @@ module.exports = Backbone.View.extend({
 	 @method syncSearch
 	**/
 
-	syncSearch: function() {
+	syncSearch() {
 		this.$('.results').empty();
 		this.$('.resultSummary').hide();
 		this.$('#searchFor').val($('#storyEditView .searchField').val());

@@ -23,7 +23,7 @@ var storyItemTemplate = require('./ejs/story-item-view.ejs');
 module.exports = Marionette.ItemView.extend({
 	template: storyItemTemplate,
 
-	initialize: function(options) {
+	initialize(options) {
 		this.parentView = options.parentView;
 		this.passages = options.passages;
 		this.listenTo(this.model, 'change:name', function() {
@@ -32,7 +32,7 @@ module.exports = Marionette.ItemView.extend({
 		});
 	},
 
-	onDomRefresh: function() {
+	onDomRefresh() {
 		this.preview = new Preview({ el: this.$('.preview'), parent: this });
 	},
 
@@ -43,7 +43,7 @@ module.exports = Marionette.ItemView.extend({
 	 @param {Object} e event object, used to animate the transition
 	**/
 
-	edit: function(e) {
+	edit(e) {
 		var proxy =
 			$('<div id="storyEditProxy" class="fullAppear fast"></div>');
 
@@ -80,7 +80,7 @@ module.exports = Marionette.ItemView.extend({
 	 @method play
 	**/
 
-	play: function() {
+	play() {
 		if (Passage.withId(this.model.get('startPassage')) === undefined) {
 			notify(
 				locale.say(
@@ -106,7 +106,7 @@ module.exports = Marionette.ItemView.extend({
 	 @method test
 	**/
 
-	test: function() {
+	test() {
 		if (Passage.withId(this.model.get('startPassage')) === undefined) {
 			notify(
 				locale.say(
@@ -132,7 +132,7 @@ module.exports = Marionette.ItemView.extend({
 	 @method publish
 	**/
 
-	publish: function() {
+	publish() {
 		// verify the starting point
 
 		if (Passage.withId(this.model.get('startPassage')) === undefined) {
@@ -156,7 +156,7 @@ module.exports = Marionette.ItemView.extend({
 	 @method confirmDelete
 	**/
 
-	confirmDelete: function() {
+	confirmDelete() {
 		confirm(
 			locale.say(
 				'Are you sure you want to delete &ldquo;%s&rdquo;? ' +
@@ -175,7 +175,7 @@ module.exports = Marionette.ItemView.extend({
 	 @method rename
 	**/
 
-	rename: function() {
+	rename() {
 		prompt(
 			locale.say(
 				'What should &ldquo;%s&rdquo; be renamed to?',
@@ -196,7 +196,7 @@ module.exports = Marionette.ItemView.extend({
 	 @method confirmDuplicate
 	**/
 
-	confirmDuplicate: function() {
+	confirmDuplicate() {
 		prompt(
 			locale.say('What should the duplicate be named?'),
 			'<i class="fa fa-copy"></i> ' + locale.say('Duplicate'),
@@ -215,7 +215,7 @@ module.exports = Marionette.ItemView.extend({
 	 @method delete
 	**/
 
-	delete: function() {
+	delete() {
 		this.$('.story').addClass('disappear').one('animationend', function() {
 			this.model.destroy();
 		}.bind(this));
@@ -227,7 +227,7 @@ module.exports = Marionette.ItemView.extend({
 	 @method appear
 	**/
 
-	appear: function() {
+	appear() {
 		this.$('.story').addClass('appear');
 	},
 

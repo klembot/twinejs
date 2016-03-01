@@ -21,7 +21,7 @@ var StoryFormat = require('../data/models/story-format');
 var StoryCollection = require('../data/collections/story');
 
 module.exports = {
-	publishStory: function(story, filename, options) {
+	publishStory(story, filename, options) {
 		options = options || {};
 		var format;
 
@@ -69,7 +69,7 @@ module.exports = {
 	 @method saveArchive
 	**/
 
-	saveArchive: function() {
+	saveArchive() {
 		var output = '';
 
 		StoryCollection.all().each(function(story) {
