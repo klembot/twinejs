@@ -92,7 +92,7 @@ module.exports = Backbone.View.extend({
 				resultHtml += Marionette.Renderer.render(this.resultTemplate, {
 					passageId: view.model.cid,
 					passageName: name,
-					numMatches: numMatches,
+					numMatches,
 					resultNumber: passagesMatched,
 					searchPreview: preview
 				});

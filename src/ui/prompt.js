@@ -29,9 +29,9 @@ module.exports = (message, buttonLabel, callback, options) => {
 	options.defaultText = options.defaultText || '';
 
 	var modalContainer = $(Marionette.Renderer.render(promptTemplate, {
-		message: message,
+		message,
 		defaultText: options.defaultText,
-		buttonLabel: buttonLabel,
+		buttonLabel,
 		modalClass: options.modalClass || '',
 		buttonClass: options.buttonClass || ''
 	}));

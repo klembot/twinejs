@@ -136,7 +136,7 @@ var Story = Backbone.Model.extend({
 			startNode: startId || '',
 			appName: window.app.name,
 			appVersion: window.app.version,
-			passageData: passageData,
+			passageData,
 			stylesheet: this.get('stylesheet'),
 			script: this.get('script'),
 			options: (options) ? options.join(' ') : '',
@@ -160,7 +160,7 @@ var Story = Backbone.Model.extend({
 
 		dupeStory.unset('id');
 		dupeStory.collection = storyC;
-		dupeStory.save({ name: name }, { wait: true });
+		dupeStory.save({ name }, { wait: true });
 
 		var startPassageId = this.get('startPassage');
 		var newStart;
@@ -210,4 +210,4 @@ var StoryCollection = require('../collections/story');
  @return {Passage} matching story
 **/
 
-Story.withId = id => StoryCollection.all().findWhere({ id: id });
+Story.withId = id => StoryCollection.all().findWhere({ id });

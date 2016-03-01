@@ -66,7 +66,7 @@ module.exports = Backbone.View.extend({
 					var path = format.get('url').replace(/\/[^\/]*?$/, '');
 					var fullContent = _.extend(
 						format.properties,
-						{ path: path, userAdded: format.get('userAdded') }
+						{ path, userAdded: format.get('userAdded') }
 					);
 					var content = $(
 						Marionette.Renderer.render(
@@ -118,7 +118,7 @@ module.exports = Backbone.View.extend({
 	addFormat(url) {
 		// create a temporary model and try loading it
 
-		var test = new StoryFormat({ url: url });
+		var test = new StoryFormat({ url });
 
 		this.$('.loading').fadeIn();
 
@@ -128,7 +128,7 @@ module.exports = Backbone.View.extend({
 
 				new StoryFormatCollection().create({
 					name: test.properties.name,
-					url: url
+					url
 				});
 				
 				// add it to the appropriate list
@@ -136,7 +136,7 @@ module.exports = Backbone.View.extend({
 				var path = url.replace(/\/[^\/]*?$/, '');
 				var fullContent = _.extend(
 					test.properties,
-					{ path: path, userAdded: true }
+					{ path, userAdded: true }
 				);
 				var content = $(Marionette.Renderer.render(
 					this.itemTemplate, fullContent)

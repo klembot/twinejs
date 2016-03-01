@@ -162,4 +162,4 @@ var StoryFormatCollection = require('../collections/story-format');
  @return {StoryFormat} matching story format
  **/
 
-StoryFormat.withName = name => StoryFormatCollection.all().findWhere({ name: name });
+StoryFormat.withName = name => StoryFormatCollection.all().findWhere({ name });

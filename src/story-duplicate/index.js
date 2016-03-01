@@ -17,7 +17,7 @@ module.exports = function(story, name) {
 
 	dupeStory.unset('id');
 	dupeStory.collection = storyC;
-	dupeStory.save({ name: name }, { wait: true });
+	dupeStory.save({ name }, { wait: true });
 
 	var startPassageId = story.get('startPassage');
 	var newStart;

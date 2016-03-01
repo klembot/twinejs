@@ -46,7 +46,7 @@ module.exports = Backbone.View.extend({
 			var offset = view.$('.frame').offset();
 
 			this.cache.push({
-				view: view,
+				view,
 				left: offset.left,
 				top: offset.top,
 				right: offset.left + width,
@@ -94,8 +94,8 @@ module.exports = Backbone.View.extend({
 			display: 'block',
 			left: left - this.offset.left,
 			top: top - this.offset.top,
-			width: width,
-			height: height
+			width,
+			height
 		});
 
 		// select passages

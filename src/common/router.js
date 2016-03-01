@@ -82,7 +82,7 @@ module.exports = Backbone.Router.extend({
 			AppPref.withName('proofingFormat').get('value')
 		);
 		
-		publish.publishStory(story, null, { format: format });
+		publish.publishStory(story, null, { format });
 	},
 
 	startup() {

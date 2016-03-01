@@ -26,8 +26,8 @@ module.exports = (message, buttonLabel, callback, options) => {
 	options = options || {};
 
 	var modalContainer = $(Marionette.Renderer.render(confirmTemplate, {
-		message: message,
-		buttonLabel: buttonLabel,
+		message,
+		buttonLabel,
 		modalClass: options.modalClass || '',
 		buttonClass: options.buttonClass || ''
 	}));

@@ -299,7 +299,7 @@ module.exports = Marionette.CompositeView.extend({
 
 		name = name || Passage.prototype.defaults().name;
 
-		if (this.collection.findWhere({ name: name })) {
+		if (this.collection.findWhere({ name })) {
 			var origName = name;
 			var nameIndex = 0;
 
@@ -315,10 +315,10 @@ module.exports = Marionette.CompositeView.extend({
 		}
 
 		var passage = this.collection.create({
-			name: name,
+			name,
 			story: this.model.id,
-			left: left,
-			top: top
+			left,
+			top
 		}, { wait: true });
 
 		// position the passage so it doesn't overlap any others
@@ -528,13 +528,13 @@ module.exports = Marionette.CompositeView.extend({
 		height += winHeight * 0.5;
 
 		this.$('.passages').css({
-			width: width,
-			height: height
+			width,
+			height
 		});
 
 		this.$('canvas').attr({
-			width: width,
-			height: height
+			width,
+			height
 		});
 	},
 
