@@ -84,21 +84,15 @@ module.exports = {
 	 @return string translation
 	**/
 
-	say(source) {
+	say(source, ...args) {
 		try {
-			if (arguments.length == 1) {
+			if (args.length == 0) {
 				return this.i18n.gettext(source);
 			}
 
 			// interpolation required
 
-			var sprintfArgs = [this.i18n.gettext(source)];
-
-			for (var i = 1; i < arguments.length; i++) {
-				sprintfArgs.push(arguments[i]);
-			}
-
-			return this.i18n.sprintf.apply(this.i18n.sprintf, sprintfArgs);
+			return this.i18n.sprintf(this.i18n.gettext(source), ...args);
 		}
 		catch (e) {
 			// if all else fails, return English, even with ugly %d placeholders
@@ -122,17 +116,9 @@ module.exports = {
 	 @return string translation
 	**/
 
-	sayPlural(sourceSingular, sourcePlural, count) {
+	sayPlural(sourceSingular, sourcePlural, count, ...args) {
 		try {
-			var sprintfArgs = [
-				this.i18n.ngettext(sourceSingular, sourcePlural, count), count
-			];
-
-			for (var i = 3; i < arguments.length; i++) {
-				sprintfArgs.push(arguments[i]);
-			}
-				
-			return this.i18n.sprintf.apply(this.i18n.sprintf, sprintfArgs);
+			return this.i18n.sprintf(this.i18n.ngettext(sourceSingular, sourcePlural, count), count, ...args);
 		}
 		catch (e) {
 			// if all else fails, return English, even with ugly placeholders
