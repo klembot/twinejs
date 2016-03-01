@@ -207,9 +207,7 @@ module.exports = Backbone.View.extend({
 
 		this.cm.setOption(
 			'passageNames',
-			_.map(this.parent.collection.models, function(model) {
-				return model.get('name');
-			})
+			_.map(this.parent.collection.models, model => model.get('name'))
 		);
 
 		// actually show it
@@ -222,11 +220,9 @@ module.exports = Backbone.View.extend({
 
 		// warn the user about leaving before saving
 
-		window.onbeforeunload = function() {
-			return locale.say(
-				'Any changes to the passage you\'re editing haven\'t ' +
-				'been saved yet. (To do so, close the passage editor.)');
-		};
+		window.onbeforeunload = () => locale.say(
+            'Any changes to the passage you\'re editing haven\'t ' +
+            'been saved yet. (To do so, close the passage editor.)');
 	},
 
 	/**
@@ -247,15 +243,13 @@ module.exports = Backbone.View.extend({
 
 				var comps = {
 					list: _.filter(
-						cm.getOption('passageNames'), function(name) {
-							return name.toLowerCase().indexOf(word) != -1;
-						}),
+						cm.getOption('passageNames'), name => name.toLowerCase().indexOf(word) != -1),
 
 					from: wordRange.anchor,
 					to: wordRange.head
 				};
 
-				CodeMirror.on(comps, 'pick', function() {
+				CodeMirror.on(comps, 'pick', () => {
 					var doc = cm.getDoc();
 
 					doc.replaceRange(']] ', doc.getCursor());

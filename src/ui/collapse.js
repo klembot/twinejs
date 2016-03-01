@@ -4,7 +4,7 @@ var $ = require('jquery');
 require('../jquery-ext/collapse');
 var ui = require('./index');
 
-$(ui).on('init', function(e, options) {
+$(ui).on('init', (e, options) => {
 	options.$body.on(
 		'click.twineui',
 		'.collapseContainer [data-collapse]',

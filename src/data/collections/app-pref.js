@@ -29,7 +29,7 @@ AppPrefCollection.prototype.model = AppPref;
  @static
 **/
 
-AppPrefCollection.all = function() {
+AppPrefCollection.all = () => {
 	var result = new AppPrefCollection();
 
 	result.fetch();

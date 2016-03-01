@@ -61,7 +61,7 @@ module.exports = Marionette.Application.extend({
 			sp: locale.sayPlural.bind(locale)
 		};
 
-		Marionette.Renderer.render = function(template, data) {
+		Marionette.Renderer.render = (template, data) => {
 			if (typeof template !== 'function') {
 				throw new Error(
 					locale.say('Asked to render a non-function template ' + template)
@@ -136,7 +136,7 @@ module.exports = Marionette.Application.extend({
 
 		// repair paths to use kebab case
 
-		formats.forEach(function(format) {
+		formats.forEach(format => {
 			if (/^storyFormats\//i.test(format.get('url'))) {
 				format.save(
 					'url',
@@ -170,7 +170,7 @@ module.exports = Marionette.Application.extend({
 	**/
 
 	checkForUpdate(latestBuildNumber, callback) {
-		$.getJSON('http://twinery.org/latestversion/2.json', function(data) {
+		$.getJSON('http://twinery.org/latestversion/2.json', data => {
 			if (data.buildNumber > latestBuildNumber) {
 				callback(data);
 			}

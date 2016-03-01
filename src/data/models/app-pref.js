@@ -34,7 +34,7 @@ var AppPrefCollection = require('../collections/app-pref');
  @return {AppPref} pref with matching name
 **/
 
-AppPref.withName = function(name, defaultVal) {
+AppPref.withName = (name, defaultVal) => {
 	var allPrefs = AppPrefCollection.all();
 	var result = allPrefs.findWhere({ name: name });
 

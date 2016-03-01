@@ -27,7 +27,7 @@ StoryFormatCollection.prototype.model = StoryFormat;
  @static
 **/
 
-StoryFormatCollection.all = function() {
+StoryFormatCollection.all = () => {
 	var result = new StoryFormatCollection();
 	
 	result.fetch();

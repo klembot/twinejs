@@ -16,20 +16,20 @@ var PassageCollection = require('../collections/passage');
 var storyDataTemplate = require('./ejs/story-data.ejs');
 
 var Story = Backbone.Model.extend({
-	defaults: _.memoize(function() {
-		return {
-			name: locale.say('Untitled Story'),
-			startPassage: -1,
-			zoom: 1,
-			snapToGrid: false,
-			stylesheet: '',
-			script: '',
-			storyFormat: AppPref.withName('defaultFormat').get('value') ||
-				'Harlowe',
-			lastUpdate: new Date(),
-			ifid: uuid().toUpperCase()
-		};
-	}),
+	defaults: _.memoize(() => ({
+        name: locale.say('Untitled Story'),
+        startPassage: -1,
+        zoom: 1,
+        snapToGrid: false,
+        stylesheet: '',
+        script: '',
+
+        storyFormat: AppPref.withName('defaultFormat').get('value') ||
+            'Harlowe',
+
+        lastUpdate: new Date(),
+        ifid: uuid().toUpperCase()
+    })),
 
 	template: storyDataTemplate,
 	
@@ -125,7 +125,7 @@ var Story = Backbone.Model.extend({
 			}
 		};
 
-		passages.each(function(p, index) {
+		passages.each((p, index) => {
 			passageData += p.publish(index + 1);
 
 			if (p.id == startDbId) { startId = index + 1; }
@@ -165,7 +165,7 @@ var Story = Backbone.Model.extend({
 		var startPassageId = this.get('startPassage');
 		var newStart;
 
-		this.fetchPassages().each(function(orig) {
+		this.fetchPassages().each(orig => {
 			var dupePassage = orig.clone();
 
 			dupePassage.unset('id');
@@ -210,6 +210,4 @@ var StoryCollection = require('../collections/story');
  @return {Passage} matching story
 **/
 
-Story.withId = function(id) {
-	return StoryCollection.all().findWhere({ id: id });
-};
+Story.withId = id => StoryCollection.all().findWhere({ id: id });

@@ -5,7 +5,7 @@ require('../jquery-ext/bubble');
 require('../../lib/jquery/jquery.powertip.js');
 var ui = require('./index');
 
-$(ui).on('init', function(e, options) {
+$(ui).on('init', (e, options) => {
 	var $b = options.$body;
 	
 	$b.on('click.twineui', '.bubbleContainer [data-bubble]', function() {
@@ -20,7 +20,7 @@ $(ui).on('init', function(e, options) {
 			$.powerTip.hide();
 		}
 	})
-	.on('click.twineui', function(e) {
+	.on('click.twineui', e => {
 		// hide all bubbles if a stray click is made
 
 		if ($(e.target).closest('.bubbleContainer').hasClass('active')) {

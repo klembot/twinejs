@@ -63,7 +63,7 @@ module.exports = Marionette.CompositeView.extend({
 		this
 			.listenTo(this.model, 'change:zoom', this.syncZoom)
 			.listenTo(this.model, 'change:name', this.syncName)
-			.listenTo(this.model, 'error', function(model, resp) {
+			.listenTo(this.model, 'error', (model, resp) => {
 				// L10n: %s is the error message.
 				notify(
 					locale.say(
@@ -96,7 +96,7 @@ module.exports = Marionette.CompositeView.extend({
 					this.model.save({ startPassage: p.id });
 				}
 			})
-			.listenTo(this.collection, 'error', function(model, resp) {
+			.listenTo(this.collection, 'error', (model, resp) => {
 				// L10n: %s is the error message.
 				notify(
 					locale.say(
@@ -138,9 +138,7 @@ module.exports = Marionette.CompositeView.extend({
 
 		$(document).on('keyup', function(e) {
 			if (e.keyCode == 46) {
-				var selected = this.children.filter(function(v) {
-					return v.selected;
-				});
+				var selected = this.children.filter(v => v.selected);
 
 				switch (selected.length) {
 					// bug out if none are selected
@@ -179,7 +177,7 @@ module.exports = Marionette.CompositeView.extend({
 		// always hide the story bubble when a click occurs on it
 		// (e.g. when a menu item is selected)
 
-		this.$el.on('click', '.storyBubble', function() {
+		this.$el.on('click', '.storyBubble', () => {
 			$('.storyBubble').bubble('hide');
 		});
 
@@ -337,9 +335,7 @@ module.exports = Marionette.CompositeView.extend({
 	**/
 
 	deleteSelectedPassages() {
-		_.invoke(this.children.filter(function(v) {
-			return v.selected;
-		}), 'delete');
+		_.invoke(this.children.filter(v => v.selected), 'delete');
 	},
 
 	/**
@@ -500,7 +496,7 @@ module.exports = Marionette.CompositeView.extend({
 			var maxLeft = -Infinity;
 			var maxTop = -Infinity;
 
-			this.collection.each(function(p) {
+			this.collection.each(p => {
 				var left = p.get('left');
 				var top = p.get('top');
 
@@ -621,7 +617,7 @@ module.exports = Marionette.CompositeView.extend({
 	positionPassage(passage, filter) {
 		// displace
 
-		this.collection.each(function(p) {
+		this.collection.each(p => {
 			if (filter && !filter(p)) {
 				return;
 			}

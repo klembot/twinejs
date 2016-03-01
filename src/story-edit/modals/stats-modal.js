@@ -32,7 +32,7 @@ module.exports = Backbone.View.extend({
 		var passageLinks = {};
 		var passageNames = [];
 
-		_.each(this.parent.collection.models, function(passage) {
+		_.each(this.parent.collection.models, passage => {
 			passageCount++;
 			var text = passage.get('text');
 
@@ -43,7 +43,7 @@ module.exports = Backbone.View.extend({
 			linkCount += links.length;
 			passageNames.push(passage.get('name'));
 
-			_.each(links, function(link) {
+			_.each(links, link => {
 				passageLinks[link] = (passageLinks[link] || 0) + 1;
 			});
 		});
@@ -51,7 +51,7 @@ module.exports = Backbone.View.extend({
 		// we calculate broken links now that we have
 		// a complete list of names
 
-		_.each(passageLinks, function(count, name) {
+		_.each(passageLinks, (count, name) => {
 			if (passageNames.indexOf(name) == -1) {
 				brokenLinkCount += count;
 			}

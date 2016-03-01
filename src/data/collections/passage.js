@@ -28,7 +28,7 @@ PassageCollection.prototype.model = Passage;
  @static
 **/
 
-PassageCollection.all = function() {
+PassageCollection.all = () => {
 	var result = new PassageCollection();
 
 	result.fetch();

@@ -24,7 +24,7 @@ var promptTemplate = require('./ejs/prompt.ejs');
 						 buttonClass (CSS class to apply to the action button)
 **/
 
-module.exports = function(message, buttonLabel, callback, options) {
+module.exports = (message, buttonLabel, callback, options) => {
 	options = options || {};
 	options.defaultText = options.defaultText || '';
 
@@ -46,7 +46,7 @@ module.exports = function(message, buttonLabel, callback, options) {
 		modal.data('modal').trigger('hide');
 	});
 
-	modal.on('submit', 'form', function() {
+	modal.on('submit', 'form', () => {
 		modal.find('button[data-action="yes"]').click();
 	});
 

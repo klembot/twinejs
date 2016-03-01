@@ -6,7 +6,7 @@ var notify = require('./ui/notify');
 var AppPref = require('./data/models/app-pref');
 var TwineApp = require('./common/app');
 
-(function() {
+((() => {
 	var userLocale;
 
 	window.app = new TwineApp();
@@ -35,14 +35,14 @@ var TwineApp = require('./common/app');
 	}
 
 	if (typeof userLocale == 'string') {
-		locale.load(userLocale.toLowerCase(), function() {
+		locale.load(userLocale.toLowerCase(), () => {
 			window.app.start();
 		});
 	}
 	else {
-		locale.load('en', function() {
+		locale.load('en', () => {
 			window.app.start();
-			_.defer(function() {
+			_.defer(() => {
 				// not localized because if we've reached this step,
 				// localization isn't working
 				notify(
@@ -52,4 +52,4 @@ var TwineApp = require('./common/app');
 			});
 		});
 	}
-})();
+}))();

@@ -165,7 +165,7 @@ module.exports = Backbone.View.extend({
 			this.$('#replaceWith').val(),
 			this.$('#searchNames').prop('checked')
 		);
-		container.slideUp(null, function() { container.remove(); });
+		container.slideUp(null, () => { container.remove(); });
 	},
 
 	/**
@@ -197,7 +197,7 @@ module.exports = Backbone.View.extend({
 			}
 		}.bind(this));
 
-		this.$el.one('modalhide', function() {
+		this.$el.one('modalhide', () => {
 			// L10n: replacement in the sense of text search and replace. %d is
 			// the number.
 			var replacementDesc = locale.sayPlural(

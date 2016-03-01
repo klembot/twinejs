@@ -13,19 +13,18 @@ var ui = require('../../ui');
 var passageDataTemplate = require('./ejs/passage-data.ejs');
 
 var Passage = Backbone.Model.extend({
-	defaults: _.memoize(function() {
-		return {
-			story: -1,
-			top: 0,
-			left: 0,
-			tags: [],
-			name: locale.say('Untitled Passage'),
-			text: ui.hasPrimaryTouchUI() ?
-				locale.say('Tap this passage, then the pencil icon to edit ' +
-					'it.')
-				: locale.say('Double-click this passage to edit it.')
-		};
-	}),
+	defaults: _.memoize(() => ({
+        story: -1,
+        top: 0,
+        left: 0,
+        tags: [],
+        name: locale.say('Untitled Passage'),
+
+        text: ui.hasPrimaryTouchUI() ?
+            locale.say('Tap this passage, then the pencil icon to edit ' +
+                'it.')
+            : locale.say('Double-click this passage to edit it.')
+    })),
 
 	template: passageDataTemplate,
 
@@ -139,9 +138,7 @@ var Passage = Backbone.Model.extend({
 		var found = {};
 		var result = [];
 
-		var arrowReplacer = function(a, b, c, d) {
-			return c || d;
-		};
+		var arrowReplacer = (a, b, c, d) => c || d;
 
 		if (matches) {
 			for (var i = 0; i < matches.length; i++) {
@@ -187,9 +184,7 @@ var Passage = Backbone.Model.extend({
 		}
 
 		if (internalOnly) {
-			return _.filter(result, function(link) {
-				return !/^\w+:\/\/\/?\w/i.test(link);
-			});
+			return _.filter(result, link => !/^\w+:\/\/\/?\w/i.test(link));
 		}
 		
 		return result;
@@ -452,6 +447,4 @@ var StoryCollection = require('../collections/story');
  @return {Passage} matching passage
 **/
 
-Passage.withId = function(id) {
-	return PassageCollection.all().findWhere({ id: id });
-};
+Passage.withId = id => PassageCollection.all().findWhere({ id: id });

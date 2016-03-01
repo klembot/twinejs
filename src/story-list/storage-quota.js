@@ -27,7 +27,7 @@ module.exports = Backbone.View.extend({
 		var free = 102400;
 		var storageIndex = 0;
 
-		var interval = window.setInterval(function() {
+		var interval = window.setInterval(() => {
 			var stop = false;
 
 			try {

@@ -38,14 +38,14 @@ var importer = module.exports = {
 
 		// remove surrounding <body>, if there is one
 
-		_.each(nodes.querySelectorAll(sels.storyData), function(storyEl) {
+		_.each(nodes.querySelectorAll(sels.storyData), storyEl => {
 			var startPassageId = storyEl.attributes.startnode.value;
 
 			// glom all style nodes into the stylesheet property
 
 			var stylesheet = '';
 
-			_.each(storyEl.querySelectorAll(sels.stylesheet), function(el) {
+			_.each(storyEl.querySelectorAll(sels.stylesheet), el => {
 				stylesheet += el.textContent + '\n';
 			});
 
@@ -53,7 +53,7 @@ var importer = module.exports = {
 
 			var script = '';
 
-			_.each(storyEl.querySelectorAll(sels.script), function(el) {
+			_.each(storyEl.querySelectorAll(sels.script), el => {
 				script += el.textContent + '\n';
 			});
 
@@ -73,7 +73,7 @@ var importer = module.exports = {
 
 			_.each(
 				storyEl.querySelectorAll(sels.passageData),
-				function(passageEl) {
+				passageEl => {
 					var id = passageEl.attributes.pid.value;
 					var pos = passageEl.attributes.position.value;
 					var posBits = pos.split(',');
