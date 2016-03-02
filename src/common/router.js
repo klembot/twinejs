@@ -13,16 +13,16 @@
 **/
 
 'use strict';
-var Backbone = require('backbone');
-var publish = require('../story-publish');
-var AppPref = require('../data/models/app-pref');
-var LocaleView = require('../locale/locale-view');
-var Story = require('../data/models/story');
-var StoryCollection = require('../data/collections/story');
-var StoryEditView = require('../story-edit/story-edit-view');
-var StoryFormat = require('../data/models/story-format');
-var StoryListView = require('../story-list/story-list-view');
-var WelcomeView = require('../welcome/welcome-view');
+const Backbone = require('backbone');
+const publish = require('../story-publish');
+const AppPref = require('../data/models/app-pref');
+const LocaleView = require('../locale/locale-view');
+const Story = require('../data/models/story');
+const StoryCollection = require('../data/collections/story');
+const StoryEditView = require('../story-edit/story-edit-view');
+const StoryFormat = require('../data/models/story-format');
+const StoryListView = require('../story-list/story-list-view');
+const WelcomeView = require('../welcome/welcome-view');
 
 module.exports = Backbone.Router.extend({
 	initialize(options) {
@@ -77,8 +77,8 @@ module.exports = Backbone.Router.extend({
 	proofStory(id) {
 		// proof a story
 
-		var story = Story.withId(id);
-		var format = StoryFormat.withName(
+		const story = Story.withId(id);
+		const format = StoryFormat.withName(
 			AppPref.withName('proofingFormat').get('value')
 		);
 		
@@ -88,7 +88,7 @@ module.exports = Backbone.Router.extend({
 	startup() {
 		// default route -- show welcome if the user hasn't already seen it
 
-		var welcomePref = AppPref.withName('welcomeSeen', false);
+		const welcomePref = AppPref.withName('welcomeSeen', false);
 
 		if (welcomePref.get('value') === true) {
 			window.location.hash = '#stories';

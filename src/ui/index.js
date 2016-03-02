@@ -5,10 +5,10 @@
 **/
 
 'use strict';
-var $ = require('jquery');
-var fastclick = require('fastclick');
+const $ = require('jquery');
+const fastclick = require('fastclick');
 
-var ui = module.exports = {
+const ui = module.exports = {
 	/**
 	 Performs one-time startup tasks, mainly setting up event listeners.
 	 The heavy lifting is done in submodules or jQuery plugins living
@@ -17,7 +17,7 @@ var ui = module.exports = {
 
 	init() {
 		if (!$('body').data('uiInited')) {
-			var $b = $('body');
+			const $b = $('body');
 
 			$b.data('uiInited', true);
 

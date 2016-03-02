@@ -1,18 +1,18 @@
 'use strict';
-var $ = window.jQuery = require('jquery');
+const $ = window.jQuery = require('jquery');
 
 require('../jquery-ext/bubble');
 require('../../lib/jquery/jquery.powertip.js');
-var ui = require('./index');
+const ui = require('./index');
 
 $(ui).on('init', (e, options) => {
-	var $b = options.$body;
+	const $b = options.$body;
 	
 	$b.on('click.twineui', '.bubbleContainer [data-bubble]', function() {
 		// click handlers for showing and hiding bubbles
 
-		var $t = $(this);
-		var bubbleAction = $t.data('bubble');
+		const $t = $(this);
+		const bubbleAction = $t.data('bubble');
 
 		$t.bubble(bubbleAction);
 

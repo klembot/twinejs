@@ -6,13 +6,15 @@
 **/
 
 'use strict';
-var _ = require('underscore');
-var Backbone = require('backbone');
-var locale = require('../../locale');
-var ui = require('../../ui');
-var passageDataTemplate = require('./ejs/passage-data.ejs');
+const _ = require('underscore');
+const Backbone = require('backbone');
+const locale = require('../../locale');
+const ui = require('../../ui');
+const passageDataTemplate = require('./ejs/passage-data.ejs');
 
-var Passage = Backbone.Model.extend({
+let StoryCollection;
+
+const Passage = Backbone.Model.extend({
 	defaults: _.memoize(() => ({
         story: -1,
         top: 0,
@@ -46,7 +48,7 @@ var Passage = Backbone.Model.extend({
 			// update parent's last update date
 
 			if (!options.noParentUpdate) {
-				var parent = this.fetchStory();
+				const parent = this.fetchStory();
 				
 				if (parent !== undefined) {
 					parent.save('lastUpdate', new Date());
@@ -55,7 +57,7 @@ var Passage = Backbone.Model.extend({
 
 			// clamp our position to positive coordinates
 
-			var attrs = this.changedAttributes();
+			const attrs = this.changedAttributes();
 
 			if (attrs.top !== null && attrs.top < 0) {
 				this.set('top', 0);
@@ -115,7 +117,7 @@ var Passage = Backbone.Model.extend({
 	**/
 
 	excerpt() {
-		var text = _.escape(this.get('text'));
+		const text = _.escape(this.get('text'));
 
 		if (text.length > 100) {
 			return text.substr(0, 99) + '&hellip;';
@@ -134,18 +136,18 @@ var Passage = Backbone.Model.extend({
 	**/
 
 	links(internalOnly) {
-		var matches = this.get('text').match(/\[\[.*?\]\]/g);
-		var found = {};
-		var result = [];
+		const matches = this.get('text').match(/\[\[.*?\]\]/g);
+		const found = {};
+		const result = [];
 
-		var arrowReplacer = (a, b, c, d) => c || d;
+		const arrowReplacer = (a, b, c, d) => c || d;
 
 		if (matches) {
-			for (var i = 0; i < matches.length; i++) {
+			for (let i = 0; i < matches.length; i++) {
 				// The link matching regexps ignore setter components, should
 				// they exist.
 
-				var link = matches[i]
+				const link = matches[i]
 					/*
 						Arrow links
 						[[display text->link]] format
@@ -202,20 +204,20 @@ var Passage = Backbone.Model.extend({
 	replaceLink(oldLink, newLink) {
 		// TODO: add hook for story formats to be more sophisticated
 
-		var simpleLinkRegexp = new RegExp(
+		const simpleLinkRegexp = new RegExp(
 			'\\[\\[' + oldLink + '(\\]\\[.*?)?\\]\\]',
 			'g'
 		);
-		var compoundLinkRegexp = new RegExp(
+		const compoundLinkRegexp = new RegExp(
 			'\\[\\[(.*?)(\\||->)' + oldLink + '(\\]\\[.*?)?\\]\\]',
 			'g'
 		);
-		var reverseLinkRegexp = new RegExp(
+		const reverseLinkRegexp = new RegExp(
 			'\\[\\[' + oldLink + '(<-.*?)(\\]\\[.*?)?\\]\\]',
 			'g'
 		);
-		var oldText = this.get('text');
-		var text = oldText;
+		const oldText = this.get('text');
+		let text = oldText;
 
 		text = text.replace(simpleLinkRegexp, '[[' + newLink + '$1]]');
 		text = text.replace(compoundLinkRegexp, '[[$1$2' + newLink + '$3]]');
@@ -249,15 +251,15 @@ var Passage = Backbone.Model.extend({
 	**/
 
 	numMatches(search, checkName) {
-		var result = 0;
+		let result = 0;
 
 		search = new RegExp(
 			search.source,
 			'g' + (search.ignoreCase ? 'i' : '')
 		);
 
-		var textMatches = this.get('text').match(search);
-		var nameMatches = 0;
+		const textMatches = this.get('text').match(search);
+		let nameMatches = 0;
 
 		if (checkName) {
 			nameMatches = this.get('name').match(search);
@@ -301,7 +303,7 @@ var Passage = Backbone.Model.extend({
 	**/
 
 	publish(id) {
-		var tags = this.get('tags');
+		const tags = this.get('tags');
 
 		return this.template({
 			id: id,
@@ -322,9 +324,9 @@ var Passage = Backbone.Model.extend({
 	**/
 
 	intersects(other) {
-		var pP = Passage.padding;
-		var pW = Passage.width;
-		var pH = Passage.height;
+		const pP = Passage.padding;
+		const pW = Passage.width;
+		const pH = Passage.height;
 
 		return (this.get('left') - pP < other.get('left') + pW + pP &&
 			this.get('left') + pW + pP > other.get('left') - pP &&
@@ -342,30 +344,30 @@ var Passage = Backbone.Model.extend({
 	**/
 
 	displace(other) {
-		var p = Passage.padding;
-		var tLeft = this.get('left') - p;
-		var tRight = tLeft + Passage.width + p * 2;
-		var tTop = this.get('top') - p;
-		var tBottom = tTop + Passage.height + p * 2;
-		var oLeft = other.get('left') - p;
-		var oRight = oLeft + Passage.width + p * 2;
-		var oTop = other.get('top') - p;
-		var oBottom = oTop + Passage.height + p * 2;
+		const p = Passage.padding;
+		const tLeft = this.get('left') - p;
+		const tRight = tLeft + Passage.width + p * 2;
+		const tTop = this.get('top') - p;
+		const tBottom = tTop + Passage.height + p * 2;
+		const oLeft = other.get('left') - p;
+		const oRight = oLeft + Passage.width + p * 2;
+		const oTop = other.get('top') - p;
+		const oBottom = oTop + Passage.height + p * 2;
 
 		// calculate overlap amounts
 		// this is cribbed from
 		// http://frey.co.nz/old/2007/11/area-of-two-rectangles-algorithm/
 
-		var xOverlap = Math.min(tRight, oRight) - Math.max(tLeft, oLeft);
-		var yOverlap = Math.min(tBottom, oBottom) - Math.max(tTop, oTop);
+		const xOverlap = Math.min(tRight, oRight) - Math.max(tLeft, oLeft);
+		const yOverlap = Math.min(tBottom, oBottom) - Math.max(tTop, oTop);
 
 		// resolve horizontal overlap
 
-		var xChange, yChange;
+		let xChange, yChange;
 
 		if (xOverlap !== 0) {
-			var leftMove = (oLeft - tLeft) + Passage.width + p;
-			var rightMove = tRight - oLeft + p;
+			const leftMove = (oLeft - tLeft) + Passage.width + p;
+			const rightMove = tRight - oLeft + p;
 
 			if (leftMove < rightMove) {
 				xChange = -leftMove;
@@ -378,8 +380,8 @@ var Passage = Backbone.Model.extend({
 		// resolve vertical overlap
 
 		if (yOverlap !== 0) {
-			var upMove = (oTop - tTop) + Passage.height + p;
-			var downMove = tBottom - oTop + p;
+			const upMove = (oTop - tTop) + Passage.height + p;
+			const downMove = tBottom - oTop + p;
 
 			if (upMove < downMove) {
 				yChange = -upMove;
@@ -435,8 +437,8 @@ var Passage = Backbone.Model.extend({
 // early export to avoid circular reference problems
 
 module.exports = Passage;
-var PassageCollection = require('../collections/passage');
-var StoryCollection = require('../collections/story');
+const PassageCollection = require('../collections/passage');
+StoryCollection = require('../collections/story');
 
 /**
  Locates a passage by ID. If none exists, then this returns null.

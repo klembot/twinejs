@@ -6,20 +6,20 @@
 **/
 
 'use strict';
-var $ = require('jquery');
-var _ = require('underscore');
-var Marionette = require('backbone.marionette');
-var importer = require('../file/importer');
-var locale = require('../locale');
-var notify = require('../ui/notify');
-var publish = require('../story-publish');
-var AppPref = require('../data/models/app-pref');
-var FormatsModal = require('./modals/formats-modal');
-var PassageCollection = require('../data/collections/passage');
-var StorageQuota = require('./storage-quota');
-var StoryCollection = require('../data/collections/story');
-var StoryItemView = require('./story-item-view');
-var storyListTemplate = require('./ejs/story-list-view.ejs');
+const $ = require('jquery');
+const _ = require('underscore');
+const Marionette = require('backbone.marionette');
+const importer = require('../file/importer');
+const locale = require('../locale');
+const notify = require('../ui/notify');
+const publish = require('../story-publish');
+const AppPref = require('../data/models/app-pref');
+const FormatsModal = require('./modals/formats-modal');
+const PassageCollection = require('../data/collections/passage');
+const StorageQuota = require('./storage-quota');
+const StoryCollection = require('../data/collections/story');
+const StoryItemView = require('./story-item-view');
+const storyListTemplate = require('./ejs/story-list-view.ejs');
 
 require('../ui/bubble');
 require('../ui/modal');
@@ -122,7 +122,7 @@ module.exports = Marionette.CompositeView.extend({
 		// shrinking back into the appropriate item
 
 		if (this.previouslyEditing) {
-			var proxy =
+			const proxy =
 				$('<div id="storyEditProxy" class="fullAppear fast reverse">');
 
 			proxy.one('animationend', () => {
@@ -131,8 +131,8 @@ module.exports = Marionette.CompositeView.extend({
 
 			this.children.find(function(c) {
 				if (c.model.get('id') == this.previouslyEditing) {
-					var $s = c.$('.story');
-					var o = $s.offset();
+					const $s = c.$('.story');
+					const o = $s.offset();
 
 					o.left += $s.outerHeight() / 2;
 
@@ -160,10 +160,10 @@ module.exports = Marionette.CompositeView.extend({
 
 		// is it time to ask for a donation?
 
-		var firstRunPref = AppPref.withName(
+		const firstRunPref = AppPref.withName(
 			'firstRunTime', new Date().getTime()
 		);
-		var donateShown = AppPref.withName('donateShown', false);
+		const donateShown = AppPref.withName('donateShown', false);
 
 		if (!donateShown.get('value') && new Date().getTime() >
 				firstRunPref.get('value') + this.DONATION_DELAY) {
@@ -176,7 +176,7 @@ module.exports = Marionette.CompositeView.extend({
 		else {
 			// is there a new update to Twine?
 
-			var lastUpdateSeenPref = AppPref.withName(
+			const lastUpdateSeenPref = AppPref.withName(
 				'lastUpdateSeen',
 				window.app.buildNumber
 			);
@@ -187,7 +187,7 @@ module.exports = Marionette.CompositeView.extend({
 				lastUpdateSeenPref.save({ value: window.app.buildNumber });
 			}
 
-			var lastUpdateCheckPref = AppPref.withName(
+			const lastUpdateCheckPref = AppPref.withName(
 				'lastUpdateCheckTime',
 				new Date().getTime()
 			);
@@ -232,7 +232,7 @@ module.exports = Marionette.CompositeView.extend({
 	**/
 
 	addStory(e) {
-		var story = this.collection.create({
+		const story = this.collection.create({
 			name: this.$('input.newName').val()
 		});
 
@@ -259,18 +259,18 @@ module.exports = Marionette.CompositeView.extend({
 	**/
 
 	importFile(e) {
-		var reader = new FileReader();
-		var bubble = this.$('.importStory').closest('.bubbleContainer');
+		const reader = new FileReader();
+		const bubble = this.$('.importStory').closest('.bubbleContainer');
 
 		bubble.find('.form').addClass('hide');
 		bubble.find('.working').removeClass('hide');
 
 		reader.addEventListener('load', function(e) {
-			var className = '';
-			var message = '';
+			let className = '';
+			let message = '';
 
 			try {
-				var count = importer.import(e.target.result);
+				const count = importer.import(e.target.result);
 
 				if (count > 0) {
 					// L10n: %d is a number of stories.
@@ -304,7 +304,7 @@ module.exports = Marionette.CompositeView.extend({
 	},
 
 	showNextPreview() {
-		var unrendered = this.children.find(view => !view.preview.passagesRendered);
+		const unrendered = this.children.find(view => !view.preview.passagesRendered);
 		
 		if (unrendered !== undefined) {
 			unrendered.preview.renderPassages(this.showNextPreview.bind(this));

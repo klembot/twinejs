@@ -6,8 +6,8 @@
 **/
 
 'use strict';
-var _ = require('underscore');
-var Backbone = require('backbone');
+const _ = require('underscore');
+const Backbone = require('backbone');
 
 module.exports = Backbone.View.extend({
 	initialize(options) {
@@ -73,7 +73,7 @@ module.exports = Backbone.View.extend({
 				this.searchField.val('');
 			}
 
-			var search = this.searchField.val();
+			const search = this.searchField.val();
 
 			if (search !== '') {
 				this.$('.clearSearch').removeClass('hide');

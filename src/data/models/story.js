@@ -7,15 +7,17 @@
 **/
 
 'use strict';
-var _ = require('underscore');
-var uuid = require('tiny-uuid');
-var Backbone = require('backbone');
-var locale = require('../../locale');
-var AppPref = require('./app-pref');
-var PassageCollection = require('../collections/passage');
-var storyDataTemplate = require('./ejs/story-data.ejs');
+const _ = require('underscore');
+const uuid = require('tiny-uuid');
+const Backbone = require('backbone');
+const locale = require('../../locale');
+const AppPref = require('./app-pref');
+const PassageCollection = require('../collections/passage');
+const storyDataTemplate = require('./ejs/story-data.ejs');
 
-var Story = Backbone.Model.extend({
+let StoryCollection;
+
+const Story = Backbone.Model.extend({
 	defaults: _.memoize(() => ({
         name: locale.say('Untitled Story'),
         startPassage: -1,
@@ -37,7 +39,7 @@ var Story = Backbone.Model.extend({
 		this.on('destroy', function() {
 			// delete all child passages
 
-			var passages = this.fetchPassages();
+			const passages = this.fetchPassages();
 
 			while (passages.length > 0) {
 				passages.at(0).destroy();
@@ -80,7 +82,7 @@ var Story = Backbone.Model.extend({
 	**/
 
 	fetchPassages() {
-		var passages = PassageCollection.all();
+		const passages = PassageCollection.all();
 
 		passages.reset(passages.filter(function(p) {
 			return p.get('story') == this.id || p.get('story') == this.cid;
@@ -104,9 +106,9 @@ var Story = Backbone.Model.extend({
 	**/
 
 	publish(options, startId, startOptional) {
-		var passageData = '';
-		var startDbId = startId || this.get('startPassage');
-		var passages = this.fetchPassages();
+		let passageData = '';
+		const startDbId = startId || this.get('startPassage');
+		const passages = this.fetchPassages();
 
 		// verify that the start passage exists
 
@@ -154,19 +156,19 @@ var Story = Backbone.Model.extend({
 	**/
 
 	duplicate(name) {
-		var storyC = new StoryCollection();
-		var passageC = new PassageCollection();
-		var dupeStory = this.clone();
+		const storyC = new StoryCollection();
+		const passageC = new PassageCollection();
+		const dupeStory = this.clone();
 
 		dupeStory.unset('id');
 		dupeStory.collection = storyC;
 		dupeStory.save({ name }, { wait: true });
 
-		var startPassageId = this.get('startPassage');
-		var newStart;
+		const startPassageId = this.get('startPassage');
+		let newStart;
 
 		this.fetchPassages().each(orig => {
-			var dupePassage = orig.clone();
+			const dupePassage = orig.clone();
 
 			dupePassage.unset('id');
 			dupePassage.collection = passageC;
@@ -198,7 +200,7 @@ var Story = Backbone.Model.extend({
 
 /*jshint -W003 */
 module.exports = Story;
-var StoryCollection = require('../collections/story');
+StoryCollection = require('../collections/story');
 /*jshint +W003 */
 
 /**

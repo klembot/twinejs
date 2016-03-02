@@ -7,10 +7,10 @@
 **/
 
 'use strict';
-var $ = require('jquery');
-var _ = require('underscore');
-var Backbone = require('backbone');
-var SVG = require('svg.js');
+const $ = require('jquery');
+const _ = require('underscore');
+const Backbone = require('backbone');
+const SVG = require('svg.js');
 
 module.exports = Backbone.View.extend({
 	/**
@@ -79,8 +79,8 @@ module.exports = Backbone.View.extend({
 			// any passage that links or linked to this one
 			// needs to be re-rendered, to update its broken-link status
 
-			var oldName = item.previous('name');
-			var newName = item.get('name');
+			const oldName = item.previous('name');
+			const newName = item.get('name');
 
 			_.each(this.passageCache, function(props, pName) {
 				if (_.contains(props.links, oldName) ||
@@ -98,7 +98,7 @@ module.exports = Backbone.View.extend({
 			this.cachePassage(item);
 			this.drawAll();
 			
-			var name = item.get('name');
+			const name = item.get('name');
 
 			_.each(this.passageCache, function(props, pName) {
 				if (_.contains(props.links, name)) {
@@ -112,7 +112,7 @@ module.exports = Backbone.View.extend({
 			}, this);
 		})
 		.listenTo(this.parent.collection, 'remove', function(item) {
-			var name = item.get('name');
+			const name = item.get('name');
 
 			delete this.passageCache[name];
 			this.drawAll();
@@ -137,10 +137,10 @@ module.exports = Backbone.View.extend({
 			_.defer(this.reset.bind(this));
 		})
 		.listenTo(this.parent.model, 'change:startPassage', function() {
-			var oldStart = this.parent.collection.findWhere({
+			const oldStart = this.parent.collection.findWhere({
 				id: this.parent.model.previous('startPassage')
 			});
-			var newStart = this.parent.collection.findWhere({
+			const newStart = this.parent.collection.findWhere({
 				id: this.parent.model.get('startPassage')
 			});
 
@@ -217,20 +217,20 @@ module.exports = Backbone.View.extend({
 	**/
 
 	drawAll() {
-		var drawArrows = (this.parent.model.get('zoom') > 0.25);
+		const drawArrows = (this.parent.model.get('zoom') > 0.25);
 
 		this.svg.clear();
 		this.lineCache = {};
 
-		for (var startName in this.passageCache) {
+		for (let startName in this.passageCache) {
 			if (!this.passageCache.hasOwnProperty(startName)) {
 				continue;
 			}
 
-			var links = this.passageCache[startName].links;
+			const links = this.passageCache[startName].links;
 
-			for (var j = links.length - 1; j >= 0; j--) {
-				var endName = links[j];
+			for (let j = links.length - 1; j >= 0; j--) {
+				const endName = links[j];
 
 				this.drawConnector(startName, endName, drawArrows);
 			}
@@ -249,17 +249,17 @@ module.exports = Backbone.View.extend({
 	**/
 
 	drawConnector(start, end, arrowhead) {
-		var p = this.passageCache[start];
-		var q = this.passageCache[end];
+		const p = this.passageCache[start];
+		const q = this.passageCache[end];
 
 		if (!(p && q)) { return; }
 
 		// find the closest sides to connect
 
-		var xDist = q.n[0] - p.n[0];
-		var yDist = q.n[1] - p.n[1];
-		var slope = Math.abs(xDist / yDist);
-		var line;
+		const xDist = q.n[0] - p.n[0];
+		const yDist = q.n[1] - p.n[1];
+		const slope = Math.abs(xDist / yDist);
+		let line;
 
 		// hardcoded aesthetics :-|
 
@@ -308,12 +308,12 @@ module.exports = Backbone.View.extend({
 		// add arrowheads as needed
 
 		if (arrowhead) {
-			var head1 = this.endPointProjectedFrom(
+			const head1 = this.endPointProjectedFrom(
 				line,
 				this.ARROW_ANGLE,
 				this.ARROW_SIZE
 			);
-			var head2 = this.endPointProjectedFrom(
+			const head2 = this.endPointProjectedFrom(
 				line,
 				-this.ARROW_ANGLE,
 				this.ARROW_SIZE
@@ -345,7 +345,7 @@ module.exports = Backbone.View.extend({
 	**/
 
 	endPointProjectedFrom(line, angle, distance) {
-		var length = Math.sqrt(Math.pow(line[1][0] - line[0][0], 2) +
+		const length = Math.sqrt(Math.pow(line[1][0] - line[0][0], 2) +
 		Math.pow(line[1][1] - line[0][1], 2));
 
 		if (length === 0) {
@@ -354,11 +354,11 @@ module.exports = Backbone.View.extend({
 
 		// taken from http://mathforum.org/library/drmath/view/54146.html
 
-		var lengthRatio = distance / length;
+		const lengthRatio = distance / length;
 
-		var x = line[1][0] - ((line[1][0] - line[0][0]) * Math.cos(angle) -
+		const x = line[1][0] - ((line[1][0] - line[0][0]) * Math.cos(angle) -
 		(line[1][1] - line[0][1]) * Math.sin(angle)) * lengthRatio;
-		var y = line[1][1] - ((line[1][1] - line[0][1]) * Math.cos(angle) +
+		const y = line[1][1] - ((line[1][1] - line[0][1]) * Math.cos(angle) +
 		(line[1][0] - line[0][0]) * Math.sin(angle)) * lengthRatio;
 
 		return [x, y];
@@ -391,7 +391,7 @@ module.exports = Backbone.View.extend({
 		**/
 		
 		this.draggedPassages = [];
-		var draggedNames = [];
+		const draggedNames = [];
 
 		this.parent.children.each(function(view) {
 			if (view.selected) {
@@ -411,10 +411,10 @@ module.exports = Backbone.View.extend({
 		this.draggedConnectors = [];
 
 		_.each(this.passageCache, function(props, startName) {
-			var alwaysInclude = (draggedNames.indexOf(startName) != -1);
+			const alwaysInclude = (draggedNames.indexOf(startName) != -1);
 
-			for (var i = props.links.length - 1; i >= 0; i--) {
-				var endName = props.links[i];
+			for (let i = props.links.length - 1; i >= 0; i--) {
+				const endName = props.links[i];
 
 				if (alwaysInclude || draggedNames.indexOf(endName) != -1) {
 					this.draggedConnectors.push([startName, endName]);
@@ -431,11 +431,11 @@ module.exports = Backbone.View.extend({
 	**/
 
 	followDrag() {
-		for (var i = this.draggedPassages.length - 1; i >= 0; i--) {
+		for (let i = this.draggedPassages.length - 1; i >= 0; i--) {
 			this.cachePassage(this.draggedPassages[i]);
 		}
 
-		for (i = this.draggedConnectors.length - 1; i >= 0; i--) {
+		for (let i = this.draggedConnectors.length - 1; i >= 0; i--) {
 			this.drawConnector(
 				this.draggedConnectors[i][0],
 				this.draggedConnectors[i][1],
@@ -456,20 +456,20 @@ module.exports = Backbone.View.extend({
 	**/
 
 	cachePassage(passage) {
-		var offset = this.$('.passages').offset();
-		var passEl = this.$(
+		const offset = this.$('.passages').offset();
+		const passEl = this.$(
 			'.passages div[data-id="' + passage.id + '"] .frame'
 		);
-		var pos = passEl.offset();
-		var width = passEl.outerWidth();
-		var height = passEl.outerHeight();
+		const pos = passEl.offset();
+		const width = passEl.outerWidth();
+		const height = passEl.outerHeight();
 		
 		// if the passage hasn't been rendered yet, there's nothing to cache
 		// yet
 
 		if (pos) {
-			var x = pos.left - offset.left;
-			var y = pos.top - offset.top;
+			const x = pos.left - offset.left;
+			const y = pos.top - offset.top;
 
 			this.passageCache[passage.get('name')] = {
 				ne: [x, y],

@@ -8,18 +8,18 @@
 **/
 
 'use strict';
-var $ = require('jquery');
-var _ = require('underscore');
-var moment = require('moment');
-var Backbone = require('backbone');
-var Marionette = require('backbone.marionette');
-var locale = require('../locale');
-var nwui = require('../nwui');
-var ui = require('../ui');
-var AppPref = require('../data/models/app-pref');
-var StoryFormatCollection = require('../data/collections/story-format');
-var TransRegion = require('../backbone-ext/trans-region');
-var TwineRouter = require('./router');
+const $ = require('jquery');
+const _ = require('underscore');
+const moment = require('moment');
+const Backbone = require('backbone');
+const Marionette = require('backbone.marionette');
+const locale = require('../locale');
+const nwui = require('../nwui');
+const ui = require('../ui');
+const AppPref = require('../data/models/app-pref');
+const StoryFormatCollection = require('../data/collections/story-format');
+const TransRegion = require('../backbone-ext/trans-region');
+const TwineRouter = require('./router');
 
 module.exports = Marionette.Application.extend({
 	initialize() {
@@ -55,7 +55,7 @@ module.exports = Marionette.Application.extend({
 
 		// add i18n hook to Marionette's rendering
 
-		var templateProperties = {
+		const templateProperties = {
 			moment,
 			s: locale.say.bind(locale),
 			sp: locale.sayPlural.bind(locale)
@@ -100,7 +100,7 @@ module.exports = Marionette.Application.extend({
 
 		// create built-in story formats if they don't already exist
 
-		var formats = StoryFormatCollection.all();
+		const formats = StoryFormatCollection.all();
 
 		if (!formats.findWhere({ name: 'Harlowe' })) {
 			formats.create({

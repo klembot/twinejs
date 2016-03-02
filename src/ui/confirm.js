@@ -5,10 +5,10 @@
 **/
 
 'use strict';
-var $ = require('jquery');
-var Marionette = require('backbone.marionette');
-var ui = require('./');
-var confirmTemplate = require('./ejs/confirm.ejs');
+const $ = require('jquery');
+const Marionette = require('backbone.marionette');
+const ui = require('./');
+const confirmTemplate = require('./ejs/confirm.ejs');
 
 /**
  Shows a modal confirmation dialog, with one button (to continue the action)
@@ -25,14 +25,14 @@ var confirmTemplate = require('./ejs/confirm.ejs');
 module.exports = (message, buttonLabel, callback, options) => {
 	options = options || {};
 
-	var modalContainer = $(Marionette.Renderer.render(confirmTemplate, {
+	const modalContainer = $(Marionette.Renderer.render(confirmTemplate, {
 		message,
 		buttonLabel,
 		modalClass: options.modalClass || '',
 		buttonClass: options.buttonClass || ''
 	}));
 
-	var modal = modalContainer.find('.modal');
+	const modal = modalContainer.find('.modal');
 
 	modal.on('click', 'button', function() {
 		if ($(this).data('action') == 'yes' && callback) {

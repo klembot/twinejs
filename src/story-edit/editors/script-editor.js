@@ -6,8 +6,8 @@
 **/
 
 'use strict';
-var Backbone = require('backbone');
-var CodeMirror = require('codemirror');
+const Backbone = require('backbone');
+const CodeMirror = require('codemirror');
 
 require('codemirror/addon/display/placeholder');
 require('codemirror/addon/hint/show-hint');

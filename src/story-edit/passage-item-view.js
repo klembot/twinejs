@@ -7,14 +7,14 @@
 **/
 
 'use strict';
-var $ = require('jquery');
-var _ = require('underscore');
-var Marionette = require('backbone.marionette');
-var locale = require('../locale');
-var confirm = require('../ui/confirm');
-var ui = require('../ui');
-var Passage = require('../data/models/passage');
-var passageItemTemplate = require('./ejs/passage-item-view.ejs');
+const $ = require('jquery');
+const _ = require('underscore');
+const Marionette = require('backbone.marionette');
+const locale = require('../locale');
+const confirm = require('../ui/confirm');
+const ui = require('../ui');
+const Passage = require('../data/models/passage');
+const passageItemTemplate = require('./ejs/passage-item-view.ejs');
 
 module.exports = Marionette.ItemView.extend({
 	template: passageItemTemplate,
@@ -94,9 +94,9 @@ module.exports = Marionette.ItemView.extend({
 	},
 
 	onDomRefresh() {
-		var zoom = this.parentView.model.get('zoom');
-		var top = this.model.get('top') * zoom;
-		var left = this.model.get('left') * zoom;
+		const zoom = this.parentView.model.get('zoom');
+		const top = this.model.get('top') * zoom;
+		const left = this.model.get('left') * zoom;
 
 		// have to set absolute positioning manually,
 		// or draggable() will manually apply absolute for us
@@ -119,7 +119,7 @@ module.exports = Marionette.ItemView.extend({
 
 		// set CSS class for starting point
 
-		var startId = this.parentView.model.get('startPassage');
+		const startId = this.parentView.model.get('startPassage');
 
 		if (this.model.id == startId || this.model.cid == startId) {
 			this.$el.addClass('start');
@@ -153,7 +153,7 @@ module.exports = Marionette.ItemView.extend({
 	serializeData() {
 		// add the excerpt manually after saving data
 
-		var data = this.model.toJSON();
+		const data = this.model.toJSON();
 
 		data.excerpt = this.model.excerpt();
 		return data;
@@ -173,7 +173,7 @@ module.exports = Marionette.ItemView.extend({
 			this.delete();
 		}
 		else {
-			var message = locale.say(
+			let message = locale.say(
 				'Are you sure you want to delete &ldquo;%s&rdquo;? ' +
 				'This cannot be undone.',
 				this.model.get('name')
@@ -201,7 +201,7 @@ module.exports = Marionette.ItemView.extend({
 	**/
 
 	delete() {
-		var model = this.model;
+		const model = this.model;
 
 		this.disappear(() => {
 			model.destroy();
@@ -230,10 +230,10 @@ module.exports = Marionette.ItemView.extend({
 	createLinkedPassages() {
 		// derive the previous set of links
 
-		var oldBroken = [];
+		let oldBroken = [];
 
 		if (this.model.previous('text')) {
-			var currentText = this.model.get('text');
+			const currentText = this.model.get('text');
 
 			this.model.set(
 				{ text: this.model.previous('text') },
@@ -255,8 +255,8 @@ module.exports = Marionette.ItemView.extend({
 
 		// we start new passages directly below this one
 
-		var newTop = this.model.get('top') + Passage.height * 1.5;
-		var newLeft = this.model.get('left');
+		const newTop = this.model.get('top') + Passage.height * 1.5;
+		let newLeft = this.model.get('left');
 
 		// actually create them
 		// this needs to be deferred so that the current chain of execution
@@ -530,7 +530,7 @@ module.exports = Marionette.ItemView.extend({
 	**/
 
 	trackDrag(e) {
-		var eventOrigin;
+		let eventOrigin;
 
 		this.actuallyDragged = true;
 
@@ -542,7 +542,7 @@ module.exports = Marionette.ItemView.extend({
 
 			// emulate mouse events for touches
 
-			for (var i = 0; i < e.touches.length; i++) {
+			for (let i = 0; i < e.touches.length; i++) {
 				if (e.touches[i].identifier == this.dragTouchId) {
 					eventOrigin = e.touches[i];
 					break;
@@ -627,7 +627,7 @@ module.exports = Marionette.ItemView.extend({
 			return;
 		}
 
-		var zoom = this.parentView.model.get('zoom');
+		const zoom = this.parentView.model.get('zoom');
 
 		this.model.set({
 			top: this.dragY / zoom,

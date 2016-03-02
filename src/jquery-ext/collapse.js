@@ -1,12 +1,12 @@
-var $ = require('jquery');
-var locale = require('../locale');
+const $ = require('jquery');
+const locale = require('../locale');
 
 // function to do the actual work of showing/hiding collapsible elements
 // syntax is $(...).collapse('show' | 'hide' | 'toggle')
 
 $.fn.collapse = function(action) {
-	var $t = $(this);
-	var $cont = $t.closest('.collapseContainer');
+	const $t = $(this);
+	const $cont = $t.closest('.collapseContainer');
 
 	switch (action) {
 		case 'show':

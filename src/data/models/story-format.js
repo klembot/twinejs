@@ -13,12 +13,12 @@
 **/
 
 'use strict';
-var _ = require('underscore');
-var $ = require('jquery');
-var Backbone = require('backbone');
-var locale = require('../../locale');
+const _ = require('underscore');
+const $ = require('jquery');
+const Backbone = require('backbone');
+const locale = require('../../locale');
 
-var StoryFormat = Backbone.Model.extend({
+const StoryFormat = Backbone.Model.extend({
 	/**
 	 Remembers whether the format has been loaded yet.
 
@@ -112,7 +112,7 @@ var StoryFormat = Backbone.Model.extend({
 			}
 
 			try {
-				var output = this.properties.source;
+				let output = this.properties.source;
 
 				// use function replacements to protect the data from
 				// accidental interactions with the special string
@@ -127,7 +127,7 @@ var StoryFormat = Backbone.Model.extend({
 				// user-defined placeholders
 
 				_.each(this.get('placeholders'), p => {
-					var value = story.get(p.name);
+					const value = story.get(p.name);
 
 					if (value !== null) {
 						output = output.replace(p.name, () => value);
@@ -151,7 +151,7 @@ window.StoryFormat = StoryFormat;
 
 module.exports = StoryFormat;
 
-var StoryFormatCollection = require('../collections/story-format');
+const StoryFormatCollection = require('../collections/story-format');
 
 /**
  Locates a StoryFormat by name. If none exists, then this returns null.

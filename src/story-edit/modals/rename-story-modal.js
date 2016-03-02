@@ -1,5 +1,5 @@
 'use strict';
-var Backbone = require('backbone');
+const Backbone = require('backbone');
 
 module.exports = Backbone.View.extend({
 	initialize(options) {
@@ -39,7 +39,7 @@ module.exports = Backbone.View.extend({
 
 	save(e) {
 		e.stopImmediatePropagation();
-		var storyName = this.$('.storyName').val();
+		const storyName = this.$('.storyName').val();
 
 		if (storyName.trim() === '') {
 			this.$('.noNameError').show().fadeIn();

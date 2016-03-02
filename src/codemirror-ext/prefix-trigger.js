@@ -11,7 +11,7 @@
 **/
 
 'use strict';
-var CodeMirror = require('codemirror');
+const CodeMirror = require('codemirror');
 
 CodeMirror.defineOption('prefixTrigger', [], (cm, opts) => {
 	if (opts.prefixes && opts.callback) {
@@ -21,25 +21,25 @@ CodeMirror.defineOption('prefixTrigger', [], (cm, opts) => {
 		cm.off('inputRead', checkTrigger);
 	}
 
-	var prefixes = opts.prefixes;
-	var callback = opts.callback;
+	const prefixes = opts.prefixes;
+	const callback = opts.callback;
 
 	function checkTrigger(cm) {
 		if (cm.state.completionActive) { return; }
 
 		// back up two words from the cursor
 
-		var curWord = cm.findWordAt(cm.getDoc().getCursor());
+		const curWord = cm.findWordAt(cm.getDoc().getCursor());
 
 		curWord.anchor.ch--;
 
-		var prevWordRange = cm.findWordAt(curWord.anchor);
-		var prevWord = cm.getRange(prevWordRange.anchor, prevWordRange.head);
+		const prevWordRange = cm.findWordAt(curWord.anchor);
+		const prevWord = cm.getRange(prevWordRange.anchor, prevWordRange.head);
 
 		// do we have a match?
 		// only trigger this once
 
-		for (var i = prefixes.length; i >= 0; i--) {
+		for (let i = prefixes.length; i >= 0; i--) {
 			if (prevWord == prefixes[i]) {
 				callback();
 				return;

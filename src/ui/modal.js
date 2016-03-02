@@ -1,13 +1,13 @@
 'use strict';
-var $ = window.jQuery = require('jquery');
+const $ = window.jQuery = require('jquery');
 
 require('../../lib/jquery/jquery.omniwindow.js');
-var ui = require('./index');
-var overlayTemplate = require('./ejs/modal-overlay.ejs');
+const ui = require('./index');
+const overlayTemplate = require('./ejs/modal-overlay.ejs');
 
 // default modal options for OmniWindow
 
-var modalOpts = {
+const modalOpts = {
 	callbacks: {
 		beforeShow(els, internalCallback) {
 			$('body').addClass('modalOpen');
@@ -80,7 +80,7 @@ var modalOpts = {
 };
 
 $(ui).on('init', function initModal(e, options) {
-	var $b = options.$body;
+	const $b = options.$body;
 
 	// add modal overlay
 
@@ -88,7 +88,7 @@ $(ui).on('init', function initModal(e, options) {
 	// this blocks mouse events
 
 	if ($('#modalOverlay').length === 0) {
-		var overlay = $(overlayTemplate());
+		const overlay = $(overlayTemplate());
 
 		overlay.on('mousedown mouseup', e => {
 			e.stopPropagation();
@@ -113,7 +113,7 @@ $(ui).on('init', function initModal(e, options) {
 	});
 
 	$b.on('click.twineui', '[data-modal-hide]', function() {
-		var modal = $(this).data('modal-hide');
+		const modal = $(this).data('modal-hide');
 
 		// special 'this' selector for hiding modals chooses
 		// the closest up upward in the DOM tree
@@ -130,7 +130,7 @@ $(ui).on('init', function initModal(e, options) {
 	// set up modals
 
 	options.$el.find('.modal').each(function() {
-		var $t = $(this);
+		const $t = $(this);
 
 		if ($t.data('modal')) { return; }
 

@@ -6,9 +6,9 @@
 **/
 
 'use strict';
-var _ = require('underscore');
-var Backbone = require('backbone');
-var locale = require('../../locale');
+const _ = require('underscore');
+const Backbone = require('backbone');
+const locale = require('../../locale');
 
 module.exports = Backbone.View.extend({
 	initialize(options) {
@@ -24,21 +24,21 @@ module.exports = Backbone.View.extend({
 	open() {
 		// calculate counts
 
-		var charCount = 0;
-		var wordCount = 0;
-		var passageCount = 0;
-		var linkCount = 0;
-		var brokenLinkCount = 0;
-		var passageLinks = {};
-		var passageNames = [];
+		let charCount = 0;
+		let wordCount = 0;
+		let passageCount = 0;
+		let linkCount = 0;
+		let brokenLinkCount = 0;
+		const passageLinks = {};
+		const passageNames = [];
 
 		_.each(this.parent.collection.models, passage => {
 			passageCount++;
-			var text = passage.get('text');
+			const text = passage.get('text');
 
 			charCount += text.length;
 			wordCount += text.split(/\s+/).length;
-			var links = passage.links();
+			const links = passage.links();
 
 			linkCount += links.length;
 			passageNames.push(passage.get('name'));

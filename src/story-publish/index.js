@@ -12,24 +12,24 @@
 **/
 
 'use strict';
-var locale = require('../locale');
-var notify = require('../ui/notify');
-var replaceContent = require('../ui/replace');
-var saveFile = require('../file/save');
-var AppPref = require('../data/models/app-pref');
-var StoryFormat = require('../data/models/story-format');
-var StoryCollection = require('../data/collections/story');
+const locale = require('../locale');
+const notify = require('../ui/notify');
+const replaceContent = require('../ui/replace');
+const saveFile = require('../file/save');
+const AppPref = require('../data/models/app-pref');
+const StoryFormat = require('../data/models/story-format');
+const StoryCollection = require('../data/collections/story');
 
 module.exports = {
 	publishStory(story, filename, options) {
 		options = options || {};
-		var format;
+		let format;
 
 		if (options.format) {
 			format = options.format;
 		}
 		else {
-			var formatName = options.format || story.get('storyFormat') ||
+			const formatName = options.format || story.get('storyFormat') ||
 				AppPref.withName('defaultFormat').get('value');
 
 			format = StoryFormat.withName(formatName);
@@ -70,7 +70,7 @@ module.exports = {
 	**/
 
 	saveArchive() {
-		var output = '';
+		let output = '';
 
 		StoryCollection.all().each(story => {
 			// force publishing even if there is no start point set

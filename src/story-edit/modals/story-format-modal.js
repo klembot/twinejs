@@ -1,11 +1,11 @@
 'use strict';
-var $ = require('jquery');
-var Backbone = require('backbone');
-var Marionette = require('backbone.marionette');
-var locale = require('../../locale');
-var notify = require('../../ui/notify');
-var StoryFormatCollection = require('../../data/collections/story-format');
-var singleFormatTemplate = require('../ejs/single-story-format-item.ejs');
+const $ = require('jquery');
+const Backbone = require('backbone');
+const Marionette = require('backbone.marionette');
+const locale = require('../../locale');
+const notify = require('../../ui/notify');
+const StoryFormatCollection = require('../../data/collections/story-format');
+const singleFormatTemplate = require('../ejs/single-story-format-item.ejs');
 
 module.exports = Backbone.View.extend({
 	initialize(options) {
@@ -48,7 +48,7 @@ module.exports = Backbone.View.extend({
 	changeFormat(name) {
 		this.parent.model.save({ storyFormat: name });
 		this.$('.detail button.select').each(function() {
-			var $t = $(this);
+			const $t = $(this);
 
 			if ($t.closest('.detail').data('format') == name) {
 				$t.addClass('active');
@@ -69,7 +69,7 @@ module.exports = Backbone.View.extend({
 
 	loadNextFormat() {
 		if (this.formatsToLoad.length > 0) {
-			var format = this.formatsToLoad.at(0);
+			const format = this.formatsToLoad.at(0);
 
 			format.load(function(e) {
 				if (e === undefined) {
@@ -79,10 +79,10 @@ module.exports = Backbone.View.extend({
 						// calculate containing directory for the format
 						// so that image URLs, for example, are correct
 
-						var path = format.get('url').replace(/\/[^\/]*?$/, '');
+						const path = format.get('url').replace(/\/[^\/]*?$/, '');
 
 						format.properties.path = path;
-						var content = $(
+						const content = $(
 							Marionette.Renderer.render(
 								this.itemTemplate,
 								format.properties
