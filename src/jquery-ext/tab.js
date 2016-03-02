@@ -1,10 +1,10 @@
-var $ = require('jquery');
+const $ = require('jquery');
 
 // function to do the work of showing a tab
 // this must be called on the button triggering a tab
 
 $.fn.tab = function() {
-	var $t = $(this);
+	const $t = $(this);
 
 	// update appearance
 

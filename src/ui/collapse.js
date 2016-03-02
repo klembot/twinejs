@@ -1,8 +1,8 @@
 'use strict';
-var $ = require('jquery');
+const $ = require('jquery');
 
 require('../jquery-ext/collapse');
-var ui = require('./index');
+const ui = require('./index');
 
 $(ui).on('init', (e, options) => {
 	options.$body.on(
@@ -11,7 +11,7 @@ $(ui).on('init', (e, options) => {
 		function() {
 			// click handler for showing and hiding collapsed elements
 
-			var $t = $(this);
+			const $t = $(this);
 
 			$t.collapse($t.data('collapse'));
 		}

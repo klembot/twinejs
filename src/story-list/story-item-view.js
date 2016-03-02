@@ -8,17 +8,17 @@
 **/
 
 'use strict';
-var $ = require('jquery');
-var Marionette = require('backbone.marionette');
-var confirm = require('../ui/confirm');
-var locale = require('../locale');
-var notify = require('../ui/notify');
-var prompt = require('../ui/prompt');
-var publish = require('../story-publish');
-var Passage = require('../data/models/passage');
-var Preview = require('./story-preview');
-var StoryEditView = require('../story-edit/story-edit-view');
-var storyItemTemplate = require('./ejs/story-item-view.ejs');
+const $ = require('jquery');
+const Marionette = require('backbone.marionette');
+const confirm = require('../ui/confirm');
+const locale = require('../locale');
+const notify = require('../ui/notify');
+const prompt = require('../ui/prompt');
+const publish = require('../story-publish');
+const Passage = require('../data/models/passage');
+const Preview = require('./story-preview');
+const StoryEditView = require('../story-edit/story-edit-view');
+const storyItemTemplate = require('./ejs/story-item-view.ejs');
 
 module.exports = Marionette.ItemView.extend({
 	template: storyItemTemplate,
@@ -44,12 +44,12 @@ module.exports = Marionette.ItemView.extend({
 	**/
 
 	edit(e) {
-		var proxy =
+		const proxy =
 			$('<div id="storyEditProxy" class="fullAppear fast"></div>');
 
 		// match the proxy's zoom to the model
 		
-		for (var desc in StoryEditView.prototype.ZOOM_MAPPINGS) {
+		for (let desc in StoryEditView.prototype.ZOOM_MAPPINGS) {
 			if (StoryEditView.prototype.ZOOM_MAPPINGS[desc] ==
 				this.model.get('zoom')) {
 				proxy.addClass('zoom-' + desc);
@@ -60,8 +60,8 @@ module.exports = Marionette.ItemView.extend({
 		// if we don't know where the edit event is coming from,
 		// default to the center of the window
 
-		var originX = e ? e.pageX : $(window).width() / 2;
-		var originY = e ? e.pageY : $(window).height() / 2;
+		const originX = e ? e.pageX : $(window).width() / 2;
+		const originY = e ? e.pageY : $(window).height() / 2;
 
 		proxy.css({
 			transformOrigin: originX + 'px ' + originY + 'px',
@@ -201,7 +201,7 @@ module.exports = Marionette.ItemView.extend({
 			locale.say('What should the duplicate be named?'),
 			'<i class="fa fa-copy"></i> ' + locale.say('Duplicate'),
 			function(text) {
-				var dupe = this.model.duplicate(text);
+				const dupe = this.model.duplicate(text);
 
 				this.parentView.collection.add(dupe);
 			}.bind(this),

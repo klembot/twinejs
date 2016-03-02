@@ -6,10 +6,10 @@
 **/
 
 'use strict';
-var $ = require('jquery');
-var Backbone = require('backbone');
-var moment = require('moment');
-var locale = require('../locale');
+const $ = require('jquery');
+const Backbone = require('backbone');
+const moment = require('moment');
+const locale = require('../locale');
 
 module.exports = Backbone.View.extend({
 	initialize(options) {
@@ -39,11 +39,11 @@ module.exports = Backbone.View.extend({
 	**/
 
 	syncZoomButtons() {
-		var zoom = this.parent.model.get('zoom');
+		const zoom = this.parent.model.get('zoom');
 
 		// find the correct zoom description
 
-		for (var desc in this.parent.ZOOM_MAPPINGS) {
+		for (let desc in this.parent.ZOOM_MAPPINGS) {
 			if (this.parent.ZOOM_MAPPINGS[desc] == zoom) {
 				var className = 'zoom' + desc[0].toUpperCase() + desc.substr(1);
 			}
@@ -52,7 +52,7 @@ module.exports = Backbone.View.extend({
 		// set toolbar active states accordingly
 
 		this.$('.zooms button').each(function() {
-			var $t = $(this);
+			const $t = $(this);
 
 			if ($t.hasClass(className)) {
 				$t.addClass('active');
@@ -71,7 +71,7 @@ module.exports = Backbone.View.extend({
 	**/
 
 	syncSnapToGrid() {
-		var menu = this.$('.snapToGrid').closest('li');
+		const menu = this.$('.snapToGrid').closest('li');
 
 		if (this.parent.model.get('snapToGrid')) {
 			menu.addClass('checked');
@@ -91,8 +91,8 @@ module.exports = Backbone.View.extend({
 	**/
 
 	syncStorySaved(forceDate) {
-		var $sn = this.$('.storyName');
-		var date = (forceDate) ? moment(forceDate) : moment();
+		const $sn = this.$('.storyName');
+		const date = (forceDate) ? moment(forceDate) : moment();
 
 		// L10n: This refers to when a story was last saved by the user
 		// %s will be replaced with a localized date and time
@@ -142,7 +142,7 @@ module.exports = Backbone.View.extend({
 		},
 
 		'click .zoomBig, .zoomMedium, .zoomSmall'(e) {
-			var desc = $(e.target).closest('button').attr('class');
+			let desc = $(e.target).closest('button').attr('class');
 
 			desc = desc.replace(/^zoom/, '').replace(/ .*/, '').toLowerCase();
 			this.parent.model.save({ zoom: this.parent.ZOOM_MAPPINGS[desc] });

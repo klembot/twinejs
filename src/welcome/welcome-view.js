@@ -7,11 +7,11 @@
 **/
 
 'use strict';
-var $ = require('jquery');
-var Marionette = require('backbone.marionette');
-var welcomeTemplate = require('./ejs/welcome-view.ejs');
-var AppPref = require('../data/models/app-pref');
-var AppPrefCollection = require('../data/collections/app-pref');
+const $ = require('jquery');
+const Marionette = require('backbone.marionette');
+const welcomeTemplate = require('./ejs/welcome-view.ejs');
+const AppPref = require('../data/models/app-pref');
+const AppPrefCollection = require('../data/collections/app-pref');
 
 module.exports = Marionette.ItemView.extend({
 	template: welcomeTemplate,
@@ -34,8 +34,8 @@ module.exports = Marionette.ItemView.extend({
 		this.$('div:first-child').css('display', 'block').addClass('appear');
 
 		this.$el.on('click', 'button, a.done', function(e) {
-			var $t = $(e.target);
-			var next = $t.closest('div').next('div');
+			const $t = $(e.target);
+			const next = $t.closest('div').next('div');
 
 			// fade out existing buttons
 

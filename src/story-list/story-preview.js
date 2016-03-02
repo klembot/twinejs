@@ -4,9 +4,9 @@
 **/
 
 'use strict';
-var _ = require('underscore');
-var Backbone = require('backbone');
-var SVG = require('svg.js');
+const _ = require('underscore');
+const Backbone = require('backbone');
+const SVG = require('svg.js');
 
 module.exports = Backbone.View.extend({
 	/**
@@ -50,9 +50,9 @@ module.exports = Backbone.View.extend({
 
 		this.hue = 0;
 
-		var storyName = this.parent.model.get('name');
+		const storyName = this.parent.model.get('name');
 
-		for (var i = storyName.length - 1; i >= 0; i--) {
+		for (let i = storyName.length - 1; i >= 0; i--) {
 			this.hue += storyName.charCodeAt(i);
 		}
 
@@ -85,10 +85,10 @@ module.exports = Backbone.View.extend({
 		if (this.parent.passages.length > 1) {
 			// find longest passage
 
-			var maxLength = 0;
+			let maxLength = 0;
 
 			_.each(this.parent.passages, passage => {
-				var len = passage.get('text').length;
+				const len = passage.get('text').length;
 
 				if (len > maxLength) {
 					maxLength = len;
@@ -97,21 +97,21 @@ module.exports = Backbone.View.extend({
 
 			// render passages
 
-			var c1 = 'hsl(' + this.hue + ', 88%, 40%)';
-			var c2 = 'hsl(' + ((this.hue - 30) % 360) + ', 88%, 40%)';
-			var c3 = 'hsl(' + ((this.hue + 30) % 360) + ', 88%, 40%)';
+			const c1 = 'hsl(' + this.hue + ', 88%, 40%)';
+			const c2 = 'hsl(' + ((this.hue - 30) % 360) + ', 88%, 40%)';
+			const c3 = 'hsl(' + ((this.hue + 30) % 360) + ', 88%, 40%)';
 
-			var minX = Number.POSITIVE_INFINITY;
-			var minY = Number.POSITIVE_INFINITY;
-			var maxX = Number.NEGATIVE_INFINITY;
-			var maxY = Number.NEGATIVE_INFINITY;
+			let minX = Number.POSITIVE_INFINITY;
+			let minY = Number.POSITIVE_INFINITY;
+			let maxX = Number.NEGATIVE_INFINITY;
+			let maxY = Number.NEGATIVE_INFINITY;
 
 			_.each(this.parent.passages, function(passage, i) {
-				var ratio = passage.get('text').length / maxLength;
-				var size = 100 + 200 * ratio;
-				var x = passage.get('left');
-				var y = passage.get('top');
-				var c = this.svg.circle().center(x + 50, y + 50);
+				const ratio = passage.get('text').length / maxLength;
+				const size = 100 + 200 * ratio;
+				const x = passage.get('left');
+				const y = passage.get('top');
+				const c = this.svg.circle().center(x + 50, y + 50);
 
 				if (i % 3 === 0) {
 					c.fill({ color: c1, opacity: ratio * 0.9 });

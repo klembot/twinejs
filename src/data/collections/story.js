@@ -6,16 +6,16 @@
 **/
 
 'use strict';
-var Backbone = require('backbone');
-var EventedLocalStorage = require('../../backbone-ext/evented-local-storage');
+const Backbone = require('backbone');
+const EventedLocalStorage = require('../../backbone-ext/evented-local-storage');
 
-var StoryCollection = Backbone.Collection.extend({
+const StoryCollection = Backbone.Collection.extend({
 	localStorage: new EventedLocalStorage('twine-stories'),
 	order: 'name',
 	reverseOrder: false,
 
 	comparator(a, b) {
-		var sortVal;
+		let sortVal;
 		
 		switch (this.order) {
 			case 'name':
@@ -23,8 +23,8 @@ var StoryCollection = Backbone.Collection.extend({
 				break;
 
 			case 'lastUpdate':
-				var aDate = new Date(a.get('lastUpdate'));
-				var bDate = new Date(b.get('lastUpdate'));
+				const aDate = new Date(a.get('lastUpdate'));
+				const bDate = new Date(b.get('lastUpdate'));
 
 				sortVal = aDate.getTime() < bDate.getTime() ? -1 : 1;
 				break;
@@ -45,7 +45,7 @@ var StoryCollection = Backbone.Collection.extend({
 // early export to avoid circular reference problems
 
 module.exports = StoryCollection;
-var Story = require('../models/story');
+const Story = require('../models/story');
 
 StoryCollection.prototype.model = Story;
 
@@ -58,7 +58,7 @@ StoryCollection.prototype.model = Story;
 **/
 
 StoryCollection.all = () => {
-	var result = new StoryCollection();
+	const result = new StoryCollection();
 
 	result.fetch();
 	return result;

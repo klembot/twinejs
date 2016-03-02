@@ -5,10 +5,10 @@
 **/
 
 'use strict';
-var $ = require('jquery');
-var Marionette = require('backbone.marionette');
-var ui = require('./index.js');
-var promptTemplate = require('./ejs/prompt.ejs');
+const $ = require('jquery');
+const Marionette = require('backbone.marionette');
+const ui = require('./index.js');
+const promptTemplate = require('./ejs/prompt.ejs');
 
 /**
  Shows a modal dialog asking for the user to enter some text, with one
@@ -28,7 +28,7 @@ module.exports = (message, buttonLabel, callback, options) => {
 	options = options || {};
 	options.defaultText = options.defaultText || '';
 
-	var modalContainer = $(Marionette.Renderer.render(promptTemplate, {
+	const modalContainer = $(Marionette.Renderer.render(promptTemplate, {
 		message,
 		defaultText: options.defaultText,
 		buttonLabel,
@@ -36,7 +36,7 @@ module.exports = (message, buttonLabel, callback, options) => {
 		buttonClass: options.buttonClass || ''
 	}));
 
-	var modal = modalContainer.find('.modal');
+	const modal = modalContainer.find('.modal');
 
 	modal.on('click', 'button', function() {
 		if ($(this).data('action') == 'yes' && callback) {

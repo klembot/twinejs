@@ -12,22 +12,22 @@
 **/
 
 'use strict';
-var $ = require('jquery');
-var JSZip = require('jszip');
-var saveAs = require('browser-saveas');
-var locale = require('../locale');
-var notify = require('../ui/notify');
+const $ = require('jquery');
+const JSZip = require('jszip');
+const saveAs = require('browser-saveas');
+const locale = require('../locale');
+const notify = require('../ui/notify');
 
 require('blob-polyfill');
 
 module.exports = (data, filename, success, failure) => {
 	try {
-		var $b = $('body');
+		const $b = $('body');
 
 		if (!$b.hasClass('iOS')) {
 			// standard style
 
-			var blob = new Blob([data], { type: 'text/html;charset=utf-8' });
+			const blob = new Blob([data], { type: 'text/html;charset=utf-8' });
 
 			// Safari requires us to use saveAs in direct response
 			// to a user event, so we punt and use a data: URI instead
@@ -49,7 +49,7 @@ module.exports = (data, filename, success, failure) => {
 			// package it into a .zip; this will trigger iOS to try to
 			// hand it off to Google Drive, Dropbox, and the like
 
-			var zip = new JSZip();
+			const zip = new JSZip();
 
 			zip.file(filename, data);
 			window.location.href =

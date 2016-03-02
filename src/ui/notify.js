@@ -5,16 +5,16 @@
 **/
 
 'use strict';
-var $ = require('jquery');
-var Marionette = require('backbone.marionette');
-var ui = require('./index');
-var notificationTemplate = require('./ejs/notification.ejs');
+const $ = require('jquery');
+const Marionette = require('backbone.marionette');
+const ui = require('./index');
+const notificationTemplate = require('./ejs/notification.ejs');
 
 $(ui).on('init', (e, options) => {
 	options.$body.on('click.twineui', '#notifications .close', function() {
 		// click handler for closing notifications
 
-		var notification = $(this).closest('div');
+		const notification = $(this).closest('div');
 
 		notification.addClass('fadeOut');
 		notification.one('animationend', function() {
@@ -35,7 +35,7 @@ module.exports = (message, className) => {
 		$('body').append('<div id="notifications"></div>');
 	}
 
-	var n = Marionette.Renderer.render(notificationTemplate,
+	const n = Marionette.Renderer.render(notificationTemplate,
 		{ message, className });
 
 	$('#notifications').append(n);

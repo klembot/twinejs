@@ -6,17 +6,17 @@
 **/
 
 'use strict';
-var Backbone = require('backbone');
-var EventedLocalStorage = require('../../backbone-ext/evented-local-storage');
+const Backbone = require('backbone');
+const EventedLocalStorage = require('../../backbone-ext/evented-local-storage');
 
-var PassageCollection = Backbone.Collection.extend({
+const PassageCollection = Backbone.Collection.extend({
 	localStorage: new EventedLocalStorage('twine-passages')
 });
 
 // early export to avoid circular reference problems
 
 module.exports = PassageCollection;
-var Passage = require('../models/passage');
+const Passage = require('../models/passage');
 
 PassageCollection.prototype.model = Passage;
 
@@ -29,7 +29,7 @@ PassageCollection.prototype.model = Passage;
 **/
 
 PassageCollection.all = () => {
-	var result = new PassageCollection();
+	const result = new PassageCollection();
 
 	result.fetch();
 	return result;

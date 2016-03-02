@@ -8,22 +8,22 @@
 **/
 
 'use strict';
-var $ = require('jquery');
-var _ = require('underscore');
-var Marionette = require('backbone.marionette');
-var importer = require('../file/importer');
-var locale = require('../locale');
-var notify = require('../ui/notify');
-var Passage = require('../data/models/passage');
-var StorageQuota = require('../story-list/storage-quota');
-var Story = require('../data/models/story');
-var StoryCollection = require('../data/collections/story');
-var StoryListView = require('../story-list/story-list-view');
-var WelcomeView = require('../welcome/welcome-view');
-var startupErrorTemplate = require('./ejs/startup-error.ejs');
-var welcomeViewNwTemplate = require('./ejs/welcome-view-nw.ejs');
+const $ = require('jquery');
+const _ = require('underscore');
+const Marionette = require('backbone.marionette');
+const importer = require('../file/importer');
+const locale = require('../locale');
+const notify = require('../ui/notify');
+const Passage = require('../data/models/passage');
+const StorageQuota = require('../story-list/storage-quota');
+const Story = require('../data/models/story');
+const StoryCollection = require('../data/collections/story');
+const StoryListView = require('../story-list/story-list-view');
+const WelcomeView = require('../welcome/welcome-view');
+const startupErrorTemplate = require('./ejs/startup-error.ejs');
+const welcomeViewNwTemplate = require('./ejs/welcome-view-nw.ejs');
 
-var nwui = module.exports = {
+const nwui = module.exports = {
 	/**
 	 Whether Twine is running in a NW.js environment.
 	 @const
@@ -55,7 +55,7 @@ var nwui = module.exports = {
 	**/
 
 	init() {
-		var startupTask = 'beginning startup tasks';
+		let startupTask = 'beginning startup tasks';
 
 		try {
 			/**
@@ -67,9 +67,9 @@ var nwui = module.exports = {
 
 			startupTask = 'setting up menus';
 
-			var win = nwui.gui.Window.get();
-			var nativeMenuBar = new nwui.gui.Menu({ type: 'menubar' });
-			var mainMenu;
+			const win = nwui.gui.Window.get();
+			const nativeMenuBar = new nwui.gui.Menu({ type: 'menubar' });
+			let mainMenu;
 
 			if (process.platform == 'darwin') {
 				// create Mac menus
@@ -115,7 +115,7 @@ var nwui = module.exports = {
 
 				// and a stand-in Edit menu
 
-				var editMenu = new nwui.gui.MenuItem({
+				const editMenu = new nwui.gui.MenuItem({
 					label: locale.say('Edit'),
 					submenu: new nwui.gui.Menu()
 				});
@@ -235,7 +235,7 @@ var nwui = module.exports = {
 			 @property filePath
 			**/
 
-			var homePath = nwui.osenv.home();
+			const homePath = nwui.osenv.home();
 
 			// if the user doesn't have a Documents folder,
 			// check for "My Documents" instead (thanks Windows)
@@ -246,7 +246,7 @@ var nwui = module.exports = {
 			// space in this name, then it should have two backslashes (\\)
 			// in front of it. Regardless, this must have a single forward
 			// slash (/) as its first character.
-			var docPath = nwui.path.join(homePath, locale.say('/Documents'));
+			let docPath = nwui.path.join(homePath, locale.say('/Documents'));
 
 			if (!nwui.fs.existsSync(docPath)) {
 				startupTask = 'creating a My Documents directory in your ' +
@@ -289,7 +289,7 @@ var nwui = module.exports = {
 			if (!nwui.fs.existsSync(nwui.filePath)) {
 				startupTask = 'creating a Twine directory in your ' +
 					'Documents directory';
-				var twinePath = nwui.path.join(docPath, locale.say('/Twine'));
+				const twinePath = nwui.path.join(docPath, locale.say('/Twine'));
 
 				if (!nwui.fs.existsSync(twinePath)) {
 					nwui.fs.mkdirSync(twinePath);
@@ -316,7 +316,7 @@ var nwui = module.exports = {
 			// open external links outside the app
 
 			$('body').on('click', 'a', function handleExternalLink(e) {
-				var url = $(this).attr('href');
+				const url = $(this).attr('href');
 
 				if (typeof url == 'string' && url.match(/^https?:/)) {
 					nwui.gui.Shell.openExternal(url);
@@ -338,7 +338,7 @@ var nwui = module.exports = {
 
 			startupTask = 'adding a hook to automatically save stories';
 
-			var oldStoryInit = Story.prototype.initialize;
+			const oldStoryInit = Story.prototype.initialize;
 
 			Story.prototype.initialize = function() {
 				oldStoryInit.call(this);
@@ -379,7 +379,7 @@ var nwui = module.exports = {
 			startupTask = 'adding a hook to automatically save a story ' +
 				'after editing a passage';
 
-			var oldPassageInit = Passage.prototype.initialize;
+			const oldPassageInit = Passage.prototype.initialize;
 
 			Passage.prototype.initialize = function() {
 				oldPassageInit.call(this);
@@ -392,7 +392,7 @@ var nwui = module.exports = {
 					// if we have no parent, skip it
 					// (this happens during an import, for example)
 
-					var parent = this.fetchStory();
+					const parent = this.fetchStory();
 
 					if (parent) {
 						nwui.saveStoryFile(parent);
@@ -421,12 +421,12 @@ var nwui = module.exports = {
 
 			startupTask = 'setting up a hook for importing story files';
 
-			var oldStoryListViewImportFile =
+			const oldStoryListViewImportFile =
 				StoryListView.prototype.importFile;
 
 			StoryListView.prototype.importFile = function(e) {
 				nwui.syncFs = false;
-				var reader = oldStoryListViewImportFile.call(this, e);
+				const reader = oldStoryListViewImportFile.call(this, e);
 
 				reader.addEventListener('load', () => {
 					// deferred to make sure that the normal event
@@ -444,7 +444,7 @@ var nwui = module.exports = {
 
 			startupTask = 'customizing the initial welcome page';
 
-			var oldWelcomeViewRender = WelcomeView.prototype.onRender;
+			const oldWelcomeViewRender = WelcomeView.prototype.onRender;
 
 			WelcomeView.prototype.onRender = function() {
 				this.$('.save').html(
@@ -487,7 +487,7 @@ var nwui = module.exports = {
 	saveStoryFile(story) {
 		try {
 			nwui.unlockStoryDirectory();
-			var fd = nwui.fs.openSync(
+			const fd = nwui.fs.openSync(
 				nwui.filePath + '/' + nwui.storyFileName(story), 'w'
 			);
 
@@ -549,7 +549,7 @@ var nwui = module.exports = {
 
 		// clear all existing stories and passages
 
-		var allStories = StoryCollection.all();
+		const allStories = StoryCollection.all();
 
 		while (allStories.length > 0) {
 			allStories.at(0).destroy();
@@ -559,11 +559,11 @@ var nwui = module.exports = {
 
 		nwui.unlockStoryDirectory();
 
-		var fileStories = nwui.fs.readdirSync(nwui.filePath);
+		const fileStories = nwui.fs.readdirSync(nwui.filePath);
 
 		_.each(fileStories, filename => {
 			if (filename.match(/\.html$/)) {
-				var stats = nwui.fs.statSync(nwui.filePath + '/' + filename);
+				const stats = nwui.fs.statSync(nwui.filePath + '/' + filename);
 
 				importer.import(
 					nwui.fs.readFileSync(
@@ -593,7 +593,7 @@ var nwui = module.exports = {
 				});
 			}
 			else {
-				var stat = nwui.fs.statSync(nwui.filePath);
+				const stat = nwui.fs.statSync(nwui.filePath);
 
 				// u-w
 				nwui.fs.chmodSync(nwui.filePath, stat.mode ^ 128);
@@ -626,7 +626,7 @@ var nwui = module.exports = {
 				});
 			}
 			else {
-				var stat = nwui.fs.statSync(nwui.filePath);
+				const stat = nwui.fs.statSync(nwui.filePath);
 
 				// u+w
 				nwui.fs.chmodSync(nwui.filePath, stat.mode | 128);

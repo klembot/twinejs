@@ -7,7 +7,7 @@
 **/
 
 'use strict';
-var ui = require('./index.js');
+const ui = require('./index.js');
 
 module.exports = html => {
 	// remove our UI hooks

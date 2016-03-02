@@ -1,11 +1,11 @@
 'use strict';
-var $ = require('jquery');
-var _ = require('underscore');
-var Backbone = require('backbone');
-var Marionette = require('backbone.marionette');
-var locale = require('../../locale');
-var notify = require('../../ui/notify');
-var resultTemplate = require('../ejs/search-modal-result.ejs');
+const $ = require('jquery');
+const _ = require('underscore');
+const Backbone = require('backbone');
+const Marionette = require('backbone.marionette');
+const locale = require('../../locale');
+const notify = require('../../ui/notify');
+const resultTemplate = require('../ejs/search-modal-result.ejs');
 
 require('../../ui/collapse');
 
@@ -42,8 +42,8 @@ module.exports = Backbone.View.extend({
 	**/
 
 	updateResults() {
-		var searchTerm = this.searchRegexp();
-		var searchNames = this.$('#searchNames').prop('checked');
+		const searchTerm = this.searchRegexp();
+		const searchNames = this.$('#searchNames').prop('checked');
 
 		if (searchTerm.source === '') {
 			// bug out early if there was no text entered
@@ -53,18 +53,18 @@ module.exports = Backbone.View.extend({
 			return;
 		}
 
-		var passagesMatched = 0;
-		var resultHtml = '';
+		let passagesMatched = 0;
+		let resultHtml = '';
 
 		this.$('.loading').show();
 
 		this.parent.children.each(function(view) {
-			var numMatches = view.model.numMatches(searchTerm, searchNames);
+			const numMatches = view.model.numMatches(searchTerm, searchNames);
 
 			if (numMatches !== 0) {
 				passagesMatched++;
 
-				var name = _.escape(view.model.get('name'));
+				let name = _.escape(view.model.get('name'));
 
 				if (searchNames) {
 					name = name.replace(
@@ -76,7 +76,7 @@ module.exports = Backbone.View.extend({
 				// we have to do a bit of a song and dance
 				// to escape things correctly for the preview
 
-				var preview = _.escape(
+				let preview = _.escape(
 					view.model.get('text').replace(
 						searchTerm,
 						'\u3000$1\u3001'
@@ -155,8 +155,8 @@ module.exports = Backbone.View.extend({
 	**/
 
 	replaceInPassage(e) {
-		var container = $(e.target).closest('.result');
-		var model = this.parent.children.findByModelCid(
+		const container = $(e.target).closest('.result');
+		const model = this.parent.children.findByModelCid(
 			container.attr('data-passage')
 		).model;
 
@@ -176,15 +176,15 @@ module.exports = Backbone.View.extend({
 	**/
 
 	replaceAll() {
-		var passagesMatched = 0;
-		var totalMatches = 0;
-		var searchTerm = this.searchRegexp();
-		var replaceWith = this.$('#replaceWith').val();
+		let passagesMatched = 0;
+		let totalMatches = 0;
+		const searchTerm = this.searchRegexp();
+		const replaceWith = this.$('#replaceWith').val();
 		// FIXME
 		// var inNames = this.$('#searchNames').prop('checked');
 
 		this.parent.children.each(function(view) {
-			var numMatches = view.model.numMatches(searchTerm);
+			const numMatches = view.model.numMatches(searchTerm);
 
 			if (numMatches !== 0) {
 				passagesMatched++;
@@ -200,13 +200,13 @@ module.exports = Backbone.View.extend({
 		this.$el.one('modalhide', () => {
 			// L10n: replacement in the sense of text search and replace. %d is
 			// the number.
-			var replacementDesc = locale.sayPlural(
+			const replacementDesc = locale.sayPlural(
 				'%d replacement was made in',
 				'%d replacements were made in', totalMatches
 			);
 
 			// L10n: %d is a number of passages.
-			var passageDesc = locale.sayPlural(
+			const passageDesc = locale.sayPlural(
 				'%d passage',
 				'%d passages',
 				passagesMatched
@@ -230,13 +230,13 @@ module.exports = Backbone.View.extend({
 	**/
 
 	searchRegexp() {
-		var flags = 'g';
+		let flags = 'g';
 
 		if (!this.$('#searchCaseSensitive').prop('checked')) {
 			flags += 'i';
 		}
 
-		var source = this.$('#searchFor').val();
+		let source = this.$('#searchFor').val();
 
 		if (this.$('#searchRegexp').prop('checked')) {
 			source = source.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');

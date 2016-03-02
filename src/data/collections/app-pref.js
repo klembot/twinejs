@@ -6,18 +6,18 @@
 **/
 
 'use strict';
-var Backbone = require('backbone');
-var LocalStorage = require('backbone.localstorage');
+const Backbone = require('backbone');
+const LocalStorage = require('backbone.localstorage');
 
-var AppPrefCollection = Backbone.Collection.extend({
-	model: AppPref,
+const AppPrefCollection = Backbone.Collection.extend({
+	// AppPref is manually added below
 	localStorage: new LocalStorage('twine-prefs')
 });
 
 // early export to avoid circular reference problems
 
 module.exports = AppPrefCollection;
-var AppPref = require('../models/app-pref');
+const AppPref = require('../models/app-pref');
 
 AppPrefCollection.prototype.model = AppPref;
 
@@ -30,7 +30,7 @@ AppPrefCollection.prototype.model = AppPref;
 **/
 
 AppPrefCollection.all = () => {
-	var result = new AppPrefCollection();
+	const result = new AppPrefCollection();
 
 	result.fetch();
 	return result;

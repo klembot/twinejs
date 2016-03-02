@@ -7,9 +7,9 @@
 **/
 
 'use strict';
-var $ = require('jquery');
-var _ = require('underscore');
-var Backbone = require('backbone');
+const $ = require('jquery');
+const _ = require('underscore');
+const Backbone = require('backbone');
 
 module.exports = Backbone.View.extend({
 	initialize(options) {
@@ -37,13 +37,13 @@ module.exports = Backbone.View.extend({
 
 		// dimensions of a passage
 
-		var width = this.$('.passage:first .frame').outerWidth();
-		var height = this.$('.passage:first .frame').outerHeight();
+		const width = this.$('.passage:first .frame').outerWidth();
+		const height = this.$('.passage:first .frame').outerHeight();
 
 		this.cache = [];
 
 		this.parent.children.each(function(view) {
-			var offset = view.$('.frame').offset();
+			const offset = view.$('.frame').offset();
 
 			this.cache.push({
 				view,
@@ -70,7 +70,7 @@ module.exports = Backbone.View.extend({
 	followDrag(e) {
 		// marquee appearance
 
-		var left, top, width, height;
+		let left, top, width, height;
 
 		if (e.pageX > this.startX) {
 			left = this.startX;

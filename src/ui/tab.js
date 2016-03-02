@@ -1,6 +1,6 @@
 'use strict';
-var $ = require('jquery');
-var ui = require('./index');
+const $ = require('jquery');
+const ui = require('./index');
 
 require('../jquery-ext/tab');
 

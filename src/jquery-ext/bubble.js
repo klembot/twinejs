@@ -11,15 +11,15 @@
  @module jquery-ext/bubble
 **/
 
-var $ = require('jquery');
-var locale = require('../locale');
+const $ = require('jquery');
+const locale = require('../locale');
 
 // syntax is $(...).bubble('show' | 'hide' | 'toggle')
 
 $.fn.bubble = function(action) {
-	var $t = $(this);
-	var $cont = $t.closest('.bubbleContainer');
-	var $bubble = $cont.find('.bubble');
+	const $t = $(this);
+	const $cont = $t.closest('.bubbleContainer');
+	const $bubble = $cont.find('.bubble');
 
 	// vertically center bubbles that are displayed to the side,
 	// push bubbles pointing down above their sources

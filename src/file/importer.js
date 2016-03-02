@@ -5,11 +5,11 @@
  @module file/importer
 **/
 
-var _ = require('underscore');
-var StoryCollection = require('../data/collections/story');
-var PassageCollection = require('../data/collections/passage');
+const _ = require('underscore');
+const StoryCollection = require('../data/collections/story');
+const PassageCollection = require('../data/collections/passage');
 
-var importer = module.exports = {
+const importer = module.exports = {
 	/**
 	 Imports a file containing either a single published story, or an
 	 archive of several stories. The stories are immediately saved to storage.
@@ -22,28 +22,28 @@ var importer = module.exports = {
 	**/
 
 	import(data, lastUpdate) {
-		var sels = importer.selectors;
+		const sels = importer.selectors;
 
 		// containers for the new stories and passages we will create
 
-		var allStories = new StoryCollection();
-		var allPassages = new PassageCollection();
+		const allStories = new StoryCollection();
+		const allPassages = new PassageCollection();
 
 		// parse data into a DOM
 
-		var count = 0;
-		var nodes = document.createElement('div');
+		let count = 0;
+		const nodes = document.createElement('div');
 
 		nodes.innerHTML = data;
 
 		// remove surrounding <body>, if there is one
 
 		_.each(nodes.querySelectorAll(sels.storyData), storyEl => {
-			var startPassageId = storyEl.attributes.startnode.value;
+			const startPassageId = storyEl.attributes.startnode.value;
 
 			// glom all style nodes into the stylesheet property
 
-			var stylesheet = '';
+			let stylesheet = '';
 
 			_.each(storyEl.querySelectorAll(sels.stylesheet), el => {
 				stylesheet += el.textContent + '\n';
@@ -51,7 +51,7 @@ var importer = module.exports = {
 
 			// likewise for script nodes
 
-			var script = '';
+			let script = '';
 
 			_.each(storyEl.querySelectorAll(sels.script), el => {
 				script += el.textContent + '\n';
@@ -59,7 +59,7 @@ var importer = module.exports = {
 
 			// create a story object
 
-			var story = allStories.create({
+			const story = allStories.create({
 				name: storyEl.attributes.name.value,
 				storyFormat: storyEl.attributes.format.value,
 				ifid: (storyEl.attributes.ifid) ?
@@ -74,14 +74,14 @@ var importer = module.exports = {
 			_.each(
 				storyEl.querySelectorAll(sels.passageData),
 				passageEl => {
-					var id = passageEl.attributes.pid.value;
-					var pos = passageEl.attributes.position.value;
-					var posBits = pos.split(',');
-					var tags = passageEl.attributes.tags.value;
+					const id = passageEl.attributes.pid.value;
+					const pos = passageEl.attributes.position.value;
+					const posBits = pos.split(',');
+					let tags = passageEl.attributes.tags.value;
 
 					tags = (tags === '') ? [] : tags.split(/\s+/);
 
-					var passage = allPassages.create(
+					const passage = allPassages.create(
 						{
 							name: passageEl.attributes.name.value,
 							tags,

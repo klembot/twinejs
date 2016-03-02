@@ -6,16 +6,16 @@
 **/
 
 'use strict';
-var Backbone = require('backbone');
+const Backbone = require('backbone');
 
-var StoryFormatCollection = Backbone.Collection.extend({
+const StoryFormatCollection = Backbone.Collection.extend({
 	localStorage: new Backbone.LocalStorage('twine-storyformats')
 });
 
 // early export to avoid circular reference problems
 
 module.exports = StoryFormatCollection;
-var StoryFormat = require('../models/story-format');
+const StoryFormat = require('../models/story-format');
 
 StoryFormatCollection.prototype.model = StoryFormat;
 
@@ -28,7 +28,7 @@ StoryFormatCollection.prototype.model = StoryFormat;
 **/
 
 StoryFormatCollection.all = () => {
-	var result = new StoryFormatCollection();
+	const result = new StoryFormatCollection();
 	
 	result.fetch();
 	return result;

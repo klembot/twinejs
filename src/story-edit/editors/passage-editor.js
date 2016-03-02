@@ -6,14 +6,14 @@
 **/
 
 'use strict';
-var $ = require('jquery');
-var _ = require('underscore');
-var Backbone = require('backbone');
-var CodeMirror = require('codemirror');
-var locale = require('../../locale');
-var Passage = require('../../data/models/passage');
-var StoryFormat = require('../../data/models/story-format');
-var tagTemplate = require('../ejs/passage-tag.ejs');
+const $ = require('jquery');
+const _ = require('underscore');
+const Backbone = require('backbone');
+const CodeMirror = require('codemirror');
+const locale = require('../../locale');
+const Passage = require('../../data/models/passage');
+const StoryFormat = require('../../data/models/story-format');
+const tagTemplate = require('../ejs/passage-tag.ejs');
 
 require('codemirror/mode/javascript/javascript');
 require('codemirror/addon/display/placeholder');
@@ -90,7 +90,7 @@ module.exports = Backbone.View.extend({
 			.on('click', '.showNewTag', this.showNewTag.bind(this))
 			.on('click', '.hideNewTag', this.hideNewTag.bind(this))
 			.on('submit', function(e) {
-				var name = this.$('.newTagName').val().replace(/\s/g, '-');
+				const name = this.$('.newTagName').val().replace(/\s/g, '-');
 
 				// don't add duplicate tags
 
@@ -105,7 +105,7 @@ module.exports = Backbone.View.extend({
 				$(this).closest('.tag').remove();
 			})
 			.data('blockModalHide', function() {
-				var worked = this.save();
+				const worked = this.save();
 
 				if (worked) {
 					window.onbeforeunload = null;
@@ -138,12 +138,12 @@ module.exports = Backbone.View.extend({
 		// after itself. We use that mode if it is found to exist after
 		// loading.
 
-		var storyFormatName = this.story.get('storyFormat');
-		var storyFormat = StoryFormat.withName(storyFormatName);
+		const storyFormatName = this.story.get('storyFormat');
+		const storyFormat = StoryFormat.withName(storyFormatName);
 
 		if (storyFormat) {
 			storyFormat.load(function(err) {
-				var modeName = storyFormatName.toLowerCase();
+				const modeName = storyFormatName.toLowerCase();
 				
 				if (!err && modeName in CodeMirror.modes) {
 					// This is a small hack to allow modes such as Harlowe to
@@ -164,7 +164,7 @@ module.exports = Backbone.View.extend({
 		// it if it fires.
 
 		this.cm.setOption('mode', 'text');
-		var text = this.model.get('text');
+		const text = this.model.get('text');
 
 		// Reset the placeholder, which may have been modified by a prior story
 		// format.
@@ -235,13 +235,13 @@ module.exports = Backbone.View.extend({
 	autocomplete() {
 		this.cm.showHint({
 			hint(cm) {
-				var wordRange = cm.findWordAt(cm.getCursor());
-				var word = cm.getRange(
+				const wordRange = cm.findWordAt(cm.getCursor());
+				const word = cm.getRange(
 					wordRange.anchor,
 					wordRange.head
 				).toLowerCase();
 
-				var comps = {
+				const comps = {
 					list: _.filter(
 						cm.getOption('passageNames'), name => name.toLowerCase().indexOf(word) != -1),
 
@@ -250,7 +250,7 @@ module.exports = Backbone.View.extend({
 				};
 
 				CodeMirror.on(comps, 'pick', () => {
-					var doc = cm.getDoc();
+					const doc = cm.getDoc();
 
 					doc.replaceRange(']] ', doc.getCursor());
 				});
@@ -261,21 +261,21 @@ module.exports = Backbone.View.extend({
 			completeSingle: false,
 			extraKeys: {
 				']'(cm, hint) {
-					var doc = cm.getDoc();
+					const doc = cm.getDoc();
 
 					doc.replaceRange(']', doc.getCursor());
 					hint.close();
 				},
 
 				'-'(cm, hint) {
-					var doc = cm.getDoc();
+					const doc = cm.getDoc();
 
 					doc.replaceRange('-', doc.getCursor());
 					hint.close();
 				},
 
 				'|'(cm, hint) {
-					var doc = cm.getDoc();
+					const doc = cm.getDoc();
 
 					doc.replaceRange('|', doc.getCursor());
 					hint.close();
@@ -306,7 +306,7 @@ module.exports = Backbone.View.extend({
 	save() {
 		// gather current tag names
 
-		var tags = [];
+		const tags = [];
 
 		this.$('.passageTags .tag').each(function() {
 			tags.push($(this).attr('data-name'));
@@ -328,7 +328,7 @@ module.exports = Backbone.View.extend({
 
 		// show the error message
 
-		var message = this.$('.error');
+		const message = this.$('.error');
 
 		message
 			.removeClass('hide')

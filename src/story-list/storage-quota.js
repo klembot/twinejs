@@ -1,6 +1,6 @@
 'use strict';
-var Backbone = require('backbone');
-var locale = require('../locale');
+const Backbone = require('backbone');
+const locale = require('../locale');
 
 module.exports = Backbone.View.extend({
 	initialize(options) {
@@ -9,8 +9,8 @@ module.exports = Backbone.View.extend({
 	},
 
 	render() {
-		var usedEl = this.$('.used');
-		var percentEl = this.$('.percent');
+		const usedEl = this.$('.used');
+		const percentEl = this.$('.percent');
 
 		// special case: we have no stories
 
@@ -22,20 +22,20 @@ module.exports = Backbone.View.extend({
 
 		// otherwise, we test in 100k chunks
 		
-		var used = JSON.stringify(window.localStorage).length;
-		var testString = new Array(102400).join('x');
-		var free = 102400;
-		var storageIndex = 0;
+		const used = JSON.stringify(window.localStorage).length;
+		const testString = new Array(102400).join('x');
+		let free = 102400;
+		let storageIndex = 0;
 
-		var interval = window.setInterval(() => {
-			var stop = false;
+		const interval = window.setInterval(() => {
+			let stop = false;
 
 			try {
 				window.localStorage.setItem('__quotatest' + storageIndex, testString);
 				free += 102400;
 				storageIndex++;
 
-				var percent = Math.round(used / (used + free) * 100);
+				const percent = Math.round(used / (used + free) * 100);
 
 				percentEl.text(locale.say('%d%% space available', 100 - percent));
 
@@ -53,7 +53,7 @@ module.exports = Backbone.View.extend({
 			}
 
 			if (stop) {
-				for (var i = 0; i <= storageIndex; i++) {
+				for (let i = 0; i <= storageIndex; i++) {
 					window.localStorage.removeItem('__quotatest' + i);
 				}
 

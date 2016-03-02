@@ -6,24 +6,24 @@
  @return {Story} new Story model
 **/
 
-var PassageCollection = require('../data/collections/passage');
-var StoryCollection = require('../data/collections/story');
+const PassageCollection = require('../data/collections/passage');
+const StoryCollection = require('../data/collections/story');
 
 module.exports = function(story, name) {
-	var storyC = new StoryCollection();
-	var passageC = new PassageCollection();
+	const storyC = new StoryCollection();
+	const passageC = new PassageCollection();
 
-	var dupeStory = story.clone();
+	const dupeStory = story.clone();
 
 	dupeStory.unset('id');
 	dupeStory.collection = storyC;
 	dupeStory.save({ name }, { wait: true });
 
-	var startPassageId = story.get('startPassage');
-	var newStart;
+	const startPassageId = story.get('startPassage');
+	let newStart;
 
 	this.fetchPassages().each(orig => {
-		var dupePassage = orig.clone();
+		const dupePassage = orig.clone();
 
 		dupePassage.unset('id');
 		dupePassage.collection = passageC;

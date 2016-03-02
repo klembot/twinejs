@@ -1,7 +1,7 @@
-var $ = window.jQuery = require('jquery');
+const $ = window.jQuery = require('jquery');
 
 require('../../lib/jquery/jquery.powertip.js');
-var ui = require('./index');
+const ui = require('./index');
 
 $(ui).on('attach', (e, options) => {
 	// activate tooltips

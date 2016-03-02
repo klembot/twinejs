@@ -7,9 +7,9 @@
 **/
 
 'use strict';
-var Backbone = require('backbone');
+const Backbone = require('backbone');
 
-var AppPref = Backbone.Model.extend({
+const AppPref = Backbone.Model.extend({
 	defaults:
 	{
 		name: '',
@@ -20,7 +20,7 @@ var AppPref = Backbone.Model.extend({
 // early export to avoid circular reference problems
 
 module.exports = AppPref;
-var AppPrefCollection = require('../collections/app-pref');
+const AppPrefCollection = require('../collections/app-pref');
 
 /**
  Locates an AppPref by name. If none exists and a default value is
@@ -35,8 +35,8 @@ var AppPrefCollection = require('../collections/app-pref');
 **/
 
 AppPref.withName = (name, defaultVal) => {
-	var allPrefs = AppPrefCollection.all();
-	var result = allPrefs.findWhere({ name: name });
+	const allPrefs = AppPrefCollection.all();
+	const result = allPrefs.findWhere({ name: name });
 
 	if (result) {
 		return result;

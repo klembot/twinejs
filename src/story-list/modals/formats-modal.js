@@ -1,14 +1,14 @@
 'use strict';
-var $ = require('jquery');
-var _ = require('underscore');
-var Backbone = require('backbone');
-var Marionette = require('backbone.marionette');
-var locale = require('../../locale');
-var notify = require('../../ui/notify');
-var AppPref = require('../../data/models/app-pref');
-var StoryFormat = require('../../data/models/story-format');
-var StoryFormatCollection = require('../../data/collections/story-format');
-var storyFormatTemplate = require('../ejs/format-item.ejs');
+const $ = require('jquery');
+const _ = require('underscore');
+const Backbone = require('backbone');
+const Marionette = require('backbone.marionette');
+const locale = require('../../locale');
+const notify = require('../../ui/notify');
+const AppPref = require('../../data/models/app-pref');
+const StoryFormat = require('../../data/models/story-format');
+const StoryFormatCollection = require('../../data/collections/story-format');
+const storyFormatTemplate = require('../ejs/format-item.ejs');
 
 require('../../ui/tab');
 
@@ -56,19 +56,19 @@ module.exports = Backbone.View.extend({
 
 	loadNextFormat() {
 		if (this.formatsToLoad.length > 0) {
-			var format = this.formatsToLoad.at(0);
+			const format = this.formatsToLoad.at(0);
 
 			format.load(function(e) {
 				if (e === undefined) {
 					// calculate containing directory for the format
 					// so that image URLs, for example, are correct
 
-					var path = format.get('url').replace(/\/[^\/]*?$/, '');
-					var fullContent = _.extend(
+					const path = format.get('url').replace(/\/[^\/]*?$/, '');
+					const fullContent = _.extend(
 						format.properties,
 						{ path, userAdded: format.get('userAdded') }
 					);
-					var content = $(
+					const content = $(
 						Marionette.Renderer.render(
 							this.itemTemplate, fullContent
 						)
@@ -118,7 +118,7 @@ module.exports = Backbone.View.extend({
 	addFormat(url) {
 		// create a temporary model and try loading it
 
-		var test = new StoryFormat({ url });
+		const test = new StoryFormat({ url });
 
 		this.$('.loading').fadeIn();
 
@@ -133,12 +133,12 @@ module.exports = Backbone.View.extend({
 				
 				// add it to the appropriate list
 
-				var path = url.replace(/\/[^\/]*?$/, '');
-				var fullContent = _.extend(
+				const path = url.replace(/\/[^\/]*?$/, '');
+				const fullContent = _.extend(
 					test.properties,
 					{ path, userAdded: true }
 				);
-				var content = $(Marionette.Renderer.render(
+				const content = $(Marionette.Renderer.render(
 					this.itemTemplate, fullContent)
 				);
 
@@ -212,11 +212,11 @@ module.exports = Backbone.View.extend({
 	**/
 
 	syncButtons() {
-		var defaultFormat = AppPref.withName('defaultFormat').get('value');
-		var proofingFormat = AppPref.withName('proofingFormat').get('value');
+		const defaultFormat = AppPref.withName('defaultFormat').get('value');
+		const proofingFormat = AppPref.withName('proofingFormat').get('value');
 
 		this.$('.storyFormatList .format').each(function() {
-			var $t = $(this);
+			const $t = $(this);
 
 			if ($t.data('format') == defaultFormat) {
 				$t.find('.setDefault').addClass('active');
@@ -227,7 +227,7 @@ module.exports = Backbone.View.extend({
 		});
 
 		this.$('.proofingFormatList .format').each(function() {
-			var $t = $(this);
+			const $t = $(this);
 
 			if ($t.data('format') == proofingFormat) {
 				$t.find('.setDefault').addClass('active');
@@ -240,29 +240,29 @@ module.exports = Backbone.View.extend({
 
 	events: {
 		'click .showRemoveConfirm'(e) {
-			var container = $(e.target).closest('.buttons');
+			const container = $(e.target).closest('.buttons');
 
 			container.find('.normalButtons').hide();
 			container.find('.removeConfirm').fadeIn();
 		},
 
 		'click .hideRemoveConfirm'(e) {
-			var container = $(e.target).closest('.buttons');
+			const container = $(e.target).closest('.buttons');
 
 			container.find('.normalButtons').fadeIn();
 			container.find('.removeConfirm').hide();
 		},
 
 		'click .remove'(e) {
-			var container = $(e.target).closest('.format');
+			const container = $(e.target).closest('.format');
 
 			this.removeFormat(container.data('format'));
 			container.slideUp();
 		},
 
 		'click .setDefault'(e) {
-			var container = $(e.target).closest('.format');
-			var format = container.data('format');
+			const container = $(e.target).closest('.format');
+			const format = container.data('format');
 			
 			if (container.closest('.storyFormatList').length > 0) {
 				this.setDefaultFormat(format);

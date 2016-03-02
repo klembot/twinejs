@@ -9,29 +9,29 @@
 **/
 
 'use strict';
-var $ = require('jquery');
-var _ = require('underscore');
-var moment = require('moment');
-var Marionette = require('backbone.marionette');
-var confirm = require('../ui/confirm');
-var locale = require('../locale');
-var notify = require('../ui/notify');
-var publish = require('../story-publish');
-var ui = require('../ui');
-var LinkManager = require('./link-manager');
-var Marquee = require('./marquee');
-var Passage = require('../data/models/passage');
-var PassageEditor = require('./editors/passage-editor');
-var PassageItemView = require('./passage-item-view');
-var RenameModal = require('./modals/rename-story-modal');
-var ScriptEditor = require('./editors/script-editor');
-var Search = require('./search');
-var SearchModal = require('./modals/search-modal');
-var StoryFormatModal = require('./modals/story-format-modal');
-var StatsModal = require('./modals/stats-modal');
-var StyleEditor = require('./editors/style-editor');
-var Toolbar = require('./toolbar');
-var storyEditTemplate = require('./ejs/story-edit-view.ejs');
+const $ = require('jquery');
+const _ = require('underscore');
+const moment = require('moment');
+const Marionette = require('backbone.marionette');
+const confirm = require('../ui/confirm');
+const locale = require('../locale');
+const notify = require('../ui/notify');
+const publish = require('../story-publish');
+const ui = require('../ui');
+const LinkManager = require('./link-manager');
+const Marquee = require('./marquee');
+const Passage = require('../data/models/passage');
+const PassageEditor = require('./editors/passage-editor');
+const PassageItemView = require('./passage-item-view');
+const RenameModal = require('./modals/rename-story-modal');
+const ScriptEditor = require('./editors/script-editor');
+const Search = require('./search');
+const SearchModal = require('./modals/search-modal');
+const StoryFormatModal = require('./modals/story-format-modal');
+const StatsModal = require('./modals/stats-modal');
+const StyleEditor = require('./editors/style-editor');
+const Toolbar = require('./toolbar');
+const storyEditTemplate = require('./ejs/story-edit-view.ejs');
 
 require('../ui/bubble');
 require('../ui/modal');
@@ -138,7 +138,7 @@ module.exports = Marionette.CompositeView.extend({
 
 		$(document).on('keyup', function(e) {
 			if (e.keyCode == 46) {
-				var selected = this.children.filter(v => v.selected);
+				const selected = this.children.filter(v => v.selected);
 
 				switch (selected.length) {
 					// bug out if none are selected
@@ -156,7 +156,7 @@ module.exports = Marionette.CompositeView.extend({
 
 						// L10n: This message is always shown with more than one passage.
 						// %d is the number of passages.
-						var message = locale.sayPlural(
+						const message = locale.sayPlural(
 							'Are you sure you want to delete this passage?',
 							'Are you sure you want to delete these %d ' +
 							'passages? This cannot be undone.',
@@ -279,17 +279,17 @@ module.exports = Marionette.CompositeView.extend({
 	**/
 
 	addPassage(name, left, top) {
-		var zoom = this.model.get('zoom');
+		const zoom = this.model.get('zoom');
 
 		if (!left) {
-			var offsetX = this.$('.passage:first').width() / 2;
+			const offsetX = this.$('.passage:first').width() / 2;
 
 			left = (($(window).scrollLeft() + $(window).width() / 2) / zoom) -
 				offsetX;
 		}
 
 		if (!top) {
-			var offsetY = this.$('.passage:first').height() / 2;
+			const offsetY = this.$('.passage:first').height() / 2;
 
 			top = (($(window).scrollTop() + $(window).height() / 2) / zoom) -
 				offsetY;
@@ -300,8 +300,8 @@ module.exports = Marionette.CompositeView.extend({
 		name = name || Passage.prototype.defaults().name;
 
 		if (this.collection.findWhere({ name })) {
-			var origName = name;
-			var nameIndex = 0;
+			const origName = name;
+			let nameIndex = 0;
 
 			do {
 				nameIndex++;
@@ -314,7 +314,7 @@ module.exports = Marionette.CompositeView.extend({
 			name = origName + ' ' + nameIndex;
 		}
 
-		var passage = this.collection.create({
+		const passage = this.collection.create({
 			name,
 			story: this.model.id,
 			left,
@@ -362,7 +362,7 @@ module.exports = Marionette.CompositeView.extend({
 
 		// try re-using the same window
 
-		var playWindow = window.open('', 'twinestory_play_' + this.model.id);
+		const playWindow = window.open('', 'twinestory_play_' + this.model.id);
 
 		if (playWindow.location.href == 'about:blank') {
 			playWindow.location.href = '#stories/' + this.model.id + '/play';
@@ -386,7 +386,7 @@ module.exports = Marionette.CompositeView.extend({
 	**/
 
 	test(startId) {
-		var url = '#stories/' + this.model.id + '/test';
+		let url = '#stories/' + this.model.id + '/test';
 
 		if (startId) {
 			url += '/' + startId;
@@ -394,7 +394,7 @@ module.exports = Marionette.CompositeView.extend({
 
 		// verify the starting point
 
-		var startOk = false;
+		let startOk = false;
 
 		if (!startId) {
 			startOk =
@@ -418,7 +418,7 @@ module.exports = Marionette.CompositeView.extend({
 
 		// try re-using the same window
 
-		var testWindow = window.open('', 'twinestory_test_' + this.model.id);
+		const testWindow = window.open('', 'twinestory_test_' + this.model.id);
 		
 		if (testWindow.location.href == 'about:blank') {
 			testWindow.location.href = url;
@@ -485,20 +485,20 @@ module.exports = Marionette.CompositeView.extend({
 	**/
 
 	resize() {
-		var winWidth = $(window).width();
-		var winHeight = $(window).height();
-		var zoom = this.model.get('zoom');
-		var width = winWidth;
-		var height = winHeight;
+		const winWidth = $(window).width();
+		const winHeight = $(window).height();
+		const zoom = this.model.get('zoom');
+		let width = winWidth;
+		let height = winHeight;
 
 		if (this.collection.length > 0) {
-			var rightPassage, bottomPassage;
-			var maxLeft = -Infinity;
-			var maxTop = -Infinity;
+			let rightPassage, bottomPassage;
+			let maxLeft = -Infinity;
+			let maxTop = -Infinity;
 
 			this.collection.each(p => {
-				var left = p.get('left');
-				var top = p.get('top');
+				const left = p.get('left');
+				const top = p.get('top');
 
 				if (p.get('left') > maxLeft) {
 					maxLeft = left;
@@ -511,9 +511,9 @@ module.exports = Marionette.CompositeView.extend({
 				}
 			});
 
-			var passagesWidth =
+			const passagesWidth =
 				zoom * (rightPassage.get('left') + Passage.width);
-			var passagesHeight =
+			const passagesHeight =
 				zoom * (bottomPassage.get('top') + Passage.height);
 
 			width = Math.max(passagesWidth, winWidth);
@@ -585,7 +585,7 @@ module.exports = Marionette.CompositeView.extend({
 	},
 
 	mouseScroll(e) {
-		var self = e.data.self;
+		const self = e.data.self;
 
 		if (!self.mouseScrollStart.x && !self.mouseScrollStart.y) {
 			// this is our first mouse motion event, record position
@@ -630,11 +630,11 @@ module.exports = Marionette.CompositeView.extend({
 		// snap to grid
 
 		if (this.model.get('snapToGrid')) {
-			var xMove, yMove;
-			var hGrid = Passage.width / 2;
-			var vGrid = Passage.height / 2;
+			let xMove, yMove;
+			const hGrid = Passage.width / 2;
+			const vGrid = Passage.height / 2;
 
-			var leftMove = passage.get('left') % hGrid;
+			const leftMove = passage.get('left') % hGrid;
 
 			if (leftMove < hGrid / 2) {
 				xMove = -leftMove;
@@ -643,7 +643,7 @@ module.exports = Marionette.CompositeView.extend({
 				xMove = hGrid - leftMove;
 			}
 
-			var upMove = passage.get('top') % vGrid;
+			const upMove = passage.get('top') % vGrid;
 
 			if (upMove < vGrid / 2) {
 				yMove = -upMove;
@@ -669,7 +669,7 @@ module.exports = Marionette.CompositeView.extend({
 	zoomWheel(e) {
 		if (e.altKey && !e.ctrlKey)
 		{
-			var zoomIndex = this.zoomLevels.indexOf(this.model.get('zoom'));
+			let zoomIndex = this.zoomLevels.indexOf(this.model.get('zoom'));
 
 			// Only consider the Y component of the motion.
 
@@ -699,9 +699,9 @@ module.exports = Marionette.CompositeView.extend({
 	**/
 
 	syncZoom() {
-		var zoom = this.model.get('zoom');
+		const zoom = this.model.get('zoom');
 
-		for (var desc in this.ZOOM_MAPPINGS) {
+		for (let desc in this.ZOOM_MAPPINGS) {
 			if (this.ZOOM_MAPPINGS[desc] == zoom) {
 				this.$el
 					.removeClass('zoom-small zoom-medium zoom-big')
