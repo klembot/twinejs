@@ -129,7 +129,7 @@ module.exports = function(grunt) {
 					// order matters here, so we override properly
 
 					'build/standalone/twine.css': [
-						'node_modules/font-awesome/css/font-awesome.css',
+						'node_modules/font-awesome/less/font-awesome.less',
 						'node_modules/codemirror/lib/codemirror.css',
 						'src/**/*.css',
 						'src/**/*.less',
@@ -137,6 +137,7 @@ module.exports = function(grunt) {
 					]
 				},
 				options: {
+					modifyVars: { "fa-font-path": "fonts" },
 					plugins: [new autoprefix({ browsers: autoprefixBrowsers })],
 					sourceMap: true
 				}
@@ -157,7 +158,7 @@ module.exports = function(grunt) {
 					// order matters here, so we override properly
 
 					'build/standalone/twine.css': [
-						'node_modules/font-awesome/css/font-awesome.css',
+						'node_modules/font-awesome/less/font-awesome.less',
 						'node_modules/codemirror/lib/codemirror.css',
 						'src/**/*.css',
 						'src/**/*.less',
@@ -165,6 +166,7 @@ module.exports = function(grunt) {
 					]
 				},
 				options: {
+					modifyVars: { "fa-font-path": "fonts" },
 					plugins: [
 						new autoprefix({ browsers: autoprefixBrowsers }),
 						new cleanCss()
