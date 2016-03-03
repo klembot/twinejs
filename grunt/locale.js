@@ -64,7 +64,7 @@ module.exports = function (grunt)
 
 			var newPath = path.replace(/\.json$/, '.js');
 			grunt.file.write(newPath, src);
-			grunt.file.delete(path);
+			grunt.file.delete(path, {force:true});
 
 			grunt.log.writeln(newPath + ' created.');
 		});
@@ -88,7 +88,7 @@ module.exports = function (grunt)
 
 			var newPath = path.replace(/\.json$/, '.js');
 			grunt.file.write(newPath, src);
-			grunt.file.delete(path);
+			grunt.file.delete(path, {force:true});
 
 			grunt.log.writeln(newPath + ' created.');
 		});

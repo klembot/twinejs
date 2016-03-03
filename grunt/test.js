@@ -20,7 +20,7 @@ module.exports = function (grunt)
 			check: {
 				src: 'src/**/*.js',
 				options: {
-					config: './jscs.json'
+					config: '.jscsrc'
 				}
 			}
 		}
