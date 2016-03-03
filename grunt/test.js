@@ -56,7 +56,9 @@ module.exports = function (grunt)
 				options:
 				{
 					reporter: 'spec',
-					transform: ['ejsify']
+					// This contrivance is required in order to force grunt-mochify to call
+					// mochify with multiple --transform values (which it normally cannot).
+					transform: 'ejsify --transform [ babelify --presets babel-preset-es2015 ]'.split(' ')
 				}
 			}
 		}
