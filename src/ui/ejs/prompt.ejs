@@ -1,0 +1,14 @@
+<div>
+	<div class="modal hide prompt <%= modalClass %>">
+		<form>
+			<div class="message"><%- message %></div>
+			<p class="prompt">
+				<input type="text" value="<%- defaultText %>" required>
+			</p>
+			<p class="buttons">
+				<button type="button" class="subtle cancel"><i class="fa fa-times"></i> <%= s("Cancel") %></button>
+				<button type="button" class="<%- buttonClass %>" data-action="yes"><%- buttonLabel %></button>
+			</p>
+		</form>
+	</div>
+</div>
