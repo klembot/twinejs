@@ -1,0 +1,17 @@
+{
+	"preset": "node-style-guide",
+	"disallowKeywordsOnNewLine": false,
+	"disallowQuotedKeysInObjects": false,
+	"disallowTrailingWhitespace": "ignoreEmptyLines",
+	"maximumLineLength": {
+		"value": 80,
+		"allExcept": ["regex", "urlComments"]
+	},
+	"requireCapitalizedComments": false,
+	"requireCurlyBraces": ["if", "else", "for", "while", "do", "try", "catch"],
+	"requireKeywordsOnNewLine": ["else"],
+	"requirePaddingNewLineAfterVariableDeclaration": true,
+	"requirePaddingNewLinesAfterBlocks": true,
+	"requireTrailingComma": false,
+	"validateIndentation": "\t"
+}
