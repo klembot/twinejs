@@ -26,8 +26,8 @@ module.exports = function(grunt) {
 					exclude: ['fs'],
 					external: ['nw.gui'],
 					transform: [
-						'ejsify',
-						['babelify', { presets: ["es2015"] }]
+						'ejsify'
+						/* babelify is not used for test builds due to speed concerns. */
 					],
 					watch: true
 				}
@@ -69,6 +69,7 @@ module.exports = function(grunt) {
 					external: ['nw.gui'],
 					transform: [
 						'ejsify',
+						['babelify', { presets: ["es2015"] }],
 						['uglifyify', { global: true }]
 					]
 				}
