@@ -55,6 +55,7 @@ module.exports = function (grunt)
 				src: ['./tests/unit/*.js'],
 				options:
 				{
+					phantomjs: grunt.option('phantomjs') || 'phantomjs',
 					reporter: 'spec',
 					// This contrivance is required in order to force grunt-mochify to call
 					// mochify with multiple --transform values (which it normally cannot).
