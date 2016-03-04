@@ -90,11 +90,13 @@ module.exports = Backbone.View.extend({
 			.on('click', '.showNewTag', this.showNewTag.bind(this))
 			.on('click', '.hideNewTag', this.hideNewTag.bind(this))
 			.on('submit', function(e) {
-				const name = this.$('.newTagName').val().replace(/\s/g, '-');
+				const name = this.$('.newTagName').val().replace(/\s+/g, '-');
 
-				// don't add duplicate tags
+				// Don't add duplicate tags or empty tags.
+				// Empty tags could be present if the event "blockModalHide"
+				// triggers, or if <input>'s required attribute doesn't work.
 
-				if (this.model.get('tags').indexOf(name) == -1) {
+				if (name && this.model.get('tags').indexOf(name) == -1) {
 					this.addTag(name);
 				}
 
@@ -105,6 +107,12 @@ module.exports = Backbone.View.extend({
 				$(this).closest('.tag').remove();
 			})
 			.data('blockModalHide', function() {
+
+				// Close the tag editor UI and save the entered tag, if any.
+				if (this.$('.newTagName').is(':visible')) {
+					this.$el.trigger('submit');
+				}
+
 				const worked = this.save();
 
 				if (worked) {
