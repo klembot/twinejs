@@ -16,9 +16,8 @@ $(ui).on('init', (e, options) => {
 
 		const notification = $(this).closest('div');
 
-		notification.addClass('fadeOut');
-		notification.one('animationend', function() {
-			$(this).remove();
+		notification.addClass('fadeOut').one('animationend', () => {
+			notification.remove();
 		});
 	});
 });
@@ -30,23 +29,32 @@ $(ui).on('init', (e, options) => {
  @param {String} className CSS class to apply to the notification
 **/
 
-module.exports = (message, className) => {
-	if ($('#notifications').length === 0) {
+module.exports = (message, className = "") => {
+	const notificationDiv = $('#notifications');
+	if (notificationDiv.length === 0) {
 		$('body').append('<div id="notifications"></div>');
 	}
 
-	const n = Marionette.Renderer.render(notificationTemplate,
-		{ message, className });
+	const notifications = notificationDiv.children();
+
+	// If there is already a notification with this exact message, don't add it.
+	if (notificationDiv.children()
+			.filter((_, el) => $(el).find('span').html() === message).length) {
+		return;
+	}
+
+	const n = $(Marionette.Renderer.render(notificationTemplate,
+		{ message, className }));
 
 	$('#notifications').append(n);
 
-	if (className != 'danger') {
-		window.setTimeout(function() {
-			$(this)
+	if (className !== 'danger') {
+		window.setTimeout(() => {
+			n
 				.addClass('fadeOut')
-				.one('animationend', function() {
-					$(this).remove();
+				.one('animationend', () => {
+					n.remove();
 				});
-		}.bind(n), 3000);
+		}, 3000);
 	}
 };
