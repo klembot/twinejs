@@ -12,35 +12,45 @@ const promptTemplate = require('./ejs/prompt.ejs');
 
 /**
  Shows a modal dialog asking for the user to enter some text, with one
- button (to continue the action) and a Cancel button.
+ button (to confirm the action) and a Cancel button.
 
- @param {String} message HTML source of the message
- @param {String} buttonLabel HTML label for the button
- @param {Function} callback function to call if the user continues the button;
-							passed the entered value
- @param {Object} options Object with optional parameters:
-						 defaultText (default text for the input),
-						 modalClass (CSS class to apply to the modal),
-						 buttonClass (CSS class to apply to the action button)
+ @param {Object} options Object with parameters:
+ 						 message (message HTML source of the message)
+						 [defaultText] (default text for the input),
+						 [modalClass] (CSS class to apply to the modal),
+						 [buttonClass] (CSS class to apply to the action button)
+						 onConfirm (function to call if the user confirms the action;
+							passed the entered value)
+						 buttonLabel (HTML label for the button)
+						 [blankTextError] (error message to show if only whitespace was entered)
 **/
 
-module.exports = (message, buttonLabel, callback, options) => {
-	options = options || {};
-	options.defaultText = options.defaultText || '';
+module.exports = ({message, buttonLabel, onConfirm, blankTextError, defaultText, modalClass, buttonClass}) => {
 
 	const modalContainer = $(Marionette.Renderer.render(promptTemplate, {
 		message,
-		defaultText: options.defaultText,
+		defaultText: defaultText || '',
 		buttonLabel,
-		modalClass: options.modalClass || '',
-		buttonClass: options.buttonClass || ''
+		modalClass: modalClass || '',
+		buttonClass: buttonClass || '',
+		blankTextError: blankTextError || ''
 	}));
 
 	const modal = modalContainer.find('.modal');
 
+	// When clicking a button, close.
 	modal.on('click', 'button', function() {
-		if ($(this).data('action') == 'yes' && callback) {
-			callback(modal.find('.prompt input[type="text"]').val());
+
+		// If it's the 'yes' button, run the onConfirm handler.
+		if ($(this).data('action') == 'yes' && onConfirm) {
+			const text = modal.find('.prompt input[type="text"]').val();
+
+			// Don't submit if a non-whitespace value is required.
+			if (!text.trim() && blankTextError) {
+				modal.find('.blankTextError').show().fadeIn();
+				return;
+			}
+			onConfirm(text);
 		}
 
 		modal.data('modal').trigger('hide');
@@ -50,11 +60,14 @@ module.exports = (message, buttonLabel, callback, options) => {
 		modal.find('button[data-action="yes"]').click();
 	});
 
+	// Attach the modal to the body, and show it.
 	$('body').append(modalContainer);
 	$(ui).trigger('attach', { $el: modalContainer });
 	modal.data('modal').trigger('show');
+
+	// Put the cursor in the prompt's textbox.
 	modal.find('input[type="text"]').focus()[0].setSelectionRange(
 		0,
-		options.defaultText.length
+		(defaultText || '').length
 	);
 };
