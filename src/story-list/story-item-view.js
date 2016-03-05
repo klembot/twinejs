@@ -157,16 +157,20 @@ module.exports = Marionette.ItemView.extend({
 	**/
 
 	confirmDelete() {
-		confirm(
-			locale.say(
-				'Are you sure you want to delete &ldquo;%s&rdquo;? ' +
-				'This cannot be undone.',
-				this.model.get('name')
-			),
-			'<i class="fa fa-trash-o"></i> ' + locale.say('Delete Forever'),
-			this.delete.bind(this),
-			{ buttonClass: 'danger' }
-		);
+		confirm({
+			message:
+				locale.say(
+					'Are you sure you want to delete &ldquo;%s&rdquo;? ' +
+					'This cannot be undone.',
+					this.model.get('name')
+				),
+			buttonLabel:
+				'<i class="fa fa-trash-o"></i> ' + locale.say('Delete Forever'),
+			onConfirm:
+				this.delete.bind(this),
+			buttonClass:
+				'danger'
+		});
 	},
 
 	/**
@@ -206,7 +210,7 @@ module.exports = Marionette.ItemView.extend({
 				locale.say('What should the duplicate be named?'),
 			buttonLabel:
 				'<i class="fa fa-copy"></i> ' + locale.say('Duplicate'),
-			oConfirm:
+			onConfirm:
 				(text) =>
 					this.parentView.collection.add(this.model.duplicate(text)),
 			defaultText:
