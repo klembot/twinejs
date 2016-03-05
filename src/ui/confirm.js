@@ -14,29 +14,28 @@ const confirmTemplate = require('./ejs/confirm.ejs');
  Shows a modal confirmation dialog, with one button (to continue the action)
  and a Cancel button.
 
- @param {String} message HTML source of the message
- @param {String} buttonLabel HTML label for the button
- @param {Function} callback function to call if the user continues the button
  @param {Object} options Object with optional parameters:
-						 modalClass (CSS class to apply to the modal),
-						 buttonClass (CSS class to apply to the action button)
+						 message (HTML source of the message)
+						 [modalClass] (CSS class to apply to the modal),
+						 [buttonClass] (CSS class to apply to the action button)
+						 onConfirm (function to call if the user continues the button)
+						 buttonLabel (HTML label for the button)
 **/
 
-module.exports = (message, buttonLabel, callback, options) => {
-	options = options || {};
+module.exports = ({message, buttonLabel, onConfirm, modalClass, buttonClass}) => {
 
 	const modalContainer = $(Marionette.Renderer.render(confirmTemplate, {
 		message,
 		buttonLabel,
-		modalClass: options.modalClass || '',
-		buttonClass: options.buttonClass || ''
+		modalClass: modalClass || '',
+		buttonClass: buttonClass || ''
 	}));
 
 	const modal = modalContainer.find('.modal');
 
 	modal.on('click', 'button', function() {
-		if ($(this).data('action') == 'yes' && callback) {
-			callback();
+		if ($(this).data('action') == 'yes' && onConfirm) {
+			onConfirm();
 		}
 
 		modal.data('modal').trigger('hide');

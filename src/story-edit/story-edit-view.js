@@ -117,25 +117,25 @@ module.exports = Marionette.CompositeView.extend({
 
 		// enable space bar scrolling
 
-		$(document).on('keydown', function(e) {
+		$(document).on('keydown', (e) => {
 			if (e.keyCode === 32 &&
 				$('input:focus, textarea:focus').length === 0) {
 				this.startMouseScrolling();
 				e.preventDefault();
 			}
-		}.bind(this));
+		});
 
-		$(document).on('keyup', function(e) {
+		$(document).on('keyup', (e) => {
 			if (e.keyCode === 32 &&
 				$('input:focus, textarea:focus').length === 0) {
 				this.stopMouseScrolling();
 				e.preventDefault();
 			}
-		}.bind(this));
+		});
 
 		// delete selected passages with the delete key
 
-		$(document).on('keyup', function(e) {
+		$(document).on('keyup', (e) => {
 			if (e.keyCode == 46) {
 				const selected = this.children.filter(v => v.selected);
 
@@ -143,11 +143,6 @@ module.exports = Marionette.CompositeView.extend({
 					// bug out if none are selected
 					case 0:
 						return;
-
-					// immediately delete if it's just one passage
-					case 1:
-						this.deleteSelectedPassages();
-						break;
 
 					// show a confirmation modal if it's more than just 1
 					default:
@@ -162,16 +157,18 @@ module.exports = Marionette.CompositeView.extend({
 							selected.length
 						);
 
-						confirm(
+						confirm({
 							message,
-							'<i class="fa fa-trash-o"></i> ' +
-							locale.say('Delete'),
-							this.deleteSelectedPassages.bind(this),
-							{ buttonClass: 'danger' }
-						);
+							buttonLabel:
+								'<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
+							onConfirm:
+								this.deleteSelectedPassages.bind(this),
+							buttonClass:
+								'danger'
+						});
 				}
 			}
-		}.bind(this));
+		});
 
 		// always hide the story bubble when a click occurs on it
 		// (e.g. when a menu item is selected)

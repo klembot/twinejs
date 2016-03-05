@@ -185,12 +185,15 @@ module.exports = Marionette.ItemView.extend({
 				);
 			}
 
-			confirm(
+			confirm({
 				message,
-				'<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
-				this.delete.bind(this),
-				{ buttonClass: 'danger' }
-			);
+				buttonLabel:
+					'<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
+				onConfirm:
+					this.delete.bind(this),
+				buttonClass:
+					'danger',
+			});
 		}
 	},
 
