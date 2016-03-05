@@ -10,6 +10,7 @@ const $ = require('jquery');
 const Backbone = require('backbone');
 const moment = require('moment');
 const locale = require('../locale');
+const prompt = require('../ui/prompt');
 
 module.exports = Backbone.View.extend({
 	initialize(options) {
@@ -110,7 +111,22 @@ module.exports = Backbone.View.extend({
 		},
 
 		'click .renameStory'() {
-			this.parent.renameModal.open();
+			const model = this.parent.model;
+			prompt({
+				message:
+					locale.say(
+						'What should &ldquo;%s&rdquo; be renamed to?',
+						model.get('name')
+					),
+				buttonLabel:
+					'<i class="fa fa-ok"></i> ' + locale.say('Rename'),
+				onConfirm:
+					(text) => model.save({ name: text }),
+				defaultText:
+					model.get('name'),
+				blankTextError:
+					locale.say('Please enter a name.')
+			});
 		},
 
 		'click .addPassage'() {

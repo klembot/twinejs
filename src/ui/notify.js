@@ -35,8 +35,6 @@ module.exports = (message, className = "") => {
 		$('body').append('<div id="notifications"></div>');
 	}
 
-	const notifications = notificationDiv.children();
-
 	// If there is already a notification with this exact message, don't add it.
 	if (notificationDiv.children()
 			.filter((_, el) => $(el).find('span').html() === message).length) {

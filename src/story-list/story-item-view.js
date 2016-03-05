@@ -176,17 +176,21 @@ module.exports = Marionette.ItemView.extend({
 	**/
 
 	rename() {
-		prompt(
-			locale.say(
-				'What should &ldquo;%s&rdquo; be renamed to?',
-				this.model.get('name')
-			),
-			'<i class="fa fa-ok"></i> ' + locale.say('Rename'),
-			function(text) {
-				this.model.save({ name: text });
-			}.bind(this),
-			{ defaultText: this.model.get('name') }
-			);
+		prompt({
+			message:
+				locale.say(
+					'What should &ldquo;%s&rdquo; be renamed to?',
+					this.model.get('name')
+				),
+			buttonLabel:
+				'<i class="fa fa-ok"></i> ' + locale.say('Rename'),
+			onConfirm:
+				(text) => this.model.save({ name: text }),
+			defaultText:
+				this.model.get('name'),
+			blankTextError:
+				locale.say('Please enter a name.')
+		});
 	},
 
 	/**
@@ -197,16 +201,19 @@ module.exports = Marionette.ItemView.extend({
 	**/
 
 	confirmDuplicate() {
-		prompt(
-			locale.say('What should the duplicate be named?'),
-			'<i class="fa fa-copy"></i> ' + locale.say('Duplicate'),
-			function(text) {
-				const dupe = this.model.duplicate(text);
-
-				this.parentView.collection.add(dupe);
-			}.bind(this),
-			{ defaultText: locale.say('%s Copy', this.model.get('name')) }
-		);
+		prompt({
+			message:
+				locale.say('What should the duplicate be named?'),
+			buttonLabel:
+				'<i class="fa fa-copy"></i> ' + locale.say('Duplicate'),
+			oConfirm:
+				(text) =>
+					this.parentView.collection.add(this.model.duplicate(text)),
+			defaultText:
+				locale.say('%s Copy', this.model.get('name')),
+			blankTextError:
+				locale.say('Please enter a name.')
+		});
 	},
 
 	/**
