@@ -41,56 +41,6 @@ module.exports = Marionette.ItemView.extend({
 			.listenTo(this.parentView.model, 'change:zoom', this.render)
 			.listenTo(this.parentView.model, 'change:startPassage',
 				this.render);
-
-		/**
-		 A bound event listener for the start of a passage drag event, so we
-		 can later disconnect it.
-
-		 @property {Function} prepDragBound
-		 @private
-		**/
-
-		this.prepDragBound = this.prepDrag.bind(this);
-
-		/**
-		 A bound event listener for a passage drag event, so we can later
-		 disconnect it.
-
-		 @property {Function} followDragBound
-		 @private
-		**/
-
-		this.followDragBound = this.followDrag.bind(this);
-
-		/**
-		 A bound event listener for a passage drag end event, so we can later
-		 disconnect it.
-
-		 @property {Function} finishDragBound
-		 @private
-		**/
-
-		this.finishDragBound = this.finishDrag.bind(this);
-
-		/**
-		 A bound event listener for a mouse motion event while this passage is
-		 the control handle for a drag, so we can later disconnect it.
-
-		 @property {Function} trackDragBound
-		 @private
-		**/
-
-		this.trackDragBound = this.trackDrag.bind(this);
-
-		/**
-		 A bound event listener for a mouse up event while this passage is the
-		 control handle for a drag, so we can later disconnect it.
-
-		 @property {Function} endDragBound
-		 @private
-		**/
-
-		this.endDragBound = this.endDrag.bind(this);
 	},
 
 	onDomRefresh() {
@@ -353,9 +303,11 @@ module.exports = Marionette.ItemView.extend({
 
 		this.selected = true;
 		this.$el.addClass('selected');
-		$('body').on('passagedragstart', this.prepDragBound);
-		$('body').on('passagedrag', this.followDragBound);
-		$('body').on('passagedragend', this.finishDragBound);
+		$('body').on({
+			'passagedragstart.passage-item-view.dragging': this.prepDrag.bind(this),
+			'passagedrag.passage-item-view.dragging': this.followDrag.bind(this),
+			'passagedragend.passage-item-view.dragging': this.finishDrag.bind(this)
+		});
 	},
 
 	/**
@@ -369,9 +321,7 @@ module.exports = Marionette.ItemView.extend({
 
 		this.selected = false;
 		this.$el.removeClass('selected');
-		$('body').off('passagedragstart', this.prepDragBound);
-		$('body').off('passagedrag', this.followDragBound);
-		$('body').off('passagedragend', this.finishDragBound);
+		$('body').off('.passage-item-view.dragging');
 	},
 
 	/**
@@ -496,10 +446,10 @@ module.exports = Marionette.ItemView.extend({
 
 		$('body')
 			.on({
-				touchmove: this.trackDragBound,
-				mousemove: this.trackDragBound,
-				mouseup: this.endDragBound,
-				touchend: this.endDragBound
+				['touchmove.passage-item-view.trackdrag, '
+				+'mousemove.passage-item-view.trackdrag']: this.trackDrag.bind(this),
+				['mouseup.passage-item-view.trackdrag, '
+				+'touchend.passage-item-view.trackdrag']: this.endDrag.bind(this)
 			})
 			.trigger('passagedragstart', this.dragMouseStart);
 	},
@@ -601,12 +551,7 @@ module.exports = Marionette.ItemView.extend({
 	endDrag() {
 		$('#storyEditView').removeClass('draggingPassages');
 		$('body')
-			.off({
-				touchmove: this.trackDragBound,
-				mousemove: this.trackDragBound,
-				mouseup: this.endDragBound,
-				touchend: this.endDragBound
-			})
+			.off('.passage-item-view.trackdrag')
 			.trigger('passagedragend');
 
 		_.defer(function() { this.actuallyDragged = false; }.bind(this));
