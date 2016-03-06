@@ -118,7 +118,7 @@ module.exports = Marionette.CompositeView.extend({
 
 		// enable space bar scrolling
 
-		$(document).on('keydown', function(e) {
+		$(document).on('keydown.story-edit-view', function(e) {
 			if (e.keyCode === 32 &&
 				$('input:focus, textarea:focus').length === 0) {
 				this.startMouseScrolling();
@@ -126,7 +126,7 @@ module.exports = Marionette.CompositeView.extend({
 			}
 		}.bind(this));
 
-		$(document).on('keyup', function(e) {
+		$(document).on('keyup.story-edit-view', function(e) {
 			if (e.keyCode === 32 &&
 				$('input:focus, textarea:focus').length === 0) {
 				this.stopMouseScrolling();
@@ -136,7 +136,7 @@ module.exports = Marionette.CompositeView.extend({
 
 		// delete selected passages with the delete key
 
-		$(document).on('keyup', function(e) {
+		$(document).on('keyup.story-edit-view', function(e) {
 			if (e.keyCode == 46) {
 				const selected = this.children.filter(v => v.selected);
 
@@ -177,14 +177,14 @@ module.exports = Marionette.CompositeView.extend({
 		// always hide the story bubble when a click occurs on it
 		// (e.g. when a menu item is selected)
 
-		this.$el.on('click', '.storyBubble', () => {
+		this.$el.on('click.story-edit-view', '.storyBubble', () => {
 			$('.storyBubble').bubble('hide');
 		});
 
 		// resize the story map whenever the browser window resizes
 
 		this.resize();
-		$(window).on('resize', _.debounce(this.resize.bind(this), 500));
+		$(window).on('resize.story-edit-view', _.debounce(this.resize.bind(this), 500));
 
 		this.syncZoom();
 		this.linkManager = new LinkManager({
@@ -236,10 +236,7 @@ module.exports = Marionette.CompositeView.extend({
 		}
 
 		// Change zoom levels with the mouse wheel.
-		// We have to hold onto a bound reference so that it may be removed later.
-
-		this.zoomWheelBound = this.zoomWheel.bind(this);
-		$(window).on('wheel', this.zoomWheelBound);
+		$(window).on('wheel.story-edit-view', this.zoomWheel.bind(this));
 
 		// if we have no passages in this story, give the user one to start
 		// with otherwise, fade in existing
@@ -261,10 +258,8 @@ module.exports = Marionette.CompositeView.extend({
 
 	onDestroy() {
 		this.linkManager.destroy();
-		$(document).off('keydown');
-		$(document).off('keyup');
-		$(window).off('resize');
-		$(window).off('wheel', this.zoomWheelBound);
+		$(document).off('.story-edit-view');
+		$(window).off('.story-edit-view');
 	},
 
 	/**
@@ -570,7 +565,7 @@ module.exports = Marionette.CompositeView.extend({
 		this.pageScrollStart.y = $(window).scrollTop();
 
 		$('#storyEditView').addClass('scrolling');
-		$(window).on('mousemove', { self: this }, this.mouseScroll);
+		$(window).on('mousemove.story-edit-view', { self: this }, this.mouseScroll);
 	},
 
 	/**
@@ -581,7 +576,7 @@ module.exports = Marionette.CompositeView.extend({
 
 	stopMouseScrolling() {
 		$('#storyEditView').removeClass('scrolling');
-		$(window).off('mousemove', this.mouseScroll);
+		$(window).off('mousemove.story-edit-view');
 	},
 
 	mouseScroll(e) {
