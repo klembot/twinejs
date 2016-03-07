@@ -125,33 +125,7 @@ input[type="search"]
 	}
 }
 
-@-webkit-keyframes fadeIn
-{
-	from
-	{
-		opacity: 0;
-	}
-
-	to
-	{
-		opacity: 1;
-	}
-}
-
 @keyframes fadeOut
-{
-	from
-	{
-		opacity: 1;
-	}
-
-	to
-	{
-		opacity: 0;
-	}
-}
-
-@-webkit-keyframes fadeOut
 {
 	from
 	{
@@ -179,21 +153,6 @@ input[type="search"]
 	}
 }
 
-@-webkit-keyframes appear
-{
-	from
-	{
-		-webkit-transform: scale(0.5, 0.5);
-		opacity: 0;
-	}
-
-	to
-	{
-		-webkit-transform: scale(1, 1);
-		opacity: 1;
-	}
-}
-
 @keyframes disappear
 {
 	from
@@ -205,21 +164,6 @@ input[type="search"]
 	to
 	{
 		transform: scale(0, 0);
-		opacity: 0;
-	}
-}
-
-@-webkit-keyframes disappear
-{
-	from
-	{
-		-webkit-transform: scale(1, 1);
-		opacity: 1;
-	}
-
-	to
-	{
-		-webkit-transform: scale(0, 0);
 		opacity: 0;
 	}
 }
@@ -239,21 +183,6 @@ input[type="search"]
 	}
 }
 
-@-webkit-keyframes fallIn
-{
-	from
-	{
-		-webkit-transform: scale(1.5, 1.5);
-		opacity: 0;
-	}
-
-	to
-	{
-		-webkit-transform: scale(1, 1);
-		opacity: 1;
-	}
-}
-
 @keyframes slideDown
 {
 	from
@@ -269,34 +198,6 @@ input[type="search"]
 	}
 }
 
-@-webkit-keyframes slideDown
-{
-	from
-	{
-		-webkit-transform: translate(0, -15px);
-		opacity: 0;
-	}
-
-	to
-	{
-		-webkit-transform: translate(0, 0);
-		opacity: 1;
-	}
-}
-
-@-webkit-keyframes fullSlideUp
-{
-	0%
-	{
-		-webkit-transform: translate(0, 100%);
-	}
-
-	100%
-	{
-		-webkit-transform: translate(0, 0);
-	}
-}
-
 @keyframes fullSlideUp
 {
 	0%
@@ -307,21 +208,6 @@ input[type="search"]
 	100%
 	{
 		transform: translate(0, 0);
-	}
-}
-
-@-webkit-keyframes fullAppear
-{
-	0%
-	{
-		-webkit-transform: scale(0);
-		opacity: 0;
-	}
-
-	100%
-	{
-		-webkit-transform: scale(1);
-		opacity: 1;
 	}
 }
 
@@ -343,65 +229,54 @@ input[type="search"]
 .appear
 {
 	animation: 0.4s appear;
-	-webkit-animation: 0.4s appear;
 }
 
 .disappear
 {
 	animation: 0.4s disappear;
-	-webkit-animation: 0.4s disappear;
 }
 
 .fadeIn
 {
 	animation: 0.4s fadeIn;
-	-webkit-animation: 0.4s fadeIn;
 }
 
 .fadeOut
 {
 	animation: 0.4s fadeOut;
-	-webkit-animation: 0.4s fadeOut;
 }
 
 .fallIn
 {
 	animation: 0.4s fallIn;
-	-webkit-animation: 0.4s fallIn;
 }
 
 .slideDown
 {
 	animation: 0.4s slideDown;
-	-webkit-animation: 0.4s slideDown;
 }
 
 .fullSlideUp
 {
 	animation: 0.4s fullSlideUp;
-	-webkit-animation: 0.4s fullSlideUp;
 }
 
 .fullAppear
 {
 	animation: 0.4s fullAppear forwards;
-	-webkit-animation: 0.4s fullAppear forwards;
 }
 
 .fast
 {
 	animation-duration: 0.2s;
-	-webkit-animation-duration: 0.2s;
 }
 
 .slow
 {
 	animation-duration: 0.8s;
-	-webkit-animation-duration: 0.8s;
 }
 
 .reverse
 {
 	animation-direction: reverse;
-	-webkit-animation-direction: reverse;
 }
