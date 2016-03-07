@@ -290,7 +290,6 @@ p, li
 	text-align: center;
 
 	transform: scaleX(2.5);
-	-webkit-transform: scaleX(2.5);
 	color: white;
 	text-shadow: 0 0.1em 0.25em hsla(0, 0%, 0%, 0.5);
 	overflow: hidden;
@@ -326,7 +325,6 @@ p, li
 {
 	content: '\25b6';
 	transform: scaleY(2.5);
-	-webkit-transform: scaleY(2.5);
 	width: auto;
 	top: 50%;
 	right: -0.8em;
