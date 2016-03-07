@@ -155,27 +155,10 @@ module.exports = Backbone.View.extend({
 			this.drawAll();
 		});
 
-		/**
-		 A bound event listener for the start of a passage drag event, so we
-		 can later disconnect it.
-
-		 @property {Function} prepDragBound
-		 @private
-		**/
-
-		this.prepDragBound = this.prepDrag.bind(this);
-		$('body').on('passagedragstart', this.prepDragBound);
-
-		/**
-		 A bound event listener for a passage drag event, so we can later
-		 disconnect it.
-
-		 @property {Function} followDragBound
-		 @private
-		**/
-
-		this.followDragBound = this.followDrag.bind(this);
-		$('body').on('passagedrag', this.followDragBound);
+		$('body').on({
+			'passagedragstart.link-manager': this.prepDrag.bind(this),
+			'passagedrag.link-manager': this.followDrag.bind(this)
+		});
 
 		// for some reason, jQuery can't see the position of the passages yet,
 		// so we defer
@@ -191,8 +174,7 @@ module.exports = Backbone.View.extend({
 	**/
 
 	destroy() {
-		$('body').off('passagedragstart', this.prepDragBound);
-		$('body').off('passagedrag', this.followDragBound);
+		$('body').off('.link-manager');
 	},
 
 	/**

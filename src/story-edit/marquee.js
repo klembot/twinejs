@@ -15,8 +15,6 @@ module.exports = Backbone.View.extend({
 	initialize(options) {
 		this.parent = options.parent;
 		this.$marquee = this.$('.marquee');
-		this.followDragBound = this.followDrag.bind(this);
-		this.endDragBound = this.endDrag.bind(this);
 	},
 
 	startDrag(e) {
@@ -62,8 +60,8 @@ module.exports = Backbone.View.extend({
 		$('#storyEditView').addClass('marqueeing');
 
 		$('body').on({
-			mousemove: this.followDragBound,
-			mouseup: this.endDragBound
+			'mousemove.marquee': this.followDrag.bind(this),
+			'mouseup.marquee': this.endDrag.bind(this)
 		});
 	},
 
@@ -120,10 +118,7 @@ module.exports = Backbone.View.extend({
 	endDrag() {
 		this.$marquee.css('display', 'none');
 		$('#storyEditView').removeClass('marqueeing');
-		$('body').off({
-			mousemove: this.followDragBound,
-			mouseup: this.endDragBound
-		});
+		$('body').off('.marquee');
 	},
 
 	events: {
