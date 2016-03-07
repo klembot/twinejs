@@ -19,55 +19,57 @@ const promptTemplate = require('./ejs/prompt.ejs');
 						 [defaultText] (default text for the input),
 						 [modalClass] (CSS class to apply to the modal),
 						 [buttonClass] (CSS class to apply to the action button)
-						 onConfirm (function to call if the user confirms the action;
-							passed the entered value)
 						 buttonLabel (HTML label for the button)
 						 [blankTextError] (error message to show if only whitespace was entered)
 **/
 
-module.exports = ({message, buttonLabel, onConfirm, blankTextError, defaultText, modalClass, buttonClass}) => {
+module.exports = ({message, buttonLabel, blankTextError, defaultText, modalClass, buttonClass}) =>
+	new Promise((onConfirm, onCancel) => {
 
-	const modalContainer = $(Marionette.Renderer.render(promptTemplate, {
-		message,
-		defaultText: defaultText || '',
-		buttonLabel,
-		modalClass: modalClass || '',
-		buttonClass: buttonClass || '',
-		blankTextError: blankTextError || ''
-	}));
+		const modalContainer = $(Marionette.Renderer.render(promptTemplate, {
+			message,
+			defaultText: defaultText || '',
+			buttonLabel,
+			modalClass: modalClass || '',
+			buttonClass: buttonClass || '',
+			blankTextError: blankTextError || ''
+		}));
 
-	const modal = modalContainer.find('.modal');
+		const modal = modalContainer.find('.modal');
 
-	// When clicking a button, close.
-	modal.on('click', 'button', function() {
+		// When clicking a button, close.
+		modal.on('click', 'button', function() {
 
-		// If it's the 'yes' button, run the onConfirm handler.
-		if ($(this).data('action') == 'yes' && onConfirm) {
-			const text = modal.find('.prompt input[type="text"]').val();
+			// If it's the 'yes' button, the dialog is confirmed.
+			if ($(this).data('action') == 'yes') {
+				const text = modal.find('.prompt input[type="text"]').val();
 
-			// Don't submit if a non-whitespace value is required.
-			if (!text.trim() && blankTextError) {
-				modal.find('.blankTextError').show().fadeIn();
-				return;
+				// Don't submit if a non-whitespace value is required.
+				if (!text.trim() && blankTextError) {
+					modal.find('.blankTextError').show().fadeIn();
+					return;
+				}
+				onConfirm(text);
 			}
-			onConfirm(text);
-		}
+			else {
+				onCancel();
+			}
 
-		modal.data('modal').trigger('hide');
+			modal.data('modal').trigger('hide');
+		});
+
+		modal.on('submit', 'form', () => {
+			modal.find('button[data-action="yes"]').click();
+		});
+
+		// Attach the modal to the body, and show it.
+		$('body').append(modalContainer);
+		$(ui).trigger('attach', { $el: modalContainer });
+		modal.data('modal').trigger('show');
+
+		// Put the cursor in the prompt's textbox.
+		modal.find('input[type="text"]').focus()[0].setSelectionRange(
+			0,
+			(defaultText || '').length
+		);
 	});
-
-	modal.on('submit', 'form', () => {
-		modal.find('button[data-action="yes"]').click();
-	});
-
-	// Attach the modal to the body, and show it.
-	$('body').append(modalContainer);
-	$(ui).trigger('attach', { $el: modalContainer });
-	modal.data('modal').trigger('show');
-
-	// Put the cursor in the prompt's textbox.
-	modal.find('input[type="text"]').focus()[0].setSelectionRange(
-		0,
-		(defaultText || '').length
-	);
-};

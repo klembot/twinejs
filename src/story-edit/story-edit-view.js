@@ -161,11 +161,10 @@ module.exports = Marionette.CompositeView.extend({
 							message,
 							buttonLabel:
 								'<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
-							onConfirm:
-								this.deleteSelectedPassages.bind(this),
 							buttonClass:
 								'danger'
-						});
+						})
+						.then(this.deleteSelectedPassages.bind(this));
 				}
 			}
 		});
