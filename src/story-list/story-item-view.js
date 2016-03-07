@@ -166,11 +166,10 @@ module.exports = Marionette.ItemView.extend({
 				),
 			buttonLabel:
 				'<i class="fa fa-trash-o"></i> ' + locale.say('Delete Forever'),
-			onConfirm:
-				this.delete.bind(this),
 			buttonClass:
 				'danger'
-		});
+		})
+		.then(this.delete.bind(this));
 	},
 
 	/**
@@ -188,13 +187,12 @@ module.exports = Marionette.ItemView.extend({
 				),
 			buttonLabel:
 				'<i class="fa fa-ok"></i> ' + locale.say('Rename'),
-			onConfirm:
-				(text) => this.model.save({ name: text }),
 			defaultText:
 				this.model.get('name'),
 			blankTextError:
 				locale.say('Please enter a name.')
-		});
+		})
+		.then((name) => this.model.save({ name }));
 	},
 
 	/**
@@ -210,14 +208,13 @@ module.exports = Marionette.ItemView.extend({
 				locale.say('What should the duplicate be named?'),
 			buttonLabel:
 				'<i class="fa fa-copy"></i> ' + locale.say('Duplicate'),
-			onConfirm:
-				(text) =>
-					this.parentView.collection.add(this.model.duplicate(text)),
 			defaultText:
 				locale.say('%s Copy', this.model.get('name')),
 			blankTextError:
 				locale.say('Please enter a name.')
-		});
+		})
+		.then((text) =>
+			this.parentView.collection.add(this.model.duplicate(text)));
 	},
 
 	/**
