@@ -265,39 +265,39 @@ module.exports = Marionette.CompositeView.extend({
 		bubble.find('.form').addClass('hide');
 		bubble.find('.working').removeClass('hide');
 
-		reader.addEventListener('load', function(e) {
-			let className = '';
-			let message = '';
+		reader.addEventListener('load', (e) => {
 
-			try {
-				const count = importer.import(e.target.result);
+			importer.import(e.target.result, { confirmReplace: true }).then(
+				({count, added}) => {
+					let className = '';
+					let message = '';
 
-				if (count > 0) {
-					// L10n: %d is a number of stories.
-					message = locale.sayPlural(
-						'%d story was imported.',
-						'%d stories were imported.',
-						count
+					if (added > 0) {
+						// L10n: %d is a number of stories.
+						message = locale.sayPlural(
+							'%d story was imported.',
+							'%d stories were imported.',
+							added
+						);
+					}
+					else if (count === 0) {
+						className = 'danger';
+						message = 'Sorry, no stories could be found in this file.';
+					}
+					notify(message, className);
+					this.collection.reset(StoryCollection.all().models);
+					bubble.find('.form').removeClass('hide');
+					bubble.find('.working').addClass('hide');
+					this.$('.importStory').bubble('hide');
+				},
+				err => {
+					notify(
+						'An error occurred while trying to import this file. (' +
+							err.message + ')',
+						'danger'
 					);
-				}
-				else {
-					className = 'danger';
-					message = 'Sorry, no stories could be found in this file.';
-				}
-			}
-			catch (err) {
-				className = 'danger';
-				message =
-					'An error occurred while trying to import this file. (' +
-					err.message + ')';
-			}
-
-			notify(message, className);
-			this.collection.reset(StoryCollection.all().models);
-			bubble.find('.form').removeClass('hide');
-			bubble.find('.working').addClass('hide');
-			this.$('.importStory').bubble('hide');
-		}.bind(this));
+				});
+		});
 
 		reader.readAsText(e.target.files[0], 'UTF-8');
 		return reader;
