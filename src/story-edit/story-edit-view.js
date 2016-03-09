@@ -68,7 +68,7 @@ module.exports = Marionette.CompositeView.extend({
 					locale.say(
 						'A problem occurred while saving ' +
 						'your changes (%s).',
-						resp
+						_.escape(resp)
 					),
 					'danger'
 				);
@@ -100,7 +100,7 @@ module.exports = Marionette.CompositeView.extend({
 				notify(
 					locale.say(
 						'A problem occurred while saving your changes (%s).',
-						resp
+						_.escape(resp)
 					),
 					'danger'
 				);
