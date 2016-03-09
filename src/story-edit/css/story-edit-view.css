@@ -370,7 +370,7 @@ body.iOS .editModal
 .editModal .fullEdit
 {
 	position: absolute;
-	top: 6.5em;
+	top: 8.5em;
 	left: 0;
 	right: 0;
 	bottom: 0;
@@ -403,15 +403,15 @@ body.iOS .editModal
 
 #passageEditModal .passageTags
 {
-	margin-top: -0.5em;
+	padding-bottom: 0.5em;
 	font-size: 90%;
+	overflow-x: auto;
+	white-space: nowrap;
 }
 
-#passageEditModal .passageTags p
+#passageEditModal .passageTags span
 {
-	margin-top: 0;
-	padding-top: 0.5em;
-	float: left;
+	display: inline-block;
 }
 
 #passageEditModal .passageTags .tag
@@ -426,12 +426,12 @@ body.iOS .editModal
 
 #passageEditModal .fullEdit
 {
-	top: 6.5em;
+	top: 8.5em;
 }
 
 #passageEditModal.hasError .fullEdit
 {
-	top: 8.5em;
+	top: 10.5em;
 }
 
 #renameStoryModal input[type="text"]

@@ -13,7 +13,6 @@
 <p class="error hide"></p>
 
 <div class="passageTags">
-<p>
 <span class="tags"></span>
 
 <button class="showNewTag subtle" type="button"><i class="fa fa-plus"></i>
@@ -22,13 +21,14 @@
 s('Tag')
 %>
 </button>
-</p>
 
+<span>
 <form class="newTag hide">
 <input class="newTagName" type="text" placeholder="<%= /* L10n: A noun, i.e. what a tag is named. */ s('Tag name') %>" required>
 <button type="button" class="hideNewTag link"><i class="fa fa-times"></i></button>
 <button type="submit" class="link"><i class="fa fa-check"></i></button>
 </form>
+</span>
 
 </div> <!-- .passageTags -->
 
