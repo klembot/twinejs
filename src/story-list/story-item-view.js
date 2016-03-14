@@ -9,6 +9,7 @@
 
 'use strict';
 const $ = require('jquery');
+const _ = require('underscore');
 const Marionette = require('backbone.marionette');
 const confirm = require('../ui/confirm');
 const locale = require('../locale');
@@ -162,7 +163,7 @@ module.exports = Marionette.ItemView.extend({
 				locale.say(
 					'Are you sure you want to delete &ldquo;%s&rdquo;? ' +
 					'This cannot be undone.',
-					this.model.get('name')
+					_.escape(this.model.get('name'))
 				),
 			buttonLabel:
 				'<i class="fa fa-trash-o"></i> ' + locale.say('Delete Forever'),
@@ -184,7 +185,7 @@ module.exports = Marionette.ItemView.extend({
 			message:
 				locale.say(
 					'What should &ldquo;%s&rdquo; be renamed to?',
-					this.model.get('name')
+					_.escape(this.model.get('name'))
 				),
 			buttonLabel:
 				'<i class="fa fa-ok"></i> ' + locale.say('Rename'),

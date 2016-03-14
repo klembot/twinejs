@@ -12,6 +12,7 @@
 **/
 
 'use strict';
+const _ = require('underscore');
 const locale = require('../locale');
 const notify = require('../ui/notify');
 const replaceContent = require('../ui/replace');
@@ -46,7 +47,7 @@ module.exports = {
 						locale.say(
 							'An error occurred while publishing your story. ' +
 							'(%s)',
-							err.message
+							_.escape(err.message)
 						),
 						'danger'
 					);

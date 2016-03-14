@@ -499,7 +499,7 @@ const nwui = module.exports = {
 			notify(
 				locale.say(
 					'An error occurred while saving your story (%s).',
-					e.message
+					_.escape(e.message)
 				),
 				'danger'
 			);
@@ -529,7 +529,7 @@ const nwui = module.exports = {
 			notify(
 				locale.say(
 					'An error occurred while deleting your story (%s).',
-					e.message
+					_.escape(e.message)
 				),
 				'danger'
 			);
@@ -605,7 +605,7 @@ const nwui = module.exports = {
 			notify(
 				locale.say(
 					'An error occurred while locking your library (%s).',
-					e.message
+					_.escape(e.message)
 				),
 				'danger'
 			);
@@ -638,7 +638,7 @@ const nwui = module.exports = {
 			notify(
 				locale.say(
 					'An error occurred while unlocking your library (%s).',
-					e.message
+					_.escape(e.message)
 				),
 				'danger'
 			);

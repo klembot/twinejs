@@ -16,7 +16,7 @@ const promptTemplate = require('./ejs/prompt.ejs');
 
  @param {Object} options Object with parameters:
  						 message (message HTML source of the message)
-						 [defaultText] (default text for the input),
+						 [defaultText] (default text for the input. NOT parsed as HTML!),
 						 [modalClass] (CSS class to apply to the modal),
 						 [buttonClass] (CSS class to apply to the action button)
 						 onConfirm (function to call if the user confirms the action;

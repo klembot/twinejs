@@ -57,6 +57,7 @@ module.exports = Marionette.Application.extend({
 
 		const templateProperties = {
 			moment,
+			_,
 			s: locale.say.bind(locale),
 			sp: locale.sayPlural.bind(locale)
 		};

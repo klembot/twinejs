@@ -126,7 +126,7 @@ module.exports = Marionette.ItemView.extend({
 			let message = locale.say(
 				'Are you sure you want to delete &ldquo;%s&rdquo;? ' +
 				'This cannot be undone.',
-				this.model.get('name')
+				_.escape(this.model.get('name'))
 			);
 
 			if (!ui.hasPrimaryTouchUI()) {
