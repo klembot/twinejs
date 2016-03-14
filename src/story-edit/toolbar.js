@@ -7,6 +7,7 @@
 
 'use strict';
 const $ = require('jquery');
+const _ = require('underscore');
 const Backbone = require('backbone');
 const moment = require('moment');
 const locale = require('../locale');
@@ -116,7 +117,7 @@ module.exports = Backbone.View.extend({
 				message:
 					locale.say(
 						'What should &ldquo;%s&rdquo; be renamed to?',
-						model.get('name')
+						_.escape(model.get('name'))
 					),
 				buttonLabel:
 					'<i class="fa fa-ok"></i> ' + locale.say('Rename'),
