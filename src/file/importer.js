@@ -144,7 +144,7 @@ const importer = module.exports = {
 							locale.say(
 								'A story named "%s" already exists. '
 								+ 'Replace it with the imported story?',
-								name),
+								_.escape(name)),
 						buttonLabel:
 							locale.say('Replace')
 					})
