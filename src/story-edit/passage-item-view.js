@@ -139,11 +139,10 @@ module.exports = Marionette.ItemView.extend({
 				message,
 				buttonLabel:
 					'<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
-				onConfirm:
-					this.delete.bind(this),
 				buttonClass:
 					'danger',
-			});
+			})
+			.then(this.delete.bind(this));
 		}
 	},
 

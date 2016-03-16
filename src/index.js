@@ -1,5 +1,6 @@
 // bootstrap app after loading localization, if any
 
+require('es6-promise');
 const _ = require('underscore');
 const locale = require('./locale');
 const notify = require('./ui/notify');

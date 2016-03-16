@@ -9,5 +9,6 @@ module.exports =
 	'jszip': { exports: 'global:JSZip' },
 	'moment': { exports: 'global:moment' },
 	'svg.js': { exports: 'global:SVG' },
-	'underscore': { exports: 'global:_' }
+	'underscore': { exports: 'global:_' },
+	'es6-promise': { exports: 'global:Promise' },
 };

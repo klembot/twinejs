@@ -121,13 +121,12 @@ module.exports = Backbone.View.extend({
 					),
 				buttonLabel:
 					'<i class="fa fa-ok"></i> ' + locale.say('Rename'),
-				onConfirm:
-					(text) => model.save({ name: text }),
 				defaultText:
 					model.get('name'),
 				blankTextError:
 					locale.say('Please enter a name.')
-			});
+			})
+			.then((text) => model.save({ name: text }));
 		},
 
 		'click .addPassage'() {
