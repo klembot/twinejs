@@ -561,19 +561,36 @@ const nwui = module.exports = {
 
 		const fileStories = nwui.fs.readdirSync(nwui.filePath);
 
-		_.each(fileStories, filename => {
+		// obtain the full contents of every file, sync
+
+		_.map( fileStories, filename => {
 			if (filename.match(/\.html$/)) {
 				const stats = nwui.fs.statSync(nwui.filePath + '/' + filename);
 
-				importer.import(
-					nwui.fs.readFileSync(
+				return {
+					file: nwui.fs.readFileSync(
 						nwui.filePath + '/' + filename,
 						{ encoding: 'utf-8' }
 					),
-					new Date(Date.parse(stats.mtime))
-				);
+					stats
+				};
 			}
-		});
+		})
+
+		// remove undefineds from the array
+
+		.filter(Boolean)
+
+		// import the files. It doesn't matter if this is async,
+		// because all of the filesystem I/O is finished.
+
+		.reduce(
+			(promise, {file, stats}) => promise.then(()=> importer.import(file, {
+				lastUpdate: new Date(Date.parse(stats.mtime)),
+				confirmReplace: false
+			})),
+			Promise.resolve()
+		);
 
 		nwui.unlockStoryDirectory();
 		nwui.syncFs = true;
