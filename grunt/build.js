@@ -20,13 +20,13 @@ module.exports = function(grunt) {
 				},
 				options: {
 					browserifyOptions: {
-						debug: true,
-						detectGlobals: false
+						debug: true
 					},
 					exclude: ['fs'],
 					external: ['nw.gui'],
 					transform: [
-						'ejsify'
+						'ejsify',
+						'stringify',
 						/* babelify is not used for test builds due to speed concerns. */
 					],
 					watch: true
@@ -49,7 +49,9 @@ module.exports = function(grunt) {
 						'codemirror/addon/hint/show-hint'
 					],
 					transform: [
+						['envify', { NODE_ENV: 'production' }],
 						'ejsify',
+						'stringify',
 						['babelify', { presets: ["es2015"] }],
 						['uglifyify', { global: true }],
 						'browserify-shim'
@@ -62,13 +64,14 @@ module.exports = function(grunt) {
 				},
 				options: {
 					browserifyOptions: {
-						debug: false,
-						detectGlobals: false
+						debug: false
 					},
 					exclude: ['fs'],
 					external: ['nw.gui'],
 					transform: [
+						['envify', { NODE_ENV: 'production' }],
 						'ejsify',
+						'stringify',
 						['babelify', { presets: ["es2015"] }],
 						['uglifyify', { global: true }]
 					]
