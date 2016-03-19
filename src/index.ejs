@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html data-app-name="<%- name %>" data-version="<%- version %>" data-build-number="<%- buildNumber %>">
+<head>
+	<title>Twine</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta charset="utf-8">
+	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+	<% if (cdn) { %>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.4.0/codemirror.min.css" rel="stylesheet" media="screen">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.4.0/addon/hint/show-hint.min.css" rel="stylesheet" media="screen">
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" media="screen">
+	<% } %>
+	<link href="twine.css" rel="stylesheet" media="screen">
+</head>
+<body>
+	<div id="regions">
+		<div class="main"></div>
+	</div>
+
+	<% if (cdn) { %>
+		<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-powertip/1.2.0/jquery.powertip.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.16/backbone.localStorage-min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.marionette/2.4.2/backbone.marionette.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.4.0/codemirror.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.4.0/addon/display/placeholder.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.4.0/addon/hint/show-hint.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.4.0/addon/hint/css-hint.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.4.0/addon/hint/javascript-hint.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.4.0/mode/css/css.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.4.0/mode/javascript/javascript.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment-with-locales.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/1.0.1/svg.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/3.2.1/es6-promise.js"></script>
+	<% } %>
+
+	<script src="twine.js"></script>
+</body>
+</html>
