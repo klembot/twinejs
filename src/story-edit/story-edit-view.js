@@ -616,31 +616,11 @@ module.exports = Marionette.CompositeView.extend({
 		// snap to grid
 
 		if (this.model.get('snapToGrid')) {
-			let xMove, yMove;
-			const hGrid = Passage.width / 2;
-			const vGrid = Passage.height / 2;
-
-			const leftMove = passage.get('left') % hGrid;
-
-			if (leftMove < hGrid / 2) {
-				xMove = -leftMove;
-			}
-			else {
-				xMove = hGrid - leftMove;
-			}
-
-			const upMove = passage.get('top') % vGrid;
-
-			if (upMove < vGrid / 2) {
-				yMove = -upMove;
-			}
-			else {
-				yMove = vGrid - upMove;
-			}
+			const grid = Passage.width / 4;
 
 			passage.set({
-				left: passage.get('left') + xMove,
-				top: passage.get('top') + yMove
+				left: Math.floor(passage.get('left') / grid) * grid,
+				top: Math.floor(passage.get('top') / grid) * grid
 			});
 		};
 	},

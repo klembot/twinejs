@@ -533,6 +533,14 @@ module.exports = Marionette.ItemView.extend({
 		this.dragX = Math.max(this.dragStart.left + e.x, 0);
 		this.dragY = Math.max(this.dragStart.top + e.y, 0);
 
+		// If snap-to-grid is enabled, move the passage square-by-square.
+
+		if (this.parentView.model.get('snapToGrid')) {
+			const grid = Passage.width / 4;
+
+			this.dragX = Math.floor(this.dragX / grid) * grid;
+			this.dragY = Math.floor(this.dragY / grid) * grid;
+		}
 		this.$el.css({
 			left: this.dragX,
 			top: this.dragY
@@ -586,7 +594,7 @@ module.exports = Marionette.ItemView.extend({
 		// defer the rest til all other drags have completed
 		// so we don't get displaced by any passage's previous positions
 
-		_.defer(function() {
+		_.defer(() => {
 			// push the passage so it doesn't overlap any other
 			// nonselected one, i.e. that was part of the drag
 			
@@ -600,7 +608,7 @@ module.exports = Marionette.ItemView.extend({
 			// and finally save changes
 
 			this.model.save();
-		}.bind(this));
+		});
 	},
 
 	events: {
