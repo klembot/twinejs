@@ -21,11 +21,11 @@ module.exports = Vue.extend({
 	}),
 
 	computed: {
-		percent: function() {
+		percent() {
 			return Math.round(this.used / (this.used + this.free) * 100);
 		},
 
-		percentDesc: function() {
+		percentDesc() {
 			return locale.say('%d%% space available', 100 - this.percent);
 		}
 	},
