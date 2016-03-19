@@ -1,16 +1,16 @@
 @import('../../../node_modules/codemirror/addon/hint/show-hint.css');
 
-#storyEditView.scrolling
+#storyEditView.scrolling *
 {
-	cursor: all-scroll;
-	cursor: -webkit-grab;
-	cursor: -moz-grab;
+	cursor: all-scroll !important;
 }
-
-#storyEditView.draggingPassages *,
+#storyEditView.draggingPassages *
+{
+	cursor: grabbing !important;
+}
 #storyEditView.marqueeing *
 {
-	cursor: default !important;
+	cursor: crosshair !important;
 }
 
 #storyEditView.draggingPassages .popover,
@@ -150,7 +150,7 @@
 	position: absolute;
 	padding: 5px;
 	color: hsla(0, 0%, 100%, 0.75);
-	cursor: default;
+	cursor: grab;
 }
 
 #storyEditView .passage:hover
