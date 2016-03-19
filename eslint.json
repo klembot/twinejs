@@ -1,0 +1,18 @@
+{
+    "rules": {
+        "semi": [
+            2,
+            "always"
+        ],
+        "no-extra-semi": 0,
+        "no-mixed-spaces-and-tabs": 0,
+        "comma-dangle": 0
+    },
+    "env": {
+        "browser": true,
+        "es6": true,
+        "commonjs": true,
+        "node": true
+    },
+    "extends": "eslint:recommended"
+}
