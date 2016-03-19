@@ -115,7 +115,21 @@ module.exports = Marionette.CompositeView.extend({
 	onShow() {
 		this.syncName();
 
-		// enable space bar scrolling
+		// enable space bar and middle-click scrolling
+
+		this.$el
+			.on('mousedown.story-edit-view', (e) => {
+				if (e.which === 2) {
+					this.startMouseScrolling();
+					e.preventDefault();
+				}
+			})
+			.on('mouseup.story-edit-view', (e) => {
+				if (e.which === 2) {
+					this.stopMouseScrolling();
+					e.preventDefault();
+				}
+			});
 
 		$(document).on('keydown.story-edit-view', (e) => {
 			if (e.keyCode === 32 &&
