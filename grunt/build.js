@@ -19,8 +19,12 @@ module.exports = function(grunt) {
 					'build/standalone/twine.js': 'src/index.js'
 				},
 				options: {
+					alias: {
+						'vue': 'vue/dist/vue'
+					},
 					browserifyOptions: {
-						debug: true
+						debug: true,
+						detectGlobals: false
 					},
 					exclude: ['fs'],
 					external: ['nw.gui'],
@@ -37,8 +41,12 @@ module.exports = function(grunt) {
 					'build/cdn/twine.js': 'src/index.js'
 				},
 				options: {
+					alias: {
+						'vue': 'vue/dist/vue'
+					},
 					browserifyOptions: {
-						debug: false
+						debug: false,
+						detectGlobals: false
 					},
 					exclude: ['fs'],
 					external: ['nw.gui'],
@@ -63,8 +71,12 @@ module.exports = function(grunt) {
 					'build/standalone/twine.js': 'src/index.js'
 				},
 				options: {
+					alias: {
+						'vue': 'vue/dist/vue'
+					},
 					browserifyOptions: {
-						debug: false
+						debug: false,
+						detectGlobals: false
 					},
 					exclude: ['fs'],
 					external: ['nw.gui', 'osenv'],
