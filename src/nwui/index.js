@@ -400,13 +400,12 @@ const nwui = module.exports = {
 				}, 100), this);
 			};
 
-			// monkey patch QuotaGauge to hide itself, since we
+			// Monkey patch QuotaGauge to hide itself, since we
 			// don't have to sweat quota ourselves.
 
 			startupTask = 'disabling the storage quota meter';
-
-			QuotaGauge.prototype.template = '';
-			QuotaGauge.prototype.ready = () => {};
+			QuotaGauge.options.template = '';
+			QuotaGauge.options.ready = null;
 
 			// monkey patch StoryListView to open the wiki in the user's
 			// browser and to hold off on trying to update the filesystem
