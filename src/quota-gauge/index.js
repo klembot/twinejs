@@ -59,7 +59,6 @@ module.exports = Vue.extend({
 					}
 				}
 				catch (e) {
-					console.log(e, this.used, this.free, this.percent);
 					stop = true;
 				}
 
