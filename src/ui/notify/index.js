@@ -10,5 +10,3 @@ module.exports = function(html, className = '') {
 
 	notifications.add(html, className);
 };
-
-window.notify = module.exports;
