@@ -67,12 +67,12 @@ module.exports = function(grunt) {
 						debug: false
 					},
 					exclude: ['fs'],
-					external: ['nw.gui'],
+					external: ['nw.gui', 'osenv'],
 					transform: [
 						['envify', { NODE_ENV: 'production' }],
 						'ejsify',
 						'stringify',
-						['babelify', { presets: ["es2015"] }],
+						['babelify', { presets: ['es2015'] }],
 						['uglifyify', { global: true }]
 					]
 				}
