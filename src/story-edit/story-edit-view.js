@@ -619,8 +619,8 @@ module.exports = Marionette.CompositeView.extend({
 			const grid = Passage.width / 4;
 
 			passage.set({
-				left: Math.floor(passage.get('left') / grid) * grid,
-				top: Math.floor(passage.get('top') / grid) * grid
+				left: Math.round(passage.get('left') / grid) * grid,
+				top: Math.round(passage.get('top') / grid) * grid
 			});
 		};
 	},

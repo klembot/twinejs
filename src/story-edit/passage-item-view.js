@@ -538,8 +538,8 @@ module.exports = Marionette.ItemView.extend({
 		if (this.parentView.model.get('snapToGrid')) {
 			const grid = Passage.width / 4;
 
-			this.dragX = Math.floor(this.dragX / grid) * grid;
-			this.dragY = Math.floor(this.dragY / grid) * grid;
+			this.dragX = Math.round(this.dragX / grid) * grid;
+			this.dragY = Math.round(this.dragY / grid) * grid;
 		}
 		this.$el.css({
 			left: this.dragX,
