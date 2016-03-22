@@ -6,7 +6,7 @@
 }
 #storyEditView.draggingPassages *
 {
-	cursor: grabbing !important;
+	cursor: default !important;
 }
 #storyEditView.marqueeing *
 {
@@ -150,7 +150,7 @@
 	position: absolute;
 	padding: 5px;
 	color: hsla(0, 0%, 100%, 0.75);
-	cursor: grab;
+	cursor: default;
 }
 
 #storyEditView .passage:hover
