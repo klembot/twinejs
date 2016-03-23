@@ -19,6 +19,9 @@ module.exports = function(grunt) {
 					'build/standalone/twine.js': 'src/index.js'
 				},
 				options: {
+					alias: {
+						'vue': 'vue/dist/vue'
+					},
 					browserifyOptions: {
 						debug: true,
 						detectGlobals: false
@@ -26,7 +29,8 @@ module.exports = function(grunt) {
 					exclude: ['fs'],
 					external: ['nw.gui'],
 					transform: [
-						'ejsify'
+						'ejsify',
+						'stringify',
 						/* babelify is not used for test builds due to speed concerns. */
 					],
 					watch: true
@@ -37,8 +41,12 @@ module.exports = function(grunt) {
 					'build/cdn/twine.js': 'src/index.js'
 				},
 				options: {
+					alias: {
+						'vue': 'vue/dist/vue'
+					},
 					browserifyOptions: {
-						debug: false
+						debug: false,
+						detectGlobals: false
 					},
 					exclude: ['fs'],
 					external: ['nw.gui'],
@@ -49,7 +57,9 @@ module.exports = function(grunt) {
 						'codemirror/addon/hint/show-hint'
 					],
 					transform: [
+						['envify', { NODE_ENV: 'production' }],
 						'ejsify',
+						'stringify',
 						['babelify', { presets: ["es2015"] }],
 						['uglifyify', { global: true }],
 						'browserify-shim'
@@ -61,15 +71,20 @@ module.exports = function(grunt) {
 					'build/standalone/twine.js': 'src/index.js'
 				},
 				options: {
+					alias: {
+						'vue': 'vue/dist/vue'
+					},
 					browserifyOptions: {
 						debug: false,
 						detectGlobals: false
 					},
 					exclude: ['fs'],
-					external: ['nw.gui'],
+					external: ['nw.gui', 'osenv'],
 					transform: [
+						['envify', { NODE_ENV: 'production' }],
 						'ejsify',
-						['babelify', { presets: ["es2015"] }],
+						'stringify',
+						['babelify', { presets: ['es2015'] }],
 						['uglifyify', { global: true }]
 					]
 				}

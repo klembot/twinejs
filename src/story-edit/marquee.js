@@ -18,6 +18,13 @@ module.exports = Backbone.View.extend({
 	},
 
 	startDrag(e) {
+
+		// only drag if the left button was clicked
+
+		if (e.which !== 1) {
+			return;
+		}
+
 		// bail out if the target is a .passage element
 
 		if ($(e.target).closest('.passage').length > 0) {

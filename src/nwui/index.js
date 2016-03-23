@@ -15,13 +15,13 @@ const importer = require('../file/importer');
 const locale = require('../locale');
 const notify = require('../ui/notify');
 const Passage = require('../data/models/passage');
-const StorageQuota = require('../story-list/storage-quota');
 const Story = require('../data/models/story');
 const StoryCollection = require('../data/collections/story');
 const StoryListView = require('../story-list/story-list-view');
 const WelcomeView = require('../welcome/welcome-view');
 const startupErrorTemplate = require('./ejs/startup-error.ejs');
 const welcomeViewNwTemplate = require('./ejs/welcome-view-nw.ejs');
+let QuotaGauge = require('../quota-gauge');
 
 const nwui = module.exports = {
 	/**
@@ -400,14 +400,12 @@ const nwui = module.exports = {
 				}, 100), this);
 			};
 
-			// monkey patch StorageQuota to hide itself, since we
-			// don't have to sweat quota ourselves
+			// Monkey patch QuotaGauge to hide itself, since we
+			// don't have to sweat quota ourselves.
 
 			startupTask = 'disabling the storage quota meter';
-
-			StorageQuota.prototype.render = function() {
-				this.$el.css('display', 'none');
-			};
+			QuotaGauge.options.template = '';
+			QuotaGauge.options.ready = null;
 
 			// monkey patch StoryListView to open the wiki in the user's
 			// browser and to hold off on trying to update the filesystem

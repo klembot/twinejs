@@ -1,0 +1,13 @@
+<div id="notifications">
+	<div v-for="notification in notifications" transition="fade-in-out" class="{{ notification.className }}">
+		<button class="close" v-on:click="removeAt($index)">
+			<i class="fa fa-times"></i>
+		</button>
+		<span>
+			{{{ notification.html }}}
+			<span v-if="notification.repeats > 0">
+				({{ notification.repeats + 1 }})
+			</span>
+		</span>
+	</div>
+</div>
