@@ -7,6 +7,11 @@ const notify = require('./ui/notify');
 const AppPref = require('./data/models/app-pref');
 const TwineApp = require('./common/app');
 
+// Vue setup
+
+const Vue = require('vue');
+Vue.filter('say', locale.say.bind(locale));
+
 ((() => {
 	let userLocale;
 
