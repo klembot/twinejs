@@ -16,7 +16,7 @@ const publish = require('../story-publish');
 const AppPref = require('../data/models/app-pref');
 const FormatsModal = require('./modals/formats-modal');
 const PassageCollection = require('../data/collections/passage');
-const StorageQuota = require('./storage-quota');
+const QuotaGauge = require('../quota-gauge');
 const StoryCollection = require('../data/collections/story');
 const StoryItemView = require('./story-item-view');
 const storyListTemplate = require('./ejs/story-list-view.ejs');
@@ -103,12 +103,10 @@ module.exports = Marionette.CompositeView.extend({
 	},
 
 	onShow() {
+		new QuotaGauge({ el: this.$('[data-component="quota-gauge"]')[0] });
+
 		this.syncStoryCount();
 
-		this.storageQuota = new StorageQuota({
-			parent: this,
-			el: this.$('.quota')
-		});
 		this.formatsModal = new FormatsModal({
 			parent: this,
 			el: this.$('#formatsModal')

@@ -725,55 +725,6 @@ ul.menu li.checked button:before
 	background-color: hsla(0, 0%, 0%, 0.8);
 }
 
-#notifications
-{
-	position: fixed;
-	top: 0;
-	left: 50%;
-	width: 50%;
-	margin-left: -25%;
-	text-align: center;
-	z-index: 9999;
-}
-
-#notifications > div
-{
-	background-color: hsla(0, 0%, 0%, 0.8);
-	color: white;
-	padding: 0.5em;
-	font-size: 80%;
-	border-radius: 0.5em;
-	margin: 1em; 
-}
-
-#notifications button.close
-{
-	float: left;
-	background: none;
-	color: white;
-	border: none;
-	box-shadow: none;
-	margin-top: -0.5em;
-	margin-left: -0.5em;
-	border-top-left-radius: 0.5em;
-	border-bottom-left-radius: 0.5em;
-}
-
-#notifications button.close:hover
-{
-	background-color: hsla(0, 0%, 0%, 0.2);
-}
-
-#notifications button.close:active
-{
-	background-color: hsla(0, 0%, 0%, 0.5);
-}
-
-#notifications .danger
-{
-	background-color: hsla(10, 88%, 40%, 0.8);
-}
-
 #powerTip
 {
 	position: absolute;
