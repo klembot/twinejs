@@ -38,10 +38,8 @@ module.exports = Vue.extend({
 	data: () => ({
 		collection: [],
 
-		/*
-		 If true, then we do not animate the stories appearing, nor
-		 do we do a version or donation check.
-		*/
+		// If true, then we do not animate the stories appearing, nor
+		// do we do a version or donation check.
 		appearFast: false,
 
 		previouslyEditing: null,

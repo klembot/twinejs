@@ -25,12 +25,12 @@ const {ZOOM_MAPPINGS} = require('../../story-edit/story-edit-view').prototype;
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
-	props: [
-		'model',
-	],
+	props: {
+		'model': Object,
+	},
 
 	components: {
-		'story-preview': require('./story-preview'),
+		'story-preview': require('../story-preview'),
 	},
 
 	computed: {
