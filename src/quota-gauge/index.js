@@ -30,7 +30,7 @@ module.exports = Vue.extend({
 		}
 	},
 
-	ready() {
+	created() {
 		// We know how much space we're already using. We find out how much is
 		// free by trying to allocate more in 100k chunks, and failing once
 		// we've hit the quota.
