@@ -20,8 +20,6 @@ module.exports = Vue.extend({
 
 	template: "<div class='preview'></div>",
 
-	data: () => ({}),
-
 	props: {
 		hue: Number,
 		passages: Array,
