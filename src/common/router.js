@@ -13,6 +13,7 @@
 **/
 
 'use strict';
+const $ = require('jquery');
 const Backbone = require('backbone');
 const publish = require('../story-publish');
 const AppPref = require('../data/models/app-pref');
@@ -45,10 +46,23 @@ module.exports = Backbone.Router.extend({
 
 	listStories() {
 		// list of all stories
-
-		this.app.mainRegion.show(
-			new StoryListView({ collection: StoryCollection.all() })
-		);
+		this.app.mainRegion.show(new (Backbone.View.extend({
+			// This "View" is a shim wrapper that allows trans-region to
+			// supply special properties to the contained Vue component.
+			storyListViewShim: true,
+			previouslyEditing: null,
+			appearFast: false,
+			render() {
+				new StoryListView({
+					el: $('<div>').appendTo(this.el)[0],
+					data: {
+						collection: StoryCollection.all(),
+						previouslyEditing: this.previouslyEditing,
+						appearFast: this.appearFast,
+					}
+				});
+			},
+		}))());
 	},
 
 	editStory(id) {

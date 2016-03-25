@@ -1,0 +1,136 @@
+<div id="storyListView">
+
+<nav class="listControls">
+
+<h1 class="logo">{{ 'Twine' |say}}</h1>
+
+<div class="bubbleContainer">
+<p>
+<button class="addStory create block" title="{{ 'Create a brand-new story' |say}}" data-bubble="toggle" data-bubble-dir="right" data-tooltip-dir="w">
+<i class="fa fa-plus"></i> {{ 'Story' |say}}
+</button>
+</p>
+
+<div class="bubble left">
+<form id="addStoryForm" @submit="createStory">
+<p>
+<!-- For some reason, Vue doesn't allow apparent HTML entities inside strings. -->
+{{{ "What should your story be named? \x3cbr>(You can change this later.)" |say }}}
+</p>
+
+<p>
+<input class="newName block" type="text" required>
+</p>
+
+<p class="dialogButtons">
+<button type="button" class="cancelAdd subtle" data-bubble="hide"><i class="fa fa-times"></i> {{ 'Cancel' |say}}</button>
+<button type="submit" class="add create"><i class="fa fa-plus"></i> {{ 'Add' |say}}</button>
+</p>
+</form>
+</div> <!-- .bubble -->
+</div> <!-- .bubbleContainer -->
+
+<div class="bubbleContainer">
+<p>
+<button class="importStory subtle block" title="{{'Import a published story or Twine archive' |say}}" data-bubble="toggle" data-bubble-dir="left" data-tooltip-dir="w">
+<i class="fa fa-upload"></i> {{'Import From File' |say}}
+</button>
+</p>
+
+<div class="bubble left">
+<div class="form">
+<p>
+{{ 'Import this file:' |say}}
+</p>
+
+<p>
+<input @change="importFile" type="file">
+</p>
+
+<p>
+<button class="subtle" data-bubble="hide"><i class="fa fa-times"></i> {{ 'Cancel' |say}}</button>
+</p>
+</div>
+
+<div class="working hide">
+<p>
+<i class="fa fa-2x fa-circle-o-notch fa-spin"></i>
+</p>
+<p>
+{{ 'Importing...' |say}}
+</p>
+</div>
+
+</div> <!-- .bubble -->
+</div> <!-- .bubbleContainer -->
+
+<p>
+<button class="subtle" @click="saveArchive" title="{{'Save all stories to a Twine archive file' |say}}" data-tooltip-dir="w">
+<i class="fa fa-briefcase"></i> {{ 'Archive' |say}}
+</button>
+</p>
+<!--
+<p>
+<button class="subtle" @click="showFormats" title="{{'Work with story and proofing formats' |say}}" data-tooltip-dir="w">
+<i class="fa fa-file-code-o"></i> {{ 'Formats' |say}}
+</button>
+</p>
+-->
+
+<p>
+<button class="subtle" @click="showLocale" title="{{'Change the language Twine uses' |say}}" data-tooltip-dir="w">
+<i class="fa fa-comment-o"></i> {{ 'Language' |say}}
+</button>
+</p>
+
+<p>
+<button class="subtle" @click="showHelp" title="{{'Browse online help' |say}}" data-tooltip-dir="w">
+<i class="fa fa-question-circle"></i> {{ 'Help' |say}}
+</button>
+</p>
+
+<footer>
+
+<quota-gauge></quota-gauge>
+
+<!--
+<p>
+{{'version' |say}} <button class="link" data-modal-show="#aboutModal"><span class="app-version">{{version}}</span></button>
+<br>
+<a href="https://bitbucket.org/klembot/twinejs/issues"><i class="fa fa-bug"></i> {{'Report a bug' |say}}</a>
+</p>
+-->
+</footer>
+
+</nav>
+
+<div class="main">
+
+<h1>{{'Stories' |say}}
+
+<span class="pull-right normal buttonGroup">
+{{'Sort By' |say}}
+
+<button class="{{ 'subtle ' + (order === 'lastUpdate' ? 'active': '') }}" @click="sortByDate" title="{{'Last changed date' |say}}">
+{{'Edit Date' |say}}
+</button>
+
+<button class="{{ 'subtle ' + (order === 'name' ? 'active' : '') }}" @click="sortByName" title="{{'Story name' |say}}">
+{{'Name' |say}}
+</button>
+</span>
+
+</h1>
+
+<div class="stories">
+<template v-if="!collection.length">
+{{'There are no stories saved in Twine right now. To get started, you can either create a new story or import an existing one from a file.' |say}}
+</template>
+<template v-else>
+{{ syncStoryCount() }}
+</template>
+<story-item-view v-for="model in collection.models" :model="model"></story-item-view>
+</div>
+</div> <!-- .main -->
+
+</div> <!-- #storyListView -->

@@ -589,6 +589,11 @@ ul.menu li.checked button:before
 	content: '\f05a';
 }
 
+.modal.confirm.no-icon .message:before
+{
+	content: '';
+}
+
 .modal.prompt .prompt input[type="text"]
 {
 	width: 100%;
