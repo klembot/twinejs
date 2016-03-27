@@ -9,8 +9,10 @@ module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	props: {
+		// A StoryFormat object that this component represents.
 		format: Object,
-		// The appPref passed in manages the state of the 'make default' button.
+		// The AppPref passed in, which manages the state of the 'make default' button.
+		// Assumed to be the AppPref for either 'defaultFormat' or 'proofingFormat'.
 		appPref: Object,
 	},
 

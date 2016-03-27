@@ -36,14 +36,18 @@ const UPDATE_CHECK_DELAY = 1000 * 60 * 60 * 24;
 module.exports = Vue.extend({
 
 	data: () => ({
+		// Currently a Backbone collection. Its models attribute is iterated over with v-for.
 		collection: [],
 
 		// If true, then we do not animate the stories appearing, nor
 		// do we do a version or donation check.
 		appearFast: false,
 
+		// The ID of the story that was being edited.
+		// Assume that if this is null, the app was just launched.
 		previouslyEditing: null,
 
+		// What to order the <story-item-view>s by ('name'. 'lastUpdate').
 		order: 'name',
 	}),
 

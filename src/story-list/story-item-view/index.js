@@ -25,6 +25,7 @@ module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	props: {
+		// Currently a Backbone model.
 		'model': Object,
 	},
 
