@@ -36,14 +36,14 @@ const AppPrefCollection = require('../collections/app-pref');
 
 AppPref.withName = (name, defaultVal) => {
 	const allPrefs = AppPrefCollection.all();
-	const result = allPrefs.findWhere({ name: name });
+	const result = allPrefs.findWhere({ name });
 
 	if (result) {
 		return result;
 	}
 
 	if (defaultVal !== null) {
-		return allPrefs.create({ name: name, value: defaultVal });
+		return allPrefs.create({ name, value: defaultVal });
 	}
 };
 
