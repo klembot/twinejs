@@ -7,7 +7,6 @@
 
 'use strict';
 const $ = require('jquery');
-const _ = require('underscore');
 const Vue = require('vue');
 const importer = require('../../file/importer');
 const locale = require('../../locale');
@@ -15,7 +14,6 @@ const confirm = require('../../ui/confirm');
 const notify = require('../../ui/notify');
 const publish = require('../../story-publish');
 const AppPref = require('../../data/models/app-pref');
-const PassageCollection = require('../../data/collections/passage');
 const StoryCollection = require('../../data/collections/story');
 const FormatsModal = require('../formats-modal');
 const AboutModal = require('../about-modal');
