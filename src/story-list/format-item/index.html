@@ -1,6 +1,6 @@
-<div class="format" style="clear:both">
+<div style="clear:both">
 
-<div class="buttons" style="float:right">
+<div style="float:right">
 <button :class="{subtle:true, danger:true, hide:!userAdded}" @click="removeFormat"
 	title="{{'Remove this format'|say}}"><i class="fa fa-lg fa-trash-o"></i></button>
 <button :class="{subtle:true, active:default}" @click="setDefaultFormat"
@@ -13,7 +13,7 @@
 If no image is available, use a placeholder based on name
 -->
 
-<img v-if="image" :src="path + '/' + image">
+<img v-if="imag" :src="path + '/' + image">
 <span v-else class="placeholder">{{ name.slice(0,2) }}</span>
 
 <div class="text">
