@@ -1,6 +1,6 @@
 <modal-dialog>
 
-<tabs-panel class="title">
+<tabs-panel>
 
 <!-- Unfortunately, putting {{'Story Formats' |say}} in component attributes doesn't work for some reason.-->
 <tab-item name="Story Formats">
@@ -26,10 +26,10 @@
 |say}}
 </p>
 
-<form class="addFormat" @submit="addFormat">
+<form @submit="addFormat">
 
 <p>
-<input type="text" name="newFormatUrl" v-model="newFormatUrl" required>
+<input type="text" name="newFormatUrl" v-model="newFormatUrl" style="width:81%" required>
 <button class="create" type="submit"><i class="fa fa-plus"></i> {{'Add'|say}}</button>
 </p>
 
@@ -37,7 +37,7 @@
 </tab-item>
 </tabs-panel>
 
-<p class="loading" v-show="loading">
+<p v-show="loading">
 <i class="fa fa-circle-o-notch fa-lg fa-spin"></i> {{'Loading...'|say}}
 </p>
 

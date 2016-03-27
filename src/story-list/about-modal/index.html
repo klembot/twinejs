@@ -1,11 +1,7 @@
-<div id="aboutModal" class="modal hide">
+<modal-dialog>
 
-<button class="save close subtle" data-modal-hide="this">
-<i class="fa fa-times"></i>
-</button>
-
-<h2 class="title">
-{{'About Twine'|say}} <span class="app-version"></span>
+<h2>
+{{'About Twine'|say}} {{version}}
 </h2>
 
 <p>
@@ -31,7 +27,7 @@
 {{'Help Twine Grow With A Donation'|say}}</a>
 </p>
 
-<div class="credits">
+<div style="max-height:20em; overflow-y:scroll">
 
 <h4>
 {{
@@ -102,6 +98,6 @@ Mika Letonsaari (Suomi)
 <a href="http://thenounproject.com/term/smile/10696/">{{'Smile designed by jelio dimitrov from the Noun Project'|say}}</a><br>
 </p>
 
-</div> <!-- .credits -->
+</div>
 
-</div> <!-- #aboutModal -->
+</modal-dialog>

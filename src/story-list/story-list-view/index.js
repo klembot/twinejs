@@ -18,6 +18,7 @@ const AppPref = require('../../data/models/app-pref');
 const PassageCollection = require('../../data/collections/passage');
 const StoryCollection = require('../../data/collections/story');
 const FormatsModal = require('../formats-modal');
+const AboutModal = require('../about-modal');
 
 require('../../ui/bubble');
 require('../../ui/modal');
@@ -279,6 +280,11 @@ module.exports = Vue.extend({
 
 			reader.readAsText(e.target.files[0], 'UTF-8');
 			return reader;
+		},
+
+		showAbout() {
+			const el = $('<div>').appendTo('body');
+			new AboutModal({ el: el[0] });
 		},
 
 		showFormats() {
