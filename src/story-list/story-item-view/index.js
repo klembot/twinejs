@@ -18,7 +18,6 @@ const notify = require('../../ui/notify');
 const prompt = require('../../ui/prompt');
 const publish = require('../../story-publish');
 const Passage = require('../../data/models/passage');
-const StoryCollection = require('../../data/collections/story');
 const PassageCollection = require('../../data/collections/passage');
 const {ZOOM_MAPPINGS} = require('../../story-edit/story-edit-view').prototype;
 

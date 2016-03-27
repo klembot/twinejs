@@ -2,7 +2,10 @@
 
 <tabs-panel>
 
-<!-- Unfortunately, putting {{'Story Formats' |say}} in component attributes doesn't work for some reason.-->
+<!--
+Unfortunately, putting {{'Story Formats' |say}} in component attributes doesn't work for some reason.
+So, <tab-item>s pass their name attributes through locale.say by themselves.
+-->
 <tab-item name="Story Formats">
 <p>
 {{'Story formats control the appearance and behavior of stories during play.'|say}}
