@@ -1,0 +1,40 @@
+<div class="format" style="clear:both">
+
+<div class="buttons" style="float:right">
+<button :class="{subtle:true, danger:true, hide:!userAdded}" @click="removeFormat"
+	title="{{'Remove this format'|say}}"><i class="fa fa-lg fa-trash-o"></i></button>
+<button :class="{subtle:true, active:default}" @click="setDefaultFormat"
+	title="{{'Set this format as default for stories'|say}}"><i class="fa fa-lg fa-star"></i></button>
+</div>
+
+<div class="formatDetail">
+
+<!--
+If no image is available, use a placeholder based on name
+-->
+
+<img v-if="image" :src="path + '/' + image">
+<span v-else class="placeholder">{{ name.slice(0,2) }}</span>
+
+<div class="text">
+
+<h3>{{ name }} {{ version }}
+<template v-if="author">
+	<br>
+	{{{ author }}}
+</template>
+</h3>
+
+<div class="description">
+{{{ description }}}
+
+<template v-if="license">
+	<p>
+	{{{license}}}
+	</p>
+</template>
+
+</div>
+</div>
+</div>
+</div>

@@ -1,0 +1,12 @@
+<div>
+	<div id="modalOverlay" @click="close"></div>
+	<div class="modal-dialog">
+		<button class="close subtle" @click="close">
+			<i class="fa fa-times"></i>
+		</button>
+		<div>
+			<slot>
+			</slot>
+		</div>
+	</div>
+</div>
