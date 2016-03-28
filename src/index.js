@@ -10,6 +10,11 @@ const TwineApp = require('./common/app');
 // Vue setup
 
 const Vue = require('vue');
+Vue.prototype.$mountTo = function(el) {
+	const mountPoint = document.createElement('div');
+	el.appendChild(mountPoint);
+	this.$mount(mountPoint);
+};
 Vue.filter('say', locale.say.bind(locale));
 
 ((() => {
