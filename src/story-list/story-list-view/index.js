@@ -17,6 +17,7 @@ const AppPref = require('../../data/models/app-pref');
 const StoryCollection = require('../../data/collections/story');
 const FormatsModal = require('../formats-modal');
 const AboutModal = require('../about-modal');
+const ZoomTransition = require('../zoom-transition');
 
 require('../../ui/bubble');
 require('../../ui/modal');
@@ -64,40 +65,6 @@ module.exports = Vue.extend({
 
 	compiled() {
 		this.syncStoryCount();
-
-		// if we were previously editing a story, show a proxy
-		// shrinking back into the appropriate item
-
-		if (this.previouslyEditing) {
-			const proxy =
-				$('<div id="storyEditProxy" class="fullAppear fast reverse">');
-
-			proxy.one('animationend', () => {
-				proxy.remove();
-			});
-
-			this.collection.forEach((c) => {
-				if (c.get('id') == this.previouslyEditing) {
-					const $s = c.$('.story');
-					const o = $s.offset();
-
-					o.left += $s.outerHeight() / 2;
-
-					// we don't vertically center because it zooms into empty
-					// space on short titles
-
-					proxy.css({
-						'-webkit-transform-origin': o.left + 'px ' +
-							o.top + 'px',
-						transformOrigin: o.left + 'px ' + o.top + 'px'
-					});
-
-					return true;
-				};
-			});
-
-			$(this.$el).append(proxy);
-		};
 
 		// if we were asked to appear fast, we do nothing else
 
@@ -204,6 +171,24 @@ module.exports = Vue.extend({
 	},
 
 	methods: {
+
+		// if we were previously editing a story, show a zoom
+		// shrinking back into the appropriate item
+
+		zoomFromStory(id) {
+			const zoom = new ZoomTransition();
+			zoom.reverse = true;
+
+			this.$children.forEach(({model, $el}) => {
+				if (model && model.get('id') === id) {
+					const {left, top} = $($el).offset();
+					zoom.x = left + $($el).outerWidth() / 2;
+					zoom.y = top;
+					return true;
+				};
+			});
+			zoom.$mountTo(this.$el);
+		},
 
 		/**
 		 Adds a new story with the name entered in the view's input.newName field.

@@ -52,12 +52,14 @@ module.exports = Backbone.Router.extend({
 			storyListViewShim: true,
 			previouslyEditing: null,
 			appearFast: false,
+			previouslyEditing(e) {
+				this.innerView.zoomFromStory(e);
+			},
 			render() {
-				new StoryListView({
+				this.innerView = new StoryListView({
 					el: $('<div>').appendTo(this.el)[0],
 					data: {
 						collection: StoryCollection.all(),
-						previouslyEditing: this.previouslyEditing,
 						appearFast: this.appearFast,
 					}
 				});
