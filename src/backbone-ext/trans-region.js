@@ -25,7 +25,7 @@ module.exports = Marionette.Region.extend({
 			if (view.storyListViewShim &&
 					this.prevView instanceof StoryEditView) {
 				view.appearFast = true;
-				view.previouslyEditing = this.prevId;
+				view.previouslyEditing(this.prevId);
 			}
 		}.bind(this));
 	}

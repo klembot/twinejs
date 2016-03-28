@@ -19,7 +19,7 @@ const prompt = require('../../ui/prompt');
 const publish = require('../../story-publish');
 const Passage = require('../../data/models/passage');
 const PassageCollection = require('../../data/collections/passage');
-const {ZOOM_MAPPINGS} = require('../../story-edit/story-edit-view').prototype;
+const ZoomTransition = require('../zoom-transition');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -57,33 +57,13 @@ module.exports = Vue.extend({
 		**/
 
 		edit(e) {
-			const proxy =
-				$('<div id="storyEditProxy" class="fullAppear fast"></div>');
-
-			// match the proxy's zoom to the model
-			
-			for (let desc in ZOOM_MAPPINGS) {
-				if (ZOOM_MAPPINGS[desc] == this.model.get('zoom')) {
-					proxy.addClass('zoom-' + desc);
-					break;
-				}
-			}
-
-			// if we don't know where the edit event is coming from,
-			// default to the center of the window
-
-			const originX = e ? e.pageX : $(window).width() / 2;
-			const originY = e ? e.pageY : $(window).height() / 2;
-
-			proxy.css({
-				transformOrigin: originX + 'px ' + originY + 'px',
-				'-webkit-transform-origin': originX + 'px ' + originY + 'px'
-			})
-			.one('animationend', () => {
-				window.location.hash = '#stories/' + this.model.id;
-			});
-
-			$(this.$el).append(proxy);
+			const $el = $(this.$el);
+			new ZoomTransition({ data: {
+				x: $el.offset().left + $el.outerWidth() / 2,
+				y: $el.offset().top,
+			}}).$mountTo(this.$el).then(
+				() => window.location.hash = '#stories/' + this.model.id
+			);
 		},
 
 		/**
