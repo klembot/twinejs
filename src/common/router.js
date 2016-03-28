@@ -50,7 +50,6 @@ module.exports = Backbone.Router.extend({
 			// This "View" is a shim wrapper that allows trans-region to
 			// supply special properties to the contained Vue component.
 			storyListViewShim: true,
-			previouslyEditing: null,
 			appearFast: false,
 			previouslyEditing(e) {
 				this.innerView.zoomFromStory(e);

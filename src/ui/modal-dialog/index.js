@@ -2,6 +2,7 @@ const Vue = require('vue');
 // The jQuery dependency is solely to provide namespaced event management.
 // Sadly, Vue's @keydown doesn't work for non-<input> elements.
 const $ = require('jquery');
+const {thenable, symbols:{resolve}} = require('../../common/vue-mixins.js');
 
 module.exports = Vue.extend({
 	data: () => ({}),
@@ -20,7 +21,9 @@ module.exports = Vue.extend({
 	},
 	methods: {
 		close() {
+			this[resolve]();
 			this.$destroy(true);
 		}
-	}
+	},
+	mixins: [thenable],
 });

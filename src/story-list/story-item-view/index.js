@@ -53,10 +53,9 @@ module.exports = Vue.extend({
 		 Opens a StoryEditView for this story.
 
 		 @method edit
-		 @param {Object} e event object, used to animate the transition
 		**/
 
-		edit(e) {
+		edit() {
 			const $el = $(this.$el);
 			new ZoomTransition({ data: {
 				x: $el.offset().left + $el.outerWidth() / 2,

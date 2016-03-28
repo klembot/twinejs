@@ -23,6 +23,17 @@ module.exports = {
 			this.then = promise.then.bind(promise);
 			this.catch = promise.catch.bind(promise);
 		},
+		compiled() {
+			// If any direct children of this component are thenable, this component's
+			// promise will be settled as soon as that child's settles.
+			// This allows e.g. <format-modal> to contain a <modal-dialog>, and be dismissed
+			// when the inner dialog is dismissed.
+			this.$children.filter((child) => child.then === 'function')
+				.forEach(({then, catch:_catch}) => {
+					then(this[symbols.resolve]);
+					_catch(this[symbols.reject]);
+				});
+		},
 	},
 	symbols,
 };
