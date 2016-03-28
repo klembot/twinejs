@@ -1,7 +1,7 @@
 'use strict';
 const Vue = require('vue');
 const {ZOOM_MAPPINGS} = require('../../story-edit/story-edit-view').prototype;
-const {thenable, symbols:{reject, resolve}} = require('../../common/vue-mixins.js');
+const {thenable, symbols:{resolve}} = require('../../common/vue-mixins.js');
 
 module.exports = Vue.extend({
 	data: () => ({
