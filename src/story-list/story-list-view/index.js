@@ -285,13 +285,11 @@ module.exports = Vue.extend({
 		},
 
 		showAbout() {
-			const el = $('<div>').appendTo('body');
-			new AboutModal({ el: el[0] });
+			new AboutModal().$mountTo(document.body);
 		},
 
 		showFormats() {
-			const el = $('<div>').appendTo('body');
-			new FormatsModal({ el: el[0] });
+			new FormatsModal().$mountTo(document.body);
 		},
 
 		/**
