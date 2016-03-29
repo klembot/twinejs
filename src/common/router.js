@@ -13,10 +13,11 @@
 **/
 
 'use strict';
+const $ = require('jquery');
 const Backbone = require('backbone');
 const publish = require('../story-publish');
 const AppPref = require('../data/models/app-pref');
-const LocaleView = require('../locale/locale-view');
+const LocaleView = require('../locale/view');
 const Story = require('../data/models/story');
 const StoryCollection = require('../data/collections/story');
 const StoryEditView = require('../story-edit/story-edit-view');
@@ -40,7 +41,13 @@ module.exports = Backbone.Router.extend({
 	},
 
 	locale() {
-		this.app.mainRegion.show(new LocaleView());
+		this.app.mainRegion.show(new (Backbone.View.extend({
+			render() {
+				this.innerView = new LocaleView({
+					el: $('<div>').appendTo(this.el)[0]
+				});
+			},
+		}))());
 	},
 
 	listStories() {
