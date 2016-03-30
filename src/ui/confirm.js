@@ -6,6 +6,7 @@
 
 'use strict';
 const $ = require('jquery');
+const locale = require('../locale');
 const Marionette = require('backbone.marionette');
 const ui = require('./');
 const confirmTemplate = require('./ejs/confirm.ejs');
@@ -21,14 +22,16 @@ const confirmTemplate = require('./ejs/confirm.ejs');
 						 buttonLabel (HTML label for the button)
 **/
 
-module.exports = ({message, buttonLabel, modalClass, buttonClass}) =>
+module.exports = ({message, coda, buttonLabel, cancelLabel, modalClass, buttonClass}) =>
 	new Promise((onConfirm, onCancel) => {
 
 		const modalContainer = $(Marionette.Renderer.render(confirmTemplate, {
 			message,
 			buttonLabel,
+			cancelLabel: cancelLabel || ('<i class="fa fa-times"></i> ' + locale.say("Cancel")),
 			modalClass: modalClass || '',
-			buttonClass: buttonClass || ''
+			buttonClass: buttonClass || '',
+			coda: coda || "",
 		}));
 
 		const modal = modalContainer.find('.modal');

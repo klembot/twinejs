@@ -1,0 +1,49 @@
+<modal-dialog>
+
+<tabs-panel>
+
+<!--
+Unfortunately, putting {{'Story Formats' |say}} in component attributes doesn't work for some reason.
+So, <tab-item>s pass their name attributes through locale.say by themselves.
+-->
+<tab-item name="Story Formats">
+<p>
+{{'Story formats control the appearance and behavior of stories during play.'|say}}
+</p>
+
+<format-item v-for="format in storyFormats" :format="format" :app-pref="defaultFormatPref"></format-item>
+</tab-item>
+
+<tab-item name="Proofing Formats">
+<p>
+{{'Proofing formats create a versions of stories tailored for editing and proofreading.'|say}}
+</p>
+<format-item v-for="format in proofingFormats" :format="format" :app-pref="proofingFormatPref"></format-item>
+</tab-item>
+
+<tab-item name="Add a New Format">
+<p>
+{{
+/* L10n: Address in the sense of a URL. */
+'To add a story format, enter its address below.'
+|say}}
+</p>
+
+<form @submit="addFormat">
+
+<p>
+<input type="text" name="newFormatUrl" v-model="newFormatUrl" style="width:81%" required>
+<button class="create" type="submit"><i class="fa fa-plus"></i> {{'Add'|say}}</button>
+</p>
+
+</form>
+</tab-item>
+</tabs-panel>
+
+<p v-show="loading">
+<i class="fa fa-circle-o-notch fa-lg fa-spin"></i> {{'Loading...'|say}}
+</p>
+
+<p class="error" v-if="error">{{{error}}}</p>
+
+</modal-dialog>
