@@ -1,0 +1,20 @@
+.tabs-panel {
+  display: block;
+  width: 100%;
+  border-bottom: 0.1em solid hsl(0, 0%, 90%);
+  button {
+    color: hsl(0, 0%, 30%);
+    background: none;
+    box-shadow: none;
+    display: inline-block;
+    border-radius: 0;
+    margin: 0;
+    &:hover {
+      color: hsl(212, 88%, 50%);
+    }
+    &:active, &.active {
+      color: hsl(212, 88%, 50%);
+      border-bottom: 0.4em solid hsl(212, 88%, 50%);
+    }
+  }
+}
