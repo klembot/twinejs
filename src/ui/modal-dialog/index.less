@@ -6,8 +6,14 @@
   width: 100%;
   height: 100%;
   background-color: hsla(0, 0%, 0%, 0.4);
+  // Transitioning on background-color (not opacity) is necessary
+  // because opacity interferes with z-index.
+  .modal-dialog-enter & {
+    background-color: transparent;
+  }
+  transition: background-color linear 0.2s;
 }
-.modal-dialog {
+.modal-dialog-box {
   position: fixed;
   z-index: 101;
   top: 1em;
@@ -28,4 +34,9 @@
     padding: 0.5em 0.75em;
     margin: 0;
   }
+  .modal-dialog-enter & {
+    transform: scale(0,0);
+    opacity: 0;
+  }
+  transition: all ease-out 0.2s;
 }
