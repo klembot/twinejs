@@ -18,7 +18,7 @@ const Passage = require('../data/models/passage');
 const Story = require('../data/models/story');
 const StoryCollection = require('../data/collections/story');
 const StoryListView = require('../story-list/story-list-view');
-const WelcomeView = require('../welcome');
+const patchWelcomeView = require('./patch-welcome-view');
 const startupErrorTemplate = require('./ejs/startup-error.ejs');
 const welcomeViewNwTemplate = require('./ejs/welcome-view-nw.ejs');
 let QuotaGauge = require('../quota-gauge');
@@ -436,20 +436,9 @@ const nwui = module.exports = {
 					});
 				});
 			};
-
-			// monkey patch WelcomeView to display a different message
-			// about saving
-
+			
 			startupTask = 'customizing the initial welcome page';
-
-			const oldWelcomeViewRender = WelcomeView.prototype.onRender;
-
-			WelcomeView.prototype.onRender = function() {
-				this.$('.save').html(
-					Marionette.Renderer.render(welcomeViewNwTemplate, {})
-				);
-				oldWelcomeViewRender.call(this);
-			};
+			patchWelcomeView();
 		}
 		catch (e) {
 			/* eslint-disable no-console */
