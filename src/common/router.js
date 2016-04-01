@@ -23,7 +23,7 @@ const StoryCollection = require('../data/collections/story');
 const StoryEditView = require('../story-edit/story-edit-view');
 const StoryFormat = require('../data/models/story-format');
 const StoryListView = require('../story-list/story-list-view');
-const WelcomeView = require('../welcome/welcome-view');
+const WelcomeView = require('../welcome');
 
 module.exports = Backbone.Router.extend({
 	initialize(options) {
@@ -37,8 +37,13 @@ module.exports = Backbone.Router.extend({
 	},
 
 	welcome() {
-		this.app.mainRegion.show(new WelcomeView());
-	},
+		this.app.mainRegion.show(new (Backbone.View.extend({
+			render() {
+				this.innerView = new WelcomeView({
+					el: $('<div>').appendTo(this.el)[0]
+				});
+			},
+		}))());	},
 
 	locale() {
 		this.app.mainRegion.show(new (Backbone.View.extend({
