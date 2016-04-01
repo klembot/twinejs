@@ -20,7 +20,7 @@ const {thenable} = require('../../common/vue-mixins.js');
 						 buttonLabel (HTML label for the button)
 **/
 
-const ConfirmModal = Vue.extend({
+module.exports = Vue.extend({
 	data: () => ({
 		message: '',
 		coda: '',
@@ -43,16 +43,3 @@ const ConfirmModal = Vue.extend({
 	template: require('./index.html'),
 	mixins: [thenable],
 });
-
-module.exports = (data) =>
-	new ConfirmModal({data}).$mountTo(document.body).then(result => {
-		// False results are produced by the close button and the cancel
-		// button. If the result is false, convert it into a rejection.
-
-		// Note: this may change in the future, as using rejections for negative
-		// results is somewhat unidiomatic.
-		if (!result) {
-			throw result;
-		}
-		return result;
-	});
