@@ -57,10 +57,24 @@ module.exports = Backbone.Router.extend({
 
 	listStories() {
 		// list of all stories
-
-		this.app.mainRegion.show(
-			new StoryListView({ collection: StoryCollection.all() })
-		);
+		this.app.mainRegion.show(new (Backbone.View.extend({
+			// This "View" is a shim wrapper that allows trans-region to
+			// supply special properties to the contained Vue component.
+			storyListViewShim: true,
+			appearFast: false,
+			previouslyEditing(e) {
+				this.innerView.zoomFromStory(e);
+			},
+			render() {
+				this.innerView = new StoryListView({
+					el: $('<div>').appendTo(this.el)[0],
+					data: {
+						collection: StoryCollection.all(),
+						appearFast: this.appearFast,
+					}
+				});
+			},
+		}))());
 	},
 
 	editStory(id) {

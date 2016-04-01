@@ -6,11 +6,6 @@ const locale = require('../locale');
 
 const CHUNK_SIZE = 102400;
 
-// This is used to test how much local storage is left in 100k chunks. This is
-// not a const so that we can set it to null when we're done checking, to
-// save memory.
-
-let testString = 'x'.repeat(CHUNK_SIZE);
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -30,7 +25,7 @@ module.exports = Vue.extend({
 		}
 	},
 
-	ready() {
+	created() {
 		// We know how much space we're already using. We find out how much is
 		// free by trying to allocate more in 100k chunks, and failing once
 		// we've hit the quota.
@@ -39,6 +34,8 @@ module.exports = Vue.extend({
 		this.free = CHUNK_SIZE;
 
 		let storageIndex = 0;
+		// This is used to test how much local storage is left in 100k chunks.
+		let testString  = 'x'.repeat(CHUNK_SIZE);
 		const interval = window.setInterval(
 			() => {
 				let stop = false;

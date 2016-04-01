@@ -1,16 +1,27 @@
-// bootstrap app after loading localization, if any
-
+'use strict';
 require('es6-promise');
-const _ = require('underscore');
 const locale = require('./locale');
-const notify = require('./ui/notify');
-const AppPref = require('./data/models/app-pref');
-const TwineApp = require('./common/app');
 
 // Vue setup
 
 const Vue = require('vue');
+Vue.mixin({
+	methods: {
+		$mountTo(el) {
+			const mountPoint = document.createElement('div');
+			this.$mount(mountPoint).$appendTo(el);
+			return this;
+		},
+	},
+});
 Vue.filter('say', locale.say.bind(locale));
+
+// bootstrap app after loading localization, if any
+
+const _ = require('underscore');
+const notify = require('./ui/notify');
+const AppPref = require('./data/models/app-pref');
+const TwineApp = require('./common/app');
 
 ((() => {
 	let userLocale;

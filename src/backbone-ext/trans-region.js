@@ -9,7 +9,6 @@
 'use strict';
 const Marionette = require('backbone.marionette');
 const StoryEditView = require('../story-edit/story-edit-view');
-const StoryListView = require('../story-list/story-list-view');
 
 module.exports = Marionette.Region.extend({
 	initialize() {
@@ -23,11 +22,10 @@ module.exports = Marionette.Region.extend({
 
 		this.on('swap', function(view) {
 			// tell a StoryListView where we were coming from
-
-			if (view instanceof StoryListView &&
+			if (view.storyListViewShim &&
 					this.prevView instanceof StoryEditView) {
 				view.appearFast = true;
-				view.previouslyEditing = this.prevId;
+				view.previouslyEditing(this.prevId);
 			}
 		}.bind(this));
 	}
