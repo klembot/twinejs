@@ -517,8 +517,8 @@ body.iOS .editModal
 	display: none;
 }
 
-.formatDetail img,
-.formatDetail .placeholder
+#storyEditView .formatDetail img,
+#storyEditView .formatDetail .placeholder
 {
 	width: 6em;
 	float: left;
@@ -532,7 +532,7 @@ body.iOS .editModal
 	margin-left: 1.5em;
 }
 
-.formatDetail .placeholder
+#storyEditView .formatDetail .placeholder
 {
 	height: 1.5em; /* 6em / 4 */
 	width: 1.5em;
@@ -548,7 +548,7 @@ body.iOS .editModal
 	overflow: hidden;
 }
 
-.formatDetail .text
+#storyEditView .formatDetail .text
 {
 	margin-left: 7.5em;
 }
@@ -559,7 +559,7 @@ body.iOS .editModal
 	margin-left: 3em;
 }
 
-.formatDetail .description
+#storyEditView .formatDetail .description
 {
 	font-size: 90%;
 }

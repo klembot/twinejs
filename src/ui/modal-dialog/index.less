@@ -1,0 +1,42 @@
+#modalOverlay {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: hsla(0, 0%, 0%, 0.4);
+  // Transitioning on background-color (not opacity) is necessary
+  // because opacity interferes with z-index.
+  .modal-dialog-enter & {
+    background-color: transparent;
+  }
+  transition: background-color linear 0.2s;
+}
+.modal-dialog-box {
+  position: fixed;
+  z-index: 101;
+  top: 1em;
+  left: 50%;
+  background: white;
+  margin-left: -20em;
+  width: 40em;
+  border-radius: 1em;
+  padding: 0em 2em 2em 2em;
+  .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 0;
+    border-bottom-left-radius: 0.25em;
+    border-top-right-radius: 0.5em;
+    font-size: 150%;
+    padding: 0.5em 0.75em;
+    margin: 0;
+  }
+  .modal-dialog-enter & {
+    transform: scale(0,0);
+    opacity: 0;
+  }
+  transition: all ease-out 0.2s;
+}

@@ -2,8 +2,9 @@
 	<div class="modal hide confirm <%= modalClass %>">
 		<div class="message"><%- message %></div>
 		<p class="buttons">
-			<button type="button" class="subtle cancel"><i class="fa fa-times"></i> <%= s("Cancel") %></button>
+			<button type="button" class="subtle cancel"><%- cancelLabel %></button>
 			<button type="button" class="<%= buttonClass %>" data-action="yes"><%- buttonLabel %></button>
 		</p>
+		<p class="coda"><%- coda %></p>
 	</div>
 </div>
