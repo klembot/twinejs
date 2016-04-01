@@ -1,0 +1,24 @@
+.quota {
+	.total {
+		display: inline-block;
+		position: relative;
+		width: 100%;
+		height: 1em;
+		overflow: hidden;
+		border-radius: 0.25em;
+		background-color: hsl(0, 0%, 90%);
+		box-shadow: inset 0 0.1em 0.1em hsl(0, 0%, 65%);
+	}
+
+	.used {
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		background-color: hsl(212, 50%, 50%);
+		border-top-left-radius: 0.25em;
+		border-bottom-left-radius: 0.25em;
+		box-shadow: 0 0 0.1em hsl(0, 0%, 65%);
+	}
+}
+

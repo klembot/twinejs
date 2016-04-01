@@ -1,0 +1,54 @@
+<div class="story-item" :style="{ background: 'hsl(' + hue + ', 15%, 95%)' }" :data-order="order">
+
+<button v-on:click="edit" class="subtle bg"></button>
+
+<story-preview :hue="hue" :passages="passages"></story-preview>
+
+<div class="label">
+<h2>
+{{ name }}
+</h2>
+
+<p class="changeDate">
+{{ lastUpdate }}
+</p>
+</div>
+
+<div class="bubbleContainer">
+<button class="subtle" data-bubble="toggle"><i class="fa fa-cog"></i></button>
+
+<div class="bubble small up">
+<ul class="menu">
+
+<li>
+<button @click="play">{{ 'Play Story' |say}}</button>
+</li>
+
+<li>
+<button @click="test">{{ 'Test Story' |say}}</button>
+</li>
+
+<li>
+<button @click="publish">{{ 'Publish to File' |say}}</button>
+</li>
+
+<li>
+<button @click="rename">{{ 'Rename Story' |say}}</button>
+</li>
+
+<li>
+<button @click="confirmDuplicate">{{ 'Duplicate Story' |say}}</button>
+</li>
+
+<li class="divider"></li>
+
+<li>
+<button @click="confirmDelete">{{ 'Delete Story' |say}}</button>
+</li>
+
+</ul>
+
+</div>
+</div>
+
+</div> <!-- .story -->

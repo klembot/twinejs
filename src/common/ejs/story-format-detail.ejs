@@ -1,0 +1,47 @@
+<!--
+This is used in both StoryFormatView and StoryEditView to display
+information about a story format.
+-->
+
+<div class="formatDetail">
+
+<!--
+If no image is available, use a placeholder based on name
+-->
+
+<% if (typeof image == 'string') { %>
+	<img src="<%= path %>/<%= image %>">
+<% } else { %>
+	<span class="placeholder"><%= name.replace(/[a-z]/g, '') %></span>
+<% } %>
+
+<div class="text">
+
+<h3><%= name %> <%= version %>
+
+<% if (typeof author == 'string') { %>
+	<br>
+	<%-
+	/* L10n: %s is the name of an author. */
+	s('by %s', author)
+	%>
+<% } %>
+
+</h3>
+
+<div class="description">
+<%- description %>
+
+<% if (typeof license == 'string') { %>
+	<p>
+	<%=
+	/* L10n: %s is the name of a software license. */
+	s('License: %s', license)
+	%>
+	</p>
+<% } %>
+
+</div>
+
+</div>
+</div>
