@@ -471,24 +471,11 @@ ul.menu {
     text-align: right;
     margin-bottom: 0;
   }
-  &.confirm .message {
-    font-size: 125%;
-    padding-left: 3.5em;
-  }
   &.prompt {
     .message, .prompt {
       font-size: 125%;
       padding-left: 3.5em;
     }
-  }
-  &.confirm .message:before {
-    content: '\f071';
-    font: 250% FontAwesome;
-    float: left;
-    margin-left: -1.5em;
-    position: relative;
-    top: 0.1em;
-    color: hsl(0, 0%, 80%);
   }
   &.prompt .message:before {
     content: '\f071';
@@ -499,14 +486,6 @@ ul.menu {
     top: 0.1em;
     color: hsl(0, 0%, 80%);
     content: '\f059';
-  }
-  &.confirm {
-    &.info .message:before {
-      content: '\f05a';
-    }
-    &.no-icon .message:before {
-      content: '';
-    }
   }
   &.prompt .prompt input[type="text"] {
     width: 100%;

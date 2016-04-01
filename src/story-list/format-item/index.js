@@ -2,7 +2,7 @@
 const Vue = require('vue');
 const _ = require('underscore');
 const locale = require('../../locale');
-const confirm = require('../../ui/confirm');
+const confirm = require('../../ui/confirm-modal');
 const StoryFormat = require('../../data/models/story-format');
 
 module.exports = Vue.extend({

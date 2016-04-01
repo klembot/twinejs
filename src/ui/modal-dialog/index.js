@@ -6,6 +6,9 @@ const {thenable, symbols:{resolve}} = require('../../common/vue-mixins.js');
 
 module.exports = Vue.extend({
 	data: () => ({}),
+	props: {
+		class: '',
+	},
 	template: require('./index.html'),
 	created() {
 		$('body').addClass('modalOpen')
@@ -21,9 +24,14 @@ module.exports = Vue.extend({
 	},
 	methods: {
 		close() {
-			this[resolve]();
+			this.$emit('close-dialog');
+		},
+	},
+	events: {
+		'close-dialog'(message) {
+			this[resolve](message);
 			this.$destroy(true);
-		}
+		},
 	},
 	mixins: [thenable],
 });

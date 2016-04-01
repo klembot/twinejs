@@ -10,7 +10,7 @@ const $ = require('jquery');
 const Vue = require('vue');
 const importer = require('../../file/importer');
 const locale = require('../../locale');
-const confirm = require('../../ui/confirm');
+const confirm = require('../../ui/confirm-modal');
 const notify = require('../../ui/notify');
 const publish = require('../../story-publish');
 const AppPref = require('../../data/models/app-pref');
@@ -50,6 +50,9 @@ module.exports = Vue.extend({
 
 		// What to order the <story-item-view>s by ('name'. 'lastUpdate').
 		order: 'name',
+
+		// What to name a new story.
+		newStoryName: '',
 	}),
 
 	computed: {
@@ -89,7 +92,7 @@ module.exports = Vue.extend({
 							' a donation. Twine is as an open source project that will always be free'+
 							' to use &mdash; and with your help, Twine will continue to thrive.'
 						) +
-						'<p class="signature" style="float:left; font-size:80%">' +
+						'<p class="signature" style="float:left; font-size:80%; width:130px; padding: 0 1em;">' +
 						'<img src="./img/klimas.png" style="display:block">' +
 						locale.say('Chris Klimas, Twine creator') + '</p>',
 					buttonLabel:
@@ -199,10 +202,16 @@ module.exports = Vue.extend({
 
 		createStory(e) {
 			const story = this.collection.create({
-				name: this.$('input.newName').val()
+				name: this.newStoryName,
 			});
+			this.newStoryName = '';
 
-			this.children.findByModel(story).edit();
+			Vue.nextTick(() => this.$children.forEach(child => {
+				if (child.model === story) {
+					child.edit();
+					return true;
+				}
+			}));
 			e.preventDefault();
 		},
 

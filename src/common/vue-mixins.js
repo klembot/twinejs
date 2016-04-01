@@ -28,7 +28,7 @@ module.exports = {
 			// promise will be settled as soon as that child's settles.
 			// This allows e.g. <format-modal> to contain a <modal-dialog>, and be dismissed
 			// when the inner dialog is dismissed.
-			this.$children.filter((child) => child.then === 'function')
+			this.$children.filter((child) => typeof child.then === 'function')
 				.forEach(({then, catch:_catch}) => {
 					then(this[symbols.resolve]);
 					_catch(this[symbols.reject]);
