@@ -13,11 +13,10 @@ const $ = require('jquery');
 const _ = require('underscore');
 const moment = require('moment');
 const Marionette = require('backbone.marionette');
-const confirm = require('../ui/confirm-modal');
 const locale = require('../locale');
 const notify = require('../ui/notify');
 const publish = require('../story-publish');
-const ui = require('../ui');
+const {confirm, hasPrimaryTouchUI} = require('../ui');
 const LinkManager = require('./link-manager');
 const Marquee = require('./marquee');
 const Passage = require('../data/models/passage');
@@ -233,7 +232,7 @@ module.exports = Marionette.CompositeView.extend({
 			parent: this
 		});
 
-		if (!ui.hasPrimaryTouchUI()) {
+		if (!hasPrimaryTouchUI()) {
 			this.marquee = new Marquee({
 				el: this.$('.passages'),
 				parent: this

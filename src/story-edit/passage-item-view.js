@@ -11,8 +11,7 @@ const $ = require('jquery');
 const _ = require('underscore');
 const Marionette = require('backbone.marionette');
 const locale = require('../locale');
-const confirm = require('../ui/confirm-modal');
-const ui = require('../ui');
+const {confirm, hasPrimaryTouchUI} = require('../ui');
 const Passage = require('../data/models/passage');
 const passageItemTemplate = require('./ejs/passage-item-view.ejs');
 
@@ -129,7 +128,7 @@ module.exports = Marionette.ItemView.extend({
 				_.escape(this.model.get('name'))
 			);
 
-			if (!ui.hasPrimaryTouchUI()) {
+			if (!hasPrimaryTouchUI()) {
 				message += '<br><br>' + locale.say(
 					'(Hold the Shift key when deleting to skip this message.)'
 				);
