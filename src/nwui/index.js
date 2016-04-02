@@ -10,7 +10,6 @@
 'use strict';
 const $ = require('jquery');
 const _ = require('underscore');
-const Marionette = require('backbone.marionette');
 const importer = require('../file/importer');
 const locale = require('../locale');
 const notify = require('../ui/notify');
@@ -20,7 +19,6 @@ const StoryCollection = require('../data/collections/story');
 const StoryListView = require('../story-list/story-list-view');
 const patchWelcomeView = require('./patch-welcome-view');
 const startupErrorTemplate = require('./ejs/startup-error.ejs');
-const welcomeViewNwTemplate = require('./ejs/welcome-view-nw.ejs');
 let QuotaGauge = require('../quota-gauge');
 
 const nwui = module.exports = {
