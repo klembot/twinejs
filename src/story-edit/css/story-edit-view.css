@@ -376,6 +376,10 @@ body.iOS .editModal
 	bottom: 0;
 }
 
+.editModal .fullEdit > div {
+	height: 100%;
+}
+
 .editModal .fullEdit .CodeMirror
 {
 	background: linear-gradient(to bottom, hsl(0, 0%, 90%) 0, hsl(0, 0%, 97%) 0.5em);

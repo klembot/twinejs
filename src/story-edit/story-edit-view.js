@@ -27,7 +27,6 @@ const Search = require('./search');
 const SearchModal = require('./modals/search-modal');
 const StoryFormatModal = require('./modals/story-format-modal');
 const StatsModal = require('./modals/stats-modal');
-const StyleEditor = require('./editors/style-editor');
 const Toolbar = require('./toolbar');
 const storyEditTemplate = require('./ejs/story-edit-view.ejs');
 
@@ -209,10 +208,6 @@ module.exports = Marionette.CompositeView.extend({
 		});
 		this.scriptEditor = new ScriptEditor({
 			el: this.$('#scriptEditModal'),
-			parent: this
-		});
-		this.styleEditor = new StyleEditor({
-			el: this.$('#stylesheetEditModal'),
 			parent: this
 		});
 		this.search = new Search({
