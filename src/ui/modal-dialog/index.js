@@ -1,37 +1,65 @@
 const Vue = require('vue');
-// The jQuery dependency is solely to provide namespaced event management.
-// Sadly, Vue's @keydown doesn't work for non-<input> elements.
-const $ = require('jquery');
-const {thenable, symbols:{resolve}} = require('../../common/vue-mixins.js');
+const {thenable, symbols:{resolve}} = require('../../vue/mixins.js');
 
 module.exports = Vue.extend({
-	data: () => ({}),
-	props: {
-		class: '',
-	},
 	template: require('./index.html'),
-	created() {
-		$('body').addClass('modalOpen')
-			.on('keypress.modal-dialog', e => {
-				if ((e.key + '').slice(0,3) === "Esc") {
-					e.preventDefault();
-					this.close();
-				}
-			});
+
+	data: () => ({}),
+
+	props: {
+		class: ''
 	},
+
+	ready() {
+		let body = document.querySelector('body');
+
+		body.classList.add('modalOpen');
+		this.escapeCloser = this.escapeCloser.bind(this);
+		body.addEventListener('keyup', this.escapeCloser);
+
+		// We have to listen manually to the end of the transition in order
+		// to an emit an event when this occurs; it looks like Vue only
+		// consults the top-level element to see when the transition is
+		// complete.
+
+		const dialog = this.$el.querySelector('.modalDialog');
+		const notifier = () => {
+			this.$emit('opened');
+			dialog.removeEventListener('transitionend', notifier);
+		};
+
+		this.$el.querySelector('.modalDialog').addEventListener(
+			'transitionend',
+			notifier
+		);
+	},
+
 	destroyed() {
-		$('body').removeClass('modalOpen').off('keypress.modal-dialog');
+		let body = document.querySelector('body');
+
+		body.classList.remove('modalOpen');
+		body.removeEventListener('keyup', this.escapeCloser);
 	},
+
 	methods: {
 		close() {
-			this.$emit('close-dialog');
+			this.$emit('close');
 		},
+
+		escapeCloser(e) {
+			if (e.keyCode === 27) {
+				e.preventDefault();
+				this.close();
+			}
+		}
 	},
+
 	events: {
-		'close-dialog'(message) {
+		close(message) {
 			this[resolve](message);
 			this.$destroy(true);
 		},
 	},
-	mixins: [thenable],
+
+	mixins: [thenable]
 });

@@ -1,0 +1,43 @@
+// A lightweight Vue component that wraps a CodeMirror instance.
+
+const Vue = require('vue');
+const CodeMirror = require('codemirror');
+
+module.exports = Vue.extend({
+	template: '<div></div>',
+	
+	data: () => ({
+		text: ''
+	}),
+
+	props: ['options', 'initialText'],
+
+	watch: {
+		'text': function() {
+			// Only change CodeMirror if it's actually a meaningful change,
+			// e.g. not the result of CodeMirror itself changing.
+
+			if (this.text !== this.cm.getValue()) {
+				this.cm.setValue(this.text);
+			}
+		}
+	},
+
+	ready() {
+		this.$nextTick(() => {
+			this.cm = CodeMirror(this.$el, this.options);
+
+			if (this.initialText) {
+				this.cm.setValue(this.initialText);
+			}
+
+			this.cm.on('change', () => {
+				this.text = this.cm.getValue();
+				this.$dispatch('change', this.text);
+			});
+		});
+	}
+});
+
+
+
