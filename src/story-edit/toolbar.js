@@ -12,6 +12,7 @@ const Backbone = require('backbone');
 const moment = require('moment');
 const locale = require('../locale');
 const prompt = require('../ui/prompt');
+const StylesheetEditor = require('../editors/stylesheet');
 
 module.exports = Backbone.View.extend({
 	initialize(options) {
@@ -108,7 +109,7 @@ module.exports = Backbone.View.extend({
 		},
 
 		'click .editStyle'() {
-			this.parent.styleEditor.open();
+			new StylesheetEditor({ data: { model: this.parent.model } }).$mountTo(document.body);
 		},
 
 		'click .renameStory'() {

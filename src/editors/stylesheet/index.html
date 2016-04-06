@@ -1,0 +1,15 @@
+<modal-dialog class="editModal" @opened="opened">
+	<h2 class="title">
+	{{ 'Stylesheet' | say }}
+	</h2>
+
+	<div class="content">
+		<p>
+		{{ 'Any CSS entered here will override the default appearance of your story.' | say }}
+		</p>
+
+		<div class="fullEdit">
+			<codemirror :options="cmOptions" :initial-text="model.get('stylesheet')" @change="cmChanged" v-ref:codemirror></codemirror>
+		</div>
+	</div>
+</modal-dialog>
