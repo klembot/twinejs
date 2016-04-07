@@ -12,6 +12,7 @@ const Backbone = require('backbone');
 const moment = require('moment');
 const locale = require('../locale');
 const prompt = require('../ui/prompt');
+const StatsModal = require('../modals/story-stats');
 const StylesheetEditor = require('../editors/stylesheet');
 
 module.exports = Backbone.View.extend({
@@ -151,7 +152,7 @@ module.exports = Backbone.View.extend({
 		},
 
 		'click .storyStats'() {
-			this.parent.statsModal.open();
+			new StatsModal({ data: { story: this.parent.model, passages: this.parent.collection.models } }).$mountTo(document.body);
 		},
 
 		'click .changeFormat'() {

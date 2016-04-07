@@ -567,15 +567,3 @@ body.iOS .editModal
 {
 	font-size: 90%;
 }
-
-#statsModal table
-{
-	margin: 0 auto;
-	font-size: 120%;
-}
-
-#statsModal td:first-child
-{
-	text-align: right;
-	font-weight: bold;
-}
