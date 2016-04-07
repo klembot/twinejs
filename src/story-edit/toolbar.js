@@ -13,6 +13,7 @@ const moment = require('moment');
 const locale = require('../locale');
 const prompt = require('../ui/prompt');
 const StatsModal = require('../modals/story-stats');
+const JavaScriptEditor = require('../editors/javascript');
 const StylesheetEditor = require('../editors/stylesheet');
 
 module.exports = Backbone.View.extend({
@@ -106,7 +107,7 @@ module.exports = Backbone.View.extend({
 
 	events: {
 		'click .editScript'() {
-			this.parent.scriptEditor.open();
+			new JavaScriptEditor({ data: { model: this.parent.model } }).$mountTo(document.body);
 		},
 
 		'click .editStyle'() {

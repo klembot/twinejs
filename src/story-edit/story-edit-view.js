@@ -22,11 +22,9 @@ const Marquee = require('./marquee');
 const Passage = require('../data/models/passage');
 const PassageEditor = require('./editors/passage-editor');
 const PassageItemView = require('./passage-item-view');
-const ScriptEditor = require('./editors/script-editor');
 const Search = require('./search');
 const SearchModal = require('./modals/search-modal');
 const StoryFormatModal = require('./modals/story-format-modal');
-const StatsModal = require('./modals/stats-modal');
 const Toolbar = require('./toolbar');
 const storyEditTemplate = require('./ejs/story-edit-view.ejs');
 
@@ -206,10 +204,6 @@ module.exports = Marionette.CompositeView.extend({
 			el: this.$('#passageEditModal'),
 			parent: this
 		});
-		this.scriptEditor = new ScriptEditor({
-			el: this.$('#scriptEditModal'),
-			parent: this
-		});
 		this.search = new Search({
 			el: this.$('.searchContainer'),
 			parent: this
@@ -220,10 +214,6 @@ module.exports = Marionette.CompositeView.extend({
 		});
 		this.storyFormatModal = new StoryFormatModal({
 			el: this.$('#storyFormatModal'),
-			parent: this
-		});
-		this.statsModal = new StatsModal({
-			el: this.$('#statsModal'),
 			parent: this
 		});
 

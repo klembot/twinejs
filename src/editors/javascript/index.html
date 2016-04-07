@@ -1,0 +1,15 @@
+<modal-dialog class="editModal" @opened="opened">
+	<h2 class="title">
+	{{ 'JavaScript' | say }}
+	</h2>
+
+	<div class="content">
+		<p>
+		{{ 'Any JavaScript entered here will immediately run when your story is opened in a Web browser.' | say }}
+		</p>
+
+		<div class="fullEdit">
+			<codemirror :options="cmOptions" :initial-text="model.get('javascript')" @change="cmChanged" v-ref:codemirror></codemirror>
+		</div>
+	</div>
+</modal-dialog>
