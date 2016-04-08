@@ -5,38 +5,35 @@ const CodeMirror = require('codemirror');
 
 module.exports = Vue.extend({
 	template: '<div></div>',
-	
-	data: () => ({
-		text: ''
-	}),
 
-	props: ['options', 'initialText'],
+	props: ['options', 'text'],
 
 	watch: {
-		'text': function() {
+		text() {
 			// Only change CodeMirror if it's actually a meaningful change,
 			// e.g. not the result of CodeMirror itself changing.
 
 			if (this.text !== this.cm.getValue()) {
 				this.cm.setValue(this.text);
 			}
-		}
+		},
 	},
 
-	ready() {
-		this.$nextTick(() => {
-			this.cm = CodeMirror(this.$el, this.options);
+	compiled() {
+		this.cm = CodeMirror(this.$el, this.options);
 
-			if (this.initialText) {
-				this.cm.setValue(this.initialText);
-			}
+		this.cm.setValue((this.text || '') + '');
 
-			this.cm.on('change', () => {
-				this.text = this.cm.getValue();
-				this.$dispatch('change', this.text);
-			});
+		this.cm.on('change', () => {
+			this.text = this.cm.getValue();
+			this.$dispatch('cmChange', this.text);
 		});
-	}
+	},
+
+	attached() {
+		this.cm.refresh();
+		this.cm.focus();
+	},
 });
 
 

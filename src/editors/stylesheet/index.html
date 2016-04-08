@@ -1,4 +1,4 @@
-<modal-dialog class="editModal" @opened="opened">
+<modal-dialog class="editModal">
 	<h2 class="title">
 	{{ 'Stylesheet' | say }}
 	</h2>
@@ -9,7 +9,7 @@
 		</p>
 
 		<div class="fullEdit">
-			<codemirror :options="cmOptions" :initial-text="model.get('stylesheet')" @change="cmChanged" v-ref:codemirror></codemirror>
+			<code-mirror :options="cmOptions" :text="text" v-ref:codemirror></code-mirror>
 		</div>
 	</div>
 </modal-dialog>
