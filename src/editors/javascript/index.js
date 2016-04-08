@@ -9,9 +9,11 @@ module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	data: () => ({
-		model: Object,
+		model: null,
+	}),
 
-		cmOptions: {
+	computed: {
+		cmOptions: () => ({
 			lineWrapping: true,
 			lineNumbers: false,
 			tabSize: 2,
@@ -22,22 +24,20 @@ module.exports = Vue.extend({
 					cm.showHint();
 				}
 			}
-		}
-	}),
-	
-	methods: {
-		opened() {
-			this.$refs.codemirror.cm.refresh();
-			this.$refs.codemirror.cm.focus();
+		}),
+		text() {
+			return this.model.get('javascript');
 		},
-
-		cmChanged(text) {
+	},
+	
+	events: {
+		cmChange(text) {
 			this.model.save({ javascript: text });
 		}
 	},
 	
 	components: {
 		'modal-dialog': require('../../ui/modal-dialog'),
-		'codemirror': require('../../vue/codemirror')
+		'code-mirror': require('../../vue/codemirror')
 	}
 });
