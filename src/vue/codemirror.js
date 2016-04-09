@@ -31,8 +31,16 @@ module.exports = Vue.extend({
 	},
 
 	attached() {
-		this.cm.refresh();
 		this.cm.focus();
+	},
+
+	events: {
+		// Since CodeMirror initialises incorrectly when special CSS such as
+		// scaleY is present on its containing element, it should be
+		// refreshed once transition is finished - hence, this event.
+		'transition-in'() {
+			this.cm.refresh();
+		},
 	},
 });
 
