@@ -26,7 +26,7 @@ module.exports = Vue.extend({
 		const notifier = () => {
 			// This event is currently only listened to by
 			// <code-mirror> child components.
-			this.$broadcast('transition-in');
+			this.$broadcast('transition-entered');
 			dialog.removeEventListener('transitionend', notifier);
 		};
 
