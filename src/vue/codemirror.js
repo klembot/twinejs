@@ -26,7 +26,7 @@ module.exports = Vue.extend({
 
 		this.cm.on('change', () => {
 			this.text = this.cm.getValue();
-			this.$dispatch('cmChange', this.text);
+			this.$dispatch('cm-change', this.text);
 		});
 	},
 

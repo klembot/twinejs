@@ -30,8 +30,8 @@ module.exports = Vue.extend({
 		},
 	},
 
-	events: {
-		cmChange(text) {
+	methods: {
+		save(text) {
 			this.model.save({ stylesheet: text });
 		}
 	},
