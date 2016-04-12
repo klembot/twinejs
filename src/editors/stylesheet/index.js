@@ -31,6 +31,10 @@ module.exports = Vue.extend({
 	},
 
 	methods: {
+		resetCm() {
+			this.$refs.codemirror.reset();
+		},
+
 		save(text) {
 			this.model.save({ stylesheet: text });
 		}
