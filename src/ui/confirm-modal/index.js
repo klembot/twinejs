@@ -7,7 +7,7 @@
 'use strict';
 const locale = require('../../locale');
 const Vue = require('vue');
-const {thenable} = require('../../vue/mixins.js');
+const {thenable} = require('../../vue/mixins/thenable');
 
 /**
  Shows a modal confirmation dialog, with one button (to continue the action)
