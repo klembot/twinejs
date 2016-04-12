@@ -1,5 +1,5 @@
 const Vue = require('vue');
-const {thenable, symbols:{resolve}} = require('../../vue/mixins.js');
+const {thenable, symbols:{resolve}} = require('../../vue/mixins/thenable');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),

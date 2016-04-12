@@ -107,11 +107,11 @@ module.exports = Backbone.View.extend({
 
 	events: {
 		'click .editScript'() {
-			new JavaScriptEditor({ data: { model: this.parent.model } }).$mountTo(document.body);
+			new JavaScriptEditor({ model: this.parent.model }).$mountTo(document.body);
 		},
 
 		'click .editStyle'() {
-			new StylesheetEditor({ data: { model: this.parent.model } }).$mountTo(document.body);
+			new StylesheetEditor({ model: this.parent.model }).$mountTo(document.body);
 		},
 
 		'click .renameStory'() {

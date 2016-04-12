@@ -1,3 +1,7 @@
+// This mixin makes a component usable as a Promise: you can call .then()
+// and .catch() on then to perform actions, and perform them when the
+// component is "done", using this.promise.resolve().
+
 'use strict';
 const Symbol = (window.Symbol || Math.random);
 
@@ -8,9 +12,6 @@ const symbols = {
 };
 
 module.exports = {
-	// "thenable" makes a component usable as a Promise:
-	// you can call .then() and .catch() on then to perform actions,
-	// and perform them when the component is "done", using this.promise.resolve(),
 	thenable: {
 		init() {
 			const promise = new Promise((resolve, reject) => {
@@ -35,5 +36,6 @@ module.exports = {
 				});
 		},
 	},
-	symbols,
+
+	symbols
 };
