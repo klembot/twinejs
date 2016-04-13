@@ -26,11 +26,13 @@ module.exports = {
 	created() {
 		// Set up two-way bindings.
 
-		Object.keys(this.$model.attributes).forEach((key) => {
+		const modelJSON = this.$model.toJSON();
+
+		Object.keys(modelJSON).forEach((key) => {
 			if (this[key] !== undefined) {
 				// Set the initial value.
 
-				this[key] = this.$model.get(key);
+				this[key] = modelJSON[key];
 
 				// When the Vue model has changed, update the Backbone one.
 
