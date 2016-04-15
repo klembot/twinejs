@@ -13,25 +13,24 @@ module.exports = Vue.extend({
 			// Only change CodeMirror if it's actually a meaningful change,
 			// e.g. not the result of CodeMirror itself changing.
 
-			if (this.text !== this.cm.getValue()) {
-				this.cm.setValue(this.text);
+			if (this.text !== this.$cm.getValue()) {
+				this.$cm.setValue(this.text);
 			}
 		},
 	},
 
 	compiled() {
-		this.cm = CodeMirror(this.$el, this.options);
+		this.$cm = CodeMirror(this.$el, this.options);
+		this.$cm.setValue((this.text || '') + '');
 
-		this.cm.setValue((this.text || '') + '');
-
-		this.cm.on('change', () => {
-			this.text = this.cm.getValue();
+		this.$cm.on('change', () => {
+			this.text = this.$cm.getValue();
 			this.$dispatch('cm-change', this.text);
 		});
 	},
 
 	attached() {
-		this.cm.focus();
+		this.$cm.focus();
 	},
 
 	events: {
@@ -39,7 +38,7 @@ module.exports = Vue.extend({
 		// scaleY is present on its containing element, it should be
 		// refreshed once transition is finished - hence, this event.
 		'transition-entered'() {
-			this.cm.refresh();
+			this.$cm.refresh();
 		},
 	},
 });

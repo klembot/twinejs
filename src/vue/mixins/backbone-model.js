@@ -49,7 +49,7 @@ module.exports = {
 	},
 
 	destroyed() {
-		this.model.off('change', this.$backboneModelAdaptor);
+		this.$model.off('change', this.$backboneModelAdaptor);
 	}
 };
 

@@ -392,52 +392,6 @@ body.iOS .editModal
 	padding: 0.75em 2em 0.25em 2em;
 }
 
-#passageEditModal .passageName
-{
-	display: block;
-	width: 100%;
-	padding-bottom: 0.1em;
-	font-size: 125%;
-}
-
-#passageEditModal .error
-{
-	margin-bottom: 0.5em;
-}
-
-#passageEditModal .passageTags
-{
-	padding-bottom: 0.5em;
-	font-size: 90%;
-	overflow-x: auto;
-	white-space: nowrap;
-}
-
-#passageEditModal .passageTags span
-{
-	display: inline-block;
-}
-
-#passageEditModal .passageTags .tag
-{
-	margin-right: 0.5em;
-}
-
-#passageEditModal .passageTags button.link
-{
-	margin-left: 1em;
-}
-
-#passageEditModal .fullEdit
-{
-	top: 8.5em;
-}
-
-#passageEditModal.hasError .fullEdit
-{
-	top: 10.5em;
-}
-
 #renameStoryModal input[type="text"]
 {
 	width: 100%;

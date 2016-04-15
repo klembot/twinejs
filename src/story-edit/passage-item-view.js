@@ -13,6 +13,7 @@ const Marionette = require('backbone.marionette');
 const locale = require('../locale');
 const {confirm, hasPrimaryTouchUI} = require('../ui');
 const Passage = require('../data/models/passage');
+const PassageEditor = require('../editors/passage');
 const passageItemTemplate = require('./ejs/passage-item-view.ejs');
 
 module.exports = Marionette.ItemView.extend({
@@ -166,8 +167,10 @@ module.exports = Marionette.ItemView.extend({
 	**/
 
 	edit() {
-		this.parentView.passageEditor.model = this.model;
-		this.parentView.passageEditor.open();
+		new PassageEditor({
+			model: this.model,
+			collection: this.parentView.model.fetchPassages().models
+		}).$mountTo(document.body);
 	},
 
 	/**
