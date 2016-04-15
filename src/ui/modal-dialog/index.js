@@ -7,7 +7,11 @@ module.exports = Vue.extend({
 	data: () => ({}),
 
 	props: {
-		class: ''
+		class: '',
+		canClose: {
+			type: Function,
+			required: false
+		}
 	},
 
 	ready() {
@@ -41,10 +45,15 @@ module.exports = Vue.extend({
 
 		body.classList.remove('modalOpen');
 		body.removeEventListener('keyup', this.escapeCloser);
+		this.$emit('destroyed');
 	},
 
 	methods: {
 		close() {
+			if (typeof this.canClose === 'function' && ! this.canClose()) {
+				return;
+			}
+
 			this.$emit('close');
 		},
 

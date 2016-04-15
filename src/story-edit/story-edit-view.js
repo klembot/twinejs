@@ -20,7 +20,6 @@ const {confirm, hasPrimaryTouchUI} = require('../ui');
 const LinkManager = require('./link-manager');
 const Marquee = require('./marquee');
 const Passage = require('../data/models/passage');
-const PassageEditor = require('./editors/passage-editor');
 const PassageItemView = require('./passage-item-view');
 const Search = require('./search');
 const SearchModal = require('./modals/search-modal');
@@ -198,10 +197,6 @@ module.exports = Marionette.CompositeView.extend({
 		});
 		this.toolbar = new Toolbar({
 			el: this.$('.toolbar'),
-			parent: this
-		});
-		this.passageEditor = new PassageEditor({
-			el: this.$('#passageEditModal'),
 			parent: this
 		});
 		this.search = new Search({
