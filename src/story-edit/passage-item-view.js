@@ -14,6 +14,7 @@ const locale = require('../locale');
 const {confirm, hasPrimaryTouchUI} = require('../ui');
 const Passage = require('../data/models/passage');
 const PassageEditor = require('../editors/passage');
+const StoryFormat = require('../data/models/story-format');
 const passageItemTemplate = require('./ejs/passage-item-view.ejs');
 
 module.exports = Marionette.ItemView.extend({
@@ -169,7 +170,10 @@ module.exports = Marionette.ItemView.extend({
 	edit() {
 		new PassageEditor({
 			model: this.model,
-			collection: this.parentView.model.fetchPassages().models
+			collection: this.parentView.model.fetchPassages().models,
+			storyFormat: StoryFormat.withName(
+				this.parentView.model.get('storyFormat')
+			)
 		}).$mountTo(document.body);
 	},
 
