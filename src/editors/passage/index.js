@@ -7,6 +7,10 @@ const backboneModel = require('../../vue/mixins/backbone-model');
 require('codemirror/addon/display/placeholder');
 require('../../codemirror-ext/prefix-trigger');
 
+// Expose CodeMirror to story formats, currently for Harlowe compatibility.
+
+window.CodeMirror = CodeMirror;
+
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
@@ -140,6 +144,33 @@ module.exports = Vue.extend({
 		// from the collection property.
 
 		this.autocompletions = this.$options.collection.map((passage) => passage.get('name'));
+
+		// If we have been given a story format as option, load it and see if
+		// it offers a CodeMirror mode.
+
+		if (this.$options.storyFormat) {
+			this.$options.storyFormat.load((err) => {
+				const modeName = this.$options.storyFormat.get('name').toLowerCase();
+				
+				if (!err && modeName in CodeMirror.modes) {
+					// This is a small hack to allow modes such as Harlowe to
+					// access the full text of the textarea, permitting its
+					// lexer to grow a syntax tree by itself.
+
+					CodeMirror.modes[modeName].cm = this.$refs.codemirror.$cm;
+
+					// Now that's done, we can assign the mode and trigger a
+					// re-render.
+
+					this.$refs.codemirror.$cm.setOption('mode', modeName);
+				}
+			});
+		}
+
+		// Set the mode to the default, 'text'. The above callback will reset
+		// it if it fires.
+
+		this.$refs.codemirror.$cm.setOption('mode', 'text');
 	},
 
 	destroyed() {
