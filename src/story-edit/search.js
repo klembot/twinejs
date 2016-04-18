@@ -8,6 +8,7 @@
 'use strict';
 const _ = require('underscore');
 const Backbone = require('backbone');
+const SearchModal = require('../modals/story-search');
 
 module.exports = Backbone.View.extend({
 	initialize(options) {
@@ -83,6 +84,13 @@ module.exports = Backbone.View.extend({
 				this.clear();
 			}
 
-		}, 100)
+		}, 100),
+
+		'click .showSearch'() {
+			new SearchModal({
+				data: { passages: this.parent.collection.models
+				}
+			}).$mountTo(document.body);
+		}
 	}
 });
