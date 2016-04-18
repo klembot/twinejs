@@ -1,20 +1,15 @@
 'use strict';
 require('es6-promise');
 const locale = require('./locale');
+const mountMixin = require('./vue/mixins/mount-to');
+const localeFilters = require('./vue/filters/locale');
 
-// Vue setup
+// Vue setup.
 
 const Vue = require('vue');
-Vue.mixin({
-	methods: {
-		$mountTo(el) {
-			const mountPoint = document.createElement('div');
-			this.$mount(mountPoint).$appendTo(el);
-			return this;
-		},
-	},
-});
-Vue.filter('say', locale.say.bind(locale));
+Vue.config.debug = true;
+Vue.mixin(mountMixin);
+localeFilters.addTo(Vue);
 
 // bootstrap app after loading localization, if any
 
