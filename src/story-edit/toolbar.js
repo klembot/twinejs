@@ -12,7 +12,9 @@ const Backbone = require('backbone');
 const moment = require('moment');
 const locale = require('../locale');
 const prompt = require('../ui/prompt');
+const FormatModal = require('../modals/story-format');
 const StatsModal = require('../modals/story-stats');
+const StoryFormatCollection = require('../data/collections/story-format');
 const JavaScriptEditor = require('../editors/javascript');
 const StylesheetEditor = require('../editors/stylesheet');
 
@@ -153,11 +155,21 @@ module.exports = Backbone.View.extend({
 		},
 
 		'click .storyStats'() {
-			new StatsModal({ data: { story: this.parent.model, passages: this.parent.collection.models } }).$mountTo(document.body);
+			new StatsModal({
+				data: {
+					story: this.parent.model,
+					passages: this.parent.collection.models
+				}
+			}).$mountTo(document.body);
 		},
 
 		'click .changeFormat'() {
-			this.parent.storyFormatModal.open();
+			new FormatModal({
+				data: {
+					story: this.parent.model,
+					formats: StoryFormatCollection.all().models
+				}
+			}).$mountTo(document.body);
 		},
 
 		'click .zoomBig, .zoomMedium, .zoomSmall'(e) {

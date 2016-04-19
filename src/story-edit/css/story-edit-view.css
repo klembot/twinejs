@@ -397,54 +397,6 @@ body.iOS .editModal
 	width: 100%;
 }
 
-#searchModal textarea
-{
-	display: block;
-	width: 100%;
-	box-sizing: border-box;
-}
-
-#searchModal label
-{
-	padding-right: 2em;
-}
-
-#searchModal .passageName
-{
-	margin: 0.125em inherit;
-}
-
-#searchModal .passageName .controls
-{
-	float: right;
-}
-
-#searchModal pre
-{
-	font: 90% "Source Code Pro", monospace;
-	white-space: pre-wrap;
-	max-height: 5em;
-	overflow: auto;
-	background-color: hsl(0, 0%, 95%);
-	padding: 0.5em;
-	margin-top: 0;	
-}
-
-#searchModal .resultSummary .matches
-{
-	line-height: 250%;
-}
-
-#searchModal .resultSummary .controls
-{
-	float: right;
-}
-
-#searchModal .highlight
-{
-	background-color: hsl(60, 100%, 50%);
-}
-
 #storyFormatModal .formats button.select
 {
 	float: left;
