@@ -21,7 +21,6 @@ const LinkManager = require('./link-manager');
 const Marquee = require('./marquee');
 const Passage = require('../data/models/passage');
 const PassageItemView = require('./passage-item-view');
-const Search = require('./search');
 const Toolbar = require('./toolbar');
 const storyEditTemplate = require('./ejs/story-edit-view.ejs');
 
@@ -195,10 +194,6 @@ module.exports = Marionette.CompositeView.extend({
 		});
 		this.toolbar = new Toolbar({
 			el: this.$('.toolbar'),
-			parent: this
-		});
-		this.search = new Search({
-			el: this.$('.searchContainer'),
 			parent: this
 		});
 
