@@ -13,6 +13,7 @@ const moment = require('moment');
 const locale = require('../locale');
 const prompt = require('../ui/prompt');
 const FormatModal = require('../modals/story-format');
+const Search = require('./toolbar/search');
 const StatsModal = require('../modals/story-stats');
 const StoryFormatCollection = require('../data/collections/story-format');
 const JavaScriptEditor = require('../editors/javascript');
@@ -27,6 +28,11 @@ module.exports = Backbone.View.extend({
 		this.listenTo(this.parent.model, 'change:name', this.syncStoryName);
 		this.listenTo(this.parent.model, 'update', this.syncStorySaved);
 		this.listenTo(this.parent.collection, 'update', this.syncStorySaved);
+
+		new Search({ data: {
+			parent: this.parent,
+			passageViews: this.parent.children
+		} }).$mountTo(this.$('.search')[0]);
 	},
 
 	/**
