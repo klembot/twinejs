@@ -20,9 +20,9 @@ const AppPref = require('../data/models/app-pref');
 const LocaleView = require('../locale/view');
 const Story = require('../data/models/story');
 const StoryCollection = require('../data/collections/story');
-const StoryEditView = require('../story-edit/story-edit-view');
+const StoryEditView = require('../story-edit-view');
 const StoryFormat = require('../data/models/story-format');
-const StoryListView = require('../story-list/story-list-view');
+const StoryListView = require('../story-list-view');
 const WelcomeView = require('../welcome');
 
 module.exports = Backbone.Router.extend({

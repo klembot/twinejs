@@ -3,7 +3,6 @@
 **/
 
 'use strict';
-const $ = require('jquery');
 const Vue = require('vue');
 const locale = require('../index');
 const AppPref = require('../../data/models/app-pref');

@@ -8,7 +8,7 @@
 
 'use strict';
 const Marionette = require('backbone.marionette');
-const StoryEditView = require('../story-edit/story-edit-view');
+const StoryEditView = require('../story-edit-view');
 
 module.exports = Marionette.Region.extend({
 	initialize() {

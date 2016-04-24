@@ -1,0 +1,10 @@
+<div>
+	<p class="tabs-panel">
+		<button v-for="t in $children" :class="{active: ($index === active)}"
+			:style="{width: singleWidthPercent + '%'}"
+			@click.prevent="this.active = $index">{{ t.name | say}}</button>
+	</p>
+	<div class="tabContent">
+		<slot></slot>
+	</div>
+</div>
