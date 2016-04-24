@@ -7,6 +7,7 @@
 // Jed expects some keys with underscores.
 // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
 
+const $ = require('jquery');
 const Jed = require('jed');
 const moment = require('moment');
 

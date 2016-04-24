@@ -7,7 +7,6 @@
 'use strict';
 const $ = require('jquery');
 const fastclick = require('fastclick');
-const ConfirmModal = require('./confirm-modal');
 
 const ui = module.exports = {
 	/**
@@ -103,24 +102,5 @@ const ui = module.exports = {
 		return /Android|iPod|iPad|iPhone|IEMobile/.test(
 			window.navigator.userAgent
 		);
-	},
-
-	/**
-	 Creates a <confirm-modal> dialog using the given data, and returns
-	 its promise, which rejects if the 'cancel' button was selected.
-
-	 @return {Promise} the modal's promise.
-	*/
-	confirm: (data) =>
-		new ConfirmModal({data}).$mountTo(document.body).then(result => {
-			// False results are produced by the close button and the cancel
-			// button. If the result is false, convert it into a rejection.
-
-			// Note: this may change in the future, as using rejections for negative
-			// results is somewhat unidiomatic.
-			if (!result) {
-				throw result;
-			}
-			return result;
-		}),
+	}
 };

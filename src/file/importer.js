@@ -8,7 +8,7 @@
 const _ = require('underscore');
 const StoryCollection = require('../data/collections/story');
 const PassageCollection = require('../data/collections/passage');
-const {confirm} = require('../ui');
+const { confirm } = require('../dialogs/confirm');
 const locale = require('../locale');
 
 const importer = module.exports = {
