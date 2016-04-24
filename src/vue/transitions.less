@@ -17,3 +17,15 @@
 	transform: translateY(10%);
 	opacity: 0;
 }
+
+.grow-in-out-transition {
+	transition: 0.5s transform, 0.5s opacity;
+	transform: none;
+	opacity: 1;
+}
+
+.grow-in-out-enter, .grow-in-out-leave {
+	transform: scale(0.75);
+	opacity: 0;
+}
+

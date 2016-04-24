@@ -1,5 +1,5 @@
-// This mixin links data properties to a Backbone model instance. The model
-// has to be set as an Vue option, and will be made available to the
+// This mixin links data properties to a Backbone model instance. The model has
+// to be set as an Vue option or prop, and will be made available to the
 // instance as `$model` (though this is a just-in-case feature -- normally, you
 // will want to access it via the data properties).
 //
@@ -8,7 +8,7 @@
 // 
 // The concept for this is taken from http://jsfiddle.net/x1jeawzv/2/.
 
-function backboneAdaptor(model) {
+function changeAdaptor(model) {
 	Object.keys(model.changedAttributes()).forEach(
 		(key) => {
 			if (this[key] !== undefined) {
@@ -24,6 +24,10 @@ module.exports = {
 	},
 
 	created() {
+		// If the model wasn't set as an option, then try it as a prop.
+
+		this.$model = this.$model || this.model;
+
 		// Set up two-way bindings.
 
 		const modelJSON = this.$model.toJSON();
@@ -44,12 +48,12 @@ module.exports = {
 
 		// Set up the Backbone -> Vue connection.
 
-		this.$backboneModelAdaptor = backboneAdaptor.bind(this);
-		this.$model.on('change', this.$backboneModelAdaptor);
+		this.$backboneChangeAdaptor = changeAdaptor.bind(this);
+		this.$model.on('change', this.$backboneChangeAdaptor);
 	},
 
 	destroyed() {
-		this.$model.off('change', this.$backboneModelAdaptor);
+		this.$model.off('change', this.$backboneChangeAdaptor);
 	}
 };
 

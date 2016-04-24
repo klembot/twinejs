@@ -2,6 +2,7 @@
 require('es6-promise');
 const locale = require('./locale');
 const mountMixin = require('./vue/mixins/mount-to');
+const tooltipDirective = require('./vue/directives/tooltip');
 const localeFilters = require('./vue/filters/locale');
 
 // Vue setup.
@@ -10,6 +11,7 @@ const Vue = require('vue');
 Vue.config.debug = true;
 Vue.mixin(mountMixin);
 localeFilters.addTo(Vue);
+tooltipDirective.addTo(Vue);
 
 // bootstrap app after loading localization, if any
 
