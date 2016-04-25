@@ -29,7 +29,10 @@ module.exports = Vue.extend({
 		**/
 
 		searchFor(search, flags) {
+			// If the search is empty, unhighlight all passages.
+
 			if (search === '') {
+				this.passageViews.each(view => view.unhighlight());
 				return;
 			}
 
