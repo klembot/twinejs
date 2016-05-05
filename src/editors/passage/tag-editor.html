@@ -11,10 +11,13 @@
 	</template>
 
 	<span v-show="newVisible" transition="fade-in-out">
-		<!-- L10n: A noun, i.e. what a tag is named. -->
-		<input type="text" placeholder="{{ 'Tag name' | say }}" required v-el:new-name>
+		<!-- Using a <form> allows the "required" attribute on the input to be usable. -->
+		<form @submit.prevent="addNew">
+			<!-- L10n: A noun, i.e. what a tag is named. -->
+			<input type="text" placeholder="{{ 'Tag name' | say }}" required v-el:new-name>
 
-		<button type="button" class="link" @click="hideNew"><i class="fa fa-times"></i></button>
-		<button type="button" class="link" @click="addNew"><i class="fa fa-check"></i></button>
+			<button type="button" class="link" @click="hideNew"><i class="fa fa-times"></i></button>
+			<button type="submit" class="link"><i class="fa fa-check"></i></button>
+		</form>
 	</span>
 </div>
