@@ -5,7 +5,6 @@ const locale = require('../../locale');
 const AboutDialog = require('../../dialogs/about');
 const FormatsDialog = require('../../dialogs/formats');
 const ImportDialog = require('../../dialogs/story-import');
-const StoryCollection = require('../../data/collections/story');
 const { prompt } = require('../../dialogs/prompt');
 const publish = require('../../story-publish');
 
@@ -16,7 +15,7 @@ module.exports = Vue.extend({
 
 	computed: {
 		version() {
-			return window.app.version;
+			return this.$router.app.version;
 		}
 	},
 
@@ -25,19 +24,25 @@ module.exports = Vue.extend({
 			// Prompt for the new story name.
 
 			prompt({
-				message: locale.say('What should your story be named?<br>(You can change this later.)'),
+				message: locale.say(
+					'What should your story be named?<br>(You can change this later.)'
+				),
 				buttonLabel: '<i class="fa fa-plus"></i> ' + locale.say('Add'),
 				buttonClass: 'create',
 				validator: name => {
 					if (this.collection.findWhere({ name })) {
-						return locale.say('A story with this name already exists.');
+						return locale.say(
+							'A story with this name already exists.'
+						);
 					}
 				}
 			}).then((name) => {
 				// Broadcast a create event. The parent view will take care of
 				// automatically editing the new story for us.
 
-				this.$dispatch('create', { name });
+				this.$nextTick(() =>
+					this.$dispatch('collection-create', { name })
+				);
 			});
 		},
 

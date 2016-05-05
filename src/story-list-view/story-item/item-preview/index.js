@@ -25,7 +25,7 @@ module.exports = Vue.extend({
 		passages: Array,
 	},
 
-	compiled() {
+	ready() {
 		const svg = SVG(this.$el);
 
 		if (this.passages.length > 1) {

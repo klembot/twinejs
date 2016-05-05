@@ -10,7 +10,7 @@ module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	data: () => ({
-		javascript: ''
+		script: ''
 	}),
 
 	computed: {
@@ -27,14 +27,14 @@ module.exports = Vue.extend({
 			}
 		})
 	},
-	
+
 	methods: {
 		resetCm() {
 			this.$refs.codemirror.reset();
 		},
 
 		save(text) {
-			this.javascript = text;
+			this.script = text;
 		}
 	},
 	

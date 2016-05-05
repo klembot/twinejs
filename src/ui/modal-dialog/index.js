@@ -18,8 +18,8 @@ module.exports = Vue.extend({
 		let body = document.querySelector('body');
 
 		body.classList.add('modalOpen');
-		this.escapeCloser = this.escapeCloser.bind(this);
-		body.addEventListener('keyup', this.escapeCloser);
+		this.$escapeCloser = this.escapeCloser.bind(this);
+		body.addEventListener('keyup', this.$escapeCloser);
 
 		// We have to listen manually to the end of the transition in order
 		// to an emit an event when this occurs; it looks like Vue only
@@ -44,7 +44,7 @@ module.exports = Vue.extend({
 		let body = document.querySelector('body');
 
 		body.classList.remove('modalOpen');
-		body.removeEventListener('keyup', this.escapeCloser);
+		body.removeEventListener('keyup', this.$escapeCloser);
 		this.$emit('destroyed');
 	},
 

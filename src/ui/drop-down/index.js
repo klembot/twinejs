@@ -8,6 +8,10 @@ module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	props: {
+		class: {
+			type: String,
+			default: ''
+		},
 		position: {
 			type: String,
 			default: 'top center'
@@ -18,24 +22,21 @@ module.exports = Vue.extend({
 		}
 	},
 
-	compiled() {
-		// Can't figure out why, but ready() is not firing for this.
+	ready() {
+		this.$drop = new Drop({
+			target: this.$el.parentNode,
+			content: this.$el,	
+			position: this.position,
+			openOn: this.openOn,
+			classes: this.class
+		});
 
-		Vue.nextTick(() => {
-			this.$drop = new Drop({
-				target: this.$el.parentNode,
-				content: this.$el,	
-				position: this.position,
-				openOn: this.openOn
-			});
-
-			this.$drop.drop.addEventListener('click', () => {
-				this.$drop.close();
-			});
+		this.$drop.drop.addEventListener('click', () => {
+			this.$drop.close();
 		});
 	},
 
-	destroy() {
+	destroyed() {
 		this.$drop.destroy();
 	}
 });

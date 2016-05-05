@@ -6,22 +6,22 @@
 			<span class="pull-right normal buttonGroup">
 				{{ 'Sort By' | say }}
 
-				<button class="{{ 'subtle ' + (collectionOrder === 'lastUpdate' ? 'active': '') }}" @click="sortByDate" title="{{'Last changed date' | say }}" v-tooltip>
+				<button class="{{ 'subtle ' + (modelOrder === 'lastUpdate' ? 'active': '') }}" @click="sortByDate" title="{{'Last changed date' | say }}" v-tooltip>
 				{{ 'Edit Date' | say }}
 				</button>
 
-				<button class="{{ 'subtle ' + (collectionOrder === 'name' ? 'active' : '') }}" @click="sortByName" title="{{'Story name' | say }}" v-tooltip>
+				<button class="{{ 'subtle ' + (modelOrder === 'name' ? 'active' : '') }}" @click="sortByName" title="{{'Story name' | say }}" v-tooltip>
 				{{ 'Name' | say }}
 				</button>
 			</span>
 		</h1>
 
 		<div class="stories">
-			<template v-if="!collection.length">
+			<p v-if="!models.length">
 				{{ 'There are no stories saved in Twine right now. To get started, you can either create a new story or import an existing one from a file.' | say }}
-			</template>
+			</p>
 
-			<story-item v-for="model in collection.models" :model="model" :collection="collection" transition="grow-in-out"></story-item-view>
+			<story-item v-for="model in models" :model="model" :collection="collection" transition="grow-in-out" track-by="id"></story-item-view>
 		</div>
 	</div> <!-- .main -->
 </div> <!-- #storyListView -->

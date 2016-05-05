@@ -8,24 +8,6 @@
 {
 	cursor: default !important;
 }
-#storyEditView.marqueeing *
-{
-	cursor: crosshair !important;
-}
-
-#storyEditView.draggingPassages .popover,
-#storyEditView.marqueeing .popover
-{
-	display: none !important;
-}
-
-#storyEditView .marquee
-{
-	display: none;
-	z-index: 3;
-	position: absolute;
-	border: 2px dashed hsla(0, 0%, 100%, 0.5);
-}
 
 #storyEditView .passages
 {

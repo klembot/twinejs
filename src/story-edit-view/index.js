@@ -1,707 +1,365 @@
-/**
- Offers an interface for editing a story. This class is concerned
- with editing the story itself; editing individual passages is handled
- through PassageItemViews. This sets up links from the passage views to
- this one by setting each child's parentView property to this one.
+// The main view where story editing takes place.
+// FIXME: space bar scrolling, scroll wheel
 
- @class StoryEditView
- @extends Marionette.CompositeView
-**/
-
-'use strict';
-const $ = require('jquery');
 const _ = require('underscore');
-const moment = require('moment');
-const Marionette = require('backbone.marionette');
-const locale = require('../locale');
-const notify = require('../ui/notify');
-const publish = require('../story-publish');
-const { confirm } = require('../dialogs/confirm');
-const { hasPrimaryTouchUI } = require('../ui');
-const LinkManager = require('./link-manager');
-const Marquee = require('./marquee');
+const Vue = require('vue');
 const Passage = require('../data/models/passage');
-const PassageItemView = require('./passage-item-view');
-const StoryToolbar = require('./story-toolbar');
-const storyEditTemplate = require('./ejs/story-edit-view.ejs');
+const backboneModel = require('../vue/mixins/backbone-model');
+const backboneCollection = require('../vue/mixins/backbone-collection');
+const publish = require('../story-publish');
+const rect = require('../common/rect');
+const zoomSettings = require('./zoom-settings');
 
-module.exports = Marionette.CompositeView.extend({
-	/**
-	 Maps numeric zoom settings (that are in our model) to
-	 nice adjectives that we use in our CSS.
+// A memoized, sorted array of zoom levels used when zooming in or out.
 
-	 @property ZOOM_MAPPINGS
-	 @type Object
-	 @final
-	**/
+const zoomLevels = _.values(zoomSettings).sort();
 
-	ZOOM_MAPPINGS: {
-		big: 1,
-		medium: 0.6,
-		small: 0.25
+module.exports = Vue.extend({
+	template: require('./index.html'),
+
+	// The story we edit is provided by the router.
+
+	props: ['model', 'collection'],
+
+	data: () => ({
+		// Model attributes we make use of.
+
+		zoom: 1,
+		startPassage: '',
+		snapToGrid: true,
+
+		// The calculated width and height we maintain to allow the user to
+		// always have space below and to the right of passages in the story
+		// map.
+
+		width: 0,
+		height: 0,
+
+		// The regular expression that matching passages should highlight.
+	
+		highlightRegexp: '',
+
+		// The offset that selected passages should be displayed at
+		// temporarily, to show feedback as the user drags passages around.
+
+		dragX: 0,
+		dragY: 0
+	}),
+
+	computed: {
+		// Bound to the template in several places to ensure the view stays
+		// at the correct size.
+
+		cssDimensions() {
+			return {
+				width: this.width + 'px',
+				height: this.height + 'px'
+			};
+		},
+
+		// A human readable adjective for the story's zoom level.
+
+		zoomDesc() {
+			return Object.keys(zoomSettings).find(
+				key => zoomSettings[key] === this.zoom
+			);
+		},
+
+		// Returns an array of currently-selected <passage-item> components. This
+		// is used by the marquee selector component to do additive selections
+		// by remembering what was originally selected.
+
+		selectedChildren() {
+			return this.$refs.passages.filter(p => p.selected);
+		},
+
+		// An array of <passage-item> components and their outbound links, with
+		// the passage name as key.
+
+		passageLinks() {
+			let result = {};
+
+			this.$refs.passages.forEach((p) => {
+				result[p.name] = Object.assign(
+					{ links: p.internalLinks },
+					p.connectorAnchors
+				);
+			});
+
+			return result;
+		}
 	},
 
-	childView: PassageItemView,
-	childViewContainer: '.passages .content',
-	childViewOptions() { return { parentView: this }; },
-
-	template: storyEditTemplate,
-
-	initialize() {
-		this
-			.listenTo(this.model, 'change:zoom', this.syncZoom)
-			.listenTo(this.model, 'change:name', this.syncName)
-			.listenTo(this.model, 'error', (model, resp) => {
-				// L10n: %s is the error message.
-				notify(
-					locale.say(
-						'A problem occurred while saving ' +
-						'your changes (%s).',
-						_.escape(resp)
-					),
-					'danger'
-				);
-			});
-
-		this.collection = this.model.fetchPassages();
-
-		this
-			.listenTo(this.collection, 'change:top change:left', this.resize)
-			.listenTo(this.collection, 'change:name', function(p) {
-				// update passages linking to this one to preserve links
-
-				_.invoke(
-					this.collection.models,
-					'replaceLink',
-					p.previous('name'),
-					p.get('name')
-				);
-			})
-			.listenTo(this.collection, 'add', function(p) {
-				// set as starting passage if we only have one
-
-				if (this.collection.length == 1) {
-					this.model.save({ startPassage: p.id });
-				}
-			})
-			.listenTo(this.collection, 'error', (model, resp) => {
-				// L10n: %s is the error message.
-				notify(
-					locale.say(
-						'A problem occurred while saving your changes (%s).',
-						_.escape(resp)
-					),
-					'danger'
-				);
-			});
-
-		// Memoize a sorted list of our zoom levels, so that we can increase
-		// and decrease zoom levels quickly.
-
-		this.zoomLevels = _.values(this.ZOOM_MAPPINGS).sort();
+	ready() {
+		this.resize();
+		this.$resizeListener = this.resize.bind(this);
+		window.addEventListener('resize', this.$resizeListener);
 	},
 
-	onShow() {
-		this.syncName();
+	beforeDestroy() {
+		window.removeEventListener('resize', this.$resizeListener);
+	},
 
-		new StoryToolbar({
-				data: { parent: this },
-				model: this.model
-		}).$mountTo(this.$('.story-toolbar')[0]);
+	methods: {
+		// This resizes the instance's element to either:
+		// * the size of the browser window
+		// * the minimum amount of space needed to enclose all existing
+		// passages
+		//
+		// ... whichever is bigger, plus 50% of the browser window's
+		// width and height, so that there's always room for the story to
+		// expand.
 
-		// enable space bar and middle-click scrolling
+		resize() {
+			const winWidth = window.innerWidth;
+			const winHeight = window.innerHeight;
+			this.width = winWidth;
+			this.height = winHeight;
 
-		this.$el
-			.on('mousedown.story-edit-view', (e) => {
-				if (e.which === 2) {
-					this.startMouseScrolling();
-					e.preventDefault();
+			if (this.$collection.length > 0) {
+				let rightPassage, bottomPassage;
+				let maxLeft = -Infinity;
+				let maxTop = -Infinity;
+
+				this.$collection.each(p => {
+					const left = p.get('left');
+					const top = p.get('top');
+
+					if (p.get('left') > maxLeft) {
+						maxLeft = left;
+						rightPassage = p;
+					}
+
+					if (p.get('top') > maxTop) {
+						maxTop = top;
+						bottomPassage = p;
+					}
+				});
+
+				const passagesWidth =
+					this.zoom * (rightPassage.get('left') + Passage.width);
+				const passagesHeight =
+					this.zoom * (bottomPassage.get('top') + Passage.height);
+
+				this.width = Math.max(passagesWidth, winWidth);
+				this.height = Math.max(passagesHeight, winHeight);
+			}
+
+			this.width += winWidth * 0.5;
+			this.height += winHeight * 0.5;
+
+			// Let our child components know what we've chosen to resize to.
+
+			this.$broadcast('resize', { width: this.width, height: this.height });
+		},
+
+		// Returns whether a child <passage-item> exists with a given name.
+		// This is used by <passage-item>s to update their broken-link status.
+
+		childNamed(name) {
+			return this.$refs.passages.find(p => p.name === name);
+		},
+
+		// Nudges a passage component so that it does not overlap any other
+		// child, and so that it snaps to the grid if that's set in the
+		// model. nb. This works with Vue components, *not* Backbone models.
+
+		positionPassage(passage, filter) {
+			// Displace by other passages. We make a writable copy of the
+			// passage's logical rect, so that it can be displaced -- it's a
+			// computed property, so we can't modify it directly.
+
+			let passageRect = Object.assign({}, passage.logicalRect);
+
+			this.$refs.passages.forEach(p => {
+				if (filter && !filter(p)) {
+					return;
 				}
-			})
-			.on('mouseup.story-edit-view', (e) => {
-				if (e.which === 2) {
-					this.stopMouseScrolling();
-					e.preventDefault();
+
+				if (p !== passage &&
+					rect.intersects(passageRect, p.logicalRect)) {
+					rect.displace(passageRect, p.logicalRect, 10);
 				}
 			});
 
-		$(document).on('keydown.story-edit-view', (e) => {
-			if (e.keyCode === 32 &&
-				$('input:focus, textarea:focus').length === 0) {
-				this.startMouseScrolling();
+			// Snap to the grid.
+
+			if (this.snapToGrid) {
+				const grid = passageRect.width / 4;
+
+				passageRect.left = Math.round(passageRect.left / grid) * grid;
+				passageRect.top = Math.round(passageRect.top / grid) * grid;
+			}
+
+			// Set the passage's writeable properties accordingly.
+
+			passage.top = passageRect.top;
+			passage.left = passageRect.left;
+		},
+
+		// Zooms in or out based on a mouse wheel event. The user must hold
+		// down the Alt or Option key for it to register.
+
+		onWheel(e) {
+			if (e.altKey && !e.ctrlKey) {
+				let zoomIndex = zoomLevels.indexOf(this.zoom);
+
+				// Only consider the Y component of the motion.
+
+				if (e.wheelDeltaY > 0) {
+					// Zoom in.
+
+					zoomIndex = (zoomIndex === 0) ?
+						zoomLevels.length - 1 :
+						zoomIndex - 1;
+				}
+				else {
+					// Zoom out.
+
+					zoomIndex = (zoomIndex === zoomLevels.length - 1) ?
+						0 :
+						zoomIndex + 1;
+				}
+
+				this.zoom = zoomLevels[zoomIndex];
 				e.preventDefault();
 			}
-		});
-
-		$(document).on('keyup.story-edit-view', (e) => {
-			if (e.keyCode === 32 &&
-				$('input:focus, textarea:focus').length === 0) {
-				this.stopMouseScrolling();
-				e.preventDefault();
-			}
-		});
-
-		// delete selected passages with the delete key
-
-		$(document).on('keyup.story-edit-view', (e) => {
-			if (e.keyCode == 46) {
-				const selected = this.children.filter(v => v.selected);
-
-				switch (selected.length) {
-					// bug out if none are selected
-					case 0:
-						return;
-
-					// show a confirmation modal if it's more than just 1
-					default:
-						// set count appropriately
-
-						// L10n: This message is always shown with more than one passage.
-						// %d is the number of passages.
-						const message = locale.sayPlural(
-							'Are you sure you want to delete this passage?',
-							'Are you sure you want to delete these %d ' +
-							'passages? This cannot be undone.',
-							selected.length
-						);
-
-						confirm({
-							message,
-							buttonLabel:
-								'<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
-							buttonClass:
-								'danger'
-						})
-						.then(this.deleteSelectedPassages.bind(this));
-				}
-			}
-		});
-
-		// always hide the story bubble when a click occurs on it
-		// (e.g. when a menu item is selected)
-
-		this.$el.on('click.story-edit-view', '.storyBubble', () => {
-			$('.storyBubble').bubble('hide');
-		});
-
-		// resize the story map whenever the browser window resizes
-
-		this.resize();
-		$(window).on('resize.story-edit-view', _.debounce(this.resize.bind(this), 500));
-
-		this.syncZoom();
-		this.linkManager = new LinkManager({
-			el: this.el,
-			parent: this
-		});
-
-		if (!hasPrimaryTouchUI()) {
-			this.marquee = new Marquee({
-				el: this.$('.passages'),
-				parent: this
-			});
 		}
-
-		// Change zoom levels with the mouse wheel.
-		$(window).on('wheel.story-edit-view', this.zoomWheel.bind(this));
-
-		// if we have no passages in this story, give the user one to start
-		// with otherwise, fade in existing
-
-		if (this.collection.length === 0) {
-			this.addPassage();
-		}
-		else {
-			this.$('.passages .content').addClass('fadeIn fast');
-		}
-	},
-
-	/**
-	 Does cleanup of stuff set up in onShow().
-
-	 @method onDestroy
-	 @private
-	**/
-
-	onDestroy() {
-		this.linkManager.destroy();
-		$(document).off('.story-edit-view');
-		$(window).off('.story-edit-view');
-	},
-
-	/**
-	 Adds a new passage.
-
-	 @method addPassage
-	 @param {String} name name of the passage; defaults to model default
-	 @param {Number} left left position; defaults to horizontal center of the
-		 window
-	 @param {Number} top top position; defaults to vertical center of the
-		 window
-	**/
-
-	addPassage(name, left, top) {
-		const zoom = this.model.get('zoom');
-
-		if (!left) {
-			const offsetX = this.$('.passage:first').width() / 2;
-
-			left = (($(window).scrollLeft() + $(window).width() / 2) / zoom) -
-				offsetX;
-		}
-
-		if (!top) {
-			const offsetY = this.$('.passage:first').height() / 2;
-
-			top = (($(window).scrollTop() + $(window).height() / 2) / zoom) -
-				offsetY;
-		}
-
-		// make sure the name is unique
-
-		name = name || Passage.prototype.defaults().name;
-
-		if (this.collection.findWhere({ name })) {
-			const origName = name;
-			let nameIndex = 0;
-
-			do {
-				nameIndex++;
-			}
-			while
-				(this.collection.findWhere({
-					name: origName + ' ' + nameIndex
-				}));
-
-			name = origName + ' ' + nameIndex;
-		}
-
-		const passage = this.collection.create({
-			name,
-			story: this.model.id,
-			left,
-			top
-		}, { wait: true });
-
-		// position the passage so it doesn't overlap any others
-
-		this.positionPassage(passage);
-		passage.save();
-		this.children.findByModel(passage).appear();
-	},
-
-	/**
-	 Deletes all currently selected passages.
-
-	 @method deleteSelectedPassages
-	**/
-
-	deleteSelectedPassages() {
-		_.invoke(this.children.filter(v => v.selected), 'delete');
-	},
-
-	/**
-	 Opens a new tab with the playable version of this story. This
-	 will re-use the same tab for a particular story.
-
-	 @method play
-	**/
-
-	play() {
-		// verify the starting point
-
-		if (Passage.withId(this.model.get('startPassage')) === undefined) {
-			notify(
-				locale.say(
-					'This story does not have a starting point. ' +
-					'Use the <i class="fa fa-rocket"></i> icon on a passage ' +
-					'to set this.'
-				),
-				'danger'
-			);
-			return;
-		}
-
-		// try re-using the same window
-
-		const playWindow = window.open('', 'twinestory_play_' + this.model.id);
-
-		if (playWindow.location.href == 'about:blank') {
-			playWindow.location.href = '#stories/' + this.model.id + '/play';
-		}
-		else {
-			playWindow.location.reload();
-			notify(locale.say(
-				'Refreshed the playable version of your story in the ' +
-				'previously-opened tab or window.'
-			));
-		}
-	},
-
-	/**
-	 Opens a new tab with the playable version of this story, in test mode.
-	 This will re-use the same tab for a particular story.
-
-	 @method test
-	 @param {Number} startId id to start the story on; if unspecified; uses the
-		 user-set one
-	**/
-
-	test(startId) {
-		let url = '#stories/' + this.model.id + '/test';
-
-		if (startId) {
-			url += '/' + startId;
-		}
-
-		// verify the starting point
-
-		let startOk = false;
-
-		if (!startId) {
-			startOk =
-				(Passage.withId(this.model.get('startPassage')) !== undefined);
-		}
-		else {
-			startOk = (Passage.withId(startId) !== undefined);
-		}
-
-		if (!startOk) {
-			notify(
-				locale.say(
-					'This story does not have a starting point. Use the ' +
-					'<i class="fa fa-rocket"></i> icon on a passage to ' +
-					'set this.'
-				),
-				'danger'
-			);
-			return;
-		}
-
-		// try re-using the same window
-
-		const testWindow = window.open('', 'twinestory_test_' + this.model.id);
-		
-		if (testWindow.location.href == 'about:blank') {
-			testWindow.location.href = url;
-		}
-		else {
-			testWindow.location.reload();
-			notify(locale.say(
-				'Refreshed the test version of your story in ' +
-				'the previously-opened tab or window.'
-			));
-		}
-	},
-
-	/**
-	 Opens a new tab with the proofing copy of this story. This
-	 will re-use the same tab for a particular story.
-
-	 @method proof
-	**/
-
-	proof() {
-		window.open(
-			'#stories/' + this.model.id + '/proof',
-			'twinestory_proof_' + this.model.id
-		);
-	},
-
-	/**
-	 Publishes the story to a file.
-
-	 @method publish
-	**/
-
-	publish() {
-		// verify the starting point
-
-		if (Passage.withId(this.model.get('startPassage')) === undefined) {
-			notify(
-				locale.say(
-					'This story does not have a starting point. ' +
-					'Use the <i class="fa fa-rocket"></i> icon on a ' +
-					'passage to set this.'
-				),
-			'danger');
-		}
-		else {
-			publish.publishStory(this.model, this.model.get('name') + '.html');
-		}
-	},
-
-	/**
-	 This resizes the .passages div to either:
-		* the size of the browser window
-		* the minimum amount of space needed to enclose all existing passages
-
-	 ... whichever is bigger, plus 75% of the browser window's width and
-	 height, so that there's always room for the story to expand.
-
-	 This then resizes the view's <canvas> element to match the size of the
-	 .passages div, so that lines can be drawn between passage DOM elements
-	 properly.
-
-	 @method resize
-	**/
-
-	resize() {
-		const winWidth = $(window).width();
-		const winHeight = $(window).height();
-		const zoom = this.model.get('zoom');
-		let width = winWidth;
-		let height = winHeight;
-
-		if (this.collection.length > 0) {
-			let rightPassage, bottomPassage;
-			let maxLeft = -Infinity;
-			let maxTop = -Infinity;
-
-			this.collection.each(p => {
-				const left = p.get('left');
-				const top = p.get('top');
-
-				if (p.get('left') > maxLeft) {
-					maxLeft = left;
-					rightPassage = p;
-				}
-
-				if (p.get('top') > maxTop) {
-					maxTop = top;
-					bottomPassage = p;
-				}
-			});
-
-			const passagesWidth =
-				zoom * (rightPassage.get('left') + Passage.width);
-			const passagesHeight =
-				zoom * (bottomPassage.get('top') + Passage.height);
-
-			width = Math.max(passagesWidth, winWidth);
-			height = Math.max(passagesHeight, winHeight);
-		}
-		else {
-			width = winWidth;
-			height = winHeight;
-		}
-
-		width += winWidth * 0.5;
-		height += winHeight * 0.5;
-
-		this.$('.passages').css({
-			width,
-			height
-		});
-
-		this.$('canvas').attr({
-			width,
-			height
-		});
-	},
-
-	/**
-	 Begins scrolling the document in response to mouse motion events.
-
-	 @method startMouseScrolling
-	**/
-
-	startMouseScrolling() {
-		/**
-		 The mouse position that space bar scrolling began at,
-		 with x and y properties.
-
-		 @property mouseScrollStart
-		 @type Object
-		**/
-
-		this.mouseScrollStart = this.mouseScrollStart || {};
-		this.mouseScrollStart.x = null;
-		this.mouseScrollStart.y = null;
-		
-		/**
-		 The scroll position of the document when space bar scrolling began,
-		 with x and y properties.
-
-		 @property pageScrollStart
-		 @type Object
-		**/
-
-		this.pageScrollStart = this.pageScrollStart || {};
-		this.pageScrollStart.x = $(window).scrollLeft();
-		this.pageScrollStart.y = $(window).scrollTop();
-
-		$('#storyEditView').addClass('scrolling');
-		$(window).on('mousemove.story-edit-view', { self: this }, this.mouseScroll);
-	},
-
-	/**
-	 Stops scrolling the document in response to mouse motion events.
-
-	 @method stopMouseScrolling
-	**/
-
-	stopMouseScrolling() {
-		$('#storyEditView').removeClass('scrolling');
-		$(window).off('mousemove.story-edit-view');
-	},
-
-	mouseScroll(e) {
-		const self = e.data.self;
-
-		if (!self.mouseScrollStart.x && !self.mouseScrollStart.y) {
-			// this is our first mouse motion event, record position
-
-			self.mouseScrollStart.x = e.pageX;
-			self.mouseScrollStart.y = e.pageY;
-		}
-		else {
-			$(window).scrollLeft(
-				self.pageScrollStart.x - (e.pageX - self.mouseScrollStart.x)
-			);
-			$(window).scrollTop(
-				self.pageScrollStart.y - (e.pageY - self.mouseScrollStart.y)
-			);
-		}
-	},
-
-	/**
-	 Nudges a passage so that it does not overlap any other passage in the
-	 view, and so that it snaps to the grid if that's set in the model. This
-	 does *not* save changes to the passage model.
-
-	 @method positionPassage
-	 @param {Passage} passage Passage to nudge.
-	 @param {Function} filter If passed, any passage this function returns
-		 false for will be ignored when checking for overlaps.
-	**/
-
-	positionPassage(passage, filter) {
-		// displace
-
-		this.collection.each(p => {
-			if (filter && !filter(p)) {
-				return;
-			}
-
-			if (p.id != passage.id && p.intersects(passage)) {
-				p.displace(passage);
-			}
-		});
-
-		// snap to grid
-
-		if (this.model.get('snapToGrid')) {
-			const grid = Passage.width / 4;
-
-			passage.set({
-				left: Math.round(passage.get('left') / grid) * grid,
-				top: Math.round(passage.get('top') / grid) * grid
-			});
-		};
-	},
-
-	/**
-	 Adjusts the zoom level based on the motion of the user's mouse wheel.
-	 The Alt or Option key must be held down.
-
-	 @method zoomWheel
-	**/
-
-	zoomWheel(e) {
-		if (e.altKey && !e.ctrlKey) {
-			let zoomIndex = this.zoomLevels.indexOf(this.model.get('zoom'));
-
-			// Only consider the Y component of the motion.
-
-			if (e.originalEvent.wheelDeltaY > 0) {
-				// Zoom in.
-
-				zoomIndex = (zoomIndex === 0) ?
-					this.zoomLevels.length
-					: zoomIndex - 1;
-			}
-			else {
-				// Zoom out.
-
-				zoomIndex = (zoomIndex === this.zoomLevels.length) ?
-					0
-					: zoomIndex + 1;
-			}
-
-			this.model.save('zoom', this.zoomLevels[zoomIndex]);
-		}
-	},
-
-	/**
-	 Syncs the CSS class associated with the view with model.
-
-	 @method syncZoom
-	**/
-
-	syncZoom() {
-		const zoom = this.model.get('zoom');
-
-		for (let desc in this.ZOOM_MAPPINGS) {
-			if (this.ZOOM_MAPPINGS[desc] == zoom) {
-				this.$el
-					.removeClass('zoom-small zoom-medium zoom-big')
-					.addClass('zoom-' + desc);
-				break;
-			}
-		}
-
-		this.resize();
-	},
-
-	/**
-	 Syncs the window title with the story name.
-
-	 @method syncName
-	**/
-
-	syncName() {
-		document.title = locale.say(
-			'Editing \u201c%s\u201d',
-			this.model.get('name')
-		);
-	},
-
-	updateSaved() {
-		this.$('.storyName').attr(
-			'title',
-			locale.say(
-				'Last saved at %s',
-				moment().format('llll')
-			)
-		);
-		this.$('.storyName').powerTip();
 	},
 
 	events: {
-		'drag .passage'(e) {
-			// draw links between passages as they are dragged around
+		// A specialized version of collection-create that ensures a new
+		// passage has a unique name, and doesn't overlap another one.
 
-			this.linkManager.cachePassage(
-				this.collection.get(
-					$(e.target).closest('.passage').attr('data-id')
-				)
-			);
-			this.linkManager.drawLinks();
+		'passage-create'(name, left, top) {
+			// If we haven't been given coordinates, place the new passage at
+			// the center of the window. We start by finding the center point
+			// of the browser window in logical coordinates, e.g. taking into
+			// account the current zoom level. Then, we move upward and to the
+			// left by half the dimensions of a passage in logical space.
+
+			if (!left) {
+				left = (window.scrollX + window.innerWidth / 2) / this.zoom; 
+				left -= Passage.width;
+			}
+
+			if (!top) {
+				top = (window.scrollY + window.innerHeight / 2) / this.zoom;
+				top -= Passage.height;
+			}
+
+			// Make sure the name is unique. If it's a duplicate, we add a
+			// number at the end (e.g. "Untitled Passage 2", "Untitled Passage
+			// 3", and so on.
+
+			name = name || Passage.prototype.defaults().name;
+
+			if (this.$collection.findWhere({ name })) {
+				const origName = name;
+				let nameIndex = 0;
+
+				do {
+					nameIndex++;
+				}
+				while
+					(this.$collection.findWhere({
+						name: origName + ' ' + nameIndex
+					}));
+
+				name = origName + ' ' + nameIndex;
+			}
+
+			// Add it to our collection.
+
+			let passage = this.$collection.create({
+				story: this.model.id,
+				name,
+				left,
+				top
+			});
+
+			// Then position it so it doesn't overlap any others, and save it
+			// again.
+
+			this.positionPassage(passage);
+			passage.save();
 		},
 
-		'mousedown'(e) {
-			// record the click target
+		// A child will dispatch this event to us as it is dragged around. We
+		// set a data property here and other selected passages react to it by
+		// temporarily shifting their onscreen position.
 
-			/**
-			 The last element that was the target of a mousedown event. This
-			 is used by child views to see if they should pay attention to a
-			 mouseup event, for example.
+		'passage-drag'(xOffset, yOffset) {
+			this.dragX = xOffset;
+			this.dragY = yOffset;
+		},
 
-			 @property {Object} lastMousedown
-			**/
+		// A child will dispatch this event at the completion of a drag. We
+		// pass this onto our children, who use it as a chance to save what was
+		// a temporary change in the DOM to their model.
 
-			this.lastMousedown = $(e.target);
+		'passage-drag-complete'(xOffset, yOffset) {
+			this.dragX = 0;
+			this.dragY = 0;
+			this.$broadcast('passage-drag-complete', xOffset, yOffset);
+		},
+
+		// A child will dispatch this event to us when it is selected
+		// non-additively; we broadcast it to all children to deselect them.
+
+		'passage-deselect-except'(...children) {
+			this.$broadcast('passage-deselect-except', ...children);
+		},
+
+		// The marquee selector component dispatches these events as it is moved,
+		// and child passage items react to it by setting their selected
+		// property accordingly.
+		//
+		// If a component is in the always array, then it will always select
+		// itself during this operation.
+
+		'passage-select-intersects'(rect, always) {
+			this.$broadcast('passage-select-intersects', rect, always);
+		},
+
+		// A passage can request that it be positioned by us with an event.
+
+		'passage-position'(passage, filter) {
+			this.positionPassage(passage, filter);
+		},
+
+		// Story-wide events.
+
+		'story-proof'() {
+			window.open(
+				'#stories/' + this.model.id + '/proof',
+				'twinestory_test_' + this.model.id
+			);
+		},
+
+		'story-publish'() {
+			publish.publishStory(this.model, this.model.get('name') + '.html');
+		},
+
+		'story-set-start'(passageId) {
+			this.startPassage = passageId;
+		},
+
+		'story-test'(passageId) {
+			window.open(
+				'#stories/' + this.model.id + '/test' +
+				((passageId) ? '/' + passageId : ''),
+				'twinestory_test_' + this.model.id
+			);
 		}
-	}
+	},
+
+	components: {
+		'link-arrows': require('./link-arrows'),
+		'passage-item': require('./passage-item'),
+		'story-toolbar': require('./story-toolbar'),
+		'marquee-selector': require('./marquee-selector')
+	},
+
+	mixins: [backboneModel, backboneCollection]
 });

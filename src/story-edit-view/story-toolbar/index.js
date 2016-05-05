@@ -1,29 +1,18 @@
 // The toolbar at the bottom of the screen with editing controls.
 
 const Vue = require('vue');
-const Passage = require('../../data/models/passage');
 const backboneModel = require('../../vue/mixins/backbone-model');
+const zoomMappings = require('../zoom-settings');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
+	
+	props: ['model', 'collection', 'zoomDesc'],
 
 	data: () => ({
 		name: '',
-		zoom: 1,
-		parent: Object
+		zoom: 1
 	}),
-
-	computed: {
-		zoomDesc() {
-			return Object.keys(this.parent.ZOOM_MAPPINGS).find(
-				key => this.parent.ZOOM_MAPPINGS[key] === this.zoom
-			);
-		},
-
-		passageViews() {
-			return this.parent.children;
-		}
-	},
 
 	components: {
 		'story-menu': require('./story-menu'),
@@ -32,25 +21,25 @@ module.exports = Vue.extend({
 	
 	methods: {
 		setZoom(description) {
-			this.zoom = this.parent.ZOOM_MAPPINGS[description];
+			this.zoom = zoomMappings[description];
 		},
 
 		test() {
 			window.open(
-				'#stories/' + this.$model.id + '/test',
-				'twinestory_test_' + this.$model.id
+				'#stories/' + this.story.id + '/test',
+				'twinestory_test_' + this.story.id
 			);
 		},
 
 		play() {
 			window.open(
-				'#stories/' + this.$model.id + '/play',
-				'twinestory_play_' + this.$model.id
+				'#stories/' + this.story.id + '/play',
+				'twinestory_play_' + this.story.id
 			);
 		},
 
 		addPassage() {
-			this.parent.addPassage();
+			this.$dispatch('passage-create');
 		}
 	},
 

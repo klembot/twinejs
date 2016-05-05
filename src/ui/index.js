@@ -8,7 +8,7 @@
 const $ = require('jquery');
 const fastclick = require('fastclick');
 
-const ui = module.exports = {
+module.exports = {
 	/**
 	 Performs one-time startup tasks, mainly setting up event listeners.
 	 The heavy lifting is done in submodules or jQuery plugins living
@@ -58,12 +58,6 @@ const ui = module.exports = {
 				e.type = 'animationend';
 				$(e.target).trigger(e);
 			});
-
-			$(ui).trigger('init', { $body: $b });
-
-			window.app.mainRegion.on('show', () => {
-				$(ui).trigger('attach', { $el: window.app.mainRegion.$el });
-			});
 		};
 	},
 
@@ -77,14 +71,11 @@ const ui = module.exports = {
 
 			this.fastclick.destroy();
 
-			$(ui).triggerHandler('destroy');
-
 			// remove classes and event handlers
 			// and mark the body as uninited
 
 			$('body')
 				.removeClass('iOS safari')
-				.off('.twineui')
 				.data('uiInited', null);
 		}
 	},

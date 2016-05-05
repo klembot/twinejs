@@ -28,6 +28,10 @@ module.exports = {
 
 		this.$model = this.$model || this.model;
 
+		if (this.$model === undefined) {
+			throw new Error("Neither a prop nor option named model has been defined");
+		}
+
 		// Set up two-way bindings.
 
 		const modelJSON = this.$model.toJSON();
@@ -52,7 +56,7 @@ module.exports = {
 		this.$model.on('change', this.$backboneChangeAdaptor);
 	},
 
-	destroyed() {
+	beforeDestroy() {
 		this.$model.off('change', this.$backboneChangeAdaptor);
 	}
 };

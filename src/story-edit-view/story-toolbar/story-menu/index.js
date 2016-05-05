@@ -14,19 +14,20 @@ const { prompt } = require('../../../dialogs/prompt');
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
+	props: ['model', 'collection'],
+
 	data: () => ({
+		name: '',
 		snapToGrid: true
 	}),
 
-	props: ['model', 'parentView'],
-
 	methods: {
 		editScript() {
-			new JavaScriptEditor({ model: this.model }).$mountTo(document.body);
+			new JavaScriptEditor({ model: this.story }).$mountTo(document.body);
 		},
 
 		editStyle() {
-			new StylesheetEditor({ model: this.model }).$mountTo(document.body);
+			new StylesheetEditor({ model: this.story }).$mountTo(document.body);
 		},
 
 		renameStory() {
@@ -34,31 +35,31 @@ module.exports = Vue.extend({
 				message:
 					locale.say(
 						'What should &ldquo;%s&rdquo; be renamed to?',
-						_.escape(this.model.get('name'))
+						_.escape(this.name)
 					),
 				buttonLabel:
 					'<i class="fa fa-ok"></i> ' + locale.say('Rename'),
 				defaultText:
-					this.model.get('name'),
+					this.name,
 				blankTextError:
 					locale.say('Please enter a name.')
 			})
-			.then((text) => this.model.save({ name: text }));
+			.then((text) => this.name = text);
 		},
 
 		proofStory() {
-			this.parentView.proof();
+			this.$dispatch('story-proof');
 		},
 
 		publishStory() {
-			this.parentView.publish();
+			this.$dispatch('story-publish');
 		},
 
 		storyStats() {
 			new StatsDialog({
 				data: {
-					story: this.model,
-					passages: this.parentView.collection
+					story: this.story,
+					passages: this.passages
 				}
 			}).$mountTo(document.body);
 		},
@@ -66,7 +67,7 @@ module.exports = Vue.extend({
 		changeFormat() {
 			new FormatDialog({
 				data: {
-					story: this.model,
+					story: this.story,
 					formats: StoryFormatCollection.all().models
 				}
 			}).$mountTo(document.body);

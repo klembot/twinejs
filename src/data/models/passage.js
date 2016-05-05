@@ -8,6 +8,7 @@
 'use strict';
 const _ = require('underscore');
 const Backbone = require('backbone');
+const linkParser = require('../../common/link-parser');
 const locale = require('../../locale');
 const ui = require('../../ui');
 const passageDataTemplate = require('./ejs/passage-data.ejs');
@@ -136,60 +137,7 @@ const Passage = Backbone.Model.extend({
 	**/
 
 	links(internalOnly) {
-		const matches = this.get('text').match(/\[\[.*?\]\]/g);
-		const found = {};
-		const result = [];
-
-		const arrowReplacer = (a, b, c, d) => c || d;
-
-		if (matches) {
-			for (let i = 0; i < matches.length; i++) {
-				// The link matching regexps ignore setter components, should
-				// they exist.
-
-				const link = matches[i]
-					/*
-						Arrow links
-						[[display text->link]] format
-						[[link<-display text]] format
-
-						Arrow links, with setter component
-						[[display text->link][...]] format
-						[[link<-display text][...]] format
-
-						This regexp will interpret the rightmost '->' and the
-						leftmost '<-' as the divider.
-					*/
-					.replace(/\[\[(?:([^\]]*)\->|([^\]]*?)<\-)([^\]]*)(?:\]\[.*?)?\]\]/g, arrowReplacer)
-					/*
-					TiddlyWiki links
-					[[display text|link]] format
-
-					TiddlyWiki links, with setter component
-					[[display text|link][...]] format
-					*/
-					.replace(/\[\[([^\|\]]*?)\|([^\|\]]*)?(?:\]\[.*?)?\]\]/g, '$2')
-					/*
-					[[link]] format
-
-					[[link][...]] format, with setter component
-					*/
-					.replace(/\[\[|(?:\]\[.*?)?\]\]/g,'');
-
-				// catch empty links, i.e. [[]]
-
-				if (link !== '' && found[link] === undefined) {
-					result.push(link);
-					found[link] = true;
-				}
-			}
-		}
-
-		if (internalOnly) {
-			return _.filter(result, link => !/^\w+:\/\/\/?\w/i.test(link));
-		}
-		
-		return result;
+		return linkParser(this.get('text'), internalOnly);
 	},
 
 	/**
