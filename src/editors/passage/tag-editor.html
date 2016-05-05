@@ -10,13 +10,11 @@
 		<span class="tag label label-info">{{ tag }}<button @click="remove(tag)"><i class="fa fa-times"></i></button></span>
 	</template>
 
-	<span>
-		<form v-if="newVisible" transition="fade-in-out" @submit.prevent="addNew">
-			<!-- L10n: A noun, i.e. what a tag is named. -->
-			<input type="text" placeholder="{{ 'Tag name' | say }}" required v-el:new-name>
+	<span v-show="newVisible" transition="fade-in-out">
+		<!-- L10n: A noun, i.e. what a tag is named. -->
+		<input type="text" placeholder="{{ 'Tag name' | say }}" required v-el:new-name>
 
-			<button type="button" class="link" @click="hideNew"><i class="fa fa-times"></i></button>
-			<button type="button" class="link"><i class="fa fa-check"></i></button>
-		</form>
+		<button type="button" class="link" @click="hideNew"><i class="fa fa-times"></i></button>
+		<button type="button" class="link" @click="addNew"><i class="fa fa-check"></i></button>
 	</span>
 </div>
