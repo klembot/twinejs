@@ -2,6 +2,7 @@
 // asking the user to download it.
 
 const AppPref = require('../../data/models/app-pref');
+const checkForUpdate = require('../../common/app/update-check');
 const locale = require('../../locale');
 const { confirm } = require('../confirm');
 
@@ -33,7 +34,7 @@ module.exports = {
 		// Is there a new update since we last checked?
 
 		if (new Date().getTime() > lastUpdateCheckPref.get('value') + CHECK_DELAY) {
-			window.app.checkForUpdate(
+			checkForUpdate(
 				lastUpdateSeenPref.get('value'),
 				({buildNumber, version, url}) => {
 					lastUpdateSeenPref.save({ value: buildNumber });

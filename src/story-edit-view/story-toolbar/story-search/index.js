@@ -7,7 +7,7 @@ const SearchDialog = require('../../../dialogs/story-search');
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
-	props: ['parent', 'passageViews'],
+	props: ['collection'],
 
 	data: () => ({
 		search: ''
@@ -15,42 +15,21 @@ module.exports = Vue.extend({
 
 	watch: {
 		'search'() {
-			this.searchFor(this.search);
+			// Convert the entered text to regexp, escaping text, and tell our
+			// parent to change its highlight criteria.
+			// This is cribbed from
+			// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions.
+
+			this.$dispatch(
+				'highlight-regexp-change', 
+				new RegExp(
+					this.search.replace(/([.*+?^${}()|\[\]\/\\])/g, '\\$1'), 'i'
+				)
+			);
 		}
 	},
 
 	methods: {
-		/**
-		 Adjusts passage view highlighting based on a search criteria.
-
-		 @method searchFor
-		 @param {String} search string to search for
-		 @param {String} flags Regexp flags to apply, defaults to 'i'
-		**/
-
-		searchFor(search, flags) {
-			// If the search is empty, unhighlight all passages.
-
-			if (search === '') {
-				this.passageViews.each(view => view.unhighlight());
-				return;
-			}
-
-			// convert entered text to regexp, escaping text
-			// cribbed from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
-
-			search = new RegExp(search.replace(/([.*+?^${}()|\[\]\/\\])/g, '\\$1'), flags || 'i');
-
-			this.passageViews.each(view => {
-				if (view.model.matches(search)) {
-					view.highlight();
-				}
-				else {
-					view.unhighlight();
-				}
-			});
-		},
-
 		/**
 		 Shows the search modal.
 
@@ -59,7 +38,7 @@ module.exports = Vue.extend({
 
 		showModal() {
 			new SearchDialog({ data: {
-				passages: this.parent.collection.models,
+				passages: this.collection,
 				search: this.search
 			} }).$mountTo(document.body);
 		}

@@ -4,6 +4,8 @@ const CodeMirror = require('codemirror');
 const Vue = require('vue');
 const locale = require('../../locale');
 const backboneModel = require('../../vue/mixins/backbone-model');
+const backboneCollection = require('../../vue/mixins/backbone-collection');
+const { thenable } = require('../../vue/mixins/thenable');
 require('codemirror/addon/display/placeholder');
 require('../../codemirror-ext/prefix-trigger');
 
@@ -143,7 +145,7 @@ module.exports = Vue.extend({
 		// Assemble a list of possible autocompletions by plucking passage names
 		// from the collection property.
 
-		this.autocompletions = this.$options.collection.map((passage) => passage.get('name'));
+		this.autocompletions = this.$collection.map((passage) => passage.get('name'));
 
 		// If we have been given a story format as option, load it and see if
 		// it offers a CodeMirror mode.
@@ -185,5 +187,5 @@ module.exports = Vue.extend({
 		'tag-editor': require('./tag-editor')
 	},
 
-	mixins: [backboneModel]
+	mixins: [backboneModel, backboneCollection, thenable]
 });

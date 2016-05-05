@@ -1,16 +1,16 @@
 <div class="toolbar main fullSlideUp fast">
 	<div class="left">
-		<a href="#stories" class="home subtle" title="{{ 'Go to the story list' | say }}" v-tooltip><i class="fa fa-home fa-lg"></i></a>
+		<a v-link="'/stories'" class="home subtle" title="{{ 'Go to the story list' | say }}" v-tooltip><i class="fa fa-home fa-lg"></i></a>
 
 		<button class="storyName subtle">
 			<span class="storyNameVal">{{ name }}</span>
 			<i class="fa fa-caret-up fa-lg"></i>
-			<story-menu :model="$model" :parent-view="parent"></story-menu>
+			<story-menu :model="$model" :collection="$collection"></story-menu>
 		</button>
 	</div> <!-- .left -->
 
 	<div class="right">
-		<story-search :parent="parent" :passage-views="passageViews"></story-search>
+		<story-search :collection="collection"></story-search>
 
 		<span class="zooms">
 			<button class="zoomSmall subtle" :class="{ active: zoomDesc === 'small' }" @click="setZoom('small')" title="{{ 'Show only story structure' | say }}" v-tooltip>

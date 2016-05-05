@@ -13,7 +13,7 @@ module.exports = {
 				const pos = this.expression;
 
 				Vue.nextTick(() => {
-					new Tooltip({
+					this.tooltip = new Tooltip({
 						target: this.el,
 						content: this.el.getAttribute('title'),
 						position: (pos && pos !== '') ? pos : 'top center',
@@ -22,6 +22,10 @@ module.exports = {
 
 					this.el.removeAttribute('title');
 				});
+			},
+
+			unbind() {
+				this.tooltip.destroy();
 			}
 		});
 	}

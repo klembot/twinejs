@@ -1,31 +1,39 @@
+// The main entry point for the application.
+
 'use strict';
-require('es6-promise');
-const locale = require('./locale');
+let Vue = require('vue');
+
+// Customize Vue with our global extensions. This has to be done as early as
+// possible in the module loading process so that the extensions are available
+// throughout the application.
+
+const localeFilters = require('./vue/filters/locale');
 const mountMixin = require('./vue/mixins/mount-to');
 const tooltipDirective = require('./vue/directives/tooltip');
-const localeFilters = require('./vue/filters/locale');
+const mouseScrollingDirective = require('./vue/directives/mouse-scrolling');
 
-// Vue setup.
-
-const Vue = require('vue');
-Vue.config.debug = true;
 Vue.mixin(mountMixin);
 localeFilters.addTo(Vue);
 tooltipDirective.addTo(Vue);
+mouseScrollingDirective.addTo(Vue);
 
-// bootstrap app after loading localization, if any
-
-const _ = require('underscore');
+const locale = require('./locale');
 const notify = require('./ui/notify');
 const AppPref = require('./data/models/app-pref');
 const TwineApp = require('./common/app');
+const TwineRouter = require('./common/router');
+
+// Shim ES6 promises if the browser doesn't support them.
+
+require('es6-promise');
+
+// Start the application after loading the appropriate locale data.
 
 ((() => {
 	let userLocale;
 
-	window.app = new TwineApp();
-
-	// URL parameter locale overrides everything
+	// The user can specify a locale parameter in the URL to override the app
+	// preference, in case things go severely wrong and they need to force it.
 
 	const localeUrlMatch = /locale=([^&]+)&?/.exec(window.location.search);
 
@@ -33,7 +41,8 @@ const TwineApp = require('./common/app');
 		userLocale = localeUrlMatch[1];
 	}
 	else {
-		// use app preference; default to best guess
+		// If an app preference is not yet set, default to our best guess based
+		// on the browser.
 		// http://stackoverflow.com/questions/673905/best-way-to-determine-users-locale-within-browser
 
 		const localePref = AppPref.withName(
@@ -48,17 +57,24 @@ const TwineApp = require('./common/app');
 		userLocale = localePref.get('value');
 	}
 
-	if (typeof userLocale == 'string') {
+	if (typeof userLocale === 'string') {
+		// Load the locale, then start the application.
+
 		locale.load(userLocale.toLowerCase(), () => {
-			window.app.start();
+			TwineRouter.start(TwineApp, '#main');
 		});
 	}
 	else {
+		// Something has gone pretty wrong; fall back to English as a last
+		// resort.
+
 		locale.load('en', () => {
-			window.app.start();
-			_.defer(() => {
-				// not localized because if we've reached this step,
-				// localization isn't working
+			TwineRouter.start(TwineApp, '#main');
+
+			Vue.nextTick(() => {
+				// The message below is not localized because if we've reached
+				// this step, localization is not working.
+
 				notify(
 					'Your locale preference has been reset to English due ' +
 					'to a technical problem.<br>Please change it with the ' +

@@ -1,0 +1,130 @@
+#storyEditView .passage {
+	position: absolute;
+	color: hsla(0, 0%, 100%, 0.75);
+	cursor: default;
+
+	.frame {
+		border: 1px solid hsla(0, 0%, 100%, 0.75);
+		border-radius: 2px;
+		box-shadow: 0 0 2px hsla(0, 0%, 100%, 0.75), inset 0 0 2px hsla(0, 0%, 100%, 0.75);
+
+		width: 100px;
+		height: 100px;
+		position: relative;
+		overflow: hidden;
+
+		// The border between the title and excerpt.
+
+		&:after {
+			content: '';
+			display: block;
+			width: 100px;
+			height: 1px;
+			position: absolute;
+			top: 22px;
+			left: 0;
+			background-color: hsla(0, 0%, 100%, 0.75);
+			box-shadow: 0 0 1px hsla(0, 0%, 100%, 0.75), inset 0 0 1px hsla(0, 0%, 100%, 0.75);
+		}
+	}
+
+	.title {
+		font-size: 11px;
+		line-height: 15px;
+		padding: 4px 4px 0 4px;
+		height: 24px;
+		margin: 0;
+		box-sizing: border-box;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+
+	.excerpt {
+		font-size: 11px;
+		margin: 0;
+		padding: 4px;
+	}
+
+	&.selected .frame {
+		color: hsla(0, 0%, 100%, 1);
+		background-color: hsla(0, 0%, 100%, 0.25);
+	}
+
+	&.highlight .frame {
+		color: hsl(60, 100%, 50%);
+		border-color: hsla(60, 100%, 50%, 0.75);
+		box-shadow: 0 0 2px hsla(60, 100%, 50%, 0.75), inset 0 0 2px hsla(60, 100%, 50%, 0.75);
+
+		&:after {
+			background-color: hsl(60, 100%, 50%);
+			box-shadow: 0 0 1px hsla(60, 100%, 50%, 0.75), inset 0 0 1px hsla(60, 100%, 50%, 0.75);
+		}
+	}
+
+	&.brokenLink .frame {
+		background-color: hsla(0, 100%, 60%, 0.5);
+	}
+
+	&.start {
+		.frame {
+			border-width: 4px;
+
+			&:after {
+				height: 2px;
+			}
+		}
+
+		.setAsStart {
+			color: hsl(212, 88%, 40%);
+
+			&:hover {
+				color: hsl(212, 88%, 50%);
+			}
+		}
+	}
+}
+
+#storyEditView.zoom-medium .passage {
+	.frame {
+		width: 60px;
+		height: 60px;
+
+		&:after {
+			display: none;
+		}
+	}
+
+	.title {
+		border-bottom: none;
+		font-size: 0.8em;
+		font-weight: normal;
+		line-height: 120%;
+		text-align: center;
+		margin: 5px;
+		padding: 0;
+		height: 60px;
+		width: 60px;
+		display: table-cell;
+		vertical-align: middle;
+		white-space: normal;
+	}
+
+	.excerpt {
+		display: none;
+	}
+}
+
+#storyEditView.zoom-small .passage {
+	.frame {
+		width: 25px;
+		height: 25px;
+
+		&:after {
+			display: none;
+		}
+	}
+
+	.title, .excerpt {
+		display: none;
+	}
+}
