@@ -1,5 +1,5 @@
 // The main view where story editing takes place.
-// FIXME: space bar scrolling, scroll wheel
+// FIXME: scroll wheel
 
 const _ = require('underscore');
 const Vue = require('vue');
