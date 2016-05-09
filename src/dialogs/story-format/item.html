@@ -1,0 +1,26 @@
+<div class="format-item">
+	<input type="radio" name="selectedFormat" :checked="selected" @click="select">
+
+	<!-- If no image is available, use a placeholder based on name. -->
+
+	<img v-if="format.image" :src="imageSrc">
+	<span v-else class="placeholder">{{ format.name.slice(0,2) }}</span>
+
+	<div class="text">
+		<h3>
+			{{ format.name }} {{ format.version }}
+			<template v-if="format.author">
+				<br>
+				{{{ format.author }}}
+			</template>
+		</h3>
+
+		<p v-if="format.description">
+			{{{ format.description }}}
+		</p>
+
+		<p v-if="format.license">
+			{{{ format.license }}}
+		</p>
+	</div-->
+</div>
