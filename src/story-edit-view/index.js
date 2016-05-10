@@ -87,6 +87,12 @@ module.exports = Vue.extend({
 			});
 
 			return result;
+		},
+
+		// An array of passage names, used to check for broken links.
+
+		passageNames() {
+			return this.$refs.passages.map(p => p.name);
 		}
 	},
 
