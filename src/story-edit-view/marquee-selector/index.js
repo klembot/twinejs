@@ -89,9 +89,10 @@ module.exports = Vue.extend({
 
 	methods: {
 		startDrag(e) {
-			// Only listen to the left mouse button.
+			// Only listen to the left mouse button, and only when the <body> is
+			// not in space-bar scroll mode (see vue/directives/mouse-scrolling).
 
-			if (e.which !== 1) {
+			if (e.which !== 1 || document.body.classList.contains('mouseScrollReady')) {
 				return;
 			}
 
@@ -106,7 +107,7 @@ module.exports = Vue.extend({
 			}
 
 			this.visible = true;
-			document.querySelector('body').classList.add('marqueeing');
+			document.body.classList.add('marqueeing');
 			
 			// Set up coordinates initially. clientX and clientY don't take
 			// into account the window's scroll position.
