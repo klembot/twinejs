@@ -1,5 +1,6 @@
 // This directive adds behavior to a component so that when it's mounted, the
-// user may scroll the document by holding down the space bar/middle button and dragging.
+// user may scroll the document by holding down the middle button and dragging
+// (or the space bar + left button)
 
 const {default:{on,off}} = require('oui-dom-events');
 
@@ -9,7 +10,7 @@ module.exports = {
 			bind() {
 				const {body} = document;
 
-				let scrollOrigin, mouseOrigin, scrolling = false;
+				let scrollOrigin, mouseOrigin, scrolling, spaceHeld = false;
 
 				function beginScrolling(e) {
 					// We don't need to account for the window's scroll
@@ -18,19 +19,30 @@ module.exports = {
 					mouseOrigin = [e.clientX, e.clientY];
 					scrollOrigin = [window.scrollX, window.scrollY];
 					scrolling = true;
-					body.classList.add('mouseScrollReady');
+					body.classList.add('mouseScrolling');
 					e.preventDefault();
 				}
 
 				on(body,'keydown.mouse-scrolling', (e) => {
-					if (e.which === 32 && !scrolling) { // Space bar
-						beginScrolling(e);
+					if (e.which === 32) {
+						if (!scrolling && !spaceHeld) { // Space bar
+							spaceHeld = true;
+							body.classList.add('mouseScrollReady');
+						}
+						// preventDefault() stops the page from scrolling
+						// downward when the space bar is held by itself.
+						e.preventDefault();
 					}
 				});
 
 				on(body,'mousedown.mouse-scrolling', (e) => {
 					if (e.which === 2 && !scrolling) { // Middle button
 						beginScrolling(e);
+					}
+					if (e.which === 1 && spaceHeld) { // Left button
+						if (!scrolling) {
+							beginScrolling(e);
+						}
 					}
 				});
 
@@ -44,17 +56,17 @@ module.exports = {
 				});
 
 				on(body,'keyup.mouse-scrolling', (e) => {
-					if (e.which === 32 && scrolling) {
-						scrolling = false;
-						body.classList.remove('mouseScrollReady');
+					if (e.which === 32 && spaceHeld) {
+						scrolling = spaceHeld = false;
+						body.classList.remove('mouseScrollReady', 'mouseScrolling');
 						e.preventDefault();
 					}
 				});
 
 				on(body,'mouseup.mouse-scrolling', (e) => {
-					if (e.which === 2 && scrolling) {
+					if ((e.which === 2 || e.which === 1) && scrolling) {
 						scrolling = false;
-						body.classList.remove('mouseScrollReady');
+						body.classList.remove('mouseScrolling');
 						e.preventDefault();
 					}
 				});
