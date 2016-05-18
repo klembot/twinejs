@@ -31,6 +31,7 @@ module.exports = Vue.extend({
 			classes: this.class
 		});
 
+		// Close the dropdown when one of its menu items is clicked.
 		this.$drop.drop.addEventListener('click', () => {
 			this.$drop.close();
 		});

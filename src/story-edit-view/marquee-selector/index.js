@@ -167,6 +167,14 @@ module.exports = Vue.extend({
 
 			this.$el.parentNode.removeEventListener('mousemove', this.$onMouseMove);
 			this.$el.parentNode.removeEventListener('mouseup', this.$onMouseUp);
+
+			// Because this component's $el has been re-rendered (entirely replaced)
+			// due to startDrag() and followDrag() altering the data, this mouseup
+			// event won't result in a click event bubbling up from this.
+			// To alleviate this, we generate a synthetic MouseEvent now,
+			// using this mouseup event's values.
+
+			this.$el.dispatchEvent(new MouseEvent('click', e));
 		}
 	},
 
@@ -182,6 +190,6 @@ module.exports = Vue.extend({
 	// have a reference to our parent component.
 
 	beforeDestroy() {
-		this.$el.parentNode.removeEventListener('click', this.$onMouseDown);
+		this.$el.parentNode.removeEventListener('mousedown', this.$onMouseDown);
 	}
 });
