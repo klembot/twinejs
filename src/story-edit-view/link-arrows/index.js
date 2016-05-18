@@ -49,7 +49,7 @@ module.exports = Vue.extend({
 
 					// Find the closest sides to connect between the two.
 					// In all the following code, we are working with [x, y]
-					// pairs. See the <passage-edit> component for more details
+					// pairs. See the <passage-item> component for more details
 					// on how this property is assembled.
 
 					const xDist = to.n[0] - from.n[0];

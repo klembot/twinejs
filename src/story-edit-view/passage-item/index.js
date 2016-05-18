@@ -18,6 +18,7 @@ module.exports = Vue.extend({
 	props: [
 		'model',
 		'parentStory',
+		'passageNames',
 		'collection',
 		'zoom',
 		'dragX',
@@ -111,7 +112,7 @@ module.exports = Vue.extend({
 
 		hasBrokenLinks() {
 			return this.internalLinks.some(
-				p => !this.$collection.find(q => q.get('name') === p)
+				n => this.passageNames.indexOf(n) === -1
 			);
 		},
 
