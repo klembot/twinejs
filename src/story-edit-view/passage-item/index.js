@@ -22,8 +22,8 @@ module.exports = Vue.extend({
 		'passageNames',
 		'collection',
 		'zoom',
-		'dragX',
-		'dragY',
+		'dragXOffset',
+		'dragYOffset',
 		'highlightRegexp'
 	],
 
@@ -64,25 +64,53 @@ module.exports = Vue.extend({
 			};
 		},
 
+		// The passed-in dragXOffset, but with the snapToGrid setting taken into account.
+		// Used by connectorArrows and cssPosition.
+
+		screenDragX() {
+			let {dragXOffset, screenRect:{left}} = this;
+
+			if (this.parentStory.get('snapToGrid')) {
+				const grid = this.screenRect.width / 4;
+				dragXOffset = Math.round((dragXOffset + left) / grid) * grid - left;
+			}
+			return dragXOffset;
+		},
+
+		// The passed-in dragYOffset, but with the snapToGrid setting taken into account.
+		// Used by connectorArrows and cssPosition.
+
+		screenDragY() {
+			let {dragYOffset, screenRect:{top}} = this;
+
+			if (this.parentStory.get('snapToGrid')) {
+				const grid = this.screenRect.height / 4;
+				dragYOffset = Math.round((dragYOffset + top) / grid) * grid - top;
+			}
+			return dragYOffset;
+		},
+
 		// Connection points used to draw link arrows to and from this
 		// component in (x, y) format.
 
 		connectorAnchors() {
-			const offsetX = (this.selected) ? this.dragX : 0;
-			const offsetY = (this.selected) ? this.dragY : 0;
+			const offsetX = (this.selected) ? this.screenDragX : 0;
+			const offsetY = (this.selected) ? this.screenDragY : 0;
+
+			const {left, top, width, height} = this.screenRect;
 
 			return {
 				// The four vertices in [x1,y1,x2,y2] format.
 				box: [
-					this.screenRect.left + offsetX,
-					this.screenRect.top + offsetY,
-					this.screenRect.left + this.screenRect.width + offsetX,
-					this.screenRect.top + this.screenRect.height + offsetY
+					left + offsetX,
+					top + offsetY,
+					left + width + offsetX,
+					top + height + offsetY
 				],
 				// The center coordinate
 				center: [
-					this.screenRect.left + 0.5 * this.screenRect.width + offsetX,
-					this.screenRect.top + 0.5 * this.screenRect.height + offsetY
+					left + 0.5 * width + offsetX,
+					top + 0.5 * height + offsetY
 				],
 			};
 		},
@@ -114,8 +142,10 @@ module.exports = Vue.extend({
 			};
 
 			if (this.selected) {
-				result.transform = `translate(${this.dragX}px, ${this.dragY}px)`;
-				result.backgroundPosition = `-${bgLeft + this.dragX}px -${bgTop + this.dragY}px`;
+				result.transform =
+					`translate(${this.screenDragX}px, ${this.screenDragY}px)`;
+				result.backgroundPosition =
+					`-${bgLeft + this.screenDragX}px -${bgTop + this.screenDragY}px`;
 			}
 
 			return result;
@@ -189,7 +219,7 @@ module.exports = Vue.extend({
 			// as the user may be starting a drag; but now that we know for
 			// sure that the user didn't intend this, we select just this one.
 
-			if (this.dragX === 0 && this.dragY === 0) {
+			if (this.dragXOffset === 0 && this.dragYOffset === 0) {
 				if (!(e.ctrlKey || e.shiftKey)) {
 					this.$dispatch('passage-deselect-except', this);
 				}
