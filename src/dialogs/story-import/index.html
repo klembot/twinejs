@@ -1,0 +1,23 @@
+<modal-dialog v-ref:modal>
+	<h2>{{ 'Import From File' | say }}</h2>
+
+	<div class="content">
+		<p v-if="!working">
+			<label for="importUpload">
+				{{ 'Import this file:' | say }}
+			</label>
+
+			<input type="file" v-el:import-file @change="import">
+		</p>
+		<p v-else>
+			<i class="fa fa-circle-o-notch fa-spin"></i>
+			{{ 'Working...' | say }}
+		</p>
+	</div>
+
+	<div class="buttons" v-if="!working" transition="fade-in-out">
+		<button class="subtle" @click="close">
+			<i class="fa fa-times"></i> {{ 'Cancel' | say }}
+		</button>
+	</div>
+</modal-dialog>
