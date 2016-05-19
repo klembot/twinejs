@@ -42,8 +42,8 @@ module.exports = Vue.extend({
 		// The offset that selected passages should be displayed at
 		// temporarily, to show feedback as the user drags passages around.
 
-		dragX: 0,
-		dragY: 0
+		dragXOffset: 0,
+		dragYOffset: 0
 	}),
 
 	computed: {
@@ -296,8 +296,8 @@ module.exports = Vue.extend({
 		// temporarily shifting their onscreen position.
 
 		'passage-drag'(xOffset, yOffset) {
-			this.dragX = xOffset;
-			this.dragY = yOffset;
+			this.dragXOffset = xOffset;
+			this.dragYOffset = yOffset;
 		},
 
 		// A child will dispatch this event at the completion of a drag. We
@@ -305,8 +305,8 @@ module.exports = Vue.extend({
 		// a temporary change in the DOM to their model.
 
 		'passage-drag-complete'(xOffset, yOffset) {
-			this.dragX = 0;
-			this.dragY = 0;
+			this.dragXOffset = 0;
+			this.dragYOffset = 0;
 			this.$broadcast('passage-drag-complete', xOffset, yOffset);
 		},
 
