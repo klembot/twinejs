@@ -1,8 +1,9 @@
 // Displays SVG arrows showing links between <passage-item> components.
-// This could be optimized quite a bit.
 
 const SVG = require('svg.js');
 const Vue = require('vue');
+const _ = require('underscore');
+const lineclip = require('lineclip');
 
 // The angle at which arrowheads are drawn, in radians.
 
@@ -19,6 +20,8 @@ module.exports = Vue.extend({
 
 	ready() {
 		this.$svg = SVG(this.$el);
+		// Cache used to store SVG lines that should be preserved between ticks.
+		this.cache = {};
 		Vue.nextTick(() => this.draw());
 	},
 
@@ -29,11 +32,9 @@ module.exports = Vue.extend({
 
 	methods: {
 		draw() {
-			this.$svg.clear();
+			const newCache = {};
 
-			Object.keys(this.links).forEach((fromName) => {
-				const from = this.links[fromName];
-
+			_.values(this.links).forEach(from => {
 				from.links.forEach((toName) => {
 					const to = this.links[toName];
 
@@ -44,88 +45,61 @@ module.exports = Vue.extend({
 						return;
 					}
 
-					// The points in the line we'll draw.
+					// The initial line, which will be clipped.
+					const fullLine = [from.center, to.center];
+					// The SVG element that will be produced.
+					let svgLine;
 
-					let line;
-
-					// Find the closest sides to connect between the two.
-					// In all the following code, we are working with [x, y]
-					// pairs. See the <passage-item> component for more details
-					// on how this property is assembled.
-
-					const xDist = to.n[0] - from.n[0];
-					const yDist = to.n[1] - from.n[1];
-					const slope = Math.abs(xDist / yDist);
-
-					// If the angle between the two passages isn't very
-					// extreme, connect their sides instead of their corners.
-					// The numbers in this if statement were eyeballed.
-
-					if (slope < 0.8 || slope > 1.3) {
-						// If the line has more horizontal distance to
-						// cover, draw it horizontally; otherwise, vertically.
-
-						if (Math.abs(xDist) > Math.abs(yDist)) {
-							if (xDist > 0) {
-								line = [from.e, to.w];
-							}
-							else {
-								line = [from.w, to.e];
-							}
-						}
-						else {
-							if (yDist > 0) {
-								line = [from.s, to.n];
-							}
-							else {
-								line = [from.n, to.s];
-							}
-						}
+					// Check the cache to see if an SVG element for this line is already available.
+					// Note: this assumes passages can never change size only, in a single tick.
+					const cacheIndex = fullLine + '';
+					if (cacheIndex + '' in this.cache) {
+						svgLine = this.cache[cacheIndex];
 					}
 					else {
-						// Connect the corners.
+						// We must create a clipped line from the fullLine.
+						let line;
 
-						if (xDist < 0) {
-							if (yDist < 0) {
-								line = [from.nw, to.se];
-							}
-							else {
-								line = [from.sw, to.ne];
-							}
+						// Clip by the starting passage's box, extract the point that intersected
+						// the line (which is always the second of the returned pair),
+						// and add it to the line.
+						let clippedStart, clippedEnd;
+
+						[[,clippedStart]] = lineclip(fullLine, from.box);
+						// and repeat for the destination passage's box.
+						// (reverse() can't be used, as it changes the array in-place.)
+						[[,clippedEnd]] = lineclip([fullLine[1], fullLine[0]], to.box);
+
+						line = [clippedStart, clippedEnd];
+
+						// We now add arrowheads if requested.
+						if (this.arrowheads) {
+							const head1 = this.endPointProjectedFrom(
+								line,
+								ARROW_ANGLE,
+								ARROW_SIZE
+							);
+							const head2 = this.endPointProjectedFrom(
+								line,
+								-ARROW_ANGLE,
+								ARROW_SIZE
+							);
+
+							line.push(head1, [line[1][0], line[1][1]], head2);
 						}
-						else {
-							if (yDist < 0) {
-								line = [from.ne, to.sw];
-							}
-							else {
-								line = [from.se, to.nw];
-							}
-						}
+						// Now create an SVG element from it.
+						svgLine = this.$svg.polyline(line);
 					}
 
-					// `line` is now an array of two points: 0 is the start, 1 is
-					// the end. We now add arrowheads if requested.
-
-					if (this.arrowheads) {
-						const head1 = this.endPointProjectedFrom(
-							line,
-							ARROW_ANGLE,
-							ARROW_SIZE
-						);
-						const head2 = this.endPointProjectedFrom(
-							line,
-							-ARROW_ANGLE,
-							ARROW_SIZE
-						);
-
-						line.push(head1, [line[1][0], line[1][1]], head2);
-					}
-
-					// Finally, draw it.
-
-					this.$svg.polyline(line);
+					// Add the SVG line to the new cache
+					newCache[cacheIndex] = svgLine;
 				});
 			});
+			// Remove all other existing lines which aren't present in the new cache.
+			_.difference(_.values(this.cache), _.values(newCache)).forEach(e => e.remove());
+
+			// Replace the cache with the new one.
+			this.cache = newCache;
 		},
 
 		// Projects a point from the endpoint of a line at a certain angle and

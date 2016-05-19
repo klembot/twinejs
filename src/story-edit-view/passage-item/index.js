@@ -72,38 +72,18 @@ module.exports = Vue.extend({
 			const offsetY = (this.selected) ? this.dragY : 0;
 
 			return {
-				nw: [
+				// The four vertices in [x1,y1,x2,y2] format.
+				box: [
 					this.screenRect.left + offsetX,
-					this.screenRect.top + offsetY
-				],
-				n: [
-					this.screenRect.left + 0.5 * this.screenRect.width + offsetX,
-					this.screenRect.top + offsetY
-				],
-				ne: [
+					this.screenRect.top + offsetY,
 					this.screenRect.left + this.screenRect.width + offsetX,
-					this.screenRect.top + offsetY
+					this.screenRect.top + this.screenRect.height + offsetY
 				],
-				w: [
-					this.screenRect.left + offsetX,
+				// The center coordinate
+				center: [
+					this.screenRect.left + 0.5 * this.screenRect.width + offsetX,
 					this.screenRect.top + 0.5 * this.screenRect.height + offsetY
 				],
-				e: [
-					this.screenRect.left + this.screenRect.width + offsetX,
-					this.screenRect.top + 0.5 * this.screenRect.height + offsetY
-				],
-				sw: [
-					this.screenRect.left + offsetX,
-					this.screenRect.top + this.screenRect.height + offsetY
-				],
-				s: [
-					this.screenRect.left + 0.5 * this.screenRect.width + offsetX,
-					this.screenRect.top + this.screenRect.height + offsetY
-				],
-				se: [
-					this.screenRect.left + this.screenRect.width + offsetX,
-					this.screenRect.top + this.screenRect.height + offsetY
-				]
 			};
 		},
 
