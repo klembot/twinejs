@@ -66,12 +66,11 @@ module.exports = Vue.extend({
 		// The passed-in dragXOffset, but with the snapToGrid setting taken into account.
 		// Used by connectorArrows and cssPosition.
 
-		dragX() {
-			let {dragXOffset, left} = this;
+		screenDragX() {
+			let {dragXOffset, screenRect:{left}} = this;
 
 			if (this.parentStory.get('snapToGrid')) {
-				const grid = Passage.width / 4;
-
+				const grid = this.screenRect.width / 4;
 				dragXOffset = Math.round((dragXOffset + left) / grid) * grid - left;
 			}
 			return dragXOffset;
@@ -80,12 +79,12 @@ module.exports = Vue.extend({
 		// The passed-in dragYOffset, but with the snapToGrid setting taken into account.
 		// Used by connectorArrows and cssPosition.
 
-		dragY() {
-			let {dragYOffset, top} = this;
+		screenDragY() {
+			let {dragYOffset, screenRect:{top}} = this;
 
 			if (this.parentStory.get('snapToGrid')) {
-				const grid = Passage.width / 4;
-				dragYOffset = Math.round((dragYOffset + top)/ grid) * grid - top;
+				const grid = this.screenRect.height / 4;
+				dragYOffset = Math.round((dragYOffset + top) / grid) * grid - top;
 			}
 			return dragYOffset;
 		},
@@ -94,8 +93,8 @@ module.exports = Vue.extend({
 		// component in (x, y) format.
 
 		connectorAnchors() {
-			const offsetX = (this.selected) ? this.dragX : 0;
-			const offsetY = (this.selected) ? this.dragY : 0;
+			const offsetX = (this.selected) ? this.screenDragX : 0;
+			const offsetY = (this.selected) ? this.screenDragY : 0;
 
 			const {left, top, width, height} = this.screenRect;
 
@@ -146,14 +145,14 @@ module.exports = Vue.extend({
 		},
 
 		cssPosition() {
-			let {dragX, dragY, top, left, zoom} = this;
+			let {top, left, zoom} = this;
 			let result = {
 				top: top * zoom + 'px',
 				left: left * zoom + 'px',
 			};
 
 			if (this.selected) {
-				result.transform = `translate(${dragX}px, ${dragY}px)`;
+				result.transform = `translate(${this.screenDragX}px, ${this.screenDragY}px)`;
 			}
 
 			return result;
