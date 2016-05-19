@@ -1,7 +1,11 @@
+@import "../zoom-settings.less";
+
 #storyEditView .passage {
 	position: absolute;
 	color: hsla(0, 0%, 100%, 0.75);
 	cursor: default;
+	background: @blueprint-large;
+	background-origin: border-box;
 
 	.frame {
 		border: 1px solid hsla(0, 0%, 100%, 0.75);
@@ -86,6 +90,8 @@
 }
 
 #storyEditView.zoom-medium .passage {
+	background: @blueprint-medium;
+
 	.frame {
 		width: 60px;
 		height: 60px;
@@ -116,6 +122,8 @@
 }
 
 #storyEditView.zoom-small .passage {
+	background: @blueprint-small;
+
 	.frame {
 		width: 25px;
 		height: 25px;

@@ -1,5 +1,7 @@
+@import "zoom-settings.less";
+
 #storyEditView .passages {
-	background: #24497e url("img/blueprint-large.png") 1px -23px;
+	background: @blueprint-large;
 	width: 100%;
 	height: 100%;
 	user-select: none;
@@ -9,13 +11,11 @@
    the blueprint background image */
 
 #storyEditView.zoom-small .passages {
-	background-image: url('img/blueprint-small.png');
-	background-position: 0px 0px;
+	background: @blueprint-small;
 }
 
 #storyEditView.zoom-medium .passages {
-	background-image: url('img/blueprint-medium.png');
-	background-position: 0px 0px;
+	background: @blueprint-medium;
 }
 
 

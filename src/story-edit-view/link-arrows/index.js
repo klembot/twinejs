@@ -37,9 +37,10 @@ module.exports = Vue.extend({
 				from.links.forEach((toName) => {
 					const to = this.links[toName];
 
-					// If the destination passage doesn't exist, then skip it.
+					// If the destination passage doesn't exist,
+					// or is equal to the other passage, don't draw it.
 
-					if (!to) {
+					if (!to || to === from) {
 						return;
 					}
 

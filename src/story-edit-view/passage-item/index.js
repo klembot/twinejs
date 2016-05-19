@@ -11,6 +11,7 @@ const linkParser = require('../../common/link-parser');
 const locale = require('../../locale');
 const rect = require('../../common/rect');
 const { hasPrimaryTouchUI } = require('../../ui');
+const { big } = require('../zoom-settings');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -117,13 +118,24 @@ module.exports = Vue.extend({
 		},
 
 		cssPosition() {
+			let top = this.top * this.zoom;
+			let left = this.left * this.zoom;
+			// Unfortunately, the background offset used in zoom-settings.less must
+			// also be hard-coded here, at least until the background graphic is
+			// amended to not need this.
+			let bgTop = top + (this.zoom === big ? 23 : 0);
+			let bgLeft = left + (this.zoom === big ? -1 : 0);
 			let result = {
-				top: this.top * this.zoom + 'px',
-				left: this.left * this.zoom + 'px',
+				top: `${top}px`,
+				left: `${left}px`,
+				// The background is used to mask any intersecting connector
+				// lines which would otherwise be drawn below this.
+				backgroundPosition: `-${bgLeft}px -${bgTop}px`,
 			};
 
 			if (this.selected) {
 				result.transform = `translate(${this.dragX}px, ${this.dragY}px)`;
+				result.backgroundPosition = `-${bgLeft + this.dragX}px -${bgTop + this.dragY}px`;
 			}
 
 			return result;
