@@ -1,0 +1,63 @@
+; NOTE: this .NSI script is designed for NSIS v1.8+
+; and is shamelessly ripped from https://github.com/tweecode/twine/blob/master/install.nsi
+
+Name "<%- name %> <%- version %>"
+OutFile "..\dist\twine_<%- version %>_<%- arch %>.exe"
+
+; Some default compiler settings (uncomment and change at will):
+; SetCompress auto ; (can be off or force)
+; SetDatablockOptimize on ; (can be off)
+; CRCCheck on ; (can be off)
+; AutoCloseWindow false ; (can be true for the window go away automatically at end)
+; ShowInstDetails hide ; (can be show to have them shown, or nevershow to disable)
+; SetDateSave off ; (can be on to have files restored to their orginal date)
+RequestExecutionLevel highest
+
+InstallDir "$PROGRAMFILES\<%- name %> 2"
+InstallDirRegKey HKEY_LOCAL_MACHINE "SOFTWARE\<%- regKey %>" ""
+;DirShow show ; (make this hide to not let the user change it)
+DirText "Choose which folder to install <%- name %> <%- version %> into:"
+
+Section "" ; (default section)
+SetOutPath "$INSTDIR"
+
+; add files / whatever that need to be installed here.
+; see http://nsis.sourceforge.net/Docs/Chapter4.html#4.9.1.5
+
+File /r "..\build\nwjs\<%- name %>\<%- arch %>\*"
+
+; add Start Menu entries
+
+CreateDirectory "$SMPROGRAMS\<%- startMenuFolder %>\"
+CreateShortCut "$SMPROGRAMS\<%- startMenuFolder %>\<%- name %>.lnk" "$INSTDIR\<%- name %>.exe"
+CreateShortCut "$SMPROGRAMS\<%- startMenuFolder %>\Uninstall.lnk" "$INSTDIR\uninstall.exe"
+
+; add uninstall entry in Add/Remove Programs
+
+WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\<%- regKey %>" "" "$INSTDIR"
+WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\<%- regKey %>" "DisplayName" "<%- name %> <%- version %> (remove only)"
+WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\<%- regKey %>" "UninstallString" '"$INSTDIR\uninstall.exe"'
+
+; write out uninstaller
+
+WriteUninstaller "$INSTDIR\uninstall.exe"
+
+SectionEnd ; end of default section
+
+
+; begin uninstall settings/section
+
+UninstallText "This will uninstall <%- name %> <%- version %> from your system."
+
+Section Uninstall
+
+; add delete commands to delete whatever files/registry keys/etc you installed here.
+
+Delete "$INSTDIR\uninstall.exe"
+DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\<%- regKey %>"
+DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\<%- regKey %>"
+RMDir /r "$SMPROGRAMS\<%- startMenuFolder %>"
+RMDir /r "$INSTDIR"
+SectionEnd ; end of uninstall section
+
+; eof
