@@ -2,10 +2,9 @@
 // storage. It's only applicable when the app is running in a Web browser.
 
 const Vue = require('vue');
-const locale = require('../locale');
+const locale = require('../../locale');
 
 const CHUNK_SIZE = 102400;
-
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
