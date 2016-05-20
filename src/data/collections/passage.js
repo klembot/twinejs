@@ -7,7 +7,7 @@
 
 'use strict';
 const Backbone = require('backbone');
-const EventedLocalStorage = require('../../backbone-ext/evented-local-storage');
+const EventedLocalStorage = require('../../backbone/evented-local-storage');
 
 const PassageCollection = Backbone.Collection.extend({
 	localStorage: new EventedLocalStorage('twine-passages')
