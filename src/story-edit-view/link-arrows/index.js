@@ -46,7 +46,10 @@ module.exports = Vue.extend({
 					}
 
 					// The initial line, which will be clipped.
-					const fullLine = [from.center, to.center];
+					// This deep-copies from.center and to.center, so that
+					// they aren't mutated.
+					let fullLine = [[...from.center], [...to.center]];
+
 					// The SVG element that will be produced.
 					let svgLine;
 
@@ -60,16 +63,34 @@ module.exports = Vue.extend({
 						// We must create a clipped line from the fullLine.
 						let line;
 
+						// Tweak to make overlapping lines easier to see by shifting each end point
+						// by a certain amount.
+						let lengthSquared =
+							Math.pow(from.center[0]-to.center[0], 2) +
+							Math.pow(from.center[1]-to.center[1], 2);
+						// Reduction by a large constant keeps the shifting from being
+						// noticeable while dragging passages.
+						lengthSquared /= 524288;
+						fullLine = fullLine.map(e => {
+							const width = (from.box[2]-from.box[0])/4;
+							e[0] += (0.5 - Math.cos(lengthSquared))*width;
+							e[1] += (0.5 - Math.sin(lengthSquared))*width;
+							return e.map(Math.round);
+						});
+
 						// Clip by the starting passage's box, extract the point that intersected
 						// the line (which is always the second of the returned pair),
 						// and add it to the line.
 						let clippedStart, clippedEnd;
 
-						[[,clippedStart]] = lineclip(fullLine, from.box);
+						[[,clippedStart]=[]] = lineclip(fullLine, from.box);
 						// and repeat for the destination passage's box.
 						// (reverse() can't be used, as it changes the array in-place.)
-						[[,clippedEnd]] = lineclip([fullLine[1], fullLine[0]], to.box);
+						[[,clippedEnd]=[]] = lineclip([fullLine[1], fullLine[0]], to.box);
 
+						if (!clippedStart || !clippedEnd) {
+							return;
+						}
 						line = [clippedStart, clippedEnd];
 
 						// We now add arrowheads if requested.
