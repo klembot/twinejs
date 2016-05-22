@@ -2,13 +2,13 @@
 // user may scroll the document by holding down the middle button and dragging
 // (or the space bar + left button)
 
-const {default:{on,off}} = require('oui-dom-events');
+const { default: { on, off } } = require('oui-dom-events');
 
 module.exports = {
 	addTo(Vue) {
 		Vue.directive('mouse-scrolling', {
 			bind() {
-				const {body} = document;
+				const { body } = document;
 
 				let scrollOrigin, mouseOrigin, scrolling, spaceHeld = false;
 
@@ -29,9 +29,16 @@ module.exports = {
 							spaceHeld = true;
 							body.classList.add('mouseScrollReady');
 						}
+
 						// preventDefault() stops the page from scrolling
 						// downward when the space bar is held by itself.
-						e.preventDefault();
+						// We need to take care to avoid gobbling up keystrokes
+						// for form elements.
+
+						if (document.activeElement.nodeName !== 'INPUT' &&
+							document.activeElement.nodeName !== 'TEXTAREA') {
+							e.preventDefault();
+						}
 					}
 				});
 
@@ -59,7 +66,16 @@ module.exports = {
 					if (e.which === 32 && spaceHeld) {
 						scrolling = spaceHeld = false;
 						body.classList.remove('mouseScrollReady', 'mouseScrolling');
-						e.preventDefault();
+
+						// Prevent the space bar from scrolling the window
+						// down. We have to make sure that by doing so, we
+						// don't accidentally gobble a keystroke meant for a
+						// form element.
+
+						if (document.activeElement.nodeName !== 'INPUT' &&
+							document.activeElement.nodeName !== 'TEXTAREA') {
+							e.preventDefault();
+						}
 					}
 				});
 
@@ -74,7 +90,7 @@ module.exports = {
 
 			unbind() {
 				off(document.body,'.mouse-scrolling');
-			},
+			}
 		});
 	}
 };
