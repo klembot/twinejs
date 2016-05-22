@@ -93,6 +93,12 @@ module.exports = Vue.extend({
 
 		passageNames() {
 			return this.$refs.passages.map(p => p.name);
+		},
+
+		// Our grid size -- for now, constant.
+
+		gridSize() {
+			return Passage.width / 4;
 		}
 	},
 
