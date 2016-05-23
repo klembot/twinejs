@@ -9,14 +9,18 @@ module.exports = Vue.extend({
 
 	data: () => ({
 		// Used to create the <format-item>s using v-for.
-		storyFormats:[],
-		proofingFormats:[],
+		storyFormats: [],
+		proofingFormats: [],
+
 		// Determines whether to show the error <span>, and with what text.
 		error: '',
+
 		// Determines whether to show the loading spinner.
 		loading: false,
+
 		// Bound to the text in the "new format" input.
-		newFormatUrl: "",
+		newFormatUrl: '',
+
 		// Passed to child items; see below.
 		defaultFormatPref: null,
 		proofingFormatPref: null,
@@ -31,11 +35,13 @@ module.exports = Vue.extend({
 		'modal-dialog': require('../../ui/modal-dialog')
 	},
 
-	// The AppPref model which is passed to the <format-item>s. (to manage the state of the 'make default' button)
-	// must be referentially identical across all <format-item>s, so the parent <formats-modal> retrieves it
-	// via withName() and passes it to its children.
-	// It also must be reactive, so it needs to be implicitly converted to a reactive object via this attachment here
-	// (as opposed to being a computed property).
+	// The AppPref model which is passed to the <format-item>s (to manage the
+	// state of the 'make default' button) must be referentially identical
+	// across all <format-item>s, so the parent <formats-modal> retrieves it
+	// via withName() and passes it to its children. It also must be
+	// reactive, so it needs to be implicitly converted to a reactive object
+	// via this attachment here (as opposed to being a computed property).
+
 	created() {
 		this.defaultFormatPref = AppPref.withName('defaultFormat');
 		this.proofingFormatPref =  AppPref.withName('proofingFormat');
@@ -134,11 +140,13 @@ module.exports = Vue.extend({
 							'danger'
 						);
 					}
+
 					formatsToLoad.remove(format);
 					loadNextFormat();
 				});
 			}
 		};
+
 		loadNextFormat();
 	},
 });

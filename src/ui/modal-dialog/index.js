@@ -50,7 +50,7 @@ module.exports = Vue.extend({
 
 	methods: {
 		close() {
-			if (typeof this.canClose === 'function' && ! this.canClose()) {
+			if (typeof this.canClose === 'function' && !this.canClose()) {
 				return;
 			}
 

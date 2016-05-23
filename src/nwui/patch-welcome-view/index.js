@@ -4,5 +4,6 @@
 
 module.exports = () => {
 	let WelcomeView = require('../../welcome');
+
 	WelcomeView.options.template = require('./replacement-template.html');
 };

@@ -18,20 +18,22 @@ const storyDataTemplate = require('./ejs/story-data.ejs');
 let StoryCollection;
 
 const Story = Backbone.Model.extend({
-	defaults: _.memoize(() => ({
-        name: locale.say('Untitled Story'),
-        startPassage: -1,
-        zoom: 1,
-        snapToGrid: false,
-        stylesheet: '',
-        script: '',
+	defaults: _.memoize(
+		() => ({
+			name: locale.say('Untitled Story'),
+			startPassage: -1,
+			zoom: 1,
+			snapToGrid: false,
+			stylesheet: '',
+			script: '',
 
-        storyFormat: AppPref.withName('defaultFormat').get('value') ||
-            'Harlowe',
+			storyFormat: AppPref.withName('defaultFormat').get('value') ||
+				'Harlowe',
 
-        lastUpdate: new Date(),
-        ifid: uuid().toUpperCase()
-    })),
+			lastUpdate: new Date(),
+			ifid: uuid().toUpperCase()
+		})
+	),
 
 	template: storyDataTemplate,
 	

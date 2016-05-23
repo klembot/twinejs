@@ -3,7 +3,7 @@
 const Vue = require('vue');
 
 module.exports = Vue.extend({
-	template: require('./index.html'),	
+	template: require('./index.html'),
 
 	props: ['zoom', 'selectedChildren'],
 

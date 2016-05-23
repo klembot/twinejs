@@ -548,7 +548,7 @@ const nwui = module.exports = {
 
 		// obtain the full contents of every file, sync
 
-		_.map( fileStories, filename => {
+		_.map(fileStories, filename => {
 			if (filename.match(/\.html$/)) {
 				const stats = nwui.fs.statSync(nwui.filePath + '/' + filename);
 

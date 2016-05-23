@@ -40,6 +40,7 @@ module.exports = Vue.extend({
 			}
 
 			let notification = { html, className, repeats: 0 };
+
 			this.notifications.push(notification);
 
 			if (className !== 'danger') {

@@ -118,7 +118,11 @@ module.exports = {
 
 	sayPlural(sourceSingular, sourcePlural, count, ...args) {
 		try {
-			return this.i18n.sprintf(this.i18n.ngettext(sourceSingular, sourcePlural, count), count, ...args);
+			return this.i18n.sprintf(
+				this.i18n.ngettext(sourceSingular, sourcePlural, count),
+				count,
+				...args
+			);
 		}
 		catch (e) {
 			// if all else fails, return English, even with ugly placeholders

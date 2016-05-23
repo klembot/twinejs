@@ -6,6 +6,7 @@ const locale = require('../../locale');
 const backboneModel = require('../../vue/mixins/backbone-model');
 const backboneCollection = require('../../vue/mixins/backbone-collection');
 const { thenable } = require('../../vue/mixins/thenable');
+
 require('codemirror/addon/display/placeholder');
 require('../../codemirror/prefix-trigger');
 

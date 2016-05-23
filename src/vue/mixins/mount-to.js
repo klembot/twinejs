@@ -5,6 +5,7 @@ module.exports = {
 	methods: {
 		$mountTo(el) {
 			const mountPoint = document.createElement('div');
+
 			this.$mount(mountPoint).$appendTo(el);
 			return this;
 		},

@@ -41,7 +41,7 @@ module.exports = (text, internalOnly) => {
 
 		// TiddlyWiki links:
 		// [[display text|link]] format
-		// 
+		//
 		// TiddlyWiki links, with setter component:
 		// [[display text|link][...]] format
 

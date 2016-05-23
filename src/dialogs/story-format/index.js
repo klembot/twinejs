@@ -1,4 +1,3 @@
-// A modal that allows the user to choose what story format to use with a
 // story.
 
 const Vue = require('vue');

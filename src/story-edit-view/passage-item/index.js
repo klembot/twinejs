@@ -298,7 +298,7 @@ module.exports = Vue.extend({
 
 			const oldLinks = linkParser(oldText, true);
 			const newLinks = linkParser(newText, true).filter(
-				link => (oldLinks.indexOf(link) === -1) && 
+				link => (oldLinks.indexOf(link) === -1) &&
 					!(this.$collection.find(p => p.get('name') === link))
 			);
 

@@ -16,18 +16,20 @@ const passageDataTemplate = require('./ejs/passage-data.ejs');
 let StoryCollection;
 
 const Passage = Backbone.Model.extend({
-	defaults: _.memoize(() => ({
-        story: -1,
-        top: 0,
-        left: 0,
-        tags: [],
-        name: locale.say('Untitled Passage'),
+	defaults: _.memoize(
+		() => ({
+			story: -1,
+			top: 0,
+			left: 0,
+			tags: [],
+			name: locale.say('Untitled Passage'),
 
-        text: ui.hasPrimaryTouchUI() ?
-            locale.say('Tap this passage, then the pencil icon to edit ' +
-                'it.')
-            : locale.say('Double-click this passage to edit it.')
-    })),
+			text: ui.hasPrimaryTouchUI() ?
+				locale.say('Tap this passage, then the pencil icon to edit ' +
+					'it.')
+				: locale.say('Double-click this passage to edit it.')
+		})
+	),
 
 	template: passageDataTemplate,
 
@@ -386,6 +388,7 @@ const Passage = Backbone.Model.extend({
 
 module.exports = Passage;
 const PassageCollection = require('../collections/passage');
+
 StoryCollection = require('../collections/story');
 
 /**

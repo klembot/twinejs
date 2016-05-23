@@ -25,7 +25,7 @@ module.exports = Vue.extend({
 	ready() {
 		this.$drop = new Drop({
 			target: this.$el.parentNode,
-			content: this.$el,	
+			content: this.$el,
 			position: this.position,
 			openOn: this.openOn,
 			classes: this.class

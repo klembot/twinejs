@@ -36,11 +36,13 @@ const StoryFormat = Backbone.Model.extend({
 	**/
 	properties: {},
 
-	defaults: _.memoize(() => ({
-        name: locale.say('Untitled Story Format'),
-        url: '',
-        userAdded: true
-    })),
+	defaults: _.memoize(
+		() => ({
+			name: locale.say('Untitled Story Format'),
+			url: '',
+			userAdded: true
+		})
+	),
 
 	/**
 	 Loads the actual story format via a JSONP request. After this
