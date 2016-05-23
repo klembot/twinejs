@@ -144,7 +144,10 @@ module.exports = Vue.extend({
 				blankTextError:
 					locale.say('Please enter a name.')
 			})
-			.then((name) => this.$dispatch('add', this.model.duplicate(name)));
+			.then((name) => this.$dispatch(
+				'collection-add',
+				this.model.duplicate(name)
+			));
 		}
 	}
 });
