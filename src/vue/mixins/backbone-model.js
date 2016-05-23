@@ -5,7 +5,7 @@
 //
 // You must also declare the model attributes you're interested in by adding
 // data properties matching their names.
-// 
+//
 // The concept for this is taken from http://jsfiddle.net/x1jeawzv/2/.
 
 function changeAdaptor(model) {
@@ -29,7 +29,7 @@ module.exports = {
 		this.$model = this.$model || this.model;
 
 		if (this.$model === undefined) {
-			throw new Error("Neither a prop nor option named model has been defined");
+			throw new Error('Neither a prop nor option named model has been defined');
 		}
 
 		// Set up two-way bindings.

@@ -20,7 +20,8 @@ module.exports = function (grunt)
 			check: {
 				src: 'src/**/*.js',
 				options: {
-					config: '.jscsrc'
+					config: '.jscsrc',
+					maxErrors: -1
 				}
 			}
 		}

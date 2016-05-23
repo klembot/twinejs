@@ -32,6 +32,7 @@ module.exports = Vue.extend({
 			handler(value) {
 				document.title = value;
 			},
+
 			immediate: true
 		}
 	},

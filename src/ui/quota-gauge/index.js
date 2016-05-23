@@ -69,6 +69,7 @@ module.exports = Vue.extend({
 					window.clearInterval(interval);
 				}
 			},
+
 			20
 		);
 	}

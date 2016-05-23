@@ -21,7 +21,7 @@ module.exports = Vue.extend({
 			// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions.
 
 			this.$dispatch(
-				'highlight-regexp-change', 
+				'highlight-regexp-change',
 				new RegExp(
 					this.search.replace(/([.*+?^${}()|\[\]\/\\])/g, '\\$1'), 'i'
 				)

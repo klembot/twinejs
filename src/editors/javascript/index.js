@@ -2,6 +2,7 @@
 
 const Vue = require('vue');
 const backboneModel = require('../../vue/mixins/backbone-model');
+
 require('codemirror/mode/javascript/javascript');
 require('codemirror/addon/display/placeholder');
 require('codemirror/addon/hint/show-hint');

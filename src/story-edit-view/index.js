@@ -125,6 +125,7 @@ module.exports = Vue.extend({
 		resize() {
 			const winWidth = window.innerWidth;
 			const winHeight = window.innerHeight;
+
 			this.width = winWidth;
 			this.height = winHeight;
 
@@ -251,7 +252,7 @@ module.exports = Vue.extend({
 			// left by half the dimensions of a passage in logical space.
 
 			if (!left) {
-				left = (window.scrollX + window.innerWidth / 2) / this.zoom; 
+				left = (window.scrollX + window.innerWidth / 2) / this.zoom;
 				left -= Passage.width;
 			}
 

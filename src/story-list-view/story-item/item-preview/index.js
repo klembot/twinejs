@@ -17,8 +17,7 @@ const SVG = require('svg.js');
 const appearDuration = 500;
 
 module.exports = Vue.extend({
-
-	template: "<div class='preview'></div>",
+	template: '<div class="preview"></div>',
 
 	props: {
 		hue: Number,

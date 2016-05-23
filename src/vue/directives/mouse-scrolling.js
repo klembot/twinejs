@@ -9,8 +9,10 @@ module.exports = {
 		Vue.directive('mouse-scrolling', {
 			bind() {
 				const { body } = document;
-
-				let scrollOrigin, mouseOrigin, scrolling, spaceHeld = false;
+				let scrollOrigin = false;
+				let mouseOrigin = false;
+				let scrolling = false;
+				let spaceHeld = false;
 
 				function beginScrolling(e) {
 					// We don't need to account for the window's scroll
@@ -46,6 +48,7 @@ module.exports = {
 					if (e.which === 2 && !scrolling) { // Middle button
 						beginScrolling(e);
 					}
+
 					if (e.which === 1 && spaceHeld) { // Left button
 						if (!scrolling) {
 							beginScrolling(e);
