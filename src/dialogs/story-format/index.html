@@ -6,12 +6,12 @@
 			{{ 'A story format controls the appearance and behavior of your story during play.' | say }}
 		</p>
 
-		<p v-if="working" transition="fade-in-out">
-			<i class="fa fa-circle-o-notch fa-lg fa-spin"></i> {{ 'Loading...' | say }}
-		</p>
-
 		<div class="formats">
 			<format-item v-for="format in loadedFormats" :format="format" :story="story"></format-item>
 		</div>
+
+		<p v-if="working" transition="fade-in-out">
+			<i class="fa fa-circle-o-notch fa-lg fa-spin"></i> {{ 'Loading...' | say }}
+		</p>
 	</div> <!-- .content -->
 </modal-dialog>

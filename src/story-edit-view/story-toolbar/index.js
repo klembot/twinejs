@@ -7,7 +7,11 @@ const zoomMappings = require('../zoom-settings');
 module.exports = Vue.extend({
 	template: require('./index.html'),
 	
-	props: ['model', 'collection', 'zoomDesc'],
+	props: [
+		'model',       // A story
+		'collection',  // A collection of all passages in this story
+		'zoomDesc'
+	],
 
 	data: () => ({
 		name: '',
@@ -26,15 +30,15 @@ module.exports = Vue.extend({
 
 		test() {
 			window.open(
-				'#stories/' + this.story.id + '/test',
-				'twinestory_test_' + this.story.id
+				'#stories/' + this.model.id + '/test',
+				'twinestory_test_' + this.model.id
 			);
 		},
 
 		play() {
 			window.open(
-				'#stories/' + this.story.id + '/play',
-				'twinestory_play_' + this.story.id
+				'#stories/' + this.model.id + '/play',
+				'twinestory_play_' + this.model.id
 			);
 		},
 
