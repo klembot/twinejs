@@ -27,7 +27,7 @@ module.exports = Vue.extend({
 
 			format.load(() => {
 				if (!format.properties.proofing) {
-					this.loadedFormats.unshift(Object.assign(
+					this.loadedFormats.push(Object.assign(
 						format.properties, format.toJSON())
 					);
 				}

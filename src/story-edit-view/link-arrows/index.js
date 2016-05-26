@@ -15,7 +15,10 @@ const ARROW_SIZE = 10;
 module.exports = Vue.extend({
 	template: '<div class="links"></div>',
 
-	props: ['links', 'arrowheads'],
+	props: [
+		'links',     // An array of connector links objects
+		'arrowheads' // Boolean: whether to draw arrowheads
+	],
 
 	ready() {
 		this.$svg = SVG(this.$el);
