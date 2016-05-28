@@ -104,38 +104,18 @@ module.exports = Vue.extend({
 			const {left, top, width, height} = this.screenRect;
 
 			return {
-				nw: [
+				// The four vertices in [x1,y1,x2,y2] format.
+				box: [
 					left + offsetX,
-					top + offsetY
-				],
-				n: [
-					left + 0.5 * width + offsetX,
-					top + offsetY
-				],
-				ne: [
+					top + offsetY,
 					left + width + offsetX,
-					top + offsetY
+					top + height + offsetY
 				],
-				w: [
-					left + offsetX,
+				// The center coordinate
+				center: [
+					left + 0.5 * width + offsetX,
 					top + 0.5 * height + offsetY
 				],
-				e: [
-					left + width + offsetX,
-					top + 0.5 * height + offsetY
-				],
-				sw: [
-					left + offsetX,
-					top + height + offsetY
-				],
-				s: [
-					left + 0.5 * width + offsetX,
-					top + height + offsetY
-				],
-				se: [
-					left + width + offsetX,
-					top + height + offsetY
-				]
 			};
 		},
 
