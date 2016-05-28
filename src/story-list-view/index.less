@@ -1,0 +1,85 @@
+@import '../common/colors.less';
+@import '../common/metrics.less';
+
+@toolbar-width: 12rem;
+@header-height: 5rem;
+
+#storyListView {
+	.listControls {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		width: @toolbar-width;
+		text-align: center;
+		padding: @len-extra-large;
+		background: hsl(0, 0%, 97%);
+
+		h1 {
+			margin-top: 0;
+			padding-top: 3.25em;
+			background: center top no-repeat url('img/logo.svg');
+			background-size: 50%;
+		}
+
+		p {
+			margin: 0.25em 0;
+		}
+
+		button {
+			width: 100%;
+		}
+
+		button.create {
+			margin-bottom: 1em;
+		}
+
+		button.link {
+			width: auto;
+		}
+
+		.bubble button {
+			width: 45%;
+		}
+
+		footer {
+			position: absolute;
+			bottom: 1em;
+			left: 1em;
+			right: 1em;
+			font-size: 90%;
+		}
+	}
+
+	> header {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: @toolbar-width;
+		height: @header-height;
+		z-index: 1;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0 @len-extra-large;
+		background: @color-paper;
+
+		h1 {
+			margin: 0;
+		}
+	}
+
+	.main {
+		position: absolute;
+		top: @header-height;
+		padding: 0 @len-extra-large @len-extra-large @len-extra-large;
+		left: 0;
+		right: @toolbar-width;
+	}
+
+	.stories {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+}

@@ -1,0 +1,54 @@
+/* a lightweight replacement for Bootstrap styles */
+
+@import '../common/colors.less';
+@import '../common/fonts.less';
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background-color: @color-paper;
+	color: @color-text;
+	margin: 0;
+	font-family: @font-ui;
+
+	&.locked {
+		overflow: hidden;
+	}
+}
+
+a {
+	color: @color-link;
+	text-decoration: none;
+
+	&.subtle {
+		color: @color-text;
+	}
+
+	&:hover {
+		color: lighten(@color-link, 10%);
+		text-decoration: underline;
+	}
+}
+
+.hide {
+  display: none;
+}
+
+.error {
+	background-color: hsl(0, 50%, 97%);
+	padding: 0.5em 0.5em 0.5em 2em;
+	position: relative;
+	border-radius: 0.25em;
+
+	&:before {
+		content: '\f071';
+		font-family: FontAwesome;
+		color: hsl(0, 100%, 50%);
+		padding-right: 0.5em;
+		position: absolute;
+		top: 0.5em;
+		left: 0.5em;
+	}
+}
