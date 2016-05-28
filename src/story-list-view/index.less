@@ -1,22 +1,25 @@
+@import '../common/colors.less';
+@import '../common/metrics.less';
+
+@toolbar-width: 12rem;
+@header-height: 5rem;
+
 #storyListView {
 	.listControls {
-		text-align: center;
 		position: fixed;
-		z-index: 10;
 		top: 0;
 		right: 0;
 		bottom: 0;
-		width: 12em;
-		padding: 1.25em 1em 1em 1em;
-		background-color: hsl(212, 0%, 95%);
-		box-shadow: inset 0.25em 0 0.25em hsl(0, 0%, 85%);
+		width: @toolbar-width;
+		text-align: center;
+		padding: @len-extra-large;
+		background: hsl(0, 0%, 97%);
 
 		h1 {
 			margin-top: 0;
 			padding-top: 3.25em;
 			background: center top no-repeat url('img/logo.svg');
 			background-size: 50%;
-			font: normal 200% "Nunito Light", sans-serif;
 		}
 
 		p {
@@ -48,18 +51,35 @@
 		}
 	}
 
-	.main {
-		padding: 0 2em;
-		margin-right: 15em;
+	> header {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: @toolbar-width;
+		height: @header-height;
+		z-index: 1;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0 @len-extra-large;
+		background: @color-paper;
 
 		h1 {
-			border-bottom: 0.05em solid hsl(0, 0%, 85%);
-			margin-bottom: 0;
-
-			.normal {
-				color: hsl(0, 0%, 50%);
-				font-size: 45%;
-			}
+			margin: 0;
 		}
+	}
+
+	.main {
+		position: absolute;
+		top: @header-height;
+		padding: 0 @len-extra-large @len-extra-large @len-extra-large;
+		left: 0;
+		right: @toolbar-width;
+	}
+
+	.stories {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
 	}
 }
