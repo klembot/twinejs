@@ -3,6 +3,7 @@
 const _ = require('underscore');
 const Vue = require('vue');
 const Passage = require('../../data/models/passage');
+const StoryFormatCollection = require('../../data/collections/story-format');
 const PassageEditor = require('../../editors/passage');
 const backboneCollection = require('../../vue/mixins/backbone-collection');
 const backboneModel = require('../../vue/mixins/backbone-model');
@@ -17,10 +18,10 @@ module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	props: [
-		'model',
-		'parentStory',
-		'passageNames',
-		'collection',
+		'model',           // A passage
+		'parentStory',     // The story containing this passage
+		'passageNames',    // An array of names of all passages in the parentStory
+		'collection',      // A collection of all passages in the parentStory
 		'gridSize',
 		'snapToGrid',
 		'zoom',
@@ -188,7 +189,8 @@ module.exports = Vue.extend({
 
 			new PassageEditor({
 				model: this.$model,
-				collection: this.$collection
+				collection: this.$collection,
+				storyFormat: StoryFormatCollection.all().findWhere({name: this.parentStory.get('storyFormat')}),
 			}).$mountTo(document.body)
 			.then(() => {
 				this.createNewLinks(this.text, oldText);

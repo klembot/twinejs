@@ -5,7 +5,10 @@ const Vue = require('vue');
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
-	props: ['model', 'parentStory'],
+	props: [
+		'model',      // A passage
+		'parentStory' // The story containing this passage
+	],
 
 	computed: {
 		startClasses() {
