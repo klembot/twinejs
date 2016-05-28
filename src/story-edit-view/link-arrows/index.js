@@ -53,9 +53,12 @@ module.exports = Vue.extend({
 					// The SVG element that will be produced.
 					let svgLine;
 
-					// Check the cache to see if an SVG element for this line is already available.
-					// Note: this assumes passages can never change size only, in a single tick.
+					// Check the cache to see if an SVG element for this line
+					// is already available.
+					// Note: this assumes passages can never change size only,
+					// in a single tick.
 					const cacheIndex = fullLine + '';
+
 					if (cacheIndex + '' in this.cache) {
 						svgLine = this.cache[cacheIndex];
 					}
@@ -63,18 +66,19 @@ module.exports = Vue.extend({
 						// We must create a clipped line from the fullLine.
 						let line;
 
-						// Tweak to make overlapping lines easier to see by shifting each end point
-						// by a certain amount.
+						// Tweak to make overlapping lines easier to see by
+						// shifting each end point by a certain amount.
 						let lengthSquared =
-							Math.pow(from.center[0]-to.center[0], 2) +
-							Math.pow(from.center[1]-to.center[1], 2);
+							Math.pow(from.center[0] - to.center[0], 2) +
+							Math.pow(from.center[1] - to.center[1], 2);
 						// Reduction by a large constant keeps the shifting from being
 						// noticeable while dragging passages.
 						lengthSquared /= 524288;
 						fullLine = fullLine.map(e => {
-							const width = (from.box[2]-from.box[0])/4;
-							e[0] += (0.5 - Math.cos(lengthSquared))*width;
-							e[1] += (0.5 - Math.sin(lengthSquared))*width;
+							const width = (from.box[2] - from.box[0]) / 4;
+
+							e[0] += (0.5 - Math.cos(lengthSquared)) * width;
+							e[1] += (0.5 - Math.sin(lengthSquared)) * width;
 							return e.map(Math.round);
 						});
 
@@ -91,6 +95,7 @@ module.exports = Vue.extend({
 						if (!clippedStart || !clippedEnd) {
 							return;
 						}
+
 						line = [clippedStart, clippedEnd];
 
 						// We now add arrowheads if requested.
@@ -117,7 +122,10 @@ module.exports = Vue.extend({
 				});
 			});
 			// Remove all other existing lines which aren't present in the new cache.
-			_.difference(_.values(this.cache), _.values(newCache)).forEach(e => e.remove());
+			_.difference(
+				_.values(this.cache),
+				_.values(newCache)).forEach(e => e.remove()
+			);
 
 			// Replace the cache with the new one.
 			this.cache = newCache;
