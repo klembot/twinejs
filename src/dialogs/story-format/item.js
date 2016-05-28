@@ -11,6 +11,7 @@ module.exports = Vue.extend({
 	computed: {
 		imageSrc() {
 			const path = this.format.url.replace(/\/[^\/]*?$/, '');
+
 			return path + '/' + this.format.image;
 		},
 

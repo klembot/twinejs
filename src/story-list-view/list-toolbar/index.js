@@ -72,6 +72,6 @@ module.exports = Vue.extend({
 	},
 
 	components: {
-		'quota-gauge': require('../../quota-gauge')
+		'quota-gauge': require('../../ui/quota-gauge')
 	}
 });

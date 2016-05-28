@@ -27,7 +27,7 @@ const donation = module.exports = {
 
 		methods: {
 			donate() {
-				window.open('https://twinery.org/donate');	
+				window.open('https://twinery.org/donate');
 				this.$refs.modal.close();
 			},
 

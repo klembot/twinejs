@@ -62,7 +62,8 @@ module.exports = {
 		this.$collection = this.$collection || this.collection;
 
 		if (this.$collection === undefined) {
-			throw new Error("Neither a prop nor option named collection has been defined");
+			throw new Error('Neither a prop nor option named collection has ' +
+				'been defined');
 		}
 	},
 

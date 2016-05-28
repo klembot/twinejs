@@ -6,8 +6,9 @@ const locale = require('../../locale');
 const backboneModel = require('../../vue/mixins/backbone-model');
 const backboneCollection = require('../../vue/mixins/backbone-collection');
 const { thenable } = require('../../vue/mixins/thenable');
+
 require('codemirror/addon/display/placeholder');
-require('../../codemirror-ext/prefix-trigger');
+require('../../codemirror/prefix-trigger');
 
 // Expose CodeMirror to story formats, currently for Harlowe compatibility.
 

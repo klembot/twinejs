@@ -34,7 +34,8 @@ const importer = module.exports = {
 		const allStories = StoryCollection.all();
 		const allPassages = new PassageCollection();
 
-		// temporary containers for the story and passage attribute objects we will create
+		// temporary containers for the story and passage attribute objects we
+		// will create
 
 		const tempStoryData = [];
 
@@ -47,125 +48,127 @@ const importer = module.exports = {
 
 		// return a promise representing the import of every story
 
-		return _.reduce(nodes.querySelectorAll(sels.storyData),
-				(promise, storyEl) => {
-			count += 1;
-			const startPassageId = storyEl.attributes.startnode.value;
-			const name = storyEl.attributes.name.value;
+		return _.reduce(
+			nodes.querySelectorAll(sels.storyData),
+			(promise, storyEl) => {
+				count += 1;
+				const startPassageId = storyEl.attributes.startnode.value;
+				const name = storyEl.attributes.name.value;
 
-			function importStory() {
+				function importStory() {
 
-				// glom all style nodes into the stylesheet property
+					// glom all style nodes into the stylesheet property
 
-				let stylesheet = '';
+					let stylesheet = '';
 
-				_.each(storyEl.querySelectorAll(sels.stylesheet), el => {
-					stylesheet += el.textContent + '\n';
-				});
-
-				// likewise for script nodes
-
-				let script = '';
-
-				_.each(storyEl.querySelectorAll(sels.script), el => {
-					script += el.textContent + '\n';
-				});
-
-				// build a story attribute object, which we will create() en masse later.
-
-				const story = {
-					name,
-					storyFormat: storyEl.attributes.format.value,
-					ifid: (storyEl.attributes.ifid) ?
-						storyEl.attributes.ifid.value
-						: undefined,
-					stylesheet: stylesheet || undefined,
-					script: script || undefined,
-					// override update date if requested
-					lastUpdate: lastUpdate || undefined
-				};
-
-				// and an array of attribute objects for child passages
-
-				let startPassage;
-
-				const passages = _.map(
-					storyEl.querySelectorAll(sels.passageData),
-					passageEl => {
-						const pid = passageEl.attributes.pid.value;
-						const pos = passageEl.attributes.position.value;
-						const [left, top] = pos.split(',').map(Math.floor);
-						let tags = passageEl.attributes.tags.value;
-
-						const passage = {
-							name: passageEl.attributes.name.value,
-							tags: (tags === '') ? [] : tags.split(/\s+/),
-							text: passageEl.textContent,
-							left,
-							top
-						};
-
-						// note if this is the start passage
-
-						if (pid === startPassageId) {
-							startPassage = passage;
-						}
-						return passage;
-
+					_.each(storyEl.querySelectorAll(sels.stylesheet), el => {
+						stylesheet += el.textContent + '\n';
 					});
 
-				// store these objects together, though they'll be added to different
-				// collections.
+					// likewise for script nodes
 
-				tempStoryData.push({story, passages, startPassage});
-			}
+					let script = '';
 
-			// notice this outer promise has no .catch() handler - the consumer of
-			// import() may attach one as they wish.
+					_.each(storyEl.querySelectorAll(sels.script), el => {
+						script += el.textContent + '\n';
+					});
 
-			return promise.then(() => {
+					// build a story attribute object, which we will create() en masse later.
 
-				// ask to replace the story if it exists;
-				// this is the async step which requires promises
+					const story = {
+						name,
+						storyFormat: storyEl.attributes.format.value,
+						ifid: (storyEl.attributes.ifid) ?
+							storyEl.attributes.ifid.value
+							: undefined,
+						stylesheet: stylesheet || undefined,
+						script: script || undefined,
+						// override update date if requested
+						lastUpdate: lastUpdate || undefined
+					};
 
-				const existing = allStories.findWhere({name});
+					// and an array of attribute objects for child passages
 
-				if (confirmReplace && existing) {
+					let startPassage;
 
-					// reminder: returning this confirm() promise will halt the
-					// promise chain until the dialog is closed.
+					const passages = _.map(
+						storyEl.querySelectorAll(sels.passageData),
+						passageEl => {
+							const pid = passageEl.attributes.pid.value;
+							const pos = passageEl.attributes.position.value;
+							const [left, top] = pos.split(',').map(Math.floor);
+							let tags = passageEl.attributes.tags.value;
 
-					return confirm({
-						message:
+							const passage = {
+								name: passageEl.attributes.name.value,
+								tags: (tags === '') ? [] : tags.split(/\s+/),
+								text: passageEl.textContent,
+								left,
+								top
+							};
 
-							// TODO: provide more details, such as each story's modified
-							// date, number of passages (which we'd have to calculate), etc.
+							// note if this is the start passage
 
-							locale.say(
-								'A story named "%s" already exists. '
-								+ 'Replace it with the imported story?',
-								_.escape(name)),
-						buttonLabel:
-							locale.say('Replace')
-					})
-					.then(
+							if (pid === startPassageId) {
+								startPassage = passage;
+							}
 
-						// remove the existing story and import the story
-						// if confirm was selected, otherwise do nothing (drop the
-						// promise's rejection).
+							return passage;
+						});
 
-						() => {
-							existing.destroy({ wait: true });
-							importStory();
-						},
-						() => {}
-					);
+					// store these objects together, though they'll be added to different
+					// collections.
+
+					tempStoryData.push({story, passages, startPassage});
 				}
-				else {
+
+				// notice this outer promise has no .catch() handler - the consumer of
+				// import() may attach one as they wish.
+
+				return promise.then(() => {
+					// ask to replace the story if it exists;
+					// this is the async step which requires promises
+
+					const existing = allStories.findWhere({name});
+
+					if (confirmReplace && existing) {
+						// reminder: returning this confirm() promise will halt the
+						// promise chain until the dialog is closed.
+
+						return confirm({
+							message:
+
+								// TODO: provide more details, such as each story's modified
+								// date, number of passages (which we'd have to calculate), etc.
+
+								locale.say(
+									'A story named "%s" already exists. '
+									+ 'Replace it with the imported story?',
+									_.escape(name)),
+							buttonLabel:
+								locale.say('Replace')
+						})
+						.then(
+
+							// remove the existing story and import the story
+							// if confirm was selected, otherwise do nothing (drop the
+							// promise's rejection).
+
+							() => {
+								existing.destroy({ wait: true });
+								importStory();
+							},
+
+							() => {}
+						);
+					}
+
 					importStory();
-				}
-			});
-		}, Promise.resolve())
+				});
+			},
+
+			Promise.resolve()
+		)
 
 		// This final task creates all of the story and passage models
 		// from the retrieved data.

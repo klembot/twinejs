@@ -32,8 +32,11 @@ TwineRouter.map({
 
 	'/stories': {
 		component: {
-			template: '<div><story-list :collection="collection" :previously-editing="previouslyEditing"></story-list></div>',
+			template: '<div><story-list :collection="collection" ' +
+				':previously-editing="previouslyEditing"></story-list></div>',
+
 			components: { 'story-list': StoryListView },
+
 			data() {
 				return {
 					collection: StoryCollection.all(),
@@ -46,8 +49,11 @@ TwineRouter.map({
 
 	'/stories/:id': {
 		component: {
-			template: '<div><story-edit :model="model" :collection="collection"></story-edit></div>',
+			template: '<div><story-edit :model="model" ' +
+				':collection="collection"></story-edit></div>',
+
 			components: { 'story-edit': StoryEditView },
+
 			data() {
 				const model = Story.withId(this.$route.params.id);
 
@@ -68,7 +74,7 @@ TwineRouter.map({
 	},
 
 	// These routes require special handling, because we tear down our UI when
-	// they activate. 
+	// they activate.
 
 	'/stories/:id/proof': {
 		component: {
@@ -118,9 +124,9 @@ TwineRouter.redirect({
 });
 
 TwineRouter.beforeEach((transition) => {
-	// If we are moving from an edit view to a list view, give the list view the story
-	// that we were previously editing, so that it can display a zooming
-	// transition back to the story.
+	// If we are moving from an edit view to a list view, give the list view
+	// the story that we were previously editing, so that it can display a
+	// zooming transition back to the story.
 
 	if (transition.from.path && transition.to.path === '/stories') {
 		const editingId =

@@ -38,6 +38,7 @@ const prompter = module.exports = {
 					this.$broadcast('close', this.response);
 				}
 			},
+
 			cancel() {
 				this.$broadcast('close', false);
 			}
@@ -56,18 +57,20 @@ const prompter = module.exports = {
 	*/
 
 	prompt(data) {
-		return new prompter.component({ data }).$mountTo(document.body).then(result => {
-			// False results are produced by the close button and the cancel
-			// button. If the result is false, convert it into a rejection.
-			//
-			// Note: this may change in the future, as using rejections for negative
-			// results is somewhat unidiomatic.
+		return new prompter.component({ data }).$mountTo(document.body).then(
+			result => {
+				// False results are produced by the close button and the cancel
+				// button. If the result is false, convert it into a rejection.
+				//
+				// Note: this may change in the future, as using rejections for negative
+				// results is somewhat unidiomatic.
 
-			if (!result) {
-				throw result;
+				if (!result) {
+					throw result;
+				}
+
+				return result;
 			}
-
-			return result;
-		});
+		);
 	}
 };

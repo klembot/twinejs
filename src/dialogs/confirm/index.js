@@ -27,7 +27,7 @@ const confirmation = module.exports = {
 		data: () => ({
 			message: '',
 			coda: '',
-			cancelLabel: ('<i class="fa fa-times"></i> ' + locale.say("Cancel")),
+			cancelLabel: ('<i class="fa fa-times"></i> ' + locale.say('Cancel')),
 			buttonLabel: '',
 			modalClass: '',
 			buttonClass: '',
@@ -37,6 +37,7 @@ const confirmation = module.exports = {
 			accept() {
 				this.$broadcast('close', true);
 			},
+
 			cancel() {
 				this.$broadcast('close', false);
 			},

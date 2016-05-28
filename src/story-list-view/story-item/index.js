@@ -32,6 +32,7 @@ module.exports = Vue.extend({
 		lastUpdateFormatted() {
 			return moment(this.lastUpdate).format('lll');
 		},
+
 		hue() {
 			// A hue based on the story's name.
 
@@ -39,6 +40,7 @@ module.exports = Vue.extend({
 				(hue, char) => hue + char.charCodeAt(), 0
 			) % 360;
 		},
+
 		passages() {
 			return PassageCollection.all().where({ story: this.model.get('id') });
 		}
@@ -85,6 +87,7 @@ module.exports = Vue.extend({
 
 		edit() {
 			const $el = $(this.$el);
+
 			new ZoomTransition({ data: {
 				x: $el.offset().left + $el.outerWidth() / 2,
 				y: $el.offset().top,

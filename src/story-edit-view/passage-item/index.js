@@ -21,6 +21,8 @@ module.exports = Vue.extend({
 		'parentStory',
 		'passageNames',
 		'collection',
+		'gridSize',
+		'snapToGrid',
 		'zoom',
 		'dragXOffset',
 		'dragYOffset',
@@ -64,29 +66,31 @@ module.exports = Vue.extend({
 			};
 		},
 
-		// The passed-in dragXOffset, but with the snapToGrid setting taken into account.
-		// Used by connectorArrows and cssPosition.
+		// The passed-in dragXOffset, but with the snapToGrid setting taken
+		// into account. Used by connectorArrows and cssPosition.
 
 		screenDragX() {
-			let {dragXOffset, screenRect:{left}} = this;
+			let { dragXOffset, screenRect: { left } } = this;
 
-			if (this.parentStory.get('snapToGrid')) {
-				const grid = this.screenRect.width / 4;
-				dragXOffset = Math.round((dragXOffset + left) / grid) * grid - left;
+			if (this.snapToGrid) {
+				dragXOffset = Math.round((dragXOffset + left) / this.gridSize) *
+					this.gridSize - left;
 			}
+
 			return dragXOffset;
 		},
 
-		// The passed-in dragYOffset, but with the snapToGrid setting taken into account.
-		// Used by connectorArrows and cssPosition.
+		// The passed-in dragYOffset, but with the snapToGrid setting taken
+		// into account. Used by connectorArrows and cssPosition.
 
 		screenDragY() {
-			let {dragYOffset, screenRect:{top}} = this;
+			let { dragYOffset, screenRect: { top } } = this;
 
-			if (this.parentStory.get('snapToGrid')) {
-				const grid = this.screenRect.height / 4;
-				dragYOffset = Math.round((dragYOffset + top) / grid) * grid - top;
+			if (this.snapToGrid) {
+				dragYOffset = Math.round((dragYOffset + top) / this.gridSize) *
+					this.gridSize - top;
 			}
+
 			return dragYOffset;
 		},
 
@@ -274,7 +278,7 @@ module.exports = Vue.extend({
 
 			const oldLinks = linkParser(oldText, true);
 			const newLinks = linkParser(newText, true).filter(
-				link => (oldLinks.indexOf(link) === -1) && 
+				link => (oldLinks.indexOf(link) === -1) &&
 					!(this.$collection.find(p => p.get('name') === link))
 			);
 

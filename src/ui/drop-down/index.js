@@ -25,10 +25,12 @@ module.exports = Vue.extend({
 	ready() {
 		this.$drop = new Drop({
 			target: this.$el.parentNode,
-			content: this.$el,	
+			content: this.$el,
 			position: this.position,
 			openOn: this.openOn,
-			classes: this.class
+			classes: this.class,
+			constrainToWindow: true,
+			constrainToScrollParent: false,
 		});
 
 		// Close the dropdown when one of its menu items is clicked.

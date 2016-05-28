@@ -8,13 +8,15 @@ module.exports = Vue.extend({
 		zoom: 0,
 		x: window.innerWidth / 2,
 		y: window.innerHeight / 2,
-		url: "",
+		url: '',
 		reverse: false,
 	}),
+
 	template: `<div id="storyEditProxy"
 		:class="'fullAppear fast ' + (reverse ? 'reverse ' : '') + zoomClass"
 		:style="{transformOrigin: x + 'px ' + y + 'px'}"
 		@animationend="animationend"></div>`,
+
 	computed: {
 		zoomClass() {
 			for (let desc in ZOOM_MAPPINGS) {
@@ -22,9 +24,11 @@ module.exports = Vue.extend({
 					return 'zoom-' + desc;
 				}
 			}
+
 			return '';
 		},
 	},
+
 	methods: {
 		animationend() {
 			this[resolve]();
@@ -32,5 +36,6 @@ module.exports = Vue.extend({
 			// and call $destroy() on this afterward.
 		},
 	},
-	mixins: [thenable],
+
+	mixins: [thenable]
 });

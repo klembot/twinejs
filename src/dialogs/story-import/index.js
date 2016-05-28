@@ -47,6 +47,7 @@ module.exports = Vue.extend({
 						notify(message, className);
 						this.close();
 					},
+
 					err => {
 						notify(
 							'An error occurred while trying to import this file. (' +

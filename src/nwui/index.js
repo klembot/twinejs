@@ -19,7 +19,7 @@ const StoryCollection = require('../data/collections/story');
 const StoryListView = require('../story-list-view');
 const patchWelcomeView = require('./patch-welcome-view');
 const startupErrorTemplate = require('./ejs/startup-error.ejs');
-let QuotaGauge = require('../quota-gauge');
+let QuotaGauge = require('../ui/quota-gauge');
 
 const nwui = module.exports = {
 	/**
@@ -548,7 +548,7 @@ const nwui = module.exports = {
 
 		// obtain the full contents of every file, sync
 
-		_.map( fileStories, filename => {
+		_.map(fileStories, filename => {
 			if (filename.match(/\.html$/)) {
 				const stats = nwui.fs.statSync(nwui.filePath + '/' + filename);
 
