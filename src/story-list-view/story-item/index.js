@@ -19,8 +19,7 @@ module.exports = Vue.extend({
 	}),
 
 	props: {
-		model: Object,
-		collection: []
+		model: Object
 	},
 
 	components: {
