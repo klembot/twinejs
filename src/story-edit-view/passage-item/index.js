@@ -18,10 +18,17 @@ module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	props: [
-		'model',           // A passage
-		'parentStory',     // The story containing this passage
-		'passageNames',    // An array of names of all passages in the parentStory
-		'collection',      // A collection of all passages in the parentStory
+		// A passage
+		'model',
+		
+		// The story containing this passage
+		'parentStory',
+
+		// An array of names of all passages in the parentStory
+		'passageNames',
+
+		// A collection of all passages in the parentStory
+		'collection',
 		'gridSize',
 		'snapToGrid',
 		'zoom',
@@ -190,7 +197,9 @@ module.exports = Vue.extend({
 			new PassageEditor({
 				model: this.$model,
 				collection: this.$collection,
-				storyFormat: StoryFormatCollection.all().findWhere({name: this.parentStory.get('storyFormat')}),
+				storyFormat: StoryFormatCollection.all().findWhere(
+					{ name: this.parentStory.get('storyFormat') }
+				),
 			}).$mountTo(document.body)
 			.then(() => {
 				this.createNewLinks(this.text, oldText);
