@@ -14,10 +14,12 @@ module.exports = Vue.extend({
 	}),
 	ready() {
 		const {$el, $parent:{$el:parentEl}} = this;
-		on(parentEl, 'dragenter.file-drag-n-drop', e => {
+
+		on(parentEl, 'dragenter.file-drag-n-drop', () => {
 			this.dragover = true;
 		});
-		on(parentEl, 'dragexit.file-drag-n-drop', e => {
+
+		on(parentEl, 'dragexit.file-drag-n-drop', () => {
 			this.dragover = false;
 		});
 		// The below is necessary to prevent the browser from
@@ -31,6 +33,7 @@ module.exports = Vue.extend({
 			this.dragover = false;
 		});
 	},
+
 	beforeDestroy() {
 		off(this.$parent.$el, '.file-drag-n-drop');
 	},
