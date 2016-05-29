@@ -3,6 +3,7 @@
 
 const _ = require('underscore');
 const Vue = require('vue');
+const { eventID, on, off } = require('../vue/mixins/event-id');
 const Passage = require('../data/models/passage');
 const backboneModel = require('../vue/mixins/backbone-model');
 const backboneCollection = require('../vue/mixins/backbone-collection');
@@ -107,12 +108,11 @@ module.exports = Vue.extend({
 
 	ready() {
 		this.resize();
-		this.$resizeListener = this.resize.bind(this);
-		window.addEventListener('resize', this.$resizeListener);
+		on(window, `resize${this.$eventID}`, e => this.resize(e));
 	},
 
 	beforeDestroy() {
-		window.removeEventListener('resize', this.$resizeListener);
+		off(window, `resize${this.$eventID}`);
 	},
 
 	methods: {
@@ -377,5 +377,5 @@ module.exports = Vue.extend({
 		'marquee-selector': require('./marquee-selector')
 	},
 
-	mixins: [backboneModel, backboneCollection]
+	mixins: [backboneModel, backboneCollection, eventID]
 });
