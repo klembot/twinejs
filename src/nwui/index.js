@@ -13,13 +13,14 @@ const _ = require('underscore');
 const importer = require('../file/importer');
 const locale = require('../locale');
 const notify = require('../ui/notify');
-const Passage = require('../data/models/passage');
-const Story = require('../data/models/story');
 const StoryCollection = require('../data/collections/story');
-const StoryListView = require('../story-list-view');
 const patchWelcomeView = require('./patch-welcome-view');
 const startupErrorTemplate = require('./ejs/startup-error.ejs');
+let Passage = require('../data/models/passage');
+let Story = require('../data/models/story');
+let StoryImportDialog = require('../dialogs/story-import');
 let QuotaGauge = require('../ui/quota-gauge');
+let StoryListToolbar = require('../story-list-view/list-toolbar');
 
 const nwui = module.exports = {
 	/**
@@ -72,7 +73,7 @@ const nwui = module.exports = {
 			if (process.platform == 'darwin') {
 				// create Mac menus
 
-				nativeMenuBar.createMacBuiltin(window.app.name);
+				nativeMenuBar.createMacBuiltin(locale.say('Twine'));
 				mainMenu = _.findWhere(nativeMenuBar.items, { label: '' });
 
 				// add fullscreen item
@@ -191,13 +192,10 @@ const nwui = module.exports = {
 
 			// show window once we're finished loading
 
-			window.onload = () => {
+			win.on('loaded', () => {
 				win.show();
 				win.focus();
-				_.delay(function deselectButton() {
-					$('button').blur();
-				});
-			};
+			});
 
 			// shift-ctrl-alt-D shortcut for displaying dev tools
 
@@ -411,18 +409,17 @@ const nwui = module.exports = {
 
 			startupTask = 'setting up the Help link';
 
-			StoryListView.prototype.events['click .showHelp'] = () => {
+			StoryListToolbar.options.methods.showHelp = () => {
 				nwui.gui.Shell.openExternal('http://twinery.org/2guide');
 			};
 
 			startupTask = 'setting up a hook for importing story files';
 
-			const oldStoryListViewImportFile =
-				StoryListView.prototype.importFile;
+			const oldImportFile = StoryImportDialog.options.methods.importFile;
 
-			StoryListView.prototype.importFile = function(e) {
+			StoryImportDialog.options.methods.importFile = function(e) {
 				nwui.syncFs = false;
-				const reader = oldStoryListViewImportFile.call(this, e);
+				const reader = oldImportFile.call(this, e);
 
 				reader.addEventListener('load', () => {
 					// deferred to make sure that the normal event
