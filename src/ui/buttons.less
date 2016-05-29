@@ -36,7 +36,7 @@ button, a.button {
 	
 	&:active, &.active {
 		color: @color-link;
-		background: hsla(0, 0%, 0%, 0.05);
+		background: hsla(0, 0%, 0%, 0.02);
 		.recessed-medium;
 	}
 
@@ -50,5 +50,36 @@ button, a.button {
 
 	&.danger {
 		.colored-button(@color-danger);
+	}
+
+	&.link {
+		padding: 0;
+
+		&:hover {
+			text-decoration: underline;
+		}
+
+		&:active {
+			box-shadow: none;
+			background: none;
+		}
+	}
+}
+
+.button-group {
+	display: inline-flex;
+
+	button, a.button {
+		border-radius: 0;
+
+		&:first-child {
+			border-top-left-radius: @len-tiny;
+			border-bottom-left-radius: @len-tiny;
+		}
+
+		&:last-child {
+			border-top-right-radius: @len-tiny;
+			border-bottom-right-radius: @len-tiny;
+		}
 	}
 }
