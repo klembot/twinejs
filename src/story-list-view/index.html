@@ -4,26 +4,28 @@
 	<header>
 		<h1>{{ storyCountDesc }}</h1>
 
-		<p class="buttonGroup">
+		<p>
 			{{ 'Sort By' | say }}
 
-			<button class="{{ 'subtle ' + (modelOrder === 'lastUpdate' ? 'active': '') }}" @click="sortByDate" title="{{'Last changed date' | say }}" v-tooltip>
-			{{ 'Edit Date' | say }}
-			</button>
+			<span class="button-group">
+				<button class="{{ 'subtle ' + (modelOrder === 'lastUpdate' ? 'active': '') }}" @click="sortByDate" title="{{'Last changed date' | say }}" v-tooltip>
+				{{ 'Edit Date' | say }}
+				</button>
 
-			<button class="{{ 'subtle ' + (modelOrder === 'name' ? 'active' : '') }}" @click="sortByName" title="{{'Story name' | say }}" v-tooltip>
-			{{ 'Name' | say }}
-			</button>
+				<button class="{{ 'subtle ' + (modelOrder === 'name' ? 'active' : '') }}" @click="sortByName" title="{{'Story name' | say }}" v-tooltip>
+				{{ 'Name' | say }}
+				</button>
+			</span>
 		</p>
 	</header>
 
-	<div class="main">
-		<div class="stories">
-			<p v-if="!models.length">
-				{{ 'There are no stories saved in Twine right now. To get started, you can either create a new story or import an existing one from a file.' | say }}
-			</p>
+	<div class="stories">
+		<p v-if="!models.length">
+			{{ 'There are no stories saved in Twine right now. To get started, you can either create a new story or import an existing one from a file.' | say }}
+		</p>
 
+		<ul class="plain">
 			<story-item v-for="model in models" :model="model" transition="grow-in-out" track-by="id"></story-item-view>
-		</div>
-	</div> <!-- .main -->
+		</ul>
+	</div> <!-- .stories-->
 </div> <!-- #storyListView -->
