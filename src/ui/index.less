@@ -48,15 +48,14 @@ ul.plain {
 }
 
 .error {
-	background-color: hsl(0, 50%, 97%);
-	padding: 0.5em 0.5em 0.5em 2em;
+	background-color: hsl(hue(@color-danger), 50%, 97%);
+	padding: @len-small-rel @len-small-rel @len-small-rel 2em;
 	position: relative;
-	border-radius: 0.25em;
 
 	&:before {
 		content: '\f071';
 		font-family: FontAwesome;
-		color: hsl(0, 100%, 50%);
+		color: @color-danger;
 		padding-right: 0.5em;
 		position: absolute;
 		top: 0.5em;

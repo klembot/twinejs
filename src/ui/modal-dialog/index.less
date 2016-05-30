@@ -1,3 +1,5 @@
+@import '../../common/colors.less';
+@import '../../common/depth.less';
 @import '../../vue/transitions.less';
 
 #modalOverlay {
@@ -27,11 +29,12 @@
 	z-index: 101;
 	top: 1em;
 	left: 50%;
-	background: white;
+	background: @color-paper;
 	margin-left: -20em;
 	width: 40em;
-	border-radius: 1em;
-	padding: 0em 2em 2em 2em;
+	border-radius: 2px;
+	padding: @len-medium;
+	.shadow-large;
 
 	.close {
 		position: absolute;
@@ -45,10 +48,19 @@
 		margin: 0;
 	}
 
+	> *:first-child {
+		margin-top: 0;
+	}
+
+	> *:last-child {
+		margin-bottom: 0;
+	}
+
 	// Not used for this component, but available to child components.
 
 	.buttons { 
 		text-align: right;
+		margin-bottom: 0;
 	}
 
 	.modal-dialog-transition & {
