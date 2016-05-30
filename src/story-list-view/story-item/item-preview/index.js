@@ -12,6 +12,7 @@ module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	props: {
+		edit: Function,
 		hue: Number,
 		passages: Array,
 	},
@@ -19,16 +20,12 @@ module.exports = Vue.extend({
 	computed: {
 		style() {
 			return {
-				background: `hsl(${this.hue}, 85%, 95%)`
+				background: `hsl(${this.hue}, 80%, 95%)`
 			};
 		},
 
 		passageColor() {
-			if (this.hue < 240) {
-				return `hsla(${this.hue + 120}, 90%, 50%, 0.6)`;
-			}
-
-			return `hsla(${this.hue - 120}, 90%, 50%, 0.6)`;
+			return `hsla(${this.hue}, 90%, 50%, 0.5)`;
 		}
 	},
 
@@ -57,13 +54,12 @@ module.exports = Vue.extend({
 
 			_.each(this.passages, (passage, i) => {
 				const ratio = passage.get('text').length / maxLength;
-				const radius = (300 + 300 * ratio) / 2;
+				const radius = (200 + 200 * ratio) / 2;
 				const x = passage.get('left') + 50;
 				const y = passage.get('top') + 50;
-				const c = svg.ellipse()
+				const c = svg.circle()
 					.center(x, y)
-					.radius(radius, radius)
-					.rotate(15 + Math.random() * 15)
+					.radius(radius)
 					.fill(this.passageColor);
 
 				if (x - radius < minX) { minX = x - radius; }

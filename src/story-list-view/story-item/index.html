@@ -2,12 +2,12 @@
 	<item-preview :hue="hue" :passages="passages"></item-preview>
 
 	<div class="controls">
-		<button v-on:click="edit">
+		<button :click="edit" class="link story-name">
 			<h2>
 				{{ name }}
 			</h2>
 
-			<p class="changeDate">
+			<p class="smaller">
 				{{ lastUpdateFormatted }}
 			</p>
 		</button>
