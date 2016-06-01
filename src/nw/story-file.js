@@ -27,7 +27,7 @@ const storyFile = module.exports = {
 		try {
 			directories.unlockStories();
 			const fd = fs.openSync(
-				path.join(directories.storyPath(), storyFile.fileName(story)),
+				path.join(directories.storiesPath(), storyFile.fileName(story)),
 				'w'
 			);
 
