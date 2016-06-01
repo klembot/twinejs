@@ -36,7 +36,7 @@ module.exports = Vue.extend({
 			// A hue based on the story's name.
 
 			return [...this.model.get('name')].reduce(
-				(hue, char) => hue + char.charCodeAt(), 0
+				(hue, char) => hue + char.charCodeAt(0), 0
 			) % 360;
 		},
 
