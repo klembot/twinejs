@@ -26,9 +26,7 @@ const AppPref = require('./data/models/app-pref');
 const TwineApp = require('./common/app');
 const TwineRouter = require('./common/router');
 
-// Shim ES6 promises if the browser doesn't support them.
-
-require('es6-promise');
+require('babel-polyfill');
 
 // Start the application after loading the appropriate locale data.
 
