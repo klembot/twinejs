@@ -1,9 +1,6 @@
 // The main entry point for the application.
 
-'use strict';
 let Vue = require('vue');
-
-// Customize Vue with our global extensions. This has to be done as early as
 // possible in the module loading process so that the extensions are available
 // throughout the application.
 
@@ -16,6 +13,12 @@ Vue.mixin(mountMixin);
 localeFilters.addTo(Vue);
 tooltipDirective.addTo(Vue);
 mouseScrollingDirective.addTo(Vue);
+
+// We initialize our NW.js hooks as early as possible. This needs to be after
+// we extend Vue, because it touches certain Vue components that expect those
+// extensions to be in place at require() time.
+
+require('./nw').init();
 
 const locale = require('./locale');
 const notify = require('./ui/notify');
