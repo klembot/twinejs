@@ -3,7 +3,6 @@
 'use strict';
 const $ = require('jquery');
 const Vue = require('vue');
-const nwui = require('../../nwui');
 const ui = require('../../ui');
 const AppPref = require('../../data/models/app-pref');
 const StoryFormatCollection = require('../../data/collections/story-format');
@@ -21,10 +20,6 @@ module.exports = Vue.extend({
 		this.name = $('html').data('app-name');
 		this.version = $('html').data('version');
 		this.buildNumber = parseInt($('html').data('build-number'));
-
-		if (nwui.active) {
-			nwui.init();
-		}
 
 		ui.init();
 

@@ -1,17 +1,13 @@
 var wrench = require('wrench');
 
-module.exports = function (grunt)
-{
+module.exports = function(grunt) {
 	// nwjs generates NW.js apps.
 	
 	grunt.config.merge({
-		nwjs:
-		{
-			default:
-			{
+		nwjs: {
+			default: {
 				src: 'build/standalone/**',
-				options:
-				{
+				options: {
 					buildDir: 'build/nwjs/',
 					cacheDir: 'nwbuilder-cache/',
 					version: '0.12.3',
@@ -25,11 +21,9 @@ module.exports = function (grunt)
 			// we have to run the Windows generation tasks separately;
 			// otherwise, the process will randomly crash on OS X
 
-			win32cleanup:
-			{
+			win32cleanup: {
 				src: 'build/standalone/**',
-				options:
-				{
+				options: {
 					buildDir: 'build/nwjs/',
 					cacheDir: 'nwbuilder-cache/',
 					version: '0.12.3',
@@ -44,8 +38,7 @@ module.exports = function (grunt)
 
 	// nwjs:osxcleanup corrects a permissions problem on OS X versions of the NW.js app.
 
-	grunt.registerTask('nwjs:osxcleanup', function()
-	{
+	grunt.registerTask('nwjs:osxcleanup', function() {
 		wrench.chmodSyncRecursive('build/nwjs/Twine/osx64/Twine.app', 0755);
 	});
 

@@ -15,10 +15,14 @@ module.exports = Vue.extend({
 
 	methods: {
 		close() {
-			this.$refs.modal.close();
+			if (this.$refs.modal) {
+				this.$refs.modal.close();
+			}
 		},
 
-		import() {
+		// This usually imports the files given to its own <input> element,
+		// but can also import a passed-in FileList.
+		import(files) {
 			const reader = new FileReader();
 
 			this.working = true;
@@ -58,7 +62,9 @@ module.exports = Vue.extend({
 					});
 			});
 
-			reader.readAsText(this.$els.importFile.files[0], 'UTF-8');
+			reader.readAsText(files instanceof FileList
+				? files[0]
+				: this.$els.importFile.files[0], 'UTF-8');
 			return reader;
 		}
 	},
