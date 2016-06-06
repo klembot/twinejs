@@ -7,13 +7,20 @@ input[type="text"], input[type="password"], textarea {
 	font: 100% @font-user;
 	color: @color-text;
 	background: hsla(0, 0%, 0%, 0.03);
-	padding: @len-small 0;
-	border: 1px solid transparent;
 	padding: @len-small;
+	border: none;
 	border-radius: @len-tiny;
 	.recessed-medium;
 
 	&:focus {
-		outline: 1px solid lighten(@color-link, 40%);
+		outline: none;
+		box-shadow: 0 0 @len-hairline darken(@color-link, 10%),
+			inset 0 2px 2px hsla(0, 0%, 0%, 0.4);
 	}
+}
+
+// Fix appearance of search fields in Safari.
+
+input[type="search"] {
+	-webkit-appearance: none;
 }
