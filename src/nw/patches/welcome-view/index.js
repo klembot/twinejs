@@ -2,8 +2,6 @@
 // specific, i.e. doesn't mention anything about work being saved to the browser
 // only.
 
-module.exports = () => {
-	let WelcomeView = require('../../welcome');
-
+module.exports = (WelcomeView) => {
 	WelcomeView.options.template = require('./replacement-template.html');
 };

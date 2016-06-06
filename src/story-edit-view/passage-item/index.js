@@ -3,6 +3,7 @@
 const _ = require('underscore');
 const Vue = require('vue');
 const Passage = require('../../data/models/passage');
+const StoryFormatCollection = require('../../data/collections/story-format');
 const PassageEditor = require('../../editors/passage');
 const backboneCollection = require('../../vue/mixins/backbone-collection');
 const backboneModel = require('../../vue/mixins/backbone-model');
@@ -17,9 +18,16 @@ module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	props: [
+		// A passage
 		'model',
+		
+		// The story containing this passage
 		'parentStory',
+
+		// An array of names of all passages in the parentStory
 		'passageNames',
+
+		// A collection of all passages in the parentStory
 		'collection',
 		'gridSize',
 		'snapToGrid',
@@ -104,38 +112,18 @@ module.exports = Vue.extend({
 			const {left, top, width, height} = this.screenRect;
 
 			return {
-				nw: [
+				// The four vertices in [x1,y1,x2,y2] format.
+				box: [
 					left + offsetX,
-					top + offsetY
-				],
-				n: [
-					left + 0.5 * width + offsetX,
-					top + offsetY
-				],
-				ne: [
+					top + offsetY,
 					left + width + offsetX,
-					top + offsetY
+					top + height + offsetY
 				],
-				w: [
-					left + offsetX,
+				// The center coordinate
+				center: [
+					left + 0.5 * width + offsetX,
 					top + 0.5 * height + offsetY
 				],
-				e: [
-					left + width + offsetX,
-					top + 0.5 * height + offsetY
-				],
-				sw: [
-					left + offsetX,
-					top + height + offsetY
-				],
-				s: [
-					left + 0.5 * width + offsetX,
-					top + height + offsetY
-				],
-				se: [
-					left + width + offsetX,
-					top + height + offsetY
-				]
 			};
 		},
 
@@ -208,7 +196,10 @@ module.exports = Vue.extend({
 
 			new PassageEditor({
 				model: this.$model,
-				collection: this.$collection
+				collection: this.$collection,
+				storyFormat: StoryFormatCollection.all().findWhere(
+					{ name: this.parentStory.get('storyFormat') }
+				),
 			}).$mountTo(document.body)
 			.then(() => {
 				this.createNewLinks(this.text, oldText);

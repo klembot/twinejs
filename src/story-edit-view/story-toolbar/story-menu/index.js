@@ -14,7 +14,10 @@ const { prompt } = require('../../../dialogs/prompt');
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
-	props: ['model', 'collection'],
+	props: [
+		'model',       // This story
+		'collection'   // A collection of all passages in this story
+	],
 
 	data: () => ({
 		name: '',
@@ -23,11 +26,11 @@ module.exports = Vue.extend({
 
 	methods: {
 		editScript() {
-			new JavaScriptEditor({ model: this.story }).$mountTo(document.body);
+			new JavaScriptEditor({ model: this.model }).$mountTo(document.body);
 		},
 
 		editStyle() {
-			new StylesheetEditor({ model: this.story }).$mountTo(document.body);
+			new StylesheetEditor({ model: this.model }).$mountTo(document.body);
 		},
 
 		renameStory() {
@@ -58,8 +61,8 @@ module.exports = Vue.extend({
 		storyStats() {
 			new StatsDialog({
 				data: {
-					story: this.story,
-					passages: this.passages
+					story: this.model,
+					passages: this.collection
 				}
 			}).$mountTo(document.body);
 		},
@@ -67,7 +70,7 @@ module.exports = Vue.extend({
 		changeFormat() {
 			new FormatDialog({
 				data: {
-					story: this.story,
+					story: this.model,
 					formats: StoryFormatCollection.all().models
 				}
 			}).$mountTo(document.body);
