@@ -116,7 +116,7 @@ module.exports = {
 			label: locale.say('Show Library'),
 			click() {
 				gui.Shell.openItem(
-					directories.storyPath().replace(/\//g, path.sep)
+					directories.storiesPath().replace(/\//g, path.sep)
 				);
 			}
 		}), 0);
