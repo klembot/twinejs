@@ -4,13 +4,18 @@ let Vue = require('vue');
 const VueRouter = require('vue-router');
 const AppPref = require('../data/models/app-pref');
 const LocaleView = require('../locale/view');
-const Story = require('../data/models/story');
-const StoryCollection = require('../data/collections/story');
+
 const StoryFormat = require('../data/models/story-format');
 const StoryEditView = require('../story-edit-view');
 const StoryListView = require('../story-list-view');
 const WelcomeView = require('../welcome');
 const publish = require('../story-publish');
+
+// Beware: requiring Story *before* StoryCollection causes an error on startup.
+// I believe it's due to the hacky way the circular
+
+const StoryCollection = require('../data/collections/story');
+const Story = require('../data/models/story');
 
 Vue.use(VueRouter);
 

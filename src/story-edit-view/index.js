@@ -19,7 +19,10 @@ module.exports = Vue.extend({
 
 	// The story we edit is provided by the router.
 
-	props: ['model', 'collection'],
+	props: [
+		'model',      // This story
+		'collection'  // A collection of all passages in this story
+	],
 
 	data: () => ({
 		// Model attributes we make use of.

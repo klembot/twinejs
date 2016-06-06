@@ -12,7 +12,7 @@ const Passage = require('../../../data/models/passage');
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
-	props: ['model', 'collection'],
+	props: ['model'],
 
 	components: {
 		'drop-down': require('../../../ui/drop-down')
