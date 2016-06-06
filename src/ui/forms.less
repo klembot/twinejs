@@ -1,0 +1,19 @@
+@import '../common/colors.less';
+@import '../common/depth.less';
+@import '../common/fonts.less';
+@import '../common/metrics.less';
+
+input[type="text"], input[type="password"], textarea {
+	font: 100% @font-user;
+	color: @color-text;
+	background: hsla(0, 0%, 0%, 0.03);
+	padding: @len-small 0;
+	border: 1px solid transparent;
+	padding: @len-small;
+	border-radius: @len-tiny;
+	.recessed-medium;
+
+	&:focus {
+		outline: 1px solid lighten(@color-link, 40%);
+	}
+}
