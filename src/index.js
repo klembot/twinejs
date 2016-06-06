@@ -26,7 +26,7 @@ const AppPref = require('./data/models/app-pref');
 const TwineApp = require('./common/app');
 const TwineRouter = require('./common/router');
 
-require('babel-polyfill');
+require('core-js');
 
 // Start the application after loading the appropriate locale data.
 
