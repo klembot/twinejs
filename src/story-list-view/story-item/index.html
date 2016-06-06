@@ -1,8 +1,8 @@
 <div class="story-item" :data-order="order">
-	<item-preview :hue="hue" :passages="passages"></item-preview>
+	<item-preview :hue="hue" :passages="passages" :edit="edit"></item-preview>
 
 	<div class="controls">
-		<button :click="edit" class="link story-name">
+		<button @click="edit" class="link story-name">
 			<h2>
 				{{ name }}
 			</h2>
