@@ -11,6 +11,7 @@ const backboneCollection = require('../vue/mixins/backbone-collection');
 const locale = require('../locale');
 const { check: checkForAppUpdate } = require('../dialogs/app-update');
 const { check: checkForDonation } = require('../dialogs/app-donation');
+const ImportDialog = require('../dialogs/story-import');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -62,7 +63,8 @@ module.exports = Vue.extend({
 
 	components: {
 		'story-item': require('./story-item'),
-		'list-toolbar': require('./list-toolbar')
+		'list-toolbar': require('./list-toolbar'),
+		'file-drag-n-drop': require('../ui/file-drag-n-drop'),
 	},
 
 	events: {
@@ -71,6 +73,10 @@ module.exports = Vue.extend({
 
 		'story-edit'(model) {
 			this.$broadcast('story-edit', model);
+		},
+
+		'file-drag-n-drop'(files) {
+			new ImportDialog().import(files);
 		}
 	},
 
