@@ -1,0 +1,22 @@
+<drop-down open-on="hover" position="bottom center" class="large">
+	<div class="toolbar">
+		<!-- L10n: %s is the name of the thing to be deleted. -->
+		<button @click="delete" class="danger subtle" title="{{{ 'Delete &ldquo;%s&rdquo;' | say name }}}">
+			<i class="fa fa-trash-o"></i>
+		</button>
+
+		<!-- L10n: %s is the name of the thing to be edited. -->
+		<button @click="edit" class="subtle" title="{{{ 'Edit &ldquo;%s&rdquo;' | say name }}}">
+			<i class="fa fa-pencil"></i>
+		</button>
+
+		<button @click="test" class="subtle" title="{{ 'Test story starting here' | say }}">
+			<i class="fa fa-bug"></i>
+		</button>
+
+		<!-- L10n: %s is a name of a passage. -->
+		<button @click="setAsStart" class="subtle" :class="startClasses" title="{{{ 'Set &ldquo;%s&rdquo; as starting point' | say name }}}">
+			<i class="fa fa-rocket"></i>
+		</button>
+	</div> <!-- .toolbar -->
+</drop-down>
