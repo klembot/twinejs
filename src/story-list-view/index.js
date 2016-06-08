@@ -8,6 +8,7 @@
 'use strict';
 const Vue = require('vue');
 const backboneCollection = require('../vue/mixins/backbone-collection');
+const fileImport = require('../file/import');
 const locale = require('../locale');
 const { check: checkForAppUpdate } = require('../dialogs/app-update');
 const { check: checkForDonation } = require('../dialogs/app-donation');
@@ -62,7 +63,8 @@ module.exports = Vue.extend({
 
 	components: {
 		'story-item': require('./story-item'),
-		'list-toolbar': require('./list-toolbar')
+		'list-toolbar': require('./list-toolbar'),
+		'file-drag-n-drop': require('../ui/file-drag-n-drop'),
 	},
 
 	events: {
@@ -71,6 +73,12 @@ module.exports = Vue.extend({
 
 		'story-edit'(model) {
 			this.$broadcast('story-edit', model);
+		},
+
+		// For now, we only support importing a single file at a time.
+
+		'file-drag-n-drop'(files) {
+			fileImport.importFile(files[0]);
 		}
 	},
 

@@ -101,7 +101,7 @@ module.exports = Vue.extend({
 		// Our grid size -- for now, constant.
 
 		gridSize() {
-			return Passage.width / 4;
+			return Passage.width / 4 * this.zoom;
 		}
 	},
 

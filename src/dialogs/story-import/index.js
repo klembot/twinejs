@@ -1,9 +1,9 @@
-// A dialog which allows a user to import a story from a file.
+// A dialog which allows a user to import a story from a file. This returns a
+// promise resolving to the stories that were imported, if any.
 
 const Vue = require('vue');
-const importer = require('../../file/importer');
-const locale = require('../../locale');
-const notify = require('../../ui/notify');
+const fileImport = require('../../file/import');
+const { thenable, symbols: { resolve } } = require('../../vue/mixins/thenable');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -11,59 +11,32 @@ module.exports = Vue.extend({
 	data: () => ({
 		working: false,
 		importFile: '',
+		storyCollection: null
 	}),
 
 	methods: {
 		close() {
-			this.$refs.modal.close();
+			if (this.$refs.modal) {
+				this.$refs.modal.close();
+			}
 		},
 
 		import() {
-			const reader = new FileReader();
-
 			this.working = true;
-
-			reader.addEventListener('load', e => {
-				importer.import(e.target.result, { confirmReplace: true }).then(
-					({ count, added }) => {
-						let className = '';
-						let message = '';
-
-						if (count === 0) {
-							className = 'danger';
-							message = locale.say(
-								'Sorry, no stories could be found in this file.'
-							);
-						}
-						else {
-							// L10n: %d is a number of stories.
-							message = locale.sayPlural(
-								'%d story was imported.',
-								'%d stories were imported.',
-								added
-							);
-						}
-
-						notify(message, className);
-						this.close();
-					},
-
-					err => {
-						notify(
-							'An error occurred while trying to import this file. (' +
-								err.message + ')',
-							'danger'
-						);
-						this.close();
-					});
+			fileImport.importFile(
+				this.$els.importFile.files[0],
+				{ confirmReplace: true, storyCollection: this.storyCollection }
+			)
+			.then(stories => {
+				this.close();
+				this[resolve](stories);	
 			});
-
-			reader.readAsText(this.$els.importFile.files[0], 'UTF-8');
-			return reader;
 		}
 	},
 
 	components: {
 		'modal-dialog': require('../../ui/modal-dialog')
-	}
+	},
+
+	mixins: [thenable]
 });
