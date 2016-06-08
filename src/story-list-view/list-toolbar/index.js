@@ -47,7 +47,13 @@ module.exports = Vue.extend({
 		},
 
 		importFile() {
-			new ImportDialog().$mountTo(document.body);
+			let importDialog = new ImportDialog({
+				data: {
+					storyCollection: this.collection
+				}
+			});
+			
+			importDialog.$mountTo(document.body);
 		},
 
 		saveArchive() {

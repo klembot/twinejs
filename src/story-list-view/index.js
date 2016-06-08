@@ -8,10 +8,10 @@
 'use strict';
 const Vue = require('vue');
 const backboneCollection = require('../vue/mixins/backbone-collection');
+const fileImport = require('../file/import');
 const locale = require('../locale');
 const { check: checkForAppUpdate } = require('../dialogs/app-update');
 const { check: checkForDonation } = require('../dialogs/app-donation');
-const ImportDialog = require('../dialogs/story-import');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -75,8 +75,10 @@ module.exports = Vue.extend({
 			this.$broadcast('story-edit', model);
 		},
 
+		// For now, we only support importing a single file at a time.
+
 		'file-drag-n-drop'(files) {
-			new ImportDialog().import(files);
+			fileImport.importFile(files[0]);
 		}
 	},
 
