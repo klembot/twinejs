@@ -3,7 +3,6 @@
 
 const _ = require('underscore');
 const Vue = require('vue');
-const Passage = require('../data/models/passage');
 const backboneModel = require('../vue/mixins/backbone-model');
 const backboneCollection = require('../vue/mixins/backbone-collection');
 const publish = require('../story-publish');
@@ -101,7 +100,9 @@ module.exports = Vue.extend({
 		// Our grid size -- for now, constant.
 
 		gridSize() {
-			return Passage.width / 4 * this.zoom;
+			return 25 * this.zoom;
+			// FIXME
+			//return Passage.width / 4 * this.zoom;
 		}
 	},
 

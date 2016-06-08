@@ -9,14 +9,12 @@
 'use strict';
 const Vue = require('vue');
 const scrollTo = require('scroll-to-element');
-const AppPref = require('../data/models/app-pref');
-const AppPrefCollection = require('../data/collections/app-pref');
+const { setPref } = require('../data/actions');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	initialize() {
-		this.welcomePref = AppPref.withName('welcomeSeen');
 	},
 
 	data: () => ({
@@ -39,13 +37,14 @@ module.exports = Vue.extend({
 		},
 
 		finish() {
-			if (!this.welcomePref) {
-				this.welcomePref = new AppPref({ name: 'welcomeSeen' });
-				new AppPrefCollection().add(this.welcomePref);
-			}
-
-			this.welcomePref.save({ value: true });
+			this.setPref('welcomeSeen', true);
 			window.location.hash = '#stories';
+		}
+	},
+
+	vuex: {
+		actions: { 
+			setPref
 		}
 	}
 });

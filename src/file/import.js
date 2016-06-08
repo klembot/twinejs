@@ -6,9 +6,6 @@
 // the filesystem into local storage, and the app can't begin until it's done.
 
 const ChooseImportReplaceDialog = require('../dialogs/choose-import-replace');
-const Story = require('../data/models/story');
-const StoryCollection = require('../data/collections/story');
-const PassageCollection = require('../data/collections/passage');
 const locale = require('../locale');
 const notify = require('../ui/notify');
 

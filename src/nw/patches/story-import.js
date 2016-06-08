@@ -5,7 +5,8 @@
 module.exports = (StoryImportDialog) => {
 	const _ = require('underscore');
 	const storyFile = require('../story-file');
-	const StoryCollection = require('../../data/collections/story');
+	// FIXME
+	//const StoryCollection = require('../../data/collections/story');
 	const oldImportFile = StoryImportDialog.options.methods.importFile;
 
 	StoryImportDialog.options.methods.importFile = function(e) {

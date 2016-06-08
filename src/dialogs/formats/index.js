@@ -1,9 +1,11 @@
 const Vue = require('vue');
 const locale = require('../../locale');
 const notify = require('../../ui/notify');
+/* FIXME
 const StoryFormat = require('../../data/models/story-format');
 const StoryFormatCollection = require('../../data/collections/story-format');
 const AppPref = require('../../data/models/app-pref');
+*/
 
 module.exports = Vue.extend({
 

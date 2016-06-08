@@ -7,7 +7,8 @@ const $ = require('jquery');
 const moment = require('moment');
 const Vue = require('vue');
 const backboneModel = require('../../vue/mixins/backbone-model');
-const PassageCollection = require('../../data/collections/passage');
+// FIXME
+//const PassageCollection = require('../../data/collections/passage');
 const ZoomTransition = require('../zoom-transition');
 
 module.exports = Vue.extend({

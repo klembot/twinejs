@@ -5,7 +5,6 @@
 'use strict';
 const Vue = require('vue');
 const locale = require('../index');
-const AppPref = require('../../data/models/app-pref');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),

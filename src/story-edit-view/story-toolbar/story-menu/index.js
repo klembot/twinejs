@@ -5,7 +5,9 @@ const Vue = require('vue');
 const FormatDialog = require('../../../dialogs/story-format');
 const JavaScriptEditor = require('../../../editors/javascript');
 const StatsDialog = require('../../../dialogs/story-stats');
+/* FIXME
 const StoryFormatCollection = require('../../../data/collections/story-format');
+*/
 const StylesheetEditor = require('../../../editors/stylesheet');
 const backboneModel = require('../../../vue/mixins/backbone-model');
 const locale = require('../../../locale');

@@ -2,8 +2,6 @@
 
 const _ = require('underscore');
 const Vue = require('vue');
-const Passage = require('../../data/models/passage');
-const StoryFormatCollection = require('../../data/collections/story-format');
 const PassageEditor = require('../../editors/passage');
 const backboneCollection = require('../../vue/mixins/backbone-collection');
 const backboneModel = require('../../vue/mixins/backbone-model');

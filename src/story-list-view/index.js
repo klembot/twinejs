@@ -7,7 +7,6 @@
 
 'use strict';
 const Vue = require('vue');
-const backboneCollection = require('../vue/mixins/backbone-collection');
 const fileImport = require('../file/import');
 const locale = require('../locale');
 const { check: checkForAppUpdate } = require('../dialogs/app-update');
@@ -23,7 +22,7 @@ module.exports = Vue.extend({
 			return locale.sayPlural(
 				'%d Story',
 				'%d Stories',
-				this.collection.length
+				this.stories.length
 			);
 		}
 	},
@@ -44,6 +43,9 @@ module.exports = Vue.extend({
 		if (this.appearFast) {
 			return;
 		}
+
+		return;
+		// FIXME
 		
 		// Otherwise, we check to see if we should ask for a donation, and
 		// then an app update...
@@ -108,5 +110,9 @@ module.exports = Vue.extend({
 		}
 	},
 
-	mixins: [backboneCollection]
+	vuex: {
+		getters: {
+			stories: state => state.story.stories
+		}
+	}
 });

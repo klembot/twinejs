@@ -35,7 +35,7 @@ const nw = module.exports = {
 			const patchStoryImport = require('./patches/story-import');
 			const patchStoryListToolbar = require('./patches/story-list-toolbar');
 			const patchWelcomeView = require('./patches/welcome-view');
-			const storyFile = require('./story-file');
+			//const storyFile = require('./story-file');
 
 			const win = gui.Window.get();
 
@@ -110,14 +110,14 @@ const nw = module.exports = {
 			// or delete it when it is destroyed.
 
 			startupTask = 'adding a hook to automatically save stories';
-			patchStory(require('../data/models/story'));
+			//patchStory(require('../data/models/story'));
 
 			// Monkey patch Passage to save its parent story whenever
 			// it is changed or destroyed
 
 			startupTask = 'adding a hook to automatically save a story ' +
 				'after editing a passage';
-			patchPassage(require('../data/models/passage'));
+			//patchPassage(require('../data/models/passage'));
 
 			// Monkey patch QuotaGauge to hide itself, since we
 			// don't have to sweat quota ourselves.
