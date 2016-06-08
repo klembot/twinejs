@@ -1,5 +1,6 @@
 const Vue = require('vue');
-const {thenable, symbols:{resolve}} = require('../../vue/mixins/thenable');
+const { thenable, symbols: { reject, resolve } } =
+	require('../../vue/mixins/thenable');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -49,12 +50,12 @@ module.exports = Vue.extend({
 	},
 
 	methods: {
-		close() {
+		close(message) {
 			if (typeof this.canClose === 'function' && !this.canClose()) {
 				return;
 			}
 
-			this.$emit('close');
+			this.$emit('close', message);
 		},
 
 		escapeCloser(e) {
@@ -70,6 +71,11 @@ module.exports = Vue.extend({
 			this[resolve](message);
 			this.$destroy(true);
 		},
+
+		reject(message) {
+			this[reject](message);
+			this.$destroy(true);
+		}
 	},
 
 	mixins: [thenable]
