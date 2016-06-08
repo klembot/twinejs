@@ -1,7 +1,6 @@
 // A function that checks for an update to Twine, and displays a confirm dialog
 // asking the user to download it.
 
-const AppPref = require('../../data/models/app-pref');
 const checkForUpdate = require('../../common/app/update-check');
 const locale = require('../../locale');
 const { confirm } = require('../confirm');

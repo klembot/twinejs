@@ -4,8 +4,7 @@
 const $ = require('jquery');
 const Vue = require('vue');
 const ui = require('../../ui');
-const AppPref = require('../../data/models/app-pref');
-const StoryFormatCollection = require('../../data/collections/story-format');
+const store = require('../../data/store');
 
 module.exports = Vue.extend({
 	template: '<div><router-view></router-view></div>',
@@ -28,6 +27,8 @@ module.exports = Vue.extend({
 		window.app = this;
 
 		// create built-in story formats if they don't already exist
+
+		/*
 
 		const formats = StoryFormatCollection.all();
 
@@ -79,5 +80,9 @@ module.exports = Vue.extend({
 
 		AppPref.withName('defaultFormat', 'Harlowe');
 		AppPref.withName('proofingFormat', 'Paperthin');
-	}
+
+		*/
+	},
+
+	store
 });

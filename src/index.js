@@ -22,7 +22,6 @@ require('./nw').init();
 
 const locale = require('./locale');
 const notify = require('./ui/notify');
-const AppPref = require('./data/models/app-pref');
 const TwineApp = require('./common/app');
 const TwineRouter = require('./common/router');
 
@@ -46,6 +45,9 @@ require('core-js');
 		// on the browser.
 		// http://stackoverflow.com/questions/673905/best-way-to-determine-users-locale-within-browser
 
+		/*
+		FIXME
+
 		const localePref = AppPref.withName(
 			'locale',
 			window.navigator.userLanguage ||
@@ -56,6 +58,9 @@ require('core-js');
 		);
 
 		userLocale = localePref.get('value');
+		*/
+
+		userLocale = 'en';
 	}
 
 	if (typeof userLocale === 'string') {

@@ -7,7 +7,10 @@ const { prompt } = require('../../../dialogs/prompt');
 const locale = require('../../../locale');
 const notify = require('../../../ui/notify');
 const publish = require('../../../story-publish');
+
+/* FIXME
 const Passage = require('../../../data/models/passage');
+*/
 
 module.exports = Vue.extend({
 	template: require('./index.html'),

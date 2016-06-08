@@ -17,9 +17,6 @@ const locale = require('../locale');
 const notify = require('../ui/notify');
 const replaceContent = require('../ui/replace');
 const saveFile = require('../file/save');
-const AppPref = require('../data/models/app-pref');
-const StoryFormat = require('../data/models/story-format');
-const StoryCollection = require('../data/collections/story');
 
 module.exports = {
 	publishStory(story, filename, options) {

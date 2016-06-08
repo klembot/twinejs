@@ -1,7 +1,8 @@
 // Shows a dialog asking the user to make a donation.
 
 const Vue = require('vue');
-const AppPref = require('../../data/models/app-pref');
+// FIXME
+//const AppPref = require('../../data/models/app-pref');
 
 // How long we wait after the user first starts using Twine to show a message
 // asking for a donation, in milliseconds. This is currently 14 days.

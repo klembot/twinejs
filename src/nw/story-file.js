@@ -61,7 +61,8 @@ const storyFile = module.exports = {
 	// happen to be saved to local storage only.
 
 	loadAll() {
-		const StoryCollection = require('../data/collections/story');
+		//FIXME
+		//const StoryCollection = require('../data/collections/story');
 		const directories = require('./directories');
 		const fs = require('fs');
 		const fileImport = require('../file/import');

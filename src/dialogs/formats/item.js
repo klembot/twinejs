@@ -3,7 +3,10 @@ const Vue = require('vue');
 const _ = require('underscore');
 const locale = require('../../locale');
 const {confirm} = require('../../ui');
+/*
+FIXME
 const StoryFormat = require('../../data/models/story-format');
+*/
 
 module.exports = Vue.extend({
 	template: require('./item.html'),

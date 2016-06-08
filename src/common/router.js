@@ -2,20 +2,11 @@
 
 let Vue = require('vue');
 const VueRouter = require('vue-router');
-const AppPref = require('../data/models/app-pref');
 const LocaleView = require('../locale/view');
-
-const StoryFormat = require('../data/models/story-format');
 const StoryEditView = require('../story-edit-view');
 const StoryListView = require('../story-list-view');
 const WelcomeView = require('../welcome');
 const publish = require('../story-publish');
-
-// Beware: requiring Story *before* StoryCollection causes an error on startup.
-// I believe it's due to the hacky way the circular
-
-const StoryCollection = require('../data/collections/story');
-const Story = require('../data/models/story');
 
 Vue.use(VueRouter);
 
@@ -44,7 +35,6 @@ TwineRouter.map({
 
 			data() {
 				return {
-					collection: StoryCollection.all(),
 					previouslyEditing: this.$route.params ?
 						this.$route.params.previouslyEditing : ''
 				};
@@ -57,23 +47,15 @@ TwineRouter.map({
 			template: '<div><story-edit :model="model" ' +
 				':collection="collection"></story-edit></div>',
 
-			components: { 'story-edit': StoryEditView },
-
-			data() {
-				const model = Story.withId(this.$route.params.id);
-
-				return {
-					model: model,
-					collection: model.fetchPassages()
-				};
-			}
+			components: { 'story-edit': StoryEditView }
 		},
 	},
 
 	'/stories/:id/play': {
 		component: {
 			ready() {
-				publish.publishStory(Story.withId(this.$route.params.id));
+				// FIXME
+				// publish.publishStory(Story.withId(this.$route.params.id));
 			}
 		}
 	},
@@ -84,12 +66,15 @@ TwineRouter.map({
 	'/stories/:id/proof': {
 		component: {
 			ready() {
+				/*
 				const story = Story.withId(this.$route.params.id);
+				FIXME
 				const format = StoryFormat.withName(
 					AppPref.withName('proofingFormat').get('value')
 				);
 				
 				publish.publishStory(story, null, { format });
+				*/
 			}
 		}
 	},
@@ -97,11 +82,14 @@ TwineRouter.map({
 	'/stories/:id/test': {
 		component: {
 			ready() {
+				/*
+				FIXME
 				publish.publishStory(
 					Story.withId(this.$route.params.id),
 					null,
 					{ formatOptions: ['debug'] }
 				);
+				*/
 			}
 		}
 	},
@@ -109,6 +97,8 @@ TwineRouter.map({
 	'/stories/:storyId/test/:passageId': {
 		component: {
 			ready() {
+				/*
+				FIXME
 				publish.publishStory(
 					Story.withId(this.$route.params.storyId),
 					null,
@@ -117,6 +107,7 @@ TwineRouter.map({
 						startPassageId: this.$route.params.passageId
 					}
 				);
+				*/
 			}
 		}
 	}
@@ -147,6 +138,11 @@ TwineRouter.beforeEach((transition) => {
 	// transition.next() or redirect() will stop any other logic in the
 	// function.
 
+	transition.next();
+
+	/*
+	FIXME
+
 	const welcomePref = AppPref.withName('welcomeSeen', false);
 
 	if (welcomePref.get('value') === true) {
@@ -155,6 +151,7 @@ TwineRouter.beforeEach((transition) => {
 	else {
 		transition.redirect('/welcome');
 	}
+	*/
 });
 
 module.exports = TwineRouter;
