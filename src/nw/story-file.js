@@ -64,7 +64,7 @@ const storyFile = module.exports = {
 		const StoryCollection = require('../data/collections/story');
 		const directories = require('./directories');
 		const fs = require('fs');
-		const importer = require('../file/importer');
+		const fileImport = require('../file/import');
 		const path = require('path');
 
 		storyFile.active = false;
@@ -107,9 +107,11 @@ const storyFile = module.exports = {
 			// because all of the filesystem I/O is finished.
 
 			.reduce(
-				(promise, {file, stats}) => promise.then(()=> importer.import(file, {
+				(promise, {file, stats}) => promise.then(()=>
+				fileImport.importData(file, {
 					lastUpdate: new Date(Date.parse(stats.mtime)),
-					confirmReplace: false
+					confirmReplace: false,
+					silent: true
 				})),
 				Promise.resolve()
 			);
