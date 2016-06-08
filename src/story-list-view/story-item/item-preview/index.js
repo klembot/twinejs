@@ -20,7 +20,12 @@ module.exports = Vue.extend({
 	computed: {
 		style() {
 			return {
-				background: `hsl(${this.hue}, 80%, 95%)`
+				background:
+					`linear-gradient(
+						to bottom,
+						hsl(${(this.hue - 20) % 360}, 80%, 95%),
+						hsl(${this.hue}, 70%, 85%)
+					)`
 			};
 		},
 
