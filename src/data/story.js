@@ -61,9 +61,11 @@ module.exports = {
 		CREATE_STORY(state, props) {
 			let newStory = Object.assign({}, storyDefaults, props);
 
+			console.log(props, newStory);
+
 			newStory.id = uuid();
 			newStory.lastUpdate = new Date();
-			newStory.ifid = uuid().toUppercase();
+			newStory.ifid = uuid().toUpperCase();
 			newStory.passages = [];
 			state.stories.push(newStory);
 		},

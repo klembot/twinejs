@@ -7,5 +7,9 @@ module.exports = {
 
 	defaultPref({ dispatch }, name, value) {
 		// FIXME
+	},
+
+	createStory({ dispatch }, name) {
+		dispatch('CREATE_STORY', { name });
 	}
 };
