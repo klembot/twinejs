@@ -9,20 +9,72 @@
 const Vue = require('vue');
 const fileImport = require('../file/import');
 const locale = require('../locale');
+const { allStories } = require('../data/getters');
 const { check: checkForAppUpdate } = require('../dialogs/app-update');
 const { check: checkForDonation } = require('../dialogs/app-donation');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
 	
-	props: ['collection', 'appearFast', 'previouslyEditing'],
+	props: {
+		storyOrder: {
+			type: String,
+			default: 'name'
+		},
+		appearFast: {
+			type: Boolean,
+			default: false
+		},
+		previouslyEditing: {
+			type: String,
+			default: null
+		}
+	},
 
 	computed: {
+		sortedStories() {
+			switch (this.storyOrder) {
+				case 'name':
+				return this.allStories.sort((a, b) => {
+					if (a.name > b.name) {
+						return 1;
+					}
+
+					if (a.name < b.name) {
+						return -1;
+					}
+
+					return 0;
+				});
+				break;
+
+				case 'lastUpdate':
+				return this.stories.sort((a, b) => {
+					const aTime = a.lastUpdate.getTime();
+					const bTime = b.lastUpdate.getTime();
+
+					if (aTime > bTime) {
+						return 1;
+					}
+
+					if (aTime < bTime) {
+						return -1;
+					}
+
+					return 0;
+				});
+				break;
+
+				default:
+				throw new Error(`Don't know how to sort by ${this.storyOrder}`);
+			}
+		},
+
 		storyCountDesc() {
 			return locale.sayPlural(
 				'%d Story',
 				'%d Stories',
-				this.stories.length
+				this.allStories.length
 			);
 		}
 	},
@@ -84,35 +136,9 @@ module.exports = Vue.extend({
 		}
 	},
 
-	methods: {
-		/**
-		 Sorts the story list by alphabetical order.
-
-		 @method sortByName
-		**/
-
-		sortByName() {
-			this.$collection.order = 'name';
-			this.$collection.reverseOrder = false;
-			this.$collection.sort();
-		},
-
-		/**
-		 Sorts the story list by last edit date.
-
-		 @method sortByDate
-		**/
-
-		sortByDate() {
-			this.$collection.order = 'lastUpdate';
-			this.$collection.reverseOrder = true;
-			this.$collection.sort();
-		}
-	},
-
 	vuex: {
 		getters: {
-			stories: state => state.story.stories
+			allStories
 		}
 	}
 });

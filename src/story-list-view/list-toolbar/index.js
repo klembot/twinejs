@@ -5,13 +5,13 @@ const locale = require('../../locale');
 const AboutDialog = require('../../dialogs/about');
 const FormatsDialog = require('../../dialogs/formats');
 const ImportDialog = require('../../dialogs/story-import');
+const { allStories } = require('../../data/getters');
+const { createStory } = require('../../data/actions');
 const { prompt } = require('../../dialogs/prompt');
 const publish = require('../../story-publish');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
-
-	props: ['collection'],
 
 	computed: {
 		version() {
@@ -20,7 +20,7 @@ module.exports = Vue.extend({
 	},
 
 	methods: {
-		createStory() {
+		createStoryPrompt() {
 			// Prompt for the new story name.
 
 			prompt({
@@ -30,20 +30,13 @@ module.exports = Vue.extend({
 				buttonLabel: '<i class="fa fa-plus"></i> ' + locale.say('Add'),
 				buttonClass: 'create',
 				validator: name => {
-					if (this.collection.findWhere({ name })) {
+					if (this.allStories.find(story => story.name === name)) {
 						return locale.say(
 							'A story with this name already exists.'
 						);
 					}
 				}
-			}).then((name) => {
-				// Broadcast a create event. The parent view will take care of
-				// automatically editing the new story for us.
-
-				this.$nextTick(() =>
-					this.$dispatch('collection-create', { name })
-				);
-			});
+			}).then(name => this.createStory(name));
 		},
 
 		importFile() {
@@ -69,7 +62,7 @@ module.exports = Vue.extend({
 		},
 
 		showHelp() {
-			window.open('http://twinery.org/2guide');
+			window.open('https://twinery.org/2guide');
 		},
 
 		showLocale() {
@@ -79,5 +72,14 @@ module.exports = Vue.extend({
 
 	components: {
 		'quota-gauge': require('../../ui/quota-gauge')
+	},
+
+	vuex: {
+		actions: {
+			createStory
+		},
+		getters: {
+			allStories
+		}
 	}
 });

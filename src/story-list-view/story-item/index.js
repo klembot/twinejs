@@ -6,21 +6,13 @@
 const $ = require('jquery');
 const moment = require('moment');
 const Vue = require('vue');
-const backboneModel = require('../../vue/mixins/backbone-model');
-// FIXME
-//const PassageCollection = require('../../data/collections/passage');
 const ZoomTransition = require('../zoom-transition');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
-	data: () => ({
-		name: '',
-		lastUpdate: new Date(),
-	}),
-
 	props: {
-		model: Object
+		story: Object
 	},
 
 	components: {
@@ -30,19 +22,15 @@ module.exports = Vue.extend({
 
 	computed: {
 		lastUpdateFormatted() {
-			return moment(this.lastUpdate).format('lll');
+			return moment(this.story.lastUpdate).format('lll');
 		},
 
 		hue() {
 			// A hue based on the story's name.
 
-			return [...this.model.get('name')].reduce(
+			return [this.story.name].reduce(
 				(hue, char) => hue + char.charCodeAt(0), 0
 			) % 360;
-		},
-
-		passages() {
-			return PassageCollection.all().where({ story: this.model.get('id') });
 		}
 	},
 
@@ -95,7 +83,5 @@ module.exports = Vue.extend({
 				() => window.location.hash = '#stories/' + this.model.id
 			);
 		},
-	},
-
-	mixins: [backboneModel]
+	}
 });
