@@ -13,6 +13,7 @@ const locale = require('../../locale');
 const rect = require('../../common/rect');
 const { hasPrimaryTouchUI } = require('../../ui');
 const { big } = require('../zoom-settings');
+const { eventID, on, off } = require('../../vue/mixins/event-id');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -222,9 +223,7 @@ module.exports = Vue.extend({
 			}
 
 			// Remove event listeners set up at the start of the drag.
-
-			window.removeEventListener('mousemove', this.$onMouseMove);
-			window.removeEventListener('mouseup', this.$onMouseUp);
+			off(window, this.$eventID);
 			document.querySelector('body').classList.remove('draggingPassages');
 
 			// If we haven't actually been moved and the shift or control key
@@ -279,8 +278,8 @@ module.exports = Vue.extend({
 
 			this.startDragX = e.clientX + window.scrollX;
 			this.startDragY = e.clientY + window.scrollY;
-			window.addEventListener('mousemove', this.$onMouseMove);
-			window.addEventListener('mouseup', this.$onMouseUp);
+			on(window, `mousemove${this.$eventID}`, e => this.followDrag(e));
+			on(window, `mouseup${this.$eventID}`, e => this.stopDrag(e));
 			document.querySelector('body').classList.add('draggingPassages');
 		},
 
@@ -387,14 +386,9 @@ module.exports = Vue.extend({
 		}
 	},
 
-	ready() {
-		this.$onMouseMove = this.followDrag.bind(this);
-		this.$onMouseUp = this.stopDrag.bind(this);
-	},
-
 	components: {
 		'passage-menu': require('./passage-menu')
 	},
 
-	mixins: [backboneModel, backboneCollection]
+	mixins: [backboneModel, backboneCollection, eventID]
 });
