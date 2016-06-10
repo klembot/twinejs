@@ -2,12 +2,15 @@
 // user may scroll the document by holding down the middle button and dragging
 // (or the space bar + left button)
 
-const { default: { on, off } } = require('oui-dom-events');
+const { eventID: {init}, on, off } = require('../mixins/event-id');
 
 module.exports = {
 	addTo(Vue) {
 		Vue.directive('mouse-scrolling', {
 			bind() {
+				// Reconfirm that this instance has an event ID
+				init.call(this);
+
 				const { body } = document;
 				let scrollOrigin = false;
 				let mouseOrigin = false;
@@ -25,7 +28,7 @@ module.exports = {
 					e.preventDefault();
 				}
 
-				on(body,'keydown.mouse-scrolling', (e) => {
+				on(body, `keydown.mouse-scrolling${this.$eventID}`, (e) => {
 					if (e.which === 32) {
 						if (!scrolling && !spaceHeld) { // Space bar
 							spaceHeld = true;
@@ -44,7 +47,7 @@ module.exports = {
 					}
 				});
 
-				on(body,'mousedown.mouse-scrolling', (e) => {
+				on(body, `mousedown.mouse-scrolling${this.$eventID}`, (e) => {
 					if (e.which === 2 && !scrolling) { // Middle button
 						beginScrolling(e);
 					}
@@ -56,7 +59,7 @@ module.exports = {
 					}
 				});
 
-				on(body,'mousemove.mouse-scrolling', (e) => {
+				on(body, `mousemove.mouse-scrolling${this.$eventID}`, (e) => {
 					if (scrolling) {
 						window.scrollTo(
 							scrollOrigin[0] + mouseOrigin[0] - e.clientX,
@@ -65,7 +68,7 @@ module.exports = {
 					}
 				});
 
-				on(body,'keyup.mouse-scrolling', (e) => {
+				on(body, `keyup.mouse-scrolling${this.$eventID}`, (e) => {
 					if (e.which === 32 && spaceHeld) {
 						scrolling = spaceHeld = false;
 						body.classList.remove('mouseScrollReady', 'mouseScrolling');
@@ -82,7 +85,7 @@ module.exports = {
 					}
 				});
 
-				on(body,'mouseup.mouse-scrolling', (e) => {
+				on(body, `mouseup.mouse-scrolling${this.$eventID}`, (e) => {
 					if ((e.which === 2 || e.which === 1) && scrolling) {
 						scrolling = false;
 						body.classList.remove('mouseScrolling');
@@ -92,7 +95,7 @@ module.exports = {
 			},
 
 			unbind() {
-				off(document.body,'.mouse-scrolling');
+				off(document.body, `.mouse-scrolling${this.$eventID}`);
 			}
 		});
 	}
