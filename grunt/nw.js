@@ -7,7 +7,6 @@ module.exports = function(grunt) {
 		buildDir: 'build/nwjs/',
 		cacheDir: 'nwbuilder-cache/',
 		version: '0.12.3',
-		platforms: ['osx64', 'linux'],
 		'chromium-args': '--enable-threaded-compositing',
 		macIcns: 'src/common/img/logo.icns',
 		winIco: 'src/common/img/logo.ico'
@@ -21,10 +20,16 @@ module.exports = function(grunt) {
 					platforms: ['osx64'],
 				})
 			},
-			win: {
+			win64: {
 				src: 'build/standalone/**',
 				options: Object.assign({}, options,{
-					platforms: ['win32','win64'],
+					platforms: ['win64'],
+				})
+			},
+			win32: {
+				src: 'build/standalone/**',
+				options: Object.assign({}, options,{
+					platforms: ['win32'],
 				})
 			},
 			linux: {
@@ -48,5 +53,5 @@ module.exports = function(grunt) {
 		grunt.registerTask('nw:' + plat, ['build:release', 'nwjs:' + plat,
 			plat == 'osx' ? 'nwjs:osxcleanup' : '']);
 	});
-	grunt.registerTask('nw:default', ['build:release', 'nwjs:osx', 'nwjs:win', 'nwjs:linux', 'nwjs:osxcleanup']);
+	grunt.registerTask('nw', ['build:release', 'nwjs:osx', 'nwjs:osxcleanup', 'nwjs:win64', 'nwjs:win32', 'nwjs:linux']);
 };
