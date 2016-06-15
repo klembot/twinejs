@@ -1,5 +1,6 @@
 @import '../../common/colors.less';
 @import '../../common/depth.less';
+@import '../../common/metrics.less';
 @import '../../vue/transitions.less';
 
 #modalOverlay {
@@ -9,7 +10,7 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: hsla(0, 0%, 0%, 0.4);
+	background-color: fadeout(darken(@color-paper, 80%), 20%);
 
 	.modal-dialog-transition & {
 		.fade-in-out-transition;
@@ -41,11 +42,27 @@
 		top: 0;
 		right: 0;
 		border-radius: 0;
-		border-bottom-left-radius: 0.25em;
-		border-top-right-radius: 0.5em;
-		font-size: 150%;
-		padding: 0.5em 0.75em;
+		border-top-right-radius: 2px;
+		font-size: @len-large;
 		margin: 0;
+		padding: 0;
+		height: @len-extra-large * 2;
+		width: @len-extra-large * 2;
+		line-height: @len-extra-large * 2;
+	}
+	
+	.title {
+		position: absolute;
+		top: 0;
+		left: @len-extra-large;
+		height: @len-extra-large * 2;
+		line-height: @len-extra-large * 2;
+		margin: 0;
+		padding: 0;
+	}
+
+	.content {
+		padding-top: @len-extra-large;
 	}
 
 	> *:first-child {
