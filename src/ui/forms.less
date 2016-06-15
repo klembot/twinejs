@@ -3,7 +3,7 @@
 @import '../common/fonts.less';
 @import '../common/metrics.less';
 
-input[type="text"], input[type="password"], textarea {
+input[type="text"], input[type="search"], input[type="password"], textarea {
 	font: 100% @font-user;
 	color: @color-text;
 	background: hsla(0, 0%, 0%, 0.03);
@@ -17,6 +17,25 @@ input[type="text"], input[type="password"], textarea {
 		box-shadow: 0 0 @len-small fadeout(@color-link, 50%),
 			inset 0 2px 2px hsla(0, 0%, 0%, 0.4);
 	}
+}
+
+input[type="search"] {
+	border-radius: @len-medium;
+}
+
+// These have to be separate rules because browsers will ignore a rule that has
+// any part that it can't understand.
+
+::-webkit-input-placeholder {
+	font: 100% @font-ui;
+}
+
+::-moz-placeholder {
+	font: 100% @font-ui;
+}
+
+::-ms-input-placeholder {
+	font: 100% @font-ui;
 }
 
 // Fix appearance of search fields in Safari.
