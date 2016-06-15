@@ -6,7 +6,7 @@
 		<h1>{{ storyCountDesc }}</h1>
 
 		<p>
-			{{ 'Sort By' | say }}
+			<label>{{ 'Sort By' | say }}</label>
 
 			<span class="button-group">
 				<button class="{{ 'subtle ' + (modelOrder === 'lastUpdate' ? 'active': '') }}" @click="sortByDate" title="{{'Last changed date' | say }}" v-tooltip>
