@@ -1,6 +1,10 @@
 <div class="passage" :style="cssPosition" :class="cssClasses" @mousedown.stop="startDrag" @dblclick.stop="edit">
 	<div class="frame">
-		<p class="title">{{ name }}</p>
+		<p class="title">
+			<span class="icon-create" v-if="isStart"><i class="fa fa-rocket"></i></span>
+			<span class="icon-danger" v-if="hasBrokenLinks"><i class="fa fa-minus"></i></span>
+			{{ name }}
+		</p>
 
 		<p class="excerpt">
 			{{{ excerpt }}}
