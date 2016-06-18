@@ -19,11 +19,32 @@
 	}
 
 	.title {
+		position: relative;
+		z-index: 1;
 		font-weight: bold;
 	}
 
 	.excerpt {
+		position: relative;
+		z-index: 1;
 		color: lighten(@color-text, 45%);
+	}
+
+	.icon-create, .icon-danger {
+		color: white;
+		background: @color-create;
+		width: @len-medium;
+		height: @len-medium;
+		border-radius: @len-medium;
+		display: inline-flex;
+		align-items: center;
+		font-size: 90%;
+		padding-top: @len-tiny-rel;
+		justify-content: center;
+	}
+
+	.icon-danger {
+		background: @color-danger;
 	}
 }
 
