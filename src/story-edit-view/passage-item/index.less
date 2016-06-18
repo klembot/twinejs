@@ -31,16 +31,15 @@
 	}
 
 	.icon-create, .icon-danger {
-		color: white;
-		background: @color-create;
+		display: inline-block;
 		width: @len-medium;
 		height: @len-medium;
 		border-radius: @len-medium;
-		display: inline-flex;
-		align-items: center;
+		color: white;
+		background: @color-create;
 		font-size: 90%;
-		padding-top: @len-tiny-rel;
-		justify-content: center;
+		padding-top: @len-tiny-rel / 2;
+		text-align: center;
 	}
 
 	.icon-danger {
@@ -49,28 +48,24 @@
 }
 
 #storyEditView.zoom-medium .passage {
-	.frame {
-		width: 60px;
-		height: 60px;
+	width: 60px;
+	height: 60px;
 
-		&:after {
-			display: none;
-		}
+	.frame {
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 
 	.title {
-		border-bottom: none;
-		font-size: 0.8em;
 		font-weight: normal;
-		line-height: 120%;
 		text-align: center;
-		margin: 5px;
-		padding: 0;
-		height: 60px;
-		width: 60px;
-		display: table-cell;
-		vertical-align: middle;
-		white-space: normal;
+
+		.icon-create, .icon-danger {
+			display: block;
+			margin: 0 auto;
+		}
 	}
 
 	.excerpt {
@@ -79,16 +74,18 @@
 }
 
 #storyEditView.zoom-small .passage {
-	.frame {
-		width: 25px;
-		height: 25px;
+	width: 25px;
+	height: 25px;
+	padding: 0;
 
-		&:after {
-			display: none;
-		}
+	.frame {
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 
-	.title, .excerpt {
+	.title .text, .excerpt {
 		display: none;
 	}
 }
