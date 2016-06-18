@@ -1,3 +1,6 @@
+@import '../../common/colors.less';
+@import '../../common/metrics.less';
+
 body.marqueeing * {
 	cursor: crosshair !important;
 }
@@ -9,5 +12,7 @@ body.marqueeing .drop {
 #storyEditView .marquee {
 	z-index: 3;
 	position: absolute;
-	border: 2px dashed hsla(0, 0%, 100%, 0.5);
+	border: @len-hairline solid lighten(@color-link, 40%);
+	border-radius: 2px;
+	background: fadeout(@color-link, 95%);
 }
