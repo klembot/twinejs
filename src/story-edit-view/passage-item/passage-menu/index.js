@@ -10,14 +10,6 @@ module.exports = Vue.extend({
 		'parentStory' // The story containing this passage
 	],
 
-	computed: {
-		startClasses() {
-			if (this.parentStory.get('startPassage') === this.model.id) {
-				return ['active'];
-			}
-		}
-	},
-
 	methods: {
 		edit() {
 			this.$dispatch('passage-edit');
