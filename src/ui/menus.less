@@ -10,14 +10,32 @@ ul.menu {
 		text-align: left;
 		width: 100%;
 		border-radius: 0;
+		padding-left: @len-medium * 1.5;
+		padding-right: @len-medium * 1.5;
 
 		&:hover {
 			background: hsla(0, 0%, 0%, 0.05);
 		}
 	}
 
+	li {
+		position: relative;
+	}
+
 	.divider {
 		height: @len-hairline;
 		background: lighten(@color-text, 60%);
+	}
+
+	.checked:before {
+		content: '\f00c';
+		font-family: FontAwesome;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: @len-medium * 1.5;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 }
