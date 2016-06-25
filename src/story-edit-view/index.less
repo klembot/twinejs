@@ -4,22 +4,34 @@
 @color-graph-lines: lighten(@color-link, 50%);
 @color-graph-lines-bold: lighten(@color-link, 47%);
 
-#storyEditView .passages {
-	width: 100%;
-	height: 100%;
-	user-select: none;
+.graph-large, .graph-medium, .graph-small {
 	background-color: @color-graph-paper;
     background-image: linear-gradient(to right, @color-graph-lines-bold 1px, transparent 1px), linear-gradient(to bottom, @color-graph-lines-bold 1px, transparent 1px), linear-gradient(to right, @color-graph-lines 1px, transparent 1px), linear-gradient(to bottom, @color-graph-lines 1px, transparent 1px);
     background-size: 100px 100px, 100px 100px, 10px 10px, 10px 10px;
 }
 
-#storyEditView.zoom-small .passages {
+.graph-medium {
+    background-size: 60px 60px, 60px 60px, 6px 6px, 6px 6px;
+}
+
+.graph-small {
     background-image: linear-gradient(to right, @color-graph-lines 1px, transparent 1px), linear-gradient(to bottom, @color-graph-lines 1px, transparent 1px);
     background-size: 25px 25px, 25px 25px;
 }
 
+#storyEditView .passages {
+	width: 100%;
+	height: 100%;
+	user-select: none;
+	.graph-large;
+}
+
 #storyEditView.zoom-medium .passages {
-    background-size: 60px 60px, 60px 60px, 6px 6px, 6px 6px;
+	.graph-medium;
+}
+
+#storyEditView.zoom-small .passages {
+	.graph-small;
 }
 
 body.draggingPassages {
