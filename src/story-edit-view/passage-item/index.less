@@ -5,14 +5,15 @@
 #storyEditView .passage {
 	position: absolute;
 	background: @color-paper;
-	.shadow-small;
 	cursor: default;
 	font-size: 85%;
 	padding: @len-small;
+	border: @len-hairline solid transparent;
 	border-radius: 2px;
 	width: 100px;
 	height: 100px;
 	overflow: hidden;
+	.shadow-small;
 
 	p {
 		margin: 0;
@@ -28,6 +29,11 @@
 		position: relative;
 		z-index: 1;
 		color: lighten(@color-text, 45%);
+	}
+
+	&.selected {
+		border: @len-hairline solid lighten(@color-link, 30%);
+		background: lighten(@color-link, 55%);
 	}
 }
 
