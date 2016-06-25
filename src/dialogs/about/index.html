@@ -1,5 +1,13 @@
-<modal-dialog>
+<modal-dialog id="aboutDialog">
 	<span slot="title">{{ 'About Twine' | say }} {{ version }}</span>
+
+	<p>
+	{{ 'Twine is an open-source tool for telling interactive, nonlinear stories.'| say }}
+	</p>
+
+	<p>
+	{{{ 'Twine 2.0 is released under the \x3ca href="http:\/\/www.gnu.org/licenses/gpl-3.0.html">GPL v3\x3c/a> license, but any work created with it may be released under any terms, including commercial ones. \x3ca href="">Source Code Repository\x3c/a>'| say }}}
+	</p>
 
 	<p>
 	{{
@@ -11,17 +19,17 @@
 	</p>
 
 	<p>
-	{{ 'Twine is an open-source tool for telling interactive, nonlinear stories.'| say }}
-	</p>
-
-	<p>
-	{{{ 'Twine 2.0 is released under the \x3ca href="http:\/\/www.gnu.org/licenses/gpl-3.0.html">GPL v3\x3c/a> license, but any work created with it may be released under any terms, including commercial ones. \x3ca href="https:\/\/bitbucket.org/klembot/twinejs">Source Code Repository\x3c/a>'| say }}}
-	</p>
-
-	<p>
 	<a href="http://twinery.org/donate" class="button primary">
-	<i class="fa fa-heart-o"></i>
-	{{ 'Help Twine Grow With A Donation'| say }}</a>
+		<i class="fa fa-heart-o"></i>
+		{{ 'Help Twine Grow With A Donation'| say }}
+	</a>
+	</p>
+
+	<p>
+	<a href="https:\/\/bitbucket.org/klembot/twinejs" class="button primary">
+		<i class="fa fa-bitbucket"></i>
+		{{ 'Source Code Repository' | say }}
+	</a>
 	</p>
 
 	<h4>
