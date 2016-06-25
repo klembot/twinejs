@@ -29,7 +29,7 @@ module.exports = Vue.extend({
 
 		confirmClass() {
 			if (this.toReplace.length === 0) {
-				return '';
+				return 'primary';
 			}
 			else {
 				return 'danger';

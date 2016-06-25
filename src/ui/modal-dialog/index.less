@@ -1,16 +1,18 @@
 @import '../../common/colors.less';
+@import '../../common/fonts.less';
 @import '../../common/depth.less';
 @import '../../common/metrics.less';
+@import '../../common/typography.less';
 @import '../../vue/transitions.less';
 
-#modalOverlay {
+#modal-overlay {
 	position: fixed;
 	z-index: 100;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: fadeout(darken(@color-paper, 80%), 20%);
+	background-color: hsla(0, 0%, 0%, 0.8);
 
 	.modal-dialog-transition & {
 		.fade-in-out-transition;
@@ -25,55 +27,118 @@
 	}
 }
 
-.modalDialog {
+.modal-dialog {
 	position: fixed;
 	z-index: 101;
-	top: 1em;
+	display: flex;
+	flex-direction: column;
+	top: @len-extra-large;
 	left: 50%;
 	background: @color-paper;
 	margin-left: -20em;
 	width: 40em;
+	max-height: calc(~"100% - " 2 * @len-extra-large);
 	border-radius: 2px;
-	padding: @len-extra-large;
 	.shadow-large;
 
-	.close {
-		position: absolute;
-		top: 0;
-		right: 0;
-		border-radius: 0;
-		border-top-right-radius: 2px;
-		font-size: @len-large;
-		margin: 0;
-		padding: 0;
+	header {
+		display: flex;
+		flex-shrink: 0;
 		height: @len-extra-large * 2;
-		width: @len-extra-large * 2;
-		line-height: @len-extra-large * 2;
-	}
-	
-	.title {
-		position: absolute;
-		top: 0;
-		left: @len-extra-large;
-		height: @len-extra-large * 2;
-		line-height: @len-extra-large * 2;
-		margin: 0;
-		padding: 0;
+		padding-left: @len-extra-large;
+
+		.title {
+			line-height: @len-extra-large * 2;
+			margin: 0;
+			padding: 0;
+			flex-grow: 1;
+		}
+
+		button {
+			width: @len-extra-large * 2;
+			line-height: @len-extra-large * 2;
+			margin: 0;
+			padding: 0;
+			border-radius: 0;
+			.larger;
+		}
 	}
 
 	.content {
-		padding-top: @len-extra-large;
+		padding: 0 @len-extra-large @len-extra-large @len-extra-large;
+		flex-grow: 1;
+		flex-shrink: 1;
+		overflow: auto;
+
+		> *:first-child {
+			margin-top: 0;
+		}
+
+		> *:last-child {
+			margin-bottom: 0;
+		}
 	}
 
-	> *:first-child {
-		margin-top: 0;
+	&.no-header {
+		header {
+			display: none;
+		}
+
+		.content {
+			padding-top: @len-extra-large;
+		}
 	}
 
-	> *:last-child {
-		margin-bottom: 0;
+	&.editor {
+		top: @len-small;
+		bottom: @len-small;
+		max-height: none;
+
+		.content {
+			display: flex;
+			flex-direction: column;
+			padding-bottom: 0;
+		}
+
+		.expand {
+			flex-grow: 1;
+			position: relative;
+
+			> div, .CodeMirror {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 100%;
+				border-left: none;
+				border-right: none;
+			}
+		}	
 	}
 
 	// Not used for this component, but available to child components.
+
+	&.tabbed {
+		header {
+			padding-left: 0;
+
+			button {
+				font: 90% @font-display;			
+				height: 100%;
+			}
+		}
+	}
+
+	.expand {
+		margin-left: -@len-extra-large;
+		margin-right: -@len-extra-large;
+
+		.CodeMirror {
+			border-radius: 0;
+			padding-left: @len-extra-large;
+			padding-right: @len-extra-large;
+		}
+	}
 
 	.buttons { 
 		text-align: right;
@@ -91,72 +156,4 @@
 	.modal-dialog-leave & {
 		.rise-in-out-leave;
 	}
-}
-
-.editModal
-{
-	bottom: 0;
-	width: 50em;
-	padding-bottom: 0;
-	border-bottom-left-radius: 0;
-	border-bottom-right-radius: 0;
-}
-
-body.iOS .editModal
-{
-	bottom: auto;
-	height: 25em;
-	border-bottom-left-radius: 2em;
-	border-bottom-right-radius: 2em;
-}
-
-@media screen and (orientation: portrait)
-{
-	body.iOS .editModal
-	{
-		height: 40em;
-	}
-}
-
-.editModal input[type="text"], .editModal textarea, .editModal .CodeMirror
-{
-	font-family: "Source Code Pro", monospace;
-	line-height: 145%;
-	background: inherit;
-}
-
-.CodeMirror-hints
-{
-	z-index: 1000 !important;
-	font-family: "Source Code Pro", monospace !important;
-}
-
-.CodeMirror-empty
-{
-	color: hsl(0, 0%, 50%) !important;
-}
-
-.editModal .fullEdit
-{
-	position: absolute;
-	top: 8.5em;
-	left: 0;
-	right: 0;
-	bottom: 0;
-}
-
-.editModal .fullEdit > div {
-	height: 100%;
-}
-
-.editModal .fullEdit .CodeMirror
-{
-	background: linear-gradient(to bottom, hsl(0, 0%, 90%) 0, hsl(0, 0%, 97%) 0.5em);
-	box-shadow: none;
-	height: 100%;
-}
-
-.editModal .fullEdit .CodeMirror-lines
-{
-	padding: 0.75em 2em 0.25em 2em;
 }

@@ -6,7 +6,6 @@ const StoryFormatCollection = require('../../data/collections/story-format');
 const AppPref = require('../../data/models/app-pref');
 
 module.exports = Vue.extend({
-
 	data: () => ({
 		// Used to create the <format-item>s using v-for.
 		storyFormats: [],
@@ -106,6 +105,21 @@ module.exports = Vue.extend({
 	},
 
 	ready() {
+		// Move tabs into the dialog header.
+
+		const dialogTitle = this.$el.parentNode.querySelector(
+			'.modal-dialog > header .title'
+		);
+		const tabs = this.$el.parentNode.querySelectorAll(
+			'p.tabs-panel button'
+		);
+
+		for (let i = 0; i < tabs.length; i++) {
+			dialogTitle.appendChild(tabs[i]);
+		}
+
+		// Begin loading story format details.
+
 		const formatsToLoad = StoryFormatCollection.all();
 
 		const loadNextFormat = () => {

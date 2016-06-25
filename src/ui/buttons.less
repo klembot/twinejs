@@ -5,28 +5,23 @@
 
 .colored-button(@color) {
 	color: white;
-	background: linear-gradient(
-		to bottom, spin(lighten(@color, 5%), -20), @color
-	);
+	background: lighten(@color, 5%);
+	transition: 0.2s background, 0.2s transform;
 	.shadow-small;
 
 	&:hover {
-		background: linear-gradient(
-			to bottom, spin(lighten(@color, 10%), -20), lighten(@color, 5%)
-		);
+		background: lighten(@color, 10%);
 	}
 
 	&:active, &.active {
-		background: linear-gradient(
-			to bottom, spin(@color, -20), darken(@color, 5%)
-		);
-		.recessed-medium;
+		background: @color;
 	}
 
 	&.subtle {
 		color: @color-text;
 		background: none;
 		box-shadow: none;
+		border: none;
 
 		&:hover {
 			color: @color;
@@ -43,7 +38,7 @@ button, a.button {
 	color: @color-text;
 	border-radius: @len-tiny;
 	outline: none;
-	transition: 0.2s background, 0.2s box-shadow;
+	transition: 0.2s background, 0.2s transform;
 	
 	&:hover {
 		color: @color-link;
@@ -52,8 +47,11 @@ button, a.button {
 	
 	&:active, &.active {
 		color: @color-link;
-		background: hsla(0, 0%, 0%, 0.02);
-		.recessed-medium;
+		background: hsla(0, 0%, 0%, 0.075);
+	}
+
+	&:active {
+		transform: scale(0.95);
 	}
 
 	&.primary {

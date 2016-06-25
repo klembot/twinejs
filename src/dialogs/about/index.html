@@ -1,7 +1,5 @@
 <modal-dialog>
-	<h2 class="title">
-	{{ 'About Twine'| say }} {{version}}
-	</h2>
+	<span slot="title">{{ 'About Twine' | say }} {{ version }}</span>
 
 	<p>
 	{{
@@ -21,12 +19,10 @@
 	</p>
 
 	<p>
-	<a href="http://twinery.org/donate" class="button">
+	<a href="http://twinery.org/donate" class="button primary">
 	<i class="fa fa-heart-o"></i>
 	{{ 'Help Twine Grow With A Donation'| say }}</a>
 	</p>
-
-	<div style="max-height:20em; overflow-y:scroll">
 
 	<h4>
 	{{
@@ -96,6 +92,4 @@
 	<a href="http://thenounproject.com/term/question/2036/">{{ 'Question designed by Henry Ryder from the Noun Project'| say }}</a><br>
 	<a href="http://thenounproject.com/term/smile/10696/">{{ 'Smile designed by jelio dimitrov from the Noun Project'| say }}</a><br>
 	</p>
-
-	</div>
 </modal-dialog>

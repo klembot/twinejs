@@ -1,4 +1,4 @@
-<modal-dialog :class="'prompt ' + modalClass">
+<modal-dialog :class="'prompt no-header ' + modalClass">
 	<form @submit.prevent="accept">
 		<div class="message larger">{{{message}}}</div>
 
@@ -9,8 +9,9 @@
 		<p class="prompt">
 			<input type="text" class="block" required v-model="response" v-el:response>
 		</p>
+
 		<p class="buttons">
-			<button type="button" class="subtle" @click="cancel">{{{cancelLabel}}}</button>
+			<button type="button" @click="cancel">{{{cancelLabel}}}</button>
 			<button type="submit" :class="buttonClass">{{{buttonLabel}}}</button>
 		</p>
 	</form>
