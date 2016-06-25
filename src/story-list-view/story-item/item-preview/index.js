@@ -20,17 +20,16 @@ module.exports = Vue.extend({
 	computed: {
 		style() {
 			return {
-				background:
-					`linear-gradient(
-						to bottom,
-						hsl(${(this.hue - 20) % 360}, 80%, 95%),
-						hsl(${this.hue}, 70%, 85%)
-					)`
+				background: `hsl(${this.hue}, 60%, 95%)`
 			};
 		},
 
-		passageColor() {
-			return `hsla(${this.hue}, 90%, 50%, 0.5)`;
+		passageStroke() {
+			return `hsl(${this.hue}, 90%, 45%)`;
+		},
+
+		passageFill() {
+			return `hsla(${this.hue}, 90%, 60%, 0.5)`;
 		}
 	},
 
@@ -65,7 +64,8 @@ module.exports = Vue.extend({
 				const c = svg.circle()
 					.center(x, y)
 					.radius(radius)
-					.fill(this.passageColor);
+					.fill(this.passageFill)
+					.stroke({ color: this.passageStroke, width: 4 });
 
 				if (x - radius < minX) { minX = x - radius; }
 
