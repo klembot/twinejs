@@ -56,12 +56,13 @@ module.exports = Vue.extend({
 			let maxX = Number.NEGATIVE_INFINITY;
 			let maxY = Number.NEGATIVE_INFINITY;
 
-			_.each(this.passages, (passage, i) => {
+			_.each(this.passages, passage => {
 				const ratio = passage.get('text').length / maxLength;
 				const radius = (200 + 200 * ratio) / 2;
 				const x = passage.get('left') + 50;
 				const y = passage.get('top') + 50;
-				const c = svg.circle()
+
+				svg.circle()
 					.center(x, y)
 					.radius(radius)
 					.fill(this.passageFill)

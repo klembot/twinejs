@@ -168,9 +168,17 @@ module.exports = Vue.extend({
 		},
 		
 		cssClasses() {
+			let result = [];
+
 			if (this.selected) {
-				return ['selected'];
+				result.push('selected');
 			}
+
+			if (this.highlightRegexp && this.$model.matches(this.highlightRegexp)) {
+				result.push('highlighted');
+			}
+
+			return result;
 		},
 
 		excerpt() {

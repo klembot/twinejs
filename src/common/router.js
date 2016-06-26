@@ -153,8 +153,7 @@ TwineRouter.beforeEach((transition) => {
 		transition.next();
 	}
 	else {
-		transition.next();
-		//transition.redirect('/welcome');
+		transition.redirect('/welcome');
 	}
 });
 
