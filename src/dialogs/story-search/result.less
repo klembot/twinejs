@@ -1,31 +1,31 @@
+@import '../../common/colors.less';
+@import '../../common/metrics.less';
+
 #searchModal .result {
 	pre {
-		font: 90% "Source Code Pro", monospace;
-		white-space: pre-wrap;
 		max-height: 5em;
+		width: 100%;
 		overflow: auto;
-		background-color: hsl(0, 0%, 95%);
-		padding: 0.5em;
+		background: darken(@color-paper, 5%);
 		margin-top: 0;	
+		padding: @len-small @len-medium;
 	}
 
 	.passageName {
-		margin: 0.125em inherit;
-
-		.controls {
-			float: right;
-		}
+		display: flex;
+		justify-content: space-between;
+		margin: 0;
 	}
 
 	.controls {
-		display: none;
+		visibility: hidden;
 	}
 
 	&:hover .controls {
-		display: block;
+		visibility: visible;
 	}
 
 	.highlight {
-		background-color: hsl(60, 100%, 50%);
+		background-color: @color-highlight;
 	}
 }

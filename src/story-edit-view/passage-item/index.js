@@ -137,6 +137,10 @@ module.exports = Vue.extend({
 			);
 		},
 
+		isStart() {
+			return this.parentStory.get('startPassage') === this.$model.id;
+		},
+
 		cssPosition() {
 			let top = this.top * this.zoom;
 			let left = this.left * this.zoom;
@@ -166,16 +170,12 @@ module.exports = Vue.extend({
 		cssClasses() {
 			let result = [];
 
-			if (this.parentStory.get('startPassage') === this.$model.id) {
-				result.push('start');
-			}
-
 			if (this.selected) {
 				result.push('selected');
 			}
 
-			if (this.hasBrokenLinks) {
-				result.push('brokenLink');
+			if (this.highlightRegexp && this.$model.matches(this.highlightRegexp)) {
+				result.push('highlighted');
 			}
 
 			return result;

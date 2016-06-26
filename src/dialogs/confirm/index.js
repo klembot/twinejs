@@ -30,7 +30,7 @@ const confirmation = module.exports = {
 			cancelLabel: ('<i class="fa fa-times"></i> ' + locale.say('Cancel')),
 			buttonLabel: '',
 			modalClass: '',
-			buttonClass: '',
+			buttonClass: 'primary'
 		}),
 
 		methods: {
