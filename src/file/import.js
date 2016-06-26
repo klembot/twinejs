@@ -6,7 +6,6 @@
 // the filesystem into local storage, and the app can't begin until it's done.
 
 const ChooseImportReplaceDialog = require('../dialogs/choose-import-replace');
-const Story = require('../data/models/story');
 const StoryCollection = require('../data/collections/story');
 const PassageCollection = require('../data/collections/passage');
 const locale = require('../locale');
@@ -45,13 +44,13 @@ function domToIntermediate(storyEl, forceLastUpdate) {
 			script:
 				Array.from(storyEl.querySelectorAll(selectors.script))
 					.reduce(
-						(src, el) => { return src + `${el.textContent}\n`; },
+						(src, el) => src + `${el.textContent}\n`,
 						''
 					),
 			stylesheet:
 				Array.from(storyEl.querySelectorAll(selectors.stylesheet))
 					.reduce(
-						(src, el) => { return src + `${el.textContent}\n`; },
+						(src, el) => src + `${el.textContent}\n`,
 						''
 					)
 		},
@@ -105,7 +104,7 @@ function saveIntermediate(data, storyCollection, passageCollection) {
 	}
 
 	// We can't pass data straight to the model because it has extraneous
-	// attributes, e.g. startPassagePid and pid. 
+	// attributes, e.g. startPassagePid and pid.
 	//
 	// We have to initially save the story, then save it again at the bottom so
 	// that we have a parent ID to work with.
@@ -187,6 +186,7 @@ const fileImport = module.exports = {
 
 					return dupes;
 				},
+
 				[]
 			);
 

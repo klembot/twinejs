@@ -2,11 +2,13 @@
 	<file-drag-n-drop>{{ 'Drop a story file to import' | say}}</file-drag-n-drop>
 	<list-toolbar :collection="collection"></list-toolbar>
 
-	<div class="main">
-		<h1>{{ storyCountDesc }}
-			<span class="pull-right normal buttonGroup">
-				{{ 'Sort By' | say }}
+	<header>
+		<h1>{{ storyCountDesc }}</h1>
 
+		<p>
+			<label>{{ 'Sort By' | say }}</label>
+
+			<span class="button-group">
 				<button class="{{ 'subtle ' + (modelOrder === 'lastUpdate' ? 'active': '') }}" @click="sortByDate" title="{{'Last changed date' | say }}" v-tooltip>
 				{{ 'Edit Date' | say }}
 				</button>
@@ -15,14 +17,16 @@
 				{{ 'Name' | say }}
 				</button>
 			</span>
-		</h1>
+		</p>
+	</header>
 
-		<div class="stories">
-			<p v-if="!models.length">
-				{{ 'There are no stories saved in Twine right now. To get started, you can either create a new story or import an existing one from a file.' | say }}
-			</p>
+	<div class="stories">
+		<p v-if="!models.length">
+			{{ 'There are no stories saved in Twine right now. To get started, you can either create a new story or import an existing one from a file.' | say }}
+		</p>
 
+		<ul class="plain">
 			<story-item v-for="model in models" :model="model" transition="grow-in-out" track-by="id"></story-item-view>
-		</div>
-	</div> <!-- .main -->
+		</ul>
+	</div> <!-- .stories-->
 </div> <!-- #storyListView -->

@@ -274,7 +274,7 @@ module.exports = function(grunt) {
 		watch: {
 			css: {
 				files: ['src/**/*.css', 'src/**/*.less'],
-				tasks: ['less'],
+				tasks: ['less:default'],
 			},
 			fonts: {
 				files: ['src/**/fonts/*'],

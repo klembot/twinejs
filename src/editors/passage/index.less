@@ -1,39 +1,18 @@
-#passageEditModal {
-	.title input {
-		display: block;
-		width: 100%;
-		padding-bottom: 0.1em;
-		font-size: 125%;
-	}
+@import '../../common/metrics.less';
 
-	.error {
-		margin-bottom: 0.5em;
+#passageEditModal {
+	.title span {
+		display: flex;
+		width: 100%;
+
+		input {
+			flex-grow: 1;
+			margin: @len-tiny;
+			font-size: 1rem;
+		}
 	}
 
 	.passageTags {
-		padding-bottom: 0.5em;
-		font-size: 90%;
-		overflow-x: auto;
-		white-space: nowrap;
-
-		button.link {
-			margin-left: 1em;
-		}
-
-		span {
-			display: inline-block;
-		}
-
-		.tag {
-			margin-right: 0.5em;
-		}
-	}
-
-	.fullEdit {
-		top: 8.5em;
-	}
-
-	&.hasError .fullEdit {
-		top: 10.5em;
+		margin: @len-small 0;
 	}
 }

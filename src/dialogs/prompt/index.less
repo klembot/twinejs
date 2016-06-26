@@ -1,26 +1,25 @@
-.modalDialog.prompt {
-	button.close {
-		display: none;
-	}
-
+.modal-dialog.prompt {
 	.message {
-		padding: 2em 2em 0 2em;
-		font-size: 110%;
 		padding-left: 3.5em;
+		position: relative;
 
 		&:before {
 			content: '\f059';
 			font: 250% FontAwesome;
-			float: left;
-			margin-left: -1.5em;
-			position: relative;
-			top: .1em;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 1em;
+			text-align: center;
 			color: #ccc;
 		}
 	}
 
-	.prompt input[type="text"] {
-		margin-left: 3.5em;
-		width: calc(100% - 10em);
+	.prompt {
+		margin-left: 4em;
+
+		input[type="text"] {
+			width: 100%;
+		}
 	}
 }

@@ -29,7 +29,7 @@ module.exports = Vue.extend({
 			)
 			.then(stories => {
 				this.close();
-				this[resolve](stories);	
+				this[resolve](stories);
 			});
 		}
 	},
