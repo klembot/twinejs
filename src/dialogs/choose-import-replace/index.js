@@ -16,24 +16,22 @@ module.exports = Vue.extend({
 	computed: {
 		confirmLabel() {
 			if (this.toReplace.length === 0) {
-				return locale.say("Don't Replace Any Stories");
+				return locale.say('Don\'t Replace Any Stories');
 			}
-			else {
-				return locale.sayPlural(
-					'Replace %d Story',
-					'Replace %d Stories',
-					this.toReplace.length
-				);
-			}
+
+			return locale.sayPlural(
+				'Replace %d Story',
+				'Replace %d Stories',
+				this.toReplace.length
+			);
 		},
 
 		confirmClass() {
 			if (this.toReplace.length === 0) {
 				return 'primary';
 			}
-			else {
-				return 'danger';
-			}
+
+			return 'danger';
 		}
 	},
 
