@@ -149,7 +149,7 @@ TwineRouter.beforeEach((transition) => {
 
 	const welcomePref = AppPref.withName('welcomeSeen', false);
 
-	if (welcomePref.get('value') === true) {
+	if (transition.to.path === '/welcome' || welcomePref.get('value') === true) {
 		transition.next();
 	}
 	else {

@@ -15,7 +15,7 @@ const AppPrefCollection = require('../data/collections/app-pref');
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
-	initialize() {
+	ready() {
 		this.welcomePref = AppPref.withName('welcomeSeen');
 	},
 
