@@ -67,11 +67,11 @@ const directories = module.exports = {
 		const fs = require('fs');
 		const path = require('path');
 
-		let intermediatePath = '';
+		let intermediatePath = newPath.startsWith(path.sep) ? path.sep : '';
 
 		newPath.split(path.sep).forEach(dir => {
 			intermediatePath = path.join(intermediatePath, dir);
-			
+
 			if (!fs.existsSync(intermediatePath)) {
 				fs.mkdirSync(intermediatePath);
 			}

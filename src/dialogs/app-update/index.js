@@ -57,7 +57,7 @@ module.exports = {
 							locale.say('Not Right Now'),
 
 						buttonClass:
-							'download',
+							'download primary',
 
 						modalClass:
 							'info',

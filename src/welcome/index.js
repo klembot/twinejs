@@ -14,7 +14,8 @@ const { setPref } = require('../data/actions');
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
-	initialize() {
+	ready() {
+		this.welcomePref = AppPref.withName('welcomeSeen');
 	},
 
 	data: () => ({
