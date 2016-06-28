@@ -85,10 +85,11 @@ module.exports = Vue.extend({
 			if (this.passages.length == 1) {
 				svg
 					.circle()
-					.center(5, 5)
-					.fill(this.passageColor)
-					.radius(2.5);
-				svg.viewbox(0, 0, 10, 10);
+					.center(100, 100)
+					.fill(this.passageFill)
+					.stroke({ color: this.passageStroke, width: 1 })
+					.radius(75);
+				svg.viewbox(0, 0, 200, 200);
 			}
 		}
 	}
