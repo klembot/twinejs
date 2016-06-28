@@ -1,6 +1,6 @@
 <div class="result">
 	<p class="passageName">
-		<button class="subtle link" @click="toggleExpanded">
+		<button class="link" @click="toggleExpanded">
 			<i class="fa fa-plus-square-o" v-if="!expanded"></i>
 			<i class="fa fa-minus-square-o" v-if="expanded"></i>
 			{{{ match.highlightedName }}}
@@ -10,7 +10,7 @@
 		</button>
 
 		<span class="controls">
-			<button class="link danger" title="{{ 'Replace in this passage' | say }}" @click="replace">
+			<button class="danger subtle" title="{{ 'Replace in this passage' | say }}" @click="replace">
 				<i class="fa fa-bolt fa-fw"></i>{{ 'Replace in Passage' | say }}
 			</button>
 		</span>

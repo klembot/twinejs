@@ -1,29 +1,31 @@
+@import '../../common/colors.less';
+@import '../../common/depth.less';
+@import '../../common/metrics.less';
+
 #localeView {
 	.prompt {
 		text-align: center;
-		font-size: 120%;
 	}
 
 	button {
-		width: 10em;
+		width: 10rem;
 		text-align: center;
 
 		img {
-			height: 5em;
+			height: 5rem;
 			width: auto;
 			display: block;
-			margin: 0.5em auto;
-			border-radius: 0.25em;
-			border: 1px solid hsl(0, 0%, 90%);
-			box-shadow: 0 0 1px hsl(0, 0%, 90%);
+			margin: @len-large auto;
+			.shadow-medium;
 		}
 	}
 
 	ul {
 		list-style-type: none;
 		text-align: center;
-		margin-left: 0;
 		padding-left: 0;
+		width: 45rem;
+		margin: 0 auto;
 
 		li {
 			display: inline;

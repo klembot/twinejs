@@ -39,7 +39,7 @@ module.exports = Vue.extend({
 
 		// The regular expression that matching passages should highlight.
 	
-		highlightRegexp: '',
+		highlightRegexp: null,
 
 		// The offset that selected passages should be displayed at
 		// temporarily, to show feedback as the user drags passages around.
@@ -245,6 +245,10 @@ module.exports = Vue.extend({
 	},
 
 	events: {
+		'highlight-regexp-change'(value) {
+			this.highlightRegexp = value;
+		},
+
 		// A specialized version of collection-create that ensures a new
 		// passage has a unique name, and doesn't overlap another one.
 

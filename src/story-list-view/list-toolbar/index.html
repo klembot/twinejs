@@ -1,41 +1,38 @@
 <nav class="listControls">
 	<h1 class="logo">{{ 'Twine' | say }}</h1>
 
-	<p>
-		<button class="create block" @click="createStoryPrompt" title="{{ 'Create a brand-new story' | say }}" v-tooltip="left center">
-			<i class="fa fa-plus"></i> {{ 'Story' | say }}
-		</button>
-	</p>
-
-	<p>
-		<button class="subtle block" @click="importFile" title="{{ 'Import a published story or Twine archive' | say }}" v-tooltip="left center">
-			<i class="fa fa-upload"></i> {{'Import From File' | say}}
-		</button>
-	</p>
-
-	<p>
-		<button class="subtle" @click="saveArchive" title="{{'Save all stories to a Twine archive file' | say }}" v-tooltip="left center">
-			<i class="fa fa-briefcase"></i> {{ 'Archive' | say}}
-		</button>
-	</p>
-
-	<p>
-		<button class="subtle" @click="showFormats" title="{{'Work with story and proofing formats' | say }}" v-tooltip="left center">
-			<i class="fa fa-file-code-o"></i> {{ 'Formats' | say }}
-		</button>
-	</p>
-
-	<p>
-		<button class="subtle" @click="showLocale" title="{{'Change the language Twine uses' | say }}" v-tooltip="left center">
-			<i class="fa fa-comment-o"></i> {{ 'Language' | say }}
-		</button>
-	</p>
-
-	<p>
-		<button class="subtle" @click="showHelp" title="{{'Browse online help' | say }}" v-tooltip="left center">
-			<i class="fa fa-question-circle"></i> {{ 'Help' | say }}
-		</button>
-	</p>
+	<ul class="plain">
+		<li>
+			<button class="create block" @click="createStory" title="{{ 'Create a brand-new story' | say }}" v-tooltip="left center">
+				<i class="fa fa-plus"></i> {{ 'Story' | say }}
+			</button>
+		</li>
+		<li>
+			<button class="block" @click="importFile" title="{{ 'Import a published story or Twine archive' | say }}" v-tooltip="left center">
+				<i class="fa fa-upload"></i> {{'Import From File' | say}}
+			</button>
+		</li>
+		<li>
+			<button class="block" @click="saveArchive" title="{{'Save all stories to a Twine archive file' | say }}" v-tooltip="left center">
+				<i class="fa fa-briefcase"></i> {{ 'Archive' | say}}
+			</button>
+		</li>
+		<li>
+			<button class="block" @click="showFormats" title="{{'Work with story and proofing formats' | say }}" v-tooltip="left center">
+				<i class="fa fa-file-code-o"></i> {{ 'Formats' | say }}
+			</button>
+		</li>
+		<li>
+			<button class="block" @click="showLocale" title="{{'Change the language Twine uses' | say }}" v-tooltip="left center">
+				<i class="fa fa-comment-o"></i> {{ 'Language' | say }}
+			</button>
+		</li>
+		<li>
+			<button class="block" @click="showHelp" title="{{'Browse online help' | say }}" v-tooltip="left center">
+				<i class="fa fa-question-circle"></i> {{ 'Help' | say }}
+			</button>
+		</li>
+	</ul>
 
 	<footer>
 		<quota-gauge></quota-gauge>
