@@ -9,7 +9,7 @@ module.exports = {
 		// FIXME
 	},
 
-	createStory({ dispatch }, name) {
-		dispatch('CREATE_STORY', { name });
+	createStory({ dispatch }, props) {
+		dispatch('CREATE_STORY', props);
 	}
 };

@@ -14,10 +14,6 @@ const { setPref } = require('../data/actions');
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
-	ready() {
-		this.welcomePref = AppPref.withName('welcomeSeen');
-	},
-
 	data: () => ({
 		// How many sections are currently visible.
 		shown: 1

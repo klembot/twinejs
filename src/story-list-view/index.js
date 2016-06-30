@@ -33,6 +33,12 @@ module.exports = Vue.extend({
 
 	computed: {
 		sortedStories() {
+			// If we have no stories to sort, don't worry about it.
+
+			if (this.allStories.length === 0) {
+				return this.allStories;
+			}
+
 			switch (this.storyOrder) {
 				case 'name':
 				return this.allStories.sort((a, b) => {
@@ -112,6 +118,16 @@ module.exports = Vue.extend({
 
 		if (this.previouslyEditing) {
 			this.$broadcast('previously-editing', this.previouslyEditing);
+		}
+	},
+
+	methods: {
+		sortByDate() {
+			this.storyOrder = 'lastUpdate';
+		},
+
+		sortByName() {
+			this.storyOrder = 'name';
 		}
 	},
 

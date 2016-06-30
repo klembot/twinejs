@@ -4,7 +4,6 @@
 **/
 
 'use strict';
-const _ = require('underscore');
 const Vue = require('vue');
 const SVG = require('svg.js');
 
@@ -12,9 +11,18 @@ module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	props: {
-		edit: Function,
-		hue: Number,
-		passages: Array,
+		edit: {
+			type: Function,
+			required: true
+		},
+		hue: {
+			type: Number,
+			required: true
+		},
+		passages: {
+			type: Array,
+			required: true
+		}
 	},
 
 	computed: {
@@ -41,8 +49,8 @@ module.exports = Vue.extend({
 
 			let maxLength = 0;
 
-			_.each(this.passages, passage => {
-				const len = passage.get('text').length;
+			this.passages.forEach(passage => {
+				const len = passage.text.length;
 
 				if (len > maxLength) {
 					maxLength = len;
@@ -56,11 +64,11 @@ module.exports = Vue.extend({
 			let maxX = Number.NEGATIVE_INFINITY;
 			let maxY = Number.NEGATIVE_INFINITY;
 
-			_.each(this.passages, passage => {
-				const ratio = passage.get('text').length / maxLength;
+			this.passages.forEach(passage => {
+				const ratio = passage.text.length / maxLength;
 				const radius = (200 + 200 * ratio) / 2;
-				const x = passage.get('left') + 50;
-				const y = passage.get('top') + 50;
+				const x = passage.left + 50;
+				const y = passage.top + 50;
 
 				svg.circle()
 					.center(x, y)

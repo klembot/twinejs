@@ -7,6 +7,8 @@ const StoryEditView = require('../story-edit-view');
 const StoryListView = require('../story-list-view');
 const WelcomeView = require('../welcome');
 const publish = require('../story-publish');
+const { prefNamed } = require('../data/getters');
+const store = require('../data/store');
 
 Vue.use(VueRouter);
 
@@ -138,20 +140,14 @@ TwineRouter.beforeEach((transition) => {
 	// transition.next() or redirect() will stop any other logic in the
 	// function.
 
-	transition.next();
+	const welcomeSeen = prefNamed(store.state, 'welcomeSeen', false);
 
-	/*
-	FIXME
-
-	const welcomePref = AppPref.withName('welcomeSeen', false);
-
-	if (transition.to.path === '/welcome' || welcomePref.get('value') === true) {
+	if (transition.to.path === '/welcome' || welcomeSeen) {
 		transition.next();
 	}
 	else {
 		transition.redirect('/welcome');
 	}
-	*/
 });
 
 module.exports = TwineRouter;
