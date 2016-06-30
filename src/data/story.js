@@ -59,15 +59,16 @@ module.exports = {
 
 	mutations: {
 		CREATE_STORY(state, props) {
-			let newStory = Object.assign({}, storyDefaults, props);
-
-			console.log(props, newStory);
-
-			newStory.id = uuid();
-			newStory.lastUpdate = new Date();
-			newStory.ifid = uuid().toUpperCase();
-			newStory.passages = [];
-			state.stories.push(newStory);
+			state.stories.push(Object.assign(
+				{
+					id: uuid(),
+					lastUpdate: new Date(),
+					ifid: uuid().toUpperCase(),
+					passages: []
+				},
+				storyDefaults,
+				props
+			));
 		},
 
 		UPDATE_STORY(state, id, props) {
@@ -87,10 +88,15 @@ module.exports = {
 
 		CREATE_PASSAGE_IN_STORY(state, storyId, props) {
 			let story = getStoryById(state, storyId);
-			let newPassage = Object.assign({}, passageDefaults, props);
+			let newPassage = Object.assign(
+				{
+					id: uuid()
+				},
+				passageDefaults,
+				props
+			);
 
-			newPassage.id = uuid();
-			newPassage.story = story.id;
+			newPassage.story = newstory.id;
 			story.passages.push(newPassage);
 			story.lastUpdate = new Date();
 		},

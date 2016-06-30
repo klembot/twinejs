@@ -10,5 +10,9 @@ module.exports = new Vuex.Store({
 		pref: require('./pref'),
 		story: require('./story'),
 		'story-format': require('./story-format')
-	}
+	},
+	
+	middlewares: [
+		require('./local-storage')
+	]
 });

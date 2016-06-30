@@ -3,20 +3,23 @@
 
 	<list-toolbar></list-toolbar>
 
-	<div class="main">
-		<h1>{{ storyCountDesc }}
-			<span class="pull-right normal buttonGroup">
-				{{ 'Sort By' | say }}
+	<header>
+		<h1>{{ storyCountDesc }}</h1>
 
-				<button class="{{ 'subtle ' + (storyOrder === 'lastUpdate' ? 'active': '') }}" @click="this.storyOrder = 'lastUpdate'" title="{{'Last changed date' | say }}" v-tooltip>
+		<p>
+			<label>{{ 'Sort By' | say }}</label>
+
+			<span class="button-group">
+				<button class="{{ 'subtle ' + (storyOrder === 'lastUpdate' ? 'active': '') }}" @click="sortByDate" title="{{'Last changed date' | say }}" v-tooltip>
 				{{ 'Edit Date' | say }}
 				</button>
 
-				<button class="{{ 'subtle ' + (storyOrder === 'name' ? 'active' : '') }}" @click="this.storyOrder = 'name'" title="{{'Story name' | say }}" v-tooltip>
+				<button class="{{ 'subtle ' + (storyOrder === 'name' ? 'active' : '') }}" @click="sortByName" title="{{'Story name' | say }}" v-tooltip>
 				{{ 'Name' | say }}
 				</button>
 			</span>
-		</h1>
+		</p>
+	</header>
 
 		<div class="stories">
 			<p v-if="allStories.length === 0">

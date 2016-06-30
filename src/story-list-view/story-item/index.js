@@ -12,7 +12,10 @@ module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	props: {
-		story: Object
+		story: {
+			type: Object,
+			required: true
+		}
 	},
 
 	components: {

@@ -36,7 +36,7 @@ module.exports = Vue.extend({
 						);
 					}
 				}
-			}).then(name => this.createStory(name));
+			}).then(name => this.createStory({ name }));
 		},
 
 		importFile() {
