@@ -78,7 +78,9 @@ module.exports = Vue.extend({
 		// For now, we only support importing a single file at a time.
 
 		'file-drag-n-drop'(files) {
-			fileImport.importFile(files[0]);
+			fileImport.importFile(files[0], {
+				confirmReplace: true, storyCollection: this.collection
+			});
 		}
 	},
 
