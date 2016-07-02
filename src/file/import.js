@@ -67,6 +67,8 @@ function domToIntermediate(storyEl, forceLastUpdate) {
 
 				pid:
 					passageEl.attributes.pid.value,
+				name:
+					passageEl.attributes.name.value,
 				left:
 					pos[0],
 				top:
@@ -125,6 +127,7 @@ function saveIntermediate(data, storyCollection, passageCollection) {
 			{
 				story: storyModel.id,
 				left: passage.left,
+				name: passage.name,
 				top: passage.top,
 				tags: passage.tags,
 				text: passage.text
