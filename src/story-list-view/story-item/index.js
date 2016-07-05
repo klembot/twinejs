@@ -83,7 +83,7 @@ module.exports = Vue.extend({
 				x: $el.offset().left + $el.outerWidth() / 2,
 				y: $el.offset().top,
 			}}).$mountTo(this.$el).then(
-				() => window.location.hash = '#stories/' + this.model.id
+				() => window.location.hash = '#stories/' + this.story.id
 			);
 		},
 	}

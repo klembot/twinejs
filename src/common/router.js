@@ -6,8 +6,10 @@ const LocaleView = require('../locale/view');
 const StoryEditView = require('../story-edit-view');
 const StoryListView = require('../story-list-view');
 const WelcomeView = require('../welcome');
-const publish = require('../story-publish');
-const { prefNamed } = require('../data/getters');
+const { formatNamed, prefNamed, storyWithId } = require('../data/getters');
+const { loadFormat } = require('../data/actions');
+const { publishStoryWithFormat } = require('../data/publish');
+const replaceUI = require('../ui/replace');
 const store = require('../data/store');
 
 Vue.use(VueRouter);
@@ -56,8 +58,14 @@ TwineRouter.map({
 	'/stories/:id/play': {
 		component: {
 			ready() {
-				// FIXME
-				// publish.publishStory(Story.withId(this.$route.params.id));
+				const state = this.$store.state;
+				const story = storyWithId(state, this.$route.params.id);
+				const format = formatNamed(state, story.format) ||
+					formatNamed(state, prefNamed(state, 'defaultFormat'));
+
+				loadFormat(this.$store, format.name).then(() => {
+					replaceUI(publishStoryWithFormat(story, format));
+				});
 			}
 		}
 	},
@@ -68,15 +76,13 @@ TwineRouter.map({
 	'/stories/:id/proof': {
 		component: {
 			ready() {
-				/*
-				const story = Story.withId(this.$route.params.id);
-				FIXME
-				const format = StoryFormat.withName(
-					AppPref.withName('proofingFormat').get('value')
-				);
-				
-				publish.publishStory(story, null, { format });
-				*/
+				const state = this.$store.state;
+				const story = storyWithId(state, this.$route.params.id);
+				const format = formatNamed(state, prefNamed(state, 'proofingFormat'));
+
+				loadFormat(this.$store, format.name).then(() => {
+					replaceUI(publishStoryWithFormat(story, format));
+				});
 			}
 		}
 	},
@@ -84,14 +90,14 @@ TwineRouter.map({
 	'/stories/:id/test': {
 		component: {
 			ready() {
-				/*
-				FIXME
-				publish.publishStory(
-					Story.withId(this.$route.params.id),
-					null,
-					{ formatOptions: ['debug'] }
-				);
-				*/
+				const state = this.$store.state;
+				const story = storyWithId(state, this.$route.params.id);
+				const format = formatNamed(state, story.format) ||
+					formatNamed(state, prefNamed(state, 'defaultFormat'));
+
+				loadFormat(this.$store, format.name).then(() => {
+					replaceUI(publishStoryWithFormat(story, format, ['debug']));
+				});
 			}
 		}
 	},
@@ -99,17 +105,19 @@ TwineRouter.map({
 	'/stories/:storyId/test/:passageId': {
 		component: {
 			ready() {
-				/*
-				FIXME
-				publish.publishStory(
-					Story.withId(this.$route.params.storyId),
-					null,
-					{
-						formatOptions: ['debug'],
-						startPassageId: this.$route.params.passageId
-					}
-				);
-				*/
+				const state = this.$store.state;
+				const story = storyWithId(state, this.$route.params.id);
+				const format = formatNamed(state, story.format) ||
+					formatNamed(state, prefNamed(state, 'defaultFormat'));
+
+				loadFormat(this.$store, format.name).then(() => {
+					replaceUI(publishStoryWithFormat(
+						story,
+						format,
+						['debug'],
+						this.$route.params.passageId
+					));
+				});
 			}
 		}
 	}

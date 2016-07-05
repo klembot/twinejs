@@ -9,7 +9,7 @@ module.exports = new Vuex.Store({
 	modules: {
 		pref: require('./pref'),
 		story: require('./story'),
-		'story-format': require('./story-format')
+		storyFormat: require('./story-format')
 	},
 	
 	middlewares: [

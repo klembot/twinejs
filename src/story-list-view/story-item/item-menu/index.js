@@ -6,16 +6,18 @@ const { confirm } = require('../../../dialogs/confirm');
 const { prompt } = require('../../../dialogs/prompt');
 const locale = require('../../../locale');
 const notify = require('../../../ui/notify');
-const publish = require('../../../story-publish');
-
-/* FIXME
-const Passage = require('../../../data/models/passage');
-*/
+const { deleteStory, duplicateStory, updateStory } =
+	require('../../../data/actions');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
-	props: ['model'],
+	props: {
+		story: {
+			type: Object,
+			required: true
+		}
+	},
 
 	components: {
 		'drop-down': require('../../../ui/drop-down')
@@ -30,8 +32,8 @@ module.exports = Vue.extend({
 
 		play() {
 			window.open(
-				'#stories/' + this.model.id + '/play',
-				'twinestory_play_' + this.model.id
+				'#stories/' + this.story.id + '/play',
+				'twinestory_play_' + this.story.id
 			);
 		},
 
@@ -42,7 +44,7 @@ module.exports = Vue.extend({
 		**/
 
 		test() {
-			if (Passage.withId(this.model.get('startPassage')) === undefined) {
+			if (Passage.withId(this.storystartPassage) === undefined) {
 				notify(
 					locale.say(
 						'This story does not have a starting point. ' +
@@ -55,8 +57,8 @@ module.exports = Vue.extend({
 			}
 			else {
 				window.open(
-					'#stories/' + this.model.id + '/test',
-					'twinestory_test_' + this.model.id
+					'#stories/' + this.story.id + '/test',
+					'twinestory_test_' + this.story.id
 				);
 			}
 		},
@@ -97,14 +99,14 @@ module.exports = Vue.extend({
 					locale.say(
 						'Are you sure you want to delete &ldquo;%s&rdquo;? ' +
 						'This cannot be undone.',
-						_.escape(this.model.get('name'))
+						_.escape(this.story.name)
 					),
 				buttonLabel:
 					'<i class="fa fa-trash-o"></i> ' + locale.say('Delete Forever'),
 				buttonClass:
 					'danger'
 			})
-			.then(() => this.model.destroy());
+			.then(() => this.deleteStory(this.story.id));
 		},
 
 		/**
@@ -118,16 +120,16 @@ module.exports = Vue.extend({
 				message:
 					locale.say(
 						'What should &ldquo;%s&rdquo; be renamed to?',
-						_.escape(this.model.get('name'))
+						_.escape(this.story.name)
 					),
 				buttonLabel:
 					'<i class="fa fa-ok"></i> ' + locale.say('Rename'),
 				response:
-					this.model.get('name'),
+					this.story.name,
 				blankTextError:
 					locale.say('Please enter a name.')
 			})
-			.then((name) => this.model.save({ name }));
+			.then(name => this.updateStory(this.story.id, { name }));
 		},
 
 		/**
@@ -143,14 +145,21 @@ module.exports = Vue.extend({
 				buttonLabel:
 					'<i class="fa fa-copy"></i> ' + locale.say('Duplicate'),
 				response:
-					locale.say('%s Copy', this.model.get('name')),
+					locale.say('%s Copy', this.story.name),
 				blankTextError:
 					locale.say('Please enter a name.')
 			})
-			.then((name) => this.$dispatch(
-				'collection-add',
-				this.model.duplicate(name)
-			));
+			.then(name => {
+				this.duplicateStory(this.story.id, name);
+			});
+		}
+	},
+
+	vuex: {
+		actions: { 
+			deleteStory,
+			duplicateStory,
+			updateStory
 		}
 	}
 });
