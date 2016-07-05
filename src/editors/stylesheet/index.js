@@ -1,7 +1,7 @@
 // A component showing a modal dialog where a story's stylesheet can be edited.
 
 const Vue = require('vue');
-const backboneModel = require('../../vue/mixins/backbone-model');
+const { updateStory } = require('../../data/actions');
 
 require('codemirror/mode/css/css');
 require('codemirror/addon/display/placeholder');
@@ -11,7 +11,7 @@ module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	data: () => ({
-		stylesheet: ''
+		story: {}
 	}),
 
 	computed: {
@@ -35,7 +35,7 @@ module.exports = Vue.extend({
 		},
 
 		save(text) {
-			this.stylesheet = text;
+			this.updateStory(this.story.id, { stylesheet: text });
 		}
 	},
 	
@@ -44,5 +44,9 @@ module.exports = Vue.extend({
 		'code-mirror': require('../../vue/codemirror')
 	},
 
-	mixins: [backboneModel]
+	vuex: {
+		actions: {
+			updateStory
+		}
+	}
 });

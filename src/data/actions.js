@@ -24,6 +24,10 @@ module.exports = {
 		dispatch('DUPLICATE_STORY', id, newName);
 	},
 
+	createPassageInStory({ dispatch }, storyId, props) {
+		dispatch('CREATE_PASSAGE_IN_STORY', storyId, props);
+	},
+
 	addFormat({ dispatch }, props) {
 		dispatch('ADD_FORMAT', props);
 	},
