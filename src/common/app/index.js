@@ -3,6 +3,8 @@
 'use strict';
 const $ = require('jquery');
 const Vue = require('vue');
+const { addFormat, setPref, updateFormat } = require('../../data/actions');
+const { allFormats, formatNamed, prefNamed } = require('../../data/getters');
 const ui = require('../../ui');
 const store = require('../../data/store');
 
@@ -26,62 +28,78 @@ module.exports = Vue.extend({
 
 		window.app = this;
 
-		// create built-in story formats if they don't already exist
+		// Create built-in story formats if they don't already exist.
 
-		/*
-
-		const formats = StoryFormatCollection.all();
-
-		if (!formats.findWhere({ name: 'Harlowe' })) {
-			formats.create({
-				name: 'Harlowe',
-				url: 'story-formats/Harlowe/format.js',
-				userAdded: false
-			});
+		if (!formatNamed(this.$store.state, 'Harlowe')) {
+			addFormat(
+				this.$store,
+				{ 
+					name: 'Harlowe',
+					url: 'story-formats/Harlowe/format.js',
+					userAdded: false
+				}
+			);
 		}
 
-		if (!formats.findWhere({ name: 'Snowman' })) {
-			formats.create({
-				name: 'Snowman',
-				url: 'story-formats/Snowman/format.js',
-				userAdded: false
-			});
+		if (!formatNamed(this.$store.state, 'Snowman')) {
+			addFormat(
+				this.$store,
+				{ 
+					name: 'Harlowe',
+					url: 'story-formats/Snowman/format.js',
+					userAdded: false
+				}
+			);
 		}
 
-		if (!formats.findWhere({ name: 'Paperthin' })) {
-			formats.create({
-				name: 'Paperthin',
-				url: 'story-formats/Paperthin/format.js',
-				userAdded: false
-			});
+		if (!formatNamed(this.$store.state, 'SugarCube')) {
+			addFormat(
+				this.$store,
+				{ 
+					name: 'Harlowe',
+					url: 'story-formats/SugarCube/format.js',
+					userAdded: false
+				}
+			);
 		}
 
-		if (!formats.findWhere({ name: 'SugarCube' })) {
-			formats.create({
-				name: 'SugarCube',
-				url: 'story-formats/SugarCube/format.js',
-				userAdded: false
-			});
+		if (!formatNamed(this.$store.state, 'Paperthin')) {
+			addFormat(
+				this.$store,
+				{ 
+					name: 'Paperthin',
+					url: 'story-formats/Paperthin/format.js',
+					userAdded: false
+				}
+			);
 		}
 
-		// repair paths to use kebab case
+		// Repair paths to use kebab case, as in previous versions we used
+		// camel case.
 
-		formats.forEach(format => {
-			if (/^storyFormats\//i.test(format.get('url'))) {
-				format.save(
-					'url',
-					format.get('url').replace(/^storyFormats\//i, 'story-formats/')
+		allFormats(this.$store.state).forEach(format => {
+			if (/^storyFormats\//i.test(format.url)) {
+				updateFormat(
+					this.$store,
+					format.id,
+					{
+						url: format.url.replace(
+							/^storyFormats\//i, 'story-formats/'
+						)
+					}
 				);
 			}
 		});
 
-		// set default formats if not already set
-		// (second param is a default)
+		// Set default formats if not already set.
 
-		AppPref.withName('defaultFormat', 'Harlowe');
-		AppPref.withName('proofingFormat', 'Paperthin');
+		if (!prefNamed(this.$store.state, 'defaultFormat')) {
+			setPref(this.$store, 'defaultFormat', 'Harlowe');
+		}
 
-		*/
+		if (!prefNamed(this.$store.state, 'proofingFormat')) {
+			setPref(this.$store, 'proofingFormat', 'Paperthin');
+		}
 	},
 
 	store

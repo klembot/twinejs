@@ -1,14 +1,15 @@
 // The side toolbar of a story list.
 
 const Vue = require('vue');
-const locale = require('../../locale');
 const AboutDialog = require('../../dialogs/about');
 const FormatsDialog = require('../../dialogs/formats');
 const ImportDialog = require('../../dialogs/story-import');
 const { allStories } = require('../../data/getters');
 const { createStory } = require('../../data/actions');
+const locale = require('../../locale');
 const { prompt } = require('../../dialogs/prompt');
-const publish = require('../../story-publish');
+const { publishArchive } = require('../../data/publish');
+const saveFile = require('../../file/save');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -50,7 +51,12 @@ module.exports = Vue.extend({
 		},
 
 		saveArchive() {
-			publish.saveArchive();
+			const timestamp = new Date().toLocaleString().replace(/[\/:\\]/g, '.');
+
+			saveFile(
+				publishArchive(this.allStories),
+				`${timestamp} ${locale.say('Twine Archive.html')}`
+			);
 		},
 
 		showAbout() {

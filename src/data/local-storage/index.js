@@ -9,14 +9,17 @@
 
 const pref = require('./pref');
 const story = require('./story');
+const storyFormat = require('./story-format');
 
 let enabled = true;
+let previousStories;
 
 module.exports = {
 	onInit(state, store) {
 		enabled = false;
 		pref.load(store);
 		story.load(store);
+		previousStories = state.story.stories;
 		enabled = true;
 	},
 
@@ -25,8 +28,67 @@ module.exports = {
 			return;
 		}
 
-		console.log('mutation', mutation);
-		pref.save(store);
-		story.save(store, state.story.stories);
+		switch (mutation.type) {
+			case 'UPDATE_PREF':
+				pref.save(store);
+				break;
+
+			// For story mutations, we take care to only save the affected story.
+
+			case 'CREATE_STORY':
+				story.save(
+					store,
+					[state.story.stories.find(
+						s => s.name === mutation.payload[0].name
+					)]
+				);
+				break;
+
+			case 'UPDATE_STORY':
+				story.save(
+					store,
+					[state.story.stories.find(
+						s => s.id === mutation.payload[0]
+					)]
+				);
+				break;
+
+			case 'DELETE_STORY':
+				// We have to use our last copy of the stories array, because
+				// by now the deleted story is gone from the state.
+
+				story.delete(
+					store,
+					[previousStories.find(s => s.id === mutation.payload[0])]
+				);
+				break;
+
+			case 'DUPLICATE_STORY':
+				story.save(
+					store,
+					[state.story.stories.find(
+						s => s.name === mutation.payload[1]
+					)]
+				);
+				break;
+
+			case 'ADD_FORMAT':
+			case 'UPDATE_FORMAT':
+			case 'DELETE_FORMAT':
+				storyFormat.save(store);
+				break;
+
+			case 'LOAD_FORMAT':
+				// This change doesn't need to be persisted.
+				break;
+				
+
+			default:
+				throw new Error(`Don't know how to handle mutation ${mutation.type}`);
+		}
+
+		// We save a copy of the stories structure in aid of deleting, as above.
+		
+		previousStories = state.story.stories;
 	}
 }

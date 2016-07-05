@@ -3,18 +3,17 @@
 // time.
 
 let { createStory } = require('../actions');
+let commaList = require('./comma-list');
 
 module.exports = {
 	// Saves an array of story objects to local storage.
 
 	save(store, stories) {
-		let storyIdList = window.localStorage.getItem('twine-stories');
-		let passageIdList = window.localStorage.getItem('twine-passages');
+		let storyIdList = window.localStorage.getItem('twine-stories') || '';
+		let passageIdList = window.localStorage.getItem('twine-passages') || '';
 
 		stories.forEach(story => {
-			if (!storyIdList.indexOf(story.id)) {
-				storyIdList += ',' + story.id;
-			}
+			storyIdList = commaList.addUnique(storyIdList, story.id);
 
 			// We have to remove the passages property before serializing the
 			// story, as those are serialized under separate keys.
@@ -27,9 +26,7 @@ module.exports = {
 			);
 
 			story.passages.forEach(passage => {
-				if (!passageIdList.indexOf(passage.id)) {
-					passageIdList+= ',' + passage.id;
-				}
+				passageIdList = commaList.addUnique(passageIdList, passage.id);
 
 				window.localStorage.setItem(
 					'twine-passages-' + passage.id,
@@ -38,11 +35,6 @@ module.exports = {
 			});
 		});
 
-		// Clean up the lists of any leading or trailing commas.
-		
-		storyIdList = storyIdList.replace(/^,/, '').replace(/,$/, '');
-		passageIdList = passageIdList.replace(/^,/, '').replace(/,$/, '');
-
 		window.localStorage.setItem('twine-stories', storyIdList);
 		window.localStorage.setItem('twine-passages', passageIdList);
 	},
@@ -50,44 +42,80 @@ module.exports = {
 	// Removes stories from local storage, e.g. after being deleted from the
 	// store.
 
-	destroy(store, stories) {
-		// FIXME
+	delete(store, stories) {
+		let storyIdList = window.localStorage.getItem('twine-stories') || '';
+		let passageIdList = window.localStorage.getItem('twine-passages') || '';
+
+		stories.forEach(story => {
+			// We delete passages first, so that if an error occurs midprocess, we
+			// don't end up orphaning any.
+
+			story.passages.forEach(passage => {
+				passageIdList = commaList.remove(passageIdList, passage.id);
+				window.localStorage.removeItem('twine-passages-' + passage.id);
+			});
+
+			// And then the parent story.
+
+			storyIdList = commaList.remove(storyIdList, story.id);
+			window.localStorage.removeItem('twine-stories-' + story.id);
+		});
+
+		window.localStorage.setItem('twine-stories', storyIdList);
+		window.localStorage.setItem('twine-passages', passageIdList);
 	},
 
 	load(store) {
 		let stories = {};
+		const serializedStories = window.localStorage.getItem('twine-stories');
+
+		if (!serializedStories) {
+			return;
+		}
 
 		// First, deserialize stories. We index them by id so that we can
 		// quickly add passages to them as they are deserialized.
 
-		window.localStorage.getItem('twine-stories').split(',').forEach(id => {
+		serializedStories.split(',').forEach(id => {
 			let newStory = JSON.parse(
 				window.localStorage.getItem('twine-stories-' + id)
 			);
 
-			newStory.passages = [];
-			stories[newStory.id] = newStory;
+			if (newStory) {
+				newStory.passages = [];
+				stories[newStory.id] = newStory;
+			}
+			else {
+				console.warn(
+					`Could not parse story ${id}, skipping`,
+					window.localStorage.getItem('twine-stories-' + id)
+				);
+			}
 		});
 
 		// Then create passages, adding them to their parent story.
 
-		window.localStorage.getItem('twine-passages').split(',').forEach(id => {
-			let newPassage = JSON.parse(
-				window.localStorage.getItem('twine-passages-' + id)
-			);
+		const serializedPassages = window.localStorage.getItem('twine-passages');
 
-			if (!newPassage || !newPassage.story) {
-				console.log(`Passage ${id} did not have parent story id, skipping:`, newPassage);
-				return;
-			}
+		if (serializedPassages) {
+			serializedPassages.split(',').forEach(id => {
+				let newPassage = JSON.parse(
+					window.localStorage.getItem('twine-passages-' + id)
+				);
 
-			if (!stories[newPassage.story]) {
-				console.log(`Passage ${id} is orphaned (looking for ${newPassage.story}), skipping`);
-				return;
-			};
+				if (!newPassage || !newPassage.story) {
+					console.warn(`Passage ${id} did not have parent story id, skipping`, newPassage);
+					return;
+				}
 
-			stories[newPassage.story].passages.push(newPassage);
-		});
+				if (!stories[newPassage.story]) {
+					console.warn(`Passage ${id} is orphaned (looking for ${newPassage.story}), skipping`);
+					return;
+				};
+
+				stories[newPassage.story].passages.push(newPassage);
+			});
+		}
 
 		// Finally, we dispatch actions to add the stories to the store.
 

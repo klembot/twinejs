@@ -8,9 +8,13 @@ module.exports = {
 		// Delete existing prefs in local storage, since we aren't bothering to
 		// preserve ids.
 
-		window.localStorage.getItem('twine-prefs').split(',').forEach(id => {
-			window.localStorage.removeItem('twine-prefs-' + id);
-		});
+		const previouslySerialized = window.localStorage.getItem('twine-prefs');
+
+		if (previouslySerialized) {
+			previouslySerialized.split(',').forEach(id => {
+				window.localStorage.removeItem('twine-prefs-' + id);
+			});
+		}
 
 		// Save new ones.
 
@@ -34,7 +38,13 @@ module.exports = {
 	},
 
 	load(store) {
-		window.localStorage.getItem('twine-prefs').split(',').forEach(id => {
+		const serialized = window.localStorage.getItem('twine-prefs');
+
+		if (!serialized) {
+			return;
+		}
+
+		serialized.split(',').forEach(id => {
 			try {
 				const item = JSON.parse(
 					window.localStorage.getItem('twine-prefs-' + id)
@@ -43,8 +53,8 @@ module.exports = {
 				setPref(store, item.name, item.value);
 			}
 			catch(e) {
-				console.log(
-					'Preference ${id} had corrupt serialized value, skipping',
+				console.warn(
+					`Preference ${id} had corrupt serialized value, skipping`,
 					window.localStorage.getItem('twine-prefs-' + id)
 				);
 			}

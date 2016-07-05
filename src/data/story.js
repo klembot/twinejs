@@ -78,8 +78,22 @@ module.exports = {
 			story.lastUpdate = new Date();
 		},
 
-		DUPLICATE_STORY(state, id, dupeName) {
-			throw new Error('Not implemented yet');
+		DUPLICATE_STORY(state, id, newName) {
+			let story = Object.assign(
+				{},
+				getStoryById(state, id),
+				{
+					id: uuid(),
+					name: newName
+				}
+			);
+
+			story.passages.forEach(passage => {
+				passage.id = uuid();
+				passage.story = story.id;
+			});
+
+			state.stories.push(story);
 		},
 
 		DELETE_STORY(state, id) {
