@@ -48,10 +48,18 @@ TwineRouter.map({
 
 	'/stories/:id': {
 		component: {
-			template: '<div><story-edit :model="model" ' +
+			template: '<div><story-edit :story="story" ' +
 				':collection="collection"></story-edit></div>',
 
-			components: { 'story-edit': StoryEditView }
+			components: { 'story-edit': StoryEditView },
+			
+			data() {
+				return {
+					story: storyWithId(
+						this.$store.state, this.$route.params.id
+					)
+				};
+			}
 		},
 	},
 

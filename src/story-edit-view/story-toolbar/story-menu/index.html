@@ -16,7 +16,7 @@
 			<button @click="renameStory">{{ 'Rename Story' | say }}</button>
 		</li>
 
-		<li :class="{ checked: snapToGrid }">
+		<li :class="{ checked: this.story.snapToGrid }">
 			<button @click="toggleSnap">{{ 'Snap to Grid'| say }}</button>
 		</li>
 

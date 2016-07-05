@@ -3,9 +3,9 @@
 		<a v-link="'/stories'" class="home subtle" title="{{ 'Go to the story list' | say }}" v-tooltip><i class="fa fa-home fa-lg"></i></a>
 
 		<button class="storyName subtle">
-			<span class="storyNameVal">{{ name }}</span>
+			<span class="storyNameVal">{{ story.name }}</span>
 			<i class="fa fa-caret-up fa-lg"></i>
-			<story-menu :model="model" :collection="collection"></story-menu>
+			<story-menu :story="story"></story-menu>
 		</button>
 	</div> <!-- .left -->
 

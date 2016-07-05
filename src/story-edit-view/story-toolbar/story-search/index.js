@@ -7,8 +7,6 @@ const SearchDialog = require('../../../dialogs/story-search');
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
-	props: ['collection'], // A collection of all passages in this story
-
 	data: () => ({
 		search: ''
 	}),

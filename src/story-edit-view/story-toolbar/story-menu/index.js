@@ -1,38 +1,41 @@
 // A drop-down menu with miscellaneous editing options for a story.
 
-const _ = require('underscore');
+const { escape } = require('underscore');
 const Vue = require('vue');
 const FormatDialog = require('../../../dialogs/story-format');
 const JavaScriptEditor = require('../../../editors/javascript');
 const StatsDialog = require('../../../dialogs/story-stats');
-/* FIXME
-const StoryFormatCollection = require('../../../data/collections/story-format');
-*/
 const StylesheetEditor = require('../../../editors/stylesheet');
-const backboneModel = require('../../../vue/mixins/backbone-model');
 const locale = require('../../../locale');
 const { prompt } = require('../../../dialogs/prompt');
+const { updateStory } = require('../../../data/actions');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
-	props: [
-		'model',       // This story
-		'collection'   // A collection of all passages in this story
-	],
-
-	data: () => ({
-		name: '',
-		snapToGrid: true
-	}),
+	props: {
+		story: {
+			type: Object,
+			required: true
+		}
+	},
 
 	methods: {
 		editScript() {
-			new JavaScriptEditor({ model: this.model }).$mountTo(document.body);
+			// We have to manually inject the Vuex store, since the editors are
+			// mounted outside the app scope.
+
+			new JavaScriptEditor({
+				data: { story: this.story },
+				store: this.$store
+			}).$mountTo(document.body);
 		},
 
 		editStyle() {
-			new StylesheetEditor({ model: this.model }).$mountTo(document.body);
+			new StylesheetEditor({
+				data: { story: this.story },
+				store: this.$store
+			}).$mountTo(document.body);
 		},
 
 		renameStory() {
@@ -40,16 +43,16 @@ module.exports = Vue.extend({
 				message:
 					locale.say(
 						'What should &ldquo;%s&rdquo; be renamed to?',
-						_.escape(this.name)
+						escape(this.story.name)
 					),
 				buttonLabel:
 					'<i class="fa fa-ok"></i> ' + locale.say('Rename'),
 				defaultText:
-					this.name,
+					this.story.name,
 				blankTextError:
 					locale.say('Please enter a name.')
 			})
-			.then((text) => this.name = text);
+			.then(text => this.updateStory(this.story.id, { name: text }));
 		},
 
 		proofStory() {
@@ -79,7 +82,10 @@ module.exports = Vue.extend({
 		},
 
 		toggleSnap() {
-			this.snapToGrid = !this.snapToGrid;
+			this.updateStory(
+				this.story.id,
+				{ snapToGrid: !this.story.snapToGrid }
+			);
 		}
 	},
 
@@ -87,5 +93,9 @@ module.exports = Vue.extend({
 		'drop-down': require('../../../ui/drop-down')
 	},
 
-	mixins: [backboneModel]
+	vuex: {
+		actions: {
+			updateStory
+		}
+	}
 });

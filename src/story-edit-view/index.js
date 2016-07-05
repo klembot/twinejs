@@ -1,13 +1,11 @@
 // The main view where story editing takes place.
-// FIXME: scroll wheel
 
 const _ = require('underscore');
 const Vue = require('vue');
-const backboneModel = require('../vue/mixins/backbone-model');
-const backboneCollection = require('../vue/mixins/backbone-collection');
 const publish = require('../story-publish');
 const rect = require('../common/rect');
 const zoomSettings = require('./zoom-settings');
+const { createPassageInStory, updateStory } = require('../data/actions');
 
 // A memoized, sorted array of zoom levels used when zooming in or out.
 
@@ -18,18 +16,14 @@ module.exports = Vue.extend({
 
 	// The story we edit is provided by the router.
 
-	props: [
-		'model',      // This story
-		'collection'  // A collection of all passages in this story
-	],
+	props: {
+		story: {
+			type: Object,
+			required: true
+		}
+	},
 
 	data: () => ({
-		// Model attributes we make use of.
-
-		zoom: 1,
-		startPassage: '',
-		snapToGrid: true,
-
 		// The calculated width and height we maintain to allow the user to
 		// always have space below and to the right of passages in the story
 		// map.
@@ -63,7 +57,7 @@ module.exports = Vue.extend({
 
 		zoomDesc() {
 			return Object.keys(zoomSettings).find(
-				key => zoomSettings[key] === this.zoom
+				key => zoomSettings[key] === this.story.zoom
 			);
 		},
 
@@ -133,12 +127,12 @@ module.exports = Vue.extend({
 			this.width = winWidth;
 			this.height = winHeight;
 
-			if (this.$collection.length > 0) {
+			if (this.story.passages.length > 0) {
 				let rightPassage, bottomPassage;
 				let maxLeft = -Infinity;
 				let maxTop = -Infinity;
 
-				this.$collection.each(p => {
+				this.story.passages.forEach(p => {
 					const left = p.get('left');
 					const top = p.get('top');
 
@@ -154,9 +148,9 @@ module.exports = Vue.extend({
 				});
 
 				const passagesWidth =
-					this.zoom * (rightPassage.get('left') + Passage.width);
+					this.zoom * (rightPassage.get('left') + 100);
 				const passagesHeight =
-					this.zoom * (bottomPassage.get('top') + Passage.height);
+					this.zoom * (bottomPassage.get('top') + 100);
 
 				this.width = Math.max(passagesWidth, winWidth);
 				this.height = Math.max(passagesHeight, winHeight);
@@ -261,21 +255,21 @@ module.exports = Vue.extend({
 
 			if (!left) {
 				left = (window.scrollX + window.innerWidth / 2) / this.zoom;
-				left -= Passage.width;
+				left -= 100;
 			}
 
 			if (!top) {
 				top = (window.scrollY + window.innerHeight / 2) / this.zoom;
-				top -= Passage.height;
+				top -= 100;
 			}
 
 			// Make sure the name is unique. If it's a duplicate, we add a
 			// number at the end (e.g. "Untitled Passage 2", "Untitled Passage
 			// 3", and so on.
 
-			name = name || Passage.prototype.defaults().name;
+			name = name || locale.say('Untitled Passage');
 
-			if (this.$collection.findWhere({ name })) {
+			if (this.story.passages.find(p => p.name === name)) {
 				const origName = name;
 				let nameIndex = 0;
 
@@ -283,27 +277,20 @@ module.exports = Vue.extend({
 					nameIndex++;
 				}
 				while
-					(this.$collection.findWhere({
-						name: origName + ' ' + nameIndex
-					}));
+					(this.story.passages.find(p => p.name === name));
 
 				name = origName + ' ' + nameIndex;
 			}
 
 			// Add it to our collection.
 
-			let passage = this.$collection.create({
-				story: this.model.id,
-				name,
-				left,
-				top
-			});
+			this.createPassageInStory(this.story.id, { name, left, top });
 
 			// Then position it so it doesn't overlap any others, and save it
 			// again.
+			// FIXME
 
 			this.positionPassage(passage);
-			passage.save();
 		},
 
 		// A child will dispatch this event to us as it is dragged around. We
@@ -353,24 +340,25 @@ module.exports = Vue.extend({
 
 		'story-proof'() {
 			window.open(
-				'#stories/' + this.model.id + '/proof',
-				'twinestory_test_' + this.model.id
+				'#stories/' + this.story.id + '/proof',
+				'twinestory_test_' + this.story.id
 			);
 		},
 
 		'story-publish'() {
+			// FIXME
 			publish.publishStory(this.model, this.model.get('name') + '.html');
 		},
 
 		'story-set-start'(passageId) {
-			this.startPassage = passageId;
+			this.updateStory(this.story.id, { startPassage: passageId });
 		},
 
 		'story-test'(passageId) {
 			window.open(
-				'#stories/' + this.model.id + '/test' +
+				'#stories/' + this.story.id + '/test' +
 				((passageId) ? '/' + passageId : ''),
-				'twinestory_test_' + this.model.id
+				'twinestory_test_' + this.story.id
 			);
 		}
 	},
@@ -382,5 +370,10 @@ module.exports = Vue.extend({
 		'marquee-selector': require('./marquee-selector')
 	},
 
-	mixins: [backboneModel, backboneCollection]
+	vuex: {
+		actions: {
+			createPassageInStory,
+			updateStory
+		}
+	}
 });
