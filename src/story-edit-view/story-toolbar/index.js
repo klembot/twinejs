@@ -2,6 +2,7 @@
 
 const Vue = require('vue');
 const zoomMappings = require('../zoom-settings');
+const { updateStory } = require('../../data/actions');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -25,7 +26,10 @@ module.exports = Vue.extend({
 	
 	methods: {
 		setZoom(description) {
-			this.zoom = zoomMappings[description];
+			this.updateStory(
+				this.story.id,
+				{ zoom: zoomMappings[description] }
+			);
 		},
 
 		test() {
@@ -44,6 +48,12 @@ module.exports = Vue.extend({
 
 		addPassage() {
 			this.$dispatch('passage-create');
+		}
+	},
+
+	vuex: {
+		actions: {
+			updateStory
 		}
 	}
 });

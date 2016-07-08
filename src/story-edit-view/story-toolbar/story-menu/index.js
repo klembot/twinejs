@@ -66,8 +66,7 @@ module.exports = Vue.extend({
 		storyStats() {
 			new StatsDialog({
 				data: {
-					story: this.model,
-					passages: this.collection
+					story: this.story
 				}
 			}).$mountTo(document.body);
 		},

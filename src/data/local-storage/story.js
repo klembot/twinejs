@@ -1,68 +1,86 @@
 // Functions for moving stories in and out of local storage. This module in
 // particular needs to remain well-optimized, as it has a direct effect on load
-// time.
+// time. As a result, saving requires that you start and end a transaction manually.
+// This minimizes the number of writes to local storage.
 
 let { createStory } = require('../actions');
 let commaList = require('./comma-list');
 
-module.exports = {
-	// Saves an array of story objects to local storage.
+const story = module.exports = {
+	// A wrapper for a series of save/delete operations. This takes a function
+	// as argument that will receive an object keeping track of the
+	// transaction. This function should then make save and delete calls as
+	// necessary, passing the provided transaction object as their first
+	// argument.
 
-	save(store, stories) {
-		let storyIdList = window.localStorage.getItem('twine-stories') || '';
-		let passageIdList = window.localStorage.getItem('twine-passages') || '';
+	update(func) {
+		let transaction = {
+			storyIds: window.localStorage.getItem('twine-stories') || '',
+			passageIds: window.localStorage.getItem('twine-passages') || ''
+		};
 
-		stories.forEach(story => {
-			storyIdList = commaList.addUnique(storyIdList, story.id);
+		func(transaction);
 
-			// We have to remove the passages property before serializing the
-			// story, as those are serialized under separate keys.
-
-			window.localStorage.setItem(
-				'twine-stories-' + story.id,
-				JSON.stringify(
-					Object.assign({}, story, { passages: undefined })
-				)
-			);
-
-			story.passages.forEach(passage => {
-				passageIdList = commaList.addUnique(passageIdList, passage.id);
-
-				window.localStorage.setItem(
-					'twine-passages-' + passage.id,
-					JSON.stringify(passage)
-				);
-			});
-		});
-
-		window.localStorage.setItem('twine-stories', storyIdList);
-		window.localStorage.setItem('twine-passages', passageIdList);
+		window.localStorage.setItem('twine-stories', transaction.storyIds);
+		window.localStorage.setItem('twine-passages', transaction.passageIds);
 	},
 
-	// Removes stories from local storage, e.g. after being deleted from the
-	// store.
+	// Saves a story to local storage. This does *not* affect any child
+	// passages.
 
-	delete(store, stories) {
-		let storyIdList = window.localStorage.getItem('twine-stories') || '';
-		let passageIdList = window.localStorage.getItem('twine-passages') || '';
+	saveStory(transaction, story) {
+		transaction.storyIds = commaList.addUnique(
+			transaction.storyIds,
+			story.id
+		);
 
-		stories.forEach(story => {
-			// We delete passages first, so that if an error occurs midprocess, we
-			// don't end up orphaning any.
+		// We have to remove the passages property before serializing the
+		// story, as those are serialized under separate keys.
 
-			story.passages.forEach(passage => {
-				passageIdList = commaList.remove(passageIdList, passage.id);
-				window.localStorage.removeItem('twine-passages-' + passage.id);
-			});
+		window.localStorage.setItem(
+			'twine-stories-' + story.id,
+			JSON.stringify(
+				Object.assign({}, story, { passages: undefined })
+			)
+		);
+	},
 
-			// And then the parent story.
+	// Deletes a story from local storage. This does *not* affect any child
+	// passages. You *must* delete child passages manually.
 
-			storyIdList = commaList.remove(storyIdList, story.id);
-			window.localStorage.removeItem('twine-stories-' + story.id);
-		});
+	deleteStory(transaction, story) {
+		transaction.storyIds = commaList.remove(transaction.storyIds, story.id);
+		window.localStorage.removeItem('twine-stories-' + story.id);
+	},
 
-		window.localStorage.setItem('twine-stories', storyIdList);
-		window.localStorage.setItem('twine-passages', passageIdList);
+	// Saves a passage to local storage.
+
+	savePassage(transaction, passage) {
+		transaction.passageIds = commaList.addUnique(
+			transaction.passageIds,
+			passage.id
+		);
+
+		window.localStorage.setItem(
+			'twine-passages-' + passage.id,
+			JSON.stringify(passage)
+		);
+	},
+
+	// Deletes a passage from local storage.
+
+	deletePassage(transaction, passage) {
+		story.deletePassageById(transaction, passage.id);
+	},
+
+	// Deletes a passage from local storage.
+
+	deletePassageById(transaction, id) {
+		transaction.passageIds = commaList.remove(
+			transaction.passageIds,
+			id
+		);
+		window.localStorage.removeItem('twine-passages-' + id);
 	},
 
 	load(store) {

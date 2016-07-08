@@ -28,6 +28,14 @@ module.exports = {
 		dispatch('CREATE_PASSAGE_IN_STORY', storyId, props);
 	},
 
+	updatePassageInStory({ dispatch }, storyId, passageId, props) {
+		dispatch('UPDATE_PASSAGE_IN_STORY', storyId, passageId, props);
+	},
+
+	deletePassageInStory({ dispatch }, storyId, passageId) {
+		dispatch('DELETE_PASSAGE_IN_STORY', storyId, passageId);
+	},
+
 	addFormat({ dispatch }, props) {
 		dispatch('ADD_FORMAT', props);
 	},

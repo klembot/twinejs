@@ -29,47 +29,109 @@ module.exports = {
 		}
 
 		switch (mutation.type) {
-			case 'UPDATE_PREF':
-				pref.save(store);
-				break;
-
-			// For story mutations, we take care to only save the affected story.
-
 			case 'CREATE_STORY':
-				story.save(
-					store,
-					[state.story.stories.find(
-						s => s.name === mutation.payload[0].name
-					)]
-				);
-				break;
+				story.update(transaction => {
+					story.saveStory(
+						transaction,
+						state.story.stories.find(
+							s => s.name === mutation.payload[0].name
+						)
+					);
+				});
+			break;
 
 			case 'UPDATE_STORY':
-				story.save(
-					store,
-					[state.story.stories.find(
-						s => s.id === mutation.payload[0]
-					)]
-				);
-				break;
+				story.update(transaction => {
+					story.saveStory(
+						transaction,
+						state.story.stories.find(
+							s => s.id === mutation.payload[0]
+						)
+					);
+				});
+			break;
+
+			case 'DUPLICATE_STORY':
+				story.update(transaction => {
+					story.saveStory(
+						transaction,
+						state.story.stories.find(
+							s => s.name === mutation.payload[1]
+						)
+					);
+				});
+			break;
 
 			case 'DELETE_STORY':
 				// We have to use our last copy of the stories array, because
 				// by now the deleted story is gone from the state.
 
-				story.delete(
-					store,
-					[previousStories.find(s => s.id === mutation.payload[0])]
+				const toDelete = previousStories.find(
+					s => s.id === mutation.payload[0]
 				);
-				break;
 
-			case 'DUPLICATE_STORY':
-				story.save(
-					store,
-					[state.story.stories.find(
-						s => s.name === mutation.payload[1]
-					)]
+				story.update(transaction => {
+					// It's our responsibility to delete child passages first.
+
+					toDelete.passages.forEach(
+						passage => story.deletePassage(transaction, passage)
+					);
+
+					story.deleteStory(transaction, toDelete);
+				});
+			break;
+
+			// When saving a passage, we have to make sure to save its parent
+			// story too, since its lastUpdate property has changed.
+
+			case 'CREATE_PASSAGE_IN_STORY': {
+				const parentStory = state.story.stories.find(
+					s => s.id === mutation.payload[0]
 				);
+				const passage = parentStory.passages.find(
+					p => p.name === mutation.payload[1].name
+				);
+
+				story.update(transaction => {
+					story.saveStory(transaction, parentStory);
+					story.savePassage(transaction, passage);
+				});
+			break;
+			}
+
+			case 'UPDATE_PASSAGE_IN_STORY': {
+				const parentStory = state.story.stories.find(
+					s => s.id === mutation.payload[0]
+				);
+				const passage = parentStory.passages.find(
+					p => p.id === mutation.payload[1]
+				);
+
+				story.update(transaction => {
+					story.saveStory(transaction, parentStory);
+					story.savePassage(transaction, passage);
+				});
+			break;
+			}
+				
+			case 'DELETE_PASSAGE_IN_STORY': {
+				const parentStory = state.story.stories.find(
+					s => s.id === mutation.payload[0]
+				);
+
+				// We can't dig up the passage in question right now, because
+				// previousStories is only a shallow copy, and it's gone there
+				// at this point in time.
+
+				story.update(transaction => {
+					story.saveStory(transaction, parentStory);
+					story.deletePassageById(transaction, mutation.payload[1]);
+				});
+			break;
+			}
+
+			case 'UPDATE_PREF':
+				pref.save(store);
 				break;
 
 			case 'ADD_FORMAT':
@@ -81,7 +143,6 @@ module.exports = {
 			case 'LOAD_FORMAT':
 				// This change doesn't need to be persisted.
 				break;
-				
 
 			default:
 				throw new Error(`Don't know how to handle mutation ${mutation.type}`);

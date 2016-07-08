@@ -43,7 +43,7 @@ function getStoryById(state, id) {
 }
 
 function getPassageInStory(story, id) {
-	let passage = story.passages.find(passage => passage.id === passageId);
+	let passage = story.passages.find(passage => passage.id === id);
 	
 	if (!passage) {
 		throw new Error(`No passage exists in this story with id ${id}`);
@@ -110,20 +110,26 @@ module.exports = {
 				props
 			);
 
-			newPassage.story = newstory.id;
+			newPassage.story = story.id;
 			story.passages.push(newPassage);
+
+			if (story.passages.length === 1) {
+				story.startPassage = newPassage.id;
+			}
+
 			story.lastUpdate = new Date();
 		},
 
 		UPDATE_PASSAGE_IN_STORY(state, storyId, passageId, props) {
 			let story = getStoryById(state, storyId);
 
-			Object.assign(getPassageById(story, passageId), props);
+			Object.assign(getPassageInStory(story, passageId), props);
 			story.lastUpdate = new Date();
 		},
 
 		DELETE_PASSAGE_IN_STORY(state, storyId, passageId) {
 			let story = getStoryById(state, storyId);
+
 			story.passages =
 				story.passages.filter(passage => passage.id !== passageId);
 			story.lastUpdate = new Date();
