@@ -1,48 +1,60 @@
 // A single passage in the story map.
 
-const _ = require('underscore');
+const { escape } = require('underscore');
 const Vue = require('vue');
 const PassageEditor = require('../../editors/passage');
-const backboneCollection = require('../../vue/mixins/backbone-collection');
-const backboneModel = require('../../vue/mixins/backbone-model');
 const { confirm } = require('../../dialogs/confirm');
 const linkParser = require('../../common/link-parser');
 const locale = require('../../locale');
 const rect = require('../../common/rect');
 const { hasPrimaryTouchUI } = require('../../ui');
 const { big } = require('../zoom-settings');
+const { deletePassageInStory, updatePassageInStory } =
+	require('../../data/actions');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
-	props: [
-		// A passage
-		'model',
+	props: {
+		passage: {
+			type: Object,
+			required: true
+		},
 		
-		// The story containing this passage
-		'parentStory',
+		parentStory: {
+			type: Object,
+			required: true
+		},
 
-		// An array of names of all passages in the parentStory
-		'passageNames',
+		// An array of names of all passages in the parentStory.
 
-		// A collection of all passages in the parentStory
-		'collection',
-		'gridSize',
-		'snapToGrid',
-		'zoom',
-		'dragXOffset',
-		'dragYOffset',
-		'highlightRegexp'
-	],
+		passageNames: {
+			type: Array,
+			required: true
+		},
+
+		gridSize: {
+			type: Number,
+			required: true
+		},
+
+		dragXOffset: {
+			type: Number,
+			required: true
+		},
+
+		dragYOffset: {
+			type: Number,
+			required: true
+		},
+
+		highlightRegexp: {
+			type: RegExp,
+			required: false
+		}
+	},
 
 	data: () => ({
-		// Model attributes.
-
-		name: '',
-		top: 0,
-		left: 0,
-		text: '',
-
 		// Whether we're currently selected by the user.
 
 		selected: false,
@@ -56,19 +68,19 @@ module.exports = Vue.extend({
 	computed: {
 		logicalRect() {
 			return {
-				top: this.top,
-				left: this.left,
-				width: Passage.width,
-				height: Passage.height
+				top: this.passage.top,
+				left: this.passage.left,
+				width: 100,
+				height: 100
 			};
 		},
 
 		screenRect() {
 			return {
-				top: this.top * this.zoom,
-				left: this.left * this.zoom,
-				width: Passage.width * this.zoom,
-				height: Passage.height * this.zoom
+				top: this.passage.top * this.parentStory.zoom,
+				left: this.passage.left * this.parentStory.zoom,
+				width: 100 * this.parentStory.zoom,
+				height: 100 * this.parentStory.zoom
 			};
 		},
 
@@ -78,7 +90,7 @@ module.exports = Vue.extend({
 		screenDragX() {
 			let { dragXOffset, screenRect: { left } } = this;
 
-			if (this.snapToGrid) {
+			if (this.parentStory.snapToGrid) {
 				dragXOffset = Math.round((dragXOffset + left) / this.gridSize) *
 					this.gridSize - left;
 			}
@@ -92,7 +104,7 @@ module.exports = Vue.extend({
 		screenDragY() {
 			let { dragYOffset, screenRect: { top } } = this;
 
-			if (this.snapToGrid) {
+			if (this.parentStory.snapToGrid) {
 				dragYOffset = Math.round((dragYOffset + top) / this.gridSize) *
 					this.gridSize - top;
 			}
@@ -107,17 +119,20 @@ module.exports = Vue.extend({
 			const offsetX = (this.selected) ? this.screenDragX : 0;
 			const offsetY = (this.selected) ? this.screenDragY : 0;
 
-			const {left, top, width, height} = this.screenRect;
+			const { left, top, width, height } = this.screenRect;
 
 			return {
 				// The four vertices in [x1,y1,x2,y2] format.
+
 				box: [
 					left + offsetX,
 					top + offsetY,
 					left + width + offsetX,
 					top + height + offsetY
 				],
-				// The center coordinate
+
+				// The center coordinate.
+
 				center: [
 					left + 0.5 * width + offsetX,
 					top + 0.5 * height + offsetY
@@ -126,7 +141,7 @@ module.exports = Vue.extend({
 		},
 
 		internalLinks() {
-			return linkParser(this.text, true);
+			return linkParser(this.passage.text, true);
 		},
 
 		hasBrokenLinks() {
@@ -136,30 +151,18 @@ module.exports = Vue.extend({
 		},
 
 		isStart() {
-			return this.parentStory.get('startPassage') === this.$model.id;
+			return this.parentStory.startPassage === this.passage.id;
 		},
 
 		cssPosition() {
-			let top = this.top * this.zoom;
-			let left = this.left * this.zoom;
-			// Unfortunately, the background offset used in zoom-settings.less must
-			// also be hard-coded here, at least until the background graphic is
-			// amended to not need this.
-			let bgTop = top + (this.zoom === big ? 23 : 0);
-			let bgLeft = left + (this.zoom === big ? -1 : 0);
 			let result = {
-				top: `${top}px`,
-				left: `${left}px`,
-				// The background is used to mask any intersecting connector
-				// lines which would otherwise be drawn below this.
-				backgroundPosition: `-${bgLeft}px -${bgTop}px`,
+				top: `${this.screenRect.top}px`,
+				left: `${this.screenRect.left}px`
 			};
 
 			if (this.selected) {
 				result.transform =
 					`translate(${this.screenDragX}px, ${this.screenDragY}px)`;
-				result.backgroundPosition =
-					`-${bgLeft + this.screenDragX}px -${bgTop + this.screenDragY}px`;
 			}
 
 			return result;
@@ -172,7 +175,9 @@ module.exports = Vue.extend({
 				result.push('selected');
 			}
 
-			if (this.highlightRegexp && this.$model.matches(this.highlightRegexp)) {
+			if (this.highlightRegexp && (
+				this.highlightRegexp.test(this.passage.name) ||
+				this.highlightRegexp.test(this.passage.text))) {
 				result.push('highlighted');
 			}
 
@@ -180,13 +185,18 @@ module.exports = Vue.extend({
 		},
 
 		excerpt() {
-			return this.$model.excerpt();
+			if (this.passage.text.length < 100) {
+				return escape(this.passage.text);
+			}
+			else {
+				return escape(this.passage.text.substr(0, 99)) + '&hellip;';
+			}
 		},
 	},
 
 	methods: {
 		delete() {
-			this.$model.destroy();
+			this.deletePassageInStory(this.parentStory.id, this.passage.id);
 		},
 
 		edit() {
@@ -329,7 +339,7 @@ module.exports = Vue.extend({
 				let message = locale.say(
 					'Are you sure you want to delete &ldquo;%s&rdquo;? ' +
 					'This cannot be undone.',
-					_.escape(this.name)
+					escape(this.passage.name)
 				);
 
 				if (!hasPrimaryTouchUI()) {
@@ -357,15 +367,20 @@ module.exports = Vue.extend({
 				// Because the x and y offsets are in screen coordinates, we
 				// need to convert back to logical space.
 
-				this.top += yOffset / this.zoom;
-				this.left += xOffset / this.zoom;
+				this.updatePassageInStory(
+					this.parentStory.id,
+					this.passage.id,
+					{
+						top: this.passage.top + yOffset / this.parentStory.zoom,
+						left: this.passage.left + xOffset / this.parentStory.zoom
+					}
+				);
 
 				// Ask our parent to position us so we overlap no unselected
 				// passages. We need to stipulate that passages are not selected so
 				// that we don't inadvertantly collide with other passages being dragged.
 
 				this.$dispatch('passage-position', this, p => !p.selected);
-				this.$model.save();
 			}
 		},
 
@@ -394,5 +409,10 @@ module.exports = Vue.extend({
 		'passage-menu': require('./passage-menu')
 	},
 
-	mixins: [backboneModel, backboneCollection]
+	vuex: {
+		actions: {
+			updatePassageInStory,
+			deletePassageInStory
+		}
+	}
 });

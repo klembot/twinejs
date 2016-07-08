@@ -2,7 +2,7 @@
 
 const _ = require('underscore');
 const Vue = require('vue');
-const publish = require('../story-publish');
+const locale = require('../locale');
 const rect = require('../common/rect');
 const zoomSettings = require('./zoom-settings');
 const { createPassageInStory, updateStory } = require('../data/actions');
@@ -88,7 +88,7 @@ module.exports = Vue.extend({
 		// An array of passage names, used to check for broken links.
 
 		passageNames() {
-			return this.$refs.passages.map(p => p.name);
+			return this.story.passages.map(p => p.name);
 		},
 
 		// Our grid size -- for now, constant.
@@ -133,24 +133,35 @@ module.exports = Vue.extend({
 				let maxTop = -Infinity;
 
 				this.story.passages.forEach(p => {
-					const left = p.get('left');
-					const top = p.get('top');
+					const left = p.left;
+					const top = p.top;
 
-					if (p.get('left') > maxLeft) {
+					if (!left || !top) {
+						return;
+					}
+
+					if (p.left > maxLeft) {
 						maxLeft = left;
 						rightPassage = p;
 					}
 
-					if (p.get('top') > maxTop) {
+					if (p.top > maxTop) {
 						maxTop = top;
 						bottomPassage = p;
 					}
 				});
 
-				const passagesWidth =
-					this.zoom * (rightPassage.get('left') + 100);
-				const passagesHeight =
-					this.zoom * (bottomPassage.get('top') + 100);
+				let passagesWidth, passagesHeight;
+
+				if (rightPassage && bottomPassage) {
+					passagesWidth =
+						this.story.zoom * (rightPassage.left + 100);
+					passagesHeight =
+						this.story.zoom * (bottomPassage.top + 100);
+				}
+				else {
+					passagesWidth = passagesHeight = 0;
+				}
 
 				this.width = Math.max(passagesWidth, winWidth);
 				this.height = Math.max(passagesHeight, winHeight);
@@ -203,6 +214,7 @@ module.exports = Vue.extend({
 			}
 
 			// Set the passage's writeable properties accordingly.
+			// FIXME
 
 			passage.top = passageRect.top;
 			passage.left = passageRect.left;
@@ -213,7 +225,7 @@ module.exports = Vue.extend({
 
 		onWheel(e) {
 			if (e.altKey && !e.ctrlKey) {
-				let zoomIndex = zoomLevels.indexOf(this.zoom);
+				let zoomIndex = zoomLevels.indexOf(this.story.zoom);
 
 				// Only consider the Y component of the motion.
 
@@ -232,7 +244,7 @@ module.exports = Vue.extend({
 						zoomIndex + 1;
 				}
 
-				this.zoom = zoomLevels[zoomIndex];
+				this.updateStory(this.story.id, { zoom: zoomLevels[zoomIndex] });
 				e.preventDefault();
 			}
 		}
@@ -254,12 +266,12 @@ module.exports = Vue.extend({
 			// left by half the dimensions of a passage in logical space.
 
 			if (!left) {
-				left = (window.scrollX + window.innerWidth / 2) / this.zoom;
+				left = (window.scrollX + window.innerWidth / 2) / this.story.zoom;
 				left -= 100;
 			}
 
 			if (!top) {
-				top = (window.scrollY + window.innerHeight / 2) / this.zoom;
+				top = (window.scrollY + window.innerHeight / 2) / this.story.zoom;
 				top -= 100;
 			}
 
@@ -275,11 +287,10 @@ module.exports = Vue.extend({
 
 				do {
 					nameIndex++;
+					name = origName + ' ' + nameIndex;
 				}
 				while
 					(this.story.passages.find(p => p.name === name));
-
-				name = origName + ' ' + nameIndex;
 			}
 
 			// Add it to our collection.
@@ -290,7 +301,7 @@ module.exports = Vue.extend({
 			// again.
 			// FIXME
 
-			this.positionPassage(passage);
+			//this.positionPassage(passage);
 		},
 
 		// A child will dispatch this event to us as it is dragged around. We

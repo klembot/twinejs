@@ -2,6 +2,7 @@
 
 const Vue = require('vue');
 const moment = require('moment');
+const linkParser = require('../../common/link-parser');
 const locale = require('../../locale');
 
 module.exports = Vue.extend({
@@ -49,13 +50,12 @@ module.exports = Vue.extend({
 
 		links() {
 			// An array of distinct link names.
-			// FIXME: passage.links()
 
 			return this.story.passages.reduce(
 				(links, passage) => [
 					...links,
-					...passage.links().filter(
-						(link) => links.indexOf(link) === -1
+					...linkParser(passage.text).filter(
+						link => links.indexOf(link) === -1
 					)
 				],
 				[]
@@ -68,10 +68,9 @@ module.exports = Vue.extend({
 
 		linkCount() {
 			// This counts repeated links, unlike links().
-			// FIXME: passage.links()
 
 			return this.story.passages.reduce(
-				(count, passage) => count + passage.links().length,
+				(count, passage) => count + linkParser(passage.text).length,
 				0
 			);
 		},
