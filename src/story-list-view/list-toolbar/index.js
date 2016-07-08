@@ -41,11 +41,7 @@ module.exports = Vue.extend({
 		},
 
 		importFile() {
-			let importDialog = new ImportDialog({
-				data: {
-					storyCollection: this.collection
-				}
-			});
+			let importDialog = new ImportDialog({ store: this.$store });
 			
 			importDialog.$mountTo(document.body);
 		},

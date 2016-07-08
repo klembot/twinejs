@@ -96,6 +96,29 @@ module.exports = {
 			state.stories.push(story);
 		},
 
+		IMPORT_STORY(state, toImport) {
+			// See data/import.js for how the object that we receive is
+			// structured.
+
+			// Assign IDs to to everything, link passages to their story,
+			// and set the story's startPassage property appropriately.
+
+			toImport.id = uuid();
+			toImport.passages.forEach(p => {
+				p.id = uuid();
+				p.story = toImport.id;
+
+				if (p.pid === toImport.startPassagePid) {
+					toImport.startPassage = p.id;
+				}
+
+				delete p.pid;
+			});
+
+			delete toImport.startPassagePid;
+			state.stories.push(toImport);
+		},
+
 		DELETE_STORY(state, id) {
 			state.stories = state.stories.filter(story => story.id !== id);
 		},

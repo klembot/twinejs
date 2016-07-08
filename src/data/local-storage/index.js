@@ -53,11 +53,28 @@ module.exports = {
 
 			case 'DUPLICATE_STORY':
 				story.update(transaction => {
-					story.saveStory(
-						transaction,
-						state.story.stories.find(
-							s => s.name === mutation.payload[1]
-						)
+					const dupe = state.story.stories.find(
+						s => s.name === mutation.payload[1]
+					);
+
+					story.saveStory(transaction, dupe);
+
+					dupe.passages.forEach(
+						passage => story.savePassage(transaction, passage)
+					);
+				});
+			break;
+
+			case 'IMPORT_STORY':
+				story.update(transaction => {
+					const imported = state.story.stories.find(
+						s => s.name === mutation.payload[0].name
+					);
+
+					story.saveStory(transaction, imported);
+
+					imported.passages.forEach(
+						passage => story.savePassage(transaction, passage)
 					);
 				});
 			break;
