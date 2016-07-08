@@ -1,21 +1,46 @@
 <modal-dialog v-ref:modal>
 	<span slot="title">{{ 'Import From File' | say }}</span>
 
-	<p v-if="!working">
-		<label for="importUpload">
-			{{ 'Import this file:' | say }}
-		</label>
+	<template v-if="status === 'waiting'">
+		<p>
+			<label for="importUpload">
+				{{ 'Import this file:' | say }}
+			</label>
 
-		<input type="file" v-el:import-file @change="import">
-	</p>
-	<p v-else>
-		<i class="fa fa-circle-o-notch fa-spin"></i>
-		{{ 'Working...' | say }}
-	</p>
+			<input type="file" v-el:import-file @change="import">
+		</p>
+	</template>
 
-	<div class="buttons" v-if="!working" transition="fade-in-out">
-		<button class="subtle" @click="close">
-			<i class="fa fa-times"></i> {{ 'Cancel' | say }}
-		</button>
-	</div>
+	<template v-if="status === 'working'">
+		<p>
+			<i class="fa fa-circle-o-notch fa-spin"></i>
+			{{ 'Working...' | say }}
+		</p>
+	</template>
+
+	<template v-if="status === 'choosing'">
+		<p class="message larger">
+		{{ 'Some stories you are importing already exist in your library. Please choose which to replace. Any other stories in your file will be imported as well.' | say }}
+		</p>
+
+		<ul v-for="name in names">
+			<input type="checkbox" id="replace-story-{{ name }}" v-model="toReplace" value="{{ name }}">
+
+			<label for="replace-story-{{ name }}">{{ name }}</label>
+		</ul>
+
+		<p class="buttons">
+			<button type="button" class="subtle" @click="cancel">{{ "Don't Import Any Stories" | say }}</button>
+			<button type="button" :class="confirmClass" @click="accept">
+				<i class="fa fa-check"></i>
+				{{ confirmLabel }}
+			</button>
+		</p>
+
+		<div class="buttons" v-if="!working" transition="fade-in-out">
+			<button class="subtle" @click="close">
+				<i class="fa fa-times"></i> {{ 'Cancel' | say }}
+			</button>
+		</div>
+	</template>
 </modal-dialog>

@@ -24,6 +24,10 @@ module.exports = {
 		dispatch('DUPLICATE_STORY', id, newName);
 	},
 
+	importStory({ dispatch }, toImport) {
+		dispatch('IMPORT_STORY', toImport);
+	},
+
 	createPassageInStory({ dispatch }, storyId, props) {
 		dispatch('CREATE_PASSAGE_IN_STORY', storyId, props);
 	},
