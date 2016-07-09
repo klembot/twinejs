@@ -4,7 +4,6 @@
 const $ = require('jquery');
 const Vue = require('vue');
 const { addFormat, setPref, updateFormat } = require('../../data/actions');
-const { allFormats, formatNamed, prefNamed } = require('../../data/getters');
 const ui = require('../../ui');
 const store = require('../../data/store');
 
@@ -30,52 +29,43 @@ module.exports = Vue.extend({
 
 		// Create built-in story formats if they don't already exist.
 
-		if (!formatNamed(this.$store.state, 'Harlowe')) {
-			addFormat(
-				this.$store,
-				{ 
-					name: 'Harlowe',
-					url: 'story-formats/Harlowe/format.js',
-					userAdded: false
-				}
-			);
+		if (!this.harloweFormat) {
+			this.addFormat({ 
+				name: 'Harlowe',
+				url: 'story-formats/Harlowe/format.js',
+				userAdded: false
+			});
 		}
 
-		if (!formatNamed(this.$store.state, 'Snowman')) {
-			addFormat(
-				this.$store,
-				{ 
-					name: 'Harlowe',
-					url: 'story-formats/Snowman/format.js',
-					userAdded: false
-				}
-			);
+		if (!this.snowmanFormat) {
+			this.addFormat({ 
+				name: 'Harlowe',
+				url: 'story-formats/Snowman/format.js',
+				userAdded: false
+			});
 		}
 
-		if (!formatNamed(this.$store.state, 'SugarCube')) {
-			addFormat(
-				this.$store,
-				{ 
-					name: 'Harlowe',
-					url: 'story-formats/SugarCube/format.js',
-					userAdded: false
-				}
-			);
+		if (!this.paperthinFormat) {
+			this.addFormat({ 
+				name: 'Paperthin',
+				url: 'story-formats/Paperthin/format.js',
+				userAdded: false
+			});
 		}
 
-		if (!formatNamed(this.$store.state, 'Paperthin')) {
-			addFormat(
-				this.$store,
-				{ 
-					name: 'Paperthin',
-					url: 'story-formats/Paperthin/format.js',
-					userAdded: false
-				}
-			);
+		if (!this.sugarcubeFormat) {
+			this.addFormat({ 
+				name: 'SugarCube',
+				url: 'story-formats/SugarCube/format.js',
+				userAdded: false
+			});
 		}
 
 		// Repair paths to use kebab case, as in previous versions we used
 		// camel case.
+
+		/*
+		FIXME
 
 		allFormats(this.$store.state).forEach(format => {
 			if (/^storyFormats\//i.test(format.url)) {
@@ -90,15 +80,51 @@ module.exports = Vue.extend({
 				);
 			}
 		});
+		*/
 
 		// Set default formats if not already set.
 
-		if (!prefNamed(this.$store.state, 'defaultFormat')) {
-			setPref(this.$store, 'defaultFormat', 'Harlowe');
+		if (!this.prefs.defaultFormat) {
+			this.setPref('defaultFormat', 'Harlowe');
 		}
 
-		if (!prefNamed(this.$store.state, 'proofingFormat')) {
-			setPref(this.$store, 'proofingFormat', 'Paperthin');
+		if (!this.prefs.proofingFormat) {
+			this.setPref('proofingFormat', 'Paperthin');
+		}
+	},
+
+	vuex: {
+		actions: {
+			addFormat,
+			setPref
+		},
+
+		getters: {
+			prefs: state => state.pref,
+
+			harloweFormat(state) {
+				return state.storyFormat.formats.find(
+					format => format.name === 'Harlowe'
+				);
+			},
+
+			paperthinFormat(state) {
+				return state.storyFormat.formats.find(
+					format => format.name === 'Paperthin'
+				);
+			},
+
+			snowmanFormat(state) {
+				return state.storyFormat.formats.find(
+					format => format.name === 'Snowman'
+				);
+			},
+
+			sugarcubeFormat(state) {
+				return state.storyFormat.formats.find(
+					format => format.name === 'SugarCube'
+				);
+			}
 		}
 	},
 

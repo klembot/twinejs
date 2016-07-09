@@ -2,10 +2,11 @@
 // promise resolving to the stories that were imported, if any.
 
 const Vue = require('vue');
-const { thenable, symbols: { resolve } } = require('../../vue/mixins/thenable');
+const { deleteStory, importStory } = require('../../data/actions');
 const importHTML = require('../../data/import');
-const { importStory } = require('../../data/actions');
 const load = require('../../file/load');
+const locale = require('../../locale');
+const { thenable, symbols: { resolve } } = require('../../vue/mixins/thenable');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -20,8 +21,39 @@ module.exports = Vue.extend({
 
 		// An array of objects to import.
 
-		toImport: Array
+		toImport: [],
+
+		// An array of story names that already exist, and will be replaced in
+		// the import.
+
+		dupeNames: [],
+
+		// The names that the user has selected to replace.
+
+		toReplace: []
 	}),
+
+	computed: {
+		confirmClass() {
+			if (this.toReplace.length === 0) {
+				return 'primary';
+			}
+
+			return 'danger';
+		},
+
+		confirmLabel() {
+			if (this.toReplace.length === 0) {
+				return locale.say('Don\'t Replace Any Stories');
+			}
+
+			return locale.sayPlural(
+				'Replace %d Story',
+				'Replace %d Stories',
+				this.toReplace.length
+			);
+		}
+	},
 
 	methods: {
 		close() {
@@ -35,11 +67,50 @@ module.exports = Vue.extend({
 
 			load(this.$els.importFile.files[0])
 			.then(source => {
-				let toImport = importHTML(source);
+				this.toImport = importHTML(source);
 
-				// FIXME: handle duplicates
+				this.dupeNames = this.toImport.reduce(
+					(list, story) => {
+						if (this.existingStories.find(
+							orig => orig.name === story.name
+						)) {
+							list.push(story.name);
+						}
 
-				toImport.forEach(story => this.importStory(story));
+						return list;
+					},
+					[]
+				);
+
+				if (this.dupeNames.length > 0) {
+					// Ask the user to pick which ones to replace, if any.
+
+					this.status = 'choosing';
+				}
+				else {
+					// Immediately run the import and close the dialog.
+
+					this.toImport.forEach(story => this.importStory(story));
+					this.close();
+				}
+			});
+		},
+
+		replaceAndImport() {
+			this.toReplace.forEach(name => {
+				this.deleteStory(
+					this.existingStories.find(story => story.name === name).id
+				);
+			});
+
+			this.toImport.forEach(story => {
+				// If the user *didn't* choose to replace this story, skip it.
+
+				if (this.toReplace.indexOf(story.name) !== -1 ||
+					!this.existingStories.find(story => story.name === name)) {
+					this.importStory(story);
+				}
+				
 				this.close();
 			});
 		}
@@ -53,7 +124,12 @@ module.exports = Vue.extend({
 
 	vuex: {
 		actions: {
+			deleteStory,
 			importStory
+		},
+
+		getters: {
+			existingStories: state => state.story.stories
 		}
 	}
 });

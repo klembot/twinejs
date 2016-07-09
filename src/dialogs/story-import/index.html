@@ -9,6 +9,12 @@
 
 			<input type="file" v-el:import-file @change="import">
 		</p>
+
+		<div class="buttons" v-if="!working">
+			<button class="subtle" @click="close">
+				<i class="fa fa-times"></i> {{ 'Cancel' | say }}
+			</button>
+		</div>
 	</template>
 
 	<template v-if="status === 'working'">
@@ -19,28 +25,22 @@
 	</template>
 
 	<template v-if="status === 'choosing'">
-		<p class="message larger">
+		<p>
 		{{ 'Some stories you are importing already exist in your library. Please choose which to replace. Any other stories in your file will be imported as well.' | say }}
 		</p>
 
-		<ul v-for="name in names">
+		<ul v-for="name in dupeNames" class="plain">
 			<input type="checkbox" id="replace-story-{{ name }}" v-model="toReplace" value="{{ name }}">
 
 			<label for="replace-story-{{ name }}">{{ name }}</label>
 		</ul>
 
 		<p class="buttons">
-			<button type="button" class="subtle" @click="cancel">{{ "Don't Import Any Stories" | say }}</button>
-			<button type="button" :class="confirmClass" @click="accept">
+			<button type="button" class="subtle" @click="close">{{ "Don't Import Any Stories" | say }}</button>
+			<button type="button" :class="confirmClass" @click="replaceAndImport">
 				<i class="fa fa-check"></i>
 				{{ confirmLabel }}
 			</button>
 		</p>
-
-		<div class="buttons" v-if="!working" transition="fade-in-out">
-			<button class="subtle" @click="close">
-				<i class="fa fa-times"></i> {{ 'Cancel' | say }}
-			</button>
-		</div>
 	</template>
 </modal-dialog>

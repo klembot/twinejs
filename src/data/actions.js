@@ -1,7 +1,7 @@
 // Vuex actions that components can use.
 
 const $ = require('jquery');
-const { formatNamed } = require('./getters');
+const { formatWithName } = require('./fetch');
 
 module.exports = {
 	setPref({ dispatch }, name, value) {
@@ -53,7 +53,7 @@ module.exports = {
 	},
 
 	loadFormat(store, name) {
-		let format = formatNamed(store.state, name);
+		let format = formatWithName(store.state, name);
 
 		return new Promise((resolve, reject) => {
 			if (format.loaded) {

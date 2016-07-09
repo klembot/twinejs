@@ -4,7 +4,6 @@ const Vue = require('vue');
 const AboutDialog = require('../../dialogs/about');
 const FormatsDialog = require('../../dialogs/formats');
 const ImportDialog = require('../../dialogs/story-import');
-const { allStories } = require('../../data/getters');
 const { createStory } = require('../../data/actions');
 const locale = require('../../locale');
 const { prompt } = require('../../dialogs/prompt');
@@ -31,7 +30,9 @@ module.exports = Vue.extend({
 				buttonLabel: '<i class="fa fa-plus"></i> ' + locale.say('Add'),
 				buttonClass: 'create',
 				validator: name => {
-					if (this.allStories.find(story => story.name === name)) {
+					if (this.existingStories.find(
+							story => story.name === name
+						)) {
 						return locale.say(
 							'A story with this name already exists.'
 						);
@@ -41,16 +42,14 @@ module.exports = Vue.extend({
 		},
 
 		importFile() {
-			let importDialog = new ImportDialog({ store: this.$store });
-			
-			importDialog.$mountTo(document.body);
+			new ImportDialog({ store: this.$store }).$mountTo(document.body);
 		},
 
 		saveArchive() {
 			const timestamp = new Date().toLocaleString().replace(/[\/:\\]/g, '.');
 
 			saveFile(
-				publishArchive(this.allStories),
+				publishArchive(this.stories),
 				`${timestamp} ${locale.say('Twine Archive.html')}`
 			);
 		},
@@ -80,8 +79,9 @@ module.exports = Vue.extend({
 		actions: {
 			createStory
 		},
+
 		getters: {
-			allStories
+			existingStories: state => state.story.stories
 		}
 	}
 });

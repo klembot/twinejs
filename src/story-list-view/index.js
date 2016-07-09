@@ -7,9 +7,7 @@
 
 'use strict';
 const Vue = require('vue');
-const fileImport = require('../file/import');
 const locale = require('../locale');
-const { allStories } = require('../data/getters');
 const { check: checkForAppUpdate } = require('../dialogs/app-update');
 const { check: checkForDonation } = require('../dialogs/app-donation');
 
@@ -17,31 +15,32 @@ module.exports = Vue.extend({
 	template: require('./index.html'),
 	
 	props: {
-		storyOrder: {
-			type: String,
-			default: 'name'
-		},
 		appearFast: {
 			type: Boolean,
 			default: false
 		},
+
 		previouslyEditing: {
 			type: String,
 			default: null
 		}
 	},
 
+	data: () => ({
+		storyOrder: 'name'
+	}),
+
 	computed: {
 		sortedStories() {
 			// If we have no stories to sort, don't worry about it.
 
-			if (this.allStories.length === 0) {
-				return this.allStories;
+			if (this.stories.length === 0) {
+				return this.stories;
 			}
 
 			switch (this.storyOrder) {
 				case 'name':
-				return this.allStories.sort((a, b) => {
+				return this.stories.sort((a, b) => {
 					if (a.name > b.name) {
 						return 1;
 					}
@@ -80,7 +79,7 @@ module.exports = Vue.extend({
 			return locale.sayPlural(
 				'%d Story',
 				'%d Stories',
-				this.allStories.length
+				this.stories.length
 			);
 		}
 	},
@@ -148,13 +147,14 @@ module.exports = Vue.extend({
 		// For now, we only support importing a single file at a time.
 
 		'file-drag-n-drop'(files) {
-			fileImport.importFile(files[0]);
+			// FIXME
+			// fileImport.importFile(files[0]);
 		}
 	},
 
 	vuex: {
 		getters: {
-			allStories
+			stories: state => state.story.stories
 		}
 	}
 });

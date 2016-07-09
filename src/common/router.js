@@ -6,7 +6,6 @@ const LocaleView = require('../locale/view');
 const StoryEditView = require('../story-edit-view');
 const StoryListView = require('../story-list-view');
 const WelcomeView = require('../welcome');
-const { formatNamed, prefNamed, storyWithId } = require('../data/getters');
 const { loadFormat } = require('../data/actions');
 const { publishStoryWithFormat } = require('../data/publish');
 const replaceUI = require('../ui/replace');
@@ -32,7 +31,7 @@ TwineRouter.map({
 
 	'/stories': {
 		component: {
-			template: '<div><story-list :collection="collection" ' +
+			template: '<div><story-list ' +
 				':previously-editing="previouslyEditing"></story-list></div>',
 
 			components: { 'story-list': StoryListView },
@@ -48,17 +47,12 @@ TwineRouter.map({
 
 	'/stories/:id': {
 		component: {
-			template: '<div><story-edit :story="story" ' +
-				':collection="collection"></story-edit></div>',
+			template: '<div><story-edit :story-id="id"></story-edit></div>',
 
 			components: { 'story-edit': StoryEditView },
 			
 			data() {
-				return {
-					story: storyWithId(
-						this.$store.state, this.$route.params.id
-					)
-				};
+				return { id: this.$route.params.id };
 			}
 		},
 	},
@@ -68,8 +62,8 @@ TwineRouter.map({
 			ready() {
 				const state = this.$store.state;
 				const story = storyWithId(state, this.$route.params.id);
-				const format = formatNamed(state, story.format) ||
-					formatNamed(state, prefNamed(state, 'defaultFormat'));
+				const format = formatWithName(state, story.format) ||
+					formatWithName(state, prefWithName(state, 'defaultFormat'));
 
 				loadFormat(this.$store, format.name).then(() => {
 					replaceUI(publishStoryWithFormat(story, format));
@@ -86,7 +80,7 @@ TwineRouter.map({
 			ready() {
 				const state = this.$store.state;
 				const story = storyWithId(state, this.$route.params.id);
-				const format = formatNamed(state, prefNamed(state, 'proofingFormat'));
+				const format = formatWithName(state, prefWithName(state, 'proofingFormat'));
 
 				loadFormat(this.$store, format.name).then(() => {
 					replaceUI(publishStoryWithFormat(story, format));
@@ -100,8 +94,8 @@ TwineRouter.map({
 			ready() {
 				const state = this.$store.state;
 				const story = storyWithId(state, this.$route.params.id);
-				const format = formatNamed(state, story.format) ||
-					formatNamed(state, prefNamed(state, 'defaultFormat'));
+				const format = formatWithName(state, story.format) ||
+					formatWithName(state, prefWithName(state, 'defaultFormat'));
 
 				loadFormat(this.$store, format.name).then(() => {
 					replaceUI(publishStoryWithFormat(story, format, ['debug']));
@@ -115,8 +109,8 @@ TwineRouter.map({
 			ready() {
 				const state = this.$store.state;
 				const story = storyWithId(state, this.$route.params.id);
-				const format = formatNamed(state, story.format) ||
-					formatNamed(state, prefNamed(state, 'defaultFormat'));
+				const format = formatWithName(state, story.format) ||
+					formatWithName(state, prefWithName(state, 'defaultFormat'));
 
 				loadFormat(this.$store, format.name).then(() => {
 					replaceUI(publishStoryWithFormat(
@@ -156,7 +150,7 @@ TwineRouter.beforeEach((transition) => {
 	// transition.next() or redirect() will stop any other logic in the
 	// function.
 
-	const welcomeSeen = prefNamed(store.state, 'welcomeSeen', false);
+	const welcomeSeen = store.state.pref.welcomeSeen;
 
 	if (transition.to.path === '/welcome' || welcomeSeen) {
 		transition.next();
