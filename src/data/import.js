@@ -66,6 +66,8 @@ function domToObject(storyEl, forceLastUpdate) {
 							pos[1],
 						tags:
 							passageEl.attributes.tags.value.split(/\s+/),
+						name:
+							passageEl.attributes.name.value,
 						text:
 							passageEl.textContent
 					};

@@ -14,11 +14,11 @@ const zoomLevels = _.values(zoomSettings).sort();
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
-	// The story we edit is provided by the router.
+	// The id of the story we're editing is provided by the router.
 
 	props: {
-		story: {
-			type: Object,
+		storyId: {
+			type: String,
 			required: true
 		}
 	},
@@ -43,6 +43,10 @@ module.exports = Vue.extend({
 	}),
 
 	computed: {
+		story() {
+			return this.allStories.find(story => story.id === this.storyId);
+		},
+
 		// Bound to the template in several places to ensure the view stays
 		// at the correct size.
 
@@ -385,6 +389,10 @@ module.exports = Vue.extend({
 		actions: {
 			createPassageInStory,
 			updateStory
+		},
+
+		getters: {
+			allStories: state => state.story.stories
 		}
 	}
 });
