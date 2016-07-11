@@ -22,7 +22,7 @@ const publish = module.exports = {
 
 		output = output.replace(/{{STORY_NAME}}/g, () => escape(story.name));
 		output = output.replace(/{{STORY_DATA}}/g, () => {
-			publish.publishStory(story, formatOptions, startId)
+			return publish.publishStory(story, formatOptions, startId)
 		});
 
 		// Then, format-defined placeholders.

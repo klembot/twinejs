@@ -57,30 +57,38 @@ TwineRouter.map({
 		},
 	},
 
+	// These routes require special handling, because we tear down our UI when
+	// they activate.
+
 	'/stories/:id/play': {
 		component: {
 			ready() {
 				const state = this.$store.state;
-				const story = storyWithId(state, this.$route.params.id);
-				const format = formatWithName(state, story.format) ||
-					formatWithName(state, prefWithName(state, 'defaultFormat'));
+				const story = state.story.stories.find(
+					story => story.id === this.$route.params.id
+				);
+				const formatName = story.format || state.pref.defaultFormat;
+				const format = state.storyFormat.formats.find(
+					format => format.name === formatName
+				);
 
-				loadFormat(this.$store, format.name).then(() => {
+				loadFormat(this.$store, formatName).then(() => {
 					replaceUI(publishStoryWithFormat(story, format));
 				});
 			}
 		}
 	},
 
-	// These routes require special handling, because we tear down our UI when
-	// they activate.
-
 	'/stories/:id/proof': {
 		component: {
 			ready() {
 				const state = this.$store.state;
-				const story = storyWithId(state, this.$route.params.id);
-				const format = formatWithName(state, prefWithName(state, 'proofingFormat'));
+				const story = state.story.stories.find(
+					story => story.id === this.$route.params.id
+				);
+				const format = state.storyFormat.formats.find(
+					format => format.name === state.pref.proofingFormat
+				);
 
 				loadFormat(this.$store, format.name).then(() => {
 					replaceUI(publishStoryWithFormat(story, format));
@@ -93,11 +101,15 @@ TwineRouter.map({
 		component: {
 			ready() {
 				const state = this.$store.state;
-				const story = storyWithId(state, this.$route.params.id);
-				const format = formatWithName(state, story.format) ||
-					formatWithName(state, prefWithName(state, 'defaultFormat'));
+				const story = state.story.stories.find(
+					story => story.id === this.$route.params.id
+				);
+				const formatName = story.format || state.pref.defaultFormat;
+				const format = state.storyFormat.formats.find(
+					format => format.name === formatName
+				);
 
-				loadFormat(this.$store, format.name).then(() => {
+				loadFormat(this.$store, formatName).then(() => {
 					replaceUI(publishStoryWithFormat(story, format, ['debug']));
 				});
 			}
@@ -108,11 +120,15 @@ TwineRouter.map({
 		component: {
 			ready() {
 				const state = this.$store.state;
-				const story = storyWithId(state, this.$route.params.id);
-				const format = formatWithName(state, story.format) ||
-					formatWithName(state, prefWithName(state, 'defaultFormat'));
+				const story = state.story.stories.find(
+					story => story.id === this.$route.params.id
+				);
+				const formatName = story.format || state.pref.defaultFormat;
+				const format = state.storyFormat.formats.find(
+					format => format.name === formatName
+				);
 
-				loadFormat(this.$store, format.name).then(() => {
+				loadFormat(this.$store, formatName).then(() => {
 					replaceUI(publishStoryWithFormat(
 						story,
 						format,
