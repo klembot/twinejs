@@ -3,11 +3,13 @@
 const _ = require('underscore');
 const Vue = require('vue');
 const { confirm } = require('../../../dialogs/confirm');
+const { deleteStory, duplicateStory, loadFormat, updateStory } =
+	require('../../../data/actions');
 const { prompt } = require('../../../dialogs/prompt');
 const locale = require('../../../locale');
 const notify = require('../../../ui/notify');
-const { deleteStory, duplicateStory, updateStory } =
-	require('../../../data/actions');
+const { publishStoryWithFormat } = require('../../../data/publish');
+const save = require('../../../file/save');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -44,23 +46,10 @@ module.exports = Vue.extend({
 		**/
 
 		test() {
-			if (Passage.withId(this.storystartPassage) === undefined) {
-				notify(
-					locale.say(
-						'This story does not have a starting point. ' +
-						'Edit this story and use the ' +
-						'<i class="fa fa-rocket"></i> icon on a passage to ' +
-						'set this.'
-					),
-					'danger'
-				);
-			}
-			else {
-				window.open(
-					'#stories/' + this.story.id + '/test',
-					'twinestory_test_' + this.story.id
-				);
-			}
+			window.open(
+				'#stories/' + this.story.id + '/test',
+				'twinestory_test_' + this.story.id
+			);
 		},
 
 		/**
@@ -70,21 +59,17 @@ module.exports = Vue.extend({
 		**/
 
 		publish() {
-			// verify the starting point
+			const formatName = this.story.format || this.defaultFormatName;
+			const format = this.allFormats.find(
+				format => format.name === formatName
+			);
 
-			if (Passage.withId(this.model.get('startPassage')) === undefined) {
-				notify(
-					locale.say(
-						'This story does not have a starting point. ' +
-						'Use the <i class="fa fa-rocket"></i> icon on a ' +
-						'passage to set this.'
-					),
-					'danger'
+			this.loadFormat(formatName).then(() => {
+				save(
+					publishStoryWithFormat(this.story, format),
+					this.story.name + '.html'
 				);
-			}
-			else {
-				publish.publishStory(this.model, this.model.get('name') + '.html');
-			}
+			});
 		},
 
 		/**
@@ -135,7 +120,6 @@ module.exports = Vue.extend({
 		/**
 		 Prompts the user for a name, then creates a duplicate version of this
 		 story accordingly.
-
 		**/
 
 		duplicate() {
@@ -159,7 +143,13 @@ module.exports = Vue.extend({
 		actions: { 
 			deleteStory,
 			duplicateStory,
+			loadFormat,
 			updateStory
+		},
+
+		getters: {
+			allFormats: state => state.storyFormat.formats,
+			defaultFormatName: state => state.pref.defaultFormat
 		}
 	}
 });

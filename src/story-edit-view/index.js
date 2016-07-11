@@ -2,10 +2,12 @@
 
 const _ = require('underscore');
 const Vue = require('vue');
+const { createPassageInStory, loadFormat, updateStory } = require('../data/actions');
 const locale = require('../locale');
+const { publishStoryWithFormat } = require('../data/publish');
 const rect = require('../common/rect');
+const save = require('../file/save');
 const zoomSettings = require('./zoom-settings');
-const { createPassageInStory, updateStory } = require('../data/actions');
 
 // A memoized, sorted array of zoom levels used when zooming in or out.
 
@@ -361,8 +363,17 @@ module.exports = Vue.extend({
 		},
 
 		'story-publish'() {
-			// FIXME
-			publish.publishStory(this.model, this.model.get('name') + '.html');
+			const formatName = this.story.format || this.defaultFormatName;
+			const format = this.allFormats.find(
+				format => format.name === formatName
+			);
+
+			this.loadFormat(formatName).then(() => {
+				save(
+					publishStoryWithFormat(this.story, format),
+					this.story.name + '.html'
+				);
+			});
 		},
 
 		'story-set-start'(passageId) {
@@ -388,11 +399,14 @@ module.exports = Vue.extend({
 	vuex: {
 		actions: {
 			createPassageInStory,
+			loadFormat,
 			updateStory
 		},
 
 		getters: {
-			allStories: state => state.story.stories
+			allFormats: state => state.storyFormat.formats,
+			allStories: state => state.story.stories,
+			defaultFormatName: state => state.pref.defaultFormat
 		}
 	}
 });
