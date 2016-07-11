@@ -1,13 +1,13 @@
 <modal-dialog id="passageEditModal" class="editor" :can-close="canClose" @destroyed="dialogDestroyed" v-ref:modal>
 	<span slot="title">
-		<input type="text" id="passageName" placeholder="{{ 'Passage Name' | say }}" v-model="name">
+		<input type="text" id="passageName" placeholder="{{ 'Passage Name' | say }}" v-model="passage.name">
 	</span>
 
-	<tag-editor :tags="tags" @tag-change="saveTags"></tag-editor>
+	<tag-editor :tags="passage.tags" @tag-change="saveTags"></tag-editor>
 
 	<p class="error" v-if="hasError">{{ saveError }}</p>
 
 	<div class="expand">
-		<code-mirror :options="cmOptions" :text="text" @cm-change="saveText" v-ref:codemirror></code-mirror>
+		<code-mirror :options="cmOptions" :text="passage.text" @cm-change="saveText" v-ref:codemirror></code-mirror>
 	</div> <!-- .fullEdit -->
 </modal-dialog>

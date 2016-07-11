@@ -11,10 +11,16 @@ module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	data: () => ({
-		story: {}
+		storyId: ''
 	}),
 
 	computed: {
+		source() {
+			return this.allStories.find(
+				story => story.id === this.storyId
+			).stylesheet;
+		},
+
 		cmOptions: () => ({
 			lineWrapping: true,
 			lineNumbers: false,
@@ -35,7 +41,7 @@ module.exports = Vue.extend({
 		},
 
 		save(text) {
-			this.updateStory(this.story.id, { stylesheet: text });
+			this.updateStory(this.storyId, { stylesheet: text });
 		}
 	},
 	

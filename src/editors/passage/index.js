@@ -3,9 +3,8 @@
 const CodeMirror = require('codemirror');
 const Vue = require('vue');
 const locale = require('../../locale');
-const backboneModel = require('../../vue/mixins/backbone-model');
-const backboneCollection = require('../../vue/mixins/backbone-collection');
 const { thenable } = require('../../vue/mixins/thenable');
+const { updatePassageInStory } = require('../../data/actions');
 
 require('codemirror/addon/display/placeholder');
 require('../../codemirror/prefix-trigger');
@@ -18,11 +17,11 @@ module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	data: () => ({
+		passageId: '',
+		storyId: '',
+		oldWindowTitle: '',
 		saveError: '',
-		hasError: false,
-		name: '',
-		text: '',
-		tags: []
+		hasError: false
 	}),
 
 	computed: {
@@ -45,15 +44,27 @@ module.exports = Vue.extend({
 				lineNumbers: false,
 				mode: 'text'
 			};
+		},
+
+		parentStory() {
+			return this.allStories.find(story => story.id === this.storyId);
+		},
+
+		passage() {
+			return this.parentStory.passages.find(
+				passage => passage.id === this.passageId
+			);
+		},
+
+		autocompletions() {
+			return this.parentStory.passages.map(passage => passage.name);
 		}
 	},
 
 	methods: {
 		autocomplete() {
-			const autocompletions = this.autocompletions;
-
 			this.$refs.codemirror.$cm.showHint({
-				hint(cm) {
+				hint: cm => {
 					const wordRange = cm.findWordAt(cm.getCursor());
 					const word = cm.getRange(
 						wordRange.anchor,
@@ -61,8 +72,8 @@ module.exports = Vue.extend({
 					).toLowerCase();
 
 					const comps = {
-						list: autocompletions.filter(
-							(name) => name.toLowerCase().indexOf(word) != -1
+						list: this.autocompletions.filter(
+							name => name.toLowerCase().indexOf(word) !== -1
 						),
 						from: wordRange.anchor,
 						to: wordRange.head
@@ -105,11 +116,19 @@ module.exports = Vue.extend({
 		},
 
 		saveText(text) {
-			this.text = text;
+			this.updatePassageInStory(
+				this.parentStory.id,
+				this.passage.id,
+				{ text: text }
+			);
 		},
 
 		saveTags(tags) {
-			this.tags = tags;
+			this.updatePassageInStory(
+				this.parentStory.id,
+				this.passage.id,
+				{ tags: tags }
+			);
 		},
 
 		dialogDestroyed() {
@@ -135,21 +154,10 @@ module.exports = Vue.extend({
 	ready() {
 		// Update the window title.
 
-		this.$oldWindowTitle = document.title;
-		document.title = locale.say('Editing \u201c%s\u201d', this.name);
+		this.oldWindowTitle = document.title;
+		document.title = locale.say('Editing \u201c%s\u201d', this.passage.name);
 
-		// Map model validation errors to the saveError property.
-
-		this.$model.on('invalid', this.setError, this);
-		this.$model.on('sync', this.clearError, this);
-
-		// Assemble a list of possible autocompletions by plucking passage names
-		// from the collection property.
-
-		this.autocompletions = this.$collection.map((passage) => passage.get('name'));
-
-		// If we have been given a story format as option, load it and see if
-		// it offers a CodeMirror mode.
+		// Load the story's format and see if it offers a CodeMirror mode.
 
 		if (this.$options.storyFormat) {
 			this.$options.storyFormat.load((err) => {
@@ -177,9 +185,7 @@ module.exports = Vue.extend({
 	},
 
 	destroyed() {
-		document.title = this.$oldWindowTitle;
-		this.$model.off('invalid', this.setError);
-		this.$model.off('sync', this.clearError);
+		document.title = this.oldWindowTitle;
 	},
 
 	components: {
@@ -188,5 +194,15 @@ module.exports = Vue.extend({
 		'tag-editor': require('./tag-editor')
 	},
 
-	mixins: [backboneModel, backboneCollection, thenable]
+	vuex: {
+		actions: {
+			updatePassageInStory
+		},
+
+		getters: {
+			allStories: state => state.story.stories
+		}
+	},
+
+	mixins: [thenable]
 });

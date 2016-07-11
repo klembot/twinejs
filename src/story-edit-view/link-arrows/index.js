@@ -16,13 +16,25 @@ const ARROW_SIZE = 10;
 module.exports = Vue.extend({
 	template: '<div class="links"></div>',
 
-	props: [
-		'links',     // An array of connector links objects
-		'arrowheads' // Boolean: whether to draw arrowheads
-	],
+	props: {
+		// An array of connector link objects.
+
+		links: {
+			type: Object,
+			required: true
+		},
+
+		// Whether to draw arrowheads.
+		
+		arrowheads: {
+			type: Boolean,
+			default: true
+		}
+	},
 
 	ready() {
 		this.$svg = SVG(this.$el);
+
 		// Cache used to store SVG lines that should be preserved between ticks.
 		this.cache = {};
 		Vue.nextTick(() => this.draw());
