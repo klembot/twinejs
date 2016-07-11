@@ -1,9 +1,9 @@
 // Vuex actions that components can use.
 
 const $ = require('jquery');
-const { formatWithName } = require('./fetch');
+const linkParser = require('./link-parser');
 
-module.exports = {
+const actions = module.exports = {
 	setPref({ dispatch }, name, value) {
 		dispatch('UPDATE_PREF', name, value);
 	},
@@ -40,6 +40,51 @@ module.exports = {
 		dispatch('DELETE_PASSAGE_IN_STORY', storyId, passageId);
 	},
 
+	// Adds new passages to a story based on new links added in a passage's
+	// text.
+
+	createNewlyLinkedPassages(store, storyId, passageId, oldText) {
+		const story = store.state.story.stories.find(
+			story => story.id === storyId
+		);
+		const passage = story.passages.find(
+			passage => passage.id === passageId
+		);
+
+		// Determine how many passages we'll need to create.
+
+		const oldLinks = linkParser(oldText, true);
+		const newLinks = linkParser(passage.text, true).filter(
+			link => (oldLinks.indexOf(link) === -1) &&
+				!(story.passages.some(passage => passage.name === link))
+		);
+
+		// We center the new passages underneath this one.
+
+		const newTop = passage.top + 100 * 1.5;
+
+		// We account for the total width of the new passages as both the
+		// width of the passages themselves plus the spacing in between.
+
+		const totalWidth = newLinks.length * 100 +
+			((newLinks.length - 1) * (100 / 2));
+		let newLeft = passage.left + (100 - totalWidth) / 2;
+
+		newLinks.forEach(link => {
+			store.dispatch(
+				'CREATE_PASSAGE_IN_STORY',
+				storyId,
+				{
+					name: link,
+					left: newLeft,
+					top: newTop
+				}
+			);
+
+			newLeft += 100 * 1.5;
+		});
+	},
+
 	addFormat({ dispatch }, props) {
 		dispatch('ADD_FORMAT', props);
 	},
@@ -53,7 +98,9 @@ module.exports = {
 	},
 
 	loadFormat(store, name) {
-		let format = formatWithName(store.state, name);
+		const format = store.state.storyFormat.formats.find(
+			format => format.name === name
+		);
 
 		return new Promise((resolve, reject) => {
 			if (format.loaded) {
@@ -74,6 +121,25 @@ module.exports = {
 			.fail((req, status, error) => {
 				reject(error);
 			});
+		});
+	},
+
+	// Repair paths to use kebab case, as in previous versions we used
+	// camel case.
+
+	repairFormats(store) {
+		store.state.storyFormat.formats.forEach(format => {
+			if (/^storyFormats\//i.test(format.url)) {
+				actions.updateFormat(
+					store,
+					format.id,
+					{
+						url: format.url.replace(
+							/^storyFormats\//i, 'story-formats/'
+						)
+					}
+				);
+			}
 		});
 	}
 };

@@ -80,7 +80,7 @@ module.exports = Vue.extend({
 			let result = {};
 
 			this.$refs.passages.forEach((p) => {
-				result[p.name] = Object.assign(
+				result[p.passage.name] = Object.assign(
 					{ links: p.internalLinks },
 					p.connectorAnchors
 				);

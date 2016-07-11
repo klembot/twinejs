@@ -2,17 +2,21 @@
 
 const Vue = require('vue');
 const moment = require('moment');
-const linkParser = require('../../common/link-parser');
+const linkParser = require('../../data/link-parser');
 const locale = require('../../locale');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	data: () => ({
-		story: Object
+		storyId: ''
 	}),
 
 	computed: {
+		story() {
+			return this.allStories.find(story => story.id === this.storyId);
+		},
+
 		lastUpdate() {
 			return moment(this.story.lastUpdate).format('LLLL');
 		},
@@ -97,6 +101,12 @@ module.exports = Vue.extend({
 				'Broken Links',
 				this.brokenLinkCount
 			);
+		}
+	},
+
+	vuex: {
+		getters: {
+			allStories: state => state.story.stories
 		}
 	},
 

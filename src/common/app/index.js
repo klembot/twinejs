@@ -3,7 +3,7 @@
 'use strict';
 const $ = require('jquery');
 const Vue = require('vue');
-const { addFormat, setPref, updateFormat } = require('../../data/actions');
+const { addFormat, repairFormats, setPref, updateFormat } = require('../../data/actions');
 const ui = require('../../ui');
 const store = require('../../data/store');
 
@@ -61,27 +61,6 @@ module.exports = Vue.extend({
 			});
 		}
 
-		// Repair paths to use kebab case, as in previous versions we used
-		// camel case.
-
-		/*
-		FIXME
-
-		allFormats(this.$store.state).forEach(format => {
-			if (/^storyFormats\//i.test(format.url)) {
-				updateFormat(
-					this.$store,
-					format.id,
-					{
-						url: format.url.replace(
-							/^storyFormats\//i, 'story-formats/'
-						)
-					}
-				);
-			}
-		});
-		*/
-
 		// Set default formats if not already set.
 
 		if (!this.prefs.defaultFormat) {
@@ -91,11 +70,14 @@ module.exports = Vue.extend({
 		if (!this.prefs.proofingFormat) {
 			this.setPref('proofingFormat', 'Paperthin');
 		}
+
+		this.repairFormats();
 	},
 
 	vuex: {
 		actions: {
 			addFormat,
+			repairFormats,
 			setPref
 		},
 

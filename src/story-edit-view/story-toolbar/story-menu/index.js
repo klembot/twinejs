@@ -26,14 +26,14 @@ module.exports = Vue.extend({
 			// mounted outside the app scope.
 
 			new JavaScriptEditor({
-				data: { story: this.story },
+				data: { storyId: this.story.id },
 				store: this.$store
 			}).$mountTo(document.body);
 		},
 
 		editStyle() {
 			new StylesheetEditor({
-				data: { story: this.story },
+				data: { storyId: this.story.id },
 				store: this.$store
 			}).$mountTo(document.body);
 		},
@@ -65,9 +65,8 @@ module.exports = Vue.extend({
 
 		storyStats() {
 			new StatsDialog({
-				data: {
-					story: this.story
-				}
+				data: { storyId: this.story.id },
+				store: this.$store
 			}).$mountTo(document.body);
 		},
 

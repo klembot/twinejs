@@ -4,12 +4,16 @@ const { escape } = require('underscore');
 const Vue = require('vue');
 const PassageEditor = require('../../editors/passage');
 const { confirm } = require('../../dialogs/confirm');
-const linkParser = require('../../common/link-parser');
+const linkParser = require('../../data/link-parser');
 const locale = require('../../locale');
 const rect = require('../../common/rect');
 const { hasPrimaryTouchUI } = require('../../ui');
 const { big } = require('../zoom-settings');
-const { deletePassageInStory, updatePassageInStory } =
+const {
+	createNewlyLinkedPassages,
+	deletePassageInStory,
+	updatePassageInStory
+} =
 	require('../../data/actions');
 
 module.exports = Vue.extend({
@@ -200,17 +204,22 @@ module.exports = Vue.extend({
 		},
 
 		edit() {
-			const oldText = this.text;
+			const oldText = this.passage.text;
 
 			new PassageEditor({
-				model: this.$model,
-				collection: this.$collection,
-				storyFormat: StoryFormatCollection.all().findWhere(
-					{ name: this.parentStory.get('storyFormat') }
-				),
-			}).$mountTo(document.body)
+				data: {
+					passageId: this.passage.id,
+					storyId: this.parentStory.id
+				},
+				store: this.$store
+			})
+			.$mountTo(document.body)
 			.then(() => {
-				this.createNewLinks(this.text, oldText);
+				this.createNewlyLinkedPassages(
+					this.parentStory.id,
+					this.passage.id,
+					oldText
+				);
 			});
 		},
 
@@ -292,38 +301,6 @@ module.exports = Vue.extend({
 			document.querySelector('body').classList.add('draggingPassages');
 		},
 
-		createNewLinks(newText, oldText) {
-			// Determine how many passages we'll need to create.
-
-			const oldLinks = linkParser(oldText, true);
-			const newLinks = linkParser(newText, true).filter(
-				link => (oldLinks.indexOf(link) === -1) &&
-					!(this.$collection.find(p => p.get('name') === link))
-			);
-
-			// We center the new passages underneath this one.
-			// We defer the creation events so that the current chain of
-			// execution (e.g. a pending save operation) can complete.
-
-			const newTop = this.top + Passage.height * 1.5;
-
-			// We account for the total width of the new passages as both the
-			// width of the passages themselves plus the spacing in between.
-
-			const totalWidth = newLinks.length * Passage.width +
-				((newLinks.length - 1) * (Passage.width / 2));
-			let newLeft = this.left + (Passage.width - totalWidth) / 2;
-
-			// Send messages to create them. We defer this to allow any pending
-			// save operations to complete first.
-
-			Vue.nextTick(() => {
-				newLinks.forEach((link) => {
-					this.$dispatch('passage-create', link, newLeft, newTop);
-					newLeft += Passage.width * 1.5;
-				});
-			});
-		}
 	},
 
 	events: {
@@ -411,6 +388,7 @@ module.exports = Vue.extend({
 
 	vuex: {
 		actions: {
+			createNewlyLinkedPassages,
 			updatePassageInStory,
 			deletePassageInStory
 		}
