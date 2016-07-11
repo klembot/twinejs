@@ -2,27 +2,44 @@
 // choose it.
 
 const Vue = require('vue');
+const { updateStory } = require('../../data/actions');
 
 module.exports = Vue.extend({
 	template: require('./item.html'),
 
-	props: ['story', 'format'],
+	props: {
+		story: {
+			type: Object,
+			required: true
+		},
+
+		format: {
+			type: Object,
+			required: true
+		}
+	},
 
 	computed: {
 		imageSrc() {
 			const path = this.format.url.replace(/\/[^\/]*?$/, '');
 
-			return path + '/' + this.format.image;
+			return path + '/' + this.format.properties.image;
 		},
 
 		selected() {
-			return this.story.get('storyFormat') === this.format.name;
+			return this.story.storyFormat === this.format.name;
 		}
 	},
 
 	methods: {
 		select() {
-			this.story.save({ storyFormat: this.format.name });
+			this.updateStory(this.story.id, { storyFormat: this.format.name });
+		}
+	},
+
+	vuex: {
+		actions: {
+			updateStory
 		}
 	}
 });
