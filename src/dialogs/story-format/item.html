@@ -3,24 +3,24 @@
 
 	<!-- If no image is available, use a placeholder based on name. -->
 
-	<img v-if="format.image" :src="imageSrc">
+	<img v-if="format.properties.image" :src="imageSrc">
 	<span v-else class="placeholder">{{ format.name.slice(0,2) }}</span>
 
 	<div class="text">
 		<h3>
-			{{ format.name }} {{ format.version }}
-			<template v-if="format.author">
+			{{ format.name }} {{ format.properties.version }}
+			<template v-if="format.properties.author">
 				<br>
-				{{{ format.author }}}
+				{{{ format.properties.author }}}
 			</template>
 		</h3>
 
-		<p v-if="format.description">
-			{{{ format.description }}}
+		<p v-if="format.properties.description">
+			{{{ format.properties.description }}}
 		</p>
 
-		<p v-if="format.license">
-			{{{ format.license }}}
+		<p v-if="format.properties.license">
+			{{{ format.properties.license }}}
 		</p>
-	</div-->
+	</div>
 </div>

@@ -72,10 +72,8 @@ module.exports = Vue.extend({
 
 		changeFormat() {
 			new FormatDialog({
-				data: {
-					story: this.model,
-					formats: StoryFormatCollection.all().models
-				}
+				data: { storyId: this.story.id },
+				store: this.$store
 			}).$mountTo(document.body);
 		},
 
