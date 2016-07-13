@@ -3,7 +3,7 @@
 'use strict';
 const $ = require('jquery');
 const Vue = require('vue');
-const { addFormat, repairFormats, setPref, updateFormat } = require('../../data/actions');
+const { createFormat, repairFormats, setPref, updateFormat } = require('../../data/actions');
 const ui = require('../../ui');
 const store = require('../../data/store');
 
@@ -30,31 +30,31 @@ module.exports = Vue.extend({
 		// Create built-in story formats if they don't already exist.
 
 		if (!this.harloweFormat) {
-			this.addFormat({ 
+			this.createFormat({ 
 				name: 'Harlowe',
 				url: 'story-formats/Harlowe/format.js',
 				userAdded: false
 			});
 		}
 
-		if (!this.snowmanFormat) {
-			this.addFormat({ 
-				name: 'Harlowe',
-				url: 'story-formats/Snowman/format.js',
-				userAdded: false
-			});
-		}
-
 		if (!this.paperthinFormat) {
-			this.addFormat({ 
+			this.createFormat({ 
 				name: 'Paperthin',
 				url: 'story-formats/Paperthin/format.js',
 				userAdded: false
 			});
 		}
 
+		if (!this.snowmanFormat) {
+			this.createFormat({ 
+				name: 'Snowman',
+				url: 'story-formats/Snowman/format.js',
+				userAdded: false
+			});
+		}
+
 		if (!this.sugarcubeFormat) {
-			this.addFormat({ 
+			this.createFormat({ 
 				name: 'SugarCube',
 				url: 'story-formats/SugarCube/format.js',
 				userAdded: false
@@ -76,7 +76,7 @@ module.exports = Vue.extend({
 
 	vuex: {
 		actions: {
-			addFormat,
+			createFormat,
 			repairFormats,
 			setPref
 		},

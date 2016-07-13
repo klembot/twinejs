@@ -1,61 +1,48 @@
 'use strict';
 const Vue = require('vue');
-const _ = require('underscore');
 const locale = require('../../locale');
-const {confirm} = require('../../ui');
-/*
-FIXME
-const StoryFormat = require('../../data/models/story-format');
-*/
+const { confirm } = require('../../ui');
+const { deleteFormat, setPref } = require('../../data/actions');
 
 module.exports = Vue.extend({
 	template: require('./item.html'),
 
 	props: {
-		// A StoryFormat object that this component represents.
-		format: Object,
-
-		// The AppPref passed in, which manages the state of the 'make default'
-		// button. Assumed to be the AppPref for either 'defaultFormat' or
-		// 'proofingFormat'.
-		appPref: Object,
+		// A format that this component represents.
+		format: Object
 	},
 
-	computed:
-		_.extend({
-			default() {
-				return this.appPref.get('value') === this.format.name;
-			},
-
-			license() {
-				return this.format.license ? locale.say(
-					/* L10n: %s is the name of a software license. */
-					'License: %s', this.format.license
-				) : '';
-			},
-
-			author() {
-				return this.format.author ? locale.say(
-					/* L10n: %s is the name of an author. */
-					'by %s', this.format.author
-				) : '';
+	computed: {
+		isDefault() {
+			if (this.format.properties.proofing) {
+				return this.proofingFormatPref === this.format.name;
+			}
+			else {
+				return this.defaultFormatPref === this.format.name;
 			}
 		},
 
-		// Allow these properties to be accessed without being prefaced with
-		// "format."
+		imageSrc() {
+			const path = this.format.url.replace(/\/[^\/]*?$/, '');
 
-		['userAdded', 'name', 'path', 'version', 'description', 'image'].reduce(
-			(a, e) => {
-				a[e] = function() {
-					return this.format[e];
-				};
+			return path + '/' + this.format.properties.image;
+		},
 
-				return a;
-			},
+		license() {
+			return this.format.properties.license ? locale.say(
+				/* L10n: %s is the name of a software license. */
+				'License: %s', this.format.properties.license
+			) : '';
+		},
 
-			{}
-		)),
+		author() {
+			return this.format.properties.author ? locale.say(
+				/* L10n: %s is the name of an author. */
+				'by %s', this.format.properties.author
+			) : '';
+		}
+	},
+
 	methods: {
 		removeFormat() {
 			confirm({
@@ -66,13 +53,29 @@ module.exports = Vue.extend({
 				buttonClass:
 					'danger',
 			}).then(() => {
-				StoryFormat.withName(this.format.name).destroy();
-				this.$destroy(true);
+				this.deleteFormat(this.format.id);
 			});
 		},
 
 		setDefaultFormat() {
-			this.appPref.save({ value: this.format.name });
+			if (this.format.properties.proofing) {
+				this.setPref('proofingFormat', this.format.name);
+			}
+			else {
+				this.setPref('defaultFormat', this.format.name);
+			}
 		},
 	},
+
+	vuex: {
+		actions: {
+			deleteFormat,
+			setPref
+		},
+
+		getters: {
+			defaultFormatPref: state => state.pref.defaultFormat,
+			proofingFormatPref: state => state.pref.proofingFormat
+		}
+	}
 });

@@ -2,6 +2,7 @@
 
 const $ = require('jquery');
 const linkParser = require('./link-parser');
+const locale = require('../locale');
 
 const actions = module.exports = {
 	setPref({ dispatch }, name, value) {
@@ -85,8 +86,8 @@ const actions = module.exports = {
 		});
 	},
 
-	addFormat({ dispatch }, props) {
-		dispatch('ADD_FORMAT', props);
+	createFormat({ dispatch }, props) {
+		dispatch('CREATE_FORMAT', props);
 	},
 
 	updateFormat({ dispatch }, id, props) {
@@ -95,6 +96,40 @@ const actions = module.exports = {
 
 	deleteFormat({ dispatch }, id) {
 		dispatch('DELETE_FORMAT', id);
+	},
+
+	createFormatFromUrl(store, url) {
+		return new Promise((resolve, reject) => {
+			$.ajax({
+				url: url,
+				dataType: 'jsonp',
+				jsonpCallback: 'storyFormat',
+				crossDomain: true
+			})
+			.done(props => {
+				if (store.state.storyFormat.formats.some(
+					format => format.name === props.name) && false) {
+						reject(new Error(
+							locale.say(
+								'a story format named &ldquo;%s&rdquo; already exists',
+								props.name
+							)
+						));
+				}
+
+				const format = {
+					name: props.name,
+					url,
+					properties: props
+				};
+
+				store.dispatch('CREATE_FORMAT', format);
+				resolve(format);
+			})
+			.fail((req, status, error) => {
+				reject(error);
+			});
+		});
 	},
 
 	loadFormat(store, name) {
