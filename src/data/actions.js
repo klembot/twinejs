@@ -159,10 +159,53 @@ const actions = module.exports = {
 		});
 	},
 
-	// Repair paths to use kebab case, as in previous versions we used
-	// camel case.
+	// Create built-in formats and repair paths to use kebab case, as in
+	// previous versions we used camel case.
 
 	repairFormats(store) {
+		// Create built-in story formats if they don't already exist.
+
+		const builtinFormats = [
+			{
+				name: 'Harlowe',
+				url: 'story-formats/Harlowe/format.js',
+				userAdded: false
+			},
+			{
+				name: 'Paperthin',
+				url: 'story-formats/Paperthin/format.js',
+				userAdded: false
+			},
+			{
+				name: 'Snowman',
+				url: 'story-formats/Snowman/format.js',
+				userAdded: false
+			},
+			{
+				name: 'SugarCube',
+				url: 'story-formats/SugarCube/format.js',
+				userAdded: false
+			}
+		];
+
+		builtinFormats.forEach(builtin => {
+			if (!store.state.storyFormat.formats.find(
+				format => format.name === builtin.name
+			)) {
+				actions.createFormat(store, builtin);
+			}
+		});
+
+		// Set default formats if not already set.
+
+		if (!store.state.pref.defaultFormat) {
+			actions.setPref('defaultFormat', 'Harlowe');
+		}
+
+		if (!store.state.pref.proofingFormat) {
+			actions.setPref('proofingFormat', 'Paperthin');
+		}
+
 		store.state.storyFormat.formats.forEach(format => {
 			if (/^storyFormats\//i.test(format.url)) {
 				actions.updateFormat(

@@ -10,7 +10,7 @@
  @method checkForUpdate
  @param {Number} latestBuildNumber build number to consider as current.
 	This is required; the app's build number is stored in
-	window.app.buildNumber.
+	store.appInfo.buildNumber.
  @param {Function} callback if a new version is available, this is called
 	 with an object with the properties buildNumber, the newest release's
 	 build number, version, the human-readable version number, and url, the
