@@ -4,7 +4,9 @@
 
 module.exports = {
 	state: {
-		welcomeSeen: false
+		welcomeSeen: false,
+		defaultFormat: 'Harlowe',
+		proofingFormat: 'Paperthin'
 	},
 
 	mutations: {

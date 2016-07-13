@@ -59,7 +59,7 @@ module.exports = Vue.extend({
 		},
 
 		showFormats() {
-			new FormatsDialog().$mountTo(document.body);
+			new FormatsDialog({ store: this.$store }).$mountTo(document.body);
 		},
 
 		showHelp() {

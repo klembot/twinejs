@@ -16,19 +16,19 @@ module.exports = {
 	},
 
 	mutations: {
-		ADD_FORMAT(state, props) {
+		CREATE_FORMAT(state, props) {
 			let newFormat = Object.assign({}, props);
 			newFormat.id = uuid();
 			state.formats.push(newFormat);
 		},
 
-		DELETE_FORMAT(state, id) {
-			state.formats = state.formats.filter(format => format.id !== id);
-		},
-
 		UPDATE_FORMAT(state, id, props) {
 			let format = state.formats.find(format => format.id === id);
 			Object.assign(format, props);
+		},
+
+		DELETE_FORMAT(state, id) {
+			state.formats = state.formats.filter(format => format.id !== id);
 		},
 
 		LOAD_FORMAT(state, id, props) {

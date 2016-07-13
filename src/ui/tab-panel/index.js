@@ -18,5 +18,5 @@ module.exports = Vue.extend({
 		singleWidthPercent() {
 			return 1 / this.$children.length * 100;
 		}
-	},
+	}
 });

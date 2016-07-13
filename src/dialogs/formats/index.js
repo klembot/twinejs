@@ -1,13 +1,11 @@
 const Vue = require('vue');
+const { createFormatFromUrl, loadFormat } = require('../../data/actions');
 const locale = require('../../locale');
 const notify = require('../../ui/notify');
-/* FIXME
-const StoryFormat = require('../../data/models/story-format');
-const StoryFormatCollection = require('../../data/collections/story-format');
-const AppPref = require('../../data/models/app-pref');
-*/
 
 module.exports = Vue.extend({
+	template: require('./index.html'),
+
 	data: () => ({
 		// Used to create the <format-item>s using v-for.
 		storyFormats: [],
@@ -17,38 +15,51 @@ module.exports = Vue.extend({
 		error: '',
 
 		// Determines whether to show the loading spinner.
-		loading: false,
+		working: true,
+
+		// The index number of the next format to load.
+		loadIndex: 0,
 
 		// Bound to the text in the "new format" input.
-		newFormatUrl: '',
-
-		// Passed to child items; see below.
-		defaultFormatPref: null,
-		proofingFormatPref: null,
+		newFormatUrl: ''
 	}),
 
-	template: require('./index.html'),
-
-	components: {
-		'format-item': require('./item'),
-		'tab-item': require('../../ui/tab-panel/item'),
-		'tabs-panel': require('../../ui/tab-panel'),
-		'modal-dialog': require('../../ui/modal-dialog')
-	},
-
-	// The AppPref model which is passed to the <format-item>s (to manage the
-	// state of the 'make default' button) must be referentially identical
-	// across all <format-item>s, so the parent <formats-modal> retrieves it
-	// via withName() and passes it to its children. It also must be
-	// reactive, so it needs to be implicitly converted to a reactive object
-	// via this attachment here (as opposed to being a computed property).
-
-	created() {
-		this.defaultFormatPref = AppPref.withName('defaultFormat');
-		this.proofingFormatPref =  AppPref.withName('proofingFormat');
-	},
-
 	methods: {
+		// Loads the next pending format.
+
+		loadNext() {
+			if (this.loadIndex < this.formatNames.length) {
+				this.loadFormat(this.formatNames[this.loadIndex])
+				.then(format => {
+					if (format.properties.proofing) {
+						this.proofingFormats.push(format);
+					}
+					else {
+						this.storyFormats.push(format);
+					}
+
+					this.loadIndex++;
+					this.loadNext();
+				})
+				.catch(e => {
+					notify(
+						// L10n: %1$s is the name of the story format; %2$s is
+						// the error message.
+						locale.say(
+							'The story format &ldquo;%1$s&rdquo; could not ' +
+							'be loaded (%2$s).',
+							this.formatNames[this.loadIndex],
+							e.message
+						),
+						'danger'
+					);
+				});
+			}
+			else {
+				this.working = false;
+			}
+		},
+
 		/**
 		 Tries to add a story format and update the list in the modal. If this
 		 succeeds, the tab where the format now belongs to is shown and the format
@@ -60,50 +71,32 @@ module.exports = Vue.extend({
 		**/
 
 		addFormat() {
-			const url = this.newFormatUrl;
+			this.working = true;
 
-			// create a temporary model and try loading it
+			this.createFormatFromUrl(this.newFormatUrl)
+			.then(format => {
+				this.error = '';
+				this.working = false;
+				this.loadNext();
 
-			const test = new StoryFormat({ url });
+				// Show the tab the format will be loaded into.
 
-			this.loading = true;
-
-			test.load((err) => {
-				if (!err) {
-					// save it for real
-
-					new StoryFormatCollection().create({
-						name: test.properties.name,
-						url
-					});
-					
-					// add it to the appropriate list
-
-					const path = url.replace(/\/[^\/]*?$/, '');
-					const fullContent = Object.assign(
-						{},
-						test.properties,
-						{ path, userAdded: true }
-					);
-
-					this[fullContent.proofing ? 'proofingFormats' : 'storyFormats']
-						.push(fullContent);
-
-					// Clear the URL input
-					this.newFormatUrl = '';
-					this.error = '';
+				if (format.proofing) {
+					this.$refs.tabs.active = 1;
 				}
 				else {
-					this.error = locale.say(
-						'The story format at %1$s could not be added (%2$s).',
-						url,
-						err.message
-					);
+					this.$refs.tabs.active = 0;
 				}
-
-				this.loading = false;
+			})
+			.catch(e => {
+				this.error = locale.say(
+					'The story format at %1$s could not be added (%2$s).',
+					this.newFormatUrl,
+					e.message
+				);
+				this.working = false;
 			});
-		},
+		}
 	},
 
 	ready() {
@@ -120,49 +113,28 @@ module.exports = Vue.extend({
 			dialogTitle.appendChild(tabs[i]);
 		}
 
-		// Begin loading story format details.
-
-		const formatsToLoad = StoryFormatCollection.all();
-
-		const loadNextFormat = () => {
-			if (formatsToLoad.length > 0) {
-				const format = formatsToLoad.at(0);
-
-				format.load((e) => {
-					if (e === undefined) {
-						// calculate containing directory for the format
-						// so that image URLs, for example, are correct
-
-						const path = format.get('url').replace(/\/[^\/]*?$/, '');
-						const fullContent = Object.assign(
-							{},
-							format.properties,
-							{ path, userAdded: format.get('userAdded') }
-						);
-
-						this[fullContent.proofing ? 'proofingFormats' : 'storyFormats']
-							.push(fullContent);
-					}
-					else {
-						notify(
-							// L10n: %1$s is the name of the story format; %2$s is
-							// the error message.
-							locale.say(
-								'The story format &ldquo;%1$s&rdquo; could not ' +
-								'be loaded (%2$s).',
-								format.get('name'),
-								e.message
-							),
-							'danger'
-						);
-					}
-
-					formatsToLoad.remove(format);
-					loadNextFormat();
-				});
-			}
-		};
-
-		loadNextFormat();
+		this.loadNext();
 	},
+
+	vuex: {
+		actions: {
+			createFormatFromUrl,
+			loadFormat
+		},
+
+		getters: {
+			formatNames: state => state.storyFormat.formats.map(
+				format => format.name
+			),
+			defaultFormatPref: state => state.pref.defaultFormat,
+			proofingFormatPref: state => state.pref.proofingFormat
+		}
+	},
+
+	components: {
+		'format-item': require('./item'),
+		'tab-item': require('../../ui/tab-panel/item'),
+		'tabs-panel': require('../../ui/tab-panel'),
+		'modal-dialog': require('../../ui/modal-dialog')
+	}
 });

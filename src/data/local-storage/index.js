@@ -151,7 +151,7 @@ module.exports = {
 				pref.save(store);
 				break;
 
-			case 'ADD_FORMAT':
+			case 'CREATE_FORMAT':
 			case 'UPDATE_FORMAT':
 			case 'DELETE_FORMAT':
 				storyFormat.save(store);
