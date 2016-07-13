@@ -5,6 +5,7 @@
 'use strict';
 const Vue = require('vue');
 const locale = require('../index');
+const { setPref } = require('../../data/actions');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -36,16 +37,19 @@ module.exports = Vue.extend({
 		**/
 
 		setLocale(userLocale) {
-			if (typeof userLocale !== 'string') {
-				// L10n: An internal error when changing locale.
-				throw new Error(
-					locale.say('Can\'t set locale to nonstring: %s', userLocale)
-				);
-			}
-
-			AppPref.withName('locale').save({ value: userLocale });
+			this.setPref('locale', userLocale);
 			window.location.hash = 'stories';
 			window.location.reload();
+		}
+	},
+
+	vuex: {
+		actions: {
+			setPref
+		},
+
+		getters: {
+			localePref: state => state.pref.locale
 		}
 	}
 });
