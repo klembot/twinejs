@@ -101,14 +101,11 @@ module.exports = Vue.extend({
 			return;
 		}
 
-		return;
-		// FIXME
-		
 		// Otherwise, we check to see if we should ask for a donation, and
 		// then an app update...
 
-		if (!this.appearFast && !checkForDonation()) {
-			checkForAppUpdate();
+		if (!this.appearFast && !checkForDonation(this.$store)) {
+			checkForAppUpdate(this.$store);
 		}
 
 		// And if the user had been previously editing a story (as the router

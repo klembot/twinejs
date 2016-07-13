@@ -5,6 +5,10 @@
 module.exports = {
 	state: {
 		defaultFormat: 'Harlowe',
+		donateShown: false,
+		firstRunTime: new Date().getTime(),
+		lastUpdateSeen: '',
+		lastUpdateCheckTime: new Date().getTime(),
 		locale:
 			window.navigator.userLanguage ||
 			window.navigator.language ||
