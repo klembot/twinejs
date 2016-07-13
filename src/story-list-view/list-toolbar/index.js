@@ -13,12 +13,6 @@ const saveFile = require('../../file/save');
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
-	computed: {
-		version() {
-			return this.$router.app.version;
-		}
-	},
-
 	methods: {
 		createStoryPrompt() {
 			// Prompt for the new story name.
@@ -81,6 +75,7 @@ module.exports = Vue.extend({
 		},
 
 		getters: {
+			appVersion: state => state.appInfo.version,
 			existingStories: state => state.story.stories
 		}
 	}

@@ -7,6 +7,7 @@ Vue.use(Vuex);
 
 module.exports = new Vuex.Store({
 	modules: {
+		appInfo: require('./app-info'),
 		pref: require('./pref'),
 		story: require('./story'),
 		storyFormat: require('./story-format')
