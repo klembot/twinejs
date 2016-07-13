@@ -22,6 +22,7 @@ require('./nw').init();
 
 const locale = require('./locale');
 const notify = require('./ui/notify');
+const store = require('./data/store');
 const TwineApp = require('./common/app');
 const TwineRouter = require('./common/router');
 
@@ -41,26 +42,7 @@ require('core-js');
 		userLocale = localeUrlMatch[1];
 	}
 	else {
-		// If an app preference is not yet set, default to our best guess based
-		// on the browser.
-		// http://stackoverflow.com/questions/673905/best-way-to-determine-users-locale-within-browser
-
-		/*
-		FIXME
-
-		const localePref = AppPref.withName(
-			'locale',
-			window.navigator.userLanguage ||
-			window.navigator.language ||
-			window.navigator.browserLanguage ||
-			window.navigator.systemLanguage ||
-			'en-us'
-		);
-
-		userLocale = localePref.get('value');
-		*/
-
-		userLocale = 'en';
+		userLocale = store.state.pref.locale;
 	}
 
 	if (typeof userLocale === 'string') {
@@ -84,7 +66,9 @@ require('core-js');
 				notify(
 					'Your locale preference has been reset to English due ' +
 					'to a technical problem.<br>Please change it with the ' +
-					'<b>Language</b> option in the story list.', 'danger');
+					'<b>Language</b> option in the story list.',
+					'danger'
+				);
 			});
 		});
 	}

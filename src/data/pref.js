@@ -4,9 +4,15 @@
 
 module.exports = {
 	state: {
-		welcomeSeen: false,
 		defaultFormat: 'Harlowe',
-		proofingFormat: 'Paperthin'
+		locale:
+			window.navigator.userLanguage ||
+			window.navigator.language ||
+			window.navigator.browserLanguage ||
+			window.navigator.systemLanguage ||
+			'en-us',
+		proofingFormat: 'Paperthin',
+		welcomeSeen: false,
 	},
 
 	mutations: {
