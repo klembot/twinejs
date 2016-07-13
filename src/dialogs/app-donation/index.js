@@ -1,8 +1,7 @@
 // Shows a dialog asking the user to make a donation.
 
 const Vue = require('vue');
-// FIXME
-//const AppPref = require('../../data/models/app-pref');
+const { setPref } = require('../../data/actions');
 
 // How long we wait after the user first starts using Twine to show a message
 // asking for a donation, in milliseconds. This is currently 14 days.
@@ -10,15 +9,10 @@ const Vue = require('vue');
 const DONATION_DELAY = 1000 * 60 * 60 * 24 * 14;
 
 const donation = module.exports = {
-	check() {
-		const donateShown = AppPref.withName('donateShown', false);
-		const firstRunPref = AppPref.withName(
-			'firstRunTime', new Date().getTime()
-		);
-
-		if (!donateShown.get('value') &&
-			new Date().getTime() > firstRunPref.get('value') + DONATION_DELAY) {
-			donateShown.save({ value: true });
+	check(store) {
+		if (!store.state.pref.donateShown &&
+			new Date().getTime() > store.state.pref.firstRunTime + DONATION_DELAY) {
+			setPref(store, 'donateShown', true);
 			new donation.component().$mountTo(document.body);
 		}
 	},
