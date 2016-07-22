@@ -1,5 +1,5 @@
 // Handles reading in data from a file in a FileList, e.g. from an upload
-// element. 
+// element.
 // https://developer.mozilla.org/en-US/docs/Web/API/FileList
 //
 // This returns a promise that resolves with the data in the file.

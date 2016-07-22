@@ -17,13 +17,15 @@ module.exports = {
 
 	mutations: {
 		CREATE_FORMAT(state, props) {
-			let newFormat = Object.assign({}, props);
+			let newFormat = Object.assign({}, formatDefaults, props);
+
 			newFormat.id = uuid();
 			state.formats.push(newFormat);
 		},
 
 		UPDATE_FORMAT(state, id, props) {
 			let format = state.formats.find(format => format.id === id);
+
 			Object.assign(format, props);
 		},
 
@@ -33,6 +35,7 @@ module.exports = {
 
 		LOAD_FORMAT(state, id, props) {
 			let format = state.formats.find(format => format.id === id);
+
 			format.properties = props;
 			format.loaded = true;
 

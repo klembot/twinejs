@@ -17,9 +17,8 @@ module.exports = Vue.extend({
 			if (this.format.properties.proofing) {
 				return this.proofingFormatPref === this.format.name;
 			}
-			else {
-				return this.defaultFormatPref === this.format.name;
-			}
+
+			return this.defaultFormatPref === this.format.name;
 		},
 
 		imageSrc() {

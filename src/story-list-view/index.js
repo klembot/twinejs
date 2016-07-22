@@ -40,38 +40,36 @@ module.exports = Vue.extend({
 
 			switch (this.storyOrder) {
 				case 'name':
-				return this.stories.sort((a, b) => {
-					if (a.name > b.name) {
-						return 1;
-					}
+					return this.stories.sort((a, b) => {
+						if (a.name > b.name) {
+							return 1;
+						}
 
-					if (a.name < b.name) {
-						return -1;
-					}
+						if (a.name < b.name) {
+							return -1;
+						}
 
-					return 0;
-				});
-				break;
+						return 0;
+					});
 
 				case 'lastUpdate':
-				return this.stories.sort((a, b) => {
-					const aTime = a.lastUpdate.getTime();
-					const bTime = b.lastUpdate.getTime();
+					return this.stories.sort((a, b) => {
+						const aTime = a.lastUpdate.getTime();
+						const bTime = b.lastUpdate.getTime();
 
-					if (aTime > bTime) {
-						return 1;
-					}
+						if (aTime > bTime) {
+							return 1;
+						}
 
-					if (aTime < bTime) {
-						return -1;
-					}
+						if (aTime < bTime) {
+							return -1;
+						}
 
-					return 0;
-				});
-				break;
+						return 0;
+					});
 
 				default:
-				throw new Error(`Don't know how to sort by ${this.storyOrder}`);
+					throw new Error(`Don't know how to sort by ${this.storyOrder}`);
 			}
 		},
 

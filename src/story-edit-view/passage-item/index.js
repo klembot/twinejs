@@ -4,11 +4,9 @@ const { escape } = require('underscore');
 const Vue = require('vue');
 const PassageEditor = require('../../editors/passage');
 const { confirm } = require('../../dialogs/confirm');
-const linkParser = require('../../data/link-parser');
 const locale = require('../../locale');
 const rect = require('../../common/rect');
 const { hasPrimaryTouchUI } = require('../../ui');
-const { big } = require('../zoom-settings');
 const {
 	createNewlyLinkedPassages,
 	deletePassageInStory,
@@ -30,128 +28,81 @@ module.exports = Vue.extend({
 			required: true
 		},
 
-		// An array of names of all passages in the parentStory.
-
-		passageNames: {
-			type: Array,
-			required: true
-		},
-
-		gridSize: {
-			type: Number,
-			required: true
-		},
-
-		dragXOffset: {
-			type: Number,
-			required: true
-		},
-
-		dragYOffset: {
-			type: Number,
-			required: true
-		},
+		/* The regular expression we use to highlight ourselves or not. */
 
 		highlightRegexp: {
 			type: RegExp,
 			required: false
+		},
+
+		/* How dragged passages should be offset, in screen coordinates. */
+
+		screenDragOffsetX: {
+			type: Number,
+			required: true
+		},
+
+		screenDragOffsetY: {
+			type: Number,
+			required: true
 		}
 	},
 
 	data: () => ({
-		// Whether we're currently selected by the user.
+		/* Whether we're currently selected by the user. */
 
 		selected: false,
 
-		// Where a drag on us began.
+		/*
+		To speed initial load, we don't create a contextual menu until the user
+		actually points to us. This records whether a menu component should be
+		added.
+		*/
 
-		dragStartX: 0,
-		dragStartY: 0
+		needsMenu: false,
+
+		/*
+		Where a drag on us began, in screen coordinates. Only the passage that
+		is dragged by the user tracks this.
+		*/
+
+		screenDragStartX: 0,
+		screenDragStartY: 0
 	}),
 
 	computed: {
-		logicalRect() {
-			return {
-				top: this.passage.top,
-				left: this.passage.left,
-				width: 100,
-				height: 100
-			};
-		},
+		/*
+		Anchor points for link arrows to connect to in (x, y) format. This does
+		*not* factor in the story's zoom level, as the link arrow component
+		will be doing that itself.
+		*/
 
-		screenRect() {
-			return {
-				top: this.passage.top * this.parentStory.zoom,
-				left: this.passage.left * this.parentStory.zoom,
-				width: 100 * this.parentStory.zoom,
-				height: 100 * this.parentStory.zoom
-			};
-		},
+		anchorPoints() {
+			let { top, left, width, height } = this.passage;
 
-		// The passed-in dragXOffset, but with the snapToGrid setting taken
-		// into account. Used by connectorArrows and cssPosition.
-
-		screenDragX() {
-			let { dragXOffset, screenRect: { left } } = this;
-
-			if (this.parentStory.snapToGrid) {
-				dragXOffset = Math.round((dragXOffset + left) / this.gridSize) *
-					this.gridSize - left;
+			if (this.selected) {
+				left += this.screenDragOffsetX / this.parentStory.zoom;
+				top += this.screenDragOffsetY / this.parentStory.zoom;
 			}
 
-			return dragXOffset;
-		},
-
-		// The passed-in dragYOffset, but with the snapToGrid setting taken
-		// into account. Used by connectorArrows and cssPosition.
-
-		screenDragY() {
-			let { dragYOffset, screenRect: { top } } = this;
-
-			if (this.parentStory.snapToGrid) {
-				dragYOffset = Math.round((dragYOffset + top) / this.gridSize) *
-					this.gridSize - top;
-			}
-
-			return dragYOffset;
-		},
-
-		// Connection points used to draw link arrows to and from this
-		// component in (x, y) format.
-
-		connectorAnchors() {
-			const offsetX = (this.selected) ? this.screenDragX : 0;
-			const offsetY = (this.selected) ? this.screenDragY : 0;
-
-			const { left, top, width, height } = this.screenRect;
-
 			return {
-				// The four vertices in [x1,y1,x2,y2] format.
-
-				box: [
-					left + offsetX,
-					top + offsetY,
-					left + width + offsetX,
-					top + height + offsetY
-				],
-
-				// The center coordinate.
-
-				center: [
-					left + 0.5 * width + offsetX,
-					top + 0.5 * height + offsetY
-				],
+				top: {
+					x: left + width / 2,
+					y: top
+				},
+				bottom: {
+					x: left + width / 2,
+					y: top + height
+				},
+				left: {
+					x: left,
+					y: top + height / 2
+				},
+				right: {
+					x: left + width,
+					y: top + height / 2
+				}
 			};
-		},
-
-		internalLinks() {
-			return linkParser(this.passage.text, true);
-		},
-
-		hasBrokenLinks() {
-			return this.internalLinks.some(
-				n => this.passageNames.indexOf(n) === -1
-			);
 		},
 
 		isStart() {
@@ -159,17 +110,18 @@ module.exports = Vue.extend({
 		},
 
 		cssPosition() {
-			let result = {
-				top: `${this.screenRect.top}px`,
-				left: `${this.screenRect.left}px`
+			const { zoom } = this.parentStory;
+
+			return {
+				left: this.passage.left * zoom + 'px',
+				top: this.passage.top * zoom + 'px',
+				width: this.passage.width * zoom + 'px',
+				height: this.passage.height * zoom + 'px',
+				transform: this.selected ?
+					'translate(' + this.screenDragOffsetX + 'px, ' +
+					this.screenDragOffsetY + 'px)'
+					: null
 			};
-
-			if (this.selected) {
-				result.transform =
-					`translate(${this.screenDragX}px, ${this.screenDragY}px)`;
-			}
-
-			return result;
 		},
 		
 		cssClasses() {
@@ -192,10 +144,14 @@ module.exports = Vue.extend({
 			if (this.passage.text.length < 100) {
 				return escape(this.passage.text);
 			}
-			else {
-				return escape(this.passage.text.substr(0, 99)) + '&hellip;';
-			}
+
+			return escape(this.passage.text.substr(0, 99)) + '&hellip;';
 		},
+	},
+
+	ready() {
+		this.$onMouseMove = this.followDrag.bind(this);
+		this.$onMouseUp = this.stopDrag.bind(this);
 	},
 
 	methods: {
@@ -223,11 +179,46 @@ module.exports = Vue.extend({
 			});
 		},
 
+		startDrag(e) {
+			// Only listen to the left mouse button.
+
+			if (e.which !== 1) {
+				return;
+			}
+
+			if (e.shiftKey || e.ctrlKey) {
+				// Shift- or control-clicking toggles our selected status, but
+				// doesn't affect any other passage's selected status.
+				// If the shift or control key was not held down, select only
+				// ourselves.
+
+				this.selected = !this.selected;
+			}
+			else if (!this.selected) {
+				// If we are newly-selected and the shift or control keys are
+				// not held, deselect everything else. The check for
+				// newly-selected status is needed so that if the user is
+				// beginning a drag, we don't deselect everything right away.
+				// The check for that occurs in the mouse up handler, above.
+
+				this.selected = true;
+				this.$dispatch('passage-deselect-except', this);
+			}
+
+			// Begin tracking a potential drag.
+
+			this.screenDragStartX = e.clientX + window.scrollX;
+			this.screenDragStartY = e.clientY + window.scrollY;
+			window.addEventListener('mousemove', this.$onMouseMove);
+			window.addEventListener('mouseup', this.$onMouseUp);
+			document.querySelector('body').classList.add('draggingPassages');
+		},
+
 		followDrag(e) {
 			this.$dispatch(
 				'passage-drag',
-				e.clientX + window.scrollX - this.startDragX,
-				e.clientY + window.scrollY - this.startDragY
+				e.clientX + window.scrollX - this.screenDragStartX,
+				e.clientY + window.scrollY - this.screenDragStartY
 			);
 		},
 
@@ -259,48 +250,12 @@ module.exports = Vue.extend({
 			else {
 				this.$dispatch(
 					'passage-drag-complete',
-					e.clientX + window.scrollX - this.startDragX,
-					e.clientY + window.scrollY - this.startDragY,
+					e.clientX + window.scrollX - this.screenDragStartX,
+					e.clientY + window.scrollY - this.screenDragStartY,
 					this
 				);
 			}
-		},
-
-		startDrag(e) {
-			// Only listen to the left mouse button.
-
-			if (e.which !== 1) {
-				return;
-			}
-
-			if (e.shiftKey || e.ctrlKey) {
-				// Shift- or control-clicking toggles our selected status, but
-				// doesn't affect any other passage's selected status.
-				// If the shift or control key was not held down, select only
-				// ourselves.
-
-				this.selected = !this.selected;
-			}
-			else if (!this.selected) {
-				// If we are newly-selected and the shift or control keys are
-				// not held, deselect everything else. The check for
-				// newly-selected status is needed so that if the user is
-				// beginning a drag, we don't deselect everything right away.
-				// The check for that occurs in the mouse up handler, above.
-
-				this.selected = true;
-				this.$dispatch('passage-deselect-except', this);
-			}
-
-			// Begin tracking a potential drag.
-
-			this.startDragX = e.clientX + window.scrollX;
-			this.startDragY = e.clientY + window.scrollY;
-			window.addEventListener('mousemove', this.$onMouseMove);
-			window.addEventListener('mouseup', this.$onMouseUp);
-			document.querySelector('body').classList.add('draggingPassages');
-		},
-
+		}
 	},
 
 	events: {
@@ -357,7 +312,11 @@ module.exports = Vue.extend({
 				// passages. We need to stipulate that passages are not selected so
 				// that we don't inadvertantly collide with other passages being dragged.
 
-				this.$dispatch('passage-position', this, p => !p.selected);
+				this.$dispatch(
+					'passage-position',
+					this.passage,
+					{ ignoreSelected: true }
+				);
 			}
 		},
 
@@ -373,13 +332,8 @@ module.exports = Vue.extend({
 				return;
 			}
 
-			this.selected = rect.intersects(this.logicalRect, selectRect);
+			this.selected = rect.intersects(this.passage, selectRect);
 		}
-	},
-
-	ready() {
-		this.$onMouseMove = this.followDrag.bind(this);
-		this.$onMouseUp = this.stopDrag.bind(this);
 	},
 
 	components: {

@@ -6,7 +6,7 @@ const { deleteStory, importStory } = require('../../data/actions');
 const importHTML = require('../../data/import');
 const load = require('../../file/load');
 const locale = require('../../locale');
-const { thenable, symbols: { resolve } } = require('../../vue/mixins/thenable');
+const { thenable } = require('../../vue/mixins/thenable');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -79,6 +79,7 @@ module.exports = Vue.extend({
 
 						return list;
 					},
+
 					[]
 				);
 

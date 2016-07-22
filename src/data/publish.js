@@ -1,7 +1,6 @@
 // Publishes stories to HTML.
 
 const { escape } = require('underscore');
-const { loadFormat } = require('./actions');
 const locale = require('../locale');
 
 const publish = module.exports = {
@@ -22,7 +21,7 @@ const publish = module.exports = {
 
 		output = output.replace(/{{STORY_NAME}}/g, () => escape(story.name));
 		output = output.replace(/{{STORY_DATA}}/g, () => {
-			return publish.publishStory(story, formatOptions, startId)
+			return publish.publishStory(story, formatOptions, startId);
 		});
 
 		// Then, format-defined placeholders.
@@ -51,6 +50,7 @@ const publish = module.exports = {
 					story, null, null, true
 				) + '\n\n';
 			},
+
 			''
 		);
 	},

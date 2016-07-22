@@ -1,7 +1,7 @@
 // Functions for moving stories in and out of local storage. This module in
 // particular needs to remain well-optimized, as it has a direct effect on load
-// time. As a result, saving requires that you start and end a transaction manually.
-// This minimizes the number of writes to local storage.
+// time. As a result, saving requires that you start and end a transaction
+// manually. This minimizes the number of writes to local storage.
 
 let { createStory } = require('../actions');
 let commaList = require('./comma-list');
@@ -122,14 +122,28 @@ const story = module.exports = {
 				);
 
 				if (!newPassage || !newPassage.story) {
-					console.warn(`Passage ${id} did not have parent story id, skipping`, newPassage);
+					console.warn(
+						`Passage ${id} did not have parent story id, skipping`,
+						newPassage
+					);
 					return;
 				}
 
 				if (!stories[newPassage.story]) {
-					console.warn(`Passage ${id} is orphaned (looking for ${newPassage.story}), skipping`);
+					console.warn(
+						`Passage ${id} is orphaned (looking for ` +
+						`${newPassage.story}), skipping`
+					);
 					return;
-				};
+				}
+
+				if (!newPassage.width) {
+					newPassage.width = 100;
+				}
+
+				if (!newPassage.height) {
+					newPassage.height = 100;
+				}
 
 				stories[newPassage.story].passages.push(newPassage);
 			});

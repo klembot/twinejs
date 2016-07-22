@@ -10,8 +10,6 @@
 	padding: @len-small;
 	border: @len-hairline solid transparent;
 	border-radius: 2px;
-	width: 100px;
-	height: 100px;
 	overflow: hidden;
 	.shadow-small;
 
@@ -48,9 +46,6 @@
 }
 
 #storyEditView.zoom-medium .passage {
-	width: 60px;
-	height: 60px;
-
 	.frame {
 		height: 100%;
 		display: flex;
@@ -74,8 +69,6 @@
 }
 
 #storyEditView.zoom-small .passage {
-	width: 25px;
-	height: 25px;
 	padding: 0;
 
 	.frame {
@@ -83,6 +76,9 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		background: linear-gradient(to bottom, transparent 0, lighten(@color-text, 60%) 1px, transparent 1px);
+		background-size: 3px 3px;
+		margin: 2px;
 	}
 
 	.title .text, .excerpt {

@@ -1,12 +1,55 @@
 @import '../../common/colors.less';
 
-#storyEditView .links {
-	width: 100%;
-	height: 100%;
+@color-link-arrow: lighten(@color-text, 10%);
 
-	svg polyline {
-		stroke: lighten(@color-text, 10%);
+#storyEditView .links {
+	transform-origin: 0 0;
+
+	path {
+		stroke: @color-link-arrow;
 		fill: none;
 		stroke-width: 2px;
 	}
+
+	#link-arrowhead-left path,
+	#link-arrowhead-right path,
+	#link-arrowhead-up path,
+	#link-arrowhead-down path {
+		fill: @color-link-arrow;
+		stroke: none;
+	}
+	
+	#link-broken path {
+		fill: @color-danger;
+		stroke-width: 1px;
+		stroke-linecap: square;
+		stroke-linejoin: miter;
+		stroke: @color-danger;
+	}
+
+	.marker-left {
+		marker-end: url(#link-arrowhead-left);
+	}
+
+	.marker-right {
+		marker-end: url(#link-arrowhead-right);
+	}
+
+	.marker-down {
+		marker-end: url(#link-arrowhead-down);
+	}
+
+	.marker-up {
+		marker-end: url(#link-arrowhead-up);
+	}
+	
+	.marker-broken {
+		marker-end: url(#link-broken);
+	}
+}
+
+// Cheat the most zoomed-out view a bit bolder.
+
+#storyEditView.zoom-small .links path {
+	stroke-width: 3px;
 }

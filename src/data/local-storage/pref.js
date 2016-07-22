@@ -52,7 +52,7 @@ module.exports = {
 
 				setPref(store, item.name, item.value);
 			}
-			catch(e) {
+			catch (e) {
 				console.warn(
 					`Preference ${id} had corrupt serialized value, skipping`,
 					window.localStorage.getItem('twine-prefs-' + id)

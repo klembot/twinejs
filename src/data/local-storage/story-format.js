@@ -8,7 +8,8 @@ module.exports = {
 		// Delete existing formats in local storage, since we aren't bothering to
 		// preserve ids.
 
-		const previouslySerialized = window.localStorage.getItem('twine-storyformats');
+		const previouslySerialized =
+			window.localStorage.getItem('twine-storyformats');
 
 		if (previouslySerialized) {
 			previouslySerialized.split(',').forEach(id => {
@@ -53,7 +54,7 @@ module.exports = {
 
 				addFormat(store, item);
 			}
-			catch(e) {
+			catch (e) {
 				console.warn(
 					`Story format ${id} had corrupt serialized value, skipping`,
 					window.localStorage.getItem('twine-storyformats-' + id)

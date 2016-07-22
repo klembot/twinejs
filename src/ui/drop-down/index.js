@@ -19,6 +19,10 @@ module.exports = Vue.extend({
 		openOn: {
 			type: String,
 			default: 'click'
+		},
+		showNow: {
+			type: Boolean,
+			default: false
 		}
 	},
 
@@ -37,6 +41,10 @@ module.exports = Vue.extend({
 		this.$drop.drop.addEventListener('click', () => {
 			this.$drop.close();
 		});
+
+		if (this.showNow) {
+			this.$drop.open();
+		}
 	},
 
 	destroyed() {

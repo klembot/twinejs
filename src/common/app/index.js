@@ -1,7 +1,6 @@
 // The main app running the show.
 
 'use strict';
-const $ = require('jquery');
 const Vue = require('vue');
 const ui = require('../../ui');
 const { repairFormats } = require('../../data/actions');

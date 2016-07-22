@@ -1,8 +1,7 @@
-<div class="passage" :style="cssPosition" :class="cssClasses" @mousedown.stop="startDrag" @dblclick.stop="edit">
+<div class="passage" :style="cssPosition" :class="cssClasses" @mousedown.stop="startDrag" @dblclick.stop="edit" @mouseover="needsMenu = true">
 	<div class="frame">
 		<p class="title">
 			<span class="badge-create" v-if="isStart"><i class="fa fa-rocket"></i></span>
-			<span class="badge-danger" v-if="hasBrokenLinks"><i class="fa fa-minus"></i></span>
 			<span class="text">{{ passage.name }}</span>
 		</p>
 
@@ -11,5 +10,5 @@
 		</p>
 	</div> <!-- .frame -->
 
-	<passage-menu :passage="passage"></passage-menu>
+	<passage-menu v-if="needsMenu" :passage="passage"></passage-menu>
 </div>

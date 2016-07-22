@@ -5,7 +5,6 @@ const checkForUpdate = require('../../common/app/update-check');
 const { confirm } = require('../confirm');
 const locale = require('../../locale');
 const { setPref } = require('../../data/actions');
-const store = require('../../data/store');
 
 // How often we check for a new version of Twine, in milliseconds. This is
 // currently one day.
@@ -19,7 +18,7 @@ module.exports = {
 
 		if (!store.state.pref.lastUpdateSeen ||
 			store.state.pref.lastUpdateSeen < store.state.appInfo.buildNumber) {
-			setPref(store, 'lastUpdateSeen', store.state.appInfo.buildNumber);	
+			setPref(store, 'lastUpdateSeen', store.state.appInfo.buildNumber)
 		}
 
 		// Is there a new update since we last checked?
@@ -30,7 +29,7 @@ module.exports = {
 			checkForUpdate(
 				store.state.pref.lastUpdateSeen,
 				({ buildNumber, version, url }) => {
-					lastUpdateSeenPref.save({ value: buildNumber });
+					setPref(store, 'lastUpdateSeen', buildNumber);
 
 					confirm({
 						message:
