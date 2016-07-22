@@ -18,14 +18,32 @@
 	opacity: 0;
 }
 
-.grow-in-out-transition {
-	transition: 0.3s transform, 0.3s opacity;
-	transform: none;
-	opacity: 1;
+.grow-in-out-enter {
+	animation: 0.3s growIn forwards;
 }
 
-.grow-in-out-enter, .grow-in-out-leave {
-	transform: scale(0.75);
-	opacity: 0;
+.grow-in-out-leave {
+	animation: 0.3s growIn reverse forwards;
 }
 
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes growIn {
+	from {
+		opacity: 0;
+		transform: scale(0.75);
+	}
+
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}

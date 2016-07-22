@@ -38,7 +38,7 @@ module.exports = {
 						)
 					);
 				});
-			break;
+				break;
 
 			case 'UPDATE_STORY':
 				story.update(transaction => {
@@ -49,7 +49,7 @@ module.exports = {
 						)
 					);
 				});
-			break;
+				break;
 
 			case 'DUPLICATE_STORY':
 				story.update(transaction => {
@@ -63,7 +63,7 @@ module.exports = {
 						passage => story.savePassage(transaction, passage)
 					);
 				});
-			break;
+				break;
 
 			case 'IMPORT_STORY':
 				story.update(transaction => {
@@ -77,9 +77,9 @@ module.exports = {
 						passage => story.savePassage(transaction, passage)
 					);
 				});
-			break;
+				break;
 
-			case 'DELETE_STORY':
+			case 'DELETE_STORY': {
 				// We have to use our last copy of the stories array, because
 				// by now the deleted story is gone from the state.
 
@@ -96,7 +96,8 @@ module.exports = {
 
 					story.deleteStory(transaction, toDelete);
 				});
-			break;
+				break;
+			}
 
 			// When saving a passage, we have to make sure to save its parent
 			// story too, since its lastUpdate property has changed.
@@ -113,7 +114,7 @@ module.exports = {
 					story.saveStory(transaction, parentStory);
 					story.savePassage(transaction, passage);
 				});
-			break;
+				break;
 			}
 
 			case 'UPDATE_PASSAGE_IN_STORY': {
@@ -128,7 +129,7 @@ module.exports = {
 					story.saveStory(transaction, parentStory);
 					story.savePassage(transaction, passage);
 				});
-			break;
+				break;
 			}
 				
 			case 'DELETE_PASSAGE_IN_STORY': {
@@ -144,7 +145,7 @@ module.exports = {
 					story.saveStory(transaction, parentStory);
 					story.deletePassageById(transaction, mutation.payload[1]);
 				});
-			break;
+				break;
 			}
 
 			case 'UPDATE_PREF':
@@ -169,4 +170,4 @@ module.exports = {
 		
 		previousStories = state.story.stories;
 	}
-}
+};

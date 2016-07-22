@@ -4,7 +4,6 @@
 
 'use strict';
 const Vue = require('vue');
-const locale = require('../index');
 const { setPref } = require('../../data/actions');
 
 module.exports = Vue.extend({

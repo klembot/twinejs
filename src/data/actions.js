@@ -3,6 +3,7 @@
 const $ = require('jquery');
 const linkParser = require('./link-parser');
 const locale = require('../locale');
+const rect = require('../common/rect');
 
 const actions = module.exports = {
 	setPref({ dispatch }, name, value) {
@@ -39,6 +40,76 @@ const actions = module.exports = {
 
 	deletePassageInStory({ dispatch }, storyId, passageId) {
 		dispatch('DELETE_PASSAGE_IN_STORY', storyId, passageId);
+	},
+
+	// Moves a passage so it doesn't overlap any other in its story, and also
+	// snaps to a grid.
+
+	positionPassage(store, storyId, passageId, gridSize, filter) {
+		const story = store.state.story.stories.find(
+			story => story.id == storyId
+		);
+
+		if (!story) {
+			throw new Error(`No story exists with id ${storyId}`);
+		}
+
+		const passage = story.passages.find(
+			passage => passage.id == passageId
+		);
+
+		if (!passage) {
+			throw new Error(
+				`No passage exists in this story with id ${passageId}`
+			);
+		}
+
+		// Displace by other passages.
+
+		let passageRect = {
+			top: passage.top,
+			left: passage.left,
+			width: passage.width,
+			height: passage.height
+		};
+
+		story.passages.forEach(other => {
+			if (other === passage || (filter && !filter(other))) {
+				return;
+			}
+
+			const otherRect = {
+				top: other.top,
+				left: other.left,
+				width: other.width,
+				height: other.height
+			};
+
+			if (rect.intersects(otherRect, passageRect)) {
+				rect.displace(passageRect, otherRect, 10);
+			}
+		});
+
+		// Snap to the grid.
+
+		if (story.snapToGrid && gridSize !== 0) {
+			passageRect.left = Math.round(passageRect.left / gridSize) *
+				gridSize;
+			passageRect.top = Math.round(passageRect.top / gridSize) *
+				gridSize;
+		}
+
+		// Save the change.
+
+		actions.updatePassageInStory(
+			store,
+			storyId,
+			passageId,
+			{
+				top: passageRect.top,
+				left: passageRect.left
+			}
+		);
 	},
 
 	// Adds new passages to a story based on new links added in a passage's
@@ -108,13 +179,13 @@ const actions = module.exports = {
 			})
 			.done(props => {
 				if (store.state.storyFormat.formats.some(
-					format => format.name === props.name) && false) {
-						reject(new Error(
-							locale.say(
-								'a story format named &ldquo;%s&rdquo; already exists',
-								props.name
-							)
-						));
+					format => format.name === props.name)) {
+					reject(new Error(
+						locale.say(
+							'a story format named &ldquo;%s&rdquo; already exists',
+							props.name
+						)
+					));
 				}
 
 				const format = {

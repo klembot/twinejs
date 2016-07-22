@@ -5,30 +5,6 @@ const locale = require('../locale');
 const uuid = require('tiny-uuid');
 const ui = require('../ui');
 
-// Defaults for newly-created objects.
-
-const storyDefaults = {
-	name: locale.say('Untitled Story'),
-	startPassage: -1,
-	zoom: 1,
-	snapToGrid: false,
-	stylesheet: '',
-	script: '',
-	storyFormat: ''
-};
-
-const passageDefaults = {
-	story: -1,
-	top: 0,
-	left: 0,
-	tags: [],
-	name: locale.say('Untitled Passage'),
-
-	text: ui.hasPrimaryTouchUI() ?
-		locale.say('Tap this passage, then the pencil icon to edit it.')
-		: locale.say('Double-click this passage to edit it.')
-};
-
 // A shorthand function for finding a particular story in the state, or a
 // particular passage in a story.
 
@@ -52,7 +28,7 @@ function getPassageInStory(story, id) {
 	return passage;
 }
 
-module.exports = {
+const storyStore = module.exports = {
 	state: {
 		stories: []
 	},
@@ -66,7 +42,7 @@ module.exports = {
 					ifid: uuid().toUpperCase(),
 					passages: []
 				},
-				storyDefaults,
+				storyStore.storyDefaults,
 				props
 			));
 		},
@@ -129,7 +105,7 @@ module.exports = {
 				{
 					id: uuid()
 				},
-				passageDefaults,
+				storyStore.passageDefaults,
 				props
 			);
 
@@ -157,5 +133,31 @@ module.exports = {
 				story.passages.filter(passage => passage.id !== passageId);
 			story.lastUpdate = new Date();
 		}
+	},
+
+	// Defaults for newly-created objects.
+
+	storyDefaults: {
+		name: locale.say('Untitled Story'),
+		startPassage: -1,
+		zoom: 1,
+		snapToGrid: false,
+		stylesheet: '',
+		script: '',
+		storyFormat: ''
+	},
+
+	passageDefaults: {
+		story: -1,
+		top: 0,
+		left: 0,
+		width: 100,
+		height: 100,
+		tags: [],
+		name: locale.say('Untitled Passage'),
+
+		text: ui.hasPrimaryTouchUI() ?
+			locale.say('Tap this passage, then the pencil icon to edit it.')
+			: locale.say('Double-click this passage to edit it.')
 	}
 };

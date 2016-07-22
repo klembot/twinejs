@@ -40,7 +40,7 @@ module.exports = Vue.extend({
 	},
 
 	vuex: {
-		actions: { 
+		actions: {
 			setPref
 		}
 	}

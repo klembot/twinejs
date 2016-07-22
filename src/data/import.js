@@ -64,6 +64,14 @@ function domToObject(storyEl, forceLastUpdate) {
 							pos[0],
 						top:
 							pos[1],
+						width:
+							passageEl.attributes.width ?
+								parseInt(passageEl.attributes.width.value)
+								: 100,
+						height:
+							passageEl.attributes.height ?
+								parseInt(passageEl.attributes.width.value)
+								: 100,
 						tags:
 							passageEl.attributes.tags.value.split(/\s+/),
 						name:

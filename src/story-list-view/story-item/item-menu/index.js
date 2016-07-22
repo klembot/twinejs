@@ -7,7 +7,6 @@ const { deleteStory, duplicateStory, loadFormat, updateStory } =
 	require('../../../data/actions');
 const { prompt } = require('../../../dialogs/prompt');
 const locale = require('../../../locale');
-const notify = require('../../../ui/notify');
 const { publishStoryWithFormat } = require('../../../data/publish');
 const save = require('../../../file/save');
 
@@ -140,7 +139,7 @@ module.exports = Vue.extend({
 	},
 
 	vuex: {
-		actions: { 
+		actions: {
 			deleteStory,
 			duplicateStory,
 			loadFormat,

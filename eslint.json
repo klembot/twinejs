@@ -4,6 +4,12 @@
             2,
             "always"
         ],
+		"no-console": [
+			2,
+			{
+				"allow": ["warn"]
+			}	
+		],
         "no-extra-semi": 0,
         "no-mixed-spaces-and-tabs": 0,
         "comma-dangle": 0
