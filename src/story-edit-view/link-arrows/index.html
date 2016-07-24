@@ -17,7 +17,29 @@
 			<path d="M 1,2 2,1 5,4 8,1 9,2 6,5 9,8 8,9, 5,6 2,9 1,8 4,5 Z">
 		</marker>
 	</defs>
-	
+
+	<style>
+		.marker-left {
+			marker-end: url(#link-arrowhead-left);
+		}
+
+		.marker-right {
+			marker-end: url(#link-arrowhead-right);
+		}
+
+		.marker-down {
+			marker-end: url(#link-arrowhead-down);
+		}
+
+		.marker-up {
+			marker-end: url(#link-arrowhead-up);
+		}
+		
+		.marker-broken {
+			marker-end: url(#link-broken);
+		}
+	</style>
+
 	<template v-for="(start, startLinks) in links" track-by="$index">
 		<template v-for="end in startLinks" track-by="$index">
 			<link-arrow :start="anchors[start]" :end="anchors[end]"></link-arrow>
