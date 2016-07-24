@@ -26,26 +26,12 @@
 		stroke-linejoin: miter;
 		stroke: @color-danger;
 	}
-
-	.marker-left {
-		marker-end: url(#link-arrowhead-left);
-	}
-
-	.marker-right {
-		marker-end: url(#link-arrowhead-right);
-	}
-
-	.marker-down {
-		marker-end: url(#link-arrowhead-down);
-	}
-
-	.marker-up {
-		marker-end: url(#link-arrowhead-up);
-	}
 	
-	.marker-broken {
-		marker-end: url(#link-broken);
-	}
+	/*
+	Arrowheads are applied via an inline style in index.html. There seems to be
+	disagreement on the proper way to implement this, but it does not work in
+	an external stylesheet in Firefox.
+	*/
 }
 
 // Cheat the most zoomed-out view a bit bolder.
