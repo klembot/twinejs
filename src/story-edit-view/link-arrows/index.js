@@ -16,11 +16,11 @@ module.exports = Vue.extend({
 		},
 
 		/*
-		The anchor points of the passages, indexed by passage name. Each entry
-		should contain top, left, right, and bottom properties.
+		The positions of the passages, indexed by passage name. Each entry
+		should contain top, left, width and height properties.
 		*/
 
-		anchors: {
+		positions: {
 			type: Object,
 			required: true
 		},
