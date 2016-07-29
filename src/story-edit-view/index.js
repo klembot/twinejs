@@ -113,13 +113,13 @@ module.exports = Vue.extend({
 			return this.$refs.passages.filter(p => p.selected);
 		},
 
-		// An array of <passage-item> components and their link anchor points,
+		// An array of <passage-item> components and their link positions,
 		// indexed by name.
 
-		passageAnchors() {
+		passagePositions() {
 			return this.$refs.passages.reduce(
 				(result, passageView) => {
-					result[passageView.passage.name] = passageView.anchorPoints;
+					result[passageView.passage.name] = passageView.linkPosition;
 					return result;
 				},
 

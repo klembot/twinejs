@@ -1,16 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" class="links" :style="cssStyle">
 	<!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Element/marker -->
 	<defs>
-		<marker id="link-arrowhead-right" refX="1" refY="4" markerWidth="8" markerHeight="8" orient="0">
-			<path d="M 1,1 7,4 1,7 Z">
-		</marker>
-		<marker id="link-arrowhead-down" refX="1" refY="4" markerWidth="8" markerHeight="8" orient="90">
-			<path d="M 1,1 7,4 1,7 Z">
-		</marker>
-		<marker id="link-arrowhead-left" refX="1" refY="4" markerWidth="8" markerHeight="8" orient="180">
-			<path d="M 1,1 7,4 1,7 Z">
-		</marker>
-		<marker id="link-arrowhead-up" refX="1" refY="4" markerWidth="8" markerHeight="8" orient="270">
+		<marker id="link-arrowhead" refX="6" refY="4" markerWidth="8" markerHeight="8" orient="auto">
 			<path d="M 1,1 7,4 1,7 Z">
 		</marker>
 		<marker id="link-broken" refX="4.5" refY="4.5" markerWidth="10" markerHeight="10">
@@ -19,22 +10,10 @@
 	</defs>
 
 	<style>
-		.marker-left {
-			marker-end: url(#link-arrowhead-left);
+		.marker-arrow {
+			marker-end: url(#link-arrowhead);
 		}
 
-		.marker-right {
-			marker-end: url(#link-arrowhead-right);
-		}
-
-		.marker-down {
-			marker-end: url(#link-arrowhead-down);
-		}
-
-		.marker-up {
-			marker-end: url(#link-arrowhead-up);
-		}
-		
 		.marker-broken {
 			marker-end: url(#link-broken);
 		}
@@ -42,7 +21,7 @@
 
 	<template v-for="(start, startLinks) in links" track-by="$index">
 		<template v-for="end in startLinks" track-by="$index">
-			<link-arrow :start="anchors[start]" :end="anchors[end]"></link-arrow>
+			<link-arrow :start="positions[start]" :end="positions[end]"></link-arrow>
 		</template>
 	</template>
 </svg>

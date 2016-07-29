@@ -72,37 +72,25 @@ module.exports = Vue.extend({
 
 	computed: {
 		/*
-		Anchor points for link arrows to connect to in (x, y) format. This does
+		The position to use when drawing link arrows to this passage. This does
 		*not* factor in the story's zoom level, as the link arrow component
 		will be doing that itself.
 		*/
 
-		anchorPoints() {
-			let { top, left, width, height } = this.passage;
+		linkPosition() {
+			let result = {
+				top: this.passage.top,
+				left: this.passage.left,
+				width: this.passage.width,
+				height: this.passage.height
+			};
 
 			if (this.selected) {
-				left += this.screenDragOffsetX / this.parentStory.zoom;
-				top += this.screenDragOffsetY / this.parentStory.zoom;
+				result.left += this.screenDragOffsetX / this.parentStory.zoom;
+				result.top += this.screenDragOffsetY / this.parentStory.zoom;
 			}
 
-			return {
-				top: {
-					x: left + width / 2,
-					y: top
-				},
-				bottom: {
-					x: left + width / 2,
-					y: top + height
-				},
-				left: {
-					x: left,
-					y: top + height / 2
-				},
-				right: {
-					x: left + width,
-					y: top + height / 2
-				}
-			};
+			return result;
 		},
 
 		isStart() {
