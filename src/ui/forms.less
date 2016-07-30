@@ -1,0 +1,54 @@
+@import '../common/colors.less';
+@import '../common/depth.less';
+@import '../common/fonts.less';
+@import '../common/metrics.less';
+
+
+input[type="text"], input[type="search"], input[type="password"], textarea,
+	.CodeMirror {
+	font: 100% @font-user;
+	border: none;
+	box-shadow: 0 1px 0 @color-form-line;
+	border-radius: 0;
+	padding: @len-small 0;
+	transition: 0.2s box-shadow;
+
+	&:focus {
+		outline: none;
+		box-shadow: 0 2px 0 @color-link;
+	}
+}
+
+textarea, .CodeMirror {
+	border-radius: 2px;
+	box-shadow: 0 0 0 1px @color-form-line;
+	padding: @len-small;
+	transition: 0.2s box-shadow;
+
+	&:focus {
+		box-shadow: 0 0 0 2px @color-link;
+	}
+}
+
+// These have to be separate rules because browsers will ignore a rule that has
+// any part that it can't understand.
+
+::-webkit-input-placeholder {
+	font: 100% @font-ui;
+	margin: 0;
+	padding: 0;
+}
+
+::-moz-placeholder {
+	font: 100% @font-ui;
+}
+
+::-ms-input-placeholder {
+	font: 100% @font-ui;
+}
+
+// Fix appearance of search fields in Safari.
+
+input[type="search"] {
+	-webkit-appearance: none;
+}

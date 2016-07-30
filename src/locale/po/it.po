@@ -1,0 +1,970 @@
+# ITALIAN TRANSLATION FOR TWINE 2.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Marco Secchi, http://marcosecchi.it 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-06-06 16:56+0200\n"
+"PO-Revision-Date: 2016-06-06 18:23+0200\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.8\n"
+"Last-Translator: Marco Secchi <loziosecchi@gmail.com>\n"
+"Language: it\n"
+
+#. L10n: %s is the name of an author.
+#: src/common/ejs/storyFormatDetail.ejs:26
+#, php-format
+msgid "by %s"
+msgstr "di %s"
+
+#. L10n: %s is the name of a software license.
+#: src/common/ejs/storyFormatDetail.ejs:39
+#, php-format
+msgid "License: %s"
+msgstr ""
+"Licenza\n"
+": %s"
+
+#: src/locale/ejs/localeView.ejs:4
+msgid "Please choose which language you would like to use with Twine."
+msgstr "Prego scegli la lingua che vuoi utilizzare con Twine"
+
+#: src/story-edit/ejs/passageEditModal.ejs:8
+msgid "Passage Name"
+msgstr "Nome Passaggio"
+
+#. L10n: this is the noun form, as in tags you would apply to content.
+#: src/story-edit/ejs/passageEditModal.ejs:22
+msgid "Tag"
+msgstr "Etichetta"
+
+#. L10n: A noun, i.e. what a tag is named.
+#: src/story-edit/ejs/passageEditModal.ejs:28
+msgid "Tag name"
+msgstr "Nome etichetta"
+
+#: src/story-edit/ejs/passageEditModal.ejs:36
+msgid ""
+"Enter the body text of your passage here. To link to another passage, put "
+"two square brackets around its name, [[like this]]."
+msgstr ""
+"Inserisci qui il corpo del tuo testo. Per collegare ad un altro passaggio, "
+"aggiungi due parentesi quadre intorno al nome, [[in questo modo]]."
+
+#. L10n: %s is the name of the thing to be deleted.
+#: src/story-edit/ejs/passageItemView.ejs:16
+#, php-format
+msgid "Delete &ldquo;%s&rdquo;"
+msgstr "Elimina &ldquo;%s&rdquo;"
+
+#. L10n: %s is the name of the thing to be edited.
+#: src/story-edit/ejs/passageItemView.ejs:21
+#, php-format
+msgid "Edit &ldquo;%s&rdquo;"
+msgstr "Modifica &ldquo;%s&rdquo;"
+
+#: src/story-edit/ejs/passageItemView.ejs:24
+msgid "Test story starting here"
+msgstr "Il racconto test inizia qui"
+
+#. L10n: %s is a name of a passage
+#: src/story-edit/ejs/passageItemView.ejs:28
+#, php-format
+msgid "Set &ldquo;%s&rdquo; as starting point"
+msgstr "Seleziona &ldquo;%s&rdquo; come punto di partenza"
+
+#: src/story-edit/ejs/renameStoryModal.ejs:8 src/story-edit/ejs/toolbar.ejs:31
+#: src/story-list/ejs/storyItemView.ejs:36
+msgid "Rename Story"
+msgstr "Rinomina Racconto"
+
+#: src/story-edit/ejs/renameStoryModal.ejs:14
+msgid "What should this story's name be?"
+msgstr "Qual’è il nome del racconto?"
+
+#: src/story-edit/ejs/renameStoryModal.ejs:24
+msgid "Please enter a name."
+msgstr "Inserisci un nome"
+
+#: src/story-edit/ejs/renameStoryModal.ejs:28
+#: src/story-list/ejs/formatItem.ejs:7 src/story-list/ejs/storyListView.ejs:25
+#: src/story-list/ejs/storyListView.ejs:50 src/ui/ejs/confirm.ejs:5
+#: src/ui/ejs/prompt.ejs:9
+msgid "Cancel"
+msgstr "Annulla"
+
+#: src/story-edit/ejs/renameStoryModal.ejs:29
+msgid "Save"
+msgstr "Salva"
+
+#: src/story-edit/ejs/scriptEditModal.ejs:8
+msgid "JavaScript"
+msgstr "JavaScript"
+
+#: src/story-edit/ejs/scriptEditModal.ejs:14
+msgid ""
+"Any JavaScript entered here will immediately run when your story is opened "
+"in a Web browser."
+msgstr ""
+"Qualsiasi codice JavaScript inserito qui verrà immediatamente eseguito "
+"quando il racconto verrà aperto con un Web browser."
+
+#: src/story-edit/ejs/searchModal.ejs:7
+msgid "Find and Replace"
+msgstr "Trova e Sostituisci"
+
+#: src/story-edit/ejs/searchModal.ejs:12
+msgid "Search For"
+msgstr "Cerca"
+
+#: src/story-edit/ejs/searchModal.ejs:18
+msgid "Include passage names"
+msgstr "Includi i nomi dei passaggi"
+
+#. L10n: As in uppercase or lowercase letters.
+#: src/story-edit/ejs/searchModal.ejs:23
+msgid "Match case"
+msgstr "Maiuscole/Minuscole"
+
+#. L10n: A technical term, see https://en.wikipedia.org/wiki/Regular_expression.
+#: src/story-edit/ejs/searchModal.ejs:29
+msgid "Regular expression"
+msgstr "Espressione regolare"
+
+#: src/story-edit/ejs/searchModal.ejs:34
+msgid "Replace With"
+msgstr "Sostituisci con"
+
+#: src/story-edit/ejs/searchModal.ejs:40
+msgid "Expand all search results"
+msgstr "Espandi tutti i risultati della ricerca"
+
+#: src/story-edit/ejs/searchModal.ejs:44
+msgid "Collapse all search results"
+msgstr "Chiudi tutti i risultati della ricerca"
+
+#: src/story-edit/ejs/searchModal.ejs:49
+msgid "Replace All"
+msgstr "Sostituisci tutti"
+
+#: src/story-edit/ejs/searchModal.ejs:57
+msgid "Searching..."
+msgstr "Cerco…"
+
+#. L10n: %d is a number of text matches after a search.
+#: src/story-edit/ejs/searchModalResult.ejs:13
+#, php-format
+msgid "%d match"
+msgid_plural "%d matches"
+msgstr[0] "%d trovato"
+msgstr[1] "%d trovati"
+
+#: src/story-edit/ejs/searchModalResult.ejs:22
+msgid "Replace in this passage"
+msgstr "Sostituisci questo passaggio"
+
+#: src/story-edit/ejs/searchModalResult.ejs:23
+msgid "Replace in Passage"
+msgstr "Sostituisci nel Passaggio"
+
+#: src/story-edit/ejs/statsModal.ejs:8 src/story-edit/ejs/toolbar.ejs:39
+msgid "Story Statistics"
+msgstr "Statistiche del racconto"
+
+#: src/story-edit/ejs/statsModal.ejs:38
+#, php-format
+msgid "This story was last changed at %s"
+msgstr "Il racconto è stato modificato il %s"
+
+#. L10n: %s is the IFID of the story. Please keep the <span> element around it.
+#: src/story-edit/ejs/statsModal.ejs:45
+#, php-format
+msgid ""
+"The IFID for this story is <span class=\"ifid\">%s</span>. <a href=\"http:\\/"
+"\\/ifdb.tads.org/help-ifid\" target=\"_blank\">What's an IFID?</a>)"
+msgstr ""
+"L’IFID per questo racconto è <span class=\"ifid\">%s</span>. <a href=\"http:"
+"\\/\\/ifdb.tads.org/help-ifid\" target=\"_blank\">Cos’è un IFID?</a>)"
+
+#: src/story-edit/ejs/storyFormatModal.ejs:7
+msgid "Story Format"
+msgstr "Formato racconto"
+
+#: src/story-edit/ejs/storyFormatModal.ejs:12
+msgid ""
+"A story format controls the appearance and behavior of your story during "
+"play."
+msgstr ""
+"Il formato di un racconto controlla l'aspetto ed il comportamento del tuo "
+"racconto durante l'esecuzione."
+
+#: src/story-edit/ejs/storyFormatModal.ejs:16
+msgid "Loading..."
+msgstr "In caricamento…"
+
+#: src/story-edit/ejs/stylesheetEditModal.ejs:8
+msgid "Stylesheet"
+msgstr "Foglio di stile"
+
+#: src/story-edit/ejs/stylesheetEditModal.ejs:14
+msgid ""
+"Any CSS entered here will override the default appearance of your story."
+msgstr ""
+"Qualsiasi CSS inserito qui andrà a modificare l’aspetto del tuo racconto"
+
+#: src/story-edit/ejs/toolbar.ejs:5
+msgid "Go to the story list"
+msgstr "Vai alla lista dei racconti"
+
+#: src/story-edit/ejs/toolbar.ejs:19
+msgid "Edit Story JavaScript"
+msgstr "Modifica il codice JavaScript del racconto"
+
+#: src/story-edit/ejs/toolbar.ejs:23
+msgid "Edit Story Stylesheet"
+msgstr "Modifica il foglio stile del racconto"
+
+#: src/story-edit/ejs/toolbar.ejs:27
+msgid "Change Story Format"
+msgstr "Cambia il Formato del racconto"
+
+#: src/story-edit/ejs/toolbar.ejs:35
+msgid "Snap to Grid"
+msgstr "Blocca sulla griglia"
+
+#: src/story-edit/ejs/toolbar.ejs:45
+msgid "View Proofing Copy"
+msgstr "Visualizza Copia di Test"
+
+#: src/story-edit/ejs/toolbar.ejs:49 src/story-list/ejs/storyItemView.ejs:32
+msgid "Publish to File"
+msgstr "Pubblica come File"
+
+#: src/story-edit/ejs/toolbar.ejs:62
+msgid "Quick Find"
+msgstr "Ricerca veloce"
+
+#: src/story-edit/ejs/toolbar.ejs:63
+msgid "Find and replace across the entire story"
+msgstr "Trova e sostituisci all’interno di tutto il racconto"
+
+#: src/story-edit/ejs/toolbar.ejs:67
+msgid "Show only story structure"
+msgstr "Mostra solo la struttura del racconto"
+
+#: src/story-edit/ejs/toolbar.ejs:71
+msgid "Show only passage titles"
+msgstr "Mostra solo i titoli dei passaggi"
+
+#: src/story-edit/ejs/toolbar.ejs:75
+msgid "Show passage titles and excerpts"
+msgstr "Mostra i titoli dei passaggi e gli estratti"
+
+#: src/story-edit/ejs/toolbar.ejs:81
+msgid "Play this story in test mode"
+msgstr "Esegui il racconto in modalità test"
+
+#. L10n: The verb form, to try something or to check it for problems.
+#: src/story-edit/ejs/toolbar.ejs:84
+msgid "Test"
+msgstr "Test"
+
+#: src/story-edit/ejs/toolbar.ejs:88
+msgid "Play this story"
+msgstr "Esegui questo racconto"
+
+#. L10n: The verb form, as in playing a game.
+#: src/story-edit/ejs/toolbar.ejs:91
+msgid "Play"
+msgstr "Esegui"
+
+#: src/story-edit/ejs/toolbar.ejs:95
+msgid "Add a new passage"
+msgstr "Aggiungi un nuovo passaggio"
+
+#. L10n: This does not actually show the count here, as it is used in a table.
+#: src/story-edit/ejs/toolbar.ejs:96 src/story-edit/modals/statsModal.js:77
+msgid "Passage"
+msgid_plural "Passages"
+msgstr[0] "Passaggio"
+msgstr[1] "Passaggi"
+
+#: src/story-list/ejs/formatItem.ejs:5
+msgid "Are you sure?"
+msgstr "Sei sicuro?"
+
+#: src/story-list/ejs/formatItem.ejs:6
+msgid "Remove"
+msgstr "Rimuovi"
+
+#: src/story-list/ejs/formatItem.ejs:12
+msgid "Remove this format"
+msgstr "Elimina questo formato"
+
+#: src/story-list/ejs/formatItem.ejs:14
+msgid "Set this format as default for stories"
+msgstr "Seleziona questo formato come predefinito per i racconti."
+
+#: src/story-list/ejs/storyItemView.ejs:24
+msgid "Play Story"
+msgstr "Esegui Racconto"
+
+#: src/story-list/ejs/storyItemView.ejs:28
+msgid "Test Story"
+msgstr "Testa Racconto"
+
+#: src/story-list/ejs/storyItemView.ejs:40
+msgid "Duplicate Story"
+msgstr "Duplica Racconto"
+
+#: src/story-list/ejs/storyItemView.ejs:46
+msgid "Delete Story"
+msgstr "Elimina Racconto"
+
+#: src/story-list/ejs/storyListView.ejs:5
+msgid "Twine"
+msgstr "Twine"
+
+#: src/story-list/ejs/storyListView.ejs:9
+msgid "Create a brand-new story"
+msgstr "Crea un nuovo Racconto"
+
+#: src/story-list/ejs/storyListView.ejs:10
+msgid "Story"
+msgstr "Racconto"
+
+#: src/story-list/ejs/storyListView.ejs:17
+msgid "What should your story be named?<br>(You can change this later.)"
+msgstr "Qual’è il nome del Racconto?<br>(più tardi potrai cambiarlo.)"
+
+#: src/story-list/ejs/storyListView.ejs:26
+msgid "Add"
+msgstr "Aggiungi"
+
+#: src/story-list/ejs/storyListView.ejs:34
+msgid "Import a published story or Twine archive"
+msgstr "Importa una storia pubblicata o un archivio Twine"
+
+#: src/story-list/ejs/storyListView.ejs:35
+msgid "Import From File"
+msgstr "Importa da File"
+
+#: src/story-list/ejs/storyListView.ejs:42
+msgid "Import this file:"
+msgstr "Importa questo File:"
+
+#: src/story-list/ejs/storyListView.ejs:59
+msgid "Importing..."
+msgstr "In importazione…"
+
+#: src/story-list/ejs/storyListView.ejs:67
+msgid "Save all stories to a Twine archive file"
+msgstr "Salva tutti i racconti in un file archivio Twine"
+
+#: src/story-list/ejs/storyListView.ejs:68
+msgid "Archive"
+msgstr "Archivio"
+
+#: src/story-list/ejs/storyListView.ejs:73
+msgid "Work with story and proofing formats"
+msgstr "Lavora con i formati racconto e test"
+
+#: src/story-list/ejs/storyListView.ejs:74
+msgid "Formats"
+msgstr "Formati"
+
+#: src/story-list/ejs/storyListView.ejs:79
+msgid "Change the language Twine uses"
+msgstr "Cambia il linguaggio utilizzato da Twine"
+
+#: src/story-list/ejs/storyListView.ejs:80
+msgid "Language"
+msgstr "Lingua"
+
+#: src/story-list/ejs/storyListView.ejs:85
+msgid "Browse online help"
+msgstr "Visualizza il manuale online"
+
+#: src/story-list/ejs/storyListView.ejs:86
+msgid "Help"
+msgstr "Aiuto"
+
+#: src/story-list/ejs/storyListView.ejs:101
+msgid "version"
+msgstr "versione"
+
+#: src/story-list/ejs/storyListView.ejs:103
+msgid "Report a bug"
+msgstr "Riporta un bug"
+
+#: src/story-list/ejs/storyListView.ejs:111
+msgid "Stories"
+msgstr "Racconti"
+
+#: src/story-list/ejs/storyListView.ejs:114
+msgid "Sort By"
+msgstr "Ordina per"
+
+#: src/story-list/ejs/storyListView.ejs:116
+msgid "Last changed date"
+msgstr "Data dell’ultima modifica"
+
+#: src/story-list/ejs/storyListView.ejs:117
+msgid "Edit Date"
+msgstr "Modifica data"
+
+#: src/story-list/ejs/storyListView.ejs:120
+msgid "Story name"
+msgstr "Nome del racconto"
+
+#: src/story-list/ejs/storyListView.ejs:121
+msgid "Name"
+msgstr "Nome"
+
+#: src/story-list/ejs/storyListView.ejs:128
+msgid ""
+"There are no stories saved in Twine right now. To get started, you can "
+"either create a new story or import an existing one from a file."
+msgstr ""
+"Al momento non ci sono racconti salvati in Twine. Per cominciare, puoi "
+"creare un nuovo racconto oppure importarne uno da file."
+
+#: src/welcome/ejs/welcomeView.ejs:6
+msgid "Hi!"
+msgstr "Ciao!"
+
+#: src/welcome/ejs/welcomeView.ejs:10
+msgid ""
+"Twine is an open-source tool for telling interactive, nonlinear stories. "
+"There are a few things you should know before you get started."
+msgstr ""
+"Twine è uno strumento open-source per realizzare storie interattive e non "
+"lineari. Ci sono alcune cose che dovresti conoscere prima di iniziare."
+
+#: src/welcome/ejs/welcomeView.ejs:14
+msgid "Tell Me More"
+msgstr "Dimmi di più"
+
+#: src/welcome/ejs/welcomeView.ejs:15
+msgid "Skip"
+msgstr "Salta"
+
+#: src/welcome/ejs/welcomeView.ejs:23
+msgid "New here?"
+msgstr "Sei nuovo?"
+
+#: src/welcome/ejs/welcomeView.ejs:27
+msgid ""
+"<strong>If you've never used Twine before,</strong> then welcome! The <a "
+"href=\"http:\\/\\/twinery.org/2guide\" target=\"_blank\">Twine 2 Guide</a> "
+"and the official wiki in general, are a great place to learn. Keep in mind "
+"that some articles on the wiki at large were written for Twine 1, which is a "
+"little bit different than this version. But most of the concepts are the "
+"same."
+msgstr ""
+"<strong>Se non hai mai utilizzato Twine,</strong>, benvenuto! La <a href="
+"\"http:\\/\\/twinery.org/2guide\" target=\"_blank\">Guida aTwine 2</a> ed il "
+"wiki ufficiale sono degli ottimi punti di partenza. Tieni a mente che alcuni "
+"articoli del wiki sono stati scritti per Twine 1, che in alcuni punti è "
+"leggermente differente. La maggior parte dei concetti sono comunque gli "
+"stessi."
+
+#: src/welcome/ejs/welcomeView.ejs:31
+msgid ""
+"You can also get help over at the <a href=\"http:\\/\\/twinery.org/forum\" "
+"target=\"_blank\">Twine forum</a>, too."
+msgstr ""
+"Puoi anche cercare aiuto nel  <a href=\"http:\\/\\/twinery.org/forum\" "
+"target=\"_blank\">forum di Twine</a>."
+
+#: src/welcome/ejs/welcomeView.ejs:35
+msgid ""
+"<strong>If you have used Twine 1 before,</strong> the guide also has details "
+"on what has changed in this version. Chief among them is a new default story "
+"format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, "
+"try using SugarCube instead."
+msgstr ""
+"<strong>Se hai utilizzato Twine 1 in precedenza,</strong> la guida elenca "
+"anche i dettagli di cosa è cambiato in questa versione. Prima di tutto c'è "
+"un nuovo formato default per il racconto, Harlowe. Ma se pensi di preferire "
+"la sintassi di Twine 1, prova ad utilizzare SugarCube."
+
+#: src/welcome/ejs/welcomeView.ejs:39 src/welcome/ejs/welcomeView.ejs:63
+msgid "OK"
+msgstr "OK"
+
+#: src/welcome/ejs/welcomeView.ejs:47
+msgid "Your work is saved only in your browser."
+msgstr "Il tuo lavoro è stato salvato solamente nel tuo browser"
+
+#: src/welcome/ejs/welcomeView.ejs:51
+msgid ""
+"That means you don't need to create an account to use Twine 2, and "
+"everything you create isn't stored on a server somewhere else &mdash; it "
+"stays right in your browser."
+msgstr ""
+"Questo significa che non è necessario creare un account per utilizzare Twine "
+"2, e qualsiasi cosa andrai a creare rimarrà esclusivamente nel tuo browser e "
+"non sarà salvata su un server online."
+
+#: src/welcome/ejs/welcomeView.ejs:55
+msgid ""
+"Two <b>very important</b> things to remember, though. Since your work is "
+"saved only in your browser, if you clear its saved data, then you'll lose "
+"your work! Not good. Remember to use that <i class=\"fa fa-briefcase\"></"
+"i>&nbsp;<strong>Archive</strong> button often. You can also publish "
+"individual stories to files using the <i class=\"fa fa-cog\"></i> menu on "
+"each story in the story list. Both archive and story files can always be re-"
+"imported into Twine."
+msgstr ""
+"Ci sono due punti <b>molto importanti</b> da ricordare. Siccome il tuo "
+"lavoro è salvato nel tuo browser, se elimini i suoi dati salvati, perderai "
+"il tuo lavoro! Ricordati di utilizzare spesso il pulsante <i class=\"fa fa-"
+"briefcase\"></i>&nbsp;<strong>Archivia</strong>. Puoi anche pubblicare "
+"storie singole tramite file utilizzando il menu <i class=\"fa fa-cog\"></i> "
+"che trovi nell'elenco dei racconti. Sia i file che gli archivi possono "
+"essere reimportati in Twine."
+
+#: src/welcome/ejs/welcomeView.ejs:59
+msgid ""
+"Secondly, <b>anyone who can use this browser can see and make changes to "
+"your work</b>. So if you've got a nosy kid brother, look into setting up a "
+"separate profile for yourself."
+msgstr ""
+"In secondo luogo, <b>chiunque può accedere a questo browser potrà vedere e "
+"modificare il tuo lavoro</b>. Se quindi hai un fratello ficcanaso, considera "
+"la possibilità di creare un profilo a parte su questo computer."
+
+#: src/welcome/ejs/welcomeView.ejs:71
+msgid "That's it!"
+msgstr "E’ tutto!"
+
+#: src/welcome/ejs/welcomeView.ejs:75
+msgid "Thanks for reading, and have fun with Twine."
+msgstr "Grazie per aver letto e buon divertimento con Twine."
+
+#: src/welcome/ejs/welcomeView.ejs:79
+msgid "Go to the Story List"
+msgstr "Vai all’elenco dei racconti"
+
+#: src/common/app.js:73
+msgid "Asked to render a non-function template "
+msgstr "Rischiesta di visualizzare un template che non è una funzione"
+
+#. L10n: An internal error. %s is a bad sort criterion.
+#: src/data/collections/storyCollection.js:36
+#, javascript-format
+msgid "don't know how to sort stories by %s"
+msgstr "non so come ordinare i racconti %s"
+
+#: src/data/models/passage.js:24
+msgid "Untitled Passage"
+msgstr "Passaggio senza nome"
+
+#: src/data/models/passage.js:26
+msgid "Tap this passage, then the pencil icon to edit it."
+msgstr ""
+"Effettua il tap su questo passaggio, dopodiché seleziona l’icona della "
+"matita per modificare."
+
+#: src/data/models/passage.js:27
+msgid "Double-click this passage to edit it."
+msgstr "Effettua doppio click su questo passaggio per modificarlo."
+
+#: src/data/models/passage.js:86
+msgid "You must give this passage a name."
+msgstr "Devi dare un nome a questo passaggio."
+
+#: src/data/models/passage.js:96
+#, javascript-format
+msgid ""
+"There is already a passage named \"%s.\" Please give this one a unique name."
+msgstr ""
+"Esiste già un passaggio chiamato \"%s.\" Per favore scegli un nome unico."
+
+#: src/data/models/story.js:23
+msgid "Untitled Story"
+msgstr "Racconto senza titolo"
+
+#: src/data/models/story.js:114
+msgid "There is no starting point set for this story."
+msgstr "Non esiste un punto di partenza per questo racconto."
+
+#: src/data/models/story.js:117
+msgid "The passage set as starting point for this story does not exist."
+msgstr ""
+"Il passaggio selezionato come punto di partenza per questo racconto non "
+"esiste."
+
+#: src/data/models/storyformat.js:42
+msgid "Untitled Story Format"
+msgstr "Formato Racconto senza ttolo"
+
+#. L10n: %1$s is a filename; %2$s is the error message.
+#: src/file/save.js:65
+msgid "&ldquo;%1$s&rdquo; could not be saved (%2$s)."
+msgstr "&ldquo;%1$s&rdquo; non è potuto essere salvato (%2$s)."
+
+#. L10n: An internal error message related to UI components.
+#: src/jquery-ext/bubble.js:87
+#, javascript-format
+msgid "Don't know how to do bubble action %s"
+msgstr "Non so come effettuare l’azione di chiusura %s"
+
+#. L10n: An internal error message related to UI components.
+#: src/jquery-ext/collapse.js:30
+#, javascript-format
+msgid "Don't know how to do collapse action %s"
+msgstr "Non so come effettuare l’azione di chiusura %s"
+
+#. L10n: An internal error when changing locale.
+#: src/locale/localeView.js:32
+#, javascript-format
+msgid "Can't set locale to nonstring: %s"
+msgstr "Non posso modificare il locale: %s"
+
+#: src/nwui/index.js:81
+msgid "Toggle Fullscreen"
+msgstr "Attiva Fullscreen"
+
+#: src/nwui/index.js:100
+msgid "Quit"
+msgstr "Esci"
+
+#: src/nwui/index.js:115
+msgid "Edit"
+msgstr "Modifica"
+
+#: src/nwui/index.js:120
+msgid "Undo"
+msgstr "Undo"
+
+#: src/nwui/index.js:132
+msgid "Cut"
+msgstr "Tagli"
+
+#: src/nwui/index.js:142
+msgid "Copy"
+msgstr "Copia"
+
+#: src/nwui/index.js:152
+msgid "Paste"
+msgstr "Incolla"
+
+#: src/nwui/index.js:162 src/story-edit/passageItemView.js:178
+#: src/story-edit/storyEditView.js:151
+msgid "Delete"
+msgstr "Elimina"
+
+#: src/nwui/index.js:181
+msgid "Show Library"
+msgstr "Mostra Libreria"
+
+#. L10n: This is the folder name on OS X, Linux, and recent versions of
+#. Windows that a user's documents are stored in, relative to the
+#. user's home directory. If you need to use a space in this name,
+#. then it should have two backslashes (\\) in front of it.
+#. Regardless, this must have a single forward slash (/) as its first
+#. character.
+#: src/nwui/index.js:239
+msgid "/Documents"
+msgstr "/Documents"
+
+#. L10n: This is the folder name on Windows XP that a user's
+#. documents are stored in, relative to the user's home directory.
+#. This is used if a folder with the name given by the translation
+#. key '/Documents' does not exist. If you need to use a space in
+#. this name, then it should have two backslashes (\\) in front of it.
+#. Regardless, this must have a single forward slash (/) as its first character.
+#: src/nwui/index.js:249 src/nwui/index.js:250
+msgid "/My\\ Documents"
+msgstr "/My\\ Documents"
+
+#. L10n: '/Twine' is a suitable name for Twine-related files to exist
+#. under on the user's hard drive. '/Stories' is a suitable name for
+#. story files specifically. If you need to use a space in this name,
+#. then it should have two backslashes in front of it. Regardless,
+#. this must have a single forward slash (/) as its first character.
+#: src/nwui/index.js:260 src/nwui/index.js:264
+msgid "/Twine"
+msgstr "/Twine"
+
+#: src/nwui/index.js:260
+msgid "/Stories"
+msgstr "/Stories"
+
+#. L10n: %s is the error message.
+#: src/nwui/index.js:448
+#, javascript-format
+msgid "An error occurred while saving your story (%s)."
+msgstr "Si è presentato un errore durante il salvataggio del racconto (%s)."
+
+#. L10n: %s is the error message.
+#: src/nwui/index.js:474
+#, javascript-format
+msgid "An error occurred while deleting your story (%s)."
+msgstr "Si è presentato un errore durante l’eliminazione del racconto (%s)."
+
+#. L10n: Locking in the sense of preventing changes to a file. %s is the error message.
+#: src/nwui/index.js:541
+#, javascript-format
+msgid "An error occurred while locking your library (%s)."
+msgstr "Si è presentato un errore durante la chiusura della tua libreria (%s)."
+
+#. L10n: Unlocking in the sense of allowing changes to a file. %s is the error message.
+#: src/nwui/index.js:568
+#, javascript-format
+msgid "An error occurred while unlocking your library (%s)."
+msgstr "Si è presentato un errore durante l’apertura della tua libreria (%s)."
+
+#: src/story-edit/editors/passageEditor.js:127
+#: src/story-edit/storyEditView.js:588
+#, javascript-format
+msgid "Editing “%s”"
+msgstr "“%s” in modifica"
+
+#: src/story-edit/editors/passageEditor.js:218
+msgid "Any changes to the passage you're editing haven't been saved yet. "
+msgstr ""
+"I cambiamenti al passaggio che stai modificando non sono ancora stati "
+"salvati."
+
+#. L10n: Matched in the sense of matching a search criteria. %d is the number of passages.
+#: src/story-edit/modals/searchModal.js:100
+#, javascript-format
+msgid "%d passage matches."
+msgid_plural "%d passages match."
+msgstr[0] "%d passaggio corrispondente."
+msgstr[1] "%d passaggi corrispondenti."
+
+#: src/story-edit/modals/searchModal.js:108
+msgid "No matching passages found."
+msgstr "Non è stato trovato nessun passaggio corrispondente."
+
+#. L10n: replacement in the sense of text search and replace. %d is the number.
+#: src/story-edit/modals/searchModal.js:189
+#, javascript-format
+msgid "%d replacement was made in"
+msgid_plural "%d replacements were made in"
+msgstr[0] "%d sostituzione è stata effettuata in"
+msgstr[1] "%d sostituzioni sono state effettuate in"
+
+#. L10n: %d is a number of passages.
+#: src/story-edit/modals/searchModal.js:193
+#, javascript-format
+msgid "%d passage"
+msgid_plural "%d passages"
+msgstr[0] "%d passaggio"
+msgstr[1] "%d passaggi"
+
+#. L10n: This is the formatting used to combine two pluralizations.
+#. In English, %1$s equals "2 replacements were made in" and %2$s equals "5 passages."
+#. This is a way to reshape the sentence as needed.
+#: src/story-edit/modals/searchModal.js:198
+msgid "%1$s %2$s"
+msgstr "%1$s %2$s"
+
+#. L10n: Character in the sense of individual letters in a word.
+#. This does not actually show the count here, as it is used in a table.
+#: src/story-edit/modals/statsModal.js:70
+msgid "Character"
+msgid_plural "Characters"
+msgstr[0] "Carattere"
+msgstr[1] "Caratteri"
+
+#. L10n: Word in the sense of individual words in a sentence.
+#. This does not actually show the count here, as it is used in a table.
+#: src/story-edit/modals/statsModal.js:74
+msgid "Word"
+msgid_plural "Words"
+msgstr[0] "Parola"
+msgstr[1] "Parole"
+
+#. L10n: Links in the sense of hypertext links.
+#. This does not actually show the count here, as it is used in a table.
+#: src/story-edit/modals/statsModal.js:81
+msgid "Link"
+msgid_plural "Links"
+msgstr[0] "Collegamento"
+msgstr[1] "Collegamenti"
+
+#. L10n: Links in the sense of hypertext links.
+#. This does not actually show the count here, as it is used in a table.
+#: src/story-edit/modals/statsModal.js:85
+msgid "Broken Link"
+msgid_plural "Broken Links"
+msgstr[0] "Collegamento interrotto"
+msgstr[1] "Collegamenti interrotti"
+
+#. L10n: %1$s is the name of the story format, %2$s is the error message.
+#: src/story-edit/modals/storyFormatModal.js:103
+#: src/story-list/modals/formatsModal.js:84
+msgid "The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s)."
+msgstr ""
+"Il formato del racconto &ldquo;%1$s&rdquo; non può essere caricato (%2$s)."
+
+#: src/story-edit/passageItemView.js:172
+#, javascript-format
+msgid "Are you sure you want to delete &ldquo;%s&rdquo;? "
+msgstr "Sei sicuro di voler cancellare &ldquo;%s&rdquo;? "
+
+#: src/story-edit/passageItemView.js:176
+msgid "(Hold the Shift key when deleting to skip this message.)"
+msgstr ""
+"(Tieni premuto Shift quando cancelli, per non mostrare questo messaggio.)"
+
+#. L10n: An internal error related to handling user input.
+#: src/story-edit/passageItemView.js:468
+msgid "Don't see either mouse or touch coordinates on event"
+msgstr "Non riesco a trovare le coordinate sull'evento"
+
+#. L10n: An internal error related to user input.
+#: src/story-edit/passageItemView.js:530
+msgid "Couldn't find original touch ID in movement event"
+msgstr "Non sono riuscito a trovare il touch ID originale nell'evento"
+
+#. L10n: %s is the error message.
+#: src/story-edit/storyEditView.js:69 src/story-edit/storyEditView.js:90
+#, javascript-format
+msgid "A problem occurred while saving your changes (%s)."
+msgstr "Sì è presentato un errore durante il salvataggio delle modifiche (%s)."
+
+#. L10n: This message is always shown with more than one passage.
+#. %d is the number of passages.
+#: src/story-edit/storyEditView.js:147
+#, javascript-format
+msgid "Are you sure you want to delete this passage?"
+msgid_plural ""
+"Are you sure you want to delete these %d passages? This cannot be undone."
+msgstr[0] "Sei sicuro di voler eliminare questo passaggio (%d)?"
+msgstr[1] ""
+"Sei sicuro di voler eliminare questi %d passaggi? Questa operazione è "
+"definitiva."
+
+#: src/story-edit/storyEditView.js:293
+msgid "This story does not have a starting point. "
+msgstr "Questo racconto non ha un punto di partenza."
+
+#: src/story-edit/storyEditView.js:307
+msgid ""
+"Refreshed the playable version of your story in the previously-opened tab or "
+"window."
+msgstr ""
+"E' stata aggiornata la versione eseguibile del tuo racconto nel pannello o "
+"nella finestra precedentemente aperto."
+
+#: src/story-edit/storyEditView.js:337 src/story-edit/storyEditView.js:377
+#: src/story-list/storyItemView.js:121
+msgid ""
+"This story does not have a starting point. Use the <i class=\"fa fa-rocket"
+"\"></i> icon on a passage to set this."
+msgstr ""
+"Il racconto non possiede un punto di partenza. Usa l’icona <i class=\"fa fa-"
+"rocket\"></i> su un passaggio."
+
+#: src/story-edit/storyEditView.js:350
+msgid ""
+"Refreshed the test version of your story in the previously-opened tab or "
+"window."
+msgstr ""
+"E' stata aggiornata la versione test del tuo racconto, nel pannello o nella "
+"finestra precedentemente aperto."
+
+#. L10n: This refers to when a story was last saved by the user
+#. %s will be replaced with a localized date and time
+#: src/story-edit/storyEditView.js:598 src/story-edit/toolbar.js:98
+#, javascript-format
+msgid "Last saved at %s"
+msgstr "Ultimo salvataggio: %s"
+
+#: src/story-list/modals/formatsModal.js:147
+msgid "The story format at %1$s could not be added (%2$s)."
+msgstr ""
+"Il formato del racconto posizionato in %1$s non può essere aggiunto (%2$s)."
+
+#. L10n: An internal error related to story formats.
+#: src/story-list/modals/formatsModal.js:256
+msgid "Don't know what kind of format to set as default"
+msgstr "Non so quale tipo di formato selezionare come default."
+
+#: src/story-list/storageQuota.js:23 src/story-list/storageQuota.js:46
+#: src/story-list/storageQuota.js:51
+#, javascript-format
+msgid "%d%% space available"
+msgstr "%d%% spazio disponibile"
+
+#: src/story-list/storyItemView.js:91 src/story-list/storyItemView.js:105
+msgid ""
+"This story does not have a starting point. Edit this story and use the <i "
+"class=\"fa fa-rocket\"></i> icon on a passage to set this."
+msgstr ""
+"Il racconto non ha un punto di partenza. Modifica il racconto ed utilizza "
+"l’icona <i class=\"fa fa-rocket\"></i> su un passaggio."
+
+#: src/story-list/storyItemView.js:134
+#, javascript-format
+msgid ""
+"Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone."
+msgstr ""
+"Sei sicuro di voler eliminare &ldquo;%s&rdquo;? Questa operazione sarà "
+"definitiva."
+
+#: src/story-list/storyItemView.js:136
+msgid "Delete Forever"
+msgstr "Elimina per sempre"
+
+#: src/story-list/storyItemView.js:148
+#, javascript-format
+msgid "What should &ldquo;%s&rdquo; be renamed to?"
+msgstr "Qual’è il nuovo nome per &ldquo;%s&rdquo;?"
+
+#: src/story-list/storyItemView.js:149
+msgid "Rename"
+msgstr "Rinomina"
+
+#: src/story-list/storyItemView.js:166
+msgid "What should the duplicate be named?"
+msgstr "Qual’è il nome del duplicato?"
+
+#: src/story-list/storyItemView.js:167
+msgid "Duplicate"
+msgstr "Duplica"
+
+#: src/story-list/storyItemView.js:173
+#, javascript-format
+msgid "%s Copy"
+msgstr "%s Copia"
+
+#. L10n: %d is a number of stories.
+#: src/story-list/storyListView.js:268
+#, javascript-format
+msgid "%d story was imported."
+msgid_plural "%d stories were imported."
+msgstr[0] "E’ stato importato %d racconto."
+msgstr[1] "Sono stati importati %d racconti."
+
+#. L10n: %d is a number of stories
+#: src/story-list/storyListView.js:358
+#, javascript-format
+msgid "%d Story"
+msgid_plural "%d Stories"
+msgstr[0] "%d Racconto"
+msgstr[1] "%d Racconti"
+
+#. L10n: %s is the error message.
+#: src/story-publish/index.js:46
+#, javascript-format
+msgid "An error occurred while publishing your story. (%s)"
+msgstr ""
+"Si è verificato un errore durante la pubblicazione del tuo racconto. (%s)"
+
+#: src/story-publish/index.js:77
+msgid "Twine Archive.html"
+msgstr "Twine Archive.html"

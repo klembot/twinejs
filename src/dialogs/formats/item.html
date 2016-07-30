@@ -1,0 +1,32 @@
+<div class="format-item">
+	<div class="buttons">
+		<button v-if="format.userAdded" @click="removeFormat" title="{{ 'Remove this format' | say }}"><i class="fa fa-lg fa-trash-o"></i></button>
+		<button :class="{ active: isDefault }" @click="setDefaultFormat" title="{{ 'Set this format as default for stories' | say }}"><i class="fa fa-lg fa-star"></i></button>
+	</div>
+
+	<div>
+		<!--
+		If no image is available, use a placeholder based on name.
+		-->
+
+		<img v-if="format.properties.image" :src="imageSrc">
+		<span v-else class="placeholder">{{ format.name.slice(0,2) }}</span>
+
+		<div class="text">
+			<h3>{{ format.name }} {{ format.properties.version }}
+				<template v-if="author">
+					<br>
+					{{{ author }}}
+				</template>
+			</h3>
+
+			<p v-if="format.properties.description">
+			{{{ format.properties.description }}}
+			</p>
+
+			<p v-if="license">
+			{{{ license }}}
+			</p>
+		</div>
+	</div>
+</div>

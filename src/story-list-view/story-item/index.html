@@ -1,0 +1,20 @@
+<div class="story-item" :data-order="order">
+	<item-preview :hue="hue" :passages="story.passages" :edit="edit"></item-preview>
+
+	<div class="controls">
+		<button @click="edit" class="link story-name">
+			<h2>
+				{{ story.name }}
+			</h2>
+
+			<p class="smaller">
+				{{ lastUpdateFormatted }}
+			</p>
+		</button>
+
+		<button>
+			<i class="fa fa-cog"></i>
+			<item-menu :story="story"></item-menu>
+		</button>
+	</div>
+</div> <!-- .story-item -->
