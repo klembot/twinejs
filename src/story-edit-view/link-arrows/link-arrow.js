@@ -145,7 +145,18 @@ module.exports = Vue.extend({
 			};
 
 			endPt = rect.intersectionWithLine(end, startPt, endPt);
+			/*
+			intersectionWithLine can return undefined if the other passage is
+			overlapping this passage (such as when it's being dragged over).
+			In that case, return no path.
+			*/
+			if (!endPt) {
+				return "";
+			}
 			startPt = rect.intersectionWithLine(start, startPt, endPt);
+			if (!startPt) {
+				return "";
+			}
 
 			/*
 			The horizontal radius of our arc is proportional to the distance
