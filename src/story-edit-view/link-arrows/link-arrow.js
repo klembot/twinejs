@@ -151,11 +151,12 @@ module.exports = Vue.extend({
 			In that case, return no path.
 			*/
 			if (!endPt) {
-				return "";
+				return '';
 			}
+
 			startPt = rect.intersectionWithLine(start, startPt, endPt);
 			if (!startPt) {
-				return "";
+				return '';
 			}
 
 			/*
