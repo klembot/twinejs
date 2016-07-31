@@ -7,18 +7,15 @@
  @module nwui
 **/
 
-'use strict';
-
-const nw = module.exports = {
-	// Whether Twine is running in a NW.js environment.
-
-	active: window.nwDispatcher !== undefined,
-
+module.exports = {
 	// Performs one-time initialization, e.g. setting up menus. This should be
 	// called as early in the app initialization process as possible.
 
 	init() {
-		if (!nw.active) {
+		try {
+			require('nw.gui');
+		}
+		catch (e) {
 			return;
 		}
 
@@ -29,13 +26,11 @@ const nw = module.exports = {
 			const gui = require('nw.gui');
 			const directories = require('./directories');
 			const menus = require('./menus');
-			const patchPassage = require('./patches/passage');
 			const patchQuotaGauge = require('./patches/quota-gauge');
-			const patchStory = require('./patches/story');
-			const patchStoryImport = require('./patches/story-import');
+			const patchStore = require('./patches/store');
 			const patchStoryListToolbar = require('./patches/story-list-toolbar');
 			const patchWelcomeView = require('./patches/welcome-view');
-			//const storyFile = require('./story-file');
+			const storyFile = require('./story-file');
 
 			const win = gui.Window.get();
 
@@ -70,18 +65,6 @@ const nw = module.exports = {
 
 			directories.createPath(directories.storiesPath());
 
-			// Do a file sync if we're just starting up. We have to track this
-			// in the global scope; otherwise, each new window will think
-			// it's starting afresh and screw up our model IDs.
-
-			if (!global.nwFirstRun) {
-				startupTask = 'initially synchronizing story files';
-				storyFile.loadAll();
-				startupTask = 'initially locking your Stories directory';
-				directories.lockStories();
-				global.nwFirstRun = true;
-			}
-
 			// Open external links outside the app.
 
 			startupTask = 'setting up a handler for external links';
@@ -105,19 +88,24 @@ const nw = module.exports = {
 				directories.unlockStories();
 			});
 
-			// Monkey patch Story to save to a file
-			// under ~/Documents/Twine whenever the model changes,
-			// or delete it when it is destroyed.
+			// Do a file sync if we're just starting up. We have to track this
+			// in the global scope; otherwise, each new window will think
+			// it's starting afresh and screw up our model IDs.
+
+			if (!global.nwFirstRun) {
+				startupTask = 'initially synchronizing story files';
+				storyFile.loadAll();
+				startupTask = 'initially locking your Stories directory';
+				directories.lockStories();
+				global.nwFirstRun = true;
+			}
+
+			// Monkey patch the store module to save to a file
+			// under ~/Documents/Twine whenever a story changes,
+			// or delete it when it is deleted.
 
 			startupTask = 'adding a hook to automatically save stories';
-			//patchStory(require('../data/models/story'));
-
-			// Monkey patch Passage to save its parent story whenever
-			// it is changed or destroyed
-
-			startupTask = 'adding a hook to automatically save a story ' +
-				'after editing a passage';
-			//patchPassage(require('../data/models/passage'));
+			patchStore(require('../data/store'));
 
 			// Monkey patch QuotaGauge to hide itself, since we
 			// don't have to sweat quota ourselves.
@@ -131,11 +119,6 @@ const nw = module.exports = {
 			startupTask = 'setting up the Help link';
 			patchStoryListToolbar(require('../story-list-view/list-toolbar'));
 
-			// Monkey patch StoryImportDialog to use the Stories directory.
-
-			startupTask = 'setting up a hook for importing story files';
-			patchStoryImport(require('../dialogs/story-import'));
-
 			// Monkey patch WelcomeView to hide information related to local
 			// storage.
 
@@ -143,8 +126,7 @@ const nw = module.exports = {
 			patchWelcomeView(require('../welcome'));
 		}
 		catch (e) {
-			/* eslint-disable no-console */
-			console.log('Startup crash', startupTask, e);
+			console.error('Startup crash', startupTask, e);
 
 			document.write(
 				startupErrorTemplate({ task: startupTask, error: e })
