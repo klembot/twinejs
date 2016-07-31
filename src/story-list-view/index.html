@@ -10,11 +10,11 @@
 			<label>{{ 'Sort By' | say }}</label>
 
 			<span class="button-group">
-				<button class="{{ 'subtle ' + (storyOrder === 'lastUpdate' ? 'active': '') }}" @click="sortByDate" title="{{'Last changed date' | say }}" v-tooltip>
+				<button class="{{ 'subtle ' + (storyOrder === 'lastUpdate' ? 'active': '') }}" @click="sortByDate" title="{{'Last changed date' | say }}">
 				{{ 'Edit Date' | say }}
 				</button>
 
-				<button class="{{ 'subtle ' + (storyOrder === 'name' ? 'active' : '') }}" @click="sortByName" title="{{'Story name' | say }}" v-tooltip>
+				<button class="{{ 'subtle ' + (storyOrder === 'name' ? 'active' : '') }}" @click="sortByName" title="{{'Story name' | say }}">
 				{{ 'Name' | say }}
 				</button>
 			</span>
