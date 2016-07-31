@@ -270,11 +270,11 @@ const actions = module.exports = {
 		// Set default formats if not already set.
 
 		if (!store.state.pref.defaultFormat) {
-			actions.setPref('defaultFormat', 'Harlowe');
+			actions.setPref(store, 'defaultFormat', 'Harlowe');
 		}
 
 		if (!store.state.pref.proofingFormat) {
-			actions.setPref('proofingFormat', 'Paperthin');
+			actions.setPref(store, 'proofingFormat', 'Paperthin');
 		}
 
 		store.state.storyFormat.formats.forEach(format => {
