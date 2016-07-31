@@ -48,6 +48,8 @@ function domToObject(storyEl, forceLastUpdate) {
 					(src, el) => src + `${el.textContent}\n`,
 					''
 				),
+		zoom:
+			1,
 		passages:
 			Array.from(storyEl.querySelectorAll(selectors.passageData))
 				.map(passageEl => {
