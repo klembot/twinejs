@@ -6,12 +6,10 @@ let Vue = require('vue');
 
 const localeFilters = require('./vue/filters/locale');
 const mountMixin = require('./vue/mixins/mount-to');
-const tooltipDirective = require('./vue/directives/tooltip');
 const mouseScrollingDirective = require('./vue/directives/mouse-scrolling');
 
 Vue.mixin(mountMixin);
 localeFilters.addTo(Vue);
-tooltipDirective.addTo(Vue);
 mouseScrollingDirective.addTo(Vue);
 
 // We initialize our NW.js hooks as early as possible. This needs to be after
