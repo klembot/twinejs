@@ -41,8 +41,8 @@ module.exports = Vue.extend({
 		// If our parent wants to edit our own model, then we do so. This is
 		// done this level so that we animate the transition correctly.
 
-		edit(model) {
-			if (this.model === model) {
+		edit(story) {
+			if (this.story === story) {
 				this.edit();
 			}
 		},
@@ -52,7 +52,7 @@ module.exports = Vue.extend({
 		// know the ID of the story from the route, but don't have an object.
 
 		'previously-editing'(id) {
-			if (id === this.model.id) {
+			if (id === this.story.id) {
 				// The method for grabbing the page position of our element is
 				// cribbed from http://youmightnotneedjquery.com/.
 
