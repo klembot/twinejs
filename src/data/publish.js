@@ -2,6 +2,7 @@
 
 const { escape } = require('underscore');
 const locale = require('../locale');
+const store = require('../data/store');
 
 const publish = module.exports = {
 	// Publishes a story with a story format. The format *must* be loaded
@@ -61,6 +62,8 @@ const publish = module.exports = {
 	publishStory(story, formatOptions, startId, startOptional) {
 		startId = startId || story.startPassage;
 
+		const appInfo = require('./store').state.appInfo;
+
 		// Verify that the start passage exists.
 
 		if (!startOptional) {
@@ -93,8 +96,8 @@ const publish = module.exports = {
 
 		return `<tw-storydata name="${escape(story.name)}" ` +
 			`startnode="${startLocalId || ''}" ` +
-			`creator="${escape(window.app.name)}" ` +
-			`creator-version="${escape(window.app.version)}" ` +
+			`creator="${escape(appInfo.name)}" ` +
+			`creator-version="${escape(appInfo.version)}" ` +
 			`ifid="${escape(story.ifid)}" ` +
 			`format="${escape(story.storyFormat)}" ` +
 			`options=${escape(formatOptions)} hidden>` +
