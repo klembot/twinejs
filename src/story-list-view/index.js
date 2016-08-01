@@ -10,6 +10,7 @@ const Vue = require('vue');
 const locale = require('../locale');
 const { check: checkForAppUpdate } = require('../dialogs/app-update');
 const { check: checkForDonation } = require('../dialogs/app-donation');
+const ImportDialog = require('../dialogs/story-import');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -142,8 +143,12 @@ module.exports = Vue.extend({
 		// For now, we only support importing a single file at a time.
 
 		'file-drag-n-drop'(files) {
-			// FIXME
-			// fileImport.importFile(files[0]);
+			new ImportDialog({
+				store: this.$store,
+				data: {
+					immediateImport: files[0]
+				}
+			}).$mountTo(document.body);
 		}
 	},
 
