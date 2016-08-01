@@ -12,6 +12,9 @@ module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	data: () => ({
+		// A file to immediately import when mounted.
+		immediateImport: null,
+		
 		// Current state of the operation:
 		//   * `waiting`: waiting for the user to select a file
 		//   * `working`: working without user input
@@ -54,6 +57,12 @@ module.exports = Vue.extend({
 			);
 		}
 	},
+	
+	ready() {
+		if (this.immediateImport) {
+			this.import(this.immediateImport);
+		}
+	},
 
 	methods: {
 		close() {
@@ -62,10 +71,11 @@ module.exports = Vue.extend({
 			}
 		},
 
-		import() {
+		import(file) {
+			file = file || this.$els.importFile.files[0];
 			this.status = 'working';
 
-			load(this.$els.importFile.files[0])
+			load(file)
 			.then(source => {
 				this.toImport = importHTML(source);
 
