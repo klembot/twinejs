@@ -79,7 +79,7 @@ module.exports = function(grunt) {
 						detectGlobals: false
 					},
 					exclude: ['fs'],
-					external: ['nw.gui', 'osenv'],
+					external: ['nw.gui'],
 					transform: [
 						['envify', { NODE_ENV: 'production' }],
 						'ejsify',

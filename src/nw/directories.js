@@ -1,5 +1,6 @@
 // Manages access to the user's Twine library directory.
 
+const osenv = require('osenv');
 const locale = require('../locale');
 
 const directories = module.exports = {
@@ -14,7 +15,7 @@ const directories = module.exports = {
 		// on the web platform, it doesn't try to do any detection
 		// (and fail, because we are not shimming process).
 
-		const homePath = require('osenv').home();
+		const homePath = osenv.home();
 
 		// if the user doesn't have a Documents folder,
 		// check for "My Documents" instead (thanks Windows)
