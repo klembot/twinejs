@@ -4,6 +4,7 @@
 // manually. This minimizes the number of writes to local storage.
 
 let { createStory } = require('../actions');
+let { passageDefaults, storyDefaults } = require('../story');
 let commaList = require('./comma-list');
 
 const story = module.exports = {
@@ -100,7 +101,21 @@ const story = module.exports = {
 			);
 
 			if (newStory) {
+				/* Set defaults if any are missing. */
+
+				Object.keys(storyDefaults).forEach(key => {
+					if (newStory[key] === undefined) {
+						newStory[key] = storyDefaults[key];
+					}
+				});
+
+				/*
+				Force the passages property to be an empty array -- we'll
+				populate it when we load passages below.
+				*/
+
 				newStory.passages = [];
+
 				stories[newStory.id] = newStory;
 			}
 			else {
@@ -137,13 +152,19 @@ const story = module.exports = {
 					return;
 				}
 
-				if (!newPassage.width) {
-					newPassage.width = 100;
-				}
+				/* Set defaults if any are missing. */
 
-				if (!newPassage.height) {
-					newPassage.height = 100;
-				}
+				Object.keys(passageDefaults).forEach(key => {
+					if (newPassage[key] === undefined) {
+						newPassage[key] = passageDefaults[key];
+					}
+				});
+
+				/* Remove empty tags. */
+
+				newPassage.tags = newPassage.tags.filter(
+					tag => tag.length && tag.length > 0
+				);
 
 				stories[newPassage.story].passages.push(newPassage);
 			});
