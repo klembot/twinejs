@@ -4,7 +4,7 @@ const CodeMirror = require('codemirror');
 const Vue = require('vue');
 const locale = require('../../locale');
 const { thenable } = require('../../vue/mixins/thenable');
-const { updatePassageInStory } = require('../../data/actions');
+const { updatePassageInStory, loadFormat } = require('../../data/actions');
 
 require('codemirror/addon/display/placeholder');
 require('../../codemirror/prefix-trigger');
@@ -160,10 +160,10 @@ module.exports = Vue.extend({
 		// Load the story's format and see if it offers a CodeMirror mode.
 
 		if (this.$options.storyFormat) {
-			this.$options.storyFormat.load((err) => {
-				const modeName = this.$options.storyFormat.get('name').toLowerCase();
-				
-				if (!err && modeName in CodeMirror.modes) {
+			this.loadFormat(this.$options.storyFormat).then((format) => {
+				const modeName = format.name.toLowerCase();
+
+				if (modeName in CodeMirror.modes) {
 					// This is a small hack to allow modes such as Harlowe to
 					// access the full text of the textarea, permitting its
 					// lexer to grow a syntax tree by itself.
@@ -178,8 +178,8 @@ module.exports = Vue.extend({
 			});
 		}
 
-		// Set the mode to the default, 'text'. The above callback will reset
-		// it if it fires.
+		// Set the mode to the default, 'text'. The above promise will reset
+		// it if it fulfils.
 
 		this.$refs.codemirror.$cm.setOption('mode', 'text');
 	},
@@ -196,7 +196,8 @@ module.exports = Vue.extend({
 
 	vuex: {
 		actions: {
-			updatePassageInStory
+			updatePassageInStory,
+			loadFormat,
 		},
 
 		getters: {

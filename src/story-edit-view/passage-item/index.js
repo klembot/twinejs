@@ -155,7 +155,8 @@ module.exports = Vue.extend({
 					passageId: this.passage.id,
 					storyId: this.parentStory.id
 				},
-				store: this.$store
+				store: this.$store,
+				storyFormat: this.parentStory.storyFormat,
 			})
 			.$mountTo(document.body)
 			.then(() => {

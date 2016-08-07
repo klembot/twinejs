@@ -39,8 +39,8 @@ module.exports = {
 			format.properties = props;
 			format.loaded = true;
 
-			if (format.setup) {
-				format.setup.call(format);
+			if (format.properties.setup) {
+				format.properties.setup.call(format);
 			}
 		}
 	}
