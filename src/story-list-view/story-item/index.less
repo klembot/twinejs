@@ -1,0 +1,46 @@
+@import '../../common/depth.less';
+@import '../../common/metrics.less';
+
+.story-item {
+	width: 11rem;
+	margin-right: @len-extra-large;
+	margin-bottom: @len-extra-large;
+
+	button.preview {
+		height: 11rem;
+		padding: 0;
+		border-radius: 2px;
+		transition: 0.2s box-shadow;
+		.shadow-small;
+		position: relative;
+
+		.theme-dark & {
+			filter: saturate(15) brightness(0.75);
+		}
+
+		svg {
+			padding: @len-small;
+
+			.theme-dark & {
+				filter: brightness(0.25);
+			}
+		}
+	}
+
+	.controls {
+		display: flex;
+
+		button.story-name {
+			flex-grow: 1;
+			flex-shrink: 1;
+		}
+
+		h2 {
+			font-size: 100%;
+		}
+
+		h2, p {
+			margin: 0;
+		}
+	}
+}
