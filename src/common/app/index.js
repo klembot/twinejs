@@ -12,10 +12,21 @@ module.exports = Vue.extend({
 	ready() {
 		ui.init();
 		this.repairFormats();
+		document.body.classList.add(`theme-${this.themePref}`);
+	},
+
+	watch: {
+		themePref(value, oldValue) {
+			document.body.classList.remove(`theme-${oldValue}`);
+			document.body.classList.add(`theme-${value}`);
+		}
 	},
 
 	vuex: {
-		actions: { repairFormats }
+		actions: { repairFormats },
+		getters: {
+			themePref: state => state.pref.appTheme
+		}
 	},
 
 	store

@@ -26,6 +26,21 @@
 		&:hover {
 			color: @color;
 		}
+
+		.theme-dark & {
+			color: @color-text-dark;
+			background: none;
+		}
+	}
+
+	.theme-dark & {
+		background: @color;
+		color: white;
+
+		&:hover {
+			color: white;
+			background: lighten(@color, 5%);
+		}
 	}
 }
 
@@ -49,6 +64,10 @@ button, a.button {
 	&:active, &.active {
 		color: @color-link;
 		background: hsla(0, 0%, 0%, 0.075);
+
+		.theme-dark & {
+			background: hsla(0, 100%, 100%, 0.075);
+		}
 	}
 
 	&:active {
@@ -82,6 +101,18 @@ button, a.button {
 		&:active {
 			box-shadow: none;
 			background: none;
+		}
+	}
+
+	.theme-dark & {
+		color: @color-text-dark;
+
+		&:hover {
+			color: @color-link-dark;
+		}
+
+		&:active, &.active {
+			color: @color-link;
 		}
 	}
 }

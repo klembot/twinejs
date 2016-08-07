@@ -2,13 +2,21 @@
 @import '../common/depth.less';
 
 @color-graph-paper: lighten(@color-link, 55%);
+@color-graph-paper-dark: darken(@color-link, 25%);
 @color-graph-lines: lighten(@color-link, 50%);
+@color-graph-lines-dark: lighten(@color-graph-paper-dark, 2%);
 @color-graph-lines-bold: lighten(@color-link, 47%);
+@color-graph-lines-bold-dark: lighten(@color-graph-paper-dark, 4%);
 
 .graph-large, .graph-medium, .graph-small {
 	background-color: @color-graph-paper;
     background-image: linear-gradient(to right, @color-graph-lines-bold 1px, transparent 1px), linear-gradient(to bottom, @color-graph-lines-bold 1px, transparent 1px), linear-gradient(to right, @color-graph-lines 1px, transparent 1px), linear-gradient(to bottom, @color-graph-lines 1px, transparent 1px);
     background-size: 100px 100px, 100px 100px, 10px 10px, 10px 10px;
+
+	.theme-dark & {
+		background-color: @color-graph-paper-dark;
+		background-image: linear-gradient(to right, @color-graph-lines-bold-dark 1px, transparent 1px), linear-gradient(to bottom, @color-graph-lines-bold-dark 1px, transparent 1px), linear-gradient(to right, @color-graph-lines-dark 1px, transparent 1px), linear-gradient(to bottom, @color-graph-lines-dark 1px, transparent 1px);
+	}
 }
 
 .graph-medium {
@@ -18,6 +26,11 @@
 .graph-small {
     background-image: linear-gradient(to right, @color-graph-lines 1px, transparent 1px), linear-gradient(to bottom, @color-graph-lines 1px, transparent 1px);
     background-size: 25px 25px, 25px 25px;
+
+	.theme-dark & {
+		background-image: linear-gradient(to right, @color-graph-lines-dark 1px, transparent 1px), linear-gradient(to bottom, @color-graph-lines-dark 1px, transparent 1px);
+
+	}
 }
 
 #storyEditView {
