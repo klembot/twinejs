@@ -1,6 +1,7 @@
 @import '../../common/colors.less';
 
 @color-link-arrow: lighten(@color-text, 10%);
+@color-link-arrow-dark: darken(@color-text-dark, 30%);
 
 #storyEditView .links {
 	transform-origin: 0 0;
@@ -9,11 +10,19 @@
 		stroke: @color-link-arrow;
 		fill: none;
 		stroke-width: 2px;
+
+		.theme-dark & {
+			stroke: @color-link-arrow-dark;
+		}
 	}
 
 	#link-arrowhead path {
 		fill: @color-link-arrow;
 		stroke: none;
+
+		.theme-dark & {
+			fill: @color-link-arrow-dark;
+		}
 	}
 	
 	#link-broken path {
@@ -22,6 +31,11 @@
 		stroke-linecap: square;
 		stroke-linejoin: miter;
 		stroke: @color-danger;
+
+		.theme-dark & {
+			fill: darken(@color-danger, 5%);
+			stroke: darken(@color-danger, 5%);
+		}
 	}
 	
 	/*

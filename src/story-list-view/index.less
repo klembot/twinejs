@@ -28,7 +28,7 @@
 		}
 
 		p {
-			margin: 0.25em 0;
+			margin: 0.5em 0;
 		}
 
 		button.create {
@@ -37,6 +37,10 @@
 
 		footer {
 			.smaller;
+		}
+
+		.theme-dark & {
+			background: lighten(@color-paper-dark, 5%);
 		}
 	}
 
@@ -60,6 +64,10 @@
 
 		label {
 			padding-right: @len-small;
+		}
+
+		.theme-dark & {
+			background: @color-paper-dark;
 		}
 	}
 

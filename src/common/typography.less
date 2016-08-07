@@ -72,24 +72,30 @@
     font-style: normal;
 }
 
-h1 {
+h1, h2, h3, h4 {
 	color: black;
-	font: 200% "Nunito Light", sans-serif;
+	font-family: "Nunito Light", sans-serif;
+	font-weight: normal;
+
+	.theme-dark & {
+		color: hsl(0, 0%, 80%);
+	}
+}
+
+h1 {
+	font-size: 200%;
 }
 
 h2 {
-	color: black;
-	font: 125% "Nunito Light", sans-serif;
+	font-size: 125%;
 }
 
 h3 {
-	color: black;
-	font: 125% "Nunito Light", sans-serif;
+	font-size: 125%;
 }
 
 h4 {
-	color: black;
-	font: 125% "Nunito Light", sans-serif;
+	font-size: 125%;
 }
 
 body {

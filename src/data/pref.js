@@ -4,6 +4,7 @@
 
 module.exports = {
 	state: {
+		appTheme: 'light',
 		defaultFormat: 'Harlowe',
 		donateShown: false,
 		firstRunTime: new Date().getTime(),

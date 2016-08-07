@@ -66,7 +66,8 @@ module.exports = Vue.extend({
 	},
 
 	components: {
-		'quota-gauge': require('../../ui/quota-gauge')
+		'quota-gauge': require('../../ui/quota-gauge'),
+		'theme-switcher': require('./theme-switcher')
 	},
 
 	vuex: {
@@ -76,7 +77,7 @@ module.exports = Vue.extend({
 
 		getters: {
 			appVersion: state => state.appInfo.version,
-			existingStories: state => state.story.stories
+			existingStories: state => state.story.stories,
 		}
 	}
 });
