@@ -20,6 +20,7 @@ module.exports = {
 			let newFormat = Object.assign({}, formatDefaults, props);
 
 			newFormat.id = uuid();
+			newFormat.loaded = false;
 			state.formats.push(newFormat);
 		},
 
@@ -39,8 +40,8 @@ module.exports = {
 			format.properties = props;
 			format.loaded = true;
 
-			if (format.setup) {
-				format.setup.call(format);
+			if (format.properties.setup) {
+				format.properties.setup.call(format);
 			}
 		}
 	}
