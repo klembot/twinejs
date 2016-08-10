@@ -20,6 +20,7 @@ module.exports = {
 			let newFormat = Object.assign({}, formatDefaults, props);
 
 			newFormat.id = uuid();
+			newFormat.loaded = false;
 			state.formats.push(newFormat);
 		},
 

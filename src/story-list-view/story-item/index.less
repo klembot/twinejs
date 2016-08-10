@@ -12,18 +12,14 @@
 		border-radius: 2px;
 		transition: 0.2s box-shadow;
 		.shadow-small;
-		position: relative;
 
 		.theme-dark & {
-			filter: saturate(15) brightness(0.75);
+			filter: invert(100%) hue-rotate(180deg);
+			.shadow-small-inverted;
 		}
 
 		svg {
 			padding: @len-small;
-
-			.theme-dark & {
-				filter: brightness(0.25);
-			}
 		}
 	}
 

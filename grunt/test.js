@@ -1,13 +1,10 @@
-module.exports = function (grunt)
-{
+module.exports = function(grunt) {
 	// eslint checks JavaScript files for potential problems.
 
 	grunt.config.merge({
-		eslint:
-		{
+		eslint: {
 			target: ['src/**/*.js'],
-			options:
-			{
+			options: {
 				configFile: 'eslint.json'
 			}
 		}
@@ -36,26 +33,20 @@ module.exports = function (grunt)
 	// --bail stops testing on any failure.
 
 	grunt.config.merge({
-		mochaTest:
-		{
-			selenium:
-			{
+		mochaTest: {
+			selenium: {
 				src: ['./tests/selenium/*.js'],
-				options:
-				{
+				options: {
 					bail: grunt.option('bail'),
 					grep: grunt.option('grep'),
 					slow: 5000
 				}
 			}
 		},
-		mochify:
-		{
-			spec:
-			{
+		mochify: {
+			spec: {
 				src: ['./src/**/*.spec.js'],
-				options:
-				{
+				options: {
 					phantomjs: grunt.option('phantomjs') || 'phantomjs',
 					reporter: 'spec',
 					// This contrivance is required in order to force grunt-mochify to call
