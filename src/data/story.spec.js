@@ -57,4 +57,93 @@ describe('story data module', () => {
 		story.mutations.CREATE_STORY(state, tinyStory);
 		expect(state.stories[0].ifid).to.match(/^[A-Z0-9-]+$/);
 	});
+
+	it('updates a story with the UPDATE_STORY mutation', () => {
+		story.mutations.CREATE_STORY(state, tinyStory);
+		story.mutations.UPDATE_STORY(state, state.stories[0].id, { color: 'red' });
+		expect(state.stories[0].color).to.equal('red');
+	});
+
+	it('duplicates a story with the DUPLICATE_STORY mutation', () => {
+		story.mutations.CREATE_STORY(state, bigStory);
+		story.mutations.DUPLICATE_STORY(state, state.stories[0].id, 'Another Story');
+		expect(state.stories).to.have.lengthOf(2);
+		expect(state.stories[1].name).to.equal('Another Story');
+		expect(state.stories[0].passages.length).to.equal(state.stories[1].passages.length);
+		expect(state.stories[0].id).to.not.equal(state.stories[1].id);
+		expect(state.stories[0].ifid).to.not.equal(state.stories[1].ifid);
+		expect(state.stories[0].passages[0].id).to.not.equal(state.stories[1].passages[0].id);
+		expect(state.stories[0].passages[0].story).to.equal(state.stories[0].id);
+		expect(state.stories[1].passages[0].story).to.equal(state.stories[1].id);
+	});
+
+	it('throws an error if asked to DUPLICATE_STORY a nonexistent id', () => {
+		story.mutations.CREATE_STORY(state, bigStory);
+		expect(() => {
+			story.mutations.DUPLICATE_STORY(state, 'nonexistent', 'Another Story')
+		}).to.throw;
+		expect(state.stories).to.have.lengthOf(1);
+	});
+
+	it('deletes a story with the DELETE_STORY mutation', () => {
+		story.mutations.CREATE_STORY(state, tinyStory);
+		expect(state.stories).to.have.lengthOf(1);
+		story.mutations.DELETE_STORY(state, state.stories[0].id);
+		expect(state.stories).to.have.lengthOf(0);
+	});
+
+	it('throws an error if asked to DELETE_STORY a nonexistent id', () => {
+		story.mutations.CREATE_STORY(state, bigStory);
+		expect(() => {
+			story.mutations.DELETE_STORY(state, 'nonexistent')
+		}).to.throw;
+		expect(state.stories).to.have.lengthOf(1);
+	});
+
+	it('imports stories with the IMPORT_STORY mutation', () => {
+		const toImport = {
+			startPassagePid: 100,
+			name: 'An Imported Story',
+			ifid: 'not-a-real-ifid',
+			lastUpdate: new Date(),
+			script: 'doSomeJavaScript()',
+			stylesheet: 'body { color: red }',
+			zoom: 1,
+			passages: [
+				{
+					pid: 100,
+					left: 10,
+					top: 0,
+					width: 50,
+					height: 75,
+					tags: ['red', 'green'],
+					name: 'A Passage',
+					text: 'Body text'
+				}
+			]
+		};
+
+		story.mutations.IMPORT_STORY(state, toImport);
+		expect(state.stories).to.have.lengthOf(1);
+		expect(state.stories[0].startPassageId).to.not.exist;
+		expect(state.stories[0].id).to.be.a('string');
+		expect(state.stories[0].name).to.equal('An Imported Story');
+		expect(state.stories[0].ifid).to.be.a('string');
+		expect(state.stories[0].lastUpdate).to.be.a('date');
+		expect(state.stories[0].script).to.equal('doSomeJavaScript()');
+		expect(state.stories[0].stylesheet).to.equal('body { color: red }');
+		expect(state.stories[0].zoom).to.equal(1);
+		expect(state.stories[0].passages).to.have.lengthOf(1);
+		expect(state.stories[0].passages[0].id).to.be.a('string');
+		expect(state.stories[0].passages[0].pid).to.not.exist;
+		expect(state.stories[0].passages[0].left).to.equal(10);
+		expect(state.stories[0].passages[0].top).to.equal(0);
+		expect(state.stories[0].passages[0].width).to.equal(50);
+		expect(state.stories[0].passages[0].height).to.equal(75);
+		expect(state.stories[0].passages[0].name).to.equal('A Passage');
+		expect(state.stories[0].passages[0].text).to.equal('Body text');
+		expect(state.stories[0].passages[0].tags).to.have.lengthOf(2);
+		expect(state.stories[0].passages[0].tags[0]).to.equal('red');
+		expect(state.stories[0].passages[0].tags[1]).to.equal('green');
+	});
 });
