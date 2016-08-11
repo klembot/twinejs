@@ -146,4 +146,117 @@ describe('story data module', () => {
 		expect(state.stories[0].passages[0].tags[0]).to.equal('red');
 		expect(state.stories[0].passages[0].tags[1]).to.equal('green');
 	});
+
+	it('creates a passage with the CREATE_PASSAGE_IN_STORY mutation', () => {
+		story.mutations.CREATE_STORY(state, tinyStory);
+		story.mutations.CREATE_PASSAGE_IN_STORY(
+			state,
+			state.stories[0].id,
+			{
+				name: 'A New Passage',
+				text: 'Hello passage.'
+			}
+		);
+		expect(state.stories[0].passages).to.have.lengthOf(1);
+		expect(state.stories[0].passages[0].id).to.be.a('string');
+		expect(state.stories[0].passages[0].name).to.equal('A New Passage');
+		expect(state.stories[0].passages[0].text).to.equal('Hello passage.');
+		expect(state.stories[0].passages[0].story).to.equal(state.stories[0].id);
+	});
+
+	it('creates unique IDs for passages with the CREATE_PASSAGE_IN_STORY mutation', () => {
+		story.mutations.CREATE_STORY(state, tinyStory);
+		story.mutations.CREATE_PASSAGE_IN_STORY(
+			state,
+			state.stories[0].id,
+			{
+				name: 'A New Passage',
+			}
+		);
+		story.mutations.CREATE_PASSAGE_IN_STORY(
+			state,
+			state.stories[0].id,
+			{
+				name: 'Another Passage',
+			}
+		);
+		expect(state.stories[0].passages).to.have.lengthOf(2);
+		expect(state.stories[0].passages[0].id).to.not.equal(state.stories[0].passages[1].id);
+	});
+
+	it('updates passages with the UPDATE_PASSAGE_IN_STORY mutation', () => {
+		story.mutations.CREATE_STORY(state, tinyStory);
+		story.mutations.CREATE_PASSAGE_IN_STORY(
+			state,
+			state.stories[0].id,
+			{
+				name: 'A New Passage',
+			}
+		);
+		expect(state.stories[0].passages[0].name).to.equal('A New Passage');
+		story.mutations.UPDATE_PASSAGE_IN_STORY(
+			state,
+			state.stories[0].id,
+			state.stories[0].passages[0].id,
+			{
+				name: 'A Different Name'
+			}
+
+		);
+		expect(state.stories[0].passages[0].name).to.equal('A Different Name');
+	});
+
+	it('throws an error if UPDATE_PASSAGE_IN_STORY is passed a nonexistent story id', () => {
+		story.mutations.CREATE_STORY(state, tinyStory);
+		expect(() => {
+			story.mutations.UPDATE_PASSAGE_IN_STORY(state, 'nonexistent');
+		}).to.throw;
+	});
+
+	it('throws an error if UPDATE_PASSAGE_IN_STORY is passed a nonexistent passage id', () => {
+		story.mutations.CREATE_STORY(state, tinyStory);
+		expect(() => {
+			story.mutations.UPDATE_PASSAGE_IN_STORY(
+				state,
+				state.stories[0].id,
+				'nonexistent'
+			);
+		}).to.throw;
+	});
+
+	it('deletes passages with the DELETE_PASSAGE_IN_STORY mutation', () => {
+		story.mutations.CREATE_STORY(state, tinyStory);
+		story.mutations.CREATE_PASSAGE_IN_STORY(
+			state,
+			state.stories[0].id,
+			{
+				name: 'A New Passage',
+			}
+		);
+		expect(state.stories[0].passages).to.have.lengthOf(1);
+		story.mutations.DELETE_PASSAGE_IN_STORY(
+			state,
+			state.stories[0].id,
+			state.stories[0].passages[0].id
+		);
+		expect(state.stories[0].passages).to.have.lengthOf(0);
+	});
+
+	it('throws an error if DELETE_PASSAGE_IN_STORY is passed a nonexistent story id', () => {
+		story.mutations.CREATE_STORY(state, tinyStory);
+		expect(() => {
+			story.mutations.DELETE_PASSAGE_IN_STORY(state, 'nonexistent');
+		}).to.throw;
+	});
+
+	it('throws an error if UPDATE_PASSAGE_IN_STORY is passed a nonexistent passage id', () => {
+		story.mutations.CREATE_STORY(state, tinyStory);
+		expect(() => {
+			story.mutations.DELETE_PASSAGE_IN_STORY(
+				state,
+				state.stories[0].id,
+				'nonexistent'
+			);
+		}).to.throw;
+	});
 });
