@@ -35,7 +35,7 @@ const storyStore = module.exports = {
 
 	mutations: {
 		CREATE_STORY(state, props) {
-			state.stories.push(Object.assign(
+			let story = Object.assign(
 				{
 					id: uuid(),
 					lastUpdate: new Date(),
@@ -44,7 +44,13 @@ const storyStore = module.exports = {
 				},
 				storyStore.storyDefaults,
 				props
-			));
+			);
+
+			if (story.passages) {
+				story.passages.forEach(passage => passage.story = story.id);
+			}
+
+			state.stories.push(story);
 		},
 
 		UPDATE_STORY(state, id, props) {
@@ -55,18 +61,35 @@ const storyStore = module.exports = {
 		},
 
 		DUPLICATE_STORY(state, id, newName) {
+			const original = getStoryById(state, id);
+
 			let story = Object.assign(
 				{},
-				getStoryById(state, id),
+				original,
 				{
 					id: uuid(),
+					ifid: uuid().toUpperCase(),
 					name: newName
 				}
 			);
 
-			story.passages.forEach(passage => {
-				passage.id = uuid();
-				passage.story = story.id;
+			/* We need to do a deep copy of the passages. */
+
+			story.passages = [];
+
+			original.passages.forEach(passage => {
+				story.passages.push(Object.assign(
+					{},
+					passage,
+					{
+						id: uuid(),
+						story: story.id
+					}
+				));
+
+				if (passage.tags) {
+					passage.tags = passage.tags.slice(0);
+				}
 			});
 
 			state.stories.push(story);
