@@ -108,6 +108,17 @@ const story = module.exports = {
 						newStory[key] = storyDefaults[key];
 					}
 				});
+				
+				/* Coerce the lastUpdate property to a date. */
+				
+				if (newStory.lastUpdate) {
+					newStory.lastUpdate = new Date(Date.parse(newStory.lastUpdate));
+				}
+				else {
+					newStory.lastUpdate = new Date();
+				}
+				
+				console.log(newStory.lastUpdate);
 
 				/*
 				Force the passages property to be an empty array -- we'll
