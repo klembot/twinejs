@@ -63,5 +63,97 @@ describe('actions data module', () => {
 		actions.deletePassageInStory(store, fakeId, fakeId);
 		expect(store.dispatch.calledOnce).to.equal.true;
 		expect(store.dispatch.calledWith('DELETE_PASSAGE_IN_STORY', fakeId, fakeId)).to.equal.true;
+	});
+	
+	it('dispatches a CREATE_FORMAT mutation with createFormat()', () => {				
+		actions.createFormat(store, props);
+		expect(store.dispatch.calledOnce).to.equal.true;
+		expect(store.dispatch.calledWith('CREATE_FORMAT', props)).to.equal.true;
 	});	
+	
+	it('dispatches an UPDATE_FORMAT mutation with createFormat()', () => {				
+		actions.updateFormat(store, fakeId, props);
+		expect(store.dispatch.calledOnce).to.equal.true;
+		expect(store.dispatch.calledWith('CREATE_FORMAT', fakeId, props)).to.equal.true;
+	});
+	
+	it('dispatches a DELETE_FORMAT mutation with deleteFormat()', () => {				
+		actions.deleteFormat(store, fakeId);
+		expect(store.dispatch.calledOnce).to.equal.true;
+		expect(store.dispatch.calledWith('CREATE_FORMAT', fakeId)).to.equal.true;
+	});
+	
+	it('creates built-in formats with repairFormats()', () => {
+		let formatsStore = {
+			dispatch: spy(),
+			state: {
+				pref: {},
+				storyFormat: {
+					formats: []
+				}
+			}
+		};
+		
+		actions.repairFormats(formatsStore);
+		
+		let created = {};
+		
+		for (let i = 0; i < formatsStore.dispatch.callCount; i++) {
+			let call = formatsStore.dispatch.getCall(i);
+			
+			if (call.args[0] === 'CREATE_FORMAT') {
+				created[call.args[1].name] = call.args[1];
+			}
+		}
+		
+		expect(created.Harlowe).to.exist;
+		expect(created.Harlowe.url).to.equal('story-formats/Harlowe/format.js');
+		expect(created.Harlowe.userAdded).to.be.false;
+		expect(created.Paperthin).to.exist;
+		expect(created.Paperthin.url).to.equal('story-formats/Paperthin/format.js');
+		expect(created.Paperthin.userAdded).to.be.false;
+		expect(created.Snowman).to.exist;
+		expect(created.Snowman.url).to.equal('story-formats/Snowman/format.js');
+		expect(created.Snowman.userAdded).to.be.false;
+		expect(created.SugarCube).to.exist;
+		expect(created.SugarCube.url).to.equal('story-formats/SugarCube/format.js');
+		expect(created.SugarCube.userAdded).to.be.false;	
+	});
+	
+	it('sets default formats with repairFormats()', () => {
+		let formatsStore = {
+			dispatch: spy(),
+			state: {
+				pref: {},
+				storyFormat: {
+					formats: []
+				}
+			}
+		};
+		
+		actions.repairFormats(formatsStore);
+		
+		expect(formatsStore.dispatch.calledWith('UPDATE_PREF', 'defaultFormat', 'Harlowe'));
+		expect(formatsStore.dispatch.calledWith('UPDATE_PREF', 'proofingFormat', 'Paperthin'));
+	});
+	
+	it('does not duplicate formats with repairFormats()', () => {
+		let formatsStore = {
+			dispatch: spy(),
+			state: {
+				pref: {},
+				storyFormat: {
+					formats: [
+						{ name: 'Harlowe' },
+						{ name: 'Paperthin' },
+						{ name: 'Snowman' },
+						{ name: 'SugarCube' }			
+					]
+				}
+			}
+		};
+		
+		actions.repairFormats(formatsStore);		
+		expect(formatsStore.dispatch.calledWith('CREATE_FORMAT')).to.be.false;
+	});
 });
