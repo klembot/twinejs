@@ -30,6 +30,10 @@ const story = module.exports = {
 	// passages.
 
 	saveStory(transaction, story) {
+		if (!story.id) {
+			throw new Error('Story has no id');
+		}
+		
 		transaction.storyIds = commaList.addUnique(
 			transaction.storyIds,
 			story.id
@@ -50,6 +54,10 @@ const story = module.exports = {
 	// passages. You *must* delete child passages manually.
 
 	deleteStory(transaction, story) {
+		if (!story.id) {
+			throw new Error('Story has no id');
+		}
+		
 		transaction.storyIds = commaList.remove(transaction.storyIds, story.id);
 		window.localStorage.removeItem('twine-stories-' + story.id);
 	},
@@ -57,6 +65,10 @@ const story = module.exports = {
 	// Saves a passage to local storage.
 
 	savePassage(transaction, passage) {
+		if (!passage.id) {
+			throw new Error('Passage has no id');
+		}
+		
 		transaction.passageIds = commaList.addUnique(
 			transaction.passageIds,
 			passage.id
@@ -71,6 +83,10 @@ const story = module.exports = {
 	// Deletes a passage from local storage.
 
 	deletePassage(transaction, passage) {
+		if (!passage.id) {
+			throw new Error('Passage has no id');
+		}
+
 		story.deletePassageById(transaction, passage.id);
 	},
 
