@@ -156,4 +156,59 @@ describe('actions data module', () => {
 		actions.repairFormats(formatsStore);		
 		expect(formatsStore.dispatch.calledWith('CREATE_FORMAT')).to.be.false;
 	});
+
+	it('creates new links with createNewlyLinkedPassages()', () => {
+		let storyStore = {
+			dispatch: spy(),
+			state: {
+				story: {
+					stories: [
+						{
+							id: fakeId,
+							passages: [
+								{
+									id: fakeId,
+									name: 'Test',
+									text: '[[Test 2]]'
+								}
+							]
+						}
+					]
+				}
+			}
+		};
+
+		actions.createNewlyLinkedPassages(storyStore, fakeId, fakeId, '');
+		expect(storyStore.dispatch.calledOnce).to.be.true;
+
+		const firstCall = storyStore.dispatch.getCall(0);
+		expect(firstCall.args[0]).to.equal('CREATE_PASSAGE_IN_STORY');
+		expect(firstCall.args[1]).to.equal(fakeId);
+		expect(firstCall.args[2].name).to.equal('Test 2');
+	});
+
+	it('skips old links with createNewlyLinkedPassages()', () => {
+		let storyStore = {
+			dispatch: spy(),
+			state: {
+				story: {
+					stories: [
+						{
+							id: fakeId,
+							passages: [
+								{
+									id: fakeId,
+									name: 'Test',
+									text: '[[Test 2]]'
+								}
+							]
+						}
+					]
+				}
+			}
+		};
+
+		actions.createNewlyLinkedPassages(storyStore, fakeId, fakeId, '[[Test 2]]');
+		expect(storyStore.dispatch.called).to.be.false;
+	});
 });
