@@ -26,7 +26,7 @@ const commaList = module.exports = {
 	// Removes a value from a list.
 
 	remove(list, value) {
-		list = list.replace(new RegExp(',?' + value + ',?'), '');
+		list = list.replace(new RegExp(',?' + value), '');
 		
 		// We end up with a leading comma if we just removed the first value.
 
