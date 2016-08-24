@@ -48,7 +48,7 @@ module.exports = function(grunt) {
 				src: ['./src/**/*.spec.js'],
 				options: {
 					phantomjs: grunt.option('phantomjs') || 'phantomjs',
-					reporter: 'spec',
+					reporter: 'dot',
 					// This contrivance is required in order to force grunt-mochify to call
 					// mochify with multiple --transform values (which it normally cannot).
 					transform: 'stringify --transform [ babelify --presets babel-preset-es2015 ]'.split(' ')

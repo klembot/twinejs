@@ -134,8 +134,6 @@ const story = module.exports = {
 					newStory.lastUpdate = new Date();
 				}
 				
-				console.log(newStory.lastUpdate);
-
 				/*
 				Force the passages property to be an empty array -- we'll
 				populate it when we load passages below.
