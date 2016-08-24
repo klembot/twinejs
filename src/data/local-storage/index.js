@@ -19,6 +19,7 @@ module.exports = {
 		enabled = false;
 		pref.load(store);
 		story.load(store);
+		storyFormat.load(store);
 		previousStories = state.story.stories;
 		enabled = true;
 	},
