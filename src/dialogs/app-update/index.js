@@ -1,10 +1,10 @@
 // A function that checks for an update to Twine, and displays a confirm dialog
 // asking the user to download it.
 
-const AppPref = require('../../data/models/app-pref');
 const checkForUpdate = require('../../common/app/update-check');
-const locale = require('../../locale');
 const { confirm } = require('../confirm');
+const locale = require('../../locale');
+const { setPref } = require('../../data/actions');
 
 // How often we check for a new version of Twine, in milliseconds. This is
 // currently one day.
@@ -12,32 +12,24 @@ const { confirm } = require('../confirm');
 const CHECK_DELAY = 1000 * 60 * 60 * 24;
 
 module.exports = {
-	check() {
-		// Find the last update we've seen.
+	check(store) {
+		// Force the last update we've seen to be at least the current app
+		// version.
 
-		const lastUpdateSeenPref = AppPref.withName(
-			'lastUpdateSeen',
-			window.app.buildNumber
-		);
-
-		// Force the last update to be at least the current app version.
-
-		if (lastUpdateSeenPref.get('value') < window.app.buildNumber) {
-			lastUpdateSeenPref.save({ value: window.app.buildNumber });
+		if (!store.state.pref.lastUpdateSeen ||
+			store.state.pref.lastUpdateSeen < store.state.appInfo.buildNumber) {
+			setPref(store, 'lastUpdateSeen', store.state.appInfo.buildNumber)
 		}
-
-		const lastUpdateCheckPref = AppPref.withName(
-			'lastUpdateCheckTime',
-			new Date().getTime()
-		);
 
 		// Is there a new update since we last checked?
 
-		if (new Date().getTime() > lastUpdateCheckPref.get('value') + CHECK_DELAY) {
+		const checkTime = store.state.pref.lastUpdateCheckTime + CHECK_DELAY;
+
+		if (new Date().getTime() > checkTime) {
 			checkForUpdate(
-				lastUpdateSeenPref.get('value'),
-				({buildNumber, version, url}) => {
-					lastUpdateSeenPref.save({ value: buildNumber });
+				store.state.pref.lastUpdateSeen,
+				({ buildNumber, version, url }) => {
+					setPref(store, 'lastUpdateSeen', buildNumber);
 
 					confirm({
 						message:
@@ -58,7 +50,7 @@ module.exports = {
 							locale.say('Not Right Now'),
 
 						buttonClass:
-							'download',
+							'download primary',
 
 						modalClass:
 							'info',

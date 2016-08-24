@@ -1,13 +1,10 @@
-module.exports = function (grunt)
-{
+module.exports = function(grunt) {
 	// eslint checks JavaScript files for potential problems.
 
 	grunt.config.merge({
-		eslint:
-		{
+		eslint: {
 			target: ['src/**/*.js'],
-			options:
-			{
+			options: {
 				configFile: 'eslint.json'
 			}
 		}
@@ -36,31 +33,25 @@ module.exports = function (grunt)
 	// --bail stops testing on any failure.
 
 	grunt.config.merge({
-		mochaTest:
-		{
-			selenium:
-			{
+		mochaTest: {
+			selenium: {
 				src: ['./tests/selenium/*.js'],
-				options:
-				{
+				options: {
 					bail: grunt.option('bail'),
 					grep: grunt.option('grep'),
 					slow: 5000
 				}
 			}
 		},
-		mochify:
-		{
-			unit:
-			{
-				src: ['./tests/unit/*.js'],
-				options:
-				{
+		mochify: {
+			spec: {
+				src: ['./src/**/*.spec.js'],
+				options: {
 					phantomjs: grunt.option('phantomjs') || 'phantomjs',
-					reporter: 'spec',
+					reporter: 'dot',
 					// This contrivance is required in order to force grunt-mochify to call
 					// mochify with multiple --transform values (which it normally cannot).
-					transform: 'ejsify --transform [ babelify --presets babel-preset-es2015 ]'.split(' ')
+					transform: 'stringify --transform [ babelify --presets babel-preset-es2015 ]'.split(' ')
 				}
 			}
 		}

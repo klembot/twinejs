@@ -1,7 +1,7 @@
 // A component showing a modal dialog where a story's JavaSCript.
 
 const Vue = require('vue');
-const backboneModel = require('../../vue/mixins/backbone-model');
+const { updateStory } = require('../../data/actions');
 
 require('codemirror/mode/javascript/javascript');
 require('codemirror/addon/display/placeholder');
@@ -11,10 +11,16 @@ module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	data: () => ({
-		script: ''
+		storyId: ''
 	}),
 
 	computed: {
+		source() {
+			return this.allStories.find(
+				story => story.id === this.storyId
+			).script;
+		},
+
 		cmOptions: () => ({
 			lineWrapping: true,
 			lineNumbers: false,
@@ -35,7 +41,7 @@ module.exports = Vue.extend({
 		},
 
 		save(text) {
-			this.script = text;
+			this.updateStory(this.storyId, { script: text });
 		}
 	},
 	
@@ -44,5 +50,13 @@ module.exports = Vue.extend({
 		'code-mirror': require('../../vue/codemirror')
 	},
 
-	mixins: [backboneModel]
+	vuex: {
+		actions: {
+			updateStory
+		},
+
+		getters: {
+			allStories: state => state.story.stories
+		}
+	}
 });

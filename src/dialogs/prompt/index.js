@@ -13,7 +13,7 @@ const prompter = module.exports = {
 			response: '',
 			cancelLabel: ('<i class="fa fa-times"></i> ' + locale.say('Cancel')),
 			buttonLabel: '',
-			buttonClass: '',
+			buttonClass: 'primary',
 			modalClass: '',
 			isValid: true,
 			validationError: '',

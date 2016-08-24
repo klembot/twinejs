@@ -1,9 +1,11 @@
+@import '../common/metrics.less';
+
 #welcomeView {
 	> div {
-		padding: 20px 20px 20px 240px;
-		width: 60%;
-		margin: 5% auto;
-		min-height: 240px;
+		padding-left: 220px;
+		width: 45rem;
+		margin: 2 * @len-extra-large auto;
+		min-height: 220px;
 		position: relative;
 
 		&:before {
@@ -11,7 +13,7 @@
 			display: block;
 			position: absolute;
 			top: 0;
-			left: 20px;
+			left: 0;
 			width: 200px;
 			bottom: 0;
 			background-position: center;
@@ -41,10 +43,6 @@
 	.thanks:before {
 		/* http://thenounproject.com/term/smile/10696/ */
 		background-image: url('img/welcome-thanks.png');
-	}
-
-	p {
-		font-size: 120%;
 	}
 
 	.buttons .skip {

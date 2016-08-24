@@ -182,12 +182,5 @@ module.exports = Vue.extend({
 		on(this.$el.parentNode, `mousedown${this.$eventID}`, e => this.startDrag(e));
 	},
 
-	// This need to be `beforeDestroy` instead of `destroyed` so that we still
-	// have a reference to our parent component.
-
-	beforeDestroy() {
-		off(this.$el.parentNode, this.$eventID);
-	},
-
 	mixins: [eventID],
 });

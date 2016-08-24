@@ -5,16 +5,10 @@ const Vue = require('vue');
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
-	props: [
-		'model',      // A passage
-		'parentStory' // The story containing this passage
-	],
-
-	computed: {
-		startClasses() {
-			if (this.parentStory.get('startPassage') === this.model.id) {
-				return ['active'];
-			}
+	props: {
+		passage: {
+			type: Object,
+			required: true
 		}
 	},
 
@@ -28,11 +22,11 @@ module.exports = Vue.extend({
 		},
 
 		test() {
-			this.$dispatch('story-test', this.model.id);
+			this.$dispatch('story-test', this.passage.id);
 		},
 
 		setAsStart() {
-			this.$dispatch('story-set-start', this.model.id);
+			this.$dispatch('story-set-start', this.passage.id);
 		}
 	},
 

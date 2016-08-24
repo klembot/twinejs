@@ -1,119 +1,70 @@
-@import "../zoom-settings.less";
+@import '../../common/colors.less';
+@import '../../common/metrics.less';
+@import '../../common/depth.less';
 
 #storyEditView .passage {
 	position: absolute;
-	color: hsla(0, 0%, 100%, 0.75);
+	background: @color-paper;
 	cursor: default;
-	background: @blueprint-large;
-	background-origin: border-box;
+	font-size: 85%;
+	padding: @len-small;
+	border: @len-hairline solid transparent;
+	border-radius: 2px;
+	overflow: hidden;
+	.shadow-small;
 
-	.frame {
-		border: 1px solid hsla(0, 0%, 100%, 0.75);
-		border-radius: 2px;
-		box-sizing:border-box;
-		box-shadow: 0 0 2px hsla(0, 0%, 100%, 0.75), inset 0 0 2px hsla(0, 0%, 100%, 0.75);
-
-		width: 100px;
-		height: 100px;
-		position: relative;
-		overflow: hidden;
-
-		// The border between the title and excerpt.
-
-		&:after {
-			content: '';
-			display: block;
-			width: 100px;
-			height: 1px;
-			position: absolute;
-			top: 22px;
-			left: 0;
-			background-color: hsla(0, 0%, 100%, 0.75);
-			box-shadow: 0 0 1px hsla(0, 0%, 100%, 0.75), inset 0 0 1px hsla(0, 0%, 100%, 0.75);
-		}
+	p {
+		margin: 0;
 	}
 
 	.title {
-		font-size: 11px;
-		line-height: 15px;
-		padding: 4px 4px 0 4px;
-		height: 24px;
-		margin: 0;
-		box-sizing: border-box;
-		white-space: nowrap;
-		text-overflow: ellipsis;
+		position: relative;
+		z-index: 1;
+		font-weight: bold;
 	}
 
 	.excerpt {
-		font-size: 11px;
-		margin: 0;
-		padding: 4px;
+		position: relative;
+		z-index: 1;
+		color: lighten(@color-text, 45%);
 	}
 
-	&.selected .frame {
-		color: hsla(0, 0%, 100%, 1);
-		background-color: hsla(0, 0%, 100%, 0.25);
+	&.selected {
+		border: @len-hairline solid lighten(@color-link, 30%);
+		background: lighten(@color-link, 55%);
 	}
 
-	&.highlight .frame {
-		color: hsl(60, 100%, 50%);
-		border-color: hsla(60, 100%, 50%, 0.75);
-		box-shadow: 0 0 2px hsla(60, 100%, 50%, 0.75), inset 0 0 2px hsla(60, 100%, 50%, 0.75);
-
-		&:after {
-			background-color: hsl(60, 100%, 50%);
-			box-shadow: 0 0 1px hsla(60, 100%, 50%, 0.75), inset 0 0 1px hsla(60, 100%, 50%, 0.75);
-		}
+	&.highlighted {
+		border: @len-hairline solid lighten(@color-highlight, 15%);
+		background: lighten(@color-highlight, 40%);
 	}
 
-	&.brokenLink .frame {
-		background-color: hsla(0, 100%, 60%, 0.5);
+	&.selected.highlighted {
+		border: @len-hairline solid mix(lighten(@color-highlight, 15%), lighten(@color-link, 30%));
+		background: mix(lighten(@color-highlight, 40%), lighten(@color-link, 55%));
 	}
 
-	&.start {
-		.frame {
-			border-width: 4px;
-
-			&:after {
-				height: 2px;
-			}
-		}
-
-		.setAsStart {
-			color: hsl(212, 88%, 40%);
-
-			&:hover {
-				color: hsl(212, 88%, 50%);
-			}
-		}
+	.theme-dark & {
+		background: @color-paper-dark;
 	}
 }
 
 #storyEditView.zoom-medium .passage {
-	background: @blueprint-medium;
-
 	.frame {
-		width: 60px;
-		height: 60px;
-
-		&:after {
-			display: none;
-		}
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 
 	.title {
-		border-bottom: none;
-		font-size: 0.8em;
 		font-weight: normal;
-		line-height: 120%;
 		text-align: center;
-		margin: 5px;
-		padding: 0;
-		height: 60px;
-		width: 60px;
-		display: table-cell;
-		vertical-align: middle;
-		white-space: normal;
+
+		.badge-create, .badge-danger {
+			display: block;
+			margin: 0 auto;
+		}
 	}
 
 	.excerpt {
@@ -122,18 +73,24 @@
 }
 
 #storyEditView.zoom-small .passage {
-	background: @blueprint-small;
+	padding: 0;
 
 	.frame {
-		width: 25px;
-		height: 25px;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: linear-gradient(to bottom, transparent 0, lighten(@color-text, 60%) 1px, transparent 1px);
+		background-size: 3px 3px;
+		margin: 2px;
 
-		&:after {
-			display: none;
+		.theme-dark & {
+			background: linear-gradient(to bottom, transparent 0, darken(@color-text-dark, 30%) 1px, transparent 1px);
+			background-size: 3px 3px;
 		}
 	}
 
-	.title, .excerpt {
+	.title .text, .excerpt {
 		display: none;
 	}
 }

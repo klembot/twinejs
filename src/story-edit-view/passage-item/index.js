@@ -1,251 +1,166 @@
 // A single passage in the story map.
 
-const _ = require('underscore');
+const { escape } = require('underscore');
 const Vue = require('vue');
-const Passage = require('../../data/models/passage');
-const StoryFormatCollection = require('../../data/collections/story-format');
 const PassageEditor = require('../../editors/passage');
-const backboneCollection = require('../../vue/mixins/backbone-collection');
-const backboneModel = require('../../vue/mixins/backbone-model');
 const { confirm } = require('../../dialogs/confirm');
-const linkParser = require('../../common/link-parser');
 const locale = require('../../locale');
 const rect = require('../../common/rect');
 const { hasPrimaryTouchUI } = require('../../ui');
-const { big } = require('../zoom-settings');
-const { eventID, on, off } = require('../../vue/mixins/event-id');
+const {
+	createNewlyLinkedPassages,
+	deletePassageInStory,
+	updatePassageInStory
+} =
+	require('../../data/actions');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
-	props: [
-		// A passage
-		'model',
+	props: {
+		passage: {
+			type: Object,
+			required: true
+		},
 		
-		// The story containing this passage
-		'parentStory',
+		parentStory: {
+			type: Object,
+			required: true
+		},
 
-		// An array of names of all passages in the parentStory
-		'passageNames',
+		/* The regular expression we use to highlight ourselves or not. */
 
-		// A collection of all passages in the parentStory
-		'collection',
-		'gridSize',
-		'snapToGrid',
-		'zoom',
-		'dragXOffset',
-		'dragYOffset',
-		'highlightRegexp'
-	],
+		highlightRegexp: {
+			type: RegExp,
+			required: false
+		},
+
+		/* How dragged passages should be offset, in screen coordinates. */
+
+		screenDragOffsetX: {
+			type: Number,
+			required: true
+		},
+
+		screenDragOffsetY: {
+			type: Number,
+			required: true
+		}
+	},
 
 	data: () => ({
-		// Model attributes.
-
-		name: '',
-		top: 0,
-		left: 0,
-		text: '',
-
-		// Whether we're currently selected by the user.
+		/* Whether we're currently selected by the user. */
 
 		selected: false,
 
-		// Where a drag on us began.
+		/*
+		To speed initial load, we don't create a contextual menu until the user
+		actually points to us. This records whether a menu component should be
+		added.
+		*/
 
-		dragStartX: 0,
-		dragStartY: 0
+		needsMenu: false,
+
+		/*
+		Where a drag on us began, in screen coordinates. Only the passage that
+		is dragged by the user tracks this.
+		*/
+
+		screenDragStartX: 0,
+		screenDragStartY: 0
 	}),
 
 	computed: {
-		logicalRect() {
-			return {
-				top: this.top,
-				left: this.left,
-				width: Passage.width,
-				height: Passage.height
-			};
-		},
+		/*
+		The position to use when drawing link arrows to this passage. This does
+		*not* factor in the story's zoom level, as the link arrow component
+		will be doing that itself.
+		*/
 
-		screenRect() {
-			return {
-				top: this.top * this.zoom,
-				left: this.left * this.zoom,
-				width: Passage.width * this.zoom,
-				height: Passage.height * this.zoom
-			};
-		},
-
-		// The passed-in dragXOffset, but with the snapToGrid setting taken
-		// into account. Used by connectorArrows and cssPosition.
-
-		screenDragX() {
-			let { dragXOffset, screenRect: { left } } = this;
-
-			if (this.snapToGrid) {
-				dragXOffset = Math.round((dragXOffset + left) / this.gridSize) *
-					this.gridSize - left;
-			}
-
-			return dragXOffset;
-		},
-
-		// The passed-in dragYOffset, but with the snapToGrid setting taken
-		// into account. Used by connectorArrows and cssPosition.
-
-		screenDragY() {
-			let { dragYOffset, screenRect: { top } } = this;
-
-			if (this.snapToGrid) {
-				dragYOffset = Math.round((dragYOffset + top) / this.gridSize) *
-					this.gridSize - top;
-			}
-
-			return dragYOffset;
-		},
-
-		// Connection points used to draw link arrows to and from this
-		// component in (x, y) format.
-
-		connectorAnchors() {
-			const offsetX = (this.selected) ? this.screenDragX : 0;
-			const offsetY = (this.selected) ? this.screenDragY : 0;
-
-			const {left, top, width, height} = this.screenRect;
-
-			return {
-				// The four vertices in [x1,y1,x2,y2] format.
-				box: [
-					left + offsetX,
-					top + offsetY,
-					left + width + offsetX,
-					top + height + offsetY
-				],
-				// The center coordinate
-				center: [
-					left + 0.5 * width + offsetX,
-					top + 0.5 * height + offsetY
-				],
-			};
-		},
-
-		internalLinks() {
-			return linkParser(this.text, true);
-		},
-
-		hasBrokenLinks() {
-			return this.internalLinks.some(
-				n => this.passageNames.indexOf(n) === -1
-			);
-		},
-
-		cssPosition() {
-			let top = this.top * this.zoom;
-			let left = this.left * this.zoom;
-			// Unfortunately, the background offset used in zoom-settings.less must
-			// also be hard-coded here, at least until the background graphic is
-			// amended to not need this.
-			let bgTop = top + (this.zoom === big ? 23 : 0);
-			let bgLeft = left + (this.zoom === big ? -1 : 0);
+		linkPosition() {
 			let result = {
-				top: `${top}px`,
-				left: `${left}px`,
-				// The background is used to mask any intersecting connector
-				// lines which would otherwise be drawn below this.
-				backgroundPosition: `-${bgLeft}px -${bgTop}px`,
+				top: this.passage.top,
+				left: this.passage.left,
+				width: this.passage.width,
+				height: this.passage.height
 			};
 
 			if (this.selected) {
-				result.transform =
-					`translate(${this.screenDragX}px, ${this.screenDragY}px)`;
-				result.backgroundPosition =
-					`-${bgLeft + this.screenDragX}px -${bgTop + this.screenDragY}px`;
+				result.left += this.screenDragOffsetX / this.parentStory.zoom;
+				result.top += this.screenDragOffsetY / this.parentStory.zoom;
 			}
 
 			return result;
+		},
+
+		isStart() {
+			return this.parentStory.startPassage === this.passage.id;
+		},
+
+		cssPosition() {
+			const { zoom } = this.parentStory;
+
+			return {
+				left: this.passage.left * zoom + 'px',
+				top: this.passage.top * zoom + 'px',
+				width: this.passage.width * zoom + 'px',
+				height: this.passage.height * zoom + 'px',
+				transform: this.selected ?
+					'translate(' + this.screenDragOffsetX + 'px, ' +
+					this.screenDragOffsetY + 'px)'
+					: null
+			};
 		},
 		
 		cssClasses() {
 			let result = [];
 
-			if (this.parentStory.get('startPassage') === this.$model.id) {
-				result.push('start');
-			}
-
 			if (this.selected) {
 				result.push('selected');
 			}
 
-			if (this.hasBrokenLinks) {
-				result.push('brokenLink');
+			if (this.highlightRegexp && (
+				this.highlightRegexp.test(this.passage.name) ||
+				this.highlightRegexp.test(this.passage.text))) {
+				result.push('highlighted');
 			}
 
 			return result;
 		},
 
 		excerpt() {
-			return this.$model.excerpt();
+			if (this.passage.text.length < 100) {
+				return escape(this.passage.text);
+			}
+
+			return escape(this.passage.text.substr(0, 99)) + '&hellip;';
 		},
 	},
 
 	methods: {
 		delete() {
-			this.$model.destroy();
+			this.deletePassageInStory(this.parentStory.id, this.passage.id);
 		},
 
 		edit() {
-			const oldText = this.text;
+			const oldText = this.passage.text;
 
 			new PassageEditor({
-				model: this.$model,
-				collection: this.$collection,
-				storyFormat: StoryFormatCollection.all().findWhere(
-					{ name: this.parentStory.get('storyFormat') }
-				),
-			}).$mountTo(document.body)
+				data: {
+					passageId: this.passage.id,
+					storyId: this.parentStory.id
+				},
+				store: this.$store,
+				storyFormat: this.parentStory.storyFormat,
+			})
+			.$mountTo(document.body)
 			.then(() => {
-				this.createNewLinks(this.text, oldText);
-			});
-		},
-
-		followDrag(e) {
-			this.$dispatch(
-				'passage-drag',
-				e.clientX + window.scrollX - this.startDragX,
-				e.clientY + window.scrollY - this.startDragY
-			);
-		},
-
-		stopDrag(e) {
-			// Only listen to the left mouse button.
-
-			if (e.which !== 1) {
-				return;
-			}
-
-			// Remove event listeners set up at the start of the drag.
-			off(window, this.$eventID);
-			document.querySelector('body').classList.remove('draggingPassages');
-
-			// If we haven't actually been moved and the shift or control key
-			// were not held down, select just this passage only. This handles
-			// the scenario where the user clicks a single passage when several
-			// were selected. We don't want to immediately deselect them all,
-			// as the user may be starting a drag; but now that we know for
-			// sure that the user didn't intend this, we select just this one.
-
-			if (this.dragXOffset === 0 && this.dragYOffset === 0) {
-				if (!(e.ctrlKey || e.shiftKey)) {
-					this.$dispatch('passage-deselect-except', this);
-				}
-			}
-			else {
-				this.$dispatch(
-					'passage-drag-complete',
-					e.clientX + window.scrollX - this.startDragX,
-					e.clientY + window.scrollY - this.startDragY,
-					this
+				this.createNewlyLinkedPassages(
+					this.parentStory.id,
+					this.passage.id,
+					oldText
 				);
-			}
+			});
 		},
 
 		startDrag(e) {
@@ -276,44 +191,52 @@ module.exports = Vue.extend({
 
 			// Begin tracking a potential drag.
 
-			this.startDragX = e.clientX + window.scrollX;
-			this.startDragY = e.clientY + window.scrollY;
+			this.screenDragStartX = e.clientX + window.scrollX;
+			this.screenDragStartY = e.clientY + window.scrollY;
 			on(window, `mousemove${this.$eventID}`, e => this.followDrag(e));
 			on(window, `mouseup${this.$eventID}`, e => this.stopDrag(e));
 			document.querySelector('body').classList.add('draggingPassages');
 		},
 
-		createNewLinks(newText, oldText) {
-			// Determine how many passages we'll need to create.
-
-			const oldLinks = linkParser(oldText, true);
-			const newLinks = linkParser(newText, true).filter(
-				link => (oldLinks.indexOf(link) === -1) &&
-					!(this.$collection.find(p => p.get('name') === link))
+		followDrag(e) {
+			this.$dispatch(
+				'passage-drag',
+				e.clientX + window.scrollX - this.screenDragStartX,
+				e.clientY + window.scrollY - this.screenDragStartY
 			);
+		},
 
-			// We center the new passages underneath this one.
-			// We defer the creation events so that the current chain of
-			// execution (e.g. a pending save operation) can complete.
+		stopDrag(e) {
+			// Only listen to the left mouse button.
 
-			const newTop = this.top + Passage.height * 1.5;
+			if (e.which !== 1) {
+				return;
+			}
 
-			// We account for the total width of the new passages as both the
-			// width of the passages themselves plus the spacing in between.
+			// Remove event listeners set up at the start of the drag.
+			off(window, this.$eventID);
+			document.querySelector('body').classList.remove('draggingPassages');
 
-			const totalWidth = newLinks.length * Passage.width +
-				((newLinks.length - 1) * (Passage.width / 2));
-			let newLeft = this.left + (Passage.width - totalWidth) / 2;
+			// If we haven't actually been moved and the shift or control key
+			// were not held down, select just this passage only. This handles
+			// the scenario where the user clicks a single passage when several
+			// were selected. We don't want to immediately deselect them all,
+			// as the user may be starting a drag; but now that we know for
+			// sure that the user didn't intend this, we select just this one.
 
-			// Send messages to create them. We defer this to allow any pending
-			// save operations to complete first.
-
-			Vue.nextTick(() => {
-				newLinks.forEach((link) => {
-					this.$dispatch('passage-create', link, newLeft, newTop);
-					newLeft += Passage.width * 1.5;
-				});
-			});
+			if (this.dragXOffset === 0 && this.dragYOffset === 0) {
+				if (!(e.ctrlKey || e.shiftKey)) {
+					this.$dispatch('passage-deselect-except', this);
+				}
+			}
+			else {
+				this.$dispatch(
+					'passage-drag-complete',
+					e.clientX + window.scrollX - this.screenDragStartX,
+					e.clientY + window.scrollY - this.screenDragStartY,
+					this
+				);
+			}
 		}
 	},
 
@@ -330,7 +253,7 @@ module.exports = Vue.extend({
 				let message = locale.say(
 					'Are you sure you want to delete &ldquo;%s&rdquo;? ' +
 					'This cannot be undone.',
-					_.escape(this.name)
+					escape(this.passage.name)
 				);
 
 				if (!hasPrimaryTouchUI()) {
@@ -358,15 +281,24 @@ module.exports = Vue.extend({
 				// Because the x and y offsets are in screen coordinates, we
 				// need to convert back to logical space.
 
-				this.top += yOffset / this.zoom;
-				this.left += xOffset / this.zoom;
+				this.updatePassageInStory(
+					this.parentStory.id,
+					this.passage.id,
+					{
+						top: this.passage.top + yOffset / this.parentStory.zoom,
+						left: this.passage.left + xOffset / this.parentStory.zoom
+					}
+				);
 
 				// Ask our parent to position us so we overlap no unselected
 				// passages. We need to stipulate that passages are not selected so
 				// that we don't inadvertantly collide with other passages being dragged.
 
-				this.$dispatch('passage-position', this, p => !p.selected);
-				this.$model.save();
+				this.$dispatch(
+					'passage-position',
+					this.passage,
+					{ ignoreSelected: true }
+				);
 			}
 		},
 
@@ -382,7 +314,7 @@ module.exports = Vue.extend({
 				return;
 			}
 
-			this.selected = rect.intersects(this.logicalRect, selectRect);
+			this.selected = rect.intersects(this.passage, selectRect);
 		}
 	},
 
@@ -390,5 +322,11 @@ module.exports = Vue.extend({
 		'passage-menu': require('./passage-menu')
 	},
 
-	mixins: [backboneModel, backboneCollection, eventID]
+	vuex: {
+		actions: {
+			createNewlyLinkedPassages,
+			updatePassageInStory,
+			deletePassageInStory
+		}
+	}
 });

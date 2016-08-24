@@ -1,3 +1,7 @@
+@import '../../common/colors.less';
+@import '../../common/depth.less';
+@import '../../common/metrics.less';
+
 #notifications {
 	position: fixed;
 	top: 0;
@@ -8,35 +12,28 @@
 	z-index: 9999;
 
 	> div {
-		background-color: hsla(0, 0%, 0%, 0.8);
-		color: white;
-		padding: 0.5em;
-		font-size: 80%;
-		border-radius: 0.5em;
-		margin: 1em; 
-	}
+		display: flex;
+		align-items: center;
+		margin-top: @len-small;
+		padding-left: @len-small;
+		background-color: @color-paper;
+		color: @color-text;
+		border-radius: 2px;
+		.shadow-large;
 
-	> .danger {
-		background-color: hsla(10, 88%, 40%, 0.8);
+		.theme-dark & {
+			background-color: @color-paper-dark;
+			color: @color-text-dark;
+		}
 	}
 
 	button.close {
-		float: left;
-		background: none;
-		color: white;
-		border: none;
-		box-shadow: none;
-		margin-top: -0.5em;
-		margin-left: -0.5em;
-		border-top-left-radius: 0.5em;
-		border-bottom-left-radius: 0.5em;
+		border-radius: 0;
+	}
 
-		&:hover {
-			background-color: hsla(0, 0%, 0%, 0.2);
-		}
-
-		&:active {
-			background-color: hsla(0, 0%, 0%, 0.5);
-		}
+	.message {
+		padding: 0 @len-small;
+		text-align: left;
+		flex-grow: 1;
 	}
 }
