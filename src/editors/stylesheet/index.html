@@ -1,15 +1,13 @@
-<modal-dialog class="editModal" @transition-entered="resetCm">
-	<h2 class="title">
+<modal-dialog class="editor" @transition-entered="resetCm">
+	<span slot="title">
 	{{ 'Stylesheet' | say }}
-	</h2>
+	</span>
 
-	<div class="content">
-		<p>
-		{{ 'Any CSS entered here will override the default appearance of your story.' | say }}
-		</p>
+	<p>
+	{{ 'Any CSS entered here will override the default appearance of your story.' | say }}
+	</p>
 
-		<div class="fullEdit">
-			<code-mirror :options="cmOptions" :text="stylesheet" @cm-change="save" v-ref:codemirror></code-mirror>
-		</div>
+	<div class="expand">
+		<code-mirror :options="cmOptions" :text="story.stylesheet" @cm-change="save" v-ref:codemirror></code-mirror>
 	</div>
 </modal-dialog>

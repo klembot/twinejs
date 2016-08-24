@@ -6,20 +6,16 @@
 const $ = require('jquery');
 const moment = require('moment');
 const Vue = require('vue');
-const backboneModel = require('../../vue/mixins/backbone-model');
-const PassageCollection = require('../../data/collections/passage');
 const ZoomTransition = require('../zoom-transition');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
-	data: () => ({
-		name: '',
-		lastUpdate: new Date(),
-	}),
-
 	props: {
-		model: Object
+		story: {
+			type: Object,
+			required: true
+		}
 	},
 
 	components: {
@@ -29,19 +25,15 @@ module.exports = Vue.extend({
 
 	computed: {
 		lastUpdateFormatted() {
-			return moment(this.lastUpdate).format('lll');
+			return moment(this.story.lastUpdate).format('lll');
 		},
 
 		hue() {
 			// A hue based on the story's name.
 
-			return [...this.model.get('name')].reduce(
+			return [this.story.name].reduce(
 				(hue, char) => hue + char.charCodeAt(0), 0
 			) % 360;
-		},
-
-		passages() {
-			return PassageCollection.all().where({ story: this.model.get('id') });
 		}
 	},
 
@@ -49,8 +41,8 @@ module.exports = Vue.extend({
 		// If our parent wants to edit our own model, then we do so. This is
 		// done this level so that we animate the transition correctly.
 
-		edit(model) {
-			if (this.model === model) {
+		edit(story) {
+			if (this.story === story) {
 				this.edit();
 			}
 		},
@@ -60,7 +52,7 @@ module.exports = Vue.extend({
 		// know the ID of the story from the route, but don't have an object.
 
 		'previously-editing'(id) {
-			if (id === this.model.id) {
+			if (id === this.story.id) {
 				// The method for grabbing the page position of our element is
 				// cribbed from http://youmightnotneedjquery.com/.
 
@@ -91,10 +83,8 @@ module.exports = Vue.extend({
 				x: $el.offset().left + $el.outerWidth() / 2,
 				y: $el.offset().top,
 			}}).$mountTo(this.$el).then(
-				() => window.location.hash = '#stories/' + this.model.id
+				() => window.location.hash = '#stories/' + this.story.id
 			);
 		},
-	},
-
-	mixins: [backboneModel]
+	}
 });

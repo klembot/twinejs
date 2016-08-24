@@ -2,28 +2,28 @@
 
 const Vue = require('vue');
 const moment = require('moment');
+const linkParser = require('../../data/link-parser');
 const locale = require('../../locale');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	data: () => ({
-		story: Object,
-		passages: []
+		storyId: ''
 	}),
 
 	computed: {
-		ifid() {
-			return this.story.get('ifid');
+		story() {
+			return this.allStories.find(story => story.id === this.storyId);
 		},
 
 		lastUpdate() {
-			return moment(this.story.get('lastUpdate')).format('LLLL');
+			return moment(this.story.lastUpdate).format('LLLL');
 		},
 
 		charCount() {
-			return this.passages.reduce(
-				(count, passage) => count + passage.get('text').length,
+			return this.story.passages.reduce(
+				(count, passage) => count + passage.text.length,
 				0
 			);
 		},
@@ -39,8 +39,8 @@ module.exports = Vue.extend({
 			// L10n: Word in the sense of individual words in a sentence.
 			// This does not actually include the count, as it is used in a
 			// table.
-			return this.passages.reduce(
-				(count, passage) => count + passage.get('text').split(/\s+/).length,
+			return this.story.passages.reduce(
+				(count, passage) => count + passage.text.split(/\s+/).length,
 				0
 			);
 		},
@@ -55,11 +55,11 @@ module.exports = Vue.extend({
 		links() {
 			// An array of distinct link names.
 
-			return this.passages.reduce(
+			return this.story.passages.reduce(
 				(links, passage) => [
 					...links,
-					...passage.links().filter(
-						(link) => links.indexOf(link) === -1
+					...linkParser(passage.text).filter(
+						link => links.indexOf(link) === -1
 					)
 				],
 				[]
@@ -67,14 +67,14 @@ module.exports = Vue.extend({
 		},
 
 		passageNames() {
-			return this.passages.map((passage) => passage.get('name'));
+			return this.story.passages.map(passage => passage.name);
 		},
 
 		linkCount() {
 			// This counts repeated links, unlike links().
 
-			return this.passages.reduce(
-				(count, passage) => count + passage.links().length,
+			return this.story.passages.reduce(
+				(count, passage) => count + linkParser(passage.text).length,
 				0
 			);
 		},
@@ -101,6 +101,12 @@ module.exports = Vue.extend({
 				'Broken Links',
 				this.brokenLinkCount
 			);
+		}
+	},
+
+	vuex: {
+		getters: {
+			allStories: state => state.story.stories
 		}
 	},
 

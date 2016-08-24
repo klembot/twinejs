@@ -1,37 +1,40 @@
 // story.
 
 const Vue = require('vue');
+const { loadFormat } = require('../../data/actions');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	data: () => ({
-		formats: [],
+		loadIndex: 0,
 		loadedFormats: [],
-		story: null
+		storyId: ''
 	}),
 
 	computed: {
+		story() {
+			return this.allStories.find(story => story.id === this.storyId);
+		},
+
 		working() {
-			return this.formats.length > 0;
+			return this.loadIndex < this.formatNames.length;
 		}
 	},
 
 	methods: {
 		loadNext() {
-			if (this.formats.length === 0) {
+			if (!this.working) {
 				return;
 			}
 
-			let format = this.formats.shift();
-
-			format.load(() => {
+			this.loadFormat(this.formatNames[this.loadIndex])
+			.then(format => {
 				if (!format.properties.proofing) {
-					this.loadedFormats.push(Object.assign(
-						format.properties, format.toJSON())
-					);
+					this.loadedFormats.push(format);
 				}
 
+				this.loadIndex++;
 				this.loadNext();
 			});
 		}
@@ -39,6 +42,19 @@ module.exports = Vue.extend({
 
 	ready() {
 		this.loadNext();
+	},
+
+	vuex: {
+		actions: {
+			loadFormat,
+		},
+
+		getters: {
+			allStories: state => state.story.stories,
+			formatNames: state => state.storyFormat.formats.map(
+				format => format.name
+			)
+		}
 	},
 
 	components: {

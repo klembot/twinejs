@@ -20,7 +20,7 @@ module.exports = Vue.extend({
 		},
 
 		percentDesc() {
-			return locale.say('%d%% space available', 100 - this.percent);
+			return locale.say('%d%% space available', this.percent);
 		}
 	},
 

@@ -7,23 +7,78 @@
 
 'use strict';
 const Vue = require('vue');
-const backboneCollection = require('../vue/mixins/backbone-collection');
-const fileImport = require('../file/import');
 const locale = require('../locale');
 const { check: checkForAppUpdate } = require('../dialogs/app-update');
 const { check: checkForDonation } = require('../dialogs/app-donation');
+const ImportDialog = require('../dialogs/story-import');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
 	
-	props: ['collection', 'appearFast', 'previouslyEditing'],
+	props: {
+		appearFast: {
+			type: Boolean,
+			default: false
+		},
+
+		previouslyEditing: {
+			type: String,
+			default: null
+		}
+	},
+
+	data: () => ({
+		storyOrder: 'name'
+	}),
 
 	computed: {
+		sortedStories() {
+			// If we have no stories to sort, don't worry about it.
+
+			if (this.stories.length === 0) {
+				return this.stories;
+			}
+
+			switch (this.storyOrder) {
+				case 'name':
+					return this.stories.sort((a, b) => {
+						if (a.name > b.name) {
+							return 1;
+						}
+
+						if (a.name < b.name) {
+							return -1;
+						}
+
+						return 0;
+					});
+
+				case 'lastUpdate':
+					return this.stories.sort((a, b) => {
+						const aTime = a.lastUpdate.getTime();
+						const bTime = b.lastUpdate.getTime();
+
+						if (aTime > bTime) {
+							return 1;
+						}
+
+						if (aTime < bTime) {
+							return -1;
+						}
+
+						return 0;
+					});
+
+				default:
+					throw new Error(`Don't know how to sort by ${this.storyOrder}`);
+			}
+		},
+
 		storyCountDesc() {
 			return locale.sayPlural(
 				'%d Story',
 				'%d Stories',
-				this.collection.length
+				this.stories.length
 			);
 		}
 	},
@@ -44,12 +99,12 @@ module.exports = Vue.extend({
 		if (this.appearFast) {
 			return;
 		}
-		
+
 		// Otherwise, we check to see if we should ask for a donation, and
 		// then an app update...
 
-		if (!this.appearFast && !checkForDonation()) {
-			checkForAppUpdate();
+		if (!this.appearFast && !checkForDonation(this.$store)) {
+			checkForAppUpdate(this.$store);
 		}
 
 		// And if the user had been previously editing a story (as the router
@@ -58,6 +113,16 @@ module.exports = Vue.extend({
 
 		if (this.previouslyEditing) {
 			this.$broadcast('previously-editing', this.previouslyEditing);
+		}
+	},
+
+	methods: {
+		sortByDate() {
+			this.storyOrder = 'lastUpdate';
+		},
+
+		sortByName() {
+			this.storyOrder = 'name';
 		}
 	},
 
@@ -78,35 +143,18 @@ module.exports = Vue.extend({
 		// For now, we only support importing a single file at a time.
 
 		'file-drag-n-drop'(files) {
-			fileImport.importFile(files[0]);
+			new ImportDialog({
+				store: this.$store,
+				data: {
+					immediateImport: files[0]
+				}
+			}).$mountTo(document.body);
 		}
 	},
 
-	methods: {
-		/**
-		 Sorts the story list by alphabetical order.
-
-		 @method sortByName
-		**/
-
-		sortByName() {
-			this.$collection.order = 'name';
-			this.$collection.reverseOrder = false;
-			this.$collection.sort();
-		},
-
-		/**
-		 Sorts the story list by last edit date.
-
-		 @method sortByDate
-		**/
-
-		sortByDate() {
-			this.$collection.order = 'lastUpdate';
-			this.$collection.reverseOrder = true;
-			this.$collection.sort();
+	vuex: {
+		getters: {
+			stories: state => state.story.stories
 		}
-	},
-
-	mixins: [backboneCollection]
+	}
 });

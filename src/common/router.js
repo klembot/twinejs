@@ -2,20 +2,14 @@
 
 let Vue = require('vue');
 const VueRouter = require('vue-router');
-const AppPref = require('../data/models/app-pref');
 const LocaleView = require('../locale/view');
-
-const StoryFormat = require('../data/models/story-format');
 const StoryEditView = require('../story-edit-view');
 const StoryListView = require('../story-list-view');
 const WelcomeView = require('../welcome');
-const publish = require('../story-publish');
-
-// Beware: requiring Story *before* StoryCollection causes an error on startup.
-// I believe it's due to the hacky way the circular
-
-const StoryCollection = require('../data/collections/story');
-const Story = require('../data/models/story');
+const { loadFormat } = require('../data/actions');
+const { publishStoryWithFormat } = require('../data/publish');
+const replaceUI = require('../ui/replace');
+const store = require('../data/store');
 
 Vue.use(VueRouter);
 
@@ -37,14 +31,13 @@ TwineRouter.map({
 
 	'/stories': {
 		component: {
-			template: '<div><story-list :collection="collection" ' +
+			template: '<div><story-list ' +
 				':previously-editing="previouslyEditing"></story-list></div>',
 
 			components: { 'story-list': StoryListView },
 
 			data() {
 				return {
-					collection: StoryCollection.all(),
 					previouslyEditing: this.$route.params ?
 						this.$route.params.previouslyEditing : ''
 				};
@@ -54,42 +47,52 @@ TwineRouter.map({
 
 	'/stories/:id': {
 		component: {
-			template: '<div><story-edit :model="model" ' +
-				':collection="collection"></story-edit></div>',
+			template: '<div><story-edit :story-id="id"></story-edit></div>',
 
 			components: { 'story-edit': StoryEditView },
-
+			
 			data() {
-				const model = Story.withId(this.$route.params.id);
-
-				return {
-					model: model,
-					collection: model.fetchPassages()
-				};
+				return { id: this.$route.params.id };
 			}
 		},
-	},
-
-	'/stories/:id/play': {
-		component: {
-			ready() {
-				publish.publishStory(Story.withId(this.$route.params.id));
-			}
-		}
 	},
 
 	// These routes require special handling, because we tear down our UI when
 	// they activate.
 
+	'/stories/:id/play': {
+		component: {
+			ready() {
+				const state = this.$store.state;
+				const story = state.story.stories.find(
+					story => story.id === this.$route.params.id
+				);
+				const formatName = story.format || state.pref.defaultFormat;
+				const format = state.storyFormat.formats.find(
+					format => format.name === formatName
+				);
+
+				loadFormat(this.$store, formatName).then(() => {
+					replaceUI(publishStoryWithFormat(story, format));
+				});
+			}
+		}
+	},
+
 	'/stories/:id/proof': {
 		component: {
 			ready() {
-				const story = Story.withId(this.$route.params.id);
-				const format = StoryFormat.withName(
-					AppPref.withName('proofingFormat').get('value')
+				const state = this.$store.state;
+				const story = state.story.stories.find(
+					story => story.id === this.$route.params.id
 				);
-				
-				publish.publishStory(story, null, { format });
+				const format = state.storyFormat.formats.find(
+					format => format.name === state.pref.proofingFormat
+				);
+
+				loadFormat(this.$store, format.name).then(() => {
+					replaceUI(publishStoryWithFormat(story, format));
+				});
 			}
 		}
 	},
@@ -97,11 +100,18 @@ TwineRouter.map({
 	'/stories/:id/test': {
 		component: {
 			ready() {
-				publish.publishStory(
-					Story.withId(this.$route.params.id),
-					null,
-					{ formatOptions: ['debug'] }
+				const state = this.$store.state;
+				const story = state.story.stories.find(
+					story => story.id === this.$route.params.id
 				);
+				const formatName = story.format || state.pref.defaultFormat;
+				const format = state.storyFormat.formats.find(
+					format => format.name === formatName
+				);
+
+				loadFormat(this.$store, formatName).then(() => {
+					replaceUI(publishStoryWithFormat(story, format, ['debug']));
+				});
 			}
 		}
 	},
@@ -109,14 +119,23 @@ TwineRouter.map({
 	'/stories/:storyId/test/:passageId': {
 		component: {
 			ready() {
-				publish.publishStory(
-					Story.withId(this.$route.params.storyId),
-					null,
-					{
-						formatOptions: ['debug'],
-						startPassageId: this.$route.params.passageId
-					}
+				const state = this.$store.state;
+				const story = state.story.stories.find(
+					story => story.id === this.$route.params.id
 				);
+				const formatName = story.format || state.pref.defaultFormat;
+				const format = state.storyFormat.formats.find(
+					format => format.name === formatName
+				);
+
+				loadFormat(this.$store, formatName).then(() => {
+					replaceUI(publishStoryWithFormat(
+						story,
+						format,
+						['debug'],
+						this.$route.params.passageId
+					));
+				});
 			}
 		}
 	}
@@ -147,9 +166,9 @@ TwineRouter.beforeEach((transition) => {
 	// transition.next() or redirect() will stop any other logic in the
 	// function.
 
-	const welcomePref = AppPref.withName('welcomeSeen', false);
+	const welcomeSeen = store.state.pref.welcomeSeen;
 
-	if (welcomePref.get('value') === true) {
+	if (transition.to.path === '/welcome' || welcomeSeen) {
 		transition.next();
 	}
 	else {

@@ -1,3 +1,6 @@
+@import '../../common/colors.less';
+@import '../../common/depth.less';
+
 #storyEditView .toolbar.main {
 	z-index: 5;
 	position: fixed;
@@ -6,9 +9,9 @@
 	left: 0;
 	width: 100%;
 	height: 3.5em;
-	background-color: white;
-	box-shadow: 0 0 1em hsl(0, 0%, 15%);
+	background-color: @color-paper;
 	user-select: none;
+	.shadow-large;
 
 	.left {
 		float: left;
@@ -69,6 +72,10 @@
 				background: transparent;
 			}
 		}
+	}
+
+	.theme-dark & {
+		background-color: @color-paper-dark;
 	}
 }
 

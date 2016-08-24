@@ -1,7 +1,7 @@
-<p class="quota">
-	<span class="total">
-		<span class="used" v-bind:style="{ width: percent + '%' }"></span>
-	</span>
+<div class="quota">
+	<div class="gauge">
+		<span class="filled" v-bind:style="{ width: percent + '%' }"></span>
+	</div>
 
-	<span class="percent">{{ percentDesc }}</span>
-</p>
+	<p class="percent">{{ percentDesc }}</p>
+</div>

@@ -7,8 +7,6 @@ const SearchDialog = require('../../../dialogs/story-search');
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
-	props: ['collection'], // A collection of all passages in this story
-
 	data: () => ({
 		search: ''
 	}),
@@ -20,11 +18,13 @@ module.exports = Vue.extend({
 			// This is cribbed from
 			// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions.
 
+			const value = new RegExp(
+				this.search.replace(/([.*+?^${}()|\[\]\/\\])/g, '\\$1'), 'i'
+			);
+
 			this.$dispatch(
 				'highlight-regexp-change',
-				new RegExp(
-					this.search.replace(/([.*+?^${}()|\[\]\/\\])/g, '\\$1'), 'i'
-				)
+				(value.source !== '(?:)') ? value : null
 			);
 		}
 	},

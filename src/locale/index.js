@@ -129,6 +129,6 @@ module.exports = {
 			// so the user can see *something*
 
 			return sourcePlural.replace(/%d/g, count);
-		};
+		}
 	}
 };

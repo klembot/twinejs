@@ -10,6 +10,7 @@ module.exports = Vue.extend({
 
 	props: {
 		class: '',
+		title: '',
 		canClose: {
 			type: Function,
 			required: false
@@ -27,7 +28,7 @@ module.exports = Vue.extend({
 		// consults the top-level element to see when the transition is
 		// complete.
 
-		const dialog = this.$el.querySelector('.modalDialog');
+		const dialog = this.$el.querySelector('.modal-dialog');
 		const notifier = () => {
 			// This event is currently only listened to by
 			// <code-mirror> child components.
@@ -35,10 +36,7 @@ module.exports = Vue.extend({
 			dialog.removeEventListener('transitionend', notifier);
 		};
 
-		this.$el.querySelector('.modalDialog').addEventListener(
-			'transitionend',
-			notifier
-		);
+		dialog.addEventListener('transitionend', notifier);
 	},
 
 	destroyed() {
