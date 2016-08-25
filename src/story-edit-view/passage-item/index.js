@@ -1,6 +1,7 @@
 // A single passage in the story map.
 
 const { escape } = require('underscore');
+const { eventID, on, off } = require('../../vue/mixins/event-id');
 const Vue = require('vue');
 const PassageEditor = require('../../editors/passage');
 const { confirm } = require('../../dialogs/confirm');
@@ -328,5 +329,8 @@ module.exports = Vue.extend({
 			updatePassageInStory,
 			deletePassageInStory
 		}
-	}
+	},
+
+	mixins: [eventID],
+
 });
