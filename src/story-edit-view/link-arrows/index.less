@@ -1,0 +1,52 @@
+@import '../../common/colors.less';
+
+@color-link-arrow: lighten(@color-text, 10%);
+@color-link-arrow-dark: darken(@color-text-dark, 30%);
+
+#storyEditView .links {
+	transform-origin: 0 0;
+
+	path {
+		stroke: @color-link-arrow;
+		fill: none;
+		stroke-width: 2px;
+
+		.theme-dark & {
+			stroke: @color-link-arrow-dark;
+		}
+	}
+
+	#link-arrowhead path {
+		fill: @color-link-arrow;
+		stroke: none;
+
+		.theme-dark & {
+			fill: @color-link-arrow-dark;
+		}
+	}
+	
+	#link-broken path {
+		fill: @color-danger;
+		stroke-width: 1px;
+		stroke-linecap: square;
+		stroke-linejoin: miter;
+		stroke: @color-danger;
+
+		.theme-dark & {
+			fill: darken(@color-danger, 5%);
+			stroke: darken(@color-danger, 5%);
+		}
+	}
+	
+	/*
+	Arrowheads are applied via an inline style in index.html. There seems to be
+	disagreement on the proper way to implement this, but it does not work in
+	an external stylesheet in Firefox.
+	*/
+}
+
+// Cheat the most zoomed-out view a bit bolder.
+
+#storyEditView.zoom-small .links path {
+	stroke-width: 3px;
+}
