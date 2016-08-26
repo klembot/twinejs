@@ -8,7 +8,7 @@ describe('actions data module', () => {
 	let store;
 	
 	beforeEach(() => {
-		store = { dispatch : spy() };
+		store = { dispatch: spy() };
 	});
 	
 	it('dispatches an UPDATE_PREF mutation with setPref()', () => {
