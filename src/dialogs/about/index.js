@@ -7,13 +7,9 @@ module.exports = Vue.extend({
 		'modal-dialog': require('../../ui/modal-dialog'),
 	},
 
-	computed: {
-		buildNumber() {
-			return window.app.buildNumber;
-		},
-
-		version() {
-			return window.app.version;
-		}
-	},
+	vuex: {
+		getters: {
+			appInfo: state => state.appInfo	
+		}	
+	}
 });

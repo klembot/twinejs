@@ -1,16 +1,18 @@
-// This directive adds behavior to a component so that when it's mounted, the
-// user may scroll the document by holding down the middle button and dragging
-// (or the space bar + left button)
+/*
+This directive adds behavior to a component so that when it's mounted, the user
+may scroll the document by holding down the middle button and dragging (or the
+space bar and left button).
+*/
 
-const { eventID: {init}, on, off } = require('../mixins/event-id');
+const domEvent = require('dom-event-special');
+const uuid = require('tiny-uuid');
+
+let namespaces = {};
 
 module.exports = {
 	addTo(Vue) {
 		Vue.directive('mouse-scrolling', {
 			bind() {
-				// Reconfirm that this instance has an event ID
-				init.call(this);
-
 				const { body } = document;
 				let scrollOrigin = false;
 				let mouseOrigin = false;
@@ -18,8 +20,10 @@ module.exports = {
 				let spaceHeld = false;
 
 				function beginScrolling(e) {
-					// We don't need to account for the window's scroll
-					// position here, since we'll be changing it on the fly.
+					/*
+					We don't need to account for the window's scroll position
+					here, since we'll be changing it on the fly.
+					*/
 
 					mouseOrigin = [e.clientX, e.clientY];
 					scrollOrigin = [window.scrollX, window.scrollY];
@@ -28,17 +32,18 @@ module.exports = {
 					e.preventDefault();
 				}
 
-				on(body, `keydown.mouse-scrolling${this.$eventID}`, (e) => {
+				domEvent.on(body, 'keydown.mouse-scrolling', e => {
 					if (e.which === 32) {
 						if (!scrolling && !spaceHeld) { // Space bar
 							spaceHeld = true;
 							body.classList.add('mouseScrollReady');
 						}
 
-						// preventDefault() stops the page from scrolling
-						// downward when the space bar is held by itself.
-						// We need to take care to avoid gobbling up keystrokes
-						// for form elements.
+						/*
+						preventDefault() stops the page from scrolling downward
+						when the space bar is held by itself. We need to take
+						care to avoid gobbling up keystrokes for form elements.
+						*/
 
 						if (document.activeElement.nodeName !== 'INPUT' &&
 							document.activeElement.nodeName !== 'TEXTAREA') {
@@ -47,7 +52,7 @@ module.exports = {
 					}
 				});
 
-				on(body, `mousedown.mouse-scrolling${this.$eventID}`, (e) => {
+				domEvent.on(body, 'mousedown.mouse-scrolling', e => {
 					if (e.which === 2 && !scrolling) { // Middle button
 						beginScrolling(e);
 					}
@@ -59,7 +64,7 @@ module.exports = {
 					}
 				});
 
-				on(body, `mousemove.mouse-scrolling${this.$eventID}`, (e) => {
+				domEvent.on(body, 'mousemove.mouse-scrolling', e => {
 					if (scrolling) {
 						window.scrollTo(
 							scrollOrigin[0] + mouseOrigin[0] - e.clientX,
@@ -68,7 +73,7 @@ module.exports = {
 					}
 				});
 
-				on(body, `keyup.mouse-scrolling${this.$eventID}`, (e) => {
+				domEvent.on(body, 'keyup.mouse-scrolling', e => {
 					if (e.which === 32 && spaceHeld) {
 						scrolling = spaceHeld = false;
 						body.classList.remove('mouseScrollReady', 'mouseScrolling');
@@ -85,7 +90,7 @@ module.exports = {
 					}
 				});
 
-				on(body, `mouseup.mouse-scrolling${this.$eventID}`, (e) => {
+				domEvent.on(body, 'mouseup.mouse-scrolling', e => {
 					if ((e.which === 2 || e.which === 1) && scrolling) {
 						scrolling = false;
 						body.classList.remove('mouseScrolling');
@@ -95,7 +100,7 @@ module.exports = {
 			},
 
 			unbind() {
-				off(document.body, `.mouse-scrolling${this.$eventID}`);
+				domEvent.off(document.body, '.mouse-scrolling');
 			}
 		});
 	}

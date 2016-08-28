@@ -1,7 +1,7 @@
 // A marquee selection tool for passage items.
 
 const Vue = require('vue');
-const { eventID, on, off } = require('../../vue/mixins/event-id');
+const domEvents = require('../../vue/mixins/dom-events');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -118,8 +118,8 @@ module.exports = Vue.extend({
 
 			// Set up event listeners to continue the drag.
 
-			on(this.$parent.$el,`mousemove${this.$eventID}`, e => this.followDrag(e));
-			on(this.$parent.$el,`mouseup${this.$eventID}`, e => this.endDrag(e));
+			this.on(this.$parent.$el, 'mousemove', this.followDrag);
+			this.on(this.$parent.$el, 'mouseup', this.endDrag);
 		},
 
 		followDrag(e) {
@@ -165,8 +165,9 @@ module.exports = Vue.extend({
 			document.querySelector('body').classList.remove('marqueeing');
 
 			// Deactivate the event listeners we had been using.
-			off(this.$el.parentNode, `mousemove${this.$eventID}`);
-			off(this.$el.parentNode, `mouseup${this.$eventID}`);
+
+			this.off(this.$el.parentNode, 'mousemove');
+			this.off(this.$el.parentNode, 'mouseup');
 
 			// Because this component's $el has been re-rendered (entirely replaced)
 			// due to startDrag() and followDrag() altering the data, this mouseup
@@ -179,8 +180,8 @@ module.exports = Vue.extend({
 	},
 
 	ready() {
-		on(this.$el.parentNode, `mousedown${this.$eventID}`, e => this.startDrag(e));
+		this.on(this.$el.parentNode, 'mousedown', this.startDrag.bind(this));
 	},
 
-	mixins: [eventID],
+	mixins: [domEvents]
 });
