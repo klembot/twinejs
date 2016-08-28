@@ -2,6 +2,7 @@
 
 const { values } = require('underscore');
 const Vue = require('vue');
+const { eventID, on } = require('../vue/mixins/event-id');
 const {
 	createPassageInStory,
 	loadFormat,
@@ -142,12 +143,7 @@ module.exports = Vue.extend({
 
 	ready() {
 		this.resize();
-		this.$resizeListener = this.resize.bind(this);
-		window.addEventListener('resize', this.$resizeListener);
-	},
-
-	beforeDestroy() {
-		window.removeEventListener('resize', this.$resizeListener);
+		on(window, `resize${this.$eventID}`, e => this.resize(e));
 	},
 
 	methods: {
@@ -345,5 +341,8 @@ module.exports = Vue.extend({
 			allStories: state => state.story.stories,
 			defaultFormatName: state => state.pref.defaultFormat
 		}
-	}
+	},
+
+	mixins: [eventID],
+
 });
