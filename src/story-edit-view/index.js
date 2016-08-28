@@ -204,7 +204,7 @@ module.exports = Vue.extend({
 			
 			this.positionPassage(
 				this.story.id,
-				this.story.passages.find(p => p.name === name),
+				this.story.passages.find(p => p.name === name).id,
 				this.gridSize
 			);
 		},
