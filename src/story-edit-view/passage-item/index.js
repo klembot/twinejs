@@ -1,6 +1,7 @@
 // A single passage in the story map.
 
 const { escape } = require('underscore');
+const { eventID, on, off } = require('../../vue/mixins/event-id');
 const Vue = require('vue');
 const PassageEditor = require('../../editors/passage');
 const { confirm } = require('../../dialogs/confirm');
@@ -137,11 +138,6 @@ module.exports = Vue.extend({
 		},
 	},
 
-	ready() {
-		this.$onMouseMove = this.followDrag.bind(this);
-		this.$onMouseUp = this.stopDrag.bind(this);
-	},
-
 	methods: {
 		delete() {
 			this.deletePassageInStory(this.parentStory.id, this.passage.id);
@@ -198,8 +194,8 @@ module.exports = Vue.extend({
 
 			this.screenDragStartX = e.clientX + window.scrollX;
 			this.screenDragStartY = e.clientY + window.scrollY;
-			window.addEventListener('mousemove', this.$onMouseMove);
-			window.addEventListener('mouseup', this.$onMouseUp);
+			on(window, `mousemove${this.$eventID}`, e => this.followDrag(e));
+			on(window, `mouseup${this.$eventID}`, e => this.stopDrag(e));
 			document.querySelector('body').classList.add('draggingPassages');
 		},
 
@@ -219,9 +215,7 @@ module.exports = Vue.extend({
 			}
 
 			// Remove event listeners set up at the start of the drag.
-
-			window.removeEventListener('mousemove', this.$onMouseMove);
-			window.removeEventListener('mouseup', this.$onMouseUp);
+			off(window, this.$eventID);
 			document.querySelector('body').classList.remove('draggingPassages');
 
 			// If we haven't actually been moved and the shift or control key
@@ -335,5 +329,8 @@ module.exports = Vue.extend({
 			updatePassageInStory,
 			deletePassageInStory
 		}
-	}
+	},
+
+	mixins: [eventID],
+
 });

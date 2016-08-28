@@ -1,6 +1,7 @@
 const Vue = require('vue');
 const { thenable, symbols: { reject, resolve } } =
 	require('../../vue/mixins/thenable');
+const { eventID, on, off } = require('../../vue/mixins/event-id');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -20,8 +21,7 @@ module.exports = Vue.extend({
 		let body = document.querySelector('body');
 
 		body.classList.add('modalOpen');
-		this.$escapeCloser = this.escapeCloser.bind(this);
-		body.addEventListener('keyup', this.$escapeCloser);
+		on(body, `keyup.modal-dialog${this.$eventID}`, e => this.escapeCloser(e));
 
 		// We have to listen manually to the end of the transition in order
 		// to an emit an event when this occurs; it looks like Vue only
@@ -43,7 +43,7 @@ module.exports = Vue.extend({
 		let body = document.querySelector('body');
 
 		body.classList.remove('modalOpen');
-		body.removeEventListener('keyup', this.$escapeCloser);
+		off(body, `.modal-dialog${this.$eventID}`);
 		this.$emit('destroyed');
 	},
 
@@ -76,5 +76,5 @@ module.exports = Vue.extend({
 		}
 	},
 
-	mixins: [thenable]
+	mixins: [thenable, eventID]
 });
