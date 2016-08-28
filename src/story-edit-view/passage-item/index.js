@@ -1,10 +1,10 @@
 // A single passage in the story map.
 
 const { escape } = require('underscore');
-const { eventID, on, off } = require('../../vue/mixins/event-id');
 const Vue = require('vue');
 const PassageEditor = require('../../editors/passage');
 const { confirm } = require('../../dialogs/confirm');
+const domEvents = require('../../vue/mixins/dom-events');
 const locale = require('../../locale');
 const rect = require('../../common/rect');
 const { hasPrimaryTouchUI } = require('../../ui');
@@ -194,8 +194,8 @@ module.exports = Vue.extend({
 
 			this.screenDragStartX = e.clientX + window.scrollX;
 			this.screenDragStartY = e.clientY + window.scrollY;
-			on(window, `mousemove${this.$eventID}`, e => this.followDrag(e));
-			on(window, `mouseup${this.$eventID}`, e => this.stopDrag(e));
+			this.on(window, 'mousemove', this.followDrag);
+			this.on(window, 'mouseup', this.stopDrag);
 			document.querySelector('body').classList.add('draggingPassages');
 		},
 
@@ -215,7 +215,8 @@ module.exports = Vue.extend({
 			}
 
 			// Remove event listeners set up at the start of the drag.
-			off(window, this.$eventID);
+			this.off(window, 'mousemove');
+			this.off(window, 'mouseup');
 			document.querySelector('body').classList.remove('draggingPassages');
 
 			// If we haven't actually been moved and the shift or control key
@@ -331,6 +332,5 @@ module.exports = Vue.extend({
 		}
 	},
 
-	mixins: [eventID],
-
+	mixins: [domEvents]
 });

@@ -2,7 +2,6 @@
 
 const { values } = require('underscore');
 const Vue = require('vue');
-const { eventID, on } = require('../vue/mixins/event-id');
 const {
 	createPassageInStory,
 	loadFormat,
@@ -10,6 +9,7 @@ const {
 	updatePassageInStory,
 	updateStory
 } = require('../data/actions');
+const domEvents = require('../vue/mixins/dom-events');
 const locale = require('../locale');
 const { passageDefaults } = require('../data/story');
 const zoomSettings = require('./zoom-settings');
@@ -143,7 +143,7 @@ module.exports = Vue.extend({
 
 	ready() {
 		this.resize();
-		on(window, `resize${this.$eventID}`, e => this.resize(e));
+		this.on(window, 'resize', this.resize);
 	},
 
 	methods: {
@@ -343,6 +343,5 @@ module.exports = Vue.extend({
 		}
 	},
 
-	mixins: [eventID],
-
+	mixins: [domEvents]
 });

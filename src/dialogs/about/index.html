@@ -1,12 +1,12 @@
 <modal-dialog id="aboutDialog">
-	<span slot="title">{{ 'About Twine' | say }} {{ version }}</span>
+	<span slot="title">{{ 'About Twine' | say }} {{ appInfo.version }}</span>
 
 	<p>
 	{{ 'Twine is an open-source tool for telling interactive, nonlinear stories.'| say }}
 	</p>
 
 	<p>
-	{{{ 'Twine 2.0 is released under the \x3ca href="http:\/\/www.gnu.org/licenses/gpl-3.0.html">GPL v3\x3c/a> license, but any work created with it may be released under any terms, including commercial ones. \x3ca href="">Source Code Repository\x3c/a>'| say }}}
+	{{{ 'Twine 2.0 is released under the \x3ca href="http:\/\/www.gnu.org/licenses/gpl-3.0.html">GPL v3\x3c/a> license, but any work created with it may be released under any terms, including commercial ones.'| say }}}
 	</p>
 
 	<p>
@@ -15,7 +15,7 @@
 	'Build'
 	| say }}
 
-	{{ buildNumber }}
+	{{ appInfo.buildNumber }}
 	</p>
 
 	<p>
