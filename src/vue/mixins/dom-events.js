@@ -31,6 +31,10 @@ module.exports = {
 	beforeDestroy() {
 		/* Clean up event listeners that have been previously attached. */
 
+		if (!attachedEls[this]) {
+			return;
+		}
+
 		attachedEls[this].forEach(
 			el => domEventSpecial.off(el, eventNamespaces[this])
 		);
