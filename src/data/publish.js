@@ -2,13 +2,12 @@
 
 const { escape } = require('underscore');
 const locale = require('../locale');
-const store = require('../data/store');
 
 const publish = module.exports = {
 	// Publishes a story with a story format. The format *must* be loaded
 	// before this function is called.
 
-	publishStoryWithFormat(story, format, formatOptions, startId) {
+	publishStoryWithFormat(appInfo, story, format, formatOptions, startId) {
 		if (!format.properties || !format.properties.source) {
 			throw new Error('Story format has no source property');
 		}
@@ -22,7 +21,7 @@ const publish = module.exports = {
 
 		output = output.replace(/{{STORY_NAME}}/g, () => escape(story.name));
 		output = output.replace(/{{STORY_DATA}}/g, () => {
-			return publish.publishStory(story, formatOptions, startId);
+			return publish.publishStory(appInfo, story, formatOptions, startId);
 		});
 
 		// Then, format-defined placeholders.
@@ -42,13 +41,13 @@ const publish = module.exports = {
 
 	// Publishes an archive of stories.
 
-	publishArchive(stories) {
+	publishArchive(stories, appInfo) {
 		return stories.reduce(
 			(output, story) => {
 				// Force publishing even if there is no start point set.
 
 				return output + publish.publishStory(
-					story, null, null, true
+					appInfo, story, null, null, true
 				) + '\n\n';
 			},
 
@@ -59,10 +58,8 @@ const publish = module.exports = {
 	// Does a "naked" publish of a story -- creating an HTML representation of
 	// it, but without any story format binding.
 
-	publishStory(story, formatOptions, startId, startOptional) {
+	publishStory(appInfo, story, formatOptions, startId, startOptional) {
 		startId = startId || story.startPassage;
-
-		const appInfo = require('./store').state.appInfo;
 
 		// Verify that the start passage exists.
 
@@ -100,7 +97,7 @@ const publish = module.exports = {
 			`creator-version="${escape(appInfo.version)}" ` +
 			`ifid="${escape(story.ifid)}" ` +
 			`format="${escape(story.storyFormat)}" ` +
-			`options=${escape(formatOptions)} hidden>` +
+			`options="${escape(formatOptions)}" hidden>` +
 			`<style role="stylesheet" id="twine-user-stylesheet" ` +
 			`type="text/twine-css">` + story.stylesheet + `</style>` +
 			`<script role="script" id="twine-user-script" ` +

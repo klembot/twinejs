@@ -73,7 +73,11 @@ TwineRouter.map({
 				);
 
 				loadFormat(this.$store, formatName).then(() => {
-					replaceUI(publishStoryWithFormat(story, format));
+					replaceUI(publishStoryWithFormat(
+						state.appInfo,
+						story,
+						format
+					));
 				});
 			}
 		}
@@ -91,7 +95,11 @@ TwineRouter.map({
 				);
 
 				loadFormat(this.$store, format.name).then(() => {
-					replaceUI(publishStoryWithFormat(story, format));
+					replaceUI(publishStoryWithFormat(
+						state.appInfo,
+						story,
+						format
+					));
 				});
 			}
 		}
@@ -110,7 +118,12 @@ TwineRouter.map({
 				);
 
 				loadFormat(this.$store, formatName).then(() => {
-					replaceUI(publishStoryWithFormat(story, format, ['debug']));
+					replaceUI(publishStoryWithFormat(
+						state.appInfo,
+						story,
+						format,
+						['debug']
+					));
 				});
 			}
 		}
@@ -130,6 +143,7 @@ TwineRouter.map({
 
 				loadFormat(this.$store, formatName).then(() => {
 					replaceUI(publishStoryWithFormat(
+						state.appInfo,
 						story,
 						format,
 						['debug'],

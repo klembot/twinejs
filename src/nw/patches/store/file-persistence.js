@@ -17,9 +17,12 @@ module.exports = {
 
 			case 'CREATE_STORY':
 			case 'IMPORT_STORY':
-				storyFile.save(state.story.stories.find(
-					story => story.name === mutation.payload[0].name
-				));
+				storyFile.save(
+					state.story.stories.find(
+						story => story.name === mutation.payload[0].name
+					),
+					state.appInfo
+				);
 			break;
 
 			case 'DELETE_STORY':
@@ -37,9 +40,12 @@ module.exports = {
 			case 'CREATE_PASSAGE_IN_STORY':
 			case 'UPDATE_PASSAGE_IN_STORY':
 			case 'DELETE_PASSAGE_IN_STORY':
-				storyFile.save(state.story.stories.find(
-					story => story.id === mutation.payload[0]
-				));
+				storyFile.save(
+					state.story.stories.find(
+						story => story.id === mutation.payload[0]
+					),
+					state.appInfo
+				);
 			break;
 		}
 

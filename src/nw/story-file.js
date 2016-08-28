@@ -27,7 +27,7 @@ const storyFile = module.exports = {
 	Saves a story object to the file system.
 	*/
 
-	save(story) {
+	save(story, appInfo) {
 		const fs = require('fs');
 		const directories = require('./directories');
 		const path = require('path');
@@ -40,7 +40,7 @@ const storyFile = module.exports = {
 				'w'
 			);
 
-			fs.writeSync(fd, publishStory(story, null, null, true));
+			fs.writeSync(fd, publishStory(appInfo, story, null, null, true));
 			fs.closeSync(fd);
 		}
 		finally {

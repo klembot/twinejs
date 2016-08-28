@@ -43,7 +43,7 @@ module.exports = Vue.extend({
 			const timestamp = new Date().toLocaleString().replace(/[\/:\\]/g, '.');
 
 			saveFile(
-				publishArchive(this.existingStories),
+				publishArchive(this.existingStories, this.appInfo),
 				`${timestamp} ${locale.say('Twine Archive.html')}`
 			);
 		},
@@ -76,7 +76,7 @@ module.exports = Vue.extend({
 		},
 
 		getters: {
-			appVersion: state => state.appInfo.version,
+			appInfo: state => state.appInfo,
 			existingStories: state => state.story.stories
 		}
 	}
