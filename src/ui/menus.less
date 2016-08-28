@@ -1,0 +1,49 @@
+@import '../common/colors.less';
+@import '../common/metrics.less';
+
+ul.menu {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+
+	button {
+		text-align: left;
+		width: 100%;
+		border-radius: 0;
+		padding-left: @len-medium * 1.5;
+		padding-right: @len-medium * 1.5;
+
+		&:hover {
+			background: hsla(0, 0%, 0%, 0.05);
+
+			.theme-dark & {
+				background: hsla(0, 100%, 100%, 0.05);
+			}
+		}
+	}
+
+	li {
+		position: relative;
+	}
+
+	.divider {
+		height: @len-hairline;
+		background: @color-form-line;
+
+		.theme-dark & {
+			background: @color-form-line-dark;
+		}
+	}
+
+	.checked:before {
+		content: '\f00c';
+		font-family: FontAwesome;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: @len-medium * 1.5;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}
