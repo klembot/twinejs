@@ -48,4 +48,8 @@ describe('dom-events Vue mixin', () => {
 		component.$destroy();
 		expect(domEventSpecial.off.calledOnce).to.be.true;
 	});
+
+	it('does not do anything if a component has no listeners attached when destroyed', () => {
+		expect(() => { component.$destroy(); }).to.not.throw;	
+	});
 });
