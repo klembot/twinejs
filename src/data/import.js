@@ -75,7 +75,9 @@ function domToObject(storyEl, forceLastUpdate) {
 								parseInt(passageEl.attributes.width.value)
 								: 100,
 						tags:
-							passageEl.attributes.tags.value.split(/\s+/),
+							passageEl.attributes.tags.value === '' ?
+								[]
+								: passageEl.attributes.tags.value.split(/\s+/),
 						name:
 							passageEl.attributes.name.value,
 						text:
