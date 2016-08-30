@@ -144,6 +144,10 @@ module.exports = Vue.extend({
 	ready() {
 		this.resize();
 		this.on(window, 'resize', this.resize);
+
+		if (this.story.passages.length === 0) {
+			this.createPassage();
+		}
 	},
 
 	methods: {
