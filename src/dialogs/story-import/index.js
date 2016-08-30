@@ -72,7 +72,6 @@ module.exports = Vue.extend({
 		},
 
 		import(file) {
-			file = file || this.$els.importFile.files[0];
 			this.status = 'working';
 
 			load(file)
