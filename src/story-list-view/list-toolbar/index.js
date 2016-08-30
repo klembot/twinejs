@@ -32,7 +32,16 @@ module.exports = Vue.extend({
 						);
 					}
 				}
-			}).then(name => this.createStory({ name }));
+			}).then(name => {
+				this.createStory({ name });
+				
+				Vue.nextTick(() => {
+					this.$dispatch(
+						'story-edit',
+						this.existingStories.find(story => story.name === name).id
+					);
+				});
+			});
 		},
 
 		importFile() {

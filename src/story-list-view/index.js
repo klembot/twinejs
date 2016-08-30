@@ -136,8 +136,8 @@ module.exports = Vue.extend({
 		// We reflect back `story-edit` events onto children, so that the appropriate
 		// StoryItem can edit itself, e.g. animate into editing.
 
-		'story-edit'(model) {
-			this.$broadcast('story-edit', model);
+		'story-edit'(id) {
+			this.$broadcast('story-edit', id);
 		},
 
 		// For now, we only support importing a single file at a time.
