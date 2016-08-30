@@ -41,8 +41,8 @@ module.exports = Vue.extend({
 		// If our parent wants to edit our own model, then we do so. This is
 		// done this level so that we animate the transition correctly.
 
-		edit(story) {
-			if (this.story === story) {
+		'story-edit'(id) {
+			if (this.story.id === id) {
 				this.edit();
 			}
 		},
