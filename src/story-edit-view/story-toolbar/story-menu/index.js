@@ -8,7 +8,9 @@ const StatsDialog = require('../../../dialogs/story-stats');
 const StylesheetEditor = require('../../../editors/stylesheet');
 const locale = require('../../../locale');
 const { prompt } = require('../../../dialogs/prompt');
-const { updateStory } = require('../../../data/actions');
+const { publishStoryWithFormat } = require('../../../data/publish');
+const save = require('../../../file/save');
+const { loadFormat, updateStory } = require('../../../data/actions');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -56,11 +58,24 @@ module.exports = Vue.extend({
 		},
 
 		proofStory() {
-			this.$dispatch('story-proof');
+			window.open(
+				'#!/stories/' + this.story.id + '/proof',
+				'twinestory_proof_' + this.story.id
+			);
 		},
 
 		publishStory() {
-			this.$dispatch('story-publish');
+			const formatName = this.story.format || this.defaultFormatName;
+			const format = this.allFormats.find(
+				format => format.name === formatName
+			);
+
+			this.loadFormat(formatName).then(() => {
+				save(
+					publishStoryWithFormat(this.appInfo, this.story, format),
+					this.story.name + '.html'
+				);
+			});
 		},
 
 		storyStats() {
@@ -91,7 +106,14 @@ module.exports = Vue.extend({
 
 	vuex: {
 		actions: {
+			loadFormat,
 			updateStory
+		},
+
+		getters: {
+			allFormats: state => state.storyFormat.formats,
+			appInfo: state => state.appInfo,
+			defaultFormatName: state => state.pref.defaultFormat
 		}
 	}
 });
