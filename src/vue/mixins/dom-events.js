@@ -62,7 +62,7 @@ module.exports = {
 		*/
 
 		off(element, event) {
-			domEventSpecial.off.call(element, event + eventNamespaces[this]);
+			domEventSpecial.off(element, event + eventNamespaces[this]);
 		}
 	}
 };
