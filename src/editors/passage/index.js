@@ -4,7 +4,7 @@ const CodeMirror = require('codemirror');
 const Vue = require('vue');
 const locale = require('../../locale');
 const { thenable } = require('../../vue/mixins/thenable');
-const { updatePassageInStory, loadFormat } = require('../../data/actions');
+const { changeLinksInStory, updatePassageInStory, loadFormat } = require('../../data/actions');
 
 require('codemirror/addon/display/placeholder');
 require('../../codemirror/prefix-trigger');
@@ -20,8 +20,8 @@ module.exports = Vue.extend({
 		passageId: '',
 		storyId: '',
 		oldWindowTitle: '',
-		saveError: '',
-		hasError: false
+		userPassageName: '',
+		saveError: ''
 	}),
 
 	computed: {
@@ -56,6 +56,13 @@ module.exports = Vue.extend({
 			);
 		},
 
+		userPassageNameValid() {
+			return !(this.parentStory.passages.some(
+				passage => passage.name === this.userPassageName &&
+					passage.id !== this.passage.id
+			));
+		},
+		
 		autocompletions() {
 			return this.parentStory.passages.map(passage => passage.name);
 		}
@@ -135,23 +142,32 @@ module.exports = Vue.extend({
 			this.$destroy();
 		},
 
-		setError(model) {
-			this.$refs.modal.$el.classList.add('hasError');
-			this.saveError = model.validationError;
-			this.hasError = true;
-		},
-
-		clearError() {
-			this.$refs.modal.$el.classList.remove('hasError');
-			this.hasError = false;
-		},
-
 		canClose() {
-			return !this.hasError;
+			if (this.userPassageNameValid) {
+				if (this.userPassageName !== this.passage.name) {
+					this.changeLinksInStory(
+						this.parentStory.id,
+						this.passage.name,
+						this.userPassageName
+					);
+
+					this.updatePassageInStory(
+						this.parentStory.id,
+						this.passage.id,
+						{ name: this.userPassageName }
+					);
+				}
+
+				return true;
+			}
+
+			return false;
 		}
 	},
 
 	ready() {
+		this.userPassageName = this.passage.name;
+
 		// Update the window title.
 
 		this.oldWindowTitle = document.title;
@@ -196,8 +212,9 @@ module.exports = Vue.extend({
 
 	vuex: {
 		actions: {
+			changeLinksInStory,
 			updatePassageInStory,
-			loadFormat,
+			loadFormat
 		},
 
 		getters: {
