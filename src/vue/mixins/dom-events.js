@@ -25,7 +25,9 @@ module.exports = {
 
 		/* We use a set here to ensure that it contains unique values. */
 
-		attachedEls[this] = new Set();
+		if (!attachedEls[this]) { 
+			attachedEls[this] = new Set();
+		}
 	},
 
 	beforeDestroy() {
@@ -38,8 +40,6 @@ module.exports = {
 		attachedEls[this].forEach(
 			el => domEventSpecial.off(el, eventNamespaces[this])
 		);
-
-		delete attachedEls[this];
 	},
 
 	methods: {
