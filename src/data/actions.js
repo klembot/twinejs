@@ -157,6 +157,66 @@ const actions = module.exports = {
 		});
 	},
 
+	/* Updates links to a passage in a story to a new name. */
+
+	changeLinksInStory(store, storyId, oldName, newName) {
+		// TODO: add hook for story formats to be more sophisticated
+
+		const story = store.state.story.stories.find(story => story.id === storyId);
+
+		if (!story) {
+			throw new Error(`No story exists with id ${storyId}`);
+		}
+
+		/*
+		Escape regular expression characters.
+		Taken from https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions
+		*/
+
+		const oldNameEscaped = oldName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+		const newNameEscaped = newName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+		const simpleLinkRe = new RegExp(
+			'\\[\\[' + oldNameEscaped + '(\\]\\[.*?)?\\]\\]',
+			'g'
+		);
+		const compoundLinkRe = new RegExp(
+			'\\[\\[(.*?)(\\||->)' + oldNameEscaped + '(\\]\\[.*?)?\\]\\]',
+			'g'
+		);
+		const reverseLinkRe = new RegExp(
+			'\\[\\[' + oldNameEscaped + '(<-.*?)(\\]\\[.*?)?\\]\\]',
+			'g'
+		);
+
+		story.passages.forEach(passage => {
+			if (simpleLinkRe.test(passage.text) || compoundLinkRe.test(passage.text) ||
+				reverseLinkRe.test(passage.text)) {
+				let newText = passage.text;
+
+				newText = newText.replace(
+					simpleLinkRe,
+					'[[' + newNameEscaped + '$1]]'
+				);
+				newText = newText.replace(
+					compoundLinkRe,
+					'[[$1$2' + newNameEscaped + '$3]]'
+				);
+				newText = newText.replace(
+					reverseLinkRe,
+					'[[' + newNameEscaped + '$1$2]]'
+				);
+
+				store.dispatch(
+					'UPDATE_PASSAGE_IN_STORY',
+					storyId, 
+					passage.id,
+					{ text: newText }
+				);
+			}
+		});
+	},
+
 	createFormat({ dispatch }, props) {
 		dispatch('CREATE_FORMAT', props);
 	},
