@@ -302,6 +302,11 @@ module.exports = Vue.extend({
 					{ ignoreSelected: true }
 				);
 			}
+
+			// Tell our menu that our position has changed, so that it in turn
+			// can change its position.
+
+			this.$broadcast('drop-down-reposition');
 		},
 
 		'passage-deselect-except'(...passages) {

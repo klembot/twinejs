@@ -49,5 +49,11 @@ module.exports = Vue.extend({
 
 	destroyed() {
 		this.$drop.destroy();
+	},
+
+	events: {
+		'drop-down-reposition'() {
+			this.$drop.position();
+		}
 	}
 });
