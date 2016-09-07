@@ -53,6 +53,10 @@ module.exports = Vue.extend({
 	vuex: {
 		actions: {
 			updateStory
+		},
+
+		getters: {
+			allStories: state => state.story.stories
 		}
 	}
 });
