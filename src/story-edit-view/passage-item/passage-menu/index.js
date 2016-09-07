@@ -1,12 +1,18 @@
 // A contextual menu that appears when the user points at a passage.
 
 const Vue = require('vue');
+const { updateStory } = require('../../../data/actions');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	props: {
 		passage: {
+			type: Object,
+			required: true
+		},
+
+		parentStory: {
 			type: Object,
 			required: true
 		}
@@ -22,15 +28,25 @@ module.exports = Vue.extend({
 		},
 
 		test() {
-			this.$dispatch('story-test', this.passage.id);
+			window.open(
+				'#stories/' + this.parentStory.id + '/test/' + this.passage.id,
+				'twinestory_test_' + this.parentStory.id
+			);
 		},
 
 		setAsStart() {
-			this.$dispatch('story-set-start', this.passage.id);
+			this.updateStory(
+				this.parentStory.id, 
+				{ startPassage: this.passage.id }
+			);
 		}
 	},
 
 	components: {
 		'drop-down': require('../../../ui/drop-down')
+	},
+
+	vuex: {
+		actions: { updateStory }
 	}
 });
