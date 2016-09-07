@@ -1,0 +1,7 @@
+<div :class="'drag-n-drop ' + (receiving ? 'receiving' : '')" @drop.prevent="fileReceived">
+	<div class="label">
+		<slot></slot>
+	</div>
+
+	<div class="inner-border"></div>
+</div>
