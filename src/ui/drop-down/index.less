@@ -1,0 +1,20 @@
+@import '../../common/colors.less';
+@import '../../common/depth.less';
+@import '../../common/metrics.less';
+
+.drop {
+	z-index: 1000;
+	display: none;
+	transition: 0.2s opacity ease-out;
+	background-color: @color-paper;
+	border-radius: 2px;
+	.shadow-large;
+
+	&.drop-open {
+		display: block;
+	}
+
+	.theme-dark & {
+		background-color: @color-paper-dark;
+	}
+}

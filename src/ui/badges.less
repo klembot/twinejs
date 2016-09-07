@@ -1,0 +1,22 @@
+@import '../common/colors.less';
+@import '../common/metrics.less';
+
+.badge, .badge-create, .badge-danger {
+	display: inline-block;
+	width: @len-medium;
+	height: @len-medium;
+	border-radius: @len-medium;
+	color: white;
+	background: @color-link;
+	font-size: 90%;
+	padding-top: @len-tiny-rel / 2;
+	text-align: center;
+}
+
+.badge-create {
+	background: @color-create;
+}
+
+.badge-danger {
+	background: @color-danger;
+}
