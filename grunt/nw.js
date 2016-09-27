@@ -6,8 +6,7 @@ module.exports = function(grunt) {
 	var options = {
 		buildDir: 'build/nwjs/',
 		cacheDir: 'nwbuilder-cache/',
-		version: '0.16.0',
-		'chromium-args': '--enable-threaded-compositing',
+		version: '0.17.4',
 		macIcns: 'src/common/img/logo.icns',
 		winIco: 'src/common/img/logo.ico'
 	}
