@@ -14,7 +14,6 @@ const prompter = module.exports = {
 			cancelLabel: ('<i class="fa fa-times"></i> ' + locale.say('Cancel')),
 			buttonLabel: '',
 			buttonClass: 'primary',
-			defaultText: '',
 			modalClass: '',
 			isValid: true,
 			validationError: '',
