@@ -141,6 +141,16 @@ module.exports = Vue.extend({
 		}
 	},
 
+	watch: {
+		'story.name': {
+			handler(value) {
+				document.title = value;
+			},
+
+			immediate: true
+		}
+	},
+
 	ready() {
 		this.resize();
 		this.on(window, 'resize', this.resize);

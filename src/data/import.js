@@ -72,7 +72,7 @@ function domToObject(storyEl, forceLastUpdate) {
 								: 100,
 						height:
 							passageEl.attributes.height ?
-								parseInt(passageEl.attributes.width.value)
+								parseInt(passageEl.attributes.height.value)
 								: 100,
 						tags:
 							passageEl.attributes.tags.value === '' ?

@@ -132,6 +132,19 @@ const storyStore = module.exports = {
 				props
 			);
 
+			/*
+			Force the top and left properties to be at least zero, to keep
+			passages onscreen.
+			*/
+
+			if (newPassage.left < 0) {
+				newPassage.left = 0;
+			}
+
+			if (newPassage.top < 0) {
+				newPassage.top = 0;
+			}
+
 			newPassage.story = story.id;
 			story.passages.push(newPassage);
 
@@ -144,6 +157,19 @@ const storyStore = module.exports = {
 
 		UPDATE_PASSAGE_IN_STORY(state, storyId, passageId, props) {
 			let story = getStoryById(state, storyId);
+
+			/*
+			Force the top and left properties to be at least zero, to keep
+			passages onscreen.
+			*/
+
+			if (props.left && props.left < 0) {
+				props.left = 0;
+			}
+
+			if (props.top && props.top < 0) {
+				props.top = 0;
+			}
 
 			Object.assign(getPassageInStory(story, passageId), props);
 			story.lastUpdate = new Date();

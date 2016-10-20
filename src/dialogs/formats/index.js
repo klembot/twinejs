@@ -7,9 +7,8 @@ module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	data: () => ({
-		// Used to create the <format-item>s using v-for.
-		storyFormats: [],
-		proofingFormats: [],
+		// Detail about each format.
+		loadedFormats: [],
 
 		// Determines whether to show the error <span>, and with what text.
 		error: '',
@@ -24,6 +23,45 @@ module.exports = Vue.extend({
 		newFormatUrl: ''
 	}),
 
+	/*
+	These are linked to the Vuex formatNames, so that when a format is deleted
+	it will disappear from these properties.
+	*/
+
+	computed: {
+		proofingFormats() {
+			let result = [];
+
+			this.formatNames.forEach(name => {
+				const format = this.loadedFormats.find(
+					format => format.name === name
+				);
+
+				if (format && format.properties.proofing) {
+					result.push(format);
+				}
+			});
+
+			return result;
+		},
+
+		storyFormats() {
+			let result = [];
+
+			this.formatNames.forEach(name => {
+				const format = this.loadedFormats.find(
+					format => format.name === name
+				);
+
+				if (format && !format.properties.proofing) {
+					result.push(format);
+				}
+			});
+
+			return result;
+		}
+	},
+
 	methods: {
 		// Loads the next pending format.
 
@@ -31,13 +69,7 @@ module.exports = Vue.extend({
 			if (this.loadIndex < this.formatNames.length) {
 				this.loadFormat(this.formatNames[this.loadIndex])
 				.then(format => {
-					if (format.properties.proofing) {
-						this.proofingFormats.push(format);
-					}
-					else {
-						this.storyFormats.push(format);
-					}
-
+					this.loadedFormats.push(format);
 					this.loadIndex++;
 					this.loadNext();
 				})

@@ -1,40 +1,51 @@
+/*
+Manages a drag-and-drop-target on a component. When a file is dragged onto it,
+this component dispatches a `file-drag-n-drop` event to its parent.
+*/
+
 const Vue = require('vue');
-const { default: { on, off } } = require('oui-dom-events');
+const domEvents = require('../../vue/mixins/dom-events');
 
 module.exports = Vue.extend({
-	template:
-		`<div :class="'drag-n-drop ' + (dragover ? 'dragover' : '')">
-			<div class='label'>
-				<slot></slot>
-			</div>
-			<div class='inner-border'></div>
-		</div>`,
+	template: require('./index.html'),
+
 	data: () => ({
-		dragover: false,
+		/* Whether the user has a file dragged onto this component. */
+
+		receiving: false
 	}),
+
 	ready() {
-		const {$el, $parent:{$el:parentEl}} = this;
+		const parentEl = this.$parent.$el;
 
-		on(parentEl, 'dragenter.file-drag-n-drop', () => {
-			this.dragover = true;
+		/*
+		Make ourselves visible when the user drags a file onto us.
+		*/
+
+		this.on(parentEl, 'dragenter', () => {
+			this.receiving = true;
 		});
 
-		on(parentEl, 'dragexit.file-drag-n-drop', () => {
-			this.dragover = false;
+		this.on(parentEl, 'dragexit', () => {
+			this.receiving = false;
 		});
-		// The below is necessary to prevent the browser from
-		// opening the file directly, on drop.
-		on(parentEl, 'dragover.file-drag-n-drop', e => {
+
+		/*
+		The below is necessary to prevent the browser from opening the file
+		directly after the user drops a file on us.
+		*/
+
+		this.on(parentEl, 'dragover', e => {
 			e.preventDefault();
 		});
-		on($el, 'drop', e => {
-			e.preventDefault();
+	},
+
+	methods: {
+		fileReceived(e) {
 			this.$dispatch('file-drag-n-drop', e.dataTransfer.files);
-			this.dragover = false;
-		});
+			this.receiving = false;
+		}
 	},
 
-	beforeDestroy() {
-		off(this.$parent.$el, '.file-drag-n-drop');
-	},
+	mixins: [domEvents]
 });

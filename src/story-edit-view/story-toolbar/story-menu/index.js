@@ -49,7 +49,7 @@ module.exports = Vue.extend({
 					),
 				buttonLabel:
 					'<i class="fa fa-ok"></i> ' + locale.say('Rename'),
-				defaultText:
+				response:
 					this.story.name,
 				blankTextError:
 					locale.say('Please enter a name.')
