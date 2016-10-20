@@ -67,7 +67,8 @@ TwineRouter.map({
 				const story = state.story.stories.find(
 					story => story.id === this.$route.params.id
 				);
-				const formatName = story.format || state.pref.defaultFormat;
+
+				const formatName = story.storyFormat || state.pref.defaultFormat;
 				const format = state.storyFormat.formats.find(
 					format => format.name === formatName
 				);
@@ -112,7 +113,7 @@ TwineRouter.map({
 				const story = state.story.stories.find(
 					story => story.id === this.$route.params.id
 				);
-				const formatName = story.format || state.pref.defaultFormat;
+				const formatName = story.storyFormat || state.pref.defaultFormat;
 				const format = state.storyFormat.formats.find(
 					format => format.name === formatName
 				);
@@ -134,9 +135,9 @@ TwineRouter.map({
 			ready() {
 				const state = this.$store.state;
 				const story = state.story.stories.find(
-					story => story.id === this.$route.params.id
+					story => story.id === this.$route.params.storyId
 				);
-				const formatName = story.format || state.pref.defaultFormat;
+				const formatName = story.storyFormat || state.pref.defaultFormat;
 				const format = state.storyFormat.formats.find(
 					format => format.name === formatName
 				);

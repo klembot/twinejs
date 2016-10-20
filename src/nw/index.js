@@ -19,6 +19,8 @@ module.exports = {
 			return;
 		}
 
+		require('core-js');
+
 		const startupErrorTemplate = require('./startup-error.ejs');
 		let startupTask = 'beginning startup tasks';
 

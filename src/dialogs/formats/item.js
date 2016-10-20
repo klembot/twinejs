@@ -1,7 +1,7 @@
 'use strict';
 const Vue = require('vue');
 const locale = require('../../locale');
-const { confirm } = require('../../ui');
+const { confirm } = require('../confirm');
 const { deleteFormat, setPref } = require('../../data/actions');
 
 module.exports = Vue.extend({
