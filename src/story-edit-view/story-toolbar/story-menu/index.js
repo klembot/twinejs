@@ -23,24 +23,24 @@ module.exports = Vue.extend({
 	},
 
 	methods: {
-		editScript() {
+		editScript(e) {
 			// We have to manually inject the Vuex store, since the editors are
 			// mounted outside the app scope.
 
 			new JavaScriptEditor({
-				data: { storyId: this.story.id },
+				data: { storyId: this.story.id, origin: e.target },
 				store: this.$store
 			}).$mountTo(document.body);
 		},
 
-		editStyle() {
+		editStyle(e) {
 			new StylesheetEditor({
-				data: { storyId: this.story.id },
+				data: { storyId: this.story.id, origin: e.target },
 				store: this.$store
 			}).$mountTo(document.body);
 		},
 
-		renameStory() {
+		renameStory(e) {
 			prompt({
 				message:
 					locale.say(
@@ -52,7 +52,9 @@ module.exports = Vue.extend({
 				response:
 					this.story.name,
 				blankTextError:
-					locale.say('Please enter a name.')
+					locale.say('Please enter a name.'),
+				origin:
+					e.target
 			})
 			.then(text => this.updateStory(this.story.id, { name: text }));
 		},
@@ -78,16 +80,16 @@ module.exports = Vue.extend({
 			});
 		},
 
-		storyStats() {
+		storyStats(e) {
 			new StatsDialog({
-				data: { storyId: this.story.id },
+				data: { storyId: this.story.id, origin: e.target },
 				store: this.$store
 			}).$mountTo(document.body);
 		},
 
-		changeFormat() {
+		changeFormat(e) {
 			new FormatDialog({
-				data: { storyId: this.story.id },
+				data: { storyId: this.story.id, origin: e.target },
 				store: this.$store
 			}).$mountTo(document.body);
 		},

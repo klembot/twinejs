@@ -17,7 +17,8 @@ const prompter = module.exports = {
 			modalClass: '',
 			isValid: true,
 			validationError: '',
-			validator: function() {}
+			validator: function() {},
+			origin: null
 		}),
 
 		ready() {

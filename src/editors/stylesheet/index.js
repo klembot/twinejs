@@ -1,4 +1,6 @@
-// A component showing a modal dialog where a story's stylesheet can be edited.
+/*
+A component showing a modal dialog where a story's stylesheet can be edited.
+*/
 
 const Vue = require('vue');
 const { updateStory } = require('../../data/actions');
@@ -11,7 +13,8 @@ module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	data: () => ({
-		storyId: ''
+		storyId: '',
+		origin: null
 	}),
 
 	computed: {
