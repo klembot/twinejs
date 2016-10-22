@@ -1,8 +1,9 @@
-// A modal which allows the user to perform find and replace on a array of
-// passages.
+/*
+A modal which allows the user to perform find and replace on a array of
+passages.
+*/
 
 const Vue = require('vue');
-
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -14,7 +15,8 @@ module.exports = Vue.extend({
 		searchNames: true,
 		caseSensitive: false,
 		regexp: false,
-		working: false
+		working: false,
+		origin: null
 	}),
 
 	computed: {
@@ -99,8 +101,10 @@ module.exports = Vue.extend({
 			this.$broadcast('replace');
 		},
 
-		// Getters for our child result components. These are functions so that
-		// although we pass them as props, they're dynamic.
+		/*
+		Getters for our child result components. These are functions so that
+		although we pass them as props, they're dynamic.
+		*/
 
 		getSearchRegexp() {
 			return this.searchRegexp;

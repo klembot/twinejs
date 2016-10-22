@@ -7,20 +7,23 @@ module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	data: () => ({
-		// Detail about each format.
+		/* Detail about each format. */
 		loadedFormats: [],
 
-		// Determines whether to show the error <span>, and with what text.
+		/* Determines whether to show the error <span>, and with what text. */
 		error: '',
 
-		// Determines whether to show the loading spinner.
+		/* Determines whether to show the loading spinner. */
 		working: true,
 
-		// The index number of the next format to load.
+		/* The index number of the next format to load. */
 		loadIndex: 0,
 
-		// Bound to the text in the "new format" input.
-		newFormatUrl: ''
+		/* Bound to the text in the "new format" input. */
+		newFormatUrl: '',
+
+		/* The origin element to show the dialog coming from. */
+		origin: null
 	}),
 
 	/*

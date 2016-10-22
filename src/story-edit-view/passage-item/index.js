@@ -149,7 +149,8 @@ module.exports = Vue.extend({
 			new PassageEditor({
 				data: {
 					passageId: this.passage.id,
-					storyId: this.parentStory.id
+					storyId: this.parentStory.id,
+					origin: this.$el
 				},
 				store: this.$store,
 				storyFormat: this.parentStory.storyFormat,
