@@ -1,0 +1,54 @@
+/*
+These are derived from https://github.com/idleberg/base16-codemirror
+(specifically the 3024 variation), but customized to match light/dark themes.
+*/
+
+.cm-s-base16-3024-light.CodeMirror {background: #f7f7f7; color: #3a3432;}
+div.CodeMirror-selected {background: #d6d5d4 !important;}
+.CodeMirror-gutters {background: #f7f7f7; border-right: 0px;}
+.CodeMirror-linenumber {color: #807d7c;}
+.CodeMirror-cursor {border-left: 1px solid #5c5855 !important;}
+
+span.cm-comment {color: #cdab53;}
+span.cm-atom {color: #a16a94;}
+span.cm-number {color: #a16a94;}
+
+span.cm-property, span.cm-attribute {color: #01a252;}
+span.cm-keyword {color: #db2d20;}
+span.cm-string {color: #fded02;}
+
+span.cm-variable {color: #01a252;}
+span.cm-variable-2 {color: #01a0e4;}
+span.cm-def {color: #e8bbd0;}
+span.cm-error {background: #db2d20; color: #5c5855;}
+span.cm-bracket {color: #3a3432;}
+span.cm-tag {color: #db2d20;}
+span.cm-link {color: #a16a94;}
+
+.CodeMirror-matchingbracket { text-decoration: underline; color: white !important;}
+
+body.theme-dark {
+	.cm-s-base16-3024-dark.CodeMirror {background: #090300; color: #d6d5d4;}
+	div.CodeMirror-selected {background: #3a3432 !important;}
+	.CodeMirror-gutters {background: #090300; border-right: 0px;}
+	.CodeMirror-linenumber {color: #5c5855;}
+	.CodeMirror-cursor {border-left: 1px solid #807d7c !important;}
+
+	span.cm-comment {color: #cdab53;}
+	span.cm-atom {color: #a16a94;}
+	span.cm-number {color: #a16a94;}
+
+	span.cm-property, span.cm-attribute {color: #01a252;}
+	span.cm-keyword {color: #db2d20;}
+	span.cm-string {color: #fded02;}
+
+	span.cm-variable {color: #01a252;}
+	span.cm-variable-2 {color: #01a0e4;}
+	span.cm-def {color: #e8bbd0;}
+	span.cm-error {background: #db2d20; color: #807d7c;}
+	span.cm-bracket {color: #d6d5d4;}
+	span.cm-tag {color: #db2d20;}
+	span.cm-link {color: #a16a94;}
+
+	.CodeMirror-matchingbracket { text-decoration: underline; color: white !important;}
+}
