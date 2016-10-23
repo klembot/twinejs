@@ -1,4 +1,6 @@
-// A modal dialog for editing a single passage.
+/*
+A modal dialog for editing a single passage.
+*/
 
 const CodeMirror = require('codemirror');
 const Vue = require('vue');
@@ -9,7 +11,9 @@ const { changeLinksInStory, updatePassageInStory, loadFormat } = require('../../
 require('codemirror/addon/display/placeholder');
 require('../../codemirror/prefix-trigger');
 
-// Expose CodeMirror to story formats, currently for Harlowe compatibility.
+/*
+Expose CodeMirror to story formats, currently for Harlowe compatibility.
+*/
 
 window.CodeMirror = CodeMirror;
 
@@ -21,7 +25,8 @@ module.exports = Vue.extend({
 		storyId: '',
 		oldWindowTitle: '',
 		userPassageName: '',
-		saveError: ''
+		saveError: '',
+		origin: null
 	}),
 
 	computed: {
@@ -168,34 +173,42 @@ module.exports = Vue.extend({
 	ready() {
 		this.userPassageName = this.passage.name;
 
-		// Update the window title.
+		/* Update the window title. */
 
 		this.oldWindowTitle = document.title;
 		document.title = locale.say('Editing \u201c%s\u201d', this.passage.name);
 
-		// Load the story's format and see if it offers a CodeMirror mode.
+		/*
+		Load the story's format and see if it offers a CodeMirror mode.
+		*/
 
 		if (this.$options.storyFormat) {
 			this.loadFormat(this.$options.storyFormat).then((format) => {
 				const modeName = format.name.toLowerCase();
 
 				if (modeName in CodeMirror.modes) {
-					// This is a small hack to allow modes such as Harlowe to
-					// access the full text of the textarea, permitting its
-					// lexer to grow a syntax tree by itself.
+					/*
+					This is a small hack to allow modes such as Harlowe to
+					access the full text of the textarea, permitting its lexer
+					to grow a syntax tree by itself.
+					*/
 
 					CodeMirror.modes[modeName].cm = this.$refs.codemirror.$cm;
 
-					// Now that's done, we can assign the mode and trigger a
-					// re-render.
+					/*
+					Now that's done, we can assign the mode and trigger a
+					re-render.
+					*/
 
 					this.$refs.codemirror.$cm.setOption('mode', modeName);
 				}
 			});
 		}
 
-		// Set the mode to the default, 'text'. The above promise will reset
-		// it if it fulfils.
+		/*
+		Set the mode to the default, 'text'. The above promise will reset it if
+		it fulfils.
+		*/
 
 		this.$refs.codemirror.$cm.setOption('mode', 'text');
 	},

@@ -103,7 +103,7 @@ module.exports = Vue.extend({
 		// Our grid size -- for now, constant.
 
 		gridSize() {
-			return 20;
+			return 25;
 		},
 
 		// Returns an array of currently-selected <passage-item> components. This

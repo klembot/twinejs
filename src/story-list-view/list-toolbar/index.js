@@ -14,7 +14,7 @@ module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	methods: {
-		createStoryPrompt() {
+		createStoryPrompt(e) {
 			// Prompt for the new story name.
 
 			prompt({
@@ -31,7 +31,8 @@ module.exports = Vue.extend({
 							'A story with this name already exists.'
 						);
 					}
-				}
+				},
+				origin: e.target
 			}).then(name => {
 				this.createStory({ name });
 				
@@ -44,8 +45,11 @@ module.exports = Vue.extend({
 			});
 		},
 
-		importFile() {
-			new ImportDialog({ store: this.$store }).$mountTo(document.body);
+		importFile(e) {
+			new ImportDialog({
+				store: this.$store,
+				data: { origin: e.target }
+			}).$mountTo(document.body);
 		},
 
 		saveArchive() {
@@ -57,12 +61,18 @@ module.exports = Vue.extend({
 			);
 		},
 
-		showAbout() {
-			new AboutDialog({ store: this.$store }).$mountTo(document.body);
+		showAbout(e) {
+			new AboutDialog({
+				store: this.$store,
+				data: { origin: e.target }
+			}).$mountTo(document.body);
 		},
 
-		showFormats() {
-			new FormatsDialog({ store: this.$store }).$mountTo(document.body);
+		showFormats(e) {
+			new FormatsDialog({
+				store: this.$store,
+				data: { origin: e.target }
+			}).$mountTo(document.body);
 		},
 
 		showHelp() {
