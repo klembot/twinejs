@@ -1,6 +1,10 @@
 const Vue = require('vue');
 
 module.exports = Vue.extend({
+	data: () => ({
+		origin: null
+	}),
+
 	template: require('./index.html'),
 
 	components: {
