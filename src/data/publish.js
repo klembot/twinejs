@@ -1,11 +1,15 @@
-// Publishes stories to HTML.
+/*
+Publishes stories to HTML.
+*/
 
 const { escape } = require('underscore');
 const locale = require('../locale');
 
 const publish = module.exports = {
-	// Publishes a story with a story format. The format *must* be loaded
-	// before this function is called.
+	/*
+	Publishes a story with a story format. The format *must* be loaded before
+	this function is called.
+	*/
 
 	publishStoryWithFormat(appInfo, story, format, formatOptions, startId) {
 		if (!format.properties || !format.properties.source) {
@@ -14,17 +18,19 @@ const publish = module.exports = {
 
 		let output = format.properties.source;
 
-		// We use function replacements to protect the data from accidental
-		// interactions with the special string replacement patterns.
+		/*
+		We use function replacements to protect the data from accidental
+		interactions with the special string replacement patterns.
 
-		// First, built-in placeholders.
+		First, built-in placeholders.
+		*/
 
 		output = output.replace(/{{STORY_NAME}}/g, () => escape(story.name));
 		output = output.replace(/{{STORY_DATA}}/g, () => {
 			return publish.publishStory(appInfo, story, formatOptions, startId);
 		});
 
-		// Then, format-defined placeholders.
+		/* Then, format-defined placeholders. */
 
 		if (format.properties.placeholders) {
 			format.properties.placeholders.forEach(p => {
@@ -39,29 +45,30 @@ const publish = module.exports = {
 		return output;
 	},
 
-	// Publishes an archive of stories.
+	/* Publishes an archive of stories. */
 
 	publishArchive(stories, appInfo) {
 		return stories.reduce(
 			(output, story) => {
-				// Force publishing even if there is no start point set.
+				/* Force publishing even if there is no start point set. */
 
 				return output + publish.publishStory(
 					appInfo, story, null, null, true
 				) + '\n\n';
 			},
-
 			''
 		);
 	},
 
-	// Does a "naked" publish of a story -- creating an HTML representation of
-	// it, but without any story format binding.
+	/*
+	Does a "naked" publish of a story -- creating an HTML representation of it,
+	but without any story format binding.
+	*/
 
 	publishStory(appInfo, story, formatOptions, startId, startOptional) {
 		startId = startId || story.startPassage;
 
-		// Verify that the start passage exists.
+		/* Verify that the start passage exists. */
 
 		if (!startOptional) {
 			if (!startId) {
@@ -78,7 +85,7 @@ const publish = module.exports = {
 			}
 		};
 
-		// The id of the start passage as it is published (*not* a UUID).
+		/* The id of the start passage as it is published (*not* a UUID). */
 
 		let startLocalId;
 		let passageData = '';
@@ -97,6 +104,7 @@ const publish = module.exports = {
 			`creator-version="${escape(appInfo.version)}" ` +
 			`ifid="${escape(story.ifid)}" ` +
 			`format="${escape(story.storyFormat)}" ` +
+			`format-version="${escape(story.storyFormatVersion)}"` +
 			`options="${escape(formatOptions)}" hidden>` +
 			`<style role="stylesheet" id="twine-user-stylesheet" ` +
 			`type="text/twine-css">` + story.stylesheet + `</style>` +
@@ -106,9 +114,10 @@ const publish = module.exports = {
 			`</tw-storydata>`;
 	},
 
-	// Publishes a passage to an HTML fragment. This takes a id argument
-	// because passages are numbered sequentially in published stories, not
-	// with a UUID.
+	/*
+	Publishes a passage to an HTML fragment. This takes a id argument because
+	passages are numbered sequentially in published stories, not with a UUID.
+	*/
 
 	publishPassage(passage, localId) {
 		return `<tw-passagedata pid="${escape(localId)}" ` +
