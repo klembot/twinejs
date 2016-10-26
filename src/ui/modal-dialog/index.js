@@ -53,7 +53,6 @@ const ModalDialog = module.exports = Vue.extend({
 			components.
 			*/
 			this.$broadcast('transition-entered');
-			console.log('transition-entered broadcast');
 			dialog.removeEventListener('animationend', notifier);
 		};
 
