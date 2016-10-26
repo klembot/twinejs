@@ -183,7 +183,10 @@ module.exports = Vue.extend({
 		*/
 
 		if (this.$options.storyFormat) {
-			this.loadFormat(this.$options.storyFormat).then((format) => {
+			this.loadFormat(
+				this.$options.storyFormat.name,
+				this.$options.storyFormat.version
+			).then(format => {
 				const modeName = format.name.toLowerCase();
 
 				if (modeName in CodeMirror.modes) {

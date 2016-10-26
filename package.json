@@ -21,8 +21,8 @@
     "blob-polyfill": "^1.0.20150320",
     "browser-saveas": "^1.0.0",
     "codemirror": "^5.5.0",
-    "dom-event-special": "^0.1.7",
     "core-js": "^2.4.0",
+    "dom-event-special": "^0.1.7",
     "fastclick": "^1.0.6",
     "font-awesome": "^4.3.0",
     "jed": "^1.1.0",
@@ -32,6 +32,7 @@
     "osenv": "^0.1.3",
     "scroll-to-element": "^2.0.0",
     "segseg": "^0.2.2",
+    "semver-utils": "^1.1.1",
     "svg.js": "^1.0.1",
     "tether-drop": "^1.4.2",
     "tiny-uuid": "^1.0.0",
@@ -43,7 +44,7 @@
   "devDependencies": {
     "babel-preset-es2015": "^6.6.0",
     "babelify": "^7.2.0",
-    "browserify": "^11.0.0",
+    "browserify": "^11.2.0",
     "browserify-shim": "^3.8.10",
     "chai": "^3.5.0",
     "ejsify": "^1.0.0",
@@ -57,7 +58,6 @@
     "grunt-eslint": "^19.0.0",
     "grunt-jscs": "^3.0.1",
     "grunt-jsdoc": "^1.0.0",
-    "grunt-mocha-test": "^0.13.2",
     "grunt-mochify": "^0.3.0",
     "grunt-nw-builder": "^3.1.0",
     "grunt-po2json": "^0.3.0",
@@ -69,7 +69,7 @@
     "sinon": "^1.17.5",
     "stringify": "^5.1.0",
     "uglifyify": "^3.0.1",
-    "watchify": "^3.3.0",
+    "watchify": "^3.7.0",
     "wrench": "^1.5.8"
   }
 }
