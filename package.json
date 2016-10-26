@@ -47,6 +47,7 @@
     "browserify": "^11.2.0",
     "browserify-shim": "^3.8.10",
     "chai": "^3.5.0",
+    "chmodr": "^1.0.2",
     "ejsify": "^1.0.0",
     "envify": "^3.4.0",
     "grunt": "^1.0.0",
@@ -69,7 +70,6 @@
     "sinon": "^1.17.5",
     "stringify": "^5.1.0",
     "uglifyify": "^3.0.1",
-    "watchify": "^3.7.0",
-    "wrench": "^1.5.8"
+    "watchify": "^3.7.0"
   }
 }
