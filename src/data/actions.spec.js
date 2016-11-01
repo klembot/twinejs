@@ -107,16 +107,16 @@ describe('actions data module', () => {
 		}
 		
 		expect(created.Harlowe).to.exist;
-		expect(created.Harlowe.url).to.equal('story-formats/Harlowe/format.js');
+		expect(created.Harlowe.url).to.equal('story-formats/harlowe-1.2.3/format.js');
 		expect(created.Harlowe.userAdded).to.be.false;
 		expect(created.Paperthin).to.exist;
-		expect(created.Paperthin.url).to.equal('story-formats/Paperthin/format.js');
+		expect(created.Paperthin.url).to.equal('story-formats/paperthin-1.0.0/format.js');
 		expect(created.Paperthin.userAdded).to.be.false;
 		expect(created.Snowman).to.exist;
-		expect(created.Snowman.url).to.equal('story-formats/Snowman/format.js');
+		expect(created.Snowman.url).to.equal('story-formats/snowman-1.3.0/format.js');
 		expect(created.Snowman.userAdded).to.be.false;
 		expect(created.SugarCube).to.exist;
-		expect(created.SugarCube.url).to.equal('story-formats/SugarCube/format.js');
+		expect(created.SugarCube.url).to.equal('story-formats/sugarcube-1.0.35/format.js');
 		expect(created.SugarCube.userAdded).to.be.false;	
 	});
 	
@@ -203,6 +203,38 @@ describe('actions data module', () => {
 			'UPDATE_STORY',
 			'not-a-real-id',
 			{ storyFormat: 'Default Format' }
+		)).to.be.true;
+	});
+
+	it('coerces old SugarCube references to their correct versions with repairStories()', () => {
+		let storiesStore = {
+			dispatch: spy(),
+			state: {
+				story: {
+					stories: [
+						{
+							id: 'not-a-real-id',
+							storyFormat: 'SugarCube 1 (local/offline)'
+						},
+						{
+							id: 'also-not-a-real-id',
+							storyFormat: 'SugarCube 2 (local/offline)'
+						}
+					]
+				}
+			}
+		};
+
+		actions.repairStories(storiesStore);
+		expect(storiesStore.dispatch.calledWith(
+			'UPDATE_STORY',
+			'not-a-real-id',
+			{ storyFormat: 'SugarCube', storyFormatVersion: '1.0.35' }
+		)).to.be.true;
+		expect(storiesStore.dispatch.calledWith(
+			'UPDATE_STORY',
+			'also-not-a-real-id',
+			{ storyFormat: 'SugarCube', storyFormatVersion: '2.11.0' }
 		)).to.be.true;
 	});
 

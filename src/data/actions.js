@@ -422,13 +422,32 @@ const actions = module.exports = {
 					{ storyFormat: store.state.pref.defaultFormat.name }
 				);
 			}
-
+			
 			/*
-			If a story has no format version, pick the lowest version number
-			currently available.
+			Coerce old SugarCube formats, which had version numbers in their
+			name, to the correct built-in ones.
 			*/
 
-			if (!story.storyFormatVersion) {
+			if (/^SugarCube 1/.test(story.storyFormat)) {
+				actions.updateStory(
+					store,
+					story.id,
+					{ storyFormat: 'SugarCube', storyFormatVersion: '1.0.35' }
+				);
+			}
+			else if (/^SugarCube 2/.test(story.storyFormat)) {
+				actions.updateStory(
+					store,
+					story.id,
+					{ storyFormat: 'SugarCube', storyFormatVersion: '2.11.0' }
+				);
+			}
+			else if (!story.storyFormatVersion) {
+				/*
+				If a story has no format version, pick the lowest version number
+				currently available.
+				*/
+
 				const format = store.state.storyFormat.formats.reduce((prev, current) => {
 					if (current.name !== story.storyFormat) {
 						return prev;
