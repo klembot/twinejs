@@ -2,70 +2,71 @@
 // e.g. those pointing to other passages in a story, not to an external web
 // site.
 
-module.exports = (text, internalOnly) => {
-	// The top level regular expression to catch links -- i.e. [[link]].
+'use strict';
 
-	const matches = text.match(/\[\[.*?\]\]/g);
+// The top level regular expression to catch links -- i.e. [[link]].
+const extractLinkTags = (text) => text.match(/\[\[.*?\]\]/g) || [];
 
-	if (!matches) {
-		return [];
+// Links _not_ starting with a protocol, e.g. abcd://.
+const internalLinks = link => !/^\w+:\/\/\/?\w/i.test(link);
+
+const nonEmptyLinks = link => link !== '';
+
+// Identifies values that appear only once in the arry
+const uniques = (v, i, a) => a.indexOf(v) === a.lastIndexOf(v);
+
+// Setter is the second [] block if exists
+const removeSetters = link => {
+	const noSetter = getField(link, '][', 0);
+	return typeof(noSetter) !== 'undefined' ? noSetter : link;
+}
+
+const removeEnclosingBrackets = link => link.substr(2, link.length - 4);
+
+// Split the link by the separator and return the field in the
+// given index. Negative indices start from the end of the array.
+const getField = (link, separator, index) => {
+	const fields = link.split(separator);
+	if (fields.length === 1) {
+		// Separator not present
+		return undefined;
 	}
+	return (index < 0) ? fields[fields.length + index] : fields[index];
+};
 
-	// Links we've already found, to ensure the array we return contains only
-	// unique links.
+const extractLink = (tagContent) => {
 
-	const found = {};
+	// Arrow links:
+	// [[display text->link]] format
+	// [[link<-display text]] format
+	//
+	// Interpret the rightmost '->' and the leftmost '<-' as the divider.
 
-	// A helper function for dealing with arrow links, e.g. [[text->passage]].
+	return getField(tagContent, '->', -1) ||
+		   getField(tagContent, '<-', 0) ||
 
-	const arrowReplacer = (a, b, c, d) => c || d;
+		   // TiddlyWiki links:
+		   // [[display text|link]] format
+		   getField(tagContent, '|', -1) ||
+		   
+		   // [[link]] format
+		   tagContent;
+};
+										   
+module.exports = (text, internalOnly) => {
 
-	let result = matches.reduce((links, match) => {
-		// The link matching regexps ignore setter components, should
-		// they exist.
+	// Link matching regexps ignore setter components, should they exist.
 
-		const link = match
-
-		// Arrow links:
-		// [[display text->link]] format
-		// [[link<-display text]] format
-		//
-		// Arrow links, with setter component:
-		// [[display text->link][...]] format
-		// [[link<-display text][...]] format
-		//
-		// This regexp will interpret the rightmost '->' and the leftmost
-		// '<-' as the divider.
-
-			.replace(/\[\[(?:([^\]]*)\->|([^\]]*?)<\-)([^\]]*)(?:\]\[.*?)?\]\]/g, arrowReplacer)
-
-		// TiddlyWiki links:
-		// [[display text|link]] format
-		//
-		// TiddlyWiki links, with setter component:
-		// [[display text|link][...]] format
-
-			.replace(/\[\[([^\|\]]*?)\|([^\|\]]*)?(?:\]\[.*?)?\]\]/g, '$2')
-
-		// [[link]] format, and [[link][...]] format, with setter component
-
-			.replace(/\[\[|(?:\]\[.*?)?\]\]/g,'');
-
-		// Catch empty links and links we've already found.
-
-		if (link !== '' && found[link] === undefined) {
-			found[link] = true;
-			links.push(link);
-		}
-
-		return links;
-	}, []);
+	let result = extractLinkTags(text)
+		.map(removeEnclosingBrackets)
+		.map(removeSetters)
+		.map(extractLink)
+		.filter(nonEmptyLinks)
+		.filter(uniques);
 
 	if (internalOnly) {
-		// Remove any link starting with a protocol, e.g. abcd://.
-
-		result = result.filter(link => !/^\w+:\/\/\/?\w/i.test(link));
+		result = result.filter(internalLinks);
 	}
-	
+
 	return result;
 };
