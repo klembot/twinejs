@@ -104,4 +104,27 @@ describe('link-parser', () =>
 
 			expect(links).to.have.lengthOf(0);
 		});
+		
+		it('parses [[ /regex with [ | ]/ ->link]]', () => {
+			const links = linkParser('[[/regex with [ | ]/ ->link]]');
+
+			expect(links).to.have.lengthOf(1);
+			expect(links[0]).to.equal('link');
+		});
+
+		it('parses [[ /regex with [ | ]/ ->link][setter]]', () => {
+			const links = linkParser('[[/regex with [ | ]/ ->link][setter]]');
+
+			expect(links).to.have.lengthOf(1);
+			expect(links[0]).to.equal('link');
+		});
+
+		it('parses [[simple link1]][[simple link 2]]', () => {
+			const links = linkParser('[[link1]][[link2]]');
+
+			expect(links).to.have.lengthOf(2);
+			expect(links[0]).to.equal('link1');
+			expect(links[1]).to.equal('link2');
+		});
+
 	});
