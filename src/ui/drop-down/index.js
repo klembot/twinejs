@@ -35,6 +35,15 @@ module.exports = Vue.extend({
 			classes: this.class,
 			constrainToWindow: true,
 			constrainToScrollParent: false,
+			tetherOptions: {
+				constraints: [
+					{
+						to: 'window',
+						attachment: 'together',
+						pin: true
+					}
+				]
+			}
 		});
 
 		// Close the dropdown when one of its menu items is clicked.
