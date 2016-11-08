@@ -10,7 +10,18 @@
 		{{'Story formats control the appearance and behavior of stories during play.' | say}}
 		</p>
 
-		<format-item v-for="format in storyFormats" :format="format" transition="fade-in-out"></format-item>
+		<table>
+			<thead>
+				<tr>
+					<th>{{ 'Use as Default' | say }}</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="format in storyFormats" is="format-item" :format="format" transition="fade-in-out"></format-item>
+			</tbody>
+		</table>
 	</tab-item>
 
 	<tab-item name="Proofing Formats">
@@ -18,7 +29,18 @@
 		{{'Proofing formats create a versions of stories tailored for editing and proofreading.' | say}}
 		</p>
 
-		<format-item v-for="format in proofingFormats" :format="format" transition="fade-in-out"></format-item>
+		<table>
+			<thead>
+				<tr>
+					<th>{{ 'Use' | say }}</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="format in proofingFormats" is="format-item" :format="format" transition="fade-in-out"></format-item>
+			</tbody>
+		</table>
 	</tab-item>
 
 	<tab-item name="Add a New Format">

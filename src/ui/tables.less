@@ -3,14 +3,21 @@
 
 table {
 	border-collapse: collapse;
+	width: 100%;
 }
 
-tr {
+tbody tr {
 	border-top: 1px solid @color-form-line;
 
 	table.unlined & {
 		border-top-color: transparent;
 	}
+}
+
+th {
+	font-weight: normal;
+	opacity: 0.8;
+	white-space: nowrap;
 }
 
 td {
