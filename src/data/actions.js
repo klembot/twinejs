@@ -354,6 +354,12 @@ const actions = module.exports = {
 				userAdded: false
 			},
 			{
+				name: 'Harlowe',
+				url: 'story-formats/harlowe-2.0.0/format.js',
+				version: '2.0.0',
+				userAdded: false
+			},
+			{
 				name: 'Paperthin',
 				url: 'story-formats/paperthin-1.0.0/format.js',
 				version: '1.0.0',
@@ -369,6 +375,12 @@ const actions = module.exports = {
 				name: 'SugarCube',
 				url: 'story-formats/sugarcube-1.0.35/format.js',
 				version: '1.0.35',
+				userAdded: false
+			},
+			{
+				name: 'SugarCube',
+				url: 'story-formats/sugarcube-2.11.0/format.js',
+				version: '2.11.0',
 				userAdded: false
 			}
 		];
