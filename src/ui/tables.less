@@ -1,0 +1,31 @@
+@import '../common/colors.less';
+@import '../common/metrics.less';
+
+table {
+	border-collapse: collapse;
+}
+
+tr {
+	border-top: 1px solid @color-form-line;
+
+	table.unlined & {
+		border-top-color: transparent;
+	}
+}
+
+td {
+	padding-top: @len-small;
+	padding-bottom: @len-small;
+
+	:first-child {
+		margin-top: 0;
+	}
+
+	:last-child {
+		margin-bottom: 0;
+	}
+
+	table.unlined & {
+		padding: @len-hairline;
+	}
+}
