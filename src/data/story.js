@@ -193,7 +193,8 @@ const storyStore = module.exports = {
 		snapToGrid: false,
 		stylesheet: '',
 		script: '',
-		storyFormat: ''
+		storyFormat: '',
+		storyFormatVersion: ''
 	},
 
 	passageDefaults: {

@@ -1,0 +1,27 @@
+<div class="format-detail">
+	<div v-if="format">
+		<!-- If no image is available, use a placeholder based on name. -->
+
+		<div class="icon">
+			<img v-if="format.properties.image" :src="imageSrc">
+			<span v-else class="placeholder">{{ format.name.slice(0,2) }}</span>
+		</div>
+
+		<p class="main-info">
+			<b>{{ format.name }} {{ format.version }}</b>
+			<span v-if="format.properties.author" class="detail">
+				<br>
+				by {{{ format.properties.author }}}
+			</span>
+
+			<span v-if="format.properties.license" class="detail">
+				<br>
+				License: {{{ format.properties.license }}}
+			</span>
+		</p>
+
+		<p class="detail" v-if="format.properties.description">
+			{{{ format.properties.description }}}
+		</p>
+	</div>
+</div>

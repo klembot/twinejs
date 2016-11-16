@@ -80,7 +80,7 @@ describe('story-format data module', () => {
 		expect(setup.calledOn(state.formats[0])).to.be.true;
 	});
 
-	it('updates a format with the CREATE_FORMAT mutation', () => {
+	it('updates a format with the UPDATE_FORMAT mutation', () => {
 		storyFormat.mutations.CREATE_FORMAT(state, props);
 		storyFormat.mutations.UPDATE_FORMAT(
 			state,

@@ -1,6 +1,9 @@
-// Vuex actions that components can use.
+/*
+Vuex actions that components can use.
+*/
 
 const $ = require('jquery');
+const semverUtils = require('semver-utils');
 const linkParser = require('./link-parser');
 const locale = require('../locale');
 const rect = require('../common/rect');
@@ -42,8 +45,10 @@ const actions = module.exports = {
 		dispatch('DELETE_PASSAGE_IN_STORY', storyId, passageId);
 	},
 
-	// Moves a passage so it doesn't overlap any other in its story, and also
-	// snaps to a grid.
+	/*
+	Moves a passage so it doesn't overlap any other in its story, and also
+	snaps to a grid.
+	*/
 
 	positionPassage(store, storyId, passageId, gridSize, filter) {
 		const story = store.state.story.stories.find(
@@ -64,7 +69,7 @@ const actions = module.exports = {
 			);
 		}
 
-		// Displace by other passages.
+		/* Displace by other passages. */
 
 		let passageRect = {
 			top: passage.top,
@@ -90,7 +95,7 @@ const actions = module.exports = {
 			}
 		});
 
-		// Snap to the grid.
+		/* Snap to the grid. */
 
 		if (story.snapToGrid && gridSize !== 0) {
 			passageRect.left = Math.round(passageRect.left / gridSize) *
@@ -99,7 +104,7 @@ const actions = module.exports = {
 				gridSize;
 		}
 
-		// Save the change.
+		/* Save the change. */
 
 		actions.updatePassageInStory(
 			store,
@@ -112,8 +117,9 @@ const actions = module.exports = {
 		);
 	},
 
-	// Adds new passages to a story based on new links added in a passage's
-	// text.
+	/*
+	Adds new passages to a story based on new links added in a passage's text.
+	*/
 
 	createNewlyLinkedPassages(store, storyId, passageId, oldText) {
 		const story = store.state.story.stories.find(
@@ -123,7 +129,7 @@ const actions = module.exports = {
 			passage => passage.id === passageId
 		);
 
-		// Determine how many passages we'll need to create.
+		/* Determine how many passages we'll need to create. */
 
 		const oldLinks = linkParser(oldText, true);
 		const newLinks = linkParser(passage.text, true).filter(
@@ -131,12 +137,14 @@ const actions = module.exports = {
 				!(story.passages.some(passage => passage.name === link))
 		);
 
-		// We center the new passages underneath this one.
+		/* We center the new passages underneath this one. */
 
 		const newTop = passage.top + 100 * 1.5;
 
-		// We account for the total width of the new passages as both the
-		// width of the passages themselves plus the spacing in between.
+		/*
+		We account for the total width of the new passages as both the width of
+		the passages themselves plus the spacing in between.
+		*/
 
 		const totalWidth = newLinks.length * 100 +
 			((newLinks.length - 1) * (100 / 2));
@@ -263,10 +271,38 @@ const actions = module.exports = {
 		});
 	},
 
-	loadFormat(store, name) {
-		const format = store.state.storyFormat.formats.find(
-			format => format.name === name
+	loadFormat(store, name, version) {
+		/*
+		We pick the highest version that matches the major version of the
+		string (e.g. if we ask for version 2.0.8, we may get 2.6.1).
+		*/
+
+		const majorVersion = semverUtils.parse(version).major;
+		const formats = store.state.storyFormat.formats.filter(
+			format => format.name === name &&
+				semverUtils.parse(format.version).major === majorVersion 
 		);
+
+		if (formats.length === 0) {
+			throw new Error('No format is available named ' + name);
+		}
+
+		const format = formats.reduce((prev, current) => {
+			const pVer = semverUtils.parse(prev.version);
+			const cVer = semverUtils.parse(current.version);
+
+			if (cVer.major === pVer.major && (parseInt(cVer.minor) >
+				parseInt(pVer.minor) || parseInt(cVer.patch) >
+				parseInt(pVer.minor))) {
+				return current;
+			}
+
+			return previous;
+		});
+
+		if (!format) {
+			throw new Error('No format is available for version ' + version);
+		}
 
 		return new Promise((resolve, reject) => {
 			if (format.loaded) {
@@ -290,64 +326,164 @@ const actions = module.exports = {
 		});
 	},
 
-	// Create built-in formats and repair paths to use kebab case, as in
-	// previous versions we used camel case.
+	/*
+	Create built-in formats, repair paths to use kebab case (in previous
+	versions we used camel case), and set version numbers.
+	*/
 
 	repairFormats(store) {
-		// Create built-in story formats if they don't already exist.
+		/*
+		Delete unversioned formats.
+		*/
+
+		store.state.storyFormat.formats.forEach(format => {
+			if (typeof format.version !== 'string' || format.version === '') {
+				actions.deleteFormat(store, format.id);
+			}
+		});
+
+		/*
+		Create built-in story formats if they don't already exist.
+		*/
 
 		const builtinFormats = [
 			{
 				name: 'Harlowe',
-				url: 'story-formats/Harlowe/format.js',
+				url: 'story-formats/harlowe-1.2.3/format.js',
+				version: '1.2.3',
+				userAdded: false
+			},
+			{
+				name: 'Harlowe',
+				url: 'story-formats/harlowe-2.0.0/format.js',
+				version: '2.0.0',
 				userAdded: false
 			},
 			{
 				name: 'Paperthin',
-				url: 'story-formats/Paperthin/format.js',
+				url: 'story-formats/paperthin-1.0.0/format.js',
+				version: '1.0.0',
 				userAdded: false
 			},
 			{
 				name: 'Snowman',
-				url: 'story-formats/Snowman/format.js',
+				url: 'story-formats/snowman-1.3.0/format.js',
+				version: '1.3.0',
 				userAdded: false
 			},
 			{
 				name: 'SugarCube',
-				url: 'story-formats/SugarCube/format.js',
+				url: 'story-formats/sugarcube-1.0.35/format.js',
+				version: '1.0.35',
+				userAdded: false
+			},
+			{
+				name: 'SugarCube',
+				url: 'story-formats/sugarcube-2.11.0/format.js',
+				version: '2.11.0',
 				userAdded: false
 			}
 		];
 
 		builtinFormats.forEach(builtin => {
 			if (!store.state.storyFormat.formats.find(
-				format => format.name === builtin.name
+				format => format.name === builtin.name &&
+					format.version === builtin.version
 			)) {
 				actions.createFormat(store, builtin);
 			}
 		});
 
-		// Set default formats if not already set.
+		/*
+		Set default formats if not already set, or if an unversioned preference
+		exists.
+		*/
 
-		if (!store.state.pref.defaultFormat) {
-			actions.setPref(store, 'defaultFormat', 'Harlowe');
+		if (typeof store.state.pref.defaultFormat !== 'object') {
+			actions.setPref(
+				store,
+				'defaultFormat',
+				{ name: 'Harlowe', version: '1.2.3' }
+			);
 		}
 
-		if (!store.state.pref.proofingFormat) {
-			actions.setPref(store, 'proofingFormat', 'Paperthin');
+		if (typeof store.state.pref.proofingFormat !== 'object') {
+			actions.setPref(
+				store,
+				'proofingFormat',
+				{ name: 'Paperthin', version: '1.0.0' }
+			);
 		}
+	},
 
-		store.state.storyFormat.formats.forEach(format => {
-			if (/^storyFormats\//i.test(format.url)) {
-				actions.updateFormat(
+	/*
+	Repairs stories by ensuring that they always have a story format and
+	version set.
+	*/
+
+	repairStories(store) {
+		store.state.story.stories.forEach(story => {
+			/*
+			Reset stories without any story format.
+			*/
+
+			if (!story.storyFormat) {
+				actions.updateStory(
 					store,
-					format.id,
-					{
-						url: format.url.replace(
-							/^storyFormats\//i, 'story-formats/'
-						)
-					}
+					story.id,
+					{ storyFormat: store.state.pref.defaultFormat.name }
 				);
+			}
+			
+			/*
+			Coerce old SugarCube formats, which had version numbers in their
+			name, to the correct built-in ones.
+			*/
+
+			if (/^SugarCube 1/.test(story.storyFormat)) {
+				actions.updateStory(
+					store,
+					story.id,
+					{ storyFormat: 'SugarCube', storyFormatVersion: '1.0.35' }
+				);
+			}
+			else if (/^SugarCube 2/.test(story.storyFormat)) {
+				actions.updateStory(
+					store,
+					story.id,
+					{ storyFormat: 'SugarCube', storyFormatVersion: '2.11.0' }
+				);
+			}
+			else if (!story.storyFormatVersion) {
+				/*
+				If a story has no format version, pick the lowest version number
+				currently available.
+				*/
+
+				const format = store.state.storyFormat.formats.reduce((prev, current) => {
+					if (current.name !== story.storyFormat) {
+						return prev;
+					}
+
+					const pVer = semverUtils.parse(prev.version);
+					const cVer = semverUtils.parse(current.version);
+
+					if (parseInt(cVer.major) < parseInt(pVer.major) ||
+						parseInt(cVer.minor) < parseInt(pVer.minor) ||
+						parseInt(cVer.patch) < parseInt(pVer.patch)) {
+						return current;
+					}
+
+					return prev;
+				});
+
+				if (format) {
+					actions.updateStory(
+						store,
+						story.id,
+						{ storyFormatVersion: format.version }
+					);
+				}
 			}
 		});
 	}

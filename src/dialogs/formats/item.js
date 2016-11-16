@@ -15,23 +15,12 @@ module.exports = Vue.extend({
 	computed: {
 		isDefault() {
 			if (this.format.properties.proofing) {
-				return this.proofingFormatPref === this.format.name;
+				return this.proofingFormatPref.name === this.format.name &&
+					this.proofingFormatPref.version === this.format.version;
 			}
 
-			return this.defaultFormatPref === this.format.name;
-		},
-
-		imageSrc() {
-			const path = this.format.url.replace(/\/[^\/]*?$/, '');
-
-			return path + '/' + this.format.properties.image;
-		},
-
-		license() {
-			return this.format.properties.license ? locale.say(
-				/* L10n: %s is the name of a software license. */
-				'License: %s', this.format.properties.license
-			) : '';
+			return this.defaultFormatPref.name === this.format.name &&
+				this.defaultFormatPref.version === this.format.version;
 		},
 
 		author() {
@@ -58,10 +47,16 @@ module.exports = Vue.extend({
 
 		setDefaultFormat() {
 			if (this.format.properties.proofing) {
-				this.setPref('proofingFormat', this.format.name);
+				this.setPref(
+					'proofingFormat',
+					{ name: this.format.name, version: this.format.version }
+				);
 			}
 			else {
-				this.setPref('defaultFormat', this.format.name);
+				this.setPref(
+					'defaultFormat', 
+					{ name: this.format.name, version: this.format.version }
+				);
 			}
 		},
 	},

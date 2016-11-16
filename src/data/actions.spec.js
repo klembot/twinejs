@@ -102,22 +102,28 @@ describe('actions data module', () => {
 			let call = formatsStore.dispatch.getCall(i);
 			
 			if (call.args[0] === 'CREATE_FORMAT') {
-				created[call.args[1].name] = call.args[1];
+				created[call.args[1].name + '-' + call.args[1].version] = call.args[1];
 			}
 		}
 		
-		expect(created.Harlowe).to.exist;
-		expect(created.Harlowe.url).to.equal('story-formats/Harlowe/format.js');
-		expect(created.Harlowe.userAdded).to.be.false;
-		expect(created.Paperthin).to.exist;
-		expect(created.Paperthin.url).to.equal('story-formats/Paperthin/format.js');
-		expect(created.Paperthin.userAdded).to.be.false;
-		expect(created.Snowman).to.exist;
-		expect(created.Snowman.url).to.equal('story-formats/Snowman/format.js');
-		expect(created.Snowman.userAdded).to.be.false;
-		expect(created.SugarCube).to.exist;
-		expect(created.SugarCube.url).to.equal('story-formats/SugarCube/format.js');
-		expect(created.SugarCube.userAdded).to.be.false;	
+		expect(created['Harlowe-1.2.3']).to.exist;
+		expect(created['Harlowe-1.2.3'].url).to.equal('story-formats/harlowe-1.2.3/format.js');
+		expect(created['Harlowe-1.2.3'].userAdded).to.be.false;
+		expect(created['Harlowe-2.0.0']).to.exist;
+		expect(created['Harlowe-2.0.0'].url).to.equal('story-formats/harlowe-2.0.0/format.js');
+		expect(created['Harlowe-2.0.0'].userAdded).to.be.false;
+		expect(created['Paperthin-1.0.0']).to.exist;
+		expect(created['Paperthin-1.0.0'].url).to.equal('story-formats/paperthin-1.0.0/format.js');
+		expect(created['Paperthin-1.0.0'].userAdded).to.be.false;
+		expect(created['Snowman-1.3.0']).to.exist;
+		expect(created['Snowman-1.3.0'].url).to.equal('story-formats/snowman-1.3.0/format.js');
+		expect(created['Snowman-1.3.0'].userAdded).to.be.false;
+		expect(created['SugarCube-1.0.35']).to.exist;
+		expect(created['SugarCube-1.0.35'].url).to.equal('story-formats/sugarcube-1.0.35/format.js');
+		expect(created['SugarCube-1.0.35'].userAdded).to.be.false;	
+		expect(created['SugarCube-2.11.0']).to.exist;
+		expect(created['SugarCube-2.11.0'].url).to.equal('story-formats/sugarcube-2.11.0/format.js');
+		expect(created['SugarCube-2.11.0'].userAdded).to.be.false;	
 	});
 	
 	it('sets default formats with repairFormats()', () => {
@@ -133,8 +139,29 @@ describe('actions data module', () => {
 		
 		actions.repairFormats(formatsStore);
 		
-		expect(formatsStore.dispatch.calledWith('UPDATE_PREF', 'defaultFormat', 'Harlowe'));
-		expect(formatsStore.dispatch.calledWith('UPDATE_PREF', 'proofingFormat', 'Paperthin'));
+		expect(formatsStore.dispatch.calledWith(
+			'UPDATE_PREF', 'defaultFormat', { name: 'Harlowe', version: '1.2.3' }
+		)).to.be.true;
+		expect(formatsStore.dispatch.calledWith(
+			'UPDATE_PREF', 'proofingFormat', { name: 'Paperthin', version: '1.0.0' }
+		)).to.be.true;
+	});
+
+	it('deletes unversioned formats with repairFormats()', () => {
+		let formatsStore = {
+			dispatch: spy(),
+			state: {
+				pref: {},
+				storyFormat: {
+					formats: [
+						{ name: 'Test' }
+					]
+				}
+			}
+		};
+		
+		actions.repairFormats(formatsStore);		
+		expect(formatsStore.dispatch.calledWith('DELETE_FORMAT')).to.be.true;
 	});
 	
 	it('does not duplicate formats with repairFormats()', () => {
@@ -144,10 +171,12 @@ describe('actions data module', () => {
 				pref: {},
 				storyFormat: {
 					formats: [
-						{ name: 'Harlowe' },
-						{ name: 'Paperthin' },
-						{ name: 'Snowman' },
-						{ name: 'SugarCube' }			
+						{ name: 'Harlowe', version: '1.2.3' },
+						{ name: 'Harlowe', version: '2.0.0' },
+						{ name: 'Paperthin', version: '1.0.0' },
+						{ name: 'Snowman', version: '1.3.0' },
+						{ name: 'SugarCube', version: '1.0.35' },
+						{ name: 'SugarCube', version: '2.11.0' }
 					]
 				}
 			}
@@ -155,6 +184,108 @@ describe('actions data module', () => {
 		
 		actions.repairFormats(formatsStore);		
 		expect(formatsStore.dispatch.calledWith('CREATE_FORMAT')).to.be.false;
+	});
+
+	it('sets default formats on stories with repairStories()', () => {
+		let storiesStore = {
+			dispatch: spy(),
+			state: {
+				pref: {
+					defaultFormat: { name: 'Default Format', version: '1.2.3' }
+				},
+				storyFormat: {
+					formats: [
+						{ name: 'Default Format', version: '1.2.3' }
+					]
+				},
+				story: {
+					stories: [
+						{ id: 'not-a-real-id' }
+					]
+				}
+			}
+		};
+
+		actions.repairStories(storiesStore);
+		expect(storiesStore.dispatch.calledWith(
+			'UPDATE_STORY',
+			'not-a-real-id',
+			{ storyFormat: 'Default Format' }
+		)).to.be.true;
+	});
+
+	it('coerces old SugarCube references to their correct versions with repairStories()', () => {
+		let storiesStore = {
+			dispatch: spy(),
+			state: {
+				story: {
+					stories: [
+						{
+							id: 'not-a-real-id',
+							storyFormat: 'SugarCube 1 (local/offline)'
+						},
+						{
+							id: 'also-not-a-real-id',
+							storyFormat: 'SugarCube 2 (local/offline)'
+						}
+					]
+				}
+			}
+		};
+
+		actions.repairStories(storiesStore);
+		expect(storiesStore.dispatch.calledWith(
+			'UPDATE_STORY',
+			'not-a-real-id',
+			{ storyFormat: 'SugarCube', storyFormatVersion: '1.0.35' }
+		)).to.be.true;
+		expect(storiesStore.dispatch.calledWith(
+			'UPDATE_STORY',
+			'also-not-a-real-id',
+			{ storyFormat: 'SugarCube', storyFormatVersion: '2.11.0' }
+		)).to.be.true;
+	});
+
+	it('sets format versions on stories with repairStories()', () => {
+		let storiesStore = {
+			dispatch: spy(),
+			state: {
+				pref: {
+					defaultFormat: { name: 'Default Format', version: '1.2.3' }
+				},
+				storyFormat: {
+					formats: [
+						{ name: 'Default Format', version: '1.2.3' },
+						{ name: 'Default Format', version: '1.2.5' }
+					]
+				},
+				story: {
+					stories: [
+						{
+							id: 'not-a-real-id',
+							storyFormat: 'Default Format'
+						},
+						{
+							id: 'also-not-a-real-id',
+							storyFormat: 'Default Format',
+							storyFormatVersion: ''
+						}
+					]
+				}
+			}
+		};
+
+		actions.repairStories(storiesStore);
+		expect(storiesStore.dispatch.calledWith(
+			'UPDATE_STORY',
+			'not-a-real-id',
+			{ storyFormatVersion: '1.2.3' }
+		)).to.be.true;
+		expect(storiesStore.dispatch.calledWith(
+			'UPDATE_STORY',
+			'also-not-a-real-id',
+			{ storyFormatVersion: '1.2.3' }
+		)).to.be.true;
 	});
 
 	it('creates new links with createNewlyLinkedPassages()', () => {
