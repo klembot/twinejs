@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 	var options = {
 		buildDir: 'build/nwjs/',
 		cacheDir: 'nwbuilder-cache/',
-		version: '0.17.4',
+		version: '0.18.7',
 		macIcns: 'src/common/img/logo.icns',
 		winIco: 'src/common/img/logo.ico'
 	}
