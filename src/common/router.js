@@ -1,4 +1,4 @@
-// The router managing the app's views.
+/* The router managing the app's views. */
 
 let Vue = require('vue');
 const VueRouter = require('vue-router');
@@ -16,7 +16,7 @@ Vue.use(VueRouter);
 let TwineRouter = new VueRouter();
 
 TwineRouter.map({
-	// We connect routes with no params directly to a component.
+	/*  We connect routes with no params directly to a component. */
 
 	'/locale': {
 		component: LocaleView
@@ -26,8 +26,10 @@ TwineRouter.map({
 		component: WelcomeView
 	},
 
-	// For routes that take data objects, we create shim components which provide
-	// appropriate props to the components that do the actual work.
+	/*
+	For routes that take data objects, we create shim components which provide
+	appropriate props to the components that do the actual work.
+	*/
 
 	'/stories': {
 		component: {
@@ -57,8 +59,10 @@ TwineRouter.map({
 		},
 	},
 
-	// These routes require special handling, because we tear down our UI when
-	// they activate.
+	/*
+	These routes require special handling, because we tear down our UI when
+	they activate.
+	*/
 
 	'/stories/:id/play': {
 		component: {
@@ -68,12 +72,11 @@ TwineRouter.map({
 					story => story.id === this.$route.params.id
 				);
 
-				const formatName = story.storyFormat || state.pref.defaultFormat;
-				const format = state.storyFormat.formats.find(
-					format => format.name === formatName
-				);
-
-				loadFormat(this.$store, formatName).then(() => {
+				loadFormat(
+					this.$store,
+					story.storyFormat,
+					story.storyFormatVersion
+				).then(format => {
 					replaceUI(publishStoryWithFormat(
 						state.appInfo,
 						story,
@@ -91,11 +94,12 @@ TwineRouter.map({
 				const story = state.story.stories.find(
 					story => story.id === this.$route.params.id
 				);
-				const format = state.storyFormat.formats.find(
-					format => format.name === state.pref.proofingFormat
-				);
 
-				loadFormat(this.$store, format.name).then(() => {
+				loadFormat(
+					this.$store,
+					story.storyFormat,
+					story.storyFormatVersion
+				).then(format => {
 					replaceUI(publishStoryWithFormat(
 						state.appInfo,
 						story,
@@ -113,12 +117,12 @@ TwineRouter.map({
 				const story = state.story.stories.find(
 					story => story.id === this.$route.params.id
 				);
-				const formatName = story.storyFormat || state.pref.defaultFormat;
-				const format = state.storyFormat.formats.find(
-					format => format.name === formatName
-				);
 
-				loadFormat(this.$store, formatName).then(() => {
+				loadFormat(
+					this.$store,
+					story.storyFormat,
+					story.storyFormatVersion
+				).then(format => {
 					replaceUI(publishStoryWithFormat(
 						state.appInfo,
 						story,
@@ -137,12 +141,12 @@ TwineRouter.map({
 				const story = state.story.stories.find(
 					story => story.id === this.$route.params.storyId
 				);
-				const formatName = story.storyFormat || state.pref.defaultFormat;
-				const format = state.storyFormat.formats.find(
-					format => format.name === formatName
-				);
 
-				loadFormat(this.$store, formatName).then(() => {
+				loadFormat(
+					this.$store,
+					story.storyFormat,
+					story.storyFormatName
+				).then(format => {
 					replaceUI(publishStoryWithFormat(
 						state.appInfo,
 						story,
@@ -156,16 +160,18 @@ TwineRouter.map({
 	}
 });
 
-// By default, show the story list.
+/* By default, show the story list. */
 
 TwineRouter.redirect({
 	'*': '/stories'
 });
 
-TwineRouter.beforeEach((transition) => {
-	// If we are moving from an edit view to a list view, give the list view
-	// the story that we were previously editing, so that it can display a
-	// zooming transition back to the story.
+TwineRouter.beforeEach(transition => {
+	/*
+	If we are moving from an edit view to a list view, give the list view the
+	story that we were previously editing, so that it can display a zooming
+	transition back to the story.
+	*/
 
 	if (transition.from.path && transition.to.path === '/stories') {
 		const editingId =
@@ -176,10 +182,11 @@ TwineRouter.beforeEach((transition) => {
 		}
 	}
 
-	// If the user has never used the app before, point them to the welcome
-	// view first. This has to come below any other logic, as calling
-	// transition.next() or redirect() will stop any other logic in the
-	// function.
+	/*
+	If the user has never used the app before, point them to the welcome view
+	first. This has to come below any other logic, as calling transition.next()
+	or redirect() will stop any other logic in the function.
+	*/
 
 	const welcomeSeen = store.state.pref.welcomeSeen;
 

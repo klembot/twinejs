@@ -5,6 +5,7 @@ const locale = require('../locale');
 
 const formatDefaults = {
 	name: locale.say('Untitled Story Format'),
+	version: '',
 	url: '',
 	userAdded: true,
 	properties: {}

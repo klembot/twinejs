@@ -1,12 +1,12 @@
-var wrench = require('wrench');
+var chmodr = require('chmodr');
 
 module.exports = function(grunt) {
-	// nwjs generates NW.js apps.
+	/* nwjs generates NW.js apps. */
 	
 	var options = {
 		buildDir: 'build/nwjs/',
 		cacheDir: 'nwbuilder-cache/',
-		version: '0.17.4',
+		version: '0.18.7',
 		macIcns: 'src/common/img/logo.icns',
 		winIco: 'src/common/img/logo.ico'
 	}
@@ -40,17 +40,29 @@ module.exports = function(grunt) {
 		}
 	});
 
-	// nwjs:osxcleanup corrects a permissions problem on OS X versions of the NW.js app.
+	/*
+	nwjs:osxcleanup corrects a permissions problem on OS X versions of the
+	NW.js app.
+	*/
 
 	grunt.registerTask('nwjs:osxcleanup', function() {
-		wrench.chmodSyncRecursive('build/nwjs/Twine/osx64/Twine.app', 0755);
+		chmodr.sync('build/nwjs/Twine/osx64/Twine.app', 0755);
 	});
 
-	// nw builds NW.js apps from the contents of build/standalone.
+	/*
+	nw builds NW.js apps from the contents of build/standalone.
+	*/
 
 	['osx','win','linux'].forEach(plat => {
 		grunt.registerTask('nw:' + plat, ['build:release', 'nwjs:' + plat,
 			plat == 'osx' ? 'nwjs:osxcleanup' : '']);
 	});
-	grunt.registerTask('nw', ['build:release', 'nwjs:osx', 'nwjs:osxcleanup', 'nwjs:win64', 'nwjs:win32', 'nwjs:linux']);
+	grunt.registerTask('nw', [
+		'build:release',
+		'nwjs:osx',
+		'nwjs:osxcleanup',
+		'nwjs:win64',
+		'nwjs:win32',
+		'nwjs:linux'
+	]);
 };

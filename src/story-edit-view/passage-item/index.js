@@ -153,7 +153,10 @@ module.exports = Vue.extend({
 					origin: this.$el
 				},
 				store: this.$store,
-				storyFormat: this.parentStory.storyFormat,
+				storyFormat: {
+					name: this.parentStory.storyFormat,
+					version: this.parentStory.storyFormatVersion
+				}
 			})
 			.$mountTo(document.body)
 			.then(() => {
