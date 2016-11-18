@@ -1,6 +1,6 @@
-const filePersistence = require('./file-persistence');
+const FilePersistence = require('./file-persistence');
 
-module.exports = (Store) => {
-	Store._middlewares.push(filePersistence);
+module.exports = Store => {
+	Store._middlewares.push(FilePersistence);
 	window.vuexStore = Store;
 };

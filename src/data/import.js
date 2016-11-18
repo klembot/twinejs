@@ -1,15 +1,17 @@
-// Handles importing HTML source code into story objects ready to be saved to
-// the store. This works on both published story files and archives.
-//
-// The one difference between what's returned from this module and the usual
-// objects in the store is that passages have a `pid` property instead of an
-// `id`. Pids are sequential, not UUIDs.
-//
-// It's important that this code be as efficient as possible, as it directly
-// affects startup time in the Twine desktop app. This module moves data from
-// the filesystem into local storage, and the app can't begin until it's done.
+/*
+Handles importing HTML source code into story objects ready to be saved to the
+store. This works on both published story files and archives.
 
-// HTML selectors used to find data in HTML format.
+The one difference between what's returned from this module and the usual
+objects in the store is that passages have a `pid` property instead of an `id`.
+Pids are sequential, not UUIDs.
+
+It's important that this code be as efficient as possible, as it directly
+affects startup time in the Twine desktop app. This module moves data from the
+filesystem into local storage, and the app can't begin until it's done.
+*/
+
+/* HTML selectors used to find data in HTML format. */
 
 const selectors =  {
 	passage: 'tw-passage',
@@ -20,13 +22,17 @@ const selectors =  {
 	passageData: 'tw-passagedata'
 };
 
-// Converts a DOM <tw-storydata> element to a story object matching the format
-// in the store.
+/*
+Converts a DOM <tw-storydata> element to a story object matching the format in
+the store.
+*/
 
 function domToObject(storyEl, forceLastUpdate) {
 	return {
-		// Important: this is the passage's pid (a one-off id created at
-		// publish time), *not* a database id.
+		/*
+		Important: this is the passage's pid (a one-off id created at publish
+		time), *not* a database id.
+		*/
 
 		startPassagePid:
 			storyEl.attributes.startnode.value,
@@ -36,6 +42,13 @@ function domToObject(storyEl, forceLastUpdate) {
 			storyEl.attributes.ifid.value,
 		lastUpdate:
 			forceLastUpdate || new Date(),
+		snapToGrid:
+			false,
+		storyFormat:
+			storyEl.attributes.format.value,
+		storyFormatVersion:
+			storyEl.attributes['format-version'] ?
+				storyEl.attributes['format-version'].value : null,
 		script:
 			Array.from(storyEl.querySelectorAll(selectors.script))
 				.reduce(
@@ -58,7 +71,7 @@ function domToObject(storyEl, forceLastUpdate) {
 						.map(Math.floor);
 
 					return {
-						// Again, a one-off id, not a database id.
+						/* Again, a one-off id, not a database id. */
 
 						pid:
 							passageEl.attributes.pid.value,
