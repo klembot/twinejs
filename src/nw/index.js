@@ -8,8 +8,10 @@
 **/
 
 module.exports = {
-	// Performs one-time initialization, e.g. setting up menus. This should be
-	// called as early in the app initialization process as possible.
+	/*
+	Performs one-time initialization, e.g. setting up menus. This should be
+	called as early in the app initialization process as possible.
+	*/
 
 	init() {
 		try {
@@ -20,6 +22,7 @@ module.exports = {
 		}
 
 		require('core-js');
+		require('./index.less');
 
 		const startupErrorTemplate = require('./startup-error.ejs');
 		let startupTask = 'beginning startup tasks';
@@ -36,12 +39,12 @@ module.exports = {
 
 			const win = gui.Window.get();
 
-			// Set up our menus.
+			/* Set up our menus. */
 
 			startupTask = 'setting up menus';
 			menus.addTo(win);
 
-			// Show the window once we've finished loading.
+			/* Show the window once we've finished loading. */
 
 			startupTask = 'setting window properties';
 
@@ -50,7 +53,7 @@ module.exports = {
 				win.focus();
 			});
 
-			// Add a shift-ctrl-alt-D shortcut for displaying dev tools.
+			/* Add a shift-ctrl-alt-D shortcut for displaying dev tools. */
 
 			startupTask = 'adding the debugger keyboard shortcut';
 
@@ -60,14 +63,14 @@ module.exports = {
 				}
 			});
 
-			// Create ~/Documents/Twine if it doesn't exist.
+			/* Create ~/Documents/Twine if it doesn't exist. */
 
 			startupTask = 'checking for the presence of a Documents or My ' +
 				'Documents directory in your user directory';
 
 			directories.createPath(directories.storiesPath());
 
-			// Open external links outside the app.
+			/* Open external links outside the app. */
 
 			startupTask = 'setting up a handler for external links';
 
@@ -82,7 +85,7 @@ module.exports = {
 				}
 			});
 
-			// When quitting, unlock the story directory.
+			/* When quitting, unlock the story directory. */
 
 			startupTask = 'setting up shutdown tasks';
 		
@@ -90,9 +93,11 @@ module.exports = {
 				directories.unlockStories();
 			});
 
-			// Do a file sync if we're just starting up. We have to track this
-			// in the global scope; otherwise, each new window will think
-			// it's starting afresh and screw up our model IDs.
+			/*
+			Do a file sync if we're just starting up. We have to track this in
+			the global scope; otherwise, each new window will think it's
+			starting afresh and screw up our model IDs.
+			*/
 
 			if (!global.nwFirstRun) {
 				startupTask = 'initially synchronizing story files';
@@ -102,27 +107,35 @@ module.exports = {
 				global.nwFirstRun = true;
 			}
 
-			// Monkey patch the store module to save to a file
-			// under ~/Documents/Twine whenever a story changes,
-			// or delete it when it is deleted.
+			/*
+			Monkey patch the store module to save to a file under
+			~/Documents/Twine whenever a story changes, or delete it when it is
+			deleted.
+			*/
 
 			startupTask = 'adding a hook to automatically save stories';
 			patchStore(require('../data/store'));
 
-			// Monkey patch QuotaGauge to hide itself, since we
-			// don't have to sweat quota ourselves.
+			/*
+			Monkey patch QuotaGauge to hide itself, since we don't have to
+			sweat quota ourselves.
+			*/
 
 			startupTask = 'disabling the storage quota meter';
 			patchQuotaGauge(require('../ui/quota-gauge'));
 
-			// Monkey patch StoryListToolbar to open the wiki in the user's
-			// browser.
+			/*
+			Monkey patch StoryListToolbar to open the wiki in the user's
+			browser.
+			*/
 
 			startupTask = 'setting up the Help link';
 			patchStoryListToolbar(require('../story-list-view/list-toolbar'));
 
-			// Monkey patch WelcomeView to hide information related to local
-			// storage.
+			/*
+			Monkey patch WelcomeView to hide information related to local
+			storage.
+			*/
 
 			startupTask = 'customizing the initial welcome page';
 			patchWelcomeView(require('../welcome'));

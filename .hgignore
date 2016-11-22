@@ -8,8 +8,5 @@ doc/*
 .idea
 cache
 dist-apps
-twine.js
 build
-nwbuilder-cache
-nsis/*
-phantomjsdriver.log
+nw-cache
