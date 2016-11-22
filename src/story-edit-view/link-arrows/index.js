@@ -5,6 +5,7 @@ Draws connector lines between passages.
 const { uniq } = require('underscore');
 const Vue = require('vue');
 const linkParser = require('../../data/link-parser');
+require('./index.less');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),

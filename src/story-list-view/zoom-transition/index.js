@@ -2,6 +2,7 @@
 const Vue = require('vue');
 const { ZOOM_MAPPINGS } = require('../../story-edit-view');
 const { thenable, symbols:{ resolve } } = require('../../vue/mixins/thenable');
+require('./index.less');
 
 module.exports = Vue.extend({
 	data: () => ({

@@ -22,6 +22,7 @@ module.exports = {
 		}
 
 		require('core-js');
+		require('./index.less');
 
 		const startupErrorTemplate = require('./startup-error.ejs');
 		let startupTask = 'beginning startup tasks';

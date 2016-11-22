@@ -1,4 +1,5 @@
 const Vue = require('vue');
+require('./index.less');
 
 module.exports = Vue.extend({
 	data: () => ({
