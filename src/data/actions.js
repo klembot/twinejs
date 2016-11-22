@@ -13,8 +13,18 @@ const actions = module.exports = {
 		dispatch('UPDATE_PREF', name, value);
 	},
 
-	createStory({ dispatch }, props) {
-		dispatch('CREATE_STORY', props);
+	createStory(store, props) {
+		let normalizedProps = Object.assign({}, props);
+
+		/* If a format isn't specified, use the default one. */
+
+		if (!normalizedProps.storyFormat) {
+			normalizedProps.storyFormat = store.state.pref.defaultFormat.name;
+			normalizedProps.storyFormatVersion =
+				store.state.pref.defaultFormat.version;
+		}
+
+		store.dispatch('CREATE_STORY', normalizedProps);
 	},
 
 	updateStory({ dispatch }, id, props) {

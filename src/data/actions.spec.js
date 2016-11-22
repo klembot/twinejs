@@ -8,79 +8,104 @@ describe('actions data module', () => {
 	let store;
 	
 	beforeEach(() => {
-		store = { dispatch: spy() };
+		store = {
+			dispatch: spy(),
+			state: {
+				pref: {
+					defaultFormat: {
+						name: 'My Default Format',
+						version: '1.2.3'
+					}
+				}
+			}
+		};
 	});
 	
 	it('dispatches an UPDATE_PREF mutation with setPref()', () => {
 		actions.setPref(store, 'key', 42);
-		expect(store.dispatch.calledOnce).to.equal.true;
-		expect(store.dispatch.calledWith('UPDATE_PREF', 'key', 42)).to.equal.true;
+		expect(store.dispatch.calledOnce).to.be.true;
+		expect(store.dispatch.calledWith('UPDATE_PREF', 'key', 42)).to.be.true;
 	});
 	
 	it('dispatches a CREATE_STORY mutation with createStory()', () => {
-		actions.createStory(store, 'A New Story');
-		expect(store.dispatch.calledOnce).to.equal.true;
-		expect(store.dispatch.calledWith('CREATE_STORY', 'A New Story')).to.equal.true;
+		const props = {
+			name: 'A New Story',
+			storyFormat: 'Test Format',
+			storyFormatVersion: '1.0.0'
+		};
+
+		actions.createStory(store, props);
+		expect(store.dispatch.calledOnce).to.be.true;
+		expect(store.dispatch.calledWith('CREATE_STORY', props)).to.be.true;
+	});
+
+	it('ensures a story created with createStory() always has a story format set', () => {
+		actions.createStory(store, { name: 'A New Story' });
+		expect(store.dispatch.calledOnce).to.be.true;
+		expect(store.dispatch.calledWith(
+			'CREATE_STORY',
+			{ name: 'A New Story', storyFormat: 'My Default Format', storyFormatVersion: '1.2.3' }
+		)).to.be.true;
 	});
 
 	it('dispatches a DELETE_STORY mutation with deleteStory()', () => {
 		actions.deleteStory(store, fakeId);
-		expect(store.dispatch.calledOnce).to.equal.true;
-		expect(store.dispatch.calledWith('DELETE_STORY', fakeId)).to.equal.true;
+		expect(store.dispatch.calledOnce).to.be.true;
+		expect(store.dispatch.calledWith('DELETE_STORY', fakeId)).to.be.true;
 	});
 	
 	it('dispatches a DUPLICATE_STORY mutation with deleteStory()', () => {
 		actions.duplicateStory(store, fakeId, 'Another Name');
-		expect(store.dispatch.calledOnce).to.equal.true;
-		expect(store.dispatch.calledWith('DUPLICATE_STORY', fakeId, 'Another Name')).to.equal.true;
+		expect(store.dispatch.calledOnce).to.be.true;
+		expect(store.dispatch.calledWith('DUPLICATE_STORY', fakeId, 'Another Name')).to.be.true;
 	});
 	
 	it('dispatches an IMPORT_STORY mutation with importStory()', () => {		
 		actions.importStory(store, props);
-		expect(store.dispatch.calledOnce).to.equal.true;
-		expect(store.dispatch.calledWith('IMPORT_STORY', props)).to.equal.true;
+		expect(store.dispatch.calledOnce).to.be.true;
+		expect(store.dispatch.calledWith('IMPORT_STORY', props)).to.be.true;
 	});
 	
 	it('dispatches an UPDATE_STORY mutation with updateStory()', () => {				
 		actions.updateStory(store, fakeId, props);
-		expect(store.dispatch.calledOnce).to.equal.true;
-		expect(store.dispatch.calledWith('UPDATE_STORY', props)).to.equal.true;
+		expect(store.dispatch.calledOnce).to.be.true;
+		expect(store.dispatch.calledWith('UPDATE_STORY', fakeId, props)).to.be.true;
 	});
 	
 	it('dispatches a CREATE_PASSAGE_IN_STORY mutation with createPassageInStory()', () => {				
 		actions.createPassageInStory(store, fakeId, props);
-		expect(store.dispatch.calledOnce).to.equal.true;
-		expect(store.dispatch.calledWith('UPDATE_STORY', props)).to.equal.true;
+		expect(store.dispatch.calledOnce).to.be.true;
+		expect(store.dispatch.calledWith('CREATE_PASSAGE_IN_STORY', fakeId, props)).to.be.true;
 	});	
 	
 	it('dispatches an UPDATE_PASSAGE_IN_STORY mutation with createPassageInStory()', () => {				
 		actions.updatePassageInStory(store, fakeId, fakeId, props);
-		expect(store.dispatch.calledOnce).to.equal.true;
-		expect(store.dispatch.calledWith('UPDATE_PASSAGE_IN_STORY', fakeId, fakeId, props)).to.equal.true;
+		expect(store.dispatch.calledOnce).to.be.true;
+		expect(store.dispatch.calledWith('UPDATE_PASSAGE_IN_STORY', fakeId, fakeId, props)).to.be.true;
 	});
 	
 	it('dispatches a DELETE_PASSAGE_IN_STORY mutation with deletePassageInStory()', () => {				
 		actions.deletePassageInStory(store, fakeId, fakeId);
-		expect(store.dispatch.calledOnce).to.equal.true;
-		expect(store.dispatch.calledWith('DELETE_PASSAGE_IN_STORY', fakeId, fakeId)).to.equal.true;
+		expect(store.dispatch.calledOnce).to.be.true;
+		expect(store.dispatch.calledWith('DELETE_PASSAGE_IN_STORY', fakeId, fakeId)).to.be.true;
 	});
 	
 	it('dispatches a CREATE_FORMAT mutation with createFormat()', () => {				
 		actions.createFormat(store, props);
-		expect(store.dispatch.calledOnce).to.equal.true;
-		expect(store.dispatch.calledWith('CREATE_FORMAT', props)).to.equal.true;
+		expect(store.dispatch.calledOnce).to.be.true;
+		expect(store.dispatch.calledWith('CREATE_FORMAT', props)).to.be.true;
 	});	
 	
 	it('dispatches an UPDATE_FORMAT mutation with createFormat()', () => {				
 		actions.updateFormat(store, fakeId, props);
-		expect(store.dispatch.calledOnce).to.equal.true;
-		expect(store.dispatch.calledWith('CREATE_FORMAT', fakeId, props)).to.equal.true;
+		expect(store.dispatch.calledOnce).to.be.true;
+		expect(store.dispatch.calledWith('UPDATE_FORMAT', fakeId, props)).to.be.true;
 	});
 	
 	it('dispatches a DELETE_FORMAT mutation with deleteFormat()', () => {				
 		actions.deleteFormat(store, fakeId);
-		expect(store.dispatch.calledOnce).to.equal.true;
-		expect(store.dispatch.calledWith('CREATE_FORMAT', fakeId)).to.equal.true;
+		expect(store.dispatch.calledOnce).to.be.true;
+		expect(store.dispatch.calledWith('DELETE_FORMAT', fakeId)).to.be.true;
 	});
 	
 	it('creates built-in formats with repairFormats()', () => {

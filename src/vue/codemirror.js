@@ -2,6 +2,7 @@
 
 const Vue = require('vue');
 const CodeMirror = require('codemirror');
+require('./codemirror-theme.less');
 
 module.exports = Vue.extend({
 	template: '<div></div>',

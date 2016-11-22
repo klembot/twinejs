@@ -104,7 +104,7 @@ const publish = module.exports = {
 			`creator-version="${escape(appInfo.version)}" ` +
 			`ifid="${escape(story.ifid)}" ` +
 			`format="${escape(story.storyFormat)}" ` +
-			`format-version="${escape(story.storyFormatVersion)}"` +
+			`format-version="${escape(story.storyFormatVersion)}" ` +
 			`options="${escape(formatOptions)}" hidden>` +
 			`<style role="stylesheet" id="twine-user-stylesheet" ` +
 			`type="text/twine-css">` + story.stylesheet + `</style>` +

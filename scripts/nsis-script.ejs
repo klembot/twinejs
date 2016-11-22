@@ -2,7 +2,7 @@
 ; and is shamelessly ripped from https://github.com/tweecode/twine/blob/master/install.nsi
 
 Name "<%- name %> <%- version %>"
-OutFile "..\dist\twine_<%- version %>_<%- arch %>.exe"
+OutFile "dist\uploads\twine_<%- version %>_<%- arch %>.exe"
 
 ; Some default compiler settings (uncomment and change at will):
 ; SetCompress auto ; (can be off or force)
@@ -24,7 +24,7 @@ SetOutPath "$INSTDIR"
 ; add files / whatever that need to be installed here.
 ; see http://nsis.sourceforge.net/Docs/Chapter4.html#4.9.1.5
 
-File /r "..\build\nwjs\<%- name %>\<%- arch %>\*"
+File /r "dist\nw\<%- name %>\<%- arch %>\*"
 
 ; add Start Menu entries
 

@@ -2,7 +2,7 @@
 Manages interactions with individual story files.
 */
 
-const storyFile = module.exports = {
+const StoryFile = module.exports = {
 	/*
 	A global flag that allows deactivation of the module. This is needed while
 	the module itself works, so that changes in local storage made here don't
@@ -28,6 +28,10 @@ const storyFile = module.exports = {
 	*/
 
 	save(story, appInfo) {
+		if (!StoryFile.active) {
+			return;
+		}
+
 		const fs = require('fs');
 		const directories = require('./directories');
 		const path = require('path');
@@ -36,7 +40,7 @@ const storyFile = module.exports = {
 		try {
 			directories.unlockStories();
 			const fd = fs.openSync(
-				path.join(directories.storiesPath(), storyFile.fileName(story)),
+				path.join(directories.storiesPath(), StoryFile.fileName(story)),
 				'w'
 			);
 
@@ -53,6 +57,10 @@ const storyFile = module.exports = {
 	*/
 
 	delete(story) {
+		if (!StoryFile.active) {
+			return;
+		}
+
 		const fs = require('fs');
 		const directories = require('./directories');
 		const path = require('path');
@@ -60,7 +68,7 @@ const storyFile = module.exports = {
 		try {
 			directories.unlockStories();
 			fs.unlinkSync(
-				path.join(directories.storiesPath(), storyFile.fileName(story))
+				path.join(directories.storiesPath(), StoryFile.fileName(story))
 			);
 		}
 		finally {
@@ -75,6 +83,10 @@ const storyFile = module.exports = {
 	*/
 
 	loadAll() {
+		if (!StoryFile.active) {
+			return;
+		}
+
 		const directories = require('./directories');
 		const fs = require('fs');
 		const path = require('path');
@@ -82,12 +94,15 @@ const storyFile = module.exports = {
 		const importFile = require('../data/import');
 		const store = require('../data/store');
 
-		storyFile.active = false;
+		StoryFile.active = false;
 
 		try {
 			/*
 			Delete all existing stories. We save the IDs in a separate step so
 			that as we delete stories, the source list isn't affected.
+
+			It's crucial that the active property be false before this happens
+			to prevent files on disk from being deleted.
 			*/
 
 			const storyIds = store.state.story.stories.map(story => story.id);
@@ -121,7 +136,7 @@ const storyFile = module.exports = {
 		}
 		finally {
 			directories.unlockStories();
-			storyFile.active = true;
+			StoryFile.active = true;
 		}
 	}
 };

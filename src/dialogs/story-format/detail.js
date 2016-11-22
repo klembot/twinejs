@@ -3,6 +3,7 @@ Shows detail about a selected format.
 */
 
 const Vue = require('vue');
+require('./detail.less');
 
 module.exports = Vue.extend({
 	props: {

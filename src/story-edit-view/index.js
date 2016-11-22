@@ -13,6 +13,7 @@ const domEvents = require('../vue/mixins/dom-events');
 const locale = require('../locale');
 const { passageDefaults } = require('../data/story');
 const zoomSettings = require('./zoom-settings');
+require('./index.less');
 
 // A memoized, sorted array of zoom levels used when zooming in or out.
 
