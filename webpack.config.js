@@ -47,6 +47,7 @@ module.exports = {
 		new CopyPlugin([{ from: 'src/common/img/favicon.ico', to: 'rsrc/favicon.ico' }]),
 		new CopyPlugin([{ from: 'story-formats/', to: 'story-formats/' }]),
 		new CopyPlugin([{ from: 'src/locale/view/img', to: 'rsrc/' }]),
+		new CopyPlugin([{ from: 'src/dialogs/app-donation/klimas.png', to: 'rsrc/' }]),
 		new ExtractTextPlugin('twine.css'),
 		new HtmlPlugin({
 			template: './src/index.ejs',
