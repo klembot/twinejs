@@ -7,6 +7,7 @@ const Vue = require('vue');
 const domEvents = require('../../vue/mixins/dom-events');
 const { thenable, symbols: { reject, resolve } } =
 	require('../../vue/mixins/thenable');
+require('./index.less');
 
 const ModalDialog = module.exports = Vue.extend({
 	template: require('./index.html'),

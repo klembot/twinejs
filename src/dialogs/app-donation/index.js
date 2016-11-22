@@ -2,6 +2,7 @@
 
 const Vue = require('vue');
 const { setPref } = require('../../data/actions');
+require('./index.less');
 
 // How long we wait after the user first starts using Twine to show a message
 // asking for a donation, in milliseconds. This is currently 14 days.

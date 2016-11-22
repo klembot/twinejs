@@ -2,6 +2,7 @@
 
 const Vue = require('vue');
 const domEvents = require('../../vue/mixins/dom-events');
+require('./index.less');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
