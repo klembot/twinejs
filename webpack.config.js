@@ -22,7 +22,7 @@ module.exports = {
 			is expecting a string as output, not a function.
 			*/
 			{ test: /\.ejs$/, exclude: /index\.ejs$/, loader: 'ejs' },
-			{ test: /\.html$/, loader: 'raw' },
+			{ test: /\.html$/, loader: 'html' },
 			{ test: /\.less$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader') },
 			{ test: /\.json$/, loader: 'json' }
 		],
@@ -47,7 +47,6 @@ module.exports = {
 		new CopyPlugin([{ from: 'src/common/img/favicon.ico', to: 'rsrc/favicon.ico' }]),
 		new CopyPlugin([{ from: 'story-formats/', to: 'story-formats/' }]),
 		new CopyPlugin([{ from: 'src/locale/view/img', to: 'rsrc/' }]),
-		new CopyPlugin([{ from: 'src/dialogs/app-donation/klimas.png', to: 'rsrc/' }]),
 		new ExtractTextPlugin('twine.css'),
 		new HtmlPlugin({
 			template: './src/index.ejs',
