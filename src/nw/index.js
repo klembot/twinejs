@@ -21,6 +21,10 @@ module.exports = {
 			return;
 		}
 
+		if (window.location.hash !== '') {
+			return;
+		}
+
 		require('core-js');
 		require('./index.less');
 
@@ -99,13 +103,10 @@ module.exports = {
 			starting afresh and screw up our model IDs.
 			*/
 
-			if (!global.nwFirstRun) {
-				startupTask = 'initially synchronizing story files';
-				storyFile.loadAll();
-				startupTask = 'initially locking your Stories directory';
-				directories.lockStories();
-				global.nwFirstRun = true;
-			}
+			startupTask = 'initially synchronizing story files';
+			storyFile.loadAll();
+			startupTask = 'initially locking your Stories directory';
+			directories.lockStories();
 
 			/*
 			Monkey patch the store module to save to a file under
