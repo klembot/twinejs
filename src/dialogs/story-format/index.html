@@ -9,10 +9,9 @@
 		<i class="fa fa-circle-o-notch fa-lg fa-spin"></i> {{ 'Loading...' | say }}
 	</p>
 
-	<div class="formats">
-		<div class="items">
-			<format-item v-for="format in loadedFormats" :format="format" :story="story" transition="fade-in-out">
-		</div>
-		<format-detail :format="selectedFormat"></format-detail>
-	</div>
+	<table class="lined">
+		<tbody>
+			<tr v-for="format in loadedFormats" is="format-item" :format="format" :story="story" transition="fade-in-out"></format-item>
+		</tbody>
+	</table>
 </modal-dialog>

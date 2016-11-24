@@ -25,6 +25,16 @@ module.exports = Vue.extend({
 		selected() {
 			return this.story.storyFormat === this.format.name &&
 				this.story.storyFormatVersion === this.format.version;
+		},
+
+		/*
+		Calculates the image source relative to the format's path.
+		*/
+
+		imageSrc() {
+			const path = this.format.url.replace(/\/[^\/]*?$/, '');
+			
+			return path + '/' + this.format.properties.image;
 		}
 	},
 
