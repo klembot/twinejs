@@ -7,7 +7,7 @@ fsExtra.copySync('package.json', 'dist/web/package.json');
 
 var nw = new NwBuilder({
 	files: 'dist/web/**',
-	platforms: ['osx64'/*, 'win32', 'win64', 'linux32', 'linux64'*/],
+	platforms: ['osx64', 'win32', 'win64', 'linux32', 'linux64'],
 	version: '0.18.8',
 	buildDir: 'dist/nw',
 	cacheDir: 'nw-cache/',
