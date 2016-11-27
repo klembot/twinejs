@@ -1,7 +1,7 @@
-// Sets up menus in the NW.js version.
+/* Sets up menus in the NW.js version. */
 
 module.exports = {
-	// Adds menus to a NW.js window.
+	/* Adds menus to a NW.js window. */
 
 	addTo(win) {
 		const directories = require('./directories');
@@ -11,15 +11,17 @@ module.exports = {
 		const nativeMenuBar = new gui.Menu({ type: 'menubar' });
 		let mainMenu;
 
-		if (process.platform == 'darwin') {
-			// create Mac menus.
+		if (global.process.platform === 'darwin') {
+			/* Create Mac menus. */
 
 			nativeMenuBar.createMacBuiltin(locale.say('Twine'));
 			mainMenu = nativeMenuBar.items.filter(item => item.label === '')[0];
-			
-			// Add a fullscreen item. This is on OS X only for now, because it's
-			// hard to reverse on other platforms if you don't remember the
-			// keyboard shortcut.
+
+			/*
+			Add a fullscreen item. This is on OS X only for now, because it's
+			hard to reverse on other platforms if you don't remember the
+			keyboard shortcut.
+			*/
 
 			mainMenu.submenu.insert(new gui.MenuItem({
 				label: locale.say('Toggle Fullscreen'),
@@ -31,7 +33,7 @@ module.exports = {
 			}), 0);
 		}
 		else {
-			// Create a basic menu on other platforms.
+			/* Create a basic menu on other platforms. */
 
 			mainMenu = new gui.MenuItem({
 				label: locale.say('Twine'),
@@ -53,7 +55,7 @@ module.exports = {
 			);
 			nativeMenuBar.append(mainMenu);
 
-			// ... And a stand-in Edit menu.
+			/* ... And a stand-in Edit menu. */
 
 			const editMenu = new gui.MenuItem({
 				label: locale.say('Edit'),
@@ -110,7 +112,7 @@ module.exports = {
 			nativeMenuBar.append(editMenu);
 		}
 
-		// Add a menu item to show the story library.
+		/* Add a menu item to show the story library. */
 
 		mainMenu.submenu.insert(new gui.MenuItem({
 			label: locale.say('Show Library'),
