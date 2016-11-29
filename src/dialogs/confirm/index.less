@@ -1,0 +1,27 @@
+.modal-dialog.confirm {
+	.message {
+		padding-left: 3.5em;
+
+		&:before {
+			content: '\f071';  // Caution symbol
+			font: 250% FontAwesome;
+			float: left;
+			margin-left: -1.5em;
+			position: relative;
+			top: 0.1em;
+			color: hsl(0, 0%, 80%);
+		}
+	}
+
+	&.info .message:before {
+		content: '\f05a'; // Info symbol
+	}
+
+	&.no-icon .message {
+		padding-left: 0;
+
+		&:before {
+			content: '';
+		}
+	}
+}

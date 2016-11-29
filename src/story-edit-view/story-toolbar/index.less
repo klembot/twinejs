@@ -1,0 +1,86 @@
+@import '../../common/colors.less';
+@import '../../common/depth.less';
+
+#storyEditView .toolbar.main {
+	z-index: 5;
+	position: fixed;
+	overflow: visible;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 3.5em;
+	background-color: @color-paper;
+	user-select: none;
+	.shadow-large;
+
+	.left {
+		float: left;
+
+		button {
+			float: none;
+		}
+	}
+
+	.right {
+		float: right;	
+		
+		button {
+			height: 3.5em;
+			padding-left: 1em;
+			padding-right: 1em;
+		}
+	}
+
+	.home {
+		font-size: 125%;
+		padding-left: 0.75em;
+		padding-right: 0.325em;
+	}
+
+	.storyName {
+		min-width: 10em;
+		max-width: 18em;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		text-align: left;
+		font: 150% "Nunito Light", sans-serif;
+		height: 2.4em; 
+		white-space: nowrap;
+		padding: 0em 0.325em;
+	}
+
+	.searchContainer {
+		float: left;
+		position: relative;
+		top: 0.5em;
+		margin-right: 1em;
+
+		input {
+			display: inline;
+			width: 11em;
+			padding-right: 2.25em;
+		}
+
+		button {
+			position: absolute;
+			top: 0;
+			right: 0;
+			padding: 0.7em;
+			height: 2.5em;
+
+			&:hover {
+				background: transparent;
+			}
+		}
+	}
+
+	.theme-dark & {
+		background-color: @color-paper-dark;
+	}
+}
+
+.fullSlideLeft #storyEditView .toolbar.main
+{
+	transform: translate(100%, 0);
+	animation: 0.5s fullSlideUp 0.6s forwards;
+}

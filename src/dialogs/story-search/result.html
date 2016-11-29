@@ -1,0 +1,20 @@
+<div class="result">
+	<p class="passageName">
+		<button class="link" @click="toggleExpanded">
+			<i class="fa fa-plus-square-o" v-if="!expanded"></i>
+			<i class="fa fa-minus-square-o" v-if="expanded"></i>
+			{{{ match.highlightedName }}}
+
+			<!-- L10n: %d is a number of text matches after a search. -->
+			({{ '%d match'| sayPlural '%d matches' match.numMatches }})
+		</button>
+
+		<span class="controls">
+			<button class="danger subtle" title="{{ 'Replace in this passage' | say }}" @click="replace">
+				<i class="fa fa-bolt fa-fw"></i>{{ 'Replace in Passage' | say }}
+			</button>
+		</span>
+	</p>
+
+	<pre class="passageBody" v-if="expanded">{{{ match.highlightedText }}}</pre>
+</div>
