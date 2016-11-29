@@ -28,7 +28,8 @@ function addMatch(fileName, match) {
 	}
 	
 	if (match[1]) {
-		strings[text].comment = match[1].replace(/[\t\r\n]|(\/\/)/g, '');
+		/* Remove extra gunk. */
+		strings[text].comment = match[1].replace(/[\t\r\n]|(\/\/)|\*\/$/g, '');
 	}
 
 	strings[text].plural = match[3];
@@ -68,7 +69,8 @@ glob.sync('src/**/*.html').forEach(fileName => {
 
 /*
 In JavaScript files, we look for say or sayPlural function invocations,
-with localization comments that begin with "L10n:".
+with localization comments that begin with "L10n:". Strings must be
+single-quoted only.
 */
 
 glob.sync('src/**/*.js').forEach(fileName => {
@@ -76,20 +78,18 @@ glob.sync('src/**/*.js').forEach(fileName => {
 	const source = fs.readFileSync(fileName, { encoding: 'utf8' });
 	const jsRegexp = new RegExp(
 		/*
-		An optional localization note, set off by a line comment.  Note that we
-		have to strip out extra //s and tabs if the comment extends over
-		multiple lines.
+		An optional localization note.
 		*/
 		/(?:L10n: *([\s\S]*?)\s*)?/.source +
 		
 		/* The beginning of the say() or sayPlural() call. */
-		/say(?:Plural)?\(/.source +
+		/[\r\n].*?say(?:Plural)?\(/.source +
 		
 		/* The first argument, the text to localize. */
-		/['"](.*?)['"]/.source +
+		/'(.*?[^\\])'/.source +
 
 		/* An optional second argument, the plural form. */
-		/(?:, *['"](.*?)['"])?/.source +
+		/(?:, *'(.*?[^\\])')?/.source +
 		
 		/* Extra arguments we don't care about, and closing paren. */
 		/.*\)/.source,

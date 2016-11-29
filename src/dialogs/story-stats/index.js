@@ -38,9 +38,6 @@ module.exports = Vue.extend({
 		},
 
 		wordCount() {
-			// L10n: Word in the sense of individual words in a sentence.
-			// This does not actually include the count, as it is used in a
-			// table.
 			return this.story.passages.reduce(
 				(count, passage) => count + passage.text.split(/\s+/).length,
 				0

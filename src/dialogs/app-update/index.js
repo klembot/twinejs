@@ -35,10 +35,7 @@ module.exports = {
 						message:
 							// L10n: The <span> will have a version number, i.e.
 							// 2.0.6, interpolated into it.
-							locale.say(
-								'A new version of Twine, <span class="version">' +
-								'</span>, has been released.'
-							).replace('><', '>' + version + '<'),
+							locale.say('A new version of Twine, <span class="version"></span>, has been released.').replace('><', '>' + version + '<'),
 
 						buttonLabel:
 							'<i class="fa fa-download"></i>' +
