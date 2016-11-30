@@ -1,12 +1,14 @@
-// Functions for moving story formats in and out of local storage.
+/* Functions for moving story formats in and out of local storage. */
 
 const uuid = require('tiny-uuid');
 const { createFormat } = require('../actions');
 
 module.exports = {
 	save(store) {
-		// Delete existing formats in local storage, since we aren't bothering to
-		// preserve ids.
+		/*
+		Delete existing formats in local storage, since we aren't bothering to
+		preserve ids.
+		*/
 
 		const previouslySerialized =
 			window.localStorage.getItem('twine-storyformats');
@@ -17,15 +19,17 @@ module.exports = {
 			});
 		}
 
-		// Save new ones.
+		/* Save new ones. */
 
 		let ids = [];
 
 		store.state.storyFormat.formats.forEach(format => {
 			const id = uuid();
 
-			// We have to remove the `properties` property if it exists,
-			// as that is dynamically added when loading.
+			/*
+			We have to remove the `properties` property if it exists, as that
+			is dynamically added when loading.
+			*/
 
 			ids.push(id);
 			window.localStorage.setItem(
