@@ -89,11 +89,9 @@ module.exports = Vue.extend({
 				.then(format => {
 					this.error = '';
 					this.working = false;
-					this.loadNext();
+					this.loadedFormats.push(format);
 
-					// Show the tab the format will be loaded into.
-
-					if (format.proofing) {
+					if (format.properties.proofing) {
 						this.$refs.tabs.active = 1;
 					}
 					else {
@@ -136,7 +134,7 @@ module.exports = Vue.extend({
 
 		getters: {
 			allFormats: state => {
-				var result = state.storyFormat.formats.map(
+				let result = state.storyFormat.formats.map(
 					format => ({ name: format.name, version: format.version })
 				);
 				

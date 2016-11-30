@@ -102,6 +102,25 @@ button, a.button {
 			box-shadow: none;
 			background: none;
 		}
+
+		&.danger {
+			color: @color-text;
+			background: none;
+			box-shadow: none;
+
+			&:hover {
+				color: @color-danger;
+				background: none;
+			}
+
+			.theme-dark & {
+				color: @color-text-dark;
+
+				&:hover {
+					color: @color-danger;
+				}
+			}
+		}
 	}
 
 	.theme-dark & {

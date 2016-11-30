@@ -268,6 +268,7 @@ const actions = module.exports = {
 
 				const format = {
 					name: props.name,
+					version: props.version,
 					url,
 					properties: props
 				};
@@ -348,6 +349,7 @@ const actions = module.exports = {
 
 		store.state.storyFormat.formats.forEach(format => {
 			if (typeof format.version !== 'string' || format.version === '') {
+				console.warn(`Deleting unversioned story format ${format.name}`);
 				actions.deleteFormat(store, format.id);
 			}
 		});
