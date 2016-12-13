@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-11-29 09:44+0100\n"
+"PO-Revision-Date: 2016-12-13 09:18+0100\n"
 "Last-Translator: Valentin Rocher <bishiboosh@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -31,7 +31,7 @@ msgid ""
 "may be released under any terms, including commercial ones."
 msgstr ""
 "Cette application est distribuée sous la license \\x3ca href=\"https:\\/\\/"
-"www.gnu.org\\/licenses\\/gpl-3.0.fr.html\">GPL v3\\x3c/a>, mais toute oeuvre "
+"www.gnu.org/licenses/gpl-3.0.fr.html\">GPL v3\\x3c/a>, mais toute oeuvre "
 "créée via ce logiciel peut être distribuée sous n'importe quels termes, y "
 "compris commerciaux."
 
@@ -108,18 +108,14 @@ msgstr "Faire un don"
 #: src/dialogs/app-donation/index.html
 msgid ""
 "This message will only be shown to you once.&lt;br&gt;If you'd like to "
-"donate to Twine development in the future, you can do so at &lt;a href="
-"\"http:\\/\\/twinery.org/donate\" target=\"_blank\"&gt;http://twinery.org/"
-"donate&lt;/a&gt;."
+"donate to Twine development in the future, you can do so at &lt;a href=\\"
+"\"http:\\/\\/twinery.org/donate\\\" target=\\\"_blank\\\"&gt;http://twinery."
+"org/donate&lt;/a&gt;."
 msgstr ""
-"Ce message apparaîtra une seule fois.&lt;br&gt;Si vous voulez faire un don "
-"pour le développement de Twine dans le futur, vous pouvez le faire à "
-"l'adresse &lt;a href=\"http:\\/\\/twinery.org/donate\" target=\"_blank\"&gt;"
-"http://twinery.org/donate&lt;/a&gt;."
-
-#: src/dialogs/formats/index.html
-msgid "Story Formats"
-msgstr "Formats d'Histoire"
+"Ce message sera affiché une seule fois.&lt;br&gt;Si vous voulez faire une "
+"donation pour le développement de Twine un peu plus tard, vous pouvez le "
+"faire à l'adresse &lt;a href=\\\"http:\\/\\/twinery.org/donate\\\" target=\\"
+"\"_blank\\\"&gt;http://twinery.org/donate&lt;/a&gt;."
 
 #: src/dialogs/formats/index.html
 msgid ""
@@ -144,21 +140,13 @@ msgstr ""
 msgid "Use"
 msgstr "Utiliser"
 
-#: src/dialogs/formats/index.html src/story-list-view/list-toolbar/index.js
+#: src/dialogs/formats/index.html src/story-list-view/list-toolbar/index.js:24
 msgid "Add"
 msgstr "Ajouter"
 
 #: src/dialogs/formats/index.html src/dialogs/story-format/index.html
 msgid "Loading..."
 msgstr "Chargement..."
-
-#: src/dialogs/formats/item.html
-msgid "Set this format as default for stories"
-msgstr "Choisir ce format comme format par défaut pour toutes les histoires"
-
-#: src/dialogs/formats/item.html
-msgid "Remove this format"
-msgstr "Supprimer ce format"
 
 #: src/dialogs/story-format/index.html
 msgid "Story Format"
@@ -181,8 +169,8 @@ msgstr "Importer depuis un Fichier"
 msgid "Import this file:"
 msgstr "Importer ce fichier :"
 
-#: src/dialogs/story-import/index.html src/dialogs/confirm/index.js
-#: src/dialogs/prompt/index.js
+#: src/dialogs/story-import/index.html src/dialogs/confirm/index.js:31
+#: src/dialogs/prompt/index.js:15
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -228,20 +216,12 @@ msgid "Replace With"
 msgstr "Remplacer Par"
 
 #: src/dialogs/story-search/index.html
-msgid "Expand all search results"
-msgstr "Déplier les résultats de recherche"
-
-#: src/dialogs/story-search/index.html
-msgid "Collapse all search results"
-msgstr "Replier tous les résultats de recherche"
-
-#: src/dialogs/story-search/index.html
 msgid "Replace All"
 msgstr "Remplacer Tout"
 
 #: src/dialogs/story-search/index.html
 msgid "%d passage matches."
-msgid_plural "%d passage matches."
+msgid_plural "%d passages match."
 msgstr[0] "%d passage correspondant."
 msgstr[1] "%d passages correspondants."
 
@@ -251,13 +231,9 @@ msgstr "Recherche..."
 
 #: src/dialogs/story-search/result.html
 msgid "%d match"
-msgid_plural "%d match"
+msgid_plural "%d matches"
 msgstr[0] "%d résultat"
 msgstr[1] "%d résultats"
-
-#: src/dialogs/story-search/result.html
-msgid "Replace in this passage"
-msgstr "Remplacer dans ce passage"
 
 #: src/dialogs/story-search/result.html
 msgid "Replace in Passage"
@@ -281,20 +257,12 @@ msgstr ""
 "dans un navigateur Web."
 
 #: src/editors/passage/index.html
-msgid "Passage Name"
-msgstr "Nom du Passage"
-
-#: src/editors/passage/index.html
 msgid "A passage already exists with this name."
 msgstr "Un passage existe déjà avec ce nom."
 
 #: src/editors/passage/tag-editor.html
 msgid "Tag"
 msgstr "Balise"
-
-#: src/editors/passage/tag-editor.html
-msgid "Tag name"
-msgstr "Nom de la balise"
 
 #: src/editors/stylesheet/index.html
 msgid "Stylesheet"
@@ -338,26 +306,18 @@ msgstr "Nouveau venu ?"
 #: src/nw/patches/welcome-view/replacement-template.html
 msgid ""
 "&lt;strong&gt;If you've never used Twine before,&lt;/strong&gt; then "
-"welcome! The &lt;a href=\"http://twinery.org/2guide\" target=\"_blank\"&gt;"
-"Twine 2 Guide&lt;/a&gt; and the official wiki in general, are a great place "
-"to learn. Keep in mind that some articles on the wiki at large were written "
-"for Twine 1, which is a little bit different than this version. But most of "
-"the concepts are the same."
+"welcome! The &lt;a href=\\\"http://twinery.org/2guide\\\" target=\\\"_blank\\"
+"\"&gt;Twine 2 Guide&lt;/a&gt; and the official wiki in general, are a great "
+"place to learn. Keep in mind that some articles on the wiki at large were "
+"written for Twine 1, which is a little bit different than this version. But "
+"most of the concepts are the same."
 msgstr ""
 "&lt;strong&gt;Si vous n'avez jamais utilisé Twine auparavant,&lt;/strong&gt; "
-"bienvenue ! Le &lt;a href=\"http://twinery.org/2guide\" target=\"_blank\"&gt;"
-"Guide de Twine 2&lt;/a&gt; et le wiki officiel en général sont de bons "
-"endroits pour apprendre. Gardez en tête que certains articles du wiki on été "
-"écrits pour Twine 1, qui est un peu différent de cette version. Cependant, "
-"la plupart des concepts restent les mêmes."
-
-#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
-msgid ""
-"You can also get help over at the &lt;a href=\"http://twinery.org/forum\" "
-"target=\"_blank\"&gt;Twine forum</a>, too."
-msgstr ""
-"Vous pouvez aussi obtenir de l'aide dans le &lt;a href=\"http://twinery.org/"
-"forum\" target=\"_blank\"&gt;forum de Twine</a>."
+"bienvenue à vous ! Le href=\\\"http://twinery.org/2guide\\\" target=\\"
+"\"_blank\\\"&gt;Guide de Twine 2&lt;/a&gt;, et le wiki officiel en général, "
+"sont de bons endroits pour apprendre. Gardez à l'esprit le fait que certains "
+"articles du wiki ont été écrits pour Twine 1, qui est un peu différent de "
+"cette version. Cependant, la plupart des concepts restent les mêmes."
 
 #: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
 msgid ""
@@ -416,45 +376,13 @@ msgstr "Merci d'avoir lu, et amusez-vous bien avec Twine."
 msgid "Go to the Story List"
 msgstr "Aller à la Liste des Histoires"
 
-#: src/story-edit-view/passage-item/passage-menu/index.html
-msgid "Test story starting here"
-msgstr "Début de l'histoire de test"
-
-#: src/story-edit-view/story-toolbar/index.html
-msgid "Go to the story list"
-msgstr "Aller à la liste des histoires"
-
-#: src/story-edit-view/story-toolbar/index.html
-msgid "Show only story structure"
-msgstr "Montrer uniquement la structure de l'histoire"
-
-#: src/story-edit-view/story-toolbar/index.html
-msgid "Show only passage titles"
-msgstr "Montrer uniquement le titre des passages"
-
-#: src/story-edit-view/story-toolbar/index.html
-msgid "Show passage titles and excerpts"
-msgstr "Montrer le titre des passages et les extraits"
-
-#: src/story-edit-view/story-toolbar/index.html
-msgid "Play this story in test mode"
-msgstr "Lancer cette histoire en mode test"
-
 #: src/story-edit-view/story-toolbar/index.html
 msgid "Test"
 msgstr "Test"
 
 #: src/story-edit-view/story-toolbar/index.html
-msgid "Play this story"
-msgstr "Lancer cette histoire"
-
-#: src/story-edit-view/story-toolbar/index.html
 msgid "Play"
 msgstr "Lancer"
-
-#: src/story-edit-view/story-toolbar/index.html
-msgid "Add a new passage"
-msgstr "Ajouter un nouveau passage"
 
 #: src/story-edit-view/story-toolbar/index.html
 msgid "Passage"
@@ -490,14 +418,6 @@ msgstr "Voir Épreuve de Correction"
 msgid "Publish to File"
 msgstr "Publier vers un Fichier"
 
-#: src/story-edit-view/story-toolbar/story-search/index.html
-msgid "Quick Find"
-msgstr "Recherche Rapide"
-
-#: src/story-edit-view/story-toolbar/story-search/index.html
-msgid "Find and replace across the entire story"
-msgstr "Chercher et remplacer dans toute l'histoire"
-
 #: src/story-list-view/index.html
 msgid "Drop a story file to import"
 msgstr "Déposer un fichier d'histoire pour l'importer"
@@ -507,16 +427,8 @@ msgid "Sort By"
 msgstr "Trier Par"
 
 #: src/story-list-view/index.html
-msgid "Last changed date"
-msgstr "Date de dernière modification"
-
-#: src/story-list-view/index.html
 msgid "Edit Date"
 msgstr "Date d'édition"
-
-#: src/story-list-view/index.html
-msgid "Story name"
-msgstr "Nom de l'histoire"
 
 #: src/story-list-view/index.html
 msgid "Name"
@@ -531,50 +443,26 @@ msgstr ""
 "commencer, vous pouvez soit créer une nouvelle histoire soit en importer une "
 "depuis un fichier."
 
-#: src/story-list-view/list-toolbar/index.html src/nw/directories.js
-#: src/nw/menus.js
+#: src/story-list-view/list-toolbar/index.html src/nw/directories.js:69
+#: src/nw/menus.js:17 src/nw/menus.js:39
 msgid "Twine"
 msgstr "Twine"
-
-#: src/story-list-view/list-toolbar/index.html
-msgid "Create a brand-new story"
-msgstr "Créer une histoire toute fraîche"
 
 #: src/story-list-view/list-toolbar/index.html
 msgid "Story"
 msgstr "Histoire"
 
 #: src/story-list-view/list-toolbar/index.html
-msgid "Import a published story or Twine archive"
-msgstr "Importer une histoire publiée ou une archive Twine"
-
-#: src/story-list-view/list-toolbar/index.html
-msgid "Save all stories to a Twine archive file"
-msgstr "Sauvegarder toutes les histoires dans un fichier d'archive Twine"
-
-#: src/story-list-view/list-toolbar/index.html
 msgid "Archive"
 msgstr "Archive"
-
-#: src/story-list-view/list-toolbar/index.html
-msgid "Work with story and proofing formats"
-msgstr "Utiliser les formats d'histoire et de correction"
 
 #: src/story-list-view/list-toolbar/index.html
 msgid "Formats"
 msgstr "Formats"
 
 #: src/story-list-view/list-toolbar/index.html
-msgid "Change the language Twine uses"
-msgstr "Changer la langue utilisée par Twine"
-
-#: src/story-list-view/list-toolbar/index.html
 msgid "Language"
 msgstr "Langue"
-
-#: src/story-list-view/list-toolbar/index.html
-msgid "Browse online help"
-msgstr "Parcourir l'aide en ligne"
 
 #: src/story-list-view/list-toolbar/index.html
 msgid "Help"
@@ -587,14 +475,6 @@ msgstr "version"
 #: src/story-list-view/list-toolbar/index.html
 msgid "Report a bug"
 msgstr "Signaler un bug"
-
-#: src/story-list-view/list-toolbar/theme-switcher.html
-msgid "Use light theme"
-msgstr "Utiliser le thème clair"
-
-#: src/story-list-view/list-toolbar/theme-switcher.html
-msgid "Use dark theme"
-msgstr "Utiliser le thème sombre"
 
 #: src/story-list-view/story-item/item-menu/index.html
 msgid "Play Story"
@@ -615,18 +495,18 @@ msgstr "Supprimer l'Histoire"
 #: src/welcome/index.html
 msgid ""
 "&lt;strong&gt;If you've never used Twine before,&lt;/strong&gt; then "
-"welcome! The &lt;a href=\"http://twinery.org/2guide\" target=\"_blank\"&gt;"
-"Twine 2 Guide&lt;/a&gt; and the official wiki in general, are a great place "
-"to learn. Keep in mind that some articles on the wiki at larger were written "
-"for Twine 1, which is a little bit different than this version. But most of "
-"the concepts are the same."
+"welcome! The &lt;a href=\\\"http://twinery.org/2guide\\\" target=\\\"_blank\\"
+"\"&gt;Twine 2 Guide&lt;/a&gt; and the official wiki in general, are a great "
+"place to learn. Keep in mind that some articles on the wiki at larger were "
+"written for Twine 1, which is a little bit different than this version. But "
+"most of the concepts are the same."
 msgstr ""
 "&lt;strong&gt;Si vous n'avez jamais utilisé Twine auparavant,&lt;/strong&gt; "
-"bienvenue ! Le &lt;a href=\"http://twinery.org/2guide\" target=\"_blank\"&gt;"
-"Guide de Twine 2&lt;/a&gt; et le wiki officiel en général sont de bons "
-"endroits pour apprendre. Gardez en tête que certains articles du wiki on été "
-"écrits pour Twine 1, qui est un peu différent de cette version. Cependant, "
-"la plupart des concepts restent les mêmes."
+"bienvenue à vous ! Le href=\\\"http://twinery.org/2guide\\\" target=\\"
+"\"_blank\\\"&gt;Guide de Twine 2&lt;/a&gt;, et le wiki officiel en général, "
+"sont de bons endroits pour apprendre. Gardez à l'esprit le fait que certains "
+"articles du wiki ont été écrits pour Twine 1, qui est un peu différent de "
+"cette version. Cependant, la plupart des concepts restent les mêmes."
 
 #: src/welcome/index.html
 msgid "Your work is saved only in your browser."
@@ -646,21 +526,20 @@ msgstr ""
 msgid ""
 "Two &lt;b&gt;very important&lt;/b&gt; things to remember, though. Since your "
 "work is saved only in your browser, if you clear its saved data, then you'll "
-"lose your work! Not good. Remember to use that &lt;i class=\"fa fa-briefcase"
-"\"&gt;&lt;/i&gt;&nbsp;&lt;strong&gt;Archive&lt;/strong&gt; button often. You "
-"can also publish individual stories to files using the &lt;i class=\"fa fa-"
-"cog\"&gt;&lt;/i&gt; menu on each story in the story list. Both archive and "
-"story files can always be re-imported into Twine."
+"lose your work! Not good. Remember to use that &lt;i class=\\\"fa fa-"
+"briefcase\\\"&gt;&lt;/i&gt;&nbsp;&lt;strong&gt;Archive&lt;/strong&gt; button "
+"often. You can also publish individual stories to files using the &lt;i "
+"class=\\\"fa fa-cog\\\"&gt;&lt;/i&gt; menu on each story in the story list. "
+"Both archive and story files can always be re-imported into Twine."
 msgstr ""
-"Deux choses &lt;b&gt;très importantes&lt;/b&gt; à noter, cependant. Étant "
-"donné que votre travail est sauvé uniquement dans votre navigateur, si vous "
-"effacez les données de navigation, vous perdez votre travail ! Pas terrible. "
-"Pensez à utiliser souvent le bouton &lt;i class=\"fa fa-briefcase\"&gt;&lt;/"
-"i&gt;&nbsp;&lt;strong&gt;Archive&lt;/strong&gt;. Vous pouvez aussi exporter "
-"des histoires individuelles vers des fichiers en utilisant le &lt;i class="
-"\"fa fa-cog\"&gt;&lt;/i&gt;menu dans chaque histoire de la liste d'histoire. "
-"L'archive et les fichiers d'histoire peuvent toujours être ré-importés dans "
-"Twine."
+"Deux choses &lt;b&gt;très importantes&lt;/b&gt; à retenir, cependant. Comme "
+"votre travail est sauvegardé uniquement dans votre navigateur, si vous "
+"supprimez les données sauvegardées, vous perdrez votre travail ! Pas glop. "
+"Pensez à utiliser le bouton &lt;i class=\\\"fa fa-briefcase\\\"&gt;&lt;/i&gt;"
+"&nbsp;&lt;strong&gt;Archive&lt;/strong&gt; assez souvent. Vous pouvez aussi "
+"publier des histoires individuelles en utilisant le menu &lt;i class=\\\"fa "
+"fa-cog\\\"&gt;&lt;/i&gt; sur chaque histoire de la liste d'histoires. Les "
+"archives et les fichiers d'histoire peuvent être ré-importés dans Twine."
 
 #: src/welcome/index.html
 msgid ""
@@ -672,175 +551,405 @@ msgstr ""
 "changer votre travail&lt;/b&gt;. Si vous avez un petit frère fouineur, "
 "essayez de créer un profil séparé pour vous-même."
 
-#: src/data/story-format.js
+#: src/data/actions.js:262
+msgid "a story format named &ldquo;%s&rdquo; already exists"
+msgstr "un format d'histoire nommé &ldquo;%s&rdquo; existe déjà"
+
+#: src/data/publish.js:75
+msgid "There is no starting point set for this story."
+msgstr "Il n'y a pas de point de départ défini pour cette histoire."
+
+#: src/data/publish.js:81
+msgid "The passage set as starting point for this story does not exist."
+msgstr ""
+"Le passage défini comme point de départ pour cette histoire n'existe pas."
+
+#: src/data/story-format.js:7
 msgid "Untitled Story Format"
 msgstr "Format d'Histoire sans Titre."
 
-#: src/data/story.js
+#: src/data/story.js:190
 msgid "Untitled Story"
 msgstr "Histoire sans Titre."
 
-#: src/data/story.js src/story-edit-view/index.js
+#: src/data/story.js:207 src/story-edit-view/index.js:195
 msgid "Untitled Passage"
 msgstr "Passage sans titre"
 
-#: src/data/story.js
+#: src/data/story.js:210
 msgid "Tap this passage, then the pencil icon to edit it."
 msgstr "Cliquez sur ce passage, puis sur l'icône du crayon pour le modifier."
 
-#: src/data/story.js
+#: src/data/story.js:211
 msgid "Double-click this passage to edit it."
 msgstr "Double-cliquez sur ce passage pour le modifier."
 
-#. The <span> will have a version number, i.e. 2.0.6, interpolated into it.
-#: src/dialogs/app-update/index.js
+#. L10n: The <span> will have a version number, i.e. 2.0.6, interpolated into it.
+#: src/dialogs/app-update/index.js:40
 msgid ""
 "A new version of Twine, <span class=\"version\"></span>, has been released."
 msgstr ""
 "Une nouvelle version de Twine, <span class=\"version\"></span>, vient de "
 "sortir."
 
-#: src/dialogs/app-update/index.js
+#: src/dialogs/app-update/index.js:44
 msgid "Download"
 msgstr "Télécharger"
 
-#. A polite rejection of a request, in the sense that the answer may change in the future.
-#: src/dialogs/app-update/index.js
+#. L10n: A polite rejection of a request, in the sense that the answer may change in the future.
+#: src/dialogs/app-update/index.js:51
 msgid "Not Right Now"
 msgstr "Pas En Ce Moment"
 
-#. %s is the name of an author.
-#: src/dialogs/formats/item.js
+#. L10n: %1$s is the name of the story format; %2$s is
+#: src/dialogs/formats/index.js:60
+msgid "The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s)."
+msgstr "Le format d'histoire &ldquo;%1$s&rdquo; n'a pas pu être chargé (%2$s)."
+
+#: src/dialogs/formats/index.js:102
+msgid "The story format at %1$s could not be added (%2$s)."
+msgstr "Le format d'histoire %1$s n'a pas pu être rajouté (%2$s)."
+
+#. L10n: %s is the name of an author.
+#: src/dialogs/formats/item.js:30
 msgid "by %s"
 msgstr "par %s"
 
-#: src/dialogs/formats/item.js
+#: src/dialogs/formats/item.js:51
 msgid "Are you sure?"
 msgstr "Êtes-vous sûr ?"
 
-#: src/dialogs/formats/item.js
+#: src/dialogs/formats/item.js:53
 msgid "Remove"
 msgstr "Supprimer"
 
-#: src/dialogs/story-import/index.js
-msgid "Don't Replace Any Stories"
+#: src/dialogs/story-import/index.js:56
+msgid "Don\\'t Replace Any Stories"
 msgstr "Ne Remplacer Aucune Histoire"
 
-#. Character in the sense of individual letters in a word. This does not actually include the count, as it is used in a table.
-#: src/dialogs/story-stats/index.js
+#: src/dialogs/story-import/index.js:59
+msgid "Replace %d Story"
+msgid_plural "Replace %d Stories"
+msgstr[0] "Remplacer %d Histoire"
+msgstr[1] "Remplacer %d Histoires"
+
+#: src/dialogs/story-stats/index.js:37
 msgid "Character"
-msgid_plural "Character"
+msgid_plural "Characters"
 msgstr[0] "Caractère"
 msgstr[1] "Caractères"
 
-#. Word in the sense of individual words in a sentence. This does not actually include the count, as it is used in a table.
-#: src/dialogs/story-stats/index.js
+#: src/dialogs/story-stats/index.js:51
 msgid "Word"
-msgid_plural "Word"
+msgid_plural "Words"
 msgstr[0] "Mot"
 msgstr[1] "Mots"
 
-#. Links in the sense of hypertext links. This does not actually include the count, as it is used in a table.
-#: src/dialogs/story-stats/index.js
+#: src/dialogs/story-stats/index.js:85
 msgid "Link"
-msgid_plural "Link"
+msgid_plural "Links"
 msgstr[0] "Lien"
 msgstr[1] "Liens"
 
-#: src/editors/passage/index.js
+#: src/dialogs/story-stats/index.js:98
+msgid "Broken Link"
+msgid_plural "Broken Links"
+msgstr[0] "Lien Brisé"
+msgstr[1] "Liens Brisés"
+
+#: src/editors/passage/index.js:37
+msgid ""
+"Enter the body text of your passage here. To link to another passage, put "
+"two square brackets around its name, [[like this]]."
+msgstr ""
+"Entrez le texte de votre passage ici. Pour ajouter un lien vers un autre "
+"passage, entourez son nom de deux crochets, [[comme ça]]."
+
+#: src/editors/passage/index.js:181
 msgid "Editing \\u201c%s\\u201d"
 msgstr "Édition de \\u201c%s\\u201d"
 
-#. This is the folder name on OS X, Linux, and recent versions of Windows that a user's documents are stored in, relative to the user's home directory. If you need to use a space in this name, then it should have two backslashes (\\) in front of it. Regardless, this must have a single forward slash (/) as its first character.
-#: src/nw/directories.js
+#. L10n: %1$s is a filename; %2$s is the error message.
+#: src/file/save.js:71
+msgid "&ldquo;%1$s&rdquo; could not be saved (%2$s)."
+msgstr "&ldquo;%1$s&rdquo; n'a pas pu être sauvegardé (%2$s)."
+
+#. L10n: This is the folder name on OS X, Linux, and recent versions of Windows that a user's documents are stored in, relative to the user's home directory. If you need to use a space in this name, then it should have two backslashes (\\) in front of it. Regardless, this must have a single forward slash (/) as its first character.
+#: src/nw/directories.js:38
 msgid "/Documents"
 msgstr "/Documents"
 
-#. This is the folder name on Windows XP that a user's documents are stored in, relative to the user's home directory. This is used if a folder with the name given by the translation key '/Documents' does not exist. If you need to use a space in  this name, then it should have two backslashes (\\) in front of it. Regardless, this must have a single forward slash (/) as its first character.
-#: src/nw/directories.js
-msgid "My\\ Documents"
-msgstr "Mes\\ Documents"
+#: src/nw/directories.js:51
+msgid "My\\\\ Documents"
+msgstr "Mes\\\\ Documents"
 
-#: src/nw/directories.js
+#: src/nw/directories.js:70
 msgid "Stories"
 msgstr "Histoires"
 
-#: src/nw/menus.js
+#: src/nw/menus.js:27
 msgid "Toggle Fullscreen"
 msgstr "Passer en Mode Plein Écran."
 
-#: src/nw/menus.js
+#: src/nw/menus.js:44
 msgid "Quit"
 msgstr "Quitter"
 
-#: src/nw/menus.js
+#: src/nw/menus.js:61
 msgid "Edit"
 msgstr "Modifier"
 
-#: src/nw/menus.js
+#: src/nw/menus.js:66
 msgid "Undo"
 msgstr "Annuler"
 
-#: src/nw/menus.js
+#: src/nw/menus.js:79
 msgid "Cut"
 msgstr "Couper"
 
-#: src/nw/menus.js
+#: src/nw/menus.js:88
 msgid "Copy"
 msgstr "Copier"
 
-#: src/nw/menus.js
+#: src/nw/menus.js:97
 msgid "Paste"
 msgstr "Coller"
 
-#: src/nw/menus.js src/story-edit-view/passage-item/index.js
+#: src/nw/menus.js:106 src/story-edit-view/passage-item/index.js:275
 msgid "Delete"
 msgstr "Supprimer"
 
-#: src/nw/menus.js
+#: src/nw/menus.js:118
 msgid "Show Library"
 msgstr "Montrer la Bibliothèque"
 
-#: src/story-edit-view/story-toolbar/story-menu/index.js
-#: src/story-list-view/story-item/item-menu/index.js
+#: src/story-edit-view/passage-item/index.js:260
+#: src/story-list-view/story-item/item-menu/index.js:78
+msgid ""
+"Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone."
+msgstr ""
+"Êtes-vous sûr de vouloir supprimer &ldquo;%s&rdquo; ? Cette action ne peut "
+"être annulée."
+
+#: src/story-edit-view/passage-item/index.js:267
+msgid "(Hold the Shift key when deleting to skip this message.)"
+msgstr ""
+"(Gardez la touche Maj appuyée lors de la suppression pour ne plus afficher "
+"ce message.)"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.js:46
+#: src/story-list-view/story-item/item-menu/index.js:100
+msgid "What should &ldquo;%s&rdquo; be renamed to?"
+msgstr "Quel doit être le nouveau nom de &ldquo;%s&rdquo; ?"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.js:51
+#: src/story-list-view/story-item/item-menu/index.js:105
 msgid "Rename"
 msgstr "Renommer"
 
-#: src/story-edit-view/story-toolbar/story-menu/index.js
-#: src/story-list-view/story-item/item-menu/index.js
+#: src/story-edit-view/story-toolbar/story-menu/index.js:55
+#: src/story-list-view/story-item/item-menu/index.js:109
+#: src/story-list-view/story-item/item-menu/index.js:128
 msgid "Please enter a name."
 msgstr "Veuillez entrer un nom."
 
-#: src/story-list-view/list-toolbar/index.js
+#: src/story-list-view/index.js:79
+msgid "%d Story"
+msgid_plural "%d Stories"
+msgstr[0] "%d Histoire"
+msgstr[1] "%d Histoires"
+
+#: src/story-list-view/list-toolbar/index.js:21
+msgid "What should your story be named?<br>(You can change this later.)"
+msgstr ""
+"Quel nom voulez-vous utiliser pour votre histoire ?<br>(Vous pourrez le "
+"changer après.)"
+
+#: src/story-list-view/list-toolbar/index.js:30
+msgid "A story with this name already exists."
+msgstr "Une histoire avec ce nom existe déjà."
+
+#: src/story-list-view/list-toolbar/index.js:60
 msgid "Twine Archive.html"
 msgstr "Twine Archive.html"
 
-#: src/story-list-view/story-item/item-menu/index.js
+#: src/story-list-view/story-item/item-menu/index.js:84
 msgid "Delete Forever"
 msgstr "Supprimer pour Toujours"
 
-#: src/story-list-view/story-item/item-menu/index.js
+#: src/story-list-view/story-item/item-menu/index.js:122
 msgid "What should the duplicate be named?"
 msgstr "Quel doit être le nom de la copie ?"
 
-#: src/story-list-view/story-item/item-menu/index.js
+#: src/story-list-view/story-item/item-menu/index.js:124
 msgid "Duplicate"
 msgstr "Dupliquer"
 
-#: src/story-list-view/story-item/item-menu/index.js
+#: src/story-list-view/story-item/item-menu/index.js:126
 msgid "%s Copy"
 msgstr "Copie de %s"
 
-#: src/ui/quota-gauge/index.js
+#: src/ui/quota-gauge/index.js:24
 msgid "%d%% space available"
 msgstr "Place restante : %d%%"
 
 #~ msgid ""
-#~ "Enter the body text of your passage here. To link to another passage, put "
-#~ "two square brackets around its name, [[like this]]."
+#~ "This message will only be shown to you once.&lt;br&gt;If you'd like to "
+#~ "donate to Twine development in the future, you can do so at &lt;a href="
+#~ "\"http:\\/\\/twinery.org/donate\" target=\"_blank\"&gt;http://twinery.org/"
+#~ "donate&lt;/a&gt;."
 #~ msgstr ""
-#~ "Entrez le texte de votre passage ici. Pour ajouter un lien vers un autre "
-#~ "passage, entourez son nom de deux crochets, [[comme ça]]."
+#~ "Ce message apparaîtra une seule fois.&lt;br&gt;Si vous voulez faire un "
+#~ "don pour le développement de Twine dans le futur, vous pouvez le faire à "
+#~ "l'adresse &lt;a href=\"http:\\/\\/twinery.org/donate\" target=\"_blank"
+#~ "\"&gt;http://twinery.org/donate&lt;/a&gt;."
+
+#~ msgid "Story Formats"
+#~ msgstr "Formats d'Histoire"
+
+#~ msgid "Set this format as default for stories"
+#~ msgstr "Choisir ce format comme format par défaut pour toutes les histoires"
+
+#~ msgid "Remove this format"
+#~ msgstr "Supprimer ce format"
+
+#~ msgid "Expand all search results"
+#~ msgstr "Déplier les résultats de recherche"
+
+#~ msgid "Collapse all search results"
+#~ msgstr "Replier tous les résultats de recherche"
+
+#~ msgid "Replace in this passage"
+#~ msgstr "Remplacer dans ce passage"
+
+#~ msgid "Passage Name"
+#~ msgstr "Nom du Passage"
+
+#~ msgid "Tag name"
+#~ msgstr "Nom de la balise"
+
+#~ msgid ""
+#~ "&lt;strong&gt;If you've never used Twine before,&lt;/strong&gt; then "
+#~ "welcome! The &lt;a href=\"http://twinery.org/2guide\" target=\"_blank"
+#~ "\"&gt;Twine 2 Guide&lt;/a&gt; and the official wiki in general, are a "
+#~ "great place to learn. Keep in mind that some articles on the wiki at "
+#~ "large were written for Twine 1, which is a little bit different than this "
+#~ "version. But most of the concepts are the same."
+#~ msgstr ""
+#~ "&lt;strong&gt;Si vous n'avez jamais utilisé Twine auparavant,&lt;/"
+#~ "strong&gt; bienvenue ! Le &lt;a href=\"http://twinery.org/2guide\" target="
+#~ "\"_blank\"&gt;Guide de Twine 2&lt;/a&gt; et le wiki officiel en général "
+#~ "sont de bons endroits pour apprendre. Gardez en tête que certains "
+#~ "articles du wiki on été écrits pour Twine 1, qui est un peu différent de "
+#~ "cette version. Cependant, la plupart des concepts restent les mêmes."
+
+#~ msgid ""
+#~ "You can also get help over at the &lt;a href=\"http://twinery.org/forum\" "
+#~ "target=\"_blank\"&gt;Twine forum</a>, too."
+#~ msgstr ""
+#~ "Vous pouvez aussi obtenir de l'aide dans le &lt;a href=\"http://twinery."
+#~ "org/forum\" target=\"_blank\"&gt;forum de Twine</a>."
+
+#~ msgid "Test story starting here"
+#~ msgstr "Début de l'histoire de test"
+
+#~ msgid "Go to the story list"
+#~ msgstr "Aller à la liste des histoires"
+
+#~ msgid "Show only story structure"
+#~ msgstr "Montrer uniquement la structure de l'histoire"
+
+#~ msgid "Show only passage titles"
+#~ msgstr "Montrer uniquement le titre des passages"
+
+#~ msgid "Show passage titles and excerpts"
+#~ msgstr "Montrer le titre des passages et les extraits"
+
+#~ msgid "Play this story in test mode"
+#~ msgstr "Lancer cette histoire en mode test"
+
+#~ msgid "Play this story"
+#~ msgstr "Lancer cette histoire"
+
+#~ msgid "Add a new passage"
+#~ msgstr "Ajouter un nouveau passage"
+
+#~ msgid "Quick Find"
+#~ msgstr "Recherche Rapide"
+
+#~ msgid "Find and replace across the entire story"
+#~ msgstr "Chercher et remplacer dans toute l'histoire"
+
+#~ msgid "Last changed date"
+#~ msgstr "Date de dernière modification"
+
+#~ msgid "Story name"
+#~ msgstr "Nom de l'histoire"
+
+#~ msgid "Create a brand-new story"
+#~ msgstr "Créer une histoire toute fraîche"
+
+#~ msgid "Import a published story or Twine archive"
+#~ msgstr "Importer une histoire publiée ou une archive Twine"
+
+#~ msgid "Save all stories to a Twine archive file"
+#~ msgstr "Sauvegarder toutes les histoires dans un fichier d'archive Twine"
+
+#~ msgid "Work with story and proofing formats"
+#~ msgstr "Utiliser les formats d'histoire et de correction"
+
+#~ msgid "Change the language Twine uses"
+#~ msgstr "Changer la langue utilisée par Twine"
+
+#~ msgid "Browse online help"
+#~ msgstr "Parcourir l'aide en ligne"
+
+#~ msgid "Use light theme"
+#~ msgstr "Utiliser le thème clair"
+
+#~ msgid "Use dark theme"
+#~ msgstr "Utiliser le thème sombre"
+
+#~ msgid ""
+#~ "&lt;strong&gt;If you've never used Twine before,&lt;/strong&gt; then "
+#~ "welcome! The &lt;a href=\"http://twinery.org/2guide\" target=\"_blank"
+#~ "\"&gt;Twine 2 Guide&lt;/a&gt; and the official wiki in general, are a "
+#~ "great place to learn. Keep in mind that some articles on the wiki at "
+#~ "larger were written for Twine 1, which is a little bit different than "
+#~ "this version. But most of the concepts are the same."
+#~ msgstr ""
+#~ "&lt;strong&gt;Si vous n'avez jamais utilisé Twine auparavant,&lt;/"
+#~ "strong&gt; bienvenue ! Le &lt;a href=\"http://twinery.org/2guide\" target="
+#~ "\"_blank\"&gt;Guide de Twine 2&lt;/a&gt; et le wiki officiel en général "
+#~ "sont de bons endroits pour apprendre. Gardez en tête que certains "
+#~ "articles du wiki on été écrits pour Twine 1, qui est un peu différent de "
+#~ "cette version. Cependant, la plupart des concepts restent les mêmes."
+
+#~ msgid ""
+#~ "Two &lt;b&gt;very important&lt;/b&gt; things to remember, though. Since "
+#~ "your work is saved only in your browser, if you clear its saved data, "
+#~ "then you'll lose your work! Not good. Remember to use that &lt;i class="
+#~ "\"fa fa-briefcase\"&gt;&lt;/i&gt;&nbsp;&lt;strong&gt;Archive&lt;/"
+#~ "strong&gt; button often. You can also publish individual stories to files "
+#~ "using the &lt;i class=\"fa fa-cog\"&gt;&lt;/i&gt; menu on each story in "
+#~ "the story list. Both archive and story files can always be re-imported "
+#~ "into Twine."
+#~ msgstr ""
+#~ "Deux choses &lt;b&gt;très importantes&lt;/b&gt; à noter, cependant. Étant "
+#~ "donné que votre travail est sauvé uniquement dans votre navigateur, si "
+#~ "vous effacez les données de navigation, vous perdez votre travail ! Pas "
+#~ "terrible. Pensez à utiliser souvent le bouton &lt;i class=\"fa fa-"
+#~ "briefcase\"&gt;&lt;/i&gt;&nbsp;&lt;strong&gt;Archive&lt;/strong&gt;. Vous "
+#~ "pouvez aussi exporter des histoires individuelles vers des fichiers en "
+#~ "utilisant le &lt;i class=\"fa fa-cog\"&gt;&lt;/i&gt;menu dans chaque "
+#~ "histoire de la liste d'histoire. L'archive et les fichiers d'histoire "
+#~ "peuvent toujours être ré-importés dans Twine."
+
+#~ msgid "Don't Replace Any Stories"
+#~ msgstr "Ne Remplacer Aucune Histoire"
+
+#~ msgid "My\\ Documents"
+#~ msgstr "Mes\\ Documents"
 
 #~ msgid "Delete &ldquo;%s&rdquo;"
 #~ msgstr "Supprimer &ldquo;%s&rdquo;"
@@ -921,11 +1030,6 @@ msgstr "Place restante : %d%%"
 #~ msgid "To add a story format, enter its address below."
 #~ msgstr ""
 #~ "Pour ajouter un format d'histoire, entrez son adresse web ci-dessous."
-
-#~ msgid "What should your story be named?<br>(You can change this later.)"
-#~ msgstr ""
-#~ "Quel nom voulez-vous utiliser pour votre histoire ?<br>(Vous pourrez le "
-#~ "changer après.)"
 
 #~ msgid "Importing..."
 #~ msgstr "Import en cours..."
@@ -1014,9 +1118,6 @@ msgstr "Place restante : %d%%"
 #~ "class=\"icon-upload-alt\"></i> <b>Importer depuis un Fichier</b> dans la "
 #~ "liste des histoires."
 
-#~ msgid "&ldquo;%1$s&rdquo; could not be saved (%2$s)."
-#~ msgstr "&ldquo;%1$s&rdquo; n'a pas pu être sauvegardé (%2$s)."
-
 #~ msgid "An error occurred while publishing your story. (%s)"
 #~ msgstr ""
 #~ "Une erreur est survenue lors de la publication de votre histoire. (%s)"
@@ -1033,13 +1134,6 @@ msgstr "Place restante : %d%%"
 #~ msgstr ""
 #~ "Il y a déjà un passage nommé \"%s\". Veuillez donner à ce passage un nom "
 #~ "unique."
-
-#~ msgid "There is no starting point set for this story."
-#~ msgstr "Il n'y a pas de point de départ défini pour cette histoire."
-
-#~ msgid "The passage set as starting point for this story does not exist."
-#~ msgstr ""
-#~ "Le passage défini comme point de départ pour cette histoire n'existe pas."
 
 #~ msgid "/My\\ Documents"
 #~ msgstr "/Mes\\ Documents"
@@ -1101,22 +1195,8 @@ msgstr "Place restante : %d%%"
 #~ msgid "%1$s %2$s"
 #~ msgstr "%1$s %2$s"
 
-#~ msgid "Broken Link"
-#~ msgid_plural "Broken Links"
-#~ msgstr[0] "Lien Brisé"
-#~ msgstr[1] "Liens Brisés"
-
-#~ msgid "The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s)."
-#~ msgstr ""
-#~ "Le format d'histoire &ldquo;%1$s&rdquo; n'a pas pu être chargé (%2$s)."
-
 #~ msgid "Are you sure you want to delete &ldquo;%s&rdquo;? "
 #~ msgstr "Êtes-vous sûr de vouloir supprimer &ldquo;%s&rdquo; ?"
-
-#~ msgid "(Hold the Shift key when deleting to skip this message.)"
-#~ msgstr ""
-#~ "(Gardez la touche Maj appuyée lors de la suppression pour ne plus "
-#~ "afficher ce message.)"
 
 #~ msgid "Don't see either mouse or touch coordinates on event"
 #~ msgstr ""
@@ -1164,9 +1244,6 @@ msgstr "Place restante : %d%%"
 #~ msgid "Last saved at %s"
 #~ msgstr "Dernière sauvegarde à %s"
 
-#~ msgid "The story format at %1$s could not be added (%2$s)."
-#~ msgstr "Le format d'histoire %1$s n'a pas pu être rajouté (%2$s)."
-
 #~ msgid "Don't know what kind of format to set as default"
 #~ msgstr "Impossible de déterminer quel format à utiliser par défaut."
 
@@ -1178,21 +1255,7 @@ msgstr "Place restante : %d%%"
 #~ "utilisez l'icône <i class=\"fa fa-rocket\"></i> sur un passage pour en "
 #~ "sélectionner un."
 
-#~ msgid ""
-#~ "Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone."
-#~ msgstr ""
-#~ "Êtes-vous sûr de vouloir supprimer &ldquo;%s&rdquo; ? Cette action ne "
-#~ "peut être annulée."
-
-#~ msgid "What should &ldquo;%s&rdquo; be renamed to?"
-#~ msgstr "Quel doit être le nouveau nom de &ldquo;%s&rdquo; ?"
-
 #~ msgid "%d story was imported."
 #~ msgid_plural "%d stories were imported."
 #~ msgstr[0] "%d histoire a été importée."
 #~ msgstr[1] "%d histoires ont été importées."
-
-#~ msgid "%d Story"
-#~ msgid_plural "%d Stories"
-#~ msgstr[0] "%d Histoire"
-#~ msgstr[1] "%d Histoires"
