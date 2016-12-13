@@ -27,13 +27,14 @@ const Directories = module.exports = {
 		If the user doesn't have a Documents folder, check for "My Documents"
 		instead (thanks Windows).
 		*/
-
-		// L10n: This is the folder name on OS X, Linux, and recent
-		// versions of Windows that a user's documents are stored in,
-		// relative to the user's home directory. If you need to use a
-		// space in this name, then it should have two backslashes (\\)
-		// in front of it. Regardless, this must have a single forward
-		// slash (/) as its first character.
+	
+		/*
+		L10n: This is the folder name on OS X, Linux, and recent versions of
+		Windows that a user's documents are stored in, relative to the user's
+		home directory. If you need to use a space in this name, then it should
+		have two backslashes (\\) in front of it. Regardless, this must have a
+		single forward slash (/) as its first character.
+		*/
 		let docPath = path.join(homePath, locale.say('/Documents'));
 
 		if (fs.existsSync(docPath)) {
