@@ -1,0 +1,10 @@
+<div id="storyEditView" :style="cssDimensions" class="{{ 'zoom-' + zoomDesc }}" @wheel="onWheel" v-mouse-scrolling>
+	<div class="passages">
+		<marquee-selector :zoom="story.zoom" :selected-children="selectedChildren"></marquee-selector>
+		<link-arrows :passages="story.passages" :positions="passagePositions" :zoom="story.zoom"></link-arrows>
+
+		<passage-item v-for="passage in story.passages" :passage="passage" :parent-story="story" :screen-drag-offset-x="screenDragOffsetX" :screen-drag-offset-y="screenDragOffsetY" :highlight-regexp="highlightRegexp" transition="grow-in-out" v-ref:passages track-by="id"></passage-item>
+	</div>
+
+	<story-toolbar v-show="!initialLoad" :story="story" :highlight-regexp="highlightRegexp" :zoom-desc="zoomDesc" ></story-toolbar>
+</div> <!-- #storyEditView -->

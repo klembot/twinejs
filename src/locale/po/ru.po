@@ -1,0 +1,1178 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-06 11:25+0300\n"
+"PO-Revision-Date: 2015-08-06 17:15+0300\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 1.8.4\n"
+"Last-Translator: Anton Zhuchkov <fireton@mail.ru>\n"
+"Language: ru_RU\n"
+
+#: templates/localeview.html:4
+msgid "Please choose which language you would like to use with Twine."
+msgstr "Пожалуйста, выберите язык, который вы хотите использовать в Twine."
+
+#: templates/storyeditview/passageeditmodal.html:8
+msgid "Passage Name"
+msgstr "Название параграфа"
+
+#. L10n: this is the noun form, as in tags you would apply to content.
+#: templates/storyeditview/passageeditmodal.html:22
+msgid "Tag"
+msgstr "Тег"
+
+#. L10n: A noun, i.e. what a tag is named.
+#: templates/storyeditview/passageeditmodal.html:28
+msgid "Tag name"
+msgstr "Имя тега"
+
+#: templates/storyeditview/passageeditmodal.html:36
+msgid ""
+"Enter the body text of your passage here. To link to another passage, put "
+"two square brackets around its name, [[like this]]."
+msgstr ""
+"Наберите здесь содержимое вашего параграфа. Чтобы поставить ссылку на другой "
+"параграф, возьмите его имя в двойные квадратные скобки - [[вот так]]."
+
+#. L10n: %s is the name of the thing to be deleted.
+#: templates/storyeditview/passageitemview.html:16
+#, php-format
+msgid "Delete &ldquo;%s&rdquo;"
+msgstr "Удалить &ldquo;%s&rdquo;"
+
+#. L10n: %s is the name of the thing to be edited.
+#: templates/storyeditview/passageitemview.html:21
+#, php-format
+msgid "Edit &ldquo;%s&rdquo;"
+msgstr "Редактировать &ldquo;%s&rdquo;"
+
+#: templates/storyeditview/passageitemview.html:24
+msgid "Test story starting here"
+msgstr "Тестовая история начинается здесь"
+
+#. L10n: %s is a name of a passage
+#: templates/storyeditview/passageitemview.html:28
+#, php-format
+msgid "Set &ldquo;%s&rdquo; as starting point"
+msgstr "Сделать &ldquo;%s&rdquo; отправной точкой истории"
+
+#: templates/storyeditview/renamestorymodal.html:8
+#: templates/storyeditview/toolbar.html:31
+#: templates/storylistview/storyitemview.html:36
+msgid "Rename Story"
+msgstr "Переименовать историю"
+
+#: templates/storyeditview/renamestorymodal.html:14
+msgid "What should this story's name be?"
+msgstr "Как будет называться эта история?"
+
+#: templates/storyeditview/renamestorymodal.html:24
+msgid "Please enter a name."
+msgstr "Пожалуйста, введите имя."
+
+#: templates/storyeditview/renamestorymodal.html:28
+#: templates/storylistview/formatitem.html:7
+#: templates/storylistview/storylistview.html:25
+#: templates/storylistview/storylistview.html:50
+msgid "Cancel"
+msgstr "Отмена"
+
+#: templates/storyeditview/renamestorymodal.html:29
+msgid "Save"
+msgstr "Сохранить"
+
+#: templates/storyeditview/scripteditmodal.html:8
+msgid "JavaScript"
+msgstr "JavaScript"
+
+#: templates/storyeditview/scripteditmodal.html:14
+msgid ""
+"Any JavaScript entered here will immediately run when your story is opened "
+"in a Web browser."
+msgstr ""
+"Любой JavaScript-код, введённый здесь, будет немедленно исполнен, как только "
+"история будет открыта в веб-браузере."
+
+#: templates/storyeditview/searchmodal.html:7
+msgid "Find and Replace"
+msgstr "Найти и заменить"
+
+#: templates/storyeditview/searchmodal.html:12
+msgid "Search For"
+msgstr "Искать"
+
+#: templates/storyeditview/searchmodal.html:18
+msgid "Include passage names"
+msgstr "Включая имена параграфов"
+
+#. L10n: As in uppercase or lowercase letters.
+#: templates/storyeditview/searchmodal.html:23
+msgid "Match case"
+msgstr "Учитывать регистр"
+
+#. L10n: A technical term, see https://en.wikipedia.org/wiki/Regular_expression.
+#: templates/storyeditview/searchmodal.html:29
+msgid "Regular expression"
+msgstr "Регулярное выражение"
+
+#: templates/storyeditview/searchmodal.html:34
+msgid "Replace With"
+msgstr "Заменить на"
+
+#: templates/storyeditview/searchmodal.html:40
+msgid "Expand all search results"
+msgstr "Развернуть все результаты поиска"
+
+#: templates/storyeditview/searchmodal.html:44
+msgid "Collapse all search results"
+msgstr "Свернуть все результаты поиска"
+
+#: templates/storyeditview/searchmodal.html:49
+msgid "Replace All"
+msgstr "Заменить все"
+
+#: templates/storyeditview/searchmodal.html:57
+msgid "Searching..."
+msgstr "Идёт поиск..."
+
+#. L10n: %d is a number of text matches after a search.
+#: templates/storyeditview/searchmodalresult.html:13
+#, php-format
+msgid "%d match"
+msgid_plural "%d matches"
+msgstr[0] "%d совпадение"
+msgstr[1] "%d совпадения"
+msgstr[2] "%d совпадений"
+
+#: templates/storyeditview/searchmodalresult.html:22
+msgid "Replace in this passage"
+msgstr "Заменить в этом параграфе"
+
+#: templates/storyeditview/searchmodalresult.html:23
+msgid "Replace in Passage"
+msgstr "Заменить в параграфе"
+
+#: templates/storyeditview/statsmodal.html:8
+#: templates/storyeditview/toolbar.html:39
+msgid "Story Statistics"
+msgstr "Статистика истории"
+
+#: templates/storyeditview/statsmodal.html:38
+#, php-format
+msgid "This story was last changed at %s"
+msgstr "Эта история последний раз менялась %s"
+
+#. L10n: %s is the IFID of the story. Please keep the <span> element around it.
+#: templates/storyeditview/statsmodal.html:45
+#, php-format
+msgid ""
+"The IFID for this story is <span class=\"ifid\">%s</span>. <a href=\"http:\\/"
+"\\/ifdb.tads.org/help-ifid\" target=\"_blank\">What's an IFID?</a>)"
+msgstr ""
+"Код IFID для этой истории: <span class=\"ifid\">%s</span>. <a href=\"http:\\/"
+"\\/ifdb.tads.org/help-ifid\" target=\"_blank\">Что такое код IFID? (англ.)</"
+"a>)"
+
+#: templates/storyeditview/storyformatmodal.html:7
+msgid "Story Format"
+msgstr "Формат истории"
+
+#: templates/storyeditview/storyformatmodal.html:12
+msgid ""
+"A story format controls the appearance and behavior of your story during "
+"play."
+msgstr ""
+"Формат истории контролирует внешний вид и поведение вашей истории в процессе "
+"игры."
+
+#: templates/storyeditview/storyformatmodal.html:16
+#: templates/storylistview/modals/formatsmodal.html:58
+msgid "Loading..."
+msgstr "Загрузка..."
+
+#: templates/storyeditview/stylesheeteditmodal.html:8
+msgid "Stylesheet"
+msgstr "Таблица стилей"
+
+#: templates/storyeditview/stylesheeteditmodal.html:14
+msgid ""
+"Any CSS entered here will override the default appearance of your story."
+msgstr ""
+"Любой CSS, введённый тут, переопределит внешний вид по умолчанию для вашей "
+"истории."
+
+#: templates/storyeditview/toolbar.html:5
+msgid "Go to the story list"
+msgstr "Перейти к списку историй"
+
+#: templates/storyeditview/toolbar.html:19
+msgid "Edit Story JavaScript"
+msgstr "Редактировать JavaScript"
+
+#: templates/storyeditview/toolbar.html:23
+msgid "Edit Story Stylesheet"
+msgstr "Редактировать таблицу стилей"
+
+#: templates/storyeditview/toolbar.html:27
+msgid "Change Story Format"
+msgstr "Сменить формат истории"
+
+#: templates/storyeditview/toolbar.html:35
+msgid "Snap to Grid"
+msgstr "Привязать к сетке"
+
+#: templates/storyeditview/toolbar.html:45
+msgid "View Proofing Copy"
+msgstr "Получить копию для вычитки"
+
+#: templates/storyeditview/toolbar.html:49
+#: templates/storylistview/storyitemview.html:32
+msgid "Publish to File"
+msgstr "Опубликовать в файл"
+
+#: templates/storyeditview/toolbar.html:62
+msgid "Quick Find"
+msgstr "Быстрый поиск"
+
+#: templates/storyeditview/toolbar.html:63
+msgid "Find and replace across the entire story"
+msgstr "Поиск и замена во всей истории"
+
+#: templates/storyeditview/toolbar.html:67
+msgid "Show only story structure"
+msgstr "Показать только структуру"
+
+#: templates/storyeditview/toolbar.html:71
+msgid "Show only passage titles"
+msgstr "Показать только имена параграфов"
+
+#: templates/storyeditview/toolbar.html:75
+msgid "Show passage titles and excerpts"
+msgstr "Показать имена параграфов и выдержку"
+
+#: templates/storyeditview/toolbar.html:81
+msgid "Play this story in test mode"
+msgstr "Запустить историю в режиме тестирования"
+
+#. L10n: The verb form, to try something or to check it for problems.
+#: templates/storyeditview/toolbar.html:84
+msgid "Test"
+msgstr "Тестировать"
+
+#: templates/storyeditview/toolbar.html:88
+msgid "Play this story"
+msgstr "Запустить историю"
+
+#. L10n: The verb form, as in playing a game.
+#: templates/storyeditview/toolbar.html:91
+msgid "Play"
+msgstr "Запустить"
+
+#: templates/storyeditview/toolbar.html:95
+msgid "Add a new passage"
+msgstr "Добавить новый параграф"
+
+#. L10n: This does not actually show the count here, as it is used in a table.
+#: templates/storyeditview/toolbar.html:96
+#: js/views/storyeditview/modals/statsmodal.js:75
+msgid "Passage"
+msgid_plural "Passages"
+msgstr[0] "Параграф"
+msgstr[1] "Параграфа"
+msgstr[2] "Параграфов"
+
+#. L10n: %s is the name of an author.
+#: templates/storyformatdetail.html:26
+#, php-format
+msgid "by %s"
+msgstr "автор: %s"
+
+#. L10n: %s is the name of a software license.
+#: templates/storyformatdetail.html:39
+#, php-format
+msgid "License: %s"
+msgstr "Лицензия: %s"
+
+#: templates/storylistview/formatitem.html:5
+msgid "Are you sure?"
+msgstr "Вы уверены?"
+
+#: templates/storylistview/formatitem.html:6
+msgid "Remove"
+msgstr "Удалить"
+
+#: templates/storylistview/formatitem.html:12
+msgid "Remove this format"
+msgstr "Удалить этот формат"
+
+#: templates/storylistview/formatitem.html:14
+msgid "Set this format as default for stories"
+msgstr "Установить этот формат по умалчанию для новых историй"
+
+#: templates/storylistview/modals/aboutmodal.html:8
+msgid "About Twine"
+msgstr "О Twine"
+
+#. L10n: This is the noun form, to describe a version of the software. e.g. 'I am using Twine build 123'
+#: templates/storylistview/modals/aboutmodal.html:14
+msgid "Build"
+msgstr "Сборка"
+
+#: templates/storylistview/modals/aboutmodal.html:21
+msgid ""
+"Twine is an open-source tool for telling interactive, nonlinear stories."
+msgstr ""
+"Twine это инструмент с открытым кодом, предназначенный для создания "
+"интерактивных нелинейных историй."
+
+#: templates/storylistview/modals/aboutmodal.html:25
+msgid ""
+"Twine 2.0 is released under the <a href=\"http:\\/\\/www.gnu.org/licenses/"
+"gpl-3.0.html\">GPL v3</a> license, but any work created with it may be "
+"released under any terms, including commercial ones. <a href=\"https:\\/\\/"
+"bitbucket.org/klembot/twinejs\">Source Code Repository</a>"
+msgstr ""
+"Twine 2.0 выпущен под лицензией <a href=\"http:\\/\\/www.gnu.org/licenses/"
+"gpl-3.0.html\">GPL v3</a>, но любая работа, созданная с его помощью, может "
+"быть выпущена на любых условиях, включая коммерческое использование. <a href="
+"\"https:\\/\\/bitbucket.org/klembot/twinejs\"> Исходный код Twine</a>"
+
+#: templates/storylistview/modals/aboutmodal.html:31
+msgid "Help Twine Grow With A Donation"
+msgstr "Помочь развитию Twine пожертвованием"
+
+#. L10n: This is the noun form, as program code.
+#: templates/storylistview/modals/aboutmodal.html:39
+msgid "Code"
+msgstr "Код"
+
+#: templates/storylistview/modals/aboutmodal.html:54
+msgid "Translations"
+msgstr "Переводы"
+
+#: templates/storylistview/modals/aboutmodal.html:61
+msgid "Libraries"
+msgstr "Библиотеки"
+
+#: templates/storylistview/modals/aboutmodal.html:80
+msgid "Fonts"
+msgstr "Шрифты"
+
+#: templates/storylistview/modals/aboutmodal.html:84
+msgid ""
+"Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the "
+"guidance of Robert Slimbach for <a href=\"http:\\/\\/adobe.com/\">Adobe</"
+"a><br> Nunito was designed by <a href=\"http:\\/\\/code.newtypography.co.uk/"
+"\">Vernon Adams</a>"
+msgstr ""
+"Source Sans Pro и  Source Code Pro были разработаны Полом Д. Хантом под "
+"руководством Роберта Слимбаха для <a href=\"http:\\/\\/adobe.com/\">Adobe</"
+"a><br> Nunito был разработан  <a href=\"http:\\/\\/code.newtypography.co.uk/"
+"\">Верноном Адамсом</a>"
+
+#: templates/storylistview/modals/aboutmodal.html:88
+msgid "Icons"
+msgstr "Иконки"
+
+#: templates/storylistview/modals/aboutmodal.html:93
+msgid "Document designed by Rob Gill from the Noun Project"
+msgstr "Документ разработан Робом Гиллом из Noun Project"
+
+#: templates/storylistview/modals/aboutmodal.html:94
+msgid "Question designed by Henry Ryder from the Noun Project"
+msgstr "Вопрос разработан Генри Райдером из Noun Project"
+
+#: templates/storylistview/modals/aboutmodal.html:95
+msgid "Smile designed by jelio dimitrov from the Noun Project"
+msgstr "Смайлики разработаны Джелио Димитров из Noun Project"
+
+#. L10n: The <span> will have a version number, i.e. 2.0.6, interpolated into it.
+#: templates/storylistview/modals/appupdatemodal.html:10
+msgid ""
+"A new version of Twine, <span class=\"version\"></span>, has been released."
+msgstr "Вышла новая версия Twine, <span class=\"version\"></span>"
+
+#. L10n: A polite rejection of a request, in the sense that the answer may change in the future.
+#: templates/storylistview/modals/appupdatemodal.html:18
+msgid "Not Right Now"
+msgstr "Не сейчас"
+
+#: templates/storylistview/modals/appupdatemodal.html:21
+msgid "Download"
+msgstr "Скачать"
+
+#: templates/storylistview/modals/donatemodal.html:6
+msgid ""
+"If you love Twine as much as I do, please consider helping it grow with a "
+"donation. Twine is as an open source project that will always be free to use "
+"&mdash; and with your help, Twine will continue to thrive."
+msgstr ""
+"Если вы любите Twine так же, как я, пожалуйста подумайте о возможности "
+"помочь его развитию с помощью пожертвования. Twine &mdash; проект с открытым "
+"исходным кодом, который всегда будет бесплатным для использования. И с вашей "
+"помощью Twine продолжит расти и процветать."
+
+#: templates/storylistview/modals/donatemodal.html:10
+msgid "Chris Klimas, Twine creator"
+msgstr "Крис Климас, создатель Twine"
+
+#: templates/storylistview/modals/donatemodal.html:16
+msgid "Donate"
+msgstr "Пожертвовать"
+
+#: templates/storylistview/modals/donatemodal.html:17
+msgid "No Thanks"
+msgstr "Нет, спасибо"
+
+#: templates/storylistview/modals/donatemodal.html:21
+msgid "This message will only be shown to you once.<br>"
+msgstr "Это сообщение будет показано только один раз.<br>"
+
+#: templates/storylistview/modals/formatsmodal.html:9
+msgid "Story Formats"
+msgstr "Форматы историй"
+
+#: templates/storylistview/modals/formatsmodal.html:10
+msgid "Proofing Formats"
+msgstr "Форматы для вычитки"
+
+#: templates/storylistview/modals/formatsmodal.html:11
+msgid "Add a New Format"
+msgstr "Добавить новый формат"
+
+#: templates/storylistview/modals/formatsmodal.html:20
+msgid ""
+"Story formats control the appearance and behavior of stories during play."
+msgstr ""
+"Формат истории управляет внешним видом и поведением истории во время игры."
+
+#: templates/storylistview/modals/formatsmodal.html:30
+msgid ""
+"Proofing formats create a versions of stories tailored for editing and "
+"proofreading."
+msgstr ""
+"Формат для вычитки создаёт версию истории, скомпоноранную для редактирования "
+"и вычитки."
+
+#. L10n: Address in the sense of a URL.
+#: templates/storylistview/modals/formatsmodal.html:42
+msgid "To add a story format, enter its address below."
+msgstr "Чтобы добавить формат, введите его URL ниже."
+
+#: templates/storylistview/modals/formatsmodal.html:50
+#: templates/storylistview/storylistview.html:26
+msgid "Add"
+msgstr "Добавить"
+
+#: templates/storylistview/storyitemview.html:24
+msgid "Play Story"
+msgstr "Запустить историю"
+
+#: templates/storylistview/storyitemview.html:28
+msgid "Test Story"
+msgstr "Тестировать историю"
+
+#: templates/storylistview/storyitemview.html:40
+msgid "Duplicate Story"
+msgstr "Сделать дубликат истории"
+
+#: templates/storylistview/storyitemview.html:46
+msgid "Delete Story"
+msgstr "Удалить историю"
+
+#: templates/storylistview/storylistview.html:5
+msgid "Twine"
+msgstr "Twine"
+
+#: templates/storylistview/storylistview.html:9
+msgid "Create a brand-new story"
+msgstr "Создать совершенно новую историю"
+
+#: templates/storylistview/storylistview.html:10
+msgid "Story"
+msgstr "История"
+
+#: templates/storylistview/storylistview.html:17
+msgid "What should your story be named?<br>(You can change this later.)"
+msgstr "Как будет называться ваша история?<br>(Вы сможете поменять имя позже.)"
+
+#: templates/storylistview/storylistview.html:34
+msgid "Import a published story or Twine archive"
+msgstr "Импортировать опубликованную историю или архив Twine"
+
+#: templates/storylistview/storylistview.html:35
+msgid "Import From File"
+msgstr "Импортировать из файла"
+
+#: templates/storylistview/storylistview.html:42
+msgid "Import this file:"
+msgstr "Импортировать файл:"
+
+#: templates/storylistview/storylistview.html:59
+msgid "Importing..."
+msgstr "Импорт..."
+
+#: templates/storylistview/storylistview.html:67
+msgid "Save all stories to a Twine archive file"
+msgstr "Сохранить все истории в архивный файл Twine"
+
+#: templates/storylistview/storylistview.html:68
+msgid "Archive"
+msgstr "Архив"
+
+#: templates/storylistview/storylistview.html:73
+msgid "Work with story and proofing formats"
+msgstr "Работа с форматами историй и вычитки"
+
+#: templates/storylistview/storylistview.html:74
+msgid "Formats"
+msgstr "Форматы"
+
+#: templates/storylistview/storylistview.html:79
+msgid "Change the language Twine uses"
+msgstr "Сменить язык, используемый Twine"
+
+#: templates/storylistview/storylistview.html:80
+msgid "Language"
+msgstr "Язык"
+
+#: templates/storylistview/storylistview.html:85
+msgid "Browse online help"
+msgstr "Просмотреть онлайн-справку"
+
+#: templates/storylistview/storylistview.html:86
+msgid "Help"
+msgstr "Помощь"
+
+#: templates/storylistview/storylistview.html:101
+msgid "version"
+msgstr "версия"
+
+#: templates/storylistview/storylistview.html:103
+msgid "Report a bug"
+msgstr "Сообщить об ошибке"
+
+#: templates/storylistview/storylistview.html:111
+msgid "Stories"
+msgstr "Истории"
+
+#: templates/storylistview/storylistview.html:114
+msgid "Sort By"
+msgstr "Сортировать по"
+
+#: templates/storylistview/storylistview.html:116
+msgid "Last changed date"
+msgstr "Дата последнено изменения"
+
+#: templates/storylistview/storylistview.html:117
+msgid "Edit Date"
+msgstr "Дата"
+
+#: templates/storylistview/storylistview.html:120
+msgid "Story name"
+msgstr "Название истории"
+
+#: templates/storylistview/storylistview.html:121
+msgid "Name"
+msgstr "Название"
+
+#: templates/storylistview/storylistview.html:128
+msgid ""
+"There are no stories saved in Twine right now. To get started, you can "
+"either create a new story or import an existing one from a file."
+msgstr ""
+"Сейчас у вас нет сохранённых историй в Twine. Для начала, вы можете создать "
+"новую историю или импортировать уже существующую из файла."
+
+#: templates/welcomeview.html:6
+msgid "Hi!"
+msgstr "Привет!"
+
+#: templates/welcomeview.html:10
+msgid ""
+"Twine is an open-source tool for telling interactive, nonlinear stories. "
+"There are a few things you should know before you get started."
+msgstr ""
+"Twine &mdash; это инструмент с открытым исходным кодом, предназанченный для "
+"создания и рассказывания интерактивных нелинейных историй. Есть несколько "
+"вещей, которые вам необходимо знать, прежде чем вы начнёте его использовать."
+
+#: templates/welcomeview.html:14
+msgid "Tell Me More"
+msgstr "Расскажите мне"
+
+#: templates/welcomeview.html:15
+msgid "Skip"
+msgstr "Пропустить"
+
+#: templates/welcomeview.html:23
+msgid "New here?"
+msgstr "Вы новичок?"
+
+#: templates/welcomeview.html:27
+msgid ""
+"<strong>If you've never used Twine before,</strong> then welcome! The <a "
+"href=\"http:\\/\\/twinery.org/2guide\" target=\"_blank\">Twine 2 Guide</a> "
+"and the official wiki in general, are a great place to learn. Keep in mind "
+"that some articles on the wiki at large were written for Twine 1, which is a "
+"little bit different than this version. But most of the concepts are the "
+"same."
+msgstr ""
+"<strong>Если вам ещё не приходилось пользоваться Twine</strong>, добро "
+"пожаловать! <a href=\"http:\\/\\/twinery.org/2guide\" target=\"_blank"
+"\">Руководство Twine 2</a> и официальная вики в целом &mdash; замечательные "
+"источники знаний. Имейте в виду, что некоторые статьи на вики в целом были "
+"написаны для Twine 1, который слегка отличается от этой версии. Но "
+"большинство концепций общие."
+
+#: templates/welcomeview.html:31
+msgid ""
+"You can also get help over at the <a href=\"http:\\/\\/twinery.org/forum\" "
+"target=\"_blank\">Twine forum</a>, too."
+msgstr ""
+"Вы также можете попросить помощи на <a href=\"http:\\/\\/twinery.org/forum\" "
+"target=\"_blank\">форуме Twine</a>."
+
+#: templates/welcomeview.html:35
+msgid ""
+"<strong>If you have used Twine 1 before,</strong> the guide also has details "
+"on what has changed in this version. Chief among them is a new default story "
+"format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, "
+"try using SugarCube instead."
+msgstr ""
+"<strong>Если вы раньше использовали Twine 1,</strong> то в руководстве вы "
+"найдёте детали того, что изменилось в этой версии. Главное изменение &mdash; "
+"это новый формат истории, Harlowe. Но если вы предпочитаете синтаксис "
+"скриптов, как в Twine 1, попробуйте SugarCube."
+
+#: templates/welcomeview.html:39 templates/welcomeview.html:63
+#: templates/welcomeviewnw.html:23
+msgid "OK"
+msgstr "ОК"
+
+#: templates/welcomeview.html:47
+msgid "Your work is saved only in your browser."
+msgstr "Ваша работа сохраняется только в вашем браузере."
+
+#: templates/welcomeview.html:51
+msgid ""
+"That means you don't need to create an account to use Twine 2, and "
+"everything you create isn't stored on a server somewhere else &mdash; it "
+"stays right in your browser."
+msgstr ""
+"Это означает, что вам не надо создавать аккаунт для использования Twine 2, а "
+"всё, что вы создаёте, не сохраняется на каком-то сервере &mdash; оно "
+"остаётся прямо в вашем браузере."
+
+#: templates/welcomeview.html:55
+msgid ""
+"Two <b>very important</b> things to remember, though. Since your work is "
+"saved only in your browser, if you clear its saved data, then you'll lose "
+"your work! Not good. Remember to use that <i class=\"fa fa-briefcase\"></"
+"i>&nbsp;<strong>Archive</strong> button often. You can also publish "
+"individual stories to files using the <i class=\"fa fa-cog\"></i> menu on "
+"each story in the story list. Both archive and story files can always be re-"
+"imported into Twine."
+msgstr ""
+"Две <b>очень важные</b> вещи, которые нужно запомнить в связи с этим. "
+"Поскольку ваша работа сохраняется в браузере, если вы очистите сохранённые в "
+"нём данные, то вы потеряете всю свою работу! Не забывайте почаще "
+"пользоваться кнопкой <i class=\"fa fa-briefcase\"></i>&nbsp;<strong>Архив</"
+"strong>. Вы также можете опубликовать отдельные истории в файлы, используя "
+"меню <i class=\"fa fa-cog\"></i>, которое есть на каждой истории в списке. И "
+"архив, и файлы историй всегда можно заново импортировать в Twine."
+
+#: templates/welcomeview.html:59
+msgid ""
+"Secondly, <b>anyone who can use this browser can see and make changes to "
+"your work</b>. So if you've got a nosy kid brother, look into setting up a "
+"separate profile for yourself."
+msgstr ""
+"Во-вторых, <b>любой, кто пользуется этим браузером, сможет видеть и "
+"редактировать вашу работу</b>. Так что если у вас есть не в меру любопытный "
+"младший брат, озаботьтесь созданием отдельного профиля в системе для себя."
+
+#: templates/welcomeview.html:71
+msgid "That's it!"
+msgstr "Вот и всё!"
+
+#: templates/welcomeview.html:75
+msgid "Thanks for reading, and have fun with Twine."
+msgstr "Спасибо за внимание, развлекайтесь с Twine."
+
+#: templates/welcomeview.html:79
+msgid "Go to the Story List"
+msgstr "Перейти к списку историй"
+
+#: templates/welcomeviewnw.html:7
+msgid "Your work is automatically saved."
+msgstr "Ваша работа автоматически сохранена."
+
+#: templates/welcomeviewnw.html:11
+msgid ""
+"There's now a folder named Twine in your Documents folder. Inside that is a "
+"Stories folder, where all your work will be saved. Twine saves as you work, "
+"so you don't have to worry about remembering to save it yourself. You can "
+"always open the folder your stories are saved to by using the <b>Show "
+"Library</b> item in the <b>Twine</b> menu."
+msgstr ""
+"Теперь в вашей папке \"Документы\" есть папка Twine. Внутри неё папка "
+"Stories, куда будут сохраняться все ваши работы. Twine сохраняет вашу "
+"работу, так что вам нет необходимости заботиться об этом самому. Вы всегда "
+"можете открыть папку с сохранёнными историями используя пункт <b>Показать "
+"библиотеку</b> из меню <b>Twine</b>."
+
+#: templates/welcomeviewnw.html:15
+msgid ""
+"Because Twine is always saving your work, the files in your story library "
+"will be locked from editing while Twine is open."
+msgstr ""
+"Поскольку Twine всегда сохраняет вашу работу, файлы в вашей библиотеке будут "
+"заблокированы от изменений, пока Twine открыт."
+
+#: templates/welcomeviewnw.html:19
+msgid ""
+"If you'd like to open a Twine story file you received from someone else, you "
+"can import it into your library using the <i class=\"icon-upload-alt\"></i> "
+"<b>Import From File</b> link in the story list."
+msgstr ""
+"Если вы захотите открыть файл с Twine-историей, который вы получили от кого-"
+"то ещё, вы можете импортировать его в вашу библиотеку, используя ссылку <i "
+"class=\"icon-upload-alt\"></i> <b>Импортировать из файла</b> в списке "
+"историй."
+
+#. L10n: %1$s is a filename; %2$s is the error message.
+#: js/app.js:226
+msgid "&ldquo;%1$s&rdquo; could not be saved (%2$s)."
+msgstr "&ldquo;%1$s&rdquo; не может быть сохранён (%2$s)."
+
+#. L10n: %s is the error message.
+#: js/app.js:283
+#, javascript-format
+msgid "An error occurred while publishing your story. (%s)"
+msgstr "Произошла ошибка при публикации вашей истории. (%s)"
+
+#: js/app.js:314
+msgid "Twine Archive.html"
+msgstr "Twine Archive.html"
+
+#. L10n: An internal error. %s is a bad sort criterion.
+#: js/collections/storycollection.js:35
+#, javascript-format
+msgid "don't know how to sort stories by %s"
+msgstr "не понимаю, как отсортировать истории по %s"
+
+#: js/models/passage.js:19
+msgid "Untitled Passage"
+msgstr "Безымянный параграф"
+
+#: js/models/passage.js:21
+msgid "Tap this passage, then the pencil icon to edit it."
+msgstr ""
+"Коснитесь этого параграфа и нажмите иконку с карандашом, чтобы "
+"отредактировать его."
+
+#: js/models/passage.js:22
+msgid "Double-click this passage to edit it."
+msgstr ""
+"Сделайте двойной щелчок мышью на этом параграфе, чтобы отредактировать его."
+
+#: js/models/passage.js:78
+msgid "You must give this passage a name."
+msgstr "Вы должны как-нибудь назвать этот параграф."
+
+#: js/models/passage.js:85
+#, javascript-format
+msgid ""
+"There is already a passage named \"%s.\" Please give this one a unique name."
+msgstr ""
+"Уже существует параграф с именем \"%s\". Пожалуйста, дайте этому уникальное "
+"имя."
+
+#: js/models/story.js:16
+msgid "Untitled Story"
+msgstr "История без названия"
+
+#: js/models/story.js:112
+msgid "There is no starting point set for this story."
+msgstr "Для этой истории не установлена отправная точка."
+
+#: js/models/story.js:115
+msgid "The passage set as starting point for this story does not exist."
+msgstr ""
+"Параграф, который назначен отправной точкой этой истории, не существует."
+
+#: js/models/storyformat.js:38
+msgid "Untitled Story Format"
+msgstr "Безымянный формат"
+
+#: js/nwui.js:81
+msgid "Toggle Fullscreen"
+msgstr "Полный экран"
+
+#: js/nwui.js:100
+msgid "Quit"
+msgstr "Выход"
+
+#: js/nwui.js:115
+msgid "Edit"
+msgstr "Редактировать"
+
+#: js/nwui.js:120
+msgid "Undo"
+msgstr "Откат"
+
+#: js/nwui.js:132
+msgid "Cut"
+msgstr "Вырезать"
+
+#: js/nwui.js:142
+msgid "Copy"
+msgstr "Копировать"
+
+#: js/nwui.js:152
+msgid "Paste"
+msgstr "Вставить"
+
+#: js/nwui.js:162 js/views/storyeditview/passageitemview.js:171
+#: js/views/storyeditview/storyeditview.js:126
+msgid "Delete"
+msgstr "Удалить"
+
+#: js/nwui.js:182
+msgid "Show Library"
+msgstr "Показать библиотеку"
+
+#. L10n: This is the folder name on OS X, Linux, and recent versions of
+#. Windows that a user's documents are stored in, relative to the
+#. user's home directory. If you need to use a space in this name,
+#. then it should have two backslashes (\\) in front of it.
+#. Regardless, this must have a single forward slash (/) as its first
+#. character.
+#: js/nwui.js:239
+msgid "/Documents"
+msgstr "/Documents"
+
+#. L10n: This is the folder name on Windows XP that a user's
+#. documents are stored in, relative to the user's home directory.
+#. This is used if a folder with the name given by the translation
+#. key '/Documents' does not exist. If you need to use a space in
+#. this name, then it should have two backslashes (\\) in front of it.
+#. Regardless, this must have a single forward slash (/) as its first character.
+#: js/nwui.js:249 js/nwui.js:250
+msgid "/My\\ Documents"
+msgstr "/My\\ Documents"
+
+#. L10n: '/Twine' is a suitable name for Twine-related files to exist
+#. under on the user's hard drive. '/Stories' is a suitable name for
+#. story files specifically. If you need to use a space in this name,
+#. then it should have two backslashes in front of it. Regardless,
+#. this must have a single forward slash (/) as its first character.
+#: js/nwui.js:260 js/nwui.js:264
+msgid "/Twine"
+msgstr "/Twine"
+
+#: js/nwui.js:260
+msgid "/Stories"
+msgstr "/Stories"
+
+#. L10n: %s is the error message.
+#: js/nwui.js:430
+#, javascript-format
+msgid "An error occurred while saving your story (%s)."
+msgstr "Произошла ошибка при сохранении истории (%s)."
+
+#. L10n: %s is the error message.
+#: js/nwui.js:457
+#, javascript-format
+msgid "An error occurred while deleting your story (%s)."
+msgstr "Произошла ошибка при удалении истории (%s)."
+
+#. L10n: Locking in the sense of preventing changes to a file. %s is the error message.
+#: js/nwui.js:527
+#, javascript-format
+msgid "An error occurred while locking your library (%s)."
+msgstr "Произошла ошибка при блокировке вашей библиотеки (%s)."
+
+#. L10n: Unlocking in the sense of allowing changes to a file. %s is the error message.
+#: js/nwui.js:556
+#, javascript-format
+msgid "An error occurred while unlocking your library (%s)."
+msgstr "Произошла ошибка при разблокировке вашей библиотеки (%s)."
+
+#. L10n: An internal error message related to UI components.
+#: js/ui.js:166
+#, javascript-format
+msgid "Don't know how to do bubble action %s"
+msgstr "Я не знаю, как сделать пузырь из действия %s"
+
+#. L10n: An internal error message related to UI components.
+#: js/ui.js:219
+#, javascript-format
+msgid "Don't know how to do collapse action %s"
+msgstr "Я не знаю, как свернуть действие %s"
+
+#. L10n: An internal error when changing locale.
+#: js/views/localeview.js:27
+#, javascript-format
+msgid "Can't set locale to nonstring: %s"
+msgstr "Не могу установить локаль не строкой: %s"
+
+#: js/views/storyeditview/editors/passageeditor.js:120
+#: js/views/storyeditview/storyeditview.js:563
+#, javascript-format
+msgid "Editing “%s”"
+msgstr "Редактирование “%s”"
+
+#: js/views/storyeditview/editors/passageeditor.js:211
+msgid "Any changes to the passage you're editing haven't been saved yet. "
+msgstr "Изменения, которые вы сделали в этом параграфе, пока не сохранены."
+
+#. L10n: Matched in the sense of matching a search criteria. %d is the number of passages.
+#: js/views/storyeditview/modals/searchmodal.js:94
+#, javascript-format
+msgid "%d passage matches."
+msgid_plural "%d passages match."
+msgstr[0] "%d параграф найден"
+msgstr[1] "%d параграфа найдено"
+msgstr[2] "%d параграфов найдено"
+
+#: js/views/storyeditview/modals/searchmodal.js:102
+msgid "No matching passages found."
+msgstr "Не найдено подходящих параграфов."
+
+#. L10n: replacement in the sense of text search and replace. %d is the number.
+#: js/views/storyeditview/modals/searchmodal.js:183
+#, javascript-format
+msgid "%d replacement was made in"
+msgid_plural "%d replacements were made in"
+msgstr[0] "%d замена сделана в"
+msgstr[1] "%d замены сделано в"
+msgstr[2] "%d замен сделано в"
+
+#. L10n: %d is a number of passages.
+#: js/views/storyeditview/modals/searchmodal.js:187
+#, javascript-format
+msgid "%d passage"
+msgid_plural "%d passages"
+msgstr[0] "%d параграфе"
+msgstr[1] "%d параграфах"
+msgstr[2] "%d параграфах"
+
+#. L10n: This is the formatting used to combine two pluralizations.
+#. In English, %1$s equals "2 replacements were made in" and %2$s equals "5 passages."
+#. This is a way to reshape the sentence as needed.
+#: js/views/storyeditview/modals/searchmodal.js:192
+msgid "%1$s %2$s"
+msgstr "%1$s %2$s"
+
+#. L10n: Character in the sense of individual letters in a word.
+#. This does not actually show the count here, as it is used in a table.
+#: js/views/storyeditview/modals/statsmodal.js:68
+msgid "Character"
+msgid_plural "Characters"
+msgstr[0] "символ"
+msgstr[1] "символа"
+msgstr[2] "символов"
+
+#. L10n: Word in the sense of individual words in a sentence.
+#. This does not actually show the count here, as it is used in a table.
+#: js/views/storyeditview/modals/statsmodal.js:72
+msgid "Word"
+msgid_plural "Words"
+msgstr[0] "слово"
+msgstr[1] "слова"
+msgstr[2] "слов"
+
+#. L10n: Links in the sense of hypertext links.
+#. This does not actually show the count here, as it is used in a table.
+#: js/views/storyeditview/modals/statsmodal.js:79
+msgid "Link"
+msgid_plural "Links"
+msgstr[0] "ссылка"
+msgstr[1] "ссылки"
+msgstr[2] "ссылок"
+
+#. L10n: Links in the sense of hypertext links.
+#. This does not actually show the count here, as it is used in a table.
+#: js/views/storyeditview/modals/statsmodal.js:83
+msgid "Broken Link"
+msgid_plural "Broken Links"
+msgstr[0] "битая ссылка"
+msgstr[1] "битые ссылки"
+msgstr[2] "битых ссылок"
+
+#. L10n: %1$s is the name of the story format, %2$s is the error message.
+#: js/views/storyeditview/modals/storyformatmodal.js:96
+#: js/views/storylistview/modals/formatsmodal.js:74
+msgid "The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s)."
+msgstr "Формат &ldquo;%1$s&rdquo; не может быть загружен (%2$s)."
+
+#: js/views/storyeditview/passageitemview.js:165
+#, javascript-format
+msgid "Are you sure you want to delete &ldquo;%s&rdquo;? "
+msgstr "Вы действительно хотите удалить &ldquo;%s&rdquo;? "
+
+#: js/views/storyeditview/passageitemview.js:169
+msgid "(Hold the Shift key when deleting to skip this message.)"
+msgstr "(Держите Shift при удалении, чтобы не получать это сообщение.)"
+
+#. L10n: An internal error related to handling user input.
+#: js/views/storyeditview/passageitemview.js:461
+msgid "Don't see either mouse or touch coordinates on event"
+msgstr "Не вижу координат (мыши или тачскрина) для события"
+
+#. L10n: An internal error related to user input.
+#: js/views/storyeditview/passageitemview.js:523
+msgid "Couldn't find original touch ID in movement event"
+msgstr "Не могу найти оригинальный touch ID в событии перемещения"
+
+#. L10n: %s is the error message.
+#: js/views/storyeditview/storyeditview.js:43
+#: js/views/storyeditview/storyeditview.js:64
+#, javascript-format
+msgid "A problem occurred while saving your changes (%s)."
+msgstr "Возникла проблема при сохранении ваших изменений (%s)."
+
+#. L10n: This message is always shown with more than one passage.
+#. %d is the number of passages.
+#: js/views/storyeditview/storyeditview.js:122
+#, javascript-format
+msgid "Are you sure you want to delete this passage?"
+msgid_plural ""
+"Are you sure you want to delete these %d passages? This cannot be undone."
+msgstr[0] ""
+"Вы уверены, что хотите удалить этот %d параграф? Это невозможно отменить."
+msgstr[1] ""
+"Вы уверены, что хотите удалить эти %d параграфа? Это будет невозможно "
+"отменить."
+msgstr[2] ""
+"Вы уверены, что хотите удалить эти %d параграфов? Это будет невозможно "
+"отменить."
+
+#: js/views/storyeditview/storyeditview.js:268
+msgid "This story does not have a starting point. "
+msgstr "У этой истории нет отправной точки."
+
+#: js/views/storyeditview/storyeditview.js:282
+msgid ""
+"Refreshed the playable version of your story in the previously-opened tab or "
+"window."
+msgstr ""
+"Ирабельная версия вашей истории, открытая ранее на закладке или в окне, была "
+"обновлена."
+
+#: js/views/storyeditview/storyeditview.js:312
+#: js/views/storyeditview/storyeditview.js:352
+#: js/views/storylistview/storyitemview.js:110
+msgid ""
+"This story does not have a starting point. Use the <i class=\"fa fa-rocket"
+"\"></i> icon on a passage to set this."
+msgstr ""
+"У этой истории нет отправной точки. Используйте иконку <i class=\"fa fa-"
+"rocket\"></i> у параграфа, чтобы назначить её."
+
+#: js/views/storyeditview/storyeditview.js:325
+msgid ""
+"Refreshed the test version of your story in the previously-opened tab or "
+"window."
+msgstr ""
+"Тестовая версия вашей истории, открытая ранее на закладке или в окне, была "
+"обновлена."
+
+#. L10n: This refers to when a story was last saved by the user
+#. %s will be replaced with a localized date and time
+#: js/views/storyeditview/storyeditview.js:573
+#: js/views/storyeditview/toolbar.js:94
+#, javascript-format
+msgid "Last saved at %s"
+msgstr "Последнее сохранение: %s"
+
+#: js/views/storylistview/modals/formatsmodal.js:137
+msgid "The story format at %1$s could not be added (%2$s)."
+msgstr "Формат истории в %1$s не может быть добавлен (%2$s)."
+
+#. L10n: An internal error related to story formats.
+#: js/views/storylistview/modals/formatsmodal.js:246
+msgid "Don't know what kind of format to set as default"
+msgstr "Не знаю, какой формат установить по умолчанию."
+
+#: js/views/storylistview/storagequota.js:21
+#: js/views/storylistview/storagequota.js:44
+#: js/views/storylistview/storagequota.js:49
+#, javascript-format
+msgid "%d%% space available"
+msgstr "доступно %d%% места"
+
+#: js/views/storylistview/storyitemview.js:80
+#: js/views/storylistview/storyitemview.js:94
+msgid ""
+"This story does not have a starting point. Edit this story and use the <i "
+"class=\"fa fa-rocket\"></i> icon on a passage to set this."
+msgstr ""
+"У этой истории нет отправной точки. Отредактируйте историю, используйте "
+"иконку <i class=\"fa fa-rocket\"></i> у параграфа, чтобы назначить отправную "
+"точку."
+
+#: js/views/storylistview/storyitemview.js:123
+#, javascript-format
+msgid ""
+"Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone."
+msgstr ""
+"Вы действительно хотите удалить &ldquo;%s&rdquo;? Это невозможно будет "
+"отменить."
+
+#: js/views/storylistview/storyitemview.js:125
+msgid "Delete Forever"
+msgstr "Удалить навсегда"
+
+#: js/views/storylistview/storyitemview.js:137
+#, javascript-format
+msgid "What should &ldquo;%s&rdquo; be renamed to?"
+msgstr "Во что переименовать &ldquo;%s&rdquo;?"
+
+#: js/views/storylistview/storyitemview.js:138
+msgid "Rename"
+msgstr "Переименовать"
+
+#: js/views/storylistview/storyitemview.js:155
+msgid "What should the duplicate be named?"
+msgstr "Как назвать дубликат?"
+
+#: js/views/storylistview/storyitemview.js:156
+msgid "Duplicate"
+msgstr "Дублировать"
+
+#: js/views/storylistview/storyitemview.js:162
+#, javascript-format
+msgid "%s Copy"
+msgstr "Копия %s"
+
+#. L10n: %d is a number of stories.
+#: js/views/storylistview/storylistview.js:251
+#, javascript-format
+msgid "%d story was imported."
+msgid_plural "%d stories were imported."
+msgstr[0] "%d история была импортирована."
+msgstr[1] "%d истории была импортирована."
+msgstr[2] "%d историй была импортирована."
+
+#. L10n: %d is a number of stories
+#: js/views/storylistview/storylistview.js:341
+#, javascript-format
+msgid "%d Story"
+msgid_plural "%d Stories"
+msgstr[0] "%d история"
+msgstr[1] "%d истории"
+msgstr[2] "%d историй"
