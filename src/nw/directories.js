@@ -32,22 +32,22 @@ const Directories = module.exports = {
 		L10n: This is the folder name on OS X, Linux, and recent versions of
 		Windows that a user's documents are stored in, relative to the user's
 		home directory. If you need to use a space in this name, then it should
-		have two backslashes (\\) in front of it. Regardless, this must have a
-		single forward slash (/) as its first character.
+		have two backslashes (\\) in front of it.
 		*/
-		let docPath = path.join(homePath, locale.say('/Documents'));
+		let docPath = path.join(homePath, locale.say('Documents'));
 
 		if (fs.existsSync(docPath)) {
 			return docPath;
 		}
 
-		// L10n: This is the folder name on Windows XP that a user's
-		// documents are stored in, relative to the user's home
-		// directory. This is used if a folder with the name given
-		// by the translation key '/Documents' does not exist. If
-		// you need to use a space in // this name, then it should have
-		// two backslashes (\\) in front of it. Regardless, this
-		// must have a single forward slash (/) as its first character.
+		/*
+		L10n: This is the folder name on Windows XP that a user's
+		documents are stored in, relative to the user's home
+		directory. This is used if a folder with the name given
+		by the translation key '/Documents' does not exist. If
+		you need to use a space in this name, then it should have
+		two backslashes (\\) in front of it.
+		*/
 		docPath = path.join(homePath, locale.say('My\\ Documents'));
 
 		if (fs.existsSync(docPath)) {
@@ -69,26 +69,6 @@ const Directories = module.exports = {
 			locale.say('Twine'),
 			locale.say('Stories')
 		);
-	},
-
-	/*
-	Creates a path if it doesn't exist, along with any intermediary directories
-	needed.
-	*/
-
-	createPath(newPath) {
-		const fs = require('fs');
-		const path = require('path');
-
-		let intermediatePath = newPath.startsWith(path.sep) ? path.sep : '';
-
-		newPath.split(path.sep).forEach(dir => {
-			intermediatePath = path.join(intermediatePath, dir);
-
-			if (!fs.existsSync(intermediatePath)) {
-				fs.mkdirSync(intermediatePath);
-			}
-		});
 	},
 
 	/*
