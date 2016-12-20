@@ -33,20 +33,21 @@ module.exports = {
 
 					confirm({
 						message:
-							// L10n: The <span> will have a version number, i.e.
-							// 2.0.6, interpolated into it.
-							locale.say(
-								'A new version of Twine, <span class="version">' +
-								'</span>, has been released.'
-							).replace('><', '>' + version + '<'),
+							/*
+							L10n: The <span> will have a version number, i.e.
+							2.0.6, interpolated into it.
+							*/
+							locale.say('A new version of Twine, <span class="version"></span>, has been released.').replace('><', '>' + version + '<'),
 
 						buttonLabel:
 							'<i class="fa fa-download"></i>' +
 							locale.say('Download'),
 
 						cancelLabel:
-							// L10n: A polite rejection of a request, in the sense that the answer
-							// may change in the future.
+							/*
+							L10n: A polite rejection of a request, in the sense that the answer
+							may change in the future.
+							*/
 							locale.say('Not Right Now'),
 
 						buttonClass:

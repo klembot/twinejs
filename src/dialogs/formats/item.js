@@ -25,10 +25,22 @@ module.exports = Vue.extend({
 		},
 
 		author() {
-			return this.format.properties.author ? locale.say(
+			if (this.format.properties.author) {
 				/* L10n: %s is the name of an author. */
-				'by %s', this.format.properties.author
-			) : '';
+				return locale.say('by %s', this.format.properties.author);
+			}
+			
+			return '';
+		},
+
+		/*
+		Calculates the image source relative to the format's path.
+		*/
+
+		imageSrc() {
+			const path = this.format.url.replace(/\/[^\/]*?$/, '');
+			
+			return path + '/' + this.format.properties.image;
 		}
 	},
 
