@@ -21,6 +21,10 @@ module.exports = {
 			return;
 		}
 
+		if (window.location.hash !== '') {
+			return;
+		}
+
 		require('core-js');
 		require('./index.less');
 
@@ -29,6 +33,7 @@ module.exports = {
 
 		try {
 			const gui = require('nw.gui');
+			const mkdirp = require('mkdirp');
 			const directories = require('./directories');
 			const menus = require('./menus');
 			const patchQuotaGauge = require('./patches/quota-gauge');
@@ -58,7 +63,7 @@ module.exports = {
 			startupTask = 'adding the debugger keyboard shortcut';
 
 			document.addEventListener('keyup', e => {
-				if (e.which == 68 && e.shiftKey && e.altKey && e.ctrlKey) {
+				if (e.which === 68 && e.shiftKey && e.altKey && e.ctrlKey) {
 					win.showDevTools();
 				}
 			});
@@ -68,7 +73,7 @@ module.exports = {
 			startupTask = 'checking for the presence of a Documents or My ' +
 				'Documents directory in your user directory';
 
-			directories.createPath(directories.storiesPath());
+			mkdirp.sync(directories.storiesPath());
 
 			/* Open external links outside the app. */
 
@@ -99,13 +104,10 @@ module.exports = {
 			starting afresh and screw up our model IDs.
 			*/
 
-			if (!global.nwFirstRun) {
-				startupTask = 'initially synchronizing story files';
-				storyFile.loadAll();
-				startupTask = 'initially locking your Stories directory';
-				directories.lockStories();
-				global.nwFirstRun = true;
-			}
+			startupTask = 'initially synchronizing story files';
+			storyFile.loadAll();
+			startupTask = 'initially locking your Stories directory';
+			directories.lockStories();
 
 			/*
 			Monkey patch the store module to save to a file under

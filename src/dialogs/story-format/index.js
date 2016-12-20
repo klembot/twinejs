@@ -110,7 +110,6 @@ module.exports = Vue.extend({
 	},
 
 	components: {
-		'format-detail': require('./detail'),
 		'format-item': require('./item'),
 		'modal-dialog': require('../../ui/modal-dialog')
 	}

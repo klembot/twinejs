@@ -22,7 +22,7 @@ module.exports = {
 			is expecting a string as output, not a function.
 			*/
 			{ test: /\.ejs$/, exclude: /index\.ejs$/, loader: 'ejs' },
-			{ test: /\.html$/, loader: 'raw' },
+			{ test: /\.html$/, loader: 'html' },
 			{ test: /\.less$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader') },
 			{ test: /\.json$/, loader: 'json' }
 		],
