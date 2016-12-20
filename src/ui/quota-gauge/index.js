@@ -17,7 +17,7 @@ module.exports = Vue.extend({
 
 	computed: {
 		percent() {
-			return Math.round(this.used / (this.used + this.free) * 100);
+			return Math.round(this.free / (this.used + this.free) * 100);
 		},
 
 		percentDesc() {
