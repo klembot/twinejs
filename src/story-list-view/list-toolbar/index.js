@@ -35,13 +35,15 @@ module.exports = Vue.extend({
 				origin: e.target
 			}).then(name => {
 				this.createStory({ name });
-				
-				Vue.nextTick(() => {
+
+				/* Allow the appearance animation to complete. */
+
+				window.setTimeout(() => {
 					this.$dispatch(
 						'story-edit',
 						this.existingStories.find(story => story.name === name).id
 					);
-				});
+				}, 300);
 			});
 		},
 
