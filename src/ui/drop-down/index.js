@@ -62,6 +62,10 @@ module.exports = Vue.extend({
 	},
 
 	events: {
+		'drop-down-close'() {
+			this.$drop.close();
+		},
+
 		'drop-down-reposition'() {
 			this.$drop.position();
 		}
