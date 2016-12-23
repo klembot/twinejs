@@ -145,6 +145,12 @@ module.exports = Vue.extend({
 		},
 
 		edit() {
+			/*
+			Close any existing passage menu -- it may still be visible if the user double-clicked.
+			*/
+
+			this.$broadcast('drop-down-close');
+
 			const oldText = this.passage.text;
 
 			new PassageEditor({
