@@ -145,7 +145,7 @@ TwineRouter.map({
 				loadFormat(
 					this.$store,
 					story.storyFormat,
-					story.storyFormatName
+					story.storyFormatVersion
 				).then(format => {
 					replaceUI(publishStoryWithFormat(
 						state.appInfo,
