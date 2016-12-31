@@ -1,4 +1,6 @@
-// A modal which shows aggregrate statistics for a story.
+/*
+A modal which shows aggregrate statistics for a story.
+*/
 
 const Vue = require('vue');
 const moment = require('moment');
@@ -31,9 +33,10 @@ module.exports = Vue.extend({
 		},
 
 		charDesc() {
-			// L10n: Character in the sense of individual letters in a word.
-			// This does not actually include the count, as it is used in a
-			// table.
+			/*
+			L10n: Character in the sense of individual letters in a word.  This
+			does not actually include the count, as it is used in a table.
+			*/
 			return locale.sayPlural('Character', 'Characters', this.charCount);
 		},
 
@@ -45,14 +48,15 @@ module.exports = Vue.extend({
 		},
 
 		wordDesc() {
-			// L10n: Word in the sense of individual words in a sentence.
-			// This does not actually include the count, as it is used in a
-			// table.
+			/*
+			L10n: Word in the sense of individual words in a sentence.  This
+			does not actually include the count, as it is used in a table.
+			*/
 			return locale.sayPlural('Word', 'Words', this.wordCount);
 		},
 
 		links() {
-			// An array of distinct link names.
+			/* An array of distinct link names. */
 
 			return this.story.passages.reduce(
 				(links, passage) => [
@@ -69,8 +73,21 @@ module.exports = Vue.extend({
 			return this.story.passages.map(passage => passage.name);
 		},
 
+		passageCount() {
+			return this.story.passages.length;
+		},
+
+		passageDesc() {
+			/*
+			L10n: Word in the sense of individual words in a sentence.
+			This does not actually include the count, as it is used in a
+			table.
+			*/
+			return locale.sayPlural('Passage', 'Passages', this.passageCount);
+		},
+
 		linkCount() {
-			// This counts repeated links, unlike links().
+			/* This counts repeated links, unlike links(). */
 
 			return this.story.passages.reduce(
 				(count, passage) => count + linkParser(passage.text).length,
@@ -79,22 +96,26 @@ module.exports = Vue.extend({
 		},
 		
 		linkDesc() {
-			// L10n: Links in the sense of hypertext links.
-			// This does not actually include the count, as it is used in a
-			// table.
+			/*
+			L10n: Links in the sense of hypertext links.
+			This does not actually include the count, as it is used in a
+			table.
+			*/
 			return locale.sayPlural('Link', 'Links', this.linkCount);
 		},
 
 		brokenLinkCount() {
 			return this.links.filter(
-				(link) => this.passageNames.indexOf(link) === -1
+				link => this.passageNames.indexOf(link) === -1
 			).length;
 		},
 
 		brokenLinkDesc() {
-			// L10n: Links in the sense of hypertext links.
-			// This does not actually include the count, as it is used in a
-			// table.
+			/*
+			L10n: Links in the sense of hypertext links.
+			This does not actually include the count, as it is used in a
+			table.
+			*/
 			return locale.sayPlural(
 				'Broken Link',
 				'Broken Links',
