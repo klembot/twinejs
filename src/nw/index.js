@@ -58,7 +58,10 @@ module.exports = {
 				win.focus();
 			});
 
-			/* Add a shift-ctrl-alt-D shortcut for displaying dev tools. */
+			/*
+			Add a shift-ctrl-alt-D shortcut for displaying dev tools.
+			Note: this is deprecated as NW.js now lets you press F12 anywhere.
+			*/
 
 			startupTask = 'adding the debugger keyboard shortcut';
 
@@ -93,9 +96,10 @@ module.exports = {
 			/* When quitting, unlock the story directory. */
 
 			startupTask = 'setting up shutdown tasks';
-		
-			process.on('exit', () => {
+
+			gui.Window.get().on('close', function() {
 				directories.unlockStories();
+				this.close(true);
 			});
 
 			/*
