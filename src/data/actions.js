@@ -480,13 +480,13 @@ const actions = module.exports = {
 					const pVer = semverUtils.parse(prev.version);
 					const cVer = semverUtils.parse(current.version);
 
-					if (parseInt(cVer.major) < parseInt(pVer.major) ||
-						parseInt(cVer.minor) < parseInt(pVer.minor) ||
-						parseInt(cVer.patch) < parseInt(pVer.patch)) {
-						return current;
+					if (parseInt(pVer.major) < parseInt(cVer.major) ||
+						parseInt(pVer.minor) < parseInt(cVer.minor) ||
+						parseInt(pVer.patch) < parseInt(cVer.patch)) {
+						return prev;
 					}
 
-					return prev;
+					return current;
 				});
 
 				if (format) {
