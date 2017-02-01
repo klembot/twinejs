@@ -117,8 +117,29 @@
 			padding-left: 0;
 
 			button {
+				position: relative;
 				font: 90% @font-display;			
 				height: 100%;
+
+				&:not(.close):after {
+					content: '';
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					right: 0;
+					height: @len-hairline;
+					background: @color-form-line;
+				}
+
+				&.active:after {
+					content: '';
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					right: 0;
+					height: @len-hairline;
+					background: @color-link;
+				}
 			}
 		}
 	}
