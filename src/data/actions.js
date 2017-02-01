@@ -391,8 +391,8 @@ const actions = module.exports = {
 			},
 			{
 				name: 'SugarCube',
-				url: 'story-formats/sugarcube-2.11.0/format.js',
-				version: '2.11.0',
+				url: 'story-formats/sugarcube-2.12.1/format.js',
+				version: '2.12.1',
 				userAdded: false
 			}
 		];
@@ -463,7 +463,7 @@ const actions = module.exports = {
 				actions.updateStory(
 					store,
 					story.id,
-					{ storyFormat: 'SugarCube', storyFormatVersion: '2.11.0' }
+					{ storyFormat: 'SugarCube', storyFormatVersion: '2.12.1' }
 				);
 			}
 			else if (!story.storyFormatVersion) {
@@ -480,13 +480,13 @@ const actions = module.exports = {
 					const pVer = semverUtils.parse(prev.version);
 					const cVer = semverUtils.parse(current.version);
 
-					if (parseInt(cVer.major) < parseInt(pVer.major) ||
-						parseInt(cVer.minor) < parseInt(pVer.minor) ||
-						parseInt(cVer.patch) < parseInt(pVer.patch)) {
-						return current;
+					if (parseInt(pVer.major) < parseInt(cVer.major) ||
+						parseInt(pVer.minor) < parseInt(cVer.minor) ||
+						parseInt(pVer.patch) < parseInt(cVer.patch)) {
+						return prev;
 					}
 
-					return prev;
+					return current;
 				});
 
 				if (format) {

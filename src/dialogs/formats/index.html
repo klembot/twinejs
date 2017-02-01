@@ -19,7 +19,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="format in storyFormats" is="format-item" :format="format" transition="fade-in-out"></format-item>
+				<tr v-for="format in storyFormats" is="format-item" :format="format" transition="fade-in-out" track-by="$index"></format-item>
 			</tbody>
 		</table>
 	</tab-item>
@@ -38,7 +38,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="format in proofingFormats" is="format-item" :format="format" transition="fade-in-out"></format-item>
+				<tr v-for="format in proofingFormats" is="format-item" :format="format" transition="fade-in-out" track-by="$index"></format-item>
 			</tbody>
 		</table>
 	</tab-item>
