@@ -146,9 +146,9 @@ describe('actions data module', () => {
 		expect(created['SugarCube-1.0.35']).to.exist;
 		expect(created['SugarCube-1.0.35'].url).to.equal('story-formats/sugarcube-1.0.35/format.js');
 		expect(created['SugarCube-1.0.35'].userAdded).to.be.false;	
-		expect(created['SugarCube-2.11.0']).to.exist;
-		expect(created['SugarCube-2.11.0'].url).to.equal('story-formats/sugarcube-2.11.0/format.js');
-		expect(created['SugarCube-2.11.0'].userAdded).to.be.false;	
+		expect(created['SugarCube-2.12.1']).to.exist;
+		expect(created['SugarCube-2.12.1'].url).to.equal('story-formats/sugarcube-2.12.1/format.js');
+		expect(created['SugarCube-2.12.1'].userAdded).to.be.false;	
 	});
 	
 	it('sets default formats with repairFormats()', () => {
@@ -201,7 +201,7 @@ describe('actions data module', () => {
 						{ name: 'Paperthin', version: '1.0.0' },
 						{ name: 'Snowman', version: '1.3.0' },
 						{ name: 'SugarCube', version: '1.0.35' },
-						{ name: 'SugarCube', version: '2.11.0' }
+						{ name: 'SugarCube', version: '2.12.1' }
 					]
 				}
 			}
@@ -267,7 +267,7 @@ describe('actions data module', () => {
 		expect(storiesStore.dispatch.calledWith(
 			'UPDATE_STORY',
 			'also-not-a-real-id',
-			{ storyFormat: 'SugarCube', storyFormatVersion: '2.11.0' }
+			{ storyFormat: 'SugarCube', storyFormatVersion: '2.12.1' }
 		)).to.be.true;
 	});
 
