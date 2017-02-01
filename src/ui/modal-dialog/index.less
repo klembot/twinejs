@@ -84,6 +84,8 @@
 	&.editor {
 		top: @len-small;
 		bottom: @len-small;
+		width: 48em;
+		margin-left: -24em;
 		max-height: none;
 
 		.content {
@@ -115,8 +117,33 @@
 			padding-left: 0;
 
 			button {
+				position: relative;
 				font: 90% @font-display;			
 				height: 100%;
+
+				&:not(.close):after {
+					content: '';
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					right: 0;
+					height: @len-hairline;
+					background: @color-form-line;
+
+					.theme-dark & {
+						background: @color-form-line-dark;
+					}
+				}
+
+				&.active:after {
+					content: '';
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					right: 0;
+					height: @len-hairline;
+					background: @color-link;
+				}
 			}
 		}
 	}

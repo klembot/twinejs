@@ -10,7 +10,7 @@
 	</div> <!-- .left -->
 
 	<div class="right">
-		<story-search :collection="collection"></story-search>
+		<story-search :story="story"></story-search>
 
 		<span class="zooms">
 			<button class="zoomSmall subtle" :class="{ active: zoomDesc === 'small' }" @click="setZoom('small')" title="{{ 'Show only story structure' | say }}">
