@@ -1,14 +1,16 @@
 <tr class="format-item">
 	<td class="selector">
-		<input type="radio" :checked="isDefault" @click="setDefaultFormat" title="{{ 'Set this format as default for stories' | say }}">
+		<input type="radio" :checked="isDefault" @click="setDefaultFormat" title="{{ 'Set this format as default for stories' | say }}" id="{{format.name}}-{{format.properties.version}}">
 	</td>
 
 	<td>
 		<p>
-			<b>{{ format.name }} {{ format.properties.version }}</b>
-			<span v-if="author">
-				{{{ author }}}
-			</span>
+			<label for="{{format.name}}-{{format.properties.version}}">
+				<b>{{ format.name }} {{ format.properties.version }}</b>
+				<span v-if="author">
+					{{{ author }}}
+				</span>
+			</label>
 		</p>
 		<div class="detail" v-if="isDefault">
 			<div class="icon">
