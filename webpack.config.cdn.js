@@ -6,6 +6,11 @@ config.output.path = 'dist/web-cdn';
 
 config.plugins.find(plugin => plugin.options && plugin.options.template).options.cdn = true;
 
+config.module.rules.pop();
+
+config.module.rules[config.module.rules.length - 1].test =
+	/\.(eot|png|svg|ttf|woff|woff2)(\?.*)?$/;
+
 /* Externalize a bunch of dependencies. */
 
 Object.assign(
