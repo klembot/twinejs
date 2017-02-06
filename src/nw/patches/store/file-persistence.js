@@ -1,4 +1,4 @@
-const storyFile = require('../../story-file');
+const StoryFile = require('../../story-file');
 
 let enabled = true;
 let previousStories;
@@ -17,7 +17,7 @@ module.exports = {
 
 			case 'CREATE_STORY':
 			case 'IMPORT_STORY':
-				storyFile.save(
+				StoryFile.save(
 					state.story.stories.find(
 						story => story.name === mutation.payload[0].name
 					),
@@ -26,7 +26,7 @@ module.exports = {
 			break;
 
 			case 'DELETE_STORY':
-				storyFile.delete(previousStories.find(
+				StoryFile.delete(previousStories.find(
 					story => story.id === mutation.payload[0]
 				));
 			break;
@@ -40,7 +40,23 @@ module.exports = {
 			case 'CREATE_PASSAGE_IN_STORY':
 			case 'UPDATE_PASSAGE_IN_STORY':
 			case 'DELETE_PASSAGE_IN_STORY':
-				storyFile.save(
+				/*
+				Special case: if the user has changed the name of a story, we
+				need to delete the old file first.
+				*/
+
+				if (mutation.type === 'UPDATE_STORY' && mutation.payload[1].name) {
+					StoryFile.delete(
+						previousStories.find(
+							story => story.id === mutation.payload[0]
+						),
+						state.appInfo
+					);
+				}
+				
+				/* Save changes as normal. */
+
+				StoryFile.save(
 					state.story.stories.find(
 						story => story.id === mutation.payload[0]
 					),
@@ -53,6 +69,8 @@ module.exports = {
 		We save a copy of the stories structure in aid of deleting, as above.
 		*/
 		
-		previousStories = state.story.stories;
+		previousStories = state.story.stories.map(
+			s => Object.assign({}, s)
+		);
 	}
 };

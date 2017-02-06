@@ -11,6 +11,8 @@ const { changeLinksInStory, updatePassageInStory, loadFormat } = require('../../
 require('codemirror/addon/display/placeholder');
 require('../../codemirror/prefix-trigger');
 
+require('./index.less');
+
 /*
 Expose CodeMirror to story formats, currently for Harlowe compatibility.
 */

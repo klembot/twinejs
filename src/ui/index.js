@@ -7,6 +7,7 @@
 'use strict';
 const $ = require('jquery');
 const fastclick = require('fastclick');
+require('./index.less');
 
 module.exports = {
 	/**

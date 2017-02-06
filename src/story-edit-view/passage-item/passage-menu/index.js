@@ -2,6 +2,7 @@
 
 const Vue = require('vue');
 const { updateStory } = require('../../../data/actions');
+require('./index.less');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),

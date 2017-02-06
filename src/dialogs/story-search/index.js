@@ -4,6 +4,7 @@ passages.
 */
 
 const Vue = require('vue');
+require('./index.less');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -45,8 +46,8 @@ module.exports = Vue.extend({
 			
 			let result = this.passages.reduce((matches, passage) => {
 				let numMatches = 0;
-				let passageName = passage.get('name');
-				let passageText = passage.get('text');
+				let passageName = passage.name;
+				let passageText = passage.text;
 				let highlightedName = passageName;
 				let highlightedText = passageText;
 				let textMatches = passageText.match(this.searchRegexp);

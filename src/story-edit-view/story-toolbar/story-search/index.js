@@ -9,6 +9,13 @@ const SearchDialog = require('../../../dialogs/story-search');
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
+	props: {
+		story: {
+			type: Object,
+			required: true
+		}
+	},
+
 	data: () => ({
 		search: ''
 	}),
@@ -36,7 +43,7 @@ module.exports = Vue.extend({
 		showModal(e) {
 			new SearchDialog({
 				data: {
-					passages: this.collection,
+					passages: this.story.passages,
 					search: this.search,
 					origin: e.target
 				}

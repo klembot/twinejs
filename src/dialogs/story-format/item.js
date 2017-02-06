@@ -2,7 +2,9 @@
 // choose it.
 
 const Vue = require('vue');
+const semverUtils = require('semver-utils');
 const { updateStory } = require('../../data/actions');
+require('./item.less');
 
 module.exports = Vue.extend({
 	template: require('./item.html'),
@@ -20,20 +22,31 @@ module.exports = Vue.extend({
 	},
 
 	computed: {
-		imageSrc() {
-			const path = this.format.url.replace(/\/[^\/]*?$/, '');
-
-			return path + '/' + this.format.properties.image;
+		selected() {
+			return this.story.storyFormat === this.format.name &&
+				this.story.storyFormatVersion === this.format.version;
 		},
 
-		selected() {
-			return this.story.storyFormat === this.format.name;
+		/*
+		Calculates the image source relative to the format's path.
+		*/
+
+		imageSrc() {
+			const path = this.format.url.replace(/\/[^\/]*?$/, '');
+			
+			return path + '/' + this.format.properties.image;
 		}
 	},
 
 	methods: {
 		select() {
-			this.updateStory(this.story.id, { storyFormat: this.format.name });
+			this.updateStory(
+				this.story.id,
+				{
+					storyFormat: this.format.name,
+					storyFormatVersion: this.format.version
+				}
+			);
 		}
 	},
 

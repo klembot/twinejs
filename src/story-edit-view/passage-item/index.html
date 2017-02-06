@@ -1,4 +1,5 @@
-<div class="passage" :style="cssPosition" :class="cssClasses" @mousedown.stop="startDrag" @dblclick.stop="edit" @mouseover="needsMenu = true">
+<div class="passage" :style="cssPosition" :class="cssClasses" @mousedown.stop="startDrag"
+	@touchstart.stop="startDrag" @dblclick.stop="edit" @mouseover="needsMenu = true">
 	<div class="frame">
 		<p class="title">
 			<span class="badge-create" v-if="isStart"><i class="fa fa-rocket"></i></span>

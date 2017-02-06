@@ -7,6 +7,7 @@ const $ = require('jquery');
 const moment = require('moment');
 const Vue = require('vue');
 const ZoomTransition = require('../zoom-transition');
+require('./index.less');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -31,9 +32,9 @@ module.exports = Vue.extend({
 		hue() {
 			// A hue based on the story's name.
 
-			return [this.story.name].reduce(
+			return ([this.story.name].reduce(
 				(hue, char) => hue + char.charCodeAt(0), 0
-			) % 360;
+			) % 40) * 90;
 		}
 	},
 

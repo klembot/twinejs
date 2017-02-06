@@ -487,7 +487,7 @@ msgstr "Geschichte testen"
 
 #: templates/storylistview/storyitemview.html:40
 msgid "Duplicate Story"
-msgstr "Geschichte dublizieren"
+msgstr "Geschichte duplizieren"
 
 #: templates/storylistview/storyitemview.html:46
 msgid "Delete Story"

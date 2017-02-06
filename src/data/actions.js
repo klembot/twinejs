@@ -13,8 +13,18 @@ const actions = module.exports = {
 		dispatch('UPDATE_PREF', name, value);
 	},
 
-	createStory({ dispatch }, props) {
-		dispatch('CREATE_STORY', props);
+	createStory(store, props) {
+		let normalizedProps = Object.assign({}, props);
+
+		/* If a format isn't specified, use the default one. */
+
+		if (!normalizedProps.storyFormat) {
+			normalizedProps.storyFormat = store.state.pref.defaultFormat.name;
+			normalizedProps.storyFormatVersion =
+				store.state.pref.defaultFormat.version;
+		}
+
+		store.dispatch('CREATE_STORY', normalizedProps);
 	},
 
 	updateStory({ dispatch }, id, props) {
@@ -258,6 +268,7 @@ const actions = module.exports = {
 
 				const format = {
 					name: props.name,
+					version: props.version,
 					url,
 					properties: props
 				};
@@ -338,6 +349,7 @@ const actions = module.exports = {
 
 		store.state.storyFormat.formats.forEach(format => {
 			if (typeof format.version !== 'string' || format.version === '') {
+				console.warn(`Deleting unversioned story format ${format.name}`);
 				actions.deleteFormat(store, format.id);
 			}
 		});
@@ -351,6 +363,12 @@ const actions = module.exports = {
 				name: 'Harlowe',
 				url: 'story-formats/harlowe-1.2.3/format.js',
 				version: '1.2.3',
+				userAdded: false
+			},
+			{
+				name: 'Harlowe',
+				url: 'story-formats/harlowe-2.0.0/format.js',
+				version: '2.0.0',
 				userAdded: false
 			},
 			{
@@ -369,6 +387,12 @@ const actions = module.exports = {
 				name: 'SugarCube',
 				url: 'story-formats/sugarcube-1.0.35/format.js',
 				version: '1.0.35',
+				userAdded: false
+			},
+			{
+				name: 'SugarCube',
+				url: 'story-formats/sugarcube-2.12.1/format.js',
+				version: '2.12.1',
 				userAdded: false
 			}
 		];
@@ -439,7 +463,7 @@ const actions = module.exports = {
 				actions.updateStory(
 					store,
 					story.id,
-					{ storyFormat: 'SugarCube', storyFormatVersion: '2.11.0' }
+					{ storyFormat: 'SugarCube', storyFormatVersion: '2.12.1' }
 				);
 			}
 			else if (!story.storyFormatVersion) {
@@ -456,13 +480,13 @@ const actions = module.exports = {
 					const pVer = semverUtils.parse(prev.version);
 					const cVer = semverUtils.parse(current.version);
 
-					if (parseInt(cVer.major) < parseInt(pVer.major) ||
-						parseInt(cVer.minor) < parseInt(pVer.minor) ||
-						parseInt(cVer.patch) < parseInt(pVer.patch)) {
-						return current;
+					if (parseInt(pVer.major) < parseInt(cVer.major) ||
+						parseInt(pVer.minor) < parseInt(cVer.minor) ||
+						parseInt(pVer.patch) < parseInt(cVer.patch)) {
+						return prev;
 					}
 
-					return prev;
+					return current;
 				});
 
 				if (format) {

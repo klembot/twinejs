@@ -3,6 +3,7 @@
 const Vue = require('vue');
 const locale = require('../../locale');
 const { thenable } = require('../../vue/mixins/thenable');
+require('./index.less');
 
 const prompter = module.exports = {
 	component: Vue.extend({
