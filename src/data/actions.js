@@ -192,7 +192,7 @@ const actions = module.exports = {
 		*/
 
 		const oldNameEscaped = oldName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-		const newNameEscaped = newName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+		const newNameEscaped = newName.replace(/\$/g, '$$$$');
 
 		const simpleLinkRe = new RegExp(
 			'\\[\\[' + oldNameEscaped + '(\\]\\[.*?)?\\]\\]',
