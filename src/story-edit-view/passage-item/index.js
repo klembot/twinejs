@@ -1,4 +1,6 @@
-// A single passage in the story map.
+/*
+A single passage in the story map.
+*/
 
 const { escape } = require('underscore');
 const Vue = require('vue');
@@ -14,6 +16,7 @@ const {
 	updatePassageInStory
 } =
 	require('../../data/actions');
+require('./index.less');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -144,6 +147,13 @@ module.exports = Vue.extend({
 		},
 
 		edit() {
+			/*
+			Close any existing passage menu -- it may still be visible if the
+			user double-clicked.
+			*/
+
+			this.$broadcast('drop-down-close');
+
 			const oldText = this.passage.text;
 
 			new PassageEditor({
@@ -169,66 +179,92 @@ module.exports = Vue.extend({
 		},
 
 		startDrag(e) {
-			// Only listen to the left mouse button.
+			/* Only listen to the left mouse button. */
 
-			if (e.which !== 1) {
+			if (e.type === 'mousedown' && e.which !== 1) {
 				return;
 			}
 
 			if (e.shiftKey || e.ctrlKey) {
-				// Shift- or control-clicking toggles our selected status, but
-				// doesn't affect any other passage's selected status.
-				// If the shift or control key was not held down, select only
-				// ourselves.
+				/*
+				Shift- or control-clicking toggles our selected status, but
+				doesn't affect any other passage's selected status. If the shift
+				or control key was not held down, select only ourselves.
+				*/
 
 				this.selected = !this.selected;
 			}
 			else if (!this.selected) {
-				// If we are newly-selected and the shift or control keys are
-				// not held, deselect everything else. The check for
-				// newly-selected status is needed so that if the user is
-				// beginning a drag, we don't deselect everything right away.
-				// The check for that occurs in the mouse up handler, above.
+				/*
+				If we are newly-selected and the shift or control keys are not
+				held, deselect everything else. The check for newly-selected
+				status is needed so that if the user is beginning a drag, we
+				don't deselect everything right away. The check for that occurs
+				in the mouse up handler, above.
+				*/
 
 				this.selected = true;
 				this.$dispatch('passage-deselect-except', this);
 			}
 
-			// Begin tracking a potential drag.
+			/* Begin tracking a potential drag. */
 
-			this.screenDragStartX = e.clientX + window.scrollX;
-			this.screenDragStartY = e.clientY + window.scrollY;
+			const srcPoint = (event.type === 'mousedown') ? e : e.touches[0];
+
+			this.screenDragStartX = srcPoint.clientX + window.scrollX;
+			this.screenDragStartY = srcPoint.clientY + window.scrollY;
 			this.on(window, 'mousemove', this.followDrag);
 			this.on(window, 'mouseup', this.stopDrag);
+			this.on(window, 'touchmove', this.followDrag);
+			this.on(window, 'touchend', this.stopDrag);
 			document.querySelector('body').classList.add('draggingPassages');
 		},
 
 		followDrag(e) {
+			const srcPoint = (event.type === 'mousemove') ? e : e.touches[0];
+
 			this.$dispatch(
 				'passage-drag',
-				e.clientX + window.scrollX - this.screenDragStartX,
-				e.clientY + window.scrollY - this.screenDragStartY
+				srcPoint.clientX + window.scrollX - this.screenDragStartX,
+				srcPoint.clientY + window.scrollY - this.screenDragStartY
 			);
+
+			/*
+			Block scrolling if we're following touch events -- otherwise, the
+			browser will treat it as though the user is dragging to scroll
+			around the screen.
+			*/
+
+			if (e.type === 'touchmove') {
+				e.preventDefault();
+			}
 		},
 
 		stopDrag(e) {
-			// Only listen to the left mouse button.
+			/* Only listen to the left mouse button. */
 
-			if (e.which !== 1) {
+			if (e.type === 'mouseup' && e.which !== 1) {
 				return;
 			}
 
-			// Remove event listeners set up at the start of the drag.
+			/* Remove event listeners set up at the start of the drag. */
 			this.off(window, 'mousemove');
 			this.off(window, 'mouseup');
+			this.off(window, 'touchmove');
+			this.off(window, 'touchend');
+
 			document.querySelector('body').classList.remove('draggingPassages');
 
-			// If we haven't actually been moved and the shift or control key
-			// were not held down, select just this passage only. This handles
-			// the scenario where the user clicks a single passage when several
-			// were selected. We don't want to immediately deselect them all,
-			// as the user may be starting a drag; but now that we know for
-			// sure that the user didn't intend this, we select just this one.
+			/*
+			If we haven't actually been moved and the shift or control key were
+			not held down, select just this passage only. This handles the
+			scenario where the user clicks a single passage when several were
+			selected. We don't want to immediately deselect them all, as the
+			user may be starting a drag; but now that we know for sure that the
+			user didn't intend this, we select just this one.
+			*/
+
+			const srcPoint = (e.type === 'mouseup') ? e : e.touches[0];
 
 			if (this.dragXOffset === 0 && this.dragYOffset === 0) {
 				if (!(e.ctrlKey || e.shiftKey)) {
@@ -236,12 +272,19 @@ module.exports = Vue.extend({
 				}
 			}
 			else {
-				this.$dispatch(
-					'passage-drag-complete',
-					e.clientX + window.scrollX - this.screenDragStartX,
-					e.clientY + window.scrollY - this.screenDragStartY,
-					this
-				);
+				/*
+				touchend events do not include client coordinates, but mouseup
+				events do.
+				*/
+
+				if (e.type === 'mouseup') {
+					this.$dispatch(
+						'passage-drag-complete',
+						e.clientX + window.scrollX - this.screenDragStartX,
+						e.clientY + window.scrollY - this.screenDragStartY,
+						this
+					);
+				}
 			}
 		}
 	},
@@ -280,12 +323,16 @@ module.exports = Vue.extend({
 		},
 
 		'passage-drag-complete'(xOffset, yOffset, emitter) {
-			// We have to check whether we originally emitted this event, as
-			// $dispatch triggers first on ourselves, then our parent.
+			/*
+			We have to check whether we originally emitted this event, as
+			$dispatch triggers first on ourselves, then our parent.
+			*/
 
 			if (this.selected && emitter !== this) {
-				// Because the x and y offsets are in screen coordinates, we
-				// need to convert back to logical space.
+				/*
+				Because the x and y offsets are in screen coordinates, we need
+				to convert back to logical space.
+				*/
 
 				this.updatePassageInStory(
 					this.parentStory.id,
@@ -296,9 +343,12 @@ module.exports = Vue.extend({
 					}
 				);
 
-				// Ask our parent to position us so we overlap no unselected
-				// passages. We need to stipulate that passages are not selected so
-				// that we don't inadvertantly collide with other passages being dragged.
+				/*
+				Ask our parent to position us so we overlap no unselected
+				passages. We need to stipulate that passages are not selected so
+				that we don't inadvertantly collide with other passages being
+				dragged.
+				*/
 
 				this.$dispatch(
 					'passage-position',
@@ -307,8 +357,10 @@ module.exports = Vue.extend({
 				);
 			}
 
-			// Tell our menu that our position has changed, so that it in turn
-			// can change its position.
+			/*
+			Tell our menu that our position has changed, so that it in turn can
+			change its position.
+			*/
 
 			this.$broadcast('drop-down-reposition');
 		},

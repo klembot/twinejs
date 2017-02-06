@@ -102,6 +102,25 @@ button, a.button {
 			box-shadow: none;
 			background: none;
 		}
+
+		&.danger {
+			color: @color-text;
+			background: none;
+			box-shadow: none;
+
+			&:hover {
+				color: @color-danger;
+				background: none;
+			}
+
+			.theme-dark & {
+				color: @color-text-dark;
+
+				&:hover {
+					color: @color-danger;
+				}
+			}
+		}
 	}
 
 	.theme-dark & {
@@ -122,15 +141,32 @@ button, a.button {
 
 	button, a.button {
 		border-radius: 0;
+		border-top: @len-hairline solid @color-form-line;
+		border-bottom: @len-hairline solid @color-form-line;
+
+		.theme-dark & {
+			border-top-color: @color-form-line-dark;
+			border-bottom-color: @color-form-line-dark;
+		}
 
 		&:first-child {
 			border-top-left-radius: @len-tiny;
 			border-bottom-left-radius: @len-tiny;
+			border-left: @len-hairline solid @color-form-line;
+
+			.theme-dark & {
+				border-left-color: @color-form-line-dark;
+			}
 		}
 
 		&:last-child {
 			border-top-right-radius: @len-tiny;
 			border-bottom-right-radius: @len-tiny;
+			border-right: @len-hairline solid @color-form-line;
+
+			.theme-dark & {
+				border-right-color: @color-form-line-dark;
+			}
 		}
 	}
 }

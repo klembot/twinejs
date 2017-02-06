@@ -11,6 +11,7 @@ const locale = require('../locale');
 const { check: checkForAppUpdate } = require('../dialogs/app-update');
 const { check: checkForDonation } = require('../dialogs/app-donation');
 const ImportDialog = require('../dialogs/story-import');
+require('./index.less');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -58,11 +59,11 @@ module.exports = Vue.extend({
 						const aTime = a.lastUpdate.getTime();
 						const bTime = b.lastUpdate.getTime();
 
-						if (aTime > bTime) {
+						if (aTime < bTime) {
 							return 1;
 						}
 
-						if (aTime < bTime) {
+						if (aTime > bTime) {
 							return -1;
 						}
 

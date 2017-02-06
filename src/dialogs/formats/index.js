@@ -1,4 +1,5 @@
 const Vue = require('vue');
+const semverUtils = require('semver-utils');
 const { createFormatFromUrl, loadFormat } = require('../../data/actions');
 const locale = require('../../locale');
 const notify = require('../../ui/notify');
@@ -33,35 +34,11 @@ module.exports = Vue.extend({
 
 	computed: {
 		proofingFormats() {
-			let result = [];
-
-			this.formatNames.forEach(name => {
-				const format = this.loadedFormats.find(
-					format => format.name === name
-				);
-
-				if (format && format.properties.proofing) {
-					result.push(format);
-				}
-			});
-
-			return result;
+			return this.loadedFormats.filter(format => format.properties.proofing);
 		},
 
 		storyFormats() {
-			let result = [];
-
-			this.formatNames.forEach(name => {
-				const format = this.loadedFormats.find(
-					format => format.name === name
-				);
-
-				if (format && !format.properties.proofing) {
-					result.push(format);
-				}
-			});
-
-			return result;
+			return this.loadedFormats.filter(format => !format.properties.proofing);
 		}
 	},
 
@@ -69,8 +46,8 @@ module.exports = Vue.extend({
 		// Loads the next pending format.
 
 		loadNext() {
-			if (this.loadIndex < this.formatNames.length) {
-				this.loadFormat(this.formatNames[this.loadIndex])
+			if (this.loadIndex < this.allFormats.length) {
+				this.loadFormat(this.allFormats[this.loadIndex].name, this.allFormats[this.loadIndex].version)
 				.then(format => {
 					this.loadedFormats.push(format);
 					this.loadIndex++;
@@ -109,28 +86,26 @@ module.exports = Vue.extend({
 			this.working = true;
 
 			this.createFormatFromUrl(this.newFormatUrl)
-			.then(format => {
-				this.error = '';
-				this.working = false;
-				this.loadNext();
+				.then(format => {
+					this.error = '';
+					this.working = false;
+					this.loadedFormats.push(format);
 
-				// Show the tab the format will be loaded into.
-
-				if (format.proofing) {
-					this.$refs.tabs.active = 1;
-				}
-				else {
-					this.$refs.tabs.active = 0;
-				}
-			})
-			.catch(e => {
-				this.error = locale.say(
-					'The story format at %1$s could not be added (%2$s).',
-					this.newFormatUrl,
-					e.message
-				);
-				this.working = false;
-			});
+					if (format.properties.proofing) {
+						this.$refs.tabs.active = 1;
+					}
+					else {
+						this.$refs.tabs.active = 0;
+					}
+				})
+				.catch(e => {
+					this.error = locale.say(
+						'The story format at %1$s could not be added (%2$s).',
+						this.newFormatUrl,
+						e.message
+					);
+					this.working = false;
+				});
 		}
 	},
 
@@ -158,9 +133,52 @@ module.exports = Vue.extend({
 		},
 
 		getters: {
-			formatNames: state => state.storyFormat.formats.map(
-				format => format.name
-			),
+			allFormats: state => {
+				let result = state.storyFormat.formats.map(
+					format => ({ name: format.name, version: format.version })
+				);
+				
+				result.sort((a, b) => {
+					if (a.name < b.name) {
+						return -1;
+					}
+					
+					if (a.name > b.name) {
+						return 1;
+					}
+
+					const aVersion = semverUtils.parse(a.version);
+					const bVersion = semverUtils.parse(b.version);
+
+					if (aVersion.major > bVersion.major) {
+						return -1;
+					}
+					else if (aVersion.major < bVersion.major) {
+						return 1;
+					}
+					else {
+						if (aVersion.minor > bVersion.minor) {
+							return -1;
+						}
+						else if (aVersion.minor < bVersion.minor) {
+							return 1;
+						}
+						else {
+							if (aVersion.patch > bVersion.patch) {
+								return -1;
+							}
+							else if (aVersion.patch < bVersion.patch) {
+								return 1;
+							}
+							else {
+								return 0;
+							}
+						}
+					}
+				});
+
+				return result;
+			},
 			defaultFormatPref: state => state.pref.defaultFormat,
 			proofingFormatPref: state => state.pref.proofingFormat
 		}

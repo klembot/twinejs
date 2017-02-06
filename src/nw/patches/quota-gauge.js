@@ -1,6 +1,6 @@
 // Patches QuotaGauge to keep itself hidden.
 
-module.exports = (QuotaGauge) => {
+module.exports = QuotaGauge => {
 	QuotaGauge.options.template = '';
-	QuotaGauge.options.ready = null;
+	QuotaGauge.options.created = null;
 };

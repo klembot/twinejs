@@ -13,6 +13,7 @@ const domEvents = require('../vue/mixins/dom-events');
 const locale = require('../locale');
 const { passageDefaults } = require('../data/story');
 const zoomSettings = require('./zoom-settings');
+require('./index.less');
 
 // A memoized, sorted array of zoom levels used when zooming in or out.
 
@@ -270,9 +271,9 @@ module.exports = Vue.extend({
 		'passage-drag'(xOffset, yOffset) {
 			if (this.story.snapToGrid) {
 				this.screenDragOffsetX = Math.round(xOffset / this.gridSize) *
-					this.gridSize * this.story.zoom;
+					this.gridSize;
 				this.screenDragOffsetY = Math.round(yOffset / this.gridSize) *
-					this.gridSize * this.story.zoom;
+					this.gridSize;
 			}
 			else {
 				this.screenDragOffsetX = xOffset;
@@ -289,10 +290,8 @@ module.exports = Vue.extend({
 			this.screenDragOffsetY = 0;
 
 			if (this.story.snapToGrid) {
-				xOffset = Math.round(xOffset / this.gridSize) * this.gridSize *
-					this.story.zoom;
-				yOffset = Math.round(yOffset / this.gridSize) * this.gridSize *
-					this.story.zoom;
+				xOffset = Math.round(xOffset / this.gridSize) * this.gridSize;
+				yOffset = Math.round(yOffset / this.gridSize) * this.gridSize;
 			}
 
 			this.$broadcast('passage-drag-complete', xOffset, yOffset);

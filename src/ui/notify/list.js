@@ -2,6 +2,7 @@
 // public API for this.
 
 const Vue = require('vue');
+require('./list.less');
 
 // How long typical notifications (e.g. that aren't errors) appear onscreen.
 

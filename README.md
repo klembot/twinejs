@@ -9,42 +9,40 @@ Michael Edwards, Micah Fitch, Juhana Leinonen, and Ross Smith
 This is a port of Twine to a local browser-based app. See
 [twinery.org](http://twinery.org) for more info.
 
-The story formats in minified format under `storyformats/` exist in separate
+The story formats in minified format under `story-formats/` exist in separate
 repositories:
 
 * [Harlowe](https://bitbucket.org/_L_/harlowe)
-* [Snowman](https://bitbucket.org/klembot/snowman-2)
 * [Paperthin](https://bitbucket.org/klembot/paperthin)
+* [Snowman](https://bitbucket.org/klembot/snowman-2)
+* [SugarCube](https://bitbucket.org/tmedwards/sugarcube)
 
 ### INSTALL
 
 Run `npm install` at the top level of the directory to install all goodies.
 
-You'll also need [Grunt](http://gruntjs.com) to continue. Run `npm install -g grunt-cli`
-(you will need to have administrator privileges to achieve this task).
-
 ### BUILDING
 
-Run `grunt` to perform a basic build under `build/standalone`; `grunt dev` will
-perform the same tasks whenever you make changes to the source code. `grunt nw`
-will create executable app versions of Twine from this directory and place them
-under `build/nwjs/`. `grunt build:cdn` will build a version of Twine that makes
-as much use of CDN resources as possible, and place it under `build/cdn`.
+Run `npm start` to begin serving a development version of Twine to
+http://localhost:8080. This server will automatically update with changes you
+make. You can also create a dev build at `build/` with `npm run build`.
 
-To create downloadable versions of Twine, run `grunt package`. These will be
-placed in the `dist/` directory. An additional file named `2.json` is created
-under `dist/`. This contains information relevant to the autoupdater process, and
-is currently posted to http://twinery.org/latestversion/2.json.
+`npm lint` and `npm test` will lint and test the source code respectively.
 
-In order to build Windows apps on OS X or Linux, you will need to have
-[Wine](https://www.winehq.org/) and [makensis](http://nsis.sourceforge.net/) installed.
+`npm pot` will create a POT template file for localization at
+`src/locale/po/template.pot`. See Localization below for more information.
 
-### TESTING
+`npm nw` will build NW.js-based apps in `dist/nw`. In order to build Windows
+apps on OS X or Linux, you will need to have [Wine](https://www.winehq.org/)
+and [makensis](http://nsis.sourceforge.net/) installed.
 
-Run `grunt test` to run through Selenium-based tests (for now, these only run on
-Firefox). To quit a test run as soon as any error is encountered, run `grunt
-test --bail`. To run a subset of tests, run `grunt test --grep=mysearch`. Only
-tests whose name match the argument you pass will be run.
+To build distributable versions of Twine, use `npm run package`. This will
+create ZIP archives and Windows installer packages under `dist/uploads`. An
+additional file named `2.json` is created under `dist/`. This contains
+information relevant to the autoupdater process, and is currently posted to
+http://twinery.org/latestversion/2.json.
+
+`npm run clean` will delete existing files in `build/` and `dist/`.
 
 ### LOCALIZATION
 

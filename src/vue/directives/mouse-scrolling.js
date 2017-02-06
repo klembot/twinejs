@@ -6,6 +6,7 @@ space bar and left button).
 
 const domEvent = require('dom-event-special');
 const uuid = require('tiny-uuid');
+require('./mouse-scrolling.less');
 
 let namespaces = {};
 

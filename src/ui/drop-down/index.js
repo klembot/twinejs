@@ -3,6 +3,7 @@
 
 const Drop = require('tether-drop');
 const Vue = require('vue');
+require('./index.less');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -35,6 +36,15 @@ module.exports = Vue.extend({
 			classes: this.class,
 			constrainToWindow: true,
 			constrainToScrollParent: false,
+			tetherOptions: {
+				constraints: [
+					{
+						to: 'window',
+						attachment: 'together',
+						pin: true
+					}
+				]
+			}
 		});
 
 		// Close the dropdown when one of its menu items is clicked.
@@ -52,6 +62,10 @@ module.exports = Vue.extend({
 	},
 
 	events: {
+		'drop-down-close'() {
+			this.$drop.close();
+		},
+
 		'drop-down-reposition'() {
 			this.$drop.position();
 		}
