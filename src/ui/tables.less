@@ -1,0 +1,42 @@
+@import '../common/colors.less';
+@import '../common/metrics.less';
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+tbody tr {
+	border-top: 1px solid @color-form-line;
+
+	table.unlined & {
+		border-top-color: transparent;
+	}
+	
+	.theme-dark & {
+		border-top-color: @color-form-line-dark;
+	}
+}
+
+th {
+	font-weight: normal;
+	opacity: 0.8;
+	white-space: nowrap;
+}
+
+td {
+	padding-top: @len-small;
+	padding-bottom: @len-small;
+
+	:first-child {
+		margin-top: 0;
+	}
+
+	:last-child {
+		margin-bottom: 0;
+	}
+
+	table.unlined & {
+		padding: @len-hairline;
+	}
+}
