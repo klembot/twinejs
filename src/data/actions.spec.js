@@ -4,7 +4,7 @@ const actions = require('./actions');
 
 describe('actions data module', () => {
 	const props = { fake: true };
-	const fakeId = fakeId;
+	const fakeId = 'not-a-real-id';
 	let store;
 	
 	beforeEach(() => {
@@ -366,5 +366,77 @@ describe('actions data module', () => {
 
 		actions.createNewlyLinkedPassages(storyStore, fakeId, fakeId, '[[Test 2]]');
 		expect(storyStore.dispatch.called).to.be.false;
+	});
+
+	it('updates links with changeLinksInStory()', () => {
+		let storyStore = {
+			dispatch: spy(),
+			state: {
+				story: {
+					stories: [
+						{
+							id: fakeId,
+							passages: [
+								{
+									id: fakeId,
+									name: 'Test',
+									text: '[[Test 2]]'
+								}
+							]
+						}
+					]
+				}
+			}
+		};
+
+		actions.changeLinksInStory(storyStore, fakeId, 'Test 2', 'Test 2 Changed');
+
+		const firstCall = storyStore.dispatch.getCall(0);
+		expect(firstCall.args[0]).to.equal('UPDATE_PASSAGE_IN_STORY');
+		expect(firstCall.args[1]).to.equal(fakeId);
+		expect(firstCall.args[2]).to.equal(fakeId);
+		expect(firstCall.args[3].text).to.equal('[[Test 2 Changed]]');
+	});
+
+	it('handles regular expression characters with changeLinksInStory()', () => {
+		let storyStore = {
+			dispatch: spy(),
+			state: {
+				story: {
+					stories: [
+						{
+							id: fakeId,
+							passages: [
+								{
+									id: fakeId,
+									name: 'Test',
+									text: '[[.]]'
+								},
+								{
+									id: fakeId + '2',
+									name: 'Test 2',
+									text: '[[2]]'
+								}
+							]
+						}
+					]
+				}
+			}
+		};
+
+		actions.changeLinksInStory(storyStore, fakeId, '.', 'Changed');
+		actions.changeLinksInStory(storyStore, fakeId, '2', '$');
+
+		const firstCall = storyStore.dispatch.getCall(0);
+		expect(firstCall.args[0]).to.equal('UPDATE_PASSAGE_IN_STORY');
+		expect(firstCall.args[1]).to.equal(fakeId);
+		expect(firstCall.args[2]).to.equal(fakeId);
+		expect(firstCall.args[3].text).to.equal('[[Changed]]');
+
+		const secondCall = storyStore.dispatch.getCall(1	);
+		expect(secondCall.args[0]).to.equal('UPDATE_PASSAGE_IN_STORY');
+		expect(secondCall.args[1]).to.equal(fakeId);
+		expect(secondCall.args[2]).to.equal(fakeId + '2');
+		expect(secondCall.args[3].text).to.equal('[[$]]');
 	});
 });
