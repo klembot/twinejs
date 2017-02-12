@@ -1,44 +1,32 @@
 /*
-This helps Vue components listen to DOM events outside their element. Sometimes
-an event listener needs to be attached to the <body> element, for example.
+This helps Vue components listen to DOM events outside their el. Sometimes
+an event listener needs to be attached to the <body> el, for example.
 Using this mixin, the component does not need to hold onto a reference to the
 listeners and manually remove them.
 */
 
-const domEventSpecial = require('dom-event-special');
-const uuid = require('tiny-uuid');
-
-/* A list of all namespaces, indexed by the component. */
-let eventNamespaces = {};
-
-/* A list of all elements that have been listened to, indexed by component. */
-let attachedEls = {};
+/*
+A list of all event listeners, indexed by the component. Each entry is an array
+of objects with event, el, and listener properties.
+*/
+let listeners = {};
 
 module.exports = {
 	init() {
-		/*
-		This is an arbitrary name -- we just need the prefix to ensure it
-		doesn't start with a number.
-		*/
-
-		eventNamespaces[this] = '.e-' + uuid();
-
-		/* We use a set here to ensure that it contains unique values. */
-
-		if (!attachedEls[this]) { 
-			attachedEls[this] = new Set();
+		if (!listeners[this]) { 
+			listeners[this] = [];
 		}
 	},
 
 	beforeDestroy() {
 		/* Clean up event listeners that have been previously attached. */
 
-		if (!attachedEls[this]) {
+		if (!listeners[this]) {
 			return;
 		}
 
-		attachedEls[this].forEach(
-			el => domEventSpecial.off(el, eventNamespaces[this])
+		listeners[this].forEach(
+			props => props.el.removeEventListener(props.event, props.listener)
 		);
 	},
 
@@ -49,20 +37,30 @@ module.exports = {
 		handlers to the component.
 		*/
 
-		on(element, event, handler) {
-			attachedEls[this].add(element);
-			domEventSpecial.on(element, event + eventNamespaces[this], handler.bind(this));
+		on(el, event, listener, options) {
+			const boundListener = listener.bind(this);
+
+			el.addEventListener(event, boundListener, options);
+			listeners[this].push({ el, event, listener: boundListener });
 		},
 
-		/*
-		Removes an event listener type.
-
-		We don't need to do anything special; if we have extraneous entries in
-		attachedEls, it's harmless.  
+		/*	
+		Removes all listeners for an event type.
 		*/
 
-		off(element, event) {
-			domEventSpecial.off(element, event + eventNamespaces[this]);
+		off(el, event) {
+			if (!listeners[this]) {
+				return;
+			}
+
+			listeners[this] = listeners[this].filter(props => {
+				if (props.event === event) {
+					props.el.removeEventListener(props.event, props.listener);
+					return false;
+				}
+
+				return true;
+			});
 		}
 	}
 };

@@ -34,7 +34,6 @@
     "browser-saveas": "^1.0.0",
     "codemirror": "^5.5.0",
     "core-js": "^2.4.0",
-    "dom-event-special": "^0.1.7",
     "ejs-html-loader": "^2.0.2",
     "extract-text-webpack-plugin": "^2.0.0-rc.3",
     "fastclick": "^1.0.6",
