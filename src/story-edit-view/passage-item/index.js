@@ -213,9 +213,9 @@ module.exports = Vue.extend({
 
 			this.screenDragStartX = srcPoint.clientX + window.scrollX;
 			this.screenDragStartY = srcPoint.clientY + window.scrollY;
-			this.on(window, 'mousemove', this.followDrag);
+			this.on(window, 'mousemove', this.followDrag, { passive: false });
 			this.on(window, 'mouseup', this.stopDrag);
-			this.on(window, 'touchmove', this.followDrag);
+			this.on(window, 'touchmove', this.followDrag, { passive: false });
 			this.on(window, 'touchend', this.stopDrag);
 			document.querySelector('body').classList.add('draggingPassages');
 		},
@@ -263,9 +263,7 @@ module.exports = Vue.extend({
 			user may be starting a drag; but now that we know for sure that the
 			user didn't intend this, we select just this one.
 			*/
-
-			const srcPoint = (e.type === 'mouseup') ? e : e.touches[0];
-
+			
 			if (this.dragXOffset === 0 && this.dragYOffset === 0) {
 				if (!(e.ctrlKey || e.shiftKey)) {
 					this.$dispatch('passage-deselect-except', this);
@@ -282,6 +280,14 @@ module.exports = Vue.extend({
 						'passage-drag-complete',
 						e.clientX + window.scrollX - this.screenDragStartX,
 						e.clientY + window.scrollY - this.screenDragStartY,
+						this
+					);
+				}
+				else {
+					this.$dispatch(
+						'passage-drag-complete',
+						this.screenDragOffsetX,
+						this.screenDragOffsetY,
 						this
 					);
 				}
