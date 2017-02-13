@@ -7,6 +7,8 @@ space bar and left button).
 const ui = require('../../ui');
 require('./mouse-scrolling.less');
 
+let handlers = {};
+
 module.exports = {
 	addTo(Vue) {
 		Vue.directive('mouse-scrolling', {
@@ -16,6 +18,8 @@ module.exports = {
 				let mouseOrigin = false;
 				let scrolling = false;
 				let spaceHeld = false;
+
+				handlers[this] = [];
 
 				if (ui.hasPrimaryTouchUI()) {
 					return;
@@ -107,16 +111,36 @@ module.exports = {
 				body.addEventListener('mousedown', handleMouseDown);
 				body.addEventListener('mousemove', handleMouseMove);
 				body.addEventListener('mouseup', handleMouseUp);
-				body.addEventListener('keydown', handleKeyUp);
+				body.addEventListener('keydown', handleKeyDown);
 				body.addEventListener('keyup', handleKeyUp);
+
+				handlers[this] = {
+					'mousedown': handleMouseDown,
+					'mousemove': handleMouseMove,
+					'mouseup': handleMouseUp,
+					'keydown': handleKeyDown,
+					'keyup': handleKeyUp
+				};
+
+				Object.keys(handlers[this]).forEach(
+					event => body.addEventListener(
+						event,
+						handlers[this][event]
+					),
+					this
+				);
 			},
 
 			unbind() {
-				body.removeEventListener('mousedown', handleMouseDown);
-				body.removeEventListener('mousemove', handleMouseMove);
-				body.removeEventListener('mouseup', handleMouseUp);
-				body.removeEventListener('keydown', handleKeyUp);
-				body.removeEventListener('keyup', handleKeyUp);
+				Object.keys(handlers[this]).forEach(
+					event => document.body.removeEventListener(
+						event,
+						handlers[this][event]
+					),
+					this
+				);
+
+				delete handlers[this];
 			}
 		});
 	}
