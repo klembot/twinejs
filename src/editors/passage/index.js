@@ -7,6 +7,7 @@ const Vue = require('vue');
 const locale = require('../../locale');
 const { thenable } = require('../../vue/mixins/thenable');
 const { changeLinksInStory, updatePassageInStory, loadFormat } = require('../../data/actions');
+const { passageDefaults } = require('../../data/story');
 
 require('codemirror/addon/display/placeholder');
 require('../../codemirror/prefix-trigger');
@@ -216,6 +217,18 @@ module.exports = Vue.extend({
 		*/
 
 		this.$refs.codemirror.$cm.setOption('mode', 'text');
+
+		/*
+		Either move the cursor to the end or select the existing text, depending
+		on whether this passage has only default text in it.
+		*/
+
+		if (this.passage.text === passageDefaults.text) {
+			this.$refs.codemirror.$cm.execCommand('selectAll');
+		}
+		else {
+			this.$refs.codemirror.$cm.execCommand('goDocEnd');
+		}
 	},
 
 	destroyed() {
