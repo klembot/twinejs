@@ -4,11 +4,8 @@ may scroll the document by holding down the middle button and dragging (or the
 space bar and left button).
 */
 
-const domEvent = require('dom-event-special');
-const uuid = require('tiny-uuid');
+const ui = require('../../ui');
 require('./mouse-scrolling.less');
-
-let namespaces = {};
 
 module.exports = {
 	addTo(Vue) {
@@ -19,6 +16,10 @@ module.exports = {
 				let mouseOrigin = false;
 				let scrolling = false;
 				let spaceHeld = false;
+
+				if (ui.hasPrimaryTouchUI()) {
+					return;
+				}
 
 				function beginScrolling(e) {
 					/*
@@ -33,9 +34,11 @@ module.exports = {
 					e.preventDefault();
 				}
 
-				domEvent.on(body, 'keydown.mouse-scrolling', e => {
+				function handleKeyDown(e) {
+					/* Space bar */
+
 					if (e.which === 32) {
-						if (!scrolling && !spaceHeld) { // Space bar
+						if (!scrolling && !spaceHeld) {
 							spaceHeld = true;
 							body.classList.add('mouseScrollReady');
 						}
@@ -51,9 +54,9 @@ module.exports = {
 							e.preventDefault();
 						}
 					}
-				});
+				}
 
-				domEvent.on(body, 'mousedown.mouse-scrolling', e => {
+				function handleMouseDown(e) {
 					if (e.which === 2 && !scrolling) { // Middle button
 						beginScrolling(e);
 					}
@@ -63,45 +66,57 @@ module.exports = {
 							beginScrolling(e);
 						}
 					}
-				});
+				}
 
-				domEvent.on(body, 'mousemove.mouse-scrolling', e => {
+				function handleMouseMove(e) {
 					if (scrolling) {
 						window.scrollTo(
 							scrollOrigin[0] + mouseOrigin[0] - e.clientX,
 							scrollOrigin[1] + mouseOrigin[1] - e.clientY
 						);
 					}
-				});
+				}
 
-				domEvent.on(body, 'keyup.mouse-scrolling', e => {
+				function handleKeyUp(e) {
 					if (e.which === 32 && spaceHeld) {
 						scrolling = spaceHeld = false;
 						body.classList.remove('mouseScrollReady', 'mouseScrolling');
 
-						// Prevent the space bar from scrolling the window
-						// down. We have to make sure that by doing so, we
-						// don't accidentally gobble a keystroke meant for a
-						// form element.
+						/*
+						Prevent the space bar from scrolling the window
+						down. We have to make sure that by doing so, we
+						don't accidentally gobble a keystroke meant for a
+						form element.
+						*/
 
 						if (document.activeElement.nodeName !== 'INPUT' &&
 							document.activeElement.nodeName !== 'TEXTAREA') {
 							e.preventDefault();
 						}
 					}
-				});
+				}
 
-				domEvent.on(body, 'mouseup.mouse-scrolling', e => {
+				function handleMouseUp(e) {
 					if ((e.which === 2 || e.which === 1) && scrolling) {
 						scrolling = false;
 						body.classList.remove('mouseScrolling');
 						e.preventDefault();
 					}
-				});
+				}
+
+				body.addEventListener('mousedown', handleMouseDown);
+				body.addEventListener('mousemove', handleMouseMove);
+				body.addEventListener('mouseup', handleMouseUp);
+				body.addEventListener('keydown', handleKeyUp);
+				body.addEventListener('keyup', handleKeyUp);
 			},
 
 			unbind() {
-				domEvent.off(document.body, '.mouse-scrolling');
+				body.removeEventListener('mousedown', handleMouseDown);
+				body.removeEventListener('mousemove', handleMouseMove);
+				body.removeEventListener('mouseup', handleMouseUp);
+				body.removeEventListener('keydown', handleKeyUp);
+				body.removeEventListener('keyup', handleKeyUp);
 			}
 		});
 	}
