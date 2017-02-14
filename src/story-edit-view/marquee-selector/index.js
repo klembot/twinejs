@@ -103,11 +103,13 @@ module.exports = Vue.extend({
 	methods: {
 		startDrag(e) {
 			/*
-			Only listen to the left mouse button, and only when the <body> is
-			not in space-bar scroll mode (see vue/directives/mouse-scrolling).
+			Only listen to clicks with the  left mouse button on the background
+			SVG element (e.g. links) and only when the <body> is not in
+			space-bar scroll mode (see vue/directives/mouse-scrolling).
 			*/
 
-			if (e.which !== 1 || document.body.classList.contains('mouseScrollReady')) {
+			if (e.target.nodeName !== 'svg' || e.which !== 1 ||
+				document.body.classList.contains('mouseScrollReady')) {
 				return;
 			}
 
@@ -178,7 +180,7 @@ module.exports = Vue.extend({
 			if (e.which !== 1) {
 				return;
 			}
-
+			
 			/*
 			If the user never actually moved the mouse (e.g. this was a
 			single click in the story map), deselect everything.
@@ -210,7 +212,7 @@ module.exports = Vue.extend({
 	},
 
 	ready() {
-		this.on(this.$el.parentNode, 'mousedown', this.startDrag.bind(this));
+		this.on(this.$el.parentNode, 'mousedown', this.startDrag);
 	},
 
 	mixins: [domEvents]
