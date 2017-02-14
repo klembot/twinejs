@@ -211,8 +211,8 @@ module.exports = Vue.extend({
 
 			const srcPoint = (event.type === 'mousedown') ? e : e.touches[0];
 
-			this.screenDragStartX = srcPoint.clientX + window.scrollX;
-			this.screenDragStartY = srcPoint.clientY + window.scrollY;
+			this.screenDragStartX = srcPoint.clientX + window.pageXOffset;
+			this.screenDragStartY = srcPoint.clientY + window.pageYOffset;
 			this.on(window, 'mousemove', this.followDrag, { passive: false });
 			this.on(window, 'mouseup', this.stopDrag);
 			this.on(window, 'touchmove', this.followDrag, { passive: false });
@@ -225,8 +225,8 @@ module.exports = Vue.extend({
 
 			this.$dispatch(
 				'passage-drag',
-				srcPoint.clientX + window.scrollX - this.screenDragStartX,
-				srcPoint.clientY + window.scrollY - this.screenDragStartY
+				srcPoint.clientX + window.pageXOffset - this.screenDragStartX,
+				srcPoint.clientY + window.pageYOffset - this.screenDragStartY
 			);
 
 			/*
@@ -278,8 +278,8 @@ module.exports = Vue.extend({
 				if (e.type === 'mouseup') {
 					this.$dispatch(
 						'passage-drag-complete',
-						e.clientX + window.scrollX - this.screenDragStartX,
-						e.clientY + window.scrollY - this.screenDragStartY,
+						e.clientX + window.pageXOffset - this.screenDragStartX,
+						e.clientY + window.pageYOffset - this.screenDragStartY,
 						this
 					);
 				}
