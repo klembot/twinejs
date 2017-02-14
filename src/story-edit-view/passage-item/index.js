@@ -184,7 +184,7 @@ module.exports = Vue.extend({
 			if (e.type === 'mousedown' && e.which !== 1) {
 				return;
 			}
-
+			
 			if (e.shiftKey || e.ctrlKey) {
 				/*
 				Shift- or control-clicking toggles our selected status, but
@@ -213,10 +213,16 @@ module.exports = Vue.extend({
 
 			this.screenDragStartX = srcPoint.clientX + window.pageXOffset;
 			this.screenDragStartY = srcPoint.clientY + window.pageYOffset;
-			this.on(window, 'mousemove', this.followDrag, { passive: false });
-			this.on(window, 'mouseup', this.stopDrag);
-			this.on(window, 'touchmove', this.followDrag, { passive: false });
-			this.on(window, 'touchend', this.stopDrag);
+
+			if (hasPrimaryTouchUI()) {
+				this.on(window, 'touchmove', this.followDrag, { passive: false });
+				this.on(window, 'touchend', this.stopDrag);
+			}
+			else {
+				this.on(window, 'mousemove', this.followDrag, { passive: false });
+				this.on(window, 'mouseup', this.stopDrag);
+			}
+
 			document.querySelector('body').classList.add('draggingPassages');
 		},
 
@@ -248,10 +254,15 @@ module.exports = Vue.extend({
 			}
 
 			/* Remove event listeners set up at the start of the drag. */
-			this.off(window, 'mousemove');
-			this.off(window, 'mouseup');
-			this.off(window, 'touchmove');
-			this.off(window, 'touchend');
+
+			if (hasPrimaryTouchUI()) {
+				this.off(window, 'touchmove');
+				this.off(window, 'touchend');
+			}
+			else {
+				this.off(window, 'mousemove');
+				this.off(window, 'mouseup');
+			}
 
 			document.querySelector('body').classList.remove('draggingPassages');
 

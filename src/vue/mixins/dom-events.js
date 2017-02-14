@@ -41,7 +41,7 @@ module.exports = {
 			const boundListener = listener.bind(this);
 
 			el.addEventListener(event, boundListener, options);
-			listeners[this].push({ el, event, listener: boundListener });
+			listeners[this].push({ el, event, options, listener: boundListener });
 		},
 
 		/*	
@@ -55,7 +55,7 @@ module.exports = {
 
 			listeners[this] = listeners[this].filter(props => {
 				if (props.event === event) {
-					props.el.removeEventListener(props.event, props.listener);
+					props.el.removeEventListener(props.event, props.listener, props.options);
 					return false;
 				}
 

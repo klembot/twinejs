@@ -209,10 +209,6 @@ module.exports = Vue.extend({
 				top -= passageDefaults.height;
 			}
 
-			console.log('creating', left, top);
-			console.log(window.scrollX, window.scrollY);
-			console.log(window.innerWidth, window.innerHeight);
-
 			/*
 			Make sure the name is unique. If it's a duplicate, we add a
 			number at the end (e.g. "Untitled Passage 2", "Untitled Passage
