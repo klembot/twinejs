@@ -256,14 +256,25 @@ const actions = module.exports = {
 				crossDomain: true
 			})
 			.done(props => {
-				if (store.state.storyFormat.formats.some(
-					format => format.name === props.name)) {
+				const pVer = semverUtils.parse(props.version);
+				const pMinor = parseInt(pVer.minor);
+				const pPatch = parseInt(pVer.patch);
+
+				if (store.state.storyFormat.formats.some(current => {
+					const cVer = semverUtils.parse(current.version);
+
+					return current.name === props.name &&
+						cVer.major === pVer.major &&
+						parseInt(cVer.minor) >= pMinor &&
+						parseInt(cVer.patch) >= pPatch;
+				})) {
 					reject(new Error(
 						locale.say(
 							'a story format named &ldquo;%s&rdquo; already exists',
 							props.name
 						)
 					));
+					return;
 				}
 
 				const format = {
@@ -300,15 +311,17 @@ const actions = module.exports = {
 
 		const format = formats.reduce((prev, current) => {
 			const pVer = semverUtils.parse(prev.version);
+			const pMinor = parseInt(pVer.minor);
+			const pPatch = parseInt(pVer.patch);
 			const cVer = semverUtils.parse(current.version);
+			const cMinor = parseInt(cVer.minor);
+			const cPatch = parseInt(cVer.patch);
 
-			if (cVer.major === pVer.major && (parseInt(cVer.minor) >
-				parseInt(pVer.minor) || parseInt(cVer.patch) >
-				parseInt(pVer.minor))) {
-				return current;
+			if (cMinor <= pMinor && cPatch <= pPatch) {
+				return prev;
 			}
 
-			return previous;
+			return current;
 		});
 
 		if (!format) {

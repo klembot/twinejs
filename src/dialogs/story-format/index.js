@@ -39,7 +39,10 @@ module.exports = Vue.extend({
 
 			this.loadFormat(nextFormat.name, nextFormat.version)
 			.then(format => {
-				if (!format.properties.proofing) {
+				if (
+					!format.properties.proofing &&
+					!this.loadedFormats.find(loaded => loaded === format)
+				) {
 					this.loadedFormats.push(format);
 				}
 
