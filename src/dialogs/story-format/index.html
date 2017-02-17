@@ -1,0 +1,17 @@
+<modal-dialog id="storyFormatModal" :origin="origin">
+	<span slot="title">{{ 'Story Format' | say }}</span>
+
+	<p>
+		{{ 'A story format controls the appearance and behavior of your story during play.' | say }}
+	</p>
+
+	<p v-if="working" transition="fade-in-out">
+		<i class="fa fa-circle-o-notch fa-lg fa-spin"></i> {{ 'Loading...' | say }}
+	</p>
+
+	<table class="lined">
+		<tbody>
+			<tr v-for="format in loadedFormats" is="format-item" :format="format" :story="story" transition="fade-in-out" track-by="$index"></format-item>
+		</tbody>
+	</table>
+</modal-dialog>
