@@ -1,0 +1,25 @@
+.modal-dialog.prompt {
+	.message {
+		padding-left: 3.5em;
+		position: relative;
+
+		&:before {
+			content: '\f059';
+			font: 250% FontAwesome;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 1em;
+			text-align: center;
+			color: #ccc;
+		}
+	}
+
+	.prompt {
+		margin-left: 4em;
+
+		input[type="text"] {
+			width: 100%;
+		}
+	}
+}

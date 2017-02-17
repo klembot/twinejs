@@ -1,0 +1,91 @@
+/* a lightweight replacement for Bootstrap styles */
+
+@import '../common/colors.less';
+@import '../common/fonts.less';
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background-color: @color-paper;
+	color: @color-text;
+	margin: 0;
+	font-family: @font-ui;
+	overflow: auto;
+
+	&.locked {
+		overflow: hidden;
+	}
+
+	&.theme-dark {
+		background-color: @color-paper-dark;
+		color: @color-text-dark;
+	}
+}
+
+a {
+	color: @color-link;
+	text-decoration: none;
+
+	&.subtle {
+		color: @color-text;
+	}
+
+	&:hover {
+		color: lighten(@color-link, 10%);
+		text-decoration: underline;
+	}
+
+	.theme-dark & {
+		color: @color-link-dark;
+
+		&.subtle {
+			color: @color-text-dark;
+		}
+
+		&:hover {
+			color: lighten(@color-link-dark, 10%);
+		}
+	}
+}
+
+ul.plain {
+	list-style-type: none;
+	margin-left: 0;
+	padding-left: 0;
+}
+
+.block {
+	display: block;
+	width: 100%;
+}
+
+.hide {
+	display: none;
+}
+
+.error {
+	background-color: hsl(hue(@color-danger), 50%, 97%);
+	padding: @len-small-rel @len-small-rel @len-small-rel 2em;
+	position: relative;
+
+	&:before {
+		content: '\f071';
+		font-family: FontAwesome;
+		color: @color-danger;
+		padding-right: 0.5em;
+		position: absolute;
+		top: 0.5em;
+		left: 0.5em;
+	}
+}
+
+@import './badges.less';
+@import './buttons.less';
+@import './forms.less';
+@import './gauge.less';
+@import './menus.less';
+@import './tables.less';
+@import './tags.less';
+@import './toolbar.less';
