@@ -1,0 +1,18 @@
+<modal-dialog :class="'prompt no-header ' + modalClass" :origin="origin">
+	<form @submit.prevent="accept">
+		<div class="message larger">{{{message}}}</div>
+
+		<p class="error" v-if="!isValid" transition="fade-in-out">
+			{{ validationError }}
+		</p>
+
+		<p class="prompt">
+			<input type="text" class="block" required v-model="response" v-el:response>
+		</p>
+
+		<p class="buttons">
+			<button type="button" @click="cancel">{{{cancelLabel}}}</button>
+			<button type="submit" :class="buttonClass">{{{buttonLabel}}}</button>
+		</p>
+	</form>
+</modal-dialog>
