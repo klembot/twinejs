@@ -270,7 +270,7 @@ const actions = module.exports = {
 				})) {
 					reject(new Error(
 						locale.say(
-							'a story format named &ldquo;%s&rdquo; already exists',
+							'a more recent version of the story format &ldquo;%s&rdquo; is already installed',
 							props.name
 						)
 					));
