@@ -49,10 +49,7 @@ module.exports = Vue.extend({
 			if (this.loadIndex < this.allFormats.length) {
 				this.loadFormat(this.allFormats[this.loadIndex].name, this.allFormats[this.loadIndex].version)
 				.then(format => {
-					if (!this.loadedFormats.find(loaded => loaded === format)) {
-						this.loadedFormats.push(format);
-					}
-
+					this.loadedFormats.push(format);
 					this.loadIndex++;
 					this.loadNext();
 				})
