@@ -404,8 +404,8 @@ const actions = module.exports = {
 			},
 			{
 				name: 'SugarCube',
-				url: 'story-formats/sugarcube-2.13.0/format.js',
-				version: '2.13.0',
+				url: 'story-formats/sugarcube-2.14.0/format.js',
+				version: '2.14.0',
 				userAdded: false
 			}
 		];
@@ -476,7 +476,7 @@ const actions = module.exports = {
 				actions.updateStory(
 					store,
 					story.id,
-					{ storyFormat: 'SugarCube', storyFormatVersion: '2.13.0' }
+					{ storyFormat: 'SugarCube', storyFormatVersion: '2.14.0' }
 				);
 			}
 			else if (!story.storyFormatVersion) {
