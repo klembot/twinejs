@@ -456,6 +456,37 @@ const actions = module.exports = {
 				{ name: 'Paperthin', version: '1.0.0' }
 			);
 		}
+
+		/*
+		Delete any outdated formats.
+		*/
+
+		const latestVersions = {};
+
+		store.state.storyFormat.formats.forEach(format => {
+			const v = semverUtils.parse(format.version);
+
+			if (latestVersions[format.name]) {
+				const existing = latestVersions[format.name];
+
+				if (v.major > existing.major ||
+					(v.major === existing.major && v.minor > existing.minor) ||
+					(v.major === existing.major && v.minor === existing.minor
+						&& v.patch > existing.patch)) {
+					latestVersions[format.name] = v;
+				}
+			}
+			else {
+				latestVersions[format.name] = v;
+			}
+		});
+
+		store.state.storyFormat.formats.forEach(format => {
+			if (format.version !== latestVersions[format.name]) {
+				console.warn(`Deleting outdated story format ${format.name}`);
+				actions.deleteFormat(store, format.id);
+			}
+		});
 	},
 
 	/*
