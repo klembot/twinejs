@@ -260,6 +260,23 @@ const actions = module.exports = {
 				const pMinor = parseInt(pVer.minor);
 				const pPatch = parseInt(pVer.patch);
 
+				/*
+				Check for an identical version.
+				*/
+
+				if (store.state.storyFormat.formats.some(current => {
+					return existing.version === props.version;
+				})) {
+					reject(new Error(
+						locale.say('this story format is already installed')
+					));
+					return;
+				}
+
+				/*
+				Check for a more recent version.
+				*/
+
 				if (store.state.storyFormat.formats.some(current => {
 					const cVer = semverUtils.parse(current.version);
 
