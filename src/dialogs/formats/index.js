@@ -87,6 +87,7 @@ module.exports = Vue.extend({
 
 			this.createFormatFromUrl(this.newFormatUrl)
 				.then(format => {
+					this.repairFormats();
 					this.error = '';
 					this.working = false;
 					this.loadedFormats.push(format);
@@ -129,7 +130,8 @@ module.exports = Vue.extend({
 	vuex: {
 		actions: {
 			createFormatFromUrl,
-			loadFormat
+			loadFormat,
+			repairFormats
 		},
 
 		getters: {
