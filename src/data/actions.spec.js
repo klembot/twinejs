@@ -211,6 +211,26 @@ describe('actions data module', () => {
 		expect(formatsStore.dispatch.calledWith('CREATE_FORMAT')).to.be.false;
 	});
 
+	it('deletes outdated story format versions with repairFormats()', () => {
+		let formatsStore = {
+			dispatch: spy(),
+			state: {
+				pref: {},
+				storyFormat: {
+					formats: [
+						{ name: 'Harlowe', version: '1.2.3' },
+						{ id: fakeId, name: 'Harlowe', version: '1.2.1' },
+						{ name: 'Harlowe', version: '2.0.0' }
+					]
+				}
+			}
+		};
+		
+		actions.repairFormats(formatsStore);		
+		expect(formatsStore.dispatch.calledWith('DELETE_FORMAT')).to.be.true;
+		expect(formatsStore.dispatch.calledWith('DELETE_FORMAT', fakeId)).to.be.true;
+	});
+
 	it('sets default formats on stories with repairStories()', () => {
 		let storiesStore = {
 			dispatch: spy(),
