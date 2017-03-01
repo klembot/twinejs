@@ -464,26 +464,39 @@ const actions = module.exports = {
 		const latestVersions = {};
 
 		store.state.storyFormat.formats.forEach(format => {
+			if (!format.version) {
+				return;
+			}
+
 			const v = semverUtils.parse(format.version);
 
 			if (latestVersions[format.name]) {
-				const existing = latestVersions[format.name];
+				const existing = latestVersions[format.name][v.major];
 
-				if (v.major > existing.major ||
-					(v.major === existing.major && v.minor > existing.minor) ||
-					(v.major === existing.major && v.minor === existing.minor
-						&& v.patch > existing.patch)) {
-					latestVersions[format.name] = v;
+				if (!existing ||
+					v.minor > existing.minor ||
+					v.minor === existing.minor && v.patch > existing.patch) {
+					latestVersions[format.name][v.major] = v;
 				}
 			}
 			else {
-				latestVersions[format.name] = v;
+				latestVersions[format.name] = {};
+				latestVersions[format.name][v.major] = v;
 			}
 		});
 
 		store.state.storyFormat.formats.forEach(format => {
-			if (format.version !== latestVersions[format.name]) {
-				console.warn(`Deleting outdated story format ${format.name}`);
+			if (!format.version) {
+				return;
+			}
+
+			const v = semverUtils.parse(format.version);
+
+			if (v.version !== latestVersions[format.name][v.major].version) {
+				console.warn(
+					`Deleting outdated story format ${format.name} ` +
+					v.version
+				);
 				actions.deleteFormat(store, format.id);
 			}
 		});

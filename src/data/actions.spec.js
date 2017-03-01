@@ -179,19 +179,19 @@ describe('actions data module', () => {
 				pref: {},
 				storyFormat: {
 					formats: [
-						{ name: 'Test' }
+						{ id: fakeId, name: 'Test' }
 					]
 				}
 			}
 		};
 		
 		actions.repairFormats(formatsStore);		
-		expect(formatsStore.dispatch.calledWith('DELETE_FORMAT')).to.be.true;
+		expect(formatsStore.dispatch.calledWith('DELETE_FORMAT', fakeId)).to.be.true;
 	});
 	
 	it('does not duplicate formats with repairFormats()', () => {
 		let formatsStore = {
-			dispatch: spy(),
+			dispatch: spy().withArgs('CREATE_FORMAT'),
 			state: {
 				pref: {},
 				storyFormat: {
@@ -208,7 +208,7 @@ describe('actions data module', () => {
 		};
 		
 		actions.repairFormats(formatsStore);		
-		expect(formatsStore.dispatch.calledWith('CREATE_FORMAT')).to.be.false;
+		expect(formatsStore.dispatch.calledOnce).to.be.false;
 	});
 
 	it('deletes outdated story format versions with repairFormats()', () => {
@@ -218,17 +218,17 @@ describe('actions data module', () => {
 				pref: {},
 				storyFormat: {
 					formats: [
-						{ name: 'Harlowe', version: '1.2.3' },
-						{ id: fakeId, name: 'Harlowe', version: '1.2.1' },
-						{ name: 'Harlowe', version: '2.0.0' }
+						{ name: 'Custom', version: '1.2.3' },
+						{ id: fakeId, name: 'Custom', version: '1.2.1' },
+						{ name: 'Custom', version: '2.0.0' }
 					]
 				}
 			}
 		};
-		
-		actions.repairFormats(formatsStore);		
-		expect(formatsStore.dispatch.calledWith('DELETE_FORMAT')).to.be.true;
-		expect(formatsStore.dispatch.calledWith('DELETE_FORMAT', fakeId)).to.be.true;
+
+		formatsStore.dispatch.withArgs('DELETE_FORMAT', fakeId);
+		actions.repairFormats(formatsStore);
+		expect(formatsStore.dispatch.withArgs('DELETE_FORMAT', fakeId).calledOnce).to.be.true;
 	});
 
 	it('sets default formats on stories with repairStories()', () => {
