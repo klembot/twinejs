@@ -92,6 +92,7 @@
     "less-loader": "^2.2.3",
     "less-plugin-autoprefix": "^1.5.1",
     "less-plugin-clean-css": "^1.5.1",
+    "mocha": "^3.2.0",
     "nw-builder": "^3.1.2",
     "po2json": "^0.4.5",
     "pofile": "^1.0.2",
