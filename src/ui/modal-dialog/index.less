@@ -21,9 +21,8 @@
 	display: flex;
 	flex-direction: column;
 	top: @len-extra-large;
-	left: 50%;
+	left: calc(~"(100vw - 40em) / 2");
 	background: @color-paper;
-	margin-left: -20em;
 	width: 40em;
 	max-height: calc(~"100% - " 2 * @len-extra-large);
 	border-radius: 2px;
@@ -85,7 +84,7 @@
 		top: @len-small;
 		bottom: @len-small;
 		width: 48em;
-		margin-left: -24em;
+		left: calc(~"(100vw - 48em) / 2");
 		max-height: none;
 
 		.content {

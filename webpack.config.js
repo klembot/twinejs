@@ -11,25 +11,51 @@ module.exports = {
 		path: 'build/',
 		filename: 'twine.js'
 	},
+	stats: 'none',
 	module: {
-		loaders: [
+		rules: [
 			/*
 			Inline any resurces below 10k in size.
 			*/
-			{ test: /\.(eot|png|svg|ttf|woff|woff2)(\?.*)?$/, loader: 'url-loader?limit=10000&name=rsrc/[name].[hash].[ext]' },
+			{
+				test: /\.(eot|png|svg|ttf|woff|woff2)(\?.*)?$/,
+				loader: 'url-loader',
+				options: {
+					limit: 10000,
+					name: 'rsrc/[name].[hash].[ext]'
+				}
+			},
 			/*
 			We must exclude the top-level template, as I think the HTML plugin
 			is expecting a string as output, not a function.
 			*/
-			{ test: /\.ejs$/, exclude: /index\.ejs$/, loader: 'ejs' },
-			{ test: /\.html$/, loader: 'html' },
-			{ test: /\.less$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader') },
-			{ test: /\.json$/, loader: 'json' }
-		],
-	},
-	lessLoader: {
-		lessPlugins: [
-			new Autoprefixer({ browsers: ['iOS 1-9', 'last 2 versions'] })
+			{
+				test: /\.ejs$/,
+				exclude: /index\.ejs$/,
+				loader: 'ejs-loader'
+			},
+			{
+				test: /\.html$/,
+				loader: 'html-loader'
+			},
+			{
+				test: /\.less$/,
+				loader: ExtractTextPlugin.extract({
+					use: [
+						'css-loader',
+						{
+							loader: 'less-loader',
+							options: {
+								plugins: [
+									new Autoprefixer({
+										browsers: ['iOS 1-9', 'last 2 versions']
+									})
+								]
+							}
+						}
+					]					
+				})
+			}
 		]
 	},
 	/*

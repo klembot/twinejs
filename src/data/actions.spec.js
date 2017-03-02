@@ -4,7 +4,7 @@ const actions = require('./actions');
 
 describe('actions data module', () => {
 	const props = { fake: true };
-	const fakeId = fakeId;
+	const fakeId = 'not-a-real-id';
 	let store;
 	
 	beforeEach(() => {
@@ -146,9 +146,9 @@ describe('actions data module', () => {
 		expect(created['SugarCube-1.0.35']).to.exist;
 		expect(created['SugarCube-1.0.35'].url).to.equal('story-formats/sugarcube-1.0.35/format.js');
 		expect(created['SugarCube-1.0.35'].userAdded).to.be.false;	
-		expect(created['SugarCube-2.12.1']).to.exist;
-		expect(created['SugarCube-2.12.1'].url).to.equal('story-formats/sugarcube-2.12.1/format.js');
-		expect(created['SugarCube-2.12.1'].userAdded).to.be.false;	
+		expect(created['SugarCube-2.14.0']).to.exist;
+		expect(created['SugarCube-2.14.0'].url).to.equal('story-formats/sugarcube-2.14.0/format.js');
+		expect(created['SugarCube-2.14.0'].userAdded).to.be.false;	
 	});
 	
 	it('sets default formats with repairFormats()', () => {
@@ -179,19 +179,19 @@ describe('actions data module', () => {
 				pref: {},
 				storyFormat: {
 					formats: [
-						{ name: 'Test' }
+						{ id: fakeId, name: 'Test' }
 					]
 				}
 			}
 		};
 		
 		actions.repairFormats(formatsStore);		
-		expect(formatsStore.dispatch.calledWith('DELETE_FORMAT')).to.be.true;
+		expect(formatsStore.dispatch.calledWith('DELETE_FORMAT', fakeId)).to.be.true;
 	});
 	
 	it('does not duplicate formats with repairFormats()', () => {
 		let formatsStore = {
-			dispatch: spy(),
+			dispatch: spy().withArgs('CREATE_FORMAT'),
 			state: {
 				pref: {},
 				storyFormat: {
@@ -201,14 +201,34 @@ describe('actions data module', () => {
 						{ name: 'Paperthin', version: '1.0.0' },
 						{ name: 'Snowman', version: '1.3.0' },
 						{ name: 'SugarCube', version: '1.0.35' },
-						{ name: 'SugarCube', version: '2.12.1' }
+						{ name: 'SugarCube', version: '2.14.0' }
 					]
 				}
 			}
 		};
 		
 		actions.repairFormats(formatsStore);		
-		expect(formatsStore.dispatch.calledWith('CREATE_FORMAT')).to.be.false;
+		expect(formatsStore.dispatch.calledOnce).to.be.false;
+	});
+
+	it('deletes outdated story format versions with repairFormats()', () => {
+		let formatsStore = {
+			dispatch: spy(),
+			state: {
+				pref: {},
+				storyFormat: {
+					formats: [
+						{ name: 'Custom', version: '1.2.3' },
+						{ id: fakeId, name: 'Custom', version: '1.2.1' },
+						{ name: 'Custom', version: '2.0.0' }
+					]
+				}
+			}
+		};
+
+		formatsStore.dispatch.withArgs('DELETE_FORMAT', fakeId);
+		actions.repairFormats(formatsStore);
+		expect(formatsStore.dispatch.withArgs('DELETE_FORMAT', fakeId).calledOnce).to.be.true;
 	});
 
 	it('sets default formats on stories with repairStories()', () => {
@@ -267,7 +287,7 @@ describe('actions data module', () => {
 		expect(storiesStore.dispatch.calledWith(
 			'UPDATE_STORY',
 			'also-not-a-real-id',
-			{ storyFormat: 'SugarCube', storyFormatVersion: '2.12.1' }
+			{ storyFormat: 'SugarCube', storyFormatVersion: '2.14.0' }
 		)).to.be.true;
 	});
 
@@ -366,5 +386,77 @@ describe('actions data module', () => {
 
 		actions.createNewlyLinkedPassages(storyStore, fakeId, fakeId, '[[Test 2]]');
 		expect(storyStore.dispatch.called).to.be.false;
+	});
+
+	it('updates links with changeLinksInStory()', () => {
+		let storyStore = {
+			dispatch: spy(),
+			state: {
+				story: {
+					stories: [
+						{
+							id: fakeId,
+							passages: [
+								{
+									id: fakeId,
+									name: 'Test',
+									text: '[[Test 2]]'
+								}
+							]
+						}
+					]
+				}
+			}
+		};
+
+		actions.changeLinksInStory(storyStore, fakeId, 'Test 2', 'Test 2 Changed');
+
+		const firstCall = storyStore.dispatch.getCall(0);
+		expect(firstCall.args[0]).to.equal('UPDATE_PASSAGE_IN_STORY');
+		expect(firstCall.args[1]).to.equal(fakeId);
+		expect(firstCall.args[2]).to.equal(fakeId);
+		expect(firstCall.args[3].text).to.equal('[[Test 2 Changed]]');
+	});
+
+	it('handles regular expression characters with changeLinksInStory()', () => {
+		let storyStore = {
+			dispatch: spy(),
+			state: {
+				story: {
+					stories: [
+						{
+							id: fakeId,
+							passages: [
+								{
+									id: fakeId,
+									name: 'Test',
+									text: '[[.]]'
+								},
+								{
+									id: fakeId + '2',
+									name: 'Test 2',
+									text: '[[2]]'
+								}
+							]
+						}
+					]
+				}
+			}
+		};
+
+		actions.changeLinksInStory(storyStore, fakeId, '.', 'Changed');
+		actions.changeLinksInStory(storyStore, fakeId, '2', '$');
+
+		const firstCall = storyStore.dispatch.getCall(0);
+		expect(firstCall.args[0]).to.equal('UPDATE_PASSAGE_IN_STORY');
+		expect(firstCall.args[1]).to.equal(fakeId);
+		expect(firstCall.args[2]).to.equal(fakeId);
+		expect(firstCall.args[3].text).to.equal('[[Changed]]');
+
+		const secondCall = storyStore.dispatch.getCall(1	);
+		expect(secondCall.args[0]).to.equal('UPDATE_PASSAGE_IN_STORY');
+		expect(secondCall.args[1]).to.equal(fakeId);
+		expect(secondCall.args[2]).to.equal(fakeId + '2');
+		expect(secondCall.args[3].text).to.equal('[[$]]');
 	});
 });

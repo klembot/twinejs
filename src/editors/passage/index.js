@@ -7,6 +7,7 @@ const Vue = require('vue');
 const locale = require('../../locale');
 const { thenable } = require('../../vue/mixins/thenable');
 const { changeLinksInStory, updatePassageInStory, loadFormat } = require('../../data/actions');
+const { passageDefaults } = require('../../data/story');
 
 require('codemirror/addon/display/placeholder');
 require('../../codemirror/prefix-trigger');
@@ -189,7 +190,11 @@ module.exports = Vue.extend({
 				this.$options.storyFormat.name,
 				this.$options.storyFormat.version
 			).then(format => {
-				const modeName = format.name.toLowerCase();
+				let modeName = format.name.toLowerCase();
+				/* TODO: Resolve this special case with PR #118 */
+				if (modeName === "harlowe") {
+					modeName += `-${/^\d+/.exec(format.version)}`;
+				}
 
 				if (modeName in CodeMirror.modes) {
 					/*
@@ -216,6 +221,18 @@ module.exports = Vue.extend({
 		*/
 
 		this.$refs.codemirror.$cm.setOption('mode', 'text');
+
+		/*
+		Either move the cursor to the end or select the existing text, depending
+		on whether this passage has only default text in it.
+		*/
+
+		if (this.passage.text === passageDefaults.text) {
+			this.$refs.codemirror.$cm.execCommand('selectAll');
+		}
+		else {
+			this.$refs.codemirror.$cm.execCommand('goDocEnd');
+		}
 	},
 
 	destroyed() {

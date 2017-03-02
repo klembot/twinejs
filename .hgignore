@@ -10,3 +10,4 @@ cache
 dist-apps
 build
 nw-cache
+nwbuilder-cache

@@ -192,7 +192,7 @@ const actions = module.exports = {
 		*/
 
 		const oldNameEscaped = oldName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-		const newNameEscaped = newName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+		const newNameEscaped = newName.replace(/\$/g, '$$$$');
 
 		const simpleLinkRe = new RegExp(
 			'\\[\\[' + oldNameEscaped + '(\\]\\[.*?)?\\]\\]',
@@ -256,14 +256,42 @@ const actions = module.exports = {
 				crossDomain: true
 			})
 			.done(props => {
-				if (store.state.storyFormat.formats.some(
-					format => format.name === props.name)) {
+				const pVer = semverUtils.parse(props.version);
+				const pMinor = parseInt(pVer.minor);
+				const pPatch = parseInt(pVer.patch);
+
+				/*
+				Check for an identical version.
+				*/
+
+				if (store.state.storyFormat.formats.some(current => {
+					return existing.version === props.version;
+				})) {
+					reject(new Error(
+						locale.say('this story format is already installed')
+					));
+					return;
+				}
+
+				/*
+				Check for a more recent version.
+				*/
+
+				if (store.state.storyFormat.formats.some(current => {
+					const cVer = semverUtils.parse(current.version);
+
+					return current.name === props.name &&
+						cVer.major === pVer.major &&
+						parseInt(cVer.minor) >= pMinor &&
+						parseInt(cVer.patch) >= pPatch;
+				})) {
 					reject(new Error(
 						locale.say(
-							'a story format named &ldquo;%s&rdquo; already exists',
+							'a more recent version of the story format &ldquo;%s&rdquo; is already installed',
 							props.name
 						)
 					));
+					return;
 				}
 
 				const format = {
@@ -300,15 +328,17 @@ const actions = module.exports = {
 
 		const format = formats.reduce((prev, current) => {
 			const pVer = semverUtils.parse(prev.version);
+			const pMinor = parseInt(pVer.minor);
+			const pPatch = parseInt(pVer.patch);
 			const cVer = semverUtils.parse(current.version);
+			const cMinor = parseInt(cVer.minor);
+			const cPatch = parseInt(cVer.patch);
 
-			if (cVer.major === pVer.major && (parseInt(cVer.minor) >
-				parseInt(pVer.minor) || parseInt(cVer.patch) >
-				parseInt(pVer.minor))) {
-				return current;
+			if (cMinor <= pMinor && cPatch <= pPatch) {
+				return prev;
 			}
 
-			return previous;
+			return current;
 		});
 
 		if (!format) {
@@ -391,8 +421,8 @@ const actions = module.exports = {
 			},
 			{
 				name: 'SugarCube',
-				url: 'story-formats/sugarcube-2.12.1/format.js',
-				version: '2.12.1',
+				url: 'story-formats/sugarcube-2.14.0/format.js',
+				version: '2.14.0',
 				userAdded: false
 			}
 		];
@@ -426,6 +456,50 @@ const actions = module.exports = {
 				{ name: 'Paperthin', version: '1.0.0' }
 			);
 		}
+
+		/*
+		Delete any outdated formats.
+		*/
+
+		const latestVersions = {};
+
+		store.state.storyFormat.formats.forEach(format => {
+			if (!format.version) {
+				return;
+			}
+
+			const v = semverUtils.parse(format.version);
+
+			if (latestVersions[format.name]) {
+				const existing = latestVersions[format.name][v.major];
+
+				if (!existing ||
+					v.minor > existing.minor ||
+					v.minor === existing.minor && v.patch > existing.patch) {
+					latestVersions[format.name][v.major] = v;
+				}
+			}
+			else {
+				latestVersions[format.name] = {};
+				latestVersions[format.name][v.major] = v;
+			}
+		});
+
+		store.state.storyFormat.formats.forEach(format => {
+			if (!format.version) {
+				return;
+			}
+
+			const v = semverUtils.parse(format.version);
+
+			if (v.version !== latestVersions[format.name][v.major].version) {
+				console.warn(
+					`Deleting outdated story format ${format.name} ` +
+					v.version
+				);
+				actions.deleteFormat(store, format.id);
+			}
+		});
 	},
 
 	/*
@@ -463,7 +537,7 @@ const actions = module.exports = {
 				actions.updateStory(
 					store,
 					story.id,
-					{ storyFormat: 'SugarCube', storyFormatVersion: '2.12.1' }
+					{ storyFormat: 'SugarCube', storyFormatVersion: '2.14.0' }
 				);
 			}
 			else if (!story.storyFormatVersion) {
