@@ -27,12 +27,12 @@ Run `npm start` to begin serving a development version of Twine to
 http://localhost:8080. This server will automatically update with changes you
 make. You can also create a dev build at `build/` with `npm run build`.
 
-`npm lint` and `npm test` will lint and test the source code respectively.
+`npm run lint` and `npm test` will lint and test the source code respectively.
 
-`npm pot` will create a POT template file for localization at
+`npm run pot` will create a POT template file for localization at
 `src/locale/po/template.pot`. See Localization below for more information.
 
-`npm nw` will build NW.js-based apps in `dist/nw`. In order to build Windows
+`npm run nw` will build NW.js-based apps in `dist/nw`. In order to build Windows
 apps on OS X or Linux, you will need to have [Wine](https://www.winehq.org/)
 and [makensis](http://nsis.sourceforge.net/) installed.
 

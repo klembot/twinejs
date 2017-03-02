@@ -1,11 +1,11 @@
 <tr class="format-item">
 	<td class="selector">
-		<input type="radio" :checked="selected" @click="select">
+		<input type="radio" :checked="selected" @click="select" id="{{format.name}}-{{format.properties.version}}">
 	</td>
 
 	<td>
 		<p>
-			<b>{{ format.name }} {{ format.properties.version }}</b>
+			<label for="{{format.name}}-{{format.properties.version}}"><b>{{ format.name }} {{ format.properties.version }}</b></label>
 			<span v-if="author">
 				{{{ author }}}
 			</span>

@@ -291,7 +291,9 @@ msgstr ""
 msgid "Play"
 msgstr ""
 
+#. L10n: Word in the sense of individual words in a sentence. This does not actually include the count, as it is used in a table.
 #: src/story-edit-view/story-toolbar/index.html
+#: src/dialogs/story-stats/index.js:86
 msgid "Passage"
 msgstr ""
 
@@ -416,8 +418,8 @@ msgstr ""
 msgid "Secondly, &lt;b&gt;anyone who can use this browser can see and make changes to your work&lt;/b&gt;. So if you've got a nosy kid brother, look into setting up a separate profile for yourself."
 msgstr ""
 
-#: src/data/actions.js:262
-msgid "a story format named &ldquo;%s&rdquo; already exists"
+#: src/data/actions.js:272
+msgid "a more recent version of the story format &ldquo;%s&rdquo; is already installed"
 msgstr ""
 
 #: src/data/publish.js:75
@@ -437,7 +439,7 @@ msgid "Untitled Story"
 msgstr ""
 
 #: src/data/story.js:207
-#: src/story-edit-view/index.js:195
+#: src/story-edit-view/index.js:218
 msgid "Untitled Passage"
 msgstr ""
 
@@ -464,11 +466,11 @@ msgid "Not Right Now"
 msgstr ""
 
 #. L10n: %1$s is the name of the story format; %2$s is
-#: src/dialogs/formats/index.js:60
+#: src/dialogs/formats/index.js:63
 msgid "The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s)."
 msgstr ""
 
-#: src/dialogs/formats/index.js:102
+#: src/dialogs/formats/index.js:105
 msgid "The story format at %1$s could not be added (%2$s)."
 msgstr ""
 
@@ -495,35 +497,39 @@ msgid_plural "Replace %d Stories"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/dialogs/story-stats/index.js:37
+#. L10n: Character in the sense of individual letters in a word.  This does not actually include the count, as it is used in a table.
+#: src/dialogs/story-stats/index.js:40
 msgid "Character"
 msgid_plural "Characters"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/dialogs/story-stats/index.js:51
+#. L10n: Word in the sense of individual words in a sentence.  This does not actually include the count, as it is used in a table.
+#: src/dialogs/story-stats/index.js:55
 msgid "Word"
 msgid_plural "Words"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/dialogs/story-stats/index.js:85
+#. L10n: Links in the sense of hypertext links. This does not actually include the count, as it is used in a table.
+#: src/dialogs/story-stats/index.js:104
 msgid "Link"
 msgid_plural "Links"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/dialogs/story-stats/index.js:98
+#. L10n: Links in the sense of hypertext links. This does not actually include the count, as it is used in a table.
+#: src/dialogs/story-stats/index.js:119
 msgid "Broken Link"
 msgid_plural "Broken Links"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/editors/passage/index.js:37
+#: src/editors/passage/index.js:38
 msgid "Enter the body text of your passage here. To link to another passage, put two square brackets around its name, [[like this]]."
 msgstr ""
 
-#: src/editors/passage/index.js:181
+#: src/editors/passage/index.js:182
 msgid "Editing \\u201c%s\\u201d"
 msgstr ""
 
@@ -532,11 +538,12 @@ msgstr ""
 msgid "&ldquo;%1$s&rdquo; could not be saved (%2$s)."
 msgstr ""
 
-#. L10n: This is the folder name on OS X, Linux, and recent versions of Windows that a user's documents are stored in, relative to the user's home directory. If you need to use a space in this name, then it should have two backslashes (\\) in front of it. Regardless, this must have a single forward slash (/) as its first character.
-#: src/nw/directories.js:38
-msgid "/Documents"
+#. L10n: This is the folder name on OS X, Linux, and recent versions of Windows that a user's documents are stored in, relative to the user's home directory. If you need to use a space in this name, then it should have two backslashes (\\) in front of it.
+#: src/nw/directories.js:37
+msgid "Documents"
 msgstr ""
 
+#. L10n: This is the folder name on Windows XP that a user's documents are stored in, relative to the user's home directory. This is used if a folder with the name given by the translation key '/Documents' does not exist. If you need to use a space in this name, then it should have two backslashes (\\) in front of it.
 #: src/nw/directories.js:51
 msgid "My\\\\ Documents"
 msgstr ""
@@ -574,7 +581,7 @@ msgid "Paste"
 msgstr ""
 
 #: src/nw/menus.js:106
-#: src/story-edit-view/passage-item/index.js:275
+#: src/story-edit-view/passage-item/index.js:334
 msgid "Delete"
 msgstr ""
 
@@ -582,12 +589,12 @@ msgstr ""
 msgid "Show Library"
 msgstr ""
 
-#: src/story-edit-view/passage-item/index.js:260
+#: src/story-edit-view/passage-item/index.js:319
 #: src/story-list-view/story-item/item-menu/index.js:78
 msgid "Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone."
 msgstr ""
 
-#: src/story-edit-view/passage-item/index.js:267
+#: src/story-edit-view/passage-item/index.js:326
 msgid "(Hold the Shift key when deleting to skip this message.)"
 msgstr ""
 
@@ -621,7 +628,7 @@ msgstr ""
 msgid "A story with this name already exists."
 msgstr ""
 
-#: src/story-list-view/list-toolbar/index.js:60
+#: src/story-list-view/list-toolbar/index.js:62
 msgid "Twine Archive.html"
 msgstr ""
 

@@ -59,11 +59,11 @@ module.exports = Vue.extend({
 						const aTime = a.lastUpdate.getTime();
 						const bTime = b.lastUpdate.getTime();
 
-						if (aTime > bTime) {
+						if (aTime < bTime) {
 							return 1;
 						}
 
-						if (aTime < bTime) {
+						if (aTime > bTime) {
 							return -1;
 						}
 
