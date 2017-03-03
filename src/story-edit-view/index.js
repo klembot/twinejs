@@ -202,12 +202,14 @@ module.exports = Vue.extend({
 			*/
 
 			if (!left) {
-				left = (window.pageXOffset + window.innerWidth / 2) / this.story.zoom;
+				left = (window.pageXOffset + window.innerWidth / 2)
+					/ this.story.zoom;
 				left -= passageDefaults.width;
 			}
 
 			if (!top) {
-				top = (window.pageYOffset + window.innerHeight / 2) / this.story.zoom;
+				top = (window.pageYOffset + window.innerHeight / 2)
+					/ this.story.zoom;
 				top -= passageDefaults.height;
 			}
 
@@ -273,7 +275,10 @@ module.exports = Vue.extend({
 						zoomIndex + 1;
 				}
 
-				this.updateStory(this.story.id, { zoom: zoomLevels[zoomIndex] });
+				this.updateStory(
+					this.story.id,
+					{ zoom: zoomLevels[zoomIndex] }
+				);
 				e.preventDefault();
 			}
 		}

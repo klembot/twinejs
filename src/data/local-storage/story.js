@@ -1,18 +1,21 @@
-// Functions for moving stories in and out of local storage. This module in
-// particular needs to remain well-optimized, as it has a direct effect on load
-// time. As a result, saving requires that you start and end a transaction
-// manually. This minimizes the number of writes to local storage.
+/*
+Functions for moving stories in and out of local storage. This module in
+particular needs to remain well-optimized, as it has a direct effect on load
+time. As a result, saving requires that you start and end a transaction
+manually. This minimizes the number of writes to local storage.
+*/
 
 let { createStory } = require('../actions');
 let { passageDefaults, storyDefaults } = require('../story');
 let commaList = require('./comma-list');
 
 const story = module.exports = {
-	// A wrapper for a series of save/delete operations. This takes a function
-	// as argument that will receive an object keeping track of the
-	// transaction. This function should then make save and delete calls as
-	// necessary, passing the provided transaction object as their first
-	// argument.
+	/*
+	A wrapper for a series of save/delete operations. This takes a function as
+	argument that will receive an object keeping track of the transaction. This
+	function should then make save and delete calls as necessary, passing the
+	provided transaction object as their first argument.
+	*/
 
 	update(func) {
 		let transaction = {
@@ -26,8 +29,9 @@ const story = module.exports = {
 		window.localStorage.setItem('twine-passages', transaction.passageIds);
 	},
 
-	// Saves a story to local storage. This does *not* affect any child
-	// passages.
+	/*
+	Saves a story to local storage. This does *not* affect any child passages.
+	*/
 
 	saveStory(transaction, story) {
 		if (!story.id) {
@@ -39,8 +43,10 @@ const story = module.exports = {
 			story.id
 		);
 
-		// We have to remove the passages property before serializing the
-		// story, as those are serialized under separate keys.
+		/*
+		We have to remove the passages property before serializing the story,
+		as those are serialized under separate keys.
+		*/
 
 		window.localStorage.setItem(
 			'twine-stories-' + story.id,
@@ -50,8 +56,10 @@ const story = module.exports = {
 		);
 	},
 
-	// Deletes a story from local storage. This does *not* affect any child
-	// passages. You *must* delete child passages manually.
+	/*
+	Deletes a story from local storage. This does *not* affect any child
+	passages. You *must* delete child passages manually.
+	*/
 
 	deleteStory(transaction, story) {
 		if (!story.id) {
@@ -62,7 +70,7 @@ const story = module.exports = {
 		window.localStorage.removeItem('twine-stories-' + story.id);
 	},
 
-	// Saves a passage to local storage.
+	/* Saves a passage to local storage. */
 
 	savePassage(transaction, passage) {
 		if (!passage.id) {
@@ -80,7 +88,7 @@ const story = module.exports = {
 		);
 	},
 
-	// Deletes a passage from local storage.
+	/* Deletes a passage from local storage. */
 
 	deletePassage(transaction, passage) {
 		if (!passage.id) {
@@ -90,7 +98,7 @@ const story = module.exports = {
 		story.deletePassageById(transaction, passage.id);
 	},
 
-	// Deletes a passage from local storage.
+	/* Deletes a passage from local storage. */
 
 	deletePassageById(transaction, id) {
 		transaction.passageIds = commaList.remove(
@@ -108,8 +116,10 @@ const story = module.exports = {
 			return;
 		}
 
-		// First, deserialize stories. We index them by id so that we can
-		// quickly add passages to them as they are deserialized.
+		/*
+		First, deserialize stories. We index them by id so that we can quickly
+		add passages to them as they are deserialized.
+		*/
 
 		serializedStories.split(',').forEach(id => {
 			let newStory = JSON.parse(
@@ -128,7 +138,9 @@ const story = module.exports = {
 				/* Coerce the lastUpdate property to a date. */
 				
 				if (newStory.lastUpdate) {
-					newStory.lastUpdate = new Date(Date.parse(newStory.lastUpdate));
+					newStory.lastUpdate = new Date(
+						Date.parse(newStory.lastUpdate)
+					);
 				}
 				else {
 					newStory.lastUpdate = new Date();
@@ -151,7 +163,7 @@ const story = module.exports = {
 			}
 		});
 
-		// Then create passages, adding them to their parent story.
+		/* Then create passages, adding them to their parent story. */
 
 		const serializedPassages = window.localStorage.getItem('twine-passages');
 
@@ -195,7 +207,7 @@ const story = module.exports = {
 			});
 		}
 
-		// Finally, we dispatch actions to add the stories to the store.
+		/* Finally, we dispatch actions to add the stories to the store. */
 
 		Object.keys(stories).forEach(id => {
 			createStory(store, stories[id]);

@@ -57,10 +57,9 @@ module.exports = {
 				'msAnimationEnd.twineui', e => {
 					// polyfill browser animation-related events
 
-					e.type = 'animationend';
-					$(e.target).trigger(e);
-				}
-			);
+				e.type = 'animationend';
+				$(e.target).trigger(e);
+			});
 		};
 	},
 

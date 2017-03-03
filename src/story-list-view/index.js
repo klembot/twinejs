@@ -35,7 +35,9 @@ module.exports = Vue.extend({
 
 	computed: {
 		sortedStories() {
-			// If we have no stories to sort, don't worry about it.
+			/*
+			If we have no stories to sort, don't worry about it.
+			*/
 
 			if (this.stories.length === 0) {
 				return this.stories;
@@ -72,7 +74,9 @@ module.exports = Vue.extend({
 					});
 
 				default:
-					throw new Error(`Don't know how to sort by ${this.storyOrder}`);
+					throw new Error(
+						`Don't know how to sort by ${this.storyOrder}`
+					);
 			}
 		},
 
@@ -96,22 +100,26 @@ module.exports = Vue.extend({
 	},
 
 	ready() {
-		// if we were asked to appear fast, we do nothing.
+		/* If we were asked to appear fast, we do nothing. */
 		
 		if (this.appearFast) {
 			return;
 		}
 
-		// Otherwise, we check to see if we should ask for a donation, and
-		// then an app update...
+		/*
+		Otherwise, we check to see if we should ask for a donation, and then an
+		app update...
+		*/
 
 		if (!this.appearFast && !checkForDonation(this.$store)) {
 			checkForAppUpdate(this.$store);
 		}
 
-		// And if the user had been previously editing a story (as the router
-		// will tell us), we broadcast an event so that an appropriate child
-		// component can set up a zoom transition back into itself.
+		/*
+		And if the user had been previously editing a story (as the router will
+		tell us), we broadcast an event so that an appropriate child component
+		can set up a zoom transition back into itself.
+		*/
 
 		if (this.previouslyEditing) {
 			this.$broadcast('previously-editing', this.previouslyEditing);
@@ -135,14 +143,16 @@ module.exports = Vue.extend({
 	},
 
 	events: {
-		// We reflect back `story-edit` events onto children, so that the appropriate
-		// StoryItem can edit itself, e.g. animate into editing.
+		/*
+		We reflect back `story-edit` events onto children, so that the
+		appropriate StoryItem can edit itself, e.g. animate into editing.
+		*/
 
 		'story-edit'(id) {
 			this.$broadcast('story-edit', id);
 		},
 
-		// For now, we only support importing a single file at a time.
+		/* For now, we only support importing a single file at a time. */
 
 		'file-drag-n-drop'(files) {
 			new ImportDialog({

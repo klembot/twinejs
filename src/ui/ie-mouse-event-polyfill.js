@@ -1,4 +1,5 @@
 /* https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/MouseEvent */
+/* eslint-disable */
 
 (function(window) {
 	try {
@@ -21,3 +22,5 @@
 
 	window.MouseEvent = MouseEvent;
 })(window);
+
+/* eslint-enable */
