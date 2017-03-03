@@ -287,7 +287,7 @@ const actions = module.exports = {
 				})) {
 					reject(new Error(
 						locale.say(
-							'a more recent version of the story format &ldquo;%s&rdquo; is already installed',
+							'a more recent version of this story format &ldquo;%s&rdquo; is already installed',
 							props.name
 						)
 					));
