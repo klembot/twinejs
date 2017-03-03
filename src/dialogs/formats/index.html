@@ -1,0 +1,72 @@
+<modal-dialog class="tabbed" :origin="origin">
+
+<tabs-panel v-ref:tabs>
+	<!--
+	Unfortunately, putting {{'Story Formats' | say}} in component attributes doesn't work for some reason.
+	So, <tab-item>s pass their name attributes through locale.say by themselves.
+	-->
+	<tab-item name="Story Formats">
+		<p>
+		{{'Story formats control the appearance and behavior of stories during play.' | say}}
+		</p>
+
+		<table>
+			<thead>
+				<tr>
+					<th>{{ 'Use as Default' | say }}</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="format in storyFormats" is="format-item" :format="format" transition="fade-in-out" track-by="$index"></format-item>
+			</tbody>
+		</table>
+	</tab-item>
+
+	<tab-item name="Proofing Formats">
+		<p>
+		{{'Proofing formats create a versions of stories tailored for editing and proofreading.' | say}}
+		</p>
+
+		<table>
+			<thead>
+				<tr>
+					<th>{{ 'Use' | say }}</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="format in proofingFormats" is="format-item" :format="format" transition="fade-in-out" track-by="$index"></format-item>
+			</tbody>
+		</table>
+	</tab-item>
+
+	<tab-item name="Add a New Format">
+		<p>
+		{{
+		/* L10n: Address in the sense of a URL. */
+		'To add a story format, enter its address below.' | say }}
+		</p>
+
+		<form @submit.prevent="addFormat">
+
+		<p>
+		<input type="text" name="newFormatUrl" v-model="newFormatUrl" required>
+		<button class="create" type="submit"><i class="fa fa-plus"></i> {{'Add' | say }}</button>
+		</p>
+
+		</form>
+	</tab-item>
+</tabs-panel>
+
+<p v-if="working">
+<i class="fa fa-circle-o-notch fa-spin"></i> {{ 'Loading...' | say}}
+</p>
+
+<p class="error" v-if="error">
+{{{ error }}}
+</p>
+
+</modal-dialog>

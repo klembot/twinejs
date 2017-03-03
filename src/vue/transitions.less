@@ -1,0 +1,49 @@
+.fade-in-out-transition {
+	transition: opacity 0.3s;
+	opacity: 1;
+}
+
+.fade-in-out-enter, .fade-in-out-leave {
+	opacity: 0;
+}
+
+.rise-in-out-transition {
+	transition: 0.3s transform;
+	opacity: 1;
+	transform: none;
+}
+
+.rise-in-out-enter, .rise-in-out-leave {
+	transform: translateY(10%);
+	opacity: 0;
+}
+
+.grow-in-out-enter {
+	animation: 0.3s growIn forwards;
+}
+
+.grow-in-out-leave {
+	animation: 0.3s growIn reverse forwards;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes growIn {
+	from {
+		opacity: 0;
+		transform: scale(0.75);
+	}
+
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
