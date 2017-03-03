@@ -13,6 +13,7 @@ const domEvents = require('../vue/mixins/dom-events');
 const locale = require('../locale');
 const { passageDefaults } = require('../data/story');
 const zoomSettings = require('./zoom-settings');
+
 require('./index.less');
 
 /*
@@ -142,6 +143,7 @@ module.exports = Vue.extend({
 					result[passageView.passage.name] = passageView.linkPosition;
 					return result;
 				},
+
 				{}
 			);
 		},

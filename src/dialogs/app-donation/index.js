@@ -2,6 +2,7 @@
 
 const Vue = require('vue');
 const { setPref } = require('../../data/actions');
+
 require('./index.less');
 
 // How long we wait after the user first starts using Twine to show a message

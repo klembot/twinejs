@@ -7,6 +7,7 @@ const Vue = require('vue');
 const domEvents = require('../../vue/mixins/dom-events');
 const { thenable, symbols: { reject, resolve } } =
 	require('../../vue/mixins/thenable');
+
 require('./index.less');
 
 const ModalDialog = module.exports = Vue.extend({
@@ -32,6 +33,7 @@ const ModalDialog = module.exports = Vue.extend({
 
 		if (this.origin) {
 			const originRect = this.origin.getBoundingClientRect();
+
 			dialog.style.transformOrigin =
 				(originRect.left + originRect.width / 2) + 'px ' +
 				(originRect.top + originRect.height / 2) + 'px';
@@ -118,7 +120,6 @@ ModalDialog.transition('modal-dialog', {
 
 	enter: function(el, done) {
 		let overlay = el.querySelector('#modal-overlay');
-		let dialog = el.querySelector('.modal-dialog');
 
 		Vue.nextTick(() => {
 			overlay.classList.remove('fade-in-out-enter');

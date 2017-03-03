@@ -1,8 +1,7 @@
 const { expect } = require('chai');
 const linkParser = require('./link-parser');
 
-describe('link-parser', () =>
-	{
+describe('link-parser', () => {
 		it('parses [[simple links]]', () => {
 			const links = linkParser('[[link]]');
 

@@ -5,6 +5,7 @@ const Drop = require('tether-drop');
 const Vue = require('vue');
 const { hasPrimaryTouchUI } = require('../index');
 const domEvents = require('../../vue/mixins/dom-events');
+
 require('./index.less');
 
 module.exports = Vue.extend({
@@ -47,7 +48,7 @@ module.exports = Vue.extend({
 					!target.contains(e.target)) {
 					this.$drop.close();
 				}
-			})
+			});
 		}
 
 		this.$drop = new Drop({
@@ -69,7 +70,7 @@ module.exports = Vue.extend({
 			}
 		});
 
-		/* 
+		/*
 		Close the dropdown when one of its menu items is clicked.
 		*/
 

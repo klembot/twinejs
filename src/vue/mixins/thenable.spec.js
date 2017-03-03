@@ -24,6 +24,7 @@ describe('thenable Vue mixin', () => {
 				rejectPromise() {
 					this[reject]('Hello world');
 				},
+
 				resolvePromise() {
 					this[resolve]('Hello world');
 				}

@@ -56,6 +56,7 @@ const publish = module.exports = {
 					appInfo, story, null, null, true
 				) + '\n\n';
 			},
+
 			''
 		);
 	},

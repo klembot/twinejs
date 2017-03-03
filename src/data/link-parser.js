@@ -18,8 +18,9 @@ const uniques = (v, i, a) => a.indexOf(v) === a.lastIndexOf(v);
 // Setter is the second [] block if exists
 const removeSetters = link => {
 	const noSetter = getField(link, '][', 0);
-	return typeof(noSetter) !== 'undefined' ? noSetter : link;
-}
+
+	return typeof (noSetter) !== 'undefined' ? noSetter : link;
+};
 
 const removeEnclosingBrackets = link => link.substr(2, link.length - 4);
 
@@ -27,10 +28,12 @@ const removeEnclosingBrackets = link => link.substr(2, link.length - 4);
 // given index. Negative indices start from the end of the array.
 const getField = (link, separator, index) => {
 	const fields = link.split(separator);
+
 	if (fields.length === 1) {
 		// Separator not present
 		return undefined;
 	}
+
 	return (index < 0) ? fields[fields.length + index] : fields[index];
 };
 

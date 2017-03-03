@@ -3,6 +3,7 @@ const Vue = require('vue');
 const locale = require('../../locale');
 const { confirm } = require('../confirm');
 const { deleteFormat, setPref } = require('../../data/actions');
+
 require('./item.less');
 
 module.exports = Vue.extend({
@@ -67,7 +68,7 @@ module.exports = Vue.extend({
 			}
 			else {
 				this.setPref(
-					'defaultFormat', 
+					'defaultFormat',
 					{ name: this.format.name, version: this.format.version }
 				);
 			}

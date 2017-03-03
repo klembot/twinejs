@@ -227,7 +227,7 @@ const actions = module.exports = {
 
 				store.dispatch(
 					'UPDATE_PASSAGE_IN_STORY',
-					storyId, 
+					storyId,
 					passage.id,
 					{ text: newText }
 				);
@@ -319,7 +319,7 @@ const actions = module.exports = {
 		const majorVersion = semverUtils.parse(version).major;
 		const formats = store.state.storyFormat.formats.filter(
 			format => format.name === name &&
-				semverUtils.parse(format.version).major === majorVersion 
+				semverUtils.parse(format.version).major === majorVersion
 		);
 
 		if (formats.length === 0) {

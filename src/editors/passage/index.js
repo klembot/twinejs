@@ -192,7 +192,7 @@ module.exports = Vue.extend({
 			).then(format => {
 				let modeName = format.name.toLowerCase();
 				/* TODO: Resolve this special case with PR #118 */
-				if (modeName === "harlowe") {
+				if (modeName === 'harlowe') {
 					modeName += `-${/^\d+/.exec(format.version)}`;
 				}
 

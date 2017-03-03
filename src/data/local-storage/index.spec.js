@@ -7,7 +7,7 @@ describe('local-storage persistence', () => {
 	let storyFormat = require('./story-format');
 	let store;
 
-	beforeEach(() => {		
+	beforeEach(() => {
 		store = {
 			dispatch: spy(),
 			state: {
@@ -42,7 +42,7 @@ describe('local-storage persistence', () => {
 		storyFormat.save.restore();
 	});
 		
-	it('loads the pref, story, and story-format modules when starting', () => {	
+	it('loads the pref, story, and story-format modules when starting', () => {
 		localStorage.onInit(store.state, store);
 		expect(pref.load.calledOnce).to.be.true;
 		expect(story.load.calledOnce).to.be.true;
@@ -286,10 +286,10 @@ describe('local-storage persistence', () => {
 				type: 'LOAD_FORMAT'
 			},
 			store.state,
-			store	
+			store
 		);
 		
-		expect(storyFormat.save.calledOnce).to.be.false;		
+		expect(storyFormat.save.calledOnce).to.be.false;
 	});
 	
 	it('throws an error when given a mutation it does not know how to handle', () => {

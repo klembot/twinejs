@@ -106,11 +106,12 @@ const StoryFile = module.exports = {
 			*/
 
 			const storyIds = store.state.story.stories.map(story => story.id);
+
 			storyIds.forEach(id => deleteStory(store, id));
 
 			/*
 			Generate import actions for each .html file in the stories
-			directory.  
+			directory.
 			*/
 
 			directories.lockStories();
@@ -132,7 +133,7 @@ const StoryFile = module.exports = {
 						importFile(source, new Date(Date.parse(stats.mtime)))[0]
 					);
 				}
-			})
+			});
 		}
 		finally {
 			directories.unlockStories();

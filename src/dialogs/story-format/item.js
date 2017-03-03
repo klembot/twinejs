@@ -2,8 +2,8 @@
 // choose it.
 
 const Vue = require('vue');
-const semverUtils = require('semver-utils');
 const { updateStory } = require('../../data/actions');
+
 require('./item.less');
 
 module.exports = Vue.extend({

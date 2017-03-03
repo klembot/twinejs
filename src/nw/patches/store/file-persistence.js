@@ -4,7 +4,7 @@ let enabled = true;
 let previousStories;
 
 module.exports = {
-	onMutation(mutation, state, store) {
+	onMutation(mutation, state) {
 		if (!enabled) {
 			return;
 		}
@@ -23,13 +23,13 @@ module.exports = {
 					),
 					state.appInfo
 				);
-			break;
+				break;
 
 			case 'DELETE_STORY':
 				StoryFile.delete(previousStories.find(
 					story => story.id === mutation.payload[0]
 				));
-			break;
+				break;
 
 			/*
 			These mutations take a story ID as their first argument, and simply
@@ -62,7 +62,7 @@ module.exports = {
 					),
 					state.appInfo
 				);
-			break;
+				break;
 		}
 
 		/*
