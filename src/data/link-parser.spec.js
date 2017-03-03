@@ -127,4 +127,10 @@ describe('link-parser', () =>
 			expect(links[1]).to.equal('link2');
 		});
 
-	});
+		it('ignores external links when requested', () => {
+			const links = linkParser('[[http://twinery.org]]', true);
+
+			expect(links).to.have.lengthOf(0);
+		});
+	}
+);

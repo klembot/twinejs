@@ -45,7 +45,7 @@ module.exports = Vue.extend({
 		links() {
 			return this.passages.reduce(
 				(result, passage) => {
-					result[passage.name] = uniq(linkParser(passage.text));
+					result[passage.name] = uniq(linkParser(passage.text, true));
 					return result;
 				},
 
