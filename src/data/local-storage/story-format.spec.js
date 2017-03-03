@@ -8,7 +8,7 @@ describe('story format local storage persistence', () => {
 	});
 	
 	it('persists formats', () => {
-		const store = { 
+		const store = {
 			state: {
 				storyFormat: {
 					formats: [
@@ -28,14 +28,17 @@ describe('story format local storage persistence', () => {
 		storyFormat.save(store);
 		
 		const ids = window.localStorage.getItem('twine-storyformats').split(',');
+
 		expect(ids.length).to.equal(2);
 		
 		let saved = {};
 		
 		ids.forEach(id => {
 			let savedFormat = window.localStorage.getItem(`twine-storyformats-${id}`);
+
 			expect(savedFormat).to.be.a('string');
 			const restored = JSON.parse(savedFormat);
+
 			saved[restored.name] = restored;
 		});
 		
@@ -75,6 +78,6 @@ describe('story format local storage persistence', () => {
 		expect(store.dispatch.calledWith(
 			'CREATE_FORMAT',
 			match({ name: 'Format 2', url: 'gopher://gopher.floodgap.com:70/0/gopher/wbgopher' }))
-		).to.be.true;							
+		).to.be.true;
 	});
 });

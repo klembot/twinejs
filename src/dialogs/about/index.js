@@ -1,4 +1,5 @@
 const Vue = require('vue');
+
 require('./index.less');
 
 module.exports = Vue.extend({
@@ -14,7 +15,7 @@ module.exports = Vue.extend({
 
 	vuex: {
 		getters: {
-			appInfo: state => state.appInfo	
-		}	
+			appInfo: state => state.appInfo
+		}
 	}
 });

@@ -1,6 +1,7 @@
 const Vue = require('vue');
 const { loadFormat } = require('../../data/actions');
 const semverUtils = require('semver-utils');
+
 require('./index.less');
 
 module.exports = Vue.extend({

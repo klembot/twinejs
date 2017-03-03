@@ -3,6 +3,7 @@
 const Vue = require('vue');
 const locale = require('../../locale');
 const { thenable } = require('../../vue/mixins/thenable');
+
 require('./index.less');
 
 const prompter = module.exports = {
@@ -19,6 +20,7 @@ const prompter = module.exports = {
 			isValid: true,
 			validationError: '',
 			validator: function() {},
+
 			origin: null
 		}),
 

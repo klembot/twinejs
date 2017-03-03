@@ -3,6 +3,7 @@
 
 const Vue = require('vue');
 const { updateStory } = require('../../data/actions');
+
 require('./item.less');
 
 module.exports = Vue.extend({

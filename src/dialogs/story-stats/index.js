@@ -6,6 +6,7 @@ const Vue = require('vue');
 const moment = require('moment');
 const linkParser = require('../../data/link-parser');
 const locale = require('../../locale');
+
 require('./index.less');
 
 module.exports = Vue.extend({

@@ -2,6 +2,7 @@
 
 const Vue = require('vue');
 const domEvents = require('../../vue/mixins/dom-events');
+
 require('../../ui/ie-mouse-event-polyfill');
 require('./index.less');
 

@@ -7,6 +7,7 @@ const $ = require('jquery');
 const moment = require('moment');
 const Vue = require('vue');
 const ZoomTransition = require('../zoom-transition');
+
 require('./index.less');
 
 module.exports = Vue.extend({

@@ -5,6 +5,7 @@ space bar and left button).
 */
 
 const ui = require('../../ui');
+
 require('./mouse-scrolling.less');
 
 let handlers = {};

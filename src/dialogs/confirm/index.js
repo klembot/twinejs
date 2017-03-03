@@ -8,6 +8,7 @@
 const locale = require('../../locale');
 const Vue = require('vue');
 const { thenable } = require('../../vue/mixins/thenable');
+
 require('./index.less');
 
 /**

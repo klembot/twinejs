@@ -112,7 +112,7 @@ describe('publish module', () => {
 		const storyEls = $(`<div>${result}</div>`).find('tw-storydata');
 
 		expect(storyEls.length).to.equal(1);
-		checkStoryElAgainstData($(storyEls[0]), story, appInfo);	
+		checkStoryElAgainstData($(storyEls[0]), story, appInfo);
 	});
 
 	it('publishes an archive of all stories with publishArchive()', () => {

@@ -1,18 +1,34 @@
 {
     "rules": {
+		"brace-style": [
+			2,
+			"stroustrup",
+			{ "allowSingleLine": true }
+		],
+        "comma-dangle": 0,
+		"curly": [2, "all"],
+		"indent": [
+			2,
+			"tab",
+			{ "SwitchCase": 1 }
+		],
+		"max-len": [2, 80],
+		"newline-after-var": [2, "always"],
+		"no-console": [
+			2,
+			{ "allow": ["warn"] }	
+		],
+        "no-extra-semi": 0,
+        "no-mixed-spaces-and-tabs": 0,
+		"no-trailing-spaces": [
+			2,
+			{ "skipBlankLines": true }
+		],
+		"quote-props": 0,
         "semi": [
             2,
             "always"
         ],
-		"no-console": [
-			2,
-			{
-				"allow": ["warn"]
-			}	
-		],
-        "no-extra-semi": 0,
-        "no-mixed-spaces-and-tabs": 0,
-        "comma-dangle": 0
     },
     "env": {
         "browser": true,

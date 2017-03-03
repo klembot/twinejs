@@ -36,6 +36,7 @@ describe('story local storage persistence', () => {
 		});
 		
 		const saved = window.localStorage.getItem(`twine-stories-${testStory.id}`);
+
 		expect(saved).to.be.a('string');
 		const savedStory = JSON.parse(saved);
 		
@@ -88,7 +89,7 @@ describe('story local storage persistence', () => {
 		
 		expect(window.localStorage.getItem('twine-passages')).to.equal(testPassage.id);
  		
- 		story.update(transaction => {
+		story.update(transaction => {
 			story.deletePassage(transaction, testPassage);
 		});
 		
@@ -102,7 +103,7 @@ describe('story local storage persistence', () => {
 		
 		expect(window.localStorage.getItem('twine-passages')).to.equal(testPassage.id);
  		
- 		story.update(transaction => {
+		story.update(transaction => {
 			story.deletePassageById(transaction, testPassage.id);
 		});
 		
@@ -138,7 +139,7 @@ describe('story local storage persistence', () => {
 					if (key === 'tags') {
 						testPassage.tags.forEach(i => {
 							expect(firstArgs[1].tags[i]).to.equal(testPassage.tags[i]);
-						});						
+						});
 					}
 					else {
 						expect(firstArgs[1].passages[0][key]).to.equal(testPassage[key]);
