@@ -1,6 +1,7 @@
 // A component showing a single search result.
 
 const Vue = require('vue');
+
 require('./result.less');
 
 module.exports = Vue.extend({

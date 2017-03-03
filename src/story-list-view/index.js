@@ -11,6 +11,7 @@ const locale = require('../locale');
 const { check: checkForAppUpdate } = require('../dialogs/app-update');
 const { check: checkForDonation } = require('../dialogs/app-donation');
 const ImportDialog = require('../dialogs/story-import');
+
 require('./index.less');
 
 module.exports = Vue.extend({

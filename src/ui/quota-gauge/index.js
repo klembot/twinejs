@@ -3,6 +3,7 @@
 
 const Vue = require('vue');
 const locale = require('../../locale');
+
 require('./index.less');
 
 const CHUNK_SIZE = 102400;

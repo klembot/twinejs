@@ -52,6 +52,6 @@ describe('dom-events Vue mixin', () => {
 	});
 
 	it('does not do anything if a component has no listeners attached when destroyed', () => {
-		expect(() => { component.$destroy(); }).to.not.throw;	
+		expect(() => { component.$destroy(); }).to.not.throw;
 	});
 });

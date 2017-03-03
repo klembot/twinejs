@@ -5,6 +5,7 @@
 'use strict';
 const Vue = require('vue');
 const { setPref } = require('../../data/actions');
+
 require('./index.less');
 
 module.exports = Vue.extend({

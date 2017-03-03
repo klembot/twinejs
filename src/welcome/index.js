@@ -10,6 +10,7 @@
 const Vue = require('vue');
 const scrollTo = require('scroll-to-element');
 const { setPref } = require('../data/actions');
+
 require('./index.less');
 
 module.exports = Vue.extend({

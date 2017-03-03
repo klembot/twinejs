@@ -3,6 +3,7 @@
 const Vue = require('vue');
 const zoomMappings = require('../zoom-settings');
 const { updateStory } = require('../../data/actions');
+
 require('./index.less');
 
 module.exports = Vue.extend({

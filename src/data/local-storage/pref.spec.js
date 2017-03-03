@@ -8,7 +8,7 @@ describe('pref local storage persistence', () => {
 	});
 	
 	it('persists preferences', () => {
-		const store = { 
+		const store = {
 			state: {
 				pref: {
 					foo: true,
@@ -21,14 +21,17 @@ describe('pref local storage persistence', () => {
 		pref.save(store);
 		
 		const ids = window.localStorage.getItem('twine-prefs').split(',');
+
 		expect(ids.length).to.equal(3);
 		
 		let saved = {};
 		
 		ids.forEach(id => {
 			let savedPref = window.localStorage.getItem(`twine-prefs-${id}`);
+
 			expect(savedPref).to.be.a('string');
 			const restored = JSON.parse(savedPref);
+
 			saved[restored.name] = restored.value;
 		});
 		

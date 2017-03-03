@@ -32,6 +32,7 @@ module.exports = Vue.extend({
 						);
 					}
 				},
+
 				origin: e.target
 			}).then(name => {
 				this.createStory({ name });

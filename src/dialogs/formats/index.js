@@ -181,6 +181,7 @@ module.exports = Vue.extend({
 
 				return result;
 			},
+
 			defaultFormatPref: state => state.pref.defaultFormat,
 			proofingFormatPref: state => state.pref.proofingFormat
 		}

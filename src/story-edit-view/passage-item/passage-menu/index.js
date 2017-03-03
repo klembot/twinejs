@@ -2,6 +2,7 @@
 
 const Vue = require('vue');
 const { updateStory } = require('../../../data/actions');
+
 require('./index.less');
 
 module.exports = Vue.extend({
@@ -37,7 +38,7 @@ module.exports = Vue.extend({
 
 		setAsStart() {
 			this.updateStory(
-				this.parentStory.id, 
+				this.parentStory.id,
 				{ startPassage: this.passage.id }
 			);
 		}

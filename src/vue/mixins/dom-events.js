@@ -13,7 +13,7 @@ let listeners = {};
 
 module.exports = {
 	init() {
-		if (!listeners[this]) { 
+		if (!listeners[this]) {
 			listeners[this] = [];
 		}
 	},
@@ -44,7 +44,7 @@ module.exports = {
 			listeners[this].push({ el, event, options, listener: boundListener });
 		},
 
-		/*	
+		/*
 		Removes all listeners for an event type.
 		*/
 
