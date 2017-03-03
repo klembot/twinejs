@@ -118,7 +118,6 @@ ModalDialog.transition('modal-dialog', {
 
 	enter: function(el, done) {
 		let overlay = el.querySelector('#modal-overlay');
-		let dialog = el.querySelector('.modal-dialog');
 
 		Vue.nextTick(() => {
 			overlay.classList.remove('fade-in-out-enter');

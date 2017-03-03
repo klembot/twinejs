@@ -4,7 +4,7 @@ let enabled = true;
 let previousStories;
 
 module.exports = {
-	onMutation(mutation, state, store) {
+	onMutation(mutation, state) {
 		if (!enabled) {
 			return;
 		}

@@ -19,7 +19,7 @@ const uniques = (v, i, a) => a.indexOf(v) === a.lastIndexOf(v);
 const removeSetters = link => {
 	const noSetter = getField(link, '][', 0);
 	return typeof(noSetter) !== 'undefined' ? noSetter : link;
-}
+};
 
 const removeEnclosingBrackets = link => link.substr(2, link.length - 4);
 

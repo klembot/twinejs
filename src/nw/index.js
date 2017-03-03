@@ -147,7 +147,9 @@ module.exports = {
 			patchWelcomeView(require('../welcome'));
 		}
 		catch (e) {
+			/* eslint-disable no-console */
 			console.error('Startup crash', startupTask, e);
+			/* eslint-enable no-console */
 
 			document.write(
 				startupErrorTemplate({ task: startupTask, error: e })

@@ -265,7 +265,7 @@ const actions = module.exports = {
 				*/
 
 				if (store.state.storyFormat.formats.some(current => {
-					return existing.version === props.version;
+					return current.version === props.version;
 				})) {
 					reject(new Error(
 						locale.say('this story format is already installed')

@@ -18,7 +18,7 @@ module.exports = {
 
 		if (!store.state.pref.lastUpdateSeen ||
 			store.state.pref.lastUpdateSeen < store.state.appInfo.buildNumber) {
-			setPref(store, 'lastUpdateSeen', store.state.appInfo.buildNumber)
+			setPref(store, 'lastUpdateSeen', store.state.appInfo.buildNumber);
 		}
 
 		// Is there a new update since we last checked?
