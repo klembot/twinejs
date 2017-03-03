@@ -60,7 +60,9 @@ const confirmation = module.exports = {
 	*/
 
 	confirm(data) {
-		return new confirmation.component({ data }).$mountTo(document.body).then(
+		return new confirmation.component(
+			{ data }
+		).$mountTo(document.body).then(
 			result => {
 				// False results are produced by the close button and the
 				// cancel button. If the result is false, convert it into a

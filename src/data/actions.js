@@ -180,7 +180,9 @@ const actions = module.exports = {
 	changeLinksInStory(store, storyId, oldName, newName) {
 		// TODO: add hook for story formats to be more sophisticated
 
-		const story = store.state.story.stories.find(story => story.id === storyId);
+		const story = store.state.story.stories.find(
+			story => story.id === storyId
+		);
 
 		if (!story) {
 			throw new Error(`No story exists with id ${storyId}`);
@@ -208,7 +210,8 @@ const actions = module.exports = {
 		);
 
 		story.passages.forEach(passage => {
-			if (simpleLinkRe.test(passage.text) || compoundLinkRe.test(passage.text) ||
+			if (simpleLinkRe.test(passage.text) ||
+				compoundLinkRe.test(passage.text) ||
 				reverseLinkRe.test(passage.text)) {
 				let newText = passage.text;
 
@@ -379,7 +382,9 @@ const actions = module.exports = {
 
 		store.state.storyFormat.formats.forEach(format => {
 			if (typeof format.version !== 'string' || format.version === '') {
-				console.warn(`Deleting unversioned story format ${format.name}`);
+				console.warn(
+					`Deleting unversioned story format ${format.name}`
+				);
 				actions.deleteFormat(store, format.id);
 			}
 		});
@@ -546,22 +551,24 @@ const actions = module.exports = {
 				currently available.
 				*/
 
-				const format = store.state.storyFormat.formats.reduce((prev, current) => {
-					if (current.name !== story.storyFormat) {
-						return prev;
+				const format = store.state.storyFormat.formats.reduce(
+					(prev, current) => {
+						if (current.name !== story.storyFormat) {
+							return prev;
+						}
+
+						const pVer = semverUtils.parse(prev.version);
+						const cVer = semverUtils.parse(current.version);
+
+						if (parseInt(pVer.major) < parseInt(cVer.major) ||
+							parseInt(pVer.minor) < parseInt(cVer.minor) ||
+							parseInt(pVer.patch) < parseInt(cVer.patch)) {
+							return prev;
+						}
+
+						return current;
 					}
-
-					const pVer = semverUtils.parse(prev.version);
-					const cVer = semverUtils.parse(current.version);
-
-					if (parseInt(pVer.major) < parseInt(cVer.major) ||
-						parseInt(pVer.minor) < parseInt(cVer.minor) ||
-						parseInt(pVer.patch) < parseInt(cVer.patch)) {
-						return prev;
-					}
-
-					return current;
-				});
+				);
 
 				if (format) {
 					actions.updateStory(

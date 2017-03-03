@@ -4,7 +4,8 @@
  user is probably typing a passage name.
 
  The format of options to this option is:
-	prefixes - an array of strings that will trigger the callback, case-sensitive
+	prefixes - an array of strings that will trigger the callback,
+		case-sensitive
 	callback - the function that will be called
 
  @class CodeMirror.prefixTrigger

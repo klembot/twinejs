@@ -164,7 +164,9 @@ module.exports = {
 				break;
 
 			default:
-				throw new Error(`Don't know how to handle mutation ${mutation.type}`);
+				throw new Error(
+					`Don't know how to handle mutation ${mutation.type}`
+				);
 		}
 
 		// We save a copy of the stories structure in aid of deleting, as above.
