@@ -47,7 +47,7 @@ module.exports = Vue.extend({
 					!target.contains(e.target)) {
 					this.$drop.close();
 				}
-			})
+			});
 		}
 
 		this.$drop = new Drop({

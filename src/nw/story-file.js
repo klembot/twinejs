@@ -132,7 +132,7 @@ const StoryFile = module.exports = {
 						importFile(source, new Date(Date.parse(stats.mtime)))[0]
 					);
 				}
-			})
+			});
 		}
 		finally {
 			directories.unlockStories();
