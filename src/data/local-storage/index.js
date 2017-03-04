@@ -1,11 +1,13 @@
-// This emulates the persistence strategy used by Backbone's local storage
-// adapter as a Vuex middleware. This uses this basic pattern:
-//
-// twine-[datakey]: a comma separated list of IDs
-// twine-[datakey]-[uuid]: JSON formatted data for that object
-//
-// This pattern is emulated, even with structures (like prefs) that don't need
-// this, for compatibility.
+/*
+This emulates the persistence strategy used by Backbone's local storage adapter
+as a Vuex middleware. This uses this basic pattern:
+
+twine-[datakey]: a comma separated list of IDs
+twine-[datakey]-[uuid]: JSON formatted data for that object
+
+This pattern is emulated, even with structures (like prefs) that don't need
+this, for compatibility.
+*/
 
 const pref = require('./pref');
 const story = require('./story');
@@ -14,17 +16,15 @@ const storyFormat = require('./story-format');
 let enabled = true;
 let previousStories;
 
-module.exports = {
-	onInit(state, store) {
-		enabled = false;
-		pref.load(store);
-		story.load(store);
-		storyFormat.load(store);
-		previousStories = state.story.stories;
-		enabled = true;
-	},
+module.exports = store => {
+	enabled = false;
+	pref.load(store);
+	story.load(store);
+	storyFormat.load(store);
+	previousStories = store.state.story.stories;
+	enabled = true;
 
-	onMutation(mutation, state, store) {
+	store.subscribe((mutation, state) => {
 		if (!enabled) {
 			return;
 		}
@@ -81,15 +81,19 @@ module.exports = {
 				break;
 
 			case 'DELETE_STORY': {
-				// We have to use our last copy of the stories array, because
-				// by now the deleted story is gone from the state.
+				/*
+				We have to use our last copy of the stories array, because
+				by now the deleted story is gone from the state.
+				*/
 
 				const toDelete = previousStories.find(
 					s => s.id === mutation.payload[0]
 				);
 
 				story.update(transaction => {
-					// It's our responsibility to delete child passages first.
+					/*
+					It's our responsibility to delete child passages first.
+					*/
 
 					toDelete.passages.forEach(
 						passage => story.deletePassage(transaction, passage)
@@ -100,8 +104,10 @@ module.exports = {
 				break;
 			}
 
-			// When saving a passage, we have to make sure to save its parent
-			// story too, since its lastUpdate property has changed.
+			/*
+			When saving a passage, we have to make sure to save its parent
+			story too, since its lastUpdate property has changed.
+			*/
 
 			case 'CREATE_PASSAGE_IN_STORY': {
 				const parentStory = state.story.stories.find(
@@ -138,9 +144,11 @@ module.exports = {
 					s => s.id === mutation.payload[0]
 				);
 
-				// We can't dig up the passage in question right now, because
-				// previousStories is only a shallow copy, and it's gone there
-				// at this point in time.
+				/*
+				We can't dig up the passage in question right now, because
+				previousStories is only a shallow copy, and it's gone there at
+				this point in time.
+				*/
 
 				story.update(transaction => {
 					story.saveStory(transaction, parentStory);
@@ -160,7 +168,7 @@ module.exports = {
 				break;
 
 			case 'LOAD_FORMAT':
-				// This change doesn't need to be persisted.
+				/* This change doesn't need to be persisted. */
 				break;
 
 			default:
@@ -169,8 +177,10 @@ module.exports = {
 				);
 		}
 
-		// We save a copy of the stories structure in aid of deleting, as above.
+		/*
+		We save a copy of the stories structure in aid of deleting, as above.
+		*/
 		
 		previousStories = state.story.stories;
-	}
+	});
 };
