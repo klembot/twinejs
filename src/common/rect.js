@@ -9,8 +9,10 @@ module.exports = {
 	// http://stackoverflow.com/questions/2752349/fast-rectangle-to-rectangle-intersection
 
 	intersects(r1, r2) {
-		return !(r2.left > r1.left + r1.width || r2.left + r2.width < r1.left ||
-			r2.top > r1.top + r1.height || r2.top + r2.height < r1.top);
+		return !(r2.left > r1.left + r1.width ||
+			r2.left + r2.width < r1.left ||
+			r2.top > r1.top + r1.height ||
+			r2.top + r2.height < r1.top);
 	},
 
 	// Returns the intersection point between a rectangle and a line segment.

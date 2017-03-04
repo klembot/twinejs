@@ -1,4 +1,4 @@
-// An editor for adding and removing tags from a passage.
+/* An editor for adding and removing tags from a passage. */
 
 const Vue = require('vue');
 const _ = require('underscore');
@@ -27,12 +27,17 @@ module.exports = Vue.extend({
 		addNew() {
 			const newName = this.$els.newName.value.replace(/\s/g, '-');
 
-			// Clear the newName element while it's transitioning out.
+			/* Clear the newName element while it's transitioning out. */
+
 			this.$els.newName.value = '';
 
-			// Since this event will cause the entire <tag-editor> to be re-rendered
-			// (due to changing the upstream <passage-editor>'s tags data),
-			// this component does not need to modify its own tags data at all.
+			/*
+			Since this event will cause the entire <tag-editor> to be
+			re-rendered (due to changing the upstream <passage-editor>'s tags
+			data), this component does not need to modify its own tags data at
+			all.
+			*/
+
 			this.$dispatch('tag-change', _.uniq([].concat(this.tags, newName)));
 
 			this.hideNew();

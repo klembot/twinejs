@@ -42,7 +42,9 @@ module.exports = Vue.extend({
 				window.setTimeout(() => {
 					this.$dispatch(
 						'story-edit',
-						this.existingStories.find(story => story.name === name).id
+						this.existingStories.find(
+							story => story.name === name
+						).id
 					);
 				}, 300);
 			});

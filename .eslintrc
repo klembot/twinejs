@@ -12,7 +12,11 @@
 			"tab",
 			{ "SwitchCase": 1 }
 		],
-		"max-len": [2, 80],
+		"max-len": [
+			2,
+			80,
+			{ "ignoreUrls": true, "ignoreStrings": true }
+		],
 		"newline-after-var": [2, "always"],
 		"no-console": [
 			2,
