@@ -16,7 +16,7 @@ require('./index.less');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
-	
+
 	props: {
 		appearFast: {
 			type: Boolean,
@@ -30,7 +30,8 @@ module.exports = Vue.extend({
 	},
 
 	data: () => ({
-		storyOrder: 'name'
+		storyOrder: 'name',
+		storyOrderDir: 'asc'
 	}),
 
 	computed: {
@@ -43,8 +44,8 @@ module.exports = Vue.extend({
 				return this.stories;
 			}
 
-			switch (this.storyOrder) {
-				case 'name':
+			switch (`${this.storyOrder}.${this.storyOrderDir}`) {
+				case 'name.asc':
 					return this.stories.sort((a, b) => {
 						if (a.name > b.name) {
 							return 1;
@@ -57,7 +58,36 @@ module.exports = Vue.extend({
 						return 0;
 					});
 
-				case 'lastUpdate':
+				case 'name.desc':
+					return this.stories.sort((a, b) => {
+						if (a.name < b.name) {
+							return 1;
+						}
+
+						if (a.name > b.name) {
+							return -1;
+						}
+
+						return 0;
+					});
+
+				case 'lastUpdate.asc':
+					return this.stories.sort((a, b) => {
+						const aTime = a.lastUpdate.getTime();
+						const bTime = b.lastUpdate.getTime();
+
+						if (aTime > bTime) {
+							return 1;
+						}
+
+						if (aTime < bTime) {
+							return -1;
+						}
+
+						return 0;
+					});
+
+				case 'lastUpdate.desc':
 					return this.stories.sort((a, b) => {
 						const aTime = a.lastUpdate.getTime();
 						const bTime = b.lastUpdate.getTime();
@@ -75,7 +105,7 @@ module.exports = Vue.extend({
 
 				default:
 					throw new Error(
-						`Don't know how to sort by ${this.storyOrder}`
+						`Don't know how to sort by ${this.storyOrder}.${this.storyOrderDir}`
 					);
 			}
 		},
@@ -101,7 +131,7 @@ module.exports = Vue.extend({
 
 	ready() {
 		/* If we were asked to appear fast, we do nothing. */
-		
+
 		if (this.appearFast) {
 			return;
 		}
@@ -128,10 +158,24 @@ module.exports = Vue.extend({
 
 	methods: {
 		sortByDate() {
+			if (this.storyOrder === 'lastUpdate') {
+				this.storyOrderDir = this.storyOrderDir === 'asc' ? 'desc' : 'asc';
+			}
+			else {
+				this.storyOrderDir = 'desc';
+			}
+
 			this.storyOrder = 'lastUpdate';
 		},
 
 		sortByName() {
+			if (this.storyOrder === 'name') {
+				this.storyOrderDir = this.storyOrderDir === 'asc' ? 'desc' : 'asc';
+			}
+			else {
+				this.storyOrderDir = 'asc';
+			}
+
 			this.storyOrder = 'name';
 		}
 	},
