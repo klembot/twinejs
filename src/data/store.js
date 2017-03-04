@@ -13,7 +13,7 @@ module.exports = new Vuex.Store({
 		storyFormat: require('./story-format')
 	},
 	
-	middlewares: [
+	plugins: [
 		require('./local-storage')
 	]
 });
