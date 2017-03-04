@@ -201,10 +201,10 @@ module.exports = Vue.extend({
 			this.off(this.$el.parentNode, 'mouseup');
 
 			/*
-			Because this component's $el has been re-rendered (entirely replaced)
-			due to startDrag() and followDrag() altering the data, this mouseup
-			event won't result in a click event bubbling up from this.
-			To alleviate this, we generate a synthetic MouseEvent now,
+			Because this component's $el has been re-rendered (entirely
+			replaced) due to startDrag() and followDrag() altering the data,
+			this mouseup event won't result in a click event bubbling up from
+			this.  To alleviate this, we generate a synthetic MouseEvent now,
 			using this mouseup event's values.
 			*/
 

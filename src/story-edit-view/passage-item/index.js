@@ -356,8 +356,10 @@ module.exports = Vue.extend({
 					this.parentStory.id,
 					this.passage.id,
 					{
-						top: this.passage.top + yOffset / this.parentStory.zoom,
-						left: this.passage.left + xOffset / this.parentStory.zoom
+						top: this.passage.top + yOffset
+							/ this.parentStory.zoom,
+						left: this.passage.left + xOffset
+							/ this.parentStory.zoom
 					}
 				);
 

@@ -1,27 +1,33 @@
-// A function that checks for an update to Twine, and displays a confirm dialog
-// asking the user to download it.
+/*
+A function that checks for an update to Twine, and displays a confirm dialog
+asking the user to download it.
+*/
 
 const checkForUpdate = require('../../common/app/update-check');
 const { confirm } = require('../confirm');
 const locale = require('../../locale');
 const { setPref } = require('../../data/actions');
 
-// How often we check for a new version of Twine, in milliseconds. This is
-// currently one day.
+/*
+How often we check for a new version of Twine, in milliseconds. This is
+currently one day.
+*/
 
 const CHECK_DELAY = 1000 * 60 * 60 * 24;
 
 module.exports = {
 	check(store) {
-		// Force the last update we've seen to be at least the current app
-		// version.
+		/*
+		Force the last update we've seen to be at least the current app
+		version.
+		*/
 
 		if (!store.state.pref.lastUpdateSeen ||
 			store.state.pref.lastUpdateSeen < store.state.appInfo.buildNumber) {
 			setPref(store, 'lastUpdateSeen', store.state.appInfo.buildNumber);
 		}
 
-		// Is there a new update since we last checked?
+		/* Is there a new update since we last checked? */
 
 		const checkTime = store.state.pref.lastUpdateCheckTime + CHECK_DELAY;
 
@@ -45,8 +51,8 @@ module.exports = {
 
 						cancelLabel:
 							/*
-							L10n: A polite rejection of a request, in the sense that the answer
-							may change in the future.
+							L10n: A polite rejection of a request, in the sense
+							that the answer may change in the future.
 							*/
 							locale.say('Not Right Now'),
 

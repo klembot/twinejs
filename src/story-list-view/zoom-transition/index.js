@@ -31,8 +31,10 @@ module.exports = Vue.extend({
 	},
 
 	ready() {
-		// Ugly hack to make this work on NW.js, which Vue doesn't seem to
-		// process animation events correctly for.
+		/*
+		Ugly hack to make this work on NW.js, which Vue doesn't seem to process
+		animation events correctly for.
+		*/
 
 		window.setTimeout(this.animationend, 200);
 	},
@@ -40,8 +42,11 @@ module.exports = Vue.extend({
 	methods: {
 		animationend() {
 			this[resolve]();
-			// Do not destroy this immediately: consumers may want to do an operation
-			// and call $destroy() on this afterward.
+
+			/*
+			Do not destroy this immediately: consumers may want to do an
+			operation and call $destroy() on this afterward.
+			*/
 		},
 	},
 

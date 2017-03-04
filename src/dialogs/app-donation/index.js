@@ -12,8 +12,10 @@ const DONATION_DELAY = 1000 * 60 * 60 * 24 * 14;
 
 const donation = module.exports = {
 	check(store) {
+		const now = new Date().getTime();
+
 		if (!store.state.pref.donateShown &&
-			new Date().getTime() > store.state.pref.firstRunTime + DONATION_DELAY) {
+			now > store.state.pref.firstRunTime + DONATION_DELAY) {
 			setPref(store, 'donateShown', true);
 			new donation.component().$mountTo(document.body);
 		}

@@ -34,11 +34,15 @@ module.exports = Vue.extend({
 
 	computed: {
 		proofingFormats() {
-			return this.loadedFormats.filter(format => format.properties.proofing);
+			return this.loadedFormats.filter(
+				format => format.properties.proofing
+			);
 		},
 
 		storyFormats() {
-			return this.loadedFormats.filter(format => !format.properties.proofing);
+			return this.loadedFormats.filter(
+				format => !format.properties.proofing
+			);
 		}
 	},
 
@@ -47,13 +51,14 @@ module.exports = Vue.extend({
 
 		loadNext() {
 			if (this.loadIndex < this.allFormats.length) {
-				this.loadFormat(this.allFormats[this.loadIndex].name, this.allFormats[this.loadIndex].version)
-				.then(format => {
+				this.loadFormat(
+					this.allFormats[this.loadIndex].name,
+					this.allFormats[this.loadIndex].version
+				).then(format => {
 					this.loadedFormats.push(format);
 					this.loadIndex++;
 					this.loadNext();
-				})
-				.catch(e => {
+				}).catch(e => {
 					notify(
 						// L10n: %1$s is the name of the story format; %2$s is
 						// the error message.
@@ -74,9 +79,9 @@ module.exports = Vue.extend({
 
 		/**
 		 Tries to add a story format and update the list in the modal. If this
-		 succeeds, the tab where the format now belongs to is shown and the format
-		 description is animated in. If this fails, an error message is shown to
-		 the user. This call is asynchronous.
+		 succeeds, the tab where the format now belongs to is shown and the
+		 format description is animated in. If this fails, an error message is
+		 shown to the user. This call is asynchronous.
 
 		 @method addFormat
 		 @param {String} url URL of the new story format
