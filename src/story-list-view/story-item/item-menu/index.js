@@ -58,7 +58,7 @@ module.exports = Vue.extend({
 		**/
 
 		publish() {
-			this.loadFormat(this.story.storyFormat).then(format => {
+			this.loadFormat(this.story.storyFormat, this.story.storyFormatVersion).then(format => {
 				save(
 					publishStoryWithFormat(this.appInfo, this.story, format),
 					this.story.name + '.html'
