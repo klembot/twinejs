@@ -3,13 +3,23 @@ describe('local-storage persistence', () => {
 	const { spy, stub } = require('sinon');
 	const localStorage = require('./index');
 	let pref = require('./pref');
+	let mutationObserver;
 	let story = require('./story');
 	let storyFormat = require('./story-format');
 	let store;
 
+	/* Mimic the Vuex subscribe() flow. */
+
+	function dispatchMutation(mutation) {
+		mutationObserver(mutation, store.state);
+	}
+
 	beforeEach(() => {
 		store = {
 			dispatch: spy(),
+			subscribe: function(callback) {
+				mutationObserver = callback;
+			},
 			state: {
 				pref: {},
 				story: { stories: [] },
@@ -41,37 +51,27 @@ describe('local-storage persistence', () => {
 		storyFormat.load.restore();
 		storyFormat.save.restore();
 	});
-		
+
 	it('loads the pref, story, and story-format modules when starting', () => {
-		localStorage.onInit(store.state, store);
+		localStorage(store);
 		expect(pref.load.calledOnce).to.be.true;
 		expect(story.load.calledOnce).to.be.true;
 		expect(storyFormat.load.calledOnce).to.be.true;
 	});
 	
 	it('calls story.saveStory() when a CREATE_STORY mutation occurs', () => {
-		localStorage.onMutation(
-			{
-				type: 'CREATE_STORY',
-				payload: [{
-					name: 'A Story'
-				}]
-			},
-			store.state,
-			store
-		);
+		dispatchMutation({
+			type: 'CREATE_STORY',
+			payload: [{ name: 'A Story' }]
+		});
 		expect(story.saveStory.calledOnce).to.be.true;
 	});
 	
 	it('calls story.saveStory() when an UPDATE_STORY mutation occurs', () => {
-		localStorage.onMutation(
-			{
-				type: 'UPDATE_STORY',
-				payload: ['not-an-id']
-			},
-			store.state,
-			store
-		);
+		dispatchMutation({
+			type: 'UPDATE_STORY',
+			payload: ['not-an-id']
+		});
 		expect(story.saveStory.calledOnce).to.be.true;
 	});
 	
@@ -88,14 +88,10 @@ describe('local-storage persistence', () => {
 			passages: []
 		});
 		
-		localStorage.onMutation(
-			{
-				type: 'DUPLICATE_STORY',
-				payload: ['not-an-id', 'Copied Story']
-			},
-			store.state,
-			store
-		);
+		dispatchMutation({
+			type: 'DUPLICATE_STORY',
+			payload: ['not-an-id', 'Copied Story']
+		});
 		expect(story.saveStory.calledOnce).to.be.true;
 	});
 	
@@ -106,16 +102,10 @@ describe('local-storage persistence', () => {
 			passages: []
 		});
 		
-		localStorage.onMutation(
-			{
-				type: 'IMPORT_STORY',
-				payload: [{
-					name: 'Imported Story'
-				}]
-			},
-			store.state,
-			store
-		);
+		dispatchMutation({
+			type: 'IMPORT_STORY',
+			payload: [{ name: 'Imported Story' }]
+		});
 		expect(story.saveStory.calledOnce).to.be.true;
 	});
 	
@@ -126,14 +116,10 @@ describe('local-storage persistence', () => {
 			passages: []
 		});
 		
-		localStorage.onMutation(
-			{
-				type: 'DELETE_STORY',
-				payload: ['not-an-id']
-			},
-			store.state,
-			store
-		);
+		dispatchMutation({
+			type: 'DELETE_STORY',
+			payload: ['not-an-id']
+		});
 		expect(story.deleteStory.calledOnce).to.be.true;
 	});
 	
@@ -149,19 +135,10 @@ describe('local-storage persistence', () => {
 			]
 		});
 		
-		localStorage.onMutation(
-			{
-				type: 'CREATE_PASSAGE_IN_STORY',
-				payload: [
-					'not-an-id',
-					{
-						name: 'A Passage'
-					}
-				]
-			},
-			store.state,
-			store
-		);
+		dispatchMutation({
+			type: 'CREATE_PASSAGE_IN_STORY',
+			payload: ['not-an-id', { name: 'A Passage' }]
+		});
 
 		expect(story.saveStory.calledOnce).to.be.true;
 		expect(story.savePassage.calledOnce).to.be.true;
@@ -179,19 +156,10 @@ describe('local-storage persistence', () => {
 			]
 		});
 		
-		localStorage.onMutation(
-			{
-				type: 'CREATE_PASSAGE_IN_STORY',
-				payload: [
-					'not-an-id',
-					{
-						name: 'A Passage'
-					}
-				]
-			},
-			store.state,
-			store
-		);
+		dispatchMutation({
+			type: 'CREATE_PASSAGE_IN_STORY',
+			payload: ['not-an-id', { name: 'A Passage' }]
+		});
 
 		expect(story.saveStory.calledOnce).to.be.true;
 		expect(story.savePassage.calledOnce).to.be.true;
@@ -209,19 +177,10 @@ describe('local-storage persistence', () => {
 			]
 		});
 		
-		localStorage.onMutation(
-			{
-				type: 'DELETE_PASSAGE_IN_STORY',
-				payload: [
-					'not-an-id',
-					{
-						name: 'A Passage'
-					}
-				]
-			},
-			store.state,
-			store
-		);
+		dispatchMutation({
+			type: 'DELETE_PASSAGE_IN_STORY',
+			payload: ['not-an-id', { name: 'A Passage' }]
+		});
 
 		expect(story.saveStory.calledOnce).to.be.true;
 		
@@ -233,66 +192,31 @@ describe('local-storage persistence', () => {
 	});
 	
 	it('calls pref.save() when an UPDATE_PREF mutation occurs', () => {
-		localStorage.onMutation(
-			{
-				type: 'UPDATE_PREF'
-			},
-			store.state,
-			store
-		);
-		
+		dispatchMutation({ type: 'UPDATE_PREF' });
 		expect(pref.save.calledOnce).to.be.true;
 	});
 	
 	it('calls storyFormat.save() when a CREATE_FORMAT mutation occurs', () => {
-		localStorage.onMutation(
-			{
-				type: 'CREATE_FORMAT'
-			},
-			store.state,
-			store
-		);
-		
+		dispatchMutation({ type: 'CREATE_FORMAT' });
 		expect(storyFormat.save.calledOnce).to.be.true;
 	});
 	
 	it('calls storyFormat.save() when an UPDATE_FORMAT mutation occurs', () => {
-		localStorage.onMutation(
-			{
-				type: 'UPDATE_FORMAT'
-			},
-			store.state,
-			store
-		);
-		
+		dispatchMutation({ type: 'UPDATE_FORMAT' });
 		expect(storyFormat.save.calledOnce).to.be.true;
 	});
 	
 	it('calls storyFormat.save() when a DELETE_FORMAT mutation occurs', () => {
-		localStorage.onMutation(
-			{
-				type: 'DELETE_FORMAT'
-			},
-			store.state,
-			store
-		);
-		
+		dispatchMutation({ type: 'DELETE_FORMAT' });
 		expect(storyFormat.save.calledOnce).to.be.true;
 	});
 	
 	it('ignores LOAD_FORMAT mutations', () => {
-		localStorage.onMutation(
-			{
-				type: 'LOAD_FORMAT'
-			},
-			store.state,
-			store
-		);
-		
+		dispatchMutation({ type: 'LOAD_FORMAT' });
 		expect(storyFormat.save.calledOnce).to.be.false;
 	});
 	
 	it('throws an error when given a mutation it does not know how to handle', () => {
-		expect(() => { localStorage.onMutation({ type: '???' }) }).to.throw;
+		expect(() => { dispatchMutation({ type: '???' }); }).to.throw;
 	});
 });
