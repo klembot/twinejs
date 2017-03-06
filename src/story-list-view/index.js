@@ -30,6 +30,10 @@ module.exports = Vue.extend({
 	},
 
 	data: () => ({
+		/*
+		Set the default story list sorting to 'name', 'asc' (i.e. A → Z).
+		*/
+
 		storyOrder: 'name',
 		storyOrderDir: 'asc'
 	}),
@@ -44,60 +48,31 @@ module.exports = Vue.extend({
 				return this.stories;
 			}
 
-			switch (`${this.storyOrder}.${this.storyOrderDir}`) {
-				case 'name.asc':
+			switch (this.storyOrder) {
+				case 'name':
 					return this.stories.sort((a, b) => {
 						if (a.name > b.name) {
-							return 1;
+							return this.storyOrderDir === 'asc' ? 1 : -1;
 						}
 
 						if (a.name < b.name) {
-							return -1;
+							return this.storyOrderDir === 'asc' ? -1 : 1;
 						}
 
 						return 0;
 					});
 
-				case 'name.desc':
-					return this.stories.sort((a, b) => {
-						if (a.name < b.name) {
-							return 1;
-						}
-
-						if (a.name > b.name) {
-							return -1;
-						}
-
-						return 0;
-					});
-
-				case 'lastUpdate.asc':
+				case 'lastUpdate':
 					return this.stories.sort((a, b) => {
 						const aTime = a.lastUpdate.getTime();
 						const bTime = b.lastUpdate.getTime();
 
 						if (aTime > bTime) {
-							return 1;
+							return this.storyOrderDir === 'asc' ? 1 : -1;
 						}
 
 						if (aTime < bTime) {
-							return -1;
-						}
-
-						return 0;
-					});
-
-				case 'lastUpdate.desc':
-					return this.stories.sort((a, b) => {
-						const aTime = a.lastUpdate.getTime();
-						const bTime = b.lastUpdate.getTime();
-
-						if (aTime < bTime) {
-							return 1;
-						}
-
-						if (aTime > bTime) {
-							return -1;
+							return this.storyOrderDir === 'asc' ? -1 : 1;
 						}
 
 						return 0;
@@ -105,7 +80,7 @@ module.exports = Vue.extend({
 
 				default:
 					throw new Error(
-						`Don't know how to sort by ${this.storyOrder}.${this.storyOrderDir}`
+						`Don't know how to sort by "${this.storyOrder}"`
 					);
 			}
 		},
@@ -158,6 +133,11 @@ module.exports = Vue.extend({
 
 	methods: {
 		sortByDate() {
+			/*
+			If the last story order was 'lastUpdate', toggle the story order direction.
+			Elsewise, default to 'desc' (i.e. newest → oldest).
+			*/
+
 			if (this.storyOrder === 'lastUpdate') {
 				this.storyOrderDir = this.storyOrderDir === 'asc' ? 'desc' : 'asc';
 			}
@@ -169,6 +149,11 @@ module.exports = Vue.extend({
 		},
 
 		sortByName() {
+			/*
+			If the last story order was 'name', toggle the story order direction.
+			Elsewise, default to 'asc' (i.e. A → Z).
+			*/
+
 			if (this.storyOrder === 'name') {
 				this.storyOrderDir = this.storyOrderDir === 'asc' ? 'desc' : 'asc';
 			}
