@@ -54,4 +54,18 @@ describe('dom-events Vue mixin', () => {
 	it('does not do anything if a component has no listeners attached when destroyed', () => {
 		expect(() => { component.$destroy(); }).to.not.throw;
 	});
+
+	it('partitions listeners for different component instances', () => {
+		const comp = Vue.extend({ mixins: [domEvents] });
+		let comp1 = new comp();
+		let comp2 = new comp();
+
+		comp1.on(body, 'click', handler);
+		comp2.on(body, 'click', handler);
+
+		comp1.$destroy();
+		body.dispatchEvent(clickEvent);
+
+		expect(handler.calledOnce).to.be.true;
+	});
 });

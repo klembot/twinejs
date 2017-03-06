@@ -3,8 +3,10 @@ const StoryFile = require('../../story-file');
 let enabled = true;
 let previousStories;
 
-module.exports = {
-	onMutation(mutation, state) {
+module.exports = store => {
+	previousStories = store.state.story.stories;
+
+	store.subscribe((mutation, state) => {
 		if (!enabled) {
 			return;
 		}
@@ -72,5 +74,5 @@ module.exports = {
 		previousStories = state.story.stories.map(
 			s => Object.assign({}, s)
 		);
-	}
+	});
 };

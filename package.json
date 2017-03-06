@@ -55,7 +55,7 @@
     "underscore": "^1.8.3",
     "vue": "^1.0.18",
     "vue-router": "^0.7.13",
-    "vuex": "^0.6.3",
+    "vuex": "^1.0.0",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^1.16.3"
   },

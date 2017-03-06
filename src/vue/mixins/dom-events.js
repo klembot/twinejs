@@ -12,22 +12,26 @@ of objects with event, el, and listener properties.
 let listeners = {};
 
 module.exports = {
-	init() {
-		if (!listeners[this]) {
-			listeners[this] = [];
+	created() {
+		this.$domEventKey = Symbol();
+
+		if (!listeners[this.$domEventKey]) {
+			listeners[this.$domEventKey] = [];
 		}
 	},
 
 	beforeDestroy() {
 		/* Clean up event listeners that have been previously attached. */
 
-		if (!listeners[this]) {
+		if (!listeners[this.$domEventKey]) {
 			return;
 		}
 
-		listeners[this].forEach(
+		listeners[this.$domEventKey].forEach(
 			props => props.el.removeEventListener(props.event, props.listener)
 		);
+
+		listeners[this.$domEventKey] = null;
 	},
 
 	methods: {
@@ -41,7 +45,7 @@ module.exports = {
 			const boundListener = listener.bind(this);
 
 			el.addEventListener(event, boundListener, options);
-			listeners[this].push(
+			listeners[this.$domEventKey].push(
 				{ el, event, options, listener: boundListener }
 			);
 		},
@@ -51,20 +55,21 @@ module.exports = {
 		*/
 
 		off(el, event) {
-			if (!listeners[this]) {
+			if (!listeners[this.$domEventKey]) {
 				return;
 			}
 
-			listeners[this] = listeners[this].filter(props => {
-				if (props.event === event) {
-					props.el.removeEventListener(
-						props.event, props.listener, props.options
-					);
-					return false;
-				}
+			listeners[this.$domEventKey] =
+				listeners[this.$domEventKey].filter(props => {
+					if (props.event === event) {
+						props.el.removeEventListener(
+							props.event, props.listener, props.options
+						);
+						return false;
+					}
 
-				return true;
-			});
+					return true;
+				});
 		}
 	}
 };
