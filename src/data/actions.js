@@ -402,8 +402,8 @@ const actions = module.exports = {
 			},
 			{
 				name: 'Harlowe',
-				url: 'story-formats/harlowe-2.0.0/format.js',
-				version: '2.0.0',
+				url: 'story-formats/harlowe-2.0.1/format.js',
+				version: '2.0.1',
 				userAdded: false
 			},
 			{
