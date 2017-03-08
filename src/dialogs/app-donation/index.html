@@ -1,0 +1,24 @@
+<modal-dialog class="no-header" id="appDonation" v-ref:modal>
+	<img src="./klimas.png" class="portrait">
+
+	<p class="larger">
+		{{{ "If you love Twine as much as I do, please consider helping it grow with a donation. Twine is an open source project that will always be free to use &mdash; and with your help, Twine will continue to thrive." | say }}}
+	</p>
+
+	<p class="signature larger">
+		{{ 'Chris Klimas, Twine creator' | say }}
+	</p>
+
+	<p class="buttons larger">
+		<button class="subtle" @click="close">
+			{{ 'No Thanks' | say }}
+		</button>
+		<button @click="donate" class="danger">
+			<i class="fa fa-heart-o"></i> {{ 'Donate' | say }}
+		</button>
+	</p>
+
+	<p class="coda">
+		{{{ "This message will only be shown to you once.&lt;br&gt;If you'd like to donate to Twine development in the future, you can do so at &lt;a href=\"http:\/\/twinery.org/donate\" target=\"_blank\"&gt;http://twinery.org/donate&lt;/a&gt;." | say }}}
+	</p>
+</modal-dialog>

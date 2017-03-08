@@ -1,0 +1,85 @@
+@import '../common/colors.less';
+@import '../common/depth.less';
+@import '../common/metrics.less';
+@import '../common/typography.less';
+
+@toolbar-width: 13rem;
+@header-height: 4.5rem;
+
+#storyListView {
+	nav.listControls {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		width: @toolbar-width;
+		text-align: center;
+		padding: @len-extra-large;
+		background: darken(@color-paper, 5%);
+
+		h1 {
+			margin: 0;
+			padding-top: 3em;
+			background: center top no-repeat url('../common/img/logo.svg');
+			background-size: 50%;
+		}
+
+		p {
+			margin: 0.5em 0;
+		}
+
+		button.create {
+			margin-bottom: 1em;
+		}
+
+		footer {
+			.smaller;
+		}
+
+		.theme-dark & {
+			background: lighten(@color-paper-dark, 5%);
+		}
+	}
+
+	> header {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: @toolbar-width;
+		height: @header-height;
+		z-index: 1;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0 @len-extra-large;
+		background: @color-paper;
+
+		h1 {
+			margin: 0;
+			display: inline;
+		}
+
+		label {
+			padding-right: @len-small;
+		}
+
+		.theme-dark & {
+			background: @color-paper-dark;
+		}
+	}
+
+	.stories {
+		position: absolute;
+		top: 0;
+		left: 0;
+		padding: @header-height 0 @len-extra-large @len-extra-large;
+		right: @toolbar-width;
+		min-height: 100%;
+		display: flex;
+		flex-wrap: wrap;
+		.shadow-large;
+	}
+}
