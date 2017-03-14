@@ -15,7 +15,11 @@
 		"max-len": [
 			2,
 			80,
-			{ "ignoreUrls": true, "ignoreStrings": true }
+			{
+				"ignoreUrls": true,
+				"ignoreStrings": true,
+				"ignoreTemplateLiterals": true
+			}
 		],
 		"newline-after-var": [2, "always"],
 		"no-console": [
