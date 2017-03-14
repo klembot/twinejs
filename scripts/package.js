@@ -83,8 +83,8 @@ Zips up the Mac build, which requires zip to be installed as a command-line tool
 
 function buildMacInstallers() {
 	childProcess.execSync(
-		`zip -r uploads/twine_${twine.version}_osx.zip nw/Twine/osx64/Twine.app`,
-		{ cwd: 'dist/' }
+		`zip -r ../../../uploads/twine_${twine.version}_osx.zip Twine.app`,
+		{ cwd: 'dist/nw/Twine/osx64' }
 	);
 	console.log(`Wrote dist/uploads/twine_${twine.version}_osx.zip.`);
 }
@@ -96,16 +96,16 @@ Zips up the Linux build, which requires zip to be installed as a command-line to
 function buildLinuxInstallers() {
 	fs.renameSync('dist/nw/Twine/linux32', `dist/nw/Twine/twine_${twine.version}`);
 	childProcess.execSync(
-		`zip -r uploads/twine_${twine.version}_linux32.zip nw/Twine/twine_${twine.version}`,
-		{ cwd: 'dist/' }
+		`zip -r ../../uploads/twine_${twine.version}_linux32.zip twine_${twine.version}`,
+		{ cwd: 'dist/nw/Twine/' }
 	);
 	fs.renameSync(`dist/nw/Twine/twine_${twine.version}`, 'dist/nw/Twine/linux32');
 	console.log(`Wrote dist/uploads/twine_${twine.version}_linux32.zip.`);
 
 	fs.renameSync('dist/nw/Twine/linux64', `dist/nw/Twine/twine_${twine.version}`);
 	childProcess.execSync(
-		`zip -r uploads/twine_${twine.version}_linux64.zip nw/Twine/twine_${twine.version}`,
-		{ cwd: 'dist/' }
+		`zip -r ../../uploads/twine_${twine.version}_linux64.zip twine_${twine.version}`,
+		{ cwd: 'dist/nw/Twine' }
 	);
 	fs.renameSync(`dist/nw/Twine/twine_${twine.version}`, 'dist/nw/Twine/linux64');
 	console.log(`Wrote dist/uploads/twine_${twine.version}_linux64.zip.`);
