@@ -1,0 +1,46 @@
+@import '../../common/colors.less';
+@import '../../common/metrics.less';
+
+.drag-n-drop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: -100; // Behind the UI, but able to receive events.
+
+	// Center the label.
+	
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	
+	.label {
+		display: none;
+		text-align: center;
+	}
+
+	// Display a dotted rectangle overlay when dragging
+	
+	&.receiving {
+		z-index: 100; // In front of the UI.
+		background: fadeout(@color-darken, 20%);
+		color: @color-paper;
+	
+		.label {
+			display: inline;
+			font-size: @len-large;
+		}
+	
+		.inner-border {
+			position: absolute;
+			border: @len-tiny dashed @color-paper;
+			border-radius: @len-tiny;
+			top: @len-medium;
+			left: @len-medium;
+			right: @len-medium;
+			bottom: @len-medium;
+			box-sizing: border-box;
+		}
+	}
+}

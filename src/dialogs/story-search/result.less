@@ -1,0 +1,31 @@
+@import '../../common/colors.less';
+@import '../../common/metrics.less';
+
+#searchModal .result {
+	pre {
+		max-height: 5em;
+		width: 100%;
+		overflow: auto;
+		background: darken(@color-paper, 5%);
+		margin-top: 0;	
+		padding: @len-small @len-medium;
+	}
+
+	.passageName {
+		display: flex;
+		justify-content: space-between;
+		margin: 0;
+	}
+
+	.controls {
+		visibility: hidden;
+	}
+
+	&:hover .controls {
+		visibility: visible;
+	}
+
+	.highlight {
+		background-color: @color-highlight;
+	}
+}
