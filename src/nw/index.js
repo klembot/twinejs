@@ -25,6 +25,7 @@ module.exports = {
 			}
 			catch (e) {
 				resolve();
+				return;
 			}
 
 			/*
@@ -34,6 +35,7 @@ module.exports = {
 
 			if (window.location.hash !== '') {
 				resolve();
+				return;
 			}
 
 			require('core-js');
@@ -82,7 +84,6 @@ module.exports = {
 
 							if (item.name === 'locale') {
 								localeFound = true;
-								console.log('Found locale ' + item.value);
 								locale.load(item.value, finishInit);
 							}
 						}
