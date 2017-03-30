@@ -10,12 +10,14 @@
 			<label>{{ 'Sort By' | say }}</label>
 
 			<span class="button-group">
-				<button class="{{ 'subtle ' + (storyOrder === 'lastUpdate' ? 'active': '') }}" @click="sortByDate" title="{{'Last changed date' | say }}">
-				{{ 'Edit Date' | say }}
+				<button class="{{ 'subtle' + (storyOrder === 'lastUpdate' ? ' active' : '') }}" @click="sortByDate" title="{{ 'Last changed date' | say }}">
+					{{ 'Edit Date' | say }}
+					<i class="fa fa-sort{{ storyOrder === 'lastUpdate' ? '-' + storyOrderDir : '' }}"></i>
 				</button>
 
-				<button class="{{ 'subtle ' + (storyOrder === 'name' ? 'active' : '') }}" @click="sortByName" title="{{'Story name' | say }}">
-				{{ 'Name' | say }}
+				<button class="{{ 'subtle' + (storyOrder === 'name' ? ' active' : '') }}" @click="sortByName" title="{{ 'Story name' | say }}">
+					{{ 'Name' | say }}
+					<i class="fa fa-sort{{ storyOrder === 'name' ? '-' + storyOrderDir : '' }}"></i>
 				</button>
 			</span>
 		</p>
