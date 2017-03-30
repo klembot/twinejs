@@ -25,19 +25,17 @@ extend Vue, because it touches certain Vue components that expect those
 extensions to be in place at require() time.
 */
 
-require('./nw').init();
+require('./nw').init().then(function() {
+	const locale = require('./locale');
+	const notify = require('./ui/notify');
+	const store = require('./data/store');
+	const TwineApp = require('./common/app');
+	const TwineRouter = require('./common/router');
 
-const locale = require('./locale');
-const notify = require('./ui/notify');
-const store = require('./data/store');
-const TwineApp = require('./common/app');
-const TwineRouter = require('./common/router');
+	require('core-js');
 
-require('core-js');
+	/* Start the application after loading the appropriate locale data. */
 
-/* Start the application after loading the appropriate locale data. */
-
-((() => {
 	let userLocale;
 
 	/*
@@ -84,4 +82,4 @@ require('core-js');
 			});
 		});
 	}
-}))();
+});

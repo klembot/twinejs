@@ -8,154 +8,226 @@
 **/
 
 module.exports = {
-	/*
+	/**
 	Performs one-time initialization, e.g. setting up menus. This should be
 	called as early in the app initialization process as possible.
-	*/
+	@return {Promise} Resolves only after initialization completes successfully
+	**/
 
 	init() {
-		try {
-			require('nw.gui');
-		}
-		catch (e) {
-			return;
-		}
-
-		if (window.location.hash !== '') {
-			return;
-		}
-
-		require('core-js');
-		require('./index.less');
-
-		const startupErrorTemplate = require('./startup-error.ejs');
-		let startupTask = 'beginning startup tasks';
-
-		try {
-			const gui = require('nw.gui');
-			const mkdirp = require('mkdirp');
-			const directories = require('./directories');
-			const menus = require('./menus');
-			const patchQuotaGauge = require('./patches/quota-gauge');
-			const patchStore = require('./patches/store');
-			const patchStoryListToolbar = require('./patches/story-list-toolbar');
-			const patchWelcomeView = require('./patches/welcome-view');
-			const storyFile = require('./story-file');
-
-			const win = gui.Window.get();
-
-			/* Set up our menus. */
-
-			startupTask = 'setting up menus';
-			menus.addTo(win);
-
-			/* Show the window once we've finished loading. */
-
-			startupTask = 'setting window properties';
-
-			win.on('loaded', () => {
-				win.show();
-				win.focus();
-			});
-
+		return new Promise((resolve, reject) => {
 			/*
-			Add a shift-ctrl-alt-D shortcut for displaying dev tools.
-			Note: this is deprecated as NW.js now lets you press F12 anywhere.
+			If we're not running in an NW.js context, do nothing.
 			*/
 
-			startupTask = 'adding the debugger keyboard shortcut';
+			try {
+				require('nw.gui');
+			}
+			catch (e) {
+				resolve();
+			}
 
-			document.addEventListener('keyup', e => {
-				if (e.which === 68 && e.shiftKey && e.altKey && e.ctrlKey) {
-					win.showDevTools();
-				}
-			});
+			/*
+			If we're not the story list, e.g. another window opened in NW for
+			playing a story, then skip initialization.
+			*/
 
-			/* Create ~/Documents/Twine if it doesn't exist. */
+			if (window.location.hash !== '') {
+				resolve();
+			}
 
-			startupTask = 'checking for the presence of a Documents or My ' +
-				'Documents directory in your user directory';
+			require('core-js');
+			require('./index.less');
 
-			mkdirp.sync(directories.storiesPath());
+			const startupErrorTemplate = require('./startup-error.ejs');
+			let startupTask = 'beginning startup tasks';
 
-			/* Open external links outside the app. */
+			try {
+				const gui = require('nw.gui');
+				const mkdirp = require('mkdirp');
+				const directories = require('./directories');
+				const locale = require('../locale');
+				const menus = require('./menus');
+				const patchQuotaGauge = require('./patches/quota-gauge');
+				const patchStore = require('./patches/store');
+				const patchStoryListToolbar = require('./patches/story-list-toolbar');
+				const patchWelcomeView = require('./patches/welcome-view');
+				const storyFile = require('./story-file');
 
-			startupTask = 'setting up a handler for external links';
+				const win = gui.Window.get();
 
-			document.addEventListener('click', function(e) {
-				if (e.target.nodeName === 'A') {
-					const url = e.target.getAttribute('url');
+				/*
+				Load our locale. This must happen right away, as it's used for
+				directories and such. Because the rest of the app has not yet
+				initialized, we need to fish out the user preference manually, which
+				is rather ugly.
 
-					if (typeof url == 'string' && url.match(/^https?:/)) {
-						gui.Shell.openExternal(url);
-						e.preventDefault();
+				This is mostly cribbed from data/local-storage/pref.js.
+				*/
+
+				const serialized = window.localStorage.getItem('twine-prefs');
+
+				if (serialized) {
+					let localeFound = false;
+
+					serialized.split(',').forEach(id => {
+						if (localeFound) {
+							return;
+						}
+
+						try {
+							const item = JSON.parse(
+								window.localStorage.getItem('twine-prefs-' + id)
+							);
+
+							if (item.name === 'locale') {
+								localeFound = true;
+								console.log('Found locale ' + item.value);
+								locale.load(item.value, finishInit);
+							}
+						}
+						catch (e) {
+							/* Skip a bad value. */
+						}
+					});
+
+					if (!localeFound) {
+						finishInit();
 					}
 				}
-			});
+				else {
+					finishInit();
+				}
 
-			/* When quitting, unlock the story directory. */
+				function finishInit() {
+					/* Set up our menus. */
 
-			startupTask = 'setting up shutdown tasks';
+					startupTask = 'setting up menus';
+					menus.addTo(win);
 
-			gui.Window.get().on('close', function() {
-				directories.unlockStories();
-				this.close(true);
-			});
+					/* Show the window once we've finished loading. */
 
-			/*
-			Do a file sync if we're just starting up. We have to track this in
-			the global scope; otherwise, each new window will think it's
-			starting afresh and screw up our model IDs.
-			*/
+					startupTask = 'setting window properties';
 
-			startupTask = 'initially synchronizing story files';
-			storyFile.loadAll();
-			startupTask = 'initially locking your Stories directory';
-			directories.lockStories();
+					win.on('loaded', () => {
+						win.show();
+						win.focus();
+					});
 
-			/*
-			Monkey patch the store module to save to a file under
-			~/Documents/Twine whenever a story changes, or delete it when it is
-			deleted.
-			*/
+					/*
+					Add a shift-ctrl-alt-D shortcut for displaying dev tools.
+					Note: this is deprecated as NW.js now lets you press F12 anywhere.
+					*/
 
-			startupTask = 'adding a hook to automatically save stories';
-			patchStore(require('../data/store'));
+					startupTask = 'adding the debugger keyboard shortcut';
 
-			/*
-			Monkey patch QuotaGauge to hide itself, since we don't have to
-			sweat quota ourselves.
-			*/
+					document.addEventListener('keyup', e => {
+						if (e.which === 68 && e.shiftKey && e.altKey && e.ctrlKey) {
+							win.showDevTools();
+						}
+					});
 
-			startupTask = 'disabling the storage quota meter';
-			patchQuotaGauge(require('../ui/quota-gauge'));
+					/* Create ~/Documents/Twine if it doesn't exist. */
 
-			/*
-			Monkey patch StoryListToolbar to open the wiki in the user's
-			browser.
-			*/
+					startupTask = 'checking for the presence of a Documents or My ' +
+						'Documents directory in your user directory';
 
-			startupTask = 'setting up the Help link';
-			patchStoryListToolbar(require('../story-list-view/list-toolbar'));
+					// FIXME: this is happening before the locale is loaded,
+					// and accordingly, is broken
 
-			/*
-			Monkey patch WelcomeView to hide information related to local
-			storage.
-			*/
+					console.log(directories.storiesPath());
+					mkdirp.sync(directories.storiesPath());
 
-			startupTask = 'customizing the initial welcome page';
-			patchWelcomeView(require('../welcome'));
-		}
-		catch (e) {
-			/* eslint-disable no-console */
-			console.error('Startup crash', startupTask, e);
-			/* eslint-enable no-console */
+					/* Open external links outside the app. */
 
-			document.write(
-				startupErrorTemplate({ task: startupTask, error: e })
-			);
-			require('nw.gui').Window.get().show();
-			throw e;
-		}
+					startupTask = 'setting up a handler for external links';
+
+					document.addEventListener('click', function(e) {
+						if (e.target.nodeName === 'A') {
+							const url = e.target.getAttribute('url');
+
+							if (typeof url == 'string' && url.match(/^https?:/)) {
+								gui.Shell.openExternal(url);
+								e.preventDefault();
+							}
+						}
+					});
+
+					/* When quitting, unlock the story directory. */
+
+					startupTask = 'setting up shutdown tasks';
+
+					gui.Window.get().on('close', function() {
+						directories.unlockStories();
+						this.close(true);
+					});
+
+					/*
+					Do a file sync if we're just starting up. We have to track this in
+					the global scope; otherwise, each new window will think it's
+					starting afresh and screw up our model IDs.
+					*/
+
+					startupTask = 'initially synchronizing story files';
+					storyFile.loadAll();
+					startupTask = 'initially locking your Stories directory';
+					directories.lockStories();
+
+					/*
+					Monkey patch the store module to save to a file under
+					~/Documents/Twine whenever a story changes, or delete it when it is
+					deleted.
+					*/
+
+					startupTask = 'adding a hook to automatically save stories';
+					patchStore(require('../data/store'));
+
+					/*
+					Monkey patch QuotaGauge to hide itself, since we don't have to
+					sweat quota ourselves.
+					*/
+
+					startupTask = 'disabling the storage quota meter';
+					patchQuotaGauge(require('../ui/quota-gauge'));
+
+					/*
+					Monkey patch StoryListToolbar to open the wiki in the user's
+					browser.
+					*/
+
+					startupTask = 'setting up the Help link';
+					patchStoryListToolbar(require('../story-list-view/list-toolbar'));
+
+					/*
+					Monkey patch WelcomeView to hide information related to local
+					storage.
+					*/
+
+					startupTask = 'customizing the initial welcome page';
+					patchWelcomeView(require('../welcome'));
+
+					resolve();
+				}
+			}
+			catch (e) {
+				/*
+				Show the user the error and halt.
+				*/
+
+				/* eslint-disable no-console */
+				console.error('Startup crash', startupTask, e);
+				/* eslint-enable no-console */
+
+				document.write(
+					startupErrorTemplate({ task: startupTask, error: e })
+				);
+				require('nw.gui').Window.get().show();
+				throw e;
+
+				/*
+				Don't resolve our promise so that the startup process freezes.
+				*/
+			}
+		});
 	}
 };
