@@ -31,7 +31,12 @@ module.exports = Vue.extend({
 
 			let source = this.search;
 
-			if (this.regexp) {
+			/*
+			Escape regular expression characters in what the user typed unless
+			they indicated that they're using a regexp.
+			*/
+
+			if (!this.regexp) {
 				source = source.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 			}
 
