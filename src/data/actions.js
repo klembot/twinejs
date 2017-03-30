@@ -426,8 +426,8 @@ const actions = module.exports = {
 			},
 			{
 				name: 'SugarCube',
-				url: 'story-formats/sugarcube-2.14.0/format.js',
-				version: '2.14.0',
+				url: 'story-formats/sugarcube-2.16.0/format.js',
+				version: '2.16.0',
 				userAdded: false
 			}
 		];
@@ -542,7 +542,7 @@ const actions = module.exports = {
 				actions.updateStory(
 					store,
 					story.id,
-					{ storyFormat: 'SugarCube', storyFormatVersion: '2.14.0' }
+					{ storyFormat: 'SugarCube', storyFormatVersion: '2.16.0' }
 				);
 			}
 			else if (!story.storyFormatVersion) {

@@ -16,7 +16,7 @@ require('./index.less');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
-	
+
 	props: {
 		appearFast: {
 			type: Boolean,
@@ -30,7 +30,12 @@ module.exports = Vue.extend({
 	},
 
 	data: () => ({
-		storyOrder: 'name'
+		/*
+		Set the default story list sorting to 'name', 'asc' (i.e. A → Z).
+		*/
+
+		storyOrder: 'name',
+		storyOrderDir: 'asc'
 	}),
 
 	computed: {
@@ -47,11 +52,11 @@ module.exports = Vue.extend({
 				case 'name':
 					return this.stories.sort((a, b) => {
 						if (a.name > b.name) {
-							return 1;
+							return this.storyOrderDir === 'asc' ? 1 : -1;
 						}
 
 						if (a.name < b.name) {
-							return -1;
+							return this.storyOrderDir === 'asc' ? -1 : 1;
 						}
 
 						return 0;
@@ -62,12 +67,12 @@ module.exports = Vue.extend({
 						const aTime = a.lastUpdate.getTime();
 						const bTime = b.lastUpdate.getTime();
 
-						if (aTime < bTime) {
-							return 1;
+						if (aTime > bTime) {
+							return this.storyOrderDir === 'asc' ? 1 : -1;
 						}
 
-						if (aTime > bTime) {
-							return -1;
+						if (aTime < bTime) {
+							return this.storyOrderDir === 'asc' ? -1 : 1;
 						}
 
 						return 0;
@@ -75,7 +80,7 @@ module.exports = Vue.extend({
 
 				default:
 					throw new Error(
-						`Don't know how to sort by ${this.storyOrder}`
+						`Don't know how to sort by "${this.storyOrder}"`
 					);
 			}
 		},
@@ -101,7 +106,7 @@ module.exports = Vue.extend({
 
 	ready() {
 		/* If we were asked to appear fast, we do nothing. */
-		
+
 		if (this.appearFast) {
 			return;
 		}
@@ -128,10 +133,34 @@ module.exports = Vue.extend({
 
 	methods: {
 		sortByDate() {
+			/*
+			If the last story order was 'lastUpdate', toggle the story order direction.
+			Elsewise, default to 'desc' (i.e. newest → oldest).
+			*/
+
+			if (this.storyOrder === 'lastUpdate') {
+				this.storyOrderDir = this.storyOrderDir === 'asc' ? 'desc' : 'asc';
+			}
+			else {
+				this.storyOrderDir = 'desc';
+			}
+
 			this.storyOrder = 'lastUpdate';
 		},
 
 		sortByName() {
+			/*
+			If the last story order was 'name', toggle the story order direction.
+			Elsewise, default to 'asc' (i.e. A → Z).
+			*/
+
+			if (this.storyOrder === 'name') {
+				this.storyOrderDir = this.storyOrderDir === 'asc' ? 'desc' : 'asc';
+			}
+			else {
+				this.storyOrderDir = 'asc';
+			}
+
 			this.storyOrder = 'name';
 		}
 	},
