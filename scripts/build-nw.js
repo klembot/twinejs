@@ -13,7 +13,7 @@ fsExtra.copySync('package.json', 'dist/web/package.json');
 var nw = new NwBuilder({
 	files: 'dist/web/**',
 	platforms: platforms,
-	version: '0.19.5',
+	version: '0.21.3',
 	buildDir: 'dist/nw',
 	cacheDir: 'nw-cache/',
 	macIcns: 'src/common/img/logo.icns',
