@@ -126,6 +126,13 @@ describe('link-parser', () => {
 			expect(links[1]).to.equal('link2');
 		});
 
+		it('handles duplicate links', () => {
+			const links = linkParser('[[a]] [[a]]');
+
+			expect(links).to.have.lengthOf(1);
+			expect(links[0]).to.equal('a');
+		});
+
 		it('ignores external links when requested', () => {
 			const links = linkParser('[[http://twinery.org]]', true);
 
