@@ -301,6 +301,7 @@ const actions = module.exports = {
 					name: props.name,
 					version: props.version,
 					url,
+					userAdded: true,
 					properties: props
 				};
 
