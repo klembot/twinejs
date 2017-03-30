@@ -78,6 +78,10 @@ const ModalDialog = module.exports = Vue.extend({
 			this.$emit('close', message);
 		},
 
+		reject(message) {
+			this.$emit('reject', message);
+		},
+
 		escapeCloser(e) {
 			if (e.keyCode === 27) {
 				e.preventDefault();
