@@ -191,15 +191,12 @@ module.exports = Vue.extend({
 		At the time of writing, this is a Mac-specific feature, but can be extended once standards catch up.
 		*/
 		
-		forceClickAddPassage(e) {
-			var top  = (window.pageYOffset + e.pageY) / this.story.zoom;
-			top -= passageDefaults.height / 2;
+		onMouseForceDown(e) {
+			let top = (e.pageY / this.story.zoom) - (passageDefaults.height / 2);
+			let left = (e.pageX / this.story.zoom) - (passageDefaults.width / 2);
 			
-			var left = (window.pageXOffset + e.pageX) / this.story.zoom;
-			left -= passageDefaults.width / 2;
-			
-			this.createPassage(null,top,left);
-		},
+			this.createPassage(null, top, left);
+		}, 
 
 		/*
 		Creates a passage, optionally at a certain position onscreen. If
