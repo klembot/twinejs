@@ -1,0 +1,1152 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Twine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-04 09:23+0200\n"
+"PO-Revision-Date: 2015-07-04 14:05+0200\n"
+"Last-Translator: Stefan Peeters <deavocadoman@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.2\n"
+"Language: nl\n"
+
+#: templates/localeview.html:4
+msgid "Please choose which language you would like to use with Twine."
+msgstr "Selecteer a.u.b. welke taal u wilt gebruiken voor Twine."
+
+#: templates/localeview.html:12
+msgid "English"
+msgstr "Engels"
+
+#: templates/localeview.html:19
+msgid "Spanish"
+msgstr "Spaans"
+
+#: templates/storyeditview/passageeditmodal.html:8
+msgid "Passage Name"
+msgstr "Passage naam"
+
+#. L10n: this is the noun form, as in tags you would apply to content.
+#: templates/storyeditview/passageeditmodal.html:22
+msgid "Tag"
+msgstr "Label"
+
+#. L10n: A noun, i.e. what a tag is named.
+#: templates/storyeditview/passageeditmodal.html:28
+msgid "Tag name"
+msgstr "Label naam"
+
+#: templates/storyeditview/passageeditmodal.html:36
+msgid ""
+"Enter the body text of your passage here. To link to another passage, put "
+"two square brackets around its name, [[like this]]."
+msgstr ""
+"Vul hier de tekst van je alinea in.  Als je naar een andere passage wilt "
+"linken zet dan de naam tussen twee vierkante haakjes, [[zoals dit]]."
+
+#. L10n: %s is the name of the thing to be deleted.
+#: templates/storyeditview/passageitemview.html:16
+#, php-format
+msgid "Delete &ldquo;%s&rdquo;"
+msgstr "Verwijder &ldquo;%s&rdquo;"
+
+#. L10n: %s is the name of the thing to be edited.
+#: templates/storyeditview/passageitemview.html:21
+#, php-format
+msgid "Edit &ldquo;%s&rdquo;"
+msgstr "Bewerk &ldquo;%s&rdquo;"
+
+#: templates/storyeditview/passageitemview.html:24
+msgid "Test story starting here"
+msgstr "Test verhaal begint hier"
+
+#. L10n: %s is a name of a passage
+#: templates/storyeditview/passageitemview.html:28
+#, php-format
+msgid "Set &ldquo;%s&rdquo; as starting point"
+msgstr "Zet &ldquo;%s&rdquo;  als start punt"
+
+#: templates/storyeditview/renamestorymodal.html:8
+#: templates/storyeditview/toolbar.html:31
+#: templates/storylistview/storyitemview.html:36
+msgid "Rename Story"
+msgstr "Verhaal hernoemen"
+
+#: templates/storyeditview/renamestorymodal.html:14
+msgid "What should this story's name be?"
+msgstr "Wat zou de naam van het verhaal moeten zijn?"
+
+#: templates/storyeditview/renamestorymodal.html:24
+msgid "Please enter a name."
+msgstr "Vul a.u.b. een naam in."
+
+#: templates/storyeditview/renamestorymodal.html:28
+#: templates/storylistview/formatitem.html:7
+#: templates/storylistview/storylistview.html:25
+#: templates/storylistview/storylistview.html:50
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: templates/storyeditview/renamestorymodal.html:29
+msgid "Save"
+msgstr "Opslaan"
+
+#: templates/storyeditview/scripteditmodal.html:8
+msgid "JavaScript"
+msgstr "JavaScript"
+
+#: templates/storyeditview/scripteditmodal.html:14
+msgid ""
+"Any JavaScript entered here will immediately run when your story is opened "
+"in a Web browser."
+msgstr ""
+"JavaScript die u hier invoert zal gelijk uitgevoerd worden als uw verhaal in "
+"een Web browser wordt geopend"
+
+#: templates/storyeditview/searchmodal.html:7
+msgid "Find and Replace"
+msgstr "Zoek en vervang"
+
+#: templates/storyeditview/searchmodal.html:12
+msgid "Search For"
+msgstr "Zoek naar"
+
+#: templates/storyeditview/searchmodal.html:18
+msgid "Include passage names"
+msgstr "Passage naam insluiten"
+
+#. L10n: As in uppercase or lowercase letters.
+#: templates/storyeditview/searchmodal.html:23
+msgid "Match case"
+msgstr "Hoofdletter gevoelig"
+
+#. L10n: A technical term, see https://en.wikipedia.org/wiki/Regular_expression.
+#: templates/storyeditview/searchmodal.html:29
+msgid "Regular expression"
+msgstr "Reguliere expressie"
+
+#: templates/storyeditview/searchmodal.html:34
+msgid "Replace With"
+msgstr "Verplaatsen met"
+
+#: templates/storyeditview/searchmodal.html:40
+msgid "Expand all search results"
+msgstr "Alle zoekresultaten uitbreiden"
+
+#: templates/storyeditview/searchmodal.html:44
+msgid "Collapse all search results"
+msgstr "Alle zoekresultaten invouwen"
+
+#: templates/storyeditview/searchmodal.html:49
+msgid "Replace All"
+msgstr "Alles vervangen"
+
+#: templates/storyeditview/searchmodal.html:57
+msgid "Searching..."
+msgstr "Zoeken..."
+
+#. L10n: %d is a number of text matches after a search.
+#: templates/storyeditview/searchmodalresult.html:13
+#, php-format
+msgid "%d match"
+msgid_plural "%d matches"
+msgstr[0] "%d resultaat"
+msgstr[1] "%d resultaten"
+
+#: templates/storyeditview/searchmodalresult.html:22
+msgid "Replace in this passage"
+msgstr "In deze passage vervangen"
+
+#: templates/storyeditview/searchmodalresult.html:23
+msgid "Replace in Passage"
+msgstr "Verplaats in passge"
+
+#: templates/storyeditview/statsmodal.html:8
+#: templates/storyeditview/toolbar.html:39
+msgid "Story Statistics"
+msgstr "Verhaal statistieken"
+
+#: templates/storyeditview/statsmodal.html:38
+#, php-format
+msgid "This story was last changed at %s"
+msgstr "Dit verhaal is als laatst veranderd op %s"
+
+#. L10n: %s is the IFID of the story. Please keep the <span> element around it.
+#: templates/storyeditview/statsmodal.html:45
+#, php-format
+msgid ""
+"The IFID for this story is <span class=\"ifid\">%s</span>. <a href=\"http:\\/"
+"\\/ifdb.tads.org/help-ifid\" target=\"_blank\">What's an IFID?</a>)"
+msgstr ""
+"Het IFID van dit verhaal is <span class=\"ifid\">%s</span>. <a href=\"http:"
+"\\/\\/ifdb.tads.org/help-ifid\" target=\"_blank\">Wat is een IFID?</a>)"
+
+#: templates/storyeditview/storyformatmodal.html:7
+msgid "Story Format"
+msgstr "Verhaal formaat"
+
+#: templates/storyeditview/storyformatmodal.html:12
+msgid ""
+"A story format controls the appearance and behavior of your story during "
+"play."
+msgstr ""
+"Een verhaal formaat bepaalt het uiterlijk en gedrag van het verhaal tijdens "
+"het spelen."
+
+#: templates/storyeditview/storyformatmodal.html:16
+#: templates/storylistview/modals/formatsmodal.html:58
+msgid "Loading..."
+msgstr "Laden..."
+
+#: templates/storyeditview/stylesheeteditmodal.html:8
+msgid "Stylesheet"
+msgstr "Stylesheet"
+
+#: templates/storyeditview/stylesheeteditmodal.html:14
+msgid ""
+"Any CSS entered here will override the default appearance of your story."
+msgstr ""
+"CSS die hier is ingevoerd zal het standaard uiterlijk van je verhaal "
+"overschrijven"
+
+#: templates/storyeditview/toolbar.html:5
+msgid "Go to the story list"
+msgstr "Ga naar de verhaal lijst"
+
+#: templates/storyeditview/toolbar.html:19
+msgid "Edit Story JavaScript"
+msgstr "Pas verhaal JavaScript aan"
+
+#: templates/storyeditview/toolbar.html:23
+msgid "Edit Story Stylesheet"
+msgstr "Pas verhaal StyleSheet aan"
+
+#: templates/storyeditview/toolbar.html:27
+msgid "Change Story Format"
+msgstr "Verander verhaal formaat"
+
+#: templates/storyeditview/toolbar.html:35
+msgid "Snap to Grid"
+msgstr "Uitlijnen op raster"
+
+#: templates/storyeditview/toolbar.html:45
+msgid "View Proofing Copy"
+msgstr "Kijk naar controle kopie"
+
+#: templates/storyeditview/toolbar.html:49
+#: templates/storylistview/storyitemview.html:32
+msgid "Publish to File"
+msgstr "Naar bestand publiceren"
+
+#: templates/storyeditview/toolbar.html:62
+msgid "Quick Find"
+msgstr "Snel zoeken"
+
+#: templates/storyeditview/toolbar.html:63
+msgid "Find and replace across the entire story"
+msgstr "Zoek en verplaats in het hele verhaal"
+
+#: templates/storyeditview/toolbar.html:67
+msgid "Show only story structure"
+msgstr "Laat alleen verhaal structuur zien"
+
+#: templates/storyeditview/toolbar.html:71
+msgid "Show only passage titles"
+msgstr "Laat alleen passage namen zien"
+
+#: templates/storyeditview/toolbar.html:75
+msgid "Show passage titles and excerpts"
+msgstr "Laat passage namen en fragmenten zien"
+
+#: templates/storyeditview/toolbar.html:81
+msgid "Play this story in test mode"
+msgstr "Speel dit verhaal in test modus"
+
+#. L10n: The verb form, to try something or to check it for problems.
+#: templates/storyeditview/toolbar.html:84
+msgid "Test"
+msgstr "Test"
+
+#: templates/storyeditview/toolbar.html:88
+msgid "Play this story"
+msgstr "Speel dit verhaal"
+
+#. L10n: The verb form, as in playing a game.
+#: templates/storyeditview/toolbar.html:91
+msgid "Play"
+msgstr "Speel"
+
+#: templates/storyeditview/toolbar.html:95
+msgid "Add a new passage"
+msgstr "Voeg een nieuwe passage toe"
+
+#. L10n: This does not actually show the count here, as it is used in a table.
+#: templates/storyeditview/toolbar.html:96
+#: js/views/storyeditview/modals/statsmodal.js:75
+msgid "Passage"
+msgid_plural "Passages"
+msgstr[0] "Passage"
+msgstr[1] "Passages"
+
+#. L10n: %s is the name of an author.
+#: templates/storyformatdetail.html:26
+#, php-format
+msgid "by %s"
+msgstr "door %s"
+
+#. L10n: %s is the name of a software license.
+#: templates/storyformatdetail.html:39
+#, php-format
+msgid "License: %s"
+msgstr "Licentie: %s"
+
+#: templates/storylistview/formatitem.html:5
+msgid "Are you sure?"
+msgstr "Weet je het zeker?"
+
+#: templates/storylistview/formatitem.html:6
+msgid "Remove"
+msgstr "Verwijder"
+
+#: templates/storylistview/formatitem.html:12
+msgid "Remove this format"
+msgstr "Verwijder dit formaat"
+
+#: templates/storylistview/formatitem.html:14
+msgid "Set this format as default for stories"
+msgstr "Zet dit formaat als standaard formaat voor verhalen"
+
+#: templates/storylistview/modals/aboutmodal.html:8
+msgid "About Twine"
+msgstr "Over Twine"
+
+#. L10n: This is the noun form, to describe a version of the software. e.g. 'I am using Twine build 123'
+#: templates/storylistview/modals/aboutmodal.html:14
+msgid "Build"
+msgstr "Versie"
+
+#: templates/storylistview/modals/aboutmodal.html:25
+msgid ""
+"Twine 2.0 is released under the <a href=\"http:\\/\\/www.gnu.org/licenses/"
+"gpl-3.0.html\">GPL v3</a> license, but any work created with it may be "
+"released under any terms, including commercial ones. <a href=\"https:\\/\\/"
+"bitbucket.org/klembot/twinejs\">Source Code Repository</a>"
+msgstr ""
+"Twine 2.0 is uitgegeven onder de <a href=\"http:\\/\\/www.gnu.org/licenses/"
+"gpl-3.0.html\">GPL v3</a> licentie, maar elk werk wat er mee gemaakt is mag "
+"onder alle voorwaarden, inclusief commerciele uitgegeven worden. <a href="
+"\"https:\\/\\/bitbucket.org/klembot/twinejs\">Source Code Archief</a>"
+
+#: templates/storylistview/modals/aboutmodal.html:31
+msgid "Help Twine Grow With A Donation"
+msgstr "Help Twine te groeien met een donatie"
+
+#. L10n: This is the noun form, as program code.
+#: templates/storylistview/modals/aboutmodal.html:39
+msgid "Code"
+msgstr "Code"
+
+#: templates/storylistview/modals/aboutmodal.html:55
+msgid "Libraries"
+msgstr "Libraries"
+
+#: templates/storylistview/modals/aboutmodal.html:74
+msgid "Fonts"
+msgstr "Lettertypes"
+
+#: templates/storylistview/modals/aboutmodal.html:78
+msgid ""
+"Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the "
+"guidance of Robert Slimbach for <a href=\"http:\\/\\/adobe.com/\">Adobe</"
+"a><br> Nunito was designed by <a href=\"http:\\/\\/code.newtypography.co.uk/"
+"\">Vernon Adams</a>"
+msgstr ""
+"Source Sans Pro and Source Code Pro zijn ontworpen door Paul D. Hunt onder "
+"begelijding van Robert Slimbach voor <a href=\"http:\\/\\/adobe.com/"
+"\">Adobe</a><br> Nunito is ontworpen door <a href=\"http:\\/\\/code."
+"newtypography.co.uk/\">Vernon Adams</a>"
+
+#: templates/storylistview/modals/aboutmodal.html:82
+msgid "Icons"
+msgstr "Iconen"
+
+#: templates/storylistview/modals/aboutmodal.html:87
+msgid "Document designed by Rob Gill from the Noun Project"
+msgstr "Document ontworpen door Rob Gill van The Noun Project"
+
+#: templates/storylistview/modals/aboutmodal.html:88
+msgid "Question designed by Henry Ryder from the Noun Project"
+msgstr "Question ontworpen door Henry Ryder van The Noun Project"
+
+#: templates/storylistview/modals/aboutmodal.html:89
+msgid "Smile designed by jelio dimitrov from the Noun Project"
+msgstr "Smile ontworpen door Jelio Dimitrov van The Noun Project"
+
+#. L10n: The <span> will have a version number, i.e. 2.0.6, interpolated into it.
+#: templates/storylistview/modals/appupdatemodal.html:10
+msgid ""
+"A new version of Twine, <span class=\"version\"></span>, has been released."
+msgstr ""
+"Een nieuwe versie van Twine, <span class=\"version\"></span>, is uitgebracht."
+
+#. L10n: A polite rejection of a request, in the sense that the answer may change in the future.
+#: templates/storylistview/modals/appupdatemodal.html:18
+msgid "Not Right Now"
+msgstr "Niet op dit moment"
+
+#: templates/storylistview/modals/appupdatemodal.html:21
+msgid "Download"
+msgstr "Download"
+
+#: templates/storylistview/modals/donatemodal.html:6
+msgid ""
+"If you love Twine as much as I do, please consider helping it grow with a "
+"donation. Twine is as an open source project that will always be free to use "
+"&mdash; and with your help, Twine will continue to thrive."
+msgstr ""
+"Als je zoveel van Twine houd als mij, overweeg dan ulstublieft Twine te "
+"helpen groeien met een donatie. Twine is een open souce project dat altijd "
+"gratis zal zijn om te gebruiken. En met uw hulp zal Twine blijven bloeien."
+
+#: templates/storylistview/modals/donatemodal.html:10
+msgid "Chris Klimas, Twine creator"
+msgstr "Chris Klimas, Twine maker"
+
+#: templates/storylistview/modals/donatemodal.html:16
+msgid "Donate"
+msgstr "Doneer"
+
+#: templates/storylistview/modals/donatemodal.html:17
+msgid "No Thanks"
+msgstr "Nee bedankt"
+
+#: templates/storylistview/modals/donatemodal.html:21
+msgid "This message will only be shown to you once.<br>"
+msgstr "Dit bericht zal maar een keer aan je gezien laten worden."
+
+#: templates/storylistview/modals/formatsmodal.html:9
+msgid "Story Formats"
+msgstr "Verhaal formaten"
+
+#: templates/storylistview/modals/formatsmodal.html:10
+msgid "Proofing Formats"
+msgstr "Controle formaten"
+
+#: templates/storylistview/modals/formatsmodal.html:11
+msgid "Add a New Format"
+msgstr "Nieuw formaat toevoegen"
+
+#: templates/storylistview/modals/formatsmodal.html:20
+msgid ""
+"Story formats control the appearance and behavior of stories during play."
+msgstr ""
+"Verhaal formaten passen het uiterlijk en gedrag van verhalen aan tijdens het "
+"spelen."
+
+#: templates/storylistview/modals/formatsmodal.html:30
+msgid ""
+"Proofing formats create a versions of stories tailored for editing and "
+"proofreading."
+msgstr ""
+"Controle formaten maakt een versie van het verhaal gemaakt voor bewerken en "
+"proeflezen."
+
+#. L10n: Address in the sense of a URL.
+#: templates/storylistview/modals/formatsmodal.html:42
+msgid "To add a story format, enter its address below."
+msgstr "Vul onder een adres in om een verhaal formaat toe te voegen."
+
+#: templates/storylistview/modals/formatsmodal.html:50
+#: templates/storylistview/storylistview.html:26
+msgid "Add"
+msgstr "Voeg toe"
+
+#: templates/storylistview/storyitemview.html:24
+msgid "Play Story"
+msgstr "Speel verhaal"
+
+#: templates/storylistview/storyitemview.html:28
+msgid "Test Story"
+msgstr "Test verhaal"
+
+#: templates/storylistview/storyitemview.html:40
+msgid "Duplicate Story"
+msgstr "Verhaal dupliceren"
+
+#: templates/storylistview/storyitemview.html:46
+msgid "Delete Story"
+msgstr "Verhaal verwijderen"
+
+#: templates/storylistview/storylistview.html:5
+msgid "Twine"
+msgstr "Twine"
+
+#: templates/storylistview/storylistview.html:9
+msgid "Create a brand-new story"
+msgstr "Maak een nieuw verhaal"
+
+#: templates/storylistview/storylistview.html:10
+msgid "Story"
+msgstr "Verhaal"
+
+#: templates/storylistview/storylistview.html:17
+msgid "What should your story be named?<br>(You can change this later.)"
+msgstr "Hoe moet het verhaal genoemd worden? (Je kunt dit later veranderen.)"
+
+#: templates/storylistview/storylistview.html:34
+msgid "Import a published story or Twine archive"
+msgstr "Importeer een gepubliceerd verhaal of Twine archief"
+
+#: templates/storylistview/storylistview.html:35
+msgid "Import From File"
+msgstr "Importeer vanuit bestand"
+
+#: templates/storylistview/storylistview.html:42
+msgid "Import this file:"
+msgstr "Importeer dit bestand:"
+
+#: templates/storylistview/storylistview.html:59
+msgid "Importing..."
+msgstr "Importeren..."
+
+#: templates/storylistview/storylistview.html:67
+msgid "Save all stories to a Twine archive file"
+msgstr "Sla alle verhalen op naar een Twine archief bestand"
+
+#: templates/storylistview/storylistview.html:68
+msgid "Archive"
+msgstr "Archief"
+
+#: templates/storylistview/storylistview.html:73
+msgid "Work with story and proofing formats"
+msgstr "Werk met verhaal en controle formaten"
+
+#: templates/storylistview/storylistview.html:74
+msgid "Formats"
+msgstr "Formaten"
+
+#: templates/storylistview/storylistview.html:79
+msgid "Change the language Twine uses"
+msgstr "Verander de taal die Twine gebruikt"
+
+#: templates/storylistview/storylistview.html:80
+msgid "Language"
+msgstr "Taal"
+
+#: templates/storylistview/storylistview.html:85
+msgid "Browse online help"
+msgstr "Online hulp raadplegen"
+
+#: templates/storylistview/storylistview.html:86
+msgid "Help"
+msgstr "Help"
+
+#: templates/storylistview/storylistview.html:101
+msgid "version"
+msgstr "versie"
+
+#: templates/storylistview/storylistview.html:103
+msgid "Report a bug"
+msgstr "Een bug raporteren"
+
+#: templates/storylistview/storylistview.html:111
+msgid "Stories"
+msgstr "Verhalen"
+
+#: templates/storylistview/storylistview.html:114
+msgid "Sort By"
+msgstr "Sorteer met"
+
+#: templates/storylistview/storylistview.html:116
+msgid "Last changed date"
+msgstr "Datum van de laatste verandering"
+
+#: templates/storylistview/storylistview.html:117
+msgid "Edit Date"
+msgstr "Bewerk datum"
+
+#: templates/storylistview/storylistview.html:120
+msgid "Story name"
+msgstr "Verhaal naam"
+
+#: templates/storylistview/storylistview.html:121
+msgid "Name"
+msgstr "Naam"
+
+#: templates/storylistview/storylistview.html:128
+msgid ""
+"There are no stories saved in Twine right now. To get started, you can "
+"either create a new story or import an existing one from a file."
+msgstr ""
+"Er zijn geen opgeslagen verhalen in Twine op dit moment. Om te beginnen kun "
+"een nieuw verhaal maken"
+
+#: templates/welcomeview.html:6
+msgid "Hi!"
+msgstr "Hallo!"
+
+#: templates/welcomeview.html:10
+msgid ""
+"Twine is an open-source tool for telling interactive, nonlinear stories. "
+"There are a few things you should know before you get started."
+msgstr ""
+"Twine is een open-source programma om interactieve, niet-lineaire verhalen "
+"te vertellen. Er zijn een paar dingen die je moet weten voordat je begint."
+
+#: templates/welcomeview.html:14
+msgid "Tell Me More"
+msgstr "Vertel me meer"
+
+#: templates/welcomeview.html:15
+msgid "Skip"
+msgstr "Overslaan"
+
+#: templates/welcomeview.html:23
+msgid "New here?"
+msgstr "Ben je hier nieuw?"
+
+#: templates/welcomeview.html:27
+msgid ""
+"<strong>If you've never used Twine before,</strong> then welcome! The <a "
+"href=\"http:\\/\\/twinery.org/2guide\" target=\"_blank\">Twine 2 Guide</a> "
+"and the official wiki in general, are a great place to learn. Keep in mind "
+"that some articles on the wiki at large were written for Twine 1, which is a "
+"little bit different than this version. But most of the concepts are the "
+"same."
+msgstr ""
+"<strong>Als je nog nooit Twine hebt gebruikt,</strong> welkom! De <a href="
+"\"http:\\/\\/twinery.org/2guide\" target=\"_blank\">Twine 2 Handleiding</a> "
+"en de officiële wiki, zijn goede plaatsen om te leren werken met Twine. "
+
+#: templates/welcomeview.html:31
+msgid ""
+"You can also get help over at the <a href=\"http:\\/\\/twinery.org/forum\" "
+"target=\"_blank\">Twine forum</a>, too."
+msgstr ""
+"Je kunt ook hulp krijgen op het <a href=\"http:\\/\\/twinery.org/forum\" "
+"target=\"_blank\">Twine forum</a>."
+
+#: templates/welcomeview.html:35
+msgid ""
+"<strong>If you have used Twine 1 before,</strong> the guide also has details "
+"on what has changed in this version. Chief among them is a new default story "
+"format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, "
+"try using SugarCube instead."
+msgstr ""
+"<strong>Als je Twine 1 voorheen hebt gebruikt,</strong> dan heeft de "
+"handleiding ook details over wat er is veranderd in deze versie. De grootste "
+"verandering is dat er een nieuw standaard verhaal formaat is, Harlowe. Maar "
+"als je de Twine 1 scripting syntax prefereert probeer dan SugarCube."
+
+#: templates/welcomeview.html:39 templates/welcomeview.html:63
+#: templates/welcomeviewnw.html:23
+msgid "OK"
+msgstr "Oke"
+
+#: templates/welcomeview.html:47
+msgid "Your work is saved only in your browser."
+msgstr "Je werk is alleen opgeslagen in de browser."
+
+#: templates/welcomeview.html:51
+msgid ""
+"That means you don't need to create an account to use Twine 2, and "
+"everything you create isn't stored on a server somewhere else &mdash; it "
+"stays right in your browser."
+msgstr ""
+"Dat betekent dat je geen account nodig hebt om Twine 2 te gebruiken, en dat "
+"alles wat je maakt wordt niet opgeslagen op een of andere server. Het blijft "
+"hier, in je browser."
+
+#: templates/welcomeview.html:55
+msgid ""
+"Two <b>very important</b> things to remember, though. Since your work is "
+"saved only in your browser, if you clear its saved data, then you'll lose "
+"your work! Not good. Remember to use that <i class=\"fa fa-briefcase\"></"
+"i>&nbsp;<strong>Archive</strong> button often. You can also publish "
+"individual stories to files using the <i class=\"fa fa-cog\"></i> menu on "
+"each story in the story list. Both archive and story files can always be re-"
+"imported into Twine."
+msgstr ""
+"Er zijn wel twee <b>hele belangrijke</b> dingen om te onthouden. Omdat je "
+"werk opgeslagen in je browser verlies je als je werk als de browser gegeven "
+"wist! Niet goed. Denk er aan om de <i class=\"fa fa-briefcase\"></i>&nbsp;"
+"<strong>Archieveer</strong> knop vaak te gebruiken. Je kunt ook individuele "
+"verhalen publiceren naar een bestand met het <i class=\"fa fa-cog\"></i> "
+"menu op elk verhaal in de verhalen lijst. Archieven en verhaal bestanden "
+"kunnen beide opnieuw geïmporteerd worden in Twine."
+
+#: templates/welcomeview.html:59
+msgid ""
+"Secondly, <b>anyone who can use this browser can see and make changes to "
+"your work</b>. So if you've got a nosy kid brother, look into setting up a "
+"separate profile for yourself."
+msgstr ""
+"Ten tweede, <b>iedereen die deze browser gebruikt kan je werk zien en hier "
+"aanpassingen aan maken<\\b>. Dus als je een nieuwsgierig broertje hebt, kun "
+"je proberen een apart profiel voor jezelf op te zetten."
+
+#: templates/welcomeview.html:71
+msgid "That's it!"
+msgstr "Dat is het!"
+
+#: templates/welcomeview.html:75
+msgid "Thanks for reading, and have fun with Twine."
+msgstr "Bedankt voor het lezen en heb veel plezier met Twine."
+
+#: templates/welcomeview.html:79
+msgid "Go to the Story List"
+msgstr "Ga naar de verhaal lijst"
+
+#: templates/welcomeviewnw.html:7
+msgid "Your work is automatically saved."
+msgstr "Je werk wordt automatisch opgeslagen."
+
+#: templates/welcomeviewnw.html:11
+msgid ""
+"There's now a folder named Twine in your Documents folder. Inside that is a "
+"Stories folder, where all your work will be saved. Twine saves as you work, "
+"so you don't have to worry about remembering to save it yourself. You can "
+"always open the folder your stories are saved to by using the <b>Show "
+"Library</b> item in the <b>Twine</b> menu."
+msgstr ""
+"Er is nou een map genaamd Twine in je Documenten map. In deze map is een map "
+"Verhalen waar al je werk opgeslagen zal worden. Twine slaat alles op terwijl "
+"je aan het werk bent, dus je hoeft je geen zorgen te maken om je werk op te "
+"slaan. Je kunt altijd de map waar je verhalen opgeslagen worden openen met "
+"het <b>Bibliotheek laten zien</b> optie in het <b>Twine<\\b> menu."
+
+#: templates/welcomeviewnw.html:15
+msgid ""
+"Because Twine is always saving your work, the files in your story library "
+"will be locked from editing while Twine is open."
+msgstr ""
+"Omdat Twine je werk continu opslaat zijn de bestanden in je verhaal "
+"bibliotheek altijd vergrendeld voor bewerken zolang Twine open is."
+
+#: templates/welcomeviewnw.html:19
+msgid ""
+"If you'd like to open a Twine story file you received from someone else, you "
+"can import it into your library using the <i class=\"icon-upload-alt\"></i> "
+"<b>Import From File</b> link in the story list."
+msgstr ""
+"Als je een Twine verhaal bestand wilt openen dat je van iemand anders hebt "
+"ontvangen, kun je het importeren naar je bibliotheek met de <i class=\"icon-"
+"upload-alt\"></i> <b>Importeer vanuit bestand</b> link in je verhaal lijst."
+
+#. L10n: %1$s is a filename; %2$s is the error message.
+#: js/app.js:226
+msgid "&ldquo;%1$s&rdquo; could not be saved (%2$s)."
+msgstr "&ldquo;%1$s&rdquo; kon niet opgeslagen worden (%2$s)."
+
+#. L10n: %s is the error message.
+#: js/app.js:283
+#, javascript-format
+msgid "An error occurred while publishing your story. (%s)"
+msgstr "Een fout is opgetreden tijdens het publiceren van je verhaal.(%s)"
+
+#: js/app.js:314
+msgid "Twine Archive.html"
+msgstr "Twine archief.html"
+
+#. L10n: An internal error. %s is a bad sort criterion.
+#: js/collections/storycollection.js:35
+#, javascript-format
+msgid "don't know how to sort stories by %s"
+msgstr "kan verhalen niet sorteren met %s"
+
+#: js/models/passage.js:19
+msgid "Untitled Passage"
+msgstr "Naamloze passage"
+
+#: js/models/passage.js:21
+msgid "Tap this passage, then the pencil icon to edit it."
+msgstr "Druk op deze passage en dan het potlood icoon om het aan te passen."
+
+#: js/models/passage.js:22
+msgid "Double-click this passage to edit it."
+msgstr "Klik twee keer op deze passage om het aan te passen."
+
+#: js/models/passage.js:78
+msgid "You must give this passage a name."
+msgstr "Je moet deze passage een naam geven."
+
+#: js/models/passage.js:85
+#, javascript-format
+msgid ""
+"There is already a passage named \"%s.\" Please give this one a unique name."
+msgstr ""
+"Er is al een passage genaamd \"%s\". Geef deze passage een unieke naam."
+
+#: js/models/story.js:16
+msgid "Untitled Story"
+msgstr "Naamloos verhaal"
+
+#: js/models/story.js:112
+msgid "There is no starting point set for this story."
+msgstr "Er is geen startpunt voor dit verhaal ingesteld."
+
+#: js/models/story.js:115
+msgid "The passage set as starting point for this story does not exist."
+msgstr ""
+"De passage die is ingesteld als startpunt voor dit verhaal bestaat niet."
+
+#: js/models/storyformat.js:38
+msgid "Untitled Story Format"
+msgstr "Naamloos Verhaal Formaat"
+
+#: js/nwui.js:81
+msgid "Toggle Fullscreen"
+msgstr "Volledig scherm omschakelen"
+
+#: js/nwui.js:100
+msgid "Quit"
+msgstr "Stoppen"
+
+#: js/nwui.js:115
+msgid "Edit"
+msgstr "Bewerken"
+
+#: js/nwui.js:120
+msgid "Undo"
+msgstr "Ongedaan maken"
+
+#: js/nwui.js:132
+msgid "Cut"
+msgstr "Knippen"
+
+#: js/nwui.js:142
+msgid "Copy"
+msgstr "Kopieren"
+
+#: js/nwui.js:152
+msgid "Paste"
+msgstr "Plakken"
+
+#: js/nwui.js:162 js/views/storyeditview/passageitemview.js:171
+#: js/views/storyeditview/storyeditview.js:126
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: js/nwui.js:182
+msgid "Show Library"
+msgstr "Bibliotheek laten zien"
+
+#. L10n: This is the folder name on OS X, Linux, and recent versions of
+#. Windows that a user's documents are stored in, relative to the
+#. user's home directory. If you need to use a space in this name,
+#. then it should have two backslashes (\\) in front of it.
+#. Regardless, this must have a single forward slash (/) as its first
+#. character.
+#: js/nwui.js:239
+msgid "/Documents"
+msgstr "/Documenten"
+
+#. L10n: This is the folder name on Windows XP that a user's
+#. documents are stored in, relative to the user's home directory.
+#. This is used if a folder with the name given by the translation
+#. key '/Documents' does not exist. If you need to use a space in
+#. this name, then it should have two backslashes (\\) in front of it.
+#. Regardless, this must have a single forward slash (/) as its first character.
+#: js/nwui.js:249 js/nwui.js:250
+msgid "/My\\ Documents"
+msgstr "/Mijn\\ Documenten"
+
+#. L10n: '/Twine' is a suitable name for Twine-related files to exist
+#. under on the user's hard drive. '/Stories' is a suitable name for
+#. story files specifically. If you need to use a space in this name,
+#. then it should have two backslashes in front of it. Regardless,
+#. this must have a single forward slash (/) as its first character.
+#: js/nwui.js:260 js/nwui.js:264
+msgid "/Twine"
+msgstr "/Twine"
+
+#: js/nwui.js:260
+msgid "/Stories"
+msgstr "/Verhalen"
+
+#. L10n: %s is the error message.
+#: js/nwui.js:430
+#, javascript-format
+msgid "An error occurred while saving your story (%s)."
+msgstr "Er is fout opgestreden tijden het opslaan van je verhaal (%s)."
+
+#. L10n: %s is the error message.
+#: js/nwui.js:457
+#, javascript-format
+msgid "An error occurred while deleting your story (%s)."
+msgstr "Er is een fout opgetreden tijdens het verwijderen van je verhaal(%s)"
+
+#. L10n: Locking in the sense of preventing changes to a file. %s is the error message.
+#: js/nwui.js:527
+#, javascript-format
+msgid "An error occurred while locking your library (%s)."
+msgstr ""
+"Er is een fout opgetreden tijdens het vergrendelen van je bibliotheek (%s)."
+
+#. L10n: Unlocking in the sense of allowing changes to a file. %s is the error message.
+#, javascript-format
+msgid "An error occurred while unlocking your library (%s)."
+msgstr ""
+"Er is een fout opgetreden tijdens het ontgrendelen van je bibliotheek (%s)."
+
+#. L10n: An internal error message related to UI components.
+#: js/ui.js:166
+#, javascript-format
+msgid "Don't know how to do bubble action %s"
+msgstr "Kan actie %s niet bubbelen"
+
+#. L10n: An internal error message related to UI components.
+#: js/ui.js:219
+#, javascript-format
+msgid "Don't know how to do collapse action %s"
+msgstr "Kan actie %s niet invouwen"
+
+#. L10n: An internal error when changing locale.
+#: js/views/localeview.js:27
+#, javascript-format
+msgid "Can't set locale to nonstring: %s"
+msgstr "Kan vertalen niet veranderen naar: %s"
+
+#: js/views/storyeditview/editors/passageeditor.js:120
+#: js/views/storyeditview/storyeditview.js:563
+#, javascript-format
+msgid "Editing “%s”"
+msgstr "\"%s\" aan het bewerken"
+
+#: js/views/storyeditview/editors/passageeditor.js:211
+msgid "Any changes to the passage you're editing haven't been saved yet. "
+msgstr ""
+"Elke verandering aan de passage die je aan het bewerken bent zijn nog niet "
+"opgeslagen."
+
+#. L10n: Matched in the sense of matching a search criteria. %d is the number of passages.
+#: js/views/storyeditview/modals/searchmodal.js:94
+#, javascript-format
+msgid "%d passage matches."
+msgid_plural "%d passages match."
+msgstr[0] "%d passage komt overeen."
+msgstr[1] "%d passages komen overeen."
+
+#: js/views/storyeditview/modals/searchmodal.js:102
+msgid "No matching passages found."
+msgstr "Geen overeenkomende passages gevonden."
+
+#. L10n: replacement in the sense of text search and replace. %d is the number.
+#: js/views/storyeditview/modals/searchmodal.js:183
+#, javascript-format
+msgid "%d replacement was made in"
+msgid_plural "%d replacements were made in"
+msgstr[0] "Er is %d stuk tekst vervangen in"
+msgstr[1] "Er zijn %d stukken tekst vervangen in"
+
+#. L10n: %d is a number of passages.
+#: js/views/storyeditview/modals/searchmodal.js:187
+#, javascript-format
+msgid "%d passage"
+msgid_plural "%d passages"
+msgstr[0] "%d passage"
+msgstr[1] "%d passages"
+
+#. L10n: This is the formatting used to combine two pluralizations.
+#. In English, %1$s equals "2 replacements were made in" and %2$s equals "5 passages."
+#. This is a way to reshape the sentence as needed.
+#: js/views/storyeditview/modals/searchmodal.js:192
+msgid "%1$s %2$s"
+msgstr "%1$s %2$s"
+
+#. L10n: Character in the sense of individual letters in a word.
+#. This does not actually show the count here, as it is used in a table.
+#: js/views/storyeditview/modals/statsmodal.js:68
+msgid "Character"
+msgid_plural "Characters"
+msgstr[0] "Karakter"
+msgstr[1] "Karakters"
+
+#. L10n: Word in the sense of individual words in a sentence.
+#. This does not actually show the count here, as it is used in a table.
+#: js/views/storyeditview/modals/statsmodal.js:72
+msgid "Word"
+msgid_plural "Words"
+msgstr[0] "Woord"
+msgstr[1] "Woorden"
+
+#. L10n: Links in the sense of hypertext links.
+#. This does not actually show the count here, as it is used in a table.
+#: js/views/storyeditview/modals/statsmodal.js:79
+msgid "Link"
+msgid_plural "Links"
+msgstr[0] "Link"
+msgstr[1] "Links"
+
+#. L10n: Links in the sense of hypertext links.
+#. This does not actually show the count here, as it is used in a table.
+#: js/views/storyeditview/modals/statsmodal.js:83
+msgid "Broken Link"
+msgid_plural "Broken Links"
+msgstr[0] "Gebroken link"
+msgstr[1] "Gebroken links"
+
+#. L10n: %1$s is the name of the story format, %2$s is the error message.
+#: js/views/storyeditview/modals/storyformatmodal.js:96
+#: js/views/storylistview/modals/formatsmodal.js:74
+msgid "The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s)."
+msgstr "Het verhaal formaat %1$s kon niet geladen worden (%2$s)."
+
+#: js/views/storyeditview/passageitemview.js:165
+#, javascript-format
+msgid "Are you sure you want to delete &ldquo;%s&rdquo;? "
+msgstr "Weet je zeken dat je %s wilt verwijderen?"
+
+#: js/views/storyeditview/passageitemview.js:169
+msgid "(Hold the Shift key when deleting to skip this message.)"
+msgstr "(Hou de shift toets ingedrukt als je dit bericht wilt overslaan.)"
+
+#. L10n: An internal error related to handling user input.
+#: js/views/storyeditview/passageitemview.js:461
+msgid "Don't see either mouse or touch coordinates on event"
+msgstr "Kan geen muis of touch coördinaten zien in event."
+
+#. L10n: An internal error related to user input.
+#: js/views/storyeditview/passageitemview.js:523
+msgid "Couldn't find original touch ID in movement event"
+msgstr "Kan het originelen touch ID in bewegings-event niet vinden"
+
+#. L10n: %s is the error message.
+#: js/views/storyeditview/storyeditview.js:43
+#: js/views/storyeditview/storyeditview.js:64
+#, javascript-format
+msgid "A problem occurred while saving your changes (%s)."
+msgstr ""
+"Een probleem is opgetreden tijdens het opslaan van je veranderingen (%s)."
+
+#. L10n: This message is always shown with more than one passage.
+#. %d is the number of passages.
+#: js/views/storyeditview/storyeditview.js:122
+#, javascript-format
+msgid "Are you sure you want to delete this passage?"
+msgid_plural ""
+"Are you sure you want to delete these %d passages? This cannot be undone."
+msgstr[0] "Weet je zeker dat je deze %d passage wilt verwijderen?"
+msgstr[1] ""
+"Weet je zeker dat je deze %d passages wilt verwijderen? Dit kan niet "
+"ongedaan worden?"
+
+#: js/views/storyeditview/storyeditview.js:268
+msgid "This story does not have a starting point. "
+msgstr "Dit verhaal heeft geen start punt."
+
+#: js/views/storyeditview/storyeditview.js:282
+msgid ""
+"Refreshed the playable version of your story in the previously-opened tab or "
+"window."
+msgstr ""
+"De speelbare versie van je verhaal in een voorheen geopende tab of venster "
+"is ververst."
+
+#: js/views/storyeditview/storyeditview.js:312
+#: js/views/storyeditview/storyeditview.js:352
+#: js/views/storylistview/storyitemview.js:110
+msgid ""
+"This story does not have a starting point. Use the <i class=\"fa fa-rocket"
+"\"></i> icon on a passage to set this."
+msgstr ""
+"Dit verhaal heeft geen start punt. Gebruikt het <i class=\"fa fa-rocket\"></"
+"i> icoon op een passage om dit in te stellen."
+
+#: js/views/storyeditview/storyeditview.js:325
+msgid ""
+"Refreshed the test version of your story in the previously-opened tab or "
+"window."
+msgstr ""
+"De test versie van je verhaal in een voorheen geopende tab of venster is "
+"ververst."
+
+#. L10n: This refers to when a story was last saved by the user
+#. %s will be replaced with a localized date and time
+#: js/views/storyeditview/storyeditview.js:573
+#: js/views/storyeditview/toolbar.js:94
+#, javascript-format
+msgid "Last saved at %s"
+msgstr "Laatst opgeslagen op %s"
+
+#: js/views/storylistview/modals/formatsmodal.js:137
+msgid "The story format at %1$s could not be added (%2$s)."
+msgstr "Het verhaal formaat van %1$s kon niet toegevoegd worden (%2$s)."
+
+#. L10n: An internal error related to story formats.
+#: js/views/storylistview/modals/formatsmodal.js:246
+msgid "Don't know what kind of format to set as default"
+msgstr "Weet niet welk formaat als standaard in te stellen"
+
+#: js/views/storylistview/storagequota.js:21
+#: js/views/storylistview/storagequota.js:44
+#: js/views/storylistview/storagequota.js:49
+#, javascript-format
+msgid "%d%% space available"
+msgstr "%d%% ruimte beschikbaar"
+
+#: js/views/storylistview/storyitemview.js:80
+#: js/views/storylistview/storyitemview.js:94
+msgid ""
+"This story does not have a starting point. Edit this story and use the <i "
+"class=\"fa fa-rocket\"></i> icon on a passage to set this."
+msgstr ""
+"Dit verhaal heeft geen startpunt. Pas dit verhaal aan en gebruik het <i "
+"class=\"fa fa-rocket\"></i> icoon van een passage om dit in te stellen."
+
+#: js/views/storylistview/storyitemview.js:123
+#, javascript-format
+msgid ""
+"Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone."
+msgstr ""
+"Weet je zeker dat je \"%s\" wilt verwijderen? Dit kan niet ongedaan worden"
+
+#: js/views/storylistview/storyitemview.js:125
+msgid "Delete Forever"
+msgstr "Verwijder voor altijd"
+
+#: js/views/storylistview/storyitemview.js:137
+#, javascript-format
+msgid "What should &ldquo;%s&rdquo; be renamed to?"
+msgstr "Wat moet de nieuwe naam naam van \"%s\" moeten zijn?"
+
+#: js/views/storylistview/storyitemview.js:138
+msgid "Rename"
+msgstr "Hernoem"
+
+#: js/views/storylistview/storyitemview.js:155
+msgid "What should the duplicate be named?"
+msgstr "Hoe moet de kopie genoemd worden?"
+
+#: js/views/storylistview/storyitemview.js:156
+msgid "Duplicate"
+msgstr "Dupliceer"
+
+#: js/views/storylistview/storyitemview.js:162
+#, javascript-format
+msgid "%s Copy"
+msgstr "%s Kopie"
+
+#. L10n: %d is a number of stories.
+#: js/views/storylistview/storylistview.js:251
+#, javascript-format
+msgid "%d story was imported."
+msgid_plural "%d stories were imported."
+msgstr[0] "%d verhaal is geïmporteerd"
+msgstr[1] "%d verhalen zijn geïmporteerd"
+
+#. L10n: %d is a number of stories
+#: js/views/storylistview/storylistview.js:341
+#, javascript-format
+msgid "%d Story"
+msgid_plural "%d Stories"
+msgstr[0] "%d Verhaal"
+msgstr[1] "%d Verhalen"

@@ -1,0 +1,21 @@
+<div id="notifications">
+	<div v-for="notification in notifications" transition="fade-in-out" class="{{ notification.className }}">
+		<span class="badge" v-if="notification.className !== 'danger'">
+			<i class="fa fa-info"></i>
+		</span>
+
+		<span class="badge-danger" v-if="notification.className === 'danger'">
+			<i class="fa fa-exclamation"></i>
+		</span>
+
+		<span class="message">
+			{{{ notification.html }}}
+			<span v-if="notification.repeats > 0">
+				({{ notification.repeats + 1 }})
+			</span>
+		</span>
+		<button class="close" v-on:click="removeAt($index)">
+			<i class="fa fa-times"></i>
+		</button>
+	</div>
+</div>

@@ -1,0 +1,22 @@
+@import '../common/colors.less';
+@import '../common/depth.less';
+@import '../common/metrics.less';
+
+.tag {
+	display: inline-block;
+	padding: 0 0 0 @len-medium;
+	background: hsl(hue(@color-link), 60%, 95%);
+	border-radius: @len-medium;
+	.shadow-tiny;
+	margin-right: @len-small;
+	margin-bottom: @len-small;
+
+	button {
+		border-top-right-radius: @len-medium;
+		border-bottom-right-radius: @len-medium;
+	}
+
+	.theme-dark & {
+		background: hsl(hue(@color-link-dark), 60%, 25%);
+	}
+}
