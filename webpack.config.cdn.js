@@ -1,6 +1,6 @@
 var config = require('./webpack.config.release');
 
-config.output.path = 'dist/web-cdn';
+config.output.path = __dirname + '/dist/web-cdn';
 
 /* Signal to the HTML that we're doing a CDN build. */
 
