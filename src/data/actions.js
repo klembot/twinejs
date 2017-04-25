@@ -131,7 +131,7 @@ const actions = module.exports = {
 	Adds new passages to a story based on new links added in a passage's text.
 	*/
 
-	createNewlyLinkedPassages(store, storyId, passageId, oldText) {
+	createNewlyLinkedPassages(store, storyId, passageId, oldText, gridSize) {
 		const story = store.state.story.stories.find(
 			story => story.id === storyId
 		);
@@ -170,6 +170,20 @@ const actions = module.exports = {
 					top: newTop
 				}
 			);
+
+			const newPassage = story.passages.find(p => p.name === link);
+
+			if (newPassage) {
+				actions.positionPassage(
+					store,
+					storyId,
+					newPassage.id,
+					gridSize
+				);
+			}
+			else {
+				console.warn('Could not locate newly-created passage in order to position it');
+			}
 
 			newLeft += 100 * 1.5;
 		});

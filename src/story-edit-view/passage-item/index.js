@@ -174,7 +174,8 @@ module.exports = Vue.extend({
 				this.createNewlyLinkedPassages(
 					this.parentStory.id,
 					this.passage.id,
-					oldText
+					oldText,
+					this.gridSize
 				);
 			});
 		},
