@@ -17,6 +17,12 @@ repositories:
 * [Snowman](https://bitbucket.org/klembot/snowman-2)
 * [SugarCube](https://bitbucket.org/tmedwards/sugarcube)
 
+### A NOTE ABOUT YARN
+
+Anytime you read `npm` below, you can also use `yarn` ([more
+information](https://yarnpkg.com/)). Using `yarn` is a little more foolproof, as
+it ensures that everyone is using the exact same version of dependencies.
+
 ### INSTALL
 
 Run `npm install` at the top level of the directory to install all goodies.
