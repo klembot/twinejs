@@ -186,17 +186,20 @@ module.exports = Vue.extend({
 			this.winHeight = window.innerHeight;
 		},
 		
-		/* 
-		Creates a passage under the cursor in response to a webkitmouseforcedown event.
-		At the time of writing, this is a Mac-specific feature, but can be extended once standards catch up.
+		/*
+		Creates a passage under the cursor in response to a
+		webkitmouseforcedown event. At the time of writing, this is a
+		Mac-specific feature, but can be extended once standards catch up.
 		*/
 		
 		onMouseForceDown(e) {
-			let top = (e.pageY / this.story.zoom) - (passageDefaults.height / 2);
-			let left = (e.pageX / this.story.zoom) - (passageDefaults.width / 2);
+			let top = (e.pageY / this.story.zoom) -
+				(passageDefaults.height / 2);
+			let left = (e.pageX / this.story.zoom) -
+				(passageDefaults.width / 2);
 			
 			this.createPassage(null, top, left);
-		}, 
+		},
 
 		/*
 		Creates a passage, optionally at a certain position onscreen. If

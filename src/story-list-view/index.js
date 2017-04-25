@@ -134,8 +134,8 @@ module.exports = Vue.extend({
 	methods: {
 		sortByDate() {
 			/*
-			If the last story order was 'lastUpdate', toggle the story order direction.
-			Elsewise, default to 'desc' (i.e. newest → oldest).
+			If the last story order was 'lastUpdate', toggle the story order
+			direction.  Elsewise, default to 'desc' (i.e. newest -> oldest).
 			*/
 
 			if (this.storyOrder === 'lastUpdate') {
@@ -150,8 +150,8 @@ module.exports = Vue.extend({
 
 		sortByName() {
 			/*
-			If the last story order was 'name', toggle the story order direction.
-			Elsewise, default to 'asc' (i.e. A → Z).
+			If the last story order was 'name', toggle the story order
+			direction. Elsewise, default to 'asc' (i.e. A -> Z).
 			*/
 
 			if (this.storyOrder === 'name') {
