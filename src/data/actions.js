@@ -451,7 +451,7 @@ const actions = module.exports = {
 			actions.setPref(
 				store,
 				'defaultFormat',
-				{ name: 'Harlowe', version: '1.2.3' }
+				{ name: 'Harlowe', version: '2.0.1' }
 			);
 		}
 
