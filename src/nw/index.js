@@ -15,7 +15,7 @@ module.exports = {
 	**/
 
 	init() {
-		return new Promise((resolve, reject) => {
+		return new Promise(resolve => {
 			/*
 			If we're not running in an NW.js context, do nothing.
 			*/
@@ -61,8 +61,8 @@ module.exports = {
 				/*
 				Load our locale. This must happen right away, as it's used for
 				directories and such. Because the rest of the app has not yet
-				initialized, we need to fish out the user preference manually, which
-				is rather ugly.
+				initialized, we need to fish out the user preference manually,
+				which is rather ugly.
 
 				This is mostly cribbed from data/local-storage/pref.js.
 				*/
@@ -100,6 +100,8 @@ module.exports = {
 					finishInit();
 				}
 
+				/* eslint-disable no-inner-declarations */
+
 				function finishInit() {
 					/* Set up our menus. */
 
@@ -117,13 +119,15 @@ module.exports = {
 
 					/*
 					Add a shift-ctrl-alt-D shortcut for displaying dev tools.
-					Note: this is deprecated as NW.js now lets you press F12 anywhere.
+					Note: this is deprecated as NW.js now lets you press F12
+					anywhere.
 					*/
 
 					startupTask = 'adding the debugger keyboard shortcut';
 
 					document.addEventListener('keyup', e => {
-						if (e.which === 68 && e.shiftKey && e.altKey && e.ctrlKey) {
+						if (e.which === 68 && e.shiftKey && e.altKey
+							&& e.ctrlKey) {
 							win.showDevTools();
 						}
 					});
@@ -136,7 +140,6 @@ module.exports = {
 					// FIXME: this is happening before the locale is loaded,
 					// and accordingly, is broken
 
-					console.log(directories.storiesPath());
 					mkdirp.sync(directories.storiesPath());
 
 					/* Open external links outside the app. */
@@ -164,9 +167,9 @@ module.exports = {
 					});
 
 					/*
-					Do a file sync if we're just starting up. We have to track this in
-					the global scope; otherwise, each new window will think it's
-					starting afresh and screw up our model IDs.
+					Do a file sync if we're just starting up. We have to track
+					this in the global scope; otherwise, each new window will
+					think it's starting afresh and screw up our model IDs.
 					*/
 
 					startupTask = 'initially synchronizing story files';
@@ -176,32 +179,32 @@ module.exports = {
 
 					/*
 					Monkey patch the store module to save to a file under
-					~/Documents/Twine whenever a story changes, or delete it when it is
-					deleted.
+					~/Documents/Twine whenever a story changes, or delete it
+					when it is deleted.
 					*/
 
 					startupTask = 'adding a hook to automatically save stories';
 					patchStore(require('../data/store'));
 
 					/*
-					Monkey patch QuotaGauge to hide itself, since we don't have to
-					sweat quota ourselves.
+					Monkey patch QuotaGauge to hide itself, since we don't have
+					to sweat quota ourselves.
 					*/
 
 					startupTask = 'disabling the storage quota meter';
 					patchQuotaGauge(require('../ui/quota-gauge'));
 
 					/*
-					Monkey patch StoryListToolbar to open the wiki in the user's
-					browser.
+					Monkey patch StoryListToolbar to open the wiki in the
+					user's browser.
 					*/
 
 					startupTask = 'setting up the Help link';
 					patchStoryListToolbar(require('../story-list-view/list-toolbar'));
 
 					/*
-					Monkey patch WelcomeView to hide information related to local
-					storage.
+					Monkey patch WelcomeView to hide information related to
+					local storage.
 					*/
 
 					startupTask = 'customizing the initial welcome page';
@@ -209,6 +212,8 @@ module.exports = {
 
 					resolve();
 				}
+
+				/* eslint-enable no-inner-declarations */
 			}
 			catch (e) {
 				/*
