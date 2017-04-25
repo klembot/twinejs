@@ -8,7 +8,7 @@ const package = require('./package.json');
 module.exports = {
 	entry: './src/index.js',
 	output: {
-		path: __dirname + 'build/',
+		path: __dirname + '/build',
 		filename: 'twine.js'
 	},
 	stats: 'none',
