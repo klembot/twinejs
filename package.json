@@ -20,7 +20,7 @@
     "build": "webpack -d --progress",
     "build:release": "webpack -p --progress --config webpack.config.release.js && webpack -p --progress --config webpack.config.cdn.js",
     "clean": "rimraf build/ dist/",
-    "lint": "eslint src/ || exit 0",
+    "lint": "eslint src/",
     "nw": "node scripts/build-nw.js",
     "package": "npm run build:release && npm run nw && node scripts/package.js",
     "pot": "node scripts/extract-pot.js",
