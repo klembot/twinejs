@@ -355,7 +355,7 @@ describe('actions data module', () => {
 			}
 		};
 
-		actions.createNewlyLinkedPassages(storyStore, fakeId, fakeId, '');
+		actions.createNewlyLinkedPassages(storyStore, fakeId, fakeId, '', 10);
 		expect(storyStore.dispatch.calledOnce).to.be.true;
 
 		const firstCall = storyStore.dispatch.getCall(0);
