@@ -132,9 +132,9 @@ describe('actions data module', () => {
 		}
 		
 		console.info(created);
-		expect(created['Harlowe-1.2.3']).to.exist;
-		expect(created['Harlowe-1.2.3'].url).to.equal('story-formats/harlowe-1.2.3/format.js');
-		expect(created['Harlowe-1.2.3'].userAdded).to.be.false;
+		expect(created['Harlowe-1.2.4']).to.exist;
+		expect(created['Harlowe-1.2.4'].url).to.equal('story-formats/harlowe-1.2.4/format.js');
+		expect(created['Harlowe-1.2.4'].userAdded).to.be.false;
 		expect(created['Harlowe-2.0.1']).to.exist;
 		expect(created['Harlowe-2.0.1'].url).to.equal('story-formats/harlowe-2.0.1/format.js');
 		expect(created['Harlowe-2.0.1'].userAdded).to.be.false;
@@ -197,7 +197,7 @@ describe('actions data module', () => {
 				pref: {},
 				storyFormat: {
 					formats: [
-						{ name: 'Harlowe', version: '1.2.3' },
+						{ name: 'Harlowe', version: '1.2.4' },
 						{ name: 'Harlowe', version: '2.0.0' },
 						{ name: 'Paperthin', version: '1.0.0' },
 						{ name: 'Snowman', version: '1.3.0' },
