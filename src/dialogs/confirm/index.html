@@ -1,0 +1,8 @@
+<modal-dialog :class="'confirm no-header ' + modalClass">
+	<div class="message larger">{{{message}}}</div>
+	<p class="buttons">
+		<button type="button" @click="cancel">{{{cancelLabel}}}</button>
+		<button type="button" :class="buttonClass" @click="accept">{{{buttonLabel}}}</button>
+	</p>
+	<p class="coda" v-show="coda">{{{coda}}}</p>
+</modal-dialog>
