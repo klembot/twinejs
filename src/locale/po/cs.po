@@ -1,0 +1,1371 @@
+# Czech language file for Twine 2
+# Copyright (C) 2016
+# This file is distributed under the same license as the PACKAGE package.
+# Svatopluk Vít (svatopluk.vit@gmail.com), 2016.
+msgid ""
+msgstr ""
+"Project-Id-Version: CZ-TWINE2-1.01\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-19 09:36+0100\n"
+"PO-Revision-Date: 2016-12-20 12:01+0100\n"
+"Last-Translator: Svatopluk Vít <svatopluk.vit@gmail.com>\n"
+"Language-Team: \n"
+"Language: cze (B)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
+"X-Generator: Eazy Po 0.9.5.3\n"
+
+#: templates/localeview.html:4
+#, approved
+msgid "Please choose which language you would like to use with Twine."
+msgstr "Zvolte si jazyk, který budete používat v Twine."
+
+#: templates/localeview.html:12
+#, approved
+msgid "English"
+msgstr "Angličtina"
+
+#: templates/localeview.html:19
+#, approved
+msgid "Spanish"
+msgstr "Španělština"
+
+#: templates/storyeditview/passageeditmodal.html:8
+#, approved
+msgid "Passage Name"
+msgstr "Název místnosti"
+
+#.    L10n: this is the noun form, as in tags you would apply to content.
+#: templates/storyeditview/passageeditmodal.html:22
+#, approved
+msgid "Tag"
+msgstr "Štítek"
+
+#.    L10n: A noun, i.e. what a tag is named.
+#: templates/storyeditview/passageeditmodal.html:28
+#, approved
+msgid "Tag name"
+msgstr "Jméno štítku"
+
+#: templates/storyeditview/passageeditmodal.html:36
+#, approved
+msgid ""
+"Enter the body text of your passage here. To link to another passage, put "
+"two square brackets around its name, [[like this]]."
+msgstr ""
+"Vložte hlavní text místnosti. Pokud se chcete odkázat na jinou místnost, "
+"uveďte její název do dvou hranatých závorek, [[například takto]]."
+
+#.    L10n: %s is the name of the thing to be deleted.
+#: templates/storyeditview/passageitemview.html:16
+#, php-format
+#, approved
+msgid "Delete &ldquo;%s&rdquo;"
+msgstr "Smazat &ldquo;%s&rdquo;"
+
+#.    L10n: %s is the name of the thing to be edited.
+#: templates/storyeditview/passageitemview.html:21
+#, php-format
+#, approved
+msgid "Edit &ldquo;%s&rdquo;"
+msgstr "Upravit &ldquo;%s&rdquo;"
+
+#: templates/storyeditview/passageitemview.html:24
+#, approved
+msgid "Test story starting here"
+msgstr "Začít test příběhu z tohoto místa"
+
+#.    L10n: %s is a name of a passage
+#: templates/storyeditview/passageitemview.html:28
+#, php-format
+#, approved
+msgid "Set &ldquo;%s&rdquo; as starting point"
+msgstr "Nastavit &ldquo;%s&rdquo; jako počáteční bod"
+
+#: templates/storyeditview/renamestorymodal.html:8
+#: templates/storyeditview/toolbar.html:31
+#: templates/storylistview/storyitemview.html:36
+#, approved
+msgid "Rename Story"
+msgstr "Přejmenovat příběh"
+
+#: templates/storyeditview/renamestorymodal.html:14
+#, approved
+msgid "What should this story's name be?"
+msgstr "Jak se bude příběh jmenovat?"
+
+#: templates/storyeditview/renamestorymodal.html:24
+#, approved
+msgid "Please enter a name."
+msgstr "Zadejte jméno."
+
+#: templates/storyeditview/renamestorymodal.html:28
+#: templates/storylistview/formatitem.html:7
+#: templates/storylistview/storylistview.html:25
+#: templates/storylistview/storylistview.html:50
+#, approved
+msgid "Cancel"
+msgstr "Storno"
+
+#: templates/storyeditview/renamestorymodal.html:29
+#, approved
+msgid "Save"
+msgstr "Uložit"
+
+#: templates/storyeditview/scripteditmodal.html:8
+#, approved
+msgid "JavaScript"
+msgstr "JavaScript"
+
+#: templates/storyeditview/scripteditmodal.html:14
+#, approved
+msgid ""
+"in a Web browser."
+"in a Web browser."
+msgstr ""
+"internetovém prohlížeči."
+"internetovém prohlížeči."
+
+#: templates/storyeditview/searchmodal.html:7
+#, approved
+msgid "Find and Replace"
+msgstr "Najít a nahradit"
+
+#: templates/storyeditview/searchmodal.html:12
+#, approved
+msgid "Search For"
+msgstr "Hledat"
+
+#: templates/storyeditview/searchmodal.html:18
+#, approved
+msgid "Include passage names"
+msgstr "Včetně názvu místnosti"
+
+#.    L10n: As in uppercase or lowercase letters.
+#: templates/storyeditview/searchmodal.html:23
+#, approved
+msgid "Match case"
+msgstr "Rozlišovat velikost písmen"
+
+#.    L10n: A technical term, see https://en.wikipedia.org/wiki/Regular_expression.
+#: templates/storyeditview/searchmodal.html:29
+#, approved
+msgid "Regular expression"
+msgstr "Regulární výrazy"
+
+#: templates/storyeditview/searchmodal.html:34
+#, approved
+msgid "Replace With"
+msgstr "Nahradit"
+
+#: templates/storyeditview/searchmodal.html:40
+#, approved
+msgid "Expand all search results"
+msgstr "Rozbalit všechny výsledky"
+
+#: templates/storyeditview/searchmodal.html:44
+#, approved
+msgid "Collapse all search results"
+msgstr "Sbalit všechny výsledky"
+
+#: templates/storyeditview/searchmodal.html:49
+#, approved
+msgid "Replace All"
+msgstr "Nahradit vše"
+
+#: templates/storyeditview/searchmodal.html:57
+#, approved
+msgid "Searching..."
+msgstr "Vyhledávání..."
+
+#.    L10n: %d is a number of text matches after a search.
+#: templates/storyeditview/searchmodalresult.html:13
+#, php-format
+#, approved
+msgid "%d match"
+msgid_plural "%d matches"
+msgstr[0] "%d shoda"
+msgstr[1] "%d shody"
+msgstr[2] "%d shod"
+
+#: templates/storyeditview/searchmodalresult.html:22
+#, approved
+msgid "Replace in this passage"
+msgstr "Nahradit v této místnosti"
+
+#: templates/storyeditview/searchmodalresult.html:23
+#, approved
+msgid "Replace in Passage"
+msgstr "Nahradit v místnosti"
+
+#: templates/storyeditview/statsmodal.html:8
+#: templates/storyeditview/toolbar.html:39
+#, approved
+msgid "Story Statistics"
+msgstr "Statistika příběhu"
+
+#: templates/storyeditview/statsmodal.html:38
+#, php-format
+#, approved
+msgid "This story was last changed at %s"
+msgstr "Příběh byl naposledy změněn v %s"
+
+#.    L10n: %s is the IFID of the story. Please keep the <span> element around it.
+#: templates/storyeditview/statsmodal.html:45
+#, php-format
+#, approved
+msgid ""
+"The IFID for this story is <span class=\"ifid\">%s</span>. <a href=\"http:\\/"
+"\\/ifdb.tads.org/help-ifid\" target=\"_blank\">What's an IFID?</a>)"
+msgstr ""
+"IFID tohoto příběhu je <span class=\"ifid\">%s</span>. <a href=\"http:\\/\\/"
+"ifdb.tads.org/help-ifid\" target=\"_blank\">Co je to IFID?</a>)"
+
+#: templates/storyeditview/storyformatmodal.html:7
+#, approved
+msgid "Story Format"
+msgstr "Formát příběhu"
+
+#: templates/storyeditview/storyformatmodal.html:12
+#, approved
+msgid ""
+"A story format controls the appearance and behavior of your story during "
+"play."
+msgstr "Formát příběhu určuje vzhled a chování příběhu během hraní."
+
+#: templates/storyeditview/storyformatmodal.html:16
+#: templates/storylistview/modals/formatsmodal.html:58
+#, approved
+msgid "Loading..."
+msgstr "Nahrávání..."
+
+#: templates/storyeditview/stylesheeteditmodal.html:8
+#, approved
+msgid "Stylesheet"
+msgstr "Styl"
+
+#: templates/storyeditview/stylesheeteditmodal.html:14
+#, approved
+msgid ""
+"Any CSS entered here will override the default appearance of your story."
+msgstr "Jakýkoliv CSS skript zadaný zde přepíše výchozí vzhled vašeho příběhu."
+
+#: templates/storyeditview/toolbar.html:5
+#, approved
+msgid "Go to the story list"
+msgstr "Přejít na seznam příběhů"
+
+#: templates/storyeditview/toolbar.html:19
+#, approved
+msgid "Edit Story JavaScript"
+msgstr "Upravit JavaScript příběhu"
+
+#: templates/storyeditview/toolbar.html:23
+#, approved
+msgid "Edit Story Stylesheet"
+msgstr "Upravit styl příběhu"
+
+#: templates/storyeditview/toolbar.html:27
+#, approved
+msgid "Change Story Format"
+msgstr "Změnit formát příběhu"
+
+#: templates/storyeditview/toolbar.html:35
+#, approved
+msgid "Snap to Grid"
+msgstr "Ukotvit k mřížce"
+
+#: templates/storyeditview/toolbar.html:45
+#, approved
+msgid "View Proofing Copy"
+msgstr "Zobrazit kopii k revizi"
+
+#: templates/storyeditview/toolbar.html:49
+#: templates/storylistview/storyitemview.html:32
+#, approved
+msgid "Publish to File"
+msgstr "Zveřejnit do souboru"
+
+#: templates/storyeditview/toolbar.html:62
+#, approved
+msgid "Quick Find"
+msgstr "Rychlé hledání"
+
+#: templates/storyeditview/toolbar.html:63
+#, approved
+msgid "Find and replace across the entire story"
+msgstr "Najít a nahradit v celém příběhu"
+
+#: templates/storyeditview/toolbar.html:67
+#, approved
+msgid "Show only story structure"
+msgstr "Zobrazit pouze strukturu příběhu"
+
+#: templates/storyeditview/toolbar.html:71
+#, approved
+msgid "Show only passage titles"
+msgstr "Zobrazit pouze názvy místností"
+
+#: templates/storyeditview/toolbar.html:75
+#, approved
+msgid "Show passage titles and excerpts"
+msgstr "Zobrazit názvy místností a výňatky"
+
+#: templates/storyeditview/toolbar.html:81
+#, approved
+msgid "Play this story in test mode"
+msgstr "Přehrát příběh v testovacím módu"
+
+#.    L10n: The verb form, to try something or to check it for problems.
+#: templates/storyeditview/toolbar.html:84
+#, approved
+msgid "Test"
+msgstr "Otestovat"
+
+#: templates/storyeditview/toolbar.html:88
+#, approved
+msgid "Play this story"
+msgstr "Přehrát příběh"
+
+#.    L10n: The verb form, as in playing a game.
+#: templates/storyeditview/toolbar.html:91
+#, approved
+msgid "Play"
+msgstr "Přehrát"
+
+#: templates/storyeditview/toolbar.html:95
+#, approved
+msgid "Add a new passage"
+msgstr "Přidat novou místnost"
+
+#.    L10n: This does not actually show the count here, as it is used in a table.
+#: templates/storyeditview/toolbar.html:96
+#: js/views/storyeditview/modals/statsmodal.js:75
+#, approved
+msgid "Passage"
+msgid_plural "Passages"
+msgstr[0] "Místnost"
+msgstr[1] "Místnosti"
+msgstr[2] "Místností"
+
+#.    L10n: %s is the name of an author.
+#: templates/storyformatdetail.html:26
+#, php-format
+#, approved
+msgid "by %s"
+msgstr "od autora %s"
+
+#.    L10n: %s is the name of a software license.
+#: templates/storyformatdetail.html:39
+#, php-format
+#, approved
+msgid "License: %s"
+msgstr "Licence: %s"
+
+#: templates/storylistview/formatitem.html:5
+#, approved
+msgid "Are you sure?"
+msgstr "Opravdu?"
+
+#: templates/storylistview/formatitem.html:6
+#, approved
+msgid "Remove"
+msgstr "Odstranit"
+
+#: templates/storylistview/formatitem.html:12
+#, approved
+msgid "Remove this format"
+msgstr "Odstranit tento formát"
+
+#: templates/storylistview/formatitem.html:14
+#, approved
+msgid "Set this format as default for stories"
+msgstr "Nastavit tento formát jako výchozí pro příběhy"
+
+#: templates/storylistview/modals/aboutmodal.html:8
+#, approved
+msgid "About Twine"
+msgstr "O Twine"
+
+#.    L10n: This is the noun form, to describe a version of the software. e.g. 'I am using Twine build 123'
+#: templates/storylistview/modals/aboutmodal.html:14
+#, approved
+msgid "Build"
+msgstr "Sestavení"
+
+#: templates/storylistview/modals/aboutmodal.html:21
+#, approved
+msgid ""
+"Twine is an open-source tool for telling interactive, nonlinear stories."
+msgstr ""
+"Twine je open-source nástroj pro vyprávění interaktivních, nelineárních "
+"příběhů."
+
+#: templates/storylistview/modals/aboutmodal.html:25
+#, approved
+msgid ""
+"Twine 2.0 is released under the <a href=\"http:\\/\\/www.gnu.org/licenses/"
+"gpl-3.0.html\">GPL v3</a> license, but any work created with it may be "
+"released under any terms, including commercial ones. <a href=\"https:\\/\\/"
+"bitbucket.org/klembot/twinejs\">Source Code Repository</a>"
+msgstr ""
+"Twine 2.0 je vydán pod licencí <a href=\"http:\\/\\/www.gnu.org/licenses/"
+"gpl-3.0.html\">GPL v3</a>, ale cokoliv v něm vytvořené může být vydáno pod "
+"libovolnou licencí včetně licencí komerčních. <a href=\"https:\\/\\/"
+"bitbucket.org/klembot/twinejs\">Repozitář zdrojových kódů</a>"
+
+#: templates/storylistview/modals/aboutmodal.html:31
+#, approved
+msgid "Help Twine Grow With A Donation"
+msgstr "Pomozte Twine existovat z vašich dobrovolných příspěvků"
+
+#.    L10n: This is the noun form, as program code.
+#: templates/storylistview/modals/aboutmodal.html:39
+#, approved
+msgid "Code"
+msgstr "Kód"
+
+#: templates/storylistview/modals/aboutmodal.html:55
+#, approved
+msgid "Libraries"
+msgstr "Knihovny"
+
+#: templates/storylistview/modals/aboutmodal.html:74
+#, approved
+msgid "Fonts"
+msgstr "Písma"
+
+#: templates/storylistview/modals/aboutmodal.html:78
+#, approved
+msgid ""
+"Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the "
+"guidance of Robert Slimbach for <a href=\"http:\\/\\/adobe.com/\">Adobe</"
+"a><br> Nunito was designed by <a href=\"http:\\/\\/code.newtypography.co.uk/"
+"\">Vernon Adams</a>"
+msgstr ""
+"Source Sans Pro a Source Code Pro byly vytvořeny Paulem D. Huntem pod "
+"vedením Roberta Slimbacha pro <a href=\"http:\\/\\/adobe.com/\">Adobe</"
+"a><br> Nunito bylo vytvořeno <a href=\"http:\\/\\/code.newtypography.co.uk/"
+"\">Vernonem Adamsem</a>"
+
+#: templates/storylistview/modals/aboutmodal.html:82
+#, approved
+msgid "Icons"
+msgstr "Ikony"
+
+#: templates/storylistview/modals/aboutmodal.html:87
+#, approved
+msgid "Document designed by Rob Gill from the Noun Project"
+msgstr "Dokument zpracován Robem Gillem z The Noun Project"
+
+#: templates/storylistview/modals/aboutmodal.html:88
+#, approved
+msgid "Question designed by Henry Ryder from the Noun Project"
+msgstr "Otázky zpracovány Henry Ryderem z The Noun Project"
+
+#: templates/storylistview/modals/aboutmodal.html:89
+#, approved
+msgid "Smile designed by jelio dimitrov from the Noun Project"
+msgstr "Emotikony vytvořeny Jelio Dimitrovem z The Noun Project"
+
+#.    L10n: The <span> will have a version number, i.e. 2.0.6, interpolated into it.
+#: templates/storylistview/modals/appupdatemodal.html:10
+#, approved
+msgid ""
+"A new version of Twine, <span class=\"version\"></span>, has been released."
+msgstr "Byla vydána nová verze Twine <span class=\"version\"></span>."
+
+#.    L10n: A polite rejection of a request, in the sense that the answer may change in the future.
+#: templates/storylistview/modals/appupdatemodal.html:18
+#, approved
+msgid "Not Right Now"
+msgstr "Právě teď bohužel ne"
+
+#: templates/storylistview/modals/appupdatemodal.html:21
+#, approved
+msgid "Download"
+msgstr "Stáhnout"
+
+#: templates/storylistview/modals/donatemodal.html:6
+#, approved
+msgid ""
+"If you love Twine as much as I do, please consider helping it grow with a "
+"donation. Twine is as an open source project that will always be free to use "
+"&mdash; and with your help, Twine will continue to thrive."
+msgstr ""
+"Pokud máte Twine rádi jako já, zvažte finanční příspěvek na jeho další "
+"rozvoj. Twine je open-source projekt, který bude vždy možné zdarma používat "
+"a jen s vaší pomocí bude vzkvétat."
+
+#: templates/storylistview/modals/donatemodal.html:10
+#, approved
+msgid "Chris Klimas, Twine creator"
+msgstr "Chris Klimas, autor Twine"
+
+#: templates/storylistview/modals/donatemodal.html:16
+#, approved
+msgid "Donate"
+msgstr "Přispět"
+
+#: templates/storylistview/modals/donatemodal.html:17
+#, approved
+msgid "No Thanks"
+msgstr "Ne děkuji"
+
+#: templates/storylistview/modals/donatemodal.html:21
+#, approved
+msgid "This message will only be shown to you once.<br>"
+msgstr "Tato zpráva se zobrazí pouze jednou.<br>"
+
+#: templates/storylistview/modals/formatsmodal.html:9
+#, approved
+msgid "Story Formats"
+msgstr "Formát příběhu"
+
+#: templates/storylistview/modals/formatsmodal.html:10
+#, approved
+msgid "Proofing Formats"
+msgstr "Formáty kontroly"
+
+#: templates/storylistview/modals/formatsmodal.html:11
+#, approved
+msgid "Add a New Format"
+msgstr "Přidat nový formát"
+
+#: templates/storylistview/modals/formatsmodal.html:20
+#, approved
+msgid ""
+"Story formats control the appearance and behavior of stories during play."
+msgstr "Formát příběhu určuje vzhled a chování příběhů během hraní."
+
+#: templates/storylistview/modals/formatsmodal.html:30
+#, approved
+msgid ""
+"Proofing formats create a versions of stories tailored for editing and "
+"proofreading."
+msgstr ""
+"Formát kontroly příběhu vytváří verzi příběhu uzpůsobenou k úpravám a "
+"kontrole."
+
+#.    L10n: Address in the sense of a URL.
+#: templates/storylistview/modals/formatsmodal.html:42
+#, approved
+msgid "To add a story format, enter its address below."
+msgstr "Pro přidání formátu příběhu zadejte jeho internetovou adresu níže."
+
+#: templates/storylistview/modals/formatsmodal.html:50
+#: templates/storylistview/storylistview.html:26
+#, approved
+msgid "Add"
+msgstr "Přidat"
+
+#: templates/storylistview/storyitemview.html:24
+#, approved
+msgid "Play Story"
+msgstr "Přehrát příběh"
+
+#: templates/storylistview/storyitemview.html:28
+#, approved
+msgid "Test Story"
+msgstr "Otestovat příběh"
+
+#: templates/storylistview/storyitemview.html:40
+#, approved
+msgid "Duplicate Story"
+msgstr "Duplikovat příběh"
+
+#: templates/storylistview/storyitemview.html:46
+#, approved
+msgid "Delete Story"
+msgstr "Vymazat příběh"
+
+#: templates/storylistview/storylistview.html:5
+#, approved
+msgid "Twine"
+msgstr "Twine"
+
+#: templates/storylistview/storylistview.html:9
+#, approved
+msgid "Create a brand-new story"
+msgstr "Vytvořit úplně nový příběh"
+
+#: templates/storylistview/storylistview.html:10
+#, approved
+msgid "Story"
+msgstr "Příběh"
+
+#: templates/storylistview/storylistview.html:17
+#, approved
+msgid "What should your story be named?<br>(You can change this later.)"
+msgstr ""
+"Jaký by měl být titul vašeho příběhu?<br>(Později jej budete moci změnit.)"
+
+#: templates/storylistview/storylistview.html:34
+#, approved
+msgid "Import a published story or Twine archive"
+msgstr "Importovat zveřejněný příběh nebo Twine archiv"
+
+#: templates/storylistview/storylistview.html:35
+#, approved
+msgid "Import From File"
+msgstr "Importovat ze souboru"
+
+#: templates/storylistview/storylistview.html:42
+#, approved
+msgid "Import this file:"
+msgstr "Importovat soubor:"
+
+#: templates/storylistview/storylistview.html:59
+#, approved
+msgid "Importing..."
+msgstr "Importování..."
+
+#: templates/storylistview/storylistview.html:67
+#, approved
+msgid "Save all stories to a Twine archive file"
+msgstr "Uložit všechny příběhy do Twine archivu"
+
+#: templates/storylistview/storylistview.html:68
+#, approved
+msgid "Archive"
+msgstr "Archiv"
+
+#: templates/storylistview/storylistview.html:73
+#, approved
+msgid "Work with story and proofing formats"
+msgstr "Pracovat s formáty příběhu a konrtoly"
+
+#: templates/storylistview/storylistview.html:74
+#, approved
+msgid "Formats"
+msgstr "Formáty"
+
+#: templates/storylistview/storylistview.html:79
+#, approved
+msgid "Change the language Twine uses"
+msgstr "Změnit jazyk, který Twine používá"
+
+#: templates/storylistview/storylistview.html:80
+#, approved
+msgid "Language"
+msgstr "Jazyk"
+
+#: templates/storylistview/storylistview.html:85
+#, approved
+msgid "Browse online help"
+msgstr "Procházet nápovědu online"
+
+#: templates/storylistview/storylistview.html:86
+#, approved
+msgid "Help"
+msgstr "Nápověda"
+
+#: templates/storylistview/storylistview.html:101
+#, approved
+msgid "version"
+msgstr "verze"
+
+#: templates/storylistview/storylistview.html:103
+#, approved
+msgid "Report a bug"
+msgstr "Nahlásit chybu"
+
+#: templates/storylistview/storylistview.html:111
+#, approved
+msgid "Stories"
+msgstr "Příběhy"
+
+#: templates/storylistview/storylistview.html:114
+#, approved
+msgid "Sort By"
+msgstr "Třídit podle"
+
+#: templates/storylistview/storylistview.html:116
+#, approved
+msgid "Last changed date"
+msgstr "Datum poslední změny"
+
+#: templates/storylistview/storylistview.html:117
+#, approved
+msgid "Edit Date"
+msgstr "Upravit datum"
+
+#: templates/storylistview/storylistview.html:120
+#, approved
+msgid "Story name"
+msgstr "Název příběhu"
+
+#: templates/storylistview/storylistview.html:121
+#, approved
+msgid "Name"
+msgstr "Název"
+
+#: templates/storylistview/storylistview.html:128
+#, approved
+msgid ""
+"There are no stories saved in Twine right now. To get started, you can "
+"either create a new story or import an existing one from a file."
+msgstr ""
+"V Twine nejsou právě uloženy žádné příběhy. Abyste mohli začít, musíte "
+"vytvořit nový příběh nebo nějaký importovat ze souboru."
+
+#: templates/welcomeview.html:6
+#, approved
+msgid "Hi!"
+msgstr "Vítejte!"
+
+#: templates/welcomeview.html:10
+#, approved
+msgid ""
+"There are a few things you should know before you get started."
+"There are a few things you should know before you get started."
+msgstr ""
+"příběhů. Předtím než začnete, měli byste vědět několik věcí."
+"příběhů. Předtím než začnete, měli byste vědět několik věcí."
+
+#: templates/welcomeview.html:14
+#, approved
+msgid "Tell Me More"
+msgstr "Dozvědět se více"
+
+#: templates/welcomeview.html:15
+#, approved
+msgid "Skip"
+msgstr "Přeskočit"
+
+#: templates/welcomeview.html:23
+#, approved
+msgid "New here?"
+msgstr "Jste nováček?"
+
+#: templates/welcomeview.html:27
+#, approved
+msgid ""
+"<strong>If you've never used Twine before,</strong> then welcome! The <a "
+"href=\"http:\\/\\/twinery.org/2guide\" target=\"_blank\">Twine 2 Guide</a> "
+"and the official wiki in general, are a great place to learn. Keep in mind "
+"that some articles on the wiki at large were written for Twine 1, which is a "
+"little bit different than this version. But most of the concepts are the "
+"same."
+msgstr ""
+"<strong>Pokud jste Twine nikdy nepoužil,</strong> pak vítejte! <a href=\""
+"http:\\/\\/twinery.org/2guide\" target=\"_blank\">Twine 2 průvodce</a> a "
+"oficiální wiki jsou obecně nejlepšími místy, jak se něco naučit. Veďte ovšem "
+"v patrnosti, že některé články na wiki jsou většinou vytvořeny pro Twine "
+"verze 1, jež se trochu liší od stávající verze. Většina konceptů je však "
+"shodná."
+
+#: templates/welcomeview.html:31
+#, approved
+msgid ""
+"You can also get help over at the <a href=\"http:\\/\\/twinery.org/forum\" "
+"target=\"_blank\">Twine forum</a>, too."
+msgstr ""
+"Pomoc můžete také získat na <a href=\"http:\\/\\/twinery.org/forum\" target="
+"\"_blank\">Twine fóru</a>."
+
+#: templates/welcomeview.html:35
+#, approved
+msgid ""
+"<strong>If you have used Twine 1 before,</strong> the guide also has details "
+"on what has changed in this version. Chief among them is a new default story "
+"format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, "
+"try using SugarCube instead."
+msgstr ""
+"<strong>Pokud jste Twine 1 již předtím používali,</strong> najdete v "
+"průvodci i popis toho, co bylo v nové verzi změněno. Hlavní změnou je asi "
+"výchozí formát příběhu Harlowe. Pokud ale dáváte přednost skriptovací "
+"syntaxi Twine 1, použijte místo toho SugarCube."
+
+#: templates/welcomeview.html:39 templates/welcomeview.html:63
+#: templates/welcomeviewnw.html:23
+#, approved
+msgid "OK"
+msgstr "OK"
+
+#: templates/welcomeview.html:47
+#, approved
+msgid "Your work is saved only in your browser."
+msgstr "Vaše práce je uložena pouze v prohlížeči."
+
+#: templates/welcomeview.html:51
+#, approved
+msgid ""
+"That means you don't need to create an account to use Twine 2, and "
+"everything you create isn't stored on a server somewhere else &mdash; it "
+"stays right in your browser."
+msgstr ""
+"To znamená, že není nutno vytvářet účet pro používání Twine 2 a všechno co "
+"vytvoříte, není ukládáno někam na server &mdash; zůstává to ve vašem "
+"prohlížeči. "
+
+#: templates/welcomeview.html:55
+#, approved
+msgid ""
+"Two <b>very important</b> things to remember, though. Since your work is "
+"saved only in your browser, if you clear its saved data, then you'll lose "
+"your work! Not good. Remember to use that <i class=\"fa fa-briefcase\"></"
+"i>&nbsp;<strong>Archive</strong> button often. You can also publish "
+"individual stories to files using the <i class=\"fa fa-cog\"></i> menu on "
+"each story in the story list. Both archive and story files can always be re-"
+"imported into Twine."
+msgstr ""
+"Musíte si zapamatovat dvě <b>velmi důležité</b> věci. Protože je vaše práce "
+"ukládána pouze ve vašem prohlížeči a pokud vyčistíte jeho uložená data, o "
+"všechnu práci přijdete! To není dobré. Naučte se prostě využívat častěji "
+"tlačítko <i class=\"fa fa-briefcase\"></i>&nbsp;<strong>Archiv</strong>. "
+"Můžete také zveřejnit jednotlivé příběhy do souboru s využitím <i class=\"fa "
+"fa-cog\"></i> nabídky na každém příběhu v seznamu příběhů. Jak archiv tak "
+"soubor s příběhem mohou být kdykoliv importovány do Twine."
+
+#: templates/welcomeview.html:59
+#, approved
+msgid ""
+"Secondly, <b>anyone who can use this browser can see and make changes to "
+"your work</b>. So if you've got a nosy kid brother, look into setting up a "
+"separate profile for yourself."
+msgstr ""
+"Dále, <b>kdokoliv, kdo může využívat váš internetový prohlížeč pak může "
+"vidět a provádět změny ve vaší práci.</b>. Pokud například máte \"dětinského"
+"\" bratra, podívejte se radši do nastavení prohlížeče a vytvořte si váš "
+"oddělený profil."
+
+#: templates/welcomeview.html:71
+#, approved
+msgid "That's it!"
+msgstr "A to je vše!"
+
+#: templates/welcomeview.html:75
+#, approved
+msgid "Thanks for reading, and have fun with Twine."
+msgstr "Děkuji za pozornost a přeji vám mnoho legrace s Twine."
+
+#: templates/welcomeview.html:79
+#, approved
+msgid "Go to the Story List"
+msgstr "Přejít na seznam příběhů"
+
+#: templates/welcomeviewnw.html:7
+#, approved
+msgid "Your work is automatically saved."
+msgstr "Vaše práce je automaticky ukládána."
+
+#: templates/welcomeviewnw.html:11
+#, approved
+msgid ""
+"There's now a folder named Twine in your Documents folder. Inside that is a "
+"Stories folder, where all your work will be saved. Twine saves as you work, "
+"so you don't have to worry about remembering to save it yourself. You can "
+"always open the folder your stories are saved to by using the <b>Show "
+"Library</b> item in the <b>Twine</b> menu."
+msgstr ""
+"Ve vaší složce dokumentů je nyní složka Twine. Uvnitř je složka s příběhy, "
+"kam se ukládá vaše rozpracovaná práce. Twine vše průběžně ukládá, takže se o "
+"to nemusíte nějak zvlášť starat. Složku s uloženými příběhy můžete kdykoliv "
+"zobrazit s pomocí položky <b>Zobrazit knihovnu</b> z nabídky aplikace "
+"<b>Twine</b>."
+
+#: templates/welcomeviewnw.html:15
+#, approved
+msgid ""
+"Because Twine is always saving your work, the files in your story library "
+"will be locked from editing while Twine is open."
+msgstr ""
+"Protože Twine vaši práci neustále ukládá, budou všechny soubory ve složce s "
+"příběhy uzamčeny s nemožností zápisu, pokud je Twine otevřeno."
+
+#: templates/welcomeviewnw.html:19
+#, approved
+msgid ""
+"If you'd like to open a Twine story file you received from someone else, you "
+"can import it into your library using the <i class=\"icon-upload-alt\"></i> "
+"<b>Import From File</b> link in the story list."
+msgstr ""
+"Pokud chcete otevřít soubor s Twine příběhem od někoho jiného, můžete jej "
+"naimportovat do knihovny použitím odkazu <i class=\"icon-upload-alt\"></i> "
+"<b>Importovat ze souboru</b> v seznamu příběhů."
+
+#.    L10n: %1$s is a filename; %2$s is the error message.
+#: js/app.js:226
+#, approved
+msgid "&ldquo;%1$s&rdquo; could not be saved (%2$s)."
+msgstr "&ldquo;%1$s&rdquo; nemůže být uložen (%2$s)."
+
+#.    L10n: %s is the error message.
+#: js/app.js:283
+#, javascript-format
+#, approved
+msgid "An error occurred while publishing your story. (%s)"
+msgstr "Při zveřejnění příběhu se vyskytla chyba. (%s)"
+
+#: js/app.js:314
+#, approved
+msgid "Twine Archive.html"
+msgstr "Twine Archive.html"
+
+#.    L10n: An internal error. %s is a bad sort criterion.
+#: js/collections/storycollection.js:35
+#, javascript-format
+#, approved
+msgid "don't know how to sort stories by %s"
+msgstr "není možné řadit příběhy dle %s"
+
+#: js/models/passage.js:19
+#, approved
+msgid "Untitled Passage"
+msgstr "Nepojmenovaná místnost"
+
+#: js/models/passage.js:21
+#, approved
+msgid "Tap this passage, then the pencil icon to edit it."
+msgstr "Klikněte na místnost a poté můžete zahájit úpravy skrz ikonu tužky."
+
+#: js/models/passage.js:22
+#, approved
+msgid "Double-click this passage to edit it."
+msgstr "Pro úpravu místnosti na ní dvakrát klikněte."
+
+#: js/models/passage.js:78
+#, approved
+msgid "You must give this passage a name."
+msgstr "Místnost musíte pojmenovat."
+
+#: js/models/passage.js:85
+#, javascript-format
+#, approved
+msgid ""
+"There is already a passage named \"%s.\" Please give this one a unique name."
+msgstr ""
+"Místnost pojmenovaná \"%s\" již existuje. Použijte jiné unikátní jméno."
+
+#: js/models/story.js:16
+#, approved
+msgid "Untitled Story"
+msgstr "Nepojmenovaný příběh"
+
+#: js/models/story.js:112
+#, approved
+msgid "There is no starting point set for this story."
+msgstr "Tento příběh nemá nastaven počáteční bod."
+
+#: js/models/story.js:115
+#, approved
+msgid "The passage set as starting point for this story does not exist."
+msgstr "Místnost, která je nastavena jako počáteční bod příběhu, neexistuje."
+
+#: js/models/storyformat.js:38
+#, approved
+msgid "Untitled Story Format"
+msgstr "Nepojmenovaný formát příběhu"
+
+#: js/nwui.js:81
+#, approved
+msgid "Toggle Fullscreen"
+msgstr "Přepnout na celou obrazovku"
+
+#: js/nwui.js:100
+#, approved
+msgid "Quit"
+msgstr "Ukončit"
+
+#: js/nwui.js:115
+#, approved
+msgid "Edit"
+msgstr "Upravit"
+
+#: js/nwui.js:120
+#, approved
+msgid "Undo"
+msgstr "Zpět"
+
+#: js/nwui.js:132
+#, approved
+msgid "Cut"
+msgstr "Vyjmout"
+
+#: js/nwui.js:142
+#, approved
+msgid "Copy"
+msgstr "Kopírovat"
+
+#: js/nwui.js:152
+#, approved
+msgid "Paste"
+msgstr "Vložit"
+
+#: js/nwui.js:162 js/views/storyeditview/passageitemview.js:171
+#: js/views/storyeditview/storyeditview.js:126
+#, approved
+msgid "Delete"
+msgstr "Smazat"
+
+#: js/nwui.js:182
+#, approved
+msgid "Show Library"
+msgstr "Zobrazit knihovnu"
+
+#.    L10n: This is the folder name on OS X, Linux, and recent versions of
+#.    Windows that a user's documents are stored in, relative to the
+#.    user's home directory. If you need to use a space in this name,
+#.    then it should have two backslashes (\\) in front of it.
+#.    Regardless, this must have a single forward slash (/) as its first
+#.    character.
+#: js/nwui.js:239
+#, approved
+msgid "/Documents"
+msgstr "/Documents"
+
+#.    L10n: This is the folder name on Windows XP that a user's
+#.    documents are stored in, relative to the user's home directory.
+#.    This is used if a folder with the name given by the translation
+#.    key '/Documents' does not exist. If you need to use a space in
+#.    this name, then it should have two backslashes (\\) in front of it.
+#.    Regardless, this must have a single forward slash (/) as its first character.
+#: js/nwui.js:249 js/nwui.js:250
+#, approved
+msgid "/My\\ Documents"
+msgstr "/My\\ Documents"
+
+#.    L10n: '/Twine' is a suitable name for Twine-related files to exist
+#.    under on the user's hard drive. '/Stories' is a suitable name for
+#.    story files specifically. If you need to use a space in this name,
+#.    then it should have two backslashes in front of it. Regardless,
+#.    this must have a single forward slash (/) as its first character.
+#: js/nwui.js:260 js/nwui.js:264
+#, approved
+msgid "/Twine"
+msgstr "/Twine"
+
+#: js/nwui.js:260
+#, approved
+msgid "/Stories"
+msgstr "/Stories"
+
+#.    L10n: %s is the error message.
+#: js/nwui.js:430
+#, javascript-format
+#, approved
+msgid "An error occurred while saving your story (%s)."
+msgstr "Při ukládání příběhu se vyskytla chyba (%s)."
+
+#.    L10n: %s is the error message.
+#: js/nwui.js:457
+#, javascript-format
+#, approved
+msgid "An error occurred while deleting your story (%s)."
+msgstr "Při mazání příběhu se vyskytla chyba (%s)."
+
+#.    L10n: Locking in the sense of preventing changes to a file. %s is the error message.
+#: js/nwui.js:527
+#, javascript-format
+#, approved
+msgid "An error occurred while locking your library (%s)."
+msgstr "Při zamykání knihovny se vyskytla chyba (%s)."
+
+#.    L10n: Unlocking in the sense of allowing changes to a file. %s is the error message.
+#: js/nwui.js:556
+#, javascript-format
+#, approved
+msgid "An error occurred while unlocking your library (%s)."
+msgstr "Při odemykání knihovny se vyskytla chyba (%s)."
+
+#.    L10n: An internal error message related to UI components.
+#: js/ui.js:166
+#, javascript-format
+#, approved
+msgid "Don't know how to do bubble action %s"
+msgstr "Není možno provést akci %s"
+
+#.    L10n: An internal error message related to UI components.
+#: js/ui.js:219
+#, javascript-format
+#, approved
+msgid "Don't know how to do collapse action %s"
+msgstr "Není možno rozbalit akci %s"
+
+#.    L10n: An internal error when changing locale.
+#: js/views/localeview.js:27
+#, javascript-format
+#, approved
+msgid "Can't set locale to nonstring: %s"
+msgstr "Nelze přiřadit jazykové nastavení na špatný řetězec: %s"
+
+#: js/views/storyeditview/editors/passageeditor.js:120
+#: js/views/storyeditview/storyeditview.js:563
+#, javascript-format
+#, approved
+msgid "Editing “%s”"
+msgstr "Upravuji “%s”"
+
+#: js/views/storyeditview/editors/passageeditor.js:211
+#, approved
+msgid "Any changes to the passage you're editing haven't been saved yet. "
+msgstr "Změny v místnosti, kterou upravujete, ještě nebyly uloženy. "
+
+#.    L10n: Matched in the sense of matching a search criteria. %d is the number of passages.
+#: js/views/storyeditview/modals/searchmodal.js:94
+#, javascript-format
+#, approved
+msgid "%d passage matches."
+msgid_plural "%d passages match."
+msgstr[0] "%d místnost odpovídá kritériím."
+msgstr[1] "%d místnosti odpovídají kritériím."
+msgstr[2] "%d místností odpovídá kritériím."
+
+#: js/views/storyeditview/modals/searchmodal.js:102
+#, approved
+msgid "No matching passages found."
+msgstr "Nebyly nalezeny žádné odpovídající místnosti."
+
+#.    L10n: replacement in the sense of text search and replace. %d is the number.
+#: js/views/storyeditview/modals/searchmodal.js:183
+#, javascript-format
+#, approved
+msgid "%d replacement was made in"
+msgid_plural "%d replacements were made in"
+msgstr[0] "Bylo provedeno %d nahrazení v "
+msgstr[1] "Byla provedena %d nahrazení v"
+msgstr[2] "Bylo provedeno %d nahrazení v"
+
+#.    L10n: %d is a number of passages.
+#: js/views/storyeditview/modals/searchmodal.js:187
+#, javascript-format
+#, approved
+msgid "%d passage"
+msgid_plural "%d passages"
+msgstr[0] "%d místnost"
+msgstr[1] "%d místnosti"
+msgstr[2] "%d místností"
+
+#.    L10n: This is the formatting used to combine two pluralizations.
+#.    In English, %1$s equals "2 replacements were made in" and %2$s equals "5 passages."
+#.    This is a way to reshape the sentence as needed.
+#: js/views/storyeditview/modals/searchmodal.js:192
+#, approved
+msgid "%1$s %2$s"
+msgstr "%1$s %2$s"
+
+#.    L10n: Character in the sense of individual letters in a word.
+#.    This does not actually show the count here, as it is used in a table.
+#: js/views/storyeditview/modals/statsmodal.js:68
+#, approved
+msgid "Character"
+msgid_plural "Characters"
+msgstr[0] "Znak"
+msgstr[1] "Znaky"
+msgstr[2] "Znaků"
+
+#.    L10n: Word in the sense of individual words in a sentence.
+#.    This does not actually show the count here, as it is used in a table.
+#: js/views/storyeditview/modals/statsmodal.js:72
+#, approved
+msgid "Word"
+msgid_plural "Words"
+msgstr[0] "Slovo"
+msgstr[1] "Slova"
+msgstr[2] "Slov"
+
+#.    L10n: Links in the sense of hypertext links.
+#.    This does not actually show the count here, as it is used in a table.
+#: js/views/storyeditview/modals/statsmodal.js:79
+#, approved
+msgid "Link"
+msgid_plural "Links"
+msgstr[0] "Odkaz"
+msgstr[1] "Odkazy"
+msgstr[2] "Odkazů"
+
+#.    L10n: Links in the sense of hypertext links.
+#.    This does not actually show the count here, as it is used in a table.
+#: js/views/storyeditview/modals/statsmodal.js:83
+#, approved
+msgid "Broken Link"
+msgid_plural "Broken Links"
+msgstr[0] "Špatný odkaz"
+msgstr[1] "Špatné odkazy"
+msgstr[2] "Špatných odkazů"
+
+#.    L10n: %1$s is the name of the story format, %2$s is the error message.
+#: js/views/storyeditview/modals/storyformatmodal.js:96
+#: js/views/storylistview/modals/formatsmodal.js:74
+#, approved
+msgid "The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s)."
+msgstr "Formát příběhu &ldquo;%1$s&rdquo; nemůže být nahrán (%2$s)."
+
+#: js/views/storyeditview/passageitemview.js:165
+#, javascript-format
+#, approved
+msgid "Are you sure you want to delete &ldquo;%s&rdquo;? "
+msgstr "Skutečně chcete vymazat &ldquo;%s&rdquo;? "
+
+#: js/views/storyeditview/passageitemview.js:169
+#, approved
+msgid "(Hold the Shift key when deleting to skip this message.)"
+msgstr "(Při mazání stiskněte klávesu Shift pro přeskočení této zprávy.)"
+
+#.    L10n: An internal error related to handling user input.
+#: js/views/storyeditview/passageitemview.js:461
+#, approved
+msgid "Don't see either mouse or touch coordinates on event"
+msgstr "Není možné získat souřadnice myši nebo dotyku v události"
+
+#.    L10n: An internal error related to user input.
+#: js/views/storyeditview/passageitemview.js:523
+#, approved
+msgid "Couldn't find original touch ID in movement event"
+msgstr "Nelze najít unikátní touch ID v pohybové události"
+
+#.    L10n: %s is the error message.
+#: js/views/storyeditview/storyeditview.js:43
+#: js/views/storyeditview/storyeditview.js:64
+#, javascript-format
+#, approved
+msgid "A problem occurred while saving your changes (%s)."
+msgstr "Při ukládání změn se vyskytl problém (%s)."
+
+#.    L10n: This message is always shown with more than one passage.
+#.    %d is the number of passages.
+#: js/views/storyeditview/storyeditview.js:122
+#, javascript-format
+#, approved
+msgid "Are you sure you want to delete this passage?"
+msgid_plural ""
+"Are you sure you want to delete these %d passages? This cannot be undone."
+msgstr[0] "Skutečně chcete vymazat tuto místnost?"
+msgstr[1] ""
+"Skutečně chcete vymazat tyto %d místnosti? Operaci nelze vrátit zpět."
+msgstr[2] ""
+"Skutečně chcete vymazat těchto %d místností? Operaci nelze vrátit zpět."
+
+#: js/views/storyeditview/storyeditview.js:268
+#, approved
+msgid "This story does not have a starting point. "
+msgstr "Tento příběh nemá žádný počáteční bod. "
+
+#: js/views/storyeditview/storyeditview.js:282
+#, approved
+msgid ""
+"Refreshed the playable version of your story in the previously-opened tab or "
+"window."
+msgstr ""
+"Hratelná verze příběhu byla aktualizována v již dříve otevřené záložce nebo "
+"okně."
+
+#: js/views/storyeditview/storyeditview.js:312
+#: js/views/storyeditview/storyeditview.js:352
+#: js/views/storylistview/storyitemview.js:110
+#, approved
+msgid ""
+"This story does not have a starting point. Use the <i class=\"fa fa-rocket"
+"\"></i> icon on a passage to set this."
+msgstr ""
+"Tento příběh nemá žádný počáteční bod. Pro jeho nastavení použijte ikonu <i "
+"class=\"fa fa-rocket\"></i> dostupnou v místnosti."
+
+#: js/views/storyeditview/storyeditview.js:325
+#, approved
+msgid ""
+"Refreshed the test version of your story in the previously-opened tab or "
+"window."
+msgstr ""
+"Testovací verze příběhu byla aktualizována v již dříve otevřené záložce nebo "
+"okně."
+
+#.    L10n: This refers to when a story was last saved by the user
+#.    %s will be replaced with a localized date and time
+#: js/views/storyeditview/storyeditview.js:573
+#: js/views/storyeditview/toolbar.js:94
+#, javascript-format
+#, approved
+msgid "Last saved at %s"
+msgstr "Naposledy uloženo %s"
+
+#: js/views/storylistview/modals/formatsmodal.js:137
+#, approved
+msgid "The story format at %1$s could not be added (%2$s)."
+msgstr "Formát příběhu v %1$s nemůže být přidán (%2$s)."
+
+#.    L10n: An internal error related to story formats.
+#: js/views/storylistview/modals/formatsmodal.js:246
+#, approved
+msgid "Don't know what kind of format to set as default"
+msgstr "Není možné určit výchozí formát"
+
+#: js/views/storylistview/storagequota.js:21
+#: js/views/storylistview/storagequota.js:44
+#: js/views/storylistview/storagequota.js:49
+#, javascript-format
+#, approved
+msgid "%d%% space available"
+msgstr "K dispozici %d%% místa"
+
+#: js/views/storylistview/storyitemview.js:80
+#: js/views/storylistview/storyitemview.js:94
+#, approved
+msgid ""
+"This story does not have a starting point. Edit this story and use the <i "
+"class=\"fa fa-rocket\"></i> icon on a passage to set this."
+msgstr ""
+"Tento příběh nemá žádný počáteční bod. Upravte jej a pak použijte ikonu <i "
+"class=\"fa fa-rocket\"></i> dostupnou v příběhu."
+
+#: js/views/storylistview/storyitemview.js:123
+#, javascript-format
+#, approved
+msgid ""
+"Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone."
+msgstr "Skutečně chcete vymazat &ldquo;%s&rdquo;? Operaci nelze vrátit zpět."
+
+#: js/views/storylistview/storyitemview.js:125
+#, approved
+msgid "Delete Forever"
+msgstr "Smazat trvale"
+
+#: js/views/storylistview/storyitemview.js:137
+#, javascript-format
+#, approved
+msgid "What should &ldquo;%s&rdquo; be renamed to?"
+msgstr "Jak má být &ldquo;%s&rdquo; přejmenován?"
+
+#: js/views/storylistview/storyitemview.js:138
+#, approved
+msgid "Rename"
+msgstr "Přejmenovat"
+
+#: js/views/storylistview/storyitemview.js:155
+#, approved
+msgid "What should the duplicate be named?"
+msgstr "Jak se má duplikát jmenovat?"
+
+#: js/views/storylistview/storyitemview.js:156
+#, approved
+msgid "Duplicate"
+msgstr "Duplikovat"
+
+#: js/views/storylistview/storyitemview.js:162
+#, javascript-format
+#, approved
+msgid "%s Copy"
+msgstr "%s kopie"
+
+#.    L10n: %d is a number of stories.
+#: js/views/storylistview/storylistview.js:251
+#, javascript-format
+#, approved
+msgid "%d story was imported."
+msgid_plural "%d stories were imported."
+msgstr[0] "%d příběh byl importován."
+msgstr[1] "%d příběhy byly importovány."
+msgstr[2] "%d příběhů bylo importováno."
+
+#.    L10n: %d is a number of stories
+#: js/views/storylistview/storylistview.js:341
+#, javascript-format
+#, approved
+msgid "%d Story"
+msgid_plural "%d Stories"
+msgstr[0] "%d příběh"
+msgstr[1] "%d příběhy"
+msgstr[2] "%d příběhů"

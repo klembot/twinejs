@@ -1,0 +1,30 @@
+<tr class="format-item">
+	<td class="selector">
+		<input type="radio" :checked="selected" @click="select" id="{{format.name}}-{{format.properties.version}}">
+	</td>
+
+	<td>
+		<p>
+			<label for="{{format.name}}-{{format.properties.version}}"><b>{{ format.name }} {{ format.properties.version }}</b></label>
+			<span v-if="author">
+				{{{ author }}}
+			</span>
+		</p>
+		<div class="detail" v-if="selected">
+			<div class="icon">
+				<img v-if="format.properties.image" :src="imageSrc">
+				<span v-else class="placeholder">{{ format.name.slice(0,2) }}</span>
+			</div>
+
+			<div class="description">
+				<p v-if="format.properties.description">
+					{{{ format.properties.description }}}
+				</p >
+
+				<p v-if="format.properties.license">
+					License: {{{ format.properties.license }}}
+				</p>
+			</div>
+		</div>
+	</td>
+</tr>

@@ -1,0 +1,35 @@
+<div id="storyListView">
+	<file-drag-n-drop>{{ 'Drop a story file to import' | say}}</file-drag-n-drop>
+
+	<list-toolbar></list-toolbar>
+
+	<header>
+		<h1>{{ storyCountDesc }}</h1>
+
+		<p>
+			<label>{{ 'Sort By' | say }}</label>
+
+			<span class="button-group">
+				<button class="{{ 'subtle' + (storyOrder === 'lastUpdate' ? ' active' : '') }}" @click="sortByDate" title="{{ 'Last changed date' | say }}">
+					{{ 'Edit Date' | say }}
+
+					<i class="fa fa-sort-amount-{{storyOrderDir}}" v-if="storyOrder === 'lastUpdate'"></i>
+				</button>
+
+				<button class="{{ 'subtle' + (storyOrder === 'name' ? ' active' : '') }}" @click="sortByName" title="{{ 'Story name' | say }}">
+					{{ 'Name' | say }}
+					<i class="fa fa-sort-alpha-{{storyOrderDir}}" v-if="storyOrder === 'name'"></i>
+				</button>
+			</span>
+		</p>
+	</header>
+
+		<div class="stories">
+			<p v-if="stories.length === 0">
+				{{ 'There are no stories saved in Twine right now. To get started, you can either create a new story or import an existing one from a file.' | say }}
+			</p>
+
+			<story-item v-for="story in sortedStories" :story="story" transition="grow-in-out" track-by="id"></story-item>
+		</div>
+	</div> <!-- .main -->
+</div> <!-- #storyListView -->
