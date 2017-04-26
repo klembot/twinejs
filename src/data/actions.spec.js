@@ -6,7 +6,7 @@ describe('actions data module', () => {
 	const props = { fake: true };
 	const fakeId = 'not-a-real-id';
 	let store;
-	
+
 	beforeEach(() => {
 		store = {
 			dispatch: spy(),
@@ -20,13 +20,13 @@ describe('actions data module', () => {
 			}
 		};
 	});
-	
+
 	it('dispatches an UPDATE_PREF mutation with setPref()', () => {
 		actions.setPref(store, 'key', 42);
 		expect(store.dispatch.calledOnce).to.be.true;
 		expect(store.dispatch.calledWith('UPDATE_PREF', 'key', 42)).to.be.true;
 	});
-	
+
 	it('dispatches a CREATE_STORY mutation with createStory()', () => {
 		const props = {
 			name: 'A New Story',
@@ -53,61 +53,61 @@ describe('actions data module', () => {
 		expect(store.dispatch.calledOnce).to.be.true;
 		expect(store.dispatch.calledWith('DELETE_STORY', fakeId)).to.be.true;
 	});
-	
+
 	it('dispatches a DUPLICATE_STORY mutation with deleteStory()', () => {
 		actions.duplicateStory(store, fakeId, 'Another Name');
 		expect(store.dispatch.calledOnce).to.be.true;
 		expect(store.dispatch.calledWith('DUPLICATE_STORY', fakeId, 'Another Name')).to.be.true;
 	});
-	
+
 	it('dispatches an IMPORT_STORY mutation with importStory()', () => {
 		actions.importStory(store, props);
 		expect(store.dispatch.calledOnce).to.be.true;
 		expect(store.dispatch.calledWith('IMPORT_STORY', props)).to.be.true;
 	});
-	
+
 	it('dispatches an UPDATE_STORY mutation with updateStory()', () => {
 		actions.updateStory(store, fakeId, props);
 		expect(store.dispatch.calledOnce).to.be.true;
 		expect(store.dispatch.calledWith('UPDATE_STORY', fakeId, props)).to.be.true;
 	});
-	
+
 	it('dispatches a CREATE_PASSAGE_IN_STORY mutation with createPassageInStory()', () => {
 		actions.createPassageInStory(store, fakeId, props);
 		expect(store.dispatch.calledOnce).to.be.true;
 		expect(store.dispatch.calledWith('CREATE_PASSAGE_IN_STORY', fakeId, props)).to.be.true;
 	});
-	
+
 	it('dispatches an UPDATE_PASSAGE_IN_STORY mutation with createPassageInStory()', () => {
 		actions.updatePassageInStory(store, fakeId, fakeId, props);
 		expect(store.dispatch.calledOnce).to.be.true;
 		expect(store.dispatch.calledWith('UPDATE_PASSAGE_IN_STORY', fakeId, fakeId, props)).to.be.true;
 	});
-	
+
 	it('dispatches a DELETE_PASSAGE_IN_STORY mutation with deletePassageInStory()', () => {
 		actions.deletePassageInStory(store, fakeId, fakeId);
 		expect(store.dispatch.calledOnce).to.be.true;
 		expect(store.dispatch.calledWith('DELETE_PASSAGE_IN_STORY', fakeId, fakeId)).to.be.true;
 	});
-	
+
 	it('dispatches a CREATE_FORMAT mutation with createFormat()', () => {
 		actions.createFormat(store, props);
 		expect(store.dispatch.calledOnce).to.be.true;
 		expect(store.dispatch.calledWith('CREATE_FORMAT', props)).to.be.true;
 	});
-	
+
 	it('dispatches an UPDATE_FORMAT mutation with createFormat()', () => {
 		actions.updateFormat(store, fakeId, props);
 		expect(store.dispatch.calledOnce).to.be.true;
 		expect(store.dispatch.calledWith('UPDATE_FORMAT', fakeId, props)).to.be.true;
 	});
-	
+
 	it('dispatches a DELETE_FORMAT mutation with deleteFormat()', () => {
 		actions.deleteFormat(store, fakeId);
 		expect(store.dispatch.calledOnce).to.be.true;
 		expect(store.dispatch.calledWith('DELETE_FORMAT', fakeId)).to.be.true;
 	});
-	
+
 	it('creates built-in formats with repairFormats()', () => {
 		let formatsStore = {
 			dispatch: spy(),
@@ -118,19 +118,19 @@ describe('actions data module', () => {
 				}
 			}
 		};
-		
+
 		actions.repairFormats(formatsStore);
-		
+
 		let created = {};
-		
+
 		for (let i = 0; i < formatsStore.dispatch.callCount; i++) {
 			let call = formatsStore.dispatch.getCall(i);
-			
+
 			if (call.args[0] === 'CREATE_FORMAT') {
 				created[call.args[1].name + '-' + call.args[1].version] = call.args[1];
 			}
 		}
-		
+
 		console.info(created);
 		expect(created['Harlowe-1.2.3']).to.exist;
 		expect(created['Harlowe-1.2.3'].url).to.equal('story-formats/harlowe-1.2.3/format.js');
@@ -147,11 +147,11 @@ describe('actions data module', () => {
 		expect(created['SugarCube-1.0.35']).to.exist;
 		expect(created['SugarCube-1.0.35'].url).to.equal('story-formats/sugarcube-1.0.35/format.js');
 		expect(created['SugarCube-1.0.35'].userAdded).to.be.false;
-		expect(created['SugarCube-2.16.0']).to.exist;
-		expect(created['SugarCube-2.16.0'].url).to.equal('story-formats/sugarcube-2.16.0/format.js');
-		expect(created['SugarCube-2.16.0'].userAdded).to.be.false;
+		expect(created['SugarCube-2.18.0']).to.exist;
+		expect(created['SugarCube-2.18.0'].url).to.equal('story-formats/sugarcube-2.18.0/format.js');
+		expect(created['SugarCube-2.18.0'].userAdded).to.be.false;
 	});
-	
+
 	it('sets default formats with repairFormats()', () => {
 		let formatsStore = {
 			dispatch: spy(),
@@ -162,9 +162,9 @@ describe('actions data module', () => {
 				}
 			}
 		};
-		
+
 		actions.repairFormats(formatsStore);
-		
+
 		expect(formatsStore.dispatch.calledWith(
 			'UPDATE_PREF', 'defaultFormat', { name: 'Harlowe', version: '2.0.1' }
 		)).to.be.true;
@@ -185,11 +185,11 @@ describe('actions data module', () => {
 				}
 			}
 		};
-		
+
 		actions.repairFormats(formatsStore);
 		expect(formatsStore.dispatch.calledWith('DELETE_FORMAT', fakeId)).to.be.true;
 	});
-	
+
 	it('does not duplicate formats with repairFormats()', () => {
 		let formatsStore = {
 			dispatch: spy().withArgs('CREATE_FORMAT'),
@@ -202,12 +202,12 @@ describe('actions data module', () => {
 						{ name: 'Paperthin', version: '1.0.0' },
 						{ name: 'Snowman', version: '1.3.0' },
 						{ name: 'SugarCube', version: '1.0.35' },
-						{ name: 'SugarCube', version: '2.16.0' }
+						{ name: 'SugarCube', version: '2.18.0' }
 					]
 				}
 			}
 		};
-		
+
 		actions.repairFormats(formatsStore);
 		expect(formatsStore.dispatch.calledOnce).to.be.false;
 	});
@@ -288,7 +288,7 @@ describe('actions data module', () => {
 		expect(storiesStore.dispatch.calledWith(
 			'UPDATE_STORY',
 			'also-not-a-real-id',
-			{ storyFormat: 'SugarCube', storyFormatVersion: '2.16.0' }
+			{ storyFormat: 'SugarCube', storyFormatVersion: '2.18.0' }
 		)).to.be.true;
 	});
 
