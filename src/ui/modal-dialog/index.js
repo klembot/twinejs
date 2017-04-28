@@ -94,6 +94,10 @@ const ModalDialog = module.exports = Vue.extend({
 		},
 
 		reject(message) {
+			if (typeof this.canClose === 'function' && !this.canClose()) {
+				return;
+			}
+
 			this.$emit('reject', message);
 		},
 
