@@ -112,7 +112,16 @@ describe('actions data module', () => {
 		let formatsStore = {
 			dispatch: spy(),
 			state: {
-				pref: {},
+				pref: {
+					defaultFormat: {
+						name: 'Default Format',
+						version: '1.0.0'
+					},
+					proofingFormat: {
+						name: 'Proofing Format',
+						version: '1.0.0'
+					}
+				},
 				storyFormat: {
 					formats: []
 				}
@@ -131,7 +140,6 @@ describe('actions data module', () => {
 			}
 		}
 
-		console.info(created);
 		expect(created['Harlowe-1.2.4']).to.exist;
 		expect(created['Harlowe-1.2.4'].url).to.equal('story-formats/harlowe-1.2.4/format.js');
 		expect(created['Harlowe-1.2.4'].userAdded).to.be.false;
@@ -154,7 +162,7 @@ describe('actions data module', () => {
 
 	it('sets default formats with repairFormats()', () => {
 		let formatsStore = {
-			dispatch: spy(),
+			dispatch: spy().withArgs('UPDATE_PREF'),
 			state: {
 				pref: {},
 				storyFormat: {
@@ -198,7 +206,7 @@ describe('actions data module', () => {
 				storyFormat: {
 					formats: [
 						{ name: 'Harlowe', version: '1.2.4' },
-						{ name: 'Harlowe', version: '2.0.0' },
+						{ name: 'Harlowe', version: '2.0.1' },
 						{ name: 'Paperthin', version: '1.0.0' },
 						{ name: 'Snowman', version: '1.3.0' },
 						{ name: 'SugarCube', version: '1.0.35' },
@@ -230,6 +238,71 @@ describe('actions data module', () => {
 		formatsStore.dispatch.withArgs('DELETE_FORMAT', fakeId);
 		actions.repairFormats(formatsStore);
 		expect(formatsStore.dispatch.withArgs('DELETE_FORMAT', fakeId).calledOnce).to.be.true;
+	});
+
+	it('updates the default format version with repairFormats()', () => {
+		let formatsStore = {
+			dispatch: spy(),
+			state: {
+				pref: {
+					defaultFormat: {
+						name: 'Default Format',
+						version: '1.0.0'
+					},
+					proofingFormat: {
+						name: 'Proofing Format',
+						version: '1.0.0'
+					}
+				},
+				storyFormat: {
+					formats: [
+						{ id: fakeId, name: 'Default Format', version: '1.0.1' },
+						{ id: fakeId, name: 'Default Format', version: '2.0.1' },
+						{ id: fakeId, name: 'Proofing Format', version: '1.0.0' }
+					]
+				}
+			}
+		};
+
+		actions.repairFormats(formatsStore);
+		expect(formatsStore.dispatch.calledWith(
+			'UPDATE_PREF',
+			'defaultFormat',
+			{ name: 'Default Format', version: '1.0.1' }
+		)).to.be.true;
+	});
+
+	it('updates the proofing version with repairFormats()', () => {
+		let formatsStore = {
+			dispatch: spy(),
+			state: {
+				pref: {
+					defaultFormat: {
+						name: 'Default Format',
+						version: '1.0.0'
+					},
+					proofingFormat: {
+						name: 'Proofing Format',
+						version: '1.0.0'
+					}
+				},
+				storyFormat: {
+					formats: [
+						{ id: fakeId, name: 'Default Format', version: '1.0.0' },
+						{ id: fakeId, name: 'Proofing Format', version: '1.0.0' },
+						{ id: fakeId, name: 'Proofing Format', version: '1.0.1' },
+						{ id: fakeId, name: 'Proofing Format', version: '2.0.1' }
+					]
+				}
+			}
+		};
+
+		actions.repairFormats(formatsStore);
+		expect(formatsStore.dispatch.calledWith(
+			'UPDATE_PREF',
+			'proofingFormat',
+			{ name: 'Proofing Format', version: '1.0.1' }
+		)).to.be.true;
 	});
 
 	it('sets default formats on stories with repairStories()', () => {
