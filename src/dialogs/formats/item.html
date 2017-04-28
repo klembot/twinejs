@@ -28,8 +28,12 @@
 				</p>
 			</div>
 		</div>
+
+		<p v-if="format.userAdded && isDefault" class="cantRemove">
+			{{ 'The default story format can\'t be removed.' | say }}
+		</p>
 	</td>
 	<td>
-		<button v-if="format.userAdded" @click="removeFormat" title="{{ 'Remove this format' | say }}" class="link danger"><i class="fa fa-lg fa-trash-o"></i></button>
+		<button v-if="format.userAdded && !isDefault" @click="removeFormat" title="{{ 'Remove this format' | say }}" class="link danger"><i class="fa fa-lg fa-trash-o"></i></button>
 	</td>
 </tr>
