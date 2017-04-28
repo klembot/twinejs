@@ -34,28 +34,26 @@ module.exports = {
 
 		moment.locale(locale);
 
-		if (locale != 'en-us' && locale != 'en') {
-			$.ajax({
-				url: 'locale/' + locale + '.js',
-				dataType: 'jsonp',
-				jsonpCallback: 'locale',
-				crossDomain: true
-			})
-			.always(function load(data) {
-				/**
-				 The raw JSON data used by Jed.
+		$.ajax({
+			url: `locale/${locale}.js`,
+			dataType: 'jsonp',
+			jsonpCallback: 'locale',
+			crossDomain: true
+		})
+		.done(data => {
+			/**
+			 The raw JSON data used by Jed.
 
-				 @property i18nData
-				 @type {Object}
-				**/
+			 @property i18nData
+			 @type {Object}
+			**/
 
-				this.i18nData = data;
-				this.i18n = new Jed(this.i18nData);
-				callback();
-			}.bind(this));
-		}
-		else {
-			// dummy in data to get back source text as-is
+			this.i18nData = data;
+			this.i18n = new Jed(this.i18nData);
+			callback();
+		})
+		.fail(() => {
+			// dummy data to get back source text as-is
 
 			this.i18nData = {
 				domain: 'messages',
@@ -69,10 +67,9 @@ module.exports = {
 					}
 				}
 			};
-
 			this.i18n = new Jed(this.i18nData);
 			callback();
-		};
+		});
 	},
 
 	/**
@@ -109,7 +106,7 @@ module.exports = {
 	 as the shorthand method sp.
 
 	 When interpolating, count will always be the first argument.
-	
+
 	 @param {String} sourceSingular source text to translate with singular form
 	 @param {String} sourcePlural source text to translate with plural form
 	 @param {Number} count count to use for pluralization
