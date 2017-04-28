@@ -520,6 +520,40 @@ const actions = module.exports = {
 				actions.deleteFormat(store, format.id);
 			}
 		});
+
+		/*
+		Bring format preferences in line with the latest of its major version
+		series.
+		*/
+
+		const defaultFormat = store.state.pref.defaultFormat || { name: null, version: null };
+		const defaultFormatVersion = semverUtils.parse(defaultFormat.version);
+		const latestDefault = latestVersions[defaultFormat.name]; 
+		const proofingFormat = store.state.pref.proofingFormat || { name: null, version: null };
+		const proofingFormatVersion = semverUtils.parse(proofingFormat.version);
+		const latestProofing = latestVersions[proofingFormat.name];
+
+		if (latestDefault && latestDefault[defaultFormatVersion.major]) {
+			actions.setPref(
+				store,
+				'defaultFormat',
+				{
+					name: defaultFormat.name,
+					version: latestDefault[defaultFormatVersion.major].version
+				}
+			);
+		}
+
+		if (latestProofing && latestProofing[proofingFormatVersion.major]) {
+			actions.setPref(
+				store,
+				'proofingFormat',
+				{
+					name: proofingFormat.name,
+					version: latestProofing[proofingFormatVersion.major].version
+				}
+			);
+		}
 	},
 
 	/*
