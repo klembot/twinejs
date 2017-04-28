@@ -90,7 +90,6 @@ const ModalDialog = module.exports = Vue.extend({
 		},
 
 		toggleWide() {
-			console.log('widening');
 			this.wide = !this.wide;
 		},
 
