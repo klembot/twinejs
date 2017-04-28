@@ -526,10 +526,12 @@ const actions = module.exports = {
 		series.
 		*/
 
-		const defaultFormat = store.state.pref.defaultFormat || { name: null, version: null };
+		const defaultFormat = store.state.pref.defaultFormat ||
+			{ name: null, version: null };
 		const defaultFormatVersion = semverUtils.parse(defaultFormat.version);
-		const latestDefault = latestVersions[defaultFormat.name]; 
-		const proofingFormat = store.state.pref.proofingFormat || { name: null, version: null };
+		const latestDefault = latestVersions[defaultFormat.name];
+		const proofingFormat = store.state.pref.proofingFormat ||
+			{ name: null, version: null };
 		const proofingFormatVersion = semverUtils.parse(proofingFormat.version);
 		const latestProofing = latestVersions[proofingFormat.name];
 
