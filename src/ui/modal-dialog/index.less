@@ -84,6 +84,10 @@ body.modalOpen {
 		}
 	}
 
+	&.wide {
+
+	}
+
 	&.editor {
 		top: @len-small;
 		bottom: @len-small;
@@ -114,6 +118,12 @@ body.modalOpen {
 			.CodeMirror {
 				padding: @len-small @len-extra-large;
 			}
+		}
+
+		&.wide {
+			width: auto;
+			left: @len-small;
+			right: @len-small;
 		}	
 	}
 

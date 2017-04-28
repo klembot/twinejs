@@ -17,9 +17,20 @@ const ModalDialog = module.exports = Vue.extend({
 		class: '',
 		title: '',
 		origin: null,
+		canWiden: false,
 		canClose: {
 			type: Function,
 			required: false
+		}
+	},
+
+	data: () => ({
+		wide: false
+	}),
+
+	computed: {
+		classes() {
+			return this.class + (this.wide ? ' wide' : '');
 		}
 	},
 
@@ -76,6 +87,11 @@ const ModalDialog = module.exports = Vue.extend({
 			}
 
 			this.$emit('close', message);
+		},
+
+		toggleWide() {
+			console.log('widening');
+			this.wide = !this.wide;
 		},
 
 		reject(message) {
