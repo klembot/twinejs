@@ -34,6 +34,33 @@ module.exports = {
 
 		moment.locale(locale);
 
+		// set up failover Jed data to get back the source text as-is
+
+		const failoverData = {
+			domain: 'messages',
+			locale_data: {
+				messages: {
+					'': {
+						domain: 'messages',
+						lang: 'en-us',
+						plural_forms: 'nplurals=2; plural=(n != 1);'
+					}
+				}
+			}
+		};
+
+		// if the locale is 'en' or 'en-us', return the failover data early
+		// to prevent unnecessary requests, especially with the online build
+
+		if (locale === 'en' || locale === 'en-us') {
+			this.i18nData = failoverData;
+			this.i18n = new Jed(this.i18nData);
+			callback();
+			return;
+		}
+
+		// attempt to fetch the locale data
+
 		$.ajax({
 			url: `locale/${locale}.js`,
 			dataType: 'jsonp',
@@ -53,20 +80,7 @@ module.exports = {
 			callback();
 		})
 		.fail(() => {
-			// dummy data to get back source text as-is
-
-			this.i18nData = {
-				domain: 'messages',
-				locale_data: {
-					messages: {
-						'': {
-							domain: 'messages',
-							lang: 'en-us',
-							plural_forms: 'nplurals=2; plural=(n != 1);'
-						}
-					}
-				}
-			};
+			this.i18nData = failoverData;
 			this.i18n = new Jed(this.i18nData);
 			callback();
 		});
