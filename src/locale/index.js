@@ -34,45 +34,56 @@ module.exports = {
 
 		moment.locale(locale);
 
-		if (locale != 'en-us' && locale != 'en') {
-			$.ajax({
-				url: 'locale/' + locale + '.js',
-				dataType: 'jsonp',
-				jsonpCallback: 'locale',
-				crossDomain: true
-			})
-			.always(function load(data) {
-				/**
-				 The raw JSON data used by Jed.
+		// set up failover Jed data to get back the source text as-is
 
-				 @property i18nData
-				 @type {Object}
-				**/
-
-				this.i18nData = data;
-				this.i18n = new Jed(this.i18nData);
-				callback();
-			}.bind(this));
-		}
-		else {
-			// dummy in data to get back source text as-is
-
-			this.i18nData = {
-				domain: 'messages',
-				locale_data: {
-					messages: {
-						'': {
-							domain: 'messages',
-							lang: 'en-us',
-							plural_forms: 'nplurals=2; plural=(n != 1);'
-						}
+		const failoverData = {
+			domain: 'messages',
+			locale_data: {
+				messages: {
+					'': {
+						domain: 'messages',
+						lang: 'en-us',
+						plural_forms: 'nplurals=2; plural=(n != 1);'
 					}
 				}
-			};
+			}
+		};
 
+		// if the locale is 'en' or 'en-us', return the failover data early
+		// to prevent unnecessary requests, especially with the online build
+
+		if (locale === 'en' || locale === 'en-us') {
+			this.i18nData = failoverData;
 			this.i18n = new Jed(this.i18nData);
 			callback();
-		};
+			return;
+		}
+
+		// attempt to fetch the locale data
+
+		$.ajax({
+			url: `locale/${locale}.js`,
+			dataType: 'jsonp',
+			jsonpCallback: 'locale',
+			crossDomain: true
+		})
+		.done(data => {
+			/**
+			 The raw JSON data used by Jed.
+
+			 @property i18nData
+			 @type {Object}
+			**/
+
+			this.i18nData = data;
+			this.i18n = new Jed(this.i18nData);
+			callback();
+		})
+		.fail(() => {
+			this.i18nData = failoverData;
+			this.i18n = new Jed(this.i18nData);
+			callback();
+		});
 	},
 
 	/**
@@ -109,7 +120,7 @@ module.exports = {
 	 as the shorthand method sp.
 
 	 When interpolating, count will always be the first argument.
-	
+
 	 @param {String} sourceSingular source text to translate with singular form
 	 @param {String} sourcePlural source text to translate with plural form
 	 @param {Number} count count to use for pluralization
