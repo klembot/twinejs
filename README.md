@@ -1,13 +1,13 @@
 twinejs
 -------
 
-by Chris Klimas, Leon Arnott, Daithi O Crualaoich, Ingrid Cheung, Thomas
-Michael Edwards, Micah Fitch, Juhana Leinonen, and Ross Smith
+by Chris Klimas, Leon Arnott, Daithi O Crualaoich, Ingrid Cheung, Thomas Michael
+Edwards, Micah Fitch, Juhana Leinonen, Michael Savich, and Ross Smith
 
 ### SYNOPSIS
 
 This is a port of Twine to a local browser-based app. See
-[twinery.org](http://twinery.org) for more info.
+[twinery.org](https://twinery.org) for more info.
 
 The story formats in minified format under `story-formats/` exist in separate
 repositories:
@@ -19,7 +19,7 @@ repositories:
 
 ### A NOTE ABOUT YARN
 
-Anytime you read `npm` below, you can also use `yarn` ([more
+Any time you read `npm` below, you can also use `yarn` ([more
 information](https://yarnpkg.com/)). Using `yarn` is a little more foolproof, as
 it ensures that everyone is using the exact same version of dependencies.
 
