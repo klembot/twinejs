@@ -1,0 +1,14 @@
+<div id="localeView">
+	<p class="prompt larger">
+		{{ 'Please choose which language you would like to use with Twine.' | say }}
+	</p>
+
+	<ul>
+		<li v-for="locale in locales">
+			<button @click="setLocale(locale.code)"> 
+				<img :src="'rsrc/flags/' + locale.code + '.svg'" alt="">
+				{{{ locale.label }}}
+			</button>
+		</li>
+	</ul>
+</div>

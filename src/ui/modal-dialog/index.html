@@ -1,0 +1,21 @@
+<div transition="modal-dialog">
+	<div id="modal-overlay" @click="reject"></div>
+	<div :class="'modal-dialog ' + classes">
+		<header>
+			<h2 class="title"><slot name="title"></slot></h2>
+
+			<slot name="buttons"></slot>
+			<button class="widen subtle" @click="toggleWide" v-if="canWiden">
+				<i class="fa fa-expand" v-if="!wide"></i>
+				<i class="fa fa-compress" v-if="wide"></i>
+			</button>
+
+			<button class="close subtle" @click="close">
+				<i class="fa fa-times"></i>
+			</button>
+		</header>
+		<div class="content">
+			<slot></slot>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,13 @@
+<modal-dialog class="editor" :origin="origin" :can-widen="true" @transition-entered="resetCm">
+	<span slot="title">
+	{{ 'Stylesheet' | say }}
+	</span>
+
+	<p>
+	{{ 'Any CSS entered here will override the default appearance of your story.' | say }}
+	</p>
+
+	<div class="expand">
+		<code-mirror :options="cmOptions" :text="source" @cm-change="save" v-ref:codemirror></code-mirror>
+	</div>
+</modal-dialog>

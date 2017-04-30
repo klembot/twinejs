@@ -1,0 +1,39 @@
+@import '../../common/colors.less';
+@import '../../common/depth.less';
+@import '../../common/metrics.less';
+
+#notifications {
+	position: fixed;
+	top: 0;
+	left: 50%;
+	width: 50%;
+	margin-left: -25%;
+	text-align: center;
+	z-index: 9999;
+
+	> div {
+		display: flex;
+		align-items: center;
+		margin-top: @len-small;
+		padding-left: @len-small;
+		background-color: @color-paper;
+		color: @color-text;
+		border-radius: 2px;
+		.shadow-large;
+
+		.theme-dark & {
+			background-color: @color-paper-dark;
+			color: @color-text-dark;
+		}
+	}
+
+	button.close {
+		border-radius: 0;
+	}
+
+	.message {
+		padding: 0 @len-small;
+		text-align: left;
+		flex-grow: 1;
+	}
+}
