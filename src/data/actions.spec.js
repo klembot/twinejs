@@ -348,6 +348,12 @@ describe('actions data module', () => {
 							storyFormat: 'SugarCube 2 (local/offline)'
 						}
 					]
+				},
+				storyFormat: {
+					formats: [
+						{ name: 'SugarCube', version: '1.2.3' },
+						{ name: 'SugarCube', version: '2.3.4' }
+					]
 				}
 			}
 		};
@@ -356,12 +362,12 @@ describe('actions data module', () => {
 		expect(storiesStore.dispatch.calledWith(
 			'UPDATE_STORY',
 			'not-a-real-id',
-			{ storyFormat: 'SugarCube', storyFormatVersion: '1.0.35' }
+			{ storyFormat: 'SugarCube', storyFormatVersion: '1.2.3' }
 		)).to.be.true;
 		expect(storiesStore.dispatch.calledWith(
 			'UPDATE_STORY',
 			'also-not-a-real-id',
-			{ storyFormat: 'SugarCube', storyFormatVersion: '2.18.0' }
+			{ storyFormat: 'SugarCube', storyFormatVersion: '2.3.4' }
 		)).to.be.true;
 	});
 
@@ -369,9 +375,6 @@ describe('actions data module', () => {
 		let storiesStore = {
 			dispatch: spy(),
 			state: {
-				pref: {
-					defaultFormat: { name: 'Default Format', version: '1.2.3' }
-				},
 				storyFormat: {
 					formats: [
 						{ name: 'Default Format', version: '1.2.3' },
@@ -398,12 +401,42 @@ describe('actions data module', () => {
 		expect(storiesStore.dispatch.calledWith(
 			'UPDATE_STORY',
 			'not-a-real-id',
-			{ storyFormatVersion: '1.2.3' }
+			{ storyFormatVersion: '1.2.5' }
 		)).to.be.true;
 		expect(storiesStore.dispatch.calledWith(
 			'UPDATE_STORY',
 			'also-not-a-real-id',
-			{ storyFormatVersion: '1.2.3' }
+			{ storyFormatVersion: '1.2.5' }
+		)).to.be.true;
+	});
+
+	it('updates story format versions with repairStories()', () => {
+		let storiesStore = {
+			dispatch: spy(),
+			state: {
+				storyFormat: {
+					formats: [
+						{ name: 'Default Format', version: '1.2.3' },
+						{ name: 'Default Format', version: '1.2.5' }
+					]
+				},
+				story: {
+					stories: [
+						{
+							id: 'not-a-real-id',
+							storyFormat: 'Default Format',
+							storyFormatVersion: '1.0.0'
+						}
+					]
+				}
+			}
+		};
+
+		actions.repairStories(storiesStore);
+		expect(storiesStore.dispatch.calledWith(
+			'UPDATE_STORY',
+			'not-a-real-id',
+			{ storyFormatVersion: '1.2.5' }
 		)).to.be.true;
 	});
 

@@ -8,6 +8,39 @@ const linkParser = require('./link-parser');
 const locale = require('../locale');
 const rect = require('../common/rect');
 
+/*
+Returns the latest story format version available, indexed by format name and
+major version (as a string, not a number).
+*/
+
+function latestFormatVersions(store) {
+	const latestVersions = {};
+
+	store.state.storyFormat.formats.forEach(format => {
+		if (!format.version) {
+			return;
+		}
+
+		const v = semverUtils.parse(format.version);
+
+		if (latestVersions[format.name]) {
+			const existing = latestVersions[format.name][v.major];
+
+			if (!existing ||
+				v.minor > existing.minor ||
+				v.minor === existing.minor && v.patch > existing.patch) {
+				latestVersions[format.name][v.major] = v;
+			}
+		}
+		else {
+			latestVersions[format.name] = {};
+			latestVersions[format.name][v.major] = v;
+		}
+	});
+
+	return latestVersions;
+}
+
 const actions = module.exports = {
 	setPref({ dispatch }, name, value) {
 		dispatch('UPDATE_PREF', name, value);
@@ -481,29 +514,7 @@ const actions = module.exports = {
 		Delete any outdated formats.
 		*/
 
-		const latestVersions = {};
-
-		store.state.storyFormat.formats.forEach(format => {
-			if (!format.version) {
-				return;
-			}
-
-			const v = semverUtils.parse(format.version);
-
-			if (latestVersions[format.name]) {
-				const existing = latestVersions[format.name][v.major];
-
-				if (!existing ||
-					v.minor > existing.minor ||
-					v.minor === existing.minor && v.patch > existing.patch) {
-					latestVersions[format.name][v.major] = v;
-				}
-			}
-			else {
-				latestVersions[format.name] = {};
-				latestVersions[format.name][v.major] = v;
-			}
-		});
+		const latestVersions = latestFormatVersions(store);
 
 		store.state.storyFormat.formats.forEach(format => {
 			if (!format.version) {
@@ -564,6 +575,8 @@ const actions = module.exports = {
 	*/
 
 	repairStories(store) {
+		const latestVersions = latestFormatVersions(store);
+
 		store.state.story.stories.forEach(story => {
 			/*
 			Reset stories without any story format.
@@ -586,48 +599,65 @@ const actions = module.exports = {
 				actions.updateStory(
 					store,
 					story.id,
-					{ storyFormat: 'SugarCube', storyFormatVersion: '1.0.35' }
+					{
+						storyFormat: 'SugarCube',
+						storyFormatVersion: latestVersions['SugarCube']['1'].version
+					}
 				);
 			}
 			else if (/^SugarCube 2/.test(story.storyFormat)) {
 				actions.updateStory(
 					store,
 					story.id,
-					{ storyFormat: 'SugarCube', storyFormatVersion: '2.18.0' }
-				);
-			}
-			else if (!story.storyFormatVersion) {
-				/*
-				If a story has no format version, pick the lowest version number
-				currently available.
-				*/
-
-				const format = store.state.storyFormat.formats.reduce(
-					(prev, current) => {
-						if (current.name !== story.storyFormat) {
-							return prev;
-						}
-
-						const pVer = semverUtils.parse(prev.version);
-						const cVer = semverUtils.parse(current.version);
-
-						if (parseInt(pVer.major) < parseInt(cVer.major) ||
-							parseInt(pVer.minor) < parseInt(cVer.minor) ||
-							parseInt(pVer.patch) < parseInt(cVer.patch)) {
-							return prev;
-						}
-
-						return current;
+					{
+						storyFormat: 'SugarCube',
+						storyFormatVersion: latestVersions['SugarCube']['2'].version
 					}
 				);
+			}
 
-				if (format) {
+			if (story.storyFormatVersion) {
+				/*
+				Update the story's story format to the latest available version.
+				*/
+
+				const majorVersion = semverUtils.parse(
+					story.storyFormatVersion
+				).major;
+
+				if (latestVersions[story.storyFormat][majorVersion]) {
 					actions.updateStory(
 						store,
 						story.id,
-						{ storyFormatVersion: format.version }
+						{
+							/* eslint-disable max-len */
+							storyFormatVersion: latestVersions[story.storyFormat][majorVersion].version
+							/* eslint-enable max-len */
+						}
 					);
 				}
+			}
+			else if (latestVersions[story.storyFormat]) {
+				/*
+				If a story has no format version, pick the lowest major version
+				number currently available.
+				*/
+
+				const majorVersion = Object.keys(
+					latestVersions[story.storyFormat]
+				).reduce(
+					(prev, current) => (current < prev) ? current : prev
+				);
+
+				actions.updateStory(
+					store,
+					story.id,
+					{
+						/* eslint-disable max-len */
+						storyFormatVersion: latestVersions[story.storyFormat][majorVersion].version
+						/* eslint-enable max-len */
+					}
+				);
 			}
 		});
 	}
