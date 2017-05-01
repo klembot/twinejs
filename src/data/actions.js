@@ -94,6 +94,10 @@ const actions = module.exports = {
 	*/
 
 	positionPassage(store, storyId, passageId, gridSize, filter) {
+		if (gridSize && typeof gridSize !== 'number') {
+			throw new Error('Asked to snap to a non-numeric grid size: ' + gridSize);
+		}
+
 		const story = store.state.story.stories.find(
 			story => story.id == storyId
 		);
@@ -140,7 +144,7 @@ const actions = module.exports = {
 
 		/* Snap to the grid. */
 
-		if (story.snapToGrid && gridSize !== 0) {
+		if (story.snapToGrid && gridSize && gridSize !== 0) {
 			passageRect.left = Math.round(passageRect.left / gridSize) *
 				gridSize;
 			passageRect.top = Math.round(passageRect.top / gridSize) *

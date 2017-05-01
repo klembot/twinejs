@@ -440,6 +440,48 @@ describe('actions data module', () => {
 		)).to.be.true;
 	});
 
+	it('requires a numeric grid size, if passed, when positioning passages()', () => {
+		let storyStore = {
+			dispatch: spy(),
+			state: {
+				story: {
+					stories: [
+						{
+							id: fakeId,
+							passages: [
+								{
+									id: fakeId,
+									name: 'Test',
+									text: 'a',
+									left: 10,
+									top: 10
+								}
+							]
+						}
+					]
+				}
+			}
+		};
+
+		/* Test non-numeric argument. */
+
+		expect(() =>
+			actions.positionPassage(storyStore, fakeId, fakeId, 'a')
+		).to.throw();
+
+		/* Test undefined argument. */
+
+		actions.positionPassage(storyStore, fakeId, fakeId);
+		expect(storyStore.state.story.stories[0].passages[0].left).to.equal(10);
+		expect(storyStore.state.story.stories[0].passages[0].top).to.equal(10);
+
+		/* Test null argument. */
+
+		actions.positionPassage(storyStore, fakeId, fakeId, null);
+		expect(storyStore.state.story.stories[0].passages[0].left).to.equal(10);
+		expect(storyStore.state.story.stories[0].passages[0].top).to.equal(10);
+	});
+
 	it('creates new links with createNewlyLinkedPassages()', () => {
 		let storyStore = {
 			dispatch: spy(),
