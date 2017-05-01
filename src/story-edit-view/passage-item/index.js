@@ -50,6 +50,13 @@ module.exports = Vue.extend({
 		screenDragOffsetY: {
 			type: Number,
 			required: true
+		},
+
+		/* The story's grid size, in pixels. */
+
+		gridSize: {
+			type: Number,
+			required: true
 		}
 	},
 
