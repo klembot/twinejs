@@ -55,6 +55,6 @@
 	</p>
 
 	<div class="results">
-		<search-result v-for="match in passageMatches" :match="match" :get-search-regexp="getSearchRegexp" :get-replace="getReplace" :get-search-names="getSearchNames"></search-result>
+		<search-result v-for="match in passageMatches" :story="story" :match="match" :search-regexp="searchRegexp" :replace-with="replace" :search-names="searchNames"></search-result>
 	</div> <!-- .results -->
 </modal-dialog> <!-- #searchModal -->

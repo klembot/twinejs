@@ -43,10 +43,11 @@ module.exports = Vue.extend({
 		showModal(e) {
 			new SearchDialog({
 				data: {
-					passages: this.story.passages,
+					story: this.story,
 					search: this.search,
 					origin: e.target
-				}
+				},
+				store: this.$store
 			}).$mountTo(document.body);
 		}
 	}

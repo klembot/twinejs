@@ -1,13 +1,41 @@
-// A component showing a single search result.
+/*
+A component showing a single search result.
+*/
 
 const Vue = require('vue');
+const { updatePassageInStory } = require('../../data/actions');
 
 require('./result.less');
 
 module.exports = Vue.extend({
 	template: require('./result.html'),
 	
-	props: ['match', 'getSearchRegexp', 'getReplace', 'getSearchNames'],
+	props: {
+		story: {
+			type: Object,
+			required: true
+		},
+
+		match: {
+			type: Object,
+			required: true
+		},
+		
+		searchRegexp: {
+			type: RegExp,
+			required: true
+		},
+
+		replaceWith: {
+			type: String,
+			required: true
+		},
+
+		searchNames: {
+			type: Boolean,
+			require: true
+		}
+	},
 
 	data: () => ({
 		expanded: false
@@ -19,17 +47,30 @@ module.exports = Vue.extend({
 		},
 
 		replace() {
-			this.match.passage.replace(
-				this.getSearchRegexp(),
-				this.getReplace(),
-				this.getSearchNames()
+			const name = this.searchNames ?
+				this.match.passage.name.replace(
+					this.searchRegexp,
+					this.replaceWith
+				)
+				: undefined;
+			const text = this.match.passage.text.replace(
+				this.searchRegexp,
+				this.replaceWith
+			);
+
+			this.updatePassageInStory(
+				this.story.id,
+				this.match.passage.id,
+				{ name, text }
 			);
 		}
 	},
 
 	events: {
-		// The parent sends these events when the user chooses to expand or
-		// collapse all results.
+		/*
+		The parent sends these events when the user chooses to expand or
+		collapse all results.
+		*/
 
 		expand() {
 			this.expanded = true;
@@ -39,10 +80,16 @@ module.exports = Vue.extend({
 			this.expanded = false;
 		},
 
-		// The parent sends this event when the user clicks "Replace All".
+		/* The parent sends this event when the user clicks "Replace All". */
 
 		replace() {
 			this.replace();
+		}
+	},
+
+	vuex: {
+		actions: {
+			updatePassageInStory
 		}
 	}
 });
