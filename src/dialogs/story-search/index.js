@@ -11,7 +11,7 @@ module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	data: () => ({
-		passages: [],
+		story: {},
 		search: '',
 		replace: '',
 		searchNames: true,
@@ -50,7 +50,7 @@ module.exports = Vue.extend({
 
 			this.working = true;
 			
-			let result = this.passages.reduce((matches, passage) => {
+			let result = this.story.passages.reduce((matches, passage) => {
 				let numMatches = 0;
 				let passageName = passage.name;
 				let passageText = passage.text;
@@ -106,23 +106,6 @@ module.exports = Vue.extend({
 
 		replaceAll() {
 			this.$broadcast('replace');
-		},
-
-		/*
-		Getters for our child result components. These are functions so that
-		although we pass them as props, they're dynamic.
-		*/
-
-		getSearchRegexp() {
-			return this.searchRegexp;
-		},
-
-		getReplace() {
-			return this.replace;
-		},
-
-		getSearchNames() {
-			return this.searchNames;
 		}
 	},
 
