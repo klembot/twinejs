@@ -218,7 +218,7 @@ module.exports = Vue.extend({
 
 			/* Begin tracking a potential drag. */
 
-			const srcPoint = (event.type === 'mousedown') ? e : e.touches[0];
+			const srcPoint = (e.type === 'mousedown') ? e : e.touches[0];
 
 			this.screenDragStartX = srcPoint.clientX + window.pageXOffset;
 			this.screenDragStartY = srcPoint.clientY + window.pageYOffset;
@@ -236,7 +236,7 @@ module.exports = Vue.extend({
 		},
 
 		followDrag(e) {
-			const srcPoint = (event.type === 'mousemove') ? e : e.touches[0];
+			const srcPoint = (e.type === 'mousemove') ? e : e.touches[0];
 
 			this.$dispatch(
 				'passage-drag',
