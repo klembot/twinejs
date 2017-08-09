@@ -163,6 +163,19 @@ module.exports = Vue.extend({
 			this.$broadcast('drop-down-close');
 
 			const oldText = this.passage.text;
+			const afterEdit = () => {
+				this.createNewlyLinkedPassages(
+					this.parentStory.id,
+					this.passage.id,
+					oldText,
+					this.gridSize
+				);
+			};
+
+			/*
+			The promise below is rejected if the user clicks outside the editor,
+			so we need to handle both resolution and rejection of the promise.
+			*/
 
 			new PassageEditor({
 				data: {
@@ -177,14 +190,8 @@ module.exports = Vue.extend({
 				}
 			})
 			.$mountTo(document.body)
-			.then(() => {
-				this.createNewlyLinkedPassages(
-					this.parentStory.id,
-					this.passage.id,
-					oldText,
-					this.gridSize
-				);
-			});
+			.then(afterEdit)
+			.catch(afterEdit);
 		},
 
 		startDrag(e) {
