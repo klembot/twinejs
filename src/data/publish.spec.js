@@ -32,7 +32,8 @@ describe('publish module', () => {
 			stylesheet: '* { color: red }',
 			script: 'alert("hi");',
 			passages: [passage1, passage2],
-			startPassage: 'not-an-id'
+			startPassage: 'not-an-id',
+			zoom: 1.5
 		};
 		
 		appInfo = {
@@ -48,6 +49,7 @@ describe('publish module', () => {
 		expect($el.attr('creator-version')).to.equal(appInfo.version);
 		expect($el.attr('ifid')).to.equal(story.ifid);
 		expect($el.attr('format')).to.equal(story.storyFormat);
+		expect($el.attr('zoom')).to.equal(story.zoom.toString());
 		
 		const $style = $el.find('style[type="text/twine-css"]');
 		
@@ -80,7 +82,7 @@ describe('publish module', () => {
 		const result = publish.publishStory(appInfo, story);
 		
 		expect(result).to.be.a('string');
-		
+		console.info(result);
 		checkStoryElAgainstData($(result), story, appInfo);
 	});
 	

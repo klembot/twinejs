@@ -104,6 +104,7 @@ const publish = module.exports = {
 			`creator="${escape(appInfo.name)}" ` +
 			`creator-version="${escape(appInfo.version)}" ` +
 			`ifid="${escape(story.ifid)}" ` +
+			`zoom="${escape(story.zoom)}" ` +
 			`format="${escape(story.storyFormat)}" ` +
 			`format-version="${escape(story.storyFormatVersion)}" ` +
 			`options="${escape(formatOptions)}" hidden>` +
