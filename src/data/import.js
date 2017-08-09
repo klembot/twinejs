@@ -62,7 +62,8 @@ function domToObject(storyEl, forceLastUpdate) {
 					''
 				),
 		zoom:
-			1,
+			storyEl.attributes.zoom ?
+				parseFloat(storyEl.attributes.zoom.value) : 1,
 		passages:
 			Array.from(storyEl.querySelectorAll(selectors.passageData))
 				.map(passageEl => {
