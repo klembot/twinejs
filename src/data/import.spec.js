@@ -47,6 +47,15 @@ describe('import module', () => {
 		expect(result[0].passages[1].text).to.equal('This is another <<passage>>.');
 	});
 
+	it('handles malformed HTML data', () => {
+		let result = importer('');
+
+		expect(result.length).to.equal(0);
+
+		result = importer('<tw-storydata></tw-storydata>');
+		console.info(result);
+	});
+
 	it('allows setting the story\'s creation date manually', () => {
 		const forceDate = new Date(Date.parse('January 1, 1987'));
 		const result = importer(testHtml, forceDate);

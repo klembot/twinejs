@@ -35,17 +35,21 @@ function domToObject(storyEl, forceLastUpdate) {
 		*/
 
 		startPassagePid:
-			storyEl.attributes.startnode.value,
+			storyEl.attributes.startnode ?
+				storyEl.attributes.startnode.value : null,
 		name:
-			storyEl.attributes.name.value,
+			storyEl.attributes.name ?
+				storyEl.attributes.name.value : null,
 		ifid:
-			storyEl.attributes.ifid.value,
+			storyEl.attributes.ifid ?
+				storyEl.attributes.ifid.value : null,
 		lastUpdate:
 			forceLastUpdate || new Date(),
 		snapToGrid:
 			false,
 		storyFormat:
-			storyEl.attributes.format.value,
+			storyEl.attributes.format ?
+				storyEl.attributes.format.value : null,
 		storyFormatVersion:
 			storyEl.attributes['format-version'] ?
 				storyEl.attributes['format-version'].value : null,
