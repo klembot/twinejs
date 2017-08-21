@@ -65,11 +65,14 @@ module.exports = Vue.extend({
 						locale.say(
 							'The story format &ldquo;%1$s&rdquo; could not ' +
 							'be loaded (%2$s).',
-							this.formatNames[this.loadIndex],
+							this.allFormats[this.loadIndex].name + ' ' +
+							this.allFormats[this.loadIndex].version,
 							e.message
 						),
 						'danger'
 					);
+					this.loadIndex++;
+					this.loadNext();
 				});
 			}
 			else {
