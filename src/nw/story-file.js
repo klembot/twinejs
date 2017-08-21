@@ -127,11 +127,11 @@ const StoryFile = module.exports = {
 						{ encoding: 'utf8' }
 					);
 					const stats = fs.statSync(filePath);
+					const storyData = importFile(source, new Date(Date.parse(stats.mtime)));
 
-					importStory(
-						store,
-						importFile(source, new Date(Date.parse(stats.mtime)))[0]
-					);
+					if (storyData.length > 0) {
+						importStory(store, storyData[0]);
+					}
 				}
 			});
 		}
