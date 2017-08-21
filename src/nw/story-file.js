@@ -127,7 +127,10 @@ const StoryFile = module.exports = {
 						{ encoding: 'utf8' }
 					);
 					const stats = fs.statSync(filePath);
-					const storyData = importFile(source, new Date(Date.parse(stats.mtime)));
+					const storyData = importFile(
+						source,
+						new Date(Date.parse(stats.mtime))
+					);
 
 					if (storyData.length > 0) {
 						importStory(store, storyData[0]);

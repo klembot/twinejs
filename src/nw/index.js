@@ -119,9 +119,9 @@ module.exports = {
 						});
 
 						/*
-						Add a shift-ctrl-alt-D shortcut for displaying dev tools.
-						Note: this is deprecated as NW.js now lets you press F12
-						anywhere.
+						Add a shift-ctrl-alt-D shortcut for displaying dev
+						tools. Note: this is deprecated as NW.js now lets you
+						press F12 anywhere.
 						*/
 
 						startupTask = 'adding the debugger keyboard shortcut';
@@ -168,9 +168,10 @@ module.exports = {
 						});
 
 						/*
-						Do a file sync if we're just starting up. We have to track
-						this in the global scope; otherwise, each new window will
-						think it's starting afresh and screw up our model IDs.
+						Do a file sync if we're just starting up. We have to
+						track this in the global scope; otherwise, each new
+						window will think it's starting afresh and screw up our
+						model IDs.
 						*/
 
 						startupTask = 'initially synchronizing story files';
@@ -188,8 +189,8 @@ module.exports = {
 						patchStore(require('../data/store'));
 
 						/*
-						Monkey patch QuotaGauge to hide itself, since we don't have
-						to sweat quota ourselves.
+						Monkey patch QuotaGauge to hide itself, since we don't
+						have to sweat quota ourselves.
 						*/
 
 						startupTask = 'disabling the storage quota meter';
@@ -221,7 +222,7 @@ module.exports = {
 			}
 			catch (e) {
 				showCrash(e);
-				throw e;				
+				throw e;
 
 				/*
 				Don't resolve our promise so that the startup process freezes.
