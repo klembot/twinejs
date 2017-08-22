@@ -168,6 +168,25 @@ module.exports = Vue.extend({
 			},
 
 			immediate: true
+		},
+
+		'story.zoom': {
+			handler(value, old) {
+				/*
+				Change the window's scroll position so that the same logical
+				coordinates are at its center.
+				*/
+				
+				const halfWidth = window.innerWidth / 2;
+				const halfHeight = window.innerHeight / 2;
+				const logCenterX = (window.scrollX + halfWidth) / old;
+				const logCenterY = (window.scrollY + halfHeight) / old;
+
+				window.scroll(
+					(logCenterX * value) - halfWidth,
+					(logCenterY * value) - halfHeight
+				);
+			}
 		}
 	},
 
