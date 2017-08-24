@@ -10,6 +10,7 @@ const { changeLinksInStory, updatePassageInStory, loadFormat } = require('../../
 const { passageDefaults } = require('../../data/story');
 
 require('codemirror/addon/display/placeholder');
+require('codemirror/addon/hint/show-hint');
 require('../../codemirror/prefix-trigger');
 
 require('./index.less');
