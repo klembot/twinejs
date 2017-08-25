@@ -1,7 +1,7 @@
-// A contextual menu that appears when the user points at a passage.
+/* A contextual menu that appears when the user points at a passage. */
 
 const Vue = require('vue');
-const { updateStory } = require('../../../data/actions');
+const { updatePassageInStory, updateStory } = require('../../../data/actions');
 
 require('./index.less');
 
@@ -17,6 +17,30 @@ module.exports = Vue.extend({
 		parentStory: {
 			type: Object,
 			required: true
+		}
+	},
+
+	computed: {
+		isStart() {
+			return this.parentStory.startPassage === this.passage.id;
+		},
+
+		size() {
+			if (this.passage.width === 100 && this.passage.height === 100) {
+				return 'small';
+			}
+
+			if (this.passage.width === 200 && this.passage.height === 100) {
+				return 'wide';
+			}
+			
+			if (this.passage.width === 100 && this.passage.height === 200) {
+				return 'tall';
+			}
+			
+			if (this.passage.width === 200 && this.passage.height === 200) {
+				return 'large';
+			}
 		}
 	},
 
@@ -41,6 +65,47 @@ module.exports = Vue.extend({
 				this.parentStory.id,
 				{ startPassage: this.passage.id }
 			);
+		},
+
+		setSize(value) {
+			switch (value) {
+				case 'small':
+					this.updatePassageInStory(
+						this.parentStory.id,
+						this.passage.id,
+						{ width: 100, height: 100 }
+					);
+					break;
+
+				case 'wide':
+					this.updatePassageInStory(
+						this.parentStory.id,
+						this.passage.id,
+						{ width: 200, height: 100 }
+					);
+					break;
+
+				case 'tall':
+					this.updatePassageInStory(
+						this.parentStory.id,
+						this.passage.id,
+						{ width: 100, height: 200 }
+					);
+					break;
+
+				case 'large':
+					this.updatePassageInStory(
+						this.parentStory.id,
+						this.passage.id,
+						{ width: 200, height: 200 }
+					);
+					break;
+
+				default:
+					throw new Error(`Don't know how to set size ${value}`);
+			}
+
+			this.$dispatch('passage-position', this.passage, {});
 		}
 	},
 
@@ -49,6 +114,6 @@ module.exports = Vue.extend({
 	},
 
 	vuex: {
-		actions: { updateStory }
+		actions: { updatePassageInStory, updateStory }
 	}
 });

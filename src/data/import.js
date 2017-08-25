@@ -75,6 +75,14 @@ function domToObject(storyEl, forceLastUpdate) {
 						.split(',')
 						.map(Math.floor);
 
+					let size = [100, 100];
+
+					if (passageEl.attributes.size) {
+						size = passageEl.attributes.size.value
+							.split(',')
+							.map(Math.floor);
+					}
+
 					return {
 						/* Again, a one-off id, not a database id. */
 
@@ -85,13 +93,9 @@ function domToObject(storyEl, forceLastUpdate) {
 						top:
 							pos[1],
 						width:
-							passageEl.attributes.width ?
-								parseInt(passageEl.attributes.width.value)
-								: 100,
+							size[0],
 						height:
-							passageEl.attributes.height ?
-								parseInt(passageEl.attributes.height.value)
-								: 100,
+							size[1],
 						tags:
 							passageEl.attributes.tags.value === '' ?
 								[]
