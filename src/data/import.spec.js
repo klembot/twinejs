@@ -6,7 +6,8 @@ const testHtml = `
 * { color: blue }</style><script role="script" id="twine-user-script" type="text/twine-javascript">alert('hi');</script><tw-passagedata pid="1" name="Untitled Passage" tags="foo bar" position="450,250">This is some text.
 
 [[1]]</tw-passagedata>
-<tw-passagedata pid="2" name="1" tags="" position="600,200">This is another &lt;&lt;passage&gt;&gt;.</tw-passagedata>
+<tw-passagedata pid="2" name="1" tags="" position="600,200" size="200,200">This is another &lt;&lt;passage&gt;&gt;.</tw-passagedata>
+<tw-passagedata pid="3" name="&lt;hi&gt;" tags="" position="700,300">Another passage.</tw-passagedata>
 </tw-storydata>
 `;
 
@@ -24,7 +25,7 @@ describe('import module', () => {
 		expect(result[0].script).to.equal('alert(\'hi\');\n');
 		expect(result[0].stylesheet).to.equal('* { color: red }\n* { color: blue }\n');
 		expect(result[0].passages).to.be.an('array');
-		expect(result[0].passages.length).to.equal(2);
+		expect(result[0].passages.length).to.equal(3);
 		expect(result[0].passages[0].pid).to.equal('1');
 		expect(result[0].passages[0].left).to.equal(450);
 		expect(result[0].passages[0].top).to.equal(250);
@@ -39,12 +40,20 @@ describe('import module', () => {
 		expect(result[0].passages[1].pid).to.equal('2');
 		expect(result[0].passages[1].left).to.equal(600);
 		expect(result[0].passages[1].top).to.equal(200);
-		expect(result[0].passages[1].width).to.equal(100);
-		expect(result[0].passages[1].height).to.equal(100);
+		expect(result[0].passages[1].width).to.equal(200);
+		expect(result[0].passages[1].height).to.equal(200);
 		expect(result[0].passages[1].tags).to.be.an('array');
 		expect(result[0].passages[1].tags.length).to.equal(0);
 		expect(result[0].passages[1].name).to.equal('1');
 		expect(result[0].passages[1].text).to.equal('This is another <<passage>>.');
+		expect(result[0].passages[2].left).to.equal(700);
+		expect(result[0].passages[2].top).to.equal(300);
+		expect(result[0].passages[2].width).to.equal(100);
+		expect(result[0].passages[2].height).to.equal(100);
+		expect(result[0].passages[2].tags).to.be.an('array');
+		expect(result[0].passages[2].tags.length).to.equal(0);
+		expect(result[0].passages[2].name).to.equal('<hi>');
+		expect(result[0].passages[2].text).to.equal('Another passage.');
 	});
 
 	it('handles malformed HTML data', () => {

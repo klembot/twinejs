@@ -27,6 +27,9 @@ module.exports = Vue.extend({
 		showNow: {
 			type: Boolean,
 			default: false
+		},
+		targetOffset: {
+			type: String
 		}
 	},
 
@@ -51,23 +54,42 @@ module.exports = Vue.extend({
 			});
 		}
 
+		let tetherOptions = {
+			constraints: [
+				{
+					to: 'window',
+					attachment: 'together',
+					pin: true
+				}
+			]
+		};
+
+		if (this.targetOffset) {
+			tetherOptions.targetOffset = this.targetOffset;
+		}
+
 		this.$drop = new Drop({
-			target: target,
+			target,
 			content: this.$el,
 			position: this.position,
 			openOn: openOn,
 			classes: this.class,
 			constrainToWindow: true,
 			constrainToScrollParent: false,
-			tetherOptions: {
-				constraints: [
-					{
-						to: 'window',
-						attachment: 'together',
-						pin: true
-					}
-				]
-			}
+			tetherOptions
+		});
+
+		/*
+		Emit events as the drop opens and closes. See below for how other
+		components can signal to us to close or reposition the drop.
+		*/
+
+		this.$drop.on('open', () => {
+			this.$dispatch('drop-down-opened', this);
+		});
+
+		this.$drop.on('close', () => {
+			this.$dispatch('drop-down-closed', this);
 		});
 
 		/*

@@ -13,6 +13,8 @@ describe('publish module', () => {
 			tags: ['tags', 'that are <escaped>'],
 			top: 10,
 			left: 20,
+			width: 150,
+			height: 150,
 			text: 'Body text which is <escaped>'
 		};
 
@@ -22,6 +24,8 @@ describe('publish module', () => {
 			tags: [],
 			top: 30,
 			left: 45,
+			width: 100,
+			height: 100,
 			text: 'More body text.\n\nAnother paragraph.'
 		};
 
@@ -74,6 +78,7 @@ describe('publish module', () => {
 			expect($result.attr('name')).to.equal(passage.name);
 			expect($result.attr('tags')).to.equal(passage.tags.join(' '));
 			expect($result.attr('position')).to.equal(`${passage.left},${passage.top}`);
+			expect($result.attr('size')).to.equal(`${passage.width},${passage.height}`);
 			expect($result.text()).to.equal(passage.text);
 		});
 	});
