@@ -19,6 +19,7 @@ const selectors =  {
 	script: '[role=script]',
 	stylesheet: '[role=stylesheet]',
 	storyData: 'tw-storydata',
+	tagColors: 'tw-tag',
 	passageData: 'tw-passagedata'
 };
 
@@ -68,6 +69,16 @@ function domToObject(storyEl, forceLastUpdate) {
 		zoom:
 			storyEl.attributes.zoom ?
 				parseFloat(storyEl.attributes.zoom.value) : 1,
+		tagColors:
+			Array.from(storyEl.querySelectorAll(selectors.tagColors))
+				.reduce(
+					(src, el) => {
+						src[el.attributes.name.value] =
+							el.attributes.color.value;
+						return src;
+					},
+					{}
+				),
 		passages:
 			Array.from(storyEl.querySelectorAll(selectors.passageData))
 				.map(passageEl => {

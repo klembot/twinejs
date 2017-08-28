@@ -1,0 +1,19 @@
+<drop-down position="bottom left" class="tags">
+	<ul class="menu">
+		<li>
+			<button @click="remove">
+				{{ 'Remove &ldquo;%1$s&rdquo;' | say tag }}
+			</button>
+		</li>
+		<li class="divider"></li>
+	</ul>
+	<div class="toolbar">
+		<button class="gray" @click="setColor('gray')" title="{{ 'Set tag color to gray' | say }}"></button>			
+		<button class="red" @click="setColor('red')" title="{{ 'Set tag color to red' | say }}"></button>
+		<button class="orange" @click="setColor('orange')" title="{{ 'Set tag color to orange' | say }}"></button>
+		<button class="yellow" @click="setColor('yellow')" title="{{ 'Set tag color to yellow' | say }}"></button>
+		<button class="green" @click="setColor('green')" title="{{ 'Set tag color to green' | say }}"></button>		
+		<button class="blue" @click="setColor('blue')" title="{{ 'Set tag color to blue' | say }}"></button>		
+		<button class="purple" @click="setColor('purple')" title="{{ 'Set tag color to purple' | say }}"></button>
+	</div>
+</drop-down>

@@ -3,7 +3,7 @@
 		<input type="text" id="passageName" placeholder="{{ 'Passage Name' | say }}" v-model="userPassageName">
 	</span>
 
-	<tag-editor :tags="passage.tags" @tag-change="saveTags"></tag-editor>
+	<tag-editor :passage="passage" :story-id="storyId"></tag-editor>
 
 	<p class="error" v-if="!userPassageNameValid">
 		{{ 'A passage already exists with this name.' | say }}

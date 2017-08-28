@@ -37,6 +37,7 @@ describe('publish module', () => {
 			script: 'alert("hi");',
 			passages: [passage1, passage2],
 			startPassage: 'not-an-id',
+			tagColors: { 'test-tag': 'red' },
 			zoom: 1.5
 		};
 		
@@ -64,6 +65,12 @@ describe('publish module', () => {
 		
 		expect($script.length).to.equal(1);
 		expect($script.html()).to.equal(story.script);
+
+		const $tags = $el.find('tw-tag');
+
+		expect($tags.length).to.equal(1);
+		expect($($tags[0]).attr('name')).to.equal('test-tag');
+		expect($($tags[0]).attr('color')).to.equal('red');		
 	};
 
 	it('publishes a passage to HTML with publishPassage()', () => {

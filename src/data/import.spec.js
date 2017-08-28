@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const importer = require('./import');
 
 const testHtml = `
-<tw-storydata name="Test" startnode="1" zoom="1.5" creator="Twine" creator-version="2.0.11" ifid="3AE380EE-4B34-4D0D-A8E2-BE624EB271C9" format="SugarCube" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">* { color: red }
+<tw-storydata name="Test" startnode="1" zoom="1.5" creator="Twine" creator-version="2.0.11" ifid="3AE380EE-4B34-4D0D-A8E2-BE624EB271C9" format="SugarCube" options="" hidden><tw-tag name="my-tag" color="purple" /><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">* { color: red }
 * { color: blue }</style><script role="script" id="twine-user-script" type="text/twine-javascript">alert('hi');</script><tw-passagedata pid="1" name="Untitled Passage" tags="foo bar" position="450,250">This is some text.
 
 [[1]]</tw-passagedata>
@@ -10,6 +10,8 @@ const testHtml = `
 <tw-passagedata pid="3" name="&lt;hi&gt;" tags="" position="700,300">Another passage.</tw-passagedata>
 </tw-storydata>
 `;
+
+const bareTestHtml = '<tw-storydata name="Test" hidden></tw-storydata>';
 
 describe('import module', () => {
 	it('creates a JavaScript object representation of HTML data', () => {
@@ -24,6 +26,7 @@ describe('import module', () => {
 		expect(result[0].lastUpdate).to.be.a('date');
 		expect(result[0].script).to.equal('alert(\'hi\');\n');
 		expect(result[0].stylesheet).to.equal('* { color: red }\n* { color: blue }\n');
+		expect(result[0].tagColors['my-tag']).to.equal('purple');
 		expect(result[0].passages).to.be.an('array');
 		expect(result[0].passages.length).to.equal(3);
 		expect(result[0].passages[0].pid).to.equal('1');
@@ -62,7 +65,21 @@ describe('import module', () => {
 		expect(result.length).to.equal(0);
 
 		result = importer('<tw-storydata></tw-storydata>');
-		console.info(result);
+	});
+
+	it('handles HTML data without expected attributes', () => {
+		let result = importer(bareTestHtml);
+
+		expect(result.length).to.equal(1);
+		expect(result[0].name).to.equal('Test');
+		expect(result[0].ifid).to.equal(null);
+		expect(result[0].zoom).to.equal(1);
+		expect(result[0].lastUpdate).to.be.a('date');
+		expect(result[0].script).to.equal('');
+		expect(result[0].stylesheet).to.equal('');
+		expect(result[0].tagColors).to.be.a('object');
+		expect(result[0].passages).to.be.an('array');
+		expect(result[0].passages.length).to.equal(0);
 	});
 
 	it('allows setting the story\'s creation date manually', () => {

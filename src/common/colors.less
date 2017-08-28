@@ -30,3 +30,12 @@
 /* color used for borders around form elements */
 @color-form-line: lighten(@color-text, 55%);
 @color-form-line-dark: darken(@color-text-dark, 25%);
+
+/* tag colors */
+@color-tag-blue: @color-link;
+@color-tag-red: @color-danger;
+@color-tag-orange: spin(@color-tag-red, 25);
+@color-tag-yellow: spin(@color-tag-orange, 25);
+@color-tag-green: @color-create;
+@color-tag-purple: spin(@color-tag-blue, 60);
+@color-tag-gray: lighten(desaturate(@color-tag-blue, 100), 20);

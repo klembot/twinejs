@@ -88,6 +88,50 @@ const actions = module.exports = {
 		dispatch('DELETE_PASSAGE_IN_STORY', storyId, passageId);
 	},
 
+	setTagColorInStory(store, storyId, tagName, tagColor) {
+		const story = store.state.story.stories.find(
+			story => story.id == storyId
+		);
+		let toMerge = {};
+
+		toMerge[tagName] = tagColor;
+
+		if (!story) {
+			throw new Error(`No story exists with id ${storyId}`);
+		}
+
+		store.dispatch(
+			'UPDATE_STORY',
+			storyId,
+			{ tagColors: Object.assign({}, story.tagColors, toMerge) }
+		);
+	},
+
+	/*
+	Removes any unused tag colors from a story.
+	*/
+
+	cleanUpTagColorsInStory(store, storyId) {
+		let story = store.state.story.stories.find(
+			story => story.id == storyId
+		);
+		let tagColors = Object.assign({}, story.tagColors);
+
+		if (!story) {
+			throw new Error(`No story exists with id ${storyId}`);
+		}
+
+		Object.keys(tagColors).forEach(tag => {
+			if (story.passages.some(p => p.tags.indexOf(tag) !== -1)) {
+				return;
+			}
+
+			delete tagColors[tag];
+		});
+
+		store.dispatch('UPDATE_STORY', storyId, { tagColors });
+	},
+
 	/*
 	Moves a passage so it doesn't overlap any other in its story, and also
 	snaps to a grid.
