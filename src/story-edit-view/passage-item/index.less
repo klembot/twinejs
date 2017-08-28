@@ -8,7 +8,7 @@
 	cursor: default;
 	font-size: 85%;
 	padding: @len-small;
-	border: @len-hairline solid transparent;
+	border: 1px solid transparent;
 	border-radius: 2px;
 	overflow: hidden;
 	.shadow-small;
@@ -19,7 +19,7 @@
 
 	.title {
 		position: relative;
-		z-index: 1;
+		z-index: 3;
 		font-weight: bold;
 	}
 
@@ -27,6 +27,52 @@
 		position: relative;
 		z-index: 1;
 		color: lighten(@color-text, 45%);
+	}
+
+	.tags {
+		position: absolute;
+		z-index: 2;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		width: @len-small * 0.75;
+		display: flex;
+		flex-direction: column;
+
+		div {
+			flex-grow: 1;
+			flex-shrink: 1;
+			margin: @len-hairline;
+			border-radius: (@len-small * 0.75) / 2;
+			
+			& + div {
+				margin-top: 0;
+			}
+
+			&.red {
+				background: @color-tag-red;
+			}
+
+			&.orange {
+				background: @color-tag-orange;
+			}
+
+			&.yellow {
+				background: @color-tag-yellow;
+			}
+
+			&.green {
+				background: @color-tag-green;
+			}
+
+			&.blue {
+				background: @color-tag-blue;
+			}
+
+			&.purple {
+				background: @color-tag-purple;
+			}
+		}
 	}
 
 	&.selected {

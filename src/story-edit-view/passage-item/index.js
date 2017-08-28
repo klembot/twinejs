@@ -140,6 +140,18 @@ module.exports = Vue.extend({
 			return result;
 		},
 
+		tagColors() {
+			let result = [];
+
+			this.passage.tags.forEach(t => {
+				if (this.parentStory.tagColors[t]) {
+					result.push(this.parentStory.tagColors[t]);
+				}
+			});
+
+			return result;
+		},
+
 		excerpt() {
 			if (this.passage.text.length < 100) {
 				return escape(this.passage.text);
