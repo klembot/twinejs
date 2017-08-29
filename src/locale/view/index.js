@@ -26,7 +26,8 @@ module.exports = Vue.extend({
 			{ label: 'Portugu&ecirc;s', code: 'pt-pt' },
 			{ label: 'Portugu&ecirc;s Brasileiro', code: 'pt-br' },
 			{ label: 'Suomi', code: 'fi' },
-			{ label: 'Svenska', code: 'sv' }
+			{ label: 'Svenska', code: 'sv' },
+			{ label: 'T&uuml;rk&ccedil;e', code: 'tr' }
 		]
 	}),
 
