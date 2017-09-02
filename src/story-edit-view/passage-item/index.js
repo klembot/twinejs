@@ -418,6 +418,12 @@ module.exports = Vue.extend({
 			}
 		},
 
+		'passage-select-except'(...passages) {
+			if (passages.indexOf(this) === -1) {
+				this.selected = true;
+			}
+		},
+
 		'passage-select-intersects'(selectRect, always) {
 			if (always && always.indexOf(this) !== -1) {
 				this.selected = true;

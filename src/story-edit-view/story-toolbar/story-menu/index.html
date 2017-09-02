@@ -16,6 +16,10 @@
 			<button @click="renameStory">{{ 'Rename Story' | say }}</button>
 		</li>
 
+		<li>
+			<button @click="selectAll">{{ 'Select All Passages' | say }}</button>
+		</li>
+
 		<li :class="{ checked: this.story.snapToGrid }">
 			<button @click="toggleSnap">{{ 'Snap to Grid'| say }}</button>
 		</li>

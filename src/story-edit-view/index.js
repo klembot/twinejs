@@ -382,6 +382,10 @@ module.exports = Vue.extend({
 			this.$broadcast('passage-deselect-except', ...children);
 		},
 
+		'passage-select-except'(...children) {
+			this.$broadcast('passage-select-except', ...children);
+		},
+
 		/*
 		The marquee selector component dispatches these events as it is moved,
 		and child passage items react to it by setting their selected
