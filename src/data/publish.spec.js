@@ -1,4 +1,4 @@
-const $ = require('jquery');
+const $ = require('zepto');
 const escape = require('lodash.escape');
 const { expect } = require('chai');
 const publish = require('./publish');

@@ -3,7 +3,6 @@
 // detailed changes.
 
 'use strict';
-const $ = require('jquery');
 const moment = require('moment');
 const Vue = require('vue');
 const ZoomTransition = require('../zoom-transition');
@@ -79,11 +78,11 @@ module.exports = Vue.extend({
 		**/
 
 		edit() {
-			const $el = $(this.$el);
+			const pos = this.$el.getBoundingClientRect();
 
 			new ZoomTransition({ data: {
-				x: $el.offset().left + $el.outerWidth() / 2,
-				y: $el.offset().top,
+				x: pos.left + pos.width / 2,
+				y: pos.top,
 			}}).$mountTo(this.$el).then(
 				() => window.location.hash = '#stories/' + this.story.id
 			);
