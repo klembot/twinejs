@@ -2,7 +2,7 @@
 Vuex actions that components can use.
 */
 
-const $ = require('jquery');
+const jsonp = require('jsonp');
 const semverUtils = require('semver-utils');
 const linkParser = require('./link-parser');
 const locale = require('../locale');
@@ -347,65 +347,65 @@ const actions = module.exports = {
 
 	createFormatFromUrl(store, url) {
 		return new Promise((resolve, reject) => {
-			$.ajax({
-				url: url,
-				dataType: 'jsonp',
-				jsonpCallback: 'storyFormat',
-				crossDomain: true
-			})
-			.done(props => {
-				const pVer = semverUtils.parse(props.version);
-				const pMinor = parseInt(pVer.minor);
-				const pPatch = parseInt(pVer.patch);
+			jsonp(
+				url,
+				{ name: 'storyFormat', timeout: 2000 },
+				(err, data) => {
+					if (err) {
+						reject(err);
+						return;						
+					}
 
-				/*
-				Check for an identical version.
-				*/
-
-				if (store.state.storyFormat.formats.some(current => {
-					return current.version === props.version;
-				})) {
-					reject(new Error(
-						locale.say('this story format is already installed')
-					));
-					return;
+					const pVer = semverUtils.parse(data.version);
+					const pMinor = parseInt(pVer.minor);
+					const pPatch = parseInt(pVer.patch);
+	
+					/*
+					Check for an identical version.
+					*/
+	
+					if (store.state.storyFormat.formats.some(current => {
+						return current.version === data.version;
+					})) {
+						reject(new Error(
+							locale.say('this story format is already installed')
+						));
+						return;
+					}
+	
+					/*
+					Check for a more recent version.
+					*/
+	
+					if (store.state.storyFormat.formats.some(current => {
+						const cVer = semverUtils.parse(current.version);
+	
+						return current.name === data.name &&
+							cVer.major === pVer.major &&
+							parseInt(cVer.minor) >= pMinor &&
+							parseInt(cVer.patch) >= pPatch;
+					})) {
+						reject(new Error(
+							locale.say(
+								'a more recent version of the story format &ldquo;%s&rdquo; is already installed',
+								data.name
+							)
+						));
+						return;
+					}
+	
+					const format = {
+						name: data.name,
+						version: data.version,
+						url,
+						userAdded: true,
+						properties: data
+					};
+	
+					store.dispatch('CREATE_FORMAT', format);
+					resolve(format);
 				}
-
-				/*
-				Check for a more recent version.
-				*/
-
-				if (store.state.storyFormat.formats.some(current => {
-					const cVer = semverUtils.parse(current.version);
-
-					return current.name === props.name &&
-						cVer.major === pVer.major &&
-						parseInt(cVer.minor) >= pMinor &&
-						parseInt(cVer.patch) >= pPatch;
-				})) {
-					reject(new Error(
-						locale.say(
-							'a more recent version of the story format &ldquo;%s&rdquo; is already installed',
-							props.name
-						)
-					));
-					return;
-				}
-
-				const format = {
-					name: props.name,
-					version: props.version,
-					url,
-					userAdded: true,
-					properties: props
-				};
-
-				store.dispatch('CREATE_FORMAT', format);
-				resolve(format);
-			})
-			.fail((req, status, error) => {
-				reject(error);
-			});
+			);
 		});
 	},
 
@@ -450,19 +450,19 @@ const actions = module.exports = {
 				return;
 			}
 
-			$.ajax({
-				url: format.url,
-				dataType: 'jsonp',
-				jsonpCallback: 'storyFormat',
-				crossDomain: true
-			})
-			.done(props => {
-				store.dispatch('LOAD_FORMAT', format.id, props);
-				resolve(format);
-			})
-			.fail((req, status, error) => {
-				reject(error);
-			});
+			jsonp(
+				format.url,
+				{ name: 'storyFormat', timeout: 2000 },
+				(err, data) => {
+					if (err) {
+						reject(err);
+						return;
+					}
+
+					store.dispatch('LOAD_FORMAT', format.id, data);
+					resolve(format);	
+				}
+			);
 		});
 	},
 

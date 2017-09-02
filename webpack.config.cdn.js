@@ -24,7 +24,6 @@ Object.assign(
 		'core-js': 'location',
 		'fastclick': 'FastClick',
 		'jed': 'Jed',
-		'jquery': 'jQuery',
 		'jszip': 'JSZip',
 		'moment': 'moment',
 		'svg.js': 'SVG',

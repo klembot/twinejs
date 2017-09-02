@@ -8,6 +8,13 @@ const domEvents = require('../../vue/mixins/dom-events');
 const { thenable, symbols: { reject, resolve } } =
 	require('../../vue/mixins/thenable');
 
+const animationEndEvents = [
+	'animationend',
+	'webkitAnimationEnd',
+	'MSAnimationEnd',
+	'oAnimationEnd'
+];
+
 require('./index.less');
 
 const ModalDialog = module.exports = Vue.extend({
@@ -67,10 +74,10 @@ const ModalDialog = module.exports = Vue.extend({
 			components.
 			*/
 			this.$broadcast('transition-entered');
-			dialog.removeEventListener('animationend', notifier);
+			animationEndEvents.forEach(event => dialog.removeEventListener(event, notifier));			
 		};
 
-		dialog.addEventListener('animationend', notifier);
+		animationEndEvents.forEach(event => dialog.addEventListener(event, notifier));
 	},
 
 	destroyed() {

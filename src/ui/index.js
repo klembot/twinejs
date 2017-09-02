@@ -5,10 +5,12 @@
 **/
 
 'use strict';
-const $ = require('jquery');
 const fastclick = require('fastclick');
 
 require('./index.less');
+
+let inited = false;
+let fastclickInstance;
 
 module.exports = {
 	/**
@@ -18,49 +20,24 @@ module.exports = {
 	**/
 
 	init() {
-		if (!$('body').data('uiInited')) {
-			const $b = $('body');
+		if (inited) {
+			return;
+		}
 
-			$b.data('uiInited', true);
+		inited = true;
 
-			/**
-			 The FastClick instance used to cut input
-			 deplays on mobile.
-			 @property fastclick
-			**/
+		const bodyEl = document.querySelector('body');
 
-			// the API depends on whether we're using the CDN
-			// or the CommonJS module :(
+		/*
+		This API depends on whether we're using the CDN or the CommonJS module :(
+		*/
 
-			if (fastclick.attach !== undefined) {
-				this.fastclick = fastclick.attach(document.body);
-			}
-			else {
-				this.fastclick = fastclick(document.body);
-			}
-
-			// note iOS for some custom styles
-
-			if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
-				$b.addClass('iOS');
-			}
-
-			// note Safari for some functionality
-			// Chrome includes Safari in its user agent
-
-			if (navigator.userAgent.indexOf('Safari') != -1 &&
-				navigator.userAgent.indexOf('Chrome') == -1) {
-				$b.addClass('safari');
-			}
-
-			$b.on('webkitAnimationEnd.twineui oanimationend.twineui ' +
-				'msAnimationEnd.twineui', e => {
-					// polyfill browser animation-related events
-
-				e.type = 'animationend';
-				$(e.target).trigger(e);
-			});
-		};
+		if (fastclick.attach !== undefined) {
+			fastclickInstance = fastclick.attach(document.body);
+		}
+		else {
+			fastclickInstance = fastclick(document.body);
+		}
 	},
 
 	/**
@@ -68,18 +45,33 @@ module.exports = {
 	**/
 
 	destroy() {
-		if ($('body').data('uiInited')) {
-			// disable FastClick
-
-			this.fastclick.destroy();
-
-			// remove classes and event handlers
-			// and mark the body as uninited
-
-			$('body')
-				.removeClass('iOS safari')
-				.data('uiInited', null);
+		if (!inited) {
+			return;
 		}
+		
+		/* Disable FastClick. */
+
+		fastclickInstance.destroy();
+		inited = false;
+	},
+
+	/*
+	Returns whether the app is running in an iOS environment.
+	*/
+
+	oniOS() {
+		return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+	},
+
+	/*
+	Returns whether the app is running in Safari (either on iOS or MacOS).
+	*/
+
+	onSafari() {
+		/* Chrome identifies itself as Safari. */
+
+		return navigator.userAgent.indexOf('Safari') != -1 &&
+			navigator.userAgent.indexOf('Chrome') == -1;
 	},
 
 	/**

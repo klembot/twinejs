@@ -12,9 +12,9 @@
 **/
 
 'use strict';
-const $ = require('jquery');
 const JSZip = require('jszip');
 const saveAs = require('browser-saveas');
+const { oniOS, onSafari } = require('../ui');
 const locale = require('../locale');
 const notify = require('../ui/notify');
 
@@ -22,9 +22,7 @@ require('blob-polyfill');
 
 module.exports = (data, filename, success, failure) => {
 	try {
-		const $b = $('body');
-
-		if (!$b.hasClass('iOS')) {
+		if (oniOS()) {
 			// standard style
 
 			const blob = new Blob([data], { type: 'text/html;charset=utf-8' });
@@ -34,7 +32,7 @@ module.exports = (data, filename, success, failure) => {
 			// we can't even open it in a new window as that seems to
 			// trigger popup blocking
 
-			if ($b.hasClass('safari')) {
+			if (onSafari()) {
 				window.location.href = URL.createObjectURL(blob);
 			}
 			else {

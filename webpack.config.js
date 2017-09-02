@@ -11,7 +11,7 @@ module.exports = {
 		path: __dirname + '/build',
 		filename: 'twine.js'
 	},
-	stats: 'none',
+	//stats: 'none',
 	module: {
 		rules: [
 			/*
