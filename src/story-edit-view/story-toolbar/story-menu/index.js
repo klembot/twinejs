@@ -59,6 +59,10 @@ module.exports = Vue.extend({
 			.then(text => this.updateStory(this.story.id, { name: text }));
 		},
 
+		selectAll() {
+			this.$dispatch('passage-select-except');
+		},
+
 		proofStory() {
 			window.open(
 				'#!/stories/' + this.story.id + '/proof',
