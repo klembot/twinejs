@@ -20,6 +20,10 @@ module.exports = Vue.extend({
 		}
 	},
 
+	data: () => ({
+		expanded: false
+	}),
+
 	computed: {
 		isStart() {
 			return this.parentStory.startPassage === this.passage.id;
@@ -44,6 +48,12 @@ module.exports = Vue.extend({
 		}
 	},
 
+	watch: {
+		expanded() {
+			this.$broadcast('drop-down-reposition');
+		}
+	},
+
 	methods: {
 		edit() {
 			this.$dispatch('passage-edit');
@@ -58,6 +68,10 @@ module.exports = Vue.extend({
 				'#stories/' + this.parentStory.id + '/test/' + this.passage.id,
 				'twinestory_test_' + this.parentStory.id
 			);
+		},
+
+		toggleExpanded() {
+			this.expanded = !this.expanded;
 		},
 
 		setAsStart() {
@@ -106,6 +120,12 @@ module.exports = Vue.extend({
 			}
 
 			this.$dispatch('passage-position', this.passage, {});
+		}
+	},
+
+	events: {
+		'drop-down-opened'() {
+			this.expanded = false;
 		}
 	},
 

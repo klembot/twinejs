@@ -58,7 +58,6 @@ module.exports = Vue.extend({
 			constraints: [
 				{
 					to: 'window',
-					attachment: 'together',
 					pin: true
 				}
 			]
@@ -74,7 +73,7 @@ module.exports = Vue.extend({
 			position: this.position,
 			openOn: openOn,
 			classes: this.class,
-			constrainToWindow: true,
+			constrainToWindow: false,
 			constrainToScrollParent: false,
 			tetherOptions
 		});
@@ -93,10 +92,21 @@ module.exports = Vue.extend({
 		});
 
 		/*
-		Close the dropdown when one of its menu items is clicked.
+		Close the dropdown when one of its menu items is clicked, unless any
+		element in the chain has a data-drop-down-stay-open attribute.
 		*/
 
-		this.$drop.drop.addEventListener('click', () => {
+		this.$drop.drop.addEventListener('click', e => {
+			let target = e.target;
+
+			do {				
+				if (target.getAttribute('data-drop-down-stay-open')) {
+					return;
+				}
+
+				target = target.parentNode;
+			} while (target.getAttribute);
+
 			this.$drop.close();
 		});
 

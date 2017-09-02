@@ -1,4 +1,9 @@
-<drop-down open-on="hover" :show-now="true" position="bottom left" target-offset="-10% 50%" class="passage">
+<drop-down open-on="hover" :show-now="true" position="bottom center" class="passage">
+	<!-- L10n: %s is the name of the thing to be deleted. -->
+	<button @click="delete" class="danger subtle" title="{{{ 'Delete &ldquo;%s&rdquo;' | say passage.name }}}">
+		<i class="fa fa-trash-o"></i>
+	</button>
+
 	<!-- L10n: %s is the name of the thing to be edited. -->
 	<button @click="edit" title="{{{ 'Edit &ldquo;%s&rdquo;' | say passage.name }}}">
 		<i class="fa fa-pencil"></i>
@@ -8,12 +13,11 @@
 		<i class="fa fa-play"></i>
 	</button>
 
-	<!-- L10n: %s is the name of the thing to be deleted. -->
-	<button @click="delete" class="danger subtle" title="{{{ 'Delete &ldquo;%s&rdquo;' | say passage.name }}}">
-		<i class="fa fa-trash-o"></i>
+	<button @click="toggleExpanded" title="{{ 'More passage options' | say }}" data-drop-down-stay-open="yes">
+		<i class="fa fa-ellipsis-h"></i>
 	</button>
 
-	<ul class="menu">
+	<ul class="menu" v-if="expanded">
 		<li class="divider"></li>			
 		<li :class="{ checked: this.isStart }">
 			<button @click="setAsStart">
