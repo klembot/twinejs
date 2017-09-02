@@ -1,5 +1,5 @@
 const Vue = require('vue');
-const { without } = require('underscore');
+const without = require('lodash.without');
 const { setTagColorInStory, updatePassageInStory } = require('../../../../data/actions');
 
 require('./index.less');

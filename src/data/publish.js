@@ -2,7 +2,7 @@
 Publishes stories to HTML.
 */
 
-const { escape } = require('underscore');
+const escape = require('lodash.escape');
 const locale = require('../locale');
 
 const publish = module.exports = {

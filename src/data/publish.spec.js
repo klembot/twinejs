@@ -1,5 +1,5 @@
 const $ = require('jquery');
-const { escape } = require('underscore');
+const escape = require('lodash.escape');
 const { expect } = require('chai');
 const publish = require('./publish');
 

@@ -29,7 +29,6 @@ Object.assign(
 		'moment': 'moment',
 		'svg.js': 'SVG',
 		'tether-drop': 'Drop',
-		'underscore': '_',
 		'vue': 'Vue',
 		'vue-router': 'VueRouter',
 		'vuex': 'Vuex'

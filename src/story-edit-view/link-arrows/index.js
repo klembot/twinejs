@@ -2,7 +2,7 @@
 Draws connector lines between passages.
 */
 
-const { uniq } = require('underscore');
+const uniq = require('lodash.uniq');
 const Vue = require('vue');
 const linkParser = require('../../data/link-parser');
 

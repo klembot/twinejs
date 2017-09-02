@@ -1,6 +1,6 @@
 // A drop-down menu with miscellaneous editing options for a story.
 
-const { escape } = require('underscore');
+const escape = require('lodash.escape');
 const Vue = require('vue');
 const FormatDialog = require('../../../dialogs/story-format');
 const JavaScriptEditor = require('../../../editors/javascript');

@@ -2,7 +2,7 @@
 
 const Vue = require('vue');
 const { updatePassageInStory } = require('../../../data/actions');
-const { uniq } = require('underscore');
+const uniq = require('lodash.uniq');
 
 module.exports = Vue.extend({
 	data: () => ({

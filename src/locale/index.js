@@ -89,7 +89,6 @@ module.exports = {
 	/**
 	 Translates a string to the user-set locale, interpolating variables.
 	 Anything passed beyond the source text will be interpolated into it.
-	 Underscore templates receive access to this via the shorthand method s().
 
 	 @param {String} source source text to translate
 	 @return string translation
