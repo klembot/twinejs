@@ -2,7 +2,7 @@
 A single passage in the story map.
 */
 
-const { escape } = require('underscore');
+const escape = require('lodash.escape');
 const Vue = require('vue');
 const PassageEditor = require('../../editors/passage');
 const { confirm } = require('../../dialogs/confirm');

@@ -1,6 +1,6 @@
 /* The main view where story editing takes place. */
 
-const { values } = require('underscore');
+const values = require('lodash.values');
 const Vue = require('vue');
 const {
 	createPassageInStory,
