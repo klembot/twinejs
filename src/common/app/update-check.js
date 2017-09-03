@@ -25,6 +25,6 @@ module.exports = function(latestBuildNumber, callback) {
 		.then(data => {
 			if (data.buildNumber > latestBuildNumber) {
 				callback(data);
-			}	
+			}
 		});
 };

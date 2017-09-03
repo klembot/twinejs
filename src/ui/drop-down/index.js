@@ -99,7 +99,7 @@ module.exports = Vue.extend({
 		this.$drop.drop.addEventListener('click', e => {
 			let target = e.target;
 
-			do {				
+			do {
 				if (target.getAttribute('data-drop-down-stay-open')) {
 					return;
 				}

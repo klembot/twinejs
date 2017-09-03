@@ -26,10 +26,9 @@ module.exports = {
 
 		inited = true;
 
-		const bodyEl = document.querySelector('body');
-
 		/*
-		This API depends on whether we're using the CDN or the CommonJS module :(
+		This API depends on whether we're using the CDN or the CommonJS module
+		:(
 		*/
 
 		if (fastclick.attach !== undefined) {
