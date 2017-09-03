@@ -74,10 +74,14 @@ const ModalDialog = module.exports = Vue.extend({
 			components.
 			*/
 			this.$broadcast('transition-entered');
-			animationEndEvents.forEach(event => dialog.removeEventListener(event, notifier));			
+			animationEndEvents.forEach(event =>
+				dialog.removeEventListener(event, notifier)
+			);
 		};
 
-		animationEndEvents.forEach(event => dialog.addEventListener(event, notifier));
+		animationEndEvents.forEach(event =>
+			dialog.addEventListener(event, notifier)
+		);
 	},
 
 	destroyed() {

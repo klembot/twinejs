@@ -353,7 +353,7 @@ const actions = module.exports = {
 				(err, data) => {
 					if (err) {
 						reject(err);
-						return;						
+						return;
 					}
 
 					const pVer = semverUtils.parse(data.version);
@@ -460,7 +460,7 @@ const actions = module.exports = {
 					}
 
 					store.dispatch('LOAD_FORMAT', format.id, data);
-					resolve(format);	
+					resolve(format);
 				}
 			);
 		});

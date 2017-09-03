@@ -91,7 +91,10 @@ module.exports = Vue.extend({
 			this.passages.forEach(p => {
 				const x = p.left + passageCenterOffset;
 				const y = p.top + passageCenterOffset;
-				const radius = passageRadius(p.text.length, this.longestPassageLength);
+				const radius = passageRadius(
+					p.text.length,
+					this.longestPassageLength
+				);
 
 				if (x - radius < minX) { minX = x - radius; }
 				
@@ -99,7 +102,7 @@ module.exports = Vue.extend({
 
 				if (y - radius < minY) { minY = y - radius; }
 
-				if (y + radius > maxY) { maxY = y + radius; }				
+				if (y + radius > maxY) { maxY = y + radius; }
 			});
 
 			return `${minX} ${minY} ${maxX - minX} ${maxY - minY}`;

@@ -67,7 +67,7 @@ module.exports = {
 				if (err) {
 					this.i18nData = failoverData;
 					this.i18n = new Jed(this.i18nData);
-					callback();		
+					callback();
 				}
 				else {
 					/**
