@@ -5,7 +5,12 @@
 
 'use strict';
 const Vue = require('vue');
-const SVG = require('svg.js');
+
+const passageCenterOffset = 50;
+
+function passageRadius(length, longestLength) {
+	return (200 + 200 * (length / longestLength)) / 2;
+}
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -38,17 +43,11 @@ module.exports = Vue.extend({
 
 		passageFill() {
 			return `hsla(${this.hue}, 90%, 60%, 0.5)`;
-		}
-	},
+		},
 
-	ready() {
-		const svg = SVG(this.$el);
-
-		if (this.passages.length > 1) {
-			// find longest passage
-
+		longestPassageLength() {
 			let maxLength = 0;
-
+			
 			this.passages.forEach(passage => {
 				const len = passage.text.length;
 
@@ -56,49 +55,54 @@ module.exports = Vue.extend({
 					maxLength = len;
 				}
 			});
+			
+			return maxLength;
+		},
 
-			// render passages
+		svg() {
+			if (this.passages.length <= 1) {
+				return `<circle cx="100" cy="100" r="75" fill="${this.passageFill}"
+					stroke="${this.passageStroke}" stroke-width="1px" />`;
+			}
+
+			return this.passages.reduce(
+				(result, p) =>
+					result + `<circle cx="${p.left + passageCenterOffset}"
+						cy="${p.top + passageCenterOffset}"
+						r="${passageRadius(p.text.length, this.longestPassageLength)}"
+						fill="${this.passageFill}"
+						stroke="${this.passageStroke}"
+						stroke-width="4px" />`
+				,
+				''
+			);
+		},
+
+		svgViewBox() {
+			if (this.passages.length <= 1) {
+				return '0 0 200 200';
+			}
 
 			let minX = Number.POSITIVE_INFINITY;
 			let minY = Number.POSITIVE_INFINITY;
 			let maxX = Number.NEGATIVE_INFINITY;
 			let maxY = Number.NEGATIVE_INFINITY;
-
-			this.passages.forEach(passage => {
-				const ratio = passage.text.length / maxLength;
-				const radius = (200 + 200 * ratio) / 2;
-				const x = passage.left + 50;
-				const y = passage.top + 50;
-
-				svg.circle()
-					.center(x, y)
-					.radius(radius)
-					.fill(this.passageFill)
-					.stroke({ color: this.passageStroke, width: 4 });
+			
+			this.passages.forEach(p => {
+				const x = p.left + passageCenterOffset;
+				const y = p.top + passageCenterOffset;
+				const radius = passageRadius(p.text.length, this.longestPassageLength);
 
 				if (x - radius < minX) { minX = x - radius; }
-
+				
 				if (x + radius > maxX) { maxX = x + radius; }
 
 				if (y - radius < minY) { minY = y - radius; }
 
-				if (y + radius > maxY) { maxY = y + radius; }
+				if (y + radius > maxY) { maxY = y + radius; }				
 			});
 
-			svg.viewbox(minX, minY, maxX - minX, maxY - minY);
-		}
-		else {
-			// special case single or no passage
-
-			if (this.passages.length == 1) {
-				svg
-					.circle()
-					.center(100, 100)
-					.fill(this.passageFill)
-					.stroke({ color: this.passageStroke, width: 1 })
-					.radius(75);
-				svg.viewbox(0, 0, 200, 200);
-			}
+			return `${minX} ${minY} ${maxX - minX} ${maxY - minY}`;
 		}
 	}
 });
