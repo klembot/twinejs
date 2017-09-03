@@ -8,7 +8,7 @@
 
 'use strict';
 const Vue = require('vue');
-const scrollTo = require('scroll-to-element');
+const scroll = require('scroll');
 const { setPref } = require('../data/actions');
 
 require('./index.less');
@@ -17,7 +17,7 @@ module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	data: () => ({
-		// How many sections are currently visible.
+		/* How many sections are currently visible. */
 		shown: 1
 	}),
 
@@ -25,14 +25,13 @@ module.exports = Vue.extend({
 		next() {
 			this.shown++;
 			
-			// Scroll to the new element. We set a timeout here so that its
-			// position is available to us.
-			
-			window.setTimeout(() => {
-				scrollTo(document.querySelector(
-					'#welcomeView > div:last-of-type'),
+			Vue.nextTick(() => {
+				scroll.top(
+					document.body,					
+					document.querySelector(
+					'#welcomeView > div:last-of-type').offsetTop,
 					{ duration: 400 });
-			}, 10);
+			});
 		},
 
 		finish() {

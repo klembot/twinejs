@@ -6,6 +6,20 @@ describe('<code-mirror>', () => {
 	let vm;
 
 	beforeEach(() => {
+		/*
+		jsdom doesn't implement some functionality that CodeMirror expects.
+		https://discuss.codemirror.net/t/working-in-jsdom-or-node-js-natively/138/2
+		(note that there's a typo in the example source that leaves out body in
+		document.body)
+		*/
+
+		document.body.createTextRange = document.body.createTextRange || (() => ({
+			setEnd: () => {},
+			setStart: () => {},
+			getBoundingClientRect: () => ({ right: 0 }),
+			getClientRects: () => ({})
+		}));
+		
 		vm = new Vue({
 			template: '<code-mirror v-ref:cm text="Hello world." ' +
 				':options="{ tabSize: 12 }"></code-mirror>',
