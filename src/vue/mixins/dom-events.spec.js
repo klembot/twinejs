@@ -8,7 +8,23 @@ describe('dom-events Vue mixin', () => {
 	let clickEvent = document.createEvent('MouseEvent');
 	let handler, component;
 
-	clickEvent.initMouseEvent('click');
+	clickEvent.initMouseEvent(
+		'click',
+		true,
+		true,
+		window,
+		1,
+		0,
+		0,
+		0,
+		0,
+		false,
+		false,
+		false,
+		false,
+		0,
+		null
+	);
 
 	beforeEach(() => {
 		component = new Vue({ mixins: [domEvents] });

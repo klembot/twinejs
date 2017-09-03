@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const zoomSettings = require('./zoom-settings');
 
-define('zoom settings', () => {
+describe('zoom settings', () => {
 	it('exports a big property', () => {
 		expect(zoomSettings.big).to.be.a('number');
 	});
