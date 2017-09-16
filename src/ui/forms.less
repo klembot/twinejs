@@ -12,7 +12,6 @@ input[type="text"], input[type="search"], input[type="password"], textarea,
 	border-radius: 0;
 	color: @color-text;
 	padding: @len-small;
-    :cw
 
 	&:focus {
 		outline: none;
@@ -42,6 +41,10 @@ textarea, .CodeMirror {
 	.theme-dark & {
 		box-shadow: 0 0 0 1px @color-form-line-dark;
 	}
+}
+
+.CodeMirror pre {
+	font: 100% @font-user;
 }
 
 .CodeMirror-selected {
