@@ -1,9 +1,9 @@
 // A Vuex module for working with stories. This is meant to be incorporated by
 // index.js.
 
-const locale = require('../locale');
 const uuid = require('tiny-uuid');
-const ui = require('../ui');
+const locale = require('../../locale');
+const ui = require('../../ui');
 
 // A shorthand function for finding a particular story in the state, or a
 // particular passage in a story.

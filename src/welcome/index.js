@@ -9,7 +9,7 @@
 'use strict';
 const Vue = require('vue');
 const scroll = require('scroll');
-const { setPref } = require('../data/actions');
+const { setPref } = require('../data/actions/pref');
 
 require('./index.less');
 

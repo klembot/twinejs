@@ -1,7 +1,7 @@
 // Functions for moving prefs in and out of local storage.
 
 const uuid = require('tiny-uuid');
-const { setPref } = require('../actions');
+const { setPref } = require('../actions/pref');
 
 module.exports = {
 	save(store) {

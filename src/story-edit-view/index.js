@@ -2,16 +2,12 @@
 
 const values = require('lodash.values');
 const Vue = require('vue');
-const {
-	createPassageInStory,
-	loadFormat,
-	positionPassage,
-	updatePassageInStory,
-	updateStory
-} = require('../data/actions');
+const { createPassage, positionPassage, updatePassage } = require('../data/actions/passage');
+const { loadFormat } = require('../data/actions/story-format');
+const { updateStory } = require('../data/actions/story');
 const domEvents = require('../vue/mixins/dom-events');
 const locale = require('../locale');
-const { passageDefaults } = require('../data/story');
+const { passageDefaults } = require('../data/store/story');
 const zoomSettings = require('./zoom-settings');
 
 require('./index.less');
@@ -269,7 +265,7 @@ module.exports = Vue.extend({
 
 			/* Add it to our collection. */
 
-			this.createPassageInStory(this.story.id, { name, left, top });
+			this.createPassage(this.story.id, { name, left, top });
 
 			/*
 			Then position it so it doesn't overlap any others, and save it
@@ -428,10 +424,10 @@ module.exports = Vue.extend({
 
 	vuex: {
 		actions: {
-			createPassageInStory,
+			createPassage,
 			loadFormat,
 			positionPassage,
-			updatePassageInStory,
+			updatePassage,
 			updateStory
 		},
 

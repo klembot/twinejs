@@ -90,7 +90,7 @@ const StoryFile = module.exports = {
 		const directories = require('./directories');
 		const fs = require('fs');
 		const path = require('path');
-		const { deleteStory, importStory } = require('../data/actions');
+		const { deleteStory, importStory } = require('../data/actions/story');
 		const importFile = require('../data/import');
 		const store = require('../data/store');
 

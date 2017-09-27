@@ -1,6 +1,7 @@
 const Vue = require('vue');
 const without = require('lodash.without');
-const { setTagColorInStory, updatePassageInStory } = require('../../../../data/actions');
+const { setTagColorInStory } = require('../../../../data/actions/story');
+const { updatePassage } = require('../../../../data/actions/passage');
 
 require('./index.less');
 
@@ -24,7 +25,7 @@ module.exports = Vue.extend({
 
 	methods: {
 		remove() {
-			this.updatePassageInStory(
+			this.updatePassage(
 				this.storyId,
 				this.passage.id,
 				{ tags: without(this.passage.tags, this.tag) }
@@ -36,7 +37,7 @@ module.exports = Vue.extend({
 	},
 
 	vuex: {
-		actions: { setTagColorInStory, updatePassageInStory }
+		actions: { setTagColorInStory, updatePassage }
 	},
 
 	components: {

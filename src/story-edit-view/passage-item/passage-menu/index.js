@@ -1,7 +1,8 @@
 /* A contextual menu that appears when the user points at a passage. */
 
 const Vue = require('vue');
-const { updatePassageInStory, updateStory } = require('../../../data/actions');
+const { updatePassage } = require('../../../data/actions/passage');
+const { updateStory } = require('../../../data/actions/story');
 
 require('./index.less');
 
@@ -84,7 +85,7 @@ module.exports = Vue.extend({
 		setSize(value) {
 			switch (value) {
 				case 'small':
-					this.updatePassageInStory(
+					this.updatePassage(
 						this.parentStory.id,
 						this.passage.id,
 						{ width: 100, height: 100 }
@@ -92,7 +93,7 @@ module.exports = Vue.extend({
 					break;
 
 				case 'wide':
-					this.updatePassageInStory(
+					this.updatePassage(
 						this.parentStory.id,
 						this.passage.id,
 						{ width: 200, height: 100 }
@@ -100,7 +101,7 @@ module.exports = Vue.extend({
 					break;
 
 				case 'tall':
-					this.updatePassageInStory(
+					this.updatePassage(
 						this.parentStory.id,
 						this.passage.id,
 						{ width: 100, height: 200 }
@@ -108,7 +109,7 @@ module.exports = Vue.extend({
 					break;
 
 				case 'large':
-					this.updatePassageInStory(
+					this.updatePassage(
 						this.parentStory.id,
 						this.passage.id,
 						{ width: 200, height: 200 }
@@ -134,6 +135,6 @@ module.exports = Vue.extend({
 	},
 
 	vuex: {
-		actions: { updatePassageInStory, updateStory }
+		actions: { updatePassage, updateStory }
 	}
 });

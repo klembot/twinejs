@@ -6,11 +6,12 @@ const FormatDialog = require('../../../dialogs/story-format');
 const JavaScriptEditor = require('../../../editors/javascript');
 const StatsDialog = require('../../../dialogs/story-stats');
 const StylesheetEditor = require('../../../editors/stylesheet');
+const { loadFormat } = require('../../../data/actions/story-format');
 const locale = require('../../../locale');
 const { prompt } = require('../../../dialogs/prompt');
 const { publishStoryWithFormat } = require('../../../data/publish');
 const save = require('../../../file/save');
-const { loadFormat, updateStory } = require('../../../data/actions');
+const { updateStory } = require('../../../data/actions/story');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),

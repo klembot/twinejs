@@ -1,7 +1,7 @@
 /* An editor for adding and removing tags from a passage. */
 
 const Vue = require('vue');
-const { updatePassageInStory } = require('../../../data/actions');
+const { updatePassage } = require('../../../data/actions/passage');
 const uniq = require('lodash.uniq');
 
 module.exports = Vue.extend({
@@ -45,7 +45,7 @@ module.exports = Vue.extend({
 
 			this.$els.newName.value = '';
 
-			this.updatePassageInStory(
+			this.updatePassage(
 				this.storyId,
 				this.passage.id,
 				{
@@ -61,7 +61,7 @@ module.exports = Vue.extend({
 		getters: {
 			allStories: state => state.story.stories
 		},
-		actions: { updatePassageInStory }
+		actions: { updatePassage }
 	},
 
 	components: {

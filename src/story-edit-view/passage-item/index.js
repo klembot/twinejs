@@ -12,10 +12,10 @@ const rect = require('../../common/rect');
 const { hasPrimaryTouchUI } = require('../../ui');
 const {
 	createNewlyLinkedPassages,
-	deletePassageInStory,
-	updatePassageInStory
+	deletePassage,
+	updatePassage
 } =
-	require('../../data/actions');
+	require('../../data/actions/passage');
 
 require('./index.less');
 
@@ -163,7 +163,7 @@ module.exports = Vue.extend({
 
 	methods: {
 		delete() {
-			this.deletePassageInStory(this.parentStory.id, this.passage.id);
+			this.deletePassage(this.parentStory.id, this.passage.id);
 		},
 
 		edit() {
@@ -379,7 +379,7 @@ module.exports = Vue.extend({
 				to convert back to logical space.
 				*/
 
-				this.updatePassageInStory(
+				this.updatePassage(
 					this.parentStory.id,
 					this.passage.id,
 					{
@@ -441,8 +441,8 @@ module.exports = Vue.extend({
 	vuex: {
 		actions: {
 			createNewlyLinkedPassages,
-			updatePassageInStory,
-			deletePassageInStory
+			updatePassage,
+			deletePassage
 		}
 	},
 

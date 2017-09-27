@@ -6,7 +6,7 @@ asking the user to download it.
 const checkForUpdate = require('../../common/app/update-check');
 const { confirm } = require('../confirm');
 const locale = require('../../locale');
-const { setPref } = require('../../data/actions');
+const { setPref } = require('../../data/actions/pref');
 
 /*
 How often we check for a new version of Twine, in milliseconds. This is

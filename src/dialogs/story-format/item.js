@@ -2,7 +2,7 @@
 // choose it.
 
 const Vue = require('vue');
-const { updateStory } = require('../../data/actions');
+const { updateStory } = require('../../data/actions/story');
 
 require('./item.less');
 
