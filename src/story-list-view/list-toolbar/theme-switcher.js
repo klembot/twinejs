@@ -3,7 +3,7 @@ A toggle between light and dark themes.
 */
 
 const Vue = require('vue');
-const { setPref } = require('../../data/actions');
+const { setPref } = require('../../data/actions/pref');
 
 module.exports = Vue.extend({
 	template: require('./theme-switcher.html'),

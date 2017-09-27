@@ -3,8 +3,8 @@
 const escape = require('lodash.escape');
 const Vue = require('vue');
 const { confirm } = require('../../../dialogs/confirm');
-const { deleteStory, duplicateStory, loadFormat, updateStory } =
-	require('../../../data/actions');
+const { deleteStory, duplicateStory, updateStory } = require('../../../data/actions/story');
+const { loadFormat } = require('../../../data/actions/story-format');
 const { prompt } = require('../../../dialogs/prompt');
 const locale = require('../../../locale');
 const { publishStoryWithFormat } = require('../../../data/publish');

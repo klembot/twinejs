@@ -1,6 +1,6 @@
 const Vue = require('vue');
 const semverUtils = require('semver-utils');
-const { createFormatFromUrl, loadFormat, repairFormats } = require('../../data/actions');
+const { createFormatFromUrl, loadFormat, repairFormats } = require('../../data/actions/story-format');
 const locale = require('../../locale');
 const notify = require('../../ui/notify');
 

@@ -1,5 +1,7 @@
-// Information about the app, e.g. version and name. This is read-only and is
-// based on metadata embedded in the HTML during the compilation process.
+/*
+Information about the app, e.g. version and name. This is read-only and is based
+on metadata embedded in the HTML during the compilation process.
+*/
 
 const htmlEl = document.querySelector('html');
 

@@ -6,8 +6,9 @@ const CodeMirror = require('codemirror');
 const Vue = require('vue');
 const locale = require('../../locale');
 const { thenable } = require('../../vue/mixins/thenable');
-const { changeLinksInStory, updatePassageInStory, loadFormat } = require('../../data/actions');
-const { passageDefaults } = require('../../data/story');
+const { changeLinksInStory, updatePassage } = require('../../data/actions/passage');
+const { loadFormat } = require('../../data/actions/story-format');
+const { passageDefaults } = require('../../data/store/story');
 
 require('codemirror/addon/display/placeholder');
 require('codemirror/addon/hint/show-hint');
@@ -132,7 +133,7 @@ module.exports = Vue.extend({
 		},
 
 		saveText(text) {
-			this.updatePassageInStory(
+			this.updatePassage(
 				this.parentStory.id,
 				this.passage.id,
 				{ text: text }
@@ -140,7 +141,7 @@ module.exports = Vue.extend({
 		},
 
 		saveTags(tags) {
-			this.updatePassageInStory(
+			this.updatePassage(
 				this.parentStory.id,
 				this.passage.id,
 				{ tags: tags }
@@ -160,7 +161,7 @@ module.exports = Vue.extend({
 						this.userPassageName
 					);
 
-					this.updatePassageInStory(
+					this.updatePassage(
 						this.parentStory.id,
 						this.passage.id,
 						{ name: this.userPassageName }
@@ -251,7 +252,7 @@ module.exports = Vue.extend({
 	vuex: {
 		actions: {
 			changeLinksInStory,
-			updatePassageInStory,
+			updatePassage,
 			loadFormat
 		},
 
