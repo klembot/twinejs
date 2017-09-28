@@ -206,6 +206,7 @@ const storyStore = module.exports = {
 		height: 100,
 		tags: [],
 		name: locale.say('Untitled Passage'),
+		selected: false,
 
 		text: ui.hasPrimaryTouchUI() ?
 			locale.say('Tap this passage, then the pencil icon to edit it.')

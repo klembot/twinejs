@@ -14,6 +14,31 @@ const actions = module.exports = {
 		dispatch('DELETE_PASSAGE_IN_STORY', storyId, passageId);
 	},
 
+	selectPassages(store, storyId, filter) {
+		const story = store.state.story.stories.find(
+			story => story.id == storyId
+		);
+
+		if (!story) {
+			throw new Error(`No story exists with id ${storyId}`);
+		}
+
+		story.passages.forEach(p => {
+			const current = p.selected;
+			const wantSelect = filter(p);
+
+			/* Only dispatch updates where there are changes. */
+
+			if (wantSelect !== current) {
+				store.dispatch(
+					'UPDATE_PASSAGE_IN_STORY',
+					storyId,
+					p.id,
+					{ selected: wantSelect });
+			}
+		});
+	},
+
 	/*
 	Moves a passage so it doesn't overlap any other in its story, and also
 	snaps to a grid.

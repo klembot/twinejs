@@ -2,10 +2,8 @@
 Story-related actions.
 */
 
-const jsonp = require('jsonp');
 const semverUtils = require('semver-utils');
 const latestFormatVersions = require('../latest-format-versions');
-const rect = require('../../common/rect');
 
 const actions = module.exports = {
 	createStory(store, props) {
