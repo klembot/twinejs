@@ -370,36 +370,9 @@ module.exports = Vue.extend({
 		},
 
 		/*
-		A child will dispatch this event to us when it is selected
-		non-additively; we broadcast it to all children to deselect them.
-		*/
-
-		'passage-deselect-except'(...children) {
-			this.$broadcast('passage-deselect-except', ...children);
-		},
-
-		'passage-select-except'(...children) {
-			this.$broadcast('passage-select-except', ...children);
-		},
-
-		/*
-		The marquee selector component dispatches these events as it is moved,
-		and child passage items react to it by setting their selected
-		property accordingly.
-		
-		If a component is in the always array, then it will always select
-		itself during this operation.
-		*/
-
-		'passage-select-intersects'(rect, always) {
-			this.$broadcast('passage-select-intersects', rect, always);
-		},
-
-		/*
 		Positions a passage on behalf of a child component. This needs to be
-		here, as opposed to a direct Vuex action, because this allows the
-		child to ask that the positioning ignore selected passage components
-		(e.g. after finishing a drag).
+		here, as opposed to a direct Vuex action, because this takes into
+		account the grid size.
 		*/
 
 		'passage-position'(passage, options) {

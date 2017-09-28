@@ -11,6 +11,7 @@ const locale = require('../../../locale');
 const { prompt } = require('../../../dialogs/prompt');
 const { publishStoryWithFormat } = require('../../../data/publish');
 const save = require('../../../file/save');
+const { selectPassages } = require('../../../data/actions/passage');
 const { updateStory } = require('../../../data/actions/story');
 
 module.exports = Vue.extend({
@@ -25,8 +26,10 @@ module.exports = Vue.extend({
 
 	methods: {
 		editScript(e) {
-			// We have to manually inject the Vuex store, since the editors are
-			// mounted outside the app scope.
+			/*
+			We have to manually inject the Vuex store, since the editors are
+			mounted outside the app scope.
+			*/
 
 			new JavaScriptEditor({
 				data: { storyId: this.story.id, origin: e.target },
@@ -61,7 +64,7 @@ module.exports = Vue.extend({
 		},
 
 		selectAll() {
-			this.$dispatch('passage-select-except');
+			this.selectPassages(this.story.id, p => true);
 		},
 
 		proofStory() {
@@ -112,6 +115,7 @@ module.exports = Vue.extend({
 	vuex: {
 		actions: {
 			loadFormat,
+			selectPassages,
 			updateStory
 		},
 
