@@ -200,4 +200,28 @@ describe('story actions module', () => {
 			{ storyFormatVersion: '1.2.5' }
 		)).to.be.true;
 	});
+
+	it('leaves stories alone if their story format does not exist', () => {
+		let storiesStore = {
+			dispatch: spy(),
+			state: {
+				storyFormat: {
+					formats: [
+						{ name: 'Default Format', version: '1.2.3' },
+					]
+				},
+				story: {
+					stories: [
+						{
+							id: 'not-a-real-id',
+							storyFormat: 'No Format',
+							storyFormatVersion: '1.0.0'
+						}
+					]
+				}
+			}
+		};
+
+		expect(() => actions.repairStories(storiesStore)).to.not.throw();
+	});
 });
