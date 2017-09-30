@@ -11,6 +11,7 @@ module.exports = {
 		path: __dirname + '/build',
 		filename: 'twine.js'
 	},
+	devtool: 'source-map',
 	stats: 'none',
 	module: {
 		rules: [
