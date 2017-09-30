@@ -59,18 +59,26 @@ module.exports = Vue.extend({
 					this.loadIndex++;
 					this.loadNext();
 				}).catch(e => {
-					notify(
-						// L10n: %1$s is the name of the story format; %2$s is
-						// the error message.
-						locale.say(
-							'The story format &ldquo;%1$s&rdquo; could not ' +
-							'be loaded (%2$s).',
-							this.allFormats[this.loadIndex].name + ' ' +
-							this.allFormats[this.loadIndex].version,
-							e.message
-						),
-						'danger'
-					);
+					const brokenFormat = this.allFormats[this.loadIndex];
+
+					this.loadedFormats.push(Object.assign(
+						{},
+						brokenFormat,
+						{
+							broken: true,
+							/* Force allow the format to be deleted. */
+							userAdded: true,
+							properties: {
+								version: brokenFormat.version,
+								description:
+									locale.say(
+										'This story format could not be loaded (%1$s).',
+										e.message
+									)
+							}
+						}
+					));
+
 					this.loadIndex++;
 					this.loadNext();
 				});
