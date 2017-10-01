@@ -116,8 +116,7 @@ module.exports = {
 	/**
 	Translates a string to the user-set locale, keeping in mind
 	pluralization rules. Any additional arguments passed after the ones
-	listed here are interpolated into the resulting string. Underscore
-	template receive this as the shorthand method sp.
+	listed here are interpolated into the resulting string.
 
 	When interpolating, count will always be the first argument.
 
