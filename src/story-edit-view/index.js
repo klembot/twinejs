@@ -2,7 +2,8 @@
 
 const values = require('lodash.values');
 const Vue = require('vue');
-const { createPassage, positionPassage, updatePassage } = require('../data/actions/passage');
+const { confirm } = require('../dialogs/confirm');
+const { createPassage, deletePassage, positionPassage, updatePassage } = require('../data/actions/passage');
 const { loadFormat } = require('../data/actions/story-format');
 const { updateStory } = require('../data/actions/story');
 const domEvents = require('../vue/mixins/dom-events');
@@ -192,7 +193,7 @@ module.exports = Vue.extend({
 		this.on(window, 'keyup', this.onKeyup)
 
 		if (this.story.passages.length === 0) {
-			this.createPassage();
+			this.createPassageAt();
 		}
 	},
 
@@ -246,7 +247,7 @@ module.exports = Vue.extend({
 		handles positioning the passage so it doesn't overlap others.
 		*/
 
-		createPassage(name, top, left) {
+		createPassageAt(name, top, left) {
 			/*
 			If we haven't been given coordinates, place the new passage at
 			the center of the window. We start by finding the center point
@@ -355,10 +356,6 @@ module.exports = Vue.extend({
 				target = target.parentNode;
 			}
 
-			/*
-			Plus and minus keys zoom in and out.
-			*/
-
 			switch (e.keyCode) {
 				/* Plus key */
 
@@ -370,6 +367,31 @@ module.exports = Vue.extend({
 
 				case 189:
 					this.zoomIn();
+					break;
+
+				/* Delete key */
+
+				case 46:
+					const toDelete = this.story.passages.filter(p => p.selected);
+
+					if (toDelete.length === 0) {
+						return;
+					}
+
+					const message = locale.sayPlural(
+						`Are you sure you want to delete &ldquo;%2$s&rdquo;? This cannot be undone.`,
+						`Are you sure you want to delete %d passages? This cannot be undone.`,
+						toDelete.length,
+						toDelete[0].name
+					);
+
+					confirm({
+						message,
+						buttonLabel: '<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
+						buttonClass: 'danger'
+					}).then(() => {
+						toDelete.forEach(p => this.deletePassage(this.story.id, p.id));
+					});
 					break;
 			}
 		}
@@ -390,7 +412,7 @@ module.exports = Vue.extend({
 		*/
 
 		'passage-create'(name, left, top) {
-			this.createPassage(name, left, top);
+			this.createPassageAt(name, left, top);
 		},
 
 		/*
@@ -459,6 +481,7 @@ module.exports = Vue.extend({
 	vuex: {
 		actions: {
 			createPassage,
+			deletePassage,
 			loadFormat,
 			positionPassage,
 			updatePassage,
