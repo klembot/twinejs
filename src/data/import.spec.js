@@ -34,6 +34,7 @@ describe('import module', () => {
 		expect(result[0].passages[0].top).to.equal(250);
 		expect(result[0].passages[0].width).to.equal(100);
 		expect(result[0].passages[0].height).to.equal(100);
+		expect(result[0].passages[0].selected).to.equal(false);		
 		expect(result[0].passages[0].tags).to.be.an('array');
 		expect(result[0].passages[0].tags.length).to.equal(2);
 		expect(result[0].passages[0].tags[0]).to.equal('foo');
@@ -45,6 +46,7 @@ describe('import module', () => {
 		expect(result[0].passages[1].top).to.equal(200);
 		expect(result[0].passages[1].width).to.equal(200);
 		expect(result[0].passages[1].height).to.equal(200);
+		expect(result[0].passages[1].selected).to.equal(false);		
 		expect(result[0].passages[1].tags).to.be.an('array');
 		expect(result[0].passages[1].tags.length).to.equal(0);
 		expect(result[0].passages[1].name).to.equal('1');
