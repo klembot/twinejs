@@ -64,7 +64,7 @@ module.exports = Vue.extend({
 		},
 
 		selectAll() {
-			this.selectPassages(this.story.id, p => true);
+			this.selectPassages(this.story.id, () => true);
 		},
 
 		proofStory() {
