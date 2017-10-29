@@ -136,7 +136,8 @@ const actions = module.exports = {
 					story.storyFormatVersion
 				).major;
 
-				if (latestVersions[story.storyFormat] && latestVersions[story.storyFormat][majorVersion]) {
+				if (latestVersions[story.storyFormat] &&
+					latestVersions[story.storyFormat][majorVersion]) {
 					actions.updateStory(
 						store,
 						story.id,

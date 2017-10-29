@@ -15,7 +15,7 @@ module.exports = Vue.extend({
 		story: {
 			type: Object,
 			required: true
-		}	
+		}
 	},
 
 	data: () => ({
@@ -132,7 +132,9 @@ module.exports = Vue.extend({
 			this.additive = e.shiftKey || e.ctrlKey;
 
 			if (this.additive) {
-				this.originallySelected = this.story.passages.filter(p => p.selected);
+				this.originallySelected = this.story.passages.filter(
+					p => p.selected
+				);
 			}
 
 			this.visible = true;
@@ -173,7 +175,8 @@ module.exports = Vue.extend({
 			this.currentY = e.clientY + window.pageYOffset;
 
 			this.selectPassages(this.story.id, p => {
-				if (this.additive && this.originallySelected.indexOf(p) !== -1) {
+				if (this.additive &&
+					this.originallySelected.indexOf(p) !== -1) {
 					return true;
 				}
 
@@ -195,7 +198,7 @@ module.exports = Vue.extend({
 
 			if (this.screenRect && this.screenRect.width === 0 &&
 				this.screenRect.height === 0) {
-				this.selectPassages(this.story.id, p => false);
+				this.selectPassages(this.story.id, () => false);
 			}
 
 			this.visible = false;

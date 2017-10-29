@@ -8,7 +8,6 @@ const PassageEditor = require('../../editors/passage');
 const { confirm } = require('../../dialogs/confirm');
 const domEvents = require('../../vue/mixins/dom-events');
 const locale = require('../../locale');
-const rect = require('../../common/rect');
 const { hasPrimaryTouchUI } = require('../../ui');
 const {
 	createNewlyLinkedPassages,
@@ -235,7 +234,10 @@ module.exports = Vue.extend({
 				in the mouse up handler, above.
 				*/
 
-				this.selectPassages(this.parentStory.id, p => p === this.passage);
+				this.selectPassages(
+					this.parentStory.id,
+					p => p === this.passage
+				);
 			}
 
 			/* Begin tracking a potential drag. */

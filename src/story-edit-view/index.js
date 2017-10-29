@@ -190,7 +190,7 @@ module.exports = Vue.extend({
 	ready() {
 		this.resize();
 		this.on(window, 'resize', this.resize);
-		this.on(window, 'keyup', this.onKeyup)
+		this.on(window, 'keyup', this.onKeyup);
 
 		if (this.story.passages.length === 0) {
 			this.createPassageAt();
@@ -326,8 +326,6 @@ module.exports = Vue.extend({
 
 		onWheel(e) {
 			if (e.altKey && !e.ctrlKey) {
-				let zoomIndex = zoomLevels.indexOf(this.story.zoom);
-
 				/* Only consider the Y component of the motion. */
 
 				if (e.wheelDeltaY > 0) {
@@ -359,7 +357,7 @@ module.exports = Vue.extend({
 			switch (e.keyCode) {
 				/* Plus key */
 
-				case 187: 
+				case 187:
 					this.zoomOut();
 					break;
 				
@@ -371,8 +369,9 @@ module.exports = Vue.extend({
 
 				/* Delete key */
 
-				case 46:
-					const toDelete = this.story.passages.filter(p => p.selected);
+				case 46: {
+					const toDelete =
+						this.story.passages.filter(p => p.selected);
 
 					if (toDelete.length === 0) {
 						return;
@@ -390,9 +389,12 @@ module.exports = Vue.extend({
 						buttonLabel: '<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
 						buttonClass: 'danger'
 					}).then(() => {
-						toDelete.forEach(p => this.deletePassage(this.story.id, p.id));
+						toDelete.forEach(
+							p => this.deletePassage(this.story.id, p.id)
+						);
 					});
 					break;
+				}
 			}
 		}
 	},
