@@ -107,6 +107,8 @@ function domToObject(storyEl, forceLastUpdate) {
 							size[0],
 						height:
 							size[1],
+						selected:
+							false,
 						tags:
 							passageEl.attributes.tags.value === '' ?
 								[]
