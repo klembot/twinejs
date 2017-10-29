@@ -41,7 +41,8 @@ const actions = module.exports = {
 					*/
 	
 					if (store.state.storyFormat.formats.some(current => {
-						return current.version === data.version;
+						return current.name === data.name &&
+							current.version === data.version;
 					})) {
 						reject(new Error(
 							locale.say('this story format is already installed')
