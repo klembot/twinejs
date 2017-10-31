@@ -1,16 +1,18 @@
 // A drop-down menu with miscellaneous editing options for a story.
 
-const { escape } = require('underscore');
+const escape = require('lodash.escape');
 const Vue = require('vue');
 const FormatDialog = require('../../../dialogs/story-format');
 const JavaScriptEditor = require('../../../editors/javascript');
 const StatsDialog = require('../../../dialogs/story-stats');
 const StylesheetEditor = require('../../../editors/stylesheet');
+const { loadFormat } = require('../../../data/actions/story-format');
 const locale = require('../../../locale');
 const { prompt } = require('../../../dialogs/prompt');
 const { publishStoryWithFormat } = require('../../../data/publish');
 const save = require('../../../file/save');
-const { loadFormat, updateStory } = require('../../../data/actions');
+const { selectPassages } = require('../../../data/actions/passage');
+const { updateStory } = require('../../../data/actions/story');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -24,8 +26,10 @@ module.exports = Vue.extend({
 
 	methods: {
 		editScript(e) {
-			// We have to manually inject the Vuex store, since the editors are
-			// mounted outside the app scope.
+			/*
+			We have to manually inject the Vuex store, since the editors are
+			mounted outside the app scope.
+			*/
 
 			new JavaScriptEditor({
 				data: { storyId: this.story.id, origin: e.target },
@@ -57,6 +61,10 @@ module.exports = Vue.extend({
 					e.target
 			})
 			.then(text => this.updateStory(this.story.id, { name: text }));
+		},
+
+		selectAll() {
+			this.selectPassages(this.story.id, () => true);
 		},
 
 		proofStory() {
@@ -107,6 +115,7 @@ module.exports = Vue.extend({
 	vuex: {
 		actions: {
 			loadFormat,
+			selectPassages,
 			updateStory
 		},
 

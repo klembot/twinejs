@@ -1,17 +1,14 @@
 /* The main view where story editing takes place. */
 
-const { values } = require('underscore');
+const values = require('lodash.values');
 const Vue = require('vue');
-const {
-	createPassageInStory,
-	loadFormat,
-	positionPassage,
-	updatePassageInStory,
-	updateStory
-} = require('../data/actions');
+const { confirm } = require('../dialogs/confirm');
+const { createPassage, deletePassage, positionPassage, updatePassage } = require('../data/actions/passage');
+const { loadFormat } = require('../data/actions/story-format');
+const { updateStory } = require('../data/actions/story');
 const domEvents = require('../vue/mixins/dom-events');
 const locale = require('../locale');
-const { passageDefaults } = require('../data/story');
+const { passageDefaults } = require('../data/store/story');
 const zoomSettings = require('./zoom-settings');
 
 require('./index.less');
@@ -168,15 +165,35 @@ module.exports = Vue.extend({
 			},
 
 			immediate: true
+		},
+
+		'story.zoom': {
+			handler(value, old) {
+				/*
+				Change the window's scroll position so that the same logical
+				coordinates are at its center.
+				*/
+				
+				const halfWidth = window.innerWidth / 2;
+				const halfHeight = window.innerHeight / 2;
+				const logCenterX = (window.scrollX + halfWidth) / old;
+				const logCenterY = (window.scrollY + halfHeight) / old;
+
+				window.scroll(
+					(logCenterX * value) - halfWidth,
+					(logCenterY * value) - halfHeight
+				);
+			}
 		}
 	},
 
 	ready() {
 		this.resize();
 		this.on(window, 'resize', this.resize);
+		this.on(window, 'keyup', this.onKeyup);
 
 		if (this.story.passages.length === 0) {
-			this.createPassage();
+			this.createPassageAt();
 		}
 	},
 
@@ -185,20 +202,43 @@ module.exports = Vue.extend({
 			this.winWidth = window.innerWidth;
 			this.winHeight = window.innerHeight;
 		},
-		
-		/*
-		Creates a passage under the cursor in response to a
-		webkitmouseforcedown event. At the time of writing, this is a
-		Mac-specific feature, but can be extended once standards catch up.
-		*/
-		
-		onMouseForceDown(e) {
-			let top = (e.pageY / this.story.zoom) -
-				(passageDefaults.height / 2);
-			let left = (e.pageX / this.story.zoom) -
-				(passageDefaults.width / 2);
-			
-			this.createPassage(null, top, left);
+
+		zoomIn(wraparound) {
+			let zoomIndex = zoomLevels.indexOf(this.story.zoom);
+
+			if (zoomIndex === 0) {
+				if (wraparound) {
+					this.updateStory(
+						this.story.id,
+						{ zoom: zoomLevels[zoomIndex.length - 1] }
+					);
+				}
+			}
+			else {
+				this.updateStory(
+					this.story.id,
+					{ zoom: zoomLevels[zoomIndex - 1] }
+				);
+			}
+		},
+
+		zoomOut(wraparound) {
+			let zoomIndex = zoomLevels.indexOf(this.story.zoom);
+
+			if (zoomIndex === zoomLevels.length - 1) {
+				if (wraparound) {
+					this.updateStory(
+						this.story.id,
+						{ zoom: zoomLevels[0] }
+					);
+				}
+			}
+			else {
+				this.updateStory(
+					this.story.id,
+					{ zoom: zoomLevels[zoomIndex + 1] }
+				);
+			}
 		},
 
 		/*
@@ -207,7 +247,7 @@ module.exports = Vue.extend({
 		handles positioning the passage so it doesn't overlap others.
 		*/
 
-		createPassage(name, top, left) {
+		createPassageAt(name, top, left) {
 			/*
 			If we haven't been given coordinates, place the new passage at
 			the center of the window. We start by finding the center point
@@ -250,7 +290,7 @@ module.exports = Vue.extend({
 
 			/* Add it to our collection. */
 
-			this.createPassageInStory(this.story.id, { name, left, top });
+			this.createPassage(this.story.id, { name, left, top });
 
 			/*
 			Then position it so it doesn't overlap any others, and save it
@@ -265,36 +305,96 @@ module.exports = Vue.extend({
 		},
 
 		/*
+		Creates a passage under the cursor in response to a
+		webkitmouseforcedown event. At the time of writing, this is a
+		Mac-specific feature, but can be extended once standards catch up.
+		*/
+		
+		onMouseForceDown(e) {
+			let top = (e.pageY / this.story.zoom) -
+				(passageDefaults.height / 2);
+			let left = (e.pageX / this.story.zoom) -
+				(passageDefaults.width / 2);
+			
+			this.createPassage(null, top, left);
+		},
+
+		/*
 		Zooms in or out based on a mouse wheel event. The user must hold
 		down the Alt or Option key for it to register.
 		*/
 
 		onWheel(e) {
 			if (e.altKey && !e.ctrlKey) {
-				let zoomIndex = zoomLevels.indexOf(this.story.zoom);
-
 				/* Only consider the Y component of the motion. */
 
 				if (e.wheelDeltaY > 0) {
-					/* Zoom in. */
-
-					zoomIndex = (zoomIndex === 0) ?
-						zoomLevels.length - 1 :
-						zoomIndex - 1;
+					this.zoomIn(true);
 				}
 				else {
-					/* Zoom out. */
-
-					zoomIndex = (zoomIndex === zoomLevels.length - 1) ?
-						0 :
-						zoomIndex + 1;
+					this.zoomOut(true);
 				}
 
-				this.updateStory(
-					this.story.id,
-					{ zoom: zoomLevels[zoomIndex] }
-				);
 				e.preventDefault();
+			}
+		},
+
+		onKeyup(e) {
+			/*
+			If the key is going anywhere (e.g. into a text field), disregard it.
+			*/
+
+			let target = e.target;
+
+			while (target) {
+				if (target.nodeName === 'INPUT' || target.nodeName === 'TEXTAREA') {
+					return;
+				}
+
+				target = target.parentNode;
+			}
+
+			switch (e.keyCode) {
+				/* Plus key */
+
+				case 187:
+					this.zoomOut();
+					break;
+				
+				/* Minus key */
+
+				case 189:
+					this.zoomIn();
+					break;
+
+				/* Delete key */
+
+				case 46: {
+					const toDelete =
+						this.story.passages.filter(p => p.selected);
+
+					if (toDelete.length === 0) {
+						return;
+					}
+
+					const message = locale.sayPlural(
+						`Are you sure you want to delete &ldquo;%2$s&rdquo;? This cannot be undone.`,
+						`Are you sure you want to delete %d passages? This cannot be undone.`,
+						toDelete.length,
+						toDelete[0].name
+					);
+
+					confirm({
+						message,
+						buttonLabel: '<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
+						buttonClass: 'danger'
+					}).then(() => {
+						toDelete.forEach(
+							p => this.deletePassage(this.story.id, p.id)
+						);
+					});
+					break;
+				}
 			}
 		}
 	},
@@ -314,7 +414,7 @@ module.exports = Vue.extend({
 		*/
 
 		'passage-create'(name, left, top) {
-			this.createPassage(name, left, top);
+			this.createPassageAt(name, left, top);
 		},
 
 		/*
@@ -355,32 +455,9 @@ module.exports = Vue.extend({
 		},
 
 		/*
-		A child will dispatch this event to us when it is selected
-		non-additively; we broadcast it to all children to deselect them.
-		*/
-
-		'passage-deselect-except'(...children) {
-			this.$broadcast('passage-deselect-except', ...children);
-		},
-
-		/*
-		The marquee selector component dispatches these events as it is moved,
-		and child passage items react to it by setting their selected
-		property accordingly.
-		
-		If a component is in the always array, then it will always select
-		itself during this operation.
-		*/
-
-		'passage-select-intersects'(rect, always) {
-			this.$broadcast('passage-select-intersects', rect, always);
-		},
-
-		/*
 		Positions a passage on behalf of a child component. This needs to be
-		here, as opposed to a direct Vuex action, because this allows the
-		child to ask that the positioning ignore selected passage components
-		(e.g. after finishing a drag).
+		here, as opposed to a direct Vuex action, because this takes into
+		account the grid size.
 		*/
 
 		'passage-position'(passage, options) {
@@ -405,10 +482,11 @@ module.exports = Vue.extend({
 
 	vuex: {
 		actions: {
-			createPassageInStory,
+			createPassage,
+			deletePassage,
 			loadFormat,
 			positionPassage,
-			updatePassageInStory,
+			updatePassage,
 			updateStory
 		},
 

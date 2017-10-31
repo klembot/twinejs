@@ -6,8 +6,11 @@
 	{{ 'Tag' | say }}
 	</button>
 
-	<template v-for="tag in tags" transition="fade-in-out">
-		<span class="tag label label-info">{{ tag }}<button @click="remove(tag)"><i class="fa fa-times"></i></button></span>
+	<template v-for="tag in passage.tags" transition="fade-in-out">
+		<div class="tag label label-info {{tagColors[tag]}}">{{ tag }}<button>
+			<i class="fa fa-caret-down"></i>
+			<tag-menu :tag="tag" :passage="passage" :story-id="storyId"></tag-menu>
+		</button></div>
 	</template>
 
 	<span v-show="newVisible">

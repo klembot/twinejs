@@ -125,17 +125,21 @@ module.exports = store => {
 			}
 
 			case 'UPDATE_PASSAGE_IN_STORY': {
-				const parentStory = state.story.stories.find(
-					s => s.id === mutation.payload[0]
-				);
-				const passage = parentStory.passages.find(
-					p => p.id === mutation.payload[1]
-				);
+				/* Is this a significant update? */
 
-				story.update(transaction => {
-					story.saveStory(transaction, parentStory);
-					story.savePassage(transaction, passage);
-				});
+				if (Object.keys(mutation.payload[2]).some(key => key !== 'selected')) {
+					const parentStory = state.story.stories.find(
+						s => s.id === mutation.payload[0]
+					);
+					const passage = parentStory.passages.find(
+						p => p.id === mutation.payload[1]
+					);
+
+					story.update(transaction => {
+						story.saveStory(transaction, parentStory);
+						story.savePassage(transaction, passage);
+					});
+				}
 				break;
 			}
 				

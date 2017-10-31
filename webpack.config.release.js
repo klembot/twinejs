@@ -2,6 +2,7 @@ const UglifyPlugin = require('webpack').optimize.UglifyJsPlugin;
 const CleanPlugin = require('less-plugin-clean-css');
 var config = require('./webpack.config');
 
+delete config.devtool;
 config.output.path = __dirname + '/dist/web';
 
 /* Transpile down to ES5. */

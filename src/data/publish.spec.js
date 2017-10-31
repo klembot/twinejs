@@ -1,5 +1,5 @@
-const $ = require('jquery');
-const { escape } = require('underscore');
+const $ = require('cheerio');
+const escape = require('lodash.escape');
 const { expect } = require('chai');
 const publish = require('./publish');
 
@@ -13,6 +13,8 @@ describe('publish module', () => {
 			tags: ['tags', 'that are <escaped>'],
 			top: 10,
 			left: 20,
+			width: 150,
+			height: 150,
 			text: 'Body text which is <escaped>'
 		};
 
@@ -22,6 +24,8 @@ describe('publish module', () => {
 			tags: [],
 			top: 30,
 			left: 45,
+			width: 100,
+			height: 100,
 			text: 'More body text.\n\nAnother paragraph.'
 		};
 
@@ -32,7 +36,9 @@ describe('publish module', () => {
 			stylesheet: '* { color: red }',
 			script: 'alert("hi");',
 			passages: [passage1, passage2],
-			startPassage: 'not-an-id'
+			startPassage: 'not-an-id',
+			tagColors: { 'test-tag': 'red' },
+			zoom: 1.5
 		};
 		
 		appInfo = {
@@ -48,6 +54,7 @@ describe('publish module', () => {
 		expect($el.attr('creator-version')).to.equal(appInfo.version);
 		expect($el.attr('ifid')).to.equal(story.ifid);
 		expect($el.attr('format')).to.equal(story.storyFormat);
+		expect($el.attr('zoom')).to.equal(story.zoom.toString());
 		
 		const $style = $el.find('style[type="text/twine-css"]');
 		
@@ -58,6 +65,12 @@ describe('publish module', () => {
 		
 		expect($script.length).to.equal(1);
 		expect($script.html()).to.equal(story.script);
+
+		const $tags = $el.find('tw-tag');
+
+		expect($tags.length).to.equal(1);
+		expect($($tags[0]).attr('name')).to.equal('test-tag');
+		expect($($tags[0]).attr('color')).to.equal('red');		
 	};
 
 	it('publishes a passage to HTML with publishPassage()', () => {
@@ -72,6 +85,7 @@ describe('publish module', () => {
 			expect($result.attr('name')).to.equal(passage.name);
 			expect($result.attr('tags')).to.equal(passage.tags.join(' '));
 			expect($result.attr('position')).to.equal(`${passage.left},${passage.top}`);
+			expect($result.attr('size')).to.equal(`${passage.width},${passage.height}`);
 			expect($result.text()).to.equal(passage.text);
 		});
 	});
@@ -80,7 +94,7 @@ describe('publish module', () => {
 		const result = publish.publishStory(appInfo, story);
 		
 		expect(result).to.be.a('string');
-		
+		console.info(result);
 		checkStoryElAgainstData($(result), story, appInfo);
 	});
 	

@@ -1,7 +1,7 @@
 // Shows a dialog asking the user to make a donation.
 
 const Vue = require('vue');
-const { setPref } = require('../../data/actions');
+const { setPref } = require('../../data/actions/pref');
 
 require('./index.less');
 

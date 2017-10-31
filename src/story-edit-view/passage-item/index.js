@@ -2,20 +2,20 @@
 A single passage in the story map.
 */
 
-const { escape } = require('underscore');
+const escape = require('lodash.escape');
 const Vue = require('vue');
 const PassageEditor = require('../../editors/passage');
 const { confirm } = require('../../dialogs/confirm');
 const domEvents = require('../../vue/mixins/dom-events');
 const locale = require('../../locale');
-const rect = require('../../common/rect');
 const { hasPrimaryTouchUI } = require('../../ui');
 const {
 	createNewlyLinkedPassages,
-	deletePassageInStory,
-	updatePassageInStory
+	deletePassage,
+	selectPassages,
+	updatePassage
 } =
-	require('../../data/actions');
+	require('../../data/actions/passage');
 
 require('./index.less');
 
@@ -61,10 +61,6 @@ module.exports = Vue.extend({
 	},
 
 	data: () => ({
-		/* Whether we're currently selected by the user. */
-
-		selected: false,
-
 		/*
 		To speed initial load, we don't create a contextual menu until the user
 		actually points to us. This records whether a menu component should be
@@ -97,7 +93,7 @@ module.exports = Vue.extend({
 				height: this.passage.height
 			};
 
-			if (this.selected) {
+			if (this.passage.selected) {
 				result.left += this.screenDragOffsetX / this.parentStory.zoom;
 				result.top += this.screenDragOffsetY / this.parentStory.zoom;
 			}
@@ -111,13 +107,14 @@ module.exports = Vue.extend({
 
 		cssPosition() {
 			const { zoom } = this.parentStory;
+			const { left, top, width, height } = this.passage;
 
 			return {
-				left: this.passage.left * zoom + 'px',
-				top: this.passage.top * zoom + 'px',
-				width: this.passage.width * zoom + 'px',
-				height: this.passage.height * zoom + 'px',
-				transform: this.selected ?
+				left: left * zoom + 'px',
+				top: top * zoom + 'px',
+				width: width * zoom + 'px',
+				height: height * zoom + 'px',
+				transform: this.passage.selected ?
 					'translate(' + this.screenDragOffsetX + 'px, ' +
 					this.screenDragOffsetY + 'px)'
 					: null
@@ -127,7 +124,7 @@ module.exports = Vue.extend({
 		cssClasses() {
 			let result = [];
 
-			if (this.selected) {
+			if (this.passage.selected) {
 				result.push('selected');
 			}
 
@@ -136,6 +133,18 @@ module.exports = Vue.extend({
 				this.highlightRegexp.test(this.passage.text))) {
 				result.push('highlighted');
 			}
+
+			return result;
+		},
+
+		tagColors() {
+			let result = [];
+
+			this.passage.tags.forEach(t => {
+				if (this.parentStory.tagColors[t]) {
+					result.push(this.parentStory.tagColors[t]);
+				}
+			});
 
 			return result;
 		},
@@ -151,7 +160,7 @@ module.exports = Vue.extend({
 
 	methods: {
 		delete() {
-			this.deletePassageInStory(this.parentStory.id, this.passage.id);
+			this.deletePassage(this.parentStory.id, this.passage.id);
 		},
 
 		edit() {
@@ -163,6 +172,19 @@ module.exports = Vue.extend({
 			this.$broadcast('drop-down-close');
 
 			const oldText = this.passage.text;
+			const afterEdit = () => {
+				this.createNewlyLinkedPassages(
+					this.parentStory.id,
+					this.passage.id,
+					oldText,
+					this.gridSize
+				);
+			};
+
+			/*
+			The promise below is rejected if the user clicks outside the editor,
+			so we need to handle both resolution and rejection of the promise.
+			*/
 
 			new PassageEditor({
 				data: {
@@ -177,14 +199,8 @@ module.exports = Vue.extend({
 				}
 			})
 			.$mountTo(document.body)
-			.then(() => {
-				this.createNewlyLinkedPassages(
-					this.parentStory.id,
-					this.passage.id,
-					oldText,
-					this.gridSize
-				);
-			});
+			.then(afterEdit)
+			.catch(afterEdit);
 		},
 
 		startDrag(e) {
@@ -201,9 +217,15 @@ module.exports = Vue.extend({
 				or control key was not held down, select only ourselves.
 				*/
 
-				this.selected = !this.selected;
+				this.selectPassages(this.parentStory.id, p => {
+					if (p === this.passage) {
+						return !p.selected;
+					}
+
+					return p.selected;
+				});
 			}
-			else if (!this.selected) {
+			else if (!this.passage.selected) {
 				/*
 				If we are newly-selected and the shift or control keys are not
 				held, deselect everything else. The check for newly-selected
@@ -212,13 +234,15 @@ module.exports = Vue.extend({
 				in the mouse up handler, above.
 				*/
 
-				this.selected = true;
-				this.$dispatch('passage-deselect-except', this);
+				this.selectPassages(
+					this.parentStory.id,
+					p => p === this.passage
+				);
 			}
 
 			/* Begin tracking a potential drag. */
 
-			const srcPoint = (event.type === 'mousedown') ? e : e.touches[0];
+			const srcPoint = (e.type === 'mousedown') ? e : e.touches[0];
 
 			this.screenDragStartX = srcPoint.clientX + window.pageXOffset;
 			this.screenDragStartY = srcPoint.clientY + window.pageYOffset;
@@ -236,7 +260,7 @@ module.exports = Vue.extend({
 		},
 
 		followDrag(e) {
-			const srcPoint = (event.type === 'mousemove') ? e : e.touches[0];
+			const srcPoint = (e.type === 'mousemove') ? e : e.touches[0];
 
 			this.$dispatch(
 				'passage-drag',
@@ -286,7 +310,7 @@ module.exports = Vue.extend({
 			
 			if (this.dragXOffset === 0 && this.dragYOffset === 0) {
 				if (!(e.ctrlKey || e.shiftKey)) {
-					this.$dispatch('passage-deselect-except', this);
+					this.selectPassages(this.parentStory.id, p => p !== this);
 				}
 			}
 			else {
@@ -354,13 +378,13 @@ module.exports = Vue.extend({
 			$dispatch triggers first on ourselves, then our parent.
 			*/
 
-			if (this.selected && emitter !== this) {
+			if (this.passage.selected && emitter !== this) {
 				/*
 				Because the x and y offsets are in screen coordinates, we need
 				to convert back to logical space.
 				*/
 
-				this.updatePassageInStory(
+				this.updatePassage(
 					this.parentStory.id,
 					this.passage.id,
 					{
@@ -391,21 +415,6 @@ module.exports = Vue.extend({
 			*/
 
 			this.$broadcast('drop-down-reposition');
-		},
-
-		'passage-deselect-except'(...passages) {
-			if (passages.indexOf(this) === -1) {
-				this.selected = false;
-			}
-		},
-
-		'passage-select-intersects'(selectRect, always) {
-			if (always && always.indexOf(this) !== -1) {
-				this.selected = true;
-				return;
-			}
-
-			this.selected = rect.intersects(this.passage, selectRect);
 		}
 	},
 
@@ -416,8 +425,9 @@ module.exports = Vue.extend({
 	vuex: {
 		actions: {
 			createNewlyLinkedPassages,
-			updatePassageInStory,
-			deletePassageInStory
+			selectPassages,
+			updatePassage,
+			deletePassage
 		}
 	},
 

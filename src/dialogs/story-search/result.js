@@ -3,7 +3,7 @@ A component showing a single search result.
 */
 
 const Vue = require('vue');
-const { updatePassageInStory } = require('../../data/actions');
+const { updatePassage } = require('../../data/actions/passage');
 
 require('./result.less');
 
@@ -58,7 +58,7 @@ module.exports = Vue.extend({
 				this.replaceWith
 			);
 
-			this.updatePassageInStory(
+			this.updatePassage(
 				this.story.id,
 				this.match.passage.id,
 				{ name, text }
@@ -89,7 +89,7 @@ module.exports = Vue.extend({
 
 	vuex: {
 		actions: {
-			updatePassageInStory
+			updatePassage
 		}
 	}
 });

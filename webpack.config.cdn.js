@@ -24,12 +24,10 @@ Object.assign(
 		'core-js': 'location',
 		'fastclick': 'FastClick',
 		'jed': 'Jed',
-		'jquery': 'jQuery',
 		'jszip': 'JSZip',
 		'moment': 'moment',
 		'svg.js': 'SVG',
 		'tether-drop': 'Drop',
-		'underscore': '_',
 		'vue': 'Vue',
 		'vue-router': 'VueRouter',
 		'vuex': 'Vuex'

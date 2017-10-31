@@ -2,7 +2,7 @@
 Publishes stories to HTML.
 */
 
-const { escape } = require('underscore');
+const escape = require('lodash.escape');
 const locale = require('../locale');
 
 const publish = module.exports = {
@@ -99,11 +99,16 @@ const publish = module.exports = {
 			}
 		});
 
+		const tagData = Object.keys(story.tagColors).map(tag =>
+			`<tw-tag name="${escape(tag)}" color="${escape(story.tagColors[tag])}" />`
+		);
+
 		return `<tw-storydata name="${escape(story.name)}" ` +
 			`startnode="${startLocalId || ''}" ` +
 			`creator="${escape(appInfo.name)}" ` +
 			`creator-version="${escape(appInfo.version)}" ` +
 			`ifid="${escape(story.ifid)}" ` +
+			`zoom="${escape(story.zoom)}" ` +
 			`format="${escape(story.storyFormat)}" ` +
 			`format-version="${escape(story.storyFormatVersion)}" ` +
 			`options="${escape(formatOptions)}" hidden>` +
@@ -111,7 +116,7 @@ const publish = module.exports = {
 			`type="text/twine-css">` + story.stylesheet + `</style>` +
 			`<script role="script" id="twine-user-script" ` +
 			`type="text/twine-javascript">` + story.script + `</script>` +
-			passageData +
+			tagData + passageData +
 			`</tw-storydata>`;
 	},
 
@@ -124,7 +129,8 @@ const publish = module.exports = {
 		return `<tw-passagedata pid="${escape(localId)}" ` +
 			`name="${escape(passage.name)}" ` +
 			`tags="${escape(passage.tags.join(' '))}" ` +
-			`position="${passage.left},${passage.top}">` +
+			`position="${passage.left},${passage.top}" ` +
+			`size="${passage.width},${passage.height}">` +
 			`${escape(passage.text)}</tw-passagedata>`;
 	}
 };

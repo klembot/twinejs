@@ -2,6 +2,8 @@
 
 const Vue = require('vue');
 const domEvents = require('../../vue/mixins/dom-events');
+const rect = require('../../common/rect');
+const { selectPassages } = require('../../data/actions/passage');
 
 require('../../ui/ie-mouse-event-polyfill');
 require('./index.less');
@@ -9,7 +11,12 @@ require('./index.less');
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
-	props: ['zoom', 'selectedChildren'],
+	props: {
+		story: {
+			type: Object,
+			required: true
+		}
+	},
 
 	data: () => ({
 		visible: false,
@@ -67,19 +74,21 @@ module.exports = Vue.extend({
 
 		/*
 		The rectangle encompasing this selection in logical space -- this,
-		factoring in the parent component's zoom level.
+		factoring in the story's zoom level.
 		*/
 
 		logicalRect() {
+			const { zoom } = this.story;
+
 			if (!this.screenRect) {
 				return;
 			}
 
 			return {
-				top: this.screenRect.top / this.zoom,
-				left: this.screenRect.left / this.zoom,
-				width: this.screenRect.width / this.zoom,
-				height: this.screenRect.height / this.zoom
+				top: this.screenRect.top / zoom,
+				left: this.screenRect.left / zoom,
+				width: this.screenRect.width / zoom,
+				height: this.screenRect.height / zoom
 			};
 		},
 
@@ -104,7 +113,7 @@ module.exports = Vue.extend({
 	methods: {
 		startDrag(e) {
 			/*
-			Only listen to clicks with the  left mouse button on the background
+			Only listen to clicks with the left mouse button on the background
 			SVG element (e.g. links) and only when the <body> is not in
 			space-bar scroll mode (see vue/directives/mouse-scrolling).
 			*/
@@ -123,7 +132,9 @@ module.exports = Vue.extend({
 			this.additive = e.shiftKey || e.ctrlKey;
 
 			if (this.additive) {
-				this.originallySelected = this.selectedChildren;
+				this.originallySelected = this.story.passages.filter(
+					p => p.selected
+				);
 			}
 
 			this.visible = true;
@@ -163,16 +174,14 @@ module.exports = Vue.extend({
 			this.currentX = e.clientX + window.pageXOffset;
 			this.currentY = e.clientY + window.pageYOffset;
 
-			/*
-			Our parent component will broadcast this event onto child
-			passage components.
-			*/
+			this.selectPassages(this.story.id, p => {
+				if (this.additive &&
+					this.originallySelected.indexOf(p) !== -1) {
+					return true;
+				}
 
-			this.$dispatch(
-				'passage-select-intersects',
-				this.logicalRect,
-				this.additive ? this.originallySelected : null
-			);
+				return rect.intersects(this.logicalRect, p);
+			});
 		},
 
 		endDrag(e) {
@@ -189,7 +198,7 @@ module.exports = Vue.extend({
 
 			if (this.screenRect && this.screenRect.width === 0 &&
 				this.screenRect.height === 0) {
-				this.$dispatch('passage-deselect-except');
+				this.selectPassages(this.story.id, () => false);
 			}
 
 			this.visible = false;
@@ -204,7 +213,7 @@ module.exports = Vue.extend({
 			Because this component's $el has been re-rendered (entirely
 			replaced) due to startDrag() and followDrag() altering the data,
 			this mouseup event won't result in a click event bubbling up from
-			this.  To alleviate this, we generate a synthetic MouseEvent now,
+			this. To alleviate this, we generate a synthetic MouseEvent now,
 			using this mouseup event's values.
 			*/
 
@@ -214,6 +223,10 @@ module.exports = Vue.extend({
 
 	ready() {
 		this.on(this.$el.parentNode, 'mousedown', this.startDrag);
+	},
+
+	vuex: {
+		actions: { selectPassages }
 	},
 
 	mixins: [domEvents]

@@ -14,6 +14,6 @@ module.exports = new Vuex.Store({
 	},
 	
 	plugins: [
-		require('./local-storage')
+		require('../local-storage')
 	]
 });

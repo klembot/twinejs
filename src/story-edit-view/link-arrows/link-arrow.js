@@ -91,18 +91,20 @@ module.exports = Vue.extend({
 			*/
 			
 			if (start === end) {
+				const radius = 0.4 * Math.min(start.width, start.height);
+
 				return arc({
 					start: {
 						left: start.left,
-						top: start.top + start.width / 2
+						top: start.top + start.height / 2
 					},
 					end: {
 						left: end.left,
 						top: end.top
 					},
 					radius: {
-						x: 0.4 * start.width,
-						y: 0.4 * start.height
+						x: radius,
+						y: radius
 					},
 					sweep: true,
 					largeArc: true

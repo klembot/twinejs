@@ -1,11 +1,12 @@
 <tr class="format-item">
 	<td class="selector">
-		<input type="radio" :checked="isDefault" @click="setDefaultFormat" title="{{ 'Set this format as default for stories' | say }}" id="{{format.name}}-{{format.properties.version}}">
+		<input type="radio" :checked="isDefault" :disabled="format.broken" @click="setDefaultFormat" title="{{ 'Set this format as default for stories' | say }}" id="{{format.name}}-{{format.properties.version}}">
 	</td>
 
 	<td>
 		<p>
 			<label for="{{format.name}}-{{format.properties.version}}">
+				<i class="fa fa-warning" v-if="format.broken"></i>
 				<b>{{ format.name }} {{ format.properties.version }}</b>
 				<span v-if="author">
 					{{{ author }}}
