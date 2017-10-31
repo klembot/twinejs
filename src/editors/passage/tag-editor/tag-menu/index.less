@@ -1,0 +1,50 @@
+@import '../../../../common/colors.less';
+@import '../../../../common/metrics.less';
+
+.tags {
+	.toolbar {
+		margin: @len-small 0;
+
+		button {
+			height: 2 * @len-large;
+			width: 2 * @len-large;
+			margin: 0 @len-small / 2;	
+
+			&:first-child {
+				margin-left: @len-small;
+			}
+
+			&:last-child {
+				margin-right: @len-small;
+			}
+
+			&.gray {
+				background: @color-tag-gray;
+			}
+
+			&.red {
+				background: @color-tag-red;
+			}
+
+			&.orange {
+				background: @color-tag-orange;
+			}
+
+			&.yellow {
+				background: @color-tag-yellow;
+			}
+
+			&.green {
+				background: @color-tag-green;
+			}
+
+			&.blue {
+				background: @color-tag-blue;
+			}
+
+			&.purple {
+				background: @color-tag-purple;
+			}
+		}
+	}
+}

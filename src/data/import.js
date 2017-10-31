@@ -19,6 +19,7 @@ const selectors =  {
 	script: '[role=script]',
 	stylesheet: '[role=stylesheet]',
 	storyData: 'tw-storydata',
+	tagColors: 'tw-tag',
 	passageData: 'tw-passagedata'
 };
 
@@ -35,17 +36,21 @@ function domToObject(storyEl, forceLastUpdate) {
 		*/
 
 		startPassagePid:
-			storyEl.attributes.startnode.value,
+			storyEl.attributes.startnode ?
+				storyEl.attributes.startnode.value : null,
 		name:
-			storyEl.attributes.name.value,
+			storyEl.attributes.name ?
+				storyEl.attributes.name.value : null,
 		ifid:
-			storyEl.attributes.ifid.value,
+			storyEl.attributes.ifid ?
+				storyEl.attributes.ifid.value : null,
 		lastUpdate:
 			forceLastUpdate || new Date(),
 		snapToGrid:
 			false,
 		storyFormat:
-			storyEl.attributes.format.value,
+			storyEl.attributes.format ?
+				storyEl.attributes.format.value : null,
 		storyFormatVersion:
 			storyEl.attributes['format-version'] ?
 				storyEl.attributes['format-version'].value : null,
@@ -62,13 +67,32 @@ function domToObject(storyEl, forceLastUpdate) {
 					''
 				),
 		zoom:
-			1,
+			storyEl.attributes.zoom ?
+				parseFloat(storyEl.attributes.zoom.value) : 1,
+		tagColors:
+			Array.from(storyEl.querySelectorAll(selectors.tagColors))
+				.reduce(
+					(src, el) => {
+						src[el.attributes.name.value] =
+							el.attributes.color.value;
+						return src;
+					},
+					{}
+				),
 		passages:
 			Array.from(storyEl.querySelectorAll(selectors.passageData))
 				.map(passageEl => {
 					const pos = passageEl.attributes.position.value
 						.split(',')
 						.map(Math.floor);
+
+					let size = [100, 100];
+
+					if (passageEl.attributes.size) {
+						size = passageEl.attributes.size.value
+							.split(',')
+							.map(Math.floor);
+					}
 
 					return {
 						/* Again, a one-off id, not a database id. */
@@ -80,13 +104,11 @@ function domToObject(storyEl, forceLastUpdate) {
 						top:
 							pos[1],
 						width:
-							passageEl.attributes.width ?
-								parseInt(passageEl.attributes.width.value)
-								: 100,
+							size[0],
 						height:
-							passageEl.attributes.height ?
-								parseInt(passageEl.attributes.height.value)
-								: 100,
+							size[1],
+						selected:
+							false,
 						tags:
 							passageEl.attributes.tags.value === '' ?
 								[]

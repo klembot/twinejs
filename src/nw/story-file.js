@@ -90,7 +90,7 @@ const StoryFile = module.exports = {
 		const directories = require('./directories');
 		const fs = require('fs');
 		const path = require('path');
-		const { deleteStory, importStory } = require('../data/actions');
+		const { deleteStory, importStory } = require('../data/actions/story');
 		const importFile = require('../data/import');
 		const store = require('../data/store');
 
@@ -127,11 +127,14 @@ const StoryFile = module.exports = {
 						{ encoding: 'utf8' }
 					);
 					const stats = fs.statSync(filePath);
-
-					importStory(
-						store,
-						importFile(source, new Date(Date.parse(stats.mtime)))[0]
+					const storyData = importFile(
+						source,
+						new Date(Date.parse(stats.mtime))
 					);
+
+					if (storyData.length > 0) {
+						importStory(store, storyData[0]);
+					}
 				}
 			});
 		}

@@ -1,10 +1,10 @@
 // Handles the cog menu for a single story.
 
-const _ = require('underscore');
+const escape = require('lodash.escape');
 const Vue = require('vue');
 const { confirm } = require('../../../dialogs/confirm');
-const { deleteStory, duplicateStory, loadFormat, updateStory } =
-	require('../../../data/actions');
+const { deleteStory, duplicateStory, updateStory } = require('../../../data/actions/story');
+const { loadFormat } = require('../../../data/actions/story-format');
 const { prompt } = require('../../../dialogs/prompt');
 const locale = require('../../../locale');
 const { publishStoryWithFormat } = require('../../../data/publish');
@@ -81,7 +81,7 @@ module.exports = Vue.extend({
 					locale.say(
 						'Are you sure you want to delete &ldquo;%s&rdquo;? ' +
 						'This cannot be undone.',
-						_.escape(this.story.name)
+						escape(this.story.name)
 					),
 				buttonLabel:
 					'<i class="fa fa-trash-o"></i> ' + locale.say('Delete Forever'),
@@ -102,7 +102,7 @@ module.exports = Vue.extend({
 				message:
 					locale.say(
 						'What should &ldquo;%s&rdquo; be renamed to?',
-						_.escape(this.story.name)
+						escape(this.story.name)
 					),
 				buttonLabel:
 					'<i class="fa fa-ok"></i> ' + locale.say('Rename'),

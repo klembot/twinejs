@@ -1,7 +1,7 @@
 // A Vuex module for working with story formats.
 
 const uuid = require('tiny-uuid');
-const locale = require('../locale');
+const locale = require('../../locale');
 
 const formatDefaults = {
 	name: locale.say('Untitled Story Format'),

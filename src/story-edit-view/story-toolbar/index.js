@@ -2,7 +2,7 @@
 
 const Vue = require('vue');
 const zoomMappings = require('../zoom-settings');
-const { updateStory } = require('../../data/actions');
+const { updateStory } = require('../../data/actions/story');
 
 require('./index.less');
 

@@ -4,10 +4,7 @@
  @module locale
 **/
 
-// Jed expects some keys with underscores.
-// jscs:disable requireCamelCaseOrUpperCaseIdentifiers
-
-const $ = require('jquery');
+const jsonp = require('jsonp');
 const Jed = require('jed');
 const moment = require('moment');
 
@@ -30,11 +27,11 @@ module.exports = {
 
 		this.locale = locale;
 
-		// set locale in MomentJS
+		/* Set locale in MomentJS. */
 
 		moment.locale(locale);
 
-		// set up failover Jed data to get back the source text as-is
+		/* Set up failover Jed data to get back the source text as-is. */
 
 		const failoverData = {
 			domain: 'messages',
@@ -49,8 +46,10 @@ module.exports = {
 			}
 		};
 
-		// if the locale is 'en' or 'en-us', return the failover data early
-		// to prevent unnecessary requests, especially with the online build
+		/*
+		If the locale is 'en' or 'en-us', return the failover data early to
+		prevent unnecessary requests, especially with the online build.
+		*/
 
 		if (locale === 'en' || locale === 'en-us') {
 			this.i18nData = failoverData;
@@ -59,37 +58,36 @@ module.exports = {
 			return;
 		}
 
-		// attempt to fetch the locale data
+		/* Attempt to fetch the locale data. */
 
-		$.ajax({
-			url: `locale/${locale}.js`,
-			dataType: 'jsonp',
-			jsonpCallback: 'locale',
-			crossDomain: true
-		})
-		.done(data => {
-			/**
-			 The raw JSON data used by Jed.
+		jsonp(
+			`locale/${locale}.js`,
+			{ name: 'locale', timeout: 1000 },
+			(err, data) => {
+				if (err) {
+					this.i18nData = failoverData;
+					this.i18n = new Jed(this.i18nData);
+					callback();
+				}
+				else {
+					/**
+					 The raw JSON data used by Jed.
 
-			 @property i18nData
-			 @type {Object}
-			**/
+					@property i18nData
+					@type {Object}
+					**/
 
-			this.i18nData = data;
-			this.i18n = new Jed(this.i18nData);
-			callback();
-		})
-		.fail(() => {
-			this.i18nData = failoverData;
-			this.i18n = new Jed(this.i18nData);
-			callback();
-		});
+					this.i18nData = data;
+					this.i18n = new Jed(this.i18nData);
+					callback();
+				}
+			}
+		);
 	},
 
 	/**
 	 Translates a string to the user-set locale, interpolating variables.
 	 Anything passed beyond the source text will be interpolated into it.
-	 Underscore templates receive access to this via the shorthand method s().
 
 	 @param {String} source source text to translate
 	 @return string translation
@@ -101,30 +99,31 @@ module.exports = {
 				return this.i18n.gettext(source);
 			}
 
-			// interpolation required
+			/* Interpolation required. */
 
 			return this.i18n.sprintf(this.i18n.gettext(source), ...args);
 		}
 		catch (e) {
-			// if all else fails, return English, even with ugly %d placeholders
-			// so the user can see *something*
+			/*
+			If all else fails, return English, even with ugly %d placeholders so
+			the user can see *something*.
+			*/
 
 			return source;
 		}
 	},
 
 	/**
-	 Translates a string to the user-set locale, keeping in mind pluralization
-	 rules. Any additional arguments passed after the ones listed here are
-	 interpolated into the resulting string. Underscore template receive this
-	 as the shorthand method sp.
+	Translates a string to the user-set locale, keeping in mind
+	pluralization rules. Any additional arguments passed after the ones
+	listed here are interpolated into the resulting string.
 
-	 When interpolating, count will always be the first argument.
+	When interpolating, count will always be the first argument.
 
-	 @param {String} sourceSingular source text to translate with singular form
-	 @param {String} sourcePlural source text to translate with plural form
-	 @param {Number} count count to use for pluralization
-	 @return string translation
+	@param {String} sourceSingular source text to translate with
+	singular form @param {String} sourcePlural source text to translate
+	with plural form @param {Number} count count to use for
+	pluralization @return string translation
 	**/
 
 	sayPlural(sourceSingular, sourcePlural, count, ...args) {

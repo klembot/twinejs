@@ -4,7 +4,7 @@ promise resolving to the stories that were imported, if any.
 */
 
 const Vue = require('vue');
-const { deleteStory, importStory } = require('../../data/actions');
+const { deleteStory, importStory } = require('../../data/actions/story');
 const importHTML = require('../../data/import');
 const load = require('../../file/load');
 const locale = require('../../locale');

@@ -5,8 +5,8 @@ time. As a result, saving requires that you start and end a transaction
 manually. This minimizes the number of writes to local storage.
 */
 
-let { createStory } = require('../actions');
-let { passageDefaults, storyDefaults } = require('../story');
+let { createStory } = require('../actions/story');
+let { passageDefaults, storyDefaults } = require('../store/story');
 let commaList = require('./comma-list');
 
 const story = module.exports = {

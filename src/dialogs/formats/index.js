@@ -1,8 +1,7 @@
 const Vue = require('vue');
 const semverUtils = require('semver-utils');
-const { createFormatFromUrl, loadFormat, repairFormats } = require('../../data/actions');
+const { createFormatFromUrl, loadFormat, repairFormats } = require('../../data/actions/story-format');
 const locale = require('../../locale');
-const notify = require('../../ui/notify');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -59,17 +58,28 @@ module.exports = Vue.extend({
 					this.loadIndex++;
 					this.loadNext();
 				}).catch(e => {
-					notify(
-						// L10n: %1$s is the name of the story format; %2$s is
-						// the error message.
-						locale.say(
-							'The story format &ldquo;%1$s&rdquo; could not ' +
-							'be loaded (%2$s).',
-							this.formatNames[this.loadIndex],
-							e.message
-						),
-						'danger'
-					);
+					const brokenFormat = this.allFormats[this.loadIndex];
+
+					this.loadedFormats.push(Object.assign(
+						{},
+						brokenFormat,
+						{
+							broken: true,
+							/* Force allow the format to be deleted. */
+							userAdded: true,
+							properties: {
+								version: brokenFormat.version,
+								description:
+									locale.say(
+										'This story format could not be loaded (%1$s).',
+										e.message
+									)
+							}
+						}
+					));
+
+					this.loadIndex++;
+					this.loadNext();
 				});
 			}
 			else {

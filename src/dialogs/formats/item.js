@@ -2,7 +2,8 @@
 const Vue = require('vue');
 const locale = require('../../locale');
 const { confirm } = require('../confirm');
-const { deleteFormat, setPref } = require('../../data/actions');
+const { deleteFormat } = require('../../data/actions/story-format');
+const { setPref } = require('../../data/actions/pref');
 
 require('./item.less');
 

@@ -1,5 +1,7 @@
 const Vue = require('vue');
-const { loadFormat } = require('../../data/actions');
+const { loadFormat } = require('../../data/actions/story-format');
+const locale = require('../../locale');
+const notify = require('../../ui/notify');
 const semverUtils = require('semver-utils');
 
 require('./index.less');
@@ -44,6 +46,19 @@ module.exports = Vue.extend({
 					this.loadedFormats.push(format);
 				}
 
+				this.loadIndex++;
+				this.loadNext();
+			})
+			.catch(e => {
+				notify(
+					locale.say(
+						'The story format &ldquo;%1$s&rdquo; could not ' +
+						'be loaded (%2$s).',
+						nextFormat.name + ' ' + nextFormat.version,
+						e.message
+					),
+					'danger'
+				);
 				this.loadIndex++;
 				this.loadNext();
 			});
