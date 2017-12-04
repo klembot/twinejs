@@ -142,5 +142,22 @@ const StoryFile = module.exports = {
 			directories.unlockStories();
 			StoryFile.active = true;
 		}
+	},
+
+	/*
+	Saves everything in local storage to the filesystem. This is run when the
+	application quits, to make sure all pending changes are saved.
+	*/
+
+	saveAll: function() {
+		if (!StoryFile.active) {
+			return;
+		}
+
+		const store = require('../data/store');
+		
+		store.state.story.stories.forEach(story => {
+			StoryFile.save(story, store.state.appInfo);
+		});
 	}
 };
