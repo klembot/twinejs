@@ -44,6 +44,7 @@
     "jsonp": "^0.2.1",
     "jszip": "^2.5.0",
     "karma-webpack": "^2.0.4",
+    "lodash.debounce": "^4.0.8",
     "lodash.escape": "^4.0.1",
     "lodash.uniq": "^4.5.0",
     "lodash.values": "^4.3.0",
