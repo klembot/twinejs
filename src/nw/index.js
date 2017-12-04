@@ -163,6 +163,7 @@ module.exports = {
 						startupTask = 'setting up shutdown tasks';
 
 						gui.Window.get().on('close', function() {
+							storyFile.saveAll();
 							directories.unlockStories();
 							this.close(true);
 						});
