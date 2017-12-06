@@ -1,40 +1,13 @@
-const StoryFile = require('../../story-file');
+const saveQueue = require('../../save-queue');
+const storyFile = require('../../story-file');
 const debounce = require('lodash.debounce');
 
 let enabled = true;
 let previousStories;
 
-/*
-Debounced functions to save stories to disk, so we don't thrash the filesystem
-as the user types into a passage editor, for example. We need to have a
-debounced function for each story, because Lodash's debounce function
-doesn't pay attention to parameters to a function.
-*/
-
-let debouncedSavers = {};
-
-function saveStoryById(store, id) {
-	if (!id) {
-		throw new Error('No id specified to save story');
-	}
-
-	if (!debouncedSavers[id]) {
-		debouncedSavers[id] = debounce(
-			(function(store) {
-				StoryFile.save(
-					store.state.story.stories.find(story => story.id === this),
-					store.state.appInfo
-				);
-			}).bind(id),
-			{ wait: 10000, leading: true, trailing: true }
-		);
-	}
-
-	debouncedSavers[id](store);
-}
-
 module.exports = store => {
 	previousStories = store.state.story.stories;
+	saveQueue.attachStore(store);
 
 	store.subscribe((mutation, state) => {
 		if (!enabled) {
@@ -49,11 +22,14 @@ module.exports = store => {
 
 			case 'CREATE_STORY':
 			case 'IMPORT_STORY':
-				saveStoryById(store, mutation.payload[0].id);
+				storyFile.save(
+					state.story.stories.find(story => story.name === mutation.payload[0].name),
+					state.appInfo
+				);
 				break;
 
 			case 'DELETE_STORY':
-				StoryFile.delete(previousStories.find(
+				storyFile.delete(previousStories.find(
 					story => story.id === mutation.payload[0]
 				));
 				break;
@@ -73,7 +49,7 @@ module.exports = store => {
 				*/
 
 				if (mutation.type === 'UPDATE_STORY' && mutation.payload[1].name) {
-					StoryFile.delete(
+					storyFile.delete(
 						previousStories.find(
 							story => story.id === mutation.payload[0]
 						),
@@ -83,7 +59,7 @@ module.exports = store => {
 				
 				/* Save changes as normal. */
 
-				saveStoryById(store, mutation.payload[0]);
+				saveQueue.queue(mutation.payload[0]);
 				break;
 		}
 
