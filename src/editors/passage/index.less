@@ -1,0 +1,56 @@
+@import '../../common/colors.less';
+@import '../../common/depth.less';
+@import '../../common/fonts.less';
+@import '../../common/metrics.less';
+
+#passageEditModal {
+	.title span {
+		display: flex;
+		width: 100%;
+
+		input {
+			flex-grow: 1;
+			margin: @len-tiny;
+			font-size: 1rem;
+		}
+	}
+
+	.passageTags {
+		margin: @len-small 0;
+	}
+}
+
+ul.CodeMirror-hints {
+	position: absolute;
+	list-style-type: none;
+	padding: 0;
+	z-index: 1000;
+	background: @color-paper;
+	font: 0.8rem @font-user;
+	border: none;
+	border-radius: 2px;
+	.shadow-large;
+
+	li {
+		padding: @len-tiny @len-small;
+		color: @color-text;
+
+		&.CodeMirror-hint-active {
+			background: fadeout(@color-link, 80%);
+			color: @color-text;
+
+			.theme-dark & {
+				background: fadeout(@color-link, 25%);
+				color: @color-text-dark;
+			}
+		}
+
+		.theme-dark & {
+			color: @color-text-dark;
+		}
+	}
+
+	.theme-dark & {
+		background: @color-paper-dark;
+	}
+}

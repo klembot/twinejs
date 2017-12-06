@@ -1,0 +1,46 @@
+@import '../../common/depth.less';
+@import '../../common/metrics.less';
+
+@item-width: 11rem;
+
+.story-item {
+	width: 11rem;
+	margin-right: @len-extra-large;
+	margin-bottom: @len-extra-large;
+
+	button.preview {
+		height: @item-width;
+		padding: 0;
+		border-radius: 2px;
+		transition: 0.2s box-shadow;
+		.shadow-small;
+
+		.theme-dark & {
+			filter: invert(100%) hue-rotate(180deg);
+			.shadow-small-inverted;
+		}
+
+		svg {
+			padding: @len-small;
+			width: @item-width;
+			height: @item-width;
+		}
+	}
+
+	.controls {
+		display: flex;
+
+		button.story-name {
+			flex-grow: 1;
+			flex-shrink: 1;
+		}
+
+		h2 {
+			font-size: 100%;
+		}
+
+		h2, p {
+			margin: 0;
+		}
+	}
+}

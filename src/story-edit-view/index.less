@@ -1,0 +1,83 @@
+@import '../common/colors.less';
+@import '../common/depth.less';
+
+@color-graph-paper: lighten(@color-link, 55%);
+@color-graph-paper-dark: darken(@color-link, 35%);
+@color-graph-lines: lighten(@color-link, 52%);
+@color-graph-lines-dark: darken(@color-link, 33%);
+@color-graph-lines-bold: lighten(@color-link, 47%);
+@color-graph-lines-bold-dark: lighten(@color-graph-lines-dark, 3%);
+
+.graph-large, .graph-medium, .graph-small {
+	background-color: @color-graph-paper;
+    background-image: linear-gradient(to right, @color-graph-lines-bold 1px, transparent 1px), linear-gradient(to bottom, @color-graph-lines-bold 1px, transparent 1px), linear-gradient(to right, @color-graph-lines 1px, transparent 1px), linear-gradient(to bottom, @color-graph-lines 1px, transparent 1px);
+    background-size: 100px 100px, 100px 100px, 25px 25px, 25px 25px;
+
+	.theme-dark & {
+		background-color: @color-graph-paper-dark;
+		background-image: linear-gradient(to right, @color-graph-lines-bold-dark 1px, transparent 1px), linear-gradient(to bottom, @color-graph-lines-bold-dark 1px, transparent 1px), linear-gradient(to right, @color-graph-lines-dark 1px, transparent 1px), linear-gradient(to bottom, @color-graph-lines-dark 1px, transparent 1px);
+	}
+}
+
+.graph-medium {
+    background-size: 60px 60px, 60px 60px, 15px 15px, 15px 15px;
+}
+
+.graph-small {
+    background-image: linear-gradient(to right, @color-graph-lines 1px, transparent 1px), linear-gradient(to bottom, @color-graph-lines 1px, transparent 1px);
+    background-size: 25px 25px, 25px 25px;
+
+	.theme-dark & {
+		background-image: linear-gradient(to right, @color-graph-lines-dark 1px, transparent 1px), linear-gradient(to bottom, @color-graph-lines-dark 1px, transparent 1px);
+
+	}
+}
+
+#storyEditView {
+	position: absolute;
+	overflow: hidden;
+}
+
+#storyEditView .passages {
+	user-select: none;
+	width: 100%;
+	height: 100%;
+	.graph-large;
+}
+
+#storyEditView.zoom-medium .passages {
+	.graph-medium;
+}
+
+#storyEditView.zoom-small .passages {
+	.graph-small;
+}
+
+body.draggingPassages {
+	.drop {
+		display: none !important;
+	}
+	
+	#storyEditView * {
+		cursor: default !important;
+	}
+}
+
+#storyEditView .working {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	p {
+		margin: 0;
+		padding: @len-large;
+		background: @color-paper;
+		.shadow-large;
+		border-radius: 2px;
+	}
+}

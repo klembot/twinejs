@@ -1,0 +1,13 @@
+<modal-dialog class="editor" :origin="origin" :can-widen="true" @transition-entered="resetCm">
+	<span slot="title">
+	{{ 'JavaScript' | say }}
+	</span>
+
+	<p>
+	{{ 'Any JavaScript entered here will immediately run when your story is opened in a Web browser.' | say }}
+	</p>
+
+	<div class="expand">	
+		<code-mirror :options="cmOptions" :text="source" @cm-change="save" v-ref:codemirror></code-mirror>
+	</div>
+</modal-dialog>

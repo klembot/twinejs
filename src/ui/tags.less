@@ -1,0 +1,49 @@
+@import '../common/colors.less';
+@import '../common/depth.less';
+@import '../common/metrics.less';
+
+.tag {
+	display: inline-block;
+	padding: 0 0 0 @len-medium;
+	border-radius: @len-medium;
+	color: white;
+	background: @color-tag-gray;
+	.shadow-tiny;
+	margin-right: @len-small;
+	margin-bottom: @len-small;
+
+	button {
+		color: white;
+		border-top-right-radius: @len-medium;
+		border-bottom-right-radius: @len-medium;
+	}
+
+	&.red {
+		background: @color-tag-red;
+	}
+
+	&.orange {
+		background: @color-tag-orange;		
+	}
+
+	&.yellow {
+		background: @color-tag-yellow;
+	}
+
+	&.green {
+		background: @color-tag-green;
+	}
+
+	&.blue {
+		background: @color-tag-blue;
+	}
+
+	&.purple {
+		background: @color-tag-purple;
+	}
+
+	.theme-dark & {
+		background: hsl(hue(@color-link-dark), 60%, 25%);
+	}
+}
+

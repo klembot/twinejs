@@ -1,0 +1,19 @@
+<div class="passage" :style="cssPosition" :class="cssClasses" @mousedown.stop="startDrag"
+	@touchstart.stop="startDrag" @dblclick.stop="edit" @mouseover="needsMenu = true">
+	<div class="frame">
+		<div class="tags">
+			<div v-for="color in tagColors" class="{{color}}"></div>
+		</div>
+
+		<p class="title">
+			<span class="badge-create" v-if="isStart"><i class="fa fa-rocket"></i></span>
+			<span class="text">{{ passage.name }}</span>
+		</p>
+
+		<p class="excerpt">
+			{{{ excerpt }}}
+		</p>
+	</div> <!-- .frame -->
+
+	<passage-menu v-if="needsMenu" :passage="passage" :parent-story="parentStory"></passage-menu>
+</div>

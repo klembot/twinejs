@@ -1,0 +1,41 @@
+@import './metrics.less';
+
+/* base background color */
+@color-paper: white;
+@color-paper-dark: hsl(0, 0%, 15%);
+
+/* a dark transparent color used to fade out inaccessible UI, as on a modal */
+@color-darken: hsla(0, 0%, 0%, 0.8);
+
+/* base foreground color for text */
+@color-text: hsl(0, 0%, 30%);
+@color-text-dark: hsl(0, 0%, 60%);
+
+/* color for emphasized text */
+@color-text-em: black;
+
+/* link color */
+@color-link: hsl(212, 90%, 40%);
+@color-link-dark: lighten(@color-link, 10%);
+
+/* color associated with creating new things, or successful actions */
+@color-create: hsl(140, saturation(@color-link), lightness(@color-link));
+
+/* color associated with dangerous actions such as deletion */
+@color-danger: hsl(0, saturation(@color-link), lightness(@color-link));
+
+/* color used to call out text, e.g. highlighting search matches */
+@color-highlight: hsl(60, saturation(@color-link), 50%);
+
+/* color used for borders around form elements */
+@color-form-line: lighten(@color-text, 55%);
+@color-form-line-dark: darken(@color-text-dark, 25%);
+
+/* tag colors */
+@color-tag-blue: @color-link;
+@color-tag-red: @color-danger;
+@color-tag-orange: spin(@color-tag-red, 25);
+@color-tag-yellow: spin(@color-tag-orange, 25);
+@color-tag-green: @color-create;
+@color-tag-purple: spin(@color-tag-blue, 60);
+@color-tag-gray: lighten(desaturate(@color-tag-blue, 100), 20);

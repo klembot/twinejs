@@ -1,0 +1,49 @@
+<drop-down open-on="hover" :show-now="true" position="bottom center" class="passage">
+	<!-- L10n: %s is the name of the thing to be deleted. -->
+	<button @click="delete" class="danger subtle" title="{{{ 'Delete &ldquo;%s&rdquo;' | say passage.name }}}">
+		<i class="fa fa-trash-o"></i>
+	</button>
+
+	<!-- L10n: %s is the name of the thing to be edited. -->
+	<button @click="edit" title="{{{ 'Edit &ldquo;%s&rdquo;' | say passage.name }}}">
+		<i class="fa fa-pencil"></i>
+	</button>
+
+	<button @click="test" title="{{ 'Test story starting here' | say }}">
+		<i class="fa fa-play"></i>
+	</button>
+
+	<button @click="toggleExpanded" title="{{ 'More passage options' | say }}" data-drop-down-stay-open="yes">
+		<i class="fa fa-ellipsis-h"></i>
+	</button>
+
+	<ul class="menu" v-if="expanded">
+		<li class="divider"></li>			
+		<li :class="{ checked: this.isStart }">
+			<button @click="setAsStart">
+				{{ 'Start Story Here' | say }}
+			</button>
+		</li>
+		<li class="divider"></li>
+		<li :class="{ checked: this.size === 'small' }">
+			<button @click="setSize('small')">
+				{{ 'Small' | say }}
+			</button>
+		</li>
+		<li :class="{ checked: this.size === 'wide' }">
+			<button @click="setSize('wide')" >
+				{{ 'Wide' | say }}
+			</button>
+		</li>
+		<li :class="{ checked: this.size === 'tall' }">
+			<button @click="setSize('tall')" >
+				{{ 'Tall' | say }}
+			</button>
+		</li>
+		<li :class="{ checked: this.size === 'large' }">
+			<button @click="setSize('large')" >
+				{{ 'Large' | say }}
+			</button>		
+		</li>
+	</ul>
+</drop-down>

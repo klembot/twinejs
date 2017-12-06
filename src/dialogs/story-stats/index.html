@@ -1,0 +1,59 @@
+<modal-dialog id="statsModal" :origin="origin">
+	<span slot="title">
+	{{ 'Story Statistics' | say }}
+	</span>
+
+	<div class="content">
+		<table class="unlined">
+			<tbody>
+				<tr>
+					<td>
+						{{ charCount }}
+					</td>
+					<td>
+						{{ charDesc }}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						{{ wordCount }}
+					</td>
+					<td>
+						{{ wordDesc }}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						{{ passageCount }}
+					</td>
+					<td>
+						{{ passageDesc }}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						{{ linkCount }}
+					</td>
+					<td>
+						{{ linkDesc }}
+					</td>
+				</tr>
+					<td>
+						{{ brokenLinkCount }}
+					</td>
+					<td>
+						{{ brokenLinkDesc }}
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p>
+		{{ 'This story was last changed at %s.' | say lastUpdate }}
+		</p>
+
+		<p>
+		{{{ 'The IFID for this story is &lt;span class="ifid"&gt;%s&lt;/span&gt;. (&lt;a href="http:\/\/ifdb.tads.org/help-ifid" target="_blank"&gt;What\'s an IFID?&lt;/a&gt;)' | say story.ifid }}}
+		</p>
+	</div>
+</modal-dialog>

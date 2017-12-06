@@ -1,0 +1,40 @@
+<tr class="format-item">
+	<td class="selector">
+		<input type="radio" :checked="isDefault" :disabled="format.broken" @click="setDefaultFormat" title="{{ 'Set this format as default for stories' | say }}" id="{{format.name}}-{{format.properties.version}}">
+	</td>
+
+	<td>
+		<p>
+			<label for="{{format.name}}-{{format.properties.version}}">
+				<i class="fa fa-warning" v-if="format.broken"></i>
+				<b>{{ format.name }} {{ format.properties.version }}</b>
+				<span v-if="author">
+					{{{ author }}}
+				</span>
+			</label>
+		</p>
+		<div class="detail" v-if="isDefault">
+			<div class="icon">
+				<img v-if="format.properties.image" :src="imageSrc">
+				<span v-else class="placeholder">{{ format.name.slice(0,2) }}</span>
+			</div>
+
+			<div class="description">
+				<p v-if="format.properties.description">
+					{{{ format.properties.description }}}
+				</p >
+
+				<p v-if="format.properties.license">
+					License: {{{ format.properties.license }}}
+				</p>
+			</div>
+		</div>
+
+		<p v-if="format.userAdded && isDefault" class="cantRemove">
+			{{ 'The default story format can\'t be removed.' | say }}
+		</p>
+	</td>
+	<td>
+		<button v-if="format.userAdded && !isDefault" @click="removeFormat" title="{{ 'Remove this format' | say }}" class="link danger"><i class="fa fa-lg fa-trash-o"></i></button>
+	</td>
+</tr>

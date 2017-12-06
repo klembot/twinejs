@@ -1,0 +1,146 @@
+@import '../../common/colors.less';
+@import '../../common/metrics.less';
+@import '../../common/depth.less';
+
+#storyEditView .passage {
+	position: absolute;
+	background: @color-paper;
+	cursor: default;
+	font-size: 85%;
+	padding: @len-small;
+	border: 1px solid transparent;
+	border-radius: 2px;
+	overflow: hidden;
+	.shadow-small;
+
+	p {
+		margin: 0;
+	}
+
+	.title {
+		position: relative;
+		z-index: 3;
+		font-weight: bold;
+	}
+
+	.excerpt {
+		position: relative;
+		z-index: 1;
+		color: lighten(@color-text, 45%);
+	}
+
+	.tags {
+		position: absolute;
+		z-index: 2;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		width: @len-small * 0.75;
+		display: flex;
+		flex-direction: column;
+
+		div {
+			flex-grow: 1;
+			flex-shrink: 1;
+			margin: @len-hairline;
+			border-radius: (@len-small * 0.75) / 2;
+			
+			& + div {
+				margin-top: 0;
+			}
+
+			&.red {
+				background: @color-tag-red;
+			}
+
+			&.orange {
+				background: @color-tag-orange;
+			}
+
+			&.yellow {
+				background: @color-tag-yellow;
+			}
+
+			&.green {
+				background: @color-tag-green;
+			}
+
+			&.blue {
+				background: @color-tag-blue;
+			}
+
+			&.purple {
+				background: @color-tag-purple;
+			}
+		}
+	}
+
+	&.selected {
+		border: @len-hairline solid lighten(@color-link, 30%);
+		background: lighten(@color-link, 55%);
+	}
+
+	&.highlighted {
+		border: @len-hairline solid lighten(@color-highlight, 15%);
+		background: lighten(@color-highlight, 40%);
+	}
+
+	&.selected.highlighted {
+		border: @len-hairline solid mix(lighten(@color-highlight, 15%), lighten(@color-link, 30%));
+		background: mix(lighten(@color-highlight, 40%), lighten(@color-link, 55%));
+	}
+
+	.theme-dark & {
+		background: @color-paper-dark;
+	}
+}
+
+#storyEditView.zoom-medium .passage {
+	padding: @len-tiny;
+
+	.frame {
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.title {
+		font-weight: normal;
+		text-align: center;
+		max-height: 100%;
+		line-height: 100%;
+
+		.badge-create, .badge-danger {
+			display: block;
+			margin: 0 auto;
+		}
+	}
+
+	.excerpt {
+		display: none;
+	}
+}
+
+#storyEditView.zoom-small .passage {
+	padding: 0;
+
+	.frame {
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: linear-gradient(to bottom, transparent 0, lighten(@color-text, 60%) 1px, transparent 1px);
+		background-size: 3px 3px;
+		margin: 2px;
+
+		.theme-dark & {
+			background: linear-gradient(to bottom, transparent 0, darken(@color-text-dark, 30%) 1px, transparent 1px);
+			background-size: 3px 3px;
+		}
+	}
+
+	.title .text, .excerpt {
+		display: none;
+	}
+}

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" class="links" :style="cssStyle">
+	<!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Element/marker -->
+	<defs>
+		<marker id="link-arrowhead" refX="6" refY="4" markerWidth="8" markerHeight="8" orient="auto">
+			<path d="M 1,1 7,4 1,7 Z">
+		</marker>
+		<marker id="link-broken" refX="4.5" refY="4.5" markerWidth="10" markerHeight="10">
+			<path d="M 1,2 2,1 5,4 8,1 9,2 6,5 9,8 8,9, 5,6 2,9 1,8 4,5 Z">
+		</marker>
+	</defs>
+
+	<style>
+		.marker-arrow {
+			marker-end: url(#link-arrowhead);
+		}
+
+		.marker-broken {
+			marker-end: url(#link-broken);
+		}
+	</style>
+
+	<template v-for="(start, startLinks) in links" track-by="$index">
+		<template v-for="end in startLinks" track-by="$index">
+			<link-arrow :start="positions[start]" :end="positions[end]"></link-arrow>
+		</template>
+	</template>
+</svg>

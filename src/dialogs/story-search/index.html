@@ -1,0 +1,60 @@
+<modal-dialog id="searchModal" class="wide" :origin="origin">
+	<span slot="title">
+		{{ 'Find and Replace' | say }}
+	</span>
+
+	<p>
+		<label for="searchFor">{{ 'Search For' | say }}</label>
+		<textarea id="searchFor" v-model="search" v-el:search></textarea>
+	</p>
+
+	<p>
+		<input type="checkbox" id="searchNames" v-model="searchNames">
+		<label for="searchNames">{{ 'Include passage names' | say }}</label>
+
+		<input type="checkbox" id="searchCaseSensitive" v-model="caseSensitive">
+		<label for="searchCaseSensitive">
+			<!-- L10n: As in uppercase or lowercase letters. -->
+			{{ 'Match case' | say }}
+		</label>
+
+		<input type="checkbox" id="searchRegexp" v-model="regexp">
+		<label for="searchRegexp">
+			<!-- L10n: A technical term, see https://en.wikipedia.org/wiki/Regular_expression. -->
+			{{ 'Regular expression' | say }}
+		</label>
+	</p>
+
+	<p>
+		<label for="replaceWith">{{ 'Replace With' | say }}</label>
+		<textarea id="replaceWith" v-model="replace"></textarea>
+	</p>
+
+	<p class="resultSummary" v-if="passageMatches.length > 0">
+		<span class="controls">
+			<button class="subtle" title="{{ 'Expand all search results' | say }}" @click="expandAll">
+				<i class="fa fa-expand"></i>
+			</button>
+
+			<button class="subtle" title="{{ 'Collapse all search results' | say }}" @click="collapseAll">
+				<i class="fa fa-compress"></i>
+			</button>
+
+			<button class="danger" @click="replaceAll">
+				<i class="fa fa-bolt"></i> {{ 'Replace All' | say }}
+			</button>
+		</span>
+
+		<span class="matches">
+			{{ '%d passage matches.' | sayPlural '%d passages match.' passageMatches.length }}
+		</span>
+	</p>
+
+	<p v-if="working" transition="fade-in-out">
+		<i class="fa fa-circle-o-notch fa-spin"></i> {{ 'Searching...' | say }}
+	</p>
+
+	<div class="results">
+		<search-result v-for="match in passageMatches" :story="story" :match="match" :search-regexp="searchRegexp" :replace-with="replace" :search-names="searchNames"></search-result>
+	</div> <!-- .results -->
+</modal-dialog> <!-- #searchModal -->

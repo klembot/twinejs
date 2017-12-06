@@ -1,0 +1,41 @@
+<drop-down position="top left">
+	<ul class="menu">
+		<li>
+			<button @click="editScript">{{ 'Edit Story JavaScript'| say }}</button>
+		</li>
+
+		<li>
+			<button @click="editStyle">{{ 'Edit Story Stylesheet' | say }}</button>
+		</li>
+
+		<li>
+			<button @click="changeFormat">{{ 'Change Story Format'| say }}</button>
+		</li>
+
+		<li>
+			<button @click="renameStory">{{ 'Rename Story' | say }}</button>
+		</li>
+
+		<li>
+			<button @click="selectAll">{{ 'Select All Passages' | say }}</button>
+		</li>
+
+		<li :class="{ checked: this.story.snapToGrid }">
+			<button @click="toggleSnap">{{ 'Snap to Grid'| say }}</button>
+		</li>
+
+		<li>
+			<button @click="storyStats">{{ 'Story Statistics' | say }}</button>
+		</li>
+
+		<li class="divider"></li>
+
+		<li>
+			<button @click="proofStory">{{ 'View Proofing Copy' | say }}</button>
+		</li>
+
+		<li>
+			<button @click="publishStory">{{ 'Publish to File' | say }}</button>
+		</li>
+	</ul>
+</drop-down>

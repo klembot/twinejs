@@ -1,0 +1,38 @@
+@import '../../common/depth.less';
+@import '../../story-edit-view/index.less';
+
+#storyEditProxy {
+	position: fixed;
+	z-index: 1000;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	animation: 0.2s appear linear forwards;
+	.graph-large;
+	.shadow-medium;
+
+	&.reverse {
+		animation-direction: reverse;
+	}
+
+	.zoom-small {
+		.graph-small;
+	}
+
+	.zoom-medium {
+		.graph-medium;
+	}
+}
+
+@keyframes appear {
+	from {
+		opacity: 0;
+		transform: scale(0);
+	}
+
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}

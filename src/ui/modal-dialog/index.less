@@ -1,0 +1,183 @@
+@import '../../common/colors.less';
+@import '../../common/fonts.less';
+@import '../../common/depth.less';
+@import '../../common/metrics.less';
+@import '../../common/typography.less';
+@import '../../vue/transitions.less';
+
+#modal-overlay {
+	position: fixed;
+	z-index: 100;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: hsla(0, 0%, 0%, 0.8);
+}
+
+body.modalOpen {
+	overflow: hidden;
+}
+
+.modal-dialog {
+	position: fixed;
+	z-index: 101;
+	display: flex;
+	flex-direction: column;
+	top: @len-extra-large;
+	left: calc(~"(100vw - 40em) / 2");
+	background: @color-paper;
+	width: 40em;
+	max-height: calc(~"100% - " 2 * @len-extra-large);
+	border-radius: 2px;
+	.shadow-large;
+
+	.theme-dark & {
+		background: @color-paper-dark;
+	}
+
+	header {
+		display: flex;
+		flex-shrink: 0;
+		height: @len-extra-large * 2;
+		padding-left: @len-extra-large;
+
+		.title {
+			line-height: @len-extra-large * 2;
+			margin: 0;
+			padding: 0;
+			flex-grow: 1;
+		}
+
+		button {
+			width: @len-extra-large * 2;
+			line-height: @len-extra-large * 2;
+			margin: 0;
+			padding: 0;
+			border-radius: 0;
+			.larger;
+		}
+	}
+
+	.content {
+		padding: 0 @len-extra-large @len-extra-large @len-extra-large;
+		flex-grow: 1;
+		flex-shrink: 1;
+		overflow: auto;
+
+		> *:first-child {
+			margin-top: 0;
+		}
+
+		> *:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	&.no-header {
+		header {
+			display: none;
+		}
+
+		.content {
+			padding-top: @len-extra-large;
+		}
+	}
+
+	&.wide {
+
+	}
+
+	&.editor {
+		top: @len-small;
+		bottom: @len-small;
+		width: 48em;
+		left: calc(~"(100vw - 48em) / 2");
+		max-height: none;
+
+		.content {
+			display: flex;
+			flex-direction: column;
+			padding-bottom: 0;
+		}
+
+		.expand {
+			flex-grow: 1;
+			position: relative;
+
+			> div, .CodeMirror {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 100%;
+				border-left: none;
+				border-right: none;
+			}
+
+			.CodeMirror {
+				padding: @len-small @len-extra-large;
+			}
+		}
+
+		&.wide {
+			width: auto;
+			left: @len-small;
+			right: @len-small;
+		}	
+	}
+
+	// Not used for this component, but available to child components.
+
+	&.tabbed {
+		header {
+			padding-left: 0;
+
+			button {
+				position: relative;
+				font: 90% @font-display;			
+				height: 100%;
+
+				&:not(.close):after {
+					content: '';
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					right: 0;
+					height: @len-hairline;
+					background: @color-form-line;
+
+					.theme-dark & {
+						background: @color-form-line-dark;
+					}
+				}
+
+				&.active:after {
+					content: '';
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					right: 0;
+					height: @len-hairline;
+					background: @color-link;
+				}
+			}
+		}
+	}
+
+	.expand {
+		margin-left: -@len-extra-large;
+		margin-right: -@len-extra-large;
+
+		.CodeMirror {
+			border-radius: 0;
+			padding-left: @len-extra-large;
+			padding-right: @len-extra-large;
+		}
+	}
+
+	.buttons { 
+		text-align: right;
+		margin-bottom: 0;
+	}
+}

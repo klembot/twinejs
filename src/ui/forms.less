@@ -1,0 +1,91 @@
+@import '../common/colors.less';
+@import '../common/depth.less';
+@import '../common/fonts.less';
+@import '../common/metrics.less';
+
+input[type="text"], input[type="search"], input[type="password"], textarea,
+	.CodeMirror {
+	font: 100% @font-user;
+	background: transparent;
+	border: none;
+	box-shadow: 0 1px 0 @color-form-line;
+	border-radius: 0;
+	color: @color-text;
+	padding: @len-small;
+
+	&:focus {
+		outline: none;
+		box-shadow: 0 2px 0 @color-link;
+
+		.theme-dark & {
+			box-shadow: 0 2px 0 @color-link;
+		}
+	}
+
+	.theme-dark & {
+		color: @color-text-dark;
+		box-shadow: 0 1px 0 @color-form-line-dark;
+	}
+}
+
+textarea, .CodeMirror {
+	border-radius: 2px;
+	box-shadow: 0 0 0 1px @color-form-line;
+	padding: @len-small;
+	transition: 0.2s box-shadow;
+
+	&:focus {
+		box-shadow: 0 0 0 2px @color-link;
+	}
+
+	.theme-dark & {
+		box-shadow: 0 0 0 1px @color-form-line-dark;
+	}
+}
+
+.editor .CodeMirror pre {
+	font: 100% @font-user;
+}
+
+.CodeMirror-selected {
+	background: fadeout(@color-link, 95%);
+
+	.CodeMirror-focused & {
+		background: fadeout(@color-link, 80%);
+	}
+
+	.theme-dark & {
+		background: fadeout(@color-link, 50%);
+	}
+
+	.theme-dark .CodeMirror-focused & {
+		background: fadeout(@color-link, 25%);
+	}
+}
+
+.theme-dark .CodeMirror-cursor {
+	border-left-color: white;
+}
+
+// These have to be separate rules because browsers will ignore a rule that has
+// any part that it can't understand.
+
+::-webkit-input-placeholder {
+	font: 100% @font-ui;
+	margin: 0;
+	padding: 0;
+}
+
+::-moz-placeholder {
+	font: 100% @font-ui;
+}
+
+::-ms-input-placeholder {
+	font: 100% @font-ui;
+}
+
+// Fix appearance of search fields in Safari.
+
+input[type="search"] {
+	-webkit-appearance: none;
+}
