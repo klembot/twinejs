@@ -27,7 +27,8 @@ const SaveQueue = module.exports = {
 	},
 
 	/*
-	Queues an story to be saved. Repeated requests to save the same story don't change the queue, but they do reset the delay to save.
+	Queues an story to be saved. Repeated requests to save the same story don't
+	change the queue, but they do reset the delay to save.
 	*/
 
 	queue(id) {
@@ -60,4 +61,4 @@ const SaveQueue = module.exports = {
 			StoryFile.save(story, SaveQueue.store.state.appInfo);
 		}
 	}
-}
+};

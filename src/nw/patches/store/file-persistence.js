@@ -1,6 +1,5 @@
 const saveQueue = require('../../save-queue');
 const storyFile = require('../../story-file');
-const debounce = require('lodash.debounce');
 
 let enabled = true;
 let previousStories;
@@ -23,7 +22,9 @@ module.exports = store => {
 			case 'CREATE_STORY':
 			case 'IMPORT_STORY':
 				storyFile.save(
-					state.story.stories.find(story => story.name === mutation.payload[0].name),
+					state.story.stories.find(
+						story => story.name === mutation.payload[0].name
+					),
 					state.appInfo
 				);
 				break;
