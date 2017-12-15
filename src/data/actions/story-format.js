@@ -175,8 +175,8 @@ const actions = module.exports = {
 			},
 			{
 				name: 'Harlowe',
-				url: 'story-formats/harlowe-2.0.1/format.js',
-				version: '2.0.1',
+				url: 'story-formats/harlowe-2.1.0/format.js',
+				version: '2.1.0',
 				userAdded: false
 			},
 			{
@@ -199,8 +199,8 @@ const actions = module.exports = {
 			},
 			{
 				name: 'SugarCube',
-				url: 'story-formats/sugarcube-2.18.0/format.js',
-				version: '2.18.0',
+				url: 'story-formats/sugarcube-2.21.0/format.js',
+				version: '2.21.0',
 				userAdded: false
 			}
 		];
@@ -223,7 +223,7 @@ const actions = module.exports = {
 			setPref(
 				store,
 				'defaultFormat',
-				{ name: 'Harlowe', version: '2.0.1' }
+				{ name: 'Harlowe', version: '2.1.0' }
 			);
 		}
 

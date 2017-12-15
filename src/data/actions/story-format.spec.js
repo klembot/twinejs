@@ -64,9 +64,9 @@ describe('story format actions module', () => {
 		expect(created['Harlowe-1.2.4']).to.exist;
 		expect(created['Harlowe-1.2.4'].url).to.equal('story-formats/harlowe-1.2.4/format.js');
 		expect(created['Harlowe-1.2.4'].userAdded).to.be.false;
-		expect(created['Harlowe-2.0.1']).to.exist;
-		expect(created['Harlowe-2.0.1'].url).to.equal('story-formats/harlowe-2.0.1/format.js');
-		expect(created['Harlowe-2.0.1'].userAdded).to.be.false;
+		expect(created['Harlowe-2.1.0']).to.exist;
+		expect(created['Harlowe-2.1.0'].url).to.equal('story-formats/harlowe-2.1.0/format.js');
+		expect(created['Harlowe-2.1.0'].userAdded).to.be.false;
 		expect(created['Paperthin-1.0.0']).to.exist;
 		expect(created['Paperthin-1.0.0'].url).to.equal('story-formats/paperthin-1.0.0/format.js');
 		expect(created['Paperthin-1.0.0'].userAdded).to.be.false;
@@ -76,9 +76,9 @@ describe('story format actions module', () => {
 		expect(created['SugarCube-1.0.35']).to.exist;
 		expect(created['SugarCube-1.0.35'].url).to.equal('story-formats/sugarcube-1.0.35/format.js');
 		expect(created['SugarCube-1.0.35'].userAdded).to.be.false;
-		expect(created['SugarCube-2.18.0']).to.exist;
-		expect(created['SugarCube-2.18.0'].url).to.equal('story-formats/sugarcube-2.18.0/format.js');
-		expect(created['SugarCube-2.18.0'].userAdded).to.be.false;
+		expect(created['SugarCube-2.21.0']).to.exist;
+		expect(created['SugarCube-2.21.0'].url).to.equal('story-formats/sugarcube-2.21.0/format.js');
+		expect(created['SugarCube-2.21.0'].userAdded).to.be.false;
 	});
 
 	it('sets default formats with repairFormats()', () => {
@@ -95,7 +95,7 @@ describe('story format actions module', () => {
 		actions.repairFormats(formatsStore);
 
 		expect(formatsStore.dispatch.calledWith(
-			'UPDATE_PREF', 'defaultFormat', { name: 'Harlowe', version: '2.0.1' }
+			'UPDATE_PREF', 'defaultFormat', { name: 'Harlowe', version: '2.1.0' }
 		)).to.be.true;
 		expect(formatsStore.dispatch.calledWith(
 			'UPDATE_PREF', 'proofingFormat', { name: 'Paperthin', version: '1.0.0' }
@@ -131,7 +131,7 @@ describe('story format actions module', () => {
 						{ name: 'Paperthin', version: '1.0.0' },
 						{ name: 'Snowman', version: '1.3.0' },
 						{ name: 'SugarCube', version: '1.0.35' },
-						{ name: 'SugarCube', version: '2.18.0' }
+						{ name: 'SugarCube', version: '2.21.0' }
 					]
 				}
 			}
