@@ -22,7 +22,7 @@ require('blob-polyfill');
 
 module.exports = (data, filename, success, failure) => {
 	try {
-		if (oniOS()) {
+		if (!oniOS()) {
 			// standard style
 
 			const blob = new Blob([data], { type: 'text/html;charset=utf-8' });
