@@ -56,6 +56,7 @@ module.exports = {
 				const patchStore = require('./patches/store');
 				const patchStoryListToolbar = require('./patches/story-list-toolbar');
 				const patchWelcomeView = require('./patches/welcome-view');
+				const saveQueue = require('./save-queue');
 				const storyFile = require('./story-file');
 
 				const win = gui.Window.get();
@@ -163,6 +164,7 @@ module.exports = {
 						startupTask = 'setting up shutdown tasks';
 
 						gui.Window.get().on('close', function() {
+							saveQueue.flush();
 							directories.unlockStories();
 							this.close(true);
 						});

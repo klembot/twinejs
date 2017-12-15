@@ -1,10 +1,12 @@
-const StoryFile = require('../../story-file');
+const saveQueue = require('../../save-queue');
+const storyFile = require('../../story-file');
 
 let enabled = true;
 let previousStories;
 
 module.exports = store => {
 	previousStories = store.state.story.stories;
+	saveQueue.attachStore(store);
 
 	store.subscribe((mutation, state) => {
 		if (!enabled) {
@@ -19,7 +21,7 @@ module.exports = store => {
 
 			case 'CREATE_STORY':
 			case 'IMPORT_STORY':
-				StoryFile.save(
+				storyFile.save(
 					state.story.stories.find(
 						story => story.name === mutation.payload[0].name
 					),
@@ -28,7 +30,7 @@ module.exports = store => {
 				break;
 
 			case 'DELETE_STORY':
-				StoryFile.delete(previousStories.find(
+				storyFile.delete(previousStories.find(
 					story => story.id === mutation.payload[0]
 				));
 				break;
@@ -48,7 +50,7 @@ module.exports = store => {
 				*/
 
 				if (mutation.type === 'UPDATE_STORY' && mutation.payload[1].name) {
-					StoryFile.delete(
+					storyFile.delete(
 						previousStories.find(
 							story => story.id === mutation.payload[0]
 						),
@@ -58,12 +60,7 @@ module.exports = store => {
 				
 				/* Save changes as normal. */
 
-				StoryFile.save(
-					state.story.stories.find(
-						story => story.id === mutation.payload[0]
-					),
-					state.appInfo
-				);
+				saveQueue.queue(mutation.payload[0]);
 				break;
 		}
 
