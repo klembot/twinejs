@@ -100,7 +100,7 @@ const publish = module.exports = {
 		});
 
 		const tagData = Object.keys(story.tagColors).map(tag =>
-			`<tw-tag name="${escape(tag)}" color="${escape(story.tagColors[tag])}" />`
+			`<tw-tag name="${escape(tag)}" color="${escape(story.tagColors[tag])}"></tw-tag>`
 		);
 
 		return `<tw-storydata name="${escape(story.name)}" ` +
