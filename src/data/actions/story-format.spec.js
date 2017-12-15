@@ -95,7 +95,7 @@ describe('story format actions module', () => {
 		actions.repairFormats(formatsStore);
 
 		expect(formatsStore.dispatch.calledWith(
-			'UPDATE_PREF', 'defaultFormat', { name: 'Harlowe', version: '2.0.1' }
+			'UPDATE_PREF', 'defaultFormat', { name: 'Harlowe', version: '2.1.0' }
 		)).to.be.true;
 		expect(formatsStore.dispatch.calledWith(
 			'UPDATE_PREF', 'proofingFormat', { name: 'Paperthin', version: '1.0.0' }
