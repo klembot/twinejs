@@ -71,6 +71,9 @@ describe('publish module', () => {
 		expect($tags.length).to.equal(1);
 		expect($($tags[0]).attr('name')).to.equal('test-tag');
 		expect($($tags[0]).attr('color')).to.equal('red');		
+
+		const $passages = $el.children('tw-passagedata');
+		expect($passages.length).to.equal(2);
 	};
 
 	it('publishes a passage to HTML with publishPassage()', () => {
