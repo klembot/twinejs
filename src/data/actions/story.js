@@ -136,18 +136,21 @@ const actions = module.exports = {
 					story.storyFormatVersion
 				).major;
 
+				/* eslint-disable max-len */
+
 				if (latestVersions[story.storyFormat] &&
-					latestVersions[story.storyFormat][majorVersion]) {
+					latestVersions[story.storyFormat][majorVersion] &&
+					story.storyFormatVersion !== latestVersions[story.storyFormat][majorVersion].version) {
 					actions.updateStory(
 						store,
 						story.id,
 						{
-							/* eslint-disable max-len */
 							storyFormatVersion: latestVersions[story.storyFormat][majorVersion].version
-							/* eslint-enable max-len */
 						}
 					);
 				}
+
+				/* eslint-enable max-len */
 			}
 			else if (latestVersions[story.storyFormat]) {
 				/*

@@ -201,6 +201,32 @@ describe('story actions module', () => {
 		)).to.be.true;
 	});
 
+	it('leaves story format versions alone if the story is already up-to-date', () => {
+		let storiesStore = {
+			dispatch: spy(),
+			state: {
+				storyFormat: {
+					formats: [
+						{ name: 'Default Format', version: '1.2.3' },
+						{ name: 'Default Format', version: '1.2.5' }
+					]
+				},
+				story: {
+					stories: [
+						{
+							id: 'not-a-real-id',
+							storyFormat: 'Default Format',
+							storyFormatVersion: '1.2.5'
+						}
+					]
+				}
+			}
+		};
+
+		actions.repairStories(storiesStore);
+		expect(storiesStore.dispatch.notCalled).to.be.true;
+	});
+
 	it('leaves stories alone if their story format does not exist', () => {
 		let storiesStore = {
 			dispatch: spy(),
