@@ -32,12 +32,18 @@ module.exports = Vue.extend({
 			let source = this.search;
 
 			/*
-			Escape regular expression characters in what the user typed unless
-			they indicated that they're using a regexp.
+			Escape regular expression meta characters in what the user typed
+			unless they indicated that they're using a regexp.
+
+			The only meta characters which need to be escaped are the escape
+			character (backslash) itself and the syntax characters.
+
+			* [21.2.1 Patterns](http://ecma-international.org/ecma-262/8.0/#sec-patterns)
+			* [SyntaxCharacter](http://ecma-international.org/ecma-262/8.0/#prod-SyntaxCharacter)
 			*/
 
 			if (!this.regexp) {
-				source = source.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+				source = source.replace(/[\\^$.*+?()[\]{}|]/g, '\\$&');
 			}
 
 			return new RegExp('(' + source + ')', flags);
