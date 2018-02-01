@@ -50,12 +50,12 @@ module.exports = Vue.extend({
 			const name = this.searchNames ?
 				this.match.passage.name.replace(
 					this.searchRegexp,
-					this.replaceWith
+					() => this.replaceWith
 				)
 				: undefined;
 			const text = this.match.passage.text.replace(
 				this.searchRegexp,
-				this.replaceWith
+				() => this.replaceWith
 			);
 
 			this.updatePassage(
