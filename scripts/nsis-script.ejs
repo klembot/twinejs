@@ -11,7 +11,7 @@ OutFile "dist\uploads\twine_<%- version %>_<%- arch %>.exe"
 ; AutoCloseWindow false ; (can be true for the window go away automatically at end)
 ; ShowInstDetails hide ; (can be show to have them shown, or nevershow to disable)
 ; SetDateSave off ; (can be on to have files restored to their orginal date)
-RequestExecutionLevel highest
+RequestExecutionLevel admin
 
 InstallDir "$PROGRAMFILES\<%- name %> 2"
 InstallDirRegKey HKEY_LOCAL_MACHINE "SOFTWARE\<%- regKey %>" ""
