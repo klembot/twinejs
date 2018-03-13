@@ -13,8 +13,8 @@ The story formats in minified format under `story-formats/` exist in separate
 repositories:
 
 * [Harlowe](https://bitbucket.org/_L_/harlowe)
-* [Paperthin](https://bitbucket.org/klembot/paperthin)
-* [Snowman](https://bitbucket.org/klembot/snowman-2)
+* [Paperthin](https://github.com/klembot/paperthin)
+* [Snowman](https://github.com/klembot/snowman)
 * [SugarCube](https://bitbucket.org/tmedwards/sugarcube)
 
 ### A NOTE ABOUT YARN
