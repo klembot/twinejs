@@ -1,13 +1,8 @@
-# FINNISH TRANSLATION FOR TWINE 2.2.1
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# shitake, 2018
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-03-13 10:50+0800\n"
-"PO-Revision-Date: 2018-03-13 15:01+0800\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -38,7 +33,7 @@ msgstr ""
 
 #: src/dialogs/about/index.html
 msgid "Help Twine Grow With A Donation"
-msgstr "帮助 Twine 开发提供捐赠"
+msgstr "通过捐赠帮助Twine开发"
 
 #: src/dialogs/about/index.html
 msgid "Source Code Repository"
@@ -115,7 +110,7 @@ msgstr ""
 #: src/dialogs/formats/index.html
 msgid ""
 "Story formats control the appearance and behavior of stories during play."
-msgstr "故事格式在游戏过程中控制故事的外观和行为。"
+msgstr "故事格式用于控制游戏过程中的故事外观和行为。"
 
 #: src/dialogs/formats/index.html
 msgid "Use as Default"
@@ -125,7 +120,7 @@ msgstr "使用默认"
 msgid ""
 "Proofing formats create a versions of stories tailored for editing and "
 "proofreading."
-msgstr "校对格式创建了针对编辑和校对定制的故事版本。"
+msgstr "校对格式用于故事的校对版本。"
 
 #: src/dialogs/formats/index.html
 msgid "Use"
@@ -246,7 +241,7 @@ msgstr "当您的故事在Web浏览器中打开时，此处输入的任何JavaSc
 
 #: src/editors/passage/index.html
 msgid "A passage already exists with this name."
-msgstr "这个名字已经存在片段。"
+msgstr "已存在同名片段。"
 
 #: src/editors/passage/tag-editor/index.html
 msgid "Tag"
@@ -321,7 +316,7 @@ msgstr "好的"
 
 #: src/nw/patches/welcome-view/replacement-template.html
 msgid "Your work is automatically saved."
-msgstr "您的工作将自动保存。"
+msgstr "您的作品将自动保存。"
 
 #: src/nw/patches/welcome-view/replacement-template.html
 msgid ""
@@ -332,7 +327,7 @@ msgid ""
 "Library&lt;/b&gt; item in the &lt;b&gt;Twine&lt;/b&gt; menu."
 msgstr ""
 "您的 Documents 文件夹中现在有一个名为 Twine 的文件夹。 里面是一个故事文件夹，"
-"所有的工作都将被保存。 Twine  自动为你保存工作，所以你不必担心自己忘记保存。 "
+"所有的作品都将被保存。 Twine  自动为你保存作品，所以你不必担心自己忘记保存。 "
 "您可以随时使用 &lt;b&gtTwine&lt;/b&gt;菜单上的&lt;b&gt;打开故事库&lt;/b&gt;"
 "项，来打开您的故事库文件夹。"
 
@@ -341,7 +336,7 @@ msgid ""
 "Because Twine is always saving your work, the files in your story library "
 "will be locked from editing while Twine is open."
 msgstr ""
-"由于 Twine 始终保存您的工作，因此在 Twine 打开时，故事库中的文件将被锁定而无"
+"由于 Twine 始终保存您的作品，因此在 Twine 打开时，故事库中的文件将被锁定而无"
 "法编辑。"
 
 #: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
@@ -392,15 +387,15 @@ msgstr "片段"
 
 #: src/story-edit-view/story-toolbar/story-menu/index.html
 msgid "Edit Story JavaScript"
-msgstr "编辑故事的 Javascript 脚本"
+msgstr "编辑故事 Javascript 脚本"
 
 #: src/story-edit-view/story-toolbar/story-menu/index.html
 msgid "Edit Story Stylesheet"
-msgstr "编辑故事的样式表"
+msgstr "编辑故事样式表"
 
 #: src/story-edit-view/story-toolbar/story-menu/index.html
 msgid "Change Story Format"
-msgstr "编辑故事的格式"
+msgstr "编辑故事格式"
 
 #: src/story-edit-view/story-toolbar/story-menu/index.html
 #: src/story-list-view/story-item/item-menu/index.html
@@ -413,11 +408,11 @@ msgstr "选择所有片段"
 
 #: src/story-edit-view/story-toolbar/story-menu/index.html
 msgid "Snap to Grid"
-msgstr "对齐网格"
+msgstr "对齐到网格"
 
 #: src/story-edit-view/story-toolbar/story-menu/index.html
 msgid "View Proofing Copy"
-msgstr "查看校对复制"
+msgstr "查看校对版本"
 
 #: src/story-edit-view/story-toolbar/story-menu/index.html
 #: src/story-list-view/story-item/item-menu/index.html
@@ -438,7 +433,7 @@ msgstr "编辑日期"
 
 #: src/story-list-view/index.html
 msgid "Name"
-msgstr "名字"
+msgstr "名称"
 
 #: src/story-list-view/index.html
 msgid ""
@@ -512,7 +507,7 @@ msgstr ""
 
 #: src/welcome/index.html
 msgid "Your work is saved only in your browser."
-msgstr "您的工作仅保存在浏览器中。"
+msgstr "您的作品仅保存在浏览器中。"
 
 #: src/welcome/index.html
 msgid ""
@@ -533,8 +528,8 @@ msgid ""
 "class=\\\"fa fa-cog\\\"&gt;&lt;/i&gt; menu on each story in the story list. "
 "Both archive and story files can always be re-imported into Twine."
 msgstr ""
-"不过，要记住两件&lt;b&gt;非常重要&lt;/b&gt;的事情。 由于您的工作仅保存在您的"
-"浏览器中，因此如果您清除了保存的数据，那么您将失去工作！ 不好。 请记住经常使"
+"不过，要记住两件&lt;b&gt;非常重要&lt;/b&gt;的事情。 由于您的作品仅保存在您的"
+"浏览器中，因此如果您清除了保存的数据，那么您将失去作品！ 不好。 请记住经常使"
 "用&lt;i class=\\\"fa fa-briefcase\\\"&gt;&lt;/i&gt;&nbsp;&lt;strong&gt;存档"
 "&lt;/strong&gt;按钮。 您还可以使用故事列表中每个故事的&lt;i class=\\\"fa fa-"
 "cog\\\"&gt;&lt;/i&gt; 菜单将单个故事发布到文件。 档案和故事文件都可以重新导入"
@@ -546,8 +541,8 @@ msgid ""
 "to your work&lt;/b&gt;. So if you've got a nosy kid brother, look into "
 "setting up a separate profile for yourself."
 msgstr ""
-"其次，&lt;b&gt;任何可以使用此浏览器的人都可以查看并更改您的作品&lt;/b&gt;。 "
-"所以，如果你有一个好兄弟，看看为自己设置一个单独的配置文件。"
+"其次，&lt;b&gt;任何可以使用此浏览器的人都可以查看并更改您的作品&lt;/b&gt;。所"
+"以，如果你家里有一位熊孩子角色，最好为自己做一个文件备份。"
 
 #: src/data/actions/story-format.js:48
 msgid "this story format is already installed"
@@ -569,15 +564,15 @@ msgstr "这个故事的起始片段不存在。"
 
 #: src/data/store/story-format.js:7
 msgid "Untitled Story Format"
-msgstr "无标题故事的格式"
+msgstr "未命名故事的格式"
 
 #: src/data/store/story.js:191
 msgid "Untitled Story"
-msgstr "无标题故事"
+msgstr "未命名故事"
 
 #: src/data/store/story.js:208 src/story-edit-view/index.js:277
 msgid "Untitled Passage"
-msgstr "无标题片段"
+msgstr "未命名片段"
 
 #: src/data/store/story.js:212
 msgid "Tap this passage, then the pencil icon to edit it."
