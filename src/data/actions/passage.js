@@ -67,14 +67,24 @@ const actions = module.exports = {
 			);
 		}
 
-		/* Displace by other passages. */
-
 		let passageRect = {
 			top: passage.top,
 			left: passage.left,
 			width: passage.width,
 			height: passage.height
 		};
+
+		/*
+		Displacement in snapToGrid mode is set to 0 to prevent spaces
+		being inserted between passages in a grid. Otherwise, overlapping
+		passages are separated out with 10 pixels between them.
+		*/
+
+		const displacementDistance = (story.snapToGrid && gridSize) ?
+			0
+			: 10;
+
+		/* Displace by other passages. */
 
 		story.passages.forEach(other => {
 			if (other === passage || (filter && !filter(other))) {
@@ -89,7 +99,7 @@ const actions = module.exports = {
 			};
 
 			if (rect.intersects(otherRect, passageRect)) {
-				rect.displace(passageRect, otherRect, 10);
+				rect.displace(passageRect, otherRect, displacementDistance);
 			}
 		});
 
