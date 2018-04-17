@@ -128,7 +128,8 @@ module.exports = {
 		// Decide whether moving left or right would resolve the overlap with
 		// the least motion.
 
-		let xChange, yChange;
+		let xChange = 0;
+		let yChange = 0;
 
 		if (xOverlap !== 0) {
 			const leftMove = (mLeft - sLeft) + movable.width + spacing;
