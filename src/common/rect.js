@@ -132,8 +132,8 @@ module.exports = {
 		let yChange = 0;
 
 		if (xOverlap !== 0) {
-			const leftMove = (mLeft - sLeft) + movable.width + spacing;
-			const rightMove = sRight - mLeft + spacing;
+			const leftMove = (mLeft - sLeft) + movable.width + spacing * 2;
+			const rightMove = sRight - mLeft;
 
 			if (leftMove < rightMove) {
 				xChange = -leftMove;
@@ -146,8 +146,8 @@ module.exports = {
 		// Same as above, but with vertical overlap.
 
 		if (yOverlap !== 0) {
-			const upMove = (mTop - sTop) + movable.height + spacing;
-			const downMove = sBottom - mTop + spacing;
+			const upMove = (mTop - sTop) + movable.height + spacing * 2;
+			const downMove = sBottom - mTop;
 
 			if (upMove < downMove) {
 				yChange = -upMove;
