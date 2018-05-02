@@ -26,7 +26,7 @@
     "package": "npm run build:release && npm run nw && node scripts/package.js",
     "pot": "node scripts/extract-pot.js",
     "start": "webpack-dev-server --inline --hot",
-    "test": "mocha-webpack --webpack-config webpack.config.test.js -r \"jsdom-global/register\"  -r mock-local-storage \"src/**/*.spec.js\"",
+    "test": "mocha-webpack --webpack-config webpack.config.test.js -r \"jsdom-global/register\"  -r mock-local-storage \"src/*+/*.spec.js\"",
     "watch": "webpack -d --progress --watch"
   },
   "dependencies": {
