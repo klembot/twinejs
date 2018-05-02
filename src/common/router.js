@@ -66,22 +66,25 @@ TwineRouter.map({
 
 	'/stories/:id/play': {
 		component: {
-			ready() {
-				const state = this.$store.state;
-				const story = state.story.stories.find(
-					story => story.id === this.$route.params.id
-				);
+			mounted() {
+				this.$nextTick(function () {
+					// code that assumes this.$el is in-document
+					const state = this.$store.state;
+					const story = state.story.stories.find(
+						story => story.id === this.$route.params.id
+					);
 
-				loadFormat(
-					this.$store,
-					story.storyFormat,
-					story.storyFormatVersion
-				).then(format => {
-					replaceUI(publishStoryWithFormat(
-						state.appInfo,
-						story,
-						format
-					));
+					loadFormat(
+						this.$store,
+						story.storyFormat,
+						story.storyFormatVersion
+					).then(format => {
+						replaceUI(publishStoryWithFormat(
+							state.appInfo,
+							story,
+							format
+						));
+					});
 				});
 			}
 		}
