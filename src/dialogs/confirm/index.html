@@ -4,5 +4,5 @@
 		<button type="button" @click="cancel" v-html="cancelLabel"></button>
 		<button type="button" :class="buttonClass" @click="accept" v-html="buttonLabel"></button>
 	</p>
-	<p class="coda" v-show="coda">{{{coda}}}</p>
+	<p class="coda" v-show="coda" v-html="coda"></p>
 </modal-dialog>
