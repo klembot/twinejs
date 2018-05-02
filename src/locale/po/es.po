@@ -334,8 +334,8 @@ msgid "Fonts"
 msgstr "Tipos de letra"
 
 #: templates/storylistview/modals/aboutmodal.html:78
-msgid "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the guidance of Robert Slimbach for <a href=\"http:\\/\\/adobe.com/\">Adobe</a><br> Nunito was designed by <a href=\"http:\\/\\/code.newtypography.co.uk/\">Vernon Adams</a>"
-msgstr "Source Sans Pro y Source Code Pro fueron diseñadas por Paul D. Hunt bajo la supervisión de Robert Slimbach para <a href=\"http:\\/\\/adobe.com/\">Adobe</a><br>Nunito fue diseñada por <a href=\"http:\\/\\/code.newtypography.co.uk/\">Vernon Adams</a>"
+msgid "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the guidance of Robert Slimbach for Adobe Nunito was designed by Vernon Adams"
+msgstr "Source Sans Pro y Source Code Pro fueron diseñadas por Paul D. Hunt bajo la supervisión de Robert Slimbach para AdobeNunito fue diseñada por Vernon Adams"
 
 #: templates/storylistview/modals/aboutmodal.html:82
 msgid "Icons"
@@ -1028,8 +1028,8 @@ msgstr[1] "%d historias"
 #~ "Twine 2.0 se distribuye bajo la licencia <a href=\"http://www.gnu.org/licenses/gpl-3.0.html\">GPL v3</a>, pero cualquier trabajo creado con él puede distribuirse bajo otros términos cualesquiera, inclusive comerciales. <a href=\"https://bitbucket.org/klembot/twinejs"
 #~ "\">Repositorio del código fuente</a>"
 
-#~ msgid "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the guidance of Robert Slimbach for <a href=\"http://adobe.com/\">Adobe</a><br> Nunito was designed by <a href=\"http://code.newtypography.co.uk/\">Vernon Adams</a>"
-#~ msgstr "Source Sans Pro y Source Code Pro fueron diseñadas por Paul D. Hunt bajo la supervisión de Robert Slimbach para <a href=\"http://adobe.com/\">Adobe</a><br> Nunito fue diseñada por <a href=\"http://code.newtypography.co.uk/\">Vernon Adams</a>"
+#~ msgid "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the guidance of Robert Slimbach for Adobe Nunito was designed by Vernon Adams"
+#~ msgstr "Source Sans Pro y Source Code Pro fueron diseñadas por Paul D. Hunt bajo la supervisión de Robert Slimbach para Adobe Nunito fue diseñada por Vernon Adams"
 
 #~ msgid ""
 #~ "<strong>If you've never used Twine before,</strong> then welcome! The <a href=\"http://twinery.org/2guide\" target=\"_blank\">Twine 2 Guide</a> and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki at large were written "

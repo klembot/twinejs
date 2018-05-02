@@ -34,7 +34,7 @@ msgid "Fonts"
 msgstr ""
 
 #: src/dialogs/about/index.html
-msgid "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the guidance of Robert Slimbach for \\x3ca href=\"http:\\/\\/adobe.com/\">Adobe\\x3c/a>\\x3cbr> Nunito was designed by \\x3ca href=\"http:\\/\\/code.newtypography.co.uk/\">Vernon Adams\\x3c/a>"
+msgid "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the guidance of Robert Slimbach for Adobe Nunito was designed by Vernon Adams"
 msgstr ""
 
 #: src/dialogs/about/index.html

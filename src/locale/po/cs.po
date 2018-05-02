@@ -441,14 +441,14 @@ msgstr "Písma"
 #, approved
 msgid ""
 "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the "
-"guidance of Robert Slimbach for <a href=\"http:\\/\\/adobe.com/\">Adobe</"
-"a><br> Nunito was designed by <a href=\"http:\\/\\/code.newtypography.co.uk/"
-"\">Vernon Adams</a>"
+"guidance of Robert Slimbach for Adobe"
+" Nunito was designed by "
+"Vernon Adams"
 msgstr ""
 "Source Sans Pro a Source Code Pro byly vytvořeny Paulem D. Huntem pod "
-"vedením Roberta Slimbacha pro <a href=\"http:\\/\\/adobe.com/\">Adobe</"
-"a><br> Nunito bylo vytvořeno <a href=\"http:\\/\\/code.newtypography.co.uk/"
-"\">Vernonem Adamsem</a>"
+"vedením Roberta Slimbacha pro Adobe"
+" Nunito bylo vytvořeno "
+"Vernonem Adamsem"
 
 #: templates/storylistview/modals/aboutmodal.html:82
 #, approved
