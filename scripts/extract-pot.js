@@ -54,9 +54,9 @@ function addItem(location, string, pluralString, comment) {
 }
 
 /*
-Parse .html files for text in this format: 
+Parse .html files for text in this format:
 {{ 'Simple string' | say }}
-{{ 'Singular string' | sayPlural 'Plural string' }} 
+{{ 'Singular string' | sayPlural('Plural string') }}
 */
 
 const templateRegexp = new RegExp(
