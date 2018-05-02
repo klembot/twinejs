@@ -444,8 +444,8 @@ msgid "No Thanks"
 msgstr "Hayır, Teşekkürler"
 
 #: templates/storylistview/modals/donatemodal.html:21
-msgid "This message will only be shown to you once.<br>"
-msgstr "Bu mesaj, size sadece bir kez gösterilecektir.<br>"
+msgid "This message will only be shown to you once."
+msgstr "Bu mesaj, size sadece bir kez gösterilecektir."
 
 #: templates/storylistview/modals/formatsmodal.html:9
 msgid "Story Formats"

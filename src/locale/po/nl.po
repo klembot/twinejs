@@ -429,7 +429,7 @@ msgid "No Thanks"
 msgstr "Nee bedankt"
 
 #: templates/storylistview/modals/donatemodal.html:21
-msgid "This message will only be shown to you once.<br>"
+msgid "This message will only be shown to you once."
 msgstr "Dit bericht zal maar een keer aan je gezien laten worden."
 
 #: templates/storylistview/modals/formatsmodal.html:9

@@ -433,7 +433,7 @@ msgid "No Thanks"
 msgstr "Ei kiitos"
 
 #: templates/storylistview/modals/donatemodal.html:21
-msgid "This message will only be shown to you once.<br>"
+msgid "This message will only be shown to you once."
 msgstr "Tämä viesti näytetään sinulle vain tämän yhden kerran."
 
 #: templates/storylistview/modals/formatsmodal.html:9

@@ -516,7 +516,7 @@ msgstr "Ne děkuji"
 
 #: templates/storylistview/modals/donatemodal.html:21
 #, approved
-msgid "This message will only be shown to you once.<br>"
+msgid "This message will only be shown to you once."
 msgstr "Tato zpráva se zobrazí pouze jednou.<br>"
 
 #: templates/storylistview/modals/formatsmodal.html:9

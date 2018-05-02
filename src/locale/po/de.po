@@ -112,15 +112,11 @@ msgstr "Spende"
 
 #: src/dialogs/app-donation/index.html
 msgid ""
-"This message will only be shown to you once.&lt;br&gt;If you'd like to "
-"donate to Twine development in the future, you can do so at &lt;a href="
-"\"http:\\/\\/twinery.org/donate\" target=\"_blank\"&gt;http://twinery.org/"
-"donate&lt;/a&gt;."
+"This message will only be shown to you once. If you'd like to "
+"donate to Twine development in the future, you can do so at "
 msgstr ""
-"Diese Meldung wird nur einmal angezeigt.&lt;br&gt;Wenn du für die "
-"Entwicklung von Twine spenden möchtest,  kannst du das hier tun &lt;a href="
-"\"http:\\/\\/twinery.org/donate\" target=\"_blank\"&gt;http://twinery.org/"
-"donate&lt;/a&gt;."
+"Diese Meldung wird nur einmal angezeigt. Wenn du für die "
+"Entwicklung von Twine spenden möchtest,  kannst du das hier tun "
 
 #: src/dialogs/formats/index.html
 msgid "Story Formats"
@@ -924,8 +920,8 @@ msgstr "%d%%  Speicherplatz frei"
 #~ "immer frei zur Verfügung stehen wird und mit deiner Hilfe weiter wachsen "
 #~ "kann."
 
-#~ msgid "This message will only be shown to you once.<br>"
-#~ msgstr "Diese Nachricht wird dir nur einmal angezeigt. <br>"
+#~ msgid "This message will only be shown to you once."
+#~ msgstr "Diese Nachricht wird dir nur einmal angezeigt. "
 
 #~ msgid "Proofing Formats"
 #~ msgstr "Formate zum Gegenlesen"

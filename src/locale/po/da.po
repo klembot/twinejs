@@ -105,15 +105,11 @@ msgstr "Donér"
 
 #: src/dialogs/app-donation/index.html
 msgid ""
-"This message will only be shown to you once.&lt;br&gt;If you'd like to "
-"donate to Twine development in the future, you can do so at &lt;a href="
-"\"http:\\/\\/twinery.org/donate\" target=\"_blank\"&gt;http://twinery.org/"
-"donate&lt;/a&gt;."
+"This message will only be shown to you once. If you'd like to "
+"donate to Twine development in the future, you can do so at "
 msgstr ""
-"Denne besked vil kun blive vist én gang.&lt;br&gt;Hvis du ønsker at donere "
-"til udviklingen af Twine i fremtiden kan det gøres på &lt;a href=\"http:\\/"
-"\\/twinery.org/donate\" target=\"_blank\"&gt;http://twinery.org/donate&lt;/"
-"a&gt;."
+"Denne besked vil kun blive vist én gang. Hvis du ønsker at donere "
+"til udviklingen af Twine i fremtiden kan det gøres på "
 
 #: src/dialogs/formats/index.html
 msgid "Story Formats"

@@ -106,15 +106,12 @@ msgstr "Doar"
 
 #: src/dialogs/app-donation/index.html
 msgid ""
-"This message will only be shown to you once.&lt;br&gt;If you'd like to "
-"donate to Twine development in the future, you can do so at &lt;a href=\\"
-"\"http:\\/\\/twinery.org/donate\\\" target=\\\"_blank\\\"&gt;http://twinery."
-"org/donate&lt;/a&gt;."
+"This message will only be shown to you once. If you'd like to "
+"donate to Twine development in the future, you can do so at "
 msgstr ""
 "Esta mensagem só lhe será apresentada uma única vez.&lt;br&gt;Se quiser "
 "fazer fazer um donativo para apoiar o desenvolvimento do Twine no futuro, "
-"pode fazê-lo &lt;a href=\\\"http:\\/\\/twinery.org/donate\\\" target=\\"
-"\"_blank\\\"&gt;http://twinery.org/donate&lt;/a&gt;."
+"pode fazê-lo "
 
 #: src/dialogs/formats/index.html
 msgid ""

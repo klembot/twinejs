@@ -434,8 +434,8 @@ msgid "No Thanks"
 msgstr "Onay Anksthay"
 
 #: templates/storylistview/modals/donatemodal.html:21
-msgid "This message will only be shown to you once.<br>"
-msgstr "Isthay essagemay illway onlyway ebay ownshay otay ouyay onceway.<br>"
+msgid "This message will only be shown to you once."
+msgstr "Isthay essagemay illway onlyway ebay ownshay otay ouyay onceway."
 
 #: templates/storylistview/modals/formatsmodal.html:9
 msgid "Story Formats"

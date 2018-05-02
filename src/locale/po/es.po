@@ -386,8 +386,8 @@ msgid "No Thanks"
 msgstr "No gracias"
 
 #: templates/storylistview/modals/donatemodal.html:21
-msgid "This message will only be shown to you once.<br>"
-msgstr "Este mensaje sólo se te mostrará una vez.<br>"
+msgid "This message will only be shown to you once."
+msgstr "Este mensaje sólo se te mostrará una vez."
 
 #: templates/storylistview/modals/formatsmodal.html:9
 msgid "Story Formats"
