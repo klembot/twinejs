@@ -10,11 +10,14 @@ const store = require('../../data/store');
 module.exports = Vue.extend({
 	template: '<div><router-view></router-view></div>',
 
-	ready() {
-		ui.init();
-		this.repairFormats();
-		this.repairStories();
-		document.body.classList.add(`theme-${this.themePref}`);
+	mounted() {
+		this.$nextTick(function () {
+			// code that assumes this.$el is in-document
+			ui.init();
+			this.repairFormats();
+			this.repairStories();
+			document.body.classList.add(`theme-${this.themePref}`);
+		  });
 	},
 
 	watch: {
