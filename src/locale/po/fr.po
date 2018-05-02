@@ -26,12 +26,12 @@ msgstr ""
 
 #: src/dialogs/about/index.html
 msgid ""
-"This application is released under the \\x3ca href=\"http:\\/\\/www.gnu.org/"
-"licenses/gpl-3.0.html\">GPL v3\\x3c/a> license, but any work created with it "
+"This application is released under the "
+"GPL v3 license, but any work created with it "
 "may be released under any terms, including commercial ones."
 msgstr ""
-"Cette application est distribuée sous la license \\x3ca href=\"https:\\/\\/"
-"www.gnu.org/licenses/gpl-3.0.fr.html\">GPL v3\\x3c/a>, mais toute oeuvre "
+"Cette application est distribuée sous la license "
+"GPL v3, mais toute oeuvre "
 "créée via ce logiciel peut être distribuée sous n'importe quels termes, y "
 "compris commerciaux."
 
