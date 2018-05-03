@@ -69,8 +69,6 @@
 <i class="fa fa-circle-o-notch fa-spin"></i> {{ 'Loading...' | say}}
 </p>
 
-<p class="error" v-if="error">
-{{{ error }}}
-</p>
+<p class="error" v-if="error" v-html="error"></p>
 
 </modal-dialog>
