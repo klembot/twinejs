@@ -29,8 +29,8 @@ const prompter = module.exports = {
 		mounted() {
 			this.$nextTick(function () {
 				// code that assumes this.$el is in-document
-				this.$els.response.focus();
-				this.$els.response.select();
+				this.$refs.response.focus();
+				this.$refs.response.select();
 			});
 		},
 
