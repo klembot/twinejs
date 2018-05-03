@@ -125,21 +125,23 @@ module.exports = Vue.extend({
 		}
 	},
 
-	ready() {
+	mounted() {
 		// Move tabs into the dialog header.
+		this.$nextTick(function () {
+			// code that assumes this.$el is in-document
+			const dialogTitle = this.$el.parentNode.querySelector(
+				'.modal-dialog > header .title'
+			);
+			const tabs = this.$el.parentNode.querySelectorAll(
+				'p.tabs-panel button'
+			);
 
-		const dialogTitle = this.$el.parentNode.querySelector(
-			'.modal-dialog > header .title'
-		);
-		const tabs = this.$el.parentNode.querySelectorAll(
-			'p.tabs-panel button'
-		);
+			for (let i = 0; i < tabs.length; i++) {
+				dialogTitle.appendChild(tabs[i]);
+			}
 
-		for (let i = 0; i < tabs.length; i++) {
-			dialogTitle.appendChild(tabs[i]);
-		}
-
-		this.loadNext();
+			this.loadNext();
+		  });
 	},
 
 	vuex: {
