@@ -1,6 +1,6 @@
 <modal-dialog class="tabbed" :origin="origin">
 
-<tabs-panel v-ref:tabs>
+<tabs-panel ref="tabs">
 	<!--
 	Unfortunately, putting {{'Story Formats' | say}} in component attributes doesn't work for some reason.
 	So, <tab-item>s pass their name attributes through locale.say by themselves.
