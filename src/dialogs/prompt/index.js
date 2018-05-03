@@ -6,6 +6,8 @@ const { thenable } = require('../../vue/mixins/thenable');
 
 require('./index.less');
 
+var eventHub = new Vue();
+
 const prompter = module.exports = {
 	component: Vue.extend({
 		template: require('./index.html'),
@@ -39,12 +41,12 @@ const prompter = module.exports = {
 				}
 				else {
 					this.isValid = true;
-					this.$broadcast('close', this.response);
+					eventHub.$emit('close', this.response);
 				}
 			},
 
 			cancel() {
-				this.$broadcast('close', false);
+				eventHub.$emit('close', this.response);
 			}
 		},
 
