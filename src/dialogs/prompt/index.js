@@ -26,9 +26,12 @@ const prompter = module.exports = {
 			origin: null
 		}),
 
-		ready() {
-			this.$els.response.focus();
-			this.$els.response.select();
+		mounted() {
+			this.$nextTick(function () {
+				// code that assumes this.$el is in-document
+				this.$els.response.focus();
+				this.$els.response.select();
+			});
 		},
 
 		methods: {
