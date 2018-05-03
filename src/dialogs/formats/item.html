@@ -28,6 +28,6 @@
 		</p>
 	</td>
 	<td>
-		<button v-if="format.userAdded && !isDefault" @click="removeFormat" title="{{ 'Remove this format' | say }}" class="link danger"><i class="fa fa-lg fa-trash-o"></i></button>
+		<button v-if="format.userAdded && !isDefault" @click="removeFormat" v-bind:title="'Remove this format' | say" class="link danger"><i class="fa fa-lg fa-trash-o"></i></button>
 	</td>
 </tr>
