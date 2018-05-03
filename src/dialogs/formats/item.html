@@ -8,9 +8,7 @@
 			<label v-bind:for="format.name-format.properties.version">
 				<i class="fa fa-warning" v-if="format.broken"></i>
 				<b>{{ format.name }} {{ format.properties.version }}</b>
-				<span v-if="author">
-					{{{ author }}}
-				</span>
+				<span v-if="author" v-html="author"></span>
 			</label>
 		</p>
 		<div class="detail" v-if="isDefault">
