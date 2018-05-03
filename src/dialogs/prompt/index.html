@@ -1,6 +1,6 @@
 <modal-dialog :class="'prompt no-header ' + modalClass" :origin="origin">
 	<form @submit.prevent="accept">
-		<div class="message larger">{{{message}}}</div>
+		<div class="message larger" v-html="message"></div>
 
 		<p class="error" v-if="!isValid" transition="fade-in-out">
 			{{ validationError }}
