@@ -15,9 +15,7 @@
 			</div>
 
 			<div class="description">
-				<p v-if="format.properties.description">
-					{{{ format.properties.description }}}
-				</p >
+				<p v-if="format.properties.description" v-html="format.properties.description"></p >
 
 				<p v-if="format.properties.license">
 					License: {{{ format.properties.license }}}
