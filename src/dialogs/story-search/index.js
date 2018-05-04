@@ -106,7 +106,7 @@ module.exports = Vue.extend({
 		},
 
 		replaceAll() {
-			this.$broadcast('replace');
+			eventHub.$emit('replace');
 		}
 	},
 
