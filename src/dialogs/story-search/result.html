@@ -6,7 +6,7 @@
 			<div v-html="match.highlightedName"></div>
 
 			<!-- L10n: %d is a number of text matches after a search. -->
-			({{ '%d match'| sayPlural '%d matches' match.numMatches }})
+			({{ '%d match'| sayPlural('%d matches', match.numMatches) }})
 		</button>
 
 		<span class="controls">
