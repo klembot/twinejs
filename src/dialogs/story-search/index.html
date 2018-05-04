@@ -50,9 +50,11 @@
 		</span>
 	</p>
 
-	<p v-if="working" transition="fade-in-out">
+	<transition="fade-in-out">
+	<p v-if="working">
 		<i class="fa fa-circle-o-notch fa-spin"></i> {{ 'Searching...' | say }}
 	</p>
+	</transition>
 
 	<div class="results">
 		<search-result v-for="match in passageMatches" :story="story" :match="match" :search-regexp="searchRegexp" :replace-with="replace" :search-names="searchNames"></search-result>
