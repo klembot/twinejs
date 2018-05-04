@@ -102,7 +102,7 @@ module.exports = Vue.extend({
 		},
 
 		collapseAll() {
-			this.$broadcast('collapse');
+			eventHub.$emit('collapse');
 		},
 
 		replaceAll() {
