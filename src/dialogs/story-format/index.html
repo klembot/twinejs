@@ -5,9 +5,11 @@
 		{{ 'A story format controls the appearance and behavior of your story during play.' | say }}
 	</p>
 
-	<p v-if="working" transition="fade-in-out">
+	<transition name="fade-in-out">
+	<p v-if="working">
 		<i class="fa fa-circle-o-notch fa-lg fa-spin"></i> {{ 'Loading...' | say }}
 	</p>
+	</transition>
 
 	<table class="lined">
 		<tbody>
