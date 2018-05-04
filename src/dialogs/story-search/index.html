@@ -32,7 +32,7 @@
 
 	<p class="resultSummary" v-if="passageMatches.length > 0">
 		<span class="controls">
-			<button class="subtle" title="{{ 'Expand all search results' | say }}" @click="expandAll">
+			<button class="subtle" v-bind:title="'Expand all search results' | say" @click="expandAll">
 				<i class="fa fa-expand"></i>
 			</button>
 
