@@ -6,9 +6,7 @@
 	<td>
 		<p>
 			<label v-bind:for="nameVersion"><b>{{ format.name }} {{ format.properties.version }}</b></label>
-			<span v-if="author">
-				{{{ author }}}
-			</span>
+			<span v-if="author" v-html="author"></span>
 		</p>
 		<div class="detail" v-if="selected">
 			<div class="icon">
