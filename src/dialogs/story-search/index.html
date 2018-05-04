@@ -36,7 +36,7 @@
 				<i class="fa fa-expand"></i>
 			</button>
 
-			<button class="subtle" title="{{ 'Collapse all search results' | say }}" @click="collapseAll">
+			<button class="subtle" v-bind:title="'Collapse all search results' | say" @click="collapseAll">
 				<i class="fa fa-compress"></i>
 			</button>
 
