@@ -1,6 +1,6 @@
 <tr class="format-item">
 	<td class="selector">
-		<input type="radio" :checked="selected" @click="select" id="{{format.name}}-{{format.properties.version}}">
+		<input type="radio" :checked="selected" @click="select" v-bind:id="nameVersion">
 	</td>
 
 	<td>
