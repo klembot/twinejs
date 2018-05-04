@@ -1,4 +1,4 @@
-<modal-dialog v-ref:modal :origin="origin">
+<modal-dialog ref="modal" :origin="origin">
 	<span slot="title">{{ 'Import From File' | say }}</span>
 
 	<template v-if="status === 'waiting'">
