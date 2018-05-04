@@ -4,6 +4,7 @@ passages.
 */
 
 const Vue = require('vue');
+const eventHub = require('../../common/eventHub');
 
 require('./index.less');
 
@@ -97,7 +98,7 @@ module.exports = Vue.extend({
 
 	methods: {
 		expandAll() {
-			this.$broadcast('expand');
+			eventHub.$emit('expand');
 		},
 
 		collapseAll() {

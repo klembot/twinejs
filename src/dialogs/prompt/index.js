@@ -2,11 +2,10 @@
 
 const Vue = require('vue');
 const locale = require('../../locale');
+const eventHub = require('../../common/eventHub');
 const { thenable } = require('../../vue/mixins/thenable');
 
 require('./index.less');
-
-var eventHub = new Vue();
 
 const prompter = module.exports = {
 	component: Vue.extend({
