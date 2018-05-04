@@ -13,7 +13,9 @@
 
 	<table class="lined">
 		<tbody>
-			<tr v-for="format in loadedFormats" is="format-item" :format="format" :story="story" transition="fade-in-out" track-by="$index"></format-item>
+			<transition name="fade-in-out">
+				<tr v-for="format in loadedFormats" is="format-item" :format="format" :story="story" track-by="$index"></format-item>
+			</transition>
 		</tbody>
 	</table>
 </modal-dialog>
