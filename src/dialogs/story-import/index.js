@@ -64,10 +64,13 @@ module.exports = Vue.extend({
 		}
 	},
 	
-	ready() {
-		if (this.immediateImport) {
-			this.import(this.immediateImport);
-		}
+	mounted() {
+		this.$nextTick(function () {
+			// code that assumes this.$el is in-document
+			if (this.immediateImport) {
+				this.import(this.immediateImport);
+			}
+		  });
 	},
 
 	methods: {
