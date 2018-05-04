@@ -32,7 +32,7 @@
 		<ul v-for="name in dupeNames" class="plain">
 			<input type="checkbox" v-bind:id="'replace-story-' + name" v-model="toReplace" value="{{ name }}">
 
-			<label for="replace-story-{{ name }}">{{ name }}</label>
+			<label vbind:for="'replace-story-' + name">{{ name }}</label>
 		</ul>
 
 		<p class="buttons">
