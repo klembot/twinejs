@@ -65,8 +65,11 @@ module.exports = Vue.extend({
 		}
 	},
 
-	ready() {
-		this.loadNext();
+	mounted() {
+		this.$nextTick(function () {
+			// code that assumes this.$el is in-document
+			this.loadNext();
+		});
 	},
 
 	vuex: {
