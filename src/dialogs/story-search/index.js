@@ -113,7 +113,7 @@ module.exports = Vue.extend({
 	mounted() {
 		this.$nextTick(function () {
 			// code that assumes this.$el is in-document
-			this.$els.search.focus();
+			this.$refs.search.focus();
 		  });
 	},
 
