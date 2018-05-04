@@ -27,6 +27,10 @@ module.exports = Vue.extend({
 				this.story.storyFormatVersion === this.format.version;
 		},
 
+		nameVersion() {
+			return this.format.name + '-' + this.format.properties.version;
+		},
+
 		/*
 		Calculates the image source relative to the format's path.
 		*/

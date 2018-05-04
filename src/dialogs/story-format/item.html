@@ -5,7 +5,7 @@
 
 	<td>
 		<p>
-			<label for="{{format.name}}-{{format.properties.version}}"><b>{{ format.name }} {{ format.properties.version }}</b></label>
+			<label v-bind:for="nameVersion"><b>{{ format.name }} {{ format.properties.version }}</b></label>
 			<span v-if="author">
 				{{{ author }}}
 			</span>
