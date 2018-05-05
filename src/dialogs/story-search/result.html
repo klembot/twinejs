@@ -10,7 +10,7 @@
 		</button>
 
 		<span class="controls">
-			<button class="danger subtle" title="{{ 'Replace in this passage' | say }}" @click="replace">
+			<button class="danger subtle" v-bind:title="'Replace in this passage' | say" @click="replace">
 				<i class="fa fa-bolt fa-fw"></i>{{ 'Replace in Passage' | say }}
 			</button>
 		</span>
