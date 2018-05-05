@@ -13,7 +13,7 @@
 		<button class="orange" @click="setColor('orange')" v-bind:title="'Set tag color to orange' | say"></button>
 		<button class="yellow" @click="setColor('yellow')" v-bind:title="'Set tag color to yellow' | say"></button>
 		<button class="green" @click="setColor('green')" v-bind:title="'Set tag color to green' | say"></button>		
-		<button class="blue" @click="setColor('blue')" title="{{ 'Set tag color to blue' | say }}"></button>		
+		<button class="blue" @click="setColor('blue')" v-bind:title="'Set tag color to blue' | say"></button>		
 		<button class="purple" @click="setColor('purple')" title="{{ 'Set tag color to purple' | say }}"></button>
 	</div>
 </drop-down>
