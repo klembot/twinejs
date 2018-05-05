@@ -16,5 +16,5 @@
 		</span>
 	</p>
 
-	<pre class="passageBody" v-if="expanded">{{{ match.highlightedText }}}</pre>
+	<pre class="passageBody" v-if="expanded" v-html="match.highlightedText"></pre>
 </div>
