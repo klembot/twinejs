@@ -9,7 +9,7 @@
 	</ul>
 	<div class="toolbar">
 		<button class="gray" @click="setColor('gray')" v-bind:title="'Set tag color to gray' | say"></button>			
-		<button class="red" @click="setColor('red')" title="{{ 'Set tag color to red' | say }}"></button>
+		<button class="red" @click="setColor('red')" v-bind:title="'Set tag color to red' | say"></button>
 		<button class="orange" @click="setColor('orange')" title="{{ 'Set tag color to orange' | say }}"></button>
 		<button class="yellow" @click="setColor('yellow')" title="{{ 'Set tag color to yellow' | say }}"></button>
 		<button class="green" @click="setColor('green')" title="{{ 'Set tag color to green' | say }}"></button>		
