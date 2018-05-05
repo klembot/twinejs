@@ -6,12 +6,14 @@
 	{{ 'Tag' | say }}
 	</button>
 
-	<template v-for="tag in passage.tags" transition="fade-in-out">
+	<transition name="fade-in-out">
+	<template v-for="tag in passage.tags" >
 		<div class="tag label label-info {{tagColors[tag]}}">{{ tag }}<button>
 			<i class="fa fa-caret-down"></i>
 			<tag-menu :tag="tag" :passage="passage" :story-id="storyId"></tag-menu>
 		</button></div>
 	</template>
+	</transition>
 
 	<span v-show="newVisible">
 		<!-- Using a <form> allows the "required" attribute on the input to be usable. -->
