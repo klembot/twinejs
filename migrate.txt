@@ -464,36 +464,6 @@
   Reason: v-el and v-ref merged into ref attribute
   More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
 
-100. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
-  Line 797: src/locale/po/cs.po
-  Reason: The store no longer exposes an event emitter interface
-  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
-
-101. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
-  Line 629: src/locale/po/da.po
-  Reason: The store no longer exposes an event emitter interface
-  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
-
-102. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
-  Line 642: src/locale/po/de.po
-  Reason: The store no longer exposes an event emitter interface
-  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
-
-103. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
-  Line 587: src/locale/po/es.po
-  Reason: The store no longer exposes an event emitter interface
-  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
-
-104. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
-  Line 669: src/locale/po/fi.po
-  Reason: The store no longer exposes an event emitter interface
-  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
-
-105. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
-  Line 518: src/locale/po/fr.po
-  Reason: The store no longer exposes an event emitter interface
-  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
-
 106. Update this.$els.newName to this.$refs.newName
   Line 38: src/editors/passage/connector-editor/index.js
   Reason: v-el and v-ref merged into ref attribute
