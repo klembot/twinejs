@@ -43,7 +43,7 @@ module.exports = Vue.extend({
 
 			/* Clear the newName element while it's transitioning out. */
 
-			this.$els.newName.value = '';
+			this.$refs.newName.value = '';
 
 			this.updatePassage(
 				this.storyId,
