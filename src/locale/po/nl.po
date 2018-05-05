@@ -615,15 +615,15 @@ msgstr "Ben je hier nieuw?"
 
 #: templates/welcomeview.html:27
 msgid ""
-"<strong>If you've never used Twine before,</strong> then welcome! The <a "
-"href=\"http:\\/\\/twinery.org/2guide\" target=\"_blank\">Twine 2 Guide</a> "
+"If you've never used Twine before, then welcome! The "
+"Twine 2 Guide "
 "and the official wiki in general, are a great place to learn. Keep in mind "
 "that some articles on the wiki at large were written for Twine 1, which is a "
 "little bit different than this version. But most of the concepts are the "
 "same."
 msgstr ""
-"<strong>Als je nog nooit Twine hebt gebruikt,</strong> welkom! De <a href="
-"\"http:\\/\\/twinery.org/2guide\" target=\"_blank\">Twine 2 Handleiding</a> "
+"Als je nog nooit Twine hebt gebruikt, welkom! De "
+"Twine 2 Handleiding "
 "en de officiële wiki, zijn goede plaatsen om te leren werken met Twine. "
 
 #: templates/welcomeview.html:31

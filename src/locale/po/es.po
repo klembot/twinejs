@@ -560,18 +560,18 @@ msgstr "¿Nueva/o por aquí?"
 
 #: templates/welcomeview.html:27
 msgid ""
-"<strong>If you've never used Twine before,</strong> then welcome! The <a href=\"http:\\/\\/twinery.org/2guide\" target=\"_blank\">Twine 2 Guide</a> and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki at large were written "
+"If you've never used Twine before, then welcome! The Twine 2 Guide and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki at large were written "
 "for Twine 1, which is a little bit different than this version. But most of the concepts are the same."
 msgstr ""
-"<strong>Si nunca has usado Twine antes,</strong> ¡bienvenida/o! La <a href=\"http:\\/\\/twinery.org/2guide\" target=\"_blank\">Guía de Twine 2 (en inglés)</a> y la wiki oficial en general, son un muy buen lugar para aprender. Ten en cuenta que algunos artículos de la wiki en "
+"Si nunca has usado Twine antes, ¡bienvenida/o! La Guía de Twine 2 (en inglés) y la wiki oficial en general, son un muy buen lugar para aprender. Ten en cuenta que algunos artículos de la wiki en "
 "general fueron escritos para Twine 1, que es un poco diferente a esta versión. Pero la mayoría de los conceptos son los mismos."
 
 #: templates/welcomeview.html:31
-msgid "You can also get help over at the <a href=\"http:\\/\\/twinery.org/forum\" target=\"_blank\">Twine forum</a>, too."
-msgstr "Puedes encontrar ayuda en el <a href=\"http:\\/\\/twinery.org/forum\" target=\"_blank\">foro de Twine</a>, también."
+msgid "You can also get help over at the Twine forum, too."
+msgstr "Puedes encontrar ayuda en el foro de Twine, también."
 
 #: templates/welcomeview.html:35
-msgid "<strong>If you have used Twine 1 before,</strong> the guide also has details on what has changed in this version. Chief among them is a new default story format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, try using SugarCube instead."
+msgid "If you have used Twine 1 before, the guide also has details on what has changed in this version. Chief among them is a new default story format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, try using SugarCube instead."
 msgstr ""
 "<strong>Si has usado Twine 1 antes,</strong> la guía también tiene detalles sobre qué cambió en esta versión. Lo principal es que hay un nuevo formato de historia predeterminado, Harlowe. Pero si prefieres la sintaxis de Twine 1, prueba en cambio con el formato SugarCube."
 
@@ -1032,10 +1032,10 @@ msgstr[1] "%d historias"
 #~ msgstr "Source Sans Pro y Source Code Pro fueron diseñadas por Paul D. Hunt bajo la supervisión de Robert Slimbach para Adobe Nunito fue diseñada por Vernon Adams"
 
 #~ msgid ""
-#~ "<strong>If you've never used Twine before,</strong> then welcome! The <a href=\"http://twinery.org/2guide\" target=\"_blank\">Twine 2 Guide</a> and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki at large were written "
+#~ "If you've never used Twine before, then welcome! The Twine 2 Guide and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki at large were written "
 #~ "for Twine 1, which is a little bit different than this version. But most of the concepts are the same."
 #~ msgstr ""
-#~ "<strong>Si nunca has usado Twine antes,</strong> ¡bienvenida/o! La <a href=\"http://twinery.org/2guide\" target=\"_blank\">Guía de Twine 2 (en inglés)</a> y la wiki oficial en general, son un muy buen lugar para aprender. Ten en cuenta que algunos artículos en la wiki en "
+#~ "Si nunca has usado Twine antes, ¡bienvenida/o! La Guía de Twine 2 (en inglés) y la wiki oficial en general, son un muy buen lugar para aprender. Ten en cuenta que algunos artículos en la wiki en "
 #~ "general fueron escritos para Twine 1, que es un poco diferente a esta versión. Pero la mayoría de los conceptos son los mismos."
 
 #~ msgid "You can also get help over at the <a href=\"http://twinery.org/forum\" target=\"_blank\">Twine forum</a>, too."
@@ -1065,11 +1065,11 @@ msgstr[1] "%d historias"
 
 # Gendered adjective.
 # —DAVID
-#~ msgid "<strong>If you've never used Twine before,</strong> then welcome! "
-#~ msgstr "<strong>Si nunca usaste Twine antes,</strong> ¡bienvenida/o! "
+#~ msgid "If you've never used Twine before, then welcome! "
+#~ msgstr "Si nunca usaste Twine antes, ¡bienvenida/o! "
 
-#~ msgid "<strong>If you have used Twine 1 before,</strong> the guide also has details on what has changed in this version. "
-#~ msgstr "<strong>Si usaste Twine 1 antes,</strong> la guía también tiene detalles sobre qué cambió en esta versión. "
+#~ msgid "If you have used Twine 1 before, the guide also has details on what has changed in this version. "
+#~ msgstr "Si usaste Twine 1 antes, la guía también tiene detalles sobre qué cambió en esta versión. "
 
 #~ msgid "That means you don't need to create an account to use Twine 2, "
 #~ msgstr "Eso significa que no vas a necesitar crear una cuenta para usar Twine 2, "
