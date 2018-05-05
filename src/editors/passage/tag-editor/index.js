@@ -39,7 +39,7 @@ module.exports = Vue.extend({
 		},
 
 		addNew() {
-			const newName = this.$els.newName.value.replace(/\s/g, '-');
+			const newName = this.$refs.newName.value.replace(/\s/g, '-');
 
 			/* Clear the newName element while it's transitioning out. */
 
