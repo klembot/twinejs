@@ -369,36 +369,6 @@
   Reason: v-el and v-ref merged into ref attribute
   More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
 
-75. Replace transition="fade-in-out" attribute with either a <transition name="fade-in-out"> or <transition-group name="fade-in-out"> wrapper component
-  Line 4: src/editors/passage/connector-editor/index.html
-  Reason: The new and improved transition system requires use of new <transition> and <transition-group> components
-  More info: http://vuejs.org/guide/migration.html#transition-Attribute
-
-76. Update value="{{index}}" to v-bind:value="index"
-  Line 7: src/editors/passage/connector-editor/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
-
-77. Update value="{{index}}" to v-bind:value="index"
-  Line 8: src/editors/passage/connector-editor/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
-
-78. Update value="{{index}}" to v-bind:value="index"
-  Line 9: src/editors/passage/connector-editor/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
-
-79. Update placeholder="{{ 'Choice text' | say }}" to v-bind:placeholder="'Choice text' | say"
-  Line 20: src/editors/passage/connector-editor/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
-
-80. Update placeholder="{{ 'Passage name' | say }}" to v-bind:placeholder="'Passage name' | say"
-  Line 21: src/editors/passage/connector-editor/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
-
 81. Update v-ref:modal to ref="modal"
   Line 1: src/editors/passage/index.html
   Reason: v-el and v-ref merged into ref attribute
