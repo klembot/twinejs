@@ -19,7 +19,7 @@
 		<!-- Using a <form> allows the "required" attribute on the input to be usable. -->
 		<form @submit.prevent="addNew">
 			<!-- L10n: A noun, i.e. what a tag is named. -->
-			<input type="text" placeholder="{{ 'Tag name' | say }}" required v-el:new-name>
+			<input type="text" v-bind:placeholder="'Tag name' | say" required v-el:new-name>
 
 			<button type="button" @click="hideNew">Cancel</button>
 			<button type="submit" class="create"><i class="fa fa-check"></i> Add</button>
