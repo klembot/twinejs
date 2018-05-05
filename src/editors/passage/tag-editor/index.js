@@ -31,7 +31,7 @@ module.exports = Vue.extend({
 	methods: {
 		showNew() {
 			this.newVisible = true;
-			this.$nextTick(() => this.$els.newName.focus());
+			this.$nextTick(() => this.$refs.newName.focus());
 		},
 
 		hideNew() {
