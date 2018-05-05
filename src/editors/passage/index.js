@@ -175,68 +175,74 @@ module.exports = Vue.extend({
 		}
 	},
 
-	ready() {
-		this.userPassageName = this.passage.name;
+	mounted() {
+		this.$nextTick(function () {
+			// code that assumes this.$el is in-document
 
-		/* Update the window title. */
+			this.userPassageName = this.passage.name;
 
-		this.oldWindowTitle = document.title;
-		document.title = locale.say('Editing \u201c%s\u201d', this.passage.name);
+			/* Update the window title. */
 
-		/*
-		Load the story's format and see if it offers a CodeMirror mode.
-		*/
+			this.oldWindowTitle = document.title;
+			document.title = locale.say('Editing \u201c%s\u201d', this.passage.name);
 
-		if (this.$options.storyFormat) {
-			this.loadFormat(
-				this.$options.storyFormat.name,
-				this.$options.storyFormat.version
-			).then(format => {
-				let modeName = format.name.toLowerCase();
+			/*
+			Load the story's format and see if it offers a CodeMirror mode.
+			*/
 
-				/* TODO: Resolve this special case with PR #118 */
+			if (this.$options.storyFormat) {
+				this.loadFormat(
+					this.$options.storyFormat.name,
+					this.$options.storyFormat.version
+				).then(format => {
+					let modeName = format.name.toLowerCase();
 
-				if (modeName === 'harlowe') {
-					modeName += `-${/^\d+/.exec(format.version)}`;
-				}
+					/* TODO: Resolve this special case with PR #118 */
 
-				if (modeName in CodeMirror.modes) {
-					/*
-					This is a small hack to allow modes such as Harlowe to
-					access the full text of the textarea, permitting its lexer
-					to grow a syntax tree by itself.
-					*/
+					if (modeName === 'harlowe') {
+						modeName += `-${/^\d+/.exec(format.version)}`;
+					}
 
-					CodeMirror.modes[modeName].cm = this.$refs.codemirror.$cm;
+					if (modeName in CodeMirror.modes) {
+						/*
+						This is a small hack to allow modes such as Harlowe to
+						access the full text of the textarea,
+						 permitting its lexer to grow a syntax tree by itself.
+						*/
 
-					/*
-					Now that's done, we can assign the mode and trigger a
-					re-render.
-					*/
+						CodeMirror.modes[modeName].cm = this.$refs.codemirror.$cm;
 
-					this.$refs.codemirror.$cm.setOption('mode', modeName);
-				}
-			});
-		}
+						/*
+						Now that's done, we can assign the mode and trigger a
+						re-render.
+						*/
 
-		/*
-		Set the mode to the default, 'text'. The above promise will reset it if
-		it fulfils.
-		*/
+						this.$refs.codemirror.$cm.setOption('mode', modeName);
+					}
+				});
+			}
 
-		this.$refs.codemirror.$cm.setOption('mode', 'text');
+			/*
+			Set the mode to the default, 'text'.
+			 The above promise will reset it if fulfils.
+			*/
 
-		/*
-		Either move the cursor to the end or select the existing text, depending
-		on whether this passage has only default text in it.
-		*/
+			this.$refs.codemirror.$cm.setOption('mode', 'text');
 
-		if (this.passage.text === passageDefaults.text) {
-			this.$refs.codemirror.$cm.execCommand('selectAll');
-		}
-		else {
-			this.$refs.codemirror.$cm.execCommand('goDocEnd');
-		}
+			/*
+			Either move the cursor to the end or select the existing text,
+			 depending
+			on whether this passage has only default text in it.
+			*/
+
+			if (this.passage.text === passageDefaults.text) {
+				this.$refs.codemirror.$cm.execCommand('selectAll');
+			}
+			else {
+				this.$refs.codemirror.$cm.execCommand('goDocEnd');
+			}
+
+		});
 	},
 
 	destroyed() {
