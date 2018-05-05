@@ -8,7 +8,7 @@
 
 	<transition name="fade-in-out">
 	<template v-for="tag in passage.tags" >
-		<div class="tag label label-info {{tagColors[tag]}}">{{ tag }}<button>
+		<div v-bind:class="'tag label label-info ' + tagColors[tag]">{{ tag }}<button>
 			<i class="fa fa-caret-down"></i>
 			<tag-menu :tag="tag" :passage="passage" :story-id="storyId"></tag-menu>
 		</button></div>
