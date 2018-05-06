@@ -1,6 +1,7 @@
 /* A contextual menu that appears when the user points at a passage. */
 
 const Vue = require('vue');
+const eventHub = require('../../common/eventHub');
 const { updatePassage } = require('../../../data/actions/passage');
 const { updateStory } = require('../../../data/actions/story');
 
@@ -51,7 +52,7 @@ module.exports = Vue.extend({
 
 	watch: {
 		expanded() {
-			this.$broadcast('drop-down-reposition');
+			eventHub.$emit('drop-down-reposition');
 		}
 	},
 
