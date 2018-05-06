@@ -11,7 +11,7 @@ var platforms = argv.platform ? [argv.platform] :
 fsExtra.copySync('package.json', 'dist/web/package.json');
 
 var nw = new NwBuilder({
-	files: 'dist/web/*+',
+	files: 'dist/web/**',
 	platforms: platforms,
 	version: '0.25.4',
 	buildDir: 'dist/nw',
