@@ -1,310 +1,115 @@
 
-1. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
-  Line 148: src/common/router.js
-  Reason: ready lifecycle hook has been removed
-  More info: http://vuejs.org/guide/migration.html#ready
-
-2. Replace this.$broadcast('close', true) to use a global event bus or vuex (see link below for implementation details)
-  Line 40: src/dialogs/confirm/index.js
-  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
-  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
-
-3. Replace this.$broadcast('close', false) to use a global event bus or vuex (see link below for implementation details)
-  Line 44: src/dialogs/confirm/index.js
-  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
-  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
-
-4. Rename $index to index and explicity declare it (e.g. v-for="(item, index) in items")
+1. Update track-by="index" to v-bind:key="format.index"
   Line 23: src/dialogs/formats/index.html
-  Reason: $index has been removed to avoid implicitly defined (i.e. "magic") variables
-  More info: http://vuejs.org/guide/migration.html#index-and-key
+  Reason: track-by has been replaced by the key attribute, which conforms with language used by other libraries and behaves the same as other attributes
+  More info: http://vuejs.org/guide/migration.html#track-by
 
-5. Rename $index to index and explicity declare it (e.g. v-for="(item, index) in items")
+2. Update track-by="index" to v-bind:key="format.index"
   Line 44: src/dialogs/formats/index.html
-  Reason: $index has been removed to avoid implicitly defined (i.e. "magic") variables
-  More info: http://vuejs.org/guide/migration.html#index-and-key
+  Reason: track-by has been replaced by the key attribute, which conforms with language used by other libraries and behaves the same as other attributes
+  More info: http://vuejs.org/guide/migration.html#track-by
 
-6. Replace filtered value in v-bind:title="'Set this format as default for stories' | say" with a method or computed property
+3. Update id="{{format.name}}-{{format.properties.version}}" to use v-bind with a computed property
   Line 3: src/dialogs/formats/item.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
+  Reason: Interpolation within attributes has been removed
+  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
 
-7. Replace filtered value in v-bind:title="'Remove this format' | say" with a method or computed property
-  Line 31: src/dialogs/formats/item.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
-
-8. Rename $index to index and explicity declare it (e.g. v-for="(item, index) in items")
+4. Update track-by="index" to v-bind:key="format.index"
   Line 17: src/dialogs/story-format/index.html
-  Reason: $index has been removed to avoid implicitly defined (i.e. "magic") variables
-  More info: http://vuejs.org/guide/migration.html#index-and-key
+  Reason: track-by has been replaced by the key attribute, which conforms with language used by other libraries and behaves the same as other attributes
+  More info: http://vuejs.org/guide/migration.html#track-by
 
-9. Update value="{{ name }}" to v-bind:value="name"
-  Line 33: src/dialogs/story-import/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
-
-10. Replace filtered value in v-bind:title="'Expand all search results' | say" with a method or computed property
-  Line 35: src/dialogs/story-search/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
-
-11. Replace filtered value in v-bind:title="'Collapse all search results' | say" with a method or computed property
-  Line 39: src/dialogs/story-search/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
-
-12. Replace filtered value in v-bind:title="'Replace in this passage' | say" with a method or computed property
-  Line 13: src/dialogs/story-search/result.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
-
-13. Replace {{{ 'The IFID for this story is &lt;span class="ifid"&gt;%s&lt;/span&gt;. (&lt;a href="http:\/\/ifdb.tads.org/help-ifid" target="_blank"&gt;What\'s an IFID?&lt;/a&gt;)' | say(story.ifid) }}} with v-html="'The IFID for this story is &lt;span class="ifid"&gt;%s&lt;/span&gt;. (&lt;a href="http:\/\/ifdb.tads.org/help-ifid" target="_blank"&gt;What\'s an IFID?&lt;/a&gt;)' | say(story.ifid)" on a containing element
-  Line 56: src/dialogs/story-stats/index.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-14. Replace filtered value in v-bind:placeholder="'Passage Name' | say" with a method or computed property
-  Line 3: src/editors/passage/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
-
-15. Replace filtered value in v-bind:placeholder="'Tag name' | say" with a method or computed property
+5. Update v-el:new-name to ref="newName"
   Line 22: src/editors/passage/tag-editor/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
 
-16. Replace filtered value in v-bind:title="'Set tag color to gray' | say" with a method or computed property
-  Line 11: src/editors/passage/tag-editor/tag-menu/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
+6. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 799: src/locale/po/cs.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-17. Replace filtered value in v-bind:title="'Set tag color to red' | say" with a method or computed property
-  Line 12: src/editors/passage/tag-editor/tag-menu/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
+7. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 625: src/locale/po/da.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-18. Replace filtered value in v-bind:title="'Set tag color to orange' | say" with a method or computed property
-  Line 13: src/editors/passage/tag-editor/tag-menu/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
+8. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 638: src/locale/po/de.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-19. Replace filtered value in v-bind:title="'Set tag color to yellow' | say" with a method or computed property
-  Line 14: src/editors/passage/tag-editor/tag-menu/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
+9. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 589: src/locale/po/es.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-20. Replace filtered value in v-bind:title="'Set tag color to green' | say" with a method or computed property
-  Line 15: src/editors/passage/tag-editor/tag-menu/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
+10. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 667: src/locale/po/fi.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-21. Replace filtered value in v-bind:title="'Set tag color to blue' | say" with a method or computed property
-  Line 16: src/editors/passage/tag-editor/tag-menu/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
+11. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 515: src/locale/po/fr.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-22. Replace filtered value in v-bind:title="'Set tag color to purple' | say" with a method or computed property
-  Line 17: src/editors/passage/tag-editor/tag-menu/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
+12. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 509: src/locale/po/it.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-38. Replace filtered value in v-html="'If you've never used Twine before, then welcome! The Twine 2 Guide and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki at large were written for Twine 1, which is a little bit different than this version. But most of the concepts are the same.' | say" with a method or computed property
-  Line 23: src/nw/patches/welcome-view/replacement-template.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
+13. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 663: src/locale/po/nl.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-39. Replace filtered value in v-html="'You can also get help over at the Twine forum, too.' | say" with a method or computed property
-  Line 26: src/nw/patches/welcome-view/replacement-template.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
+14. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 683: src/locale/po/piglatin.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-40. Replace filtered value in v-html="'If you have used Twine 1 before, the guide also has details on what has changed in this version. Chief among them is a new default story format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, try using SugarCube instead.' | say" with a method or computed property
-  Line 28: src/nw/patches/welcome-view/replacement-template.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
+15. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 672: src/locale/po/pt-br.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-41. Replace filtered value in v-html="'There is now a folder named Twine in your Documents folder. Inside that is a Stories folder, where all your work will be saved. Twine saves as you work, so you don't have to worry about remembering to save it yourself. You can always open the folder your stories are saved to by using the Show Library item in the Twine menu.' | say" with a method or computed property
-  Line 40: src/nw/patches/welcome-view/replacement-template.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
+16. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 514: src/locale/po/pt-pt.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-42. Replace transition="grow-in-out" attribute with either a <transition name="grow-in-out"> or <transition-group name="grow-in-out"> wrapper component
-  Line 6: src/story-edit-view/index.html
-  Reason: The new and improved transition system requires use of new <transition> and <transition-group> components
-  More info: http://vuejs.org/guide/migration.html#transition-Attribute
+17. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 672: src/locale/po/ru.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-43. Update track-by="startIndex" to v-bind:key="start.startIndex"
-  Line 22: src/story-edit-view/link-arrows/index.html
-  Reason: track-by has been replaced by the key attribute, which conforms with language used by other libraries and behaves the same as other attributes
-  More info: http://vuejs.org/guide/migration.html#track-by
+18. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 673: src/locale/po/sv.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-44. Update track-by="endIndex" to v-bind:key="end.endIndex"
-  Line 23: src/story-edit-view/link-arrows/index.html
-  Reason: track-by has been replaced by the key attribute, which conforms with language used by other libraries and behaves the same as other attributes
-  More info: http://vuejs.org/guide/migration.html#track-by
+19. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 410: src/locale/po/template.pot
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-45. Replace {{{ 'Delete &ldquo;%s&rdquo;' | say(passage.name) }}} with v-html="'Delete &ldquo;%s&rdquo;' | say(passage.name)" on a containing element
-  Line 3: src/story-edit-view/passage-item/passage-menu/index.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
+20. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 680: src/locale/po/tr.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-46. Replace {{{ 'Edit &ldquo;%s&rdquo;' | say(passage.name) }}} with v-html="'Edit &ldquo;%s&rdquo;' | say(passage.name)" on a containing element
-  Line 8: src/story-edit-view/passage-item/passage-menu/index.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-47. Replace filtered value in v-bind:title="'Test story starting here' | say" with a method or computed property
-  Line 12: src/story-edit-view/passage-item/passage-menu/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
-
-48. Replace filtered value in v-bind:title="'More passage options' | say" with a method or computed property
-  Line 16: src/story-edit-view/passage-item/passage-menu/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
-
-49. Replace filtered value in v-bind:title="'Go to the story list' | say" with a method or computed property
+21. Replace v-link="'/stories'" with the new <router-link> component (see link below for details)
   Line 3: src/story-edit-view/story-toolbar/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
+  Reason: The v-link directive has been replaced with the new <router-link> component
+  More info: http://vuejs.org/guide/migration-vue-router.html#v-link
 
-50. Replace filtered value in v-bind:title="'Show only story structure' | say" with a method or computed property
-  Line 16: src/story-edit-view/story-toolbar/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
-
-51. Replace filtered value in v-bind:title="'Show only passage titles' | say" with a method or computed property
-  Line 20: src/story-edit-view/story-toolbar/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
-
-52. Replace filtered value in v-bind:title="'Show passage titles and excerpts' | say" with a method or computed property
-  Line 24: src/story-edit-view/story-toolbar/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
-
-53. Replace filtered value in v-bind:title="'Play this story in test mode' | say" with a method or computed property
-  Line 29: src/story-edit-view/story-toolbar/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
-
-54. Replace filtered value in v-bind:title="'Play this story' | say" with a method or computed property
-  Line 35: src/story-edit-view/story-toolbar/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
-
-55. Replace filtered value in v-bind:title="'Add a new passage' | say" with a method or computed property
-  Line 41: src/story-edit-view/story-toolbar/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
-
-56. Replace filtered value in v-bind:placeholder="'Quick Find' | say" with a method or computed property
-  Line 2: src/story-edit-view/story-toolbar/story-search/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
-
-57. Replace filtered value in v-bind:title="'Find and replace across the entire story' | say" with a method or computed property
-  Line 3: src/story-edit-view/story-toolbar/story-search/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
-
-58. Update title="{{ 'Last changed date' | say }}" to v-bind:title="'Last changed date' | say"
-  Line 13: src/story-list-view/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
-
-59. Update title="{{ 'Story name' | say }}" to v-bind:title="'Story name' | say"
-  Line 19: src/story-list-view/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
-
-60. Replace transition="grow-in-out" attribute with either a <transition name="grow-in-out"> or <transition-group name="grow-in-out"> wrapper component
-  Line 32: src/story-list-view/index.html
-  Reason: The new and improved transition system requires use of new <transition> and <transition-group> components
-  More info: http://vuejs.org/guide/migration.html#transition-Attribute
-
-61. Replace filtered value in v-bind:title="'Create a brand-new story' | say" with a method or computed property
-  Line 6: src/story-list-view/list-toolbar/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
-
-62. Replace filtered value in v-bind:title="'Import a published story or Twine archive' | say" with a method or computed property
-  Line 11: src/story-list-view/list-toolbar/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
-
-63. Replace filtered value in v-bind:title="'Save all stories to a Twine archive file' | say" with a method or computed property
-  Line 16: src/story-list-view/list-toolbar/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
-
-64. Replace filtered value in v-bind:title="'Work with story and proofing formats' | say" with a method or computed property
-  Line 21: src/story-list-view/list-toolbar/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
-
-65. Replace filtered value in v-bind:title="'Change the language Twine uses' | say" with a method or computed property
-  Line 26: src/story-list-view/list-toolbar/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
-
-66. Replace filtered value in v-bind:title="'Browse online help' | say" with a method or computed property
-  Line 31: src/story-list-view/list-toolbar/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
-
-67. Update title="{{ 'Use light theme' | say }}" to v-bind:title="'Use light theme' | say"
-  Line 2: src/story-list-view/list-toolbar/theme-switcher.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
-
-68. Update title="{{ 'Use dark theme' | say }}" to v-bind:title="'Use dark theme' | say"
-  Line 5: src/story-list-view/list-toolbar/theme-switcher.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
-
-69. Replace transition="fade-in-out" attribute with either a <transition name="fade-in-out"> or <transition-group name="fade-in-out"> wrapper component
-  Line 2: src/ui/notify/list.html
-  Reason: The new and improved transition system requires use of new <transition> and <transition-group> components
-  More info: http://vuejs.org/guide/migration.html#transition-Attribute
-
-70. Check Vue.directive('mouse-scrolling') to make sure its syntax has been updated and for anything beyond simple DOM manipulations, refactor to a component
+22. Check Vue.directive('mouse-scrolling') to make sure its syntax has been updated and for anything beyond simple DOM manipulations, refactor to a component
   Line 15: src/vue/directives/mouse-scrolling.js
   Reason: Directives have been vastly reduced in scope and components are preferred in most use cases
   More info: http://vuejs.org/guide/migration.html#Custom-Directives-simplified
 
-71. Replace .fade-in-out-transition with .fade-in-out-enter-active, .fade-in-out-leave-active
-  Line 1: src/vue/transitions.less
-  Reason: v-transition class has been replaced by the standard classes used by Angular and React CSSTransitionGroup
-  More info: http://vuejs.org/guide/migration.html#transition-Attribute
-
-72. Replace .rise-in-out-transition with .rise-in-out-enter-active, .rise-in-out-leave-active
-  Line 10: src/vue/transitions.less
-  Reason: v-transition class has been replaced by the standard classes used by Angular and React CSSTransitionGroup
-  More info: http://vuejs.org/guide/migration.html#transition-Attribute
-
-73. Replace filtered value in v-html="'If you've never used Twine before, then welcome! The Twine 2 Guide and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki at larger were written for Twine 1, which is a little bit different than this version. But most of the concepts are the same.' | say" with a method or computed property
-  Line 25: src/welcome/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
-
-74. Replace filtered value in v-html="'You can also get help over at the Twine forum, too.' | say" with a method or computed property
-  Line 27: src/welcome/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
-
-75. Replace filtered value in v-html="'If you have used Twine 1 before, the guide also has details on what has changed in this version. Chief among them is a new default story format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, try using SugarCube instead.' | say" with a method or computed property
-  Line 29: src/welcome/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
-
-76. Replace filtered value in v-html="'That means you don't need to create an account to use Twine 2, and everything you create isn't stored on a server somewhere else &mdash; it stays right in your browser.' | say" with a method or computed property
-  Line 43: src/welcome/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
-
-77. Replace filtered value in v-html="'Secondly, &lt;b&gt;anyone who can use this browser can see and make changes to your work&lt;/b&gt;. So if you've got a nosy kid brother, look into setting up a separate profile for yourself.' | say" with a method or computed property
-  Line 47: src/welcome/index.html
-  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
-  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
+23. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 27: src/welcome/index.js
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
