@@ -1,6 +1,7 @@
 /* An editor for adding and removing tags from a passage. */
 
 const Vue = require('vue');
+const locale = require('../../locale');
 const { updatePassage } = require('../../../data/actions/passage');
 const uniq = require('lodash.uniq');
 
@@ -12,6 +13,9 @@ module.exports = Vue.extend({
 	computed: {
 		tagColors() {
 			return this.allStories.find(s => s.id === this.storyId).tagColors;
+		},
+		addTagPlaceholder() {
+			return locale.say('Tag name');
 		}
 	},
 
