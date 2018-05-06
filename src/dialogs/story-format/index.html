@@ -6,15 +6,19 @@
 	</p>
 
 	<transition name="fade-in-out">
-	<p v-if="working">
-		<i class="fa fa-circle-o-notch fa-lg fa-spin"></i> {{ 'Loading...' | say }}
-	</p>
+		<p v-if="working">
+			<i class="fa fa-circle-o-notch fa-lg fa-spin"></i> {{ 'Loading...' | say }}
+		</p>
 	</transition>
 
 	<table class="lined">
 		<tbody>
 			<transition name="fade-in-out">
-				<tr v-for="(format, index) in loadedFormats" is="format-item" :format="format" :story="story" track-by="index"></format-item>
+				<tr v-for="(format, index) in loadedFormats"
+					is="format-item"
+					:format="format"
+					:story="story"
+					v-bind:key="format.index"></format-item>
 			</transition>
 		</tbody>
 	</table>
