@@ -1,5 +1,5 @@
 <span class="button-group">
-	<button class="{{ (themePref === 'light') && 'active' }}" @click="setTheme('light')" title="{{ 'Use light theme' | say }}">
+	<button v-bind:class="(themePref === 'light') && 'active'" @click="setTheme('light')" title="{{ 'Use light theme' | say }}">
 		<i class="fa fa-sun-o"></i>
 	</button>
 	<button class="{{ (themePref === 'dark') && 'active' }}" @click="setTheme('dark')" title="{{ 'Use dark theme' | say }}">
