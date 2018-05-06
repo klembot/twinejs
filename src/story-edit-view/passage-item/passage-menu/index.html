@@ -13,7 +13,7 @@
 		<i class="fa fa-play"></i>
 	</button>
 
-	<button @click="toggleExpanded" title="{{ 'More passage options' | say }}" data-drop-down-stay-open="yes">
+	<button @click="toggleExpanded" v-bind:title="'More passage options' | say" data-drop-down-stay-open="yes">
 		<i class="fa fa-ellipsis-h"></i>
 	</button>
 
