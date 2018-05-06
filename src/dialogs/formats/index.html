@@ -7,20 +7,25 @@
 	-->
 	<tab-item name="Story Formats">
 		<p>
-		{{'Story formats control the appearance and behavior of stories during play.' | say}}
+			{{'Story formats control the appearance and behavior of stories during play.' | say}}
 		</p>
 
 		<table>
 			<thead>
 				<tr>
-					<th>{{ 'Use as Default' | say }}</th>
+					<th>
+						{{ 'Use as Default' | say }}
+					</th>
 					<th></th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<transition name="fade-in-out">
-					<tr v-for="(format, index) in storyFormats" is="format-item" :format="format" track-by="index"></format-item>
+					<tr v-for="(format, index) in storyFormats"
+								 is="format-item"
+								 :format="format"
+								 key="index"></format-item>
 				</transition>
 			</tbody>
 		</table>
@@ -28,20 +33,25 @@
 
 	<tab-item name="Proofing Formats">
 		<p>
-		{{'Proofing formats create a versions of stories tailored for editing and proofreading.' | say}}
+			{{'Proofing formats create a versions of stories tailored for editing and proofreading.' | say}}
 		</p>
 
 		<table>
 			<thead>
 				<tr>
-					<th>{{ 'Use' | say }}</th>
+					<th>
+						{{ 'Use' | say }}
+					</th>
 					<th></th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<transition name="fade-in-out">
-					<tr v-for="(format, index) in proofingFormats" is="format-item" :format="format" track-by="index"></format-item>
+					<tr v-for="(format, index) in proofingFormats"
+						is="format-item"
+						:format="format"
+						key="index"></format-item>
 				</transition>
 			</tbody>
 		</table>
@@ -49,16 +59,18 @@
 
 	<tab-item name="Add a New Format">
 		<p>
-		{{
-		/* L10n: Address in the sense of a URL. */
-		'To add a story format, enter its address below.' | say }}
+			{{ 'To add a story format, enter its address below.' | say }}
 		</p>
 
 		<form @submit.prevent="addFormat">
 
 		<p>
-		<input type="text" name="newFormatUrl" v-model="newFormatUrl" required>
-		<button class="create" type="submit"><i class="fa fa-plus"></i> {{'Add' | say }}</button>
+			<input type="text" name="newFormatUrl" v-model="newFormatUrl" required>
+			<button class="create"
+					type="submit">
+				<i class="fa fa-plus"></i>
+				{{'Add' | say }}
+			</button>
 		</p>
 
 		</form>
@@ -66,7 +78,8 @@
 </tabs-panel>
 
 <p v-if="working">
-<i class="fa fa-circle-o-notch fa-spin"></i> {{ 'Loading...' | say}}
+	<i class="fa fa-circle-o-notch fa-spin"></i>
+	{{ 'Loading...' | say}}
 </p>
 
 <p class="error" v-if="error" v-html="error"></p>
