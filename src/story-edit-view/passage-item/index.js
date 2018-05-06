@@ -170,7 +170,7 @@ module.exports = Vue.extend({
 			user double-clicked.
 			*/
 
-			this.$broadcast('drop-down-close');
+			eventHub.$emit('drop-down-close');
 
 			const oldText = this.passage.text;
 			const afterEdit = () => {
