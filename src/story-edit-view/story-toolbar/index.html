@@ -1,6 +1,6 @@
 <div class="toolbar main fullSlideUp fast">
 	<div class="left">
-		<a v-link="'/stories'" class="home subtle" title="{{ 'Go to the story list' | say }}"><i class="fa fa-home fa-lg"></i></a>
+		<a v-link="'/stories'" class="home subtle" v-bind:title="'Go to the story list' | say"><i class="fa fa-home fa-lg"></i></a>
 
 		<button class="storyName subtle">
 			<span class="storyNameVal">{{ story.name }}</span>
