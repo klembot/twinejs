@@ -184,7 +184,7 @@ module.exports = Vue.extend({
 		*/
 
 		'story-edit'(id) {
-			this.$broadcast('story-edit', id);
+			eventHub.$emit('story-edit', id);
 		},
 
 		/* For now, we only support importing a single file at a time. */
