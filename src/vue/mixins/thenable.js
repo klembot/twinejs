@@ -16,7 +16,7 @@ const symbols = {
 
 module.exports = {
 	thenable: {
-		init() {
+		beforeCreate() {
 			const promise = new Promise((resolve, reject) => {
 				/*
 				These methods should be private (to the instance), but the only
