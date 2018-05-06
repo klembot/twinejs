@@ -82,7 +82,7 @@ module.exports = {
 			inject: false
 		}),
 		new PoPlugin({
-			src: 'src/locale/po/*.po',
+			src: 'src/locale/po/:.po+',
 			dest: 'locale',
 			options: {
 				format: 'jed1.x',
