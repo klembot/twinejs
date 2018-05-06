@@ -10,7 +10,7 @@
 			<label>{{ 'Sort By' | say }}</label>
 
 			<span class="button-group">
-				<button class="{{ 'subtle' + (storyOrder === 'lastUpdate' ? ' active' : '') }}" @click="sortByDate" title="{{ 'Last changed date' | say }}">
+				<button v-bind:class="'subtle' + (storyOrder === 'lastUpdate' ? ' active' : '')" @click="sortByDate" title="{{ 'Last changed date' | say }}">
 					{{ 'Edit Date' | say }}
 
 					<i class="fa fa-sort-amount-{{storyOrderDir}}" v-if="storyOrder === 'lastUpdate'"></i>
