@@ -355,11 +355,11 @@ msgstr ""
 
 #: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
 msgid ""
-"You can also get help over at the &lt;a href=\"http://twinery.org/forum\" "
-"target=\"_blank\"&gt;Twine forum</a>, too."
+"You can also get help over at the "
+"Twine forum, too."
 msgstr ""
-"Hilfe findest du auch im &lt;a href=\"http://twinery.org/forum\" target="
-"\"_blank\"&gt;Twine Forum&lt;/a&gt."
+"Hilfe findest du auch im "
+"Twine Forum."
 
 #: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
 msgid ""
@@ -954,11 +954,11 @@ msgstr "%d%%  Speicherplatz frei"
 #~ "Version unterscheidet. Die groben Konzepte sind aber bestehen geblieben."
 
 #~ msgid ""
-#~ "You can also get help over at the <a href=\"http:\\/\\/twinery.org/forum"
-#~ "\" target=\"_blank\">Twine forum</a>, too."
+#~ "You can also get help over at the "
+#~ "Twine forum, too."
 #~ msgstr ""
-#~ "Hilfe erhältst du außerdem im <a href=\"http:\\/\\/twinery.org/forum\" "
-#~ "target=\"_blank\">Twine Forum</a>."
+#~ "Hilfe erhältst du außerdem im "
+#~ "Twine Forum."
 
 #~ msgid ""
 #~ "<strong>If you have used Twine 1 before,</strong> the guide also has "

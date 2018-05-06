@@ -628,11 +628,11 @@ msgstr ""
 
 #: templates/welcomeview.html:31
 msgid ""
-"You can also get help over at the <a href=\"http:\\/\\/twinery.org/forum\" "
-"target=\"_blank\">Twine forum</a>, too."
+"You can also get help over at the "
+"Twine forum, too."
 msgstr ""
-"Je kunt ook hulp krijgen op het <a href=\"http:\\/\\/twinery.org/forum\" "
-"target=\"_blank\">Twine forum</a>."
+"Je kunt ook hulp krijgen op het "
+"Twine forum."
 
 #: templates/welcomeview.html:35
 msgid ""

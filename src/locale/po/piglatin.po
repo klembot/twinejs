@@ -646,11 +646,11 @@ msgstr ""
 
 #: templates/welcomeview.html:31
 msgid ""
-"You can also get help over at the <a href=\"http://twinery.org/forum\" "
-"target=\"_blank\">Twine forum</a>, too."
+"You can also get help over at the "
+"Twine forum, too."
 msgstr ""
-"Ouyay ancay alsoway etgay elphay overway atway ethay  <a href=\"http://"
-"twinery.org/forum\" target=\"_blank\">Inetway orumfay</a>, ootay."
+"Ouyay ancay alsoway etgay elphay overway atway ethay "
+"Inetway orumfay, ootay."
 
 #: templates/welcomeview.html:35
 msgid ""

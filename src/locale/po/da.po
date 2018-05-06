@@ -344,11 +344,11 @@ msgstr ""
 
 #: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
 msgid ""
-"You can also get help over at the &lt;a href=\"http://twinery.org/forum\" "
-"target=\"_blank\"&gt;Twine forum</a>, too."
+"You can also get help over at the "
+"Twine forum, too."
 msgstr ""
-"Du kan også få hjælp i &lt;a href=\"http://twinery.org/forum\" target="
-"\"_blank\"&gt;Twine forummet</a>"
+"Du kan også få hjælp i "
+"Twine forummet"
 
 #: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
 msgid ""
