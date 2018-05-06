@@ -32,7 +32,7 @@
 			{{ 'Test' | say }}
 		</button>
 
-		<button class="subtle" @click="play" title="{{ 'Play this story' | say }}">
+		<button class="subtle" @click="play" v-bind:title="'Play this story' | say">
 			<i class="fa fa-play fa-lg"></i>
 			<!-- L10n: The verb form, as in playing a game. -->
 			{{ 'Play' | say }}
