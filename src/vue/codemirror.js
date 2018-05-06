@@ -1,6 +1,7 @@
 // A lightweight Vue component that wraps a CodeMirror instance.
 
 const Vue = require('vue');
+const eventHub = require('../../common/eventHub');
 const CodeMirror = require('codemirror');
 
 require('./codemirror-theme.less');
@@ -27,7 +28,7 @@ module.exports = Vue.extend({
 
 		this.$cm.on('change', () => {
 			this.text = this.$cm.getValue();
-			this.$dispatch('cm-change', this.text);
+			eventHub.$emit('cm-change', this.text);
 		});
 	},
 
