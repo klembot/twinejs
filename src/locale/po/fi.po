@@ -179,16 +179,14 @@ msgstr "Tarinan tilastotietoja"
 msgid "This story was last changed at %s"
 msgstr "Tarinaa on viimeksi muutettu %s"
 
-#. L10n: %s is the IFID of the story. Please keep the <span> element around it.
 #: templates/storyeditview/statsmodal.html:45
 #, php-format
 msgid ""
-"The IFID for this story is <span class=\"ifid\">%s</span>. <a href=\"http:\\/"
-"\\/ifdb.tads.org/help-ifid\" target=\"_blank\">What's an IFID?</a>)"
-msgstr ""
-"Tarinan IFID on <span class=\"ifid\">%s</span>. <a href=\"http:\\/\\/ifdb."
-"tads.org/help-ifid\" target=\"_blank\">Mikä on IFID? (englanninkielinen "
-"sivusto)</a>)"
+"The IFID for this story is"
+msgstr "Tarinan IFID on"
+
+msgid "What's an IFID?"
+msgstr "Mikä on IFID? (englanninkielinen sivusto)"
 
 #: templates/storyeditview/storyformatmodal.html:7
 msgid "Story Format"

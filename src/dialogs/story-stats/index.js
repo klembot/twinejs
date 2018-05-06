@@ -122,6 +122,13 @@ module.exports = Vue.extend({
 				'Broken Links',
 				this.brokenLinkCount
 			);
+		},
+
+		preIfidHelp() {
+			return locale.say('The IFID for this story is');
+		},
+		postIfidHelp() {
+			return locale.say("What's an IFID?");
 		}
 	},
 

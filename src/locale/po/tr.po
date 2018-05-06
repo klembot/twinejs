@@ -188,15 +188,17 @@ msgid "This story was last changed at %s"
 msgstr "Öykü en son şu tarih ve saatte değiştirildi: %s"
 
 # : used to prevent usage of number dependant suffixes.
-#. L10n: %s is the IFID of the story. Please keep the <span> element around it.
 #: templates/storyeditview/statsmodal.html:45
 #, php-format
 msgid ""
-"The IFID for this story is <span class=\"ifid\">%s</span>. <a href=\"http:\\/"
-"\\/ifdb.tads.org/help-ifid\" target=\"_blank\">What's an IFID?</a>)"
+"The IFID for this story is"
 msgstr ""
-"Bu öykünün IFID'si: <span class=\"ifid\">%s</span>. <a href=\"http:\\/\\/"
-"ifdb.tads.org/help-ifid\" target=\"_blank\">IFID nedir?</a>)"
+"Bu öykünün IFID'si: "
+
+msgid ""
+"What's an IFID?"
+msgstr ""
+"IFID nedir?"
 
 #: templates/storyeditview/storyformatmodal.html:7
 msgid "Story Format"

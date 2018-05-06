@@ -163,16 +163,17 @@ msgstr "Orystay Atisticsstay"
 msgid "This story was last changed at %s"
 msgstr "Isthay orystay asway astlay angedchay atway %s"
 
-#. L10n: %s is the IFID of the story. Please keep the <span> element around it.
 #: templates/storyeditview/statsmodal.html:45
 #, php-format
 msgid ""
-"The IFID for this story is <span class=\"ifid\">%s</span>. <a href=\"http://"
-"ifdb.tads.org/help-ifid\" target=\"_blank\">What's an IFID?</a>)"
+"The IFID for this story is"
 msgstr ""
-"Ethay IFIDWAY orfay isthay orystay isway <span class=\"ifid\">%s</span>. <a "
-"href=\"http://ifdb.tads.org/help-ifid\" target=\"_blank\">At'swhay anway "
-"IFIDWAY?</a>)"
+"Ethay IFIDWAY orfay isthay orystay isway"
+
+msgid ""
+"What's an IFID?"
+msgstr ""
+"At'swhay anway IFIDWAY?"
 
 #: templates/storyeditview/storyformatmodal.html:7
 msgid "Story Format"
@@ -1187,9 +1188,9 @@ msgstr[1] "%d Oriessay"
 #~ "Otway <b>eryvay importantway</b> ingsthay otay ememberray, \n"
 #~ "oughthay. "
 
-#~ msgid "The IFID for this story is <span class=\"ifid\">%s</span>. "
+#~ msgid "The IFID for this story is"
 #~ msgstr ""
-#~ "Ethay IFIDWAY orfay isthay orystay isway <span class=\"ifid\">%s</span>. "
+#~ "Ethay IFIDWAY orfay isthay orystay isway"
 
 #~ msgid "There are no stories saved in Twine right now. "
 #~ msgstr ""

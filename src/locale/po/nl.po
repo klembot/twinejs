@@ -179,15 +179,17 @@ msgstr "Verhaal statistieken"
 msgid "This story was last changed at %s"
 msgstr "Dit verhaal is als laatst veranderd op %s"
 
-#. L10n: %s is the IFID of the story. Please keep the <span> element around it.
 #: templates/storyeditview/statsmodal.html:45
 #, php-format
 msgid ""
-"The IFID for this story is <span class=\"ifid\">%s</span>. <a href=\"http:\\/"
-"\\/ifdb.tads.org/help-ifid\" target=\"_blank\">What's an IFID?</a>)"
+"The IFID for this story is"
 msgstr ""
-"Het IFID van dit verhaal is <span class=\"ifid\">%s</span>. <a href=\"http:"
-"\\/\\/ifdb.tads.org/help-ifid\" target=\"_blank\">Wat is een IFID?</a>)"
+"Het IFID van dit verhaal is"
+
+msgid ""
+"What's an IFID?"
+msgstr ""
+"Wat is een IFID?"
 
 #: templates/storyeditview/storyformatmodal.html:7
 msgid "Story Format"

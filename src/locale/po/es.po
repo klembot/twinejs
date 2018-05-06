@@ -158,11 +158,13 @@ msgstr "Estadísticas de la historia"
 msgid "This story was last changed at %s"
 msgstr "Esta historia se modificó por última vez el %s"
 
-#. L10n: %s is the IFID of the story. Please keep the <span> element around it.
 #: templates/storyeditview/statsmodal.html:45
 #, php-format
-msgid "The IFID for this story is <span class=\"ifid\">%s</span>. <a href=\"http:\\/\\/ifdb.tads.org/help-ifid\" target=\"_blank\">What's an IFID?</a>)"
-msgstr "La IFID de esta historia es <span class=\"ifid\">%s</span>. <a href=\"http:\\/\\/ifdb.tads.org/help-ifid\" target=\"_blank\">¿Qué es una IFID? (Inglés)</a>"
+msgid "The IFID for this story is"
+msgstr "La IFID de esta historia es" 
+
+msgid "What's an IFID?"
+msgstr "¿Qué es una IFID? (Inglés)"
 
 #: templates/storyeditview/storyformatmodal.html:7
 msgid "Story Format"
@@ -1019,8 +1021,11 @@ msgid_plural "%d Stories"
 msgstr[0] "%d historia"
 msgstr[1] "%d historias"
 
-#~ msgid "The IFID for this story is <span class=\"ifid\">%s</span>. <a href=\"http://ifdb.tads.org/help-ifid\" target=\"_blank\">What's an IFID?</a>)"
-#~ msgstr "La IFID para esta historia es <span class=\"ifid\">%s</span>. <a href=\"http://ifdb.tads.org/help-ifid\" target=\"_blank\">¿Qué es una IFID? (Inglés)</a>)"
+#~ msgid "The IFID for this story is"
+#~ msgstr "La IFID para esta historia es"
+
+#~ msgid "What's an IFID?"
+#~ msgstr ¿Qué es una IFID? (Inglés)"
 
 #~ msgid ""
 #~ "Twine 2.0 is released under the <a href=\"http://www.gnu.org/licenses/gpl-3.0.html\">GPL v3</a> license, but any work created with it may be released under any terms, including commercial ones. <a href=\"https://bitbucket.org/klembot/twinejs\">Source Code Repository</a>"

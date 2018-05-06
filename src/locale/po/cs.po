@@ -212,16 +212,18 @@ msgstr "Statistika příběhu"
 msgid "This story was last changed at %s"
 msgstr "Příběh byl naposledy změněn v %s"
 
-#.    L10n: %s is the IFID of the story. Please keep the <span> element around it.
 #: templates/storyeditview/statsmodal.html:45
 #, php-format
 #, approved
 msgid ""
-"The IFID for this story is <span class=\"ifid\">%s</span>. <a href=\"http:\\/"
-"\\/ifdb.tads.org/help-ifid\" target=\"_blank\">What's an IFID?</a>)"
+"The IFID for this story is"
 msgstr ""
-"IFID tohoto příběhu je <span class=\"ifid\">%s</span>. <a href=\"http:\\/\\/"
-"ifdb.tads.org/help-ifid\" target=\"_blank\">Co je to IFID?</a>)"
+"IFID tohoto příběhu je"
+
+msgid ""
+"What's an IFID?"
+msgstr ""
+"Co je to IFID?"
 
 #: templates/storyeditview/storyformatmodal.html:7
 #, approved
