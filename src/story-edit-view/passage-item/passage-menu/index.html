@@ -1,19 +1,23 @@
 <drop-down open-on="hover" :show-now="true" position="bottom center" class="passage">
 	<!-- L10n: %s is the name of the thing to be deleted. -->
-	<button @click="delete" class="danger subtle" title="{{{ 'Delete &ldquo;%s&rdquo;' | say(passage.name) }}}">
+	<button @click="delete"
+			class="danger subtle"
+			v-bind:title="deleteTitle">
 		<i class="fa fa-trash-o"></i>
 	</button>
 
 	<!-- L10n: %s is the name of the thing to be edited. -->
-	<button @click="edit" title="{{{ 'Edit &ldquo;%s&rdquo;' | say(passage.name) }}}">
+	<button @click="edit" v-bind:title="editTitle">
 		<i class="fa fa-pencil"></i>
 	</button>
 
-	<button @click="test" v-bind:title="'Test story starting here' | say">
+	<button @click="test" v-bind:title="testTitle">
 		<i class="fa fa-play"></i>
 	</button>
 
-	<button @click="toggleExpanded" v-bind:title="'More passage options' | say" data-drop-down-stay-open="yes">
+	<button @click="toggleExpanded"
+			v-bind:title="toggleExpandedTitle"
+			data-drop-down-stay-open="yes">
 		<i class="fa fa-ellipsis-h"></i>
 	</button>
 

@@ -2,6 +2,7 @@
 
 const Vue = require('vue');
 const eventHub = require('../../common/eventHub');
+const locale = require('../../locale');
 const { updatePassage } = require('../../../data/actions/passage');
 const { updateStory } = require('../../../data/actions/story');
 
@@ -29,6 +30,22 @@ module.exports = Vue.extend({
 	computed: {
 		isStart() {
 			return this.parentStory.startPassage === this.passage.id;
+		},
+
+		deleteTitle() {
+			return locale.say('Delete &ldquo;%s&rdquo;', this.passage.name);
+		},
+
+		editTitle() {
+			return locale.say('Edit &ldquo;%s&rdquo;', this.passage.name);
+		},
+
+		testTitle() {
+			return locale.say('Test story starting here');
+		},
+
+		toggleExpandedTitle() {
+			return locale.say('More passage options');
 		},
 
 		size() {
