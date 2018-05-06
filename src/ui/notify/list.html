@@ -9,7 +9,7 @@
 		</span>
 
 		<span class="message">
-			{{{ notification.html }}}
+			<div v-html="notification.html"></div>
 			<span v-if="notification.repeats > 0">
 				({{ notification.repeats + 1 }})
 			</span>
