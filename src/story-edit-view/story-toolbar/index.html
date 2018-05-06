@@ -38,7 +38,7 @@
 			{{ 'Play' | say }}
 		</button>
 
-		<button class="create" @click="addPassage" title="{{ 'Add a new passage' | say }}">
+		<button class="create" @click="addPassage" v-bind:title="'Add a new passage' | say">
 			<i class="fa fa-plus fa-lg"></i> {{ 'Passage' | say }}
 		</button>
 	</div> <!-- .right -->
