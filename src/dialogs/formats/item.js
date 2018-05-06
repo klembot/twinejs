@@ -34,6 +34,9 @@ module.exports = Vue.extend({
 			return locale.say('Remove this format');
 		},
 
+		radioId() {
+			return this.format.name + '-' + this.format.properties.version;
+		},
 
 		author() {
 			if (this.format.properties.author) {

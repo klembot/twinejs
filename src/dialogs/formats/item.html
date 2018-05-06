@@ -1,6 +1,11 @@
 <tr class="format-item">
 	<td class="selector">
-		<input type="radio" :checked="isDefault" :disabled="format.broken" @click="setDefaultFormat" v-bind:title="selectorInputTitle" id="{{format.name}}-{{format.properties.version}}">
+		<input type="radio"
+			   :checked="isDefault"
+			   :disabled="format.broken"
+			   @click="setDefaultFormat"
+			   v-bind:title="selectorInputTitle"
+			   v-bind:id="">
 	</td>
 
 	<td>
@@ -18,9 +23,11 @@
 			</div>
 
 			<div class="description">
-				<p v-if="format.properties.description" v-html="format.properties.description"></p>
-				<p v-if="format.properties.license" v-html="format.properties.license"></p>
-			</div>
+				<p v-if="format.properties.description"
+				   v-html="format.properties.description"></p>
+				<p v-if="format.properties.license"
+				   v-html="format.properties.license"></p>
+			 </div>
 		</div>
 
 		<p v-if="format.userAdded && isDefault" class="cantRemove">
@@ -28,6 +35,11 @@
 		</p>
 	</td>
 	<td>
-		<button v-if="format.userAdded && !isDefault" @click="removeFormat" v-bind:title="removeButtonTitle" class="link danger"><i class="fa fa-lg fa-trash-o"></i></button>
+		<button v-if="format.userAdded && !isDefault"
+				@click="removeFormat"
+				v-bind:title="removeButtonTitle"
+				class="link danger">
+			<i class="fa fa-lg fa-trash-o"></i>
+		</button>
 	</td>
 </tr>

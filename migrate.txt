@@ -1,115 +1,85 @@
 
-1. Update track-by="index" to v-bind:key="format.index"
-  Line 23: src/dialogs/formats/index.html
-  Reason: track-by has been replaced by the key attribute, which conforms with language used by other libraries and behaves the same as other attributes
-  More info: http://vuejs.org/guide/migration.html#track-by
-
-2. Update track-by="index" to v-bind:key="format.index"
-  Line 44: src/dialogs/formats/index.html
-  Reason: track-by has been replaced by the key attribute, which conforms with language used by other libraries and behaves the same as other attributes
-  More info: http://vuejs.org/guide/migration.html#track-by
-
-3. Update id="{{format.name}}-{{format.properties.version}}" to use v-bind with a computed property
-  Line 3: src/dialogs/formats/item.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
-
-4. Update track-by="index" to v-bind:key="format.index"
-  Line 17: src/dialogs/story-format/index.html
-  Reason: track-by has been replaced by the key attribute, which conforms with language used by other libraries and behaves the same as other attributes
-  More info: http://vuejs.org/guide/migration.html#track-by
-
-5. Update v-el:new-name to ref="newName"
-  Line 22: src/editors/passage/tag-editor/index.html
-  Reason: v-el and v-ref merged into ref attribute
-  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
-
-6. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+1. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
   Line 799: src/locale/po/cs.po
   Reason: The store no longer exposes an event emitter interface
   More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-7. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+2. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
   Line 625: src/locale/po/da.po
   Reason: The store no longer exposes an event emitter interface
   More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-8. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+3. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
   Line 638: src/locale/po/de.po
   Reason: The store no longer exposes an event emitter interface
   More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-9. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
-  Line 589: src/locale/po/es.po
-  Reason: The store no longer exposes an event emitter interface
-  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
-
-10. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+4. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
   Line 667: src/locale/po/fi.po
   Reason: The store no longer exposes an event emitter interface
   More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-11. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+5. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
   Line 515: src/locale/po/fr.po
   Reason: The store no longer exposes an event emitter interface
   More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-12. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+6. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 589: src/locale/po/es.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
+
+7. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
   Line 509: src/locale/po/it.po
   Reason: The store no longer exposes an event emitter interface
   More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-13. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+8. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
   Line 663: src/locale/po/nl.po
   Reason: The store no longer exposes an event emitter interface
   More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-14. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+9. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
   Line 683: src/locale/po/piglatin.po
   Reason: The store no longer exposes an event emitter interface
   More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-15. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
-  Line 672: src/locale/po/pt-br.po
-  Reason: The store no longer exposes an event emitter interface
-  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
-
-16. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+10. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
   Line 514: src/locale/po/pt-pt.po
   Reason: The store no longer exposes an event emitter interface
   More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-17. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+11. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
   Line 672: src/locale/po/ru.po
   Reason: The store no longer exposes an event emitter interface
   More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-18. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
-  Line 673: src/locale/po/sv.po
+12. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 672: src/locale/po/pt-br.po
   Reason: The store no longer exposes an event emitter interface
   More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-19. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+13. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
   Line 410: src/locale/po/template.pot
   Reason: The store no longer exposes an event emitter interface
   More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-20. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+14. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 673: src/locale/po/sv.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
+
+15. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
   Line 680: src/locale/po/tr.po
   Reason: The store no longer exposes an event emitter interface
   More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-21. Replace v-link="'/stories'" with the new <router-link> component (see link below for details)
-  Line 3: src/story-edit-view/story-toolbar/index.html
-  Reason: The v-link directive has been replaced with the new <router-link> component
-  More info: http://vuejs.org/guide/migration-vue-router.html#v-link
-
-22. Check Vue.directive('mouse-scrolling') to make sure its syntax has been updated and for anything beyond simple DOM manipulations, refactor to a component
+16. Check Vue.directive('mouse-scrolling') to make sure its syntax has been updated and for anything beyond simple DOM manipulations, refactor to a component
   Line 15: src/vue/directives/mouse-scrolling.js
   Reason: Directives have been vastly reduced in scope and components are preferred in most use cases
   More info: http://vuejs.org/guide/migration.html#Custom-Directives-simplified
 
-23. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+17. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
   Line 27: src/welcome/index.js
   Reason: The store no longer exposes an event emitter interface
   More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
