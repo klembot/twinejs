@@ -21,7 +21,7 @@ module.exports = Vue.extend({
 		},
 	},
 
-	compiled() {
+	mounted() {
 		this.$cm = CodeMirror(this.$el, this.options);
 		this.$cm.setValue((this.text || '') + '');
 
