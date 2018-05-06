@@ -62,7 +62,7 @@ module.exports = Vue.extend({
 		},
 
 		delete(e) {
-			this.$dispatch('passage-delete', e.shiftKey);
+			eventHub.$emit('passage-delete', e.shiftKey);
 		},
 
 		test() {
