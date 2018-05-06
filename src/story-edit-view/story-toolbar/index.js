@@ -1,6 +1,7 @@
 // The toolbar at the bottom of the screen with editing controls.
 
 const Vue = require('vue');
+const eventHub = require('../../common/eventHub');
 const zoomMappings = require('../zoom-settings');
 const { updateStory } = require('../../data/actions/story');
 
@@ -49,7 +50,7 @@ module.exports = Vue.extend({
 		},
 
 		addPassage() {
-			this.$dispatch('passage-create');
+			eventHub.$emit('passage-create');
 		}
 	},
 
