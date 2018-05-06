@@ -30,7 +30,7 @@ module.exports = Vue.extend({
 		},
 	},
 
-	ready() {
+	mounted() {
 		/*
 		Ugly hack to make this work on NW.js, which Vue doesn't seem to process
 		animation events correctly for.
