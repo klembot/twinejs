@@ -32,7 +32,7 @@ module.exports = {
 			this.catch = promise.catch.bind(promise);
 		},
 
-		compiled() {
+		mounted() {
 			/*
 			If any direct children of this component are thenable, this
 			component's promise will be settled as soon as that child's
