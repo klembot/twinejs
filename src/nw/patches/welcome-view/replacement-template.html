@@ -20,12 +20,17 @@
 		{{ 'New here?' | say }}
 		</h1>
 
-		<p v-html="'If you've never used Twine before, then welcome! The Twine 2 Guide and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki at large were written for Twine 1, which is a little bit different than this version. But most of the concepts are the same.' | say">
+		<p>
+			{{ 'If you've never used Twine before, then welcome! The Twine 2 Guide and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki at large were written for Twine 1, which is a little bit different than this version. But most of the concepts are the same.' | say }}
 		</p>
 
-		<p v-html="'You can also get help over at the Twine forum, too.' | say"></p>
+		<p>
+			{{ 'You can also get help over at the Twine forum, too.' | say }}
+		</p>
 
-		<p v-html="'If you have used Twine 1 before, the guide also has details on what has changed in this version. Chief among them is a new default story format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, try using SugarCube instead.' | say"></p>
+		<p>
+			{{ 'If you have used Twine 1 before, the guide also has details on what has changed in this version. Chief among them is a new default story format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, try using SugarCube instead.' | say }}
+		</p>
 
 		<p class="buttons">
 			<button class="btn btn-primary" @click="next">{{ 'OK' | say }}</button>
@@ -37,7 +42,9 @@
 		{{ 'Your work is automatically saved.' | say }}
 		</h1>
 
-		<p v-html="'There is now a folder named Twine in your Documents folder. Inside that is a Stories folder, where all your work will be saved. Twine saves as you work, so you don't have to worry about remembering to save it yourself. You can always open the folder your stories are saved to by using the Show Library item in the Twine menu.' | say"></p>
+		<p>
+			{{ 'There is now a folder named Twine in your Documents folder. Inside that is a Stories folder, where all your work will be saved. Twine saves as you work, so you don't have to worry about remembering to save it yourself. You can always open the folder your stories are saved to by using the Show Library item in the Twine menu.' | say }}
+		</p>
 
 		<p>
 		{{ "Because Twine is always saving your work, the files in your story library will be locked from editing while Twine is open." | say }}
