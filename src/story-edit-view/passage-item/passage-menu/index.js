@@ -58,7 +58,7 @@ module.exports = Vue.extend({
 
 	methods: {
 		edit() {
-			this.$dispatch('passage-edit');
+			eventHub.$emit('passage-edit');
 		},
 
 		delete(e) {
