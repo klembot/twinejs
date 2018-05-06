@@ -8,6 +8,7 @@
 'use strict';
 const Vue = require('vue');
 const locale = require('../locale');
+const eventHub = require('../../common/eventHub');
 const { check: checkForAppUpdate } = require('../dialogs/app-update');
 const { check: checkForDonation } = require('../dialogs/app-donation');
 const ImportDialog = require('../dialogs/story-import');
@@ -131,7 +132,7 @@ module.exports = Vue.extend({
 			*/
 
 			if (this.previouslyEditing) {
-				this.$broadcast('previously-editing', this.previouslyEditing);
+				eventHub.$emit('previously-editing', this.previouslyEditing);
 			}
 		});
 	},
