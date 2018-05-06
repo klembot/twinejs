@@ -41,47 +41,51 @@ const ModalDialog = module.exports = Vue.extend({
 		}
 	},
 
-	ready() {
-		const dialog = this.$el.querySelector('.modal-dialog');
+	mounted() {
+		this.$nextTick(function () {
+			// code that assumes this.$el is in-document
+			const dialog = this.$el.querySelector('.modal-dialog');
 
-		/*
-		If an origin is specified, set it as the point the modal dialog grows
-		out of.
-		*/
-
-		if (this.origin) {
-			const originRect = this.origin.getBoundingClientRect();
-
-			dialog.style.transformOrigin =
-				(originRect.left + originRect.width / 2) + 'px ' +
-				(originRect.top + originRect.height / 2) + 'px';
-		}
-
-		let body = document.querySelector('body');
-
-		body.classList.add('modalOpen');
-		this.on(body, 'keyup', this.escapeCloser);
-
-		/*
-		We have to listen manually to the end of the transition in order to an
-		emit an event when this occurs; it looks like Vue only consults the
-		top-level element to see when the transition is complete.
-		*/
-
-		const notifier = () => {
 			/*
-			This event is currently only listened to by <code-mirror> child
-			components.
+			If an origin is specified,
+			 set it as the point the modal dialog grows out of.
 			*/
-			this.$broadcast('transition-entered');
-			animationEndEvents.forEach(event =>
-				dialog.removeEventListener(event, notifier)
-			);
-		};
 
-		animationEndEvents.forEach(event =>
-			dialog.addEventListener(event, notifier)
-		);
+			if (this.origin) {
+				const originRect = this.origin.getBoundingClientRect();
+
+				dialog.style.transformOrigin =
+					(originRect.left + originRect.width / 2) + 'px ' +
+					(originRect.top + originRect.height / 2) + 'px';
+			}
+
+			let body = document.querySelector('body');
+
+			body.classList.add('modalOpen');
+			this.on(body, 'keyup', this.escapeCloser);
+
+			/*
+			We have to listen manually to the end of the transition in order to
+			 an emit an event when this occurs;
+			 it looks like Vue only consults the
+			top-level element to see when the transition is complete.
+			*/
+
+			const notifier = () => {
+				/*
+				This event is currently only listened to by <code-mirror> child
+				components.
+				*/
+				this.$broadcast('transition-entered');
+				animationEndEvents.forEach(event =>
+					dialog.removeEventListener(event, notifier)
+				);
+			};
+
+			animationEndEvents.forEach(event =>
+				dialog.addEventListener(event, notifier)
+			);
+		});
 	},
 
 	destroyed() {
