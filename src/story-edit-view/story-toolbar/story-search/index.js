@@ -4,6 +4,7 @@ show the search modal dialog.
 */
 
 const Vue = require('vue');
+const locale = require('../../locale');
 const SearchDialog = require('../../../dialogs/story-search');
 
 module.exports = Vue.extend({
@@ -19,6 +20,15 @@ module.exports = Vue.extend({
 	data: () => ({
 		search: ''
 	}),
+
+	computed: {
+		quickFind() {
+			return locale.say('Quick Find');
+		},
+		globalFnR() {
+			return locale.say('Find and replace across the entire story');
+		}
+	},
 
 	watch: {
 		'search'() {
