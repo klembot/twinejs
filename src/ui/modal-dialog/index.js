@@ -4,6 +4,7 @@ resolves itself when it is closed.
 */
 
 const Vue = require('vue');
+const eventHub = require('../../common/eventHub');
 const domEvents = require('../../vue/mixins/dom-events');
 const { thenable, symbols: { reject, resolve } } =
 	require('../../vue/mixins/thenable');
@@ -76,7 +77,7 @@ const ModalDialog = module.exports = Vue.extend({
 				This event is currently only listened to by <code-mirror> child
 				components.
 				*/
-				this.$broadcast('transition-entered');
+				eventHub.$emit('transition-entered');
 				animationEndEvents.forEach(event =>
 					dialog.removeEventListener(event, notifier)
 				);
