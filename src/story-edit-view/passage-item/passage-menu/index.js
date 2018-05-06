@@ -121,7 +121,7 @@ module.exports = Vue.extend({
 					throw new Error(`Don't know how to set size ${value}`);
 			}
 
-			this.$dispatch('passage-position', this.passage, {});
+			eventHub.$emit('passage-position', this.passage, {});
 		}
 	},
 
