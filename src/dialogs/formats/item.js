@@ -26,6 +26,15 @@ module.exports = Vue.extend({
 				this.defaultFormatPref.version === this.format.version;
 		},
 
+		selectorInputTitle() {
+			return locale.say('Set this format as default for stories');
+		},
+
+		removeButtonTitle() {
+			return locale.say('Remove this format');
+		},
+
+
 		author() {
 			if (this.format.properties.author) {
 				/* L10n: %s is the name of an author. */
