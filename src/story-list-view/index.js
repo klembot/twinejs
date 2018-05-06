@@ -104,31 +104,36 @@ module.exports = Vue.extend({
 		}
 	},
 
-	ready() {
-		/* If we were asked to appear fast, we do nothing. */
+	mounted() {
+		this.$nextTick(function () {
+			// code that assumes this.$el is in-document
 
-		if (this.appearFast) {
-			return;
-		}
+			/* If we were asked to appear fast, we do nothing. */
 
-		/*
-		Otherwise, we check to see if we should ask for a donation, and then an
-		app update...
-		*/
+			if (this.appearFast) {
+				return;
+			}
 
-		if (!this.appearFast && !checkForDonation(this.$store)) {
-			checkForAppUpdate(this.$store);
-		}
+			/*
+			Otherwise, we check to see if we should ask for a donation,
+			 and then an app update...
+			*/
 
-		/*
-		And if the user had been previously editing a story (as the router will
-		tell us), we broadcast an event so that an appropriate child component
-		can set up a zoom transition back into itself.
-		*/
+			if (!this.appearFast && !checkForDonation(this.$store)) {
+				checkForAppUpdate(this.$store);
+			}
 
-		if (this.previouslyEditing) {
-			this.$broadcast('previously-editing', this.previouslyEditing);
-		}
+			/*
+			And if the user had been previously editing a story
+			 (as the router will tell us),
+			  we broadcast an event so that an appropriate child component
+			can set up a zoom transition back into itself.
+			*/
+
+			if (this.previouslyEditing) {
+				this.$broadcast('previously-editing', this.previouslyEditing);
+			}
+		});
 	},
 
 	methods: {
