@@ -1,6 +1,6 @@
 <tr class="format-item">
 	<td class="selector">
-		<input type="radio" :checked="isDefault" :disabled="format.broken" @click="setDefaultFormat" v-bind:title="'Set this format as default for stories' | say" id="{{format.name}}-{{format.properties.version}}">
+		<input type="radio" :checked="isDefault" :disabled="format.broken" @click="setDefaultFormat" v-bind:title="selectorInputTitle" id="{{format.name}}-{{format.properties.version}}">
 	</td>
 
 	<td>

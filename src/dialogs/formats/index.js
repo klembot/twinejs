@@ -38,6 +38,10 @@ module.exports = Vue.extend({
 			);
 		},
 
+		selectorInputTitle() {
+			return locale.say('Set this format as default for stories');
+		},
+
 		storyFormats() {
 			return this.loadedFormats.filter(
 				format => !format.properties.proofing
