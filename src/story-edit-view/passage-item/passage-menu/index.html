@@ -5,7 +5,7 @@
 	</button>
 
 	<!-- L10n: %s is the name of the thing to be edited. -->
-	<button @click="edit" title="{{{ 'Edit &ldquo;%s&rdquo;' | say passage.name }}}">
+	<button @click="edit" title="{{{ 'Edit &ldquo;%s&rdquo;' | say(passage.name) }}}">
 		<i class="fa fa-pencil"></i>
 	</button>
 
