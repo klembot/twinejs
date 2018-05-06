@@ -19,8 +19,8 @@
 		}
 	</style>
 
-	<template v-for="(start, startLinks) in links" track-by="$index">
-		<template v-for="end in startLinks" track-by="$index">
+	<template v-for="(start, startLinks, startIndex) in links" track-by="startIndex">
+		<template v-for="(end, endIndex) in startLinks" track-by="endIndex">
 			<link-arrow :start="positions[start]" :end="positions[end]"></link-arrow>
 		</template>
 	</template>
