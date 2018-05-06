@@ -2,6 +2,7 @@
 
 const values = require('lodash.values');
 const Vue = require('vue');
+const eventHub = require('../../common/eventHub');
 const { confirm } = require('../dialogs/confirm');
 const { createPassage, deletePassage, positionPassage, updatePassage } = require('../data/actions/passage');
 const { loadFormat } = require('../data/actions/story-format');
@@ -454,7 +455,7 @@ module.exports = Vue.extend({
 				yOffset = Math.round(yOffset / this.gridSize) * this.gridSize;
 			}
 
-			this.$broadcast('passage-drag-complete', xOffset, yOffset);
+			eventHub.$emit('passage-drag-complete', xOffset, yOffset);
 		},
 
 		/*
