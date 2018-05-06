@@ -1,930 +1,385 @@
 
-1. Replace 'dist/web/**' with 'dist/web/:*+'
-  Line 14: scripts/build-nw.js
-  Reason: The syntax for route matching has changed since Vue Router now uses path-to-regexp under the hood
-  More info: http://vuejs.org/guide/migration-vue-router.html#One-or-More-Named-Parameters
-
-2. Replace sayPlural 'Plural string' with sayPlural('Plural, string')
-  Line 59: scripts/extract-pot.js
-  Reason: Filters with arguments must now use the same syntax as JavaScript functions
-  More info: http://vuejs.org/guide/migration.html#Filter-Argument-Syntax
-
-3. Replace 'src/**/*.html' with 'src/:*+/*.html'
-  Line 78: scripts/extract-pot.js
-  Reason: The syntax for route matching has changed since Vue Router now uses path-to-regexp under the hood
-  More info: http://vuejs.org/guide/migration-vue-router.html#One-or-More-Named-Parameters
-
-4. Replace 'src/**/*.js' with 'src/:*+/*.js'
-  Line 102: scripts/extract-pot.js
-  Reason: The syntax for route matching has changed since Vue Router now uses path-to-regexp under the hood
-  More info: http://vuejs.org/guide/migration-vue-router.html#One-or-More-Named-Parameters
-
-5. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
-  Line 13: src/common/app/index.js
+1. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 148: src/common/router.js
   Reason: ready lifecycle hook has been removed
   More info: http://vuejs.org/guide/migration.html#ready
 
-6. Replace "src/**/*.spec.js\" with "src/:*+/*.spec.js\"
-  Line 29: package.json
-  Reason: The syntax for route matching has changed since Vue Router now uses path-to-regexp under the hood
-  More info: http://vuejs.org/guide/migration-vue-router.html#One-or-More-Named-Parameters
-
-7. Replace "vue": "^1.0.18" with "vue": "^2.0.0", then run: npm install
-  Line 55: package.json
-  Reason: If you are using pre-2.0 Vue through NPM, you have to update it in your package.json file
-  More info: http://vuejs.org/guide/migration.html#
-
-8. Replace "vue-router": "^0.7.13" with "vue-router": "^2.0.0", then run: npm install
-  Line 56: package.json
-  Reason: If you are using pre-2.0 Vue Router through NPM, you have to update it in your package.json file
-  More info: http://vuejs.org/guide/migration-vue-router.html#
-
-9. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
-  Line 69: src/common/router.js
-  Reason: ready lifecycle hook has been removed
-  More info: http://vuejs.org/guide/migration.html#ready
-
-10. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
-  Line 92: src/common/router.js
-  Reason: ready lifecycle hook has been removed
-  More info: http://vuejs.org/guide/migration.html#ready
-
-11. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
-  Line 115: src/common/router.js
-  Reason: ready lifecycle hook has been removed
-  More info: http://vuejs.org/guide/migration.html#ready
-
-12. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
-  Line 139: src/common/router.js
-  Reason: ready lifecycle hook has been removed
-  More info: http://vuejs.org/guide/migration.html#ready
-
-13. Replace {{{ 'This application is released under the \x3ca href="http:\/\/www.gnu.org/licenses/gpl-3.0.html">GPL v3\x3c/a> license, but any work created with it may be released under any terms, including commercial ones.'| say }}} with v-html="'This application is released under the \x3ca href="http:\/\/www.gnu.org/licenses/gpl-3.0.html">GPL v3\x3c/a> license, but any work created with it may be released under any terms, including commercial ones.'| say" on a containing element
-  Line 9: src/dialogs/about/index.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-14. Replace {{{ 'Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the guidance of Robert Slimbach for \x3ca href="http:\/\/adobe.com/">Adobe\x3c/a>\x3cbr> Nunito was designed by \x3ca href="http:\/\/code.newtypography.co.uk/">Vernon Adams\x3c/a>'| say }}} with v-html="'Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the guidance of Robert Slimbach for \x3ca href="http:\/\/adobe.com/">Adobe\x3c/a>\x3cbr> Nunito was designed by \x3ca href="http:\/\/code.newtypography.co.uk/">Vernon Adams\x3c/a>'| say" on a containing element
-  Line 102: src/dialogs/about/index.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-15. Update v-ref:modal to ref="modal"
-  Line 1: src/dialogs/app-donation/index.html
-  Reason: v-el and v-ref merged into ref attribute
-  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
-
-16. Replace {{{ "If you love Twine as much as I do, please consider helping it grow with a donation. Twine is an open source project that will always be free to use &mdash; and with your help, Twine will continue to thrive." | say }}} with v-html=""If you love Twine as much as I do, please consider helping it grow with a donation. Twine is an open source project that will always be free to use &mdash; and with your help, Twine will continue to thrive." | say" on a containing element
-  Line 5: src/dialogs/app-donation/index.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-17. Replace {{{ "This message will only be shown to you once.&lt;br&gt;If you'd like to donate to Twine development in the future, you can do so at &lt;a href=\"http:\/\/twinery.org/donate\" target=\"_blank\"&gt;http://twinery.org/donate&lt;/a&gt;." | say }}} with v-html=""This message will only be shown to you once.&lt;br&gt;If you'd like to donate to Twine development in the future, you can do so at &lt;a href=\"http:\/\/twinery.org/donate\" target=\"_blank\"&gt;http://twinery.org/donate&lt;/a&gt;." | say" on a containing element
-  Line 22: src/dialogs/app-donation/index.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-18. Replace {{{message}}} with v-html="message" on a containing element
-  Line 2: src/dialogs/confirm/index.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-19. Replace {{{cancelLabel}}} with v-html="cancelLabel" on a containing element
-  Line 4: src/dialogs/confirm/index.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-20. Replace {{{buttonLabel}}} with v-html="buttonLabel" on a containing element
-  Line 5: src/dialogs/confirm/index.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-21. Replace {{{coda}}} with v-html="coda" on a containing element
-  Line 7: src/dialogs/confirm/index.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-22. Replace this.$broadcast('close', true) to use a global event bus or vuex (see link below for implementation details)
+2. Replace this.$broadcast('close', true) to use a global event bus or vuex (see link below for implementation details)
   Line 40: src/dialogs/confirm/index.js
   Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
   More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
 
-23. Replace this.$broadcast('close', false) to use a global event bus or vuex (see link below for implementation details)
+3. Replace this.$broadcast('close', false) to use a global event bus or vuex (see link below for implementation details)
   Line 44: src/dialogs/confirm/index.js
   Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
   More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
 
-24. Update v-ref:tabs to ref="tabs"
-  Line 3: src/dialogs/formats/index.html
-  Reason: v-el and v-ref merged into ref attribute
-  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
+4. Rename $index to index and explicity declare it (e.g. v-for="(item, index) in items")
+  Line 23: src/dialogs/formats/index.html
+  Reason: $index has been removed to avoid implicitly defined (i.e. "magic") variables
+  More info: http://vuejs.org/guide/migration.html#index-and-key
 
-25. Replace transition="fade-in-out" attribute with either a <transition name="fade-in-out"> or <transition-group name="fade-in-out"> wrapper component
-  Line 22: src/dialogs/formats/index.html
-  Reason: The new and improved transition system requires use of new <transition> and <transition-group> components
-  More info: http://vuejs.org/guide/migration.html#transition-Attribute
+5. Rename $index to index and explicity declare it (e.g. v-for="(item, index) in items")
+  Line 44: src/dialogs/formats/index.html
+  Reason: $index has been removed to avoid implicitly defined (i.e. "magic") variables
+  More info: http://vuejs.org/guide/migration.html#index-and-key
 
-26. Replace transition="fade-in-out" attribute with either a <transition name="fade-in-out"> or <transition-group name="fade-in-out"> wrapper component
-  Line 41: src/dialogs/formats/index.html
-  Reason: The new and improved transition system requires use of new <transition> and <transition-group> components
-  More info: http://vuejs.org/guide/migration.html#transition-Attribute
-
-27. Replace {{{ error }}} with v-html="error" on a containing element
-  Line 69: src/dialogs/formats/index.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-28. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
-  Line 128: src/dialogs/formats/index.js
-  Reason: ready lifecycle hook has been removed
-  More info: http://vuejs.org/guide/migration.html#ready
-
-29. Update title="{{ 'Set this format as default for stories' | say }}" to v-bind:title="'Set this format as default for stories' | say"
+6. Replace filtered value in v-bind:title="'Set this format as default for stories' | say" with a method or computed property
   Line 3: src/dialogs/formats/item.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-30. Update for="{{format.name}}-{{format.properties.version}}" to use v-bind with a computed property
-  Line 8: src/dialogs/formats/item.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+7. Replace filtered value in v-bind:title="'Remove this format' | say" with a method or computed property
+  Line 31: src/dialogs/formats/item.html
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-31. Replace {{{ author }}} with v-html="author" on a containing element
-  Line 12: src/dialogs/formats/item.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
+8. Rename $index to index and explicity declare it (e.g. v-for="(item, index) in items")
+  Line 17: src/dialogs/story-format/index.html
+  Reason: $index has been removed to avoid implicitly defined (i.e. "magic") variables
+  More info: http://vuejs.org/guide/migration.html#index-and-key
 
-32. Replace {{{ format.properties.description }}} with v-html="format.properties.description" on a containing element
-  Line 24: src/dialogs/formats/item.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-33. Replace {{{ format.properties.license }}} with v-html="format.properties.license" on a containing element
-  Line 28: src/dialogs/formats/item.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-34. Update title="{{ 'Remove this format' | say }}" to v-bind:title="'Remove this format' | say"
-  Line 38: src/dialogs/formats/item.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
-
-35. Replace {{{message}}} with v-html="message" on a containing element
-  Line 3: src/dialogs/prompt/index.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-36. Replace transition="fade-in-out" attribute with either a <transition name="fade-in-out"> or <transition-group name="fade-in-out"> wrapper component
-  Line 5: src/dialogs/prompt/index.html
-  Reason: The new and improved transition system requires use of new <transition> and <transition-group> components
-  More info: http://vuejs.org/guide/migration.html#transition-Attribute
-
-37. Update v-el:response to ref="response"
-  Line 10: src/dialogs/prompt/index.html
-  Reason: v-el and v-ref merged into ref attribute
-  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
-
-38. Replace {{{cancelLabel}}} with v-html="cancelLabel" on a containing element
-  Line 14: src/dialogs/prompt/index.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-39. Replace {{{buttonLabel}}} with v-html="buttonLabel" on a containing element
-  Line 15: src/dialogs/prompt/index.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-40. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
-  Line 27: src/dialogs/prompt/index.js
-  Reason: ready lifecycle hook has been removed
-  More info: http://vuejs.org/guide/migration.html#ready
-
-41. Update this.$els.response to this.$refs.response
-  Line 28: src/dialogs/prompt/index.js
-  Reason: v-el and v-ref merged into ref attribute
-  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
-
-42. Update this.$els.response to this.$refs.response
-  Line 29: src/dialogs/prompt/index.js
-  Reason: v-el and v-ref merged into ref attribute
-  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
-
-43. Replace this.$broadcast('close', this.response) to use a global event bus or vuex (see link below for implementation details)
-  Line 42: src/dialogs/prompt/index.js
-  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
-  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
-
-44. Replace this.$broadcast('close', false) to use a global event bus or vuex (see link below for implementation details)
-  Line 47: src/dialogs/prompt/index.js
-  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
-  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
-
-45. Replace transition="fade-in-out" attribute with either a <transition name="fade-in-out"> or <transition-group name="fade-in-out"> wrapper component
-  Line 8: src/dialogs/story-format/index.html
-  Reason: The new and improved transition system requires use of new <transition> and <transition-group> components
-  More info: http://vuejs.org/guide/migration.html#transition-Attribute
-
-46. Replace transition="fade-in-out" attribute with either a <transition name="fade-in-out"> or <transition-group name="fade-in-out"> wrapper component
-  Line 14: src/dialogs/story-format/index.html
-  Reason: The new and improved transition system requires use of new <transition> and <transition-group> components
-  More info: http://vuejs.org/guide/migration.html#transition-Attribute
-
-47. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
-  Line 68: src/dialogs/story-format/index.js
-  Reason: ready lifecycle hook has been removed
-  More info: http://vuejs.org/guide/migration.html#ready
-
-48. Update id="{{format.name}}-{{format.properties.version}}" to use v-bind with a computed property
-  Line 3: src/dialogs/story-format/item.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
-
-49. Update for="{{format.name}}-{{format.properties.version}}" to use v-bind with a computed property
-  Line 8: src/dialogs/story-format/item.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
-
-50. Replace {{{ author }}} with v-html="author" on a containing element
-  Line 10: src/dialogs/story-format/item.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-51. Replace {{{ format.properties.description }}} with v-html="format.properties.description" on a containing element
-  Line 21: src/dialogs/story-format/item.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-52. Replace {{{ format.properties.license }}} with v-html="format.properties.license" on a containing element
-  Line 25: src/dialogs/story-format/item.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-53. Update v-ref:modal to ref="modal"
-  Line 1: src/dialogs/story-import/index.html
-  Reason: v-el and v-ref merged into ref attribute
-  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
-
-54. Update v-el:import-file to ref="importFile"
-  Line 10: src/dialogs/story-import/index.html
-  Reason: v-el and v-ref merged into ref attribute
-  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
-
-55. Update id="replace-story-{{ name }}" to v-bind:id="'replace-story-' + name"
+9. Update value="{{ name }}" to v-bind:value="name"
   Line 33: src/dialogs/story-import/index.html
   Reason: Interpolation within attributes has been removed
   More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
 
-56. Update for="replace-story-{{ name }}" to v-bind:for="'replace-story-' + name"
-  Line 35: src/dialogs/story-import/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
-
-57. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
-  Line 67: src/dialogs/story-import/index.js
-  Reason: ready lifecycle hook has been removed
-  More info: http://vuejs.org/guide/migration.html#ready
-
-58. Replace this.$broadcast('expand') to use a global event bus or vuex (see link below for implementation details)
-  Line 100: src/dialogs/story-search/index.js
-  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
-  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
-
-59. Replace this.$broadcast('collapse') to use a global event bus or vuex (see link below for implementation details)
-  Line 104: src/dialogs/story-search/index.js
-  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
-  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
-
-60. Replace this.$broadcast('replace') to use a global event bus or vuex (see link below for implementation details)
-  Line 108: src/dialogs/story-search/index.js
-  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
-  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
-
-61. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
-  Line 112: src/dialogs/story-search/index.js
-  Reason: ready lifecycle hook has been removed
-  More info: http://vuejs.org/guide/migration.html#ready
-
-62. Update this.$els.search to this.$refs.search
-  Line 113: src/dialogs/story-search/index.js
-  Reason: v-el and v-ref merged into ref attribute
-  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
-
-63. Update v-el:search to ref="search"
-  Line 8: src/dialogs/story-search/index.html
-  Reason: v-el and v-ref merged into ref attribute
-  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
-
-64. Update title="{{ 'Expand all search results' | say }}" to v-bind:title="'Expand all search results' | say"
+10. Replace filtered value in v-bind:title="'Expand all search results' | say" with a method or computed property
   Line 35: src/dialogs/story-search/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-65. Update title="{{ 'Collapse all search results' | say }}" to v-bind:title="'Collapse all search results' | say"
+11. Replace filtered value in v-bind:title="'Collapse all search results' | say" with a method or computed property
   Line 39: src/dialogs/story-search/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-66. Replace sayPlural '%d passages match.' passageMatches.length with sayPlural('%d, passages, match.', passageMatches.length)
-  Line 49: src/dialogs/story-search/index.html
-  Reason: Filters with arguments must now use the same syntax as JavaScript functions
-  More info: http://vuejs.org/guide/migration.html#Filter-Argument-Syntax
-
-67. Replace transition="fade-in-out" attribute with either a <transition name="fade-in-out"> or <transition-group name="fade-in-out"> wrapper component
-  Line 53: src/dialogs/story-search/index.html
-  Reason: The new and improved transition system requires use of new <transition> and <transition-group> components
-  More info: http://vuejs.org/guide/migration.html#transition-Attribute
-
-68. Replace {{{ match.highlightedName }}} with v-html="match.highlightedName" on a containing element
-  Line 6: src/dialogs/story-search/result.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-69. Replace sayPlural '%d matches' match.numMatches with sayPlural('%d, matches', match.numMatches)
-  Line 9: src/dialogs/story-search/result.html
-  Reason: Filters with arguments must now use the same syntax as JavaScript functions
-  More info: http://vuejs.org/guide/migration.html#Filter-Argument-Syntax
-
-70. Update title="{{ 'Replace in this passage' | say }}" to v-bind:title="'Replace in this passage' | say"
+12. Replace filtered value in v-bind:title="'Replace in this passage' | say" with a method or computed property
   Line 13: src/dialogs/story-search/result.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-71. Replace {{{ match.highlightedText }}} with v-html="match.highlightedText" on a containing element
-  Line 19: src/dialogs/story-search/result.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-72. Replace say lastUpdate with say(lastUpdate)
-  Line 52: src/dialogs/story-stats/index.html
-  Reason: Filters with arguments must now use the same syntax as JavaScript functions
-  More info: http://vuejs.org/guide/migration.html#Filter-Argument-Syntax
-
-73. Replace say story.ifid with say(story.ifid)
+13. Replace {{{ 'The IFID for this story is &lt;span class="ifid"&gt;%s&lt;/span&gt;. (&lt;a href="http:\/\/ifdb.tads.org/help-ifid" target="_blank"&gt;What\'s an IFID?&lt;/a&gt;)' | say(story.ifid) }}} with v-html="'The IFID for this story is &lt;span class="ifid"&gt;%s&lt;/span&gt;. (&lt;a href="http:\/\/ifdb.tads.org/help-ifid" target="_blank"&gt;What\'s an IFID?&lt;/a&gt;)' | say(story.ifid)" on a containing element
   Line 56: src/dialogs/story-stats/index.html
-  Reason: Filters with arguments must now use the same syntax as JavaScript functions
-  More info: http://vuejs.org/guide/migration.html#Filter-Argument-Syntax
+  Reason: HTML interpolation with {{{ }}} has been removed
+  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
 
-74. Update v-ref:codemirror to ref="codemirror"
-  Line 11: src/editors/javascript/index.html
-  Reason: v-el and v-ref merged into ref attribute
-  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
-
-81. Update v-ref:modal to ref="modal"
-  Line 1: src/editors/passage/index.html
-  Reason: v-el and v-ref merged into ref attribute
-  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
-
-82. Update placeholder="{{ 'Passage Name' | say }}" to v-bind:placeholder="'Passage Name' | say"
+14. Replace filtered value in v-bind:placeholder="'Passage Name' | say" with a method or computed property
   Line 3: src/editors/passage/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-83. Update v-ref:codemirror to ref="codemirror"
-  Line 12: src/editors/passage/index.html
-  Reason: v-el and v-ref merged into ref attribute
-  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
+15. Replace filtered value in v-bind:placeholder="'Tag name' | say" with a method or computed property
+  Line 22: src/editors/passage/tag-editor/index.html
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-84. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
-  Line 178: src/editors/passage/index.js
-  Reason: ready lifecycle hook has been removed
-  More info: http://vuejs.org/guide/migration.html#ready
-
-85. Replace transition="fade-in-out" attribute with either a <transition name="fade-in-out"> or <transition-group name="fade-in-out"> wrapper component
-  Line 9: src/editors/passage/tag-editor/index.html
-  Reason: The new and improved transition system requires use of new <transition> and <transition-group> components
-  More info: http://vuejs.org/guide/migration.html#transition-Attribute
-
-86. Update class="tag label label-info {{tagColors[tag]}}" to v-bind:class="'tag label label-info ' + tagColors[tag]"
-  Line 10: src/editors/passage/tag-editor/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
-
-87. Update placeholder="{{ 'Tag name' | say }}" to v-bind:placeholder="'Tag name' | say"
-  Line 20: src/editors/passage/tag-editor/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
-
-88. Update this.$els.newName to this.$refs.newName
-  Line 34: src/editors/passage/tag-editor/index.js
-  Reason: v-el and v-ref merged into ref attribute
-  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
-
-89. Update this.$els.newName to this.$refs.newName
-  Line 42: src/editors/passage/tag-editor/index.js
-  Reason: v-el and v-ref merged into ref attribute
-  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
-
-90. Update this.$els.newName to this.$refs.newName
-  Line 46: src/editors/passage/tag-editor/index.js
-  Reason: v-el and v-ref merged into ref attribute
-  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
-
-91. Replace say tag with say(tag)
-  Line 5: src/editors/passage/tag-editor/tag-menu/index.html
-  Reason: Filters with arguments must now use the same syntax as JavaScript functions
-  More info: http://vuejs.org/guide/migration.html#Filter-Argument-Syntax
-
-92. Update title="{{ 'Set tag color to gray' | say }}" to v-bind:title="'Set tag color to gray' | say"
+16. Replace filtered value in v-bind:title="'Set tag color to gray' | say" with a method or computed property
   Line 11: src/editors/passage/tag-editor/tag-menu/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-93. Update title="{{ 'Set tag color to red' | say }}" to v-bind:title="'Set tag color to red' | say"
+17. Replace filtered value in v-bind:title="'Set tag color to red' | say" with a method or computed property
   Line 12: src/editors/passage/tag-editor/tag-menu/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-94. Update title="{{ 'Set tag color to orange' | say }}" to v-bind:title="'Set tag color to orange' | say"
+18. Replace filtered value in v-bind:title="'Set tag color to orange' | say" with a method or computed property
   Line 13: src/editors/passage/tag-editor/tag-menu/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-95. Update title="{{ 'Set tag color to yellow' | say }}" to v-bind:title="'Set tag color to yellow' | say"
+19. Replace filtered value in v-bind:title="'Set tag color to yellow' | say" with a method or computed property
   Line 14: src/editors/passage/tag-editor/tag-menu/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-96. Update title="{{ 'Set tag color to green' | say }}" to v-bind:title="'Set tag color to green' | say"
+20. Replace filtered value in v-bind:title="'Set tag color to green' | say" with a method or computed property
   Line 15: src/editors/passage/tag-editor/tag-menu/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-97. Update title="{{ 'Set tag color to blue' | say }}" to v-bind:title="'Set tag color to blue' | say"
+21. Replace filtered value in v-bind:title="'Set tag color to blue' | say" with a method or computed property
   Line 16: src/editors/passage/tag-editor/tag-menu/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-98. Update title="{{ 'Set tag color to purple' | say }}" to v-bind:title="'Set tag color to purple' | say"
+22. Replace filtered value in v-bind:title="'Set tag color to purple' | say" with a method or computed property
   Line 17: src/editors/passage/tag-editor/tag-menu/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-99. Update v-ref:codemirror to ref="codemirror"
-  Line 11: src/editors/stylesheet/index.html
-  Reason: v-el and v-ref merged into ref attribute
-  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
+23. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 797: src/locale/po/cs.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-118. Replace {{{ locale.label }}} with v-html="locale.label" on a containing element
-  Line 10: src/locale/view/index.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
+24. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 625: src/locale/po/da.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-119. Replace init with beforeCreate
-  Line 17: src/nw/index.js
-  Reason: init lifecycle hook has been removed
-  More info: http://vuejs.org/guide/migration.html#init
+25. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 638: src/locale/po/de.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
 
-120. Replace transition="fade-in-out" attribute with either a <transition name="fade-in-out"> or <transition-group name="fade-in-out"> wrapper component
-  Line 2: src/nw/patches/welcome-view/replacement-template.html
+26. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 669: src/locale/po/fi.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
+
+27. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 587: src/locale/po/es.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
+
+28. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 509: src/locale/po/it.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
+
+29. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 515: src/locale/po/fr.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
+
+30. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 661: src/locale/po/nl.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
+
+31. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 682: src/locale/po/piglatin.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
+
+32. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 670: src/locale/po/pt-br.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
+
+33. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 514: src/locale/po/pt-pt.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
+
+34. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 671: src/locale/po/ru.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
+
+35. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 671: src/locale/po/sv.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
+
+36. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 410: src/locale/po/template.pot
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
+
+37. Replace stored on with store.subscribe or eventBus.on, creating the eventBus from an empty Vue instance (see the link below for details)
+  Line 678: src/locale/po/tr.po
+  Reason: The store no longer exposes an event emitter interface
+  More info: http://vuejs.org/guide/migration-vuex.html#Store’s-Event-Emitter
+
+38. Replace filtered value in v-html="'If you've never used Twine before, then welcome! The Twine 2 Guide and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki at large were written for Twine 1, which is a little bit different than this version. But most of the concepts are the same.' | say" with a method or computed property
+  Line 23: src/nw/patches/welcome-view/replacement-template.html
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
+
+39. Replace filtered value in v-html="'You can also get help over at the Twine forum, too.' | say" with a method or computed property
+  Line 26: src/nw/patches/welcome-view/replacement-template.html
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
+
+40. Replace filtered value in v-html="'If you have used Twine 1 before, the guide also has details on what has changed in this version. Chief among them is a new default story format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, try using SugarCube instead.' | say" with a method or computed property
+  Line 28: src/nw/patches/welcome-view/replacement-template.html
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
+
+41. Replace filtered value in v-html="'There is now a folder named Twine in your Documents folder. Inside that is a Stories folder, where all your work will be saved. Twine saves as you work, so you don't have to worry about remembering to save it yourself. You can always open the folder your stories are saved to by using the Show Library item in the Twine menu.' | say" with a method or computed property
+  Line 40: src/nw/patches/welcome-view/replacement-template.html
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
+
+42. Replace transition="grow-in-out" attribute with either a <transition name="grow-in-out"> or <transition-group name="grow-in-out"> wrapper component
+  Line 6: src/story-edit-view/index.html
   Reason: The new and improved transition system requires use of new <transition> and <transition-group> components
   More info: http://vuejs.org/guide/migration.html#transition-Attribute
 
-121. Replace {{{ "&lt;strong&gt;If you've never used Twine before,&lt;/strong&gt; then welcome! The &lt;a href=\"http://twinery.org/2guide\" target=\"_blank\"&gt;Twine 2 Guide&lt;/a&gt; and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki at large were written for Twine 1, which is a little bit different than this version. But most of the concepts are the same." | say }}} with v-html=""&lt;strong&gt;If you've never used Twine before,&lt;/strong&gt; then welcome! The &lt;a href=\"http://twinery.org/2guide\" target=\"_blank\"&gt;Twine 2 Guide&lt;/a&gt; and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki at large were written for Twine 1, which is a little bit different than this version. But most of the concepts are the same." | say" on a containing element
-  Line 23: src/nw/patches/welcome-view/replacement-template.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-122. Replace {{{ 'You can also get help over at the &lt;a href="http://twinery.org/forum" target="_blank"&gt;Twine forum</a>, too.' | say }}} with v-html="'You can also get help over at the &lt;a href="http://twinery.org/forum" target="_blank"&gt;Twine forum</a>, too.' | say" on a containing element
-  Line 27: src/nw/patches/welcome-view/replacement-template.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-123. Replace {{{ '&lt;strong&gt;If you have used Twine 1 before,&lt;/strong&gt; the guide also has details on what has changed in this version. Chief among them is a new default story format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, try using SugarCube instead.' | say }}} with v-html="'&lt;strong&gt;If you have used Twine 1 before,&lt;/strong&gt; the guide also has details on what has changed in this version. Chief among them is a new default story format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, try using SugarCube instead.' | say" on a containing element
-  Line 31: src/nw/patches/welcome-view/replacement-template.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-124. Replace {{{ "There's now a folder named Twine in your Documents folder. Inside that is a Stories folder, where all your work will be saved. Twine saves as you work, so you don't have to worry about remembering to save it yourself. You can always open the folder your stories are saved to by using the &lt;b&gt;Show Library&lt;/b&gt; item in the &lt;b&gt;Twine&lt;/b&gt; menu." | say }}} with v-html=""There's now a folder named Twine in your Documents folder. Inside that is a Stories folder, where all your work will be saved. Twine saves as you work, so you don't have to worry about remembering to save it yourself. You can always open the folder your stories are saved to by using the &lt;b&gt;Show Library&lt;/b&gt; item in the &lt;b&gt;Twine&lt;/b&gt; menu." | say" on a containing element
-  Line 45: src/nw/patches/welcome-view/replacement-template.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-125. Update class="{{ 'zoom-' + zoomDesc }}" to v-bind:class="'zoom-' + zoomDesc"
-  Line 1: src/story-edit-view/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
-
-126. Update track-by="id" to v-bind:key="passage.id"
-  Line 6: src/story-edit-view/index.html
+43. Update track-by="startIndex" to v-bind:key="start.startIndex"
+  Line 22: src/story-edit-view/link-arrows/index.html
   Reason: track-by has been replaced by the key attribute, which conforms with language used by other libraries and behaves the same as other attributes
   More info: http://vuejs.org/guide/migration.html#track-by
 
-127. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
-  Line 190: src/story-edit-view/index.js
-  Reason: ready lifecycle hook has been removed
-  More info: http://vuejs.org/guide/migration.html#ready
-
-128. Replace this.$broadcast('passage-drag-complete', xOffset, yOffset) to use a global event bus or vuex (see link below for implementation details)
-  Line 454: src/story-edit-view/index.js
-  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
-  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
-
-129. Rename $index to index and explicity declare it (e.g. v-for="(item, index) in items")
-  Line 22: src/story-edit-view/link-arrows/index.html
-  Reason: $index has been removed to avoid implicitly defined (i.e. "magic") variables
-  More info: http://vuejs.org/guide/migration.html#index-and-key
-
-130. Rename $index to index and explicity declare it (e.g. v-for="(item, index) in items")
+44. Update track-by="endIndex" to v-bind:key="end.endIndex"
   Line 23: src/story-edit-view/link-arrows/index.html
-  Reason: $index has been removed to avoid implicitly defined (i.e. "magic") variables
-  More info: http://vuejs.org/guide/migration.html#index-and-key
+  Reason: track-by has been replaced by the key attribute, which conforms with language used by other libraries and behaves the same as other attributes
+  More info: http://vuejs.org/guide/migration.html#track-by
 
-131. Update class="marker-{{markerType}}" to v-bind:class="'marker-' + markerType"
-  Line 21: src/story-edit-view/link-arrows/link-arrow.js
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
-
-132. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
-  Line 224: src/story-edit-view/marquee-selector/index.js
-  Reason: ready lifecycle hook has been removed
-  More info: http://vuejs.org/guide/migration.html#ready
-
-133. Update class="{{color}}" to v-bind:class="color"
-  Line 5: src/story-edit-view/passage-item/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
-
-134. Replace {{{ excerpt }}} with v-html="excerpt" on a containing element
-  Line 14: src/story-edit-view/passage-item/index.html
+45. Replace {{{ 'Delete &ldquo;%s&rdquo;' | say(passage.name) }}} with v-html="'Delete &ldquo;%s&rdquo;' | say(passage.name)" on a containing element
+  Line 3: src/story-edit-view/passage-item/passage-menu/index.html
   Reason: HTML interpolation with {{{ }}} has been removed
   More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
 
-135. Replace this.$broadcast('drop-down-close') to use a global event bus or vuex (see link below for implementation details)
-  Line 172: src/story-edit-view/passage-item/index.js
-  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
-  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
-
-136. Replace this.$broadcast('drop-down-reposition') to use a global event bus or vuex (see link below for implementation details)
-  Line 417: src/story-edit-view/passage-item/index.js
-  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
-  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
-
-137. Replace say passage.name with say(passage.name)
-  Line 3: src/story-edit-view/passage-item/passage-menu/index.html
-  Reason: Filters with arguments must now use the same syntax as JavaScript functions
-  More info: http://vuejs.org/guide/migration.html#Filter-Argument-Syntax
-
-138. Replace say passage.name with say(passage.name)
+46. Replace {{{ 'Edit &ldquo;%s&rdquo;' | say(passage.name) }}} with v-html="'Edit &ldquo;%s&rdquo;' | say(passage.name)" on a containing element
   Line 8: src/story-edit-view/passage-item/passage-menu/index.html
-  Reason: Filters with arguments must now use the same syntax as JavaScript functions
-  More info: http://vuejs.org/guide/migration.html#Filter-Argument-Syntax
+  Reason: HTML interpolation with {{{ }}} has been removed
+  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
 
-139. Update title="{{ 'Test story starting here' | say }}" to v-bind:title="'Test story starting here' | say"
+47. Replace filtered value in v-bind:title="'Test story starting here' | say" with a method or computed property
   Line 12: src/story-edit-view/passage-item/passage-menu/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-140. Update title="{{ 'More passage options' | say }}" to v-bind:title="'More passage options' | say"
+48. Replace filtered value in v-bind:title="'More passage options' | say" with a method or computed property
   Line 16: src/story-edit-view/passage-item/passage-menu/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-141. Replace this.$broadcast('drop-down-reposition') to use a global event bus or vuex (see link below for implementation details)
-  Line 54: src/story-edit-view/passage-item/passage-menu/index.js
-  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
-  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
-
-142. Replace this.$dispatch('passage-edit') to use a global event bus or vuex (see link below for implementation details)
-  Line 60: src/story-edit-view/passage-item/passage-menu/index.js
-  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
-  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
-
-143. Replace this.$dispatch('passage-delete', e.shiftKey) to use a global event bus or vuex (see link below for implementation details)
-  Line 64: src/story-edit-view/passage-item/passage-menu/index.js
-  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
-  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
-
-144. Replace this.$dispatch('passage-position', this.passage, {}) to use a global event bus or vuex (see link below for implementation details)
-  Line 123: src/story-edit-view/passage-item/passage-menu/index.js
-  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
-  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
-
-145. Update title="{{ 'Go to the story list' | say }}" to v-bind:title="'Go to the story list' | say"
+49. Replace filtered value in v-bind:title="'Go to the story list' | say" with a method or computed property
   Line 3: src/story-edit-view/story-toolbar/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-146. Update title="{{ 'Show only story structure' | say }}" to v-bind:title="'Show only story structure' | say"
+50. Replace filtered value in v-bind:title="'Show only story structure' | say" with a method or computed property
   Line 16: src/story-edit-view/story-toolbar/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-147. Update title="{{ 'Show only passage titles' | say }}" to v-bind:title="'Show only passage titles' | say"
+51. Replace filtered value in v-bind:title="'Show only passage titles' | say" with a method or computed property
   Line 20: src/story-edit-view/story-toolbar/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-148. Update title="{{ 'Show passage titles and excerpts' | say }}" to v-bind:title="'Show passage titles and excerpts' | say"
+52. Replace filtered value in v-bind:title="'Show passage titles and excerpts' | say" with a method or computed property
   Line 24: src/story-edit-view/story-toolbar/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-149. Update title="{{ 'Play this story in test mode' | say }}" to v-bind:title="'Play this story in test mode' | say"
+53. Replace filtered value in v-bind:title="'Play this story in test mode' | say" with a method or computed property
   Line 29: src/story-edit-view/story-toolbar/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-150. Update title="{{ 'Play this story' | say }}" to v-bind:title="'Play this story' | say"
+54. Replace filtered value in v-bind:title="'Play this story' | say" with a method or computed property
   Line 35: src/story-edit-view/story-toolbar/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-151. Update title="{{ 'Add a new passage' | say }}" to v-bind:title="'Add a new passage' | say"
+55. Replace filtered value in v-bind:title="'Add a new passage' | say" with a method or computed property
   Line 41: src/story-edit-view/story-toolbar/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-152. Replace this.$dispatch('passage-create') to use a global event bus or vuex (see link below for implementation details)
-  Line 52: src/story-edit-view/story-toolbar/index.js
-  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
-  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
-
-153. Update placeholder="{{ 'Quick Find' | say }}" to v-bind:placeholder="'Quick Find' | say"
+56. Replace filtered value in v-bind:placeholder="'Quick Find' | say" with a method or computed property
   Line 2: src/story-edit-view/story-toolbar/story-search/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-154. Update title="{{ 'Find and replace across the entire story' | say }}" to v-bind:title="'Find and replace across the entire story' | say"
+57. Replace filtered value in v-bind:title="'Find and replace across the entire story' | say" with a method or computed property
   Line 3: src/story-edit-view/story-toolbar/story-search/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-155. Update class="{{ 'subtle' + (storyOrder === 'lastUpdate' ? ' active' : '') }}" to v-bind:class="'subtle' + (storyOrder === 'lastUpdate' ? ' active' : '')"
+58. Update title="{{ 'Last changed date' | say }}" to v-bind:title="'Last changed date' | say"
   Line 13: src/story-list-view/index.html
   Reason: Interpolation within attributes has been removed
   More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
 
-156. Update class="fa fa-sort-amount-{{storyOrderDir}}" to v-bind:class="'fa fa-sort-amount-' + storyOrderDir"
-  Line 16: src/story-list-view/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
-
-157. Update class="{{ 'subtle' + (storyOrder === 'name' ? ' active' : '') }}" to v-bind:class="'subtle' + (storyOrder === 'name' ? ' active' : '')"
+59. Update title="{{ 'Story name' | say }}" to v-bind:title="'Story name' | say"
   Line 19: src/story-list-view/index.html
   Reason: Interpolation within attributes has been removed
   More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
 
-158. Update class="fa fa-sort-alpha-{{storyOrderDir}}" to v-bind:class="'fa fa-sort-alpha-' + storyOrderDir"
-  Line 21: src/story-list-view/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
-
-159. Update track-by="id" to v-bind:key="story.id"
+60. Replace transition="grow-in-out" attribute with either a <transition name="grow-in-out"> or <transition-group name="grow-in-out"> wrapper component
   Line 32: src/story-list-view/index.html
-  Reason: track-by has been replaced by the key attribute, which conforms with language used by other libraries and behaves the same as other attributes
-  More info: http://vuejs.org/guide/migration.html#track-by
+  Reason: The new and improved transition system requires use of new <transition> and <transition-group> components
+  More info: http://vuejs.org/guide/migration.html#transition-Attribute
 
-160. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
-  Line 107: src/story-list-view/index.js
-  Reason: ready lifecycle hook has been removed
-  More info: http://vuejs.org/guide/migration.html#ready
-
-161. Replace this.$broadcast('previously-editing', this.previouslyEditing) to use a global event bus or vuex (see link below for implementation details)
-  Line 130: src/story-list-view/index.js
-  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
-  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
-
-162. Replace this.$broadcast('story-edit', id) to use a global event bus or vuex (see link below for implementation details)
-  Line 181: src/story-list-view/index.js
-  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
-  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
-
-163. Update title="{{ 'Create a brand-new story' | say }}" to v-bind:title="'Create a brand-new story' | say"
+61. Replace filtered value in v-bind:title="'Create a brand-new story' | say" with a method or computed property
   Line 6: src/story-list-view/list-toolbar/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-164. Update title="{{ 'Import a published story or Twine archive' | say }}" to v-bind:title="'Import a published story or Twine archive' | say"
+62. Replace filtered value in v-bind:title="'Import a published story or Twine archive' | say" with a method or computed property
   Line 11: src/story-list-view/list-toolbar/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-165. Update title="{{'Save all stories to a Twine archive file' | say }}" to v-bind:title="'Save all stories to a Twine archive file' | say"
+63. Replace filtered value in v-bind:title="'Save all stories to a Twine archive file' | say" with a method or computed property
   Line 16: src/story-list-view/list-toolbar/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-166. Update title="{{'Work with story and proofing formats' | say }}" to v-bind:title="'Work with story and proofing formats' | say"
+64. Replace filtered value in v-bind:title="'Work with story and proofing formats' | say" with a method or computed property
   Line 21: src/story-list-view/list-toolbar/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-167. Update title="{{'Change the language Twine uses' | say }}" to v-bind:title="'Change the language Twine uses' | say"
+65. Replace filtered value in v-bind:title="'Change the language Twine uses' | say" with a method or computed property
   Line 26: src/story-list-view/list-toolbar/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-168. Update title="{{'Browse online help' | say }}" to v-bind:title="'Browse online help' | say"
+66. Replace filtered value in v-bind:title="'Browse online help' | say" with a method or computed property
   Line 31: src/story-list-view/list-toolbar/index.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-169. Update class="{{ (themePref === 'light') && 'active' }}" to v-bind:class="(themePref === 'light') && 'active'"
+67. Update title="{{ 'Use light theme' | say }}" to v-bind:title="'Use light theme' | say"
   Line 2: src/story-list-view/list-toolbar/theme-switcher.html
   Reason: Interpolation within attributes has been removed
   More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
 
-170. Update class="{{ (themePref === 'dark') && 'active' }}" to v-bind:class="(themePref === 'dark') && 'active'"
+68. Update title="{{ 'Use dark theme' | say }}" to v-bind:title="'Use dark theme' | say"
   Line 5: src/story-list-view/list-toolbar/theme-switcher.html
   Reason: Interpolation within attributes has been removed
   More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
 
-171. Replace {{{svg}}} with v-html="svg" on a containing element
-  Line 2: src/story-list-view/story-item/item-preview/index.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-172. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
-  Line 33: src/story-list-view/zoom-transition/index.js
-  Reason: ready lifecycle hook has been removed
-  More info: http://vuejs.org/guide/migration.html#ready
-
-173. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
-  Line 36: src/ui/drop-down/index.js
-  Reason: ready lifecycle hook has been removed
-  More info: http://vuejs.org/guide/migration.html#ready
-
-174. Replace this.$dispatch('drop-down-opened', this) to use a global event bus or vuex (see link below for implementation details)
-  Line 87: src/ui/drop-down/index.js
-  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
-  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
-
-175. Replace this.$dispatch('drop-down-closed', this) to use a global event bus or vuex (see link below for implementation details)
-  Line 91: src/ui/drop-down/index.js
-  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
-  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
-
-176. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
-  Line 20: src/ui/file-drag-n-drop/index.js
-  Reason: ready lifecycle hook has been removed
-  More info: http://vuejs.org/guide/migration.html#ready
-
-177. Replace this.$dispatch('file-drag-n-drop', e.dataTransfer.files) to use a global event bus or vuex (see link below for implementation details)
-  Line 47: src/ui/file-drag-n-drop/index.js
-  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
-  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
-
-178. Replace init with beforeCreate
-  Line 22: src/ui/index.js
-  Reason: init lifecycle hook has been removed
-  More info: http://vuejs.org/guide/migration.html#init
-
-179. Replace transition="modal-dialog" attribute with either a <transition name="modal-dialog"> or <transition-group name="modal-dialog"> wrapper component
-  Line 1: src/ui/modal-dialog/index.html
+69. Replace transition="fade-in-out" attribute with either a <transition name="fade-in-out"> or <transition-group name="fade-in-out"> wrapper component
+  Line 2: src/ui/notify/list.html
   Reason: The new and improved transition system requires use of new <transition> and <transition-group> components
   More info: http://vuejs.org/guide/migration.html#transition-Attribute
 
-180. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
-  Line 44: src/ui/modal-dialog/index.js
-  Reason: ready lifecycle hook has been removed
-  More info: http://vuejs.org/guide/migration.html#ready
-
-181. Replace this.$broadcast('transition-entered') to use a global event bus or vuex (see link below for implementation details)
-  Line 76: src/ui/modal-dialog/index.js
-  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
-  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
-
-182. Update class="{{ notification.className }}" to v-bind:class="notification.className"
-  Line 2: src/ui/notify/list.html
-  Reason: Interpolation within attributes has been removed
-  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
-
-183. Replace {{{ notification.html }}} with v-html="notification.html" on a containing element
-  Line 12: src/ui/notify/list.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-184. Rename $index to index and explicity declare it (e.g. v-for="(item, index) in items")
-  Line 17: src/ui/notify/list.html
-  Reason: $index has been removed to avoid implicitly defined (i.e. "magic") variables
-  More info: http://vuejs.org/guide/migration.html#index-and-key
-
-185. Rename $index to index and explicity declare it (e.g. v-for="(item, index) in items")
-  Line 3: src/ui/tab-panel/index.html
-  Reason: $index has been removed to avoid implicitly defined (i.e. "magic") variables
-  More info: http://vuejs.org/guide/migration.html#index-and-key
-
-186. Rename $index to index and explicity declare it (e.g. v-for="(item, index) in items")
-  Line 5: src/ui/tab-panel/index.html
-  Reason: $index has been removed to avoid implicitly defined (i.e. "magic") variables
-  More info: http://vuejs.org/guide/migration.html#index-and-key
-
-187. Replace compiled with mounted
-  Line 24: src/vue/codemirror.js
-  Reason: compiled lifecycle hook has been removed
-  More info: http://vuejs.org/guide/migration.html#compiled
-
-188. Replace this.$dispatch('cm-change', this.text) to use a global event bus or vuex (see link below for implementation details)
-  Line 30: src/vue/codemirror.js
-  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
-  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
-
-189. Replace attached with a custom in-DOM check in another hook
-  Line 34: src/vue/codemirror.js
-  Reason: attached lifecycle hook has been removed
-  More info: http://vuejs.org/guide/migration.html#attached
-
-190. Update v-ref:cm to ref="cm"
-  Line 24: src/vue/codemirror.spec.js
-  Reason: v-el and v-ref merged into ref attribute
-  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
-
-191. Check Vue.directive('mouse-scrolling') to make sure its syntax has been updated and for anything beyond simple DOM manipulations, refactor to a component
+70. Check Vue.directive('mouse-scrolling') to make sure its syntax has been updated and for anything beyond simple DOM manipulations, refactor to a component
   Line 15: src/vue/directives/mouse-scrolling.js
   Reason: Directives have been vastly reduced in scope and components are preferred in most use cases
-  More info: http://vuejs.org/guide/migration.html#Custom-Directives
+  More info: http://vuejs.org/guide/migration.html#Custom-Directives-simplified
 
-192. Replace init with beforeCreate
-  Line 19: src/vue/mixins/thenable.js
-  Reason: init lifecycle hook has been removed
-  More info: http://vuejs.org/guide/migration.html#init
-
-193. Replace compiled with mounted
-  Line 35: src/vue/mixins/thenable.js
-  Reason: compiled lifecycle hook has been removed
-  More info: http://vuejs.org/guide/migration.html#compiled
-
-194. Replace .fade-in-out-transition with .fade-in-out-enter-active, .fade-in-out-leave-active
+71. Replace .fade-in-out-transition with .fade-in-out-enter-active, .fade-in-out-leave-active
   Line 1: src/vue/transitions.less
   Reason: v-transition class has been replaced by the standard classes used by Angular and React CSSTransitionGroup
   More info: http://vuejs.org/guide/migration.html#transition-Attribute
 
-195. Replace .fade-in-out-leave with .fade-in-out-leave-active (if it's left over from Vue 1.x)
-  Line 6: src/vue/transitions.less
-  Reason: v-leave class now defines a starting state for leave transitions, rather than the ending state
-  More info: http://vuejs.org/guide/migration.html#Transitions
-
-196. Replace .rise-in-out-transition with .rise-in-out-enter-active, .rise-in-out-leave-active
+72. Replace .rise-in-out-transition with .rise-in-out-enter-active, .rise-in-out-leave-active
   Line 10: src/vue/transitions.less
   Reason: v-transition class has been replaced by the standard classes used by Angular and React CSSTransitionGroup
   More info: http://vuejs.org/guide/migration.html#transition-Attribute
 
-197. Replace .rise-in-out-leave with .rise-in-out-leave-active (if it's left over from Vue 1.x)
-  Line 16: src/vue/transitions.less
-  Reason: v-leave class now defines a starting state for leave transitions, rather than the ending state
-  More info: http://vuejs.org/guide/migration.html#Transitions
+73. Replace filtered value in v-html="'If you've never used Twine before, then welcome! The Twine 2 Guide and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki at larger were written for Twine 1, which is a little bit different than this version. But most of the concepts are the same.' | say" with a method or computed property
+  Line 25: src/welcome/index.html
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-198. Replace .grow-in-out-leave with .grow-in-out-leave-active (if it's left over from Vue 1.x)
-  Line 25: src/vue/transitions.less
-  Reason: v-leave class now defines a starting state for leave transitions, rather than the ending state
-  More info: http://vuejs.org/guide/migration.html#Transitions
-
-199. Replace transition="fade-in-out" attribute with either a <transition name="fade-in-out"> or <transition-group name="fade-in-out"> wrapper component
-  Line 2: src/welcome/index.html
-  Reason: The new and improved transition system requires use of new <transition> and <transition-group> components
-  More info: http://vuejs.org/guide/migration.html#transition-Attribute
-
-200. Replace {{{ "&lt;strong&gt;If you've never used Twine before,&lt;/strong&gt; then welcome! The &lt;a href=\"http://twinery.org/2guide\" target=\"_blank\"&gt;Twine 2 Guide&lt;/a&gt; and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki at larger were written for Twine 1, which is a little bit different than this version. But most of the concepts are the same." | say }}} with v-html=""&lt;strong&gt;If you've never used Twine before,&lt;/strong&gt; then welcome! The &lt;a href=\"http://twinery.org/2guide\" target=\"_blank\"&gt;Twine 2 Guide&lt;/a&gt; and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki at larger were written for Twine 1, which is a little bit different than this version. But most of the concepts are the same." | say" on a containing element
-  Line 23: src/welcome/index.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-201. Replace {{{ 'You can also get help over at the &lt;a href="http://twinery.org/forum" target="_blank"&gt;Twine forum</a>, too.' | say }}} with v-html="'You can also get help over at the &lt;a href="http://twinery.org/forum" target="_blank"&gt;Twine forum</a>, too.' | say" on a containing element
+74. Replace filtered value in v-html="'You can also get help over at the Twine forum, too.' | say" with a method or computed property
   Line 27: src/welcome/index.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-202. Replace {{{ '&lt;strong&gt;If you have used Twine 1 before,&lt;/strong&gt; the guide also has details on what has changed in this version. Chief among them is a new default story format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, try using SugarCube instead.' | say }}} with v-html="'&lt;strong&gt;If you have used Twine 1 before,&lt;/strong&gt; the guide also has details on what has changed in this version. Chief among them is a new default story format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, try using SugarCube instead.' | say" on a containing element
-  Line 31: src/welcome/index.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
+75. Replace filtered value in v-html="'If you have used Twine 1 before, the guide also has details on what has changed in this version. Chief among them is a new default story format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, try using SugarCube instead.' | say" with a method or computed property
+  Line 29: src/welcome/index.html
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-203. Replace {{{ "That means you don't need to create an account to use Twine 2, and everything you create isn't stored on a server somewhere else &mdash; it stays right in your browser." | say }}} with v-html=""That means you don't need to create an account to use Twine 2, and everything you create isn't stored on a server somewhere else &mdash; it stays right in your browser." | say" on a containing element
-  Line 45: src/welcome/index.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
+76. Replace filtered value in v-html="'That means you don't need to create an account to use Twine 2, and everything you create isn't stored on a server somewhere else &mdash; it stays right in your browser.' | say" with a method or computed property
+  Line 43: src/welcome/index.html
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
 
-204. Replace {{{ "Two &lt;b&gt;very important&lt;/b&gt; things to remember, though. Since your work is saved only in your browser, if you clear its saved data, then you'll lose your work! Not good. Remember to use that &lt;i class=\"fa fa-briefcase\"&gt;&lt;/i&gt;&nbsp;&lt;strong&gt;Archive&lt;/strong&gt; button often. You can also publish individual stories to files using the &lt;i class=\"fa fa-cog\"&gt;&lt;/i&gt; menu on each story in the story list. Both archive and story files can always be re-imported into Twine." | say }}} with v-html=""Two &lt;b&gt;very important&lt;/b&gt; things to remember, though. Since your work is saved only in your browser, if you clear its saved data, then you'll lose your work! Not good. Remember to use that &lt;i class=\"fa fa-briefcase\"&gt;&lt;/i&gt;&nbsp;&lt;strong&gt;Archive&lt;/strong&gt; button often. You can also publish individual stories to files using the &lt;i class=\"fa fa-cog\"&gt;&lt;/i&gt; menu on each story in the story list. Both archive and story files can always be re-imported into Twine." | say" on a containing element
-  Line 49: src/welcome/index.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-205. Replace {{{ "Secondly, &lt;b&gt;anyone who can use this browser can see and make changes to your work&lt;/b&gt;. So if you've got a nosy kid brother, look into setting up a separate profile for yourself." | say }}} with v-html=""Secondly, &lt;b&gt;anyone who can use this browser can see and make changes to your work&lt;/b&gt;. So if you've got a nosy kid brother, look into setting up a separate profile for yourself." | say" on a containing element
-  Line 53: src/welcome/index.html
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-206. Replace 'src/locale/po/*.po' with 'src/locale/po/:.po+'
-  Line 85: webpack.config.js
-  Reason: The syntax for route matching has changed since Vue Router now uses path-to-regexp under the hood
-  More info: http://vuejs.org/guide/migration-vue-router.html#One-or-More-Named-Parameters
-
-207. Replace s in n.variables? with s(in, n.variables?)
-  Line 1: story-formats/harlowe-2.1.0/format.js
-  Reason: Filters with arguments must now use the same syntax as JavaScript functions
-  More info: http://vuejs.org/guide/migration.html#Filter-Argument-Syntax
-
-208. Replace ":typeof e};!function(){/**\n * @license almond 0.3.3 Copyright jQuery Foundation and other contributors.\n * Released under MIT license, http://github.com/requirejs/almond/LICENSE\n */\nvar requirejs,require,define;!function(e){function t(e,t){return v.call(e,t)}function n(e,t){var n,r,o,i,a,s,u,c,l,f,p,d,h=t&&t.split(\" with ":typeof e};!function(){/:*\n+ * @license almond 0.3.3 Copyright jQuery Foundation and other contributors.\n * Released under MIT license, http://github.com/requirejs/almond/LICENSE\n */\nvar requirejs,require,define;!function(e){function t(e,t){return v.call(e,t)}function n(e,t){var n,r,o,i,a,s,u,c,l,f,p,d,h=t&&t.split(\"
-  Line 1: story-formats/harlowe-1.2.4/format.js
-  Reason: The syntax for route matching has changed since Vue Router now uses path-to-regexp under the hood
-  More info: http://vuejs.org/guide/migration-vue-router.html#One-or-More-Named-Parameters
-
-209. Replace {{{\":var t=/\\{\\{\\{((?:.|\\n)*?)\\}\\}\\}/gm;t.lastIndex=e.matchStart;var r=t.exec(e.source);r&&r.index===e.matchStart&&(insertElement(e.output,\"code\",null,null,r[1]),e.nextMatch=t.lastIndex)}}} with v-html="\":var t=/\\{\\{\\{((?:.|\\n)*?)\\}\\}\\}/gm;t.lastIndex=e.matchStart;var r=t.exec(e.source);r&&r.index===e.matchStart&&(insertElement(e.output,\"code\",null,null,r[1]),e.nextMatch=t.lastIndex)" on a containing element
-  Line 1: story-formats/sugarcube-1.0.35/format.js
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
-
-210. Replace {{{\":var t=/\\{\\{\\{((?:.|\\n)*?)\\}\\}\\}/gm;t.lastIndex=e.matchStart;var r=t.exec(e.source);r&&r.index===e.matchStart&&(jQuery(document.createElement(\"code\")).text(r[1]).appendTo(e.output),e.nextMatch=t.lastIndex)}}} with v-html="\":var t=/\\{\\{\\{((?:.|\\n)*?)\\}\\}\\}/gm;t.lastIndex=e.matchStart;var r=t.exec(e.source);r&&r.index===e.matchStart&&(jQuery(document.createElement(\"code\")).text(r[1]).appendTo(e.output),e.nextMatch=t.lastIndex)" on a containing element
-  Line 1: story-formats/sugarcube-2.21.0/format.js
-  Reason: HTML interpolation with {{{ }}} has been removed
-  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
+77. Replace filtered value in v-html="'Secondly, &lt;b&gt;anyone who can use this browser can see and make changes to your work&lt;/b&gt;. So if you've got a nosy kid brother, look into setting up a separate profile for yourself.' | say" with a method or computed property
+  Line 47: src/welcome/index.html
+  Reason: Filters can now only be used inside text interpolations, e.g. {{ date | formatDate('YY-MM-DD') }}
+  More info: http://vuejs.org/guide/migration.html#Filters-Outside-Text-Interpolations
