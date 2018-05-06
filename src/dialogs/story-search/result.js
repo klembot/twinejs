@@ -3,6 +3,7 @@ A component showing a single search result.
 */
 
 const Vue = require('vue');
+const locale = require('../../locale');
 const { updatePassage } = require('../../data/actions/passage');
 
 require('./result.less');
@@ -34,6 +35,12 @@ module.exports = Vue.extend({
 		searchNames: {
 			type: Boolean,
 			require: true
+		}
+	},
+
+	computed: {
+		replaceTitle() {
+			return locale.say('Replace in Passage');
 		}
 	},
 
