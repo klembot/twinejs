@@ -21,7 +21,7 @@ describe('<code-mirror>', () => {
 		}));
 		
 		vm = new Vue({
-			template: '<code-mirror v-ref:cm text="Hello world." ' +
+			template: '<code-mirror ref=cm text="Hello world." ' +
 				':options="{ tabSize: 12 }"></code-mirror>',
 			components: {
 				'code-mirror': CodeMirror
