@@ -92,7 +92,7 @@ module.exports = Vue.extend({
 			});
 
 			this.$drop.on('close', () => {
-				this.$dispatch('drop-down-closed', this);
+				eventHub.$emit('drop-down-closed', this);
 			});
 
 			/*
