@@ -13,22 +13,22 @@
 			</button>
 		</li>
 		<li>
-			<button class="block" @click="saveArchive" title="{{'Save all stories to a Twine archive file' | say }}">
+			<button class="block" @click="saveArchive" v-bind:title="'Save all stories to a Twine archive file' | say">
 				<i class="fa fa-briefcase"></i> {{ 'Archive' | say}}
 			</button>
 		</li>
 		<li>
-			<button class="block" @click="showFormats" title="{{'Work with story and proofing formats' | say }}">
+			<button class="block" @click="showFormats" v-bind:title="'Work with story and proofing formats' | say">
 				<i class="fa fa-file-code-o"></i> {{ 'Formats' | say }}
 			</button>
 		</li>
 		<li>
-			<button class="block" @click="showLocale" title="{{'Change the language Twine uses' | say }}">
+			<button class="block" @click="showLocale" v-bind:title="'Change the language Twine uses' | say">
 				<i class="fa fa-comment-o"></i> {{ 'Language' | say }}
 			</button>
 		</li>
 		<li>
-			<button class="block" @click="showHelp" title="{{'Browse online help' | say }}">
+			<button class="block" @click="showHelp" v-bind:title="'Browse online help' | say">
 				<i class="fa fa-question-circle"></i> {{ 'Help' | say }}
 			</button>
 		</li>
