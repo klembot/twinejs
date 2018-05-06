@@ -2,7 +2,7 @@
 	@touchstart.stop="startDrag" @dblclick.stop="edit" @mouseover="needsMenu = true">
 	<div class="frame">
 		<div class="tags">
-			<div v-for="color in tagColors" class="{{color}}"></div>
+			<div v-for="color in tagColors" v-bind:class="color"></div>
 		</div>
 
 		<p class="title">
