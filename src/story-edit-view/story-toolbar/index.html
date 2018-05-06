@@ -1,10 +1,10 @@
 <div class="toolbar main fullSlideUp fast">
 	<div class="left">
-		<a v-link="'/stories'"
-		   class="home subtle"
-		   v-bind:title="storyLinkTitle">
+		<router-link to="/stories"
+		   			 class="home subtle"
+		   			 v-bind:title="storyLinkTitle">
 			<i class="fa fa-home fa-lg"></i>
-		</a>
+		</router-link>
 
 		<button class="storyName subtle">
 			<span class="storyNameVal">{{ story.name }}</span>
