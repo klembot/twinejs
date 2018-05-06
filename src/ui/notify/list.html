@@ -1,5 +1,5 @@
 <div id="notifications">
-	<div v-for="(notification, index) in notifications" transition="fade-in-out" class="{{ notification.className }}">
+	<div v-for="(notification, index) in notifications" transition="fade-in-out" v-bind:class="notification.className">
 		<span class="badge" v-if="notification.className !== 'danger'">
 			<i class="fa fa-info"></i>
 		</span>
