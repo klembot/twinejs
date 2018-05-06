@@ -16,7 +16,7 @@
 					<i v-bind:class="'fa fa-sort-amount-' + storyOrderDir" v-if="storyOrder === 'lastUpdate'"></i>
 				</button>
 
-				<button class="{{ 'subtle' + (storyOrder === 'name' ? ' active' : '') }}" @click="sortByName" title="{{ 'Story name' | say }}">
+				<button v-bind:class="'subtle' + (storyOrder === 'name' ? ' active' : '') }}" @click="sortByName" title="{{ 'Story name' | say }}">
 					{{ 'Name' | say }}
 					<i class="fa fa-sort-alpha-{{storyOrderDir}}" v-if="storyOrder === 'name'"></i>
 				</button>
