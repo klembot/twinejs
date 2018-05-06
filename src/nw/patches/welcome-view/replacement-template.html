@@ -37,9 +37,7 @@
 		{{ 'Your work is automatically saved.' | say }}
 		</h1>
 
-		<p>
-		{{{ "There's now a folder named Twine in your Documents folder. Inside that is a Stories folder, where all your work will be saved. Twine saves as you work, so you don't have to worry about remembering to save it yourself. You can always open the folder your stories are saved to by using the &lt;b&gt;Show Library&lt;/b&gt; item in the &lt;b&gt;Twine&lt;/b&gt; menu." | say }}}
-		</p>
+		<p v-html="'There is now a folder named Twine in your Documents folder. Inside that is a Stories folder, where all your work will be saved. Twine saves as you work, so you don't have to worry about remembering to save it yourself. You can always open the folder your stories are saved to by using the Show Library item in the Twine menu.' | say"></p>
 
 		<p>
 		{{ "Because Twine is always saving your work, the files in your story library will be locked from editing while Twine is open." | say }}

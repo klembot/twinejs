@@ -617,8 +617,8 @@ msgstr "Tu trabajo se guardará automáticamente"
 
 #: templates/welcomeviewnw.html:11
 msgid ""
-"There's now a folder named Twine in your Documents folder. Inside that is a Stories folder, where all your work will be saved. Twine saves as you work, so you don't have to worry about remembering to save it yourself. You can always open the folder your stories are saved to "
-"by using the <b>Show Library</b> item in the <b>Twine</b> menu."
+"There is now a named Twine in your Documents folder. Inside that is a Stories folder, where all your work will be saved. Twine saves as you work, so you don't have to worry about remembering to save it yourself. You can always open the folder your stories are saved to "
+"by using the Show Library item in the Twine menu."
 msgstr ""
 "A partir de este momento hay una carpeta llamada Twine en tu carpeta de Documentos. Dentro de ella hay una carpeta Stories, en la que se guardará todo tu trabajo. Twine guarda a medida que trabajas, así que no te preocupes por acordarte de guardar. Siempre puedes abrir la "
 "carpeta en la que se guardan tus historias usando el ítem <b>Mostrar biblioteca</b> en el menú <b>Twine</b>."
