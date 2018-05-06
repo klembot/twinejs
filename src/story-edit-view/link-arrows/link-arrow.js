@@ -18,7 +18,7 @@ function arc(props) {
 }
 
 module.exports = Vue.extend({
-	template: '<path :d="pathString" class="marker-{{markerType}}"></path>',
+	template: '<path :d="pathString" v-bind:class="\'marker-\' + markerType"></path>',
 
 	props: {
 		/*
