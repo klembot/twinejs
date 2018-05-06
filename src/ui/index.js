@@ -19,7 +19,7 @@ module.exports = {
 	 in that module.
 	**/
 
-	init() {
+	beforeCreate() {
 		if (inited) {
 			return;
 		}
