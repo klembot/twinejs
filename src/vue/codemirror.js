@@ -30,10 +30,9 @@ module.exports = Vue.extend({
 			this.text = this.$cm.getValue();
 			eventHub.$emit('cm-change', this.text);
 		});
-	},
-
-	attached() {
-		this.$cm.focus();
+		this.$nextTick(function () {
+			this.$cm.focus();
+		});
 	},
 
 	events: {
