@@ -187,14 +187,17 @@ module.exports = Vue.extend({
 		}
 	},
 
-	ready() {
-		this.resize();
-		this.on(window, 'resize', this.resize);
-		this.on(window, 'keyup', this.onKeyup);
+	mounted() {
+		this.$nextTick(function () {
+			// code that assumes this.$el is in-document
+			this.resize();
+			this.on(window, 'resize', this.resize);
+			this.on(window, 'keyup', this.onKeyup);
 
-		if (this.story.passages.length === 0) {
-			this.createPassageAt();
-		}
+			if (this.story.passages.length === 0) {
+				this.createPassageAt();
+			}
+		});
 	},
 
 	methods: {
