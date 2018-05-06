@@ -4,6 +4,7 @@ passages.
 */
 
 const Vue = require('vue');
+const locale = require('../../locale');
 const eventHub = require('../../common/eventHub');
 
 require('./index.less');
@@ -42,6 +43,14 @@ module.exports = Vue.extend({
 			}
 
 			return new RegExp('(' + source + ')', flags);
+		},
+
+		expandButtonTitle() {
+			return locale.say('Expand all search results');
+		},
+
+		collapseButtonTitle() {
+			return locale.say('Collapse all search results');
 		},
 
 		passageMatches() {

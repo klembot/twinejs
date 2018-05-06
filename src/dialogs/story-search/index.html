@@ -32,11 +32,11 @@
 
 	<p class="resultSummary" v-if="passageMatches.length > 0">
 		<span class="controls">
-			<button class="subtle" v-bind:title="'Expand all search results' | say" @click="expandAll">
+			<button class="subtle" v-bind:title="expandButtonTitle" @click="expandAll">
 				<i class="fa fa-expand"></i>
 			</button>
 
-			<button class="subtle" v-bind:title="'Collapse all search results' | say" @click="collapseAll">
+			<button class="subtle" v-bind:title="collapseButtonTitle" @click="collapseAll">
 				<i class="fa fa-compress"></i>
 			</button>
 
