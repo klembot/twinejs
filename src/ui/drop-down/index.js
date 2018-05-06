@@ -3,6 +3,7 @@
 
 const Drop = require('tether-drop');
 const Vue = require('vue');
+const eventHub = require('../../common/eventHub');
 const { hasPrimaryTouchUI } = require('../index');
 const domEvents = require('../../vue/mixins/dom-events');
 
@@ -87,7 +88,7 @@ module.exports = Vue.extend({
 			*/
 
 			this.$drop.on('open', () => {
-				this.$dispatch('drop-down-opened', this);
+				eventHub.$emit('drop-down-opened', this);
 			});
 
 			this.$drop.on('close', () => {
