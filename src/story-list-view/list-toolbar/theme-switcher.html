@@ -2,7 +2,7 @@
 	<button v-bind:class="(themePref === 'light') && 'active'" @click="setTheme('light')" title="{{ 'Use light theme' | say }}">
 		<i class="fa fa-sun-o"></i>
 	</button>
-	<button class="{{ (themePref === 'dark') && 'active' }}" @click="setTheme('dark')" title="{{ 'Use dark theme' | say }}">
+	<button v-bind:class="(themePref === 'dark') && 'active'" @click="setTheme('dark')" title="{{ 'Use dark theme' | say }}">
 		<i class="fa fa-moon-o"></i>
 	</button>
 </span>
