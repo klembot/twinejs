@@ -40,6 +40,19 @@ module.exports = Vue.extend({
 	}),
 
 	computed: {
+
+		sortDateButtonClass() {
+			return 'subtle' + (this.storyOrder === 'lastUpdate' ? ' active' : '');
+		},
+		sortDateButtonTitle() {
+			return locale.say('Last changed date');
+		},
+		sortNameButtonClass() {
+			return 'subtle' + (this.storyOrder === 'name' ? ' active' : '');
+		},
+		sortNameButtonTitle() {
+			return locale.say('Story name');
+		},
 		sortedStories() {
 			/*
 			If we have no stories to sort, don't worry about it.
