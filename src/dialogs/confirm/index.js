@@ -6,6 +6,7 @@
 
 'use strict';
 const locale = require('../../locale');
+const eventHub = require('../../common/eventHub');
 const Vue = require('vue');
 const { thenable } = require('../../vue/mixins/thenable');
 
@@ -37,11 +38,11 @@ const confirmation = module.exports = {
 
 		methods: {
 			accept() {
-				this.$broadcast('close', true);
+				eventHub.$emit('close', true);
 			},
 
 			cancel() {
-				this.$broadcast('close', false);
+				eventHub.$emit('close', false);
 			},
 		},
 
