@@ -1,6 +1,6 @@
 <modal-dialog id="passageEditModal" class="editor" :can-close="canClose" :can-widen="true" :origin="origin" @destroyed="dialogDestroyed" ref="modal">
 	<span slot="title">
-		<input type="text" id="passageName" v-bind:placeholder="'Passage Name' | say" v-model="userPassageName">
+		<input type="text" id="passageName" v-bind:placeholder="inputPlaceholder" v-model="userPassageName">
 	</span>
 
 	<tag-editor :passage="passage" :story-id="storyId"></tag-editor>

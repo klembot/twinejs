@@ -56,6 +56,10 @@ module.exports = Vue.extend({
 			};
 		},
 
+		inputPlaceholder() {
+			return locale.say('Passage Name');
+		},
+
 		parentStory() {
 			return this.allStories.find(story => story.id === this.storyId);
 		},
