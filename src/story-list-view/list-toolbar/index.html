@@ -8,7 +8,7 @@
 			</button>
 		</li>
 		<li>
-			<button class="block" @click="importFile" title="{{ 'Import a published story or Twine archive' | say }}">
+			<button class="block" @click="importFile" v-bind:title="'Import a published story or Twine archive' | say">
 				<i class="fa fa-upload"></i> {{'Import From File' | say}}
 			</button>
 		</li>
