@@ -75,7 +75,7 @@ const templateRegexp = new RegExp(
 	'gm'
 );
 
-glob.sync('src/*+/*.html').forEach(fileName => {
+glob.sync('src/**/*.html').forEach(fileName => {
 	const source = fs.readFileSync(fileName, { encoding: 'utf8' });
 	const parser = new htmlParser.Parser({
 		ontext(text) {
