@@ -13,6 +13,27 @@ const saveFile = require('../../file/save');
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
+	computed: {
+		newStoryTitle() {
+			return locale.say('Create a brand-new story');
+		},
+		importFileTitle() {
+			return locale.say('Import a published story or Twine archive');
+		},
+		saveArchiveTitle() {
+			return locale.say('Save all stories to a Twine archive file');
+		},
+		showFormatsTitle() {
+			return locale.say('Work with story and proofing formats');
+		},
+		changeLocaleTitle() {
+			return locale.say('Change the language Twine uses');
+		},
+		helpTitle() {
+			return locale.say('Browse online help');
+		}
+	},
+
 	methods: {
 		createStoryPrompt(e) {
 			// Prompt for the new story name.
