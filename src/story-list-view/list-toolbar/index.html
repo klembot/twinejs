@@ -3,7 +3,7 @@
 
 	<ul class="plain">
 		<li>
-			<button class="create block" @click="createStoryPrompt" title="{{ 'Create a brand-new story' | say }}">
+			<button class="create block" @click="createStoryPrompt" v-bind:title="'Create a brand-new story' | say">
 				<i class="fa fa-plus"></i> {{ 'Story' | say }}
 			</button>
 		</li>
