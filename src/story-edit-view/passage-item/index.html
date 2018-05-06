@@ -10,9 +10,7 @@
 			<span class="text">{{ passage.name }}</span>
 		</p>
 
-		<p class="excerpt">
-			{{{ excerpt }}}
-		</p>
+		<p class="excerpt" v-html="excerpt"></p>
 	</div> <!-- .frame -->
 
 	<passage-menu v-if="needsMenu" :passage="passage" :parent-story="parentStory"></passage-menu>
