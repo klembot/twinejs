@@ -4,6 +4,7 @@ this component dispatches a `file-drag-n-drop` event to its parent.
 */
 
 const Vue = require('vue');
+const eventHub = require('../../common/eventHub');
 const domEvents = require('../../vue/mixins/dom-events');
 
 require('./index.less');
@@ -48,7 +49,7 @@ module.exports = Vue.extend({
 
 	methods: {
 		fileReceived(e) {
-			this.$dispatch('file-drag-n-drop', e.dataTransfer.files);
+			eventHub.$emit('file-drag-n-drop', e.dataTransfer.files);
 			this.receiving = false;
 		}
 	},
