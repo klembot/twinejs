@@ -26,7 +26,7 @@
 			</button>
 		</span>
 
-		<button class="subtle" @click="test" title="{{ 'Play this story in test mode' | say }}">
+		<button class="subtle" @click="test" v-bind:title="'Play this story in test mode' | say">
 			<i class="fa fa-bug fa-lg"></i>
 			<!-- L10n: The verb form, to try something or to check it for problems. -->
 			{{ 'Test' | say }}
