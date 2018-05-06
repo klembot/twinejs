@@ -99,7 +99,7 @@ glob.sync('src/**/*.html').forEach(fileName => {
 Parse .js files for say() and sayPlural() calls.
 */
 
-glob.sync('src/*+/*.js').forEach(fileName => {
+glob.sync('src/**/*.js').forEach(fileName => {
 	/*
 	Simplifies an expression (e.g. 'a compound ' + ' string') to a single
 	value.
