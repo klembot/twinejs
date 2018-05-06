@@ -145,7 +145,7 @@ TwineRouter.map({
 
 	'/stories/:storyId/test/:passageId': {
 		component: {
-			ready() {
+			mounted() {
 				this.$nextTick(function () {
 					// code that assumes this.$el is in-document
 					const state = this.$store.state;
