@@ -1,6 +1,7 @@
 // The toolbar at the bottom of the screen with editing controls.
 
 const Vue = require('vue');
+const locale = require('../../locale');
 const eventHub = require('../../common/eventHub');
 const zoomMappings = require('../zoom-settings');
 const { updateStory } = require('../../data/actions/story');
@@ -19,6 +20,30 @@ module.exports = Vue.extend({
 		zoomDesc: {
 			type: String,
 			required: true
+		}
+	},
+
+	computed: {
+		storyLinkTitle() {
+			return locale.say('Go to the story list');
+		},
+		showOnlyStory() {
+			return locale.say('Show only story structure');
+		},
+		showPassageTitlesOnly() {
+			return locale.say('Show only passage titles');
+		},
+		showPassageTitlesAndExcerpts() {
+			return locale.say('Show passage titles and excerpts');
+		},
+		storyTestMode() {
+			return locale.say('Play this story in test mode');
+		},
+		storyPlayMode() {
+			return locale.say('Play this story');
+		},
+		newPassageTitle() {
+			return locale.say('Add a new passage');
 		}
 	},
 
