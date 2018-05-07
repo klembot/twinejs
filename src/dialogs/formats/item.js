@@ -34,7 +34,7 @@ module.exports = Vue.extend({
 			return locale.say('Remove this format');
 		},
 
-		radioId() {
+		nameVersion() {
 			return this.format.name + '-' + this.format.properties.version;
 		},
 

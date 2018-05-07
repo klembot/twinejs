@@ -48,7 +48,7 @@ const prompter = module.exports = {
 			},
 
 			cancel() {
-				eventHub.$emit('close', this.response);
+				eventHub.$emit('close', false);
 			}
 		},
 

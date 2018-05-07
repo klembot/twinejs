@@ -5,12 +5,12 @@
 			   :disabled="format.broken"
 			   @click="setDefaultFormat"
 			   v-bind:title="selectorInputTitle"
-			   v-bind:id="">
+			   v-bind:id="nameVersion">
 	</td>
 
 	<td>
 		<p>
-			<label v-bind:for="format.name-format.properties.version">
+			<label v-bind:for="nameVersion">
 				<i class="fa fa-warning" v-if="format.broken"></i>
 				<b>{{ format.name }} {{ format.properties.version }}</b>
 				<span v-if="author" v-html="author"></span>
