@@ -212,18 +212,16 @@ msgstr "Statistika příběhu"
 msgid "This story was last changed at %s"
 msgstr "Příběh byl naposledy změněn v %s"
 
+#.    L10n: %s is the IFID of the story. Please keep the <span> element around it.
 #: templates/storyeditview/statsmodal.html:45
 #, php-format
 #, approved
 msgid ""
-"The IFID for this story is"
+"The IFID for this story is <span class=\"ifid\">%s</span>. <a href=\"http:\\/"
+"\\/ifdb.tads.org/help-ifid\" target=\"_blank\">What's an IFID?</a>)"
 msgstr ""
-"IFID tohoto příběhu je"
-
-msgid ""
-"What's an IFID?"
-msgstr ""
-"Co je to IFID?"
+"IFID tohoto příběhu je <span class=\"ifid\">%s</span>. <a href=\"http:\\/\\/"
+"ifdb.tads.org/help-ifid\" target=\"_blank\">Co je to IFID?</a>)"
 
 #: templates/storyeditview/storyformatmodal.html:7
 #, approved
@@ -443,14 +441,14 @@ msgstr "Písma"
 #, approved
 msgid ""
 "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the "
-"guidance of Robert Slimbach for Adobe"
-" Nunito was designed by "
-"Vernon Adams"
+"guidance of Robert Slimbach for <a href=\"http:\\/\\/adobe.com/\">Adobe</"
+"a><br> Nunito was designed by <a href=\"http:\\/\\/code.newtypography.co.uk/"
+"\">Vernon Adams</a>"
 msgstr ""
 "Source Sans Pro a Source Code Pro byly vytvořeny Paulem D. Huntem pod "
-"vedením Roberta Slimbacha pro Adobe"
-" Nunito bylo vytvořeno "
-"Vernonem Adamsem"
+"vedením Roberta Slimbacha pro <a href=\"http:\\/\\/adobe.com/\">Adobe</"
+"a><br> Nunito bylo vytvořeno <a href=\"http:\\/\\/code.newtypography.co.uk/"
+"\">Vernonem Adamsem</a>"
 
 #: templates/storylistview/modals/aboutmodal.html:82
 #, approved
@@ -518,7 +516,7 @@ msgstr "Ne děkuji"
 
 #: templates/storylistview/modals/donatemodal.html:21
 #, approved
-msgid "This message will only be shown to you once."
+msgid "This message will only be shown to you once.<br>"
 msgstr "Tato zpráva se zobrazí pouze jednou.<br>"
 
 #: templates/storylistview/modals/formatsmodal.html:9
@@ -745,15 +743,15 @@ msgstr "Jste nováček?"
 #: templates/welcomeview.html:27
 #, approved
 msgid ""
-"If you've never used Twine before, then welcome! The "
-"Twine 2 Guide "
+"<strong>If you've never used Twine before,</strong> then welcome! The <a "
+"href=\"http:\\/\\/twinery.org/2guide\" target=\"_blank\">Twine 2 Guide</a> "
 "and the official wiki in general, are a great place to learn. Keep in mind "
 "that some articles on the wiki at large were written for Twine 1, which is a "
 "little bit different than this version. But most of the concepts are the "
 "same."
 msgstr ""
-"Pokud jste Twine nikdy nepoužil, pak vítejte! "
-"Twine 2 průvodce a "
+"<strong>Pokud jste Twine nikdy nepoužil,</strong> pak vítejte! <a href=\""
+"http:\\/\\/twinery.org/2guide\" target=\"_blank\">Twine 2 průvodce</a> a "
 "oficiální wiki jsou obecně nejlepšími místy, jak se něco naučit. Veďte ovšem "
 "v patrnosti, že některé články na wiki jsou většinou vytvořeny pro Twine "
 "verze 1, jež se trochu liší od stávající verze. Většina konceptů je však "
@@ -771,12 +769,12 @@ msgstr ""
 #: templates/welcomeview.html:35
 #, approved
 msgid ""
-"If you have used Twine 1 before, the guide also has details "
+"<strong>If you have used Twine 1 before,</strong> the guide also has details "
 "on what has changed in this version. Chief among them is a new default story "
 "format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, "
 "try using SugarCube instead."
 msgstr ""
-"Pokud jste Twine 1 již předtím používali, najdete v "
+"<strong>Pokud jste Twine 1 již předtím používali,</strong> najdete v "
 "průvodci i popis toho, co bylo v nové verzi změněno. Hlavní změnou je asi "
 "výchozí formát příběhu Harlowe. Pokud ale dáváte přednost skriptovací "
 "syntaxi Twine 1, použijte místo toho SugarCube."
@@ -857,11 +855,11 @@ msgstr "Vaše práce je automaticky ukládána."
 #: templates/welcomeviewnw.html:11
 #, approved
 msgid ""
-"There is now a named Twine in your Documents folder. Inside that is a "
+"There's now a folder named Twine in your Documents folder. Inside that is a "
 "Stories folder, where all your work will be saved. Twine saves as you work, "
 "so you don't have to worry about remembering to save it yourself. You can "
-"always open the folder your stories are saved to by using the Show "
-"Library item in the Twine menu."
+"always open the folder your stories are saved to by using the <b>Show "
+"Library</b> item in the <b>Twine</b> menu."
 msgstr ""
 "Ve vaší složce dokumentů je nyní složka Twine. Uvnitř je složka s příběhy, "
 "kam se ukládá vaše rozpracovaná práce. Twine vše průběžně ukládá, takže se o "

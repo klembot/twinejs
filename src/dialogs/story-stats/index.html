@@ -52,12 +52,6 @@
 		{{ 'This story was last changed at %s.' | say(lastUpdate) }}
 		</p>
 
-		<p>
-			{{ preIfidHelp }}
-			<span> {{ story.ifid }} </span>.
-			 (<a href="http://ifdb.tads.org/help-ifid" target="_blank">
-				{{ postIfidHelp }}
-			</a>)
-		</p>
+		<p v-html="ifidHelp"></p>
 	</div>
 </modal-dialog>

@@ -158,13 +158,11 @@ msgstr "Estadísticas de la historia"
 msgid "This story was last changed at %s"
 msgstr "Esta historia se modificó por última vez el %s"
 
+#. L10n: %s is the IFID of the story. Please keep the <span> element around it.
 #: templates/storyeditview/statsmodal.html:45
 #, php-format
-msgid "The IFID for this story is"
-msgstr "La IFID de esta historia es" 
-
-msgid "What's an IFID?"
-msgstr "¿Qué es una IFID? (Inglés)"
+msgid "The IFID for this story is <span class=\"ifid\">%s</span>. <a href=\"http:\\/\\/ifdb.tads.org/help-ifid\" target=\"_blank\">What's an IFID?</a>)"
+msgstr "La IFID de esta historia es <span class=\"ifid\">%s</span>. <a href=\"http:\\/\\/ifdb.tads.org/help-ifid\" target=\"_blank\">¿Qué es una IFID? (Inglés)</a>"
 
 #: templates/storyeditview/storyformatmodal.html:7
 msgid "Story Format"
@@ -336,8 +334,8 @@ msgid "Fonts"
 msgstr "Tipos de letra"
 
 #: templates/storylistview/modals/aboutmodal.html:78
-msgid "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the guidance of Robert Slimbach for Adobe Nunito was designed by Vernon Adams"
-msgstr "Source Sans Pro y Source Code Pro fueron diseñadas por Paul D. Hunt bajo la supervisión de Robert Slimbach para AdobeNunito fue diseñada por Vernon Adams"
+msgid "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the guidance of Robert Slimbach for <a href=\"http:\\/\\/adobe.com/\">Adobe</a><br> Nunito was designed by <a href=\"http:\\/\\/code.newtypography.co.uk/\">Vernon Adams</a>"
+msgstr "Source Sans Pro y Source Code Pro fueron diseñadas por Paul D. Hunt bajo la supervisión de Robert Slimbach para <a href=\"http:\\/\\/adobe.com/\">Adobe</a><br>Nunito fue diseñada por <a href=\"http:\\/\\/code.newtypography.co.uk/\">Vernon Adams</a>"
 
 #: templates/storylistview/modals/aboutmodal.html:82
 msgid "Icons"
@@ -388,8 +386,8 @@ msgid "No Thanks"
 msgstr "No gracias"
 
 #: templates/storylistview/modals/donatemodal.html:21
-msgid "This message will only be shown to you once."
-msgstr "Este mensaje sólo se te mostrará una vez."
+msgid "This message will only be shown to you once.<br>"
+msgstr "Este mensaje sólo se te mostrará una vez.<br>"
 
 #: templates/storylistview/modals/formatsmodal.html:9
 msgid "Story Formats"
@@ -562,18 +560,18 @@ msgstr "¿Nueva/o por aquí?"
 
 #: templates/welcomeview.html:27
 msgid ""
-"If you've never used Twine before, then welcome! The Twine 2 Guide and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki at large were written "
+"<strong>If you've never used Twine before,</strong> then welcome! The <a href=\"http:\\/\\/twinery.org/2guide\" target=\"_blank\">Twine 2 Guide</a> and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki at large were written "
 "for Twine 1, which is a little bit different than this version. But most of the concepts are the same."
 msgstr ""
-"Si nunca has usado Twine antes, ¡bienvenida/o! La Guía de Twine 2 (en inglés) y la wiki oficial en general, son un muy buen lugar para aprender. Ten en cuenta que algunos artículos de la wiki en "
+"<strong>Si nunca has usado Twine antes,</strong> ¡bienvenida/o! La <a href=\"http:\\/\\/twinery.org/2guide\" target=\"_blank\">Guía de Twine 2 (en inglés)</a> y la wiki oficial en general, son un muy buen lugar para aprender. Ten en cuenta que algunos artículos de la wiki en "
 "general fueron escritos para Twine 1, que es un poco diferente a esta versión. Pero la mayoría de los conceptos son los mismos."
 
 #: templates/welcomeview.html:31
-msgid "You can also get help over at the Twine forum, too."
-msgstr "Puedes encontrar ayuda en el foro de Twine, también."
+msgid "You can also get help over at the <a href=\"http:\\/\\/twinery.org/forum\" target=\"_blank\">Twine forum</a>, too."
+msgstr "Puedes encontrar ayuda en el <a href=\"http:\\/\\/twinery.org/forum\" target=\"_blank\">foro de Twine</a>, también."
 
 #: templates/welcomeview.html:35
-msgid "If you have used Twine 1 before, the guide also has details on what has changed in this version. Chief among them is a new default story format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, try using SugarCube instead."
+msgid "<strong>If you have used Twine 1 before,</strong> the guide also has details on what has changed in this version. Chief among them is a new default story format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, try using SugarCube instead."
 msgstr ""
 "<strong>Si has usado Twine 1 antes,</strong> la guía también tiene detalles sobre qué cambió en esta versión. Lo principal es que hay un nuevo formato de historia predeterminado, Harlowe. Pero si prefieres la sintaxis de Twine 1, prueba en cambio con el formato SugarCube."
 
@@ -619,8 +617,8 @@ msgstr "Tu trabajo se guardará automáticamente"
 
 #: templates/welcomeviewnw.html:11
 msgid ""
-"There is now a named Twine in your Documents folder. Inside that is a Stories folder, where all your work will be saved. Twine saves as you work, so you don't have to worry about remembering to save it yourself. You can always open the folder your stories are saved to "
-"by using the Show Library item in the Twine menu."
+"There's now a folder named Twine in your Documents folder. Inside that is a Stories folder, where all your work will be saved. Twine saves as you work, so you don't have to worry about remembering to save it yourself. You can always open the folder your stories are saved to "
+"by using the <b>Show Library</b> item in the <b>Twine</b> menu."
 msgstr ""
 "A partir de este momento hay una carpeta llamada Twine en tu carpeta de Documentos. Dentro de ella hay una carpeta Stories, en la que se guardará todo tu trabajo. Twine guarda a medida que trabajas, así que no te preocupes por acordarte de guardar. Siempre puedes abrir la "
 "carpeta en la que se guardan tus historias usando el ítem <b>Mostrar biblioteca</b> en el menú <b>Twine</b>."
@@ -1021,11 +1019,8 @@ msgid_plural "%d Stories"
 msgstr[0] "%d historia"
 msgstr[1] "%d historias"
 
-#~ msgid "The IFID for this story is"
-#~ msgstr "La IFID para esta historia es"
-
-#~ msgid "What's an IFID?"
-#~ msgstr ¿Qué es una IFID? (Inglés)"
+#~ msgid "The IFID for this story is <span class=\"ifid\">%s</span>. <a href=\"http://ifdb.tads.org/help-ifid\" target=\"_blank\">What's an IFID?</a>)"
+#~ msgstr "La IFID para esta historia es <span class=\"ifid\">%s</span>. <a href=\"http://ifdb.tads.org/help-ifid\" target=\"_blank\">¿Qué es una IFID? (Inglés)</a>)"
 
 #~ msgid ""
 #~ "Twine 2.0 is released under the <a href=\"http://www.gnu.org/licenses/gpl-3.0.html\">GPL v3</a> license, but any work created with it may be released under any terms, including commercial ones. <a href=\"https://bitbucket.org/klembot/twinejs\">Source Code Repository</a>"
@@ -1033,18 +1028,18 @@ msgstr[1] "%d historias"
 #~ "Twine 2.0 se distribuye bajo la licencia <a href=\"http://www.gnu.org/licenses/gpl-3.0.html\">GPL v3</a>, pero cualquier trabajo creado con él puede distribuirse bajo otros términos cualesquiera, inclusive comerciales. <a href=\"https://bitbucket.org/klembot/twinejs"
 #~ "\">Repositorio del código fuente</a>"
 
-#~ msgid "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the guidance of Robert Slimbach for Adobe Nunito was designed by Vernon Adams"
-#~ msgstr "Source Sans Pro y Source Code Pro fueron diseñadas por Paul D. Hunt bajo la supervisión de Robert Slimbach para Adobe Nunito fue diseñada por Vernon Adams"
+#~ msgid "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the guidance of Robert Slimbach for <a href=\"http://adobe.com/\">Adobe</a><br> Nunito was designed by <a href=\"http://code.newtypography.co.uk/\">Vernon Adams</a>"
+#~ msgstr "Source Sans Pro y Source Code Pro fueron diseñadas por Paul D. Hunt bajo la supervisión de Robert Slimbach para <a href=\"http://adobe.com/\">Adobe</a><br> Nunito fue diseñada por <a href=\"http://code.newtypography.co.uk/\">Vernon Adams</a>"
 
 #~ msgid ""
-#~ "If you've never used Twine before, then welcome! The Twine 2 Guide and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki at large were written "
+#~ "<strong>If you've never used Twine before,</strong> then welcome! The <a href=\"http://twinery.org/2guide\" target=\"_blank\">Twine 2 Guide</a> and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki at large were written "
 #~ "for Twine 1, which is a little bit different than this version. But most of the concepts are the same."
 #~ msgstr ""
-#~ "Si nunca has usado Twine antes, ¡bienvenida/o! La Guía de Twine 2 (en inglés) y la wiki oficial en general, son un muy buen lugar para aprender. Ten en cuenta que algunos artículos en la wiki en "
+#~ "<strong>Si nunca has usado Twine antes,</strong> ¡bienvenida/o! La <a href=\"http://twinery.org/2guide\" target=\"_blank\">Guía de Twine 2 (en inglés)</a> y la wiki oficial en general, son un muy buen lugar para aprender. Ten en cuenta que algunos artículos en la wiki en "
 #~ "general fueron escritos para Twine 1, que es un poco diferente a esta versión. Pero la mayoría de los conceptos son los mismos."
 
-#~ msgid "You can also get help over at the Twine forum, too."
-#~ msgstr "También puedes encontrar ayuda en el foro de Twine."
+#~ msgid "You can also get help over at the <a href=\"http://twinery.org/forum\" target=\"_blank\">Twine forum</a>, too."
+#~ msgstr "También puedes encontrar ayuda en el <a href=\"http://twinery.org/forum\" target=\"_blank\">foro de Twine</a>."
 
 #~ msgid ""
 #~ "Two <b>very important</b> things to remember, though. Since your work is saved only in your browser, if you clear its saved data, then you'll lose your work! Not good. Remember to use that <i class=\"fa fa-briefcase\"></i>&nbsp;<strong>Archive</strong> button often. You "
@@ -1070,11 +1065,11 @@ msgstr[1] "%d historias"
 
 # Gendered adjective.
 # —DAVID
-#~ msgid "If you've never used Twine before, then welcome! "
-#~ msgstr "Si nunca usaste Twine antes, ¡bienvenida/o! "
+#~ msgid "<strong>If you've never used Twine before,</strong> then welcome! "
+#~ msgstr "<strong>Si nunca usaste Twine antes,</strong> ¡bienvenida/o! "
 
-#~ msgid "If you have used Twine 1 before, the guide also has details on what has changed in this version. "
-#~ msgstr "Si usaste Twine 1 antes, la guía también tiene detalles sobre qué cambió en esta versión. "
+#~ msgid "<strong>If you have used Twine 1 before,</strong> the guide also has details on what has changed in this version. "
+#~ msgstr "<strong>Si usaste Twine 1 antes,</strong> la guía también tiene detalles sobre qué cambió en esta versión. "
 
 #~ msgid "That means you don't need to create an account to use Twine 2, "
 #~ msgstr "Eso significa que no vas a necesitar crear una cuenta para usar Twine 2, "

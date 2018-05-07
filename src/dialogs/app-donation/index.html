@@ -1,7 +1,7 @@
 <modal-dialog class="no-header" id="appDonation" ref="modal">
 	<img src="./klimas.png" class="portrait">
 
-	<p class="larger">
+	<p class="larger" v-html="pleaseDonate">
 		{{ "If you love Twine as much as I do, please consider helping it grow with a donation. Twine is an open source project that will always be free to use &mdash; and with your help, Twine will continue to thrive." | say }}
 	</p>
 
@@ -18,10 +18,5 @@
 		</button>
 	</p>
 
-	<p class="coda">
-		{{ "This message will only be shown to you once. If you'd like to donate to Twine development in the future, you can do so at " | say }}
-		<a href="http://twinery.org/donate" target="_blank">
-			http://twinery.org/donate
-		</a>
-	</p>
+	<p class="coda" v-html="shownOnce"></p>
 </modal-dialog>

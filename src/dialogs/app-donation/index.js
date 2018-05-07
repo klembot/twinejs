@@ -2,6 +2,7 @@
 
 const Vue = require('vue');
 const { setPref } = require('../../data/actions/pref');
+const locale = require('../../locale');
 
 require('./index.less');
 
@@ -23,6 +24,15 @@ const donation = module.exports = {
 
 	component: Vue.extend({
 		template: require('./index.html'),
+
+		computed: {
+			pleaseDonate() {
+				return locale.say(`If you love Twine as much as I do, please consider helping it grow with a donation. Twine is an open source project that will always be free to use &mdash; and with your help, Twine will continue to thrive.`);
+			},
+			shownOnce() {
+				return locale.say(`This message will only be shown to you once.&lt;br&gt;If you'd like to donate to Twine development in the future, you can do so at &lt;a href=\"http:\/\/twinery.org/donate\" target=\"_blank\"&gt;http://twinery.org/donate&lt;/a&gt;.`);
+			}
+		},
 
 		methods: {
 			donate() {

@@ -5,9 +5,7 @@
 	{{ 'Twine is an open-source tool for telling interactive, nonlinear stories.'| say }}
 	</p>
 
-	<p>
-		{{ 'This application is released under the GPL v3 license, but any work created with it may be released under any terms, including commercial ones.' | say }}
-	</p>
+	<p v-html="gplText"></p>
 
 	<p>
 	{{
@@ -26,7 +24,7 @@
 	</p>
 
 	<p>
-	<a href="https:\/\/bitbucket.org/klembot/twinejs" class="button primary">
+	<a href="https:\/\/github.com/klembot/twinejs" class="button primary">
 		<i class="fa fa-bitbucket"></i>
 		{{ 'Source Code Repository' | say }}
 	</a>
@@ -98,7 +96,7 @@
 	{{ 'Fonts'| say }}
 	</h4>
 
-	<p>
+	<p v-html="fontsText">
 	{{ 'Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the guidance of Robert Slimbach for Adobe Nunito was designed by Vernon Adams'| say }}}
 	</p>
 

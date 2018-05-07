@@ -188,17 +188,15 @@ msgid "This story was last changed at %s"
 msgstr "Öykü en son şu tarih ve saatte değiştirildi: %s"
 
 # : used to prevent usage of number dependant suffixes.
+#. L10n: %s is the IFID of the story. Please keep the <span> element around it.
 #: templates/storyeditview/statsmodal.html:45
 #, php-format
 msgid ""
-"The IFID for this story is"
+"The IFID for this story is <span class=\"ifid\">%s</span>. <a href=\"http:\\/"
+"\\/ifdb.tads.org/help-ifid\" target=\"_blank\">What's an IFID?</a>)"
 msgstr ""
-"Bu öykünün IFID'si: "
-
-msgid ""
-"What's an IFID?"
-msgstr ""
-"IFID nedir?"
+"Bu öykünün IFID'si: <span class=\"ifid\">%s</span>. <a href=\"http:\\/\\/"
+"ifdb.tads.org/help-ifid\" target=\"_blank\">IFID nedir?</a>)"
 
 #: templates/storyeditview/storyformatmodal.html:7
 msgid "Story Format"
@@ -383,14 +381,14 @@ msgstr "Yazı Tipleri"
 #: templates/storylistview/modals/aboutmodal.html:78
 msgid ""
 "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the "
-"guidance of Robert Slimbach for Adobe"
-" Nunito was designed by "
-"Vernon Adams"
+"guidance of Robert Slimbach for <a href=\"http:\\/\\/adobe.com/\">Adobe</"
+"a><br> Nunito was designed by <a href=\"http:\\/\\/code.newtypography.co.uk/"
+"\">Vernon Adams</a>"
 msgstr ""
 "Source Sans Pro ve Source Code Pro; Paul D. Hunt tarafından, Robert Slimbach "
-"rehberliğinde Adobe için "
-"tasarlanmıştır Nunito "
-"Vernon Adams tarafından tasarlanmıştır"
+"rehberliğinde <a href=\"http:\\/\\/adobe.com/\">Adobe</a> için "
+"tasarlanmıştır<br> Nunito <a href=\"http:\\/\\/code.newtypography.co.uk/"
+"\">Vernon Adams</a> tarafından tasarlanmıştır"
 
 #: templates/storylistview/modals/aboutmodal.html:82
 msgid "Icons"
@@ -446,8 +444,8 @@ msgid "No Thanks"
 msgstr "Hayır, Teşekkürler"
 
 #: templates/storylistview/modals/donatemodal.html:21
-msgid "This message will only be shown to you once."
-msgstr "Bu mesaj, size sadece bir kez gösterilecektir."
+msgid "This message will only be shown to you once.<br>"
+msgstr "Bu mesaj, size sadece bir kez gösterilecektir.<br>"
 
 #: templates/storylistview/modals/formatsmodal.html:9
 msgid "Story Formats"
@@ -632,35 +630,35 @@ msgstr "Yeni misiniz?"
 
 #: templates/welcomeview.html:27
 msgid ""
-"If you've never used Twine before, then welcome! The "
-"Twine 2 Guide "
+"<strong>If you've never used Twine before,</strong> then welcome! The <a "
+"href=\"http:\\/\\/twinery.org/2guide\" target=\"_blank\">Twine 2 Guide</a> "
 "and the official wiki in general, are a great place to learn. Keep in mind "
 "that some articles on the wiki at large were written for Twine 1, which is a "
 "little bit different than this version. But most of the concepts are the "
 "same."
 msgstr ""
-"Eğer daha önce Twine'ı kullanmadıysanız hoş geldiniz. "
-"Twine 2 Rehberi "
+"<strong>Eğer daha önce Twine'ı kullanmadıysanız</strong> hoş geldiniz. <a "
+"href=\"http:\\/\\/twinery.org/2guide\" target=\"_blank\">Twine 2 Rehberi</a> "
 "ve resmi wiki sayfası genelde öğrenmek için iyidir. Bazı makalelerin Twine 1 "
 "için yazıldığını aklınızda bulundurun, çünkü o sürüm bu sürümden biraz "
 "farklı. Fakat çoğu konsept aynı."
 
 #: templates/welcomeview.html:31
 msgid ""
-"You can also get help over at the "
-"Twine forum, too."
+"You can also get help over at the <a href=\"http:\\/\\/twinery.org/forum\" "
+"target=\"_blank\">Twine forum</a>, too."
 msgstr ""
-"Twine Forumu"
-"'dan da yardım alabilirsiniz."
+"<a href=\"http:\\/\\/twinery.org/forum\" target=\"_blank\">Twine Forumu</"
+"a>'dan da yardım alabilirsiniz."
 
 #: templates/welcomeview.html:35
 msgid ""
-"If you have used Twine 1 before, the guide also has details "
+"<strong>If you have used Twine 1 before,</strong> the guide also has details "
 "on what has changed in this version. Chief among them is a new default story "
 "format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, "
 "try using SugarCube instead."
 msgstr ""
-"Eğer Twine 1'ı daha önce kullandıysanız, rehberde bu "
+"<strong>Eğer Twine 1'ı daha önce kullandıysanız,</strong> rehberde bu "
 "sürümde değişen detaylar da var. En önemli değişiklik yeni bir öykü biçimi "
 "var, Harlowe. Eğer Twine 1 kod biçimini tercih ediyorsanız SugarCube'u "
 "deneyin."
@@ -730,11 +728,11 @@ msgstr "Çalışmalarınız otomatik olarak kaydedilir."
 # Are the folders localized?
 #: templates/welcomeviewnw.html:11
 msgid ""
-"There is now a named Twine in your Documents folder. Inside that is a "
+"There's now a folder named Twine in your Documents folder. Inside that is a "
 "Stories folder, where all your work will be saved. Twine saves as you work, "
 "so you don't have to worry about remembering to save it yourself. You can "
-"always open the folder your stories are saved to by using the Show "
-"Library item in the Twine menu."
+"always open the folder your stories are saved to by using the <b>Show "
+"Library</b> item in the <b>Twine</b> menu."
 msgstr ""
 "Artık \"Belgelerim\" dosyasında Twine adlı bir dosya var. Onun içinde "
 "Öyküler dosyası var, orada bütün çalışmalarınız kaydedilir.. Twine "

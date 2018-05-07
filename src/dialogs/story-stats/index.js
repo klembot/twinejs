@@ -124,12 +124,9 @@ module.exports = Vue.extend({
 			);
 		},
 
-		preIfidHelp() {
-			return locale.say('The IFID for this story is');
+		ifidHelp() {
+			return locale.say(`'The IFID for this story is &lt;span class="ifid"&gt;%s&lt;/span&gt;. (&lt;a href="http:\/\/ifdb.tads.org/help-ifid" target="_blank"&gt;What\'s an IFID?&lt;/a&gt;)`, this.story.ifid);
 		},
-		postIfidHelp() {
-			return locale.say("What's an IFID?");
-		}
 	},
 
 	vuex: {

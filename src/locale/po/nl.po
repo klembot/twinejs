@@ -179,17 +179,15 @@ msgstr "Verhaal statistieken"
 msgid "This story was last changed at %s"
 msgstr "Dit verhaal is als laatst veranderd op %s"
 
+#. L10n: %s is the IFID of the story. Please keep the <span> element around it.
 #: templates/storyeditview/statsmodal.html:45
 #, php-format
 msgid ""
-"The IFID for this story is"
+"The IFID for this story is <span class=\"ifid\">%s</span>. <a href=\"http:\\/"
+"\\/ifdb.tads.org/help-ifid\" target=\"_blank\">What's an IFID?</a>)"
 msgstr ""
-"Het IFID van dit verhaal is"
-
-msgid ""
-"What's an IFID?"
-msgstr ""
-"Wat is een IFID?"
+"Het IFID van dit verhaal is <span class=\"ifid\">%s</span>. <a href=\"http:"
+"\\/\\/ifdb.tads.org/help-ifid\" target=\"_blank\">Wat is een IFID?</a>)"
 
 #: templates/storyeditview/storyformatmodal.html:7
 msgid "Story Format"
@@ -367,14 +365,14 @@ msgstr "Lettertypes"
 #: templates/storylistview/modals/aboutmodal.html:78
 msgid ""
 "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the "
-"guidance of Robert Slimbach for Adobe"
-" Nunito was designed by "
-"Vernon Adams"
+"guidance of Robert Slimbach for <a href=\"http:\\/\\/adobe.com/\">Adobe</"
+"a><br> Nunito was designed by <a href=\"http:\\/\\/code.newtypography.co.uk/"
+"\">Vernon Adams</a>"
 msgstr ""
 "Source Sans Pro and Source Code Pro zijn ontworpen door Paul D. Hunt onder "
-"begelijding van Robert Slimbach voor "
-"Adobe Nunito is ontworpen door "
-"Vernon Adams"
+"begelijding van Robert Slimbach voor <a href=\"http:\\/\\/adobe.com/"
+"\">Adobe</a><br> Nunito is ontworpen door <a href=\"http:\\/\\/code."
+"newtypography.co.uk/\">Vernon Adams</a>"
 
 #: templates/storylistview/modals/aboutmodal.html:82
 msgid "Icons"
@@ -431,7 +429,7 @@ msgid "No Thanks"
 msgstr "Nee bedankt"
 
 #: templates/storylistview/modals/donatemodal.html:21
-msgid "This message will only be shown to you once."
+msgid "This message will only be shown to you once.<br>"
 msgstr "Dit bericht zal maar een keer aan je gezien laten worden."
 
 #: templates/storylistview/modals/formatsmodal.html:9
@@ -617,33 +615,33 @@ msgstr "Ben je hier nieuw?"
 
 #: templates/welcomeview.html:27
 msgid ""
-"If you've never used Twine before, then welcome! The "
-"Twine 2 Guide "
+"<strong>If you've never used Twine before,</strong> then welcome! The <a "
+"href=\"http:\\/\\/twinery.org/2guide\" target=\"_blank\">Twine 2 Guide</a> "
 "and the official wiki in general, are a great place to learn. Keep in mind "
 "that some articles on the wiki at large were written for Twine 1, which is a "
 "little bit different than this version. But most of the concepts are the "
 "same."
 msgstr ""
-"Als je nog nooit Twine hebt gebruikt, welkom! De "
-"Twine 2 Handleiding "
+"<strong>Als je nog nooit Twine hebt gebruikt,</strong> welkom! De <a href="
+"\"http:\\/\\/twinery.org/2guide\" target=\"_blank\">Twine 2 Handleiding</a> "
 "en de officiële wiki, zijn goede plaatsen om te leren werken met Twine. "
 
 #: templates/welcomeview.html:31
 msgid ""
-"You can also get help over at the "
-"Twine forum, too."
+"You can also get help over at the <a href=\"http:\\/\\/twinery.org/forum\" "
+"target=\"_blank\">Twine forum</a>, too."
 msgstr ""
-"Je kunt ook hulp krijgen op het "
-"Twine forum."
+"Je kunt ook hulp krijgen op het <a href=\"http:\\/\\/twinery.org/forum\" "
+"target=\"_blank\">Twine forum</a>."
 
 #: templates/welcomeview.html:35
 msgid ""
-"If you have used Twine 1 before, the guide also has details "
+"<strong>If you have used Twine 1 before,</strong> the guide also has details "
 "on what has changed in this version. Chief among them is a new default story "
 "format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, "
 "try using SugarCube instead."
 msgstr ""
-"Als je Twine 1 voorheen hebt gebruikt, dan heeft de "
+"<strong>Als je Twine 1 voorheen hebt gebruikt,</strong> dan heeft de "
 "handleiding ook details over wat er is veranderd in deze versie. De grootste "
 "verandering is dat er een nieuw standaard verhaal formaat is, Harlowe. Maar "
 "als je de Twine 1 scripting syntax prefereert probeer dan SugarCube."
@@ -713,11 +711,11 @@ msgstr "Je werk wordt automatisch opgeslagen."
 
 #: templates/welcomeviewnw.html:11
 msgid ""
-"There is now a named Twine in your Documents folder. Inside that is a "
+"There's now a folder named Twine in your Documents folder. Inside that is a "
 "Stories folder, where all your work will be saved. Twine saves as you work, "
 "so you don't have to worry about remembering to save it yourself. You can "
-"always open the folder your stories are saved to by using the Show "
-"Library item in the Twine menu."
+"always open the folder your stories are saved to by using the <b>Show "
+"Library</b> item in the <b>Twine</b> menu."
 msgstr ""
 "Er is nou een map genaamd Twine in je Documenten map. In deze map is een map "
 "Verhalen waar al je werk opgeslagen zal worden. Twine slaat alles op terwijl "
