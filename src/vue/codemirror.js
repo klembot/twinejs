@@ -1,7 +1,7 @@
 // A lightweight Vue component that wraps a CodeMirror instance.
 
 const Vue = require('vue');
-const eventHub = require('../../common/eventHub');
+const eventHub = require('../common/eventHub');
 const CodeMirror = require('codemirror');
 
 require('./codemirror-theme.less');

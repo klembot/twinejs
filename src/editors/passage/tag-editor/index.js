@@ -1,7 +1,7 @@
 /* An editor for adding and removing tags from a passage. */
 
 const Vue = require('vue');
-const locale = require('../../locale');
+const locale = require('../../../locale');
 const { updatePassage } = require('../../../data/actions/passage');
 const uniq = require('lodash.uniq');
 

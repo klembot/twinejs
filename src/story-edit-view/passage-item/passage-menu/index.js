@@ -1,8 +1,8 @@
 /* A contextual menu that appears when the user points at a passage. */
 
 const Vue = require('vue');
-const eventHub = require('../../common/eventHub');
-const locale = require('../../locale');
+const eventHub = require('../../../common/eventHub');
+const locale = require('../../../locale');
 const { updatePassage } = require('../../../data/actions/passage');
 const { updateStory } = require('../../../data/actions/story');
 
