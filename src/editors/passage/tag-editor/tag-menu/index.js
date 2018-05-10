@@ -1,7 +1,7 @@
 const Vue = require('vue');
 const without = require('lodash.without');
 
-const locale = require('../../locale');
+const locale = require('../../../../locale');
 const { setTagColorInStory } = require('../../../../data/actions/story');
 const { updatePassage } = require('../../../../data/actions/passage');
 
