@@ -55,10 +55,7 @@ require('./nw').init().then(function() {
 		/* Load the locale, then start the application. */
 
 		locale.load(userLocale.toLowerCase(), () => {
-			new Vue({
-				el: "#main",
-				component: TwineApp
-			});
+			new TwineApp({ el: "#main" });
 		});
 	}
 	else {
@@ -67,10 +64,7 @@ require('./nw').init().then(function() {
 		*/
 
 		locale.load('en', () => {
-			new Vue({
-				el: "#main",
-				component: TwineApp
-			});
+			new TwineApp({ el: "#main" });
 			Vue.nextTick(() => {
 				/*
 				The message below is not localized because if we've reached
