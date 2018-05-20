@@ -8,7 +8,7 @@ const latestFormatVersions = require('../latest-format-versions');
 const locale = require('../../locale');
 const { setPref } = require('./pref');
 
-const actions = module.exports = {
+const actions = {
 	createFormat({ dispatch }, props) {
 		dispatch('CREATE_FORMAT', props);
 	},
@@ -294,3 +294,5 @@ const actions = module.exports = {
 		}
 	}
 };
+
+module.exports = actions;

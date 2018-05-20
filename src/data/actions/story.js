@@ -5,7 +5,7 @@ Story-related actions.
 const semverUtils = require('semver-utils');
 const latestFormatVersions = require('../latest-format-versions');
 
-const actions = module.exports = {
+const actions = {
 	createStory(store, props) {
 		let normalizedProps = Object.assign({}, props);
 
@@ -177,3 +177,5 @@ const actions = module.exports = {
 		});
 	}
 };
+
+module.exports = actions;

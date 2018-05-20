@@ -1,7 +1,7 @@
 const linkParser = require('../link-parser');
 const rect = require('../../common/rect');
 
-const actions = module.exports = {
+const actions = {
 	createPassage({ dispatch }, storyId, props) {
 		dispatch('CREATE_PASSAGE_IN_STORY', storyId, props);
 	},
@@ -240,3 +240,5 @@ const actions = module.exports = {
 		});
 	}
 };
+
+module.exports = actions;

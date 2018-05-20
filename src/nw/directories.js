@@ -5,7 +5,7 @@ Manages access to the user's Twine library directory.
 const osenv = require('osenv');
 const locale = require('../locale');
 
-const Directories = module.exports = {
+const Directories = {
 	/*
 	Returns the path to the user's documents directory. If one does not exist,
 	this returns the empty string.
@@ -122,3 +122,5 @@ const Directories = module.exports = {
 		}
 	}
 };
+
+module.exports = Directories;

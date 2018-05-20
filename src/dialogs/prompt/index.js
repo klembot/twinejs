@@ -7,7 +7,7 @@ const { thenable } = require('../../vue/mixins/thenable');
 
 require('./index.less');
 
-const prompter = module.exports = {
+const prompter = {
 	component: Vue.extend({
 		template: require('./index.html'),
 		
@@ -84,3 +84,5 @@ const prompter = module.exports = {
 		);
 	}
 };
+
+module.exports = prompter;

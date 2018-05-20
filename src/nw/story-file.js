@@ -2,7 +2,7 @@
 Manages interactions with individual story files.
 */
 
-const StoryFile = module.exports = {
+const StoryFile = {
 	/*
 	A global flag that allows deactivation of the module. This is needed while
 	the module itself works, so that changes in local storage made here don't
@@ -144,3 +144,5 @@ const StoryFile = module.exports = {
 		}
 	}
 };
+
+module.exports = StoryFile;

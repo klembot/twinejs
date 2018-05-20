@@ -2,7 +2,7 @@
 // don't deal with all the intracacies of dealing with the actual CSV format,
 // e.g. quotation marks).
 
-const commaList = module.exports = {
+const commaList = {
 	// Returns whether a list contains a value.
 
 	contains(list, value) {
@@ -37,3 +37,5 @@ const commaList = module.exports = {
 		return list;
 	}
 };
+
+module.exports = commaList;

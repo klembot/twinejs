@@ -12,7 +12,7 @@ const StoryFile = require('./story-file');
 let idQueue = [];
 let flushTimeout;
 
-const SaveQueue = module.exports = {
+const SaveQueue = {
 	/* How long to wait to flush the queue, in milliseconds. */
 
 	delay: 10000,
@@ -62,3 +62,5 @@ const SaveQueue = module.exports = {
 		}
 	}
 };
+
+module.exports = SaveQueue;

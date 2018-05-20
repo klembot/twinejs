@@ -9,7 +9,7 @@ let { createStory } = require('../actions/story');
 let { passageDefaults, storyDefaults } = require('../store/story');
 let commaList = require('./comma-list');
 
-const story = module.exports = {
+const story = {
 	/*
 	A wrapper for a series of save/delete operations. This takes a function as
 	argument that will receive an object keeping track of the transaction. This
@@ -214,3 +214,5 @@ const story = module.exports = {
 		});
 	}
 };
+
+module.exports = story;

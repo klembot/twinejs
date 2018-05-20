@@ -11,7 +11,7 @@ require('./index.less');
 
 const DONATION_DELAY = 1000 * 60 * 60 * 24 * 14;
 
-const donation = module.exports = {
+const donation = {
 	check(store) {
 		const now = new Date().getTime();
 
@@ -51,3 +51,4 @@ const donation = module.exports = {
 	})
 };
 
+module.exports = donation;

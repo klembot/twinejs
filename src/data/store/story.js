@@ -28,7 +28,7 @@ function getPassageInStory(story, id) {
 	return passage;
 }
 
-const storyStore = module.exports = {
+const storyStore = {
 	state: {
 		stories: []
 	},
@@ -213,3 +213,5 @@ const storyStore = module.exports = {
 			: locale.say('Double-click this passage to edit it.')
 	}
 };
+
+module.exports = storyStore;
