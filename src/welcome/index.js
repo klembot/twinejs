@@ -30,7 +30,7 @@ module.exports = Vue.extend({
 			return locale.say(`You can also get help over at the &lt;a href="http://twinery.org/forum" target="_blank"&gt;Twine forum</a>, too.`);
 		},
 		usedBefore() {
-			return locale.say(`&lt;strong&gt;If you have used Twine 1 before,&lt;/strong&gt; the guide also has details on what has changed in this version. Chief among them is a new default story format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, try using SugarCube instead.`)
+			return locale.say(`&lt;strong&gt;If you have used Twine 1 before,&lt;/strong&gt; the guide also has details on what has changed in this version. Chief among them is a new default story format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, try using SugarCube instead.`);
 		},
 		noAccountNeeded() {
 			return locale.say("That means you don't need to create an account to use Twine 2, and everything you create isn't stored on a server somewhere else &mdash; it stays right in your browser.");

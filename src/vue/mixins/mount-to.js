@@ -6,7 +6,7 @@ module.exports = {
 		$mountTo(el) {
 			const mountPoint = document.createElement('div');
 
-			this.$mount(mountPoint).$appendTo(el);
+			this.$mount(mountPoint.appendChild(el));
 			return this;
 		},
 	}
