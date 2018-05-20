@@ -13,7 +13,7 @@ module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	props: {
-		class: {
+		className: {
 			type: String,
 			default: ''
 		},
@@ -76,7 +76,7 @@ module.exports = Vue.extend({
 				content: this.$el,
 				position: this.position,
 				openOn: openOn,
-				classes: this.class,
+				classes: this.className,
 				constrainToWindow: false,
 				constrainToScrollParent: false,
 				tetherOptions
