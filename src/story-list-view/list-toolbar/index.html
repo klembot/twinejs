@@ -15,7 +15,7 @@
 					@click="importFile"
 					v-bind:title="importFileTitle">
 				<i class="fa fa-upload"></i>
-				{{'Import From File' | say}}
+				{{ 'Import From File' | say}}
 			</button>
 		</li>
 		<li>
@@ -37,7 +37,7 @@
 		<li>
 			<button class="block"
 					@click="showLocale"
-					v-bind:title="">
+					v-bind:title="changeLocaleTitle">
 				<i class="fa fa-comment-o"></i>
 				{{ 'Language' | say }}
 			</button>
@@ -62,14 +62,14 @@
 		</p>
 
 		<p>
-			{{'version' | say }}
+			{{ 'version' | say }}
 			<button class="link" @click="showAbout">
 				{{ appInfo.version }}
 			</button>
 			<br>
 			<a href="https://github.com./klembot/twinejs/issues">
 				<i class="fa fa-bug"></i>
-				{{'Report a bug' | say }}
+				{{ 'Report a bug' | say }}
 			</a>
 		</p>
 	</footer>
