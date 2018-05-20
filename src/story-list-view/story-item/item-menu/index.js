@@ -75,7 +75,7 @@ module.exports = Vue.extend({
 		 @method confirmDelete
 		**/
 
-		delete() {
+		deleteClick() {
 			confirm({
 				message:
 					locale.say(
