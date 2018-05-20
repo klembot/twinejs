@@ -3,7 +3,7 @@ A single passage in the story map.
 */
 
 const escape = require('lodash.escape');
-const Vue = require('vue');
+const Vue = require('vue').default;
 const eventHub = require('../../common/eventHub');
 const PassageEditor = require('../../editors/passage');
 const { confirm } = require('../../dialogs/confirm');

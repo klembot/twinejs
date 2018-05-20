@@ -1,4 +1,4 @@
-const Vue = require('vue');
+const Vue = require('vue').default;
 const semverUtils = require('semver-utils');
 const { createFormatFromUrl, loadFormat, repairFormats } = require('../../data/actions/story-format');
 const locale = require('../../locale');

@@ -1,6 +1,6 @@
 // Shows a dialog asking the user to make a donation.
 
-const Vue = require('vue');
+const Vue = require('vue').default;
 const { setPref } = require('../../data/actions/pref');
 const locale = require('../../locale');
 

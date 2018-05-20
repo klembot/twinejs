@@ -1,7 +1,7 @@
 // Shows a single story format, with a radio button to allow the user to
 // choose it.
 
-const Vue = require('vue');
+const Vue = require('vue').default;
 const { updateStory } = require('../../data/actions/story');
 
 require('./item.less');

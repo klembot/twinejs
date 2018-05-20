@@ -7,7 +7,7 @@
 'use strict';
 const locale = require('../../locale');
 const eventHub = require('../../common/eventHub');
-const Vue = require('vue');
+const Vue = require('vue').default;
 const { thenable } = require('../../vue/mixins/thenable');
 
 require('./index.less');

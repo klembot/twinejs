@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const { spy, stub } = require('sinon');
-const Vue = require('vue');
+const Vue = require('vue').default;
 const domEvents = require('./dom-events');
 
 describe('dom-events Vue mixin', () => {

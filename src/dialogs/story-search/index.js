@@ -3,7 +3,7 @@ A modal which allows the user to perform find and replace on a array of
 passages.
 */
 
-const Vue = require('vue');
+const Vue = require('vue').default;
 const locale = require('../../locale');
 const eventHub = require('../../common/eventHub');
 

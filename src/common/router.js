@@ -1,6 +1,6 @@
 /* The router managing the app's views. */
 
-let Vue = require('vue');
+let Vue = require('vue').default;
 const VueRouter = require('vue-router');
 const LocaleView = require('../locale/view');
 const StoryEditView = require('../story-edit-view');

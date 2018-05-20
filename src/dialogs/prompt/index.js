@@ -1,6 +1,6 @@
 /* Shows a modal dialog asking for a text response from the user. */
 
-const Vue = require('vue');
+const Vue = require('vue').default;
 const locale = require('../../locale');
 const eventHub = require('../../common/eventHub');
 const { thenable } = require('../../vue/mixins/thenable');

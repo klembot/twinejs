@@ -1,7 +1,7 @@
 // This is a list of notifications at the top of the page. See index.js for the
 // public API for this.
 
-const Vue = require('vue');
+const Vue = require('vue').default;
 
 require('./list.less');
 

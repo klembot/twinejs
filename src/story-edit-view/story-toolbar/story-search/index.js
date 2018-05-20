@@ -3,7 +3,7 @@ Shows a quick search field, which changes passage highlights, and a button to
 show the search modal dialog.
 */
 
-const Vue = require('vue');
+const Vue = require('vue').default;
 const locale = require('../../../locale');
 const SearchDialog = require('../../../dialogs/story-search');
 

@@ -2,7 +2,7 @@
 // button used to trigger the menu.
 
 const Drop = require('tether-drop');
-const Vue = require('vue');
+const Vue = require('vue').default;
 const eventHub = require('../../common/eventHub');
 const { hasPrimaryTouchUI } = require('../index');
 const domEvents = require('../../vue/mixins/dom-events');

@@ -3,7 +3,7 @@
 **/
 
 'use strict';
-const Vue = require('vue');
+const Vue = require('vue').default;
 const { setPref } = require('../../data/actions/pref');
 
 require('./index.less');

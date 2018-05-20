@@ -3,7 +3,7 @@ A dialog which allows a user to import a story from a file. This returns a
 promise resolving to the stories that were imported, if any.
 */
 
-const Vue = require('vue');
+const Vue = require('vue').default;
 const { deleteStory, importStory } = require('../../data/actions/story');
 const importHTML = require('../../data/import');
 const load = require('../../file/load');

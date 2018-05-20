@@ -1,5 +1,5 @@
 'use strict';
-const Vue = require('vue');
+const Vue = require('vue').default;
 const locale = require('../../locale');
 const { confirm } = require('../confirm');
 const { deleteFormat } = require('../../data/actions/story-format');

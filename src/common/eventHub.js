@@ -1,5 +1,5 @@
 
-let Vue = require('vue');
+let Vue = require('vue').default;
 
 var eventHub = new Vue();
 

@@ -2,7 +2,7 @@
 A component showing a single search result.
 */
 
-const Vue = require('vue');
+const Vue = require('vue').default;
 const locale = require('../../locale');
 const { updatePassage } = require('../../data/actions/passage');
 

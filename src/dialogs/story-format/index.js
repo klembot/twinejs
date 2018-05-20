@@ -1,4 +1,4 @@
-const Vue = require('vue');
+const Vue = require('vue').default;
 const { loadFormat } = require('../../data/actions/story-format');
 const locale = require('../../locale');
 const notify = require('../../ui/notify');

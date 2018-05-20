@@ -1,5 +1,5 @@
 const { expect } = require('chai');
-const Vue = require('vue');
+const Vue = require('vue').default;
 const mountTo = require('./mount-to');
 
 describe('mountTo Vue mixin', () => {

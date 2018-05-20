@@ -4,7 +4,7 @@
 
 'use strict';
 const moment = require('moment');
-const Vue = require('vue');
+const Vue = require('vue').default;
 const ZoomTransition = require('../zoom-transition');
 
 require('./index.less');

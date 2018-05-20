@@ -1,7 +1,7 @@
 require('core-js');
 const { expect } = require('chai');
 const { spy } = require('sinon');
-const Vue = require('vue');
+const Vue = require('vue').default;
 const { symbols: { resolve, reject }, thenable } = require('./thenable');
 
 describe('thenable Vue mixin', () => {

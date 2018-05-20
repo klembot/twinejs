@@ -2,7 +2,7 @@
 A component showing a modal dialog where a story's stylesheet can be edited.
 */
 
-const Vue = require('vue');
+const Vue = require('vue').default;
 const { updateStory } = require('../../data/actions/story');
 
 require('codemirror/mode/css/css');

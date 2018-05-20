@@ -2,7 +2,7 @@
 A modal which shows aggregrate statistics for a story.
 */
 
-const Vue = require('vue');
+const Vue = require('vue').default;
 const moment = require('moment');
 const linkParser = require('../../data/link-parser');
 const locale = require('../../locale');

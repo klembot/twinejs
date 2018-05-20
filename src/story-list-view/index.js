@@ -6,7 +6,7 @@
 **/
 
 'use strict';
-const Vue = require('vue');
+const Vue = require('vue').default;
 const locale = require('../locale');
 const eventHub = require('../common/eventHub');
 const { check: checkForAppUpdate } = require('../dialogs/app-update');

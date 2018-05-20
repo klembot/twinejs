@@ -1,7 +1,7 @@
 // Handles the cog menu for a single story.
 
 const escape = require('lodash.escape');
-const Vue = require('vue');
+const Vue = require('vue').default;
 const { confirm } = require('../../../dialogs/confirm');
 const { deleteStory, duplicateStory, updateStory } = require('../../../data/actions/story');
 const { loadFormat } = require('../../../data/actions/story-format');
