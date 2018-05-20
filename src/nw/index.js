@@ -14,7 +14,7 @@ module.exports = {
 	@return {Promise} Resolves only after initialization completes successfully
 	**/
 
-	beforeCreate() {
+	init() {
 		return new Promise(resolve => {
 			/* eslint-disable no-inner-declarations */
 

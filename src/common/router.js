@@ -13,25 +13,24 @@ const store = require('../data/store');
 
 Vue.use(VueRouter);
 
-let TwineRouter = new VueRouter();
-
-TwineRouter.map({
+let TwineRouter = new VueRouter({
+	routes: [
+		{
 	/*  We connect routes with no params directly to a component. */
-
-	'/locale': {
-		component: LocaleView
+			path: '/locale',
+			component: LocaleView,
 	},
-
-	'/welcome': {
-		component: WelcomeView
+		{
+			path: '/welcome',
+			component: WelcomeView,
 	},
-
+		{
 	/*
-	For routes that take data objects, we create shim components which provide
-	appropriate props to the components that do the actual work.
+			For routes that take data objects,
+			we create shim components which provide appropriate props
+			to the components that do the actual work.
 	*/
-
-	'/stories': {
+			path: '/stories',
 		component: {
 			template: '<div><story-list ' +
 				':previously-editing="previouslyEditing"></story-list></div>',
@@ -44,10 +43,10 @@ TwineRouter.map({
 						this.$route.params.previouslyEditing : ''
 				};
 			},
-		}
 	},
-
-	'/stories/:id': {
+		},
+		{
+			path: '/stories/:id',
 		component: {
 			template: '<div><story-edit :story-id="id"></story-edit></div>',
 
@@ -58,13 +57,13 @@ TwineRouter.map({
 			}
 		},
 	},
-
+		{
 	/*
-	These routes require special handling, because we tear down our UI when
-	they activate.
+			These routes require special handling, because we tear down our 
+			UI when they activate.
 	*/
 
-	'/stories/:id/play': {
+			path: '/stories/:id/play',
 		component: {
 			mounted() {
 				this.$nextTick(function () {
@@ -89,8 +88,8 @@ TwineRouter.map({
 			}
 		}
 	},
-
-	'/stories/:id/proof': {
+		{
+			path: '/stories/:id/proof',
 		component: {
 			mounted() {
 				this.$nextTick(function () {
@@ -115,8 +114,8 @@ TwineRouter.map({
 			}
 		}
 	},
-
-	'/stories/:id/test': {
+		{
+			path: '/stories/:id/test',
 		component: {
 			mounted() {
 				this.$nextTick(function () {
@@ -142,8 +141,8 @@ TwineRouter.map({
 			}
 		}
 	},
-
-	'/stories/:storyId/test/:passageId': {
+		{
+			path: '/stories/:storyId/test/:passageId',
 		component: {
 			mounted() {
 				this.$nextTick(function () {
@@ -169,28 +168,29 @@ TwineRouter.map({
 				});
 			}
 		}
+		},
+		{
+			/* By default, show the story list. */
+			path: "*",
+			redirect: "/stories",
 	}
+	]
 });
 
-/* By default, show the story list. */
 
-TwineRouter.redirect({
-	'*': '/stories'
-});
-
-TwineRouter.beforeEach(transition => {
+TwineRouter.beforeEach((to, from, next) => {
 	/*
 	If we are moving from an edit view to a list view, give the list view the
 	story that we were previously editing, so that it can display a zooming
 	transition back to the story.
 	*/
 
-	if (transition.from.path && transition.to.path === '/stories') {
+	if (from.path && to.path === '/stories') {
 		const editingId =
-			transition.from.path.match('^/stories/([^\/]+)$');
+			from.path.match('^/stories/([^\/]+)$');
 
 		if (editingId) {
-			transition.to.params.previouslyEditing = editingId[1];
+			to.params.previouslyEditing = editingId[1];
 		}
 	}
 
@@ -202,11 +202,11 @@ TwineRouter.beforeEach(transition => {
 
 	const welcomeSeen = store.state.pref.welcomeSeen;
 
-	if (transition.to.path === '/welcome' || welcomeSeen) {
-		transition.next();
+	if (to.path === '/welcome' || welcomeSeen) {
+		next();
 	}
 	else {
-		transition.redirect('/welcome');
+		next('/welcome');
 	}
 });
 
