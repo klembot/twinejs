@@ -2,6 +2,7 @@
 
 let Vue = require('vue').default;
 const VueRouter = require('vue-router');
+
 const LocaleView = require('../locale/view');
 const StoryEditView = require('../story-edit-view');
 const StoryListView = require('../story-list-view');
@@ -16,164 +17,164 @@ Vue.use(VueRouter);
 let TwineRouter = new VueRouter({
 	routes: [
 		{
-	/*  We connect routes with no params directly to a component. */
+			/*  We connect routes with no params directly to a component. */
 			path: '/locale',
 			component: LocaleView,
-	},
+		},
 		{
 			path: '/welcome',
 			component: WelcomeView,
-	},
+		},
 		{
-	/*
+			/*
 			For routes that take data objects,
 			we create shim components which provide appropriate props
 			to the components that do the actual work.
-	*/
+			*/
 			path: '/stories',
-		component: {
-			template: '<div><story-list ' +
-				':previously-editing="previouslyEditing"></story-list></div>',
+			component: {
+				template: '<div><story-list ' +
+					':previously-editing="previouslyEditing"></story-list></div>',
 
-			components: { 'story-list': StoryListView },
+				components: { 'story-list': StoryListView },
 
-			data() {
-				return {
-					previouslyEditing: this.$route.params ?
-						this.$route.params.previouslyEditing : ''
-				};
+				data() {
+					return {
+						previouslyEditing: this.$route.params ?
+							this.$route.params.previouslyEditing : ''
+					};
+				},
 			},
-	},
 		},
 		{
 			path: '/stories/:id',
-		component: {
-			template: '<div><story-edit :story-id="id"></story-edit></div>',
+			component: {
+				template: '<div><story-edit :story-id="id"></story-edit></div>',
 
-			components: { 'story-edit': StoryEditView },
+				components: { 'story-edit': StoryEditView },
 			
-			data() {
-				return { id: this.$route.params.id };
-			}
+				data() {
+					return { id: this.$route.params.id };
+				}
+			},
 		},
-	},
 		{
-	/*
+			/*
 			These routes require special handling, because we tear down our 
 			UI when they activate.
-	*/
+			*/
 
 			path: '/stories/:id/play',
-		component: {
-			mounted() {
-				this.$nextTick(function () {
-					// code that assumes this.$el is in-document
-					const state = this.$store.state;
-					const story = state.story.stories.find(
-						story => story.id === this.$route.params.id
-					);
+			component: {
+				mounted() {
+					this.$nextTick(function () {
+						// code that assumes this.$el is in-document
+						const state = this.$store.state;
+						const story = state.story.stories.find(
+							story => story.id === this.$route.params.id
+						);
 
-					loadFormat(
-						this.$store,
-						story.storyFormat,
-						story.storyFormatVersion
-					).then(format => {
-						replaceUI(publishStoryWithFormat(
-							state.appInfo,
-							story,
-							format
-						));
+						loadFormat(
+							this.$store,
+							story.storyFormat,
+							story.storyFormatVersion
+						).then(format => {
+							replaceUI(publishStoryWithFormat(
+								state.appInfo,
+								story,
+								format
+							));
+						});
 					});
-				});
+				}
 			}
-		}
-	},
+		},
 		{
 			path: '/stories/:id/proof',
-		component: {
-			mounted() {
-				this.$nextTick(function () {
-					// code that assumes this.$el is in-document
-					const state = this.$store.state;
-					const story = state.story.stories.find(
-						story => story.id === this.$route.params.id
-					);
+			component: {
+				mounted() {
+					this.$nextTick(function () {
+						// code that assumes this.$el is in-document
+						const state = this.$store.state;
+						const story = state.story.stories.find(
+							story => story.id === this.$route.params.id
+						);
 
-					loadFormat(
-						this.$store,
-						state.pref.proofingFormat.name,
-						state.pref.proofingFormat.version
-					).then(format => {
-						replaceUI(publishStoryWithFormat(
-							state.appInfo,
-							story,
-							format
-						));
+						loadFormat(
+							this.$store,
+							state.pref.proofingFormat.name,
+							state.pref.proofingFormat.version
+						).then(format => {
+							replaceUI(publishStoryWithFormat(
+								state.appInfo,
+								story,
+								format
+							));
+						});
 					});
-				});
+				}
 			}
-		}
-	},
+		},
 		{
 			path: '/stories/:id/test',
-		component: {
-			mounted() {
-				this.$nextTick(function () {
-					// code that assumes this.$el is in-document
-					const state = this.$store.state;
-					const story = state.story.stories.find(
-						story => story.id === this.$route.params.id
-					);
+			component: {
+				mounted() {
+					this.$nextTick(function () {
+						// code that assumes this.$el is in-document
+						const state = this.$store.state;
+						const story = state.story.stories.find(
+							story => story.id === this.$route.params.id
+						);
 
-					loadFormat(
-						this.$store,
-						story.storyFormat,
-						story.storyFormatVersion
-					).then(format => {
-						replaceUI(publishStoryWithFormat(
-							state.appInfo,
-							story,
-							format,
-							['debug']
-						));
+						loadFormat(
+							this.$store,
+							story.storyFormat,
+							story.storyFormatVersion
+						).then(format => {
+							replaceUI(publishStoryWithFormat(
+								state.appInfo,
+								story,
+								format,
+								['debug']
+							));
+						});
 					});
-				});
+				}
 			}
-		}
-	},
+		},
 		{
 			path: '/stories/:storyId/test/:passageId',
-		component: {
-			mounted() {
-				this.$nextTick(function () {
-					// code that assumes this.$el is in-document
-					const state = this.$store.state;
-					const story = state.story.stories.find(
-						story => story.id === this.$route.params.storyId
-					);
+			component: {
+				mounted() {
+					this.$nextTick(function () {
+						// code that assumes this.$el is in-document
+						const state = this.$store.state;
+						const story = state.story.stories.find(
+							story => story.id === this.$route.params.storyId
+						);
 
-					loadFormat(
-						this.$store,
-						story.storyFormat,
-						story.storyFormatVersion
-					).then(format => {
-						replaceUI(publishStoryWithFormat(
-							state.appInfo,
-							story,
-							format,
-							['debug'],
-							this.$route.params.passageId
-						));
+						loadFormat(
+							this.$store,
+							story.storyFormat,
+							story.storyFormatVersion
+						).then(format => {
+							replaceUI(publishStoryWithFormat(
+								state.appInfo,
+								story,
+								format,
+								['debug'],
+								this.$route.params.passageId
+							));
+						});
 					});
-				});
+				}
 			}
-		}
 		},
 		{
 			/* By default, show the story list. */
 			path: "*",
 			redirect: "/stories",
-	}
+		}
 	]
 });
 

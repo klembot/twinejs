@@ -18,7 +18,7 @@ const animationEndEvents = [
 
 require('./index.less');
 
-const ModalDialog = module.exports = Vue.extend({
+const ModalDialog = Vue.extend({
 	template: require('./index.html'),
 
 	props: {
@@ -140,11 +140,13 @@ const ModalDialog = module.exports = Vue.extend({
 	mixins: [domEvents, thenable]
 });
 
+module.exports = ModalDialog;
+
 /*
 We have to transition in our individual parts through a custom transition.
 */
 
-ModalDialog.transition('modal-dialog', {
+const ModalDialogTransition = Vue.component('modal-dialog', {
 	beforeEnter: function(el) {
 		let overlay = el.querySelector('#modal-overlay');
 		let dialog = el.querySelector('.modal-dialog');

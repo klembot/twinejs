@@ -23,35 +23,37 @@ require('./index.less');
 						 buttonLabel (HTML label for the button)
 **/
 
-const confirmation = module.exports = {
-	component: Vue.extend({
-		template: require('./index.html'),
+const confirmation = Vue.extend({
+	template: require('./index.html'),
 
-		data: () => ({
-			message: '',
-			coda: '',
-			cancelLabel: ('<i class="fa fa-times"></i> ' + locale.say('Cancel')),
-			buttonLabel: '',
-			modalClass: '',
-			buttonClass: 'primary'
-		}),
-
-		methods: {
-			accept() {
-				eventHub.$emit('close', true);
-			},
-
-			cancel() {
-				eventHub.$emit('close', false);
-			},
-		},
-
-		components: {
-			'modal-dialog': require('../../ui/modal-dialog'),
-		},
-
-		mixins: [thenable]
+	data: () => ({
+		message: '',
+		coda: '',
+		cancelLabel: ('<i class="fa fa-times"></i> ' + locale.say('Cancel')),
+		buttonLabel: '',
+		modalClass: '',
+		buttonClass: 'primary'
 	}),
+
+	methods: {
+		accept() {
+			eventHub.$emit('close', true);
+		},
+
+		cancel() {
+			eventHub.$emit('close', false);
+		},
+	},
+
+	components: {
+		'modal-dialog': require('../../ui/modal-dialog'),
+	},
+
+	mixins: [thenable]
+});
+
+module.exports = {
+	component: confirmation,
 
 	/**
 	 Creates a <confirm-modal> dialog using the given data, and returns
@@ -61,7 +63,7 @@ const confirmation = module.exports = {
 	*/
 
 	confirm(data) {
-		return new confirmation.component(
+		return new confirmation(
 			{ data }
 		).$mountTo(document.body).then(
 			result => {

@@ -2,6 +2,7 @@
 
 const values = require('lodash.values');
 const Vue = require('vue').default;
+
 const eventHub = require('../common/eventHub');
 const { confirm } = require('../dialogs/confirm');
 const { createPassage, deletePassage, positionPassage, updatePassage } = require('../data/actions/passage');
