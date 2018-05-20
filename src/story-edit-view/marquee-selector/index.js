@@ -1,6 +1,6 @@
 // A marquee selection tool for passage items.
 
-const Vue = require('vue').default;
+const Vue = require('vue');
 const domEvents = require('../../vue/mixins/dom-events');
 const rect = require('../../common/rect');
 const { selectPassages } = require('../../data/actions/passage');

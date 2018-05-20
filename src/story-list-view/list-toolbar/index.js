@@ -1,6 +1,6 @@
 // The side toolbar of a story list.
 
-const Vue = require('vue').default;
+const Vue = require('vue');
 const AboutDialog = require('../../dialogs/about');
 const FormatsDialog = require('../../dialogs/formats');
 const ImportDialog = require('../../dialogs/story-import');

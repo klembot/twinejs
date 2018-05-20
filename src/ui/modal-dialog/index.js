@@ -3,7 +3,7 @@ A generic modal dialog component. This implements the Thenable mixin and
 resolves itself when it is closed.
 */
 
-const Vue = require('vue').default;
+const Vue = require('vue');
 const eventHub = require('../../common/eventHub');
 const domEvents = require('../../vue/mixins/dom-events');
 const { thenable, symbols: { reject, resolve } } =

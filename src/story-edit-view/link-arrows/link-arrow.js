@@ -1,4 +1,4 @@
-const Vue = require('vue').default;
+const Vue = require('vue');
 const rect = require('../../common/rect');
 
 /*

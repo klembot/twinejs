@@ -2,7 +2,7 @@
 A toggle between light and dark themes.
 */
 
-const Vue = require('vue').default;
+const Vue = require('vue');
 const locale = require('../../locale');
 const { setPref } = require('../../data/actions/pref');
 

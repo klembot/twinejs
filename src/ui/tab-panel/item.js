@@ -1,4 +1,4 @@
-const Vue = require('vue').default;
+const Vue = require('vue');
 
 module.exports = Vue.extend({
 	template:

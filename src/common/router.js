@@ -1,5 +1,5 @@
-const Vue = require('vue').default;
-const VueRouter = require('vue-router').default;
+const Vue = require('vue');
+const VueRouter = require('vue-router');
 
 const LocaleView = require('../locale/view');
 const StoryEditView = require('../story-edit-view');

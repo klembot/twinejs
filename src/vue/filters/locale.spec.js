@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const { spy } = require('sinon');
-let Vue = require('vue').default;
+let Vue = require('vue');
 let locale = require('../../locale');
 const localeFilters = require('./locale');
 

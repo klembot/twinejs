@@ -4,7 +4,7 @@ require('./index.less');
 The main entry point for the application.
 */
 
-let Vue = require('vue').default;
+let Vue = require('vue');
 
 /*
 Load Vue extensions as early as possible so that they're available to
@@ -55,8 +55,11 @@ require('./nw').init().then(function() {
 		/* Load the locale, then start the application. */
 
 		locale.load(userLocale.toLowerCase(), () => {
-			console.log("loading app?");
-	});
+			new Vue({
+				el: "#main",
+				component: TwineApp
+			});
+		});
 	}
 	else {
 		/*
@@ -64,7 +67,10 @@ require('./nw').init().then(function() {
 		*/
 
 		locale.load('en', () => {
-			console.log("loading failed app?");
+			new Vue({
+				el: "#main",
+				component: TwineApp
+			});
 			Vue.nextTick(() => {
 				/*
 				The message below is not localized because if we've reached

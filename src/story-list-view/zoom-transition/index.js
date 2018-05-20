@@ -1,5 +1,5 @@
 'use strict';
-const Vue = require('vue').default;
+const Vue = require('vue');
 const { ZOOM_MAPPINGS } = require('../../story-edit-view');
 const { thenable, symbols:{ resolve } } = require('../../vue/mixins/thenable');
 

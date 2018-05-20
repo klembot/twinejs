@@ -1,6 +1,6 @@
 // The toolbar at the bottom of the screen with editing controls.
 
-const Vue = require('vue').default;
+const Vue = require('vue');
 const locale = require('../../locale');
 const eventHub = require('../../common/eventHub');
 const zoomMappings = require('../zoom-settings');

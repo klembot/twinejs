@@ -1,6 +1,6 @@
 // The main module managing the application's Vuex state and mutations.
 
-let Vue = require('vue').default;
+let Vue = require('vue');
 let Vuex = require('vuex');
 
 Vue.use(Vuex);

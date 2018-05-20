@@ -3,7 +3,7 @@ Manages a drag-and-drop-target on a component. When a file is dragged onto it,
 this component dispatches a `file-drag-n-drop` event to its parent.
 */
 
-const Vue = require('vue').default;
+const Vue = require('vue');
 const eventHub = require('../../common/eventHub');
 const domEvents = require('../../vue/mixins/dom-events');
 

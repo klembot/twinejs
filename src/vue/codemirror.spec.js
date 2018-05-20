@@ -1,5 +1,5 @@
 const { expect } = require('chai');
-const Vue = require('vue').default;
+const Vue = require('vue');
 const CodeMirror = require('./codemirror');
 
 describe('<code-mirror>', () => {

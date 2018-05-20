@@ -1,7 +1,7 @@
 // The main app running the show.
 
 'use strict';
-const Vue = require('vue').default;
+const Vue = require('vue');
 const ui = require('../../ui');
 const { repairFormats } = require('../../data/actions/story-format');
 const { repairStories } = require('../../data/actions/story');

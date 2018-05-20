@@ -7,7 +7,7 @@
 **/
 
 'use strict';
-const Vue = require('vue').default;
+const Vue = require('vue');
 const scroll = require('scroll');
 const locale = require('../locale');
 const { setPref } = require('../data/actions/pref');

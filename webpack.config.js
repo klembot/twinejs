@@ -13,7 +13,8 @@ module.exports = {
 	},
 	resolve: {
 		alias: {
-		  'vue$': 'vue/dist/vue.common.js' // 'vue/dist/vue.common.js' for webpack 1
+		  'vue$': 'vue/dist/vue.common.js',
+		  'vue-router$': 'vue-router/dist/vue-router.common.js'
 		}
 	  },
 	devtool: 'source-map',

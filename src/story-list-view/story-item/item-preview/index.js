@@ -4,7 +4,7 @@
 **/
 
 'use strict';
-const Vue = require('vue').default;
+const Vue = require('vue');
 
 const passageCenterOffset = 50;
 

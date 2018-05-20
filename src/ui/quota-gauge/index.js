@@ -1,7 +1,7 @@
 // This is an gauge that shows how much space is available in the user's local
 // storage. It's only applicable when the app is running in a Web browser.
 
-const Vue = require('vue').default;
+const Vue = require('vue');
 const locale = require('../../locale');
 
 require('./index.less');

@@ -1,7 +1,7 @@
 /* The main view where story editing takes place. */
 
 const values = require('lodash.values');
-const Vue = require('vue').default;
+const Vue = require('vue');
 
 const eventHub = require('../common/eventHub');
 const { confirm } = require('../dialogs/confirm');

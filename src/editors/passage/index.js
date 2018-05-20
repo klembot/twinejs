@@ -3,7 +3,7 @@ A modal dialog for editing a single passage.
 */
 
 const CodeMirror = require('codemirror');
-const Vue = require('vue').default;
+const Vue = require('vue');
 const locale = require('../../locale');
 const { thenable } = require('../../vue/mixins/thenable');
 const { changeLinksInStory, updatePassage } = require('../../data/actions/passage');
