@@ -37,7 +37,6 @@ module.exports = Vue.extend({
 	methods: {
 		createStoryPrompt(e) {
 			// Prompt for the new story name.
-
 			prompt({
 				message: locale.say(
 					'What should your story be named?<br>(You can change this later.)'
@@ -58,7 +57,7 @@ module.exports = Vue.extend({
 			}).then(name => {
 				this.createStory({ name });
 
-				/* Allow the appearance animation to complete. */
+				// Allow the appearance animation to complete.
 
 				window.setTimeout(() => {
 					this.$dispatch(
