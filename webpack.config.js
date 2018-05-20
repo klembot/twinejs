@@ -11,6 +11,11 @@ module.exports = {
 		path: __dirname + '/build',
 		filename: 'twine.js'
 	},
+	resolve: {
+		alias: {
+		  'vue$': 'vue/dist/vue.common.js' // 'vue/dist/vue.common.js' for webpack 1
+		}
+	  },
 	devtool: 'source-map',
 	stats: 'none',
 	module: {

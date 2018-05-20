@@ -30,7 +30,6 @@ require('./nw').init().then(function() {
 	const notify = require('./ui/notify');
 	const store = require('./data/store');
 	const TwineApp = require('./common/app');
-	const TwineRouter = require('./common/router');
 
 	require('core-js');
 
@@ -56,8 +55,8 @@ require('./nw').init().then(function() {
 		/* Load the locale, then start the application. */
 
 		locale.load(userLocale.toLowerCase(), () => {
-			TwineRouter.start(TwineApp, '#main');
-		});
+			console.log("loading app?");
+	});
 	}
 	else {
 		/*
@@ -65,8 +64,7 @@ require('./nw').init().then(function() {
 		*/
 
 		locale.load('en', () => {
-			TwineRouter.start(TwineApp, '#main');
-
+			console.log("loading failed app?");
 			Vue.nextTick(() => {
 				/*
 				The message below is not localized because if we've reached
