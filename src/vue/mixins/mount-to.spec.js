@@ -22,6 +22,7 @@ describe('mountTo Vue mixin', () => {
 
 	it('mounts a Vue component with $mountTo()', done => {
 		vm.$mountTo(document.body);
+		Vue.config.errorHandler = done
 		
 		Vue.nextTick(() => {
 			expect(document.querySelector('#mounted')).to.exist;
