@@ -10,35 +10,30 @@
 			<label>{{ 'Sort By' | say }}</label>
 
 			<span class="button-group">
-				<button v-bind:class="sortDateButtonClass"
-						@click="sortByDate"
-						v-bind:title="sortDateButtonTitle">
+				<button v-bind:class="sortDateButtonClass" @click="sortByDate" v-bind:title="sortDateButtonTitle">
 					{{ 'Edit Date' | say }}
 
-					<i v-bind:class="'fa fa-sort-amount-' + storyOrderDir"
-					   v-if="storyOrder === 'lastUpdate'"></i>
+					<i v-bind:class="'fa fa-sort-amount-' + storyOrderDir" v-if="storyOrder === 'lastUpdate'"></i>
 				</button>
 
-				<button v-bind:class="sortNameButtonClass"
-						@click="sortByName"
-						title="sortNameButtonTitle">
+				<button v-bind:class="sortNameButtonClass" @click="sortByName" title="sortNameButtonTitle">
 					{{ 'Name' | say }}
-					<i v-bind:class="'fa fa-sort-alpha-' + storyOrderDir"
-					   v-if="storyOrder === 'name'"></i>
+					<i v-bind:class="'fa fa-sort-alpha-' + storyOrderDir" v-if="storyOrder === 'name'"></i>
 				</button>
 			</span>
 		</p>
 	</header>
 
-		<div class="stories">
-			<p v-if="stories.length === 0">
-				{{ 'There are no stories saved in Twine right now. To get started, you can either create a new story or import an existing one from a file.' | say }}
-			</p>
-			<transition name="grow-in-out">
-			<story-item v-for="story in sortedStories"
-						:story="story"
-						v-bind:key="story.id"></story-item>
-			</transition>
-		</div>
-	</div> <!-- .main -->
-</div> <!-- #storyListView -->
+	<div class="stories">
+		<p v-if="stories.length === 0">
+			{{ 'There are no stories saved in Twine right now. To get started, you can either create a new story or import an existing
+			one from a file.' | say }}
+		</p>
+		<transition-group name="grow-in-out">
+			<story-item v-for="story in sortedStories" :story="story" v-bind:key="story.id"></story-item>
+		</transition-group>
+	</div>
+</div>
+<!-- .main -->
+</div>
+<!-- #storyListView -->

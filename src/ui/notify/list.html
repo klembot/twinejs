@@ -1,7 +1,6 @@
 <div id="notifications">
-	<transition name="fade-in-out">
-		<div v-for="(notification, index) in notifications"
-		 	 v-bind:class="notification.className">
+	<transition-group name="fade-in-out">
+		<div v-for="(notification, index) in notifications" v-bind:class="notification.className" v-bind:key="index">
 			<span class="badge" v-if="notification.className !== 'danger'">
 				<i class="fa fa-info"></i>
 			</span>
@@ -20,5 +19,5 @@
 				<i class="fa fa-times"></i>
 			</button>
 		</div>
-	</transition>
+	</transition-group>
 </div>
