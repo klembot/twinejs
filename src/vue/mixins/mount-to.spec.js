@@ -1,8 +1,8 @@
-const { expect } = require('chai');
-const Vue = require('vue');
-const mountTo = require('./mount-to');
+const { expect } = require("chai");
+const Vue = require("fullvue");
+const mountTo = require("./mount-to");
 
-describe('mountTo Vue mixin', () => {
+describe("mountTo Vue mixin", () => {
 	let vm;
 
 	beforeEach(() => {
@@ -13,21 +13,22 @@ describe('mountTo Vue mixin', () => {
 	});
 
 	afterEach(() => {
-		document.body.innerHTML = '';
+		document.body.innerHTML = "";
 	});
 
-	it('adds a $mountTo method to a Vue component', () => {
-		expect(vm.$mountTo).to.be.a('function');
+	it("adds a $mountTo method to a Vue component", () => {
+		expect(vm.$mountTo).to.be.a("function");
 	});
 
-	it('mounts a Vue component with $mountTo()', done => {
+	it("mounts a Vue component with $mountTo()", done => {
 		vm.$mountTo(document.body);
-		Vue.config.errorHandler = done
-		
+		Vue.config.errorHandler = done;
+
 		Vue.nextTick(() => {
-			expect(document.querySelector('#mounted')).to.exist;
-			expect(document.querySelector('#mounted').innerHTML)
-				.to.equal('Hello world.');
+			expect(document.querySelector("#mounted")).to.exist;
+			expect(document.querySelector("#mounted").innerHTML).to.equal(
+				"Hello world."
+			);
 			done();
 		});
 	});

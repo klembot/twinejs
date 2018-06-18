@@ -1,24 +1,25 @@
-const CopyPlugin = require('copy-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const HtmlPlugin = require('html-webpack-plugin');
-const PoPlugin = require('./webpack/po-webpack-plugin');
-const Autoprefixer = require('less-plugin-autoprefix');
-const package = require('./package.json');
+const CopyPlugin = require("copy-webpack-plugin");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const HtmlPlugin = require("html-webpack-plugin");
+const PoPlugin = require("./webpack/po-webpack-plugin");
+const Autoprefixer = require("less-plugin-autoprefix");
+const package = require("./package.json");
 
 module.exports = {
-	entry: './src/index.js',
+	entry: "./src/index.js",
 	output: {
-		path: __dirname + '/build',
-		filename: 'twine.js'
+		path: __dirname + "/build",
+		filename: "twine.js"
 	},
 	resolve: {
 		alias: {
-		  'vue$': 'vue/dist/vue.common.js',
-		  'vue-router$': 'vue-router/dist/vue-router.common.js'
+			vue$: "vue/dist/vue.common.js",
+			fullvue: "vue/dist/vue.common.js",
+			"vue-router$": "vue-router/dist/vue-router.common.js"
 		}
-	  },
-	devtool: 'source-map',
-	stats: 'none',
+	},
+	devtool: "source-map",
+	stats: "none",
 	module: {
 		rules: [
 			/*
@@ -26,10 +27,10 @@ module.exports = {
 			*/
 			{
 				test: /\.(eot|png|svg|ttf|woff|woff2)(\?.*)?$/,
-				loader: 'url-loader',
+				loader: "url-loader",
 				options: {
 					limit: 10000,
-					name: 'rsrc/[name].[hash].[ext]'
+					name: "rsrc/[name].[hash].[ext]"
 				}
 			},
 			/*
@@ -39,28 +40,28 @@ module.exports = {
 			{
 				test: /\.ejs$/,
 				exclude: /index\.ejs$/,
-				loader: 'ejs-loader'
+				loader: "ejs-loader"
 			},
 			{
 				test: /\.html$/,
-				loader: 'html-loader'
+				loader: "html-loader"
 			},
 			{
 				test: /\.less$/,
 				loader: ExtractTextPlugin.extract({
 					use: [
-						'css-loader',
+						"css-loader",
 						{
-							loader: 'less-loader',
+							loader: "less-loader",
 							options: {
 								plugins: [
 									new Autoprefixer({
-										browsers: ['iOS 1-9', 'last 2 versions']
+										browsers: ["iOS 1-9", "last 2 versions"]
 									})
 								]
 							}
 						}
-					]					
+					]
 				})
 			}
 		]
@@ -70,29 +71,31 @@ module.exports = {
 	magic invocation to do so.
 	*/
 	externals: {
-		child_process: 'commonjs child_process',
-		fs: 'commonjs fs',
-		'nw.gui': 'commonjs nw.gui',
-		'os': 'commonjs os',
-		path: 'commonjs path',
+		child_process: "commonjs child_process",
+		fs: "commonjs fs",
+		"nw.gui": "commonjs nw.gui",
+		os: "commonjs os",
+		path: "commonjs path"
 	},
 	plugins: [
-		new CopyPlugin([{ from: 'src/common/img/favicon.ico', to: 'rsrc/favicon.ico' }]),
-		new CopyPlugin([{ from: 'story-formats/', to: 'story-formats/' }]),
-		new CopyPlugin([{ from: 'src/locale/view/img', to: 'rsrc/' }]),
-		new ExtractTextPlugin('twine.css'),
+		new CopyPlugin([
+			{ from: "src/common/img/favicon.ico", to: "rsrc/favicon.ico" }
+		]),
+		new CopyPlugin([{ from: "story-formats/", to: "story-formats/" }]),
+		new CopyPlugin([{ from: "src/locale/view/img", to: "rsrc/" }]),
+		new ExtractTextPlugin("twine.css"),
 		new HtmlPlugin({
-			template: './src/index.ejs',
+			template: "./src/index.ejs",
 			package: package,
-			buildNumber: require('./scripts/build-number'),
+			buildNumber: require("./scripts/build-number"),
 			inject: false
 		}),
 		new PoPlugin({
-			src: 'src/locale/po/*.po',
-			dest: 'locale',
+			src: "src/locale/po/*.po",
+			dest: "locale",
 			options: {
-				format: 'jed1.x',
-				domain: 'messages'
+				format: "jed1.x",
+				domain: "messages"
 			}
 		})
 	]
