@@ -4,9 +4,9 @@
  @module locale
 **/
 
-const jsonp = require('jsonp');
-const Jed = require('jed');
-const moment = require('moment');
+const jsonp = require("jsonp");
+const Jed = require("jed");
+const moment = require("moment");
 
 module.exports = {
 	/**
@@ -34,13 +34,13 @@ module.exports = {
 		/* Set up failover Jed data to get back the source text as-is. */
 
 		const failoverData = {
-			domain: 'messages',
+			domain: "messages",
 			locale_data: {
 				messages: {
-					'': {
-						domain: 'messages',
-						lang: 'en-us',
-						plural_forms: 'nplurals=2; plural=(n != 1);'
+					"": {
+						domain: "messages",
+						lang: "en-us",
+						plural_forms: "nplurals=2; plural=(n != 1);"
 					}
 				}
 			}
@@ -51,7 +51,7 @@ module.exports = {
 		prevent unnecessary requests, especially with the online build.
 		*/
 
-		if (locale === 'en' || locale === 'en-us') {
+		if (locale === "en" || locale === "en-us") {
 			this.i18nData = failoverData;
 			this.i18n = new Jed(this.i18nData);
 			callback();
@@ -62,7 +62,7 @@ module.exports = {
 
 		jsonp(
 			`locale/${locale}.js`,
-			{ name: 'locale', timeout: 1000 },
+			{ name: "locale", timeout: 1000 },
 			(err, data) => {
 				if (err) {
 					this.i18nData = failoverData;

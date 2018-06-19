@@ -5,18 +5,18 @@
  @extends Backbone.Marionette.CompositeView
 **/
 
-'use strict';
-const Vue = require('vue');
-const locale = require('../locale');
-const eventHub = require('../common/eventHub');
-const { check: checkForAppUpdate } = require('../dialogs/app-update');
-const { check: checkForDonation } = require('../dialogs/app-donation');
-const ImportDialog = require('../dialogs/story-import');
+"use strict";
+const Vue = require("vue");
+const locale = require("../locale");
+const eventHub = require("../common/eventHub");
+const { check: checkForAppUpdate } = require("../dialogs/app-update");
+const { check: checkForDonation } = require("../dialogs/app-donation");
+const ImportDialog = require("../dialogs/story-import");
 
-require('./index.less');
+require("./index.less");
 
 module.exports = Vue.extend({
-	template: require('./index.html'),
+	template: require("./index.html"),
 
 	props: {
 		appearFast: {
@@ -35,23 +35,22 @@ module.exports = Vue.extend({
 		Set the default story list sorting to 'name', 'asc' (i.e. A → Z).
 		*/
 
-		storyOrder: 'name',
-		storyOrderDir: 'asc'
+		storyOrder: "name",
+		storyOrderDir: "asc"
 	}),
 
 	computed: {
-
 		sortDateButtonClass() {
-			return 'subtle' + (this.storyOrder === 'lastUpdate' ? ' active' : '');
+			return "subtle" + (this.storyOrder === "lastUpdate" ? " active" : "");
 		},
 		sortDateButtonTitle() {
-			return locale.say('Last changed date');
+			return locale.say("Last changed date");
 		},
 		sortNameButtonClass() {
-			return 'subtle' + (this.storyOrder === 'name' ? ' active' : '');
+			return "subtle" + (this.storyOrder === "name" ? " active" : "");
 		},
 		sortNameButtonTitle() {
-			return locale.say('Story name');
+			return locale.say("Story name");
 		},
 		sortedStories() {
 			/*
@@ -63,48 +62,42 @@ module.exports = Vue.extend({
 			}
 
 			switch (this.storyOrder) {
-				case 'name':
+				case "name":
 					return this.stories.sort((a, b) => {
 						if (a.name > b.name) {
-							return this.storyOrderDir === 'asc' ? 1 : -1;
+							return this.storyOrderDir === "asc" ? 1 : -1;
 						}
 
 						if (a.name < b.name) {
-							return this.storyOrderDir === 'asc' ? -1 : 1;
+							return this.storyOrderDir === "asc" ? -1 : 1;
 						}
 
 						return 0;
 					});
 
-				case 'lastUpdate':
+				case "lastUpdate":
 					return this.stories.sort((a, b) => {
 						const aTime = a.lastUpdate.getTime();
 						const bTime = b.lastUpdate.getTime();
 
 						if (aTime > bTime) {
-							return this.storyOrderDir === 'asc' ? 1 : -1;
+							return this.storyOrderDir === "asc" ? 1 : -1;
 						}
 
 						if (aTime < bTime) {
-							return this.storyOrderDir === 'asc' ? -1 : 1;
+							return this.storyOrderDir === "asc" ? -1 : 1;
 						}
 
 						return 0;
 					});
 
 				default:
-					throw new Error(
-						`Don't know how to sort by "${this.storyOrder}"`
-					);
+					throw new Error(`Don't know how to sort by "${this.storyOrder}"`);
 			}
 		},
 
 		storyCountDesc() {
-			return locale.sayPlural(
-				'%d Story',
-				'%d Stories',
-				this.stories.length
-			);
+			return locale.sayPlural("%d Story", "%d Stories", this.stories.length);
 		}
 	},
 
@@ -119,7 +112,7 @@ module.exports = Vue.extend({
 	},
 
 	mounted() {
-		this.$nextTick(function () {
+		this.$nextTick(function() {
 			// code that assumes this.$el is in-document
 
 			/* If we were asked to appear fast, we do nothing. */
@@ -145,7 +138,7 @@ module.exports = Vue.extend({
 			*/
 
 			if (this.previouslyEditing) {
-				eventHub.$emit('previously-editing', this.previouslyEditing);
+				eventHub.$emit("previously-editing", this.previouslyEditing);
 			}
 		});
 	},
@@ -157,14 +150,14 @@ module.exports = Vue.extend({
 			direction.  Elsewise, default to 'desc' (i.e. newest -> oldest).
 			*/
 
-			if (this.storyOrder === 'lastUpdate') {
-				this.storyOrderDir = this.storyOrderDir === 'asc' ? 'desc' : 'asc';
+			if (this.storyOrder === "lastUpdate") {
+				this.storyOrderDir = this.storyOrderDir === "asc" ? "desc" : "asc";
 			}
 			else {
-				this.storyOrderDir = 'desc';
+				this.storyOrderDir = "desc";
 			}
 
-			this.storyOrder = 'lastUpdate';
+			this.storyOrder = "lastUpdate";
 		},
 
 		sortByName() {
@@ -173,21 +166,21 @@ module.exports = Vue.extend({
 			direction. Elsewise, default to 'asc' (i.e. A -> Z).
 			*/
 
-			if (this.storyOrder === 'name') {
-				this.storyOrderDir = this.storyOrderDir === 'asc' ? 'desc' : 'asc';
+			if (this.storyOrder === "name") {
+				this.storyOrderDir = this.storyOrderDir === "asc" ? "desc" : "asc";
 			}
 			else {
-				this.storyOrderDir = 'asc';
+				this.storyOrderDir = "asc";
 			}
 
-			this.storyOrder = 'name';
+			this.storyOrder = "name";
 		}
 	},
 
 	components: {
-		'story-item': require('./story-item'),
-		'list-toolbar': require('./list-toolbar'),
-		'file-drag-n-drop': require('../ui/file-drag-n-drop'),
+		"story-item": require("./story-item"),
+		"list-toolbar": require("./list-toolbar"),
+		"file-drag-n-drop": require("../ui/file-drag-n-drop")
 	},
 
 	events: {
@@ -196,13 +189,13 @@ module.exports = Vue.extend({
 		appropriate StoryItem can edit itself, e.g. animate into editing.
 		*/
 
-		'story-edit'(id) {
-			eventHub.$emit('story-edit', id);
+		"story-edit"(id) {
+			eventHub.$emit("story-edit", id);
 		},
 
 		/* For now, we only support importing a single file at a time. */
 
-		'file-drag-n-drop'(files) {
+		"file-drag-n-drop"(files) {
 			new ImportDialog({
 				store: this.$store,
 				data: {

@@ -8,10 +8,10 @@ module.exports = file => {
 	const reader = new FileReader();
 
 	return new Promise(resolve => {
-		reader.addEventListener('load', e => {
+		reader.addEventListener("load", e => {
 			resolve(e.target.result);
 		});
 
-		reader.readAsText(file, 'UTF-8');
+		reader.readAsText(file, "UTF-8");
 	});
 };

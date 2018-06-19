@@ -1,14 +1,14 @@
-const Vue = require('vue');
-const VueRouter = require('vue-router');
+const Vue = require("vue");
+const VueRouter = require("vue-router");
 
-const LocaleView = require('../locale/view');
-const StoryEditView = require('../story-edit-view');
-const StoryListView = require('../story-list-view');
-const WelcomeView = require('../welcome');
-const { loadFormat } = require('../data/actions/story-format');
-const { publishStoryWithFormat } = require('../data/publish');
-const replaceUI = require('../ui/replace');
-const store = require('../data/store');
+const LocaleView = require("../locale/view");
+const StoryEditView = require("../story-edit-view");
+const StoryListView = require("../story-list-view");
+const WelcomeView = require("../welcome");
+const { loadFormat } = require("../data/actions/story-format");
+const { publishStoryWithFormat } = require("../data/publish");
+const replaceUI = require("../ui/replace");
+const store = require("../data/store");
 
 Vue.use(VueRouter);
 
@@ -16,12 +16,12 @@ let TwineRouter = new VueRouter({
 	routes: [
 		{
 			/*  We connect routes with no params directly to a component. */
-			path: '/locale',
-			component: LocaleView,
+			path: "/locale",
+			component: LocaleView
 		},
 		{
-			path: '/welcome',
-			component: WelcomeView,
+			path: "/welcome",
+			component: WelcomeView
 		},
 		{
 			/*
@@ -29,43 +29,45 @@ let TwineRouter = new VueRouter({
 			we create shim components which provide appropriate props
 			to the components that do the actual work.
 			*/
-			path: '/stories',
+			path: "/stories",
 			component: {
-				template: '<div><story-list ' +
+				template:
+					"<div><story-list " +
 					':previously-editing="previouslyEditing"></story-list></div>',
 
-				components: { 'story-list': StoryListView },
+				components: { "story-list": StoryListView },
 
 				data() {
 					return {
-						previouslyEditing: this.$route.params ?
-							this.$route.params.previouslyEditing : ''
+						previouslyEditing: this.$route.params
+							? this.$route.params.previouslyEditing
+							: ""
 					};
-				},
-			},
+				}
+			}
 		},
 		{
-			path: '/stories/:id',
+			path: "/stories/:id",
 			component: {
 				template: '<div><story-edit :story-id="id"></story-edit></div>',
 
-				components: { 'story-edit': StoryEditView },
-			
+				components: { "story-edit": StoryEditView },
+
 				data() {
 					return { id: this.$route.params.id };
 				}
-			},
+			}
 		},
 		{
 			/*
-			These routes require special handling, because we tear down our 
+			These routes require special handling, because we tear down our
 			UI when they activate.
 			*/
 
-			path: '/stories/:id/play',
+			path: "/stories/:id/play",
 			component: {
 				mounted() {
-					this.$nextTick(function () {
+					this.$nextTick(function() {
 						// code that assumes this.$el is in-document
 						const state = this.$store.state;
 						const story = state.story.stories.find(
@@ -77,21 +79,17 @@ let TwineRouter = new VueRouter({
 							story.storyFormat,
 							story.storyFormatVersion
 						).then(format => {
-							replaceUI(publishStoryWithFormat(
-								state.appInfo,
-								story,
-								format
-							));
+							replaceUI(publishStoryWithFormat(state.appInfo, story, format));
 						});
 					});
 				}
 			}
 		},
 		{
-			path: '/stories/:id/proof',
+			path: "/stories/:id/proof",
 			component: {
 				mounted() {
-					this.$nextTick(function () {
+					this.$nextTick(function() {
 						// code that assumes this.$el is in-document
 						const state = this.$store.state;
 						const story = state.story.stories.find(
@@ -103,21 +101,17 @@ let TwineRouter = new VueRouter({
 							state.pref.proofingFormat.name,
 							state.pref.proofingFormat.version
 						).then(format => {
-							replaceUI(publishStoryWithFormat(
-								state.appInfo,
-								story,
-								format
-							));
+							replaceUI(publishStoryWithFormat(state.appInfo, story, format));
 						});
 					});
 				}
 			}
 		},
 		{
-			path: '/stories/:id/test',
+			path: "/stories/:id/test",
 			component: {
 				mounted() {
-					this.$nextTick(function () {
+					this.$nextTick(function() {
 						// code that assumes this.$el is in-document
 						const state = this.$store.state;
 						const story = state.story.stories.find(
@@ -129,22 +123,19 @@ let TwineRouter = new VueRouter({
 							story.storyFormat,
 							story.storyFormatVersion
 						).then(format => {
-							replaceUI(publishStoryWithFormat(
-								state.appInfo,
-								story,
-								format,
-								['debug']
-							));
+							replaceUI(
+								publishStoryWithFormat(state.appInfo, story, format, ["debug"])
+							);
 						});
 					});
 				}
 			}
 		},
 		{
-			path: '/stories/:storyId/test/:passageId',
+			path: "/stories/:storyId/test/:passageId",
 			component: {
 				mounted() {
-					this.$nextTick(function () {
+					this.$nextTick(function() {
 						// code that assumes this.$el is in-document
 						const state = this.$store.state;
 						const story = state.story.stories.find(
@@ -156,13 +147,15 @@ let TwineRouter = new VueRouter({
 							story.storyFormat,
 							story.storyFormatVersion
 						).then(format => {
-							replaceUI(publishStoryWithFormat(
-								state.appInfo,
-								story,
-								format,
-								['debug'],
-								this.$route.params.passageId
-							));
+							replaceUI(
+								publishStoryWithFormat(
+									state.appInfo,
+									story,
+									format,
+									["debug"],
+									this.$route.params.passageId
+								)
+							);
 						});
 					});
 				}
@@ -171,11 +164,10 @@ let TwineRouter = new VueRouter({
 		{
 			/* By default, show the story list. */
 			path: "*",
-			redirect: "/stories",
+			redirect: "/stories"
 		}
 	]
 });
-
 
 TwineRouter.beforeEach((to, from, next) => {
 	/*
@@ -184,9 +176,8 @@ TwineRouter.beforeEach((to, from, next) => {
 	transition back to the story.
 	*/
 
-	if (from.path && to.path === '/stories') {
-		const editingId =
-			from.path.match('^/stories/([^\/]+)$');
+	if (from.path && to.path === "/stories") {
+		const editingId = from.path.match("^/stories/([^/]+)$");
 
 		if (editingId) {
 			to.params.previouslyEditing = editingId[1];
@@ -201,11 +192,11 @@ TwineRouter.beforeEach((to, from, next) => {
 
 	const welcomeSeen = store.state.pref.welcomeSeen;
 
-	if (to.path === '/welcome' || welcomeSeen) {
+	if (to.path === "/welcome" || welcomeSeen) {
 		next();
 	}
 	else {
-		next('/welcome');
+		next("/welcome");
 	}
 });
 

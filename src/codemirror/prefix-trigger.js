@@ -11,22 +11,24 @@
  @class CodeMirror.prefixTrigger
 **/
 
-'use strict';
-const CodeMirror = require('codemirror');
+"use strict";
+const CodeMirror = require("codemirror");
 
-CodeMirror.defineOption('prefixTrigger', [], (cm, opts) => {
+CodeMirror.defineOption("prefixTrigger", [], (cm, opts) => {
 	if (opts.prefixes && opts.callback) {
-		cm.on('inputRead', checkTrigger);
+		cm.on("inputRead", checkTrigger);
 	}
 	else {
-		cm.off('inputRead', checkTrigger);
+		cm.off("inputRead", checkTrigger);
 	}
 
 	const prefixes = opts.prefixes;
 	const callback = opts.callback;
 
 	function checkTrigger(cm) {
-		if (cm.state.completionActive) { return; }
+		if (cm.state.completionActive) {
+			return;
+		}
 
 		// back up two words from the cursor
 

@@ -11,21 +11,21 @@
 	optional
 **/
 
-'use strict';
-const JSZip = require('jszip');
-const saveAs = require('browser-saveas');
-const { oniOS, onSafari } = require('../ui');
-const locale = require('../locale');
-const notify = require('../ui/notify');
+"use strict";
+const JSZip = require("jszip");
+const saveAs = require("browser-saveas");
+const { oniOS, onSafari } = require("../ui");
+const locale = require("../locale");
+const notify = require("../ui/notify");
 
-require('blob-polyfill');
+require("blob-polyfill");
 
 module.exports = (data, filename, success, failure) => {
 	try {
 		if (!oniOS()) {
 			// standard style
 
-			const blob = new Blob([data], { type: 'text/html;charset=utf-8' });
+			const blob = new Blob([data], { type: "text/html;charset=utf-8" });
 
 			// Safari requires us to use saveAs in direct response
 			// to a user event, so we punt and use a data: URI instead
@@ -51,13 +51,12 @@ module.exports = (data, filename, success, failure) => {
 
 			zip.file(filename, data);
 			window.location.href =
-				'data:application/zip;base64, ' +
-				zip.generate({ type: 'base64' });
+				"data:application/zip;base64, " + zip.generate({ type: "base64" });
 
 			if (success) {
 				success();
 			}
-		};
+		}
 	}
 	catch (e) {
 		if (failure) {
@@ -67,12 +66,12 @@ module.exports = (data, filename, success, failure) => {
 			// L10n: %1$s is a filename; %2$s is the error message.
 			notify(
 				locale.say(
-					'&ldquo;%1$s&rdquo; could not be saved (%2$s).',
+					"&ldquo;%1$s&rdquo; could not be saved (%2$s).",
 					filename,
 					e.message
 				),
-				'danger'
+				"danger"
 			);
 		}
-	};
+	}
 };

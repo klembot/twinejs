@@ -1,19 +1,24 @@
 /* The main view where story editing takes place. */
 
-const values = require('lodash.values');
-const Vue = require('vue');
+const values = require("lodash.values");
+const Vue = require("vue");
 
-const eventHub = require('../common/eventHub');
-const { confirm } = require('../dialogs/confirm');
-const { createPassage, deletePassage, positionPassage, updatePassage } = require('../data/actions/passage');
-const { loadFormat } = require('../data/actions/story-format');
-const { updateStory } = require('../data/actions/story');
-const domEvents = require('../vue/mixins/dom-events');
-const locale = require('../locale');
-const { passageDefaults } = require('../data/store/story');
-const zoomSettings = require('./zoom-settings');
+const eventHub = require("../common/eventHub");
+const { confirm } = require("../dialogs/confirm");
+const {
+	createPassage,
+	deletePassage,
+	positionPassage,
+	updatePassage
+} = require("../data/actions/passage");
+const { loadFormat } = require("../data/actions/story-format");
+const { updateStory } = require("../data/actions/story");
+const domEvents = require("../vue/mixins/dom-events");
+const locale = require("../locale");
+const { passageDefaults } = require("../data/store/story");
+const zoomSettings = require("./zoom-settings");
 
-require('./index.less');
+require("./index.less");
 
 /*
 A memoized, sorted array of zoom levels used when zooming in or out.
@@ -22,7 +27,7 @@ A memoized, sorted array of zoom levels used when zooming in or out.
 const zoomLevels = values(zoomSettings).sort();
 
 module.exports = Vue.extend({
-	template: require('./index.html'),
+	template: require("./index.html"),
 
 	/* The id of the story we're editing is provided by the router. */
 
@@ -110,8 +115,8 @@ module.exports = Vue.extend({
 			height += this.winHeight / 2;
 
 			return {
-				width: width + 'px',
-				height: height + 'px'
+				width: width + "px",
+				height: height + "px"
 			};
 		},
 
@@ -161,7 +166,7 @@ module.exports = Vue.extend({
 	},
 
 	watch: {
-		'story.name': {
+		"story.name": {
 			handler(value) {
 				document.title = value;
 			},
@@ -169,32 +174,32 @@ module.exports = Vue.extend({
 			immediate: true
 		},
 
-		'story.zoom': {
+		"story.zoom": {
 			handler(value, old) {
 				/*
 				Change the window's scroll position so that the same logical
 				coordinates are at its center.
 				*/
-				
+
 				const halfWidth = window.innerWidth / 2;
 				const halfHeight = window.innerHeight / 2;
 				const logCenterX = (window.scrollX + halfWidth) / old;
 				const logCenterY = (window.scrollY + halfHeight) / old;
 
 				window.scroll(
-					(logCenterX * value) - halfWidth,
-					(logCenterY * value) - halfHeight
+					logCenterX * value - halfWidth,
+					logCenterY * value - halfHeight
 				);
 			}
 		}
 	},
 
 	mounted() {
-		this.$nextTick(function () {
+		this.$nextTick(function() {
 			// code that assumes this.$el is in-document
 			this.resize();
-			this.on(window, 'resize', this.resize);
-			this.on(window, 'keyup', this.onKeyup);
+			this.on(window, "resize", this.resize);
+			this.on(window, "keyup", this.onKeyup);
 
 			if (this.story.passages.length === 0) {
 				this.createPassageAt();
@@ -213,17 +218,13 @@ module.exports = Vue.extend({
 
 			if (zoomIndex === 0) {
 				if (wraparound) {
-					this.updateStory(
-						this.story.id,
-						{ zoom: zoomLevels[zoomIndex.length - 1] }
-					);
+					this.updateStory(this.story.id, {
+						zoom: zoomLevels[zoomIndex.length - 1]
+					});
 				}
 			}
 			else {
-				this.updateStory(
-					this.story.id,
-					{ zoom: zoomLevels[zoomIndex - 1] }
-				);
+				this.updateStory(this.story.id, { zoom: zoomLevels[zoomIndex - 1] });
 			}
 		},
 
@@ -232,17 +233,11 @@ module.exports = Vue.extend({
 
 			if (zoomIndex === zoomLevels.length - 1) {
 				if (wraparound) {
-					this.updateStory(
-						this.story.id,
-						{ zoom: zoomLevels[0] }
-					);
+					this.updateStory(this.story.id, { zoom: zoomLevels[0] });
 				}
 			}
 			else {
-				this.updateStory(
-					this.story.id,
-					{ zoom: zoomLevels[zoomIndex + 1] }
-				);
+				this.updateStory(this.story.id, { zoom: zoomLevels[zoomIndex + 1] });
 			}
 		},
 
@@ -262,14 +257,12 @@ module.exports = Vue.extend({
 			*/
 
 			if (!left) {
-				left = (window.pageXOffset + window.innerWidth / 2)
-					/ this.story.zoom;
+				left = (window.pageXOffset + window.innerWidth / 2) / this.story.zoom;
 				left -= passageDefaults.width;
 			}
 
 			if (!top) {
-				top = (window.pageYOffset + window.innerHeight / 2)
-					/ this.story.zoom;
+				top = (window.pageYOffset + window.innerHeight / 2) / this.story.zoom;
 				top -= passageDefaults.height;
 			}
 
@@ -279,7 +272,7 @@ module.exports = Vue.extend({
 			3", and so on.
 			*/
 
-			name = name || locale.say('Untitled Passage');
+			name = name || locale.say("Untitled Passage");
 
 			if (this.story.passages.find(p => p.name === name)) {
 				const origName = name;
@@ -287,10 +280,8 @@ module.exports = Vue.extend({
 
 				do {
 					nameIndex++;
-					name = origName + ' ' + nameIndex;
-				}
-				while
-					(this.story.passages.find(p => p.name === name));
+					name = origName + " " + nameIndex;
+				} while (this.story.passages.find(p => p.name === name));
 			}
 
 			/* Add it to our collection. */
@@ -301,7 +292,7 @@ module.exports = Vue.extend({
 			Then position it so it doesn't overlap any others, and save it
 			again.
 			*/
-			
+
 			this.positionPassage(
 				this.story.id,
 				this.story.passages.find(p => p.name === name).id,
@@ -314,13 +305,11 @@ module.exports = Vue.extend({
 		webkitmouseforcedown event. At the time of writing, this is a
 		Mac-specific feature, but can be extended once standards catch up.
 		*/
-		
+
 		onMouseForceDown(e) {
-			let top = (e.pageY / this.story.zoom) -
-				(passageDefaults.height / 2);
-			let left = (e.pageX / this.story.zoom) -
-				(passageDefaults.width / 2);
-			
+			let top = e.pageY / this.story.zoom - passageDefaults.height / 2;
+			let left = e.pageX / this.story.zoom - passageDefaults.width / 2;
+
 			this.createPassage(null, top, left);
 		},
 
@@ -352,7 +341,7 @@ module.exports = Vue.extend({
 			let target = e.target;
 
 			while (target) {
-				if (target.nodeName === 'INPUT' || target.nodeName === 'TEXTAREA') {
+				if (target.nodeName === "INPUT" || target.nodeName === "TEXTAREA") {
 					return;
 				}
 
@@ -365,7 +354,7 @@ module.exports = Vue.extend({
 				case 187:
 					this.zoomOut();
 					break;
-				
+
 				/* Minus key */
 
 				case 189:
@@ -375,8 +364,7 @@ module.exports = Vue.extend({
 				/* Delete key */
 
 				case 46: {
-					const toDelete =
-						this.story.passages.filter(p => p.selected);
+					const toDelete = this.story.passages.filter(p => p.selected);
 
 					if (toDelete.length === 0) {
 						return;
@@ -391,12 +379,11 @@ module.exports = Vue.extend({
 
 					confirm({
 						message,
-						buttonLabel: '<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
-						buttonClass: 'danger'
+						buttonLabel:
+							'<i class="fa fa-trash-o"></i> ' + locale.say("Delete"),
+						buttonClass: "danger"
 					}).then(() => {
-						toDelete.forEach(
-							p => this.deletePassage(this.story.id, p.id)
-						);
+						toDelete.forEach(p => this.deletePassage(this.story.id, p.id));
 					});
 					break;
 				}
@@ -410,15 +397,15 @@ module.exports = Vue.extend({
 		highlight filter should be.
 		*/
 
-		'highlight-regexp-change'(value) {
+		"highlight-regexp-change"(value) {
 			this.highlightRegexp = value;
 		},
-		
+
 		/*
 		A hook into our createPassage() method for child components.
 		*/
 
-		'passage-create'(name, left, top) {
+		"passage-create"(name, left, top) {
 			this.createPassageAt(name, left, top);
 		},
 
@@ -428,12 +415,12 @@ module.exports = Vue.extend({
 		temporarily shifting their onscreen position.
 		*/
 
-		'passage-drag'(xOffset, yOffset) {
+		"passage-drag"(xOffset, yOffset) {
 			if (this.story.snapToGrid) {
-				this.screenDragOffsetX = Math.round(xOffset / this.gridSize) *
-					this.gridSize;
-				this.screenDragOffsetY = Math.round(yOffset / this.gridSize) *
-					this.gridSize;
+				this.screenDragOffsetX =
+					Math.round(xOffset / this.gridSize) * this.gridSize;
+				this.screenDragOffsetY =
+					Math.round(yOffset / this.gridSize) * this.gridSize;
 			}
 			else {
 				this.screenDragOffsetX = xOffset;
@@ -447,7 +434,7 @@ module.exports = Vue.extend({
 		a temporary change in the DOM to their model.
 		*/
 
-		'passage-drag-complete'(xOffset, yOffset) {
+		"passage-drag-complete"(xOffset, yOffset) {
 			this.screenDragOffsetX = 0;
 			this.screenDragOffsetY = 0;
 
@@ -456,7 +443,7 @@ module.exports = Vue.extend({
 				yOffset = Math.round(yOffset / this.gridSize) * this.gridSize;
 			}
 
-			eventHub.$emit('passage-drag-complete', xOffset, yOffset);
+			eventHub.$emit("passage-drag-complete", xOffset, yOffset);
 		},
 
 		/*
@@ -465,24 +452,23 @@ module.exports = Vue.extend({
 		account the grid size.
 		*/
 
-		'passage-position'(passage, options) {
+		"passage-position"(passage, options) {
 			this.positionPassage(
 				this.story.id,
 				passage.id,
 				this.gridSize,
-				options.ignoreSelected && (passage =>
-					!this.selectedChildren.some(view =>
-						view.passage.id === passage
-					))
+				options.ignoreSelected &&
+					(passage =>
+						!this.selectedChildren.some(view => view.passage.id === passage))
 			);
 		}
 	},
 
 	components: {
-		'link-arrows': require('./link-arrows'),
-		'passage-item': require('./passage-item'),
-		'story-toolbar': require('./story-toolbar'),
-		'marquee-selector': require('./marquee-selector')
+		"link-arrows": require("./link-arrows"),
+		"passage-item": require("./passage-item"),
+		"story-toolbar": require("./story-toolbar"),
+		"marquee-selector": require("./marquee-selector")
 	},
 
 	vuex: {

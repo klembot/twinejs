@@ -2,8 +2,8 @@
 Manages access to the user's Twine library directory.
 */
 
-const osenv = require('osenv');
-const locale = require('../locale');
+const osenv = require("osenv");
+const locale = require("../locale");
 
 const Directories = {
 	/*
@@ -12,8 +12,8 @@ const Directories = {
 	*/
 
 	docPath() {
-		const fs = require('fs');
-		const path = require('path');
+		const fs = require("fs");
+		const path = require("path");
 
 		/*
 		We require this here instead of at the top of the file so that on the
@@ -27,14 +27,14 @@ const Directories = {
 		If the user doesn't have a Documents folder, check for "My Documents"
 		instead (thanks Windows).
 		*/
-	
+
 		/*
 		L10n: This is the folder name on OS X, Linux, and recent versions of
 		Windows that a user's documents are stored in, relative to the user's
 		home directory. If you need to use a space in this name, then it should
 		have two backslashes (\\) in front of it.
 		*/
-		let docPath = path.join(homePath, locale.say('Documents'));
+		let docPath = path.join(homePath, locale.say("Documents"));
 
 		if (fs.existsSync(docPath)) {
 			return docPath;
@@ -48,13 +48,13 @@ const Directories = {
 		you need to use a space in this name, then it should have
 		two backslashes (\\) in front of it.
 		*/
-		docPath = path.join(homePath, locale.say('My\\ Documents'));
+		docPath = path.join(homePath, locale.say("My\\ Documents"));
 
 		if (fs.existsSync(docPath)) {
 			return docPath;
 		}
 
-		return '';
+		return "";
 	},
 
 	/*
@@ -62,12 +62,12 @@ const Directories = {
 	*/
 
 	storiesPath() {
-		const path = require('path');
+		const path = require("path");
 
 		return path.join(
 			Directories.docPath(),
-			locale.say('Twine'),
-			locale.say('Stories')
+			locale.say("Twine"),
+			locale.say("Stories")
 		);
 	},
 
@@ -77,11 +77,11 @@ const Directories = {
 	*/
 
 	lockStories() {
-		const fs = require('fs');
-		const path = require('path');
+		const fs = require("fs");
+		const path = require("path");
 		const storyPath = Directories.storiesPath();
 
-		if (process.platform == 'win32') {
+		if (process.platform == "win32") {
 			/* On Windows, we must lock each file individually. */
 
 			fs.readdirSync(storyPath).forEach(filename => {
@@ -102,11 +102,11 @@ const Directories = {
 	*/
 
 	unlockStories() {
-		const fs = require('fs');
-		const path = require('path');
+		const fs = require("fs");
+		const path = require("path");
 		const storyPath = Directories.storiesPath();
 
-		if (process.platform === 'win32') {
+		if (process.platform === "win32") {
 			/* On Windows, we must unlock each file individually. */
 
 			fs.readdirSync(storyPath).forEach(filename => {

@@ -4,10 +4,10 @@
  @module ui
 **/
 
-'use strict';
-const fastclick = require('fastclick');
+"use strict";
+const fastclick = require("fastclick");
 
-require('./index.less');
+require("./index.less");
 
 let inited = false;
 let fastclickInstance;
@@ -47,7 +47,7 @@ module.exports = {
 		if (!inited) {
 			return;
 		}
-		
+
 		/* Disable FastClick. */
 
 		fastclickInstance.destroy();
@@ -69,8 +69,10 @@ module.exports = {
 	onSafari() {
 		/* Chrome identifies itself as Safari. */
 
-		return navigator.userAgent.indexOf('Safari') != -1 &&
-			navigator.userAgent.indexOf('Chrome') == -1;
+		return (
+			navigator.userAgent.indexOf("Safari") != -1 &&
+			navigator.userAgent.indexOf("Chrome") == -1
+		);
 	},
 
 	/**
@@ -83,8 +85,6 @@ module.exports = {
 	**/
 
 	hasPrimaryTouchUI() {
-		return /Android|iPod|iPad|iPhone|IEMobile/.test(
-			window.navigator.userAgent
-		);
+		return /Android|iPod|iPad|iPhone|IEMobile/.test(window.navigator.userAgent);
 	}
 };

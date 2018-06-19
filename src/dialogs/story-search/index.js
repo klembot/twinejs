@@ -3,19 +3,19 @@ A modal which allows the user to perform find and replace on a array of
 passages.
 */
 
-const Vue = require('vue');
-const locale = require('../../locale');
-const eventHub = require('../../common/eventHub');
+const Vue = require("vue");
+const locale = require("../../locale");
+const eventHub = require("../../common/eventHub");
 
-require('./index.less');
+require("./index.less");
 
 module.exports = Vue.extend({
-	template: require('./index.html'),
+	template: require("./index.html"),
 
 	data: () => ({
 		story: {},
-		search: '',
-		replace: '',
+		search: "",
+		replace: "",
 		searchNames: true,
 		caseSensitive: false,
 		regexp: false,
@@ -25,41 +25,41 @@ module.exports = Vue.extend({
 
 	computed: {
 		searchRegexp() {
-			let flags = 'g';
+			let flags = "g";
 
 			if (!this.caseSensitive) {
-				flags += 'i';
+				flags += "i";
 			}
 
 			let source = this.search;
 
-			/*
+      /*
 			Escape regular expression characters in what the user typed unless
 			they indicated that they're using a regexp.
 			*/
 
 			if (!this.regexp) {
-				source = source.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+				source = source.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 			}
 
-			return new RegExp('(' + source + ')', flags);
+			return new RegExp("(" + source + ")", flags);
 		},
 
 		expandButtonTitle() {
-			return locale.say('Expand all search results');
+			return locale.say("Expand all search results");
 		},
 
 		collapseButtonTitle() {
-			return locale.say('Collapse all search results');
+			return locale.say("Collapse all search results");
 		},
 
 		passageMatches() {
-			if (this.search === '') {
+			if (this.search === "") {
 				return [];
 			}
 
 			this.working = true;
-			
+
 			let result = this.story.passages.reduce((matches, passage) => {
 				let numMatches = 0;
 				let passageName = passage.name;
@@ -71,9 +71,9 @@ module.exports = Vue.extend({
 				if (textMatches) {
 					numMatches += textMatches.length;
 					highlightedText = passageText.replace(
-						this.searchRegexp,
-						'<span class="highlight">$1</span>'
-					);
+            this.searchRegexp,
+            '<span class="highlight">$1</span>'
+          );
 				}
 
 				if (this.searchNames) {
@@ -82,9 +82,9 @@ module.exports = Vue.extend({
 					if (nameMatches) {
 						numMatches += nameMatches.length;
 						highlightedName = passageName.replace(
-							this.searchRegexp,
-							'<span class="highlight">$1</span>'
-						);
+              this.searchRegexp,
+              '<span class="highlight">$1</span>'
+            );
 					}
 				}
 
@@ -107,27 +107,27 @@ module.exports = Vue.extend({
 
 	methods: {
 		expandAll() {
-			eventHub.$emit('expand');
+			eventHub.$emit("expand");
 		},
 
 		collapseAll() {
-			eventHub.$emit('collapse');
+			eventHub.$emit("collapse");
 		},
 
 		replaceAll() {
-			eventHub.$emit('replace');
+			eventHub.$emit("replace");
 		}
 	},
 
 	mounted() {
-		this.$nextTick(function () {
-			// code that assumes this.$el is in-document
+		this.$nextTick(function() {
+      // code that assumes this.$el is in-document
 			this.$refs.search.focus();
-		  });
+		});
 	},
 
 	components: {
-		'modal-dialog': require('../../ui/modal-dialog'),
-		'search-result': require('./result')
+		"modal-dialog": require("../../ui/modal-dialog"),
+		"search-result": require("./result")
 	}
 });
