@@ -391,23 +391,23 @@ module.exports = Vue.extend({
 		}
 	},
 
-	events: {
+	created: function() {
 		/*
 		Our children (e.g. the search field can tell us to change what the
 		highlight filter should be.
 		*/
 
-		"highlight-regexp-change"(value) {
+		eventHub.$on("highlight-regexp-change", (value) => {
 			this.highlightRegexp = value;
-		},
+		});
 
 		/*
 		A hook into our createPassage() method for child components.
 		*/
 
-		"passage-create"(name, left, top) {
+		eventHub.$on("passage-create", (name, left, top) => {
 			this.createPassageAt(name, left, top);
-		},
+		});
 
 		/*
 		A child will dispatch this event to us as it is dragged around. We
@@ -415,7 +415,7 @@ module.exports = Vue.extend({
 		temporarily shifting their onscreen position.
 		*/
 
-		"passage-drag"(xOffset, yOffset) {
+		eventHub.$on("passage-drag", (xOffset, yOffset) => {
 			if (this.story.snapToGrid) {
 				this.screenDragOffsetX =
 					Math.round(xOffset / this.gridSize) * this.gridSize;
@@ -426,7 +426,7 @@ module.exports = Vue.extend({
 				this.screenDragOffsetX = xOffset;
 				this.screenDragOffsetY = yOffset;
 			}
-		},
+		});
 
 		/*
 		A child will dispatch this event at the completion of a drag. We
@@ -434,7 +434,7 @@ module.exports = Vue.extend({
 		a temporary change in the DOM to their model.
 		*/
 
-		"passage-drag-complete"(xOffset, yOffset) {
+		eventHub.$on("passage-drag-complete", (xOffset, yOffset) => {
 			this.screenDragOffsetX = 0;
 			this.screenDragOffsetY = 0;
 
@@ -444,7 +444,7 @@ module.exports = Vue.extend({
 			}
 
 			eventHub.$emit("passage-drag-complete", xOffset, yOffset);
-		},
+		});
 
 		/*
 		Positions a passage on behalf of a child component. This needs to be
@@ -452,7 +452,7 @@ module.exports = Vue.extend({
 		account the grid size.
 		*/
 
-		"passage-position"(passage, options) {
+		eventHub.$on("passage-position", (passage, options) => {
 			this.positionPassage(
 				this.story.id,
 				passage.id,
@@ -461,7 +461,8 @@ module.exports = Vue.extend({
 					(passage =>
 						!this.selectedChildren.some(view => view.passage.id === passage))
 			);
-		}
+		});
+
 	},
 
 	components: {

@@ -183,26 +183,27 @@ module.exports = Vue.extend({
 		"file-drag-n-drop": require("../ui/file-drag-n-drop")
 	},
 
-	events: {
+	created: function() {
 		/*
 		We reflect back `story-edit` events onto children, so that the
 		appropriate StoryItem can edit itself, e.g. animate into editing.
 		*/
 
-		"story-edit"(id) {
+		eventHub.$on("story-edit", (id) => {
+			// XXX Event reflection isn't necessary anymore with the global hub
 			eventHub.$emit("story-edit", id);
-		},
+		});
 
 		/* For now, we only support importing a single file at a time. */
 
-		"file-drag-n-drop"(files) {
+		eventHub.$on("file-drag-n-drop", (files) => {
 			new ImportDialog({
 				store: this.$store,
 				data: {
 					immediateImport: files[0]
 				}
 			}).$mountTo(document.body);
-		}
+		});
 	},
 
 	vuex: {

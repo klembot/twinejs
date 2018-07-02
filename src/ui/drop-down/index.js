@@ -124,14 +124,14 @@ module.exports = Vue.extend({
 		this.$drop.destroy();
 	},
 
-	events: {
-		'drop-down-close'() {
+	created: function() {
+		eventHub.$on('drop-down-close', () => {
 			this.$drop.close();
-		},
+		});
 
-		'drop-down-reposition'() {
+		eventHub.$on('drop-down-reposition', () => {
 			this.$drop.position();
-		}
+		});
 	},
 	
 	mixins: [domEvents]

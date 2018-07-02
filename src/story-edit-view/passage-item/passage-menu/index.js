@@ -142,10 +142,10 @@ module.exports = Vue.extend({
 		}
 	},
 
-	events: {
-		'drop-down-opened'() {
+	created: function() {
+		eventHub.$on('drop-down-opened', () => {
 			this.expanded = false;
-		}
+		});
 	},
 
 	components: {

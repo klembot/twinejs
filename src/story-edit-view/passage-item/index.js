@@ -340,12 +340,12 @@ module.exports = Vue.extend({
 		}
 	},
 
-	events: {
-		'passage-edit'() {
+	created: function() {
+		eventHub.$on('passage-edit', () => {
 			this.edit();
-		},
+		});
 
-		'passage-delete'(skipConfirmation) {
+		eventHub.$on('passage-delete', (skipConfirmation) => {
 			if (skipConfirmation) {
 				this.delete();
 			}
@@ -371,9 +371,9 @@ module.exports = Vue.extend({
 				})
 				.then(() => this.delete());
 			}
-		},
+		});
 
-		'passage-drag-complete'(xOffset, yOffset, emitter) {
+		eventHub.$on('passage-drag-complete', (xOffset, yOffset, emitter) => {
 			/*
 			We have to check whether we originally emitted this event, as
 			$dispatch triggers first on ourselves, then our parent.
@@ -416,7 +416,7 @@ module.exports = Vue.extend({
 			*/
 
 			eventHub.$emit('drop-down-reposition');
-		}
+		});
 	},
 
 	components: {

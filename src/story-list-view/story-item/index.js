@@ -5,6 +5,7 @@
 'use strict';
 const moment = require('moment');
 const Vue = require('vue');
+const eventHub = require("../../common/eventHub");
 const ZoomTransition = require('../zoom-transition');
 
 require('./index.less');
@@ -38,21 +39,21 @@ module.exports = Vue.extend({
 		}
 	},
 
-	events: {
+	created: function() {
 		// If our parent wants to edit our own model, then we do so. This is
 		// done this level so that we animate the transition correctly.
 
-		'story-edit'(id) {
+		eventHub.$on('story-edit', (id) => {
 			if (this.story.id === id) {
 				this.edit();
 			}
-		},
+		});
 
 		// if we were previously editing a story, show a zoom shrinking back
 		// into us. The signature is a little bit different to save time; we
 		// know the ID of the story from the route, but don't have an object.
 
-		'previously-editing'(id) {
+		eventHub.$on('previously-editing', (id) => {
 			if (id === this.story.id) {
 				// The method for grabbing the page position of our element is
 				// cribbed from http://youmightnotneedjquery.com/.
@@ -67,7 +68,7 @@ module.exports = Vue.extend({
 					}
 				}).$mountTo(document.body);
 			}
-		}
+		});
 	},
 
 	methods: {
