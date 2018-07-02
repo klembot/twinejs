@@ -263,7 +263,7 @@ module.exports = Vue.extend({
 		followDrag(e) {
 			const srcPoint = (e.type === 'mousemove') ? e : e.touches[0];
 
-			this.$dispatch(
+			eventHub.$emit(
 				'passage-drag',
 				srcPoint.clientX + window.pageXOffset - this.screenDragStartX,
 				srcPoint.clientY + window.pageYOffset - this.screenDragStartY
@@ -321,7 +321,7 @@ module.exports = Vue.extend({
 				*/
 
 				if (e.type === 'mouseup') {
-					this.$dispatch(
+					eventHub.$emit(
 						'passage-drag-complete',
 						e.clientX + window.pageXOffset - this.screenDragStartX,
 						e.clientY + window.pageYOffset - this.screenDragStartY,
@@ -329,7 +329,7 @@ module.exports = Vue.extend({
 					);
 				}
 				else {
-					this.$dispatch(
+					eventHub.$emit(
 						'passage-drag-complete',
 						this.screenDragOffsetX,
 						this.screenDragOffsetY,
@@ -403,7 +403,7 @@ module.exports = Vue.extend({
 				dragged.
 				*/
 
-				this.$dispatch(
+				eventHub.$emit(
 					'passage-position',
 					this.passage,
 					{ ignoreSelected: true }

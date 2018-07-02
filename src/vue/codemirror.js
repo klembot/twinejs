@@ -35,12 +35,12 @@ module.exports = Vue.extend({
 		});
 	},
 
-	events: {
+	created: function() {
 		// Since CodeMirror initialises incorrectly when special CSS such as
 		// scaleY is present on its containing element, it should be
 		// refreshed once transition is finished - hence, this event.
-		"transition-entered"() {
+		eventHub.$on("transition-entered", () => {
 			this.$cm.refresh();
-		}
+		});
 	}
 });

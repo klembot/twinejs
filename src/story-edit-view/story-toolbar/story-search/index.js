@@ -5,6 +5,7 @@ show the search modal dialog.
 
 const Vue = require('vue');
 const locale = require('../../../locale');
+const eventHub = require('../../../common/eventHub');
 const SearchDialog = require('../../../dialogs/story-search');
 
 module.exports = Vue.extend({
@@ -42,7 +43,7 @@ module.exports = Vue.extend({
 				this.search.replace(/([.*+?^${}()|\[\]\/\\])/g, '\\$1'), 'i'
 			);
 
-			this.$dispatch(
+			eventHub.$emit(
 				'highlight-regexp-change',
 				(value.source !== '(?:)') ? value : null
 			);

@@ -184,15 +184,6 @@ module.exports = Vue.extend({
 	},
 
 	created: function() {
-		/*
-		We reflect back `story-edit` events onto children, so that the
-		appropriate StoryItem can edit itself, e.g. animate into editing.
-		*/
-
-		eventHub.$on("story-edit", (id) => {
-			// XXX Event reflection isn't necessary anymore with the global hub
-			eventHub.$emit("story-edit", id);
-		});
 
 		/* For now, we only support importing a single file at a time. */
 

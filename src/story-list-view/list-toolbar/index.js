@@ -8,6 +8,7 @@ const { createStory } = require('../../data/actions/story');
 const locale = require('../../locale');
 const { prompt } = require('../../dialogs/prompt');
 const { publishArchive } = require('../../data/publish');
+const eventHub = require('../../common/eventHub');
 const saveFile = require('../../file/save');
 
 module.exports = Vue.extend({
@@ -60,7 +61,7 @@ module.exports = Vue.extend({
 				// Allow the appearance animation to complete.
 
 				window.setTimeout(() => {
-					this.$dispatch(
+					eventHub.$emit(
 						'story-edit',
 						this.existingStories.find(
 							story => story.name === name

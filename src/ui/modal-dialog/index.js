@@ -42,7 +42,8 @@ const ModalDialog = Vue.extend({
 	},
 
 	mounted() {
-		eventHub.$on('close', this.close());
+		eventHub.$on('close', this.close);
+		
 		this.$nextTick(function () {
 			// code that assumes this.$el is in-document
 			const dialog = this.$el.querySelector('.modal-dialog');
@@ -103,6 +104,7 @@ const ModalDialog = Vue.extend({
 				return;
 			}
 
+			console.log("close-method modal emit", message);
 			this.$emit('close', message);
 		},
 
@@ -127,18 +129,20 @@ const ModalDialog = Vue.extend({
 		}
 	},
 
-	events: {
-		close(message) {
-			console.log("close-event modal");
+	created: function() {
+		eventHub.$on('close', (message) => {
+			console.log("close-event modal", message);
 			this[resolve](message);
+			console.log('destroying this', this.$destroy);
 			this.$destroy(true);
-		},
+			console.log('destroyed');
+		});
 
-		reject(message) {
+		eventHub.$on('reject', (message) => {
 			console.log("reject-event modal");
 			this[reject](message);
 			this.$destroy(true);
-		}
+		});
 	},
 
 	mixins: [domEvents, thenable]
