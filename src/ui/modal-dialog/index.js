@@ -22,7 +22,6 @@ const ModalDialog = Vue.extend({
 	template: require('./index.html'),
 
 	props: {
-		class: '',
 		title: '',
 		origin: null,
 		canWiden: false,
@@ -43,6 +42,7 @@ const ModalDialog = Vue.extend({
 	},
 
 	mounted() {
+		eventHub.$on('close', this.close());
 		this.$nextTick(function () {
 			// code that assumes this.$el is in-document
 			const dialog = this.$el.querySelector('.modal-dialog');
@@ -98,6 +98,7 @@ const ModalDialog = Vue.extend({
 
 	methods: {
 		close(message) {
+			console.log("close-method modal", message);
 			if (typeof this.canClose === 'function' && !this.canClose()) {
 				return;
 			}
@@ -110,6 +111,7 @@ const ModalDialog = Vue.extend({
 		},
 
 		reject(message) {
+			console.log("reject-method modal");
 			if (typeof this.canClose === 'function' && !this.canClose()) {
 				return;
 			}
@@ -127,11 +129,13 @@ const ModalDialog = Vue.extend({
 
 	events: {
 		close(message) {
+			console.log("close-event modal");
 			this[resolve](message);
 			this.$destroy(true);
 		},
 
 		reject(message) {
+			console.log("reject-event modal");
 			this[reject](message);
 			this.$destroy(true);
 		}

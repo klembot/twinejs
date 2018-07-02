@@ -3,9 +3,7 @@
 		<div id="modal-overlay" @click="reject"></div>
 		<div :class="'modal-dialog ' + classes">
 			<header>
-				<h2 class="title">
-					<slot name="title"></slot>
-				</h2>
+				<h2 class="title"><slot name="title"></slot></h2>
 
 				<slot name="buttons"></slot>
 				<button class="widen subtle" @click="toggleWide" v-if="canWiden">

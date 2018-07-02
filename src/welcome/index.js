@@ -25,7 +25,7 @@ module.exports = Vue.extend({
 	computed: {
 		neverUsed() {
 			return locale.say(
-				`&lt;strong&gt;If you've never used Twine before,&lt;/strong&gt; then welcome! The &lt;a href=\"http://twinery.org/2guide\" target=\"_blank\"&gt;Twine 2 Guide&lt;/a&gt; and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki at large were written for Twine 1, which is a little bit different than this version. But most of the concepts are the same.`
+				`&lt;strong&t;If you've never used Twine before,&lt;/strong&gt; then welcome! The &lt;a href=\"http://twinery.org/2guide\" target=\"_blank\"&gt;Twine 2 Guide&lt;/a&gt; and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki at large were written for Twine 1, which is a little bit different than this version. But most of the concepts are the same.`
 			);
 		},
 		twineForum() {
