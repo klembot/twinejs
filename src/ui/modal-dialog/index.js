@@ -43,7 +43,7 @@ const ModalDialog = Vue.extend({
 
 	mounted() {
 		eventHub.$on('close', this.close);
-		
+
 		this.$nextTick(function () {
 			// code that assumes this.$el is in-document
 			const dialog = this.$el.querySelector('.modal-dialog');
@@ -126,6 +126,38 @@ const ModalDialog = Vue.extend({
 				e.preventDefault();
 				this.close();
 			}
+		},
+		beforeEnter: function(el) {
+			console.log("before entering", el);
+			let overlay = el.querySelector('#modal-overlay');
+			let dialog = el.querySelector('.modal-dialog');
+
+			overlay.classList.add('fade-in-out-transition', 'fade-in-out-enter');
+			dialog.classList.add('grow-in-out-enter');
+
+			dialog.addEventListener('animationend', function() {
+				dialog.classList.remove('grow-in-out-enter');
+			});
+		},
+
+		enter: function(el, done) {
+			console.log("entering", el);
+			let overlay = el.querySelector('#modal-overlay');
+
+			Vue.nextTick(() => {
+				overlay.classList.remove('fade-in-out-enter');
+				overlay.addEventListener('transitionend', done);
+			});
+		},
+
+		leave: function(el, done) {
+			console.log("leaving", el);
+			let overlay = el.querySelector('#modal-overlay');
+			let dialog = el.querySelector('.modal-dialog');
+
+			dialog.classList.add('grow-in-out-leave');
+			overlay.classList.add('fade-in-out-leave');
+			overlay.addEventListener('transitionend', done);
 		}
 	},
 
@@ -133,7 +165,6 @@ const ModalDialog = Vue.extend({
 		eventHub.$on('close', (message) => {
 			console.log("close-event modal", message);
 			this[resolve](message);
-			console.log('destroying this', this.$destroy);
 			this.$destroy(true);
 			console.log('destroyed');
 		});
@@ -149,39 +180,3 @@ const ModalDialog = Vue.extend({
 });
 
 module.exports = ModalDialog;
-
-/*
-We have to transition in our individual parts through a custom transition.
-*/
-
-const ModalDialogTransition = Vue.component('modal-dialog', {
-	beforeEnter: function(el) {
-		let overlay = el.querySelector('#modal-overlay');
-		let dialog = el.querySelector('.modal-dialog');
-
-		overlay.classList.add('fade-in-out-transition', 'fade-in-out-enter');
-		dialog.classList.add('grow-in-out-enter');
-
-		dialog.addEventListener('animationend', function() {
-			dialog.classList.remove('grow-in-out-enter');
-		});
-	},
-
-	enter: function(el, done) {
-		let overlay = el.querySelector('#modal-overlay');
-
-		Vue.nextTick(() => {
-			overlay.classList.remove('fade-in-out-enter');
-			overlay.addEventListener('transitionend', done);
-		});
-	},
-
-	leave: function(el, done) {
-		let overlay = el.querySelector('#modal-overlay');
-		let dialog = el.querySelector('.modal-dialog');
-
-		dialog.classList.add('grow-in-out-leave');
-		overlay.classList.add('fade-in-out-leave');
-		overlay.addEventListener('transitionend', done);
-	}
-});
