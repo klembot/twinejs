@@ -38,10 +38,12 @@ const confirmation = Vue.extend({
 	methods: {
 		accept() {
 			eventHub.$emit('close', true);
+			this.$emit('close', true);
 		},
 
 		cancel() {
 			eventHub.$emit('close', false);
+			this.$emit('close', true);
 		},
 	},
 
@@ -80,6 +82,6 @@ module.exports = {
 
 				return result;
 			}
-		);
+		).catch(err => { console.log("confirm err!", err); } );
 	}
 };

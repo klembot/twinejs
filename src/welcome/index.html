@@ -17,14 +17,14 @@
 		</p>
 	</div> <!-- .hi -->
 	</transition>
-	
+
 	<transition name="fade-in-out">
 	<div class="help" v-if="shown > 1">
 		<h1>
 			{{ 'New here?' | say }}
 		</h1>
 
-		<p class="larger" v-html="neverUsedBefore"></p>
+		<p class="larger" v-html="neverUsed"></p>
 
 		<p class="larger" v-html="twineForum"></p>
 
@@ -53,7 +53,7 @@
 		</p>
 	</div> <!-- .save -->
 	</transition>
-	
+
 	<transition name="fade-in-out">
 	<div class="thanks" v-if="shown > 3">
 		<h1>
@@ -67,6 +67,6 @@
 		<p class="buttons">
 		<button class="primary" @click="finish">{{ 'Go to the Story List' | say }}</button>
 		</p>
-	</div> <!-- .thanks -->	
+	</div> <!-- .thanks -->
 	</transition>
 </div>

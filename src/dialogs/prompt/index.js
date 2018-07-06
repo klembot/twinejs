@@ -10,7 +10,7 @@ require('./index.less');
 const prompter = {
 	component: Vue.extend({
 		template: require('./index.html'),
-		
+
 		data: () => ({
 			message: '',
 			response: '',
@@ -44,11 +44,13 @@ const prompter = {
 				else {
 					this.isValid = true;
 					eventHub.$emit('close', this.response);
+					this.$emit('close', this.response);
 				}
 			},
 
 			cancel() {
 				eventHub.$emit('close', false);
+				this.$emit('close', this.response);
 			}
 		},
 
@@ -70,7 +72,7 @@ const prompter = {
 				/*
 				False results are produced by the close button and the cancel
 				button. If the result is false, convert it into a rejection.
-				
+
 				Note: this may change in the future, as using rejections for
 				negative results is somewhat unidiomatic.
 				*/
@@ -81,7 +83,13 @@ const prompter = {
 
 				return result;
 			}
-		);
+		).catch(err => {
+			console.log("prompt caught!", err);
+			if (!err) {
+				throw err;
+			}
+			return err;
+		} );
 	}
 };
 
