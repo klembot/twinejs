@@ -91,6 +91,7 @@ const ModalDialog = Vue.extend({
 	},
 
 	destroyed() {
+		console.log("modal: destroyed lifecyle method");
 		let body = document.querySelector('body');
 
 		body.classList.remove('modalOpen');
@@ -163,14 +164,13 @@ const ModalDialog = Vue.extend({
 
 	created: function() {
 		eventHub.$on('close', (message) => {
-			console.log("close-event modal", message);
+			console.log("modal: close-event", message);
 			this[resolve](message);
 			this.$destroy(true);
-			console.log('destroyed');
 		});
 
 		eventHub.$on('reject', (message) => {
-			console.log("reject-event modal");
+			console.log("modal: reject-event", message);
 			this[reject](message);
 			this.$destroy(true);
 		});

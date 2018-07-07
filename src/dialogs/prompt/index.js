@@ -77,6 +77,7 @@ const prompter = {
 				negative results is somewhat unidiomatic.
 				*/
 
+				console.log("prompt: result", result);
 				if (!result) {
 					throw result;
 				}
