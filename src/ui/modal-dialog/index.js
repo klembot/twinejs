@@ -42,7 +42,6 @@ const ModalDialog = Vue.extend({
 	},
 
 	mounted() {
-		eventHub.$on('close', this.close);
 
 		this.$nextTick(function () {
 			// code that assumes this.$el is in-document
@@ -100,12 +99,12 @@ const ModalDialog = Vue.extend({
 
 	methods: {
 		close(message) {
-			console.log("close-method modal", message);
+			console.log("modal: close-method", message);
 			if (typeof this.canClose === 'function' && !this.canClose()) {
 				return;
 			}
 
-			console.log("close-method modal emit", message);
+			console.log("modal: close-method emitting!", message);
 			this.$emit('close', message);
 		},
 
@@ -114,7 +113,7 @@ const ModalDialog = Vue.extend({
 		},
 
 		reject(message) {
-			console.log("reject-method modal");
+			console.log("modal: reject-method", message);
 			if (typeof this.canClose === 'function' && !this.canClose()) {
 				return;
 			}

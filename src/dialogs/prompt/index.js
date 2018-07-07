@@ -44,13 +44,12 @@ const prompter = {
 				else {
 					this.isValid = true;
 					eventHub.$emit('close', this.response);
-					this.$emit('close', this.response);
 				}
 			},
 
 			cancel() {
-				eventHub.$emit('close', false);
-				this.$emit('close', this.response);
+				console.log("prompt: cancel-method");
+				eventHub.$emit('close');
 			}
 		},
 

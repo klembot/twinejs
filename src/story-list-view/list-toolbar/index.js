@@ -68,7 +68,7 @@ module.exports = Vue.extend({
 						).id
 					);
 				}, 300);
-			});
+			}).catch(err => console.log("list-toolbar: caught!", err));
 		},
 
 		importFile(e) {
