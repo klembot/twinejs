@@ -14,6 +14,11 @@ const saveFile = require('../../file/save');
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
+	data: () => ({
+		showModal: false,
+		promptOrigin: null
+	}),
+
 	computed: {
 		newStoryTitle() {
 			return locale.say('Create a brand-new story');
@@ -32,12 +37,34 @@ module.exports = Vue.extend({
 		},
 		helpTitle() {
 			return locale.say('Browse online help');
+		},
+		promptMessage() {
+			return locale.say(
+					'What should your story be named?<br>(You can change this later.)'
+				);
+		},
+		promptButtonLabel() {
+			return '<i class="fa fa-plus"></i> ' + locale.say('Add');
 		}
 	},
 
 	methods: {
+
+		promptValidator(name) {
+			if (this.existingStories.find(
+				story => story.name === name
+			)) {
+				return locale.say(
+					'A story with this name already exists.'
+				);
+			};
+		},
 		createStoryPrompt(e) {
+			//TODO: save e.target to origin and change modal to true
+			this.promptOrigin = e.target;
+			this.showModal = true;
 			// Prompt for the new story name.
+			/*
 			prompt({
 				message: locale.say(
 					'What should your story be named?<br>(You can change this later.)'
@@ -69,6 +96,7 @@ module.exports = Vue.extend({
 					);
 				}, 300);
 			}).catch(err => console.log("list-toolbar: caught!", err));
+			*/
 		},
 
 		importFile(e) {

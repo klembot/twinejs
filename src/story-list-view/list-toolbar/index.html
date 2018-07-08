@@ -9,6 +9,13 @@
 				<i class="fa fa-plus"></i>
 				{{ 'Story' | say }}
 			</button>
+			<prompt v-if="showModal" @close="showModal = false"
+			 	v-bind:promptButtonLabel="promptButtonLabel"
+			  	promptButtonClass="create"
+			   	v-bind:promptValidator="promptValidator"
+				v-bind:promptOrigin="promptOrigin"
+				v-bind:promptMessage="promptMessage">
+				</prompt>
 		</li>
 		<li>
 			<button class="block"

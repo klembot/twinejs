@@ -8,8 +8,10 @@ const { thenable } = require('../../vue/mixins/thenable');
 require('./index.less');
 
 const prompter = {
-	component: Vue.extend({
+	component: Vue.component('prompt', {
 		template: require('./index.html'),
+
+		 props: ['promptButtonLabel', 'promptButtonClass', 'promptValidator', 'promptOrigin', 'promptMessage'],
 
 		data: () => ({
 			message: '',
@@ -35,7 +37,7 @@ const prompter = {
 
 		methods: {
 			accept() {
-				const validResponse = this.validator(this.response);
+				const validResponse = this.promptValidator(this.response);
 
 				if (typeof validResponse === 'string') {
 					this.isValid = false;

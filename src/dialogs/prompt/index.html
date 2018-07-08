@@ -1,6 +1,6 @@
-<modal-dialog :class="'prompt no-header ' + modalClass" :origin="origin">
+<modal-dialog :class="'prompt no-header ' + modalClass" :origin="promptOrigin">
 	<form @submit.prevent="accept">
-		<div class="message larger" v-html="message"></div>
+		<div class="message larger" v-html="promptMessage"></div>
 
 		<transition name="fade-in-out">
 			<p class="error" v-if="!isValid">
@@ -14,7 +14,7 @@
 
 		<p class="buttons">
 			<button type="button" @click="cancel" v-html="cancelLabel"></button>
-			<button type="submit" :class="buttonClass" v-html="buttonLabel"></button>
+			<button type="submit" :class="promptButtonClass" v-html="promptButtonLabel"></button>
 		</p>
 	</form>
 </modal-dialog>

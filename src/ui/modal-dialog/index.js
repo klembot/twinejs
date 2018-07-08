@@ -18,6 +18,7 @@ const animationEndEvents = [
 
 require('./index.less');
 
+
 const ModalDialog = Vue.extend({
 	template: require('./index.html'),
 
