@@ -9,13 +9,15 @@
 				<i class="fa fa-plus"></i>
 				{{ 'Story' | say }}
 			</button>
-			<prompt v-if="showModal" @close="showModal = false"
-			 	v-bind:promptButtonLabel="promptButtonLabel"
-			  	promptButtonClass="create"
-			   	v-bind:promptValidator="promptValidator"
-				v-bind:promptOrigin="promptOrigin"
-				v-bind:promptMessage="promptMessage">
-				</prompt>
+			  <button id="show-modal" @click="showModal = true">Show Modal</button>
+			  <!-- use the modal component, pass in the prop -->
+  				<modal v-if="showModal" @close="showModal = false">
+			    <!--
+			      you can use custom content here to overwrite
+			      default content
+			    -->
+		    	<h3 slot="header">custom header</h3>
+			  </modal>
 		</li>
 		<li>
 			<button class="block"
@@ -80,4 +82,11 @@
 			</a>
 		</p>
 	</footer>
+	<prompt v-if="showPrompt" @close="showPrompt = false"
+			 	v-bind:promptButtonLabel="promptButtonLabel"
+			  	promptButtonClass="create"
+			   	v-bind:promptValidator="promptValidator"
+				v-bind:promptOrigin="promptOrigin"
+				v-bind:promptMessage="promptMessage">
+	</prompt>
 </nav>

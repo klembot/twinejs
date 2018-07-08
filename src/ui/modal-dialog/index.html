@@ -1,7 +1,4 @@
-<transition name="modal-dialog"
- v-on:before-enter="beforeEnter"
-  v-on:enter="enter"
-   v-on:leave="leave">
+<transition name="modal-dialog">
 	<div>
 		<div id="modal-overlay" @click="reject"></div>
 		<div :class="'modal-dialog ' + classes">

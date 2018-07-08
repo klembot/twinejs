@@ -1,6 +1,7 @@
 /* Shows a modal dialog asking for a text response from the user. */
 
 const Vue = require('vue');
+
 const locale = require('../../locale');
 const eventHub = require('../../common/eventHub');
 const { thenable } = require('../../vue/mixins/thenable');
@@ -11,7 +12,7 @@ const prompter = {
 	component: Vue.component('prompt', {
 		template: require('./index.html'),
 
-		 props: ['promptButtonLabel', 'promptButtonClass', 'promptValidator', 'promptOrigin', 'promptMessage'],
+		props: ['promptButtonLabel', 'promptButtonClass', 'promptValidator', 'promptOrigin', 'promptMessage'],
 
 		data: () => ({
 			message: '',
@@ -23,7 +24,6 @@ const prompter = {
 			isValid: true,
 			validationError: '',
 			validator: function() {},
-
 			origin: null
 		}),
 
@@ -86,7 +86,7 @@ const prompter = {
 				return result;
 			}
 		).catch(err => {
-			console.log("prompt caught!", err);
+			console.log("prompt: caught!", err);
 			if (!err) {
 				throw err;
 			}

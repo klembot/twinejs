@@ -11,11 +11,18 @@ const { publishArchive } = require('../../data/publish');
 const eventHub = require('../../common/eventHub');
 const saveFile = require('../../file/save');
 
+require('./index.less');
+
+Vue.component('modal', {
+	template: require('./modal.html')
+});
+
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	data: () => ({
 		showModal: false,
+		showPrompt: false,
 		promptOrigin: null
 	}),
 
@@ -62,7 +69,7 @@ module.exports = Vue.extend({
 		createStoryPrompt(e) {
 			//TODO: save e.target to origin and change modal to true
 			this.promptOrigin = e.target;
-			this.showModal = true;
+			this.showPrompt = true;
 			// Prompt for the new story name.
 			/*
 			prompt({
