@@ -36,7 +36,9 @@ module.exports = Vue.extend({
 		*/
 
 		storyOrder: "name",
-		storyOrderDir: "asc"
+		storyOrderDir: "asc",
+		showPrompt: false,
+		promptArgs: {}
 	}),
 
 	computed: {
@@ -112,6 +114,11 @@ module.exports = Vue.extend({
 	},
 
 	mounted() {
+		eventHub.$on("modalPrompt", (promptArgs) => {
+			this.promptArgs = promptArgs;
+			this.showPrompt = true;
+		});
+		eventHub.$on("close", () => this.showPrompt = false);
 		this.$nextTick(function() {
 			// code that assumes this.$el is in-document
 

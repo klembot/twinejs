@@ -6,25 +6,14 @@ const FormatsDialog = require('../../dialogs/formats');
 const ImportDialog = require('../../dialogs/story-import');
 const { createStory } = require('../../data/actions/story');
 const locale = require('../../locale');
-const { prompt } = require('../../dialogs/prompt');
 const { publishArchive } = require('../../data/publish');
 const eventHub = require('../../common/eventHub');
 const saveFile = require('../../file/save');
 
 require('./index.less');
 
-Vue.component('modal', {
-	template: require('./modal.html')
-});
-
 module.exports = Vue.extend({
 	template: require('./index.html'),
-
-	data: () => ({
-		showModal: false,
-		showPrompt: false,
-		promptOrigin: null
-	}),
 
 	computed: {
 		newStoryTitle() {
@@ -67,29 +56,10 @@ module.exports = Vue.extend({
 			};
 		},
 		createStoryPrompt(e) {
-			//TODO: save e.target to origin and change modal to true
-			this.promptOrigin = e.target;
-			this.showPrompt = true;
-			// Prompt for the new story name.
-			/*
-			prompt({
-				message: locale.say(
-					'What should your story be named?<br>(You can change this later.)'
-				),
-				buttonLabel: '<i class="fa fa-plus"></i> ' + locale.say('Add'),
-				buttonClass: 'create',
-				validator: name => {
-					if (this.existingStories.find(
-							story => story.name === name
-						)) {
-						return locale.say(
-							'A story with this name already exists.'
-						);
-					}
-				},
-
-				origin: e.target
-			}).then(name => {
+			eventHub.$once('close', (name) => {
+				if (!name) {
+					return;
+				}
 				this.createStory({ name });
 
 				// Allow the appearance animation to complete.
@@ -102,8 +72,14 @@ module.exports = Vue.extend({
 						).id
 					);
 				}, 300);
-			}).catch(err => console.log("list-toolbar: caught!", err));
-			*/
+			});
+			const promptArgs = {label: this.promptButtonLabel,
+				class: this.promptButtonClass,
+				validator: this.promptValidator,
+				origin: e.target,
+				message: this.promptMessage};
+
+			eventHub.$emit("modalPrompt", promptArgs);
 		},
 
 		importFile(e) {

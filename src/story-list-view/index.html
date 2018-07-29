@@ -32,6 +32,13 @@
 			<story-item v-for="story in sortedStories" :story="story" v-bind:key="story.id"></story-item>
 		</transition-group>
 	</div>
+	<prompt v-if="showPrompt"
+		v-bind:promptButtonLabel="promptArgs.label"
+		promptButtonClass="create"
+		v-bind:promptValidator="promptArgs.validator"
+		v-bind:promptOrigin="promptArgs.origin"
+		v-bind:promptMessage="promptArgs.message">
+	</prompt>
 </div>
 <!-- .main -->
 </div>
