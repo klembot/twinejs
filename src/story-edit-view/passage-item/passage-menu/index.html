@@ -1,6 +1,6 @@
 <drop-down open-on="hover" :show-now="true" position="bottom center" className="passage">
 	<!-- L10n: %s is the name of the thing to be deleted. -->
-	<button @click="delete"
+	<button @click="passageDelete"
 			class="danger subtle"
 			v-bind:title="deleteTitle">
 		<i class="fa fa-trash-o"></i>
@@ -22,7 +22,7 @@
 	</button>
 
 	<ul class="menu" v-if="expanded">
-		<li class="divider"></li>			
+		<li class="divider"></li>
 		<li :class="{ checked: this.isStart }">
 			<button @click="setAsStart">
 				{{ 'Start Story Here' | say }}
@@ -47,7 +47,7 @@
 		<li :class="{ checked: this.size === 'large' }">
 			<button @click="setSize('large')" >
 				{{ 'Large' | say }}
-			</button>		
+			</button>
 		</li>
 	</ul>
 </drop-down>

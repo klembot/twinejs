@@ -56,11 +56,11 @@ module.exports = Vue.extend({
 			if (this.passage.width === 200 && this.passage.height === 100) {
 				return 'wide';
 			}
-			
+
 			if (this.passage.width === 100 && this.passage.height === 200) {
 				return 'tall';
 			}
-			
+
 			if (this.passage.width === 200 && this.passage.height === 200) {
 				return 'large';
 			}
@@ -78,7 +78,7 @@ module.exports = Vue.extend({
 			eventHub.$emit('passage-edit');
 		},
 
-		delete(e) {
+		passageDelete(e) {
 			eventHub.$emit('passage-delete', e.shiftKey);
 		},
 

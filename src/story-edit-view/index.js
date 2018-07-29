@@ -78,7 +78,7 @@ module.exports = Vue.extend({
 		* the size of the browser window
 		* the minimum amount of space needed to enclose all existing
 		passages
-		
+
 		... whichever is bigger, plus 50% of the browser window's
 		width and height, so that there's always room for the story to
 		expand.
@@ -142,12 +142,14 @@ module.exports = Vue.extend({
 		*/
 
 		passagePositions() {
+			if (!this.$refs.passages) {
+				return {};
+			}
 			return this.$refs.passages.reduce(
 				(result, passageView) => {
 					result[passageView.passage.name] = passageView.linkPosition;
 					return result;
 				},
-
 				{}
 			);
 		},
