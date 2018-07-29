@@ -50,7 +50,6 @@ const prompter = {
 			},
 
 			cancel() {
-				console.log("prompt: cancel-method");
 				eventHub.$emit('close');
 			}
 		},
@@ -78,7 +77,6 @@ const prompter = {
 				negative results is somewhat unidiomatic.
 				*/
 
-				console.log("prompt: result", result);
 				if (!result) {
 					throw result;
 				}
@@ -86,7 +84,6 @@ const prompter = {
 				return result;
 			}
 		).catch(err => {
-			console.log("prompt: caught!", err);
 			if (!err) {
 				throw err;
 			}

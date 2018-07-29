@@ -91,7 +91,6 @@ const ModalDialog = Vue.extend({
 	},
 
 	destroyed() {
-		console.log("modal: destroyed lifecyle method");
 		let body = document.querySelector('body');
 
 		body.classList.remove('modalOpen');
@@ -100,12 +99,10 @@ const ModalDialog = Vue.extend({
 
 	methods: {
 		close(message) {
-			console.log("modal: close-method", message);
 			if (typeof this.canClose === 'function' && !this.canClose()) {
 				return;
 			}
 
-			console.log("modal: close-method emitting!", message);
 			this.$emit('close', message);
 		},
 
@@ -114,7 +111,6 @@ const ModalDialog = Vue.extend({
 		},
 
 		reject(message) {
-			console.log("modal: reject-method", message);
 			if (typeof this.canClose === 'function' && !this.canClose()) {
 				return;
 			}
@@ -129,7 +125,6 @@ const ModalDialog = Vue.extend({
 			}
 		},
 		beforeEnter: function(el) {
-			console.log("before entering", el);
 			let overlay = el.querySelector('#modal-overlay');
 			let dialog = el.querySelector('.modal-dialog');
 
@@ -142,7 +137,6 @@ const ModalDialog = Vue.extend({
 		},
 
 		enter: function(el, done) {
-			console.log("entering", el);
 			let overlay = el.querySelector('#modal-overlay');
 
 			Vue.nextTick(() => {
@@ -152,7 +146,6 @@ const ModalDialog = Vue.extend({
 		},
 
 		leave: function(el, done) {
-			console.log("leaving", el);
 			let overlay = el.querySelector('#modal-overlay');
 			let dialog = el.querySelector('.modal-dialog');
 
@@ -164,13 +157,11 @@ const ModalDialog = Vue.extend({
 
 	created: function() {
 		eventHub.$on('close', (message) => {
-			console.log("modal: close-event", message);
 			this[resolve](message);
 			this.$destroy(true);
 		});
 
 		eventHub.$on('reject', (message) => {
-			console.log("modal: reject-event", message);
 			this[reject](message);
 			this.$destroy(true);
 		});
