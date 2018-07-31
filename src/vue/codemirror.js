@@ -27,8 +27,7 @@ module.exports = Vue.extend({
 		this.$cm.setValue((this.text || "") + "");
 
 		this.$cm.on("change", () => {
-			this.text = this.$cm.getValue();
-			eventHub.$emit("cm-change", this.text);
+			eventHub.$emit("cm-change", this.$cm.getValue());
 		});
 		this.$nextTick(function() {
 			this.$cm.focus();
