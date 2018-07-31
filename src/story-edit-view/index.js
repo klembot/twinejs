@@ -18,6 +18,8 @@ const locale = require("../locale");
 const { passageDefaults } = require("../data/store/story");
 const zoomSettings = require("./zoom-settings");
 
+// Modal editor for individual passages
+require('../editors/passage');
 require("./index.less");
 
 /*
@@ -39,6 +41,8 @@ module.exports = Vue.extend({
 	},
 
 	data: () => ({
+		showEditor: false,
+		editorArgs: {},
 		/*
 		The window's width and height. Our resize() method keeps this in sync
 		with the DOM.
@@ -202,6 +206,14 @@ module.exports = Vue.extend({
 			this.resize();
 			this.on(window, "resize", this.resize);
 			this.on(window, "keyup", this.onKeyup);
+
+			eventHub.$on('close', () => {
+				this.showEditor = false;
+			});
+			eventHub.$on('showEditor', (editorArgs) => {
+				this.editorArgs = editorArgs;
+				this.showEditor = true;
+			});
 
 			if (this.story.passages.length === 0) {
 				this.createPassageAt();

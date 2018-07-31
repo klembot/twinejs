@@ -22,16 +22,19 @@ Expose CodeMirror to story formats, currently for Harlowe compatibility.
 
 window.CodeMirror = CodeMirror;
 
-module.exports = Vue.extend({
+module.exports = Vue.component('passage-editor', {
 	template: require('./index.html'),
 
-	data: () => ({
+	props: {
 		passageId: '',
 		storyId: '',
+		origin: null
+	},
+
+	data: () => ({
 		oldWindowTitle: '',
 		userPassageName: '',
 		saveError: '',
-		origin: null
 	}),
 
 	computed: {
@@ -76,7 +79,7 @@ module.exports = Vue.extend({
 					passage.id !== this.passage.id
 			));
 		},
-		
+
 		autocompletions() {
 			return this.parentStory.passages.map(passage => passage.name);
 		}

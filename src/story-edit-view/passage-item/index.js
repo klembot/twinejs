@@ -5,7 +5,6 @@ A single passage in the story map.
 const escape = require('lodash.escape');
 const Vue = require('vue');
 const eventHub = require('../../common/eventHub');
-const PassageEditor = require('../../editors/passage');
 const { confirm } = require('../../dialogs/confirm');
 const domEvents = require('../../vue/mixins/dom-events');
 const locale = require('../../locale');
@@ -18,6 +17,7 @@ const {
 } =
 	require('../../data/actions/passage');
 
+
 require('./index.less');
 
 module.exports = Vue.extend({
@@ -28,7 +28,7 @@ module.exports = Vue.extend({
 			type: Object,
 			required: true
 		},
-		
+
 		parentStory: {
 			type: Object,
 			required: true
@@ -121,7 +121,7 @@ module.exports = Vue.extend({
 					: null
 			};
 		},
-		
+
 		cssClasses() {
 			let result = [];
 
@@ -187,21 +187,14 @@ module.exports = Vue.extend({
 			so we need to handle both resolution and rejection of the promise.
 			*/
 
-			new PassageEditor({
-				data: {
-					passageId: this.passage.id,
-					storyId: this.parentStory.id,
-					origin: this.$el
-				},
-				store: this.$store,
-				storyFormat: {
-					name: this.parentStory.storyFormat,
-					version: this.parentStory.storyFormatVersion
-				}
-			})
-			.$mountTo(document.body)
-			.then(afterEdit)
-			.catch(afterEdit);
+			eventHub.$once('close', () => afterEdit());
+			eventHub.$emit('showEditor', {
+				passageId: this.passage.id,
+				storyId: this.parentStory.id,
+				origin: this.$el,
+				storyFormatName: this.parentStory.storyFormat,
+				storyFormatVersion: this.parentStory.storyFormatVersion
+			});
 		},
 
 		startDrag(e) {
@@ -210,7 +203,7 @@ module.exports = Vue.extend({
 			if (e.type === 'mousedown' && e.which !== 1) {
 				return;
 			}
-			
+
 			if (e.shiftKey || e.ctrlKey) {
 				/*
 				Shift- or control-clicking toggles our selected status, but
@@ -308,7 +301,7 @@ module.exports = Vue.extend({
 			user may be starting a drag; but now that we know for sure that the
 			user didn't intend this, we select just this one.
 			*/
-			
+
 			if (this.dragXOffset === 0 && this.dragYOffset === 0) {
 				if (!(e.ctrlKey || e.shiftKey)) {
 					this.selectPassages(this.parentStory.id, p => p !== this);

@@ -102,8 +102,7 @@ const ModalDialog = Vue.extend({
 			if (typeof this.canClose === 'function' && !this.canClose()) {
 				return;
 			}
-
-			this.$emit('close', message);
+			eventHub.$emit('close', message);
 		},
 
 		toggleWide() {
@@ -156,6 +155,7 @@ const ModalDialog = Vue.extend({
 	},
 
 	created: function() {
+
 		eventHub.$on('close', (message) => {
 			this[resolve](message);
 			this.$destroy(true);

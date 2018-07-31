@@ -11,5 +11,6 @@
 	</div>
 
 	<story-toolbar :story="story" :highlight-regexp="highlightRegexp" :zoom-desc="zoomDesc"></story-toolbar>
+	<passage-editor v-if="showEditor" :passageId="editorArgs.passageId" :storyId="editorArgs.storyId" :origin="editorArgs.origin"></passage-editor>
 </div>
 <!-- #storyEditView -->
