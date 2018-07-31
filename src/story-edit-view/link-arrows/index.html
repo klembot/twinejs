@@ -9,16 +9,6 @@
 		</marker>
 	</defs>
 
-	<style>
-		.marker-arrow {
-			marker-end: url(#link-arrowhead);
-		}
-
-		.marker-broken {
-			marker-end: url(#link-broken);
-		}
-	</style>
-
 	<template v-for="(start, startLinks, startIndex) in links" v-if="!start">
 		<template v-for="(end, endIndex) in startLinks" v-if="!end">
 			<link-arrow v-bind:start="positions[start]" v-bind:end="positions[end]"></link-arrow>
