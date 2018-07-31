@@ -7,7 +7,7 @@
 	</button>
 
 	<transition-group name="fade-in-out">
-		<template v-for="tag in passage.tags" v-bind:key="tag">
+		<template v-for="tag in passage.tags">
 			<div v-bind:class="'tag label label-info ' + tagColors[tag]">
 				{{ tag }}
 				<button>
