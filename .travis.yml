@@ -3,6 +3,10 @@ node_js:
   - "8"
 script:
   -  echo “Deploy!!”
+  - echo "Installing Deps!"
+  - yarn
+  - echo "Building"
+  - npm run build:release
 install:
   - npm install -g firebase-tools
 after_success:
