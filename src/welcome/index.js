@@ -70,7 +70,7 @@ module.exports = Vue.extend({
 
 		finish() {
 			this.setPref("welcomeSeen", true);
-			window.location.hash = "#stories";
+			this.$router.push("stories");
 		}
 	},
 

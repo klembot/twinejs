@@ -42,7 +42,7 @@ module.exports = Vue.extend({
 
 		setLocale(userLocale) {
 			this.setPref('locale', userLocale);
-			window.location.hash = 'stories';
+			this.$router.push('stories');
 			window.location.reload();
 		}
 	},

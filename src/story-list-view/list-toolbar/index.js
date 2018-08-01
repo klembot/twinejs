@@ -117,7 +117,7 @@ module.exports = Vue.extend({
 		},
 
 		showLocale() {
-			window.location.hash = 'locale';
+			this.$router.push('locale');
 		}
 	},
 

@@ -13,6 +13,7 @@ const store = require("../data/store");
 Vue.use(VueRouter);
 
 let TwineRouter = new VueRouter({
+	mode: 'hash',
 	routes: [
 		{
 			/*  We connect routes with no params directly to a component. */
