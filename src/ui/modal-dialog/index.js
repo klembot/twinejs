@@ -114,7 +114,7 @@ const ModalDialog = Vue.extend({
 				return;
 			}
 
-			this.$emit('reject', message);
+			eventHub.$emit('close', message);
 		},
 
 		escapeCloser(e) {
