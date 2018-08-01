@@ -448,7 +448,7 @@ module.exports = Vue.extend({
 		a temporary change in the DOM to their model.
 		*/
 
-		eventHub.$on("passage-drag-complete", (xOffset, yOffset) => {
+		this.$on("passage-drag-complete", (xOffset, yOffset) => {
 			this.screenDragOffsetX = 0;
 			this.screenDragOffsetY = 0;
 
