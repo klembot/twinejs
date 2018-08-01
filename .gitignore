@@ -10,3 +10,4 @@ dist-apps
 build
 nw-cache
 nwbuilder-cache
+/functions/node_modules/

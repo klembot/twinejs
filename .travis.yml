@@ -1,0 +1,9 @@
+anguage: node_js
+node_js:
+ — “7”
+script:
+ — echo “Deploy!!”
+install:
+ — npm install -g firebase-tools
+after_success:
+ — firebase deploy — project none-linear-education — token $FIREBASE_TOKEN.
