@@ -13,4 +13,4 @@ script:
 install:
   - npm install -g firebase-tools
 after_success:
-  - firebase deploy --token "$FIREBASE_TOKEN"
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then firebase deploy --token "$FIREBASE_TOKEN"; fi'
