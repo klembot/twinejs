@@ -5,6 +5,9 @@ script:
   - echo 'Deploy!!'
   - echo 'Installing Deps!'
   - yarn
+  - cd functions
+  - yarn
+  - cd ..
   - echo 'Building!'
   - npm run build:release
 install:
