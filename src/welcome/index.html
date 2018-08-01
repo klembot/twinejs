@@ -5,7 +5,7 @@
 		</h1>
 
 		<p class="larger">
-		{{ 'Twine is an open-source tool for telling interactive, nonlinear stories. There are a few things you should know before you get started.' | say }}
+		{{ 'Welcome to the None Linear Education system!' | say }}
 		</p>
 
 		<p class="buttons">
@@ -13,7 +13,7 @@
 			<a href="javascript:void(0)" class="button" @click="finish">{{ 'Skip' | say }}</a>
 		</p>
 	</div> <!-- .hi -->
-	
+
 	<div class="help" v-if="shown > 1" transition="fade-in-out">
 		<h1>
 		{{ 'New here?' | say }}
@@ -57,7 +57,7 @@
 			<button class="primary" @click="next">{{ 'OK' | say }}</button>
 		</p>
 	</div> <!-- .save -->
-	
+
 	<div class="thanks" v-if="shown > 3" transition="fade-in-out">
 		<h1>
 		{{ "That's it!" | say }}
@@ -70,5 +70,5 @@
 		<p class="buttons">
 		<button class="primary" @click="finish">{{ 'Go to the Story List' | say }}</button>
 		</p>
-	</div> <!-- .thanks -->	
+	</div> <!-- .thanks -->
 </div>
