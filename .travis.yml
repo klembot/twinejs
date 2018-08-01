@@ -2,10 +2,10 @@ language: node_js
 node_js:
   - "8"
 script:
-  -  echo “Deploy!!”
-  - echo "Installing Deps!"
+  - echo 'Deploy!!'
+  - echo 'Installing Deps!'
   - yarn
-  - echo "Building"
+  - echo 'Building!'
   - npm run build:release
 install:
   - npm install -g firebase-tools
