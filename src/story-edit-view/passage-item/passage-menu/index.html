@@ -23,28 +23,28 @@
 
 	<ul class="menu" v-if="expanded">
 		<li class="divider"></li>
-		<li :class="{ checked: this.isStart }">
+		<li :class="{ checked: isStart }">
 			<button @click="setAsStart">
 				{{ 'Start Story Here' | say }}
 			</button>
 		</li>
 		<li class="divider"></li>
-		<li :class="{ checked: this.size === 'small' }">
+		<li :class="{ checked: size === 'small' }">
 			<button @click="setSize('small')">
 				{{ 'Small' | say }}
 			</button>
 		</li>
-		<li :class="{ checked: this.size === 'wide' }">
+		<li :class="{ checked: size === 'wide' }">
 			<button @click="setSize('wide')" >
 				{{ 'Wide' | say }}
 			</button>
 		</li>
-		<li :class="{ checked: this.size === 'tall' }">
+		<li :class="{ checked: size === 'tall' }">
 			<button @click="setSize('tall')" >
 				{{ 'Tall' | say }}
 			</button>
 		</li>
-		<li :class="{ checked: this.size === 'large' }">
+		<li :class="{ checked: size === 'large' }">
 			<button @click="setSize('large')" >
 				{{ 'Large' | say }}
 			</button>
