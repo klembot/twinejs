@@ -199,6 +199,8 @@ module.exports = Vue.extend({
 			if (this.story.passages.length === 0) {
 				this.createPassageAt();
 			}
+			// Necessary to re-compute positions based on rendered passages
+			this.$forceUpdate();
 		});
 	},
 
