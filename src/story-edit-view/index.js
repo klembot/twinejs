@@ -139,25 +139,6 @@ module.exports = Vue.extend({
 		selectedChildren() {
 			return this.$refs.passages.filter(p => p.selected);
 		},
-
-		/*
-		An array of <passage-item> components and their link positions,
-		indexed by name.
-		*/
-
-		passagePositions() {
-			if (!this.$refs.passages) {
-				return {};
-			}
-			return this.$refs.passages.reduce(
-				(result, passageView) => {
-					result[passageView.passage.name] = passageView.linkPosition;
-					return result;
-				},
-				{}
-			);
-		},
-
 		story() {
 			return this.allStories.find(story => story.id === this.storyId);
 		},
@@ -222,6 +203,26 @@ module.exports = Vue.extend({
 	},
 
 	methods: {
+
+		/*
+		An array of <passage-item> components and their link positions,
+		indexed by name.
+		*/
+
+		passagePositions() {
+			if (!this.$refs.passages) {
+				return {};
+			}
+			return this.$refs.passages.reduce(
+				(result, passageView) => {
+					result[passageView.passage.name] = passageView.linkPosition;
+					return result;
+				},
+				{}
+			);
+		},
+
+
 		resize() {
 			this.winWidth = window.innerWidth;
 			this.winHeight = window.innerHeight;

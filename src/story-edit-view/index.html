@@ -2,7 +2,7 @@
  @wheel="onWheel" v-mouse-scrolling>
 	<div class="passages">
 		<marquee-selector :story="story"></marquee-selector>
-		<link-arrows :passages="story.passages" :positions="passagePositions" :zoom="story.zoom"></link-arrows>
+		<link-arrows :passages="story.passages" :positions="passagePositions()" :zoom="story.zoom"></link-arrows>
 
 		<transition-group name="grow-in-out">
 			<passage-item v-for="passage in story.passages" :passage="passage" :parent-story="story" :screen-drag-offset-x="screenDragOffsetX"

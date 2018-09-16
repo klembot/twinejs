@@ -9,8 +9,8 @@
 		</marker>
 	</defs>
 
-	<template v-for="(start, startLinks, startIndex) in links" v-if="!start">
-		<template v-for="(end, endIndex) in startLinks" v-if="!end">
+	<template v-for="(startLinks, start, startIndex) in links()">
+		<template v-for="(end, endIndex) in startLinks" v-if="positions[end]">
 			<link-arrow v-bind:start="positions[start]" v-bind:end="positions[end]"></link-arrow>
 		</template>
 	</template>
