@@ -1,0 +1,26 @@
+<modal-dialog v-ref:modal :origin="origin">
+	<span slot="title">{{ 'Import Image From File' | say }}</span>
+
+	<template v-if="status === 'waiting'">
+		<p>
+			<label for="importUpload">
+				{{ 'Import this image file:' | say }}
+			</label>
+
+			<input type="file" v-el:import-file @change="import($els.importFile.files[0])">
+		</p>
+
+		<div class="buttons" v-if="!working">
+			<button class="subtle" @click="close">
+				<i class="fa fa-times"></i> {{ 'Cancel' | say }}
+			</button>
+		</div>
+	</template>
+
+	<template v-if="status === 'working'">
+		<p>
+			<i class="fa fa-circle-o-notch fa-spin"></i>
+			{{ 'Working...' | say }}
+		</p>
+	</template>
+</modal-dialog>

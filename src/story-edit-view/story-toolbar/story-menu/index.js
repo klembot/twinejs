@@ -3,6 +3,7 @@
 const escape = require('lodash.escape');
 const Vue = require('vue');
 const FormatDialog = require('../../../dialogs/story-format');
+const ImageDialog = require('../../../dialogs/image-import');
 const JavaScriptEditor = require('../../../editors/javascript');
 const StatsDialog = require('../../../dialogs/story-stats');
 const StylesheetEditor = require('../../../editors/stylesheet');
@@ -26,16 +27,22 @@ module.exports = Vue.extend({
 
 	methods: {
 		uploadImage(e) {
-			console.log("This story contains "+this.story.passages.length+" passage(s).")
-			const lastPassage = this.story.passages[this.story.passages.length-1]
-			console.log("The most recently added passage had ID "+lastPassage.id)
 
-			const retval = this.$dispatch('passage-create');
-			//console.log("I requested a new passage and got: ", retval)
+			new ImageDialog({
+				store: this.$store,
+				data: { origin: e.target }
+			}).$mountTo(document.body);
 
-			console.log("This story contains "+this.story.passages.length+" passage(s).")
+			// This does not return anything useful, but appears to execute synchronously.
+			// https://v1.vuejs.org/api/#vm-dispatch
+			// After execution, a new passage has been appended to `this.story.passages`
+			this.$dispatch('passage-create');
+
+			// The new passage is always the last one in the list:
 			const newPassage = this.story.passages[this.story.passages.length-1]
-			console.log("The most recently added passage now has ID "+newPassage.id)
+			//console.log("The most recently added passage now has ID "+newPassage.id)
+			newPassage.name = "img-"+newPassage.id
+			newPassage.text = "<img>"
 		},
 
 		editScript(e) {

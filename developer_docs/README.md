@@ -18,7 +18,9 @@ and translate passage content into HTML, CSS, and JavaScript that a reader can i
 ## Basic tooling
 
 TwineJS is authored in JavaScript, using [the Vue framework](https://vuejs.org/).
-Vue is well-regarded for its simplicity and [excellent documentation for beginners](https://vuejs.org/v2/guide/).
+Note that Twine uses Vue 1.x, although a 2.x series now exists.
+Vue is well-regarded for its simplicity and [excellent documentation for beginners](https://v1.vuejs.org/guide/).
+Be sure to use the older 1.0 documentation rather than the current 2.x docs.
 
 To enable development, you will need to clone the TwineJS Git repository,
 and [install Node](https://nodejs.org/).
