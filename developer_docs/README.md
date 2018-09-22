@@ -136,5 +136,3 @@ Some components used by these pages are in their own directories:
 - `src/editors/` contains the main text-editing dialogs for passages, extra JavaScript, and extra CSS.
 - `src/dialogs/` contains other pop-up dialogs, like the About box and story import.
 - `src/ui/` contains things like menus, buttons, and modal dialogs, which are base classes for other UI elements.
-
-## How To ...

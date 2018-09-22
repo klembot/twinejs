@@ -25,6 +25,19 @@ module.exports = Vue.extend({
 	},
 
 	methods: {
+		uploadImage(e) {
+			console.log("This story contains "+this.story.passages.length+" passage(s).")
+			const lastPassage = this.story.passages[this.story.passages.length-1]
+			console.log("The most recently added passage had ID "+lastPassage.id)
+
+			const retval = this.$dispatch('passage-create');
+			//console.log("I requested a new passage and got: ", retval)
+
+			console.log("This story contains "+this.story.passages.length+" passage(s).")
+			const newPassage = this.story.passages[this.story.passages.length-1]
+			console.log("The most recently added passage now has ID "+newPassage.id)
+		},
+
 		editScript(e) {
 			/*
 			We have to manually inject the Vuex store, since the editors are
