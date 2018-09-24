@@ -6,6 +6,7 @@ promise resolving to the image that was imported, as a data URI.
 const Vue = require('vue');
 const locale = require('../../locale');
 const { thenable } = require('../../vue/mixins/thenable');
+const { updatePassage } = require('../../data/actions/passage');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -20,6 +21,10 @@ module.exports = Vue.extend({
 		   * `working`: working without user input
 		*/
 		status: 'waiting',
+
+		// Where to insert the image
+		passageId: '',
+		storyId: '',
 	}),
 
 	ready() {
@@ -49,7 +54,14 @@ module.exports = Vue.extend({
 				reader.readAsDataURL(file);
 			})
 			.then(source => {
-				console.log("Imported "+source.length+" bytes, starting: "+source.substring(0, 40))
+				// It's not enough to directly modify the passage object -- changes won't persist.
+				// We have to call updatePassage() to make permanent changes.
+				this.updatePassage(
+					this.storyId,
+					this.passageId,
+					{ text: '<img src="'+source+'">', name: file.name }
+				);
+
 				this.close();
 			});
 		}
@@ -63,6 +75,7 @@ module.exports = Vue.extend({
 
 	vuex: {
 		actions: {
+			updatePassage
 		},
 
 		getters: {

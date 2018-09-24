@@ -27,12 +27,6 @@ module.exports = Vue.extend({
 
 	methods: {
 		uploadImage(e) {
-
-			new ImageDialog({
-				store: this.$store,
-				data: { origin: e.target }
-			}).$mountTo(document.body);
-
 			// This does not return anything useful, but appears to execute synchronously.
 			// https://v1.vuejs.org/api/#vm-dispatch
 			// After execution, a new passage has been appended to `this.story.passages`
@@ -40,9 +34,15 @@ module.exports = Vue.extend({
 
 			// The new passage is always the last one in the list:
 			const newPassage = this.story.passages[this.story.passages.length-1]
-			//console.log("The most recently added passage now has ID "+newPassage.id)
-			newPassage.name = "img-"+newPassage.id
-			newPassage.text = "<img>"
+
+			new ImageDialog({
+				store: this.$store,
+				data: {
+					origin: e.target,
+					passageId: newPassage.id,
+					storyId: this.story.id
+				}
+			}).$mountTo(document.body);
 		},
 
 		editScript(e) {
