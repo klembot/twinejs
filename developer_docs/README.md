@@ -26,6 +26,7 @@ To enable development, you will need to clone the TwineJS Git repository,
 and [install Node](https://nodejs.org/).
 Instructions for getting started are contained in [the main README](../README.md),
 but the key commands are `npm install` followed by `npm start`.
+These commands and many others are defined in `package.json`.
 
 Files that end in `.spec.js` are unit tests, not part of the application logic proper.
 They can be useful for demonstrating how components are used, however.

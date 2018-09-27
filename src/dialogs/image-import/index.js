@@ -59,7 +59,9 @@ module.exports = Vue.extend({
 				this.updatePassage(
 					this.storyId,
 					this.passageId,
-					{ text: '<img src="'+source+'">', name: file.name }
+					// In a perfect world, we would query the story format for how to embed an image.
+					// In practice, all the standard formats seem to use the same HTML syntax for images.
+					{ text: '<img src="'+source+'">', name: file.name, tags: ['image'] }
 				);
 
 				this.close();

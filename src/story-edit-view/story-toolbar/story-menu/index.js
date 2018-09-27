@@ -27,6 +27,7 @@ module.exports = Vue.extend({
 
 	methods: {
 		uploadImage(e) {
+			// FIXME:  move passage creation to the ImageDialog
 			// This does not return anything useful, but appears to execute synchronously.
 			// https://v1.vuejs.org/api/#vm-dispatch
 			// After execution, a new passage has been appended to `this.story.passages`

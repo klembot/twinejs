@@ -15,6 +15,10 @@
 				<i class="fa fa-times"></i> {{ 'Cancel' | say }}
 			</button>
 		</div>
+
+		<p>
+			{{ 'Be aware that embedding large image can quickly use up all your storage space.' | say }}
+		</p>
 	</template>
 
 	<template v-if="status === 'working'">
