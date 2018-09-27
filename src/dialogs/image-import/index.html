@@ -10,15 +10,15 @@
 			<input type="file" v-el:import-file @change="import($els.importFile.files[0])">
 		</p>
 
+		<p>
+			{{ 'Be aware that embedding large image can quickly use up all your storage space.' | say }}
+		</p>
+
 		<div class="buttons" v-if="!working">
 			<button class="subtle" @click="close">
 				<i class="fa fa-times"></i> {{ 'Cancel' | say }}
 			</button>
 		</div>
-
-		<p>
-			{{ 'Be aware that embedding large image can quickly use up all your storage space.' | say }}
-		</p>
 	</template>
 
 	<template v-if="status === 'working'">

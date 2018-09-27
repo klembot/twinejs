@@ -27,21 +27,12 @@ module.exports = Vue.extend({
 
 	methods: {
 		uploadImage(e) {
-			// FIXME:  move passage creation to the ImageDialog
-			// This does not return anything useful, but appears to execute synchronously.
-			// https://v1.vuejs.org/api/#vm-dispatch
-			// After execution, a new passage has been appended to `this.story.passages`
-			this.$dispatch('passage-create');
-
-			// The new passage is always the last one in the list:
-			const newPassage = this.story.passages[this.story.passages.length-1]
-
 			new ImageDialog({
 				store: this.$store,
 				data: {
-					origin: e.target,
-					passageId: newPassage.id,
-					storyId: this.story.id
+					// origin: e.target,
+					dispatchTo: this,
+					story: this.story
 				}
 			}).$mountTo(document.body);
 		},

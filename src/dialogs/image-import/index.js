@@ -23,8 +23,10 @@ module.exports = Vue.extend({
 		status: 'waiting',
 
 		// Where to insert the image
-		passageId: '',
-		storyId: '',
+		story: '',
+
+		// The Vue component that can receive the passage-create event
+		dispatchTo: null,
 	}),
 
 	ready() {
@@ -54,11 +56,20 @@ module.exports = Vue.extend({
 				reader.readAsDataURL(file);
 			})
 			.then(source => {
+				// This does not return anything useful, but appears to execute synchronously.
+				// https://v1.vuejs.org/api/#vm-dispatch
+				// It has to be called on an object whose chain of `parent`s includes story-edit-view, where the handler is defined
+				// After execution, a new passage has been appended to `this.story.passages`
+				this.dispatchTo.$dispatch('passage-create');
+
+				// The new passage is always the last one in the list:
+				const newPassage = this.story.passages[this.story.passages.length-1];
+
 				// It's not enough to directly modify the passage object -- changes won't persist.
 				// We have to call updatePassage() to make permanent changes.
 				this.updatePassage(
-					this.storyId,
-					this.passageId,
+					this.story.id,
+					newPassage.id,
 					// In a perfect world, we would query the story format for how to embed an image.
 					// In practice, all the standard formats seem to use the same HTML syntax for images.
 					{ text: '<img src="'+source+'">', name: file.name, tags: ['image'] }
