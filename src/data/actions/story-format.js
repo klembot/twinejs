@@ -169,14 +169,14 @@ const actions = module.exports = {
 		const builtinFormats = [
 			{
 				name: 'Harlowe',
-				url: 'story-formats/harlowe-1.2.4/format.js',
-				version: '1.2.4',
+				url: 'story-formats/harlowe-2.1.0/format.js',
+				version: '2.1.0',
 				userAdded: false
 			},
 			{
 				name: 'Harlowe',
-				url: 'story-formats/harlowe-2.1.0/format.js',
-				version: '2.1.0',
+				url: 'story-formats/harlowe-3.0.0/format.js',
+				version: '3.0.0',
 				userAdded: false
 			},
 			{
@@ -223,7 +223,7 @@ const actions = module.exports = {
 			setPref(
 				store,
 				'defaultFormat',
-				{ name: 'Harlowe', version: '2.1.0' }
+				{ name: 'Harlowe', version: '3.0.0' }
 			);
 		}
 
