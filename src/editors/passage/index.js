@@ -102,11 +102,6 @@ module.exports = Vue.extend({
 					cm.replaceSelection('<img src="'+source+'">', "start");
 					event.preventDefault();
 				});
-				// reader.onload = function(event) {
-				// 	cm.replaceSelection('<img src="'+event.target.result+'">', "start");
-				// 	event.preventDefault();
-				// };
-				// reader.readAsDataURL(blob);
 			}
 		},
 
