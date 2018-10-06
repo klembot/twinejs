@@ -72,13 +72,44 @@ module.exports = Vue.extend({
 					passage.id !== this.passage.id
 			));
 		},
-		
+
 		autocompletions() {
 			return this.parentStory.passages.map(passage => passage.name);
 		}
 	},
 
 	methods: {
+		paste(event) {
+			const cm = this.$refs.codemirror.$cm;
+			var items = (event.clipboardData  || event.originalEvent.clipboardData).items;
+			var blob = null;
+			for (var i = 0; i < items.length; i++) {
+				if (items[i].type.indexOf("image") === 0) {
+					blob = items[i].getAsFile();
+					break;
+				}
+			}
+			if (blob !== null) {
+				var reader = new FileReader();
+				new Promise(resolve => {
+					reader.addEventListener('load', e => {
+						resolve(e.target.result);
+					});
+
+					reader.readAsDataURL(blob);
+				})
+				.then(source => {
+					cm.replaceSelection('<img src="'+source+'">', "start");
+					event.preventDefault();
+				});
+				// reader.onload = function(event) {
+				// 	cm.replaceSelection('<img src="'+event.target.result+'">', "start");
+				// 	event.preventDefault();
+				// };
+				// reader.readAsDataURL(blob);
+			}
+		},
+
 		autocomplete() {
 			this.$refs.codemirror.$cm.showHint({
 				hint: cm => {
