@@ -405,15 +405,14 @@ module.exports = Vue.extend({
 						toDelete[0].name
 					);
 
-					console.warn("delete key handler calling confirm($mountTo)");
-					confirm({
-						message,
-						buttonLabel:
-							'<i class="fa fa-trash-o"></i> ' + locale.say("Delete"),
-						buttonClass: "danger"
-					}).then(() => {
-						toDelete.forEach(p => this.deletePassage(this.story.id, p.id));
-					});
+					eventHub.$once('close', (confirmed) => { if(confirmed) {toDelete.forEach(p => this.deletePassage(this.story.id, p.id));} });
+					const confirmArgs = {
+						label: '<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
+						class: 'danger',
+						message: message
+					};
+
+					eventHub.$emit("modalConfirm", confirmArgs);
 					break;
 				}
 			}

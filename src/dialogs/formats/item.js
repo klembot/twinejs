@@ -43,7 +43,7 @@ module.exports = Vue.extend({
 				/* L10n: %s is the name of an author. */
 				return locale.say('by %s', this.format.properties.author);
 			}
-			
+
 			return '';
 		},
 
@@ -53,7 +53,7 @@ module.exports = Vue.extend({
 
 		imageSrc() {
 			const path = this.format.url.replace(/\/[^\/]*?$/, '');
-			
+
 			return path + '/' + this.format.properties.image;
 		}
 	},
@@ -61,6 +61,7 @@ module.exports = Vue.extend({
 	methods: {
 		removeFormat() {
 			if (this.isDefault) {
+				console.warn("removeFormat default calling confirm($mountTo)");
 				confirm({
 					message:
 						locale.say('You may not remove the default story format. Please choose another one first.'),
@@ -71,6 +72,7 @@ module.exports = Vue.extend({
 				return;
 			}
 
+			console.warn("removeFormat calling confirm($mountTo)");
 			confirm({
 				message:
 					locale.say('Are you sure?'),
