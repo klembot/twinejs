@@ -65,6 +65,7 @@ module.exports = {
 	*/
 
 	confirm(data) {
+		console.warn("confirm using $mountTo");
 		return new confirmation(
 			{ data }
 		).$mountTo(document.body).then(

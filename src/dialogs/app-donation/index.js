@@ -18,6 +18,7 @@ const donation = {
 		if (!store.state.pref.donateShown &&
 			now > store.state.pref.firstRunTime + DONATION_DELAY) {
 			setPref(store, 'donateShown', true);
+			console.warn("app-donation check using mountTo");
 			new donation.component().$mountTo(document.body);
 		}
 	},

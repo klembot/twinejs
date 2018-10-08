@@ -31,6 +31,7 @@ module.exports = Vue.extend({
 			mounted outside the app scope.
 			*/
 
+			console.warn("story-menu edit script usinig $mountTo");
 			new JavaScriptEditor({
 				data: { storyId: this.story.id, origin: e.target },
 				store: this.$store
@@ -38,6 +39,7 @@ module.exports = Vue.extend({
 		},
 
 		editStyle(e) {
+			console.warn("story-menu edit style usinig $mountTo");
 			new StylesheetEditor({
 				data: { storyId: this.story.id, origin: e.target },
 				store: this.$store
@@ -87,6 +89,7 @@ module.exports = Vue.extend({
 		},
 
 		storyStats(e) {
+			console.warn("story-menu stats dialog usinig $mountTo");
 			new StatsDialog({
 				data: { storyId: this.story.id, origin: e.target },
 				store: this.$store
@@ -94,6 +97,7 @@ module.exports = Vue.extend({
 		},
 
 		changeFormat(e) {
+			console.warn("story-menu change format usinig $mountTo");
 			new FormatDialog({
 				data: { storyId: this.story.id, origin: e.target },
 				store: this.$store

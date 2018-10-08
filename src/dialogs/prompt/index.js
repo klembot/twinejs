@@ -67,6 +67,7 @@ const prompter = {
 	*/
 
 	prompt(data) {
+		console.warn("prompt using $mountTo");
 		return new prompter.component({ data }).$mountTo(document.body).then(
 			result => {
 				/*

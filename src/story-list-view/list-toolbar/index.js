@@ -83,6 +83,7 @@ module.exports = Vue.extend({
 		},
 
 		importFile(e) {
+			console.warn("list-toolbar importFile using $mountTo");
 			new ImportDialog({
 				store: this.$store,
 				data: { origin: e.target }
@@ -99,6 +100,7 @@ module.exports = Vue.extend({
 		},
 
 		showAbout(e) {
+			console.warn("list-toolbar showAbout using $mountTo");
 			new AboutDialog({
 				store: this.$store,
 				data: { origin: e.target }
@@ -106,6 +108,7 @@ module.exports = Vue.extend({
 		},
 
 		showFormats(e) {
+			console.warn("list-toolbar showFormats using $mountTo");
 			new FormatsDialog({
 				store: this.$store,
 				data: { origin: e.target }

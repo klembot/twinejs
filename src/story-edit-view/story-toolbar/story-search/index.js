@@ -52,6 +52,7 @@ module.exports = Vue.extend({
 
 	methods: {
 		showModal(e) {
+			console.warn("story-search using $mountTo");
 			new SearchDialog({
 				data: {
 					story: this.story,
