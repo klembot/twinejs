@@ -23,8 +23,10 @@ require('./index.less');
 						 buttonLabel (HTML label for the button)
 **/
 
-const confirmation = Vue.extend({
+const confirmation = Vue.component('confirm', {
 	template: require('./index.html'),
+
+	props: ['confirmButtonLabel', 'confirmModalClass', 'confirmButtonClass', 'confirmCoda', 'confirmMessage'],
 
 	data: () => ({
 		message: '',

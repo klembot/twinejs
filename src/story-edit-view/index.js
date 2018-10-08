@@ -41,6 +41,10 @@ module.exports = Vue.extend({
 	},
 
 	data: () => ({
+		/* for the embedded global modal in this view*/
+		showConfirm: false,
+		confirmArgs: {},
+
 		showEditor: false,
 		editorArgs: {},
 		/*
@@ -182,6 +186,13 @@ module.exports = Vue.extend({
 	},
 
 	mounted() {
+
+		eventHub.$on("modalConfirm", (confirmArgs) => {
+			this.confirmArgs = confirmArgs;
+			this.showConfirm = true;
+		});
+		eventHub.$on("close", () => this.showConfirm = false);
+
 		this.$nextTick(function() {
 			// code that assumes this.$el is in-document
 			this.resize();
@@ -394,6 +405,7 @@ module.exports = Vue.extend({
 						toDelete[0].name
 					);
 
+					console.warn("delete key handler calling confirm($mountTo)");
 					confirm({
 						message,
 						buttonLabel:

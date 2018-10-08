@@ -76,6 +76,7 @@ module.exports = Vue.extend({
 		**/
 
 		deleteClick() {
+			console.warn("deleteClick calling confirm($mountTo)");
 			confirm({
 				message:
 					locale.say(

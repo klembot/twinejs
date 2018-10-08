@@ -355,14 +355,14 @@ module.exports = Vue.extend({
 					);
 				}
 
-				confirm({
-					message,
-					buttonLabel:
-						'<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
-					buttonClass:
-						'danger',
-				})
-				.then(() => this.delete());
+				eventHub.$once('close', (confirmed) => { if(confirmed) {this.delete();} });
+				const confirmArgs = {
+					label: '<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
+					class: 'danger',
+					message: message
+				};
+
+				 eventHub.$emit("modalConfirm", confirmArgs);
 			}
 		});
 
