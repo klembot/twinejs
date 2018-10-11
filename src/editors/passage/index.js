@@ -79,9 +79,9 @@ module.exports = Vue.extend({
 	},
 
 	methods: {
-		paste(event) {
+		onPaste(event) {
 			const cm = this.$refs.codemirror.$cm;
-			var items = (event.clipboardData  || event.originalEvent.clipboardData).items;
+			const items = (event.clipboardData  || event.originalEvent.clipboardData).items;
 			var blob = null;
 			for (var i = 0; i < items.length; i++) {
 				if (items[i].type.indexOf("image") === 0) {
@@ -90,7 +90,7 @@ module.exports = Vue.extend({
 				}
 			}
 			if (blob !== null) {
-				var reader = new FileReader();
+				const reader = new FileReader();
 				new Promise(resolve => {
 					reader.addEventListener('load', e => {
 						resolve(e.target.result);

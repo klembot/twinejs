@@ -10,6 +10,6 @@
 	</p>
 
 	<div class="expand">
-		<code-mirror :options="cmOptions" :text="passage.text" @cm-change="saveText" @paste="paste" v-ref:codemirror></code-mirror>
+		<code-mirror :options="cmOptions" :text="passage.text" @cm-change="saveText" @paste="onPaste" v-ref:codemirror></code-mirror>
 	</div> <!-- .fullEdit -->
 </modal-dialog>

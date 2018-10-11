@@ -1,4 +1,4 @@
-<div id="storyEditView" :style="cssDimensions" class="{{ 'zoom-' + zoomDesc }}" @webkitmouseforcedown="onMouseForceDown" @wheel="onWheel" v-mouse-scrolling>
+<div id="storyEditView" :style="cssDimensions" class="{{ 'zoom-' + zoomDesc }}" @paste="onPaste" contenteditable="true" @webkitmouseforcedown="onMouseForceDown" @wheel="onWheel" v-mouse-scrolling>
 	<div class="passages">
 		<marquee-selector :story="story"></marquee-selector>
 		<link-arrows :passages="story.passages" :positions="passagePositions" :zoom="story.zoom"></link-arrows>

@@ -71,7 +71,7 @@ module.exports = Vue.extend({
 		* the size of the browser window
 		* the minimum amount of space needed to enclose all existing
 		passages
-		
+
 		... whichever is bigger, plus 50% of the browser window's
 		width and height, so that there's always room for the story to
 		expand.
@@ -173,7 +173,7 @@ module.exports = Vue.extend({
 				Change the window's scroll position so that the same logical
 				coordinates are at its center.
 				*/
-				
+
 				const halfWidth = window.innerWidth / 2;
 				const halfHeight = window.innerHeight / 2;
 				const logCenterX = (window.scrollX + halfWidth) / old;
@@ -296,7 +296,7 @@ module.exports = Vue.extend({
 			Then position it so it doesn't overlap any others, and save it
 			again.
 			*/
-			
+
 			this.positionPassage(
 				this.story.id,
 				this.story.passages.find(p => p.name === name).id,
@@ -304,18 +304,60 @@ module.exports = Vue.extend({
 			);
 		},
 
+		onPaste(event) {
+			// HTML element must be contenteditable in order to receive paste events
+			const this_ = this; // seem to need this insdie the promise?
+			const items = (event.clipboardData  || event.originalEvent.clipboardData).items;
+			var blob = null;
+			for (var i = 0; i < items.length; i++) {
+				if (items[i].type.indexOf("image") === 0) {
+					blob = items[i].getAsFile();
+					break;
+				}
+			}
+			if (blob !== null) {
+				const reader = new FileReader();
+				new Promise(resolve => {
+					reader.addEventListener('load', e => {
+						resolve(e.target.result);
+					});
+
+					reader.readAsDataURL(blob);
+				})
+				.then(source => {
+					// After execution, a new passage has been appended to `this.story.passages`
+					this_.createPassageAt();
+
+					// The new passage is always the last one in the list:
+					const newPassage = this_.story.passages[this_.story.passages.length-1];
+
+					// It's not enough to directly modify the passage object -- changes won't persist.
+					// We have to call updatePassage() to make permanent changes.
+					this_.updatePassage(
+						this_.story.id,
+						newPassage.id,
+						// In a perfect world, we would query the story format for how to embed an image.
+						// In practice, all the standard formats seem to use the same HTML syntax for images.
+						{ text: '<img src="'+source+'">', name: blob.name, tags: ['image'] }
+					);
+
+					event.preventDefault();
+				});
+			}
+		},
+
 		/*
 		Creates a passage under the cursor in response to a
 		webkitmouseforcedown event. At the time of writing, this is a
 		Mac-specific feature, but can be extended once standards catch up.
 		*/
-		
+
 		onMouseForceDown(e) {
 			let top = (e.pageY / this.story.zoom) -
 				(passageDefaults.height / 2);
 			let left = (e.pageX / this.story.zoom) -
 				(passageDefaults.width / 2);
-			
+
 			this.createPassage(null, top, left);
 		},
 
@@ -360,7 +402,7 @@ module.exports = Vue.extend({
 				case 187:
 					this.zoomOut();
 					break;
-				
+
 				/* Minus key */
 
 				case 189:
@@ -408,7 +450,7 @@ module.exports = Vue.extend({
 		'highlight-regexp-change'(value) {
 			this.highlightRegexp = value;
 		},
-		
+
 		/*
 		A hook into our createPassage() method for child components.
 		*/
