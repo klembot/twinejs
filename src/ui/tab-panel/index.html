@@ -1,10 +1,20 @@
 <div>
+
 	<p class="tabs-panel">
-		<button v-for="(t, index) in $children" :class="{active: (index === active)}"
+
+		<button
+			v-for="(tab, index) in $children"
+			:class="{active: (index === active)}"
 			:style="{width: singleWidthPercent + '%'}"
-			@click.prevent="this.active = index">{{ t.name | say}}</button>
+			v-on:click="updateActiveTab(index)">{{ tab.name | say}}</button>
+
 	</p>
+
 	<div class="tabContent">
+
 		<slot></slot>
+
 	</div>
+
 </div>
+

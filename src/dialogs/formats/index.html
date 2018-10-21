@@ -21,10 +21,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<transition-group name="fade-in-out">
-						<tr v-for="(format, index) in storyFormats" is="format-item" :format="format" v-bind:key="index">
-							</format-item>
-					</transition-group>
+						<tr v-for="(format, index) in storyFormats" is="format-item" :format="format" v-bind:key="index"></tr>
 				</tbody>
 			</table>
 		</tab-item>
@@ -45,9 +42,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<transition-group name="fade-in-out">
-						<tr v-for="(format, index) in proofingFormats" is="format-item" :format="format" v-bind:key="index">
-					</transition-group>
+						<tr v-for="(format, index) in proofingFormats" is="format-item" :format="format" v-bind:key="index"></tr>
 				</tbody>
 			</table>
 		</tab-item>

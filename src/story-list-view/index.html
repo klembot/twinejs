@@ -1,7 +1,8 @@
 <div id="storyListView">
 	<file-drag-n-drop>{{ 'Drop a story file to import' | say}}</file-drag-n-drop>
 
-	<list-toolbar></list-toolbar>
+	<list-toolbar
+		v-on:customModal="newCustomModal"></list-toolbar>
 
 	<header>
 		<h1>{{ storyCountDesc }}</h1>
@@ -32,19 +33,26 @@
 			<story-item v-for="story in sortedStories" :story="story" v-bind:key="story.id"></story-item>
 		</transition-group>
 	</div>
+	<component
+		v-if="showCustomModal"
+		v-bind:is="customModalComponent"
+		v-bind:store="$store"
+		v-bind:data="customModalComponentData">
+	</component>
 	<prompt v-if="showPrompt"
-		v-bind:promptButtonLabel="promptArgs.label"
+		v-bind:promptButtonLabel="promptArgs.buttonLabel"
 		promptButtonClass="create"
 		v-bind:promptValidator="promptArgs.validator"
 		v-bind:promptOrigin="promptArgs.origin"
 		v-bind:promptMessage="promptArgs.message">
 	</prompt>
 	<confirm v-if="showConfirm"
-		v-bind:confirmButtonLabel="confirmArgs.label"
+		v-bind:confirmButtonLabel="confirmArgs.buttonLabel"
 		v-bind:confirmButtonClass="confirmArgs.buttonClass"
 		v-bind:confirmModalClass="confirmArgs.modalClass"
 		v-bind:confirmMessage="confirmArgs.message">
 	</confirm>
+
 </div>
 <!-- .main -->
 </div>

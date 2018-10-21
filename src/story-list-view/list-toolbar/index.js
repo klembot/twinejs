@@ -2,8 +2,8 @@
 
 const Vue = require('vue');
 const AboutDialog = require('../../dialogs/about');
-const FormatsDialog = require('../../dialogs/formats');
 const ImportDialog = require('../../dialogs/story-import');
+const FormatsDialog = require('../../dialogs/formats');
 const { createStory } = require('../../data/actions/story');
 const locale = require('../../locale');
 const { publishArchive } = require('../../data/publish');
@@ -73,7 +73,8 @@ module.exports = Vue.extend({
 					);
 				}, 300);
 			});
-			const promptArgs = {label: this.promptButtonLabel,
+			const promptArgs = {
+				buttonLabel: this.promptButtonLabel,
 				class: this.promptButtonClass,
 				validator: this.promptValidator,
 				origin: e.target,
@@ -108,11 +109,7 @@ module.exports = Vue.extend({
 		},
 
 		showFormats(e) {
-			console.warn("list-toolbar showFormats using $mountTo");
-			new FormatsDialog({
-				store: this.$store,
-				data: { origin: e.target }
-			}).$mountTo(document.body);
+			this.$emit('customModal', FormatsDialog, { origin: e.target });
 		},
 
 		showHelp() {

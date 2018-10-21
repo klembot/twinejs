@@ -407,7 +407,7 @@ module.exports = Vue.extend({
 
 					eventHub.$once('close', (confirmed) => { if(confirmed) {toDelete.forEach(p => this.deletePassage(this.story.id, p.id));} });
 					const confirmArgs = {
-						label: '<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
+						buttonLabel: '<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
 						class: 'danger',
 						message: message
 					};

@@ -3,7 +3,7 @@ const semverUtils = require('semver-utils');
 const { createFormatFromUrl, loadFormat, repairFormats } = require('../../data/actions/story-format');
 const locale = require('../../locale');
 
-module.exports = Vue.extend({
+module.exports = Vue.component('formats-modal-dialog', {
 	template: require('./index.html'),
 
 	data: () => ({
@@ -156,12 +156,12 @@ module.exports = Vue.extend({
 				let result = state.storyFormat.formats.map(
 					format => ({ name: format.name, version: format.version })
 				);
-				
+
 				result.sort((a, b) => {
 					if (a.name < b.name) {
 						return -1;
 					}
-					
+
 					if (a.name > b.name) {
 						return 1;
 					}

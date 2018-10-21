@@ -1,9 +1,9 @@
 'use strict';
 const Vue = require('vue');
 const locale = require('../../locale');
-const { confirm } = require('../confirm');
 const { deleteFormat } = require('../../data/actions/story-format');
 const { setPref } = require('../../data/actions/pref');
+const eventHub = require('../../common/eventHub');
 
 require('./item.less');
 
@@ -61,27 +61,18 @@ module.exports = Vue.extend({
 	methods: {
 		removeFormat() {
 			if (this.isDefault) {
-				console.warn("removeFormat default calling confirm($mountTo)");
-				confirm({
-					message:
-						locale.say('You may not remove the default story format. Please choose another one first.'),
-					buttonLabel:
-						'<i class="fa fa-lg fa-check"></i> ' + locale.say('OK')
+				eventHub.$emit("modalConfirm", {
+					buttonLabel: '<i class="fa fa-lg fa-check"></i> ' + locale.say('OK'),
+					message: locale.say('You may not remove the default story format. Please choose another one first.')
 				});
-
 				return;
 			}
 
-			console.warn("removeFormat calling confirm($mountTo)");
-			confirm({
-				message:
-					locale.say('Are you sure?'),
-				buttonLabel:
-					'<i class="fa fa-lg fa-trash-o"></i> ' + locale.say('Remove'),
-				buttonClass:
-					'danger',
-			}).then(() => {
-				this.deleteFormat(this.format.id);
+			eventHub.$once('close', (confirmed) => { if(confirmed) { this.deleteFormat(this.format.id); } });
+			eventHub.$emit("modalConfirm", {
+				buttonLabel: '<i class="fa fa-lg fa-trash-o"></i> ' + locale.say('Remove'),
+				message: locale.say('Are you sure?'),
+				buttonClass: 'danger'
 			});
 		},
 

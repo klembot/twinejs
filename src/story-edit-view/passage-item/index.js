@@ -357,7 +357,7 @@ module.exports = Vue.extend({
 
 				eventHub.$once('close', (confirmed) => { if(confirmed) {this.delete();} });
 				const confirmArgs = {
-					label: '<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
+					buttonLabel: '<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
 					class: 'danger',
 					message: message
 				};

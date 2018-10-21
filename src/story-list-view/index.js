@@ -39,6 +39,9 @@ module.exports = Vue.extend({
 		storyOrderDir: "asc",
 		showPrompt: false,
 		showConfirm: false,
+		showCustomModal: false,
+		customModalComponent: null,
+		customModalComponentData: null,
 		promptArgs: {},
 		confirmArgs: {}
 	}),
@@ -127,7 +130,9 @@ module.exports = Vue.extend({
 		eventHub.$on("close", () => {
 			this.showPrompt = false;
 			this.showConfirm = false;
+			this.showCustomModal = false;
 		});
+
 		this.$nextTick(function() {
 			// code that assumes this.$el is in-document
 
@@ -160,6 +165,11 @@ module.exports = Vue.extend({
 	},
 
 	methods: {
+		newCustomModal(customModalComponent, data) {
+			this.customModalComponent = customModalComponent;
+			this.customModalComponentData = data;
+			this.showCustomModal = true;
+		},
 		sortByDate() {
 			/*
 			If the last story order was 'lastUpdate', toggle the story order

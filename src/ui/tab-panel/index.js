@@ -18,5 +18,12 @@ module.exports = Vue.extend({
 		singleWidthPercent() {
 			return 1 / this.$children.length * 100;
 		}
+	},
+	methods: {
+		updateActiveTab(newIndex) {
+			this.active = newIndex;
+			// recompute all children indexes
+			this.$forceUpdate();
+		}
 	}
 });

@@ -39,7 +39,7 @@ module.exports = {
 
 					eventHub.$once('close', (confirmed) => { if(confirmed) { window.open(url); } });
 					const confirmArgs = {
-						label: '<i class="fa fa-download"></i>' + locale.say('Download'),
+						buttonlabel: '<i class="fa fa-download"></i>' + locale.say('Download'),
 						buttonClass: 'download primary',
 						modalClass: 'info',
 						message: locale.say('A new version of Twine, <span class="version"></span>, has been released.').replace('><', '>' + version + '<')
