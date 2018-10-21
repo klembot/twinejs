@@ -84,11 +84,7 @@ module.exports = Vue.extend({
 		},
 
 		importFile(e) {
-			console.warn("list-toolbar importFile using $mountTo");
-			new ImportDialog({
-				store: this.$store,
-				data: { origin: e.target }
-			}).$mountTo(document.body);
+			this.$emit('customModal', ImportDialog, { origin: e.target });
 		},
 
 		saveArchive() {
@@ -101,11 +97,7 @@ module.exports = Vue.extend({
 		},
 
 		showAbout(e) {
-			console.warn("list-toolbar showAbout using $mountTo");
-			new AboutDialog({
-				store: this.$store,
-				data: { origin: e.target }
-			}).$mountTo(document.body);
+			this.$emit('customModal', AboutDialog, { origin: e.target });
 		},
 
 		showFormats(e) {
