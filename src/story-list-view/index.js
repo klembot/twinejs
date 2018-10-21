@@ -38,7 +38,9 @@ module.exports = Vue.extend({
 		storyOrder: "name",
 		storyOrderDir: "asc",
 		showPrompt: false,
-		promptArgs: {}
+		showConfirm: false,
+		promptArgs: {},
+		confirmArgs: {}
 	}),
 
 	computed: {
@@ -118,7 +120,14 @@ module.exports = Vue.extend({
 			this.promptArgs = promptArgs;
 			this.showPrompt = true;
 		});
-		eventHub.$on("close", () => this.showPrompt = false);
+		eventHub.$on("modalConfirm", (confirmArgs) => {
+			this.confirmArgs = confirmArgs;
+			this.showConfirm = true;
+		});
+		eventHub.$on("close", () => {
+			this.showPrompt = false;
+			this.showConfirm = false;
+		});
 		this.$nextTick(function() {
 			// code that assumes this.$el is in-document
 

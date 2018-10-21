@@ -39,6 +39,12 @@
 		v-bind:promptOrigin="promptArgs.origin"
 		v-bind:promptMessage="promptArgs.message">
 	</prompt>
+	<confirm v-if="showConfirm"
+		v-bind:confirmButtonLabel="confirmArgs.label"
+		v-bind:confirmButtonClass="confirmArgs.buttonClass"
+		v-bind:confirmModalClass="confirmArgs.modalClass"
+		v-bind:confirmMessage="confirmArgs.message">
+	</confirm>
 </div>
 <!-- .main -->
 </div>
