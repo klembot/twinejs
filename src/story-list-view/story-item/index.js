@@ -60,6 +60,8 @@ module.exports = Vue.extend({
 
 				let rect = this.$el.getBoundingClientRect();
 
+				console.warn("story-item previously-editing using $mountTo");
+				/*
 				new ZoomTransition({
 					data: {
 						reverse: true,
@@ -67,6 +69,7 @@ module.exports = Vue.extend({
 						y: rect.top + (rect.bottom - rect.top) / 2
 					}
 				}).$mountTo(document.body);
+				*/
 			}
 		});
 	},
