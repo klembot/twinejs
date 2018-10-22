@@ -2,7 +2,7 @@
 
 const escape = require('lodash.escape');
 const Vue = require('vue');
-const { confirm } = require('../../../dialogs/confirm');
+const eventHub = require('../../../common/eventHub');
 const { deleteStory, duplicateStory, updateStory } = require('../../../data/actions/story');
 const { loadFormat } = require('../../../data/actions/story-format');
 const { prompt } = require('../../../dialogs/prompt');
@@ -76,8 +76,8 @@ module.exports = Vue.extend({
 		**/
 
 		deleteClick() {
-			console.warn("deleteClick calling confirm($mountTo)");
-			confirm({
+			eventHub.$once('close', (confirmed) => { if(confirmed) { this.deleteStory(this.story.id); } });
+			eventHub.$emit("modalConfirm", {
 				message:
 					locale.say(
 						'Are you sure you want to delete &ldquo;%s&rdquo;? ' +
@@ -88,8 +88,7 @@ module.exports = Vue.extend({
 					'<i class="fa fa-trash-o"></i> ' + locale.say('Delete Forever'),
 				buttonClass:
 					'danger'
-			})
-			.then(() => this.deleteStory(this.story.id));
+			});
 		},
 
 		/**
