@@ -57,34 +57,5 @@ const confirmation = Vue.component('confirm', {
 });
 
 module.exports = {
-	component: confirmation,
-
-	/**
-	 Creates a <confirm-modal> dialog using the given data, and returns
-	 its promise, which rejects if the 'cancel' button was selected.
-
-	 @return {Promise} the modal's promise.
-	*/
-
-	confirm(data) {
-		console.warn("confirm using $mountTo");
-		return new confirmation(
-			{ data }
-		).$mountTo(document.body).then(
-			result => {
-				// False results are produced by the close button and the
-				// cancel button. If the result is false, convert it into a
-				// rejection.
-				//
-				// Note: this may change in the future, as using rejections for
-				// negative results is somewhat unidiomatic.
-
-				if (!result) {
-					throw result;
-				}
-
-				return result;
-			}
-		).catch(err => { console.log("confirm err!", err); } );
-	}
+	component: confirmation
 };

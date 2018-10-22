@@ -5,7 +5,6 @@ A single passage in the story map.
 const escape = require('lodash.escape');
 const Vue = require('vue');
 const eventHub = require('../../common/eventHub');
-const { confirm } = require('../../dialogs/confirm');
 const domEvents = require('../../vue/mixins/dom-events');
 const locale = require('../../locale');
 const { hasPrimaryTouchUI } = require('../../ui');

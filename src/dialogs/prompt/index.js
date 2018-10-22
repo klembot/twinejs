@@ -12,11 +12,10 @@ const prompter = {
 	component: Vue.component('prompt', {
 		template: require('./index.html'),
 
-		props: ['promptButtonLabel', 'promptButtonClass', 'promptValidator', 'promptOrigin', 'promptMessage'],
+		props: ['promptButtonLabel', 'promptButtonClass', 'promptValidator', 'promptOrigin', 'promptMessage', 'promptResponse'],
 
 		data: () => ({
 			message: '',
-			response: '',
 			cancelLabel: ('<i class="fa fa-times"></i> ' + locale.say('Cancel')),
 			buttonLabel: '',
 			buttonClass: 'primary',
@@ -30,14 +29,14 @@ const prompter = {
 		mounted() {
 			this.$nextTick(function () {
 				// code that assumes this.$el is in-document
-				this.$refs.response.focus();
-				this.$refs.response.select();
+				this.$refs.promptResponse.focus();
+				this.$refs.promptResponse.select();
 			});
 		},
 
 		methods: {
 			accept() {
-				const validResponse = this.promptValidator(this.response);
+				const validResponse = this.promptValidator(this.promptResponse);
 
 				if (typeof validResponse === 'string') {
 					this.isValid = false;
@@ -45,7 +44,7 @@ const prompter = {
 				}
 				else {
 					this.isValid = true;
-					eventHub.$emit('close', this.response);
+					eventHub.$emit('close', this.promptResponse);
 				}
 			},
 
@@ -60,37 +59,6 @@ const prompter = {
 
 		mixins: [thenable]
 	}),
-
-	/**
-	 Creates a prompt modal dialog using the given data, and returns its
-	 promise, which rejects if the 'cancel' button was selected.
-	*/
-
-	prompt(data) {
-		console.warn("prompt using $mountTo");
-		return new prompter.component({ data }).$mountTo(document.body).then(
-			result => {
-				/*
-				False results are produced by the close button and the cancel
-				button. If the result is false, convert it into a rejection.
-
-				Note: this may change in the future, as using rejections for
-				negative results is somewhat unidiomatic.
-				*/
-
-				if (!result) {
-					throw result;
-				}
-
-				return result;
-			}
-		).catch(err => {
-			if (!err) {
-				throw err;
-			}
-			return err;
-		} );
-	}
 };
 
 module.exports = prompter;

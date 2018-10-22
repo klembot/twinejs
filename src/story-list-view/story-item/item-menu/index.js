@@ -98,7 +98,8 @@ module.exports = Vue.extend({
 		**/
 
 		rename() {
-			prompt({
+			eventHub.$once('close', name => this.updateStory(this.story.id, { name }));
+			eventHub.$emit("modalPrompt", {
 				message:
 					locale.say(
 						'What should &ldquo;%s&rdquo; be renamed to?',
@@ -110,8 +111,7 @@ module.exports = Vue.extend({
 					this.story.name,
 				blankTextError:
 					locale.say('Please enter a name.')
-			})
-			.then(name => this.updateStory(this.story.id, { name }));
+			});
 		},
 
 		/**
@@ -120,7 +120,10 @@ module.exports = Vue.extend({
 		**/
 
 		duplicate() {
-			prompt({
+			eventHub.$once('close', name => {
+				this.duplicateStory(this.story.id, name);
+			});
+			eventHub.$emit("modalPrompt", {
 				message:
 					locale.say('What should the duplicate be named?'),
 				buttonLabel:
@@ -129,9 +132,6 @@ module.exports = Vue.extend({
 					locale.say('%s Copy', this.story.name),
 				blankTextError:
 					locale.say('Please enter a name.')
-			})
-			.then(name => {
-				this.duplicateStory(this.story.id, name);
 			});
 		}
 	},

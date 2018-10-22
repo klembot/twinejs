@@ -4,7 +4,6 @@ const values = require("lodash.values");
 const Vue = require("vue");
 
 const eventHub = require("../common/eventHub");
-const { confirm } = require("../dialogs/confirm");
 const {
 	createPassage,
 	deletePassage,
@@ -17,6 +16,9 @@ const domEvents = require("../vue/mixins/dom-events");
 const locale = require("../locale");
 const { passageDefaults } = require("../data/store/story");
 const zoomSettings = require("./zoom-settings");
+// Dialogs need to be included somewhere for vue to register it globally
+const { confirm } = require("../dialogs/confirm");
+const { prompt } = require('../dialogs/prompt');
 
 // Modal editor for individual passages
 require('../editors/passage');
@@ -44,6 +46,9 @@ module.exports = Vue.extend({
 		/* for the embedded global modal in this view*/
 		showConfirm: false,
 		confirmArgs: {},
+
+		showPrompt: false,
+		promptArgs: {},
 
 		showEditor: false,
 		editorArgs: {},
@@ -191,7 +196,11 @@ module.exports = Vue.extend({
 			this.confirmArgs = confirmArgs;
 			this.showConfirm = true;
 		});
-		eventHub.$on("close", () => this.showConfirm = false);
+		eventHub.$on("modalPrompt", (promptArgs) => {
+			this.promptArgs = promptArgs;
+			this.showPrompt = true;
+		});
+		eventHub.$on("close", () => { this.showConfirm = false; this.showPrompt = false;});
 
 		this.$nextTick(function() {
 			// code that assumes this.$el is in-document

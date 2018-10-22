@@ -8,7 +8,7 @@ const StatsDialog = require('../../../dialogs/story-stats');
 const StylesheetEditor = require('../../../editors/stylesheet');
 const { loadFormat } = require('../../../data/actions/story-format');
 const locale = require('../../../locale');
-const { prompt } = require('../../../dialogs/prompt');
+const eventHub = require('../../../common/eventHub');
 const { publishStoryWithFormat } = require('../../../data/publish');
 const save = require('../../../file/save');
 const { selectPassages } = require('../../../data/actions/passage');
@@ -47,7 +47,8 @@ module.exports = Vue.extend({
 		},
 
 		renameStory(e) {
-			prompt({
+			eventHub.$once('close', text => this.updateStory(this.story.id, { name: text }));
+			eventHub.$emit("modalPrompt", {
 				message:
 					locale.say(
 						'What should &ldquo;%s&rdquo; be renamed to?',
@@ -61,8 +62,7 @@ module.exports = Vue.extend({
 					locale.say('Please enter a name.'),
 				origin:
 					e.target
-			})
-			.then(text => this.updateStory(this.story.id, { name: text }));
+			});
 		},
 
 		selectAll() {

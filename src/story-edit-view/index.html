@@ -12,6 +12,12 @@
 
 	<story-toolbar :story="story" :highlight-regexp="highlightRegexp" :zoom-desc="zoomDesc"></story-toolbar>
 	<passage-editor v-if="showEditor" :passageId="editorArgs.passageId" :storyId="editorArgs.storyId" :origin="editorArgs.origin"></passage-editor>
+	<prompt v-if="showPrompt"
+		v-bind:promptMessage="promptArgs.message"
+		v-bind:promptButtonLabel="promptArgs.buttonLabel"
+		v-bind:promptResponse="promptArgs.response"
+		v-bind:promptBlankTextError="promptArgs.blankTextError"
+		v-bind:promptOrigin="promptArgs.origin"></prompt>
 	<confirm v-if="showConfirm"
 		v-bind:confirmButtonLabel="confirmArgs.buttonLabel"
 		v-bind:confirmButtonClass="confirmArgs.class"
