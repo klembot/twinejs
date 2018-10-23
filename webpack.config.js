@@ -6,25 +6,16 @@ const PoPlugin = require('./webpack/po-webpack-plugin');
 const Autoprefixer = require('less-plugin-autoprefix');
 const package = require('./package.json');
 
-module.exports = {
+const isRelease = process.env.NODE_ENV === 'production';
+
+const config = (module.exports = {
 	entry: './src/index.js',
 	output: {
-		path: path.join(__dirname, 'build'),
+		path: path.join(__dirname, 'dist', 'web'),
 		filename: 'twine.js'
 	},
 	module: {
 		rules: [
-			/*
-			Inline any resurces below 10k in size.
-			*/
-			{
-				test: /\.(eot|png|svg|ttf|woff|woff2)(\?.*)?$/,
-				loader: 'url-loader',
-				options: {
-					limit: 10000,
-					name: 'rsrc/[name].[hash].[ext]'
-				}
-			},
 			/*
 			We must exclude the top-level template, as I think the HTML plugin
 			is expecting a string as output, not a function.
@@ -42,13 +33,13 @@ module.exports = {
 				test: /\.less$/,
 				use: [
 					{loader: MiniCssExtractPlugin.loader},
-					{loader: 'css-loader'},
+					{loader: 'css-loader', options: {minimize: isRelease}},
 					{
 						loader: 'less-loader',
 						options: {
 							plugins: [
 								new Autoprefixer({
-									browsers: ['iOS 1-9', 'last 2 versions']
+									browsers: package.browserslist.split(', ')
 								})
 							]
 						}
@@ -78,7 +69,8 @@ module.exports = {
 			template: './src/index.ejs',
 			package: package,
 			buildNumber: require('./scripts/build-number'),
-			inject: false
+			inject: false,
+			minify: isRelease && {collapseWhitespace: true}
 		}),
 		new MiniCssExtractPlugin({filename: 'twine.css'}),
 		new PoPlugin({
@@ -89,5 +81,62 @@ module.exports = {
 				domain: 'messages'
 			}
 		})
-	]
-};
+	],
+	stats: 'minimal'
+});
+
+if (isRelease) {
+	/*
+	Transpile JS to our target platforms.
+	*/
+
+	config.module.rules.push({
+		test: /\.js$/,
+		exclude: /node_modules/,
+		loader: 'babel-loader',
+		options: {presets: ['@babel/preset-env']}
+	});
+
+	/*
+	Base64 encode all fonts to work around a bug in NW.js -- see
+	https://github.com/nwjs/nw.js/issues/5080
+	*/
+
+	/* Stubbing out because base64-font-loader isn't Webpack 4 compatible
+	config.module.rules.push({
+		test: /\.(png|svg)(\?.*)?$/,
+		loader: 'url-loader',
+		options: {
+			limit: 10000,
+			name: 'rsrc/[name].[hash].[ext]'
+		}
+	});
+
+	config.module.rules.push({
+		test: /\.(woff|woff2|ttf|eot|svg)(\?.*)?$/,
+		exclude: /img/,
+		loader: 'base64-font-loader'
+	});
+	*/
+
+	config.module.rules.push({
+		test: /\.(eot|png|svg|ttf|woff|woff2)(\?.*)?$/,
+		loader: 'url-loader',
+		options: {
+			limit: 10000,
+			name: 'rsrc/[name].[hash].[ext]'
+		}
+	});
+} else {
+	/*
+	Inline any resurces below 10k in size; otherwise, save it to a file.
+	*/
+	config.module.rules.push({
+		test: /\.(eot|png|svg|ttf|woff|woff2)(\?.*)?$/,
+		loader: 'url-loader',
+		options: {
+			limit: 10000,
+			name: 'rsrc/[name].[hash].[ext]'
+		}
+	});
+}
