@@ -1,4 +1,3 @@
-const { expect } = require('chai');
 const { stub } = require('sinon');
 const storyFile = require('./story-file');
 const saveQueue = require('./save-queue');
@@ -25,10 +24,10 @@ describe('SaveQueue', () => {
 		storyFile.save.restore();
 	});
 
-	it('triggers a save action after its delay elapses', done => {
+	test('triggers a save action after its delay elapses', done => {
 		storyFile.save.callsFake(story => {
-			expect(story.name).to.equal('test');
-			expect(story.id).to.equal('not-a-real-id');			
+			expect(story.name).toBe('test');
+			expect(story.id).toBe('not-a-real-id');			
 			done();
 		});
 		saveQueue.attachStore(fakeStore);
@@ -36,7 +35,7 @@ describe('SaveQueue', () => {
 		saveQueue.queue('not-a-real-id');
 	});
 
-	it('immediately saves on flush()', () => {
+	test('immediately saves on flush()', () => {
 		saveQueue.attachStore(fakeStore);
 		saveQueue.delay = 10000;
 		saveQueue.queue('not-a-real-id');
