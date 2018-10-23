@@ -15,6 +15,7 @@ module.exports = Vue.extend({
 		// The locales we offer with their codes.
 
 		locales: [
+<<<<<<< HEAD
 			{label: 'Castellano', code: 'es'},
 			{label: '&Ccaron;e&scaron;tina', code: 'cs'},
 			{label: 'Dansk', code: 'da'},
@@ -29,6 +30,23 @@ module.exports = Vue.extend({
 			{label: 'Suomi', code: 'fi'},
 			{label: 'Svenska', code: 'sv'},
 			{label: 'T&uuml;rk&ccedil;e', code: 'tr'}
+=======
+			{ label: 'Castellano', code: 'es' },
+			{ label: '&Ccaron;e&scaron;tina', code: 'cs'},
+			{ label: 'Dansk', code: 'da' },
+			{ label: 'Deutsch', code: 'de' },
+			{ label: 'English', code: 'en' },
+			{ label: 'Fran&ccedil;ais', code: 'fr' },
+			{ label: 'Italiano', code: 'it' },
+			{ label: 'Nederlands', code: 'nl' },
+			{ label: 'Portugu&ecirc;s', code: 'pt-pt' },
+			{ label: 'Portugu&ecirc;s Brasileiro', code: 'pt-br' },
+			{ label: 'Russian', code: 'ru' },
+			{ label: 'Suomi', code: 'fi' },
+			{ label: 'Svenska', code: 'sv' },
+			{ label: 'T&uuml;rk&ccedil;e', code: 'tr' },
+			{ label: 'Chinese', code: 'zh-cn' }
+>>>>>>> master
 		]
 	}),
 

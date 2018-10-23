@@ -465,10 +465,9 @@ module.exports = Vue.extend({
 				this.story.id,
 				passage.id,
 				this.gridSize,
-				options.ignoreSelected && (passage =>
-					!this.selectedChildren.some(view =>
-						view.passage.id === passage
-					))
+				options.ignoreSelected && (other =>
+					!other.selected
+				)
 			);
 		}
 	},
