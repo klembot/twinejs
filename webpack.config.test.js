@@ -7,12 +7,4 @@ config.target = 'node';
 config.externals = [nodeExternals()];
 config.plugins = [];
 
-/* Disable the ExtractText plugin. */
-
-config.module.rules.forEach(function(r) {
-	if (typeof r.loader === 'object') {
-		r.loader = 'null-loader';
-	}
-});
-
 module.exports = config;
