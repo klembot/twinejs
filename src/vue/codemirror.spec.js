@@ -1,4 +1,3 @@
-const { expect } = require('chai');
 const Vue = require('vue');
 const CodeMirror = require('./codemirror');
 
@@ -31,21 +30,21 @@ describe('<code-mirror>', () => {
 		vm.$mount();
 	});
 
-	it('creates a CodeMirror instance when mounted', () => {
-		expect(vm.$refs.cm.$cm).to.be.a('object');
+	test('creates a CodeMirror instance when mounted', () => {
+		expect(typeof vm.$refs.cm.$cm).toBe('object');
 	});
 
-	it('sets content initially with the text property', () => {
-		expect(vm.$refs.cm.$cm.getValue()).to.equal('Hello world.');
+	test('sets content initially with the text property', () => {
+		expect(vm.$refs.cm.$cm.getValue()).toBe('Hello world.');
 	});
 
-	it('sets options with the options property', () => {
-		expect(vm.$refs.cm.$cm.getOption('tabSize')).to.equal(12);
+	test('sets options with the options property', () => {
+		expect(vm.$refs.cm.$cm.getOption('tabSize')).toBe(12);
 	});
 
-	it('keeps the text property in sync', () => {
-		expect(vm.$refs.cm.text).to.equal(vm.$refs.cm.$cm.getValue());
+	test('keeps the text property in sync', () => {
+		expect(vm.$refs.cm.text).toBe(vm.$refs.cm.$cm.getValue());
 		vm.$refs.cm.$cm.setValue('Something completely different!');
-		expect(vm.$refs.cm.text).to.equal(vm.$refs.cm.$cm.getValue());
+		expect(vm.$refs.cm.text).toBe(vm.$refs.cm.$cm.getValue());
 	});
 });

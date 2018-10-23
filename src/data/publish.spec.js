@@ -1,6 +1,5 @@
 const $ = require('cheerio');
 const escape = require('lodash.escape');
-const { expect } = require('chai');
 const publish = require('./publish');
 
 describe('publish module', () => {
@@ -49,59 +48,59 @@ describe('publish module', () => {
 	});
 	
 	const checkStoryElAgainstData = ($el, story, appInfo) => {
-		expect($el.attr('name')).to.equal(story.name);
-		expect($el.attr('creator')).to.equal(appInfo.name);
-		expect($el.attr('creator-version')).to.equal(appInfo.version);
-		expect($el.attr('ifid')).to.equal(story.ifid);
-		expect($el.attr('format')).to.equal(story.storyFormat);
-		expect($el.attr('zoom')).to.equal(story.zoom.toString());
+		expect($el.attr('name')).toBe(story.name);
+		expect($el.attr('creator')).toBe(appInfo.name);
+		expect($el.attr('creator-version')).toBe(appInfo.version);
+		expect($el.attr('ifid')).toBe(story.ifid);
+		expect($el.attr('format')).toBe(story.storyFormat);
+		expect($el.attr('zoom')).toBe(story.zoom.toString());
 		
 		const $style = $el.find('style[type="text/twine-css"]');
 		
-		expect($style.length).to.equal(1);
-		expect($style.html()).to.equal(story.stylesheet);
+		expect($style.length).toBe(1);
+		expect($style.html()).toBe(story.stylesheet);
 		
 		const $script = $el.find('script[type="text/twine-javascript"]');
 		
-		expect($script.length).to.equal(1);
-		expect($script.html()).to.equal(story.script);
+		expect($script.length).toBe(1);
+		expect($script.html()).toBe(story.script);
 
 		const $tags = $el.find('tw-tag');
 
-		expect($tags.length).to.equal(1);
-		expect($($tags[0]).attr('name')).to.equal('test-tag');
-		expect($($tags[0]).attr('color')).to.equal('red');		
+		expect($tags.length).toBe(1);
+		expect($($tags[0]).attr('name')).toBe('test-tag');
+		expect($($tags[0]).attr('color')).toBe('red');		
 
 		const $passages = $el.children('tw-passagedata');
-		expect($passages.length).to.equal(2);
+		expect($passages.length).toBe(2);
 	};
 
-	it('publishes a passage to HTML with publishPassage()', () => {
+	test('publishes a passage to HTML with publishPassage()', () => {
 		([passage1, passage2]).forEach(passage => {
 			let result = publish.publishPassage(passage, 100);
 			
-			expect(result).to.be.a('string');
+			expect(typeof result).toBe('string');
 			
 			let $result = $(result);
 
-			expect($result.attr('pid')).to.equal('100');
-			expect($result.attr('name')).to.equal(passage.name);
-			expect($result.attr('tags')).to.equal(passage.tags.join(' '));
-			expect($result.attr('position')).to.equal(`${passage.left},${passage.top}`);
-			expect($result.attr('size')).to.equal(`${passage.width},${passage.height}`);
-			expect($result.text()).to.equal(passage.text);
+			expect($result.attr('pid')).toBe('100');
+			expect($result.attr('name')).toBe(passage.name);
+			expect($result.attr('tags')).toBe(passage.tags.join(' '));
+			expect($result.attr('position')).toBe(`${passage.left},${passage.top}`);
+			expect($result.attr('size')).toBe(`${passage.width},${passage.height}`);
+			expect($result.text()).toBe(passage.text);
 		});
 	});
 
-	it('publishes a story with publishStory()', () => {
+	test('publishes a story with publishStory()', () => {
 		const result = publish.publishStory(appInfo, story);
 		
-		expect(result).to.be.a('string');
+		expect(typeof result).toBe('string');
 		console.info(result);
 		checkStoryElAgainstData($(result), story, appInfo);
 	});
 	
-	it('binds a story to a format with publishStoryWithFormat()', () => {
+	test('binds a story to a format with publishStoryWithFormat()', () => {
 		let result = publish.publishStoryWithFormat(
 			appInfo,
 			story,
@@ -112,7 +111,7 @@ describe('publish module', () => {
 			}
 		);
 		
-		expect(result).to.equal(escape(story.name));
+		expect(result).toBe(escape(story.name));
 		
 		result = publish.publishStoryWithFormat(
 			appInfo,
@@ -124,22 +123,22 @@ describe('publish module', () => {
 			}
 		);
 		
-		expect(result).to.be.a('string');
+		expect(typeof result).toBe('string');
 		
 		const storyEls = $(`<div>${result}</div>`).find('tw-storydata');
 
-		expect(storyEls.length).to.equal(1);
+		expect(storyEls.length).toBe(1);
 		checkStoryElAgainstData($(storyEls[0]), story, appInfo);
 	});
 
-	it('publishes an archive of all stories with publishArchive()', () => {
+	test('publishes an archive of all stories with publishArchive()', () => {
 		const result = publish.publishArchive([story, story], appInfo);
 
-		expect(result).to.be.a('string');
+		expect(typeof result).toBe('string');
 		
 		const storyEls = $(`<div>${result}</div>`).find('tw-storydata');
 		
-		expect(storyEls.length).to.equal(2);
+		expect(storyEls.length).toBe(2);
 		
 		storyEls.toArray().forEach(el => {
 			checkStoryElAgainstData($(el), story, appInfo);
