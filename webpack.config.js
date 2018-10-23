@@ -7,11 +7,12 @@ const Autoprefixer = require('less-plugin-autoprefix');
 const package = require('./package.json');
 
 const isRelease = process.env.NODE_ENV === 'production';
+const useCdn = process.env.USE_CDN === 'y';
 
 const config = (module.exports = {
 	entry: './src/index.js',
 	output: {
-		path: path.join(__dirname, 'dist', 'web'),
+		path: path.join(__dirname, 'dist', useCdn ? 'web-cdn' : 'web'),
 		filename: 'twine.js'
 	},
 	module: {
@@ -70,7 +71,8 @@ const config = (module.exports = {
 			package: package,
 			buildNumber: require('./scripts/build-number'),
 			inject: false,
-			minify: isRelease && {collapseWhitespace: true}
+			minify: isRelease && {collapseWhitespace: true},
+			options: {cdn: useCdn}
 		}),
 		new MiniCssExtractPlugin({filename: 'twine.css'}),
 		new PoPlugin({
@@ -112,6 +114,8 @@ if (isRelease) {
 		}
 	});
 
+	** Don't do this is useCdn is true **
+
 	config.module.rules.push({
 		test: /\.(woff|woff2|ttf|eot|svg)(\?.*)?$/,
 		exclude: /img/,
@@ -138,5 +142,25 @@ if (isRelease) {
 			limit: 10000,
 			name: 'rsrc/[name].[hash].[ext]'
 		}
+	});
+}
+
+if (useCdn) {
+	Object.assign(config.externals, {
+		codemirror: 'CodeMirror',
+		/*
+		core-js has no external interface, so we borrow an existing global
+		property.
+		*/
+		'core-js': 'location',
+		fastclick: 'FastClick',
+		jed: 'Jed',
+		jszip: 'JSZip',
+		moment: 'moment',
+		'svg.js': 'SVG',
+		'tether-drop': 'Drop',
+		vue: 'Vue',
+		'vue-router': 'VueRouter',
+		vuex: 'Vuex'
 	});
 }

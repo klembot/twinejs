@@ -18,8 +18,7 @@
 		"icon": "rsrc/img/logo.ico"
 	},
 	"scripts": {
-		"build": "NODE_ENV=production webpack",
-		"build:release": "webpack -p --progress --config webpack.config.release.js && webpack -p --progress --config webpack.config.cdn.js",
+		"build": "NODE_ENV=production webpack --progress && NODE=ENV=production USE_CDN=y webpack --progress",
 		"clean": "rimraf build/ dist/",
 		"lint": "eslint src/ || exit 0",
 		"lint:noisy": "eslint src/",
