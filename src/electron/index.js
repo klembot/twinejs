@@ -7,7 +7,7 @@ app.on('ready', () => {
 		win.show();
 	});
 
-	win.loadURL('http://nytimes.com');
+	win.loadFile('dist/web/index.html');
 	win.on('closed', () => {
 		app.quit();
 	});
