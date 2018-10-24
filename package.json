@@ -6,7 +6,7 @@
 	"license": "GPL-3.0",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/klembot/twinej"
+		"url": "https://github.com/klembot/twinejs"
 	},
 	"browserslist": "iOS 1-12, last 2 versions",
 	"main": "index.html",
