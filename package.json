@@ -5,8 +5,8 @@
 	"description": "a GUI for creating nonlinear stories",
 	"license": "GPL-3.0",
 	"repository": {
-		"type": "hg",
-		"url": "https://bitbucket.org/klembot/twinejs"
+		"type": "git",
+		"url": "https://github.com/klembot/twinej"
 	},
 	"browserslist": "iOS 1-12, last 2 versions",
 	"main": "index.html",
@@ -98,7 +98,6 @@
 		"url-loader": "^0.5.9",
 		"webpack": "^4.22.0",
 		"webpack-cli": "^3.1.2",
-		"webpack-node-externals": "^1.6.0",
 		"webpack-serve": "^2.0.2",
 		"yargs": "^6.6.0"
 	}
