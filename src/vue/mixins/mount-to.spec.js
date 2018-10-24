@@ -1,4 +1,3 @@
-const { expect } = require('chai');
 const Vue = require('vue');
 const mountTo = require('./mount-to');
 
@@ -16,17 +15,16 @@ describe('mountTo Vue mixin', () => {
 		document.body.innerHTML = '';
 	});
 
-	it('adds a $mountTo method to a Vue component', () => {
-		expect(vm.$mountTo).to.be.a('function');
+	test('adds a $mountTo method to a Vue component', () => {
+		expect(typeof vm.$mountTo).toBe('function');
 	});
 
-	it('mounts a Vue component with $mountTo()', done => {
+	test('mounts a Vue component with $mountTo()', done => {
 		vm.$mountTo(document.body);
 		
 		Vue.nextTick(() => {
-			expect(document.querySelector('#mounted')).to.exist;
-			expect(document.querySelector('#mounted').innerHTML)
-				.to.equal('Hello world.');
+			expect(document.querySelector('#mounted')).toBeDefined();
+			expect(document.querySelector('#mounted').innerHTML).toBe('Hello world.');
 			done();
 		});
 	});

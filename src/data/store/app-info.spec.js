@@ -1,5 +1,3 @@
-const { expect } = require('chai');
-
 describe('app-info data module', () => {
 	let appInfo;
 
@@ -21,16 +19,16 @@ describe('app-info data module', () => {
 		htmlEl.removeAttribute('data-app-build-number');
 	});
 
-	it('sets a name property based on the <html> element', () => {
-		expect(appInfo.state.name).to.equal('Testing Twine');
+	test('sets a name property based on the <html> element', () => {
+		expect(appInfo.state.name).toBe('Testing Twine');
 	});
 
-	it('sets an version property based on the <html> element', () => {
-		expect(appInfo.state.version).to.equal('-1.5');
+	test('sets an version property based on the <html> element', () => {
+		expect(appInfo.state.version).toBe('-1.5');
 	});
 
-	it('sets a buildNumber property based on the <html> element', () => {
-		expect(appInfo.state.buildNumber).to.equal(12345);
+	test('sets a buildNumber property based on the <html> element', () => {
+		expect(appInfo.state.buildNumber).toBe(12345);
 	});
 });
 

@@ -1,8 +1,10 @@
 require('core-js');
-const { expect } = require('chai');
-const { spy } = require('sinon');
+const {spy} = require('sinon');
 const Vue = require('vue');
-const { symbols: { resolve, reject }, thenable } = require('./thenable');
+const {
+	symbols: {resolve, reject},
+	thenable
+} = require('./thenable');
 
 describe('thenable Vue mixin', () => {
 	let receiver, vm, vmChild;
@@ -37,32 +39,32 @@ describe('thenable Vue mixin', () => {
 		receiver = spy();
 	});
 
-	it('adds promise methods to a Vue component', () => {
-		expect(vm.then).to.be.a('function');
-		expect(vm.catch).to.be.a('function');
+	test('adds promise methods to a Vue component', () => {
+		expect(typeof vm.then).toBe('function');
+		expect(typeof vm.catch).toBe('function');
 	});
 
-	it('implements Promise.then()', done => {
+	test('implements Promise.then()', done => {
 		vm.then(receiver);
 		vm.resolvePromise();
 		window.setTimeout(() => {
-			expect(receiver.called).to.equal(true);
+			expect(receiver.called).toBe(true);
 			done();
 		}, 0);
 	});
 
-	it('implements Promise.catch()', done => {
+	test('implements Promise.catch()', done => {
 		vm.catch(receiver);
 		vm.rejectPromise();
 		window.setTimeout(() => {
-			expect(receiver.called).to.equal(true);
+			expect(receiver.called).toBe(true);
 			done();
 		}, 0);
 	});
-	
+
 	/* Can't figure out how to get this to work. */
 
-	it('resolves if a direct child that is thenable resolves'/*, done => {
+	test.skip('resolves if a direct child that is thenable resolves', done => {
 		vm.$mount();
 		Vue.nextTick(() => {
 			vm.then(receiver);
@@ -72,5 +74,5 @@ describe('thenable Vue mixin', () => {
 				done();
 			}, 0);
 		});
-	}*/);
+	});
 });

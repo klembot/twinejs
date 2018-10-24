@@ -1,5 +1,4 @@
-const { expect } = require('chai');
-const { spy, stub } = require('sinon');
+const {spy, stub} = require('sinon');
 const Vue = require('vue');
 const domEvents = require('./dom-events');
 
@@ -27,7 +26,7 @@ describe('dom-events Vue mixin', () => {
 	);
 
 	beforeEach(() => {
-		component = new Vue({ mixins: [domEvents] });
+		component = new Vue({mixins: [domEvents]});
 		handler = spy();
 		spy(handler, 'bind');
 	});
@@ -36,43 +35,45 @@ describe('dom-events Vue mixin', () => {
 		handler.bind.restore();
 	});
 
-	it('adds on() and off() methods to a Vue component', () => {
-		expect(component.on).to.be.a('function');
-		expect(component.off).to.be.a('function');
+	test('adds on() and off() methods to a Vue component', () => {
+		expect(typeof component.on).toBe('function');
+		expect(typeof component.off).toBe('function');
 	});
 
-	it('adds event listeners with on()', () => {
+	test('adds event listeners with on()', () => {
 		component.on(body, 'click', handler);
 		body.dispatchEvent(clickEvent);
-		expect(handler.calledOnce).to.be.true;
+		expect(handler.calledOnce).toBe(true);
 	});
 
-	it('binds handlers passed to on() to the component', () => {
+	test('binds handlers passed to on() to the component', () => {
 		component.on(body, 'click', handler);
-		expect(handler.bind.calledOnce).to.be.true;
-		expect(handler.bind.calledWith(component)).to.be.true;
+		expect(handler.bind.calledOnce).toBe(true);
+		expect(handler.bind.calledWith(component)).toBe(true);
 	});
 
-	it('removes event listeners with off()', () => {
+	test('removes event listeners with off()', () => {
 		component.on(body, 'click', handler);
 		component.off(body, 'click', handler);
 		body.dispatchEvent(clickEvent);
-		expect(handler.calledOnce).to.be.false;
+		expect(handler.calledOnce).toBe(false);
 	});
 
-	it('cleans up event listeners added via on() when the component is destroyed', () => {
+	test('cleans up event listeners added via on() when the component is destroyed', () => {
 		component.on(body, 'click', handler);
 		component.$destroy();
 		body.dispatchEvent(clickEvent);
-		expect(handler.calledOnce).to.be.false;
+		expect(handler.calledOnce).toBe(false);
 	});
 
-	it('does not do anything if a component has no listeners attached when destroyed', () => {
-		expect(() => { component.$destroy(); }).to.not.throw;
+	test('does not do anything if a component has no listeners attached when destroyed', () => {
+		expect(() => {
+			component.$destroy();
+		}).not.toThrow();
 	});
 
-	it('partitions listeners for different component instances', () => {
-		const comp = Vue.extend({ mixins: [domEvents] });
+	test('partitions listeners for different component instances', () => {
+		const comp = Vue.extend({mixins: [domEvents]});
 		let comp1 = new comp();
 		let comp2 = new comp();
 
@@ -82,6 +83,6 @@ describe('dom-events Vue mixin', () => {
 		comp1.$destroy();
 		body.dispatchEvent(clickEvent);
 
-		expect(handler.calledOnce).to.be.true;
+		expect(handler.calledOnce).toBe(true);
 	});
 });

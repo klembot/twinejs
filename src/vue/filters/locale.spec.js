@@ -1,4 +1,3 @@
-const { expect } = require('chai');
 const { spy } = require('sinon');
 let Vue = require('vue');
 let locale = require('../../locale');
@@ -12,13 +11,13 @@ describe('locale Vue filters', () => {
 		localeFilters.addTo(Vue);
 	});
 
-	it('add a \'say\' filter to Vue linked to locale.say()', () => {
-		expect(Vue.filter.calledWith('say')).to.equal(true);
-		expect(locale.say.bind.firstCall.args[0]).to.equal(locale);
+	test('add a \'say\' filter to Vue linked to locale.say()', () => {
+		expect(Vue.filter.calledWith('say')).toBe(true);
+		expect(locale.say.bind.firstCall.args[0]).toBe(locale);
 	});
 
-	it('add a \'sayPlural\' filter to Vue linked to locale.sayPlural()', () => {
-		expect(Vue.filter.calledWith('sayPlural')).to.equal(true);
-		expect(locale.sayPlural.bind.firstCall.args[0]).to.equal(locale);
+	test('add a \'sayPlural\' filter to Vue linked to locale.sayPlural()', () => {
+		expect(Vue.filter.calledWith('sayPlural')).toBe(true);
+		expect(locale.sayPlural.bind.firstCall.args[0]).toBe(locale);
 	});
 });

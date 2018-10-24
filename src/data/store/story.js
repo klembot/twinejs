@@ -20,7 +20,7 @@ function getStoryById(state, id) {
 
 function getPassageInStory(story, id) {
 	let passage = story.passages.find(passage => passage.id === id);
-	
+
 	if (!passage) {
 		throw new Error(`No passage exists in this story with id ${id}`);
 	}
@@ -28,7 +28,7 @@ function getPassageInStory(story, id) {
 	return passage;
 }
 
-const storyStore = module.exports = {
+const storyStore = (module.exports = {
 	state: {
 		stories: []
 	},
@@ -48,7 +48,7 @@ const storyStore = module.exports = {
 			);
 
 			if (story.passages) {
-				story.passages.forEach(passage => passage.story = story.id);
+				story.passages.forEach(passage => (passage.story = story.id));
 			}
 
 			state.stories.push(story);
@@ -64,29 +64,23 @@ const storyStore = module.exports = {
 		DUPLICATE_STORY(state, id, newName) {
 			const original = getStoryById(state, id);
 
-			let story = Object.assign(
-				{},
-				original,
-				{
-					id: uuid(),
-					ifid: uuid().toUpperCase(),
-					name: newName
-				}
-			);
+			let story = Object.assign({}, original, {
+				id: uuid(),
+				ifid: uuid().toUpperCase(),
+				name: newName
+			});
 
 			/* We need to do a deep copy of the passages. */
 
 			story.passages = [];
 
 			original.passages.forEach(passage => {
-				story.passages.push(Object.assign(
-					{},
-					passage,
-					{
+				story.passages.push(
+					Object.assign({}, passage, {
 						id: uuid(),
 						story: story.id
-					}
-				));
+					})
+				);
 
 				if (passage.tags) {
 					passage.tags = passage.tags.slice(0);
@@ -157,7 +151,13 @@ const storyStore = module.exports = {
 		},
 
 		UPDATE_PASSAGE_IN_STORY(state, storyId, passageId, props) {
-			let story = getStoryById(state, storyId);
+			let story;
+
+			try {
+				story = getStoryById(state, storyId);
+			} catch (e) {
+				return;
+			}
 
 			/*
 			Force the top and left properties to be at least zero, to keep
@@ -172,15 +172,24 @@ const storyStore = module.exports = {
 				props.top = 0;
 			}
 
-			Object.assign(getPassageInStory(story, passageId), props);
+			let passage;
+
+			try {
+				passage = getPassageInStory(story, passageId);
+			} catch (e) {
+				return;
+			}
+
+			Object.assign(passage, props);
 			story.lastUpdate = new Date();
 		},
 
 		DELETE_PASSAGE_IN_STORY(state, storyId, passageId) {
 			let story = getStoryById(state, storyId);
 
-			story.passages =
-				story.passages.filter(passage => passage.id !== passageId);
+			story.passages = story.passages.filter(
+				passage => passage.id !== passageId
+			);
 			story.lastUpdate = new Date();
 		}
 	},
@@ -208,8 +217,8 @@ const storyStore = module.exports = {
 		name: locale.say('Untitled Passage'),
 		selected: false,
 
-		text: ui.hasPrimaryTouchUI() ?
-			locale.say('Tap this passage, then the pencil icon to edit it.')
+		text: ui.hasPrimaryTouchUI()
+			? locale.say('Tap this passage, then the pencil icon to edit it.')
 			: locale.say('Double-click this passage to edit it.')
 	}
-};
+});
