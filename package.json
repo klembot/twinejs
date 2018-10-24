@@ -10,19 +10,13 @@
 	},
 	"browserslist": "iOS 1-12, last 2 versions",
 	"main": "src/electron/index.js",
-	"dom_storage_quota": 1000000,
-	"window": {
-		"show": true,
-		"width": 1024,
-		"height": 600,
-		"icon": "rsrc/img/logo.ico"
-	},
 	"scripts": {
 		"build": "run-s build:*",
 		"build:cdn": "NODE_ENV=production USE_CDN=y webpack --progress",
+		"build:electron": "NODE_ENV=production USE_ELECTRON=y webpack --progress",
 		"build:web": "NODE_ENV=production webpack --progress",
 		"clean": "rimraf dist/",
-		"electron": "npm run build:web && electron .",
+		"electron": "npm run build:electron && electron .",
 		"lint": "eslint src/ || exit 0",
 		"lint:noisy": "eslint src/",
 		"nw": "node scripts/build-nw.js",

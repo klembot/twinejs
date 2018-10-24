@@ -8,9 +8,11 @@ const package = require('./package.json');
 
 const isRelease = process.env.NODE_ENV === 'production';
 const useCdn = process.env.USE_CDN === 'y';
+const useElectron = process.env.USE_ELECTRON === 'y';
 
 const config = (module.exports = {
 	entry: './src/index.js',
+	target: useElectron ? 'electron-renderer' : 'web',
 	output: {
 		path: path.join(__dirname, 'dist', useCdn ? 'web-cdn' : 'web'),
 		filename: 'twine.js'
@@ -48,17 +50,6 @@ const config = (module.exports = {
 				]
 			}
 		]
-	},
-	/*
-	Leave Node requires that are used in NW.js alone. This is apparently the
-	magic invocation to do so.
-	*/
-	externals: {
-		child_process: 'commonjs child_process',
-		fs: 'commonjs fs',
-		'nw.gui': 'commonjs nw.gui',
-		os: 'commonjs os',
-		path: 'commonjs path'
 	},
 	plugins: [
 		new CopyPlugin([
