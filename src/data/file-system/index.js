@@ -8,8 +8,8 @@ const {importStory} = require('../actions/story');
 const importFile = require('../import');
 
 module.exports = store => {
-	remote.getGlobal('initialStoryData').forEach(html => {
-		const storyData = importFile(html, new Date() /* FIXME */);
+	remote.getGlobal('initialStoryData').forEach(story => {
+		const storyData = importFile(story.data, story.mtime);
 
 		if (storyData.length > 0) {
 			importStory(store, storyData[0]);

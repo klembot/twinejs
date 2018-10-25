@@ -18,15 +18,28 @@ module.exports = {
 		const result = [];
 		const readdir = util.promisify(fs.readdir);
 		const readFile = util.promisify(fs.readFile);
+		const stat = util.promisify(fs.stat);
 
 		return readdir(storyPath)
 			.then(files => {
 				return Promise.all(
-					files.filter(f => /\.html?/i.test(f)).map(f =>
-						readFile(path.join(storyPath, f), {
-							encoding: 'utf8'
-						}).then(data => result.push(data))
-					)
+					files.filter(f => /\.html?/i.test(f)).map(f => {
+						const filePath = path.join(storyPath, f);
+						const loadedFile = {};
+
+						return stat(filePath)
+							.then(fileStats => {
+								loadedFile.mtime = fileStats.mtime;
+
+								return readFile(filePath, {
+									encoding: 'utf8'
+								});
+							})
+							.then(fileData => {
+								loadedFile.data = fileData;
+								result.push(loadedFile);
+							});
+					})
 				);
 			})
 			.then(() => result);
