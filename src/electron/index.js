@@ -8,12 +8,18 @@ const {
 	lock: lockStoryDirectory,
 	unlock: unlockStoryDirectory
 } = require('./story-directory');
+const {load: loadStories} = require('./story-file');
 const initMenuBar = require('./menu-bar');
 
 app.on('ready', () => {
 	createStoryDirectory()
-		.then(lockStoryDirectory())
-		.then(() => {
+		.then(lockStoryDirectory)
+		.then(loadStories)
+		.then(storyData => {
+			/* Leave this for src/data/file-system. */
+
+			global.initialStoryData = storyData;
+
 			initMenuBar();
 
 			const win = new BrowserWindow({

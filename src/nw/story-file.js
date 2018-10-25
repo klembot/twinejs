@@ -2,7 +2,7 @@
 Manages interactions with individual story files.
 */
 
-const StoryFile = module.exports = {
+const StoryFile = (module.exports = {
 	/*
 	A global flag that allows deactivation of the module. This is needed while
 	the module itself works, so that changes in local storage made here don't
@@ -35,7 +35,7 @@ const StoryFile = module.exports = {
 		const fs = require('fs');
 		const directories = require('./directories');
 		const path = require('path');
-		const { publishStory } = require('../data/publish');
+		const {publishStory} = require('../data/publish');
 
 		try {
 			directories.unlockStories();
@@ -46,8 +46,7 @@ const StoryFile = module.exports = {
 
 			fs.writeSync(fd, publishStory(appInfo, story, null, null, true));
 			fs.closeSync(fd);
-		}
-		finally {
+		} finally {
 			directories.lockStories();
 		}
 	},
@@ -70,8 +69,7 @@ const StoryFile = module.exports = {
 			fs.unlinkSync(
 				path.join(directories.storiesPath(), StoryFile.fileName(story))
 			);
-		}
-		finally {
+		} finally {
 			directories.lockStories();
 		}
 	},
@@ -90,7 +88,7 @@ const StoryFile = module.exports = {
 		const directories = require('./directories');
 		const fs = require('fs');
 		const path = require('path');
-		const { deleteStory, importStory } = require('../data/actions/story');
+		const {deleteStory, importStory} = require('../data/actions/story');
 		const importFile = require('../data/import');
 		const store = require('../data/store');
 
@@ -122,10 +120,9 @@ const StoryFile = module.exports = {
 			fileStories.map(filename => {
 				if (filename.match(/\.html$/)) {
 					const filePath = path.join(storyPath, filename);
-					const source = fs.readFileSync(
-						filePath,
-						{ encoding: 'utf8' }
-					);
+					const source = fs.readFileSync(filePath, {
+						encoding: 'utf8'
+					});
 					const stats = fs.statSync(filePath);
 					const storyData = importFile(
 						source,
@@ -137,10 +134,9 @@ const StoryFile = module.exports = {
 					}
 				}
 			});
-		}
-		finally {
+		} finally {
 			directories.unlockStories();
 			StoryFile.active = true;
 		}
 	}
-};
+});
