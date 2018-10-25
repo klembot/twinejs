@@ -1,14 +1,54 @@
-const {app, BrowserWindow} = require('electron');
+/*
+Bootstraps the Electron app.
+*/
+
+const {app, dialog, BrowserWindow} = require('electron');
+const {
+	create: createStoryDirectory,
+	lock: lockStoryDirectory,
+	unlock: unlockStoryDirectory
+} = require('./story-directory');
+const initMenuBar = require('./menu-bar');
 
 app.on('ready', () => {
-	const win = new BrowserWindow({width: 1024, height: 600, show: false});
+	createStoryDirectory()
+		.then(lockStoryDirectory())
+		.then(() => {
+			initMenuBar();
 
-	win.on('ready-to-show', () => {
-		win.show();
-	});
+			const win = new BrowserWindow({
+				width: 1024,
+				height: 600,
+				show: false
+			});
 
-	win.loadFile('dist/web/index.html');
-	win.on('closed', () => {
-		app.quit();
-	});
+			win.on('ready-to-show', () => {
+				win.show();
+			});
+
+			win.loadFile('dist/web-electron/index.html');
+			win.on('closed', () => {
+				app.quit();
+			});
+		})
+		.catch(e => {
+			dialog.showMessageBox(
+				null,
+				{
+					type: 'error',
+					message: 'An error occurred during startup.',
+					detail: e.message,
+					buttons: ['Quit']
+				},
+				() => app.exit()
+			);
+		});
 });
+
+/*
+This needs to be using a process event, not the app one, because app events do
+not trigger on Windows during a reboot or logout. See
+https://electronjs.org/docs/api/app#event-quit
+*/
+
+process.on('exit', unlockStoryDirectory);

@@ -1,12 +1,12 @@
 // The side toolbar of a story list.
 
 const Vue = require('vue');
-const {shell} = require('electron');
 const AboutDialog = require('../../dialogs/about');
 const FormatsDialog = require('../../dialogs/formats');
 const ImportDialog = require('../../dialogs/story-import');
 const {createStory} = require('../../data/actions/story');
 const isElectron = require('../../electron/is-electron');
+const {openHelp} = require('../../electron/help');
 const locale = require('../../locale');
 const {prompt} = require('../../dialogs/prompt');
 const {publishArchive} = require('../../data/publish');
@@ -85,7 +85,7 @@ module.exports = Vue.extend({
 
 		showHelp() {
 			if (isElectron()) {
-				shell.openExternal('https://twinery.org/2guide');
+				openHelp();
 			} else {
 				window.open('https://twinery.org/2guide');
 			}
