@@ -1,5 +1,6 @@
 /*
-Manages reading and writing files from the story directory.
+Manages reading and writing files from the story directory. This listens to the
+`save-story` and `delete-story` IPC events.
 */
 
 const fs = require('fs');
@@ -63,11 +64,11 @@ const StoryFile = (module.exports = {
 	},
 
 	/*
-	Saves a story to disk. Unlike previous incarnations, this saves a published
-	version of the story (e.g. playable in a browser) to avoid user confusion.
-	The format should already be loaded when this is called. If for any reason
-	the full publish fails, this instead publishes the story naked, as story
-	data only. This returns a promise that resolves when complete.
+	Saves a story to the file system. Unlike previous incarnations, this saves a
+	published version of the story (e.g. playable in a browser) to avoid user
+	confusion. The format should already be loaded when this is called. If for
+	any reason the full publish fails, this instead publishes the story naked,
+	as story data only. This returns a promise that resolves when complete.
 	*/
 
 	save(story, format, appInfo) {
@@ -109,9 +110,33 @@ const StoryFile = (module.exports = {
 			)
 			.then(fd => write(fd, output))
 			.then(lockStoryDirectory);
+	},
+
+	/*
+	Deletes a story from the file system. This returns a promise that resolves
+	when finished.
+	*/
+
+	delete(story) {
+		const unlink = util.promisify(fs.unlink);
+
+		return unlockStoryDirectory()
+			.then(() =>
+				unlink(
+					path.join(
+						storyDirectoryPath(),
+						StoryFile.fileName(story.name)
+					)
+				)
+			)
+			.then(lockStoryDirectory);
 	}
 });
 
 ipcMain.on('save-story', (e, story, format, appInfo) => {
 	StoryFile.save(story, format, appInfo);
+});
+
+ipcMain.on('delete-story', (e, story) => {
+	StoryFile.delete(story);
 });

@@ -41,11 +41,22 @@ module.exports = store => {
 	store.subscribe((mutation, state) => {
 		switch (mutation.type) {
 			case 'CREATE_STORY':
+			case 'IMPORT_STORY':
 				saveStory(
 					store,
 					state,
 					state.story.stories.find(
 						s => s.name === mutation.payload[0].name
+					)
+				);
+				break;
+
+			case 'DUPLICATE_STORY':
+				saveStory(
+					store,
+					state,
+					state.story.stories.find(
+						s => s.name === mutation.payload[1].name
 					)
 				);
 				break;
@@ -57,6 +68,21 @@ module.exports = store => {
 					state,
 					state.story.stories.find(s => s.id === mutation.payload[0])
 				);
+				break;
+
+			case 'DELETE_STORY':
+				/*
+				We have to use our last copy of the stories array, because
+				by now the deleted story is gone from the state.
+				*/
+
+				const toDelete = previousStories.find(
+					s => s.id === mutation.payload[0]
+				);
+
+				if (toDelete) {
+					ipcRenderer.send('delete-story', toDelete);
+				}
 				break;
 
 			case 'CREATE_PASSAGE_IN_STORY':
@@ -86,63 +112,6 @@ module.exports = store => {
 				}
 				break;
 			}
-
-			// case 'DUPLICATE_STORY':
-			// 	story.update(transaction => {
-			// 		const dupe = state.story.stories.find(
-			// 			s => s.name === mutation.payload[1]
-			// 		);
-
-			// 		story.saveStory(transaction, dupe);
-
-			// 		dupe.passages.forEach(passage =>
-			// 			story.savePassage(transaction, passage)
-			// 		);
-			// 	});
-			// 	break;
-
-			// case 'IMPORT_STORY':
-			// 	story.update(transaction => {
-			// 		const imported = state.story.stories.find(
-			// 			s => s.name === mutation.payload[0].name
-			// 		);
-
-			// 		story.saveStory(transaction, imported);
-
-			// 		imported.passages.forEach(passage =>
-			// 			story.savePassage(transaction, passage)
-			// 		);
-			// 	});
-			// 	break;
-
-			// case 'DELETE_STORY': {
-			// 	/*
-			// 	We have to use our last copy of the stories array, because
-			// 	by now the deleted story is gone from the state.
-			// 	*/
-
-			// 	const toDelete = previousStories.find(
-			// 		s => s.id === mutation.payload[0]
-			// 	);
-
-			// 	story.update(transaction => {
-			// 		/*
-			// 		It's our responsibility to delete child passages first.
-			// 		*/
-
-			// 		toDelete.passages.forEach(passage =>
-			// 			story.deletePassage(transaction, passage)
-			// 		);
-
-			// 		story.deleteStory(transaction, toDelete);
-			// 	});
-			// 	break;
-			// }
-
-			// /*
-			// When saving a passage, we have to make sure to save its parent
-			// story too, since its lastUpdate property has changed.
-			// */
 
 			// case 'UPDATE_PREF':
 			// 	pref.save(store);
