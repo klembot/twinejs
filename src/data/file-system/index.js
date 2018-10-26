@@ -9,7 +9,7 @@ const importFile = require('../import');
 
 /* These are exposed to us by the Electron preload script. */
 
-const {ipcRenderer, remote} = window.twineElectron;
+const {ipcRenderer} = window.twineElectron;
 
 let previousStories;
 
@@ -26,7 +26,7 @@ module.exports = store => {
 	Initialize the store with data previously loaded.
 	*/
 
-	remote.getGlobal('initialStoryData').forEach(story => {
+	window.twineElectron.hydrate.initialStoryData.forEach(story => {
 		const storyData = importFile(story.data, story.mtime);
 
 		if (storyData.length > 0) {

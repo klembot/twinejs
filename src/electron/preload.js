@@ -6,4 +6,8 @@ isolated.
 
 const {ipcRenderer, remote, shell} = require('electron');
 
-window.twineElectron = {openUrl: shell.openExternal, ipcRenderer, remote};
+window.twineElectron = {
+	hydrate: remote.getGlobal('hydrate'),
+	openUrl: shell.openExternal,
+	ipcRenderer
+};

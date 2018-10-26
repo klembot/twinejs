@@ -12,6 +12,10 @@ const {
 const {load: loadStories} = require('./story-file');
 const initMenuBar = require('./menu-bar');
 
+/* A place for state to be stored to be hydrated in the render process. */
+
+global.hydrate = {};
+
 app.on('ready', () => {
 	createStoryDirectory()
 		.then(lockStoryDirectory)
@@ -19,7 +23,7 @@ app.on('ready', () => {
 		.then(storyData => {
 			/* Leave this for src/data/file-system. */
 
-			global.initialStoryData = storyData;
+			global.hydrate.initialStoryData = storyData;
 
 			initMenuBar();
 
