@@ -6,7 +6,6 @@ const FormatsDialog = require('../../dialogs/formats');
 const ImportDialog = require('../../dialogs/story-import');
 const {createStory} = require('../../data/actions/story');
 const isElectron = require('../../electron/is-electron');
-const {openHelp} = require('../../electron/help');
 const locale = require('../../locale');
 const {prompt} = require('../../dialogs/prompt');
 const {publishArchive} = require('../../data/publish');
@@ -85,7 +84,7 @@ module.exports = Vue.extend({
 
 		showHelp() {
 			if (isElectron()) {
-				openHelp();
+				window.twineElectron.openUrl('https://twinery.org/2guide');
 			} else {
 				window.open('https://twinery.org/2guide');
 			}

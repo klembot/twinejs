@@ -3,6 +3,7 @@ Bootstraps the Electron app.
 */
 
 const {app, dialog, BrowserWindow} = require('electron');
+const path = require('path');
 const {
 	create: createStoryDirectory,
 	lock: lockStoryDirectory,
@@ -25,7 +26,11 @@ app.on('ready', () => {
 			const win = new BrowserWindow({
 				width: 1024,
 				height: 600,
-				show: false
+				show: false,
+				webPreferences: {
+					nodeIntegration: false,
+					preload: path.resolve(__dirname, './preload.js')
+				}
 			});
 
 			win.on('ready-to-show', () => {
