@@ -3,6 +3,7 @@ Persists data to the file system. This can only be used when running in an
 Electron context (see src/electron/is-electron.js for how to detect that).
 */
 
+const {createFormat} = require('../actions/story-format');
 const {setPref} = require('../actions/pref');
 const {importStory} = require('../actions/story');
 const {loadFormat} = require('../actions/story-format');
@@ -46,6 +47,12 @@ module.exports = store => {
 	if (hydrate.prefs) {
 		Object.keys(hydrate.prefs).forEach(key =>
 			setPref(store, key, hydrate.prefs[key])
+		);
+	}
+
+	if (hydrate.storyFormats) {
+		Object.keys(hydrate.storyFormats).forEach(key =>
+			createFormat(store, hydrate.storyFormats[key])
 		);
 	}
 
@@ -132,20 +139,20 @@ module.exports = store => {
 				saveJson('prefs.json', state.pref);
 				break;
 
-			// case 'CREATE_FORMAT':
-			// case 'UPDATE_FORMAT':
-			// case 'DELETE_FORMAT':
-			// 	storyFormat.save(store);
-			// 	break;
+			case 'CREATE_FORMAT':
+			case 'UPDATE_FORMAT':
+			case 'DELETE_FORMAT':
+				saveJson('story-formats.json', state.storyFormat.formats);
+				break;
 
-			// case 'LOAD_FORMAT':
-			// 	/* This change doesn't need to be persisted. */
-			// 	break;
+			case 'LOAD_FORMAT':
+				/* This change doesn't need to be persisted. */
+				break;
 
-			// default:
-			// 	throw new Error(
-			// 		`Don't know how to handle mutation ${mutation.type}`
-			// 	);
+			default:
+				throw new Error(
+					`Don't know how to handle mutation ${mutation.type}`
+				);
 		}
 
 		/*
