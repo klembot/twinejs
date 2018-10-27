@@ -3,6 +3,7 @@ Persists data to the file system. This can only be used when running in an
 Electron context (see src/electron/is-electron.js for how to detect that).
 */
 
+const {setPref} = require('../actions/pref');
 const {importStory} = require('../actions/story');
 const {loadFormat} = require('../actions/story-format');
 const importFile = require('../import');
@@ -21,18 +22,32 @@ function saveStory(store, state, story) {
 	);
 }
 
+function saveJson(filename, data) {
+	ipcRenderer.send('save-json', filename, data);
+}
+
 module.exports = store => {
 	/*
 	Initialize the store with data previously loaded.
 	*/
 
-	window.twineElectron.hydrate.initialStoryData.forEach(story => {
-		const storyData = importFile(story.data, story.mtime);
+	const hydrate = window.twineElectron.hydrate;
 
-		if (storyData.length > 0) {
-			importStory(store, storyData[0]);
-		}
-	});
+	if (hydrate.initialStoryData) {
+		hydrate.initialStoryData.forEach(story => {
+			const storyData = importFile(story.data, story.mtime);
+
+			if (storyData.length > 0) {
+				importStory(store, storyData[0]);
+			}
+		});
+	}
+
+	if (hydrate.prefs) {
+		Object.keys(hydrate.prefs).forEach(key =>
+			setPref(store, key, hydrate.prefs[key])
+		);
+	}
 
 	/*
 	Save stories as they are created and edited.
@@ -113,9 +128,9 @@ module.exports = store => {
 				break;
 			}
 
-			// case 'UPDATE_PREF':
-			// 	pref.save(store);
-			// 	break;
+			case 'UPDATE_PREF':
+				saveJson('prefs.json', state.pref);
+				break;
 
 			// case 'CREATE_FORMAT':
 			// case 'UPDATE_FORMAT':

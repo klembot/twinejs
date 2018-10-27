@@ -9,6 +9,7 @@ const {
 	lock: lockStoryDirectory,
 	unlock: unlockStoryDirectory
 } = require('./story-directory');
+const {load: loadJson} = require('./json-file');
 const {load: loadStories} = require('./story-file');
 const initMenuBar = require('./menu-bar');
 
@@ -17,7 +18,10 @@ const initMenuBar = require('./menu-bar');
 global.hydrate = {};
 
 app.on('ready', () => {
-	createStoryDirectory()
+	loadJson('prefs.json')
+		.then(data => (global.hydrate.prefs = data))
+		.catch(e => console.warn(e.message))
+		.then(createStoryDirectory)
 		.then(lockStoryDirectory)
 		.then(loadStories)
 		.then(storyData => {
