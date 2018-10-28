@@ -3,20 +3,19 @@ A dialog which allows a user to import a story from a file. This returns a
 promise resolving to the stories that were imported, if any.
 */
 
-const Vue = require('vue');
-const { deleteStory, importStory } = require('../../data/actions/story');
-const importHTML = require('../../data/import');
-const load = require('../../file/load');
-const locale = require('../../locale');
-const { thenable } = require('../../vue/mixins/thenable');
+const Vue = require("vue");
+const { deleteStory, importStory } = require("../../data/actions/story");
+const importHTML = require("../../data/import");
+const load = require("../../file/load");
+const locale = require("../../locale");
+const { thenable } = require("../../vue/mixins/thenable");
 
 module.exports = Vue.extend({
-	template: require('./index.html'),
+	template: require("./index.html"),
+
+	props: ["immediateImport", "origin", "working"],
 
 	data: () => ({
-		/* A file to immediately import when mounted. */
-		immediateImport: null,
-		
 		/*
 		Current state of the operation:
 		   * `waiting`: waiting for the user to select a file
@@ -24,7 +23,7 @@ module.exports = Vue.extend({
 		   * `choosing`: choosing which stories to import, when there are
 		     duplicates
 		*/
-		status: 'waiting',
+		status: "waiting",
 
 		/* An array of objects to import. */
 
@@ -45,32 +44,32 @@ module.exports = Vue.extend({
 	computed: {
 		confirmClass() {
 			if (this.toReplace.length === 0) {
-				return 'primary';
+				return "primary";
 			}
 
-			return 'danger';
+			return "danger";
 		},
 
 		confirmLabel() {
 			if (this.toReplace.length === 0) {
-				return locale.say('Don\'t Replace Any Stories');
+				return locale.say("Don't Replace Any Stories");
 			}
 
 			return locale.sayPlural(
-				'Replace %d Story',
-				'Replace %d Stories',
+				"Replace %d Story",
+				"Replace %d Stories",
 				this.toReplace.length
 			);
 		}
 	},
-	
+
 	mounted() {
-		this.$nextTick(function () {
+		this.$nextTick(function() {
 			// code that assumes this.$el is in-document
 			if (this.immediateImport) {
 				this.import(this.immediateImport);
 			}
-		  });
+		});
 	},
 
 	methods: {
@@ -81,17 +80,14 @@ module.exports = Vue.extend({
 		},
 
 		import(file) {
-			this.status = 'working';
+			this.status = "working";
 
-			load(file)
-			.then(source => {
+			load(file).then(source => {
 				this.toImport = importHTML(source);
 
 				this.dupeNames = this.toImport.reduce(
 					(list, story) => {
-						if (this.existingStories.find(
-							orig => orig.name === story.name
-						)) {
+						if (this.existingStories.find(orig => orig.name === story.name)) {
 							list.push(story.name);
 						}
 
@@ -104,9 +100,8 @@ module.exports = Vue.extend({
 				if (this.dupeNames.length > 0) {
 					/* Ask the user to pick which ones to replace, if any. */
 
-					this.status = 'choosing';
-				}
-				else {
+					this.status = "choosing";
+				} else {
 					/* Immediately run the import and close the dialog. */
 
 					this.toImport.forEach(story => this.importStory(story));
@@ -127,18 +122,20 @@ module.exports = Vue.extend({
 				If the user *didn't* choose to replace this story, skip it.
 				*/
 
-				if (this.toReplace.indexOf(story.name) !== -1 ||
-					!this.existingStories.find(story => story.name === name)) {
+				if (
+					this.toReplace.indexOf(story.name) !== -1 ||
+					!this.existingStories.find(story => story.name === name)
+				) {
 					this.importStory(story);
 				}
-				
+
 				this.close();
 			});
 		}
 	},
 
 	components: {
-		'modal-dialog': require('../../ui/modal-dialog')
+		"modal-dialog": require("../../ui/modal-dialog")
 	},
 
 	mixins: [thenable],

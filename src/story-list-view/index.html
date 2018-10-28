@@ -37,21 +37,10 @@
 		v-if="showCustomModal"
 		v-bind:is="customModalComponent"
 		v-bind:store="$store"
-		v-bind:data="customModalComponentData">
+		v-bind="customModalComponentData">
 	</component>
-	<prompt v-if="showPrompt"
-		v-bind:promptButtonLabel="promptArgs.buttonLabel"
-		promptButtonClass="create"
-		v-bind:promptValidator="promptArgs.validator"
-		v-bind:promptOrigin="promptArgs.origin"
-		v-bind:promptMessage="promptArgs.message">
-	</prompt>
-	<confirm v-if="showConfirm"
-		v-bind:confirmButtonLabel="confirmArgs.buttonLabel"
-		v-bind:confirmButtonClass="confirmArgs.buttonClass"
-		v-bind:confirmModalClass="confirmArgs.modalClass"
-		v-bind:confirmMessage="confirmArgs.message">
-	</confirm>
+	<prompt v-if="showPrompt" v-bind="promptArgs" promptButtonClass="create"></prompt>
+	<confirm v-if="showConfirm"	v-bind="confirmArgs"></confirm>
 
 </div>
 <!-- .main -->

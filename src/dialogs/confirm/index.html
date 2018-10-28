@@ -1,8 +1,8 @@
-<modal-dialog :class="'confirm no-header ' + confirmModalClass">
-	<div class="message larger" v-html="confirmMessage"></div>
+<modal-dialog :class="'confirm no-header ' + modalClass">
+	<div class="message larger" v-html="message"></div>
 	<p class="buttons">
 		<button type="button" @click="cancel" v-html="cancelLabel"></button>
-		<button type="button" :class="confirmButtonClass" @click="accept" v-html="confirmButtonLabel"></button>
+		<button type="button" :class="buttonClass" @click="accept" v-html="buttonLabel"></button>
 	</p>
-	<p class="coda" v-show="confirmCoda" v-html="confirmCoda"></p>
+	<p class="coda" v-show="coda" v-html="coda"></p>
 </modal-dialog>

@@ -119,11 +119,11 @@ module.exports = Vue.extend({
 	},
 
 	mounted() {
-		eventHub.$on("modalPrompt", (promptArgs) => {
+		eventHub.$on("modalPrompt", promptArgs => {
 			this.promptArgs = promptArgs;
 			this.showPrompt = true;
 		});
-		eventHub.$on("modalConfirm", (confirmArgs) => {
+		eventHub.$on("modalConfirm", confirmArgs => {
 			this.confirmArgs = confirmArgs;
 			this.showConfirm = true;
 		});
@@ -178,8 +178,7 @@ module.exports = Vue.extend({
 
 			if (this.storyOrder === "lastUpdate") {
 				this.storyOrderDir = this.storyOrderDir === "asc" ? "desc" : "asc";
-			}
-			else {
+			} else {
 				this.storyOrderDir = "desc";
 			}
 
@@ -194,8 +193,7 @@ module.exports = Vue.extend({
 
 			if (this.storyOrder === "name") {
 				this.storyOrderDir = this.storyOrderDir === "asc" ? "desc" : "asc";
-			}
-			else {
+			} else {
 				this.storyOrderDir = "asc";
 			}
 
@@ -210,16 +208,10 @@ module.exports = Vue.extend({
 	},
 
 	created: function() {
-
 		/* For now, we only support importing a single file at a time. */
 
-		eventHub.$on("file-drag-n-drop", (files) => {
-			new ImportDialog({
-				store: this.$store,
-				data: {
-					immediateImport: files[0]
-				}
-			}).$mountTo(document.body);
+		eventHub.$on("file-drag-n-drop", files => {
+			this.newCustomModal(ImportDialog, { immediateImport: files[0] });
 		});
 	},
 

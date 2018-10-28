@@ -1,64 +1,65 @@
 /* Shows a modal dialog asking for a text response from the user. */
 
-const Vue = require('vue');
+const Vue = require("vue");
 
-const locale = require('../../locale');
-const eventHub = require('../../common/eventHub');
-const { thenable } = require('../../vue/mixins/thenable');
+const locale = require("../../locale");
+const eventHub = require("../../common/eventHub");
+const { thenable } = require("../../vue/mixins/thenable");
 
-require('./index.less');
+require("./index.less");
 
 const prompter = {
-	component: Vue.component('prompt', {
-		template: require('./index.html'),
+	component: Vue.component("prompt", {
+		template: require("./index.html"),
 
-		props: ['promptButtonLabel', 'promptButtonClass', 'promptValidator', 'promptOrigin', 'promptMessage', 'promptResponse'],
+		props: {
+			buttonLabel: { type: String, default: "" },
+			buttonClass: { type: String, default: "primary" },
+			validator: { type: Function, default: function() {} },
+			origin: { default: null },
+			message: { type: String, default: "" },
+			modalClass: { type: String, default: "" }
+		},
 
 		data: () => ({
-			message: '',
-			cancelLabel: ('<i class="fa fa-times"></i> ' + locale.say('Cancel')),
-			buttonLabel: '',
-			buttonClass: 'primary',
-			modalClass: '',
+			cancelLabel: '<i class="fa fa-times"></i> ' + locale.say("Cancel"),
 			isValid: true,
-			validationError: '',
-			validator: function() {},
-			origin: null
+			validationError: "",
+			response: null
 		}),
 
 		mounted() {
-			this.$nextTick(function () {
+			this.$nextTick(function() {
 				// code that assumes this.$el is in-document
-				this.$refs.promptResponse.focus();
-				this.$refs.promptResponse.select();
+				this.$refs.response.focus();
+				this.$refs.response.select();
 			});
 		},
 
 		methods: {
 			accept() {
-				const validResponse = this.promptValidator(this.promptResponse);
+				const validResponse = this.validator(this.response);
 
-				if (typeof validResponse === 'string') {
+				if (typeof validResponse === "string") {
 					this.isValid = false;
 					this.validationError = validResponse;
-				}
-				else {
+				} else {
 					this.isValid = true;
-					eventHub.$emit('close', this.promptResponse);
+					eventHub.$emit("close", this.response);
 				}
 			},
 
 			cancel() {
-				eventHub.$emit('close');
+				eventHub.$emit("close");
 			}
 		},
 
 		components: {
-			'modal-dialog': require('../../ui/modal-dialog')
+			"modal-dialog": require("../../ui/modal-dialog")
 		},
 
 		mixins: [thenable]
-	}),
+	})
 };
 
 module.exports = prompter;
