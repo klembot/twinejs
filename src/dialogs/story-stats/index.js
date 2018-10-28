@@ -2,18 +2,18 @@
 A modal which shows aggregrate statistics for a story.
 */
 
-const Vue = require('vue');
-const moment = require('moment');
-const linkParser = require('../../data/link-parser');
-const locale = require('../../locale');
+const Vue = require("vue");
+const moment = require("moment");
+const linkParser = require("../../data/link-parser");
+const locale = require("../../locale");
 
-require('./index.less');
+require("./index.less");
 
 module.exports = Vue.extend({
-	template: require('./index.html'),
+	template: require("./index.html"),
 
 	data: () => ({
-		storyId: '',
+		storyId: "",
 		origin: null
 	}),
 
@@ -23,7 +23,7 @@ module.exports = Vue.extend({
 		},
 
 		lastUpdate() {
-			return moment(this.story.lastUpdate).format('LLLL');
+			return moment(this.story.lastUpdate).format("LLLL");
 		},
 
 		charCount() {
@@ -38,7 +38,7 @@ module.exports = Vue.extend({
 			L10n: Character in the sense of individual letters in a word.  This
 			does not actually include the count, as it is used in a table.
 			*/
-			return locale.sayPlural('Character', 'Characters', this.charCount);
+			return locale.sayPlural("Character", "Characters", this.charCount);
 		},
 
 		wordCount() {
@@ -53,7 +53,7 @@ module.exports = Vue.extend({
 			L10n: Word in the sense of individual words in a sentence.  This
 			does not actually include the count, as it is used in a table.
 			*/
-			return locale.sayPlural('Word', 'Words', this.wordCount);
+			return locale.sayPlural("Word", "Words", this.wordCount);
 		},
 
 		links() {
@@ -62,9 +62,7 @@ module.exports = Vue.extend({
 			return this.story.passages.reduce(
 				(links, passage) => [
 					...links,
-					...linkParser(passage.text).filter(
-						link => links.indexOf(link) === -1
-					)
+					...linkParser(passage.text).filter(link => links.indexOf(link) === -1)
 				],
 				[]
 			);
@@ -84,7 +82,7 @@ module.exports = Vue.extend({
 			This does not actually include the count, as it is used in a
 			table.
 			*/
-			return locale.sayPlural('Passage', 'Passages', this.passageCount);
+			return locale.sayPlural("Passage", "Passages", this.passageCount);
 		},
 
 		linkCount() {
@@ -95,20 +93,19 @@ module.exports = Vue.extend({
 				0
 			);
 		},
-		
+
 		linkDesc() {
 			/*
 			L10n: Links in the sense of hypertext links.
 			This does not actually include the count, as it is used in a
 			table.
 			*/
-			return locale.sayPlural('Link', 'Links', this.linkCount);
+			return locale.sayPlural("Link", "Links", this.linkCount);
 		},
 
 		brokenLinkCount() {
-			return this.links.filter(
-				link => this.passageNames.indexOf(link) === -1
-			).length;
+			return this.links.filter(link => this.passageNames.indexOf(link) === -1)
+				.length;
 		},
 
 		brokenLinkDesc() {
@@ -118,15 +115,18 @@ module.exports = Vue.extend({
 			table.
 			*/
 			return locale.sayPlural(
-				'Broken Link',
-				'Broken Links',
+				"Broken Link",
+				"Broken Links",
 				this.brokenLinkCount
 			);
 		},
 
 		ifidHelp() {
-			return locale.say(`'The IFID for this story is &lt;span class="ifid"&gt;%s&lt;/span&gt;. (&lt;a href="http:\/\/ifdb.tads.org/help-ifid" target="_blank"&gt;What\'s an IFID?&lt;/a&gt;)`, this.story.ifid);
-		},
+			return locale.say(
+				`'The IFID for this story is <span class="ifid">%s</span>. (<a href="http:\/\/ifdb.tads.org/help-ifid" target="_blank">What\'s an IFID?</a>)`,
+				this.story.ifid
+			);
+		}
 	},
 
 	vuex: {
@@ -136,6 +136,6 @@ module.exports = Vue.extend({
 	},
 
 	components: {
-		'modal-dialog': require('../../ui/modal-dialog')
+		"modal-dialog": require("../../ui/modal-dialog")
 	}
 });

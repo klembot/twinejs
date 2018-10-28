@@ -1,25 +1,29 @@
 // Shows a dialog asking the user to make a donation.
 
-const Vue = require('vue');
-const { setPref } = require('../../data/actions/pref');
-const locale = require('../../locale');
+const Vue = require("vue");
+const { setPref } = require("../../data/actions/pref");
+const locale = require("../../locale");
 
-require('./index.less');
-const appDonation = Vue.component('app-donation', {
-	template: require('./index.html'),
+require("./index.less");
+const appDonation = Vue.component("app-donation", {
+	template: require("./index.html"),
 
 	computed: {
 		pleaseDonate() {
-			return locale.say(`If you love Twine as much as I do, please consider helping it grow with a donation. Twine is an open source project that will always be free to use &mdash; and with your help, Twine will continue to thrive.`);
+			return locale.say(
+				`If you love Twine as much as I do, please consider helping it grow with a donation. Twine is an open source project that will always be free to use &mdash; and with your help, Twine will continue to thrive.`
+			);
 		},
 		shownOnce() {
-			return locale.say(`This message will only be shown to you once.&lt;br&gt;If you'd like to donate to Twine development in the future, you can do so at &lt;a href=\"http:\/\/twinery.org/donate\" target=\"_blank\"&gt;http://twinery.org/donate&lt;/a&gt;.`);
+			return locale.say(
+				`This message will only be shown to you once.<br>If you'd like to donate to Twine development in the future, you can do so at <a href=\"http:\/\/twinery.org/donate\" target=\"_blank\">http://twinery.org/donate</a>.`
+			);
 		}
 	},
 
 	methods: {
 		donate() {
-			window.open('https://twinery.org/donate');
+			window.open("https://twinery.org/donate");
 			this.$refs.modal.close();
 		},
 
@@ -29,7 +33,7 @@ const appDonation = Vue.component('app-donation', {
 	},
 
 	components: {
-		'modal-dialog': require('../../ui/modal-dialog')
+		"modal-dialog": require("../../ui/modal-dialog")
 	}
 });
 
@@ -42,10 +46,12 @@ const donation = {
 	check(store) {
 		const now = new Date().getTime();
 
-		if (!store.state.pref.donateShown &&
-			now > store.state.pref.firstRunTime + DONATION_DELAY) {
-			setPref(store, 'donateShown', true);
-			this.$emit('customModal', appDonation);
+		if (
+			!store.state.pref.donateShown &&
+			now > store.state.pref.firstRunTime + DONATION_DELAY
+		) {
+			setPref(store, "donateShown", true);
+			this.$emit("customModal", appDonation);
 			return true;
 		}
 		return false;
