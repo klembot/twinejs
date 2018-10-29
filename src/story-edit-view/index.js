@@ -18,10 +18,10 @@ const { passageDefaults } = require("../data/store/story");
 const zoomSettings = require("./zoom-settings");
 // Dialogs need to be included somewhere for vue to register it globally
 const { confirm } = require("../dialogs/confirm");
-const { prompt } = require('../dialogs/prompt');
+const { prompt } = require("../dialogs/prompt");
 
 // Modal editor for individual passages
-require('../editors/passage');
+require("../editors/passage");
 require("./index.less");
 
 /*
@@ -51,7 +51,10 @@ module.exports = Vue.extend({
 		promptArgs: {},
 
 		showEditor: false,
+		showCustomModal: false,
 		editorArgs: {},
+		customModalComponent: null,
+		customModalArgs: {},
 		/*
 		The window's width and height. Our resize() method keeps this in sync
 		with the DOM.
@@ -191,16 +194,25 @@ module.exports = Vue.extend({
 	},
 
 	mounted() {
-
-		eventHub.$on("modalConfirm", (confirmArgs) => {
+		eventHub.$on("modalConfirm", confirmArgs => {
 			this.confirmArgs = confirmArgs;
 			this.showConfirm = true;
 		});
-		eventHub.$on("modalPrompt", (promptArgs) => {
+		eventHub.$on("modalPrompt", promptArgs => {
 			this.promptArgs = promptArgs;
 			this.showPrompt = true;
 		});
-		eventHub.$on("close", () => { this.showConfirm = false; this.showPrompt = false;});
+		eventHub.$on("customModal", (modalComponent, modalArgs) => {
+			this.customModalComponent = modalComponent;
+			this.customModalArgs = modalArgs;
+			this.showCustomModal = true;
+		});
+		eventHub.$on("close", () => {
+			this.showConfirm = false;
+			this.showPrompt = false;
+			this.showCustomModal = false;
+			this.showEditor = false;
+		});
 
 		this.$nextTick(function() {
 			// code that assumes this.$el is in-document
@@ -208,10 +220,8 @@ module.exports = Vue.extend({
 			this.on(window, "resize", this.resize);
 			this.on(window, "keyup", this.onKeyup);
 
-			eventHub.$on('close', () => {
-				this.showEditor = false;
-			});
-			eventHub.$on('showEditor', (editorArgs) => {
+			// TODO: This can probably be replaced with custom-modal
+			eventHub.$on("showEditor", editorArgs => {
 				this.editorArgs = editorArgs;
 				this.showEditor = true;
 			});
@@ -225,7 +235,6 @@ module.exports = Vue.extend({
 	},
 
 	methods: {
-
 		/*
 		An array of <passage-item> components and their link positions,
 		indexed by name.
@@ -235,15 +244,11 @@ module.exports = Vue.extend({
 			if (!this.$refs.passages) {
 				return {};
 			}
-			return this.$refs.passages.reduce(
-				(result, passageView) => {
-					result[passageView.passage.name] = passageView.linkPosition;
-					return result;
-				},
-				{}
-			);
+			return this.$refs.passages.reduce((result, passageView) => {
+				result[passageView.passage.name] = passageView.linkPosition;
+				return result;
+			}, {});
 		},
-
 
 		resize() {
 			this.winWidth = window.innerWidth;
@@ -259,8 +264,7 @@ module.exports = Vue.extend({
 						zoom: zoomLevels[zoomIndex.length - 1]
 					});
 				}
-			}
-			else {
+			} else {
 				this.updateStory(this.story.id, { zoom: zoomLevels[zoomIndex - 1] });
 			}
 		},
@@ -272,8 +276,7 @@ module.exports = Vue.extend({
 				if (wraparound) {
 					this.updateStory(this.story.id, { zoom: zoomLevels[0] });
 				}
-			}
-			else {
+			} else {
 				this.updateStory(this.story.id, { zoom: zoomLevels[zoomIndex + 1] });
 			}
 		},
@@ -361,8 +364,7 @@ module.exports = Vue.extend({
 
 				if (e.wheelDeltaY > 0) {
 					this.zoomIn(true);
-				}
-				else {
+				} else {
 					this.zoomOut(true);
 				}
 
@@ -414,10 +416,15 @@ module.exports = Vue.extend({
 						toDelete[0].name
 					);
 
-					eventHub.$once('close', (confirmed) => { if(confirmed) {toDelete.forEach(p => this.deletePassage(this.story.id, p.id));} });
+					eventHub.$once("close", confirmed => {
+						if (confirmed) {
+							toDelete.forEach(p => this.deletePassage(this.story.id, p.id));
+						}
+					});
 					const confirmArgs = {
-						buttonLabel: '<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
-						class: 'danger',
+						buttonLabel:
+							'<i class="fa fa-trash-o"></i> ' + locale.say("Delete"),
+						class: "danger",
 						message: message
 					};
 
@@ -434,7 +441,7 @@ module.exports = Vue.extend({
 		highlight filter should be.
 		*/
 
-		eventHub.$on("highlight-regexp-change", (value) => {
+		eventHub.$on("highlight-regexp-change", value => {
 			this.highlightRegexp = value;
 		});
 
@@ -458,8 +465,7 @@ module.exports = Vue.extend({
 					Math.round(xOffset / this.gridSize) * this.gridSize;
 				this.screenDragOffsetY =
 					Math.round(yOffset / this.gridSize) * this.gridSize;
-			}
-			else {
+			} else {
 				this.screenDragOffsetX = xOffset;
 				this.screenDragOffsetY = yOffset;
 			}
@@ -499,7 +505,6 @@ module.exports = Vue.extend({
 						!this.selectedChildren.some(view => view.passage.id === passage))
 			);
 		});
-
 	},
 
 	components: {

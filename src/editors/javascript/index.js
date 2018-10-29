@@ -1,24 +1,20 @@
 // A component showing a modal dialog where a story's JavaSCript.
 
-const Vue = require('vue');
-const { updateStory } = require('../../data/actions/story');
+const Vue = require("vue");
+const { updateStory } = require("../../data/actions/story");
 
-require('codemirror/mode/javascript/javascript');
-require('codemirror/addon/display/placeholder');
-require('codemirror/addon/hint/show-hint');
+require("codemirror/mode/javascript/javascript");
+require("codemirror/addon/display/placeholder");
+require("codemirror/addon/hint/show-hint");
 
-module.exports = Vue.extend({
-	template: require('./index.html'),
+module.exports = Vue.component("JavaScriptEditor", {
+	template: require("./index.html"),
 
-	data: () => ({
-		storyId: ''
-	}),
+	props: ["storyId", "origin"],
 
 	computed: {
 		source() {
-			return this.allStories.find(
-				story => story.id === this.storyId
-			).script;
+			return this.allStories.find(story => story.id === this.storyId).script;
 		},
 
 		cmOptions: () => ({
@@ -26,9 +22,9 @@ module.exports = Vue.extend({
 			lineNumbers: false,
 			tabSize: 2,
 			indentWithTabs: true,
-			mode: 'javascript',
+			mode: "javascript",
 			extraKeys: {
-				'Ctrl-Space'(cm) {
+				"Ctrl-Space"(cm) {
 					cm.showHint();
 				}
 			}
@@ -44,10 +40,10 @@ module.exports = Vue.extend({
 			this.updateStory(this.storyId, { script: text });
 		}
 	},
-	
+
 	components: {
-		'modal-dialog': require('../../ui/modal-dialog'),
-		'code-mirror': require('../../vue/codemirror')
+		"modal-dialog": require("../../ui/modal-dialog"),
+		"code-mirror": require("../../vue/codemirror")
 	},
 
 	vuex: {
