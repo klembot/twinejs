@@ -9,7 +9,7 @@ const locale = require("../../locale");
 
 require("./index.less");
 
-module.exports = Vue.extend({
+module.exports = Vue.component("StatsDialog", {
 	template: require("./index.html"),
 
 	data: () => ({

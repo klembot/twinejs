@@ -79,19 +79,17 @@ module.exports = Vue.extend({
 		},
 
 		storyStats(e) {
-			console.warn("story-menu stats dialog usinig $mountTo");
-			new StatsDialog({
-				data: { storyId: this.story.id, origin: e.target },
-				store: this.$store
-			}).$mountTo(document.body);
+			eventHub.$emit("customModal", StatsDialog, {
+				storyId: this.story.id,
+				origin: e.target
+			});
 		},
 
 		changeFormat(e) {
-			console.warn("story-menu change format usinig $mountTo");
-			new FormatDialog({
-				data: { storyId: this.story.id, origin: e.target },
-				store: this.$store
-			}).$mountTo(document.body);
+			eventHub.$emit("customModal", FormatDialog, {
+				storyId: this.story.id,
+				origin: e.target
+			});
 		},
 
 		toggleSnap() {

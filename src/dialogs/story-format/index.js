@@ -1,18 +1,18 @@
-const Vue = require('vue');
-const { loadFormat } = require('../../data/actions/story-format');
-const locale = require('../../locale');
-const notify = require('../../ui/notify');
-const semverUtils = require('semver-utils');
+const Vue = require("vue");
+const { loadFormat } = require("../../data/actions/story-format");
+const locale = require("../../locale");
+const notify = require("../../ui/notify");
+const semverUtils = require("semver-utils");
 
-require('./index.less');
+require("./index.less");
 
-module.exports = Vue.extend({
-	template: require('./index.html'),
+module.exports = Vue.component("FormatDialog", {
+	template: require("./index.html"),
 
 	data: () => ({
 		loadIndex: 0,
 		loadedFormats: [],
-		storyId: '',
+		storyId: ""
 	}),
 
 	computed: {
@@ -22,7 +22,8 @@ module.exports = Vue.extend({
 
 		selectedFormat() {
 			return this.loadedFormats.find(
-				format => format.name === this.story.storyFormat &&
+				format =>
+					format.name === this.story.storyFormat &&
 					format.version === this.story.storyFormatVersion
 			);
 		},
@@ -41,32 +42,32 @@ module.exports = Vue.extend({
 			const nextFormat = this.allFormats[this.loadIndex];
 
 			this.loadFormat(nextFormat.name, nextFormat.version)
-			.then(format => {
-				if (!format.properties.proofing) {
-					this.loadedFormats.push(format);
-				}
+				.then(format => {
+					if (!format.properties.proofing) {
+						this.loadedFormats.push(format);
+					}
 
-				this.loadIndex++;
-				this.loadNext();
-			})
-			.catch(e => {
-				notify(
-					locale.say(
-						'The story format &ldquo;%1$s&rdquo; could not ' +
-						'be loaded (%2$s).',
-						nextFormat.name + ' ' + nextFormat.version,
-						e.message
-					),
-					'danger'
-				);
-				this.loadIndex++;
-				this.loadNext();
-			});
+					this.loadIndex++;
+					this.loadNext();
+				})
+				.catch(e => {
+					notify(
+						locale.say(
+							"The story format &ldquo;%1$s&rdquo; could not " +
+								"be loaded (%2$s).",
+							nextFormat.name + " " + nextFormat.version,
+							e.message
+						),
+						"danger"
+					);
+					this.loadIndex++;
+					this.loadNext();
+				});
 		}
 	},
 
 	mounted() {
-		this.$nextTick(function () {
+		this.$nextTick(function() {
 			// code that assumes this.$el is in-document
 			this.loadNext();
 		});
@@ -74,21 +75,22 @@ module.exports = Vue.extend({
 
 	vuex: {
 		actions: {
-			loadFormat,
+			loadFormat
 		},
 
 		getters: {
 			allStories: state => state.story.stories,
 			allFormats: state => {
-				var result = state.storyFormat.formats.map(
-					format => ({ name: format.name, version: format.version })
-				);
-				
+				var result = state.storyFormat.formats.map(format => ({
+					name: format.name,
+					version: format.version
+				}));
+
 				result.sort((a, b) => {
 					if (a.name < b.name) {
 						return -1;
 					}
-					
+
 					if (a.name > b.name) {
 						return 1;
 					}
@@ -98,25 +100,19 @@ module.exports = Vue.extend({
 
 					if (aVersion.major > bVersion.major) {
 						return -1;
-					}
-					else if (aVersion.major < bVersion.major) {
+					} else if (aVersion.major < bVersion.major) {
 						return 1;
-					}
-					else {
+					} else {
 						if (aVersion.minor > bVersion.minor) {
 							return -1;
-						}
-						else if (aVersion.minor < bVersion.minor) {
+						} else if (aVersion.minor < bVersion.minor) {
 							return 1;
-						}
-						else {
+						} else {
 							if (aVersion.patch > bVersion.patch) {
 								return -1;
-							}
-							else if (aVersion.patch < bVersion.patch) {
+							} else if (aVersion.patch < bVersion.patch) {
 								return 1;
-							}
-							else {
+							} else {
 								return 0;
 							}
 						}
@@ -129,7 +125,7 @@ module.exports = Vue.extend({
 	},
 
 	components: {
-		'format-item': require('./item'),
-		'modal-dialog': require('../../ui/modal-dialog')
+		"format-item": require("./item"),
+		"modal-dialog": require("../../ui/modal-dialog")
 	}
 });

@@ -9,7 +9,7 @@ const eventHub = require("../../common/eventHub");
 
 require("./index.less");
 
-module.exports = Vue.extend({
+module.exports = Vue.component("SearchDialog", {
 	template: require("./index.html"),
 
 	data: () => ({
@@ -33,7 +33,7 @@ module.exports = Vue.extend({
 
 			let source = this.search;
 
-      /*
+			/*
 			Escape regular expression characters in what the user typed unless
 			they indicated that they're using a regexp.
 			*/
@@ -71,9 +71,9 @@ module.exports = Vue.extend({
 				if (textMatches) {
 					numMatches += textMatches.length;
 					highlightedText = passageText.replace(
-            this.searchRegexp,
-            '<span class="highlight">$1</span>'
-          );
+						this.searchRegexp,
+						'<span class="highlight">$1</span>'
+					);
 				}
 
 				if (this.searchNames) {
@@ -82,9 +82,9 @@ module.exports = Vue.extend({
 					if (nameMatches) {
 						numMatches += nameMatches.length;
 						highlightedName = passageName.replace(
-              this.searchRegexp,
-              '<span class="highlight">$1</span>'
-            );
+							this.searchRegexp,
+							'<span class="highlight">$1</span>'
+						);
 					}
 				}
 
@@ -121,7 +121,7 @@ module.exports = Vue.extend({
 
 	mounted() {
 		this.$nextTick(function() {
-      // code that assumes this.$el is in-document
+			// code that assumes this.$el is in-document
 			this.$refs.search.focus();
 		});
 	},
