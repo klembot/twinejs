@@ -33,11 +33,10 @@ module.exports = Vue.extend({
 		},
 
 		editStyle(e) {
-			console.warn("story-menu edit style usinig $mountTo");
-			new StylesheetEditor({
-				data: { storyId: this.story.id, origin: e.target },
-				store: this.$store
-			}).$mountTo(document.body);
+			eventHub.$emit("customModal", StylesheetEditor, {
+				storyId: this.story.id,
+				origin: e.target
+			});
 		},
 
 		renameStory(e) {

@@ -2,26 +2,22 @@
 A component showing a modal dialog where a story's stylesheet can be edited.
 */
 
-const Vue = require('vue');
-const { updateStory } = require('../../data/actions/story');
+const Vue = require("vue");
+const { updateStory } = require("../../data/actions/story");
 
-require('codemirror/mode/css/css');
-require('codemirror/addon/display/placeholder');
-require('codemirror/addon/hint/show-hint');
+require("codemirror/mode/css/css");
+require("codemirror/addon/display/placeholder");
+require("codemirror/addon/hint/show-hint");
 
-module.exports = Vue.extend({
-	template: require('./index.html'),
+module.exports = Vue.component("StylesheetEditor", {
+	template: require("./index.html"),
 
-	data: () => ({
-		storyId: '',
-		origin: null
-	}),
+	props: ["storyId", "origin"],
 
 	computed: {
 		source() {
-			return this.allStories.find(
-				story => story.id === this.storyId
-			).stylesheet;
+			return this.allStories.find(story => story.id === this.storyId)
+				.stylesheet;
 		},
 
 		cmOptions: () => ({
@@ -29,9 +25,9 @@ module.exports = Vue.extend({
 			lineNumbers: false,
 			tabSize: 4,
 			indentWithTabs: true,
-			mode: 'css',
+			mode: "css",
 			extraKeys: {
-				'Ctrl-Space'(cm) {
+				"Ctrl-Space"(cm) {
 					cm.showHint();
 				}
 			}
@@ -47,10 +43,10 @@ module.exports = Vue.extend({
 			this.updateStory(this.storyId, { stylesheet: text });
 		}
 	},
-	
+
 	components: {
-		'modal-dialog': require('../../ui/modal-dialog'),
-		'code-mirror': require('../../vue/codemirror')
+		"modal-dialog": require("../../ui/modal-dialog"),
+		"code-mirror": require("../../vue/codemirror")
 	},
 
 	vuex: {
