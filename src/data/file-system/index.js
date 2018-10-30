@@ -15,6 +15,15 @@ const {ipcRenderer} = window.twineElectron;
 
 let previousStories;
 
+function updatePrevious(state) {
+	/*
+	Do a quasi-deep clone-- we need to peel off the top-level properties like
+	name, but passages don't matter to us.
+	*/
+
+	previousStories = state.story.stories.map(s => Object.assign({}, s));
+}
+
 function saveStory(store, state, story) {
 	loadFormat(store, story.storyFormat, story.storyFormatVersion).then(
 		format => {
@@ -28,6 +37,8 @@ function saveJson(filename, data) {
 }
 
 module.exports = store => {
+	updatePrevious(store.state);
+
 	/*
 	Initialize the store with data previously loaded.
 	*/
@@ -84,12 +95,41 @@ module.exports = store => {
 				break;
 
 			case 'UPDATE_STORY':
-				/* TODO: handle renames */
-				saveStory(
-					store,
-					state,
-					state.story.stories.find(s => s.id === mutation.payload[0])
-				);
+				if (mutation.payload[1].name) {
+					/*
+					The story has been renamed, and we need to process it
+					specially. We rename the story file, then save it to catch
+					any other changes.
+					*/
+
+					const oldStory = previousStories.find(
+						s => s.id === mutation.payload[0]
+					);
+					const newStory = state.story.stories.find(
+						s => s.id === mutation.payload[0]
+					);
+
+					function cleanupListener(s) {
+						if (s === oldStory) {
+							ipcRenderer.send('save-story', newStory);
+							ipcRenderer.removeListener(
+								'story-renamed',
+								cleanupListener
+							);
+						}
+					}
+
+					ipcRenderer.on('story-renamed', cleanupListener);
+					ipcRenderer.send('rename-story', oldStory, newStory);
+				} else {
+					saveStory(
+						store,
+						state,
+						state.story.stories.find(
+							s => s.id === mutation.payload[0]
+						)
+					);
+				}
 				break;
 
 			case 'DELETE_STORY':
@@ -156,9 +196,10 @@ module.exports = store => {
 		}
 
 		/*
-		We save a copy of the stories structure in aid of deleting, as above.
+		We save a copy of the stories structure in aid of deleting and renaming,
+		as above.
 		*/
 
-		previousStories = state.story.stories;
+		updatePrevious(state);
 	});
 };

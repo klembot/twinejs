@@ -130,13 +130,35 @@ const StoryFile = (module.exports = {
 				)
 			)
 			.then(lockStoryDirectory);
+	},
+
+	/*
+	Renames a story in the file system. This returns a promise that resolves
+	when finished.
+	*/
+
+	rename(oldStory, newStory) {
+		const rename = util.promisify(fs.rename);
+
+		return rename(
+			path.join(storyDirectoryPath(), StoryFile.fileName(oldStory.name)),
+			path.join(storyDirectoryPath(), StoryFile.fileName(newStory.name))
+		);
 	}
 });
 
 ipcMain.on('save-story', (e, story, format, appInfo) => {
-	StoryFile.save(story, format, appInfo);
+	StoryFile.save(story, format, appInfo).then(() =>
+		e.sender.send('story-saved', story, format, appInfo)
+	);
 });
 
 ipcMain.on('delete-story', (e, story) => {
-	StoryFile.delete(story);
+	StoryFile.delete(story).then(() => e.sender.send('story-deleted', story));
+});
+
+ipcMain.on('rename-story', (e, oldStory, newStory) => {
+	StoryFile.rename(oldStory, newStory).then(() =>
+		e.sender.send('story-renamed', oldStory, newStory)
+	);
 });
