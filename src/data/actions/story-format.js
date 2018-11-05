@@ -169,6 +169,12 @@ const actions = module.exports = {
 		const builtinFormats = [
 			{
 				name: 'Harlowe',
+				url: 'story-formats/harlowe-1.2.4/format.js',
+				version: '1.2.4',
+				userAdded: false
+			},
+			{
+				name: 'Harlowe',
 				url: 'story-formats/harlowe-2.1.0/format.js',
 				version: '2.1.0',
 				userAdded: false
