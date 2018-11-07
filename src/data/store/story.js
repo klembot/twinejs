@@ -104,14 +104,14 @@ const storyStore = (module.exports = {
 			*/
 
 			if (deterministic) {
-				toImport.id = encodeURI(toImport.name);
+				toImport.id = window.btoa(toImport.name);
 			} else {
 				toImport.id = uuid();
 			}
 
 			toImport.passages.forEach(p => {
 				if (deterministic) {
-					p.id = encodeURI(p.name);
+					p.id = window.btoa(p.name);
 				} else {
 					p.id = uuid();
 				}
