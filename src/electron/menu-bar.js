@@ -5,12 +5,6 @@ const {reveal: revealStoryDirectory} = require('./story-directory');
 module.exports = () => {
 	const template = [
 		{
-			label: 'File',
-			submenu: [
-				{label: 'Show Story Library', click: revealStoryDirectory}
-			]
-		},
-		{
 			label: 'Edit',
 			submenu: [
 				{role: 'undo'},
@@ -26,15 +20,16 @@ module.exports = () => {
 		{
 			label: 'View',
 			submenu: [
-				{role: 'reload'},
-				{role: 'forcereload'},
-				{role: 'toggledevtools'},
+				{label: 'Show Story Library', click: revealStoryDirectory},
 				{type: 'separator'},
 				{role: 'resetzoom'},
 				{role: 'zoomin'},
 				{role: 'zoomout'},
 				{type: 'separator'},
-				{role: 'togglefullscreen'}
+				{role: 'togglefullscreen'},
+				{type: 'separator'},
+				{role: 'reload'},
+				{role: 'toggledevtools'}
 			]
 		},
 		{
