@@ -1,0 +1,15 @@
+{
+	"directories": {"output": "dist/electron"},
+	"forceCodeSigning": false,
+	"linux": {
+		"target": "zip"
+	},
+	"mac": {
+		"icon": "icons/app.icns",
+		"target": "dmg"
+	},
+	"win": {
+		"icon": "icons/app.ico",
+		"target": "nsis"
+	}
+}

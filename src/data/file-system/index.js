@@ -40,7 +40,7 @@ module.exports = store => {
 	updatePrevious(store.state);
 
 	/*
-	Initialize the store with data previously loaded.
+	Initialize the store with data previously loaded in src/electron/index.js.
 	*/
 
 	const hydrate = window.twineElectron.hydrate;
@@ -50,7 +50,7 @@ module.exports = store => {
 			const storyData = importFile(story.data, story.mtime);
 
 			if (storyData.length > 0) {
-				importStory(store, storyData[0]);
+				importStory(store, storyData[0], true);
 			}
 		});
 	}

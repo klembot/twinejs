@@ -83,11 +83,7 @@ module.exports = Vue.extend({
 		},
 
 		showHelp() {
-			if (isElectron()) {
-				window.twineElectron.openUrl('https://twinery.org/2guide');
-			} else {
-				window.open('https://twinery.org/2guide');
-			}
+			window.open('https://twinery.org/2guide');
 		},
 
 		showLocale() {

@@ -2,7 +2,7 @@
 Bootstraps the Electron app.
 */
 
-const {app, dialog, BrowserWindow} = require('electron');
+const {app, dialog, BrowserWindow, shell} = require('electron');
 const path = require('path');
 const {
 	create: createStoryDirectory,
@@ -13,9 +13,65 @@ const {load: loadJson} = require('./json-file');
 const {load: loadStories} = require('./story-file');
 const initMenuBar = require('./menu-bar');
 
-/* A place for state to be stored to be hydrated in the render process. */
+const browserWindowOpts = {
+	width: 1024,
+	height: 600,
+	webPreferences: {
+		nodeIntegration: false,
+		preload: path.resolve(__dirname, './preload.js')
+	}
+};
+
+/*
+A place for state to be stored to be hydrated in the render process. This is
+read by src/data/file-system. Note that this is not a continuous thing-- we
+update windows when they first open, so it is currently not possible to have two
+BrowserWindows making changes simultaneously and staying in sync. This is OK for
+our current use case, because separate windows are only used for testing and
+playing stories.
+*/
 
 global.hydrate = {};
+
+function updateDataToHydrate() {
+	return lockStoryDirectory()
+		.then(loadStories)
+		.then(storyData => {
+			global.hydrate.initialStoryData = storyData;
+			return storyData;
+		});
+}
+
+function addStockWindowListeners(win) {
+	win.webContents.on('new-window', (event, url) => {
+		if (/^file:\/\/\//.test(url)) {
+			/*
+			Open local URLs in a new BrowserWindow, as above.
+			*/
+
+			updateDataToHydrate().then(() => {
+				const bounds = win.getBounds();
+				const newWin = new BrowserWindow(
+					Object.assign({}, browserWindowOpts, {
+						x: bounds.x + 25,
+						y: bounds.y + 25
+					})
+				);
+
+				addStockWindowListeners(newWin);
+				newWin.loadURL(url);
+			});
+		} else {
+			/*
+			Open everything else in the user's browser.
+			*/
+
+			shell.openExternal(url);
+		}
+
+		event.preventDefault();
+	});
+}
 
 app.on('ready', () => {
 	loadJson('prefs.json')
@@ -25,33 +81,23 @@ app.on('ready', () => {
 		.then(data => (global.hydrate.storyFormats = data))
 		.catch(e => console.warn(e.message))
 		.then(createStoryDirectory)
-		.then(lockStoryDirectory)
-		.then(loadStories)
-		.then(storyData => {
-			/* Leave this for src/data/file-system. */
-
-			global.hydrate.initialStoryData = storyData;
-
+		.then(updateDataToHydrate)
+		.then(() => {
 			initMenuBar();
 
-			const win = new BrowserWindow({
-				width: 1024,
-				height: 600,
-				show: false,
-				webPreferences: {
-					nodeIntegration: false,
-					preload: path.resolve(__dirname, './preload.js')
-				}
-			});
+			const win = new BrowserWindow(
+				Object.assign({}, browserWindowOpts, {show: false})
+			);
 
+			addStockWindowListeners(win);
 			win.on('ready-to-show', () => {
 				win.show();
 			});
-
-			win.loadFile('dist/web-electron/index.html');
 			win.on('closed', () => {
 				app.quit();
 			});
+
+			win.loadFile('dist/web-electron/index.html');
 		})
 		.catch(e => {
 			dialog.showMessageBox(

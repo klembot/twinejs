@@ -1,12 +1,16 @@
-// A Vuex module for working with stories. This is meant to be incorporated by
-// index.js.
+/*
+A Vuex module for working with stories. This is meant to be incorporated by
+index.js.
+*/
 
 const uuid = require('tiny-uuid');
 const locale = require('../../locale');
 const ui = require('../../ui');
 
-// A shorthand function for finding a particular story in the state, or a
-// particular passage in a story.
+/*
+A shorthand function for finding a particular story in the state, or a
+particular passage in a story.
+*/
 
 function getStoryById(state, id) {
 	let story = state.stories.find(story => story.id === id);
@@ -90,16 +94,28 @@ const storyStore = (module.exports = {
 			state.stories.push(story);
 		},
 
-		IMPORT_STORY(state, toImport) {
-			// See data/import.js for how the object that we receive is
-			// structured.
+		IMPORT_STORY(state, toImport, deterministic) {
+			/*
+			See data/import.js for how the object that we receive is
+			structured.
 
-			// Assign IDs to to everything, link passages to their story,
-			// and set the story's startPassage property appropriately.
+			Assign IDs to to everything, link passages to their story,
+			and set the story's startPassage property appropriately.
+			*/
 
-			toImport.id = uuid();
+			if (deterministic) {
+				toImport.id = encodeURI(toImport.name);
+			} else {
+				toImport.id = uuid();
+			}
+
 			toImport.passages.forEach(p => {
-				p.id = uuid();
+				if (deterministic) {
+					p.id = encodeURI(p.name);
+				} else {
+					p.id = uuid();
+				}
+
 				p.story = toImport.id;
 
 				if (p.pid === toImport.startPassagePid) {
@@ -194,7 +210,7 @@ const storyStore = (module.exports = {
 		}
 	},
 
-	// Defaults for newly-created objects.
+	/* Defaults for newly-created objects. */
 
 	storyDefaults: {
 		name: locale.say('Untitled Story'),
