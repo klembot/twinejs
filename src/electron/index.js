@@ -74,15 +74,24 @@ function addStockWindowListeners(win) {
 }
 
 app.on('ready', () => {
+	let startupTask;
+
 	loadJson('prefs.json')
 		.then(data => (global.hydrate.prefs = data))
 		.catch(e => console.warn(e.message))
 		.then(() => loadJson('story-formats.json'))
 		.then(data => (global.hydrate.storyFormats = data))
 		.catch(e => console.warn(e.message))
-		.then(createStoryDirectory)
-		.then(updateDataToHydrate)
 		.then(() => {
+			startupTask = 'creating a story directory if needed';
+			return createStoryDirectory();
+		})
+		.then(() => {
+			startupTask = 'loading your story library';
+			return updateDataToHydrate();
+		})
+		.then(() => {
+			startupTask = 'setting up the Twine window';
 			initMenuBar();
 
 			const win = new BrowserWindow(
@@ -104,7 +113,7 @@ app.on('ready', () => {
 				null,
 				{
 					type: 'error',
-					message: 'An error occurred during startup.',
+					message: `An error occurred during startup while ${startupTask}.`,
 					detail: e.message,
 					buttons: ['Quit']
 				},
