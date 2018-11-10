@@ -25,7 +25,16 @@ describe("<code-mirror>", () => {
 		vm = new Vue({
 			template:
 				'<code-mirror ref=cm text="Hello world." ' +
-				':options="{ tabSize: 12 }"></code-mirror>',
+				':options="{ tabSize: 12 }" @cm-change="saveText"></code-mirror>',
+			data: {
+				text: ""
+			},
+			methods: {
+				saveText(text) {
+					console.log("saving text!", text);
+					this.testText = text;
+				}
+			},
 			components: {
 				"code-mirror": CodeMirror
 			}
@@ -49,6 +58,6 @@ describe("<code-mirror>", () => {
 	it("keeps the text property in sync", () => {
 		expect(vm.$refs.cm.text).to.equal(vm.$refs.cm.$cm.getValue());
 		vm.$refs.cm.$cm.setValue("Something completely different!");
-		expect(vm.$refs.cm.text).to.equal(vm.$refs.cm.$cm.getValue());
+		expect(vm.testText).to.equal(vm.$refs.cm.$cm.getValue());
 	});
 });
