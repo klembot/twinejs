@@ -180,6 +180,12 @@ const actions = module.exports = {
 				userAdded: false
 			},
 			{
+				name: 'Harlowe',
+				url: 'story-formats/harlowe-3.0.0/format.js',
+				version: '3.0.0',
+				userAdded: false
+			},
+			{
 				name: 'Paperthin',
 				url: 'story-formats/paperthin-1.0.0/format.js',
 				version: '1.0.0',
@@ -223,7 +229,7 @@ const actions = module.exports = {
 			setPref(
 				store,
 				'defaultFormat',
-				{ name: 'Harlowe', version: '2.1.0' }
+				{ name: 'Harlowe', version: '3.0.0' }
 			);
 		}
 
