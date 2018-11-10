@@ -3,6 +3,7 @@ const { spy } = require("sinon");
 let Vue = require("fullvue");
 const localeFilters = require("../vue/filters/locale");
 const WelcomeView = require("./index");
+const router = require("../common/router");
 
 localeFilters.addTo(Vue);
 
@@ -12,7 +13,7 @@ describe("<welcome>", () => {
 	beforeEach(() => {
 		vm = new WelcomeView();
 		vm.setPref = spy();
-		vm.$mount();
+		vm.$mount({ router: router });
 	});
 
 	it("starts with one <div> shown", () => {
