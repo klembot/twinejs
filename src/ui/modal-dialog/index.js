@@ -1,29 +1,27 @@
 /*
-A generic modal dialog component. This implements the Thenable mixin and
-resolves itself when it is closed.
+A generic modal dialog component.
+It uses the global eventHub to fire closed events,
+ permitting a single modal at a time.
 */
 
-const Vue = require('vue');
-const eventHub = require('../../common/eventHub');
-const domEvents = require('../../vue/mixins/dom-events');
-const { thenable, symbols: { reject, resolve } } =
-	require('../../vue/mixins/thenable');
+const Vue = require("vue");
+const eventHub = require("../../common/eventHub");
+const domEvents = require("../../vue/mixins/dom-events");
 
 const animationEndEvents = [
-	'animationend',
-	'webkitAnimationEnd',
-	'MSAnimationEnd',
-	'oAnimationEnd'
+	"animationend",
+	"webkitAnimationEnd",
+	"MSAnimationEnd",
+	"oAnimationEnd"
 ];
 
-require('./index.less');
-
+require("./index.less");
 
 const ModalDialog = Vue.extend({
-	template: require('./index.html'),
+	template: require("./index.html"),
 
 	props: {
-		title: '',
+		title: "",
 		origin: null,
 		canWiden: false,
 		canClose: {
@@ -38,15 +36,14 @@ const ModalDialog = Vue.extend({
 
 	computed: {
 		classes() {
-			return this.class + (this.wide ? ' wide' : '');
+			return this.class + (this.wide ? " wide" : "");
 		}
 	},
 
 	mounted() {
-
-		this.$nextTick(function () {
+		this.$nextTick(function() {
 			// code that assumes this.$el is in-document
-			const dialog = this.$el.querySelector('.modal-dialog');
+			const dialog = this.$el.querySelector(".modal-dialog");
 
 			/*
 			If an origin is specified,
@@ -57,14 +54,17 @@ const ModalDialog = Vue.extend({
 				const originRect = this.origin.getBoundingClientRect();
 
 				dialog.style.transformOrigin =
-					(originRect.left + originRect.width / 2) + 'px ' +
-					(originRect.top + originRect.height / 2) + 'px';
+					originRect.left +
+					originRect.width / 2 +
+					"px " +
+					(originRect.top + originRect.height / 2) +
+					"px";
 			}
 
-			let body = document.querySelector('body');
+			let body = document.querySelector("body");
 
-			body.classList.add('modalOpen');
-			this.on(body, 'keyup', this.escapeCloser);
+			body.classList.add("modalOpen");
+			this.on(body, "keyup", this.escapeCloser);
 
 			/*
 			We have to listen manually to the end of the transition in order to
@@ -78,7 +78,7 @@ const ModalDialog = Vue.extend({
 				This event is currently only listened to by <code-mirror> child
 				components.
 				*/
-				eventHub.$emit('transition-entered');
+				eventHub.$emit("transition-entered");
 				animationEndEvents.forEach(event =>
 					dialog.removeEventListener(event, notifier)
 				);
@@ -91,18 +91,18 @@ const ModalDialog = Vue.extend({
 	},
 
 	destroyed() {
-		let body = document.querySelector('body');
+		let body = document.querySelector("body");
 
-		body.classList.remove('modalOpen');
-		this.$emit('destroyed');
+		body.classList.remove("modalOpen");
+		this.$emit("destroyed");
 	},
 
 	methods: {
 		close(message) {
-			if (typeof this.canClose === 'function' && !this.canClose()) {
+			if (typeof this.canClose === "function" && !this.canClose()) {
 				return;
 			}
-			eventHub.$emit('close', message);
+			eventHub.$emit("close", message);
 		},
 
 		toggleWide() {
@@ -110,11 +110,11 @@ const ModalDialog = Vue.extend({
 		},
 
 		reject(message) {
-			if (typeof this.canClose === 'function' && !this.canClose()) {
+			if (typeof this.canClose === "function" && !this.canClose()) {
 				return;
 			}
 
-			eventHub.$emit('close', message);
+			eventHub.$emit("close", message);
 		},
 
 		escapeCloser(e) {
@@ -124,50 +124,37 @@ const ModalDialog = Vue.extend({
 			}
 		},
 		beforeEnter: function(el) {
-			let overlay = el.querySelector('#modal-overlay');
-			let dialog = el.querySelector('.modal-dialog');
+			let overlay = el.querySelector("#modal-overlay");
+			let dialog = el.querySelector(".modal-dialog");
 
-			overlay.classList.add('fade-in-out-transition', 'fade-in-out-enter');
-			dialog.classList.add('grow-in-out-enter');
+			overlay.classList.add("fade-in-out-transition", "fade-in-out-enter");
+			dialog.classList.add("grow-in-out-enter");
 
-			dialog.addEventListener('animationend', function() {
-				dialog.classList.remove('grow-in-out-enter');
+			dialog.addEventListener("animationend", function() {
+				dialog.classList.remove("grow-in-out-enter");
 			});
 		},
 
 		enter: function(el, done) {
-			let overlay = el.querySelector('#modal-overlay');
+			let overlay = el.querySelector("#modal-overlay");
 
 			Vue.nextTick(() => {
-				overlay.classList.remove('fade-in-out-enter');
-				overlay.addEventListener('transitionend', done);
+				overlay.classList.remove("fade-in-out-enter");
+				overlay.addEventListener("transitionend", done);
 			});
 		},
 
 		leave: function(el, done) {
-			let overlay = el.querySelector('#modal-overlay');
-			let dialog = el.querySelector('.modal-dialog');
+			let overlay = el.querySelector("#modal-overlay");
+			let dialog = el.querySelector(".modal-dialog");
 
-			dialog.classList.add('grow-in-out-leave');
-			overlay.classList.add('fade-in-out-leave');
-			overlay.addEventListener('transitionend', done);
+			dialog.classList.add("grow-in-out-leave");
+			overlay.classList.add("fade-in-out-leave");
+			overlay.addEventListener("transitionend", done);
 		}
 	},
 
-	created: function() {
-
-		eventHub.$on('close', (message) => {
-			this[resolve](message);
-			this.$destroy(true);
-		});
-
-		eventHub.$on('reject', (message) => {
-			this[reject](message);
-			this.$destroy(true);
-		});
-	},
-
-	mixins: [domEvents, thenable]
+	mixins: [domEvents]
 });
 
 module.exports = ModalDialog;

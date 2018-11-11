@@ -8,7 +8,6 @@ const { deleteStory, importStory } = require("../../data/actions/story");
 const importHTML = require("../../data/import");
 const load = require("../../file/load");
 const locale = require("../../locale");
-const { thenable } = require("../../vue/mixins/thenable");
 
 module.exports = Vue.extend({
 	template: require("./index.html"),
@@ -137,8 +136,6 @@ module.exports = Vue.extend({
 	components: {
 		"modal-dialog": require("../../ui/modal-dialog")
 	},
-
-	mixins: [thenable],
 
 	vuex: {
 		actions: {

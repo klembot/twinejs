@@ -8,7 +8,6 @@
 const locale = require("../../locale");
 const eventHub = require("../../common/eventHub");
 const Vue = require("vue");
-const { thenable } = require("../../vue/mixins/thenable");
 
 require("./index.less");
 
@@ -52,9 +51,7 @@ const confirmation = Vue.component("confirm", {
 
 	components: {
 		"modal-dialog": require("../../ui/modal-dialog")
-	},
-
-	mixins: [thenable]
+	}
 });
 
 module.exports = {
