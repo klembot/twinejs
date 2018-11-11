@@ -1,46 +1,47 @@
-const { expect } = require('chai');
-const { spy } = require('sinon');
-const actions = require('./story-format');
+const { expect } = require("chai");
+const { spy } = require("sinon");
+const actions = require("./story-format");
 
-describe('story format actions module', () => {
-	const fakeId = 'not-a-real-id';
-	const props = { fake: true };	
+describe("story format actions module", () => {
+	const fakeId = "not-a-real-id";
+	const props = { fake: true };
 	let store;
 
 	beforeEach(() => {
 		store = { dispatch: spy() };
 	});
 
-	it('dispatches a CREATE_FORMAT mutation with createFormat()', () => {
+	it("dispatches a CREATE_FORMAT mutation with createFormat()", () => {
 		actions.createFormat(store, props);
 		expect(store.dispatch.calledOnce).to.be.true;
-		expect(store.dispatch.calledWith('CREATE_FORMAT', props)).to.be.true;
+		expect(store.dispatch.calledWith("CREATE_FORMAT", props)).to.be.true;
 	});
 
-	it('dispatches an UPDATE_FORMAT mutation with createFormat()', () => {
+	it("dispatches an UPDATE_FORMAT mutation with createFormat()", () => {
 		actions.updateFormat(store, fakeId, props);
 		expect(store.dispatch.calledOnce).to.be.true;
-		expect(store.dispatch.calledWith('UPDATE_FORMAT', fakeId, props)).to.be.true;
+		expect(store.dispatch.calledWith("UPDATE_FORMAT", fakeId, props)).to.be
+			.true;
 	});
 
-	it('dispatches a DELETE_FORMAT mutation with deleteFormat()', () => {
+	it("dispatches a DELETE_FORMAT mutation with deleteFormat()", () => {
 		actions.deleteFormat(store, fakeId);
 		expect(store.dispatch.calledOnce).to.be.true;
-		expect(store.dispatch.calledWith('DELETE_FORMAT', fakeId)).to.be.true;
+		expect(store.dispatch.calledWith("DELETE_FORMAT", fakeId)).to.be.true;
 	});
 
-	it('creates built-in formats with repairFormats()', () => {
+	it("creates built-in formats with repairFormats()", () => {
 		let formatsStore = {
 			dispatch: spy(),
 			state: {
 				pref: {
 					defaultFormat: {
-						name: 'Default Format',
-						version: '1.0.0'
+						name: "Default Format",
+						version: "1.0.0"
 					},
 					proofingFormat: {
-						name: 'Proofing Format',
-						version: '1.0.0'
+						name: "Proofing Format",
+						version: "1.0.0"
 					}
 				},
 				storyFormat: {
@@ -56,34 +57,51 @@ describe('story format actions module', () => {
 		for (let i = 0; i < formatsStore.dispatch.callCount; i++) {
 			let call = formatsStore.dispatch.getCall(i);
 
-			if (call.args[0] === 'CREATE_FORMAT') {
-				created[call.args[1].name + '-' + call.args[1].version] = call.args[1];
+			if (call.args[0] === "CREATE_FORMAT") {
+				created[call.args[1].name + "-" + call.args[1].version] = call.args[1];
 			}
 		}
 
-		expect(created['Harlowe-1.2.4']).to.exist;
-		expect(created['Harlowe-1.2.4'].url).to.equal('story-formats/harlowe-1.2.4/format.js');
-		expect(created['Harlowe-1.2.4'].userAdded).to.be.false;
-		expect(created['Harlowe-2.1.0']).to.exist;
-		expect(created['Harlowe-2.1.0'].url).to.equal('story-formats/harlowe-2.1.0/format.js');
-		expect(created['Harlowe-2.1.0'].userAdded).to.be.false;
-		expect(created['Paperthin-1.0.0']).to.exist;
-		expect(created['Paperthin-1.0.0'].url).to.equal('story-formats/paperthin-1.0.0/format.js');
-		expect(created['Paperthin-1.0.0'].userAdded).to.be.false;
-		expect(created['Snowman-1.3.0']).to.exist;
-		expect(created['Snowman-1.3.0'].url).to.equal('story-formats/snowman-1.3.0/format.js');
-		expect(created['Snowman-1.3.0'].userAdded).to.be.false;
-		expect(created['SugarCube-1.0.35']).to.exist;
-		expect(created['SugarCube-1.0.35'].url).to.equal('story-formats/sugarcube-1.0.35/format.js');
-		expect(created['SugarCube-1.0.35'].userAdded).to.be.false;
-		expect(created['SugarCube-2.21.0']).to.exist;
-		expect(created['SugarCube-2.21.0'].url).to.equal('story-formats/sugarcube-2.21.0/format.js');
-		expect(created['SugarCube-2.21.0'].userAdded).to.be.false;
+		expect(created["Harlowe-3.0.0"]).to.exist;
+		expect(created["Harlowe-3.0.0"].url).to.equal(
+			"story-formats/harlowe-3.0.0/format.js"
+		);
+		expect(created["Harlowe-3.0.0"].userAdded).to.be.false;
+		expect(created["Harlowe-2.1.0"]).to.exist;
+		expect(created["Harlowe-2.1.0"].url).to.equal(
+			"story-formats/harlowe-2.1.0/format.js"
+		);
+		expect(created["Harlowe-2.1.0"].userAdded).to.be.false;
+		expect(created["Harlowe-1.2.4"]).to.exist;
+		expect(created["Harlowe-1.2.4"].url).to.equal(
+			"story-formats/harlowe-1.2.4/format.js"
+		);
+		expect(created["Harlowe-1.2.4"].userAdded).to.be.false;
+		expect(created["Paperthin-1.0.0"]).to.exist;
+		expect(created["Paperthin-1.0.0"].url).to.equal(
+			"story-formats/paperthin-1.0.0/format.js"
+		);
+		expect(created["Paperthin-1.0.0"].userAdded).to.be.false;
+		expect(created["Snowman-1.3.0"]).to.exist;
+		expect(created["Snowman-1.3.0"].url).to.equal(
+			"story-formats/snowman-1.3.0/format.js"
+		);
+		expect(created["Snowman-1.3.0"].userAdded).to.be.false;
+		expect(created["SugarCube-1.0.35"]).to.exist;
+		expect(created["SugarCube-1.0.35"].url).to.equal(
+			"story-formats/sugarcube-1.0.35/format.js"
+		);
+		expect(created["SugarCube-1.0.35"].userAdded).to.be.false;
+		expect(created["SugarCube-2.21.0"]).to.exist;
+		expect(created["SugarCube-2.21.0"].url).to.equal(
+			"story-formats/sugarcube-2.21.0/format.js"
+		);
+		expect(created["SugarCube-2.21.0"].userAdded).to.be.false;
 	});
 
-	it('sets default formats with repairFormats()', () => {
+	it("sets default formats with repairFormats()", () => {
 		let formatsStore = {
-			dispatch: spy().withArgs('UPDATE_PREF'),
+			dispatch: spy().withArgs("UPDATE_PREF"),
 			state: {
 				pref: {},
 				storyFormat: {
@@ -94,44 +112,49 @@ describe('story format actions module', () => {
 
 		actions.repairFormats(formatsStore);
 
-		expect(formatsStore.dispatch.calledWith(
-			'UPDATE_PREF', 'defaultFormat', { name: 'Harlowe', version: '2.1.0' }
-		)).to.be.true;
-		expect(formatsStore.dispatch.calledWith(
-			'UPDATE_PREF', 'proofingFormat', { name: 'Paperthin', version: '1.0.0' }
-		)).to.be.true;
+		expect(
+			formatsStore.dispatch.calledWith("UPDATE_PREF", "defaultFormat", {
+				name: "Harlowe",
+				version: "3.0.0"
+			})
+		).to.be.true;
+		expect(
+			formatsStore.dispatch.calledWith("UPDATE_PREF", "proofingFormat", {
+				name: "Paperthin",
+				version: "1.0.0"
+			})
+		).to.be.true;
 	});
 
-	it('deletes unversioned formats with repairFormats()', () => {
+	it("deletes unversioned formats with repairFormats()", () => {
 		let formatsStore = {
 			dispatch: spy(),
 			state: {
 				pref: {},
 				storyFormat: {
-					formats: [
-						{ id: fakeId, name: 'Test' }
-					]
+					formats: [{ id: fakeId, name: "Test" }]
 				}
 			}
 		};
 
 		actions.repairFormats(formatsStore);
-		expect(formatsStore.dispatch.calledWith('DELETE_FORMAT', fakeId)).to.be.true;
+		expect(formatsStore.dispatch.calledWith("DELETE_FORMAT", fakeId)).to.be
+			.true;
 	});
 
-	it('does not duplicate formats with repairFormats()', () => {
+	it("does not duplicate formats with repairFormats()", () => {
 		let formatsStore = {
-			dispatch: spy().withArgs('CREATE_FORMAT'),
+			dispatch: spy().withArgs("CREATE_FORMAT"),
 			state: {
 				pref: {},
 				storyFormat: {
 					formats: [
-						{ name: 'Harlowe', version: '1.2.4' },
-						{ name: 'Harlowe', version: '2.0.1' },
-						{ name: 'Paperthin', version: '1.0.0' },
-						{ name: 'Snowman', version: '1.3.0' },
-						{ name: 'SugarCube', version: '1.0.35' },
-						{ name: 'SugarCube', version: '2.21.0' }
+						{ name: "Harlowe", version: "2.0.1" },
+						{ name: "Harlowe", version: "3.0.0" },
+						{ name: "Paperthin", version: "1.0.0" },
+						{ name: "Snowman", version: "1.3.0" },
+						{ name: "SugarCube", version: "1.0.35" },
+						{ name: "SugarCube", version: "2.21.0" }
 					]
 				}
 			}
@@ -141,88 +164,91 @@ describe('story format actions module', () => {
 		expect(formatsStore.dispatch.calledOnce).to.be.false;
 	});
 
-	it('deletes outdated story format versions with repairFormats()', () => {
+	it("deletes outdated story format versions with repairFormats()", () => {
 		let formatsStore = {
 			dispatch: spy(),
 			state: {
 				pref: {},
 				storyFormat: {
 					formats: [
-						{ name: 'Custom', version: '1.2.3' },
-						{ id: fakeId, name: 'Custom', version: '1.2.1' },
-						{ name: 'Custom', version: '2.0.0' }
+						{ name: "Custom", version: "1.2.3" },
+						{ id: fakeId, name: "Custom", version: "1.2.1" },
+						{ name: "Custom", version: "2.0.0" }
 					]
 				}
 			}
 		};
 
-		formatsStore.dispatch.withArgs('DELETE_FORMAT', fakeId);
+		formatsStore.dispatch.withArgs("DELETE_FORMAT", fakeId);
 		actions.repairFormats(formatsStore);
-		expect(formatsStore.dispatch.withArgs('DELETE_FORMAT', fakeId).calledOnce).to.be.true;
+		expect(formatsStore.dispatch.withArgs("DELETE_FORMAT", fakeId).calledOnce)
+			.to.be.true;
 	});
 
-	it('updates the default format version with repairFormats()', () => {
+	it("updates the default format version with repairFormats()", () => {
 		let formatsStore = {
 			dispatch: spy(),
 			state: {
 				pref: {
 					defaultFormat: {
-						name: 'Default Format',
-						version: '1.0.0'
+						name: "Default Format",
+						version: "1.0.0"
 					},
 					proofingFormat: {
-						name: 'Proofing Format',
-						version: '1.0.0'
+						name: "Proofing Format",
+						version: "1.0.0"
 					}
 				},
 				storyFormat: {
 					formats: [
-						{ id: fakeId, name: 'Default Format', version: '1.0.1' },
-						{ id: fakeId, name: 'Default Format', version: '2.0.1' },
-						{ id: fakeId, name: 'Proofing Format', version: '1.0.0' }
+						{ id: fakeId, name: "Default Format", version: "1.0.1" },
+						{ id: fakeId, name: "Default Format", version: "2.0.1" },
+						{ id: fakeId, name: "Proofing Format", version: "1.0.0" }
 					]
 				}
 			}
 		};
 
 		actions.repairFormats(formatsStore);
-		expect(formatsStore.dispatch.calledWith(
-			'UPDATE_PREF',
-			'defaultFormat',
-			{ name: 'Default Format', version: '1.0.1' }
-		)).to.be.true;
+		expect(
+			formatsStore.dispatch.calledWith("UPDATE_PREF", "defaultFormat", {
+				name: "Default Format",
+				version: "1.0.1"
+			})
+		).to.be.true;
 	});
 
-	it('updates the proofing version with repairFormats()', () => {
+	it("updates the proofing version with repairFormats()", () => {
 		let formatsStore = {
 			dispatch: spy(),
 			state: {
 				pref: {
 					defaultFormat: {
-						name: 'Default Format',
-						version: '1.0.0'
+						name: "Default Format",
+						version: "1.0.0"
 					},
 					proofingFormat: {
-						name: 'Proofing Format',
-						version: '1.0.0'
+						name: "Proofing Format",
+						version: "1.0.0"
 					}
 				},
 				storyFormat: {
 					formats: [
-						{ id: fakeId, name: 'Default Format', version: '1.0.0' },
-						{ id: fakeId, name: 'Proofing Format', version: '1.0.0' },
-						{ id: fakeId, name: 'Proofing Format', version: '1.0.1' },
-						{ id: fakeId, name: 'Proofing Format', version: '2.0.1' }
+						{ id: fakeId, name: "Default Format", version: "1.0.0" },
+						{ id: fakeId, name: "Proofing Format", version: "1.0.0" },
+						{ id: fakeId, name: "Proofing Format", version: "1.0.1" },
+						{ id: fakeId, name: "Proofing Format", version: "2.0.1" }
 					]
 				}
 			}
 		};
 
 		actions.repairFormats(formatsStore);
-		expect(formatsStore.dispatch.calledWith(
-			'UPDATE_PREF',
-			'proofingFormat',
-			{ name: 'Proofing Format', version: '1.0.1' }
-		)).to.be.true;
+		expect(
+			formatsStore.dispatch.calledWith("UPDATE_PREF", "proofingFormat", {
+				name: "Proofing Format",
+				version: "1.0.1"
+			})
+		).to.be.true;
 	});
 });
