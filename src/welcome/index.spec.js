@@ -1,19 +1,23 @@
 const { expect } = require("chai");
 const { spy } = require("sinon");
 let Vue = require("fullvue");
+const VueRouter = require("vue-router");
+
 const localeFilters = require("../vue/filters/locale");
 const WelcomeView = require("./index");
 const router = require("../common/router");
+const store = require("../data/store");
 
 localeFilters.addTo(Vue);
+Vue.use(VueRouter);
 
 describe("<welcome>", () => {
 	let vm;
 
 	beforeEach(() => {
-		vm = new WelcomeView();
+		vm = new WelcomeView({ router: router, store: store }).$mount();
 		vm.setPref = spy();
-		vm.$mount({ router: router });
+		vm.$router.push = spy();
 	});
 
 	it("starts with one <div> shown", () => {
@@ -25,6 +29,7 @@ describe("<welcome>", () => {
 		const check = count => {
 			vm.shown = count;
 
+			Vue.config.errorHandler = done;
 			Vue.nextTick(() => {
 				expect(vm.$el.querySelectorAll("#welcomeView > div").length).to.equal(
 					count
@@ -57,8 +62,11 @@ describe("<welcome>", () => {
 		expect(args[1]).to.equal(true);
 	});
 
-	it("moves to the story list with finish()", () => {
+	it("pushes stories to the router on finish()", () => {
 		vm.finish();
-		expect(window.location.hash).to.equal("#stories");
+		const args = vm.$router.push.firstCall.args;
+
+		// Checking if route actually updated means mounting the router
+		expect(args[0]).to.equal("stories");
 	});
 });
