@@ -68,7 +68,7 @@ describe('story format actions module', () => {
 		expect(created['Harlowe-2.1.0'].url).to.equal('story-formats/harlowe-2.1.0/format.js');
 		expect(created['Harlowe-2.1.0'].userAdded).to.be.false;
 		expect(created['Harlowe-1.2.4']).to.exist;
-		expect(created['Harlowe-1.2.4'].url).to.equal('story-formats/harlowe-2.1.0/format.js');
+		expect(created['Harlowe-1.2.4'].url).to.equal('story-formats/harlowe-1.2.4/format.js');
 		expect(created['Harlowe-1.2.4'].userAdded).to.be.false;
 		expect(created['Paperthin-1.0.0']).to.exist;
 		expect(created['Paperthin-1.0.0'].url).to.equal('story-formats/paperthin-1.0.0/format.js');
@@ -98,7 +98,7 @@ describe('story format actions module', () => {
 		actions.repairFormats(formatsStore);
 
 		expect(formatsStore.dispatch.calledWith(
-			'UPDATE_PREF', 'defaultFormat', { name: 'Harlowe', version: '2.1.0' }
+			'UPDATE_PREF', 'defaultFormat', { name: 'Harlowe', version: '3.0.0' }
 		)).to.be.true;
 		expect(formatsStore.dispatch.calledWith(
 			'UPDATE_PREF', 'proofingFormat', { name: 'Paperthin', version: '1.0.0' }
