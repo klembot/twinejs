@@ -10,7 +10,7 @@ msgid "Twine is an open-source tool for telling interactive, nonlinear stories."
 msgstr ""
 
 #: src/dialogs/about/index.html
-msgid "This application is released under the \\x3ca href=\"http:\\/\\/www.gnu.org/licenses/gpl-3.0.html\">GPL v3\\x3c/a> license, but any work created with it may be released under any terms, including commercial ones."
+msgid "This application is released under the <a href=\"http:\\/\\/www.gnu.org/licenses/gpl-3.0.html\">GPL v3</a> license, but any work created with it may be released under any terms, including commercial ones."
 msgstr ""
 
 #: src/dialogs/about/index.html
@@ -34,7 +34,7 @@ msgid "Fonts"
 msgstr ""
 
 #: src/dialogs/about/index.html
-msgid "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the guidance of Robert Slimbach for \\x3ca href=\"http:\\/\\/adobe.com/\">Adobe\\x3c/a>\\x3cbr> Nunito was designed by \\x3ca href=\"http:\\/\\/code.newtypography.co.uk/\">Vernon Adams\\x3c/a>"
+msgid "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the guidance of Robert Slimbach for <a href=\"http:\\/\\/adobe.com/\">Adobe</a><br> Nunito was designed by <a href=\"http:\\/\\/code.newtypography.co.uk/\">Vernon Adams</a>"
 msgstr ""
 
 #: src/dialogs/about/index.html

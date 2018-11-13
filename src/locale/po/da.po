@@ -25,12 +25,12 @@ msgstr ""
 
 #: src/dialogs/about/index.html
 msgid ""
-"This application is released under the \\x3ca href=\"http:\\/\\/www.gnu.org/"
-"licenses/gpl-3.0.html\">GPL v3\\x3c/a> license, but any work created with it "
+"This application is released under the <a href=\"http:\\/\\/www.gnu.org/"
+"licenses/gpl-3.0.html\">GPL v3</a> license, but any work created with it "
 "may be released under any terms, including commercial ones."
 msgstr ""
-"Dette program er udgivet under \\x3ca href=\"http:\\/\\/www.gnu.org/licenses/"
-"gpl-3.0.html\">GPL v3\\x3c/a> licensen, men alle værker skabt med det må "
+"Dette program er udgivet under <a href=\"http:\\/\\/www.gnu.org/licenses/"
+"gpl-3.0.html\">GPL v3</a> licensen, men alle værker skabt med det må "
 "udgives under alle slags vilkår, inklusiv kommercielle."
 
 #: src/dialogs/about/index.html
@@ -56,14 +56,14 @@ msgstr "Fonte"
 #: src/dialogs/about/index.html
 msgid ""
 "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the "
-"guidance of Robert Slimbach for \\x3ca href=\"http:\\/\\/adobe.com/\">Adobe"
-"\\x3c/a>\\x3cbr> Nunito was designed by \\x3ca href=\"http:\\/\\/code."
-"newtypography.co.uk/\">Vernon Adams\\x3c/a>"
+"guidance of Robert Slimbach for <a href=\"http:\\/\\/adobe.com/\">Adobe"
+"</a><br> Nunito was designed by <a href=\"http:\\/\\/code."
+"newtypography.co.uk/\">Vernon Adams</a>"
 msgstr ""
 "Source Sans Pro og Source Code Pro er designet af Paul D. Hunt under "
-"vejledning af Robert Slimbach for  \\x3ca href=\"http:\\/\\/adobe.com/"
-"\">Adobe\\x3c/a>\\x3cbr> Nunito er designet af \\x3ca href=\"http:\\/\\/code."
-"newtypography.co.uk/\">Vernon Adams\\x3c/a>"
+"vejledning af Robert Slimbach for  <a href=\"http:\\/\\/adobe.com/"
+"\">Adobe</a><br> Nunito er designet af <a href=\"http:\\/\\/code."
+"newtypography.co.uk/\">Vernon Adams</a>"
 
 #: src/dialogs/about/index.html
 msgid "Icons"
