@@ -13,7 +13,7 @@ const store = require("../data/store");
 Vue.use(VueRouter);
 
 let TwineRouter = new VueRouter({
-	mode: 'hash',
+	mode: "hash",
 	routes: [
 		{
 			/*  We connect routes with no params directly to a component. */
@@ -195,8 +195,7 @@ TwineRouter.beforeEach((to, from, next) => {
 
 	if (to.path === "/welcome" || welcomeSeen) {
 		next();
-	}
-	else {
+	} else {
 		next("/welcome");
 	}
 });

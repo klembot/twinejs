@@ -5,7 +5,7 @@ Publishes stories to HTML.
 const escape = require("lodash.escape");
 const locale = require("../locale");
 
-const publish = {
+const publish = (module.exports = {
 	/*
 	Publishes a story with a story format. The format *must* be loaded before
 	this function is called.
@@ -149,6 +149,4 @@ const publish = {
 			`${escape(passage.text)}</tw-passagedata>`
 		);
 	}
-};
-
-module.exports = publish;
+});

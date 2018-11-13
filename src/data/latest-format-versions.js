@@ -25,8 +25,7 @@ module.exports = store => {
 			) {
 				latestVersions[format.name][v.major] = v;
 			}
-		}
-		else {
+		} else {
 			latestVersions[format.name] = {};
 			latestVersions[format.name][v.major] = v;
 		}

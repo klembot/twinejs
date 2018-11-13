@@ -2,10 +2,10 @@
 Story-related actions.
 */
 
-const semverUtils = require('semver-utils');
-const latestFormatVersions = require('../latest-format-versions');
+const semverUtils = require("semver-utils");
+const latestFormatVersions = require("../latest-format-versions");
 
-const actions = {
+const actions = (module.exports = {
 	createStory(store, props) {
 		let normalizedProps = Object.assign({}, props);
 
@@ -17,29 +17,27 @@ const actions = {
 				store.state.pref.defaultFormat.version;
 		}
 
-		store.dispatch('CREATE_STORY', normalizedProps);
+		store.dispatch("CREATE_STORY", normalizedProps);
 	},
 
 	updateStory({ dispatch }, id, props) {
-		dispatch('UPDATE_STORY', id, props);
+		dispatch("UPDATE_STORY", id, props);
 	},
 
 	deleteStory({ dispatch }, id) {
-		dispatch('DELETE_STORY', id);
+		dispatch("DELETE_STORY", id);
 	},
 
 	duplicateStory({ dispatch }, id, newName) {
-		dispatch('DUPLICATE_STORY', id, newName);
+		dispatch("DUPLICATE_STORY", id, newName);
 	},
 
 	importStory({ dispatch }, toImport) {
-		dispatch('IMPORT_STORY', toImport);
+		dispatch("IMPORT_STORY", toImport);
 	},
 
 	setTagColorInStory(store, storyId, tagName, tagColor) {
-		const story = store.state.story.stories.find(
-			story => story.id == storyId
-		);
+		const story = store.state.story.stories.find(story => story.id == storyId);
 		let toMerge = {};
 
 		toMerge[tagName] = tagColor;
@@ -48,11 +46,9 @@ const actions = {
 			throw new Error(`No story exists with id ${storyId}`);
 		}
 
-		store.dispatch(
-			'UPDATE_STORY',
-			storyId,
-			{ tagColors: Object.assign({}, story.tagColors, toMerge) }
-		);
+		store.dispatch("UPDATE_STORY", storyId, {
+			tagColors: Object.assign({}, story.tagColors, toMerge)
+		});
 	},
 
 	/*
@@ -60,9 +56,7 @@ const actions = {
 	*/
 
 	cleanUpTagColorsInStory(store, storyId) {
-		let story = store.state.story.stories.find(
-			story => story.id == storyId
-		);
+		let story = store.state.story.stories.find(story => story.id == storyId);
 		let tagColors = Object.assign({}, story.tagColors);
 
 		if (!story) {
@@ -77,9 +71,9 @@ const actions = {
 			delete tagColors[tag];
 		});
 
-		store.dispatch('UPDATE_STORY', storyId, { tagColors });
+		store.dispatch("UPDATE_STORY", storyId, { tagColors });
 	},
-	
+
 	/*
 	Repairs stories by ensuring that they always have a story format and
 	version set.
@@ -94,11 +88,9 @@ const actions = {
 			*/
 
 			if (!story.storyFormat) {
-				actions.updateStory(
-					store,
-					story.id,
-					{ storyFormat: store.state.pref.defaultFormat.name }
-				);
+				actions.updateStory(store, story.id, {
+					storyFormat: store.state.pref.defaultFormat.name
+				});
 			}
 
 			/*
@@ -107,24 +99,15 @@ const actions = {
 			*/
 
 			if (/^SugarCube 1/.test(story.storyFormat)) {
-				actions.updateStory(
-					store,
-					story.id,
-					{
-						storyFormat: 'SugarCube',
-						storyFormatVersion: latestVersions['SugarCube']['1'].version
-					}
-				);
-			}
-			else if (/^SugarCube 2/.test(story.storyFormat)) {
-				actions.updateStory(
-					store,
-					story.id,
-					{
-						storyFormat: 'SugarCube',
-						storyFormatVersion: latestVersions['SugarCube']['2'].version
-					}
-				);
+				actions.updateStory(store, story.id, {
+					storyFormat: "SugarCube",
+					storyFormatVersion: latestVersions["SugarCube"]["1"].version
+				});
+			} else if (/^SugarCube 2/.test(story.storyFormat)) {
+				actions.updateStory(store, story.id, {
+					storyFormat: "SugarCube",
+					storyFormatVersion: latestVersions["SugarCube"]["2"].version
+				});
 			}
 
 			if (story.storyFormatVersion) {
@@ -132,27 +115,24 @@ const actions = {
 				Update the story's story format to the latest available version.
 				*/
 
-				const majorVersion = semverUtils.parse(
-					story.storyFormatVersion
-				).major;
+				const majorVersion = semverUtils.parse(story.storyFormatVersion).major;
 
 				/* eslint-disable max-len */
 
-				if (latestVersions[story.storyFormat] &&
+				if (
+					latestVersions[story.storyFormat] &&
 					latestVersions[story.storyFormat][majorVersion] &&
-					story.storyFormatVersion !== latestVersions[story.storyFormat][majorVersion].version) {
-					actions.updateStory(
-						store,
-						story.id,
-						{
-							storyFormatVersion: latestVersions[story.storyFormat][majorVersion].version
-						}
-					);
+					story.storyFormatVersion !==
+						latestVersions[story.storyFormat][majorVersion].version
+				) {
+					actions.updateStory(store, story.id, {
+						storyFormatVersion:
+							latestVersions[story.storyFormat][majorVersion].version
+					});
 				}
 
 				/* eslint-enable max-len */
-			}
-			else if (latestVersions[story.storyFormat]) {
+			} else if (latestVersions[story.storyFormat]) {
 				/*
 				If a story has no format version, pick the lowest major version
 				number currently available.
@@ -160,22 +140,15 @@ const actions = {
 
 				const majorVersion = Object.keys(
 					latestVersions[story.storyFormat]
-				).reduce(
-					(prev, current) => (current < prev) ? current : prev
-				);
+				).reduce((prev, current) => (current < prev ? current : prev));
 
-				actions.updateStory(
-					store,
-					story.id,
-					{
-						/* eslint-disable max-len */
-						storyFormatVersion: latestVersions[story.storyFormat][majorVersion].version
-						/* eslint-enable max-len */
-					}
-				);
+				actions.updateStory(store, story.id, {
+					/* eslint-disable max-len */
+					storyFormatVersion:
+						latestVersions[story.storyFormat][majorVersion].version
+					/* eslint-enable max-len */
+				});
 			}
 		});
 	}
-};
-
-module.exports = actions;
+});

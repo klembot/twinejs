@@ -17,8 +17,7 @@ const CodeMirror = require("codemirror");
 CodeMirror.defineOption("prefixTrigger", [], (cm, opts) => {
 	if (opts.prefixes && opts.callback) {
 		cm.on("inputRead", checkTrigger);
-	}
-	else {
+	} else {
 		cm.off("inputRead", checkTrigger);
 	}
 

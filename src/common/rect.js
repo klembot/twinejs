@@ -138,8 +138,7 @@ module.exports = {
 
 			if (leftMove < rightMove) {
 				xChange = -leftMove;
-			}
-			else {
+			} else {
 				xChange = rightMove;
 			}
 		}
@@ -152,8 +151,7 @@ module.exports = {
 
 			if (upMove < downMove) {
 				yChange = -upMove;
-			}
-			else {
+			} else {
 				yChange = downMove;
 			}
 		}
@@ -162,8 +160,7 @@ module.exports = {
 
 		if (Math.abs(xChange) > Math.abs(yChange)) {
 			movable.top += yChange;
-		}
-		else {
+		} else {
 			movable.left += xChange;
 		}
 	}

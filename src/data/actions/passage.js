@@ -1,23 +1,21 @@
-const linkParser = require('../link-parser');
-const rect = require('../../common/rect');
+const linkParser = require("../link-parser");
+const rect = require("../../common/rect");
 
 const actions = {
 	createPassage({ dispatch }, storyId, props) {
-		dispatch('CREATE_PASSAGE_IN_STORY', storyId, props);
+		dispatch("CREATE_PASSAGE_IN_STORY", storyId, props);
 	},
 
 	updatePassage({ dispatch }, storyId, passageId, props) {
-		dispatch('UPDATE_PASSAGE_IN_STORY', storyId, passageId, props);
+		dispatch("UPDATE_PASSAGE_IN_STORY", storyId, passageId, props);
 	},
 
 	deletePassage({ dispatch }, storyId, passageId) {
-		dispatch('DELETE_PASSAGE_IN_STORY', storyId, passageId);
+		dispatch("DELETE_PASSAGE_IN_STORY", storyId, passageId);
 	},
 
 	selectPassages(store, storyId, filter) {
-		const story = store.state.story.stories.find(
-			story => story.id == storyId
-		);
+		const story = store.state.story.stories.find(story => story.id == storyId);
 
 		if (!story) {
 			throw new Error(`No story exists with id ${storyId}`);
@@ -30,11 +28,9 @@ const actions = {
 			/* Only dispatch updates where there are changes. */
 
 			if (wantSelect !== current) {
-				store.dispatch(
-					'UPDATE_PASSAGE_IN_STORY',
-					storyId,
-					p.id,
-					{ selected: wantSelect });
+				store.dispatch("UPDATE_PASSAGE_IN_STORY", storyId, p.id, {
+					selected: wantSelect
+				});
 			}
 		});
 	},
@@ -45,26 +41,20 @@ const actions = {
 	*/
 
 	positionPassage(store, storyId, passageId, gridSize, filter) {
-		if (gridSize && typeof gridSize !== 'number') {
-			throw new Error('Asked to snap to a non-numeric grid size: ' + gridSize);
+		if (gridSize && typeof gridSize !== "number") {
+			throw new Error("Asked to snap to a non-numeric grid size: " + gridSize);
 		}
 
-		const story = store.state.story.stories.find(
-			story => story.id == storyId
-		);
+		const story = store.state.story.stories.find(story => story.id == storyId);
 
 		if (!story) {
 			throw new Error(`No story exists with id ${storyId}`);
 		}
 
-		const passage = story.passages.find(
-			passage => passage.id == passageId
-		);
+		const passage = story.passages.find(passage => passage.id == passageId);
 
 		if (!passage) {
-			throw new Error(
-				`No passage exists in this story with id ${passageId}`
-			);
+			throw new Error(`No passage exists in this story with id ${passageId}`);
 		}
 
 		/* Displace by other passages. */
@@ -96,23 +86,16 @@ const actions = {
 		/* Snap to the grid. */
 
 		if (story.snapToGrid && gridSize && gridSize !== 0) {
-			passageRect.left = Math.round(passageRect.left / gridSize) *
-				gridSize;
-			passageRect.top = Math.round(passageRect.top / gridSize) *
-				gridSize;
+			passageRect.left = Math.round(passageRect.left / gridSize) * gridSize;
+			passageRect.top = Math.round(passageRect.top / gridSize) * gridSize;
 		}
 
 		/* Save the change. */
 
-		actions.updatePassage(
-			store,
-			storyId,
-			passageId,
-			{
-				top: passageRect.top,
-				left: passageRect.left
-			}
-		);
+		actions.updatePassage(store, storyId, passageId, {
+			top: passageRect.top,
+			left: passageRect.left
+		});
 	},
 
 	/*
@@ -120,19 +103,16 @@ const actions = {
 	*/
 
 	createNewlyLinkedPassages(store, storyId, passageId, oldText, gridSize) {
-		const story = store.state.story.stories.find(
-			story => story.id === storyId
-		);
-		const passage = story.passages.find(
-			passage => passage.id === passageId
-		);
+		const story = store.state.story.stories.find(story => story.id === storyId);
+		const passage = story.passages.find(passage => passage.id === passageId);
 
 		/* Determine how many passages we'll need to create. */
 
 		const oldLinks = linkParser(oldText, true);
 		const newLinks = linkParser(passage.text, true).filter(
-			link => (oldLinks.indexOf(link) === -1) &&
-				!(story.passages.some(passage => passage.name === link))
+			link =>
+				oldLinks.indexOf(link) === -1 &&
+				!story.passages.some(passage => passage.name === link)
 		);
 
 		/* We center the new passages underneath this one. */
@@ -144,33 +124,25 @@ const actions = {
 		the passages themselves plus the spacing in between.
 		*/
 
-		const totalWidth = newLinks.length * 100 +
-			((newLinks.length - 1) * (100 / 2));
+		const totalWidth =
+			newLinks.length * 100 + (newLinks.length - 1) * (100 / 2);
 		let newLeft = passage.left + (100 - totalWidth) / 2;
 
 		newLinks.forEach(link => {
-			store.dispatch(
-				'CREATE_PASSAGE_IN_STORY',
-				storyId,
-				{
-					name: link,
-					left: newLeft,
-					top: newTop
-				}
-			);
+			store.dispatch("CREATE_PASSAGE_IN_STORY", storyId, {
+				name: link,
+				left: newLeft,
+				top: newTop
+			});
 
 			const newPassage = story.passages.find(p => p.name === link);
 
 			if (newPassage) {
-				actions.positionPassage(
-					store,
-					storyId,
-					newPassage.id,
-					gridSize
+				actions.positionPassage(store, storyId, newPassage.id, gridSize);
+			} else {
+				console.warn(
+					"Could not locate newly-created passage in order to position it"
 				);
-			}
-			else {
-				console.warn('Could not locate newly-created passage in order to position it');
 			}
 
 			newLeft += 100 * 1.5;
@@ -182,9 +154,7 @@ const actions = {
 	changeLinksInStory(store, storyId, oldName, newName) {
 		// TODO: add hook for story formats to be more sophisticated
 
-		const story = store.state.story.stories.find(
-			story => story.id === storyId
-		);
+		const story = store.state.story.stories.find(story => story.id === storyId);
 
 		if (!story) {
 			throw new Error(`No story exists with id ${storyId}`);
@@ -195,47 +165,43 @@ const actions = {
 		Taken from https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions
 		*/
 
-		const oldNameEscaped = oldName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-		const newNameEscaped = newName.replace(/\$/g, '$$$$');
+		const oldNameEscaped = oldName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+		const newNameEscaped = newName.replace(/\$/g, "$$$$");
 
 		const simpleLinkRe = new RegExp(
-			'\\[\\[' + oldNameEscaped + '(\\]\\[.*?)?\\]\\]',
-			'g'
+			"\\[\\[" + oldNameEscaped + "(\\]\\[.*?)?\\]\\]",
+			"g"
 		);
 		const compoundLinkRe = new RegExp(
-			'\\[\\[(.*?)(\\||->)' + oldNameEscaped + '(\\]\\[.*?)?\\]\\]',
-			'g'
+			"\\[\\[(.*?)(\\||->)" + oldNameEscaped + "(\\]\\[.*?)?\\]\\]",
+			"g"
 		);
 		const reverseLinkRe = new RegExp(
-			'\\[\\[' + oldNameEscaped + '(<-.*?)(\\]\\[.*?)?\\]\\]',
-			'g'
+			"\\[\\[" + oldNameEscaped + "(<-.*?)(\\]\\[.*?)?\\]\\]",
+			"g"
 		);
 
 		story.passages.forEach(passage => {
-			if (simpleLinkRe.test(passage.text) ||
+			if (
+				simpleLinkRe.test(passage.text) ||
 				compoundLinkRe.test(passage.text) ||
-				reverseLinkRe.test(passage.text)) {
+				reverseLinkRe.test(passage.text)
+			) {
 				let newText = passage.text;
 
-				newText = newText.replace(
-					simpleLinkRe,
-					'[[' + newNameEscaped + '$1]]'
-				);
+				newText = newText.replace(simpleLinkRe, "[[" + newNameEscaped + "$1]]");
 				newText = newText.replace(
 					compoundLinkRe,
-					'[[$1$2' + newNameEscaped + '$3]]'
+					"[[$1$2" + newNameEscaped + "$3]]"
 				);
 				newText = newText.replace(
 					reverseLinkRe,
-					'[[' + newNameEscaped + '$1$2]]'
+					"[[" + newNameEscaped + "$1$2]]"
 				);
 
-				store.dispatch(
-					'UPDATE_PASSAGE_IN_STORY',
-					storyId,
-					passage.id,
-					{ text: newText }
-				);
+				store.dispatch("UPDATE_PASSAGE_IN_STORY", storyId, passage.id, {
+					text: newText
+				});
 			}
 		});
 	}
