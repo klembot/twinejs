@@ -42,6 +42,7 @@ module.exports = {
 						buttonlabel: '<i class="fa fa-download"></i>' + locale.say('Download'),
 						buttonClass: 'download primary',
 						modalClass: 'info',
+						cancelLabel: locale.say('Not Right Now'),
 						message: locale.say('A new version of Twine, <span class="version"></span>, has been released.').replace('><', '>' + version + '<')
 					};
 
