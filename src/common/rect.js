@@ -2,19 +2,17 @@
 // rectangles to be specified as objects with { top, left, width, height }
 // properties.
 
-const segseg = require("segseg");
+const segseg = require('segseg');
 
 module.exports = {
 	// Returns whether two rectangles intersect.
 	// http://stackoverflow.com/questions/2752349/fast-rectangle-to-rectangle-intersection
 
 	intersects(r1, r2) {
-		return !(
-			r2.left > r1.left + r1.width ||
+		return !(r2.left > r1.left + r1.width ||
 			r2.left + r2.width < r1.left ||
 			r2.top > r1.top + r1.height ||
-			r2.top + r2.height < r1.top
-		);
+			r2.top + r2.height < r1.top);
 	},
 
 	// Returns the intersection point between a rectangle and a line segment.
@@ -133,12 +131,13 @@ module.exports = {
 		let xChange, yChange;
 
 		if (xOverlap !== 0) {
-			const leftMove = mLeft - sLeft + movable.width + spacing;
+			const leftMove = (mLeft - sLeft) + movable.width + spacing;
 			const rightMove = sRight - mLeft + spacing;
 
 			if (leftMove < rightMove) {
 				xChange = -leftMove;
-			} else {
+			}
+			else {
 				xChange = rightMove;
 			}
 		}
@@ -146,12 +145,13 @@ module.exports = {
 		// Same as above, but with vertical overlap.
 
 		if (yOverlap !== 0) {
-			const upMove = mTop - sTop + movable.height + spacing;
+			const upMove = (mTop - sTop) + movable.height + spacing;
 			const downMove = sBottom - mTop + spacing;
 
 			if (upMove < downMove) {
 				yChange = -upMove;
-			} else {
+			}
+			else {
 				yChange = downMove;
 			}
 		}
@@ -160,7 +160,8 @@ module.exports = {
 
 		if (Math.abs(xChange) > Math.abs(yChange)) {
 			movable.top += yChange;
-		} else {
+		}
+		else {
 			movable.left += xChange;
 		}
 	}

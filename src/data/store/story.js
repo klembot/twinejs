@@ -1,9 +1,9 @@
 // A Vuex module for working with stories. This is meant to be incorporated by
 // index.js.
 
-const uuid = require("tiny-uuid");
-const locale = require("../../locale");
-const ui = require("../../ui");
+const uuid = require('tiny-uuid');
+const locale = require('../../locale');
+const ui = require('../../ui');
 
 // A shorthand function for finding a particular story in the state, or a
 // particular passage in a story.
@@ -20,7 +20,7 @@ function getStoryById(state, id) {
 
 function getPassageInStory(story, id) {
 	let passage = story.passages.find(passage => passage.id === id);
-
+	
 	if (!passage) {
 		throw new Error(`No passage exists in this story with id ${id}`);
 	}
@@ -28,7 +28,7 @@ function getPassageInStory(story, id) {
 	return passage;
 }
 
-const storyStore = (module.exports = {
+const storyStore = module.exports = {
 	state: {
 		stories: []
 	},
@@ -48,7 +48,7 @@ const storyStore = (module.exports = {
 			);
 
 			if (story.passages) {
-				story.passages.forEach(passage => (passage.story = story.id));
+				story.passages.forEach(passage => passage.story = story.id);
 			}
 
 			state.stories.push(story);
@@ -64,23 +64,29 @@ const storyStore = (module.exports = {
 		DUPLICATE_STORY(state, id, newName) {
 			const original = getStoryById(state, id);
 
-			let story = Object.assign({}, original, {
-				id: uuid(),
-				ifid: uuid().toUpperCase(),
-				name: newName
-			});
+			let story = Object.assign(
+				{},
+				original,
+				{
+					id: uuid(),
+					ifid: uuid().toUpperCase(),
+					name: newName
+				}
+			);
 
 			/* We need to do a deep copy of the passages. */
 
 			story.passages = [];
 
 			original.passages.forEach(passage => {
-				story.passages.push(
-					Object.assign({}, passage, {
+				story.passages.push(Object.assign(
+					{},
+					passage,
+					{
 						id: uuid(),
 						story: story.id
-					})
-				);
+					}
+				));
 
 				if (passage.tags) {
 					passage.tags = passage.tags.slice(0);
@@ -173,9 +179,8 @@ const storyStore = (module.exports = {
 		DELETE_PASSAGE_IN_STORY(state, storyId, passageId) {
 			let story = getStoryById(state, storyId);
 
-			story.passages = story.passages.filter(
-				passage => passage.id !== passageId
-			);
+			story.passages =
+				story.passages.filter(passage => passage.id !== passageId);
 			story.lastUpdate = new Date();
 		}
 	},
@@ -183,14 +188,14 @@ const storyStore = (module.exports = {
 	// Defaults for newly-created objects.
 
 	storyDefaults: {
-		name: locale.say("Untitled Story"),
+		name: locale.say('Untitled Story'),
 		startPassage: -1,
 		zoom: 1,
 		snapToGrid: false,
-		stylesheet: "",
-		script: "",
-		storyFormat: "",
-		storyFormatVersion: ""
+		stylesheet: '',
+		script: '',
+		storyFormat: '',
+		storyFormatVersion: ''
 	},
 
 	passageDefaults: {
@@ -200,11 +205,11 @@ const storyStore = (module.exports = {
 		width: 100,
 		height: 100,
 		tags: [],
-		name: locale.say("Untitled Passage"),
+		name: locale.say('Untitled Passage'),
 		selected: false,
 
-		text: ui.hasPrimaryTouchUI()
-			? locale.say("Tap this passage, then the pencil icon to edit it.")
-			: locale.say("Double-click this passage to edit it.")
+		text: ui.hasPrimaryTouchUI() ?
+			locale.say('Tap this passage, then the pencil icon to edit it.')
+			: locale.say('Double-click this passage to edit it.')
 	}
-});
+};

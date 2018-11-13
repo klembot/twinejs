@@ -3,24 +3,24 @@ Parses passage text for links. Optionally, it returns internal links only --
 e.g. those pointing to other passages in a story, not to an external web site.
 */
 
-"use strict";
+'use strict';
 
 /* The top level regular expression to catch links -- i.e. [[link]]. */
-const extractLinkTags = text => text.match(/\[\[.*?\]\]/g) || [];
+const extractLinkTags = (text) => text.match(/\[\[.*?\]\]/g) || [];
 
 /* Links _not_ starting with a protocol, e.g. abcd://. */
 const internalLinks = link => !/^\w+:\/\/\/?\w/i.test(link);
 
-const nonEmptyLinks = link => link !== "";
+const nonEmptyLinks = link => link !== '';
 
 /* Identifies values that appear only once in the array. */
 const uniques = (v, i, a) => a.indexOf(v) === i;
 
 /* Setter is the second [] block if exists. */
 const removeSetters = link => {
-	const noSetter = getField(link, "][", 0);
+	const noSetter = getField(link, '][', 0);
 
-	return typeof noSetter !== "undefined" ? noSetter : link;
+	return typeof (noSetter) !== 'undefined' ? noSetter : link;
 };
 
 const removeEnclosingBrackets = link => link.substr(2, link.length - 4);
@@ -37,10 +37,10 @@ const getField = (link, separator, index) => {
 		return undefined;
 	}
 
-	return index < 0 ? fields[fields.length + index] : fields[index];
+	return (index < 0) ? fields[fields.length + index] : fields[index];
 };
 
-const extractLink = tagContent => {
+const extractLink = (tagContent) => {
 	/*
 	Arrow links:
 	[[display text->link]] format
@@ -49,19 +49,19 @@ const extractLink = tagContent => {
 	Interpret the rightmost '->' and the leftmost '<-' as the divider.
 	*/
 
-	return (
-		getField(tagContent, "->", -1) ||
-		getField(tagContent, "<-", 0) ||
-		/*
+	return getField(tagContent, '->', -1) ||
+		   getField(tagContent, '<-', 0) ||
+
+		   /*
 		   TiddlyWiki links:
 		   [[display text|link]] format
 		   */
-		getField(tagContent, "|", -1) ||
-		/* [[link]] format */
-		tagContent
-	);
+		   getField(tagContent, '|', -1) ||
+		   
+		   /* [[link]] format */
+		   tagContent;
 };
-
+										   
 module.exports = (text, internalOnly) => {
 	/*
 	Link matching regexps ignore setter components, should they exist.

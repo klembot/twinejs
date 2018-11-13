@@ -1,3 +1,4 @@
+syntax: glob
 *.swp
 node_modules/*
 dist/*

@@ -110,7 +110,11 @@
 		"yargs": "^6.6.0"
 	},
 	"lint-staged": {
-		"*.{js,json,css,md}": [
+		"*.{js}": [
+			"eslint --fix",
+			"git add"
+		],
+		"*.{json,css,md}": [
 			"prettier --write",
 			"git add"
 		]

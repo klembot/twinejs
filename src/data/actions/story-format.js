@@ -2,92 +2,87 @@
 Story format-related actions.
 */
 
-const jsonp = require("jsonp");
-const semverUtils = require("semver-utils");
-const latestFormatVersions = require("../latest-format-versions");
-const locale = require("../../locale");
-const { setPref } = require("./pref");
+const jsonp = require('jsonp');
+const semverUtils = require('semver-utils');
+const latestFormatVersions = require('../latest-format-versions');
+const locale = require('../../locale');
+const { setPref } = require('./pref');
 
-const actions = (module.exports = {
+const actions = module.exports = {
 	createFormat({ dispatch }, props) {
-		dispatch("CREATE_FORMAT", props);
+		dispatch('CREATE_FORMAT', props);
 	},
 
 	updateFormat({ dispatch }, id, props) {
-		dispatch("UPDATE_FORMAT", id, props);
+		dispatch('UPDATE_FORMAT', id, props);
 	},
 
 	deleteFormat({ dispatch }, id) {
-		dispatch("DELETE_FORMAT", id);
+		dispatch('DELETE_FORMAT', id);
 	},
 
 	createFormatFromUrl(store, url) {
 		return new Promise((resolve, reject) => {
-			jsonp(url, { name: "storyFormat", timeout: 2000 }, (err, data) => {
-				if (err) {
-					reject(err);
-					return;
-				}
+			jsonp(
+				url,
+				{ name: 'storyFormat', timeout: 2000 },
+				(err, data) => {
+					if (err) {
+						reject(err);
+						return;
+					}
 
-				const pVer = semverUtils.parse(data.version);
-				const pMinor = parseInt(pVer.minor);
-				const pPatch = parseInt(pVer.patch);
-
-				/*
+					const pVer = semverUtils.parse(data.version);
+					const pMinor = parseInt(pVer.minor);
+					const pPatch = parseInt(pVer.patch);
+	
+					/*
 					Check for an identical version.
 					*/
-
-				if (
-					store.state.storyFormat.formats.some(current => {
-						return (
-							current.name === data.name && current.version === data.version
-						);
-					})
-				) {
-					reject(
-						new Error(locale.say("this story format is already installed"))
-					);
-					return;
-				}
-
-				/*
+	
+					if (store.state.storyFormat.formats.some(current => {
+						return current.name === data.name &&
+							current.version === data.version;
+					})) {
+						reject(new Error(
+							locale.say('this story format is already installed')
+						));
+						return;
+					}
+	
+					/*
 					Check for a more recent version.
 					*/
-
-				if (
-					store.state.storyFormat.formats.some(current => {
+	
+					if (store.state.storyFormat.formats.some(current => {
 						const cVer = semverUtils.parse(current.version);
-
-						return (
-							current.name === data.name &&
+	
+						return current.name === data.name &&
 							cVer.major === pVer.major &&
 							parseInt(cVer.minor) >= pMinor &&
-							parseInt(cVer.patch) >= pPatch
-						);
-					})
-				) {
-					reject(
-						new Error(
+							parseInt(cVer.patch) >= pPatch;
+					})) {
+						reject(new Error(
 							locale.say(
-								"a more recent version of the story format &ldquo;%s&rdquo; is already installed",
+								'a more recent version of the story format &ldquo;%s&rdquo; is already installed',
 								data.name
 							)
-						)
-					);
-					return;
+						));
+						return;
+					}
+	
+					const format = {
+						name: data.name,
+						version: data.version,
+						url,
+						userAdded: true,
+						properties: data
+					};
+	
+					store.dispatch('CREATE_FORMAT', format);
+					resolve(format);
 				}
-
-				const format = {
-					name: data.name,
-					version: data.version,
-					url,
-					userAdded: true,
-					properties: data
-				};
-
-				store.dispatch("CREATE_FORMAT", format);
-				resolve(format);
-			});
+			);
 		});
 	},
 
@@ -99,13 +94,12 @@ const actions = (module.exports = {
 
 		const majorVersion = semverUtils.parse(version).major;
 		const formats = store.state.storyFormat.formats.filter(
-			format =>
-				format.name === name &&
+			format => format.name === name &&
 				semverUtils.parse(format.version).major === majorVersion
 		);
 
 		if (formats.length === 0) {
-			throw new Error("No format is available named " + name);
+			throw new Error('No format is available named ' + name);
 		}
 
 		const format = formats.reduce((prev, current) => {
@@ -124,7 +118,7 @@ const actions = (module.exports = {
 		});
 
 		if (!format) {
-			throw new Error("No format is available for version " + version);
+			throw new Error('No format is available for version ' + version);
 		}
 
 		return new Promise((resolve, reject) => {
@@ -133,15 +127,19 @@ const actions = (module.exports = {
 				return;
 			}
 
-			jsonp(format.url, { name: "storyFormat", timeout: 2000 }, (err, data) => {
-				if (err) {
-					reject(err);
-					return;
-				}
+			jsonp(
+				format.url,
+				{ name: 'storyFormat', timeout: 2000 },
+				(err, data) => {
+					if (err) {
+						reject(err);
+						return;
+					}
 
-				store.dispatch("LOAD_FORMAT", format.id, data);
-				resolve(format);
-			});
+					store.dispatch('LOAD_FORMAT', format.id, data);
+					resolve(format);
+				}
+			);
 		});
 	},
 
@@ -156,8 +154,10 @@ const actions = (module.exports = {
 		*/
 
 		store.state.storyFormat.formats.forEach(format => {
-			if (typeof format.version !== "string" || format.version === "") {
-				console.warn(`Deleting unversioned story format ${format.name}`);
+			if (typeof format.version !== 'string' || format.version === '') {
+				console.warn(
+					`Deleting unversioned story format ${format.name}`
+				);
 				actions.deleteFormat(store, format.id);
 			}
 		});
@@ -168,56 +168,54 @@ const actions = (module.exports = {
 
 		const builtinFormats = [
 			{
-				name: "Harlowe",
-				url: "story-formats/harlowe-1.2.4/format.js",
-				version: "1.2.4",
+				name: 'Harlowe',
+				url: 'story-formats/harlowe-1.2.4/format.js',
+				version: '1.2.4',
 				userAdded: false
 			},
 			{
-				name: "Harlowe",
-				url: "story-formats/harlowe-2.1.0/format.js",
-				version: "2.1.0",
+				name: 'Harlowe',
+				url: 'story-formats/harlowe-2.1.0/format.js',
+				version: '2.1.0',
 				userAdded: false
 			},
 			{
-				name: "Harlowe",
-				url: "story-formats/harlowe-3.0.0/format.js",
-				version: "3.0.0",
+				name: 'Harlowe',
+				url: 'story-formats/harlowe-3.0.0/format.js',
+				version: '3.0.0',
 				userAdded: false
 			},
 			{
-				name: "Paperthin",
-				url: "story-formats/paperthin-1.0.0/format.js",
-				version: "1.0.0",
+				name: 'Paperthin',
+				url: 'story-formats/paperthin-1.0.0/format.js',
+				version: '1.0.0',
 				userAdded: false
 			},
 			{
-				name: "Snowman",
-				url: "story-formats/snowman-1.3.0/format.js",
-				version: "1.3.0",
+				name: 'Snowman',
+				url: 'story-formats/snowman-1.3.0/format.js',
+				version: '1.3.0',
 				userAdded: false
 			},
 			{
-				name: "SugarCube",
-				url: "story-formats/sugarcube-1.0.35/format.js",
-				version: "1.0.35",
+				name: 'SugarCube',
+				url: 'story-formats/sugarcube-1.0.35/format.js',
+				version: '1.0.35',
 				userAdded: false
 			},
 			{
-				name: "SugarCube",
-				url: "story-formats/sugarcube-2.21.0/format.js",
-				version: "2.21.0",
+				name: 'SugarCube',
+				url: 'story-formats/sugarcube-2.21.0/format.js',
+				version: '2.21.0',
 				userAdded: false
 			}
 		];
 
 		builtinFormats.forEach(builtin => {
-			if (
-				!store.state.storyFormat.formats.find(
-					format =>
-						format.name === builtin.name && format.version === builtin.version
-				)
-			) {
+			if (!store.state.storyFormat.formats.find(
+				format => format.name === builtin.name &&
+					format.version === builtin.version
+			)) {
 				actions.createFormat(store, builtin);
 			}
 		});
@@ -227,12 +225,20 @@ const actions = (module.exports = {
 		exists.
 		*/
 
-		if (typeof store.state.pref.defaultFormat !== "object") {
-			setPref(store, "defaultFormat", { name: "Harlowe", version: "3.0.0" });
+		if (typeof store.state.pref.defaultFormat !== 'object') {
+			setPref(
+				store,
+				'defaultFormat',
+				{ name: 'Harlowe', version: '3.0.0' }
+			);
 		}
 
-		if (typeof store.state.pref.proofingFormat !== "object") {
-			setPref(store, "proofingFormat", { name: "Paperthin", version: "1.0.0" });
+		if (typeof store.state.pref.proofingFormat !== 'object') {
+			setPref(
+				store,
+				'proofingFormat',
+				{ name: 'Paperthin', version: '1.0.0' }
+			);
 		}
 
 		/*
@@ -250,7 +256,8 @@ const actions = (module.exports = {
 
 			if (v.version !== latestVersions[format.name][v.major].version) {
 				console.warn(
-					`Deleting outdated story format ${format.name} ` + v.version
+					`Deleting outdated story format ${format.name} ` +
+					v.version
 				);
 				actions.deleteFormat(store, format.id);
 			}
@@ -261,31 +268,35 @@ const actions = (module.exports = {
 		series.
 		*/
 
-		const defaultFormat = store.state.pref.defaultFormat || {
-			name: null,
-			version: null
-		};
+		const defaultFormat = store.state.pref.defaultFormat ||
+			{ name: null, version: null };
 		const defaultFormatVersion = semverUtils.parse(defaultFormat.version);
 		const latestDefault = latestVersions[defaultFormat.name];
-		const proofingFormat = store.state.pref.proofingFormat || {
-			name: null,
-			version: null
-		};
+		const proofingFormat = store.state.pref.proofingFormat ||
+			{ name: null, version: null };
 		const proofingFormatVersion = semverUtils.parse(proofingFormat.version);
 		const latestProofing = latestVersions[proofingFormat.name];
 
 		if (latestDefault && latestDefault[defaultFormatVersion.major]) {
-			setPref(store, "defaultFormat", {
-				name: defaultFormat.name,
-				version: latestDefault[defaultFormatVersion.major].version
-			});
+			setPref(
+				store,
+				'defaultFormat',
+				{
+					name: defaultFormat.name,
+					version: latestDefault[defaultFormatVersion.major].version
+				}
+			);
 		}
 
 		if (latestProofing && latestProofing[proofingFormatVersion.major]) {
-			setPref(store, "proofingFormat", {
-				name: proofingFormat.name,
-				version: latestProofing[proofingFormatVersion.major].version
-			});
+			setPref(
+				store,
+				'proofingFormat',
+				{
+					name: proofingFormat.name,
+					version: latestProofing[proofingFormatVersion.major].version
+				}
+			);
 		}
 	}
-});
+};
