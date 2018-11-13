@@ -1,10 +1,17 @@
 {
-	"plugins": ["prettier"],
-	"rules": {
-		"brace-style": [2, "stroustrup", { "allowSingleLine": true }],
-		"comma-dangle": 0,
+    "rules": {
+		"brace-style": [
+			2,
+			"stroustrup",
+			{ "allowSingleLine": true }
+		],
+        "comma-dangle": 0,
 		"curly": [2, "all"],
-		"indent": [2, "tab", { "SwitchCase": 1 }],
+		"indent": [
+			2,
+			"tab",
+			{ "SwitchCase": 1 }
+		],
 		"max-len": [
 			2,
 			80,
@@ -15,18 +22,27 @@
 			}
 		],
 		"newline-after-var": [2, "always"],
-		"no-console": [2, { "allow": ["warn"] }],
-		"no-extra-semi": 0,
-		"no-mixed-spaces-and-tabs": 0,
-		"no-trailing-spaces": [2, { "skipBlankLines": true }],
+		"no-console": [
+			2,
+			{ "allow": ["warn"] }	
+		],
+        "no-extra-semi": 0,
+        "no-mixed-spaces-and-tabs": 0,
+		"no-trailing-spaces": [
+			2,
+			{ "skipBlankLines": true }
+		],
 		"quote-props": 0,
-		"semi": [2, "always"]
-	},
-	"env": {
-		"browser": true,
-		"es6": true,
-		"commonjs": true,
-		"node": true
-	},
-	"extends": ["eslint:recommended"]
+        "semi": [
+            2,
+            "always"
+        ],
+    },
+    "env": {
+        "browser": true,
+        "es6": true,
+        "commonjs": true,
+        "node": true
+    },
+    "extends": "eslint:recommended"
 }
