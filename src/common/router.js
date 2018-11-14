@@ -80,7 +80,9 @@ let TwineRouter = new VueRouter({
 							story.storyFormat,
 							story.storyFormatVersion
 						).then(format => {
-							replaceUI(publishStoryWithFormat(state.appInfo, story, format));
+							replaceUI(publishStoryWithFormat(state.appInfo,
+															 story,
+															 format));
 						});
 					});
 				}
@@ -102,7 +104,9 @@ let TwineRouter = new VueRouter({
 							state.pref.proofingFormat.name,
 							state.pref.proofingFormat.version
 						).then(format => {
-							replaceUI(publishStoryWithFormat(state.appInfo, story, format));
+							replaceUI(publishStoryWithFormat(state.appInfo,
+															 story,
+															 format));
 						});
 					});
 				}
