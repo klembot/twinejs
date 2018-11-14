@@ -199,7 +199,8 @@ TwineRouter.beforeEach((to, from, next) => {
 
 	if (to.path === '/welcome' || welcomeSeen) {
 		next();
-	} else {
+	}
+	else {
 		next('/welcome');
 	}
 });

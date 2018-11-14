@@ -100,19 +100,25 @@ module.exports = Vue.component("FormatDialog", {
 
 					if (aVersion.major > bVersion.major) {
 						return -1;
-					} else if (aVersion.major < bVersion.major) {
+					}
+					else if (aVersion.major < bVersion.major) {
 						return 1;
-					} else {
+					}
+					else {
 						if (aVersion.minor > bVersion.minor) {
 							return -1;
-						} else if (aVersion.minor < bVersion.minor) {
+						}
+						else if (aVersion.minor < bVersion.minor) {
 							return 1;
-						} else {
+						}
+						else {
 							if (aVersion.patch > bVersion.patch) {
 								return -1;
-							} else if (aVersion.patch < bVersion.patch) {
+							}
+							else if (aVersion.patch < bVersion.patch) {
 								return 1;
-							} else {
+							}
+							else {
 								return 0;
 							}
 						}

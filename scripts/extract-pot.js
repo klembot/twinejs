@@ -114,7 +114,6 @@ glob.sync('src/**/*.js').forEach(fileName => {
 				*/
 				
 				return node.raw.replace(/^['"]/, '').replace(/['"]$/, '');
-			break;
 
 			case 'BinaryExpression':
 				if (node.operator === '+') {
@@ -124,7 +123,6 @@ glob.sync('src/**/*.js').forEach(fileName => {
 				throw new Error(
 					`Don't know how to parse operator ${node.operator}`
 				);
-			break;
 
 			default:
 				throw new Error(`Don't know how to parse value of ${node.type}`);

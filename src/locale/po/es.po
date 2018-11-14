@@ -306,10 +306,10 @@ msgstr "Twine es una herramienta de código abierto para contar historias intera
 
 #: templates/storylistview/modals/aboutmodal.html:25
 msgid ""
-"Twine 2.0 is released under the <a href=\"http:\\/\\/www.gnu.org/licenses/gpl-3.0.html\">GPL v3</a> license, but any work created with it may be released under any terms, including commercial ones. <a href=\"https:\\/\\/bitbucket.org/klembot/twinejs\">Source Code Repository</"
+"Twine 2.0 is released under the <a href=\"http://www.gnu.org/licenses/gpl-3.0.html\">GPL v3</a> license, but any work created with it may be released under any terms, including commercial ones. <a href=\"https:\\/\\/bitbucket.org/klembot/twinejs\">Source Code Repository</"
 "a>"
 msgstr ""
-"Twine 2.0 se distribuye bajo la licencia <a href=\"http:\\/\\/www.gnu.org/licenses/gpl-3.0.html\">GPL v3</a>, pero cualquier trabajo creado con él puede distribuirse bajo otros términos cualesquiera, inclusive comerciales. <a href=\"https:\\/\\/bitbucket.org/klembot/twinejs"
+"Twine 2.0 se distribuye bajo la licencia <a href=\"http://www.gnu.org/licenses/gpl-3.0.html\">GPL v3</a>, pero cualquier trabajo creado con él puede distribuirse bajo otros términos cualesquiera, inclusive comerciales. <a href=\"https:\\/\\/bitbucket.org/klembot/twinejs"
 "\">Repositorio del código fuente</a>"
 
 #: templates/storylistview/modals/aboutmodal.html:31
@@ -334,8 +334,8 @@ msgid "Fonts"
 msgstr "Tipos de letra"
 
 #: templates/storylistview/modals/aboutmodal.html:78
-msgid "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the guidance of Robert Slimbach for <a href=\"http:\\/\\/adobe.com/\">Adobe</a><br> Nunito was designed by <a href=\"http:\\/\\/code.newtypography.co.uk/\">Vernon Adams</a>"
-msgstr "Source Sans Pro y Source Code Pro fueron diseñadas por Paul D. Hunt bajo la supervisión de Robert Slimbach para <a href=\"http:\\/\\/adobe.com/\">Adobe</a><br>Nunito fue diseñada por <a href=\"http:\\/\\/code.newtypography.co.uk/\">Vernon Adams</a>"
+msgid "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the guidance of Robert Slimbach for <a href=\"http://adobe.com/\">Adobe</a><br> Nunito was designed by <a href=\"http://code.newtypography.co.uk/\">Vernon Adams</a>"
+msgstr "Source Sans Pro y Source Code Pro fueron diseñadas por Paul D. Hunt bajo la supervisión de Robert Slimbach para <a href=\"http://adobe.com/\">Adobe</a><br>Nunito fue diseñada por <a href=\"http://code.newtypography.co.uk/\">Vernon Adams</a>"
 
 #: templates/storylistview/modals/aboutmodal.html:82
 msgid "Icons"
@@ -560,15 +560,15 @@ msgstr "¿Nueva/o por aquí?"
 
 #: templates/welcomeview.html:27
 msgid ""
-"<strong>If you've never used Twine before,</strong> then welcome! The <a href=\"http:\\/\\/twinery.org/2guide\" target=\"_blank\">Twine 2 Guide</a> and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki at large were written "
+"<strong>If you've never used Twine before,</strong> then welcome! The <a href=\"http://twinery.org/2guide\" target=\"_blank\">Twine 2 Guide</a> and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki at large were written "
 "for Twine 1, which is a little bit different than this version. But most of the concepts are the same."
 msgstr ""
-"<strong>Si nunca has usado Twine antes,</strong> ¡bienvenida/o! La <a href=\"http:\\/\\/twinery.org/2guide\" target=\"_blank\">Guía de Twine 2 (en inglés)</a> y la wiki oficial en general, son un muy buen lugar para aprender. Ten en cuenta que algunos artículos de la wiki en "
+"<strong>Si nunca has usado Twine antes,</strong> ¡bienvenida/o! La <a href=\"http://twinery.org/2guide\" target=\"_blank\">Guía de Twine 2 (en inglés)</a> y la wiki oficial en general, son un muy buen lugar para aprender. Ten en cuenta que algunos artículos de la wiki en "
 "general fueron escritos para Twine 1, que es un poco diferente a esta versión. Pero la mayoría de los conceptos son los mismos."
 
 #: templates/welcomeview.html:31
-msgid "You can also get help over at the <a href=\"http:\\/\\/twinery.org/forum\" target=\"_blank\">Twine forum</a>, too."
-msgstr "Puedes encontrar ayuda en el <a href=\"http:\\/\\/twinery.org/forum\" target=\"_blank\">foro de Twine</a>, también."
+msgid "You can also get help over at the <a href=\"http://twinery.org/forum\" target=\"_blank\">Twine forum</a>, too."
+msgstr "Puedes encontrar ayuda en el <a href=\"http://twinery.org/forum\" target=\"_blank\">foro de Twine</a>, también."
 
 #: templates/welcomeview.html:35
 msgid "<strong>If you have used Twine 1 before,</strong> the guide also has details on what has changed in this version. Chief among them is a new default story format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, try using SugarCube instead."

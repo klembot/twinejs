@@ -100,7 +100,8 @@ module.exports = Vue.extend({
 					/* Ask the user to pick which ones to replace, if any. */
 
 					this.status = "choosing";
-				} else {
+				}
+				else {
 					/* Immediately run the import and close the dialog. */
 
 					this.toImport.forEach(story => this.importStory(story));

@@ -42,7 +42,8 @@ const prompter = {
 				if (typeof validResponse === "string") {
 					this.isValid = false;
 					this.validationError = validResponse;
-				} else {
+				}
+				else {
 					this.isValid = true;
 					eventHub.$emit("close", this.response);
 				}

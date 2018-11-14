@@ -55,27 +55,23 @@ module.exports = Vue.extend({
 		},
 
 		replace() {
-			const name = this.searchNames
-        ? this.match.passage.name.replace(this.searchRegexp, this.replaceWith)
-        : undefined;
-			const text = this.match.passage.text.replace(
-        this.searchRegexp,
-        this.replaceWith
-      );
+			const name = (this.searchNames ?
+				this.match.passage.name.replace(this.searchRegexp, this.replaceWith) : undefined);
+			const text = this.match.passage.text.replace(this.searchRegexp, this.replaceWith);
 
 			this.updatePassage(this.story.id, this.match.passage.id, { name, text });
 		}
 	},
 
 	created: function() {
-    /*
+    	/*
 		The parent sends these events when the user chooses to expand or
 		collapse all results.
-	*/
+		*/
 
 		eventHub.$on('expand', () => this.expanded = true);
 		eventHub.$on('collapse', () => this.expanded = false);
-    /* The parent sends this event when the user clicks "Replace All". */
+		/* The parent sends this event when the user clicks "Replace All". */
 		eventHub.$on('replace', () => this.replace());
 
 	},
