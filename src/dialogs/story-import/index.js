@@ -4,10 +4,10 @@ promise resolving to the stories that were imported, if any.
 */
 
 const Vue = require('vue');
-const { deleteStory, importStory } = require("../../data/actions/story");
-const importHTML = require("../../data/import");
-const load = require("../../file/load");
-const locale = require("../../locale");
+const { deleteStory, importStory } = require('../../data/actions/story');
+const importHTML = require('../../data/import');
+const load = require('../../file/load');
+const locale = require('../../locale');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -22,7 +22,7 @@ module.exports = Vue.extend({
 		   * `choosing`: choosing which stories to import, when there are
 		     duplicates
 		*/
-		status: "waiting",
+		status: 'waiting',
 
 		/* An array of objects to import. */
 
@@ -43,7 +43,7 @@ module.exports = Vue.extend({
 	computed: {
 		confirmClass() {
 			if (this.toReplace.length === 0) {
-				return "primary";
+				return 'primary';
 			}
 
 			return "danger";

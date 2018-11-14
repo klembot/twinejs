@@ -3,7 +3,7 @@ A component showing a single search result.
 */
 
 const Vue = require('vue');
-const locale = require("../../locale");
+const locale = require('../../locale');
 const eventHub = require('../../common/eventHub');
 const { updatePassage } = require("../../data/actions/passage");
 

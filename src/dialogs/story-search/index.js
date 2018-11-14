@@ -4,7 +4,7 @@ passages.
 */
 
 const Vue = require('vue');
-const locale = require("../../locale");
+const locale = require('../../locale');
 const eventHub = require("../../common/eventHub");
 
 require('./index.less');

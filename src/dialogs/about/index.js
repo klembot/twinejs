@@ -1,5 +1,5 @@
 const Vue = require('vue');
-const locale = require("../../locale");
+const locale = require('../../locale');
 
 require('./index.less');
 

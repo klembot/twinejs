@@ -2,7 +2,7 @@
 
 const Vue = require('vue');
 
-const locale = require("../../locale");
+const locale = require('../../locale');
 const eventHub = require("../../common/eventHub");
 
 require('./index.less');
@@ -13,7 +13,7 @@ const prompter = {
 
 		props: {
 			buttonLabel: { type: String, default: "" },
-			buttonClass: { type: String, default: "primary" },
+			buttonClass: { type: String, default: 'primary' },
 			validator: { type: Function, default: function() {} },
 			origin: { default: null },
 			message: { type: String, default: "" },
@@ -39,7 +39,7 @@ const prompter = {
 			accept() {
 				const validResponse = this.validator(this.response);
 
-				if (typeof validResponse === "string") {
+				if (typeof validResponse === 'string') {
 					this.isValid = false;
 					this.validationError = validResponse;
 				}

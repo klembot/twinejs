@@ -2,7 +2,7 @@
 
 const Vue = require('vue');
 const { setPref } = require("../../data/actions/pref");
-const locale = require("../../locale");
+const locale = require('../../locale');
 
 require('./index.less');
 const appDonation = Vue.component("app-donation", {

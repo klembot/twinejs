@@ -1,8 +1,8 @@
 const Vue = require('vue');
-const { loadFormat } = require("../../data/actions/story-format");
-const locale = require("../../locale");
-const notify = require("../../ui/notify");
-const semverUtils = require("semver-utils");
+const { loadFormat } = require('../../data/actions/story-format');
+const locale = require('../../locale');
+const notify = require('../../ui/notify');
+const semverUtils = require('semver-utils');
 
 require('./index.less');
 
@@ -131,7 +131,7 @@ module.exports = Vue.component("FormatDialog", {
 	},
 
 	components: {
-		"format-item": require("./item"),
+		'format-item': require('./item'),
 		'modal-dialog': require('../../ui/modal-dialog')
 	}
 });

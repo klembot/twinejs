@@ -4,12 +4,12 @@ A modal dialog for editing a single passage.
 
 const CodeMirror = require("codemirror");
 const Vue = require('vue');
-const locale = require("../../locale");
+const locale = require('../../locale');
 const {
 	changeLinksInStory,
 	updatePassage
 } = require("../../data/actions/passage");
-const { loadFormat } = require("../../data/actions/story-format");
+const { loadFormat } = require('../../data/actions/story-format');
 const { passageDefaults } = require("../../data/store/story");
 
 require("codemirror/addon/display/placeholder");

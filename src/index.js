@@ -50,7 +50,7 @@ require("./nw")
 			userLocale = store.state.pref.locale;
 		}
 
-		if (typeof userLocale === "string") {
+		if (typeof userLocale === 'string') {
 			/* Load the locale, then start the application. */
 
 			locale.load(userLocale.toLowerCase(), () => {
