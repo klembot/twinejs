@@ -1,6 +1,6 @@
 // A component showing a modal dialog where a story's JavaSCript.
 
-const Vue = require("vue");
+const Vue = require('vue');
 const { updateStory } = require("../../data/actions/story");
 
 require("codemirror/mode/javascript/javascript");
@@ -8,7 +8,7 @@ require("codemirror/addon/display/placeholder");
 require("codemirror/addon/hint/show-hint");
 
 module.exports = Vue.component("JavaScriptEditor", {
-	template: require("./index.html"),
+	template: require('./index.html'),
 
 	props: ["storyId", "origin"],
 
@@ -42,7 +42,7 @@ module.exports = Vue.component("JavaScriptEditor", {
 	},
 
 	components: {
-		"modal-dialog": require("../../ui/modal-dialog"),
+		'modal-dialog': require('../../ui/modal-dialog'),
 		"code-mirror": require("../../vue/codemirror")
 	},
 

@@ -7,7 +7,7 @@
 "use strict";
 const fastclick = require("fastclick");
 
-require("./index.less");
+require('./index.less');
 
 let inited = false;
 let fastclickInstance;

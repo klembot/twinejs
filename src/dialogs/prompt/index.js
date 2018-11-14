@@ -1,15 +1,15 @@
 /* Shows a modal dialog asking for a text response from the user. */
 
-const Vue = require("vue");
+const Vue = require('vue');
 
 const locale = require("../../locale");
 const eventHub = require("../../common/eventHub");
 
-require("./index.less");
+require('./index.less');
 
 const prompter = {
 	component: Vue.component("prompt", {
-		template: require("./index.html"),
+		template: require('./index.html'),
 
 		props: {
 			buttonLabel: { type: String, default: "" },
@@ -55,7 +55,7 @@ const prompter = {
 		},
 
 		components: {
-			"modal-dialog": require("../../ui/modal-dialog")
+			'modal-dialog': require('../../ui/modal-dialog')
 		}
 	})
 };

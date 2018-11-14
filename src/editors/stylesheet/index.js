@@ -2,7 +2,7 @@
 A component showing a modal dialog where a story's stylesheet can be edited.
 */
 
-const Vue = require("vue");
+const Vue = require('vue');
 const { updateStory } = require("../../data/actions/story");
 
 require("codemirror/mode/css/css");
@@ -10,7 +10,7 @@ require("codemirror/addon/display/placeholder");
 require("codemirror/addon/hint/show-hint");
 
 module.exports = Vue.component("StylesheetEditor", {
-	template: require("./index.html"),
+	template: require('./index.html'),
 
 	props: ["storyId", "origin"],
 
@@ -45,7 +45,7 @@ module.exports = Vue.component("StylesheetEditor", {
 	},
 
 	components: {
-		"modal-dialog": require("../../ui/modal-dialog"),
+		'modal-dialog': require('../../ui/modal-dialog'),
 		"code-mirror": require("../../vue/codemirror")
 	},
 

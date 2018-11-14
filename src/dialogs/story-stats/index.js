@@ -2,15 +2,15 @@
 A modal which shows aggregrate statistics for a story.
 */
 
-const Vue = require("vue");
+const Vue = require('vue');
 const moment = require("moment");
 const linkParser = require("../../data/link-parser");
 const locale = require("../../locale");
 
-require("./index.less");
+require('./index.less');
 
 module.exports = Vue.component("StatsDialog", {
-	template: require("./index.html"),
+	template: require('./index.html'),
 
 	data: () => ({
 		storyId: "",
@@ -136,6 +136,6 @@ module.exports = Vue.component("StatsDialog", {
 	},
 
 	components: {
-		"modal-dialog": require("../../ui/modal-dialog")
+		'modal-dialog': require('../../ui/modal-dialog')
 	}
 });

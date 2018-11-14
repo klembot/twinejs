@@ -7,9 +7,9 @@
 "use strict";
 const locale = require("../../locale");
 const eventHub = require("../../common/eventHub");
-const Vue = require("vue");
+const Vue = require('vue');
 
-require("./index.less");
+require('./index.less');
 
 /**
  Shows a modal confirmation dialog, with one button (to continue the action)
@@ -23,7 +23,7 @@ require("./index.less");
 **/
 
 const confirmation = Vue.component("confirm", {
-	template: require("./index.html"),
+	template: require('./index.html'),
 
 	props: {
 		buttonLabel: { type: String, default: "" },
@@ -50,7 +50,7 @@ const confirmation = Vue.component("confirm", {
 	},
 
 	components: {
-		"modal-dialog": require("../../ui/modal-dialog")
+		'modal-dialog': require('../../ui/modal-dialog')
 	}
 });
 

@@ -3,13 +3,13 @@
 **/
 
 "use strict";
-const Vue = require("vue");
+const Vue = require('vue');
 const { setPref } = require("../../data/actions/pref");
 
-require("./index.less");
+require('./index.less');
 
 module.exports = Vue.extend({
-	template: require("./index.html"),
+	template: require('./index.html'),
 
 	data: () => ({
 		// The locales we offer with their codes.

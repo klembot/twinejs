@@ -3,7 +3,7 @@ A modal dialog for editing a single passage.
 */
 
 const CodeMirror = require("codemirror");
-const Vue = require("vue");
+const Vue = require('vue');
 const locale = require("../../locale");
 const {
 	changeLinksInStory,
@@ -16,7 +16,7 @@ require("codemirror/addon/display/placeholder");
 require("codemirror/addon/hint/show-hint");
 require("../../codemirror/prefix-trigger");
 
-require("./index.less");
+require('./index.less');
 
 /*
 Expose CodeMirror to story formats, currently for Harlowe compatibility.
@@ -25,7 +25,7 @@ Expose CodeMirror to story formats, currently for Harlowe compatibility.
 window.CodeMirror = CodeMirror;
 
 module.exports = Vue.component("passage-editor", {
-	template: require("./index.html"),
+	template: require('./index.html'),
 
 	props: {
 		passageId: "",
@@ -248,7 +248,7 @@ module.exports = Vue.component("passage-editor", {
 
 	components: {
 		"code-mirror": require("../../vue/codemirror"),
-		"modal-dialog": require("../../ui/modal-dialog"),
+		'modal-dialog': require('../../ui/modal-dialog'),
 		"tag-editor": require("./tag-editor")
 	},
 

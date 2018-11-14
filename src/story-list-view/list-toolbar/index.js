@@ -1,6 +1,6 @@
 // The side toolbar of a story list.
 
-const Vue = require("vue");
+const Vue = require('vue');
 const AboutDialog = require("../../dialogs/about");
 const ImportDialog = require("../../dialogs/story-import");
 const FormatsDialog = require("../../dialogs/formats");
@@ -10,10 +10,10 @@ const { publishArchive } = require("../../data/publish");
 const eventHub = require("../../common/eventHub");
 const saveFile = require("../../file/save");
 
-require("./index.less");
+require('./index.less');
 
 module.exports = Vue.extend({
-	template: require("./index.html"),
+	template: require('./index.html'),
 
 	computed: {
 		newStoryTitle() {

@@ -4,13 +4,13 @@
 
 "use strict";
 const moment = require("moment");
-const Vue = require("vue");
+const Vue = require('vue');
 const eventHub = require("../../common/eventHub");
 
-require("./index.less");
+require('./index.less');
 
 module.exports = Vue.extend({
-	template: require("./index.html"),
+	template: require('./index.html'),
 
 	props: {
 		story: {

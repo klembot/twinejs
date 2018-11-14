@@ -1,7 +1,7 @@
 /* The main view where story editing takes place. */
 
 const values = require("lodash.values");
-const Vue = require("vue");
+const Vue = require('vue');
 
 const eventHub = require("../common/eventHub");
 const {
@@ -22,7 +22,7 @@ const { prompt } = require("../dialogs/prompt");
 
 // Modal editor for individual passages
 require("../editors/passage");
-require("./index.less");
+require('./index.less');
 
 /*
 A memoized, sorted array of zoom levels used when zooming in or out.
@@ -31,7 +31,7 @@ A memoized, sorted array of zoom levels used when zooming in or out.
 const zoomLevels = values(zoomSettings).sort();
 
 module.exports = Vue.extend({
-	template: require("./index.html"),
+	template: require('./index.html'),
 
 	/* The id of the story we're editing is provided by the router. */
 

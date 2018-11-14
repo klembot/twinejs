@@ -4,7 +4,7 @@ It uses the global eventHub to fire closed events,
  permitting a single modal at a time.
 */
 
-const Vue = require("vue");
+const Vue = require('vue');
 const eventHub = require("../../common/eventHub");
 const domEvents = require("../../vue/mixins/dom-events");
 
@@ -15,10 +15,10 @@ const animationEndEvents = [
 	"oAnimationEnd"
 ];
 
-require("./index.less");
+require('./index.less');
 
 const ModalDialog = Vue.extend({
-	template: require("./index.html"),
+	template: require('./index.html'),
 
 	props: {
 		title: "",

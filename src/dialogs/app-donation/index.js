@@ -1,12 +1,12 @@
 // Shows a dialog asking the user to make a donation.
 
-const Vue = require("vue");
+const Vue = require('vue');
 const { setPref } = require("../../data/actions/pref");
 const locale = require("../../locale");
 
-require("./index.less");
+require('./index.less');
 const appDonation = Vue.component("app-donation", {
-	template: require("./index.html"),
+	template: require('./index.html'),
 
 	computed: {
 		pleaseDonate() {
@@ -33,7 +33,7 @@ const appDonation = Vue.component("app-donation", {
 	},
 
 	components: {
-		"modal-dialog": require("../../ui/modal-dialog")
+		'modal-dialog': require('../../ui/modal-dialog')
 	}
 });
 
@@ -46,11 +46,9 @@ const donation = {
 	check(store) {
 		const now = new Date().getTime();
 
-		if (
-			!store.state.pref.donateShown &&
-			now > store.state.pref.firstRunTime + DONATION_DELAY
-		) {
-			setPref(store, "donateShown", true);
+		if (!store.state.pref.donateShown &&
+			now > store.state.pref.firstRunTime + DONATION_DELAY) {
+			setPref(store, 'donateShown', true);
 			this.$emit("customModal", appDonation);
 			return true;
 		}

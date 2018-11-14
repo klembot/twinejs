@@ -1,10 +1,10 @@
-require("./index.less");
+require('./index.less');
 
 /*
 The main entry point for the application.
 */
 
-let Vue = require("vue");
+let Vue = require('vue');
 
 /*
 Load Vue extensions as early as possible so that they're available to

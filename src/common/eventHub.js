@@ -1,4 +1,4 @@
-let Vue = require("vue");
+let Vue = require('vue');
 
 var eventHub = new Vue();
 

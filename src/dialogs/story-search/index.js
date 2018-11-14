@@ -3,14 +3,14 @@ A modal which allows the user to perform find and replace on a array of
 passages.
 */
 
-const Vue = require("vue");
+const Vue = require('vue');
 const locale = require("../../locale");
 const eventHub = require("../../common/eventHub");
 
-require("./index.less");
+require('./index.less');
 
 module.exports = Vue.component("SearchDialog", {
-	template: require("./index.html"),
+	template: require('./index.html'),
 
 	data: () => ({
 		story: {},
@@ -127,7 +127,7 @@ module.exports = Vue.component("SearchDialog", {
 	},
 
 	components: {
-		"modal-dialog": require("../../ui/modal-dialog"),
+		'modal-dialog': require('../../ui/modal-dialog'),
 		"search-result": require("./result")
 	}
 });

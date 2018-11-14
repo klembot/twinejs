@@ -12,10 +12,10 @@ const scroll = require("scroll");
 const locale = require("../locale");
 const { setPref } = require("../data/actions/pref");
 
-require("./index.less");
+require('./index.less');
 
 module.exports = Vue.extend({
-	template: require("./index.html"),
+	template: require('./index.html'),
 
 	data: () => ({
 		/* How many sections are currently visible. */

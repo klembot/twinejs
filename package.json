@@ -114,7 +114,7 @@
 			"eslint --fix",
 			"git add"
 		],
-		"*.{json,css,md,html}": [
+		"*.{json,css,md}": [
 			"prettier --write",
 			"git add"
 		]

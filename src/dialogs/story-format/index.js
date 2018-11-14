@@ -1,13 +1,13 @@
-const Vue = require("vue");
+const Vue = require('vue');
 const { loadFormat } = require("../../data/actions/story-format");
 const locale = require("../../locale");
 const notify = require("../../ui/notify");
 const semverUtils = require("semver-utils");
 
-require("./index.less");
+require('./index.less');
 
 module.exports = Vue.component("FormatDialog", {
-	template: require("./index.html"),
+	template: require('./index.html'),
 
 	data: () => ({
 		loadIndex: 0,
@@ -132,6 +132,6 @@ module.exports = Vue.component("FormatDialog", {
 
 	components: {
 		"format-item": require("./item"),
-		"modal-dialog": require("../../ui/modal-dialog")
+		'modal-dialog': require('../../ui/modal-dialog')
 	}
 });

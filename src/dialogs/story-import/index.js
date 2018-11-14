@@ -3,14 +3,14 @@ A dialog which allows a user to import a story from a file. This returns a
 promise resolving to the stories that were imported, if any.
 */
 
-const Vue = require("vue");
+const Vue = require('vue');
 const { deleteStory, importStory } = require("../../data/actions/story");
 const importHTML = require("../../data/import");
 const load = require("../../file/load");
 const locale = require("../../locale");
 
 module.exports = Vue.extend({
-	template: require("./index.html"),
+	template: require('./index.html'),
 
 	props: ["immediateImport", "origin", "working"],
 
@@ -135,7 +135,7 @@ module.exports = Vue.extend({
 	},
 
 	components: {
-		"modal-dialog": require("../../ui/modal-dialog")
+		'modal-dialog': require('../../ui/modal-dialog')
 	},
 
 	vuex: {

@@ -1,14 +1,14 @@
-const Vue = require("vue");
+const Vue = require('vue');
 const locale = require("../../locale");
 
-require("./index.less");
+require('./index.less');
 
 module.exports = Vue.extend({
 	data: () => ({
 		origin: null
 	}),
 
-	template: require("./index.html"),
+	template: require('./index.html'),
 
 	computed: {
 		gplText() {
@@ -24,7 +24,7 @@ module.exports = Vue.extend({
 	},
 
 	components: {
-		"modal-dialog": require("../../ui/modal-dialog")
+		'modal-dialog': require('../../ui/modal-dialog')
 	},
 
 	vuex: {
