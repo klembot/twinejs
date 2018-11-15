@@ -4,9 +4,9 @@
  @module ui/confirm
 **/
 
-"use strict";
+'use strict';
 const locale = require('../../locale');
-const eventHub = require("../../common/eventHub");
+const eventHub = require('../../common/eventHub');
 const Vue = require('vue');
 
 require('./index.less');
@@ -22,30 +22,30 @@ require('./index.less');
 						 buttonLabel (HTML label for the button)
 **/
 
-const confirmation = Vue.component("confirm", {
+const confirmation = Vue.component('confirm', {
 	template: require('./index.html'),
 
 	props: {
-		buttonLabel: { type: String, default: "" },
-		modalClass: { type: String, default: "" },
+		buttonLabel: { type: String, default: '' },
+		modalClass: { type: String, default: '' },
 		buttonClass: { type: String, default: 'primary' },
-		coda: { type: String, default: "" },
-		message: { type: String, default: "" }
+		coda: { type: String, default: '' },
+		message: { type: String, default: '' }
 	},
 
 	data: () => ({
-		cancelLabel: '<i class="fa fa-times"></i> ' + locale.say("Cancel")
+		cancelLabel: '<i class="fa fa-times"></i> ' + locale.say('Cancel')
 	}),
 
 	methods: {
 		accept() {
-			eventHub.$emit("close", true);
-			this.$emit("close", true);
+			eventHub.$emit('close', true);
+			this.$emit('close', true);
 		},
 
 		cancel() {
-			eventHub.$emit("close", false);
-			this.$emit("close", true);
+			eventHub.$emit('close', false);
+			this.$emit('close', true);
 		}
 	},
 

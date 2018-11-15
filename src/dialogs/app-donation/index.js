@@ -1,11 +1,11 @@
 // Shows a dialog asking the user to make a donation.
 
 const Vue = require('vue');
-const { setPref } = require("../../data/actions/pref");
+const { setPref } = require('../../data/actions/pref');
 const locale = require('../../locale');
 
 require('./index.less');
-const appDonation = Vue.component("app-donation", {
+const appDonation = Vue.component('app-donation', {
 	template: require('./index.html'),
 
 	computed: {
@@ -16,14 +16,14 @@ const appDonation = Vue.component("app-donation", {
 		},
 		shownOnce() {
 			return locale.say(
-				`This message will only be shown to you once.<br>If you'd like to donate to Twine development in the future, you can do so at <a href=\"http://twinery.org/donate\" target=\"_blank\">http://twinery.org/donate</a>.`
+				`This message will only be shown to you once.<br>If you'd like to donate to Twine development in the future, you can do so at <a href=\'http://twinery.org/donate\' target=\'_blank\'>http://twinery.org/donate</a>.`
 			);
 		}
 	},
 
 	methods: {
 		donate() {
-			window.open("https://twinery.org/donate");
+			window.open('https://twinery.org/donate');
 			this.$refs.modal.close();
 		},
 
@@ -49,7 +49,7 @@ const donation = {
 		if (!store.state.pref.donateShown &&
 			now > store.state.pref.firstRunTime + DONATION_DELAY) {
 			setPref(store, 'donateShown', true);
-			this.$emit("customModal", appDonation);
+			this.$emit('customModal', appDonation);
 			return true;
 		}
 		return false;

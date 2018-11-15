@@ -23,17 +23,14 @@ module.exports = {
 			keyboard shortcut.
 			*/
 
-			mainMenu.submenu.insert(
-				new gui.MenuItem({
-					label: locale.say('Toggle Fullscreen'),
-					key: 'f',
-					modifiers: 'cmd-shift',
-					click() {
-						win.toggleFullscreen();
-					}
-				}),
-				0
-			);
+			mainMenu.submenu.insert(new gui.MenuItem({
+				label: locale.say('Toggle Fullscreen'),
+				key: 'f',
+				modifiers: 'cmd-shift',
+				click() {
+					win.toggleFullscreen();
+				}
+			}), 0);
 		}
 		else {
 			/* Create a basic menu on other platforms. */
@@ -43,18 +40,19 @@ module.exports = {
 				submenu: new gui.Menu()
 			});
 
-			mainMenu.submenu.append(
-				new gui.MenuItem({
-					label: locale.say('Quit'),
-					key: 'q',
-					modifiers: 'ctrl',
-					click() {
-						gui.App.closeAllWindows();
-					}
-				})
-			);
+			mainMenu.submenu.append(new gui.MenuItem({
+				label: locale.say('Quit'),
+				key: 'q',
+				modifiers: 'ctrl',
+				click() {
+					gui.App.closeAllWindows();
+				}
+			}));
 
-			mainMenu.submenu.insert(new gui.MenuItem({ type: 'separator' }), 0);
+			mainMenu.submenu.insert(
+				new gui.MenuItem({ type: 'separator' }),
+				0
+			);
 			nativeMenuBar.append(mainMenu);
 
 			/* ... And a stand-in Edit menu. */
@@ -64,77 +62,66 @@ module.exports = {
 				submenu: new gui.Menu()
 			});
 
-			editMenu.submenu.append(
-				new gui.MenuItem({
-					label: locale.say('Undo'),
-					key: 'z',
-					modifiers: 'ctrl',
-					click() {
-						document.execCommand('undo');
-					}
-				})
-			);
-
-			editMenu.submenu.append(new gui.MenuItem({ type: 'separator' }));
+			editMenu.submenu.append(new gui.MenuItem({
+				label: locale.say('Undo'),
+				key: 'z',
+				modifiers: 'ctrl',
+				click() {
+					document.execCommand('undo');
+				}
+			}));
 
 			editMenu.submenu.append(
-				new gui.MenuItem({
-					label: locale.say('Cut'),
-					key: 'x',
-					modifiers: 'ctrl',
-					click() {
-						document.execCommand('cut');
-					}
-				})
+				new gui.MenuItem({ type: 'separator' })
 			);
 
-			editMenu.submenu.append(
-				new gui.MenuItem({
-					label: locale.say('Copy'),
-					key: 'c',
-					modifiers: 'ctrl',
-					click() {
-						document.execCommand('copy');
-					}
-				})
-			);
+			editMenu.submenu.append(new gui.MenuItem({
+				label: locale.say('Cut'),
+				key: 'x',
+				modifiers: 'ctrl',
+				click() {
+					document.execCommand('cut');
+				}
+			}));
 
-			editMenu.submenu.append(
-				new gui.MenuItem({
-					label: locale.say('Paste'),
-					key: 'v',
-					modifiers: 'ctrl',
-					click() {
-						document.execCommand('paste');
-					}
-				})
-			);
+			editMenu.submenu.append(new gui.MenuItem({
+				label: locale.say('Copy'),
+				key: 'c',
+				modifiers: 'ctrl',
+				click() {
+					document.execCommand('copy');
+				}
+			}));
 
-			editMenu.submenu.append(
-				new gui.MenuItem({
-					label: locale.say('Delete'),
-					click() {
-						document.execCommand('delete');
-					}
-				})
-			);
+			editMenu.submenu.append(new gui.MenuItem({
+				label: locale.say('Paste'),
+				key: 'v',
+				modifiers: 'ctrl',
+				click() {
+					document.execCommand('paste');
+				}
+			}));
+
+			editMenu.submenu.append(new gui.MenuItem({
+				label: locale.say('Delete'),
+				click() {
+					document.execCommand('delete');
+				}
+			}));
 
 			nativeMenuBar.append(editMenu);
 		}
 
 		/* Add a menu item to show the story library. */
 
-		mainMenu.submenu.insert(
-			new gui.MenuItem({
-				label: locale.say('Show Library'),
-				click() {
-					gui.Shell.openItem(
-						directories.storiesPath().replace(/\//g, path.sep)
-					);
-				}
-			}),
-			0
-		);
+		mainMenu.submenu.insert(new gui.MenuItem({
+			label: locale.say('Show Library'),
+			click() {
+				gui.Shell.openItem(
+					directories.storiesPath().replace(/\//g, path.sep)
+				);
+			}
+		}), 0);
 
 		win.menu = nativeMenuBar;
 	}

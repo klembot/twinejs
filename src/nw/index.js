@@ -106,7 +106,7 @@ module.exports = {
 				function finishInit() {
 					try {
 						/* Set up our menus. */
-
+						
 						startupTask = 'setting up menus';
 						menus.addTo(win);
 
@@ -128,15 +128,15 @@ module.exports = {
 						startupTask = 'adding the debugger keyboard shortcut';
 
 						document.addEventListener('keyup', e => {
-							if (e.which === 68 && e.shiftKey && e.altKey && e.ctrlKey) {
+							if (e.which === 68 && e.shiftKey && e.altKey
+								&& e.ctrlKey) {
 								win.showDevTools();
 							}
 						});
 
 						/* Create ~/Documents/Twine if it doesn't exist. */
 
-						startupTask =
-							'checking for the presence of a Documents or My ' +
+						startupTask = 'checking for the presence of a Documents or My ' +
 							'Documents directory in your user directory';
 
 						// FIXME: this is happening before the locale is loaded,
@@ -241,11 +241,9 @@ module.exports = {
 				document.write(
 					startupErrorTemplate({ task: startupTask, error: error })
 				);
-				require('nw.gui')
-					.Window.get()
-					.show();
+				require('nw.gui').Window.get().show();
 			}
-
+		
 			/* eslint-enable no-inner-declarations */
 		});
 	}

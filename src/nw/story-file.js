@@ -2,7 +2,7 @@
 Manages interactions with individual story files.
 */
 
-const StoryFile = {
+const StoryFile = module.exports = {
 	/*
 	A global flag that allows deactivation of the module. This is needed while
 	the module itself works, so that changes in local storage made here don't
@@ -20,7 +20,7 @@ const StoryFile = {
 	*/
 
 	fileName(story) {
-		return story.name.replace(/[^\w\. -]/g, "_") + ".html";
+		return story.name.replace(/[^\w\. -]/g, '_') + '.html';
 	},
 
 	/*
@@ -32,16 +32,16 @@ const StoryFile = {
 			return;
 		}
 
-		const fs = require("fs");
-		const directories = require("./directories");
-		const path = require("path");
-		const { publishStory } = require("../data/publish");
+		const fs = require('fs');
+		const directories = require('./directories');
+		const path = require('path');
+		const { publishStory } = require('../data/publish');
 
 		try {
 			directories.unlockStories();
 			const fd = fs.openSync(
 				path.join(directories.storiesPath(), StoryFile.fileName(story)),
-				"w"
+				'w'
 			);
 
 			fs.writeSync(fd, publishStory(appInfo, story, null, null, true));
@@ -61,9 +61,9 @@ const StoryFile = {
 			return;
 		}
 
-		const fs = require("fs");
-		const directories = require("./directories");
-		const path = require("path");
+		const fs = require('fs');
+		const directories = require('./directories');
+		const path = require('path');
 
 		try {
 			directories.unlockStories();
@@ -87,12 +87,12 @@ const StoryFile = {
 			return;
 		}
 
-		const directories = require("./directories");
-		const fs = require("fs");
-		const path = require("path");
-		const { deleteStory, importStory } = require("../data/actions/story");
-		const importFile = require("../data/import");
-		const store = require("../data/store");
+		const directories = require('./directories');
+		const fs = require('fs');
+		const path = require('path');
+		const { deleteStory, importStory } = require('../data/actions/story');
+		const importFile = require('../data/import');
+		const store = require('../data/store');
 
 		StoryFile.active = false;
 
@@ -122,7 +122,10 @@ const StoryFile = {
 			fileStories.map(filename => {
 				if (filename.match(/\.html$/)) {
 					const filePath = path.join(storyPath, filename);
-					const source = fs.readFileSync(filePath, { encoding: "utf8" });
+					const source = fs.readFileSync(
+						filePath,
+						{ encoding: 'utf8' }
+					);
 					const stats = fs.statSync(filePath);
 					const storyData = importFile(
 						source,
@@ -141,5 +144,3 @@ const StoryFile = {
 		}
 	}
 };
-
-module.exports = StoryFile;

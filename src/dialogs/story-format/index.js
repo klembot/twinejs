@@ -6,13 +6,13 @@ const semverUtils = require('semver-utils');
 
 require('./index.less');
 
-module.exports = Vue.component("FormatDialog", {
+module.exports = Vue.component('FormatDialog', {
 	template: require('./index.html'),
 
 	data: () => ({
 		loadIndex: 0,
 		loadedFormats: [],
-		storyId: ""
+		storyId: ''
 	}),
 
 	computed: {
@@ -53,12 +53,12 @@ module.exports = Vue.component("FormatDialog", {
 				.catch(e => {
 					notify(
 						locale.say(
-							"The story format &ldquo;%1$s&rdquo; could not " +
-								"be loaded (%2$s).",
-							nextFormat.name + " " + nextFormat.version,
+							'The story format &ldquo;%1$s&rdquo; could not ' +
+								'be loaded (%2$s).',
+							nextFormat.name + ' ' + nextFormat.version,
 							e.message
 						),
-						"danger"
+						'danger'
 					);
 					this.loadIndex++;
 					this.loadNext();

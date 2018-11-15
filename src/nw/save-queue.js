@@ -7,12 +7,12 @@ You *must* call flush() on this module before the application closes to prevent
 data loss.
 */
 
-const StoryFile = require("./story-file");
+const StoryFile = require('./story-file');
 
 let idQueue = [];
 let flushTimeout;
 
-const SaveQueue = {
+const SaveQueue = module.exports = {
 	/* How long to wait to flush the queue, in milliseconds. */
 
 	delay: 10000,
@@ -49,16 +49,16 @@ const SaveQueue = {
 
 	flush() {
 		if (!SaveQueue.store) {
-			throw new Error("No store has been set for this save queue");
+			throw new Error('No store has been set for this save queue');
 		}
 
 		while (idQueue.length > 0) {
 			const id = idQueue.pop();
-			const story = SaveQueue.store.state.story.stories.find(s => s.id === id);
+			const story = SaveQueue.store.state.story.stories.find(
+				s => s.id === id
+			);
 
 			StoryFile.save(story, SaveQueue.store.state.appInfo);
 		}
 	}
 };
-
-module.exports = SaveQueue;

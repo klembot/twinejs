@@ -5,12 +5,12 @@ A component showing a single search result.
 const Vue = require('vue');
 const locale = require('../../locale');
 const eventHub = require('../../common/eventHub');
-const { updatePassage } = require("../../data/actions/passage");
+const { updatePassage } = require('../../data/actions/passage');
 
 require('./result.less');
 
 module.exports = Vue.extend({
-	template: require("./result.html"),
+	template: require('./result.html'),
 
 	props: {
 		story: {
@@ -41,7 +41,7 @@ module.exports = Vue.extend({
 
 	computed: {
 		replaceTitle() {
-			return locale.say("Replace in Passage");
+			return locale.say('Replace in Passage');
 		}
 	},
 
@@ -71,7 +71,7 @@ module.exports = Vue.extend({
 
 		eventHub.$on('expand', () => this.expanded = true);
 		eventHub.$on('collapse', () => this.expanded = false);
-		/* The parent sends this event when the user clicks "Replace All". */
+		/* The parent sends this event when the user clicks 'Replace All'. */
 		eventHub.$on('replace', () => this.replace());
 
 	},
