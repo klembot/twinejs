@@ -3,8 +3,8 @@ A modal which shows aggregrate statistics for a story.
 */
 
 const Vue = require('vue');
-const moment = require("moment");
-const linkParser = require("../../data/link-parser");
+const moment = require('moment');
+const linkParser = require('../../data/link-parser');
 const locale = require('../../locale');
 
 require('./index.less');
@@ -13,7 +13,7 @@ module.exports = Vue.component("StatsDialog", {
 	template: require('./index.html'),
 
 	data: () => ({
-		storyId: "",
+		storyId: '',
 		origin: null
 	}),
 
@@ -23,7 +23,7 @@ module.exports = Vue.component("StatsDialog", {
 		},
 
 		lastUpdate() {
-			return moment(this.story.lastUpdate).format("LLLL");
+			return moment(this.story.lastUpdate).format('LLLL');
 		},
 
 		charCount() {
@@ -38,7 +38,7 @@ module.exports = Vue.component("StatsDialog", {
 			L10n: Character in the sense of individual letters in a word.  This
 			does not actually include the count, as it is used in a table.
 			*/
-			return locale.sayPlural("Character", "Characters", this.charCount);
+			return locale.sayPlural('Character', 'Characters', this.charCount);
 		},
 
 		wordCount() {
@@ -53,7 +53,7 @@ module.exports = Vue.component("StatsDialog", {
 			L10n: Word in the sense of individual words in a sentence.  This
 			does not actually include the count, as it is used in a table.
 			*/
-			return locale.sayPlural("Word", "Words", this.wordCount);
+			return locale.sayPlural('Word', 'Words', this.wordCount);
 		},
 
 		links() {
@@ -82,7 +82,7 @@ module.exports = Vue.component("StatsDialog", {
 			This does not actually include the count, as it is used in a
 			table.
 			*/
-			return locale.sayPlural("Passage", "Passages", this.passageCount);
+			return locale.sayPlural('Passage', 'Passages', this.passageCount);
 		},
 
 		linkCount() {
@@ -100,7 +100,7 @@ module.exports = Vue.component("StatsDialog", {
 			This does not actually include the count, as it is used in a
 			table.
 			*/
-			return locale.sayPlural("Link", "Links", this.linkCount);
+			return locale.sayPlural('Link', 'Links', this.linkCount);
 		},
 
 		brokenLinkCount() {
@@ -115,8 +115,8 @@ module.exports = Vue.component("StatsDialog", {
 			table.
 			*/
 			return locale.sayPlural(
-				"Broken Link",
-				"Broken Links",
+				'Broken Link',
+				'Broken Links',
 				this.brokenLinkCount
 			);
 		},

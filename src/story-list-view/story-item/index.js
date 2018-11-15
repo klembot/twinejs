@@ -2,10 +2,10 @@
 // links for editing, playing, and deleting a story; StoryEditView handles more
 // detailed changes.
 
-"use strict";
-const moment = require("moment");
+'use strict';
+const moment = require('moment');
 const Vue = require('vue');
-const eventHub = require("../../common/eventHub");
+const eventHub = require('../../common/eventHub');
 
 require('./index.less');
 
@@ -20,13 +20,13 @@ module.exports = Vue.extend({
 	},
 
 	components: {
-		"item-preview": require("./item-preview"),
-		"item-menu": require("./item-menu")
+		'item-preview': require('./item-preview'),
+		'item-menu': require('./item-menu')
 	},
 
 	computed: {
 		lastUpdateFormatted() {
-			return moment(this.story.lastUpdate).format("lll");
+			return moment(this.story.lastUpdate).format('lll');
 		},
 
 		hue() {
@@ -44,7 +44,7 @@ module.exports = Vue.extend({
 		// If our parent wants to edit our own model, then we do so. This is
 		// done this level so that we animate the transition correctly.
 
-		eventHub.$on("story-edit", id => {
+		eventHub.$on('story-edit', id => {
 			if (this.story.id === id) {
 				this.edit();
 			}
@@ -59,7 +59,7 @@ module.exports = Vue.extend({
 		**/
 
 		edit() {
-			this.$router.push({ path: "/stories/" + this.story.id });
+			this.$router.push({ path: '/stories/' + this.story.id });
 		}
 	}
 });

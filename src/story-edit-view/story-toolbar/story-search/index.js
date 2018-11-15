@@ -4,9 +4,9 @@ show the search modal dialog.
 */
 
 const Vue = require('vue');
-const locale = require("../../../locale");
-const eventHub = require("../../../common/eventHub");
-const SearchDialog = require("../../../dialogs/story-search");
+const locale = require('../../../locale');
+const eventHub = require('../../../common/eventHub');
+const SearchDialog = require('../../../dialogs/story-search');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -19,15 +19,15 @@ module.exports = Vue.extend({
 	},
 
 	data: () => ({
-		search: ""
+		search: ''
 	}),
 
 	computed: {
 		quickFind() {
-			return locale.say("Quick Find");
+			return locale.say('Quick Find');
 		},
 		globalFnR() {
-			return locale.say("Find and replace across the entire story");
+			return locale.say('Find and replace across the entire story');
 		}
 	},
 
@@ -40,20 +40,20 @@ module.exports = Vue.extend({
 			*/
 
 			const value = new RegExp(
-				this.search.replace(/([.*+?^${}()|\[\]\/\\])/g, "\\$1"),
-				"i"
+				this.search.replace(/([.*+?^${}()|\[\]\/\\])/g, '\\$1'),
+				'i'
 			);
 
 			eventHub.$emit(
-				"highlight-regexp-change",
-				value.source !== "(?:)" ? value : null
+				'highlight-regexp-change',
+				value.source !== '(?:)' ? value : null
 			);
 		}
 	},
 
 	methods: {
 		showModal(e) {
-			eventHub.$emit("customModal", SearchDialog, {
+			eventHub.$emit('customModal', SearchDialog, {
 				story: this.story,
 				search: this.search,
 				origin: e.target

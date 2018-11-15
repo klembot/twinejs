@@ -23,7 +23,7 @@ module.exports = {
 			*/
 
 			try {
-				require("nw.gui");
+				require('nw.gui');
 			}
 			catch (e) {
 				resolve();
@@ -35,29 +35,29 @@ module.exports = {
 			playing a story, then skip initialization.
 			*/
 
-			if (window.location.hash !== "") {
+			if (window.location.hash !== '') {
 				resolve();
 				return;
 			}
 
-			require("core-js");
+			require('core-js');
 			require('./index.less');
 
-			const startupErrorTemplate = require("./startup-error.ejs");
-			let startupTask = "beginning startup tasks";
+			const startupErrorTemplate = require('./startup-error.ejs');
+			let startupTask = 'beginning startup tasks';
 
 			try {
-				const gui = require("nw.gui");
-				const mkdirp = require("mkdirp");
-				const directories = require("./directories");
-				const locale = require("../locale");
-				const menus = require("./menus");
-				const patchQuotaGauge = require("./patches/quota-gauge");
-				const patchStore = require("./patches/store");
-				const patchStoryListToolbar = require("./patches/story-list-toolbar");
-				const patchWelcomeView = require("./patches/welcome-view");
-				const saveQueue = require("./save-queue");
-				const storyFile = require("./story-file");
+				const gui = require('nw.gui');
+				const mkdirp = require('mkdirp');
+				const directories = require('./directories');
+				const locale = require('../locale');
+				const menus = require('./menus');
+				const patchQuotaGauge = require('./patches/quota-gauge');
+				const patchStore = require('./patches/store');
+				const patchStoryListToolbar = require('./patches/story-list-toolbar');
+				const patchWelcomeView = require('./patches/welcome-view');
+				const saveQueue = require('./save-queue');
+				const storyFile = require('./story-file');
 
 				const win = gui.Window.get();
 
@@ -70,22 +70,22 @@ module.exports = {
 				This is mostly cribbed from data/local-storage/pref.js.
 				*/
 
-				const serialized = window.localStorage.getItem("twine-prefs");
+				const serialized = window.localStorage.getItem('twine-prefs');
 
 				if (serialized) {
 					let localeFound = false;
 
-					serialized.split(",").forEach(id => {
+					serialized.split(',').forEach(id => {
 						if (localeFound) {
 							return;
 						}
 
 						try {
 							const item = JSON.parse(
-								window.localStorage.getItem("twine-prefs-" + id)
+								window.localStorage.getItem('twine-prefs-' + id)
 							);
 
-							if (item.name === "locale") {
+							if (item.name === 'locale') {
 								localeFound = true;
 								locale.load(item.value, finishInit);
 							}
@@ -107,14 +107,14 @@ module.exports = {
 					try {
 						/* Set up our menus. */
 
-						startupTask = "setting up menus";
+						startupTask = 'setting up menus';
 						menus.addTo(win);
 
 						/* Show the window once we've finished loading. */
 
-						startupTask = "setting window properties";
+						startupTask = 'setting window properties';
 
-						win.on("loaded", () => {
+						win.on('loaded', () => {
 							win.show();
 							win.focus();
 						});
@@ -125,9 +125,9 @@ module.exports = {
 						press F12 anywhere.
 						*/
 
-						startupTask = "adding the debugger keyboard shortcut";
+						startupTask = 'adding the debugger keyboard shortcut';
 
-						document.addEventListener("keyup", e => {
+						document.addEventListener('keyup', e => {
 							if (e.which === 68 && e.shiftKey && e.altKey && e.ctrlKey) {
 								win.showDevTools();
 							}
@@ -136,8 +136,8 @@ module.exports = {
 						/* Create ~/Documents/Twine if it doesn't exist. */
 
 						startupTask =
-							"checking for the presence of a Documents or My " +
-							"Documents directory in your user directory";
+							'checking for the presence of a Documents or My ' +
+							'Documents directory in your user directory';
 
 						// FIXME: this is happening before the locale is loaded,
 						// and accordingly, is broken
@@ -146,13 +146,13 @@ module.exports = {
 
 						/* Open external links outside the app. */
 
-						startupTask = "setting up a handler for external links";
+						startupTask = 'setting up a handler for external links';
 
-						document.addEventListener("click", function(e) {
-							if (e.target.nodeName === "A") {
-								const url = e.target.getAttribute("url");
+						document.addEventListener('click', function(e) {
+							if (e.target.nodeName === 'A') {
+								const url = e.target.getAttribute('url');
 
-								if (typeof url == "string" && url.match(/^https?:/)) {
+								if (typeof url == 'string' && url.match(/^https?:/)) {
 									gui.Shell.openExternal(url);
 									e.preventDefault();
 								}
@@ -161,9 +161,9 @@ module.exports = {
 
 						/* When quitting, unlock the story directory. */
 
-						startupTask = "setting up shutdown tasks";
+						startupTask = 'setting up shutdown tasks';
 
-						gui.Window.get().on("close", function() {
+						gui.Window.get().on('close', function() {
 							saveQueue.flush();
 							directories.unlockStories();
 							this.close(true);
@@ -176,9 +176,9 @@ module.exports = {
 						model IDs.
 						*/
 
-						startupTask = "initially synchronizing story files";
+						startupTask = 'initially synchronizing story files';
 						storyFile.loadAll();
-						startupTask = "initially locking your Stories directory";
+						startupTask = 'initially locking your Stories directory';
 						directories.lockStories();
 
 						/*
@@ -187,32 +187,32 @@ module.exports = {
 						when it is deleted.
 						*/
 
-						startupTask = "adding a hook to automatically save stories";
-						patchStore(require("../data/store"));
+						startupTask = 'adding a hook to automatically save stories';
+						patchStore(require('../data/store'));
 
 						/*
 						Monkey patch QuotaGauge to hide itself, since we don't
 						have to sweat quota ourselves.
 						*/
 
-						startupTask = "disabling the storage quota meter";
-						patchQuotaGauge(require("../ui/quota-gauge"));
+						startupTask = 'disabling the storage quota meter';
+						patchQuotaGauge(require('../ui/quota-gauge'));
 
 						/*
 						Monkey patch StoryListToolbar to open the wiki in the
 						user's browser.
 						*/
 
-						startupTask = "setting up the Help link";
-						patchStoryListToolbar(require("../story-list-view/list-toolbar"));
+						startupTask = 'setting up the Help link';
+						patchStoryListToolbar(require('../story-list-view/list-toolbar'));
 
 						/*
 						Monkey patch WelcomeView to hide information related to
 						local storage.
 						*/
 
-						startupTask = "customizing the initial welcome page";
-						patchWelcomeView(require("../welcome"));
+						startupTask = 'customizing the initial welcome page';
+						patchWelcomeView(require('../welcome'));
 
 						resolve();
 					}
@@ -235,13 +235,13 @@ module.exports = {
 				/* Show the user the error and halt. */
 
 				/* eslint-disable no-console */
-				console.error("Startup crash", startupTask, error);
+				console.error('Startup crash', startupTask, error);
 				/* eslint-enable no-console */
 
 				document.write(
 					startupErrorTemplate({ task: startupTask, error: error })
 				);
-				require("nw.gui")
+				require('nw.gui')
 					.Window.get()
 					.show();
 			}

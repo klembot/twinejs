@@ -2,19 +2,19 @@
 A modal dialog for editing a single passage.
 */
 
-const CodeMirror = require("codemirror");
+const CodeMirror = require('codemirror');
 const Vue = require('vue');
 const locale = require('../../locale');
 const {
 	changeLinksInStory,
 	updatePassage
-} = require("../../data/actions/passage");
+} = require('../../data/actions/passage');
 const { loadFormat } = require('../../data/actions/story-format');
-const { passageDefaults } = require("../../data/store/story");
+const { passageDefaults } = require('../../data/store/story');
 
-require("codemirror/addon/display/placeholder");
-require("codemirror/addon/hint/show-hint");
-require("../../codemirror/prefix-trigger");
+require('codemirror/addon/display/placeholder');
+require('codemirror/addon/hint/show-hint');
+require('../../codemirror/prefix-trigger');
 
 require('./index.less');
 
@@ -24,45 +24,45 @@ Expose CodeMirror to story formats, currently for Harlowe compatibility.
 
 window.CodeMirror = CodeMirror;
 
-module.exports = Vue.component("passage-editor", {
+module.exports = Vue.component('passage-editor', {
 	template: require('./index.html'),
 
 	props: {
-		passageId: "",
-		storyId: "",
+		passageId: '',
+		storyId: '',
 		origin: null
 	},
 
 	data: () => ({
-		oldWindowTitle: "",
-		userPassageName: "",
-		saveError: ""
+		oldWindowTitle: '',
+		userPassageName: '',
+		saveError: ''
 	}),
 
 	computed: {
 		cmOptions() {
 			return {
 				placeholder: locale.say(
-					"Enter the body text of your passage here. To link to another " +
-						"passage, put two square brackets around its name, [[like " +
-						"this]]."
+					'Enter the body text of your passage here. To link to another ' +
+						'passage, put two square brackets around its name, [[like ' +
+						'this]].'
 				),
 				prefixTrigger: {
-					prefixes: ["[[", "->"],
+					prefixes: ['[[', '->'],
 					callback: this.autocomplete.bind(this)
 				},
 				extraKeys: {
-					"Ctrl-Space": this.autocomplete.bind(this)
+					'Ctrl-Space': this.autocomplete.bind(this)
 				},
 				indentWithTabs: true,
 				lineWrapping: true,
 				lineNumbers: false,
-				mode: "text"
+				mode: 'text'
 			};
 		},
 
 		inputPlaceholder() {
-			return locale.say("Passage Name");
+			return locale.say('Passage Name');
 		},
 
 		parentStory() {
@@ -105,10 +105,10 @@ module.exports = Vue.component("passage-editor", {
 						to: wordRange.head
 					};
 
-					CodeMirror.on(comps, "pick", () => {
+					CodeMirror.on(comps, 'pick', () => {
 						const doc = cm.getDoc();
 
-						doc.replaceRange("]] ", doc.getCursor());
+						doc.replaceRange(']] ', doc.getCursor());
 					});
 
 					return comps;
@@ -117,24 +117,24 @@ module.exports = Vue.component("passage-editor", {
 				completeSingle: false,
 
 				extraKeys: {
-					"]"(cm, hint) {
+					']'(cm, hint) {
 						const doc = cm.getDoc();
 
-						doc.replaceRange("]", doc.getCursor());
+						doc.replaceRange(']', doc.getCursor());
 						hint.close();
 					},
 
-					"-"(cm, hint) {
+					'-'(cm, hint) {
 						const doc = cm.getDoc();
 
-						doc.replaceRange("-", doc.getCursor());
+						doc.replaceRange('-', doc.getCursor());
 						hint.close();
 					},
 
-					"|"(cm, hint) {
+					'|'(cm, hint) {
 						const doc = cm.getDoc();
 
-						doc.replaceRange("|", doc.getCursor());
+						doc.replaceRange('|', doc.getCursor());
 						hint.close();
 					}
 				}
@@ -183,7 +183,7 @@ module.exports = Vue.component("passage-editor", {
 			/* Update the window title. */
 
 			this.oldWindowTitle = document.title;
-			document.title = locale.say("Editing \u201c%s\u201d", this.passage.name);
+			document.title = locale.say('Editing \u201c%s\u201d', this.passage.name);
 
 			/*
 			Load the story's format and see if it offers a CodeMirror mode.
@@ -198,7 +198,7 @@ module.exports = Vue.component("passage-editor", {
 
 					/* TODO: Resolve this special case with PR #118 */
 
-					if (modeName === "harlowe") {
+					if (modeName === 'harlowe') {
 						modeName += `-${/^\d+/.exec(format.version)}`;
 					}
 
@@ -216,7 +216,7 @@ module.exports = Vue.component("passage-editor", {
 						re-render.
 						*/
 
-						this.$refs.codemirror.$cm.setOption("mode", modeName);
+						this.$refs.codemirror.$cm.setOption('mode', modeName);
 					}
 				});
 			}
@@ -226,7 +226,7 @@ module.exports = Vue.component("passage-editor", {
 			 The above promise will reset it if fulfils.
 			*/
 
-			this.$refs.codemirror.$cm.setOption("mode", "text");
+			this.$refs.codemirror.$cm.setOption('mode', 'text');
 
 			/*
 			Either move the cursor to the end or select the existing text,
@@ -235,9 +235,9 @@ module.exports = Vue.component("passage-editor", {
 			*/
 
 			if (this.passage.text === passageDefaults.text) {
-				this.$refs.codemirror.$cm.execCommand("selectAll");
+				this.$refs.codemirror.$cm.execCommand('selectAll');
 			} else {
-				this.$refs.codemirror.$cm.execCommand("goDocEnd");
+				this.$refs.codemirror.$cm.execCommand('goDocEnd');
 			}
 		});
 	},
@@ -247,9 +247,9 @@ module.exports = Vue.component("passage-editor", {
 	},
 
 	components: {
-		"code-mirror": require("../../vue/codemirror"),
+		'code-mirror': require('../../vue/codemirror'),
 		'modal-dialog': require('../../ui/modal-dialog'),
-		"tag-editor": require("./tag-editor")
+		'tag-editor': require('./tag-editor')
 	},
 
 	vuex: {

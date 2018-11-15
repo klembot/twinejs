@@ -1,27 +1,27 @@
 /* The main view where story editing takes place. */
 
-const values = require("lodash.values");
+const values = require('lodash.values');
 const Vue = require('vue');
 
-const eventHub = require("../common/eventHub");
+const eventHub = require('../common/eventHub');
 const {
 	createPassage,
 	deletePassage,
 	positionPassage,
 	updatePassage
-} = require("../data/actions/passage");
-const { loadFormat } = require("../data/actions/story-format");
-const { updateStory } = require("../data/actions/story");
-const domEvents = require("../vue/mixins/dom-events");
-const locale = require("../locale");
-const { passageDefaults } = require("../data/store/story");
-const zoomSettings = require("./zoom-settings");
+} = require('../data/actions/passage');
+const { loadFormat } = require('../data/actions/story-format');
+const { updateStory } = require('../data/actions/story');
+const domEvents = require('../vue/mixins/dom-events');
+const locale = require('../locale');
+const { passageDefaults } = require('../data/store/story');
+const zoomSettings = require('./zoom-settings');
 // Dialogs need to be included somewhere for vue to register it globally
-const { confirm } = require("../dialogs/confirm");
-const { prompt } = require("../dialogs/prompt");
+const { confirm } = require('../dialogs/confirm');
+const { prompt } = require('../dialogs/prompt');
 
 // Modal editor for individual passages
-require("../editors/passage");
+require('../editors/passage');
 require('./index.less');
 
 /*
@@ -131,8 +131,8 @@ module.exports = Vue.extend({
 			height += this.winHeight / 2;
 
 			return {
-				width: width + "px",
-				height: height + "px"
+				width: width + 'px',
+				height: height + 'px'
 			};
 		},
 
@@ -165,7 +165,7 @@ module.exports = Vue.extend({
 	},
 
 	watch: {
-		"story.name": {
+		'story.name': {
 			handler(value) {
 				document.title = value;
 			},
@@ -173,7 +173,7 @@ module.exports = Vue.extend({
 			immediate: true
 		},
 
-		"story.zoom": {
+		'story.zoom': {
 			handler(value, old) {
 				/*
 				Change the window's scroll position so that the same logical
@@ -194,20 +194,20 @@ module.exports = Vue.extend({
 	},
 
 	mounted() {
-		eventHub.$on("modalConfirm", confirmArgs => {
+		eventHub.$on('modalConfirm', confirmArgs => {
 			this.confirmArgs = confirmArgs;
 			this.showConfirm = true;
 		});
-		eventHub.$on("modalPrompt", promptArgs => {
+		eventHub.$on('modalPrompt', promptArgs => {
 			this.promptArgs = promptArgs;
 			this.showPrompt = true;
 		});
-		eventHub.$on("customModal", (modalComponent, modalArgs) => {
+		eventHub.$on('customModal', (modalComponent, modalArgs) => {
 			this.customModalComponent = modalComponent;
 			this.customModalArgs = modalArgs;
 			this.showCustomModal = true;
 		});
-		eventHub.$on("close", () => {
+		eventHub.$on('close', () => {
 			this.showConfirm = false;
 			this.showPrompt = false;
 			this.showCustomModal = false;
@@ -217,11 +217,11 @@ module.exports = Vue.extend({
 		this.$nextTick(function() {
 			// code that assumes this.$el is in-document
 			this.resize();
-			this.on(window, "resize", this.resize);
-			this.on(window, "keyup", this.onKeyup);
+			this.on(window, 'resize', this.resize);
+			this.on(window, 'keyup', this.onKeyup);
 
 			// TODO: This can probably be replaced with custom-modal
-			eventHub.$on("showEditor", editorArgs => {
+			eventHub.$on('showEditor', editorArgs => {
 				this.editorArgs = editorArgs;
 				this.showEditor = true;
 			});
@@ -308,11 +308,11 @@ module.exports = Vue.extend({
 
 			/*
 			Make sure the name is unique. If it's a duplicate, we add a
-			number at the end (e.g. "Untitled Passage 2", "Untitled Passage
-			3", and so on.
+			number at the end (e.g. 'Untitled Passage 2', 'Untitled Passage
+			3', and so on.
 			*/
 
-			name = name || locale.say("Untitled Passage");
+			name = name || locale.say('Untitled Passage');
 
 			if (this.story.passages.find(p => p.name === name)) {
 				const origName = name;
@@ -320,7 +320,7 @@ module.exports = Vue.extend({
 
 				do {
 					nameIndex++;
-					name = origName + " " + nameIndex;
+					name = origName + ' ' + nameIndex;
 				} while (this.story.passages.find(p => p.name === name));
 			}
 
@@ -380,7 +380,7 @@ module.exports = Vue.extend({
 			let target = e.target;
 
 			while (target) {
-				if (target.nodeName === "INPUT" || target.nodeName === "TEXTAREA") {
+				if (target.nodeName === 'INPUT' || target.nodeName === 'TEXTAREA') {
 					return;
 				}
 
@@ -416,19 +416,19 @@ module.exports = Vue.extend({
 						toDelete[0].name
 					);
 
-					eventHub.$once("close", confirmed => {
+					eventHub.$once('close', confirmed => {
 						if (confirmed) {
 							toDelete.forEach(p => this.deletePassage(this.story.id, p.id));
 						}
 					});
 					const confirmArgs = {
 						buttonLabel:
-							'<i class="fa fa-trash-o"></i> ' + locale.say("Delete"),
-						class: "danger",
+							'<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
+						class: 'danger',
 						message: message
 					};
 
-					eventHub.$emit("modalConfirm", confirmArgs);
+					eventHub.$emit('modalConfirm', confirmArgs);
 					break;
 				}
 			}
@@ -441,7 +441,7 @@ module.exports = Vue.extend({
 		highlight filter should be.
 		*/
 
-		eventHub.$on("highlight-regexp-change", value => {
+		eventHub.$on('highlight-regexp-change', value => {
 			this.highlightRegexp = value;
 		});
 
@@ -449,7 +449,7 @@ module.exports = Vue.extend({
 		A hook into our createPassage() method for child components.
 		*/
 
-		eventHub.$on("passage-create", (name, left, top) => {
+		eventHub.$on('passage-create', (name, left, top) => {
 			this.createPassageAt(name, left, top);
 		});
 
@@ -459,7 +459,7 @@ module.exports = Vue.extend({
 		temporarily shifting their onscreen position.
 		*/
 
-		eventHub.$on("passage-drag", (xOffset, yOffset) => {
+		eventHub.$on('passage-drag', (xOffset, yOffset) => {
 			if (this.story.snapToGrid) {
 				this.screenDragOffsetX =
 					Math.round(xOffset / this.gridSize) * this.gridSize;
@@ -477,7 +477,7 @@ module.exports = Vue.extend({
 		a temporary change in the DOM to their model.
 		*/
 
-		this.$on("passage-drag-complete", (xOffset, yOffset) => {
+		this.$on('passage-drag-complete', (xOffset, yOffset) => {
 			this.screenDragOffsetX = 0;
 			this.screenDragOffsetY = 0;
 
@@ -486,7 +486,7 @@ module.exports = Vue.extend({
 				yOffset = Math.round(yOffset / this.gridSize) * this.gridSize;
 			}
 
-			eventHub.$emit("passage-drag-complete", xOffset, yOffset);
+			eventHub.$emit('passage-drag-complete', xOffset, yOffset);
 		});
 
 		/*
@@ -495,7 +495,7 @@ module.exports = Vue.extend({
 		account the grid size.
 		*/
 
-		eventHub.$on("passage-position", (passage, options) => {
+		eventHub.$on('passage-position', (passage, options) => {
 			this.positionPassage(
 				this.story.id,
 				passage.id,
@@ -506,10 +506,10 @@ module.exports = Vue.extend({
 	},
 
 	components: {
-		"link-arrows": require("./link-arrows"),
-		"passage-item": require("./passage-item"),
-		"story-toolbar": require("./story-toolbar"),
-		"marquee-selector": require("./marquee-selector")
+		'link-arrows': require('./link-arrows'),
+		'passage-item': require('./passage-item'),
+		'story-toolbar': require('./story-toolbar'),
+		'marquee-selector': require('./marquee-selector')
 	},
 
 	vuex: {

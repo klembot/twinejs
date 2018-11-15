@@ -14,8 +14,8 @@ module.exports = Vue.component("SearchDialog", {
 
 	data: () => ({
 		story: {},
-		search: "",
-		replace: "",
+		search: '',
+		replace: '',
 		searchNames: true,
 		caseSensitive: false,
 		regexp: false,
@@ -25,10 +25,10 @@ module.exports = Vue.component("SearchDialog", {
 
 	computed: {
 		searchRegexp() {
-			let flags = "g";
+			let flags = 'g';
 
 			if (!this.caseSensitive) {
-				flags += "i";
+				flags += 'i';
 			}
 
 			let source = this.search;
@@ -39,10 +39,10 @@ module.exports = Vue.component("SearchDialog", {
 			*/
 
 			if (!this.regexp) {
-				source = source.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+				source = source.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 			}
 
-			return new RegExp("(" + source + ")", flags);
+			return new RegExp('(' + source + ')', flags);
 		},
 
 		expandButtonTitle() {
@@ -54,7 +54,7 @@ module.exports = Vue.component("SearchDialog", {
 		},
 
 		passageMatches() {
-			if (this.search === "") {
+			if (this.search === '') {
 				return [];
 			}
 
@@ -128,6 +128,6 @@ module.exports = Vue.component("SearchDialog", {
 
 	components: {
 		'modal-dialog': require('../../ui/modal-dialog'),
-		"search-result": require("./result")
+		'search-result': require('./result')
 	}
 });

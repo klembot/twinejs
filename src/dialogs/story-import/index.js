@@ -46,7 +46,7 @@ module.exports = Vue.extend({
 				return 'primary';
 			}
 
-			return "danger";
+			return 'danger';
 		},
 
 		confirmLabel() {
@@ -55,8 +55,8 @@ module.exports = Vue.extend({
 			}
 
 			return locale.sayPlural(
-				"Replace %d Story",
-				"Replace %d Stories",
+				'Replace %d Story',
+				'Replace %d Stories',
 				this.toReplace.length
 			);
 		}
@@ -79,7 +79,7 @@ module.exports = Vue.extend({
 		},
 
 		import(file) {
-			this.status = "working";
+			this.status = 'working';
 
 			load(file).then(source => {
 				this.toImport = importHTML(source);
@@ -99,7 +99,7 @@ module.exports = Vue.extend({
 				if (this.dupeNames.length > 0) {
 					/* Ask the user to pick which ones to replace, if any. */
 
-					this.status = "choosing";
+					this.status = 'choosing';
 				}
 				else {
 					/* Immediately run the import and close the dialog. */
@@ -122,10 +122,8 @@ module.exports = Vue.extend({
 				If the user *didn't* choose to replace this story, skip it.
 				*/
 
-				if (
-					this.toReplace.indexOf(story.name) !== -1 ||
-					!this.existingStories.find(story => story.name === name)
-				) {
+				if (this.toReplace.indexOf(story.name) !== -1 ||
+					!this.existingStories.find(story => story.name === name)) {
 					this.importStory(story);
 				}
 

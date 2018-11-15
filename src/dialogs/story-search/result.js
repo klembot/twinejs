@@ -7,7 +7,7 @@ const locale = require('../../locale');
 const eventHub = require('../../common/eventHub');
 const { updatePassage } = require("../../data/actions/passage");
 
-require("./result.less");
+require('./result.less');
 
 module.exports = Vue.extend({
 	template: require("./result.html"),

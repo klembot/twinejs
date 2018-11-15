@@ -1,8 +1,8 @@
-const { expect } = require("chai");
-const Vue = require("fullvue");
-const CodeMirror = require("./codemirror");
+const { expect } = require('chai');
+const Vue = require('fullvue');
+const CodeMirror = require('./codemirror');
 
-describe("<code-mirror>", () => {
+describe('<code-mirror>', () => {
 	let vm;
 
 	beforeEach(() => {
@@ -27,37 +27,37 @@ describe("<code-mirror>", () => {
 				'<code-mirror ref=cm text="Hello world." ' +
 				':options="{ tabSize: 12 }" @cm-change="saveText"></code-mirror>',
 			data: {
-				text: ""
+				text: ''
 			},
 			methods: {
 				saveText(text) {
-					console.log("saving text!", text);
+					console.log('saving text!', text);
 					this.testText = text;
 				}
 			},
 			components: {
-				"code-mirror": CodeMirror
+				'code-mirror': CodeMirror
 			}
 		});
 
 		vm.$mount();
 	});
 
-	it("creates a CodeMirror instance when mounted", () => {
-		expect(vm.$refs.cm.$cm).to.be.a("object");
+	it('creates a CodeMirror instance when mounted', () => {
+		expect(vm.$refs.cm.$cm).to.be.a('object');
 	});
 
-	it("sets content initially with the text property", () => {
-		expect(vm.$refs.cm.$cm.getValue()).to.equal("Hello world.");
+	it('sets content initially with the text property', () => {
+		expect(vm.$refs.cm.$cm.getValue()).to.equal('Hello world.');
 	});
 
-	it("sets options with the options property", () => {
-		expect(vm.$refs.cm.$cm.getOption("tabSize")).to.equal(12);
+	it('sets options with the options property', () => {
+		expect(vm.$refs.cm.$cm.getOption('tabSize')).to.equal(12);
 	});
 
-	it("keeps the text property in sync", () => {
+	it('keeps the text property in sync', () => {
 		expect(vm.$refs.cm.text).to.equal(vm.$refs.cm.$cm.getValue());
-		vm.$refs.cm.$cm.setValue("Something completely different!");
+		vm.$refs.cm.$cm.setValue('Something completely different!');
 		expect(vm.testText).to.equal(vm.$refs.cm.$cm.getValue());
 	});
 });

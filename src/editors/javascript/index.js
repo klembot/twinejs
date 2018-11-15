@@ -3,14 +3,14 @@
 const Vue = require('vue');
 const { updateStory } = require('../../data/actions/story');
 
-require("codemirror/mode/javascript/javascript");
-require("codemirror/addon/display/placeholder");
-require("codemirror/addon/hint/show-hint");
+require('codemirror/mode/javascript/javascript');
+require('codemirror/addon/display/placeholder');
+require('codemirror/addon/hint/show-hint');
 
-module.exports = Vue.component("JavaScriptEditor", {
+module.exports = Vue.component('JavaScriptEditor', {
 	template: require('./index.html'),
 
-	props: ["storyId", "origin"],
+	props: ['storyId', 'origin'],
 
 	computed: {
 		source() {
@@ -22,9 +22,9 @@ module.exports = Vue.component("JavaScriptEditor", {
 			lineNumbers: false,
 			tabSize: 2,
 			indentWithTabs: true,
-			mode: "javascript",
+			mode: 'javascript',
 			extraKeys: {
-				"Ctrl-Space"(cm) {
+				'Ctrl-Space'(cm) {
 					cm.showHint();
 				}
 			}
@@ -43,7 +43,7 @@ module.exports = Vue.component("JavaScriptEditor", {
 
 	components: {
 		'modal-dialog': require('../../ui/modal-dialog'),
-		"code-mirror": require("../../vue/codemirror")
+		'code-mirror': require('../../vue/codemirror')
 	},
 
 	vuex: {

@@ -5,14 +5,14 @@ A component showing a modal dialog where a story's stylesheet can be edited.
 const Vue = require('vue');
 const { updateStory } = require('../../data/actions/story');
 
-require("codemirror/mode/css/css");
-require("codemirror/addon/display/placeholder");
-require("codemirror/addon/hint/show-hint");
+require('codemirror/mode/css/css');
+require('codemirror/addon/display/placeholder');
+require('codemirror/addon/hint/show-hint');
 
-module.exports = Vue.component("StylesheetEditor", {
+module.exports = Vue.component('StylesheetEditor', {
 	template: require('./index.html'),
 
-	props: ["storyId", "origin"],
+	props: ['storyId', 'origin'],
 
 	computed: {
 		source() {
@@ -25,9 +25,9 @@ module.exports = Vue.component("StylesheetEditor", {
 			lineNumbers: false,
 			tabSize: 4,
 			indentWithTabs: true,
-			mode: "css",
+			mode: 'css',
 			extraKeys: {
-				"Ctrl-Space"(cm) {
+				'Ctrl-Space'(cm) {
 					cm.showHint();
 				}
 			}
@@ -46,7 +46,7 @@ module.exports = Vue.component("StylesheetEditor", {
 
 	components: {
 		'modal-dialog': require('../../ui/modal-dialog'),
-		"code-mirror": require("../../vue/codemirror")
+		'code-mirror': require('../../vue/codemirror')
 	},
 
 	vuex: {

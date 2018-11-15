@@ -1,18 +1,18 @@
 // A drop-down menu with miscellaneous editing options for a story.
 
-const escape = require("lodash.escape");
+const escape = require('lodash.escape');
 const Vue = require('vue');
-const FormatDialog = require("../../../dialogs/story-format");
-const JavaScriptEditor = require("../../../editors/javascript");
-const StatsDialog = require("../../../dialogs/story-stats");
-const StylesheetEditor = require("../../../editors/stylesheet");
-const { loadFormat } = require("../../../data/actions/story-format");
-const locale = require("../../../locale");
-const eventHub = require("../../../common/eventHub");
-const { publishStoryWithFormat } = require("../../../data/publish");
-const save = require("../../../file/save");
-const { selectPassages } = require("../../../data/actions/passage");
-const { updateStory } = require("../../../data/actions/story");
+const FormatDialog = require('../../../dialogs/story-format');
+const JavaScriptEditor = require('../../../editors/javascript');
+const StatsDialog = require('../../../dialogs/story-stats');
+const StylesheetEditor = require('../../../editors/stylesheet');
+const { loadFormat } = require('../../../data/actions/story-format');
+const locale = require('../../../locale');
+const eventHub = require('../../../common/eventHub');
+const { publishStoryWithFormat } = require('../../../data/publish');
+const save = require('../../../file/save');
+const { selectPassages } = require('../../../data/actions/passage');
+const { updateStory } = require('../../../data/actions/story');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -26,31 +26,31 @@ module.exports = Vue.extend({
 
 	methods: {
 		editScript(e) {
-			eventHub.$emit("customModal", JavaScriptEditor, {
+			eventHub.$emit('customModal', JavaScriptEditor, {
 				storyId: this.story.id,
 				origin: e.target
 			});
 		},
 
 		editStyle(e) {
-			eventHub.$emit("customModal", StylesheetEditor, {
+			eventHub.$emit('customModal', StylesheetEditor, {
 				storyId: this.story.id,
 				origin: e.target
 			});
 		},
 
 		renameStory(e) {
-			eventHub.$once("close", text =>
+			eventHub.$once('close', text =>
 				this.updateStory(this.story.id, { name: text })
 			);
-			eventHub.$emit("modalPrompt", {
+			eventHub.$emit('modalPrompt', {
 				message: locale.say(
-					"What should &ldquo;%s&rdquo; be renamed to?",
+					'What should &ldquo;%s&rdquo; be renamed to?',
 					escape(this.story.name)
 				),
-				buttonLabel: '<i class="fa fa-ok"></i> ' + locale.say("Rename"),
+				buttonLabel: '<i class="fa fa-ok"></i> ' + locale.say('Rename'),
 				response: this.story.name,
-				blankTextError: locale.say("Please enter a name."),
+				blankTextError: locale.say('Please enter a name.'),
 				origin: e.target
 			});
 		},
@@ -61,8 +61,8 @@ module.exports = Vue.extend({
 
 		proofStory() {
 			window.open(
-				"#!/stories/" + this.story.id + "/proof",
-				"twinestory_proof_" + this.story.id
+				'#!/stories/' + this.story.id + '/proof',
+				'twinestory_proof_' + this.story.id
 			);
 		},
 
@@ -73,20 +73,20 @@ module.exports = Vue.extend({
 			).then(format => {
 				save(
 					publishStoryWithFormat(this.appInfo, this.story, format),
-					this.story.name + ".html"
+					this.story.name + '.html'
 				);
 			});
 		},
 
 		storyStats(e) {
-			eventHub.$emit("customModal", StatsDialog, {
+			eventHub.$emit('customModal', StatsDialog, {
 				storyId: this.story.id,
 				origin: e.target
 			});
 		},
 
 		changeFormat(e) {
-			eventHub.$emit("customModal", FormatDialog, {
+			eventHub.$emit('customModal', FormatDialog, {
 				storyId: this.story.id,
 				origin: e.target
 			});
@@ -98,7 +98,7 @@ module.exports = Vue.extend({
 	},
 
 	components: {
-		"drop-down": require("../../../ui/drop-down")
+		'drop-down': require('../../../ui/drop-down')
 	},
 
 	vuex: {

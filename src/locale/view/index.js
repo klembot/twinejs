@@ -2,9 +2,9 @@
  Allows the user to pick what locale they would like to use.
 **/
 
-"use strict";
+'use strict';
 const Vue = require('vue');
-const { setPref } = require("../../data/actions/pref");
+const { setPref } = require('../../data/actions/pref');
 
 require('./index.less');
 
@@ -15,21 +15,21 @@ module.exports = Vue.extend({
 		// The locales we offer with their codes.
 
 		locales: [
-			{ label: "Castellano", code: "es" },
-			{ label: "&Ccaron;e&scaron;tina", code: "cs" },
-			{ label: "Dansk", code: "da" },
-			{ label: "Deutsch", code: "de" },
-			{ label: "English", code: "en" },
-			{ label: "Fran&ccedil;ais", code: "fr" },
-			{ label: "Italiano", code: "it" },
-			{ label: "Nederlands", code: "nl" },
-			{ label: "Portugu&ecirc;s", code: "pt-pt" },
-			{ label: "Portugu&ecirc;s Brasileiro", code: "pt-br" },
-			{ label: "Russian", code: "ru" },
-			{ label: "Suomi", code: "fi" },
-			{ label: "Svenska", code: "sv" },
-			{ label: "T&uuml;rk&ccedil;e", code: "tr" },
-			{ label: "Chinese", code: "zh-cn" }
+			{ label: 'Castellano', code: 'es' },
+			{ label: '&Ccaron;e&scaron;tina', code: 'cs' },
+			{ label: 'Dansk', code: 'da' },
+			{ label: 'Deutsch', code: 'de' },
+			{ label: 'English', code: 'en' },
+			{ label: 'Fran&ccedil;ais', code: 'fr' },
+			{ label: 'Italiano', code: 'it' },
+			{ label: 'Nederlands', code: 'nl' },
+			{ label: 'Portugu&ecirc;s', code: 'pt-pt' },
+			{ label: 'Portugu&ecirc;s Brasileiro', code: 'pt-br' },
+			{ label: 'Russian', code: 'ru' },
+			{ label: 'Suomi', code: 'fi' },
+			{ label: 'Svenska', code: 'sv' },
+			{ label: 'T&uuml;rk&ccedil;e', code: 'tr' },
+			{ label: 'Chinese', code: 'zh-cn' }
 		]
 	}),
 
@@ -43,8 +43,8 @@ module.exports = Vue.extend({
 		**/
 
 		setLocale(userLocale) {
-			this.setPref("locale", userLocale);
-			this.$router.push("stories");
+			this.setPref('locale', userLocale);
+			this.$router.push('stories');
 			window.location.reload();
 		}
 	},
