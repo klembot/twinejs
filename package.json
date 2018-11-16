@@ -27,8 +27,7 @@
 		"pot": "node scripts/extract-pot.js",
 		"start": "webpack-dev-server --inline --hot",
 		"test": "mocha-webpack --webpack-config webpack.config.test.js -r \"jsdom-global/register\"  -r mock-local-storage \"src/**/*.spec.js\"",
-		"watch": "webpack -d --progress --watch",
-		"precommit": "lint-staged"
+		"watch": "webpack -d --progress --watch"
 	},
 	"dependencies": {
 		"blob-polyfill": "^1.0.20150320",
@@ -71,8 +70,6 @@
 		"ejs": "^2.5.2",
 		"ejs-loader": "^0.3.0",
 		"eslint": "^3.10.2",
-		"eslint-config-prettier": "^2.9.0",
-		"eslint-plugin-prettier": "^2.6.0",
 		"estraverse": "^4.2.0",
 		"extract-text-webpack-plugin": "^3.0.2",
 		"file-loader": "^0.11.2",
@@ -81,7 +78,6 @@
 		"html-loader": "^0.5.1",
 		"html-webpack-plugin": "^2.30.1",
 		"htmlparser2": "^3.9.2",
-		"husky": "^0.14.3",
 		"jsdom": "^11.2.0",
 		"jsdom-global": "^3.0.2",
 		"json-loader": "^0.5.7",
@@ -108,15 +104,5 @@
 		"webpack-dev-server": "^2.9.5",
 		"webpack-node-externals": "^1.6.0",
 		"yargs": "^6.6.0"
-	},
-	"lint-staged": {
-		"*.{js}": [
-			"eslint --fix",
-			"git add"
-		],
-		"*.{json,css,md}": [
-			"prettier --write",
-			"git add"
-		]
 	}
 }
