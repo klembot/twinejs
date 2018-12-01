@@ -547,8 +547,8 @@ msgstr ""
 "computer."
 
 #: src/data/actions.js:262
-msgid "a story format named &ldquo;%s&rdquo; already exists"
-msgstr "Esiste già un formato racconto con nome &ldquo;%s&rdquo;"
+msgid "a story format named “%s” already exists"
+msgstr "Esiste già un formato racconto con nome “%s”"
 
 #: src/data/publish.js:75
 msgid "There is no starting point set for this story."
@@ -600,15 +600,15 @@ msgstr "Non Ora"
 
 #. L10n: %1$s is the name of the story format; %2$s is
 #: src/dialogs/formats/index.js:60
-msgid "The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s)."
+msgid "The story format “%1$s” could not be loaded (%2$s)."
 msgstr ""
-"Non è stato possibile caricare il formato del racconto &ldquo;%1$s&rdquo; "
+"Non è stato possibile caricare il formato del racconto “%1$s” "
 "(%2$s)."
 
 #: src/dialogs/formats/index.js:102
 msgid "The story format at %1$s could not be added (%2$s)."
 msgstr ""
-"Non è stato possibile aggiungere il formato del racconto &ldquo;%1$s&rdquo; "
+"Non è stato possibile aggiungere il formato del racconto “%1$s” "
 "(%2$s)."
 
 #. L10n: %s is the name of an author.
@@ -672,8 +672,8 @@ msgstr "\\u201c%s\\u201d in modifica"
 
 #. L10n: %1$s is a filename; %2$s is the error message.
 #: src/file/save.js:71
-msgid "&ldquo;%1$s&rdquo; could not be saved (%2$s)."
-msgstr "Non è stato possibile salvare &ldquo;%1$s&rdquo; (%2$s)."
+msgid "“%1$s” could not be saved (%2$s)."
+msgstr "Non è stato possibile salvare “%1$s” (%2$s)."
 
 #. L10n: This is the folder name on OS X, Linux, and recent versions of Windows that a user's documents are stored in, relative to the user's home directory. If you need to use a space in this name, then it should have two backslashes (\\) in front of it. Regardless, this must have a single forward slash (/) as its first character.
 #: src/nw/directories.js:38
@@ -727,9 +727,9 @@ msgstr "Mostra Libreria"
 #: src/story-edit-view/passage-item/index.js:260
 #: src/story-list-view/story-item/item-menu/index.js:78
 msgid ""
-"Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone."
+"Are you sure you want to delete “%s”? This cannot be undone."
 msgstr ""
-"Sei sicuro di voler eliminare &ldquo;%s&rdquo;? Questa azione sarà "
+"Sei sicuro di voler eliminare “%s”? Questa azione sarà "
 "definitiva."
 
 #: src/story-edit-view/passage-item/index.js:267
@@ -739,8 +739,8 @@ msgstr ""
 
 #: src/story-edit-view/story-toolbar/story-menu/index.js:46
 #: src/story-list-view/story-item/item-menu/index.js:100
-msgid "What should &ldquo;%s&rdquo; be renamed to?"
-msgstr "Qual’è il nuovo nome per &ldquo;%s&rdquo;?"
+msgid "What should “%s” be renamed to?"
+msgstr "Qual’è il nuovo nome per “%s”?"
 
 #: src/story-edit-view/story-toolbar/story-menu/index.js:51
 #: src/story-list-view/story-item/item-menu/index.js:105

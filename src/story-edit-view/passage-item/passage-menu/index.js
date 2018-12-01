@@ -33,11 +33,11 @@ module.exports = Vue.extend({
 		},
 
 		deleteTitle() {
-			return locale.say('Delete &ldquo;%s&rdquo;', this.passage.name);
+			return locale.say('Delete “%s”', this.passage.name);
 		},
 
 		editTitle() {
-			return locale.say('Edit &ldquo;%s&rdquo;', this.passage.name);
+			return locale.say('Edit “%s”', this.passage.name);
 		},
 
 		testTitle() {

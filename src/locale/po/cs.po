@@ -62,15 +62,15 @@ msgstr ""
 #: templates/storyeditview/passageitemview.html:16
 #, php-format
 #, approved
-msgid "Delete &ldquo;%s&rdquo;"
-msgstr "Smazat &ldquo;%s&rdquo;"
+msgid "Delete “%s”"
+msgstr "Smazat “%s”"
 
 #.    L10n: %s is the name of the thing to be edited.
 #: templates/storyeditview/passageitemview.html:21
 #, php-format
 #, approved
-msgid "Edit &ldquo;%s&rdquo;"
-msgstr "Upravit &ldquo;%s&rdquo;"
+msgid "Edit “%s”"
+msgstr "Upravit “%s”"
 
 #: templates/storyeditview/passageitemview.html:24
 #, approved
@@ -81,8 +81,8 @@ msgstr "Začít test příběhu z tohoto místa"
 #: templates/storyeditview/passageitemview.html:28
 #, php-format
 #, approved
-msgid "Set &ldquo;%s&rdquo; as starting point"
-msgstr "Nastavit &ldquo;%s&rdquo; jako počáteční bod"
+msgid "Set “%s” as starting point"
+msgstr "Nastavit “%s” jako počáteční bod"
 
 #: templates/storyeditview/renamestorymodal.html:8
 #: templates/storyeditview/toolbar.html:31
@@ -890,8 +890,8 @@ msgstr ""
 #.    L10n: %1$s is a filename; %2$s is the error message.
 #: js/app.js:226
 #, approved
-msgid "&ldquo;%1$s&rdquo; could not be saved (%2$s)."
-msgstr "&ldquo;%1$s&rdquo; nemůže být uložen (%2$s)."
+msgid "“%1$s” could not be saved (%2$s)."
+msgstr "“%1$s” nemůže být uložen (%2$s)."
 
 #.    L10n: %s is the error message.
 #: js/app.js:283
@@ -1191,14 +1191,14 @@ msgstr[2] "Špatných odkazů"
 #: js/views/storyeditview/modals/storyformatmodal.js:96
 #: js/views/storylistview/modals/formatsmodal.js:74
 #, approved
-msgid "The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s)."
-msgstr "Formát příběhu &ldquo;%1$s&rdquo; nemůže být nahrán (%2$s)."
+msgid "The story format “%1$s” could not be loaded (%2$s)."
+msgstr "Formát příběhu “%1$s” nemůže být nahrán (%2$s)."
 
 #: js/views/storyeditview/passageitemview.js:165
 #, javascript-format
 #, approved
-msgid "Are you sure you want to delete &ldquo;%s&rdquo;? "
-msgstr "Skutečně chcete vymazat &ldquo;%s&rdquo;? "
+msgid "Are you sure you want to delete “%s”? "
+msgstr "Skutečně chcete vymazat “%s”? "
 
 #: js/views/storyeditview/passageitemview.js:169
 #, approved
@@ -1315,8 +1315,8 @@ msgstr ""
 #, javascript-format
 #, approved
 msgid ""
-"Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone."
-msgstr "Skutečně chcete vymazat &ldquo;%s&rdquo;? Operaci nelze vrátit zpět."
+"Are you sure you want to delete “%s”? This cannot be undone."
+msgstr "Skutečně chcete vymazat “%s”? Operaci nelze vrátit zpět."
 
 #: js/views/storylistview/storyitemview.js:125
 #, approved
@@ -1326,8 +1326,8 @@ msgstr "Smazat trvale"
 #: js/views/storylistview/storyitemview.js:137
 #, javascript-format
 #, approved
-msgid "What should &ldquo;%s&rdquo; be renamed to?"
-msgstr "Jak má být &ldquo;%s&rdquo; přejmenován?"
+msgid "What should “%s” be renamed to?"
+msgstr "Jak má být “%s” přejmenován?"
 
 #: js/views/storylistview/storyitemview.js:138
 #, approved

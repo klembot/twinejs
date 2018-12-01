@@ -55,14 +55,14 @@ msgstr ""
 #. L10n: %s is the name of the thing to be deleted.
 #: templates/storyeditview/passageitemview.html:16
 #, php-format
-msgid "Delete &ldquo;%s&rdquo;"
-msgstr "Excluir &ldquo;%s&rdquo;"
+msgid "Delete “%s”"
+msgstr "Excluir “%s”"
 
 #. L10n: %s is the name of the thing to be edited.
 #: templates/storyeditview/passageitemview.html:21
 #, php-format
-msgid "Edit &ldquo;%s&rdquo;"
-msgstr "Editar &ldquo;%s&rdquo;"
+msgid "Edit “%s”"
+msgstr "Editar “%s”"
 
 #: templates/storyeditview/passageitemview.html:24
 msgid "Test story starting here"
@@ -71,8 +71,8 @@ msgstr "Testar a história a partir daqui"
 #. L10n: %s is a name of a passage
 #: templates/storyeditview/passageitemview.html:28
 #, php-format
-msgid "Set &ldquo;%s&rdquo; as starting point"
-msgstr "Definir &ldquo;%s&rdquo; como ponto de partida"
+msgid "Set “%s” as starting point"
+msgstr "Definir “%s” como ponto de partida"
 
 #: templates/storyeditview/renamestorymodal.html:8
 #: templates/storyeditview/toolbar.html:31
@@ -755,8 +755,8 @@ msgstr ""
 
 #. L10n: %1$s is a filename; %2$s is the error message.
 #: js/app.js:226
-msgid "&ldquo;%1$s&rdquo; could not be saved (%2$s)."
-msgstr "&ldquo;%1$s&rdquo; não pôde ser salvo (%2$s)."
+msgid "“%1$s” could not be saved (%2$s)."
+msgstr "“%1$s” não pôde ser salvo (%2$s)."
 
 #. L10n: %s is the error message.
 #: js/app.js:283
@@ -1008,14 +1008,14 @@ msgstr[1] "Links Quebrados"
 #. L10n: %1$s is the name of the story format, %2$s is the error message.
 #: js/views/storyeditview/modals/storyformatmodal.js:96
 #: js/views/storylistview/modals/formatsmodal.js:74
-msgid "The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s)."
+msgid "The story format “%1$s” could not be loaded (%2$s)."
 msgstr ""
-"O formato de história &ldquo;%1$s&rdquo; não pôde ser carregado (%2$s)."
+"O formato de história “%1$s” não pôde ser carregado (%2$s)."
 
 #: js/views/storyeditview/passageitemview.js:165
 #, javascript-format
-msgid "Are you sure you want to delete &ldquo;%s&rdquo;? "
-msgstr "Você tem certeza que quer excluir &ldquo;%s&rdquo;?"
+msgid "Are you sure you want to delete “%s”? "
+msgstr "Você tem certeza que quer excluir “%s”?"
 
 #: js/views/storyeditview/passageitemview.js:169
 msgid "(Hold the Shift key when deleting to skip this message.)"
@@ -1116,9 +1116,9 @@ msgstr ""
 #: js/views/storylistview/storyitemview.js:123
 #, javascript-format
 msgid ""
-"Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone."
+"Are you sure you want to delete “%s”? This cannot be undone."
 msgstr ""
-"Você tem certeza que quer excluir &ldquo;%s&rdquo;? Isso não pode ser "
+"Você tem certeza que quer excluir “%s”? Isso não pode ser "
 "desfeito."
 
 #: js/views/storylistview/storyitemview.js:125
@@ -1127,8 +1127,8 @@ msgstr "Excluir Para Sempre"
 
 #: js/views/storylistview/storyitemview.js:137
 #, javascript-format
-msgid "What should &ldquo;%s&rdquo; be renamed to?"
-msgstr "Qual deve ser o novo nome de &ldquo;%s&rdquo;?"
+msgid "What should “%s” be renamed to?"
+msgstr "Qual deve ser o novo nome de “%s”?"
 
 #: js/views/storylistview/storyitemview.js:138
 msgid "Rename"

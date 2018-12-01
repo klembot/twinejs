@@ -66,7 +66,7 @@ module.exports = (data, filename, success, failure) => {
 			// L10n: %1$s is a filename; %2$s is the error message.
 			notify(
 				locale.say(
-					'&ldquo;%1$s&rdquo; could not be saved (%2$s).',
+					'“%1$s” could not be saved (%2$s).',
 					filename,
 					e.message
 				),

@@ -550,9 +550,9 @@ msgstr "这个故事格式已经安装"
 
 #: src/data/actions/story-format.js:66
 msgid ""
-"a more recent version of the story format &ldquo;%s&rdquo; is already "
+"a more recent version of the story format “%s” is already "
 "installed"
-msgstr "更新版本的故事格式 &ldquo;%s&rdquo; 已经安装"
+msgstr "更新版本的故事格式 “%s” 已经安装"
 
 #: src/data/publish.js:76
 msgid "There is no starting point set for this story."
@@ -624,8 +624,8 @@ msgid "Remove"
 msgstr "移除"
 
 #: src/dialogs/story-format/index.js:54
-msgid "The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s)."
-msgstr "故事格式&ldquo;%1$s&rdquo;无法加载（%2$s）。"
+msgid "The story format “%1$s” could not be loaded (%2$s)."
+msgstr "故事格式“%1$s”无法加载（%2$s）。"
 
 #: src/dialogs/story-import/index.js:56
 msgid "Don\\'t Replace Any Stories"
@@ -674,8 +674,8 @@ msgstr "编辑 \\u201c%s\\u201d"
 
 #. L10n: %1$s is a filename; %2$s is the error message.
 #: src/file/save.js:69
-msgid "&ldquo;%1$s&rdquo; could not be saved (%2$s)."
-msgstr "&ldquo;%1$s&rdquo; 无法保存 (%2$s)."
+msgid "“%1$s” could not be saved (%2$s)."
+msgstr "“%1$s” 无法保存 (%2$s)."
 
 #. L10n: This is the folder name on OS X, Linux, and recent versions of Windows that a user's documents are stored in, relative to the user's home directory. If you need to use a space in this name, then it should have two backslashes (\\) in front of it.
 #: src/nw/directories.js:37
@@ -730,16 +730,16 @@ msgstr "显示故事库"
 
 #: src/story-edit-view/index.js:380
 msgid ""
-"Are you sure you want to delete &ldquo;%2$s&rdquo;? This cannot be undone."
+"Are you sure you want to delete “%2$s”? This cannot be undone."
 msgid_plural ""
 "Are you sure you want to delete %d passages? This cannot be undone."
-msgstr[0] "您确定要删除 &ldquo;%2$s&rdquo; 吗？ 该操作不能被撤消。"
+msgstr[0] "您确定要删除 “%2$s” 吗？ 该操作不能被撤消。"
 
 #: src/story-edit-view/passage-item/index.js:352
 #: src/story-list-view/story-item/item-menu/index.js:81
 msgid ""
-"Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone."
-msgstr "您确定要删除 &ldquo;%s&rdquo; 吗？ 该操作不能被撤消。"
+"Are you sure you want to delete “%s”? This cannot be undone."
+msgstr "您确定要删除 “%s” 吗？ 该操作不能被撤消。"
 
 #: src/story-edit-view/passage-item/index.js:359
 msgid "(Hold the Shift key when deleting to skip this message.)"
@@ -747,8 +747,8 @@ msgstr "（删除时按住Shift键跳过此消息。）"
 
 #: src/story-edit-view/story-toolbar/story-menu/index.js:50
 #: src/story-list-view/story-item/item-menu/index.js:103
-msgid "What should &ldquo;%s&rdquo; be renamed to?"
-msgstr "&ldquo;%s&rdquo;重命名为？"
+msgid "What should “%s” be renamed to?"
+msgstr "“%s”重命名为？"
 
 #: src/story-edit-view/story-toolbar/story-menu/index.js:55
 #: src/story-list-view/story-item/item-menu/index.js:108

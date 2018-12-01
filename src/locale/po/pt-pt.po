@@ -553,8 +553,8 @@ msgstr ""
 "para si."
 
 #: src/data/actions.js:262
-msgid "a story format named &ldquo;%s&rdquo; already exists"
-msgstr "Já existe um formato de história chamado &ldquo;%s&rdquo;"
+msgid "a story format named “%s” already exists"
+msgstr "Já existe um formato de história chamado “%s”"
 
 #: src/data/publish.js:75
 msgid "There is no starting point set for this story."
@@ -604,9 +604,9 @@ msgstr "Agora não"
 
 #. L10n: %1$s is the name of the story format; %2$s is
 #: src/dialogs/formats/index.js:60
-msgid "The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s)."
+msgid "The story format “%1$s” could not be loaded (%2$s)."
 msgstr ""
-"O formato de história &ldquo;%1$s&rdquo; não pôde ser carregado (%2$s)."
+"O formato de história “%1$s” não pôde ser carregado (%2$s)."
 
 #: src/dialogs/formats/index.js:102
 msgid "The story format at %1$s could not be added (%2$s)."
@@ -673,8 +673,8 @@ msgstr "A editar \\u201c%s\\u201d"
 
 #. L10n: %1$s is a filename; %2$s is the error message.
 #: src/file/save.js:71
-msgid "&ldquo;%1$s&rdquo; could not be saved (%2$s)."
-msgstr "&ldquo;%1$s&rdquo; não pôde ser guardado (%2$s)."
+msgid "“%1$s” could not be saved (%2$s)."
+msgstr "“%1$s” não pôde ser guardado (%2$s)."
 
 #. L10n: This is the folder name on OS X, Linux, and recent versions of Windows that a user's documents are stored in, relative to the user's home directory. If you need to use a space in this name, then it should have two backslashes (\\) in front of it. Regardless, this must have a single forward slash (/) as its first character.
 #: src/nw/directories.js:38
@@ -728,9 +728,9 @@ msgstr "Mostrar Biblioteca"
 #: src/story-edit-view/passage-item/index.js:260
 #: src/story-list-view/story-item/item-menu/index.js:78
 msgid ""
-"Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone."
+"Are you sure you want to delete “%s”? This cannot be undone."
 msgstr ""
-"Tem a certeza de que quer apagar &ldquo;%s&rdquo;? Esta ação não pode ser "
+"Tem a certeza de que quer apagar “%s”? Esta ação não pode ser "
 "anulada."
 
 #: src/story-edit-view/passage-item/index.js:267
@@ -739,8 +739,8 @@ msgstr "(Mantenha premida a tecla Shift ao apagar para ignorar esta mensagem.)"
 
 #: src/story-edit-view/story-toolbar/story-menu/index.js:46
 #: src/story-list-view/story-item/item-menu/index.js:100
-msgid "What should &ldquo;%s&rdquo; be renamed to?"
-msgstr "Qual deve ser o novo nome de &ldquo;%s&rdquo;?"
+msgid "What should “%s” be renamed to?"
+msgstr "Qual deve ser o novo nome de “%s”?"
 
 #: src/story-edit-view/story-toolbar/story-menu/index.js:51
 #: src/story-list-view/story-item/item-menu/index.js:105

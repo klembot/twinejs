@@ -44,14 +44,14 @@ msgstr "Ingresa el texto de tu pasaje aquí. Para enlazar a otro pasaje, rodea s
 #. L10n: %s is the name of the thing to be deleted.
 #: templates/storyeditview/passageitemview.html:16
 #, php-format
-msgid "Delete &ldquo;%s&rdquo;"
-msgstr "Eliminar &ldquo;%s&rdquo;"
+msgid "Delete “%s”"
+msgstr "Eliminar “%s”"
 
 #. L10n: %s is the name of the thing to be edited.
 #: templates/storyeditview/passageitemview.html:21
 #, php-format
-msgid "Edit &ldquo;%s&rdquo;"
-msgstr "Editar &ldquo;%s&rdquo;"
+msgid "Edit “%s”"
+msgstr "Editar “%s”"
 
 #: templates/storyeditview/passageitemview.html:24
 msgid "Test story starting here"
@@ -60,8 +60,8 @@ msgstr "Probar historia a partir de aquí"
 #. L10n: %s is a name of a passage
 #: templates/storyeditview/passageitemview.html:28
 #, php-format
-msgid "Set &ldquo;%s&rdquo; as starting point"
-msgstr "Establecer &ldquo;%s&rdquo; como punto de partida"
+msgid "Set “%s” as starting point"
+msgstr "Establecer “%s” como punto de partida"
 
 #: templates/storyeditview/renamestorymodal.html:8 templates/storyeditview/toolbar.html:31 templates/storylistview/storyitemview.html:36
 msgid "Rename Story"
@@ -633,8 +633,8 @@ msgstr "Si quisieras abrir un archivo de historia Twine que recibiste de alguien
 
 #. L10n: %1$s is a filename; %2$s is the error message.
 #: js/app.js:226
-msgid "&ldquo;%1$s&rdquo; could not be saved (%2$s)."
-msgstr "&ldquo;%1$s&rdquo; no pudo guardarse (%2$s)."
+msgid "“%1$s” could not be saved (%2$s)."
+msgstr "“%1$s” no pudo guardarse (%2$s)."
 
 #. L10n: %s is the error message.
 #: js/app.js:283
@@ -883,15 +883,15 @@ msgstr[1] "Enlaces rotos"
 
 #. L10n: %1$s is the name of the story format, %2$s is the error message.
 #: js/views/storyeditview/modals/storyformatmodal.js:96 js/views/storylistview/modals/formatsmodal.js:74
-msgid "The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s)."
-msgstr "El formato de historia &ldquo;%1$s&rdquo; no pudo cargarse (%2$s)."
+msgid "The story format “%1$s” could not be loaded (%2$s)."
+msgstr "El formato de historia “%1$s” no pudo cargarse (%2$s)."
 
 # Gendered adjective.
 # —DAVID
 #: js/views/storyeditview/passageitemview.js:165
 #, javascript-format
-msgid "Are you sure you want to delete &ldquo;%s&rdquo;? "
-msgstr "¿Estás segura/o de que quieres eliminar &ldquo;%s&rdquo;?"
+msgid "Are you sure you want to delete “%s”? "
+msgstr "¿Estás segura/o de que quieres eliminar “%s”?"
 
 #: js/views/storyeditview/passageitemview.js:169
 msgid "(Hold the Shift key when deleting to skip this message.)"
@@ -974,8 +974,8 @@ msgstr "Esta historia no tiene un punto de partida. Edita esta historia y utliza
 
 #: js/views/storylistview/storyitemview.js:123
 #, javascript-format
-msgid "Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone."
-msgstr "¿Estás segura/o de que quieres eliminar &ldquo;%s&rdquo;? Esto no puede deshacerse."
+msgid "Are you sure you want to delete “%s”? This cannot be undone."
+msgstr "¿Estás segura/o de que quieres eliminar “%s”? Esto no puede deshacerse."
 
 #: js/views/storylistview/storyitemview.js:125
 msgid "Delete Forever"
@@ -983,8 +983,8 @@ msgstr "Eliminar para siempre"
 
 #: js/views/storylistview/storyitemview.js:137
 #, javascript-format
-msgid "What should &ldquo;%s&rdquo; be renamed to?"
-msgstr "¿Qué nuevo nombre debería tener &ldquo;%s&rdquo;?"
+msgid "What should “%s” be renamed to?"
+msgstr "¿Qué nuevo nombre debería tener “%s”?"
 
 #: js/views/storylistview/storyitemview.js:138
 msgid "Rename"

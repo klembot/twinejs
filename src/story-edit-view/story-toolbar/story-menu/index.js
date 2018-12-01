@@ -45,7 +45,7 @@ module.exports = Vue.extend({
 			);
 			eventHub.$emit('modalPrompt', {
 				message: locale.say(
-					'What should &ldquo;%s&rdquo; be renamed to?',
+					'What should “%s” be renamed to?',
 					escape(this.story.name)
 				),
 				buttonLabel: '<i class="fa fa-ok"></i> ' + locale.say('Rename'),

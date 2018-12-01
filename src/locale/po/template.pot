@@ -419,7 +419,7 @@ msgid "Secondly, <b>anyone who can use this browser can see and make changes to 
 msgstr ""
 
 #: src/data/actions.js:272
-msgid "a more recent version of the story format &ldquo;%s&rdquo; is already installed"
+msgid "a more recent version of the story format “%s” is already installed"
 msgstr ""
 
 #: src/data/publish.js:75
@@ -467,7 +467,7 @@ msgstr ""
 
 #. L10n: %1$s is the name of the story format; %2$s is
 #: src/dialogs/formats/index.js:63
-msgid "The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s)."
+msgid "The story format “%1$s” could not be loaded (%2$s)."
 msgstr ""
 
 #: src/dialogs/formats/index.js:105
@@ -535,7 +535,7 @@ msgstr ""
 
 #. L10n: %1$s is a filename; %2$s is the error message.
 #: src/file/save.js:71
-msgid "&ldquo;%1$s&rdquo; could not be saved (%2$s)."
+msgid "“%1$s” could not be saved (%2$s)."
 msgstr ""
 
 #. L10n: This is the folder name on OS X, Linux, and recent versions of Windows that a user's documents are stored in, relative to the user's home directory. If you need to use a space in this name, then it should have two backslashes (\\) in front of it.
@@ -591,7 +591,7 @@ msgstr ""
 
 #: src/story-edit-view/passage-item/index.js:319
 #: src/story-list-view/story-item/item-menu/index.js:78
-msgid "Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone."
+msgid "Are you sure you want to delete “%s”? This cannot be undone."
 msgstr ""
 
 #: src/story-edit-view/passage-item/index.js:326
@@ -600,7 +600,7 @@ msgstr ""
 
 #: src/story-edit-view/story-toolbar/story-menu/index.js:46
 #: src/story-list-view/story-item/item-menu/index.js:100
-msgid "What should &ldquo;%s&rdquo; be renamed to?"
+msgid "What should “%s” be renamed to?"
 msgstr ""
 
 #: src/story-edit-view/story-toolbar/story-menu/index.js:51

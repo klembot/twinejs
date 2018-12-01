@@ -55,14 +55,14 @@ msgstr ""
 #. L10n: %s is the name of the thing to be deleted.
 #: templates/storyeditview/passageitemview.html:16
 #, php-format
-msgid "Delete &ldquo;%s&rdquo;"
-msgstr "Poista &ldquo;%s&rdquo;"
+msgid "Delete “%s”"
+msgstr "Poista “%s”"
 
 #. L10n: %s is the name of the thing to be edited.
 #: templates/storyeditview/passageitemview.html:21
 #, php-format
-msgid "Edit &ldquo;%s&rdquo;"
-msgstr "Muokkaa &ldquo;%s&rdquo;"
+msgid "Edit “%s”"
+msgstr "Muokkaa “%s”"
 
 #: templates/storyeditview/passageitemview.html:24
 msgid "Test story starting here"
@@ -71,8 +71,8 @@ msgstr "Testaa tästä"
 #. L10n: %s is a name of a passage
 #: templates/storyeditview/passageitemview.html:28
 #, php-format
-msgid "Set &ldquo;%s&rdquo; as starting point"
-msgstr "Aseta &ldquo;%s&rdquo; alkupisteeksi"
+msgid "Set “%s” as starting point"
+msgstr "Aseta “%s” alkupisteeksi"
 
 #: templates/storyeditview/renamestorymodal.html:8
 #: templates/storyeditview/toolbar.html:31
@@ -750,8 +750,8 @@ msgstr ""
 
 #. L10n: %1$s is a filename; %2$s is the error message.
 #: js/app.js:226
-msgid "&ldquo;%1$s&rdquo; could not be saved (%2$s)."
-msgstr "&ldquo;%1$s&rdquo; ei voitu tallentaa (%2$s)."
+msgid "“%1$s” could not be saved (%2$s)."
+msgstr "“%1$s” ei voitu tallentaa (%2$s)."
 
 #. L10n: %s is the error message.
 #: js/app.js:283
@@ -1001,13 +1001,13 @@ msgstr[1] "rikkinäistä linkkiä"
 #. L10n: %1$s is the name of the story format, %2$s is the error message.
 #: js/views/storyeditview/modals/storyformatmodal.js:96
 #: js/views/storylistview/modals/formatsmodal.js:74
-msgid "The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s)."
-msgstr "Tarinamuotoilua &ldquo;%1$s&rdquo; ei voitu ladata (%2$s)."
+msgid "The story format “%1$s” could not be loaded (%2$s)."
+msgstr "Tarinamuotoilua “%1$s” ei voitu ladata (%2$s)."
 
 #: js/views/storyeditview/passageitemview.js:165
 #, javascript-format
-msgid "Are you sure you want to delete &ldquo;%s&rdquo;? "
-msgstr "Oletko varma että haluat poistaa kohteen &ldquo;%s&rdquo;?"
+msgid "Are you sure you want to delete “%s”? "
+msgstr "Oletko varma että haluat poistaa kohteen “%s”?"
 
 #: js/views/storyeditview/passageitemview.js:169
 msgid "(Hold the Shift key when deleting to skip this message.)"
@@ -1106,9 +1106,9 @@ msgstr ""
 #: js/views/storylistview/storyitemview.js:123
 #, javascript-format
 msgid ""
-"Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone."
+"Are you sure you want to delete “%s”? This cannot be undone."
 msgstr ""
-"Oletko varma että haluat poistaa kohteen &ldquo;%s&rdquo;? Toimintoa ei voi "
+"Oletko varma että haluat poistaa kohteen “%s”? Toimintoa ei voi "
 "kumota."
 
 #: js/views/storylistview/storyitemview.js:125
@@ -1117,8 +1117,8 @@ msgstr "Poista lopullisesti"
 
 #: js/views/storylistview/storyitemview.js:137
 #, javascript-format
-msgid "What should &ldquo;%s&rdquo; be renamed to?"
-msgstr "Anna tarinalle &ldquo;%s&rdquo; uusi nimi."
+msgid "What should “%s” be renamed to?"
+msgstr "Anna tarinalle “%s” uusi nimi."
 
 #: js/views/storylistview/storyitemview.js:138
 msgid "Rename"

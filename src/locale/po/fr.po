@@ -552,8 +552,8 @@ msgstr ""
 "essayez de créer un profil séparé pour vous-même."
 
 #: src/data/actions.js:262
-msgid "a story format named &ldquo;%s&rdquo; already exists"
-msgstr "un format d'histoire nommé &ldquo;%s&rdquo; existe déjà"
+msgid "a story format named “%s” already exists"
+msgstr "un format d'histoire nommé “%s” existe déjà"
 
 #: src/data/publish.js:75
 msgid "There is no starting point set for this story."
@@ -603,8 +603,8 @@ msgstr "Pas En Ce Moment"
 
 #. L10n: %1$s is the name of the story format; %2$s is
 #: src/dialogs/formats/index.js:60
-msgid "The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s)."
-msgstr "Le format d'histoire &ldquo;%1$s&rdquo; n'a pas pu être chargé (%2$s)."
+msgid "The story format “%1$s” could not be loaded (%2$s)."
+msgstr "Le format d'histoire “%1$s” n'a pas pu être chargé (%2$s)."
 
 #: src/dialogs/formats/index.js:102
 msgid "The story format at %1$s could not be added (%2$s)."
@@ -671,8 +671,8 @@ msgstr "Édition de \\u201c%s\\u201d"
 
 #. L10n: %1$s is a filename; %2$s is the error message.
 #: src/file/save.js:71
-msgid "&ldquo;%1$s&rdquo; could not be saved (%2$s)."
-msgstr "&ldquo;%1$s&rdquo; n'a pas pu être sauvegardé (%2$s)."
+msgid "“%1$s” could not be saved (%2$s)."
+msgstr "“%1$s” n'a pas pu être sauvegardé (%2$s)."
 
 #. L10n: This is the folder name on OS X, Linux, and recent versions of Windows that a user's documents are stored in, relative to the user's home directory. If you need to use a space in this name, then it should have two backslashes (\\) in front of it. Regardless, this must have a single forward slash (/) as its first character.
 #: src/nw/directories.js:38
@@ -726,9 +726,9 @@ msgstr "Montrer la Bibliothèque"
 #: src/story-edit-view/passage-item/index.js:260
 #: src/story-list-view/story-item/item-menu/index.js:78
 msgid ""
-"Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone."
+"Are you sure you want to delete “%s”? This cannot be undone."
 msgstr ""
-"Êtes-vous sûr de vouloir supprimer &ldquo;%s&rdquo; ? Cette action ne peut "
+"Êtes-vous sûr de vouloir supprimer “%s” ? Cette action ne peut "
 "être annulée."
 
 #: src/story-edit-view/passage-item/index.js:267
@@ -739,8 +739,8 @@ msgstr ""
 
 #: src/story-edit-view/story-toolbar/story-menu/index.js:46
 #: src/story-list-view/story-item/item-menu/index.js:100
-msgid "What should &ldquo;%s&rdquo; be renamed to?"
-msgstr "Quel doit être le nouveau nom de &ldquo;%s&rdquo; ?"
+msgid "What should “%s” be renamed to?"
+msgstr "Quel doit être le nouveau nom de “%s” ?"
 
 #: src/story-edit-view/story-toolbar/story-menu/index.js:51
 #: src/story-list-view/story-item/item-menu/index.js:105
@@ -951,14 +951,14 @@ msgstr "Place restante : %d%%"
 #~ msgid "My\\ Documents"
 #~ msgstr "Mes\\ Documents"
 
-#~ msgid "Delete &ldquo;%s&rdquo;"
-#~ msgstr "Supprimer &ldquo;%s&rdquo;"
+#~ msgid "Delete “%s”"
+#~ msgstr "Supprimer “%s”"
 
-#~ msgid "Edit &ldquo;%s&rdquo;"
-#~ msgstr "Modifier &ldquo;%s&rdquo;"
+#~ msgid "Edit “%s”"
+#~ msgstr "Modifier “%s”"
 
-#~ msgid "Set &ldquo;%s&rdquo; as starting point"
-#~ msgstr "Choisir &ldquo;%s&rdquo; comme point de départ"
+#~ msgid "Set “%s” as starting point"
+#~ msgstr "Choisir “%s” comme point de départ"
 
 #~ msgid "What should this story's name be?"
 #~ msgstr "Quel nom voulez-vous donnez à cette histoire ?"
@@ -1195,8 +1195,8 @@ msgstr "Place restante : %d%%"
 #~ msgid "%1$s %2$s"
 #~ msgstr "%1$s %2$s"
 
-#~ msgid "Are you sure you want to delete &ldquo;%s&rdquo;? "
-#~ msgstr "Êtes-vous sûr de vouloir supprimer &ldquo;%s&rdquo; ?"
+#~ msgid "Are you sure you want to delete “%s”? "
+#~ msgstr "Êtes-vous sûr de vouloir supprimer “%s” ?"
 
 #~ msgid "Don't see either mouse or touch coordinates on event"
 #~ msgstr ""

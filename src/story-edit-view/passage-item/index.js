@@ -343,7 +343,7 @@ module.exports = Vue.extend({
 			}
 			else {
 				let message = locale.say(
-					'Are you sure you want to delete &ldquo;%s&rdquo;? ' +
+					'Are you sure you want to delete “%s”? ' +
 					'This cannot be undone.',
 					escape(this.passage.name)
 				);

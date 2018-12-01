@@ -410,7 +410,7 @@ module.exports = Vue.extend({
 					}
 
 					const message = locale.sayPlural(
-						`Are you sure you want to delete &ldquo;%2$s&rdquo;? This cannot be undone.`,
+						`Are you sure you want to delete “%2$s”? This cannot be undone.`,
 						`Are you sure you want to delete %d passages? This cannot be undone.`,
 						toDelete.length,
 						toDelete[0].name

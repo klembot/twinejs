@@ -80,7 +80,7 @@ module.exports = Vue.extend({
 			eventHub.$emit("modalConfirm", {
 				message:
 					locale.say(
-						'Are you sure you want to delete &ldquo;%s&rdquo;? ' +
+						'Are you sure you want to delete “%s”? ' +
 						'This cannot be undone.',
 						escape(this.story.name)
 					),
@@ -102,7 +102,7 @@ module.exports = Vue.extend({
 			eventHub.$emit("modalPrompt", {
 				message:
 					locale.say(
-						'What should &ldquo;%s&rdquo; be renamed to?',
+						'What should “%s” be renamed to?',
 						escape(this.story.name)
 					),
 				buttonLabel:
