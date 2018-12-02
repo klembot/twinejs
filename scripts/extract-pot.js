@@ -124,6 +124,12 @@ glob.sync('src/**/*.js').forEach(fileName => {
 					`Don't know how to parse operator ${node.operator}`
 				);
 
+			case 'TemplateLiteral':
+				if (node.quasis[0].length > 1) {
+					throw new Error(`Does not support multiple quasis ${node.quasis}`);
+				}
+				return node.quasis[0].value.raw.replace(/^['"]/, '').replace(/['"]$/, '');
+
 			default:
 				throw new Error(`Don't know how to parse value of ${node.type}`);
 		}
@@ -163,6 +169,7 @@ glob.sync('src/**/*.js').forEach(fileName => {
 					);
 
 					if (funcName === 'say') {
+
 						addItem(
 							fileName + ':' + node.loc.start.line,
 							parseValue(node.arguments[0]),
