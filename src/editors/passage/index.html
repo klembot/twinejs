@@ -1,4 +1,4 @@
-<modal-dialog id="passageEditModal" :className="'editor'" :can-close="canClose" :can-widen="true" :origin="origin" @destroyed="dialogDestroyed" ref="modal">
+<modal-dialog id="passageEditModal" className="editor" :can-close="canClose" :can-widen="true" :origin="origin" @destroyed="dialogDestroyed" ref="modal">
 	<span slot="title">
 		<input type="text" id="passageName" v-bind:placeholder="inputPlaceholder" v-model="userPassageName">
 	</span>
