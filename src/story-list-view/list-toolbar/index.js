@@ -46,8 +46,8 @@ module.exports = Vue.extend({
 
 	methods: {
 		createStoryPrompt(e) {
-			eventHub.$once('close', name => {
-				if (!name) {
+			eventHub.$once('close', (isError, name) => {
+				if(isError) {
 					return;
 				}
 				this.createStory({ name });

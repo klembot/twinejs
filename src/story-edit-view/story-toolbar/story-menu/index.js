@@ -40,9 +40,12 @@ module.exports = Vue.extend({
 		},
 
 		renameStory(e) {
-			eventHub.$once('close', text =>
-				this.updateStory(this.story.id, { name: text })
-			);
+			eventHub.$once('close', (isError, text) => {
+				if (isError) {
+					return;
+				}
+				this.updateStory(this.story.id, { name: text });
+			});
 			eventHub.$emit('modalPrompt', {
 				message: locale.say(
 					'What should “%s” be renamed to?',

@@ -32,11 +32,10 @@ module.exports = Vue.extend({
 		hue() {
 			// A hue based on the story's name.
 
-			return (
-				([this.story.name].reduce((hue, char) => hue + char.charCodeAt(0), 0) %
-					40) *
-				90
-			);
+			if(typeof this.story.name != 'string') {
+				return 90;
+			}
+			return ([this.story.name].reduce((hue, char) => hue + char.charCodeAt(0), 0) % 40) * 90;
 		}
 	},
 

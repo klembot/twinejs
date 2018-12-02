@@ -22,8 +22,7 @@ const prompter = {
 
 		data: () => ({
 			cancelLabel: '<i class="fa fa-times"></i> ' + locale.say("Cancel"),
-			isValid: true,
-			validationError: "",
+			validationError: null,
 			response: null
 		}),
 
@@ -40,17 +39,15 @@ const prompter = {
 				const validResponse = this.validator(this.response);
 
 				if (typeof validResponse === 'string') {
-					this.isValid = false;
 					this.validationError = validResponse;
 				}
 				else {
-					this.isValid = true;
-					eventHub.$emit("close", this.response);
+					eventHub.$emit("close", false, this.response);
 				}
 			},
 
 			cancel() {
-				eventHub.$emit("close");
+				eventHub.$emit("close", true, this.validationError);
 			}
 		},
 

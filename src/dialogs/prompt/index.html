@@ -3,7 +3,7 @@
 		<div class="message larger" v-html="message"></div>
 
 		<transition name="fade-in-out">
-			<p class="error" v-if="!isValid">
+			<p class="error" v-if="validationError">
 				{{ validationError }}
 			</p>
 		</transition>

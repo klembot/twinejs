@@ -98,7 +98,12 @@ module.exports = Vue.extend({
 		**/
 
 		rename() {
-			eventHub.$once('close', name => this.updateStory(this.story.id, { name }));
+			eventHub.$once('close', (isError, name) => {
+				if (isError) {
+					return;
+				}
+				this.updateStory(this.story.id, { name });
+			});
 			eventHub.$emit("modalPrompt", {
 				message:
 					locale.say(
@@ -121,7 +126,9 @@ module.exports = Vue.extend({
 
 		duplicate() {
 			eventHub.$once('close', name => {
-				this.duplicateStory(this.story.id, name);
+				if (name) {
+					this.duplicateStory(this.story.id, name);
+				}
 			});
 			eventHub.$emit("modalPrompt", {
 				message:
