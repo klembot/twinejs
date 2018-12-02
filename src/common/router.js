@@ -89,8 +89,10 @@ let TwineRouter = new VueRouter({
 			}
 		},
 		{
+			name: "proof",
 			path: '/stories/:id/proof',
 			component: {
+				template: '<div class="replace-me"></div>',
 				mounted() {
 					this.$nextTick(function() {
 						// code that assumes this.$el is in-document

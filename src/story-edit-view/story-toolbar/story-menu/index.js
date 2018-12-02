@@ -59,13 +59,6 @@ module.exports = Vue.extend({
 			this.selectPassages(this.story.id, () => true);
 		},
 
-		proofStory() {
-			window.open(
-				'#!/stories/' + this.story.id + '/proof',
-				'twinestory_proof_' + this.story.id
-			);
-		},
-
 		publishStory() {
 			this.loadFormat(
 				this.story.storyFormat,
