@@ -27,7 +27,8 @@ const ModalDialog = Vue.extend({
 		canClose: {
 			type: Function,
 			required: false
-		}
+		},
+		className: '',
 	},
 
 	data: () => ({
@@ -36,7 +37,7 @@ const ModalDialog = Vue.extend({
 
 	computed: {
 		classes() {
-			return this.class + (this.wide ? ' wide' : '');
+			return this.className + (this.wide ? ' wide' : '');
 		}
 	},
 
