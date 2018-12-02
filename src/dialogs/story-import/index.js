@@ -66,7 +66,7 @@ module.exports = Vue.extend({
 		this.$nextTick(function() {
 			// code that assumes this.$el is in-document
 			if (this.immediateImport) {
-				this.import(this.immediateImport);
+				this.importStoryFile(this.immediateImport);
 			}
 		});
 	},
@@ -78,7 +78,13 @@ module.exports = Vue.extend({
 			}
 		},
 
-		import(file) {
+		importStoryEvent(event) {
+			this.importStoryFile(event.srcElement.files[0])
+
+		},
+
+		importStoryFile(file) {
+
 			this.status = 'working';
 
 			load(file).then(source => {
@@ -124,7 +130,7 @@ module.exports = Vue.extend({
 
 				if (this.toReplace.indexOf(story.name) !== -1 ||
 					!this.existingStories.find(story => story.name === name)) {
-					this.importStory(story);
+					this.importStoryFile(story);
 				}
 
 				this.close();

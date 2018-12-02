@@ -7,7 +7,7 @@
 				{{ 'Import this file:' | say }}
 			</label>
 
-			<input type="file" ref="import-file" @change="import($els.importFile.files[0])">
+			<input type="file" ref="import-file" @change="importStoryEvent">
 		</p>
 
 		<div class="buttons" v-if="!working">
