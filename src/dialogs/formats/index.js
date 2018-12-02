@@ -6,6 +6,9 @@ const locale = require('../../locale');
 module.exports = Vue.component('formats-modal-dialog', {
 	template: require('./index.html'),
 
+	/* The origin element to show the dialog coming from. */
+	props: ["origin"],
+
 	data: () => ({
 		/* Detail about each format. */
 		loadedFormats: [],
@@ -21,9 +24,6 @@ module.exports = Vue.component('formats-modal-dialog', {
 
 		/* Bound to the text in the "new format" input. */
 		newFormatUrl: '',
-
-		/* The origin element to show the dialog coming from. */
-		origin: null
 	}),
 
 	/*

@@ -12,15 +12,14 @@ require('./index.less');
 module.exports = Vue.component("SearchDialog", {
 	template: require('./index.html'),
 
+	props: ["story", "search", "origin"],
+
 	data: () => ({
-		story: {},
-		search: '',
 		replace: '',
 		searchNames: true,
 		caseSensitive: false,
 		regexp: false,
-		working: false,
-		origin: null
+		working: false
 	}),
 
 	computed: {

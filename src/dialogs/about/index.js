@@ -4,9 +4,8 @@ const locale = require('../../locale');
 require('./index.less');
 
 module.exports = Vue.extend({
-	data: () => ({
-		origin: null
-	}),
+	
+	props: ["origin"],
 
 	template: require('./index.html'),
 
