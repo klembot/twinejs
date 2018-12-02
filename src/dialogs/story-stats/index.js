@@ -12,10 +12,7 @@ require('./index.less');
 module.exports = Vue.component("StatsDialog", {
 	template: require('./index.html'),
 
-	data: () => ({
-		storyId: '',
-		origin: null
-	}),
+	props: ["storyId", "origin"],
 
 	computed: {
 		story() {
@@ -123,7 +120,7 @@ module.exports = Vue.component("StatsDialog", {
 
 		ifidHelp() {
 			return locale.say(
-				`'The IFID for this story is <span class="ifid">%s</span>. (<a href="http:\/\/ifdb.tads.org/help-ifid" target="_blank">What\'s an IFID?</a>)`,
+				`The IFID for this story is <span class="ifid">%s</span>. (<a href="http:\/\/ifdb.tads.org/help-ifid" target="_blank">What\'s an IFID?</a>)`,
 				this.story.ifid
 			);
 		}
