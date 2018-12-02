@@ -56,7 +56,7 @@ Would you like to help localize Twine for another language? Awesome! You don't
 need to know JavaScript to do so. Here's how it works:
 
 1. Download
-[template.pot](https://bitbucket.org/klembot/twinejs/raw/4b64592fd47dd6678d9d0ebb0f07067f1bfaeabb/locale/po/template.pot)
+[template.pot](https://github.com/klembot/twinejs/tree/master/src/locale/po/template.pot)
 from the repository.
 
 2. Use a translation application like [Poedit](http://poedit.net/) to create a

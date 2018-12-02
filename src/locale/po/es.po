@@ -306,10 +306,10 @@ msgstr "Twine es una herramienta de código abierto para contar historias intera
 
 #: templates/storylistview/modals/aboutmodal.html:25
 msgid ""
-"Twine 2.0 is released under the <a href=\"http://www.gnu.org/licenses/gpl-3.0.html\">GPL v3</a> license, but any work created with it may be released under any terms, including commercial ones. <a href=\"https:\\/\\/bitbucket.org/klembot/twinejs\">Source Code Repository</"
+"Twine 2.0 is released under the <a href=\"http://www.gnu.org/licenses/gpl-3.0.html\">GPL v3</a> license, but any work created with it may be released under any terms, including commercial ones. <a href=\"https:\\/\\/”github.com/klembot/twinejs\">Source Code Repository</"
 "a>"
 msgstr ""
-"Twine 2.0 se distribuye bajo la licencia <a href=\"http://www.gnu.org/licenses/gpl-3.0.html\">GPL v3</a>, pero cualquier trabajo creado con él puede distribuirse bajo otros términos cualesquiera, inclusive comerciales. <a href=\"https:\\/\\/bitbucket.org/klembot/twinejs"
+"Twine 2.0 se distribuye bajo la licencia <a href=\"http://www.gnu.org/licenses/gpl-3.0.html\">GPL v3</a>, pero cualquier trabajo creado con él puede distribuirse bajo otros términos cualesquiera, inclusive comerciales. <a href=\"https:\\/\\/”github.com/klembot/twinejs"
 "\">Repositorio del código fuente</a>"
 
 #: templates/storylistview/modals/aboutmodal.html:31
@@ -1023,9 +1023,9 @@ msgstr[1] "%d historias"
 #~ msgstr "La IFID para esta historia es <span class=\"ifid\">%s</span>. <a href=\"http://ifdb.tads.org/help-ifid\" target=\"_blank\">¿Qué es una IFID? (Inglés)</a>)"
 
 #~ msgid ""
-#~ "Twine 2.0 is released under the <a href=\"http://www.gnu.org/licenses/gpl-3.0.html\">GPL v3</a> license, but any work created with it may be released under any terms, including commercial ones. <a href=\"https://bitbucket.org/klembot/twinejs\">Source Code Repository</a>"
+#~ "Twine 2.0 is released under the <a href=\"http://www.gnu.org/licenses/gpl-3.0.html\">GPL v3</a> license, but any work created with it may be released under any terms, including commercial ones. <a href=\"https://”github.com/klembot/twinejs\">Source Code Repository</a>"
 #~ msgstr ""
-#~ "Twine 2.0 se distribuye bajo la licencia <a href=\"http://www.gnu.org/licenses/gpl-3.0.html\">GPL v3</a>, pero cualquier trabajo creado con él puede distribuirse bajo otros términos cualesquiera, inclusive comerciales. <a href=\"https://bitbucket.org/klembot/twinejs"
+#~ "Twine 2.0 se distribuye bajo la licencia <a href=\"http://www.gnu.org/licenses/gpl-3.0.html\">GPL v3</a>, pero cualquier trabajo creado con él puede distribuirse bajo otros términos cualesquiera, inclusive comerciales. <a href=\"https://”github.com/klembot/twinejs"
 #~ "\">Repositorio del código fuente</a>"
 
 #~ msgid "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the guidance of Robert Slimbach for <a href=\"http://adobe.com/\">Adobe</a><br> Nunito was designed by <a href=\"http://code.newtypography.co.uk/\">Vernon Adams</a>"
