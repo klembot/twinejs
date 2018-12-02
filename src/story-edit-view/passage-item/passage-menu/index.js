@@ -75,11 +75,11 @@ module.exports = Vue.extend({
 
 	methods: {
 		edit() {
-			eventHub.$emit('passage-edit');
+			this.$emit('passage-edit');
 		},
 
 		passageDelete(e) {
-			eventHub.$emit('passage-delete', e.shiftKey);
+			this.$emit('passage-delete', e.shiftKey);
 		},
 
 		test() {

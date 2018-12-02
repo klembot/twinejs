@@ -163,6 +163,34 @@ module.exports = Vue.extend({
 			this.deletePassage(this.parentStory.id, this.passage.id);
 		},
 
+		requestDelete(skipConfirmation) {
+			if (skipConfirmation) {
+				this.delete();
+			}
+			else {
+				let message = locale.say(
+					'Are you sure you want to delete “%s”? ' +
+					'This cannot be undone.',
+					escape(this.passage.name)
+				);
+
+				if (!hasPrimaryTouchUI()) {
+					message += '<br><br>' + locale.say(
+						'(Hold the Shift key when deleting to skip this message.)'
+					);
+				}
+
+				eventHub.$once('close', (confirmed) => { if(confirmed) {this.delete();} });
+				const confirmArgs = {
+					buttonLabel: '<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
+					class: 'danger',
+					message: message
+				};
+
+				eventHub.$emit("modalConfirm", confirmArgs);
+			}
+		},
+
 		edit() {
 			/*
 			Close any existing passage menu -- it may still be visible if the
@@ -333,38 +361,6 @@ module.exports = Vue.extend({
 	},
 
 	created: function() {
-		eventHub.$on('passage-edit', () => {
-			this.edit();
-		});
-
-		eventHub.$on('passage-delete', (skipConfirmation) => {
-			if (skipConfirmation) {
-				this.delete();
-			}
-			else {
-				let message = locale.say(
-					'Are you sure you want to delete “%s”? ' +
-					'This cannot be undone.',
-					escape(this.passage.name)
-				);
-
-				if (!hasPrimaryTouchUI()) {
-					message += '<br><br>' + locale.say(
-						'(Hold the Shift key when deleting to skip this message.)'
-					);
-				}
-
-				eventHub.$once('close', (confirmed) => { if(confirmed) {this.delete();} });
-				const confirmArgs = {
-					buttonLabel: '<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
-					class: 'danger',
-					message: message
-				};
-
-				 eventHub.$emit("modalConfirm", confirmArgs);
-			}
-		});
-
 		eventHub.$on('passage-drag-complete', (xOffset, yOffset, emitter) => {
 			/*
 			We have to check whether we originally emitted this event, as

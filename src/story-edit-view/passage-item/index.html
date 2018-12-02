@@ -13,5 +13,5 @@
 		<p class="excerpt" v-html="excerpt"></p>
 	</div> <!-- .frame -->
 
-	<passage-menu v-if="needsMenu" :passage="passage" :parent-story="parentStory"></passage-menu>
+	<passage-menu v-if="needsMenu" :passage="passage" :parent-story="parentStory" v-on:passage-edit="edit" v-on:passage-delete="requestDelete"></passage-menu>
 </div>
