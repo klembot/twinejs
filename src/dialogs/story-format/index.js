@@ -9,10 +9,11 @@ require('./index.less');
 module.exports = Vue.component('FormatDialog', {
 	template: require('./index.html'),
 
+	props: ['storyId', 'origin'],
+
 	data: () => ({
 		loadIndex: 0,
 		loadedFormats: [],
-		storyId: ''
 	}),
 
 	computed: {
