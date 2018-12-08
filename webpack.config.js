@@ -66,7 +66,7 @@ const config = (module.exports = {
 		new HtmlPlugin({
 			template: './src/index.ejs',
 			package: package,
-			buildNumber: require('./scripts/build-number'),
+			buildNumber: require('./scripts/build-number').number,
 			inject: false,
 			minify: isRelease && {collapseWhitespace: true},
 			options: {cdn: useCdn}
