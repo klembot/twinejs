@@ -1,18 +1,16 @@
-/**
- Allows the user to pick what locale they would like to use.
-**/
+/*
+Allows the user to pick what locale they would like to use.
+*/
 
-'use strict';
 const Vue = require('vue');
+const isElectron = require('../../electron/is-electron');
 const {setPref} = require('../../data/actions/pref');
-
 require('./index.less');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
-
 	data: () => ({
-		// The locales we offer with their codes.
+		/* The locales we offer with their codes. */
 
 		locales: [
 			{label: 'Castellano', code: 'es'},
@@ -31,28 +29,25 @@ module.exports = Vue.extend({
 			{label: 'T&uuml;rk&ccedil;e', code: 'tr'}
 		]
 	}),
-
 	methods: {
-		/**
-		 Sets the application locale and forces a window reload
-		 back to the story list.
-
-		 @method setLocale
-		 @param {String} userLocale locale to set
-		**/
+		/*
+		Sets the application locale and forces a window reload
+		back to the story list.
+		*/
 
 		setLocale(userLocale) {
 			this.setPref('locale', userLocale);
-			window.location.hash = 'stories';
-			window.location.reload();
+
+			if (isElectron()) {
+				window.twineElectron.ipcRenderer.send('app-relaunch');
+			} else {
+				window.location.hash = 'stories';
+				window.location.reload();
+			}
 		}
 	},
-
 	vuex: {
 		actions: {setPref},
-
-		getters: {
-			localePref: state => state.pref.locale
-		}
+		getters: {localePref: state => state.pref.locale}
 	}
 });

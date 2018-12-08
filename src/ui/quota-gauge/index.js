@@ -1,7 +1,10 @@
-// This is an gauge that shows how much space is available in the user's local
-// storage. It's only applicable when the app is running in a Web browser.
+/*
+This is an gauge that shows how much space is available in the user's local
+storage. It's only applicable when the app is running in a Web browser.
+*/
 
 const Vue = require('vue');
+const isElectron = require('../../electron/is-electron');
 const locale = require('../../locale');
 
 require('./index.less');
@@ -13,12 +16,13 @@ module.exports = Vue.extend({
 
 	data: () => ({
 		used: 0,
-		free: 0
+		free: 0,
+		show: !isElectron()
 	}),
 
 	computed: {
 		percent() {
-			return Math.round(this.free / (this.used + this.free) * 100);
+			return Math.round((this.free / (this.used + this.free)) * 100);
 		},
 
 		percentDesc() {
@@ -27,16 +31,24 @@ module.exports = Vue.extend({
 	},
 
 	created() {
-		// We know how much space we're already using. We find out how much is
-		// free by trying to allocate more in 100k chunks, and failing once
-		// we've hit the quota.
+		if (!this.show) {
+			return;
+		}
+
+		/*
+		We know how much space we're already using. We find out how much is
+		free by trying to allocate more in 100k chunks, and failing once
+		we've hit the quota.
+		*/
 
 		this.used = JSON.stringify(window.localStorage).length;
 		this.free = CHUNK_SIZE;
 
 		let storageIndex = 0;
-		// This is used to test how much local storage is left in 100k chunks.
-		let testString  = 'x'.repeat(CHUNK_SIZE);
+
+		/* This is used to test how much local storage is left in 100k chunks. */
+
+		let testString = 'x'.repeat(CHUNK_SIZE);
 		const interval = window.setInterval(
 			() => {
 				let stop = false;
@@ -55,8 +67,7 @@ module.exports = Vue.extend({
 					if (this.percent <= 1) {
 						stop = true;
 					}
-				}
-				catch (e) {
+				} catch (e) {
 					stop = true;
 				}
 

@@ -8,11 +8,18 @@ const package = require('./package.json');
 
 const isRelease = process.env.NODE_ENV === 'production';
 const useCdn = process.env.USE_CDN === 'y';
+const useElectron = process.env.USE_ELECTRON === 'y';
 
 const config = (module.exports = {
+	mode: isRelease ? 'production' : 'development',
 	entry: './src/index.js',
+	target: useElectron ? 'electron-renderer' : 'web',
 	output: {
-		path: path.join(__dirname, 'dist', useCdn ? 'web-cdn' : 'web'),
+		path: path.join(
+			__dirname,
+			'dist',
+			useCdn ? 'web-cdn' : useElectron ? 'web-electron' : 'web'
+		),
 		filename: 'twine.js'
 	},
 	module: {
@@ -49,27 +56,17 @@ const config = (module.exports = {
 			}
 		]
 	},
-	/*
-	Leave Node requires that are used in NW.js alone. This is apparently the
-	magic invocation to do so.
-	*/
-	externals: {
-		child_process: 'commonjs child_process',
-		fs: 'commonjs fs',
-		'nw.gui': 'commonjs nw.gui',
-		os: 'commonjs os',
-		path: 'commonjs path'
-	},
 	plugins: [
 		new CopyPlugin([
 			{from: 'src/common/img/favicon.ico', to: 'rsrc/favicon.ico'},
 			{from: 'story-formats/', to: 'story-formats/'},
-			{from: 'src/locale/view/img', to: 'rsrc/'}
+			{from: 'src/locale/view/img', to: 'rsrc/'},
+			{from: 'src/locale/po/*.js', to: 'locale/'}
 		]),
 		new HtmlPlugin({
 			template: './src/index.ejs',
 			package: package,
-			buildNumber: require('./scripts/build-number'),
+			buildNumber: require('./scripts/build-number').number,
 			inject: false,
 			minify: isRelease && {collapseWhitespace: true},
 			options: {cdn: useCdn}

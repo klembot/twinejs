@@ -8,8 +8,9 @@
 'use strict';
 const Vue = require('vue');
 const locale = require('../locale');
-const { check: checkForAppUpdate } = require('../dialogs/app-update');
-const { check: checkForDonation } = require('../dialogs/app-donation');
+const {check: checkForAppUpdate} = require('../dialogs/app-update');
+const {check: checkForDonation} = require('../dialogs/app-donation');
+const isElectron = require('../electron/is-electron');
 const ImportDialog = require('../dialogs/story-import');
 
 require('./index.less');
@@ -116,7 +117,11 @@ module.exports = Vue.extend({
 		app update...
 		*/
 
-		if (!this.appearFast && !checkForDonation(this.$store)) {
+		if (
+			!this.appearFast &&
+			!checkForDonation(this.$store) &&
+			isElectron()
+		) {
 			checkForAppUpdate(this.$store);
 		}
 
@@ -139,9 +144,9 @@ module.exports = Vue.extend({
 			*/
 
 			if (this.storyOrder === 'lastUpdate') {
-				this.storyOrderDir = this.storyOrderDir === 'asc' ? 'desc' : 'asc';
-			}
-			else {
+				this.storyOrderDir =
+					this.storyOrderDir === 'asc' ? 'desc' : 'asc';
+			} else {
 				this.storyOrderDir = 'desc';
 			}
 
@@ -155,9 +160,9 @@ module.exports = Vue.extend({
 			*/
 
 			if (this.storyOrder === 'name') {
-				this.storyOrderDir = this.storyOrderDir === 'asc' ? 'desc' : 'asc';
-			}
-			else {
+				this.storyOrderDir =
+					this.storyOrderDir === 'asc' ? 'desc' : 'asc';
+			} else {
 				this.storyOrderDir = 'asc';
 			}
 
@@ -168,7 +173,7 @@ module.exports = Vue.extend({
 	components: {
 		'story-item': require('./story-item'),
 		'list-toolbar': require('./list-toolbar'),
-		'file-drag-n-drop': require('../ui/file-drag-n-drop'),
+		'file-drag-n-drop': require('../ui/file-drag-n-drop')
 	},
 
 	events: {

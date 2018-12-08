@@ -4,10 +4,11 @@ const Vue = require('vue');
 const AboutDialog = require('../../dialogs/about');
 const FormatsDialog = require('../../dialogs/formats');
 const ImportDialog = require('../../dialogs/story-import');
-const { createStory } = require('../../data/actions/story');
+const {createStory} = require('../../data/actions/story');
+const isElectron = require('../../electron/is-electron');
 const locale = require('../../locale');
-const { prompt } = require('../../dialogs/prompt');
-const { publishArchive } = require('../../data/publish');
+const {prompt} = require('../../dialogs/prompt');
+const {publishArchive} = require('../../data/publish');
 const saveFile = require('../../file/save');
 
 module.exports = Vue.extend({
@@ -24,9 +25,9 @@ module.exports = Vue.extend({
 				buttonLabel: '<i class="fa fa-plus"></i> ' + locale.say('Add'),
 				buttonClass: 'create',
 				validator: name => {
-					if (this.existingStories.find(
-							story => story.name === name
-						)) {
+					if (
+						this.existingStories.find(story => story.name === name)
+					) {
 						return locale.say(
 							'A story with this name already exists.'
 						);
@@ -35,16 +36,15 @@ module.exports = Vue.extend({
 
 				origin: e.target
 			}).then(name => {
-				this.createStory({ name });
+				this.createStory({name});
 
 				/* Allow the appearance animation to complete. */
 
 				window.setTimeout(() => {
 					this.$dispatch(
 						'story-edit',
-						this.existingStories.find(
-							story => story.name === name
-						).id
+						this.existingStories.find(story => story.name === name)
+							.id
 					);
 				}, 300);
 			});
@@ -53,12 +53,14 @@ module.exports = Vue.extend({
 		importFile(e) {
 			new ImportDialog({
 				store: this.$store,
-				data: { origin: e.target }
+				data: {origin: e.target}
 			}).$mountTo(document.body);
 		},
 
 		saveArchive() {
-			const timestamp = new Date().toLocaleString().replace(/[\/:\\]/g, '.');
+			const timestamp = new Date()
+				.toLocaleString()
+				.replace(/[\/:\\]/g, '.');
 
 			saveFile(
 				publishArchive(this.existingStories, this.appInfo),
@@ -69,14 +71,14 @@ module.exports = Vue.extend({
 		showAbout(e) {
 			new AboutDialog({
 				store: this.$store,
-				data: { origin: e.target }
+				data: {origin: e.target}
 			}).$mountTo(document.body);
 		},
 
 		showFormats(e) {
 			new FormatsDialog({
 				store: this.$store,
-				data: { origin: e.target }
+				data: {origin: e.target}
 			}).$mountTo(document.body);
 		},
 

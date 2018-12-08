@@ -9,7 +9,8 @@
 'use strict';
 const Vue = require('vue');
 const scroll = require('scroll');
-const { setPref } = require('../data/actions/pref');
+const isElectron = require('../electron/is-electron');
+const {setPref} = require('../data/actions/pref');
 
 require('./index.less');
 
@@ -18,19 +19,21 @@ module.exports = Vue.extend({
 
 	data: () => ({
 		/* How many sections are currently visible. */
-		shown: 1
+		shown: 1,
+		isElectron: isElectron()
 	}),
 
 	methods: {
 		next() {
 			this.shown++;
-			
+
 			Vue.nextTick(() => {
 				scroll.top(
 					document.body,
-					document.querySelector(
-					'#welcomeView > div:last-of-type').offsetTop,
-					{ duration: 400 });
+					document.querySelector('#welcomeView > div:last-of-type')
+						.offsetTop,
+					{duration: 400}
+				);
 			});
 		},
 
