@@ -47,7 +47,7 @@ if (localeUrlMatch) {
 if (typeof userLocale === 'string') {
 	/* Load the locale, then start the application. */
 
-	locale.load(userLocale.toLowerCase(), () => {
+	locale.loadViaAjax(userLocale.toLowerCase()).then(() => {
 		TwineRouter.start(TwineApp, '#main');
 	});
 } else {
@@ -55,7 +55,7 @@ if (typeof userLocale === 'string') {
 	Something has gone pretty wrong; fall back to English as a last resort.
 	*/
 
-	locale.load('en', () => {
+	locale.load('en').then(() => {
 		TwineRouter.start(TwineApp, '#main');
 
 		Vue.nextTick(() => {

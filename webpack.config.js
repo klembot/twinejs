@@ -11,6 +11,7 @@ const useCdn = process.env.USE_CDN === 'y';
 const useElectron = process.env.USE_ELECTRON === 'y';
 
 const config = (module.exports = {
+	mode: isRelease ? 'production' : 'development',
 	entry: './src/index.js',
 	target: useElectron ? 'electron-renderer' : 'web',
 	output: {
@@ -59,7 +60,8 @@ const config = (module.exports = {
 		new CopyPlugin([
 			{from: 'src/common/img/favicon.ico', to: 'rsrc/favicon.ico'},
 			{from: 'story-formats/', to: 'story-formats/'},
-			{from: 'src/locale/view/img', to: 'rsrc/'}
+			{from: 'src/locale/view/img', to: 'rsrc/'},
+			{from: 'src/locale/po/*.js', to: 'locale/'}
 		]),
 		new HtmlPlugin({
 			template: './src/index.ejs',

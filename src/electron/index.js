@@ -1,8 +1,9 @@
 /*
-Bootstraps the Electron app.
+Bootstraps the Electron app. This listens for `app-relaunch` IPC messages and
+relaunches the app when one is received.
 */
 
-const {app, dialog, BrowserWindow, shell} = require('electron');
+const {app, dialog, ipcMain, BrowserWindow, shell} = require('electron');
 const path = require('path');
 const {
 	create: createStoryDirectory,
@@ -10,6 +11,7 @@ const {
 	unlock: unlockStoryDirectory
 } = require('./story-directory');
 const {load: loadJson} = require('./json-file');
+const loadLocale = require('./load-locale');
 const {load: loadStories} = require('./story-file');
 const initMenuBar = require('./menu-bar');
 
@@ -79,6 +81,10 @@ app.on('ready', () => {
 	loadJson('prefs.json')
 		.then(data => (global.hydrate.prefs = data))
 		.catch(e => console.warn(e.message))
+		.then(() => {
+			startupTask = 'loading your locale preference';
+			return loadLocale(global.hydrate.prefs);
+		})
 		.then(() => loadJson('story-formats.json'))
 		.then(data => (global.hydrate.storyFormats = data))
 		.catch(e => console.warn(e.message))
@@ -120,6 +126,11 @@ app.on('ready', () => {
 				() => app.exit()
 			);
 		});
+});
+
+ipcMain.on('app-relaunch', () => {
+	app.relaunch();
+	app.quit();
 });
 
 /*
