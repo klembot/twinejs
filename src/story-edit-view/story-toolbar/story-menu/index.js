@@ -6,13 +6,14 @@ const FormatDialog = require('../../../dialogs/story-format');
 const JavaScriptEditor = require('../../../editors/javascript');
 const StatsDialog = require('../../../dialogs/story-stats');
 const StylesheetEditor = require('../../../editors/stylesheet');
-const { loadFormat } = require('../../../data/actions/story-format');
+const {loadFormat} = require('../../../data/actions/story-format');
 const locale = require('../../../locale');
-const { prompt } = require('../../../dialogs/prompt');
-const { publishStoryWithFormat } = require('../../../data/publish');
+const openWindow = require('../../../ui/open-window');
+const {prompt} = require('../../../dialogs/prompt');
+const {publishStoryWithFormat} = require('../../../data/publish');
 const save = require('../../../file/save');
-const { selectPassages } = require('../../../data/actions/passage');
-const { updateStory } = require('../../../data/actions/story');
+const {selectPassages} = require('../../../data/actions/passage');
+const {updateStory} = require('../../../data/actions/story');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -32,35 +33,29 @@ module.exports = Vue.extend({
 			*/
 
 			new JavaScriptEditor({
-				data: { storyId: this.story.id, origin: e.target },
+				data: {storyId: this.story.id, origin: e.target},
 				store: this.$store
 			}).$mountTo(document.body);
 		},
 
 		editStyle(e) {
 			new StylesheetEditor({
-				data: { storyId: this.story.id, origin: e.target },
+				data: {storyId: this.story.id, origin: e.target},
 				store: this.$store
 			}).$mountTo(document.body);
 		},
 
 		renameStory(e) {
 			prompt({
-				message:
-					locale.say(
-						'What should &ldquo;%s&rdquo; be renamed to?',
-						escape(this.story.name)
-					),
-				buttonLabel:
-					'<i class="fa fa-ok"></i> ' + locale.say('Rename'),
-				response:
-					this.story.name,
-				blankTextError:
-					locale.say('Please enter a name.'),
-				origin:
-					e.target
-			})
-			.then(text => this.updateStory(this.story.id, { name: text }));
+				message: locale.say(
+					'What should &ldquo;%s&rdquo; be renamed to?',
+					escape(this.story.name)
+				),
+				buttonLabel: '<i class="fa fa-ok"></i> ' + locale.say('Rename'),
+				response: this.story.name,
+				blankTextError: locale.say('Please enter a name.'),
+				origin: e.target
+			}).then(text => this.updateStory(this.story.id, {name: text}));
 		},
 
 		selectAll() {
@@ -68,10 +63,7 @@ module.exports = Vue.extend({
 		},
 
 		proofStory() {
-			window.open(
-				'#!/stories/' + this.story.id + '/proof',
-				'twinestory_proof_' + this.story.id
-			);
+			openWindow('#!/stories/' + this.story.id + '/proof');
 		},
 
 		publishStory() {
@@ -88,23 +80,22 @@ module.exports = Vue.extend({
 
 		storyStats(e) {
 			new StatsDialog({
-				data: { storyId: this.story.id, origin: e.target },
+				data: {storyId: this.story.id, origin: e.target},
 				store: this.$store
 			}).$mountTo(document.body);
 		},
 
 		changeFormat(e) {
 			new FormatDialog({
-				data: { storyId: this.story.id, origin: e.target },
+				data: {storyId: this.story.id, origin: e.target},
 				store: this.$store
 			}).$mountTo(document.body);
 		},
 
 		toggleSnap() {
-			this.updateStory(
-				this.story.id,
-				{ snapToGrid: !this.story.snapToGrid }
-			);
+			this.updateStory(this.story.id, {
+				snapToGrid: !this.story.snapToGrid
+			});
 		}
 	},
 
