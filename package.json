@@ -66,7 +66,7 @@
 		"copy-webpack-plugin": "^4.5.4",
 		"css-loader": "^0.28.7",
 		"ejs": "^2.5.2",
-		"ejs-loader": "^0.3.0",
+		"ejs-loader": "^0.3.1",
 		"ejs-webpack-loader": "^2.2.2",
 		"electron": "^3.0.7",
 		"electron-builder": "^20.31.2",
