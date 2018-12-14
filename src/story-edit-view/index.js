@@ -126,7 +126,7 @@ module.exports = Vue.extend({
 		*/
 
 		selectedChildren() {
-			return this.$refs.passages.filter(p => p.selected);
+			return this.$refs.passages.filter(p => p.passage.selected);
 		},
 
 		/*
@@ -425,10 +425,12 @@ module.exports = Vue.extend({
 
 		'passage-drag'(xOffset, yOffset) {
 			if (this.story.snapToGrid) {
-				this.screenDragOffsetX = Math.round(xOffset / this.gridSize) *
-					this.gridSize;
-				this.screenDragOffsetY = Math.round(yOffset / this.gridSize) *
-					this.gridSize;
+				const zoomedGridSize = this.gridSize * this.story.zoom;
+
+				this.screenDragOffsetX = Math.round(xOffset / zoomedGridSize) *
+					zoomedGridSize;
+				this.screenDragOffsetY = Math.round(yOffset / zoomedGridSize) *
+					zoomedGridSize;
 			}
 			else {
 				this.screenDragOffsetX = xOffset;
@@ -447,8 +449,10 @@ module.exports = Vue.extend({
 			this.screenDragOffsetY = 0;
 
 			if (this.story.snapToGrid) {
-				xOffset = Math.round(xOffset / this.gridSize) * this.gridSize;
-				yOffset = Math.round(yOffset / this.gridSize) * this.gridSize;
+				const zoomedGridSize = this.gridSize * this.story.zoom;
+
+				xOffset = Math.round(xOffset / zoomedGridSize) * zoomedGridSize;
+				yOffset = Math.round(yOffset / zoomedGridSize) * zoomedGridSize;
 			}
 
 			this.$broadcast('passage-drag-complete', xOffset, yOffset);
@@ -465,9 +469,8 @@ module.exports = Vue.extend({
 				this.story.id,
 				passage.id,
 				this.gridSize,
-				options.ignoreSelected && (other =>
-					!other.selected
-				)
+				options.ignoreSelected && (otherPassage =>
+					!otherPassage.selected)
 			);
 		}
 	},

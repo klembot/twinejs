@@ -201,4 +201,89 @@ describe('passage actions module', () => {
 		expect(secondCall.args[2]).to.equal(fakeId + '2');
 		expect(secondCall.args[3].text).to.equal('[[$]]');
 	});
+
+	describe('snap to grid passage positioning', () => {	
+		it('snap overlapping passages to adjacent positions, when positioning passages()', () => {
+			let storyStore = {
+				dispatch: spy(),
+				state: {
+					story: {
+						stories: [
+							{
+								id: fakeId,
+								snapToGrid: true,
+								passages: [
+									{
+										id: fakeId,
+										name: 'Test',
+										text: 'a',
+										left: 10,
+										top: 10,
+										width: 10,
+										height: 10,
+										selected: true
+									},
+									{
+										id: fakeId + '2',
+										name: 'Test',
+										text: 'a',
+										left: 10,
+										top: 10,
+										width: 10,
+										height: 10,
+										selected: false
+									}
+								]
+							}
+						]
+					}
+				}
+			};
+	
+			/* Test overlapping from slightly below */
+			storyStore.state.story.stories[0].passages[0].top = 11;
+	
+			actions.positionPassage(storyStore, fakeId, fakeId, 10);
+
+			const firstCall = storyStore.dispatch.getCall(0);
+
+			expect(firstCall.args[3]).to.exist;
+			expect(firstCall.args[3].top).to.equal(20);
+			expect(firstCall.args[3].left).to.equal(10);
+	
+			/* Test overlapping from slightly above */
+			storyStore.state.story.stories[0].passages[0].top = 9;
+	
+			actions.positionPassage(storyStore, fakeId, fakeId, 10);
+
+			const secondCall = storyStore.dispatch.getCall(1);
+
+			expect(secondCall.args[3]).to.exist;
+			expect(secondCall.args[3].top).to.equal(0);
+			expect(secondCall.args[3].left).to.equal(10);
+	
+			/* Test overlapping from slightly leftwards */
+			storyStore.state.story.stories[0].passages[0].top = 10;
+			storyStore.state.story.stories[0].passages[0].left = 0;
+	
+			actions.positionPassage(storyStore, fakeId, fakeId, 10);
+
+			const thirdCall = storyStore.dispatch.getCall(2);
+
+			expect(thirdCall.args[3]).to.exist;
+			expect(thirdCall.args[3].top).to.equal(10);
+			expect(thirdCall.args[3].left).to.equal(0);
+	
+			/* Test overlapping from slightly rightwards */
+			storyStore.state.story.stories[0].passages[0].left = 11;
+	
+			actions.positionPassage(storyStore, fakeId, fakeId, 10);
+
+			const fourthCall = storyStore.dispatch.getCall(3);
+
+			expect(fourthCall.args[3]).to.exist;
+			expect(fourthCall.args[3].top).to.equal(10);
+			expect(fourthCall.args[3].left).to.equal(20);
+		});
+	});
 });
