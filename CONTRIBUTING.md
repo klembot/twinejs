@@ -7,4 +7,5 @@ time writing code. Bugfixes don't require discussion, though. We can hash things
 out in the comments of your pull request as needed.
 
 Pull requests adding code should be accompanied by [Jest unit
-tests](https://jestjs.io/) where possible.
+tests](https://jestjs.io/) where possible. Your code should also pass the `npm
+run lint` task.
