@@ -2,12 +2,17 @@
 
 const escape = require('lodash.escape');
 const Vue = require('vue');
-const { confirm } = require('../../../dialogs/confirm');
-const { deleteStory, duplicateStory, updateStory } = require('../../../data/actions/story');
-const { loadFormat } = require('../../../data/actions/story-format');
-const { prompt } = require('../../../dialogs/prompt');
+const {confirm} = require('../../../dialogs/confirm');
+const {
+	deleteStory,
+	duplicateStory,
+	updateStory
+} = require('../../../data/actions/story');
+const {loadFormat} = require('../../../data/actions/story-format');
+const openWindow = require('../../../ui/open-window');
+const {prompt} = require('../../../dialogs/prompt');
 const locale = require('../../../locale');
-const { publishStoryWithFormat } = require('../../../data/publish');
+const {publishStoryWithFormat} = require('../../../data/publish');
 const save = require('../../../file/save');
 
 module.exports = Vue.extend({
@@ -32,10 +37,7 @@ module.exports = Vue.extend({
 		**/
 
 		play() {
-			window.open(
-				'#stories/' + this.story.id + '/play',
-				'twinestory_play_' + this.story.id
-			);
+			openWindow('#stories/' + this.story.id + '/play');
 		},
 
 		/**
@@ -45,10 +47,7 @@ module.exports = Vue.extend({
 		**/
 
 		test() {
-			window.open(
-				'#stories/' + this.story.id + '/test',
-				'twinestory_test_' + this.story.id
-			);
+			openWindow('#stories/' + this.story.id + '/test');
 		},
 
 		/**
@@ -77,18 +76,16 @@ module.exports = Vue.extend({
 
 		delete() {
 			confirm({
-				message:
-					locale.say(
-						'Are you sure you want to delete &ldquo;%s&rdquo;? ' +
+				message: locale.say(
+					'Are you sure you want to delete &ldquo;%s&rdquo;? ' +
 						'This cannot be undone.',
-						escape(this.story.name)
-					),
+					escape(this.story.name)
+				),
 				buttonLabel:
-					'<i class="fa fa-trash-o"></i> ' + locale.say('Delete Forever'),
-				buttonClass:
-					'danger'
-			})
-			.then(() => this.deleteStory(this.story.id));
+					'<i class="fa fa-trash-o"></i> ' +
+					locale.say('Delete Forever'),
+				buttonClass: 'danger'
+			}).then(() => this.deleteStory(this.story.id));
 		},
 
 		/**
@@ -99,19 +96,14 @@ module.exports = Vue.extend({
 
 		rename() {
 			prompt({
-				message:
-					locale.say(
-						'What should &ldquo;%s&rdquo; be renamed to?',
-						escape(this.story.name)
-					),
-				buttonLabel:
-					'<i class="fa fa-ok"></i> ' + locale.say('Rename'),
-				response:
-					this.story.name,
-				blankTextError:
-					locale.say('Please enter a name.')
-			})
-			.then(name => this.updateStory(this.story.id, { name }));
+				message: locale.say(
+					'What should &ldquo;%s&rdquo; be renamed to?',
+					escape(this.story.name)
+				),
+				buttonLabel: '<i class="fa fa-ok"></i> ' + locale.say('Rename'),
+				response: this.story.name,
+				blankTextError: locale.say('Please enter a name.')
+			}).then(name => this.updateStory(this.story.id, {name}));
 		},
 
 		/**
@@ -121,16 +113,12 @@ module.exports = Vue.extend({
 
 		duplicate() {
 			prompt({
-				message:
-					locale.say('What should the duplicate be named?'),
+				message: locale.say('What should the duplicate be named?'),
 				buttonLabel:
 					'<i class="fa fa-copy"></i> ' + locale.say('Duplicate'),
-				response:
-					locale.say('%s Copy', this.story.name),
-				blankTextError:
-					locale.say('Please enter a name.')
-			})
-			.then(name => {
+				response: locale.say('%s Copy', this.story.name),
+				blankTextError: locale.say('Please enter a name.')
+			}).then(name => {
 				this.duplicateStory(this.story.id, name);
 			});
 		}
@@ -147,7 +135,7 @@ module.exports = Vue.extend({
 		getters: {
 			allFormats: state => state.storyFormat.formats,
 			appInfo: state => state.appInfo,
-			defaultFormat: state => state.pref.defaultFormat,
+			defaultFormat: state => state.pref.defaultFormat
 		}
 	}
 });

@@ -4,6 +4,7 @@ passages.
 */
 
 const Vue = require('vue');
+const escapeRegexp = require('lodash.escaperegexp');
 
 require('./index.less');
 
@@ -37,7 +38,7 @@ module.exports = Vue.extend({
 			*/
 
 			if (!this.regexp) {
-				source = source.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+				source = escapeRegexp(source);
 			}
 
 			return new RegExp('(' + source + ')', flags);
@@ -49,7 +50,7 @@ module.exports = Vue.extend({
 			}
 
 			this.working = true;
-			
+
 			let result = this.story.passages.reduce((matches, passage) => {
 				let numMatches = 0;
 				let passageName = passage.name;

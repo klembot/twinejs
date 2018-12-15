@@ -1,4 +1,3 @@
-const { expect } = require('chai');
 const { match, spy } = require('sinon');
 const storyFormat = require('./story-format');
 
@@ -7,7 +6,7 @@ describe('story format local storage persistence', () => {
 		window.localStorage.clear();
 	});
 	
-	it('persists formats', () => {
+	test('persists formats', () => {
 		const store = {
 			state: {
 				storyFormat: {
@@ -29,26 +28,26 @@ describe('story format local storage persistence', () => {
 		
 		const ids = window.localStorage.getItem('twine-storyformats').split(',');
 
-		expect(ids.length).to.equal(2);
+		expect(ids.length).toBe(2);
 		
 		let saved = {};
 		
 		ids.forEach(id => {
 			let savedFormat = window.localStorage.getItem(`twine-storyformats-${id}`);
 
-			expect(savedFormat).to.be.a('string');
+			expect(typeof savedFormat).toBe('string');
 			const restored = JSON.parse(savedFormat);
 
 			saved[restored.name] = restored;
 		});
 		
-		expect(saved['Format One']).to.exist;
-		expect(saved['Format One'].url).to.equal('https://twinery.org');
-		expect(saved['Format Two']).to.exist;
-		expect(saved['Format Two'].url).to.equal('https://twinery.org/wiki');
+		expect(saved['Format One']).toBeDefined();
+		expect(saved['Format One'].url).toBe('https://twinery.org');
+		expect(saved['Format Two']).toBeDefined();
+		expect(saved['Format Two'].url).toBe('https://twinery.org/wiki');
 	});
 		
-	it('restores story formats', () => {
+	test('restores story formats', () => {
 		window.localStorage.setItem('twine-storyformats', 'a-fake-id,another-fake-id');
 		window.localStorage.setItem(
 			'twine-storyformats-a-fake-id',
@@ -70,14 +69,14 @@ describe('story format local storage persistence', () => {
 		};
 		
 		storyFormat.load(store);
-		expect(store.dispatch.calledTwice).to.be.true;
+		expect(store.dispatch.calledTwice).toBe(true);
 		expect(store.dispatch.calledWith(
 			'CREATE_FORMAT',
 			match({ name: 'Format 1', url: 'gopher://gopher.floodgap.com:70/1/' }))
-		).to.be.true;
+		).toBe(true);
 		expect(store.dispatch.calledWith(
 			'CREATE_FORMAT',
 			match({ name: 'Format 2', url: 'gopher://gopher.floodgap.com:70/0/gopher/wbgopher' }))
-		).to.be.true;
+		).toBe(true);
 	});
 });

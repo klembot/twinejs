@@ -1,39 +1,58 @@
-/**
- Manages localizing strings, dates, and times.
-
- @module locale
-**/
+/*
+Manages localizing strings, dates, and times.
+*/
 
 const jsonp = require('jsonp');
 const Jed = require('jed');
 const moment = require('moment');
 
-module.exports = {
-	/**
-	 Loads gettext strings via AJAX. This sets the i18nData and
-	 locale properties, and sets up Moment.js for the correct locale.
+/*
+The Jed instance used to localize strings.
+*/
+let i8n;
 
-	 @param {String} locale locale (e.g. en_us) to load
-	 @param {Function} callback function to call once done
-	**/
+const Locale = (module.exports = {
+	/*
+	Loads gettext strings via AJAX and sets 
+	*/
 
-	load(locale, callback) {
-		/**
-		 The app's current locale.
+	loadViaAjax(locale) {
+		return new Promise(resolve => {
+			/*
+			If the locale is 'en' or 'en-us', return the failover data early to
+			prevent unnecessary requests, especially with the online build.
+			*/
 
-		 @property locale
-		 @readonly
-		**/
+			if (locale === 'en' || locale === 'en-us') {
+				Locale.loadDefault();
+				resolve();
+				return;
+			}
 
-		this.locale = locale;
+			/* Attempt to fetch the locale data. */
 
-		/* Set locale in MomentJS. */
+			jsonp(
+				`locale/${locale}.js`,
+				{name: 'locale', timeout: 1000},
+				(err, data) => {
+					if (err) {
+						Locale.loadDefault();
+						resolve();
+					} else {
+						Locale.loadJson(locale, data);
+						resolve();
+					}
+				}
+			);
+		});
+	},
 
-		moment.locale(locale);
+	/*
+	Loads the default locale.
+	*/
 
-		/* Set up failover Jed data to get back the source text as-is. */
-
-		const failoverData = {
+	loadDefault() {
+		Locale.loadJson('en', {
 			domain: 'messages',
 			locale_data: {
 				messages: {
@@ -44,66 +63,35 @@ module.exports = {
 					}
 				}
 			}
-		};
-
-		/*
-		If the locale is 'en' or 'en-us', return the failover data early to
-		prevent unnecessary requests, especially with the online build.
-		*/
-
-		if (locale === 'en' || locale === 'en-us') {
-			this.i18nData = failoverData;
-			this.i18n = new Jed(this.i18nData);
-			callback();
-			return;
-		}
-
-		/* Attempt to fetch the locale data. */
-
-		jsonp(
-			`locale/${locale}.js`,
-			{ name: 'locale', timeout: 1000 },
-			(err, data) => {
-				if (err) {
-					this.i18nData = failoverData;
-					this.i18n = new Jed(this.i18nData);
-					callback();
-				}
-				else {
-					/**
-					 The raw JSON data used by Jed.
-
-					@property i18nData
-					@type {Object}
-					**/
-
-					this.i18nData = data;
-					this.i18n = new Jed(this.i18nData);
-					callback();
-				}
-			}
-		);
+		});
 	},
 
-	/**
-	 Translates a string to the user-set locale, interpolating variables.
-	 Anything passed beyond the source text will be interpolated into it.
+	/*
+	Actually does setup of a locale with a name and JSON data.
+	*/
 
-	 @param {String} source source text to translate
-	 @return string translation
-	**/
+	loadJson(locale, data) {
+		/* Set locale in MomentJS. */
+
+		moment.locale(locale);
+		i18n = new Jed(data);
+	},
+
+	/*
+	Translates a string to the user-set locale, interpolating variables.
+	Anything passed beyond the source text will be interpolated into it.
+	*/
 
 	say(source, ...args) {
 		try {
 			if (args.length == 0) {
-				return this.i18n.gettext(source);
+				return i18n.gettext(source);
 			}
 
 			/* Interpolation required. */
 
-			return this.i18n.sprintf(this.i18n.gettext(source), ...args);
-		}
-		catch (e) {
+			return i18n.sprintf(i18n.gettext(source), ...args);
+		} catch (e) {
 			/*
 			If all else fails, return English, even with ugly %d placeholders so
 			the user can see *something*.
@@ -113,32 +101,28 @@ module.exports = {
 		}
 	},
 
-	/**
-	Translates a string to the user-set locale, keeping in mind
-	pluralization rules. Any additional arguments passed after the ones
-	listed here are interpolated into the resulting string.
+	/*
+	Translates a string to the user-set locale, keeping in mind pluralization
+	rules. Any additional arguments passed after the ones listed here are
+	interpolated into the resulting string.
 
 	When interpolating, count will always be the first argument.
-
-	@param {String} sourceSingular source text to translate with
-	singular form @param {String} sourcePlural source text to translate
-	with plural form @param {Number} count count to use for
-	pluralization @return string translation
-	**/
+	*/
 
 	sayPlural(sourceSingular, sourcePlural, count, ...args) {
 		try {
-			return this.i18n.sprintf(
-				this.i18n.ngettext(sourceSingular, sourcePlural, count),
+			return i18n.sprintf(
+				i18n.ngettext(sourceSingular, sourcePlural, count),
 				count,
 				...args
 			);
-		}
-		catch (e) {
-			// if all else fails, return English, even with ugly placeholders
-			// so the user can see *something*
+		} catch (e) {
+			/*
+			If all else fails, return English, even with ugly placeholders
+			so the user can see *something*.
+			*/
 
 			return sourcePlural.replace(/%d/g, count);
 		}
 	}
-};
+});
