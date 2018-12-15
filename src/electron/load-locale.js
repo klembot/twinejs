@@ -16,9 +16,10 @@ module.exports = function(prefs) {
 		if (prefs.locale) {
 			const localeName = prefs.locale.toLowerCase();
 
-			if (localeName == 'en' || localeName == 'en-us') {
+			if (localeName === 'en' || localeName === 'en-us') {
 				loadDefault();
 				resolve();
+				return;
 			}
 
 			const localePath = path.resolve(
