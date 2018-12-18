@@ -11,6 +11,7 @@ const locale = require('../locale');
 const eventHub = require('../common/eventHub');
 const { check: checkForAppUpdate } = require('../dialogs/app-update');
 const { check: checkForDonation } = require('../dialogs/app-donation');
+const isElectron = require('../electron/is-electron');
 const ImportDialog = require('../dialogs/story-import');
 
 require('./index.less');
@@ -147,9 +148,13 @@ module.exports = Vue.extend({
 			 and then an app update...
 			*/
 
-			if (!this.appearFast && !checkForDonation(this.$store)) {
-				checkForAppUpdate(this.$store);
-			}
+		if (
+			!this.appearFast &&
+			!checkForDonation(this.$store) &&
+			isElectron()
+		) {
+			checkForAppUpdate(this.$store);
+		}
 
 			/*
 			And if the user had been previously editing a story
@@ -177,7 +182,8 @@ module.exports = Vue.extend({
 			*/
 
 			if (this.storyOrder === 'lastUpdate') {
-				this.storyOrderDir = this.storyOrderDir === 'asc' ? 'desc' : 'asc';
+				this.storyOrderDir =
+					this.storyOrderDir === 'asc' ? 'desc' : 'asc';
 			} else {
 				this.storyOrderDir = 'desc';
 			}
@@ -192,7 +198,8 @@ module.exports = Vue.extend({
 			*/
 
 			if (this.storyOrder === 'name') {
-				this.storyOrderDir = this.storyOrderDir === 'asc' ? 'desc' : 'asc';
+				this.storyOrderDir =
+					this.storyOrderDir === 'asc' ? 'desc' : 'asc';
 			} else {
 				this.storyOrderDir = 'asc';
 			}

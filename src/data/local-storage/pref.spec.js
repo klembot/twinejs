@@ -1,4 +1,3 @@
-const { expect } = require('chai');
 const { spy } = require('sinon');
 const pref = require('./pref');
 
@@ -7,7 +6,7 @@ describe('pref local storage persistence', () => {
 		window.localStorage.clear();
 	});
 	
-	it('persists preferences', () => {
+	test('persists preferences', () => {
 		const store = {
 			state: {
 				pref: {
@@ -22,25 +21,25 @@ describe('pref local storage persistence', () => {
 		
 		const ids = window.localStorage.getItem('twine-prefs').split(',');
 
-		expect(ids.length).to.equal(3);
+		expect(ids.length).toBe(3);
 		
 		let saved = {};
 		
 		ids.forEach(id => {
 			let savedPref = window.localStorage.getItem(`twine-prefs-${id}`);
 
-			expect(savedPref).to.be.a('string');
+			expect(typeof savedPref).toBe('string');
 			const restored = JSON.parse(savedPref);
 
 			saved[restored.name] = restored.value;
 		});
 		
-		expect(saved.foo).to.equal(true);
-		expect(saved.bar).to.equal(1);
-		expect(saved.baz).to.equal('a string');
+		expect(saved.foo).toBe(true);
+		expect(saved.bar).toBe(1);
+		expect(saved.baz).toBe('a string');
 	});
 	
-	it('restores preferences', () => {
+	test('restores preferences', () => {
 		window.localStorage.setItem('twine-prefs', 'a-fake-id,another-fake-id');
 		window.localStorage.setItem(
 			'twine-prefs-a-fake-id',
@@ -64,8 +63,8 @@ describe('pref local storage persistence', () => {
 		};
 		
 		pref.load(store);
-		expect(store.dispatch.calledTwice).to.be.true;
-		expect(store.dispatch.calledWith('UPDATE_PREF', 'foo', true)).to.be.true;
-		expect(store.dispatch.calledWith('UPDATE_PREF', 'bar', 1)).to.be.true;
+		expect(store.dispatch.calledTwice).toBe(true);
+		expect(store.dispatch.calledWith('UPDATE_PREF', 'foo', true)).toBe(true);
+		expect(store.dispatch.calledWith('UPDATE_PREF', 'bar', 1)).toBe(true);
 	});
 });

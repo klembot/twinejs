@@ -1,14 +1,25 @@
+const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const PoPlugin = require('./webpack/po-webpack-plugin');
 const Autoprefixer = require('less-plugin-autoprefix');
 const package = require('./package.json');
 
-module.exports = {
+const isRelease = process.env.NODE_ENV === 'production';
+const useCdn = process.env.USE_CDN === 'y';
+const useElectron = process.env.USE_ELECTRON === 'y';
+
+const config = (module.exports = {
+	mode: isRelease ? 'production' : 'development',
 	entry: './src/index.js',
+	target: useElectron ? 'electron-renderer' : 'web',
 	output: {
-		path: __dirname + '/build',
+		path: path.join(
+			__dirname,
+			'dist',
+			useCdn ? 'web-cdn' : useElectron ? 'web-electron' : 'web'
+		),
 		filename: 'twine.js'
 	},
 	resolve: {
@@ -23,7 +34,7 @@ module.exports = {
 	module: {
 		rules: [
 			/*
-			Inline any resurces below 10k in size.
+			Inline resources below 10k in size.
 			*/
 			{
 				test: /\.(eot|png|svg|ttf|woff|woff2)(\?.*)?$/,
@@ -33,6 +44,7 @@ module.exports = {
 					name: 'rsrc/[name].[hash].[ext]'
 				}
 			},
+
 			/*
 			We must exclude the top-level template, as I think the HTML plugin
 			is expecting a string as output, not a function.
@@ -40,7 +52,7 @@ module.exports = {
 			{
 				test: /\.ejs$/,
 				exclude: /index\.ejs$/,
-				loader: 'ejs-loader'
+				loader: 'ejs-webpack-loader'
 			},
 			{
 				test: /\.html$/,
@@ -48,48 +60,39 @@ module.exports = {
 			},
 			{
 				test: /\.less$/,
-				loader: ExtractTextPlugin.extract({
-					use: [
-						'css-loader',
-						{
-							loader: 'less-loader',
-							options: {
-								plugins: [
-									new Autoprefixer({
-										browsers: ['iOS 1-9', 'last 2 versions']
-									})
-								]
-							}
+				use: [
+					{loader: MiniCssExtractPlugin.loader},
+					{loader: 'css-loader', options: {minimize: isRelease}},
+					{
+						loader: 'less-loader',
+						options: {
+							plugins: [
+								new Autoprefixer({
+									browsers: package.browserslist.split(', ')
+								})
+							]
 						}
-					]
-				})
+					}
+				]
 			}
 		]
 	},
-	/*
-	Leave Node requires that are used in NW.js alone. This is apparently the
-	magic invocation to do so.
-	*/
-	externals: {
-		child_process: 'commonjs child_process',
-		fs: 'commonjs fs',
-		'nw.gui': 'commonjs nw.gui',
-		os: 'commonjs os',
-		path: 'commonjs path'
-	},
 	plugins: [
 		new CopyPlugin([
-			{ from: 'src/common/img/favicon.ico', to: 'rsrc/favicon.ico' }
+			{from: 'src/common/img/favicon.ico', to: 'rsrc/favicon.ico'},
+			{from: 'story-formats/', to: 'story-formats/'},
+			{from: 'src/locale/view/img', to: 'rsrc/'},
+			{from: 'src/locale/po/*.js', to: 'locale/'}
 		]),
-		new CopyPlugin([{ from: 'story-formats/', to: 'story-formats/' }]),
-		new CopyPlugin([{ from: 'src/locale/view/img', to: 'rsrc/' }]),
-		new ExtractTextPlugin('twine.css'),
 		new HtmlPlugin({
 			template: './src/index.ejs',
 			package: package,
-			buildNumber: require('./scripts/build-number'),
-			inject: false
+			buildNumber: require('./scripts/build-number').number,
+			inject: false,
+			minify: isRelease && {collapseWhitespace: true},
+			cdn: useCdn
 		}),
+		new MiniCssExtractPlugin({filename: 'twine.css'}),
 		new PoPlugin({
 			src: 'src/locale/po/*.po',
 			dest: 'locale',
@@ -98,5 +101,39 @@ module.exports = {
 				domain: 'messages'
 			}
 		})
-	]
-};
+	],
+	stats: 'minimal'
+});
+
+if (isRelease) {
+	/*
+	Transpile JS to our target platforms.
+	*/
+
+	config.module.rules.push({
+		test: /\.js$/,
+		exclude: /node_modules/,
+		loader: 'babel-loader',
+		options: {presets: ['@babel/preset-env']}
+	});
+}
+
+if (useCdn) {
+	config.externals = {
+		codemirror: 'CodeMirror',
+		/*
+		core-js has no external interface, so we borrow an existing global
+		property.
+		*/
+		'core-js': 'location',
+		fastclick: 'FastClick',
+		jed: 'Jed',
+		jszip: 'JSZip',
+		moment: 'moment',
+		'svg.js': 'SVG',
+		'tether-drop': 'Drop',
+		vue: 'Vue',
+		'vue-router': 'VueRouter',
+		vuex: 'Vuex'
+	};
+}

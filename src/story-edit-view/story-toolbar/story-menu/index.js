@@ -6,13 +6,13 @@ const FormatDialog = require('../../../dialogs/story-format');
 const JavaScriptEditor = require('../../../editors/javascript');
 const StatsDialog = require('../../../dialogs/story-stats');
 const StylesheetEditor = require('../../../editors/stylesheet');
-const { loadFormat } = require('../../../data/actions/story-format');
+const {loadFormat} = require('../../../data/actions/story-format');
 const locale = require('../../../locale');
 const eventHub = require('../../../common/eventHub');
 const { publishStoryWithFormat } = require('../../../data/publish');
 const save = require('../../../file/save');
-const { selectPassages } = require('../../../data/actions/passage');
-const { updateStory } = require('../../../data/actions/story');
+const {selectPassages} = require('../../../data/actions/passage');
+const {updateStory} = require('../../../data/actions/story');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),

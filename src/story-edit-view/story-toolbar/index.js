@@ -3,20 +3,21 @@
 const Vue = require('vue');
 const locale = require('../../locale');
 const eventHub = require('../../common/eventHub');
+const openWindow = require('../../ui/open-window');
 const zoomMappings = require('../zoom-settings');
-const { updateStory } = require('../../data/actions/story');
+const {updateStory} = require('../../data/actions/story');
 
 require('./index.less');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
-	
+
 	props: {
 		story: {
 			type: Object,
 			required: true
 		},
-		
+
 		zoomDesc: {
 			type: String,
 			required: true
@@ -51,27 +52,18 @@ module.exports = Vue.extend({
 		'story-menu': require('./story-menu'),
 		'story-search': require('./story-search')
 	},
-	
+
 	methods: {
 		setZoom(description) {
-			this.updateStory(
-				this.story.id,
-				{ zoom: zoomMappings[description] }
-			);
+			this.updateStory(this.story.id, {zoom: zoomMappings[description]});
 		},
 
 		test() {
-			window.open(
-				'#stories/' + this.story.id + '/test',
-				'twinestory_test_' + this.story.id
-			);
+			openWindow('#stories/' + this.story.id + '/test');
 		},
 
 		play() {
-			window.open(
-				'#stories/' + this.story.id + '/play',
-				'twinestory_play_' + this.story.id
-			);
+			openWindow('#stories/' + this.story.id + '/play');
 		},
 
 		addPassage() {
@@ -85,4 +77,3 @@ module.exports = Vue.extend({
 		}
 	}
 });
-

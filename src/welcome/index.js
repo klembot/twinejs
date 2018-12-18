@@ -7,10 +7,11 @@
 **/
 
 "use strict";
-const Vue = require("fullvue");
-const scroll = require("scroll");
 const locale = require("../locale");
-const { setPref } = require("../data/actions/pref");
+const Vue = require('vue');
+const scroll = require('scroll');
+const isElectron = require('../electron/is-electron');
+const {setPref} = require('../data/actions/pref');
 
 require('./index.less');
 
@@ -19,7 +20,8 @@ module.exports = Vue.extend({
 
 	data: () => ({
 		/* How many sections are currently visible. */
-		shown: 1
+		shown: 1,
+		isElectron: isElectron()
 	}),
 
 	computed: {
@@ -62,8 +64,9 @@ module.exports = Vue.extend({
 			Vue.nextTick(() => {
 				scroll.top(
 					document.body,
-					document.querySelector("#welcomeView > div:last-of-type"),
-					{ duration: 400 }
+					document.querySelector('#welcomeView > div:last-of-type')
+						.offsetTop,
+					{duration: 400}
 				);
 			});
 		},

@@ -6,8 +6,10 @@ const eventHub = require('../../../common/eventHub');
 const { deleteStory, duplicateStory, updateStory } = require('../../../data/actions/story');
 const { loadFormat } = require('../../../data/actions/story-format');
 const { prompt } = require('../../../dialogs/prompt');
+const {confirm} = require('../../../dialogs/confirm');
+const openWindow = require('../../../ui/open-window');
 const locale = require('../../../locale');
-const { publishStoryWithFormat } = require('../../../data/publish');
+const {publishStoryWithFormat} = require('../../../data/publish');
 const save = require('../../../file/save');
 
 module.exports = Vue.extend({
@@ -32,10 +34,7 @@ module.exports = Vue.extend({
 		**/
 
 		play() {
-			window.open(
-				'#stories/' + this.story.id + '/play',
-				'twinestory_play_' + this.story.id
-			);
+			openWindow('#stories/' + this.story.id + '/play');
 		},
 
 		/**
@@ -45,10 +44,7 @@ module.exports = Vue.extend({
 		**/
 
 		test() {
-			window.open(
-				'#stories/' + this.story.id + '/test',
-				'twinestory_test_' + this.story.id
-			);
+			openWindow('#stories/' + this.story.id + '/test');
 		},
 
 		/**
@@ -82,8 +78,8 @@ module.exports = Vue.extend({
 					locale.say(
 						'Are you sure you want to delete “%s”? ' +
 						'This cannot be undone.',
-						escape(this.story.name)
-					),
+					escape(this.story.name)
+				),
 				buttonLabel:
 					'<i class="fa fa-trash-o"></i> ' + locale.say('Delete Forever'),
 				buttonClass:
@@ -154,7 +150,7 @@ module.exports = Vue.extend({
 		getters: {
 			allFormats: state => state.storyFormat.formats,
 			appInfo: state => state.appInfo,
-			defaultFormat: state => state.pref.defaultFormat,
+			defaultFormat: state => state.pref.defaultFormat
 		}
 	}
 });

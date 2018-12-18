@@ -5,6 +5,7 @@ const eventHub = require('../../../common/eventHub');
 const locale = require('../../../locale');
 const { updatePassage } = require('../../../data/actions/passage');
 const { updateStory } = require('../../../data/actions/story');
+const openWindow = require('../../../ui/open-window');
 
 require('./index.less');
 
@@ -83,9 +84,8 @@ module.exports = Vue.extend({
 		},
 
 		test() {
-			window.open(
-				'#stories/' + this.parentStory.id + '/test/' + this.passage.id,
-				'twinestory_test_' + this.parentStory.id
+			openWindow(
+				'#stories/' + this.parentStory.id + '/test/' + this.passage.id
 			);
 		},
 
@@ -94,44 +94,39 @@ module.exports = Vue.extend({
 		},
 
 		setAsStart() {
-			this.updateStory(
-				this.parentStory.id,
-				{ startPassage: this.passage.id }
-			);
+			this.updateStory(this.parentStory.id, {
+				startPassage: this.passage.id
+			});
 		},
 
 		setSize(value) {
 			switch (value) {
 				case 'small':
-					this.updatePassage(
-						this.parentStory.id,
-						this.passage.id,
-						{ width: 100, height: 100 }
-					);
+					this.updatePassage(this.parentStory.id, this.passage.id, {
+						width: 100,
+						height: 100
+					});
 					break;
 
 				case 'wide':
-					this.updatePassage(
-						this.parentStory.id,
-						this.passage.id,
-						{ width: 200, height: 100 }
-					);
+					this.updatePassage(this.parentStory.id, this.passage.id, {
+						width: 200,
+						height: 100
+					});
 					break;
 
 				case 'tall':
-					this.updatePassage(
-						this.parentStory.id,
-						this.passage.id,
-						{ width: 100, height: 200 }
-					);
+					this.updatePassage(this.parentStory.id, this.passage.id, {
+						width: 100,
+						height: 200
+					});
 					break;
 
 				case 'large':
-					this.updatePassage(
-						this.parentStory.id,
-						this.passage.id,
-						{ width: 200, height: 200 }
-					);
+					this.updatePassage(this.parentStory.id, this.passage.id, {
+						width: 200,
+						height: 200
+					});
 					break;
 
 				default:
@@ -153,6 +148,6 @@ module.exports = Vue.extend({
 	},
 
 	vuex: {
-		actions: { updatePassage, updateStory }
+		actions: {updatePassage, updateStory}
 	}
 });

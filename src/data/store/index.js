@@ -1,7 +1,10 @@
-// The main module managing the application's Vuex state and mutations.
+/*
+The main module managing the application's Vuex state and mutations.
+*/
 
-let Vue = require('vue');
-let Vuex = require('vuex');
+const Vue = require('vue');
+const Vuex = require('vuex');
+const isElectron = require('../../electron/is-electron');
 
 Vue.use(Vuex);
 
@@ -12,8 +15,8 @@ module.exports = new Vuex.Store({
 		story: require('./story'),
 		storyFormat: require('./story-format')
 	},
-	
+
 	plugins: [
-		require('../local-storage')
+		isElectron() ? require('../file-system') : require('../local-storage')
 	]
 });

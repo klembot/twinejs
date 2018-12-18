@@ -6,6 +6,7 @@ passages.
 const Vue = require('vue');
 const locale = require('../../locale');
 const eventHub = require("../../common/eventHub");
+const escapeRegexp = require('lodash.escaperegexp');
 
 require('./index.less');
 
@@ -38,7 +39,7 @@ module.exports = Vue.component("SearchDialog", {
 			*/
 
 			if (!this.regexp) {
-				source = source.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+				source = escapeRegexp(source);
 			}
 
 			return new RegExp('(' + source + ')', flags);

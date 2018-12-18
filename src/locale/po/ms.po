@@ -1,0 +1,793 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.8\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: ms_MY\n"
+
+#: src/dialogs/about/index.html
+msgid "About Twine"
+msgstr "Tentang Twine"
+
+#: src/dialogs/about/index.html
+msgid ""
+"Twine is an open-source tool for telling interactive, nonlinear stories."
+msgstr ""
+"Twine ialah alat sumber-terbuka untuk menceritakan cerita-cerita interaktif "
+"dan tidak linear."
+
+#: src/dialogs/about/index.html
+msgid ""
+"This application is released under the \\x3ca href=\"http:\\/\\/www.gnu.org/"
+"licenses/gpl-3.0.html\">GPL v3\\x3c/a> license, but any work created with it "
+"may be released under any terms, including commercial ones."
+msgstr ""
+"Aplikasi ini dikeluarkan dibawah lesen \\x3ca href=\"http:\\/\\/www.gnu.org/"
+"licenses/gpl-3.0.html\">GPL v3\\x3c/a>, tapi apa-apa kerja yang dicipta "
+"dengannya boleh dikeluarkan di bawah mana-mana syarat, termasuk yang "
+"komersial."
+
+#: src/dialogs/about/index.html
+msgid "Help Twine Grow With A Donation"
+msgstr "Tolong Twine Berkembang Melalui Sumbangan"
+
+#: src/dialogs/about/index.html
+msgid "Source Code Repository"
+msgstr "Repositori Kod Sumber"
+
+#: src/dialogs/about/index.html
+msgid "Translations"
+msgstr "Terjemahan"
+
+#: src/dialogs/about/index.html
+msgid "Libraries"
+msgstr "Pustaka"
+
+#: src/dialogs/about/index.html
+msgid "Fonts"
+msgstr "Fon"
+
+#: src/dialogs/about/index.html
+msgid ""
+"Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the "
+"guidance of Robert Slimbach for \\x3ca href=\"http:\\/\\/adobe.com/\">Adobe"
+"\\x3c/a>\\x3cbr> Nunito was designed by \\x3ca href=\"http:\\/\\/code."
+"newtypography.co.uk/\">Vernon Adams\\x3c/a>"
+msgstr ""
+"Source Sans Pro dan Source Code Pro direkabentuk oleh Paul D. Hunt dibawah "
+"bimbingan Rober Slimbach untuk \\x3ca href=\"http:\\/\\/adobe.com/\">Adobe"
+"\\x3c/a>\\x3cbr> Nunito direkabentuk oleh \\x3ca href=\"http:\\/\\/code."
+"newtypography.co.uk/\">Vernon Adams\\x3c/a>"
+
+#: src/dialogs/about/index.html
+msgid "Icons"
+msgstr "Ikon-Ikon"
+
+#: src/dialogs/about/index.html
+msgid "Document designed by Rob Gill from the Noun Project"
+msgstr "Dokumen direka oleh Rob Gill daripada Noun Project"
+
+#: src/dialogs/about/index.html
+msgid "Question designed by Henry Ryder from the Noun Project"
+msgstr "Soalan direka oleh Henry Ryder daripada Noun Project"
+
+#: src/dialogs/about/index.html
+msgid "Smile designed by jelio dimitrov from the Noun Project"
+msgstr "Senyuman direka oleh jelio dimitrov daripada Noun Project"
+
+#: src/dialogs/app-donation/index.html
+msgid ""
+"If you love Twine as much as I do, please consider helping it grow with a "
+"donation. Twine is an open source project that will always be free to use "
+"&mdash; and with your help, Twine will continue to thrive."
+msgstr ""
+"Jika anda suka Twine sebanyak saya, sila pertimbangkan untuk membantu ia "
+"berkembang melalui sumbangan. Twine ialah projek sumber terbuka yang akan "
+"sentiasa bebas untuk digunakan &mdash; dan dengan sokongan anda, Twine akan "
+"terus berkembang."
+
+#: src/dialogs/app-donation/index.html
+msgid "Chris Klimas, Twine creator"
+msgstr "Chris Klimas, pencipta Twine"
+
+#: src/dialogs/app-donation/index.html
+msgid "No Thanks"
+msgstr "Tidak Mengapalah, Terima Kasih"
+
+#: src/dialogs/app-donation/index.html
+msgid "Donate"
+msgstr "Sumbang"
+
+#: src/dialogs/app-donation/index.html
+msgid ""
+"This message will only be shown to you once.&lt;br&gt;If you'd like to "
+"donate to Twine development in the future, you can do so at &lt;a href=\\"
+"\"http:\\/\\/twinery.org/donate\\\" target=\\\"_blank\\\"&gt;http://twinery."
+"org/donate&lt;/a&gt;."
+msgstr ""
+"Mesej ini hanya akan ditunjukkan kepada anda sekali sahaja.&lt;br&gt;Jika "
+"anda mahu sumbang kepada pembagunan Twine pada masa hadapan, anda boleh "
+"berbuat demikian pada &lt;a href=\\\"http:\\/\\/twinery.org/donate\\\" "
+"target=\\\"_blank\\\"&gt;http://twinery.org/donate&lt;/a&gt;."
+
+#: src/dialogs/formats/index.html
+msgid ""
+"Story formats control the appearance and behavior of stories during play."
+msgstr ""
+"Format cerita kawal penampilan dan tingkah laku cerita semasa tengah bermain."
+
+#: src/dialogs/formats/index.html
+msgid "Use as Default"
+msgstr "Guna sebagai Lalai"
+
+#: src/dialogs/formats/index.html
+msgid ""
+"Proofing formats create a versions of stories tailored for editing and "
+"proofreading."
+msgstr ""
+"Proofing format mencipta versi-versi cerita yang direka untuk sunting dan "
+"membaca pruf."
+
+#: src/dialogs/formats/index.html
+msgid "Use"
+msgstr "Guna"
+
+#: src/dialogs/formats/index.html src/story-list-view/list-toolbar/index.js:24
+msgid "Add"
+msgstr "Tambah"
+
+#: src/dialogs/formats/index.html src/dialogs/story-format/index.html
+msgid "Loading..."
+msgstr "Sedang memuat..."
+
+#: src/dialogs/story-format/index.html
+msgid "Story Format"
+msgstr "Format Cerita"
+
+#: src/dialogs/story-format/index.html
+msgid ""
+"A story format controls the appearance and behavior of your story during "
+"play."
+msgstr ""
+"Format cerita mengawal penampilan dan tingkah laku cerita anda semasa tengah "
+"bermain."
+
+#: src/dialogs/story-import/index.html
+#: src/story-list-view/list-toolbar/index.html
+msgid "Import From File"
+msgstr "Import Dari Fail"
+
+#: src/dialogs/story-import/index.html
+msgid "Import this file:"
+msgstr "Import file ini:"
+
+#: src/dialogs/story-import/index.html src/dialogs/confirm/index.js:31
+#: src/dialogs/prompt/index.js:15
+msgid "Cancel"
+msgstr "Batal"
+
+#: src/dialogs/story-import/index.html
+msgid "Working..."
+msgstr "Sedang Bekerja..."
+
+#: src/dialogs/story-import/index.html
+msgid ""
+"Some stories you are importing already exist in your library. Please choose "
+"which to replace. Any other stories in your file will be imported as well."
+msgstr ""
+"Beberapa cerita yang anda tengah import sudah wujud didalam pustaka anda. "
+"Sila pilih mana satu yang hendak dinggantikan. Cerita-cerita lain yang ada "
+"didalam file tersebut juga akan diimport sekali."
+
+#: src/dialogs/story-import/index.html
+msgid "Don't Import Any Stories"
+msgstr "Jangan Import Apa-Apa Cerita"
+
+#: src/dialogs/story-search/index.html
+msgid "Find and Replace"
+msgstr "Cari dan Gantikan"
+
+#: src/dialogs/story-search/index.html
+msgid "Search For"
+msgstr "Cari Untuk"
+
+#: src/dialogs/story-search/index.html
+msgid "Include passage names"
+msgstr "Sertakan nama petikan"
+
+#: src/dialogs/story-search/index.html
+msgid "Match case"
+msgstr "Sama case"
+
+#: src/dialogs/story-search/index.html
+msgid "Regular expression"
+msgstr "Ungkapan biasa"
+
+#: src/dialogs/story-search/index.html
+msgid "Replace With"
+msgstr "Ganti Dengan"
+
+#: src/dialogs/story-search/index.html
+msgid "Replace All"
+msgstr "Ganti Semua"
+
+#: src/dialogs/story-search/index.html
+msgid "%d passage matches."
+msgid_plural "%d passages match."
+msgstr[0] "%d petikan sepadan."
+
+#: src/dialogs/story-search/index.html
+msgid "Searching..."
+msgstr "Sedang Mencari..."
+
+#: src/dialogs/story-search/result.html
+msgid "%d match"
+msgid_plural "%d matches"
+msgstr[0] "%d sepadan"
+
+#: src/dialogs/story-search/result.html
+msgid "Replace in Passage"
+msgstr "Ganti dalam Petikan"
+
+#: src/dialogs/story-stats/index.html
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+msgid "Story Statistics"
+msgstr "Statistik Cerita"
+
+#: src/editors/javascript/index.html
+msgid "JavaScript"
+msgstr "JavaScript"
+
+#: src/editors/javascript/index.html
+msgid ""
+"Any JavaScript entered here will immediately run when your story is opened "
+"in a Web browser."
+msgstr ""
+"Sebarang JavaScript yang dimasukkan di sini akan berjalan dengan serta-merta "
+"apabila cerita anda dibuka dalam pelayar Web."
+
+#: src/editors/passage/index.html
+msgid "A passage already exists with this name."
+msgstr "Sudah wujud petikan dengan nama ini."
+
+#: src/editors/passage/tag-editor.html
+msgid "Tag"
+msgstr "Tag"
+
+#: src/editors/stylesheet/index.html
+msgid "Stylesheet"
+msgstr "Stylesheet"
+
+#: src/editors/stylesheet/index.html
+msgid ""
+"Any CSS entered here will override the default appearance of your story."
+msgstr ""
+"Sebarang CSS yang dimasukkan di sini akan mengatasi penampilan lalai cerita "
+"anda."
+
+#: src/locale/view/index.html
+msgid "Please choose which language you would like to use with Twine."
+msgstr "Sila pilih bahasa yang anda ingin guna semasa di Twine."
+
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
+msgid "Hi!"
+msgstr "Hai!"
+
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
+msgid ""
+"Twine is an open-source tool for telling interactive, nonlinear stories. "
+"There are a few things you should know before you get started."
+msgstr ""
+"Twine ialah alat sumber-terbuka untuk menceritakan cerita-cerita interaktif "
+"dan tidak linear. Terdapat beberapa perkara yang anda patut tahu sebelum "
+"mula."
+
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
+msgid "Tell Me More"
+msgstr "Beritahu Saya Lagi"
+
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
+msgid "Skip"
+msgstr "Langkau"
+
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
+msgid "New here?"
+msgstr "Baharu di sini?"
+
+#: src/nw/patches/welcome-view/replacement-template.html
+msgid ""
+"&lt;strong&gt;If you've never used Twine before,&lt;/strong&gt; then "
+"welcome! The &lt;a href=\\\"http://twinery.org/2guide\\\" target=\\\"_blank\\"
+"\"&gt;Twine 2 Guide&lt;/a&gt; and the official wiki in general, are a great "
+"place to learn. Keep in mind that some articles on the wiki at large were "
+"written for Twine 1, which is a little bit different than this version. But "
+"most of the concepts are the same."
+msgstr ""
+"&lt;strong&gt;Jika anda tidak pernah guna Twine sebelum ini,&lt;/strong&gt; "
+"maka selamat datang! &lt;a href=\\\"http://twinery.org/2guide\\\" target=\\"
+"\"_blank\\\"&gt;Panduan Twine 2&lt;/a&gt; dan wiki rasmi secara umum, adalah "
+"tempat yang bagus untuk mempelajarinya. Perlu diingati bahawa beberapa "
+"artikel pada wiki tersebut amnya ditulis untuk Twine 1, yang mana ia sedikit "
+"berbeza berbanding versi ini. Tetapi kebanyakan konsepnya adalah sama."
+
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
+msgid ""
+"&lt;strong&gt;If you have used Twine 1 before,&lt;/strong&gt; the guide also "
+"has details on what has changed in this version. Chief among them is a new "
+"default story format, Harlowe. But if you find you prefer the Twine 1 "
+"scripting syntax, try using SugarCube instead."
+msgstr ""
+"&lt;strong&gt;Jika anda pernah menggunakan Twine 1 sebelum ini,&lt;/"
+"strong&gt; panduan tersebut juga mengandungi maklumat-maklumat mengenai apa "
+"yang telah berubah pada versi ini. Ketua di kalangan mereka adalah format "
+"cerita baharu yang lalai, Harlowe. Tapi jika anda lebih suka akan sintaks "
+"skrip Twine 1, cuba gunakan SugarCube."
+
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
+msgid "OK"
+msgstr "OK"
+
+#: src/nw/patches/welcome-view/replacement-template.html
+msgid "Your work is automatically saved."
+msgstr "Kerja anda disimpan secara automatik."
+
+#: src/nw/patches/welcome-view/replacement-template.html
+msgid ""
+"There's now a folder named Twine in your Documents folder. Inside that is a "
+"Stories folder, where all your work will be saved. Twine saves as you work, "
+"so you don't have to worry about remembering to save it yourself. You can "
+"always open the folder your stories are saved to by using the &lt;b&gt;Show "
+"Library&lt;/b&gt; item in the &lt;b&gt;Twine&lt;/b&gt; menu."
+msgstr ""
+"Kini terdapat satu folder bernama Twine didalam folder Dokumen anda. Didalam "
+"itu ialah folder Cerita, di mana semua kerja anda akan disimpan. Twine "
+"simpan semasa anda bekerja, jadi anda tidak perlu risau akan mengingati "
+"untuk simpankannya diri sendiri. Anda boleh buka folder yang mana cerita-"
+"cerita anda disimpan pada bila-bila masa sahaja menggunakan item &lt;b&gt;"
+"Tunjuk Pustaka&lt;/b&gt; didalam menu &lt;b&gt;Twine&lt;/b&gt;."
+
+#: src/nw/patches/welcome-view/replacement-template.html
+msgid ""
+"Because Twine is always saving your work, the files in your story library "
+"will be locked from editing while Twine is open."
+msgstr ""
+"Disebabkan Twine akan sentiasa simpan kerja anda, fail-fail didalam pustakan "
+"cerita anda akan dikunci daripada disunting semasa Twine dibuka."
+
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
+msgid "That's it!"
+msgstr "Itu sahaja!"
+
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
+msgid "Thanks for reading, and have fun with Twine."
+msgstr "Terima kasih kerana membaca, dan berseronoklah dengan Twine."
+
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
+msgid "Go to the Story List"
+msgstr "Pergi ke Senarai Cerita"
+
+#: src/story-edit-view/story-toolbar/index.html
+msgid "Test"
+msgstr "Cuba"
+
+#: src/story-edit-view/story-toolbar/index.html
+msgid "Play"
+msgstr "Main"
+
+#. L10n: Word in the sense of individual words in a sentence. This does not actually include the count, as it is used in a table.
+#: src/story-edit-view/story-toolbar/index.html
+#: src/dialogs/story-stats/index.js:86
+msgid "Passage"
+msgstr "Petikan"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+msgid "Edit Story JavaScript"
+msgstr "Sunting Cerita JavaScript"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+msgid "Edit Story Stylesheet"
+msgstr "Sunting Cerita Stylesheet"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+msgid "Change Story Format"
+msgstr "Tukar Format Cerita"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+#: src/story-list-view/story-item/item-menu/index.html
+msgid "Rename Story"
+msgstr "Namakan Semula Cerita"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+msgid "Snap to Grid"
+msgstr "Lekat di Grid"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+msgid "View Proofing Copy"
+msgstr "Lihat Salinan Proofing"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+#: src/story-list-view/story-item/item-menu/index.html
+msgid "Publish to File"
+msgstr "Terbit ke Fail"
+
+#: src/story-list-view/index.html
+msgid "Drop a story file to import"
+msgstr "Letakkan fail cerita untuk diimport"
+
+#: src/story-list-view/index.html
+msgid "Sort By"
+msgstr "Disusun Mengikut"
+
+#: src/story-list-view/index.html
+msgid "Edit Date"
+msgstr "Sunting Tarikh"
+
+#: src/story-list-view/index.html
+msgid "Name"
+msgstr "Nama"
+
+#: src/story-list-view/index.html
+msgid ""
+"There are no stories saved in Twine right now. To get started, you can "
+"either create a new story or import an existing one from a file."
+msgstr ""
+"Tiada apa-apa cerita disimpan di Twine pada masa sekarang. Untuk bermula, "
+"anda boleh sama ada cipta cerita baharu atau import yang sedia ada dari fail."
+
+#: src/story-list-view/list-toolbar/index.html src/nw/directories.js:69
+#: src/nw/menus.js:17 src/nw/menus.js:39
+msgid "Twine"
+msgstr "Twine"
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "Story"
+msgstr "Cerita"
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "Archive"
+msgstr "Arkib"
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "Formats"
+msgstr "Format-Format"
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "Language"
+msgstr "Bahasa"
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "Help"
+msgstr "Tolong"
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "version"
+msgstr "versi"
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "Report a bug"
+msgstr "Laporkan pepijat"
+
+#: src/story-list-view/story-item/item-menu/index.html
+msgid "Play Story"
+msgstr "Main Cerita"
+
+#: src/story-list-view/story-item/item-menu/index.html
+msgid "Test Story"
+msgstr "Cuba Cerita"
+
+#: src/story-list-view/story-item/item-menu/index.html
+msgid "Duplicate Story"
+msgstr "Ciplakkan Cerita"
+
+#: src/story-list-view/story-item/item-menu/index.html
+msgid "Delete Story"
+msgstr "Padamkan Cerita"
+
+#: src/welcome/index.html
+msgid ""
+"&lt;strong&gt;If you've never used Twine before,&lt;/strong&gt; then "
+"welcome! The &lt;a href=\\\"http://twinery.org/2guide\\\" target=\\\"_blank\\"
+"\"&gt;Twine 2 Guide&lt;/a&gt; and the official wiki in general, are a great "
+"place to learn. Keep in mind that some articles on the wiki were written for "
+"Twine 1, which is a little bit different than this version. But most of the "
+"concepts are the same."
+msgstr ""
+"&lt;strong&gt;Jika anda tidak pernah guna Twine sebelum ini,&lt;/strong&gt; "
+"maka selamat datang! &lt;a href=\\\"http://twinery.org/2guide\\\" target=\\"
+"\"_blank\\\"&gt;Panduan Twine 2&lt;/a&gt; dan wiki rasmi secara umum, adalah "
+"tempat yang bagus untuk mempelajarinya. Perlu diingati bahawa beberapa "
+"artikel pada wiki tersebut amnya ditulis untuk Twine 1, yang mana ia sedikit "
+"berbeza berbanding versi ini. Tetapi kebanyakan konsepnya adalah sama."
+
+#: src/welcome/index.html
+msgid "Your work is saved only in your browser."
+msgstr "Kerja anda hanya disimpan didalam pelayar anda."
+
+#: src/welcome/index.html
+msgid ""
+"That means you don't need to create an account to use Twine 2, and "
+"everything you create isn't stored on a server somewhere else &mdash; it "
+"stays right in your browser."
+msgstr ""
+"Itu bermakna yang anda tidak perlu untuk mencipta akaun untuk menggunakan "
+"Twine 2, dan semua benda yang anda cipta tidak akan disimpan pada server di "
+"tempat lain &mdash; ia hanya kekal sahaja di pelayar anda."
+
+#: src/welcome/index.html
+msgid ""
+"Two &lt;b&gt;very important&lt;/b&gt; things to remember, though. Since your "
+"work is saved only in your browser, if you clear its saved data, then you'll "
+"lose your work! Not good. Remember to use that &lt;i class=\\\"fa fa-"
+"briefcase\\\"&gt;&lt;/i&gt;&nbsp;&lt;strong&gt;Archive&lt;/strong&gt; button "
+"often. You can also publish individual stories to files using the &lt;i "
+"class=\\\"fa fa-cog\\\"&gt;&lt;/i&gt; menu on each story in the story list. "
+"Both archive and story files can always be re-imported into Twine."
+msgstr ""
+"Walaubagaimanapun, terdapat dua &lt;b&gt; peringatan penting;/b&gt; untuk "
+"diingati. Oleh kerana kerja anda hanya disimpan didalam pelayar anda, jika "
+"anda bersihkan data yang disimpan, jadi anda mungkin akan kehilangan kerja "
+"anda! Tidak bagus. Perlu ingat untuk menggunakan butang &lt;i class=\\\"fa "
+"fa-briefcase\\\"&gt;&lt;/i&gt;&nbsp;&lt;strong&gt;Arkib&lt;/strong&gt; "
+"selalu. Anda juga boleh terbitkan cerita-cerita secara individual kepada "
+"fail-fail menggunakan menu &lt;i class=\\\"fa fa-cog\\\"&gt;&lt;/i&gt; pada "
+"setiap cerita didalam senarai cerita. Kedua-dua arkib dan fail cerita "
+"sentiasa boleh diimport semula ke Twine."
+
+#: src/welcome/index.html
+msgid ""
+"Secondly, &lt;b&gt;anyone who can use this browser can see and make changes "
+"to your work&lt;/b&gt;. So if you've got a nosy kid brother, look into "
+"setting up a separate profile for yourself."
+msgstr ""
+"Yang kedua, &lt;b&gt;sesiapa yang boleh guna pelayar tersebut boleh lihat "
+"dan buat apa-apa perubahan kepada kerja anda&lt;/b&gt;. Jadi jika anda ada "
+"adik lelaki yang menyibuk, cuba lihat untuk buatkan profil berasingan untuk "
+"diri anda."
+
+#: src/data/actions.js:272
+msgid ""
+"a more recent version of the story format &ldquo;%s&rdquo; is already "
+"installed"
+msgstr "versi baharu pada format cerita &ldquo;%s&rdquo; sudah dipasang"
+
+#: src/data/publish.js:75
+msgid "There is no starting point set for this story."
+msgstr "Tiada titik permulaan ditetapkan untuk cerita ini."
+
+#: src/data/publish.js:81
+msgid "The passage set as starting point for this story does not exist."
+msgstr ""
+"Petikan yang patut ditetapkan sebagai titik permulaan untuk cerita ini tidak "
+"wujud."
+
+#: src/data/story-format.js:7
+msgid "Untitled Story Format"
+msgstr "Format Cerita Tidak Bertajuk"
+
+#: src/data/story.js:190
+msgid "Untitled Story"
+msgstr "Cerita Tidak Bertajuk"
+
+#: src/data/story.js:207 src/story-edit-view/index.js:218
+msgid "Untitled Passage"
+msgstr "Petikan Tidak Bertajuk"
+
+#: src/data/story.js:210
+msgid "Tap this passage, then the pencil icon to edit it."
+msgstr "Tekan petikan ini, kemudian ikon pensel untuk suntingkannya."
+
+#: src/data/story.js:211
+msgid "Double-click this passage to edit it."
+msgstr "Klik dua kali untuk sunting petikan ini."
+
+#. L10n: The <span> will have a version number, i.e. 2.0.6, interpolated into it.
+#: src/dialogs/app-update/index.js:40
+msgid ""
+"A new version of Twine, <span class=\"version\"></span>, has been released."
+msgstr ""
+"Versi baharu Twine, <span class=\"version\"></span>, sudah dikeluarkan."
+
+#: src/dialogs/app-update/index.js:44
+msgid "Download"
+msgstr "Muat Turun"
+
+#. L10n: A polite rejection of a request, in the sense that the answer may change in the future.
+#: src/dialogs/app-update/index.js:51
+msgid "Not Right Now"
+msgstr "Bukan Sekarang"
+
+#. L10n: %1$s is the name of the story format; %2$s is
+#: src/dialogs/formats/index.js:63
+msgid "The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s)."
+msgstr "Format cerita &ldquo;%1$s&rdquo; tidak dapat dibuka (%2$s)."
+
+#: src/dialogs/formats/index.js:105
+msgid "The story format at %1$s could not be added (%2$s)."
+msgstr "Format cerita pada %1$s tidak dapat ditambah (%2$s)."
+
+#. L10n: %s is the name of an author.
+#: src/dialogs/formats/item.js:30
+msgid "by %s"
+msgstr "oleh %s"
+
+#: src/dialogs/formats/item.js:51
+msgid "Are you sure?"
+msgstr "Anda pasti?"
+
+#: src/dialogs/formats/item.js:53
+msgid "Remove"
+msgstr "Buang"
+
+#: src/dialogs/story-import/index.js:56
+msgid "Don\\'t Replace Any Stories"
+msgstr "Jangan Gantikan Cerita Apa-Apa Pun"
+
+#: src/dialogs/story-import/index.js:59
+msgid "Replace %d Story"
+msgid_plural "Replace %d Stories"
+msgstr[0] "Gantikan %d Cerita"
+
+#. L10n: Character in the sense of individual letters in a word.  This does not actually include the count, as it is used in a table.
+#: src/dialogs/story-stats/index.js:40
+msgid "Character"
+msgid_plural "Characters"
+msgstr[0] "Watak"
+
+#. L10n: Word in the sense of individual words in a sentence.  This does not actually include the count, as it is used in a table.
+#: src/dialogs/story-stats/index.js:55
+msgid "Word"
+msgid_plural "Words"
+msgstr[0] "Perkataan"
+
+#. L10n: Links in the sense of hypertext links. This does not actually include the count, as it is used in a table.
+#: src/dialogs/story-stats/index.js:104
+msgid "Link"
+msgid_plural "Links"
+msgstr[0] "Penghubung"
+
+#. L10n: Links in the sense of hypertext links. This does not actually include the count, as it is used in a table.
+#: src/dialogs/story-stats/index.js:119
+msgid "Broken Link"
+msgid_plural "Broken Links"
+msgstr[0] "Penghubung Rosak"
+
+#: src/editors/passage/index.js:38
+msgid ""
+"Enter the body text of your passage here. To link to another passage, put "
+"two square brackets around its name, [[like this]]."
+msgstr ""
+"Masukkan teks petikan anda di sini. Untuk menghubungkan ke petikan yang "
+"lain, letakkan dalam kurungan diantara namanya, [[begini]]."
+
+#: src/editors/passage/index.js:182
+msgid "Editing \\u201c%s\\u201d"
+msgstr "Menyunting \\u201c%s\\u201d"
+
+#. L10n: %1$s is a filename; %2$s is the error message.
+#: src/file/save.js:71
+msgid "&ldquo;%1$s&rdquo; could not be saved (%2$s)."
+msgstr "&ldquo;%1$s&rdquo; tidak dapat disimpan (%2$s)."
+
+#. L10n: This is the folder name on OS X, Linux, and recent versions of Windows that a user's documents are stored in, relative to the user's home directory. If you need to use a space in this name, then it should have two backslashes (\\) in front of it.
+#: src/nw/directories.js:37
+msgid "Documents"
+msgstr "Documents"
+
+#. L10n: This is the folder name on Windows XP that a user's documents are stored in, relative to the user's home directory. This is used if a folder with the name given by the translation key '/Documents' does not exist. If you need to use a space in this name, then it should have two backslashes (\\) in front of it.
+#: src/nw/directories.js:51
+msgid "My\\\\ Documents"
+msgstr "My\\\\ Documents"
+
+#: src/nw/directories.js:70
+msgid "Stories"
+msgstr "Cerita"
+
+#: src/nw/menus.js:27
+msgid "Toggle Fullscreen"
+msgstr "Togol Penuhi Skrin"
+
+#: src/nw/menus.js:44
+msgid "Quit"
+msgstr "Keluar"
+
+#: src/nw/menus.js:61
+msgid "Edit"
+msgstr "Sunting"
+
+#: src/nw/menus.js:66
+msgid "Undo"
+msgstr "Undo"
+
+#: src/nw/menus.js:79
+msgid "Cut"
+msgstr "Potong"
+
+#: src/nw/menus.js:88
+msgid "Copy"
+msgstr "Salin"
+
+#: src/nw/menus.js:97
+msgid "Paste"
+msgstr "Tampal"
+
+#: src/nw/menus.js:106 src/story-edit-view/passage-item/index.js:334
+msgid "Delete"
+msgstr "Padam"
+
+#: src/nw/menus.js:118
+msgid "Show Library"
+msgstr "Tunjukkan Pustaka"
+
+#: src/story-edit-view/passage-item/index.js:319
+#: src/story-list-view/story-item/item-menu/index.js:78
+msgid ""
+"Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone."
+msgstr ""
+"Adakah anda pasti untuk memadam &ldquo;%s&rdquo;? Ini tidak boleh diulang "
+"semula."
+
+#: src/story-edit-view/passage-item/index.js:326
+msgid "(Hold the Shift key when deleting to skip this message.)"
+msgstr "(Tahan kunci Shift semasa memadam untuk langkau mesej ini.)"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.js:46
+#: src/story-list-view/story-item/item-menu/index.js:100
+msgid "What should &ldquo;%s&rdquo; be renamed to?"
+msgstr "Apakah yang patut &ldquo;%s&rdquo; tersebut itu dinamakan?"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.js:51
+#: src/story-list-view/story-item/item-menu/index.js:105
+msgid "Rename"
+msgstr "Namakan Semula"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.js:55
+#: src/story-list-view/story-item/item-menu/index.js:109
+#: src/story-list-view/story-item/item-menu/index.js:128
+msgid "Please enter a name."
+msgstr "Sila masukkan nama."
+
+#: src/story-list-view/index.js:79
+msgid "%d Story"
+msgid_plural "%d Stories"
+msgstr[0] "%d Cerita"
+
+#: src/story-list-view/list-toolbar/index.js:21
+msgid "What should your story be named?<br>(You can change this later.)"
+msgstr ""
+"Apakah yang patut cerita anda itu dinamakan?<br>(Anda boleh ubahnya "
+"kemudian.)"
+
+#: src/story-list-view/list-toolbar/index.js:30
+msgid "A story with this name already exists."
+msgstr "Sudah wujud cerita dengan nama ini."
+
+#: src/story-list-view/list-toolbar/index.js:62
+msgid "Twine Archive.html"
+msgstr "Twine Archive.html"
+
+#: src/story-list-view/story-item/item-menu/index.js:84
+msgid "Delete Forever"
+msgstr "Padam Selama-Lamanya"
+
+#: src/story-list-view/story-item/item-menu/index.js:122
+msgid "What should the duplicate be named?"
+msgstr "Apakah yang patut salinan tersebut itu dinamakan?"
+
+#: src/story-list-view/story-item/item-menu/index.js:124
+msgid "Duplicate"
+msgstr "Salinan"
+
+#: src/story-list-view/story-item/item-menu/index.js:126
+msgid "%s Copy"
+msgstr "%s Salin"
+
+#: src/ui/quota-gauge/index.js:24
+msgid "%d%% space available"
+msgstr "ada %d%% ruang lagi"

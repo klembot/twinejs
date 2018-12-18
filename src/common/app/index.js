@@ -3,8 +3,8 @@
 'use strict';
 const Vue = require('vue');
 const ui = require('../../ui');
-const { repairFormats } = require('../../data/actions/story-format');
-const { repairStories } = require('../../data/actions/story');
+const {repairFormats} = require('../../data/actions/story-format');
+const {repairStories} = require('../../data/actions/story');
 const store = require('../../data/store');
 const router = require('../router');
 
@@ -30,7 +30,7 @@ module.exports = Vue.extend({
 	},
 
 	vuex: {
-		actions: { repairFormats, repairStories },
+		actions: {repairFormats, repairStories},
 		getters: {
 			themePref: state => state.pref.appTheme
 		}

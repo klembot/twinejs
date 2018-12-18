@@ -4,10 +4,12 @@ const Vue = require('vue');
 const AboutDialog = require('../../dialogs/about');
 const FormatsDialog = require('../../dialogs/formats');
 const ImportDialog = require('../../dialogs/story-import');
-const { createStory } = require('../../data/actions/story');
+const {createStory} = require('../../data/actions/story');
+const isElectron = require('../../electron/is-electron');
 const locale = require('../../locale');
 const { publishArchive } = require('../../data/publish');
 const eventHub = require('../../common/eventHub');
+const {prompt} = require('../../dialogs/prompt');
 const saveFile = require('../../file/save');
 
 require('./index.less');
@@ -82,7 +84,9 @@ module.exports = Vue.extend({
 		},
 
 		saveArchive() {
-			const timestamp = new Date().toLocaleString().replace(/[\/:\\]/g, '.');
+			const timestamp = new Date()
+				.toLocaleString()
+				.replace(/[\/:\\]/g, '.');
 
 			saveFile(
 				publishArchive(this.existingStories, this.appInfo),
