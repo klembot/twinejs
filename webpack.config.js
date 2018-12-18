@@ -22,15 +22,7 @@ const config = (module.exports = {
 		),
 		filename: 'twine.js'
 	},
-	resolve: {
-		alias: {
-			vue$: 'vue/dist/vue.common.js',
-			fullvue: 'vue/dist/vue.common.js',
-			'vue-router$': 'vue-router/dist/vue-router.common.js'
-		}
-	},
 	devtool: 'source-map',
-	stats: 'none',
 	module: {
 		rules: [
 			/*
@@ -114,6 +106,13 @@ if (isRelease) {
 		test: /\.js$/,
 		exclude: /node_modules/,
 		loader: 'babel-loader',
+		resolve: {
+			alias: {
+				vue$: 'vue/dist/vue.common.js',
+				fullvue: 'vue/dist/vue.common.js',
+				'vue-router$': 'vue-router/dist/vue-router.common.js'
+			}
+		},
 		options: {presets: ['@babel/preset-env']}
 	});
 }

@@ -1,5 +1,4 @@
-const { expect } = require('chai');
-const Vue = require('vue');
+const Vue = require('vue/dist/vue.common.js');
 const CodeMirror = require('./codemirror');
 
 describe('<code-mirror>', () => {
@@ -44,6 +43,7 @@ describe('<code-mirror>', () => {
 	});
 
 	test('creates a CodeMirror instance when mounted', () => {
+		console.log("vm.$refs", vm.$refs)
 		expect(typeof vm.$refs.cm.$cm).toBe('object');
 	});
 

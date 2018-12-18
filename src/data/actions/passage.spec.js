@@ -258,9 +258,8 @@ describe('passage actions module', () => {
 
 			const firstCall = storyStore.dispatch.getCall(0);
 
-			expect(firstCall.args[3]).to.exist;
-			expect(firstCall.args[3].top).to.equal(20);
-			expect(firstCall.args[3].left).to.equal(10);
+			expect(firstCall.args[3].top).toEqual(20);
+			expect(firstCall.args[3].left).toEqual(10);
 	
 			/* Test overlapping from slightly above */
 			storyStore.state.story.stories[0].passages[0].top = 9;
@@ -269,9 +268,8 @@ describe('passage actions module', () => {
 
 			const secondCall = storyStore.dispatch.getCall(1);
 
-			expect(secondCall.args[3]).to.exist;
-			expect(secondCall.args[3].top).to.equal(0);
-			expect(secondCall.args[3].left).to.equal(10);
+			expect(secondCall.args[3].top).toEqual(0);
+			expect(secondCall.args[3].left).toEqual(10);
 	
 			/* Test overlapping from slightly leftwards */
 			storyStore.state.story.stories[0].passages[0].top = 10;
@@ -281,9 +279,8 @@ describe('passage actions module', () => {
 
 			const thirdCall = storyStore.dispatch.getCall(2);
 
-			expect(thirdCall.args[3]).to.exist;
-			expect(thirdCall.args[3].top).to.equal(10);
-			expect(thirdCall.args[3].left).to.equal(0);
+			expect(thirdCall.args[3].top).toEqual(10);
+			expect(thirdCall.args[3].left).toEqual(0);
 	
 			/* Test overlapping from slightly rightwards */
 			storyStore.state.story.stories[0].passages[0].left = 11;
@@ -292,9 +289,8 @@ describe('passage actions module', () => {
 
 			const fourthCall = storyStore.dispatch.getCall(3);
 
-			expect(fourthCall.args[3]).to.exist;
-			expect(fourthCall.args[3].top).to.equal(10);
-			expect(fourthCall.args[3].left).to.equal(20);
+			expect(fourthCall.args[3].top).toEqual(10);
+			expect(fourthCall.args[3].left).toEqual(20);
 		});
 	});
 });
