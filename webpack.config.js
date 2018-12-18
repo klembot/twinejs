@@ -22,6 +22,12 @@ const config = (module.exports = {
 		),
 		filename: 'twine.js'
 	},
+	resolve: {
+		alias: {
+		  vue$: 'vue/dist/vue.common.js',
+		  'vue-router$': 'vue-router/dist/vue-router.common.js'
+		}
+	  },
 	devtool: 'source-map',
 	module: {
 		rules: [
