@@ -1,0 +1,12 @@
+version: '3.6'
+
+services:
+  twinejs:
+    container_name: twinejs
+    image: guysoft/twinejs
+    build:
+      context: .
+    ports:
+      -  8080:8080
+    restart: always
+    tty: true
