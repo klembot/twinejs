@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-01-02 01:25+0100\n"
+"PO-Revision-Date: 2019-01-02 01:33+0100\n"
 "Last-Translator: Kai Brueckers <hello@kaibrueckers.com>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -840,7 +840,7 @@ msgstr "%s kopieren"
 
 #: src/ui/quota-gauge/index.js
 msgid "%d%% space available"
-msgstr "%d%%  Speicherplatz frei"
+msgstr "%d%% Speicherplatz frei"
 
 #~ msgid "English"
 #~ msgstr "Englisch"
