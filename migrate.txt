@@ -1,5 +1,0 @@
-
-1. Check Vue.directive('mouse-scrolling') to make sure its syntax has been updated and for anything beyond simple DOM manipulations, refactor to a component
-  Line 15: src/vue/directives/mouse-scrolling.js
-  Reason: Directives have been vastly reduced in scope and components are preferred in most use cases
-  More info: http://vuejs.org/guide/migration.html#Custom-Directives-simplified
