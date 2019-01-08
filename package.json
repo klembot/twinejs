@@ -64,6 +64,7 @@
 		"cheerio": "^1.0.0-rc.2",
 		"chmodr": "^1.0.2",
 		"copy-webpack-plugin": "^4.5.4",
+		"cross-env": "^5.2.0",
 		"css-loader": "^0.28.7",
 		"ejs": "^2.5.2",
 		"ejs-loader": "^0.3.1",
