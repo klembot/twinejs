@@ -12,14 +12,22 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}-{{ checksum ".circleci/config.yml" }}
+          - v1-dependencies-{{ checksum "yarn.lock" }}-{{ checksum ".circleci/config.yml" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
       - run: yarn install
+      - run:
+          name: Check that all packages are exactly specified
+          command: git diff --exit-code yarn.lock
+      - run:
+          name: Check that all translations are updated (disabled)
+          command: |
+            yarn pot
+            git diff src/locale/po/template.pot 
+            echo "Disabled for now"
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}-{{ checksum ".circleci/config.yml" }}
-      - run: yarn test
-      - run: yarn build:web
-      - run: yarn build:electron
+          key: v1-dependencies-{{ checksum "yarn.lock" }}-{{ checksum ".circleci/config.yml" }}
+      - run: yarn test --coverage
+      - run: yarn build
