@@ -20,11 +20,10 @@ jobs:
           name: Check that all packages are exactly specified
           command: git diff --exit-code yarn.lock
       - run:
-          name: Check that all translations are updated (disabled)
+          name: Check that all translations are updated (disabled, diff shown for now)
           command: |
             yarn pot
-            git diff --no-pager src/locale/po/template.pot 
-            echo "Disabled for now, use exit-code instead of no-pager when ready and remove this echo"
+            git --no-pager diff src/locale/po/template.pot
       - save_cache:
           paths:
             - node_modules
