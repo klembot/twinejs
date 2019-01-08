@@ -72,8 +72,8 @@ describe('story format actions module', () => {
 		expect(created['Snowman-1.3.0'].userAdded).toBeFalsy();
 		expect(created['SugarCube-1.0.35'].url).toEqual('story-formats/sugarcube-1.0.35/format.js');
 		expect(created['SugarCube-1.0.35'].userAdded).toBeFalsy();
-		expect(created['SugarCube-2.21.0'].url).toEqual('story-formats/sugarcube-2.21.0/format.js');
-		expect(created['SugarCube-2.21.0'].userAdded).toBeFalsy();
+		expect(created['SugarCube-2.28.2'].url).toEqual('story-formats/sugarcube-2.28.2/format.js');
+		expect(created['SugarCube-2.28.2'].userAdded).toBeFalsy();
 	});
 
 	it('sets default formats with repairFormats()', () => {
@@ -126,7 +126,7 @@ describe('story format actions module', () => {
 						{ name: 'Paperthin', version: '1.0.0' },
 						{ name: 'Snowman', version: '1.3.0' },
 						{ name: 'SugarCube', version: '1.0.35' },
-						{ name: 'SugarCube', version: '2.21.0' }
+						{ name: 'SugarCube', version: '2.28.2' }
 					]
 				}
 			}

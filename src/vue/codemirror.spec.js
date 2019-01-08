@@ -30,7 +30,6 @@ describe('<code-mirror>', () => {
 			},
 			methods: {
 				saveText(text) {
-					console.log('saving text!', text);
 					this.testText = text;
 				}
 			},
@@ -43,7 +42,6 @@ describe('<code-mirror>', () => {
 	});
 
 	test('creates a CodeMirror instance when mounted', () => {
-		console.log("vm.$refs", vm.$refs)
 		expect(typeof vm.$refs.cm.$cm).toBe('object');
 	});
 
