@@ -23,8 +23,8 @@ jobs:
           name: Check that all translations are updated (disabled)
           command: |
             yarn pot
-            git diff src/locale/po/template.pot 
-            echo "Disabled for now"
+            git diff --no-pager src/locale/po/template.pot 
+            echo "Disabled for now, use exit-code instead of no-pager when ready and remove this echo"
       - save_cache:
           paths:
             - node_modules
