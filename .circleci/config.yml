@@ -21,3 +21,5 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}-{{ checksum ".circleci/config.yml" }}
       - run: yarn test
+      - run: yarn build:web
+      - run: yarn build:electron

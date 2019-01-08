@@ -1,6 +1,8 @@
 // Shows a dialog asking the user to make a donation.
 
 const Vue = require('vue');
+
+const eventHub = require('../../common/eventHub');
 const { setPref } = require('../../data/actions/pref');
 const locale = require('../../locale');
 
@@ -49,7 +51,7 @@ const donation = {
 		if (!store.state.pref.donateShown &&
 			now > store.state.pref.firstRunTime + DONATION_DELAY) {
 			setPref(store, 'donateShown', true);
-			this.$emit('customModal', appDonation);
+			eventHub.$emit('customModal', appDonation);
 			return true;
 		}
 		return false;
