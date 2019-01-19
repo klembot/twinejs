@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-05 01:38-0300\n"
 "PO-Revision-Date: 2015-07-05 03:15-0300\n"
-"Last-Translator: Alliah <contato@alliahverso.com.br>\n"
+"Last-Translator: Erick Simões <erick.simoes@live.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -505,8 +505,7 @@ msgstr "História"
 
 #: templates/storylistview/storylistview.html:17
 msgid "What should your story be named?<br>(You can change this later.)"
-msgstr ""
-"Qual será o nome da sua história?<br>(Você pode mudar isso mais tarde.)"
+msgstr "Qual será o nome da sua história?<br>(Você pode mudar isso mais tarde.)"
 
 #: templates/storylistview/storylistview.html:34
 msgid "Import a published story or Twine archive"
@@ -808,8 +807,7 @@ msgstr "Não há ponto de partida configurado para essa história."
 
 #: js/models/story.js:115
 msgid "The passage set as starting point for this story does not exist."
-msgstr ""
-"A passagem marcada como ponto de partida para essa história não existe."
+msgstr "A passagem marcada como ponto de partida para essa história não existe."
 
 #: js/models/storyformat.js:38
 msgid "Untitled Story Format"
@@ -935,8 +933,7 @@ msgstr "Editando “%s”"
 
 #: js/views/storyeditview/editors/passageeditor.js:211
 msgid "Any changes to the passage you're editing haven't been saved yet. "
-msgstr ""
-"Quaisquer mudanças na passagem que você está editando não foram salvas ainda."
+msgstr "Quaisquer mudanças na passagem que você está editando não foram salvas ainda."
 
 #. L10n: Matched in the sense of matching a search criteria. %d is the number of passages.
 #: js/views/storyeditview/modals/searchmodal.js:94
@@ -1009,8 +1006,7 @@ msgstr[1] "Links Quebrados"
 #: js/views/storyeditview/modals/storyformatmodal.js:96
 #: js/views/storylistview/modals/formatsmodal.js:74
 msgid "The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s)."
-msgstr ""
-"O formato de história &ldquo;%1$s&rdquo; não pôde ser carregado (%2$s)."
+msgstr "O formato de história &ldquo;%1$s&rdquo; não pôde ser carregado (%2$s)."
 
 #: js/views/storyeditview/passageitemview.js:165
 #, javascript-format
