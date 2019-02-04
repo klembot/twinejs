@@ -50,7 +50,7 @@ module.exports = store => {
 			const storyData = importFile(story.data, story.mtime);
 
 			if (storyData.length > 0) {
-				importStory(store, storyData[0], true);
+				importStory(store, storyData[0]);
 			}
 		});
 	}
