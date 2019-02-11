@@ -15,6 +15,23 @@ const {
 const {say} = require('../locale');
 const {publishStory, publishStoryWithFormat} = require('../data/publish');
 
+/*
+It's possible for us to process many file operations asynchronously and run into
+each other, where one thread locks the story directory while another is working.
+This imposes a global lock process, where once the last lock request in a batch
+is made, the directory is locked after one second.
+*/
+
+let storyDirectoryLockTimeout;
+
+function eventuallyLockStoryDirectory() {
+	if (storyDirectoryLockTimeout) {
+		clearTimeout(storyDirectoryLockTimeout);
+	}
+
+	storyDirectoryLockTimeout = setTimeout(lockStoryDirectory, 1000);
+}
+
 const StoryFile = (module.exports = {
 	/*
 	Returns a promise resolving to an array of HTML strings to load from the
@@ -114,7 +131,7 @@ const StoryFile = (module.exports = {
 				)
 			)
 			.then(fd => write(fd, output))
-			.then(lockStoryDirectory);
+			.then(eventuallyLockStoryDirectory);
 	},
 
 	/*
@@ -134,7 +151,7 @@ const StoryFile = (module.exports = {
 					)
 				)
 			)
-			.then(lockStoryDirectory);
+			.then(eventuallyLockStoryDirectory);
 	},
 
 	/*
