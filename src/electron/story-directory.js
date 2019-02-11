@@ -46,7 +46,7 @@ const StoryDirectory = (module.exports = {
 			return readdir(storyPath).then(files => {
 				return Promise.all(
 					/* a-w, 0444 */
-					files.map(f => chmod(path.join(storyPath, f, 292)))
+					files.map(f => chmod(path.join(storyPath, f), 292))
 				);
 			});
 		} else {
@@ -76,7 +76,7 @@ const StoryDirectory = (module.exports = {
 			return readdir(storyPath).then(files => {
 				return Promise.all(
 					/* a+w, 0666 */
-					files.map(f => chmod(path.join(storyPath, f, 438)))
+					files.map(f => chmod(path.join(storyPath, f), 438))
 				);
 			});
 		} else {

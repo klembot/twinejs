@@ -1,6 +1,6 @@
 {
 	"name": "Twine",
-	"version": "2.3.0-beta1",
+	"version": "2.3.0-beta2",
 	"author": "Chris Klimas <chris@twinery.org>",
 	"description": "a GUI for creating nonlinear stories",
 	"license": "GPL-3.0",

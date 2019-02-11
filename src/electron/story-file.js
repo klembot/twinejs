@@ -4,7 +4,7 @@ Manages reading and writing files from the story directory. This listens to the
 */
 
 const fs = require('fs');
-const {ipcMain} = require('electron');
+const {dialog, ipcMain} = require('electron');
 const path = require('path');
 const util = require('util');
 const {
@@ -12,7 +12,25 @@ const {
 	path: storyDirectoryPath,
 	unlock: unlockStoryDirectory
 } = require('./story-directory');
+const {say} = require('../locale');
 const {publishStory, publishStoryWithFormat} = require('../data/publish');
+
+/*
+It's possible for us to process many file operations asynchronously and run into
+each other, where one thread locks the story directory while another is working.
+This imposes a global lock process, where once the last lock request in a batch
+is made, the directory is locked after one second.
+*/
+
+let storyDirectoryLockTimeout;
+
+function eventuallyLockStoryDirectory() {
+	if (storyDirectoryLockTimeout) {
+		clearTimeout(storyDirectoryLockTimeout);
+	}
+
+	storyDirectoryLockTimeout = setTimeout(lockStoryDirectory, 1000);
+}
 
 const StoryFile = (module.exports = {
 	/*
@@ -30,23 +48,25 @@ const StoryFile = (module.exports = {
 		return readdir(storyPath)
 			.then(files => {
 				return Promise.all(
-					files.filter(f => /\.html$/i.test(f)).map(f => {
-						const filePath = path.join(storyPath, f);
-						const loadedFile = {};
+					files
+						.filter(f => /\.html$/i.test(f))
+						.map(f => {
+							const filePath = path.join(storyPath, f);
+							const loadedFile = {};
 
-						return stat(filePath)
-							.then(fileStats => {
-								loadedFile.mtime = fileStats.mtime;
+							return stat(filePath)
+								.then(fileStats => {
+									loadedFile.mtime = fileStats.mtime;
 
-								return readFile(filePath, {
-									encoding: 'utf8'
+									return readFile(filePath, {
+										encoding: 'utf8'
+									});
+								})
+								.then(fileData => {
+									loadedFile.data = fileData;
+									result.push(loadedFile);
 								});
-							})
-							.then(fileData => {
-								loadedFile.data = fileData;
-								result.push(loadedFile);
-							});
-					})
+						})
 				);
 			})
 			.then(() => result);
@@ -86,7 +106,9 @@ const StoryFile = (module.exports = {
 				output = publishStoryWithFormat(appInfo, story, format);
 			} catch (e) {
 				console.warn(
-					'Failed to fully publish story. Attempting naked publish.'
+					`Failed to fully publish story (${
+						e.message
+					}). Attempting naked publish.`
 				);
 
 				try {
@@ -109,7 +131,7 @@ const StoryFile = (module.exports = {
 				)
 			)
 			.then(fd => write(fd, output))
-			.then(lockStoryDirectory);
+			.then(eventuallyLockStoryDirectory);
 	},
 
 	/*
@@ -129,7 +151,7 @@ const StoryFile = (module.exports = {
 					)
 				)
 			)
-			.then(lockStoryDirectory);
+			.then(eventuallyLockStoryDirectory);
 	},
 
 	/*
@@ -148,17 +170,34 @@ const StoryFile = (module.exports = {
 });
 
 ipcMain.on('save-story', (e, story, format, appInfo) => {
-	StoryFile.save(story, format, appInfo).then(() =>
-		e.sender.send('story-saved', story, format, appInfo)
-	);
+	StoryFile.save(story, format, appInfo)
+		.then(() => e.sender.send('story-saved', story, format, appInfo))
+		.catch(e =>
+			dialog.showErrorBox(
+				say('An error occurred while saving a story.'),
+				e.message
+			)
+		);
 });
 
 ipcMain.on('delete-story', (e, story) => {
-	StoryFile.delete(story).then(() => e.sender.send('story-deleted', story));
+	StoryFile.delete(story)
+		.then(() => e.sender.send('story-deleted', story))
+		.catch(e =>
+			dialog.showErrorBox(
+				say('An error occurred while deleting a story.'),
+				e.message
+			)
+		);
 });
 
 ipcMain.on('rename-story', (e, oldStory, newStory) => {
-	StoryFile.rename(oldStory, newStory).then(() =>
-		e.sender.send('story-renamed', oldStory, newStory)
-	);
+	StoryFile.rename(oldStory, newStory)
+		.then(() => e.sender.send('story-renamed', oldStory, newStory))
+		.catch(e =>
+			dialog.showErrorBox(
+				say('An error occurred while renaming a story.'),
+				e.message
+			)
+		);
 });

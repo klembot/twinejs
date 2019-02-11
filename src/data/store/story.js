@@ -5,6 +5,7 @@ index.js.
 
 const uuid = require('tiny-uuid');
 const locale = require('../../locale');
+const idFor = require('../id');
 const ui = require('../../ui');
 
 /*
@@ -41,7 +42,7 @@ const storyStore = (module.exports = {
 		CREATE_STORY(state, props) {
 			let story = Object.assign(
 				{
-					id: uuid(),
+					id: idFor(props.name),
 					lastUpdate: new Date(),
 					ifid: uuid().toUpperCase(),
 					tagColors: {},
@@ -69,7 +70,7 @@ const storyStore = (module.exports = {
 			const original = getStoryById(state, id);
 
 			let story = Object.assign({}, original, {
-				id: uuid(),
+				id: idFor(newName),
 				ifid: uuid().toUpperCase(),
 				name: newName
 			});
@@ -81,7 +82,7 @@ const storyStore = (module.exports = {
 			original.passages.forEach(passage => {
 				story.passages.push(
 					Object.assign({}, passage, {
-						id: uuid(),
+						id: idFor(newName + passage.name),
 						story: story.id
 					})
 				);
@@ -94,7 +95,7 @@ const storyStore = (module.exports = {
 			state.stories.push(story);
 		},
 
-		IMPORT_STORY(state, toImport, deterministic) {
+		IMPORT_STORY(state, toImport) {
 			/*
 			See data/import.js for how the object that we receive is
 			structured.
@@ -103,19 +104,10 @@ const storyStore = (module.exports = {
 			and set the story's startPassage property appropriately.
 			*/
 
-			if (deterministic) {
-				toImport.id = window.btoa(toImport.name);
-			} else {
-				toImport.id = uuid();
-			}
+			toImport.id = idFor(toImport.name);
 
 			toImport.passages.forEach(p => {
-				if (deterministic) {
-					p.id = window.btoa(p.name);
-				} else {
-					p.id = uuid();
-				}
-
+				p.id = idFor(toImport.name + p.name);
 				p.story = toImport.id;
 
 				if (p.pid === toImport.startPassagePid) {
@@ -137,7 +129,7 @@ const storyStore = (module.exports = {
 			let story = getStoryById(state, storyId);
 			let newPassage = Object.assign(
 				{
-					id: uuid()
+					id: idFor(story.name + props.name)
 				},
 				storyStore.passageDefaults,
 				props
