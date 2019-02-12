@@ -13,10 +13,10 @@
 	"scripts": {
 		"build": "run-s build:*",
 		"build:build-number": "node scripts/build-number.js",
-		"build:cdn": "NODE_ENV=production USE_CDN=y webpack --progress",
+		"build:cdn": "cross-env NODE_ENV=production USE_CDN=y webpack --progress",
 		"build:electron": "cross-env NODE_ENV=production USE_ELECTRON=y webpack --progress",
-		"build:electron-dev": "USE_ELECTRON=y webpack --progress",
-		"build:web": "NODE_ENV=production webpack --progress",
+		"build:electron-dev": "cross-env USE_ELECTRON=y webpack --progress",
+		"build:web": "cross-env NODE_ENV=production webpack --progress",
 		"clean": "rimraf dist/",
 		"electron": "npm run build:electron && electron-builder -mwl",
 		"electron:dev": "npm run build:electron-dev && electron .",
