@@ -182,7 +182,25 @@ module.exports = store => {
 			case 'CREATE_FORMAT':
 			case 'UPDATE_FORMAT':
 			case 'DELETE_FORMAT':
-				saveJson('story-formats.json', state.storyFormat.formats);
+				/*
+				state.storyFormats.formats is likely to contain the actual story
+				format data, and possibly other extraneous stuff. We don't want
+				to serialize that.
+				*/
+
+				const toSave = {};
+
+				Object.keys(state.storyFormat.formats).forEach(i => {
+					toSave[i] = {
+						id: state.storyFormat.formats[i].id,
+						name: state.storyFormat.formats[i].name,
+						version: state.storyFormat.formats[i].version,
+						url: state.storyFormat.formats[i].url,
+						userAdded: state.storyFormat.formats[i].userAdded
+					};
+				});
+
+				saveJson('story-formats.json', toSave);
 				break;
 
 			case 'LOAD_FORMAT':
