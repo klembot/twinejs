@@ -14,7 +14,20 @@ const isElectron = require('../electron/is-electron');
 
 module.exports = function idFor(key) {
 	if (isElectron()) {
-		return key;
+		/*
+		This uses Java's hashCode method. We need to coerce it to a string to
+		avoid the number being garbled by addition operations elsewhere.
+		https://stackoverflow.com/a/34842797
+		*/
+
+		return key
+			.split('')
+			.reduce(
+				(prevHash, currVal) =>
+					((prevHash << 5) - prevHash + currVal.charCodeAt(0)) | 0,
+				0
+			)
+			.toString();
 	}
 
 	return uuid();
