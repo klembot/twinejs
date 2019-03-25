@@ -100,7 +100,7 @@ const publish = module.exports = {
 		});
 
 		const tagData = Object.keys(story.tagColors).map(tag =>
-			`<tw-tag name="${escape(tag)}" color="${escape(story.tagColors[tag])}"></tw-tag>`
+			`<tw-tag name="${escape(tag)}" color="${escape(story.tagColors[tag])}"></tw-tag>\n`
 		);
 
 		return `<tw-storydata name="${escape(story.name)}" ` +
@@ -111,13 +111,13 @@ const publish = module.exports = {
 			`zoom="${escape(story.zoom)}" ` +
 			`format="${escape(story.storyFormat)}" ` +
 			`format-version="${escape(story.storyFormatVersion)}" ` +
-			`options="${escape(formatOptions)}" hidden>` +
+			`options="${escape(formatOptions)}" hidden>\n` +
 			`<style role="stylesheet" id="twine-user-stylesheet" ` +
-			`type="text/twine-css">` + story.stylesheet + `</style>` +
+			`type="text/twine-css">\n` + story.stylesheet + `\n</style>\n` +
 			`<script role="script" id="twine-user-script" ` +
-			`type="text/twine-javascript">` + story.script + `</script>` +
+			`type="text/twine-javascript">\n` + story.script + `</script>` +
 			tagData + passageData +
-			`</tw-storydata>`;
+			`\n</tw-storydata>`;
 	},
 
 	/*
@@ -130,7 +130,7 @@ const publish = module.exports = {
 			`name="${escape(passage.name)}" ` +
 			`tags="${escape(passage.tags.join(' '))}" ` +
 			`position="${passage.left},${passage.top}" ` +
-			`size="${passage.width},${passage.height}">` +
-			`${escape(passage.text)}</tw-passagedata>`;
+			`size="${passage.width},${passage.height}">\n` +
+			`${escape(passage.text)}</tw-passagedata>\n`;
 	}
 };
