@@ -18,7 +18,7 @@
 		"build:electron-dev": "cross-env USE_ELECTRON=y webpack --progress",
 		"build:web": "cross-env NODE_ENV=production webpack --progress",
 		"clean": "rimraf dist/",
-		"electron": "npm run build:electron && electron-builder -mwl",
+		"electron": "npm run build:electron && electron-builder --ia32 --x64 -mwl",
 		"electron:dev": "npm run build:electron-dev && electron .",
 		"lint": "eslint src/ || exit 0",
 		"lint:noisy": "eslint src/",
