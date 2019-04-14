@@ -41,7 +41,13 @@ function updateDataToHydrate() {
 		.then(storyData => {
 			global.hydrate.initialStoryData = storyData;
 			return storyData;
-		});
+		})
+		.then(unlockStoryDirectory)
+		.then(() => loadJson('story-formats.json'))
+		.then(data => (global.hydrate.storyFormats = data))
+		.then(() => loadJson('prefs.json'))
+		.then(data => (global.hydrate.prefs = data))
+		.catch(e => console.warn(e.message));
 }
 
 function addStockWindowListeners(win) {

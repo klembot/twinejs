@@ -79,17 +79,21 @@ const storyStore = (module.exports = {
 
 			story.passages = [];
 
-			original.passages.forEach(passage => {
-				story.passages.push(
-					Object.assign({}, passage, {
-						id: idFor(newName + passage.name),
-						story: story.id
-					})
-				);
+			original.passages.forEach(originalPassage => {
+				const passage = Object.assign({}, originalPassage, {
+					id: idFor(newName + originalPassage.name),
+					story: story.id
+				});
 
 				if (passage.tags) {
 					passage.tags = passage.tags.slice(0);
 				}
+
+				if (original.startPassage === originalPassage.id) {
+					story.startPassage = passage.id;
+				}
+
+				story.passages.push(passage);
 			});
 
 			state.stories.push(story);

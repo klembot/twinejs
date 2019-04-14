@@ -15,23 +15,6 @@ const {
 const {say} = require('../locale');
 const {publishStory, publishStoryWithFormat} = require('../data/publish');
 
-/*
-It's possible for us to process many file operations asynchronously and run into
-each other, where one thread locks the story directory while another is working.
-This imposes a global lock process, where once the last lock request in a batch
-is made, the directory is locked after one second.
-*/
-
-let storyDirectoryLockTimeout;
-
-function eventuallyLockStoryDirectory() {
-	if (storyDirectoryLockTimeout) {
-		clearTimeout(storyDirectoryLockTimeout);
-	}
-
-	storyDirectoryLockTimeout = setTimeout(lockStoryDirectory, 1000);
-}
-
 const StoryFile = (module.exports = {
 	/*
 	Returns a promise resolving to an array of HTML strings to load from the
@@ -131,7 +114,7 @@ const StoryFile = (module.exports = {
 				)
 			)
 			.then(fd => write(fd, output))
-			.then(eventuallyLockStoryDirectory);
+			.then(lockStoryDirectory);
 	},
 
 	/*
@@ -151,7 +134,7 @@ const StoryFile = (module.exports = {
 					)
 				)
 			)
-			.then(eventuallyLockStoryDirectory);
+			.then(lockStoryDirectory);
 	},
 
 	/*
@@ -169,35 +152,53 @@ const StoryFile = (module.exports = {
 	}
 });
 
-ipcMain.on('save-story', (e, story, format, appInfo) => {
-	StoryFile.save(story, format, appInfo)
-		.then(() => e.sender.send('story-saved', story, format, appInfo))
-		.catch(e =>
-			dialog.showErrorBox(
-				say('An error occurred while saving a story.'),
-				e.message
-			)
-		);
-});
+/*
+We need to ensure that all file operations happen serially, because they
+individually unlock and lock the story directory. Because file operations are
+all asynchronous, we have to enforce this by hand.
+*/
 
-ipcMain.on('delete-story', (e, story) => {
-	StoryFile.delete(story)
-		.then(() => e.sender.send('story-deleted', story))
-		.catch(e =>
-			dialog.showErrorBox(
-				say('An error occurred while deleting a story.'),
-				e.message
-			)
-		);
-});
+let storyTask = Promise.resolve();
 
-ipcMain.on('rename-story', (e, oldStory, newStory) => {
-	StoryFile.rename(oldStory, newStory)
-		.then(() => e.sender.send('story-renamed', oldStory, newStory))
-		.catch(e =>
-			dialog.showErrorBox(
-				say('An error occurred while renaming a story.'),
-				e.message
+function queueStoryTask(func) {
+	storyTask = storyTask.then(func, func);
+}
+
+ipcMain.on('save-story', (e, story, format, appInfo) =>
+	queueStoryTask(() =>
+		StoryFile.save(story, format, appInfo)
+			.then(() => e.sender.send('story-saved', story, format, appInfo))
+			.catch(e =>
+				dialog.showErrorBox(
+					say('An error occurred while saving a story.'),
+					e.message
+				)
 			)
-		);
-});
+	)
+);
+
+ipcMain.on('delete-story', (e, story) =>
+	queueStoryTask(() =>
+		StoryFile.delete(story)
+			.then(() => e.sender.send('story-deleted', story))
+			.catch(e =>
+				dialog.showErrorBox(
+					say('An error occurred while deleting a story.'),
+					e.message
+				)
+			)
+	)
+);
+
+ipcMain.on('rename-story', (e, oldStory, newStory) =>
+	queueStoryTask(() =>
+		StoryFile.rename(oldStory, newStory)
+			.then(() => e.sender.send('story-renamed', oldStory, newStory))
+			.catch(e =>
+				dialog.showErrorBox(
+					say('An error occurred while renaming a story.'),
+					e.message
+				)
+			)
+	)
+);
