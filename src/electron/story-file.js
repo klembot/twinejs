@@ -75,6 +75,7 @@ const StoryFile = (module.exports = {
 	*/
 
 	save(story, format, appInfo) {
+		const close = util.promisify(fs.close);
 		const open = util.promisify(fs.open);
 		const write = util.promisify(fs.write);
 
@@ -82,7 +83,7 @@ const StoryFile = (module.exports = {
 		Try to save a full publish; if that fails, do a naked publish.
 		*/
 
-		let output;
+		let output, openFile;
 
 		return new Promise((resolve, reject) => {
 			try {
@@ -113,8 +114,17 @@ const StoryFile = (module.exports = {
 					'w'
 				)
 			)
-			.then(fd => write(fd, output))
-			.then(lockStoryDirectory);
+			.then(fd => {
+				openFile = fd;
+				return write(fd, output);
+			})
+			.finally(() => {
+				if (openFile) {
+					return close(openFile).finally(lockStoryDirectory);
+				}
+
+				return lockStoryDirectory();
+			});
 	},
 
 	/*

@@ -28,12 +28,22 @@ const JsonFile = (module.exports = {
 	*/
 
 	save(filename, data) {
+		const close = util.promisify(fs.close);
 		const open = util.promisify(fs.open);
 		const write = util.promisify(fs.write);
 
-		return open(path.join(app.getPath('userData'), filename), 'w').then(
-			fd => write(fd, JSON.stringify(data))
-		);
+		let openFile;
+
+		return open(path.join(app.getPath('userData'), filename), 'w')
+			.then(fd => {
+				openFile = fd;
+				return write(fd, JSON.stringify(data));
+			})
+			.finally(() => {
+				if (openFile) {
+					return close(openFile);
+				}
+			});
 	}
 });
 
