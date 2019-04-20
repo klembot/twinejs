@@ -1,9 +1,8 @@
 const {app, shell} = require('electron');
-const fs = require('fs');
+const fs = require('fs-extra');
 const locale = require('../locale');
 const mkdirp = require('mkdirp-promise');
 const path = require('path');
-const util = require('util');
 
 const StoryDirectory = (module.exports = {
 	/*
@@ -34,27 +33,23 @@ const StoryDirectory = (module.exports = {
 	*/
 
 	lock() {
-		const readdir = util.promisify(fs.readdir);
-		const chmod = util.promisify(fs.chmod);
-		const stat = util.promisify(fs.stat);
-
 		const storyPath = StoryDirectory.path();
 
 		if (process.platform == 'win32') {
 			/* On Windows, we must lock each file individually. */
 
-			return readdir(storyPath).then(files => {
+			return fs.readdir(storyPath).then(files => {
 				return Promise.all(
 					/* a-w, 0444 */
-					files.map(f => chmod(path.join(storyPath, f), 292))
+					files.map(f => fs.chmod(path.join(storyPath, f), 292))
 				);
 			});
 		} else {
 			/* Everywhere else, locking the directory is good enough. */
 
-			return stat(storyPath).then(stats =>
+			return fs.stat(storyPath).then(stats =>
 				/* u-w */
-				chmod(storyPath, stats.mode ^ 128)
+				fs.chmod(storyPath, stats.mode ^ 128)
 			);
 		}
 	},
@@ -64,27 +59,23 @@ const StoryDirectory = (module.exports = {
 	*/
 
 	unlock() {
-		const readdir = util.promisify(fs.readdir);
-		const chmod = util.promisify(fs.chmod);
-		const stat = util.promisify(fs.stat);
-
 		const storyPath = StoryDirectory.path();
 
 		if (process.platform == 'win32') {
 			/* On Windows, we must lock each file individually. */
 
-			return readdir(storyPath).then(files => {
+			return fs.readdir(storyPath).then(files => {
 				return Promise.all(
 					/* a+w, 0666 */
-					files.map(f => chmod(path.join(storyPath, f), 438))
+					files.map(f => fs.chmod(path.join(storyPath, f), 438))
 				);
 			});
 		} else {
 			/* Everywhere else, locking the directory is good enough. */
 
-			return stat(storyPath).then(stats =>
+			return fs.stat(storyPath).then(stats =>
 				/* u-w */
-				chmod(storyPath, stats.mode | 128)
+				fs.chmod(storyPath, stats.mode | 128)
 			);
 		}
 	},

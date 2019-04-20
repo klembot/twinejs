@@ -4,14 +4,11 @@ directory correctly. Locale data is also loaded by the browser process during
 startup; see `../index.js`.
 */
 
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
-const util = require('util');
 const {loadJson, loadDefault} = require('../locale');
 
 module.exports = function(prefs) {
-	const readFile = util.promisify(fs.readFile);
-
 	return new Promise(resolve => {
 		if (prefs.locale) {
 			const localeName = prefs.locale.toLowerCase();
@@ -27,7 +24,7 @@ module.exports = function(prefs) {
 				`../../dist/web-electron/locale/${localeName}.js`
 			);
 
-			readFile(localePath, {encoding: 'utf8'})
+			fs.readFile(localePath, {encoding: 'utf8'})
 				.then(data => {
 					/* Strip the JSONP wrapper. */
 
