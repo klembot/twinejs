@@ -38,6 +38,7 @@
 		"jed": "^1.1.0",
 		"jsonp": "^0.2.1",
 		"jszip": "^2.5.0",
+		"klaw-sync": "^6.0.0",
 		"lodash.escape": "^4.0.1",
 		"lodash.escaperegexp": "^4.1.2",
 		"lodash.uniq": "^4.5.0",
