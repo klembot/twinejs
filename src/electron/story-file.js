@@ -3,10 +3,10 @@ Manages reading and writing files from the story directory. This listens to the
 `save-story` and `delete-story` IPC events.
 */
 
-const fs = require('fs');
+const {app} = require('electron');
+const fs = require('fs-extra');
 const {dialog, ipcMain} = require('electron');
 const path = require('path');
-const util = require('util');
 const {
 	lock: lockStoryDirectory,
 	path: storyDirectoryPath,
@@ -24,11 +24,9 @@ const StoryFile = (module.exports = {
 	load() {
 		const storyPath = storyDirectoryPath();
 		const result = [];
-		const readdir = util.promisify(fs.readdir);
-		const readFile = util.promisify(fs.readFile);
-		const stat = util.promisify(fs.stat);
 
-		return readdir(storyPath)
+		return fs
+			.readdir(storyPath)
 			.then(files => {
 				return Promise.all(
 					files
@@ -37,11 +35,12 @@ const StoryFile = (module.exports = {
 							const filePath = path.join(storyPath, f);
 							const loadedFile = {};
 
-							return stat(filePath)
+							return fs
+								.stat(filePath)
 								.then(fileStats => {
 									loadedFile.mtime = fileStats.mtime;
 
-									return readFile(filePath, {
+									return fs.readFile(filePath, {
 										encoding: 'utf8'
 									});
 								})
@@ -75,14 +74,25 @@ const StoryFile = (module.exports = {
 	*/
 
 	save(story, format, appInfo) {
-		const open = util.promisify(fs.open);
-		const write = util.promisify(fs.write);
+		/*
+		We save to a temp file first, then overwrite the existing if that
+		succeeds, so that if any step fails, the original file is left intact.
+		*/
+
+		const savedFilePath = path.join(
+			storyDirectoryPath(),
+			StoryFile.fileName(story.name)
+		);
+		const tempFilePath = path.join(
+			app.getPath('temp'),
+			StoryFile.fileName(story.name)
+		);
+
+		let error, output;
 
 		/*
 		Try to save a full publish; if that fails, do a naked publish.
 		*/
-
-		let output;
 
 		return new Promise((resolve, reject) => {
 			try {
@@ -103,18 +113,15 @@ const StoryFile = (module.exports = {
 			}
 			resolve();
 		})
+			.then(() => fs.writeFile(tempFilePath, output, {encoding: 'utf8'}))
 			.then(unlockStoryDirectory)
-			.then(() =>
-				open(
-					path.join(
-						storyDirectoryPath(),
-						StoryFile.fileName(story.name)
-					),
-					'w'
-				)
-			)
-			.then(fd => write(fd, output))
-			.then(lockStoryDirectory);
+			.then(() => fs.move(tempFilePath, savedFilePath, {overwrite: true}))
+			.then(lockStoryDirectory)
+			.catch(e => {
+				console.warn(`Error while saving story: ${e}`);
+				error = e;
+				return lockStoryDirectory().then(Promise.reject(error));
+			});
 	},
 
 	/*
@@ -123,18 +130,23 @@ const StoryFile = (module.exports = {
 	*/
 
 	delete(story) {
-		const unlink = util.promisify(fs.unlink);
+		let error;
 
 		return unlockStoryDirectory()
 			.then(() =>
-				unlink(
+				fs.unlink(
 					path.join(
 						storyDirectoryPath(),
 						StoryFile.fileName(story.name)
 					)
 				)
 			)
-			.then(lockStoryDirectory);
+			.then(lockStoryDirectory)
+			.catch(e => {
+				console.warn(`Error while deleting story: ${e}`);
+				error = e;
+				return lockStoryDirectory().then(Promise.reject(error));
+			});
 	},
 
 	/*
@@ -143,9 +155,7 @@ const StoryFile = (module.exports = {
 	*/
 
 	rename(oldStory, newStory) {
-		const rename = util.promisify(fs.rename);
-
-		return rename(
+		return fs.rename(
 			path.join(storyDirectoryPath(), StoryFile.fileName(oldStory.name)),
 			path.join(storyDirectoryPath(), StoryFile.fileName(newStory.name))
 		);
