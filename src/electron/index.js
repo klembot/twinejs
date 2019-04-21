@@ -86,7 +86,7 @@ app.on('ready', () => {
 	let startupTask;
 
 	backupStoryDirectory()
-		.then(() => setInterval(backupStoryDirectory, 1000 * 60 * 30))
+		.then(() => setInterval(backupStoryDirectory, 1000 * 60 * 20))
 		.then(() => loadJson('prefs.json'))
 		.then(data => (global.hydrate.prefs = data))
 		.catch(e => console.warn(e.message))
