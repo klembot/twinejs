@@ -4,9 +4,8 @@ listens to the `save-json` IPC event.
 */
 
 const {app, ipcMain} = require('electron');
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
-const util = require('util');
 
 const JsonFile = (module.exports = {
 	/*
@@ -16,11 +15,7 @@ const JsonFile = (module.exports = {
 	*/
 
 	load(filename) {
-		const readFile = util.promisify(fs.readFile);
-
-		return readFile(path.join(app.getPath('userData'), filename), {
-			encoding: 'utf8'
-		}).then(data => JSON.parse(data));
+		return fs.readJson(path.join(app.getPath('userData'), filename));
 	},
 
 	/*
@@ -28,12 +23,7 @@ const JsonFile = (module.exports = {
 	*/
 
 	save(filename, data) {
-		const open = util.promisify(fs.open);
-		const write = util.promisify(fs.write);
-
-		return open(path.join(app.getPath('userData'), filename), 'w').then(
-			fd => write(fd, JSON.stringify(data))
-		);
+		return fs.writeJson(path.join(app.getPath('userData'), filename), data);
 	}
 });
 

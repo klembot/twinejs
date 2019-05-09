@@ -1,9 +1,9 @@
 const {app, shell} = require('electron');
-const fs = require('fs');
+const fs = require('fs-extra');
+const klaw = require('klaw-sync');
 const locale = require('../locale');
 const mkdirp = require('mkdirp-promise');
 const path = require('path');
-const util = require('util');
 
 const StoryDirectory = (module.exports = {
 	/*
@@ -34,27 +34,23 @@ const StoryDirectory = (module.exports = {
 	*/
 
 	lock() {
-		const readdir = util.promisify(fs.readdir);
-		const chmod = util.promisify(fs.chmod);
-		const stat = util.promisify(fs.stat);
-
 		const storyPath = StoryDirectory.path();
 
 		if (process.platform == 'win32') {
 			/* On Windows, we must lock each file individually. */
 
-			return readdir(storyPath).then(files => {
+			return fs.readdir(storyPath).then(files => {
 				return Promise.all(
 					/* a-w, 0444 */
-					files.map(f => chmod(path.join(storyPath, f, 292)))
+					files.map(f => fs.chmod(path.join(storyPath, f), 292))
 				);
 			});
 		} else {
 			/* Everywhere else, locking the directory is good enough. */
 
-			return stat(storyPath).then(stats =>
+			return fs.stat(storyPath).then(stats =>
 				/* u-w */
-				chmod(storyPath, stats.mode ^ 128)
+				fs.chmod(storyPath, stats.mode ^ 128)
 			);
 		}
 	},
@@ -64,27 +60,23 @@ const StoryDirectory = (module.exports = {
 	*/
 
 	unlock() {
-		const readdir = util.promisify(fs.readdir);
-		const chmod = util.promisify(fs.chmod);
-		const stat = util.promisify(fs.stat);
-
 		const storyPath = StoryDirectory.path();
 
 		if (process.platform == 'win32') {
 			/* On Windows, we must lock each file individually. */
 
-			return readdir(storyPath).then(files => {
+			return fs.readdir(storyPath).then(files => {
 				return Promise.all(
 					/* a+w, 0666 */
-					files.map(f => chmod(path.join(storyPath, f, 438)))
+					files.map(f => fs.chmod(path.join(storyPath, f), 438))
 				);
 			});
 		} else {
 			/* Everywhere else, locking the directory is good enough. */
 
-			return stat(storyPath).then(stats =>
+			return fs.stat(storyPath).then(stats =>
 				/* u-w */
-				chmod(storyPath, stats.mode | 128)
+				fs.chmod(storyPath, stats.mode | 128)
 			);
 		}
 	},
@@ -95,5 +87,66 @@ const StoryDirectory = (module.exports = {
 
 	reveal() {
 		shell.openItem(StoryDirectory.path());
+	},
+
+	/*
+	Creates a backup of the entire story directory.
+	*/
+
+	backup(maxBackups = 10) {
+		console.log('Backing up story library');
+
+		const backupPath = path.join(
+			app.getPath('documents'),
+			locale.say('Twine'),
+			locale.say('Backups')
+		);
+		const now = new Date();
+
+		return fs
+			.copy(
+				StoryDirectory.path(),
+				path.join(
+					backupPath,
+					`${now.getFullYear()}-${now.getMonth() +
+						1}-${now.getDate()} ${now.getHours()}-${now.getMinutes()}-${now.getSeconds()}-${now.getMilliseconds()}`
+				)
+			)
+			.then(() => {
+				const backups = klaw(backupPath, {
+					depthLimit: 0,
+					filter(file) {
+						return path.basename(file.path)[0] !== '.';
+					},
+					nofile: true
+				}).sort((a, b) => {
+					if (a.stats.mTimeMs < b.stats.mTimeMs) {
+						return -1;
+					}
+
+					if (a.stats.mTimeMs > b.stats.mTimeMs) {
+						return 1;
+					}
+
+					return 0;
+				});
+
+				if (backups.length > maxBackups) {
+					console.log(
+						`There are ${
+							backups.length
+						} story library backups, pruning`
+					);
+
+					const toDelete = backups.slice(
+						0,
+						backups.length - maxBackups
+					);
+
+					return Promise.all(
+						toDelete.map(file => fs.remove(file.path))
+					);
+				}
+			});
 	}
 });

@@ -32,8 +32,8 @@ const actions = (module.exports = {
 		dispatch('DUPLICATE_STORY', id, newName);
 	},
 
-	importStory({dispatch}, toImport, deterministic) {
-		dispatch('IMPORT_STORY', toImport, deterministic);
+	importStory({dispatch}, toImport) {
+		dispatch('IMPORT_STORY', toImport);
 	},
 
 	setTagColorInStory(store, storyId, tagName, tagColor) {
