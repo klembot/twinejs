@@ -117,7 +117,7 @@ const publish = module.exports = {
 			`<script role="script" id="twine-user-script" ` +
 			`type="text/twine-javascript">\n` + story.script + `</script>` +
 			tagData + passageData +
-			`\n</tw-storydata>`;
+			`</tw-storydata>`;
 	},
 
 	/*
@@ -130,7 +130,7 @@ const publish = module.exports = {
 			`name="${escape(passage.name)}" ` +
 			`tags="${escape(passage.tags.join(' '))}" ` +
 			`position="${passage.left},${passage.top}" ` +
-			`size="${passage.width},${passage.height}">\n` +
+			`size="${passage.width},${passage.height}">` +
 			`${escape(passage.text)}</tw-passagedata>\n`;
 	}
 };
