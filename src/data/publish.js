@@ -17,6 +17,7 @@ const publish = module.exports = {
 		}
 
 		let output = format.properties.source;
+		console.log('OUTPUT:', output);
 
 		/*
 		We use function replacements to protect the data from accidental
@@ -51,6 +52,7 @@ const publish = module.exports = {
 		return stories.reduce(
 			(output, story) => {
 				/* Force publishing even if there is no start point set. */
+				console.log('ARCHIVE:', output, appInfo);
 
 				return output + publish.publishStory(
 					appInfo, story, null, null, true
