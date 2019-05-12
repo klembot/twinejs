@@ -6,6 +6,7 @@ relaunches the app when one is received.
 const {app, dialog, ipcMain, BrowserWindow, shell} = require('electron');
 const path = require('path');
 const {
+	backup: backupStoryDirectory,
 	create: createStoryDirectory,
 	lock: lockStoryDirectory,
 	unlock: unlockStoryDirectory
@@ -41,7 +42,13 @@ function updateDataToHydrate() {
 		.then(storyData => {
 			global.hydrate.initialStoryData = storyData;
 			return storyData;
-		});
+		})
+		.then(unlockStoryDirectory)
+		.then(() => loadJson('story-formats.json'))
+		.then(data => (global.hydrate.storyFormats = data))
+		.then(() => loadJson('prefs.json'))
+		.then(data => (global.hydrate.prefs = data))
+		.catch(e => console.warn(e.message));
 }
 
 function addStockWindowListeners(win) {
@@ -78,7 +85,9 @@ function addStockWindowListeners(win) {
 app.on('ready', () => {
 	let startupTask;
 
-	loadJson('prefs.json')
+	backupStoryDirectory()
+		.then(() => setInterval(backupStoryDirectory, 1000 * 60 * 20))
+		.then(() => loadJson('prefs.json'))
 		.then(data => (global.hydrate.prefs = data))
 		.catch(e => console.warn(e.message))
 		.then(() => {

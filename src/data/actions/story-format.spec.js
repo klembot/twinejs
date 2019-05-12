@@ -60,9 +60,9 @@ describe('story format actions module', () => {
 			}
 		}
 
-		expect(created['Harlowe-3.0.1']).toBeTruthy();
-		expect(created['Harlowe-3.0.1'].url).toEqual('story-formats/harlowe-3.0.1/format.js');
-		expect(created['Harlowe-3.0.1'].userAdded).toBeFalsy();
+		expect(created['Harlowe-3.0.2']).toBeTruthy();
+		expect(created['Harlowe-3.0.2'].url).toEqual('story-formats/harlowe-3.0.2/format.js');
+		expect(created['Harlowe-3.0.2'].userAdded).toBeFalsy();
 		expect(created['Harlowe-2.1.0']).toBeTruthy();
 		expect(created['Harlowe-2.1.0'].url).toEqual('story-formats/harlowe-2.1.0/format.js');
 		expect(created['Harlowe-2.1.0'].userAdded).toBeFalsy();
@@ -97,7 +97,7 @@ describe('story format actions module', () => {
 		actions.repairFormats(formatsStore);
 
 		expect(formatsStore.dispatch.calledWith(
-			'UPDATE_PREF', 'defaultFormat', { name: 'Harlowe', version: '3.0.1' }
+			'UPDATE_PREF', 'defaultFormat', { name: 'Harlowe', version: '3.0.2' }
 		)).toBeTruthy();
 		expect(formatsStore.dispatch.calledWith(
 			'UPDATE_PREF', 'proofingFormat', { name: 'Paperthin', version: '1.0.0' }
@@ -129,7 +129,7 @@ describe('story format actions module', () => {
 				storyFormat: {
 					formats: [
 						{ name: 'Harlowe', version: '2.0.1' },
-						{ name: 'Harlowe', version: '3.0.1' },
+						{ name: 'Harlowe', version: '3.0.2' },
 						{ name: 'Paperthin', version: '1.0.0' },
 						{ name: 'Snowman', version: '1.3.0' },
 						{ name: 'SugarCube', version: '1.0.35' },

@@ -63,7 +63,7 @@ module.exports = Vue.extend({
 
 			Vue.nextTick(() => {
 				scroll.top(
-					document.body,
+					document.documentElement || document.body,
 					document.querySelector('#welcomeView > div:last-of-type')
 						.offsetTop,
 					{duration: 400}
