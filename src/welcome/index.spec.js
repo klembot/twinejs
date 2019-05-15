@@ -1,4 +1,3 @@
-const {spy} = require('sinon');
 let Vue = require('vue');
 const VueRouter = require('vue-router');
 const localeFilters = require('../vue/filters/locale');
@@ -15,8 +14,8 @@ describe.skip('<welcome>', () => {
 
 	beforeEach(() => {
 		vm = new WelcomeView({ router: router, store: store }).$mount();
-		vm.setPref = spy();
-		vm.$router.push = spy();
+		vm.setPref = jest.fn();
+		vm.$router.push = jest.fn();
 	});
 
 	test('starts with one <div> shown', () => {

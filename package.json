@@ -94,7 +94,6 @@
 		"pofile": "^1.0.2",
 		"raw-loader": "^0.5.1",
 		"rimraf": "^2.5.4",
-		"sinon": "^3.2.1",
 		"style-loader": "^0.18.2",
 		"url-loader": "^0.5.9",
 		"webpack": "^4.22.0",

@@ -1,4 +1,3 @@
-const { spy } = require('sinon');
 const actions = require('./passage');
 
 describe('passage actions module', () => {
@@ -7,15 +6,15 @@ describe('passage actions module', () => {
 	let store;
 
 	beforeEach(() => {
-		store = { dispatch: spy() };
+		store = { dispatch: jest.fn() };
 	});
 
 	test(
         'dispatches a CREATE_PASSAGE_IN_STORY mutation with createPassage()',
         () => {
             actions.createPassage(store, fakeId, props);
-            expect(store.dispatch.calledOnce).toBe(true);
-            expect(store.dispatch.calledWith('CREATE_PASSAGE_IN_STORY', fakeId, props)).toBe(true);
+            expect(store.dispatch).toBeCalledTimes(1);
+            expect(store.dispatch).toHaveBeenCalledWith('CREATE_PASSAGE_IN_STORY', fakeId, props);
         }
     );
 
@@ -23,8 +22,8 @@ describe('passage actions module', () => {
         'dispatches an UPDATE_PASSAGE_IN_STORY mutation with updatePassage()',
         () => {
             actions.updatePassage(store, fakeId, fakeId, props);
-            expect(store.dispatch.calledOnce).toBe(true);
-            expect(store.dispatch.calledWith('UPDATE_PASSAGE_IN_STORY', fakeId, fakeId, props)).toBe(true);
+            expect(store.dispatch).toHaveBeenCalledTimes(1);
+            expect(store.dispatch).toHaveBeenCalledWith('UPDATE_PASSAGE_IN_STORY', fakeId, fakeId, props)
         }
     );
 
@@ -32,8 +31,8 @@ describe('passage actions module', () => {
         'dispatches a DELETE_PASSAGE_IN_STORY mutation with deletePassage()',
         () => {
             actions.deletePassage(store, fakeId, fakeId);
-            expect(store.dispatch.calledOnce).toBe(true);
-            expect(store.dispatch.calledWith('DELETE_PASSAGE_IN_STORY', fakeId, fakeId)).toBe(true);
+            expect(store.dispatch).toHaveBeenCalledTimes(1);
+            expect(store.dispatch).toHaveBeenCalledWith('DELETE_PASSAGE_IN_STORY', fakeId, fakeId)
         }
     );
 
@@ -41,7 +40,7 @@ describe('passage actions module', () => {
         'requires a numeric grid size, if passed, when positioning passages()',
         () => {
             let storyStore = {
-                dispatch: spy(),
+                dispatch: jest.fn(),
                 state: {
                     story: {
                         stories: [
@@ -84,7 +83,7 @@ describe('passage actions module', () => {
 
 	test('creates new links with createNewlyLinkedPassages()', () => {
 		let storyStore = {
-			dispatch: spy(),
+			dispatch: jest.fn(),
 			state: {
 				story: {
 					stories: [
@@ -94,7 +93,9 @@ describe('passage actions module', () => {
 								{
 									id: fakeId,
 									name: 'Test',
-									text: '[[Test 2]]'
+									text: '[[Test 2]]',
+									left: 0,
+									top: 0
 								}
 							]
 						}
@@ -104,18 +105,13 @@ describe('passage actions module', () => {
 		};
 
 		actions.createNewlyLinkedPassages(storyStore, fakeId, fakeId, '', 10);
-		expect(storyStore.dispatch.calledOnce).toBe(true);
-
-		const firstCall = storyStore.dispatch.getCall(0);
-
-		expect(firstCall.args[0]).toBe('CREATE_PASSAGE_IN_STORY');
-		expect(firstCall.args[1]).toBe(fakeId);
-		expect(firstCall.args[2].name).toBe('Test 2');
+		expect(storyStore.dispatch).toHaveBeenCalledTimes(1);
+		expect(storyStore.dispatch).toHaveBeenCalledWith('CREATE_PASSAGE_IN_STORY', fakeId, { name: 'Test 2', left: 0, top: 150})
 	});
 
 	test('skips old links with createNewlyLinkedPassages()', () => {
 		let storyStore = {
-			dispatch: spy(),
+			dispatch: jest.fn(),
 			state: {
 				story: {
 					stories: [
@@ -135,12 +131,12 @@ describe('passage actions module', () => {
 		};
 
 		actions.createNewlyLinkedPassages(storyStore, fakeId, fakeId, '[[Test 2]]');
-		expect(storyStore.dispatch.called).toBe(false);
+		expect(storyStore.dispatch).not.toHaveBeenCalled()
 	});
 
 	test('updates links with changeLinksInStory()', () => {
 		let storyStore = {
-			dispatch: spy(),
+			dispatch: jest.fn(),
 			state: {
 				story: {
 					stories: [
@@ -161,17 +157,12 @@ describe('passage actions module', () => {
 
 		actions.changeLinksInStory(storyStore, fakeId, 'Test 2', 'Test 2 Changed');
 
-		const firstCall = storyStore.dispatch.getCall(0);
-
-		expect(firstCall.args[0]).toBe('UPDATE_PASSAGE_IN_STORY');
-		expect(firstCall.args[1]).toBe(fakeId);
-		expect(firstCall.args[2]).toBe(fakeId);
-		expect(firstCall.args[3].text).toBe('[[Test 2 Changed]]');
+		expect(storyStore.dispatch).toHaveBeenCalledWith('UPDATE_PASSAGE_IN_STORY', fakeId, fakeId, {text: '[[Test 2 Changed]]'})
 	});
 
 	test('handles regular expression characters with changeLinksInStory()', () => {
 		let storyStore = {
-			dispatch: spy(),
+			dispatch: jest.fn(),
 			state: {
 				story: {
 					stories: [
@@ -198,25 +189,14 @@ describe('passage actions module', () => {
 		actions.changeLinksInStory(storyStore, fakeId, '.', 'Changed');
 		actions.changeLinksInStory(storyStore, fakeId, '2', '$');
 
-		const firstCall = storyStore.dispatch.getCall(0);
-
-		expect(firstCall.args[0]).toBe('UPDATE_PASSAGE_IN_STORY');
-		expect(firstCall.args[1]).toBe(fakeId);
-		expect(firstCall.args[2]).toBe(fakeId);
-		expect(firstCall.args[3].text).toBe('[[Changed]]');
-
-		const secondCall = storyStore.dispatch.getCall(1);
-
-		expect(secondCall.args[0]).toBe('UPDATE_PASSAGE_IN_STORY');
-		expect(secondCall.args[1]).toBe(fakeId);
-		expect(secondCall.args[2]).toBe(fakeId + '2');
-		expect(secondCall.args[3].text).toBe('[[$]]');
+		expect(storyStore.dispatch).toHaveBeenNthCalledWith(1, 'UPDATE_PASSAGE_IN_STORY', fakeId, fakeId, {text: '[[Changed]]'})
+		expect(storyStore.dispatch).toHaveBeenNthCalledWith(2, 'UPDATE_PASSAGE_IN_STORY', fakeId, fakeId + '2', {text: '[[$]]'})
 	});
 
 	describe('snap to grid passage positioning', () => {	
 		it('snap overlapping passages to adjacent positions, when positioning passages()', () => {
 			let storyStore = {
-				dispatch: spy(),
+				dispatch: jest.fn(),
 				state: {
 					story: {
 						stories: [
@@ -256,20 +236,20 @@ describe('passage actions module', () => {
 	
 			actions.positionPassage(storyStore, fakeId, fakeId, 10);
 
-			const firstCall = storyStore.dispatch.getCall(0);
+			const firstCall = storyStore.dispatch.mock.calls[0];
 
-			expect(firstCall.args[3].top).toEqual(20);
-			expect(firstCall.args[3].left).toEqual(10);
+			expect(firstCall[3].top).toEqual(20);
+			expect(firstCall[3].left).toEqual(10);
 	
 			/* Test overlapping from slightly above */
 			storyStore.state.story.stories[0].passages[0].top = 9;
 	
 			actions.positionPassage(storyStore, fakeId, fakeId, 10);
 
-			const secondCall = storyStore.dispatch.getCall(1);
+			const secondCall = storyStore.dispatch.mock.calls[1];
 
-			expect(secondCall.args[3].top).toEqual(0);
-			expect(secondCall.args[3].left).toEqual(10);
+			expect(secondCall[3].top).toEqual(0);
+			expect(secondCall[3].left).toEqual(10);
 	
 			/* Test overlapping from slightly leftwards */
 			storyStore.state.story.stories[0].passages[0].top = 10;
@@ -277,20 +257,20 @@ describe('passage actions module', () => {
 	
 			actions.positionPassage(storyStore, fakeId, fakeId, 10);
 
-			const thirdCall = storyStore.dispatch.getCall(2);
+			const thirdCall = storyStore.dispatch.mock.calls[2];
 
-			expect(thirdCall.args[3].top).toEqual(10);
-			expect(thirdCall.args[3].left).toEqual(0);
+			expect(thirdCall[3].top).toEqual(10);
+			expect(thirdCall[3].left).toEqual(0);
 	
 			/* Test overlapping from slightly rightwards */
 			storyStore.state.story.stories[0].passages[0].left = 11;
 	
 			actions.positionPassage(storyStore, fakeId, fakeId, 10);
 
-			const fourthCall = storyStore.dispatch.getCall(3);
+			const fourthCall = storyStore.dispatch.mock.calls[3];
 
-			expect(fourthCall.args[3].top).toEqual(10);
-			expect(fourthCall.args[3].left).toEqual(20);
+			expect(fourthCall[3].top).toEqual(10);
+			expect(fourthCall[3].left).toEqual(20);
 		});
 	});
 });

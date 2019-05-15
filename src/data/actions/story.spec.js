@@ -1,4 +1,3 @@
-const {spy} = require('sinon');
 const actions = require('./story');
 
 describe('story actions module', () => {
@@ -8,7 +7,7 @@ describe('story actions module', () => {
 
 	beforeEach(() => {
 		store = {
-			dispatch: spy(),
+			dispatch: jest.fn(),
 			state: {
 				pref: {
 					defaultFormat: {
@@ -28,53 +27,49 @@ describe('story actions module', () => {
 		};
 
 		actions.createStory(store, props);
-		expect(store.dispatch.calledOnce).toBe(true);
-		expect(store.dispatch.calledWith('CREATE_STORY', props)).toBe(true);
+		expect(store.dispatch).toHaveBeenCalledTimes(1);
+		expect(store.dispatch).toHaveBeenCalledWith('CREATE_STORY', props)
 	});
 
 	test('ensures a story created with createStory() always has a story format set', () => {
 		actions.createStory(store, {name: 'A New Story'});
-		expect(store.dispatch.calledOnce).toBe(true);
+		expect(store.dispatch).toHaveBeenCalledTimes(1);
 		expect(
-			store.dispatch.calledWith('CREATE_STORY', {
+			store.dispatch).toHaveBeenCalledWith('CREATE_STORY', {
 				name: 'A New Story',
 				storyFormat: 'My Default Format',
 				storyFormatVersion: '1.2.3'
 			})
-		).toBe(true);
 	});
 
 	test('dispatches a DELETE_STORY mutation with deleteStory()', () => {
 		actions.deleteStory(store, fakeId);
-		expect(store.dispatch.calledOnce).toBe(true);
-		expect(store.dispatch.calledWith('DELETE_STORY', fakeId)).toBe(true);
+		expect(store.dispatch).toHaveBeenCalledTimes(1);
+		expect(store.dispatch).toHaveBeenCalledWith('DELETE_STORY', fakeId)
 	});
 
 	test('dispatches a DUPLICATE_STORY mutation with duplicateStory()', () => {
 		actions.duplicateStory(store, fakeId, 'Another Name');
-		expect(store.dispatch.calledOnce).toBe(true);
+		expect(store.dispatch).toHaveBeenCalledTimes(1);
 		expect(
-			store.dispatch.calledWith('DUPLICATE_STORY', fakeId, 'Another Name')
-		).toBe(true);
+			store.dispatch).toHaveBeenCalledWith('DUPLICATE_STORY', fakeId, 'Another Name')
 	});
 
 	test('dispatches an IMPORT_STORY mutation with importStory()', () => {
 		actions.importStory(store, props);
-		expect(store.dispatch.calledOnce).toBe(true);
-		expect(store.dispatch.calledWith('IMPORT_STORY', props)).toBe(true);
+		expect(store.dispatch).toHaveBeenCalledTimes(1);
+		expect(store.dispatch).toHaveBeenCalledWith('IMPORT_STORY', props)
 	});
 
 	test('dispatches an UPDATE_STORY mutation with updateStory()', () => {
 		actions.updateStory(store, fakeId, props);
-		expect(store.dispatch.calledOnce).toBe(true);
-		expect(store.dispatch.calledWith('UPDATE_STORY', fakeId, props)).toBe(
-			true
-		);
+		expect(store.dispatch).toHaveBeenCalledTimes(1);
+		expect(store.dispatch).toHaveBeenCalledWith('UPDATE_STORY', fakeId, props)
 	});
 
 	test('sets default formats on stories with repairStories()', () => {
 		let storiesStore = {
-			dispatch: spy(),
+			dispatch: jest.fn(),
 			state: {
 				pref: {
 					defaultFormat: {name: 'Default Format', version: '1.2.3'}
@@ -90,15 +85,14 @@ describe('story actions module', () => {
 
 		actions.repairStories(storiesStore);
 		expect(
-			storiesStore.dispatch.calledWith('UPDATE_STORY', 'not-a-real-id', {
+			storiesStore.dispatch).toHaveBeenCalledWith('UPDATE_STORY', 'not-a-real-id', {
 				storyFormat: 'Default Format'
 			})
-		).toBe(true);
 	});
 
 	test('coerces old SugarCube references to their correct versions with repairStories()', () => {
 		let storiesStore = {
-			dispatch: spy(),
+			dispatch: jest.fn(),
 			state: {
 				story: {
 					stories: [
@@ -123,23 +117,21 @@ describe('story actions module', () => {
 
 		actions.repairStories(storiesStore);
 		expect(
-			storiesStore.dispatch.calledWith('UPDATE_STORY', 'not-a-real-id', {
+			storiesStore.dispatch).toHaveBeenCalledWith('UPDATE_STORY', 'not-a-real-id', {
 				storyFormat: 'SugarCube',
 				storyFormatVersion: '1.2.3'
 			})
-		).toBe(true);
 		expect(
-			storiesStore.dispatch.calledWith(
+			storiesStore.dispatch).toHaveBeenCalledWith(
 				'UPDATE_STORY',
 				'also-not-a-real-id',
 				{storyFormat: 'SugarCube', storyFormatVersion: '2.3.4'}
 			)
-		).toBe(true);
 	});
 
 	test('sets format versions on stories with repairStories()', () => {
 		let storiesStore = {
-			dispatch: spy(),
+			dispatch: jest.fn(),
 			state: {
 				storyFormat: {
 					formats: [
@@ -165,22 +157,20 @@ describe('story actions module', () => {
 
 		actions.repairStories(storiesStore);
 		expect(
-			storiesStore.dispatch.calledWith('UPDATE_STORY', 'not-a-real-id', {
+			storiesStore.dispatch).toHaveBeenCalledWith('UPDATE_STORY', 'not-a-real-id', {
 				storyFormatVersion: '1.2.5'
 			})
-		).toBe(true);
 		expect(
-			storiesStore.dispatch.calledWith(
+			storiesStore.dispatch).toHaveBeenCalledWith(
 				'UPDATE_STORY',
 				'also-not-a-real-id',
 				{storyFormatVersion: '1.2.5'}
 			)
-		).toBe(true);
 	});
 
 	test('updates story format versions with repairStories()', () => {
 		let storiesStore = {
-			dispatch: spy(),
+			dispatch: jest.fn(),
 			state: {
 				storyFormat: {
 					formats: [
@@ -202,15 +192,14 @@ describe('story actions module', () => {
 
 		actions.repairStories(storiesStore);
 		expect(
-			storiesStore.dispatch.calledWith('UPDATE_STORY', 'not-a-real-id', {
+			storiesStore.dispatch).toHaveBeenCalledWith('UPDATE_STORY', 'not-a-real-id', {
 				storyFormatVersion: '1.2.5'
 			})
-		).toBe(true);
 	});
 
 	test('leaves story format versions alone if the story is already up-to-date', () => {
 		let storiesStore = {
-			dispatch: spy(),
+			dispatch: jest.fn(),
 			state: {
 				storyFormat: {
 					formats: [
@@ -231,12 +220,12 @@ describe('story actions module', () => {
 		};
 
 		actions.repairStories(storiesStore);
-		expect(storiesStore.dispatch.notCalled).toBe(true);
+		expect(storiesStore.dispatch).not.toBeCalled()
 	});
 
 	test('leaves stories alone if their story format does not exist', () => {
 		let storiesStore = {
-			dispatch: spy(),
+			dispatch: jest.fn(),
 			state: {
 				storyFormat: {
 					formats: [{name: 'Default Format', version: '1.2.3'}]

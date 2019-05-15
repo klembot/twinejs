@@ -1,4 +1,3 @@
-const { spy } = require('sinon');
 const actions = require('./story-format');
 
 describe('story format actions module', () => {
@@ -7,30 +6,30 @@ describe('story format actions module', () => {
 	let store;
 
 	beforeEach(() => {
-		store = { dispatch: spy() };
+		store = { dispatch: jest.fn() };
 	});
 
 	it('dispatches a CREATE_FORMAT mutation with createFormat()', () => {
 		actions.createFormat(store, props);
-		expect(store.dispatch.calledOnce).toBeTruthy();
-		expect(store.dispatch.calledWith('CREATE_FORMAT', props)).toBeTruthy();
+		expect(store.dispatch).toHaveBeenCalledTimes(1);
+		expect(store.dispatch).toHaveBeenCalledWith('CREATE_FORMAT', props)
 	});
 
 	it('dispatches an UPDATE_FORMAT mutation with createFormat()', () => {
 		actions.updateFormat(store, fakeId, props);
-		expect(store.dispatch.calledOnce).toBeTruthy();
-		expect(store.dispatch.calledWith('UPDATE_FORMAT', fakeId, props)).toBeTruthy();
+		expect(store.dispatch).toHaveBeenCalledTimes(1);
+		expect(store.dispatch).toHaveBeenCalledWith('UPDATE_FORMAT', fakeId, props)
 	});
 
 	it('dispatches a DELETE_FORMAT mutation with deleteFormat()', () => {
 		actions.deleteFormat(store, fakeId);
-		expect(store.dispatch.calledOnce).toBeTruthy();
-		expect(store.dispatch.calledWith('DELETE_FORMAT', fakeId)).toBeTruthy();
+		expect(store.dispatch).toHaveBeenCalledTimes(1);
+		expect(store.dispatch).toHaveBeenCalledWith('DELETE_FORMAT', fakeId)
 	});
 
 	it('creates built-in formats with repairFormats()', () => {
 		let formatsStore = {
-			dispatch: spy(),
+			dispatch: jest.fn(),
 			state: {
 				pref: {
 					defaultFormat: {
@@ -52,11 +51,11 @@ describe('story format actions module', () => {
 
 		let created = {};
 
-		for (let i = 0; i < formatsStore.dispatch.callCount; i++) {
-			let call = formatsStore.dispatch.getCall(i);
+		for (let i = 0; i < formatsStore.dispatch.mock.calls.length; i++) {
+			let call = formatsStore.dispatch.mock.calls[i];
 
-			if (call.args[0] === 'CREATE_FORMAT') {
-				created[call.args[1].name + '-' + call.args[1].version] = call.args[1];
+			if (call[0] === 'CREATE_FORMAT') {
+				created[call[1].name + '-' + call[1].version] = call[1];
 			}
 		}
 
@@ -85,7 +84,7 @@ describe('story format actions module', () => {
 
 	it('sets default formats with repairFormats()', () => {
 		let formatsStore = {
-			dispatch: spy().withArgs('UPDATE_PREF'),
+			dispatch: jest.fn(),
 			state: {
 				pref: {},
 				storyFormat: {
@@ -96,17 +95,17 @@ describe('story format actions module', () => {
 
 		actions.repairFormats(formatsStore);
 
-		expect(formatsStore.dispatch.calledWith(
+		expect(formatsStore.dispatch).toHaveBeenCalledWith(
 			'UPDATE_PREF', 'defaultFormat', { name: 'Harlowe', version: '3.0.2' }
-		)).toBeTruthy();
-		expect(formatsStore.dispatch.calledWith(
+		)
+		expect(formatsStore.dispatch).toHaveBeenCalledWith(
 			'UPDATE_PREF', 'proofingFormat', { name: 'Paperthin', version: '1.0.0' }
-		)).toBeTruthy();
+		)
 	});
 
 	it('deletes unversioned formats with repairFormats()', () => {
 		let formatsStore = {
-			dispatch: spy(),
+			dispatch: jest.fn(),
 			state: {
 				pref: {},
 				storyFormat: {
@@ -118,12 +117,12 @@ describe('story format actions module', () => {
 		};
 
 		actions.repairFormats(formatsStore);
-		expect(formatsStore.dispatch.calledWith('DELETE_FORMAT', fakeId)).toBeTruthy();
+		expect(formatsStore.dispatch).toHaveBeenCalledWith('DELETE_FORMAT', fakeId)
 	});
 
 	it('does not duplicate formats with repairFormats()', () => {
 		let formatsStore = {
-			dispatch: spy().withArgs('CREATE_FORMAT'),
+			dispatch: jest.fn(),
 			state: {
 				pref: {},
 				storyFormat: {
@@ -140,12 +139,12 @@ describe('story format actions module', () => {
 		};
 
 		actions.repairFormats(formatsStore);
-		expect(formatsStore.dispatch.calledOnce).toBeFalsy();
+		expect(formatsStore.dispatch).not.toHaveBeenCalledWith("CREATE_FORMAT");
 	});
 
 	it('deletes outdated story format versions with repairFormats()', () => {
 		let formatsStore = {
-			dispatch: spy(),
+			dispatch: jest.fn(),
 			state: {
 				pref: {},
 				storyFormat: {
@@ -158,14 +157,13 @@ describe('story format actions module', () => {
 			}
 		};
 
-		formatsStore.dispatch.withArgs('DELETE_FORMAT', fakeId);
 		actions.repairFormats(formatsStore);
-		expect(formatsStore.dispatch.withArgs('DELETE_FORMAT', fakeId).calledOnce).toBeTruthy();
+		expect(formatsStore.dispatch).toHaveBeenCalledWith('DELETE_FORMAT', fakeId)
 	});
 
 	it('updates the default format version with repairFormats()', () => {
 		let formatsStore = {
-			dispatch: spy(),
+			dispatch: jest.fn(),
 			state: {
 				pref: {
 					defaultFormat: {
@@ -188,16 +186,16 @@ describe('story format actions module', () => {
 		};
 
 		actions.repairFormats(formatsStore);
-		expect(formatsStore.dispatch.calledWith(
+		expect(formatsStore.dispatch).toHaveBeenCalledWith(
 			'UPDATE_PREF',
 			'defaultFormat',
 			{ name: 'Default Format', version: '1.0.1' }
-		)).toBeTruthy();
+		)
 	});
 
 	it('updates the proofing version with repairFormats()', () => {
 		let formatsStore = {
-			dispatch: spy(),
+			dispatch: jest.fn(),
 			state: {
 				pref: {
 					defaultFormat: {
@@ -221,10 +219,10 @@ describe('story format actions module', () => {
 		};
 
 		actions.repairFormats(formatsStore);
-		expect(formatsStore.dispatch.calledWith(
+		expect(formatsStore.dispatch).toHaveBeenCalledWith(
 			'UPDATE_PREF',
 			'proofingFormat',
 			{ name: 'Proofing Format', version: '1.0.1' }
-		)).toBeTruthy();
+		)
 	});
 });

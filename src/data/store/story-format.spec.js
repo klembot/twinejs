@@ -1,4 +1,3 @@
-const { spy } = require('sinon');
 const storyFormat = require('./story-format');
 
 describe('story-format data module', () => {
@@ -71,7 +70,8 @@ describe('story-format data module', () => {
 	test(
         'calls a format\'s setup method bound to the format during the LOAD_FORMAT mutation',
         () => {
-            let setup = spy();
+            let setup = jest.fn();
+            setup.call = jest.fn();
 
             storyFormat.mutations.CREATE_FORMAT(state, props);
             storyFormat.mutations.LOAD_FORMAT(
@@ -80,8 +80,7 @@ describe('story-format data module', () => {
                 { setup }
             );
 
-            expect(setup.called).toBe(true);
-            expect(setup.calledOn(state.formats[0])).toBe(true);
+            expect(setup.call).toHaveBeenCalledWith(state.formats[0])
         }
     );
 

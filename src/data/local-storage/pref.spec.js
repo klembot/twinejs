@@ -1,4 +1,3 @@
-const { spy } = require('sinon');
 const pref = require('./pref');
 
 describe('pref local storage persistence', () => {
@@ -59,12 +58,12 @@ describe('pref local storage persistence', () => {
 		);
 		
 		let store = {
-			dispatch: spy()
+			dispatch: jest.fn()
 		};
 		
 		pref.load(store);
-		expect(store.dispatch.calledTwice).toBe(true);
-		expect(store.dispatch.calledWith('UPDATE_PREF', 'foo', true)).toBe(true);
-		expect(store.dispatch.calledWith('UPDATE_PREF', 'bar', 1)).toBe(true);
+		expect(store.dispatch).toHaveBeenCalledTimes(2);
+		expect(store.dispatch).toHaveBeenCalledWith('UPDATE_PREF', 'foo', true)
+		expect(store.dispatch).toHaveBeenCalledWith('UPDATE_PREF', 'bar', 1)
 	});
 });
