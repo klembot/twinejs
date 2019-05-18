@@ -10,7 +10,10 @@ const locale = require('../../locale');
 const {prompt} = require('../../dialogs/prompt');
 const {publishArchive} = require('../../data/publish');
 const saveFile = require('../../file/save');
-const saveToAPI = require('../../api/save');
+const {
+	saveArchive,
+	loadArchive,
+} = require('../../api/save');
 
 
 module.exports = Vue.extend({
@@ -68,7 +71,7 @@ module.exports = Vue.extend({
 			const useAPI = true;
 
 			if (useAPI) {
-				saveToAPI(archive);
+				saveArchive(archive);
 
 			} else {
 				const filename = `${timestamp} ${locale.say('Twine Archive.html')}`;
