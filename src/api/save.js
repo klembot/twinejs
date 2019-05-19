@@ -1,4 +1,7 @@
 
+const CONTENT_API_URL = `http://localhost:3000`;
+// const url = `${CONTENT_API_URL}/twine/api/v1/archive/${archiveID}`;
+
 // TODO: Update docs, and code to mimic flow in ../file/save.js
 
 function postData(url = '', data = {}) {
@@ -37,33 +40,50 @@ function getData(url = '') {
   .then(response => response.json()); // parses JSON response into native Javascript objects
 }
 
-const loadArchive = (archive, filename, success, failure) => {
-  console.log('hi');
+const loadByAPI = (archive, filename, success, failure) => {
+	// Example GET method implementation:
+	const url = `${CONTENT_API_URL}/archive`;
+	return getData(url)
+		.then(data => {
+      if (data.status === 'ACK') {
+        console.log('Loaded data..');
+        return Promise.resolve(data.data);
+      } else {
+        return Promise.reject(data);
+      }
+
+    }) // JSON-string from `response.json()` call
+		.catch(error => console.error(error));
+
+  // return Promise.resolve('funkyar!');
 }
 
-const saveArchive = (archive, filename, success, failure) => {
+const saveByAPI = (archive, filename, success, failure) => {
 	const data = {
 		answer: 42, // This is totally arbitrary, and should really be something meaningful like "user"
 		archive
 	};
 
 	// Example POST method implementation:
-	const baseUrl = `http://localhost:3000`;
-	const url = `${baseUrl}/archive`;
-	// const url = `${baseUrl}/twine/api/v1/archive/${archiveID}`;
+	const url = `${CONTENT_API_URL}/archive`;
 	postData(url, data)
 		.then(data => {
-      // console.log(JSON.stringify(data), data)
+      console.log(data)
+      const msg = ['All good.'];
 
       if (data.status === 'ACK') {
-        console.log('All good..')
         if (data.changes.local) {
-          console.log('Local changes were saved..');
+          msg.push('Local changes were saved.');
+        } else {
+          msg.push('No local changes to save.');
         }
   
         if (data.changes.remote) {
-          console.log('Found uptream changes, how do I import the new file?')
-        }  
+          msg.push('Found uptream changes!')
+          alert('Upstream changes found, please Import From File > Load From API')
+        }
+
+        console.log(msg.join(' '));
       } else {
         console.log('Error saving changes..');
         // Force file to be saved locally?
@@ -74,6 +94,6 @@ const saveArchive = (archive, filename, success, failure) => {
 };
 
 module.exports = {
-  loadArchive,
-  saveArchive,
+  loadByAPI,
+  saveByAPI,
 }

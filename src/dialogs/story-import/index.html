@@ -10,6 +10,8 @@
 			<input type="file" v-el:import-file @change="import($els.importFile.files[0])">
 		</p>
 
+		<p><button @click="import()">Load from API</button></p>
+
 		<div class="buttons" v-if="!working">
 			<button class="subtle" @click="close">
 				<i class="fa fa-times"></i> {{ 'Cancel' | say }}
