@@ -5,7 +5,7 @@ const CONTENT_API_URL = `http://localhost:3000`;
 // TODO: Update docs, and code to mimic flow in ../file/save.js
 
 function postData(url = '', data = {}) {
-  console.log('fetch request', data);
+  console.log('Save data:', data);
 
   // Default options are marked with *
   return fetch(url, {
@@ -60,7 +60,7 @@ const loadByAPI = (archive, filename, success, failure) => {
 
 const saveByAPI = (archive, filename, success, failure) => {
 	const data = {
-		answer: 42, // This is totally arbitrary, and should really be something meaningful like "user"
+		user: 'Scott',
 		archive
 	};
 
@@ -86,6 +86,8 @@ const saveByAPI = (archive, filename, success, failure) => {
         console.log(msg.join(' '));
       } else {
         console.log('Error saving changes..');
+        alert('Error saving changes, please save your file to disk!');
+
         // Force file to be saved locally?
       }
 
