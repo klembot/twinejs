@@ -10,6 +10,8 @@ const package = require('./package.json');
 const isRelease = process.env.NODE_ENV === 'production';
 const useElectron = process.env.USE_ELECTRON === 'y';
 
+process.traceDeprecation = true;
+
 const config = (module.exports = {
 	mode: isRelease ? 'production' : 'development',
 	entry: './src/index.js',
@@ -88,9 +90,40 @@ const config = (module.exports = {
 			package: package,
 			hash: true,
 			buildNumber: require('./scripts/build-number').number,
-			minify: true,
 		}),
-		new CdnPlugin({
+		new MiniCssExtractPlugin({filename: 'twine.css'}),
+		new PoPlugin({
+			src: 'src/locale/po/*.po',
+			dest: 'locale',
+			options: {
+				format: 'jed1.x',
+				domain: 'messages'
+			}
+		})
+	],
+	stats: 'minimal'
+});
+
+if (isRelease) {
+	/*
+	Transpile JS to our target platforms.
+	*/
+
+	config.module.rules.push({
+		test: /\.js$/,
+		exclude: /node_modules/,
+		loader: 'babel-loader',
+		resolve: {
+			alias: {
+				vue$: 'vue/dist/vue.common.js',
+				'vue-router$': 'vue-router/dist/vue-router.common.js'
+			}
+		},
+		options: {presets: ['@babel/preset-env']}
+	});
+
+	// Use CDN
+	config.plugins.push(new CdnPlugin({
 			modules: [
 				{
 					name: 'codemirror',
@@ -140,35 +173,5 @@ const config = (module.exports = {
 					cssOnly: true }
 			],
 			prod: isRelease,
-		}),
-		new MiniCssExtractPlugin({filename: 'twine.css'}),
-		new PoPlugin({
-			src: 'src/locale/po/*.po',
-			dest: 'locale',
-			options: {
-				format: 'jed1.x',
-				domain: 'messages'
-			}
-		})
-	],
-	stats: 'minimal'
-});
-
-if (isRelease) {
-	/*
-	Transpile JS to our target platforms.
-	*/
-
-	config.module.rules.push({
-		test: /\.js$/,
-		exclude: /node_modules/,
-		loader: 'babel-loader',
-		resolve: {
-			alias: {
-				vue$: 'vue/dist/vue.common.js',
-				'vue-router$': 'vue-router/dist/vue-router.common.js'
-			}
-		},
-		options: {presets: ['@babel/preset-env']}
-	});
+		}))
 }
