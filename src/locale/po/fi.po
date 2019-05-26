@@ -347,8 +347,8 @@ msgid ""
 msgstr ""
 "Twine 2.0 on julkaistu <a href=\"http://www.gnu.org/licenses/gpl-3.0.html"
 "\">GPL v3</a> -lisenssillä, mutta sillä tehdyt tarinat voi julkaista millä "
-"tahansa, myös kaupallisella, lisenssillä. <a href=\"https:\\/\\/bitbucket."
-"org/klembot/twinejs\">Lähdekoodin säilytyspaikka</a>"
+"tahansa, myös kaupallisella, lisenssillä. <a href=\"https:\\/\\/github."
+"com/klembot/twinejs\">Lähdekoodin säilytyspaikka</a>"
 
 #: templates/storylistview/modals/aboutmodal.html:31
 msgid "Help Twine Grow With A Donation"
