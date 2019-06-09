@@ -7,6 +7,7 @@ const StoryEditView = require('../story-edit-view');
 const StoryListView = require('../story-list-view');
 const WelcomeView = require('../welcome');
 const { loadFormat } = require('../data/actions/story-format');
+const locale = require('../locale'); 
 const { publishStoryWithFormat } = require('../data/publish');
 const replaceUI = require('../ui/replace');
 const store = require('../data/store');
@@ -82,6 +83,14 @@ TwineRouter.map({
 						story,
 						format
 					));
+				}).catch(e => {
+					window.alert(
+						locale.say('An error occurred while publishing your story. (%s)', e.message)
+					);
+
+					/* Force returning to the previous view. */
+
+					throw e;
 				});
 			}
 		}
@@ -105,6 +114,14 @@ TwineRouter.map({
 						story,
 						format
 					));
+				}).catch(e => {
+					window.alert(
+						locale.say('An error occurred while publishing your story. (%s)', e.message)
+					);
+
+					/* Force returning to the previous view. */
+
+					throw e;
 				});
 			}
 		}
@@ -129,6 +146,14 @@ TwineRouter.map({
 						format,
 						['debug']
 					));
+				}).catch(e => {
+					window.alert(
+						locale.say('An error occurred while publishing your story. (%s)', e.message)
+					);
+
+					/* Force returning to the previous view. */
+
+					throw e;
 				});
 			}
 		}
@@ -154,6 +179,14 @@ TwineRouter.map({
 						['debug'],
 						this.$route.params.passageId
 					));
+				}).catch(e => {
+					window.alert(
+						locale.say('An error occurred while publishing your story. (%s)', e.message)
+					);
+
+					/* Force returning to the previous view. */
+
+					throw e;
 				});
 			}
 		}
