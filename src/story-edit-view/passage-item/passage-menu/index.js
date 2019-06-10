@@ -1,7 +1,7 @@
 /* A contextual menu that appears when the user points at a passage. */
 
 const Vue = require('vue');
-const openWindow = require('../../../ui/open-window');
+const {testStory} = require('../../../common/launch-story');
 const {updatePassage} = require('../../../data/actions/passage');
 const {updateStory} = require('../../../data/actions/story');
 
@@ -66,9 +66,7 @@ module.exports = Vue.extend({
 		},
 
 		test() {
-			openWindow(
-				'#stories/' + this.parentStory.id + '/test/' + this.passage.id
-			);
+			testStory(this.$store, this.parentStory.id, this.passage.id);
 		},
 
 		toggleExpanded() {

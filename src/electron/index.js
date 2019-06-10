@@ -15,6 +15,7 @@ const {load: loadJson} = require('./json-file');
 const loadLocale = require('./load-locale');
 const {load: loadStories} = require('./story-file');
 const initMenuBar = require('./menu-bar');
+require('./open-with-temp-file');
 
 const browserWindowOpts = {
 	width: 1024,

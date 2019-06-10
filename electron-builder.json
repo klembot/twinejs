@@ -5,6 +5,7 @@
 		"target": "zip"
 	},
 	"mac": {
+		"darkModeSupport": true,
 		"icon": "icons/app.icns",
 		"target": "dmg"
 	},
