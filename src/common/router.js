@@ -6,9 +6,8 @@ const LocaleView = require('../locale/view');
 const StoryEditView = require('../story-edit-view');
 const StoryListView = require('../story-list-view');
 const WelcomeView = require('../welcome');
-const { loadFormat } = require('../data/actions/story-format');
 const locale = require('../locale'); 
-const { publishStoryWithFormat } = require('../data/publish');
+const { getStoryPlayHtml, getStoryProofingHtml, getStoryTestHtml } = require('./story-html');
 const replaceUI = require('../ui/replace');
 const store = require('../data/store');
 
@@ -34,17 +33,19 @@ TwineRouter.map({
 
 	'/stories': {
 		component: {
-			template: '<div><story-list ' +
+			template:
+				'<div><story-list ' +
 				':previously-editing="previouslyEditing"></story-list></div>',
 
-			components: { 'story-list': StoryListView },
+			components: {'story-list': StoryListView},
 
 			data() {
 				return {
-					previouslyEditing: this.$route.params ?
-						this.$route.params.previouslyEditing : ''
+					previouslyEditing: this.$route.params
+						? this.$route.params.previouslyEditing
+						: ''
 				};
-			},
+			}
 		}
 	},
 
@@ -52,12 +53,12 @@ TwineRouter.map({
 		component: {
 			template: '<div><story-edit :story-id="id"></story-edit></div>',
 
-			components: { 'story-edit': StoryEditView },
-			
+			components: {'story-edit': StoryEditView},
+
 			data() {
-				return { id: this.$route.params.id };
+				return {id: this.$route.params.id};
 			}
-		},
+		}
 	},
 
 	/*
@@ -68,30 +69,20 @@ TwineRouter.map({
 	'/stories/:id/play': {
 		component: {
 			ready() {
-				const state = this.$store.state;
-				const story = state.story.stories.find(
-					story => story.id === this.$route.params.id
-				);
+				getStoryPlayHtml(this.$store, this.$route.params.id)
+					.then(replaceUI)
+					.catch(e => {
+						window.alert(
+							locale.say(
+								'An error occurred while publishing your story. (%s)',
+								e.message
+							)
+						);
 
-				loadFormat(
-					this.$store,
-					story.storyFormat,
-					story.storyFormatVersion
-				).then(format => {
-					replaceUI(publishStoryWithFormat(
-						state.appInfo,
-						story,
-						format
-					));
-				}).catch(e => {
-					window.alert(
-						locale.say('An error occurred while publishing your story. (%s)', e.message)
-					);
+						/* Force returning to the previous view. */
 
-					/* Force returning to the previous view. */
-
-					throw e;
-				});
+						throw e;
+					});
 			}
 		}
 	},
@@ -99,30 +90,20 @@ TwineRouter.map({
 	'/stories/:id/proof': {
 		component: {
 			ready() {
-				const state = this.$store.state;
-				const story = state.story.stories.find(
-					story => story.id === this.$route.params.id
-				);
+				getStoryProofingHtml(this.$store, this.$route.params.id)
+					.then(replaceUI)
+					.catch(e => {
+						window.alert(
+							locale.say(
+								'An error occurred while publishing your story. (%s)',
+								e.message
+							)
+						);
 
-				loadFormat(
-					this.$store,
-					state.pref.proofingFormat.name,
-					state.pref.proofingFormat.version
-				).then(format => {
-					replaceUI(publishStoryWithFormat(
-						state.appInfo,
-						story,
-						format
-					));
-				}).catch(e => {
-					window.alert(
-						locale.say('An error occurred while publishing your story. (%s)', e.message)
-					);
+						/* Force returning to the previous view. */
 
-					/* Force returning to the previous view. */
-
-					throw e;
-				});
+						throw e;
+					});
 			}
 		}
 	},
@@ -130,31 +111,20 @@ TwineRouter.map({
 	'/stories/:id/test': {
 		component: {
 			ready() {
-				const state = this.$store.state;
-				const story = state.story.stories.find(
-					story => story.id === this.$route.params.id
-				);
+				getStoryTestHtml(this.$store, this.$route.params.id)
+					.then(replaceUI)
+					.catch(e => {
+						window.alert(
+							locale.say(
+								'An error occurred while publishing your story. (%s)',
+								e.message
+							)
+						);
 
-				loadFormat(
-					this.$store,
-					story.storyFormat,
-					story.storyFormatVersion
-				).then(format => {
-					replaceUI(publishStoryWithFormat(
-						state.appInfo,
-						story,
-						format,
-						['debug']
-					));
-				}).catch(e => {
-					window.alert(
-						locale.say('An error occurred while publishing your story. (%s)', e.message)
-					);
+						/* Force returning to the previous view. */
 
-					/* Force returning to the previous view. */
-
-					throw e;
-				});
+						throw e;
+					});
 			}
 		}
 	},
@@ -162,32 +132,24 @@ TwineRouter.map({
 	'/stories/:storyId/test/:passageId': {
 		component: {
 			ready() {
-				const state = this.$store.state;
-				const story = state.story.stories.find(
-					story => story.id === this.$route.params.storyId
-				);
-
-				loadFormat(
+				getStoryTestHtml(
 					this.$store,
-					story.storyFormat,
-					story.storyFormatVersion
-				).then(format => {
-					replaceUI(publishStoryWithFormat(
-						state.appInfo,
-						story,
-						format,
-						['debug'],
-						this.$route.params.passageId
-					));
-				}).catch(e => {
-					window.alert(
-						locale.say('An error occurred while publishing your story. (%s)', e.message)
-					);
+					this.$route.params.storyId,
+					this.$route.params.passageId
+				)
+					.then(replaceUI)
+					.catch(e => {
+						window.alert(
+							locale.say(
+								'An error occurred while publishing your story. (%s)',
+								e.message
+							)
+						);
 
-					/* Force returning to the previous view. */
+						/* Force returning to the previous view. */
 
-					throw e;
-				});
+						throw e;
+					});
 			}
 		}
 	}

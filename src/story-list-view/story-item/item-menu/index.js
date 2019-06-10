@@ -9,7 +9,7 @@ const {
 	updateStory
 } = require('../../../data/actions/story');
 const {loadFormat} = require('../../../data/actions/story-format');
-const openWindow = require('../../../ui/open-window');
+const {playStory, testStory} = require('../../../common/launch-story');
 const {prompt} = require('../../../dialogs/prompt');
 const locale = require('../../../locale');
 const {publishStoryWithFormat} = require('../../../data/publish');
@@ -37,7 +37,7 @@ module.exports = Vue.extend({
 		**/
 
 		play() {
-			openWindow('#stories/' + this.story.id + '/play');
+			playStory(this.story.id);
 		},
 
 		/**
@@ -47,7 +47,7 @@ module.exports = Vue.extend({
 		**/
 
 		test() {
-			openWindow('#stories/' + this.story.id + '/test');
+			testStory(this.story.id);
 		},
 
 		/**
