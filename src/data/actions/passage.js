@@ -67,6 +67,9 @@ const actions = module.exports = {
 			);
 		}
 
+		const oldTop = passage.top;
+		const oldLeft = passage.left;
+
 		let passageRect = {
 			top: passage.top,
 			left: passage.left,
@@ -112,17 +115,19 @@ const actions = module.exports = {
 				gridSize;
 		}
 
-		/* Save the change. */
+		/* Save the change if we actually changed anything. */
 
-		actions.updatePassage(
-			store,
-			storyId,
-			passageId,
-			{
-				top: passageRect.top,
-				left: passageRect.left
-			}
-		);
+		if (passageRect.top !== oldTop || passageRect.left !== oldLeft) {
+			actions.updatePassage(
+				store,
+				storyId,
+				passageId,
+				{
+					top: passageRect.top,
+					left: passageRect.left
+				}
+			);
+		}
 	},
 
 	/*

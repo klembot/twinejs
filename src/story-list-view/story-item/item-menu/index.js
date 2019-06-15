@@ -3,11 +3,13 @@
 const escape = require('lodash.escape');
 const Vue = require('vue');
 const eventHub = require('../../../common/eventHub');
-const { deleteStory, duplicateStory, updateStory } = require('../../../data/actions/story');
-const { loadFormat } = require('../../../data/actions/story-format');
-const { prompt } = require('../../../dialogs/prompt');
-const {confirm} = require('../../../dialogs/confirm');
-const openWindow = require('../../../ui/open-window');
+const {
+	deleteStory,
+	duplicateStory,
+	updateStory
+} = require('../../../data/actions/story');
+const {loadFormat} = require('../../../data/actions/story-format');
+const {playStory, testStory} = require('../../../common/launch-story');
 const locale = require('../../../locale');
 const {publishStoryWithFormat} = require('../../../data/publish');
 const save = require('../../../file/save');
@@ -34,7 +36,7 @@ module.exports = Vue.extend({
 		**/
 
 		play() {
-			openWindow('#stories/' + this.story.id + '/play');
+			playStory(this.story.id);
 		},
 
 		/**
@@ -44,7 +46,7 @@ module.exports = Vue.extend({
 		**/
 
 		test() {
-			openWindow('#stories/' + this.story.id + '/test');
+			testStory(this.story.id);
 		},
 
 		/**

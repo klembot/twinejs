@@ -9,7 +9,8 @@ const StylesheetEditor = require('../../../editors/stylesheet');
 const {loadFormat} = require('../../../data/actions/story-format');
 const locale = require('../../../locale');
 const eventHub = require('../../../common/eventHub');
-const { publishStoryWithFormat } = require('../../../data/publish');
+const {proofStory} = require('../../../common/launch-story');
+const {publishStoryWithFormat} = require('../../../data/publish');
 const save = require('../../../file/save');
 const {selectPassages} = require('../../../data/actions/passage');
 const {updateStory} = require('../../../data/actions/story');
@@ -60,6 +61,10 @@ module.exports = Vue.extend({
 
 		selectAll() {
 			this.selectPassages(this.story.id, () => true);
+		},
+
+		proofStory() {
+			proofStory(this.story.id);
 		},
 
 		publishStory() {

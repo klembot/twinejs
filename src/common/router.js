@@ -5,8 +5,8 @@ const LocaleView = require('../locale/view');
 const StoryEditView = require('../story-edit-view');
 const StoryListView = require('../story-list-view');
 const WelcomeView = require('../welcome');
-const { loadFormat } = require('../data/actions/story-format');
-const { publishStoryWithFormat } = require('../data/publish');
+const locale = require('../locale');
+const { getStoryPlayHtml, getStoryProofingHtml, getStoryTestHtml } = require('./story-html');
 const replaceUI = require('../ui/replace');
 const store = require('../data/store');
 
@@ -52,6 +52,7 @@ let TwineRouter = new VueRouter({
 			component: {
 				template: '<div><story-edit :story-id="id"></story-edit></div>',
 
+
 				components: { 'story-edit': StoryEditView },
 
 				data() {
@@ -69,21 +70,20 @@ let TwineRouter = new VueRouter({
 			component: {
 				mounted() {
 					this.$nextTick(function() {
-						// code that assumes this.$el is in-document
-						const state = this.$store.state;
-						const story = state.story.stories.find(
-							story => story.id === this.$route.params.id
+						getStoryPlayHtml(this.$store, this.$route.params.id)
+					.then(replaceUI)
+					.catch(e => {
+						window.alert(
+							locale.say(
+								'An error occurred while publishing your story. (%s)',
+								e.message
+							)
 						);
 
-						loadFormat(
-							this.$store,
-							story.storyFormat,
-							story.storyFormatVersion
-						).then(format => {
-							replaceUI(publishStoryWithFormat(state.appInfo,
-															 story,
-															 format));
-						});
+						/* Force returning to the previous view. */
+
+						throw e;
+					});
 					});
 				}
 			}
@@ -95,21 +95,20 @@ let TwineRouter = new VueRouter({
 				template: '<div class="replace-me"></div>',
 				mounted() {
 					this.$nextTick(function() {
-						// code that assumes this.$el is in-document
-						const state = this.$store.state;
-						const story = state.story.stories.find(
-							story => story.id === this.$route.params.id
+						getStoryProofingHtml(this.$store, this.$route.params.id)
+					.then(replaceUI)
+					.catch(e => {
+						window.alert(
+							locale.say(
+								'An error occurred while publishing your story. (%s)',
+								e.message
+							)
 						);
 
-						loadFormat(
-							this.$store,
-							state.pref.proofingFormat.name,
-							state.pref.proofingFormat.version
-						).then(format => {
-							replaceUI(publishStoryWithFormat(state.appInfo,
-															 story,
-															 format));
-						});
+						/* Force returning to the previous view. */
+
+						throw e;
+					});
 					});
 				}
 			}
@@ -119,24 +118,23 @@ let TwineRouter = new VueRouter({
 			component: {
 				mounted() {
 					this.$nextTick(function() {
-						// code that assumes this.$el is in-document
-						const state = this.$store.state;
-						const story = state.story.stories.find(
-							story => story.id === this.$route.params.id
+						getStoryTestHtml(this.$store, this.$route.params.id)
+						.then(replaceUI)
+						.catch(e => {
+							window.alert(
+							locale.say(
+								'An error occurred while publishing your story. (%s)',
+								e.message
+							)
 						);
 
-						loadFormat(
-							this.$store,
-							story.storyFormat,
-							story.storyFormatVersion
-						).then(format => {
-							replaceUI(
-								publishStoryWithFormat(state.appInfo, story, format, ['debug'])
-							);
+							/* Force returning to the previous view. */
+
+							throw e;
 						});
 					});
 				}
-			}
+			},
 		},
 		{
 			path: '/stories/:storyId/test/:passageId',
@@ -144,26 +142,24 @@ let TwineRouter = new VueRouter({
 				mounted() {
 					this.$nextTick(function() {
 						// code that assumes this.$el is in-document
-						const state = this.$store.state;
-						const story = state.story.stories.find(
-							story => story.id === this.$route.params.storyId
+						getStoryTestHtml(
+					this.$store,
+					this.$route.params.storyId,
+					this.$route.params.passageId
+				)
+					.then(replaceUI)
+					.catch(e => {
+						window.alert(
+							locale.say(
+								'An error occurred while publishing your story. (%s)',
+								e.message
+							)
 						);
 
-						loadFormat(
-							this.$store,
-							story.storyFormat,
-							story.storyFormatVersion
-						).then(format => {
-							replaceUI(
-								publishStoryWithFormat(
-									state.appInfo,
-									story,
-									format,
-									['debug'],
-									this.$route.params.passageId
-								)
-							);
-						});
+						/* Force returning to the previous view. */
+
+						throw e;
+					});
 					});
 				}
 			}

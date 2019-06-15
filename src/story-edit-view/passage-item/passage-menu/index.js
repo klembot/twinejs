@@ -3,9 +3,9 @@
 const Vue = require('vue');
 const eventHub = require('../../../common/eventHub');
 const locale = require('../../../locale');
-const { updatePassage } = require('../../../data/actions/passage');
-const { updateStory } = require('../../../data/actions/story');
-const openWindow = require('../../../ui/open-window');
+const {testStory} = require('../../../common/launch-story');
+const {updatePassage} = require('../../../data/actions/passage');
+const {updateStory} = require('../../../data/actions/story');
 
 require('./index.less');
 
@@ -84,9 +84,7 @@ module.exports = Vue.extend({
 		},
 
 		test() {
-			openWindow(
-				'#stories/' + this.parentStory.id + '/test/' + this.passage.id
-			);
+			testStory(this.$store, this.parentStory.id, this.passage.id);
 		},
 
 		toggleExpanded() {

@@ -265,9 +265,9 @@ const actions = (module.exports = {
 
 			const v = semverUtils.parse(format.version);
 
-			if (v.version !== latestVersions[format.name][v.major].version) {
+			if (v.semver !== latestVersions[format.name][v.major].semver) {
 				console.warn(
-					`Deleting outdated story format ${format.name} ` + v.version
+					`Deleting outdated story format ${format.name} ${v.semver}`
 				);
 				actions.deleteFormat(store, format.id);
 			}
@@ -294,14 +294,14 @@ const actions = (module.exports = {
 		if (latestDefault && latestDefault[defaultFormatVersion.major]) {
 			setPref(store, 'defaultFormat', {
 				name: defaultFormat.name,
-				version: latestDefault[defaultFormatVersion.major].version
+				version: latestDefault[defaultFormatVersion.major].semver
 			});
 		}
 
 		if (latestProofing && latestProofing[proofingFormatVersion.major]) {
 			setPref(store, 'proofingFormat', {
 				name: proofingFormat.name,
-				version: latestProofing[proofingFormatVersion.major].version
+				version: latestProofing[proofingFormatVersion.major].semver
 			});
 		}
 	}
