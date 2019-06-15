@@ -253,7 +253,7 @@ describe('passage actions module', () => {
 	
 			/* Test overlapping from slightly leftwards */
 			storyStore.state.story.stories[0].passages[0].top = 10;
-			storyStore.state.story.stories[0].passages[0].left = 0;
+			storyStore.state.story.stories[0].passages[0].left = 1;
 	
 			actions.positionPassage(storyStore, fakeId, fakeId, 10);
 
