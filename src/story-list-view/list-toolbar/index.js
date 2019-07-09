@@ -59,13 +59,12 @@ module.exports = Vue.extend({
 			}).$mountTo(document.body);
 		},
 
-		saveByAPI() {
+		saveArchive(useAPI) {
 			const timestamp = new Date()
 				.toLocaleString()
 				.replace(/[\/:\\]/g, '.');
 
 			const archive = publishArchive(this.existingStories, this.appInfo);
-			const useAPI = true;
 
 			if (useAPI) {
 				saveByAPI(archive);
@@ -74,6 +73,14 @@ module.exports = Vue.extend({
 				const filename = `${timestamp} ${locale.say('Twine Archive.html')}`;
 				saveFile(archive, filename);
 			}
+		},
+
+		saveToFile() {
+			this.saveArchive();
+		},
+
+		saveToAPI() {
+			this.saveArchive(true);
 		},
 
 		showAbout(e) {
