@@ -93,7 +93,9 @@ const config = (module.exports = {
 			}
 		})
 	],
-	stats: 'minimal'
+	devServer: {
+		stats: 'minimal'
+	}
 });
 
 if (isRelease) {
