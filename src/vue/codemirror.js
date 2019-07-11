@@ -18,12 +18,19 @@ module.exports = Vue.extend({
 			if (this.text !== this.$cm.getValue()) {
 				this.$cm.setValue(this.text);
 			}
-		},
+		}
 	},
 
 	compiled() {
 		this.$cm = CodeMirror(this.$el, this.options);
 		this.$cm.setValue((this.text || '') + '');
+
+		/*
+		Remove the empty state from existing in undo history, e.g. so if the
+		user immediately hits Undo, the editor becomes empty.
+		*/
+
+		this.$cm.clearHistory();
 
 		this.$cm.on('change', () => {
 			this.text = this.$cm.getValue();
@@ -41,6 +48,6 @@ module.exports = Vue.extend({
 		// refreshed once transition is finished - hence, this event.
 		'transition-entered'() {
 			this.$cm.refresh();
-		},
-	},
+		}
+	}
 });
