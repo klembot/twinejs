@@ -63,7 +63,7 @@ module.exports = Vue.extend({
 		},
 
 		proofStory() {
-			proofStory(this.story.id);
+			proofStory(this.$store, this.story.id);
 		},
 
 		publishStory() {
