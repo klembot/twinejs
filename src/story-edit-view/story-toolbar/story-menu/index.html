@@ -1,41 +1,41 @@
 <drop-down position="top left">
 	<ul class="menu">
 		<li>
-			<button @click="editScript">{{ 'Edit Story JavaScript'| say }}</button>
+			<button @click="editScript" title="{{ 'Edit Story JavaScript'| say }}">{{ 'Edit Story JavaScript'| say }}</button>
 		</li>
 
 		<li>
-			<button @click="editStyle">{{ 'Edit Story Stylesheet' | say }}</button>
+			<button @click="editStyle" title="{{ 'Edit Story Stylesheet' | say }}">{{ 'Edit Story Stylesheet' | say }}</button>
 		</li>
 
 		<li>
-			<button @click="changeFormat">{{ 'Change Story Format'| say }}</button>
+			<button @click="changeFormat" title="{{ 'Change Story Format'| say }}">{{ 'Change Story Format'| say }}</button>
 		</li>
 
 		<li>
-			<button @click="renameStory">{{ 'Rename Story' | say }}</button>
+			<button @click="renameStory" title="{{ 'Rename Story' | say }}">{{ 'Rename Story' | say }}</button>
 		</li>
 
 		<li>
-			<button @click="selectAll">{{ 'Select All Passages' | say }}</button>
+			<button @click="selectAll" title="{{ 'Select All Passages' | say }}">{{ 'Select All Passages' | say }}</button>
 		</li>
 
 		<li :class="{ checked: this.story.snapToGrid }">
-			<button @click="toggleSnap">{{ 'Snap to Grid'| say }}</button>
+			<button @click="toggleSnap" title="{{ 'Snap to Grid'| say }}">{{ 'Snap to Grid'| say }}</button>
 		</li>
 
 		<li>
-			<button @click="storyStats">{{ 'Story Statistics' | say }}</button>
+			<button @click="storyStats" title="{{ 'Story Statistics' | say }}">{{ 'Story Statistics' | say }}</button>
 		</li>
 
 		<li class="divider"></li>
 
 		<li>
-			<button @click="proofStory">{{ 'View Proofing Copy' | say }}</button>
+			<button @click="proofStory" title="{{ 'View Proofing Copy' | say }}">{{ 'View Proofing Copy' | say }}</button>
 		</li>
 
 		<li>
-			<button @click="publishStory">{{ 'Publish to File' | say }}</button>
+			<button @click="publishStory" title="{{ 'Publish to File' | say }}">{{ 'Publish to File' | say }}</button>
 		</li>
 	</ul>
 </drop-down>

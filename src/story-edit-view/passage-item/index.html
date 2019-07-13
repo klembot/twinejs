@@ -1,5 +1,7 @@
-<div class="passage" :style="cssPosition" :class="cssClasses" @mousedown.stop="startDrag"
-	@touchstart.stop="startDrag" @dblclick.stop="edit" @mouseover="needsMenu = true">
+<div class="passage" role="button" tabindex="0" title="{{ 'Edit &ldquo;%s&rdquo;' | say passage.name }}" 
+    :style="cssPosition" :class="cssClasses" @mousedown.stop="startDrag"
+	@touchstart.stop="startDrag" @dblclick.stop="edit" @mouseover="needsMenu = true"
+    @keyup.space.prevent="edit" @keyup.enter.prevent="edit">
 	<div class="frame">
 		<div class="tags">
 			<div v-for="color in tagColors" class="{{color}}"></div>
