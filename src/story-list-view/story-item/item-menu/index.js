@@ -14,6 +14,7 @@ const {prompt} = require('../../../dialogs/prompt');
 const locale = require('../../../locale');
 const {publishStoryWithFormat} = require('../../../data/publish');
 const save = require('../../../file/save');
+const store = require('../../../data/store');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -37,7 +38,7 @@ module.exports = Vue.extend({
 		**/
 
 		play() {
-			playStory(this.story.id);
+			playStory(store, this.story.id);
 		},
 
 		/**
@@ -47,7 +48,7 @@ module.exports = Vue.extend({
 		**/
 
 		test() {
-			testStory(this.story.id);
+			testStory(store, this.story.id);
 		},
 
 		/**
