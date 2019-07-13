@@ -130,10 +130,17 @@ const storyStore = (module.exports = {
 		},
 
 		CREATE_PASSAGE_IN_STORY(state, storyId, props) {
+			/*
+			uuid is used here as a salt so that passages always contain unique
+			IDs in Electron (which otherwise uses deterministic IDs based on
+			name provided), even if you rename one to a name a previous one used
+			to have.
+			*/
+			
 			let story = getStoryById(state, storyId);
 			let newPassage = Object.assign(
 				{
-					id: idFor(story.name + props.name)
+					id: idFor(story.name + uuid())
 				},
 				storyStore.passageDefaults,
 				props
@@ -160,6 +167,8 @@ const storyStore = (module.exports = {
 			}
 
 			story.lastUpdate = new Date();
+			console.log(story);
+			console.log(story.passages);
 		},
 
 		UPDATE_PASSAGE_IN_STORY(state, storyId, passageId, props) {

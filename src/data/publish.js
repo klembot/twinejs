@@ -1,5 +1,7 @@
 /*
-Publishes stories to HTML.
+Publishes stories to HTML. This is agnostic about the data storage method, e.g.
+these functions know nothing about Vuex. Functions that are Vuex-aware can be
+found at ../common/publish.js.
 */
 
 const escape = require('lodash.escape');

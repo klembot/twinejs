@@ -8,7 +8,7 @@ const StatsDialog = require('../../../dialogs/story-stats');
 const StylesheetEditor = require('../../../editors/stylesheet');
 const {loadFormat} = require('../../../data/actions/story-format');
 const locale = require('../../../locale');
-const openWindow = require('../../../ui/open-window');
+const {proofStory} = require('../../../common/launch-story');
 const {prompt} = require('../../../dialogs/prompt');
 const {publishStoryWithFormat} = require('../../../data/publish');
 const save = require('../../../file/save');
@@ -63,7 +63,7 @@ module.exports = Vue.extend({
 		},
 
 		proofStory() {
-			openWindow('#!/stories/' + this.story.id + '/proof');
+			proofStory(this.$store, this.story.id);
 		},
 
 		publishStory() {

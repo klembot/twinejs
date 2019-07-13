@@ -1,0 +1,841 @@
+# Catalan translation of Twinejs
+# Copyright © 2018 Free Software Foundation, Inc.
+# Jordi Mallach <jordi@mallach.net>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: twinejs 2.3.1\n"
+"PO-Revision-Date: 2019-05-24 17:12+0200\n"
+"Last-Translator: Jordi Mallach <jordi@mallach.net>\n"
+"Language-Team: Catalan <ca@dodds.net>\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n!=1;\n"
+
+#: src/dialogs/about/index.html
+msgid "About Twine"
+msgstr "Quant al Twine"
+
+#: src/dialogs/about/index.html
+msgid "Help Twine Grow With A Donation"
+msgstr "Ajuda el Twine a créixer amb una donació"
+
+#: src/dialogs/about/index.html
+msgid "Source Code Repository"
+msgstr "Dipòsit de codi font"
+
+#: src/dialogs/about/index.html
+msgid "Translations"
+msgstr "Traduccions"
+
+#: src/dialogs/about/index.html
+msgid "Libraries"
+msgstr "Biblioteques"
+
+#: src/dialogs/about/index.html
+msgid "Fonts"
+msgstr "Tipus de lletra"
+
+#: src/dialogs/about/index.html
+msgid "Icons"
+msgstr "Icones"
+
+#: src/dialogs/app-donation/index.html
+msgid ""
+"If you love Twine as much as I do, please consider helping it grow with a "
+"donation. Twine is an open source project that will always be free to use "
+"&mdash; and with your help, Twine will continue to thrive."
+msgstr ""
+"Si us agrada el Twine tant com a mi, si us plau considereu ajudar-lo a "
+"créixer amb una una donació. El Twine és un projecte de codi obert que "
+"sempre serà d'ús lliure &mdash; i amb la vostra ajuda, el Twine continuarà "
+"prosperant."
+
+#: src/dialogs/app-donation/index.html
+msgid "Chris Klimas, Twine creator"
+msgstr "Chris Klimas, creador del Twine"
+
+#: src/dialogs/app-donation/index.html
+msgid "No Thanks"
+msgstr "No, gràcies"
+
+#: src/dialogs/app-donation/index.html
+msgid "Donate"
+msgstr "Fes una donació"
+
+#: src/dialogs/app-donation/index.html
+msgid ""
+"This message will only be shown to you once.&lt;br&gt;If you'd like to "
+"donate to Twine development in the future, you can do so at &lt;a href=\\"
+"\"http:\\/\\/twinery.org/donate\\\" target=\\\"_blank\\\"&gt;http://twinery."
+"org/donate&lt;/a&gt;."
+msgstr ""
+"Aquest missatge només se us mostrarà una vegada.<br />Si voleu donar al "
+"desenvolupament del Twine en el futur, podeu fer-ho en <a href=\"http://"
+"twinery.org/donate\" target=\"_blank\">http://twinery.org/donate</a>."
+
+#: src/dialogs/formats/index.html
+msgid ""
+"Story formats control the appearance and behavior of stories during play."
+msgstr ""
+"Els formats d'història controlen l'aparença i comportament de les històries "
+"durant la reproducció."
+
+#: src/dialogs/formats/index.html
+msgid "Use as Default"
+msgstr "Empra'l com valor per defecte"
+
+#: src/dialogs/formats/index.html
+msgid ""
+"Proofing formats create a versions of stories tailored for editing and "
+"proofreading."
+msgstr ""
+"Els formats de correció creen versions de les històries orientades a "
+"l'edició i revisió."
+
+#: src/dialogs/formats/index.html
+msgid "Use"
+msgstr "Empra'l"
+
+#: src/dialogs/formats/index.html src/story-list-view/list-toolbar/index.js:25
+msgid "Add"
+msgstr "Afegeix"
+
+#: src/dialogs/formats/index.html src/dialogs/story-format/index.html
+msgid "Loading..."
+msgstr "S'està carregant…"
+
+#: src/dialogs/formats/item.html
+msgid "The default story format can\\'t be removed."
+msgstr "No es pot suprimir el format d\\'història per defecte."
+
+#: src/dialogs/story-format/index.html
+msgid "Story Format"
+msgstr "Format d'història"
+
+#: src/dialogs/story-format/index.html
+msgid ""
+"A story format controls the appearance and behavior of your story during "
+"play."
+msgstr ""
+"Un format d'història controla l'aparença i comportament de la vostra "
+"història durant la reproducció."
+
+#: src/dialogs/story-import/index.html
+#: src/story-list-view/list-toolbar/index.html
+msgid "Import From File"
+msgstr "Importa des d'un fitxer"
+
+#: src/dialogs/story-import/index.html
+msgid "Import this file:"
+msgstr "Importa aquest fitxer:"
+
+#: src/dialogs/story-import/index.html src/dialogs/confirm/index.js:32
+#: src/dialogs/prompt/index.js:16
+msgid "Cancel"
+msgstr "Cancel·la"
+
+#: src/dialogs/story-import/index.html
+msgid "Working..."
+msgstr "S'està treballant…"
+
+#: src/dialogs/story-import/index.html
+msgid ""
+"Some stories you are importing already exist in your library. Please choose "
+"which to replace. Any other stories in your file will be imported as well."
+msgstr ""
+"Algunes de les històries que esteu important ja existeixen a la vostra "
+"biblioteca. Seleccioneu quina en voleu reemplaçar. La resta d'històries del "
+"fitxer també s'importaran."
+
+#: src/dialogs/story-import/index.html
+msgid "Don't Import Any Stories"
+msgstr "No importis cap història"
+
+#: src/dialogs/story-search/index.html
+msgid "Find and Replace"
+msgstr "Cerca i reemplaça"
+
+#: src/dialogs/story-search/index.html
+msgid "Search For"
+msgstr "Cerca"
+
+#: src/dialogs/story-search/index.html
+msgid "Include passage names"
+msgstr "Inclou noms de passatges"
+
+#: src/dialogs/story-search/index.html
+msgid "Match case"
+msgstr "Coincidència de majúscules i minúscules"
+
+#: src/dialogs/story-search/index.html
+msgid "Regular expression"
+msgstr "Expressió regular"
+
+#: src/dialogs/story-search/index.html
+msgid "Replace With"
+msgstr "Reemplaça amb"
+
+#: src/dialogs/story-search/index.html
+msgid "Replace All"
+msgstr "Reemplaça-ho tot"
+
+#: src/dialogs/story-search/index.html
+msgid "%d passage matches."
+msgid_plural "%d passages match."
+msgstr[0] "%d passatge coincideix."
+msgstr[1] "%d passatges coincideixen."
+
+#: src/dialogs/story-search/index.html
+msgid "Searching..."
+msgstr "S'està cercant…"
+
+#: src/dialogs/story-search/result.html
+msgid "%d match"
+msgid_plural "%d matches"
+msgstr[0] "%d coincidència"
+msgstr[1] "%d coincidències"
+
+#: src/dialogs/story-search/result.html
+msgid "Replace in Passage"
+msgstr "Reemplaça al passatge"
+
+#: src/dialogs/story-stats/index.html
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+msgid "Story Statistics"
+msgstr "Estadístiques de la història"
+
+#: src/editors/javascript/index.html
+msgid "JavaScript"
+msgstr "JavaScript"
+
+#: src/editors/javascript/index.html
+msgid ""
+"Any JavaScript entered here will immediately run when your story is opened "
+"in a Web browser."
+msgstr ""
+"Qualsevol JavaScript introduït ací s'executarà immediatament quan s'obri la "
+"història al vostre navegador."
+
+#: src/editors/passage/index.html
+msgid "A passage already exists with this name."
+msgstr "Ja existeix un passatge amb aquest nom."
+
+#: src/editors/passage/tag-editor/index.html
+msgid "Tag"
+msgstr "Etiqueta"
+
+#: src/editors/stylesheet/index.html
+msgid "Stylesheet"
+msgstr "Full d'estils"
+
+#: src/editors/stylesheet/index.html
+msgid ""
+"Any CSS entered here will override the default appearance of your story."
+msgstr ""
+"Qualsevol CSS introduït ací substituirà l'aparença per defecte de la vostra "
+"història."
+
+#: src/locale/view/index.html
+msgid "Please choose which language you would like to use with Twine."
+msgstr "Seleccioneu quina llengua voleu emprar amb el Twine."
+
+#: src/story-edit-view/passage-item/passage-menu/index.html
+msgid "Start Story Here"
+msgstr "Comenceu aquí la història"
+
+#: src/story-edit-view/passage-item/passage-menu/index.html
+msgid "Small"
+msgstr "Petita"
+
+#: src/story-edit-view/passage-item/passage-menu/index.html
+msgid "Wide"
+msgstr "Ampla"
+
+#: src/story-edit-view/passage-item/passage-menu/index.html
+msgid "Tall"
+msgstr "Alta"
+
+#: src/story-edit-view/passage-item/passage-menu/index.html
+msgid "Large"
+msgstr "Gran"
+
+#: src/story-edit-view/story-toolbar/index.html
+msgid "Test"
+msgstr "Prova"
+
+#: src/story-edit-view/story-toolbar/index.html
+msgid "Play"
+msgstr "Reprodueix"
+
+#. L10n: Word in the sense of individual words in a sentence. This does not actually include the count, as it is used in a table.
+#: src/story-edit-view/story-toolbar/index.html
+#: src/dialogs/story-stats/index.js:87
+msgid "Passage"
+msgstr "Passatge"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+msgid "Edit Story JavaScript"
+msgstr "Edita el JavaScript de la història"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+msgid "Edit Story Stylesheet"
+msgstr "Edita el full d'estil de la història"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+msgid "Change Story Format"
+msgstr "Canvia el format de la història"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+#: src/story-list-view/story-item/item-menu/index.html
+msgid "Rename Story"
+msgstr "Canvia el nom de la història"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+msgid "Select All Passages"
+msgstr "Selecciona tots els passatges"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+msgid "Snap to Grid"
+msgstr "Ajusta a la quadrícula"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+msgid "View Proofing Copy"
+msgstr "Visualitza la còpia de comprovació"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+#: src/story-list-view/story-item/item-menu/index.html
+msgid "Publish to File"
+msgstr "Publica a fitxer"
+
+#: src/story-list-view/index.html
+msgid "Drop a story file to import"
+msgstr "Deixa anar un fitxer d'història per importar-lo"
+
+#: src/story-list-view/index.html
+msgid "Sort By"
+msgstr "Ordena per"
+
+#: src/story-list-view/index.html
+msgid "Edit Date"
+msgstr "Data d'edició"
+
+#: src/story-list-view/index.html
+msgid "Name"
+msgstr "Nom"
+
+#: src/story-list-view/index.html
+msgid ""
+"There are no stories saved in Twine right now. To get started, you can "
+"either create a new story or import an existing one from a file."
+msgstr ""
+"No hi ha cap història desada al Twine ara mateix. Per començar, podeu crear "
+"una història nova i importar una existent des d'un fitxer."
+
+#: src/story-list-view/list-toolbar/index.html
+#: src/electron/story-directory.js:16 src/electron/story-directory.js:101
+msgid "Twine"
+msgstr "Twine"
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "Story"
+msgstr "Història"
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "Archive"
+msgstr "Arxiva"
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "Formats"
+msgstr "Formats"
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "Language"
+msgstr "Llengua"
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "Help"
+msgstr "Ajuda"
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "version"
+msgstr "versió"
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "Report a bug"
+msgstr "Informeu d'un error"
+
+#: src/story-list-view/story-item/item-menu/index.html
+msgid "Play Story"
+msgstr "Reprodueix la història"
+
+#: src/story-list-view/story-item/item-menu/index.html
+msgid "Test Story"
+msgstr "Prova la història"
+
+#: src/story-list-view/story-item/item-menu/index.html
+msgid "Duplicate Story"
+msgstr "Duplica la història"
+
+#: src/story-list-view/story-item/item-menu/index.html
+msgid "Delete Story"
+msgstr "Suprimeix la història"
+
+#: src/welcome/index.html
+msgid "Hi!"
+msgstr "Hola!"
+
+#: src/welcome/index.html
+msgid ""
+"Twine is an open-source tool for telling interactive, nonlinear stories. "
+"There are a few things you should know\n"
+"\t\t\tbefore you get started."
+msgstr ""
+"El Twine és una eina lliure per contar històries interactives i no lineals. Hi ha unes poques coses que hauríeu\n"
+"\t\t\tde saber abans de començar."
+
+#: src/welcome/index.html
+msgid "Tell Me More"
+msgstr "Dis-me més"
+
+#: src/welcome/index.html
+msgid "Skip"
+msgstr "Omet"
+
+#: src/welcome/index.html
+msgid "New here?"
+msgstr "Sou nou aquí?"
+
+#: src/welcome/index.html
+msgid ""
+"&lt;strong&gt;If you've never used Twine before,&lt;/strong&gt; then "
+"welcome! The &lt;a\n"
+"\t\t\thref=\\\"http://twinery.org/2guide\\\" target=\\\"_blank\\\"&gt;Twine "
+"2 Guide&lt;/a&gt; and the official wiki in general,\n"
+"\t\t\tare a great place to learn. Keep in mind that some articles on the "
+"wiki were written for Twine 1, which is a little\n"
+"\t\t\tbit different than this version. But most of the concepts are the same."
+msgstr ""
+"<strong>Si mai heu emprat el Twine abans,</strong>, us donem la benvinguda!\n"
+"\t\t\tLa <a href=\"http://twinery.org/2guide\" target=\"_blank\">Guia del Twine 2</a> i la wiki oficial en general\n"
+"\t\t\tsón un gran lloc on aprendre. Tingueu present que alguns articles de la wiki es van escriure per al Twine 1, que és lleugerament\n"
+"\t\t\tdiferent a aquesta versió. Però la majoria dels conceptes són els mateixos."
+
+#: src/welcome/index.html
+msgid ""
+"&lt;strong&gt;If you have used Twine 1 before,&lt;/strong&gt; the guide also "
+"has details on what has changed in\n"
+"\t\t\tthis version. Chief among them is a new default story format, Harlowe. "
+"But if you find you prefer the Twine 1\n"
+"\t\t\tscripting syntax, try using SugarCube instead."
+msgstr ""
+"<strong>Si heu emprat Twine 1 anteriorment,</strong> la guia també té detalls sobre el que ha canviat en aquesta versió.\n"
+"\t\t\tPer damunt de tots ells és el nou format d'història per defecte, Harlowe. Però si trobeu que preferiu la sintaxi\n"
+"\t\t\tde script del Twine 1, proveu amb el SugarCube en el seu lloc."
+
+#: src/welcome/index.html src/dialogs/formats/item.js:56
+msgid "OK"
+msgstr "D'acord"
+
+#: src/welcome/index.html
+msgid "Your work is saved only in your browser."
+msgstr "El vostre treball només es desa al vostre navegador."
+
+#: src/welcome/index.html
+msgid ""
+"That means you don't need to create an account to use Twine 2, and "
+"everything you create isn't stored on a\n"
+"\t\t\tserver somewhere else &mdash; it stays right in your browser."
+msgstr ""
+"Això vol dir que no necessiteu crear un compte per emprar el Twine 2, i tot el que creeu no es desa en\n"
+"\t\t\tun servidor al núvol &mdash; es queda tot al vostre navegador."
+
+#: src/welcome/index.html
+msgid ""
+"Two &lt;b&gt;very important&lt;/b&gt; things to remember, though. Since your "
+"work is saved only in your\n"
+"\t\t\tbrowser, if you clear its saved data, then you'll lose your work! Not "
+"good. Remember to use that &lt;i class=\\\"fa\n"
+"\t\t\tfa-briefcase\\\"&gt;&lt;/i&gt;&nbsp;&lt;strong&gt;Archive&lt;/"
+"strong&gt; button often. You can also publish individual\n"
+"\t\t\tstories to files using the &lt;i class=\\\"fa fa-cog\\\"&gt;&lt;/i&gt; "
+"menu on each story in the story list. Both\n"
+"\t\t\tarchive and story files can always be re-imported into Twine."
+msgstr ""
+"Hi ha dues coses <b>molt importants</b> a recordar, però. Com que el vostre treball es desa només al vostre\n"
+"\t\t\tnavegador, si suprimiu les seues dades desades, perdreu la vostra feina! No és òptim, oi? Recordeu emprar sovint el botó\n"
+"\t\t\t&lt;i class=\\\"fa fa-briefcase\\\"&gt;&lt;/i&gt;&nbsp;&lt;strong&gt;Arxivae&lt;/strong&gt;. També podeu publicar històries individuals\n"
+"\t\t\ta fitxers emprant el menú &lt;i class=\\\"fa fa-cog\\\"&gt;&lt;/i&gt; de cada història de la llista\n"
+"\t\t\td'històries. Tant els fitxers d'arxiu com d'història es poden reimportar al Twine."
+
+#: src/welcome/index.html
+msgid ""
+"Secondly, &lt;b&gt;anyone who can use this browser can see and make changes "
+"to your work&lt;/b&gt;. So if\n"
+"\t\t\tyou've got a nosy kid brother, look into setting up a separate profile "
+"for yourself."
+msgstr ""
+"Segon, <b>tothom qui puga emprar aquest navegador pot fer canvis al vostre treball</b>. Si teniu\n"
+"\t\t\tun germà a qui li agrada clavar el nas, mireu de configurar un perfil de navegació diferent pel vostre ús personal."
+
+#: src/welcome/index.html
+msgid "Your work is automatically saved."
+msgstr "El teu treball es desa automàticament."
+
+#: src/welcome/index.html
+msgid ""
+"There's now a folder named Twine in your Documents folder. Inside that is a "
+"Stories folder, where all your work\n"
+"\t\t\twill be saved. Twine saves as you work, so you don't have to worry "
+"about remembering to save it yourself. You can\n"
+"\t\t\talways open the folder your stories are saved to by using the &lt;b&gt;"
+"Show Library&lt;/b&gt; item in the\n"
+"\t\t\t&lt;b&gt;Twine&lt;/b&gt; menu."
+msgstr ""
+"Ara hi ha una carpeta anomenada Twine a la vostra carpeta Documents. A dins hi ha una carpeta Stories, on es desarà tot el vostre treball.\n"
+"\t\t\tEl Twine va desant a mesura que hi treballeu, així que no us heu d'anar preocupant de desar-lo manualment.\n"
+"\t\t\tSempre podeu obrir la carpeta on es desen les històries emprant l'element <b>Mostra la biblioteca</b> del menú del <b>Twine</b>."
+
+#: src/welcome/index.html
+msgid ""
+"Because Twine is always saving your work, the files in your story library "
+"will be locked from editing while\n"
+"\t\t\tTwine is open."
+msgstr ""
+"Com que el Twine sempre està desant el vostre treball, els fitxers de la vostra biblioteca d'històries es blocaran\n"
+"\t\t\tcontra altres edicions mentre el Twine és obert."
+
+#: src/welcome/index.html
+msgid "That's it!"
+msgstr "Això és tot!"
+
+#: src/welcome/index.html
+msgid "Thanks for reading, and have fun with Twine."
+msgstr "Gràcies per llegir, i passeu-ho be amb el Twine."
+
+#: src/welcome/index.html
+msgid "Go to the Story List"
+msgstr "Vés a la llista de històries"
+
+#: src/data/actions/story-format.js:50
+msgid "this story format is already installed"
+msgstr "aquest format d'història ja està instal·lat"
+
+#: src/data/actions/story-format.js:74
+msgid ""
+"a more recent version of the story format &ldquo;%s&rdquo; is already "
+"installed"
+msgstr "una versió més recent del format d'història «%s» ja està instal·lat"
+
+#: src/data/publish.js:76
+msgid "There is no starting point set for this story."
+msgstr "No hi ha un punt de partida establert per a aquesta història."
+
+#: src/data/publish.js:82
+msgid "The passage set as starting point for this story does not exist."
+msgstr ""
+"El passatge establert com a punt de partida per a aquesta història no "
+"existeix."
+
+#: src/data/store/story-format.js:7
+msgid "Untitled Story Format"
+msgstr "Format d'història sense títol"
+
+#: src/data/store/story.js:212
+msgid "Untitled Story"
+msgstr "Història sense títol"
+
+#: src/data/store/story.js:229 src/story-edit-view/index.js:277
+msgid "Untitled Passage"
+msgstr "Passatge sense títol"
+
+#: src/data/store/story.js:233
+msgid "Tap this passage, then the pencil icon to edit it."
+msgstr "Toqueu aquest passatge, i després la icona del llapis per editar-lo."
+
+#: src/data/store/story.js:234
+msgid "Double-click this passage to edit it."
+msgstr "Feu doble clic sobre aquest passatge per editar-lo."
+
+#. L10n: The <span> will have a version number, i.e. 2.0.6, interpolated into it.
+#: src/dialogs/app-update/index.js:46
+msgid ""
+"A new version of Twine, <span class=\"version\"></span>, has been released."
+msgstr ""
+"S'ha publicat una versió nova del Twine, <span class=\"version\"></span>."
+
+#: src/dialogs/app-update/index.js:50
+msgid "Download"
+msgstr "Baixa"
+
+#. L10n: A polite rejection of a request, in the sense that the answer may change in the future.
+#: src/dialogs/app-update/index.js:57
+msgid "Not Right Now"
+msgstr "Ara mateix no"
+
+#: src/dialogs/formats/index.js:73
+msgid "This story format could not be loaded (%1$s)."
+msgstr "No s'ha pogut carregar el format d'història (%1$s)."
+
+#: src/dialogs/formats/index.js:118
+msgid "The story format at %1$s could not be added (%2$s)."
+msgstr "No s'ha pogut afegir el format d'història %1$s (%2$s)."
+
+#. L10n: %s is the name of an author.
+#: src/dialogs/formats/item.js:32
+msgid "by %s"
+msgstr "per %s"
+
+#: src/dialogs/formats/item.js:54
+msgid ""
+"You may not remove the default story format. Please choose another one first."
+msgstr "No podeu suprimir el format d'història per defecte. Seleccioneu un altre primer."
+
+#: src/dialogs/formats/item.js:64
+msgid "Are you sure?"
+msgstr "N'esteu segur?"
+
+#: src/dialogs/formats/item.js:66
+msgid "Remove"
+msgstr "Suprimeix"
+
+#: src/dialogs/story-format/index.js:54
+msgid "The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s)."
+msgstr "No s'ha pogut carregar el format d'història «%1$s» (%2$s)."
+
+#: src/dialogs/story-import/index.js:56
+msgid "Don\\'t Replace Any Stories"
+msgstr "No reemplaces cap història"
+
+#: src/dialogs/story-import/index.js:59
+msgid "Replace %d Story"
+msgid_plural "Replace %d Stories"
+msgstr[0] "Reemplaça %d història"
+msgstr[1] "Reemplaça %d històries"
+
+#. L10n: Character in the sense of individual letters in a word.  This does not actually include the count, as it is used in a table.
+#: src/dialogs/story-stats/index.js:41
+msgid "Character"
+msgid_plural "Characters"
+msgstr[0] "Caràcter"
+msgstr[1] "Caràcters"
+
+#. L10n: Word in the sense of individual words in a sentence.  This does not actually include the count, as it is used in a table.
+#: src/dialogs/story-stats/index.js:56
+msgid "Word"
+msgid_plural "Words"
+msgstr[0] "Paraula"
+msgstr[1] "Paraules"
+
+#. L10n: Links in the sense of hypertext links. This does not actually include the count, as it is used in a table.
+#: src/dialogs/story-stats/index.js:105
+msgid "Link"
+msgid_plural "Links"
+msgstr[0] "Enllaç"
+msgstr[1] "Enllaços"
+
+#. L10n: Links in the sense of hypertext links. This does not actually include the count, as it is used in a table.
+#: src/dialogs/story-stats/index.js:120
+msgid "Broken Link"
+msgid_plural "Broken Links"
+msgstr[0] "Enllaç trencat"
+msgstr[1] "Enllaços trencats"
+
+#: src/editors/passage/index.js:40
+msgid ""
+"Enter the body text of your passage here. To link to another passage, put "
+"two square brackets around its name, [[like this]]."
+msgstr ""
+"Introduïu ací el text del cos del vostre passatge. Per enllaçar un altre "
+"passatge, introduïu dos claudàtors al voltant del seu nom, [[com en aquest "
+"exemple]]."
+
+#: src/editors/passage/index.js:184
+msgid "Editing \\u201c%s\\u201d"
+msgstr "S'està editant «%s»"
+
+#: src/electron/story-directory.js:17
+msgid "Stories"
+msgstr "Històries"
+
+#: src/electron/story-directory.js:102
+msgid "Backups"
+msgstr "Còpies de seguretat"
+
+#: src/electron/story-file.js:183
+msgid "An error occurred while saving a story."
+msgstr "S'ha produït un error en desar una història."
+
+#: src/electron/story-file.js:196
+msgid "An error occurred while deleting a story."
+msgstr "S'ha produït un error en suprimir una història."
+
+#: src/electron/story-file.js:209
+msgid "An error occurred while renaming a story."
+msgstr "S'ha produït un error en canviar el nom d'una història."
+
+#. L10n: %1$s is a filename; %2$s is the error message.
+#: src/file/save.js:69
+msgid "&ldquo;%1$s&rdquo; could not be saved (%2$s)."
+msgstr "No s'ha pogut desar «%1$s» (%2$s)."
+
+#: src/story-edit-view/index.js:380
+msgid ""
+"Are you sure you want to delete &ldquo;%2$s&rdquo;? This cannot be undone."
+msgid_plural ""
+"Are you sure you want to delete %d passages? This cannot be undone."
+msgstr[0] "Esteu segur que voleu suprimir «%s»? Això no es pot desfer."
+msgstr[1] "Esteu segur que voleu suprimir %d passatges? Això no es pot desfer."
+
+#: src/story-edit-view/index.js:389
+#: src/story-edit-view/passage-item/index.js:367
+msgid "Delete"
+msgstr "Suprimeix"
+
+#: src/story-edit-view/passage-item/index.js:352
+#: src/story-list-view/story-item/item-menu/index.js:79
+msgid ""
+"Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone."
+msgstr "Esteu segur que voleu suprimir «%s»? Això no es pot desfer."
+
+#: src/story-edit-view/passage-item/index.js:359
+msgid "(Hold the Shift key when deleting to skip this message.)"
+msgstr "(Premeu la tecla Majúscules per ometre aquest missatge.)"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.js:50
+#: src/story-list-view/story-item/item-menu/index.js:99
+msgid "What should &ldquo;%s&rdquo; be renamed to?"
+msgstr "Introduïu el nom nou per a «%s»."
+
+#: src/story-edit-view/story-toolbar/story-menu/index.js:54
+#: src/story-list-view/story-item/item-menu/index.js:103
+msgid "Rename"
+msgstr "Canvia el nom"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.js:56
+#: src/story-list-view/story-item/item-menu/index.js:105
+#: src/story-list-view/story-item/item-menu/index.js:120
+msgid "Please enter a name."
+msgstr "Introduïu un nom."
+
+#: src/story-list-view/index.js:90
+msgid "%d Story"
+msgid_plural "%d Stories"
+msgstr[0] "%d història"
+msgstr[1] "%d històries"
+
+#: src/story-list-view/list-toolbar/index.js:22
+msgid "What should your story be named?<br>(You can change this later.)"
+msgstr ""
+"Com s'hauria de dir la vostra història?<br />(Ho podeu canviar més endavant.)"
+
+#: src/story-list-view/list-toolbar/index.js:31
+msgid "A story with this name already exists."
+msgstr "Ja existeix una història amb aquest nom."
+
+#: src/story-list-view/list-toolbar/index.js:67
+msgid "Twine Archive.html"
+msgstr "Arxiu del Twine.html"
+
+#: src/story-list-view/story-item/item-menu/index.js:86
+msgid "Delete Forever"
+msgstr "Suprimeix permanentment"
+
+#: src/story-list-view/story-item/item-menu/index.js:116
+msgid "What should the duplicate be named?"
+msgstr "Com s'hauria de dir el duplicat?"
+
+#: src/story-list-view/story-item/item-menu/index.js:118
+msgid "Duplicate"
+msgstr "Duplica"
+
+#: src/story-list-view/story-item/item-menu/index.js:119
+msgid "%s Copy"
+msgstr "Còpia de %s"
+
+#: src/ui/quota-gauge/index.js:29
+msgid "%d%% space available"
+msgstr "%d%% de l'espai disponible"
+
+#~ msgid ""
+#~ "Twine is an open-source tool for telling interactive, nonlinear stories."
+#~ msgstr ""
+#~ "El Twine és una eina lliure per contar històries interactives i no "
+#~ "lineals."
+
+#~ msgid ""
+#~ "This application is released under the \\x3ca href=\"http:\\/\\/www.gnu."
+#~ "org/licenses/gpl-3.0.html\">GPL v3\\x3c/a> license, but any work created "
+#~ "with it may be released under any terms, including commercial ones."
+#~ msgstr ""
+#~ "Aquesta aplicació es publica sota els termes de la llicència \\x3ca href="
+#~ "\"http:\\/\\/www.gnu.org/licenses/gpl-3.0.html\">GPL v3\\x3c/a>, però "
+#~ "qualsevol obra creada amb ella es pot publicar sota qualsevol terme, "
+#~ "incloent-hi termes comercials."
+
+#~ msgid ""
+#~ "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under "
+#~ "the guidance of Robert Slimbach for \\x3ca href=\"http:\\/\\/adobe.com/"
+#~ "\">Adobe\\x3c/a>\\x3cbr> Nunito was designed by \\x3ca href=\"http:\\/\\/"
+#~ "code.newtypography.co.uk/\">Vernon Adams\\x3c/a>"
+#~ msgstr ""
+#~ "Source Sans Pro i Source Code Pro han estat dissenyats per Paul D. Hunt "
+#~ "sota la direcció de Robert Slimbach per \\x3ca href=\"http:\\/\\/adobe."
+#~ "com/\">Adobe\\x3c/a>\\x3cbr> Nunito ha estat dissenyat per \\x3ca href="
+#~ "\"http:\\/\\/code.newtypography.co.uk/\">Vernon Adams\\x3c/a>"
+
+#~ msgid "Document designed by Rob Gill from the Noun Project"
+#~ msgstr "«Document» dissenyat per Rob Gill del projecte Noun"
+
+#~ msgid "Question designed by Henry Ryder from the Noun Project"
+#~ msgstr "«Pregunta» dissenyada per Henry Ryder del projecte Noun"
+
+#~ msgid "Smile designed by jelio dimitrov from the Noun Project"
+#~ msgstr "«Somriure» dissenyat per jelio dimitrov del projecte Noun"
+
+#~ msgid ""
+#~ "&lt;strong&gt;If you've never used Twine before,&lt;/strong&gt; then "
+#~ "welcome! The &lt;a href=\\\"http://twinery.org/2guide\\\" target=\\"
+#~ "\"_blank\\\"&gt;Twine 2 Guide&lt;/a&gt; and the official wiki in general, "
+#~ "are a great place to learn. Keep in mind that some articles on the wiki "
+#~ "at large were written for Twine 1, which is a little bit different than "
+#~ "this version. But most of the concepts are the same."
+#~ msgstr ""
+#~ "<strong>Si no heu emprat el Twine abans,</strong> sigueu benvingut/da! La "
+#~ "<a href=\"http://twinery.org/2guide\" target=\"_blank\">Guia del Twine 2</"
+#~ "a> i la wiki oficial en general, són un gran lloc on aprendre. Tingueu "
+#~ "present que alguns articles de la wiki es van escriure per al Twine 1, "
+#~ "que és lleugerament diferent a aquesta versió. Però la majoria dels "
+#~ "conceptes són els mateixos."
+
+#~ msgid "Documents"
+#~ msgstr "Documents"
+
+#~ msgid "My\\\\ Documents"
+#~ msgstr "Els\\\\ meus\\\\ documents"
+
+#~ msgid "Toggle Fullscreen"
+#~ msgstr "Commuta a pantalla completa"
+
+#~ msgid "Quit"
+#~ msgstr "Surt"
+
+#~ msgid "Edit"
+#~ msgstr "Edita"
+
+#~ msgid "Undo"
+#~ msgstr "Desfés"
+
+#~ msgid "Cut"
+#~ msgstr "Retalla"
+
+#~ msgid "Copy"
+#~ msgstr "Copia"
+
+#~ msgid "Paste"
+#~ msgstr "Enganxa"
+
+#~ msgid "Show Library"
+#~ msgstr "Mostra la biblioteca"

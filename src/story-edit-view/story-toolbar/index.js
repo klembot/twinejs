@@ -1,8 +1,8 @@
 // The toolbar at the bottom of the screen with editing controls.
 
 const Vue = require('vue');
-const openWindow = require('../../ui/open-window');
 const zoomMappings = require('../zoom-settings');
+const {playStory, testStory} = require('../../common/launch-story');
 const {updateStory} = require('../../data/actions/story');
 
 require('./index.less');
@@ -33,11 +33,11 @@ module.exports = Vue.extend({
 		},
 
 		test() {
-			openWindow('#stories/' + this.story.id + '/test');
+			testStory(this.$store, this.story.id);
 		},
 
 		play() {
-			openWindow('#stories/' + this.story.id + '/play');
+			playStory(this.$store, this.story.id);
 		},
 
 		addPassage() {

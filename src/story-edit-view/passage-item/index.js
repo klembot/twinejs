@@ -384,16 +384,18 @@ module.exports = Vue.extend({
 				to convert back to logical space.
 				*/
 
-				this.updatePassage(
-					this.parentStory.id,
-					this.passage.id,
-					{
-						top: this.passage.top + yOffset
-							/ this.parentStory.zoom,
-						left: this.passage.left + xOffset
-							/ this.parentStory.zoom
-					}
-				);
+				const top = this.passage.top + yOffset
+				/ this.parentStory.zoom;
+				const left = this.passage.left + xOffset
+				/ this.parentStory.zoom; 
+				
+				if (this.passage.top !== top || this.passage.left !== left) {
+					this.updatePassage(
+						this.parentStory.id,
+						this.passage.id,
+						{ top, left }
+					);
+				}
 
 				/*
 				Ask our parent to position us so we overlap no unselected
