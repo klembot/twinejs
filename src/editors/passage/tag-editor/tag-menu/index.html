@@ -1,7 +1,7 @@
 <drop-down position="bottom left" class="tags">
 	<ul class="menu">
 		<li>
-			<button @click="remove">
+			<button @click="remove" title="{{ 'Remove &ldquo;%1$s&rdquo;' | say tag }}">
 				{{ 'Remove &ldquo;%1$s&rdquo;' | say tag }}
 			</button>
 		</li>

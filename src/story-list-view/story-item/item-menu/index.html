@@ -1,29 +1,29 @@
 <drop-down position="bottom left">
 	<ul class="menu">
 		<li>
-			<button @click="play">{{ 'Play Story' | say}}</button>
+			<button @click="play" title="{{ 'Play Story' | say}}">{{ 'Play Story' | say}}</button>
 		</li>
 
 		<li>
-			<button @click="test">{{ 'Test Story' | say}}</button>
+			<button @click="test" title="{{ 'Test Story' | say}}">{{ 'Test Story' | say}}</button>
 		</li>
 
 		<li>
-			<button @click="publish">{{ 'Publish to File' | say }}</button>
+			<button @click="publish" title="{{ 'Publish to File' | say }}">{{ 'Publish to File' | say }}</button>
 		</li>
 
 		<li>
-			<button @click="rename">{{ 'Rename Story' | say }}</button>
+			<button @click="rename" title="{{ 'Rename Story' | say }}">{{ 'Rename Story' | say }}</button>
 		</li>
 
 		<li>
-			<button @click="duplicate">{{ 'Duplicate Story' | say }}</button>
+			<button @click="duplicate" title="{{ 'Duplicate Story' | say }}">{{ 'Duplicate Story' | say }}</button>
 		</li>
 
 		<li class="divider"></li>
 
 		<li>
-			<button @click="delete">{{ 'Delete Story' | say }}</button>
+			<button @click="delete" title="{{ 'Delete Story' | say }}">{{ 'Delete Story' | say }}</button>
 		</li>
 	</ul>
 </drop-down>

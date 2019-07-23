@@ -2,7 +2,7 @@
 	<div class="left">
 		<a v-link="'/stories'" class="home subtle" title="{{ 'Go to the story list' | say }}"><i class="fa fa-home fa-lg"></i></a>
 
-		<button class="storyName subtle">
+		<button class="storyName subtle" title="{{ 'Open the story menu' | say }}">
 			<span class="storyNameVal">{{ story.name }}</span>
 			<i class="fa fa-caret-up fa-lg"></i>
 			<story-menu :story="story"></story-menu>
