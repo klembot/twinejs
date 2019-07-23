@@ -1,4 +1,3 @@
-const { expect } = require('chai');
 const rect = require('./rect');
 
 describe('rect module', () => {
@@ -21,66 +20,66 @@ describe('rect module', () => {
         describe('registers as intersecting when rectangles overlap', () => {
             it('from the left', () => {
                 firstRect.left = 1;
-                expect(rect.intersects(firstRect, secondRect)).to.be.true;
+                expect(rect.intersects(firstRect, secondRect)).toBeTruthy();
             });
 
             it('from the right', () => {
                 firstRect.left = 19;
-                expect(rect.intersects(firstRect, secondRect)).to.be.true;
+                expect(rect.intersects(firstRect, secondRect)).toBeTruthy();
             });
 
             it('from the top', () => {
                 firstRect.top = 1;
-                expect(rect.intersects(firstRect, secondRect)).to.be.true;
+                expect(rect.intersects(firstRect, secondRect)).toBeTruthy();
             });
 
             it('from the bottom', () => {
                 firstRect.top = 19;
-                expect(rect.intersects(firstRect, secondRect)).to.be.true;
+                expect(rect.intersects(firstRect, secondRect)).toBeTruthy();
             });
         });
 
         describe('registers as intersecting when rectangles touch edges', () => {
             it('from the left', () => {
                 firstRect.left = 0;
-                expect(rect.intersects(firstRect, secondRect)).to.be.true;
+                expect(rect.intersects(firstRect, secondRect)).toBeTruthy();
             });
 
             it('from the right', () => {
                 firstRect.left = 20;
-                expect(rect.intersects(firstRect, secondRect)).to.be.true;
+                expect(rect.intersects(firstRect, secondRect)).toBeTruthy();
             });
 
             it('from the top', () => {
                 firstRect.top = 0;
-                expect(rect.intersects(firstRect, secondRect)).to.be.true;
+                expect(rect.intersects(firstRect, secondRect)).toBeTruthy();
             });
 
             it('from the bottom', () => {
                 firstRect.top = 20;
-                expect(rect.intersects(firstRect, secondRect)).to.be.true;
+                expect(rect.intersects(firstRect, secondRect)).toBeTruthy();
             });
         });
 
         describe('registers as not intersecting when rectangles don\'t touch', () => {
             it('from the left', () => {
                 firstRect.left = -1;
-                expect(rect.intersects(firstRect, secondRect)).to.be.false;
+                expect(rect.intersects(firstRect, secondRect)).toBeFalsy();
             });
 
             it('from the right', () => {
                 firstRect.left = 21;
-                expect(rect.intersects(firstRect, secondRect)).to.be.false;
+                expect(rect.intersects(firstRect, secondRect)).toBeFalsy();
             });
 
             it('from the top', () => {
                 firstRect.top = -1;
-                expect(rect.intersects(firstRect, secondRect)).to.be.false;
+                expect(rect.intersects(firstRect, secondRect)).toBeFalsy();
             });
 
             it('from the bottom', () => {
                 firstRect.top = 21;
-                expect(rect.intersects(firstRect, secondRect)).to.be.false;
+                expect(rect.intersects(firstRect, secondRect)).toBeFalsy();
             });
         });
     });
@@ -112,7 +111,7 @@ describe('rect module', () => {
                 rectangle,
                 segmentStart,
                 segmentEnd
-            )).to.be.undefined;
+            )).toBeUndefined();
         });
 
         describe('returns intersection point', () => {
@@ -124,7 +123,7 @@ describe('rect module', () => {
                     rectangle,
                     segmentStart,
                     segmentEnd
-                )).to.eql({
+                )).toEqual({
                     top: 15,
                     left: 10
                 });
@@ -138,7 +137,7 @@ describe('rect module', () => {
                     rectangle,
                     segmentStart,
                     segmentEnd
-                )).to.eql({
+                )).toEqual({
                     top: 15,
                     left: 20
                 });
@@ -152,7 +151,7 @@ describe('rect module', () => {
                     rectangle,
                     segmentStart,
                     segmentEnd
-                )).to.eql({
+                )).toEqual({
                     top: 10,
                     left: 15
                 });
@@ -166,7 +165,7 @@ describe('rect module', () => {
                     rectangle,
                     segmentStart,
                     segmentEnd
-                )).to.eql({
+                )).toEqual({
                     top: 20,
                     left: 15
                 });
@@ -193,7 +192,7 @@ describe('rect module', () => {
         it('displaces the movable rectangle an extra amount if spacing is specified', () => {
             movableRect.top = 19;
             rect.displace(movableRect, stationaryRect, 3);
-            expect(movableRect).to.eql({
+            expect(movableRect).toEqual({
                 top: 26,
                 left: 10,
                 width: 10,
@@ -202,7 +201,7 @@ describe('rect module', () => {
 
             movableRect.top = 9;
             rect.displace(movableRect, stationaryRect, 3);
-            expect(movableRect).to.eql({
+            expect(movableRect).toEqual({
                 top: -6,
                 left: 10,
                 width: 10,
@@ -214,7 +213,7 @@ describe('rect module', () => {
             movableRect.top = 11;
             movableRect.left = 12;
             rect.displace(movableRect, stationaryRect);
-            expect(movableRect).to.eql({
+            expect(movableRect).toEqual({
                 top: 11,
                 left: 20,
                 width: 10,
@@ -224,7 +223,7 @@ describe('rect module', () => {
             movableRect.top = 12;
             movableRect.left = 11;
             rect.displace(movableRect, stationaryRect);
-            expect(movableRect).to.eql({
+            expect(movableRect).toEqual({
                 top: 20,
                 left: 11,
                 width: 10,
@@ -234,7 +233,7 @@ describe('rect module', () => {
             movableRect.top = 1;
             movableRect.left = 2;
             rect.displace(movableRect, stationaryRect);
-            expect(movableRect).to.eql({
+            expect(movableRect).toEqual({
                 top: 0,
                 left: 2,
                 width: 10,
@@ -244,7 +243,7 @@ describe('rect module', () => {
             movableRect.top = 2;
             movableRect.left = 1;
             rect.displace(movableRect, stationaryRect);
-            expect(movableRect).to.eql({
+            expect(movableRect).toEqual({
                 top: 2,
                 left: 0,
                 width: 10,
@@ -256,7 +255,7 @@ describe('rect module', () => {
             it('to the left', () => {
                 movableRect.left = 1;
                 rect.displace(movableRect, stationaryRect);
-                expect(movableRect).to.eql({
+                expect(movableRect).toEqual({
                     top: 10,
                     left: 0,
                     width: 10,
@@ -267,7 +266,7 @@ describe('rect module', () => {
             it('to the right', () => {
                 movableRect.left = 19;
                 rect.displace(movableRect, stationaryRect);
-                expect(movableRect).to.eql({
+                expect(movableRect).toEqual({
                     top: 10,
                     left: 20,
                     width: 10,
@@ -278,7 +277,7 @@ describe('rect module', () => {
             it('to the top', () => {
                 movableRect.top = 1;
                 rect.displace(movableRect, stationaryRect);
-                expect(movableRect).to.eql({
+                expect(movableRect).toEqual({
                     top: 0,
                     left: 10,
                     width: 10,
@@ -289,7 +288,7 @@ describe('rect module', () => {
             it('to the bottom', () => {
                 movableRect.top = 19;
                 rect.displace(movableRect, stationaryRect);
-                expect(movableRect).to.eql({
+                expect(movableRect).toEqual({
                     top: 20,
                     left: 10,
                     width: 10,

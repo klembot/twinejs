@@ -3,13 +3,15 @@ A component showing a single search result.
 */
 
 const Vue = require('vue');
+const locale = require('../../locale');
+const eventHub = require('../../common/eventHub');
 const { updatePassage } = require('../../data/actions/passage');
 
 require('./result.less');
 
 module.exports = Vue.extend({
 	template: require('./result.html'),
-	
+
 	props: {
 		story: {
 			type: Object,
@@ -20,7 +22,7 @@ module.exports = Vue.extend({
 			type: Object,
 			required: true
 		},
-		
+
 		searchRegexp: {
 			type: RegExp,
 			required: true
@@ -37,6 +39,12 @@ module.exports = Vue.extend({
 		}
 	},
 
+	computed: {
+		replaceTitle() {
+			return locale.say('Replace in Passage');
+		}
+	},
+
 	data: () => ({
 		expanded: false
 	}),
@@ -47,44 +55,25 @@ module.exports = Vue.extend({
 		},
 
 		replace() {
-			const name = this.searchNames ?
-				this.match.passage.name.replace(
-					this.searchRegexp,
-					this.replaceWith
-				)
-				: undefined;
-			const text = this.match.passage.text.replace(
-				this.searchRegexp,
-				this.replaceWith
-			);
+			const name = (this.searchNames ?
+				this.match.passage.name.replace(this.searchRegexp, this.replaceWith) : undefined);
+			const text = this.match.passage.text.replace(this.searchRegexp, this.replaceWith);
 
-			this.updatePassage(
-				this.story.id,
-				this.match.passage.id,
-				{ name, text }
-			);
+			this.updatePassage(this.story.id, this.match.passage.id, { name, text });
 		}
 	},
 
-	events: {
-		/*
+	created: function() {
+    	/*
 		The parent sends these events when the user chooses to expand or
 		collapse all results.
 		*/
 
-		expand() {
-			this.expanded = true;
-		},
+		eventHub.$on('expand', () => this.expanded = true);
+		eventHub.$on('collapse', () => this.expanded = false);
+		/* The parent sends this event when the user clicks 'Replace All'. */
+		eventHub.$on('replace', () => this.replace());
 
-		collapse() {
-			this.expanded = false;
-		},
-
-		/* The parent sends this event when the user clicks "Replace All". */
-
-		replace() {
-			this.replace();
-		}
 	},
 
 	vuex: {

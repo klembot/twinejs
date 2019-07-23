@@ -8,15 +8,13 @@ const { deleteStory, importStory } = require('../../data/actions/story');
 const importHTML = require('../../data/import');
 const load = require('../../file/load');
 const locale = require('../../locale');
-const { thenable } = require('../../vue/mixins/thenable');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
+	props: ["immediateImport", "origin", "working"],
+
 	data: () => ({
-		/* A file to immediately import when mounted. */
-		immediateImport: null,
-		
 		/*
 		Current state of the operation:
 		   * `waiting`: waiting for the user to select a file
@@ -53,7 +51,7 @@ module.exports = Vue.extend({
 
 		confirmLabel() {
 			if (this.toReplace.length === 0) {
-				return locale.say('Don\'t Replace Any Stories');
+				return locale.say("Don't Replace Any Stories");
 			}
 
 			return locale.sayPlural(
@@ -63,11 +61,14 @@ module.exports = Vue.extend({
 			);
 		}
 	},
-	
-	ready() {
-		if (this.immediateImport) {
-			this.import(this.immediateImport);
-		}
+
+	mounted() {
+		this.$nextTick(function() {
+			// code that assumes this.$el is in-document
+			if (this.immediateImport) {
+				this.importStoryFile(this.immediateImport);
+			}
+		});
 	},
 
 	methods: {
@@ -77,18 +78,21 @@ module.exports = Vue.extend({
 			}
 		},
 
-		import(file) {
+		importStoryEvent(event) {
+			this.importStoryFile(event.srcElement.files[0])
+
+		},
+
+		importStoryFile(file) {
+
 			this.status = 'working';
 
-			load(file)
-			.then(source => {
+			load(file).then(source => {
 				this.toImport = importHTML(source);
 
 				this.dupeNames = this.toImport.reduce(
 					(list, story) => {
-						if (this.existingStories.find(
-							orig => orig.name === story.name
-						)) {
+						if (this.existingStories.find(orig => orig.name === story.name)) {
 							list.push(story.name);
 						}
 
@@ -126,9 +130,9 @@ module.exports = Vue.extend({
 
 				if (this.toReplace.indexOf(story.name) !== -1 ||
 					!this.existingStories.find(story => story.name === name)) {
-					this.importStory(story);
+					this.importStoryFile(story);
 				}
-				
+
 				this.close();
 			});
 		}
@@ -137,8 +141,6 @@ module.exports = Vue.extend({
 	components: {
 		'modal-dialog': require('../../ui/modal-dialog')
 	},
-
-	mixins: [thenable],
 
 	vuex: {
 		actions: {

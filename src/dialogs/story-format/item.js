@@ -2,6 +2,7 @@
 // choose it.
 
 const Vue = require('vue');
+const locale = require('../../locale');
 const { updateStory } = require('../../data/actions/story');
 
 require('./item.less');
@@ -25,6 +26,18 @@ module.exports = Vue.extend({
 		selected() {
 			return this.story.storyFormat === this.format.name &&
 				this.story.storyFormatVersion === this.format.version;
+		},
+
+		nameVersion() {
+			return this.format.name + '-' + this.format.properties.version;
+		},
+		author() {
+			if (this.format.properties.author) {
+				/* L10n: %s is the name of an author. */
+				return locale.say('by %s', this.format.properties.author);
+			}
+
+			return '';
 		},
 
 		/*

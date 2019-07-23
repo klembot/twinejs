@@ -8,7 +8,7 @@ describe('app-info data module', () => {
 		htmlEl.setAttribute('data-version', '-1.5');
 		htmlEl.setAttribute('data-build-number', '12345');
 
-		appInfo = require('./app-info');
+		appInfo = require('./app-info')();
 	});
 
 	afterEach(() => {

@@ -4,8 +4,7 @@ A single passage in the story map.
 
 const escape = require('lodash.escape');
 const Vue = require('vue');
-const PassageEditor = require('../../editors/passage');
-const { confirm } = require('../../dialogs/confirm');
+const eventHub = require('../../common/eventHub');
 const domEvents = require('../../vue/mixins/dom-events');
 const locale = require('../../locale');
 const { hasPrimaryTouchUI } = require('../../ui');
@@ -17,6 +16,7 @@ const {
 } =
 	require('../../data/actions/passage');
 
+
 require('./index.less');
 
 module.exports = Vue.extend({
@@ -27,7 +27,7 @@ module.exports = Vue.extend({
 			type: Object,
 			required: true
 		},
-		
+
 		parentStory: {
 			type: Object,
 			required: true
@@ -120,7 +120,7 @@ module.exports = Vue.extend({
 					: null
 			};
 		},
-		
+
 		cssClasses() {
 			let result = [];
 
@@ -163,13 +163,41 @@ module.exports = Vue.extend({
 			this.deletePassage(this.parentStory.id, this.passage.id);
 		},
 
+		requestDelete(skipConfirmation) {
+			if (skipConfirmation) {
+				this.delete();
+			}
+			else {
+				let message = locale.say(
+					'Are you sure you want to delete “%s”? ' +
+					'This cannot be undone.',
+					escape(this.passage.name)
+				);
+
+				if (!hasPrimaryTouchUI()) {
+					message += '<br><br>' + locale.say(
+						'(Hold the Shift key when deleting to skip this message.)'
+					);
+				}
+
+				eventHub.$once('close', (confirmed) => { if(confirmed) {this.delete();} });
+				const confirmArgs = {
+					buttonLabel: '<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
+					class: 'danger',
+					message: message
+				};
+
+				eventHub.$emit("modalConfirm", confirmArgs);
+			}
+		},
+
 		edit() {
 			/*
 			Close any existing passage menu -- it may still be visible if the
 			user double-clicked.
 			*/
 
-			this.$broadcast('drop-down-close');
+			eventHub.$emit('drop-down-close');
 
 			const oldText = this.passage.text;
 			const afterEdit = () => {
@@ -186,21 +214,14 @@ module.exports = Vue.extend({
 			so we need to handle both resolution and rejection of the promise.
 			*/
 
-			new PassageEditor({
-				data: {
-					passageId: this.passage.id,
-					storyId: this.parentStory.id,
-					origin: this.$el
-				},
-				store: this.$store,
-				storyFormat: {
-					name: this.parentStory.storyFormat,
-					version: this.parentStory.storyFormatVersion
-				}
-			})
-			.$mountTo(document.body)
-			.then(afterEdit)
-			.catch(afterEdit);
+			eventHub.$once('close', () => afterEdit());
+			eventHub.$emit('showEditor', {
+				passageId: this.passage.id,
+				storyId: this.parentStory.id,
+				origin: this.$el,
+				storyFormatName: this.parentStory.storyFormat,
+				storyFormatVersion: this.parentStory.storyFormatVersion
+			});
 		},
 
 		startDrag(e) {
@@ -209,7 +230,7 @@ module.exports = Vue.extend({
 			if (e.type === 'mousedown' && e.which !== 1) {
 				return;
 			}
-			
+
 			if (e.shiftKey || e.ctrlKey) {
 				/*
 				Shift- or control-clicking toggles our selected status, but
@@ -262,7 +283,7 @@ module.exports = Vue.extend({
 		followDrag(e) {
 			const srcPoint = (e.type === 'mousemove') ? e : e.touches[0];
 
-			this.$dispatch(
+			eventHub.$emit(
 				'passage-drag',
 				srcPoint.clientX + window.pageXOffset - this.screenDragStartX,
 				srcPoint.clientY + window.pageYOffset - this.screenDragStartY
@@ -307,7 +328,7 @@ module.exports = Vue.extend({
 			user may be starting a drag; but now that we know for sure that the
 			user didn't intend this, we select just this one.
 			*/
-			
+
 			if (this.dragXOffset === 0 && this.dragYOffset === 0) {
 				if (!(e.ctrlKey || e.shiftKey)) {
 					this.selectPassages(this.parentStory.id, p => p !== this);
@@ -320,7 +341,7 @@ module.exports = Vue.extend({
 				*/
 
 				if (e.type === 'mouseup') {
-					this.$dispatch(
+					eventHub.$emit(
 						'passage-drag-complete',
 						e.clientX + window.pageXOffset - this.screenDragStartX,
 						e.clientY + window.pageYOffset - this.screenDragStartY,
@@ -328,7 +349,7 @@ module.exports = Vue.extend({
 					);
 				}
 				else {
-					this.$dispatch(
+					eventHub.$emit(
 						'passage-drag-complete',
 						this.screenDragOffsetX,
 						this.screenDragOffsetY,
@@ -339,40 +360,8 @@ module.exports = Vue.extend({
 		}
 	},
 
-	events: {
-		'passage-edit'() {
-			this.edit();
-		},
-
-		'passage-delete'(skipConfirmation) {
-			if (skipConfirmation) {
-				this.delete();
-			}
-			else {
-				let message = locale.say(
-					'Are you sure you want to delete &ldquo;%s&rdquo;? ' +
-					'This cannot be undone.',
-					escape(this.passage.name)
-				);
-
-				if (!hasPrimaryTouchUI()) {
-					message += '<br><br>' + locale.say(
-						'(Hold the Shift key when deleting to skip this message.)'
-					);
-				}
-
-				confirm({
-					message,
-					buttonLabel:
-						'<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
-					buttonClass:
-						'danger',
-				})
-				.then(() => this.delete());
-			}
-		},
-
-		'passage-drag-complete'(xOffset, yOffset, emitter) {
+	created: function() {
+		eventHub.$on('passage-drag-complete', (xOffset, yOffset, emitter) => {
 			/*
 			We have to check whether we originally emitted this event, as
 			$dispatch triggers first on ourselves, then our parent.
@@ -404,7 +393,7 @@ module.exports = Vue.extend({
 				dragged.
 				*/
 
-				this.$dispatch(
+				eventHub.$emit(
 					'passage-position',
 					this.passage,
 					{ ignoreSelected: true }
@@ -416,8 +405,8 @@ module.exports = Vue.extend({
 			change its position.
 			*/
 
-			this.$broadcast('drop-down-reposition');
-		}
+			eventHub.$emit('drop-down-reposition');
+		});
 	},
 
 	components: {

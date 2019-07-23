@@ -1,11 +1,10 @@
-const {spy, stub} = require('sinon');
 const Vue = require('vue');
 const domEvents = require('./dom-events');
 
 describe('dom-events Vue mixin', () => {
 	const body = document.querySelector('body');
 	let clickEvent = document.createEvent('MouseEvent');
-	let handler, component;
+	let handler, handlerCb, component;
 
 	clickEvent.initMouseEvent(
 		'click',
@@ -27,13 +26,15 @@ describe('dom-events Vue mixin', () => {
 
 	beforeEach(() => {
 		component = new Vue({mixins: [domEvents]});
-		handler = spy();
-		spy(handler, 'bind');
+		handler = {}
+		handlerCb = jest.fn()
+		handler.bind = jest.fn().mockReturnValue(handlerCb);
 	});
 
 	afterEach(() => {
-		handler.bind.restore();
-	});
+		handler.bind.mockClear()
+		handlerCb.mockClear()
+	})
 
 	test('adds on() and off() methods to a Vue component', () => {
 		expect(typeof component.on).toBe('function');
@@ -43,27 +44,27 @@ describe('dom-events Vue mixin', () => {
 	test('adds event listeners with on()', () => {
 		component.on(body, 'click', handler);
 		body.dispatchEvent(clickEvent);
-		expect(handler.calledOnce).toBe(true);
+		expect(handlerCb).toHaveBeenCalledTimes(1);
 	});
 
 	test('binds handlers passed to on() to the component', () => {
 		component.on(body, 'click', handler);
-		expect(handler.bind.calledOnce).toBe(true);
-		expect(handler.bind.calledWith(component)).toBe(true);
+		expect(handler.bind).toHaveBeenCalledTimes(1);
+		expect(handler.bind).toHaveBeenCalledWith(component)
 	});
 
 	test('removes event listeners with off()', () => {
 		component.on(body, 'click', handler);
 		component.off(body, 'click', handler);
 		body.dispatchEvent(clickEvent);
-		expect(handler.calledOnce).toBe(false);
+		expect(handlerCb).not.toHaveBeenCalled();
 	});
 
 	test('cleans up event listeners added via on() when the component is destroyed', () => {
 		component.on(body, 'click', handler);
 		component.$destroy();
 		body.dispatchEvent(clickEvent);
-		expect(handler.calledOnce).toBe(false);
+		expect(handlerCb).not.toHaveBeenCalled();
 	});
 
 	test('does not do anything if a component has no listeners attached when destroyed', () => {
@@ -80,9 +81,9 @@ describe('dom-events Vue mixin', () => {
 		comp1.on(body, 'click', handler);
 		comp2.on(body, 'click', handler);
 
-		comp1.$destroy();
 		body.dispatchEvent(clickEvent);
 
-		expect(handler.calledOnce).toBe(true);
+		expect(handler.bind).toHaveBeenCalledTimes(2);
+		expect(handlerCb).toHaveBeenCalledTimes(1);
 	});
 });

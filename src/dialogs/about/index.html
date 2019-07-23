@@ -8,11 +8,7 @@
 		}}
 	</p>
 
-	<p>
-		{{{ 'This application is released under the \x3ca href="http:\/\/www.gnu.org/licenses/gpl-3.0.html">GPL v3\x3c/a>
-		license, but any work created with it may be released under any terms, including commercial ones.'| say
-		}}}
-	</p>
+	<p v-html="gplText"></p>
 
 	<p>
 		{{
@@ -31,11 +27,8 @@
 	</p>
 
 	<p>
-		<a
-			href="https:\/\/bitbucket.org/klembot/twinejs"
-			class="button primary"
-		>
-			<i class="fa fa-bitbucket"></i>
+		<a href="https://github.com/klembot/twinejs" class="button primary">
+			<i class="fa fa-github"></i>
 			{{ 'Source Code Repository' | say }}
 		</a>
 	</p>
@@ -110,12 +103,7 @@
 		{{ 'Fonts' | say }}
 	</h4>
 
-	<p>
-		{{{ 'Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the guidance of Robert Slimbach for
-		\x3ca href="http:\/\/adobe.com/">Adobe\x3c/a>\x3cbr> Nunito was designed by \x3ca
-		href="http:\/\/code.newtypography.co.uk/">Vernon Adams\x3c/a>'| say
-		}}}
-	</p>
+	<p v-html="fontsText"></p>
 
 	<h4>
 		{{ 'Icons' | say }}

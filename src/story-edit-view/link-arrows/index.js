@@ -33,7 +33,7 @@ module.exports = Vue.extend({
 		}
 	},
 
-	computed: {
+	methods: {
 		/*
 		A list of distinct links between passages, indexed by passage name.
 		This is kept distinct from the positions property so that dragging
@@ -53,6 +53,9 @@ module.exports = Vue.extend({
 				{}
 			);
 		},
+	},
+
+	computed: {
 
 		cssStyle() {
 			/*
@@ -62,7 +65,7 @@ module.exports = Vue.extend({
 			appearing, for example. Not sure if there are performance or
 			appearance implications to either approach.
 			*/
-			
+
 			return {
 				transform: 'scale(' + this.zoom + ')',
 				width: 100 * 1 / this.zoom + '%',

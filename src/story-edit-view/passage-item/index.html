@@ -2,7 +2,7 @@
 	@touchstart.stop="startDrag" @dblclick.stop="edit" @mouseover="needsMenu = true">
 	<div class="frame">
 		<div class="tags">
-			<div v-for="color in tagColors" class="{{color}}"></div>
+			<div v-for="color in tagColors" v-bind:class="color"></div>
 		</div>
 
 		<p class="title">
@@ -10,10 +10,8 @@
 			<span class="text">{{ passage.name }}</span>
 		</p>
 
-		<p class="excerpt">
-			{{{ excerpt }}}
-		</p>
+		<p class="excerpt" v-html="excerpt"></p>
 	</div> <!-- .frame -->
 
-	<passage-menu v-if="needsMenu" :passage="passage" :parent-story="parentStory"></passage-menu>
+	<passage-menu v-if="needsMenu" :passage="passage" :parent-story="parentStory" v-on:passage-edit="edit" v-on:passage-delete="requestDelete"></passage-menu>
 </div>

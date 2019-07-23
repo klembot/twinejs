@@ -1,4 +1,3 @@
-const { match, spy } = require('sinon');
 const storyFormat = require('./story-format');
 
 describe('story format local storage persistence', () => {
@@ -65,18 +64,16 @@ describe('story format local storage persistence', () => {
 		);
 		
 		let store = {
-			dispatch: spy()
+			dispatch: jest.fn()
 		};
 		
 		storyFormat.load(store);
-		expect(store.dispatch.calledTwice).toBe(true);
-		expect(store.dispatch.calledWith(
+		expect(store.dispatch).toHaveBeenCalledTimes(2)
+		expect(store.dispatch).toHaveBeenCalledWith(
 			'CREATE_FORMAT',
-			match({ name: 'Format 1', url: 'gopher://gopher.floodgap.com:70/1/' }))
-		).toBe(true);
-		expect(store.dispatch.calledWith(
+			{ name: 'Format 1', url: 'gopher://gopher.floodgap.com:70/1/' })
+		expect(store.dispatch).toHaveBeenCalledWith(
 			'CREATE_FORMAT',
-			match({ name: 'Format 2', url: 'gopher://gopher.floodgap.com:70/0/gopher/wbgopher' }))
-		).toBe(true);
+			{ name: 'Format 2', url: 'gopher://gopher.floodgap.com:70/0/gopher/wbgopher' })
 	});
 });

@@ -1,4 +1,4 @@
-const Vue = require('vue');
+const Vue = require('vue/dist/vue.common.js');
 const CodeMirror = require('./codemirror');
 
 describe('<code-mirror>', () => {
@@ -12,16 +12,27 @@ describe('<code-mirror>', () => {
 		document.body)
 		*/
 
-		document.body.createTextRange = document.body.createTextRange || (() => ({
-			setEnd: () => {},
-			setStart: () => {},
-			getBoundingClientRect: () => ({ right: 0 }),
-			getClientRects: () => ({})
-		}));
-		
+		document.body.createTextRange =
+			document.body.createTextRange ||
+			(() => ({
+				setEnd: () => {},
+				setStart: () => {},
+				getBoundingClientRect: () => ({ right: 0 }),
+				getClientRects: () => ({})
+			}));
+
 		vm = new Vue({
-			template: '<code-mirror v-ref:cm text="Hello world." ' +
-				':options="{ tabSize: 12 }"></code-mirror>',
+			template:
+				'<code-mirror ref=cm text="Hello world." ' +
+				':options="{ tabSize: 12 }" @cm-change="saveText"></code-mirror>',
+			data: {
+				text: ''
+			},
+			methods: {
+				saveText(text) {
+					this.testText = text;
+				}
+			},
 			components: {
 				'code-mirror': CodeMirror
 			}
@@ -45,6 +56,6 @@ describe('<code-mirror>', () => {
 	test('keeps the text property in sync', () => {
 		expect(vm.$refs.cm.text).toBe(vm.$refs.cm.$cm.getValue());
 		vm.$refs.cm.$cm.setValue('Something completely different!');
-		expect(vm.$refs.cm.text).toBe(vm.$refs.cm.$cm.getValue());
+		expect(vm.testText).toBe(vm.$refs.cm.$cm.getValue());
 	});
 });

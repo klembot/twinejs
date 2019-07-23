@@ -1,5 +1,3 @@
-const { expect } = require('chai');
-const { spy } = require('sinon');
 const actions = require('./story-format');
 
 describe('story format actions module', () => {
@@ -8,30 +6,30 @@ describe('story format actions module', () => {
 	let store;
 
 	beforeEach(() => {
-		store = { dispatch: spy() };
+		store = { dispatch: jest.fn() };
 	});
 
 	it('dispatches a CREATE_FORMAT mutation with createFormat()', () => {
 		actions.createFormat(store, props);
-		expect(store.dispatch.calledOnce).to.be.true;
-		expect(store.dispatch.calledWith('CREATE_FORMAT', props)).to.be.true;
+		expect(store.dispatch).toHaveBeenCalledTimes(1);
+		expect(store.dispatch).toHaveBeenCalledWith('CREATE_FORMAT', props)
 	});
 
 	it('dispatches an UPDATE_FORMAT mutation with createFormat()', () => {
 		actions.updateFormat(store, fakeId, props);
-		expect(store.dispatch.calledOnce).to.be.true;
-		expect(store.dispatch.calledWith('UPDATE_FORMAT', fakeId, props)).to.be.true;
+		expect(store.dispatch).toHaveBeenCalledTimes(1);
+		expect(store.dispatch).toHaveBeenCalledWith('UPDATE_FORMAT', fakeId, props)
 	});
 
 	it('dispatches a DELETE_FORMAT mutation with deleteFormat()', () => {
 		actions.deleteFormat(store, fakeId);
-		expect(store.dispatch.calledOnce).to.be.true;
-		expect(store.dispatch.calledWith('DELETE_FORMAT', fakeId)).to.be.true;
+		expect(store.dispatch).toHaveBeenCalledTimes(1);
+		expect(store.dispatch).toHaveBeenCalledWith('DELETE_FORMAT', fakeId)
 	});
 
 	it('creates built-in formats with repairFormats()', () => {
 		let formatsStore = {
-			dispatch: spy(),
+			dispatch: jest.fn(),
 			state: {
 				pref: {
 					defaultFormat: {
@@ -53,40 +51,40 @@ describe('story format actions module', () => {
 
 		let created = {};
 
-		for (let i = 0; i < formatsStore.dispatch.callCount; i++) {
-			let call = formatsStore.dispatch.getCall(i);
+		for (let i = 0; i < formatsStore.dispatch.mock.calls.length; i++) {
+			let call = formatsStore.dispatch.mock.calls[i];
 
-			if (call.args[0] === 'CREATE_FORMAT') {
-				created[call.args[1].name + '-' + call.args[1].version] = call.args[1];
+			if (call[0] === 'CREATE_FORMAT') {
+				created[call[1].name + '-' + call[1].version] = call[1];
 			}
 		}
 
-		expect(created['Harlowe-3.0.2']).to.exist;
-		expect(created['Harlowe-3.0.2'].url).to.equal('story-formats/harlowe-3.0.2/format.js');
-		expect(created['Harlowe-3.0.2'].userAdded).to.be.false;
-		expect(created['Harlowe-2.1.0']).to.exist;
-		expect(created['Harlowe-2.1.0'].url).to.equal('story-formats/harlowe-2.1.0/format.js');
-		expect(created['Harlowe-2.1.0'].userAdded).to.be.false;
-		expect(created['Harlowe-1.2.4']).to.exist;
-		expect(created['Harlowe-1.2.4'].url).to.equal('story-formats/harlowe-2.1.0/format.js');
-		expect(created['Harlowe-1.2.4'].userAdded).to.be.false;
-		expect(created['Paperthin-1.0.0']).to.exist;
-		expect(created['Paperthin-1.0.0'].url).to.equal('story-formats/paperthin-1.0.0/format.js');
-		expect(created['Paperthin-1.0.0'].userAdded).to.be.false;
-		expect(created['Snowman-1.3.0']).to.exist;
-		expect(created['Snowman-1.3.0'].url).to.equal('story-formats/snowman-1.3.0/format.js');
-		expect(created['Snowman-1.3.0'].userAdded).to.be.false;
-		expect(created['SugarCube-1.0.35']).to.exist;
-		expect(created['SugarCube-1.0.35'].url).to.equal('story-formats/sugarcube-1.0.35/format.js');
-		expect(created['SugarCube-1.0.35'].userAdded).to.be.false;
-		expect(created['SugarCube-2.28.2']).to.exist;
-		expect(created['SugarCube-2.28.2'].url).to.equal('story-formats/sugarcube-2.28.2/format.js');
-		expect(created['SugarCube-2.28.2'].userAdded).to.be.false;
+		expect(created['Harlowe-3.0.2']).toBeTruthy();
+		expect(created['Harlowe-3.0.2'].url).toEqual('story-formats/harlowe-3.0.2/format.js');
+		expect(created['Harlowe-3.0.2'].userAdded).toBeFalsy();
+		expect(created['Harlowe-2.1.0']).toBeTruthy();
+		expect(created['Harlowe-2.1.0'].url).toEqual('story-formats/harlowe-2.1.0/format.js');
+		expect(created['Harlowe-2.1.0'].userAdded).toBeFalsy();
+		expect(created['Harlowe-1.2.4']).toBeTruthy();
+		expect(created['Harlowe-1.2.4'].url).toEqual('story-formats/harlowe-1.2.4/format.js');
+		expect(created['Harlowe-1.2.4'].userAdded).toBeFalsy();
+		expect(created['Paperthin-1.0.0']).toBeTruthy();
+		expect(created['Paperthin-1.0.0'].url).toEqual('story-formats/paperthin-1.0.0/format.js');
+		expect(created['Paperthin-1.0.0'].userAdded).toBeFalsy();
+		expect(created['Snowman-1.3.0']).toBeTruthy();
+		expect(created['Snowman-1.3.0'].url).toEqual('story-formats/snowman-1.3.0/format.js');
+		expect(created['Snowman-1.3.0'].userAdded).toBeFalsy();
+		expect(created['SugarCube-1.0.35']).toBeTruthy();
+		expect(created['SugarCube-1.0.35'].url).toEqual('story-formats/sugarcube-1.0.35/format.js');
+		expect(created['SugarCube-1.0.35'].userAdded).toBeFalsy();
+		expect(created['SugarCube-2.28.2']).toBeTruthy();
+		expect(created['SugarCube-2.28.2'].url).toEqual('story-formats/sugarcube-2.28.2/format.js');
+		expect(created['SugarCube-2.28.2'].userAdded).toBeFalsy();
 	});
 
 	it('sets default formats with repairFormats()', () => {
 		let formatsStore = {
-			dispatch: spy().withArgs('UPDATE_PREF'),
+			dispatch: jest.fn(),
 			state: {
 				pref: {},
 				storyFormat: {
@@ -97,17 +95,17 @@ describe('story format actions module', () => {
 
 		actions.repairFormats(formatsStore);
 
-		expect(formatsStore.dispatch.calledWith(
-			'UPDATE_PREF', 'defaultFormat', { name: 'Harlowe', version: '2.1.0' }
-		)).to.be.true;
-		expect(formatsStore.dispatch.calledWith(
+		expect(formatsStore.dispatch).toHaveBeenCalledWith(
+			'UPDATE_PREF', 'defaultFormat', { name: 'Harlowe', version: '3.0.2' }
+		)
+		expect(formatsStore.dispatch).toHaveBeenCalledWith(
 			'UPDATE_PREF', 'proofingFormat', { name: 'Paperthin', version: '1.0.0' }
-		)).to.be.true;
+		)
 	});
 
 	it('deletes unversioned formats with repairFormats()', () => {
 		let formatsStore = {
-			dispatch: spy(),
+			dispatch: jest.fn(),
 			state: {
 				pref: {},
 				storyFormat: {
@@ -119,12 +117,12 @@ describe('story format actions module', () => {
 		};
 
 		actions.repairFormats(formatsStore);
-		expect(formatsStore.dispatch.calledWith('DELETE_FORMAT', fakeId)).to.be.true;
+		expect(formatsStore.dispatch).toHaveBeenCalledWith('DELETE_FORMAT', fakeId)
 	});
 
 	it('does not duplicate formats with repairFormats()', () => {
 		let formatsStore = {
-			dispatch: spy().withArgs('CREATE_FORMAT'),
+			dispatch: jest.fn(),
 			state: {
 				pref: {},
 				storyFormat: {
@@ -141,12 +139,12 @@ describe('story format actions module', () => {
 		};
 
 		actions.repairFormats(formatsStore);
-		expect(formatsStore.dispatch.calledOnce).to.be.false;
+		expect(formatsStore.dispatch).not.toHaveBeenCalledWith("CREATE_FORMAT");
 	});
 
 	it('deletes outdated story format versions with repairFormats()', () => {
 		let formatsStore = {
-			dispatch: spy(),
+			dispatch: jest.fn(),
 			state: {
 				pref: {},
 				storyFormat: {
@@ -159,14 +157,13 @@ describe('story format actions module', () => {
 			}
 		};
 
-		formatsStore.dispatch.withArgs('DELETE_FORMAT', fakeId);
 		actions.repairFormats(formatsStore);
-		expect(formatsStore.dispatch.withArgs('DELETE_FORMAT', fakeId).calledOnce).to.be.true;
+		expect(formatsStore.dispatch).toHaveBeenCalledWith('DELETE_FORMAT', fakeId)
 	});
 
 	it('updates the default format version with repairFormats()', () => {
 		let formatsStore = {
-			dispatch: spy(),
+			dispatch: jest.fn(),
 			state: {
 				pref: {
 					defaultFormat: {
@@ -189,16 +186,16 @@ describe('story format actions module', () => {
 		};
 
 		actions.repairFormats(formatsStore);
-		expect(formatsStore.dispatch.calledWith(
+		expect(formatsStore.dispatch).toHaveBeenCalledWith(
 			'UPDATE_PREF',
 			'defaultFormat',
 			{ name: 'Default Format', version: '1.0.1' }
-		)).to.be.true;
+		)
 	});
 
 	it('updates the proofing version with repairFormats()', () => {
 		let formatsStore = {
-			dispatch: spy(),
+			dispatch: jest.fn(),
 			state: {
 				pref: {
 					defaultFormat: {
@@ -222,10 +219,10 @@ describe('story format actions module', () => {
 		};
 
 		actions.repairFormats(formatsStore);
-		expect(formatsStore.dispatch.calledWith(
+		expect(formatsStore.dispatch).toHaveBeenCalledWith(
 			'UPDATE_PREF',
 			'proofingFormat',
 			{ name: 'Proofing Format', version: '1.0.1' }
-		)).to.be.true;
+		)
 	});
 });

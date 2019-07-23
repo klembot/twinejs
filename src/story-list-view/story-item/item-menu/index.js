@@ -2,7 +2,7 @@
 
 const escape = require('lodash.escape');
 const Vue = require('vue');
-const {confirm} = require('../../../dialogs/confirm');
+const eventHub = require('../../../common/eventHub');
 const {
 	deleteStory,
 	duplicateStory,
@@ -10,7 +10,6 @@ const {
 } = require('../../../data/actions/story');
 const {loadFormat} = require('../../../data/actions/story-format');
 const {playStory, testStory} = require('../../../common/launch-story');
-const {prompt} = require('../../../dialogs/prompt');
 const locale = require('../../../locale');
 const {publishStoryWithFormat} = require('../../../data/publish');
 const save = require('../../../file/save');
@@ -74,18 +73,20 @@ module.exports = Vue.extend({
 		 @method confirmDelete
 		**/
 
-		delete() {
-			confirm({
-				message: locale.say(
-					'Are you sure you want to delete &ldquo;%s&rdquo;? ' +
+		deleteClick() {
+			eventHub.$once('close', (confirmed) => { if(confirmed) { this.deleteStory(this.story.id); } });
+			eventHub.$emit("modalConfirm", {
+				message:
+					locale.say(
+						'Are you sure you want to delete “%s”? ' +
 						'This cannot be undone.',
 					escape(this.story.name)
 				),
 				buttonLabel:
-					'<i class="fa fa-trash-o"></i> ' +
-					locale.say('Delete Forever'),
-				buttonClass: 'danger'
-			}).then(() => this.deleteStory(this.story.id));
+					'<i class="fa fa-trash-o"></i> ' + locale.say('Delete Forever'),
+				buttonClass:
+					'danger'
+			});
 		},
 
 		/**
@@ -95,15 +96,25 @@ module.exports = Vue.extend({
 		**/
 
 		rename() {
-			prompt({
-				message: locale.say(
-					'What should &ldquo;%s&rdquo; be renamed to?',
-					escape(this.story.name)
-				),
-				buttonLabel: '<i class="fa fa-ok"></i> ' + locale.say('Rename'),
-				response: this.story.name,
-				blankTextError: locale.say('Please enter a name.')
-			}).then(name => this.updateStory(this.story.id, {name}));
+			eventHub.$once('close', (isError, name) => {
+				if (isError) {
+					return;
+				}
+				this.updateStory(this.story.id, { name });
+			});
+			eventHub.$emit("modalPrompt", {
+				message:
+					locale.say(
+						'What should “%s” be renamed to?',
+						escape(this.story.name)
+					),
+				buttonLabel:
+					'<i class="fa fa-ok"></i> ' + locale.say('Rename'),
+				response:
+					this.story.name,
+				blankTextError:
+					locale.say('Please enter a name.')
+			});
 		},
 
 		/**
@@ -112,14 +123,20 @@ module.exports = Vue.extend({
 		**/
 
 		duplicate() {
-			prompt({
-				message: locale.say('What should the duplicate be named?'),
+			eventHub.$once('close', name => {
+				if (name) {
+					this.duplicateStory(this.story.id, name);
+				}
+			});
+			eventHub.$emit("modalPrompt", {
+				message:
+					locale.say('What should the duplicate be named?'),
 				buttonLabel:
 					'<i class="fa fa-copy"></i> ' + locale.say('Duplicate'),
-				response: locale.say('%s Copy', this.story.name),
-				blankTextError: locale.say('Please enter a name.')
-			}).then(name => {
-				this.duplicateStory(this.story.id, name);
+				response:
+					locale.say('%s Copy', this.story.name),
+				blankTextError:
+					locale.say('Please enter a name.')
 			});
 		}
 	},

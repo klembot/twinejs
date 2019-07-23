@@ -8,8 +8,9 @@
 'use strict';
 const Vue = require('vue');
 const locale = require('../locale');
-const {check: checkForAppUpdate} = require('../dialogs/app-update');
-const {check: checkForDonation} = require('../dialogs/app-donation');
+const eventHub = require('../common/eventHub');
+const { check: checkForAppUpdate } = require('../dialogs/app-update');
+const { check: checkForDonation } = require('../dialogs/app-donation');
 const isElectron = require('../electron/is-electron');
 const ImportDialog = require('../dialogs/story-import');
 
@@ -36,10 +37,29 @@ module.exports = Vue.extend({
 		*/
 
 		storyOrder: 'name',
-		storyOrderDir: 'asc'
+		storyOrderDir: 'asc',
+		showPrompt: false,
+		showConfirm: false,
+		showCustomModal: false,
+		customModalComponent: null,
+		customModalComponentData: null,
+		promptArgs: {},
+		confirmArgs: {}
 	}),
 
 	computed: {
+		sortDateButtonClass() {
+			return 'subtle' + (this.storyOrder === 'lastUpdate' ? ' active' : '');
+		},
+		sortDateButtonTitle() {
+			return locale.say('Last changed date');
+		},
+		sortNameButtonClass() {
+			return 'subtle' + (this.storyOrder === 'name' ? ' active' : '');
+		},
+		sortNameButtonTitle() {
+			return locale.say('Story name');
+		},
 		sortedStories() {
 			/*
 			If we have no stories to sort, don't worry about it.
@@ -80,18 +100,12 @@ module.exports = Vue.extend({
 					});
 
 				default:
-					throw new Error(
-						`Don't know how to sort by "${this.storyOrder}"`
-					);
+					throw new Error(`Don't know how to sort by '${this.storyOrder}'`);
 			}
 		},
 
 		storyCountDesc() {
-			return locale.sayPlural(
-				'%d Story',
-				'%d Stories',
-				this.stories.length
-			);
+			return locale.sayPlural('%d Story', '%d Stories', this.stories.length);
 		}
 	},
 
@@ -105,17 +119,34 @@ module.exports = Vue.extend({
 		}
 	},
 
-	ready() {
-		/* If we were asked to appear fast, we do nothing. */
+	mounted() {
+		eventHub.$on('modalPrompt', promptArgs => {
+			this.promptArgs = promptArgs;
+			this.showPrompt = true;
+		});
+		eventHub.$on('modalConfirm', confirmArgs => {
+			this.confirmArgs = confirmArgs;
+			this.showConfirm = true;
+		});
+		eventHub.$on('close', () => {
+			this.showPrompt = false;
+			this.showConfirm = false;
+			this.showCustomModal = false;
+		});
 
-		if (this.appearFast) {
-			return;
-		}
+		this.$nextTick(function() {
+			// code that assumes this.$el is in-document
 
-		/*
-		Otherwise, we check to see if we should ask for a donation, and then an
-		app update...
-		*/
+			/* If we were asked to appear fast, we do nothing. */
+
+			if (this.appearFast) {
+				return;
+			}
+
+			/*
+			Otherwise, we check to see if we should ask for a donation,
+			 and then an app update...
+			*/
 
 		if (
 			!this.appearFast &&
@@ -125,18 +156,25 @@ module.exports = Vue.extend({
 			checkForAppUpdate(this.$store);
 		}
 
-		/*
-		And if the user had been previously editing a story (as the router will
-		tell us), we broadcast an event so that an appropriate child component
-		can set up a zoom transition back into itself.
-		*/
+			/*
+			And if the user had been previously editing a story
+			 (as the router will tell us),
+			  we broadcast an event so that an appropriate child component
+			can set up a zoom transition back into itself.
+			*/
 
-		if (this.previouslyEditing) {
-			this.$broadcast('previously-editing', this.previouslyEditing);
-		}
+			if (this.previouslyEditing) {
+				eventHub.$emit('previously-editing', this.previouslyEditing);
+			}
+		});
 	},
 
 	methods: {
+		newCustomModal(customModalComponent, data) {
+			this.customModalComponent = customModalComponent;
+			this.customModalComponentData = data;
+			this.showCustomModal = true;
+		},
 		sortByDate() {
 			/*
 			If the last story order was 'lastUpdate', toggle the story order
@@ -176,26 +214,12 @@ module.exports = Vue.extend({
 		'file-drag-n-drop': require('../ui/file-drag-n-drop')
 	},
 
-	events: {
-		/*
-		We reflect back `story-edit` events onto children, so that the
-		appropriate StoryItem can edit itself, e.g. animate into editing.
-		*/
-
-		'story-edit'(id) {
-			this.$broadcast('story-edit', id);
-		},
-
+	created: function() {
 		/* For now, we only support importing a single file at a time. */
 
-		'file-drag-n-drop'(files) {
-			new ImportDialog({
-				store: this.$store,
-				data: {
-					immediateImport: files[0]
-				}
-			}).$mountTo(document.body);
-		}
+		eventHub.$on('file-drag-n-drop', files => {
+			this.newCustomModal(ImportDialog, { immediateImport: files[0] });
+		});
 	},
 
 	vuex: {

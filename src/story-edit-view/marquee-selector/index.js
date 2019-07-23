@@ -221,8 +221,11 @@ module.exports = Vue.extend({
 		}
 	},
 
-	ready() {
-		this.on(this.$el.parentNode, 'mousedown', this.startDrag);
+	mounted() {
+		this.$nextTick(function () {
+			// code that assumes this.$el is in-document
+			this.on(this.$el.parentNode, 'mousedown', this.startDrag);
+		});
 	},
 
 	vuex: {

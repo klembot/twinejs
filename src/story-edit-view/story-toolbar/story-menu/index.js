@@ -8,8 +8,8 @@ const StatsDialog = require('../../../dialogs/story-stats');
 const StylesheetEditor = require('../../../editors/stylesheet');
 const {loadFormat} = require('../../../data/actions/story-format');
 const locale = require('../../../locale');
+const eventHub = require('../../../common/eventHub');
 const {proofStory} = require('../../../common/launch-story');
-const {prompt} = require('../../../dialogs/prompt');
 const {publishStoryWithFormat} = require('../../../data/publish');
 const save = require('../../../file/save');
 const {selectPassages} = require('../../../data/actions/passage');
@@ -27,35 +27,36 @@ module.exports = Vue.extend({
 
 	methods: {
 		editScript(e) {
-			/*
-			We have to manually inject the Vuex store, since the editors are
-			mounted outside the app scope.
-			*/
-
-			new JavaScriptEditor({
-				data: {storyId: this.story.id, origin: e.target},
-				store: this.$store
-			}).$mountTo(document.body);
+			eventHub.$emit('customModal', JavaScriptEditor, {
+				storyId: this.story.id,
+				origin: e.target
+			});
 		},
 
 		editStyle(e) {
-			new StylesheetEditor({
-				data: {storyId: this.story.id, origin: e.target},
-				store: this.$store
-			}).$mountTo(document.body);
+			eventHub.$emit('customModal', StylesheetEditor, {
+				storyId: this.story.id,
+				origin: e.target
+			});
 		},
 
 		renameStory(e) {
-			prompt({
+			eventHub.$once('close', (isError, text) => {
+				if (isError) {
+					return;
+				}
+				this.updateStory(this.story.id, { name: text });
+			});
+			eventHub.$emit('modalPrompt', {
 				message: locale.say(
-					'What should &ldquo;%s&rdquo; be renamed to?',
+					'What should “%s” be renamed to?',
 					escape(this.story.name)
 				),
 				buttonLabel: '<i class="fa fa-ok"></i> ' + locale.say('Rename'),
 				response: this.story.name,
 				blankTextError: locale.say('Please enter a name.'),
 				origin: e.target
-			}).then(text => this.updateStory(this.story.id, {name: text}));
+			});
 		},
 
 		selectAll() {
@@ -79,23 +80,21 @@ module.exports = Vue.extend({
 		},
 
 		storyStats(e) {
-			new StatsDialog({
-				data: {storyId: this.story.id, origin: e.target},
-				store: this.$store
-			}).$mountTo(document.body);
+			eventHub.$emit('customModal', StatsDialog, {
+				storyId: this.story.id,
+				origin: e.target
+			});
 		},
 
 		changeFormat(e) {
-			new FormatDialog({
-				data: {storyId: this.story.id, origin: e.target},
-				store: this.$store
-			}).$mountTo(document.body);
+			eventHub.$emit('customModal', FormatDialog, {
+				storyId: this.story.id,
+				origin: e.target
+			});
 		},
 
 		toggleSnap() {
-			this.updateStory(this.story.id, {
-				snapToGrid: !this.story.snapToGrid
-			});
+			this.updateStory(this.story.id, { snapToGrid: !this.story.snapToGrid });
 		}
 	},
 

@@ -1,4 +1,3 @@
-const { match, spy } = require('sinon');
 const story = require('./story');
 
 describe('story local storage persistence', () => {
@@ -121,12 +120,12 @@ describe('story local storage persistence', () => {
 			JSON.stringify(testPassage)
 		);
 		
-		let store = { dispatch: spy() };
+		let store = { dispatch: jest.fn() };
 		
 		story.load(store);
-		expect(store.dispatch.calledOnce).toBe(true);
+		expect(store.dispatch).toHaveBeenCalledTimes(1);
 		
-		const firstArgs = store.dispatch.getCall(0).args;
+		const firstArgs = store.dispatch.mock.calls[0];
 		
 		expect(firstArgs[0]).toBe('CREATE_STORY');
 		

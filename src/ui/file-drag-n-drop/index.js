@@ -4,6 +4,7 @@ this component dispatches a `file-drag-n-drop` event to its parent.
 */
 
 const Vue = require('vue');
+const eventHub = require('../../common/eventHub');
 const domEvents = require('../../vue/mixins/dom-events');
 
 require('./index.less');
@@ -17,34 +18,38 @@ module.exports = Vue.extend({
 		receiving: false
 	}),
 
-	ready() {
-		const parentEl = this.$parent.$el;
+	mounted() {
+		this.$nextTick(function () {
+			// code that assumes this.$el is in-document
+			const parentEl = this.$parent.$el;
 
-		/*
-		Make ourselves visible when the user drags a file onto us.
-		*/
+			/*
+			Make ourselves visible when the user drags a file onto us.
+			*/
 
-		this.on(parentEl, 'dragenter', () => {
-			this.receiving = true;
-		});
+			this.on(parentEl, 'dragenter', () => {
+				this.receiving = true;
+			});
 
-		this.on(parentEl, 'dragexit', () => {
-			this.receiving = false;
-		});
+			this.on(parentEl, 'dragexit', () => {
+				this.receiving = false;
+			});
 
-		/*
-		The below is necessary to prevent the browser from opening the file
-		directly after the user drops a file on us.
-		*/
+			/*
+			The below is necessary to prevent the browser from opening the file
+			directly after the user drops a file on us.
+			*/
 
-		this.on(parentEl, 'dragover', e => {
-			e.preventDefault();
+			this.on(parentEl, 'dragover', e => {
+				e.preventDefault();
+			});
+
 		});
 	},
 
 	methods: {
 		fileReceived(e) {
-			this.$dispatch('file-drag-n-drop', e.dataTransfer.files);
+			eventHub.$emit('file-drag-n-drop', e.dataTransfer.files);
 			this.receiving = false;
 		}
 	},

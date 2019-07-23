@@ -1,4 +1,3 @@
-const {spy} = require('sinon');
 const story = require('./story');
 
 describe('story data module', () => {
