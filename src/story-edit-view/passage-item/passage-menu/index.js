@@ -1,6 +1,8 @@
 /* A contextual menu that appears when the user points at a passage. */
 
 const Vue = require('vue');
+const eventHub = require('../../../common/eventHub');
+const locale = require('../../../locale');
 const {testStory} = require('../../../common/launch-story');
 const {updatePassage} = require('../../../data/actions/passage');
 const {updateStory} = require('../../../data/actions/story');
@@ -31,6 +33,22 @@ module.exports = Vue.extend({
 			return this.parentStory.startPassage === this.passage.id;
 		},
 
+		deleteTitle() {
+			return locale.say('Delete “%s”', this.passage.name);
+		},
+
+		editTitle() {
+			return locale.say('Edit “%s”', this.passage.name);
+		},
+
+		testTitle() {
+			return locale.say('Test story starting here');
+		},
+
+		toggleExpandedTitle() {
+			return locale.say('More passage options');
+		},
+
 		size() {
 			if (this.passage.width === 100 && this.passage.height === 100) {
 				return 'small';
@@ -52,17 +70,17 @@ module.exports = Vue.extend({
 
 	watch: {
 		expanded() {
-			this.$broadcast('drop-down-reposition');
+			eventHub.$emit('drop-down-reposition');
 		}
 	},
 
 	methods: {
 		edit() {
-			this.$dispatch('passage-edit');
+			this.$emit('passage-edit');
 		},
 
-		delete(e) {
-			this.$dispatch('passage-delete', e.shiftKey);
+		passageDelete(e) {
+			this.$emit('passage-delete', e.shiftKey);
 		},
 
 		test() {
@@ -113,14 +131,14 @@ module.exports = Vue.extend({
 					throw new Error(`Don't know how to set size ${value}`);
 			}
 
-			this.$dispatch('passage-position', this.passage, {});
+			eventHub.$emit('passage-position', this.passage, {});
 		}
 	},
 
-	events: {
-		'drop-down-opened'() {
+	created: function() {
+		eventHub.$on('drop-down-opened', () => {
 			this.expanded = false;
-		}
+		});
 	},
 
 	components: {

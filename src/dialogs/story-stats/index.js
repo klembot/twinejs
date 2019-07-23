@@ -9,13 +9,10 @@ const locale = require('../../locale');
 
 require('./index.less');
 
-module.exports = Vue.extend({
+module.exports = Vue.component("StatsDialog", {
 	template: require('./index.html'),
 
-	data: () => ({
-		storyId: '',
-		origin: null
-	}),
+	props: ["storyId", "origin"],
 
 	computed: {
 		story() {
@@ -62,9 +59,7 @@ module.exports = Vue.extend({
 			return this.story.passages.reduce(
 				(links, passage) => [
 					...links,
-					...linkParser(passage.text).filter(
-						link => links.indexOf(link) === -1
-					)
+					...linkParser(passage.text).filter(link => links.indexOf(link) === -1)
 				],
 				[]
 			);
@@ -95,7 +90,7 @@ module.exports = Vue.extend({
 				0
 			);
 		},
-		
+
 		linkDesc() {
 			/*
 			L10n: Links in the sense of hypertext links.
@@ -106,9 +101,8 @@ module.exports = Vue.extend({
 		},
 
 		brokenLinkCount() {
-			return this.links.filter(
-				link => this.passageNames.indexOf(link) === -1
-			).length;
+			return this.links.filter(link => this.passageNames.indexOf(link) === -1)
+				.length;
 		},
 
 		brokenLinkDesc() {
@@ -121,6 +115,13 @@ module.exports = Vue.extend({
 				'Broken Link',
 				'Broken Links',
 				this.brokenLinkCount
+			);
+		},
+
+		ifidHelp() {
+			return locale.say(
+				`The IFID for this story is <span class="ifid">%s</span>. (<a href="http:\/\/ifdb.tads.org/help-ifid" target="_blank">What\'s an IFID?</a>)`,
+				this.story.ifid
 			);
 		}
 	},

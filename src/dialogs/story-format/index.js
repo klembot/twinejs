@@ -6,13 +6,14 @@ const semverUtils = require('semver-utils');
 
 require('./index.less');
 
-module.exports = Vue.extend({
+module.exports = Vue.component('FormatDialog', {
 	template: require('./index.html'),
+
+	props: ['storyId', 'origin'],
 
 	data: () => ({
 		loadIndex: 0,
 		loadedFormats: [],
-		storyId: '',
 	}),
 
 	computed: {
@@ -22,7 +23,8 @@ module.exports = Vue.extend({
 
 		selectedFormat() {
 			return this.loadedFormats.find(
-				format => format.name === this.story.storyFormat &&
+				format =>
+					format.name === this.story.storyFormat &&
 					format.version === this.story.storyFormatVersion
 			);
 		},
@@ -41,51 +43,55 @@ module.exports = Vue.extend({
 			const nextFormat = this.allFormats[this.loadIndex];
 
 			this.loadFormat(nextFormat.name, nextFormat.version)
-			.then(format => {
-				if (!format.properties.proofing) {
-					this.loadedFormats.push(format);
-				}
+				.then(format => {
+					if (!format.properties.proofing) {
+						this.loadedFormats.push(format);
+					}
 
-				this.loadIndex++;
-				this.loadNext();
-			})
-			.catch(e => {
-				notify(
-					locale.say(
-						'The story format &ldquo;%1$s&rdquo; could not ' +
-						'be loaded (%2$s).',
-						nextFormat.name + ' ' + nextFormat.version,
-						e.message
-					),
-					'danger'
-				);
-				this.loadIndex++;
-				this.loadNext();
-			});
+					this.loadIndex++;
+					this.loadNext();
+				})
+				.catch(e => {
+					notify(
+						locale.say(
+							'The story format “%1$s” could not ' +
+								'be loaded (%2$s).',
+							nextFormat.name + ' ' + nextFormat.version,
+							e.message
+						),
+						'danger'
+					);
+					this.loadIndex++;
+					this.loadNext();
+				});
 		}
 	},
 
-	ready() {
-		this.loadNext();
+	mounted() {
+		this.$nextTick(function() {
+			// code that assumes this.$el is in-document
+			this.loadNext();
+		});
 	},
 
 	vuex: {
 		actions: {
-			loadFormat,
+			loadFormat
 		},
 
 		getters: {
 			allStories: state => state.story.stories,
 			allFormats: state => {
-				var result = state.storyFormat.formats.map(
-					format => ({ name: format.name, version: format.version })
-				);
-				
+				var result = state.storyFormat.formats.map(format => ({
+					name: format.name,
+					version: format.version
+				}));
+
 				result.sort((a, b) => {
 					if (a.name < b.name) {
 						return -1;
 					}
-					
+
 					if (a.name > b.name) {
 						return 1;
 					}

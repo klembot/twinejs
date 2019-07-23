@@ -62,15 +62,15 @@ msgstr ""
 #: templates/storyeditview/passageitemview.html:16
 #, php-format
 #, approved
-msgid "Delete &ldquo;%s&rdquo;"
-msgstr "Smazat &ldquo;%s&rdquo;"
+msgid "Delete “%s”"
+msgstr "Smazat “%s”"
 
 #.    L10n: %s is the name of the thing to be edited.
 #: templates/storyeditview/passageitemview.html:21
 #, php-format
 #, approved
-msgid "Edit &ldquo;%s&rdquo;"
-msgstr "Upravit &ldquo;%s&rdquo;"
+msgid "Edit “%s”"
+msgstr "Upravit “%s”"
 
 #: templates/storyeditview/passageitemview.html:24
 #, approved
@@ -81,8 +81,8 @@ msgstr "Začít test příběhu z tohoto místa"
 #: templates/storyeditview/passageitemview.html:28
 #, php-format
 #, approved
-msgid "Set &ldquo;%s&rdquo; as starting point"
-msgstr "Nastavit &ldquo;%s&rdquo; jako počáteční bod"
+msgid "Set “%s” as starting point"
+msgstr "Nastavit “%s” jako počáteční bod"
 
 #: templates/storyeditview/renamestorymodal.html:8
 #: templates/storyeditview/toolbar.html:31
@@ -406,15 +406,15 @@ msgstr ""
 #: templates/storylistview/modals/aboutmodal.html:25
 #, approved
 msgid ""
-"Twine 2.0 is released under the <a href=\"http:\\/\\/www.gnu.org/licenses/"
+"Twine 2.0 is released under the <a href=\"http://www.gnu.org/licenses/"
 "gpl-3.0.html\">GPL v3</a> license, but any work created with it may be "
 "released under any terms, including commercial ones. <a href=\"https:\\/\\/"
-"bitbucket.org/klembot/twinejs\">Source Code Repository</a>"
+"”github.com/klembot/twinejs\">Source Code Repository</a>"
 msgstr ""
-"Twine 2.0 je vydán pod licencí <a href=\"http:\\/\\/www.gnu.org/licenses/"
+"Twine 2.0 je vydán pod licencí <a href=\"http://www.gnu.org/licenses/"
 "gpl-3.0.html\">GPL v3</a>, ale cokoliv v něm vytvořené může být vydáno pod "
 "libovolnou licencí včetně licencí komerčních. <a href=\"https:\\/\\/"
-"bitbucket.org/klembot/twinejs\">Repozitář zdrojových kódů</a>"
+"”github.com/klembot/twinejs\">Repozitář zdrojových kódů</a>"
 
 #: templates/storylistview/modals/aboutmodal.html:31
 #, approved
@@ -441,13 +441,13 @@ msgstr "Písma"
 #, approved
 msgid ""
 "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the "
-"guidance of Robert Slimbach for <a href=\"http:\\/\\/adobe.com/\">Adobe</"
-"a><br> Nunito was designed by <a href=\"http:\\/\\/code.newtypography.co.uk/"
+"guidance of Robert Slimbach for <a href=\"http://adobe.com/\">Adobe</"
+"a><br> Nunito was designed by <a href=\"http://code.newtypography.co.uk/"
 "\">Vernon Adams</a>"
 msgstr ""
 "Source Sans Pro a Source Code Pro byly vytvořeny Paulem D. Huntem pod "
-"vedením Roberta Slimbacha pro <a href=\"http:\\/\\/adobe.com/\">Adobe</"
-"a><br> Nunito bylo vytvořeno <a href=\"http:\\/\\/code.newtypography.co.uk/"
+"vedením Roberta Slimbacha pro <a href=\"http://adobe.com/\">Adobe</"
+"a><br> Nunito bylo vytvořeno <a href=\"http://code.newtypography.co.uk/"
 "\">Vernonem Adamsem</a>"
 
 #: templates/storylistview/modals/aboutmodal.html:82
@@ -744,14 +744,14 @@ msgstr "Jste nováček?"
 #, approved
 msgid ""
 "<strong>If you've never used Twine before,</strong> then welcome! The <a "
-"href=\"http:\\/\\/twinery.org/2guide\" target=\"_blank\">Twine 2 Guide</a> "
+"href=\"http://twinery.org/2guide\" target=\"_blank\">Twine 2 Guide</a> "
 "and the official wiki in general, are a great place to learn. Keep in mind "
 "that some articles on the wiki at large were written for Twine 1, which is a "
 "little bit different than this version. But most of the concepts are the "
 "same."
 msgstr ""
 "<strong>Pokud jste Twine nikdy nepoužil,</strong> pak vítejte! <a href=\""
-"http:\\/\\/twinery.org/2guide\" target=\"_blank\">Twine 2 průvodce</a> a "
+"http://twinery.org/2guide\" target=\"_blank\">Twine 2 průvodce</a> a "
 "oficiální wiki jsou obecně nejlepšími místy, jak se něco naučit. Veďte ovšem "
 "v patrnosti, že některé články na wiki jsou většinou vytvořeny pro Twine "
 "verze 1, jež se trochu liší od stávající verze. Většina konceptů je však "
@@ -760,10 +760,10 @@ msgstr ""
 #: templates/welcomeview.html:31
 #, approved
 msgid ""
-"You can also get help over at the <a href=\"http:\\/\\/twinery.org/forum\" "
+"You can also get help over at the <a href=\"http://twinery.org/forum\" "
 "target=\"_blank\">Twine forum</a>, too."
 msgstr ""
-"Pomoc můžete také získat na <a href=\"http:\\/\\/twinery.org/forum\" target="
+"Pomoc můžete také získat na <a href=\"http://twinery.org/forum\" target="
 "\"_blank\">Twine fóru</a>."
 
 #: templates/welcomeview.html:35
@@ -890,8 +890,8 @@ msgstr ""
 #.    L10n: %1$s is a filename; %2$s is the error message.
 #: js/app.js:226
 #, approved
-msgid "&ldquo;%1$s&rdquo; could not be saved (%2$s)."
-msgstr "&ldquo;%1$s&rdquo; nemůže být uložen (%2$s)."
+msgid "“%1$s” could not be saved (%2$s)."
+msgstr "“%1$s” nemůže být uložen (%2$s)."
 
 #.    L10n: %s is the error message.
 #: js/app.js:283
@@ -1191,14 +1191,14 @@ msgstr[2] "Špatných odkazů"
 #: js/views/storyeditview/modals/storyformatmodal.js:96
 #: js/views/storylistview/modals/formatsmodal.js:74
 #, approved
-msgid "The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s)."
-msgstr "Formát příběhu &ldquo;%1$s&rdquo; nemůže být nahrán (%2$s)."
+msgid "The story format “%1$s” could not be loaded (%2$s)."
+msgstr "Formát příběhu “%1$s” nemůže být nahrán (%2$s)."
 
 #: js/views/storyeditview/passageitemview.js:165
 #, javascript-format
 #, approved
-msgid "Are you sure you want to delete &ldquo;%s&rdquo;? "
-msgstr "Skutečně chcete vymazat &ldquo;%s&rdquo;? "
+msgid "Are you sure you want to delete “%s”? "
+msgstr "Skutečně chcete vymazat “%s”? "
 
 #: js/views/storyeditview/passageitemview.js:169
 #, approved
@@ -1315,8 +1315,8 @@ msgstr ""
 #, javascript-format
 #, approved
 msgid ""
-"Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone."
-msgstr "Skutečně chcete vymazat &ldquo;%s&rdquo;? Operaci nelze vrátit zpět."
+"Are you sure you want to delete “%s”? This cannot be undone."
+msgstr "Skutečně chcete vymazat “%s”? Operaci nelze vrátit zpět."
 
 #: js/views/storylistview/storyitemview.js:125
 #, approved
@@ -1326,8 +1326,8 @@ msgstr "Smazat trvale"
 #: js/views/storylistview/storyitemview.js:137
 #, javascript-format
 #, approved
-msgid "What should &ldquo;%s&rdquo; be renamed to?"
-msgstr "Jak má být &ldquo;%s&rdquo; přejmenován?"
+msgid "What should “%s” be renamed to?"
+msgstr "Jak má být “%s” přejmenován?"
 
 #: js/views/storylistview/storyitemview.js:138
 #, approved

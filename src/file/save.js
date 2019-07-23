@@ -51,13 +51,12 @@ module.exports = (data, filename, success, failure) => {
 
 			zip.file(filename, data);
 			window.location.href =
-				'data:application/zip;base64, ' +
-				zip.generate({ type: 'base64' });
+				'data:application/zip;base64, ' + zip.generate({ type: 'base64' });
 
 			if (success) {
 				success();
 			}
-		};
+		}
 	}
 	catch (e) {
 		if (failure) {
@@ -67,12 +66,12 @@ module.exports = (data, filename, success, failure) => {
 			// L10n: %1$s is a filename; %2$s is the error message.
 			notify(
 				locale.say(
-					'&ldquo;%1$s&rdquo; could not be saved (%2$s).',
+					'“%1$s” could not be saved (%2$s).',
 					filename,
 					e.message
 				),
 				'danger'
 			);
 		}
-	};
+	}
 };

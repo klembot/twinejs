@@ -1,4 +1,4 @@
-<modal-dialog class="editor" :origin="origin" :can-widen="true" @transition-entered="resetCm">
+<modal-dialog className="editor" :origin="origin" :can-widen="true" @transition-entered="resetCm">
 	<span slot="title">
 	{{ 'JavaScript' | say }}
 	</span>
@@ -8,6 +8,6 @@
 	</p>
 
 	<div class="expand">	
-		<code-mirror :options="cmOptions" :text="source" @cm-change="save" v-ref:codemirror></code-mirror>
+		<code-mirror :options="cmOptions" :text="source" @cm-change="save" ref="codemirror"></code-mirror>
 	</div>
 </modal-dialog>

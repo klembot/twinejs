@@ -1,14 +1,12 @@
 <tr class="format-item">
 	<td class="selector">
-		<input type="radio" :checked="selected" @click="select" id="{{format.name}}-{{format.properties.version}}">
+		<input type="radio" :checked="selected" @click="select" v-bind:id="nameVersion">
 	</td>
 
 	<td>
 		<p>
-			<label for="{{format.name}}-{{format.properties.version}}"><b>{{ format.name }} {{ format.properties.version }}</b></label>
-			<span v-if="author">
-				{{{ author }}}
-			</span>
+			<label v-bind:for="nameVersion"><b>{{ format.name }} {{ format.properties.version }}</b></label>
+			<span v-if="author" v-html="author"></span>
 		</p>
 		<div class="detail" v-if="selected">
 			<div class="icon">
@@ -17,13 +15,9 @@
 			</div>
 
 			<div class="description">
-				<p v-if="format.properties.description">
-					{{{ format.properties.description }}}
-				</p >
+				<p v-if="format.properties.description" v-html="format.properties.description"></p>
 
-				<p v-if="format.properties.license">
-					License: {{{ format.properties.license }}}
-				</p>
+				<p v-if="format.properties.license" v-html="format.properties.license"></p>
 			</div>
 		</div>
 	</td>

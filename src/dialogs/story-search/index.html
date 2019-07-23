@@ -5,7 +5,7 @@
 
 	<p>
 		<label for="searchFor">{{ 'Search For' | say }}</label>
-		<textarea id="searchFor" v-model="search" v-el:search></textarea>
+		<textarea id="searchFor" v-model="search" ref="search"></textarea>
 	</p>
 
 	<p>
@@ -32,11 +32,11 @@
 
 	<p class="resultSummary" v-if="passageMatches.length > 0">
 		<span class="controls">
-			<button class="subtle" title="{{ 'Expand all search results' | say }}" @click="expandAll">
+			<button class="subtle" v-bind:title="expandButtonTitle" @click="expandAll">
 				<i class="fa fa-expand"></i>
 			</button>
 
-			<button class="subtle" title="{{ 'Collapse all search results' | say }}" @click="collapseAll">
+			<button class="subtle" v-bind:title="collapseButtonTitle" @click="collapseAll">
 				<i class="fa fa-compress"></i>
 			</button>
 
@@ -46,13 +46,15 @@
 		</span>
 
 		<span class="matches">
-			{{ '%d passage matches.' | sayPlural '%d passages match.' passageMatches.length }}
+			{{ '%d passage matches.' | sayPlural('%d passages match.', passageMatches.length) }}
 		</span>
 	</p>
 
-	<p v-if="working" transition="fade-in-out">
-		<i class="fa fa-circle-o-notch fa-spin"></i> {{ 'Searching...' | say }}
-	</p>
+	<transition="fade-in-out">
+		<p v-if="working">
+			<i class="fa fa-circle-o-notch fa-spin"></i> {{ 'Searching...' | say }}
+		</p>
+	</transition>
 
 	<div class="results">
 		<search-result v-for="match in passageMatches" :story="story" :match="match" :search-regexp="searchRegexp" :replace-with="replace" :search-names="searchNames"></search-result>

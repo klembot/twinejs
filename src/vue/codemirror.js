@@ -1,6 +1,7 @@
 // A lightweight Vue component that wraps a CodeMirror instance.
 
 const Vue = require('vue');
+const eventHub = require('../common/eventHub');
 const CodeMirror = require('codemirror');
 
 require('./codemirror-theme.less');
@@ -10,18 +11,7 @@ module.exports = Vue.extend({
 
 	props: ['options', 'text'],
 
-	watch: {
-		text() {
-			// Only change CodeMirror if it's actually a meaningful change,
-			// e.g. not the result of CodeMirror itself changing.
-
-			if (this.text !== this.$cm.getValue()) {
-				this.$cm.setValue(this.text);
-			}
-		}
-	},
-
-	compiled() {
+	mounted() {
 		this.$cm = CodeMirror(this.$el, this.options);
 		this.$cm.setValue((this.text || '') + '');
 
@@ -33,21 +23,19 @@ module.exports = Vue.extend({
 		this.$cm.clearHistory();
 
 		this.$cm.on('change', () => {
-			this.text = this.$cm.getValue();
-			this.$dispatch('cm-change', this.text);
+			this.$emit('cm-change', this.$cm.getValue());
+		});
+		this.$nextTick(function() {
+			this.$cm.focus();
 		});
 	},
 
-	attached() {
-		this.$cm.focus();
-	},
-
-	events: {
+	created: function() {
 		// Since CodeMirror initialises incorrectly when special CSS such as
 		// scaleY is present on its containing element, it should be
 		// refreshed once transition is finished - hence, this event.
-		'transition-entered'() {
+		eventHub.$on('transition-entered', () => {
 			this.$cm.refresh();
-		}
+		});
 	}
 });

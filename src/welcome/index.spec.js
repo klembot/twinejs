@@ -1,19 +1,21 @@
-const {spy} = require('sinon');
 let Vue = require('vue');
+const VueRouter = require('vue-router');
 const localeFilters = require('../vue/filters/locale');
 const WelcomeView = require('./index');
+const router = require('../common/router');
+const store = require('../data/store');
 
 localeFilters.addTo(Vue);
+Vue.use(VueRouter);
 
 describe.skip('<welcome>', () => {
 	let vm;
 	let container;
 
 	beforeEach(() => {
-		container = document.createElement('div');
-		vm = new WelcomeView();
-		vm.setPref = spy();
-		vm.$mount(container);
+		vm = new WelcomeView({ router: router, store: store }).$mount();
+		vm.setPref = jest.fn();
+		vm.$router.push = jest.fn();
 	});
 
 	test('starts with one <div> shown', () => {
@@ -25,6 +27,7 @@ describe.skip('<welcome>', () => {
 		const check = count => {
 			vm.shown = count;
 
+			Vue.config.errorHandler = done;
 			Vue.nextTick(() => {
 				expect(
 					vm.$el.querySelectorAll('#welcomeView > div').length
@@ -57,8 +60,11 @@ describe.skip('<welcome>', () => {
 		expect(args[1]).toBe(true);
 	});
 
-	test('moves to the story list with finish()', () => {
+	it('pushes stories to the router on finish()', () => {
 		vm.finish();
-		expect(window.location.hash).toBe('#stories');
+		const args = vm.$router.push.firstCall.args;
+
+		// Checking if route actually updated means mounting the router
+		expect(args[0]).toBe('stories');
 	});
 });

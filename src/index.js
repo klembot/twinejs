@@ -12,10 +12,8 @@ everything.
 */
 
 const localeFilters = require('./vue/filters/locale');
-const mountMixin = require('./vue/mixins/mount-to');
 const mouseScrollingDirective = require('./vue/directives/mouse-scrolling');
 
-Vue.mixin(mountMixin);
 localeFilters.addTo(Vue);
 mouseScrollingDirective.addTo(Vue);
 
@@ -23,7 +21,6 @@ const locale = require('./locale');
 const notify = require('./ui/notify');
 const store = require('./data/store');
 const TwineApp = require('./common/app');
-const TwineRouter = require('./common/router');
 
 require('core-js');
 
@@ -48,7 +45,7 @@ if (typeof userLocale === 'string') {
 	/* Load the locale, then start the application. */
 
 	locale.loadViaAjax(userLocale.toLowerCase()).then(() => {
-		TwineRouter.start(TwineApp, '#main');
+		new TwineApp({ el: '#main' });
 	});
 } else {
 	/*
@@ -56,7 +53,7 @@ if (typeof userLocale === 'string') {
 	*/
 
 	locale.load('en').then(() => {
-		TwineRouter.start(TwineApp, '#main');
+		new TwineApp({ el: '#main' });
 
 		Vue.nextTick(() => {
 			/*

@@ -7,54 +7,80 @@ const ImportDialog = require('../../dialogs/story-import');
 const {createStory} = require('../../data/actions/story');
 const isElectron = require('../../electron/is-electron');
 const locale = require('../../locale');
+const { publishArchive } = require('../../data/publish');
+const eventHub = require('../../common/eventHub');
 const {prompt} = require('../../dialogs/prompt');
-const {publishArchive} = require('../../data/publish');
 const saveFile = require('../../file/save');
+
+require('./index.less');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
 
+	computed: {
+		newStoryTitle() {
+			return locale.say('Create a brand-new story');
+		},
+		importFileTitle() {
+			return locale.say('Import a published story or Twine archive');
+		},
+		saveArchiveTitle() {
+			return locale.say('Save all stories to a Twine archive file');
+		},
+		showFormatsTitle() {
+			return locale.say('Work with story and proofing formats');
+		},
+		changeLocaleTitle() {
+			return locale.say('Change the language Twine uses');
+		},
+		helpTitle() {
+			return locale.say('Browse online help');
+		},
+		promptMessage() {
+			return locale.say(
+				'What should your story be named?<br>(You can change this later.)'
+			);
+		},
+		promptButtonLabel() {
+			return '<i class="fa fa-plus"></i> ' + locale.say('Add');
+		}
+	},
+
 	methods: {
 		createStoryPrompt(e) {
-			// Prompt for the new story name.
+			eventHub.$once('close', (isError, name) => {
+				if(isError) {
+					return;
+				}
+				this.createStory({ name });
 
-			prompt({
-				message: locale.say(
-					'What should your story be named?<br>(You can change this later.)'
-				),
-				buttonLabel: '<i class="fa fa-plus"></i> ' + locale.say('Add'),
-				buttonClass: 'create',
-				validator: name => {
-					if (
-						this.existingStories.find(story => story.name === name)
-					) {
-						return locale.say(
-							'A story with this name already exists.'
-						);
-					}
-				},
-
-				origin: e.target
-			}).then(name => {
-				this.createStory({name});
-
-				/* Allow the appearance animation to complete. */
+				// Allow the appearance animation to complete.
 
 				window.setTimeout(() => {
-					this.$dispatch(
+					eventHub.$emit(
 						'story-edit',
-						this.existingStories.find(story => story.name === name)
-							.id
+						this.existingStories.find(story => story.name === name).id
 					);
 				}, 300);
 			});
+			const promptValidator = name => {
+				if (this.existingStories.find(story => story.name === name)) {
+					return locale.say('A story with this name already exists.');
+				}
+			};
+			const promptArgs = {
+				buttonLabel: this.promptButtonLabel,
+				class: this.promptButtonClass,
+				validator: promptValidator,
+				origin: e.target,
+				message: this.promptMessage
+			};
+
+			eventHub.$emit('modalPrompt', promptArgs);
 		},
 
 		importFile(e) {
-			new ImportDialog({
-				store: this.$store,
-				data: {origin: e.target}
-			}).$mountTo(document.body);
+			this.$emit('customModal', ImportDialog, { origin: e.target });
 		},
 
 		saveArchive() {
@@ -69,17 +95,11 @@ module.exports = Vue.extend({
 		},
 
 		showAbout(e) {
-			new AboutDialog({
-				store: this.$store,
-				data: {origin: e.target}
-			}).$mountTo(document.body);
+			this.$emit('customModal', AboutDialog, { origin: e.target });
 		},
 
 		showFormats(e) {
-			new FormatsDialog({
-				store: this.$store,
-				data: {origin: e.target}
-			}).$mountTo(document.body);
+			this.$emit('customModal', FormatsDialog, { origin: e.target });
 		},
 
 		showHelp() {
@@ -87,7 +107,7 @@ module.exports = Vue.extend({
 		},
 
 		showLocale() {
-			window.location.hash = 'locale';
+			this.$router.push('locale');
 		}
 	},
 

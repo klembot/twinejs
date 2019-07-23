@@ -38,6 +38,7 @@
 						{{ linkDesc }}
 					</td>
 				</tr>
+				<tr>
 					<td>
 						{{ brokenLinkCount }}
 					</td>
@@ -49,11 +50,9 @@
 		</table>
 
 		<p>
-		{{ 'This story was last changed at %s.' | say lastUpdate }}
+		{{ 'This story was last changed at %s.' | say(lastUpdate) }}
 		</p>
 
-		<p>
-		{{{ 'The IFID for this story is &lt;span class="ifid"&gt;%s&lt;/span&gt;. (&lt;a href="http:\/\/ifdb.tads.org/help-ifid" target="_blank"&gt;What\'s an IFID?&lt;/a&gt;)' | say story.ifid }}}
-		</p>
+		<p v-html="ifidHelp"></p>
 	</div>
 </modal-dialog>

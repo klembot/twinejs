@@ -48,14 +48,14 @@ msgstr ""
 #. L10n: %s is the name of the thing to be deleted.
 #: templates/storyeditview/passageitemview.html:16
 #, php-format
-msgid "Delete &ldquo;%s&rdquo;"
-msgstr "Удалить &ldquo;%s&rdquo;"
+msgid "Delete “%s”"
+msgstr "Удалить “%s”"
 
 #. L10n: %s is the name of the thing to be edited.
 #: templates/storyeditview/passageitemview.html:21
 #, php-format
-msgid "Edit &ldquo;%s&rdquo;"
-msgstr "Редактировать &ldquo;%s&rdquo;"
+msgid "Edit “%s”"
+msgstr "Редактировать “%s”"
 
 #: templates/storyeditview/passageitemview.html:24
 msgid "Test story starting here"
@@ -64,8 +64,8 @@ msgstr "Тестовая история начинается здесь"
 #. L10n: %s is a name of a passage
 #: templates/storyeditview/passageitemview.html:28
 #, php-format
-msgid "Set &ldquo;%s&rdquo; as starting point"
-msgstr "Сделать &ldquo;%s&rdquo; отправной точкой истории"
+msgid "Set “%s” as starting point"
+msgstr "Сделать “%s” отправной точкой истории"
 
 #: templates/storyeditview/renamestorymodal.html:8
 #: templates/storyeditview/toolbar.html:31
@@ -338,15 +338,15 @@ msgstr ""
 
 #: templates/storylistview/modals/aboutmodal.html:25
 msgid ""
-"Twine 2.0 is released under the <a href=\"http:\\/\\/www.gnu.org/licenses/"
+"Twine 2.0 is released under the <a href=\"http://www.gnu.org/licenses/"
 "gpl-3.0.html\">GPL v3</a> license, but any work created with it may be "
 "released under any terms, including commercial ones. <a href=\"https:\\/\\/"
-"bitbucket.org/klembot/twinejs\">Source Code Repository</a>"
+"”github.com/klembot/twinejs\">Source Code Repository</a>"
 msgstr ""
-"Twine 2.0 выпущен под лицензией <a href=\"http:\\/\\/www.gnu.org/licenses/"
+"Twine 2.0 выпущен под лицензией <a href=\"http://www.gnu.org/licenses/"
 "gpl-3.0.html\">GPL v3</a>, но любая работа, созданная с его помощью, может "
 "быть выпущена на любых условиях, включая коммерческое использование. <a href="
-"\"https:\\/\\/bitbucket.org/klembot/twinejs\"> Исходный код Twine</a>"
+"\"https:\\/\\/”github.com/klembot/twinejs\"> Исходный код Twine</a>"
 
 #: templates/storylistview/modals/aboutmodal.html:31
 msgid "Help Twine Grow With A Donation"
@@ -372,13 +372,13 @@ msgstr "Шрифты"
 #: templates/storylistview/modals/aboutmodal.html:84
 msgid ""
 "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the "
-"guidance of Robert Slimbach for <a href=\"http:\\/\\/adobe.com/\">Adobe</"
-"a><br> Nunito was designed by <a href=\"http:\\/\\/code.newtypography.co.uk/"
+"guidance of Robert Slimbach for <a href=\"http://adobe.com/\">Adobe</"
+"a><br> Nunito was designed by <a href=\"http://code.newtypography.co.uk/"
 "\">Vernon Adams</a>"
 msgstr ""
 "Source Sans Pro и  Source Code Pro были разработаны Полом Д. Хантом под "
-"руководством Роберта Слимбаха для <a href=\"http:\\/\\/adobe.com/\">Adobe</"
-"a><br> Nunito был разработан  <a href=\"http:\\/\\/code.newtypography.co.uk/"
+"руководством Роберта Слимбаха для <a href=\"http://adobe.com/\">Adobe</"
+"a><br> Nunito был разработан  <a href=\"http://code.newtypography.co.uk/"
 "\">Верноном Адамсом</a>"
 
 #: templates/storylistview/modals/aboutmodal.html:88
@@ -623,14 +623,14 @@ msgstr "Вы новичок?"
 #: templates/welcomeview.html:27
 msgid ""
 "<strong>If you've never used Twine before,</strong> then welcome! The <a "
-"href=\"http:\\/\\/twinery.org/2guide\" target=\"_blank\">Twine 2 Guide</a> "
+"href=\"http://twinery.org/2guide\" target=\"_blank\">Twine 2 Guide</a> "
 "and the official wiki in general, are a great place to learn. Keep in mind "
 "that some articles on the wiki at large were written for Twine 1, which is a "
 "little bit different than this version. But most of the concepts are the "
 "same."
 msgstr ""
 "<strong>Если вам ещё не приходилось пользоваться Twine</strong>, добро "
-"пожаловать! <a href=\"http:\\/\\/twinery.org/2guide\" target=\"_blank"
+"пожаловать! <a href=\"http://twinery.org/2guide\" target=\"_blank"
 "\">Руководство Twine 2</a> и официальная вики в целом &mdash; замечательные "
 "источники знаний. Имейте в виду, что некоторые статьи на вики в целом были "
 "написаны для Twine 1, который слегка отличается от этой версии. Но "
@@ -638,10 +638,10 @@ msgstr ""
 
 #: templates/welcomeview.html:31
 msgid ""
-"You can also get help over at the <a href=\"http:\\/\\/twinery.org/forum\" "
+"You can also get help over at the <a href=\"http://twinery.org/forum\" "
 "target=\"_blank\">Twine forum</a>, too."
 msgstr ""
-"Вы также можете попросить помощи на <a href=\"http:\\/\\/twinery.org/forum\" "
+"Вы также можете попросить помощи на <a href=\"http://twinery.org/forum\" "
 "target=\"_blank\">форуме Twine</a>."
 
 #: templates/welcomeview.html:35
@@ -754,8 +754,8 @@ msgstr ""
 
 #. L10n: %1$s is a filename; %2$s is the error message.
 #: js/app.js:226
-msgid "&ldquo;%1$s&rdquo; could not be saved (%2$s)."
-msgstr "&ldquo;%1$s&rdquo; не может быть сохранён (%2$s)."
+msgid "“%1$s” could not be saved (%2$s)."
+msgstr "“%1$s” не может быть сохранён (%2$s)."
 
 #. L10n: %s is the error message.
 #: js/app.js:283
@@ -1016,13 +1016,13 @@ msgstr[2] "битых ссылок"
 #. L10n: %1$s is the name of the story format, %2$s is the error message.
 #: js/views/storyeditview/modals/storyformatmodal.js:96
 #: js/views/storylistview/modals/formatsmodal.js:74
-msgid "The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s)."
-msgstr "Формат &ldquo;%1$s&rdquo; не может быть загружен (%2$s)."
+msgid "The story format “%1$s” could not be loaded (%2$s)."
+msgstr "Формат “%1$s” не может быть загружен (%2$s)."
 
 #: js/views/storyeditview/passageitemview.js:165
 #, javascript-format
-msgid "Are you sure you want to delete &ldquo;%s&rdquo;? "
-msgstr "Вы действительно хотите удалить &ldquo;%s&rdquo;? "
+msgid "Are you sure you want to delete “%s”? "
+msgstr "Вы действительно хотите удалить “%s”? "
 
 #: js/views/storyeditview/passageitemview.js:169
 msgid "(Hold the Shift key when deleting to skip this message.)"
@@ -1128,9 +1128,9 @@ msgstr ""
 #: js/views/storylistview/storyitemview.js:123
 #, javascript-format
 msgid ""
-"Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone."
+"Are you sure you want to delete “%s”? This cannot be undone."
 msgstr ""
-"Вы действительно хотите удалить &ldquo;%s&rdquo;? Это невозможно будет "
+"Вы действительно хотите удалить “%s”? Это невозможно будет "
 "отменить."
 
 #: js/views/storylistview/storyitemview.js:125
@@ -1139,8 +1139,8 @@ msgstr "Удалить навсегда"
 
 #: js/views/storylistview/storyitemview.js:137
 #, javascript-format
-msgid "What should &ldquo;%s&rdquo; be renamed to?"
-msgstr "Во что переименовать &ldquo;%s&rdquo;?"
+msgid "What should “%s” be renamed to?"
+msgstr "Во что переименовать “%s”?"
 
 #: js/views/storylistview/storyitemview.js:138
 msgid "Rename"

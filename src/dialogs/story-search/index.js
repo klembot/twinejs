@@ -4,22 +4,23 @@ passages.
 */
 
 const Vue = require('vue');
+const locale = require('../../locale');
+const eventHub = require("../../common/eventHub");
 const escapeRegexp = require('lodash.escaperegexp');
 
 require('./index.less');
 
-module.exports = Vue.extend({
+module.exports = Vue.component("SearchDialog", {
 	template: require('./index.html'),
 
+	props: ["story", "search", "origin"],
+
 	data: () => ({
-		story: {},
-		search: '',
 		replace: '',
 		searchNames: true,
 		caseSensitive: false,
 		regexp: false,
-		working: false,
-		origin: null
+		working: false
 	}),
 
 	computed: {
@@ -42,6 +43,14 @@ module.exports = Vue.extend({
 			}
 
 			return new RegExp('(' + source + ')', flags);
+		},
+
+		expandButtonTitle() {
+			return locale.say("Expand all search results");
+		},
+
+		collapseButtonTitle() {
+			return locale.say("Collapse all search results");
 		},
 
 		passageMatches() {
@@ -98,20 +107,23 @@ module.exports = Vue.extend({
 
 	methods: {
 		expandAll() {
-			this.$broadcast('expand');
+			eventHub.$emit("expand");
 		},
 
 		collapseAll() {
-			this.$broadcast('collapse');
+			eventHub.$emit("collapse");
 		},
 
 		replaceAll() {
-			this.$broadcast('replace');
+			eventHub.$emit("replace");
 		}
 	},
 
-	ready() {
-		this.$els.search.focus();
+	mounted() {
+		this.$nextTick(function() {
+			// code that assumes this.$el is in-document
+			this.$refs.search.focus();
+		});
 	},
 
 	components: {

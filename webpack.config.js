@@ -1,14 +1,16 @@
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
+const CdnPlugin = require('webpack-cdn-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const PoPlugin = require('./webpack/po-webpack-plugin');
 const Autoprefixer = require('less-plugin-autoprefix');
 const package = require('./package.json');
 
 const isRelease = process.env.NODE_ENV === 'production';
-const useCdn = process.env.USE_CDN === 'y';
 const useElectron = process.env.USE_ELECTRON === 'y';
+
+process.traceDeprecation = true;
 
 const config = (module.exports = {
 	mode: isRelease ? 'production' : 'development',
@@ -18,10 +20,18 @@ const config = (module.exports = {
 		path: path.join(
 			__dirname,
 			'dist',
-			useCdn ? 'web-cdn' : useElectron ? 'web-electron' : 'web'
+			useElectron ? 'web-electron' : isRelease ? 'web-cdn' : 'web'
 		),
-		filename: 'twine.js'
+		filename: 'twine.js',
+		publicPath: process.env.WEBPACK_PUBLIC_PATH
 	},
+	resolve: {
+		alias: {
+		  vue$: 'vue/dist/vue.common.js',
+		  'vue-router$': 'vue-router/dist/vue-router.common.js'
+		}
+	  },
+	devtool: 'source-map',
 	module: {
 		rules: [
 			/*
@@ -78,10 +88,8 @@ const config = (module.exports = {
 		new HtmlPlugin({
 			template: './src/index.ejs',
 			package: package,
+			hash: true,
 			buildNumber: require('./scripts/build-number').number,
-			inject: false,
-			minify: isRelease && {collapseWhitespace: true},
-			cdn: useCdn
 		}),
 		new MiniCssExtractPlugin({filename: 'twine.css'}),
 		new PoPlugin({
@@ -107,26 +115,65 @@ if (isRelease) {
 		test: /\.js$/,
 		exclude: /node_modules/,
 		loader: 'babel-loader',
+		resolve: {
+			alias: {
+				vue$: 'vue/dist/vue.common.js',
+				'vue-router$': 'vue-router/dist/vue-router.common.js'
+			}
+		},
 		options: {presets: ['@babel/preset-env']}
 	});
-}
 
-if (useCdn) {
-	config.externals = {
-		codemirror: 'CodeMirror',
-		/*
-		core-js has no external interface, so we borrow an existing global
-		property.
-		*/
-		'core-js': 'location',
-		fastclick: 'FastClick',
-		jed: 'Jed',
-		jszip: 'JSZip',
-		moment: 'moment',
-		'svg.js': 'SVG',
-		'tether-drop': 'Drop',
-		vue: 'Vue',
-		'vue-router': 'VueRouter',
-		vuex: 'Vuex'
-	};
+	// Use CDN
+	config.plugins.push(new CdnPlugin({
+			modules: [
+				{
+					name: 'codemirror',
+					var: 'CodeMirror',
+				  },
+				  {
+					name: 'fastclick',
+					var: "FastClick"
+				  },
+				{
+					name: 'jed',
+					var: "Jed",
+				  },
+				{
+					name: 'jszip',
+					var: "JSZip",
+					path: "jszip.min.js",
+					prodUrl: "//cdnjs.cloudflare.com/ajax/libs/:name/:version/:path"
+				  },
+				{
+					name: 'tether',
+				  },
+				{
+					name: 'tether-drop',
+					var: "Drop",
+				  },
+				{
+					name: 'moment',
+				  },
+				{
+					name: 'vue',
+					var: 'Vue',
+					path: 'dist/vue.min.js'
+				  },
+				  {
+					name: 'vue-router',
+					var: 'VueRouter',
+					path: 'dist/vue-router.min.js'
+				  },
+				  {
+					name: 'vuex',
+					var: 'Vuex',
+					path: 'dist/vuex.min.js'
+				  },
+				  { name: "font-awesome",
+					var: 'fa',
+					cssOnly: true }
+			],
+			prod: isRelease,
+		}))
 }

@@ -5,6 +5,7 @@ Allows the user to pick what locale they would like to use.
 const Vue = require('vue');
 const isElectron = require('../../electron/is-electron');
 const {setPref} = require('../../data/actions/pref');
+
 require('./index.less');
 
 module.exports = Vue.extend({
@@ -44,7 +45,7 @@ module.exports = Vue.extend({
 			if (isElectron()) {
 				window.twineElectron.ipcRenderer.send('app-relaunch');
 			} else {
-				window.location.hash = 'stories';
+				this.$router.push('stories');
 				window.location.reload();
 			}
 		}

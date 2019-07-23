@@ -1,6 +1,7 @@
 /* An editor for adding and removing tags from a passage. */
 
 const Vue = require('vue');
+const locale = require('../../../locale');
 const { updatePassage } = require('../../../data/actions/passage');
 const uniq = require('lodash.uniq');
 
@@ -12,6 +13,9 @@ module.exports = Vue.extend({
 	computed: {
 		tagColors() {
 			return this.allStories.find(s => s.id === this.storyId).tagColors;
+		},
+		addTagPlaceholder() {
+			return locale.say('Tag name');
 		}
 	},
 
@@ -31,7 +35,7 @@ module.exports = Vue.extend({
 	methods: {
 		showNew() {
 			this.newVisible = true;
-			this.$nextTick(() => this.$els.newName.focus());
+			this.$nextTick(() => this.$refs.newName.focus());
 		},
 
 		hideNew() {
@@ -39,11 +43,11 @@ module.exports = Vue.extend({
 		},
 
 		addNew() {
-			const newName = this.$els.newName.value.replace(/\s/g, '-');
+			const newName = this.$refs.newName.value.replace(/\s/g, '-');
 
 			/* Clear the newName element while it's transitioning out. */
 
-			this.$els.newName.value = '';
+			this.$refs.newName.value = '';
 
 			this.updatePassage(
 				this.storyId,

@@ -5,8 +5,10 @@ A modal dialog for editing a single passage.
 const CodeMirror = require('codemirror');
 const Vue = require('vue');
 const locale = require('../../locale');
-const { thenable } = require('../../vue/mixins/thenable');
-const { changeLinksInStory, updatePassage } = require('../../data/actions/passage');
+const {
+	changeLinksInStory,
+	updatePassage
+} = require('../../data/actions/passage');
 const { loadFormat } = require('../../data/actions/story-format');
 const { passageDefaults } = require('../../data/store/story');
 
@@ -22,16 +24,19 @@ Expose CodeMirror to story formats, currently for Harlowe compatibility.
 
 window.CodeMirror = CodeMirror;
 
-module.exports = Vue.extend({
+module.exports = Vue.component('passage-editor', {
 	template: require('./index.html'),
 
-	data: () => ({
+	props: {
 		passageId: '',
 		storyId: '',
+		origin: null
+	},
+
+	data: () => ({
 		oldWindowTitle: '',
 		userPassageName: '',
-		saveError: '',
-		origin: null
+		saveError: ''
 	}),
 
 	computed: {
@@ -39,8 +44,8 @@ module.exports = Vue.extend({
 			return {
 				placeholder: locale.say(
 					'Enter the body text of your passage here. To link to another ' +
-					'passage, put two square brackets around its name, [[like ' +
-					'this]].'
+						'passage, put two square brackets around its name, [[like ' +
+						'this]].'
 				),
 				prefixTrigger: {
 					prefixes: ['[[', '->'],
@@ -56,6 +61,10 @@ module.exports = Vue.extend({
 			};
 		},
 
+		inputPlaceholder() {
+			return locale.say('Passage Name');
+		},
+
 		parentStory() {
 			return this.allStories.find(story => story.id === this.storyId);
 		},
@@ -67,12 +76,13 @@ module.exports = Vue.extend({
 		},
 
 		userPassageNameValid() {
-			return !(this.parentStory.passages.some(
-				passage => passage.name === this.userPassageName &&
+			return !this.parentStory.passages.some(
+				passage =>
+					passage.name === this.userPassageName &&
 					passage.id !== this.passage.id
-			));
+			);
 		},
-		
+
 		autocompletions() {
 			return this.parentStory.passages.map(passage => passage.name);
 		}
@@ -83,10 +93,9 @@ module.exports = Vue.extend({
 			this.$refs.codemirror.$cm.showHint({
 				hint: cm => {
 					const wordRange = cm.findWordAt(cm.getCursor());
-					const word = cm.getRange(
-						wordRange.anchor,
-						wordRange.head
-					).toLowerCase();
+					const word = cm
+						.getRange(wordRange.anchor, wordRange.head)
+						.toLowerCase();
 
 					const comps = {
 						list: this.autocompletions.filter(
@@ -133,19 +142,11 @@ module.exports = Vue.extend({
 		},
 
 		saveText(text) {
-			this.updatePassage(
-				this.parentStory.id,
-				this.passage.id,
-				{ text: text }
-			);
+			this.updatePassage(this.parentStory.id, this.passage.id, { text: text });
 		},
 
 		saveTags(tags) {
-			this.updatePassage(
-				this.parentStory.id,
-				this.passage.id,
-				{ tags: tags }
-			);
+			this.updatePassage(this.parentStory.id, this.passage.id, { tags: tags });
 		},
 
 		dialogDestroyed() {
@@ -161,11 +162,9 @@ module.exports = Vue.extend({
 						this.userPassageName
 					);
 
-					this.updatePassage(
-						this.parentStory.id,
-						this.passage.id,
-						{ name: this.userPassageName }
-					);
+					this.updatePassage(this.parentStory.id, this.passage.id, {
+						name: this.userPassageName
+					});
 				}
 
 				return true;
@@ -175,68 +174,72 @@ module.exports = Vue.extend({
 		}
 	},
 
-	ready() {
-		this.userPassageName = this.passage.name;
+	mounted() {
+		this.$nextTick(function() {
+			// code that assumes this.$el is in-document
 
-		/* Update the window title. */
+			this.userPassageName = this.passage.name;
 
-		this.oldWindowTitle = document.title;
-		document.title = locale.say('Editing \u201c%s\u201d', this.passage.name);
+			/* Update the window title. */
 
-		/*
-		Load the story's format and see if it offers a CodeMirror mode.
-		*/
+			this.oldWindowTitle = document.title;
+			document.title = locale.say('Editing \u201c%s\u201d', this.passage.name);
 
-		if (this.$options.storyFormat) {
-			this.loadFormat(
-				this.$options.storyFormat.name,
-				this.$options.storyFormat.version
-			).then(format => {
-				let modeName = format.name.toLowerCase();
+			/*
+			Load the story's format and see if it offers a CodeMirror mode.
+			*/
 
-				/* TODO: Resolve this special case with PR #118 */
+			if (this.$options.storyFormat) {
+				this.loadFormat(
+					this.$options.storyFormat.name,
+					this.$options.storyFormat.version
+				).then(format => {
+					let modeName = format.name.toLowerCase();
 
-				if (modeName === 'harlowe') {
-					modeName += `-${/^\d+/.exec(format.version)}`;
-				}
+					/* TODO: Resolve this special case with PR #118 */
 
-				if (modeName in CodeMirror.modes) {
-					/*
-					This is a small hack to allow modes such as Harlowe to
-					access the full text of the textarea, permitting its lexer
-					to grow a syntax tree by itself.
-					*/
+					if (modeName === 'harlowe') {
+						modeName += `-${/^\d+/.exec(format.version)}`;
+					}
 
-					CodeMirror.modes[modeName].cm = this.$refs.codemirror.$cm;
+					if (modeName in CodeMirror.modes) {
+						/*
+						This is a small hack to allow modes such as Harlowe to
+						access the full text of the textarea,
+						 permitting its lexer to grow a syntax tree by itself.
+						*/
 
-					/*
-					Now that's done, we can assign the mode and trigger a
-					re-render.
-					*/
+						CodeMirror.modes[modeName].cm = this.$refs.codemirror.$cm;
 
-					this.$refs.codemirror.$cm.setOption('mode', modeName);
-				}
-			});
-		}
+						/*
+						Now that's done, we can assign the mode and trigger a
+						re-render.
+						*/
 
-		/*
-		Set the mode to the default, 'text'. The above promise will reset it if
-		it fulfils.
-		*/
+						this.$refs.codemirror.$cm.setOption('mode', modeName);
+					}
+				});
+			}
 
-		this.$refs.codemirror.$cm.setOption('mode', 'text');
+			/*
+			Set the mode to the default, 'text'.
+			 The above promise will reset it if fulfils.
+			*/
 
-		/*
-		Either move the cursor to the end or select the existing text, depending
-		on whether this passage has only default text in it.
-		*/
+			this.$refs.codemirror.$cm.setOption('mode', 'text');
 
-		if (this.passage.text === passageDefaults.text) {
-			this.$refs.codemirror.$cm.execCommand('selectAll');
-		}
-		else {
-			this.$refs.codemirror.$cm.execCommand('goDocEnd');
-		}
+			/*
+			Either move the cursor to the end or select the existing text,
+			 depending
+			on whether this passage has only default text in it.
+			*/
+
+			if (this.passage.text === passageDefaults.text) {
+				this.$refs.codemirror.$cm.execCommand('selectAll');
+			} else {
+				this.$refs.codemirror.$cm.execCommand('goDocEnd');
+			}
+		});
 	},
 
 	destroyed() {
@@ -259,7 +262,5 @@ module.exports = Vue.extend({
 		getters: {
 			allStories: state => state.story.stories
 		}
-	},
-
-	mixins: [thenable]
+	}
 });

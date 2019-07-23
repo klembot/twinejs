@@ -54,9 +54,9 @@ function addItem(location, string, pluralString, comment) {
 }
 
 /*
-Parse .html files for text in this format: 
+Parse .html files for text in this format:
 {{ 'Simple string' | say }}
-{{ 'Singular string' | sayPlural 'Plural string' }} 
+{{ 'Singular string' | sayPlural('Plural string') }}
 */
 
 const templateRegexp = new RegExp(
@@ -114,7 +114,6 @@ glob.sync('src/**/*.js').forEach(fileName => {
 				*/
 				
 				return node.raw.replace(/^['"]/, '').replace(/['"]$/, '');
-			break;
 
 			case 'BinaryExpression':
 				if (node.operator === '+') {
@@ -124,7 +123,12 @@ glob.sync('src/**/*.js').forEach(fileName => {
 				throw new Error(
 					`Don't know how to parse operator ${node.operator}`
 				);
-			break;
+
+			case 'TemplateLiteral':
+				if (node.quasis[0].length > 1) {
+					throw new Error(`Does not support multiple quasis ${node.quasis}`);
+				}
+				return node.quasis[0].value.raw.replace(/^['"]/, '').replace(/['"]$/, '');
 
 			default:
 				throw new Error(`Don't know how to parse value of ${node.type}`);
@@ -165,6 +169,7 @@ glob.sync('src/**/*.js').forEach(fileName => {
 					);
 
 					if (funcName === 'say') {
+
 						addItem(
 							fileName + ':' + node.loc.start.line,
 							parseValue(node.arguments[0]),

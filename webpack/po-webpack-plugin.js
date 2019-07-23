@@ -19,7 +19,7 @@ function PoPlugin(options) {
 }
 
 PoPlugin.prototype.apply = function(compiler) {
-	compiler.plugin('emit', (compilation, callback) => {
+	const emitFn = compilation => {
 		this.sources.forEach(filename => {
 			const source = 'window.locale(' +
 				JSON.stringify(
@@ -35,9 +35,11 @@ PoPlugin.prototype.apply = function(compiler) {
 				size() { return source.length; }
 			};
 		});
+	};
 
-		callback();
-	});
+	const plugin = { name: 'TwinePoPlugin' };
+
+	compiler.hooks.emit.tap(plugin, emitFn);
 };
 
 module.exports = PoPlugin;

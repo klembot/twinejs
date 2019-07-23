@@ -3,8 +3,11 @@ const semverUtils = require('semver-utils');
 const { createFormatFromUrl, loadFormat, repairFormats } = require('../../data/actions/story-format');
 const locale = require('../../locale');
 
-module.exports = Vue.extend({
+module.exports = Vue.component('formats-modal-dialog', {
 	template: require('./index.html'),
+
+	/* The origin element to show the dialog coming from. */
+	props: ["origin"],
 
 	data: () => ({
 		/* Detail about each format. */
@@ -21,9 +24,6 @@ module.exports = Vue.extend({
 
 		/* Bound to the text in the "new format" input. */
 		newFormatUrl: '',
-
-		/* The origin element to show the dialog coming from. */
-		origin: null
 	}),
 
 	/*
@@ -125,21 +125,23 @@ module.exports = Vue.extend({
 		}
 	},
 
-	ready() {
+	mounted() {
 		// Move tabs into the dialog header.
+		this.$nextTick(function () {
+			// code that assumes this.$el is in-document
+			const dialogTitle = this.$el.parentNode.querySelector(
+				'.modal-dialog > header .title'
+			);
+			const tabs = this.$el.parentNode.querySelectorAll(
+				'p.tabs-panel button'
+			);
 
-		const dialogTitle = this.$el.parentNode.querySelector(
-			'.modal-dialog > header .title'
-		);
-		const tabs = this.$el.parentNode.querySelectorAll(
-			'p.tabs-panel button'
-		);
+			for (let i = 0; i < tabs.length; i++) {
+				dialogTitle.appendChild(tabs[i]);
+			}
 
-		for (let i = 0; i < tabs.length; i++) {
-			dialogTitle.appendChild(tabs[i]);
-		}
-
-		this.loadNext();
+			this.loadNext();
+		  });
 	},
 
 	vuex: {
@@ -154,12 +156,12 @@ module.exports = Vue.extend({
 				let result = state.storyFormat.formats.map(
 					format => ({ name: format.name, version: format.version })
 				);
-				
+
 				result.sort((a, b) => {
 					if (a.name < b.name) {
 						return -1;
 					}
-					
+
 					if (a.name > b.name) {
 						return 1;
 					}

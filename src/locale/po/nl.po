@@ -55,14 +55,14 @@ msgstr ""
 #. L10n: %s is the name of the thing to be deleted.
 #: templates/storyeditview/passageitemview.html:16
 #, php-format
-msgid "Delete &ldquo;%s&rdquo;"
-msgstr "Verwijder &ldquo;%s&rdquo;"
+msgid "Delete “%s”"
+msgstr "Verwijder “%s”"
 
 #. L10n: %s is the name of the thing to be edited.
 #: templates/storyeditview/passageitemview.html:21
 #, php-format
-msgid "Edit &ldquo;%s&rdquo;"
-msgstr "Bewerk &ldquo;%s&rdquo;"
+msgid "Edit “%s”"
+msgstr "Bewerk “%s”"
 
 #: templates/storyeditview/passageitemview.html:24
 msgid "Test story starting here"
@@ -71,8 +71,8 @@ msgstr "Test verhaal begint hier"
 #. L10n: %s is a name of a passage
 #: templates/storyeditview/passageitemview.html:28
 #, php-format
-msgid "Set &ldquo;%s&rdquo; as starting point"
-msgstr "Zet &ldquo;%s&rdquo;  als start punt"
+msgid "Set “%s” as starting point"
+msgstr "Zet “%s”  als start punt"
 
 #: templates/storyeditview/renamestorymodal.html:8
 #: templates/storyeditview/toolbar.html:31
@@ -335,15 +335,15 @@ msgstr "Versie"
 
 #: templates/storylistview/modals/aboutmodal.html:25
 msgid ""
-"Twine 2.0 is released under the <a href=\"http:\\/\\/www.gnu.org/licenses/"
+"Twine 2.0 is released under the <a href=\"http://www.gnu.org/licenses/"
 "gpl-3.0.html\">GPL v3</a> license, but any work created with it may be "
 "released under any terms, including commercial ones. <a href=\"https:\\/\\/"
-"bitbucket.org/klembot/twinejs\">Source Code Repository</a>"
+"”github.com/klembot/twinejs\">Source Code Repository</a>"
 msgstr ""
-"Twine 2.0 is uitgegeven onder de <a href=\"http:\\/\\/www.gnu.org/licenses/"
+"Twine 2.0 is uitgegeven onder de <a href=\"http://www.gnu.org/licenses/"
 "gpl-3.0.html\">GPL v3</a> licentie, maar elk werk wat er mee gemaakt is mag "
 "onder alle voorwaarden, inclusief commerciele uitgegeven worden. <a href="
-"\"https:\\/\\/bitbucket.org/klembot/twinejs\">Source Code Archief</a>"
+"\"https:\\/\\/”github.com/klembot/twinejs\">Source Code Archief</a>"
 
 #: templates/storylistview/modals/aboutmodal.html:31
 msgid "Help Twine Grow With A Donation"
@@ -365,12 +365,12 @@ msgstr "Lettertypes"
 #: templates/storylistview/modals/aboutmodal.html:78
 msgid ""
 "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the "
-"guidance of Robert Slimbach for <a href=\"http:\\/\\/adobe.com/\">Adobe</"
-"a><br> Nunito was designed by <a href=\"http:\\/\\/code.newtypography.co.uk/"
+"guidance of Robert Slimbach for <a href=\"http://adobe.com/\">Adobe</"
+"a><br> Nunito was designed by <a href=\"http://code.newtypography.co.uk/"
 "\">Vernon Adams</a>"
 msgstr ""
 "Source Sans Pro and Source Code Pro zijn ontworpen door Paul D. Hunt onder "
-"begelijding van Robert Slimbach voor <a href=\"http:\\/\\/adobe.com/"
+"begelijding van Robert Slimbach voor <a href=\"http://adobe.com/"
 "\">Adobe</a><br> Nunito is ontworpen door <a href=\"http:\\/\\/code."
 "newtypography.co.uk/\">Vernon Adams</a>"
 
@@ -616,22 +616,22 @@ msgstr "Ben je hier nieuw?"
 #: templates/welcomeview.html:27
 msgid ""
 "<strong>If you've never used Twine before,</strong> then welcome! The <a "
-"href=\"http:\\/\\/twinery.org/2guide\" target=\"_blank\">Twine 2 Guide</a> "
+"href=\"http://twinery.org/2guide\" target=\"_blank\">Twine 2 Guide</a> "
 "and the official wiki in general, are a great place to learn. Keep in mind "
 "that some articles on the wiki at large were written for Twine 1, which is a "
 "little bit different than this version. But most of the concepts are the "
 "same."
 msgstr ""
 "<strong>Als je nog nooit Twine hebt gebruikt,</strong> welkom! De <a href="
-"\"http:\\/\\/twinery.org/2guide\" target=\"_blank\">Twine 2 Handleiding</a> "
+"\"http://twinery.org/2guide\" target=\"_blank\">Twine 2 Handleiding</a> "
 "en de officiële wiki, zijn goede plaatsen om te leren werken met Twine. "
 
 #: templates/welcomeview.html:31
 msgid ""
-"You can also get help over at the <a href=\"http:\\/\\/twinery.org/forum\" "
+"You can also get help over at the <a href=\"http://twinery.org/forum\" "
 "target=\"_blank\">Twine forum</a>, too."
 msgstr ""
-"Je kunt ook hulp krijgen op het <a href=\"http:\\/\\/twinery.org/forum\" "
+"Je kunt ook hulp krijgen op het <a href=\"http://twinery.org/forum\" "
 "target=\"_blank\">Twine forum</a>."
 
 #: templates/welcomeview.html:35
@@ -743,8 +743,8 @@ msgstr ""
 
 #. L10n: %1$s is a filename; %2$s is the error message.
 #: js/app.js:226
-msgid "&ldquo;%1$s&rdquo; could not be saved (%2$s)."
-msgstr "&ldquo;%1$s&rdquo; kon niet opgeslagen worden (%2$s)."
+msgid "“%1$s” could not be saved (%2$s)."
+msgstr "“%1$s” kon niet opgeslagen worden (%2$s)."
 
 #. L10n: %s is the error message.
 #: js/app.js:283
@@ -997,12 +997,12 @@ msgstr[1] "Gebroken links"
 #. L10n: %1$s is the name of the story format, %2$s is the error message.
 #: js/views/storyeditview/modals/storyformatmodal.js:96
 #: js/views/storylistview/modals/formatsmodal.js:74
-msgid "The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s)."
+msgid "The story format “%1$s” could not be loaded (%2$s)."
 msgstr "Het verhaal formaat %1$s kon niet geladen worden (%2$s)."
 
 #: js/views/storyeditview/passageitemview.js:165
 #, javascript-format
-msgid "Are you sure you want to delete &ldquo;%s&rdquo;? "
+msgid "Are you sure you want to delete “%s”? "
 msgstr "Weet je zeken dat je %s wilt verwijderen?"
 
 #: js/views/storyeditview/passageitemview.js:169
@@ -1105,7 +1105,7 @@ msgstr ""
 #: js/views/storylistview/storyitemview.js:123
 #, javascript-format
 msgid ""
-"Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone."
+"Are you sure you want to delete “%s”? This cannot be undone."
 msgstr ""
 "Weet je zeker dat je \"%s\" wilt verwijderen? Dit kan niet ongedaan worden"
 
@@ -1115,7 +1115,7 @@ msgstr "Verwijder voor altijd"
 
 #: js/views/storylistview/storyitemview.js:137
 #, javascript-format
-msgid "What should &ldquo;%s&rdquo; be renamed to?"
+msgid "What should “%s” be renamed to?"
 msgstr "Wat moet de nieuwe naam naam van \"%s\" moeten zijn?"
 
 #: js/views/storylistview/storyitemview.js:138

@@ -2,15 +2,26 @@
 
 const values = require('lodash.values');
 const Vue = require('vue');
-const { confirm } = require('../dialogs/confirm');
-const { createPassage, deletePassage, positionPassage, updatePassage } = require('../data/actions/passage');
+
+const eventHub = require('../common/eventHub');
+const {
+	createPassage,
+	deletePassage,
+	positionPassage,
+	updatePassage
+} = require('../data/actions/passage');
 const { loadFormat } = require('../data/actions/story-format');
 const { updateStory } = require('../data/actions/story');
 const domEvents = require('../vue/mixins/dom-events');
 const locale = require('../locale');
 const { passageDefaults } = require('../data/store/story');
 const zoomSettings = require('./zoom-settings');
+// Dialogs need to be included somewhere for vue to register it globally
+const { confirm } = require('../dialogs/confirm');
+const { prompt } = require('../dialogs/prompt');
 
+// Modal editor for individual passages
+require('../editors/passage');
 require('./index.less');
 
 /*
@@ -32,6 +43,18 @@ module.exports = Vue.extend({
 	},
 
 	data: () => ({
+		/* for the embedded global modal in this view*/
+		showConfirm: false,
+		confirmArgs: {},
+
+		showPrompt: false,
+		promptArgs: {},
+
+		showEditor: false,
+		showCustomModal: false,
+		editorArgs: {},
+		customModalComponent: null,
+		customModalArgs: {},
 		/*
 		The window's width and height. Our resize() method keeps this in sync
 		with the DOM.
@@ -71,7 +94,7 @@ module.exports = Vue.extend({
 		* the size of the browser window
 		* the minimum amount of space needed to enclose all existing
 		passages
-		
+
 		... whichever is bigger, plus 50% of the browser window's
 		width and height, so that there's always room for the story to
 		expand.
@@ -128,23 +151,6 @@ module.exports = Vue.extend({
 		selectedChildren() {
 			return this.$refs.passages.filter(p => p.passage.selected);
 		},
-
-		/*
-		An array of <passage-item> components and their link positions,
-		indexed by name.
-		*/
-
-		passagePositions() {
-			return this.$refs.passages.reduce(
-				(result, passageView) => {
-					result[passageView.passage.name] = passageView.linkPosition;
-					return result;
-				},
-
-				{}
-			);
-		},
-
 		story() {
 			return this.allStories.find(story => story.id === this.storyId);
 		},
@@ -173,31 +179,77 @@ module.exports = Vue.extend({
 				Change the window's scroll position so that the same logical
 				coordinates are at its center.
 				*/
-				
+
 				const halfWidth = window.innerWidth / 2;
 				const halfHeight = window.innerHeight / 2;
 				const logCenterX = (window.scrollX + halfWidth) / old;
 				const logCenterY = (window.scrollY + halfHeight) / old;
 
 				window.scroll(
-					(logCenterX * value) - halfWidth,
-					(logCenterY * value) - halfHeight
+					logCenterX * value - halfWidth,
+					logCenterY * value - halfHeight
 				);
 			}
 		}
 	},
 
-	ready() {
-		this.resize();
-		this.on(window, 'resize', this.resize);
-		this.on(window, 'keyup', this.onKeyup);
+	mounted() {
+		eventHub.$on('modalConfirm', confirmArgs => {
+			this.confirmArgs = confirmArgs;
+			this.showConfirm = true;
+		});
+		eventHub.$on('modalPrompt', promptArgs => {
+			this.promptArgs = promptArgs;
+			this.showPrompt = true;
+		});
+		eventHub.$on('customModal', (modalComponent, modalArgs) => {
+			this.customModalComponent = modalComponent;
+			this.customModalArgs = modalArgs;
+			this.showCustomModal = true;
+		});
+		eventHub.$on('close', () => {
+			this.showConfirm = false;
+			this.showPrompt = false;
+			this.showCustomModal = false;
+			this.showEditor = false;
+		});
 
-		if (this.story.passages.length === 0) {
-			this.createPassageAt();
-		}
+		this.$nextTick(function() {
+			// code that assumes this.$el is in-document
+			this.resize();
+			this.on(window, 'resize', this.resize);
+			this.on(window, 'keyup', this.onKeyup);
+
+			// TODO: This can probably be replaced with custom-modal
+			eventHub.$on('showEditor', editorArgs => {
+				this.editorArgs = editorArgs;
+				this.showEditor = true;
+			});
+
+			if (this.story.passages.length === 0) {
+				this.createPassageAt();
+			}
+			// Necessary to re-compute positions based on rendered passages
+			this.$forceUpdate();
+		});
 	},
 
 	methods: {
+		/*
+		An array of <passage-item> components and their link positions,
+		indexed by name.
+		*/
+
+		passagePositions() {
+			if (!this.$refs.passages) {
+				return {};
+			}
+			return this.$refs.passages.reduce((result, passageView) => {
+				result[passageView.passage.name] = passageView.linkPosition;
+				return result;
+			}, {});
+		},
+
 		resize() {
 			this.winWidth = window.innerWidth;
 			this.winHeight = window.innerHeight;
@@ -208,17 +260,12 @@ module.exports = Vue.extend({
 
 			if (zoomIndex === 0) {
 				if (wraparound) {
-					this.updateStory(
-						this.story.id,
-						{ zoom: zoomLevels[zoomIndex.length - 1] }
-					);
+					this.updateStory(this.story.id, {
+						zoom: zoomLevels[zoomIndex.length - 1]
+					});
 				}
-			}
-			else {
-				this.updateStory(
-					this.story.id,
-					{ zoom: zoomLevels[zoomIndex - 1] }
-				);
+			} else {
+				this.updateStory(this.story.id, { zoom: zoomLevels[zoomIndex - 1] });
 			}
 		},
 
@@ -227,17 +274,10 @@ module.exports = Vue.extend({
 
 			if (zoomIndex === zoomLevels.length - 1) {
 				if (wraparound) {
-					this.updateStory(
-						this.story.id,
-						{ zoom: zoomLevels[0] }
-					);
+					this.updateStory(this.story.id, { zoom: zoomLevels[0] });
 				}
-			}
-			else {
-				this.updateStory(
-					this.story.id,
-					{ zoom: zoomLevels[zoomIndex + 1] }
-				);
+			} else {
+				this.updateStory(this.story.id, { zoom: zoomLevels[zoomIndex + 1] });
 			}
 		},
 
@@ -257,21 +297,19 @@ module.exports = Vue.extend({
 			*/
 
 			if (!left) {
-				left = (window.pageXOffset + window.innerWidth / 2)
-					/ this.story.zoom;
+				left = (window.pageXOffset + window.innerWidth / 2) / this.story.zoom;
 				left -= passageDefaults.width;
 			}
 
 			if (!top) {
-				top = (window.pageYOffset + window.innerHeight / 2)
-					/ this.story.zoom;
+				top = (window.pageYOffset + window.innerHeight / 2) / this.story.zoom;
 				top -= passageDefaults.height;
 			}
 
 			/*
 			Make sure the name is unique. If it's a duplicate, we add a
-			number at the end (e.g. "Untitled Passage 2", "Untitled Passage
-			3", and so on.
+			number at the end (e.g. 'Untitled Passage 2', 'Untitled Passage
+			3', and so on.
 			*/
 
 			name = name || locale.say('Untitled Passage');
@@ -283,9 +321,7 @@ module.exports = Vue.extend({
 				do {
 					nameIndex++;
 					name = origName + ' ' + nameIndex;
-				}
-				while
-					(this.story.passages.find(p => p.name === name));
+				} while (this.story.passages.find(p => p.name === name));
 			}
 
 			/* Add it to our collection. */
@@ -296,7 +332,7 @@ module.exports = Vue.extend({
 			Then position it so it doesn't overlap any others, and save it
 			again.
 			*/
-			
+
 			this.positionPassage(
 				this.story.id,
 				this.story.passages.find(p => p.name === name).id,
@@ -309,13 +345,11 @@ module.exports = Vue.extend({
 		webkitmouseforcedown event. At the time of writing, this is a
 		Mac-specific feature, but can be extended once standards catch up.
 		*/
-		
+
 		onMouseForceDown(e) {
-			let top = (e.pageY / this.story.zoom) -
-				(passageDefaults.height / 2);
-			let left = (e.pageX / this.story.zoom) -
-				(passageDefaults.width / 2);
-			
+			let top = e.pageY / this.story.zoom - passageDefaults.height / 2;
+			let left = e.pageX / this.story.zoom - passageDefaults.width / 2;
+
 			this.createPassage(null, top, left);
 		},
 
@@ -330,8 +364,7 @@ module.exports = Vue.extend({
 
 				if (e.wheelDeltaY > 0) {
 					this.zoomIn(true);
-				}
-				else {
+				} else {
 					this.zoomOut(true);
 				}
 
@@ -360,7 +393,7 @@ module.exports = Vue.extend({
 				case 187:
 					this.zoomOut();
 					break;
-				
+
 				/* Minus key */
 
 				case 189:
@@ -370,52 +403,55 @@ module.exports = Vue.extend({
 				/* Delete key */
 
 				case 46: {
-					const toDelete =
-						this.story.passages.filter(p => p.selected);
+					const toDelete = this.story.passages.filter(p => p.selected);
 
 					if (toDelete.length === 0) {
 						return;
 					}
 
 					const message = locale.sayPlural(
-						`Are you sure you want to delete &ldquo;%2$s&rdquo;? This cannot be undone.`,
+						`Are you sure you want to delete “%2$s”? This cannot be undone.`,
 						`Are you sure you want to delete %d passages? This cannot be undone.`,
 						toDelete.length,
 						toDelete[0].name
 					);
 
-					confirm({
-						message,
-						buttonLabel: '<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
-						buttonClass: 'danger'
-					}).then(() => {
-						toDelete.forEach(
-							p => this.deletePassage(this.story.id, p.id)
-						);
+					eventHub.$once('close', confirmed => {
+						if (confirmed) {
+							toDelete.forEach(p => this.deletePassage(this.story.id, p.id));
+						}
 					});
+					const confirmArgs = {
+						buttonLabel:
+							'<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
+						class: 'danger',
+						message: message
+					};
+
+					eventHub.$emit('modalConfirm', confirmArgs);
 					break;
 				}
 			}
 		}
 	},
 
-	events: {
+	created: function() {
 		/*
 		Our children (e.g. the search field can tell us to change what the
 		highlight filter should be.
 		*/
 
-		'highlight-regexp-change'(value) {
+		eventHub.$on('highlight-regexp-change', value => {
 			this.highlightRegexp = value;
-		},
-		
+		});
+
 		/*
 		A hook into our createPassage() method for child components.
 		*/
 
-		'passage-create'(name, left, top) {
+		eventHub.$on('passage-create', (name, left, top) => {
 			this.createPassageAt(name, left, top);
-		},
+		});
 
 		/*
 		A child will dispatch this event to us as it is dragged around. We
@@ -423,7 +459,7 @@ module.exports = Vue.extend({
 		temporarily shifting their onscreen position.
 		*/
 
-		'passage-drag'(xOffset, yOffset) {
+		eventHub.$on('passage-drag', (xOffset, yOffset) => {
 			if (this.story.snapToGrid) {
 				const zoomedGridSize = this.gridSize * this.story.zoom;
 
@@ -436,7 +472,7 @@ module.exports = Vue.extend({
 				this.screenDragOffsetX = xOffset;
 				this.screenDragOffsetY = yOffset;
 			}
-		},
+		});
 
 		/*
 		A child will dispatch this event at the completion of a drag. We
@@ -444,7 +480,7 @@ module.exports = Vue.extend({
 		a temporary change in the DOM to their model.
 		*/
 
-		'passage-drag-complete'(xOffset, yOffset) {
+		this.$on('passage-drag-complete', (xOffset, yOffset) => {
 			this.screenDragOffsetX = 0;
 			this.screenDragOffsetY = 0;
 
@@ -455,8 +491,8 @@ module.exports = Vue.extend({
 				yOffset = Math.round(yOffset / zoomedGridSize) * zoomedGridSize;
 			}
 
-			this.$broadcast('passage-drag-complete', xOffset, yOffset);
-		},
+			eventHub.$emit('passage-drag-complete', xOffset, yOffset);
+		});
 
 		/*
 		Positions a passage on behalf of a child component. This needs to be
@@ -464,7 +500,7 @@ module.exports = Vue.extend({
 		account the grid size.
 		*/
 
-		'passage-position'(passage, options) {
+		eventHub.$on('passage-position', (passage, options) => {
 			this.positionPassage(
 				this.story.id,
 				passage.id,
@@ -472,7 +508,7 @@ module.exports = Vue.extend({
 				options.ignoreSelected && (otherPassage =>
 					!otherPassage.selected)
 			);
-		}
+		});
 	},
 
 	components: {

@@ -25,12 +25,12 @@ msgstr ""
 
 #: src/dialogs/about/index.html
 msgid ""
-"This application is released under the \\x3ca href=\"http:\\/\\/www.gnu.org/"
-"licenses/gpl-3.0.html\">GPL v3\\x3c/a> license, but any work created with it "
+"This application is released under the <a href=\"http://www.gnu.org/"
+"licenses/gpl-3.0.html\">GPL v3</a> license, but any work created with it "
 "may be released under any terms, including commercial ones."
 msgstr ""
-"Questa applicazione è rilasciata sotto licenza \\x3ca href=\"http:\\/\\/www."
-"gnu.org/licenses/gpl-3.0.html\">GPL v3\\x3c/a>, ma ogni lavoro realizzato "
+"Questa applicazione è rilasciata sotto licenza <a href=\"http:\\/\\/www."
+"gnu.org/licenses/gpl-3.0.html\">GPL v3</a>, ma ogni lavoro realizzato "
 "con essa può essere rilasciato sotto qualsiasi altra condizione, comprese "
 "licenze commerciali."
 
@@ -57,14 +57,14 @@ msgstr "Font"
 #: src/dialogs/about/index.html
 msgid ""
 "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the "
-"guidance of Robert Slimbach for \\x3ca href=\"http:\\/\\/adobe.com/\">Adobe"
-"\\x3c/a>\\x3cbr> Nunito was designed by \\x3ca href=\"http:\\/\\/code."
-"newtypography.co.uk/\">Vernon Adams\\x3c/a>"
+"guidance of Robert Slimbach for <a href=\"http://adobe.com/\">Adobe"
+"</a><br> Nunito was designed by <a href=\"http:\\/\\/code."
+"newtypography.co.uk/\">Vernon Adams</a>"
 msgstr ""
 "Source Sans Pro e Source Code Pro sono stati realizzati da Paul D. Hunt "
-"sotto la supervisione di Robert Slimbach per \\x3ca href=\"http:\\/\\/adobe."
-"com/\">Adobe\\x3c/a>\\x3cbr> Nunito è stato realizzato da \\x3ca href=\"http:"
-"\\/\\/code.newtypography.co.uk/\">Vernon Adams\\x3c/a>"
+"sotto la supervisione di Robert Slimbach per <a href=\"http:\\/\\/adobe."
+"com/\">Adobe</a><br> Nunito è stato realizzato da <a href=\"http:"
+"//code.newtypography.co.uk/\">Vernon Adams</a>"
 
 #: src/dialogs/about/index.html
 msgid "Icons"
@@ -106,15 +106,15 @@ msgstr "Donazioni"
 
 #: src/dialogs/app-donation/index.html
 msgid ""
-"This message will only be shown to you once.&lt;br&gt;If you'd like to "
-"donate to Twine development in the future, you can do so at &lt;a href=\\"
-"\"http:\\/\\/twinery.org/donate\\\" target=\\\"_blank\\\"&gt;http://twinery."
-"org/donate&lt;/a&gt;."
+"This message will only be shown to you once.<br>If you'd like to "
+"donate to Twine development in the future, you can do so at <a href=\\"
+"\"http://twinery.org/donate\\\" target=\\\"_blank\\\">http://twinery."
+"org/donate</a>."
 msgstr ""
-"Questo messaggio verrà mostrato solo una volta.&lt;br&gt;Se, in futuro, "
+"Questo messaggio verrà mostrato solo una volta.<br>Se, in futuro, "
 "vorrai effettuare una donazione per lo sviluppo di Twine, potrai visitare "
-"&lt;a href=\\\"http:\\/\\/twinery.org/donate\\\" target=\\\"_blank\\\"&gt;"
-"http://twinery.org/donate&lt;/a&gt;."
+"<a href=\\\"http://twinery.org/donate\\\" target=\\\"_blank\\\">"
+"http://twinery.org/donate</a>."
 
 #: src/dialogs/formats/index.html
 msgid ""
@@ -303,28 +303,28 @@ msgstr "Sei nuovo?"
 
 #: src/nw/patches/welcome-view/replacement-template.html
 msgid ""
-"&lt;strong&gt;If you've never used Twine before,&lt;/strong&gt; then "
-"welcome! The &lt;a href=\\\"http://twinery.org/2guide\\\" target=\\\"_blank\\"
-"\"&gt;Twine 2 Guide&lt;/a&gt; and the official wiki in general, are a great "
+"<strong>If you've never used Twine before,</strong> then "
+"welcome! The <a href=\\\"http://twinery.org/2guide\\\" target=\\\"_blank\\"
+"\">Twine 2 Guide</a> and the official wiki in general, are a great "
 "place to learn. Keep in mind that some articles on the wiki at large were "
 "written for Twine 1, which is a little bit different than this version. But "
 "most of the concepts are the same."
 msgstr ""
-"&lt;strong&gt;Se non hai mai utilizzato Twine,&lt;/strong&gt;, benvenuto! La "
-"&lt;a href=\\\"http://twinery.org/2guide\\\" target=\\\"_blank\\\"&gt;Guida "
-"a Twine 2&lt;/a&gt; ed il wiki ufficiale sono degli ottimi punti di "
+"<strong>Se non hai mai utilizzato Twine,</strong>, benvenuto! La "
+"<a href=\\\"http://twinery.org/2guide\\\" target=\\\"_blank\\\">Guida "
+"a Twine 2</a> ed il wiki ufficiale sono degli ottimi punti di "
 "partenza. Tieni a mente che alcuni articoli del wiki sono stati scritti per "
 "Twine 1, che in alcuni punti è leggermente differente. La maggior parte dei "
 "concetti sono comunque gli stessi."
 
 #: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
 msgid ""
-"&lt;strong&gt;If you have used Twine 1 before,&lt;/strong&gt; the guide also "
+"<strong>If you have used Twine 1 before,</strong> the guide also "
 "has details on what has changed in this version. Chief among them is a new "
 "default story format, Harlowe. But if you find you prefer the Twine 1 "
 "scripting syntax, try using SugarCube instead."
 msgstr ""
-"&lt;strong&gt;Se hai utilizzato Twine 1 in precedenza,&lt;/strong&gt; la "
+"<strong>Se hai utilizzato Twine 1 in precedenza,</strong> la "
 "guida elenca anche i dettagli di cosa è cambiato in questa versione. Prima "
 "di tutto c'è un nuovo formato default per il racconto, Harlowe. Ma se pensi "
 "di preferire la sintassi di Twine 1, prova ad utilizzare SugarCube."
@@ -342,15 +342,15 @@ msgid ""
 "There's now a folder named Twine in your Documents folder. Inside that is a "
 "Stories folder, where all your work will be saved. Twine saves as you work, "
 "so you don't have to worry about remembering to save it yourself. You can "
-"always open the folder your stories are saved to by using the &lt;b&gt;Show "
-"Library&lt;/b&gt; item in the &lt;b&gt;Twine&lt;/b&gt; menu."
+"always open the folder your stories are saved to by using the <b>Show "
+"Library</b> item in the <b>Twine</b> menu."
 msgstr ""
 "Ora c’è una cartella chiamata Twine nella tua cartella Documenti. Al suo "
 "interno si trova una cartella chiamata Racconti, dove verranno salvati tutti "
 "i tuoi lavori. Twine effettua i salvataggi mentre lavori, quindi non dovrai "
 "preoccuparti di farlo manualmente. Potrai sempre aprire la cartella dei "
-"salvataggi utilizzando &lt;b&gt;Mostra Libreria&lt;/b&gt; nel menu di &lt;"
-"b&gt;Twine&lt;/b&gt;."
+"salvataggi utilizzando <b>Mostra Libreria</b> nel menu di <"
+"b>Twine</b>."
 
 #: src/nw/patches/welcome-view/replacement-template.html
 msgid ""
@@ -496,9 +496,9 @@ msgid ""
 "written for Twine 1, which is a little bit different than this version. But "
 "most of the concepts are the same."
 msgstr ""
-"&lt;strong&gt;Se non hai mai utilizzato Twine,&lt;/strong&gt;, benvenuto! La "
-"&lt;a href=\\\"http://twinery.org/2guide\\\" target=\\\"_blank\\\"&gt;Guida "
-"aTwine 2&lt;/a&gt; ed il wiki ufficiale sono degli ottimi punti di partenza. "
+"<strong>Se non hai mai utilizzato Twine,</strong>, benvenuto! La "
+"<a href=\\\"http://twinery.org/2guide\\\" target=\\\"_blank\\\">Guida "
+"aTwine 2</a> ed il wiki ufficiale sono degli ottimi punti di partenza. "
 "Tieni a mente che alcuni articoli del wiki sono stati scritti per Twine 1, "
 "che in alcuni punti è leggermente differente. La maggior parte dei concetti "
 "sono comunque gli stessi."
@@ -519,36 +519,36 @@ msgstr ""
 
 #: src/welcome/index.html
 msgid ""
-"Two &lt;b&gt;very important&lt;/b&gt; things to remember, though. Since your "
+"Two <b>very important</b> things to remember, though. Since your "
 "work is saved only in your browser, if you clear its saved data, then you'll "
-"lose your work! Not good. Remember to use that &lt;i class=\\\"fa fa-"
-"briefcase\\\"&gt;&lt;/i&gt;&nbsp;&lt;strong&gt;Archive&lt;/strong&gt; button "
-"often. You can also publish individual stories to files using the &lt;i "
-"class=\\\"fa fa-cog\\\"&gt;&lt;/i&gt; menu on each story in the story list. "
+"lose your work! Not good. Remember to use that <i class=\\\"fa fa-"
+"briefcase\\\"></i>&nbsp;<strong>Archive</strong> button "
+"often. You can also publish individual stories to files using the <i "
+"class=\\\"fa fa-cog\\\"></i> menu on each story in the story list. "
 "Both archive and story files can always be re-imported into Twine."
 msgstr ""
-"Ci sono due punti &lt;b&gt;molto importanti&lt;/b&gt; da ricordare. Siccome "
+"Ci sono due punti <b>molto importanti</b> da ricordare. Siccome "
 "il tuo lavoro è salvato nel tuo browser, se elimini i suoi dati salvati, "
-"perderai il tuo lavoro! Ricordati di utilizzare spesso il pulsante &lt;i "
-"class=\\\"fa fa-briefcase\\\"&gt;&lt;/i&gt;&nbsp;&lt;strong&gt;Archivia&lt;/"
-"strong&gt;. Puoi anche pubblicare storie singole tramite file utilizzando il "
-"menu &lt;i class=\\\"fa fa-cog\\\"&gt;&lt;/i&gt; che trovi nell'elenco dei "
+"perderai il tuo lavoro! Ricordati di utilizzare spesso il pulsante <i "
+"class=\\\"fa fa-briefcase\\\"></i>&nbsp;<strong>Archivia</"
+"strong>. Puoi anche pubblicare storie singole tramite file utilizzando il "
+"menu <i class=\\\"fa fa-cog\\\"></i> che trovi nell'elenco dei "
 "racconti. Sia i file che gli archivi possono essere reimportati in Twine."
 
 #: src/welcome/index.html
 msgid ""
-"Secondly, &lt;b&gt;anyone who can use this browser can see and make changes "
-"to your work&lt;/b&gt;. So if you've got a nosy kid brother, look into "
+"Secondly, <b>anyone who can use this browser can see and make changes "
+"to your work</b>. So if you've got a nosy kid brother, look into "
 "setting up a separate profile for yourself."
 msgstr ""
-"In secondo luogo, &lt;b&gt;chiunque può accedere a questo browser potrà "
-"vedere e modificare il tuo lavoro&lt;/b&gt;. Se quindi hai un fratello "
+"In secondo luogo, <b>chiunque può accedere a questo browser potrà "
+"vedere e modificare il tuo lavoro</b>. Se quindi hai un fratello "
 "ficcanaso, considera la possibilità di creare un profilo a parte su questo "
 "computer."
 
 #: src/data/actions.js:262
-msgid "a story format named &ldquo;%s&rdquo; already exists"
-msgstr "Esiste già un formato racconto con nome &ldquo;%s&rdquo;"
+msgid "a story format named “%s” already exists"
+msgstr "Esiste già un formato racconto con nome “%s”"
 
 #: src/data/publish.js:75
 msgid "There is no starting point set for this story."
@@ -600,15 +600,15 @@ msgstr "Non Ora"
 
 #. L10n: %1$s is the name of the story format; %2$s is
 #: src/dialogs/formats/index.js:60
-msgid "The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s)."
+msgid "The story format “%1$s” could not be loaded (%2$s)."
 msgstr ""
-"Non è stato possibile caricare il formato del racconto &ldquo;%1$s&rdquo; "
+"Non è stato possibile caricare il formato del racconto “%1$s” "
 "(%2$s)."
 
 #: src/dialogs/formats/index.js:102
 msgid "The story format at %1$s could not be added (%2$s)."
 msgstr ""
-"Non è stato possibile aggiungere il formato del racconto &ldquo;%1$s&rdquo; "
+"Non è stato possibile aggiungere il formato del racconto “%1$s” "
 "(%2$s)."
 
 #. L10n: %s is the name of an author.
@@ -672,8 +672,8 @@ msgstr "\\u201c%s\\u201d in modifica"
 
 #. L10n: %1$s is a filename; %2$s is the error message.
 #: src/file/save.js:71
-msgid "&ldquo;%1$s&rdquo; could not be saved (%2$s)."
-msgstr "Non è stato possibile salvare &ldquo;%1$s&rdquo; (%2$s)."
+msgid "“%1$s” could not be saved (%2$s)."
+msgstr "Non è stato possibile salvare “%1$s” (%2$s)."
 
 #. L10n: This is the folder name on OS X, Linux, and recent versions of Windows that a user's documents are stored in, relative to the user's home directory. If you need to use a space in this name, then it should have two backslashes (\\) in front of it. Regardless, this must have a single forward slash (/) as its first character.
 #: src/nw/directories.js:38
@@ -727,9 +727,9 @@ msgstr "Mostra Libreria"
 #: src/story-edit-view/passage-item/index.js:260
 #: src/story-list-view/story-item/item-menu/index.js:78
 msgid ""
-"Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone."
+"Are you sure you want to delete “%s”? This cannot be undone."
 msgstr ""
-"Sei sicuro di voler eliminare &ldquo;%s&rdquo;? Questa azione sarà "
+"Sei sicuro di voler eliminare “%s”? Questa azione sarà "
 "definitiva."
 
 #: src/story-edit-view/passage-item/index.js:267
@@ -739,8 +739,8 @@ msgstr ""
 
 #: src/story-edit-view/story-toolbar/story-menu/index.js:46
 #: src/story-list-view/story-item/item-menu/index.js:100
-msgid "What should &ldquo;%s&rdquo; be renamed to?"
-msgstr "Qual’è il nuovo nome per &ldquo;%s&rdquo;?"
+msgid "What should “%s” be renamed to?"
+msgstr "Qual’è il nuovo nome per “%s”?"
 
 #: src/story-edit-view/story-toolbar/story-menu/index.js:51
 #: src/story-list-view/story-item/item-menu/index.js:105

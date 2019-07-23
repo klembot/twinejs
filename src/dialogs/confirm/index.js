@@ -6,8 +6,8 @@
 
 'use strict';
 const locale = require('../../locale');
+const eventHub = require('../../common/eventHub');
 const Vue = require('vue');
-const { thenable } = require('../../vue/mixins/thenable');
 
 require('./index.less');
 
@@ -22,61 +22,38 @@ require('./index.less');
 						 buttonLabel (HTML label for the button)
 **/
 
-const confirmation = module.exports = {
-	component: Vue.extend({
-		template: require('./index.html'),
+const confirmation = Vue.component('confirm', {
+	template: require('./index.html'),
 
-		data: () => ({
-			message: '',
-			coda: '',
-			cancelLabel: ('<i class="fa fa-times"></i> ' + locale.say('Cancel')),
-			buttonLabel: '',
-			modalClass: '',
-			buttonClass: 'primary'
-		}),
+	props: {
+		buttonLabel: { type: String, default: '' },
+		modalClass: { type: String, default: '' },
+		buttonClass: { type: String, default: 'primary' },
+		coda: { type: String, default: '' },
+		message: { type: String, default: '' }
+	},
 
-		methods: {
-			accept() {
-				this.$broadcast('close', true);
-			},
-
-			cancel() {
-				this.$broadcast('close', false);
-			},
-		},
-
-		components: {
-			'modal-dialog': require('../../ui/modal-dialog'),
-		},
-
-		mixins: [thenable]
+	data: () => ({
+		cancelLabel: '<i class="fa fa-times"></i> ' + locale.say('Cancel')
 	}),
 
-	/**
-	 Creates a <confirm-modal> dialog using the given data, and returns
-	 its promise, which rejects if the 'cancel' button was selected.
+	methods: {
+		accept() {
+			eventHub.$emit('close', true);
+			this.$emit('close', true);
+		},
 
-	 @return {Promise} the modal's promise.
-	*/
+		cancel() {
+			eventHub.$emit('close', false);
+			this.$emit('close', true);
+		}
+	},
 
-	confirm(data) {
-		return new confirmation.component(
-			{ data }
-		).$mountTo(document.body).then(
-			result => {
-				// False results are produced by the close button and the
-				// cancel button. If the result is false, convert it into a
-				// rejection.
-				//
-				// Note: this may change in the future, as using rejections for
-				// negative results is somewhat unidiomatic.
-
-				if (!result) {
-					throw result;
-				}
-
-				return result;
-			}
-		);
+	components: {
+		'modal-dialog': require('../../ui/modal-dialog')
 	}
+});
+
+module.exports = {
+	component: confirmation
 };

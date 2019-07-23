@@ -96,7 +96,6 @@ describe('publish module', () => {
 		const result = publish.publishStory(appInfo, story);
 		
 		expect(typeof result).toBe('string');
-		console.info(result);
 		checkStoryElAgainstData($(result), story, appInfo);
 	});
 	
