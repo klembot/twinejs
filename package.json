@@ -11,19 +11,17 @@
 	"browserslist": "iOS 1-12, last 2 versions",
 	"main": "src/electron/index.js",
 	"scripts": {
-		"build": "run-s build:*",
+		"build": "npm-run-all -l --parallel build:cdn build:electron build:web --serial build:build-number",
 		"build:build-number": "node scripts/build-number.js",
-		"build:cdn": "cross-env NODE_ENV=production USE_CDN=y webpack --progress",
-		"build:electron": "cross-env NODE_ENV=production USE_ELECTRON=y webpack --progress",
-		"build:electron-dev": "cross-env USE_ELECTRON=y webpack --progress",
-		"build:web": "cross-env NODE_ENV=production webpack --progress",
+		"build:cdn": "cross-env NODE_ENV=production USE_CDN=y webpack",
+		"build:electron": "cross-env NODE_ENV=production USE_ELECTRON=y webpack && electron-builder --ia32 --x64 -mwl",
+		"build:electron-dev": "cross-env USE_ELECTRON=y webpack --progress && electron .",
+		"build:web": "cross-env NODE_ENV=production webpack",
 		"clean": "rimraf dist/",
-		"electron": "npm run build:electron && electron-builder --ia32 --x64 -mwl",
-		"electron:dev": "npm run build:electron-dev && electron .",
 		"lint": "eslint src/ || exit 0",
 		"lint:noisy": "eslint src/",
 		"pot": "node scripts/extract-pot.js",
-		"start": "webpack-serve",
+		"start": "webpack-dev-server",
 		"test": "jest",
 		"test:watch": "jest --watch"
 	},
@@ -86,7 +84,7 @@
 		"jsdom-global": "^3.0.2",
 		"json-loader": "^0.5.7",
 		"less": "^2.7.1",
-		"less-loader": "^4.0.5",
+		"less-loader": "^5.0.0",
 		"less-plugin-autoprefix": "^1.5.1",
 		"mini-css-extract-plugin": "^0.4.4",
 		"mock-local-storage": "^1.0.4",
@@ -100,7 +98,7 @@
 		"url-loader": "^0.5.9",
 		"webpack": "^4.22.0",
 		"webpack-cli": "^3.1.2",
-		"webpack-serve": "^2.0.2",
+		"webpack-dev-server": "^3.7.2",
 		"yargs": "^6.6.0"
 	}
 }

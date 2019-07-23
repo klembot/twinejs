@@ -14,6 +14,7 @@ module.exports = Vue.extend({
 
 		locales: [
 			{label: 'Castellano', code: 'es'},
+			{label: 'Catal&agrave;', code: 'ca'},
 			{label: '&Ccaron;e&scaron;tina', code: 'cs'},
 			{label: 'Dansk', code: 'da'},
 			{label: 'Deutsch', code: 'de'},
