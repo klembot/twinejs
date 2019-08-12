@@ -1,8 +1,7 @@
-'use strict';
 const Vue = require('vue');
 const locale = require('../../locale');
-const { deleteFormat } = require('../../data/actions/story-format');
-const { setPref } = require('../../data/actions/pref');
+const {deleteFormat} = require('../../data/actions/story-format');
+const {setPref} = require('../../data/actions/pref');
 const eventHub = require('../../common/eventHub');
 
 require('./item.less');
@@ -18,12 +17,16 @@ module.exports = Vue.extend({
 	computed: {
 		isDefault() {
 			if (this.format.properties.proofing) {
-				return this.proofingFormatPref.name === this.format.name &&
-					this.proofingFormatPref.version === this.format.version;
+				return (
+					this.proofingFormatPref.name === this.format.name &&
+					this.proofingFormatPref.version === this.format.version
+				);
 			}
 
-			return this.defaultFormatPref.name === this.format.name &&
-				this.defaultFormatPref.version === this.format.version;
+			return (
+				this.defaultFormatPref.name === this.format.name &&
+				this.defaultFormatPref.version === this.format.version
+			);
 		},
 
 		selectorInputTitle() {
@@ -61,16 +64,25 @@ module.exports = Vue.extend({
 	methods: {
 		removeFormat() {
 			if (this.isDefault) {
-				eventHub.$emit("modalConfirm", {
-					buttonLabel: '<i class="fa fa-lg fa-check"></i> ' + locale.say('OK'),
-					message: locale.say('You may not remove the default story format. Please choose another one first.')
+				eventHub.$emit('modalConfirm', {
+					buttonLabel:
+						'<i class="fa fa-lg fa-check"></i> ' + locale.say('OK'),
+					message: locale.say(
+						'You may not remove the default story format. Please choose another one first.'
+					)
 				});
 				return;
 			}
 
-			eventHub.$once('close', (confirmed) => { if(confirmed) { this.deleteFormat(this.format.id); } });
-			eventHub.$emit("modalConfirm", {
-				buttonLabel: '<i class="fa fa-lg fa-trash-o"></i> ' + locale.say('Remove'),
+			eventHub.$once('close', confirmed => {
+				if (confirmed) {
+					this.deleteFormat(this.format.id);
+				}
+			});
+			eventHub.$emit('modalConfirm', {
+				buttonLabel:
+					'<i class="fa fa-lg fa-trash-o"></i> ' +
+					locale.say('Remove'),
 				message: locale.say('Are you sure?'),
 				buttonClass: 'danger'
 			});
@@ -78,18 +90,17 @@ module.exports = Vue.extend({
 
 		setDefaultFormat() {
 			if (this.format.properties.proofing) {
-				this.setPref(
-					'proofingFormat',
-					{ name: this.format.name, version: this.format.version }
-				);
+				this.setPref('proofingFormat', {
+					name: this.format.name,
+					version: this.format.version
+				});
+			} else {
+				this.setPref('defaultFormat', {
+					name: this.format.name,
+					version: this.format.version
+				});
 			}
-			else {
-				this.setPref(
-					'defaultFormat',
-					{ name: this.format.name, version: this.format.version }
-				);
-			}
-		},
+		}
 	},
 
 	vuex: {

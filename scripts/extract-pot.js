@@ -2,7 +2,6 @@
 Creates src/locale/po/template.pot by scanning the application source.
 */
 
-'use strict';
 const acorn = require('acorn');
 const estraverse = require('estraverse');
 const fs = require('fs');
@@ -33,8 +32,7 @@ function addItem(location, string, pluralString, comment) {
 		if (comment) {
 			existing.extractedComments.push(comment);
 		}
-	}
-	else {
+	} else {
 		let item = new poFile.Item();
 
 		item.msgid = string;
@@ -62,26 +60,23 @@ Parse .html files for text in this format:
 const templateRegexp = new RegExp(
 	/* Opening moustache. */
 	/{{{? */.source +
-
-	/* String to localize and say filter. */
-	/['"]([^}]*?)['"] *\| *say/.source +
-
-	/* Optional pluralization. */
-	/(?:Plural *['"](.+)['"].*)?/.source +
-
-	/* Closing moustache. */
-	/ *}}}?/.source,
+		/* String to localize and say filter. */
+		/['"]([^}]*?)['"] *\| *say/.source +
+		/* Optional pluralization. */
+		/(?:Plural *['"](.+)['"].*)?/.source +
+		/* Closing moustache. */
+		/ *}}}?/.source,
 
 	'gm'
 );
 
 glob.sync('src/**/*.html').forEach(fileName => {
-	const source = fs.readFileSync(fileName, { encoding: 'utf8' });
+	const source = fs.readFileSync(fileName, {encoding: 'utf8'});
 	const parser = new htmlParser.Parser({
 		ontext(text) {
 			let match;
 
-			while (match = templateRegexp.exec(text.trim())) {
+			while ((match = templateRegexp.exec(text.trim()))) {
 				/*
 				The first captured expression is a comment, if any.
 				The third is the plural form of the string, if any.
@@ -112,7 +107,7 @@ glob.sync('src/**/*.js').forEach(fileName => {
 				We can't use .value here because we need to keep the strings
 				intact with Unicode escapes.
 				*/
-				
+
 				return node.raw.replace(/^['"]/, '').replace(/['"]$/, '');
 
 			case 'BinaryExpression':
@@ -126,75 +121,76 @@ glob.sync('src/**/*.js').forEach(fileName => {
 
 			case 'TemplateLiteral':
 				if (node.quasis[0].length > 1) {
-					throw new Error(`Does not support multiple quasis ${node.quasis}`);
+					throw new Error(
+						`Does not support multiple quasis ${node.quasis}`
+					);
 				}
-				return node.quasis[0].value.raw.replace(/^['"]/, '').replace(/['"]$/, '');
+				return node.quasis[0].value.raw
+					.replace(/^['"]/, '')
+					.replace(/['"]$/, '');
 
 			default:
-				throw new Error(`Don't know how to parse value of ${node.type}`);
+				throw new Error(
+					`Don't know how to parse value of ${node.type}`
+				);
 		}
 	}
 
 	let comments = [];
-	const ast = acorn.parse(
-		fs.readFileSync(fileName, { encoding: 'utf8' }),
-		{
-			ecmaVersion: 6,
-			locations: true,
-			onComment: comments
-		}
-	);
+	const ast = acorn.parse(fs.readFileSync(fileName, {encoding: 'utf8'}), {
+		ecmaVersion: 6,
+		locations: true,
+		onComment: comments
+	});
 
-	estraverse.traverse(
-		ast,
-		{
-			enter: function(node, parent) {
-				if (node.type === 'CallExpression') {
-					let funcName;
+	estraverse.traverse(ast, {
+		enter: function(node, parent) {
+			if (node.type === 'CallExpression') {
+				let funcName;
 
-					if (node.callee.type === 'Identifier') {
-						funcName = node.callee.name;
-					}
-					else if (node.callee.type === 'MemberExpression') {
-						funcName = node.callee.property.name;
-					}
+				if (node.callee.type === 'Identifier') {
+					funcName = node.callee.name;
+				} else if (node.callee.type === 'MemberExpression') {
+					funcName = node.callee.property.name;
+				}
 
-					/*
+				/*
 					Check for a comment that ended 0-2 lines before this call.
 					*/
 
-					const precedingComment = comments.find(comment =>
-						Math.abs(comment.loc.end.line - node.loc.start.line) < 3 &&
-						/^\s*L10n/.test(comment.value)
+				const precedingComment = comments.find(
+					comment =>
+						Math.abs(comment.loc.end.line - node.loc.start.line) <
+							3 && /^\s*L10n/.test(comment.value)
+				);
+
+				if (funcName === 'say') {
+					addItem(
+						fileName + ':' + node.loc.start.line,
+						parseValue(node.arguments[0]),
+						null,
+						precedingComment ? precedingComment.value : null
 					);
+				}
 
-					if (funcName === 'say') {
-
-						addItem(
-							fileName + ':' + node.loc.start.line,
-							parseValue(node.arguments[0]),
-							null,
-							precedingComment ? precedingComment.value : null
-						);
-					}
-
-					if (funcName === 'sayPlural') {
-						addItem(
-							fileName + ':' + node.loc.start.line,
-							parseValue(node.arguments[0]),
-							parseValue(node.arguments[1]),
-							precedingComment ? precedingComment.value : null
-						);
-					}
+				if (funcName === 'sayPlural') {
+					addItem(
+						fileName + ':' + node.loc.start.line,
+						parseValue(node.arguments[0]),
+						parseValue(node.arguments[1]),
+						precedingComment ? precedingComment.value : null
+					);
 				}
 			}
 		}
-	);
+	});
 });
 
-fs.writeFileSync(
-	'src/locale/po/template.pot',
-	result.toString(),
-	{ encoding: 'utf8' }
+fs.writeFileSync('src/locale/po/template.pot', result.toString(), {
+	encoding: 'utf8'
+});
+console.log(
+	`Wrote ${
+		result.items.length
+	} extracted strings to src/locale/po/template.pot.\n`
 );
-console.log(`Wrote ${result.items.length} extracted strings to src/locale/po/template.pot.\n`);

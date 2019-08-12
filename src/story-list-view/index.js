@@ -5,12 +5,11 @@
  @extends Backbone.Marionette.CompositeView
 **/
 
-'use strict';
 const Vue = require('vue');
 const locale = require('../locale');
 const eventHub = require('../common/eventHub');
-const { check: checkForAppUpdate } = require('../dialogs/app-update');
-const { check: checkForDonation } = require('../dialogs/app-donation');
+const {check: checkForAppUpdate} = require('../dialogs/app-update');
+const {check: checkForDonation} = require('../dialogs/app-donation');
 const isElectron = require('../electron/is-electron');
 const ImportDialog = require('../dialogs/story-import');
 
@@ -49,7 +48,9 @@ module.exports = Vue.extend({
 
 	computed: {
 		sortDateButtonClass() {
-			return 'subtle' + (this.storyOrder === 'lastUpdate' ? ' active' : '');
+			return (
+				'subtle' + (this.storyOrder === 'lastUpdate' ? ' active' : '')
+			);
 		},
 		sortDateButtonTitle() {
 			return locale.say('Last changed date');
@@ -100,12 +101,18 @@ module.exports = Vue.extend({
 					});
 
 				default:
-					throw new Error(`Don't know how to sort by '${this.storyOrder}'`);
+					throw new Error(
+						`Don't know how to sort by '${this.storyOrder}'`
+					);
 			}
 		},
 
 		storyCountDesc() {
-			return locale.sayPlural('%d Story', '%d Stories', this.stories.length);
+			return locale.sayPlural(
+				'%d Story',
+				'%d Stories',
+				this.stories.length
+			);
 		}
 	},
 
@@ -148,13 +155,13 @@ module.exports = Vue.extend({
 			 and then an app update...
 			*/
 
-		if (
-			!this.appearFast &&
-			!checkForDonation(this.$store) &&
-			isElectron()
-		) {
-			checkForAppUpdate(this.$store);
-		}
+			if (
+				!this.appearFast &&
+				!checkForDonation(this.$store) &&
+				isElectron()
+			) {
+				checkForAppUpdate(this.$store);
+			}
 
 			/*
 			And if the user had been previously editing a story
@@ -218,7 +225,7 @@ module.exports = Vue.extend({
 		/* For now, we only support importing a single file at a time. */
 
 		eventHub.$on('file-drag-n-drop', files => {
-			this.newCustomModal(ImportDialog, { immediateImport: files[0] });
+			this.newCustomModal(ImportDialog, {immediateImport: files[0]});
 		});
 	},
 

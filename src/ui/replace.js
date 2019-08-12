@@ -6,7 +6,6 @@
 	<body>.
 **/
 
-'use strict';
 const ui = require('./index.js');
 
 module.exports = html => {

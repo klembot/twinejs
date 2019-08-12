@@ -2,7 +2,6 @@
 // links for editing, playing, and deleting a story; StoryEditView handles more
 // detailed changes.
 
-'use strict';
 const moment = require('moment');
 const Vue = require('vue');
 const eventHub = require('../../common/eventHub');
@@ -32,10 +31,17 @@ module.exports = Vue.extend({
 		hue() {
 			// A hue based on the story's name.
 
-			if(typeof this.story.name != 'string') {
+			if (typeof this.story.name != 'string') {
 				return 90;
 			}
-			return ([this.story.name].reduce((hue, char) => hue + char.charCodeAt(0), 0) % 40) * 90;
+			return (
+				([this.story.name].reduce(
+					(hue, char) => hue + char.charCodeAt(0),
+					0
+				) %
+					40) *
+				90
+			);
 		}
 	},
 
@@ -58,7 +64,7 @@ module.exports = Vue.extend({
 		**/
 
 		edit() {
-			this.$router.push({ path: '/stories/' + this.story.id });
+			this.$router.push({path: '/stories/' + this.story.id});
 		}
 	}
 });
