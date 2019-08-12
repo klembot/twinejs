@@ -24,13 +24,14 @@ module.exports = Vue.extend({
 			{label: 'Italiano', code: 'it'},
 			{label: 'Bahasa Melayu', code: 'ms'},
 			{label: 'Nederlands', code: 'nl'},
+			{label: 'Norsk bokmål', code: 'nb'},
 			{label: 'Portugu&ecirc;s', code: 'pt-pt'},
 			{label: 'Portugu&ecirc;s Brasileiro', code: 'pt-br'},
 			{label: 'русский', code: 'ru'},
 			{label: 'Suomi', code: 'fi'},
 			{label: 'Svenska', code: 'sv'},
 			{label: 'T&uuml;rk&ccedil;e', code: 'tr'},
-			{label: 'Chinese', code: 'zh-cn'}
+			{label: '中文(简体)', code: 'zh-cn'}
 		]
 	}),
 	methods: {
