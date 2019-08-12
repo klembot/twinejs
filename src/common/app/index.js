@@ -1,7 +1,6 @@
 // The main app running the show.
 
-'use strict';
-const Vue = require('vue');
+import Vue from 'vue';
 const ui = require('../../ui');
 const {repairFormats} = require('../../data/actions/story-format');
 const {repairStories} = require('../../data/actions/story');
@@ -13,13 +12,13 @@ module.exports = Vue.extend({
 	template: '<div><router-view></router-view></div>',
 
 	mounted() {
-		this.$nextTick(function () {
+		this.$nextTick(function() {
 			// code that assumes this.$el is in-document
 			ui.init();
 			this.repairFormats();
 			this.repairStories();
 			document.body.classList.add(`theme-${this.themePref}`);
-		  });
+		});
 	},
 
 	watch: {

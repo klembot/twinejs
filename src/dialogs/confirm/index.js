@@ -4,7 +4,6 @@
  @module ui/confirm
 **/
 
-'use strict';
 const locale = require('../../locale');
 const eventHub = require('../../common/eventHub');
 const Vue = require('vue');
@@ -26,11 +25,11 @@ const confirmation = Vue.component('confirm', {
 	template: require('./index.html'),
 
 	props: {
-		buttonLabel: { type: String, default: '' },
-		modalClass: { type: String, default: '' },
-		buttonClass: { type: String, default: 'primary' },
-		coda: { type: String, default: '' },
-		message: { type: String, default: '' }
+		buttonLabel: {type: String, default: ''},
+		modalClass: {type: String, default: ''},
+		buttonClass: {type: String, default: 'primary'},
+		coda: {type: String, default: ''},
+		message: {type: String, default: ''}
 	},
 
 	data: () => ({
