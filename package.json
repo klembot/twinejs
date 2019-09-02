@@ -56,7 +56,6 @@
 		"vuex": "^1.0.0"
 	},
 	"devDependencies": {
-		"5to6-codemod": "^1.8.0",
 		"@babel/core": "^7.1.2",
 		"@babel/preset-env": "^7.1.0",
 		"acorn": "^4.0.3",
