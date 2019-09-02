@@ -1,4 +1,4 @@
-const story = require('./story');
+import story from './story';
 
 describe('story data module', () => {
 	const tinyStory = {name: 'Hello Story'};

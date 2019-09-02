@@ -4,11 +4,12 @@ directory correctly. Locale data is also loaded by the browser process during
 startup; see `../index.js`.
 */
 
-const fs = require('fs-extra');
-const path = require('path');
-const {loadJson, loadDefault} = require('../locale');
+import fs from 'fs-extra';
 
-module.exports = function(prefs) {
+import path from 'path';
+import { loadJson, loadDefault } from '../locale';
+
+export default function(prefs) {
 	return new Promise(resolve => {
 		if (prefs.locale) {
 			const localeName = prefs.locale.toLowerCase();

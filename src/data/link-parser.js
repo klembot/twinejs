@@ -60,7 +60,7 @@ const extractLink = tagContent => {
 	);
 };
 
-module.exports = (text, internalOnly) => {
+export default (text, internalOnly) => {
 	/*
 	Link matching regexps ignore setter components, should they exist.
 	*/

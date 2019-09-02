@@ -1,4 +1,4 @@
-const linkParser = require('./link-parser');
+import linkParser from './link-parser';
 
 describe('link-parser', () => {
 		test('parses [[simple links]]', () => {

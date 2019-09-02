@@ -6,12 +6,12 @@
 	<body>.
 **/
 
-const ui = require('./index.js');
+import {destroy} from './index.js';
 
-module.exports = html => {
+export default html => {
 	// remove our UI hooks
 
-	ui.destroy();
+	destroy();
 
 	// blast the last of our JS globals
 

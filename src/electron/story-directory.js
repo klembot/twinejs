@@ -1,11 +1,11 @@
-const {app, shell} = require('electron');
-const fs = require('fs-extra');
-const klaw = require('klaw-sync');
-const locale = require('../locale');
-const mkdirp = require('mkdirp-promise');
-const path = require('path');
+import {app, shell} from 'electron';
+import fs from 'fs-extra';
+import klaw from 'klaw-sync';
+import {say} from '../locale';
+import mkdirp from 'mkdirp-promise';
+import path from 'path';
 
-const StoryDirectory = (module.exports = {
+const StoryDirectory = {
 	/*
 	Returns the full path of the user's story directory.
 	*/
@@ -13,8 +13,8 @@ const StoryDirectory = (module.exports = {
 	path() {
 		return path.join(
 			app.getPath('documents'),
-			locale.say('Twine'),
-			locale.say('Stories')
+			say('Twine'),
+			say('Stories')
 		);
 	},
 
@@ -98,8 +98,8 @@ const StoryDirectory = (module.exports = {
 
 		const backupPath = path.join(
 			app.getPath('documents'),
-			locale.say('Twine'),
-			locale.say('Backups')
+			say('Twine'),
+			say('Backups')
 		);
 		const now = new Date();
 
@@ -149,4 +149,5 @@ const StoryDirectory = (module.exports = {
 				}
 			});
 	}
-});
+};
+export default StoryDirectory;

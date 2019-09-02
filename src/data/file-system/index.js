@@ -3,11 +3,11 @@ Persists data to the file system. This can only be used when running in an
 Electron context (see src/electron/is-electron.js for how to detect that).
 */
 
-const {createFormat} = require('../actions/story-format');
-const {setPref} = require('../actions/pref');
-const {importStory} = require('../actions/story');
-const {loadFormat} = require('../actions/story-format');
-const importFile = require('../import');
+import {createFormat} from '../actions/story-format';
+import {setPref} from '../actions/pref';
+import {importStory} from '../actions/story';
+import {loadFormat} from '../actions/story-format';
+import importFile from '../import';
 
 /* These are exposed to us by the Electron preload script. */
 
@@ -36,7 +36,7 @@ function saveJson(filename, data) {
 	ipcRenderer.send('save-json', filename, data);
 }
 
-module.exports = store => {
+export default function(store) {
 	updatePrevious(store.state);
 
 	/*
@@ -220,4 +220,4 @@ module.exports = store => {
 
 		updatePrevious(state);
 	});
-};
+}

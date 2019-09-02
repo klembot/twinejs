@@ -1,23 +1,22 @@
-/**
- Shows a list of stories. Each list item is managed by a StoryItemView.
+/*
+Shows a list of stories. Each list item is managed by a StoryItemView.
+*/
 
- @class StoryListView
- @extends Backbone.Marionette.CompositeView
-**/
+import Vue from 'vue';
+import {say, sayPlural} from '../locale';
+import eventHub from '../common/eventHub';
+import checkForAppUpdate from '../dialogs/app-update';
+import {check as checkForDonation} from '../dialogs/app-donation';
+import fileDragNDrop from '../ui/file-drag-n-drop';
+import isElectron from '../electron/is-electron';
+import listToolbar from './list-toolbar';
+import ImportDialog from '../dialogs/story-import';
+import storyItem from './story-item';
+import template from './index.html';
+import './index.less';
 
-const Vue = require('vue');
-const locale = require('../locale');
-const eventHub = require('../common/eventHub');
-const {check: checkForAppUpdate} = require('../dialogs/app-update');
-const {check: checkForDonation} = require('../dialogs/app-donation');
-const isElectron = require('../electron/is-electron');
-const ImportDialog = require('../dialogs/story-import');
-
-require('./index.less');
-
-module.exports = Vue.extend({
-	template: require('./index.html'),
-
+export default Vue.extend({
+	template,
 	props: {
 		appearFast: {
 			type: Boolean,
@@ -29,7 +28,6 @@ module.exports = Vue.extend({
 			default: null
 		}
 	},
-
 	data: () => ({
 		/*
 		Set the default story list sorting to 'name', 'asc' (i.e. A → Z).
@@ -45,7 +43,6 @@ module.exports = Vue.extend({
 		promptArgs: {},
 		confirmArgs: {}
 	}),
-
 	computed: {
 		sortDateButtonClass() {
 			return (
@@ -53,13 +50,13 @@ module.exports = Vue.extend({
 			);
 		},
 		sortDateButtonTitle() {
-			return locale.say('Last changed date');
+			return say('Last changed date');
 		},
 		sortNameButtonClass() {
 			return 'subtle' + (this.storyOrder === 'name' ? ' active' : '');
 		},
 		sortNameButtonTitle() {
-			return locale.say('Story name');
+			return say('Story name');
 		},
 		sortedStories() {
 			/*
@@ -108,14 +105,9 @@ module.exports = Vue.extend({
 		},
 
 		storyCountDesc() {
-			return locale.sayPlural(
-				'%d Story',
-				'%d Stories',
-				this.stories.length
-			);
+			return sayPlural('%d Story', '%d Stories', this.stories.length);
 		}
 	},
-
 	watch: {
 		storyCountDesc: {
 			handler(value) {
@@ -125,7 +117,6 @@ module.exports = Vue.extend({
 			immediate: true
 		}
 	},
-
 	mounted() {
 		eventHub.$on('modalPrompt', promptArgs => {
 			this.promptArgs = promptArgs;
@@ -152,7 +143,7 @@ module.exports = Vue.extend({
 
 			/*
 			Otherwise, we check to see if we should ask for a donation,
-			 and then an app update...
+			and then an app update...
 			*/
 
 			if (
@@ -164,10 +155,9 @@ module.exports = Vue.extend({
 			}
 
 			/*
-			And if the user had been previously editing a story
-			 (as the router will tell us),
-			  we broadcast an event so that an appropriate child component
-			can set up a zoom transition back into itself.
+			And if the user had been previously editing a story (as the router
+			will tell us), we broadcast an event so that an appropriate child
+			component can set up a zoom transition back into itself.
 			*/
 
 			if (this.previouslyEditing) {
@@ -214,13 +204,11 @@ module.exports = Vue.extend({
 			this.storyOrder = 'name';
 		}
 	},
-
 	components: {
-		'story-item': require('./story-item'),
-		'list-toolbar': require('./list-toolbar'),
-		'file-drag-n-drop': require('../ui/file-drag-n-drop')
+		'file-drag-n-drop': fileDragNDrop,
+		'list-toolbar': listToolbar,
+		'story-item': storyItem
 	},
-
 	created: function() {
 		/* For now, we only support importing a single file at a time. */
 
@@ -228,7 +216,6 @@ module.exports = Vue.extend({
 			this.newCustomModal(ImportDialog, {immediateImport: files[0]});
 		});
 	},
-
 	vuex: {
 		getters: {
 			stories: state => state.story.stories

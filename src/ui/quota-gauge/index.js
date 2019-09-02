@@ -3,33 +3,29 @@ This is an gauge that shows how much space is available in the user's local
 storage. It's only applicable when the app is running in a Web browser.
 */
 
-const Vue = require('vue');
-const isElectron = require('../../electron/is-electron');
-const locale = require('../../locale');
-
-require('./index.less');
+import Vue from 'vue';
+import isElectron from '../../electron/is-electron';
+import {say} from '../../locale';
+import template from './index.html';
+import './index.less';
 
 const CHUNK_SIZE = 102400;
 
-module.exports = Vue.extend({
-	template: require('./index.html'),
-
+export default Vue.extend({
+	template,
 	data: () => ({
 		used: 0,
 		free: 0,
 		show: !isElectron()
 	}),
-
 	computed: {
 		percent() {
 			return Math.round((this.free / (this.used + this.free)) * 100);
 		},
-
 		percentDesc() {
-			return locale.say('%d%% space available', this.percent);
+			return say('%d%% space available', this.percent);
 		}
 	},
-
 	created() {
 		if (!this.show) {
 			return;
@@ -49,41 +45,41 @@ module.exports = Vue.extend({
 		/* This is used to test how much local storage is left in 100k chunks. */
 
 		let testString = 'x'.repeat(CHUNK_SIZE);
-		const interval = window.setInterval(
-			() => {
-				let stop = false;
+		const interval = window.setInterval(() => {
+			let stop = false;
 
-				try {
-					window.localStorage.setItem(
-						'__quotatest' + storageIndex,
-						testString
-					);
-					this.free += CHUNK_SIZE;
-					storageIndex++;
+			try {
+				window.localStorage.setItem(
+					'__quotatest' + storageIndex,
+					testString
+				);
+				this.free += CHUNK_SIZE;
+				storageIndex++;
 
-					// If we're already above 99%, then we don't need another
-					// iteration.
+				/*
+					If we're already above 99%, then we don't need another
+					iteration.
+					*/
 
-					if (this.percent <= 1) {
-						stop = true;
-					}
-				} catch (e) {
+				if (this.percent <= 1) {
 					stop = true;
 				}
+			} catch (e) {
+				stop = true;
+			}
 
-				if (stop) {
-					// Clean up the items we put into the local storage to test.
+			if (stop) {
+				/*
+					Clean up the items we put into the local storage to test.
+					*/
 
-					for (let i = 0; i <= storageIndex; i++) {
-						window.localStorage.removeItem('__quotatest' + i);
-					}
-
-					testString = null;
-					window.clearInterval(interval);
+				for (let i = 0; i <= storageIndex; i++) {
+					window.localStorage.removeItem('__quotatest' + i);
 				}
-			},
 
-			20
-		);
+				testString = null;
+				window.clearInterval(interval);
+			}
+		}, 20);
 	}
 });

@@ -3,19 +3,22 @@ Bootstraps the Electron app. This listens for `app-relaunch` IPC messages and
 relaunches the app when one is received.
 */
 
-const {app, dialog, ipcMain, BrowserWindow, shell} = require('electron');
-const path = require('path');
-const {
-	backup: backupStoryDirectory,
-	create: createStoryDirectory,
-	lock: lockStoryDirectory,
-	unlock: unlockStoryDirectory
-} = require('./story-directory');
-const {load: loadJson} = require('./json-file');
-const loadLocale = require('./load-locale');
-const {load: loadStories} = require('./story-file');
-const initMenuBar = require('./menu-bar');
-require('./open-with-temp-file');
+import { app, dialog, ipcMain, BrowserWindow, shell } from 'electron';
+
+import path from 'path';
+
+import {
+    backup as backupStoryDirectory,
+    create as createStoryDirectory,
+    lock as lockStoryDirectory,
+    unlock as unlockStoryDirectory,
+} from './story-directory';
+
+import { load as loadJson } from './json-file';
+import loadLocale from './load-locale';
+import { load as loadStories } from './story-file';
+import initMenuBar from './menu-bar';
+import './open-with-temp-file';
 
 const browserWindowOpts = {
 	width: 1024,

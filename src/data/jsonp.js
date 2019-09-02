@@ -8,13 +8,13 @@ a web process.
 This is only needed for requests outside the app bundle (e.g. loading a locale).
 */
 
-const jsonp = require('jsonp');
-const isElectron = require('../electron/is-electron');
+import jsonp from 'jsonp';
+import isElectron from '../electron/is-electron';
 
-module.exports = function jsonpRequest(url, props, callback) {
+export default function jsonpRequest(url, props, callback) {
 	if (isElectron()) {
 		return window.twineElectron.jsonp(url, props, callback);
 	}
 
 	return jsonp(url, props, callback);
-};
+}

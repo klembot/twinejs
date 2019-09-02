@@ -1,5 +1,5 @@
-const Vue = require('vue/dist/vue.common.js');
-const CodeMirror = require('./codemirror');
+import Vue from 'vue/dist/vue.common.js';
+import CodeMirror from './codemirror';
 
 describe('<code-mirror>', () => {
 	let vm;

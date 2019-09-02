@@ -1,42 +1,28 @@
-// A component which wraps a dropdown menu. This must be a direct child of the
-// button used to trigger the menu.
+/*
+A component which wraps a dropdown menu. This must be a direct child of the
+button used to trigger the menu.
+*/
 
-const Drop = require('tether-drop');
-const Vue = require('vue');
-const eventHub = require('../../common/eventHub');
-const { hasPrimaryTouchUI } = require('../index');
-const domEvents = require('../../vue/mixins/dom-events');
+import Drop from 'tether-drop';
+import Vue from 'vue';
+import eventHub from '../../common/eventHub';
+import {hasPrimaryTouchUI} from '../index';
+import domEvents from '../../vue/mixins/dom-events';
+import template from './index.html';
+import './index.less';
 
-require('./index.less');
-
-module.exports = Vue.extend({
-	template: require('./index.html'),
-
+export default Vue.extend({
+	template,
 	props: {
-		className: {
-			type: String,
-			default: ''
-		},
-		position: {
-			type: String,
-			default: 'top center'
-		},
-		openOn: {
-			type: String,
-			default: 'click'
-		},
-		showNow: {
-			type: Boolean,
-			default: false
-		},
-		targetOffset: {
-			type: String
-		}
+		className: {type: String, default: ''},
+		position: {type: String, default: 'top center'},
+		openOn: {type: String, default: 'click'},
+		showNow: {type: Boolean, default: false},
+		targetOffset: {type: String}
 	},
-
 	mounted() {
-		this.$nextTick(function () {
-			// code that assumes this.$el is in-document
+		this.$nextTick(function() {
+			/* code that assumes this.$el is in-document */
 
 			let openOn = this.openOn;
 			const target = this.$el.parentNode;
@@ -51,8 +37,10 @@ module.exports = Vue.extend({
 				this.on(this.$el.parentNode, 'click', () => this.$drop.open());
 
 				this.on(document.body, 'click', e => {
-					if (e.target !== this.$el.parentNode &&
-						!target.contains(e.target)) {
+					if (
+						e.target !== this.$el.parentNode &&
+						!target.contains(e.target)
+					) {
 						this.$drop.close();
 					}
 				});
@@ -121,16 +109,12 @@ module.exports = Vue.extend({
 			}
 		});
 	},
-
 	destroyed() {
 		this.$drop.destroy();
 	},
-
 	created: function() {
 		eventHub.$on('drop-down-close', () => this.$drop.close());
-
 		eventHub.$on('drop-down-reposition', () => this.$drop.position());
 	},
-
 	mixins: [domEvents]
 });

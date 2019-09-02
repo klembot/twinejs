@@ -2,37 +2,30 @@
 A toggle between light and dark themes.
 */
 
-const Vue = require('vue');
-const locale = require('../../locale');
-const { setPref } = require('../../data/actions/pref');
+import Vue from 'vue';
+import {say} from '../../locale';
+import {setPref} from '../../data/actions/pref';
+import template from './theme-switcher.html';
 
-module.exports = Vue.extend({
-	template: require('./theme-switcher.html'),
-
+export default Vue.extend({
+	template,
 	computed: {
 		lightTitle() {
-			return locale.say('Use light theme');
+			return say('Use light theme');
 		},
 		darkTitle() {
-			return locale.say('Use dark theme');
+			return say('Use dark theme');
 		}
-
 	},
-
 	methods: {
 		setTheme(value) {
 			this.setPref('appTheme', value);
 		}
 	},
-
 	vuex: {
-		actions: {
-			setPref
-		},
-
+		actions: {setPref},
 		getters: {
 			themePref: state => state.pref.appTheme
 		}
 	}
 });
-

@@ -9,10 +9,11 @@ Consumers of this module should not depend on the exact ID, or the format of IDs
 returned -- this may change in future revisions.
 */
 
-const uuid = require('tiny-uuid');
-const isElectron = require('../electron/is-electron');
+import uuid from 'tiny-uuid';
 
-module.exports = function idFor(key) {
+import isElectron from '../electron/is-electron';
+
+export default function idFor(key) {
 	if (isElectron()) {
 		/*
 		This uses Java's hashCode method. We need to coerce it to a string to

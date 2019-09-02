@@ -1,13 +1,13 @@
-const Vue = require('vue');
-const without = require('lodash.without');
+import Vue from 'vue';
+import without from 'lodash.without';
+import dropDown from '../../../../ui/drop-down';
+import {say} from '../../../../locale';
+import {setTagColorInStory} from '../../../../data/actions/story';
+import {updatePassage} from '../../../../data/actions/passage';
+import template from './index.html';
+import './index.less';
 
-const locale = require('../../../../locale');
-const { setTagColorInStory } = require('../../../../data/actions/story');
-const { updatePassage } = require('../../../../data/actions/passage');
-
-require('./index.less');
-
-module.exports = Vue.extend({
+export default Vue.extend({
 	props: {
 		tag: {
 			type: String,
@@ -22,48 +22,41 @@ module.exports = Vue.extend({
 			required: true
 		}
 	},
-
 	computed: {
 		grayTitle() {
-			return locale.say('Set tag color to gray');
+			return say('Set tag color to gray');
 		},
 		redTitle() {
-			return locale.say('Set tag color to red');
+			return say('Set tag color to red');
 		},
 		yellowTitle() {
-			return locale.say('Set tag color to yellow');
+			return say('Set tag color to yellow');
 		},
 		greenTitle() {
-			return locale.say('Set tag color to green');
+			return say('Set tag color to green');
 		},
 		blueTitle() {
-			return locale.say('Set tag color to blue');
+			return say('Set tag color to blue');
 		},
 		purpleTitle() {
-			return locale.say('Set tag color to purple');
-		},
+			return say('Set tag color to purple');
+		}
 	},
-
-	template: require('./index.html'),
-
+	template,
 	methods: {
 		remove() {
-			this.updatePassage(
-				this.storyId,
-				this.passage.id,
-				{ tags: without(this.passage.tags, this.tag) }
-			);
+			this.updatePassage(this.storyId, this.passage.id, {
+				tags: without(this.passage.tags, this.tag)
+			});
 		},
 		setColor(color) {
 			this.setTagColorInStory(this.storyId, this.tag, color);
 		}
 	},
-
 	vuex: {
-		actions: { setTagColorInStory, updatePassage }
+		actions: {setTagColorInStory, updatePassage}
 	},
-
 	components: {
-		'drop-down': require('../../../../ui/drop-down')
+		'drop-down': dropDown
 	}
 });
