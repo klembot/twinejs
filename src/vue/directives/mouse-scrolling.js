@@ -88,10 +88,7 @@ export default {
 				function handleKeyUp(e) {
 					if (e.which === 32 && spaceHeld) {
 						scrolling = spaceHeld = false;
-						body.classList.remove(
-							'mouseScrollReady',
-							'mouseScrolling'
-						);
+						body.classList.remove('mouseScrollReady', 'mouseScrolling');
 
 						/*
 					Prevent the space bar from scrolling the window
@@ -132,8 +129,7 @@ export default {
 				};
 
 				Object.keys(handlers[this]).forEach(
-					event =>
-						body.addEventListener(event, handlers[this][event]),
+					event => body.addEventListener(event, handlers[this][event]),
 					this
 				);
 			},
@@ -141,10 +137,7 @@ export default {
 			unbind() {
 				Object.keys(handlers[this]).forEach(
 					event =>
-						document.body.removeEventListener(
-							event,
-							handlers[this][event]
-						),
+						document.body.removeEventListener(event, handlers[this][event]),
 					this
 				);
 

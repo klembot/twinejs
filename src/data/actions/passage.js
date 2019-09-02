@@ -41,9 +41,7 @@ snaps to a grid.
 
 export function positionPassage(store, storyId, passageId, gridSize, filter) {
 	if (gridSize && typeof gridSize !== 'number') {
-		throw new Error(
-			'Asked to snap to a non-numeric grid size: ' + gridSize
-		);
+		throw new Error('Asked to snap to a non-numeric grid size: ' + gridSize);
 	}
 
 	const story = store.state.story.stories.find(story => story.id == storyId);
@@ -144,8 +142,7 @@ export function createNewlyLinkedPassages(
 	the passages themselves plus the spacing in between.
 	*/
 
-	const totalWidth =
-		newLinks.length * 100 + (newLinks.length - 1) * (100 / 2);
+	const totalWidth = newLinks.length * 100 + (newLinks.length - 1) * (100 / 2);
 	let newLeft = passage.left + (100 - totalWidth) / 2;
 
 	newLinks.forEach(link => {
@@ -209,10 +206,7 @@ export function changeLinksInStory(store, storyId, oldName, newName) {
 		) {
 			let newText = passage.text;
 
-			newText = newText.replace(
-				simpleLinkRe,
-				'[[' + newNameEscaped + '$1]]'
-			);
+			newText = newText.replace(simpleLinkRe, '[[' + newNameEscaped + '$1]]');
 			newText = newText.replace(
 				compoundLinkRe,
 				'[[$1$2' + newNameEscaped + '$3]]'

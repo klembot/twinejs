@@ -13,7 +13,8 @@
 		background: lighten(@color, 10%);
 	}
 
-	&:active, &.active {
+	&:active,
+	&.active {
 		background: @color;
 	}
 
@@ -44,7 +45,8 @@
 	}
 }
 
-button, a.button {
+button,
+a.button {
 	display: inline-block;
 	font: 100% @font-ui;
 	border: none;
@@ -55,13 +57,14 @@ button, a.button {
 	border-radius: @len-tiny;
 	outline: none;
 	transition: 0.2s background, 0.2s transform;
-	
+
 	&:hover {
 		color: @color-link;
 		text-decoration: none;
 	}
-	
-	&:active, &.active {
+
+	&:active,
+	&.active {
 		color: @color-link;
 		background: hsla(0, 0%, 0%, 0.075);
 
@@ -93,7 +96,12 @@ button, a.button {
 		&:hover {
 			text-decoration: underline;
 
-			h1, h2, h3, h4, h5, h6 {
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			h6 {
 				color: @color-link;
 			}
 		}
@@ -130,7 +138,8 @@ button, a.button {
 			color: @color-link-dark;
 		}
 
-		&:active, &.active {
+		&:active,
+		&.active {
 			color: @color-link;
 		}
 	}
@@ -139,7 +148,8 @@ button, a.button {
 .button-group {
 	display: inline-flex;
 
-	button, a.button {
+	button,
+	a.button {
 		border-radius: 0;
 		border-top: @len-hairline solid @color-form-line;
 		border-bottom: @len-hairline solid @color-form-line;

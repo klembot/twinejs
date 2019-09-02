@@ -1,6 +1,6 @@
-import { app, Menu } from 'electron';
-import { openHelp } from './help';
-import { reveal as revealStoryDirectory } from './story-directory';
+import {app, Menu} from 'electron';
+import {openHelp} from './help';
+import {reveal as revealStoryDirectory} from './story-directory';
 
 export default () => {
 	const template = [

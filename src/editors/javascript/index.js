@@ -16,8 +16,7 @@ export default Vue.component('JavaScriptEditor', {
 	props: ['storyId', 'origin'],
 	computed: {
 		source() {
-			return this.allStories.find(story => story.id === this.storyId)
-				.script;
+			return this.allStories.find(story => story.id === this.storyId).script;
 		},
 		cmOptions: () => ({
 			lineWrapping: true,

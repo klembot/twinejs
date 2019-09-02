@@ -18,11 +18,7 @@ describe('story format actions module', () => {
 	it('dispatches an UPDATE_FORMAT mutation with createFormat()', () => {
 		actions.updateFormat(store, fakeId, props);
 		expect(store.dispatch).toHaveBeenCalledTimes(1);
-		expect(store.dispatch).toHaveBeenCalledWith(
-			'UPDATE_FORMAT',
-			fakeId,
-			props
-		);
+		expect(store.dispatch).toHaveBeenCalledWith('UPDATE_FORMAT', fakeId, props);
 	});
 
 	it('dispatches a DELETE_FORMAT mutation with deleteFormat()', () => {
@@ -137,10 +133,7 @@ describe('story format actions module', () => {
 		};
 
 		actions.repairFormats(formatsStore);
-		expect(formatsStore.dispatch).toHaveBeenCalledWith(
-			'DELETE_FORMAT',
-			fakeId
-		);
+		expect(formatsStore.dispatch).toHaveBeenCalledWith('DELETE_FORMAT', fakeId);
 	});
 
 	it('does not duplicate formats with repairFormats()', () => {
@@ -181,10 +174,7 @@ describe('story format actions module', () => {
 		};
 
 		actions.repairFormats(formatsStore);
-		expect(formatsStore.dispatch).toHaveBeenCalledWith(
-			'DELETE_FORMAT',
-			fakeId
-		);
+		expect(formatsStore.dispatch).toHaveBeenCalledWith('DELETE_FORMAT', fakeId);
 	});
 
 	it('updates the default format version with repairFormats()', () => {

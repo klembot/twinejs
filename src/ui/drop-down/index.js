@@ -37,10 +37,7 @@ export default Vue.extend({
 				this.on(this.$el.parentNode, 'click', () => this.$drop.open());
 
 				this.on(document.body, 'click', e => {
-					if (
-						e.target !== this.$el.parentNode &&
-						!target.contains(e.target)
-					) {
+					if (e.target !== this.$el.parentNode && !target.contains(e.target)) {
 						this.$drop.close();
 					}
 				});

@@ -47,10 +47,7 @@ export function playStory(store, storyId) {
 			)
 			.catch(e => {
 				window.alert(
-					say(
-						'An error occurred while publishing your story. (%s)',
-						e.message
-					)
+					say('An error occurred while publishing your story. (%s)', e.message)
 				);
 			});
 	} else {
@@ -70,10 +67,7 @@ export function proofStory(store, storyId) {
 			)
 			.catch(e => {
 				window.alert(
-					say(
-						'An error occurred while publishing your story. (%s)',
-						e.message
-					)
+					say('An error occurred while publishing your story. (%s)', e.message)
 				);
 			});
 	} else {
@@ -93,10 +87,7 @@ export function testStory(store, storyId, startPassageId) {
 			)
 			.catch(e => {
 				window.alert(
-					say(
-						'An error occurred while publishing your story. (%s)',
-						e.message
-					)
+					say('An error occurred while publishing your story. (%s)', e.message)
 				);
 			});
 	} else {

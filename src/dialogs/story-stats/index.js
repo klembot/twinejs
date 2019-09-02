@@ -52,9 +52,7 @@ export default Vue.component('StatsDialog', {
 			return this.story.passages.reduce(
 				(links, passage) => [
 					...links,
-					...linkParser(passage.text).filter(
-						link => links.indexOf(link) === -1
-					)
+					...linkParser(passage.text).filter(link => links.indexOf(link) === -1)
 				],
 				[]
 			);
@@ -90,9 +88,8 @@ export default Vue.component('StatsDialog', {
 			return sayPlural('Link', 'Links', this.linkCount);
 		},
 		brokenLinkCount() {
-			return this.links.filter(
-				link => this.passageNames.indexOf(link) === -1
-			).length;
+			return this.links.filter(link => this.passageNames.indexOf(link) === -1)
+				.length;
 		},
 		brokenLinkDesc() {
 			/*
@@ -100,11 +97,7 @@ export default Vue.component('StatsDialog', {
 			This does not actually include the count, as it is used in a
 			table.
 			*/
-			return sayPlural(
-				'Broken Link',
-				'Broken Links',
-				this.brokenLinkCount
-			);
+			return sayPlural('Broken Link', 'Broken Links', this.brokenLinkCount);
 		},
 		ifidHelp() {
 			return say(

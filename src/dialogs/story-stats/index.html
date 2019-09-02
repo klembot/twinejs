@@ -1,6 +1,6 @@
 <modal-dialog id="statsModal" :origin="origin">
 	<span slot="title">
-	{{ 'Story Statistics' | say }}
+		{{ 'Story Statistics' | say }}
 	</span>
 
 	<div class="content">
@@ -50,7 +50,7 @@
 		</table>
 
 		<p>
-		{{ 'This story was last changed at %s.' | say(lastUpdate) }}
+			{{ 'This story was last changed at %s.' | say(lastUpdate) }}
 		</p>
 
 		<p v-html="ifidHelp"></p>

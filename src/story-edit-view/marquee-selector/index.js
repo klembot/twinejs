@@ -126,9 +126,7 @@ export default Vue.extend({
 			this.additive = e.shiftKey || e.ctrlKey;
 
 			if (this.additive) {
-				this.originallySelected = this.story.passages.filter(
-					p => p.selected
-				);
+				this.originallySelected = this.story.passages.filter(p => p.selected);
 			}
 
 			this.visible = true;
@@ -169,10 +167,7 @@ export default Vue.extend({
 			this.currentY = e.clientY + window.pageYOffset;
 
 			this.selectPassages(this.story.id, p => {
-				if (
-					this.additive &&
-					this.originallySelected.indexOf(p) !== -1
-				) {
+				if (this.additive && this.originallySelected.indexOf(p) !== -1) {
 					return true;
 				}
 

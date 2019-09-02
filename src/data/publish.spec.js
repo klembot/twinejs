@@ -36,17 +36,17 @@ describe('publish module', () => {
 			script: 'alert("hi");',
 			passages: [passage1, passage2],
 			startPassage: 'not-an-id',
-			tagColors: { 'test-tag': 'red' },
+			tagColors: {'test-tag': 'red'},
 			zoom: 1.5
 		};
-		
+
 		appInfo = {
 			name: 'Twine Unit Tests',
 			version: '29.0.1',
 			buildNumber: '20500101120100'
 		};
 	});
-	
+
 	const checkStoryElAgainstData = ($el, story, appInfo) => {
 		expect($el.attr('name')).toBe(story.name);
 		expect($el.attr('creator')).toBe(appInfo.name);
@@ -54,14 +54,14 @@ describe('publish module', () => {
 		expect($el.attr('ifid')).toBe(story.ifid);
 		expect($el.attr('format')).toBe(story.storyFormat);
 		expect($el.attr('zoom')).toBe(story.zoom.toString());
-		
+
 		const $style = $el.find('style[type="text/twine-css"]');
-		
+
 		expect($style.length).toBe(1);
 		expect($style.html()).toBe(story.stylesheet);
-		
+
 		const $script = $el.find('script[type="text/twine-javascript"]');
-		
+
 		expect($script.length).toBe(1);
 		expect($script.html()).toBe(story.script);
 
@@ -69,18 +69,18 @@ describe('publish module', () => {
 
 		expect($tags.length).toBe(1);
 		expect($($tags[0]).attr('name')).toBe('test-tag');
-		expect($($tags[0]).attr('color')).toBe('red');		
+		expect($($tags[0]).attr('color')).toBe('red');
 
 		const $passages = $el.children('tw-passagedata');
 		expect($passages.length).toBe(2);
 	};
 
 	test('publishes a passage to HTML with publishPassage()', () => {
-		([passage1, passage2]).forEach(passage => {
+		[passage1, passage2].forEach(passage => {
 			let result = publish.publishPassage(passage, 100);
-			
+
 			expect(typeof result).toBe('string');
-			
+
 			let $result = $(result);
 
 			expect($result.attr('pid')).toBe('100');
@@ -94,36 +94,28 @@ describe('publish module', () => {
 
 	test('publishes a story with publishStory()', () => {
 		const result = publish.publishStory(appInfo, story);
-		
+
 		expect(typeof result).toBe('string');
 		checkStoryElAgainstData($(result), story, appInfo);
 	});
-	
+
 	test('binds a story to a format with publishStoryWithFormat()', () => {
-		let result = publish.publishStoryWithFormat(
-			appInfo,
-			story,
-			{
-				properties: {
-					source: '{{STORY_NAME}}'
-				}
+		let result = publish.publishStoryWithFormat(appInfo, story, {
+			properties: {
+				source: '{{STORY_NAME}}'
 			}
-		);
-		
+		});
+
 		expect(result).toBe(escape(story.name));
-		
-		result = publish.publishStoryWithFormat(
-			appInfo,
-			story,
-			{
-				properties: {
-					source: '{{STORY_DATA}}'
-				}
+
+		result = publish.publishStoryWithFormat(appInfo, story, {
+			properties: {
+				source: '{{STORY_DATA}}'
 			}
-		);
-		
+		});
+
 		expect(typeof result).toBe('string');
-		
+
 		const storyEls = $(`<div>${result}</div>`).find('tw-storydata');
 
 		expect(storyEls.length).toBe(1);
@@ -134,11 +126,11 @@ describe('publish module', () => {
 		const result = publish.publishArchive([story, story], appInfo);
 
 		expect(typeof result).toBe('string');
-		
+
 		const storyEls = $(`<div>${result}</div>`).find('tw-storydata');
-		
+
 		expect(storyEls.length).toBe(2);
-		
+
 		storyEls.toArray().forEach(el => {
 			checkStoryElAgainstData($(el), story, appInfo);
 		});

@@ -70,12 +70,10 @@ export default Vue.extend({
 			});
 			eventHub.$emit('modalConfirm', {
 				message: say(
-					'Are you sure you want to delete “%s”? ' +
-						'This cannot be undone.',
+					'Are you sure you want to delete “%s”? ' + 'This cannot be undone.',
 					escape(this.story.name)
 				),
-				buttonLabel:
-					'<i class="fa fa-trash-o"></i> ' + say('Delete Forever'),
+				buttonLabel: '<i class="fa fa-trash-o"></i> ' + say('Delete Forever'),
 				buttonClass: 'danger'
 			});
 		},

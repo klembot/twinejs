@@ -32,9 +32,7 @@ export function getStoryProofingHtml(store, storyId) {
 		store,
 		store.state.pref.proofingFormat.name,
 		store.state.pref.proofingFormat.version
-	).then(format =>
-		publishStoryWithFormat(store.state.appInfo, story, format)
-	);
+	).then(format => publishStoryWithFormat(store.state.appInfo, story, format));
 }
 
 export function getStoryTestHtml(store, storyId, startPassageId) {

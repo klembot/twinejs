@@ -1,5 +1,4 @@
 <modal-dialog class="tabbed" :origin="origin">
-
 	<tabs-panel ref="tabs">
 		<!--
 	Unfortunately, putting {{'Story Formats' | say}} in component attributes doesn't work for some reason.
@@ -7,7 +6,8 @@
 	-->
 		<tab-item name="Story Formats">
 			<p>
-				{{'Story formats control the appearance and behavior of stories during play.' | say}}
+				{{'Story formats control the appearance and behavior of stories during
+				play.' | say}}
 			</p>
 
 			<table>
@@ -21,14 +21,20 @@
 					</tr>
 				</thead>
 				<tbody>
-						<tr v-for="(format, index) in storyFormats" is="format-item" :format="format" v-bind:key="index"></tr>
+					<tr
+						v-for="(format, index) in storyFormats"
+						is="format-item"
+						:format="format"
+						v-bind:key="index"
+					></tr>
 				</tbody>
 			</table>
 		</tab-item>
 
 		<tab-item name="Proofing Formats">
 			<p>
-				{{'Proofing formats create a versions of stories tailored for editing and proofreading.' | say}}
+				{{'Proofing formats create a versions of stories tailored for editing
+				and proofreading.' | say}}
 			</p>
 
 			<table>
@@ -42,7 +48,12 @@
 					</tr>
 				</thead>
 				<tbody>
-						<tr v-for="(format, index) in proofingFormats" is="format-item" :format="format" v-bind:key="index"></tr>
+					<tr
+						v-for="(format, index) in proofingFormats"
+						is="format-item"
+						:format="format"
+						v-bind:key="index"
+					></tr>
 				</tbody>
 			</table>
 		</tab-item>
@@ -53,15 +64,18 @@
 			</p>
 
 			<form @submit.prevent="addFormat">
-
 				<p>
-					<input type="text" name="newFormatUrl" v-model="newFormatUrl" required>
+					<input
+						type="text"
+						name="newFormatUrl"
+						v-model="newFormatUrl"
+						required
+					/>
 					<button class="create" type="submit">
 						<i class="fa fa-plus"></i>
 						{{'Add' | say }}
 					</button>
 				</p>
-
 			</form>
 		</tab-item>
 	</tabs-panel>
@@ -72,5 +86,4 @@
 	</p>
 
 	<p class="error" v-if="error" v-html="error"></p>
-
 </modal-dialog>

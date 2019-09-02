@@ -66,11 +66,7 @@ describe('story actions module', () => {
 	test('dispatches an UPDATE_STORY mutation with updateStory()', () => {
 		actions.updateStory(store, fakeId, props);
 		expect(store.dispatch).toHaveBeenCalledTimes(1);
-		expect(store.dispatch).toHaveBeenCalledWith(
-			'UPDATE_STORY',
-			fakeId,
-			props
-		);
+		expect(store.dispatch).toHaveBeenCalledWith('UPDATE_STORY', fakeId, props);
 	});
 
 	test('sets default formats on stories with repairStories()', () => {

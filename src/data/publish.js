@@ -59,9 +59,7 @@ export function publishArchive(stories, appInfo) {
 		(output, story) => {
 			/* Force publishing even if there is no start point set. */
 
-			return (
-				output + publishStory(appInfo, story, null, null, true) + '\n\n'
-			);
+			return output + publishStory(appInfo, story, null, null, true) + '\n\n';
 		},
 
 		''
@@ -86,9 +84,7 @@ export function publishStory(
 
 	if (!startOptional) {
 		if (!startId) {
-			throw new Error(
-				say('There is no starting point set for this story.')
-			);
+			throw new Error(say('There is no starting point set for this story.'));
 		}
 
 		if (!story.passages.find(p => p.id === startId)) {

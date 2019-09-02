@@ -57,8 +57,7 @@ export default Vue.extend({
 				window.setTimeout(() => {
 					eventHub.$emit(
 						'story-edit',
-						this.existingStories.find(story => story.name === name)
-							.id
+						this.existingStories.find(story => story.name === name).id
 					);
 				}, 300);
 			});
@@ -81,9 +80,7 @@ export default Vue.extend({
 			this.$emit('customModal', ImportDialog, {origin: e.target});
 		},
 		saveArchive() {
-			const timestamp = new Date()
-				.toLocaleString()
-				.replace(/[\/:\\]/g, '.');
+			const timestamp = new Date().toLocaleString().replace(/[\/:\\]/g, '.');
 
 			saveFile(
 				publishArchive(this.existingStories, this.appInfo),

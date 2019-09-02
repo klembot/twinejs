@@ -58,44 +58,43 @@ function domToObject(storyEl, forceLastUpdate) {
 		zoom: storyEl.attributes.zoom
 			? parseFloat(storyEl.attributes.zoom.value)
 			: 1,
-		tagColors: Array.from(
-			storyEl.querySelectorAll(selectors.tagColors)
-		).reduce((src, el) => {
-			src[el.attributes.name.value] = el.attributes.color.value;
-			return src;
-		}, {}),
-		passages: Array.from(
-			storyEl.querySelectorAll(selectors.passageData)
-		).map(passageEl => {
-			const pos = passageEl.attributes.position.value
-				.split(',')
-				.map(Math.floor);
-
-			let size = [100, 100];
-
-			if (passageEl.attributes.size) {
-				size = passageEl.attributes.size.value
+		tagColors: Array.from(storyEl.querySelectorAll(selectors.tagColors)).reduce(
+			(src, el) => {
+				src[el.attributes.name.value] = el.attributes.color.value;
+				return src;
+			},
+			{}
+		),
+		passages: Array.from(storyEl.querySelectorAll(selectors.passageData)).map(
+			passageEl => {
+				const pos = passageEl.attributes.position.value
 					.split(',')
 					.map(Math.floor);
+
+				let size = [100, 100];
+
+				if (passageEl.attributes.size) {
+					size = passageEl.attributes.size.value.split(',').map(Math.floor);
+				}
+
+				return {
+					/* Again, a one-off id, not a database id. */
+
+					pid: passageEl.attributes.pid.value,
+					left: pos[0],
+					top: pos[1],
+					width: size[0],
+					height: size[1],
+					selected: false,
+					tags:
+						passageEl.attributes.tags.value === ''
+							? []
+							: passageEl.attributes.tags.value.split(/\s+/),
+					name: passageEl.attributes.name.value,
+					text: passageEl.textContent
+				};
 			}
-
-			return {
-				/* Again, a one-off id, not a database id. */
-
-				pid: passageEl.attributes.pid.value,
-				left: pos[0],
-				top: pos[1],
-				width: size[0],
-				height: size[1],
-				selected: false,
-				tags:
-					passageEl.attributes.tags.value === ''
-						? []
-						: passageEl.attributes.tags.value.split(/\s+/),
-				name: passageEl.attributes.name.value,
-				text: passageEl.textContent
-			};
-		})
+		)
 	};
 }
 
@@ -104,7 +103,7 @@ export default function parseHtml(html, lastUpdate) {
 
 	nodes.innerHTML = html;
 
-	return Array.from(nodes.querySelectorAll(selectors.storyData)).map(
-		storyEl => domToObject(storyEl, lastUpdate)
+	return Array.from(nodes.querySelectorAll(selectors.storyData)).map(storyEl =>
+		domToObject(storyEl, lastUpdate)
 	);
 }

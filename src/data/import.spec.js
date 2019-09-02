@@ -24,9 +24,7 @@ describe('import module', () => {
 		expect(result[0].zoom).toBe(1.5);
 		expect(result[0].lastUpdate instanceof Date).toBe(true);
 		expect(result[0].script).toBe("alert('hi');\n");
-		expect(result[0].stylesheet).toBe(
-			'* { color: red }\n* { color: blue }\n'
-		);
+		expect(result[0].stylesheet).toBe('* { color: red }\n* { color: blue }\n');
 		expect(result[0].tagColors['my-tag']).toBe('purple');
 		expect(Array.isArray(result[0].passages)).toBe(true);
 		expect(result[0].passages.length).toBe(3);

@@ -5,8 +5,8 @@
 
 	<ul>
 		<li v-for="locale in locales">
-			<button @click="setLocale(locale.code)"> 
-				<img :src="'rsrc/flags/' + locale.code + '.svg'" alt="">
+			<button @click="setLocale(locale.code)">
+				<img :src="'rsrc/flags/' + locale.code + '.svg'" alt="" />
 				<div v-html="locale.label"></div>
 			</button>
 		</li>

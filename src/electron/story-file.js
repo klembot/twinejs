@@ -3,20 +3,20 @@ Manages reading and writing files from the story directory. This listens to the
 `save-story` and `delete-story` IPC events.
 */
 
-import { app } from 'electron';
+import {app} from 'electron';
 
 import fs from 'fs-extra';
-import { dialog, ipcMain } from 'electron';
+import {dialog, ipcMain} from 'electron';
 import path from 'path';
 
 import {
-    lock as lockStoryDirectory,
-    path as storyDirectoryPath,
-    unlock as unlockStoryDirectory,
+	lock as lockStoryDirectory,
+	path as storyDirectoryPath,
+	unlock as unlockStoryDirectory
 } from './story-directory';
 
-import { say } from '../locale';
-import { publishStory, publishStoryWithFormat } from '../data/publish';
+import {say} from '../locale';
+import {publishStory, publishStoryWithFormat} from '../data/publish';
 
 const StoryFile = {
 	/*
@@ -102,9 +102,7 @@ const StoryFile = {
 				output = publishStoryWithFormat(appInfo, story, format);
 			} catch (e) {
 				console.warn(
-					`Failed to fully publish story (${
-						e.message
-					}). Attempting naked publish.`
+					`Failed to fully publish story (${e.message}). Attempting naked publish.`
 				);
 
 				try {
@@ -138,10 +136,7 @@ const StoryFile = {
 		return unlockStoryDirectory()
 			.then(() =>
 				fs.unlink(
-					path.join(
-						storyDirectoryPath(),
-						StoryFile.fileName(story.name)
-					)
+					path.join(storyDirectoryPath(), StoryFile.fileName(story.name))
 				)
 			)
 			.then(lockStoryDirectory)

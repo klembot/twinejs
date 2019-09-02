@@ -25,10 +25,10 @@ body.modalOpen {
 	display: flex;
 	flex-direction: column;
 	top: @len-extra-large;
-	left: calc(~"(100vw - 40em) / 2");
+	left: calc(~'(100vw - 40em) / 2');
 	background: @color-paper;
 	width: 40em;
-	max-height: calc(~"100% - " 2 * @len-extra-large);
+	max-height: calc(~'100% - ' 2 * @len-extra-large);
 	border-radius: 2px;
 	.shadow-large;
 
@@ -85,14 +85,13 @@ body.modalOpen {
 	}
 
 	&.wide {
-
 	}
 
 	&.editor {
 		top: @len-small;
 		bottom: @len-small;
 		width: 48em;
-		left: calc(~"(100vw - 48em) / 2");
+		left: calc(~'(100vw - 48em) / 2');
 		max-height: none;
 
 		.content {
@@ -105,7 +104,8 @@ body.modalOpen {
 			flex-grow: 1;
 			position: relative;
 
-			> div, .CodeMirror {
+			> div,
+			.CodeMirror {
 				position: absolute;
 				top: 0;
 				left: 0;
@@ -124,7 +124,7 @@ body.modalOpen {
 			width: auto;
 			left: @len-small;
 			right: @len-small;
-		}	
+		}
 	}
 
 	// Not used for this component, but available to child components.
@@ -135,7 +135,7 @@ body.modalOpen {
 
 			button {
 				position: relative;
-				font: 90% @font-display;			
+				font: 90% @font-display;
 				height: 100%;
 
 				&:not(.close):after {
@@ -176,7 +176,7 @@ body.modalOpen {
 		}
 	}
 
-	.buttons { 
+	.buttons {
 		text-align: right;
 		margin-bottom: 0;
 	}

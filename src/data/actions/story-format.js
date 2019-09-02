@@ -38,15 +38,10 @@ export function createFormatFromUrl(store, url) {
 
 			if (
 				store.state.storyFormat.formats.some(current => {
-					return (
-						current.name === data.name &&
-						current.version === data.version
-					);
+					return current.name === data.name && current.version === data.version;
 				})
 			) {
-				reject(
-					new Error(say('this story format is already installed'))
-				);
+				reject(new Error(say('this story format is already installed')));
 				return;
 			}
 
@@ -215,8 +210,7 @@ export function repairFormats(store) {
 		if (
 			!store.state.storyFormat.formats.find(
 				format =>
-					format.name === builtin.name &&
-					format.version === builtin.version
+					format.name === builtin.name && format.version === builtin.version
 			)
 		) {
 			createFormat(store, builtin);
@@ -253,9 +247,7 @@ export function repairFormats(store) {
 		const v = semverUtils.parse(format.version);
 
 		if (v.semver !== latestVersions[format.name][v.major].semver) {
-			console.warn(
-				`Deleting outdated story format ${format.name} ${v.semver}`
-			);
+			console.warn(`Deleting outdated story format ${format.name} ${v.semver}`);
 			deleteFormat(store, format.id);
 		}
 	});

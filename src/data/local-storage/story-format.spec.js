@@ -23,18 +23,14 @@ describe('story format local storage persistence', () => {
 
 		storyFormat.save(store);
 
-		const ids = window.localStorage
-			.getItem('twine-storyformats')
-			.split(',');
+		const ids = window.localStorage.getItem('twine-storyformats').split(',');
 
 		expect(ids.length).toBe(2);
 
 		let saved = {};
 
 		ids.forEach(id => {
-			let savedFormat = window.localStorage.getItem(
-				`twine-storyformats-${id}`
-			);
+			let savedFormat = window.localStorage.getItem(`twine-storyformats-${id}`);
 
 			expect(typeof savedFormat).toBe('string');
 			const restored = JSON.parse(savedFormat);

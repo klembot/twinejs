@@ -84,11 +84,7 @@ export default Vue.extend({
 
 				this.dupeNames = this.toImport.reduce(
 					(list, story) => {
-						if (
-							this.existingStories.find(
-								orig => orig.name === story.name
-							)
-						) {
+						if (this.existingStories.find(orig => orig.name === story.name)) {
 							list.push(story.name);
 						}
 

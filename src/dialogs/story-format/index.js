@@ -50,8 +50,7 @@ export default Vue.component('FormatDialog', {
 				.catch(e => {
 					notify(
 						say(
-							'The story format “%1$s” could not ' +
-								'be loaded (%2$s).',
+							'The story format “%1$s” could not ' + 'be loaded (%2$s).',
 							nextFormat.name + ' ' + nextFormat.version,
 							e.message
 						),

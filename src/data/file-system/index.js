@@ -78,9 +78,7 @@ export default function(store) {
 				saveStory(
 					store,
 					state,
-					state.story.stories.find(
-						s => s.name === mutation.payload[0].name
-					)
+					state.story.stories.find(s => s.name === mutation.payload[0].name)
 				);
 				break;
 
@@ -88,9 +86,7 @@ export default function(store) {
 				saveStory(
 					store,
 					state,
-					state.story.stories.find(
-						s => s.name === mutation.payload[1].name
-					)
+					state.story.stories.find(s => s.name === mutation.payload[1].name)
 				);
 				break;
 
@@ -112,10 +108,7 @@ export default function(store) {
 					function cleanupListener(s) {
 						if (s === oldStory) {
 							ipcRenderer.send('save-story', newStory);
-							ipcRenderer.removeListener(
-								'story-renamed',
-								cleanupListener
-							);
+							ipcRenderer.removeListener('story-renamed', cleanupListener);
 						}
 					}
 
@@ -125,9 +118,7 @@ export default function(store) {
 					saveStory(
 						store,
 						state,
-						state.story.stories.find(
-							s => s.id === mutation.payload[0]
-						)
+						state.story.stories.find(s => s.id === mutation.payload[0])
 					);
 				}
 				break;
@@ -159,17 +150,11 @@ export default function(store) {
 			case 'UPDATE_PASSAGE_IN_STORY': {
 				/* Is this a significant update? */
 
-				if (
-					Object.keys(mutation.payload[2]).some(
-						key => key !== 'selected'
-					)
-				) {
+				if (Object.keys(mutation.payload[2]).some(key => key !== 'selected')) {
 					saveStory(
 						store,
 						state,
-						state.story.stories.find(
-							s => s.id === mutation.payload[0]
-						)
+						state.story.stories.find(s => s.id === mutation.payload[0])
 					);
 				}
 				break;
@@ -208,9 +193,7 @@ export default function(store) {
 				break;
 
 			default:
-				throw new Error(
-					`Don't know how to handle mutation ${mutation.type}`
-				);
+				throw new Error(`Don't know how to handle mutation ${mutation.type}`);
 		}
 
 		/*

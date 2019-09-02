@@ -12,8 +12,7 @@ export function createStory(store, props) {
 
 	if (!normalizedProps.storyFormat) {
 		normalizedProps.storyFormat = store.state.pref.defaultFormat.name;
-		normalizedProps.storyFormatVersion =
-			store.state.pref.defaultFormat.version;
+		normalizedProps.storyFormatVersion = store.state.pref.defaultFormat.version;
 	}
 
 	store.dispatch('CREATE_STORY', normalizedProps);
@@ -114,8 +113,7 @@ export function repairStories(store) {
 			Update the story's story format to the latest available version.
 			*/
 
-			const majorVersion = semverUtils.parse(story.storyFormatVersion)
-				.major;
+			const majorVersion = semverUtils.parse(story.storyFormatVersion).major;
 
 			/* eslint-disable max-len */
 

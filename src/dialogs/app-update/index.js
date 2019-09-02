@@ -44,8 +44,7 @@ export default function check(store) {
 					}
 				});
 				const confirmArgs = {
-					buttonlabel:
-						'<i class="fa fa-download"></i>' + say('Download'),
+					buttonlabel: '<i class="fa fa-download"></i>' + say('Download'),
 					buttonClass: 'download primary',
 					modalClass: 'info',
 					cancelLabel: say('Not Right Now'),

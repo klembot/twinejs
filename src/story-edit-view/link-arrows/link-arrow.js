@@ -200,11 +200,7 @@ export default Vue.extend({
 			*/
 
 			const lineAngle =
-				(Math.atan2(
-					endPt.top - startPt.top,
-					endPt.left - startPt.left
-				) *
-					180) /
+				(Math.atan2(endPt.top - startPt.top, endPt.left - startPt.left) * 180) /
 				Math.PI;
 
 			/*

@@ -142,17 +142,14 @@ export default Vue.extend({
 				this.delete();
 			} else {
 				let message = say(
-					'Are you sure you want to delete “%s”? ' +
-						'This cannot be undone.',
+					'Are you sure you want to delete “%s”? ' + 'This cannot be undone.',
 					escape(this.passage.name)
 				);
 
 				if (!hasPrimaryTouchUI()) {
 					message +=
 						'<br><br>' +
-						say(
-							'(Hold the Shift key when deleting to skip this message.)'
-						);
+						say('(Hold the Shift key when deleting to skip this message.)');
 				}
 
 				eventHub.$once('close', confirmed => {
@@ -161,8 +158,7 @@ export default Vue.extend({
 					}
 				});
 				const confirmArgs = {
-					buttonLabel:
-						'<i class="fa fa-trash-o"></i> ' + say('Delete'),
+					buttonLabel: '<i class="fa fa-trash-o"></i> ' + say('Delete'),
 					class: 'danger',
 					message: message
 				};
@@ -232,10 +228,7 @@ export default Vue.extend({
 				in the mouse up handler, above.
 				*/
 
-				this.selectPassages(
-					this.parentStory.id,
-					p => p === this.passage
-				);
+				this.selectPassages(this.parentStory.id, p => p === this.passage);
 			}
 
 			/* Begin tracking a potential drag. */
@@ -344,8 +337,7 @@ export default Vue.extend({
 				*/
 
 				const top = this.passage.top + yOffset / this.parentStory.zoom;
-				const left =
-					this.passage.left + xOffset / this.parentStory.zoom;
+				const left = this.passage.left + xOffset / this.parentStory.zoom;
 
 				if (this.passage.top !== top || this.passage.left !== left) {
 					this.updatePassage(this.parentStory.id, this.passage.id, {

@@ -13,7 +13,7 @@ describe.skip('<welcome>', () => {
 	let container;
 
 	beforeEach(() => {
-		vm = new WelcomeView({ router: router, store: store }).$mount();
+		vm = new WelcomeView({router: router, store: store}).$mount();
 		vm.setPref = jest.fn();
 		vm.$router.push = jest.fn();
 	});
@@ -29,9 +29,9 @@ describe.skip('<welcome>', () => {
 
 			Vue.config.errorHandler = done;
 			Vue.nextTick(() => {
-				expect(
-					vm.$el.querySelectorAll('#welcomeView > div').length
-				).toBe(count);
+				expect(vm.$el.querySelectorAll('#welcomeView > div').length).toBe(
+					count
+				);
 
 				if (count < 4) {
 					check(count + 1);
