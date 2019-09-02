@@ -1,10 +1,8 @@
-const pref = require('./pref');
+import pref from './pref';
 
 describe('pref local storage persistence', () => {
-	beforeEach(() => {
-		window.localStorage.clear();
-	});
-	
+	beforeEach(() => window.localStorage.clear());
+
 	test('persists preferences', () => {
 		const store = {
 			state: {
@@ -15,15 +13,15 @@ describe('pref local storage persistence', () => {
 				}
 			}
 		};
-		
+
 		pref.save(store);
-		
+
 		const ids = window.localStorage.getItem('twine-prefs').split(',');
 
 		expect(ids.length).toBe(3);
-		
+
 		let saved = {};
-		
+
 		ids.forEach(id => {
 			let savedPref = window.localStorage.getItem(`twine-prefs-${id}`);
 
@@ -32,12 +30,12 @@ describe('pref local storage persistence', () => {
 
 			saved[restored.name] = restored.value;
 		});
-		
+
 		expect(saved.foo).toBe(true);
 		expect(saved.bar).toBe(1);
 		expect(saved.baz).toBe('a string');
 	});
-	
+
 	test('restores preferences', () => {
 		window.localStorage.setItem('twine-prefs', 'a-fake-id,another-fake-id');
 		window.localStorage.setItem(
@@ -56,14 +54,14 @@ describe('pref local storage persistence', () => {
 				value: 1
 			})
 		);
-		
+
 		let store = {
 			dispatch: jest.fn()
 		};
-		
+
 		pref.load(store);
 		expect(store.dispatch).toHaveBeenCalledTimes(2);
-		expect(store.dispatch).toHaveBeenCalledWith('UPDATE_PREF', 'foo', true)
-		expect(store.dispatch).toHaveBeenCalledWith('UPDATE_PREF', 'bar', 1)
+		expect(store.dispatch).toHaveBeenCalledWith('UPDATE_PREF', 'foo', true);
+		expect(store.dispatch).toHaveBeenCalledWith('UPDATE_PREF', 'bar', 1);
 	});
 });

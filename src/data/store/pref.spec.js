@@ -1,4 +1,4 @@
-const pref = require('./pref');
+import pref from './pref';
 
 describe('pref data module', () => {
 	test('provides default settings', () => {

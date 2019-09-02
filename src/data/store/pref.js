@@ -1,8 +1,10 @@
-// A Vuex module for working with application preferences. This is a bit
-// over-engieneered, as it is designed to be compatible with Twine 2.0 data
-// structures, where each preference had to have its own ID.
+/*
+A Vuex module for working with application preferences. This is a bit
+over-engieneered, as it is designed to be compatible with Twine 2.0 data
+structures, where each preference had to have its own ID.
+*/
 
-module.exports = {
+export const store = {
 	state: {
 		appTheme: 'light',
 		defaultFormat: 'Harlowe',
@@ -17,9 +19,8 @@ module.exports = {
 			window.navigator.systemLanguage ||
 			'en-us',
 		proofingFormat: 'Paperthin',
-		welcomeSeen: false,
+		welcomeSeen: false
 	},
-
 	mutations: {
 		UPDATE_PREF(state, name, value) {
 			state[name] = value;

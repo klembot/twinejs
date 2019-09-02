@@ -11,21 +11,20 @@
 	optional
 **/
 
-'use strict';
-const JSZip = require('jszip');
-const saveAs = require('browser-saveas');
-const { oniOS, onSafari } = require('../ui');
-const locale = require('../locale');
-const notify = require('../ui/notify');
+import JSZip from 'jszip';
 
-require('blob-polyfill');
+import saveAs from 'browser-saveas';
+import {oniOS, onSafari} from '../ui';
+import {say} from '../locale';
+import notify from '../ui/notify';
+import 'blob-polyfill';
 
-module.exports = (data, filename, success, failure) => {
+export default (data, filename, success, failure) => {
 	try {
 		if (!oniOS()) {
 			// standard style
 
-			const blob = new Blob([data], { type: 'text/html;charset=utf-8' });
+			const blob = new Blob([data], {type: 'text/html;charset=utf-8'});
 
 			// Safari requires us to use saveAs in direct response
 			// to a user event, so we punt and use a data: URI instead
@@ -34,16 +33,14 @@ module.exports = (data, filename, success, failure) => {
 
 			if (onSafari()) {
 				window.location.href = URL.createObjectURL(blob);
-			}
-			else {
+			} else {
 				saveAs(blob, filename);
 			}
 
 			if (success) {
 				success();
 			}
-		}
-		else {
+		} else {
 			// package it into a .zip; this will trigger iOS to try to
 			// hand it off to Google Drive, Dropbox, and the like
 
@@ -51,25 +48,19 @@ module.exports = (data, filename, success, failure) => {
 
 			zip.file(filename, data);
 			window.location.href =
-				'data:application/zip;base64, ' + zip.generate({ type: 'base64' });
+				'data:application/zip;base64, ' + zip.generate({type: 'base64'});
 
 			if (success) {
 				success();
 			}
 		}
-	}
-	catch (e) {
+	} catch (e) {
 		if (failure) {
 			failure(e);
-		}
-		else {
+		} else {
 			// L10n: %1$s is a filename; %2$s is the error message.
 			notify(
-				locale.say(
-					'“%1$s” could not be saved (%2$s).',
-					filename,
-					e.message
-				),
+				say('“%1$s” could not be saved (%2$s).', filename, e.message),
 				'danger'
 			);
 		}

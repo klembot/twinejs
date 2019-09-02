@@ -1,12 +1,12 @@
 // A lightweight Vue component that wraps a CodeMirror instance.
 
-const Vue = require('vue');
-const eventHub = require('../common/eventHub');
-const CodeMirror = require('codemirror');
+import Vue from 'vue';
 
-require('./codemirror-theme.less');
+import eventHub from '../common/eventHub';
+import CodeMirror from 'codemirror';
+import './codemirror-theme.less';
 
-module.exports = Vue.extend({
+export default Vue.extend({
 	template: '<div></div>',
 
 	props: ['options', 'text'],

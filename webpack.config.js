@@ -27,10 +27,13 @@ const config = (module.exports = {
 	},
 	resolve: {
 		alias: {
-		  vue$: 'vue/dist/vue.common.js',
-		  'vue-router$': 'vue-router/dist/vue-router.common.js'
+			'twine-vuex-persistence$': useElectron
+				? '../file-system'
+				: '../local-storage',
+			vue$: 'vue/dist/vue.common.js',
+			'vue-router$': 'vue-router/dist/vue-router.common.js'
 		}
-	  },
+	},
 	devtool: 'source-map',
 	module: {
 		rules: [
@@ -89,7 +92,7 @@ const config = (module.exports = {
 			template: './src/index.ejs',
 			package: package,
 			hash: true,
-			buildNumber: require('./scripts/build-number').number,
+			buildNumber: require('./scripts/build-number').number
 		}),
 		new MiniCssExtractPlugin({filename: 'twine.css'}),
 		new PoPlugin({
@@ -107,9 +110,7 @@ const config = (module.exports = {
 });
 
 if (isRelease) {
-	/*
-	Transpile JS to our target platforms.
-	*/
+	/* Transpile JS to our target platforms. */
 
 	config.module.rules.push({
 		test: /\.js$/,
@@ -124,56 +125,58 @@ if (isRelease) {
 		options: {presets: ['@babel/preset-env']}
 	});
 
-	// Use CDN
-	config.plugins.push(new CdnPlugin({
+	/* Use CDN references. */
+
+	config.plugins.push(
+		new CdnPlugin({
 			modules: [
 				{
 					name: 'codemirror',
-					var: 'CodeMirror',
-				  },
-				  {
+					var: 'CodeMirror'
+				},
+				{
 					name: 'fastclick',
-					var: "FastClick"
-				  },
+					var: 'FastClick'
+				},
 				{
 					name: 'jed',
-					var: "Jed",
-				  },
+					var: 'Jed'
+				},
 				{
 					name: 'jszip',
-					var: "JSZip",
-					path: "jszip.min.js",
-					prodUrl: "//cdnjs.cloudflare.com/ajax/libs/:name/:version/:path"
-				  },
+					var: 'JSZip',
+					path: 'jszip.min.js',
+					prodUrl:
+						'//cdnjs.cloudflare.com/ajax/libs/:name/:version/:path'
+				},
 				{
-					name: 'tether',
-				  },
+					name: 'tether'
+				},
 				{
 					name: 'tether-drop',
-					var: "Drop",
-				  },
+					var: 'Drop'
+				},
 				{
-					name: 'moment',
-				  },
+					name: 'moment'
+				},
 				{
 					name: 'vue',
 					var: 'Vue',
 					path: 'dist/vue.min.js'
-				  },
-				  {
+				},
+				{
 					name: 'vue-router',
 					var: 'VueRouter',
 					path: 'dist/vue-router.min.js'
-				  },
-				  {
+				},
+				{
 					name: 'vuex',
 					var: 'Vuex',
 					path: 'dist/vuex.min.js'
-				  },
-				  { name: "font-awesome",
-					var: 'fa',
-					cssOnly: true }
+				},
+				{name: 'font-awesome', var: 'fa', cssOnly: true}
 			],
-			prod: isRelease,
-		}))
+			prod: isRelease
+		})
+	);
 }

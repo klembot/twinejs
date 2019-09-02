@@ -1,15 +1,16 @@
-// Shows a single story format, with a radio button to allow the user to
-// choose it.
+/*
+Shows a single story format, with a radio button to allow the user to
+choose it.
+*/
 
-const Vue = require('vue');
-const locale = require('../../locale');
-const { updateStory } = require('../../data/actions/story');
+import Vue from 'vue';
+import {say} from '../../locale';
+import {updateStory} from '../../data/actions/story';
+import template from './item.html';
+import './item.less';
 
-require('./item.less');
-
-module.exports = Vue.extend({
-	template: require('./item.html'),
-
+export default Vue.extend({
+	template,
 	props: {
 		story: {
 			type: Object,
@@ -21,11 +22,12 @@ module.exports = Vue.extend({
 			required: true
 		}
 	},
-
 	computed: {
 		selected() {
-			return this.story.storyFormat === this.format.name &&
-				this.story.storyFormatVersion === this.format.version;
+			return (
+				this.story.storyFormat === this.format.name &&
+				this.story.storyFormatVersion === this.format.version
+			);
 		},
 
 		nameVersion() {
@@ -34,7 +36,7 @@ module.exports = Vue.extend({
 		author() {
 			if (this.format.properties.author) {
 				/* L10n: %s is the name of an author. */
-				return locale.say('by %s', this.format.properties.author);
+				return say('by %s', this.format.properties.author);
 			}
 
 			return '';
@@ -46,23 +48,18 @@ module.exports = Vue.extend({
 
 		imageSrc() {
 			const path = this.format.url.replace(/\/[^\/]*?$/, '');
-			
+
 			return path + '/' + this.format.properties.image;
 		}
 	},
-
 	methods: {
 		select() {
-			this.updateStory(
-				this.story.id,
-				{
-					storyFormat: this.format.name,
-					storyFormatVersion: this.format.version
-				}
-			);
+			this.updateStory(this.story.id, {
+				storyFormat: this.format.name,
+				storyFormatVersion: this.format.version
+			});
 		}
 	},
-
 	vuex: {
 		actions: {
 			updateStory

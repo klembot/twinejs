@@ -4,7 +4,7 @@
 //
 // This returns a promise that resolves with the data in the file.
 
-module.exports = file => {
+export default file => {
 	const reader = new FileReader();
 
 	return new Promise(resolve => {

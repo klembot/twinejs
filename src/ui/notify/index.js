@@ -1,13 +1,13 @@
-const NotificationList = require('./list');
+import NotificationList from './list';
 let notifications;
 
-module.exports = function(html, className = '') {
+export default function notify(html, className = '') {
 	if (!notifications) {
 		let container = document.createElement('div');
 
 		document.querySelector('body').appendChild(container);
-		notifications = new NotificationList({ el: container });
+		notifications = new NotificationList({el: container});
 	}
 
 	notifications.add(html, className);
-};
+}

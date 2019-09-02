@@ -1,42 +1,37 @@
-/**
- Manages modals with a single text input, a la window.prompt.
+/*
+Manages modals with a single text input, a la window.prompt.
+*/
 
- @module ui/confirm
-**/
+import Vue from 'vue';
+import eventHub from '../../common/eventHub';
+import modalDialog from '../../ui/modal-dialog';
+import {say} from '../../locale';
+import template from './index.html';
+import './index.less';
 
-'use strict';
-const locale = require('../../locale');
-const eventHub = require('../../common/eventHub');
-const Vue = require('vue');
+/*
+Shows a modal confirmation dialog, with one button (to continue the action)
+and a Cancel button.
 
-require('./index.less');
-
-/**
- Shows a modal confirmation dialog, with one button (to continue the action)
- and a Cancel button.
-
- @param {Object} options Object with optional parameters:
-						 message (HTML source of the message)
-						 [modalClass] (CSS class to apply to the modal),
-						 [buttonClass] (CSS class to apply to the action button)
-						 buttonLabel (HTML label for the button)
-**/
+Options:
+	- message, HTML HTML source of the message
+	- modalClass, CSS class to apply to the modal
+	- buttonClass, CSS class to apply to the action button
+	- buttonLabel, HTML label for the button
+*/
 
 const confirmation = Vue.component('confirm', {
-	template: require('./index.html'),
-
+	template,
 	props: {
-		buttonLabel: { type: String, default: '' },
-		modalClass: { type: String, default: '' },
-		buttonClass: { type: String, default: 'primary' },
-		coda: { type: String, default: '' },
-		message: { type: String, default: '' }
+		buttonLabel: {type: String, default: ''},
+		modalClass: {type: String, default: ''},
+		buttonClass: {type: String, default: 'primary'},
+		coda: {type: String, default: ''},
+		message: {type: String, default: ''}
 	},
-
 	data: () => ({
-		cancelLabel: '<i class="fa fa-times"></i> ' + locale.say('Cancel')
+		cancelLabel: '<i class="fa fa-times"></i> ' + say('Cancel')
 	}),
-
 	methods: {
 		accept() {
 			eventHub.$emit('close', true);
@@ -48,12 +43,11 @@ const confirmation = Vue.component('confirm', {
 			this.$emit('close', true);
 		}
 	},
-
 	components: {
-		'modal-dialog': require('../../ui/modal-dialog')
+		'modal-dialog': modalDialog
 	}
 });
 
-module.exports = {
+export default {
 	component: confirmation
 };

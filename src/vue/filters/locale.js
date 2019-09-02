@@ -1,10 +1,10 @@
-// A module that adds locale-oriented filters to Vue.
+/* A module that adds locale-oriented filters to Vue. */
 
-const locale = require('../../locale');
+import {say, sayPlural} from '../../locale';
 
-module.exports = {
-	addTo(Vue) {
-		Vue.filter('say', locale.say.bind(locale));
-		Vue.filter('sayPlural', locale.sayPlural.bind(locale));
+export default {
+	install(Vue) {
+		Vue.filter('say', say);
+		Vue.filter('sayPlural', sayPlural);
 	}
 };

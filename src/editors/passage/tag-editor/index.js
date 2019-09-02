@@ -1,24 +1,24 @@
 /* An editor for adding and removing tags from a passage. */
 
-const Vue = require('vue');
-const locale = require('../../../locale');
-const { updatePassage } = require('../../../data/actions/passage');
-const uniq = require('lodash.uniq');
+import Vue from 'vue';
+import uniq from 'lodash.uniq';
+import {say} from '../../../locale';
+import tagMenu from './tag-menu';
+import {updatePassage} from '../../../data/actions/passage';
+import template from './index.html';
 
-module.exports = Vue.extend({
+export default Vue.extend({
 	data: () => ({
 		newVisible: false
 	}),
-
 	computed: {
 		tagColors() {
 			return this.allStories.find(s => s.id === this.storyId).tagColors;
 		},
 		addTagPlaceholder() {
-			return locale.say('Tag name');
+			return say('Tag name');
 		}
 	},
-
 	props: {
 		passage: {
 			type: Object,
@@ -29,19 +29,15 @@ module.exports = Vue.extend({
 			required: true
 		}
 	},
-
-	template: require('./index.html'),
-
+	template,
 	methods: {
 		showNew() {
 			this.newVisible = true;
 			this.$nextTick(() => this.$refs.newName.focus());
 		},
-
 		hideNew() {
 			this.newVisible = false;
 		},
-
 		addNew() {
 			const newName = this.$refs.newName.value.replace(/\s/g, '-');
 
@@ -49,26 +45,20 @@ module.exports = Vue.extend({
 
 			this.$refs.newName.value = '';
 
-			this.updatePassage(
-				this.storyId,
-				this.passage.id,
-				{
-					tags: uniq([].concat(this.passage.tags, newName))
-				}
-			);
+			this.updatePassage(this.storyId, this.passage.id, {
+				tags: uniq([].concat(this.passage.tags, newName))
+			});
 
 			this.hideNew();
 		}
 	},
-
 	vuex: {
 		getters: {
 			allStories: state => state.story.stories
 		},
-		actions: { updatePassage }
+		actions: {updatePassage}
 	},
-
 	components: {
-		'tag-menu': require('./tag-menu')
+		'tag-menu': tagMenu
 	}
 });

@@ -11,7 +11,7 @@ of objects with event, el, and listener properties.
 */
 let listeners = {};
 
-module.exports = {
+export default {
 	created() {
 		this.$domEventKey = Symbol();
 
@@ -27,8 +27,8 @@ module.exports = {
 			return;
 		}
 
-		listeners[this.$domEventKey].forEach(
-			props => props.el.removeEventListener(props.event, props.listener)
+		listeners[this.$domEventKey].forEach(props =>
+			props.el.removeEventListener(props.event, props.listener)
 		);
 
 		listeners[this.$domEventKey] = null;
@@ -45,9 +45,12 @@ module.exports = {
 			const boundListener = listener.bind(this);
 
 			el.addEventListener(event, boundListener, options);
-			listeners[this.$domEventKey].push(
-				{ el, event, options, listener: boundListener }
-			);
+			listeners[this.$domEventKey].push({
+				el,
+				event,
+				options,
+				listener: boundListener
+			});
 		},
 
 		/*
@@ -59,17 +62,20 @@ module.exports = {
 				return;
 			}
 
-			listeners[this.$domEventKey] =
-				listeners[this.$domEventKey].filter(props => {
+			listeners[this.$domEventKey] = listeners[this.$domEventKey].filter(
+				props => {
 					if (props.event === event) {
 						props.el.removeEventListener(
-							props.event, props.listener, props.options
+							props.event,
+							props.listener,
+							props.options
 						);
 						return false;
 					}
 
 					return true;
-				});
+				}
+			);
 		}
 	}
 };

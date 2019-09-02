@@ -1,26 +1,24 @@
-const Vue = require('vue');
-const { loadFormat } = require('../../data/actions/story-format');
-const locale = require('../../locale');
-const notify = require('../../ui/notify');
-const semverUtils = require('semver-utils');
+import Vue from 'vue';
+import formatItem from './item';
+import {loadFormat} from '../../data/actions/story-format';
+import modalDialog from '../../ui/modal-dialog';
+import notify from '../../ui/notify';
+import {say} from '../../locale';
+import semverUtils from 'semver-utils';
+import template from './index.html';
+import './index.less';
 
-require('./index.less');
-
-module.exports = Vue.component('FormatDialog', {
-	template: require('./index.html'),
-
+export default Vue.component('FormatDialog', {
+	template,
 	props: ['storyId', 'origin'],
-
 	data: () => ({
 		loadIndex: 0,
-		loadedFormats: [],
+		loadedFormats: []
 	}),
-
 	computed: {
 		story() {
 			return this.allStories.find(story => story.id === this.storyId);
 		},
-
 		selectedFormat() {
 			return this.loadedFormats.find(
 				format =>
@@ -28,12 +26,10 @@ module.exports = Vue.component('FormatDialog', {
 					format.version === this.story.storyFormatVersion
 			);
 		},
-
 		working() {
 			return this.loadIndex < this.allFormats.length;
 		}
 	},
-
 	methods: {
 		loadNext() {
 			if (!this.working) {
@@ -53,9 +49,8 @@ module.exports = Vue.component('FormatDialog', {
 				})
 				.catch(e => {
 					notify(
-						locale.say(
-							'The story format “%1$s” could not ' +
-								'be loaded (%2$s).',
+						say(
+							'The story format “%1$s” could not ' + 'be loaded (%2$s).',
 							nextFormat.name + ' ' + nextFormat.version,
 							e.message
 						),
@@ -66,14 +61,12 @@ module.exports = Vue.component('FormatDialog', {
 				});
 		}
 	},
-
 	mounted() {
 		this.$nextTick(function() {
 			// code that assumes this.$el is in-document
 			this.loadNext();
 		});
 	},
-
 	vuex: {
 		actions: {
 			loadFormat
@@ -101,25 +94,19 @@ module.exports = Vue.component('FormatDialog', {
 
 					if (aVersion.major > bVersion.major) {
 						return -1;
-					}
-					else if (aVersion.major < bVersion.major) {
+					} else if (aVersion.major < bVersion.major) {
 						return 1;
-					}
-					else {
+					} else {
 						if (aVersion.minor > bVersion.minor) {
 							return -1;
-						}
-						else if (aVersion.minor < bVersion.minor) {
+						} else if (aVersion.minor < bVersion.minor) {
 							return 1;
-						}
-						else {
+						} else {
 							if (aVersion.patch > bVersion.patch) {
 								return -1;
-							}
-							else if (aVersion.patch < bVersion.patch) {
+							} else if (aVersion.patch < bVersion.patch) {
 								return 1;
-							}
-							else {
+							} else {
 								return 0;
 							}
 						}
@@ -130,9 +117,8 @@ module.exports = Vue.component('FormatDialog', {
 			}
 		}
 	},
-
 	components: {
-		'format-item': require('./item'),
-		'modal-dialog': require('../../ui/modal-dialog')
+		'format-item': formatItem,
+		'modal-dialog': modalDialog
 	}
 });

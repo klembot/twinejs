@@ -2,21 +2,20 @@
 A modal dialog for editing a single passage.
 */
 
-const CodeMirror = require('codemirror');
-const Vue = require('vue');
-const locale = require('../../locale');
-const {
-	changeLinksInStory,
-	updatePassage
-} = require('../../data/actions/passage');
-const { loadFormat } = require('../../data/actions/story-format');
-const { passageDefaults } = require('../../data/store/story');
-
-require('codemirror/addon/display/placeholder');
-require('codemirror/addon/hint/show-hint');
-require('../../codemirror/prefix-trigger');
-
-require('./index.less');
+import CodeMirror from 'codemirror';
+import Vue from 'vue';
+import {changeLinksInStory, updatePassage} from '../../data/actions/passage';
+import codeMirror from '../../vue/codemirror';
+import {loadFormat} from '../../data/actions/story-format';
+import modalDialog from '../../ui/modal-dialog';
+import {passageDefaults} from '../../data/store/story';
+import {say} from '../../locale';
+import tagEditor from './tag-editor';
+import template from './index.html';
+import 'codemirror/addon/display/placeholder';
+import 'codemirror/addon/hint/show-hint';
+import '../../codemirror/prefix-trigger';
+import './index.less';
 
 /*
 Expose CodeMirror to story formats, currently for Harlowe compatibility.
@@ -24,25 +23,22 @@ Expose CodeMirror to story formats, currently for Harlowe compatibility.
 
 window.CodeMirror = CodeMirror;
 
-module.exports = Vue.component('passage-editor', {
-	template: require('./index.html'),
-
+export default Vue.component('passage-editor', {
+	template,
 	props: {
 		passageId: '',
 		storyId: '',
 		origin: null
 	},
-
 	data: () => ({
 		oldWindowTitle: '',
 		userPassageName: '',
 		saveError: ''
 	}),
-
 	computed: {
 		cmOptions() {
 			return {
-				placeholder: locale.say(
+				placeholder: say(
 					'Enter the body text of your passage here. To link to another ' +
 						'passage, put two square brackets around its name, [[like ' +
 						'this]].'
@@ -60,21 +56,17 @@ module.exports = Vue.component('passage-editor', {
 				mode: 'text'
 			};
 		},
-
 		inputPlaceholder() {
-			return locale.say('Passage Name');
+			return say('Passage Name');
 		},
-
 		parentStory() {
 			return this.allStories.find(story => story.id === this.storyId);
 		},
-
 		passage() {
 			return this.parentStory.passages.find(
 				passage => passage.id === this.passageId
 			);
 		},
-
 		userPassageNameValid() {
 			return !this.parentStory.passages.some(
 				passage =>
@@ -82,12 +74,10 @@ module.exports = Vue.component('passage-editor', {
 					passage.id !== this.passage.id
 			);
 		},
-
 		autocompletions() {
 			return this.parentStory.passages.map(passage => passage.name);
 		}
 	},
-
 	methods: {
 		autocomplete() {
 			this.$refs.codemirror.$cm.showHint({
@@ -113,9 +103,7 @@ module.exports = Vue.component('passage-editor', {
 
 					return comps;
 				},
-
 				completeSingle: false,
-
 				extraKeys: {
 					']'(cm, hint) {
 						const doc = cm.getDoc();
@@ -123,14 +111,12 @@ module.exports = Vue.component('passage-editor', {
 						doc.replaceRange(']', doc.getCursor());
 						hint.close();
 					},
-
 					'-'(cm, hint) {
 						const doc = cm.getDoc();
 
 						doc.replaceRange('-', doc.getCursor());
 						hint.close();
 					},
-
 					'|'(cm, hint) {
 						const doc = cm.getDoc();
 
@@ -140,19 +126,19 @@ module.exports = Vue.component('passage-editor', {
 				}
 			});
 		},
-
 		saveText(text) {
-			this.updatePassage(this.parentStory.id, this.passage.id, { text: text });
+			this.updatePassage(this.parentStory.id, this.passage.id, {
+				text: text
+			});
 		},
-
 		saveTags(tags) {
-			this.updatePassage(this.parentStory.id, this.passage.id, { tags: tags });
+			this.updatePassage(this.parentStory.id, this.passage.id, {
+				tags: tags
+			});
 		},
-
 		dialogDestroyed() {
 			this.$destroy();
 		},
-
 		canClose() {
 			if (this.userPassageNameValid) {
 				if (this.userPassageName !== this.passage.name) {
@@ -173,7 +159,6 @@ module.exports = Vue.component('passage-editor', {
 			return false;
 		}
 	},
-
 	mounted() {
 		this.$nextTick(function() {
 			// code that assumes this.$el is in-document
@@ -183,7 +168,7 @@ module.exports = Vue.component('passage-editor', {
 			/* Update the window title. */
 
 			this.oldWindowTitle = document.title;
-			document.title = locale.say('Editing \u201c%s\u201d', this.passage.name);
+			document.title = say('Editing \u201c%s\u201d', this.passage.name);
 
 			/*
 			Load the story's format and see if it offers a CodeMirror mode.
@@ -241,24 +226,20 @@ module.exports = Vue.component('passage-editor', {
 			}
 		});
 	},
-
 	destroyed() {
 		document.title = this.oldWindowTitle;
 	},
-
 	components: {
-		'code-mirror': require('../../vue/codemirror'),
-		'modal-dialog': require('../../ui/modal-dialog'),
-		'tag-editor': require('./tag-editor')
+		'code-mirror': codeMirror,
+		'modal-dialog': modalDialog,
+		'tag-editor': tagEditor
 	},
-
 	vuex: {
 		actions: {
 			changeLinksInStory,
 			updatePassage,
 			loadFormat
 		},
-
 		getters: {
 			allStories: state => state.story.stories
 		}

@@ -2,17 +2,16 @@
 Allows the user to pick what locale they would like to use.
 */
 
-const Vue = require('vue');
-const isElectron = require('../../electron/is-electron');
-const {setPref} = require('../../data/actions/pref');
+import Vue from 'vue';
+import isElectron from '../../electron/is-electron';
+import {setPref} from '../../data/actions/pref';
+import template from './index.html';
+import './index.less';
 
-require('./index.less');
-
-module.exports = Vue.extend({
-	template: require('./index.html'),
+export default Vue.extend({
+	template,
 	data: () => ({
 		/* The locales we offer with their codes. */
-
 		locales: [
 			{label: 'Castellano', code: 'es'},
 			{label: 'Catal&agrave;', code: 'ca'},

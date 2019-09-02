@@ -3,34 +3,26 @@ Shows a quick search field, which changes passage highlights, and a button to
 show the search modal dialog.
 */
 
-const Vue = require('vue');
-const locale = require('../../../locale');
-const eventHub = require('../../../common/eventHub');
-const SearchDialog = require('../../../dialogs/story-search');
+import Vue from 'vue';
+import eventHub from '../../../common/eventHub';
+import {say} from '../../../locale';
+import SearchDialog from '../../../dialogs/story-search';
+import template from './index.html';
 
-module.exports = Vue.extend({
-	template: require('./index.html'),
-
+export default Vue.extend({
+	template,
 	props: {
-		story: {
-			type: Object,
-			required: true
-		}
+		story: {type: Object, required: true}
 	},
-
-	data: () => ({
-		search: ''
-	}),
-
+	data: () => ({search: ''}),
 	computed: {
 		quickFind() {
-			return locale.say('Quick Find');
+			return say('Quick Find');
 		},
 		globalFnR() {
-			return locale.say('Find and replace across the entire story');
+			return say('Find and replace across the entire story');
 		}
 	},
-
 	watch: {
 		search() {
 			/*
@@ -50,7 +42,6 @@ module.exports = Vue.extend({
 			);
 		}
 	},
-
 	methods: {
 		showModal(e) {
 			eventHub.$emit('customModal', SearchDialog, {

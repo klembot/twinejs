@@ -1,23 +1,18 @@
-// A marquee selection tool for passage items.
+/* A marquee selection tool for passage items. */
 
-const Vue = require('vue');
-const domEvents = require('../../vue/mixins/dom-events');
-const rect = require('../../common/rect');
-const { selectPassages } = require('../../data/actions/passage');
+import Vue from 'vue';
+import domEvents from '../../vue/mixins/dom-events';
+import {intersects} from '../../common/rect';
+import {selectPassages} from '../../data/actions/passage';
+import template from './index.html';
+import '../../ui/ie-mouse-event-polyfill';
+import './index.less';
 
-require('../../ui/ie-mouse-event-polyfill');
-require('./index.less');
-
-module.exports = Vue.extend({
-	template: require('./index.html'),
-
+export default Vue.extend({
+	template,
 	props: {
-		story: {
-			type: Object,
-			required: true
-		}
+		story: {type: Object, required: true}
 	},
-
 	data: () => ({
 		visible: false,
 
@@ -38,7 +33,6 @@ module.exports = Vue.extend({
 		additive: false,
 		originallySelected: []
 	}),
-
 	computed: {
 		/*
 		The rectangle encompasing this selection in screen coordinates.
@@ -54,8 +48,7 @@ module.exports = Vue.extend({
 			if (this.startX < this.currentX) {
 				result.left = this.startX;
 				result.width = this.currentX - this.startX;
-			}
-			else {
+			} else {
 				result.left = this.currentX;
 				result.width = this.startX - this.currentX;
 			}
@@ -63,8 +56,7 @@ module.exports = Vue.extend({
 			if (this.startY < this.currentY) {
 				result.top = this.startY;
 				result.height = this.currentY - this.startY;
-			}
-			else {
+			} else {
 				result.top = this.currentY;
 				result.height = this.startY - this.currentY;
 			}
@@ -78,7 +70,7 @@ module.exports = Vue.extend({
 		*/
 
 		logicalRect() {
-			const { zoom } = this.story;
+			const {zoom} = this.story;
 
 			if (!this.screenRect) {
 				return;
@@ -98,7 +90,7 @@ module.exports = Vue.extend({
 
 		css() {
 			if (!this.screenRect) {
-				return { display: 'none' };
+				return {display: 'none'};
 			}
 
 			return {
@@ -109,7 +101,6 @@ module.exports = Vue.extend({
 			};
 		}
 	},
-
 	methods: {
 		startDrag(e) {
 			/*
@@ -118,8 +109,11 @@ module.exports = Vue.extend({
 			space-bar scroll mode (see vue/directives/mouse-scrolling).
 			*/
 
-			if (e.target.nodeName !== 'svg' || e.which !== 1 ||
-				document.body.classList.contains('mouseScrollReady')) {
+			if (
+				e.target.nodeName !== 'svg' ||
+				e.which !== 1 ||
+				document.body.classList.contains('mouseScrollReady')
+			) {
 				return;
 			}
 
@@ -132,14 +126,12 @@ module.exports = Vue.extend({
 			this.additive = e.shiftKey || e.ctrlKey;
 
 			if (this.additive) {
-				this.originallySelected = this.story.passages.filter(
-					p => p.selected
-				);
+				this.originallySelected = this.story.passages.filter(p => p.selected);
 			}
 
 			this.visible = true;
 			document.body.classList.add('marqueeing');
-			
+
 			/*
 			Set up coordinates initially. clientX and clientY don't take
 			into account the window's scroll position.
@@ -175,12 +167,11 @@ module.exports = Vue.extend({
 			this.currentY = e.clientY + window.pageYOffset;
 
 			this.selectPassages(this.story.id, p => {
-				if (this.additive &&
-					this.originallySelected.indexOf(p) !== -1) {
+				if (this.additive && this.originallySelected.indexOf(p) !== -1) {
 					return true;
 				}
 
-				return rect.intersects(this.logicalRect, p);
+				return intersects(this.logicalRect, p);
 			});
 		},
 
@@ -190,14 +181,17 @@ module.exports = Vue.extend({
 			if (e.which !== 1) {
 				return;
 			}
-			
+
 			/*
 			If the user never actually moved the mouse (e.g. this was a
 			single click in the story map), deselect everything.
 			*/
 
-			if (this.screenRect && this.screenRect.width === 0 &&
-				this.screenRect.height === 0) {
+			if (
+				this.screenRect &&
+				this.screenRect.width === 0 &&
+				this.screenRect.height === 0
+			) {
 				this.selectPassages(this.story.id, () => false);
 			}
 
@@ -220,17 +214,14 @@ module.exports = Vue.extend({
 			this.$el.dispatchEvent(new MouseEvent('click', e));
 		}
 	},
-
 	mounted() {
-		this.$nextTick(function () {
+		this.$nextTick(function() {
 			// code that assumes this.$el is in-document
 			this.on(this.$el.parentNode, 'mousedown', this.startDrag);
 		});
 	},
-
 	vuex: {
-		actions: { selectPassages }
+		actions: {selectPassages}
 	},
-
 	mixins: [domEvents]
 });

@@ -1,21 +1,17 @@
-const {app, shell} = require('electron');
-const fs = require('fs-extra');
-const klaw = require('klaw-sync');
-const locale = require('../locale');
-const mkdirp = require('mkdirp-promise');
-const path = require('path');
+import {app, shell} from 'electron';
+import fs from 'fs-extra';
+import klaw from 'klaw-sync';
+import {say} from '../locale';
+import mkdirp from 'mkdirp-promise';
+import path from 'path';
 
-const StoryDirectory = (module.exports = {
+const StoryDirectory = {
 	/*
 	Returns the full path of the user's story directory.
 	*/
 
 	path() {
-		return path.join(
-			app.getPath('documents'),
-			locale.say('Twine'),
-			locale.say('Stories')
-		);
+		return path.join(app.getPath('documents'), say('Twine'), say('Stories'));
 	},
 
 	/*
@@ -94,12 +90,13 @@ const StoryDirectory = (module.exports = {
 	*/
 
 	backup(maxBackups = 10) {
+		// eslint-disable-next-line no-console
 		console.log('Backing up story library');
 
 		const backupPath = path.join(
 			app.getPath('documents'),
-			locale.say('Twine'),
-			locale.say('Backups')
+			say('Twine'),
+			say('Backups')
 		);
 		const now = new Date();
 
@@ -132,21 +129,17 @@ const StoryDirectory = (module.exports = {
 				});
 
 				if (backups.length > maxBackups) {
+					// eslint-disable-next-line no-console
 					console.log(
-						`There are ${
-							backups.length
-						} story library backups, pruning`
+						`There are ${backups.length} story library backups, pruning`
 					);
 
-					const toDelete = backups.slice(
-						0,
-						backups.length - maxBackups
-					);
+					const toDelete = backups.slice(0, backups.length - maxBackups);
 
-					return Promise.all(
-						toDelete.map(file => fs.remove(file.path))
-					);
+					return Promise.all(toDelete.map(file => fs.remove(file.path)));
 				}
 			});
 	}
-});
+};
+
+export default StoryDirectory;

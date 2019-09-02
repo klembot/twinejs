@@ -4,67 +4,46 @@ data/, these are Vuex-aware, work with IDs instead of direct data, and are
 asynchronous.
 */
 
-const {loadFormat} = require('../data/actions/story-format');
-const locale = require('../locale');
-const {publishStoryWithFormat} = require('../data/publish');
+import {loadFormat} from '../data/actions/story-format';
 
-module.exports = {
-	getStoryPlayHtml(store, storyId) {
-		const story = store.state.story.stories.find(
-			story => story.id === storyId
-		);
+import {say} from '../locale';
+import {publishStoryWithFormat} from '../data/publish';
 
-		if (!story) {
-			throw new Error(
-				locale.say('There is no story with ID %s.', storyId)
-			);
-		}
+export function getStoryPlayHtml(store, storyId) {
+	const story = store.state.story.stories.find(story => story.id === storyId);
 
-		return loadFormat(
-			store,
-			story.storyFormat,
-			story.storyFormatVersion
-		).then(format =>
-			publishStoryWithFormat(store.state.appInfo, story, format)
-		);
-	},
+	if (!story) {
+		throw new Error(say('There is no story with ID %s.', storyId));
+	}
 
-	getStoryProofingHtml(store, storyId) {
-		const story = store.state.story.stories.find(
-			story => story.id === storyId
-		);
+	return loadFormat(store, story.storyFormat, story.storyFormatVersion).then(
+		format => publishStoryWithFormat(store.state.appInfo, story, format)
+	);
+}
 
-		if (!story) {
-			throw new Error(
-				locale.say('There is no story with ID %s.', storyId)
-			);
-		}
+export function getStoryProofingHtml(store, storyId) {
+	const story = store.state.story.stories.find(story => story.id === storyId);
 
-		return loadFormat(
-			store,
-			store.state.pref.proofingFormat.name,
-			store.state.pref.proofingFormat.version
-		).then(format =>
-			publishStoryWithFormat(store.state.appInfo, story, format)
-		);
-	},
+	if (!story) {
+		throw new Error(say('There is no story with ID %s.', storyId));
+	}
 
-	getStoryTestHtml(store, storyId, startPassageId) {
-		const story = store.state.story.stories.find(
-			story => story.id === storyId
-		);
+	return loadFormat(
+		store,
+		store.state.pref.proofingFormat.name,
+		store.state.pref.proofingFormat.version
+	).then(format => publishStoryWithFormat(store.state.appInfo, story, format));
+}
 
-		if (!story) {
-			throw new Error(
-				locale.say('There is no story with ID %s.', storyId)
-			);
-		}
+export function getStoryTestHtml(store, storyId, startPassageId) {
+	const story = store.state.story.stories.find(story => story.id === storyId);
 
-		return loadFormat(
-			store,
-			story.storyFormat,
-			story.storyFormatVersion
-		).then(format =>
+	if (!story) {
+		throw new Error(say('There is no story with ID %s.', storyId));
+	}
+
+	return loadFormat(store, story.storyFormat, story.storyFormatVersion).then(
+		format =>
 			publishStoryWithFormat(
 				store.state.appInfo,
 				story,
@@ -72,6 +51,5 @@ module.exports = {
 				['debug'],
 				startPassageId
 			)
-		);
-	}
-};
+	);
+}

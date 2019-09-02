@@ -1,79 +1,62 @@
 // The toolbar at the bottom of the screen with editing controls.
 
-const Vue = require('vue');
-const locale = require('../../locale');
-const eventHub = require('../../common/eventHub');
-const zoomMappings = require('../zoom-settings');
-const {playStory, testStory} = require('../../common/launch-story');
-const {updateStory} = require('../../data/actions/story');
+import Vue from 'vue';
+import eventHub from '../../common/eventHub';
+import zoomMappings from '../zoom-settings';
+import {playStory, testStory} from '../../common/launch-story';
+import {say} from '../../locale';
+import storyMenu from './story-menu';
+import storySearch from './story-search';
+import {updateStory} from '../../data/actions/story';
+import template from './index.html';
+import './index.less';
 
-require('./index.less');
-
-module.exports = Vue.extend({
-	template: require('./index.html'),
-
+export default Vue.extend({
+	template,
 	props: {
-		story: {
-			type: Object,
-			required: true
-		},
-
-		zoomDesc: {
-			type: String,
-			required: true
-		}
+		story: {type: Object, required: true},
+		zoomDesc: {type: String, required: true}
 	},
-
 	computed: {
 		storyLinkTitle() {
-			return locale.say('Go to the story list');
+			return say('Go to the story list');
 		},
 		showOnlyStory() {
-			return locale.say('Show only story structure');
+			return say('Show only story structure');
 		},
 		showPassageTitlesOnly() {
-			return locale.say('Show only passage titles');
+			return say('Show only passage titles');
 		},
 		showPassageTitlesAndExcerpts() {
-			return locale.say('Show passage titles and excerpts');
+			return say('Show passage titles and excerpts');
 		},
 		storyTestMode() {
-			return locale.say('Play this story in test mode');
+			return say('Play this story in test mode');
 		},
 		storyPlayMode() {
-			return locale.say('Play this story');
+			return say('Play this story');
 		},
 		newPassageTitle() {
-			return locale.say('Add a new passage');
+			return say('Add a new passage');
 		}
 	},
-
 	components: {
-		'story-menu': require('./story-menu'),
-		'story-search': require('./story-search')
+		'story-menu': storyMenu,
+		'story-search': storySearch
 	},
-
 	methods: {
 		setZoom(description) {
 			this.updateStory(this.story.id, {zoom: zoomMappings[description]});
 		},
-
 		test() {
 			testStory(this.$store, this.story.id);
 		},
-
 		play() {
 			playStory(this.$store, this.story.id);
 		},
-
 		addPassage() {
 			eventHub.$emit('passage-create');
 		}
 	},
-
-	vuex: {
-		actions: {
-			updateStory
-		}
-	}
+	vuex: {actions: {updateStory}}
 });

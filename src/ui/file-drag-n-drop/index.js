@@ -3,24 +3,21 @@ Manages a drag-and-drop-target on a component. When a file is dragged onto it,
 this component dispatches a `file-drag-n-drop` event to its parent.
 */
 
-const Vue = require('vue');
-const eventHub = require('../../common/eventHub');
-const domEvents = require('../../vue/mixins/dom-events');
+import Vue from 'vue';
+import eventHub from '../../common/eventHub';
+import domEvents from '../../vue/mixins/dom-events';
+import template from './index.html';
+import './index.less';
 
-require('./index.less');
-
-module.exports = Vue.extend({
-	template: require('./index.html'),
-
+export default Vue.extend({
+	template,
 	data: () => ({
 		/* Whether the user has a file dragged onto this component. */
-
 		receiving: false
 	}),
-
 	mounted() {
-		this.$nextTick(function () {
-			// code that assumes this.$el is in-document
+		this.$nextTick(function() {
+			/* code that assumes this.$el is in-document */
 			const parentEl = this.$parent.$el;
 
 			/*
@@ -43,10 +40,8 @@ module.exports = Vue.extend({
 			this.on(parentEl, 'dragover', e => {
 				e.preventDefault();
 			});
-
 		});
 	},
-
 	methods: {
 		fileReceived(e) {
 			eventHub.$emit('file-drag-n-drop', e.dataTransfer.files);

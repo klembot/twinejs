@@ -2,24 +2,23 @@
 A component showing a modal dialog where a story's stylesheet can be edited.
 */
 
-const Vue = require('vue');
-const { updateStory } = require('../../data/actions/story');
+import Vue from 'vue';
+import codeMirror from '../../vue/codemirror';
+import modalDialog from '../../ui/modal-dialog';
+import {updateStory} from '../../data/actions/story';
+import template from './index.html';
+import 'codemirror/mode/css/css';
+import 'codemirror/addon/display/placeholder';
+import 'codemirror/addon/hint/show-hint';
 
-require('codemirror/mode/css/css');
-require('codemirror/addon/display/placeholder');
-require('codemirror/addon/hint/show-hint');
-
-module.exports = Vue.component('StylesheetEditor', {
-	template: require('./index.html'),
-
+export default Vue.component('StylesheetEditor', {
+	template,
 	props: ['storyId', 'origin'],
-
 	computed: {
 		source() {
 			return this.allStories.find(story => story.id === this.storyId)
 				.stylesheet;
 		},
-
 		cmOptions: () => ({
 			lineWrapping: true,
 			lineNumbers: false,
@@ -33,29 +32,20 @@ module.exports = Vue.component('StylesheetEditor', {
 			}
 		})
 	},
-
 	methods: {
 		resetCm() {
 			this.$refs.codemirror.reset();
 		},
-
 		save(text) {
-			this.updateStory(this.storyId, { stylesheet: text });
+			this.updateStory(this.storyId, {stylesheet: text});
 		}
 	},
-
 	components: {
-		'modal-dialog': require('../../ui/modal-dialog'),
-		'code-mirror': require('../../vue/codemirror')
+		'modal-dialog': modalDialog,
+		'code-mirror': codeMirror
 	},
-
 	vuex: {
-		actions: {
-			updateStory
-		},
-
-		getters: {
-			allStories: state => state.story.stories
-		}
+		actions: {updateStory},
+		getters: {allStories: state => state.story.stories}
 	}
 });

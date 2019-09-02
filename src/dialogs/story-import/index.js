@@ -3,17 +3,17 @@ A dialog which allows a user to import a story from a file. This returns a
 promise resolving to the stories that were imported, if any.
 */
 
-const Vue = require('vue');
-const { deleteStory, importStory } = require('../../data/actions/story');
-const importHTML = require('../../data/import');
-const load = require('../../file/load');
-const locale = require('../../locale');
+import Vue from 'vue';
+import {deleteStory, importStory} from '../../data/actions/story';
+import importHTML from '../../data/import';
+import load from '../../file/load';
+import modalDialog from '../../ui/modal-dialog';
+import {say, sayPlural} from '../../locale';
+import template from './index.html';
 
-module.exports = Vue.extend({
-	template: require('./index.html'),
-
-	props: ["immediateImport", "origin", "working"],
-
+export default Vue.extend({
+	template,
+	props: ['immediateImport', 'origin', 'working'],
 	data: () => ({
 		/*
 		Current state of the operation:
@@ -39,7 +39,6 @@ module.exports = Vue.extend({
 
 		toReplace: []
 	}),
-
 	computed: {
 		confirmClass() {
 			if (this.toReplace.length === 0) {
@@ -48,20 +47,18 @@ module.exports = Vue.extend({
 
 			return 'danger';
 		},
-
 		confirmLabel() {
 			if (this.toReplace.length === 0) {
-				return locale.say("Don't Replace Any Stories");
+				return say("Don't Replace Any Stories");
 			}
 
-			return locale.sayPlural(
+			return sayPlural(
 				'Replace %d Story',
 				'Replace %d Stories',
 				this.toReplace.length
 			);
 		}
 	},
-
 	mounted() {
 		this.$nextTick(function() {
 			// code that assumes this.$el is in-document
@@ -70,21 +67,16 @@ module.exports = Vue.extend({
 			}
 		});
 	},
-
 	methods: {
 		close() {
 			if (this.$refs.modal) {
 				this.$refs.modal.close();
 			}
 		},
-
 		importStoryEvent(event) {
-			this.importStoryFile(event.srcElement.files[0])
-
+			this.importStoryFile(event.srcElement.files[0]);
 		},
-
 		importStoryFile(file) {
-
 			this.status = 'working';
 
 			load(file).then(source => {
@@ -106,8 +98,7 @@ module.exports = Vue.extend({
 					/* Ask the user to pick which ones to replace, if any. */
 
 					this.status = 'choosing';
-				}
-				else {
+				} else {
 					/* Immediately run the import and close the dialog. */
 
 					this.toImport.forEach(story => this.importStory(story));
@@ -115,7 +106,6 @@ module.exports = Vue.extend({
 				}
 			});
 		},
-
 		replaceAndImport() {
 			this.toReplace.forEach(name => {
 				this.deleteStory(
@@ -128,8 +118,10 @@ module.exports = Vue.extend({
 				If the user *didn't* choose to replace this story, skip it.
 				*/
 
-				if (this.toReplace.indexOf(story.name) !== -1 ||
-					!this.existingStories.find(story => story.name === name)) {
+				if (
+					this.toReplace.indexOf(story.name) !== -1 ||
+					!this.existingStories.find(story => story.name === name)
+				) {
 					this.importStoryFile(story);
 				}
 
@@ -137,17 +129,11 @@ module.exports = Vue.extend({
 			});
 		}
 	},
-
 	components: {
-		'modal-dialog': require('../../ui/modal-dialog')
+		'modal-dialog': modalDialog
 	},
-
 	vuex: {
-		actions: {
-			deleteStory,
-			importStory
-		},
-
+		actions: {deleteStory, importStory},
 		getters: {
 			existingStories: state => state.story.stories
 		}

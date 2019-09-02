@@ -3,11 +3,11 @@ Persists data to the file system. This can only be used when running in an
 Electron context (see src/electron/is-electron.js for how to detect that).
 */
 
-const {createFormat} = require('../actions/story-format');
-const {setPref} = require('../actions/pref');
-const {importStory} = require('../actions/story');
-const {loadFormat} = require('../actions/story-format');
-const importFile = require('../import');
+import {createFormat} from '../actions/story-format';
+import {setPref} from '../actions/pref';
+import {importStory} from '../actions/story';
+import {loadFormat} from '../actions/story-format';
+import importFile from '../import';
 
 /* These are exposed to us by the Electron preload script. */
 
@@ -36,7 +36,7 @@ function saveJson(filename, data) {
 	ipcRenderer.send('save-json', filename, data);
 }
 
-module.exports = store => {
+export default function(store) {
 	updatePrevious(store.state);
 
 	/*
@@ -78,9 +78,7 @@ module.exports = store => {
 				saveStory(
 					store,
 					state,
-					state.story.stories.find(
-						s => s.name === mutation.payload[0].name
-					)
+					state.story.stories.find(s => s.name === mutation.payload[0].name)
 				);
 				break;
 
@@ -88,9 +86,7 @@ module.exports = store => {
 				saveStory(
 					store,
 					state,
-					state.story.stories.find(
-						s => s.name === mutation.payload[1].name
-					)
+					state.story.stories.find(s => s.name === mutation.payload[1].name)
 				);
 				break;
 
@@ -109,15 +105,12 @@ module.exports = store => {
 						s => s.id === mutation.payload[0]
 					);
 
-					function cleanupListener(s) {
+					const cleanupListener = s => {
 						if (s === oldStory) {
 							ipcRenderer.send('save-story', newStory);
-							ipcRenderer.removeListener(
-								'story-renamed',
-								cleanupListener
-							);
+							ipcRenderer.removeListener('story-renamed', cleanupListener);
 						}
-					}
+					};
 
 					ipcRenderer.on('story-renamed', cleanupListener);
 					ipcRenderer.send('rename-story', oldStory, newStory);
@@ -125,14 +118,12 @@ module.exports = store => {
 					saveStory(
 						store,
 						state,
-						state.story.stories.find(
-							s => s.id === mutation.payload[0]
-						)
+						state.story.stories.find(s => s.id === mutation.payload[0])
 					);
 				}
 				break;
 
-			case 'DELETE_STORY':
+			case 'DELETE_STORY': {
 				/*
 				We have to use our last copy of the stories array, because
 				by now the deleted story is gone from the state.
@@ -146,6 +137,7 @@ module.exports = store => {
 					ipcRenderer.send('delete-story', toDelete);
 				}
 				break;
+			}
 
 			case 'CREATE_PASSAGE_IN_STORY':
 			case 'DELETE_PASSAGE_IN_STORY':
@@ -159,17 +151,11 @@ module.exports = store => {
 			case 'UPDATE_PASSAGE_IN_STORY': {
 				/* Is this a significant update? */
 
-				if (
-					Object.keys(mutation.payload[2]).some(
-						key => key !== 'selected'
-					)
-				) {
+				if (Object.keys(mutation.payload[2]).some(key => key !== 'selected')) {
 					saveStory(
 						store,
 						state,
-						state.story.stories.find(
-							s => s.id === mutation.payload[0]
-						)
+						state.story.stories.find(s => s.id === mutation.payload[0])
 					);
 				}
 				break;
@@ -181,7 +167,7 @@ module.exports = store => {
 
 			case 'CREATE_FORMAT':
 			case 'UPDATE_FORMAT':
-			case 'DELETE_FORMAT':
+			case 'DELETE_FORMAT': {
 				/*
 				state.storyFormats.formats is likely to contain the actual story
 				format data, and possibly other extraneous stuff. We don't want
@@ -202,15 +188,14 @@ module.exports = store => {
 
 				saveJson('story-formats.json', toSave);
 				break;
+			}
 
 			case 'LOAD_FORMAT':
 				/* This change doesn't need to be persisted. */
 				break;
 
 			default:
-				throw new Error(
-					`Don't know how to handle mutation ${mutation.type}`
-				);
+				throw new Error(`Don't know how to handle mutation ${mutation.type}`);
 		}
 
 		/*
@@ -220,4 +205,4 @@ module.exports = store => {
 
 		updatePrevious(state);
 	});
-};
+}

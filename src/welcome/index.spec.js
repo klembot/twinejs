@@ -1,9 +1,9 @@
-let Vue = require('vue');
-const VueRouter = require('vue-router');
-const localeFilters = require('../vue/filters/locale');
-const WelcomeView = require('./index');
-const router = require('../common/router');
-const store = require('../data/store');
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import localeFilters from '../vue/filters/locale';
+import WelcomeView from './index';
+import router from '../common/router';
+import store from '../data/store';
 
 localeFilters.addTo(Vue);
 Vue.use(VueRouter);
@@ -13,7 +13,7 @@ describe.skip('<welcome>', () => {
 	let container;
 
 	beforeEach(() => {
-		vm = new WelcomeView({ router: router, store: store }).$mount();
+		vm = new WelcomeView({router: router, store: store}).$mount();
 		vm.setPref = jest.fn();
 		vm.$router.push = jest.fn();
 	});
@@ -29,9 +29,9 @@ describe.skip('<welcome>', () => {
 
 			Vue.config.errorHandler = done;
 			Vue.nextTick(() => {
-				expect(
-					vm.$el.querySelectorAll('#welcomeView > div').length
-				).toBe(count);
+				expect(vm.$el.querySelectorAll('#welcomeView > div').length).toBe(
+					count
+				);
 
 				if (count < 4) {
 					check(count + 1);

@@ -1,5 +1,5 @@
-const Vue = require('vue');
-const rect = require('../../common/rect');
+import Vue from 'vue';
+import {intersectionWithLine} from '../../common/rect';
 
 /*
 Renders an SVG arc. This expects an object with start, radius, largeArc,
@@ -7,30 +7,37 @@ rotation, sweep, and end properties.
 */
 
 function arc(props) {
-	const { start, radius, end, largeArc, sweep, rotation } = props;
+	const {start, radius, end, largeArc, sweep, rotation} = props;
 
-	return 'M' + start.left + ',' + start.top +
-		' A' + radius.x + ',' + radius.y +
-		' ' + (rotation || '0') +
+	return (
+		'M' +
+		start.left +
+		',' +
+		start.top +
+		' A' +
+		radius.x +
+		',' +
+		radius.y +
+		' ' +
+		(rotation || '0') +
 		(largeArc ? ' 1' : ' 0') +
 		(sweep ? ' 1 ' : ' 0 ') +
-		end.left + ',' + end.top;
+		end.left +
+		',' +
+		end.top
+	);
 }
 
-module.exports = Vue.extend({
-	template: '<path :d="pathString" v-bind:style=\"classStyle\" v-bind:class="\'marker-\' + markerType"></path>',
-
+export default Vue.extend({
+	template:
+		'<path :d="pathString" v-bind:style="classStyle" v-bind:class="\'marker-\' + markerType"></path>',
 	props: {
 		/*
 		The possible anchor points to use as the start of this connector. This
 		should have top, left, right, and bottom properties, each an (x, y)
 		array.
 		*/
-
-		start: {
-			type: Object,
-			required: true
-		},
+		start: {type: Object, required: true},
 
 		/*
 		The possible anchor points to use as the end of this connector. This
@@ -40,29 +47,23 @@ module.exports = Vue.extend({
 		It's OK for this to be null or undefined; in those cases, we draw a
 		broken link indicator.
 		*/
-
-		end: {
-			type: Object,
-			required: false
-		}
+		end: {type: Object, required: false}
 	},
-
 	computed: {
-
 		classStyle() {
-			const { end } = this;
+			const {end} = this;
 
-			if(!end) {
-				return "marker-end: url(#link-broken)";
+			if (!end) {
+				return 'marker-end: url(#link-broken)';
 			}
-			return "marker-end: url(#link-arrowhead)";
+			return 'marker-end: url(#link-arrowhead)';
 		},
+
 		/*
 		The marker to use at the end of the line, usually an arrowhead.
 		*/
-
 		markerType() {
-			const { start, end } = this;
+			const {start, end} = this;
 
 			if (!start) {
 				console.warn('Start position has no anchor points');
@@ -90,9 +91,8 @@ module.exports = Vue.extend({
 		between passages with the same horizontal or vertical position (which
 		would otherwise be overlapping flat lines).
 		*/
-
 		pathString() {
-			const { start, end } = this;
+			const {start, end} = this;
 
 			/*
 			Special case self-links to draw an arc from the left anchor to the
@@ -155,7 +155,7 @@ module.exports = Vue.extend({
 				top: end.top + end.height / 2
 			};
 
-			endPt = rect.intersectionWithLine(end, startPt, endPt);
+			endPt = intersectionWithLine(end, startPt, endPt);
 			/*
 			intersectionWithLine can return undefined if the other passage is
 			overlapping this passage (such as when it's being dragged over).
@@ -165,7 +165,7 @@ module.exports = Vue.extend({
 				return '';
 			}
 
-			startPt = rect.intersectionWithLine(start, startPt, endPt);
+			startPt = intersectionWithLine(start, startPt, endPt);
 			if (!startPt) {
 				return '';
 			}
@@ -177,7 +177,7 @@ module.exports = Vue.extend({
 
 			const lineDist = Math.sqrt(
 				Math.pow(startPt.left - endPt.left, 2) +
-				Math.pow(startPt.top - endPt.top, 2)
+					Math.pow(startPt.top - endPt.top, 2)
 			);
 
 			/*
@@ -199,10 +199,9 @@ module.exports = Vue.extend({
 			unfortunately for this use case, SVG requires degrees, not radians.
 			*/
 
-			const lineAngle = Math.atan2(
-				endPt.top - startPt.top,
-				endPt.left - startPt.left
-			) * 180 / Math.PI;
+			const lineAngle =
+				(Math.atan2(endPt.top - startPt.top, endPt.left - startPt.left) * 180) /
+				Math.PI;
 
 			/*
 			The Y radius is another aesthetic choice. The lower the ratio, the

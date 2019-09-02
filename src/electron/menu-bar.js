@@ -1,8 +1,8 @@
-const {app, Menu} = require('electron');
-const {openHelp} = require('./help');
-const {reveal: revealStoryDirectory} = require('./story-directory');
+import {app, Menu} from 'electron';
+import {openHelp} from './help';
+import {reveal as revealStoryDirectory} from './story-directory';
 
-module.exports = () => {
+export default () => {
 	const template = [
 		{
 			label: 'Edit',

@@ -1,5 +1,7 @@
+import appInfoCreator from './app-info';
+
 describe('app-info data module', () => {
-	let appInfo;
+	let appInfo = appInfoCreator();
 
 	beforeEach(() => {
 		let htmlEl = document.querySelector('html');
@@ -7,8 +9,6 @@ describe('app-info data module', () => {
 		htmlEl.setAttribute('data-app-name', 'Testing Twine');
 		htmlEl.setAttribute('data-version', '-1.5');
 		htmlEl.setAttribute('data-build-number', '12345');
-
-		appInfo = require('./app-info')();
 	});
 
 	afterEach(() => {
@@ -31,4 +31,3 @@ describe('app-info data module', () => {
 		expect(appInfo.state.buildNumber).toBe(12345);
 	});
 });
-

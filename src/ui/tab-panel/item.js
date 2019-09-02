@@ -1,24 +1,17 @@
-const Vue = require('vue');
+import Vue from 'vue';
 
-module.exports = Vue.extend({
-	template:
-		`<div :class="{hide:hidden}">
+export default Vue.extend({
+	template: `<div :class="{hide:hidden}">
 		<slot></slot>
 		</div>`,
-
-	props: {
-		name: String,
-	},
-
+	props: {name: String},
 	data: () => ({}),
-
 	computed: {
 		index() {
 			return this.$parent.$children.indexOf(this);
 		},
-
 		hidden() {
-			return (this.$parent.active !== this.index);
-		},
-	},
+			return this.$parent.active !== this.index;
+		}
+	}
 });

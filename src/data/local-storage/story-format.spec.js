@@ -1,10 +1,8 @@
-const storyFormat = require('./story-format');
+import storyFormat from './story-format';
 
 describe('story format local storage persistence', () => {
-	beforeEach(() => {
-		window.localStorage.clear();
-	});
-	
+	beforeEach(() => window.localStorage.clear());
+
 	test('persists formats', () => {
 		const store = {
 			state: {
@@ -22,15 +20,15 @@ describe('story format local storage persistence', () => {
 				}
 			}
 		};
-		
+
 		storyFormat.save(store);
-		
+
 		const ids = window.localStorage.getItem('twine-storyformats').split(',');
 
 		expect(ids.length).toBe(2);
-		
+
 		let saved = {};
-		
+
 		ids.forEach(id => {
 			let savedFormat = window.localStorage.getItem(`twine-storyformats-${id}`);
 
@@ -39,15 +37,18 @@ describe('story format local storage persistence', () => {
 
 			saved[restored.name] = restored;
 		});
-		
+
 		expect(saved['Format One']).toBeDefined();
 		expect(saved['Format One'].url).toBe('https://twinery.org');
 		expect(saved['Format Two']).toBeDefined();
 		expect(saved['Format Two'].url).toBe('https://twinery.org/wiki');
 	});
-		
+
 	test('restores story formats', () => {
-		window.localStorage.setItem('twine-storyformats', 'a-fake-id,another-fake-id');
+		window.localStorage.setItem(
+			'twine-storyformats',
+			'a-fake-id,another-fake-id'
+		);
 		window.localStorage.setItem(
 			'twine-storyformats-a-fake-id',
 			JSON.stringify({
@@ -62,18 +63,20 @@ describe('story format local storage persistence', () => {
 				url: 'gopher://gopher.floodgap.com:70/0/gopher/wbgopher'
 			})
 		);
-		
+
 		let store = {
 			dispatch: jest.fn()
 		};
-		
+
 		storyFormat.load(store);
-		expect(store.dispatch).toHaveBeenCalledTimes(2)
-		expect(store.dispatch).toHaveBeenCalledWith(
-			'CREATE_FORMAT',
-			{ name: 'Format 1', url: 'gopher://gopher.floodgap.com:70/1/' })
-		expect(store.dispatch).toHaveBeenCalledWith(
-			'CREATE_FORMAT',
-			{ name: 'Format 2', url: 'gopher://gopher.floodgap.com:70/0/gopher/wbgopher' })
+		expect(store.dispatch).toHaveBeenCalledTimes(2);
+		expect(store.dispatch).toHaveBeenCalledWith('CREATE_FORMAT', {
+			name: 'Format 1',
+			url: 'gopher://gopher.floodgap.com:70/1/'
+		});
+		expect(store.dispatch).toHaveBeenCalledWith('CREATE_FORMAT', {
+			name: 'Format 2',
+			url: 'gopher://gopher.floodgap.com:70/0/gopher/wbgopher'
+		});
 	});
 });

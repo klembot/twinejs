@@ -1,37 +1,38 @@
-'use strict';
-const Vue = require('vue');
-const locale = require('../../locale');
-const { deleteFormat } = require('../../data/actions/story-format');
-const { setPref } = require('../../data/actions/pref');
-const eventHub = require('../../common/eventHub');
+import Vue from 'vue';
+import {deleteFormat} from '../../data/actions/story-format';
+import eventHub from '../../common/eventHub';
+import {say} from '../../locale';
+import {setPref} from '../../data/actions/pref';
+import template from './item.html';
+import './item.less';
 
-require('./item.less');
-
-module.exports = Vue.extend({
-	template: require('./item.html'),
-
+export default Vue.extend({
+	template,
 	props: {
-		// A format that this component represents.
+		/* A format that this component represents. */
 		format: Object
 	},
-
 	computed: {
 		isDefault() {
 			if (this.format.properties.proofing) {
-				return this.proofingFormatPref.name === this.format.name &&
-					this.proofingFormatPref.version === this.format.version;
+				return (
+					this.proofingFormatPref.name === this.format.name &&
+					this.proofingFormatPref.version === this.format.version
+				);
 			}
 
-			return this.defaultFormatPref.name === this.format.name &&
-				this.defaultFormatPref.version === this.format.version;
+			return (
+				this.defaultFormatPref.name === this.format.name &&
+				this.defaultFormatPref.version === this.format.version
+			);
 		},
 
 		selectorInputTitle() {
-			return locale.say('Set this format as default for stories');
+			return say('Set this format as default for stories');
 		},
 
 		removeButtonTitle() {
-			return locale.say('Remove this format');
+			return say('Remove this format');
 		},
 
 		nameVersion() {
@@ -41,7 +42,7 @@ module.exports = Vue.extend({
 		author() {
 			if (this.format.properties.author) {
 				/* L10n: %s is the name of an author. */
-				return locale.say('by %s', this.format.properties.author);
+				return say('by %s', this.format.properties.author);
 			}
 
 			return '';
@@ -57,41 +58,44 @@ module.exports = Vue.extend({
 			return path + '/' + this.format.properties.image;
 		}
 	},
-
 	methods: {
 		removeFormat() {
 			if (this.isDefault) {
-				eventHub.$emit("modalConfirm", {
-					buttonLabel: '<i class="fa fa-lg fa-check"></i> ' + locale.say('OK'),
-					message: locale.say('You may not remove the default story format. Please choose another one first.')
+				eventHub.$emit('modalConfirm', {
+					buttonLabel: '<i class="fa fa-lg fa-check"></i> ' + say('OK'),
+					message: say(
+						'You may not remove the default story format. Please choose another one first.'
+					)
 				});
 				return;
 			}
 
-			eventHub.$once('close', (confirmed) => { if(confirmed) { this.deleteFormat(this.format.id); } });
-			eventHub.$emit("modalConfirm", {
-				buttonLabel: '<i class="fa fa-lg fa-trash-o"></i> ' + locale.say('Remove'),
-				message: locale.say('Are you sure?'),
+			eventHub.$once('close', confirmed => {
+				if (confirmed) {
+					this.deleteFormat(this.format.id);
+				}
+			});
+			eventHub.$emit('modalConfirm', {
+				buttonLabel: '<i class="fa fa-lg fa-trash-o"></i> ' + say('Remove'),
+				message: say('Are you sure?'),
 				buttonClass: 'danger'
 			});
 		},
 
 		setDefaultFormat() {
 			if (this.format.properties.proofing) {
-				this.setPref(
-					'proofingFormat',
-					{ name: this.format.name, version: this.format.version }
-				);
+				this.setPref('proofingFormat', {
+					name: this.format.name,
+					version: this.format.version
+				});
+			} else {
+				this.setPref('defaultFormat', {
+					name: this.format.name,
+					version: this.format.version
+				});
 			}
-			else {
-				this.setPref(
-					'defaultFormat',
-					{ name: this.format.name, version: this.format.version }
-				);
-			}
-		},
+		}
 	},
-
 	vuex: {
 		actions: {
 			deleteFormat,

@@ -4,17 +4,16 @@ may scroll the document by holding down the middle button and dragging (or the
 space bar and left button).
 */
 
-const ui = require('../../ui');
-
-require('./mouse-scrolling.less');
+import {hasPrimaryTouchUI} from '../../ui';
+import './mouse-scrolling.less';
 
 let handlers = {};
 
-module.exports = {
-	addTo(Vue) {
+export default {
+	install(Vue) {
 		Vue.directive('mouse-scrolling', {
 			bind() {
-				const { body } = document;
+				const {body} = document;
 				let scrollOrigin = false;
 				let mouseOrigin = false;
 				let scrolling = false;
@@ -22,15 +21,15 @@ module.exports = {
 
 				handlers[this] = [];
 
-				if (ui.hasPrimaryTouchUI()) {
+				if (hasPrimaryTouchUI()) {
 					return;
 				}
 
 				function beginScrolling(e) {
 					/*
-					We don't need to account for the window's scroll position
-					here, since we'll be changing it on the fly.
-					*/
+				We don't need to account for the window's scroll position
+				here, since we'll be changing it on the fly.
+				*/
 
 					mouseOrigin = [e.clientX, e.clientY];
 					scrollOrigin = [window.pageXOffset, window.pageYOffset];
@@ -49,24 +48,28 @@ module.exports = {
 						}
 
 						/*
-						preventDefault() stops the page from scrolling downward
-						when the space bar is held by itself. We need to take
-						care to avoid gobbling up keystrokes for form elements.
-						*/
+					preventDefault() stops the page from scrolling downward
+					when the space bar is held by itself. We need to take
+					care to avoid gobbling up keystrokes for form elements.
+					*/
 
-						if (document.activeElement.nodeName !== 'INPUT' &&
-							document.activeElement.nodeName !== 'TEXTAREA') {
+						if (
+							document.activeElement.nodeName !== 'INPUT' &&
+							document.activeElement.nodeName !== 'TEXTAREA'
+						) {
 							e.preventDefault();
 						}
 					}
 				}
 
 				function handleMouseDown(e) {
-					if (e.which === 2 && !scrolling) { // Middle button
+					if (e.which === 2 && !scrolling) {
+						// Middle button
 						beginScrolling(e);
 					}
 
-					if (e.which === 1 && spaceHeld) { // Left button
+					if (e.which === 1 && spaceHeld) {
+						// Left button
 						if (!scrolling) {
 							beginScrolling(e);
 						}
@@ -88,14 +91,16 @@ module.exports = {
 						body.classList.remove('mouseScrollReady', 'mouseScrolling');
 
 						/*
-						Prevent the space bar from scrolling the window
-						down. We have to make sure that by doing so, we
-						don't accidentally gobble a keystroke meant for a
-						form element.
-						*/
+					Prevent the space bar from scrolling the window
+					down. We have to make sure that by doing so, we
+					don't accidentally gobble a keystroke meant for a
+					form element.
+					*/
 
-						if (document.activeElement.nodeName !== 'INPUT' &&
-							document.activeElement.nodeName !== 'TEXTAREA') {
+						if (
+							document.activeElement.nodeName !== 'INPUT' &&
+							document.activeElement.nodeName !== 'TEXTAREA'
+						) {
 							e.preventDefault();
 						}
 					}
@@ -116,28 +121,23 @@ module.exports = {
 				body.addEventListener('keyup', handleKeyUp);
 
 				handlers[this] = {
-					'mousedown': handleMouseDown,
-					'mousemove': handleMouseMove,
-					'mouseup': handleMouseUp,
-					'keydown': handleKeyDown,
-					'keyup': handleKeyUp
+					mousedown: handleMouseDown,
+					mousemove: handleMouseMove,
+					mouseup: handleMouseUp,
+					keydown: handleKeyDown,
+					keyup: handleKeyUp
 				};
 
 				Object.keys(handlers[this]).forEach(
-					event => body.addEventListener(
-						event,
-						handlers[this][event]
-					),
+					event => body.addEventListener(event, handlers[this][event]),
 					this
 				);
 			},
 
 			unbind() {
 				Object.keys(handlers[this]).forEach(
-					event => document.body.removeEventListener(
-						event,
-						handlers[this][event]
-					),
+					event =>
+						document.body.removeEventListener(event, handlers[this][event]),
 					this
 				);
 

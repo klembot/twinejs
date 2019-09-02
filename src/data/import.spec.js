@@ -1,4 +1,4 @@
-const importer = require('./import');
+import importer from './import';
 
 const testHtml = `
 <tw-storydata name="Test" startnode="1" zoom="1.5" creator="Twine" creator-version="2.0.11" ifid="3AE380EE-4B34-4D0D-A8E2-BE624EB271C9" format="SugarCube" options="" hidden><tw-tag name="my-tag" color="purple" /><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">* { color: red }
@@ -24,9 +24,7 @@ describe('import module', () => {
 		expect(result[0].zoom).toBe(1.5);
 		expect(result[0].lastUpdate instanceof Date).toBe(true);
 		expect(result[0].script).toBe("alert('hi');\n");
-		expect(result[0].stylesheet).toBe(
-			'* { color: red }\n* { color: blue }\n'
-		);
+		expect(result[0].stylesheet).toBe('* { color: red }\n* { color: blue }\n');
 		expect(result[0].tagColors['my-tag']).toBe('purple');
 		expect(Array.isArray(result[0].passages)).toBe(true);
 		expect(result[0].passages.length).toBe(3);

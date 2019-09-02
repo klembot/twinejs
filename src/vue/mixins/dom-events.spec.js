@@ -26,15 +26,15 @@ describe('dom-events Vue mixin', () => {
 
 	beforeEach(() => {
 		component = new Vue({mixins: [domEvents]});
-		handler = {}
-		handlerCb = jest.fn()
+		handler = {};
+		handlerCb = jest.fn();
 		handler.bind = jest.fn().mockReturnValue(handlerCb);
 	});
 
 	afterEach(() => {
-		handler.bind.mockClear()
-		handlerCb.mockClear()
-	})
+		handler.bind.mockClear();
+		handlerCb.mockClear();
+	});
 
 	test('adds on() and off() methods to a Vue component', () => {
 		expect(typeof component.on).toBe('function');
@@ -50,7 +50,7 @@ describe('dom-events Vue mixin', () => {
 	test('binds handlers passed to on() to the component', () => {
 		component.on(body, 'click', handler);
 		expect(handler.bind).toHaveBeenCalledTimes(1);
-		expect(handler.bind).toHaveBeenCalledWith(component)
+		expect(handler.bind).toHaveBeenCalledWith(component);
 	});
 
 	test('removes event listeners with off()', () => {

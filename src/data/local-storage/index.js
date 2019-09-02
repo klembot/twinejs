@@ -9,18 +9,26 @@ This pattern is emulated, even with structures (like prefs) that don't need
 this, for compatibility.
 */
 
-const pref = require('./pref');
-const story = require('./story');
-const storyFormat = require('./story-format');
+import {load as loadPref, save as savePref} from './pref';
+import {
+	deletePassage,
+	deletePassageById,
+	deleteStory,
+	load as loadStory,
+	savePassage,
+	saveStory,
+	update as updateStories
+} from './story';
+import {load as loadStoryFormat, save as saveStoryFormat} from './story-format';
 
 let enabled = true;
 let previousStories;
 
-module.exports = store => {
+export default store => {
 	enabled = false;
-	pref.load(store);
-	story.load(store);
-	storyFormat.load(store);
+	loadPref(store);
+	loadStory(store);
+	loadStoryFormat(store);
 	previousStories = store.state.story.stories;
 	enabled = true;
 
@@ -31,51 +39,43 @@ module.exports = store => {
 
 		switch (mutation.type) {
 			case 'CREATE_STORY':
-				story.update(transaction => {
-					story.saveStory(
+				updateStories(transaction => {
+					saveStory(
 						transaction,
-						state.story.stories.find(
-							s => s.name === mutation.payload[0].name
-						)
+						state.story.stories.find(s => s.name === mutation.payload[0].name)
 					);
 				});
 				break;
 
 			case 'UPDATE_STORY':
-				story.update(transaction => {
-					story.saveStory(
+				updateStories(transaction => {
+					saveStory(
 						transaction,
-						state.story.stories.find(
-							s => s.id === mutation.payload[0]
-						)
+						state.story.stories.find(s => s.id === mutation.payload[0])
 					);
 				});
 				break;
 
 			case 'DUPLICATE_STORY':
-				story.update(transaction => {
+				updateStories(transaction => {
 					const dupe = state.story.stories.find(
 						s => s.name === mutation.payload[1]
 					);
 
-					story.saveStory(transaction, dupe);
-
-					dupe.passages.forEach(
-						passage => story.savePassage(transaction, passage)
-					);
+					saveStory(transaction, dupe);
+					dupe.passages.forEach(passage => savePassage(transaction, passage));
 				});
 				break;
 
 			case 'IMPORT_STORY':
-				story.update(transaction => {
+				updateStories(transaction => {
 					const imported = state.story.stories.find(
 						s => s.name === mutation.payload[0].name
 					);
 
-					story.saveStory(transaction, imported);
-
-					imported.passages.forEach(
-						passage => story.savePassage(transaction, passage)
+					saveStory(transaction, imported);
+					imported.passages.forEach(passage =>
+						savePassage(transaction, passage)
 					);
 				});
 				break;
@@ -90,16 +90,15 @@ module.exports = store => {
 					s => s.id === mutation.payload[0]
 				);
 
-				story.update(transaction => {
+				updateStories(transaction => {
 					/*
 					It's our responsibility to delete child passages first.
 					*/
 
-					toDelete.passages.forEach(
-						passage => story.deletePassage(transaction, passage)
+					toDelete.passages.forEach(passage =>
+						deletePassage(transaction, passage)
 					);
-
-					story.deleteStory(transaction, toDelete);
+					deleteStory(transaction, toDelete);
 				});
 				break;
 			}
@@ -117,9 +116,9 @@ module.exports = store => {
 					p => p.name === mutation.payload[1].name
 				);
 
-				story.update(transaction => {
-					story.saveStory(transaction, parentStory);
-					story.savePassage(transaction, passage);
+				updateStories(transaction => {
+					saveStory(transaction, parentStory);
+					savePassage(transaction, passage);
 				});
 				break;
 			}
@@ -135,14 +134,14 @@ module.exports = store => {
 						p => p.id === mutation.payload[1]
 					);
 
-					story.update(transaction => {
-						story.saveStory(transaction, parentStory);
-						story.savePassage(transaction, passage);
+					updateStories(transaction => {
+						saveStory(transaction, parentStory);
+						savePassage(transaction, passage);
 					});
 				}
 				break;
 			}
-				
+
 			case 'DELETE_PASSAGE_IN_STORY': {
 				const parentStory = state.story.stories.find(
 					s => s.id === mutation.payload[0]
@@ -154,21 +153,21 @@ module.exports = store => {
 				this point in time.
 				*/
 
-				story.update(transaction => {
-					story.saveStory(transaction, parentStory);
-					story.deletePassageById(transaction, mutation.payload[1]);
+				updateStories(transaction => {
+					saveStory(transaction, parentStory);
+					deletePassageById(transaction, mutation.payload[1]);
 				});
 				break;
 			}
 
 			case 'UPDATE_PREF':
-				pref.save(store);
+				savePref(store);
 				break;
 
 			case 'CREATE_FORMAT':
 			case 'UPDATE_FORMAT':
 			case 'DELETE_FORMAT':
-				storyFormat.save(store);
+				saveStoryFormat(store);
 				break;
 
 			case 'LOAD_FORMAT':
@@ -176,15 +175,13 @@ module.exports = store => {
 				break;
 
 			default:
-				throw new Error(
-					`Don't know how to handle mutation ${mutation.type}`
-				);
+				throw new Error(`Don't know how to handle mutation ${mutation.type}`);
 		}
 
 		/*
 		We save a copy of the stories structure in aid of deleting, as above.
 		*/
-		
+
 		previousStories = state.story.stories;
 	});
 };

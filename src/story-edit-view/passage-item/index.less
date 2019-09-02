@@ -44,7 +44,7 @@
 			flex-shrink: 1;
 			margin: @len-hairline;
 			border-radius: (@len-small * 0.75) / 2;
-			
+
 			& + div {
 				margin-top: 0;
 			}
@@ -86,7 +86,8 @@
 	}
 
 	&.selected.highlighted {
-		border: @len-hairline solid mix(lighten(@color-highlight, 15%), lighten(@color-link, 30%));
+		border: @len-hairline solid
+			mix(lighten(@color-highlight, 15%), lighten(@color-link, 30%));
 		background: mix(lighten(@color-highlight, 40%), lighten(@color-link, 55%));
 	}
 
@@ -111,7 +112,8 @@
 		max-height: 100%;
 		line-height: 100%;
 
-		.badge-create, .badge-danger {
+		.badge-create,
+		.badge-danger {
 			display: block;
 			margin: 0 auto;
 		}
@@ -130,17 +132,28 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		background: linear-gradient(to bottom, transparent 0, lighten(@color-text, 60%) 1px, transparent 1px);
+		background: linear-gradient(
+			to bottom,
+			transparent 0,
+			lighten(@color-text, 60%) 1px,
+			transparent 1px
+		);
 		background-size: 3px 3px;
 		margin: 2px;
 
 		.theme-dark & {
-			background: linear-gradient(to bottom, transparent 0, darken(@color-text-dark, 30%) 1px, transparent 1px);
+			background: linear-gradient(
+				to bottom,
+				transparent 0,
+				darken(@color-text-dark, 30%) 1px,
+				transparent 1px
+			);
 			background-size: 3px 3px;
 		}
 	}
 
-	.title .text, .excerpt {
+	.title .text,
+	.excerpt {
 		display: none;
 	}
 }

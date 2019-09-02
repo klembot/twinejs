@@ -1,5 +1,5 @@
-const Vue = require('vue/dist/vue.common.js');
-const CodeMirror = require('./codemirror');
+import Vue from 'vue/dist/vue.common.js';
+import CodeMirror from './codemirror';
 
 describe('<code-mirror>', () => {
 	let vm;
@@ -17,7 +17,7 @@ describe('<code-mirror>', () => {
 			(() => ({
 				setEnd: () => {},
 				setStart: () => {},
-				getBoundingClientRect: () => ({ right: 0 }),
+				getBoundingClientRect: () => ({right: 0}),
 				getClientRects: () => ({})
 			}));
 

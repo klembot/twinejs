@@ -1,13 +1,24 @@
-<modal-dialog className="editor" :origin="origin" :can-widen="true" @transition-entered="resetCm">
+<modal-dialog
+	className="editor"
+	:origin="origin"
+	:can-widen="true"
+	@transition-entered="resetCm"
+>
 	<span slot="title">
-	{{ 'JavaScript' | say }}
+		{{ 'JavaScript' | say }}
 	</span>
 
 	<p>
-	{{ 'Any JavaScript entered here will immediately run when your story is opened in a Web browser.' | say }}
+		{{ 'Any JavaScript entered here will immediately run when your story is
+		opened in a Web browser.' | say }}
 	</p>
 
-	<div class="expand">	
-		<code-mirror :options="cmOptions" :text="source" @cm-change="save" ref="codemirror"></code-mirror>
+	<div class="expand">
+		<code-mirror
+			:options="cmOptions"
+			:text="source"
+			@cm-change="save"
+			ref="codemirror"
+		></code-mirror>
 	</div>
 </modal-dialog>
