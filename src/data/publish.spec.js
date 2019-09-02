@@ -1,6 +1,6 @@
-const $ = require('cheerio');
-const escape = require('lodash.escape');
-const publish = require('./publish');
+import $ from 'cheerio';
+import escape from 'lodash.escape';
+import publish from './publish';
 
 describe('publish module', () => {
 	let passage1, passage2, story, appInfo;

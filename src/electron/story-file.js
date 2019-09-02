@@ -3,19 +3,22 @@ Manages reading and writing files from the story directory. This listens to the
 `save-story` and `delete-story` IPC events.
 */
 
-const {app} = require('electron');
-const fs = require('fs-extra');
-const {dialog, ipcMain} = require('electron');
-const path = require('path');
-const {
-	lock: lockStoryDirectory,
-	path: storyDirectoryPath,
-	unlock: unlockStoryDirectory
-} = require('./story-directory');
-const {say} = require('../locale');
-const {publishStory, publishStoryWithFormat} = require('../data/publish');
+import { app } from 'electron';
 
-const StoryFile = (module.exports = {
+import fs from 'fs-extra';
+import { dialog, ipcMain } from 'electron';
+import path from 'path';
+
+import {
+    lock as lockStoryDirectory,
+    path as storyDirectoryPath,
+    unlock as unlockStoryDirectory,
+} from './story-directory';
+
+import { say } from '../locale';
+import { publishStory, publishStoryWithFormat } from '../data/publish';
+
+const StoryFile = {
 	/*
 	Returns a promise resolving to an array of HTML strings to load from the
 	story directory. Each string corresponds to an individual story. 
@@ -160,7 +163,9 @@ const StoryFile = (module.exports = {
 			path.join(storyDirectoryPath(), StoryFile.fileName(newStory.name))
 		);
 	}
-});
+};
+
+export default StoryFile;
 
 /*
 We need to ensure that all file operations happen serially, because they

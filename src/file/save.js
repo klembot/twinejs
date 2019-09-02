@@ -11,15 +11,15 @@
 	optional
 **/
 
-const JSZip = require('jszip');
-const saveAs = require('browser-saveas');
-const {oniOS, onSafari} = require('../ui');
-const locale = require('../locale');
-const notify = require('../ui/notify');
+import JSZip from 'jszip';
 
-require('blob-polyfill');
+import saveAs from 'browser-saveas';
+import {oniOS, onSafari} from '../ui';
+import {say} from '../locale';
+import notify from '../ui/notify';
+import 'blob-polyfill';
 
-module.exports = (data, filename, success, failure) => {
+export default (data, filename, success, failure) => {
 	try {
 		if (!oniOS()) {
 			// standard style
@@ -61,11 +61,7 @@ module.exports = (data, filename, success, failure) => {
 		} else {
 			// L10n: %1$s is a filename; %2$s is the error message.
 			notify(
-				locale.say(
-					'“%1$s” could not be saved (%2$s).',
-					filename,
-					e.message
-				),
+				say('“%1$s” could not be saved (%2$s).', filename, e.message),
 				'danger'
 			);
 		}

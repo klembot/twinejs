@@ -1,5 +1,3 @@
-let Vue = require('vue');
+import Vue from 'vue';
 
-var eventHub = new Vue();
-
-module.exports = eventHub;
+export default new Vue();

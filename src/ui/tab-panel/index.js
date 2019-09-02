@@ -1,28 +1,23 @@
-// A container for tabs.
+/* A container for tabs. */
 
-const Vue = require('vue');
+import Vue from 'vue';
+import template from './index.html';
 
-module.exports = Vue.extend({
-	template: require('./index.html'),
-
+export default Vue.extend({
+	template,
 	props: {
-		active: {
-			type: Number,
-			default: 0
-		}
+		active: {type: Number, default: 0}
 	},
-
 	data: () => ({}),
-
 	computed: {
 		singleWidthPercent() {
-			return 1 / this.$children.length * 100;
+			return (1 / this.$children.length) * 100;
 		}
 	},
 	methods: {
 		updateActiveTab(newIndex) {
 			this.active = newIndex;
-			// recompute all children indexes
+			/* recompute all children indexes */
 			this.$forceUpdate();
 		}
 	}

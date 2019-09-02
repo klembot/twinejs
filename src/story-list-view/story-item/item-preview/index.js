@@ -1,9 +1,7 @@
-/**
- This class generates SVG previews of stories.
- @class StoryItemView.Preview
-**/
+/* Generates SVG previews of stories. */
 
-const Vue = require('vue');
+import Vue from 'vue';
+import template from './index.html';
 
 const passageCenterOffset = 50;
 
@@ -11,39 +9,25 @@ function passageRadius(length, longestLength) {
 	return (200 + 200 * (length / longestLength)) / 2;
 }
 
-module.exports = Vue.extend({
-	template: require('./index.html'),
-
+export default Vue.extend({
+	template,
 	props: {
-		edit: {
-			type: Function,
-			required: true
-		},
-		hue: {
-			type: Number,
-			required: true
-		},
-		passages: {
-			type: Array,
-			required: true
-		}
+		edit: {type: Function, required: true},
+		hue: {type: Number, required: true},
+		passages: {type: Array, required: true}
 	},
-
 	computed: {
 		style() {
 			return {
 				background: `hsl(${this.hue}, 60%, 95%)`
 			};
 		},
-
 		passageStroke() {
 			return `hsl(${this.hue}, 90%, 45%)`;
 		},
-
 		passageFill() {
 			return `hsla(${this.hue}, 90%, 60%, 0.5)`;
 		},
-
 		longestPassageLength() {
 			let maxLength = 0;
 
@@ -57,7 +41,6 @@ module.exports = Vue.extend({
 
 			return maxLength;
 		},
-
 		svg() {
 			if (this.passages.length <= 1) {
 				return `<circle cx="100" cy="100" r="75" fill="${
@@ -78,7 +61,6 @@ module.exports = Vue.extend({
 				''
 			);
 		},
-
 		svgViewBox() {
 			if (this.passages.length <= 1) {
 				return '0 0 200 200';

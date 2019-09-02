@@ -1,31 +1,28 @@
 /* Shows a modal dialog asking for a text response from the user. */
 
-const Vue = require('vue');
-
-const locale = require('../../locale');
-const eventHub = require("../../common/eventHub");
-
-require('./index.less');
+import Vue from 'vue';
+import eventHub from '../../common/eventHub';
+import modalDialog from '../../ui/modal-dialog';
+import {say} from '../../locale';
+import template from './index.html';
+import './index.less';
 
 const prompter = {
-	component: Vue.component("prompt", {
-		template: require('./index.html'),
-
+	component: Vue.component('prompt', {
+		template,
 		props: {
-			buttonLabel: { type: String, default: "" },
-			buttonClass: { type: String, default: 'primary' },
-			validator: { type: Function, default: function() {} },
-			origin: { default: null },
-			message: { type: String, default: "" },
-			modalClass: { type: String, default: "" }
+			buttonLabel: {type: String, default: ''},
+			buttonClass: {type: String, default: 'primary'},
+			validator: {type: Function, default: function() {}},
+			origin: {default: null},
+			message: {type: String, default: ''},
+			modalClass: {type: String, default: ''}
 		},
-
 		data: () => ({
-			cancelLabel: '<i class="fa fa-times"></i> ' + locale.say("Cancel"),
+			cancelLabel: '<i class="fa fa-times"></i> ' + say('Cancel'),
 			validationError: null,
 			response: null
 		}),
-
 		mounted() {
 			this.$nextTick(function() {
 				// code that assumes this.$el is in-document
@@ -33,28 +30,24 @@ const prompter = {
 				this.$refs.response.select();
 			});
 		},
-
 		methods: {
 			accept() {
 				const validResponse = this.validator(this.response);
 
 				if (typeof validResponse === 'string') {
 					this.validationError = validResponse;
-				}
-				else {
-					eventHub.$emit("close", false, this.response);
+				} else {
+					eventHub.$emit('close', false, this.response);
 				}
 			},
-
 			cancel() {
-				eventHub.$emit("close", true, this.validationError);
+				eventHub.$emit('close', true, this.validationError);
 			}
 		},
-
 		components: {
-			'modal-dialog': require('../../ui/modal-dialog')
+			'modal-dialog': modalDialog
 		}
 	})
 };
 
-module.exports = prompter;
+export default prompter;

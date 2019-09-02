@@ -1,4 +1,4 @@
-const actions = require('./story');
+import actions from './story';
 
 describe('story actions module', () => {
 	const props = {fake: true};
@@ -28,43 +28,49 @@ describe('story actions module', () => {
 
 		actions.createStory(store, props);
 		expect(store.dispatch).toHaveBeenCalledTimes(1);
-		expect(store.dispatch).toHaveBeenCalledWith('CREATE_STORY', props)
+		expect(store.dispatch).toHaveBeenCalledWith('CREATE_STORY', props);
 	});
 
 	test('ensures a story created with createStory() always has a story format set', () => {
 		actions.createStory(store, {name: 'A New Story'});
 		expect(store.dispatch).toHaveBeenCalledTimes(1);
-		expect(
-			store.dispatch).toHaveBeenCalledWith('CREATE_STORY', {
-				name: 'A New Story',
-				storyFormat: 'My Default Format',
-				storyFormatVersion: '1.2.3'
-			})
+		expect(store.dispatch).toHaveBeenCalledWith('CREATE_STORY', {
+			name: 'A New Story',
+			storyFormat: 'My Default Format',
+			storyFormatVersion: '1.2.3'
+		});
 	});
 
 	test('dispatches a DELETE_STORY mutation with deleteStory()', () => {
 		actions.deleteStory(store, fakeId);
 		expect(store.dispatch).toHaveBeenCalledTimes(1);
-		expect(store.dispatch).toHaveBeenCalledWith('DELETE_STORY', fakeId)
+		expect(store.dispatch).toHaveBeenCalledWith('DELETE_STORY', fakeId);
 	});
 
 	test('dispatches a DUPLICATE_STORY mutation with duplicateStory()', () => {
 		actions.duplicateStory(store, fakeId, 'Another Name');
 		expect(store.dispatch).toHaveBeenCalledTimes(1);
-		expect(
-			store.dispatch).toHaveBeenCalledWith('DUPLICATE_STORY', fakeId, 'Another Name')
+		expect(store.dispatch).toHaveBeenCalledWith(
+			'DUPLICATE_STORY',
+			fakeId,
+			'Another Name'
+		);
 	});
 
 	test('dispatches an IMPORT_STORY mutation with importStory()', () => {
 		actions.importStory(store, props);
 		expect(store.dispatch).toHaveBeenCalledTimes(1);
-		expect(store.dispatch).toHaveBeenCalledWith('IMPORT_STORY', props)
+		expect(store.dispatch).toHaveBeenCalledWith('IMPORT_STORY', props);
 	});
 
 	test('dispatches an UPDATE_STORY mutation with updateStory()', () => {
 		actions.updateStory(store, fakeId, props);
 		expect(store.dispatch).toHaveBeenCalledTimes(1);
-		expect(store.dispatch).toHaveBeenCalledWith('UPDATE_STORY', fakeId, props)
+		expect(store.dispatch).toHaveBeenCalledWith(
+			'UPDATE_STORY',
+			fakeId,
+			props
+		);
 	});
 
 	test('sets default formats on stories with repairStories()', () => {
@@ -84,10 +90,13 @@ describe('story actions module', () => {
 		};
 
 		actions.repairStories(storiesStore);
-		expect(
-			storiesStore.dispatch).toHaveBeenCalledWith('UPDATE_STORY', 'not-a-real-id', {
+		expect(storiesStore.dispatch).toHaveBeenCalledWith(
+			'UPDATE_STORY',
+			'not-a-real-id',
+			{
 				storyFormat: 'Default Format'
-			})
+			}
+		);
 	});
 
 	test('coerces old SugarCube references to their correct versions with repairStories()', () => {
@@ -116,17 +125,19 @@ describe('story actions module', () => {
 		};
 
 		actions.repairStories(storiesStore);
-		expect(
-			storiesStore.dispatch).toHaveBeenCalledWith('UPDATE_STORY', 'not-a-real-id', {
+		expect(storiesStore.dispatch).toHaveBeenCalledWith(
+			'UPDATE_STORY',
+			'not-a-real-id',
+			{
 				storyFormat: 'SugarCube',
 				storyFormatVersion: '1.2.3'
-			})
-		expect(
-			storiesStore.dispatch).toHaveBeenCalledWith(
-				'UPDATE_STORY',
-				'also-not-a-real-id',
-				{storyFormat: 'SugarCube', storyFormatVersion: '2.3.4'}
-			)
+			}
+		);
+		expect(storiesStore.dispatch).toHaveBeenCalledWith(
+			'UPDATE_STORY',
+			'also-not-a-real-id',
+			{storyFormat: 'SugarCube', storyFormatVersion: '2.3.4'}
+		);
 	});
 
 	test('sets format versions on stories with repairStories()', () => {
@@ -156,16 +167,18 @@ describe('story actions module', () => {
 		};
 
 		actions.repairStories(storiesStore);
-		expect(
-			storiesStore.dispatch).toHaveBeenCalledWith('UPDATE_STORY', 'not-a-real-id', {
+		expect(storiesStore.dispatch).toHaveBeenCalledWith(
+			'UPDATE_STORY',
+			'not-a-real-id',
+			{
 				storyFormatVersion: '1.2.5'
-			})
-		expect(
-			storiesStore.dispatch).toHaveBeenCalledWith(
-				'UPDATE_STORY',
-				'also-not-a-real-id',
-				{storyFormatVersion: '1.2.5'}
-			)
+			}
+		);
+		expect(storiesStore.dispatch).toHaveBeenCalledWith(
+			'UPDATE_STORY',
+			'also-not-a-real-id',
+			{storyFormatVersion: '1.2.5'}
+		);
 	});
 
 	test('updates story format versions with repairStories()', () => {
@@ -191,10 +204,13 @@ describe('story actions module', () => {
 		};
 
 		actions.repairStories(storiesStore);
-		expect(
-			storiesStore.dispatch).toHaveBeenCalledWith('UPDATE_STORY', 'not-a-real-id', {
+		expect(storiesStore.dispatch).toHaveBeenCalledWith(
+			'UPDATE_STORY',
+			'not-a-real-id',
+			{
 				storyFormatVersion: '1.2.5'
-			})
+			}
+		);
 	});
 
 	test('leaves story format versions alone if the story is already up-to-date', () => {
@@ -220,7 +236,7 @@ describe('story actions module', () => {
 		};
 
 		actions.repairStories(storiesStore);
-		expect(storiesStore.dispatch).not.toBeCalled()
+		expect(storiesStore.dispatch).not.toBeCalled();
 	});
 
 	test('leaves stories alone if their story format does not exist', () => {

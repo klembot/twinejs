@@ -1,71 +1,70 @@
-// The side toolbar of a story list.
+/* The side toolbar of a story list. */
 
-const Vue = require('vue');
-const AboutDialog = require('../../dialogs/about');
-const FormatsDialog = require('../../dialogs/formats');
-const ImportDialog = require('../../dialogs/story-import');
-const {createStory} = require('../../data/actions/story');
-const isElectron = require('../../electron/is-electron');
-const locale = require('../../locale');
-const { publishArchive } = require('../../data/publish');
-const eventHub = require('../../common/eventHub');
-const {prompt} = require('../../dialogs/prompt');
-const saveFile = require('../../file/save');
+import Vue from 'vue';
+import AboutDialog from '../../dialogs/about';
+import FormatsDialog from '../../dialogs/formats';
+import ImportDialog from '../../dialogs/story-import';
+import {createStory} from '../../data/actions/story';
+import {publishArchive} from '../../data/publish';
+import eventHub from '../../common/eventHub';
+import quotaGauge from '../../ui/quota-gauge';
+import saveFile from '../../file/save';
+import {say} from '../../locale';
+import themeSwitcher from './theme-switcher';
+import template from './index.html';
+import './index.less';
 
-require('./index.less');
-
-module.exports = Vue.extend({
-	template: require('./index.html'),
-
+export default Vue.extend({
+	template,
 	computed: {
 		newStoryTitle() {
-			return locale.say('Create a brand-new story');
+			return say('Create a brand-new story');
 		},
 		importFileTitle() {
-			return locale.say('Import a published story or Twine archive');
+			return say('Import a published story or Twine archive');
 		},
 		saveArchiveTitle() {
-			return locale.say('Save all stories to a Twine archive file');
+			return say('Save all stories to a Twine archive file');
 		},
 		showFormatsTitle() {
-			return locale.say('Work with story and proofing formats');
+			return say('Work with story and proofing formats');
 		},
 		changeLocaleTitle() {
-			return locale.say('Change the language Twine uses');
+			return say('Change the language Twine uses');
 		},
 		helpTitle() {
-			return locale.say('Browse online help');
+			return say('Browse online help');
 		},
 		promptMessage() {
-			return locale.say(
+			return say(
 				'What should your story be named?<br>(You can change this later.)'
 			);
 		},
 		promptButtonLabel() {
-			return '<i class="fa fa-plus"></i> ' + locale.say('Add');
+			return '<i class="fa fa-plus"></i> ' + say('Add');
 		}
 	},
-
 	methods: {
 		createStoryPrompt(e) {
 			eventHub.$once('close', (isError, name) => {
-				if(isError) {
+				if (isError) {
 					return;
 				}
-				this.createStory({ name });
+				this.createStory({name});
 
-				// Allow the appearance animation to complete.
+				/* Allow the appearance animation to complete. */
 
 				window.setTimeout(() => {
 					eventHub.$emit(
 						'story-edit',
-						this.existingStories.find(story => story.name === name).id
+						this.existingStories.find(story => story.name === name)
+							.id
 					);
 				}, 300);
 			});
 			const promptValidator = name => {
 				if (this.existingStories.find(story => story.name === name)) {
-					return locale.say('A story with this name already exists.');
+					return say('A story with this name already exists.');
 				}
 			};
 			const promptArgs = {
@@ -78,11 +77,9 @@ module.exports = Vue.extend({
 
 			eventHub.$emit('modalPrompt', promptArgs);
 		},
-
 		importFile(e) {
-			this.$emit('customModal', ImportDialog, { origin: e.target });
+			this.$emit('customModal', ImportDialog, {origin: e.target});
 		},
-
 		saveArchive() {
 			const timestamp = new Date()
 				.toLocaleString()
@@ -90,37 +87,28 @@ module.exports = Vue.extend({
 
 			saveFile(
 				publishArchive(this.existingStories, this.appInfo),
-				`${timestamp} ${locale.say('Twine Archive.html')}`
+				`${timestamp} ${say('Twine Archive.html')}`
 			);
 		},
-
 		showAbout(e) {
-			this.$emit('customModal', AboutDialog, { origin: e.target });
+			this.$emit('customModal', AboutDialog, {origin: e.target});
 		},
-
 		showFormats(e) {
-			this.$emit('customModal', FormatsDialog, { origin: e.target });
+			this.$emit('customModal', FormatsDialog, {origin: e.target});
 		},
-
 		showHelp() {
 			window.open('https://twinery.org/2guide');
 		},
-
 		showLocale() {
 			this.$router.push('locale');
 		}
 	},
-
 	components: {
-		'quota-gauge': require('../../ui/quota-gauge'),
-		'theme-switcher': require('./theme-switcher')
+		'quota-gauge': quotaGauge,
+		'theme-switcher': themeSwitcher
 	},
-
 	vuex: {
-		actions: {
-			createStory
-		},
-
+		actions: {createStory},
 		getters: {
 			appInfo: state => state.appInfo,
 			existingStories: state => state.story.stories

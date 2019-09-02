@@ -1,28 +1,27 @@
-require('./index.less');
-
 /*
 The main entry point for the application.
 */
 
-let Vue = require('vue');
+import Vue from 'vue';
+import './index.less';
 
 /*
 Load Vue extensions as early as possible so that they're available to
 everything.
 */
 
-const localeFilters = require('./vue/filters/locale');
-const mouseScrollingDirective = require('./vue/directives/mouse-scrolling');
+import localeFilters from './vue/filters/locale';
+import mouseScrolling from './vue/directives/mouse-scrolling';
 
-localeFilters.addTo(Vue);
-mouseScrollingDirective.addTo(Vue);
+Vue.use(localeFilters);
+Vue.use(mouseScrolling);
 
-const locale = require('./locale');
-const notify = require('./ui/notify');
-const store = require('./data/store');
-const TwineApp = require('./common/app');
+import {loadViaAjax} from './locale';
+import notify from './ui/notify';
+import store from './data/store';
+import TwineApp from './common/app';
 
-require('core-js');
+import 'core-js';
 
 /* Start the application after loading the appropriate locale data. */
 
@@ -44,8 +43,8 @@ if (localeUrlMatch) {
 if (typeof userLocale === 'string') {
 	/* Load the locale, then start the application. */
 
-	locale.loadViaAjax(userLocale.toLowerCase()).then(() => {
-		new TwineApp({ el: '#main' });
+	loadViaAjax(userLocale.toLowerCase()).then(() => {
+		new TwineApp({el: '#main'});
 	});
 } else {
 	/*
@@ -53,7 +52,7 @@ if (typeof userLocale === 'string') {
 	*/
 
 	locale.load('en').then(() => {
-		new TwineApp({ el: '#main' });
+		new TwineApp({el: '#main'});
 
 		Vue.nextTick(() => {
 			/*

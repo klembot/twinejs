@@ -1,4 +1,4 @@
-const rect = require('./rect');
+import rect from './rect';
 
 describe('rect module', () => {
     describe('intersects method', () => {

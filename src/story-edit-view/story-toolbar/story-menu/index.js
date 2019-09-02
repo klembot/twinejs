@@ -1,30 +1,27 @@
-// A drop-down menu with miscellaneous editing options for a story.
+/* A drop-down menu with miscellaneous editing options for a story.*/
 
-const escape = require('lodash.escape');
-const Vue = require('vue');
-const FormatDialog = require('../../../dialogs/story-format');
-const JavaScriptEditor = require('../../../editors/javascript');
-const StatsDialog = require('../../../dialogs/story-stats');
-const StylesheetEditor = require('../../../editors/stylesheet');
-const {loadFormat} = require('../../../data/actions/story-format');
-const locale = require('../../../locale');
-const eventHub = require('../../../common/eventHub');
-const {proofStory} = require('../../../common/launch-story');
-const {publishStoryWithFormat} = require('../../../data/publish');
-const save = require('../../../file/save');
-const {selectPassages} = require('../../../data/actions/passage');
-const {updateStory} = require('../../../data/actions/story');
+import escape from 'lodash.escape';
+import Vue from 'vue';
+import dropDown from '../../../ui/drop-down';
+import FormatDialog from '../../../dialogs/story-format';
+import JavaScriptEditor from '../../../editors/javascript';
+import StatsDialog from '../../../dialogs/story-stats';
+import StylesheetEditor from '../../../editors/stylesheet';
+import {loadFormat} from '../../../data/actions/story-format';
+import eventHub from '../../../common/eventHub';
+import {proofStory} from '../../../common/launch-story';
+import {publishStoryWithFormat} from '../../../data/publish';
+import save from '../../../file/save';
+import {say} from '../../../locale';
+import {selectPassages} from '../../../data/actions/passage';
+import {updateStory} from '../../../data/actions/story';
+import template from './index.html';
 
-module.exports = Vue.extend({
-	template: require('./index.html'),
-
+export default Vue.extend({
+	template,
 	props: {
-		story: {
-			type: Object,
-			required: true
-		}
+		story: {type: Object, required: true}
 	},
-
 	methods: {
 		editScript(e) {
 			eventHub.$emit('customModal', JavaScriptEditor, {
@@ -32,41 +29,36 @@ module.exports = Vue.extend({
 				origin: e.target
 			});
 		},
-
 		editStyle(e) {
 			eventHub.$emit('customModal', StylesheetEditor, {
 				storyId: this.story.id,
 				origin: e.target
 			});
 		},
-
 		renameStory(e) {
 			eventHub.$once('close', (isError, text) => {
 				if (isError) {
 					return;
 				}
-				this.updateStory(this.story.id, { name: text });
+				this.updateStory(this.story.id, {name: text});
 			});
 			eventHub.$emit('modalPrompt', {
-				message: locale.say(
+				message: say(
 					'What should “%s” be renamed to?',
 					escape(this.story.name)
 				),
-				buttonLabel: '<i class="fa fa-ok"></i> ' + locale.say('Rename'),
+				buttonLabel: '<i class="fa fa-ok"></i> ' + say('Rename'),
 				response: this.story.name,
-				blankTextError: locale.say('Please enter a name.'),
+				blankTextError: say('Please enter a name.'),
 				origin: e.target
 			});
 		},
-
 		selectAll() {
 			this.selectPassages(this.story.id, () => true);
 		},
-
 		proofStory() {
 			proofStory(this.$store, this.story.id);
 		},
-
 		publishStory() {
 			this.loadFormat(
 				this.story.storyFormat,
@@ -78,37 +70,29 @@ module.exports = Vue.extend({
 				);
 			});
 		},
-
 		storyStats(e) {
 			eventHub.$emit('customModal', StatsDialog, {
 				storyId: this.story.id,
 				origin: e.target
 			});
 		},
-
 		changeFormat(e) {
 			eventHub.$emit('customModal', FormatDialog, {
 				storyId: this.story.id,
 				origin: e.target
 			});
 		},
-
 		toggleSnap() {
-			this.updateStory(this.story.id, { snapToGrid: !this.story.snapToGrid });
+			this.updateStory(this.story.id, {
+				snapToGrid: !this.story.snapToGrid
+			});
 		}
 	},
-
 	components: {
-		'drop-down': require('../../../ui/drop-down')
+		'drop-down': dropDown
 	},
-
 	vuex: {
-		actions: {
-			loadFormat,
-			selectPassages,
-			updateStory
-		},
-
+		actions: {loadFormat, selectPassages, updateStory},
 		getters: {
 			allFormats: state => state.storyFormat.formats,
 			appInfo: state => state.appInfo,

@@ -1,22 +1,29 @@
 /*
-The main module managing the application's Vuex state and mutations.
+The main module managing the application's Vuex state and mutations. Because we
+need to conditionally include the correct persistence module based on platform,
+we use a Webpack alias to choose the right one. We can't simply import both
+because the file system one references things that don't exist in a browser
+context.
 */
 
-const Vue = require('vue');
-const Vuex = require('vuex');
-const isElectron = require('../../electron/is-electron');
+import Vue from 'vue';
+import Vuex from 'vuex';
+import appInfo from './app-info';
+import persistence from 'twine-vuex-persistence';
+import {store as pref} from './pref';
+import {store as story} from './story';
+import {store as storyFormat} from './story-format';
 
 Vue.use(Vuex);
 
-module.exports = new Vuex.Store({
+const store = new Vuex.Store({
 	modules: {
-		appInfo: require('./app-info'),
-		pref: require('./pref'),
-		story: require('./story'),
-		storyFormat: require('./story-format')
+		appInfo,
+		pref,
+		story,
+		storyFormat
 	},
-
-	plugins: [
-		isElectron() ? require('../file-system') : require('../local-storage')
-	]
+	plugins: [persistence]
 });
+
+export default store;

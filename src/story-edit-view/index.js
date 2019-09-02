@@ -1,28 +1,35 @@
 /* The main view where story editing takes place. */
 
-const values = require('lodash.values');
-const Vue = require('vue');
+import values from 'lodash.values';
 
-const eventHub = require('../common/eventHub');
-const {
+import Vue from 'vue';
+import eventHub from '../common/eventHub';
+import {
 	createPassage,
 	deletePassage,
 	positionPassage,
 	updatePassage
-} = require('../data/actions/passage');
-const { loadFormat } = require('../data/actions/story-format');
-const { updateStory } = require('../data/actions/story');
-const domEvents = require('../vue/mixins/dom-events');
-const locale = require('../locale');
-const { passageDefaults } = require('../data/store/story');
-const zoomSettings = require('./zoom-settings');
+} from '../data/actions/passage';
+import linkArrows from './link-arrows';
+import {loadFormat} from '../data/actions/story-format';
+import passageItem from './passage-item';
+import {updateStory} from '../data/actions/story';
+import domEvents from '../vue/mixins/dom-events';
+import marqueeSelector from './marquee-selector';
+import {say, sayPlural} from '../locale';
+import {passageDefaults} from '../data/store/story';
+import storyToolbar from './story-toolbar';
+import zoomSettings from './zoom-settings';
+
 // Dialogs need to be included somewhere for vue to register it globally
-const { confirm } = require('../dialogs/confirm');
-const { prompt } = require('../dialogs/prompt');
+import {confirm} from '../dialogs/confirm';
+
+import {prompt} from '../dialogs/prompt';
 
 // Modal editor for individual passages
-require('../editors/passage');
-require('./index.less');
+import '../editors/passage';
+import template from './index.html';
+import './index.less';
 
 /*
 A memoized, sorted array of zoom levels used when zooming in or out.
@@ -30,8 +37,8 @@ A memoized, sorted array of zoom levels used when zooming in or out.
 
 const zoomLevels = values(zoomSettings).sort();
 
-module.exports = Vue.extend({
-	template: require('./index.html'),
+export default Vue.extend({
+	template,
 
 	/* The id of the story we're editing is provided by the router. */
 
@@ -265,7 +272,9 @@ module.exports = Vue.extend({
 					});
 				}
 			} else {
-				this.updateStory(this.story.id, { zoom: zoomLevels[zoomIndex - 1] });
+				this.updateStory(this.story.id, {
+					zoom: zoomLevels[zoomIndex - 1]
+				});
 			}
 		},
 
@@ -274,10 +283,12 @@ module.exports = Vue.extend({
 
 			if (zoomIndex === zoomLevels.length - 1) {
 				if (wraparound) {
-					this.updateStory(this.story.id, { zoom: zoomLevels[0] });
+					this.updateStory(this.story.id, {zoom: zoomLevels[0]});
 				}
 			} else {
-				this.updateStory(this.story.id, { zoom: zoomLevels[zoomIndex + 1] });
+				this.updateStory(this.story.id, {
+					zoom: zoomLevels[zoomIndex + 1]
+				});
 			}
 		},
 
@@ -297,12 +308,16 @@ module.exports = Vue.extend({
 			*/
 
 			if (!left) {
-				left = (window.pageXOffset + window.innerWidth / 2) / this.story.zoom;
+				left =
+					(window.pageXOffset + window.innerWidth / 2) /
+					this.story.zoom;
 				left -= passageDefaults.width;
 			}
 
 			if (!top) {
-				top = (window.pageYOffset + window.innerHeight / 2) / this.story.zoom;
+				top =
+					(window.pageYOffset + window.innerHeight / 2) /
+					this.story.zoom;
 				top -= passageDefaults.height;
 			}
 
@@ -312,7 +327,7 @@ module.exports = Vue.extend({
 			3', and so on.
 			*/
 
-			name = name || locale.say('Untitled Passage');
+			name = name || say('Untitled Passage');
 
 			if (this.story.passages.find(p => p.name === name)) {
 				const origName = name;
@@ -326,7 +341,7 @@ module.exports = Vue.extend({
 
 			/* Add it to our collection. */
 
-			this.createPassage(this.story.id, { name, left, top });
+			this.createPassage(this.story.id, {name, left, top});
 
 			/*
 			Then position it so it doesn't overlap any others, and save it
@@ -380,7 +395,10 @@ module.exports = Vue.extend({
 			let target = e.target;
 
 			while (target) {
-				if (target.nodeName === 'INPUT' || target.nodeName === 'TEXTAREA') {
+				if (
+					target.nodeName === 'INPUT' ||
+					target.nodeName === 'TEXTAREA'
+				) {
 					return;
 				}
 
@@ -403,13 +421,15 @@ module.exports = Vue.extend({
 				/* Delete key */
 
 				case 46: {
-					const toDelete = this.story.passages.filter(p => p.selected);
+					const toDelete = this.story.passages.filter(
+						p => p.selected
+					);
 
 					if (toDelete.length === 0) {
 						return;
 					}
 
-					const message = locale.sayPlural(
+					const message = sayPlural(
 						`Are you sure you want to delete “%2$s”? This cannot be undone.`,
 						`Are you sure you want to delete %d passages? This cannot be undone.`,
 						toDelete.length,
@@ -418,12 +438,14 @@ module.exports = Vue.extend({
 
 					eventHub.$once('close', confirmed => {
 						if (confirmed) {
-							toDelete.forEach(p => this.deletePassage(this.story.id, p.id));
+							toDelete.forEach(p =>
+								this.deletePassage(this.story.id, p.id)
+							);
 						}
 					});
 					const confirmArgs = {
 						buttonLabel:
-							'<i class="fa fa-trash-o"></i> ' + locale.say('Delete'),
+							'<i class="fa fa-trash-o"></i> ' + say('Delete'),
 						class: 'danger',
 						message: message
 					};
@@ -463,12 +485,11 @@ module.exports = Vue.extend({
 			if (this.story.snapToGrid) {
 				const zoomedGridSize = this.gridSize * this.story.zoom;
 
-				this.screenDragOffsetX = Math.round(xOffset / zoomedGridSize) *
-					zoomedGridSize;
-				this.screenDragOffsetY = Math.round(yOffset / zoomedGridSize) *
-					zoomedGridSize;
-			}
-			else {
+				this.screenDragOffsetX =
+					Math.round(xOffset / zoomedGridSize) * zoomedGridSize;
+				this.screenDragOffsetY =
+					Math.round(yOffset / zoomedGridSize) * zoomedGridSize;
+			} else {
 				this.screenDragOffsetX = xOffset;
 				this.screenDragOffsetY = yOffset;
 			}
@@ -505,19 +526,17 @@ module.exports = Vue.extend({
 				this.story.id,
 				passage.id,
 				this.gridSize,
-				options.ignoreSelected && (otherPassage =>
-					!otherPassage.selected)
+				options.ignoreSelected &&
+					(otherPassage => !otherPassage.selected)
 			);
 		});
 	},
-
 	components: {
-		'link-arrows': require('./link-arrows'),
-		'passage-item': require('./passage-item'),
-		'story-toolbar': require('./story-toolbar'),
-		'marquee-selector': require('./marquee-selector')
+		'link-arrows': linkArrows,
+		'passage-item': passageItem,
+		'story-toolbar': storyToolbar,
+		'marquee-selector': marqueeSelector
 	},
-
 	vuex: {
 		actions: {
 			createPassage,
@@ -527,13 +546,11 @@ module.exports = Vue.extend({
 			updatePassage,
 			updateStory
 		},
-
 		getters: {
 			allFormats: state => state.storyFormat.formats,
 			allStories: state => state.story.stories,
 			defaultFormatName: state => state.pref.defaultFormat
 		}
 	},
-
 	mixins: [domEvents]
 });

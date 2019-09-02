@@ -1,14 +1,17 @@
-const Vue = require('vue');
-const VueRouter = require('vue-router');
-
-const LocaleView = require('../locale/view');
-const StoryEditView = require('../story-edit-view');
-const StoryListView = require('../story-list-view');
-const WelcomeView = require('../welcome');
-const locale = require('../locale');
-const { getStoryPlayHtml, getStoryProofingHtml, getStoryTestHtml } = require('./story-html');
-const replaceUI = require('../ui/replace');
-const store = require('../data/store');
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import LocaleView from '../locale/view';
+import StoryEditView from '../story-edit-view';
+import StoryListView from '../story-list-view';
+import WelcomeView from '../welcome';
+import {say} from '../locale';
+import {
+	getStoryPlayHtml,
+	getStoryProofingHtml,
+	getStoryTestHtml
+} from './story-html';
+import replaceUI from '../ui/replace';
+import store from '../data/store';
 
 Vue.use(VueRouter);
 
@@ -36,7 +39,7 @@ let TwineRouter = new VueRouter({
 					'<div><story-list ' +
 					':previously-editing="previouslyEditing"></story-list></div>',
 
-				components: { 'story-list': StoryListView },
+				components: {'story-list': StoryListView},
 
 				data() {
 					return {
@@ -52,11 +55,10 @@ let TwineRouter = new VueRouter({
 			component: {
 				template: '<div><story-edit :story-id="id"></story-edit></div>',
 
-
-				components: { 'story-edit': StoryEditView },
+				components: {'story-edit': StoryEditView},
 
 				data() {
-					return { id: this.$route.params.id };
+					return {id: this.$route.params.id};
 				}
 			}
 		},
@@ -71,44 +73,44 @@ let TwineRouter = new VueRouter({
 				mounted() {
 					this.$nextTick(function() {
 						getStoryPlayHtml(this.$store, this.$route.params.id)
-					.then(replaceUI)
-					.catch(e => {
-						window.alert(
-							locale.say(
-								'An error occurred while publishing your story. (%s)',
-								e.message
-							)
-						);
+							.then(replaceUI)
+							.catch(e => {
+								window.alert(
+									say(
+										'An error occurred while publishing your story. (%s)',
+										e.message
+									)
+								);
 
-						/* Force returning to the previous view. */
+								/* Force returning to the previous view. */
 
-						throw e;
-					});
+								throw e;
+							});
 					});
 				}
 			}
 		},
 		{
-			name: "proof",
+			name: 'proof',
 			path: '/stories/:id/proof',
 			component: {
 				template: '<div class="replace-me"></div>',
 				mounted() {
 					this.$nextTick(function() {
 						getStoryProofingHtml(this.$store, this.$route.params.id)
-					.then(replaceUI)
-					.catch(e => {
-						window.alert(
-							locale.say(
-								'An error occurred while publishing your story. (%s)',
-								e.message
-							)
-						);
+							.then(replaceUI)
+							.catch(e => {
+								window.alert(
+									say(
+										'An error occurred while publishing your story. (%s)',
+										e.message
+									)
+								);
 
-						/* Force returning to the previous view. */
+								/* Force returning to the previous view. */
 
-						throw e;
-					});
+								throw e;
+							});
 					});
 				}
 			}
@@ -119,22 +121,22 @@ let TwineRouter = new VueRouter({
 				mounted() {
 					this.$nextTick(function() {
 						getStoryTestHtml(this.$store, this.$route.params.id)
-						.then(replaceUI)
-						.catch(e => {
-							window.alert(
-							locale.say(
-								'An error occurred while publishing your story. (%s)',
-								e.message
-							)
-						);
+							.then(replaceUI)
+							.catch(e => {
+								window.alert(
+									say(
+										'An error occurred while publishing your story. (%s)',
+										e.message
+									)
+								);
 
-							/* Force returning to the previous view. */
+								/* Force returning to the previous view. */
 
-							throw e;
-						});
+								throw e;
+							});
 					});
 				}
-			},
+			}
 		},
 		{
 			path: '/stories/:storyId/test/:passageId',
@@ -143,23 +145,23 @@ let TwineRouter = new VueRouter({
 					this.$nextTick(function() {
 						// code that assumes this.$el is in-document
 						getStoryTestHtml(
-					this.$store,
-					this.$route.params.storyId,
-					this.$route.params.passageId
-				)
-					.then(replaceUI)
-					.catch(e => {
-						window.alert(
-							locale.say(
-								'An error occurred while publishing your story. (%s)',
-								e.message
-							)
-						);
+							this.$store,
+							this.$route.params.storyId,
+							this.$route.params.passageId
+						)
+							.then(replaceUI)
+							.catch(e => {
+								window.alert(
+									say(
+										'An error occurred while publishing your story. (%s)',
+										e.message
+									)
+								);
 
-						/* Force returning to the previous view. */
+								/* Force returning to the previous view. */
 
-						throw e;
-					});
+								throw e;
+							});
 					});
 				}
 			}
@@ -197,10 +199,9 @@ TwineRouter.beforeEach((to, from, next) => {
 
 	if (to.path === '/welcome' || welcomeSeen) {
 		next();
-	}
-	else {
+	} else {
 		next('/welcome');
 	}
 });
 
-module.exports = TwineRouter;
+export default TwineRouter;

@@ -1,7 +1,7 @@
-const storyFormat = require('./story-format');
+import storyFormat from './story-format';
 
 describe('story-format data module', () => {
-	const props = { name: 'Test Format', version: '1.0.0' };
+	const props = {name: 'Test Format', version: '1.0.0'};
 	let state;
 
 	beforeEach(() => {
@@ -26,81 +26,56 @@ describe('story-format data module', () => {
 		expect(typeof state.formats[0].id).toBe('string');
 	});
 
-	test(
-        'sets a loaded property on formats with the CREATE_FORMAT mutation',
-        () => {
-            storyFormat.mutations.CREATE_FORMAT(state, props);
-            expect(state.formats[0].loaded).toBe(false);
-        }
-    );
+	test('sets a loaded property on formats with the CREATE_FORMAT mutation', () => {
+		storyFormat.mutations.CREATE_FORMAT(state, props);
+		expect(state.formats[0].loaded).toBe(false);
+	});
 
 	test('adds properties to a format with the LOAD_FORMAT mutation', () => {
 		storyFormat.mutations.CREATE_FORMAT(state, props);
-		storyFormat.mutations.LOAD_FORMAT(
-			state,
-			state.formats[0].id,
-			{ source: 'Hello!' }
-		);
+		storyFormat.mutations.LOAD_FORMAT(state, state.formats[0].id, {
+			source: 'Hello!'
+		});
 
 		expect(state.formats[0].properties.source).toBe('Hello!');
 	});
 
-	test('sets a format\'s loaded property with the LOAD_FORMAT mutation', () => {
+	test("sets a format's loaded property with the LOAD_FORMAT mutation", () => {
 		storyFormat.mutations.CREATE_FORMAT(state, props);
-		storyFormat.mutations.LOAD_FORMAT(
-			state,
-			state.formats[0].id,
-			{}
-		);
+		storyFormat.mutations.LOAD_FORMAT(state, state.formats[0].id, {});
 
 		expect(state.formats[0].loaded).toBe(true);
 	});
 
-	test('sets a format\'s loaded property with the LOAD_FORMAT mutation', () => {
+	test("sets a format's loaded property with the LOAD_FORMAT mutation", () => {
 		storyFormat.mutations.CREATE_FORMAT(state, props);
-		storyFormat.mutations.LOAD_FORMAT(
-			state,
-			state.formats[0].id,
-			{}
-		);
+		storyFormat.mutations.LOAD_FORMAT(state, state.formats[0].id, {});
 
 		expect(state.formats[0].loaded).toBe(true);
 	});
 
-	test(
-        'calls a format\'s setup method bound to the format during the LOAD_FORMAT mutation',
-        () => {
-            let setup = jest.fn();
-            setup.call = jest.fn();
+	test("calls a format's setup method bound to the format during the LOAD_FORMAT mutation", () => {
+		let setup = jest.fn();
+		setup.call = jest.fn();
 
-            storyFormat.mutations.CREATE_FORMAT(state, props);
-            storyFormat.mutations.LOAD_FORMAT(
-                state,
-                state.formats[0].id,
-                { setup }
-            );
+		storyFormat.mutations.CREATE_FORMAT(state, props);
+		storyFormat.mutations.LOAD_FORMAT(state, state.formats[0].id, {setup});
 
-            expect(setup.call).toHaveBeenCalledWith(state.formats[0])
-        }
-    );
+		expect(setup.call).toHaveBeenCalledWith(state.formats[0]);
+	});
 
 	test('updates a format with the UPDATE_FORMAT mutation', () => {
 		storyFormat.mutations.CREATE_FORMAT(state, props);
-		storyFormat.mutations.UPDATE_FORMAT(
-			state,
-			state.formats[0].id,
-			{ name: 'New Name' }
-		);
+		storyFormat.mutations.UPDATE_FORMAT(state, state.formats[0].id, {
+			name: 'New Name'
+		});
 
 		expect(state.formats[0].name).toBe('New Name');
 	});
 
 	test('deletes a format with the DELETE_FORMAT mutation', () => {
 		storyFormat.mutations.CREATE_FORMAT(state, props);
-		storyFormat.mutations.DELETE_FORMAT(
-			state,
-			state.formats[0].id
-		);
+		storyFormat.mutations.DELETE_FORMAT(state, state.formats[0].id);
 
 		expect(state.formats.length).toBe(0);
 	});

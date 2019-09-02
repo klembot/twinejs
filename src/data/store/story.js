@@ -3,10 +3,10 @@ A Vuex module for working with stories. This is meant to be incorporated by
 index.js.
 */
 
-const uuid = require('tiny-uuid');
-const locale = require('../../locale');
-const idFor = require('../id');
-const ui = require('../../ui');
+import uuid from 'tiny-uuid';
+import idFor from '../id';
+import {hasPrimaryTouchUI} from '../../ui';
+import {say} from '../../locale';
 
 /*
 A shorthand function for finding a particular story in the state, or a
@@ -33,11 +33,36 @@ function getPassageInStory(story, id) {
 	return passage;
 }
 
-const storyStore = (module.exports = {
-	state: {
-		stories: []
-	},
+/* Defaults for newly-created objects. */
 
+export const storyDefaults = {
+	name: say('Untitled Story'),
+	startPassage: -1,
+	zoom: 1,
+	snapToGrid: false,
+	stylesheet: '',
+	script: '',
+	storyFormat: '',
+	storyFormatVersion: ''
+};
+
+export const passageDefaults = {
+	story: -1,
+	top: 0,
+	left: 0,
+	width: 100,
+	height: 100,
+	tags: [],
+	name: say('Untitled Passage'),
+	selected: false,
+
+	text: hasPrimaryTouchUI()
+		? say('Tap this passage, then the pencil icon to edit it.')
+		: say('Double-click this passage to edit it.')
+};
+
+export const store = {
+	state: {stories: []},
 	mutations: {
 		CREATE_STORY(state, props) {
 			let story = Object.assign(
@@ -48,7 +73,7 @@ const storyStore = (module.exports = {
 					tagColors: {},
 					passages: []
 				},
-				storyStore.storyDefaults,
+				storyDefaults,
 				props
 			);
 
@@ -58,14 +83,12 @@ const storyStore = (module.exports = {
 
 			state.stories.push(story);
 		},
-
 		UPDATE_STORY(state, id, props) {
 			let story = getStoryById(state, id);
 
 			Object.assign(story, props);
 			story.lastUpdate = new Date();
 		},
-
 		DUPLICATE_STORY(state, id, newName) {
 			const original = getStoryById(state, id);
 
@@ -98,7 +121,6 @@ const storyStore = (module.exports = {
 
 			state.stories.push(story);
 		},
-
 		IMPORT_STORY(state, toImport) {
 			/*
 			See data/import.js for how the object that we receive is
@@ -124,11 +146,9 @@ const storyStore = (module.exports = {
 			delete toImport.startPassagePid;
 			state.stories.push(toImport);
 		},
-
 		DELETE_STORY(state, id) {
 			state.stories = state.stories.filter(story => story.id !== id);
 		},
-
 		CREATE_PASSAGE_IN_STORY(state, storyId, props) {
 			/*
 			uuid is used here as a salt so that passages always contain unique
@@ -136,13 +156,13 @@ const storyStore = (module.exports = {
 			name provided), even if you rename one to a name a previous one used
 			to have.
 			*/
-			
+
 			let story = getStoryById(state, storyId);
 			let newPassage = Object.assign(
 				{
 					id: idFor(story.name + uuid())
 				},
-				storyStore.passageDefaults,
+				passageDefaults,
 				props
 			);
 
@@ -167,10 +187,7 @@ const storyStore = (module.exports = {
 			}
 
 			story.lastUpdate = new Date();
-			console.log(story);
-			console.log(story.passages);
 		},
-
 		UPDATE_PASSAGE_IN_STORY(state, storyId, passageId, props) {
 			let story;
 
@@ -204,7 +221,6 @@ const storyStore = (module.exports = {
 			Object.assign(passage, props);
 			story.lastUpdate = new Date();
 		},
-
 		DELETE_PASSAGE_IN_STORY(state, storyId, passageId) {
 			let story = getStoryById(state, storyId);
 
@@ -213,33 +229,5 @@ const storyStore = (module.exports = {
 			);
 			story.lastUpdate = new Date();
 		}
-	},
-
-	/* Defaults for newly-created objects. */
-
-	storyDefaults: {
-		name: locale.say('Untitled Story'),
-		startPassage: -1,
-		zoom: 1,
-		snapToGrid: false,
-		stylesheet: '',
-		script: '',
-		storyFormat: '',
-		storyFormatVersion: ''
-	},
-
-	passageDefaults: {
-		story: -1,
-		top: 0,
-		left: 0,
-		width: 100,
-		height: 100,
-		tags: [],
-		name: locale.say('Untitled Passage'),
-		selected: false,
-
-		text: ui.hasPrimaryTouchUI()
-			? locale.say('Tap this passage, then the pencil icon to edit it.')
-			: locale.say('Double-click this passage to edit it.')
 	}
-});
+};

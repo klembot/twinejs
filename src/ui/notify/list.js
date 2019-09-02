@@ -1,27 +1,28 @@
-// This is a list of notifications at the top of the page. See index.js for the
-// public API for this.
+/*
+This is a list of notifications at the top of the page. See index.js for the
+public API for this.
+*/
 
-const Vue = require('vue');
+import Vue from 'vue';
+import './list.less';
+import template from './list.html';
 
-require('./list.less');
-
-// How long typical notifications (e.g. that aren't errors) appear onscreen.
+/*
+How long typical notifications (e.g. that aren't errors) appear onscreen.
+*/
 
 const APPEAR_DURATION = 3000;
 
-module.exports = Vue.extend({
-	template: require('./list.html'),
-
-	data: () => ({
-		notifications: []
-	}),
-
+export default Vue.extend({
+	template,
+	data: () => ({notifications: []}),
 	methods: {
-		// Adds a new notification.
-
+		/* Adds a new notification. */
 		add(html, className) {
-			// If the most recent notification matches the same HTML as what's
-			// requested, update its count instead and reset its timeout.
+			/*
+			If the most recent notification matches the same HTML as what's
+			requested, update its count instead and reset its timeout.
+			*/
 
 			if (this.notifications.length > 0) {
 				let lastN = this.notifications[this.notifications.length - 1];
@@ -41,7 +42,7 @@ module.exports = Vue.extend({
 				}
 			}
 
-			let notification = { html, className, repeats: 0 };
+			let notification = {html, className, repeats: 0};
 
 			this.notifications.push(notification);
 
@@ -53,8 +54,10 @@ module.exports = Vue.extend({
 			}
 		},
 
-		// Removes a notification by object reference. If none match, this does
-		// nothing.
+		/*
+		Removes a notification by object reference. If none match, this does
+		nothing.
+		*/
 
 		remove(obj) {
 			let index = this.notifications.indexOf(obj);
@@ -64,7 +67,7 @@ module.exports = Vue.extend({
 			}
 		},
 
-		// Removes a notification by array index.
+		/* Removes a notification by array index. */
 
 		removeAt(index) {
 			this.notifications.splice(index, 1);

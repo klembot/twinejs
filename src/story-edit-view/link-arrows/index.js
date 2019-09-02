@@ -2,35 +2,25 @@
 Draws connector lines between passages.
 */
 
-const uniq = require('lodash.uniq');
-const Vue = require('vue');
-const linkParser = require('../../data/link-parser');
+import Vue from 'vue';
+import uniq from 'lodash.uniq';
+import linkArrow from './link-arrow';
+import linkParser from '../../data/link-parser';
+import template from './index.html';
+import './index.less';
 
-require('./index.less');
-
-module.exports = Vue.extend({
-	template: require('./index.html'),
-
+export default Vue.extend({
+	template,
 	props: {
-		passages: {
-			type: Array,
-			required: true
-		},
+		passages: {type: Array, required: true},
 
 		/*
 		The positions of the passages, indexed by passage name. Each entry
 		should contain top, left, width and height properties.
 		*/
 
-		positions: {
-			type: Object,
-			required: true
-		},
-
-		zoom: {
-			type: Number,
-			required: true
-		}
+		positions: {type: Object, required: true},
+		zoom: {type: Number, required: true}
 	},
 
 	methods: {
@@ -44,19 +34,13 @@ module.exports = Vue.extend({
 		*/
 
 		links() {
-			return this.passages.reduce(
-				(result, passage) => {
-					result[passage.name] = uniq(linkParser(passage.text, true));
-					return result;
-				},
-
-				{}
-			);
-		},
+			return this.passages.reduce((result, passage) => {
+				result[passage.name] = uniq(linkParser(passage.text, true));
+				return result;
+			}, {});
+		}
 	},
-
 	computed: {
-
 		cssStyle() {
 			/*
 			In order for the arrows to not get cut off, we have to overinflate
@@ -68,13 +52,10 @@ module.exports = Vue.extend({
 
 			return {
 				transform: 'scale(' + this.zoom + ')',
-				width: 100 * 1 / this.zoom + '%',
-				height: 100 * 1 / this.zoom + '%',
+				width: (100 * 1) / this.zoom + '%',
+				height: (100 * 1) / this.zoom + '%'
 			};
 		}
 	},
-
-	components: {
-		'link-arrow': require('./link-arrow')
-	}
+	components: {'link-arrow': linkArrow}
 });

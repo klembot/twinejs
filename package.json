@@ -55,6 +55,7 @@
 		"vuex": "^1.0.0"
 	},
 	"devDependencies": {
+		"5to6-codemod": "^1.8.0",
 		"@babel/core": "^7.1.2",
 		"@babel/preset-env": "^7.1.0",
 		"acorn": "^4.0.3",
@@ -79,6 +80,7 @@
 		"htmlparser2": "^3.9.2",
 		"identity-obj-proxy": "^3.0.0",
 		"jest": "^23.6.0",
+		"jscodeshift": "^0.6.4",
 		"jsdom": "^11.2.0",
 		"jsdom-global": "^3.0.2",
 		"json-loader": "^0.5.7",

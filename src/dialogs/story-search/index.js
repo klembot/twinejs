@@ -3,18 +3,18 @@ A modal which allows the user to perform find and replace on a array of
 passages.
 */
 
-const Vue = require('vue');
-const locale = require('../../locale');
-const eventHub = require("../../common/eventHub");
-const escapeRegexp = require('lodash.escaperegexp');
+import Vue from 'vue';
+import eventHub from '../../common/eventHub';
+import escapeRegexp from 'lodash.escaperegexp';
+import modalDialog from '../../ui/modal-dialog';
+import {say} from '../../locale';
+import searchResult from './result';
+import template from './index.html';
+import './index.less';
 
-require('./index.less');
-
-module.exports = Vue.component("SearchDialog", {
-	template: require('./index.html'),
-
-	props: ["story", "search", "origin"],
-
+export default Vue.component('SearchDialog', {
+	template,
+	props: ['story', 'search', 'origin'],
 	data: () => ({
 		replace: '',
 		searchNames: true,
@@ -22,7 +22,6 @@ module.exports = Vue.component("SearchDialog", {
 		regexp: false,
 		working: false
 	}),
-
 	computed: {
 		searchRegexp() {
 			let flags = 'g';
@@ -44,15 +43,12 @@ module.exports = Vue.component("SearchDialog", {
 
 			return new RegExp('(' + source + ')', flags);
 		},
-
 		expandButtonTitle() {
-			return locale.say("Expand all search results");
+			return say('Expand all search results');
 		},
-
 		collapseButtonTitle() {
-			return locale.say("Collapse all search results");
+			return say('Collapse all search results');
 		},
-
 		passageMatches() {
 			if (this.search === '') {
 				return [];
@@ -104,30 +100,25 @@ module.exports = Vue.component("SearchDialog", {
 			return result;
 		}
 	},
-
 	methods: {
 		expandAll() {
-			eventHub.$emit("expand");
+			eventHub.$emit('expand');
 		},
-
 		collapseAll() {
-			eventHub.$emit("collapse");
+			eventHub.$emit('collapse');
 		},
-
 		replaceAll() {
-			eventHub.$emit("replace");
+			eventHub.$emit('replace');
 		}
 	},
-
 	mounted() {
 		this.$nextTick(function() {
 			// code that assumes this.$el is in-document
 			this.$refs.search.focus();
 		});
 	},
-
 	components: {
-		'modal-dialog': require('../../ui/modal-dialog'),
-		'search-result': require('./result')
+		'modal-dialog': modalDialog,
+		'search-result': searchResult
 	}
 });

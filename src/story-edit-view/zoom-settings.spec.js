@@ -1,4 +1,4 @@
-const zoomSettings = require('./zoom-settings');
+import zoomSettings from './zoom-settings';
 
 describe('zoom settings', () => {
 	test('exports a big property', () => {

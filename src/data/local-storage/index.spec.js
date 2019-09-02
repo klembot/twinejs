@@ -1,12 +1,12 @@
+import localStorage from './index';
+import pref from './pref';
+import story from './story';
+import storyFormat from './story-format';
+
 describe('local-storage persistence', () => {
-	const localStorage = require('./index');
 	jest.unmock('./pref');
-	let pref = require('./pref');
-	let mutationObserver;
 	jest.unmock('./story');
-	let story = require('./story');
 	jest.unmock('./story-format');
-	let storyFormat = require('./story-format');
 	let store;
 
 	/* Mimic the Vuex subscribe() flow. */
@@ -28,16 +28,16 @@ describe('local-storage persistence', () => {
 			}
 		};
 
-		pref.load = jest.fn()
-		pref.save = jest.fn()
-		story.load = jest.fn()
-		story.deletePassage = jest.fn()
-		story.deletePassageById = jest.fn()
-		story.deleteStory = jest.fn()
-		story.savePassage = jest.fn()
-		story.saveStory = jest.fn()
-		storyFormat.load = jest.fn()
-		storyFormat.save = jest.fn()
+		pref.load = jest.fn();
+		pref.save = jest.fn();
+		story.load = jest.fn();
+		story.deletePassage = jest.fn();
+		story.deletePassageById = jest.fn();
+		story.deleteStory = jest.fn();
+		story.savePassage = jest.fn();
+		story.saveStory = jest.fn();
+		storyFormat.load = jest.fn();
+		storyFormat.save = jest.fn();
 	});
 
 	test('loads the pref, story, and story-format modules when starting', () => {
@@ -177,31 +177,31 @@ describe('local-storage persistence', () => {
 	});
 
 	test('calls pref.save() when an UPDATE_PREF mutation occurs', () => {
-		pref.save.mockClear()
+		pref.save.mockClear();
 		dispatchMutation({type: 'UPDATE_PREF'});
 		expect(pref.save).toHaveBeenCalledTimes(1);
 	});
 
 	test('calls storyFormat.save() when a CREATE_FORMAT mutation occurs', () => {
-		storyFormat.save.mockClear()
+		storyFormat.save.mockClear();
 		dispatchMutation({type: 'CREATE_FORMAT'});
 		expect(storyFormat.save).toHaveBeenCalledTimes(1);
 	});
 
 	test('calls storyFormat.save() when an UPDATE_FORMAT mutation occurs', () => {
-		storyFormat.save.mockClear()
+		storyFormat.save.mockClear();
 		dispatchMutation({type: 'UPDATE_FORMAT'});
 		expect(storyFormat.save).toHaveBeenCalledTimes(1);
 	});
 
 	test('calls storyFormat.save() when a DELETE_FORMAT mutation occurs', () => {
-		storyFormat.save.mockClear()
+		storyFormat.save.mockClear();
 		dispatchMutation({type: 'DELETE_FORMAT'});
 		expect(storyFormat.save).toHaveBeenCalledTimes(1);
 	});
 
 	test('ignores LOAD_FORMAT mutations', () => {
-		storyFormat.save.mockClear()
+		storyFormat.save.mockClear();
 		dispatchMutation({type: 'LOAD_FORMAT'});
 		expect(storyFormat.save).not.toHaveBeenCalled();
 	});

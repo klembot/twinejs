@@ -1,9 +1,9 @@
-let Vue = require('vue');
-const VueRouter = require('vue-router');
-const localeFilters = require('../vue/filters/locale');
-const WelcomeView = require('./index');
-const router = require('../common/router');
-const store = require('../data/store');
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import localeFilters from '../vue/filters/locale';
+import WelcomeView from './index';
+import router from '../common/router';
+import store from '../data/store';
 
 localeFilters.addTo(Vue);
 Vue.use(VueRouter);

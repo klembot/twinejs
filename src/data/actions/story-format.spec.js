@@ -1,30 +1,34 @@
-const actions = require('./story-format');
+import actions from './story-format';
 
 describe('story format actions module', () => {
 	const fakeId = 'not-a-real-id';
-	const props = { fake: true };	
+	const props = {fake: true};
 	let store;
 
 	beforeEach(() => {
-		store = { dispatch: jest.fn() };
+		store = {dispatch: jest.fn()};
 	});
 
 	it('dispatches a CREATE_FORMAT mutation with createFormat()', () => {
 		actions.createFormat(store, props);
 		expect(store.dispatch).toHaveBeenCalledTimes(1);
-		expect(store.dispatch).toHaveBeenCalledWith('CREATE_FORMAT', props)
+		expect(store.dispatch).toHaveBeenCalledWith('CREATE_FORMAT', props);
 	});
 
 	it('dispatches an UPDATE_FORMAT mutation with createFormat()', () => {
 		actions.updateFormat(store, fakeId, props);
 		expect(store.dispatch).toHaveBeenCalledTimes(1);
-		expect(store.dispatch).toHaveBeenCalledWith('UPDATE_FORMAT', fakeId, props)
+		expect(store.dispatch).toHaveBeenCalledWith(
+			'UPDATE_FORMAT',
+			fakeId,
+			props
+		);
 	});
 
 	it('dispatches a DELETE_FORMAT mutation with deleteFormat()', () => {
 		actions.deleteFormat(store, fakeId);
 		expect(store.dispatch).toHaveBeenCalledTimes(1);
-		expect(store.dispatch).toHaveBeenCalledWith('DELETE_FORMAT', fakeId)
+		expect(store.dispatch).toHaveBeenCalledWith('DELETE_FORMAT', fakeId);
 	});
 
 	it('creates built-in formats with repairFormats()', () => {
@@ -60,25 +64,39 @@ describe('story format actions module', () => {
 		}
 
 		expect(created['Harlowe-3.0.2']).toBeTruthy();
-		expect(created['Harlowe-3.0.2'].url).toEqual('story-formats/harlowe-3.0.2/format.js');
+		expect(created['Harlowe-3.0.2'].url).toEqual(
+			'story-formats/harlowe-3.0.2/format.js'
+		);
 		expect(created['Harlowe-3.0.2'].userAdded).toBeFalsy();
 		expect(created['Harlowe-2.1.0']).toBeTruthy();
-		expect(created['Harlowe-2.1.0'].url).toEqual('story-formats/harlowe-2.1.0/format.js');
+		expect(created['Harlowe-2.1.0'].url).toEqual(
+			'story-formats/harlowe-2.1.0/format.js'
+		);
 		expect(created['Harlowe-2.1.0'].userAdded).toBeFalsy();
 		expect(created['Harlowe-1.2.4']).toBeTruthy();
-		expect(created['Harlowe-1.2.4'].url).toEqual('story-formats/harlowe-1.2.4/format.js');
+		expect(created['Harlowe-1.2.4'].url).toEqual(
+			'story-formats/harlowe-1.2.4/format.js'
+		);
 		expect(created['Harlowe-1.2.4'].userAdded).toBeFalsy();
 		expect(created['Paperthin-1.0.0']).toBeTruthy();
-		expect(created['Paperthin-1.0.0'].url).toEqual('story-formats/paperthin-1.0.0/format.js');
+		expect(created['Paperthin-1.0.0'].url).toEqual(
+			'story-formats/paperthin-1.0.0/format.js'
+		);
 		expect(created['Paperthin-1.0.0'].userAdded).toBeFalsy();
 		expect(created['Snowman-1.3.0']).toBeTruthy();
-		expect(created['Snowman-1.3.0'].url).toEqual('story-formats/snowman-1.3.0/format.js');
+		expect(created['Snowman-1.3.0'].url).toEqual(
+			'story-formats/snowman-1.3.0/format.js'
+		);
 		expect(created['Snowman-1.3.0'].userAdded).toBeFalsy();
 		expect(created['SugarCube-1.0.35']).toBeTruthy();
-		expect(created['SugarCube-1.0.35'].url).toEqual('story-formats/sugarcube-1.0.35/format.js');
+		expect(created['SugarCube-1.0.35'].url).toEqual(
+			'story-formats/sugarcube-1.0.35/format.js'
+		);
 		expect(created['SugarCube-1.0.35'].userAdded).toBeFalsy();
 		expect(created['SugarCube-2.28.2']).toBeTruthy();
-		expect(created['SugarCube-2.28.2'].url).toEqual('story-formats/sugarcube-2.28.2/format.js');
+		expect(created['SugarCube-2.28.2'].url).toEqual(
+			'story-formats/sugarcube-2.28.2/format.js'
+		);
 		expect(created['SugarCube-2.28.2'].userAdded).toBeFalsy();
 	});
 
@@ -96,11 +114,15 @@ describe('story format actions module', () => {
 		actions.repairFormats(formatsStore);
 
 		expect(formatsStore.dispatch).toHaveBeenCalledWith(
-			'UPDATE_PREF', 'defaultFormat', { name: 'Harlowe', version: '3.0.2' }
-		)
+			'UPDATE_PREF',
+			'defaultFormat',
+			{name: 'Harlowe', version: '3.0.2'}
+		);
 		expect(formatsStore.dispatch).toHaveBeenCalledWith(
-			'UPDATE_PREF', 'proofingFormat', { name: 'Paperthin', version: '1.0.0' }
-		)
+			'UPDATE_PREF',
+			'proofingFormat',
+			{name: 'Paperthin', version: '1.0.0'}
+		);
 	});
 
 	it('deletes unversioned formats with repairFormats()', () => {
@@ -109,15 +131,16 @@ describe('story format actions module', () => {
 			state: {
 				pref: {},
 				storyFormat: {
-					formats: [
-						{ id: fakeId, name: 'Test' }
-					]
+					formats: [{id: fakeId, name: 'Test'}]
 				}
 			}
 		};
 
 		actions.repairFormats(formatsStore);
-		expect(formatsStore.dispatch).toHaveBeenCalledWith('DELETE_FORMAT', fakeId)
+		expect(formatsStore.dispatch).toHaveBeenCalledWith(
+			'DELETE_FORMAT',
+			fakeId
+		);
 	});
 
 	it('does not duplicate formats with repairFormats()', () => {
@@ -127,19 +150,19 @@ describe('story format actions module', () => {
 				pref: {},
 				storyFormat: {
 					formats: [
-						{ name: 'Harlowe', version: '2.0.1' },
-						{ name: 'Harlowe', version: '3.0.2' },
-						{ name: 'Paperthin', version: '1.0.0' },
-						{ name: 'Snowman', version: '1.3.0' },
-						{ name: 'SugarCube', version: '1.0.35' },
-						{ name: 'SugarCube', version: '2.28.2' }
+						{name: 'Harlowe', version: '2.0.1'},
+						{name: 'Harlowe', version: '3.0.2'},
+						{name: 'Paperthin', version: '1.0.0'},
+						{name: 'Snowman', version: '1.3.0'},
+						{name: 'SugarCube', version: '1.0.35'},
+						{name: 'SugarCube', version: '2.28.2'}
 					]
 				}
 			}
 		};
 
 		actions.repairFormats(formatsStore);
-		expect(formatsStore.dispatch).not.toHaveBeenCalledWith("CREATE_FORMAT");
+		expect(formatsStore.dispatch).not.toHaveBeenCalledWith('CREATE_FORMAT');
 	});
 
 	it('deletes outdated story format versions with repairFormats()', () => {
@@ -149,16 +172,19 @@ describe('story format actions module', () => {
 				pref: {},
 				storyFormat: {
 					formats: [
-						{ name: 'Custom', version: '1.2.3' },
-						{ id: fakeId, name: 'Custom', version: '1.2.1' },
-						{ name: 'Custom', version: '2.0.0' }
+						{name: 'Custom', version: '1.2.3'},
+						{id: fakeId, name: 'Custom', version: '1.2.1'},
+						{name: 'Custom', version: '2.0.0'}
 					]
 				}
 			}
 		};
 
 		actions.repairFormats(formatsStore);
-		expect(formatsStore.dispatch).toHaveBeenCalledWith('DELETE_FORMAT', fakeId)
+		expect(formatsStore.dispatch).toHaveBeenCalledWith(
+			'DELETE_FORMAT',
+			fakeId
+		);
 	});
 
 	it('updates the default format version with repairFormats()', () => {
@@ -177,9 +203,9 @@ describe('story format actions module', () => {
 				},
 				storyFormat: {
 					formats: [
-						{ id: fakeId, name: 'Default Format', version: '1.0.1' },
-						{ id: fakeId, name: 'Default Format', version: '2.0.1' },
-						{ id: fakeId, name: 'Proofing Format', version: '1.0.0' }
+						{id: fakeId, name: 'Default Format', version: '1.0.1'},
+						{id: fakeId, name: 'Default Format', version: '2.0.1'},
+						{id: fakeId, name: 'Proofing Format', version: '1.0.0'}
 					]
 				}
 			}
@@ -189,8 +215,8 @@ describe('story format actions module', () => {
 		expect(formatsStore.dispatch).toHaveBeenCalledWith(
 			'UPDATE_PREF',
 			'defaultFormat',
-			{ name: 'Default Format', version: '1.0.1' }
-		)
+			{name: 'Default Format', version: '1.0.1'}
+		);
 	});
 
 	it('updates the proofing version with repairFormats()', () => {
@@ -209,10 +235,10 @@ describe('story format actions module', () => {
 				},
 				storyFormat: {
 					formats: [
-						{ id: fakeId, name: 'Default Format', version: '1.0.0' },
-						{ id: fakeId, name: 'Proofing Format', version: '1.0.0' },
-						{ id: fakeId, name: 'Proofing Format', version: '1.0.1' },
-						{ id: fakeId, name: 'Proofing Format', version: '2.0.1' }
+						{id: fakeId, name: 'Default Format', version: '1.0.0'},
+						{id: fakeId, name: 'Proofing Format', version: '1.0.0'},
+						{id: fakeId, name: 'Proofing Format', version: '1.0.1'},
+						{id: fakeId, name: 'Proofing Format', version: '2.0.1'}
 					]
 				}
 			}
@@ -222,7 +248,7 @@ describe('story format actions module', () => {
 		expect(formatsStore.dispatch).toHaveBeenCalledWith(
 			'UPDATE_PREF',
 			'proofingFormat',
-			{ name: 'Proofing Format', version: '1.0.1' }
-		)
+			{name: 'Proofing Format', version: '1.0.1'}
+		);
 	});
 });

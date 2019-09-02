@@ -3,9 +3,9 @@ Returns the latest story format version available, indexed by format name and
 major version (as a string, not a number).
 */
 
-const semverUtils = require('semver-utils');
+import semverUtils from 'semver-utils';
 
-module.exports = store => {
+export default store => {
 	const latestVersions = {};
 
 	store.state.storyFormat.formats.forEach(format => {
