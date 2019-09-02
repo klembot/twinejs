@@ -3,20 +3,20 @@ Bootstraps the Electron app. This listens for `app-relaunch` IPC messages and
 relaunches the app when one is received.
 */
 
-import { app, dialog, ipcMain, BrowserWindow, shell } from 'electron';
+import {app, dialog, ipcMain, BrowserWindow, shell} from 'electron';
 
 import path from 'path';
 
 import {
-    backup as backupStoryDirectory,
-    create as createStoryDirectory,
-    lock as lockStoryDirectory,
-    unlock as unlockStoryDirectory,
+	backup as backupStoryDirectory,
+	create as createStoryDirectory,
+	lock as lockStoryDirectory,
+	unlock as unlockStoryDirectory
 } from './story-directory';
 
-import { load as loadJson } from './json-file';
+import {load as loadJson} from './json-file';
 import loadLocale from './load-locale';
-import { load as loadStories } from './story-file';
+import {load as loadStories} from './story-file';
 import initMenuBar from './menu-bar';
 import './open-with-temp-file';
 

@@ -88,11 +88,7 @@ describe('story data module', () => {
 	test('throws an error if asked to DUPLICATE_STORY a nonexistent id', () => {
 		story.mutations.CREATE_STORY(state, bigStory);
 		expect(() => {
-			story.mutations.DUPLICATE_STORY(
-				state,
-				'nonexistent',
-				'Another Story'
-			);
+			story.mutations.DUPLICATE_STORY(state, 'nonexistent', 'Another Story');
 		}).toThrow();
 		expect(state.stories).toHaveLength(1);
 	});

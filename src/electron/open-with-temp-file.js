@@ -1,4 +1,4 @@
-import { app, ipcMain, shell } from 'electron';
+import {app, ipcMain, shell} from 'electron';
 import fs from 'fs-extra';
 import path from 'path';
 import uuid from 'tiny-uuid';

@@ -135,12 +135,7 @@ describe('passage actions module', () => {
 			}
 		};
 
-		actions.createNewlyLinkedPassages(
-			storyStore,
-			fakeId,
-			fakeId,
-			'[[Test 2]]'
-		);
+		actions.createNewlyLinkedPassages(storyStore, fakeId, fakeId, '[[Test 2]]');
 		expect(storyStore.dispatch).not.toHaveBeenCalled();
 	});
 
@@ -165,12 +160,7 @@ describe('passage actions module', () => {
 			}
 		};
 
-		actions.changeLinksInStory(
-			storyStore,
-			fakeId,
-			'Test 2',
-			'Test 2 Changed'
-		);
+		actions.changeLinksInStory(storyStore, fakeId, 'Test 2', 'Test 2 Changed');
 
 		expect(storyStore.dispatch).toHaveBeenCalledWith(
 			'UPDATE_PASSAGE_IN_STORY',

@@ -48,8 +48,7 @@ export default (data, filename, success, failure) => {
 
 			zip.file(filename, data);
 			window.location.href =
-				'data:application/zip;base64, ' +
-				zip.generate({type: 'base64'});
+				'data:application/zip;base64, ' + zip.generate({type: 'base64'});
 
 			if (success) {
 				success();

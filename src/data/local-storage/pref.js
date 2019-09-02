@@ -49,9 +49,7 @@ export function load(store) {
 
 	serialized.split(',').forEach(id => {
 		try {
-			const item = JSON.parse(
-				window.localStorage.getItem('twine-prefs-' + id)
-			);
+			const item = JSON.parse(window.localStorage.getItem('twine-prefs-' + id));
 
 			setPref(store, item.name, item.value);
 		} catch (e) {

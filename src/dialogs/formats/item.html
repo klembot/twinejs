@@ -1,11 +1,13 @@
 <tr class="format-item">
 	<td class="selector">
-		<input type="radio"
-			   :checked="isDefault"
-			   :disabled="format.broken"
-			   @click="setDefaultFormat"
-			   v-bind:title="selectorInputTitle"
-			   v-bind:id="nameVersion">
+		<input
+			type="radio"
+			:checked="isDefault"
+			:disabled="format.broken"
+			@click="setDefaultFormat"
+			v-bind:title="selectorInputTitle"
+			v-bind:id="nameVersion"
+		/>
 	</td>
 
 	<td>
@@ -18,16 +20,20 @@
 		</p>
 		<div class="detail" v-if="isDefault">
 			<div class="icon">
-				<img v-if="format.properties.image" :src="imageSrc">
+				<img v-if="format.properties.image" :src="imageSrc" />
 				<span v-else class="placeholder">{{ format.name.slice(0,2) }}</span>
 			</div>
 
 			<div class="description">
-				<p v-if="format.properties.description"
-				   v-html="format.properties.description"></p>
-				<p v-if="format.properties.license"
-				   v-html="format.properties.license"></p>
-			 </div>
+				<p
+					v-if="format.properties.description"
+					v-html="format.properties.description"
+				></p>
+				<p
+					v-if="format.properties.license"
+					v-html="format.properties.license"
+				></p>
+			</div>
 		</div>
 
 		<p v-if="format.userAdded && isDefault" class="cantRemove">
@@ -35,10 +41,12 @@
 		</p>
 	</td>
 	<td>
-		<button v-if="format.userAdded && !isDefault"
-				@click="removeFormat"
-				v-bind:title="removeButtonTitle"
-				class="link danger">
+		<button
+			v-if="format.userAdded && !isDefault"
+			@click="removeFormat"
+			v-bind:title="removeButtonTitle"
+			class="link danger"
+		>
 			<i class="fa fa-lg fa-trash-o"></i>
 		</button>
 	</td>

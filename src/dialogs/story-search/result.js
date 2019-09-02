@@ -48,10 +48,7 @@ export default Vue.extend({
 
 		replace() {
 			const name = this.searchNames
-				? this.match.passage.name.replace(
-						this.searchRegexp,
-						this.replaceWith
-				  )
+				? this.match.passage.name.replace(this.searchRegexp, this.replaceWith)
 				: undefined;
 			const text = this.match.passage.text.replace(
 				this.searchRegexp,

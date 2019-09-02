@@ -33,9 +33,7 @@ describe('story local storage persistence', () => {
 			story.saveStory(transaction, testStory);
 		});
 
-		const saved = window.localStorage.getItem(
-			`twine-stories-${testStory.id}`
-		);
+		const saved = window.localStorage.getItem(`twine-stories-${testStory.id}`);
 
 		expect(typeof saved).toBe('string');
 		const savedStory = JSON.parse(saved);
@@ -88,9 +86,7 @@ describe('story local storage persistence', () => {
 			story.savePassage(transaction, testPassage);
 		});
 
-		expect(window.localStorage.getItem('twine-passages')).toBe(
-			testPassage.id
-		);
+		expect(window.localStorage.getItem('twine-passages')).toBe(testPassage.id);
 
 		story.update(transaction => {
 			story.deletePassage(transaction, testPassage);
@@ -104,9 +100,7 @@ describe('story local storage persistence', () => {
 			story.savePassage(transaction, testPassage);
 		});
 
-		expect(window.localStorage.getItem('twine-passages')).toBe(
-			testPassage.id
-		);
+		expect(window.localStorage.getItem('twine-passages')).toBe(testPassage.id);
 
 		story.update(transaction => {
 			story.deletePassageById(transaction, testPassage.id);
@@ -143,14 +137,10 @@ describe('story local storage persistence', () => {
 				Object.keys(testPassage).forEach(key => {
 					if (key === 'tags') {
 						testPassage.tags.forEach(i => {
-							expect(firstArgs[1].tags[i]).toBe(
-								testPassage.tags[i]
-							);
+							expect(firstArgs[1].tags[i]).toBe(testPassage.tags[i]);
 						});
 					} else {
-						expect(firstArgs[1].passages[0][key]).toBe(
-							testPassage[key]
-						);
+						expect(firstArgs[1].passages[0][key]).toBe(testPassage[key]);
 					}
 				});
 			} else {

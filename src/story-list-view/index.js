@@ -45,9 +45,7 @@ export default Vue.extend({
 	}),
 	computed: {
 		sortDateButtonClass() {
-			return (
-				'subtle' + (this.storyOrder === 'lastUpdate' ? ' active' : '')
-			);
+			return 'subtle' + (this.storyOrder === 'lastUpdate' ? ' active' : '');
 		},
 		sortDateButtonTitle() {
 			return say('Last changed date');
@@ -98,9 +96,7 @@ export default Vue.extend({
 					});
 
 				default:
-					throw new Error(
-						`Don't know how to sort by '${this.storyOrder}'`
-					);
+					throw new Error(`Don't know how to sort by '${this.storyOrder}'`);
 			}
 		},
 
@@ -146,11 +142,7 @@ export default Vue.extend({
 			and then an app update...
 			*/
 
-			if (
-				!this.appearFast &&
-				!checkForDonation(this.$store) &&
-				isElectron()
-			) {
+			if (!this.appearFast && !checkForDonation(this.$store) && isElectron()) {
 				checkForAppUpdate(this.$store);
 			}
 
@@ -179,8 +171,7 @@ export default Vue.extend({
 			*/
 
 			if (this.storyOrder === 'lastUpdate') {
-				this.storyOrderDir =
-					this.storyOrderDir === 'asc' ? 'desc' : 'asc';
+				this.storyOrderDir = this.storyOrderDir === 'asc' ? 'desc' : 'asc';
 			} else {
 				this.storyOrderDir = 'desc';
 			}
@@ -195,8 +186,7 @@ export default Vue.extend({
 			*/
 
 			if (this.storyOrder === 'name') {
-				this.storyOrderDir =
-					this.storyOrderDir === 'asc' ? 'desc' : 'asc';
+				this.storyOrderDir = this.storyOrderDir === 'asc' ? 'desc' : 'asc';
 			} else {
 				this.storyOrderDir = 'asc';
 			}

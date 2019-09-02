@@ -6,7 +6,7 @@ isolated.
 
 import jsonp from 'jsonp';
 
-import { ipcRenderer, remote } from 'electron';
+import {ipcRenderer, remote} from 'electron';
 
 window.twineElectron = {
 	hydrate: remote.getGlobal('hydrate'),

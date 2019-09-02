@@ -308,16 +308,12 @@ export default Vue.extend({
 			*/
 
 			if (!left) {
-				left =
-					(window.pageXOffset + window.innerWidth / 2) /
-					this.story.zoom;
+				left = (window.pageXOffset + window.innerWidth / 2) / this.story.zoom;
 				left -= passageDefaults.width;
 			}
 
 			if (!top) {
-				top =
-					(window.pageYOffset + window.innerHeight / 2) /
-					this.story.zoom;
+				top = (window.pageYOffset + window.innerHeight / 2) / this.story.zoom;
 				top -= passageDefaults.height;
 			}
 
@@ -395,10 +391,7 @@ export default Vue.extend({
 			let target = e.target;
 
 			while (target) {
-				if (
-					target.nodeName === 'INPUT' ||
-					target.nodeName === 'TEXTAREA'
-				) {
+				if (target.nodeName === 'INPUT' || target.nodeName === 'TEXTAREA') {
 					return;
 				}
 
@@ -421,9 +414,7 @@ export default Vue.extend({
 				/* Delete key */
 
 				case 46: {
-					const toDelete = this.story.passages.filter(
-						p => p.selected
-					);
+					const toDelete = this.story.passages.filter(p => p.selected);
 
 					if (toDelete.length === 0) {
 						return;
@@ -438,14 +429,11 @@ export default Vue.extend({
 
 					eventHub.$once('close', confirmed => {
 						if (confirmed) {
-							toDelete.forEach(p =>
-								this.deletePassage(this.story.id, p.id)
-							);
+							toDelete.forEach(p => this.deletePassage(this.story.id, p.id));
 						}
 					});
 					const confirmArgs = {
-						buttonLabel:
-							'<i class="fa fa-trash-o"></i> ' + say('Delete'),
+						buttonLabel: '<i class="fa fa-trash-o"></i> ' + say('Delete'),
 						class: 'danger',
 						message: message
 					};
@@ -526,8 +514,7 @@ export default Vue.extend({
 				this.story.id,
 				passage.id,
 				this.gridSize,
-				options.ignoreSelected &&
-					(otherPassage => !otherPassage.selected)
+				options.ignoreSelected && (otherPassage => !otherPassage.selected)
 			);
 		});
 	},

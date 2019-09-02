@@ -3,15 +3,15 @@
 
 (function(window) {
 	try {
-		new CustomEvent("test");
+		new CustomEvent('test');
 	} catch (e) {
 		return false; // No need to polyfill
 	}
 
 	// Polyfills DOM4 CustomEvent
 	function MouseEvent(eventType, params) {
-		params = params || { bubbles: false, cancelable: false };
-		var mouseEvent = document.createEvent("MouseEvent");
+		params = params || {bubbles: false, cancelable: false};
+		var mouseEvent = document.createEvent('MouseEvent');
 
 		mouseEvent.initMouseEvent(
 			eventType,

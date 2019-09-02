@@ -43,9 +43,7 @@ export default Vue.extend({
 		},
 		svg() {
 			if (this.passages.length <= 1) {
-				return `<circle cx="100" cy="100" r="75" fill="${
-					this.passageFill
-				}"
+				return `<circle cx="100" cy="100" r="75" fill="${this.passageFill}"
 					stroke="${this.passageStroke}" stroke-width="1px" />`;
 			}
 
@@ -74,10 +72,7 @@ export default Vue.extend({
 			this.passages.forEach(p => {
 				const x = p.left + passageCenterOffset;
 				const y = p.top + passageCenterOffset;
-				const radius = passageRadius(
-					p.text.length,
-					this.longestPassageLength
-				);
+				const radius = passageRadius(p.text.length, this.longestPassageLength);
 
 				if (x - radius < minX) {
 					minX = x - radius;

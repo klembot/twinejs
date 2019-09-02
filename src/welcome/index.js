@@ -57,8 +57,7 @@ export default Vue.extend({
 			Vue.nextTick(() => {
 				scroll.top(
 					document.documentElement || document.body,
-					document.querySelector('#welcomeView > div:last-of-type')
-						.offsetTop,
+					document.querySelector('#welcomeView > div:last-of-type').offsetTop,
 					{duration: 400}
 				);
 			});

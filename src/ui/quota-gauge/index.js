@@ -49,10 +49,7 @@ export default Vue.extend({
 			let stop = false;
 
 			try {
-				window.localStorage.setItem(
-					'__quotatest' + storageIndex,
-					testString
-				);
+				window.localStorage.setItem('__quotatest' + storageIndex, testString);
 				this.free += CHUNK_SIZE;
 				storageIndex++;
 

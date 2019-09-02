@@ -18,13 +18,14 @@ export default store => {
 		if (latestVersions[format.name]) {
 			const existing = latestVersions[format.name][v.major];
 
-			if (!existing ||
+			if (
+				!existing ||
 				v.minor > existing.minor ||
-				v.minor === existing.minor && v.patch > existing.patch) {
+				(v.minor === existing.minor && v.patch > existing.patch)
+			) {
 				latestVersions[format.name][v.major] = v;
 			}
-		}
-		else {
+		} else {
 			latestVersions[format.name] = {};
 			latestVersions[format.name][v.major] = v;
 		}

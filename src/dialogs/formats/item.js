@@ -62,8 +62,7 @@ export default Vue.extend({
 		removeFormat() {
 			if (this.isDefault) {
 				eventHub.$emit('modalConfirm', {
-					buttonLabel:
-						'<i class="fa fa-lg fa-check"></i> ' + say('OK'),
+					buttonLabel: '<i class="fa fa-lg fa-check"></i> ' + say('OK'),
 					message: say(
 						'You may not remove the default story format. Please choose another one first.'
 					)
@@ -77,8 +76,7 @@ export default Vue.extend({
 				}
 			});
 			eventHub.$emit('modalConfirm', {
-				buttonLabel:
-					'<i class="fa fa-lg fa-trash-o"></i> ' + say('Remove'),
+				buttonLabel: '<i class="fa fa-lg fa-trash-o"></i> ' + say('Remove'),
 				message: say('Are you sure?'),
 				buttonClass: 'danger'
 			});

@@ -11,11 +11,7 @@ const StoryDirectory = {
 	*/
 
 	path() {
-		return path.join(
-			app.getPath('documents'),
-			say('Twine'),
-			say('Stories')
-		);
+		return path.join(app.getPath('documents'), say('Twine'), say('Stories'));
 	},
 
 	/*
@@ -133,19 +129,12 @@ const StoryDirectory = {
 
 				if (backups.length > maxBackups) {
 					console.log(
-						`There are ${
-							backups.length
-						} story library backups, pruning`
+						`There are ${backups.length} story library backups, pruning`
 					);
 
-					const toDelete = backups.slice(
-						0,
-						backups.length - maxBackups
-					);
+					const toDelete = backups.slice(0, backups.length - maxBackups);
 
-					return Promise.all(
-						toDelete.map(file => fs.remove(file.path))
-					);
+					return Promise.all(toDelete.map(file => fs.remove(file.path)));
 				}
 			});
 	}

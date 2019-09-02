@@ -42,9 +42,7 @@ export default store => {
 				updateStories(transaction => {
 					saveStory(
 						transaction,
-						state.story.stories.find(
-							s => s.name === mutation.payload[0].name
-						)
+						state.story.stories.find(s => s.name === mutation.payload[0].name)
 					);
 				});
 				break;
@@ -53,9 +51,7 @@ export default store => {
 				updateStories(transaction => {
 					saveStory(
 						transaction,
-						state.story.stories.find(
-							s => s.id === mutation.payload[0]
-						)
+						state.story.stories.find(s => s.id === mutation.payload[0])
 					);
 				});
 				break;
@@ -135,11 +131,7 @@ export default store => {
 			case 'UPDATE_PASSAGE_IN_STORY': {
 				/* Is this a significant update? */
 
-				if (
-					Object.keys(mutation.payload[2]).some(
-						key => key !== 'selected'
-					)
-				) {
+				if (Object.keys(mutation.payload[2]).some(key => key !== 'selected')) {
 					const parentStory = state.story.stories.find(
 						s => s.id === mutation.payload[0]
 					);
@@ -188,9 +180,7 @@ export default store => {
 				break;
 
 			default:
-				throw new Error(
-					`Don't know how to handle mutation ${mutation.type}`
-				);
+				throw new Error(`Don't know how to handle mutation ${mutation.type}`);
 		}
 
 		/*

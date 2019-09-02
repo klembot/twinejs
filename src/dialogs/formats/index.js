@@ -42,14 +42,10 @@ export default Vue.component('formats-modal-dialog', {
 
 	computed: {
 		proofingFormats() {
-			return this.loadedFormats.filter(
-				format => format.properties.proofing
-			);
+			return this.loadedFormats.filter(format => format.properties.proofing);
 		},
 		storyFormats() {
-			return this.loadedFormats.filter(
-				format => !format.properties.proofing
-			);
+			return this.loadedFormats.filter(format => !format.properties.proofing);
 		}
 	},
 	methods: {
@@ -133,9 +129,7 @@ export default Vue.component('formats-modal-dialog', {
 			const dialogTitle = this.$el.parentNode.querySelector(
 				'.modal-dialog > header .title'
 			);
-			const tabs = this.$el.parentNode.querySelectorAll(
-				'p.tabs-panel button'
-			);
+			const tabs = this.$el.parentNode.querySelectorAll('p.tabs-panel button');
 
 			for (let i = 0; i < tabs.length; i++) {
 				dialogTitle.appendChild(tabs[i]);

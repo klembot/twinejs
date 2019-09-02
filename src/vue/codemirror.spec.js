@@ -17,7 +17,7 @@ describe('<code-mirror>', () => {
 			(() => ({
 				setEnd: () => {},
 				setStart: () => {},
-				getBoundingClientRect: () => ({ right: 0 }),
+				getBoundingClientRect: () => ({right: 0}),
 				getClientRects: () => ({})
 			}));
 

@@ -33,10 +33,7 @@ export default Vue.extend({
 				return 90;
 			}
 			return (
-				([this.story.name].reduce(
-					(hue, char) => hue + char.charCodeAt(0),
-					0
-				) %
+				([this.story.name].reduce((hue, char) => hue + char.charCodeAt(0), 0) %
 					40) *
 				90
 			);

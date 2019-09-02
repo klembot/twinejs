@@ -32,4 +32,4 @@ export default function idFor(key) {
 	}
 
 	return uuid();
-};
+}

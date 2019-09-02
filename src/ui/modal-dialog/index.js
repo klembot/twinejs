@@ -115,10 +115,7 @@ export default Vue.extend({
 			let overlay = el.querySelector('#modal-overlay');
 			let dialog = el.querySelector('.modal-dialog');
 
-			overlay.classList.add(
-				'fade-in-out-transition',
-				'fade-in-out-enter'
-			);
+			overlay.classList.add('fade-in-out-transition', 'fade-in-out-enter');
 			dialog.classList.add('grow-in-out-enter');
 
 			dialog.addEventListener('animationend', function() {

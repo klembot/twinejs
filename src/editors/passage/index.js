@@ -194,9 +194,7 @@ export default Vue.component('passage-editor', {
 						 permitting its lexer to grow a syntax tree by itself.
 						*/
 
-						CodeMirror.modes[
-							modeName
-						].cm = this.$refs.codemirror.$cm;
+						CodeMirror.modes[modeName].cm = this.$refs.codemirror.$cm;
 
 						/*
 						Now that's done, we can assign the mode and trigger a

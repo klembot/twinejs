@@ -7,7 +7,7 @@ startup; see `../index.js`.
 import fs from 'fs-extra';
 
 import path from 'path';
-import { loadJson, loadDefault } from '../locale';
+import {loadJson, loadDefault} from '../locale';
 
 export default function(prefs) {
 	return new Promise(resolve => {
@@ -37,9 +37,7 @@ export default function(prefs) {
 				})
 				.catch(e => {
 					console.warn(
-						`Could not load locale data at ${localePath} (${
-							e.message
-						}), using default locale`
+						`Could not load locale data at ${localePath} (${e.message}), using default locale`
 					);
 					loadDefault();
 					resolve();
@@ -50,4 +48,4 @@ export default function(prefs) {
 			resolve();
 		}
 	});
-};
+}
