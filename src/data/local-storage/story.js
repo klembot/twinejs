@@ -86,7 +86,7 @@ export function deletePassage(transaction, passage) {
 		throw new Error('Passage has no id');
 	}
 
-	story.deletePassageById(transaction, passage.id);
+	deletePassageById(transaction, passage.id);
 }
 
 /* Deletes a passage from local storage. */

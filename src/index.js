@@ -51,7 +51,7 @@ if (typeof userLocale === 'string') {
 	Something has gone pretty wrong; fall back to English as a last resort.
 	*/
 
-	locale.load('en').then(() => {
+	loadViaAjax('en').then(() => {
 		new TwineApp({el: '#main'});
 
 		Vue.nextTick(() => {

@@ -103,7 +103,7 @@ export function positionPassage(store, storyId, passageId, gridSize, filter) {
 	/* Save the change if we actually changed anything. */
 
 	if (passageRect.top !== oldTop || passageRect.left !== oldLeft) {
-		actions.updatePassage(store, storyId, passageId, {
+		updatePassage(store, storyId, passageId, {
 			top: passageRect.top,
 			left: passageRect.left
 		});
@@ -155,7 +155,7 @@ export function createNewlyLinkedPassages(
 		const newPassage = story.passages.find(p => p.name === link);
 
 		if (newPassage) {
-			actions.positionPassage(store, storyId, newPassage.id, gridSize);
+			positionPassage(store, storyId, newPassage.id, gridSize);
 		} else {
 			console.warn(
 				'Could not locate newly-created passage in order to position it'

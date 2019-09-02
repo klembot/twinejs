@@ -105,12 +105,12 @@ export default function(store) {
 						s => s.id === mutation.payload[0]
 					);
 
-					function cleanupListener(s) {
+					const cleanupListener = s => {
 						if (s === oldStory) {
 							ipcRenderer.send('save-story', newStory);
 							ipcRenderer.removeListener('story-renamed', cleanupListener);
 						}
-					}
+					};
 
 					ipcRenderer.on('story-renamed', cleanupListener);
 					ipcRenderer.send('rename-story', oldStory, newStory);
@@ -123,7 +123,7 @@ export default function(store) {
 				}
 				break;
 
-			case 'DELETE_STORY':
+			case 'DELETE_STORY': {
 				/*
 				We have to use our last copy of the stories array, because
 				by now the deleted story is gone from the state.
@@ -137,6 +137,7 @@ export default function(store) {
 					ipcRenderer.send('delete-story', toDelete);
 				}
 				break;
+			}
 
 			case 'CREATE_PASSAGE_IN_STORY':
 			case 'DELETE_PASSAGE_IN_STORY':
@@ -166,7 +167,7 @@ export default function(store) {
 
 			case 'CREATE_FORMAT':
 			case 'UPDATE_FORMAT':
-			case 'DELETE_FORMAT':
+			case 'DELETE_FORMAT': {
 				/*
 				state.storyFormats.formats is likely to contain the actual story
 				format data, and possibly other extraneous stuff. We don't want
@@ -187,6 +188,7 @@ export default function(store) {
 
 				saveJson('story-formats.json', toSave);
 				break;
+			}
 
 			case 'LOAD_FORMAT':
 				/* This change doesn't need to be persisted. */

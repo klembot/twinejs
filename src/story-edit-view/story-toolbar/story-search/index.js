@@ -10,6 +10,7 @@ import SearchDialog from '../../../dialogs/story-search';
 import template from './index.html';
 
 export default Vue.extend({
+	template,
 	props: {
 		story: {type: Object, required: true}
 	},

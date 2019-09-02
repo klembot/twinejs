@@ -86,7 +86,7 @@ export function repairStories(store) {
 		*/
 
 		if (!story.storyFormat) {
-			actions.updateStory(store, story.id, {
+			updateStory(store, story.id, {
 				storyFormat: store.state.pref.defaultFormat.name
 			});
 		}
@@ -97,12 +97,12 @@ export function repairStories(store) {
 		*/
 
 		if (/^SugarCube 1/.test(story.storyFormat)) {
-			actions.updateStory(store, story.id, {
+			updateStory(store, story.id, {
 				storyFormat: 'SugarCube',
 				storyFormatVersion: latestVersions['SugarCube']['1'].version
 			});
 		} else if (/^SugarCube 2/.test(story.storyFormat)) {
-			actions.updateStory(store, story.id, {
+			updateStory(store, story.id, {
 				storyFormat: 'SugarCube',
 				storyFormatVersion: latestVersions['SugarCube']['2'].version
 			});
@@ -123,7 +123,7 @@ export function repairStories(store) {
 				story.storyFormatVersion !==
 					latestVersions[story.storyFormat][majorVersion].version
 			) {
-				actions.updateStory(store, story.id, {
+				updateStory(store, story.id, {
 					storyFormatVersion:
 						latestVersions[story.storyFormat][majorVersion].version
 				});
@@ -140,7 +140,7 @@ export function repairStories(store) {
 				latestVersions[story.storyFormat]
 			).reduce((prev, current) => (current < prev ? current : prev));
 
-			actions.updateStory(store, story.id, {
+			updateStory(store, story.id, {
 				/* eslint-disable max-len */
 				storyFormatVersion:
 					latestVersions[story.storyFormat][majorVersion].version

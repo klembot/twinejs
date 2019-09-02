@@ -48,11 +48,9 @@ export default function check(store) {
 					buttonClass: 'download primary',
 					modalClass: 'info',
 					cancelLabel: say('Not Right Now'),
-					message: locale
-						.say(
-							'A new version of Twine, <span class="version"></span>, has been released.'
-						)
-						.replace('><', '>' + version + '<')
+					message: say(
+						'A new version of Twine, <span class="version"></span>, has been released.'
+					).replace('><', '>' + version + '<')
 				};
 
 				eventHub.$emit('modalConfirm', confirmArgs);

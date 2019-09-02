@@ -54,7 +54,7 @@ export function check(store) {
 		now > store.state.pref.firstRunTime + DONATION_DELAY
 	) {
 		setPref(store, 'donateShown', true);
-		eventHub.$emit('customModal', appDonation);
+		eventHub.$emit('customModal', component);
 		return true;
 	}
 	return false;

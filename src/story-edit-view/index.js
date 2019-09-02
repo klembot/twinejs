@@ -21,12 +21,19 @@ import {passageDefaults} from '../data/store/story';
 import storyToolbar from './story-toolbar';
 import zoomSettings from './zoom-settings';
 
-// Dialogs need to be included somewhere for vue to register it globally
-import {confirm} from '../dialogs/confirm';
+/*
+Dialogs need to be included somewhere for Vue to register it globally.
+*/
 
+// eslint-disable-next-line no-unused-vars
+import {confirm} from '../dialogs/confirm';
+// eslint-disable-next-line no-unused-vars
 import {prompt} from '../dialogs/prompt';
 
-// Modal editor for individual passages
+/*
+Modal editor for individual passages.
+*/
+
 import '../editors/passage';
 import template from './index.html';
 import './index.less';

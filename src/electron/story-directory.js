@@ -90,6 +90,7 @@ const StoryDirectory = {
 	*/
 
 	backup(maxBackups = 10) {
+		// eslint-disable-next-line no-console
 		console.log('Backing up story library');
 
 		const backupPath = path.join(
@@ -128,6 +129,7 @@ const StoryDirectory = {
 				});
 
 				if (backups.length > maxBackups) {
+					// eslint-disable-next-line no-console
 					console.log(
 						`There are ${backups.length} story library backups, pruning`
 					);
@@ -139,4 +141,5 @@ const StoryDirectory = {
 			});
 	}
 };
+
 export default StoryDirectory;

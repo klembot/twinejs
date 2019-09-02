@@ -57,16 +57,13 @@ export default store => {
 				break;
 
 			case 'DUPLICATE_STORY':
-				updateStores(transaction => {
+				updateStories(transaction => {
 					const dupe = state.story.stories.find(
 						s => s.name === mutation.payload[1]
 					);
 
 					saveStory(transaction, dupe);
-
-					dupe.passages.forEach(passage =>
-						story.savePassage(transaction, passage)
-					);
+					dupe.passages.forEach(passage => savePassage(transaction, passage));
 				});
 				break;
 
@@ -77,9 +74,8 @@ export default store => {
 					);
 
 					saveStory(transaction, imported);
-
 					imported.passages.forEach(passage =>
-						story.savePassage(transaction, passage)
+						savePassage(transaction, passage)
 					);
 				});
 				break;
@@ -102,7 +98,6 @@ export default store => {
 					toDelete.passages.forEach(passage =>
 						deletePassage(transaction, passage)
 					);
-
 					deleteStory(transaction, toDelete);
 				});
 				break;

@@ -5,8 +5,8 @@ import domEvents from '../../vue/mixins/dom-events';
 import {intersects} from '../../common/rect';
 import {selectPassages} from '../../data/actions/passage';
 import template from './index.html';
-import('../../ui/ie-mouse-event-polyfill');
-import('./index.less');
+import '../../ui/ie-mouse-event-polyfill';
+import './index.less';
 
 export default Vue.extend({
 	template,
