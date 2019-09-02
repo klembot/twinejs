@@ -5,10 +5,12 @@
 		"commonjs": true,
 		"node": true
 	},
-	"extends": "eslint:recommended",
+	"extends": ["eslint:recommended", "plugin:jest/recommended"],
 	"parserOptions": {
+		"ecmaVersion": 8,
 		"sourceType": "module"
 	},
+	"plugins": ["jest"],
 	"rules": {
 		"newline-after-var": [2, "always"],
 		"no-console": [2, {"allow": ["warn"]}],

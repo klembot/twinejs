@@ -1,0 +1,26 @@
+@import '../../styles/metrics.less';
+@import '../../styles/colors.less';
+@import '../../styles/depth.less';
+
+.static-meter {
+	height: @len-small;
+	width: 100%;
+	border: @len-hairline solid transparent;
+	border-radius: @len-tiny;
+	background-color: hsla(0, 0%, 0%, 0.1);
+
+	.filled {
+		display: block;
+		height: 100%;
+		background-color: @color-link;
+		border-radius: @len-tiny;
+	}
+
+	.theme-dark & {
+		background-color: hsla(0, 100%, 100%, 0.1);
+
+		.filled {
+			background-color: @color-link-dark;
+		}
+	}
+}

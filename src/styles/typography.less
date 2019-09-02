@@ -1,0 +1,107 @@
+/* base UI font */
+@font-ui: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+/* font for user-entered information */
+@font-user: 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+
+/* display font, for titles */
+@font-display: 'Nunito Light', sans-serif;
+
+@font-face {
+	font-family: 'Source Sans Pro';
+	src: url('../fonts/sourcesanspro-regular.woff2') format('woff2'),
+		url('../fonts/sourcesanspro-regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Source Sans Pro';
+	src: url('../fonts/sourcesanspro-it.woff2') format('woff2'),
+		url('../fonts/sourcesanspro-it.woff') format('woff');
+	font-weight: normal;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'Source Sans Pro';
+	src: url('../fonts/sourcesanspro-bold.woff2') format('woff2'),
+		url('../fonts/sourcesanspro-bold.woff') format('woff');
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Source Sans Pro';
+	src: url('../fonts/sourcesanspro-boldit.woff2') format('woff2'),
+		url('../fonts/sourcesanspro-boldit.woff') format('woff');
+	font-weight: bold;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'Source Code Pro';
+	src: url('../fonts/sourcecodepro-regular.woff2') format('woff2'),
+		url('../fonts/sourcecodepro-regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Nunito Light';
+	src: url('../fonts/nunito-light.woff2') format('woff2'),
+		url('../fonts/nunito-light.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+h1,
+h2,
+h3,
+h4 {
+	color: black;
+	font-family: 'Nunito Light', sans-serif;
+	font-weight: normal;
+
+	.theme-dark & {
+		color: hsl(0, 0%, 80%);
+	}
+}
+
+h1 {
+	font-size: 200%;
+}
+
+h2 {
+	font-size: 125%;
+}
+
+h3 {
+	font-size: 125%;
+}
+
+h4 {
+	font-size: 125%;
+}
+
+body {
+	font: 90% 'Source Sans Pro', sans-serif;
+}
+
+p,
+li {
+	line-height: 130%;
+}
+
+pre {
+	font: 90% 'Source Code Pro', monospace;
+	white-space: pre-wrap;
+}
+
+.larger {
+	font-size: 120%;
+}
+
+.smaller {
+	font-size: 90%;
+}

@@ -1,0 +1,1 @@
+The JSON files are used by utils/i18n.js. They are in i18next format.
