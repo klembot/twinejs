@@ -208,8 +208,8 @@ const actions = (module.exports = {
 			},
 			{
 				name: 'Snowman',
-				url: 'story-formats/snowman-2.0.0/format.js',
-				version: '2.0.0',
+				url: 'story-formats/snowman-2.0.2/format.js',
+				version: '2.0.2',
 				userAdded: false
 			},
 			{

@@ -76,9 +76,9 @@ describe('story format actions module', () => {
 		expect(created['Snowman-1.4.0']).to.exist;
 		expect(created['Snowman-1.4.0'].url).to.equal('story-formats/snowman-1.4.0/format.js');
 		expect(created['Snowman-1.4.0'].userAdded).to.be.false;
-		expect(created['Snowman-2.0.0']).to.exist;
-		expect(created['Snowman-2.0.0'].url).to.equal('story-formats/snowman-2.0.0/format.js');
-		expect(created['Snowman-2.0.0'].userAdded).to.be.false;
+		expect(created['Snowman-2.0.2']).to.exist;
+		expect(created['Snowman-2.0.2'].url).to.equal('story-formats/snowman-2.0.2/format.js');
+		expect(created['Snowman-2.0.2'].userAdded).to.be.false;
 		expect(created['SugarCube-1.0.35']).to.exist;
 		expect(created['SugarCube-1.0.35'].url).to.equal('story-formats/sugarcube-1.0.35/format.js');
 		expect(created['SugarCube-1.0.35'].userAdded).to.be.false;
@@ -136,7 +136,7 @@ describe('story format actions module', () => {
 						{ name: 'Harlowe', version: '3.0.2' },
 						{ name: 'Paperthin', version: '1.0.0' },
 						{ name: 'Snowman', version: '1.4.0' },
-						{ name: 'Snowman', version: '2.0.0' },
+						{ name: 'Snowman', version: '2.0.2' },
 						{ name: 'SugarCube', version: '1.0.35' },
 						{ name: 'SugarCube', version: '2.28.2' }
 					]
