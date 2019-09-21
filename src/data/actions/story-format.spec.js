@@ -4,7 +4,7 @@ const actions = require('./story-format');
 
 describe('story format actions module', () => {
 	const fakeId = 'not-a-real-id';
-	const props = { fake: true };	
+	const props = { fake: true };
 	let store;
 
 	beforeEach(() => {
@@ -73,9 +73,12 @@ describe('story format actions module', () => {
 		expect(created['Paperthin-1.0.0']).to.exist;
 		expect(created['Paperthin-1.0.0'].url).to.equal('story-formats/paperthin-1.0.0/format.js');
 		expect(created['Paperthin-1.0.0'].userAdded).to.be.false;
-		expect(created['Snowman-1.3.0']).to.exist;
-		expect(created['Snowman-1.3.0'].url).to.equal('story-formats/snowman-1.3.0/format.js');
-		expect(created['Snowman-1.3.0'].userAdded).to.be.false;
+		expect(created['Snowman-1.4.0']).to.exist;
+		expect(created['Snowman-1.4.0'].url).to.equal('story-formats/snowman-1.4.0/format.js');
+		expect(created['Snowman-1.4.0'].userAdded).to.be.false;
+		expect(created['Snowman-2.0.2']).to.exist;
+		expect(created['Snowman-2.0.2'].url).to.equal('story-formats/snowman-2.0.2/format.js');
+		expect(created['Snowman-2.0.2'].userAdded).to.be.false;
 		expect(created['SugarCube-1.0.35']).to.exist;
 		expect(created['SugarCube-1.0.35'].url).to.equal('story-formats/sugarcube-1.0.35/format.js');
 		expect(created['SugarCube-1.0.35'].userAdded).to.be.false;
@@ -132,7 +135,8 @@ describe('story format actions module', () => {
 						{ name: 'Harlowe', version: '2.0.1' },
 						{ name: 'Harlowe', version: '3.0.2' },
 						{ name: 'Paperthin', version: '1.0.0' },
-						{ name: 'Snowman', version: '1.3.0' },
+						{ name: 'Snowman', version: '1.4.0' },
+						{ name: 'Snowman', version: '2.0.2' },
 						{ name: 'SugarCube', version: '1.0.35' },
 						{ name: 'SugarCube', version: '2.29.0' }
 					]
