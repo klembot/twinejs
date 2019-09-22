@@ -61,6 +61,9 @@ describe('story format actions module', () => {
 			}
 		}
 
+		expect(created['Chapbook-1.0.0']).to.exist;
+		expect(created['Chapbook-1.0.0'].url).to.equal('story-formats/chapbook-1.0.0/format.js');
+		expect(created['Chapbook-1.0.0'].userAdded).to.be.false;
 		expect(created['Harlowe-3.0.2']).to.exist;
 		expect(created['Harlowe-3.0.2'].url).to.equal('story-formats/harlowe-3.0.2/format.js');
 		expect(created['Harlowe-3.0.2'].userAdded).to.be.false;

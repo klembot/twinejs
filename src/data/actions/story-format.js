@@ -177,6 +177,12 @@ const actions = (module.exports = {
 
 		const builtinFormats = [
 			{
+				name: 'Chapbook',
+				url: 'story-formats/chapbook-1.0.0/format.js',
+				version: '1.0.0',
+				userAdded: false
+			},
+			{
 				name: 'Harlowe',
 				url: 'story-formats/harlowe-1.2.4/format.js',
 				version: '1.2.4',
