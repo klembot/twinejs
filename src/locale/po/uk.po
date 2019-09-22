@@ -1,0 +1,798 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.3\n"
+"Last-Translator: Андрій Д. <other100names@outlook.com>\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"Language: uk\n"
+
+#: src/dialogs/about/index.html
+msgid "About Twine"
+msgstr "Про Twine"
+
+#: src/dialogs/about/index.html
+msgid ""
+"Twine is an open-source tool for telling interactive, nonlinear stories."
+msgstr ""
+"Twine — це відкрите знаряддя для створення інтерактивних нелінійних "
+"розповідей."
+
+#: src/dialogs/about/index.html
+msgid ""
+"This application is released under the \\x3ca href=\"http:\\/\\/www.gnu.org/"
+"licenses/gpl-3.0.html\">GPL v3\\x3c/a> license, but any work created with it "
+"may be released under any terms, including commercial ones."
+msgstr ""
+"Цей застосунок випущений за ліцензією \\x3ca href=“http:\\/\\/www.gnu.org/"
+"licenses/gpl-3.0.html”>GPL v3\\x3c/a>, та роботи, створені в ньому, можуть "
+"бути опубліковані під будь-якою ліцензією, включаючи комерційні."
+
+#: src/dialogs/about/index.html
+msgid "Help Twine Grow With A Donation"
+msgstr "Ваш внесок допоможе Twine’ові розвиватися"
+
+#: src/dialogs/about/index.html
+msgid "Source Code Repository"
+msgstr "Репозиторій джерельного коду"
+
+#: src/dialogs/about/index.html
+msgid "Translations"
+msgstr "Переклади"
+
+#: src/dialogs/about/index.html
+msgid "Libraries"
+msgstr "Бібліотеки"
+
+#: src/dialogs/about/index.html
+msgid "Fonts"
+msgstr "Шрифти"
+
+#: src/dialogs/about/index.html
+msgid ""
+"Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the "
+"guidance of Robert Slimbach for \\x3ca href=\"http:\\/\\/adobe.com/\">Adobe"
+"\\x3c/a>\\x3cbr> Nunito was designed by \\x3ca href=\"http:\\/\\/code."
+"newtypography.co.uk/\">Vernon Adams\\x3c/a>"
+msgstr ""
+"Source Sans Pro та Source Code Pro розроблені Полом Д. Гантом під "
+"керівництвом Роберта Слімбека для \\x3ca href=“http:\\/\\/adobe."
+"com/“>«Adobe»\\x3c/a>\\x3cbr> Nunito розробив \\x3ca href=“http:\\/\\/code."
+"newtypography.co.uk/“>Вернон Адамс\\x3c/a>"
+
+#: src/dialogs/about/index.html
+msgid "Icons"
+msgstr "Значки"
+
+#: src/dialogs/about/index.html
+msgid "Document designed by Rob Gill from the Noun Project"
+msgstr "Документ створив Роб Ґілл із «Noun Project»"
+
+#: src/dialogs/about/index.html
+msgid "Question designed by Henry Ryder from the Noun Project"
+msgstr "Питання створив Генрі Райдер з «Noun Project»"
+
+#: src/dialogs/about/index.html
+msgid "Smile designed by jelio dimitrov from the Noun Project"
+msgstr "Усмішку створив Джеліо Дімітров з «Noun Project»"
+
+#: src/dialogs/app-donation/index.html
+msgid ""
+"If you love Twine as much as I do, please consider helping it grow with a "
+"donation. Twine is an open source project that will always be free to use "
+"&mdash; and with your help, Twine will continue to thrive."
+msgstr ""
+"Якщо Вам подобається Twine так само, як і мені, будь ласка, обдумайте "
+"можливість пожертви на подальший розвій програми. Twine — це відкритий "
+"проєкт і він завжди буде безкоштовним для використання. З Вашою допомогою, "
+"Twine продовжить розвиватися."
+
+#: src/dialogs/app-donation/index.html
+msgid "Chris Klimas, Twine creator"
+msgstr "Кріс Клімес, творець Twine’а"
+
+#: src/dialogs/app-donation/index.html
+msgid "No Thanks"
+msgstr "Ні, дякую"
+
+#: src/dialogs/app-donation/index.html
+msgid "Donate"
+msgstr "Зробити внесок"
+
+#: src/dialogs/app-donation/index.html
+msgid ""
+"This message will only be shown to you once.&lt;br&gt;If you'd like to "
+"donate to Twine development in the future, you can do so at &lt;a href=\\"
+"\"http:\\/\\/twinery.org/donate\\\" target=\\\"_blank\\\"&gt;http://twinery."
+"org/donate&lt;/a&gt;."
+msgstr ""
+"Це повідомлення буде показане лише раз.&lt;br&gt;Якщо у майбутньому Ви "
+"захочете пожертвувати на розробку Twine’у, це можна зробити на &lt;a href="
+"\\”http:\\/\\/twinery.org/donate\\” target=\\”_blank\\”&gt;http://twinery."
+"org/donate&lt;/a&gt;."
+
+#: src/dialogs/formats/index.html
+msgid ""
+"Story formats control the appearance and behavior of stories during play."
+msgstr ""
+"Формати розповідей визначають їхній вигляд і поведінку під час відтворення."
+
+#: src/dialogs/formats/index.html
+msgid "Use as Default"
+msgstr "Використовувати за замовчуванням"
+
+#: src/dialogs/formats/index.html
+msgid ""
+"Proofing formats create a versions of stories tailored for editing and "
+"proofreading."
+msgstr ""
+"Коректурні формати створюють версії розповідей спеціяльно для редаґування та "
+"корекцій."
+
+#: src/dialogs/formats/index.html
+msgid "Use"
+msgstr "Використати"
+
+#: src/dialogs/formats/index.html src/story-list-view/list-toolbar/index.js:24
+msgid "Add"
+msgstr "Додати"
+
+#: src/dialogs/formats/index.html src/dialogs/story-format/index.html
+msgid "Loading..."
+msgstr "Завантаження…"
+
+#: src/dialogs/story-format/index.html
+msgid "Story Format"
+msgstr "Формат розповіді"
+
+#: src/dialogs/story-format/index.html
+msgid ""
+"A story format controls the appearance and behavior of your story during "
+"play."
+msgstr "Формат розповіді визначає її вигляд і поведінку під час відтворення."
+
+#: src/dialogs/story-import/index.html
+#: src/story-list-view/list-toolbar/index.html
+msgid "Import From File"
+msgstr "Імпортувати з файлу"
+
+#: src/dialogs/story-import/index.html
+msgid "Import this file:"
+msgstr "Імпортувати цей файл:"
+
+#: src/dialogs/story-import/index.html src/dialogs/confirm/index.js:31
+#: src/dialogs/prompt/index.js:15
+msgid "Cancel"
+msgstr "Скасувати"
+
+#: src/dialogs/story-import/index.html
+msgid "Working..."
+msgstr "Працюємо…"
+
+#: src/dialogs/story-import/index.html
+msgid ""
+"Some stories you are importing already exist in your library. Please choose "
+"which to replace. Any other stories in your file will be imported as well."
+msgstr ""
+"Деякі з розповідей, що Ви їх імпортуєте, вже існують у вашій бібліотеці. "
+"Будь ласка, оберіть ті, які хочете замінити. Інші історії у Вашім файлі "
+"також будуть імпортовані."
+
+#: src/dialogs/story-import/index.html
+msgid "Don't Import Any Stories"
+msgstr "Не імпортувати жодних розповідей"
+
+#: src/dialogs/story-search/index.html
+msgid "Find and Replace"
+msgstr "Знайти й Замінити"
+
+#: src/dialogs/story-search/index.html
+msgid "Search For"
+msgstr "Шукати"
+
+#: src/dialogs/story-search/index.html
+msgid "Include passage names"
+msgstr "Включаючи назви уривків"
+
+#: src/dialogs/story-search/index.html
+msgid "Match case"
+msgstr "Зважати на регістр літер"
+
+#: src/dialogs/story-search/index.html
+msgid "Regular expression"
+msgstr "Реґулярний вислів"
+
+#: src/dialogs/story-search/index.html
+msgid "Replace With"
+msgstr "Замінити"
+
+#: src/dialogs/story-search/index.html
+msgid "Replace All"
+msgstr "Замінити все"
+
+#: src/dialogs/story-search/index.html
+msgid "%d passage matches."
+msgid_plural "%d passages match."
+msgstr[0] "%d уривок збігається."
+msgstr[1] "%d уривки збігаються."
+msgstr[2] "%d уривків збігаються."
+
+#: src/dialogs/story-search/index.html
+msgid "Searching..."
+msgstr "Пошук…"
+
+#: src/dialogs/story-search/result.html
+msgid "%d match"
+msgid_plural "%d matches"
+msgstr[0] "%d збіг"
+msgstr[1] "%d збіги"
+msgstr[2] "%d збігів"
+
+#: src/dialogs/story-search/result.html
+msgid "Replace in Passage"
+msgstr "Замінити в Уривкові"
+
+#: src/dialogs/story-stats/index.html
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+msgid "Story Statistics"
+msgstr "Статистика розповіді"
+
+#: src/editors/javascript/index.html
+msgid "JavaScript"
+msgstr "JavaScript"
+
+#: src/editors/javascript/index.html
+msgid ""
+"Any JavaScript entered here will immediately run when your story is opened "
+"in a Web browser."
+msgstr ""
+"Будь-який введений сюди JavaScript негайно розпочне діяти, як тільки Ваша "
+"розповідь буде відкрита у вебоглядачеві."
+
+#: src/editors/passage/index.html
+msgid "A passage already exists with this name."
+msgstr "Уривок з такою назвою вже існує."
+
+#: src/editors/passage/tag-editor.html
+msgid "Tag"
+msgstr "Мітка"
+
+#: src/editors/stylesheet/index.html
+msgid "Stylesheet"
+msgstr "Таблиця стилю"
+
+#: src/editors/stylesheet/index.html
+msgid ""
+"Any CSS entered here will override the default appearance of your story."
+msgstr ""
+"Будь-які введені сюди CSS змінять вигляд-за-замовчуванням Вашої розповіді."
+
+#: src/locale/view/index.html
+msgid "Please choose which language you would like to use with Twine."
+msgstr "Будь ласка, оберіть мову, якою бажаєте користуватись у Twine’і."
+
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
+msgid "Hi!"
+msgstr "Привіт!"
+
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
+msgid ""
+"Twine is an open-source tool for telling interactive, nonlinear stories. "
+"There are a few things you should know before you get started."
+msgstr ""
+"Twine — це відкрите знаряддя для створення інтерактивних нелінійних "
+"розповідей. Є декілька речей, які Вам необхідно дізнатися перед початком "
+"роботи."
+
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
+msgid "Tell Me More"
+msgstr "Розкажіть мені більше"
+
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
+msgid "Skip"
+msgstr "Пропустити"
+
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
+msgid "New here?"
+msgstr "Потрібна допомога?"
+
+#: src/nw/patches/welcome-view/replacement-template.html
+msgid ""
+"&lt;strong&gt;If you've never used Twine before,&lt;/strong&gt; then "
+"welcome! The &lt;a href=\\\"http://twinery.org/2guide\\\" target=\\\"_blank\\"
+"\"&gt;Twine 2 Guide&lt;/a&gt; and the official wiki in general, are a great "
+"place to learn. Keep in mind that some articles on the wiki at large were "
+"written for Twine 1, which is a little bit different than this version. But "
+"most of the concepts are the same."
+msgstr ""
+"&lt;strong&gt;Якщо Ви ніколи досі не користувалися Twine’ом,&lt;/strong&gt; "
+"вітаємо! &lt;a href=\\”http://twinery.org/2guide\\” target=\\”_blank\\”&gt; "
+"Посібник Twine 2&lt;/a&gt; (англійською) та офіційна вікі загалом — чудове "
+"місце, аби почати студії. Майте на увазі, що деякі статті на вікі були "
+"написані для Twine 1, який дещо відрізняється від чинної версії, та "
+"підґрунтя лишається тим самим."
+
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
+msgid ""
+"&lt;strong&gt;If you have used Twine 1 before,&lt;/strong&gt; the guide also "
+"has details on what has changed in this version. Chief among them is a new "
+"default story format, Harlowe. But if you find you prefer the Twine 1 "
+"scripting syntax, try using SugarCube instead."
+msgstr ""
+"&lt;strong&gt;Якщо Ви вже користувалися Twine 1,&lt;/strong&gt; посібник "
+"також включає деталі щодо змін у чинній версії. Основна з них — новий формат "
+"розповіді за замовчуванням, Harlowe. Тим не менше, якщо Вам більше "
+"подобається скриптова синтакса Twine 1, спробуйте SugarCube."
+
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
+msgid "OK"
+msgstr "OK"
+
+#: src/nw/patches/welcome-view/replacement-template.html
+msgid "Your work is automatically saved."
+msgstr "Вашу роботу автоматично збережено."
+
+#: src/nw/patches/welcome-view/replacement-template.html
+msgid ""
+"There's now a folder named Twine in your Documents folder. Inside that is a "
+"Stories folder, where all your work will be saved. Twine saves as you work, "
+"so you don't have to worry about remembering to save it yourself. You can "
+"always open the folder your stories are saved to by using the &lt;b&gt;Show "
+"Library&lt;/b&gt; item in the &lt;b&gt;Twine&lt;/b&gt; menu."
+msgstr ""
+"Віднині між тек у Ваших Документах можна знайти й одну з назвою Twine. "
+"Всередині неї — Розповіді; там знаходитимуться всі Ваші праці. Twine "
+"зберігає роботу в процесі, тож не варто турбуватися про збереження вручну. "
+"Ви завжди можете відкрити теку з розповідями, використавши опцію &lt;b&gt;"
+"Показати Бібліотеку&lt;/b&gt; в меню &lt;b&gt;Twine&lt;/b&gt;."
+
+#: src/nw/patches/welcome-view/replacement-template.html
+msgid ""
+"Because Twine is always saving your work, the files in your story library "
+"will be locked from editing while Twine is open."
+msgstr ""
+"Через те, що Twine постійно зберігає Вашу роботу, файли в бібліотеці "
+"розповідей будуть захищені від редаґування, поки програма відкрита."
+
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
+msgid "That's it!"
+msgstr "Ось і все!"
+
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
+msgid "Thanks for reading, and have fun with Twine."
+msgstr "Дякуємо за увагу і насолоджуйтесь Twine’ом."
+
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
+msgid "Go to the Story List"
+msgstr "Перейти до Списку розповідей"
+
+#: src/story-edit-view/story-toolbar/index.html
+msgid "Test"
+msgstr "Тестувати"
+
+#: src/story-edit-view/story-toolbar/index.html
+msgid "Play"
+msgstr "Відтворити"
+
+#. L10n: Word in the sense of individual words in a sentence. This does not actually include the count, as it is used in a table.
+#: src/story-edit-view/story-toolbar/index.html
+#: src/dialogs/story-stats/index.js:86
+msgid "Passage"
+msgstr "Уривок"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+msgid "Edit Story JavaScript"
+msgstr "Редаґувати JavaScript розповіді"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+msgid "Edit Story Stylesheet"
+msgstr "Редаґувати стильову таблицю розповіді"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+msgid "Change Story Format"
+msgstr "Змінити формат розповіді"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+#: src/story-list-view/story-item/item-menu/index.html
+msgid "Rename Story"
+msgstr "Перейменувати розповідь"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+msgid "Snap to Grid"
+msgstr "Прикріпляти до ґраток"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+msgid "View Proofing Copy"
+msgstr "Дивитися Коректурну копію"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+#: src/story-list-view/story-item/item-menu/index.html
+msgid "Publish to File"
+msgstr "Опублікувати як файл"
+
+#: src/story-list-view/index.html
+msgid "Drop a story file to import"
+msgstr "Перетягніть сюди файл розповіді для імпортування"
+
+#: src/story-list-view/index.html
+msgid "Sort By"
+msgstr "Сортувати за"
+
+#: src/story-list-view/index.html
+msgid "Edit Date"
+msgstr "Змінити дату"
+
+#: src/story-list-view/index.html
+msgid "Name"
+msgstr "Назва"
+
+#: src/story-list-view/index.html
+msgid ""
+"There are no stories saved in Twine right now. To get started, you can "
+"either create a new story or import an existing one from a file."
+msgstr ""
+"Поки Twine не має жодних збережених розповідей. Аби розпочати, створіть нову "
+"розповідь чи зімпортуйте вже існуючу з файлу."
+
+#: src/story-list-view/list-toolbar/index.html src/nw/directories.js:69
+#: src/nw/menus.js:17 src/nw/menus.js:39
+msgid "Twine"
+msgstr "Twine"
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "Story"
+msgstr "Розповідь"
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "Archive"
+msgstr "Архів"
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "Formats"
+msgstr "Формати"
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "Language"
+msgstr "Мова"
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "Help"
+msgstr "Допомога"
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "version"
+msgstr "версія"
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "Report a bug"
+msgstr "Сповістити про хибу"
+
+#: src/story-list-view/story-item/item-menu/index.html
+msgid "Play Story"
+msgstr "Відтворити розповідь"
+
+#: src/story-list-view/story-item/item-menu/index.html
+msgid "Test Story"
+msgstr "Протестувати розповідь"
+
+#: src/story-list-view/story-item/item-menu/index.html
+msgid "Duplicate Story"
+msgstr "Здублювати розповідь"
+
+#: src/story-list-view/story-item/item-menu/index.html
+msgid "Delete Story"
+msgstr "Видалити розповідь"
+
+#: src/welcome/index.html
+msgid ""
+"&lt;strong&gt;If you've never used Twine before,&lt;/strong&gt; then "
+"welcome! The &lt;a href=\\\"http://twinery.org/2guide\\\" target=\\\"_blank\\"
+"\"&gt;Twine 2 Guide&lt;/a&gt; and the official wiki in general, are a great "
+"place to learn. Keep in mind that some articles on the wiki were written for "
+"Twine 1, which is a little bit different than this version. But most of the "
+"concepts are the same."
+msgstr ""
+"&lt;strong&gt;Якщо Ви ніколи досі не користувалися Twine’ом,&lt;/strong&gt; "
+"вітаємо! &lt;a href=\\”http://twinery.org/2guide\\” target=\\”_blank\\”&gt; "
+"Посібник Twine 2&lt;/a&gt; (англійською) та офіційна вікі загалом — чудове "
+"місце, аби почати студії. Майте на увазі, що деякі статті на вікі були "
+"написані для Twine 1, який дещо відрізняється від чинної версії, та "
+"підґрунтя лишається тим самим."
+
+#: src/welcome/index.html
+msgid "Your work is saved only in your browser."
+msgstr "Вашу роботу збережено лише у вебоглядачеві."
+
+#: src/welcome/index.html
+msgid ""
+"That means you don't need to create an account to use Twine 2, and "
+"everything you create isn't stored on a server somewhere else &mdash; it "
+"stays right in your browser."
+msgstr ""
+"Це означає, що Вам не потрібно створювати рахунок, аби користуватися Twine "
+"2, і все, що ви створюєте, не зберігається десь на серверах, — воно "
+"лишається у Вашім вебоглядачеві."
+
+#: src/welcome/index.html
+msgid ""
+"Two &lt;b&gt;very important&lt;/b&gt; things to remember, though. Since your "
+"work is saved only in your browser, if you clear its saved data, then you'll "
+"lose your work! Not good. Remember to use that &lt;i class=\\\"fa fa-"
+"briefcase\\\"&gt;&lt;/i&gt;&nbsp;&lt;strong&gt;Archive&lt;/strong&gt; button "
+"often. You can also publish individual stories to files using the &lt;i "
+"class=\\\"fa fa-cog\\\"&gt;&lt;/i&gt; menu on each story in the story list. "
+"Both archive and story files can always be re-imported into Twine."
+msgstr ""
+"Варто запам’ятати дві &lt;b&gt;дуже важливі&lt;/b&gt; речі: через те, що "
+"Ваша робота зберігається тільки у вебоглядачеві, у випадку очищення "
+"збережених даних, все буде втрачено. Це погано. Не забувайте часто "
+"використовувати кнопку &lt;i class=\\”fa fa-briefcase\\”&gt;&lt;/i&gt;&nbsp;"
+"&lt;strong&gt;Архів&lt;/strong&gt;. Також окремі розповіді можна публікувати "
+"у файли, використовуючи &lt;i class=\\”fa fa-cog\\”&gt;&lt;/i&gt; меню у "
+"кожній розповіді зі списку. Архів і файли розповідей можна імпортувати назад "
+"до Twine’у."
+
+#: src/welcome/index.html
+msgid ""
+"Secondly, &lt;b&gt;anyone who can use this browser can see and make changes "
+"to your work&lt;/b&gt;. So if you've got a nosy kid brother, look into "
+"setting up a separate profile for yourself."
+msgstr ""
+"По-друге, &lt;b&gt;будь-хто з доступом до цього переглядача також може "
+"бачити та робити зміни у Вашій роботі&lt;/b&gt;, тож коли маєте молодшого "
+"брата-пронозу, задумайтесь про створення окремого профілю для себе."
+
+#: src/data/actions.js:272
+msgid ""
+"a more recent version of the story format &ldquo;%s&rdquo; is already "
+"installed"
+msgstr "новіша версія формату розповіді &ldquo;%s&rdquo; вже встановлена"
+
+#: src/data/publish.js:75
+msgid "There is no starting point set for this story."
+msgstr "Ця розповідь не має відправної точки."
+
+#: src/data/publish.js:81
+msgid "The passage set as starting point for this story does not exist."
+msgstr "Уривок, визначений за відправну точку цієї розповіді, не існує."
+
+#: src/data/story-format.js:7
+msgid "Untitled Story Format"
+msgstr "Формат розповіді без назви"
+
+#: src/data/story.js:190
+msgid "Untitled Story"
+msgstr "Розповідь без назви"
+
+#: src/data/story.js:207 src/story-edit-view/index.js:218
+msgid "Untitled Passage"
+msgstr "Уривок без назви"
+
+#: src/data/story.js:210
+msgid "Tap this passage, then the pencil icon to edit it."
+msgstr "Натисність на цей уривок, а потім на олівець, аби почати редаґувати."
+
+#: src/data/story.js:211
+msgid "Double-click this passage to edit it."
+msgstr "Клацніть двічі на уривок для редаґування."
+
+#. L10n: The <span> will have a version number, i.e. 2.0.6, interpolated into it.
+#: src/dialogs/app-update/index.js:40
+msgid ""
+"A new version of Twine, <span class=\"version\"></span>, has been released."
+msgstr "Доступна нова версія Twine’а, <span class=“version”></span>."
+
+#: src/dialogs/app-update/index.js:44
+msgid "Download"
+msgstr "Завантажити"
+
+#. L10n: A polite rejection of a request, in the sense that the answer may change in the future.
+#: src/dialogs/app-update/index.js:51
+msgid "Not Right Now"
+msgstr "Не зараз"
+
+#. L10n: %1$s is the name of the story format; %2$s is
+#: src/dialogs/formats/index.js:63
+msgid "The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s)."
+msgstr "Формат розповіді &ldquo;%1$s&rdquo; не завантажується (%2$s)."
+
+#: src/dialogs/formats/index.js:105
+msgid "The story format at %1$s could not be added (%2$s)."
+msgstr "Формат розповіді в %1$s неможливо додати (%2$s)."
+
+#. L10n: %s is the name of an author.
+#: src/dialogs/formats/item.js:30
+msgid "by %s"
+msgstr "авторства %s"
+
+#: src/dialogs/formats/item.js:51
+msgid "Are you sure?"
+msgstr "Ви впевнені?"
+
+#: src/dialogs/formats/item.js:53
+msgid "Remove"
+msgstr "Усунути"
+
+#: src/dialogs/story-import/index.js:56
+msgid "Don\\'t Replace Any Stories"
+msgstr "Не замінювати жодних розповідей"
+
+#: src/dialogs/story-import/index.js:59
+msgid "Replace %d Story"
+msgid_plural "Replace %d Stories"
+msgstr[0] "Замінити %d розповідь"
+msgstr[1] "Замінити %d розповіді"
+msgstr[2] "Замінити %d розповідей"
+
+#. L10n: Character in the sense of individual letters in a word.  This does not actually include the count, as it is used in a table.
+#: src/dialogs/story-stats/index.js:40
+msgid "Character"
+msgid_plural "Characters"
+msgstr[0] "Знак"
+msgstr[1] "Знаки"
+msgstr[2] "Знаків"
+
+#. L10n: Word in the sense of individual words in a sentence.  This does not actually include the count, as it is used in a table.
+#: src/dialogs/story-stats/index.js:55
+msgid "Word"
+msgid_plural "Words"
+msgstr[0] "Слово"
+msgstr[1] "Слова"
+msgstr[2] "Слів"
+
+#. L10n: Links in the sense of hypertext links. This does not actually include the count, as it is used in a table.
+#: src/dialogs/story-stats/index.js:104
+msgid "Link"
+msgid_plural "Links"
+msgstr[0] "Зв’язок"
+msgstr[1] "Зв’язки"
+msgstr[2] "Зв’язків"
+
+#. L10n: Links in the sense of hypertext links. This does not actually include the count, as it is used in a table.
+#: src/dialogs/story-stats/index.js:119
+msgid "Broken Link"
+msgid_plural "Broken Links"
+msgstr[0] "Розірваний зв’язок"
+msgstr[1] "Розірвані зв’язки"
+msgstr[2] "Розірваних зв’язків"
+
+#: src/editors/passage/index.js:38
+msgid ""
+"Enter the body text of your passage here. To link to another passage, put "
+"two square brackets around its name, [[like this]]."
+msgstr ""
+"Введіть сюди основний текст уривку. Аби зв’язатися з наступним уривком, "
+"візьміть його назву в подвійні квадратні дужки: [[ось так]]."
+
+#: src/editors/passage/index.js:182
+msgid "Editing \\u201c%s\\u201d"
+msgstr "Редаґування \\u201c%s\\u201d"
+
+#. L10n: %1$s is a filename; %2$s is the error message.
+#: src/file/save.js:71
+msgid "&ldquo;%1$s&rdquo; could not be saved (%2$s)."
+msgstr "&ldquo;%1$s&rdquo; неможливо зберегти (%2$s)."
+
+#. L10n: This is the folder name on OS X, Linux, and recent versions of Windows that a user's documents are stored in, relative to the user's home directory. If you need to use a space in this name, then it should have two backslashes (\\) in front of it.
+#: src/nw/directories.js:37
+msgid "Documents"
+msgstr "Документи"
+
+#. L10n: This is the folder name on Windows XP that a user's documents are stored in, relative to the user's home directory. This is used if a folder with the name given by the translation key '/Documents' does not exist. If you need to use a space in this name, then it should have two backslashes (\\) in front of it.
+#: src/nw/directories.js:51
+msgid "My\\\\ Documents"
+msgstr "Мої\\\\ Документи"
+
+#: src/nw/directories.js:70
+msgid "Stories"
+msgstr "Розповіді"
+
+#: src/nw/menus.js:27
+msgid "Toggle Fullscreen"
+msgstr "Повноекранний режим"
+
+#: src/nw/menus.js:44
+msgid "Quit"
+msgstr "Вийти"
+
+#: src/nw/menus.js:61
+msgid "Edit"
+msgstr "Редаґувати"
+
+#: src/nw/menus.js:66
+msgid "Undo"
+msgstr "Відмінити"
+
+#: src/nw/menus.js:79
+msgid "Cut"
+msgstr "Вирізати"
+
+#: src/nw/menus.js:88
+msgid "Copy"
+msgstr "Копіювати"
+
+#: src/nw/menus.js:97
+msgid "Paste"
+msgstr "Вставити"
+
+#: src/nw/menus.js:106 src/story-edit-view/passage-item/index.js:334
+msgid "Delete"
+msgstr "Видалити"
+
+#: src/nw/menus.js:118
+msgid "Show Library"
+msgstr "Показати Бібліотеку"
+
+#: src/story-edit-view/passage-item/index.js:319
+#: src/story-list-view/story-item/item-menu/index.js:78
+msgid ""
+"Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone."
+msgstr ""
+"Ви впевнені, що хочете видалити &ldquo;%s&rdquo;? Це буде неможливо "
+"скасувати."
+
+#: src/story-edit-view/passage-item/index.js:326
+msgid "(Hold the Shift key when deleting to skip this message.)"
+msgstr ""
+"(При видаленні затисність клявіш Shift, аби пропустити це повідомлення.)"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.js:46
+#: src/story-list-view/story-item/item-menu/index.js:100
+msgid "What should &ldquo;%s&rdquo; be renamed to?"
+msgstr "У що перейменувати &ldquo;%s&rdquo;?"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.js:51
+#: src/story-list-view/story-item/item-menu/index.js:105
+msgid "Rename"
+msgstr "Перейменувати"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.js:55
+#: src/story-list-view/story-item/item-menu/index.js:109
+#: src/story-list-view/story-item/item-menu/index.js:128
+msgid "Please enter a name."
+msgstr "Будь ласка, введіть назву."
+
+#: src/story-list-view/index.js:79
+msgid "%d Story"
+msgid_plural "%d Stories"
+msgstr[0] "%d розповідь"
+msgstr[1] "%d розповіді"
+msgstr[2] "%d розповідей"
+
+#: src/story-list-view/list-toolbar/index.js:21
+msgid "What should your story be named?<br>(You can change this later.)"
+msgstr "Як Ви назвете цю розповідь?<br>(Назву можна змінити пізніше.)"
+
+#: src/story-list-view/list-toolbar/index.js:30
+msgid "A story with this name already exists."
+msgstr "Розповідь з такою назвою вже існує."
+
+#: src/story-list-view/list-toolbar/index.js:62
+msgid "Twine Archive.html"
+msgstr "Архів Twine.html"
+
+#: src/story-list-view/story-item/item-menu/index.js:84
+msgid "Delete Forever"
+msgstr "Видалити назавжди"
+
+#: src/story-list-view/story-item/item-menu/index.js:122
+msgid "What should the duplicate be named?"
+msgstr "Як назвати дублікат?"
+
+#: src/story-list-view/story-item/item-menu/index.js:124
+msgid "Duplicate"
+msgstr "Дублювати"
+
+#: src/story-list-view/story-item/item-menu/index.js:126
+msgid "%s Copy"
+msgstr "%s Копіювати"
+
+#: src/ui/quota-gauge/index.js:24
+msgid "%d%% space available"
+msgstr "%d%% простору доступно"
