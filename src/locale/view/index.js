@@ -16,6 +16,7 @@ module.exports = Vue.extend({
 			{label: 'Castellano', code: 'es'},
 			{label: 'Catal&agrave;', code: 'ca'},
 			{label: '&Ccaron;e&scaron;tina', code: 'cs'},
+			{label: 'Chinese', code: 'zh-cn'},
 			{label: 'Dansk', code: 'da'},
 			{label: 'Deutsch', code: 'de'},
 			{label: 'English', code: 'en'},
@@ -23,6 +24,7 @@ module.exports = Vue.extend({
 			{label: 'Italiano', code: 'it'},
 			{label: 'Bahasa Melayu', code: 'ms'},
 			{label: 'Nederlands', code: 'nl'},
+			{label: '日本語', code: 'jp'},
 			{label: 'Portugu&ecirc;s', code: 'pt-pt'},
 			{label: 'Portugu&ecirc;s Brasileiro', code: 'pt-br'},
 			{label: 'русский', code: 'ru'},
@@ -30,7 +32,6 @@ module.exports = Vue.extend({
 			{label: 'Suomi', code: 'fi'},
 			{label: 'Svenska', code: 'sv'},
 			{label: 'T&uuml;rk&ccedil;e', code: 'tr'},
-			{label: 'Chinese', code: 'zh-cn'},
 			{label: 'Українська (клясична)', code: 'uk'}
 		]
 	}),
