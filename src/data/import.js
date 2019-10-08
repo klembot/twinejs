@@ -56,16 +56,12 @@ function domToObject(storyEl, forceLastUpdate) {
 				storyEl.attributes['format-version'].value : null,
 		script:
 			Array.from(storyEl.querySelectorAll(selectors.script))
-				.reduce(
-					(src, el) => src + `${el.textContent}\n`,
-					''
-				),
+				.map(el => el.textContent)
+				.join('\n'),
 		stylesheet:
 			Array.from(storyEl.querySelectorAll(selectors.stylesheet))
-				.reduce(
-					(src, el) => src + `${el.textContent}\n`,
-					''
-				),
+				.map(el => el.textContent)
+				.join('\n'),
 		zoom:
 			storyEl.attributes.zoom ?
 				parseFloat(storyEl.attributes.zoom.value) : 1,

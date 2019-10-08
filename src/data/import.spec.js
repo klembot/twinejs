@@ -23,9 +23,9 @@ describe('import module', () => {
 		expect(result[0].ifid).toBe('3AE380EE-4B34-4D0D-A8E2-BE624EB271C9');
 		expect(result[0].zoom).toBe(1.5);
 		expect(result[0].lastUpdate instanceof Date).toBe(true);
-		expect(result[0].script).toBe("alert('hi');\n");
+		expect(result[0].script).toBe("alert('hi');");
 		expect(result[0].stylesheet).toBe(
-			'* { color: red }\n* { color: blue }\n'
+			'* { color: red }\n* { color: blue }'
 		);
 		expect(result[0].tagColors['my-tag']).toBe('purple');
 		expect(Array.isArray(result[0].passages)).toBe(true);
