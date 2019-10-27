@@ -10,7 +10,7 @@ msgid "Twine is an open-source tool for telling interactive, nonlinear stories."
 msgstr ""
 
 #: src/dialogs/about/index.html
-msgid "This application is released under the \\x3ca href=\"http:\\/\\/www.gnu.org/licenses/gpl-3.0.html\">GPL v3\\x3c/a> license, but any work created with it may be released under any terms, including commercial ones."
+msgid "This application is released under the <a href=\"http://www.gnu.org/licenses/gpl-3.0.html\">GPL v3</a> license, but any work created with it may be released under any terms, including commercial ones."
 msgstr ""
 
 #: src/dialogs/about/index.html
@@ -54,7 +54,7 @@ msgid "Smile designed by jelio dimitrov from the Noun Project"
 msgstr ""
 
 #: src/dialogs/app-donation/index.html
-msgid "If you love Twine as much as I do, please consider helping it grow with a donation. Twine is an open source project that will always be free to use &mdash; and with your help, Twine will continue to thrive."
+msgid "If you love Twine as much as I do, please consider helping it grow with a donation. Twine is an open source project that will always be free to use — and with your help, Twine will continue to thrive."
 msgstr ""
 
 #: src/dialogs/app-donation/index.html
@@ -70,7 +70,11 @@ msgid "Donate"
 msgstr ""
 
 #: src/dialogs/app-donation/index.html
-msgid "This message will only be shown to you once.&lt;br&gt;If you'd like to donate to Twine development in the future, you can do so at &lt;a href=\\\"http:\\/\\/twinery.org/donate\\\" target=\\\"_blank\\\"&gt;http://twinery.org/donate&lt;/a&gt;."
+msgid "This message will only be shown to you once.<br>If you'd like to donate to Twine development in the future, you can do so at <a href=\\\"http:\\/\\/twinery.org/donate\\\" target=\\\"_blank\\\">http://twinery.org/donate</a>."
+msgstr ""
+
+#: src/dialogs/formats/index.html
+msgid "Story Formats"
 msgstr ""
 
 #: src/dialogs/formats/index.html
@@ -82,20 +86,34 @@ msgid "Use as Default"
 msgstr ""
 
 #: src/dialogs/formats/index.html
+msgid "Set this format as a default for stories"
+msgstr ""
+
+#: src/dialogs/formats/index.html
+msgid "Proofing Formats"
+msgstr ""
+
+#: src/dialogs/formats/index.html
 msgid "Proofing formats create a versions of stories tailored for editing and proofreading."
+msgstr ""
+
+#: src/dialogs/formats/index.html
+msgid "Add a New Format"
+msgstr ""
+
+#: src/dialogs/formats/index.html
+msgid "To add a story format, enter its address below."
 msgstr ""
 
 #: src/dialogs/formats/index.html
 msgid "Use"
 msgstr ""
 
-#: src/dialogs/formats/index.html
-#: src/story-list-view/list-toolbar/index.js:24
+#: src/dialogs/formats/index.html src/story-list-view/list-toolbar/index.js:24
 msgid "Add"
 msgstr ""
 
-#: src/dialogs/formats/index.html
-#: src/dialogs/story-format/index.html
+#: src/dialogs/formats/index.html src/dialogs/story-format/index.html
 msgid "Loading..."
 msgstr ""
 
@@ -113,11 +131,15 @@ msgid "Import From File"
 msgstr ""
 
 #: src/dialogs/story-import/index.html
-msgid "Import this file:"
+#: src/story-list-view/list-toolbar/index.html
+msgid "Import a published story or Twine archive"
 msgstr ""
 
 #: src/dialogs/story-import/index.html
-#: src/dialogs/confirm/index.js:31
+msgid "Import this file:"
+msgstr ""
+
+#: src/dialogs/story-import/index.html src/dialogs/confirm/index.js:31
 #: src/dialogs/prompt/index.js:15
 msgid "Cancel"
 msgstr ""
@@ -215,44 +237,35 @@ msgstr ""
 msgid "Please choose which language you would like to use with Twine."
 msgstr ""
 
-#: src/nw/patches/welcome-view/replacement-template.html
-#: src/welcome/index.html
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
 msgid "Hi!"
 msgstr ""
 
-#: src/nw/patches/welcome-view/replacement-template.html
-#: src/welcome/index.html
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
 msgid "Twine is an open-source tool for telling interactive, nonlinear stories. There are a few things you should know before you get started."
 msgstr ""
 
-#: src/nw/patches/welcome-view/replacement-template.html
-#: src/welcome/index.html
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
 msgid "Tell Me More"
 msgstr ""
 
-#: src/nw/patches/welcome-view/replacement-template.html
-#: src/welcome/index.html
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
 msgid "Skip"
 msgstr ""
 
-#: src/nw/patches/welcome-view/replacement-template.html
-#: src/welcome/index.html
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
 msgid "New here?"
 msgstr ""
 
-#: src/nw/patches/welcome-view/replacement-template.html
-msgid "&lt;strong&gt;If you've never used Twine before,&lt;/strong&gt; then welcome! The &lt;a href=\\\"http://twinery.org/2guide\\\" target=\\\"_blank\\\"&gt;Twine 2 Guide&lt;/a&gt; and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki at large were written for Twine 1, which is a little bit different than this version. But most of the concepts are the same."
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
+msgid "<strong>If you've never used Twine before,</strong> then welcome! The <a href=\"http://twinery.org/2guide\" target=\"_blank\">Twine 2 Guide</a> and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki were written for Twine 1, which is a little bit different than this version. But most of the concepts are the same."
 msgstr ""
 
-#: src/nw/patches/welcome-view/replacement-template.html
-#: src/welcome/index.html
-msgid "&lt;strong&gt;If you have used Twine 1 before,&lt;/strong&gt; the guide also has details on what has changed in this version. Chief among them is a new default story format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, try using SugarCube instead."
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
+msgid "<strong>If you have used Twine 1 before,</strong> the guide also has details on what has changed in this version. Chief among them is a new default story format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, try using SugarCube instead."
 msgstr ""
 
-#: src/nw/patches/welcome-view/replacement-template.html
-#: src/nw/patches/welcome-view/replacement-template.html
-#: src/welcome/index.html
-#: src/welcome/index.html
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
 msgid "OK"
 msgstr ""
 
@@ -261,25 +274,22 @@ msgid "Your work is automatically saved."
 msgstr ""
 
 #: src/nw/patches/welcome-view/replacement-template.html
-msgid "There's now a folder named Twine in your Documents folder. Inside that is a Stories folder, where all your work will be saved. Twine saves as you work, so you don't have to worry about remembering to save it yourself. You can always open the folder your stories are saved to by using the &lt;b&gt;Show Library&lt;/b&gt; item in the &lt;b&gt;Twine&lt;/b&gt; menu."
+msgid "There's now a folder named Twine in your Documents folder. Inside that is a Stories folder, where all your work will be saved. Twine saves as you work, so you don't have to worry about remembering to save it yourself. You can always open the folder your stories are saved to by using the <b>Show Library</b> item in the <b>Twine</b> menu."
 msgstr ""
 
 #: src/nw/patches/welcome-view/replacement-template.html
 msgid "Because Twine is always saving your work, the files in your story library will be locked from editing while Twine is open."
 msgstr ""
 
-#: src/nw/patches/welcome-view/replacement-template.html
-#: src/welcome/index.html
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
 msgid "That's it!"
 msgstr ""
 
-#: src/nw/patches/welcome-view/replacement-template.html
-#: src/welcome/index.html
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
 msgid "Thanks for reading, and have fun with Twine."
 msgstr ""
 
-#: src/nw/patches/welcome-view/replacement-template.html
-#: src/welcome/index.html
+#: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
 msgid "Go to the Story List"
 msgstr ""
 
@@ -288,13 +298,49 @@ msgid "Test"
 msgstr ""
 
 #: src/story-edit-view/story-toolbar/index.html
+msgid "Play this story in test mode"
+msgstr ""
+
+#: src/story-edit-view/story-toolbar/index.html
 msgid "Play"
+msgstr ""
+
+#: src/story-edit-view/story-toolbar/index.html
+msgid "Play this story"
 msgstr ""
 
 #. L10n: Word in the sense of individual words in a sentence. This does not actually include the count, as it is used in a table.
 #: src/story-edit-view/story-toolbar/index.html
 #: src/dialogs/story-stats/index.js:86
 msgid "Passage"
+msgstr ""
+
+#: src/story-edit-view/story-toolbar/index.html
+msgid "Add a new passage"
+msgstr ""
+
+#: src/story-edit-view/story-toolbar/index.html
+msgid "Show passage titles and excerpts"
+msgstr ""
+
+#: src/story-edit-view/story-toolbar/index.html
+msgid "Show only passage titles"
+msgstr ""
+
+#: src/story-edit-view/story-toolbar/index.html
+msgid "Show only story structure"
+msgstr ""
+
+#: src/story-edit-view/story-toolbar/story-search/index.html
+msgid "Quick Find"
+msgstr ""
+
+#: src/story-edit-view/story-toolbar/index.html
+msgid "Find and replace across the entire story"
+msgstr ""
+
+#: src/story-edit-view/story-toolbar/index.html
+msgid "Go to the story list"
 msgstr ""
 
 #: src/story-edit-view/story-toolbar/story-menu/index.html
@@ -315,6 +361,11 @@ msgid "Rename Story"
 msgstr ""
 
 #: src/story-edit-view/story-toolbar/story-menu/index.html
+#: src/story-list-view/story-item/item-menu/index.html
+msgid "Select All Passages"
+msgstr ""
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
 msgid "Snap to Grid"
 msgstr ""
 
@@ -325,6 +376,42 @@ msgstr ""
 #: src/story-edit-view/story-toolbar/story-menu/index.html
 #: src/story-list-view/story-item/item-menu/index.html
 msgid "Publish to File"
+msgstr ""
+
+#: src\story-edit-view\passage-item\passage-menu\index.html
+msgid "Delete “%s”"
+msgstr ""
+
+#: src\story-edit-view\passage-item\passage-menu\index.html
+msgid "Edit “%s”"
+msgstr ""
+
+#: src\story-edit-view\passage-item\passage-menu\index.html
+msgid "Test story starting here"
+msgstr ""
+
+#: src\story-edit-view\passage-item\passage-menu\index.html
+msgid "More passage options"
+msgstr ""
+
+#: src\story-edit-view\passage-item\passage-menu\index.html
+msgid "Start Story Here"
+msgstr ""
+
+#: src\story-edit-view\passage-item\passage-menu\index.html
+msgid "Small"
+msgstr ""
+
+#: src\story-edit-view\passage-item\passage-menu\index.html
+msgid "Wide"
+msgstr ""
+
+#: src\story-edit-view\passage-item\passage-menu\index.html
+msgid "Tall"
+msgstr ""
+
+#: src\story-edit-view\passage-item\passage-menu\index.html
+msgid "Large"
 msgstr ""
 
 #: src/story-list-view/index.html
@@ -340,17 +427,23 @@ msgid "Edit Date"
 msgstr ""
 
 #: src/story-list-view/index.html
+msgid "Last changed date"
+msgstr ""
+
+#: src/story-list-view/index.html
 msgid "Name"
+msgstr ""
+
+#: src/story-list-view/index.html
+msgid "Story name"
 msgstr ""
 
 #: src/story-list-view/index.html
 msgid "There are no stories saved in Twine right now. To get started, you can either create a new story or import an existing one from a file."
 msgstr ""
 
-#: src/story-list-view/list-toolbar/index.html
-#: src/nw/directories.js:69
-#: src/nw/menus.js:17
-#: src/nw/menus.js:39
+#: src/story-list-view/list-toolbar/index.html src/nw/directories.js:69
+#: src/nw/menus.js:17 src/nw/menus.js:39
 msgid "Twine"
 msgstr ""
 
@@ -359,7 +452,15 @@ msgid "Story"
 msgstr ""
 
 #: src/story-list-view/list-toolbar/index.html
+msgid "Create a brand-new story"
+msgstr ""
+
+#: src/story-list-view/list-toolbar/index.html
 msgid "Archive"
+msgstr ""
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "Save all stories to a Twine archive file"
 msgstr ""
 
 #: src/story-list-view/list-toolbar/index.html
@@ -367,11 +468,31 @@ msgid "Formats"
 msgstr ""
 
 #: src/story-list-view/list-toolbar/index.html
+msgid "Work with story and proofing formats"
+msgstr ""
+
+#: src/story-list-view/list-toolbar/index.html
 msgid "Language"
 msgstr ""
 
 #: src/story-list-view/list-toolbar/index.html
+msgid "Change the language Twine uses"
+msgstr ""
+
+#: src/story-list-view/list-toolbar/index.html
 msgid "Help"
+msgstr ""
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "Browse online help"
+msgstr ""
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "Use light theme"
+msgstr ""
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "Use dark theme"
 msgstr ""
 
 #: src/story-list-view/list-toolbar/index.html
@@ -399,7 +520,7 @@ msgid "Delete Story"
 msgstr ""
 
 #: src/welcome/index.html
-msgid "&lt;strong&gt;If you've never used Twine before,&lt;/strong&gt; then welcome! The &lt;a href=\\\"http://twinery.org/2guide\\\" target=\\\"_blank\\\"&gt;Twine 2 Guide&lt;/a&gt; and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki were written for Twine 1, which is a little bit different than this version. But most of the concepts are the same."
+msgid "<strong>If you've never used Twine before,</strong> then welcome! The <a href=\\\"http://twinery.org/2guide\\\" target=\\\"_blank\\\">Twine 2 Guide</a> and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki were written for Twine 1, which is a little bit different than this version. But most of the concepts are the same."
 msgstr ""
 
 #: src/welcome/index.html
@@ -407,19 +528,19 @@ msgid "Your work is saved only in your browser."
 msgstr ""
 
 #: src/welcome/index.html
-msgid "That means you don't need to create an account to use Twine 2, and everything you create isn't stored on a server somewhere else &mdash; it stays right in your browser."
+msgid "That means you don't need to create an account to use Twine 2, and everything you create isn't stored on a server somewhere else — it stays right in your browser."
 msgstr ""
 
 #: src/welcome/index.html
-msgid "Two &lt;b&gt;very important&lt;/b&gt; things to remember, though. Since your work is saved only in your browser, if you clear its saved data, then you'll lose your work! Not good. Remember to use that &lt;i class=\\\"fa fa-briefcase\\\"&gt;&lt;/i&gt;&nbsp;&lt;strong&gt;Archive&lt;/strong&gt; button often. You can also publish individual stories to files using the &lt;i class=\\\"fa fa-cog\\\"&gt;&lt;/i&gt; menu on each story in the story list. Both archive and story files can always be re-imported into Twine."
+msgid "Two <b>very important</b> things to remember, though. Since your work is saved only in your browser, if you clear its saved data, then you'll lose your work! Not good. Remember to use that <i class='fa fa-briefcase'></i> <strong>Archive</strong> button often. You can also publish individual stories to files using the <i class='fa fa-cog'></i> menu on each story in the story list. Both archive and story files can always be re-imported into Twine."
 msgstr ""
 
 #: src/welcome/index.html
-msgid "Secondly, &lt;b&gt;anyone who can use this browser can see and make changes to your work&lt;/b&gt;. So if you've got a nosy kid brother, look into setting up a separate profile for yourself."
+msgid "Secondly, <b>anyone who can use this browser can see and make changes to your work</b>. So if you've got a nosy kid brother, look into setting up a separate profile for yourself."
 msgstr ""
 
 #: src/data/actions.js:272
-msgid "a more recent version of the story format &ldquo;%s&rdquo; is already installed"
+msgid "a more recent version of the story format “%s” is already installed"
 msgstr ""
 
 #: src/data/publish.js:75
@@ -438,8 +559,7 @@ msgstr ""
 msgid "Untitled Story"
 msgstr ""
 
-#: src/data/story.js:207
-#: src/story-edit-view/index.js:218
+#: src/data/story.js:207 src/story-edit-view/index.js:218
 msgid "Untitled Passage"
 msgstr ""
 
@@ -447,7 +567,7 @@ msgstr ""
 msgid "Tap this passage, then the pencil icon to edit it."
 msgstr ""
 
-#: src/data/story.js:211
+#: src/data/story.js
 msgid "Double-click this passage to edit it."
 msgstr ""
 
@@ -467,7 +587,7 @@ msgstr ""
 
 #. L10n: %1$s is the name of the story format; %2$s is
 #: src/dialogs/formats/index.js:63
-msgid "The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s)."
+msgid "The story format “%1$s” could not be loaded (%2$s)."
 msgstr ""
 
 #: src/dialogs/formats/index.js:105
@@ -525,17 +645,25 @@ msgid_plural "Broken Links"
 msgstr[0] ""
 msgstr[1] ""
 
+#: src/dialogs/story-stats/index.js
+msgid "This story was last changed at %s."
+msgstr ""
+
+#: src/dialogs/story-stats/index.js
+msgid "The IFID for this story is <span class=\"ifid\">%s</span>. (<a href=\"http://ifdb.tads.org/help-ifid\" target=\"_blank\">What's an IFID?</a>)"
+msgstr ""
+
 #: src/editors/passage/index.js:38
 msgid "Enter the body text of your passage here. To link to another passage, put two square brackets around its name, [[like this]]."
 msgstr ""
 
 #: src/editors/passage/index.js:182
-msgid "Editing \\u201c%s\\u201d"
+msgid "Editing “%s”"
 msgstr ""
 
 #. L10n: %1$s is a filename; %2$s is the error message.
 #: src/file/save.js:71
-msgid "&ldquo;%1$s&rdquo; could not be saved (%2$s)."
+msgid "“%1$s” could not be saved (%2$s)."
 msgstr ""
 
 #. L10n: This is the folder name on OS X, Linux, and recent versions of Windows that a user's documents are stored in, relative to the user's home directory. If you need to use a space in this name, then it should have two backslashes (\\) in front of it.
@@ -564,6 +692,14 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
+#: src/nw/menus.js
+msgid "View"
+msgstr ""
+
+#: src/nw/menus.js
+msgid "Window"
+msgstr ""
+
 #: src/nw/menus.js:66
 msgid "Undo"
 msgstr ""
@@ -580,13 +716,52 @@ msgstr ""
 msgid "Paste"
 msgstr ""
 
-#: src/nw/menus.js:106
-#: src/story-edit-view/passage-item/index.js:334
+#: src/nw/menus.js:106 src/story-edit-view/passage-item/index.js:334
 msgid "Delete"
+msgstr ""
+
+#: src/nw/menus.js:97
+msgid "Select All"
 msgstr ""
 
 #: src/nw/menus.js:118
 msgid "Show Library"
+msgstr ""
+
+#: src/nw/menus.js
+msgid "Actual Size"
+msgstr ""
+
+#: src/nw/menus.js
+msgid "Zoom In"
+msgstr ""
+
+#: src/nw/menus.js
+msgid "Zoom Out"
+msgstr ""
+
+#: src/nw/menus.js
+msgid "Toggle Full Screen"
+msgstr ""
+
+#: src/nw/menus.js
+msgid "Reload"
+msgstr ""
+
+#: src/nw/menus.js
+msgid "Toggle Developer Tools"
+msgstr ""
+
+#: src/nw/menus.js
+msgid "Minimize"
+msgstr ""
+
+#: src/nw/menus.js
+msgid "Close"
+msgstr ""
+
+#: src/nw/menus.js
+msgid "Twine Guide"
 msgstr ""
 
 #: src/story-edit-view/passage-item/index.js:319
