@@ -65,13 +65,17 @@ describe('story format local storage persistence', () => {
 
 		load(store);
 		expect(store.commit).toHaveBeenCalledTimes(2);
-		expect(store.commit).toHaveBeenCalledWith('create', {
-			name: 'Format 1',
-			url: 'gopher://gopher.floodgap.com:70/1/'
+		expect(store.commit).toHaveBeenCalledWith('storyFormat/createFormat', {
+			storyFormatProps: {
+				name: 'Format 1',
+				url: 'gopher://gopher.floodgap.com:70/1/'
+			}
 		});
-		expect(store.commit).toHaveBeenCalledWith('create', {
-			name: 'Format 2',
-			url: 'gopher://gopher.floodgap.com:70/0/gopher/wbgopher'
+		expect(store.commit).toHaveBeenCalledWith('storyFormat/createFormat', {
+			storyFormatProps: {
+				name: 'Format 2',
+				url: 'gopher://gopher.floodgap.com:70/0/gopher/wbgopher'
+			}
 		});
 	});
 });

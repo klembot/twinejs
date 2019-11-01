@@ -111,24 +111,25 @@ describe('story local storage persistence', () => {
 		expect(store.commit).toHaveBeenCalledTimes(1);
 
 		const firstArgs = store.commit.mock.calls[0];
+		const {storyProps} = firstArgs[1];
 
-		expect(firstArgs[0]).toBe('createStory');
+		expect(firstArgs[0]).toBe('story/createStory');
 
 		Object.keys(testStory).forEach(key => {
 			if (key === 'passages') {
-				expect(firstArgs[1].passages.length).toBe(1);
+				expect(storyProps.passages.length).toBe(1);
 
 				Object.keys(testPassage).forEach(key => {
 					if (key === 'tags') {
 						testPassage.tags.forEach(i => {
-							expect(firstArgs[1].tags[i]).toBe(testPassage.tags[i]);
+							expect(storyProps.tags[i]).toBe(testPassage.tags[i]);
 						});
 					} else {
-						expect(firstArgs[1].passages[0][key]).toBe(testPassage[key]);
+						expect(storyProps.passages[0][key]).toBe(testPassage[key]);
 					}
 				});
 			} else {
-				expect(firstArgs[1][key]).toBe(testStory[key]);
+				expect(storyProps[key]).toBe(testStory[key]);
 			}
 		});
 	});

@@ -8,14 +8,19 @@ import storyFormat from './modules/story-format';
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
 	modules: {appInfo, pref, story, storyFormat},
-	plugins: [
-		localStorage,
-		store => {
-			store.subscribe((mutation, state) => {
-				console.log(mutation, state);
-			});
-		}
-	]
+	plugins: [localStorage]
 });
+
+/*
+Automatically try to repair any store problems. This order is important, as
+prefs consults existing story formats to set defaults, and stories check prefs
+when setting story formats.
+*/
+
+store.dispatch('pref/repair');
+store.dispatch('storyFormat/repairFormats');
+store.dispatch('story/repairStories');
+
+export default store;

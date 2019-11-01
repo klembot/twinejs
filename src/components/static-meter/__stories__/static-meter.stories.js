@@ -1,6 +1,7 @@
 import StaticMeter from '../index.vue';
+import notes from './static-meter.notes.md';
 
-export default {title: '<static-meter>'};
+export default {parameters: {notes}, title: '<static-meter>'};
 
 const components = {StaticMeter};
 

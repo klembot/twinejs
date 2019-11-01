@@ -6,12 +6,22 @@ methods provided here for use outside of components.
 
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
+import enUsLang from '@/locales/en-us.json';
 
 Vue.use(VueI18n);
 
-const i18n = new VueI18n({fallbackLocale: 'en-us'});
+export const i18n = new VueI18n({
+	fallbackLocale: 'en-us',
+	lng: 'en-us',
+	messages: {'en-us': enUsLang},
+
+	/*
+	vue-18n seems to generate a lot of spurious warnings. We have lint rules to
+	handle this.
+	*/
+	silentTranslationWarn: true
+});
 const loadedLocales = [];
-let inited = false;
 
 /*
 Sets the application locale, loading it from a JSON file as needed. You must
@@ -22,11 +32,6 @@ export async function setLocale(locale) {
 	function finish() {
 		i18n.locale = locale;
 		document.querySelector('html').setAttribute('lang', locale);
-	}
-
-	if (!inited) {
-		inited = true;
-		Vue.use(VueI18n);
 	}
 
 	if (i18n.locale === locale) {

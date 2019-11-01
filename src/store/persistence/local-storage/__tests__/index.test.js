@@ -52,7 +52,7 @@ describe('local-storage persistence', () => {
 	test('calls story.saveStory() when a story/createStory mutation occurs', () => {
 		dispatchMutation({
 			type: 'story/createStory',
-			payload: [{name: 'A Story'}]
+			payload: {storyProps: {name: 'A Story'}}
 		});
 		expect(story.saveStory).toHaveBeenCalledTimes(1);
 	});
@@ -60,12 +60,12 @@ describe('local-storage persistence', () => {
 	test('calls story.saveStory() when an story/updateStory mutation occurs', () => {
 		dispatchMutation({
 			type: 'story/updateStory',
-			payload: ['mock-id']
+			payload: {storyId: 'mock-id', storyProps: {name: 'mock-name'}}
 		});
 		expect(story.saveStory).toHaveBeenCalledTimes(1);
 	});
 
-	xit('calls story.saveStory() when a DUPLICATE_STORY mutation occurs', () => {
+	it.skip('calls story.saveStory() when a DUPLICATE_STORY mutation occurs', () => {
 		store.state.story.stories.push({
 			id: 'mock-id',
 			name: 'Original Story',
@@ -85,7 +85,7 @@ describe('local-storage persistence', () => {
 		expect(story.saveStory).toHaveBeenCalledTimes(1);
 	});
 
-	xit('calls story.saveStory() when an IMPORT_STORY mutation occurs', () => {
+	it.skip('calls story.saveStory() when an IMPORT_STORY mutation occurs', () => {
 		store.state.story.stories.push({
 			id: 'mock-id',
 			name: 'Imported Story',
@@ -108,7 +108,7 @@ describe('local-storage persistence', () => {
 
 		dispatchMutation({
 			type: 'story/deleteStory',
-			payload: ['mock-id']
+			payload: {storyId: 'mock-id'}
 		});
 		expect(story.deleteStory).toHaveBeenCalledTimes(1);
 	});
@@ -127,7 +127,7 @@ describe('local-storage persistence', () => {
 
 		dispatchMutation({
 			type: 'story/createPassage',
-			payload: ['mock-story-id', 'mock-passage-id', {name: 'A Passage'}]
+			payload: {storyId: 'mock-story-id', passageProps: {name: 'A Passage'}}
 		});
 
 		expect(story.saveStory).toHaveBeenCalledTimes(1);
@@ -148,7 +148,11 @@ describe('local-storage persistence', () => {
 
 		dispatchMutation({
 			type: 'story/updatePassage',
-			payload: ['mock-story-id', 'mock-passage-id', {name: 'A Passage'}]
+			payload: {
+				passageId: 'mock-passage-id',
+				passageProps: {name: 'A Passage'},
+				storyId: 'mock-story-id'
+			}
 		});
 
 		expect(story.saveStory).toHaveBeenCalledTimes(1);
@@ -157,11 +161,11 @@ describe('local-storage persistence', () => {
 
 	test('calls story.saveStory() and story.deletePassage()/deletePassageById() when an story/deletePassage mutation occurs', () => {
 		store.state.story.stories.push({
-			id: 'mock-id',
+			id: 'mock-story-id',
 			name: 'Imported Story',
 			passages: [
 				{
-					id: 'mock-id-2',
+					id: 'mock-passage-id',
 					name: 'A Passage'
 				}
 			]
@@ -169,11 +173,10 @@ describe('local-storage persistence', () => {
 
 		dispatchMutation({
 			type: 'story/deletePassage',
-			payload: ['mock-id', {name: 'A Passage'}]
+			payload: {passageId: 'mock-passage-id', storyId: 'mock-story-id'}
 		});
 
 		expect(story.saveStory).toHaveBeenCalledTimes(1);
-
 		expect(story.deletePassage).toHaveBeenCalledTimes(0);
 		expect(story.deletePassageById).toHaveBeenCalledTimes(1);
 	});
@@ -184,25 +187,25 @@ describe('local-storage persistence', () => {
 		expect(pref.save).toHaveBeenCalledTimes(1);
 	});
 
-	test('calls storyFormat.save() when a storyFormat/create mutation occurs', () => {
+	test('calls storyFormat.save() when a storyFormat/createFormat mutation occurs', () => {
 		storyFormat.save.mockClear();
-		dispatchMutation({type: 'storyFormat/create'});
+		dispatchMutation({type: 'storyFormat/createFormat'});
 		expect(storyFormat.save).toHaveBeenCalledTimes(1);
 	});
 
-	test('calls storyFormat.save() when an storyFormat/update mutation occurs', () => {
+	test('calls storyFormat.save() when an storyFormat/updateFormat mutation occurs', () => {
 		storyFormat.save.mockClear();
-		dispatchMutation({type: 'storyFormat/update'});
+		dispatchMutation({type: 'storyFormat/updateFormat'});
 		expect(storyFormat.save).toHaveBeenCalledTimes(1);
 	});
 
-	test('calls storyFormat.save() when a storyFormat/delete mutation occurs', () => {
+	test('calls storyFormat.save() when a storyFormat/deleteFormat mutation occurs', () => {
 		storyFormat.save.mockClear();
-		dispatchMutation({type: 'storyFormat/delete'});
+		dispatchMutation({type: 'storyFormat/deleteFormat'});
 		expect(storyFormat.save).toHaveBeenCalledTimes(1);
 	});
 
-	xit('ignores LOAD_FORMAT mutations', () => {
+	it.skip('ignores LOAD_FORMAT mutations', () => {
 		storyFormat.save.mockClear();
 		dispatchMutation({type: 'LOAD_FORMAT'});
 		expect(storyFormat.save).not.toHaveBeenCalled();

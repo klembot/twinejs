@@ -6,27 +6,28 @@ import {deviceType} from 'detect-it';
 import {t} from '@/util/i18n';
 
 export const storyDefaults = {
-	name: t('Untitled Story'),
-	startPassage: -1,
-	zoom: 1,
-	snapToGrid: false,
-	stylesheet: '',
+	name: t('store.storyDefaults.name'),
 	script: '',
+	snapToGrid: false,
+	startPassage: -1,
 	storyFormat: '',
-	storyFormatVersion: ''
+	storyFormatVersion: '',
+	stylesheet: '',
+	zoom: 1
 };
 
 export const passageDefaults = {
-	story: -1,
-	top: 0,
-	left: 0,
-	width: 100,
 	height: 100,
-	tags: [],
-	name: t('Untitled Passage'),
+	highlighted: false,
+	left: 0,
+	name: t('store.passageDefaults.name'),
 	selected: false,
+	story: -1,
+	tags: [],
 	text:
 		deviceType === 'touchOnly'
-			? t('Tap this passage, then the pencil icon to edit it.')
-			: t('Double-click this passage to edit it.')
+			? t('store.passageDefaults.textClick')
+			: t('store.passageDefaults.textTouch'),
+	top: 0,
+	width: 100
 };

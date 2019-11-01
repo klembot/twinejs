@@ -1,0 +1,98 @@
+@import '../../styles/colors.less';
+@import '../../styles/depth.less';
+@import '../../styles/metrics.less';
+@import '../../styles/typography.less';
+
+.colored-button(@color) {
+	color: white;
+	background: linear-gradient(to bottom, @color, darken(@color, 6%));
+	box-shadow: 0 2px 2px hsla(0, 0%, 0%, 0.25),
+		inset 0 0 2px hsla(0, 0%, 0%, 0.1);
+
+	&:active,
+	&.active,
+	&:active:hover,
+	&.active:hover {
+		background: linear-gradient(
+			to bottom,
+			darken(@color, 12%),
+			darken(@color, 8%)
+		);
+		background-size: 100vw 100vh;
+		box-shadow: inset 0 1px 1px hsla(0, 0%, 0%, 0.25);
+	}
+}
+
+button.icon-button,
+a.icon-link {
+	align-items: center;
+	background: linear-gradient(to bottom, hsl(0%, 0%, 100%), hsl(0%, 0%, 96%));
+	background-size: 100vw 100vh;
+	border: none;
+	border-radius: @len-medium;
+	box-shadow: 0 2px 2px hsla(0, 0%, 0%, 0.25),
+		inset 0 0 2px hsla(0, 0%, 0%, 0.1);
+	color: @color-text;
+	cursor: pointer;
+	display: inline-flex;
+	font: 100% @font-ui;
+	justify-content: center;
+	min-height: 40px;
+	padding: @len-small @len-medium;
+	text-decoration: none;
+	white-space: nowrap;
+
+	&:focus {
+		box-shadow: 0 1px 1px hsla(0, 0%, 0%, 0.25),
+			0 0 0 @len-tiny fade(@color-link, 25%);
+		outline: none;
+	}
+
+	&:hover {
+		background: linear-gradient(
+			to bottom,
+			mix(hsl(0%, 0%, 100%), @color-link, 95%),
+			mix(hsl(0%, 0%, 96%), @color-link, 95%)
+		);
+		color: @color-link;
+	}
+
+	&.icon-only {
+		border-radius: 50%;
+		height: 40px;
+		justify-content: center;
+		width: 40px;
+	}
+
+	&.icon-position-end {
+		flex-direction: row-reverse;
+	}
+
+	&.type-create {
+		.colored-button(lighten(@color-create, 10%));
+	}
+
+	&.type-danger {
+		.colored-button(lighten(@color-danger, 10%));
+	}
+
+	&.type-flat {
+		background: transparent;
+		box-shadow: none;
+	}
+
+	&.type-primary {
+		.colored-button(lighten(@color-link, 10%));
+	}
+
+	/* Placed last to override preceding styles. */
+
+	&:active,
+	&.active,
+	&:active:hover,
+	&.active:hover {
+		background: linear-gradient(to bottom, hsl(0%, 0%, 92%), hsl(0%, 0%, 96%));
+		background-size: 100vw 100vh;
+		box-shadow: inset 0 1px 1px hsla(0, 0%, 0%, 0.25);
+	}
+}

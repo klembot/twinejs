@@ -1,0 +1,14 @@
+.anchored-paper {
+	.anchor {
+		display: inline-block;
+	}
+}
+
+/*
+Has to be separately scoped because it will be portalled out of the normal DOM
+tree.
+*/
+
+.anchored-paper-raised-paper {
+	z-index: 1000;
+}

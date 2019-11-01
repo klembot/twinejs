@@ -1,27 +1,30 @@
 <template>
-	<div class="welcome-block" :style="style">
-		<h1>{{title}}</h1>
-		<p class="larger">
-			<slot></slot>
-		</p>
-		<p class="buttons">
-			<icon-button @click="onNext" type="primary" :label="nextLabel" />
-			<icon-button @click="onSkip" label="Skip" v-if="showSkip" />
-		</p>
+	<div class="welcome-block stack">
+		<img class="image" :src="this.image" alt="" />
+		<div class="stack vertical">
+			<h2>{{ title }}</h2>
+			<div><slot></slot></div>
+			<div class="stack horizontal">
+				<icon-button @click="onNext" icon="arrow-right" type="primary">{{
+					nextLabel
+				}}</icon-button>
+				<icon-button
+					@click="onSkip"
+					icon="fast-forward"
+					v-if="showSkip"
+					v-t="'common.skip'"
+				/>
+			</div>
+		</div>
 	</div>
 </template>
 
 <script>
-import IconButton from '../form/icon-button';
+import IconButton from '../input/icon-button';
 import './welcome-block.less';
 
 export default {
 	components: {IconButton},
-	computed: {
-		style() {
-			return {backgroundImage: `url(${this.image})`};
-		}
-	},
 	methods: {
 		onNext() {
 			this.$emit('next');
@@ -36,9 +39,18 @@ export default {
 			default: 'OK',
 			type: String
 		},
-		showSkip: Boolean,
-		image: String,
-		title: String
+		showSkip: {
+			default: false,
+			type: Boolean
+		},
+		image: {
+			required: true,
+			type: String
+		},
+		title: {
+			required: true,
+			type: String
+		}
 	}
 };
 </script>

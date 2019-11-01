@@ -22,6 +22,7 @@ import {
 import {load as loadStoryFormat, save as saveStoryFormat} from './story-format';
 
 let enabled = true;
+
 let previousStories;
 
 export default store => {
@@ -37,14 +38,18 @@ export default store => {
 			return;
 		}
 
-		console.log('local storage listener', mutation);
+		/*
+		Because we're operating globally, mutation types are namespaced.
+		*/
 
 		switch (mutation.type) {
 			case 'story/createStory':
 				updateStories(transaction => {
 					saveStory(
 						transaction,
-						state.story.stories.find(s => s.name === mutation.payload[0].name)
+						state.story.stories.find(
+							s => s.name === mutation.payload.storyProps.name
+						)
 					);
 				});
 				break;
@@ -53,7 +58,7 @@ export default store => {
 				updateStories(transaction => {
 					saveStory(
 						transaction,
-						state.story.stories.find(s => s.id === mutation.payload[0])
+						state.story.stories.find(s => s.id === mutation.payload.storyId)
 					);
 				});
 				break;
@@ -89,7 +94,7 @@ export default store => {
 				*/
 
 				const toDelete = previousStories.find(
-					s => s.id === mutation.payload[0]
+					s => s.id === mutation.payload.storyId
 				);
 
 				updateStories(transaction => {
@@ -112,11 +117,30 @@ export default store => {
 
 			case 'story/createPassage': {
 				const parentStory = state.story.stories.find(
-					s => s.id === mutation.payload[0]
+					s => s.id === mutation.payload.storyId
 				);
+
+				if (!parentStory) {
+					throw new Error(
+						`There is no story with ID "${mutation.payload.storyId}".`
+					);
+				}
+
+				if (!mutation.payload.passageProps.name) {
+					throw new Error(
+						`Can't save a passage because it has no name property.`
+					);
+				}
+
 				const passage = parentStory.passages.find(
-					p => p.name === mutation.payload[1].name
+					p => p.name === mutation.payload.passageProps.name
 				);
+
+				if (!passage) {
+					throw new Error(
+						`There is no passage with name "${mutation.payload.passageProps.name}" in story ID ${parentStory.id}.`
+					);
+				}
 
 				updateStories(transaction => {
 					saveStory(transaction, parentStory);
@@ -128,13 +152,30 @@ export default store => {
 			case 'story/updatePassage': {
 				/* Is this a significant update? */
 
-				if (Object.keys(mutation.payload[2]).some(key => key !== 'selected')) {
+				if (
+					Object.keys(mutation.payload.passageProps).some(
+						key => key !== 'selected'
+					)
+				) {
 					const parentStory = state.story.stories.find(
-						s => s.id === mutation.payload[0]
+						s => s.id === mutation.payload.storyId
 					);
+
+					if (!parentStory) {
+						throw new Error(
+							`There is no story with ID "${mutation.payload.storyId}".`
+						);
+					}
+
 					const passage = parentStory.passages.find(
-						p => p.id === mutation.payload[1]
+						p => p.id === mutation.payload.passageId
 					);
+
+					if (!passage) {
+						throw new Error(
+							`There is no passage with ID "${mutation.payload.passageId}" in story ID "${mutation.payload.storyId}"`
+						);
+					}
 
 					updateStories(transaction => {
 						saveStory(transaction, parentStory);
@@ -166,14 +207,16 @@ export default store => {
 				savePref(store);
 				break;
 
-			case 'storyFormat/create':
-			case 'storyFormat/update':
-			case 'storyFormat/delete':
+			case 'storyFormat/createFormat':
+			case 'storyFormat/updateFormat':
+			case 'storyFormat/deleteFormat':
 				saveStoryFormat(store);
 				break;
 
-			case 'LOAD_FORMAT__FIXME':
-				/* This change doesn't need to be persisted. */
+			case 'storyFormat/loadFormat':
+			case 'storyFormat/setAddFormatError':
+			case 'storyFormat/setFormatProperties':
+				/* These changes doesn't need to be persisted. */
 				break;
 
 			default:

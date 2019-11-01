@@ -1,0 +1,40 @@
+@import '../../styles/layout.less';
+@import '../../styles/colors.less';
+
+.status-message {
+	> div > .icon-image svg {
+		height: 32px;
+	}
+
+	&.error {
+		background-color: lighten(@color-danger, 55%);
+
+		> div > .icon-image {
+			color: @color-danger;
+		}
+	}
+
+	&.info {
+		background-color: lighten(@color-link, 55%);
+
+		> div > .icon-image {
+			color: @color-link;
+		}
+	}
+
+	&.success {
+		background-color: lighten(@color-create, 55%);
+
+		> div > .icon-image {
+			color: @color-create;
+		}
+	}
+
+	&.warning {
+		background-color: lighten(spin(@color-create, -90), 55%);
+
+		> div > .icon-image {
+			color: spin(@color-create, -90);
+		}
+	}
+}

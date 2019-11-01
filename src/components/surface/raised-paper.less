@@ -1,0 +1,94 @@
+// See https://css-tricks.com/using-box-shadows-and-clip-path-together/
+// for why the filter and generated content.
+//
+// TODO: simpler implementation for arrowless versions, since we'll use them a
+// lot.
+
+@arrow-width: 24px;
+@arrow-height: 12px;
+
+.raised-paper {
+	position: relative;
+
+	&::before {
+		background: linear-gradient(to bottom, hsl(0%, 0%, 100%), hsl(0%, 0%, 96%));
+		background-size: 100vw 100vh;
+		border-radius: 3px;
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
+
+	&.arrow-left::before {
+		left: -@arrow-height;
+
+		clip-path: polygon(
+			100% 0,
+			@arrow-height 0,
+			@arrow-height calc(~'50% - ' @arrow-width / 2),
+			0 50%,
+			@arrow-height calc(~'50% + ' @arrow-width / 2),
+			@arrow-height 100%,
+			100% 100%
+		);
+	}
+
+	&.arrow-right::before {
+		right: -@arrow-height;
+
+		clip-path: polygon(
+			0 0,
+			calc(~'100% - ' @arrow-height) 0,
+			calc(~'100% - ' @arrow-height) calc(~'50% - ' @arrow-width / 2),
+			100% 50%,
+			calc(~'100% - ' @arrow-height) calc(~'50% + ' @arrow-width / 2),
+			calc(~'100% - ' @arrow-height) 100%,
+			0 100%
+		);
+	}
+
+	&.arrow-top::before {
+		top: -@arrow-height;
+
+		clip-path: polygon(
+			0 @arrow-height,
+			calc(~'50% - ' @arrow-width / 2) @arrow-height,
+			50% 0,
+			calc(~'50% + ' @arrow-width / 2) @arrow-height,
+			100% @arrow-height,
+			100% 100%,
+			0 100%
+		);
+	}
+
+	&.arrow-bottom::before {
+		bottom: -@arrow-height;
+
+		clip-path: polygon(
+			0 0,
+			100% 0,
+			100% calc(~'100% - ' @arrow-height),
+			calc(~'50% + ' @arrow-width / 2) calc(~'100% - ' @arrow-height),
+			50% 100%,
+			calc(~'50% - ' @arrow-width / 2) calc(~'100% - ' @arrow-height),
+			0 calc(~'100% - ' @arrow-height)
+		);
+	}
+
+	> .content {
+		height: 100%;
+		position: relative;
+		z-index: 2;
+	}
+
+	&.elevation-low {
+		filter: drop-shadow(0 2px 2px hsla(0, 0%, 0%, 0.25));
+	}
+
+	&.elevation-high {
+		filter: drop-shadow(0 2px 4px hsla(0, 0%, 0%, 0.4));
+	}
+}

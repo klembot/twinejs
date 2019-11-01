@@ -1,6 +1,6 @@
 <template>
 	<div class="static-meter">
-		<span class="filled" v-bind:style="{ width: percent + '%' }"></span>
+		<span class="filled" v-bind:style="{width: percent + '%'}"></span>
 	</div>
 </template>
 

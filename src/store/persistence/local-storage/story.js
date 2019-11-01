@@ -5,7 +5,6 @@ time. As a result, saving requires that you start and end a transaction
 manually. This minimizes the number of writes to local storage.
 */
 
-import {actions} from '../../modules/story';
 import {passageDefaults, storyDefaults} from '../../modules/story/defaults';
 import {addUnique, remove} from './comma-list';
 
@@ -96,7 +95,7 @@ export function deletePassageById(transaction, id) {
 	window.localStorage.removeItem(`twine-passages-${id}`);
 }
 
-export function load(store) {
+export function load({commit}) {
 	let stories = {};
 	const serializedStories = window.localStorage.getItem('twine-stories');
 
@@ -166,8 +165,7 @@ export function load(store) {
 
 			if (!stories[newPassage.story]) {
 				console.warn(
-					`Passage ${id} is orphaned (looking for ` +
-						`${newPassage.story}), skipping`
+					`Passage ${id} is orphaned (looking for story ID ${newPassage.story}), skipping`
 				);
 				return;
 			}
@@ -192,5 +190,7 @@ export function load(store) {
 
 	/* Finally, we dispatch actions to add the stories to the store. */
 
-	Object.keys(stories).forEach(id => actions.createStory(store, stories[id]));
+	Object.keys(stories).forEach(id =>
+		commit('story/createStory', {storyProps: stories[id]})
+	);
 }

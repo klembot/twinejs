@@ -1,51 +1,13 @@
 /* base UI font */
-@font-ui: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+@font-ui: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans,
+	Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
 
 /* font for user-entered information */
-@font-user: 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+@font-user: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier,
+	monospace;
 
 /* display font, for titles */
 @font-display: 'Nunito Light', sans-serif;
-
-@font-face {
-	font-family: 'Source Sans Pro';
-	src: url('../fonts/sourcesanspro-regular.woff2') format('woff2'),
-		url('../fonts/sourcesanspro-regular.woff') format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'Source Sans Pro';
-	src: url('../fonts/sourcesanspro-it.woff2') format('woff2'),
-		url('../fonts/sourcesanspro-it.woff') format('woff');
-	font-weight: normal;
-	font-style: italic;
-}
-
-@font-face {
-	font-family: 'Source Sans Pro';
-	src: url('../fonts/sourcesanspro-bold.woff2') format('woff2'),
-		url('../fonts/sourcesanspro-bold.woff') format('woff');
-	font-weight: bold;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'Source Sans Pro';
-	src: url('../fonts/sourcesanspro-boldit.woff2') format('woff2'),
-		url('../fonts/sourcesanspro-boldit.woff') format('woff');
-	font-weight: bold;
-	font-style: italic;
-}
-
-@font-face {
-	font-family: 'Source Code Pro';
-	src: url('../fonts/sourcecodepro-regular.woff2') format('woff2'),
-		url('../fonts/sourcecodepro-regular.woff') format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
 
 @font-face {
 	font-family: 'Nunito Light';
@@ -62,6 +24,7 @@ h4 {
 	color: black;
 	font-family: 'Nunito Light', sans-serif;
 	font-weight: normal;
+	margin: 0;
 
 	.theme-dark & {
 		color: hsl(0, 0%, 80%);
@@ -73,7 +36,7 @@ h1 {
 }
 
 h2 {
-	font-size: 125%;
+	font-size: 150%;
 }
 
 h3 {
@@ -85,7 +48,7 @@ h4 {
 }
 
 body {
-	font: 90% 'Source Sans Pro', sans-serif;
+	font: 90% @font-ui;
 }
 
 p,
@@ -98,10 +61,10 @@ pre {
 	white-space: pre-wrap;
 }
 
-.larger {
+.larger-text {
 	font-size: 120%;
 }
 
-.smaller {
+.smaller-text {
 	font-size: 90%;
 }

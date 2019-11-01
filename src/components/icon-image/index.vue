@@ -1,0 +1,45 @@
+<template>
+	<span
+		:aria-hidden="!label || label === ''"
+		:aria-label="label"
+		class="icon-image"
+		v-html="svg"
+	/>
+</template>
+
+<script>
+import {icons} from 'feather-icons';
+import emptySvg from './extra-icons/empty.svg';
+import gridSmallSvg from './extra-icons/grid-small.svg';
+import './index.less';
+
+const extraIcons = {
+	empty: emptySvg,
+	'grid-small': gridSmallSvg
+};
+
+export default {
+	computed: {
+		svg() {
+			if (extraIcons[this.name]) {
+				return extraIcons[this.name];
+			}
+
+			if (icons[this.name]) {
+				return icons[this.name].toSvg();
+			}
+
+			throw new Error(`There is no icon image with name "${this.name}".`);
+		}
+	},
+	name: 'icon-image',
+	props: {
+		label: String,
+		name: {
+			type: String,
+			required: true
+		}
+	},
+	render: {}
+};
+</script>

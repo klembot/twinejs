@@ -4,7 +4,7 @@ Functions for moving prefs in and out of local storage.
 
 import uuid from 'tiny-uuid';
 
-export function save(store) {
+export function save({state}) {
 	/*
 	Delete existing prefs in local storage, since we aren't bothering to
 	preserve ids.
@@ -22,17 +22,7 @@ export function save(store) {
 
 	let ids = [];
 
-	console.log('store.state.pref', store.state.pref);
-
-	Object.keys(store.state.pref).forEach(name => {
-		console.log(
-			JSON.stringify({
-				id,
-				name,
-				value: store.state.pref[name]
-			})
-		);
-
+	Object.keys(state.pref).forEach(name => {
 		const id = uuid();
 
 		ids.push(id);
@@ -41,17 +31,17 @@ export function save(store) {
 			JSON.stringify({
 				id,
 				name,
-				value: store.state.pref[name]
+				value: state.pref[name]
 			})
 		);
-		console.log('saving', name, store.state.pref[name]);
 	});
 
 	window.localStorage.setItem('twine-prefs', ids.join(','));
 }
 
-export function load({dispatch}) {
+export function load({commit}) {
 	const serialized = window.localStorage.getItem('twine-prefs');
+	const toLoad = {};
 
 	if (!serialized) {
 		return;
@@ -60,8 +50,8 @@ export function load({dispatch}) {
 	serialized.split(',').forEach(id => {
 		try {
 			const item = JSON.parse(window.localStorage.getItem(`twine-prefs-${id}`));
-			console.log('restoring pref', item.name, item.value);
-			dispatch('pref/update', {[item.name]: item.value});
+
+			toLoad[item.name] = item.value;
 		} catch (err) {
 			console.warn(
 				`Preference ${id} had corrupt serialized value, skipping`,
@@ -70,4 +60,6 @@ export function load({dispatch}) {
 			);
 		}
 	});
+
+	commit('pref/update', toLoad);
 }

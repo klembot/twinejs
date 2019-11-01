@@ -1,9 +1,8 @@
 /* Functions for moving story formats in and out of local storage. */
 
 import uuid from 'tiny-uuid';
-import {actions} from '../../modules/story-format';
 
-export function save(store) {
+export function save({state}) {
 	/*
 	Delete existing formats in local storage, since we aren't bothering to
 	preserve ids.
@@ -23,7 +22,7 @@ export function save(store) {
 
 	let ids = [];
 
-	store.state.storyFormat.formats.forEach(format => {
+	state.storyFormat.formats.forEach(format => {
 		const id = uuid();
 
 		/*
@@ -41,7 +40,7 @@ export function save(store) {
 	window.localStorage.setItem('twine-storyformats', ids.join(','));
 }
 
-export function load(store) {
+export function load({commit}) {
 	const serialized = window.localStorage.getItem('twine-storyformats');
 
 	if (!serialized) {
@@ -54,7 +53,7 @@ export function load(store) {
 				window.localStorage.getItem(`twine-storyformats-${id}`)
 			);
 
-			actions.create(store, item);
+			commit('storyFormat/createFormat', {storyFormatProps: item});
 		} catch (e) {
 			console.warn(
 				`Story format ${id} had corrupt serialized value, skipping`,

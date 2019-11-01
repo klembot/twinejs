@@ -58,8 +58,10 @@ describe('pref local storage persistence', () => {
 		let store = {commit: jest.fn()};
 
 		load(store);
-		expect(store.commit).toHaveBeenCalledTimes(2);
-		expect(store.commit).toHaveBeenCalledWith('update', 'foo', true);
-		expect(store.commit).toHaveBeenCalledWith('update', 'bar', 1);
+		expect(store.commit).toHaveBeenCalledTimes(1);
+		expect(store.commit).toHaveBeenCalledWith('pref/update', {
+			bar: 1,
+			foo: true
+		});
 	});
 });
