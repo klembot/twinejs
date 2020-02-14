@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.13\n"
+"X-Generator: Poedit 2.3\n"
 "Last-Translator: Tom Hermans\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: nl\n"
@@ -270,7 +270,7 @@ msgstr "Ben je nieuw hier?"
 
 #: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
 msgid "<strong>If you've never used Twine before,</strong> then welcome! The <a href=\"http://twinery.org/2guide\" target=\"_blank\">Twine 2 Guide</a> and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki were written for Twine 1, which is a little bit different than this version. But most of the concepts are the same."
-msgstr "<strong>Als je nog nooit Twine hebt gebruikt,</strong> welkom! De <a href=\\\"http://twinery.org/2guide\\\" target=\\\"_blank\\\">Twine 2-gids</a> en de officiële wiki in het algemeen, is een goede plek om erover te leren. Houd er rekening mee dat sommige artikelen op de wiki origineel geschreven zijn voor Twine 1, die iets anders is dan deze versie. Maar de meeste concepten zijn nog hetzelfde."
+msgstr "<strong>Als je nog nooit Twine hebt gebruikt,</strong> welkom! De <a href=\\\"http://twinery.org/2guide\\\" target=\\\"_blank\\\">Twine 2-gids</a> en de rest van de officiële wiki, zijn goede plekken om erover te leren. Houd er rekening mee dat sommige artikelen op de wiki origineel geschreven zijn voor Twine 1, die iets anders is dan deze versie. Maar de meeste concepten zijn hetzelfde."
 
 #: src/nw/patches/welcome-view/replacement-template.html src/welcome/index.html
 msgid "<strong>If you have used Twine 1 before,</strong> the guide also has details on what has changed in this version. Chief among them is a new default story format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, try using SugarCube instead."
@@ -310,7 +310,7 @@ msgstr "Testen"
 
 #: src/story-edit-view/story-toolbar/index.html
 msgid "Play this story in test mode"
-msgstr "Speel dit verhaal in een test-modus"
+msgstr "Speel dit verhaal in de test-modus"
 
 #: src/story-edit-view/story-toolbar/index.html
 msgid "Play"
@@ -328,15 +328,15 @@ msgstr "Passage"
 
 #: src/story-edit-view/story-toolbar/index.html
 msgid "Add a new passage"
-msgstr "Een nieuwe passage toevoegen"
+msgstr "Nieuwe passage toevoegen"
 
 #: src/story-edit-view/story-toolbar/index.html
 msgid "Show passage titles and excerpts"
-msgstr "Passagetitels en fragmenten laten zien"
+msgstr "Passagetitels en fragmenten weergeven"
 
 #: src/story-edit-view/story-toolbar/index.html
 msgid "Show only passage titles"
-msgstr "Alleen passagetitels laten zien"
+msgstr "Alleen passagetitels weergeven"
 
 #: src/story-edit-view/story-toolbar/index.html
 msgid "Show only story structure"
@@ -378,7 +378,7 @@ msgstr "Alle passages selecteren"
 
 #: src/story-edit-view/story-toolbar/story-menu/index.html
 msgid "Snap to Grid"
-msgstr "Naar raster vastklikken"
+msgstr "Uitlijnen op raster"
 
 #: src/story-edit-view/story-toolbar/story-menu/index.html
 msgid "View Proofing Copy"
@@ -399,7 +399,7 @@ msgstr "“%s” bewerken"
 
 #: src\story-edit-view\passage-item\passage-menu\index.html
 msgid "Test story starting here"
-msgstr "Vanaf hier beginnen met verhaal testen"
+msgstr "Hier beginnen met het verhaal testen"
 
 #: src\story-edit-view\passage-item\passage-menu\index.html
 msgid "More passage options"
@@ -439,7 +439,7 @@ msgstr "Bewerkingsdatum"
 
 #: src/story-list-view/index.html
 msgid "Last changed date"
-msgstr "Laatste keer dat het verhaal veranderd is"
+msgstr "Laatst gewijzigd op"
 
 #: src/story-list-view/index.html
 msgid "Name"
@@ -500,7 +500,7 @@ msgstr "Online hulp bekijken"
 
 #: src/story-list-view/list-toolbar/index.html
 msgid "Use light theme"
-msgstr "Helder thema gebruiken"
+msgstr "Licht thema gebruiken"
 
 #: src/story-list-view/list-toolbar/index.html
 msgid "Use dark theme"
@@ -554,6 +554,14 @@ msgstr "Ten tweede, <b>iedereen die deze browser gebruikt kan je verhalen zien e
 msgid "a more recent version of the story format “%s” is already installed"
 msgstr "een recentere versie van het verhaalformaat “%s” is al geïnstalleerd"
 
+#: src\common\launch-story.js
+msgid "An error occurred while publishing your story. (%s)"
+msgstr "Er is iets mis gegaan tijdens het publiceren van je verhaal. (%s)"
+
+#: src\common\launch-story.js
+msgid "There is no story with ID %s."
+msgstr "Er is geen verhaal met ID %s."
+
 #: src/data/publish.js:75
 msgid "There is no starting point set for this story."
 msgstr "Er is geen beginpunt ingesteld voor dit verhaal."
@@ -581,6 +589,42 @@ msgstr "Tik op deze passage, en dan op het potlood-icoontje om het te bewerken."
 #: src/data/story.js
 msgid "Double-click this passage to edit it."
 msgstr "Dubbelklik deze passage om het te bewerken."
+
+#: src\editors\passage\tag-editor\index.html
+msgid "Tag name"
+msgstr "Naam van label"
+
+#: src\editors\passage\tag-editor\tag-menu\index.html
+msgid "Remove “%1$s”"
+msgstr "Verwijder “%1$s”"
+
+#: src\editors\passage\tag-editor\tag-menu\index.html
+msgid "Set tag color to gray"
+msgstr "Stel label-kleur in als grijs"
+
+#: src\editors\passage\tag-editor\tag-menu\index.html
+msgid "Set tag color to red"
+msgstr "Stel label-kleur in als rood"
+
+#: src\editors\passage\tag-editor\tag-menu\index.html
+msgid "Set tag color to orange"
+msgstr "Stel label-kleur in als oranje"
+
+#: src\editors\passage\tag-editor\tag-menu\index.html
+msgid "Set tag color to yellow"
+msgstr "Stel label-kleur in als geel"
+
+#: src\editors\passage\tag-editor\tag-menu\index.html
+msgid "Set tag color to green"
+msgstr "Stel label-kleur in als groen"
+
+#: src\editors\passage\tag-editor\tag-menu\index.html
+msgid "Set tag color to blue"
+msgstr "Stel label-kleur in als blauw"
+
+#: src\editors\passage\tag-editor\tag-menu\index.html
+msgid "Set tag color to purple"
+msgstr "Stel label-kleur in als paars"
 
 #. L10n: The <span> will have a version number, i.e. 2.0.6, interpolated into it.
 #: src/dialogs/app-update/index.js:40
@@ -689,11 +733,11 @@ msgstr "Mijn\\ Documenten"
 
 #: src/nw/directories.js:70
 msgid "Stories"
-msgstr "Stories"
+msgstr "Verhalen"
 
 #: src/nw/menus.js:27
 msgid "Toggle Fullscreen"
-msgstr "Fullscreen aan of uit zetten"
+msgstr "Volledig scherm aan- of uitzetten"
 
 #: src/nw/menus.js:44
 msgid "Quit"
