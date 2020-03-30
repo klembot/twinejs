@@ -40,6 +40,22 @@ module.exports = Vue.extend({
 	}),
 
 	computed: {
+		showBrowserWarning() {
+			if (!/Safari\//.test(navigator.userAgent)) {
+				return false;
+			}
+
+			// Safari 13.0 is OK, but anything after that isn't.
+
+			const version = /Version\/13\.(\d)/.exec(navigator.userAgent);
+
+			if (!version || !version[1] || version[1] === '0') {
+				return false;
+			}
+
+			return true;
+		},
+
 		sortedStories() {
 			/*
 			If we have no stories to sort, don't worry about it.
