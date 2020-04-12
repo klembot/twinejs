@@ -45,6 +45,12 @@ module.exports = Vue.extend({
 				return false;
 			}
 
+			if (window.navigator && window.navigator.standalone) {
+				// We are in iOS "standalone" or full-screen mode. This is supposed to have its own localStorage which is not subject to the seven-day limit.
+				// https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html
+				return false;
+			}
+
 			// Safari 13.0 is OK, but anything after that isn't.
 
 			const version = /Version\/13\.(\d)/.exec(navigator.userAgent);
