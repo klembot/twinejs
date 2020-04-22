@@ -45,7 +45,7 @@ module.exports = Vue.extend({
 				return false;
 			}
 
-			if (window.navigator && window.navigator.standalone) {
+			if (navigator.standalone) {
 				// We are in iOS "standalone" or full-screen mode. This is supposed to have its own localStorage which is not subject to the seven-day limit.
 				// https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html
 				return false;
@@ -60,6 +60,11 @@ module.exports = Vue.extend({
 			}
 
 			return true;
+		},
+
+		showiOSWarning() {
+			// This returns true on iOS (whether in standalone mode or not). It returns false on MacOS.
+			return (navigator.standalone !== undefined);
 		},
 
 		sortedStories() {
