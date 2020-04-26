@@ -1,0 +1,27 @@
+@import '../../styles/metrics.less';
+
+.dropdown-menu-item {
+	display: flex;
+	position: relative;
+
+	.check {
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		width: @len-medium;
+		align-items: center;
+		justify-content: center;
+	}
+
+	* {
+		flex-grow: 1;
+	}
+
+	.icon-button {
+		border-radius: 0;
+		justify-content: left;
+		padding-left: @len-medium * 1.5;
+		padding-right: @len-medium * 1.5;
+	}
+}

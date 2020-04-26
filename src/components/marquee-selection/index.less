@@ -1,0 +1,19 @@
+@import '../../styles/colors.less';
+@import '../../styles/metrics.less';
+
+.marquee-selection {
+	position: absolute;
+	border: @len-hairline solid lighten(@color-link, 40%);
+	border-radius: 2px;
+	background: fadeout(@color-link, 95%);
+}
+
+body.marqueeing {
+	.drop {
+		display: none !important;
+	}
+
+	* {
+		cursor: crosshair !important;
+	}
+}

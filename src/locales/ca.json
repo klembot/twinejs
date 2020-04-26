@@ -1,0 +1,140 @@
+{
+	"aboutTwine": {
+		"donateToTwine": "Ajuda el Twine a créixer amb una donació",
+		"codeHeader": "",
+		"codeRepo": "Dipòsit de codi font",
+		"license": "",
+		"localizationHeader": "",
+		"title": "",
+		"twineDescription": ""
+	},
+	"common": {
+		"add": "Afegeix",
+		"appName": "Twine",
+		"cancel": "Cancel·la",
+		"create": "",
+		"delete": "Suprimeix",
+		"duplicate": "Duplica",
+		"edit": "",
+		"ok": "D'acord",
+		"play": "Reprodueix",
+		"publishToFile": "Publica a fitxer",
+		"rename": "Canvia el nom",
+		"skip": "Omet",
+		"test": "Prova"
+	},
+	"components": {
+		"localStorageQuota": {"measureAgain": "", "percentAvailable": ""},
+		"passageItem": {"test": ""},
+		"storyFormatAdder": {"explanation": ""},
+		"storyFormatItem": {"header": "", "license": ""}
+	},
+	"dialogs": {
+		"findReplace": {
+			"dialogTitle": "Cerca i reemplaça",
+			"includePassageNames": "Inclou noms de passatges",
+			"matchCase": "Coincidència de majúscules i minúscules",
+			"replaceWith": "Reemplaça amb",
+			"searchFor": "Cerca",
+			"useRegexes": ""
+		},
+		"storyStats": {
+			"brokenLinks": "",
+			"characters": "",
+			"dialogTitle": "Estadístiques de la història",
+			"ifid": "",
+			"ifidExplanation": "",
+			"lastUpdate": "",
+			"links": "",
+			"passages": "",
+			"words": ""
+		}
+	},
+	"editors": {
+		"passage": {"passageName": ""},
+		"storyJavaScript": {
+			"dialogTitle": "",
+			"dialogExplanation": "Qualsevol JavaScript introduït ací s'executarà immediatament quan s'obri la història al vostre navegador."
+		},
+		"storyStylesheet": {
+			"dialogTitle": "",
+			"dialogExplanation": "Qualsevol CSS introduït ací substituirà l'aparença per defecte de la vostra història."
+		}
+	},
+	"localeSelect": {
+		"explanation": "Seleccioneu quina llengua voleu emprar amb el Twine."
+	},
+	"store": {
+		"passageDefaults": {
+			"name": "Passatge sense títol",
+			"textClick": "Feu doble clic sobre aquest passatge per editar-lo.",
+			"textTouch": "Toqueu aquest passatge, i després la icona del llapis per editar-lo."
+		},
+		"storyDefaults": {"name": "Història sense títol"},
+		"storyFormatDefaults": {"name": "Format d'història sense títol"}
+	},
+	"storyEdit": {
+		"storyMenu": {
+			"editJavaScript": "Edita el JavaScript de la història",
+			"editStylesheet": "Edita el full d'estil de la història",
+			"proofStory": "Visualitza la còpia de comprovació",
+			"renameStory": "Canvia el nom de la història",
+			"renameStoryPrompt": "",
+			"selectAllPassages": "Selecciona tots els passatges",
+			"setStoryFormat": "Canvia el format de la història",
+			"snapToGrid": "Ajusta a la quadrícula",
+			"storyStats": ""
+		},
+		"toolbar": {
+			"addPassage": "Passatge",
+			"quickFind": "",
+			"showFindDialog": "",
+			"zoom": ""
+		}
+	},
+	"storyFormats": {
+		"addFormat": "",
+		"defaultStoryFormat": "",
+		"proofingFormatExplanation": "Els formats de correció creen versions de les històries orientades a l'edició i revisió.",
+		"proofingFormats": "",
+		"selectedProofingFormat": "",
+		"storyFormats": "",
+		"storyFormatExplanation": "Els formats d'història controlen l'aparença i comportament de les històries durant la reproducció.",
+		"useAsDefault": "Empra'l com valor per defecte",
+		"useAsProofing": ""
+	},
+	"storyList": {
+		"noStories": "No hi ha cap història desada al Twine ara mateix. Per començar, podeu crear una història nova i importar una existent des d'un fitxer.",
+		"title": "Històries",
+		"toolbar": {
+			"archive": "Arxiva",
+			"archiveExplanation": "",
+			"createStory": "Història",
+			"createStoryExplanation": "",
+			"createStoryPrompt": "",
+			"help": "Ajuda",
+			"helpDescription": "",
+			"language": "Llengua",
+			"languageDescription": "",
+			"importFromFile": "Importa des d'un fitxer",
+			"importFromFileExplanation": "",
+			"reportBug": "Informeu d'un error",
+			"storyFormats": "Formats",
+			"storyFormatsExplanation": ""
+		}
+	},
+	"welcome": {
+		"autosave": "",
+		"autosaveTitle": "El teu treball es desa automàticament.",
+		"browserStorage": "",
+		"browserStorageTitle": "",
+		"done": "Gràcies per llegir, i passeu-ho be amb el Twine.",
+		"doneTitle": "Això és tot!",
+		"gotoStoryList": "Vés a la llista de històries",
+		"greeting": "",
+		"greetingTitle": "Hola!",
+		"tellMeMore": "Dis-me més",
+		"versionDiffs": "",
+		"versionDiffsTitle": "Sou nou aquí?"
+	}
+}

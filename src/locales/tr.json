@@ -1,0 +1,142 @@
+{
+	"aboutTwine": {
+		"donateToTwine": "Twine'ın Büyümesine Bağış Yaparak Katkıda Bulunun",
+		"codeHeader": "Kod Yazarları",
+		"codeRepo": "",
+		"license": "",
+		"localizationHeader": "",
+		"title": "",
+		"twineDescription": ""
+	},
+	"common": {
+		"add": "Ekle",
+		"appName": "Twine",
+		"cancel": "İptal",
+		"create": "",
+		"delete": "Sil",
+		"duplicate": "Kopya Oluştur",
+		"edit": "Düzen",
+		"ok": "Tamam",
+		"play": "Oku",
+		"publishToFile": "Dosyaya Yayımla",
+		"rename": "Yeniden Adlandır",
+		"skip": "Atla",
+		"test": "Dene"
+	},
+	"components": {
+		"localStorageQuota": {"measureAgain": "", "percentAvailable": ""},
+		"passageItem": {"test": ""},
+		"storyFormatAdder": {
+			"explanation": "Öykü biçimi eklemek için biçimin internet adresini aşağı girin."
+		},
+		"storyFormatItem": {"header": "", "license": ""}
+	},
+	"dialogs": {
+		"findReplace": {
+			"dialogTitle": "Bul ve Değiştir",
+			"includePassageNames": "Aramaya bölüm adlarını da kat",
+			"matchCase": "Büyük Küçük harf eşleştir",
+			"replaceWith": "Şununla Değiştir",
+			"searchFor": "Şunu Ara",
+			"useRegexes": ""
+		},
+		"storyStats": {
+			"brokenLinks": "",
+			"characters": "",
+			"dialogTitle": "Öykü İstatistikleri",
+			"ifid": "",
+			"ifidExplanation": "",
+			"lastUpdate": "",
+			"links": "",
+			"passages": "",
+			"words": ""
+		}
+	},
+	"editors": {
+		"passage": {"passageName": "Bölüm Adı"},
+		"storyJavaScript": {
+			"dialogTitle": "",
+			"dialogExplanation": "Buraya girdiğiniz JavaScript kodu; öykü bir İnternet tarayıcısında açıldığında istisnasız çalıştırılacaktır."
+		},
+		"storyStylesheet": {
+			"dialogTitle": "",
+			"dialogExplanation": "Buraya girdiğiniz CSS kodu öykünün varsayılan görünümünü değiştirir."
+		}
+	},
+	"localeSelect": {
+		"explanation": "Lütfen, Twine için kullanmak istediğiniz dili seçin."
+	},
+	"store": {
+		"passageDefaults": {
+			"name": "Adsız Bölüm",
+			"textClick": "Bölümü düzenlemek için çift tıklayın.",
+			"textTouch": "Önce bu bölüme, sonra kaleme basarak bölümü düzenleyebilirsiniz."
+		},
+		"storyDefaults": {"name": "Adsız Öykü"},
+		"storyFormatDefaults": {"name": "Adsız Öykü Biçimi"}
+	},
+	"storyEdit": {
+		"storyMenu": {
+			"editJavaScript": "Öykünün JavaScript kodunu düzenle",
+			"editStylesheet": "Öykünün Stil Şablonunu Düzenle",
+			"proofStory": "Yazım Denetleme Nüshasına Bak",
+			"renameStory": "Öyküyü yeniden adlandır",
+			"renameStoryPrompt": "",
+			"selectAllPassages": "",
+			"setStoryFormat": "Öykü Biçimini Değiştir",
+			"snapToGrid": "Kılavuz Izgaraya Uy",
+			"storyStats": ""
+		},
+		"toolbar": {
+			"addPassage": "",
+			"quickFind": "Hızlı Arama",
+			"showFindDialog": "",
+			"zoom": ""
+		}
+	},
+	"storyFormats": {
+		"addFormat": "Yeni Biçim Ekle",
+		"defaultStoryFormat": "",
+		"proofingFormatExplanation": "Yazım denetleme biçimleri öykünün düzenlenmesi ve gözden geçirilmesi için bir sürüm oluşturur.",
+		"proofingFormats": "Yazım Denetleme Biçimleri",
+		"selectedProofingFormat": "",
+		"storyFormats": "Öykü Biçimleri",
+		"storyFormatExplanation": "Öykü biçimleri hikayenin okuma sırasında nasıl göründüğünü ve davrandığını belirler.",
+		"useAsDefault": "",
+		"useAsProofing": ""
+	},
+	"storyList": {
+		"noStories": "Şu an Twine'da kayıtlı hiçbir öykü yok. Başlamak için yeni bir öykü yaratın veya var olan bir öyküyü içe aktarın.",
+		"title": "Öyküler",
+		"toolbar": {
+			"archive": "Arşiv",
+			"archiveExplanation": "",
+			"createStory": "Öykü",
+			"createStoryExplanation": "",
+			"createStoryPrompt": "",
+			"help": "Yardım",
+			"helpDescription": "Çevrimiçi yardıma göz atın",
+			"language": "Dil",
+			"languageDescription": "Twine'ın kullandığı dili değiştirin",
+			"importFromFile": "Dosyadan İçe Aktar",
+			"importFromFileExplanation": "",
+			"reportBug": "Hata raporlayın",
+			"storyFormats": "Biçimler",
+			"storyFormatsExplanation": "Hikaye ve yazım denetim biçimlerini düzenle"
+		}
+	},
+	"welcome": {
+		"autosave": "",
+		"autosaveTitle": "Çalışmalarınız otomatik olarak kaydedilir.",
+		"browserStorage": "",
+		"browserStorageTitle": "",
+		"done": "Okuduğunuz için teşekkürler, Twine'ı güle güle kullanın.",
+		"doneTitle": "Tamamdır!",
+		"gotoStoryList": "Öykü listesine git",
+		"greeting": "Twine, kullanıcı etkileşimli ve örgülü hikayeler anlatmaya yarayan açık kaynaklı bir araçtır. Başlamadan önce bilmeniz gereken birkaç şey var.",
+		"greetingTitle": "Merhaba!",
+		"tellMeMore": "Devam Et",
+		"versionDiffs": "",
+		"versionDiffsTitle": "Yeni misiniz?"
+	}
+}

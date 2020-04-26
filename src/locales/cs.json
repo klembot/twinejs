@@ -1,0 +1,139 @@
+{
+	"aboutTwine": {
+		"donateToTwine": "Pomozte Twine existovat z vašich dobrovolných příspěvků",
+		"codeHeader": "Kód",
+		"codeRepo": "",
+		"license": "",
+		"localizationHeader": "",
+		"title": "",
+		"twineDescription": ""
+	},
+	"common": {
+		"add": "Přidat",
+		"appName": "Twine",
+		"cancel": "Storno",
+		"create": "",
+		"delete": "Smazat",
+		"duplicate": "Duplikovat",
+		"edit": "Upravit",
+		"ok": "OK",
+		"play": "Přehrát",
+		"publishToFile": "Zveřejnit do souboru",
+		"rename": "Přejmenovat",
+		"skip": "Přeskočit",
+		"test": "Otestovat"
+	},
+	"components": {
+		"localStorageQuota": {"measureAgain": "", "percentAvailable": ""},
+		"passageItem": {"test": ""},
+		"storyFormatAdder": {
+			"explanation": "Pro přidání formátu příběhu zadejte jeho internetovou adresu níže."
+		},
+		"storyFormatItem": {"header": "", "license": ""}
+	},
+	"dialogs": {
+		"findReplace": {
+			"dialogTitle": "Najít a nahradit",
+			"includePassageNames": "Včetně názvu místnosti",
+			"matchCase": "Rozlišovat velikost písmen",
+			"replaceWith": "Nahradit",
+			"searchFor": "Hledat",
+			"useRegexes": ""
+		},
+		"storyStats": {
+			"brokenLinks": "",
+			"characters": "",
+			"dialogTitle": "Statistika příběhu",
+			"ifid": "",
+			"ifidExplanation": "",
+			"lastUpdate": "",
+			"links": "",
+			"passages": "",
+			"words": ""
+		}
+	},
+	"editors": {
+		"passage": {"passageName": "Název místnosti"},
+		"storyJavaScript": {"dialogTitle": "", "dialogExplanation": ""},
+		"storyStylesheet": {
+			"dialogTitle": "",
+			"dialogExplanation": "Jakýkoliv CSS skript zadaný zde přepíše výchozí vzhled vašeho příběhu."
+		}
+	},
+	"localeSelect": {
+		"explanation": "Zvolte si jazyk, který budete používat v Twine."
+	},
+	"store": {
+		"passageDefaults": {
+			"name": "Nepojmenovaná místnost",
+			"textClick": "Pro úpravu místnosti na ní dvakrát klikněte.",
+			"textTouch": "Klikněte na místnost a poté můžete zahájit úpravy skrz ikonu tužky."
+		},
+		"storyDefaults": {"name": "Nepojmenovaný příběh"},
+		"storyFormatDefaults": {"name": "Nepojmenovaný formát příběhu"}
+	},
+	"storyEdit": {
+		"storyMenu": {
+			"editJavaScript": "Upravit JavaScript příběhu",
+			"editStylesheet": "Upravit styl příběhu",
+			"proofStory": "Zobrazit kopii k revizi",
+			"renameStory": "Přejmenovat příběh",
+			"renameStoryPrompt": "",
+			"selectAllPassages": "",
+			"setStoryFormat": "Změnit formát příběhu",
+			"snapToGrid": "Ukotvit k mřížce",
+			"storyStats": ""
+		},
+		"toolbar": {
+			"addPassage": "",
+			"quickFind": "Rychlé hledání",
+			"showFindDialog": "",
+			"zoom": ""
+		}
+	},
+	"storyFormats": {
+		"addFormat": "Přidat nový formát",
+		"defaultStoryFormat": "",
+		"proofingFormatExplanation": "Formát kontroly příběhu vytváří verzi příběhu uzpůsobenou k úpravám a kontrole.",
+		"proofingFormats": "Formáty kontroly",
+		"selectedProofingFormat": "",
+		"storyFormats": "Formát příběhu",
+		"storyFormatExplanation": "Formát příběhu určuje vzhled a chování příběhů během hraní.",
+		"useAsDefault": "",
+		"useAsProofing": ""
+	},
+	"storyList": {
+		"noStories": "V Twine nejsou právě uloženy žádné příběhy. Abyste mohli začít, musíte vytvořit nový příběh nebo nějaký importovat ze souboru.",
+		"title": "Příběhy",
+		"toolbar": {
+			"archive": "Archiv",
+			"archiveExplanation": "",
+			"createStory": "Příběh",
+			"createStoryExplanation": "",
+			"createStoryPrompt": "",
+			"help": "Nápověda",
+			"helpDescription": "Procházet nápovědu online",
+			"language": "Jazyk",
+			"languageDescription": "Změnit jazyk, který Twine používá",
+			"importFromFile": "Importovat ze souboru",
+			"importFromFileExplanation": "",
+			"reportBug": "Nahlásit chybu",
+			"storyFormats": "Formáty",
+			"storyFormatsExplanation": "Pracovat s formáty příběhu a konrtoly"
+		}
+	},
+	"welcome": {
+		"autosave": "",
+		"autosaveTitle": "Vaše práce je automaticky ukládána.",
+		"browserStorage": "",
+		"browserStorageTitle": "",
+		"done": "Děkuji za pozornost a přeji vám mnoho legrace s Twine.",
+		"doneTitle": "A to je vše!",
+		"gotoStoryList": "Přejít na seznam příběhů",
+		"greeting": "",
+		"greetingTitle": "Vítejte!",
+		"tellMeMore": "Dozvědět se více",
+		"versionDiffs": "",
+		"versionDiffsTitle": "Jste nováček?"
+	}
+}

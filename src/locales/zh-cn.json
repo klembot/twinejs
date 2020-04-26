@@ -1,0 +1,138 @@
+{
+	"aboutTwine": {
+		"donateToTwine": "通过捐赠帮助Twine开发",
+		"codeHeader": "",
+		"codeRepo": "源代码库",
+		"license": "",
+		"localizationHeader": "",
+		"title": "",
+		"twineDescription": ""
+	},
+	"common": {
+		"add": "添加",
+		"appName": "Twine",
+		"cancel": "取消",
+		"create": "",
+		"delete": "删除",
+		"duplicate": "重复",
+		"edit": "编辑",
+		"ok": "好的",
+		"play": "运行",
+		"publishToFile": "发布到文件",
+		"rename": "重命名",
+		"skip": "跳过",
+		"test": "测试"
+	},
+	"components": {
+		"localStorageQuota": {"measureAgain": "", "percentAvailable": ""},
+		"passageItem": {"test": ""},
+		"storyFormatAdder": {"explanation": ""},
+		"storyFormatItem": {"header": "", "license": ""}
+	},
+	"dialogs": {
+		"findReplace": {
+			"dialogTitle": "查找替换",
+			"includePassageNames": "包含名称",
+			"matchCase": "匹配大小写",
+			"replaceWith": "替换为",
+			"searchFor": "搜索",
+			"useRegexes": ""
+		},
+		"storyStats": {
+			"brokenLinks": "",
+			"characters": "",
+			"dialogTitle": "故事统计",
+			"ifid": "",
+			"ifidExplanation": "",
+			"lastUpdate": "",
+			"links": "",
+			"passages": "",
+			"words": ""
+		}
+	},
+	"editors": {
+		"passage": {"passageName": ""},
+		"storyJavaScript": {
+			"dialogTitle": "",
+			"dialogExplanation": "当您的故事在Web浏览器中打开时，此处输入的任何JavaScript都将立即运行。"
+		},
+		"storyStylesheet": {
+			"dialogTitle": "",
+			"dialogExplanation": "这里输入的任何CSS都会覆盖故事的默认外观。"
+		}
+	},
+	"localeSelect": {"explanation": "请选择您想要使用的语言。"},
+	"store": {
+		"passageDefaults": {
+			"name": "未命名片段",
+			"textClick": "双击该段落进行编辑。",
+			"textTouch": "点击这个片段，然后点击铅笔图标进行编辑。"
+		},
+		"storyDefaults": {"name": "未命名故事"},
+		"storyFormatDefaults": {"name": "未命名故事的格式"}
+	},
+	"storyEdit": {
+		"storyMenu": {
+			"editJavaScript": "编辑故事 Javascript 脚本",
+			"editStylesheet": "编辑故事样式表",
+			"proofStory": "查看校对版本",
+			"renameStory": "重命名故事",
+			"renameStoryPrompt": "",
+			"selectAllPassages": "选择所有片段",
+			"setStoryFormat": "编辑故事格式",
+			"snapToGrid": "对齐到网格",
+			"storyStats": ""
+		},
+		"toolbar": {
+			"addPassage": "片段",
+			"quickFind": "",
+			"showFindDialog": "",
+			"zoom": ""
+		}
+	},
+	"storyFormats": {
+		"addFormat": "",
+		"defaultStoryFormat": "",
+		"proofingFormatExplanation": "校对格式用于故事的校对版本。",
+		"proofingFormats": "",
+		"selectedProofingFormat": "",
+		"storyFormats": "",
+		"storyFormatExplanation": "故事格式用于控制游戏过程中的故事外观和行为。",
+		"useAsDefault": "使用默认",
+		"useAsProofing": ""
+	},
+	"storyList": {
+		"noStories": "在 Twine 中没有保存的故事。您可以创建一个新故事或从文件导入现有的故事。",
+		"title": "故事",
+		"toolbar": {
+			"archive": "档案",
+			"archiveExplanation": "",
+			"createStory": "故事",
+			"createStoryExplanation": "",
+			"createStoryPrompt": "",
+			"help": "帮助",
+			"helpDescription": "",
+			"language": "语言",
+			"languageDescription": "",
+			"importFromFile": "从文件导入",
+			"importFromFileExplanation": "",
+			"reportBug": "反馈问题",
+			"storyFormats": "格式",
+			"storyFormatsExplanation": ""
+		}
+	},
+	"welcome": {
+		"autosave": "",
+		"autosaveTitle": "您的作品将自动保存。",
+		"browserStorage": "",
+		"browserStorageTitle": "",
+		"done": "感谢您的阅读，希望 使用 Twine 愉快！",
+		"doneTitle": "就是这样！",
+		"gotoStoryList": "返回故事列表",
+		"greeting": "Twine是一个开源的工具，用于展示互动的非线性故事。 在开始之前，你应该了解一些事情。",
+		"greetingTitle": "(｡･∀･)ﾉﾞ嗨！",
+		"tellMeMore": "告诉我更多",
+		"versionDiffs": "",
+		"versionDiffsTitle": "新来的？"
+	}
+}

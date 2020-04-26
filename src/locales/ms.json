@@ -1,0 +1,140 @@
+{
+	"aboutTwine": {
+		"donateToTwine": "Tolong Twine Berkembang Melalui Sumbangan",
+		"codeHeader": "",
+		"codeRepo": "Repositori Kod Sumber",
+		"license": "",
+		"localizationHeader": "",
+		"title": "",
+		"twineDescription": ""
+	},
+	"common": {
+		"add": "Tambah",
+		"appName": "Twine",
+		"cancel": "Batal",
+		"create": "",
+		"delete": "Padam",
+		"duplicate": "Salinan",
+		"edit": "Sunting",
+		"ok": "OK",
+		"play": "Main",
+		"publishToFile": "Terbit ke Fail",
+		"rename": "Namakan Semula",
+		"skip": "Langkau",
+		"test": "Cuba"
+	},
+	"components": {
+		"localStorageQuota": {"measureAgain": "", "percentAvailable": ""},
+		"passageItem": {"test": ""},
+		"storyFormatAdder": {"explanation": ""},
+		"storyFormatItem": {"header": "", "license": ""}
+	},
+	"dialogs": {
+		"findReplace": {
+			"dialogTitle": "Cari dan Gantikan",
+			"includePassageNames": "Sertakan nama petikan",
+			"matchCase": "Sama case",
+			"replaceWith": "Ganti Dengan",
+			"searchFor": "Cari Untuk",
+			"useRegexes": ""
+		},
+		"storyStats": {
+			"brokenLinks": "",
+			"characters": "",
+			"dialogTitle": "Statistik Cerita",
+			"ifid": "",
+			"ifidExplanation": "",
+			"lastUpdate": "",
+			"links": "",
+			"passages": "",
+			"words": ""
+		}
+	},
+	"editors": {
+		"passage": {"passageName": ""},
+		"storyJavaScript": {
+			"dialogTitle": "",
+			"dialogExplanation": "Sebarang JavaScript yang dimasukkan di sini akan berjalan dengan serta-merta apabila cerita anda dibuka dalam pelayar Web."
+		},
+		"storyStylesheet": {
+			"dialogTitle": "",
+			"dialogExplanation": "Sebarang CSS yang dimasukkan di sini akan mengatasi penampilan lalai cerita anda."
+		}
+	},
+	"localeSelect": {
+		"explanation": "Sila pilih bahasa yang anda ingin guna semasa di Twine."
+	},
+	"store": {
+		"passageDefaults": {
+			"name": "Petikan Tidak Bertajuk",
+			"textClick": "Klik dua kali untuk sunting petikan ini.",
+			"textTouch": "Tekan petikan ini, kemudian ikon pensel untuk suntingkannya."
+		},
+		"storyDefaults": {"name": "Cerita Tidak Bertajuk"},
+		"storyFormatDefaults": {"name": "Format Cerita Tidak Bertajuk"}
+	},
+	"storyEdit": {
+		"storyMenu": {
+			"editJavaScript": "Sunting Cerita JavaScript",
+			"editStylesheet": "Sunting Cerita Stylesheet",
+			"proofStory": "Lihat Salinan Proofing",
+			"renameStory": "Namakan Semula Cerita",
+			"renameStoryPrompt": "",
+			"selectAllPassages": "",
+			"setStoryFormat": "Tukar Format Cerita",
+			"snapToGrid": "Lekat di Grid",
+			"storyStats": ""
+		},
+		"toolbar": {
+			"addPassage": "Petikan",
+			"quickFind": "",
+			"showFindDialog": "",
+			"zoom": ""
+		}
+	},
+	"storyFormats": {
+		"addFormat": "",
+		"defaultStoryFormat": "",
+		"proofingFormatExplanation": "Proofing format mencipta versi-versi cerita yang direka untuk sunting dan membaca pruf.",
+		"proofingFormats": "",
+		"selectedProofingFormat": "",
+		"storyFormats": "",
+		"storyFormatExplanation": "Format cerita kawal penampilan dan tingkah laku cerita semasa tengah bermain.",
+		"useAsDefault": "Guna sebagai Lalai",
+		"useAsProofing": ""
+	},
+	"storyList": {
+		"noStories": "Tiada apa-apa cerita disimpan di Twine pada masa sekarang. Untuk bermula, anda boleh sama ada cipta cerita baharu atau import yang sedia ada dari fail.",
+		"title": "Cerita",
+		"toolbar": {
+			"archive": "Arkib",
+			"archiveExplanation": "",
+			"createStory": "Cerita",
+			"createStoryExplanation": "",
+			"createStoryPrompt": "",
+			"help": "Tolong",
+			"helpDescription": "",
+			"language": "Bahasa",
+			"languageDescription": "",
+			"importFromFile": "Import Dari Fail",
+			"importFromFileExplanation": "",
+			"reportBug": "Laporkan pepijat",
+			"storyFormats": "Format-Format",
+			"storyFormatsExplanation": ""
+		}
+	},
+	"welcome": {
+		"autosave": "",
+		"autosaveTitle": "Kerja anda disimpan secara automatik.",
+		"browserStorage": "",
+		"browserStorageTitle": "",
+		"done": "Terima kasih kerana membaca, dan berseronoklah dengan Twine.",
+		"doneTitle": "Itu sahaja!",
+		"gotoStoryList": "Pergi ke Senarai Cerita",
+		"greeting": "Twine ialah alat sumber-terbuka untuk menceritakan cerita-cerita interaktif dan tidak linear. Terdapat beberapa perkara yang anda patut tahu sebelum mula.",
+		"greetingTitle": "Hai!",
+		"tellMeMore": "Beritahu Saya Lagi",
+		"versionDiffs": "",
+		"versionDiffsTitle": "Baharu di sini?"
+	}
+}

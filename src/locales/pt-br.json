@@ -1,0 +1,142 @@
+{
+	"aboutTwine": {
+		"donateToTwine": "Ajude o Twine a Crescer Com Uma Doação",
+		"codeHeader": "Código",
+		"codeRepo": "",
+		"license": "",
+		"localizationHeader": "",
+		"title": "",
+		"twineDescription": ""
+	},
+	"common": {
+		"add": "Adicionar",
+		"appName": "Twine",
+		"cancel": "Cancelar",
+		"create": "",
+		"delete": "Excluir",
+		"duplicate": "Duplicar",
+		"edit": "Editar",
+		"ok": "OK",
+		"play": "Jogar",
+		"publishToFile": "Publicar para Arquivo",
+		"rename": "Renomear",
+		"skip": "Pular",
+		"test": "Testar"
+	},
+	"components": {
+		"localStorageQuota": {"measureAgain": "", "percentAvailable": ""},
+		"passageItem": {"test": ""},
+		"storyFormatAdder": {
+			"explanation": "Para adicionar um formato de história, insira seu endereço abaixo."
+		},
+		"storyFormatItem": {"header": "", "license": ""}
+	},
+	"dialogs": {
+		"findReplace": {
+			"dialogTitle": "Achar e Substituir",
+			"includePassageNames": "Incluir Nomes de Passagens",
+			"matchCase": "Combinar maiúsculas e minúsculas",
+			"replaceWith": "Substituir Por",
+			"searchFor": "Procurar Por",
+			"useRegexes": ""
+		},
+		"storyStats": {
+			"brokenLinks": "",
+			"characters": "",
+			"dialogTitle": "Estatísticas da História",
+			"ifid": "",
+			"ifidExplanation": "",
+			"lastUpdate": "",
+			"links": "",
+			"passages": "",
+			"words": ""
+		}
+	},
+	"editors": {
+		"passage": {"passageName": "Nome da Passagem"},
+		"storyJavaScript": {
+			"dialogTitle": "",
+			"dialogExplanation": "Qualquer JavaScript inserido aqui irá rodar imediatamente quando sua história abrir em um navegador."
+		},
+		"storyStylesheet": {
+			"dialogTitle": "",
+			"dialogExplanation": "Qualquer CSS inserido aqui irá sobrescrever a aparência padrão da sua história."
+		}
+	},
+	"localeSelect": {
+		"explanation": "Por favor, escolha o idioma que você gostaria de usar no Twine."
+	},
+	"store": {
+		"passageDefaults": {
+			"name": "Passagem Sem Nome",
+			"textClick": "Clique duas vezes nessa passagem para editá-la.",
+			"textTouch": "Clique nessa passagem, e então no ícone de lápis para editar."
+		},
+		"storyDefaults": {"name": "História Sem Nome"},
+		"storyFormatDefaults": {"name": "Formato de História Sem Nome"}
+	},
+	"storyEdit": {
+		"storyMenu": {
+			"editJavaScript": "Editar JavaScript da História",
+			"editStylesheet": "Editar Folha de Estilos da História",
+			"proofStory": "Ver Cópia de Prova",
+			"renameStory": "Renomear História",
+			"renameStoryPrompt": "",
+			"selectAllPassages": "",
+			"setStoryFormat": "Mudar Formato da História",
+			"snapToGrid": "Fixar na Grade",
+			"storyStats": ""
+		},
+		"toolbar": {
+			"addPassage": "",
+			"quickFind": "Busca Rápida",
+			"showFindDialog": "",
+			"zoom": ""
+		}
+	},
+	"storyFormats": {
+		"addFormat": "Adicionar Novo Formato",
+		"defaultStoryFormat": "",
+		"proofingFormatExplanation": "Revisar formatos cria uma versão da história projetada para edição e revisão.",
+		"proofingFormats": "Revisar Formatos",
+		"selectedProofingFormat": "",
+		"storyFormats": "Formatos de Histórias",
+		"storyFormatExplanation": "Formatos de histórias controlam a aparência e o comportamento das histórias durante o jogo.",
+		"useAsDefault": "",
+		"useAsProofing": ""
+	},
+	"storyList": {
+		"noStories": "Não há histórias salvas no Twine agora. Para começar, você pode criar uma nova história ou importar uma história existente a partir de um arquivo.",
+		"title": "Histórias",
+		"toolbar": {
+			"archive": "Histórico",
+			"archiveExplanation": "",
+			"createStory": "História",
+			"createStoryExplanation": "",
+			"createStoryPrompt": "",
+			"help": "Ajuda",
+			"helpDescription": "Pesquise ajuda online",
+			"language": "Idioma",
+			"languageDescription": "Mude o idioma que o Twine usa",
+			"importFromFile": "Importar de Arquivo",
+			"importFromFileExplanation": "",
+			"reportBug": "Relatar um bug",
+			"storyFormats": "Formatos",
+			"storyFormatsExplanation": "Trabalhar com formatos de história e revisão"
+		}
+	},
+	"welcome": {
+		"autosave": "",
+		"autosaveTitle": "Seu trabalho é salvo automaticamente.",
+		"browserStorage": "",
+		"browserStorageTitle": "",
+		"done": "Obrigado por ler, e divirta-se com o Twine.",
+		"doneTitle": "É isso!",
+		"gotoStoryList": "Vá para a Lista de Histórias",
+		"greeting": "O Twine é uma ferramenta open-source para contar histórias interativas e não-lineares. Há algumas coisas que você deveria saber antes de começar.",
+		"greetingTitle": "Olá!",
+		"tellMeMore": "Conte-me Mais",
+		"versionDiffs": "",
+		"versionDiffsTitle": "Novo por aqui?"
+	}
+}

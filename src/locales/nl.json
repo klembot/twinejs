@@ -1,0 +1,142 @@
+{
+	"aboutTwine": {
+		"donateToTwine": "Help Twine te groeien met een donatie",
+		"codeHeader": "Code",
+		"codeRepo": "",
+		"license": "",
+		"localizationHeader": "",
+		"title": "",
+		"twineDescription": ""
+	},
+	"common": {
+		"add": "Voeg toe",
+		"appName": "Twine",
+		"cancel": "Annuleren",
+		"create": "",
+		"delete": "Verwijderen",
+		"duplicate": "Dupliceer",
+		"edit": "Bewerken",
+		"ok": "Oke",
+		"play": "Speel",
+		"publishToFile": "Naar bestand publiceren",
+		"rename": "Hernoem",
+		"skip": "Overslaan",
+		"test": "Test"
+	},
+	"components": {
+		"localStorageQuota": {"measureAgain": "", "percentAvailable": ""},
+		"passageItem": {"test": ""},
+		"storyFormatAdder": {
+			"explanation": "Vul onder een adres in om een verhaal formaat toe te voegen."
+		},
+		"storyFormatItem": {"header": "", "license": ""}
+	},
+	"dialogs": {
+		"findReplace": {
+			"dialogTitle": "Zoek en vervang",
+			"includePassageNames": "Passage naam insluiten",
+			"matchCase": "Hoofdletter gevoelig",
+			"replaceWith": "Verplaatsen met",
+			"searchFor": "Zoek naar",
+			"useRegexes": ""
+		},
+		"storyStats": {
+			"brokenLinks": "",
+			"characters": "",
+			"dialogTitle": "Verhaal statistieken",
+			"ifid": "",
+			"ifidExplanation": "",
+			"lastUpdate": "",
+			"links": "",
+			"passages": "",
+			"words": ""
+		}
+	},
+	"editors": {
+		"passage": {"passageName": "Passage naam"},
+		"storyJavaScript": {
+			"dialogTitle": "",
+			"dialogExplanation": "JavaScript die u hier invoert zal gelijk uitgevoerd worden als uw verhaal in een Web browser wordt geopend"
+		},
+		"storyStylesheet": {
+			"dialogTitle": "",
+			"dialogExplanation": "CSS die hier is ingevoerd zal het standaard uiterlijk van je verhaal overschrijven"
+		}
+	},
+	"localeSelect": {
+		"explanation": "Selecteer a.u.b. welke taal u wilt gebruiken voor Twine."
+	},
+	"store": {
+		"passageDefaults": {
+			"name": "Naamloze passage",
+			"textClick": "Klik twee keer op deze passage om het aan te passen.",
+			"textTouch": "Druk op deze passage en dan het potlood icoon om het aan te passen."
+		},
+		"storyDefaults": {"name": "Naamloos verhaal"},
+		"storyFormatDefaults": {"name": "Naamloos Verhaal Formaat"}
+	},
+	"storyEdit": {
+		"storyMenu": {
+			"editJavaScript": "Pas verhaal JavaScript aan",
+			"editStylesheet": "Pas verhaal StyleSheet aan",
+			"proofStory": "Kijk naar controle kopie",
+			"renameStory": "Verhaal hernoemen",
+			"renameStoryPrompt": "",
+			"selectAllPassages": "",
+			"setStoryFormat": "Verander verhaal formaat",
+			"snapToGrid": "Uitlijnen op raster",
+			"storyStats": ""
+		},
+		"toolbar": {
+			"addPassage": "",
+			"quickFind": "Snel zoeken",
+			"showFindDialog": "",
+			"zoom": ""
+		}
+	},
+	"storyFormats": {
+		"addFormat": "Nieuw formaat toevoegen",
+		"defaultStoryFormat": "",
+		"proofingFormatExplanation": "Controle formaten maakt een versie van het verhaal gemaakt voor bewerken en proeflezen.",
+		"proofingFormats": "Controle formaten",
+		"selectedProofingFormat": "",
+		"storyFormats": "Verhaal formaten",
+		"storyFormatExplanation": "Verhaal formaten passen het uiterlijk en gedrag van verhalen aan tijdens het spelen.",
+		"useAsDefault": "",
+		"useAsProofing": ""
+	},
+	"storyList": {
+		"noStories": "Er zijn geen opgeslagen verhalen in Twine op dit moment. Om te beginnen kun een nieuw verhaal maken",
+		"title": "Verhalen",
+		"toolbar": {
+			"archive": "Archief",
+			"archiveExplanation": "",
+			"createStory": "Verhaal",
+			"createStoryExplanation": "",
+			"createStoryPrompt": "",
+			"help": "Help",
+			"helpDescription": "Online hulp raadplegen",
+			"language": "Taal",
+			"languageDescription": "Verander de taal die Twine gebruikt",
+			"importFromFile": "Importeer vanuit bestand",
+			"importFromFileExplanation": "",
+			"reportBug": "Een bug raporteren",
+			"storyFormats": "Formaten",
+			"storyFormatsExplanation": "Werk met verhaal en controle formaten"
+		}
+	},
+	"welcome": {
+		"autosave": "",
+		"autosaveTitle": "Je werk wordt automatisch opgeslagen.",
+		"browserStorage": "",
+		"browserStorageTitle": "",
+		"done": "Bedankt voor het lezen en heb veel plezier met Twine.",
+		"doneTitle": "Dat is het!",
+		"gotoStoryList": "Ga naar de verhaal lijst",
+		"greeting": "Twine is een open-source programma om interactieve, niet-lineaire verhalen te vertellen. Er zijn een paar dingen die je moet weten voordat je begint.",
+		"greetingTitle": "Hallo!",
+		"tellMeMore": "Vertel me meer",
+		"versionDiffs": "",
+		"versionDiffsTitle": "Ben je hier nieuw?"
+	}
+}

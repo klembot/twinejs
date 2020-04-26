@@ -1,0 +1,140 @@
+{
+	"aboutTwine": {
+		"donateToTwine": "Hjelp Twine ved å gi en donasjon",
+		"codeHeader": "",
+		"codeRepo": "Lagrinssted for kildekode",
+		"license": "",
+		"localizationHeader": "",
+		"title": "",
+		"twineDescription": ""
+	},
+	"common": {
+		"add": "Legg til",
+		"appName": "Twine",
+		"cancel": "Avbryt",
+		"create": "",
+		"delete": "Slett",
+		"duplicate": "Dupliser",
+		"edit": "Rediger",
+		"ok": "OK",
+		"play": "Spill av",
+		"publishToFile": "Publiser til fil",
+		"rename": "Endre navn",
+		"skip": "Hopp over",
+		"test": "Test"
+	},
+	"components": {
+		"localStorageQuota": {"measureAgain": "", "percentAvailable": ""},
+		"passageItem": {"test": ""},
+		"storyFormatAdder": {"explanation": ""},
+		"storyFormatItem": {"header": "", "license": ""}
+	},
+	"dialogs": {
+		"findReplace": {
+			"dialogTitle": "Finn og erstatt",
+			"includePassageNames": "Inkluder passasjenavn",
+			"matchCase": "Behold store/små bokstaver",
+			"replaceWith": "Erstatt med",
+			"searchFor": "Søk etter",
+			"useRegexes": ""
+		},
+		"storyStats": {
+			"brokenLinks": "",
+			"characters": "",
+			"dialogTitle": "Historiestatistikk",
+			"ifid": "",
+			"ifidExplanation": "",
+			"lastUpdate": "",
+			"links": "",
+			"passages": "",
+			"words": ""
+		}
+	},
+	"editors": {
+		"passage": {"passageName": ""},
+		"storyJavaScript": {
+			"dialogTitle": "",
+			"dialogExplanation": "Alle JavaScript som er lagt til her, vil umiddelbart kjøre når historien din åpnes i en nettleser."
+		},
+		"storyStylesheet": {
+			"dialogTitle": "",
+			"dialogExplanation": "All CSS-kode som er lagt til her, vil tilsidesette standardutseendet til historien din."
+		}
+	},
+	"localeSelect": {
+		"explanation": "Vennligst velg hvilket språk du vil bruke med Twine."
+	},
+	"store": {
+		"passageDefaults": {
+			"name": "Passasje uten navn",
+			"textClick": "Dobbeltklikk på denne passasjen for å redigere det.",
+			"textTouch": "Klikk på denne passasjen, og deretter blyantikonet for å redigere det."
+		},
+		"storyDefaults": {"name": "Historie uten navn"},
+		"storyFormatDefaults": {"name": "Historieformat uten navn"}
+	},
+	"storyEdit": {
+		"storyMenu": {
+			"editJavaScript": "Rediger historie JavaScript",
+			"editStylesheet": "Rediger historiestilark",
+			"proofStory": "Se korrekturkopien",
+			"renameStory": "Gi nytt navn til historien",
+			"renameStoryPrompt": "",
+			"selectAllPassages": "",
+			"setStoryFormat": "Endre historieformat",
+			"snapToGrid": "Fest til rutenettet",
+			"storyStats": ""
+		},
+		"toolbar": {
+			"addPassage": "Passasje",
+			"quickFind": "",
+			"showFindDialog": "",
+			"zoom": ""
+		}
+	},
+	"storyFormats": {
+		"addFormat": "",
+		"defaultStoryFormat": "",
+		"proofingFormatExplanation": "Korrekturformater oppretter en type historier som er skreddersydd for redigering og korrekturlesing.",
+		"proofingFormats": "",
+		"selectedProofingFormat": "",
+		"storyFormats": "",
+		"storyFormatExplanation": "Historieformater styrer fremstillingen og oppførselen til historier under spillet.",
+		"useAsDefault": "Bruk som standard",
+		"useAsProofing": ""
+	},
+	"storyList": {
+		"noStories": "Det er ingen historier lagret i Twine akkurat nå. For å komme i gang kan du enten opprette en ny historie eller importere en eksisterende fra en fil.",
+		"title": "Historier",
+		"toolbar": {
+			"archive": "Arkiv",
+			"archiveExplanation": "",
+			"createStory": "Historie",
+			"createStoryExplanation": "",
+			"createStoryPrompt": "",
+			"help": "Hjelp",
+			"helpDescription": "",
+			"language": "Språk",
+			"languageDescription": "",
+			"importFromFile": "Importer fra fil",
+			"importFromFileExplanation": "",
+			"reportBug": "Rapporter en feil",
+			"storyFormats": "Format",
+			"storyFormatsExplanation": ""
+		}
+	},
+	"welcome": {
+		"autosave": "",
+		"autosaveTitle": "Arbeidet ditt lagres automatisk.",
+		"browserStorage": "",
+		"browserStorageTitle": "",
+		"done": "Takk for at du leser, og ha det gøy med Twine.",
+		"doneTitle": "Det var det!",
+		"gotoStoryList": "Gå til historielisten",
+		"greeting": "Twine er et åpen kildekode-verktøy for å fortelle interaktive, ikke-lineære historier. Det er noen ting du bør vite før du kommer i gang.",
+		"greetingTitle": "Hei!",
+		"tellMeMore": "Fortell meg mer",
+		"versionDiffs": "",
+		"versionDiffsTitle": "Ny her?"
+	}
+}

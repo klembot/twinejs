@@ -1,0 +1,134 @@
+@import '../../styles/colors.less';
+@import '../../styles/layout.less';
+@import '../../styles/metrics.less';
+@import '../../styles/depth.less';
+
+.passage-item {
+	position: absolute;
+	cursor: default;
+	font-size: 85%;
+	border: 1px solid transparent;
+	user-select: none;
+
+	.raised-paper {
+		height: 100%;
+		left: 0;
+		overflow: hidden;
+		position: absolute;
+		top: 0;
+		width: 100%;
+	}
+
+	.tags {
+		position: absolute;
+		z-index: 2;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		width: @len-small * 0.75;
+		display: flex;
+		flex-direction: column;
+
+		div {
+			flex-grow: 1;
+			flex-shrink: 1;
+			margin: @len-hairline;
+			border-radius: (@len-small * 0.75) / 2;
+
+			& + div {
+				margin-top: 0;
+			}
+
+			&.red {
+				background: @color-tag-red;
+			}
+
+			&.orange {
+				background: @color-tag-orange;
+			}
+
+			&.yellow {
+				background: @color-tag-yellow;
+			}
+
+			&.green {
+				background: @color-tag-green;
+			}
+
+			&.blue {
+				background: @color-tag-blue;
+			}
+
+			&.purple {
+				background: @color-tag-purple;
+			}
+		}
+	}
+
+	&.selected {
+		border: @len-hairline solid lighten(@color-link, 30%);
+		background: lighten(@color-link, 55%);
+	}
+
+	&.highlighted {
+		border: @len-hairline solid lighten(@color-highlight, 15%);
+		background: lighten(@color-highlight, 40%);
+	}
+
+	&.selected.highlighted {
+		border: @len-hairline solid
+			mix(lighten(@color-highlight, 15%), lighten(@color-link, 30%));
+		background: mix(lighten(@color-highlight, 40%), lighten(@color-link, 55%));
+	}
+
+	&.zoom-medium {
+		padding: @len-tiny;
+
+		.frame {
+			height: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.title {
+			font-weight: normal;
+			text-align: center;
+			max-height: 100%;
+			line-height: 100%;
+
+			.badge-create,
+			.badge-danger {
+				display: block;
+				margin: 0 auto;
+			}
+		}
+
+		.excerpt {
+			display: none;
+		}
+	}
+
+	&.zoom-small {
+		&::before {
+			background: linear-gradient(
+				to bottom,
+				transparent 0,
+				lighten(@color-text, 60%) 1px,
+				transparent 1px
+			);
+			background-size: 3px 3px;
+			content: '';
+			position: absolute;
+			top: @len-tiny;
+			left: @len-tiny;
+			right: @len-tiny;
+			bottom: @len-tiny;
+		}
+
+		.name,
+		.excerpt {
+			display: none;
+		}
+	}
+}
