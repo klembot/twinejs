@@ -1,3 +1,7 @@
+**You are reading the README of the `develop` branch, which is currently being
+refactored and revised. Much functionality of Twine 2.3.x needs to be restored
+on this branch, and what is here is still buggy.**
+
 ## twinejs
 
 by Chris Klimas, Leon Arnott, Daithi O Crualaoich, Ingrid Cheung, Thomas Michael
