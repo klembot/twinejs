@@ -71,7 +71,7 @@
 		"ejs-webpack-loader": "^2.2.2",
 		"electron": "^3.0.7",
 		"electron-builder": "^20.31.2",
-		"eslint": "^3.10.2",
+		"eslint": "^4.18.2",
 		"estraverse": "^4.2.0",
 		"file-loader": "^2.0.0",
 		"glob": "^7.1.1",
