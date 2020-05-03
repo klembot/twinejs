@@ -58,7 +58,7 @@
 	"devDependencies": {
 		"@babel/core": "^7.1.2",
 		"@babel/preset-env": "^7.1.0",
-		"acorn": "^4.0.3",
+		"acorn": "^5.7.4",
 		"babel-loader": "^8.0.4",
 		"base64-font-loader": "0.0.4",
 		"cheerio": "^1.0.0-rc.2",
