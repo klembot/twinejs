@@ -1,6 +1,6 @@
 {
 	"name": "Twine",
-	"version": "2.3.6",
+	"version": "2.3.7",
 	"author": "Chris Klimas <chris@twinery.org>",
 	"description": "a GUI for creating nonlinear stories",
 	"license": "GPL-3.0",
@@ -58,7 +58,7 @@
 	"devDependencies": {
 		"@babel/core": "^7.1.2",
 		"@babel/preset-env": "^7.1.0",
-		"acorn": "^4.0.3",
+		"acorn": "^5.7.4",
 		"babel-loader": "^8.0.4",
 		"base64-font-loader": "0.0.4",
 		"cheerio": "^1.0.0-rc.2",
@@ -71,7 +71,7 @@
 		"ejs-webpack-loader": "^2.2.2",
 		"electron": "^3.0.7",
 		"electron-builder": "^20.31.2",
-		"eslint": "^3.10.2",
+		"eslint": "^4.18.2",
 		"estraverse": "^4.2.0",
 		"file-loader": "^2.0.0",
 		"glob": "^7.1.1",
