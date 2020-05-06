@@ -71,6 +71,7 @@ const config = (module.exports = {
 	plugins: [
 		new CopyPlugin([
 			{from: 'src/common/img/favicon.ico', to: 'rsrc/favicon.ico'},
+			{from: 'icons/ios-icon-180.png', to: 'rsrc/ios-icon-180.png'},
 			{from: 'story-formats/', to: 'story-formats/'},
 			{from: 'src/locale/view/img', to: 'rsrc/'},
 			{from: 'src/locale/po/*.js', to: 'locale/'}

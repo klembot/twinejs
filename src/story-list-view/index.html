@@ -1,4 +1,10 @@
 <div id="storyListView">
+	<p v-if="showBrowserWarning" style="background: #ffdddd; flex-grow: 0; margin: 0; padding: 1em; position: fixed; top: 0; left: 0; right: 0; z-index: 1000">
+		The browser you are using will delete all stories after seven days of not visiting this web site.
+		<span v-if="showiOSWarning">You may use the "Add to Home Screen" button to avoid this limitation.</span>
+		<span v-else>Please archive your stories and use another platform. Please see <a href="https://webkit.org/blog/10218/full-third-party-cookie-blocking-and-more/">this WebKit blog post</a> for technical details.</span>
+	</p>
+
 	<file-drag-n-drop>{{ 'Drop a story file to import' | say}}</file-drag-n-drop>
 
 	<list-toolbar></list-toolbar>

@@ -40,6 +40,33 @@ module.exports = Vue.extend({
 	}),
 
 	computed: {
+		showBrowserWarning() {
+			if (!/Safari\//.test(navigator.userAgent)) {
+				return false;
+			}
+
+			if (navigator.standalone) {
+				// We are in iOS "standalone" or full-screen mode. This is supposed to have its own localStorage which is not subject to the seven-day limit.
+				// https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html
+				return false;
+			}
+
+			// Safari 13.0 is OK, but anything after that isn't.
+
+			const version = /Version\/13\.(\d)/.exec(navigator.userAgent);
+
+			if (!version || !version[1] || version[1] === '0') {
+				return false;
+			}
+
+			return true;
+		},
+
+		showiOSWarning() {
+			// This returns true on iOS (whether in standalone mode or not). It returns false on MacOS.
+			return (navigator.standalone !== undefined);
+		},
+
 		sortedStories() {
 			/*
 			If we have no stories to sort, don't worry about it.
