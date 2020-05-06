@@ -9,7 +9,7 @@ export const storyDefaults = {
 	name: t('store.storyDefaults.name'),
 	script: '',
 	snapToGrid: false,
-	startPassage: -1,
+	startPassage: '',
 	storyFormat: '',
 	storyFormatVersion: '',
 	stylesheet: '',
@@ -22,7 +22,7 @@ export const passageDefaults = {
 	left: 0,
 	name: t('store.passageDefaults.name'),
 	selected: false,
-	story: -1,
+	story: '',
 	tags: [],
 	text:
 		deviceType === 'touchOnly'

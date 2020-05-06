@@ -10,19 +10,19 @@ import {
 
 describe('story local storage persistence', () => {
 	const testStory = {
-		id: 'not-a-real-id',
+		id: 'mock-story-id',
 		name: 'Test Story',
-		startPassage: 100,
-		zoom: 1.5,
-		snapToGrid: true,
-		stylesheet: '* { color: red }',
 		script: 'console.log("hi")',
-		storyFormat: 'Harlowe'
+		startPassage: 'mock-passage-id',
+		snapToGrid: true,
+		storyFormat: 'Harlowe',
+		stylesheet: '* { color: red }',
+		zoom: 1.5
 	};
 
 	const testPassage = {
-		id: 'also-not-a-real-id',
-		story: 'not-a-real-id',
+		id: 'mock-passage-id',
+		story: 'mock-story-id',
 		top: 20,
 		left: 30,
 		width: 120,
@@ -114,6 +114,7 @@ describe('story local storage persistence', () => {
 		const {storyProps} = firstArgs[1];
 
 		expect(firstArgs[0]).toBe('story/createStory');
+		expect(storyProps.passages[0].story).toBe(storyProps.id);
 
 		Object.keys(testStory).forEach(key => {
 			if (key === 'passages') {
