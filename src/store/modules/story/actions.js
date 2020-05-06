@@ -203,7 +203,7 @@ export function repairStories({commit, rootState, state}) {
 			!story.passages.some(p => p.id === story.startPassage)
 		) {
 			console.warn(
-				`Story ID ${story.id} has bad start passage ID, resetting to first one`
+				`Story ID ${story.id} has bad start passage ID (${story.startPassage}), resetting to first one`
 			);
 
 			commit('updateStory', {
