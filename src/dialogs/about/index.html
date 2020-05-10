@@ -2,27 +2,21 @@
 	<span slot="title">{{ 'About Twine' | say }} {{ appInfo.version }}</span>
 
 	<p>
-		{{
-			'Twine is an open-source tool for telling interactive, nonlinear stories.'
-				| say
-		}}
+		{{ 'Twine is an open-source tool for telling interactive, nonlinear
+		stories.' | say }}
 	</p>
 
 	<p>
-		{{{ 'This application is released under the \x3ca href="http:\/\/www.gnu.org/licenses/gpl-3.0.html">GPL v3\x3c/a>
-		license, but any work created with it may be released under any terms, including commercial ones.'| say
-
-
-		}}}
+		{{{ 'This application is released under the \x3ca
+		href="http:\/\/www.gnu.org/licenses/gpl-3.0.html">GPL v3\x3c/a> license,
+		but any work created with it may be released under any terms, including
+		commercial ones.'| say }}}
 	</p>
 
 	<p>
-		{{
-		/* L10n: This is the noun form, to describe a version of the software. e.g. 'I am using Twine build 123' */
-		'Build'
-		| say }}
-
-		{{ appInfo.buildNumber }}
+		{{ /* L10n: This is the noun form, to describe a version of the
+		software. e.g. 'I am using Twine build 123' */ 'Build' | say }} {{
+		appInfo.buildNumber }}
 	</p>
 
 	<p>
@@ -43,19 +37,18 @@
 	</p>
 
 	<h4>
-		{{
-		/* L10n: This is the noun form, as program code. */
-		'Code' |say
-		}}
+		{{ /* L10n: This is the noun form, as program code. */ 'Code' |say }}
 	</h4>
 
 	<p>
 		Chris Klimas<br />
+		Andrew Plotkin<br />
 		Leon Arnott<br />
 		Ingrid Cheung<br />
 		Daithi O Crualaoich<br />
 		Thomas Michael Edwards<br />
 		Micah Fitch<br />
+		HiEv<br />
 		Juhana Leinonen<br />
 		Michael Savich<br />
 		Ross Smith
@@ -115,12 +108,11 @@
 	</h4>
 
 	<p>
-		{{{ 'Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the guidance of Robert Slimbach for
-		\x3ca href="http:\/\/adobe.com/">Adobe\x3c/a>\x3cbr> Nunito was designed by \x3ca
-		href="http:\/\/code.newtypography.co.uk/">Vernon Adams\x3c/a>'| say
-
-
-		}}}
+		{{{ 'Source Sans Pro and Source Code Pro were designed by Paul D. Hunt
+		under the guidance of Robert Slimbach for \x3ca
+		href="http:\/\/adobe.com/">Adobe\x3c/a>\x3cbr> Nunito was designed by
+		\x3ca href="http:\/\/code.newtypography.co.uk/">Vernon Adams\x3c/a>'|
+		say }}}
 	</p>
 
 	<h4>
@@ -129,17 +121,17 @@
 
 	<p>
 		<a href="http://fontawesome.io/">Font Awesome</a><br />
-		<a href="http://thenounproject.com/term/document/12036/">{{
-			'Document designed by Rob Gill from the Noun Project' | say
-		}}</a
+		<a href="http://thenounproject.com/term/document/12036/"
+			>{{ 'Document designed by Rob Gill from the Noun Project' | say
+			}}</a
 		><br />
-		<a href="http://thenounproject.com/term/question/2036/">{{
-			'Question designed by Henry Ryder from the Noun Project' | say
-		}}</a
+		<a href="http://thenounproject.com/term/question/2036/"
+			>{{ 'Question designed by Henry Ryder from the Noun Project' | say
+			}}</a
 		><br />
-		<a href="http://thenounproject.com/term/smile/10696/">{{
-			'Smile designed by jelio dimitrov from the Noun Project' | say
-		}}</a
+		<a href="http://thenounproject.com/term/smile/10696/"
+			>{{ 'Smile designed by jelio dimitrov from the Noun Project' | say
+			}}</a
 		><br />
 	</p>
 </modal-dialog>
