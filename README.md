@@ -1,7 +1,8 @@
 ## twinejs
 
-by Chris Klimas, Leon Arnott, Daithi O Crualaoich, Ingrid Cheung, Thomas Michael
-Edwards, Micah Fitch, Juhana Leinonen, Michael Savich, and Ross Smith
+by Chris Klimas, Andrew Plotkin, Leon Arnott, Daithi O Crualaoich, Ingrid
+Cheung, Thomas Michael Edwards, Micah Fitch, HiEv, Juhana Leinonen, Michael Savich,
+and Ross Smith
 
 ### SYNOPSIS
 

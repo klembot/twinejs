@@ -178,8 +178,8 @@ const actions = (module.exports = {
 		const builtinFormats = [
 			{
 				name: 'Chapbook',
-				url: 'story-formats/chapbook-1.0.0/format.js',
-				version: '1.0.0',
+				url: 'story-formats/chapbook-1.1.0/format.js',
+				version: '1.1.0',
 				userAdded: false
 			},
 			{
@@ -250,11 +250,10 @@ const actions = (module.exports = {
 		*/
 
 		if (typeof store.state.pref.defaultFormat !== 'object') {
-			setPref(
-				store,
-				'defaultFormat',
-				{ name: 'Harlowe', version: '3.1.0' }
-			);
+			setPref(store, 'defaultFormat', {
+				name: 'Harlowe',
+				version: '3.1.0'
+			});
 		}
 
 		if (typeof store.state.pref.proofingFormat !== 'object') {
