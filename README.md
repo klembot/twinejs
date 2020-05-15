@@ -18,7 +18,21 @@ repositories:
 -   [Snowman](https://github.com/videlais/snowman)
 -   [SugarCube](https://bitbucket.org/tmedwards/sugarcube)
 
-### INSTALL
+### PACKAGES
+
+#### Official Builds
+
+Binary packages for Twine are available on the [Releases](https://github.com/klembot/twinejs/releases) tab for Windows, MacOS and Linux. 
+
+#### Community Supported Builds
+
+A snap of Twine has been published in the Snap Store for Linux users.
+
+[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/twinejs)
+
+Arch users can find Twine in the AUR as [twinejs-standalone](https://aur.archlinux.org/packages/twinejs-standalone/).
+
+### BUILD FROM SOURCE
 
 Run `npm install` at the top level of the directory to install all goodies.
 
