@@ -4,7 +4,12 @@
 			<story-preview @click="edit" :hue="0" :passages="story.passages" />
 			<div class="stack">
 				<h3 class="grow">{{ story.name }}</h3>
-				<anchored-paper :allowFlip="true" position="top" :visible="menuVisible">
+				<anchored-paper
+					:allowFlip="true"
+					@click-away="toggleMenu"
+					position="top"
+					:visible="menuVisible"
+				>
 					<template v-slot:anchor>
 						<icon-button @click="toggleMenu" icon="settings" />
 					</template>

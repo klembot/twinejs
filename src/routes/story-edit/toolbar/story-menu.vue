@@ -1,6 +1,10 @@
 <template>
 	<div class="story-menu">
-		<anchored-paper position="top" :visible="menuVisible">
+		<anchored-paper
+			@click-away="toggleMenuVisible"
+			position="top"
+			:visible="menuVisible"
+		>
 			<template v-slot:anchor>
 				<icon-button
 					@click="toggleMenuVisible"

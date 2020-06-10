@@ -1,5 +1,9 @@
 <template>
-	<anchored-paper position="left" :visible="paperOpen">
+	<anchored-paper
+		@click-away="togglePaper"
+		position="left"
+		:visible="paperOpen"
+	>
 		<template v-slot:anchor>
 			<icon-button
 				@click="togglePaper"
