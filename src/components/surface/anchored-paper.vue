@@ -31,10 +31,15 @@ export default {
 		if (this.popper) {
 			this.popper.destroy();
 		}
+
+		if (this.boundClickListener) {
+			document.removeEventListener('click', this.boundClickListener);
+		}
 	},
 	components: {Portal, RaisedPaper},
 	data: () => ({
 		arrowPosition: null,
+		boundClickListener: null,
 		oldFocus: null,
 		popper: null
 	}),
@@ -83,6 +88,21 @@ export default {
 				this.oldFocus.focus();
 				this.oldFocus = null;
 			}
+		},
+		clickListener(event) {
+			let target = event.target;
+
+			while (
+				target &&
+				target !== this.$refs.anchor &&
+				target !== this.$refs.paper
+			) {
+				target = target.parentNode;
+			}
+
+			if (target !== this.$refs.anchor && target !== this.$refs.paper) {
+				this.$emit('click-away');
+			}
 		}
 	},
 	props: {
@@ -103,8 +123,11 @@ export default {
 		visible(value) {
 			if (value) {
 				this.createPopper();
+				this.boundClickListener = event => this.clickListener(event);
+				document.addEventListener('click', this.boundClickListener);
 			} else {
 				this.destroyPopper();
+				document.removeEventListener('click', this.boundClickListener);
 			}
 		}
 	}
