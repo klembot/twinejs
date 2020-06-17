@@ -1,0 +1,56 @@
+@import '../../styles/colors';
+@import '../../styles/depth';
+
+.top-bar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 50px;
+	background: linear-gradient(
+		to bottom,
+		@color-paper,
+		darken(@color-paper, 5%)
+	);
+	box-shadow: 0 0 20px hsla(0, 0%, 0%, 0.4);
+
+	.icon-button,
+	.icon-link {
+		background: transparent;
+		border-radius: 25px;
+		box-shadow: none;
+		height: 50px;
+
+		&.type-create {
+			color: @color-create;
+			background: none;
+			box-shadow: none;
+		}
+	}
+
+	.text-line {
+		margin: 0;
+		position: relative;
+		top: -2px;
+	}
+
+	> .start .back-link .icon-link {
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+		border-top-right-radius: 25px;
+		border-bottom-right-radius: 25px;
+		box-shadow: 2px 0 2px hsla(0, 0%, 0%, 0.25);
+		margin-right: 4px;
+		padding-left: @len-small;
+		padding-right: calc(@len-small + 12px);
+
+		// color: @color-link;
+	}
+
+	> .end {
+		padding: 0 @len-small;
+	}
+}

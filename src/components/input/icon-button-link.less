@@ -26,12 +26,9 @@
 button.icon-button,
 a.icon-link {
 	align-items: center;
-	background: linear-gradient(to bottom, hsl(0%, 0%, 100%), hsl(0%, 0%, 96%));
-	background-size: 100vw 100vh;
+	background: none;
 	border: none;
 	border-radius: @len-medium;
-	box-shadow: 0 2px 2px hsla(0, 0%, 0%, 0.25),
-		inset 0 0 2px hsla(0, 0%, 0%, 0.1);
 	color: @color-text;
 	cursor: pointer;
 	display: inline-flex;
@@ -69,23 +66,42 @@ a.icon-link {
 	}
 
 	&.type-create {
-		.colored-button(lighten(@color-create, 10%));
+		color: @color-create;
+
+		&:hover {
+			background: mix(hsl(0%, 0%, 96%), @color-create, 95%);
+			color: @color-create;
+		}
 	}
 
 	&.type-danger {
-		.colored-button(lighten(@color-danger, 10%));
-	}
+		color: @color-danger;
 
-	&.type-flat {
-		background: transparent;
-		box-shadow: none;
-	}
-
-	&.type-primary {
-		.colored-button(lighten(@color-link, 10%));
+		&:hover {
+			background: mix(hsl(0%, 0%, 96%), @color-danger, 95%);
+			color: @color-danger;
+		}
 	}
 
 	/* Placed last to override preceding styles. */
+
+	&.raised {
+		background: linear-gradient(to bottom, hsl(0%, 0%, 100%), hsl(0%, 0%, 96%));
+		box-shadow: 0 2px 2px hsla(0, 0%, 0%, 0.25),
+			inset 0 0 2px hsla(0, 0%, 0%, 0.1);
+
+		&.type-create {
+			.colored-button(lighten(@color-create, 10%));
+		}
+
+		&.type-danger {
+			.colored-button(lighten(@color-danger, 10%));
+		}
+
+		&.type-primary {
+			.colored-button(lighten(@color-link, 10%));
+		}
+	}
 
 	&:active,
 	&.active,
