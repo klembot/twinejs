@@ -32,6 +32,7 @@
 		"detect-it": "^3.0.5",
 		"fastclick": "^1.0.6",
 		"feather-icons": "^4.24.1",
+		"focus-visible": "^5.1.0",
 		"fs-extra": "^7.0.1",
 		"i18next-http-backend": "^1.0.3",
 		"jsonp": "^0.2.1",

@@ -6,6 +6,7 @@
 				@change="onChange"
 				@input="onInput"
 				:placeholder="placeholder"
+				:value="value"
 				type="text"
 			/>
 		</label>
@@ -20,7 +21,7 @@ export default {
 		classes() {
 			return {
 				'text-line': true,
-				[`label-position-${this.labelPosition}`]: true
+				[`orientation-${this.orientation}`]: true
 			};
 		}
 	},
@@ -33,7 +34,7 @@ export default {
 		}
 	},
 	props: {
-		labelPosition: {
+		orientation: {
 			default: 'horizontal',
 			type: String,
 			validator: value => ['horizontal', 'vertical'].includes(value)

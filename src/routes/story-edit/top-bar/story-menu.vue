@@ -19,48 +19,48 @@
 					<icon-button
 						@click="toggleJavaScriptEditor"
 						icon="code"
-						label="storyEdit.storyMenu.editJavaScript"
+						label="storyEdit.topBar.editJavaScript"
 						type="flat"
 					/>
 					<icon-button
 						@click="toggleStylesheetEditor"
 						icon="hash"
-						label="storyEdit.storyMenu.editStylesheet"
+						label="storyEdit.topBar.editStylesheet"
 						type="flat"
 					/>
 					<icon-button
 						icon="file-text"
-						label="storyEdit.storyMenu.setStoryFormat"
+						label="storyEdit.topBar.setStoryFormat"
 						type="flat"
 					/>
 					<icon-button
 						@click="toggleRenameModal"
 						icon="type"
-						label="storyEdit.storyMenu.renameStory"
+						label="storyEdit.topBar.renameStory"
 						type="flat"
 					/>
 					<icon-button
 						@click="selectAllPassages"
 						icon="layers"
-						label="storyEdit.storyMenu.selectAllPassages"
+						label="storyEdit.topBar.selectAllPassages"
 						type="flat"
 					/>
 					<icon-button
 						@click="toggleSnapToGrid"
 						icon="empty"
-						label="storyEdit.storyMenu.snapToGrid"
+						label="storyEdit.topBar.snapToGrid"
 						type="flat"
 					/>
 					<icon-button
 						icon="bar-chart-2"
 						@click="toggleStatsModal"
-						label="storyEdit.storyMenu.storyStats"
+						label="storyEdit.topBar.storyStats"
 						type="flat"
 					/>
 					<icon-button
 						@click="proofStory"
 						icon="book-open"
-						label="storyEdit.storyMenu.proofStory"
+						label="storyEdit.topBar.proofStory"
 						type="flat"
 					/>
 					<icon-button

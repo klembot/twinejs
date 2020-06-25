@@ -16,6 +16,8 @@
 		"delete": "Delete",
 		"duplicate": "Duplicate",
 		"edit": "Edit",
+		"language": "Language",
+		"more": "More",
 		"ok": "OK",
 		"play": "Play",
 		"publishToFile": "Publish To File",
@@ -90,22 +92,21 @@
 		}
 	},
 	"storyEdit": {
-		"storyMenu": {
+		"topBar": {
+			"addPassage": "Passage",
 			"editJavaScript": "Edit Story JavaScript",
 			"editStylesheet": "Edit Story Stylesheet",
 			"proofStory": "View Proofing Copy",
+			"quickFind": "Quick Find",
 			"renameStory": "Rename Story",
 			"renameStoryPrompt": "What should “{name}” be renamed to?",
 			"selectAllPassages": "Select All Passages",
 			"setStoryFormat": "Change Story Format",
-			"snapToGrid": "Snap to Grid",
-			"storyStats": "Story Statistics"
-		},
-		"toolbar": {
-			"addPassage": "Passage",
-			"quickFind": "Quick Find",
 			"showFindDialog": "Show Find/Replace Dialog",
-			"zoom": "Zoom"
+			"snapToGrid": "Snap to Grid",
+			"storyStats": "Story Statistics",
+			"zoomIn": "Zoom In",
+			"zoomOut": "Zoom Out"
 		}
 	},
 	"storyFormats": {
@@ -122,7 +123,8 @@
 	"storyList": {
 		"noStories": "There are no stories saved in Twine right now. To get started, you can either create a new story or import an existing one from a file.",
 		"title": "Stories",
-		"toolbar": {
+		"topBar": {
+			"about": "About Twine",
 			"archive": "Archive",
 			"archiveExplanation": "Save all stories to a Twine archive",
 			"createStory": "Story",
@@ -130,11 +132,17 @@
 			"createStoryPrompt": "What should your story be named? You can change this later.",
 			"help": "Help",
 			"helpDescription": "Browse online help",
-			"language": "Language",
+			"language": "Set Language",
 			"languageDescription": "Change the language Twine uses",
-			"importFromFile": "Import From File",
+			"importFromFile": "Import",
 			"importFromFileExplanation": "Import a published Twine story or archive",
 			"reportBug": "Report a Bug",
+			"sort": "Sort",
+			"sortDescription": "Change story sort order",
+			"sortDate": "By Date",
+			"sortDateDescription": "Sort by last edited",
+			"sortTitle": "By Title",
+			"sortTitleDescription": "Sort by story title",
 			"storyFormats": "Formats",
 			"storyFormatsExplanation": "Work with story and proofing formats"
 		}

@@ -26,6 +26,12 @@ const popperPositions = {
 	top: 'bottom'
 };
 
+/*
+How much space to allow for the arrow of the paper. It doesn't affect overall
+dimensions of the DOM element.
+*/
+const arrowOffset = 12;
+
 export default {
 	beforeDestroy() {
 		if (this.popper) {
@@ -54,6 +60,23 @@ export default {
 				return;
 			}
 
+			const offset = [0, 0];
+
+			switch (this.position) {
+				case 'top':
+					offset[1] = -arrowOffset;
+					break;
+				case 'bottom':
+					offset[1] = arrowOffset;
+					break;
+				case 'left':
+					offset[0] = -arrowOffset;
+					break;
+				case 'right':
+					offset[0] = arrowOffset;
+					break;
+			}
+
 			this.popper = createPopper(this.$refs.anchor, this.$refs.paper.$el, {
 				modifiers: [
 					new PlacementWatcher(
@@ -62,6 +85,10 @@ export default {
 					{
 						name: 'flip',
 						enabled: this.allowFlip
+					},
+					{
+						name: 'offset',
+						options: {offset}
 					}
 				],
 				placement: this.position,

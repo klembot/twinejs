@@ -7,7 +7,7 @@
 				<anchored-paper
 					:allowFlip="true"
 					@click-away="toggleMenu"
-					position="top"
+					position="bottom"
 					:visible="menuVisible"
 				>
 					<template v-slot:anchor>

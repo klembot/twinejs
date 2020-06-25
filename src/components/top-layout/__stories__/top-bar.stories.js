@@ -1,8 +1,8 @@
 import IconButton from '../../input/icon-button';
 import TextLine from '../../input/text-line';
-import TopBar from '../index.vue';
+import TopBar from '../top-bar.vue';
 
-export default {title: '<top-bar>'};
+export default {title: 'Top Layout/<top-bar>'};
 
 export const normal = () => ({
 	components: {IconButton, TextLine, TopBar},

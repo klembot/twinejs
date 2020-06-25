@@ -8,6 +8,7 @@
 
 <script>
 import IconImage from '../icon-image';
+import 'focus-visible';
 import './icon-button-link.less';
 
 export default {
