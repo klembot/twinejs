@@ -1,0 +1,17 @@
+@import '../../styles/focus-visible-shim.less';
+@import '../../styles/typography.less';
+
+.code-area {
+	background: linear-gradient(
+		to bottom,
+		hsla(0, 0%, 0%, 0.02),
+		hsla(0%, 0%, 0%, 0.04)
+	);
+	border-radius: 3px;
+	box-shadow: inset 0 1px 1px hsla(0, 0%, 0%, 0.25);
+
+	.CodeMirror {
+		background: none;
+		font: 100% @font-code;
+	}
+}

@@ -8,6 +8,7 @@
 
 <script>
 import IconImage from '../icon-image';
+import 'focus-visible';
 import './icon-button-link.less';
 
 export default {
@@ -19,6 +20,7 @@ export default {
 				'icon-button': true,
 				'icon-only': this.iconOnly,
 				[`icon-position-${this.iconPosition}`]: true,
+				raised: this.raised,
 				[`type-${this.type}`]: true
 			};
 		},
@@ -61,6 +63,10 @@ export default {
 			default: false,
 			type: Boolean
 		},
+		raised: {
+			default: false,
+			type: Boolean
+		},
 		stopClickPropagation: {
 			default: false,
 			type: Boolean
@@ -68,7 +74,7 @@ export default {
 		type: {
 			default: 'default',
 			validator: value =>
-				['create', 'danger', 'default', 'flat', 'primary'].includes(value)
+				['create', 'danger', 'default', 'primary'].includes(value)
 		}
 	}
 };

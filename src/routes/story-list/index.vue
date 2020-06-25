@@ -1,6 +1,7 @@
 <template>
 	<div class="story-list">
-		<div class="stack padded vertical">
+		<story-list-top-bar />
+		<top-content>
 			<h1 v-t="'storyList.title'" />
 			<p v-if="stories.length === 0" v-t="'storyList.noStories'" />
 			<div class="stories">
@@ -11,17 +12,18 @@
 					:story="story"
 				/>
 			</div>
-		</div>
-		<story-list-toolbar></story-list-toolbar>
+		</top-content>
 	</div>
 </template>
+
 <script>
 import StoryListItem from '@/components/story/story-list-item';
-import StoryListToolbar from './toolbar';
+import StoryListTopBar from './top-bar';
+import TopContent from '@/components/top-layout/top-content';
 import './index.less';
 
 export default {
-	components: {StoryListItem, StoryListToolbar},
+	components: {StoryListItem, StoryListTopBar, TopContent},
 	computed: {
 		stories() {
 			return this.$store.state.story.stories;

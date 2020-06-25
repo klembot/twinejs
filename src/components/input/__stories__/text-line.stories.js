@@ -2,12 +2,12 @@ import TextLine from '../text-line.vue';
 
 export default {title: 'Input/<text-line>'};
 
-export const sideLabel = () => ({
+export const horizontal = () => ({
 	components: {TextLine},
-	template: '<text-line label-position="side">Label</text-line>'
+	template: '<text-line orientation="horizontal">Label</text-line>'
 });
 
-export const labelAbove = () => ({
+export const vertical = () => ({
 	components: {TextLine},
-	template: '<text-line label-position="above">Label</text-line>'
+	template: '<text-line orientation="vertical">Label</text-line>'
 });

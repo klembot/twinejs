@@ -7,14 +7,28 @@ const methods = {
 };
 
 const buttonTemplate = type =>
-	`<div><icon-button @click="onClick" icon="check" style="margin: 20px" ${
-		type ? 'type="' + type + '"' : ''
-	} >Hello</icon-button><icon-button :active="true" @click="onClick" icon="check" style="margin: 20px" ${
-		type ? 'type="' + type + '"' : ''
-	} >Hello</icon-button></div>`;
+	`
+		<div>
+			<div>
+			<icon-button @click="onClick" icon="check" style="margin: 10px" ${
+				type ? 'type="' + type + '"' : ''
+			} >Hello</icon-button>
+			<icon-button :active="true" @click="onClick" icon="check" style="margin: 10px" ${
+				type ? 'type="' + type + '"' : ''
+			} >Hello</icon-button>
+		</div>
+		<div>
+			<icon-button @click="onClick" icon="check" raised style="margin: 10px" ${
+				type ? 'type="' + type + '"' : ''
+			} >Hello</icon-button>
+			<icon-button :active="true" @click="onClick" icon="check" raised style="margin: 10px" ${
+				type ? 'type="' + type + '"' : ''
+			} >Hello</icon-button>
+		</div>
+	</div>`;
 
 const buttonPairTemplate = type =>
-	`<div style="margin: 20px"><icon-button icon="x">Cancel</icon-button><icon-button icon="check" type="${type}">OK</icon-button></div>`;
+	`<div style="margin: 20px"><icon-button icon="x">Cancel</icon-button><icon-button icon="check" raised type="${type}">OK</icon-button></div>`;
 
 export default {title: 'Input/<icon-button>', parameters: {notes}};
 

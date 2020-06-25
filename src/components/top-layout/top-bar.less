@@ -1,0 +1,61 @@
+@import '../../styles/colors';
+@import '../../styles/depth';
+
+.top-bar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 50px;
+	z-index: 1000;
+
+	> .raised-paper {
+		width: 100%;
+	}
+
+	.icon-button,
+	.icon-link {
+		background: transparent;
+		border-radius: 25px;
+		box-shadow: none;
+		height: 50px;
+
+		&.type-create {
+			color: @color-create;
+			background: none;
+			box-shadow: none;
+		}
+	}
+
+	.text-line {
+		margin: 0;
+
+		/* Not sure why this is appearing misaligned otherwise. */
+		position: relative;
+		top: -3px;
+	}
+
+	.start .back-link .icon-button {
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+		border-top-right-radius: 25px;
+		border-bottom-right-radius: 25px;
+		box-shadow: 2px 0 2px hsla(0, 0%, 0%, 0.25);
+		margin-right: 4px;
+		padding-left: @len-small;
+		padding-right: calc(@len-small + 12px);
+	}
+
+	.end {
+		padding: 0 @len-small;
+	}
+}
+
+.js-focus-visible .top-bar .start .back-link .icon-button.focus-visible {
+	box-shadow: 0 1px 1px hsla(0, 0%, 0%, 0.25),
+		0 0 0 @len-tiny fade(@color-link, 25%);
+	outline: none !important;
+}

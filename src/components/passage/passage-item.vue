@@ -2,12 +2,7 @@
 	<div :class="classes" :style="style">
 		<anchored-paper :visible="menuVisible">
 			<template v-slot:anchor>
-				<div
-					@dblclick.stop="onEdit"
-					@mousedown.stop="onStartDrag"
-					@mouseenter="showMenu"
-					@mouseleave="hideMenu"
-				>
+				<div @dblclick.stop="onEdit" @mousedown.stop="onStartDrag">
 					<raised-paper class="fill">
 						<div class="stack padded close vertical">
 							<div class="name">{{ passage.name }}</div>

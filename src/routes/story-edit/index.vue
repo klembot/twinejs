@@ -2,7 +2,7 @@
 	<div class="story-edit">
 		<graph-paper />
 		<passage-map
-			@edit="onOpenPassageEditor"
+			@edit="onEditPassage"
 			@move-selected="onMoveSelectedPassages"
 			:passage-links="passageLinks"
 			:passages="story.passages"
@@ -21,7 +21,7 @@
 			:open="editingPassage !== null"
 			:passage="editingPassage"
 		/>
-		<story-edit-toolbar :story="story" />
+		<story-edit-top-bar :story="story" />
 	</div>
 </template>
 
@@ -30,7 +30,7 @@ import GraphPaper from '@/components/surface/graph-paper';
 import MarqueeSelection from '@/components/marquee-selection';
 import PassageEditor from '@/components/modal/passage-editor';
 import PassageMap from './passage-map';
-import StoryEditToolbar from './toolbar';
+import StoryEditTopBar from './top-bar';
 import './index.less';
 
 export default {
@@ -39,7 +39,7 @@ export default {
 		MarqueeSelection,
 		PassageEditor,
 		PassageMap,
-		StoryEditToolbar
+		StoryEditTopBar
 	},
 	computed: {
 		passageLinks() {
@@ -71,12 +71,8 @@ export default {
 		onClosePassageEditor() {
 			this.editingPassage = null;
 		},
-		onEditPassage(passageId, passageProps) {
-			this.$store.dispatch('story/updatePassage', {
-				passageId,
-				passageProps,
-				storyId: this.story.id
-			});
+		onEditPassage(passage) {
+			this.$router.push(`/stories/${this.story.id}/passage/${passage.id}`);
 		},
 		onMarqueeSelect({height, left, top, width}) {
 			this.$store.dispatch('story/selectPassagesInRect', {
@@ -105,9 +101,6 @@ export default {
 				yChange: yChange / this.story.zoom,
 				storyId: this.story.id
 			});
-		},
-		onOpenPassageEditor(passage) {
-			this.editingPassage = passage;
 		},
 		onSelectPassageExclusive(passage) {
 			this.$store.dispatch('story/selectPassage', {

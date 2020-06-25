@@ -1,0 +1,33 @@
+@import '../../styles/metrics';
+
+.top-dialog {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 900;
+
+	> .raised-paper {
+		max-width: 30rem;
+		margin: 0 auto;
+		padding: calc(@len-large + 50px) @len-large @len-large @len-large;
+	}
+
+	.top-dialog-content {
+		> :first-child {
+			margin-top: 0;
+		}
+
+		> :last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	.top-dialog-actions {
+		text-align: right;
+
+		.icon-button + .icon-button {
+			margin-left: @len-small;
+		}
+	}
+}

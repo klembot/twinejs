@@ -5,14 +5,15 @@
 			<h2>{{ title }}</h2>
 			<div><slot></slot></div>
 			<div class="stack horizontal">
-				<icon-button @click="onNext" icon="arrow-right" type="primary">{{
+				<icon-button @click="onNext" icon="arrow-right" raised type="primary">{{
 					nextLabel
 				}}</icon-button>
 				<icon-button
 					@click="onSkip"
 					icon="fast-forward"
+					label="common.skip"
+					raised
 					v-if="showSkip"
-					v-t="'common.skip'"
 				/>
 			</div>
 		</div>
