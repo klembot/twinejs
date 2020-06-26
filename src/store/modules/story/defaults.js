@@ -6,6 +6,7 @@ import {deviceType} from 'detect-it';
 import {t} from '@/util/i18n';
 
 export const storyDefaults = {
+	lastUpdate: new Date(),
 	name: t('store.storyDefaults.name'),
 	script: '',
 	snapToGrid: false,
