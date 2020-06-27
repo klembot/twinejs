@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import sortBy from 'lodash.sortby';
 import StoryListItem from '@/components/story/story-list-item';
 import StoryListTopBar from './top-bar';
 import TopContent from '@/components/top-layout/top-content';
@@ -30,26 +31,13 @@ export default {
 			Need to spread this to avoid mutating state.
 			*/
 
-			return [...this.$store.state.story.stories].sort((a, b) => {
-				const aSort = a[this.sortBy];
-				const bSort = b[this.sortBy];
+			const result = sortBy(this.$store.state.story.stories, this.sortBy);
 
-				if (aSort === undefined || bSort === undefined) {
-					throw new Error(
-						`Story objects are missing property to sort on: ${this.sortBy}`
-					);
-				}
+			if (this.invertSort) {
+				result.reverse();
+			}
 
-				if (aSort < bSort) {
-					return this.invertSort ? 1 : -1;
-				}
-
-				if (aSort > bSort) {
-					return this.invertSort ? -1 : 1;
-				}
-
-				return 0;
-			});
+			return result;
 		}
 	},
 	data() {
