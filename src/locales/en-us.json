@@ -79,6 +79,7 @@
 		"explanation": "Please choose which language you would like to use with Twine."
 	},
 	"store": {
+		"archiveFilename": "Twine Archive.html",
 		"passageDefaults": {
 			"name": "Untitled Passage",
 			"textClick": "Double-click this passage to edit it.",

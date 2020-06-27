@@ -4,6 +4,8 @@ these functions know nothing about Vuex.
 */
 
 import escape from 'lodash.escape';
+import {saveAs} from 'file-saver';
+import {t} from '@/util/i18n';
 
 /*
 Publishes a story with a story format. The format *must* be loaded before
@@ -58,6 +60,17 @@ export function publishArchive(stories, appInfo) {
 
 		return output + publishStory(appInfo, story, null, null, true) + '\n\n';
 	}, '');
+}
+
+/* Publishes an archive of stories to a file with a standard name. */
+
+export function publishArchiveToFile(stories, appInfo) {
+	const timestamp = new Date().toLocaleString().replace(/[\/:\\]/g, '.');
+	const data = new Blob([publishArchive(stories, appInfo)], {
+		type: 'text/html;charset=utf-8'
+	});
+
+	saveAs(data, `${timestamp} ${t('store.archiveFilename')}`);
 }
 
 /*
