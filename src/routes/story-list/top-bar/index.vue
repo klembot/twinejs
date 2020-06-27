@@ -28,6 +28,7 @@
 					/>
 				</dropdown-button>
 				<icon-button
+					@click="downloadArchive"
 					icon="briefcase"
 					label="storyList.topBar.archive"
 					:title="$t('storyList.topBar.archiveExplanation')"
@@ -93,6 +94,7 @@ import DropdownButton from '@/components/input/dropdown-button';
 import IconButton from '@/components/input/icon-button';
 import isElectron from '@/util/is-electron';
 import openUrl from '@/util/open-url';
+import {publishArchiveToFile} from '@/store/publish/helpers';
 import LocalStorageQuota from '@/components/local-storage-quota';
 import TopBar from '@/components/top-layout/top-bar';
 import TopPrompt from '@/components/top-layout/top-prompt';
@@ -120,6 +122,14 @@ export default {
 				storyProps: {name}
 			});
 			this.toggleCreatePrompt();
+		},
+		downloadArchive() {
+			// TODO: error handling
+
+			publishArchiveToFile(
+				this.$store.state.story.stories,
+				this.$store.state.appInfo
+			);
 		},
 		setLanguage() {
 			this.$router.push('/locale');
