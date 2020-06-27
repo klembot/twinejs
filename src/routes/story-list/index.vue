@@ -1,6 +1,6 @@
 <template>
 	<div class="story-list">
-		<story-list-top-bar />
+		<story-list-top-bar @changeSort="onChangeSort" :sort-by="sortBy" />
 		<top-content>
 			<h1 v-t="'storyList.title'" />
 			<p v-if="stories.length === 0" v-t="'storyList.noStories'" />
@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import sortBy from 'lodash.sortby';
 import StoryListItem from '@/components/story/story-list-item';
 import StoryListTopBar from './top-bar';
 import TopContent from '@/components/top-layout/top-content';
@@ -26,12 +27,29 @@ export default {
 	components: {StoryListItem, StoryListTopBar, TopContent},
 	computed: {
 		stories() {
-			return this.$store.state.story.stories;
+			/*
+			Need to spread this to avoid mutating state.
+			*/
+
+			const result = sortBy(this.$store.state.story.stories, this.sortBy);
+
+			if (this.invertSort) {
+				result.reverse();
+			}
+
+			return result;
 		}
+	},
+	data() {
+		return {sortBy: 'lastUpdate', invertSort: false};
 	},
 	methods: {
 		onEditStory(story) {
 			this.$router.push(`/stories/${story.id}`);
+		},
+		onChangeSort(field, invertSort) {
+			this.sortBy = field;
+			this.invertSort = invertSort;
 		}
 	}
 };

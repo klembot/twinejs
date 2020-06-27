@@ -15,25 +15,27 @@
 					title="$t('storyList.topBar.sortDescription')"
 				>
 					<icon-button
-						icon="check"
+						@click="changeSort('lastUpdate', true)"
+						:icon="sortBy === 'lastUpdate' ? 'check' : 'empty'"
 						label="storyList.topBar.sortDate"
 						title="$t('storyList.topBar.sortDateDescription')"
 					/>
 					<icon-button
-						icon="empty"
+						@click="changeSort('name', false)"
+						:icon="sortBy === 'name' ? 'check' : 'empty'"
 						label="storyList.topBar.sortTitle"
 						title="$t('storyList.topBar.sortTitleDescription')"
 					/>
 				</dropdown-button>
 				<icon-button
-					icon="upload"
-					label="storyList.topBar.importFromFile"
-					:title="$t('storyList.topBar.importFromFileExplanation')"
-				/>
-				<icon-button
 					icon="briefcase"
 					label="storyList.topBar.archive"
 					:title="$t('storyList.topBar.archiveExplanation')"
+				/>
+				<icon-button
+					icon="upload"
+					label="storyList.topBar.importFromFile"
+					:title="$t('storyList.topBar.importFromFileExplanation')"
 				/>
 				<icon-button
 					@click="showStoryFormats"
@@ -110,6 +112,9 @@ export default {
 		return {createPromptVisible: false};
 	},
 	methods: {
+		changeSort(field, invertSort) {
+			this.$emit('changeSort', field, invertSort);
+		},
 		createStory(name) {
 			this.$store.dispatch('story/createStory', {
 				storyProps: {name}
@@ -135,6 +140,12 @@ export default {
 			this.createPromptVisible = !this.createPromptVisible;
 		}
 	},
-	name: 'story-list-top-bar'
+	name: 'story-list-top-bar',
+	props: {
+		sortBy: {
+			required: true,
+			type: String
+		}
+	}
 };
 </script>

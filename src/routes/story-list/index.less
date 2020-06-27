@@ -1,15 +1,13 @@
-@import '../../styles/layout.less';
 @import '../../styles/metrics.less';
 
 .story-list {
 	.stories {
-		display: flex;
-		flex-wrap: wrap;
-		margin-right: 13rem;
+		display: grid;
+		grid-gap: @len-extra-large;
+		grid-template-columns: repeat(auto-fit, @len-extra-large * 8);
 
 		.story-list-item {
-			width: @len-extra-large * 8;
-			margin-right: @len-large;
+			height: @len-extra-large * 8;
 		}
 	}
 }
