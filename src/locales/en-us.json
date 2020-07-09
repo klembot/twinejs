@@ -108,7 +108,9 @@
 			"storyStats": "Story Statistics",
 			"zoomIn": "Zoom In",
 			"zoomOut": "Zoom Out"
-		}
+		},
+		"confirmDelete": "Are you sure you want to delete “{passageName}”? This cannot be undone.",
+		"confirmDeleteSkip": "Hold the Shift key while deleting to skip this confirmation."
 	},
 	"storyFormats": {
 		"addFormat": "Add a New Format",

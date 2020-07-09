@@ -94,7 +94,7 @@ export function deletePassage(state, {passageId, storyId}) {
 
 	if (!story) {
 		console.warn(
-			`There is no passage with ID ${passageId} in story ID ${storyId}, ignoring passage delete.`
+			`There is no story with ID ${storyId}, ignoring passage delete.`
 		);
 		return;
 	}

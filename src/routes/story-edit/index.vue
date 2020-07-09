@@ -2,46 +2,60 @@
 	<div class="story-edit">
 		<graph-paper />
 		<passage-map
+			@delete="onDeletePassage"
 			@edit="onEditPassage"
 			@move-selected="onMoveSelectedPassages"
 			:passage-links="passageLinks"
 			:passages="story.passages"
 			@select-exclusive="onSelectPassageExclusive"
 			@select-inclusive="onSelectPassageInclusive"
+			@test="onTestPassage"
 			:zoom="story.zoom"
 		>
 			<marquee-selection
 				@select="onMarqueeSelect"
 				@start-select="onMarqueeSelectStart"
 		/></passage-map>
-		<passage-editor
-			@close="onClosePassageEditor"
-			@edit="onEditPassage"
-			id="story-edit-passage-editor"
-			:open="editingPassage !== null"
-			:passage="editingPassage"
-		/>
 		<story-edit-top-bar :story="story" />
+		<top-confirm
+			@cancel="deletingPassage = null"
+			@confirm="deletePassage"
+			confirm-icon="trash-2"
+			confirm-label="common.delete"
+			confirm-type="danger"
+			:message="deletePromptMessage"
+			:visible="this.deletingPassage !== null"
+		/>
 	</div>
 </template>
 
 <script>
 import GraphPaper from '@/components/surface/graph-paper';
 import MarqueeSelection from '@/components/marquee-selection';
-import PassageEditor from '@/components/modal/passage-editor';
+import openUrl from '@/util/open-url';
 import PassageMap from './passage-map';
 import StoryEditTopBar from './top-bar';
+import TopConfirm from '@/components/top-layout/top-confirm';
 import './index.less';
 
 export default {
 	components: {
 		GraphPaper,
 		MarqueeSelection,
-		PassageEditor,
 		PassageMap,
-		StoryEditTopBar
+		StoryEditTopBar,
+		TopConfirm
 	},
 	computed: {
+		deletePromptMessage() {
+			if (this.deletingPassage) {
+				return this.$t('storyEdit.confirmDelete', {
+					passageName: this.deletingPassage.name
+				});
+			}
+
+			return '';
+		},
 		passageLinks() {
 			return this.$store.getters['story/storyLinks'](
 				this.$route.params.storyId
@@ -64,12 +78,20 @@ export default {
 		}
 	},
 	data: () => ({
-		editingPassage: null,
+		deletingPassage: null,
 		retainedSelectPassages: []
 	}),
 	methods: {
-		onClosePassageEditor() {
-			this.editingPassage = null;
+		deletePassage() {
+			this.$store.dispatch('story/deletePassage', {
+				passageId: this.deletingPassage.id,
+				storyId: this.story.id
+			});
+			this.deletingPassage = null;
+		},
+		onDeletePassage(passage) {
+			console.log('onDeletePassage');
+			this.deletingPassage = passage;
 		},
 		onEditPassage(passage) {
 			this.$router.push(`/stories/${this.story.id}/passage/${passage.id}`);
@@ -115,6 +137,9 @@ export default {
 				passageId: passage.id,
 				storyId: this.story.id
 			});
+		},
+		onTestPassage(passage) {
+			openUrl(`/stories/${this.story.id}/test/${passage.id}`);
 		}
 	},
 	mounted() {

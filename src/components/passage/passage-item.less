@@ -10,13 +10,12 @@
 	border: 1px solid transparent;
 	user-select: none;
 
+	.excerpt {
+		color: fade(@color-text, 50%);
+	}
+
 	.raised-paper {
-		height: 100%;
-		left: 0;
 		overflow: hidden;
-		position: absolute;
-		top: 0;
-		width: 100%;
 	}
 
 	.tags {
@@ -63,22 +62,6 @@
 				background: @color-tag-purple;
 			}
 		}
-	}
-
-	&.selected {
-		border: @len-hairline solid lighten(@color-link, 30%);
-		background: lighten(@color-link, 55%);
-	}
-
-	&.highlighted {
-		border: @len-hairline solid lighten(@color-highlight, 15%);
-		background: lighten(@color-highlight, 40%);
-	}
-
-	&.selected.highlighted {
-		border: @len-hairline solid
-			mix(lighten(@color-highlight, 15%), lighten(@color-link, 30%));
-		background: mix(lighten(@color-highlight, 40%), lighten(@color-link, 55%));
 	}
 
 	&.zoom-medium {
