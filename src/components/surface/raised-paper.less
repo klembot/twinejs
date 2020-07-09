@@ -4,6 +4,8 @@
 // TODO: simpler implementation for arrowless versions, since we'll use them a
 // lot.
 
+@import '../../styles/colors.less';
+
 @arrow-width: 24px;
 @arrow-height: 12px;
 
@@ -19,6 +21,26 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
+	}
+
+	&.highlighted::before {
+		background: linear-gradient(
+			to bottom,
+			lighten(spin(@color-link, -160), 58%),
+			lighten(spin(@color-link, -160), 55%)
+		);
+	}
+
+	&.selected::before {
+		background: linear-gradient(
+			to bottom,
+			lighten(@color-link, 58%),
+			lighten(@color-link, 55%)
+		);
+
+		/* This border doesn't look right with an arrow, but we don't need this. */
+
+		border: 1px solid @color-link;
 	}
 
 	&.arrow-left::before {

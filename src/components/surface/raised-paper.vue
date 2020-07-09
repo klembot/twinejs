@@ -10,14 +10,13 @@ import './raised-paper.less';
 export default {
 	computed: {
 		classes() {
-			const result = {
+			return {
 				['arrow-' + this.arrow]: true,
 				['elevation-' + this.elevation]: true,
-				focused: this.focused,
-				'raised-paper': true
+				highlighted: this.highlighted,
+				'raised-paper': true,
+				selected: this.selected && this.arrow === 'none'
 			};
-
-			return result;
 		}
 	},
 	name: 'raised-paper',
@@ -29,8 +28,13 @@ export default {
 			default: 'low',
 			type: String
 		},
-		tint: {
-			default: ''
+		highlighted: {
+			default: false,
+			type: Boolean
+		},
+		selected: {
+			default: false,
+			type: Boolean
 		}
 	}
 };
