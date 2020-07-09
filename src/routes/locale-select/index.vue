@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import IconButton from '@/components/input/icon-button';
 import ImageButton from '@/components/input/image-button';
 import locales from '@/locales';
 import TopContent from '@/components/top-layout/top-content';
@@ -31,7 +30,7 @@ export default {
 			return locales;
 		}
 	},
-	components: {IconButton, ImageButton, TopBar, TopContent},
+	components: {ImageButton, TopBar, TopContent},
 	methods: {
 		select(locale) {
 			this.$store.dispatch('pref/update', {locale});
