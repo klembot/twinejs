@@ -2,8 +2,18 @@
 	<div :class="classes" :style="style">
 		<anchored-paper :visible="menuVisible">
 			<template v-slot:anchor>
-				<div @dblclick.stop="onEdit" @mousedown.stop="onStartDrag">
-					<raised-paper class="fill">
+				<div
+					@mouseenter="showMenu"
+					@mouseleave="hideMenu"
+					@dblclick.stop="onEdit"
+					@mousedown.stop="onStartDrag"
+				>
+					<raised-paper
+						class="fill"
+						:highlighted="passage.highlighted"
+						:selected="passage.selected"
+						:style="dimensions"
+					>
 						<div class="stack padded close vertical">
 							<div class="name">{{ passage.name }}</div>
 							<div class="excerpt">{{ excerpt }}</div>
@@ -12,14 +22,11 @@
 				</div>
 			</template>
 			<template v-slot:paper>
-				<div class="stack tight vertical">
-					<icon-button icon="edit" type="flat" v-t="common.edit" />
-					<icon-button
-						icon="tool"
-						type="flat"
-						v-t="components.passageItem.test"
-					/>
-					<icon-button icon="trash-2" type="flat" v-t="common.delete" />
+				<div class="stack tight" @mouseenter="showMenu" @mouseleave="hideMenu">
+					<icon-button @click="onDelete" icon="trash-2" type="danger" />
+					<icon-button @click="onEdit" icon="edit" />
+					<icon-button @click="onTest" icon="tool" />
+					<icon-button icon="more-horizontal" />
 				</div>
 			</template>
 		</anchored-paper>
@@ -27,12 +34,20 @@
 </template>
 
 <script>
+// TODO: labels, emit rest of events, expand menu for more choices?
+
 import AnchoredPaper from '../surface/anchored-paper';
 import IconButton from '../input/icon-button';
 import RaisedPaper from '../surface/raised-paper';
 import {describe as describeZoom} from '@/util/zoom-levels';
 import domMixin from '@/util/vue-dom-mixin';
 import './passage-item.less';
+
+/*
+How much forgiveness to allow the user moving from the passage to the hovering
+toolbar before hiding it, in milliseconds.
+*/
+const hoverTimeout = 250;
 
 export default {
 	components: {AnchoredPaper, IconButton, RaisedPaper},
@@ -50,6 +65,12 @@ export default {
 
 			return result;
 		},
+		dimensions() {
+			return {
+				height: this.passage.height * this.zoom + 'px',
+				width: this.passage.width * this.zoom + 'px'
+			};
+		},
 		excerpt() {
 			if (this.passage.text.length < 50) {
 				return this.passage.text;
@@ -59,10 +80,9 @@ export default {
 		},
 		style() {
 			return {
-				height: this.passage.height * this.zoom + 'px',
+				...this.dimensions,
 				left: this.passage.left * this.zoom + 'px',
 				top: this.passage.top * this.zoom + 'px',
-				width: this.passage.width * this.zoom + 'px',
 				transform:
 					this.offsetX !== 0 || this.offsetY !== 0
 						? `translate(${this.offsetX}px, ${this.offsetY}px)`
@@ -72,12 +92,21 @@ export default {
 	},
 	data: () => ({
 		menuVisible: false,
+		menuHideTimeout: null,
 		screenDragStartX: null,
 		screenDragStartY: null
 	}),
 	methods: {
 		hideMenu() {
-			this.menuVisible = false;
+			if (!this.menuHideTimeout) {
+				this.menuHideTimeout = window.setTimeout(() => {
+					this.menuVisible = false;
+					this.menuHideTimeout = null;
+				}, hoverTimeout);
+			}
+		},
+		onDelete() {
+			this.$emit('delete', this.passage);
 		},
 		onEdit() {
 			this.$emit('edit', this.passage);
@@ -194,9 +223,16 @@ export default {
 				this.$emit('drag-stop', this.screenDragOffsetX, this.screenDragOffsetY);
 			}
 		},
+		onTest() {
+			this.$emit('test', this.passage);
+		},
 		showMenu() {
-			console.log('show menu');
 			this.menuVisible = true;
+
+			if (this.menuHideTimeout) {
+				window.clearTimeout(this.menuHideTimeout);
+				this.menuHideTimeout = null;
+			}
 		}
 	},
 	mixins: [domMixin],
