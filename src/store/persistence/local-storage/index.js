@@ -187,7 +187,7 @@ export default store => {
 
 			case 'story/deletePassage': {
 				const parentStory = state.story.stories.find(
-					s => s.id === mutation.payload[0]
+					s => s.id === mutation.payload.storyId
 				);
 
 				/*
@@ -198,7 +198,7 @@ export default store => {
 
 				updateStories(transaction => {
 					saveStory(transaction, parentStory);
-					deletePassageById(transaction, mutation.payload[1]);
+					deletePassageById(transaction, mutation.payload.passageId);
 				});
 				break;
 			}
