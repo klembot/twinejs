@@ -1,9 +1,15 @@
 <template>
 	<div class="about-twine">
 		<top-bar back-route="/" :back-label="$t('storyList.title')" />
-		<top-content>
+		<top-content
+			:title="
+				$t('aboutTwine.title', {
+					buildNumber: this.buildNumber,
+					version: this.version
+				})
+			"
+		>
 			<div class="app-info">
-				<h1 v-t="{path: 'aboutTwine.title', args: {buildNumber, version}}" />
 				<p v-t="'aboutTwine.twineDescription'" />
 				<p v-t="'aboutTwine.license'" />
 				<p>

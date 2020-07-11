@@ -9,8 +9,7 @@
 				<icon-button icon="trash-2" label="Delete Passage" type="danger" />
 			</template>
 		</top-bar>
-		<top-content>
-			<h1>{{ passage.name }}</h1>
+		<top-content :title="passage.name">
 			<code-area @change="onChangeText" :value="passage.text" />
 		</top-content>
 	</div>

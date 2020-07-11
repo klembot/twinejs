@@ -1,8 +1,7 @@
 <template>
 	<div class="locale-route">
 		<top-bar back-route="/" :back-label="$t('storyList.title')" />
-		<top-content>
-			<h1 v-t="'common.language'" />
+		<top-content :title="$t('common.language')">
 			<p v-t="'localeSelect.explanation'" />
 			<div class="locale-list">
 				<image-button

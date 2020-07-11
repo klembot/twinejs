@@ -5,7 +5,7 @@
 		"codeRepo": "Source Code Repository",
 		"license": "This application is released under the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GPL v3 license</a>, but any work created with it may be released under any terms, including commercial ones.",
 		"localizationHeader": "Localizations",
-		"title": "About Twine {version} (Build {buildNumber})",
+		"title": "Twine {version} (Build {buildNumber})",
 		"twineDescription": "Twine is an open-source application for telling interactive, nonlinear stories."
 	},
 	"common": {
@@ -126,6 +126,7 @@
 	"storyList": {
 		"noStories": "There are no stories saved in Twine right now. To get started, you can either create a new story or import an existing one from a file.",
 		"title": "Stories",
+		"titleCount": "No Stories | 1 Story | {storyCount} Stories",
 		"topBar": {
 			"about": "About Twine",
 			"archive": "Archive",

@@ -4,8 +4,8 @@
 			:back-route="`/stories/${this.story.id}`"
 			:back-label="story.name"
 		/>
-		<top-content>
-			<h1 v-t="'editors.storyJavaScript.dialogTitle'" />
+		<top-content :title="$t('editors.storyJavaScript.dialogTitle')">
+			<h1>{{ title }}</h1>
 			<p v-t="'editors.storyJavaScript.dialogExplanation'" />
 			<code-area @change="onChange" mode="javascript" :value="story.script" />
 		</top-content>
