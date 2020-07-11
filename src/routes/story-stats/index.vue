@@ -4,8 +4,7 @@
 			:back-route="`/stories/${this.story.id}`"
 			:back-label="story.name"
 		/>
-		<top-content>
-			<h1 v-t="'dialogs.storyStats.dialogTitle'" />
+		<top-content :title="$t('dialogs.storyStats.dialogTitle')">
 			<table class="story-stats">
 				<tr>
 					<td>{{ stats.characters }}</td>

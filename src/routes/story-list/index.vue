@@ -1,7 +1,7 @@
 <template>
 	<div class="story-list">
 		<story-list-top-bar @changeSort="onChangeSort" :sort-by="sortBy" />
-		<top-content>
+		<top-content :title="title">
 			<p v-if="stories.length === 0" v-t="'storyList.noStories'" />
 			<div class="stories">
 				<story-list-item

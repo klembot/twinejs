@@ -1,5 +1,6 @@
 <template>
 	<div class="top-content">
+		<h1>{{ title }}</h1>
 		<slot></slot>
 	</div>
 </template>
@@ -8,6 +9,14 @@
 import './top-content.less';
 
 export default {
-	name: 'top-content'
+	mounted() {
+		if (this.title) {
+			document.title = this.title;
+		}
+	},
+	name: 'top-content',
+	props: {
+		title: String
+	}
 };
 </script>

@@ -4,8 +4,7 @@
 			:back-route="`/stories/${this.story.id}`"
 			:back-label="story.name"
 		/>
-		<top-content>
-			<h1 v-t="'editors.storyStylesheet.dialogTitle'" />
+		<top-content :title="$t('editors.storyStylesheet.dialogTitle')">
 			<p v-t="'editors.storyStylesheet.dialogExplanation'" />
 			<code-area @change="onChange" mode="css" :value="story.stylesheet" />
 		</top-content>
