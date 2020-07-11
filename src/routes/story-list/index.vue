@@ -2,7 +2,6 @@
 	<div class="story-list">
 		<story-list-top-bar @changeSort="onChangeSort" :sort-by="sortBy" />
 		<top-content>
-			<h1 v-t="'storyList.title'" />
 			<p v-if="stories.length === 0" v-t="'storyList.noStories'" />
 			<div class="stories">
 				<story-list-item
@@ -38,6 +37,11 @@ export default {
 			}
 
 			return result;
+		},
+		title() {
+			return this.$tc('storyList.titleCount', this.stories.length, {
+				storyCount: this.stories.length
+			});
 		}
 	},
 	data() {
@@ -50,6 +54,14 @@ export default {
 		onChangeSort(field, invertSort) {
 			this.sortBy = field;
 			this.invertSort = invertSort;
+		}
+	},
+	watch: {
+		title: {
+			handler(value) {
+				document.title = value;
+			},
+			immediate: true
 		}
 	}
 };
