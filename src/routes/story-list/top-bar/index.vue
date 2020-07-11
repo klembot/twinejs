@@ -29,7 +29,7 @@
 				</dropdown-button>
 				<icon-button
 					@click="downloadArchive"
-					icon="briefcase"
+					icon="package"
 					label="storyList.topBar.archive"
 					:title="$t('storyList.topBar.archiveExplanation')"
 				/>
