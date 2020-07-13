@@ -32,9 +32,13 @@ module.exports = Vue.extend({
 		hue() {
 			// A hue based on the story's name.
 
-			return ([this.story.name].reduce(
-				(hue, char) => hue + char.charCodeAt(0), 0
-			) % 40) * 90;
+			let result = 0;
+
+			for (let i = 0; i < this.story.name.length; i++) {
+				result += this.story.name.charCodeAt(i);
+			}
+
+			return (result % 40) * 90;
 		}
 	},
 
@@ -80,12 +84,16 @@ module.exports = Vue.extend({
 		edit() {
 			const pos = this.$el.getBoundingClientRect();
 
-			new ZoomTransition({ data: {
-				x: pos.left + pos.width / 2,
-				y: pos.top,
-			}}).$mountTo(this.$el).then(
-				() => window.location.hash = '#stories/' + this.story.id
-			);
-		},
+			new ZoomTransition({
+				data: {
+					x: pos.left + pos.width / 2,
+					y: pos.top
+				}
+			})
+				.$mountTo(this.$el)
+				.then(
+					() => (window.location.hash = '#stories/' + this.story.id)
+				);
+		}
 	}
 });
