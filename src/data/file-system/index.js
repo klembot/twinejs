@@ -109,17 +109,11 @@ module.exports = store => {
 						s => s.id === mutation.payload[0]
 					);
 
-					function cleanupListener(s) {
-						if (s === oldStory) {
-							ipcRenderer.send('save-story', newStory);
-							ipcRenderer.removeListener(
-								'story-renamed',
-								cleanupListener
-							);
-						}
+					function afterRename(_sender) {
+						saveStory(store, state, newStory)
 					}
 
-					ipcRenderer.on('story-renamed', cleanupListener);
+					ipcRenderer.once('story-renamed', afterRename);
 					ipcRenderer.send('rename-story', oldStory, newStory);
 				} else {
 					saveStory(

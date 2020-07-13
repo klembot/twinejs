@@ -155,10 +155,12 @@ const StoryFile = (module.exports = {
 	*/
 
 	rename(oldStory, newStory) {
-		return fs.rename(
+		return unlockStoryDirectory()
+		.then(() => fs.rename(
 			path.join(storyDirectoryPath(), StoryFile.fileName(oldStory.name)),
 			path.join(storyDirectoryPath(), StoryFile.fileName(newStory.name))
-		);
+		))
+		.then(lockStoryDirectory);
 	}
 });
 
