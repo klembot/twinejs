@@ -9,20 +9,17 @@
 					@mousedown.stop="onStartDrag"
 				>
 					<raised-paper
-						class="fill"
 						:highlighted="passage.highlighted"
 						:selected="passage.selected"
 						:style="dimensions"
 					>
-						<div class="stack padded close vertical">
-							<div class="name">{{ passage.name }}</div>
-							<div class="excerpt">{{ excerpt }}</div>
-						</div>
+						<div class="name">{{ passage.name }}</div>
+						<div class="excerpt">{{ excerpt }}</div>
 					</raised-paper>
 				</div>
 			</template>
 			<template v-slot:paper>
-				<div class="stack tight" @mouseenter="showMenu" @mouseleave="hideMenu">
+				<div @mouseenter="showMenu" @mouseleave="hideMenu">
 					<icon-button @click="onDelete" icon="trash-2" type="danger" />
 					<icon-button @click="onEdit" icon="edit" />
 					<icon-button @click="onTest" icon="tool" />
@@ -72,11 +69,11 @@ export default {
 			};
 		},
 		excerpt() {
-			if (this.passage.text.length < 50) {
+			if (this.passage.text.length < 100) {
 				return this.passage.text;
 			}
 
-			return this.passage.text.substr(0, 50) + '…';
+			return this.passage.text.substr(0, 100) + '…';
 		},
 		style() {
 			return {
