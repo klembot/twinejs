@@ -1,6 +1,24 @@
 import {intersects} from '../../../util/rect';
 import {passageDefaults, storyDefaults} from './defaults';
 
+export function changeZoom({commit, getters}, {change, storyId}) {
+	const story = getters.storyWithId(storyId);
+
+	if (!story) {
+		throw new Error(`No story exists with ID "${storyId}".`);
+	}
+
+	/*
+	Clamp between 10% and 200%.
+	*/
+
+	const newZoom = Math.max(Math.min(story.zoom + change, 2), 0.1);
+
+	if (newZoom !== story.zoom) {
+		commit('updateStory', {storyId, storyProps: {zoom: newZoom}});
+	}
+}
+
 export function createPassage({commit, getters}, {passageProps, storyId}) {
 	const story = getters.storyWithId(storyId);
 
