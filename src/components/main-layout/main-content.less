@@ -1,6 +1,12 @@
 @import '../../styles/metrics';
 
 .main-content {
-	min-height: 100vh;
-	padding: calc(50px + 2 * @len-large) @len-large @len-large @len-large;
+	padding: @len-large;
+	overflow: scroll;
+	position: fixed;
+	top: 50px; /* Height of <top-bar> */
+	left: 0;
+	right: 0;
+	bottom: 0;
+	-webkit-overflow-scrolling: touch;
 }
