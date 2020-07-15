@@ -9,21 +9,21 @@
 				<icon-button icon="trash-2" label="Delete Passage" type="danger" />
 			</template>
 		</top-bar>
-		<top-content :title="passage.name">
+		<main-content :title="passage.name">
 			<code-area @change="onChangeText" :value="passage.text" />
-		</top-content>
+		</main-content>
 	</div>
 </template>
 
 <script>
 import CodeArea from '@/components/input/code-area';
 import IconButton from '@/components/input/icon-button';
-import TopBar from '@/components/top-layout/top-bar';
-import TopContent from '@/components/top-layout/top-content';
+import TopBar from '@/components/main-layout/top-bar';
+import MainContent from '@/components/main-layout/main-content';
 import './index.less';
 
 export default {
-	components: {CodeArea, IconButton, TopBar, TopContent},
+	components: {CodeArea, IconButton, MainContent, TopBar},
 	computed: {
 		passage() {
 			return this.story.passages.find(

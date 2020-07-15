@@ -1,7 +1,7 @@
 <template>
 	<div class="about-twine">
 		<top-bar back-route="/" :back-label="$t('storyList.title')" />
-		<top-content
+		<main-content
 			:title="
 				$t('aboutTwine.title', {
 					buildNumber: this.buildNumber,
@@ -48,19 +48,19 @@
 					</ul>
 				</div>
 			</div>
-		</top-content>
+		</main-content>
 	</div>
 </template>
 
 <script>
 import IconLink from '@/components/input/icon-link';
-import TopBar from '@/components/top-layout/top-bar';
-import TopContent from '@/components/top-layout/top-content';
+import TopBar from '@/components/main-layout/top-bar';
+import MainContent from '@/components/main-layout/main-content';
 import credits from './credits.json';
 import './index.less';
 
 export default {
-	components: {IconLink, TopBar, TopContent},
+	components: {IconLink, MainContent, TopBar},
 	computed: {
 		buildVersion() {
 			return this.$store.state.appInfo.appBuildVersion;

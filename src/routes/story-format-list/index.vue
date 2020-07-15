@@ -9,19 +9,19 @@
 				/>
 			</template>
 		</top-bar>
-		<top-content>
+		<main-content>
 			<h1 v-t="'storyFormats.storyFormats'" />
-		</top-content>
+		</main-content>
 	</div>
 </template>
 
 <script>
 import IconButton from '@/components/input/icon-button';
-import TopBar from '@/components/top-layout/top-bar';
-import TopContent from '@/components/top-layout/top-content';
+import TopBar from '@/components/main-layout/top-bar';
+import MainContent from '@/components/main-layout/main-content';
 
 export default {
-	components: {IconButton, TopBar, TopContent},
+	components: {IconButton, MainContent, TopBar},
 	name: 'story-format-list'
 };
 </script>

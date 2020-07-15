@@ -1,12 +1,12 @@
 <template>
-	<div class="top-content">
+	<div class="main-content">
 		<h1>{{ title }}</h1>
 		<slot></slot>
 	</div>
 </template>
 
 <script>
-import './top-content.less';
+import './main-content.less';
 
 export default {
 	mounted() {
@@ -14,7 +14,7 @@ export default {
 			document.title = this.title;
 		}
 	},
-	name: 'top-content',
+	name: 'main-content',
 	props: {
 		title: String
 	}

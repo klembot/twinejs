@@ -73,8 +73,8 @@
 import DropdownButton from '@/components/input/dropdown-button';
 import IconButton from '@/components/input/icon-button';
 import TextLine from '@/components/input/text-line';
-import TopBar from '@/components/top-layout/top-bar';
-import TopPrompt from '@/components/top-layout/top-prompt';
+import TopBar from '@/components/main-layout/top-bar';
+import TopPrompt from '@/components/main-layout/top-prompt';
 import openUrl from '@/util/open-url';
 import '@/styles/accessibility.less';
 
