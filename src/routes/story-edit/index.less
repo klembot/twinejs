@@ -1,14 +1,7 @@
 .story-edit {
-	/*
-	Always leave room for more passages to be added on the bottom and right.
-	*/
-
-	box-sizing: content-box;
-	min-height: 100vh;
-	min-width: 100vw;
-	padding-right: 75vw;
-	padding-bottom: 75vh;
-	position: relative;
+	.main-content {
+		padding: 0;
+	}
 
 	.marquee-selection {
 		/* Above .passage-map. */
@@ -17,7 +10,7 @@
 
 	.passage-map {
 		position: absolute;
-		top: 50px; /* Below the <top-bar> */
+		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;

@@ -2,7 +2,7 @@ import IconButton from '../../input/icon-button.vue';
 import TopBar from '../top-bar.vue';
 import TopDialog from '../top-dialog.vue';
 
-export default {title: 'Top Layout/<top-dialog>'};
+export default {title: 'Main Layout/<top-dialog>'};
 
 export const normal = () => ({
 	components: {TopDialog},

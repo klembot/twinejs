@@ -20,6 +20,32 @@ export const passageInStoryWithId = (state, {storyWithId}) => (
 	return story.passages.find(p => p.id === passageId);
 };
 
+export const storyDimensions = state => id => {
+	const story = state.stories.find(s => s.id === id);
+
+	let height = 0,
+		width = 0;
+
+	if (!story) {
+		return {height, width};
+	}
+
+	story.passages.forEach(p => {
+		const passageRight = p.left + p.width;
+		const passageBottom = p.top + p.height;
+
+		if (passageRight > width) {
+			width = passageRight;
+		}
+
+		if (passageBottom > height) {
+			height = passageBottom;
+		}
+	});
+
+	return {height, width};
+};
+
 export const storyWithId = state => id => state.stories.find(s => s.id === id);
 
 export const storyWithName = state => name =>

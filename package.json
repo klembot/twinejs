@@ -49,6 +49,7 @@
 		"segseg": "^0.2.2",
 		"semver-utils": "^1.1.1",
 		"tiny-uuid": "^1.0.0",
+		"tween-functions": "^1.2.0",
 		"unfetch": "^3.0.0",
 		"vue": "^2.6.10",
 		"vue-codemirror": "^4.0.6",

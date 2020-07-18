@@ -17,12 +17,8 @@
 		linear-gradient(to bottom, @color-graph-lines-bold 1px, transparent 1px),
 		linear-gradient(to right, @color-graph-lines 1px, transparent 1px),
 		linear-gradient(to bottom, @color-graph-lines 1px, transparent 1px);
-	background-size: 100px 100px, 100px 100px, 25px 25px, 25px 25px;
 	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
+	transform-origin: top left;
 
 	.theme-dark & {
 		background-color: @color-graph-paper-dark;
@@ -38,28 +34,5 @@
 			),
 			linear-gradient(to right, @color-graph-lines-dark 1px, transparent 1px),
 			linear-gradient(to bottom, @color-graph-lines-dark 1px, transparent 1px);
-	}
-
-	&.size-medium {
-		background-size: 60px 60px, 60px 60px, 15px 15px, 15px 15px;
-	}
-
-	&.size-small {
-		background-image: linear-gradient(
-				to right,
-				@color-graph-lines 1px,
-				transparent 1px
-			),
-			linear-gradient(to bottom, @color-graph-lines 1px, transparent 1px);
-		background-size: 25px 25px, 25px 25px;
-
-		.theme-dark & {
-			background-image: linear-gradient(
-					to right,
-					@color-graph-lines-dark 1px,
-					transparent 1px
-				),
-				linear-gradient(to bottom, @color-graph-lines-dark 1px, transparent 1px);
-		}
 	}
 }
