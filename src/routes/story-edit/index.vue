@@ -1,21 +1,5 @@
 <template>
 	<div class="story-edit">
-		<graph-paper />
-		<passage-map
-			@delete="onDeletePassage"
-			@edit="onEditPassage"
-			@move-selected="onMoveSelectedPassages"
-			:passage-links="passageLinks"
-			:passages="story.passages"
-			@select-exclusive="onSelectPassageExclusive"
-			@select-inclusive="onSelectPassageInclusive"
-			@test="onTestPassage"
-			:zoom="story.zoom"
-		>
-			<marquee-selection
-				@select="onMarqueeSelect"
-				@start-select="onMarqueeSelectStart"
-		/></passage-map>
 		<story-edit-top-bar :story="story" />
 		<top-confirm
 			@cancel="deletingPassage = null"
@@ -26,21 +10,46 @@
 			:message="deletePromptMessage"
 			:visible="this.deletingPassage !== null"
 		/>
+		<main-content :padded="false" mouse-scrolling ref="mainContent">
+			<graph-paper
+				:height="dimensions.height"
+				:width="dimensions.width"
+				:zoom="apparentZoom"
+			/>
+			<passage-map
+				@delete="onDeletePassage"
+				@edit="onEditPassage"
+				@move-selected="onMoveSelectedPassages"
+				:passage-links="passageLinks"
+				:passages="story.passages"
+				@select-exclusive="onSelectPassageExclusive"
+				@select-inclusive="onSelectPassageInclusive"
+				@test="onTestPassage"
+				:zoom="apparentZoom"
+			>
+				<marquee-selection
+					@select="onMarqueeSelect"
+					@start-select="onMarqueeSelectStart"
+			/></passage-map>
+		</main-content>
 	</div>
 </template>
 
 <script>
 import GraphPaper from '@/components/surface/graph-paper';
 import MarqueeSelection from '@/components/marquee-selection';
+import MainContent from '@/components/main-layout/main-content';
 import openUrl from '@/util/open-url';
 import PassageMap from './passage-map';
 import StoryEditTopBar from './top-bar';
-import TopConfirm from '@/components/top-layout/top-confirm';
+import TopConfirm from '@/components/main-layout/top-confirm';
+import zoomTransitions from './zoom-transitions';
 import './index.less';
 
 export default {
 	components: {
 		GraphPaper,
+		MainContent,
 		MarqueeSelection,
 		PassageMap,
 		StoryEditTopBar,
@@ -55,6 +64,16 @@ export default {
 			}
 
 			return '';
+		},
+		dimensions() {
+			const {height, width} = this.$store.getters['story/storyDimensions'](
+				this.$route.params.storyId
+			);
+
+			return {
+				height: Math.max(height, window.innerHeight) + window.innerHeight / 2,
+				width: Math.max(width, window.innerWidth) + window.innerWidth / 2
+			};
 		},
 		passageLinks() {
 			return this.$store.getters['story/storyLinks'](
@@ -142,10 +161,12 @@ export default {
 			openUrl(`/stories/${this.story.id}/test/${passage.id}`);
 		}
 	},
+	mixins: [zoomTransitions],
 	mounted() {
 		if (this.story.passages.length === 0) {
 			this.$store.dispatch('story/createUntitledPassage', {
 				// FIXME: zoom level
+				// FIXME needs to refer to $refs.mainContent$e.l
 				centerX: window.scrollX + window.innerWidth / 2,
 				centerY: window.scrollY + window.innerHeight / 2,
 				storyId: this.story.id
@@ -158,24 +179,6 @@ export default {
 				document.title = value;
 			},
 			immediate: true
-		},
-		'story.zoom': {
-			handler(value, old) {
-				/*
-				Change the window's scroll position so that the same logical
-				coordinates are at its center.
-				*/
-
-				const halfWidth = window.innerWidth / 2;
-				const halfHeight = window.innerHeight / 2;
-				const logCenterX = (window.scrollX + halfWidth) / old;
-				const logCenterY = (window.scrollY + halfHeight) / old;
-
-				window.scroll(
-					logCenterX * value - halfWidth,
-					logCenterY * value - halfHeight
-				);
-			}
 		}
 	}
 };

@@ -1,7 +1,7 @@
 <template>
 	<div class="story-list">
 		<story-list-top-bar @changeSort="onChangeSort" :sort-by="sortBy" />
-		<top-content :title="title">
+		<main-content :title="title">
 			<p v-if="stories.length === 0" v-t="'storyList.noStories'" />
 			<div class="stories">
 				<story-list-item
@@ -11,7 +11,7 @@
 					:story="story"
 				/>
 			</div>
-		</top-content>
+		</main-content>
 	</div>
 </template>
 
@@ -19,11 +19,11 @@
 import sortBy from 'lodash.sortby';
 import StoryListItem from '@/components/story/story-list-item';
 import StoryListTopBar from './top-bar';
-import TopContent from '@/components/top-layout/top-content';
+import MainContent from '@/components/main-layout/main-content';
 import './index.less';
 
 export default {
-	components: {StoryListItem, StoryListTopBar, TopContent},
+	components: {StoryListItem, MainContent, StoryListTopBar},
 	computed: {
 		stories() {
 			/*

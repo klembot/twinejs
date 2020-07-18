@@ -96,8 +96,8 @@ import isElectron from '@/util/is-electron';
 import openUrl from '@/util/open-url';
 import {publishArchiveToFile} from '@/store/publish/helpers';
 import LocalStorageQuota from '@/components/local-storage-quota';
-import TopBar from '@/components/top-layout/top-bar';
-import TopPrompt from '@/components/top-layout/top-prompt';
+import TopBar from '@/components/main-layout/top-bar';
+import TopPrompt from '@/components/main-layout/top-prompt';
 
 export default {
 	components: {

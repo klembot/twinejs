@@ -1,5 +1,5 @@
 <template>
-	<svg class="link-container" :style="style">
+	<svg class="link-container">
 		<!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Element/marker -->
 		<defs>
 			<marker
@@ -29,28 +29,6 @@
 import './link-container.less';
 
 export default {
-	computed: {
-		style() {
-			/*
-			In order for the arrows to not get cut off, we have to overinflate
-			our base size when scaling. It's possible to do this with an SVG
-			transform instead but it seems to yield weird results -- lines not
-			appearing, for example. Not sure if there are performance or
-			appearance implications to either approach.
-			*/
-
-			return {
-				transform: 'scale(' + this.zoom + ')',
-				width: (100 * 1) / this.zoom + '%',
-				height: (100 * 1) / this.zoom + '%'
-			};
-		}
-	},
-	props: {
-		zoom: {
-			required: true,
-			type: Number
-		}
-	}
+	namme: 'link-container'
 };
 </script>

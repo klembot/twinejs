@@ -7,8 +7,16 @@
 					label="storyEdit.topBar.addPassage"
 					type="create"
 				/>
-				<icon-button icon="zoom-in" label="storyEdit.topBar.zoomIn" />
-				<icon-button icon="zoom-out" label="storyEdit.topBar.zoomOut" />
+				<icon-button
+					@click="zoomIn"
+					icon="zoom-in"
+					label="storyEdit.topBar.zoomIn"
+				/>
+				<icon-button
+					@click="zoomOut"
+					icon="zoom-out"
+					label="storyEdit.topBar.zoomOut"
+				/>
 				<icon-button icon="tool" label="common.test" />
 				<icon-button @click="playStory" icon="play" label="common.play" />
 				<dropdown-button icon="more-horizontal" label="common.more">
@@ -65,8 +73,8 @@
 import DropdownButton from '@/components/input/dropdown-button';
 import IconButton from '@/components/input/icon-button';
 import TextLine from '@/components/input/text-line';
-import TopBar from '@/components/top-layout/top-bar';
-import TopPrompt from '@/components/top-layout/top-prompt';
+import TopBar from '@/components/main-layout/top-bar';
+import TopPrompt from '@/components/main-layout/top-prompt';
 import openUrl from '@/util/open-url';
 import '@/styles/accessibility.less';
 
@@ -102,7 +110,6 @@ export default {
 			openUrl(`/stories/${this.story.id}/proof`);
 		},
 		renameStory(value) {
-			console.log('renaming story', value);
 			this.$store.dispatch('story/updateStory', {
 				storyId: this.story.id,
 				storyProps: {name: value}
@@ -122,6 +129,18 @@ export default {
 		},
 		toggleRenamePrompt() {
 			this.showRenamePrompt = !this.showRenamePrompt;
+		},
+		zoomIn() {
+			this.$store.dispatch('story/changeZoom', {
+				change: 0.1,
+				storyId: this.story.id
+			});
+		},
+		zoomOut() {
+			this.$store.dispatch('story/changeZoom', {
+				change: -0.1,
+				storyId: this.story.id
+			});
 		}
 	},
 	name: 'story-edit-top-bar',

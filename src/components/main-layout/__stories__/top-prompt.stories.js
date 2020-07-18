@@ -6,7 +6,7 @@ const methods = {
 	onSubmit: action('submit')
 };
 
-export default {title: 'Top Layout/<top-prompt>'};
+export default {title: 'Main Layout/<top-prompt>'};
 
 export const normal = () => ({
 	methods: {

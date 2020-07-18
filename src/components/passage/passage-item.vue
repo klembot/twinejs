@@ -9,20 +9,17 @@
 					@mousedown.stop="onStartDrag"
 				>
 					<raised-paper
-						class="fill"
 						:highlighted="passage.highlighted"
 						:selected="passage.selected"
 						:style="dimensions"
 					>
-						<div class="stack padded close vertical">
-							<div class="name">{{ passage.name }}</div>
-							<div class="excerpt">{{ excerpt }}</div>
-						</div>
+						<div class="name">{{ passage.name }}</div>
+						<div class="excerpt" v-if="showExcerpt">{{ excerpt }}</div>
 					</raised-paper>
 				</div>
 			</template>
 			<template v-slot:paper>
-				<div class="stack tight" @mouseenter="showMenu" @mouseleave="hideMenu">
+				<div @mouseenter="showMenu" @mouseleave="hideMenu">
 					<icon-button @click="onDelete" icon="trash-2" type="danger" />
 					<icon-button @click="onEdit" icon="edit" />
 					<icon-button @click="onTest" icon="tool" />
@@ -39,7 +36,6 @@
 import AnchoredPaper from '../surface/anchored-paper';
 import IconButton from '../input/icon-button';
 import RaisedPaper from '../surface/raised-paper';
-import {describe as describeZoom} from '@/util/zoom-levels';
 import domMixin from '@/util/vue-dom-mixin';
 import './passage-item.less';
 
@@ -53,36 +49,33 @@ export default {
 	components: {AnchoredPaper, IconButton, RaisedPaper},
 	computed: {
 		classes() {
-			const result = ['passage-item', `zoom-${describeZoom(this.zoom)}`];
-
-			if (this.passage.highlighted) {
-				result.push('highlighted');
-			}
-
-			if (this.passage.selected) {
-				result.push('selected');
-			}
-
-			return result;
+			return {
+				highlighted: this.highlighted,
+				'name-only': !this.showExcerpt,
+				'passage-item': true,
+				selected: this.selected
+			};
 		},
 		dimensions() {
 			return {
-				height: this.passage.height * this.zoom + 'px',
-				width: this.passage.width * this.zoom + 'px'
+				height: this.passage.height + 'px',
+				width: this.passage.width + 'px'
 			};
 		},
 		excerpt() {
-			if (this.passage.text.length < 50) {
+			if (this.passage.text.length < 100) {
 				return this.passage.text;
 			}
 
-			return this.passage.text.substr(0, 50) + '…';
+			return this.passage.text.substr(0, 100) + '…';
 		},
 		style() {
 			return {
 				...this.dimensions,
-				left: this.passage.left * this.zoom + 'px',
-				top: this.passage.top * this.zoom + 'px',
+				left: this.passage.left + 'px',
+				top: this.passage.top + 'px',
+				// left: this.passage.left * this.zoom + 'px',
+				// top: this.passage.top * this.zoom + 'px',
 				transform:
 					this.offsetX !== 0 || this.offsetY !== 0
 						? `translate(${this.offsetX}px, ${this.offsetY}px)`
@@ -249,6 +242,10 @@ export default {
 		passage: {
 			required: true,
 			type: Object
+		},
+		showExcerpt: {
+			default: true,
+			type: Boolean
 		},
 		zoom: {
 			required: true,

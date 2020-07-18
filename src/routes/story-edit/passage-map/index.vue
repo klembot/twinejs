@@ -1,5 +1,5 @@
 <template>
-	<div class="passage-map">
+	<div class="passage-map" :style="style">
 		<passage-item
 			v-for="passage in passages"
 			@delete="onDeletePassage"
@@ -7,15 +7,16 @@
 			@drag-stop="onDragPassageStop"
 			@edit="onEditPassage"
 			:key="passage.id"
-			:offsetX="passage.selected ? dragXChange : 0"
-			:offsetY="passage.selected ? dragYChange : 0"
+			:offsetX="passage.selected ? dragXChange / zoom : 0"
+			:offsetY="passage.selected ? dragYChange / zoom : 0"
 			:passage="passage"
 			@select-exclusive="onSelectPassage(passage, true)"
 			@select-inclusive="onSelectPassage(passage, false)"
+			:show-excerpt="showPassageExcerpts"
 			@test="onTestPassage"
 			:zoom="zoom"
 		/>
-		<link-container :zoom="zoom">
+		<link-container>
 			<link-arrow
 				v-for="linkArrow in linkArrows"
 				:key="
@@ -86,6 +87,15 @@ export default {
 				},
 				[]
 			);
+		},
+		showPassageExcerpts() {
+			return this.zoom > 0.5;
+		},
+		style() {
+			return {
+				transform: `scale(${this.zoom})`,
+				transformOrigin: 'top left'
+			};
 		}
 	},
 	data: () => ({

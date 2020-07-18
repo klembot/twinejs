@@ -1,5 +1,4 @@
 @import '../../styles/colors.less';
-@import '../../styles/layout.less';
 @import '../../styles/metrics.less';
 @import '../../styles/depth.less';
 
@@ -10,12 +9,25 @@
 	border: 1px solid transparent;
 	user-select: none;
 
+	&.name-only .content {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		.name {
+			font-size: 133%;
+			flex-grow: 1;
+			text-align: center;
+		}
+	}
+
 	.excerpt {
 		color: fade(@color-text, 50%);
 	}
 
 	.raised-paper {
 		overflow: hidden;
+		padding: @len-tiny;
 	}
 
 	.tags {
@@ -61,57 +73,6 @@
 			&.purple {
 				background: @color-tag-purple;
 			}
-		}
-	}
-
-	&.zoom-medium {
-		padding: @len-tiny;
-
-		.frame {
-			height: 100%;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
-
-		.title {
-			font-weight: normal;
-			text-align: center;
-			max-height: 100%;
-			line-height: 100%;
-
-			.badge-create,
-			.badge-danger {
-				display: block;
-				margin: 0 auto;
-			}
-		}
-
-		.excerpt {
-			display: none;
-		}
-	}
-
-	&.zoom-small {
-		&::before {
-			background: linear-gradient(
-				to bottom,
-				transparent 0,
-				lighten(@color-text, 60%) 1px,
-				transparent 1px
-			);
-			background-size: 3px 3px;
-			content: '';
-			position: absolute;
-			top: @len-tiny;
-			left: @len-tiny;
-			right: @len-tiny;
-			bottom: @len-tiny;
-		}
-
-		.name,
-		.excerpt {
-			display: none;
 		}
 	}
 }

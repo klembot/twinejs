@@ -4,22 +4,22 @@
 			:back-route="`/stories/${this.story.id}`"
 			:back-label="story.name"
 		/>
-		<top-content :title="$t('editors.storyJavaScript.dialogTitle')">
+		<main-content :title="$t('editors.storyJavaScript.dialogTitle')">
 			<h1>{{ title }}</h1>
 			<p v-t="'editors.storyJavaScript.dialogExplanation'" />
 			<code-area @change="onChange" mode="javascript" :value="story.script" />
-		</top-content>
+		</main-content>
 	</div>
 </template>
 
 <script>
 import CodeArea from '@/components/input/code-area';
-import TopBar from '@/components/top-layout/top-bar';
-import TopContent from '@/components/top-layout/top-content';
+import MainContent from '@/components/main-layout/main-content';
+import TopBar from '@/components/main-layout/top-bar';
 import './index.less';
 
 export default {
-	components: {CodeArea, TopBar, TopContent},
+	components: {CodeArea, MainContent, TopBar},
 	computed: {
 		story() {
 			const result = this.$store.state.story.stories.find(

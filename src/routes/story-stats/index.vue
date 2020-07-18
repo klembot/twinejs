@@ -4,7 +4,7 @@
 			:back-route="`/stories/${this.story.id}`"
 			:back-label="story.name"
 		/>
-		<top-content :title="$t('dialogs.storyStats.dialogTitle')">
+		<main-content :title="$t('dialogs.storyStats.dialogTitle')">
 			<table class="story-stats">
 				<tr>
 					<td>{{ stats.characters }}</td>
@@ -36,17 +36,17 @@
 					v-t="'What\'s an IFID?'"
 				/>)
 			</p-->
-		</top-content>
+		</main-content>
 	</div>
 </template>
 
 <script>
-import TopBar from '@/components/top-layout/top-bar';
-import TopContent from '@/components/top-layout/top-content';
+import TopBar from '@/components/main-layout/top-bar';
+import MainContent from '@/components/main-layout/main-content';
 import './index.less';
 
 export default {
-	components: {TopBar, TopContent},
+	components: {MainContent, TopBar},
 	computed: {
 		stats() {
 			return this.$store.getters['story/storyStats'](this.story.id);

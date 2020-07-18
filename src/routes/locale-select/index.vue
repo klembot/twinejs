@@ -1,7 +1,7 @@
 <template>
 	<div class="locale-route">
 		<top-bar back-route="/" :back-label="$t('storyList.title')" />
-		<top-content :title="$t('common.language')">
+		<main-content :title="$t('common.language')">
 			<p v-t="'localeSelect.explanation'" />
 			<div class="locale-list">
 				<image-button
@@ -12,15 +12,15 @@
 					@click="select(locale.code)"
 				/>
 			</div>
-		</top-content>
+		</main-content>
 	</div>
 </template>
 
 <script>
 import ImageButton from '@/components/input/image-button';
 import locales from '@/locales';
-import TopContent from '@/components/top-layout/top-content';
-import TopBar from '@/components/top-layout/top-bar';
+import MainContent from '@/components/main-layout/main-content';
+import TopBar from '@/components/main-layout/top-bar';
 import './index.less';
 
 export default {
@@ -29,7 +29,7 @@ export default {
 			return locales;
 		}
 	},
-	components: {ImageButton, TopBar, TopContent},
+	components: {ImageButton, MainContent, TopBar},
 	methods: {
 		select(locale) {
 			this.$store.dispatch('pref/update', {locale});
