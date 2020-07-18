@@ -171,10 +171,18 @@ export function moveSelectedPassages(
 		if (p.selected) {
 			// TODO: clean up overlaps
 
+			let left = p.left + xChange;
+			let top = p.top + yChange;
+
+			if (story.snapToGrid) {
+				left = Math.round(left / 25) * 25;
+				top = Math.round(top / 25) * 25;
+			}
+
 			commit('updatePassage', {
 				storyId,
 				passageId: p.id,
-				passageProps: {left: p.left + xChange, top: p.top + yChange}
+				passageProps: {left, top}
 			});
 		}
 	});
