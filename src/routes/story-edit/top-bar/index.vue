@@ -44,7 +44,11 @@
 						icon="layers"
 						label="storyEdit.topBar.selectAllPassages"
 					/>
-					<icon-button icon="empty" label="storyEdit.topBar.snapToGrid" />
+					<icon-button
+						@click="toggleSnapToGrid"
+						:icon="story.snapToGrid ? 'check' : 'empty'"
+						label="storyEdit.topBar.snapToGrid"
+					/>
 					<icon-button
 						icon="bar-chart-2"
 						@click="showStoryStats"
@@ -129,6 +133,12 @@ export default {
 		},
 		toggleRenamePrompt() {
 			this.showRenamePrompt = !this.showRenamePrompt;
+		},
+		toggleSnapToGrid() {
+			this.$store.dispatch('story/updateStory', {
+				storyId: this.story.id,
+				storyProps: {snapToGrid: !this.story.snapToGrid}
+			});
 		},
 		zoomIn() {
 			this.$store.dispatch('story/changeZoom', {

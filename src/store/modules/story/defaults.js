@@ -9,7 +9,7 @@ export const storyDefaults = {
 	lastUpdate: new Date(),
 	name: t('store.storyDefaults.name'),
 	script: '',
-	snapToGrid: false,
+	snapToGrid: true,
 	startPassage: '',
 	storyFormat: '',
 	storyFormatVersion: '',
