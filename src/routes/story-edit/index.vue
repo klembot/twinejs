@@ -1,6 +1,6 @@
 <template>
 	<div class="story-edit">
-		<story-edit-top-bar :story="story" />
+		<story-edit-top-bar @create-passage="onCreatePassage" :story="story" />
 		<top-confirm
 			@cancel="deletingPassage = null"
 			@confirm="deletePassage"
@@ -107,6 +107,19 @@ export default {
 				storyId: this.story.id
 			});
 			this.deletingPassage = null;
+		},
+		onCreatePassage() {
+			const mainContentEl = this.$refs.mainContent.$el;
+
+			this.$store.dispatch('story/createUntitledPassage', {
+				centerX:
+					(mainContentEl.scrollLeft + mainContentEl.clientWidth / 2) /
+					this.story.zoom,
+				centerY:
+					(mainContentEl.scrollTop + mainContentEl.clientHeight / 2) /
+					this.story.zoom,
+				storyId: this.story.id
+			});
 		},
 		onDeletePassage(passage) {
 			console.log('onDeletePassage');
