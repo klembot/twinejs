@@ -3,6 +3,7 @@
 		<top-bar back-route="/" :back-label="$t('storyList.title')">
 			<template v-slot:actions>
 				<icon-button
+					@click="createPassage"
 					icon="plus-circle"
 					label="storyEdit.topBar.addPassage"
 					type="create"
@@ -94,12 +95,8 @@ export default {
 		return {findModalOpen: false, highlightText: '', showRenamePrompt: false};
 	},
 	methods: {
-		createNewPassage() {
-			this.$store.dispatch('story/createUntitledPassage', {
-				centerX: window.scrollX + window.innerWidth / 2,
-				centerY: window.scrollY + window.innerHeight / 2,
-				storyId: this.story.id
-			});
+		createPassage() {
+			this.$emit('create-passage');
 		},
 		editJavaScript() {
 			this.$router.push(`/stories/${this.story.id}/javascript`);
