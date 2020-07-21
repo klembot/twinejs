@@ -1,4 +1,5 @@
-import {intersects} from '../../../util/rect';
+import {intersects} from '@/util/rect';
+import linkParser from '@/util/link-parser';
 import {passageDefaults, storyDefaults} from './defaults';
 
 export function changeZoom({commit, getters}, {change, storyId}) {
@@ -17,6 +18,71 @@ export function changeZoom({commit, getters}, {change, storyId}) {
 	if (newZoom !== story.zoom) {
 		commit('updateStory', {storyId, storyProps: {zoom: newZoom}});
 	}
+}
+
+export function createNewlyLinkedPassages(
+	{commit, getters},
+	{oldText, passageId, storyId}
+) {
+	const story = getters.storyWithId(storyId);
+
+	if (!story) {
+		throw new Error(`No story exists with ID "${storyId}".`);
+	}
+
+	const passage = story.passages.find(passage => passage.id === passageId);
+
+	if (!passage) {
+		throw new Error(
+			`There is no passage in this story with ID "${passageId}".`
+		);
+	}
+
+	const oldLinks = linkParser(oldText);
+	const toCreate = linkParser(passage.text).filter(
+		l => !oldLinks.includes(l) && !story.passages.some(p => p.name === l)
+	);
+
+	if (toCreate.length === 0) {
+		return;
+	}
+
+	/*
+	Some magic numbers here to get passages to match the grid. We assume passage
+	default dimensions of 100x100 and a grid size of 25.
+	*/
+
+	const passageGap = 50;
+
+	const newTop = passage.top + passage.height + passageGap;
+	const newPassagesWidth =
+		toCreate.length * passageDefaults.width +
+		(toCreate.length - 1) * passageGap;
+
+	/*
+	Horizontally center the passages.
+	*/
+
+	let newLeft = passage.left + (passage.width - newPassagesWidth) / 2;
+
+	/*
+	Actually create them.
+	*/
+
+	toCreate.forEach(name => {
+		createPassage(
+			{commit, getters},
+			{
+				storyId,
+				passageProps: {
+					name,
+					left: newLeft,
+					top: newTop
+				}
+			}
+		);
+		newLeft += passageDefaults.width + passageGap;
+	});
 }
 
 export function createPassage({commit, getters}, {passageProps, storyId}) {

@@ -46,6 +46,26 @@ export default {
 			return result;
 		}
 	},
+	data() {
+		return {oldText: ''};
+	},
+	beforeRouteLeave(to, from, next) {
+		try {
+			this.$store.dispatch('story/createNewlyLinkedPassages', {
+				oldText: this.oldText,
+				passageId: this.passage.id,
+				storyId: this.story.id
+			});
+		} catch (e) {
+			// TODO: show error message to user.
+
+			console.warn(
+				`Tried to create newly linked passages but failed, continuing: ${e}`
+			);
+		}
+
+		next();
+	},
 	methods: {
 		onChangeText(value) {
 			this.$store.dispatch('story/updatePassage', {
@@ -54,6 +74,9 @@ export default {
 				passageProps: {text: value}
 			});
 		}
+	},
+	mounted() {
+		this.oldText = this.passage.text;
 	},
 	name: 'passage-edit'
 };
