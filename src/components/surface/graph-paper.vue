@@ -21,14 +21,6 @@ export default {
 	},
 	name: 'graph-paper',
 	props: {
-		height: {
-			required: true,
-			type: Number
-		},
-		width: {
-			required: true,
-			type: Number
-		},
 		zoom: {
 			default: 1,
 			type: Number

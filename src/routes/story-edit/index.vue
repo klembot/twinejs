@@ -11,26 +11,24 @@
 			:visible="this.deletingPassage !== null"
 		/>
 		<main-content :padded="false" mouse-scrolling ref="mainContent">
-			<graph-paper
-				:height="dimensions.height"
-				:width="dimensions.width"
-				:zoom="apparentZoom"
-			/>
-			<passage-map
-				@delete="onDeletePassage"
-				@edit="onEditPassage"
-				@move-selected="onMoveSelectedPassages"
-				:passage-links="passageLinks"
-				:passages="story.passages"
-				@select-exclusive="onSelectPassageExclusive"
-				@select-inclusive="onSelectPassageInclusive"
-				@test="onTestPassage"
-				:zoom="apparentZoom"
-			>
-				<marquee-selection
-					@select="onMarqueeSelect"
-					@start-select="onMarqueeSelectStart"
-			/></passage-map>
+			<div class="container" :style="containerStyle">
+				<graph-paper :zoom="apparentZoom" />
+				<passage-map
+					@delete="onDeletePassage"
+					@edit="onEditPassage"
+					@move-selected="onMoveSelectedPassages"
+					:passage-links="passageLinks"
+					:passages="story.passages"
+					@select-exclusive="onSelectPassageExclusive"
+					@select-inclusive="onSelectPassageInclusive"
+					@test="onTestPassage"
+					:zoom="apparentZoom"
+				>
+					<marquee-selection
+						@select="onMarqueeSelect"
+						@start-select="onMarqueeSelectStart"
+				/></passage-map>
+			</div>
 		</main-content>
 	</div>
 </template>
@@ -56,6 +54,17 @@ export default {
 		TopConfirm
 	},
 	computed: {
+		containerStyle() {
+			const {height, width} = this.$store.getters['story/storyDimensions'](
+				this.$route.params.storyId
+			);
+
+			return {
+				height:
+					Math.max(height, window.innerHeight) + window.innerHeight / 2 + 'px',
+				width: Math.max(width, window.innerWidth) + window.innerWidth / 2 + 'px'
+			};
+		},
 		deletePromptMessage() {
 			if (this.deletingPassage) {
 				return this.$t('storyEdit.confirmDelete', {
@@ -64,16 +73,6 @@ export default {
 			}
 
 			return '';
-		},
-		dimensions() {
-			const {height, width} = this.$store.getters['story/storyDimensions'](
-				this.$route.params.storyId
-			);
-
-			return {
-				height: Math.max(height, window.innerHeight) + window.innerHeight / 2,
-				width: Math.max(width, window.innerWidth) + window.innerWidth / 2
-			};
 		},
 		passageLinks() {
 			return this.$store.getters['story/storyLinks'](

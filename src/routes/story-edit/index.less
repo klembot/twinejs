@@ -1,6 +1,10 @@
 .story-edit {
 	.main-content {
 		padding: 0;
+
+		> .container {
+			position: relative;
+		}
 	}
 
 	.marquee-selection {
@@ -8,13 +12,16 @@
 		z-index: 3;
 	}
 
+	.graph-paper,
 	.passage-map {
 		position: absolute;
 		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;
+	}
 
+	.passage-map {
 		/* Above <graph-paper>. */
 		z-index: 2;
 	}
