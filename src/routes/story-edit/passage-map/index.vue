@@ -36,6 +36,7 @@
 import LinkArrow from '@/components/story/link-arrow';
 import LinkContainer from '@/components/story/link-container';
 import PassageItem from '@/components/passage/passage-item';
+import './index.less';
 
 export default {
 	components: {LinkArrow, LinkContainer, PassageItem},
@@ -67,6 +68,9 @@ export default {
 					/* Should never happen, but just in case. */
 
 					if (!startPassage) {
+						console.warn(
+							`A passage named "${startPassageName}" doesn't exist, skipping`
+						);
 						return result;
 					}
 
