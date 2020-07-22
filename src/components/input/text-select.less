@@ -1,0 +1,55 @@
+@import '../../styles/colors.less';
+@import '../../styles/focus-visible-shim.less';
+@import '../../styles/metrics.less';
+@import '../../styles/typography.less';
+
+.text-select {
+	align-items: center;
+	display: inline-flex;
+	margin: @len-tiny;
+
+	> label > select {
+		appearance: none;
+		background: url('~feather-icons/dist/icons/chevron-down.svg'),
+			linear-gradient(to bottom, hsl(0%, 0%, 100%), hsl(0%, 0%, 96%));
+		background-position: center right @len-small, top left;
+		background-repeat: no-repeat;
+		background-size: 16px 16px, auto;
+		border: none;
+		border-radius: @len-medium;
+		box-shadow: 0 2px 2px hsla(0, 0%, 0%, 0.25),
+			inset 0 0 2px hsla(0, 0%, 0%, 0.1);
+		font: 100% @font-ui;
+		margin-left: @len-small;
+		padding: @len-small @len-large * 2 @len-small @len-large;
+
+		&:focus {
+			box-shadow: inset 0 1px 1px hsla(0, 0%, 0%, 0.25),
+				0 0 0 @len-tiny fade(@color-link, 25%);
+			outline: none;
+		}
+	}
+
+	> label > .label {
+		font: 100% @font-ui;
+	}
+
+	&.orientation-vertical {
+		display: flex;
+
+		> label {
+			display: block;
+
+			> select {
+				margin-bottom: @len-small;
+				margin-left: 0;
+				margin-top: @len-small;
+				width: 100%;
+			}
+
+			> .label {
+				display: block;
+			}
+		}
+	}
+}
