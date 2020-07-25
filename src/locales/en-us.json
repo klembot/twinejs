@@ -22,6 +22,7 @@
 		"play": "Play",
 		"publishToFile": "Publish To File",
 		"rename": "Rename",
+		"remove": "Remove",
 		"skip": "Skip",
 		"test": "Test"
 	},
@@ -33,12 +34,12 @@
 		"passageItem": {
 			"test": "Test From Here"
 		},
-		"storyFormatAdder": {
-			"explanation": "To add a story format, enter its address below."
-		},
 		"storyFormatItem": {
-			"header": "<strong>{name}</strong> {version} by {author}",
-			"license": "License: {license}"
+			"author": "by {author}",
+			"license": "License: {license}",
+			"loading": "Loading...",
+			"loadError": "This format could not be loaded ({error}).",
+			"name": "{name} {version}"
 		}
 	},
 	"dialogs": {
@@ -114,10 +115,11 @@
 	},
 	"storyFormats": {
 		"addFormat": "Add a New Format",
-		"defaultStoryFormat": "The default story format for new stories you create is:",
+		"outdatedFormatExplanation": "Newer versions of these formats are installed, but these are available for use with older stories:",
 		"proofingFormatExplanation": "Proofing formats create a versions of stories tailored for editing and proofreading.",
 		"proofingFormats": "Proofing Formats",
-		"selectedProofingFormat": "The proofing format you are using is:",
+		"selectedProofingFormat": "This format will be used when proofing stories.",
+		"selectedStoryFormat": "This format will be used as default for new stories.",
 		"storyFormats": "Story Formats",
 		"storyFormatExplanation": "Story formats control the appearance and behavior of stories during play.",
 		"useAsDefault": "Use As Default",

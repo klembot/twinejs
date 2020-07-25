@@ -6,8 +6,7 @@ export function createFormat(state, {storyFormatProps}) {
 		id: uuid(),
 		...formatDefaults,
 		...storyFormatProps,
-		loaded: false,
-		properties: {}
+		properties: null
 	});
 }
 
@@ -15,33 +14,8 @@ export function deleteFormat(state, {storyFormatId}) {
 	state.formats = state.formats.filter(f => f.id !== storyFormatId);
 }
 
-export function setAddFormatError(state, {message}) {
-	state.addFormatERror = message;
-}
-
-export function setFormatProperties(state, {storyFormatId, storyFormatProps}) {
-	/*
-	Sets properties on a format, usually after they have been loaded via JSONP.
-	*/
-
-	let format = state.formats.find(f => f.id === storyFormatId);
-
-	if (!format) {
-		/* Do nothing. */
-		return;
-	}
-
-	format.properties = {...storyFormatProps};
-	format.loaded = true;
-
-	/*
-	A format may supply a setup function that runs when the format is first
-	loaded.
-	*/
-
-	if (format.properties.setup) {
-		format.properties.setup.call(format);
-	}
+export function setCreateFormatFromUrlError(state, {error}) {
+	state.createFormatFromUrlError = error;
 }
 
 export function updateFormat(state, {storyFormatId, storyFormatProps}) {

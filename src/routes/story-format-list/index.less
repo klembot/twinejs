@@ -1,0 +1,14 @@
+@import '../../styles/metrics.less';
+
+.story-format-list {
+	.format-list {
+		display: grid;
+		grid-gap: @len-extra-large;
+		grid-template-columns: repeat(auto-fit, minmax(20 * @len-extra-large, 1fr));
+		margin: @len-extra-large 0;
+	}
+
+	.story-format-item .raised-paper {
+		height: 100%;
+	}
+}
