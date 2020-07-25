@@ -1,11 +1,13 @@
 import {t} from '@/util/i18n';
 
 export const formatDefaults = {
+	loadError: null,
+	loading: false,
 	name: t('store.storyFormatDefaults.name'),
+	properties: null,
 	version: '',
 	url: '',
-	userAdded: true,
-	properties: {}
+	userAdded: true
 };
 
 export const builtinFormats = [

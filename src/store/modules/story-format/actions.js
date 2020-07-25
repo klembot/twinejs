@@ -1,21 +1,40 @@
 import semverUtils from 'semver-utils';
-import jsonp from '../../../util/jsonp';
+import jsonp from '@/util/jsonp';
 import {builtinFormats} from './defaults';
 
-async function loadFormatUrl(url) {
-	return new Promise((resolve, reject) => {
-		jsonp(url, {name: 'storyFormat', timeout: 2000}, (err, data) => {
-			if (err) {
-				reject(err);
-				return;
-			}
+let loadFormatUrlQueue = Promise.resolve();
 
-			resolve(data);
-		});
+function loadFormatUrl(url) {
+	/*
+	We can only load one format at a time because they all use the same callback
+	name. If we run in parallel, requests will collide with each other. The
+	multiple promises are necessary for callers to see the final resolution
+	properly.
+	*/
+
+	return new Promise((resolve, reject) => {
+		loadFormatUrlQueue = loadFormatUrlQueue.then(
+			() =>
+				new Promise(resolveQueue => {
+					jsonp(url, {name: 'storyFormat', timeout: 2000}, (err, data) => {
+						if (err) {
+							reject(err);
+						} else {
+							resolve(data);
+						}
+
+						resolveQueue();
+					});
+				})
+		);
 	});
 }
 
-export async function addFormatFromUrl({commit, state}, {storyFormatUrl}) {
+export function createFormat({commit}, {storyFormatProps}) {
+	commit('createFormat', {storyFormatProps});
+}
+
+export async function createFormatFromUrl({commit, state}, {storyFormatUrl}) {
 	/*
 	Try loading the format, and only if that succeeds, create it.
 	*/
@@ -24,15 +43,17 @@ export async function addFormatFromUrl({commit, state}, {storyFormatUrl}) {
 
 		if (!data.name || !data.version) {
 			commit(
-				'setAddFormatError',
-				'This story format does not have a name and version property.'
+				'setCreateFormatFromUrlError',
+				new Error(
+					'This story format does not have a name and version property.'
+				)
 			);
 		}
 
 		if (!data.source) {
 			commit(
-				'setAddFormatError',
-				'This story format does not have a source property.'
+				'setCreateFormatFromUrlError',
+				new Error('This story format does not have a source property.')
 			);
 		}
 
@@ -47,7 +68,10 @@ export async function addFormatFromUrl({commit, state}, {storyFormatUrl}) {
 		if (
 			state.formats.some(f => f.name === f.name && f.version === data.version)
 		) {
-			commit('setAddFormatError', 'This story format is already installed.');
+			commit(
+				'setCreateFormatFromUrlError',
+				new Error('This story format is already installed.')
+			);
 			return;
 		}
 
@@ -68,8 +92,10 @@ export async function addFormatFromUrl({commit, state}, {storyFormatUrl}) {
 			})
 		) {
 			commit(
-				'setAddFormatError',
-				'A more recent version of this story format is already installed.'
+				'setCreateFormatFromUrlError',
+				new Error(
+					'A more recent version of this story format is already installed.'
+				)
 			);
 			return;
 		}
@@ -80,7 +106,8 @@ export async function addFormatFromUrl({commit, state}, {storyFormatUrl}) {
 				storyFormatProps: {
 					name: data.name,
 					version: data.version,
-					loaded: true,
+					loadError: null,
+					loading: false,
 					url: storyFormatUrl,
 					userAdded: true,
 					properties: data
@@ -88,48 +115,76 @@ export async function addFormatFromUrl({commit, state}, {storyFormatUrl}) {
 			}
 		);
 	} catch (err) {
-		commit('setAddFormatError', `Could not load URL: ${err.message}`);
+		commit(
+			'setCreateFormatFromUrlError',
+			new Error(`Could not load URL: ${err.message}`)
+		);
 	}
-}
-
-export function createFormat({commit}, {storyFormatProps}) {
-	commit('createFormat', {storyFormatProps});
 }
 
 export function deleteFormat({commit}, {storyFormatId}) {
 	commit('deleteFormat', {storyFormatId});
 }
 
-export async function loadFormat({commit, state}, {storyFormatId}) {
+export async function loadFormat({commit, state}, {force, storyFormatId}) {
 	const format = state.formats.find(f => f.id === storyFormatId);
 
-	if (format.loaded) {
+	if ((format.loadError || format.loading) && !force) {
 		return;
 	}
 
-	const storyFormatProps = await loadFormatUrl(format.url);
-
-	commit('setFormatProperties', {
-		storyFormatProps,
+	commit('updateFormat', {
+		storyFormatProps: {
+			loading: true,
+			loadError: null
+		},
 		storyFormatId: format.id
 	});
+
+	try {
+		const properties = await loadFormatUrl(
+			format.userAdded ? '' : process.env.BASE_URL + format.url
+		);
+
+		commit('updateFormat', {
+			storyFormatProps: {
+				properties,
+				loading: false,
+				loadError: null
+			},
+			storyFormatId: format.id
+		});
+
+		/*
+		Story formats may provide a setup() property that is run after load.
+		*/
+
+		if (properties.setup) {
+			properties.setup.call(format);
+		}
+	} catch (loadError) {
+		console.log(loadError);
+
+		commit('updateFormat', {
+			storyFormatProps: {loadError, loading: false, properties: null},
+			storyFormatId: format.id
+		});
+	}
 }
 
 export async function loadAllFormats(store) {
 	const {state} = store;
-
-	/*
-	This is a very naive algorithm, loading one format at a time.
-	*/
-
-	const toLoad = state.formats.find(f => !f.loaded);
+	const toLoad = state.formats.filter(
+		f => !f.loadError && !f.loading && !f.properties
+	);
 
 	if (!toLoad) {
 		return;
 	}
 
-	await loadFormat(store, {storyFormatId: toLoad.id});
-	loadAllFormats(store);
+	await Promise.allSettled(
+		toLoad.map(f => loadFormat(store, {storyFormatId: f.id}))
+	);
 }
 
 export function repairFormats({commit, state}) {

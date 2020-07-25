@@ -1,23 +1,45 @@
 @import '../../styles/metrics.less';
 
-.story-format-item {
-	.format-image {
-		max-height: @len-extra-large;
-		width: auto;
+.story-format-item .raised-paper .content {
+	align-items: stretch;
+	display: grid;
+	grid-gap: @len-medium;
+	grid-template-areas:
+		'image detail'
+		'actions actions';
+	grid-template-columns: 5em 1fr;
+	grid-template-rows: repeat(2, auto);
+	padding: @len-medium;
+
+	.actions {
+		grid-area: actions;
+		justify-self: end;
 	}
 
-	.summary {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
+	.detail {
+		grid-area: detail;
+	}
 
-		.title {
-			display: flex;
-			align-items: center;
+	.image {
+		grid-area: image;
+
+		.icon-image {
+			display: block;
+			opacity: 0.25;
+		}
+
+		img,
+		svg {
+			width: 100%;
+			height: auto;
 		}
 	}
 
-	.description {
-		margin-left: @len-extra-large;
+	.title {
+		font-weight: bold;
+
+		&::after {
+			content: ' ';
+		}
 	}
 }

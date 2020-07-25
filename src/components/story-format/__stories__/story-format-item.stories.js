@@ -1,10 +1,26 @@
 import StoryFormatItem from '../story-format-item';
-import {fakeLoadedStoryFormatObject} from '../../../test-utils';
+import {
+	fakeFailedStoryFormatObject,
+	fakeLoadedStoryFormatObject,
+	fakePendingStoryFormatObject
+} from '../../../test-utils';
 
 export default {title: 'Story Format/<story-format-item>'};
 
-export const normal = () => ({
+export const loaded = () => ({
 	components: {StoryFormatItem},
 	computed: {format: fakeLoadedStoryFormatObject},
+	template: '<story-format-item :format="format" />'
+});
+
+export const pending = () => ({
+	components: {StoryFormatItem},
+	computed: {format: fakePendingStoryFormatObject},
+	template: '<story-format-item :format="format" />'
+});
+
+export const failed = () => ({
+	components: {StoryFormatItem},
+	computed: {format: fakeFailedStoryFormatObject},
 	template: '<story-format-item :format="format" />'
 });

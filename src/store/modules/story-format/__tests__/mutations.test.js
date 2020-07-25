@@ -15,17 +15,17 @@ describe('story format data module Vuex mutations', () => {
 			mutations.createFormat(testState, {storyFormatProps});
 			expect(testState.formats.length).toBe(1);
 			expect(testState.formats[0]).toMatchObject(storyFormatProps);
-			expect(testState.formats[0].loaded).toBe(false);
-			expect(testState.formats[0].properties).toMatchObject({});
+			expect(testState.formats[0].loading).toBe(false);
+			expect(testState.formats[0].properties).toBeNull();
 		});
 
-		it('forces formats to be unloaded and have empty properties', () => {
+		it('forces formats to be unloaded and have null properties', () => {
 			const storyFormatProps = {loaded: true, properties: {foo: true}};
 
 			mutations.createFormat(testState, {storyFormatProps});
 			expect(testState.formats.length).toBe(1);
-			expect(testState.formats[0].loaded).toBe(false);
-			expect(testState.formats[0].properties).toMatchObject({});
+			expect(testState.formats[0].loading).toBe(false);
+			expect(testState.formats[0].properties).toBeNull();
 		});
 
 		it('assigns a UUID ID to formats', () => {
@@ -37,39 +37,6 @@ describe('story format data module Vuex mutations', () => {
 			mutations.createFormat(testState, {storyFormatProps: {}});
 			expect(testState.formats.length).toBe(1);
 			expect(testState.formats[0]).toMatchObject(formatDefaults);
-		});
-	});
-
-	describe('setFormatProperties mutation', () => {
-		it('adds properties to a format', () => {
-			mutations.createFormat(testState, {storyFormatProps: {id: 'abc'}});
-			mutations.setFormatProperties(testState, {
-				storyFormatId: testState.formats[0].id,
-				storyFormatProps: {
-					source: 'Hello!'
-				}
-			});
-			expect(testState.formats[0].properties.source).toBe('Hello!');
-		});
-
-		it("sets a format's loaded property", () => {
-			mutations.createFormat(testState, {storyFormatProps: {id: 'abc'}});
-			mutations.setFormatProperties(testState, {
-				storyFormatId: testState.formats[0].id,
-				storyFormatProps: {}
-			});
-			expect(testState.formats[0].loaded).toBe(true);
-		});
-
-		it("calls a format's setup method bound to the format", () => {
-			const setup = {call: jest.fn()};
-
-			mutations.createFormat(testState, {storyFormatProps: {id: 'abc'}});
-			mutations.setFormatProperties(testState, {
-				storyFormatId: testState.formats[0].id,
-				storyFormatProps: {setup}
-			});
-			expect(setup.call).toHaveBeenCalledWith(testState.formats[0]);
 		});
 	});
 

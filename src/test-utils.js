@@ -15,9 +15,22 @@ export function fakePassageObject(props) {
 	};
 }
 
+export function fakeFailedStoryFormatObject(...props) {
+	return {
+		loadError: new Error(lorem.sentence()),
+		loading: false,
+		name: lorem.words(2),
+		properties: null,
+		url: '',
+		version: system.semver(),
+		...props
+	};
+}
+
 export function fakeLoadedStoryFormatObject(...props) {
 	return {
-		loaded: true,
+		loadError: null,
+		loading: false,
 		name: lorem.words(2),
 		properties: {
 			author: `${name.firstName()} ${name.lastName()}`,
@@ -28,6 +41,18 @@ export function fakeLoadedStoryFormatObject(...props) {
 			proofing: false,
 			url: internet.url()
 		},
+		url: '',
+		version: system.semver(),
+		...props
+	};
+}
+
+export function fakePendingStoryFormatObject(...props) {
+	return {
+		loadError: null,
+		loading: true,
+		name: lorem.words(2),
+		properties: null,
 		url: '',
 		version: system.semver(),
 		...props

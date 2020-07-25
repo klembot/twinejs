@@ -33,7 +33,12 @@ export function save({state}) {
 		ids.push(id);
 		window.localStorage.setItem(
 			`twine-storyformats-${id}`,
-			JSON.stringify({...format, properties: undefined})
+			JSON.stringify({
+				...format,
+				loadError: undefined,
+				loading: undefined,
+				properties: undefined
+			})
 		);
 	});
 
@@ -49,11 +54,11 @@ export function load({commit}) {
 
 	serialized.split(',').forEach(id => {
 		try {
-			const item = JSON.parse(
+			const storyFormatProps = JSON.parse(
 				window.localStorage.getItem(`twine-storyformats-${id}`)
 			);
 
-			commit('storyFormat/createFormat', {storyFormatProps: item});
+			commit('storyFormat/createFormat', {storyFormatProps});
 		} catch (e) {
 			console.warn(
 				`Story format ${id} had corrupt serialized value, skipping`,

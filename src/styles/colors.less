@@ -46,3 +46,11 @@ plain paper.
 @color-tag-green: @color-create;
 @color-tag-purple: spin(@color-tag-blue, 60);
 @color-tag-gray: lighten(desaturate(@color-tag-blue, 100), 20);
+
+a {
+	color: @color-link;
+
+	&:visited {
+		color: @color-tag-purple;
+	}
+}
