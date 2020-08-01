@@ -1,0 +1,20 @@
+@import '../../styles/metrics';
+
+.story-search {
+	.controls {
+		display: grid;
+		grid-gap: @len-medium;
+		grid-template-columns: repeat(2, 1fr);
+		margin-bottom: @len-extra-large;
+
+		.code-area {
+			height: 8em;
+		}
+	}
+
+	.results {
+		display: grid;
+		grid-gap: @len-medium;
+		grid-template-columns: repeat(4, 1fr);
+	}
+}

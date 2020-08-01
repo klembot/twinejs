@@ -4,6 +4,7 @@ in a story. These do not complain if no results were found--you should handle
 these cases yourself.
 */
 
+import escapeRegexp from 'lodash.escaperegexp';
 import uniq from 'lodash.uniq';
 import linkParser from '@/util/link-parser';
 
@@ -18,6 +19,59 @@ export const passageInStoryWithId = (state, {storyWithId}) => (
 	}
 
 	return story.passages.find(p => p.id === passageId);
+};
+
+export const passagesInStoryMatchingSearch = (state, {storyWithId}) => (
+	storyId,
+	search,
+	{includePassageNames, matchCase, useRegexes}
+) => {
+	const story = storyWithId(storyId);
+
+	if (!story) {
+		return [];
+	}
+
+	/*
+	A function so that we can make use of the greedy flag's statefulness safely.
+	*/
+
+	const matcher = new RegExp(
+		useRegexes ? search : escapeRegexp(search),
+		matchCase ? 'g' : 'gi'
+	);
+
+	// FIXME: this will display badly if value has HTML in it
+
+	function highlight(value) {
+		return `<span class="highlight">${value}</span>`;
+	}
+
+	return story.passages.reduce((result, passage) => {
+		let nameHighlighted = passage.name;
+		let nameMatched = false;
+		let textHighlighted = passage.text;
+		let textMatches = 0;
+
+		if (includePassageNames) {
+			nameMatched = matcher.test(passage.name);
+			nameHighlighted = passage.name.replace(matcher, highlight);
+		}
+
+		textMatches = passage.text.match(matcher);
+		textHighlighted = passage.text.replace(matcher, highlight);
+
+		if (nameMatched || textMatches) {
+			result.push({
+				nameHighlighted,
+				textHighlighted,
+				textMatches: textMatches.length || 0,
+				passage
+			});
+		}
+
+		return result;
+	}, []);
 };
 
 export const storyDimensions = state => id => {

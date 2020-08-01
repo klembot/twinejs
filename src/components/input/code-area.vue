@@ -1,6 +1,10 @@
 <template>
 	<div class="code-area">
-		<code-mirror @input="onChange" :options="{mode}" :value="value" />
+		<label v-if="label">
+			<span class="label" v-t="label" />
+			<code-mirror @input="onChange" :options="{mode}" :value="value" />
+		</label>
+		<code-mirror @input="onChange" :options="{mode}" :value="value" v-else />
 	</div>
 </template>
 
@@ -20,6 +24,7 @@ export default {
 	},
 	name: 'code-area',
 	props: {
+		label: String,
 		mode: String,
 		value: String
 	}
