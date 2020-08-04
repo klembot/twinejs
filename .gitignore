@@ -10,3 +10,6 @@ dist-apps
 build
 coverage/
 
+
+#Electron-builder output
+/dist_electron

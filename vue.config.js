@@ -1,4 +1,5 @@
 const pkg = require('./package.json');
+const path = require('path');
 
 module.exports = {
 	chainWebpack: config => {
@@ -23,6 +24,7 @@ module.exports = {
 		});
 	},
 	configureWebpack: {
+		entry: path.join(__dirname, 'src/index.js'),
 		module: {
 			rules: [
 				{
@@ -45,6 +47,9 @@ module.exports = {
 	},
 	lintOnSave: false,
 	pluginOptions: {
+		electronBuilder: {
+			mainProcessFile: 'src/electron/index.js'
+		},
 		i18n: {
 			locale: 'en-us',
 			fallbackLocale: 'en-us',

@@ -74,6 +74,15 @@
 			"dialogExplanation": "Any CSS entered here will override the default appearance of your story."
 		}
 	},
+	"electron": {
+		"backupsDirectoryName": "Backups",
+		"errors": {
+			"storyDelete": "An error occurred while deleting a story.",
+			"storyRename": "An error occurred while renaming a story.",
+			"storySave": "An error occurred while saving a story."
+		},
+		"storiesDirectoryName": "Stories"
+	},
 	"localeSelect": {
 		"explanation": "Please choose which language you would like to use with Twine."
 	},
