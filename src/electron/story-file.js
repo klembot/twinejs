@@ -13,7 +13,7 @@ import {
 	unlockStoryDirectory
 } from './story-directory';
 import {t} from '../util/i18n';
-// FIXME {publishStory, publishStoryWithFormat} = require('../data/publish');
+import {publishStory, publishStoryWithFormat} from '../store/publish/helpers';
 
 /*
 Returns a promise resolving to an array of HTML strings to load from the
@@ -82,6 +82,10 @@ export async function saveStory(story, format, appInfo) {
 	*/
 
 	try {
+		if (!format) {
+			throw new Error('No story format was provided to save');
+		}
+
 		output = publishStoryWithFormat(appInfo, story, format);
 	} catch (e) {
 		console.warn(

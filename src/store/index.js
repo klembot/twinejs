@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import appInfo from './modules/app-info';
+import electronIpc from './persistence/electron-ipc';
+import isElectron from '../util/is-electron';
 import localStorage from './persistence/local-storage';
 import pref from './modules/pref';
 import story from './modules/story';
@@ -10,7 +12,7 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
 	modules: {appInfo, pref, story, storyFormat},
-	plugins: [localStorage]
+	plugins: [isElectron ? electronIpc : localStorage]
 });
 
 /*

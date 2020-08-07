@@ -74,19 +74,6 @@ export default store => {
 				});
 				break;
 
-			case 'IMPORT_STORY__FIXME':
-				updateStories(transaction => {
-					const imported = state.story.stories.find(
-						s => s.name === mutation.payload[0].name
-					);
-
-					saveStory(transaction, imported);
-					imported.passages.forEach(passage =>
-						savePassage(transaction, passage)
-					);
-				});
-				break;
-
 			case 'story/deleteStory': {
 				/*
 				We have to use our last copy of the stories array, because

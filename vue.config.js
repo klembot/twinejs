@@ -48,7 +48,8 @@ module.exports = {
 	lintOnSave: false,
 	pluginOptions: {
 		electronBuilder: {
-			mainProcessFile: 'src/electron/index.js'
+			mainProcessFile: 'src/electron/index.js',
+			preload: 'src/electron/preload.js'
 		},
 		i18n: {
 			locale: 'en-us',

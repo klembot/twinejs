@@ -13,15 +13,6 @@ import initMenuBar from './menu-bar';
 import {load as loadJson} from './json-file';
 import {setLocale} from '../util/i18n';
 
-const browserWindowOpts = {
-	width: 1024,
-	height: 600,
-	webPreferences: {
-		nodeIntegration: false,
-		preload: path.resolve(__dirname, './preload.js')
-	}
-};
-
 global.hydrate = {};
 
 /*
@@ -77,9 +68,26 @@ app.on('ready', async () => {
 	initMenuBar();
 	await lockStoryDirectory();
 	setInterval(backupStoryDirectory, 1000 * 60 * 20);
-	global.hydrate.prefs = await loadJson('prefs.json');
-	await setLocale(global.hydrate.prefs.locale);
-	global.hydrate.storyFormats = await loadJson('story-formats.json');
+
+	try {
+		global.hydrate.prefs = await loadJson('prefs.json');
+		await setLocale(global.hydrate.prefs.locale);
+	} catch (e) {
+		/*
+		We can recover from this because the render process will set defaults,
+		and we configure a fallback locale in src/i18n.js.
+		*/
+
+		console.warn(`Could not load prefs.json, skipping: ${e}`);
+	}
+
+	try {
+		global.hydrate.storyFormats = await loadJson('story-formats.json');
+	} catch (e) {
+		/* We can recover from this because the render process will set defaults. */
+		console.warn(`Could not load story-formats.json, skipping: ${e}`);
+	}
+
 	await createStoryDirectory();
 	global.hydrate.initialStoryData = await loadStories();
 
@@ -93,12 +101,12 @@ app.on('ready', async () => {
 		show: false,
 		webPreferences: {
 			nodeIntegration: false,
+			/* This also needs to be set in vue.config.js. */
 			preload: path.resolve(__dirname, './preload.js')
 		}
 	});
 	win.on('ready-to-show', () => win.show());
 	win.on('closed', () => app.quit());
-	win.loadFile('dist/web-electron/index.html');
 	win.webContents.on('new-window', (event, url) => {
 		shell.openExternal(url);
 		event.preventDefault();
