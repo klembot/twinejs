@@ -49,6 +49,7 @@ module.exports = {
 	pluginOptions: {
 		electronBuilder: {
 			mainProcessFile: 'src/electron/index.js',
+			outputDir: 'dist/electron',
 			preload: 'src/electron/preload.js'
 		},
 		i18n: {

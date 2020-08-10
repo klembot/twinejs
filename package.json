@@ -7,11 +7,9 @@
 		"lint": "vue-cli-service lint; exit 0",
 		"build:build-number": "node scripts/build-number.js",
 		"build:cdn": "cross-env NODE_ENV=production USE_CDN=y webpack",
-		"build:electron": "cross-env NODE_ENV=production USE_ELECTRON=y webpack && electron-builder --ia32 --x64 -mwl",
-		"build:electron-dev": "electron .",
+		"build:electron": "vue-cli-service electron:build",
 		"build:web": "vue-cli-service build",
 		"clean": "rimraf dist/",
-		"electron:build": "vue-cli-service electron:build",
 		"i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'",
 		"lint:noisy": "vue-cli-service lint --no-fix",
 		"postinstall": "electron-builder install-app-deps",
@@ -24,7 +22,6 @@
 		"test:coverage": "vue-cli-service test:unit --coverage",
 		"test:once": "vue-cli-service test:unit"
 	},
-	"main": "electron/index.js",
 	"dependencies": {
 		"@linusborg/vue-simple-portal": "^0.1.4",
 		"@popperjs/core": "^2.2.1",
@@ -113,6 +110,7 @@
 	},
 	"browserslist": "defaults",
 	"license": "GPL-3.0",
+	"main": "background.js",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/klembot/twinejs"
