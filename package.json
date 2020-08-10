@@ -7,7 +7,7 @@
 		"lint": "vue-cli-service lint; exit 0",
 		"build:build-number": "node scripts/build-number.js",
 		"build:cdn": "cross-env NODE_ENV=production USE_CDN=y webpack",
-		"build:electron": "vue-cli-service electron:build",
+		"build:electron": "vue-cli-service electron:build --linux --mac --windows",
 		"build:web": "vue-cli-service build",
 		"clean": "rimraf dist/",
 		"i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'",
