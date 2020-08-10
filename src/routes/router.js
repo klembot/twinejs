@@ -11,6 +11,7 @@ import StoryFormatList from './story-format-list';
 import StoryList from './story-list';
 import StoryPlay from './story-play';
 import StoryProof from './story-proof';
+import StorySearch from './story-search';
 import StoryStats from './story-stats';
 import StoryTest from './story-test';
 import Welcome from './welcome';
@@ -28,6 +29,7 @@ export const Router = new VueRouter({
 		{path: '/stories/:storyId/passage/:passageId', component: PassageEdit},
 		{path: '/stories/:storyId/play', component: StoryPlay},
 		{path: '/stories/:storyId/proof', component: StoryProof},
+		{path: '/stories/:storyId/search', component: StorySearch},
 		{path: '/stories/:storyId/statistics', component: StoryStats},
 		{path: '/stories/:storyId/stylesheet', component: StoryEditStylesheet},
 		{path: '/stories/:storyId/test', component: StoryTest},

@@ -46,6 +46,11 @@
 						label="storyEdit.topBar.selectAllPassages"
 					/>
 					<icon-button
+						@click="findAndReplace"
+						icon="search"
+						label="storyEdit.topBar.findAndReplace"
+					/>
+					<icon-button
 						@click="toggleSnapToGrid"
 						:icon="story.snapToGrid ? 'check' : 'empty'"
 						label="storyEdit.topBar.snapToGrid"
@@ -103,6 +108,9 @@ export default {
 		},
 		editStylesheet() {
 			this.$router.push(`/stories/${this.story.id}/stylesheet`);
+		},
+		findAndReplace() {
+			this.$router.push(`/stories/${this.story.id}/search`);
 		},
 		playStory() {
 			openUrl(`/stories/${this.story.id}/play`);

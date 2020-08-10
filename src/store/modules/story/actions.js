@@ -109,6 +109,83 @@ export function createStory({commit}, {storyProps}) {
 	commit('createStory', {storyProps});
 }
 
+/*
+Works with one or more <tw-storydata> elements, as a Twine archive may contain
+more than one. Doesn't do any validation; that happens via ./cleanup.js. Returns
+how many stories it created.
+*/
+
+export function createStoriesFromHtml({commit}, {html, lastUpdate}) {
+	lastUpdate = lastUpdate || new Date();
+
+	const storyDataAttribute = (el, attributeName, defaultValue = null) =>
+		el.attributes[attributeName]
+			? el.attributes[attributeName].value
+			: defaultValue;
+	const joinSelectorContents = (el, selector) =>
+		Array.from(el.querySelectorAll(selector)).join('\n');
+	const parsePassageData = el => {
+		const pos = el.attributes.position.value.split(',').map(Math.floor);
+		let size = [100, 100];
+
+		if (el.attributes.size) {
+			size = el.attributes.size.value.split(',').map(Math.floor);
+		}
+
+		return {
+			pid: el.attributes.pid.value,
+			left: pos[0],
+			top: pos[1],
+			width: size[0],
+			height: size[1],
+			selected: false,
+			tags:
+				el.attributes.tags.value === ''
+					? []
+					: el.attributes.tags.value.split(/\s+/),
+			name: el.attributes.name.value,
+			text: el.textContent
+		};
+	};
+
+	const dom = document.createElement('div');
+
+	dom.innerHTML = html;
+
+	const toCreate = Array.from(dom.querySelectorAll('tw-storydata'));
+
+	toCreate.forEach(storyDataEl => {
+		createStory(
+			{commit},
+			{
+				storyProps: {
+					lastUpdate,
+					startPassagePid: storyDataAttribute(storyDataEl, 'startnode'),
+					name: storyDataAttribute(storyDataEl, 'name'),
+					ifid: storyDataAttribute(storyDataEl, 'ifid'),
+					passages: Array.from(
+						storyDataEl.querySelectorAll('tw-passagedata')
+					).map(parsePassageData),
+					storyFormat: storyDataAttribute(storyDataEl, 'format'),
+					storyFormatVersion: storyDataAttribute(storyDataEl, 'format-version'),
+					script: joinSelectorContents(storyDataEl, '[role=script]'),
+					stylesheet: joinSelectorContents(storyDataEl, '[role=stylesheet]'),
+					tagColors: Array.from(storyDataEl.querySelectorAll('tw-tag')).reduce(
+						(result, el) => ({
+							...result,
+							[el.getAttribute('name')]: el.getAttribute('color')
+						}),
+						{}
+					),
+					zoom: parseFloat(storyDataAttribute(storyDataEl, 'zoom', 1))
+				}
+			}
+		);
+	});
+
+	return toCreate.length;
+}
+
 export function createUntitledPassage(
 	{commit, getters},
 	{centerX, centerY, storyId}

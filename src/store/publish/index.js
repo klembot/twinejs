@@ -1,5 +1,10 @@
-// import {latestFormat} from '../modules/story-format/getters';
-// import {loadFormat} from '../modules/story-format/actions';
+/*
+Publishes a story with a given format. This sits above the story and
+story-format modules because it works with both. If you are not working in a
+Vuex context, you probably will want to use the helpers.js module in this
+directory instead.
+*/
+
 import {publishStoryWithFormat} from './helpers';
 
 export async function publishStory(

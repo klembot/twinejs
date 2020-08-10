@@ -34,6 +34,12 @@
 		"passageItem": {
 			"test": "Test From Here"
 		},
+		"passageSearchResult": {
+			"editPassage": "Edit Passage",
+			"matchCount": "No Matches | 1 Match | {matchCount} Matches",
+			"replace": "Replace in Passage",
+			"showPassage": "Show Passage in Story"
+		},
 		"storyFormatItem": {
 			"author": "by {author}",
 			"license": "License: {license}",
@@ -43,14 +49,6 @@
 		}
 	},
 	"dialogs": {
-		"findReplace": {
-			"dialogTitle": "Find and Replace",
-			"includePassageNames": "Include Passage Names",
-			"matchCase": "Match Case",
-			"replaceWith": "Replace With",
-			"searchFor": "Search For",
-			"useRegexes": "Use Regular Expressions"
-		},
 		"storyStats": {
 			"brokenLinks": "Broken Links",
 			"characters": "Characters",
@@ -76,6 +74,15 @@
 			"dialogExplanation": "Any CSS entered here will override the default appearance of your story."
 		}
 	},
+	"electron": {
+		"backupsDirectoryName": "Backups",
+		"errors": {
+			"storyDelete": "An error occurred while deleting a story.",
+			"storyRename": "An error occurred while renaming a story.",
+			"storySave": "An error occurred while saving a story."
+		},
+		"storiesDirectoryName": "Stories"
+	},
 	"localeSelect": {
 		"explanation": "Please choose which language you would like to use with Twine."
 	},
@@ -98,6 +105,7 @@
 			"addPassage": "Passage",
 			"editJavaScript": "Edit Story JavaScript",
 			"editStylesheet": "Edit Story Stylesheet",
+			"findAndReplace": "Find and Replace",
 			"proofStory": "View Proofing Copy",
 			"quickFind": "Quick Find",
 			"renameStory": "Rename Story",
@@ -152,6 +160,15 @@
 			"storyFormats": "Formats",
 			"storyFormatsExplanation": "Work with story and proofing formats"
 		}
+	},
+	"storySearch": {
+		"title": "Find and Replace",
+		"includePassageNames": "Include Passage Names",
+		"matchCase": "Match Case",
+		"replaceAll": "Replace In All Passages",
+		"replaceWith": "Replace With",
+		"searchFor": "Search For",
+		"useRegexes": "Use Regular Expressions"
 	},
 	"welcome": {
 		"autosave": "<p>There's now a folder named Twine in your Documents folder. Inside that is a Stories folder, where all your work will be saved. Twine saves as you work, so you don't have to worry about remembering to save it yourself. You can always open the folder your stories are saved to by using the <strong>Show Library</strong> item in the <strong>Twine</strong> menu.</p><p>Because Twine is always saving your work, the files in your story library will be locked from editing while Twine is open.</p><p>If you'd like to open a Twine story file you received from someone else, you can import it into your library using the <strong>Import From File</strong> link in the story list.</p>",

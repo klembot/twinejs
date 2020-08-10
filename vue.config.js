@@ -1,4 +1,5 @@
 const pkg = require('./package.json');
+const path = require('path');
 
 module.exports = {
 	chainWebpack: config => {
@@ -23,6 +24,7 @@ module.exports = {
 		});
 	},
 	configureWebpack: {
+		entry: path.join(__dirname, 'src/index.js'),
 		module: {
 			rules: [
 				{
@@ -45,6 +47,31 @@ module.exports = {
 	},
 	lintOnSave: false,
 	pluginOptions: {
+		electronBuilder: {
+			builderOptions: {
+				linux: {
+					artifactName: `twine-${pkg.version}-linux-\${arch}.zip`,
+					target: [{arch: ['ia32', 'x64'], target: 'zip'}]
+				},
+				mac: {
+					artifactName: `twine-${pkg.version}-macos.dmg`,
+					icon: 'icons/app.icns',
+					target: 'dmg'
+				},
+				nsis: {
+					oneClick: false,
+					allowToChangeInstallationDirectory: true
+				},
+				win: {
+					artifactName: `twine-${pkg.version}-windows.exe`,
+					icon: 'icons/app.ico',
+					target: 'nsis'
+				}
+			},
+			mainProcessFile: 'src/electron/index.js',
+			outputDir: 'dist/electron',
+			preload: 'src/electron/preload.js'
+		},
 		i18n: {
 			locale: 'en-us',
 			fallbackLocale: 'en-us',
