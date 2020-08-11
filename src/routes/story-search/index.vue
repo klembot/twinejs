@@ -34,11 +34,13 @@
 				<code-area
 					@change="onChangeSearchFor"
 					label="storySearch.searchFor"
+					:trapTab="false"
 					:value="searchFor"
 				/>
 				<code-area
 					@change="onChangeReplaceWith"
 					label="storySearch.replaceWith"
+					:trapTab="false"
 					:value="replaceWith"
 				/>
 			</div>
