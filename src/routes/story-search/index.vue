@@ -22,6 +22,7 @@
 				/>
 				<icon-button
 					@click="replaceAll"
+					:disabled="!canReplaceAll"
 					icon="zap"
 					label="storySearch.replaceAll"
 					type="danger"
@@ -68,6 +69,13 @@ import './index.less';
 export default {
 	components: {CodeArea, IconButton, MainContent, PassageSearchResult, TopBar},
 	computed: {
+		canReplaceAll() {
+			return (
+				this.searchFor !== '' &&
+				this.replaceWith !== '' &&
+				this.matchingPassages.length > 0
+			);
+		},
 		matchingPassages() {
 			if (this.searchFor === '') {
 				return [];
