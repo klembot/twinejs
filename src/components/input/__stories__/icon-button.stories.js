@@ -16,12 +16,18 @@ const buttonTemplate = type =>
 			<icon-button :active="true" @click="onClick" icon="check" style="margin: 10px" ${
 				type ? 'type="' + type + '"' : ''
 			} >Hello</icon-button>
+			<icon-button :disabled="true" @click="onClick" icon="check" style="margin: 10px" ${
+				type ? 'type="' + type + '"' : ''
+			} >Hello</icon-button>
 		</div>
 		<div>
 			<icon-button @click="onClick" icon="check" raised style="margin: 10px" ${
 				type ? 'type="' + type + '"' : ''
 			} >Hello</icon-button>
 			<icon-button :active="true" @click="onClick" icon="check" raised style="margin: 10px" ${
+				type ? 'type="' + type + '"' : ''
+			} >Hello</icon-button>
+			<icon-button :disabled="true" @click="onClick" icon="check" raised style="margin: 10px" ${
 				type ? 'type="' + type + '"' : ''
 			} >Hello</icon-button>
 		</div>
