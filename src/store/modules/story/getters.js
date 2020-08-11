@@ -4,8 +4,8 @@ in a story. These do not complain if no results were found--you should handle
 these cases yourself.
 */
 
-import escapeRegexp from 'lodash.escaperegexp';
 import uniq from 'lodash.uniq';
+import {createRegExp} from '@/util/regexp';
 import linkParser from '@/util/link-parser';
 
 export const passageInStoryWithId = (state, {storyWithId}) => (
@@ -32,14 +32,7 @@ export const passagesInStoryMatchingSearch = (state, {storyWithId}) => (
 		return [];
 	}
 
-	/*
-	A function so that we can make use of the greedy flag's statefulness safely.
-	*/
-
-	const matcher = new RegExp(
-		useRegexes ? search : escapeRegexp(search),
-		matchCase ? 'g' : 'gi'
-	);
+	const matcher = createRegExp(search, {matchCase, useRegexes});
 
 	// FIXME: this will display badly if value has HTML in it
 
@@ -65,7 +58,7 @@ export const passagesInStoryMatchingSearch = (state, {storyWithId}) => (
 			result.push({
 				nameHighlighted,
 				textHighlighted,
-				textMatches: textMatches.length || 0,
+				textMatches: (textMatches && textMatches.length) || 0,
 				passage
 			});
 		}
