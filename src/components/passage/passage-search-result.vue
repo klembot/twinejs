@@ -14,14 +14,17 @@
 					<template v-slot:paper>
 						<div class="stack tight vertical">
 							<icon-button
+								@click="replaceInPassage"
 								icon="zap"
 								label="components.passageSearchResult.replace"
 							/>
 							<icon-button
+								@click="editPassage"
 								icon="edit"
 								label="components.passageSearchResult.editPassage"
 							/>
 							<icon-button
+								@click="showPassage"
 								icon="map-pin"
 								label="components.passageSearchResult.showPassage"
 							/>
@@ -55,6 +58,15 @@ export default {
 		return {expanded: true, menuVisible: false};
 	},
 	methods: {
+		editPassage() {
+			this.$emit('edit-passage', this.passage);
+		},
+		replaceInPassage() {
+			this.$emit('replace-in-passage', this.passage);
+		},
+		showPassage() {
+			this.$emit('show-passage', this.passage);
+		},
 		toggleExpanded() {
 			this.expanded = !this.expanded;
 		},

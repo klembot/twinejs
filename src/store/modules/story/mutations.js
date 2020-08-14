@@ -87,6 +87,8 @@ export function updatePassage(state, {passageId, passageProps, storyId}) {
 	Object.assign(passage, passageProps);
 	Object.assign(passage, cleanupPassage(passage));
 	story.lastUpdate = new Date();
+
+	// TODO: if the passage's name was updated, change linking passages to match.
 }
 
 export function deletePassage(state, {passageId, storyId}) {

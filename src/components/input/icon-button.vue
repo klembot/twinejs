@@ -1,5 +1,10 @@
 <template>
-	<button @click="onClick" :class="classes" :type="buttonType">
+	<button
+		@click="onClick"
+		:class="classes"
+		:disabled="disabled"
+		:type="buttonType"
+	>
 		<icon-image v-if="icon" :name="icon" />
 		<span v-if="label" v-t="label" />
 		<slot></slot>
@@ -43,34 +48,18 @@ export default {
 	},
 	name: 'icon-button',
 	props: {
-		active: {
-			default: false,
-			type: Boolean
-		},
-		buttonType: {
-			default: 'button',
-			type: String
-		},
+		active: {default: false, type: Boolean},
+		buttonType: {default: 'button', type: String},
+		disabled: {default: false, type: Boolean},
 		icon: String,
 		iconPosition: {
 			default: 'start',
 			validator: value => ['start', 'end'].includes(value)
 		},
-		label: {
-			type: String
-		},
-		preventClickDefault: {
-			default: false,
-			type: Boolean
-		},
-		raised: {
-			default: false,
-			type: Boolean
-		},
-		stopClickPropagation: {
-			default: false,
-			type: Boolean
-		},
+		label: {type: String},
+		preventClickDefault: {default: false, type: Boolean},
+		raised: {default: false, type: Boolean},
+		stopClickPropagation: {default: false, type: Boolean},
 		type: {
 			default: 'default',
 			validator: value =>

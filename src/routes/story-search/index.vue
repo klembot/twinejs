@@ -20,7 +20,13 @@
 					:icon="buttonIcon('useRegexes')"
 					label="storySearch.useRegexes"
 				/>
-				<icon-button icon="zap" label="storySearch.replaceAll" type="danger" />
+				<icon-button
+					@click="replaceAll"
+					:disabled="!canReplaceAll"
+					icon="zap"
+					label="storySearch.replaceAll"
+					type="danger"
+				/>
 			</template>
 		</top-bar>
 		<main-content :title="$t('storySearch.title')">
@@ -28,20 +34,24 @@
 				<code-area
 					@change="onChangeSearchFor"
 					label="storySearch.searchFor"
+					:trapTab="false"
 					:value="searchFor"
 				/>
 				<code-area
 					@change="onChangeReplaceWith"
 					label="storySearch.replaceWith"
+					:trapTab="false"
 					:value="replaceWith"
 				/>
 			</div>
 			<div class="results">
 				<passage-search-result
 					v-for="match in matchingPassages"
+					@edit-passage="onEditPassage"
 					:nameHighlighted="match.nameHighlighted"
 					:passage="match.passage"
 					:key="match.passage.name"
+					@replace-in-passage="onReplaceInPassage"
 					:textHighlighted="match.textHighlighted"
 					:textMatches="match.textMatches"
 				/>
@@ -61,6 +71,13 @@ import './index.less';
 export default {
 	components: {CodeArea, IconButton, MainContent, PassageSearchResult, TopBar},
 	computed: {
+		canReplaceAll() {
+			return (
+				this.searchFor !== '' &&
+				this.replaceWith !== '' &&
+				this.matchingPassages.length > 0
+			);
+		},
 		matchingPassages() {
 			if (this.searchFor === '') {
 				return [];
@@ -114,6 +131,30 @@ export default {
 		},
 		onChangeSearchFor(value) {
 			this.searchFor = value;
+		},
+		onEditPassage(passage) {
+			this.$router.push(`/stories/${this.story.id}/passage/${passage.id}`);
+		},
+		onReplaceInPassage(passage) {
+			this.$store.dispatch('story/replaceInPassage', {
+				includePassageNames: this.includePassageNames,
+				matchCase: this.matchCase,
+				passageId: passage.id,
+				replace: this.replaceWith,
+				search: this.searchFor,
+				storyId: this.story.id,
+				useRegexes: this.useRegexes
+			});
+		},
+		replaceAll() {
+			this.$store.dispatch('story/replaceInStory', {
+				includePassageNames: this.includePassageNames,
+				matchCase: this.matchCase,
+				replace: this.replaceWith,
+				search: this.searchFor,
+				storyId: this.story.id,
+				useRegexes: this.useRegexes
+			});
 		},
 		toggleSetting(name) {
 			if (!['includePassageNames', 'matchCase', 'useRegexes'].includes(name)) {

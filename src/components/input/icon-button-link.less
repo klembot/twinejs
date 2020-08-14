@@ -22,6 +22,10 @@
 		background-size: 100vw 100vh;
 		box-shadow: inset 0 1px 1px hsla(0, 0%, 0%, 0.25);
 	}
+
+	&:disabled {
+		color: fade(white, 50%);
+	}
 }
 
 button.icon-button,
@@ -40,7 +44,12 @@ a.icon-link {
 	text-decoration: none;
 	white-space: nowrap;
 
-	&:hover {
+	&:disabled {
+		color: fade(@color-text, 50%);
+		cursor: auto;
+	}
+
+	&:hover:not(:disabled) {
 		background: linear-gradient(
 			to bottom,
 			mix(hsl(0%, 0%, 100%), @color-link, 95%),
@@ -63,6 +72,10 @@ a.icon-link {
 	&.type-create {
 		color: @color-create;
 
+		&:disabled {
+			color: fade(@color-create, 50%);
+		}
+
 		&:hover {
 			background: mix(hsl(0%, 0%, 96%), @color-create, 95%);
 			color: @color-create;
@@ -72,7 +85,11 @@ a.icon-link {
 	&.type-danger {
 		color: @color-danger;
 
-		&:hover {
+		&:disabled {
+			color: fade(@color-danger, 50%);
+		}
+
+		&:hover:not(:disabled) {
 			background: mix(hsl(0%, 0%, 96%), @color-danger, 95%);
 			color: @color-danger;
 		}
@@ -98,9 +115,9 @@ a.icon-link {
 		}
 	}
 
-	&:active,
+	&:active:not(:disabled),
 	&.active,
-	&:active:hover,
+	&:active:hover:not(:disabled),
 	&.active:hover {
 		background: linear-gradient(to bottom, hsl(0%, 0%, 92%), hsl(0%, 0%, 96%));
 		box-shadow: inset 0 1px 1px hsla(0, 0%, 0%, 0.25);
