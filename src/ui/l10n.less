@@ -1,0 +1,84 @@
+/* Localization - Styling */
+
+
+/* Farsi Localization (+ RTL) */
+/*
+   NOTE:
+         Although this part is done for Farsi/Persian (fa, per),
+         it'll probably work for other RTL languages
+         such as Arabic, Hebrew, Pashtoo, etc. as well.
+*/
+
+.modal-dialog:not(.editor) .modal-editor-only {
+    display: none !important;
+}
+
+[data-user-locale='fa'],
+[data-user-locale='per'] {
+
+    body {
+        direction: rtl;
+    }
+
+    .button-group {
+        display: inline-flex;
+
+        button, a.button {
+            border-radius: 0;
+            border-top: @len-hairline solid @color-form-line;
+            border-bottom: @len-hairline solid @color-form-line;
+
+            .theme-dark & {
+                border-top-color: @color-form-line-dark;
+                border-bottom-color: @color-form-line-dark;
+            }
+
+            &:first-child {
+                border-top-right-radius: @len-tiny;
+                border-bottom-right-radius: @len-tiny;
+                border-right: @len-hairline solid @color-form-line;
+
+                .theme-dark & {
+                    border-right-color: @color-form-line-dark;
+                }
+            }
+
+            &:last-child {
+                border-top-left-radius: @len-tiny;
+                border-bottom-left-radius: @len-tiny;
+                border-left: @len-hairline solid @color-form-line;
+
+                .theme-dark & {
+                    border-left-color: @color-form-line-dark;
+                }
+            }
+        }
+    }
+
+    .stories > p {
+        margin-right: 2rem;
+    }
+    .story-name {
+        text-align: right;
+    }
+    button > i.fa {
+        padding-left: 0.125em;
+    }
+    span[slot="title"], span.matches {
+        margin-right: 1rem;
+    }
+    #storyEditView .toolbar.main .storyName {
+        text-align: right;
+        min-width: 2em;
+    }
+
+}
+
+[data-user-locale='fa'],
+[data-user-locale='per'] {
+    /* Note: The '.fa' below is for FontAwsome not Farsi,
+    so too keep font icons working, we should exempt it. */
+    body *:not(.fa) {
+        font-family: Vazir, Parastoo;
+    }
+}
