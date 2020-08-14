@@ -104,6 +104,17 @@ const ModalDialog = module.exports = Vue.extend({
 			this.wide = !this.wide;
 		},
 
+		toggleDir() {
+			// Find the active instance of code-mirror
+			let cm = document.querySelector('.CodeMirror').CodeMirror;
+			// Toggle its direction
+			let curDir = cm.getOption('direction').toLowerCase();
+			let newDir = (curDir === 'rtl' ? 'ltr' : 'rtl');
+			cm.setOption('direction', newDir);
+			// Keep the new direction as default for the next instances
+			CodeMirror.defaults.direction = newDir;
+		},
+
 		reject(message) {
 			if (typeof this.canClose === 'function' && !this.canClose()) {
 				return;
