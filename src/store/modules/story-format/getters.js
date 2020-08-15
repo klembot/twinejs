@@ -3,13 +3,7 @@ import semverUtils from 'semver-utils';
 /* Looking up a format by ID. */
 
 export const formatWithId = state => id => {
-	const format = state.formats.find(f => f.id === id);
-
-	if (!format) {
-		throw new Error(`No story format exists with ID "${id}"`);
-	}
-
-	return format;
+	return state.formats.find(f => f.id === id);
 };
 
 /*
@@ -42,18 +36,21 @@ export const latestFormat = state => (name, version) => {
 	*/
 
 	const latestFormat = majorFormats.reduce((latest, current) => {
-		const pVer = semverUtils.parse(latest.version);
-		const pMinor = parseInt(pVer.minor);
-		const pPatch = parseInt(pVer.patch);
-		const cVer = semverUtils.parse(current.version);
-		const cMinor = parseInt(cVer.minor);
-		const cPatch = parseInt(cVer.patch);
+		const latestVersion = semverUtils.parse(latest.version);
+		const latestMinor = parseInt(latestVersion.minor);
+		const latestPatch = parseInt(latestVersion.patch);
+		const currentVersion = semverUtils.parse(current.version);
+		const currentMinor = parseInt(currentVersion.minor);
+		const currentPatch = parseInt(currentVersion.patch);
 
-		if (cMinor <= pMinor && cPatch <= pPatch) {
-			return latest;
+		if (
+			currentMinor > latestMinor ||
+			(currentMinor === latestMinor && currentPatch > latestPatch)
+		) {
+			return current;
 		}
 
-		return current;
+		return latest;
 	});
 
 	return latestFormat;

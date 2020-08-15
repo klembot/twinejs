@@ -21,6 +21,7 @@ export function fakePassageObject(props) {
 
 export function fakeFailedStoryFormatObject(...props) {
 	return {
+		id: random.uuid(),
 		loadError: new Error(lorem.sentence()),
 		loading: false,
 		name: lorem.words(2),
@@ -33,6 +34,7 @@ export function fakeFailedStoryFormatObject(...props) {
 
 export function fakeLoadedStoryFormatObject(...props) {
 	return {
+		id: random.uuid(),
 		loadError: null,
 		loading: false,
 		name: lorem.words(2),
@@ -53,6 +55,7 @@ export function fakeLoadedStoryFormatObject(...props) {
 
 export function fakePendingStoryFormatObject(...props) {
 	return {
+		id: random.uuid(),
 		loadError: null,
 		loading: true,
 		name: lorem.words(2),
