@@ -4,10 +4,6 @@ set up by modules under src/electron. This can only be used when running in an
 Electron context--see src/util/is-electron.js for how to detect that.
 */
 
-/* Exposed to us by the Electron preload script. */
-
-const {ipcRenderer} = window.twineElectron;
-
 let previousStories;
 
 function updatePrevious(state) {
@@ -20,7 +16,7 @@ function updatePrevious(state) {
 }
 
 function saveStory(store, story) {
-	console.log(story);
+	const {ipcRenderer} = window.twineElectron;
 
 	const format = store.state.storyFormat.formats.find(
 		f => f.name === story.storyFormat && f.version === story.storyFormatVersion
@@ -32,10 +28,14 @@ function saveStory(store, story) {
 }
 
 function saveJson(filename, data) {
+	const {ipcRenderer} = window.twineElectron;
+
 	ipcRenderer.send('save-json', filename, data);
 }
 
 export default store => {
+	const {ipcRenderer} = window.twineElectron;
+
 	updatePrevious(store.state);
 
 	/*
@@ -45,8 +45,8 @@ export default store => {
 
 	const hydrate = window.twineElectron.hydrate;
 
-	if (hydrate.initialStoryData) {
-		hydrate.initialStoryData.forEach(story => {
+	if (hydrate.stories) {
+		hydrate.stories.forEach(story => {
 			store.dispatch('story/createStoriesFromHtml', {
 				html: story.data,
 				lastUpdate: story.mtime
@@ -73,14 +73,9 @@ export default store => {
 			case 'story/createStory':
 				saveStory(
 					store,
-					state.story.stories.find(s => s.name === mutation.storyProps.name)
-				);
-				break;
-
-			case 'DUPLICATE_STORY__FIXME':
-				saveStory(
-					store,
-					state.story.stories.find(s => s.name === mutation.payload[1].name)
+					state.story.stories.find(
+						s => s.name === mutation.payload.storyProps.name
+					)
 				);
 				break;
 
@@ -157,7 +152,6 @@ export default store => {
 				break;
 
 			case 'storyFormat/createFormat':
-			case 'storyFormat/updateFormat':
 			case 'storyFormat/deleteFormat': {
 				/*
 				state.storyFormats.formats is likely to contain the actual story
@@ -178,9 +172,9 @@ export default store => {
 				break;
 			}
 
-			case 'storyFormat/loadFormat':
+			case 'storyFormat/updateFormat':
 			case 'storyFormat/setAddFormatError':
-				/* This change doesn't need to be persisted. */
+				/* These changes don't need to be persisted. */
 				break;
 
 			default:

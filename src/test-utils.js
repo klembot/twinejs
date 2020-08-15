@@ -1,3 +1,7 @@
+/*
+Fake/mock objects for testing.
+*/
+
 import {date, internet, lorem, name, random, system} from 'faker';
 
 export function fakePassageObject(props) {
@@ -78,6 +82,36 @@ export function fakeStoryObject(passageCount) {
 	for (let i = 0; i < passageCount; i++) {
 		result.passages.push(fakePassageObject({story: result.id}));
 	}
+
+	return result;
+}
+
+export function fakeVuexStore(overrides) {
+	const formats = [fakeLoadedStoryFormatObject()];
+	const stories = [fakeStoryObject(1)];
+	const subscribers = [];
+
+	stories[0].storyFormat = formats[0].name;
+	stories[0].storyFormatVersion = formats[0].version;
+
+	const result = {
+		commit: jest.fn(),
+		dispatch: jest.fn((type, payload) =>
+			subscribers.forEach(s => s({type, payload}, result.state))
+		),
+		state: {
+			appInfo: {
+				buildNumber: 12345,
+				name: 'Twine Test',
+				version: '1.2.3'
+			},
+			pref: {},
+			storyFormat: {formats},
+			story: {stories}
+		},
+		subscribe: jest.fn(subscriber => subscribers.push(subscriber)),
+		...overrides
+	};
 
 	return result;
 }
