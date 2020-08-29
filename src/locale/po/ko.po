@@ -28,7 +28,7 @@ msgid ""
 "may be released under any terms, including commercial ones."
 msgstr ""
 "이 응용프로그램은 \\x3ca href=\"http:\\/\\/www.gnu.org/licenses/gpl-3.0.html"
-"\">GPLv3\\x3c/a> 라이선스에 따라 배포되지만 이것으로 만든 모든 창작물은 상업"
+"\">GPL v3\\x3c/a> 라이선스에 따라 배포되지만 이것으로 만든 모든 창작물은 상업"
 "적인 것을 포함하는 다른 조건으로 배포될 수 있습니다."
 
 #: src/dialogs/about/index.html
@@ -62,7 +62,7 @@ msgstr ""
 "작물입니다. \\x3ca href=\"http:\\/\\/adobe.com/\">어도비(Adobe)\\x3c/a>"
 "\\x3cbr> 누니토(Nunito)는 로버트 슬림바흐(Robert Slimbach)의 지도 아래 "
 "\\x3ca href=\"http:\\/\\/code.newtypography.co.uk/\">버몬 애덤스(Vernon "
-"Adams)\\x3c/a>가 만들었습니다."
+"Adams)\\x3c/a>가 디자인함"
 
 #: src/dialogs/about/index.html
 msgid "Icons"
@@ -71,20 +71,19 @@ msgstr "아이콘"
 #: src/dialogs/about/index.html
 msgid "Document designed by Rob Gill from the Noun Project"
 msgstr ""
-"문서(Document)는 나운 프로젝트(Noun Project)의 랍 길(Rob Gill)이 디자인했습니"
-"다."
+"문서(Document)는 나운 프로젝트(Noun Project)의 랍 길(Rob Gill)이 디자인함"
 
 #: src/dialogs/about/index.html
 msgid "Question designed by Henry Ryder from the Noun Project"
 msgstr ""
 "질문(Question)은 나운 프로젝트(Noun Project)의 헨리 라이더(Henry Ryder)가 디"
-"자인했습니다."
+"자인함"
 
 #: src/dialogs/about/index.html
 msgid "Smile designed by jelio dimitrov from the Noun Project"
 msgstr ""
 "웃음(Smile)은 나운 프로젝트(Noun Project)의 젤리오 디미트로브(jelio dimitrov)"
-"가 디자인했습니다."
+"가 디자인함"
 
 #: src/dialogs/app-donation/index.html
 msgid ""
@@ -396,20 +395,20 @@ msgstr "이야기 이름변경"
 
 #: src/story-edit-view/story-toolbar/story-menu/index.html
 msgid "Snap to Grid"
-msgstr ""
+msgstr "격자에 맞추기"
 
 #: src/story-edit-view/story-toolbar/story-menu/index.html
 msgid "View Proofing Copy"
-msgstr ""
+msgstr "교정본 보기"
 
 #: src/story-edit-view/story-toolbar/story-menu/index.html
 #: src/story-list-view/story-item/item-menu/index.html
 msgid "Publish to File"
-msgstr ""
+msgstr "파일로 게시"
 
 #: src/story-list-view/index.html
 msgid "Drop a story file to import"
-msgstr ""
+msgstr "가져올 이야기 파일을 제외"
 
 #: src/story-list-view/index.html
 msgid "Sort By"
@@ -428,6 +427,8 @@ msgid ""
 "There are no stories saved in Twine right now. To get started, you can "
 "either create a new story or import an existing one from a file."
 msgstr ""
+"트와인에 저장된 이야기가 없습니다. 시작하려면 새로운 이야기를 만들거나 기존 "
+"파일로부터 가져와야 합니다."
 
 #: src/story-list-view/list-toolbar/index.html src/nw/directories.js:69
 #: src/nw/menus.js:17 src/nw/menus.js:39
@@ -487,6 +488,11 @@ msgid ""
 "Twine 1, which is a little bit different than this version. But most of the "
 "concepts are the same."
 msgstr ""
+"&lt;strong&gt;트와인을 처음 사용한다면&lt;/strong&gt; 정말 대환영입니다! &lt;"
+"a href=\\\"http://twinery.org/2guide\\\" target=\\\"_blank\\\"&gt;트와인 2 안"
+"내서&lt;/a&gt;와 공식 위키는 트와인을 배우기에 좋습니다. 위키의 일부 문서는 "
+"트와인 1 용으로 작성되었으며 이 버전과는 약간 다르지만, 대부분의 개념은 동일"
+"합니다."
 
 #: src/welcome/index.html
 msgid "Your work is saved only in your browser."
@@ -498,6 +504,9 @@ msgid ""
 "everything you create isn't stored on a server somewhere else &mdash; it "
 "stays right in your browser."
 msgstr ""
+"그것의 의미는 트와인 2를 사용하기 위해 계정을 생성할 필요가 없으며 당신이 만"
+"든 모든 것들은 서버 어딘가에 저장되지 않는다는 것입니다 &mdash; 당신의 브라우"
+"저에 그대로 유지됩니다."
 
 #: src/welcome/index.html
 msgid ""
@@ -509,6 +518,13 @@ msgid ""
 "class=\\\"fa fa-cog\\\"&gt;&lt;/i&gt; menu on each story in the story list. "
 "Both archive and story files can always be re-imported into Twine."
 msgstr ""
+"&lt;b&gt;정말 중요한&lt;/b&gt; 두 가지를 기억하십시오. 당신의 작업은 브라우저"
+"에만 저장되므로 저장된 데이터를 정리한다면 당신의 작업을 잃게 될 것입니다! 때"
+"때로 &lt;i class=\\\"fa fa-briefcase\\\"&gt;&lt;/i&gt;&nbsp;&lt;strong&gt;아"
+"카이브&lt;/strong&gt; 버튼을 사용하는 것을 잊지 마십시오. 또한 개별 이야기들"
+"을 &lt;i class=\\\"fa fa-cog\\\"&gt;&lt;/i&gt; 메뉴를 사용해 이야기 목록에 넣"
+"을 수 있습니다. 모든 아카이브와 이야기 파일들은 트와인에서 언제나 다시 가져"
+"올 수 있습니다."
 
 #: src/welcome/index.html
 msgid ""
@@ -516,20 +532,23 @@ msgid ""
 "to your work&lt;/b&gt;. So if you've got a nosy kid brother, look into "
 "setting up a separate profile for yourself."
 msgstr ""
+"둘째로, &lt;b&gt;당신과 함께 이 브라우저를 사용하는 누군가는 당신의 작업물을 "
+"볼 수 있습니다&lt;/b&gt;. 따라서 당신이 시끄러운 어린 형제를 두었다면 당신을 "
+"위해 개별 프로필을 준비하는 것이 좋을 수 있습니다."
 
 #: src/data/actions.js:272
 msgid ""
 "a more recent version of the story format &ldquo;%s&rdquo; is already "
 "installed"
-msgstr ""
+msgstr "새 버전의 &ldquo;%s&rdquo; 이야기 포맷이 이미 설치됨"
 
 #: src/data/publish.js:75
 msgid "There is no starting point set for this story."
-msgstr ""
+msgstr "이 이야기를 위한 시작점이 설정되지 않았습니다."
 
 #: src/data/publish.js:81
 msgid "The passage set as starting point for this story does not exist."
-msgstr ""
+msgstr "이 이야기를 위한 시작점이 되는 구절이 존재하지 않습니다."
 
 #: src/data/story-format.js:7
 msgid "Untitled Story Format"
@@ -573,7 +592,7 @@ msgstr "&ldquo;%1$s&rdquo; 이야기 형식을 불러오지 못했습니다. (%2
 
 #: src/dialogs/formats/index.js:105
 msgid "The story format at %1$s could not be added (%2$s)."
-msgstr "스토리 형식을 %1$s에 추가하지 못했습니다. (%2$s)"
+msgstr "이야기 형식을 %1$s에 추가하지 못했습니다. (%2$s)"
 
 #. L10n: %s is the name of an author.
 #: src/dialogs/formats/item.js:30
