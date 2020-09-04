@@ -47,7 +47,7 @@ function getData(url = '') {
 
 const loadByAPI = (archive, filename, success, failure) => {
 	// Example GET method implementation:
-	const url = `${CONTENT_API_URL}/archive`;
+	const url = `${CONTENT_API_URL}/archive/raw`;
 	return getData(url)
 		.then(data => {
       if (data.status === 'ACK') {
