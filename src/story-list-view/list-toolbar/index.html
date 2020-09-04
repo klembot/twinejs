@@ -13,8 +13,13 @@
 			</button>
 		</li>
 		<li>
-			<button class="block" @click="saveArchive" title="{{'Save all stories to a Twine archive file' | say }}">
-				<i class="fa fa-briefcase"></i> {{ 'Archive' | say}}
+			<button class="block" @click="saveToFile" title="{{'Save all stories to a Twine archive file' | say }}">
+				<i class="fa fa-briefcase"></i> {{ 'Archive (file)' | say}}
+			</button>
+		</li>
+		<li>
+			<button class="block" @click="saveToAPI" title="{{'Save all stories to API' | say }}">
+				<i class="fa fa-briefcase"></i> {{ 'Archive (API)' | say}}
 			</button>
 		</li>
 		<li>

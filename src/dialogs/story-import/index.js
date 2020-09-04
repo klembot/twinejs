@@ -7,6 +7,7 @@ const Vue = require('vue');
 const { deleteStory, importStory } = require('../../data/actions/story');
 const importHTML = require('../../data/import');
 const load = require('../../file/load');
+const {loadByAPI} = require('../../api/save');
 const locale = require('../../locale');
 const { thenable } = require('../../vue/mixins/thenable');
 
@@ -77,11 +78,15 @@ module.exports = Vue.extend({
 			}
 		},
 
-		import(file) {
+		import(file = null) {
 			this.status = 'working';
 
-			load(file)
+			const loader = (file) ? load(file) : loadByAPI() ;
+
+			// Resolve promise
+			loader
 			.then(source => {
+				// console.log(source);
 				this.toImport = importHTML(source);
 
 				this.dupeNames = this.toImport.reduce(

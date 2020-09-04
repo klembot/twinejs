@@ -10,6 +10,8 @@ const locale = require('../../locale');
 const {prompt} = require('../../dialogs/prompt');
 const {publishArchive} = require('../../data/publish');
 const saveFile = require('../../file/save');
+const {saveByAPI} = require('../../api/save');
+
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -57,15 +59,28 @@ module.exports = Vue.extend({
 			}).$mountTo(document.body);
 		},
 
-		saveArchive() {
+		saveArchive(useAPI) {
 			const timestamp = new Date()
 				.toLocaleString()
 				.replace(/[\/:\\]/g, '.');
 
-			saveFile(
-				publishArchive(this.existingStories, this.appInfo),
-				`${timestamp} ${locale.say('Twine Archive.html')}`
-			);
+			const archive = publishArchive(this.existingStories, this.appInfo);
+
+			if (useAPI) {
+				saveByAPI(archive);
+
+			} else {
+				const filename = `${timestamp} ${locale.say('Twine Archive.html')}`;
+				saveFile(archive, filename);
+			}
+		},
+
+		saveToFile() {
+			this.saveArchive();
+		},
+
+		saveToAPI() {
+			this.saveArchive(true);
 		},
 
 		showAbout(e) {
