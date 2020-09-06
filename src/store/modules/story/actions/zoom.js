@@ -1,4 +1,8 @@
 export function changeZoom({commit, getters}, {change, storyId}) {
+	if (typeof change !== 'number') {
+		throw new Error('The change in zoom must be a number');
+	}
+
 	const story = getters.storyWithId(storyId);
 
 	if (!story) {

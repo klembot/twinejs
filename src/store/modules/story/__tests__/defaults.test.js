@@ -13,6 +13,8 @@ describe('Passage defaults', () => {
 			types[type].forEach(key => expect(typeof passageDefaults[key]).toBe(type))
 		);
 	});
+
+	it.todo('changes the default text based on device type');
 });
 
 describe('Story defaults', () => {

@@ -1,3 +1,5 @@
+import escapeRegexp from 'lodash.escaperegexp';
+
 export function highlightPassagesWithText(
 	{commit, getters},
 	{search, storyId}
@@ -10,7 +12,7 @@ export function highlightPassagesWithText(
 
 	/* Special case empty string to match nothing. */
 
-	const matcher = new RegExp(search === '' ? '^$' : search, 'i');
+	const matcher = new RegExp(search === '' ? '^$' : escapeRegexp(search), 'i');
 
 	story.passages.forEach(p => {
 		const oldHighlighted = p.highlighted;

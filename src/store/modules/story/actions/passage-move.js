@@ -1,14 +1,16 @@
+import isFinite from 'lodash.isfinite';
+
 export function moveSelectedPassages(
 	{commit, getters},
 	{xChange, yChange, storyId}
 ) {
-	if (typeof xChange !== 'number' || isNaN(xChange)) {
+	if (!isFinite(xChange)) {
 		throw new Error(
 			`${xChange} is not a valid offset to move passages horizontally.`
 		);
 	}
 
-	if (typeof yChange !== 'number' || isNaN(yChange)) {
+	if (!isFinite(yChange)) {
 		throw new Error(
 			`${yChange} is not a valid offset to move passages vertically.`
 		);

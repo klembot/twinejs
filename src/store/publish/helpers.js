@@ -28,26 +28,12 @@ export function publishStoryWithFormat(
 	/*
 	We use function replacements to protect the data from accidental
 	interactions with the special string replacement patterns.
-
-	First, built-in placeholders.
 	*/
 
 	output = output.replace(/{{STORY_NAME}}/g, () => escape(story.name));
 	output = output.replace(/{{STORY_DATA}}/g, () => {
 		return publishStory(appInfo, story, formatOptions, startId);
 	});
-
-	/* Then, format-defined placeholders. */
-
-	if (format.properties.placeholders) {
-		format.properties.placeholders.forEach(p => {
-			const value = story[p.name];
-
-			if (value !== undefined) {
-				output = output.replace(p.name, () => value);
-			}
-		});
-	}
 
 	return output;
 }

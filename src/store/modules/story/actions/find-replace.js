@@ -12,6 +12,14 @@ export function replaceInPassage(
 		useRegexes
 	}
 ) {
+	if (typeof replace !== 'string') {
+		throw new Error('Replace is not a string.');
+	}
+
+	if (typeof search !== 'string') {
+		throw new Error('Search is not a string.');
+	}
+
 	const story = getters.storyWithId(storyId);
 
 	if (!story) {
@@ -26,35 +34,20 @@ export function replaceInPassage(
 		);
 	}
 
-	const passageProps = {...passage};
+	const passageProps = {};
 	const matcher = createRegExp(search, {matchCase, useRegexes});
 	const replacer = useRegexes ? replace : escapeRegExpReplace(replace);
-	const newText = passage.text.replace(matcher, replacer);
-	let newName = passage.name;
+
+	passageProps.text = passage.text.replace(matcher, replacer);
 
 	if (includePassageNames) {
-		newName = passage.name.replace(matcher, replacer);
+		passageProps.name = passage.name.replace(matcher, replacer);
 	}
 
-	/*
-	The intent below is *not* to delete either name or text. Setting them as
-	undefined means the mutation doesn't see the keys at all, and doesn't do a
-	meaningless update.
-	*/
-
-	let updateNeeded = false;
-
-	if (newName !== passage.name) {
-		passageProps.name = newName;
-		updateNeeded = true;
-	}
-
-	if (newText !== passage.text) {
-		passageProps.text = newText;
-		updateNeeded = true;
-	}
-
-	if (updateNeeded) {
+	if (
+		passageProps.text !== passage.text ||
+		(passageProps.name !== undefined && passageProps.name !== passage.name)
+	) {
 		commit('updatePassage', {passageId, storyId, passageProps});
 	}
 }
@@ -64,6 +57,14 @@ export function replaceInStory(
 	{includePassageNames, matchCase, replace, search, storyId, useRegexes}
 ) {
 	const story = getters.storyWithId(storyId);
+
+	if (typeof replace !== 'string') {
+		throw new Error('Replace is not a string.');
+	}
+
+	if (typeof search !== 'string') {
+		throw new Error('Search is not a string.');
+	}
 
 	if (!story) {
 		throw new Error(`No story exists with ID "${storyId}".`);

@@ -1,3 +1,4 @@
+import {fakeStoryObject} from '@/test-utils/fakes';
 import * as mutations from '../mutations';
 import {storyDefaults} from '../defaults';
 
@@ -7,25 +8,11 @@ describe('story data module mutations', () => {
 	beforeEach(() => {
 		testEmptyState = {stories: []};
 		testStateWithStory = {
-			stories: [
-				{
-					id: 'test-story-id',
-					name: 'Test Story',
-					passages: [
-						{
-							id: 'test-passage-id',
-							left: 100,
-							name: 'Test Passage',
-							text: 'test passage text',
-							top: 200
-						}
-					]
-				}
-			]
+			stories: [fakeStoryObject(1)]
 		};
 	});
 
-	describe('create story mutation', () => {
+	describe('createStory', () => {
 		it('creates a story', () => {
 			const storyProps = {name: 'Test Story'};
 
@@ -120,54 +107,236 @@ describe('story data module mutations', () => {
 		});
 	});
 
-	describe('update passage mutation', () => {
-		it('updates passage properties', () => {
-			mutations.updatePassage(testStateWithStory, {
-				passageId: 'test-passage-id',
-				passageProps: {name: 'Changed Name'},
-				storyId: 'test-story-id'
-			});
+	describe('updateStory', () => {
+		it('updates story properties', () => {
+			const story = testStateWithStory.stories[0];
+			const newName = story.name + 'changed';
 
-			expect(
-				testStateWithStory.stories
-					.find(s => s.id === 'test-story-id')
-					.passages.find(p => p.id === 'test-passage-id').name
-			).toBe('Changed Name');
+			mutations.updateStory(testStateWithStory, {
+				storyId: testStateWithStory.stories[0].id,
+				storyProps: {name: newName}
+			});
+			expect(testStateWithStory.stories[0].name).toBe(newName);
 		});
 
-		it('allows partial updates', () => {
-			const prevPassageTop = testStateWithStory.stories
-				.find(s => s.id === 'test-story-id')
-				.passages.find(p => p.id === 'test-passage-id').top;
+		it('always changes the lastUpdate property', () => {
+			const story = testStateWithStory.stories[0];
+			const oldDate = story.lastUpdate;
 
-			mutations.updatePassage(testStateWithStory, {
-				passageId: 'test-passage-id',
-				passageProps: {name: 'Changed Name'},
-				storyId: 'test-story-id'
+			mutations.updateStory(testStateWithStory, {
+				storyId: story.id,
+				storyProps: {}
 			});
+			expect(testStateWithStory.stories[0].lastUpdate).not.toBe(oldDate);
+		});
 
-			expect(
-				testStateWithStory.stories
-					.find(s => s.id === 'test-story-id')
-					.passages.find(p => p.id === 'test-passage-id').top
-			).toBe(prevPassageTop);
+		it("warns if the storyId doesn't match an existing one but doesn't throw an error", () => {
+			const oldWarn = global.console.warn;
+
+			global.console.warn = jest.fn();
+			mutations.updateStory(testStateWithStory, {
+				storyId: testStateWithStory.stories[0].id + 'nonexistent',
+				storyProps: {}
+			});
+			expect(global.console.warn).toHaveBeenCalledTimes(1);
+			global.console.warn = oldWarn;
+		});
+
+		it.todo('does not affect other stories');
+	});
+
+	describe('deleteStory', () => {
+		it('deletes a story', () => {
+			mutations.deleteStory(testStateWithStory, {
+				storyId: testStateWithStory.stories[0].id
+			});
+			expect(testStateWithStory.stories.length).toBe(0);
+		});
+
+		it("warns if the storyId doesn't match an existing one but doesn't throw an error", () => {
+			const oldWarn = global.console.warn;
+
+			global.console.warn = jest.fn();
+			mutations.deleteStory(testStateWithStory, {
+				storyId: testStateWithStory.stories[0].id + 'nonexistent'
+			});
+			expect(global.console.warn).toHaveBeenCalledTimes(1);
+			global.console.warn = oldWarn;
+		});
+
+		it.todo('does not affect other stories');
+	});
+
+	describe('createPassage', () => {
+		it('creates a passage', () => {
+			const story = testStateWithStory.stories[0];
+
+			mutations.createPassage(testStateWithStory, {
+				passageProps: {name: 'new passage'},
+				storyId: story.id
+			});
+			expect(testStateWithStory.stories[0].passages.length).toBe(2);
+			expect(testStateWithStory.stories[0].passages[1].name).toBe(
+				'new passage'
+			);
+		});
+
+		it('defaults the new passage to the starting one if it is the first', () => {
+			const story = testStateWithStory.stories[0];
+
+			story.passages = [];
+			mutations.createPassage(testStateWithStory, {
+				passageProps: {name: 'new passage'},
+				storyId: story.id
+			});
+			expect(testStateWithStory.stories[0].startPassage).toBe(
+				testStateWithStory.stories[0].passages[0].id
+			);
 		});
 
 		it("changes the parent story's lastUpdate property", () => {
-			const prevLastUpdate = testStateWithStory.stories.find(
-				s => s.id === 'test-story-id'
-			).lastUpdate;
+			const story = testStateWithStory.stories[0];
+			const prevLastUpdate = story.lastUpdate;
+
+			mutations.createPassage(testStateWithStory, {
+				passageProps: {name: 'new passage'},
+				storyId: story.id
+			});
+			expect(testStateWithStory.stories[0].lastUpdate).not.toBe(prevLastUpdate);
+		});
+
+		it("warns if the storyId doesn't match an existing one but doesn't throw an error", () => {
+			const oldWarn = global.console.warn;
+
+			global.console.warn = jest.fn();
+			mutations.createPassage(testStateWithStory, {
+				passageProps: {},
+				storyId: testStateWithStory.stories[0].id + 'nonexistent'
+			});
+			expect(global.console.warn).toHaveBeenCalledTimes(1);
+			global.console.warn = oldWarn;
+		});
+
+		it.todo('does not affect other stories');
+	});
+
+	describe('updatePassage', () => {
+		it('updates passage properties', () => {
+			const story = testStateWithStory.stories[0];
+			const newName = story.passages[0].name + 'changed';
 
 			mutations.updatePassage(testStateWithStory, {
-				passageId: 'test-passage-id',
-				passageProps: {name: 'Changed Name'},
-				storyId: 'test-story-id'
+				passageId: story.passages[0].id,
+				passageProps: {name: newName},
+				storyId: story.id
 			});
-
-			expect(
-				testStateWithStory.stories.find(s => s.id === 'test-story-id')
-					.lastUpdate
-			).not.toBe(prevLastUpdate);
+			expect(testStateWithStory.stories[0].passages[0].name).toBe(newName);
 		});
+
+		it('allows partial updates', () => {
+			const story = testStateWithStory.stories[0];
+			const prevPassageTop = story.passages[0].top;
+
+			mutations.updatePassage(testStateWithStory, {
+				passageId: story.passages[0].id,
+				passageProps: {name: 'Changed Name'},
+				storyId: story.id
+			});
+			expect(testStateWithStory.stories[0].passages[0].top).toBe(
+				prevPassageTop
+			);
+		});
+
+		it("changes the parent story's lastUpdate property", () => {
+			const story = testStateWithStory.stories[0];
+			const prevLastUpdate = story.lastUpdate;
+
+			mutations.updatePassage(testStateWithStory, {
+				passageId: story.passages[0].id,
+				passageProps: {name: 'Changed Name'},
+				storyId: story.id
+			});
+			expect(testStateWithStory.stories[0].lastUpdate).not.toBe(prevLastUpdate);
+		});
+
+		it("warns if the storyId doesn't match an existing one but doesn't throw an error", () => {
+			const oldWarn = global.console.warn;
+
+			global.console.warn = jest.fn();
+			mutations.updatePassage(testStateWithStory, {
+				passageId: testStateWithStory.stories[0].passages[0].id,
+				passageProps: {},
+				storyId: testStateWithStory.stories[0].id + 'nonexistent'
+			});
+			expect(global.console.warn).toHaveBeenCalledTimes(1);
+			global.console.warn = oldWarn;
+		});
+
+		it("warns if the passageId doesn't match an existing one but doesn't throw an error", () => {
+			const oldWarn = global.console.warn;
+
+			global.console.warn = jest.fn();
+			mutations.updatePassage(testStateWithStory, {
+				passageId: testStateWithStory.stories[0].passages[0].id + 'nonexistent',
+				passageProps: {},
+				storyId: testStateWithStory.stories[0].id
+			});
+			expect(global.console.warn).toHaveBeenCalledTimes(1);
+			global.console.warn = oldWarn;
+		});
+
+		it.todo('does not affect other stories');
 	});
+
+	describe('deletePassage', () => {
+		it('deletes a passage', () => {
+			const story = testStateWithStory.stories[0];
+
+			mutations.deletePassage(testStateWithStory, {
+				passageId: story.passages[0].id,
+				storyId: story.id
+			});
+			expect(testStateWithStory.stories[0].passages).toEqual([]);
+		});
+
+		it("changes the parent story's lastUpdate property", () => {
+			const story = testStateWithStory.stories[0];
+			const prevLastUpdate = story.lastUpdate;
+
+			mutations.updatePassage(testStateWithStory, {
+				passageId: story.passages[0].id,
+				passageProps: {name: 'Changed Name'},
+				storyId: story.id
+			});
+			expect(testStateWithStory.stories[0].lastUpdate).not.toBe(prevLastUpdate);
+		});
+
+		it("warns if the storyId doesn't match an existing one but doesn't throw an error", () => {
+			const oldWarn = global.console.warn;
+
+			global.console.warn = jest.fn();
+			mutations.deletePassage(testStateWithStory, {
+				passageId: testStateWithStory.stories[0].passages[0].id,
+				storyId: testStateWithStory.stories[0].id + 'nonexistent'
+			});
+			expect(global.console.warn).toHaveBeenCalledTimes(1);
+			global.console.warn = oldWarn;
+		});
+
+		it("warns if the passageId doesn't match an existing one but doesn't throw an error", () => {
+			const oldWarn = global.console.warn;
+
+			global.console.warn = jest.fn();
+			mutations.deletePassage(testStateWithStory, {
+				passageId: testStateWithStory.stories[0].passages[0].id + 'nonexistent',
+				storyId: testStateWithStory.stories[0].id
+			});
+			expect(global.console.warn).toHaveBeenCalledTimes(1);
+			global.console.warn = oldWarn;
+		});
+
+		it.todo('does not affect other stories');
+	});
+
+	it.todo('cleans up passages and stories throughout');
 });

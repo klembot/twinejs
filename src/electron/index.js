@@ -89,7 +89,7 @@ app.on('ready', async () => {
 	}
 
 	await createStoryDirectory();
-	global.hydrate.initialStoryData = await loadStories();
+	global.hydrate.stories = await loadStories();
 
 	/*
 	Create our app window. When it closes, the app quits.
