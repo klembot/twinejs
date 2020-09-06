@@ -34,6 +34,12 @@ function saveJson(filename, data) {
 }
 
 export default store => {
+	if (!window.twineElectron) {
+		throw new Error(
+			'Required Electron hooks are not present in global environment'
+		);
+	}
+
 	const {ipcRenderer} = window.twineElectron;
 
 	updatePrevious(store.state);

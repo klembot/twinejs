@@ -36,6 +36,11 @@ export function updateStory(state, {storyId, storyProps}) {
 }
 
 export function deleteStory(state, {storyId}) {
+	if (!state.stories.find(s => s.id === storyId)) {
+		console.warn(`There is no story with ID ${storyId}, ignoring delete.`);
+		return;
+	}
+
 	state.stories = state.stories.filter(s => s.id !== storyId);
 }
 
@@ -97,6 +102,13 @@ export function deletePassage(state, {passageId, storyId}) {
 	if (!story) {
 		console.warn(
 			`There is no story with ID ${storyId}, ignoring passage delete.`
+		);
+		return;
+	}
+
+	if (!story.passages.find(p => p.id === passageId)) {
+		console.warn(
+			`There is no passage with ID ${passageId} in story ID ${storyId}, ignoring passage delete.`
 		);
 		return;
 	}

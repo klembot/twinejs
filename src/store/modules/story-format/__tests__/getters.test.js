@@ -1,4 +1,4 @@
-import {fakeLoadedStoryFormatObject} from '@/test-utils';
+import {fakeLoadedStoryFormatObject} from '@/test-utils/fakes';
 import {formatWithId, latestFormat} from '../getters';
 
 describe('Story format Vuex getters', () => {

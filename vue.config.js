@@ -22,6 +22,8 @@ module.exports = {
 			args[0].buildNumber = 'FIXME-BUILD-NUMBER';
 			return args;
 		});
+
+		config.plugins.delete('preload');
 	},
 	configureWebpack: {
 		entry: path.join(__dirname, 'src/index.js'),

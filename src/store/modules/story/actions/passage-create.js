@@ -1,3 +1,4 @@
+import isFinite from 'lodash.isfinite';
 import linkParser from '@/util/link-parser';
 import {passageDefaults} from '../defaults';
 
@@ -73,10 +74,6 @@ export function createPassage({commit, getters}, {passageProps, storyId}) {
 		throw new Error(`No story exists with ID "${storyId}".`);
 	}
 
-	/*
-	If a passage with this name already exists, don't do anything.
-	*/
-
 	if (story.passages.some(p => p.name === passageProps.name)) {
 		throw new Error(
 			`There is already a passage in this story named "${passageProps.name}".`
@@ -90,6 +87,14 @@ export function createUntitledPassage(
 	{commit, getters},
 	{centerX, centerY, storyId}
 ) {
+	if (!isFinite(centerX)) {
+		throw new Error('centerX is not a number');
+	}
+
+	if (!isFinite(centerY)) {
+		throw new Error('centerY is not a number');
+	}
+
 	const story = getters.storyWithId(storyId);
 
 	if (!story) {

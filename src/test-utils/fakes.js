@@ -4,8 +4,18 @@ Fake/mock objects for testing.
 
 import {date, internet, lorem, name, random, system} from 'faker';
 
+export function fakeAppInfoObject(props) {
+	return {
+		name: lorem.words(1),
+		version: system.semver(),
+		buildNumber: random.number().toString(),
+		...props
+	};
+}
+
 export function fakePassageObject(props) {
 	return {
+		id: random.uuid(),
 		story: -1,
 		top: Math.random() * 10000,
 		left: Math.random() * 10000,
@@ -13,8 +23,8 @@ export function fakePassageObject(props) {
 		height: 100,
 		tags: [],
 		name: lorem.words(Math.round(Math.random() * 10)),
-		selected: false,
-		text: lorem.words(Math.round(Math.random() * 100)),
+		selected: Math.random() > 0.5,
+		text: lorem.words(Math.round(Math.random() * 10)),
 		...props
 	};
 }
@@ -67,23 +77,34 @@ export function fakePendingStoryFormatObject(...props) {
 }
 
 export function fakeStoryObject(passageCount) {
+	const tags = [lorem.word(), lorem.word(), lorem.word()];
 	const result = {
+		tags,
 		id: random.uuid(),
 		lastUpdate: date.past(),
 		ifid: random.uuid().toUpperCase(),
+		javascript: lorem.words(Math.floor(Math.random() * 10)),
 		name: lorem.words(Math.round(Math.random() * 10)),
 		passages: [],
 		script: lorem.words(100),
 		startPassage: -1,
 		storyFormat: lorem.words(Math.floor(Math.random() * 3)),
 		storyFormatVersion: system.semver(),
-		stylesheet: lorem.words(100),
-		tagColors: {},
+		stylesheet: lorem.words(Math.floor(Math.random() * 10)),
+		tagColors: {
+			[tags[0]]: internet.color(),
+			[tags[1]]: internet.color(),
+			[tags[2]]: internet.color()
+		},
 		zoom: Math.random()
 	};
 
 	for (let i = 0; i < passageCount; i++) {
 		result.passages.push(fakePassageObject({story: result.id}));
+	}
+
+	if (result.passages[0]) {
+		result.startPassage = result.passages[0].id;
 	}
 
 	return result;

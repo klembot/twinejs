@@ -6,7 +6,9 @@ export function deletePassage({commit, getters}, {passageId, storyId}) {
 	}
 
 	if (!story.passages.some(p => p.id === passageId)) {
-		throw new Error(`There is no passage in this story named "${passageId}".`);
+		throw new Error(
+			`There is no passage in this story with ID "${passageId}".`
+		);
 	}
 
 	commit('deletePassage', {passageId, storyId});

@@ -12,7 +12,7 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
 	modules: {appInfo, pref, story, storyFormat},
-	plugins: [isElectron ? electronIpc : localStorage]
+	plugins: [isElectron() ? electronIpc : localStorage]
 });
 
 /*

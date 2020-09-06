@@ -4,15 +4,16 @@ in a story. These do not complain if no results were found--you should handle
 these cases yourself.
 */
 
+import escape from 'lodash.escape';
 import uniq from 'lodash.uniq';
 import {createRegExp} from '@/util/regexp';
 import linkParser from '@/util/link-parser';
 
-export const passageInStoryWithId = (state, {storyWithId}) => (
+export const passageInStoryWithId = (state, getters) => (
 	storyId,
 	passageId
 ) => {
-	const story = storyWithId(storyId);
+	const story = getters.storyWithId(storyId);
 
 	if (!story) {
 		return;
@@ -21,12 +22,12 @@ export const passageInStoryWithId = (state, {storyWithId}) => (
 	return story.passages.find(p => p.id === passageId);
 };
 
-export const passagesInStoryMatchingSearch = (state, {storyWithId}) => (
+export const passagesInStoryMatchingSearch = (state, getters) => (
 	storyId,
 	search,
 	{includePassageNames, matchCase, useRegexes}
 ) => {
-	const story = storyWithId(storyId);
+	const story = getters.storyWithId(storyId);
 
 	if (!story) {
 		return [];
@@ -34,25 +35,31 @@ export const passagesInStoryMatchingSearch = (state, {storyWithId}) => (
 
 	const matcher = createRegExp(search, {matchCase, useRegexes});
 
-	// FIXME: this will display badly if value has HTML in it
-
 	function highlight(value) {
-		return `<span class="highlight">${value}</span>`;
+		return `\ue000${value}\ue001`;
+	}
+
+	function markHighlights(value) {
+		return value.replace(/\ue000/g, '<mark>').replace(/\ue001/g, '</mark>');
 	}
 
 	return story.passages.reduce((result, passage) => {
-		let nameHighlighted = passage.name;
+		let nameHighlighted = escape(passage.name);
 		let nameMatched = false;
-		let textHighlighted = passage.text;
+		let textHighlighted = escape(passage.text);
 		let textMatches = 0;
 
 		if (includePassageNames) {
 			nameMatched = matcher.test(passage.name);
-			nameHighlighted = passage.name.replace(matcher, highlight);
+			nameHighlighted = markHighlights(
+				escape(passage.name.replace(matcher, highlight))
+			);
 		}
 
 		textMatches = passage.text.match(matcher);
-		textHighlighted = passage.text.replace(matcher, highlight);
+		textHighlighted = markHighlights(
+			escape(passage.text.replace(matcher, highlight))
+		);
 
 		if (nameMatched || textMatches) {
 			result.push({
@@ -102,7 +109,7 @@ export const storyLinks = state => id => {
 	const story = state.stories.find(s => s.id === id);
 
 	if (!story) {
-		return;
+		return {};
 	}
 
 	return story.passages.reduce((result, passage) => {
@@ -115,7 +122,7 @@ export const storyStats = state => id => {
 	const story = state.stories.find(s => s.id === id);
 
 	if (!story) {
-		return;
+		return {};
 	}
 
 	const links = story.passages.reduce(

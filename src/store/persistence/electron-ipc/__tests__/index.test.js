@@ -1,5 +1,5 @@
 import setup from '..';
-import {fakeVuexStore} from '@/test-utils';
+import {fakeVuexStore} from '@/test-utils/fakes';
 
 describe('electron-ipc persistence', () => {
 	let store;
