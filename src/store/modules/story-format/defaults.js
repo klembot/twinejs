@@ -12,6 +12,12 @@ export const formatDefaults = {
 
 export const builtinFormats = [
 	{
+		name: 'Chapbook',
+		url: 'story-formats/chapbook-1.2.0/format.js',
+		version: '1.1.0',
+		userAdded: false
+	},
+	{
 		name: 'Harlowe',
 		url: 'story-formats/harlowe-1.2.4/format.js',
 		version: '1.2.4',
@@ -25,8 +31,8 @@ export const builtinFormats = [
 	},
 	{
 		name: 'Harlowe',
-		url: 'story-formats/harlowe-3.0.2/format.js',
-		version: '3.0.2',
+		url: 'story-formats/harlowe-3.1.0/format.js',
+		version: '3.1.0',
 		userAdded: false
 	},
 	{
@@ -37,8 +43,14 @@ export const builtinFormats = [
 	},
 	{
 		name: 'Snowman',
-		url: 'story-formats/snowman-1.3.0/format.js',
-		version: '1.3.0',
+		url: 'story-formats/snowman-1.4.0/format.js',
+		version: '1.4.0',
+		userAdded: false
+	},
+	{
+		name: 'Snowman',
+		url: 'story-formats/snowman-2.0.2/format.js',
+		version: '2.0.2',
 		userAdded: false
 	},
 	{
@@ -49,8 +61,8 @@ export const builtinFormats = [
 	},
 	{
 		name: 'SugarCube',
-		url: 'story-formats/sugarcube-2.28.2/format.js',
-		version: '2.28.2',
+		url: 'story-formats/sugarcube-2.31.1/format.js',
+		version: '2.31.1',
 		userAdded: false
 	}
 ];
