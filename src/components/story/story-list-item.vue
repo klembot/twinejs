@@ -1,6 +1,10 @@
 <template>
 	<div class="story-list-item">
-		<button class="preview-button" @click="edit" :style="previewButtonStyle">
+		<button
+			class="preview-button"
+			@click="editStory"
+			:style="previewButtonStyle"
+		>
 			<story-preview :name="story.name" :passages="story.passages" />
 		</button>
 		<div class="details">
@@ -16,17 +20,29 @@
 				</template>
 				<template v-slot:paper>
 					<div class="stack vertical tight">
-						<icon-button icon="edit" label="common.edit" type="flat" />
-						<icon-button icon="play" label="common.play" type="flat" />
-						<icon-button icon="tool" label="common.test" type="flat" />
+						<icon-button @click="editStory" icon="edit" label="common.edit" />
+						<icon-button @click="playStory" icon="play" label="common.play" />
+						<icon-button @click="testStory" icon="tool" label="common.test" />
 						<icon-button
+							@click="publishStory"
 							icon="download"
-							type="flat"
 							label="common.publishToFile"
 						/>
-						<icon-button icon="type" label="common.rename" type="flat" />
-						<icon-button icon="copy" label="common.duplicate" type="flat" />
-						<icon-button icon="trash-2" label="common.delete" type="flat" />
+						<icon-button
+							@click="renameStory"
+							icon="type"
+							label="common.rename"
+						/>
+						<icon-button
+							@click="duplicateStory"
+							icon="copy"
+							label="common.duplicate"
+						/>
+						<icon-button
+							@click="deleteStory"
+							icon="trash-2"
+							label="common.delete"
+						/>
 					</div>
 				</template>
 			</anchored-paper>
@@ -38,7 +54,6 @@
 import AnchoredPaper from '../surface/anchored-paper';
 import IconButton from '../input/icon-button';
 import StoryPreview from './story-preview';
-import openUrl from '@/util/open-url';
 import './story-list-item.less';
 
 export default {
@@ -68,16 +83,26 @@ export default {
 		return {menuVisible: false};
 	},
 	methods: {
-		edit() {
+		deleteStory() {
+			this.$emit('delete', this.story);
+		},
+		duplicateStory() {
+			this.$emit('duplicate', this.story);
+		},
+		editStory() {
 			this.$emit('edit', this.story);
 		},
-		play() {
-			// FIXME?
-			openUrl(`#stories/${this.story.id}/play`);
+		playStory() {
+			this.$emit('play', this.story);
 		},
-		test() {
-			// FIXME?
-			openUrl(`#stories/${this.story.id}/test`);
+		publishStory() {
+			this.$emit('publish', this.story);
+		},
+		renameStory() {
+			this.$emit('rename', this.story);
+		},
+		testStory() {
+			this.$emit('test', this.story);
 		},
 		toggleMenu() {
 			this.menuVisible = !this.menuVisible;

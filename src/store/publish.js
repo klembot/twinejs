@@ -13,7 +13,6 @@ import {
 } from '@/util/publish';
 
 export function publishArchive(store) {
-	console.log(store.state);
 	return utilPublishArchive(store.state.story.stories, store.state.appInfo);
 }
 

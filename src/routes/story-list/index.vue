@@ -8,7 +8,10 @@
 					v-for="story in stories"
 					@edit="onEditStory"
 					:key="story.id"
+					@play="onPlayStory"
+					@publish="onPublishStory"
 					:story="story"
+					@test="onTestStory"
 				/>
 			</div>
 		</main-content>
@@ -20,6 +23,10 @@ import sortBy from 'lodash.sortby';
 import StoryListItem from '@/components/story/story-list-item';
 import StoryListTopBar from './top-bar';
 import MainContent from '@/components/main-layout/main-content';
+import openUrl from '@/util/open-url';
+import {publishStory} from '@/store/publish';
+import saveHtml from '@/util/save-html';
+import {storyFilename} from '@/util/publish';
 import './index.less';
 
 export default {
@@ -44,12 +51,29 @@ export default {
 		return {sortBy: 'lastUpdate', invertSort: false};
 	},
 	methods: {
-		onEditStory(story) {
-			this.$router.push(`/stories/${story.id}`);
-		},
 		onChangeSort(field, invertSort) {
 			this.sortBy = field;
 			this.invertSort = invertSort;
+		},
+		onEditStory(story) {
+			this.$router.push(`/stories/${story.id}`);
+		},
+		onPlayStory(story) {
+			openUrl(`/stories/${story.id}/play`);
+		},
+		async onPublishStory(story) {
+			try {
+				saveHtml(
+					await publishStory(this.$store, story.id),
+					storyFilename(story)
+				);
+			} catch (e) {
+				/* TODO: better error notification */
+				console.warn(e);
+			}
+		},
+		onTestStory(story) {
+			openUrl(`/stories/${story.id}/test`);
 		}
 	},
 	watch: {
