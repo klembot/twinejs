@@ -138,3 +138,7 @@ export function publishStoryWithFormat(
 
 	return output;
 }
+
+export function storyFilename(story) {
+	return `${story.name}.html`;
+}
