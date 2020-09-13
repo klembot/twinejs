@@ -13,7 +13,7 @@ import {
 	unlockStoryDirectory
 } from './story-directory';
 import {t} from '../util/i18n';
-import {publishStory, publishStoryWithFormat} from '../store/publish/helpers';
+import {publishStory, publishStoryWithFormat} from '@/util/publish';
 
 /*
 Returns a promise resolving to an array of HTML strings to load from the
@@ -83,15 +83,15 @@ export async function saveStory(story, format, appInfo) {
 
 	try {
 		if (!format) {
-			throw new Error('No story format was provided to save');
+			throw new Error('No story format was provided to save.');
 		}
 
-		output = publishStoryWithFormat(appInfo, story, format);
+		output = publishStoryWithFormat(story, format.properties.source, appInfo);
 	} catch (e) {
 		console.warn(
 			`Failed to fully publish story (${e.message}). Attempting naked publish.`
 		);
-		output = publishStory(appInfo, story, null, null, true);
+		output = publishStory(story, appInfo, {startOptional: true});
 	}
 
 	try {

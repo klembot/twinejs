@@ -7,7 +7,7 @@ export const formatWithId = state => id => {
 };
 
 /*
-determine the most recent version of a given story format name and major
+Determine the most recent version of a given story format name and major
 version. This essentially implements the ^1.0.0 version selector seen in
 package.json etc., but without the caret.
 */

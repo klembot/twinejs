@@ -90,12 +90,14 @@
 </template>
 
 <script>
+import {archiveFilename} from '@/util/publish';
 import DropdownButton from '@/components/input/dropdown-button';
 import IconButton from '@/components/input/icon-button';
 import isElectron from '@/util/is-electron';
 import openUrl from '@/util/open-url';
-import {publishArchiveToFile} from '@/store/publish/helpers';
+import {publishArchive} from '@/store/publish';
 import LocalStorageQuota from '@/components/local-storage-quota';
+import saveHtml from '@/util/save-html';
 import TopBar from '@/components/main-layout/top-bar';
 import TopPrompt from '@/components/main-layout/top-prompt';
 
@@ -125,11 +127,7 @@ export default {
 		},
 		downloadArchive() {
 			// TODO: error handling
-
-			publishArchiveToFile(
-				this.$store.state.story.stories,
-				this.$store.state.appInfo
-			);
+			saveHtml(publishArchive(this.$store), archiveFilename());
 		},
 		setLanguage() {
 			this.$router.push('/locale');

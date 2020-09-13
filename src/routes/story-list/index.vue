@@ -26,10 +26,6 @@ export default {
 	components: {StoryListItem, MainContent, StoryListTopBar},
 	computed: {
 		stories() {
-			/*
-			Need to spread this to avoid mutating state.
-			*/
-
 			const result = sortBy(this.$store.state.story.stories, this.sortBy);
 
 			if (this.invertSort) {
