@@ -18,7 +18,7 @@
 					icon="zoom-out"
 					label="storyEdit.topBar.zoomOut"
 				/>
-				<icon-button icon="tool" label="common.test" />
+				<icon-button @click="testStory" icon="tool" label="common.test" />
 				<icon-button @click="playStory" icon="play" label="common.play" />
 				<dropdown-button icon="more-horizontal" label="common.more">
 					<icon-button
@@ -117,6 +117,9 @@ export default {
 		},
 		proofStory() {
 			openUrl(`/stories/${this.story.id}/proof`);
+		},
+		testStory() {
+			openUrl(`/stories/${this.story.id}/test`);
 		},
 		renameStory(value) {
 			this.$store.dispatch('story/updateStory', {
