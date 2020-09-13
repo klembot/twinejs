@@ -29,7 +29,7 @@ export function fakePassageObject(props) {
 	};
 }
 
-export function fakeFailedStoryFormatObject(...props) {
+export function fakeFailedStoryFormatObject(props) {
 	return {
 		id: random.uuid(),
 		loadError: new Error(lorem.sentence()),
@@ -42,7 +42,7 @@ export function fakeFailedStoryFormatObject(...props) {
 	};
 }
 
-export function fakeLoadedStoryFormatObject(...props) {
+export function fakeLoadedStoryFormatObject(props) {
 	return {
 		id: random.uuid(),
 		loadError: null,
@@ -57,27 +57,31 @@ export function fakeLoadedStoryFormatObject(...props) {
 			proofing: false,
 			url: internet.url()
 		},
-		url: '',
+		url: internet.url(),
 		version: system.semver(),
 		...props
 	};
 }
 
-export function fakePendingStoryFormatObject(...props) {
+export function fakePendingStoryFormatObject(props) {
 	return {
 		id: random.uuid(),
 		loadError: null,
 		loading: true,
 		name: lorem.words(2),
 		properties: null,
-		url: '',
+		url: internet.url(),
 		version: system.semver(),
 		...props
 	};
 }
 
 export function fakeStoryObject(passageCount) {
-	const tags = [lorem.word(), lorem.word(), lorem.word()];
+	/* Ensure tag uniqueness. */
+
+	const tag = lorem.word();
+	const tags = [`${tag}-1`, `${tag}-2`, `${tag}-3`];
+
 	const result = {
 		tags,
 		id: random.uuid(),

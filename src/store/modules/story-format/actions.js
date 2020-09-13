@@ -1,45 +1,17 @@
 import semverUtils from 'semver-utils';
-import jsonp from '@/util/jsonp';
+import requestStoryFormat from '@/util/request-story-format';
 import {builtinFormats} from './defaults';
-
-let loadFormatUrlQueue = Promise.resolve();
-
-function loadFormatUrl(url) {
-	/*
-	We can only load one format at a time because they all use the same callback
-	name. If we run in parallel, requests will collide with each other. The
-	multiple promises are necessary for callers to see the final resolution
-	properly.
-	*/
-
-	return new Promise((resolve, reject) => {
-		loadFormatUrlQueue = loadFormatUrlQueue.then(
-			() =>
-				new Promise(resolveQueue => {
-					jsonp(url, {name: 'storyFormat', timeout: 2000}, (err, data) => {
-						if (err) {
-							reject(err);
-						} else {
-							resolve(data);
-						}
-
-						resolveQueue();
-					});
-				})
-		);
-	});
-}
 
 export function createFormat({commit}, {storyFormatProps}) {
 	commit('createFormat', {storyFormatProps});
 }
 
-export async function createFormatFromUrl({commit, state}, {storyFormatUrl}) {
+export async function createFormatFromUrl({commit, getters}, {storyFormatUrl}) {
 	/*
 	Try loading the format, and only if that succeeds, create it.
 	*/
 	try {
-		const data = await loadFormatUrl(storyFormatUrl);
+		const data = await requestStoryFormat(storyFormatUrl);
 
 		if (!data.name || !data.version) {
 			commit(
@@ -57,45 +29,16 @@ export async function createFormatFromUrl({commit, state}, {storyFormatUrl}) {
 			);
 		}
 
-		const pVer = semverUtils.parse(data.version);
-		const pMinor = parseInt(pVer.minor);
-		const pPatch = parseInt(pVer.patch);
-
 		/*
 		Check for an identical version.
 		*/
 
-		if (
-			state.formats.some(f => f.name === f.name && f.version === data.version)
-		) {
+		const latestExisting = getters.latestFormat(data.name, data.version);
+
+		if (latestExisting && latestExisting.version === data.version) {
 			commit(
 				'setCreateFormatFromUrlError',
 				new Error('This story format is already installed.')
-			);
-			return;
-		}
-
-		/*
-		Check for a more recent version.
-		*/
-
-		if (
-			state.formats.some(f => {
-				const fVer = semverUtils.parse(f.version);
-
-				return (
-					f.name === data.name &&
-					fVer.major === pVer.major &&
-					parseInt(fVer.minor) >= pMinor &&
-					parseInt(fVer.patch) >= pPatch
-				);
-			})
-		) {
-			commit(
-				'setCreateFormatFromUrlError',
-				new Error(
-					'A more recent version of this story format is already installed.'
-				)
 			);
 			return;
 		}
@@ -122,14 +65,22 @@ export async function createFormatFromUrl({commit, state}, {storyFormatUrl}) {
 	}
 }
 
-export function deleteFormat({commit}, {storyFormatId}) {
+export function deleteFormat({commit, getters}, {storyFormatId}) {
+	if (!getters.formatWithId(storyFormatId)) {
+		throw new Error(`No story format exists with ID "${storyFormatId}".`);
+	}
+
 	commit('deleteFormat', {storyFormatId});
 }
 
-export async function loadFormat({commit, state}, {force, storyFormatId}) {
-	const format = state.formats.find(f => f.id === storyFormatId);
+export async function loadFormat({commit, getters}, {force, storyFormatId}) {
+	const format = getters.formatWithId(storyFormatId);
 
-	if ((format.loadError || format.loading) && !force) {
+	if (!format) {
+		throw new Error(`No story format exists with ID "${storyFormatId}".`);
+	}
+
+	if ((format.loadError || format.loading || format.properties) && !force) {
 		return;
 	}
 
@@ -142,8 +93,8 @@ export async function loadFormat({commit, state}, {force, storyFormatId}) {
 	});
 
 	try {
-		const properties = await loadFormatUrl(
-			format.userAdded ? '' : process.env.BASE_URL + format.url
+		const properties = await requestStoryFormat(
+			(format.userAdded ? '' : process.env.BASE_URL) + format.url
 		);
 
 		commit('updateFormat', {
@@ -163,7 +114,7 @@ export async function loadFormat({commit, state}, {force, storyFormatId}) {
 			properties.setup.call(format);
 		}
 	} catch (loadError) {
-		console.log(loadError);
+		console.warn(loadError);
 
 		commit('updateFormat', {
 			storyFormatProps: {loadError, loading: false, properties: null},
@@ -274,6 +225,13 @@ export function repairFormats({commit, state}) {
 	// }
 }
 
-export function updateFormat({commit}, {storyFormatId, storyFormatProps}) {
-	commit('update', {storyFormatId, storyFormatProps});
+export function updateFormat(
+	{commit, getters},
+	{storyFormatId, storyFormatProps}
+) {
+	if (!getters.formatWithId(storyFormatId)) {
+		throw new Error(`No story format exists with ID "${storyFormatId}".`);
+	}
+
+	commit('updateFormat', {storyFormatId, storyFormatProps});
 }

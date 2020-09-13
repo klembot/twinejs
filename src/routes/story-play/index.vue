@@ -1,7 +1,9 @@
-<template><div></div></template>
+<template>
+	<div></div>
+</template>
 <script>
-import {publishStory} from '../../store/publish';
-import replaceDom from '../../util/replace-dom';
+import {publishStory} from '@/store/publish';
+import replaceDom from '@/util/replace-dom';
 
 export default {
 	async mounted() {

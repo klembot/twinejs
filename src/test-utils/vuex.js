@@ -23,3 +23,15 @@ export function actionCommits(action, payload, getters) {
 
 	return commit.mock.calls;
 }
+
+/**
+ * An async-specific version so all tests don't have to be async.
+ */
+
+export async function asyncActionCommits(action, payload, getters) {
+	const commit = jest.fn();
+
+	await action({commit, getters}, payload);
+
+	return commit.mock.calls;
+}
