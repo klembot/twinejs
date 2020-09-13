@@ -32,7 +32,7 @@ module.exports = Vue.extend({
 			{label: 'Suomi', code: 'fi'},
 			{label: 'Svenska', code: 'sv'},
 			{label: 'T&uuml;rk&ccedil;e', code: 'tr'},
-			{label: 'Українська (клясична)', code: 'uk'}
+			{label: 'Українська (клясична)', code: 'uk'},
 			{label: '한국어', code: 'ko'}
 		]
 	}),
