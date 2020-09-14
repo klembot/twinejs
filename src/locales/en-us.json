@@ -181,7 +181,7 @@
 		"greeting": "Twine is an open-source tool for telling interactive, nonlinear stories. There are a few things you should know before you get started.",
 		"greetingTitle": "Hi!",
 		"tellMeMore": "Tell Me More",
-		"versionDiffs": "<p><strong>If you've never used Twine before, then welcome!</strong> The Twine 2 Guide and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki were written for Twine 1, which is a little bit different than this version. But most of the concepts are the same.</p><p><strong>If you have used Twine 1 before,</strong> the guide also has details on what has changed in this version. Chief among them is a new default story format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, try using SugarCube instead.</p>",
-		"versionDiffsTitle": "New here?"
+		"help": "<p><strong>If you've never used Twine before, then welcome!</strong> The <a href=\"https://twinery.org/cookbook\">Twine Cookbook</a> is a great resource for learning how to use it. If you haven't used Twine before, it's a great place to start.</p>",
+		"helpTitle": "New here?"
 	}
 }

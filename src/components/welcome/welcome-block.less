@@ -1,6 +1,15 @@
+@import '../../styles/colors.less';
 @import '../../styles/layout.less';
 
 .welcome-block .image {
-	width: 200px;
-	height: auto;
+	img {
+		width: 200px;
+		height: auto;
+	}
+
+	.icon-image svg {
+		color: lighten(@color-text, 65%);
+		width: 200px;
+		height: auto;
+	}
 }
