@@ -7,8 +7,10 @@
 		>
 			<welcome-block
 				:nextLabel="$t(block.nextLabel || 'Next')"
+				:icon="block.icon"
 				:image="block.image"
 				@next="index === allContent.length - 1 ? onComplete() : onNext()"
+				@skip="onComplete"
 				:showSkip="index === 0"
 				:title="block.title"
 			>

@@ -1,6 +1,9 @@
 <template>
 	<div class="welcome-block stack">
-		<img class="image" :src="this.image" alt="" />
+		<div class="image">
+			<icon-image :name="icon" v-if="icon" />
+			<img :src="image" alt="" v-if="image" />
+		</div>
 		<div class="stack vertical">
 			<h2>{{ title }}</h2>
 			<div><slot></slot></div>
@@ -21,11 +24,12 @@
 </template>
 
 <script>
+import IconImage from '../icon-image';
 import IconButton from '../input/icon-button';
 import './welcome-block.less';
 
 export default {
-	components: {IconButton},
+	components: {IconButton, IconImage},
 	methods: {
 		onNext() {
 			this.$emit('next');
@@ -44,8 +48,10 @@ export default {
 			default: false,
 			type: Boolean
 		},
+		icon: {
+			type: String
+		},
 		image: {
-			required: true,
 			type: String
 		},
 		title: {
