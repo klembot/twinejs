@@ -14,5 +14,14 @@ export function updatePassage(
 		);
 	}
 
+	if (
+		passageProps.name &&
+		story.passages
+			.filter(p => p.name === passageProps.name)
+			.some(p => p.id !== passageId)
+	) {
+		throw new Error(`There is already a passage named "${passageProps.name}".`);
+	}
+
 	commit('updatePassage', {passageId, passageProps, storyId});
 }

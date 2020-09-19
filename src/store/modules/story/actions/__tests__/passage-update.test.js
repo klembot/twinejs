@@ -3,7 +3,7 @@ import {fakeStoryObject} from '@/test-utils/fakes';
 import {actionCommits} from '@/test-utils/vuex';
 
 describe('updatePassage action', () => {
-	const story = fakeStoryObject(1);
+	const story = fakeStoryObject(2);
 	const getters = {
 		storyWithId(id) {
 			if (id === story.id) {
@@ -49,4 +49,30 @@ describe('updatePassage action', () => {
 				getters
 			)
 		).toThrow());
+
+	it('throws an error if there is already a passage with the name being updated to', () =>
+		expect(() =>
+			actionCommits(
+				updatePassage,
+				{
+					passageId: story.passages[0].id,
+					passageProps: {name: story.passages[1].name},
+					storyId: story.id
+				},
+				getters
+			)
+		).toThrow());
+
+	it("doesn't throw an error if the update is setting the name to what it already is", () =>
+		expect(() =>
+			actionCommits(
+				updatePassage,
+				{
+					passageId: story.passages[0].id,
+					passageProps: {name: story.passages[0].name},
+					storyId: story.id
+				},
+				getters
+			)
+		).not.toThrow());
 });

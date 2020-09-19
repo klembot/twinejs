@@ -3,12 +3,20 @@
 		<top-bar :back-route="`/stories/${this.story.id}`" :back-label="story.name">
 			<template v-slot:actions>
 				<icon-button @click="onTest" icon="tool" label="Test Story From Here" />
-				<icon-button icon="type" label="Rename" />
+				<icon-button @click="onToggleRename" icon="type" label="Rename" />
 				<icon-button icon="maximize" label="Size" />
 				<icon-button icon="play-circle" label="Set as Start" />
 				<icon-button icon="trash-2" label="Delete Passage" type="danger" />
 			</template>
 		</top-bar>
+		<top-prompt
+			:defaultValue="passage.name"
+			:message="$t('passageEdit.renamePrompt')"
+			@submit="onRename"
+			submitLabel="common.rename"
+			:visible="renameVisible"
+		>
+		</top-prompt>
 		<main-content :title="passage.name">
 			<code-area @change="onChangeText" :value="passage.text" />
 		</main-content>
@@ -21,10 +29,11 @@ import IconButton from '@/components/input/icon-button';
 import TopBar from '@/components/main-layout/top-bar';
 import MainContent from '@/components/main-layout/main-content';
 import openUrl from '@/util/open-url';
+import TopPrompt from '@/components/main-layout/top-prompt';
 import './index.less';
 
 export default {
-	components: {CodeArea, IconButton, MainContent, TopBar},
+	components: {CodeArea, IconButton, MainContent, TopBar, TopPrompt},
 	computed: {
 		passage() {
 			return this.story.passages.find(
@@ -48,7 +57,7 @@ export default {
 		}
 	},
 	data() {
-		return {oldText: ''};
+		return {oldText: '', renameVisible: false};
 	},
 	beforeRouteLeave(to, from, next) {
 		try {
@@ -71,9 +80,20 @@ export default {
 		onChangeText(value) {
 			this.$store.dispatch('story/updatePassage', {
 				passageId: this.passage.id,
-				storyId: this.story.id,
-				passageProps: {text: value}
+				passageProps: {text: value},
+				storyId: this.story.id
 			});
+		},
+		onRename(value) {
+			this.$store.dispatch('story/updatePassage', {
+				passageId: this.passage.id,
+				passageProps: {name: value},
+				storyId: this.story.id
+			});
+			this.renameVisible = false;
+		},
+		onToggleRename() {
+			this.renameVisible = !this.renameVisible;
 		},
 		onTest() {
 			openUrl(`/stories/${this.story.id}/test/${this.passage.id}`);

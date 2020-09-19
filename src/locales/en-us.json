@@ -62,9 +62,6 @@
 		}
 	},
 	"editors": {
-		"passage": {
-			"passageName": "Passage Name"
-		},
 		"storyJavaScript": {
 			"dialogTitle": "Story JavaScript",
 			"dialogExplanation": "Any JavaScript entered here will immediately run when your story is opened in a Web browser."
@@ -85,6 +82,9 @@
 	},
 	"localeSelect": {
 		"explanation": "Please choose which language you would like to use with Twine."
+	},
+	"passageEdit": {
+		"renamePrompt": "What should this passage be named? Existing links to it will be updated."
 	},
 	"store": {
 		"archiveFilename": "{timestamp} Twine Archive.html",
