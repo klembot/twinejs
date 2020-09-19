@@ -2,7 +2,7 @@
 	<div class="passage-edit">
 		<top-bar :back-route="`/stories/${this.story.id}`" :back-label="story.name">
 			<template v-slot:actions>
-				<icon-button icon="tool" label="Test Story From Here" />
+				<icon-button @click="onTest" icon="tool" label="Test Story From Here" />
 				<icon-button icon="type" label="Rename" />
 				<icon-button icon="maximize" label="Size" />
 				<icon-button icon="play-circle" label="Set as Start" />
@@ -20,6 +20,7 @@ import CodeArea from '@/components/input/code-area';
 import IconButton from '@/components/input/icon-button';
 import TopBar from '@/components/main-layout/top-bar';
 import MainContent from '@/components/main-layout/main-content';
+import openUrl from '@/util/open-url';
 import './index.less';
 
 export default {
@@ -73,6 +74,9 @@ export default {
 				storyId: this.story.id,
 				passageProps: {text: value}
 			});
+		},
+		onTest() {
+			openUrl(`/stories/${this.story.id}/test/${this.passage.id}`);
 		}
 	},
 	mounted() {
