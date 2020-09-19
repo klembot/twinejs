@@ -84,6 +84,7 @@
 		"explanation": "Please choose which language you would like to use with Twine."
 	},
 	"passageEdit": {
+		"deletePrompt": "Are you sure you want to delete this passage? This cannot be undone.",
 		"renamePrompt": "What should this passage be named? Existing links to it will be updated."
 	},
 	"store": {

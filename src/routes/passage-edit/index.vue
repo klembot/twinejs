@@ -3,13 +3,28 @@
 		<top-bar :back-route="`/stories/${this.story.id}`" :back-label="story.name">
 			<template v-slot:actions>
 				<icon-button @click="onTest" icon="tool" label="Test Story From Here" />
-				<icon-button @click="onToggleRename" icon="type" label="Rename" />
+				<icon-button @click="toggleRename" icon="type" label="Rename" />
 				<icon-button icon="maximize" label="Size" />
 				<icon-button icon="play-circle" label="Set as Start" />
-				<icon-button icon="trash-2" label="Delete Passage" type="danger" />
+				<icon-button
+					@click="toggleDelete"
+					icon="trash-2"
+					label="Delete Passage"
+					type="danger"
+				/>
 			</template>
 		</top-bar>
+		<top-confirm
+			@cancel="toggleDelete"
+			@confirm="onDelete"
+			confirmIcon="trash-2"
+			confirmLabel="common.delete"
+			confirmType="danger"
+			:message="$t('passageEdit.deletePrompt')"
+			:visible="deleteVisible"
+		/>
 		<top-prompt
+			@cancel="toggleRename"
 			:defaultValue="passage.name"
 			:message="$t('passageEdit.renamePrompt')"
 			@submit="onRename"
@@ -29,11 +44,19 @@ import IconButton from '@/components/input/icon-button';
 import TopBar from '@/components/main-layout/top-bar';
 import MainContent from '@/components/main-layout/main-content';
 import openUrl from '@/util/open-url';
+import TopConfirm from '@/components/main-layout/top-confirm';
 import TopPrompt from '@/components/main-layout/top-prompt';
 import './index.less';
 
 export default {
-	components: {CodeArea, IconButton, MainContent, TopBar, TopPrompt},
+	components: {
+		CodeArea,
+		IconButton,
+		MainContent,
+		TopBar,
+		TopConfirm,
+		TopPrompt
+	},
 	computed: {
 		passage() {
 			return this.story.passages.find(
@@ -57,7 +80,7 @@ export default {
 		}
 	},
 	data() {
-		return {oldText: '', renameVisible: false};
+		return {deleteVisible: false, oldText: '', renameVisible: false};
 	},
 	beforeRouteLeave(to, from, next) {
 		try {
@@ -84,6 +107,13 @@ export default {
 				storyId: this.story.id
 			});
 		},
+		onDelete() {
+			this.$store.dispatch('story/deletePassage', {
+				passageId: this.passage.id,
+				storyId: this.story.id
+			});
+			this.$router.push(`/stories/${this.story.id}`);
+		},
 		onRename(value) {
 			this.$store.dispatch('story/updatePassage', {
 				passageId: this.passage.id,
@@ -92,7 +122,10 @@ export default {
 			});
 			this.renameVisible = false;
 		},
-		onToggleRename() {
+		toggleDelete() {
+			this.deleteVisible = !this.deleteVisible;
+		},
+		toggleRename() {
 			this.renameVisible = !this.renameVisible;
 		},
 		onTest() {
