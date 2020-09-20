@@ -5,11 +5,16 @@
 				<icon-button @click="onTest" icon="tool" label="Test Story From Here" />
 				<icon-button @click="toggleRename" icon="type" label="Rename" />
 				<icon-button icon="maximize" label="Size" />
-				<icon-button icon="play-circle" label="Set as Start" />
+				<icon-button
+					:active="isStartPassage"
+					@click="onSetAsStart"
+					icon="play-circle"
+					label="passageEdit.setAsStart"
+				/>
 				<icon-button
 					@click="toggleDelete"
 					icon="trash-2"
-					label="Delete Passage"
+					label="passageEdit.deletePassage"
 					type="danger"
 				/>
 			</template>
@@ -58,6 +63,9 @@ export default {
 		TopPrompt
 	},
 	computed: {
+		isStartPassage() {
+			return this.passage.id === this.story.startPassage;
+		},
 		passage() {
 			return this.story.passages.find(
 				p => p.id === this.$route.params.passageId
@@ -121,6 +129,12 @@ export default {
 				storyId: this.story.id
 			});
 			this.renameVisible = false;
+		},
+		onSetAsStart() {
+			this.$store.dispatch('story/updateStory', {
+				storyId: this.story.id,
+				storyProps: {startPassage: this.passage.id}
+			});
 		},
 		toggleDelete() {
 			this.deleteVisible = !this.deleteVisible;
