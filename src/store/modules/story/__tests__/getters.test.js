@@ -265,6 +265,52 @@ describe('story Vuex module getters', () => {
 			).toEqual([]));
 	});
 
+	describe('passageSizeDescription', () => {
+		let story;
+		let getters;
+
+		beforeEach(() => {
+			story = fakeStoryObject(1);
+			getters = bindVuexGetters(storyGetters, {
+				stories: [story]
+			});
+		});
+
+		it('returns a matching size description for a passage', () => {
+			Object.assign(story.passages[0], {height: 100, width: 100});
+			expect(
+				getters.passageSizeDescription(story.id, story.passages[0].id)
+			).toBe('small');
+			Object.assign(story.passages[0], {height: 200, width: 100});
+			expect(
+				getters.passageSizeDescription(story.id, story.passages[0].id)
+			).toBe('tall');
+		});
+
+		it('returns undefined if there is no matching description', () => {
+			Object.assign(story.passages[0], {height: 0, width: 0});
+			expect(
+				getters.passageSizeDescription(story.id, story.passages[0].id)
+			).toBeUndefined();
+		});
+
+		it('returns undefined if the passage does not exist in the story', () =>
+			expect(
+				getters.passageSizeDescription(
+					story.id,
+					story.passages[0].id + 'nonexistent'
+				)
+			).toBeUndefined());
+
+		it('returns undefined if the story ID does not exist', () =>
+			expect(
+				getters.passageSizeDescription(
+					story.id + 'nonexistent',
+					story.passages[0].id
+				)
+			).toBeUndefined());
+	});
+
 	describe('storyDimensions', () => {
 		it('returns the max width and height of all passages in a story', () => {
 			let story = fakeStoryObject(3);

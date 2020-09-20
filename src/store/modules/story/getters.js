@@ -8,6 +8,7 @@ import escape from 'lodash.escape';
 import uniq from 'lodash.uniq';
 import {createRegExp} from '@/util/regexp';
 import linkParser from '@/util/link-parser';
+import {passageSizes} from './passage-sizes';
 
 export const passageInStoryWithId = (state, getters) => (
 	storyId,
@@ -72,6 +73,28 @@ export const passagesInStoryMatchingSearch = (state, getters) => (
 
 		return result;
 	}, []);
+};
+
+export const passageSizeDescription = (state, getters) => (
+	storyId,
+	passageId
+) => {
+	const passage = getters.passageInStoryWithId(storyId, passageId);
+
+	if (!passage) {
+		return;
+	}
+
+	return Object.keys(passageSizes).find(sizeName => {
+		const dimensions = passageSizes[sizeName];
+
+		if (
+			dimensions.height === passage.height &&
+			dimensions.width === passage.width
+		) {
+			return sizeName;
+		}
+	});
 };
 
 export const storyDimensions = state => id => {
