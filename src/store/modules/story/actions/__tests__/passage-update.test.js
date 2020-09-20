@@ -1,4 +1,4 @@
-import {updatePassage} from '../passage-update';
+import {updatePassage, updatePassageSize} from '../passage-update';
 import {fakeStoryObject} from '@/test-utils/fakes';
 import {actionCommits} from '@/test-utils/vuex';
 
@@ -75,4 +75,63 @@ describe('updatePassage action', () => {
 				getters
 			)
 		).not.toThrow());
+});
+
+describe('updatePassageSize action', () => {
+	const story = fakeStoryObject(2);
+	const getters = {
+		storyWithId(id) {
+			if (id === story.id) {
+				return story;
+			}
+		}
+	};
+
+	it('commits an updatePassage mutation when story and passage exist', () =>
+		expect(
+			actionCommits(
+				updatePassageSize,
+				{
+					passageId: story.passages[0].id,
+					storyId: story.id,
+					passageSizeDescription: 'wide'
+				},
+				getters
+			)
+		).toEqual([
+			[
+				'updatePassage',
+				{
+					passageId: story.passages[0].id,
+					storyId: story.id,
+					passageProps: {height: 100, width: 200}
+				}
+			]
+		]));
+
+	it('throws an error if there is no story with the given ID in state', () =>
+		expect(() =>
+			actionCommits(
+				updatePassageSize,
+				{
+					passageId: story.passages[0].id,
+					passageSizeDescription: 'wide',
+					storyId: story.id + 'nonexistent'
+				},
+				getters
+			)
+		).toThrow());
+
+	it('throws an error if there is no passage with the given ID belonging to the story', () =>
+		expect(() =>
+			actionCommits(
+				updatePassage,
+				{
+					passageId: story.passages[0].id + 'nonexistent',
+					passageSizeDescription: 'wide',
+					storyId: story.id
+				},
+				getters
+			)
+		).toThrow());
 });

@@ -2,9 +2,34 @@
 	<div class="passage-edit">
 		<top-bar :back-route="`/stories/${this.story.id}`" :back-label="story.name">
 			<template v-slot:actions>
-				<icon-button @click="onTest" icon="tool" label="Test Story From Here" />
-				<icon-button @click="toggleRename" icon="type" label="Rename" />
-				<icon-button icon="maximize" label="Size" />
+				<icon-button
+					@click="onTest"
+					icon="tool"
+					label="passageEdit.testFromHere"
+				/>
+				<icon-button @click="toggleRename" icon="type" label="common.rename" />
+				<dropdown-button icon="maximize" label="passageEdit.size">
+					<icon-button
+						@click="onChangeSize('small')"
+						:icon="sizeDescription === 'small' ? 'check' : 'empty'"
+						label="passageEdit.sizeSmall"
+					/>
+					<icon-button
+						@click="onChangeSize('tall')"
+						:icon="sizeDescription === 'tall' ? 'check' : 'empty'"
+						label="passageEdit.sizeTall"
+					/>
+					<icon-button
+						@click="onChangeSize('wide')"
+						:icon="sizeDescription === 'wide' ? 'check' : 'empty'"
+						label="passageEdit.sizeWide"
+					/>
+					<icon-button
+						@click="onChangeSize('large')"
+						:icon="sizeDescription === 'large' ? 'check' : 'empty'"
+						label="passageEdit.sizeLarge"
+					/>
+				</dropdown-button>
 				<icon-button
 					:active="isStartPassage"
 					@click="onSetAsStart"
@@ -45,6 +70,7 @@
 
 <script>
 import CodeArea from '@/components/input/code-area';
+import DropdownButton from '@/components/input/dropdown-button';
 import IconButton from '@/components/input/icon-button';
 import TopBar from '@/components/main-layout/top-bar';
 import MainContent from '@/components/main-layout/main-content';
@@ -56,6 +82,7 @@ import './index.less';
 export default {
 	components: {
 		CodeArea,
+		DropdownButton,
 		IconButton,
 		MainContent,
 		TopBar,
@@ -67,13 +94,20 @@ export default {
 			return this.passage.id === this.story.startPassage;
 		},
 		passage() {
-			return this.story.passages.find(
-				p => p.id === this.$route.params.passageId
+			return this.$store.getters['story/passageInStoryWithId'](
+				this.$route.params.storyId,
+				this.$route.params.passageId
+			);
+		},
+		sizeDescription() {
+			return this.$store.getters['story/passageSizeDescription'](
+				this.$route.params.storyId,
+				this.$route.params.passageId
 			);
 		},
 		story() {
-			const result = this.$store.state.story.stories.find(
-				s => s.id === this.$route.params.storyId
+			const result = this.$store.getters['story/storyWithId'](
+				this.$route.params.storyId
 			);
 
 			if (!result) {
@@ -108,6 +142,13 @@ export default {
 		next();
 	},
 	methods: {
+		onChangeSize(passageSizeDescription) {
+			this.$store.dispatch('story/updatePassageSize', {
+				passageSizeDescription,
+				passageId: this.passage.id,
+				storyId: this.story.id
+			});
+		},
 		onChangeText(value) {
 			this.$store.dispatch('story/updatePassage', {
 				passageId: this.passage.id,

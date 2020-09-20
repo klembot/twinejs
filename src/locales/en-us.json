@@ -87,7 +87,13 @@
 		"deletePassage": "Delete Passage",
 		"deletePrompt": "Are you sure you want to delete this passage? This cannot be undone.",
 		"renamePrompt": "What should this passage be named? Existing links to it will be updated.",
-		"setAsStart": "Start Story Here"
+		"setAsStart": "Start Story Here",
+		"size": "Size",
+		"sizeLarge": "Large",
+		"sizeSmall": "Small",
+		"sizeTall": "Tall",
+		"sizeWide": "Wide",
+		"testFromHere": "Test Story From Here"
 	},
 	"store": {
 		"archiveFilename": "{timestamp} Twine Archive.html",
