@@ -1,6 +1,6 @@
 import {action} from '@storybook/addon-actions';
 import PassageItem from '../passage-item';
-import {fakePassageObject} from '../../../test-utils';
+import {fakePassageObject} from '../../../test-utils/fakes';
 
 export default {title: 'Passage/<passage-item>'};
 
