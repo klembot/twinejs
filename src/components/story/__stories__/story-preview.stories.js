@@ -1,6 +1,6 @@
 import {action} from '@storybook/addon-actions';
 import StoryPreview from '../story-preview';
-import {fakeStoryObject} from '../../../test-utils';
+import {fakeStoryObject} from '../../../test-utils/fakes';
 
 const methods = {
 	onClick: action('click')

@@ -8,7 +8,12 @@ export const specimen = () => ({
 	components: {IconImage},
 	computed: {
 		iconNames() {
-			return [...Object.keys(icons), 'grid-small'].sort();
+			return [
+				...Object.keys(icons),
+				'empty',
+				'grid-small',
+				'loading-spinner'
+			].sort();
 		}
 	},
 	template:

@@ -32,6 +32,7 @@
 						label="storyEdit.topBar.editStylesheet"
 					/>
 					<icon-button
+						@click="toggleFormatSelect"
 						icon="file-text"
 						label="storyEdit.topBar.setStoryFormat"
 					/>
@@ -70,6 +71,17 @@
 				<text-line placeholder="Quick Find" />
 			</template>
 		</top-bar>
+		<top-select
+			@cancel="toggleFormatSelect"
+			:defaultValue="formatId"
+			:loadingMessage="
+				allFormatsLoaded ? undefined : $t('storyEdit.topBar.loadingFormats')
+			"
+			:message="$t('storyEdit.topBar.setStoryFormatPrompt')"
+			:options="formatOptions"
+			@submit="setStoryFormat"
+			:visible="showFormatSelect"
+		/>
 		<top-prompt
 			@cancel="toggleRenamePrompt"
 			:message="$t('storyEdit.topBar.renameStoryPrompt', {name: story.name})"
@@ -85,6 +97,7 @@ import IconButton from '@/components/input/icon-button';
 import TextLine from '@/components/input/text-line';
 import TopBar from '@/components/main-layout/top-bar';
 import TopPrompt from '@/components/main-layout/top-prompt';
+import TopSelect from '@/components/main-layout/top-select';
 import openUrl from '@/util/open-url';
 import '@/styles/accessibility.less';
 
@@ -94,10 +107,44 @@ export default {
 		IconButton,
 		TextLine,
 		TopBar,
-		TopPrompt
+		TopPrompt,
+		TopSelect
+	},
+	computed: {
+		allFormatsLoaded() {
+			return this.$store.getters['storyFormat/allFormatsLoaded'];
+		},
+		allStoryFormats() {
+			return this.$store.getters['storyFormat/allStoryFormats'];
+		},
+		formatOptions() {
+			return this.allStoryFormats.map(f => ({
+				name: f.name + ' ' + f.version,
+				value: f.id
+			}));
+		},
+		formatId() {
+			console.log(this.story, this.allStoryFormats);
+
+			const format = this.allStoryFormats.find(
+				f =>
+					f.name === this.story.storyFormatName &&
+					f.version === this.story.storyFormatVersion
+			);
+
+			if (format) {
+				return format.id;
+			}
+
+			return undefined;
+		}
 	},
 	data() {
-		return {findModalOpen: false, highlightText: '', showRenamePrompt: false};
+		return {
+			highlightText: '',
+			showFormatSelect: false,
+			showRenamePrompt: false
+		};
 	},
 	methods: {
 		createPassage() {
@@ -118,6 +165,22 @@ export default {
 		proofStory() {
 			openUrl(`/stories/${this.story.id}/proof`);
 		},
+		setStoryFormat(value) {
+			const format = this.allStoryFormats.find(f => f.id === value);
+
+			if (!format) {
+				throw new Error(`Can't find story format with ID "${value}"`);
+			}
+
+			this.$store.dispatch('story/updateStory', {
+				storyId: this.story.id,
+				storyProps: {
+					storyFormatName: format.name,
+					storyFormatVersion: format.version
+				}
+			});
+			this.toggleFormatSelect();
+		},
 		testStory() {
 			openUrl(`/stories/${this.story.id}/test`);
 		},
@@ -136,8 +199,12 @@ export default {
 		showStoryStats() {
 			this.$router.push(`/stories/${this.story.id}/statistics`);
 		},
-		toggleFindModal() {
-			this.findModalOpen = !this.findModalOpen;
+		toggleFormatSelect() {
+			this.showFormatSelect = !this.showFormatSelect;
+
+			if (this.showFormatSelect) {
+				this.$store.dispatch('storyFormat/loadAllFormats');
+			}
 		},
 		toggleRenamePrompt() {
 			this.showRenamePrompt = !this.showRenamePrompt;

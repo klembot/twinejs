@@ -23,8 +23,20 @@
 		box-shadow: inset 0 1px 1px hsla(0, 0%, 0%, 0.25);
 	}
 
-	&:disabled {
+	&:disabled,
+	&:disabled:active {
+		background: linear-gradient(
+			to bottom,
+			desaturate(lighten(@color, 20%), 100%),
+			desaturate(lighten(@color, 14%), 100%)
+		);
 		color: fade(white, 50%);
+		cursor: not-allowed;
+
+		&:active {
+			box-shadow: 0 2px 2px hsla(0, 0%, 0%, 0.25),
+				inset 0 0 2px hsla(0, 0%, 0%, 0.1);
+		}
 	}
 }
 

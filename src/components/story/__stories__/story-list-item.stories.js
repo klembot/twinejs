@@ -1,5 +1,5 @@
 import StoryListItem from '../story-list-item';
-import {fakeStoryObject} from '../../../test-utils';
+import {fakeStoryObject} from '../../../test-utils/fakes';
 
 export default {title: 'story/<story-list-item>'};
 

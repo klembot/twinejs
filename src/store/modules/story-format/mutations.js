@@ -29,5 +29,6 @@ export function updateFormat(state, {storyFormatId, storyFormatProps}) {
 		/* Do nothing. */
 		return;
 	}
+
 	Object.assign(format, storyFormatProps);
 }

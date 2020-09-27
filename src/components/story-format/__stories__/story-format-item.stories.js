@@ -3,7 +3,7 @@ import {
 	fakeFailedStoryFormatObject,
 	fakeLoadedStoryFormatObject,
 	fakePendingStoryFormatObject
-} from '../../../test-utils';
+} from '../../../test-utils/fakes';
 
 export default {title: 'Story Format/<story-format-item>'};
 

@@ -2,7 +2,7 @@
 	<span
 		:aria-hidden="!label || label === ''"
 		:aria-label="label"
-		class="icon-image"
+		:class="classes"
 		v-html="svg"
 	/>
 </template>
@@ -20,7 +20,17 @@ const extraIcons = {
 
 export default {
 	computed: {
+		classes() {
+			return {
+				'icon-image': true,
+				'loading-spinner': this.name === 'loading-spinner'
+			};
+		},
 		svg() {
+			if (this.name === 'loading-spinner') {
+				return icons.circle.toSvg();
+			}
+
 			if (extraIcons[this.name]) {
 				return extraIcons[this.name];
 			}

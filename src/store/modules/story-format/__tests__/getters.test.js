@@ -1,7 +1,110 @@
 import {fakeLoadedStoryFormatObject} from '@/test-utils/fakes';
-import {formatWithId, latestFormat} from '../getters';
+import {
+	allFormats,
+	allFormatsLoaded,
+	allProofingFormats,
+	allStoryFormats,
+	formatWithId,
+	latestFormat
+} from '../getters';
 
 describe('Story format Vuex getters', () => {
+	describe('allFormats', () => {
+		it('returns all formats, story and proofing, in sorted order', () => {
+			const mockState = {
+				formats: [
+					{name: 'A', version: '1.2.3'},
+					{name: 'B', version: '1.2.3'},
+					{name: 'A', version: '2.0.0'}
+				]
+			};
+
+			expect(allFormats(mockState)).toEqual([
+				{name: 'A', version: '2.0.0'},
+				{name: 'A', version: '1.2.3'},
+				{name: 'B', version: '1.2.3'}
+			]);
+		});
+	});
+
+	describe('allFormatsLoaded', () => {
+		it('returns true if all formats have loaded successfully', () =>
+			expect(
+				allFormatsLoaded({
+					formats: [
+						{name: 'A', properties: {}, version: '1.2.3'},
+						{name: 'B', properties: {}, version: '1.2.3'}
+					]
+				})
+			).toBe(true));
+
+		it('returns true if all formats have load errors', () =>
+			expect(
+				allFormatsLoaded({
+					formats: [
+						{name: 'A', loadError: new Error(), version: '1.2.3'},
+						{name: 'B', loadError: new Error(), version: '1.2.3'}
+					]
+				})
+			).toBe(true));
+
+		it('returns false if any format is being loaded', () =>
+			expect(
+				allFormatsLoaded({
+					formats: [
+						{name: 'A', loading: true, version: '1.2.3'},
+						{name: 'B', properties: {}, version: '1.2.3'}
+					]
+				})
+			).toBe(false));
+
+		it('returns false if any format has not been loaded', () =>
+			expect(
+				allFormatsLoaded({
+					formats: [
+						{name: 'A', version: '1.2.3'},
+						{name: 'B', properties: {}, version: '1.2.3'}
+					]
+				})
+			).toBe(false));
+	});
+
+	describe('allProofingFormats', () => {
+		it('returns all proofing formats in sorted order', () => {
+			const mockState = {
+				formats: [
+					{name: 'A', properties: {proofing: true}, version: '1.2.3'},
+					{name: 'B', version: '1.2.3'},
+					{name: 'A', properties: {proofing: true}, version: '2.0.0'},
+					{name: 'C', loadError: new Error(), version: '1.0.0'}
+				]
+			};
+
+			expect(allProofingFormats(mockState)).toEqual([
+				{name: 'A', properties: {proofing: true}, version: '2.0.0'},
+				{name: 'A', properties: {proofing: true}, version: '1.2.3'}
+			]);
+		});
+	});
+
+	describe('allStoryFormats', () => {
+		it('returns all story formats in sorted order', () => {
+			const mockState = {
+				formats: [
+					{name: 'A', properties: {proofing: false}, version: '1.2.3'},
+					{name: 'B', version: '1.2.3'},
+					{name: 'A', properties: {}, version: '2.0.0'},
+					{name: 'C', loadError: new Error(), version: '1.0.0'}
+				]
+			};
+
+			expect(allStoryFormats(mockState)).toEqual([
+				{name: 'A', properties: {}, version: '2.0.0'},
+				{name: 'A', properties: {proofing: false}, version: '1.2.3'}
+			]);
+		});
+	});
+
 	describe('formatWithId', () => {
 		const mockState = {
 			formats: [fakeLoadedStoryFormatObject(), fakeLoadedStoryFormatObject()]
