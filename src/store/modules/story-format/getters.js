@@ -1,4 +1,27 @@
 import semverUtils from 'semver-utils';
+import sortFormats from '@/util/sort-formats';
+
+export const allFormats = state => state.formats.sort(sortFormats);
+
+/*
+These require loading the formats first, because proofing is not stored as a
+top-level property.
+*/
+
+export const allProofingFormats = state =>
+	state.formats
+		.filter(f => f.properties && f.properties.proofing)
+		.sort(sortFormats);
+
+export const allStoryFormats = state =>
+	state.formats
+		.filter(f => f.properties && !f.properties.proofing)
+		.sort(sortFormats);
+
+/* Are all formats loaded? */
+
+export const allFormatsLoaded = state =>
+	!state.formats.some(f => !f.properties && !f.loadError);
 
 /* Looking up a format by ID. */
 
