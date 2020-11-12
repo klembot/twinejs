@@ -16,8 +16,10 @@
 		"delete": "Delete",
 		"duplicate": "Duplicate",
 		"edit": "Edit",
+		"import": "Import",
 		"language": "Language",
 		"more": "More",
+		"name": "Name",
 		"ok": "OK",
 		"play": "Play",
 		"publishToFile": "Publish To File",
@@ -144,6 +146,12 @@
 		"useAsDefault": "Use As Default",
 		"useAsProofing": "Use as Proofing Format"
 	},
+	"storyImport": {
+		"choosePrompt": "Choose which stories to import from the file you uploaded:",
+		"noStoriesInFile": "There don't appear to be any Twine stories in the file you uploaded. Please choose another file.",
+		"passageCount": "Number of Passages",
+		"uploadPrompt": "To import stories into Twine, upload either an archive or published story file below."
+	},
 	"storyList": {
 		"noStories": "There are no stories saved in Twine right now. To get started, you can either create a new story or import an existing one from a file.",
 		"title": "Stories",
@@ -159,7 +167,6 @@
 			"helpDescription": "Browse online help",
 			"language": "Set Language",
 			"languageDescription": "Change the language Twine uses",
-			"importFromFile": "Import",
 			"importFromFileExplanation": "Import a published Twine story or archive",
 			"reportBug": "Report a Bug",
 			"sort": "Sort",
