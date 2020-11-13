@@ -19,6 +19,16 @@
 							/>
 							{{ importStory.name }}
 						</label>
+						<template
+							v-if="
+								toImport.includes(importStory) &&
+									conflicts.includes(importStory)
+							"
+						>
+							<br />
+							<icon-image name="alert-triangle" />
+							<span v-t="'storyImport.willReplaceExisting'" />
+						</template>
 					</p>
 					<icon-button
 						@click="importSelectedStories"
@@ -38,14 +48,20 @@
 import {importStories} from '@/util/import';
 import FileUpload from '@/components/input/file-upload';
 import IconButton from '@/components/input/icon-button';
+import IconImage from '@/components/icon-image';
 import MainContent from '@/components/main-layout/main-content';
 import TopBar from '@/components/main-layout/top-bar';
 
 export default {
-	components: {FileUpload, IconButton, MainContent, TopBar},
+	components: {FileUpload, IconButton, IconImage, MainContent, TopBar},
 	computed: {
 		canImport() {
 			return this.uploadSource ? importStories(this.uploadSource) : [];
+		},
+		conflicts() {
+			return this.canImport.filter(story =>
+				this.$store.state.story.stories.some(s => s.name === story.name)
+			);
 		}
 	},
 	data() {
@@ -54,7 +70,28 @@ export default {
 	methods: {
 		importSelectedStories() {
 			this.toImport.forEach(story => {
-				this.$store.dispatch('story/createStory', {storyProps: story});
+				const oldStory = this.$store.state.story.stories.find(
+					s => s.name === story.name
+				);
+
+				/*
+				If we're replacing an existing story, do an update instead--if that
+				fails, we hopefully haven't trashed the existing story.
+				*/
+
+				if (oldStory) {
+					const storyProps = {...story};
+
+					delete storyProps.id;
+					this.$store.dispatch('story/updateStory', {
+						storyProps,
+						storyId: oldStory.id
+					});
+				} else {
+					this.$store.dispatch('story/createStory', {
+						storyProps: story
+					});
+				}
 			});
 			this.$router.push('/');
 		},

@@ -56,7 +56,7 @@ export default store => {
 
 					if (!story) {
 						throw new Error(
-							`Couldn't find a story with ID "${mutation.payload.storyId}"`
+							`Couldn't find a story with name "${mutation.payload.storyProps.name}"`
 						);
 					}
 
@@ -80,8 +80,8 @@ export default store => {
 					saveStory(transaction, story);
 
 					/*
-					Just in case, sync up passages. If this proves to be sluggish, we may
-					need to cache passages and only save when they are updated.
+					Sync up passages. If this proves to be sluggish, we may need to cache
+					passages and only save when they are updated.
 					*/
 
 					story.passages.forEach(passage => savePassage(transaction, passage));
