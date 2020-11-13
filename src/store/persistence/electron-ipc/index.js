@@ -4,6 +4,8 @@ set up by modules under src/electron. This can only be used when running in an
 Electron context--see src/util/is-electron.js for how to detect that.
 */
 
+import {importStories} from '@/util/import';
+
 let previousStories;
 
 function updatePrevious(state) {
@@ -52,11 +54,18 @@ export default store => {
 	const hydrate = window.twineElectron.hydrate;
 
 	if (hydrate.stories) {
-		hydrate.stories.forEach(story => {
-			store.dispatch('story/createStoriesFromHtml', {
-				html: story.data,
-				lastUpdate: story.mtime
-			});
+		hydrate.stories.forEach(storyFile => {
+			try {
+				const stories = importStories(storyFile.data, storyFile.mtime);
+
+				stories.forEach(story => {
+					store.dispatch('story/createStory', {storyProps: story});
+				});
+			} catch (e) {
+				/* Keep going--the alternative is to crash. */
+
+				console.warn(`Could not load story from hydrated HTML: ${e}`);
+			}
 		});
 	}
 
