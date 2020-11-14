@@ -8,6 +8,7 @@ import StoryEdit from './story-edit';
 import StoryEditJavaScript from './story-edit-javascript';
 import StoryEditStylesheet from './story-edit-stylesheet';
 import StoryFormatList from './story-format-list';
+import StoryImport from './story-import';
 import StoryList from './story-list';
 import StoryPlay from './story-play';
 import StoryProof from './story-proof';
@@ -22,6 +23,7 @@ export const Router = new VueRouter({
 	mode: 'history',
 	routes: [
 		{path: '/about', component: AboutTwine},
+		{path: '/import', component: StoryImport},
 		{path: '/locale', component: LocaleSelect},
 		{path: '/stories', component: StoryList},
 		{path: '/stories/:storyId', component: StoryEdit},

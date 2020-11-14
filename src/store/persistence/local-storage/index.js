@@ -45,21 +45,46 @@ export default store => {
 		switch (mutation.type) {
 			case 'story/createStory':
 				updateStories(transaction => {
-					saveStory(
-						transaction,
-						state.story.stories.find(
-							s => s.name === mutation.payload.storyProps.name
-						)
+					/*
+					The newly-created story may have passages with it if it was created
+					through an import.
+					*/
+
+					const story = state.story.stories.find(
+						s => s.name === mutation.payload.storyProps.name
 					);
+
+					if (!story) {
+						throw new Error(
+							`Couldn't find a story with name "${mutation.payload.storyProps.name}"`
+						);
+					}
+
+					saveStory(transaction, story);
+					story.passages.forEach(passage => savePassage(transaction, passage));
 				});
 				break;
 
 			case 'story/updateStory':
 				updateStories(transaction => {
-					saveStory(
-						transaction,
-						state.story.stories.find(s => s.id === mutation.payload.storyId)
+					const story = state.story.stories.find(
+						s => s.id === mutation.payload.storyId
 					);
+
+					if (!story) {
+						throw new Error(
+							`Couldn't find a story with ID "${mutation.payload.storyId}"`
+						);
+					}
+
+					saveStory(transaction, story);
+
+					/*
+					Sync up passages. If this proves to be sluggish, we may need to cache
+					passages and only save when they are updated.
+					*/
+
+					story.passages.forEach(passage => savePassage(transaction, passage));
 				});
 				break;
 

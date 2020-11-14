@@ -34,8 +34,9 @@
 					:title="$t('storyList.topBar.archiveExplanation')"
 				/>
 				<icon-button
+					@click="importStories"
 					icon="upload"
-					label="storyList.topBar.importFromFile"
+					label="common.import"
 					:title="$t('storyList.topBar.importFromFileExplanation')"
 				/>
 				<icon-button
@@ -128,6 +129,9 @@ export default {
 		downloadArchive() {
 			// TODO: error handling
 			saveHtml(publishArchive(this.$store), archiveFilename());
+		},
+		importStories() {
+			this.$router.push('/import');
 		},
 		setLanguage() {
 			this.$router.push('/locale');
