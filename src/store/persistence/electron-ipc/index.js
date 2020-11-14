@@ -51,7 +51,7 @@ export default store => {
 	that we add subscription on some of these mutations after all this is done.
 	*/
 
-	const hydrate = window.twineElectron.hydrate;
+	const {hydrate} = window.twineElectron;
 
 	if (hydrate.stories) {
 		hydrate.stories.forEach(storyFile => {

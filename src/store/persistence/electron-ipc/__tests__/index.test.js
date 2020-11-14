@@ -44,26 +44,16 @@ describe('electron-ipc persistence', () => {
 
 	it('loads stories from the twineElectron global', () => {
 		const stories = [
-			{data: 'story HTML 1', mtime: new Date('1/1/2009')},
-			{data: 'story HTML 2', mtime: new Date('1/1/2019')}
+			{data: '<tw-storydata></tw-storydata>', mtime: new Date('1/1/2009')},
+			{data: '<tw-storydata></tw-storydata>', mtime: new Date('1/1/2019')}
 		];
 
 		global.twineElectron.hydrate = {stories};
 		setup(store);
 		expect(
-			store.dispatch.mock.calls.filter(
-				call => call[0] === 'story/createStoriesFromHtml'
-			).length
+			store.dispatch.mock.calls.filter(call => call[0] === 'story/createStory')
+				.length
 		).toBe(2);
-		stories.forEach(story => {
-			expect(store.dispatch).toHaveBeenCalledWith(
-				'story/createStoriesFromHtml',
-				{
-					html: story.data,
-					lastUpdate: story.mtime
-				}
-			);
-		});
 	});
 
 	it('sends a matching save-story IPC message when a story is created', () => {

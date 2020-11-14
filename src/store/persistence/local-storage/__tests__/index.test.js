@@ -2,6 +2,7 @@ import localStorage from '../index';
 import * as pref from '../pref';
 import * as story from '../story';
 import * as storyFormat from '../story-format';
+import {fakeStoryObject} from '../../../../test-utils/fakes';
 
 describe('local-storage persistence', () => {
 	jest.unmock('../pref');
@@ -20,12 +21,12 @@ describe('local-storage persistence', () => {
 	beforeEach(() => {
 		store = {
 			commit: jest.fn(),
-			subscribe: function(callback) {
+			subscribe(callback) {
 				mutationObserver = callback;
 			},
 			state: {
 				pref: {},
-				story: {stories: []},
+				story: {stories: [fakeStoryObject()]},
 				storyFormat: {formats: []}
 			}
 		};
@@ -52,7 +53,7 @@ describe('local-storage persistence', () => {
 	test('calls story.saveStory() when a story/createStory mutation occurs', () => {
 		dispatchMutation({
 			type: 'story/createStory',
-			payload: {storyProps: {name: 'A Story'}}
+			payload: {storyProps: {name: store.state.story.stories[0].name}}
 		});
 		expect(story.saveStory).toHaveBeenCalledTimes(1);
 	});
@@ -60,7 +61,10 @@ describe('local-storage persistence', () => {
 	test('calls story.saveStory() when an story/updateStory mutation occurs', () => {
 		dispatchMutation({
 			type: 'story/updateStory',
-			payload: {storyId: 'mock-id', storyProps: {name: 'mock-name'}}
+			payload: {
+				storyId: store.state.story.stories[0].id,
+				storyProps: {name: 'mock-name'}
+			}
 		});
 		expect(story.saveStory).toHaveBeenCalledTimes(1);
 	});
