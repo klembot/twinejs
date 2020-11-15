@@ -1,0 +1,9 @@
+.hover-over > .default-container {
+	display: inline-block;
+}
+
+/* Will be portalled out, so we can't use a descendant selector. */
+
+.hover-over-hover-container {
+	z-index: 2000;
+}

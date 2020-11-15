@@ -1,6 +1,7 @@
 import {mount} from '@vue/test-utils';
 import {axe} from 'jest-axe';
 import {labeled, unlabeled} from '../__stories__/icon-image.stories';
+import {rules} from '../../../test-utils/axe';
 
 describe('<icon-image>', () => {
 	it('displays an SVG element', () => {
@@ -22,7 +23,7 @@ describe('<icon-image>', () => {
 
 	it('is accessible', async () => {
 		async function testAxe(func) {
-			expect(await axe(mount(func()).html())).toHaveNoViolations();
+			expect(await axe(mount(func()).html(), {rules})).toHaveNoViolations();
 		}
 
 		const instances = [labeled, unlabeled];

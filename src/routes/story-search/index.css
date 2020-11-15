@@ -1,0 +1,17 @@
+@import '../../styles/metrics.css';
+
+.story-search .controls {
+	display: grid;
+	grid-gap: var(--ui-gap);
+	grid-template-columns: repeat(2, 1fr);
+	margin: var(--ui-gap) 0;
+}
+
+.story-search .controls .code-area {
+	height: 8em;
+}
+
+.story-search .controls .settings {
+	grid-column-start: 1;
+	grid-column-end: 2;
+}

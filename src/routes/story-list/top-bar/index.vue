@@ -78,9 +78,10 @@
 				<!-- <local-storage-quota /> -->
 			</template>
 		</top-bar>
-		<top-prompt
+		<prompt-modal
 			@cancel="toggleCreatePrompt"
-			:message="$t('storyList.topBar.createStoryPrompt')"
+			:detail="$t('storyList.topBar.createStoryPromptDetail')"
+			:message="$t('storyList.topBar.createStoryPromptMessage')"
 			@submit="createStory"
 			submit-icon="plus"
 			submit-label="common.create"
@@ -92,23 +93,23 @@
 
 <script>
 import {archiveFilename} from '@/util/publish';
-import DropdownButton from '@/components/input/dropdown-button';
-import IconButton from '@/components/input/icon-button';
+import DropdownButton from '@/components/control/dropdown-button';
+import IconButton from '@/components/control/icon-button';
 import isElectron from '@/util/is-electron';
 import openUrl from '@/util/open-url';
 import {publishArchive} from '@/store/publish';
 import LocalStorageQuota from '@/components/local-storage-quota';
+import PromptModal from '@/components/modal/prompt-modal';
 import saveHtml from '@/util/save-html';
-import TopBar from '@/components/main-layout/top-bar';
-import TopPrompt from '@/components/main-layout/top-prompt';
+import TopBar from '@/components/container/top-bar';
 
 export default {
 	components: {
 		DropdownButton,
 		IconButton,
 		LocalStorageQuota,
-		TopBar,
-		TopPrompt
+		PromptModal,
+		TopBar
 	},
 	computed: {
 		isElectron

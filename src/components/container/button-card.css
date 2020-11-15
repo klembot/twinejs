@@ -1,0 +1,16 @@
+.button-card {
+	display: inline-block;
+}
+
+.button-card > .base-card > .body {
+	padding: 0;
+}
+
+.button-card > .base-card > .body > .content {
+	display: flex;
+	flex-direction: column;
+}
+
+.button-card .icon-button {
+	border-radius: 0;
+}

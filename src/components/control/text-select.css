@@ -1,0 +1,34 @@
+@import '../../styles/colors.css';
+@import '../../styles/metrics.css';
+@import '../../styles/typography.css';
+
+.text-select > label {
+	align-items: center;
+	display: inline-flex;
+	position: relative;
+}
+
+.text-select > label > select {
+	-webkit-appearance: none;
+	background: var(--white) url('~feather-icons/dist/icons/chevron-down.svg');
+	background-position: center right;
+	background-repeat: no-repeat;
+	border: 1px solid var(--light-gray);
+	border-radius: var(--corner-round);
+	color: var(--dark-gray);
+	font: 100% var(--font-ui);
+	height: var(--control-height);
+	margin-left: var(--grid-size);
+	padding: var(--grid-size) calc(var(--grid-size) + 16px) var(--grid-size)
+		var(--grid-size);
+}
+
+.text-select.orientation-vertical > label {
+	align-items: flex-start;
+	flex-direction: column;
+}
+
+.text-select.orientation-vertical > label > select {
+	margin-left: 0;
+	margin-top: var(--grid-size);
+}

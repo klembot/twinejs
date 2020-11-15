@@ -1,0 +1,45 @@
+@import '../../styles/colors.css';
+@import '../../styles/metrics.css';
+
+.meter-bar .meter {
+	background: transparent;
+	border: 1px solid var(--light-gray);
+	border-radius: var(--corner-round);
+	height: calc(var(--corner-round) * 2);
+	position: relative;
+}
+
+.meter-bar .meter .filled {
+	background-color: var(--blue);
+	border-radius: var(--corner-round);
+	display: block;
+	height: 100%;
+	transition: 0.5s width;
+}
+
+.meter-bar .label {
+	margin-top: calc(var(--grid-size) / 2);
+	text-align: center;
+}
+
+.meter-bar.indeterminate .filled {
+	animation: indeterminate-fill 60s linear infinite;
+	background: repeating-linear-gradient(
+		-45deg,
+		var(--light-blue) 0,
+		var(--light-blue) calc(var(--grid-size) / 2),
+		var(--blue) calc(var(--grid-size) / 2),
+		var(--blue) var(--grid-size)
+	);
+	background-size: 200% 200%;
+}
+
+@keyframes indeterminate-fill {
+	from {
+		background-position: 0 0;
+	}
+
+	to {
+		background-position: -100% 0;
+	}
+}

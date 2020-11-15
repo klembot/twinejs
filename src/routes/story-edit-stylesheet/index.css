@@ -1,0 +1,8 @@
+.story-edit-stylesheet .main-content {
+	display: flex;
+	flex-direction: column;
+}
+
+.story-edit-stylesheet .main-content .code-area {
+	flex-grow: 1;
+}

@@ -1,0 +1,26 @@
+@import '../../styles/colors.css';
+
+path.link-arrow {
+	stroke: var(--gray);
+	fill: none;
+	stroke-width: 2px;
+}
+
+/*
+Arrowheads are applied via an inline style. There seems to be disagreement on
+the proper way to implement this, but it does not work in an external stylesheet
+in Firefox.
+*/
+
+#link-arrowhead path {
+	fill: var(--gray);
+	stroke: none;
+}
+
+#link-broken path {
+	fill: var(--red);
+	stroke-width: 1px;
+	stroke-linecap: square;
+	stroke-linejoin: miter;
+	stroke: var(--red);
+}

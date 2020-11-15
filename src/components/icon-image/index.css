@@ -1,0 +1,19 @@
+.icon-image svg {
+	height: 18px;
+	width: 18px;
+}
+
+.icon-image.loading-spinner svg {
+	stroke-dasharray: 32;
+	animation: 1.5s loading-spinner-spin linear infinite;
+}
+
+@keyframes loading-spinner-spin {
+	from {
+		stroke-dashoffset: 64;
+	}
+
+	to {
+		stroke-dashoffset: 0;
+	}
+}

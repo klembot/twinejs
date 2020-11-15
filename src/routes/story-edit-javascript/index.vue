@@ -5,18 +5,22 @@
 			:back-label="story.name"
 		/>
 		<main-content :title="$t('editors.storyJavaScript.dialogTitle')">
-			<h1>{{ title }}</h1>
 			<p v-t="'editors.storyJavaScript.dialogExplanation'" />
-			<code-area @change="onChange" mode="javascript" :value="story.script" />
+			<code-area
+				@change="onChange"
+				font="monospace"
+				mode="javascript"
+				:value="story.script"
+			/>
 		</main-content>
 	</div>
 </template>
 
 <script>
-import CodeArea from '@/components/input/code-area';
-import MainContent from '@/components/main-layout/main-content';
-import TopBar from '@/components/main-layout/top-bar';
-import './index.less';
+import CodeArea from '@/components/control/code-area';
+import MainContent from '@/components/container/main-content';
+import TopBar from '@/components/container/top-bar';
+import './index.css';
 
 export default {
 	components: {CodeArea, MainContent, TopBar},

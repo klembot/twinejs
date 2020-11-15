@@ -1,0 +1,5 @@
+.passage-card {
+	cursor: default;
+	position: absolute;
+	user-select: none;
+}

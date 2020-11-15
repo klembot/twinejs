@@ -1,0 +1,26 @@
+@import '../../styles/colors.css';
+
+.base-modal {
+	z-index: 3000;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	position: fixed;
+	right: 0;
+}
+
+.base-modal > .overlay,
+.base-modal > .content {
+	align-items: center;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+.base-modal > .overlay {
+	background: var(--dark-gray-translucent);
+}

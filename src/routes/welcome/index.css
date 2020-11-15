@@ -1,0 +1,8 @@
+@import '../../styles/colors.css';
+@import '../../styles/metrics.css';
+
+.welcome-route {
+	background: var(--off-white);
+	min-height: 100vh;
+	padding: calc(4 * var(--grid-size));
+}

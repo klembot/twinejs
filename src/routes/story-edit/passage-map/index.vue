@@ -1,6 +1,6 @@
 <template>
 	<div class="passage-map" :style="style">
-		<passage-item
+		<passage-card
 			v-for="passage in passages"
 			@delete="onDeletePassage"
 			@drag="onDragPassage"
@@ -35,11 +35,11 @@
 <script>
 import LinkArrow from '@/components/story/link-arrow';
 import LinkContainer from '@/components/story/link-container';
-import PassageItem from '@/components/passage/passage-item';
-import './index.less';
+import PassageCard from '@/components/passage/passage-card';
+import './index.css';
 
 export default {
-	components: {LinkArrow, LinkContainer, PassageItem},
+	components: {LinkArrow, LinkContainer, PassageCard},
 	computed: {
 		linkArrows() {
 			/*

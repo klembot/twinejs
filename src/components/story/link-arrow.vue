@@ -7,7 +7,7 @@
 </template>
 <script>
 import {intersectionWithLine} from '@/util/rect';
-import './link-arrow.less';
+import './link-arrow.css';
 
 /*
 Renders an SVG arc. This expects an object with start, radius, largeArc,
@@ -39,6 +39,7 @@ export default {
 			if (!end) {
 				return 'marker-end: url(#link-broken)';
 			}
+
 			return 'marker-end: url(#link-arrowhead)';
 		},
 
@@ -140,16 +141,19 @@ export default {
 			};
 
 			endPt = intersectionWithLine(end, startPt, endPt);
+
 			/*
 			intersectionWithLine can return undefined if the other passage is
 			overlapping this passage (such as when it's being dragged over).
 			In that case, return no path.
 			*/
+
 			if (!endPt) {
 				return '';
 			}
 
 			startPt = intersectionWithLine(start, startPt, endPt);
+
 			if (!startPt) {
 				return '';
 			}

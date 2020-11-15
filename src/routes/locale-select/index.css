@@ -1,0 +1,7 @@
+@import '../../styles/metrics.css';
+
+.locale-select .locale-list {
+	display: grid;
+	grid-gap: var(--ui-gap);
+	grid-template-columns: repeat(auto-fit, 200px);
+}

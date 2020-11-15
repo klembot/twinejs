@@ -1,0 +1,44 @@
+@import '../../styles/colors.css';
+@import '../../styles/metrics.css';
+
+.image-button {
+	background: none;
+	border: none;
+	border-radius: var(--corner-round);
+	color: var(--dark-gray);
+	cursor: pointer;
+	padding: var(--grid-size);
+	transition: background 0.3s;
+}
+
+.image-button:hover {
+	background: var(--light-gray);
+}
+
+.image-button:active {
+	background: var(--gray);
+}
+
+.image-button img {
+	max-width: 100%;
+	height: auto;
+}
+
+/* .image-button {
+	background: none;
+	border: none;
+	font: 100% @font-ui;
+
+	img {
+		max-width: 100%;
+		height: auto;
+	}
+
+	&.with-shadow img {
+		.shadow-medium;
+	}
+
+	&:focus {
+		outline: none;
+	}
+} */

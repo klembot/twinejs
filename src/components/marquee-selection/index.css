@@ -1,0 +1,17 @@
+@import '../../styles/colors.css';
+@import '../../styles/metrics.css';
+
+.marquee-selection {
+	position: absolute;
+	border: 1px solid var(--dark-blue);
+	border-radius: 2px;
+	background: var(--light-blue-translucent);
+}
+
+body.marqueeing .drop {
+	display: none !important;
+}
+
+body.marqueeing * {
+	cursor: crosshair !important;
+}

@@ -1,9 +1,9 @@
 import {fakeLoadedStoryFormatObject} from '@/test-utils/fakes';
 import {
 	allFormats,
-	allFormatsLoaded,
 	allProofingFormats,
 	allStoryFormats,
+	formatLoadPercent,
 	formatWithId,
 	latestFormat
 } from '../getters';
@@ -27,46 +27,44 @@ describe('Story format Vuex getters', () => {
 		});
 	});
 
-	describe('allFormatsLoaded', () => {
-		it('returns true if all formats have loaded successfully', () =>
+	describe('formatLoadPercent', () => {
+		it('returns the percent of loaded/errored out formats', () => {
 			expect(
-				allFormatsLoaded({
+				formatLoadPercent({
 					formats: [
 						{name: 'A', properties: {}, version: '1.2.3'},
-						{name: 'B', properties: {}, version: '1.2.3'}
-					]
-				})
-			).toBe(true));
-
-		it('returns true if all formats have load errors', () =>
-			expect(
-				allFormatsLoaded({
-					formats: [
-						{name: 'A', loadError: new Error(), version: '1.2.3'},
 						{name: 'B', loadError: new Error(), version: '1.2.3'}
 					]
 				})
-			).toBe(true));
+			).toBe(1);
 
-		it('returns false if any format is being loaded', () =>
 			expect(
-				allFormatsLoaded({
+				formatLoadPercent({
+					formats: [
+						{name: 'A', properties: {}, version: '1.2.3'},
+						{name: 'B', version: '1.2.3'}
+					]
+				})
+			).toBe(0.5);
+
+			expect(
+				formatLoadPercent({
+					formats: [
+						{name: 'A', loadError: new Error(), version: '1.2.3'},
+						{name: 'B', version: '1.2.3'}
+					]
+				})
+			).toBe(0.5);
+
+			expect(
+				formatLoadPercent({
 					formats: [
 						{name: 'A', loading: true, version: '1.2.3'},
 						{name: 'B', properties: {}, version: '1.2.3'}
 					]
 				})
-			).toBe(false));
-
-		it('returns false if any format has not been loaded', () =>
-			expect(
-				allFormatsLoaded({
-					formats: [
-						{name: 'A', version: '1.2.3'},
-						{name: 'B', properties: {}, version: '1.2.3'}
-					]
-				})
-			).toBe(false));
+			).toBe(0.5);
+		});
 	});
 
 	describe('allProofingFormats', () => {

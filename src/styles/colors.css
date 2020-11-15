@@ -1,0 +1,59 @@
+:root {
+	--black: black;
+	--off-white: hsl(0, 0%, 97%);
+	--white: white;
+	--dark-gray-translucent: hsla(0, 0%, 0%, 0.7);
+	--dark-gray: hsl(0, 0%, 30%);
+	--gray: hsl(0, 0%, 60%);
+	--light-gray: hsl(0, 0%, 85%);
+	--light-gray-translucent: hsla(0, 0%, 60%, 0.25);
+	--dark-red: hsl(2, 90%, 40%);
+	--red: hsl(2, 90%, 60%);
+	--light-red: hsl(2, 90%, 90%);
+	--light-red-translucent: hsl(2, 90%, 60%, 0.25);
+	--dark-orange: hsl(32, 90%, 40%);
+	--orange: hsl(32, 90%, 60%);
+	--light-orange: hsl(32, 90%, 90%);
+	--light-orange-translucent: hsl(32, 90%, 60%, 0.25);
+	--dark-yellow: hsl(62, 90%, 40%);
+	--yellow: hsl(62, 90%, 60%);
+	--light-yellow: hsl(62, 90%, 90%);
+	--light-yellow-translucent: hsl(62, 90%, 60%, 0.25);
+	--dark-green: hsl(124, 90%, 40%);
+	--green: hsl(124, 90%, 60%);
+	--light-green: hsl(124, 90%, 90%);
+	--light-green-translucent: hsl(124, 90%, 60%, 0.25);
+	--dark-blue: hsl(212, 90%, 40%);
+	--blue: hsl(212, 90%, 60%);
+	--light-blue: hsl(212, 90%, 90%);
+	--light-blue-translucent: hsla(212, 90%, 60%, 0.25);
+	--dark-purple: hsl(272, 90%, 40%);
+	--purple: hsl(272, 90%, 60%);
+	--light-purple: hsl(272, 90%, 90%);
+	--light-purple-translucent: hsla(272, 90%, 60%, 0.25);
+
+	--graph-paper-bg: var(--light-blue);
+	--graph-paper-major-line: hsla(212, 90%, 60%, 0.25);
+	--graph-paper-minor-line: hsla(212, 90%, 60%, 0.125);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--black: white;
+		--off-white: hsl(0, 0%, 10%);
+		--white: black;
+		--dark-gray-translucent: hsla(0, 0%, 0%, 0.7);
+		--dark-gray: hsl(0, 0%, 70%);
+		--gray: hsl(0, 0%, 40%);
+		--light-gray: hsl(0, 0%, 20%);
+		--light-gray-translucent: hsla(0, 0%, 60%, 0.25);
+
+		--graph-paper-bg: hsl(212, 90%, 10%);
+		--graph-paper-major-line: hsla(212, 90%, 60%, 0.125);
+		--graph-paper-minor-line: hsla(212, 90%, 60%, 0.0625);
+	}
+}
+
+body {
+	color: var(--dark-gray);
+}
