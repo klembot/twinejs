@@ -1,0 +1,23 @@
+@import '../../styles/accessibility.css';
+@import '../../styles/colors.css';
+@import '../../styles/metrics.css';
+
+.text-checkbox {
+	align-items: center;
+	border-radius: var(--corner-round);
+	cursor: pointer;
+	display: inline-flex;
+	height: var(--control-height);
+	padding: var(--grid-size);
+	position: relative;
+}
+
+.text-checkbox:hover {
+	background: var(--light-gray-translucent);
+}
+
+.text-checkbox .icon-image {
+	margin-right: calc(var(--grid-size) / 2);
+	position: relative;
+	top: 2px; /* mysterious-- not sure why align-items doesn't get it */
+}

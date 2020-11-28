@@ -1,9 +1,9 @@
-<template
-	><div class="text-header"><slot></slot></div
-></template>
+<template>
+	<div class="text-header"><slot></slot></div>
+</template>
 
 <script>
-import './text-header.less';
+import './text-header.css';
 
 export default {
 	name: 'text-header',

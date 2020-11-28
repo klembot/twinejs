@@ -6,16 +6,21 @@
 		/>
 		<main-content :title="$t('editors.storyStylesheet.dialogTitle')">
 			<p v-t="'editors.storyStylesheet.dialogExplanation'" />
-			<code-area @change="onChange" mode="css" :value="story.stylesheet" />
+			<code-area
+				@change="onChange"
+				font="monospace"
+				mode="css"
+				:value="story.stylesheet"
+			/>
 		</main-content>
 	</div>
 </template>
 
 <script>
-import CodeArea from '@/components/input/code-area';
-import TopBar from '@/components/main-layout/top-bar';
-import MainContent from '@/components/main-layout/main-content';
-import './index.less';
+import CodeArea from '@/components/control/code-area';
+import TopBar from '@/components/container/top-bar';
+import MainContent from '@/components/container/main-content';
+import './index.css';
 
 export default {
 	components: {CodeArea, MainContent, TopBar},

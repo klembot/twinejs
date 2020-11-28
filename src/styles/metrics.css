@@ -1,0 +1,24 @@
+:root {
+	/* Baseline grid. */
+	--grid-size: 10px;
+
+	/* Height for buttons, text inputs, etc. */
+	--control-height: calc(var(--grid-size) * 4);
+
+	--control-inner-padding: calc(var(--grid-size) / 2);
+
+	/* Gap between unrelated UI elements. */
+	--ui-gap: calc(var(--grid-size) * 2);
+
+	/* Border radius for elements with round corners. */
+	--corner-round: 4px;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	overscroll-behavior: none;
+}

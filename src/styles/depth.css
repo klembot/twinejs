@@ -1,0 +1,24 @@
+@import './colors.css';
+
+.raised-small {
+	box-shadow: 0 1px 1px var(--light-gray);
+}
+
+.raised-medium {
+	box-shadow: 0 1px 3px var(--light-gray);
+}
+
+.raised-large {
+	box-shadow: 0 2px 4px var(--light-gray);
+}
+
+:root {
+	/* Used for cards. */
+	--shadow-small: 0 1px 1px var(--light-gray);
+
+	/* Used for the top bar. */
+	--shadow-medium: 0 1px 3px var(--light-gray);
+
+	/* Used for dropdown menus and other things that hover over the UI. */
+	--shadow-large: 0 2px 4px var(--light-gray);
+}

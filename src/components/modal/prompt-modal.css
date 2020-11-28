@@ -1,0 +1,7 @@
+.prompt-modal .text-line > label {
+	display: flex;
+}
+
+.prompt-modal .text-line input[type='text'] {
+	width: 100%;
+}

@@ -4,6 +4,7 @@
 		version="1.1"
 		xmlns:xlink="http://www.w3.org/1999/xlink"
 		:view-box.camel="svgViewBox"
+		:style="style"
 		v-html="svg"
 	/>
 </template>
@@ -15,6 +16,15 @@ function passageRadius(length, longestLength) {
 
 export default {
 	computed: {
+		hue() {
+			let result = 0;
+
+			for (let i = 0; i < this.name.length; i++) {
+				result += this.name.charCodeAt(i);
+			}
+
+			return result % 360;
+		},
 		longestPassageLength() {
 			return this.passages.reduce((result, current) => {
 				if (current.text.length > result) {
@@ -23,6 +33,13 @@ export default {
 
 				return result;
 			}, 0);
+		},
+		style() {
+			return {
+				background: `hsl(${this.hue}, 90%, 85%)`,
+				fill: `hsla(${(this.hue + 45) % 360}, 90%, 40%, 0.25)`,
+				padding: 'var(--grid-size)'
+			};
 		},
 		svg() {
 			if (this.passages.length <= 1) {

@@ -10,71 +10,52 @@
 			</template>
 		</top-bar>
 		<main-content>
-			<h1 v-t="'storyFormats.storyFormats'" />
-			<p v-t="'storyFormats.storyFormatExplanation'" />
-			<div class="format-list">
-				<story-format-item
-					v-for="(format, index) in currentStoryFormats"
-					:format="format"
-					:key="index"
-					@select="setStoryFormat"
-					:selected="
-						format.name === storyFormatPref.name &&
-							format.version === storyFormatPref.version
-					"
-					:selectedText="$t('storyFormats.selectedStoryFormat')"
-					:selectLabel="$t('storyFormats.useAsDefault')"
-				/>
-			</div>
-			<template v-if="outdatedStoryFormats.length > 0">
-				<p v-t="'storyFormats.outdatedFormatExplanation'" />
-				<div class="format-list">
-					<story-format-item
-						v-for="(format, index) in outdatedStoryFormats"
-						:format="format"
-						:key="index"
-						@select="setStoryFormat"
-						:selected="
-							format.name === storyFormatPref.name &&
-								format.version === storyFormatPref.version
-						"
-						:selectedText="$t('storyFormats.selectedStoryFormat')"
-						:selectLabel="$t('storyFormats.useAsDefault')"
+			<template v-if="loadPercent < 100">
+				<meter-bar :percent="loadPercent">
+					<icon-image name="loading-spinner" />
+					<span
+						v-t="{
+							path: 'storyFormats.loadingFormat',
+							args: {name: loadingFormat.name + ' ' + loadingFormat.version}
+						}"
 					/>
-				</div>
+				</meter-bar>
 			</template>
-			<h1 v-t="'storyFormats.proofingFormats'" />
-			<p v-t="'storyFormats.proofingFormatExplanation'" />
-			<div class="format-list">
-				<story-format-item
-					v-for="(format, index) in currentProofingFormats"
-					:format="format"
-					:key="index"
-					@select="setProofingFormat"
-					:selected="
-						format.name === proofingFormatPref.name &&
-							format.version === proofingFormatPref.version
-					"
-					:selectedText="$t('storyFormats.selectedProofingFormat')"
-					:selectLabel="$t('storyFormats.useAsProofing')"
+			<template v-else>
+				<story-format-group
+					:detail="$t('storyFormats.storyFormatExplanation')"
+					:formats="currentStoryFormats"
+					:header="$t('storyFormats.storyFormats')"
+					@select="setStoryFormat"
+					:selected-format="selectedStoryFormat"
+					:select-label="$t('storyFormats.useAsDefault')"
 				/>
-			</div>
-			<template v-if="outdatedProofingFormats.length > 0">
-				<p v-t="'storyFormats.outdatedFormatExplanation'" />
-				<div class="format-list">
-					<story-format-item
-						v-for="(format, index) in outdatedProofingFormats"
-						:format="format"
-						:key="index"
-						@select="setProofingFormat"
-						:selected="
-							format.name === proofingFormatPref.name &&
-								format.version === proofingFormatPref.version
-						"
-						:selectedText="$t('storyFormats.selectedProofingFormat')"
-						:selectLabel="$t('storyFormats.useAsProofing')"
-					/>
-				</div>
+				<story-format-group
+					:detail="$t('storyFormats.outdatedStoryFormatExplanation')"
+					:formats="outdatedStoryFormats"
+					:header="$t('storyFormats.outdatedStoryFormats')"
+					@select="setStoryFormat"
+					:selected-format="selectedStoryFormat"
+					:select-label="$t('storyFormats.useAsDefault')"
+					v-if="outdatedStoryFormats.length > 0"
+				/>
+				<story-format-group
+					:detail="$t('storyFormats.proofingFormatExplanation')"
+					:formats="currentProofingFormats"
+					:header="$t('storyFormats.proofingFormats')"
+					@select="setProofingFormat"
+					:selected-format="selectedProofingFormat"
+					:select-label="$t('storyFormats.useAsProofing')"
+				/>
+				<story-format-group
+					:detail="$t('storyFormats.outdatedProofingFormatExplanation')"
+					:formats="outdatedProofingFormats"
+					:header="$t('storyFormats.outdatedProofingFormats')"
+					@select="setProofingFormat"
+					:selected-format="selectedProofingFormat"
+					:select-label="$t('storyFormats.useAsProofing')"
+					v-if="outdatedProofingFormats.length > 0"
+				/>
 			</template>
 		</main-content>
 	</div>
@@ -82,14 +63,23 @@
 
 <script>
 import {parse} from 'semver-utils';
-import IconButton from '@/components/input/icon-button';
-import TopBar from '@/components/main-layout/top-bar';
-import MainContent from '@/components/main-layout/main-content';
-import StoryFormatItem from '@/components/story-format/story-format-item';
-import './index.less';
+import IconButton from '@/components/control/icon-button';
+import IconImage from '@/components/icon-image';
+import TopBar from '@/components/container/top-bar';
+import MainContent from '@/components/container/main-content';
+import MeterBar from '@/components/meter-bar';
+import StoryFormatGroup from '@/components/story-format/story-format-group';
+import './index.css';
 
 export default {
-	components: {IconButton, MainContent, StoryFormatItem, TopBar},
+	components: {
+		IconButton,
+		IconImage,
+		MainContent,
+		MeterBar,
+		StoryFormatGroup,
+		TopBar
+	},
 	computed: {
 		allFormats() {
 			return this.$store.state.storyFormat.formats;
@@ -111,6 +101,12 @@ export default {
 			return this.allStoryFormats.filter(
 				f => !this.outdatedStoryFormats.includes(f)
 			);
+		},
+		loadingFormat() {
+			return this.$store.getters['storyFormat/formatLoading'];
+		},
+		loadPercent() {
+			return this.$store.getters['storyFormat/formatLoadPercent'] * 100;
 		},
 		outdatedProofingFormats() {
 			return this.allProofingFormats.filter(f => {
@@ -142,11 +138,19 @@ export default {
 				});
 			});
 		},
-		proofingFormatPref() {
-			return this.$store.state.pref.proofingFormat;
+		selectedProofingFormat() {
+			const {name, version} = this.$store.state.pref.proofingFormat;
+
+			return this.allFormats.find(
+				f => f.name === name && f.version === version
+			);
 		},
-		storyFormatPref() {
-			return this.$store.state.pref.storyFormat;
+		selectedStoryFormat() {
+			const {name, version} = this.$store.state.pref.storyFormat;
+
+			return this.allFormats.find(
+				f => f.name === name && f.version === version
+			);
 		}
 	},
 	methods: {

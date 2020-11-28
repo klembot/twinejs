@@ -1,0 +1,34 @@
+.story-edit .main-content {
+	padding: 0;
+}
+
+.story-edit .main-content > .container {
+	position: relative;
+}
+
+.story-edit .marquee-selection {
+	/* Above .passage-map. */
+	z-index: 3;
+}
+
+.story-edit .graph-paper,
+.story-edit .passage-map {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.story-edit .passage-map {
+	/* Above <graph-paper>. */
+	z-index: 2;
+}
+
+body.dragging-passages .drop {
+	display: none !important;
+}
+
+body.dragging-passages .story-edit * {
+	cursor: default !important;
+}

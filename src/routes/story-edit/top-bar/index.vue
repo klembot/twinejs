@@ -71,18 +71,20 @@
 				<text-line placeholder="Quick Find" />
 			</template>
 		</top-bar>
-		<top-select
+		<select-modal
 			@cancel="toggleFormatSelect"
 			:defaultValue="formatId"
 			:loadingMessage="
-				allFormatsLoaded ? undefined : $t('storyEdit.topBar.loadingFormats')
+				formatLoadPercent === 1
+					? undefined
+					: $t('storyEdit.topBar.loadingFormats')
 			"
 			:message="$t('storyEdit.topBar.setStoryFormatPrompt')"
 			:options="formatOptions"
 			@submit="setStoryFormat"
 			:visible="showFormatSelect"
 		/>
-		<top-prompt
+		<prompt-modal
 			@cancel="toggleRenamePrompt"
 			:message="$t('storyEdit.topBar.renameStoryPrompt', {name: story.name})"
 			@submit="renameStory"
@@ -92,30 +94,30 @@
 </template>
 
 <script>
-import DropdownButton from '@/components/input/dropdown-button';
-import IconButton from '@/components/input/icon-button';
-import TextLine from '@/components/input/text-line';
-import TopBar from '@/components/main-layout/top-bar';
-import TopPrompt from '@/components/main-layout/top-prompt';
-import TopSelect from '@/components/main-layout/top-select';
+import DropdownButton from '@/components/control/dropdown-button';
+import IconButton from '@/components/control/icon-button';
+import PromptModal from '@/components/modal/prompt-modal';
+import SelectModal from '@/components/modal/select-modal';
+import TextLine from '@/components/control/text-line';
+import TopBar from '@/components/container/top-bar';
 import openUrl from '@/util/open-url';
-import '@/styles/accessibility.less';
+import '@/styles/accessibility.css';
 
 export default {
 	components: {
 		DropdownButton,
 		IconButton,
+		PromptModal,
+		SelectModal,
 		TextLine,
-		TopBar,
-		TopPrompt,
-		TopSelect
+		TopBar
 	},
 	computed: {
-		allFormatsLoaded() {
-			return this.$store.getters['storyFormat/allFormatsLoaded'];
-		},
 		allStoryFormats() {
 			return this.$store.getters['storyFormat/allStoryFormats'];
+		},
+		formatLoadPercent() {
+			return this.$store.getters['storyFormat/formatLoadPercent'];
 		},
 		formatOptions() {
 			return this.allStoryFormats.map(f => ({

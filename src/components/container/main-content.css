@@ -1,0 +1,33 @@
+@import '../../styles/colors.css';
+@import '../../styles/metrics.css';
+
+.main-content {
+	background: var(--off-white);
+	overflow: auto;
+	position: fixed;
+	top: calc(
+		var(--control-height) + var(--ui-gap) / 2
+	); /* height of <top-bar> */
+	left: 0;
+	right: 0;
+	bottom: 0;
+	-webkit-overflow-scrolling: touch;
+}
+
+.main-content.padded {
+	padding: var(--ui-gap);
+}
+
+.main-content-grab-listener {
+	cursor: grab;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 99999;
+}
+
+.main-content-grab-listener.grabbing {
+	cursor: grabbing;
+}

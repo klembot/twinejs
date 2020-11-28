@@ -2,7 +2,7 @@
 	<div aria-hidden class="graph-paper" :style="style" />
 </template>
 <script>
-import './graph-paper.less';
+import './graph-paper.css';
 
 export default {
 	computed: {

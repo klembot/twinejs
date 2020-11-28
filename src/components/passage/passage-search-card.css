@@ -1,0 +1,6 @@
+@import '../../styles/colors.css';
+
+.passage-search-card mark {
+	background-color: var(--yellow);
+	color: var(--black);
+}

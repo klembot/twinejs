@@ -1,6 +1,6 @@
 <template>
 	<div class="local-storage-quota">
-		<static-meter :percent="percent" />
+		<meter-bar :percent="percent" />
 		<div class="stack center">
 			{{ $t('components.localStorageQuota.percentAvailable', {percent}) }}
 			<icon-button
@@ -14,14 +14,13 @@
 </template>
 
 <script>
-import IconButton from '../input/icon-button';
-import StaticMeter from '../static-meter';
-import './index.less';
+import IconButton from '../control/icon-button';
+import MeterBar from '../meter-bar';
 
 const CHUNK_SIZE = 102400;
 
 export default {
-	components: {IconButton, StaticMeter},
+	components: {IconButton, MeterBar},
 	computed: {
 		percent() {
 			return Math.round((this.free / (this.used + this.free)) * 100);

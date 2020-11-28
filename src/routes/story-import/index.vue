@@ -46,11 +46,11 @@
 
 <script>
 import {importStories} from '@/util/import';
-import FileUpload from '@/components/input/file-upload';
-import IconButton from '@/components/input/icon-button';
+import FileUpload from '@/components/control/file-upload';
+import IconButton from '@/components/control/icon-button';
 import IconImage from '@/components/icon-image';
-import MainContent from '@/components/main-layout/main-content';
-import TopBar from '@/components/main-layout/top-bar';
+import MainContent from '@/components/container/main-content';
+import TopBar from '@/components/container/top-bar';
 
 export default {
 	components: {FileUpload, IconButton, IconImage, MainContent, TopBar},

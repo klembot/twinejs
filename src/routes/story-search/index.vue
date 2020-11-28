@@ -2,22 +2,19 @@
 	<div class="story-search">
 		<top-bar :back-route="`/stories/${this.story.id}`" :back-label="story.name">
 			<template v-slot:actions>
-				<icon-button
-					:active="includePassageNames"
-					@click="toggleSetting('includePassageNames')"
-					:icon="buttonIcon('includePassageNames')"
-					label="storySearch.includePassageNames"
-				/>
-				<icon-button
-					:active="matchCase"
-					@click="toggleSetting('matchCase')"
-					:icon="buttonIcon('matchCase')"
+				<text-checkbox
+					@change="toggleSetting('includePassageNames')"
+					:checked="includePassageNames"
 					label="storySearch.matchCase"
 				/>
-				<icon-button
-					:active="useRegexes"
-					@click="toggleSetting('useRegexes')"
-					:icon="buttonIcon('useRegexes')"
+				<text-checkbox
+					@change="toggleSetting('matchCase')"
+					:checked="matchCase"
+					label="storySearch.includePassageNames"
+				/>
+				<text-checkbox
+					@change="toggleSetting('useRegexes')"
+					:checked="useRegexes"
 					label="storySearch.useRegexes"
 				/>
 				<icon-button
@@ -44,8 +41,8 @@
 					:value="replaceWith"
 				/>
 			</div>
-			<div class="results">
-				<passage-search-result
+			<card-group column-width="350px">
+				<passage-search-card
 					v-for="match in matchingPassages"
 					@edit-passage="onEditPassage"
 					:nameHighlighted="match.nameHighlighted"
@@ -55,21 +52,31 @@
 					:textHighlighted="match.textHighlighted"
 					:textMatches="match.textMatches"
 				/>
-			</div>
+			</card-group>
 		</main-content>
 	</div>
 </template>
 
 <script>
-import CodeArea from '@/components/input/code-area';
-import IconButton from '@/components/input/icon-button';
-import TopBar from '@/components/main-layout/top-bar';
-import MainContent from '@/components/main-layout/main-content';
-import PassageSearchResult from '@/components/passage/passage-search-result';
-import './index.less';
+import CardGroup from '@/components/container/card-group';
+import CodeArea from '@/components/control/code-area';
+import IconButton from '@/components/control/icon-button';
+import MainContent from '@/components/container/main-content';
+import PassageSearchCard from '@/components/passage/passage-search-card';
+import TextCheckbox from '@/components/control/text-checkbox';
+import TopBar from '@/components/container/top-bar';
+import './index.css';
 
 export default {
-	components: {CodeArea, IconButton, MainContent, PassageSearchResult, TopBar},
+	components: {
+		CardGroup,
+		CodeArea,
+		IconButton,
+		MainContent,
+		PassageSearchCard,
+		TextCheckbox,
+		TopBar
+	},
 	computed: {
 		canReplaceAll() {
 			return (

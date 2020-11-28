@@ -1,0 +1,18 @@
+@import '../../styles/colors.css';
+@import '../../styles/metrics.css';
+
+.button-bar {
+	display: flex;
+}
+
+.button-bar-separator {
+	background: var(--light-gray);
+	display: inline-block;
+	height: var(--control-height);
+	margin: 0 calc(var(--grid-size) / 2);
+	width: 1px;
+}
+
+.button-bar.orientation-vertical {
+	flex-direction: column;
+}

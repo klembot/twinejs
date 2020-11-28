@@ -1,0 +1,78 @@
+@import '../../styles/colors.css';
+@import '../../styles/metrics.css';
+@import '../../styles/typography.css';
+
+.icon-button {
+	align-items: center;
+	background: none;
+	border: none;
+	border-radius: var(--corner-round);
+	display: inline-flex;
+	cursor: pointer;
+	font: 100% var(--font-ui);
+	color: var(--dark-gray);
+	height: var(--control-height);
+	padding: var(--grid-size);
+	transition: background 0.3s;
+}
+
+.icon-button:disabled {
+	cursor: auto;
+	opacity: 0.5;
+}
+
+.icon-button:hover:not(:disabled) {
+	background: var(--light-gray-translucent);
+}
+
+.icon-button:active:not(:disabled) {
+	background: var(--gray);
+}
+
+.icon-button.type-primary {
+	color: var(--dark-blue);
+}
+
+.icon-button.type-primary:hover:not(:disabled) {
+	background: var(--light-blue-translucent);
+	color: var(--dark-blue);
+}
+
+.icon-button.type-primary:active:not(:disabled) {
+	background: var(--blue);
+	color: var(--dark-blue);
+}
+
+.icon-button.type-create {
+	color: var(--dark-green);
+}
+
+.icon-button.type-create:hover:not(:disabled) {
+	background: var(--light-green-translucent);
+	color: var(--dark-green);
+}
+
+.icon-button.type-create:active:not(:disabled) {
+	background: var(--green);
+	color: var(--dark-green);
+}
+
+.icon-button.type-danger {
+	color: var(--dark-red);
+}
+
+.icon-button.type-danger:hover:not(:disabled) {
+	background: var(--light-red-translucent);
+	color: var(--dark-red);
+}
+
+.icon-button.type-danger:active:not(:disabled) {
+	background: var(--red);
+	color: var(--dark-red);
+}
+
+.icon-button .icon-image {
+	margin-right: calc(var(--grid-size) / 2);
+	position: relative;
+	top: 2px; /* mysterious-- not sure why align-items doesn't get it */
+}

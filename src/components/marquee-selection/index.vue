@@ -7,7 +7,7 @@
 </template>
 <script>
 import domMixin from '../../util/vue-dom-mixin';
-import './index.less';
+import './index.css';
 
 export default {
 	computed: {

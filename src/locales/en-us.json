@@ -20,6 +20,7 @@
 		"language": "Language",
 		"more": "More",
 		"name": "Name",
+		"next": "Next",
 		"ok": "OK",
 		"play": "Play",
 		"publishToFile": "Publish To File",
@@ -41,6 +42,10 @@
 			"matchCount": "No Matches | 1 Match | {matchCount} Matches",
 			"replace": "Replace in Passage",
 			"showPassage": "Show Passage in Story"
+		},
+		"storyCard": {
+			"lastUpdated": "Last edited on {date}",
+			"passageCount": "0 passages | 1 passage | {count} passages"
 		},
 		"storyFormatItem": {
 			"author": "by {author}",
@@ -87,8 +92,10 @@
 	},
 	"passageEdit": {
 		"deletePassage": "Delete Passage",
-		"deletePrompt": "Are you sure you want to delete this passage? This cannot be undone.",
-		"renamePrompt": "What should this passage be named? Existing links to it will be updated.",
+		"deleteDetail": "This cannot be undone.",
+		"deleteMessage": "Are you sure you want to delete this passage?",
+		"renameDetail": "Existing links to it will be updated.",
+		"renameMessage": "What should this passage be named?",
 		"setAsStart": "Start Story Here",
 		"size": "Size",
 		"sizeLarge": "Large",
@@ -136,8 +143,11 @@
 	},
 	"storyFormats": {
 		"addFormat": "Add a New Format",
-		"outdatedFormatExplanation": "Newer versions of these formats are installed, but these are available for use with older stories:",
+		"loadingFormat": "Loading {name}...",
+		"outdatedStoryFormats": "Older Story Formats",
+		"outdatedStoryFormatExplanation": "Newer versions of these formats are installed, but these are available for use with older stories:",
 		"proofingFormatExplanation": "Proofing formats create a versions of stories tailored for editing and proofreading.",
+		"outdatedProofingFormats": "Older Proofing Formats",
 		"proofingFormats": "Proofing Formats",
 		"selectedProofingFormat": "This format will be used when proofing stories.",
 		"selectedStoryFormat": "This format will be used as default for new stories.",
@@ -163,7 +173,8 @@
 			"archiveExplanation": "Save all stories to a Twine archive",
 			"createStory": "Story",
 			"createStoryExplanation": "Create a brand new story",
-			"createStoryPrompt": "What should your story be named? You can change this later.",
+			"createStoryPromptDetail": "You can change this later.",
+			"createStoryPromptMessage": "What should your story be named?",
 			"help": "Help",
 			"helpDescription": "Browse online help",
 			"language": "Set Language",

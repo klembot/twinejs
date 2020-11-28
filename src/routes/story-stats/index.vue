@@ -41,9 +41,8 @@
 </template>
 
 <script>
-import TopBar from '@/components/main-layout/top-bar';
-import MainContent from '@/components/main-layout/main-content';
-import './index.less';
+import TopBar from '@/components/container/top-bar';
+import MainContent from '@/components/container/main-content';
 
 export default {
 	components: {MainContent, TopBar},

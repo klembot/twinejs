@@ -1,0 +1,18 @@
+@import '../../styles/colors.css';
+@import '../../styles/depth.css';
+@import '../../styles/metrics.css';
+
+.top-bar {
+	align-items: center;
+	background: var(--white);
+	box-shadow: var(--shadow-medium);
+	display: flex;
+	height: calc(var(--control-height) + var(--ui-gap) / 2);
+	justify-content: space-between;
+	left: 0;
+	padding: 0 calc(var(--ui-gap) / 4);
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: 1000;
+}

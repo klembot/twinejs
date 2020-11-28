@@ -1,5 +1,5 @@
 <template>
-	<div class="locale-route">
+	<div class="locale-select">
 		<top-bar back-route="/" :back-label="$t('storyList.title')" />
 		<main-content :title="$t('common.language')">
 			<p v-t="'localeSelect.explanation'" />
@@ -17,11 +17,11 @@
 </template>
 
 <script>
-import ImageButton from '@/components/input/image-button';
+import ImageButton from '@/components/control/image-button';
 import locales from '@/locales';
-import MainContent from '@/components/main-layout/main-content';
-import TopBar from '@/components/main-layout/top-bar';
-import './index.less';
+import MainContent from '@/components/container/main-content';
+import TopBar from '@/components/container/top-bar';
+import './index.css';
 
 export default {
 	computed: {

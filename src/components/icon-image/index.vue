@@ -11,7 +11,7 @@
 import {icons} from 'feather-icons';
 import emptySvg from './extra-icons/empty.svg';
 import gridSmallSvg from './extra-icons/grid-small.svg';
-import './index.less';
+import './index.css';
 
 const extraIcons = {
 	empty: emptySvg,

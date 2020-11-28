@@ -1,0 +1,34 @@
+@import '../../styles/colors.css';
+
+/* @color-graph-paper: lighten(@color-link, 55%);
+@color-graph-paper-dark: darken(@color-link, 35%);
+@color-graph-lines: lighten(@color-link, 52%);
+@color-graph-lines-dark: darken(@color-link, 33%);
+@color-graph-lines-bold: lighten(@color-link, 47%);
+@color-graph-lines-bold-dark: lighten(@color-graph-lines-dark, 3%); */
+
+.graph-paper {
+	background-color: var(--graph-paper-bg);
+	background-image: linear-gradient(
+			to right,
+			var(--graph-paper-major-line) 1px,
+			transparent 1px
+		),
+		linear-gradient(
+			to bottom,
+			var(--graph-paper-major-line) 1px,
+			transparent 1px
+		),
+		linear-gradient(
+			to right,
+			var(--graph-paper-minor-line) 1px,
+			transparent 1px
+		),
+		linear-gradient(
+			to bottom,
+			var(--graph-paper-minor-line) 1px,
+			transparent 1px
+		);
+	position: absolute;
+	transform-origin: top left;
+}

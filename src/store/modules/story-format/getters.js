@@ -18,10 +18,22 @@ export const allStoryFormats = state =>
 		.filter(f => f.properties && !f.properties.proofing)
 		.sort(sortFormats);
 
-/* Are all formats loaded? */
+/*
+What percentage of formats are loaded? Used for progress meters and similar.
+*/
 
-export const allFormatsLoaded = state =>
-	!state.formats.some(f => !f.properties && !f.loadError);
+export const formatLoadPercent = state =>
+	state.formats.reduce(
+		(result, current) =>
+			current.properties || current.loadError ? result + 1 : result,
+		0
+	) / state.formats.length;
+
+/*
+What format, if any, is loading? Only one can load at a time.
+*/
+
+export const formatLoading = state => state.formats.find(f => f.loading);
 
 /* Looking up a format by ID. */
 

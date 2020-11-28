@@ -3,8 +3,8 @@
 		<story-list-top-bar @changeSort="onChangeSort" :sort-by="sortBy" />
 		<main-content :title="title">
 			<p v-if="stories.length === 0" v-t="'storyList.noStories'" />
-			<div class="stories">
-				<story-list-item
+			<card-group column-width="450px">
+				<story-card
 					v-for="story in stories"
 					@edit="onEditStory"
 					:key="story.id"
@@ -13,24 +13,29 @@
 					:story="story"
 					@test="onTestStory"
 				/>
-			</div>
+			</card-group>
 		</main-content>
 	</div>
 </template>
 
 <script>
 import sortBy from 'lodash.sortby';
-import StoryListItem from '@/components/story/story-list-item';
+import CardGroup from '@/components/container/card-group';
+import StoryCard from '@/components/story/story-card';
 import StoryListTopBar from './top-bar';
-import MainContent from '@/components/main-layout/main-content';
+import MainContent from '@/components/container/main-content';
 import openUrl from '@/util/open-url';
 import {publishStory} from '@/store/publish';
 import saveHtml from '@/util/save-html';
 import {storyFilename} from '@/util/publish';
-import './index.less';
 
 export default {
-	components: {StoryListItem, MainContent, StoryListTopBar},
+	components: {
+		CardGroup,
+		StoryCard,
+		MainContent,
+		StoryListTopBar
+	},
 	computed: {
 		stories() {
 			const result = sortBy(this.$store.state.story.stories, this.sortBy);

@@ -1,0 +1,17 @@
+.passage-map .link-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	/*
+	Unclear why, but right and bottom do not work here--have to use width
+	and height instead.
+	*/
+
+	height: 100%;
+	width: 100%;
+}
+
+.passage-map .passage-item {
+	z-index: 2;
+}

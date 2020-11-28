@@ -1,0 +1,42 @@
+@import '../../styles/colors.css';
+@import '../../styles/depth.css';
+@import '../../styles/metrics.css';
+@import '../../styles/typography.css';
+
+.code-area {
+	display: flex;
+	flex-direction: column;
+}
+
+.code-area > label {
+	flex-grow: 1;
+	flex-shrink: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+.code-area > label > .label {
+	display: block;
+	margin-bottom: var(--grid-gap);
+}
+
+.code-area .vue-codemirror {
+	flex-grow: 1;
+	flex-shrink: 1;
+	display: flex;
+}
+
+.code-area .CodeMirror {
+	background: var(--white);
+	border-radius: var(--corner-round);
+	border: 1px solid var(--light-gray);
+	flex-grow: 1;
+	flex-shrink: 1;
+	font: 100% var(--font-ui);
+	height: inherit;
+	padding: calc(var(--grid-size) / 2);
+}
+
+.code-area.font-monospace .CodeMirror {
+	font-family: var(--font-code);
+}

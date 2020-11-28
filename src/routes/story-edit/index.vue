@@ -1,7 +1,7 @@
 <template>
 	<div class="story-edit">
 		<story-edit-top-bar @create-passage="onCreatePassage" :story="story" />
-		<top-confirm
+		<confirm-modal
 			@cancel="deletingPassage = null"
 			@confirm="deletePassage"
 			confirm-icon="trash-2"
@@ -34,24 +34,24 @@
 </template>
 
 <script>
+import ConfirmModal from '@/components/modal/confirm-modal';
 import GraphPaper from '@/components/surface/graph-paper';
 import MarqueeSelection from '@/components/marquee-selection';
-import MainContent from '@/components/main-layout/main-content';
+import MainContent from '@/components/container/main-content';
 import openUrl from '@/util/open-url';
 import PassageMap from './passage-map';
 import StoryEditTopBar from './top-bar';
-import TopConfirm from '@/components/main-layout/top-confirm';
 import zoomTransitions from './zoom-transitions';
-import './index.less';
+import './index.css';
 
 export default {
 	components: {
+		ConfirmModal,
 		GraphPaper,
 		MainContent,
 		MarqueeSelection,
 		PassageMap,
-		StoryEditTopBar,
-		TopConfirm
+		StoryEditTopBar
 	},
 	computed: {
 		containerStyle() {

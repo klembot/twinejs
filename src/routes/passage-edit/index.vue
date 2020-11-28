@@ -44,24 +44,25 @@
 				/>
 			</template>
 		</top-bar>
-		<top-confirm
+		<confirm-modal
 			@cancel="toggleDelete"
 			@confirm="onDelete"
 			confirmIcon="trash-2"
 			confirmLabel="common.delete"
 			confirmType="danger"
-			:message="$t('passageEdit.deletePrompt')"
+			:detail="$t('passageEdit.deleteDetail')"
+			:message="$t('passageEdit.deleteMessage')"
 			:visible="deleteVisible"
 		/>
-		<top-prompt
+		<prompt-modal
 			@cancel="toggleRename"
 			:defaultValue="passage.name"
-			:message="$t('passageEdit.renamePrompt')"
+			:detail="$t('passageEdit.renameDetail')"
+			:message="$t('passageEdit.renameMessage')"
 			@submit="onRename"
 			submitLabel="common.rename"
 			:visible="renameVisible"
-		>
-		</top-prompt>
+		/>
 		<main-content :title="passage.name">
 			<code-area @change="onChangeText" :value="passage.text" />
 		</main-content>
@@ -69,25 +70,25 @@
 </template>
 
 <script>
-import CodeArea from '@/components/input/code-area';
-import DropdownButton from '@/components/input/dropdown-button';
-import IconButton from '@/components/input/icon-button';
-import TopBar from '@/components/main-layout/top-bar';
-import MainContent from '@/components/main-layout/main-content';
+import CodeArea from '@/components/control/code-area';
+import DropdownButton from '@/components/control/dropdown-button';
+import IconButton from '@/components/control/icon-button';
+import TopBar from '@/components/container/top-bar';
+import MainContent from '@/components/container/main-content';
 import openUrl from '@/util/open-url';
-import TopConfirm from '@/components/main-layout/top-confirm';
-import TopPrompt from '@/components/main-layout/top-prompt';
-import './index.less';
+import ConfirmModal from '@/components/modal/confirm-modal';
+import PromptModal from '@/components/modal/prompt-modal';
+import './index.css';
 
 export default {
 	components: {
 		CodeArea,
+		ConfirmModal,
 		DropdownButton,
 		IconButton,
 		MainContent,
-		TopBar,
-		TopConfirm,
-		TopPrompt
+		PromptModal,
+		TopBar
 	},
 	computed: {
 		isStartPassage() {

@@ -1,0 +1,8 @@
+.story-edit-javascript .main-content {
+	display: flex;
+	flex-direction: column;
+}
+
+.story-edit-javascript .main-content .code-area {
+	flex-grow: 1;
+}

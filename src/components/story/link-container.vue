@@ -26,9 +26,9 @@
 	</svg>
 </template>
 <script>
-import './link-container.less';
+import './link-container.css';
 
 export default {
-	namme: 'link-container'
+	name: 'link-container'
 };
 </script>

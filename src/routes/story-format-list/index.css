@@ -1,0 +1,3 @@
+.story-format-list .story-format-group:not(:first-child) {
+	margin-top: calc(var(--grid-size) * 4);
+}

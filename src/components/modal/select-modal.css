@@ -1,0 +1,14 @@
+@import '../../styles/metrics.css';
+
+.select-modal .content .text-select select {
+	width: 100%;
+}
+
+.select-modal .content .loading-message {
+	align-items: center;
+	display: flex;
+}
+
+.select-modal .content .loading-message .icon-image {
+	margin-right: calc(var(--grid-size) / 2);
+}

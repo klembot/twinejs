@@ -1,0 +1,11 @@
+@import '../../styles/metrics.css';
+
+.card-group {
+	display: grid;
+	grid-gap: var(--ui-gap);
+	margin: var(--ui-gap) auto;
+}
+
+.card-group .base-card {
+	height: 100%;
+}
