@@ -2,3 +2,9 @@
 	height: auto;
 	width: 100%;
 }
+
+@media (prefers-color-scheme: dark) {
+	.story-card > .image {
+		filter: invert() brightness(1.5);
+	}
+}

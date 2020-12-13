@@ -96,9 +96,9 @@ export function fakeStoryObject(passageCount) {
 		storyFormatVersion: system.semver(),
 		stylesheet: lorem.words(Math.floor(Math.random() * 10)),
 		tagColors: {
-			[tags[0]]: internet.color(),
-			[tags[1]]: internet.color(),
-			[tags[2]]: internet.color()
+			[tags[0]]: 'red',
+			[tags[1]]: 'green',
+			[tags[2]]: 'blue'
 		},
 		zoom: Math.random()
 	};

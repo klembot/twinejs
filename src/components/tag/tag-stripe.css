@@ -1,0 +1,40 @@
+@import '../../styles/colors.css';
+
+.tag-stripe {
+	display: flex;
+}
+
+.tag-stripe span {
+	flex-grow: 1;
+	height: 2px;
+	border-radius: 1px;
+	margin-bottom: 2px;
+}
+
+.tag-stripe span + span {
+	margin-left: 2px;
+}
+
+.tag-stripe .color-red {
+	background: var(--red);
+}
+
+.tag-stripe .color-orange {
+	background: var(--orange);
+}
+
+.tag-stripe .color-yellow {
+	background: var(--yellow);
+}
+
+.tag-stripe .color-green {
+	background: var(--green);
+}
+
+.tag-stripe .color-blue {
+	background: var(--blue);
+}
+
+.tag-stripe .color-purple {
+	background: var(--purple);
+}

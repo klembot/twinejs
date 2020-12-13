@@ -21,6 +21,7 @@
 					:passages="story.passages"
 					@select-exclusive="onSelectPassageExclusive"
 					@select-inclusive="onSelectPassageInclusive"
+					:tagColors="story.tagColors"
 					@test="onTestPassage"
 					:zoom="apparentZoom"
 				>

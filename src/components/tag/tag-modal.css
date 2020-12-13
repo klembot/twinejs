@@ -1,0 +1,10 @@
+@import '../../styles/metrics.css';
+
+.add-tag-modal .controls {
+	display: grid;
+	grid-gap: var(--grid-size);
+}
+
+.add-tag-modal .controls .label {
+	width: 3em;
+}

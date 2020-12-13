@@ -30,6 +30,7 @@
 	background: var(--white);
 	border-radius: var(--corner-round);
 	border: 1px solid var(--light-gray);
+	color: var(--dark-gray);
 	flex-grow: 1;
 	flex-shrink: 1;
 	font: 100% var(--font-ui);

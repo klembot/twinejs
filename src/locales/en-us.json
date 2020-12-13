@@ -8,10 +8,20 @@
 		"title": "Twine {version} (Build {buildNumber})",
 		"twineDescription": "Twine is an open-source application for telling interactive, nonlinear stories."
 	},
+	"colors": {
+		"none": "No Color",
+		"red": "Red",
+		"orange": "Orange",
+		"yellow": "Yellow",
+		"green": "Green",
+		"blue": "Blue",
+		"purple": "Purple"
+	},
 	"common": {
 		"add": "Add",
 		"appName": "Twine",
 		"cancel": "Cancel",
+		"color": "Color",
 		"create": "Create",
 		"delete": "Delete",
 		"duplicate": "Duplicate",
@@ -26,7 +36,9 @@
 		"publishToFile": "Publish To File",
 		"rename": "Rename",
 		"remove": "Remove",
+		"save": "Save",
 		"skip": "Skip",
+		"tag": "Tag",
 		"test": "Test"
 	},
 	"components": {
@@ -102,6 +114,11 @@
 		"sizeSmall": "Small",
 		"sizeTall": "Tall",
 		"sizeWide": "Wide",
+		"tagToolbar": {
+			"addTagHeader": "Add a Tag",
+			"editTagDetail": "This will also change this tag in any other passages it's applied to.",
+			"editTagHeader": "Edit Tag"
+		},
 		"testFromHere": "Test Story From Here"
 	},
 	"store": {

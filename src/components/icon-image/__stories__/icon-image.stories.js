@@ -12,7 +12,8 @@ export const specimen = () => ({
 				...Object.keys(icons),
 				'empty',
 				'grid-small',
-				'loading-spinner'
+				'loading-spinner',
+				'tag-nub'
 			].sort();
 		}
 	},
