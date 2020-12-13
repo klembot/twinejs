@@ -13,6 +13,7 @@
 			@select-exclusive="onSelectPassage(passage, true)"
 			@select-inclusive="onSelectPassage(passage, false)"
 			:show-excerpt="showPassageExcerpts"
+			:tagColors="tagColors"
 			@test="onTestPassage"
 			:zoom="zoom"
 		/>
@@ -134,19 +135,11 @@ export default {
 	},
 	props: {
 		/* An object of 'passage name' => ['passage 1', 'passage 2'] entries. */
-		passageLinks: {
-			required: true,
-			type: Object
-		},
+		passageLinks: {required: true, type: Object},
 		/* Passage objects, straight as children of the story object. */
-		passages: {
-			required: true,
-			type: Array
-		},
-		zoom: {
-			required: true,
-			type: Number
-		}
+		passages: {required: true, type: Array},
+		tagColors: {required: true, type: Object},
+		zoom: {required: true, type: Number}
 	}
 };
 </script>

@@ -64,6 +64,13 @@
 			:visible="renameVisible"
 		/>
 		<main-content :title="passage.name">
+			<tag-toolbar
+				:passage="passage"
+				:tagColors="story.tagColors"
+				@add-tag="onAddTag"
+				@edit-tag="onEditTag"
+				@remove-tag="onRemoveTag"
+			/>
 			<code-area @change="onChangeText" :value="passage.text" />
 		</main-content>
 	</div>
@@ -78,6 +85,7 @@ import MainContent from '@/components/container/main-content';
 import openUrl from '@/util/open-url';
 import ConfirmModal from '@/components/modal/confirm-modal';
 import PromptModal from '@/components/modal/prompt-modal';
+import TagToolbar from './tag-toolbar';
 import './index.css';
 
 export default {
@@ -88,6 +96,7 @@ export default {
 		IconButton,
 		MainContent,
 		PromptModal,
+		TagToolbar,
 		TopBar
 	},
 	computed: {
@@ -143,6 +152,35 @@ export default {
 		next();
 	},
 	methods: {
+		onAddTag({color, name}) {
+			this.$store.dispatch('story/addPassageTag', {
+				passageId: this.passage.id,
+				storyId: this.story.id,
+				tagName: name
+			});
+			this.$store.dispatch('story/setTagColor', {
+				storyId: this.story.id,
+				tagColor: color,
+				tagName: name
+			});
+		},
+		onEditTag({newColor, newName, oldColor, oldName}) {
+			if (newName !== oldName) {
+				this.$store.dispatch('story/renameTag', {
+					newTagName: newName,
+					oldTagName: oldName,
+					storyId: this.story.id
+				});
+			}
+
+			if (newColor !== oldColor) {
+				this.$store.dispatch('story/setTagColor', {
+					storyId: this.story.id,
+					tagColor: newColor,
+					tagName: newName
+				});
+			}
+		},
 		onChangeSize(passageSizeDescription) {
 			this.$store.dispatch('story/updatePassageSize', {
 				passageSizeDescription,
@@ -163,6 +201,13 @@ export default {
 				storyId: this.story.id
 			});
 			this.$router.push(`/stories/${this.story.id}`);
+		},
+		onRemoveTag(tagName) {
+			this.$store.dispatch('story/removePassageTag', {
+				tagName,
+				passageId: this.passage.id,
+				storyId: this.story.id
+			});
 		},
 		onRename(value) {
 			this.$store.dispatch('story/updatePassage', {

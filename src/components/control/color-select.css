@@ -1,0 +1,84 @@
+@import '../../styles/accessibility.css';
+@import '../../styles/colors.css';
+@import '../../styles/metrics.css';
+
+.color-select > label {
+	align-items: center;
+	display: inline-flex;
+	position: relative;
+	width: 100%;
+}
+
+.color-select > label > .control {
+	border: 1px solid var(--light-gray);
+	border-radius: var(--corner-round);
+	display: inline-block;
+	flex-grow: 1;
+	margin-left: var(--grid-size);
+	position: relative;
+}
+
+.color-select > label > .control > .proxy {
+	align-items: center;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	left: calc(var(--grid-size) / 2);
+	pointer-events: none;
+	position: absolute;
+	top: 0;
+	width: 24px;
+}
+
+.color-select > label > .control > .proxy .icon-image {
+	position: relative;
+	top: 2px;
+}
+
+.color-select > label > .control > .proxy.none svg {
+	stroke-dasharray: 4px;
+}
+
+.color-select > label > .control > .proxy.red svg {
+	fill: var(--red);
+	stroke: var(--red);
+}
+
+.color-select > label > .control > .proxy.orange svg {
+	fill: var(--orange);
+	stroke: var(--orange);
+}
+
+.color-select > label > .control > .proxy.yellow svg {
+	fill: var(--yellow);
+	stroke: var(--yellow);
+}
+
+.color-select > label > .control > .proxy.green svg {
+	fill: var(--green);
+	stroke: var(--green);
+}
+
+.color-select > label > .control > .proxy.blue svg {
+	fill: var(--blue);
+	stroke: var(--blue);
+}
+
+.color-select > label > .control > .proxy.purple svg {
+	fill: var(--purple);
+	stroke: var(--purple);
+}
+
+.color-select > label > .control > select {
+	-webkit-appearance: none;
+	background: var(--white) url('~feather-icons/dist/icons/chevron-down.svg');
+	background-position: center right;
+	background-repeat: no-repeat;
+	border: none;
+	color: var(--dark-gray);
+	font: 100% var(--font-ui);
+	height: var(--control-height);
+	padding: var(--grid-size) calc(var(--grid-size) + 16px) var(--grid-size)
+		calc(var(--grid-size) * 2 + 16px);
+	width: 100%;
+}

@@ -13,7 +13,10 @@
 					:selected="passage.selected"
 					:style="dimensions"
 				>
-					<template v-slot:header>{{ passage.name }}</template>
+					<template v-slot:header>
+						<tag-stripe :tagColors="tagColors" :tags="passage.tags" />
+						{{ passage.name }}
+					</template>
 					<div class="excerpt" v-if="showExcerpt">{{ excerpt }}</div>
 				</base-card>
 			</div>
@@ -41,9 +44,10 @@
 
 import BaseCard from '../container/base-card';
 import ButtonCard from '../container/button-card';
+import domMixin from '@/util/vue-dom-mixin';
 import HoverOver from '../container/hover-over';
 import IconButton from '../control/icon-button';
-import domMixin from '@/util/vue-dom-mixin';
+import TagStripe from '../tag/tag-stripe.vue';
 import './passage-card.css';
 
 /*
@@ -53,7 +57,7 @@ toolbar before hiding it, in milliseconds.
 const hoverTimeout = 250;
 
 export default {
-	components: {BaseCard, ButtonCard, HoverOver, IconButton},
+	components: {BaseCard, ButtonCard, HoverOver, IconButton, TagStripe},
 	computed: {
 		classes() {
 			return {
@@ -238,26 +242,12 @@ export default {
 	mixins: [domMixin],
 	name: 'passage-item',
 	props: {
-		offsetX: {
-			default: 0,
-			type: Number
-		},
-		offsetY: {
-			default: 0,
-			type: Number
-		},
-		passage: {
-			required: true,
-			type: Object
-		},
-		showExcerpt: {
-			default: true,
-			type: Boolean
-		},
-		zoom: {
-			required: true,
-			type: Number
-		}
+		offsetX: {default: 0, type: Number},
+		offsetY: {default: 0, type: Number},
+		passage: {required: true, type: Object},
+		showExcerpt: {default: true, type: Boolean},
+		tagColors: {required: true, type: Object},
+		zoom: {required: true, type: Number}
 	}
 };
 </script>

@@ -1,0 +1,25 @@
+@import '../../styles/colors.css';
+
+.tag-button.color-red .dropdown-button .icon-button svg {
+	color: var(--red);
+}
+
+.tag-button.color-orange .dropdown-button .icon-button svg {
+	color: var(--orange);
+}
+
+.tag-button.color-yellow .dropdown-button .icon-button svg {
+	color: var(--yellow);
+}
+
+.tag-button.color-green .dropdown-button .icon-button svg {
+	color: var(--green);
+}
+
+.tag-button.color-blue .dropdown-button .icon-button svg {
+	color: var(--blue);
+}
+
+.tag-button.color-purple .dropdown-button .icon-button svg {
+	color: var(--purple);
+}

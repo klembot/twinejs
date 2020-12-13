@@ -11,11 +11,13 @@
 import {icons} from 'feather-icons';
 import emptySvg from './extra-icons/empty.svg';
 import gridSmallSvg from './extra-icons/grid-small.svg';
+import tagNubSvg from './extra-icons/tag-nub.svg';
 import './index.css';
 
 const extraIcons = {
 	empty: emptySvg,
-	'grid-small': gridSmallSvg
+	'grid-small': gridSmallSvg,
+	'tag-nub': tagNubSvg
 };
 
 export default {
