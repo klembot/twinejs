@@ -10,10 +10,6 @@
 	overflow: hidden;
 }
 
-.base-card > .image {
-	background: var(--off-white);
-}
-
 .base-card > .image > img {
 	height: auto;
 	width: 100%;
@@ -72,7 +68,7 @@
 
 .base-card.selected {
 	background: var(--light-blue);
-	border-color: var(--blue);
+	box-shadow: var(--shadow-small), inset 0 0 0 1px var(--blue);
 }
 
 .base-card.selected > .body > .actions {
