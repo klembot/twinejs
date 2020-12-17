@@ -1,6 +1,6 @@
 :root {
 	--black: black;
-	--off-white: hsl(0, 0%, 97%);
+	--off-white: hsl(0, 0%, 96%);
 	--white: white;
 	--dark-gray-translucent: hsla(0, 0%, 0%, 0.7);
 	--dark-gray: hsl(0, 0%, 30%);
@@ -32,7 +32,7 @@
 	--light-purple: hsl(272, 90%, 90%);
 	--light-purple-translucent: hsla(272, 90%, 60%, 0.25);
 
-	--graph-paper-bg: var(--light-blue);
+	--graph-paper-bg: hsl(212, 90%, 96%);
 	--graph-paper-major-line: hsla(212, 90%, 60%, 0.25);
 	--graph-paper-minor-line: hsla(212, 90%, 60%, 0.125);
 }
@@ -48,6 +48,11 @@
 		--light-gray: hsl(0, 0%, 20%);
 		--light-gray-translucent: hsla(0, 0%, 60%, 0.25);
 
+		--dark-blue: hsl(212, 90%, 70%);
+		--blue: hsl(212, 90%, 40%);
+		--light-blue: hsl(212, 90%, 15%);
+		--light-blue-translucent: hsla(212, 90%, 60%, 0.25);
+
 		--graph-paper-bg: hsl(212, 90%, 10%);
 		--graph-paper-major-line: hsla(212, 90%, 60%, 0.125);
 		--graph-paper-minor-line: hsla(212, 90%, 60%, 0.0625);
@@ -56,4 +61,12 @@
 
 body {
 	color: var(--dark-gray);
+}
+
+a {
+	color: var(--dark-blue);
+}
+
+a:visited {
+	color: var(--dark-purple);
 }
