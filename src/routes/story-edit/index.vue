@@ -13,6 +13,10 @@
 		<main-content :padded="false" mouse-scrolling ref="mainContent">
 			<div class="container" :style="containerStyle">
 				<graph-paper :zoom="apparentZoom" />
+				<marquee-selection
+					@select="onMarqueeSelect"
+					@start-select="onMarqueeSelectStart"
+				/>
 				<passage-map
 					@delete="onDeletePassage"
 					@edit="onEditPassage"
@@ -25,10 +29,7 @@
 					@test="onTestPassage"
 					:zoom="apparentZoom"
 				>
-					<marquee-selection
-						@select="onMarqueeSelect"
-						@start-select="onMarqueeSelectStart"
-				/></passage-map>
+				</passage-map>
 			</div>
 		</main-content>
 	</div>

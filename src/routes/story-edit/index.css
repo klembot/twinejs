@@ -11,8 +11,7 @@
 	z-index: 3;
 }
 
-.story-edit .graph-paper,
-.story-edit .passage-map {
+.story-edit .graph-paper {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -21,6 +20,9 @@
 }
 
 .story-edit .passage-map {
+	position: absolute;
+	top: 0;
+	left: 0;
 	/* Above <graph-paper>. */
 	z-index: 2;
 }

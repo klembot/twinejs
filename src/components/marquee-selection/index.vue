@@ -50,14 +50,16 @@ export default {
 	}),
 	methods: {
 		onStartDrag(event) {
+			const parentRect = this.$el.parentNode.getBoundingClientRect();
+
 			/*
 			If the user is holding down shift or control, then this is an
 			additive selection.
 			*/
 
 			this.additive = event.shiftKey || event.ctrlKey;
-			this.startX = event.clientX + window.pageXOffset;
-			this.startY = event.clientY + window.pageYOffset;
+			this.startX = event.clientX - parentRect.left;
+			this.startY = event.clientY - parentRect.top;
 			this.currentX = this.startX;
 			this.currentY = this.startY;
 			this.on(window, 'mousemove', this.onFollowDrag);
@@ -75,8 +77,10 @@ export default {
 			event.preventDefault();
 		},
 		onFollowDrag(event) {
-			this.currentX = event.clientX + window.pageXOffset;
-			this.currentY = event.clientY + window.pageYOffset;
+			const parentRect = this.$el.parentNode.getBoundingClientRect();
+
+			this.currentX = event.clientX - parentRect.left;
+			this.currentY = event.clientY - parentRect.top;
 			this.$emit('select', {additive: this.additive, ...this.rect});
 			event.preventDefault();
 		},
