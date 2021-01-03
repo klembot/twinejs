@@ -2,7 +2,10 @@
 	"directories": {"output": "dist/electron"},
 	"forceCodeSigning": false,
 	"linux": {
-		"target": "zip"
+		"target": {
+			"target": "zip",
+			"arch": ["ia32", "x64"]
+		}
 	},
 	"mac": {
 		"darkModeSupport": true,
@@ -15,6 +18,9 @@
 	},
 	"win": {
 		"icon": "icons/app.ico",
-		"target": "nsis"
+		"target": {
+			"target": "nsis",
+			"arch": ["x64"]
+		}
 	}
 }
