@@ -9,14 +9,21 @@
 
 .text-line > label > input {
 	background: var(--white);
-	border: 1px solid var(--light-gray);
+	border: 1px solid var(--faint-gray);
 	border-radius: var(--corner-round);
+	box-shadow: inset 0 1px 0 var(--light-gray);
 	color: var(--dark-gray);
 	flex-grow: 1;
 	font: 100% var(--font-ui);
 	height: var(--control-height);
 	margin-left: var(--grid-size);
 	padding: var(--grid-size);
+}
+
+@media (prefers-color-scheme: dark) {
+	.text-line > label > input {
+		box-shadow: inset 0 -1px 0 var(--light-gray);
+	}
 }
 
 .text-line.orientation-vertical > label {

@@ -5,6 +5,7 @@
 	--dark-gray-translucent: hsla(0, 0%, 0%, 0.7);
 	--dark-gray: hsl(0, 0%, 30%);
 	--gray: hsl(0, 0%, 60%);
+	--faint-gray: hsl(0, 0%, 90%);
 	--light-gray: hsl(0, 0%, 85%);
 	--light-gray-translucent: hsla(0, 0%, 60%, 0.25);
 	--dark-red: hsl(2, 90%, 40%);
@@ -47,6 +48,7 @@
 		--gray: hsl(0, 0%, 40%);
 		--light-gray: hsl(0, 0%, 20%);
 		--light-gray-translucent: hsla(0, 0%, 60%, 0.25);
+		--faint-gray: hsl(0, 0%, 15%);
 
 		--dark-blue: hsl(212, 90%, 70%);
 		--blue: hsl(212, 90%, 40%);

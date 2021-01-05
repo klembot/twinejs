@@ -29,13 +29,20 @@
 .code-area .CodeMirror {
 	background: var(--white);
 	border-radius: var(--corner-round);
-	border: 1px solid var(--light-gray);
+	border: 1px solid var(--faint-gray);
+	box-shadow: inset 0 1px 0 var(--light-gray);
 	color: var(--dark-gray);
 	flex-grow: 1;
 	flex-shrink: 1;
 	font: 100% var(--font-ui);
 	height: inherit;
 	padding: calc(var(--grid-size) / 2);
+}
+
+@media (prefers-color-scheme: dark) {
+	.code-area .CodeMirror {
+		box-shadow: inset 0 -1px 0 var(--light-gray);
+	}
 }
 
 .code-area.font-monospace .CodeMirror {
