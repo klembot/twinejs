@@ -1,7 +1,8 @@
 <template>
 	<button :class="classes" @click="onClick">
 		<img :src="image" :alt="imageAltText" />
-		{{ label }}
+		<span v-if="label" v-t="label" />
+		<span><slot></slot></span>
 	</button>
 </template>
 

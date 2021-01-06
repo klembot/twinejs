@@ -10,8 +10,9 @@
 				<template v-else>
 					<text-select
 						@change="onChangeValue"
-						:options="['red', 'green', 'blue']"
+						:options="options"
 						orientation="vertical"
+						:value="value"
 						>{{ detail }}</text-select
 					>
 				</template>
@@ -46,16 +47,15 @@ export default {
 		onCancel() {
 			this.$emit('cancel');
 		},
-		onChangeValue(event) {
-			console.log('onChangeValue', event.target.value);
-			this.value = event.target.value;
+		onChangeValue(value) {
+			this.value = value;
 			this.$emit('change', this.value);
 		},
 		onSubmit() {
 			this.$emit('submit', this.value);
 		}
 	},
-	name: 'top-select',
+	name: 'select-modal',
 	props: {
 		defaultValue: String,
 		detail: {
@@ -91,6 +91,11 @@ export default {
 	watch: {
 		defaultValue() {
 			if (!this.value) {
+				this.value = this.defaultValue;
+			}
+		},
+		loadingMessage(value) {
+			if (!value) {
 				this.value = this.defaultValue;
 			}
 		},
