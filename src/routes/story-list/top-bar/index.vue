@@ -96,7 +96,7 @@ import {archiveFilename} from '@/util/publish';
 import DropdownButton from '@/components/control/dropdown-button';
 import IconButton from '@/components/control/icon-button';
 import isElectron from '@/util/is-electron';
-import openUrl from '@/util/open-url';
+import launchUrl from '@/util/launch-url';
 import {publishArchive} from '@/store/publish';
 import LocalStorageQuota from '@/components/local-storage-quota';
 import PromptModal from '@/components/modal/prompt-modal';
@@ -141,10 +141,10 @@ export default {
 			this.$router.push('/about');
 		},
 		showBugs() {
-			openUrl('https://twinery.org/2bugs');
+			launchUrl('https://twinery.org/2bugs');
 		},
 		showHelp() {
-			openUrl('https://twinery.org/2guide');
+			launchUrl('https://twinery.org/2guide');
 		},
 		showStoryFormats() {
 			this.$router.push('/story-formats');

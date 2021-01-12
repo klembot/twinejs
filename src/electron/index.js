@@ -12,6 +12,7 @@ import {loadStories} from './story-file';
 import initMenuBar from './menu-bar';
 import {load as loadJson} from './json-file';
 import {setLocale} from '../util/i18n';
+import './open-with-temp-file';
 
 global.hydrate = {};
 
@@ -119,6 +120,7 @@ app.on('ready', async () => {
 
 	if (process.env.WEBPACK_DEV_SERVER_URL) {
 		win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
+
 		if (!process.env.IS_TEST) {
 			win.webContents.openDevTools();
 		}

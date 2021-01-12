@@ -38,9 +38,9 @@
 <script>
 import ConfirmModal from '@/components/modal/confirm-modal';
 import GraphPaper from '@/components/surface/graph-paper';
+import launchStory from '@/util/launch-story';
 import MarqueeSelection from '@/components/marquee-selection';
 import MainContent from '@/components/container/main-content';
-import openUrl from '@/util/open-url';
 import PassageMap from './passage-map';
 import StoryEditTopBar from './top-bar';
 import zoomTransitions from './zoom-transitions';
@@ -172,7 +172,10 @@ export default {
 			});
 		},
 		onTestPassage(passage) {
-			openUrl(`/stories/${this.story.id}/test/${passage.id}`);
+			launchStory(this.$store, this.story.id, {
+				startPassage: passage.id,
+				test: true
+			});
 		}
 	},
 	mixins: [zoomTransitions],

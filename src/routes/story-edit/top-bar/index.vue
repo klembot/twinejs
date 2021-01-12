@@ -97,11 +97,11 @@
 <script>
 import DropdownButton from '@/components/control/dropdown-button';
 import IconButton from '@/components/control/icon-button';
+import launchStory from '@/util/launch-story';
 import PromptModal from '@/components/modal/prompt-modal';
 import SelectModal from '@/components/modal/select-modal';
 import TextLine from '@/components/control/text-line';
 import TopBar from '@/components/container/top-bar';
-import openUrl from '@/util/open-url';
 import '@/styles/accessibility.css';
 
 export default {
@@ -136,7 +136,7 @@ export default {
 
 			const format = this.allStoryFormats.find(
 				f =>
-					f.name === this.story.storyFormatName &&
+					f.name === this.story.storyFormat &&
 					f.version === this.story.storyFormatVersion
 			);
 
@@ -185,10 +185,10 @@ export default {
 			this.$router.push(`/stories/${this.story.id}/search`);
 		},
 		playStory() {
-			openUrl(`/stories/${this.story.id}/play`);
+			launchStory(this.$store, this.story.id);
 		},
 		proofStory() {
-			openUrl(`/stories/${this.story.id}/proof`);
+			launchStory(this.$store, this.story.id, {proof: true});
 		},
 		setStoryFormat(value) {
 			const format = this.allStoryFormats.find(f => f.id === value);
@@ -197,25 +197,17 @@ export default {
 				throw new Error(`Can't find story format with ID "${value}"`);
 			}
 
-			console.log({
-				storyId: this.story.id,
-				storyProps: {
-					storyFormatName: format.name,
-					storyFormatVersion: format.version
-				}
-			});
-
 			this.$store.dispatch('story/updateStory', {
 				storyId: this.story.id,
 				storyProps: {
-					storyFormatName: format.name,
+					storyFormat: format.name,
 					storyFormatVersion: format.version
 				}
 			});
 			this.toggleFormatSelect();
 		},
 		testStory() {
-			openUrl(`/stories/${this.story.id}/test`);
+			launchStory(this.$store, this.story.id, {test: true});
 		},
 		renameStory(value) {
 			this.$store.dispatch('story/updateStory', {
