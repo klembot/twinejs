@@ -1,33 +1,30 @@
 import {mount} from '@vue/test-utils';
 import {axe} from 'jest-axe';
-import {normal, withoutShadow} from '../__stories__/image-button.stories';
+import ImageButton from '../image-button';
 import {rules} from '../../../test-utils/axe';
 
 describe('<image-button>', () => {
-	it('displays the text label', () => {
-		expect(mount(normal()).text()).toBe('Hello');
-		expect(mount(withoutShadow()).text()).toBe('Hello');
-	});
+	it('translates the label prop', () =>
+		expect(mount(ImageButton, {propsData: {label: 'mock-label'}}).text()).toBe(
+			'$t: mock-label'
+		));
+
+	it('displays slotted content as-is', () =>
+		expect(
+			mount(ImageButton, {slots: {default: 'mock-slot-content'}}).text()
+		).toBe('mock-slot-content'));
 
 	it('emits click events when clicked', () => {
-		const clickSpy = jest.fn();
-		const wrapper = mount({...normal(), methods: {onClick: clickSpy}});
+		const wrapper = mount(ImageButton);
 
-		wrapper.find('button').trigger('click');
-		expect(clickSpy).toHaveBeenCalledTimes(1);
-		wrapper.find('button').trigger('click');
-		expect(clickSpy).toHaveBeenCalledTimes(2);
+		wrapper.get('button').trigger('click');
+		expect(wrapper.emitted().click).toEqual([[]]);
 	});
 
-	it('is accessible', async () => {
-		async function testAxe(func) {
-			expect(await axe(mount(func()).html(), {rules})).toHaveNoViolations();
-		}
-
-		const instances = [normal, withoutShadow];
-
-		for (let i = 0; i < instances.length; i++) {
-			await testAxe(instances[i]);
-		}
-	});
+	it('is accessible', async () =>
+		expect(
+			await axe(mount(ImageButton, {propsData: {label: 'mock-label'}}).html(), {
+				rules
+			})
+		).toHaveNoViolations());
 });

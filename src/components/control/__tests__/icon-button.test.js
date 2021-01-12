@@ -1,40 +1,41 @@
-import {mount} from '@vue/test-utils';
+import {mount, shallowMount} from '@vue/test-utils';
 import {axe} from 'jest-axe';
-import {
-	secondary,
-	primary,
-	create,
-	danger
-} from '../__stories__/icon-button.stories';
+import IconButton from '../icon-button';
 import {rules} from '../../../test-utils/axe';
 
 describe('<icon-button>', () => {
-	it('displays the text label', () => {
-		expect(mount(secondary()).text()).toBe('Cancel');
+	it('translates the label prop', () =>
+		expect(mount(IconButton, {propsData: {label: 'mock-label'}}).text()).toBe(
+			'$t: mock-label'
+		));
+
+	it('displays slotted content as-is', () =>
+		expect(
+			mount(IconButton, {slots: {default: 'mock-slot-content'}}).text()
+		).toBe('mock-slot-content'));
+
+	it('sets CSS classes on its button based on the type property', async () => {
+		const wrapper = mount(IconButton, {propsData: {type: 'primary'}});
+
+		expect(wrapper.get('.type-primary').exists()).toBe(true);
+		await wrapper.setProps({type: 'create'});
+		expect(wrapper.get('.type-create').exists()).toBe(true);
+		await wrapper.setProps({type: 'danger'});
+		expect(wrapper.get('.type-danger').exists()).toBe(true);
 	});
 
-	it('sets CSS classes on its button based on the type property', () => {
-		function buttonHasClass(func, className) {
-			return mount(func())
-				.find('button')
-				.element.classList.contains(className);
-		}
+	it('displays the icon as specified', () => {
+		const wrapper = shallowMount(IconButton, {propsData: {icon: 'check'}});
+		const icon = wrapper.findComponent({name: 'icon-image'});
 
-		expect(buttonHasClass(primary, 'type-primary')).toBe(true);
-		expect(buttonHasClass(create, 'type-create')).toBe(true);
-		expect(buttonHasClass(danger, 'type-danger')).toBe(true);
+		expect(icon.props().name).toBe('check');
 	});
-
-	// it.todo('displays the icon as specified');
 
 	it('emits click events when clicked', () => {
-		const clickSpy = jest.fn();
-		const wrapper = mount({...primary(), methods: {onClick: clickSpy}});
+		const wrapper = mount(IconButton);
 
-		wrapper.find('button').trigger('click');
-		expect(clickSpy).toHaveBeenCalledTimes(1);
-		wrapper.find('button').trigger('click');
-		expect(clickSpy).toHaveBeenCalledTimes(2);
+		wrapper.get('button').trigger('click');
+		expect(wrapper.emitted().click).toEqual([[]]);
 	});
 
 	it.todo(
@@ -45,15 +46,10 @@ describe('<icon-button>', () => {
 		'prevents the event default of click events with the preventClickDefault prop'
 	);
 
-	it('is accessible', async () => {
-		async function testAxe(func) {
-			expect(await axe(mount(func()).html(), {rules})).toHaveNoViolations();
-		}
-
-		const instances = [primary, secondary, create, danger];
-
-		for (let i = 0; i < instances.length; i++) {
-			await testAxe(instances[i]);
-		}
-	});
+	it('is accessible', async () =>
+		expect(
+			await axe(mount(IconButton, {propsData: {label: 'mock-label'}}).html(), {
+				rules
+			})
+		).toHaveNoViolations());
 });

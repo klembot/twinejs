@@ -82,6 +82,7 @@
 			:message="$t('storyEdit.topBar.setStoryFormatPrompt')"
 			:options="formatOptions"
 			@submit="setStoryFormat"
+			:value="formatId"
 			:visible="showFormatSelect"
 		/>
 		<prompt-modal
@@ -121,12 +122,17 @@ export default {
 		},
 		formatOptions() {
 			return this.allStoryFormats.map(f => ({
-				name: f.name + ' ' + f.version,
+				label: f.name + ' ' + f.version,
 				value: f.id
 			}));
 		},
 		formatId() {
-			console.log(this.story, this.allStoryFormats);
+			// This will falsely return undefined or bad values while story formats
+			// are being loaded (e.g. when formatLoadPercent is less than 1), because
+			// we can't know until they load whether the format is for stories or
+			// proofing. This is designed to provide the best possible value in the
+			// circumstances, but in general, it will only be accurate after story
+			// formats have loaded.
 
 			const format = this.allStoryFormats.find(
 				f =>
@@ -138,7 +144,24 @@ export default {
 				return format.id;
 			}
 
-			return undefined;
+			// We can't find the right story format--default to the user preference.
+
+			const defaultFormat = this.allStoryFormats.find(
+				f =>
+					f.name === this.$store.state.pref.storyFormat.name &&
+					f.version === this.$store.state.pref.storyFormat.version
+			);
+
+			if (defaultFormat) {
+				return defaultFormat.id;
+			}
+
+			// We can't even find the preference, so go with the first format
+			// available if possible.
+
+			return this.allStoryFormats.length > 0
+				? this.allStoryFormats[0].id
+				: undefined;
 		}
 	},
 	data() {
@@ -173,6 +196,14 @@ export default {
 			if (!format) {
 				throw new Error(`Can't find story format with ID "${value}"`);
 			}
+
+			console.log({
+				storyId: this.story.id,
+				storyProps: {
+					storyFormatName: format.name,
+					storyFormatVersion: format.version
+				}
+			});
 
 			this.$store.dispatch('story/updateStory', {
 				storyId: this.story.id,

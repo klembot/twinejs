@@ -5,9 +5,10 @@
 			<select @change="onChange" class="text-select" ref="select">
 				<option
 					v-for="(option, index) in options"
-					:key="option"
+					:key="option.value"
 					:selected="index === selectedIndex"
-					>{{ option }}</option
+					:value="option.value"
+					>{{ option.label }}</option
 				>
 			</select>
 		</label>
@@ -26,7 +27,7 @@ export default {
 			};
 		},
 		selectedIndex() {
-			return this.options.indexOf(this.value);
+			return this.options.findIndex(option => option.value === this.value);
 		}
 	},
 	methods: {
