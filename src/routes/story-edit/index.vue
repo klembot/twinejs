@@ -180,6 +180,16 @@ export default {
 	},
 	mixins: [zoomTransitions],
 	mounted() {
+		/*
+		Because we aren't using <main-content>, we have to set the title ourselves.
+		*/
+
+		document.title = this.story.name;
+
+		/*
+		Automatically create the first passage.
+		*/
+
 		if (this.story.passages.length === 0) {
 			this.$store.dispatch('story/createUntitledPassage', {
 				// FIXME: zoom level
