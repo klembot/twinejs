@@ -16,7 +16,6 @@
 		</p>
 		<template v-slot:actions>
 			<dropdown-button icon="more-horizontal" label="common.more">
-				<icon-button @click="editStory" icon="edit" label="common.edit" />
 				<icon-button @click="playStory" icon="play" label="common.play" />
 				<icon-button @click="testStory" icon="tool" label="common.test" />
 				<icon-button

@@ -80,9 +80,9 @@
 import CodeArea from '@/components/control/code-area';
 import DropdownButton from '@/components/control/dropdown-button';
 import IconButton from '@/components/control/icon-button';
+import launchStory from '@/util/launch-story';
 import TopBar from '@/components/container/top-bar';
 import MainContent from '@/components/container/main-content';
-import openUrl from '@/util/open-url';
 import ConfirmModal from '@/components/modal/confirm-modal';
 import PromptModal from '@/components/modal/prompt-modal';
 import TagToolbar from './tag-toolbar';
@@ -230,7 +230,10 @@ export default {
 			this.renameVisible = !this.renameVisible;
 		},
 		onTest() {
-			openUrl(`/stories/${this.story.id}/test/${this.passage.id}`);
+			launchStory(this.$store, this.story.id, {
+				startPassage: this.passage.id,
+				test: true
+			});
 		}
 	},
 	mounted() {

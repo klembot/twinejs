@@ -20,9 +20,11 @@
 }
 
 .story-edit .passage-map {
+	bottom: 0;
 	position: absolute;
 	top: 0;
 	left: 0;
+	right: 0;
 	/* Above <graph-paper>. */
 	z-index: 2;
 }

@@ -6,7 +6,7 @@ const uuid = require('tiny-uuid');
 export function openWithTempFile(data, suffix) {
 	const tempPath = path.join(app.getPath('temp'), uuid() + suffix);
 
-	return fs.writeFile(tempPath, data).then(() => shell.openItem(tempPath));
+	return fs.writeFile(tempPath, data).then(() => shell.openPath(tempPath));
 }
 
 ipcMain.on('open-with-temp-file', (event, data, suffix) =>

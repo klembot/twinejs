@@ -6,6 +6,6 @@ differently in Electron.
 // TODO
 // import isElectron from './is-electron';
 
-export default function openUrl(url) {
+export default function launchUrl(url) {
 	window.open(url, '_blank');
 }

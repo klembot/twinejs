@@ -21,10 +21,10 @@
 <script>
 import sortBy from 'lodash.sortby';
 import CardGroup from '@/components/container/card-group';
+import launchStory from '@/util/launch-story';
 import StoryCard from '@/components/story/story-card';
 import StoryListTopBar from './top-bar';
 import MainContent from '@/components/container/main-content';
-import openUrl from '@/util/open-url';
 import {publishStory} from '@/store/publish';
 import saveHtml from '@/util/save-html';
 import {storyFilename} from '@/util/publish';
@@ -64,7 +64,7 @@ export default {
 			this.$router.push(`/stories/${story.id}`);
 		},
 		onPlayStory(story) {
-			openUrl(`/stories/${story.id}/play`);
+			launchStory(this.$store, story.id);
 		},
 		async onPublishStory(story) {
 			try {
@@ -78,7 +78,7 @@ export default {
 			}
 		},
 		onTestStory(story) {
-			openUrl(`/stories/${story.id}/test`);
+			launchStory(this.$store, story.id, {test: true});
 		}
 	},
 	watch: {
