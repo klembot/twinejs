@@ -68,7 +68,7 @@
 					/>
 					<icon-button icon="download" label="common.publishToFile" />
 				</dropdown-button>
-				<text-line placeholder="Quick Find" />
+				<text-line placeholder="Quick Find" type="search" />
 			</template>
 		</top-bar>
 		<select-modal

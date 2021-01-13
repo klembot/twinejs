@@ -29,3 +29,7 @@
 	margin-left: 0;
 	margin-top: var(--grid-size);
 }
+
+.text-line.type-search > label > input {
+	border-radius: calc(var(--control-height) / 2);
+}
