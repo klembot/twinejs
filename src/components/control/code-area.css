@@ -38,6 +38,16 @@
 	padding: calc(var(--grid-size) / 2);
 }
 
+/* See https://codemirror.net/doc/manual.html#styling */
+
+.code-area .CodeMirror-cursor {
+	border-left: 2px solid var(--blue);
+}
+
+.code-area .CodeMirror-selected {
+	background: var(--light-blue-translucent);
+}
+
 .code-area.font-monospace .CodeMirror {
 	font-family: var(--font-code);
 }
