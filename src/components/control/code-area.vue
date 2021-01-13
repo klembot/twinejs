@@ -34,7 +34,7 @@ export default {
 			};
 		},
 		codeMirrorOptions() {
-			const result = {mode: this.mode};
+			const result = {lineWrapping: true, mode: this.mode};
 
 			// See https://github.com/codemirror/CodeMirror/issues/5444
 

@@ -1,7 +1,8 @@
 :root {
 	--black: black;
-	--off-white: hsl(0, 0%, 96%);
-	--white: white;
+	--off-white: hsl(0, 0%, 95%);
+	--white: hsl(0, 0%, 98%);
+	--white-translucent: hsla(0, 0%, 100%, 0.7);
 	--dark-gray-translucent: hsla(0, 0%, 0%, 0.7);
 	--dark-gray: hsl(0, 0%, 30%);
 	--gray: hsl(0, 0%, 60%);
@@ -42,11 +43,12 @@
 	:root {
 		--black: white;
 		--off-white: hsl(0, 0%, 10%);
-		--white: black;
+		--white: hsl(0, 0%, 15%);
+		--white-translucent: hsla(0, 0%, 0%, 0.25);
 		--dark-gray-translucent: hsla(0, 0%, 0%, 0.7);
 		--dark-gray: hsl(0, 0%, 70%);
 		--gray: hsl(0, 0%, 40%);
-		--light-gray: hsl(0, 0%, 20%);
+		--light-gray: hsl(0, 0%, 25%);
 		--light-gray-translucent: hsla(0, 0%, 60%, 0.25);
 		--faint-gray: hsl(0, 0%, 15%);
 

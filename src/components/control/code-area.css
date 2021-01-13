@@ -27,10 +27,9 @@
 }
 
 .code-area .CodeMirror {
-	background: var(--white);
+	background: var(--white-translucent);
 	border-radius: var(--corner-round);
 	border: 1px solid var(--faint-gray);
-	box-shadow: inset 0 1px 0 var(--light-gray);
 	color: var(--dark-gray);
 	flex-grow: 1;
 	flex-shrink: 1;
@@ -39,10 +38,14 @@
 	padding: calc(var(--grid-size) / 2);
 }
 
-@media (prefers-color-scheme: dark) {
-	.code-area .CodeMirror {
-		box-shadow: inset 0 -1px 0 var(--light-gray);
-	}
+/* See https://codemirror.net/doc/manual.html#styling */
+
+.code-area .CodeMirror-cursor {
+	border-left: 2px solid var(--blue);
+}
+
+.code-area .CodeMirror-selected {
+	background: var(--light-blue-translucent);
 }
 
 .code-area.font-monospace .CodeMirror {

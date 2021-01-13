@@ -7,7 +7,7 @@
 				@input="onInput"
 				:placeholder="placeholder"
 				:value="value"
-				type="text"
+				:type="type"
 			/>
 		</label>
 	</span>
@@ -21,7 +21,8 @@ export default {
 		classes() {
 			return {
 				'text-line': true,
-				[`orientation-${this.orientation}`]: true
+				[`orientation-${this.orientation}`]: true,
+				[`type-${this.type}`]: true
 			};
 		}
 	},
@@ -41,6 +42,10 @@ export default {
 		},
 		placeholder: {
 			type: String
+		},
+		type: {
+			default: 'text',
+			validator: value => ['search', 'text'].includes(value)
 		},
 		value: {
 			default: '',
