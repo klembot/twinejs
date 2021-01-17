@@ -1,3 +1,4 @@
+import isFinite from 'lodash.isfinite';
 import {passageDefaults, storyDefaults} from '../defaults';
 
 export function repairStories({commit, rootState, state}) {
@@ -86,6 +87,16 @@ export function repairStories({commit, rootState, state}) {
 				},
 				{}
 			);
+
+			/*
+			Ensure passage numeric properties are reasonable.
+			*/
+
+			['height', 'left', 'top', 'width'].forEach(prop => {
+				if (!isFinite(passage[prop]) || passage[prop] < 0) {
+					passageFixes[prop] = passageDefaults[prop];
+				}
+			});
 
 			if (Object.keys(passageFixes).length !== 0) {
 				console.warn(

@@ -1,6 +1,5 @@
 import uuid from 'tiny-uuid';
 import {passageDefaults, storyDefaults} from './defaults';
-import {cleanupPassage} from './cleanup';
 
 export function createStory(state, {storyProps}) {
 	let story = {
@@ -15,12 +14,16 @@ export function createStory(state, {storyProps}) {
 
 	/*
 	If we are prepopulating the story with passages, make sure they have the
-	correct ID linkage, and clean them for basic correctness.
+	correct ID linkage, and at least meake sure basic properties are set. If they
+	are not, Vuex reactivity appears to act unpredictably if these properties are
+	later set.
 	*/
 
-	story.passages = story.passages.map(p =>
-		cleanupPassage({...p, story: story.id})
-	);
+	story.passages = story.passages.map(passage => ({
+		...passageDefaults,
+		...passage,
+		story: story.id
+	}));
 	state.stories.push(story);
 }
 
@@ -57,7 +60,7 @@ export function createPassage(state, {passageProps, storyId}) {
 	const newPassage = {
 		...passageDefaults,
 		id: uuid(),
-		...cleanupPassage(passageProps)
+		...passageProps
 	};
 
 	newPassage.story = storyId;
@@ -90,7 +93,6 @@ export function updatePassage(state, {passageId, passageProps, storyId}) {
 	}
 
 	Object.assign(passage, passageProps);
-	Object.assign(passage, cleanupPassage(passage));
 	story.lastUpdate = new Date();
 
 	// TODO: if the passage's name was updated, change linking passages to match.
