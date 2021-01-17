@@ -13,6 +13,7 @@ module.exports = Vue.extend({
 		/* The locales we offer with their codes. */
 
 		locales: [
+			{label: 'العربية - مصر', code: 'ar-eg'},
 			{label: 'Castellano', code: 'es'},
 			{label: 'Catal&agrave;', code: 'ca'},
 			{label: '&Ccaron;e&scaron;tina', code: 'cs'},
