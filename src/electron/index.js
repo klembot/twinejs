@@ -101,6 +101,7 @@ app.on('ready', async () => {
 		height: 600,
 		show: false,
 		webPreferences: {
+			enableRemoteModule: true,
 			nodeIntegration: false,
 			/* This also needs to be set in vue.config.js. */
 			preload: path.resolve(__dirname, './preload.js')
