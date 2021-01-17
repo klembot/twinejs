@@ -10,7 +10,7 @@ export function repairStories({commit, rootState, state}) {
 					remain separate.
 					*/
 
-					if (typeof storyDefaults[name] === 'object') {
+					if (typeof storyDefaults[defaultName] === 'object') {
 						result[defaultName] = {...storyDefaults[defaultName]};
 					} else {
 						result[defaultName] = storyDefaults[defaultName];
@@ -64,19 +64,21 @@ export function repairStories({commit, rootState, state}) {
 			});
 		}
 
-		story.passages.forEach(p => {
+		story.passages.forEach(passage => {
 			const passageFixes = Object.keys(passageDefaults).reduce(
 				(result, defaultName) => {
-					if (typeof story[defaultName] !== typeof storyDefaults[defaultName]) {
+					if (
+						typeof passage[defaultName] !== typeof passageDefaults[defaultName]
+					) {
 						/*
 						If the default is an object, we need to copy it so stories
 						remain separate.
 						*/
 
-						if (typeof storyDefaults[name] === 'object') {
-							result[defaultName] = {...storyDefaults[defaultName]};
+						if (typeof passageDefaults[defaultName] === 'object') {
+							result[defaultName] = {...passageDefaults[defaultName]};
 						} else {
-							result[defaultName] = storyDefaults[defaultName];
+							result[defaultName] = passageDefaults[defaultName];
 						}
 					}
 
@@ -87,11 +89,11 @@ export function repairStories({commit, rootState, state}) {
 
 			if (Object.keys(passageFixes).length !== 0) {
 				console.warn(
-					`Fixing passage ID ${p.id} properties of story ID ${story.id}`,
+					`Fixing passage ID ${passage.id} properties of story ID ${story.id}`,
 					passageFixes
 				);
 				commit('updatePassage', {
-					passageId: p.id,
+					passageId: passage.id,
 					passageProps: passageFixes,
 					storyId: story.id
 				});
