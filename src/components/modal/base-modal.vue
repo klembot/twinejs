@@ -2,7 +2,7 @@
 	<portal v-if="visible">
 		<div class="base-modal">
 			<div class="overlay" @click="clickAway" />
-			<div class="content"><slot></slot></div>
+			<div class="content" ref="content"><slot></slot></div>
 		</div>
 	</portal>
 </template>
@@ -16,6 +16,18 @@ export default {
 	methods: {
 		clickAway() {
 			this.$emit('click-away');
+		},
+		focusContent() {
+			if (!this.$refs.content) {
+				this.$nextTick(() => this.focusContent());
+				return;
+			}
+
+			const input = this.$refs.content.querySelector('input[type="text"]');
+
+			if (input) {
+				input.focus();
+			}
 		}
 	},
 	name: 'base-modal',
@@ -23,6 +35,21 @@ export default {
 		visible: {
 			default: true,
 			type: Boolean
+		}
+	},
+	state: () => ({
+		previousFocus: null
+	}),
+	watch: {
+		visible(value) {
+			if (value) {
+				this.previousFocus = document.activeElement;
+				this.focusContent();
+			} else {
+				if (this.previousFocus) {
+					this.previousFocus.focus();
+				}
+			}
 		}
 	}
 };
