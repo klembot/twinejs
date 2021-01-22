@@ -129,14 +129,15 @@ export default {
 			this.hideMenu();
 
 			/*
-			Shift- or control-clickfing toggles our selected status, but doesn't
-			affect any other passage's selected status. If the shift or control
-			key was not held down, select only ourselves.
+			Shift- or control-clicking toggles our selected status, but doesn't affect
+			any other passage's selected status. If the shift or control key was not
+			held down and we were not already selected, we know the user wants to
+			select only this passage.
 			*/
 
 			if (event.shiftKey || event.ctrlKey) {
-				this.$emit('select-inclusive');
-			} else {
+				this.$emit(this.passage.selected ? 'deselect' : 'select-inclusive');
+			} else if (!this.passage.selected) {
 				this.$emit('select-exclusive');
 			}
 

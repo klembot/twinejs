@@ -36,6 +36,32 @@ export function selectAllPassages({commit, getters}, {storyId}) {
 	});
 }
 
+export function deselectPassage(
+	{commit, getters},
+	{exclusive, passageId, storyId}
+) {
+	const story = getters.storyWithId(storyId);
+
+	if (!story) {
+		throw new Error(`No story exists with ID "${storyId}".`);
+	}
+
+	const passage = story.passages.find(p => p.id === passageId);
+
+	if (!passage)
+		throw new Error(
+			`There is no passage in this story with ID "${passageId}".`
+		);
+
+	if (passage.selected) {
+		commit('updatePassage', {
+			passageId,
+			storyId,
+			passageProps: {selected: false}
+		});
+	}
+}
+
 export function selectPassage(
 	{commit, getters},
 	{exclusive, passageId, storyId}
