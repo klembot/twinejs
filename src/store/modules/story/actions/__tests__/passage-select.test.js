@@ -1,4 +1,5 @@
 import {
+	deselectPassage,
 	deselectAllPassages,
 	selectAllPassages,
 	selectPassage,
@@ -94,6 +95,72 @@ describe('selectAllPassages action', () => {
 			actionCommits(
 				selectAllPassages,
 				{storyId: story.id + 'nonexistent'},
+				getters
+			)
+		).toThrow());
+});
+
+describe('deselectPassage action', () => {
+	const story = fakeStoryObject(3);
+	const getters = {
+		storyWithId(id) {
+			if (id === story.id) {
+				return story;
+			}
+		}
+	};
+
+	it("sets the passage's selected property", () => {
+		story.passages[0].selected = true;
+		expect(
+			actionCommits(
+				deselectPassage,
+				{passageId: story.passages[0].id, storyId: story.id},
+				getters
+			)
+		).toEqual([
+			[
+				'updatePassage',
+				{
+					passageId: story.passages[0].id,
+					passageProps: {selected: false},
+					storyId: story.id
+				}
+			]
+		]);
+	});
+
+	it('does nothing if the passage is already deselected', () => {
+		story.passages[0].selected = false;
+		expect(
+			actionCommits(
+				deselectPassage,
+				{passageId: story.passages[0].id, storyId: story.id},
+				getters
+			)
+		).toEqual([]);
+	});
+
+	it('throws an error if there is no story with the given ID in state', () =>
+		expect(() =>
+			actionCommits(
+				deselectPassage,
+				{
+					passageId: story.passages[0].id,
+					storyId: story.id + 'nonexistent'
+				},
+				getters
+			)
+		).toThrow());
+
+	it('throws an error if there is no passage with the given ID belonging to the story', () =>
+		expect(() =>
+			actionCommits(
+				deselectPassage,
+				{
+					passageId: story.passages[0].id + 'nonexistent',
+					storyId: story.id
+				},
 				getters
 			)
 		).toThrow());

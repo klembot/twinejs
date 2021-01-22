@@ -19,6 +19,7 @@
 				/>
 				<passage-map
 					@delete="onDeletePassage"
+					@deselect="onDeselectPassage"
 					@edit="onEditPassage"
 					@move-selected="onMoveSelectedPassages"
 					:passage-links="passageLinks"
@@ -122,7 +123,14 @@ export default {
 				storyId: this.story.id
 			});
 		},
+		onDeselectPassage(passage) {
+			this.$store.dispatch('story/deselectPassage', {
+				passageId: passage.id,
+				storyId: this.story.id
+			});
+		},
 		onDeletePassage(passage) {
+			// TODO
 			console.log('onDeletePassage');
 			this.deletingPassage = passage;
 		},

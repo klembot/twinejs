@@ -3,6 +3,7 @@
 		<passage-card
 			v-for="passage in passages"
 			@delete="onDeletePassage"
+			@deselect="onDeselectPassage(passage)"
 			@drag="onDragPassage"
 			@drag-stop="onDragPassageStop"
 			@edit="onEditPassage"
@@ -110,6 +111,9 @@ export default {
 	methods: {
 		onDeletePassage(passage) {
 			this.$emit('delete', passage);
+		},
+		onDeselectPassage(passage) {
+			this.$emit('deselect', passage);
 		},
 		onDragPassage(xChange, yChange) {
 			this.dragXChange = xChange;
