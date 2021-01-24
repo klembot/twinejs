@@ -104,11 +104,11 @@ describe('story format actions module', () => {
 			'story-formats/sugarcube-1.0.35/format.js'
 		);
 		expect(created['SugarCube-1.0.35'].userAdded).to.be.false;
-		expect(created['SugarCube-2.31.1']).to.exist;
-		expect(created['SugarCube-2.31.1'].url).to.equal(
-			'story-formats/sugarcube-2.31.1/format.js'
+		expect(created['SugarCube-2.34.1']).to.exist;
+		expect(created['SugarCube-2.34.1'].url).to.equal(
+			'story-formats/sugarcube-2.34.1/format.js'
 		);
-		expect(created['SugarCube-2.31.1'].userAdded).to.be.false;
+		expect(created['SugarCube-2.34.1'].userAdded).to.be.false;
 	});
 
 	it('sets default formats with repairFormats()', () => {
@@ -167,7 +167,7 @@ describe('story format actions module', () => {
 						{name: 'Snowman', version: '1.4.0'},
 						{name: 'Snowman', version: '2.0.2'},
 						{name: 'SugarCube', version: '1.0.35'},
-						{name: 'SugarCube', version: '2.31.1'}
+						{name: 'SugarCube', version: '2.34.1'}
 					]
 				}
 			}
