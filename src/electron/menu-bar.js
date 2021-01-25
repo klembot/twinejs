@@ -28,7 +28,6 @@ module.exports = () => {
 				{type: 'separator'},
 				{role: 'togglefullscreen'},
 				{type: 'separator'},
-				{role: 'reload'},
 				{role: 'toggledevtools'}
 			]
 		},
