@@ -13,9 +13,17 @@ import './base-modal.css';
 
 export default {
 	components: {Portal},
+	data() {
+		return {keyUpListener: null};
+	},
+	destroyed() {
+		if (this.keyUpListener) {
+			window.removeEventListener('keyup', this.keyUpListener);
+		}
+	},
 	methods: {
 		clickAway() {
-			this.$emit('click-away');
+			this.$emit('close');
 		},
 		focusContent() {
 			if (!this.$refs.content) {
@@ -27,6 +35,11 @@ export default {
 
 			if (input) {
 				input.focus();
+			}
+		},
+		onKeyUp(event) {
+			if (event.key === 'Escape') {
+				this.$emit('close');
 			}
 		}
 	},
@@ -45,10 +58,16 @@ export default {
 			if (value) {
 				this.previousFocus = document.activeElement;
 				this.focusContent();
+				this.keyUpListener = window.addEventListener('keyup', event =>
+					this.onKeyUp(event)
+				);
+				window.addEventListener('keyup', this.keyUpListener);
 			} else {
 				if (this.previousFocus) {
 					this.previousFocus.focus();
 				}
+
+				window.removeEventListener('keyup', this.keyUpListener);
 			}
 		}
 	}

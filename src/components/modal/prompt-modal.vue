@@ -1,5 +1,5 @@
 <template>
-	<base-modal @click-away="onCancel" :visible="visible">
+	<base-modal @close="onCancel" :visible="visible">
 		<div class="prompt-modal">
 			<base-card>
 				<template v-slot:header>{{ message }}</template>
