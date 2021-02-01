@@ -1,25 +1,28 @@
 <template>
 	<base-modal @close="onCancel" :visible="visible">
 		<div class="prompt-modal">
-			<base-card>
-				<template v-slot:header>{{ message }}</template>
-				<text-line
-					@change="onChangeValue"
-					orientation="vertical"
-					:value="value"
-				>
-					{{ detail }}</text-line
-				>
-				<template v-slot:actions>
-					<icon-button @click="onCancel" icon="x" label="common.cancel" />
-					<icon-button
-						@click="onSubmit"
-						:icon="submitIcon"
-						:label="submitLabel"
-						:type="submitType"
-					/>
-				</template>
-			</base-card>
+			<form>
+				<base-card>
+					<template v-slot:header>{{ message }}</template>
+					<text-line
+						@change="onChangeValue"
+						orientation="vertical"
+						:value="value"
+					>
+						{{ detail }}</text-line
+					>
+					<template v-slot:actions>
+						<icon-button @click="onCancel" icon="x" label="common.cancel" />
+						<icon-button
+							buttonType="submit"
+							@click="onSubmit"
+							:icon="submitIcon"
+							:label="submitLabel"
+							:type="submitType"
+						/>
+					</template>
+				</base-card>
+			</form>
 		</div>
 	</base-modal>
 </template>

@@ -1,31 +1,34 @@
 <template>
 	<base-modal @close="onCancel" :visible="visible">
 		<div class="select-modal">
-			<base-card>
-				<template v-slot:header>{{ message }}</template>
-				<p class="loading-message" v-if="loadingMessage">
-					<icon-image name="loading-spinner" />
-					{{ loadingMessage }}
-				</p>
-				<template v-else>
-					<text-select
-						@change="onChangeValue"
-						:options="options"
-						orientation="vertical"
-						:value="value"
-						>{{ detail }}</text-select
-					>
-				</template>
-				<template v-slot:actions>
-					<icon-button @click="onCancel" icon="x" label="common.cancel" />
-					<icon-button
-						@click="onSubmit"
-						:icon="submitIcon"
-						:label="submitLabel"
-						:type="submitType"
-					/>
-				</template>
-			</base-card>
+			<form>
+				<base-card>
+					<template v-slot:header>{{ message }}</template>
+					<p class="loading-message" v-if="loadingMessage">
+						<icon-image name="loading-spinner" />
+						{{ loadingMessage }}
+					</p>
+					<template v-else>
+						<text-select
+							@change="onChangeValue"
+							:options="options"
+							orientation="vertical"
+							:value="value"
+							>{{ detail }}</text-select
+						>
+					</template>
+					<template v-slot:actions>
+						<icon-button @click="onCancel" icon="x" label="common.cancel" />
+						<icon-button
+							buttonType="submit"
+							@click="onSubmit"
+							:icon="submitIcon"
+							:label="submitLabel"
+							:type="submitType"
+						/>
+					</template>
+				</base-card>
+			</form>
 		</div>
 	</base-modal>
 </template>
