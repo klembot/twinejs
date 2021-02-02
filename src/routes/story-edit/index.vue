@@ -7,6 +7,7 @@
 			confirm-icon="trash-2"
 			confirm-label="common.delete"
 			confirm-type="danger"
+			dom-id="delete-passage"
 			:message="deletePromptMessage"
 			:visible="this.deletingPassage !== null"
 		/>

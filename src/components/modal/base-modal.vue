@@ -2,7 +2,15 @@
 	<portal v-if="visible">
 		<div class="base-modal">
 			<div class="overlay" @click="clickAway" />
-			<div class="content" ref="content"><slot></slot></div>
+			<div
+				:aria-describedby="ariaDescriptionId"
+				:aria-labelledby="ariaLabelId"
+				class="content"
+				ref="content"
+				role="modal"
+			>
+				<slot></slot>
+			</div>
 		</div>
 	</portal>
 </template>
@@ -13,9 +21,17 @@ import './base-modal.css';
 
 export default {
 	components: {Portal},
+	data() {
+		return {keyUpListener: null};
+	},
+	destroyed() {
+		if (this.keyUpListener) {
+			window.removeEventListener('keyup', this.keyUpListener);
+		}
+	},
 	methods: {
 		clickAway() {
-			this.$emit('click-away');
+			this.$emit('close');
 		},
 		focusContent() {
 			if (!this.$refs.content) {
@@ -28,14 +44,18 @@ export default {
 			if (input) {
 				input.focus();
 			}
+		},
+		onKeyUp(event) {
+			if (event.key === 'Escape') {
+				this.$emit('close');
+			}
 		}
 	},
 	name: 'base-modal',
 	props: {
-		visible: {
-			default: true,
-			type: Boolean
-		}
+		ariaDescriptionId: {type: String},
+		ariaLabelId: {required: true, type: String},
+		visible: {default: true, type: Boolean}
 	},
 	state: () => ({
 		previousFocus: null
@@ -45,10 +65,16 @@ export default {
 			if (value) {
 				this.previousFocus = document.activeElement;
 				this.focusContent();
+				this.keyUpListener = window.addEventListener('keyup', event =>
+					this.onKeyUp(event)
+				);
+				window.addEventListener('keyup', this.keyUpListener);
 			} else {
 				if (this.previousFocus) {
 					this.previousFocus.focus();
 				}
+
+				window.removeEventListener('keyup', this.keyUpListener);
 			}
 		}
 	}
