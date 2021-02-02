@@ -74,6 +74,7 @@
 		<select-modal
 			@cancel="toggleFormatSelect"
 			:defaultValue="formatId"
+			dom-id="change-format"
 			:loadingMessage="
 				formatLoadPercent === 1
 					? undefined
@@ -87,6 +88,7 @@
 		/>
 		<prompt-modal
 			@cancel="toggleRenamePrompt"
+			dom-id="rename-story"
 			:message="$t('storyEdit.topBar.renameStoryPrompt', {name: story.name})"
 			@submit="renameStory"
 			:visible="showRenamePrompt"

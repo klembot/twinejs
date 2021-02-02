@@ -1,9 +1,11 @@
 <template>
-	<base-modal @close="onCancel" :visible="visible">
+	<base-modal :ariaLabelId="ariaLabelId" @close="onCancel" :visible="visible">
 		<div class="prompt-modal">
 			<form>
 				<base-card>
-					<template v-slot:header>{{ message }}</template>
+					<template v-slot:header
+						><span :id="ariaLabelId">{{ message }}</span></template
+					>
 					<text-line
 						@input="onChangeValue"
 						orientation="vertical"
@@ -42,6 +44,9 @@ import './prompt-modal.css';
 export default {
 	components: {BaseCard, BaseModal, ErrorMessage, IconButton, TextLine},
 	computed: {
+		ariaLabelId() {
+			return this.domId + '-header';
+		},
 		errorMessage() {
 			if (this.validate) {
 				return this.validate(this.value);
@@ -69,6 +74,7 @@ export default {
 	props: {
 		defaultValue: String,
 		detail: {type: String},
+		domId: {required: true, type: String},
 		message: {required: true, type: String},
 		submitIcon: {default: 'check', type: String},
 		submitLabel: {default: 'common.ok', type: String},

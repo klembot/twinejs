@@ -81,6 +81,7 @@
 		<prompt-modal
 			@cancel="toggleCreatePrompt"
 			:detail="$t('storyList.topBar.createStoryPromptDetail')"
+			dom-id="create-story"
 			:message="$t('storyList.topBar.createStoryPromptMessage')"
 			@submit="createStory"
 			submit-icon="plus"

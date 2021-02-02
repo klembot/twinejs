@@ -2,7 +2,15 @@
 	<portal v-if="visible">
 		<div class="base-modal">
 			<div class="overlay" @click="clickAway" />
-			<div class="content" ref="content"><slot></slot></div>
+			<div
+				:aria-describedby="ariaDescriptionId"
+				:aria-labelledby="ariaLabelId"
+				class="content"
+				ref="content"
+				role="modal"
+			>
+				<slot></slot>
+			</div>
 		</div>
 	</portal>
 </template>
@@ -45,10 +53,9 @@ export default {
 	},
 	name: 'base-modal',
 	props: {
-		visible: {
-			default: true,
-			type: Boolean
-		}
+		ariaDescriptionId: {type: String},
+		ariaLabelId: {required: true, type: String},
+		visible: {default: true, type: Boolean}
 	},
 	state: () => ({
 		previousFocus: null
