@@ -1,0 +1,9 @@
+.error-message {
+	display: flex;
+	flex-direction: row;
+}
+
+.error-message > .message {
+	flex-grow: 1;
+	margin-left: var(--control-inner-padding);
+}

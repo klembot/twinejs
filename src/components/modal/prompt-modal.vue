@@ -5,17 +5,21 @@
 				<base-card>
 					<template v-slot:header>{{ message }}</template>
 					<text-line
-						@change="onChangeValue"
+						@input="onChangeValue"
 						orientation="vertical"
 						:value="value"
 					>
 						{{ detail }}</text-line
 					>
+					<p v-if="errorMessage">
+						<error-message>{{ errorMessage }}</error-message>
+					</p>
 					<template v-slot:actions>
 						<icon-button @click="onCancel" icon="x" label="common.cancel" />
 						<icon-button
 							buttonType="submit"
 							@click="onSubmit"
+							:disabled="!!errorMessage"
 							:icon="submitIcon"
 							:label="submitLabel"
 							:type="submitType"
@@ -30,12 +34,22 @@
 <script>
 import BaseCard from '../container/base-card';
 import BaseModal from './base-modal';
+import ErrorMessage from '../message/error-message';
 import IconButton from '../control/icon-button';
 import TextLine from '../control/text-line';
 import './prompt-modal.css';
 
 export default {
-	components: {BaseCard, BaseModal, IconButton, TextLine},
+	components: {BaseCard, BaseModal, ErrorMessage, IconButton, TextLine},
+	computed: {
+		errorMessage() {
+			if (this.validate) {
+				return this.validate(this.value);
+			}
+
+			return undefined;
+		}
+	},
 	data() {
 		return {value: this.defaultValue};
 	},
@@ -54,28 +68,13 @@ export default {
 	name: 'prompt-modal',
 	props: {
 		defaultValue: String,
-		detail: {
-			type: String
-		},
-		message: {
-			required: true,
-			type: String
-		},
-		submitIcon: {
-			default: 'check',
-			type: String
-		},
-		submitLabel: {
-			default: 'common.ok',
-			type: String
-		},
-		submitType: {
-			default: 'primary',
-			type: String
-		},
-		visible: {
-			type: Boolean
-		}
+		detail: {type: String},
+		message: {required: true, type: String},
+		submitIcon: {default: 'check', type: String},
+		submitLabel: {default: 'common.ok', type: String},
+		submitType: {default: 'primary', type: String},
+		validate: {type: Function},
+		visible: {type: Boolean}
 	},
 	watch: {
 		visible(value) {

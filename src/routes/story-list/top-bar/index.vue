@@ -86,6 +86,7 @@
 			submit-icon="plus"
 			submit-label="common.create"
 			submit-type="create"
+			:validate="validateNewStoryName"
 			:visible="createPromptVisible"
 		/>
 	</div>
@@ -151,6 +152,19 @@ export default {
 		},
 		toggleCreatePrompt() {
 			this.createPromptVisible = !this.createPromptVisible;
+		},
+		validateNewStoryName(value) {
+			if (!value) {
+				return this.$t('storyList.storyNameEmpty');
+			}
+
+			if (
+				this.$store.state.story.stories.some(
+					s => s.name.toLowerCase() === value.toLowerCase()
+				)
+			) {
+				return this.$t('storyList.storyNameTaken');
+			}
 		}
 	},
 	name: 'story-list-top-bar',

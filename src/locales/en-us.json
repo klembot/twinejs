@@ -182,6 +182,8 @@
 	},
 	"storyList": {
 		"noStories": "There are no stories saved in Twine right now. To get started, you can either create a new story or import an existing one from a file.",
+		"storyNameEmpty": "Please enter a name.",
+		"storyNameTaken": "A story with this name already exists.",
 		"title": "Stories",
 		"titleCount": "No Stories | 1 Story | {storyCount} Stories",
 		"topBar": {
