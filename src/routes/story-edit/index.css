@@ -19,6 +19,10 @@
 	bottom: 0;
 }
 
+.story-edit .passage-toolbar {
+	z-index: 4;
+}
+
 .story-edit .passage-map {
 	bottom: 0;
 	position: absolute;

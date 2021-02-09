@@ -2,7 +2,6 @@
 	<div class="passage-map" :style="style">
 		<passage-card
 			v-for="passage in passages"
-			@delete="onDeletePassage"
 			@deselect="onDeselectPassage(passage)"
 			@drag="onDragPassage"
 			@drag-stop="onDragPassageStop"
@@ -15,7 +14,6 @@
 			@select-inclusive="onSelectPassage(passage, false)"
 			:show-excerpt="showPassageExcerpts"
 			:tagColors="tagColors"
-			@test="onTestPassage"
 			:zoom="zoom"
 		/>
 		<link-container>
@@ -109,9 +107,6 @@ export default {
 		dragYChange: 0
 	}),
 	methods: {
-		onDeletePassage(passage) {
-			this.$emit('delete', passage);
-		},
 		onDeselectPassage(passage) {
 			this.$emit('deselect', passage);
 		},
@@ -132,9 +127,6 @@ export default {
 		},
 		onSelectPassage(passage, exclusive) {
 			this.$emit(`select-${exclusive ? 'exclusive' : 'inclusive'}`, passage);
-		},
-		onTestPassage(passage) {
-			this.$emit('test', passage);
 		}
 	},
 	props: {

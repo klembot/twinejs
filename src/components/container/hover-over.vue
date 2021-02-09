@@ -85,18 +85,12 @@ export default {
 		}
 	},
 	props: {
-		allowFlip: {
-			default: false,
-			type: Boolean
-		},
+		allowFlip: {default: false, type: Boolean},
 		position: {
 			default: 'bottom',
 			validator: value => ['bottom', 'left', 'right', 'top'].includes(value)
 		},
-		visible: {
-			default: true,
-			type: Boolean
-		}
+		visible: {default: true, type: Boolean}
 	},
 	watch: {
 		visible: {

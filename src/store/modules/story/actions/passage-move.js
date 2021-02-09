@@ -1,8 +1,8 @@
 import isFinite from 'lodash.isfinite';
 
-export function moveSelectedPassages(
+export function movePassages(
 	{commit, getters},
-	{xChange, yChange, storyId}
+	{xChange, yChange, passageIds, storyId}
 ) {
 	if (!isFinite(xChange)) {
 		throw new Error(
@@ -22,23 +22,27 @@ export function moveSelectedPassages(
 		throw new Error(`No story exists with ID "${storyId}".`);
 	}
 
-	story.passages.forEach(p => {
-		if (p.selected) {
-			// TODO: clean up overlaps
+	passageIds.forEach(id => {
+		const passage = story.passages.find(p => p.id === id);
 
-			let left = p.left + xChange;
-			let top = p.top + yChange;
-
-			if (story.snapToGrid) {
-				left = Math.round(left / 25) * 25;
-				top = Math.round(top / 25) * 25;
-			}
-
-			commit('updatePassage', {
-				storyId,
-				passageId: p.id,
-				passageProps: {left, top}
-			});
+		if (!id) {
+			throw new Error(`There is no passage in this story with ID "${id}".`);
 		}
+
+		// TODO: clean up overlaps
+
+		let left = passage.left + xChange;
+		let top = passage.top + yChange;
+
+		if (story.snapToGrid) {
+			left = Math.round(left / 25) * 25;
+			top = Math.round(top / 25) * 25;
+		}
+
+		commit('updatePassage', {
+			storyId,
+			passageId: passage.id,
+			passageProps: {left, top}
+		});
 	});
 }
