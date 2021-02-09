@@ -1,63 +1,33 @@
 <template>
-	<div :class="classes" :style="style">
-		<hover-over :visible="menuVisible">
-			<div
-				@mouseenter="showMenu"
-				@mouseleave="hideMenu"
-				@dblclick.stop="onEdit"
-				@mousedown.stop="onStartDrag"
-			>
-				<base-card
-					compact
-					:highlighted="passage.highlighted"
-					:selected="passage.selected"
-					:style="dimensions"
-				>
-					<template v-slot:header>
-						<tag-stripe :tagColors="tagColors" :tags="passage.tags" />
-						{{ passage.name }}
-					</template>
-					<div class="excerpt" v-if="showExcerpt">{{ excerpt }}</div>
-				</base-card>
-			</div>
-			<template v-slot:hover>
-				<button-card>
-					<div @mouseenter="showMenu" @mouseleave="hideMenu">
-						<icon-button
-							@click="onDelete"
-							icon="trash-2"
-							label="common.delete"
-							type="danger"
-						/>
-						<icon-button @click="onEdit" icon="edit" label="common.edit" />
-						<icon-button @click="onTest" icon="tool" label="common.test" />
-						<icon-button icon="more-horizontal" label="common.more" />
-					</div>
-				</button-card>
+	<div
+		:class="classes"
+		@dblclick.stop="onEdit"
+		@mousedown.stop="onStartDrag"
+		:style="style"
+	>
+		<base-card
+			compact
+			:highlighted="passage.highlighted"
+			:selected="passage.selected"
+			:style="dimensions"
+		>
+			<template v-slot:header>
+				<tag-stripe :tagColors="tagColors" :tags="passage.tags" />
+				{{ passage.name }}
 			</template>
-		</hover-over>
+			<div class="excerpt" v-if="showExcerpt">{{ excerpt }}</div>
+		</base-card>
 	</div>
 </template>
 
 <script>
-// TODO: labels, emit rest of events, expand menu for more choices?
-
 import BaseCard from '../container/base-card';
-import ButtonCard from '../container/button-card';
 import domMixin from '@/util/vue-dom-mixin';
-import HoverOver from '../container/hover-over';
-import IconButton from '../control/icon-button';
 import TagStripe from '../tag/tag-stripe.vue';
 import './passage-card.css';
 
-/*
-How much forgiveness to allow the user moving from the passage to the hovering
-toolbar before hiding it, in milliseconds.
-*/
-const hoverTimeout = 250;
-
 export default {
-	components: {BaseCard, ButtonCard, HoverOver, IconButton, TagStripe},
+	components: {BaseCard, TagStripe},
 	computed: {
 		classes() {
 			return {
@@ -85,8 +55,6 @@ export default {
 				...this.dimensions,
 				left: this.passage.left + 'px',
 				top: this.passage.top + 'px',
-				// left: this.passage.left * this.zoom + 'px',
-				// top: this.passage.top * this.zoom + 'px',
 				transform:
 					this.offsetX !== 0 || this.offsetY !== 0
 						? `translate(${this.offsetX}px, ${this.offsetY}px)`
@@ -95,23 +63,10 @@ export default {
 		}
 	},
 	data: () => ({
-		menuVisible: false,
-		menuHideTimeout: null,
 		screenDragStartX: null,
 		screenDragStartY: null
 	}),
 	methods: {
-		hideMenu() {
-			if (!this.menuHideTimeout) {
-				this.menuHideTimeout = window.setTimeout(() => {
-					this.menuVisible = false;
-					this.menuHideTimeout = null;
-				}, hoverTimeout);
-			}
-		},
-		onDelete() {
-			this.$emit('delete', this.passage);
-		},
 		onEdit() {
 			this.$emit('edit', this.passage);
 		},
@@ -125,8 +80,6 @@ export default {
 			if (!isTouchEvent && event.which !== 1) {
 				return;
 			}
-
-			this.hideMenu();
 
 			/*
 			Shift- or control-clicking toggles our selected status, but doesn't affect
@@ -177,12 +130,12 @@ export default {
 				event.preventDefault();
 			}
 		},
-		onStopDrag(e) {
+		onStopDrag(event) {
 			const isTouchEvent = event.type === 'touchstart';
 
 			/* Only listen to the left mouse button. */
 
-			if (event.type === 'mouseup' && e.which !== 1) {
+			if (event.type === 'mouseup' && event.which !== 1) {
 				return;
 			}
 
@@ -208,7 +161,7 @@ export default {
 			*/
 
 			if (this.dragXOffset === 0 && this.dragYOffset === 0) {
-				if (!(e.ctrlKey || e.shiftKey)) {
+				if (!(event.ctrlKey || event.shiftKey)) {
 					this.$emit('select-exclusive');
 				}
 			}
@@ -218,25 +171,14 @@ export default {
 			events do.
 			*/
 
-			if (e.type === 'mouseup') {
+			if (event.type === 'mouseup') {
 				this.$emit(
 					'drag-stop',
-					e.clientX + window.pageXOffset - this.screenDragStartX,
-					e.clientY + window.pageYOffset - this.screenDragStartY
+					event.clientX + window.pageXOffset - this.screenDragStartX,
+					event.clientY + window.pageYOffset - this.screenDragStartY
 				);
 			} else {
 				this.$emit('drag-stop', this.screenDragOffsetX, this.screenDragOffsetY);
-			}
-		},
-		onTest() {
-			this.$emit('test', this.passage);
-		},
-		showMenu() {
-			this.menuVisible = true;
-
-			if (this.menuHideTimeout) {
-				window.clearTimeout(this.menuHideTimeout);
-				this.menuHideTimeout = null;
 			}
 		}
 	},

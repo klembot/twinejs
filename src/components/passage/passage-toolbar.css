@@ -1,0 +1,29 @@
+@import '../../styles/depth.css';
+
+/* See passage-card.vue for where this is set. */
+
+body.dragging-passages .passage-toolbar {
+	display: none;
+}
+
+.passage-toolbar .button-bar + .button-bar {
+	border-top: 1px solid var(--light-gray);
+}
+
+.passage-toolbar {
+	transform: translateY(-50%);
+	box-shadow: var(--shadow-large);
+}
+
+.passage-toolbar.single {
+	margin: var(--grid-size);
+	transform: none;
+}
+
+.passage-toolbar-target-container {
+	position: absolute;
+}
+
+.passage-toolbar-target {
+	pointer-events: none;
+}

@@ -1,7 +1,7 @@
-import {moveSelectedPassages} from '../passage-move';
+import {movePassages} from '../passage-move';
 import {fakeStoryObject} from '@/test-utils/fakes';
 
-describe('moveSelectedPassages action', () => {
+describe('movePassages action', () => {
 	let story;
 	const getters = {
 		storyWithId(id) {
@@ -17,22 +17,25 @@ describe('moveSelectedPassages action', () => {
 		story = fakeStoryObject(2);
 		Object.assign(story.passages[0], {
 			left: 10,
-			selected: true,
 			top: 10
 		});
 		Object.assign(story.passages[1], {
 			left: 100,
-			selected: false,
 			name: 'Passage 2 Name',
 			text: 'Passage 2 Text',
 			top: 100
 		});
 	});
 
-	it('moves all selected passages by an offset', () => {
-		moveSelectedPassages(
+	it('moves all passages by an offset', () => {
+		movePassages(
 			{commit, getters},
-			{storyId: story.id, xChange: 1000, yChange: 100}
+			{
+				passageIds: [story.passages[0].id],
+				storyId: story.id,
+				xChange: 1000,
+				yChange: 100
+			}
 		);
 
 		expect(commit).toHaveBeenCalledTimes(1);
@@ -45,30 +48,64 @@ describe('moveSelectedPassages action', () => {
 
 	it('throws an error if the offsets provided are not numbers', () => {
 		expect(() =>
-			moveSelectedPassages(
+			movePassages(
 				{commit, getters},
-				{storyId: story.id, xChange: 'a', yChange: 0}
+				{
+					passageIds: [story.passages[0].id],
+					storyId: story.id,
+					xChange: 'a',
+					yChange: 0
+				}
 			)
 		).toThrow();
 		expect(() =>
-			moveSelectedPassages(
+			movePassages(
 				{commit, getters},
-				{storyId: story.id, xChange: 0, yChange: 'b'}
+				{
+					passageIds: [story.passages[0].id],
+					storyId: story.id,
+					xChange: 0,
+					yChange: 'b'
+				}
 			)
 		).toThrow();
 		expect(() =>
-			moveSelectedPassages(
+			movePassages(
 				{commit, getters},
-				{storyId: story.id, xChange: undefined, yChange: undefined}
+				{
+					passageIds: [story.passages[0].id],
+					storyId: story.id,
+					xChange: undefined,
+					yChange: undefined
+				}
 			)
 		).toThrow();
 	});
 
 	it('throws an error if there is no story with the given ID in state', () => {
 		expect(() =>
-			moveSelectedPassages(
+			movePassages(
 				{commit, getters},
-				{storyId: story.id + 'nonexistent', xChange: 0, yChange: 0}
+				{
+					passageIds: [story.passages[0].id],
+					storyId: story.id + 'nonexistent',
+					xChange: 0,
+					yChange: 0
+				}
+			)
+		).toThrow();
+	});
+
+	it('throws an error if there is no passage with the given ID in the story', () => {
+		expect(() =>
+			movePassages(
+				{commit, getters},
+				{
+					passageIds: [story.passages[0].id + 'nonexistent'],
+					storyId: story.id,
+					xChange: 0,
+					yChange: 0
+				}
 			)
 		).toThrow();
 	});

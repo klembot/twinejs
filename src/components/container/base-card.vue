@@ -33,18 +33,10 @@ export default {
 	},
 	name: 'base-card',
 	props: {
-		compact: {
-			type: Boolean
-		},
-		highlighted: {
-			type: Boolean
-		},
-		image: {
-			type: String
-		},
-		imageAlt: {
-			type: String
-		},
+		compact: {type: Boolean},
+		highlighted: {type: Boolean},
+		image: {type: String},
+		imageAlt: {type: String},
 		imagePosition: {
 			default: 'vertical',
 			validator(value) {

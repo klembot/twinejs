@@ -1,3 +1,5 @@
+@import '../../styles/depth.css';
+
 .dropdown-button-menu .base-card {
 	box-shadow: var(--shadow-large);
 }

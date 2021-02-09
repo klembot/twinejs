@@ -198,8 +198,8 @@ export default {
 			});
 		},
 		onDelete() {
-			this.$store.dispatch('story/deletePassage', {
-				passageId: this.passage.id,
+			this.$store.dispatch('story/deletePassages', {
+				passageIds: [this.passage.id],
 				storyId: this.story.id
 			});
 			this.$router.push(`/stories/${this.story.id}`);

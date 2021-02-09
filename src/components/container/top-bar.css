@@ -5,7 +5,7 @@
 .top-bar {
 	align-items: center;
 	background: var(--white);
-	box-shadow: var(--shadow-medium);
+	box-shadow: var(--shadow-large);
 	display: flex;
 	height: calc(var(--control-height) + var(--ui-gap) / 2);
 	justify-content: space-between;

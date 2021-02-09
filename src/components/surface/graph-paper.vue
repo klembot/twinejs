@@ -13,9 +13,7 @@ export default {
 			const minor = 25 * this.zoom;
 
 			return {
-				backgroundSize: `${major}px ${major}px, ${major}px ${major}px, ${minor}px ${minor}px, ${minor}px ${minor}px`,
-				height: this.height + 'px',
-				width: this.width + 'px'
+				backgroundSize: `${major}px ${major}px, ${major}px ${major}px, ${minor}px ${minor}px, ${minor}px ${minor}px`
 			};
 		}
 	},

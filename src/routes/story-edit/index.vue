@@ -1,15 +1,10 @@
 <template>
 	<div class="story-edit">
 		<story-edit-top-bar @create-passage="onCreatePassage" :story="story" />
-		<confirm-modal
-			@cancel="deletingPassage = null"
-			@confirm="deletePassage"
-			confirm-icon="trash-2"
-			confirm-label="common.delete"
-			confirm-type="danger"
-			dom-id="delete-passage"
-			:message="deletePromptMessage"
-			:visible="this.deletingPassage !== null"
+		<delete-passage-modal
+			@cancel="onCancelDeletePassages"
+			@confirm="onConfirmDeletePassages"
+			:passages="deletingPassages ? selectedPassages : []"
 		/>
 		<main-content :padded="false" mouse-scrolling ref="mainContent">
 			<div class="container" :style="containerStyle">
@@ -18,8 +13,14 @@
 					@select="onMarqueeSelect"
 					@start-select="onMarqueeSelectStart"
 				/>
+				<passage-toolbar
+					@delete="onDeletePassages"
+					@edit="onEditPassage"
+					:passages="selectedPassages"
+					@test="onTestPassage"
+					:zoom="apparentZoom"
+				/>
 				<passage-map
-					@delete="onDeletePassage"
 					@deselect="onDeselectPassage"
 					@edit="onEditPassage"
 					@move-selected="onMoveSelectedPassages"
@@ -28,7 +29,6 @@
 					@select-exclusive="onSelectPassageExclusive"
 					@select-inclusive="onSelectPassageInclusive"
 					:tagColors="story.tagColors"
-					@test="onTestPassage"
 					:zoom="apparentZoom"
 				>
 				</passage-map>
@@ -38,11 +38,12 @@
 </template>
 
 <script>
-import ConfirmModal from '@/components/modal/confirm-modal';
+import DeletePassageModal from './delete-passage-modal';
 import GraphPaper from '@/components/surface/graph-paper';
 import launchStory from '@/util/launch-story';
 import MarqueeSelection from '@/components/marquee-selection';
 import MainContent from '@/components/container/main-content';
+import PassageToolbar from '@/components/passage/passage-toolbar';
 import PassageMap from './passage-map';
 import StoryEditTopBar from './top-bar';
 import zoomTransitions from './zoom-transitions';
@@ -50,10 +51,11 @@ import './index.css';
 
 export default {
 	components: {
-		ConfirmModal,
+		DeletePassageModal,
 		GraphPaper,
 		MainContent,
 		MarqueeSelection,
+		PassageToolbar,
 		PassageMap,
 		StoryEditTopBar
 	},
@@ -69,19 +71,13 @@ export default {
 				width: Math.max(width, window.innerWidth) + window.innerWidth / 2 + 'px'
 			};
 		},
-		deletePromptMessage() {
-			if (this.deletingPassage) {
-				return this.$t('storyEdit.confirmDelete', {
-					passageName: this.deletingPassage.name
-				});
-			}
-
-			return '';
-		},
 		passageLinks() {
 			return this.$store.getters['story/storyLinks'](
 				this.$route.params.storyId
 			);
+		},
+		selectedPassages() {
+			return this.story.passages.filter(p => p.selected);
 		},
 		story() {
 			const result = this.$store.state.story.stories.find(
@@ -100,16 +96,19 @@ export default {
 		}
 	},
 	data: () => ({
-		deletingPassage: null,
+		deletingPassages: false,
 		retainedSelectPassages: []
 	}),
 	methods: {
-		deletePassage() {
-			this.$store.dispatch('story/deletePassage', {
-				passageId: this.deletingPassage.id,
+		onCancelDeletePassages() {
+			this.deletingPassages = false;
+		},
+		onConfirmDeletePassages() {
+			this.$store.dispatch('story/deletePassages', {
+				passageIds: this.selectedPassages.map(p => p.id),
 				storyId: this.story.id
 			});
-			this.deletingPassage = null;
+			this.deletingPassages = false;
 		},
 		onCreatePassage() {
 			const mainContentEl = this.$refs.mainContent.$el;
@@ -124,16 +123,14 @@ export default {
 				storyId: this.story.id
 			});
 		},
+		onDeletePassages() {
+			this.deletingPassages = true;
+		},
 		onDeselectPassage(passage) {
 			this.$store.dispatch('story/deselectPassage', {
 				passageId: passage.id,
 				storyId: this.story.id
 			});
-		},
-		onDeletePassage(passage) {
-			// TODO
-			console.log('onDeletePassage');
-			this.deletingPassage = passage;
 		},
 		onEditPassage(passage) {
 			this.$router.push(`/stories/${this.story.id}/passage/${passage.id}`);
@@ -160,10 +157,11 @@ export default {
 			}
 		},
 		onMoveSelectedPassages(xChange, yChange) {
-			this.$store.dispatch('story/moveSelectedPassages', {
+			this.$store.dispatch('story/movePassages', {
+				passageIds: this.selectedPassages.map(p => p.id),
+				storyId: this.story.id,
 				xChange: xChange / this.story.zoom,
-				yChange: yChange / this.story.zoom,
-				storyId: this.story.id
+				yChange: yChange / this.story.zoom
 			});
 		},
 		onSelectPassageExclusive(passage) {

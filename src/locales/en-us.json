@@ -24,6 +24,7 @@
 		"color": "Color",
 		"create": "Create",
 		"delete": "Delete",
+		"deleteCount": "Delete ({count})",
 		"duplicate": "Duplicate",
 		"edit": "Edit",
 		"import": "Import",
@@ -136,6 +137,11 @@
 		}
 	},
 	"storyEdit": {
+		"deletePassageModal": {
+			"deleteSingle": "Are you sure you want to delete “{passageName}”? This cannot be undone.",
+			"deleteMultiple": "Are you sure want to delete {count} passages? This cannot be undone.",
+			"skip": "Hold the Shift key while deleting to skip this confirmation."
+		},
 		"topBar": {
 			"addPassage": "Passage",
 			"editJavaScript": "Edit Story JavaScript",
@@ -154,9 +160,7 @@
 			"storyStats": "Story Statistics",
 			"zoomIn": "Zoom In",
 			"zoomOut": "Zoom Out"
-		},
-		"confirmDelete": "Are you sure you want to delete “{passageName}”? This cannot be undone.",
-		"confirmDeleteSkip": "Hold the Shift key while deleting to skip this confirmation."
+		}
 	},
 	"storyFormats": {
 		"addFormat": "Add a New Format",
