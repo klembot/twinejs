@@ -25,6 +25,7 @@
 import ButtonBar from './button-bar';
 import ButtonBarSeparator from './button-bar-separator';
 import IconButton from '../control/icon-button';
+import domMixin from '../../util/vue-dom-mixin';
 import './top-bar.css';
 
 export default {
@@ -43,10 +44,27 @@ export default {
 			this.$router.push(this.backRoute);
 		}
 	},
+	mixins: [domMixin],
 	name: 'top-bar',
 	props: {
 		backLabel: String,
 		backRoute: String
+	},
+	watch: {
+		backRoute: {
+			handler(value) {
+				if (value) {
+					this.on(document.body, 'keyup', event => {
+						if (event.key === 'Escape') {
+							this.goBack();
+						}
+					});
+				} else {
+					this.off(document.body, 'keyup');
+				}
+			},
+			immediate: true
+		}
 	}
 };
 </script>
