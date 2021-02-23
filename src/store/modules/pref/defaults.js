@@ -22,5 +22,7 @@ export default {
 		name: 'Harlowe',
 		version: '3.0.2'
 	},
+	stylesheetEditorFontFamily: 'var(--font-monospaced)',
+	stylesheetEditorFontScale: 1,
 	welcomeSeen: false
 };
