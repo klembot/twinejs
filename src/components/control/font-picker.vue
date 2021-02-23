@@ -85,6 +85,7 @@
 			:detail="$t('components.fontPicker.customFamilyDetail')"
 			:message="$t('components.fontPicker.customFamilyPrompt')"
 			@submit="onSubmitCustomFamily"
+			:validate="isntEmpty"
 			:visible="customFamilyPromptVisible"
 		>
 		</prompt-modal>
@@ -95,6 +96,7 @@
 			:detail="$t('components.fontPicker.customScaleDetail')"
 			:message="$t('components.fontPicker.customScalePrompt')"
 			@submit="onSubmitCustomScale"
+			:validate="isNumber"
 			:visible="customScalePromptVisible"
 		>
 		</prompt-modal>
@@ -131,12 +133,28 @@ export default {
 		changeScale(fontScale) {
 			this.$emit('change', {fontScale, fontFamily: this.fontFamily});
 		},
+		isNumber(value) {
+			const parsedValue = parseFloat(value);
+
+			if (isNaN(parsedValue)) {
+				return this.$t('components.fontPicker.percentageIsntNumber');
+			}
+
+			if (parsedValue <= 0) {
+				return this.$t('components.fontPicker.percentageNotPositive');
+			}
+		},
+		isntEmpty(value) {
+			if (value.trim() === '') {
+				return this.$t('components.fontPicker.familyEmpty');
+			}
+		},
 		onSubmitCustomFamily(fontFamily) {
 			this.changeFamily(fontFamily);
 			this.toggleCustomFamilyPrompt();
 		},
 		onSubmitCustomScale(fontScale) {
-			this.changeScale(fontScale / 100);
+			this.changeScale(parseFloat(fontScale) / 100);
 			this.toggleCustomScalePrompt();
 		},
 		toggleCustomFamilyPrompt() {

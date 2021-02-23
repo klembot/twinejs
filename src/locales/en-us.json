@@ -45,10 +45,11 @@
 	},
 	"components": {
 		"fontPicker": {
-			"customFamilyDetail": "Please enter the name of the font only. This changes only the editor font, not what font will be used in your story.",
-			"customScaleDetail": "Please enter a percentage only. This changes only the editor font, not what font will be used in your story.",
+			"customFamilyDetail": "Please enter the name of the font only. This changes only the font in Twine, not what font will be used in your story.",
+			"customScaleDetail": "Please enter a percentage only. This changes only the font in Twine, not what font will be used in your story.",
 			"customFamilyPrompt": "What font would you like to use?",
 			"customScalePrompt": "What size font would you like to use?",
+			"familyEmpty": "Please enter a font name.",
 			"font": "Font",
 			"fonts": {
 				"monospaced": "Monospaced",
@@ -56,6 +57,8 @@
 				"system": "System"
 			},
 			"fontSize": "Font Size",
+			"percentageIsntNumber": "Please enter a number.",
+			"percentageNotPositive": "Please enter a number greater than 0.",
 			"sizes": {
 				"auto": "Auto",
 				"percent": "{percent}%"
