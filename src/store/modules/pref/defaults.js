@@ -2,6 +2,8 @@ export default {
 	appTheme: 'light',
 	donateShown: false,
 	firstRunTime: new Date().getTime(),
+	javascriptEditorFontFamily: 'var(--font-monospaced)',
+	javascriptEditorFontScale: 1,
 	lastUpdateSeen: '',
 	lastUpdateCheckTime: new Date().getTime(),
 	locale:
