@@ -2,6 +2,8 @@ export default {
 	appTheme: 'light',
 	donateShown: false,
 	firstRunTime: new Date().getTime(),
+	javascriptEditorFontFamily: 'var(--font-monospaced)',
+	javascriptEditorFontScale: 1,
 	lastUpdateSeen: '',
 	lastUpdateCheckTime: new Date().getTime(),
 	locale:
@@ -10,6 +12,8 @@ export default {
 		window.navigator.browserLanguage ||
 		window.navigator.systemLanguage ||
 		'en-us',
+	passageEditorFontFamily: 'var(--font-system)',
+	passageEditorFontScale: -1,
 	proofingFormat: {
 		name: 'Paperthin',
 		version: '1.0.0'
@@ -18,5 +22,7 @@ export default {
 		name: 'Harlowe',
 		version: '3.0.2'
 	},
+	stylesheetEditorFontFamily: 'var(--font-monospaced)',
+	stylesheetEditorFontScale: 1,
 	welcomeSeen: false
 };

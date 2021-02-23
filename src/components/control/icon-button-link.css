@@ -9,7 +9,7 @@
 	border-radius: var(--corner-round);
 	display: inline-flex;
 	cursor: pointer;
-	font: 100% var(--font-ui);
+	font: 100% var(--font-system);
 	color: var(--dark-gray);
 	height: var(--control-height);
 	padding: var(--grid-size);

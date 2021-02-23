@@ -4,7 +4,7 @@
 			<template v-slot:actions>
 				<icon-button
 					@click="toggleCreatePrompt"
-					icon="plus-circle"
+					icon="plus"
 					label="storyList.topBar.createStory"
 					type="create"
 					:title="$t('storyList.topBar.createStoryExplanation')"

@@ -7,7 +7,11 @@
 					icon="tool"
 					label="passageEdit.testFromHere"
 				/>
-				<icon-button @click="toggleRename" icon="type" label="common.rename" />
+				<icon-button
+					@click="toggleRename"
+					icon="edit-3"
+					label="common.rename"
+				/>
 				<dropdown-button icon="maximize" label="passageEdit.size">
 					<icon-button
 						@click="onChangeSize('small')"
@@ -73,7 +77,17 @@
 				@edit-tag="onEditTag"
 				@remove-tag="onRemoveTag"
 			/>
-			<code-area @change="onChangeText" :value="passage.text" />
+			<font-picker
+				@change="onChangeEditorFont"
+				:font-family="editorFont.family"
+				:font-scale="editorFont.scale"
+			/>
+			<code-area
+				@change="onChangeText"
+				:font-family="editorFont.family"
+				:font-scale="editorFont.scale"
+				:value="passage.text"
+			/>
 		</main-content>
 	</div>
 </template>
@@ -81,6 +95,7 @@
 <script>
 import CodeArea from '@/components/control/code-area';
 import DropdownButton from '@/components/control/dropdown-button';
+import FontPicker from '@/components/control/font-picker';
 import IconButton from '@/components/control/icon-button';
 import launchStory from '@/util/launch-story';
 import TopBar from '@/components/container/top-bar';
@@ -95,6 +110,7 @@ export default {
 		CodeArea,
 		ConfirmModal,
 		DropdownButton,
+		FontPicker,
 		IconButton,
 		MainContent,
 		PromptModal,
@@ -102,6 +118,12 @@ export default {
 		TopBar
 	},
 	computed: {
+		editorFont() {
+			return {
+				family: this.$store.state.pref.passageEditorFontFamily,
+				scale: this.$store.state.pref.passageEditorFontScale
+			};
+		},
 		isStartPassage() {
 			return this.passage.id === this.story.startPassage;
 		},
@@ -182,6 +204,12 @@ export default {
 					tagName: newName
 				});
 			}
+		},
+		onChangeEditorFont({fontFamily, fontScale}) {
+			this.$store.dispatch('pref/update', {
+				passageEditorFontFamily: fontFamily,
+				passageEditorFontScale: fontScale
+			});
 		},
 		onChangeSize(passageSizeDescription) {
 			this.$store.dispatch('story/updatePassageSize', {

@@ -10,14 +10,14 @@
 <script>
 import {icons} from 'feather-icons';
 import emptySvg from './extra-icons/empty.svg';
-import gridSmallSvg from './extra-icons/grid-small.svg';
 import tagNubSvg from './extra-icons/tag-nub.svg';
+import typeSizeSvg from './extra-icons/type-size.svg';
 import './index.css';
 
 const extraIcons = {
 	empty: emptySvg,
-	'grid-small': gridSmallSvg,
-	'tag-nub': tagNubSvg
+	'tag-nub': tagNubSvg,
+	'type-size': typeSizeSvg
 };
 
 export default {

@@ -1,10 +1,11 @@
 <template>
-	<div :class="classes">
+	<div class="code-area">
 		<label v-if="label">
 			<span class="label" v-t="label" />
 			<code-mirror
 				@input="onChange"
 				:options="codeMirrorOptions"
+				:style="codeMirrorStyle"
 				:value="value"
 			/>
 		</label>
@@ -12,6 +13,7 @@
 			class="recessed-tiny"
 			@input="onChange"
 			:options="codeMirrorOptions"
+			:style="codeMirrorStyle"
 			:value="value"
 			v-else
 		/>
@@ -27,12 +29,6 @@ import './code-area.css';
 
 export default {
 	computed: {
-		classes() {
-			return {
-				'code-area': true,
-				[`font-${this.font}`]: true
-			};
-		},
 		codeMirrorOptions() {
 			const result = {lineWrapping: true, mode: this.mode};
 
@@ -46,6 +42,17 @@ export default {
 			}
 
 			return result;
+		},
+		codeMirrorStyle() {
+			return {
+				fontFamily: this.fontFamily.startsWith('var(')
+					? this.fontFamily
+					: `"${this.fontFamily}"`,
+				fontSize:
+					this.fontScale === -1
+						? 'calc(100% + 1vw)'
+						: `${this.fontScale * 100}%`
+			};
 		}
 	},
 	components: {CodeMirror},
@@ -56,11 +63,8 @@ export default {
 	},
 	name: 'code-area',
 	props: {
-		font: {
-			default: 'system',
-			type: String,
-			validator: value => ['monospace', 'system'].includes(value)
-		},
+		fontFamily: {default: 'var(--font-system)', type: String},
+		fontScale: {default: 1, type: Number},
 		label: String,
 		mode: String,
 		trapTab: {default: true, type: Boolean},

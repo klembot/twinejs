@@ -5,7 +5,7 @@ export default {title: 'Control/<dropdown-button>'};
 
 export const normal = () => ({
 	components: {DropdownButton, IconButton},
-	template: `<dropdown-button icon="more-horizontal" label="More">
-		<icon-button icon="edit" label="Edit" />
+	template: `<dropdown-button icon="threeDots" label="More">
+		<icon-button icon="pencil" label="Edit" />
 	</dropdown-button>`
 });

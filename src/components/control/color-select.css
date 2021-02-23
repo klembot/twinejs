@@ -76,7 +76,7 @@
 	background-repeat: no-repeat;
 	border: none;
 	color: var(--dark-gray);
-	font: 100% var(--font-ui);
+	font: 100% var(--font-system);
 	height: var(--control-height);
 	padding: var(--grid-size) calc(var(--grid-size) + 16px) var(--grid-size)
 		calc(var(--grid-size) * 2 + 16px);

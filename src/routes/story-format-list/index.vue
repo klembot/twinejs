@@ -2,11 +2,7 @@
 	<div class="story-format-list">
 		<top-bar back-route="/" :back-label="$t('storyList.title')">
 			<template v-slot:actions>
-				<icon-button
-					icon="plus-circle"
-					label="storyFormats.addFormat"
-					type="create"
-				/>
+				<icon-button icon="plus" label="storyFormats.addFormat" type="create" />
 			</template>
 		</top-bar>
 		<main-content>

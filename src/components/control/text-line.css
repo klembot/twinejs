@@ -14,7 +14,7 @@
 	border-radius: var(--corner-round);
 	color: var(--dark-gray);
 	flex-grow: 1;
-	font: 100% var(--font-ui);
+	font: 100% var(--font-system);
 	height: var(--control-height);
 	margin-left: var(--grid-size);
 	padding: var(--grid-size);

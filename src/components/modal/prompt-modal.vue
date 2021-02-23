@@ -1,7 +1,7 @@
 <template>
 	<base-modal :ariaLabelId="ariaLabelId" @close="onCancel" :visible="visible">
 		<div class="prompt-modal">
-			<form>
+			<form @submit.prevent="onSubmit">
 				<base-card>
 					<template v-slot:header
 						><span :id="ariaLabelId">{{ message }}</span></template
