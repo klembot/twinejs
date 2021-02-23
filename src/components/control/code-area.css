@@ -31,9 +31,9 @@
 	border-radius: var(--corner-round);
 	border: 1px solid var(--faint-gray);
 	color: var(--dark-gray);
+	font-family: inherit;
 	flex-grow: 1;
 	flex-shrink: 1;
-	font: 100% var(--font-ui);
 	height: inherit;
 	padding: calc(var(--grid-size) / 2);
 }
@@ -46,8 +46,4 @@
 
 .code-area .CodeMirror-selected {
 	background: var(--light-blue-translucent);
-}
-
-.code-area.font-monospace .CodeMirror {
-	font-family: var(--font-code);
 }

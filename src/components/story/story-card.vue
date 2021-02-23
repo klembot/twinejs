@@ -23,7 +23,7 @@
 					icon="download"
 					label="common.publishToFile"
 				/>
-				<icon-button @click="renameStory" icon="type" label="common.rename" />
+				<icon-button @click="renameStory" icon="edit-3" label="common.rename" />
 				<icon-button
 					@click="duplicateStory"
 					icon="copy"

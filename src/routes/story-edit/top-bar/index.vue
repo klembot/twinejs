@@ -4,7 +4,7 @@
 			<template v-slot:actions>
 				<icon-button
 					@click="createPassage"
-					icon="plus-circle"
+					icon="plus"
 					label="storyEdit.topBar.addPassage"
 					type="create"
 				/>
@@ -38,7 +38,7 @@
 					/>
 					<icon-button
 						@click="toggleRenamePrompt"
-						icon="type"
+						icon="edit-3"
 						label="storyEdit.topBar.renameStory"
 					/>
 					<icon-button

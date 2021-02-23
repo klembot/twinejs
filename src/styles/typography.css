@@ -1,14 +1,14 @@
 :root {
-	/* base UI font */
-	--font-ui: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans,
-		Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
-
-	/* font for code fields and other programmer-oriented things */
-	--font-code: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier,
-		monospace;
-
 	/* display font, for titles */
 	--font-display: 'Nunito Light', sans-serif;
+
+	/* font for code fields and other programmer-oriented things */
+	--font-monospaced: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo,
+		Courier, monospace;
+
+	/* base UI font */
+	--font-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+		Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
 }
 
 @font-face {
@@ -45,7 +45,7 @@ h4 {
 }
 
 body {
-	font: 90% var(--font-ui);
+	font: 90% var(--font-system);
 }
 
 p,

@@ -10,6 +10,8 @@ export default {
 		window.navigator.browserLanguage ||
 		window.navigator.systemLanguage ||
 		'en-us',
+	passageEditorFontFamily: 'var(--font-system)',
+	passageEditorFontScale: -1,
 	proofingFormat: {
 		name: 'Paperthin',
 		version: '1.0.0'

@@ -23,6 +23,7 @@
 		"cancel": "Cancel",
 		"color": "Color",
 		"create": "Create",
+		"custom": "Custom",
 		"delete": "Delete",
 		"deleteCount": "Delete ({count})",
 		"duplicate": "Duplicate",
@@ -43,6 +44,23 @@
 		"test": "Test"
 	},
 	"components": {
+		"fontPicker": {
+			"customFamilyDetail": "Please enter the name of the font only. This changes only the editor font, not what font will be used in your story.",
+			"customScaleDetail": "Please enter a percentage only. This changes only the editor font, not what font will be used in your story.",
+			"customFamilyPrompt": "What font would you like to use?",
+			"customScalePrompt": "What size font would you like to use?",
+			"font": "Font",
+			"fonts": {
+				"monospaced": "Monospaced",
+				"serif": "Serif",
+				"system": "System"
+			},
+			"fontSize": "Font Size",
+			"sizes": {
+				"auto": "Auto",
+				"percent": "{percent}%"
+			}
+		},
 		"localStorageQuota": {
 			"measureAgain": "Measure space available again",
 			"percentAvailable": "{percent}% space available"
