@@ -1,0 +1,8 @@
+@import '../../../styles/colors.css';
+
+path.broken-connector {
+	/* See note in markers.tsx about how to apply arrowheads. */
+	fill: none;
+	stroke: var(--gray);
+	stroke-width: 2px;
+}

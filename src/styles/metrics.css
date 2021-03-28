@@ -11,7 +11,7 @@
 	--ui-gap: calc(var(--grid-size) * 2);
 
 	/* Border radius for elements with round corners. */
-	--corner-round: 4px;
+	--corner-round: 5px;
 }
 
 * {

@@ -20,7 +20,7 @@
 	margin-bottom: var(--grid-gap);
 }
 
-.code-area .vue-codemirror {
+.code-area .react-codemirror2 {
 	flex-grow: 1;
 	flex-shrink: 1;
 	display: flex;
@@ -34,7 +34,7 @@
 	font-family: inherit;
 	flex-grow: 1;
 	flex-shrink: 1;
-	height: inherit;
+	height: 100%;
 	padding: calc(var(--grid-size) / 2);
 }
 

@@ -1,10 +1,12 @@
-.story-card > .image svg {
-	height: auto;
+.story-card .image-card-image svg,
+.story-import-card .image-card-image svg {
+	height: 100%;
 	width: 100%;
 }
 
 @media (prefers-color-scheme: dark) {
-	.story-card > .image {
+	.story-card .image-card-image svg,
+	.story-import-card .image-card-image svg {
 		filter: invert() brightness(1.5);
 	}
 }

@@ -1,0 +1,41 @@
+@import '../../../styles/colors.css';
+@import '../../../styles/depth.css';
+@import '../../../styles/metrics.css';
+
+.card {
+	background: var(--white);
+	border-radius: var(--corner-round);
+	box-shadow: var(--shadow-small);
+	display: grid;
+	grid-gap: var(--grid-size);
+	overflow: hidden;
+	padding: var(--grid-size) calc(2 * var(--grid-size));
+}
+
+.card.compact {
+	font-size: 85%;
+}
+
+.card.compact {
+	color: var(--gray);
+	grid-gap: 0;
+	padding: calc(var(--grid-size) / 2);
+}
+
+.card.highlighted {
+	background: var(--light-yellow);
+	border-color: var(--yellow);
+}
+
+.card.selected {
+	background: var(--light-blue);
+	box-shadow: var(--shadow-small), inset 0 0 0 1px var(--blue);
+}
+
+.card.selected .card-actions {
+	border-color: var(--blue);
+}
+
+.card.highlighted .card-actions {
+	border-color: var(--yellow);
+}

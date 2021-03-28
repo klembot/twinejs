@@ -1,14 +1,13 @@
+@import '../../styles/depth.css';
+
 .button-card {
+	box-shadow: var(--shadow-large);
 	display: inline-block;
 }
 
-.button-card > .base-card > .body {
+.button-card .card {
+	grid-gap: 0;
 	padding: 0;
-}
-
-.button-card > .base-card > .body > .content {
-	display: flex;
-	flex-direction: column;
 }
 
 .button-card .icon-button {

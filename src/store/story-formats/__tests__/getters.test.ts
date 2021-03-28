@@ -1,0 +1,132 @@
+import {
+	formatImageUrl,
+	formatWithId,
+	formatWithNameAndVersion,
+	sortFormats
+} from '../getters';
+import {
+	fakeFailedStoryFormat,
+	fakeLoadedStoryFormat,
+	fakePendingStoryFormat
+} from '../../../test-util/fakes';
+
+describe('formatImageUrl', () => {
+	it('throws an error if the format is not loaded', () => {
+		expect(() => formatImageUrl(fakeFailedStoryFormat())).toThrow();
+		expect(() => formatImageUrl(fakePendingStoryFormat())).toThrow();
+	});
+
+	it('returns a relative URL to the story format', () => {
+		const format = fakeLoadedStoryFormat(
+			{url: 'https://mock/path/format.js'},
+			{image: 'mock-image.svg'}
+		);
+
+		expect(formatImageUrl(format)).toBe(`https://mock/path/mock-image.svg`);
+	});
+
+	it('returns a relative URL to the app if the story format URL itself is relative', () => {
+		const format = fakeLoadedStoryFormat(
+			{url: 'mock/path/format.js'},
+			{image: 'mock-image.svg'}
+		);
+
+		expect(formatImageUrl(format)).toBe(`/mock/path/mock-image.svg`);
+	});
+
+	it('preserves absolute URLs', () => {
+		const image = 'http://mock/image.svg';
+		const format = fakeLoadedStoryFormat({}, {image});
+
+		expect(formatImageUrl(format)).toBe(image);
+	});
+});
+
+describe('formatWithId', () => {
+	it('returns the format with the appropriate ID', () => {
+		const formats = [fakeLoadedStoryFormat(), fakeLoadedStoryFormat()];
+
+		expect(formatWithId(formats, formats[1].id)).toBe(formats[1]);
+	});
+
+	it('throws an error if the format does not exist', () => {
+		const formats = [fakeLoadedStoryFormat()];
+
+		expect(() =>
+			formatWithId(formats, formats[0].id + 'nonexistent')
+		).toThrow();
+	});
+});
+
+describe('formatWithNameAndVersion', () => {
+	it('returns the format with the appropriate name and version', () => {
+		const formats = [fakeLoadedStoryFormat(), fakeLoadedStoryFormat()];
+
+		expect(
+			formatWithNameAndVersion(
+				formats,
+				formats[1].name,
+				formats[1].version
+			)
+		).toBe(formats[1]);
+	});
+
+	it('does a case-sensitive match on names', () => {
+		const formats = [fakeLoadedStoryFormat()];
+
+		expect(() =>
+			formatWithNameAndVersion(
+				formats,
+				formats[0].name.toUpperCase(),
+				formats[0].version
+			)
+		).toThrow();
+	});
+
+	it('does an exact match on versions', () => {
+		const formats = [fakeLoadedStoryFormat()];
+		const versionBits = formats[0].version.split('.');
+
+		expect(() =>
+			formatWithNameAndVersion(
+				formats,
+				formats[0].name,
+				`${versionBits[0]}.${versionBits[1]}.1000`
+			)
+		).toThrow();
+	});
+
+	it('throws an error if the format does not exist', () => {
+		const formats = [fakeLoadedStoryFormat()];
+
+		expect(() =>
+			formatWithId(formats, formats[0].id + 'nonexistent')
+		).toThrow();
+	});
+});
+
+describe('sortFormats', () => {
+	it('sorts first by name ascending', () => {
+		const sorted = sortFormats([
+			fakePendingStoryFormat({name: 'mock-2', version: '3.2.1'}),
+			fakePendingStoryFormat({name: 'mock-1', version: '1.2.3'})
+		]);
+
+		expect(sorted).toEqual([
+			expect.objectContaining({name: 'mock-1', version: '1.2.3'}),
+			expect.objectContaining({name: 'mock-2', version: '3.2.1'})
+		]);
+	});
+
+	it('sorts formats with the same name on version descending', () => {
+		const sorted = sortFormats([
+			fakePendingStoryFormat({name: 'mock', version: '1.2.3'}),
+			fakePendingStoryFormat({name: 'mock', version: '10.2.3'})
+		]);
+
+		expect(sorted).toEqual([
+			expect.objectContaining({name: 'mock', version: '10.2.3'}),
+			expect.objectContaining({name: 'mock', version: '1.2.3'})
+		]);
+	});
+});

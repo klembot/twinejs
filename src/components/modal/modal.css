@@ -1,0 +1,30 @@
+@import '../../styles/colors.css';
+
+.modal-overlay {
+	top: 0;
+	left: 0;
+	bottom: 0;
+	position: fixed;
+	right: 0;
+	z-index: 3000;
+}
+
+.modal-content {
+	align-items: center;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+.modal-overlay {
+	background: var(--dark-gray-translucent);
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}

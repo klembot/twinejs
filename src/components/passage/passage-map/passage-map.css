@@ -1,0 +1,11 @@
+.passage-map {
+	transform-origin: top left;
+}
+
+.passage-map .passage-card {
+	will-change: transform;
+}
+
+.passage-map .passage-card.selected {
+	transform: translate(var(--drag-offset-left), var(--drag-offset-top));
+}

@@ -1,0 +1,46 @@
+.story-edit-route.main-content > .container {
+	position: relative;
+}
+
+.story-edit-route .marquee-selection {
+	/* Above .passage-map. */
+	z-index: 3;
+}
+
+.story-edit-route .graph-paper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.story-edit-route .passage-toolbar {
+	z-index: 4;
+}
+
+.story-edit-route .passage-map {
+	bottom: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	/* Above <graph-paper>. */
+	z-index: 2;
+}
+
+.story-edit-route .link-connectors {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+body.dragging-passages .drop {
+	display: none !important;
+}
+
+body.dragging-passages .story-edit-route * {
+	cursor: default !important;
+}

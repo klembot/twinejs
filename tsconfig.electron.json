@@ -1,0 +1,10 @@
+{
+	"compilerOptions": {
+		"module": "CommonJS",
+		"noEmit": false,
+		"outDir": "electron-build/electron",
+		"target": "es6"
+	},
+	"extends": "./tsconfig.json",
+	"include": ["src/electron/**/*", "src/externals.d.ts"],
+}

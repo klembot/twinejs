@@ -1,0 +1,12 @@
+.welcome-card .image-card-image {
+	align-items: flex-start;
+	display: flex;
+	justify-content: center;
+	margin-left: var(--grid-size);
+	margin-top: var(--grid-size);
+}
+
+.welcome-card .image-card-image img {
+	height: auto;
+	width: 100%;
+}

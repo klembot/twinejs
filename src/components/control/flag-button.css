@@ -1,0 +1,28 @@
+.flag-button {
+	align-items: center;
+	background: none;
+	border: none;
+	border-radius: var(--corner-round);
+	display: inline-flex;
+	cursor: pointer;
+	flex-direction: column;
+	font: 100% var(--font-system);
+	color: var(--dark-gray);
+	padding: var(--grid-size);
+	transition: background 0.3s;
+	width: 125px;
+}
+
+.flag-button .flag {
+	display: block;
+	height: 100px;
+	width: 100px;
+}
+
+.flag-button:hover:not(:disabled) {
+	background: var(--light-gray-translucent);
+}
+
+.flag-button:active:not(:disabled) {
+	background: var(--gray);
+}
