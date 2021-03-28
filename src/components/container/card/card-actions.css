@@ -1,0 +1,6 @@
+.card-actions {
+	border-top: 1px solid var(--light-gray);
+	display: flex;
+	justify-content: flex-end;
+	padding-top: var(--grid-size);
+}

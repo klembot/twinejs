@@ -26,9 +26,19 @@ Run `npm install` at the top level of the directory to install all goodies.
 
 ### BUILDING
 
-Run `npm start` to begin serving a development version of Twine to
-http://localhost:8080. This server will automatically update with changes you
-make.
+Run `npm start` to begin serving a development version of Twine locally. This
+server will automatically update with changes you make.
+
+Run `npm run start:electron` to run a development version of the Electron app.
+**Running this can damage files in your Twine storied folder. Take a backup copy
+of this folder before proceeding.** Most of the app will automatically update as
+you work, but if you want the app to read story files initially again, you will
+need to restart the process.
+
+Run `npm run start:electron-prod` to run the Electron app locally. Unlike `npm
+run start:electron`, this packages the application as closely to final release
+as possible. As a result, code will be minified and debugging will be more
+difficult.
 
 To create a release, run `npm run build`. Finished files will be found under
 `dist/`. In order to build Windows apps on OS X or Linux, you will need to have
@@ -37,14 +47,12 @@ installed. A file named `2.json` is created under `dist/` which contains
 information relevant to the autoupdater process, and is currently posted to
 https://twinery.org/latestversion/2.json.
 
-To run the app in an Electron context, run `npm run electron`. `npm run electron-dev` is a bit faster as it skips minification.
+To run the app in an Electron context, run `npm run electron`. `npm run
+electron-dev` is a bit faster as it skips minification.
 
-`npm run lint` and `npm test` will lint and test the source code respectively.
+`npm test` will test the source code respectively.
 
-`npm run pot` will create a POT template file for localization at
-`src/locale/po/template.pot`. See Localization below for more information.
-
-`npm run clean` will delete existing files in `build/` and `dist/`.
+`npm run clean` will delete existing files in `electron-build/` and `dist/`.
 
 ### LOCALIZATION
 

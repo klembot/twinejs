@@ -74,3 +74,8 @@ a {
 a:visited {
 	color: var(--dark-purple);
 }
+
+mark {
+	background-color: var(--light-yellow-translucent);
+	color: var(--black);
+}

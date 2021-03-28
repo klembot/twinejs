@@ -1,0 +1,269 @@
+{
+	"aboutTwine": {
+		"donateToTwine": "Help Twine Grow With A Donation",
+		"codeHeader": "Code",
+		"codeRepo": "Source Code Repository",
+		"license": "This application is released under the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GPL v3 license</a>, but any work created with it may be released under any terms, including commercial ones.",
+		"localizationHeader": "Localizations",
+		"title": "Twine {{version}} (Build {{buildNumber}})",
+		"twineDescription": "Twine is an open-source application for telling interactive, nonlinear stories."
+	},
+	"colors": {
+		"none": "No Color",
+		"red": "Red",
+		"orange": "Orange",
+		"yellow": "Yellow",
+		"green": "Green",
+		"blue": "Blue",
+		"purple": "Purple"
+	},
+	"common": {
+		"add": "Add",
+		"appName": "Twine",
+		"cancel": "Cancel",
+		"color": "Color",
+		"create": "Create",
+		"custom": "Custom",
+		"delete": "Delete",
+		"deleteCount": "Delete ({count})",
+		"duplicate": "Duplicate",
+		"edit": "Edit",
+		"import": "Import",
+		"language": "Language",
+		"more": "More",
+		"name": "Name",
+		"next": "Next",
+		"ok": "OK",
+		"play": "Play",
+		"publishToFile": "Publish To File",
+		"rename": "Rename",
+		"renameStoryPrompt": "What should “{{name}}” be renamed to?",
+		"remove": "Remove",
+		"save": "Save",
+		"skip": "Skip",
+		"tag": "Tag",
+		"test": "Test"
+	},
+	"components": {
+		"fontSelect": {
+			"customFamilyDetail": "Please enter the name of the font only. This changes only the font in Twine, not what font will be used in your story.",
+			"customSizeDetail": "Please enter a percentage only. This changes only the font in Twine, not what font will be used in your story.",
+			"customFamilyPrompt": "What font would you like to use?",
+			"customSizePrompt": "What size font would you like to use?",
+			"familyEmpty": "Please enter a font name.",
+			"font": "Font",
+			"fonts": {
+				"monospaced": "Monospaced",
+				"serif": "Serif",
+				"system": "System"
+			},
+			"fontSize": "Font Size",
+			"percentageIsntNumber": "Please enter a number.",
+			"percentageNotPositive": "Please enter a number greater than 0.",
+			"sizes": {
+				"auto": "Auto",
+				"percent": "{{percent}}%"
+			}
+		},
+		"localStorageQuota": {
+			"measureAgain": "Measure space available again",
+			"percentAvailable": "{percent}% space available"
+		},
+		"passageItem": {
+			"test": "Test From Here"
+		},
+		"passageSearchCard": {
+			"editPassage": "Edit Passage",
+			"matchCount": "No Matches | 1 Match | {matchCount} Matches",
+			"replace": "Replace in Passage",
+			"showPassage": "Show Passage in Story"
+		},
+		"storyCard": {
+			"lastUpdated": "Last edited on {{date}}",
+			"passageCount": "1 passage",
+			"passageCount_plural": "{{count}} passages"
+		},
+		"storyFormatCard": {
+			"author": "by {{author}}",
+			"license": "License: {{license}}",
+			"loadError": "This format could not be loaded ({{error}}).",
+			"name": "{{name}} {{version}}",
+			"useFormat": "Use As Story Format",
+			"useProofingFormat": "Use As Proofing Format"
+		}
+	},
+	"electron": {
+		"backupsDirectoryName": "Backups",
+		"errors": {
+			"storyDelete": "An error occurred while deleting a story.",
+			"storyRename": "An error occurred while renaming a story.",
+			"storySave": "An error occurred while saving a story."
+		},
+		"storiesDirectoryName": "Stories"
+	},
+	"localeSelect": {
+		"explanation": "Please choose which language you would like to use with Twine."
+	},
+	"passageEdit": {
+		"deletePassage": "Delete Passage",
+		"deleteDetail": "This cannot be undone.",
+		"deleteMessage": "Are you sure you want to delete this passage?",
+		"renameDetail": "Existing links to it will be updated.",
+		"renameMessage": "What should this passage be named?",
+		"setAsStart": "Start Story Here",
+		"size": "Size",
+		"sizeLarge": "Large",
+		"sizeSmall": "Small",
+		"sizeTall": "Tall",
+		"sizeWide": "Wide",
+		"tagToolbar": {
+			"addTagHeader": "Add a Tag",
+			"editTagDetail": "This will also change this tag in any other passages it's applied to.",
+			"editTagHeader": "Edit Tag"
+		},
+		"testFromHere": "Test Story From Here"
+	},
+	"store": {
+		"archiveFilename": "{{timestamp}} Twine Archive.html",
+		"passageDefaults": {
+			"name": "Untitled Passage",
+			"textClick": "Double-click this passage to edit it.",
+			"textTouch": "Tap this passage, then the pencil icon to edit it."
+		},
+		"storyDefaults": {
+			"name": "Untitled Story"
+		},
+		"storyFormatDefaults": {
+			"name": "Untitled Story Format"
+		}
+	},
+	"storyEdit": {
+		"deletePassageModal": {
+			"deleteSingle": "Are you sure you want to delete “{passageName}”? This cannot be undone.",
+			"deleteMultiple": "Are you sure want to delete {count} passages? This cannot be undone.",
+			"skip": "Hold the Shift key while deleting to skip this confirmation."
+		},
+		"topBar": {
+			"addPassage": "Passage",
+			"editJavaScript": "Edit Story JavaScript",
+			"editStylesheet": "Edit Story Stylesheet",
+			"findAndReplace": "Find and Replace",
+			"loadingFormats": "Loading story formats...",
+			"proofStory": "View Proofing Copy",
+			"publishToFile": "Publish to File",
+			"quickFind": "Quick Find",
+			"renameStory": "Rename Story",
+			"selectAllPassages": "Select All Passages",
+			"setStoryFormat": "Set Story Format",
+			"setStoryFormatPrompt": "What story format should this story use?",
+			"showFindDialog": "Show Find/Replace Dialog",
+			"snapToGrid": "Snap to Grid",
+			"storyStats": "Story Statistics",
+			"zoomIn": "Zoom In",
+			"zoomOut": "Zoom Out"
+		}
+	},
+	"storyFormatList": {
+		"addFormat": "Add a New Format",
+		"loadingFormat": "Loading {name}...",
+		"outdatedStoryFormats": "Older Story Formats",
+		"outdatedStoryFormatExplanation": "Newer versions of these formats are installed, but these are available for use with older stories:",
+		"proofingFormatExplanation": "Proofing formats create a versions of stories tailored for editing and proofreading.",
+		"outdatedProofingFormats": "Older Proofing Formats",
+		"proofingFormats": "Proofing Formats",
+		"selectedProofingFormat": "This format will be used when proofing stories.",
+		"selectedStoryFormat": "This format will be used as default for new stories.",
+		"storyFormats": "Story Formats",
+		"storyFormatExplanation": "Story formats control the appearance and behavior of stories during play.",
+		"useAsDefault": "Use As Default",
+		"useAsProofing": "Use as Proofing Format"
+	},
+	"storyImport": {
+		"choosePrompt": "Choose which stories to import from the file you uploaded:",
+		"deselectAll": "Deselect All",
+		"importDifferentFile": "Import a Different File",
+		"importSelected": "Import Selected Files",
+		"importThisStory": "Import This Story",
+		"noStoriesInFile": "There don't appear to be any Twine stories in the file you uploaded. Please choose another file.",
+		"passageCount": "Number of Passages",
+		"selectAll": "Select All",
+		"title": "Import Stories",
+		"uploadPrompt": "To import stories into Twine, upload either an archive or published story file below.",
+		"willReplaceExisting": "A story with the same name in your library will be replaced."
+	},
+	"storyJavaScript": {
+		"title": "Story JavaScript",
+		"explanation": "Any JavaScript entered here will immediately run when your story is opened in a Web browser."
+	},
+	"storyList": {
+		"noStories": "There are no stories saved in Twine right now. To get started, you can either create a new story or import an existing one from a file.",
+		"storyNameEmpty": "Please enter a name.",
+		"storyNameTaken": "A story with this name already exists.",
+		"title": "Stories",
+		"titleCount": "1 Story",
+		"titleCount_0": "No Stories",
+		"titleCount_plural": "{{count}} Stories",
+		"topBar": {
+			"about": "About Twine",
+			"archive": "Archive",
+			"archiveExplanation": "Save all stories to a Twine archive",
+			"createStory": "Story",
+			"createStoryExplanation": "Create a brand new story",
+			"createStoryPromptDetail": "You can change this later.",
+			"createStoryPromptMessage": "What should your story be named?",
+			"help": "Help",
+			"helpDescription": "Browse online help",
+			"language": "Set Language",
+			"languageDescription": "Change the language Twine uses",
+			"importFromFileExplanation": "Import a published Twine story or archive",
+			"reportBug": "Report a Bug",
+			"sort": "Sort By...",
+			"sortDescription": "Change story sort order",
+			"sortDate": "Date",
+			"sortDateDescription": "Sort by last edited",
+			"sortName": "Name",
+			"sortTitleDescription": "Sort by story title",
+			"storyFormats": "Formats",
+			"storyFormatsExplanation": "Work with story and proofing formats"
+		}
+	},
+	"storySearch": {
+		"title": "Find and Replace",
+		"includePassageNames": "Include Passage Names",
+		"matchCase": "Match Case",
+		"noMatches": "No passages match this search criteria.",
+		"replaceAll": "Replace In All Passages",
+		"replaceWith": "Replace With",
+		"searchFor": "Search For",
+		"useRegexes": "Use Regular Expressions"
+	},
+	"storyStats": {
+		"brokenLinks": "Broken Links",
+		"characters": "Characters",
+		"title": "Story Statistics",
+		"ifid": "The IFID of this story is {{ifid}}.",
+		"ifidExplanation": "(What's an IFID?)",
+		"lastUpdate": "This story was last changed on {{date}}.",
+		"links": "Links",
+		"passages": "Passages",
+		"words": "Words"
+	},
+	"storyStylesheet": {
+		"title": "Story Stylesheet",
+		"explanation": "Any CSS entered here will override the default appearance of your story."
+	},
+	"welcome": {
+		"autosave": "<p>There's now a folder named Twine in your Documents folder. Inside that is a Stories folder, where all your work will be saved. Twine saves as you work, so you don't have to worry about remembering to save it yourself. You can always open the folder your stories are saved to by using the <strong>Show Library</strong> item in the <strong>Twine</strong> menu.</p><p>Because Twine is always saving your work, the files in your story library will be locked from editing while Twine is open.</p><p>If you'd like to open a Twine story file you received from someone else, you can import it into your library using the <strong>Import From File</strong> link in the story list.</p>",
+		"autosaveTitle": "Your work is automatically saved.",
+		"browserStorage": "<p>That means you don't need to create an account to use Twine 2, and everything you create isn't stored on a server somewhere else&mdash;it stays right in your browser.</p><p>Two <strong>very important</strong> things to remember, though. Since your work is saved only in your browser, if you clear its saved data, then you'll lose your work! Not good. Remember to use that <strong>Archive</strong> button often. You can also publish individual stories to files using the menu on each story in the story list. Both archive and story files can always be re-imported into Twine.</p><p>Secondly, <strong>anyone who can use this browser can see and make changes to your work.</strong> So if you've got a nosy kid brother, look into setting up a separate profile for yourself.</p>",
+		"browserStorageTitle": "Your work is only saved in your browser",
+		"done": "Thanks for reading, and have fun with Twine.",
+		"doneTitle": "That's it!",
+		"gotoStoryList": "Go to the Story List",
+		"greeting": "Twine is an open-source tool for telling interactive, nonlinear stories. There are a few things you should know before you get started.",
+		"greetingTitle": "Hi!",
+		"tellMeMore": "Tell Me More",
+		"help": "<p><strong>If you've never used Twine before, then welcome!</strong> The <a href=\"https://twinery.org/cookbook\">Twine Cookbook</a> is a great resource for learning how to use it. If you haven't used Twine before, it's a great place to start.</p>",
+		"helpTitle": "New here?"
+	}
+}

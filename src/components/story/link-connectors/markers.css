@@ -1,0 +1,12 @@
+@import '../../../styles/colors.css';
+
+#link-arrowhead path {
+	fill: var(--gray);
+	stroke: none;
+}
+
+#link-broken line {
+	fill: var(--red);
+	stroke-width: 2px;
+	stroke: var(--red);
+}

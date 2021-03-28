@@ -1,0 +1,8 @@
+.passage-edit-route .main-content {
+	display: flex;
+	flex-direction: column;
+}
+
+.passage-edit-route .code-area {
+	flex-grow: 1;
+}

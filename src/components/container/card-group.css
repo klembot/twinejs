@@ -6,6 +6,6 @@
 	margin: var(--ui-gap) auto;
 }
 
-.card-group .base-card {
+.card-group .card {
 	height: 100%;
 }

@@ -1,0 +1,1 @@
+These JSON files are in i18next format.

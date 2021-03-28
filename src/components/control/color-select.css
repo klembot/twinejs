@@ -69,6 +69,8 @@
 	stroke: var(--purple);
 }
 
+/* TODO: fix appearance in dark mode */
+
 .color-select > label > .control > select {
 	-webkit-appearance: none;
 	background: var(--white) url('~feather-icons/dist/icons/chevron-down.svg');

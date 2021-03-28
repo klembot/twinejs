@@ -5,9 +5,7 @@
 	background: var(--off-white);
 	overflow: auto;
 	position: fixed;
-	top: calc(
-		var(--control-height) + var(--ui-gap) / 2
-	); /* height of <top-bar> */
+	top: 50px; /* height of <top-bar> */
 	left: 0;
 	right: 0;
 	bottom: 0;
