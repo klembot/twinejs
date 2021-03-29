@@ -1,15 +1,6 @@
 *.swp
 node_modules/*
 dist/*
-doc/*
-.tmp/*
 *.DS_Store
 .idea
-cache
-dist-apps
-build
-coverage/
-
-
-#Electron-builder output
-/dist_electron
+coverage/*

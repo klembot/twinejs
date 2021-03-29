@@ -2,6 +2,7 @@ import * as React from 'react';
 import {usePrefsContext} from './prefs/prefs-context';
 import {useStoriesContext} from './stories/stories-context';
 import {usePersistence} from './persistence/use-persistence';
+import {LoadingCurtain} from '../components/loading-curtain/loading-curtain';
 
 export const StateLoader: React.FC = ({children}) => {
 	const [inited, setInited] = React.useState(false);
@@ -17,6 +18,5 @@ export const StateLoader: React.FC = ({children}) => {
 		}
 	}, [inited, prefs, prefsDispatch, stories, storiesDispatch]);
 
-	// TODO: Show a progress spinner
-	return inited ? <>{children}</> : <p>Loading state</p>;
+	return inited ? <>{children}</> : <LoadingCurtain />;
 };
