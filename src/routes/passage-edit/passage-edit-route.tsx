@@ -11,7 +11,7 @@ import {
 	passageWithId,
 	storyWithId,
 	updatePassage,
-	useStoriesContext,
+	useStoriesContext
 } from '../../store/stories';
 import './passage-edit-route.css';
 

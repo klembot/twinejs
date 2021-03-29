@@ -15,6 +15,10 @@ export function updatePassage(
 	props: Partial<Passage>,
 	options: UpdatePassageOptions = {}
 ) {
+	if (!story.passages.some((p) => p.id === passage.id)) {
+		throw new Error('This passage does not belong to this story.');
+	}
+
 	if (
 		props.name &&
 		story.passages
