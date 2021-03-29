@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {Prompt, useHistory, useParams} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import {MainContent} from '../../components/container/main-content';
 import {TopBar} from '../../components/container/top-bar';
 import {CodeArea} from '../../components/control/code-area';
@@ -15,7 +15,6 @@ export const StoryJavaScriptRoute: React.FC = () => {
 	const {dispatch: prefsDispatch, prefs} = usePrefsContext();
 	const {dispatch: storiesDispatch, stories} = useStoriesContext();
 	const story = storyWithId(stories, storyId);
-	const [editedText, setEditedText] = React.useState(story.script);
 	const history = useHistory();
 	const {t} = useTranslation();
 	const handleChange = (
@@ -23,20 +22,11 @@ export const StoryJavaScriptRoute: React.FC = () => {
 		data: CodeMirror.EditorChange,
 		text: string
 	) => {
-		setEditedText(text);
-	};
-
-	// TODO: this doesn't catch all instances (reload, go somewhere else entirely)
-	// needs either a save button or moved to a modal.
-
-	const handleLeave = () => {
-		updateStory(storiesDispatch, stories, story, {script: editedText});
-		return true;
+		updateStory(storiesDispatch, stories, story, {script: text});
 	};
 
 	return (
 		<div className="story-javascript-route">
-			<Prompt message={handleLeave} />
 			<TopBar>
 				<IconButton
 					icon="arrow-left"
@@ -51,19 +41,11 @@ export const StoryJavaScriptRoute: React.FC = () => {
 				<FontSelect
 					fontFamily={prefs.passageEditorFontFamily}
 					fontScale={prefs.passageEditorFontScale}
-					onChangeFamily={value =>
-						setPref(
-							prefsDispatch,
-							'javascriptEditorFontFamily',
-							value
-						)
+					onChangeFamily={(value) =>
+						setPref(prefsDispatch, 'javascriptEditorFontFamily', value)
 					}
-					onChangeScale={value =>
-						setPref(
-							prefsDispatch,
-							'javascriptEditorFontScale',
-							value
-						)
+					onChangeScale={(value) =>
+						setPref(prefsDispatch, 'javascriptEditorFontScale', value)
 					}
 				/>
 				<CodeArea
@@ -71,7 +53,7 @@ export const StoryJavaScriptRoute: React.FC = () => {
 					fontScale={prefs.javascriptEditorFontScale}
 					onBeforeChange={handleChange}
 					options={{autofocus: true, mode: 'js'}}
-					value={editedText}
+					value={story.script}
 				/>
 			</MainContent>
 		</div>
