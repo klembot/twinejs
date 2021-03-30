@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {Prompt, useHistory, useParams} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import {MainContent} from '../../components/container/main-content';
 import {TopBar} from '../../components/container/top-bar';
 import {CodeArea} from '../../components/control/code-area';
@@ -15,7 +15,6 @@ export const StoryStylesheetRoute: React.FC = () => {
 	const {dispatch: storiesDispatch, stories} = useStoriesContext();
 	const {storyId} = useParams<{storyId: string}>();
 	const story = storyWithId(stories, storyId);
-	const [editedText, setEditedText] = React.useState(story.stylesheet);
 	const history = useHistory();
 	const {t} = useTranslation();
 	const handleChange = (
@@ -23,20 +22,11 @@ export const StoryStylesheetRoute: React.FC = () => {
 		data: CodeMirror.EditorChange,
 		text: string
 	) => {
-		setEditedText(text);
-	};
-
-	// TODO: this doesn't catch all instances (reload, go somewhere else entirely)
-	// needs either a save button or moved to a modal.
-
-	const handleLeave = () => {
-		updateStory(storiesDispatch, stories, story, {stylesheet: editedText});
-		return true;
+		updateStory(storiesDispatch, stories, story, {stylesheet: text});
 	};
 
 	return (
 		<div className="story-stylesheet-route">
-			<Prompt message={handleLeave} />
 			<TopBar>
 				<IconButton
 					icon="arrow-left"
@@ -51,19 +41,11 @@ export const StoryStylesheetRoute: React.FC = () => {
 				<FontSelect
 					fontFamily={prefs.stylesheetEditorFontFamily}
 					fontScale={prefs.stylesheetEditorFontScale}
-					onChangeFamily={value =>
-						setPref(
-							prefsDispatch,
-							'stylesheetEditorFontFamily',
-							value
-						)
+					onChangeFamily={(value) =>
+						setPref(prefsDispatch, 'stylesheetEditorFontFamily', value)
 					}
-					onChangeScale={value =>
-						setPref(
-							prefsDispatch,
-							'stylesheetEditorFontScale',
-							value
-						)
+					onChangeScale={(value) =>
+						setPref(prefsDispatch, 'stylesheetEditorFontScale', value)
 					}
 				/>
 				<CodeArea
@@ -71,7 +53,7 @@ export const StoryStylesheetRoute: React.FC = () => {
 					fontScale={prefs.stylesheetEditorFontScale}
 					onBeforeChange={handleChange}
 					options={{autofocus: true, mode: 'css'}}
-					value={editedText}
+					value={story.stylesheet}
 				/>
 			</MainContent>
 		</div>

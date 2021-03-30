@@ -14,9 +14,13 @@ export function createNewlyLinkedPassages(
 	newText: string,
 	oldText: string
 ) {
+	if (!story.passages.some((p) => p.id === passage.id)) {
+		throw new Error('This passage does not belong to this story.');
+	}
+
 	const oldLinks = parseLinks(oldText);
 	const toCreate = parseLinks(newText).filter(
-		l => !oldLinks.includes(l) && !story.passages.some(p => p.name === l)
+		(l) => !oldLinks.includes(l) && !story.passages.some((p) => p.name === l)
 	);
 
 	if (toCreate.length === 0) {
@@ -28,8 +32,7 @@ export function createNewlyLinkedPassages(
 
 	const top = passage.top + passage.height + passageGap;
 	const newPassagesWidth =
-		toCreate.length * passageDefs.width +
-		(toCreate.length - 1) * passageGap;
+		toCreate.length * passageDefs.width + (toCreate.length - 1) * passageGap;
 
 	// Horizontally center the passages.
 
@@ -39,11 +42,11 @@ export function createNewlyLinkedPassages(
 
 	// Actually create them.
 
-	toCreate.forEach(name => {
+	toCreate.forEach((name) => {
 		dispatch({
 			type: 'createPassage',
 			storyId: story.id,
-			props: {name, left, top}
+			props: {name, left, top},
 		});
 
 		left += passageDefs.width + passageGap;

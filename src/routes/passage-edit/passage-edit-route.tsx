@@ -7,6 +7,7 @@ import {TagToolbar} from './tag-toolbar';
 import {PassageEditTopBar} from './top-bar/top-bar';
 import {setPref, usePrefsContext} from '../../store/prefs';
 import {
+	createNewlyLinkedPassages,
 	passageWithId,
 	storyWithId,
 	updatePassage,
@@ -21,24 +22,44 @@ export const PassageEditRoute: React.FC = () => {
 	}>();
 	const {dispatch: storiesDispatch, stories} = useStoriesContext();
 	const passage = passageWithId(stories, storyId, passageId);
+	const [originalPassageText, setOriginalPassageText] = React.useState(
+		passage.text
+	);
+	const [originalPassageId, setOriginalPassageId] = React.useState(passage.id);
 	const {dispatch: prefsDispatch, prefs} = usePrefsContext();
 	const story = storyWithId(stories, storyId);
-	const [editedText, setEditedText] = React.useState(passage.text);
 
 	const handleChange = (
 		editor: CodeMirror.Editor,
 		data: CodeMirror.EditorChange,
 		text: string
 	) => {
-		setEditedText(text);
+		updatePassage(
+			storiesDispatch,
+			story,
+			passage,
+			{text},
+			{dontCreateNewlyLinkedPassages: true}
+		);
 	};
 
-	// TODO: this doesn't catch all instances (reload, go somewhere else entirely)
-	// needs either a save button or moved to a modal. Maybe revisit
-	// save-as-you-go... that's how editing tags and setting as start works.
+	// Add new links when navigating away.
+
+	React.useEffect(() => {
+		if (passage.id !== originalPassageId) {
+			setOriginalPassageId(passage.id);
+			setOriginalPassageText(passage.text);
+		}
+	}, [originalPassageId, passage.id, passage.text]);
 
 	const handleLeave = () => {
-		updatePassage(storiesDispatch, story, passage, {text: editedText});
+		createNewlyLinkedPassages(
+			storiesDispatch,
+			story,
+			passage,
+			passage.text,
+			originalPassageText
+		);
 		return true;
 	};
 
@@ -53,10 +74,10 @@ export const PassageEditRoute: React.FC = () => {
 				<FontSelect
 					fontFamily={prefs.passageEditorFontFamily}
 					fontScale={prefs.passageEditorFontScale}
-					onChangeFamily={value =>
+					onChangeFamily={(value) =>
 						setPref(prefsDispatch, 'passageEditorFontFamily', value)
 					}
-					onChangeScale={value =>
+					onChangeScale={(value) =>
 						setPref(prefsDispatch, 'passageEditorFontScale', value)
 					}
 				/>
@@ -65,7 +86,7 @@ export const PassageEditRoute: React.FC = () => {
 					fontScale={prefs.passageEditorFontScale}
 					onBeforeChange={handleChange}
 					options={{autofocus: true, mode: 'text'}}
-					value={editedText}
+					value={passage.text}
 				/>
 			</MainContent>
 		</div>
