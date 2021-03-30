@@ -15,9 +15,11 @@ export function getAppInfo(): AppInfo {
 		throw new Error('Could not find <html> element');
 	}
 
+	// TODO: write these into HTML during build
+
 	return {
 		name: htmlEl.getAttribute('data-app-name') ?? '',
 		version: htmlEl.getAttribute('data-version') ?? '',
-		buildNumber: htmlEl.getAttribute('data-build-number') ?? ''
+		buildNumber: htmlEl.getAttribute('data-build-number') ?? '',
 	};
 }

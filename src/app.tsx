@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {GlobalErrorBoundary} from './components/global-error-boundary';
+import {LoadingCurtain} from './components/loading-curtain/loading-curtain';
 import {LocaleSwitcher} from './store/locale-switcher';
 import {PrefsContextProvider} from './store/prefs';
 import {Routes} from './routes';
@@ -18,9 +19,7 @@ export const App: React.FC = () => {
 				<StoryFormatsContextProvider>
 					<StoriesContextProvider>
 						<StateLoader>
-							<React.Suspense
-								fallback={<p>TODO loading locale</p>}
-							>
+							<React.Suspense fallback={<LoadingCurtain />}>
 								<Routes />
 							</React.Suspense>
 						</StateLoader>
