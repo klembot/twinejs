@@ -63,6 +63,9 @@ export const Routes: React.FC = () => {
 					<Route path="/stories/:storyId/stylesheet">
 						<StoryStylesheetRoute />
 					</Route>
+					<Route path="/stories/:storyId/test/:passageId">
+						<StoryTestRoute />
+					</Route>
 					<Route path="/stories/:storyId/test">
 						<StoryTestRoute />
 					</Route>

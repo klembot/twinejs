@@ -15,6 +15,8 @@ export interface PassageToolbarProps {
 	targets: Passage[];
 }
 
+// TODO: implement delete
+
 export const PassageToolbar: React.FC<PassageToolbarProps> = React.memo(
 	props => {
 		const {onDelete, onEdit, onTest, targets} = props;
@@ -27,17 +29,13 @@ export const PassageToolbar: React.FC<PassageToolbarProps> = React.memo(
 			popperElement,
 			setPopperElement
 		] = React.useState<HTMLDivElement | null>(null);
-		const {styles, attributes} = usePopper(
-			referenceElement,
-			popperElement,
-			{
-				modifiers: [
-					{
-						name: 'flip'
-					}
-				]
-			}
-		);
+		const {styles, attributes} = usePopper(referenceElement, popperElement, {
+			modifiers: [
+				{
+					name: 'flip'
+				}
+			]
+		});
 		const {t} = useTranslation();
 
 		// Force the popper to reposition as needed. We need to wait until any

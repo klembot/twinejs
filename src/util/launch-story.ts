@@ -13,7 +13,7 @@ export interface LaunchStoryOptions {
 	mode: 'play' | 'proof' | 'test';
 
 	/**
-	 * GUID of the start passage, overriding what is normally set in the story.
+	 * ID of the start passage, overriding what is normally set in the story.
 	 */
 	startId?: string;
 }

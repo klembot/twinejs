@@ -13,11 +13,7 @@ export const PassageCardGroup: React.FC<PassageCardGroupProps> = React.memo(
 		return (
 			<>
 				{passages.map(passage => (
-					<PassageCard
-						key={passage.id}
-						passage={passage}
-						{...props}
-					/>
+					<PassageCard key={passage.id} passage={passage} {...props} />
 				))}
 			</>
 		);

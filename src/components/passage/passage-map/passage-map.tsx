@@ -48,11 +48,16 @@ function dragReducer(state: DragState, action: DragAction) {
 			// effect. However, it allows us to avoid re-renders as state
 			// changes--otherwise state becomes a dependency of the handleDragStop
 			// callback below--which have a large performance impact.
+			//
+			// This also must be deferred to avoid changing state mid-render through
+			// the callback.
 
-			action.callback({
-				left: state.dragX - state.startX,
-				top: state.dragY - state.startY
-			});
+			Promise.resolve().then(() =>
+				action.callback({
+					left: state.dragX - state.startX,
+					top: state.dragY - state.startY
+				})
+			);
 			return {dragging: false, dragX: 0, dragY: 0, startX: 0, startY: 0};
 	}
 }
