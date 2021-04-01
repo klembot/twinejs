@@ -32,6 +32,8 @@ export const StoryEditRoute: React.FC = () => {
 	);
 
 	// TODO: incorporate apparent zoom
+	// TODO: graph paper doesn't fill body
+	// TODO: add extra space at bottom and right
 
 	const getCenter = React.useCallback(() => {
 		if (!mainContent.current) {
@@ -42,12 +44,10 @@ export const StoryEditRoute: React.FC = () => {
 
 		return {
 			left:
-				(mainContent.current.scrollLeft +
-					mainContent.current.clientWidth / 2) /
+				(mainContent.current.scrollLeft + mainContent.current.clientWidth / 2) /
 				story.zoom,
 			top:
-				(mainContent.current.scrollTop +
-					mainContent.current.clientHeight / 2) /
+				(mainContent.current.scrollTop + mainContent.current.clientHeight / 2) /
 				story.zoom
 		};
 	}, [story.zoom]);
@@ -87,7 +87,7 @@ export const StoryEditRoute: React.FC = () => {
 		console.log('hello?');
 		if (selectedPassages.length !== 1) {
 			throw new Error(
-				`Asked to edit selected passage, but {selectedPassages.length} are selected`
+				`Asked to edit selected passage, but ${selectedPassages.length} are selected`
 			);
 		}
 
@@ -100,6 +100,8 @@ export const StoryEditRoute: React.FC = () => {
 				`Asked to test from selected passage, but {selectedPassages.length} are selected`
 			);
 		}
+
+		console.log('startId', selectedPassages[0].id);
 
 		launchStory(stories, story.id, {
 			mode: 'test',
