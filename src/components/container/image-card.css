@@ -2,6 +2,7 @@
 
 .image-card > .card {
 	display: grid;
+	grid-gap: var(--grid-size);
 	grid-template-columns: 2fr 3fr;
 	padding: 0;
 }
@@ -12,8 +13,13 @@
 
 .image-card .image-card-content {
 	display: grid;
+	grid-template-rows: min-content 1fr min-content;
 	grid-gap: var(--grid-size);
 	padding-bottom: var(--grid-size);
 	padding-right: var(--grid-size);
 	padding-top: var(--grid-size);
+}
+
+.image-card .image-card-content .card-body {
+	align-self: center;
 }

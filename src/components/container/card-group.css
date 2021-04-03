@@ -7,6 +7,13 @@
 	margin: var(--ui-gap) auto;
 }
 
+/*
+This is a bit hacky. The intent is to have cards that may be nested inside divs
+fill the grid cells.
+*/
+
+.card-group > *,
+.card-group .image-card,
 .card-group .card {
 	height: 100%;
 }

@@ -8,8 +8,9 @@
 	box-shadow: var(--shadow-small);
 	display: grid;
 	grid-gap: var(--grid-size);
+	grid-template-rows: auto-fit 1fr auto-fit;
 	overflow: hidden;
-	padding: var(--grid-size) calc(2 * var(--grid-size));
+	padding: var(--grid-size);
 }
 
 .card.compact {
