@@ -27,7 +27,7 @@ interface DragState {
 type DragAction =
 	| {type: 'start'; x: number; y: number}
 	| {type: 'move'; x: number; y: number}
-	| {type: 'stop'; callback: (change: Point) => void};
+	| {type: 'stop'; callback: (change: Point) => void; zoom: number};
 
 function dragReducer(state: DragState, action: DragAction) {
 	switch (action.type) {
@@ -54,8 +54,8 @@ function dragReducer(state: DragState, action: DragAction) {
 
 			Promise.resolve().then(() =>
 				action.callback({
-					left: state.dragX - state.startX,
-					top: state.dragY - state.startY
+					left: (state.dragX - state.startX) / action.zoom,
+					top: (state.dragY - state.startY) / action.zoom
 				})
 			);
 			return {dragging: false, dragX: 0, dragY: 0, startX: 0, startY: 0};
@@ -115,13 +115,13 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 
 		container.current.style.setProperty(
 			'--drag-offset-left',
-			`${state.dragX - state.startX}px`
+			`${(state.dragX - state.startX) / zoom}px`
 		);
 		container.current.style.setProperty(
 			'--drag-offset-top',
-			`${state.dragY - state.startY}px`
+			`${(state.dragY - state.startY) / zoom}px`
 		);
-	}, [state.dragX, state.dragY, state.startX, state.startY]);
+	}, [state.dragX, state.dragY, state.startX, state.startY, zoom]);
 
 	const handleDragStart = React.useCallback((event, data: DraggableData) => {
 		document.body.classList.add('dragging-passages');
@@ -134,15 +134,15 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 	);
 	const handleDragStop = React.useCallback(() => {
 		document.body.classList.remove('dragging-passages');
-		dispatch({type: 'stop', callback: onDrag});
-	}, [onDrag]);
+		dispatch({type: 'stop', callback: onDrag, zoom});
+	}, [onDrag, zoom]);
 
 	return (
 		<div className="passage-map" ref={container} style={style}>
 			<LinkConnectors
 				offset={{
-					left: state.dragX - state.startX,
-					top: state.dragY - state.startY
+					left: (state.dragX - state.startX) / zoom,
+					top: (state.dragY - state.startY) / zoom
 				}}
 				passages={passages}
 			/>
