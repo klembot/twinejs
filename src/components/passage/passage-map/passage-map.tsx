@@ -3,7 +3,7 @@ import {DraggableData} from 'react-draggable';
 import {PassageCardGroup} from '../passage-card-group';
 import {Passage, Story} from '../../../store/stories';
 import {LinkConnectors} from '../../story/link-connectors';
-import {Point} from '../../../util/geometry';
+import {boundingRect, Point} from '../../../util/geometry';
 import './passage-map.css';
 
 export interface PassageMapProps {
@@ -62,6 +62,8 @@ function dragReducer(state: DragState, action: DragAction) {
 	}
 }
 
+const extraSpace = 500;
+
 export const PassageMap: React.FC<PassageMapProps> = props => {
 	const {
 		onDeselect,
@@ -73,6 +75,31 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 		zoom
 	} = props;
 	const container = React.useRef<HTMLDivElement>(null);
+	const bounds = React.useMemo(() => {
+		// Need to inject a fake rect at the very top-left corner to anchor the
+		// bounds there.
+
+		const passageBounds = boundingRect([
+			...passages,
+			{top: 0, left: 0, width: 0, height: 0}
+		]);
+		const scaledWindowHeight = window.innerHeight / zoom;
+		const scaledWindowWidth = window.innerWidth / zoom;
+
+		return {
+			height: Math.max(passageBounds.height, scaledWindowHeight) + extraSpace,
+			width: Math.max(passageBounds.width, scaledWindowWidth) + extraSpace
+		};
+	}, [passages, zoom]);
+
+	const style = React.useMemo(
+		() => ({
+			...bounds,
+			transform: `scale(${zoom})`
+		}),
+		[bounds, zoom]
+	);
+
 	const [state, dispatch] = React.useReducer(dragReducer, {
 		dragging: false,
 		dragX: 0,
@@ -96,10 +123,6 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 		);
 	}, [state.dragX, state.dragY, state.startX, state.startY]);
 
-	// TODO: can perf be even better?
-	// Would using a dynamically-created CSS rule be more efficient than a CSS variable?
-	// A: Slightly.
-
 	const handleDragStart = React.useCallback((event, data: DraggableData) => {
 		document.body.classList.add('dragging-passages');
 		dispatch({type: 'start', x: data.x, y: data.y});
@@ -115,11 +138,7 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 	}, [onDrag]);
 
 	return (
-		<div
-			className="passage-map"
-			ref={container}
-			style={{transform: `scale(${zoom})`}}
-		>
+		<div className="passage-map" ref={container} style={style}>
 			<LinkConnectors
 				offset={{
 					left: state.dragX - state.startX,

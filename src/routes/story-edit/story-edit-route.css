@@ -1,18 +1,6 @@
-.story-edit-route.main-content > .container {
-	position: relative;
-}
-
 .story-edit-route .marquee-selection {
 	/* Above .passage-map. */
 	z-index: 3;
-}
-
-.story-edit-route .graph-paper {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
 }
 
 .story-edit-route .passage-toolbar {
@@ -20,13 +8,11 @@
 }
 
 .story-edit-route .passage-map {
-	bottom: 0;
 	position: absolute;
 	top: 0;
 	left: 0;
-	right: 0;
-	/* Above <graph-paper>. */
-	z-index: 2;
+	min-height: 100%;
+	min-width: 100%;
 }
 
 .story-edit-route .link-connectors {

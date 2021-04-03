@@ -3,7 +3,6 @@ import {useHistory, useParams} from 'react-router-dom';
 import {Point, Rect} from '../../util/geometry';
 import {MainContent} from '../../components/container/main-content';
 import {MarqueeSelection} from '../../components/marquee-selection';
-import {GraphPaper} from '../../components/surface/graph-paper';
 import {
 	deselectPassage,
 	Passage,
@@ -30,10 +29,6 @@ export const StoryEditRoute: React.FC = () => {
 		() => story.passages.filter(passage => passage.selected),
 		[story.passages]
 	);
-
-	// TODO: incorporate apparent zoom
-	// TODO: graph paper doesn't fill body
-	// TODO: add extra space at bottom and right
 
 	const getCenter = React.useCallback(() => {
 		if (!mainContent.current) {
@@ -101,8 +96,6 @@ export const StoryEditRoute: React.FC = () => {
 			);
 		}
 
-		console.log('startId', selectedPassages[0].id);
-
 		launchStory(stories, story.id, {
 			mode: 'test',
 			startId: selectedPassages[0].id
@@ -146,7 +139,6 @@ export const StoryEditRoute: React.FC = () => {
 		<div className="story-edit-route">
 			<StoryEditTopBar getCenter={getCenter} story={story} />
 			<MainContent padded={false} ref={mainContent}>
-				<GraphPaper zoom={story.zoom} />
 				<MarqueeSelection
 					container={mainContent}
 					ignoreEventsOnSelector=".passage-card, .passage-toolbar"
