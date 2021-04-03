@@ -1,19 +1,21 @@
 import * as React from 'react';
 import './card-group.css';
 
-export interface CardGroupProps {
-	columns?: number;
-	columnWidth?: string;
-	maxWidth?: string;
-}
+export type CardGroupProps =
+	| {columns: number; maxWidth?: string}
+	| {columnWidth: number | string; maxWidth?: string};
 
 export const CardGroup: React.FC<CardGroupProps> = props => {
-	const {columns, columnWidth, maxWidth} = props;
 	const style: React.CSSProperties = {
-		gridTemplateColumns: columnWidth
-			? `repeat(auto-fit, ${columnWidth})`
-			: `repeat(${columns}, 1fr)`,
-		maxWidth: maxWidth ?? 'auto'
+		gridTemplateColumns:
+			'columnWidth' in props
+				? `repeat(auto-fit, ${
+						typeof props.columnWidth === 'number'
+							? props.columnWidth + 'px'
+							: props.columnWidth
+				  })`
+				: `repeat(${props.columns}, 1fr)`,
+		maxWidth: props.maxWidth ?? 'auto'
 	};
 
 	return (
