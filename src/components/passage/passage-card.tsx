@@ -70,8 +70,6 @@ export const PassageCard: React.FC<PassageCardProps> = React.memo(props => {
 		passage
 	]);
 
-	// TODO: tag stripe at top
-
 	return (
 		<DraggableCore
 			nodeRef={container}
