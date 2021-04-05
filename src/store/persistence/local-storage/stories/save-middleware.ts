@@ -8,7 +8,12 @@ import {
 	storyWithId,
 	storyWithName
 } from '../../../stories';
-import {doUpdateTransaction, savePassage, saveStory} from './save';
+import {
+	deletePassageById,
+	doUpdateTransaction,
+	savePassage,
+	saveStory
+} from './save';
 
 // TODO: handle passage delete, check electron side too
 // TODO: handle story delete, check electron side too
@@ -68,9 +73,20 @@ export function saveMiddleware(state: StoriesState, action: StoriesAction) {
 
 			doUpdateTransaction(transaction => {
 				saveStory(transaction, newStory);
-				newStory.passages.forEach(passage =>
-					savePassage(transaction, passage)
-				);
+				newStory.passages.forEach(passage => savePassage(transaction, passage));
+			});
+			break;
+
+		case 'deletePassage':
+			story = storyWithId(state, action.storyId);
+
+			// We can't dig up the passage in question right now, because
+			// previousStories is only a shallow copy, and it's gone there at
+			// this point in time.
+
+			doUpdateTransaction(transaction => {
+				saveStory(transaction, story);
+				deletePassageById(transaction, action.passageId);
 			});
 			break;
 
@@ -88,11 +104,7 @@ export function saveMiddleware(state: StoriesState, action: StoriesAction) {
 				}
 
 				try {
-					passage = passageWithId(
-						state,
-						action.storyId,
-						action.passageId
-					);
+					passage = passageWithId(state, action.storyId, action.passageId);
 				} catch (e) {
 					console.warn(
 						`Could not find a passage with ID "${action.passageId}" in story with ID "${story.id}", can't persist it`
@@ -113,9 +125,7 @@ export function saveMiddleware(state: StoriesState, action: StoriesAction) {
 
 			doUpdateTransaction(transaction => {
 				saveStory(transaction, story);
-				story.passages.forEach(passage =>
-					savePassage(transaction, passage)
-				);
+				story.passages.forEach(passage => savePassage(transaction, passage));
 			});
 			break;
 	}

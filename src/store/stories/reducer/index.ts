@@ -1,5 +1,6 @@
 import {createPassage} from './create-passage';
 import {createStory} from './create-story';
+import {deletePassage} from './delete-passage';
 import {initState} from './init';
 import {deleteStory} from './delete-story';
 import {updatePassage} from './update-passage';
@@ -16,6 +17,9 @@ export const reducer: React.Reducer<StoriesState, StoriesAction> = (
 
 		case 'createStory':
 			return createStory(state, action.props);
+
+		case 'deletePassage':
+			return deletePassage(state, action.storyId, action.passageId);
 
 		case 'deleteStory':
 			return deleteStory(state, action.storyId);

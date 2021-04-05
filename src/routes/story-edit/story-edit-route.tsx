@@ -4,6 +4,7 @@ import {Point, Rect} from '../../util/geometry';
 import {MainContent} from '../../components/container/main-content';
 import {MarqueeSelection} from '../../components/marquee-selection';
 import {
+	deletePassages,
 	deselectPassage,
 	Passage,
 	movePassages,
@@ -75,11 +76,10 @@ export const StoryEditRoute: React.FC = () => {
 	);
 
 	const handleDeleteSelectedPassages = React.useCallback(() => {
-		throw new Error('Not implemented yet');
-	}, []);
+		deletePassages(dispatch, story, selectedPassages);
+	}, [dispatch, selectedPassages, story]);
 
 	const handleEditSelectedPassage = React.useCallback(() => {
-		console.log('hello?');
 		if (selectedPassages.length !== 1) {
 			throw new Error(
 				`Asked to edit selected passage, but ${selectedPassages.length} are selected`
@@ -149,6 +149,7 @@ export const StoryEditRoute: React.FC = () => {
 					onEdit={handleEditSelectedPassage}
 					onTest={handleTestSelectedPassage}
 					targets={selectedPassages}
+					zoom={story.zoom}
 				/>
 				<PassageMap
 					onDeselect={handleDeselectPassage}

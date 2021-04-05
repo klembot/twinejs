@@ -1,5 +1,20 @@
+@import '../../styles/metrics.css';
+@import '../../styles/depth.css';
+
 .passage-toolbar {
 	box-shadow: var(--shadow-large);
+	margin-top: var(--grid-size);
+	user-select: none;
+}
+
+.passage-toolbar.multiple {
+	margin-top: 0;
+	transform: translateY(-50%);
+}
+
+.dragging-passages .passage-toolbar,
+.marquee-selecting .passage-toolbar {
+	display: none;
 }
 
 .passage-toolbar-target {

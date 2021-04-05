@@ -1,5 +1,6 @@
 export * from './create-newly-linked-passages';
 export * from './create-untitled-passage';
+export * from './delete-passage';
 export * from './find-replace';
 export * from './highlight-passages';
 export * from './import-stories';
