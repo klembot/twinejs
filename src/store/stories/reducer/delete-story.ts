@@ -1,8 +1,22 @@
 import {StoriesState} from '../stories.types';
-import {storyWithId} from '../getters';
 
 export function deleteStory(state: StoriesState, storyId: string) {
-	// This will throw an error for us if the story doesn't exist.
-	storyWithId(state, storyId);
-	return state.filter(s => s.id !== storyId);
+	let deleted = false;
+	const newState = state.filter(story => {
+		if (story.id === storyId) {
+			deleted = true;
+			return false;
+		}
+
+		return true;
+	});
+
+	if (!deleted) {
+		console.warn(
+			`Asked to delete a story with ID "${storyId}", but it does not exist in state`
+		);
+		return state;
+	}
+
+	return newState;
 }

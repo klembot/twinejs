@@ -1,11 +1,12 @@
 import * as React from 'react';
+import classNames from 'classnames';
 import {useTranslation} from 'react-i18next';
 import {usePopper} from 'react-popper';
 import {ButtonBar} from '../container/button-bar';
 import {ButtonCard} from '../container/button-card';
 import {IconButton} from '../control/icon-button';
 import {Passage} from '../../store/stories';
-import {boundingRect, Rect} from '../../util/geometry';
+import {boundingRect, rectCenter, Rect} from '../../util/geometry';
 import './passage-toolbar.css';
 
 export interface PassageToolbarProps {
@@ -13,13 +14,12 @@ export interface PassageToolbarProps {
 	onEdit: () => void;
 	onTest: () => void;
 	targets: Passage[];
+	zoom: number;
 }
-
-// TODO: implement delete
 
 export const PassageToolbar: React.FC<PassageToolbarProps> = React.memo(
 	props => {
-		const {onDelete, onEdit, onTest, targets} = props;
+		const {onDelete, onEdit, onTest, targets, zoom} = props;
 		const [forceInvisible, setForceInvisible] = React.useState(false);
 		const [
 			referenceElement,
@@ -56,22 +56,35 @@ export const PassageToolbar: React.FC<PassageToolbarProps> = React.memo(
 			Promise.resolve().then(resetter);
 		}, [targets]);
 
-		let targetRect: Rect;
-
 		if (forceInvisible || targets.length === 0) {
 			return null;
 		}
 
+		let targetRect: Rect = {height: 0, left: 0, top: 0, width: 0};
+
 		if (targets.length === 1) {
 			targetRect = {
-				height: targets[0].height,
-				top: targets[0].top,
-				left: targets[0].left,
-				width: targets[0].width
+				height: targets[0].height * zoom,
+				left: targets[0].left * zoom,
+				top: targets[0].top * zoom,
+				width: targets[0].width * zoom
 			};
-		} else {
-			targetRect = boundingRect(targets);
+		} else if (targets.length > 1) {
+			// Position so that it's at the center of the selection.
+
+			const center = rectCenter(boundingRect(targets));
+
+			targetRect = {
+				height: 0,
+				left: center.left * zoom,
+				top: center.top * zoom,
+				width: 0
+			};
 		}
+
+		const className = classNames('passage-toolbar', {
+			multiple: targets.length > 1
+		});
 
 		return (
 			<>
@@ -82,13 +95,19 @@ export const PassageToolbar: React.FC<PassageToolbarProps> = React.memo(
 					style={{...targetRect, ...styles}}
 				></div>
 				<div
-					className="passage-toolbar"
+					className={className}
 					ref={setPopperElement}
 					style={styles.popper}
 					{...attributes.popper}
 				>
 					<ButtonCard>
 						<ButtonBar orientation="horizontal">
+							<IconButton
+								icon="trash-2"
+								label={t('common.delete')}
+								onClick={onDelete}
+								variant="danger"
+							/>
 							<IconButton
 								icon="edit"
 								label={t('common.edit')}

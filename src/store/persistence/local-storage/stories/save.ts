@@ -89,6 +89,16 @@ export function deletePassage(
 		throw new Error('Passage has no ID');
 	}
 
-	transaction.passageIds = remove(transaction.passageIds, passage.id);
-	window.localStorage.removeItem(`twine-passages-${passage.id}`);
+	deletePassageById(transaction, passage.id);
+}
+
+/**
+ * Deletes a passage from local storage by ID only.
+ */
+export function deletePassageById(
+	transaction: StorageTransaction,
+	passageId: string
+) {
+	transaction.passageIds = remove(transaction.passageIds, passageId);
+	window.localStorage.removeItem(`twine-passages-${passageId}`);
 }

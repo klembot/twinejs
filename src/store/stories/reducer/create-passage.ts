@@ -14,9 +14,26 @@ export function createPassage(
 	try {
 		story = storyWithId(newState, storyId);
 	} catch (e) {
+		console.warn(`No story in state with ID "${storyId}", taking no action`, e);
+		return state;
+	}
+
+	if (
+		passageProps.id &&
+		story.passages.some(passage => passage.id === passageProps.id)
+	) {
 		console.warn(
-			`No story in state with ID "${storyId}", taking no action`,
-			e
+			`There is already a passage in this story with ID "${passageProps.id}", taking no action`
+		);
+		return state;
+	}
+
+	if (
+		passageProps.name &&
+		story.passages.some(passage => passage.name === passageProps.name)
+	) {
+		console.warn(
+			`There is already a passage in this story with name "${passageProps.name}", taking no action`
 		);
 		return state;
 	}
@@ -24,8 +41,8 @@ export function createPassage(
 	const newPassage: Passage = {
 		...passageDefaults(),
 		id: uuid(),
-		story: story.id,
-		...passageProps
+		...passageProps,
+		story: story.id
 	};
 
 	story.passages = [...story.passages, newPassage];

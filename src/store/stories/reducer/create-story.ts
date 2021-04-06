@@ -3,6 +3,20 @@ import {passageDefaults, storyDefaults} from '../defaults';
 import {Story, StoriesState} from '../stories.types';
 
 export function createStory(state: StoriesState, storyProps: Partial<Story>) {
+	if (storyProps.id && state.some(story => story.id === storyProps.id)) {
+		console.warn(
+			`There is already a story in state with ID "${storyProps.id}", taking no action`
+		);
+		return state;
+	}
+
+	if (storyProps.name && state.some(story => story.name === storyProps.name)) {
+		console.warn(
+			`There is already a story in state with name "${storyProps.name}", taking no action`
+		);
+		return state;
+	}
+
 	let story: Story = {
 		id: uuid(),
 		...storyDefaults(),
