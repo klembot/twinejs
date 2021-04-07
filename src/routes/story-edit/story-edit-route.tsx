@@ -17,13 +17,14 @@ import {PassageMap} from '../../components/passage/passage-map/passage-map';
 import {PassageToolbar} from '../../components/passage/passage-toolbar';
 import './story-edit-route.css';
 import {StoryEditTopBar} from './top-bar';
-import launchStory from '../../util/launch-story';
+import {useStoryLaunch} from '../../store/use-story-launch';
 
 export const StoryEditRoute: React.FC = () => {
 	const {storyId} = useParams<{storyId: string}>();
 	const {dispatch, stories} = useStoriesContext();
 	const history = useHistory();
 	const mainContent = React.useRef<HTMLDivElement>(null);
+	const {testStory} = useStoryLaunch();
 	const story = storyWithId(stories, storyId);
 
 	const selectedPassages = React.useMemo(
@@ -96,11 +97,8 @@ export const StoryEditRoute: React.FC = () => {
 			);
 		}
 
-		launchStory(stories, story.id, {
-			mode: 'test',
-			startId: selectedPassages[0].id
-		});
-	}, [selectedPassages, stories, story.id]);
+		testStory(story.id, selectedPassages[0].id);
+	}, [selectedPassages, story.id, testStory]);
 
 	const handleSelectPassage = React.useCallback(
 		(passage: Passage, exclusive: boolean) =>

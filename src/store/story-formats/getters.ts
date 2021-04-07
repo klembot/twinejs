@@ -11,17 +11,7 @@ export function formatImageUrl(format: StoryFormat) {
 		return format.properties.image;
 	}
 
-	const base = format.url.replace(/\/[^/]*?$/, '/');
-
-	if (isAbsoluteUrl(base)) {
-		return base + format.properties.image;
-	}
-
-	return (
-		(process.env.PUBLIC_URL === '' ? '/' : process.env.PUBLIC_URL) +
-		base +
-		format.properties.image
-	);
+	return format.url.replace(/\/[^/]*?$/, '/') + format.properties.image;
 }
 
 export function formatWithId(formats: StoryFormat[], id: string) {

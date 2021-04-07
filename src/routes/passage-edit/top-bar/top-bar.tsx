@@ -5,12 +5,12 @@ import {TopBar} from '../../../components/container/top-bar';
 import {CheckboxButton} from '../../../components/control/checkbox-button';
 import {IconButton} from '../../../components/control/icon-button';
 import {
-	updateStory,
-	useStoriesContext,
 	Passage,
-	Story
+	Story,
+	updateStory,
+	useStoriesContext
 } from '../../../store/stories';
-import launchStory from '../../../util/launch-story';
+import {useStoryLaunch} from '../../../store/use-story-launch';
 import {RenamePassageButton} from './rename-passage-button';
 
 export interface PassageEditTopBarProps {
@@ -21,6 +21,7 @@ export interface PassageEditTopBarProps {
 export const PassageEditTopBar: React.FC<PassageEditTopBarProps> = props => {
 	const {passage, story} = props;
 	const history = useHistory();
+	const {testStory} = useStoryLaunch();
 	const {dispatch, stories} = useStoriesContext();
 	const {t} = useTranslation();
 
@@ -31,7 +32,7 @@ export const PassageEditTopBar: React.FC<PassageEditTopBarProps> = props => {
 	}
 
 	function handleTestPassage() {
-		launchStory(stories, story.id, {mode: 'test', startId: passage.id});
+		testStory(story.id, passage.id);
 	}
 
 	return (

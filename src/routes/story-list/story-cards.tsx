@@ -7,7 +7,7 @@ import {StoryCard} from '../../components/story/story-card';
 import {PromptModal} from '../../components/modal/prompt-modal';
 import {usePrefsContext} from '../../store/prefs';
 import {Story} from '../../store/stories';
-import {launchStory} from '../../util/launch-story';
+import {useStoryLaunch} from '../../store/use-story-launch';
 
 /**
  * How wide a story card should render onscreen as.
@@ -27,6 +27,7 @@ export const StoryCards: React.FC<StoryCardsProps> = props => {
 	const [renameStory, setRenameStory] = React.useState<Story>();
 	const [renameNewName, setRenameNewName] = React.useState('');
 	const history = useHistory();
+	const {playStory, testStory} = useStoryLaunch();
 	const {prefs} = usePrefsContext();
 	const {t} = useTranslation();
 
@@ -56,13 +57,9 @@ export const StoryCards: React.FC<StoryCardsProps> = props => {
 						key={story.id}
 						onEdit={() => history.push(`/stories/${story.id}`)}
 						onPublish={() => onPublish(story)}
-						onPlay={() =>
-							launchStory(stories, story.id, {mode: 'play'})
-						}
+						onPlay={() => playStory(story.id)}
 						onRename={() => setRenameStory(story)}
-						onTest={() =>
-							launchStory(stories, story.id, {mode: 'test'})
-						}
+						onTest={() => testStory(story.id)}
 						story={story}
 					/>
 				))}

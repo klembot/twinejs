@@ -2,7 +2,7 @@
 	"compilerOptions": {
 		"module": "CommonJS",
 		"noEmit": false,
-		"outDir": "electron-build/electron",
+		"outDir": "electron-build/main",
 		"target": "es6"
 	},
 	"extends": "./tsconfig.json",
