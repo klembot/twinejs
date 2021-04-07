@@ -14,7 +14,6 @@
 //   callback, we can only load one at a time safely--otherwise they will compete
 //   for the same callback.
 
-import isAbsoluteUrl from 'is-absolute-url';
 import jsonp from 'jsonp';
 import {TwineElectronWindow} from '../electron/electron.types';
 import {StoryFormatProperties} from '../store/story-formats';
@@ -30,38 +29,24 @@ export async function fetchStoryFormatProperties(
 	url: string,
 	timeout = 2000
 ): Promise<StoryFormatProperties> {
-	const win = window as TwineElectronWindow;
+	const {twineElectron} = window as TwineElectronWindow;
 	const jsonpRequester =
-		isElectronRenderer() && win.twineElectron
-			? win.twineElectron.jsonp
-			: jsonp;
-
-	// Resolve relative URLs.
-
-	if (!isAbsoluteUrl(url)) {
-		url =
-			(process.env.PUBLIC_URL === '' ? '/' : process.env.PUBLIC_URL) +
-			url;
-	}
+		isElectronRenderer() && twineElectron?.jsonp ? twineElectron.jsonp : jsonp;
 
 	return new Promise(
 		(resolve, reject) =>
 			(requestQueue = requestQueue.then(
 				() =>
 					new Promise(resolveQueue => {
-						jsonpRequester(
-							url,
-							{timeout, name: 'storyFormat'},
-							(err, data) => {
-								if (err) {
-									reject(err);
-								} else {
-									resolve(data);
-								}
-
-								resolveQueue();
+						jsonpRequester(url, {timeout, name: 'storyFormat'}, (err, data) => {
+							if (err) {
+								reject(err);
+							} else {
+								resolve(data);
 							}
-						);
+
+							resolveQueue();
+						});
 					})
 			))
 	);

@@ -1,11 +1,5 @@
-/*
-Manages reading and writing files from the story directory. This listens to the
-`save-story` and `delete-story` IPC events.
-*/
-
 import {app} from 'electron';
 import fs from 'fs-extra';
-import {dialog, ipcMain} from 'electron';
 import path from 'path';
 import {
 	lockStoryDirectory,
@@ -15,7 +9,6 @@ import {
 import {AppInfo} from '../util/app-info';
 import {Story} from '../store/stories/stories.types';
 import {StoryFormat} from '../store/story-formats/story-formats.types';
-import i18n from '../util/i18n';
 import {publishStory, publishStoryWithFormat} from '../util/publish';
 
 export interface StoryFile {
@@ -95,11 +88,7 @@ export async function saveStory(
 			throw new Error('This story format was not loaded.');
 		}
 
-		output = publishStoryWithFormat(
-			story,
-			format.properties.source,
-			appInfo
-		);
+		output = publishStoryWithFormat(story, format.properties.source, appInfo);
 	} catch (e) {
 		console.warn(
 			`Failed to fully publish story (${e.message}). Attempting naked publish.`
@@ -128,9 +117,7 @@ export async function saveStory(
 export async function deleteStory(story: Story) {
 	try {
 		await unlockStoryDirectory();
-		await fs.unlink(
-			path.join(storyDirectoryPath(), storyFileName(story.name))
-		);
+		await fs.unlink(path.join(storyDirectoryPath(), storyFileName(story.name)));
 		await lockStoryDirectory();
 	} catch (e) {
 		console.warn(`Error while deleting story: ${e}`);
@@ -157,55 +144,3 @@ export async function renameStory(oldStory: Story, newStory: Story) {
 		throw e;
 	}
 }
-
-// We need to ensure that all file operations happen serially, because they
-// individually unlock and lock the story directory. Because file operations are
-// all asynchronous, we have to enforce this by hand.
-
-let storyTask = Promise.resolve();
-
-function queueStoryTask(func: () => void) {
-	storyTask = storyTask.then(func, func);
-}
-
-ipcMain.on('save-story', (event, story, format, appInfo) =>
-	queueStoryTask(async () => {
-		try {
-			await saveStory(story, format, appInfo);
-			event.sender.send('story-saved', story, format, appInfo);
-		} catch (error) {
-			dialog.showErrorBox(
-				i18n.t('electron.errors.storySave'),
-				error.message
-			);
-		}
-	})
-);
-
-ipcMain.on('delete-story', (event, story) =>
-	queueStoryTask(async () => {
-		try {
-			await deleteStory(story);
-			event.sender.send('story-deleted', story);
-		} catch (error) {
-			dialog.showErrorBox(
-				i18n.t('electron.errors.storyDelete'),
-				error.message
-			);
-		}
-	})
-);
-
-ipcMain.on('rename-story', (event, oldStory, newStory) =>
-	queueStoryTask(async () => {
-		try {
-			await renameStory(oldStory, newStory);
-			event.sender.send('story-renamed', oldStory, newStory);
-		} catch (error) {
-			dialog.showErrorBox(
-				i18n.t('electron.errors.storyRename'),
-				error.message
-			);
-		}
-	})
-);

@@ -1,7 +1,7 @@
 // Manages reading and writing JSON files to the application data folder. This
 // listens to the `save-json` IPC event.
 
-import {app, ipcMain} from 'electron';
+import {app} from 'electron';
 import fs from 'fs-extra';
 import path from 'path';
 
@@ -20,7 +20,3 @@ export function loadJsonFile(filename: string) {
 export function saveJsonFile(filename: string, data: any) {
 	return fs.writeJson(path.join(app.getPath('userData'), filename), data);
 }
-
-ipcMain.on('save-json', (e, filename, data) => {
-	saveJsonFile(filename, data);
-});

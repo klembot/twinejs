@@ -22,7 +22,7 @@ describe('formatImageUrl', () => {
 			{image: 'mock-image.svg'}
 		);
 
-		expect(formatImageUrl(format)).toBe(`https://mock/path/mock-image.svg`);
+		expect(formatImageUrl(format)).toBe('https://mock/path/mock-image.svg');
 	});
 
 	it('returns a relative URL to the app if the story format URL itself is relative', () => {
@@ -31,7 +31,7 @@ describe('formatImageUrl', () => {
 			{image: 'mock-image.svg'}
 		);
 
-		expect(formatImageUrl(format)).toBe(`/mock/path/mock-image.svg`);
+		expect(formatImageUrl(format)).toBe('mock/path/mock-image.svg');
 	});
 
 	it('preserves absolute URLs', () => {
@@ -63,11 +63,7 @@ describe('formatWithNameAndVersion', () => {
 		const formats = [fakeLoadedStoryFormat(), fakeLoadedStoryFormat()];
 
 		expect(
-			formatWithNameAndVersion(
-				formats,
-				formats[1].name,
-				formats[1].version
-			)
+			formatWithNameAndVersion(formats, formats[1].name, formats[1].version)
 		).toBe(formats[1]);
 	});
 

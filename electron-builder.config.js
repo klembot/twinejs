@@ -5,7 +5,7 @@ module.exports = {
 		output: 'dist/electron'
 	},
 	extraMetadata: {
-		main: 'electron-build/electron/src/electron/index.js'
+		main: 'electron-build/main/src/electron/index.js'
 	},
 	files: ['electron-build/**/*', 'node_modules/**/*'],
 	linux: {

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {HashRouter, Route, Switch} from 'react-router-dom';
 import {usePrefsContext} from '../store/prefs';
 import {AboutTwineRoute} from './about-twine';
 import {LocaleSelectRoute} from './locale-select';
@@ -20,8 +20,13 @@ import {WelcomeRoute} from './welcome';
 export const Routes: React.FC = () => {
 	const {prefs} = usePrefsContext();
 
+	// A <HashRouter> is used to make our lives easier--to load local story
+	// formats, we need the document HREF to reflect where the HTML file is.
+	// Otherwise we'd have to store the actual location somewhere, which will
+	// differ between web and Electron contexts.
+
 	return (
-		<BrowserRouter>
+		<HashRouter>
 			{prefs.welcomeSeen ? (
 				<Switch>
 					<Route exact path="/">
@@ -85,6 +90,6 @@ export const Routes: React.FC = () => {
 			) : (
 				<WelcomeRoute />
 			)}
-		</BrowserRouter>
+		</HashRouter>
 	);
 };
