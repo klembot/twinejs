@@ -1,0 +1,13 @@
+.editor-card .card-header {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+}
+
+.editor-card .card-header .editor-card-header {
+	flex-grow: 1;
+}
+
+.editor-card .card-header .editor-card-header .icon-button {
+	width: 100%;
+}

@@ -92,9 +92,13 @@
 	color: var(--dark-red);
 }
 
+.icon-button:not(.icon-only) .icon-image,
+.icon-link:not(.icon-only) .icon-image {
+	margin-right: calc(var(--grid-size) / 2);
+}
+
 .icon-button .icon-image,
 .icon-link .icon-image {
-	margin-right: calc(var(--grid-size) / 2);
 	position: relative;
 	top: 2px; /* mysterious-- not sure why align-items doesn't get it */
 }

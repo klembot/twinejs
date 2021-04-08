@@ -1,0 +1,12 @@
+@import '../../../styles/metrics.css';
+
+.side-editors {
+	display: flex;
+	flex-direction: column;
+	grid-gap: var(--grid-size);
+	position: fixed;
+	bottom: var(--grid-size);
+	right: var(--grid-size);
+	top: calc(50px + var(--grid-size));
+	width: 40em;
+}

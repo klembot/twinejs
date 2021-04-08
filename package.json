@@ -37,6 +37,7 @@
 		"react-popper": "^2.2.4",
 		"react-router-dom": "^5.2.0",
 		"react-scripts": "4.0.3",
+		"react-scrollbar-size": "^3.2.0",
 		"scroll": "^3.0.1",
 		"segseg": "^1.0.0",
 		"semver": "^7.3.4",

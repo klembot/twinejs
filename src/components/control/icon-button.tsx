@@ -7,6 +7,7 @@ export interface IconButtonProps {
 	buttonType?: 'button' | 'submit';
 	disabled?: boolean;
 	icon: string;
+	iconOnly?: boolean;
 	iconPosition?: 'start' | 'end';
 	label: string;
 	onClick?: (e: React.MouseEvent) => void;
@@ -19,6 +20,7 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
 		const {
 			disabled,
 			icon,
+			iconOnly,
 			iconPosition,
 			onClick,
 			preventDefault,
@@ -30,7 +32,8 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
 		const className = classNames(
 			'icon-button',
 			`icon-position-${iconPosition}`,
-			`variant-${variant}`
+			`variant-${variant}`,
+			{'icon-only': iconOnly}
 		);
 
 		const handleOnClick = (e: React.MouseEvent) => {
@@ -43,13 +46,14 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
 
 		return (
 			<button
+				aria-label={iconOnly ? props.label : undefined}
 				disabled={disabled}
 				className={className}
 				onClick={handleOnClick}
 				ref={ref}
 			>
 				<Icon icon={icon} />
-				{props.label}
+				{!iconOnly && props.label}
 			</button>
 		);
 	}
