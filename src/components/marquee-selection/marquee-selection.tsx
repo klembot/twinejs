@@ -11,8 +11,8 @@ function relativeEventPosition(
 	const containerRect = container.getBoundingClientRect();
 
 	return {
-		left: event.clientX - containerRect.left,
-		top: event.clientY - containerRect.top
+		left: event.clientX - containerRect.left + container.scrollLeft,
+		top: event.clientY - containerRect.top + container.scrollTop
 	};
 }
 
@@ -36,11 +36,7 @@ export const MarqueeSelection: React.FC<MarqueeSelectionProps> = props => {
 			const currentContainer = container.current;
 			const handleMouseDown = (event: MouseEvent) => {
 				if (ignoreEventsOnSelector) {
-					if (
-						(event.target as HTMLElement)?.closest(
-							ignoreEventsOnSelector
-						)
-					) {
+					if ((event.target as HTMLElement)?.closest(ignoreEventsOnSelector)) {
 						return;
 					}
 				}
@@ -55,10 +51,7 @@ export const MarqueeSelection: React.FC<MarqueeSelectionProps> = props => {
 			currentContainer.addEventListener('mousedown', handleMouseDown);
 
 			return () =>
-				currentContainer.removeEventListener(
-					'mousedown',
-					handleMouseDown
-				);
+				currentContainer.removeEventListener('mousedown', handleMouseDown);
 		}
 	}, [
 		additive,
@@ -105,9 +98,6 @@ export const MarqueeSelection: React.FC<MarqueeSelectionProps> = props => {
 	}
 
 	return (
-		<div
-			className="marquee-selection"
-			style={rectFromPoints(start, current)}
-		/>
+		<div className="marquee-selection" style={rectFromPoints(start, current)} />
 	);
 };
