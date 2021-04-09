@@ -3,7 +3,7 @@ import {Story} from '@storybook/react';
 import {CardGroup, CardGroupProps} from '../card-group';
 import {Card} from '../card';
 
-const main = {title: 'Container/<CardGroup>'};
+const main = {component: CardGroup, title: 'Container/<CardGroup>'};
 export default main;
 
 const Template: Story<CardGroupProps> = props => (

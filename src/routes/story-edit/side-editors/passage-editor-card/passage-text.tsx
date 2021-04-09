@@ -1,8 +1,8 @@
 import * as React from 'react';
+import {DialogEditor} from '../../../../components/container/dialog-card';
 import {CodeArea} from '../../../../components/control/code-area';
 import {usePrefsContext} from '../../../../store/prefs';
 import {Passage} from '../../../../store/stories';
-import './passage-text.css';
 
 export interface PassageTextProps {
 	onChange: (value: string) => void;
@@ -14,14 +14,14 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 	const {prefs} = usePrefsContext();
 
 	return (
-		<div className="passage-text">
+		<DialogEditor>
 			<CodeArea
 				fontFamily={prefs.passageEditorFontFamily}
 				fontScale={prefs.passageEditorFontScale}
 				onBeforeChange={(editor, data, text) => onChange(text)}
-				options={{autofocus: true, mode: 'text'}}
+				options={{autofocus: true, lineWrapping: true, mode: 'text'}}
 				value={passage.text}
 			/>
-		</div>
+		</DialogEditor>
 	);
 };

@@ -1,9 +1,15 @@
 import * as React from 'react';
+import {useTranslation} from 'react-i18next';
 import classNames from 'classnames';
-import {EditorCard} from '../../../../components/container/editor-card';
+import {ButtonBar} from '../../../../components/container/button-bar';
+import {CheckboxButton} from '../../../../components/control/checkbox-button';
+import {DialogCard} from '../../../../components/container/dialog-card';
 import {PassageText} from './passage-text';
+import {RenamePassageButton} from './rename-passage-button';
+import {TagToolbar} from './tag-toolbar';
 import {
 	updatePassage,
+	updateStory,
 	useStoriesContext,
 	Story
 } from '../../../../store/stories';
@@ -19,29 +25,46 @@ export interface PassageEditorCardProps {
 
 export const PassageEditorCard: React.FC<PassageEditorCardProps> = props => {
 	const {collapsed, onChangeCollapsed, onClose, passageId, story} = props;
-	const {dispatch} = useStoriesContext();
-	const passage = story.passages.find(passage => passage.id === passageId); // FIXME
+	const {dispatch, stories} = useStoriesContext();
+	const passage = story.passages.find(passage => passage.id === passageId);
+	const {t} = useTranslation();
 
 	if (!passage) {
 		throw new Error('Passage does not exist in story');
 	}
 
-	const handlePassageTextChange = (text: string) => {
-		updatePassage(dispatch, story, passage, {text});
-	};
+	function handlePassageTextChange(text: string) {
+		updatePassage(dispatch, story, passage!, {text});
+	}
+
+	function handleSetAsStart() {
+		updateStory(dispatch, stories, story, {startPassage: passageId});
+	}
 
 	const className = classNames('passage-editor-card', {collapsed});
+	const isStart = story.startPassage === passage.id;
 
 	return (
 		<div className={className}>
-			<EditorCard
+			<DialogCard
 				collapsed={collapsed}
 				headerLabel={passage.name}
 				onChangeCollapsed={onChangeCollapsed}
 				onClose={onClose}
 			>
+				<ButtonBar>
+					<RenamePassageButton passage={passage} story={story} />
+					<CheckboxButton
+						disabled={isStart}
+						label={t('passageEdit.setAsStart')}
+						onChange={handleSetAsStart}
+						value={isStart}
+					/>
+				</ButtonBar>
+
+				<TagToolbar passage={passage} story={story} />
 				<PassageText onChange={handlePassageTextChange} passage={passage} />
-			</EditorCard>
+			</DialogCard>
 		</div>
 	);
 };

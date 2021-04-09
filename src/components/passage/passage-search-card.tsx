@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {Card, CardActions, CardBody, CardHeader} from '../container/card';
+import {Card, CardFooter, CardBody, CardHeader} from '../container/card';
 import {IconButton} from '../control/icon-button';
 import {PassageSearchResult} from '../../store/stories';
 
@@ -21,7 +21,7 @@ export const PassageSearchCard: React.FC<PassageSearchCardProps> = props => {
 			<CardBody>
 				<div dangerouslySetInnerHTML={{__html: textHighlighted}} />
 			</CardBody>
-			<CardActions>
+			<CardFooter>
 				<IconButton
 					icon="edit"
 					label={t('components.passageSearchCard.editPassage')}
@@ -33,7 +33,7 @@ export const PassageSearchCard: React.FC<PassageSearchCardProps> = props => {
 					onClick={onReplace}
 					variant="danger"
 				/>
-			</CardActions>
+			</CardFooter>
 		</Card>
 	);
 };

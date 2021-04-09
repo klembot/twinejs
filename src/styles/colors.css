@@ -57,6 +57,10 @@
 		--light-blue: hsl(212, 90%, 15%);
 		--light-blue-translucent: hsla(212, 90%, 60%, 0.25);
 
+		--yellow: hsl(62, 90%, 40%);
+		--light-yellow: hsl(62, 90%, 15%);
+		--light-yellow-translucent: hsl(62, 90%, 60%, 0.25);
+
 		--graph-paper-bg: hsl(212, 90%, 10%);
 		--graph-paper-major-line: hsla(212, 90%, 60%, 0.125);
 		--graph-paper-minor-line: hsla(212, 90%, 60%, 0.0625);

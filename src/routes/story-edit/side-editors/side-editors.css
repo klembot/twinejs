@@ -3,10 +3,22 @@
 .side-editors {
 	display: flex;
 	flex-direction: column;
-	grid-gap: var(--grid-size);
+	justify-content: flex-end;
 	position: fixed;
 	bottom: var(--grid-size);
 	right: var(--grid-size);
 	top: calc(50px + var(--grid-size));
 	width: 40em;
+}
+
+.side-editors > * {
+	flex: 1;
+}
+
+.side-editors > * + * {
+	margin-top: var(--grid-size);
+}
+
+.side.editors > .collapsed {
+	flex: 0;
 }

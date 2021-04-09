@@ -84,11 +84,7 @@ export const PassageCard: React.FC<PassageCardProps> = React.memo(props => {
 				ref={container}
 				style={style}
 			>
-				<Card
-					compact
-					highlighted={passage.highlighted}
-					selected={passage.selected}
-				>
+				<Card highlighted={passage.highlighted} selected={passage.selected}>
 					<CardHeader>
 						<TagStripe tagColors={tagColors} tags={passage.tags} />
 						{passage.name}

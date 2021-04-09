@@ -100,8 +100,8 @@ export const PassageToolbar: React.FC<PassageToolbarProps> = React.memo(
 					style={styles.popper}
 					{...attributes.popper}
 				>
-					<ButtonCard>
-						<ButtonBar orientation="horizontal">
+					<ButtonCard floating>
+						<ButtonBar>
 							<IconButton
 								icon="trash-2"
 								label={t('common.delete')}

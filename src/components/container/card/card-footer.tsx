@@ -1,6 +1,6 @@
 import * as React from 'react';
-import './card-actions.css';
+import './card-footer.css';
 
-export const CardActions: React.FC = ({children}) => (
+export const CardFooter: React.FC = ({children}) => (
 	<div className="card-actions">{children}</div>
 );

@@ -2,7 +2,7 @@ import * as React from 'react';
 import {useHistory} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import {TopBar} from '../../../components/container/top-bar';
-import {ButtonCard} from '../../../components/container/button-card';
+import {Card} from '../../../components/container/card';
 import {DropdownButton} from '../../../components/control/dropdown-button';
 import {IconButton} from '../../../components/control/icon-button';
 import {IconLink} from '../../../components/control/icon-link';
@@ -38,7 +38,7 @@ export const StoryListTopBar: React.FC = () => {
 				label={t('storyList.topBar.help')}
 			/>
 			<DropdownButton icon="more-horizontal" label={t('common.more')}>
-				<ButtonCard>
+				<Card>
 					<IconButton
 						icon="globe"
 						label={t('storyList.topBar.language')}
@@ -54,7 +54,7 @@ export const StoryListTopBar: React.FC = () => {
 						icon="frown"
 						label={t('storyList.topBar.reportBug')}
 					/>
-				</ButtonCard>
+				</Card>
 			</DropdownButton>
 		</TopBar>
 	);

@@ -3,7 +3,7 @@ import {useHistory} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import {
 	Card,
-	CardActions,
+	CardFooter,
 	CardBody,
 	CardHeader
 } from '../../components/container/card';
@@ -43,7 +43,7 @@ export const AboutTwineRoute: React.FC = () => {
 									__html: t('aboutTwine.license')
 								}}
 							/>
-							<CardActions>
+							<CardFooter>
 								<IconLink
 									href="https://github.com/klembot/twinejs"
 									icon="code"
@@ -55,7 +55,7 @@ export const AboutTwineRoute: React.FC = () => {
 									label={t('aboutTwine.donateToTwine')}
 									variant="primary"
 								/>
-							</CardActions>
+							</CardFooter>
 						</CardBody>
 					</Card>
 				</CardGroup>
@@ -71,9 +71,7 @@ export const AboutTwineRoute: React.FC = () => {
 						</CardBody>
 					</Card>
 					<Card>
-						<CardHeader>
-							{t('aboutTwine.localizationHeader')}
-						</CardHeader>
+						<CardHeader>{t('aboutTwine.localizationHeader')}</CardHeader>
 						<CardBody>
 							<ul>
 								{credits.localizations.map(c => (

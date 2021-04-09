@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {useHistory} from 'react-router-dom';
-import {ButtonCard} from '../../../components/container/button-card';
+import {Card} from '../../../components/container/card';
 import {TopBar} from '../../../components/container/top-bar';
 import {ControlledDropdownButton} from '../../../components/control/dropdown-button';
 import {IconButton} from '../../../components/control/icon-button';
@@ -65,7 +65,7 @@ export const StoryEditTopBar: React.FC<StoryEditTopBarProps> = props => {
 				onClick={toggleMenu}
 				open={menuOpen}
 			>
-				<ButtonCard>
+				<Card>
 					<IconButton
 						icon="search"
 						label={t('storyEdit.topBar.findAndReplace')}
@@ -103,7 +103,7 @@ export const StoryEditTopBar: React.FC<StoryEditTopBarProps> = props => {
 						label={t('storyEdit.topBar.editStylesheet')}
 						onClick={() => history.push(`/stories/${story.id}/stylesheet`)}
 					/>
-				</ButtonCard>
+				</Card>
 			</ControlledDropdownButton>
 			<HighlightField story={story} />
 		</TopBar>

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {ButtonCard} from '../container/button-card';
+import {Card} from '../container/card';
 import {CheckboxButton} from './checkbox-button';
 import {DropdownButton} from './dropdown-button';
 import {PromptModal} from '../modal/prompt-modal';
@@ -55,24 +55,17 @@ export const FontSelect: React.FC<FontSelectProps> = props => {
 	return (
 		<>
 			<span className="font-select">
-				<DropdownButton
-					icon="type"
-					label={t('components.fontSelect.font')}
-				>
-					<ButtonCard>
+				<DropdownButton icon="type" label={t('components.fontSelect.font')}>
+					<Card>
 						<CheckboxButton
 							label={t('components.fontSelect.fonts.monospaced')}
-							onChange={() =>
-								onChangeFamily('var(--font-monospaced)')
-							}
+							onChange={() => onChangeFamily('var(--font-monospaced)')}
 							value={fontFamily === 'var(--font-monospaced)'}
 							{...checkProps}
 						/>
 						<CheckboxButton
 							label={t('components.fontSelect.fonts.system')}
-							onChange={() =>
-								onChangeFamily('var(--font-system)')
-							}
+							onChange={() => onChangeFamily('var(--font-system)')}
 							value={fontFamily === 'var(--font-system)'}
 							{...checkProps}
 						/>
@@ -82,23 +75,22 @@ export const FontSelect: React.FC<FontSelectProps> = props => {
 							value={!families.includes(fontFamily)}
 							{...checkProps}
 						/>
-					</ButtonCard>
+					</Card>
 				</DropdownButton>
 				<DropdownButton
 					icon="type-size"
 					label={t('components.fontSelect.fontSize')}
 				>
-					<ButtonCard>
+					<Card>
 						{scales.map(scale => (
 							<CheckboxButton
 								key={scale}
 								label={
 									scale === -1
 										? t('components.fontSelect.sizes.auto')
-										: t(
-												'components.fontSelect.sizes.percent',
-												{percent: scale * 100}
-										  )
+										: t('components.fontSelect.sizes.percent', {
+												percent: scale * 100
+										  })
 								}
 								onChange={() => onChangeScale(scale)}
 								value={fontScale === scale}
@@ -111,7 +103,7 @@ export const FontSelect: React.FC<FontSelectProps> = props => {
 							value={!scales.includes(fontScale)}
 							{...checkProps}
 						/>
-					</ButtonCard>
+					</Card>
 				</DropdownButton>
 			</span>
 			<PromptModal

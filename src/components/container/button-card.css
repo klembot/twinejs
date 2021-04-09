@@ -1,12 +1,10 @@
 @import '../../styles/depth.css';
 
 .button-card {
-	box-shadow: var(--shadow-large);
 	display: inline-block;
 }
 
 .button-card .card {
-	grid-gap: 0;
 	padding: 0;
 }
 

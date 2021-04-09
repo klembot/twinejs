@@ -1,7 +1,10 @@
 import * as React from 'react';
+import {Story} from '@storybook/react';
 import {LoadingCurtain} from '../loading-curtain';
 
-const main = {title: '<LoadingCurtain>'};
+const main = {component: LoadingCurtain, title: '<LoadingCurtain>'};
 export default main;
 
-export const Base: React.FC = () => <LoadingCurtain />;
+const Template: Story = props => <LoadingCurtain {...props} />;
+
+export const Base = Template.bind({});

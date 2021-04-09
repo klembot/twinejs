@@ -9,9 +9,8 @@
 }
 
 .code-area > label {
-	flex-grow: 1;
-	flex-shrink: 1;
 	display: flex;
+	flex: 1;
 	flex-direction: column;
 }
 
@@ -21,9 +20,8 @@
 }
 
 .code-area .react-codemirror2 {
-	flex-grow: 1;
-	flex-shrink: 1;
-	display: flex;
+	flex: 1;
+	position: relative;
 }
 
 .code-area .CodeMirror {
@@ -32,10 +30,12 @@
 	border: 1px solid var(--faint-gray);
 	color: var(--dark-gray);
 	font-family: inherit;
-	flex-grow: 1;
-	flex-shrink: 1;
 	height: 100%;
+	left: 0;
 	padding: calc(var(--grid-size) / 2);
+	position: absolute;
+	top: 0;
+	width: 100%;
 }
 
 /* See https://codemirror.net/doc/manual.html#styling */

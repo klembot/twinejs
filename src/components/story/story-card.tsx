@@ -1,12 +1,18 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {ButtonCard} from '../container/button-card';
-import {CardActions, CardBody, CardHeader, CardProps} from '../container/card';
+import {
+	Card,
+	CardFooter,
+	CardBody,
+	CardHeader,
+	CardProps
+} from '../container/card';
 import {DropdownButton} from '../control/dropdown-button';
 import {ImageCard} from '../container/image-card';
 import {IconButton} from '../control/icon-button';
 import {StoryPreview} from './story-preview';
 import {Story} from '../../store/stories';
+import {hueString} from '../../util/hue-string';
 import './story-card.css';
 
 const dateFormatter = new Intl.DateTimeFormat([]);
@@ -39,7 +45,11 @@ export const StoryCard: React.FC<StoryCardProps> = props => {
 
 	return (
 		<div className="story-card">
-			<ImageCard image={<StoryPreview story={story} />} {...otherProps}>
+			<ImageCard
+				image={<StoryPreview story={story} />}
+				tint={`hsla(${(hueString(story.name) + 45) % 360}, 90%, 40%, 0.025)`}
+				{...otherProps}
+			>
 				<CardHeader>{story.name}</CardHeader>
 				<CardBody>
 					<p>
@@ -52,12 +62,9 @@ export const StoryCard: React.FC<StoryCardProps> = props => {
 						})}
 					</p>
 				</CardBody>
-				<CardActions>
-					<DropdownButton
-						icon="more-horizontal"
-						label={t('common.more')}
-					>
-						<ButtonCard>
+				<CardFooter>
+					<DropdownButton icon="more-horizontal" label={t('common.more')}>
+						<Card>
 							<IconButton
 								icon="play"
 								label={t('common.play')}
@@ -78,7 +85,7 @@ export const StoryCard: React.FC<StoryCardProps> = props => {
 								label={t('common.rename')}
 								onClick={onRename}
 							/>
-						</ButtonCard>
+						</Card>
 					</DropdownButton>
 					<IconButton
 						icon="edit"
@@ -86,7 +93,7 @@ export const StoryCard: React.FC<StoryCardProps> = props => {
 						onClick={onEdit}
 						variant="primary"
 					/>
-				</CardActions>
+				</CardFooter>
 			</ImageCard>
 		</div>
 	);

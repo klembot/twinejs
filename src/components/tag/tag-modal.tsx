@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {Card, CardActions, CardBody, CardHeader} from '../container/card';
+import {Card, CardFooter, CardBody, CardHeader} from '../container/card';
 import {ColorSelect} from '../control/color-select';
 import {IconButton} from '../control/icon-button';
 import {TextInput} from '../control/text-input';
@@ -56,7 +56,7 @@ export const TagModal: React.FC<TagModalProps> = props => {
 							/>
 						</div>
 					</CardBody>
-					<CardActions>
+					<CardFooter>
 						<IconButton
 							icon="x"
 							label={t('common.cancel')}
@@ -68,7 +68,7 @@ export const TagModal: React.FC<TagModalProps> = props => {
 							onClick={onSubmit}
 							variant="primary"
 						/>
-					</CardActions>
+					</CardFooter>
 				</Card>
 			</div>
 		</Modal>

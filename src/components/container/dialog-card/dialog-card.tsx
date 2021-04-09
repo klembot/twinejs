@@ -1,32 +1,32 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {Card, CardBody, CardHeader} from '../container/card';
-import {IconButton} from '../control/icon-button';
-import './editor-card.css';
+import {Card, CardBody, CardHeader} from '../card';
+import {IconButton} from '../../control/icon-button';
+import './dialog-card.css';
 
-export interface EditorCardProps {
+export interface DialogCardProps {
 	collapsed: boolean;
 	headerLabel: string;
 	onChangeCollapsed: (value: boolean) => void;
 	onClose: () => void;
 }
 
-export const EditorCard: React.FC<EditorCardProps> = props => {
+export const DialogCard: React.FC<DialogCardProps> = props => {
 	const {children, collapsed, headerLabel, onChangeCollapsed, onClose} = props;
 	const {t} = useTranslation();
 
 	return (
-		<div className="editor-card">
-			<Card>
+		<div className="dialog-card">
+			<Card floating>
 				<CardHeader>
-					<div className="editor-card-header">
+					<div className="dialog-card-header">
 						<IconButton
 							icon={collapsed ? 'chevron-right' : 'chevron-down'}
 							label={headerLabel}
 							onClick={() => onChangeCollapsed(!collapsed)}
 						/>
 					</div>
-					<div className="editor-card-header-controls">
+					<div className="dialog-card-header-controls">
 						<IconButton
 							icon="x"
 							iconOnly
