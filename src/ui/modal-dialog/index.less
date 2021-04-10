@@ -19,6 +19,16 @@ body.modalOpen {
 	overflow: hidden;
 }
 
+.responsive-modal-dialog {
+	.mobile({
+		width: 100%;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+	})
+}
+
 .modal-dialog {
 	position: fixed;
 	z-index: 101;
@@ -31,6 +41,8 @@ body.modalOpen {
 	max-height: calc(~"100% - " 2 * @len-extra-large);
 	border-radius: 2px;
 	.shadow-large;
+
+	.responsive-modal-dialog();
 
 	.theme-dark & {
 		background: @color-paper-dark;
@@ -94,6 +106,8 @@ body.modalOpen {
 		width: 48em;
 		left: calc(~"(100vw - 48em) / 2");
 		max-height: none;
+
+		.responsive-modal-dialog();
 
 		.content {
 			display: flex;
