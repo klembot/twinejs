@@ -7,6 +7,17 @@
 @header-height: 4.5rem;
 
 #storyListView {
+	.mobile-portrait({
+		position: absolute;
+		top:0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+	});
+
 	nav.listControls {
 		position: fixed;
 		top: 0;
@@ -19,6 +30,15 @@
 		text-align: center;
 		padding: @len-extra-large;
 		background: darken(@color-paper, 5%);
+
+		.mobile-portrait({
+			position: static;
+			display: flex;
+			flex-direction: row;
+			width: 100%;
+			height: 10rem;
+			padding: .5rem;
+		});
 
 		h1 {
 			margin: 0;
@@ -42,6 +62,16 @@
 		.theme-dark & {
 			background: lighten(@color-paper-dark, 5%);
 		}
+
+		.plain {
+			.mobile-portrait({
+				display: flex;
+				flex-direction: column;
+				overflow: auto;
+				height: 100%;
+				margin: 0;
+			});
+		}
 	}
 
 	> header {
@@ -56,6 +86,11 @@
 		justify-content: space-between;
 		padding: 0 @len-extra-large;
 		background: @color-paper;
+
+		.mobile-portrait({
+			position: static;
+		});
+
 
 		h1 {
 			margin: 0;
@@ -81,5 +116,12 @@
 		display: flex;
 		flex-wrap: wrap;
 		.shadow-large;
+
+		.mobile-portrait({
+			position: static;
+			min-height: 0;
+			padding: 0 0 @len-extra-large @len-extra-large;
+			overflow: auto;
+		});
 	}
 }

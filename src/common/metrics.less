@@ -10,8 +10,14 @@
 @len-extra-large: 1.5rem;
 @len-extra-large-rel: 1.5em;
 
+@len-sm-breakpoint: 320px;
 @len-md-breakpoint: 672px;
 .mobile(@ruleset) {
+	@media screen and (max-width: @len-md-breakpoint) {
+		@ruleset();
+	}
+}
+.mobile-portrait(@ruleset) {
 	@media screen and (max-width: @len-md-breakpoint) {
 		@ruleset();
 	}
