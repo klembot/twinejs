@@ -81,7 +81,11 @@ module.exports = Vue.extend({
 
 		uploadStory() {
 			var url = localStorage.getItem('twine-publish-url');
-			if (!url) notify('No publish URL');
+			if (!url) {
+				url = window.prompt('Enter publish URL');
+				if (!url) notify('No publish URL');
+				localStorage.setItem('twine-publish-url', url);
+			};
 			this.publishStory(url.replace('#NAME#', this.story.name));
 		},
 

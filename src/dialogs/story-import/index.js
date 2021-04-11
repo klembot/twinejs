@@ -9,6 +9,7 @@ const importHTML = require('../../data/import');
 const load = require('../../file/load');
 const locale = require('../../locale');
 const { thenable } = require('../../vue/mixins/thenable');
+const notify = require('../../ui/notify');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -39,7 +40,9 @@ module.exports = Vue.extend({
 
 		/* The names that the user has selected to replace. */
 
-		toReplace: []
+		toReplace: [],
+
+		fromUrl: '',
 	}),
 
 	computed: {
@@ -77,39 +80,49 @@ module.exports = Vue.extend({
 			}
 		},
 
+		importFromUrl() {
+			if (!this.fromUrl || !this.fromUrl.includes('http')) return notify('URL not valid');
+			fetch(this.fromUrl)
+				.then(res => res.text())
+				.then(this.processHtml)
+				.catch(e => notify(`Error: ${e.message}`));
+		},
+
 		import(file) {
 			this.status = 'working';
 
 			load(file)
-			.then(source => {
-				this.toImport = importHTML(source);
+			.then(this.processHtml);
+		},
 
-				this.dupeNames = this.toImport.reduce(
-					(list, story) => {
-						if (this.existingStories.find(
-							orig => orig.name === story.name
-						)) {
-							list.push(story.name);
-						}
+		processHtml(source) {
+			this.toImport = importHTML(source);
 
-						return list;
-					},
+			this.dupeNames = this.toImport.reduce(
+				(list, story) => {
+					if (this.existingStories.find(
+						orig => orig.name === story.name
+					)) {
+						list.push(story.name);
+					}
 
-					[]
-				);
+					return list;
+				},
 
-				if (this.dupeNames.length > 0) {
-					/* Ask the user to pick which ones to replace, if any. */
+				[]
+			);
 
-					this.status = 'choosing';
-				}
-				else {
-					/* Immediately run the import and close the dialog. */
+			if (this.dupeNames.length > 0) {
+				/* Ask the user to pick which ones to replace, if any. */
 
-					this.toImport.forEach(story => this.importStory(story));
-					this.close();
-				}
-			});
+				this.status = 'choosing';
+			}
+			else {
+				/* Immediately run the import and close the dialog. */
+
+				this.toImport.forEach(story => this.importStory(story));
+				this.close();
+			}
 		},
 
 		replaceAndImport() {
