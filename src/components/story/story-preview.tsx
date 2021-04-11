@@ -11,17 +11,22 @@ function passageRadius(length: number, longestLength: number) {
 }
 
 export interface StoryPreviewProps {
+	background?: boolean;
 	story: Story;
 }
 
-export const StoryPreview: React.FC<StoryPreviewProps> = ({story}) => {
+export const StoryPreview: React.FC<StoryPreviewProps> = props => {
+	const {background, story} = props;
 	const {passages, name} = story;
 	const hue = hueString(name);
-	const style = {
-		background: `hsl(${hue}, 90%, 85%)`,
+	const style: React.CSSProperties = {
 		fill: `hsla(${(hue + 45) % 360}, 90%, 40%, 0.25)`,
 		padding: 'var(--grid-size)'
 	};
+
+	if (background) {
+		style.background = `hsl(${hue}, 90%, 95%)`;
+	}
 
 	const longestPassageLength = React.useMemo(
 		() =>
@@ -37,7 +42,7 @@ export const StoryPreview: React.FC<StoryPreviewProps> = ({story}) => {
 
 	const viewBox = React.useMemo(() => {
 		if (passages.length < 2) {
-			return '25 25 150 150';
+			return '0 0 100 100';
 		}
 
 		let minX = Number.POSITIVE_INFINITY;
@@ -72,7 +77,7 @@ export const StoryPreview: React.FC<StoryPreviewProps> = ({story}) => {
 
 	const svg = React.useMemo(() => {
 		if (passages.length < 2) {
-			return <circle cx="100" cy="100" r="75" />;
+			return <circle cx="50" cy="50" r="50" />;
 		}
 
 		return passages.map(p => (

@@ -1,3 +1,10 @@
+@import '../../../styles/metrics.css';
+
+.card-body {
+	flex-grow: 1;
+	padding: var(--grid-size) 0;
+}
+
 .card-body > :first-child {
 	margin-top: 0;
 }

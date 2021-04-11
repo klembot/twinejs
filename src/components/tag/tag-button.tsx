@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import {useTranslation} from 'react-i18next';
-import {ButtonCard} from '../container/button-card';
+import {Card} from '../container/card';
 import {DropdownButton} from '../control/dropdown-button';
 import {IconButton} from '../control/icon-button';
 import {Color} from '../../util/color';
@@ -20,7 +20,7 @@ export const TagButton: React.FC<TagButtonProps> = props => {
 	return (
 		<span className={classNames('tag-button', `color-${props.color}`)}>
 			<DropdownButton icon="tag-nub" label={props.name}>
-				<ButtonCard>
+				<Card>
 					<IconButton
 						icon="edit"
 						onClick={props.onEdit}
@@ -32,7 +32,7 @@ export const TagButton: React.FC<TagButtonProps> = props => {
 						label={t('common.delete')}
 						variant="danger"
 					/>
-				</ButtonCard>
+				</Card>
 			</DropdownButton>
 		</span>
 	);

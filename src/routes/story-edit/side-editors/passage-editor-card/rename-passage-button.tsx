@@ -1,13 +1,13 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {IconButton} from '../../../components/control/icon-button';
-import {PromptModal} from '../../../components/modal/prompt-modal';
+import {IconButton} from '../../../../components/control/icon-button';
+import {PromptModal} from '../../../../components/modal/prompt-modal';
 import {
 	updatePassage,
 	useStoriesContext,
 	Passage,
 	Story
-} from '../../../store/stories';
+} from '../../../../store/stories';
 
 export interface RenamePassageButtonProps {
 	passage: Passage;

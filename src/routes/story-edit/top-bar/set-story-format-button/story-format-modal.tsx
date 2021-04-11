@@ -2,7 +2,7 @@ import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {
 	Card,
-	CardActions,
+	CardFooter,
 	CardBody,
 	CardHeader
 } from '../../../../components/container/card';
@@ -34,8 +34,7 @@ export const StoryFormatModal: React.FC<StoryFormatModalProps> = props => {
 	const availableFormats = React.useMemo(
 		() =>
 			formats.filter(
-				format =>
-					format.loadState === 'loaded' && !format.properties.proofing
+				format => format.loadState === 'loaded' && !format.properties.proofing
 			),
 		[formats]
 	);
@@ -55,7 +54,7 @@ export const StoryFormatModal: React.FC<StoryFormatModalProps> = props => {
 							value={value ? value.id : ''}
 						/>
 					</CardBody>
-					<CardActions>
+					<CardFooter>
 						<IconButton
 							icon="x"
 							label={t('common.cancel')}
@@ -68,7 +67,7 @@ export const StoryFormatModal: React.FC<StoryFormatModalProps> = props => {
 							onClick={onSubmit}
 							variant="primary"
 						/>
-					</CardActions>
+					</CardFooter>
 				</FormatLoader>
 			</Card>
 		</Modal>

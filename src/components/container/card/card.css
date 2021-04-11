@@ -6,21 +6,16 @@
 	background: var(--white);
 	border-radius: var(--corner-round);
 	box-shadow: var(--shadow-small);
-	display: grid;
-	grid-gap: var(--grid-size);
-	grid-template-rows: auto-fit 1fr auto-fit;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
 	overflow: hidden;
 	padding: var(--grid-size);
+	width: 100%;
 }
 
-.card.compact {
-	font-size: 85%;
-}
-
-.card.compact {
-	color: var(--gray);
-	grid-gap: 0;
-	padding: calc(var(--grid-size) / 2);
+.card.floating {
+	box-shadow: var(--shadow-large);
 }
 
 .card.highlighted {
@@ -31,12 +26,4 @@
 .card.selected {
 	background: var(--light-blue);
 	box-shadow: var(--shadow-small), inset 0 0 0 1px var(--blue);
-}
-
-.card.selected .card-actions {
-	border-color: var(--blue);
-}
-
-.card.highlighted .card-actions {
-	border-color: var(--yellow);
 }

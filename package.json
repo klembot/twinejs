@@ -37,18 +37,19 @@
 		"react-popper": "^2.2.4",
 		"react-router-dom": "^5.2.0",
 		"react-scripts": "4.0.3",
+		"react-scrollbar-size": "^3.2.0",
 		"scroll": "^3.0.1",
 		"segseg": "^1.0.0",
 		"semver": "^7.3.4",
 		"tiny-uuid": "^1.0.0"
 	},
 	"devDependencies": {
-		"@storybook/addon-actions": "^6.1.21",
-		"@storybook/addon-essentials": "^6.1.21",
-		"@storybook/addon-links": "^6.1.21",
-		"@storybook/node-logger": "^6.1.21",
+		"@storybook/addon-actions": "^6.2.7",
+		"@storybook/addon-essentials": "^6.2.7",
+		"@storybook/addon-links": "^6.2.7",
+		"@storybook/node-logger": "^6.2.7",
 		"@storybook/preset-create-react-app": "^3.1.7",
-		"@storybook/react": "^6.1.21",
+		"@storybook/react": "^6.2.7",
 		"@testing-library/jest-dom": "^5.11.4",
 		"@testing-library/react": "^11.1.0",
 		"@testing-library/react-hooks": "^5.1.1",
@@ -113,6 +114,7 @@
 		]
 	},
 	"jest": {
+		"restoreMocks": true,
 		"transformIgnorePatterns": [
 			"/!node_modules\\/segseg/"
 		]

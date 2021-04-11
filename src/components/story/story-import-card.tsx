@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {CardActions, CardBody, CardHeader, CardProps} from '../container/card';
+import {CardFooter, CardBody, CardHeader, CardProps} from '../container/card';
 import {ImageCard} from '../container/image-card';
 import {CheckboxButton} from '../control/checkbox-button';
 import {StoryPreview} from './story-preview';
@@ -40,14 +40,14 @@ export const StoryImportCard: React.FC<StoryImportCardProps> = props => {
 						})}
 					</p>
 				</CardBody>
-				<CardActions>
+				<CardFooter>
 					<CheckboxButton
 						label={t('storyImport.importThisStory')}
 						onChange={() => onChangeSelect(!selected)}
 						value={selected}
 						variant="primary"
 					/>
-				</CardActions>
+				</CardFooter>
 			</ImageCard>
 		</div>
 	);

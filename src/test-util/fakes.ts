@@ -25,7 +25,7 @@ export function fakePassage(props?: Partial<Passage>): Passage {
 		tags: [],
 		name: lorem.words(Math.round(Math.random() * 10)),
 		selected: Math.random() > 0.5,
-		text: lorem.words(Math.round(Math.random() * 10)),
+		text: lorem.words(Math.round(Math.random() * 500)),
 		...props
 	};
 }
@@ -46,9 +46,7 @@ export function fakeFailedStoryFormat(
 }
 
 export function fakeLoadedStoryFormat(
-	props?: Partial<
-		Omit<StoryFormat, 'loadError' | 'loadState' | 'properties'>
-	>,
+	props?: Partial<Omit<StoryFormat, 'loadError' | 'loadState' | 'properties'>>,
 	loadProps?: Partial<StoryFormatProperties>
 ): StoryFormat {
 	const formatName = lorem.words(2);

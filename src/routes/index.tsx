@@ -3,7 +3,6 @@ import {HashRouter, Route, Switch} from 'react-router-dom';
 import {usePrefsContext} from '../store/prefs';
 import {AboutTwineRoute} from './about-twine';
 import {LocaleSelectRoute} from './locale-select';
-import {PassageEditRoute} from './passage-edit';
 import {StoryFormatListRoute} from './story-format-list';
 import {StoryEditRoute} from './story-edit';
 import {StoryImportRoute} from './story-import';
@@ -49,9 +48,6 @@ export const Routes: React.FC = () => {
 					</Route>
 					<Route path="/stories/:storyId/javascript">
 						<StoryJavaScriptRoute />
-					</Route>
-					<Route path="/stories/:storyId/passages/:passageId">
-						<PassageEditRoute />
 					</Route>
 					<Route path="/stories/:storyId/play">
 						<StoryPlayRoute />

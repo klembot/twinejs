@@ -1,0 +1,15 @@
+@import '../../../../styles/depth.css';
+
+.passage-editor-card .card {
+	grid-template-rows: min-content 1fr;
+	height: 100%;
+}
+
+.passage-editor-card.collapsed {
+	display: block;
+	flex-grow: 0;
+}
+
+.passage-editor-card.collapsed .card {
+	display: block;
+}

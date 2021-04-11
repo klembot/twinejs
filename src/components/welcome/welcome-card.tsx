@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {CardActions, CardBody, CardHeader, CardProps} from '../container/card';
+import {CardFooter, CardBody, CardHeader, CardProps} from '../container/card';
 import {ImageCard} from '../container/image-card';
 import {IconButton} from '../control/icon-button';
 import './welcome-card.css';
@@ -29,13 +29,10 @@ export const WelcomeCard: React.FC<WelcomeCardProps> = props => {
 
 	return (
 		<div className="welcome-card">
-			<ImageCard
-				image={image && <img alt="" src={image} />}
-				{...otherProps}
-			>
+			<ImageCard image={image && <img alt="" src={image} />} {...otherProps}>
 				<CardHeader>{title}</CardHeader>
 				<CardBody>{children}</CardBody>
-				<CardActions>
+				<CardFooter>
 					{showSkip && (
 						<IconButton
 							icon="fast-forward"
@@ -49,7 +46,7 @@ export const WelcomeCard: React.FC<WelcomeCardProps> = props => {
 						onClick={onNext}
 						label={nextLabel}
 					/>
-				</CardActions>
+				</CardFooter>
 			</ImageCard>
 		</div>
 	);

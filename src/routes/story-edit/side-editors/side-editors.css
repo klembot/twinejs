@@ -1,0 +1,24 @@
+@import '../../../styles/metrics.css';
+
+.side-editors {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	position: fixed;
+	bottom: var(--grid-size);
+	right: var(--grid-size);
+	top: calc(50px + var(--grid-size));
+	width: 40em;
+}
+
+.side-editors > * {
+	flex: 1;
+}
+
+.side-editors > * + * {
+	margin-top: var(--grid-size);
+}
+
+.side.editors > .collapsed {
+	flex: 0;
+}

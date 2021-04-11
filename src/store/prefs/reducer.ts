@@ -9,6 +9,7 @@ export const reducer: React.Reducer<PrefsState, PrefsAction> = (
 			return {...state, ...action.state};
 
 		case 'repair':
+			// TODO: implement :)
 			throw new Error('Not implemented yet');
 
 		case 'update': {

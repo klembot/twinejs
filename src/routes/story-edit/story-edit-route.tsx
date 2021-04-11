@@ -1,5 +1,9 @@
 import * as React from 'react';
 import {useHistory, useParams} from 'react-router-dom';
+import {
+	useEditorsContext,
+	EditorsContextProvider
+} from './side-editors/editors-context';
 import {Point, Rect} from '../../util/geometry';
 import {MainContent} from '../../components/container/main-content';
 import {MarqueeSelection} from '../../components/marquee-selection';
@@ -15,13 +19,15 @@ import {
 } from '../../store/stories';
 import {PassageMap} from '../../components/passage/passage-map/passage-map';
 import {PassageToolbar} from '../../components/passage/passage-toolbar';
-import './story-edit-route.css';
+import {SideEditors} from './side-editors';
 import {StoryEditTopBar} from './top-bar';
 import {useStoryLaunch} from '../../store/use-story-launch';
+import './story-edit-route.css';
 
-export const StoryEditRoute: React.FC = () => {
+export const InnerStoryEditRoute: React.FC = () => {
 	const {storyId} = useParams<{storyId: string}>();
-	const {dispatch, stories} = useStoriesContext();
+	const {dispatch: editorsDispatch} = useEditorsContext();
+	const {dispatch: storiesDispatch, stories} = useStoriesContext();
 	const history = useHistory();
 	const mainContent = React.useRef<HTMLDivElement>(null);
 	const {testStory} = useStoryLaunch();
@@ -50,14 +56,14 @@ export const StoryEditRoute: React.FC = () => {
 	}, [story.zoom]);
 
 	const handleDeselectPassage = React.useCallback(
-		(passage: Passage) => deselectPassage(dispatch, story, passage),
-		[dispatch, story]
+		(passage: Passage) => deselectPassage(storiesDispatch, story, passage),
+		[storiesDispatch, story]
 	);
 
 	const handleDragPassages = React.useCallback(
 		(change: Point) =>
 			movePassages(
-				dispatch,
+				storiesDispatch,
 				story,
 				story.passages.reduce<string[]>(
 					(result, current) =>
@@ -67,18 +73,18 @@ export const StoryEditRoute: React.FC = () => {
 				change.left,
 				change.top
 			),
-		[dispatch, story]
+		[storiesDispatch, story]
 	);
 
 	const handleEditPassage = React.useCallback(
 		(passage: Passage) =>
-			history.push(`/stories/${story.id}/passages/${passage.id}`),
-		[history, story.id]
+			editorsDispatch({type: 'addPassageEditor', passageId: passage.id}),
+		[editorsDispatch]
 	);
 
 	const handleDeleteSelectedPassages = React.useCallback(() => {
-		deletePassages(dispatch, story, selectedPassages);
-	}, [dispatch, selectedPassages, story]);
+		deletePassages(storiesDispatch, story, selectedPassages);
+	}, [storiesDispatch, selectedPassages, story]);
 
 	const handleEditSelectedPassage = React.useCallback(() => {
 		if (selectedPassages.length !== 1) {
@@ -87,8 +93,11 @@ export const StoryEditRoute: React.FC = () => {
 			);
 		}
 
-		history.push(`/stories/${story.id}/passages/${selectedPassages[0].id}`);
-	}, [history, selectedPassages, story.id]);
+		editorsDispatch({
+			type: 'addPassageEditor',
+			passageId: selectedPassages[0].id
+		});
+	}, [editorsDispatch, selectedPassages]);
 
 	const handleTestSelectedPassage = React.useCallback(() => {
 		if (selectedPassages.length !== 1) {
@@ -102,8 +111,8 @@ export const StoryEditRoute: React.FC = () => {
 
 	const handleSelectPassage = React.useCallback(
 		(passage: Passage, exclusive: boolean) =>
-			selectPassage(dispatch, story, passage, exclusive),
-		[dispatch, story]
+			selectPassage(storiesDispatch, story, passage, exclusive),
+		[storiesDispatch, story]
 	);
 
 	function handleSelectRect(rect: Rect, additive: boolean) {
@@ -118,7 +127,7 @@ export const StoryEditRoute: React.FC = () => {
 		};
 
 		selectPassagesInRect(
-			dispatch,
+			storiesDispatch,
 			story,
 			logicalRect,
 			additive
@@ -159,6 +168,16 @@ export const StoryEditRoute: React.FC = () => {
 					zoom={story.zoom}
 				/>
 			</MainContent>
+			<SideEditors story={story} />
 		</div>
 	);
 };
+
+// This is a separate component so that the inner one can use
+// `useEditorsContext()` inside it.
+
+export const StoryEditRoute: React.FC = () => (
+	<EditorsContextProvider>
+		<InnerStoryEditRoute />
+	</EditorsContextProvider>
+);

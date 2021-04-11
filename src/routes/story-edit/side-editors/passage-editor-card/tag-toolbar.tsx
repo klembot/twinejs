@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {ButtonBar} from '../../components/container/button-bar';
-import {IconButton} from '../../components/control/icon-button';
-import {TagModal} from '../../components/tag/tag-modal';
+import {ButtonBar} from '../../../../components/container/button-bar';
+import {IconButton} from '../../../../components/control/icon-button';
+import {TagModal} from '../../../../components/tag/tag-modal';
 import {
 	addPassageTag,
 	removePassageTag,
@@ -11,9 +11,9 @@ import {
 	useStoriesContext,
 	Passage,
 	Story
-} from '../../store/stories';
-import {TagButton} from '../../components/tag/tag-button';
-import {Color} from '../../util/color';
+} from '../../../../store/stories';
+import {TagButton} from '../../../../components/tag/tag-button';
+import {Color} from '../../../../util/color';
 
 export interface TagToolbarProps {
 	passage: Passage;
@@ -81,9 +81,7 @@ export const TagToolbar: React.FC<TagToolbarProps> = props => {
 						key={tag}
 						name={tag}
 						onDelete={() => handleRemoveTag(tag)}
-						onEdit={() =>
-							openEditModal(tag, props.story.tagColors[tag])
-						}
+						onEdit={() => openEditModal(tag, props.story.tagColors[tag])}
 					/>
 				))}
 			</ButtonBar>
