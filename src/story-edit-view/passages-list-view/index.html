@@ -1,10 +1,6 @@
 <modal-dialog id="passagesListModal" :origin="origin" :can-widen="true" @destroyed="dialogDestroyed()">
-	<passage-editor :use-passage="passage" :use-story="story"></passage-editor>
-
-	<button class="nav" @click="nav(-1)">
-		<i class="fa fa-arrow-left fa-lg"></i>
-	</button>
-	<button class="nav" @click="nav(+1)">
-		<i class="fa fa-arrow-right fa-lg"></i>
-	</button>
+	<div v-for="passage in passages">
+		<passage-editor :use-passage="passage" :use-story="story"></passage-editor>
+		<br/><br/><br/>
+	</div>
 </modal-dialog>
