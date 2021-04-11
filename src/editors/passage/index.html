@@ -1,4 +1,4 @@
-<modal-dialog id="passageEditModal" class="editor" :can-close="canClose" :can-widen="true" :origin="origin" @destroyed="dialogDestroyed" v-ref:modal>
+<div class="passage-edior">
 	<span slot="title">
 		<input type="text" id="passageName" placeholder="{{ 'Passage Name' | say }}" v-model="userPassageName">
 	</span>
@@ -12,4 +12,4 @@
 	<div class="expand">
 		<code-mirror :options="cmOptions" :text="passage.text" @cm-change="saveText" v-ref:codemirror></code-mirror>
 	</div> <!-- .fullEdit -->
-</modal-dialog>
+</div>
