@@ -6,7 +6,7 @@ import {DropdownButton} from './dropdown-button';
 import {PromptModal} from '../modal/prompt-modal';
 
 const families = ['var(--font-monospaced)', 'var(--font-system)'];
-const scales = [-1, 0.8, 0.9, 1, 1.25, 1.5, 2];
+const scales = [0.8, 0.9, 1, 1.25, 1.5, 2];
 
 export interface FontSelectProps {
 	fontFamily: string;
@@ -85,13 +85,9 @@ export const FontSelect: React.FC<FontSelectProps> = props => {
 						{scales.map(scale => (
 							<CheckboxButton
 								key={scale}
-								label={
-									scale === -1
-										? t('components.fontSelect.sizes.auto')
-										: t('components.fontSelect.sizes.percent', {
-												percent: scale * 100
-										  })
-								}
+								label={t('components.fontSelect.sizes.percent', {
+									percent: scale * 100
+								})}
 								onChange={() => onChangeScale(scale)}
 								value={fontScale === scale}
 								{...checkProps}

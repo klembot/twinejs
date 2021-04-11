@@ -28,8 +28,7 @@ export const CodeArea: React.FC<CodeAreaProps> = props => {
 	}
 
 	if (fontScale) {
-		style.fontSize =
-			fontScale === -1 ? 'calc(100% + 1vw)' : `${fontScale * 100}%`;
+		style.fontSize = `${fontScale * 100}%`;
 	}
 
 	return (

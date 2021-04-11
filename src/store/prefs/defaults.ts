@@ -15,7 +15,7 @@ export const defaults = (): PrefsState => ({
 		(window.navigator as any).systemLanguage ||
 		'en-us',
 	passageEditorFontFamily: 'var(--font-system)',
-	passageEditorFontScale: -1,
+	passageEditorFontScale: 1,
 	proofingFormat: {
 		name: 'Paperthin',
 		version: '1.0.0'
