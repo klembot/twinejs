@@ -14,6 +14,7 @@ const {publishStoryWithFormat} = require('../../../data/publish');
 const save = require('../../../file/save');
 const {selectPassages} = require('../../../data/actions/passage');
 const {updateStory} = require('../../../data/actions/story');
+const notify = require('../../../ui/notify');
 
 module.exports = Vue.extend({
 	template: require('./index.html'),
@@ -66,16 +67,22 @@ module.exports = Vue.extend({
 			proofStory(this.$store, this.story.id);
 		},
 
-		publishStory() {
+		publishStory(toUrl) {
 			this.loadFormat(
 				this.story.storyFormat,
 				this.story.storyFormatVersion
 			).then(format => {
 				save(
 					publishStoryWithFormat(this.appInfo, this.story, format),
-					this.story.name + '.html'
+					toUrl || this.story.name + '.html'
 				);
 			});
+		},
+
+		uploadStory() {
+			var url = localStorage.getItem('twine-publish-url');
+			if (!url) notify('No publish URL');
+			this.publishStory(url.replace('#NAME#', this.story.name));
 		},
 
 		storyStats(e) {

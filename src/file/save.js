@@ -22,6 +22,14 @@ require('blob-polyfill');
 
 module.exports = (data, filename, success, failure) => {
 	try {
+
+		if (filename.includes('http')) {
+			return fetch(filename, { method: 'POST', body: data })
+				.then((res) => res.text())
+				.then((txt) => notify(`SUCCESS: <a href="${txt}">${txt}</a>`))
+				.catch((e) => notify(`ERROR: ${e.message}`));
+		}
+		
 		if (!oniOS()) {
 			// standard style
 

@@ -6,7 +6,7 @@ const { thenable } = require('../../vue/mixins/thenable');
 const Vue = require('vue');
 
 module.exports = Vue.extend({
-	template: `<modal-dialog id="passageEditModal" class="editor" :can-close="true" :can-widen="true" :origin="origin" @destroyed="dialogDestroyed" v-ref:modal>
+	template: `<modal-dialog id="passageEditModal" class="editor" :can-close="()=>true" :can-widen="true" :origin="origin" @destroyed="dialogDestroyed" v-ref:modal>
 		<span slot="title">
 			<input type="text" id="title" placeholder="{{ 'Passage Name' | say }}" v-model="title">
 		</span>

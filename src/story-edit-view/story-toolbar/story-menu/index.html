@@ -35,7 +35,11 @@
 		</li>
 
 		<li>
-			<button @click="publishStory">{{ 'Publish to File' | say }}</button>
+			<button @click="publishStory()">{{ 'Publish to File' | say }}</button>
+		</li>
+
+		<li>
+			<button @click="uploadStory()">{{ 'Publish to URL' | say }}</button>
 		</li>
 	</ul>
 </drop-down>
