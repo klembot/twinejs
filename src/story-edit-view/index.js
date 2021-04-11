@@ -444,13 +444,7 @@ module.exports = Vue.extend({
 		*/
 
 		'passage-create'(name, left, top) {
-			new PassagesEdit({
-					data: {
-						story: this.story,
-					},
-					store: this.$store
-				})
-				.$mountTo(document.body);
+			this.createPassageAt(name, left, top);
 		},
 
 		/*

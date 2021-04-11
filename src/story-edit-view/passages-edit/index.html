@@ -4,7 +4,7 @@
 	<div>
 		<br/>
 		<input type="text" id="tagName" placeholder="{{ 'Tag' | say }}" v-model="tagName">
-		<button class="subtle" v-for="(tag, color) in allTags" @click="tagName += tag + ','" :style="{border: `2px solid ${color}`}">{{tag}}</button>
+		<button class="subtle tag--subtle" v-for="(tag, color) in allTags" @click="tagName += tag + ','" :style="{border: `2px solid ${color}`}">{{tag}}</button>
 	</div>
 	<div>
 		<br/>

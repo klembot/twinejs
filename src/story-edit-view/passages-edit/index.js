@@ -34,7 +34,8 @@ module.exports = Vue.extend({
 
 	computed: {
 		selectedPassages() { return this.story.passages.filter(passage => passage.selected); },
-		allTags() { return this.story.tagColors; },
+		allTags() { return this.story.passages.map(passage => passage.tags).flat()
+			.reduce((tags, tag) => { tags[tag] = this.story.tagColors[tag] || ''; return tags; }, {}); },
 	},
 
 	methods: {
@@ -63,12 +64,11 @@ module.exports = Vue.extend({
 		},
 		dialogDestroyed() {
 			this.apply();
-			this.$destroy();
+			setTimeout(() => this.$destroy());
 		},
 	},
 
 	ready() {
-		console.log(this.story);
 	},
 
 	destroyed() {
