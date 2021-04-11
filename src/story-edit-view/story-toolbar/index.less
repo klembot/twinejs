@@ -90,8 +90,10 @@
 	.mobile({
 		.create { order: 0; }
 		.subtle { order: 1; }
-		.zooms { order: 2; }
-		.searchContainer { order: 3 }
+		.edit-selected { display: none; } /* Currently no multi-selection on mobile. */
+		.show-list-view { order: 2; }
+		.zooms { order: 3; }
+		.searchContainer { order: 4 }
 	});
 
 	.theme-dark & {

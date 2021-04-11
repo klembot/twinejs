@@ -46,6 +46,10 @@ module.exports = Vue.extend({
 
 		editSelected() {
 			this.$dispatch('edit-selected');
+		},
+
+		showListView() {
+			this.$dispatch('show-list-view');
 		}
 	},
 

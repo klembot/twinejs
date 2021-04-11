@@ -7,6 +7,7 @@
 	</div>
 
 	<passages-edit v-if="isPassagesEditOpen" @close="isPassagesEditOpen = false" :story="story"></passages-edit>
+	<passages-list-view v-if="isPassageslistOpen" @close="isPassageslistOpen = false" :story="story"></passages-list-view>
 
 	<story-toolbar :story="story" :highlight-regexp="highlightRegexp" :zoom-desc="zoomDesc" ></story-toolbar>
 </div> <!-- #storyEditView -->

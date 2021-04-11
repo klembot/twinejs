@@ -2,11 +2,15 @@
 A modal dialog for editing a single passage.
 */
 
+const { thenable } = require('../../vue/mixins/thenable');
 const Vue = require('vue');
 
 module.exports = Vue.extend({
-	template: `<modal-dialog id="passageEditModal" class="editor" :can-close="canClose" :can-widen="true" :origin="origin" @destroyed="dialogDestroyed" v-ref:modal>
-		<editor-passage :passage-data="passageData"></edior-passage>
+	template: `<modal-dialog id="passageEditModal" class="editor" :can-close="true" :can-widen="true" :origin="origin" @destroyed="dialogDestroyed" v-ref:modal>
+		<span slot="title">
+			<input type="text" id="title" placeholder="{{ 'Passage Name' | say }}" v-model="title">
+		</span>
+		<editor-passage :passage-data="passageData" :name="title" @change="updateTitle"></edior-passage>
 	</modal-dialog>`,
 
 	data: () => ({
@@ -15,7 +19,8 @@ module.exports = Vue.extend({
 		oldWindowTitle: '',
 		userPassageName: '',
 		saveError: '',
-		origin: null
+		origin: null,
+		title: '',
 	}),
 
 	computed: {
@@ -23,6 +28,9 @@ module.exports = Vue.extend({
 	},
 
 	methods: {
+		updateTitle(title) {
+			this.title = title;
+		},
 		dialogDestroyed() {
 			this.$destroy();
 		},
@@ -34,4 +42,6 @@ module.exports = Vue.extend({
 		'tag-editor': require('./tag-editor'),
 		'editor-passage': require('./standalone')
 	},
+
+	mixins: [thenable]
 });

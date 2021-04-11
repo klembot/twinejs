@@ -26,13 +26,21 @@ module.exports = Vue.extend({
 	template: require('./index.html'),
 
 	props: {
+		passageData: {
+			type: Object,
+			required: false
+		},
+		name: {
+			type: String,
+			required: false
+		},
 		usePassage: {
 			type: Object,
 			required: false,
 		},
-		passageData: {
+		useStory: {
 			type: Object,
-			required: true
+			required: false,
 		},
 	},
 
@@ -41,11 +49,16 @@ module.exports = Vue.extend({
 			passageId: '',
 			storyId: '',
 			oldWindowTitle: '',
-			userPassageName: '',
+			userPassageName: this.name || '',
 			saveError: '',
 			origin: null,
 			...this.passageData,
 		}
+	},
+
+	watch: {
+		name() { this.userPassageName = this.name; this.canClose(); }, // TODO: too hacky
+		userPassageName() { this.$emit('change', this.userPassageName); this.canClose(); },
 	},
 
 	computed: {
@@ -75,6 +88,12 @@ module.exports = Vue.extend({
 		},
 
 		passage() {
+			if (this.usePassage) {
+				this.userPassageName = this.usePassage.name;
+				this.passageId = this.usePassage.id;
+				this.storyId = this.useStory.id;
+				return this.usePassage;
+			}
 			return this.parentStory.passages.find(
 				passage => passage.id === this.passageId
 			);

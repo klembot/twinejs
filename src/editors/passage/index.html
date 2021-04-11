@@ -1,7 +1,5 @@
 <div class="passage-edior">
-	<span slot="title">
-		<input type="text" id="passageName" placeholder="{{ 'Passage Name' | say }}" v-model="userPassageName">
-	</span>
+	<input v-if="!passageData" type="text" id="passageName" placeholder="{{ 'Passage Name' | say }}" v-model="userPassageName">
 
 	<tag-editor :passage="passage" :story-id="storyId"></tag-editor>
 

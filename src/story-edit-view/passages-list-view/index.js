@@ -27,14 +27,20 @@ module.exports = Vue.extend({
 	},
 
 	data: () => ({
+		idx: 0,
 	}),
 
 	computed: {
-		passages() { return this.selectedPassages.length ? this.selectedPassages : thos.story.passages; },
+		passage() { return this.passages[this.idx]; },
+		passages() { return this.selectedPassages.length ? this.selectedPassages : this.story.passages; },
 		selectedPassages() { return this.story.passages.filter(passage => passage.selected); },
 	},
 
 	methods: {
+		nav(dir) {
+			this.idx = (this.idx + dir) % this.passages.length;
+			if (this.idx < 0) this.idx = this.passages.length + this.idx;
+		},
 		apply() {
 			this.passages.forEach(passage => {
 				this.updatePassage(
@@ -61,6 +67,7 @@ module.exports = Vue.extend({
 	components: {
 		'modal-dialog': require('../../ui/modal-dialog'),
 		'tag-editor': require('../../editors/passage/tag-editor'),
+		'passage-editor': require('../../editors/passage/standalone.js'),
 	},
 
 	vuex: {

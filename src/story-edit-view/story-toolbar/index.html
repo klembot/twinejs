@@ -11,8 +11,11 @@
 
 	<div class="right">
 
-		<button class="edit" @click="editSelected()" title="{{ 'Edit selected' | say }}">
+		<button class="edit-selected" @click="editSelected()" title="{{ 'Edit selected' | say }}">
 			<i class="fa fa-pencil fa-lg"></i>
+		</button>
+		<button class="show-list-view" @click="showListView()" title="{{ 'List view' | say }}">
+			<i class="fa fa-list fa-lg"></i>
 		</button>
 
 		<story-search :story="story"></story-search>
