@@ -27,11 +27,9 @@ module.exports = Vue.extend({
 	},
 
 	data: () => ({
-		idx: 0,
 	}),
 
 	computed: {
-		passage() { return this.passages[this.idx]; },
 		passages() { return this.selectedPassages.length ? this.selectedPassages : this.story.passages; },
 		selectedPassages() { return this.story.passages.filter(passage => passage.selected); },
 	},

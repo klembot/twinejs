@@ -6,11 +6,11 @@ const { thenable } = require('../../vue/mixins/thenable');
 const Vue = require('vue');
 
 module.exports = Vue.extend({
-	template: `<modal-dialog id="passageEditModal" class="editor" :can-close="()=>true" :can-widen="true" :origin="origin" @destroyed="dialogDestroyed" v-ref:modal>
+	template: `<modal-dialog id="passageEditModal" class="editor" :can-close="canClose" :can-widen="true" :origin="origin" @destroyed="dialogDestroyed" v-ref:modal>
 		<span slot="title">
-			<input type="text" id="title" placeholder="{{ 'Passage Name' | say }}" v-model="title">
+			<input v-if="passageEl" type="text" id="title" placeholder="{{ 'Passage Name' | say }}" v-model="passageEl.userPassageName">
 		</span>
-		<editor-passage :passage-data="passageData" :name="title" @change="updateTitle"></edior-passage>
+		<editor-passage :passage-data="passageData" v-ref:passage></edior-passage>
 	</modal-dialog>`,
 
 	data: () => ({
@@ -20,20 +20,24 @@ module.exports = Vue.extend({
 		userPassageName: '',
 		saveError: '',
 		origin: null,
-		title: '',
+		passageEl: null,
 	}),
 
 	computed: {
-		passageData() { return this._data; }
+		passageData() { return this._data; },
 	},
 
 	methods: {
-		updateTitle(title) {
-			this.title = title;
-		},
 		dialogDestroyed() {
 			this.$destroy();
 		},
+		canClose() {
+			return this.$refs.passage.canClose();
+		}
+	},
+
+	ready() {
+		this.passageEl = this.$refs.passage;
 	},
 
 	components: {
