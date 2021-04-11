@@ -89,11 +89,17 @@ module.exports = Vue.extend({
 		},
 
 		passage() {
-			if (this.usePassage && !this.storyId) {
-				this.userPassageName = this.usePassage.name;
-				this.oldText = this.usePassage.text;
-				this.passageId = this.usePassage.id;
-				this.storyId = this.useStory.id;
+			if (this.usePassage) {
+				if (!this.storyId) {
+					this.userPassageName = this.usePassage.name;
+					this.oldText = this.usePassage.text;
+					this.passageId = this.usePassage.id;
+					this.storyId = this.useStory.id;
+					this.$options.storyFormat = {
+						name: this.useStory.storyFormat,
+						version: this.useStory.storyFormatVersion
+					};
+				}
 				return this.usePassage;
 			}
 			return this.parentStory.passages.find(
@@ -172,8 +178,7 @@ module.exports = Vue.extend({
 			this.createNewlyLinkedPassages(
 				this.parentStory.id,
 				this.passage.id,
-				this.oldText,
-				this.gridSize
+				this.oldText
 			);
 		},
 
@@ -214,6 +219,12 @@ module.exports = Vue.extend({
 
 			return false;
 		},
+
+		enable() {
+			this.disabled = false;
+			setTimeout(() => this.ready());
+		},
+
 		ready() {
 			if (!this.$refs.codemirror) return;
 			this.userPassageName = this.passage.name;
@@ -280,7 +291,7 @@ module.exports = Vue.extend({
 		}
 	},
 
-	ready() { this.ready(); },
+	ready() { },
 
 	destroyed() {
 		document.title = this.oldWindowTitle;

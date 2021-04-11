@@ -10,7 +10,8 @@ require('codemirror/addon/display/placeholder');
 require('codemirror/addon/hint/show-hint');
 require('../../codemirror/prefix-trigger');
 const {
-	updatePassage
+	updatePassage,
+	createNewlyLinkedPassages
 } =
 	require('../../data/actions/passage');
 
@@ -40,12 +41,19 @@ module.exports = Vue.extend({
 		apply() {
 			console.log(this.tagName, this.appendText);
 			this.selectedPassages.forEach(passage => {
+				var oldText = passage.text;
 				if (this.appendText) passage.text += '\n' + this.appendText;
 				if (this.tagName) this.tagName.split(',')
 					.filter(Boolean).forEach(tag => {
 						if (!passage.tags.includes(tag))
 							passage.tags.push(tag);
 					});
+
+				this.createNewlyLinkedPassages(
+					this.story.id,
+					passage.id,
+					oldText,
+				);
 				this.updatePassage(
 					this.story.id,
 					passage.id,
@@ -55,7 +63,6 @@ module.exports = Vue.extend({
 		},
 		dialogDestroyed() {
 			this.apply();
-			this.$emit('close'); // TODO: modal not correctly used
 			this.$destroy();
 		},
 	},
@@ -75,6 +82,7 @@ module.exports = Vue.extend({
 	vuex: {
 		actions: {
 			updatePassage,
+			createNewlyLinkedPassages,
 		},
 
 		getters: {

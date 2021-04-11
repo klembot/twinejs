@@ -7,12 +7,12 @@
 		{{ 'A passage already exists with this name.' | say }}
 	</p>
 
-	<pre v-if="isReadOnly" @click="disabled = false; ready();">{{passage.text || '-- no text --'}}</pre>
+	<pre v-if="isReadOnly" @click="enable">{{passage.text || '-- no text --'}}</pre>
 	<div class="expand">
 		<code-mirror v-if="!isReadOnly" :options="cmOptions" :text="passage.text" @cm-change="saveText" v-ref:codemirror></code-mirror>
 	</div> <!-- .fullEdit -->
 
-	<button v-if="!passageData" class="nav" @click="applyPassage">
+	<button v-if="!passageData" class="apply-passage" @click="applyPassage">
 		<i class="fa fa-refresh fa-lg"></i>
 	</button>
 </div>

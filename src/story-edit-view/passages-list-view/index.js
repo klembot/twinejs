@@ -50,13 +50,11 @@ module.exports = Vue.extend({
 		},
 		dialogDestroyed() {
 			this.apply();
-			this.$emit('close'); // TODO: modal not correctly used
 			this.$destroy();
 		},
 	},
 
 	ready() {
-		console.log(this.story);
 	},
 
 	destroyed() {

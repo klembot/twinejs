@@ -38,6 +38,8 @@ module.exports = Vue.extend({
 
 	ready() {
 		this.passageEl = this.$refs.passage;
+		Object.assign(this.passageEl.$options, this.$options);
+		this.passageEl.ready();
 	},
 
 	components: {

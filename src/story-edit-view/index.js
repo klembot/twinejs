@@ -11,6 +11,9 @@ const locale = require('../locale');
 const { passageDefaults } = require('../data/store/story');
 const zoomSettings = require('./zoom-settings');
 
+const PassagesEdit = require('./passages-edit');
+const PassagesListView = require('./passages-list-view');
+
 require('./index.less');
 
 /*
@@ -63,9 +66,6 @@ module.exports = Vue.extend({
 
 		screenDragOffsetX: 0,
 		screenDragOffsetY: 0,
-
-		isPassagesEditOpen: false,
-		isPassageslistOpen: false,
 	}),
 
 	computed: {
@@ -417,14 +417,26 @@ module.exports = Vue.extend({
 		*/
 
 		'show-list-view'(name, left, top) {
-			this.isPassageslistOpen = !this.isPassageslistOpen;
+			new PassagesListView({
+					data: {
+						story: this.story,
+					},
+					store: this.$store
+				})
+				.$mountTo(document.body);
 		},
 		/*
 		A hook into our editSelected.
 		*/
 
 		'edit-selected'(name, left, top) {
-			this.isPassagesEditOpen = !this.isPassagesEditOpen;
+			new PassagesEdit({
+					data: {
+						story: this.story,
+					},
+					store: this.$store
+				})
+				.$mountTo(document.body);
 		},
 		
 		/*
@@ -432,7 +444,13 @@ module.exports = Vue.extend({
 		*/
 
 		'passage-create'(name, left, top) {
-			this.createPassageAt(name, left, top);
+			new PassagesEdit({
+					data: {
+						story: this.story,
+					},
+					store: this.$store
+				})
+				.$mountTo(document.body);
 		},
 
 		/*
@@ -497,9 +515,7 @@ module.exports = Vue.extend({
 		'link-arrows': require('./link-arrows'),
 		'passage-item': require('./passage-item'),
 		'story-toolbar': require('./story-toolbar'),
-		'marquee-selector': require('./marquee-selector'),
-		'passages-edit': require('./passages-edit'),
-		'passages-list-view': require('./passages-list-view')
+		'marquee-selector': require('./marquee-selector')
 	},
 
 	vuex: {
