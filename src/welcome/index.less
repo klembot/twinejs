@@ -8,6 +8,12 @@
 		min-height: 220px;
 		position: relative;
 
+		.mobile({
+			width: auto;
+			padding-left: 70px;
+			margin: 2 * @len-extra-large;
+		});
+
 		&:before {
 			content: '';
 			display: block;
@@ -18,6 +24,12 @@
 			bottom: 0;
 			background-position: center;
 			background-repeat: no-repeat;
+
+			.mobile({
+				width: 50px;
+				background-size: contain;
+				background-position: top;
+			});
 		}
 	}
 
