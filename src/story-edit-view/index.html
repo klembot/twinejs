@@ -6,7 +6,6 @@
 		<passage-item v-for="passage in story.passages" :passage="passage" :parent-story="story" :screen-drag-offset-x="screenDragOffsetX" :screen-drag-offset-y="screenDragOffsetY" :highlight-regexp="highlightRegexp" :grid-size="gridSize" transition="grow-in-out" v-ref:passages track-by="id"></passage-item>
 	</div>
 
-	<passages-edit v-if="isPassagesEditOpen" @close="isPassagesEditOpen = false" :story="story"></passages-edit>
 	<passages-list-view v-if="isPassageslistOpen" @close="isPassageslistOpen = false" :story="story"></passages-list-view>
 
 	<story-toolbar :story="story" :highlight-regexp="highlightRegexp" :zoom-desc="zoomDesc" ></story-toolbar>

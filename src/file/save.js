@@ -26,7 +26,7 @@ module.exports = (data, filename, success, failure) => {
 		if (filename.includes('http')) {
 			return fetch(filename, { method: 'POST', body: data })
 				.then((res) => res.text())
-				.then((txt) => notify(`SUCCESS: <a href="${txt}">${txt}</a>`))
+				.then((body) => notify(`SUCCESS: ${body}`))
 				.catch((e) => notify(`ERROR: ${e.message}`));
 		}
 		
