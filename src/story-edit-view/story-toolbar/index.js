@@ -42,6 +42,10 @@ module.exports = Vue.extend({
 
 		addPassage() {
 			this.$dispatch('passage-create');
+		},
+
+		editSelected() {
+			this.$dispatch('edit-selected');
 		}
 	},
 

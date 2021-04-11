@@ -10,6 +10,11 @@
 	</div> <!-- .left -->
 
 	<div class="right">
+
+		<button class="edit" @click="editSelected()" title="{{ 'Edit selected' | say }}">
+			<i class="fa fa-pencil fa-lg"></i>
+		</button>
+
 		<story-search :story="story"></story-search>
 
 		<span class="zooms">

@@ -62,7 +62,9 @@ module.exports = Vue.extend({
 		*/
 
 		screenDragOffsetX: 0,
-		screenDragOffsetY: 0
+		screenDragOffsetY: 0,
+
+		isPassagesEditOpen: false
 	}),
 
 	computed: {
@@ -241,6 +243,10 @@ module.exports = Vue.extend({
 			}
 		},
 
+		editSelected() {
+			this.isPassagesEditOpen = !this.isPassagesEditOpen;
+		},
+
 		/*
 		Creates a passage, optionally at a certain position onscreen. If
 		unspecified, this does so at the center of the page. This also
@@ -410,6 +416,14 @@ module.exports = Vue.extend({
 		},
 		
 		/*
+		A hook into our editSelected() method for child components.
+		*/
+
+		'edit-selected'(name, left, top) {
+			this.editSelected();
+		},
+		
+		/*
 		A hook into our createPassage() method for child components.
 		*/
 
@@ -479,7 +493,8 @@ module.exports = Vue.extend({
 		'link-arrows': require('./link-arrows'),
 		'passage-item': require('./passage-item'),
 		'story-toolbar': require('./story-toolbar'),
-		'marquee-selector': require('./marquee-selector')
+		'marquee-selector': require('./marquee-selector'),
+		'passages-edit': require('./passages-edit')
 	},
 
 	vuex: {

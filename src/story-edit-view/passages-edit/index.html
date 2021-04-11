@@ -1,0 +1,13 @@
+<modal-dialog id="passagesEditModal" :origin="origin" :can-widen="true" @destroyed="dialogDestroyed()">
+	<h1>{{ 'Passages' | say }}</h1>
+	<div v-for="passage in selectedPassages">{{passage.name}}</div>
+	<div>
+		<br/>
+		<input type="text" id="tagName" placeholder="{{ 'Tag' | say }}" v-model="tagName">
+		<button class="subtle" v-for="(tag, color) in allTags" @click="tagName += tag + ','" :style="{border: `2px solid ${color}`}">{{tag}}</button>
+	</div>
+	<div>
+		<br/>
+		<textarea id="appendText" v-model="appendText" placeholder="{{ 'Append' | say }}"></textarea>
+	</div>
+</modal-dialog>
