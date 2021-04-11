@@ -114,6 +114,7 @@
 		]
 	},
 	"jest": {
+		"restoreMocks": true,
 		"transformIgnorePatterns": [
 			"/!node_modules\\/segseg/"
 		]
