@@ -19,6 +19,7 @@
 	margin-top: var(--grid-size);
 }
 
-.dialogs > .collapsed {
+.dialogs > .collapsed,
+.dialogs > .fixed-size {
 	flex: 0;
 }

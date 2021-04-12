@@ -8,6 +8,7 @@ export type Dialog = CommonDialog &
 	(
 		| {type: 'passage'; passageId: string}
 		| {type: 'storyJavaScript'}
+		| {type: 'storyStats'}
 		| {type: 'storyStylesheet'}
 	);
 
@@ -16,6 +17,7 @@ export type DialogsState = Dialog[];
 export type DialogsAction =
 	| {type: 'addPassageEditor'; passageId: string}
 	| {type: 'addStoryJavaScriptEditor'}
+	| {type: 'addStoryStats'}
 	| {type: 'addStoryStylesheetEditor'}
 	| {type: 'removeDialog'; index: number}
 	| {type: 'setDialogCollapsed'; collapsed: boolean; index: number};
@@ -65,6 +67,24 @@ export const reducer: React.Reducer<DialogsState, DialogsAction> = (
 			}
 
 			return [...state, {collapsed: false, type: 'storyJavaScript'}];
+		}
+
+		case 'addStoryStats': {
+			let exists = false;
+			const editedState = state.map(dialog => {
+				if (dialog.type === 'storyStats') {
+					exists = true;
+					return {...dialog, collapsed: false};
+				}
+
+				return dialog;
+			});
+
+			if (exists) {
+				return editedState;
+			}
+
+			return [...state, {collapsed: false, type: 'storyStats'}];
 		}
 
 		case 'addStoryStylesheetEditor': {

@@ -1,0 +1,18 @@
+@import '../../../styles/metrics.css';
+
+.story-stats-dialog .content {
+	padding: var(--grid-size);
+	padding-bottom: calc(2 * var(--grid-size));
+}
+
+.story-stats-dialog .content :first-child {
+	margin-top: 0;
+}
+
+.story-stats-dialog .content :last-child {
+	margin-bottom: 0;
+}
+
+.story-stats-dialog .counts td:first-child {
+	font-weight: bold;
+}

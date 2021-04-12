@@ -3,32 +3,33 @@ import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {
 	DialogCard,
+	DialogCardProps,
 	DialogEditor
-} from '../../../../components/container/dialog-card';
-import {CodeArea} from '../../../../components/control/code-area';
-import {usePrefsContext} from '../../../../store/prefs';
+} from '../../../components/container/dialog-card';
+import {CodeArea} from '../../../components/control/code-area';
+import {usePrefsContext} from '../../../store/prefs';
 import {
 	storyWithId,
 	updateStory,
 	useStoriesContext
-} from '../../../../store/stories';
+} from '../../../store/stories';
 import './story-stylesheet-dialog.css';
 
-export interface StoryJavaScriptDialogProps {
-	collapsed: boolean;
-	onChangeCollapsed: (value: boolean) => void;
-	onClose: () => void;
+export interface StoryJavaScriptDialogProps
+	extends Omit<DialogCardProps, 'headerLabel'> {
 	storyId: string;
 }
 
 export const StoryStylesheetDialog: React.FC<StoryJavaScriptDialogProps> = props => {
-	const {collapsed, onChangeCollapsed, onClose, storyId} = props;
+	const {storyId, ...other} = props;
 	const {dispatch, stories} = useStoriesContext();
 	const {prefs} = usePrefsContext();
 	const story = storyWithId(stories, storyId);
 	const {t} = useTranslation();
 
-	const className = classNames('story-javascript-dialog', {collapsed});
+	const className = classNames('story-javascript-dialog', {
+		collapsed: other.collapsed
+	});
 	const handleChange = (
 		editor: CodeMirror.Editor,
 		data: CodeMirror.EditorChange,
@@ -39,12 +40,7 @@ export const StoryStylesheetDialog: React.FC<StoryJavaScriptDialogProps> = props
 
 	return (
 		<div className={className}>
-			<DialogCard
-				collapsed={collapsed}
-				headerLabel={t('storyStylesheet.title')}
-				onChangeCollapsed={onChangeCollapsed}
-				onClose={onClose}
-			>
+			<DialogCard {...other} headerLabel={t('storyStylesheet.title')}>
 				<p>{t('storyStylesheet.explanation')}</p>
 				<DialogEditor>
 					<CodeArea

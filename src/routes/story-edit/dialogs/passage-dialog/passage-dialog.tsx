@@ -3,7 +3,10 @@ import {useTranslation} from 'react-i18next';
 import classNames from 'classnames';
 import {ButtonBar} from '../../../../components/container/button-bar';
 import {CheckboxButton} from '../../../../components/control/checkbox-button';
-import {DialogCard} from '../../../../components/container/dialog-card';
+import {
+	DialogCard,
+	DialogCardProps
+} from '../../../../components/container/dialog-card';
 import {PassageText} from './passage-text';
 import {RenamePassageButton} from './rename-passage-button';
 import {TagToolbar} from './tag-toolbar';
@@ -16,16 +19,14 @@ import {
 } from '../../../../store/stories';
 import './passage-dialog.css';
 
-export interface PassageEditorCardProps {
-	collapsed: boolean;
-	onChangeCollapsed: (value: boolean) => void;
-	onClose: () => void;
+export interface PassageEditorCardProps
+	extends Omit<DialogCardProps, 'headerLabel'> {
 	passageId: string;
 	storyId: string;
 }
 
 export const PassageDialog: React.FC<PassageEditorCardProps> = props => {
-	const {collapsed, onChangeCollapsed, onClose, passageId, storyId} = props;
+	const {passageId, storyId, ...other} = props;
 	const {dispatch, stories} = useStoriesContext();
 	const passage = passageWithId(stories, storyId, passageId);
 	const story = storyWithId(stories, storyId);
@@ -39,17 +40,12 @@ export const PassageDialog: React.FC<PassageEditorCardProps> = props => {
 		updateStory(dispatch, stories, story, {startPassage: passageId});
 	}
 
-	const className = classNames('passage-dialog', {collapsed});
+	const className = classNames('passage-dialog', {collapsed: other.collapsed});
 	const isStart = story.startPassage === passage.id;
 
 	return (
 		<div className={className}>
-			<DialogCard
-				collapsed={collapsed}
-				headerLabel={passage.name}
-				onChangeCollapsed={onChangeCollapsed}
-				onClose={onClose}
-			>
+			<DialogCard {...other} headerLabel={passage.name}>
 				<ButtonBar>
 					<RenamePassageButton passage={passage} story={story} />
 					<CheckboxButton

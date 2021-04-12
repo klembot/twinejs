@@ -57,17 +57,13 @@ export function passageLinks(passages: Passage[]) {
 			selfLinks: new Set<Passage>()
 		}
 	};
-	const brokenLinks = new Set<Passage>();
-	const links = new Map<Passage, Set<Passage>>();
-	const selfLinks = new Set<Passage>();
 
 	passages.forEach(passage =>
 		parseLinks(passage.text).forEach(linkName => {
 			if (linkName === passage.name) {
-				(passage.selected
-					? result.draggable
-					: result.fixed
-				).selfLinks.add(passage);
+				(passage.selected ? result.draggable : result.fixed).selfLinks.add(
+					passage
+				);
 			} else {
 				const linkPassage = passageMap.get(linkName);
 
@@ -83,10 +79,9 @@ export function passageLinks(passages: Passage[]) {
 						target.links.set(passage, new Set([linkPassage]));
 					}
 				} else {
-					(passage.selected
-						? result.draggable
-						: result.fixed
-					).brokenLinks.add(passage);
+					(passage.selected ? result.draggable : result.fixed).brokenLinks.add(
+						passage
+					);
 				}
 			}
 		})
@@ -144,9 +139,7 @@ export function storyStats(story: Story) {
 	const links = story.passages.reduce<string[]>(
 		(links, passage) => [
 			...links,
-			...parseLinks(passage.text).filter(
-				link => links.indexOf(link) === -1
-			)
+			...parseLinks(passage.text).filter(link => links.indexOf(link) === -1)
 		],
 		[]
 	);
