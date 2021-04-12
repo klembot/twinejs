@@ -14,6 +14,7 @@ import {useScrollbarSize} from 'react-scrollbar-size';
 import {useDialogsContext} from './dialogs-context';
 import {PassageDialog} from './passage-dialog';
 import {StoryJavaScriptDialog} from './story-javascript-dialog';
+import {StoryStylesheetDialog} from './story-stylesheet-dialog';
 import './dialogs.css';
 
 export interface DialogsProps {
@@ -37,31 +38,29 @@ export const Dialogs: React.FC<DialogsProps> = props => {
 	return (
 		<div className="dialogs" style={style}>
 			{dialogs.map((props, index) => {
+				const commonProps = {
+					storyId,
+					key: props.type,
+					onChangeCollapsed: (collapsed: boolean) =>
+						dispatch({type: 'setDialogCollapsed', collapsed, index}),
+					onClose: () => dispatch({type: 'removeDialog', index})
+				};
+
 				switch (props.type) {
 					case 'passage':
 						return (
 							<PassageDialog
 								{...props}
+								{...commonProps}
 								key={props.passageId}
-								onChangeCollapsed={(collapsed: boolean) =>
-									dispatch({type: 'setDialogCollapsed', collapsed, index})
-								}
-								onClose={() => dispatch({type: 'removeDialog', index})}
-								storyId={storyId}
 							/>
 						);
 
 					case 'storyJavaScript':
-						return (
-							<StoryJavaScriptDialog
-								{...props}
-								onChangeCollapsed={(collapsed: boolean) =>
-									dispatch({type: 'setDialogCollapsed', collapsed, index})
-								}
-								onClose={() => dispatch({type: 'removeDialog', index})}
-								storyId={storyId}
-							/>
-						);
+						return <StoryJavaScriptDialog {...props} {...commonProps} />;
+
+					case 'storyStylesheet':
+						return <StoryStylesheetDialog {...props} {...commonProps} />;
 				}
 			})}
 		</div>

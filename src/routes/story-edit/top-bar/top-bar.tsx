@@ -106,7 +106,11 @@ export const StoryEditTopBar: React.FC<StoryEditTopBarProps> = props => {
 					<IconButton
 						icon="hash"
 						label={t('storyEdit.topBar.editStylesheet')}
-						onClick={() => history.push(`/stories/${story.id}/stylesheet`)}
+						onClick={() =>
+							runAndCloseMenu(() =>
+								dispatch({type: 'addStoryStylesheetEditor'})
+							)
+						}
 					/>
 				</Card>
 			</ControlledDropdownButton>

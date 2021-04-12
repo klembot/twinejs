@@ -6,14 +6,12 @@ import {LocaleSelectRoute} from './locale-select';
 import {StoryFormatListRoute} from './story-format-list';
 import {StoryEditRoute} from './story-edit';
 import {StoryImportRoute} from './story-import';
-import {StoryJavaScriptRoute} from './story-javascript';
 import {StoryListRoute} from './story-list';
 import {StoryPlayRoute} from './story-play';
 import {StoryProofRoute} from './story-proof';
 import {StorySearchRoute} from './story-search';
 import {StoryStatsRoute} from './story-stats';
 import {StoryTestRoute} from './story-test';
-import {StoryStylesheetRoute} from './story-stylesheet';
 import {WelcomeRoute} from './welcome';
 
 export const Routes: React.FC = () => {
@@ -46,9 +44,6 @@ export const Routes: React.FC = () => {
 					<Route path="/welcome">
 						<WelcomeRoute />
 					</Route>
-					<Route path="/stories/:storyId/javascript">
-						<StoryJavaScriptRoute />
-					</Route>
 					<Route path="/stories/:storyId/play">
 						<StoryPlayRoute />
 					</Route>
@@ -60,9 +55,6 @@ export const Routes: React.FC = () => {
 					</Route>
 					<Route path="/stories/:storyId/stats">
 						<StoryStatsRoute />
-					</Route>
-					<Route path="/stories/:storyId/stylesheet">
-						<StoryStylesheetRoute />
 					</Route>
 					<Route path="/stories/:storyId/test/:passageId">
 						<StoryTestRoute />
