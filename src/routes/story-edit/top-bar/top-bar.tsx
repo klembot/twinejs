@@ -5,7 +5,8 @@ import {Card} from '../../../components/container/card';
 import {TopBar} from '../../../components/container/top-bar';
 import {ControlledDropdownButton} from '../../../components/control/dropdown-button';
 import {IconButton} from '../../../components/control/icon-button';
-import {Story, useStoriesContext} from '../../../store/stories';
+import {Story} from '../../../store/stories';
+import {useDialogsContext} from '../dialogs';
 import {useStoryLaunch} from '../../../store/use-story-launch';
 import {Point} from '../../../util/geometry';
 import {CreatePassageButton} from './create-passage-button';
@@ -25,8 +26,8 @@ export interface StoryEditTopBarProps {
 export const StoryEditTopBar: React.FC<StoryEditTopBarProps> = props => {
 	const {getCenter, story} = props;
 	const [menuOpen, setMenuOpen] = React.useState(false);
+	const {dispatch} = useDialogsContext();
 	const {playStory, proofStory, testStory} = useStoryLaunch();
-	const {stories} = useStoriesContext();
 	const history = useHistory();
 	const {t} = useTranslation();
 
@@ -96,12 +97,20 @@ export const StoryEditTopBar: React.FC<StoryEditTopBarProps> = props => {
 					<IconButton
 						icon="code"
 						label={t('storyEdit.topBar.editJavaScript')}
-						onClick={() => history.push(`/stories/${story.id}/javascript`)}
+						onClick={() =>
+							runAndCloseMenu(() =>
+								dispatch({type: 'addStoryJavaScriptEditor'})
+							)
+						}
 					/>
 					<IconButton
 						icon="hash"
 						label={t('storyEdit.topBar.editStylesheet')}
-						onClick={() => history.push(`/stories/${story.id}/stylesheet`)}
+						onClick={() =>
+							runAndCloseMenu(() =>
+								dispatch({type: 'addStoryStylesheetEditor'})
+							)
+						}
 					/>
 				</Card>
 			</ControlledDropdownButton>

@@ -1,0 +1,6 @@
+@import '../../../../styles/metrics.css';
+
+.story-javascript-dialog p {
+	margin: 0;
+	padding: var(--grid-size);
+}
