@@ -8,30 +8,28 @@ import {PassageText} from './passage-text';
 import {RenamePassageButton} from './rename-passage-button';
 import {TagToolbar} from './tag-toolbar';
 import {
+	passageWithId,
+	storyWithId,
 	updatePassage,
 	updateStory,
-	useStoriesContext,
-	Story
+	useStoriesContext
 } from '../../../../store/stories';
-import './passage-editor-card.css';
+import './passage-dialog.css';
 
 export interface PassageEditorCardProps {
 	collapsed: boolean;
 	onChangeCollapsed: (value: boolean) => void;
 	onClose: () => void;
 	passageId: string;
-	story: Story;
+	storyId: string;
 }
 
-export const PassageEditorCard: React.FC<PassageEditorCardProps> = props => {
-	const {collapsed, onChangeCollapsed, onClose, passageId, story} = props;
+export const PassageDialog: React.FC<PassageEditorCardProps> = props => {
+	const {collapsed, onChangeCollapsed, onClose, passageId, storyId} = props;
 	const {dispatch, stories} = useStoriesContext();
-	const passage = story.passages.find(passage => passage.id === passageId);
+	const passage = passageWithId(stories, storyId, passageId);
+	const story = storyWithId(stories, storyId);
 	const {t} = useTranslation();
-
-	if (!passage) {
-		throw new Error('Passage does not exist in story');
-	}
 
 	function handlePassageTextChange(text: string) {
 		updatePassage(dispatch, story, passage!, {text});
@@ -41,7 +39,7 @@ export const PassageEditorCard: React.FC<PassageEditorCardProps> = props => {
 		updateStory(dispatch, stories, story, {startPassage: passageId});
 	}
 
-	const className = classNames('passage-editor-card', {collapsed});
+	const className = classNames('passage-dialog', {collapsed});
 	const isStart = story.startPassage === passage.id;
 
 	return (
@@ -61,7 +59,6 @@ export const PassageEditorCard: React.FC<PassageEditorCardProps> = props => {
 						value={isStart}
 					/>
 				</ButtonBar>
-
 				<TagToolbar passage={passage} story={story} />
 				<PassageText onChange={handlePassageTextChange} passage={passage} />
 			</DialogCard>

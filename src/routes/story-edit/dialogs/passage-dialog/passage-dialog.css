@@ -1,0 +1,6 @@
+@import '../../../../styles/depth.css';
+
+.passage-dialog .card {
+	grid-template-rows: min-content 1fr;
+	height: 100%;
+}

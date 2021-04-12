@@ -1,9 +1,6 @@
 import * as React from 'react';
-import {useHistory, useParams} from 'react-router-dom';
-import {
-	useEditorsContext,
-	EditorsContextProvider
-} from './side-editors/editors-context';
+import {useParams} from 'react-router-dom';
+import {useDialogsContext, Dialogs, DialogsContextProvider} from './dialogs';
 import {Point, Rect} from '../../util/geometry';
 import {MainContent} from '../../components/container/main-content';
 import {MarqueeSelection} from '../../components/marquee-selection';
@@ -19,16 +16,14 @@ import {
 } from '../../store/stories';
 import {PassageMap} from '../../components/passage/passage-map/passage-map';
 import {PassageToolbar} from '../../components/passage/passage-toolbar';
-import {SideEditors} from './side-editors';
 import {StoryEditTopBar} from './top-bar';
 import {useStoryLaunch} from '../../store/use-story-launch';
 import './story-edit-route.css';
 
 export const InnerStoryEditRoute: React.FC = () => {
 	const {storyId} = useParams<{storyId: string}>();
-	const {dispatch: editorsDispatch} = useEditorsContext();
+	const {dispatch: dialogsDispatch} = useDialogsContext();
 	const {dispatch: storiesDispatch, stories} = useStoriesContext();
-	const history = useHistory();
 	const mainContent = React.useRef<HTMLDivElement>(null);
 	const {testStory} = useStoryLaunch();
 	const story = storyWithId(stories, storyId);
@@ -78,8 +73,8 @@ export const InnerStoryEditRoute: React.FC = () => {
 
 	const handleEditPassage = React.useCallback(
 		(passage: Passage) =>
-			editorsDispatch({type: 'addPassageEditor', passageId: passage.id}),
-		[editorsDispatch]
+			dialogsDispatch({type: 'addPassageEditor', passageId: passage.id}),
+		[dialogsDispatch]
 	);
 
 	const handleDeleteSelectedPassages = React.useCallback(() => {
@@ -93,11 +88,11 @@ export const InnerStoryEditRoute: React.FC = () => {
 			);
 		}
 
-		editorsDispatch({
+		dialogsDispatch({
 			type: 'addPassageEditor',
 			passageId: selectedPassages[0].id
 		});
-	}, [editorsDispatch, selectedPassages]);
+	}, [dialogsDispatch, selectedPassages]);
 
 	const handleTestSelectedPassage = React.useCallback(() => {
 		if (selectedPassages.length !== 1) {
@@ -168,7 +163,7 @@ export const InnerStoryEditRoute: React.FC = () => {
 					zoom={story.zoom}
 				/>
 			</MainContent>
-			<SideEditors story={story} />
+			<Dialogs storyId={storyId} />
 		</div>
 	);
 };
@@ -177,7 +172,7 @@ export const InnerStoryEditRoute: React.FC = () => {
 // `useEditorsContext()` inside it.
 
 export const StoryEditRoute: React.FC = () => (
-	<EditorsContextProvider>
+	<DialogsContextProvider>
 		<InnerStoryEditRoute />
-	</EditorsContextProvider>
+	</DialogsContextProvider>
 );

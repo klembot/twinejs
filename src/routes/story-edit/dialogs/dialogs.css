@@ -1,6 +1,6 @@
 @import '../../../styles/metrics.css';
 
-.side-editors {
+.dialogs {
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-end;
@@ -11,14 +11,14 @@
 	width: 40em;
 }
 
-.side-editors > * {
+.dialogs > * {
 	flex: 1;
 }
 
-.side-editors > * + * {
+.dialogs > * + * {
 	margin-top: var(--grid-size);
 }
 
-.side.editors > .collapsed {
+.dialogs > .collapsed {
 	flex: 0;
 }
