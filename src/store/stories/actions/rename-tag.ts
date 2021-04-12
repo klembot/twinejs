@@ -1,4 +1,3 @@
-import {Color} from '../../../util/color';
 import {StoriesDispatch, Story} from '../stories.types';
 
 export function renameTag(
@@ -17,9 +16,7 @@ export function renameTag(
 				type: 'updatePassage',
 				passageId: passage.id,
 				props: {
-					tags: passage.tags.map(tag =>
-						tag === oldName ? newName : tag
-					)
+					tags: passage.tags.map(tag => (tag === oldName ? newName : tag))
 				},
 				storyId: story.id
 			});

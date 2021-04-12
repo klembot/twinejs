@@ -13,6 +13,7 @@ import * as React from 'react';
 import {useScrollbarSize} from 'react-scrollbar-size';
 import {useDialogsContext} from './dialogs-context';
 import {PassageDialog} from './passage-dialog';
+import {StoryStatsDialog} from './story-stats-dialog';
 import {StoryJavaScriptDialog} from './story-javascript-dialog';
 import {StoryStylesheetDialog} from './story-stylesheet-dialog';
 import './dialogs.css';
@@ -58,6 +59,9 @@ export const Dialogs: React.FC<DialogsProps> = props => {
 
 					case 'storyJavaScript':
 						return <StoryJavaScriptDialog {...props} {...commonProps} />;
+
+					case 'storyStats':
+						return <StoryStatsDialog {...props} {...commonProps} />;
 
 					case 'storyStylesheet':
 						return <StoryStylesheetDialog {...props} {...commonProps} />;

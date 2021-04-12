@@ -76,7 +76,9 @@ export const StoryEditTopBar: React.FC<StoryEditTopBarProps> = props => {
 					<IconButton
 						icon="bar-chart-2"
 						label={t('storyEdit.topBar.storyStats')}
-						onClick={() => history.push(`/stories/${story.id}/stats`)}
+						onClick={() =>
+							runAndCloseMenu(() => dispatch({type: 'addStoryStats'}))
+						}
 					/>
 					<PublishToFileButton story={story} />
 					<IconButton
