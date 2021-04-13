@@ -1,8 +1,6 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {Card} from '../container/card';
-import {CheckboxButton} from './checkbox-button';
-import {DropdownButton} from './dropdown-button';
+import {MenuButton} from './menu-button';
 import {PromptModal} from '../modal/prompt-modal';
 
 const families = ['var(--font-monospaced)', 'var(--font-system)'];
@@ -22,7 +20,6 @@ export const FontSelect: React.FC<FontSelectProps> = props => {
 	const [customScale, setCustomScale] = React.useState('');
 	const [scaleModalOpen, setScaleModalOpen] = React.useState(false);
 	const {t} = useTranslation();
-	const checkProps = {checkedIcon: 'check', uncheckedIcon: 'empty'};
 
 	// TODO: custom value validation
 
@@ -55,52 +52,45 @@ export const FontSelect: React.FC<FontSelectProps> = props => {
 	return (
 		<>
 			<span className="font-select">
-				<DropdownButton icon="type" label={t('components.fontSelect.font')}>
-					<Card>
-						<CheckboxButton
-							label={t('components.fontSelect.fonts.monospaced')}
-							onChange={() => onChangeFamily('var(--font-monospaced)')}
-							value={fontFamily === 'var(--font-monospaced)'}
-							{...checkProps}
-						/>
-						<CheckboxButton
-							label={t('components.fontSelect.fonts.system')}
-							onChange={() => onChangeFamily('var(--font-system)')}
-							value={fontFamily === 'var(--font-system)'}
-							{...checkProps}
-						/>
-						<CheckboxButton
-							label={t('common.custom')}
-							onChange={toggleFamilyModal}
-							value={!families.includes(fontFamily)}
-							{...checkProps}
-						/>
-					</Card>
-				</DropdownButton>
-				<DropdownButton
+				<MenuButton
+					icon="type"
+					items={[
+						{
+							checked: fontFamily === 'var(--font-monospaced)',
+							label: t('components.fontSelect.fonts.monospaced'),
+							onClick: () => onChangeFamily('var(--font-monospaced)')
+						},
+						{
+							checked: fontFamily === 'var(--font-system)',
+							label: t('components.fontSelect.fonts.system'),
+							onClick: () => onChangeFamily('var(--font-system)')
+						},
+						{
+							checked: !families.includes(fontFamily),
+							label: t('common.custom'),
+							onClick: toggleFamilyModal
+						}
+					]}
+					label={t('components.fontSelect.font')}
+				/>
+				<MenuButton
 					icon="type-size"
+					items={[
+						...scales.map(scale => ({
+							checked: fontScale === scale,
+							label: t('components.fontSelect.sizes.percent', {
+								percent: scale * 100
+							}),
+							onClick: () => onChangeScale(scale)
+						})),
+						{
+							checked: !scales.includes(fontScale),
+							label: t('common.custom'),
+							onClick: toggleScaleModal
+						}
+					]}
 					label={t('components.fontSelect.fontSize')}
-				>
-					<Card>
-						{scales.map(scale => (
-							<CheckboxButton
-								key={scale}
-								label={t('components.fontSelect.sizes.percent', {
-									percent: scale * 100
-								})}
-								onChange={() => onChangeScale(scale)}
-								value={fontScale === scale}
-								{...checkProps}
-							/>
-						))}
-						<CheckboxButton
-							label={t('common.custom')}
-							onChange={toggleScaleModal}
-							value={!scales.includes(fontScale)}
-							{...checkProps}
-						/>
-					</Card>
-				</DropdownButton>
+				/>
 			</span>
 			<PromptModal
 				detail={t('components.fontSelect.customFamilyDetail')}
