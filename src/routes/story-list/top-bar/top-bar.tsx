@@ -2,10 +2,9 @@ import * as React from 'react';
 import {useHistory} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import {TopBar} from '../../../components/container/top-bar';
-import {Card} from '../../../components/container/card';
-import {DropdownButton} from '../../../components/control/dropdown-button';
 import {IconButton} from '../../../components/control/icon-button';
 import {IconLink} from '../../../components/control/icon-link';
+import {MenuButton} from '../../../components/control/menu-button';
 import {ArchiveButton} from './archive-button';
 import {CreateStoryButton} from './create-story-button';
 import {SortByButton} from './sort-by-button';
@@ -37,25 +36,24 @@ export const StoryListTopBar: React.FC = () => {
 				icon="help-circle"
 				label={t('storyList.topBar.help')}
 			/>
-			<DropdownButton icon="more-horizontal" label={t('common.more')}>
-				<Card>
-					<IconButton
-						icon="globe"
-						label={t('storyList.topBar.language')}
-						onClick={() => history.push('/locale')}
-					/>
-					<IconButton
-						icon="info"
-						label={t('storyList.topBar.about')}
-						onClick={() => history.push('/about')}
-					/>
-					<IconLink
-						href="https://twinery.org/2bugs"
-						icon="frown"
-						label={t('storyList.topBar.reportBug')}
-					/>
-				</Card>
-			</DropdownButton>
+			<MenuButton
+				icon="more-horizontal"
+				items={[
+					{
+						label: t('storyList.topBar.language'),
+						onClick: () => history.push('/locale')
+					},
+					{
+						label: t('storyList.topBar.about'),
+						onClick: () => history.push('/about')
+					},
+					{
+						label: t('storyList.topBar.reportBug'),
+						onClick: () => window.open('https://twinery.org/2bugs', '_blank')
+					}
+				]}
+				label={t('common.more')}
+			/>
 		</TopBar>
 	);
 };

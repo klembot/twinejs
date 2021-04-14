@@ -1,13 +1,7 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {
-	Card,
-	CardFooter,
-	CardBody,
-	CardHeader,
-	CardProps
-} from '../container/card';
-import {DropdownButton} from '../control/dropdown-button';
+import {CardFooter, CardBody, CardHeader, CardProps} from '../container/card';
+import {MenuButton} from '../control/menu-button';
 import {ImageCard} from '../container/image-card';
 import {IconButton} from '../control/icon-button';
 import {StoryPreview} from './story-preview';
@@ -63,30 +57,28 @@ export const StoryCard: React.FC<StoryCardProps> = props => {
 					</p>
 				</CardBody>
 				<CardFooter>
-					<DropdownButton icon="more-horizontal" label={t('common.more')}>
-						<Card>
-							<IconButton
-								icon="play"
-								label={t('common.play')}
-								onClick={onPlay}
-							/>
-							<IconButton
-								icon="tool"
-								label={t('common.test')}
-								onClick={onTest}
-							/>
-							<IconButton
-								icon="download"
-								label={t('common.publishToFile')}
-								onClick={onPublish}
-							/>
-							<IconButton
-								icon="edit-3"
-								label={t('common.rename')}
-								onClick={onRename}
-							/>
-						</Card>
-					</DropdownButton>
+					<MenuButton
+						icon="more-horizontal"
+						items={[
+							{
+								label: t('common.play'),
+								onClick: onPlay
+							},
+							{
+								label: t('common.test'),
+								onClick: onTest
+							},
+							{
+								label: t('common.publishToFile'),
+								onClick: onPublish
+							},
+							{
+								label: t('common.rename'),
+								onClick: onRename
+							}
+						]}
+						label={t('common.more')}
+					/>
 					<IconButton
 						icon="edit"
 						label={t('common.edit')}

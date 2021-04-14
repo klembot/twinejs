@@ -1,8 +1,6 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {Card} from '../../../components/container/card';
-import {IconButton} from '../../../components/control/icon-button';
-import {DropdownButton} from '../../../components/control/dropdown-button';
+import {MenuButton} from '../../../components/control/menu-button';
 import {setPref, usePrefsContext} from '../../../store/prefs';
 
 export const SortByButton: React.FC = () => {
@@ -10,19 +8,21 @@ export const SortByButton: React.FC = () => {
 	const {dispatch, prefs} = usePrefsContext();
 
 	return (
-		<DropdownButton icon="bar-chart" label={t('storyList.topBar.sort')}>
-			<Card>
-				<IconButton
-					icon={prefs.storyListSort === 'date' ? 'check' : 'empty'}
-					label={t('storyList.topBar.sortDate')}
-					onClick={() => setPref(dispatch, 'storyListSort', 'date')}
-				/>
-				<IconButton
-					icon={prefs.storyListSort === 'name' ? 'check' : 'empty'}
-					label={t('storyList.topBar.sortName')}
-					onClick={() => setPref(dispatch, 'storyListSort', 'name')}
-				/>
-			</Card>
-		</DropdownButton>
+		<MenuButton
+			icon="bar-chart"
+			items={[
+				{
+					checked: prefs.storyListSort === 'date',
+					label: t('storyList.topBar.sortDate'),
+					onClick: () => setPref(dispatch, 'storyListSort', 'date')
+				},
+				{
+					checked: prefs.storyListSort === 'name',
+					label: t('storyList.topBar.sortName'),
+					onClick: () => setPref(dispatch, 'storyListSort', 'name')
+				}
+			]}
+			label={t('storyList.topBar.sort')}
+		/>
 	);
 };

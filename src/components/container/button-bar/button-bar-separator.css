@@ -1,0 +1,12 @@
+.button-bar-separator {
+	background: var(--light-gray);
+	display: inline-block;
+	height: var(--control-height);
+	margin: 0 calc(var(--grid-size) / 2);
+	width: 1px;
+}
+
+.button-bar.orientation-vertical .button-bar-separator {
+	height: 1px;
+	width: 100%;
+}

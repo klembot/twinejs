@@ -1,21 +1,14 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {useHistory} from 'react-router-dom';
-import {Card} from '../../../components/container/card';
 import {TopBar} from '../../../components/container/top-bar';
-import {ControlledDropdownButton} from '../../../components/control/dropdown-button';
 import {IconButton} from '../../../components/control/icon-button';
 import {Story} from '../../../store/stories';
-import {useDialogsContext} from '../dialogs';
 import {useStoryLaunch} from '../../../store/use-story-launch';
 import {Point} from '../../../util/geometry';
 import {CreatePassageButton} from './create-passage-button';
 import {HighlightField} from './highlight-field';
-import {PublishToFileButton} from './publish-to-file-button';
-import {RenameStoryButton} from './rename-story-button';
-import {SelectAllPassagesButton} from './select-all-passages-button';
-import {SetStoryFormatButton} from './set-story-format-button/set-story-format-button';
-import {SnapToGridButton} from './snap-to-grid-button';
+import {MoreMenu} from './more-menu';
 import {ZoomButtons} from './zoom-buttons';
 
 export interface StoryEditTopBarProps {
@@ -25,20 +18,9 @@ export interface StoryEditTopBarProps {
 
 export const StoryEditTopBar: React.FC<StoryEditTopBarProps> = props => {
 	const {getCenter, story} = props;
-	const [menuOpen, setMenuOpen] = React.useState(false);
-	const {dispatch} = useDialogsContext();
-	const {playStory, proofStory, testStory} = useStoryLaunch();
+	const {playStory, testStory} = useStoryLaunch();
 	const history = useHistory();
 	const {t} = useTranslation();
-
-	function toggleMenu() {
-		setMenuOpen(open => !open);
-	}
-
-	function runAndCloseMenu(callback: () => void) {
-		callback();
-		setMenuOpen(false);
-	}
 
 	return (
 		<TopBar>
@@ -53,69 +35,14 @@ export const StoryEditTopBar: React.FC<StoryEditTopBarProps> = props => {
 			<IconButton
 				icon="play"
 				label={t('common.play')}
-				onClick={() => runAndCloseMenu(() => playStory(story.id))}
+				onClick={() => playStory(story.id)}
 			/>
 			<IconButton
 				icon="tool"
 				label={t('common.test')}
-				onClick={() => runAndCloseMenu(() => testStory(story.id))}
+				onClick={() => testStory(story.id)}
 			/>
-			<ControlledDropdownButton
-				icon="more-horizontal"
-				label={t('common.more')}
-				onClick={toggleMenu}
-				open={menuOpen}
-			>
-				<Card>
-					<IconButton
-						icon="search"
-						label={t('storyEdit.topBar.findAndReplace')}
-						onClick={() => history.push(`/stories/${story.id}/search`)}
-					/>
-					<SelectAllPassagesButton story={story} />
-					<IconButton
-						icon="bar-chart-2"
-						label={t('storyEdit.topBar.storyStats')}
-						onClick={() =>
-							runAndCloseMenu(() => dispatch({type: 'addStoryStats'}))
-						}
-					/>
-					<PublishToFileButton story={story} />
-					<IconButton
-						icon="book-open"
-						label={t('storyEdit.topBar.proofStory')}
-						onClick={() => runAndCloseMenu(() => proofStory(story.id))}
-					/>
-					<RenameStoryButton
-						onCancelRename={() => setMenuOpen(false)}
-						onRename={() => setMenuOpen(false)}
-						story={story}
-					/>
-					<SnapToGridButton onChange={() => setMenuOpen(false)} story={story} />
-					<SetStoryFormatButton
-						onCancelChange={() => setMenuOpen(false)}
-						story={story}
-					/>
-					<IconButton
-						icon="code"
-						label={t('storyEdit.topBar.editJavaScript')}
-						onClick={() =>
-							runAndCloseMenu(() =>
-								dispatch({type: 'addStoryJavaScriptEditor'})
-							)
-						}
-					/>
-					<IconButton
-						icon="hash"
-						label={t('storyEdit.topBar.editStylesheet')}
-						onClick={() =>
-							runAndCloseMenu(() =>
-								dispatch({type: 'addStoryStylesheetEditor'})
-							)
-						}
-					/>
-				</Card>
-			</ControlledDropdownButton>
+			<MoreMenu story={story} />
 			<HighlightField story={story} />
 		</TopBar>
 	);

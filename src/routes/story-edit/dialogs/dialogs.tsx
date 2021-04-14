@@ -66,6 +66,13 @@ export const Dialogs: React.FC<DialogsProps> = props => {
 					case 'storyStylesheet':
 						return <StoryStylesheetDialog {...props} {...commonProps} />;
 				}
+
+				// Have to type this as any because TS knows we've exhausted all values
+				// in the switch above.
+
+				throw new Error(
+					`Don't know how to render dialog type "${(props as any).type}"`
+				);
 			})}
 		</div>
 	);
