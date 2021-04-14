@@ -1,13 +1,42 @@
 import escape from 'lodash/escape';
 import uniq from 'lodash/uniq';
-import {
-	Passage,
-	PassageSearchResult,
-	StorySearchFlags,
-	Story
-} from './stories.types';
+import {Passage, StorySearchFlags, Story} from './stories.types';
 import {createRegExp} from '../../util/regexp';
 import {parseLinks} from '../../util/parse-links';
+
+/**
+ * Returns a passage name and text with matches for a search highlighted with
+ * `<mark>` tags. The result should be displayed as HTML with no escaping.
+ */
+export function markPassageMatches(
+	passage: Passage,
+	search: string,
+	flags: StorySearchFlags
+) {
+	const {includePassageNames, matchCase, useRegexes} = flags;
+	const matcher = createRegExp(search, {matchCase, useRegexes});
+	const highlight = (value: string) => `\ue000${value}\ue001`;
+	const markHighlights = (value: string) =>
+		value.replace(/\ue000/g, '<mark>').replace(/\ue001/g, '</mark>');
+
+	let nameHighlightedHtml = escape(passage.name);
+	let textHighlightedHtml = escape(passage.text);
+
+	if (includePassageNames) {
+		nameHighlightedHtml = markHighlights(
+			escape(passage.name.replace(matcher, highlight))
+		);
+	}
+
+	textHighlightedHtml = markHighlights(
+		escape(passage.text.replace(matcher, highlight))
+	);
+
+	return {
+		nameHighlightedHtml,
+		textHighlightedHtml
+	};
+}
 
 export function passageWithId(
 	stories: Story[],
@@ -90,49 +119,32 @@ export function passageLinks(passages: Passage[]) {
 	return result;
 }
 
+/**
+ * Returns all passages matching a search criteria. Use
+ * `highlightPassageMatches()` to highlight exactly what matched.
+ */
 export function passagesMatchingSearch(
 	passages: Passage[],
 	search: string,
 	flags: StorySearchFlags
-): PassageSearchResult[] {
+): Passage[] {
 	if (search === '') {
 		return [];
 	}
 
 	const {includePassageNames, matchCase, useRegexes} = flags;
 	const matcher = createRegExp(search, {matchCase, useRegexes});
-	const highlight = (value: string) => `\ue000${value}\ue001`;
-	const markHighlights = (value: string) =>
-		value.replace(/\ue000/g, '<mark>').replace(/\ue001/g, '</mark>');
 
-	return passages.reduce<PassageSearchResult[]>((result, passage) => {
-		let nameHighlighted = escape(passage.name);
-		let nameMatched = false;
-		let textHighlighted = escape(passage.text);
-		const textMatches = passage.text.match(matcher);
-
-		if (includePassageNames) {
-			nameMatched = matcher.test(passage.name);
-			nameHighlighted = markHighlights(
-				escape(passage.name.replace(matcher, highlight))
-			);
-		}
-
-		textHighlighted = markHighlights(
-			escape(passage.text.replace(matcher, highlight))
-		);
-
-		if (nameMatched || textMatches) {
-			result.push({
-				nameHighlighted,
-				textHighlighted,
-				textMatches: textMatches?.length || 0,
-				passage
-			});
+	return passages.reduce((result, passage) => {
+		if (
+			matcher.test(passage.text) ||
+			(includePassageNames && matcher.test(passage.name))
+		) {
+			return [...result, passage];
 		}
 
 		return result;
-	}, []);
+	}, [] as Passage[]);
 }
 
 export function storyStats(story: Story) {

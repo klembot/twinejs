@@ -16,7 +16,7 @@
 
 .code-area > label > .label {
 	display: block;
-	margin-bottom: var(--grid-gap);
+	margin-bottom: var(--control-inner-padding);
 }
 
 .code-area .react-codemirror2 {

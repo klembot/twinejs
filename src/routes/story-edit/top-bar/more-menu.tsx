@@ -42,7 +42,11 @@ export const MoreMenu: React.FC<MoreMenuProps> = props => {
 				items={[
 					{
 						label: t('storyEdit.topBar.findAndReplace'),
-						onClick: () => history.push(`/stories/${story.id}/search`)
+						onClick: () =>
+							dialogsDispatch({
+								type: 'addDialog',
+								dialog: {type: 'storySearch'}
+							})
 					},
 					{
 						label: t('storyEdit.topBar.selectAllPassages'),
@@ -63,7 +67,8 @@ export const MoreMenu: React.FC<MoreMenuProps> = props => {
 					},
 					{
 						label: t('storyEdit.topBar.storyStats'),
-						onClick: () => dialogsDispatch({type: 'addStoryStats'})
+						onClick: () =>
+							dialogsDispatch({type: 'addDialog', dialog: {type: 'storyStats'}})
 					},
 					{
 						label: t('storyEdit.topBar.proofStory'),
@@ -81,11 +86,19 @@ export const MoreMenu: React.FC<MoreMenuProps> = props => {
 					{separator: true},
 					{
 						label: t('storyEdit.topBar.editJavaScript'),
-						onClick: () => dialogsDispatch({type: 'addStoryJavaScriptEditor'})
+						onClick: () =>
+							dialogsDispatch({
+								type: 'addDialog',
+								dialog: {type: 'storyJavaScript'}
+							})
 					},
 					{
 						label: t('storyEdit.topBar.editStylesheet'),
-						onClick: () => dialogsDispatch({type: 'addStoryStylesheetEditor'})
+						onClick: () =>
+							dialogsDispatch({
+								type: 'addDialog',
+								dialog: {type: 'storyStylesheet'}
+							})
 					}
 				]}
 				label={t('common.more')}

@@ -7,7 +7,6 @@ import {Story} from '../../../store/stories';
 import {useStoryLaunch} from '../../../store/use-story-launch';
 import {Point} from '../../../util/geometry';
 import {CreatePassageButton} from './create-passage-button';
-import {HighlightField} from './highlight-field';
 import {MoreMenu} from './more-menu';
 import {ZoomButtons} from './zoom-buttons';
 
@@ -43,7 +42,6 @@ export const StoryEditTopBar: React.FC<StoryEditTopBarProps> = props => {
 				onClick={() => testStory(story.id)}
 			/>
 			<MoreMenu story={story} />
-			<HighlightField story={story} />
 		</TopBar>
 	);
 };

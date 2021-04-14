@@ -7,7 +7,7 @@
 	background: var(--white);
 	box-shadow: var(--shadow-large);
 	display: flex;
-	height: 50px;
+	height: var(--control-height);
 	left: 0;
 	padding: 0 calc(var(--ui-gap) / 4);
 	position: fixed;

@@ -1,22 +1,19 @@
-import escapeRegExp from 'lodash/escapeRegExp';
-import {StoriesDispatch, Story} from '../stories.types';
+import {StoriesDispatch, Story, StorySearchFlags} from '../stories.types';
+import {passagesMatchingSearch} from '../getters';
 
-export function highlightPassagesWithText(
+export function highlightPassagesMatchingSearch(
 	dispatch: StoriesDispatch,
 	story: Story,
-	search: string
+	search: string,
+	flags: StorySearchFlags
 ) {
-	// Special case empty string to match nothing.
-
-	const matcher = new RegExp(
-		search === '' ? '^$' : escapeRegExp(search),
-		'i'
+	const matchIds = passagesMatchingSearch(story.passages, search, flags).map(
+		passage => passage.id
 	);
 
 	story.passages.forEach(passage => {
 		const oldHighlighted = passage.highlighted;
-		const newHighlighted =
-			matcher.test(passage.name) || matcher.test(passage.text);
+		const newHighlighted = matchIds.includes(passage.id);
 
 		if (newHighlighted !== oldHighlighted) {
 			dispatch({

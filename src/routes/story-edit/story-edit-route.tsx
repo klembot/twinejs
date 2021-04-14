@@ -73,7 +73,10 @@ export const InnerStoryEditRoute: React.FC = () => {
 
 	const handleEditPassage = React.useCallback(
 		(passage: Passage) =>
-			dialogsDispatch({type: 'addPassageEditor', passageId: passage.id}),
+			dialogsDispatch({
+				type: 'addDialog',
+				dialog: {type: 'passage', passageId: passage.id}
+			}),
 		[dialogsDispatch]
 	);
 
@@ -89,8 +92,8 @@ export const InnerStoryEditRoute: React.FC = () => {
 		}
 
 		dialogsDispatch({
-			type: 'addPassageEditor',
-			passageId: selectedPassages[0].id
+			type: 'addDialog',
+			dialog: {type: 'passage', passageId: selectedPassages[0].id}
 		});
 	}, [dialogsDispatch, selectedPassages]);
 
