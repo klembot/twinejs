@@ -35,25 +35,25 @@ describe('Story reducer updateStory action handler', () => {
 	it('issues a warning and makes no changes if another story has the name being updated to', () => {
 		const story1 = fakeStory();
 		const story2 = fakeStory();
+		const state = [story1, story2];
 		const warnSpy = jest
 			.spyOn(global.console, 'warn')
 			.mockImplementation(() => {});
 
-		expect(
-			updateStory([story1, story2], story1.id, {name: story2.name})
-		).toEqual([story1, story2]);
+		expect(updateStory(state, story1.id, {name: story2.name})).toBe(state);
 		expect(warnSpy).toHaveBeenCalledTimes(1);
 	});
 
-	it('issues a warning if no story in state has the ID requested', () => {
+	it('issues a warning and makes no changes if no story in state has the ID requested', () => {
 		const story = fakeStory();
+		const state = [story];
 		const warnSpy = jest
 			.spyOn(global.console, 'warn')
 			.mockImplementation(() => {});
 
-		expect(
-			updateStory([story], story.id + 'wrong', {name: story.name})
-		).toEqual([story]);
+		expect(updateStory(state, story.id + 'wrong', {name: story.name})).toBe(
+			state
+		);
 		expect(warnSpy).toHaveBeenCalledTimes(1);
 	});
 });

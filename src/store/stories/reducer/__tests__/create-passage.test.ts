@@ -7,7 +7,12 @@ describe('Story reducer createPassage action handler', () => {
 		const passage = fakePassage();
 
 		expect(createPassage([story], story.id, passage)).toEqual([
-			{...story, passages: [{...passage, story: story.id}]}
+			{
+				...story,
+				lastUpdate: expect.any(Date),
+				passages: [{...passage, story: story.id}],
+				startPassage: expect.any(String)
+			}
 		]);
 	});
 
@@ -16,7 +21,12 @@ describe('Story reducer createPassage action handler', () => {
 		const passage = fakePassage({story: 'wrong'});
 
 		expect(createPassage([story], story.id, passage)).toEqual([
-			{...story, passages: [{...passage, story: story.id}]}
+			{
+				...story,
+				lastUpdate: expect.any(Date),
+				passages: [{...passage, story: story.id}],
+				startPassage: expect.any(String)
+			}
 		]);
 	});
 
@@ -28,14 +38,26 @@ describe('Story reducer createPassage action handler', () => {
 		expect(createPassage([story], story.id, passage)).toEqual([
 			{
 				...story,
-				passages: [{...passage, id: expect.any(String), story: story.id}]
+				lastUpdate: expect.any(Date),
+				passages: [{...passage, id: expect.any(String), story: story.id}],
+				startPassage: expect.any(String)
 			}
 		]);
 	});
 
-	it.todo(
-		"sets the story's start passage if this is the first passage in the story"
-	);
+	it("sets the story's start passage if this is the first passage in the story", () => {
+		const story = fakeStory(0);
+		const passage = fakePassage() as any;
+
+		expect(createPassage([story], story.id, passage)).toEqual([
+			{
+				...story,
+				lastUpdate: expect.any(Date),
+				passages: [{...passage, id: expect.any(String), story: story.id}],
+				startPassage: passage.id
+			}
+		]);
+	});
 
 	it("doesn't affect other passages in the story", () => {
 		const story = fakeStory(1);
@@ -45,6 +67,7 @@ describe('Story reducer createPassage action handler', () => {
 		expect(createPassage([story], story.id, passage)).toEqual([
 			{
 				...story,
+				lastUpdate: expect.any(Date),
 				passages: [
 					originalPassage,
 					{...passage, id: expect.any(String), story: story.id}
@@ -59,12 +82,22 @@ describe('Story reducer createPassage action handler', () => {
 		const passage = fakePassage();
 
 		expect(createPassage([story1, story2], story1.id, passage)).toEqual([
-			{...story1, passages: [{...passage, story: story1.id}]},
+			{
+				...story1,
+				lastUpdate: expect.any(Date),
+				passages: [{...passage, story: story1.id}],
+				startPassage: expect.any(String)
+			},
 			story2
 		]);
 		expect(createPassage([story1, story2], story2.id, passage)).toEqual([
 			story1,
-			{...story2, passages: [{...passage, story: story2.id}]}
+			{
+				...story2,
+				lastUpdate: expect.any(Date),
+				passages: [{...passage, story: story2.id}],
+				startPassage: expect.any(String)
+			}
 		]);
 	});
 
