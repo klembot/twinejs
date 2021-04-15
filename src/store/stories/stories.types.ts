@@ -124,27 +124,6 @@ export type StoriesAction =
 
 export type StoriesDispatch = React.Dispatch<StoriesAction>;
 
-export interface PassageSearchResult {
-	/**
-	 * HTML of the passage name with instances of the search string set off with
-	 * <mark> tags.
-	 */
-	nameHighlighted: string;
-	/**
-	 * The passage that was searched.
-	 */
-	passage: Passage;
-	/**
-	 * Number of search hits on the passage.
-	 */
-	textMatches: number;
-	/**
-	 * HTML of the passage text with instances of the search string set off with
-	 * <mark> tags.
-	 */
-	textHighlighted: string;
-}
-
 export interface StorySearchFlags {
 	includePassageNames?: boolean;
 	matchCase?: boolean;

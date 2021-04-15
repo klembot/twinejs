@@ -1,24 +1,19 @@
 import * as React from 'react';
+import isEqual from 'lodash/isEqual';
 
-interface CommonDialog {
-	collapsed: boolean;
-}
+export type DialogType =
+	| {type: 'passage'; passageId: string}
+	| {type: 'storyJavaScript'}
+	| {type: 'storySearch'}
+	| {type: 'storyStats'}
+	| {type: 'storyStylesheet'};
 
-export type Dialog = CommonDialog &
-	(
-		| {type: 'passage'; passageId: string}
-		| {type: 'storyJavaScript'}
-		| {type: 'storyStats'}
-		| {type: 'storyStylesheet'}
-	);
+export type Dialog = DialogType & {collapsed: boolean};
 
 export type DialogsState = Dialog[];
 
 export type DialogsAction =
-	| {type: 'addPassageEditor'; passageId: string}
-	| {type: 'addStoryJavaScriptEditor'}
-	| {type: 'addStoryStats'}
-	| {type: 'addStoryStylesheetEditor'}
+	| {type: 'addDialog'; dialog: DialogType}
 	| {type: 'removeDialog'; index: number}
 	| {type: 'setDialogCollapsed'; collapsed: boolean; index: number};
 
@@ -27,83 +22,30 @@ export const reducer: React.Reducer<DialogsState, DialogsAction> = (
 	action
 ) => {
 	switch (action.type) {
-		case 'addPassageEditor': {
+		case 'addDialog':
+			// If the dialog has been previously added, expand it. Otherwise, add it
+			// to the end.
+
 			let exists = false;
-			const editedState = state.map(dialog => {
+			const editedState = state.map(stateDialog => {
 				if (
-					dialog.type === 'passage' &&
-					dialog.passageId === action.passageId
+					isEqual(stateDialog, {
+						...action.dialog,
+						collapsed: stateDialog.collapsed
+					})
 				) {
 					exists = true;
-					return {...dialog, collapsed: false};
+					return {...stateDialog, collapsed: false};
 				}
 
-				return dialog;
+				return stateDialog;
 			});
 
 			if (exists) {
 				return editedState;
 			}
 
-			return [
-				...state,
-				{collapsed: false, type: 'passage', passageId: action.passageId}
-			];
-		}
-
-		case 'addStoryJavaScriptEditor': {
-			let exists = false;
-			const editedState = state.map(dialog => {
-				if (dialog.type === 'storyJavaScript') {
-					exists = true;
-					return {...dialog, collapsed: false};
-				}
-
-				return dialog;
-			});
-
-			if (exists) {
-				return editedState;
-			}
-
-			return [...state, {collapsed: false, type: 'storyJavaScript'}];
-		}
-
-		case 'addStoryStats': {
-			let exists = false;
-			const editedState = state.map(dialog => {
-				if (dialog.type === 'storyStats') {
-					exists = true;
-					return {...dialog, collapsed: false};
-				}
-
-				return dialog;
-			});
-
-			if (exists) {
-				return editedState;
-			}
-
-			return [...state, {collapsed: false, type: 'storyStats'}];
-		}
-
-		case 'addStoryStylesheetEditor': {
-			let exists = false;
-			const editedState = state.map(dialog => {
-				if (dialog.type === 'storyStylesheet') {
-					exists = true;
-					return {...dialog, collapsed: false};
-				}
-
-				return dialog;
-			});
-
-			if (exists) {
-				return editedState;
-			}
-
-			return [...state, {collapsed: false, type: 'storyStylesheet'}];
-		}
+			return [...state, {...action.dialog, collapsed: false}];
 
 		case 'removeDialog':
 			return state.filter((dialog, index) => index !== action.index);

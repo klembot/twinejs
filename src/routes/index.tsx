@@ -9,7 +9,6 @@ import {StoryImportRoute} from './story-import';
 import {StoryListRoute} from './story-list';
 import {StoryPlayRoute} from './story-play';
 import {StoryProofRoute} from './story-proof';
-import {StorySearchRoute} from './story-search';
 import {StoryTestRoute} from './story-test';
 import {WelcomeRoute} from './welcome';
 
@@ -48,9 +47,6 @@ export const Routes: React.FC = () => {
 					</Route>
 					<Route path="/stories/:storyId/proof">
 						<StoryProofRoute />
-					</Route>
-					<Route path="/stories/:storyId/search">
-						<StorySearchRoute />
 					</Route>
 					<Route path="/stories/:storyId/test/:passageId">
 						<StoryTestRoute />

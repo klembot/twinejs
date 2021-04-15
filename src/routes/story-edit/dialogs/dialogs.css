@@ -7,7 +7,9 @@
 	position: fixed;
 	bottom: var(--grid-size);
 	right: var(--grid-size);
-	top: calc(50px + var(--grid-size));
+	top: calc(
+		var(--control-height) + var(--grid-size)
+	); /* below <top-bar> height */
 	width: 40em;
 }
 

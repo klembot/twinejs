@@ -230,12 +230,14 @@
 	},
 	"storySearch": {
 		"title": "Find and Replace",
+		"find": "Find",
 		"includePassageNames": "Include Passage Names",
 		"matchCase": "Match Case",
-		"noMatches": "No passages match this search criteria.",
+		"matchCount": "{{count}} matching passage",
+		"matchCount_plural": "{{count}} matching passages",
+		"noMatches": "No matching passages",
 		"replaceAll": "Replace In All Passages",
 		"replaceWith": "Replace With",
-		"searchFor": "Search For",
 		"useRegexes": "Use Regular Expressions"
 	},
 	"storyStats": {
