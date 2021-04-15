@@ -15,15 +15,15 @@ export function updatePassage(
 	props: Partial<Passage>,
 	options: UpdatePassageOptions = {}
 ) {
-	if (!story.passages.some((p) => p.id === passage.id)) {
+	if (!story.passages.some(p => p.id === passage.id)) {
 		throw new Error('This passage does not belong to this story.');
 	}
 
 	if (
-		props.name &&
+		'name' in props &&
 		story.passages
-			.filter((p) => p.name === props.name)
-			.some((p) => p.id !== passage.id)
+			.filter(p => p.name === props.name)
+			.some(p => p.id !== passage.id)
 	) {
 		throw new Error(`There is already a passage named "${props.name}".`);
 	}
@@ -36,7 +36,7 @@ export function updatePassage(
 		props,
 		type: 'updatePassage',
 		passageId: passage.id,
-		storyId: story.id,
+		storyId: story.id
 	});
 
 	// Side effects from changes.

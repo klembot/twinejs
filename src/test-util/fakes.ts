@@ -23,9 +23,9 @@ export function fakePassage(props?: Partial<Passage>): Passage {
 		width: 100,
 		height: 100,
 		tags: [],
-		name: lorem.words(Math.round(Math.random() * 10)),
+		name: lorem.words(Math.ceil(Math.random() * 10)), // At least 1
 		selected: Math.random() > 0.5,
-		text: lorem.words(Math.round(Math.random() * 500)),
+		text: lorem.words(Math.round(Math.random() * 500)), // Might be 0
 		...props
 	};
 }
@@ -128,14 +128,14 @@ export function fakeStory(passageCount: number = 1): Story {
 		id: random.uuid(),
 		lastUpdate: date.past(),
 		ifid: random.uuid().toUpperCase(),
-		name: lorem.words(Math.round(Math.random() * 10)),
+		name: lorem.words(Math.ceil(Math.random() * 10)), // At least 1
 		passages: [],
-		script: lorem.words(100),
+		script: lorem.words(Math.round(Math.random() * 100)), // Might be 0
 		snapToGrid: false,
 		startPassage: '-1',
-		storyFormat: lorem.words(Math.floor(Math.random() * 3)),
+		storyFormat: lorem.words(Math.ceil(Math.random() * 3)), // At least 1
 		storyFormatVersion: system.semver(),
-		stylesheet: lorem.words(Math.floor(Math.random() * 10)),
+		stylesheet: lorem.words(Math.round(Math.random() * 10)), // Might be 0
 		tagColors: {
 			[tags[0]]: 'red',
 			[tags[1]]: 'green',

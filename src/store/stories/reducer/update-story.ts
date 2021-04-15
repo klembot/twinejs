@@ -6,7 +6,7 @@ export function updateStory(
 	storyProps: Omit<Partial<Story>, 'id'>
 ) {
 	if (
-		storyProps.name &&
+		'name' in storyProps &&
 		state.some(story => story.name === storyProps.name && story.id !== storyId)
 	) {
 		console.warn(

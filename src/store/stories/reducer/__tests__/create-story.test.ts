@@ -18,30 +18,30 @@ describe('Story reducer createStory action handler', () => {
 	it('issues a warning and makes no changes if a story with the same ID already exists in state', () => {
 		const story1 = fakeStory();
 		const story2 = fakeStory();
+		const state = [story1, story2];
 
 		story2.id = story1.id;
 
 		const warnSpy = jest
 			.spyOn(global.console, 'warn')
 			.mockImplementation(() => {});
-		const result = createStory([story1], story2);
 
-		expect(result).toEqual([story1]);
+		expect(createStory(state, story2)).toBe(state);
 		expect(warnSpy).toHaveBeenCalledTimes(1);
 	});
 
 	it('issues a warning and makes no changes if a story with the same name already exists in state', () => {
 		const story1 = fakeStory();
 		const story2 = fakeStory();
+		const state = [story1];
 
 		story2.name = story1.name;
 
 		const warnSpy = jest
 			.spyOn(global.console, 'warn')
 			.mockImplementation(() => {});
-		const result = createStory([story1], story2);
 
-		expect(result).toEqual([story1]);
+		expect(createStory(state, story2)).toEqual(state);
 		expect(warnSpy).toHaveBeenCalledTimes(1);
 	});
 
