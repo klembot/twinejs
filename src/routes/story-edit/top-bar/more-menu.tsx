@@ -50,15 +50,17 @@ export const MoreMenu: React.FC<MoreMenuProps> = props => {
 					},
 					{
 						label: t('storyEdit.topBar.selectAllPassages'),
-						onClick: () => selectAllPassages(storiesDispatch, story)
+						onClick: () => storiesDispatch(selectAllPassages(story))
 					},
 					{
 						checked: story.snapToGrid,
 						label: t('storyEdit.topBar.snapToGrid'),
 						onClick: () =>
-							updateStory(storiesDispatch, stories, story, {
-								snapToGrid: !story.snapToGrid
-							})
+							storiesDispatch(
+								updateStory(stories, story, {
+									snapToGrid: !story.snapToGrid
+								})
+							)
 					},
 					{separator: true},
 					{

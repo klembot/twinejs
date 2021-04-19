@@ -64,10 +64,12 @@ export const SetStoryFormatModal: React.FC<SetStoryModalProps> = props => {
 			throw new Error('No format has been selected');
 		}
 
-		updateStory(storiesDispatch, stories, story, {
-			storyFormat: newFormat.name,
-			storyFormatVersion: newFormat.version
-		});
+		storiesDispatch(
+			updateStory(stories, story, {
+				storyFormat: newFormat.name,
+				storyFormatVersion: newFormat.version
+			})
+		);
 		onClose();
 	}
 

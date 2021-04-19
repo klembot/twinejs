@@ -1,3 +1,5 @@
+import {Thunk} from 'react-hook-thunk-reducer';
+
 interface BaseStoryFormat {
 	id: string;
 	loadState: 'unloaded' | 'loading' | 'loaded' | 'error';
@@ -47,7 +49,9 @@ export type StoryFormatsAction =
 	| {type: 'delete'; id: string}
 	| {type: 'update'; id: string; props: Partial<StoryFormat>};
 
-export type StoryFormatsDispatch = React.Dispatch<StoryFormatsAction>;
+export type StoryFormatsDispatch = React.Dispatch<
+	StoryFormatsAction | Thunk<StoryFormatsState, StoryFormatsAction>
+>;
 
 export interface StoryFormatsContextProps {
 	dispatch: StoryFormatsDispatch;

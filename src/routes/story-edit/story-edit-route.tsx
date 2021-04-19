@@ -51,22 +51,23 @@ export const InnerStoryEditRoute: React.FC = () => {
 	}, [story.zoom]);
 
 	const handleDeselectPassage = React.useCallback(
-		(passage: Passage) => deselectPassage(storiesDispatch, story, passage),
+		(passage: Passage) => storiesDispatch(deselectPassage(story, passage)),
 		[storiesDispatch, story]
 	);
 
 	const handleDragPassages = React.useCallback(
 		(change: Point) =>
-			movePassages(
-				storiesDispatch,
-				story,
-				story.passages.reduce<string[]>(
-					(result, current) =>
-						current.selected ? [...result, current.id] : result,
-					[]
-				),
-				change.left,
-				change.top
+			storiesDispatch(
+				movePassages(
+					story,
+					story.passages.reduce<string[]>(
+						(result, current) =>
+							current.selected ? [...result, current.id] : result,
+						[]
+					),
+					change.left,
+					change.top
+				)
 			),
 		[storiesDispatch, story]
 	);
@@ -81,7 +82,7 @@ export const InnerStoryEditRoute: React.FC = () => {
 	);
 
 	const handleDeleteSelectedPassages = React.useCallback(() => {
-		deletePassages(storiesDispatch, story, selectedPassages);
+		storiesDispatch(deletePassages(story, selectedPassages));
 	}, [storiesDispatch, selectedPassages, story]);
 
 	const handleEditSelectedPassage = React.useCallback(() => {
@@ -109,7 +110,7 @@ export const InnerStoryEditRoute: React.FC = () => {
 
 	const handleSelectPassage = React.useCallback(
 		(passage: Passage, exclusive: boolean) =>
-			selectPassage(storiesDispatch, story, passage, exclusive),
+			storiesDispatch(selectPassage(story, passage, exclusive)),
 		[storiesDispatch, story]
 	);
 
@@ -124,17 +125,18 @@ export const InnerStoryEditRoute: React.FC = () => {
 			width: rect.width / story.zoom
 		};
 
-		selectPassagesInRect(
-			storiesDispatch,
-			story,
-			logicalRect,
-			additive
-				? story.passages.reduce<string[]>(
-						(result, passage) =>
-							passage.selected ? [...result, passage.id] : result,
-						[]
-				  )
-				: []
+		storiesDispatch(
+			selectPassagesInRect(
+				story,
+				logicalRect,
+				additive
+					? story.passages.reduce<string[]>(
+							(result, passage) =>
+								passage.selected ? [...result, passage.id] : result,
+							[]
+					  )
+					: []
+			)
 		);
 	}
 

@@ -14,7 +14,7 @@ export const LocaleSelectRoute: React.FC = () => {
 	const {t} = useTranslation();
 
 	function handleClick(code: string) {
-		setPref(dispatch, 'locale', code);
+		dispatch(setPref('locale', code));
 		history.push('/');
 	}
 
@@ -33,9 +33,7 @@ export const LocaleSelectRoute: React.FC = () => {
 				<p>{t('localeSelect.explanation')}</p>
 				{locales.map(({code, name}) => (
 					<FlagButton
-						countryCode={
-							code in flags ? (flags as any)[code] : code
-						}
+						countryCode={code in flags ? (flags as any)[code] : code}
 						key={code}
 						label={name}
 						onClick={() => handleClick(code)}

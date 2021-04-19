@@ -44,8 +44,10 @@ export const TagToolbar: React.FC<TagToolbarProps> = props => {
 	}
 
 	function handleAddNewTag() {
-		addPassageTag(dispatch, story, passage, newName);
-		setTagColor(dispatch, story, newName, newColor);
+		// TODO: make this a thunk
+
+		dispatch(addPassageTag(story, passage, newName));
+		dispatch(setTagColor(story, newName, newColor));
 		toggleNewModal();
 	}
 
@@ -57,12 +59,12 @@ export const TagToolbar: React.FC<TagToolbarProps> = props => {
 	}
 
 	function handleRemoveTag(name: string) {
-		removePassageTag(dispatch, story, passage, name);
+		dispatch(removePassageTag(story, passage, name));
 	}
 
 	function handleEditTag() {
-		renameTag(dispatch, story, preEditName, editName);
-		setTagColor(dispatch, story, editName, editColor);
+		dispatch(renameTag(story, preEditName, editName));
+		dispatch(setTagColor(story, editName, editColor));
 		setEditModalOpen(false);
 	}
 

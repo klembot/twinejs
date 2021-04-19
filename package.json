@@ -32,6 +32,7 @@
 		"react-codemirror2": "^7.2.1",
 		"react-dom": "^16.14.0",
 		"react-draggable": "^4.4.3",
+		"react-hook-thunk-reducer": "^0.2.4",
 		"react-i18next": "^11.8.9",
 		"react-modal": "^3.12.1",
 		"react-popper": "^2.2.4",

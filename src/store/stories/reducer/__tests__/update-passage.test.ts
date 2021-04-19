@@ -24,7 +24,7 @@ describe('Story reducer updatePassage action handler', () => {
 			}
 		]));
 
-	it('does not alter the old passage object', () => {
+	it('does not alter the existing passage object', () => {
 		const oldPassageName = passage.name;
 		const result = updatePassage([story], story.id, passage.id, {
 			name: passage.name + 'test'
@@ -60,7 +60,7 @@ describe('Story reducer updatePassage action handler', () => {
 		expect(warnSpy).toHaveBeenCalledTimes(1);
 	});
 
-	it('issues a warning if no passage in state has the ID requested', () => {
+	it('issues a warning and makes no changes if no passage in state has the ID requested', () => {
 		const warnSpy = jest
 			.spyOn(global.console, 'warn')
 			.mockImplementation(() => {});
@@ -73,7 +73,7 @@ describe('Story reducer updatePassage action handler', () => {
 		expect(warnSpy).toHaveBeenCalledTimes(1);
 	});
 
-	it('issues a warning if no story in state has the ID requested', () => {
+	it('issues a warning and makes no changes if no story in state has the ID requested', () => {
 		const warnSpy = jest
 			.spyOn(global.console, 'warn')
 			.mockImplementation(() => {});

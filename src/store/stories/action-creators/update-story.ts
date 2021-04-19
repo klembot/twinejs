@@ -1,14 +1,13 @@
-import {StoriesDispatch, Story} from '../stories.types';
+import {Story, UpdateStoryAction} from '../stories.types';
 
 /**
  * General update of a story.
  */
 export function updateStory(
-	dispatch: StoriesDispatch,
 	stories: Story[],
 	story: Story,
 	props: Partial<Story>
-) {
+): UpdateStoryAction {
 	if (
 		props.name &&
 		stories.filter(s => s.name === props.name).some(s => s.id !== story.id)
@@ -16,9 +15,9 @@ export function updateStory(
 		throw new Error(`There is already a story named "${props.name}".`);
 	}
 
-	dispatch({
+	return {
 		props,
 		storyId: story.id,
 		type: 'updateStory'
-	});
+	};
 }

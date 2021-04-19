@@ -22,7 +22,7 @@ export const RenamePassageButton: React.FC<RenamePassageButtonProps> = props => 
 	const {t} = useTranslation();
 
 	function renamePassage() {
-		updatePassage(dispatch, story, passage, {name: newName});
+		dispatch(updatePassage(story, passage, {name: newName}));
 		setRenameModalOpen(false);
 	}
 

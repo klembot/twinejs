@@ -22,7 +22,7 @@ export const RenameStoryModal: React.FC<RenameStoryModalProps> = props => {
 	}, [open, story.name]);
 
 	function handleSubmit() {
-		updateStory(dispatch, stories, story, {name: newName});
+		dispatch(updateStory(stories, story, {name: newName}));
 		onClose();
 	}
 

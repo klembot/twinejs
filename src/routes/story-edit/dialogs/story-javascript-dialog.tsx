@@ -35,7 +35,7 @@ export const StoryJavaScriptDialog: React.FC<StoryJavaScriptDialogProps> = props
 		data: CodeMirror.EditorChange,
 		text: string
 	) => {
-		updateStory(dispatch, stories, story, {script: text});
+		dispatch(updateStory(stories, story, {script: text}));
 	};
 
 	return (

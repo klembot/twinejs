@@ -33,11 +33,11 @@ export const PassageDialog: React.FC<PassageEditorCardProps> = props => {
 	const {t} = useTranslation();
 
 	function handlePassageTextChange(text: string) {
-		updatePassage(dispatch, story, passage!, {text});
+		dispatch(updatePassage(story, passage!, {text}));
 	}
 
 	function handleSetAsStart() {
-		updateStory(dispatch, stories, story, {startPassage: passageId});
+		dispatch(updateStory(stories, story, {startPassage: passageId}));
 	}
 
 	const className = classNames('passage-dialog', {collapsed: other.collapsed});

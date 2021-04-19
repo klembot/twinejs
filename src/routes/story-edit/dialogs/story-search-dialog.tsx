@@ -46,9 +46,9 @@ export const StorySearchDialog: React.FC<StorySearchDialogProps> = props => {
 	const matches = passagesMatchingSearch(story.passages, find, flags);
 
 	React.useEffect(() => {
-		highlightPassagesMatchingSearch(dispatch, story, find, flags);
+		dispatch(highlightPassagesMatchingSearch(story, find, flags));
 
-		return () => highlightPassagesMatchingSearch(dispatch, story, '', {});
+		return () => dispatch(highlightPassagesMatchingSearch(story, '', {}));
 	}, [dispatch, find, flags, story]);
 
 	const className = classNames('story-search-dialog', 'fixed-size', {
@@ -72,7 +72,7 @@ export const StorySearchDialog: React.FC<StorySearchDialogProps> = props => {
 	}
 
 	function handleReplace() {
-		replaceInStory(dispatch, story, find, replace, flags);
+		dispatch(replaceInStory(story, find, replace, flags));
 	}
 
 	function toggleFlag(name: keyof StorySearchFlags) {

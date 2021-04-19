@@ -28,8 +28,7 @@ export const StoryImportRoute: React.FC = () => {
 				if (
 					existingStories.some(
 						existingStory =>
-							storyFilename(existingStory) ===
-							storyFilename(story)
+							storyFilename(existingStory) === storyFilename(story)
 					)
 				) {
 					return result;
@@ -46,7 +45,7 @@ export const StoryImportRoute: React.FC = () => {
 	}
 
 	function handleImport() {
-		importStories(dispatch, stories, existingStories);
+		dispatch(importStories(stories, existingStories));
 		history.push('/');
 	}
 

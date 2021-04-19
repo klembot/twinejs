@@ -1,5 +1,5 @@
 import {passageDefaults} from '../defaults';
-import {StoriesDispatch, Story} from '../stories.types';
+import {CreatePassageAction, Story} from '../stories.types';
 
 /**
  * Creates a new, untitled passage centered at a point in the story. This
@@ -7,11 +7,10 @@ import {StoriesDispatch, Story} from '../stories.types';
  * it's unique.
  */
 export function createUntitledPassage(
-	dispatch: StoriesDispatch,
 	story: Story,
 	centerX: number,
 	centerY: number
-) {
+): CreatePassageAction {
 	let passageName = passageDefaults.name;
 
 	// If a passage already exists with that name, add a number and keep
@@ -33,7 +32,7 @@ export function createUntitledPassage(
 	// Center it at the position requested. TODO: move it so it doesn't overlap
 	// another passage.
 
-	dispatch({
+	return {
 		type: 'createPassage',
 		storyId: story.id,
 		props: {
@@ -42,5 +41,5 @@ export function createUntitledPassage(
 			left: centerX - passageDefaults().width / 2,
 			top: centerY - passageDefaults().height / 2
 		}
-	});
+	};
 }

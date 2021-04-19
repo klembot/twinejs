@@ -1,4 +1,7 @@
-import {loadAllFormatProperties, loadFormatProperties} from '../actions';
+import {
+	loadAllFormatProperties,
+	loadFormatProperties
+} from '../action-creators';
 import {StoryFormat, StoryFormatProperties} from '../story-formats.types';
 import {fetchStoryFormatProperties} from '../../../util/fetch-story-format-properties';
 import {
@@ -33,7 +36,7 @@ describe('loadFormatProperties', () => {
 
 	it('sets the format state to loading while properties are being fetched', () => {
 		fetchPropertiesMock.mockImplementationOnce(() => new Promise(() => {}));
-		loadFormatProperties(dispatch, format);
+		loadFormatProperties(format)(dispatch);
 		expect(dispatch.mock.calls).toEqual([
 			[{type: 'update', id: format.id, props: {loadState: 'loading'}}]
 		]);
@@ -54,8 +57,7 @@ describe('loadFormatProperties', () => {
 		});
 
 		it('sets the format properties and state as loaded', async () => {
-			loadFormatProperties(dispatch, format);
-			await Promise.resolve();
+			await loadFormatProperties(format)(dispatch);
 			expect(dispatch.mock.calls.length).toBe(2);
 
 			// First call is tested above.
@@ -71,8 +73,7 @@ describe('loadFormatProperties', () => {
 
 		it('loads the format properties even if the format previously failed to load', async () => {
 			format = fakeFailedStoryFormat();
-			loadFormatProperties(dispatch, format);
-			await Promise.resolve();
+			await loadFormatProperties(format)(dispatch);
 			expect(dispatch.mock.calls).toEqual([
 				[{type: 'update', id: format.id, props: {loadState: 'loading'}}],
 				[
@@ -102,13 +103,7 @@ describe('loadFormatProperties', () => {
 		});
 
 		it("sets the load error and state as 'error' if loading properties fails", async () => {
-			try {
-				await loadFormatProperties(dispatch, format);
-			} catch (e) {
-				// This is tested separately.
-			}
-
-			await Promise.resolve();
+			await loadFormatProperties(format)(dispatch);
 			expect(dispatch.mock.calls.length).toBe(2);
 
 			// First call is tested above.
@@ -117,24 +112,11 @@ describe('loadFormatProperties', () => {
 				{type: 'update', id: format.id, props: {loadError, loadState: 'error'}}
 			]);
 		});
-
-		it('rethrows the loading error to the caller', async () => {
-			let thrownError: Error | undefined = undefined;
-
-			try {
-				await loadFormatProperties(dispatch, format);
-			} catch (e) {
-				thrownError = e;
-			}
-
-			expect(thrownError).toBe(loadError);
-		});
 	});
 
 	it('does nothing if the format is already loaded', async () => {
 		format = fakeLoadedStoryFormat();
-		loadFormatProperties(dispatch, format);
-		await Promise.resolve();
+		await loadFormatProperties(format)(dispatch);
 		expect(dispatch.mock.calls).toEqual([]);
 	});
 });

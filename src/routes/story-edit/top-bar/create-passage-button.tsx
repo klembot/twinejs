@@ -18,7 +18,8 @@ export const CreatePassageButton: React.FC<CreatePassageButtonProps> = props => 
 	const {dispatch} = useStoriesContext();
 	const handleClick = React.useCallback(() => {
 		const {left, top} = getCenter();
-		createUntitledPassage(dispatch, story, left, top);
+
+		dispatch(createUntitledPassage(story, left, top));
 	}, [dispatch, getCenter, story]);
 	const {t} = useTranslation();
 

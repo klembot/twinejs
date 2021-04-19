@@ -1,5 +1,5 @@
-import {createPassage} from '../create-passage';
 import {fakePassage, fakeStory} from '../../../../test-util/fakes';
+import {createPassage} from '../create-passage';
 
 describe('Story reducer createPassage action handler', () => {
 	it('adds a passage to a story', () => {
@@ -47,7 +47,7 @@ describe('Story reducer createPassage action handler', () => {
 
 	it("sets the story's start passage if this is the first passage in the story", () => {
 		const story = fakeStory(0);
-		const passage = fakePassage() as any;
+		const passage = fakePassage();
 
 		expect(createPassage([story], story.id, passage)).toEqual([
 			{

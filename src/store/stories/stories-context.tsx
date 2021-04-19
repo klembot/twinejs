@@ -1,4 +1,5 @@
 import * as React from 'react';
+import useThunkReducer from 'react-hook-thunk-reducer';
 import {usePersistence} from '../persistence/use-persistence';
 import {reducer} from './reducer';
 import {
@@ -32,7 +33,7 @@ export const StoriesContextProvider: React.FC = props => {
 		},
 		[formats, storiesPersistence]
 	);
-	const [stories, dispatch] = React.useReducer(persistedReducer, []);
+	const [stories, dispatch] = useThunkReducer(persistedReducer, []);
 
 	return (
 		<StoriesContext.Provider value={{dispatch, stories}}>

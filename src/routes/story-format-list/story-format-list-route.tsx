@@ -29,15 +29,19 @@ export const StoryFormatListRoute: React.FC = () => {
 		}
 
 		if (format.properties.proofing) {
-			setPref(dispatch, 'proofingFormat', {
-				name: format.name,
-				version: format.version
-			});
+			dispatch(
+				setPref('proofingFormat', {
+					name: format.name,
+					version: format.version
+				})
+			);
 		} else {
-			setPref(dispatch, 'storyFormat', {
-				name: format.name,
-				version: format.version
-			});
+			dispatch(
+				setPref('storyFormat', {
+					name: format.name,
+					version: format.version
+				})
+			);
 		}
 	}
 
@@ -63,12 +67,9 @@ export const StoryFormatListRoute: React.FC = () => {
 								onSelect={() => handleSelect(format)}
 								selected={
 									(format.name === prefs.storyFormat.name &&
-										format.version ===
-											prefs.storyFormat.version) ||
-									(format.name ===
-										prefs.proofingFormat.name &&
-										format.version ===
-											prefs.proofingFormat.version)
+										format.version === prefs.storyFormat.version) ||
+									(format.name === prefs.proofingFormat.name &&
+										format.version === prefs.proofingFormat.version)
 								}
 							/>
 						))}
