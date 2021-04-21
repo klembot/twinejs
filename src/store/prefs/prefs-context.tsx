@@ -18,8 +18,8 @@ export const PrefsContextProvider: React.FC = props => {
 	const persistedReducer: React.Reducer<
 		PrefsState,
 		PrefsAction
-	> = React.useMemo(
-		() => (state, action) => {
+	> = React.useCallback(
+		(state, action) => {
 			const newState = reducer(state, action);
 
 			prefs.saveMiddleware(newState, action);

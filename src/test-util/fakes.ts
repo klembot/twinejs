@@ -3,6 +3,7 @@ import {AppInfo} from '../util/app-info';
 import {PrefsState} from '../store/prefs';
 import {Passage, Story} from '../store/stories';
 import {StoryFormat, StoryFormatProperties} from '../store/story-formats';
+import {StoryChange} from '../store/undoable-stories';
 
 export function fakeAppInfo(props?: Partial<AppInfo>): AppInfo {
 	return {
@@ -163,4 +164,14 @@ export function fakeStoryFormatProperties() {
 	}
 
 	return result.properties;
+}
+
+export function fakeUndoableStoryChange(): StoryChange {
+	// Undo/redo are thunks that do nothing.
+
+	return {
+		description: lorem.words(2),
+		redo: () => () => {},
+		undo: () => () => {}
+	};
 }

@@ -25,7 +25,8 @@ if (isElectronMain()) {
 
 	i18n.init({...commonInit, debug: true});
 } else {
-	i18n.use(HttpBackend)
+	i18n
+		.use(HttpBackend)
 		.use(initReactI18next)
 		.init({
 			...commonInit,

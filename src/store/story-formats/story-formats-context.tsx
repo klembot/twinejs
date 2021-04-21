@@ -35,8 +35,8 @@ export const StoryFormatsContextProvider: React.FC = props => {
 	const persistedReducer: React.Reducer<
 		StoryFormatsState,
 		StoryFormatsAction
-	> = React.useMemo(
-		() => (state, action) => {
+	> = React.useCallback(
+		(state, action) => {
 			const newState = reducer(state, action);
 
 			storyFormats.saveMiddleware(newState, action);

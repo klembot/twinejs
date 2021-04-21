@@ -18,12 +18,20 @@ import {PassageMap} from '../../components/passage/passage-map/passage-map';
 import {PassageToolbar} from '../../components/passage/passage-toolbar';
 import {StoryEditTopBar} from './top-bar';
 import {useStoryLaunch} from '../../store/use-story-launch';
+import {
+	UndoableStoriesContextProvider,
+	useUndoableStoriesContext
+} from '../../store/undoable-stories';
 import './story-edit-route.css';
 
 export const InnerStoryEditRoute: React.FC = () => {
 	const {storyId} = useParams<{storyId: string}>();
 	const {dispatch: dialogsDispatch} = useDialogsContext();
-	const {dispatch: storiesDispatch, stories} = useStoriesContext();
+	const {dispatch: storiesDispatch} = useStoriesContext();
+	const {
+		dispatch: undoableStoriesDispatch,
+		stories
+	} = useUndoableStoriesContext();
 	const mainContent = React.useRef<HTMLDivElement>(null);
 	const {testStory} = useStoryLaunch();
 	const story = storyWithId(stories, storyId);
@@ -82,8 +90,13 @@ export const InnerStoryEditRoute: React.FC = () => {
 	);
 
 	const handleDeleteSelectedPassages = React.useCallback(() => {
-		storiesDispatch(deletePassages(story, selectedPassages));
-	}, [storiesDispatch, selectedPassages, story]);
+		undoableStoriesDispatch(
+			deletePassages(story, selectedPassages),
+			selectedPassages.length > 1
+				? 'undoChange.deletePassages'
+				: 'undoChange.deletePassage'
+		);
+	}, [undoableStoriesDispatch, story, selectedPassages]);
 
 	const handleEditSelectedPassage = React.useCallback(() => {
 		if (selectedPassages.length !== 1) {
@@ -174,10 +187,12 @@ export const InnerStoryEditRoute: React.FC = () => {
 };
 
 // This is a separate component so that the inner one can use
-// `useEditorsContext()` inside it.
+// `useEditorsContext()` and `useUndoableStoriesContext()` inside it.
 
 export const StoryEditRoute: React.FC = () => (
-	<DialogsContextProvider>
-		<InnerStoryEditRoute />
-	</DialogsContextProvider>
+	<UndoableStoriesContextProvider>
+		<DialogsContextProvider>
+			<InnerStoryEditRoute />
+		</DialogsContextProvider>
+	</UndoableStoriesContextProvider>
 );
