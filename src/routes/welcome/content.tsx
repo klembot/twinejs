@@ -1,35 +1,35 @@
-import helpCircle from 'feather-icons/dist/icons/help-circle.svg';
-import save from 'feather-icons/dist/icons/save.svg';
-import smile from 'feather-icons/dist/icons/smile.svg';
+import {IconDeviceFloppy, IconHelp, IconMoodSmile} from '@tabler/icons';
+import {IconTwine} from '../../components/image/icon';
 import {isElectronRenderer} from '../../util/is-electron';
-import twineLogo from './logo.svg';
+
+// TODO: fix icon appearance
 
 export const content = () => [
 	{
 		html: 'welcome.greeting',
-		image: twineLogo,
+		image: <IconTwine />,
 		nextLabel: 'welcome.tellMeMore',
 		title: 'welcome.greetingTitle'
 	},
 	{
 		html: 'welcome.help',
-		image: helpCircle,
+		image: <IconHelp />,
 		title: 'welcome.helpTitle'
 	},
 	isElectronRenderer()
 		? {
 				html: 'welcome.autosave',
-				image: save,
+				image: <IconDeviceFloppy />,
 				title: 'welcome.autosaveTitle'
 		  }
 		: {
 				html: 'welcome.browserStorage',
-				image: save,
+				image: <IconDeviceFloppy />,
 				title: 'welcome.browserStorageTitle'
 		  },
 	{
 		html: 'welcome.done',
-		image: smile,
+		image: <IconMoodSmile />,
 		nextLabel: 'welcome.gotoStoryList',
 		title: 'welcome.doneTitle'
 	}

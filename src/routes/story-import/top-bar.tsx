@@ -1,6 +1,13 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {useHistory} from 'react-router-dom';
+import {
+	IconArrowLeft,
+	IconBan,
+	IconChecks,
+	IconFileImport,
+	IconFileUpload
+} from '@tabler/icons';
 import {TopBar} from '../../components/container/top-bar';
 import {IconButton} from '../../components/control/icon-button';
 import {Story} from '../../store/stories';
@@ -31,32 +38,32 @@ export const StoryImportTopBar: React.FC<StoryImportTopBarProps> = props => {
 	return (
 		<TopBar>
 			<IconButton
-				icon="arrow-left"
+				icon={<IconArrowLeft />}
 				label={t('storyList.title')}
 				onClick={() => history.push('/')}
 				variant="primary"
 			/>
 			<IconButton
 				disabled={!file}
-				icon="upload"
+				icon={<IconFileUpload />}
 				label={t('storyImport.importDifferentFile')}
 				onClick={onClearFile}
 			/>
 			<IconButton
 				disabled={stories.length === 0}
-				icon="layers"
+				icon={<IconChecks />}
 				label={t('storyImport.selectAll')}
 				onClick={onSelectAll}
 			/>
 			<IconButton
 				disabled={stories.length === 0}
-				icon="layers"
+				icon={<IconBan />}
 				label={t('storyImport.deselectAll')}
 				onClick={onDeselectAll}
 			/>
 			<IconButton
 				disabled={idsToImport.length === 0}
-				icon="zap"
+				icon={<IconFileImport />}
 				label={t('storyImport.importSelected')}
 				onClick={onImportSelected}
 			/>

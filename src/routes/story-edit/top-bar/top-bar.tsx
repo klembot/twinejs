@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {useHistory} from 'react-router-dom';
+import {IconArrowLeft, IconPlayerPlay, IconTool} from '@tabler/icons';
 import {TopBar} from '../../../components/container/top-bar';
 import {IconButton} from '../../../components/control/icon-button';
 import {Story} from '../../../store/stories';
@@ -24,7 +25,7 @@ export const StoryEditTopBar: React.FC<StoryEditTopBarProps> = props => {
 	return (
 		<TopBar>
 			<IconButton
-				icon="arrow-left"
+				icon={<IconArrowLeft />}
 				label={t('storyList.title')}
 				onClick={() => history.push('/')}
 				variant="primary"
@@ -32,12 +33,12 @@ export const StoryEditTopBar: React.FC<StoryEditTopBarProps> = props => {
 			<CreatePassageButton getCenter={getCenter} story={story} />
 			<ZoomButtons story={story} />
 			<IconButton
-				icon="play"
+				icon={<IconPlayerPlay />}
 				label={t('common.play')}
 				onClick={() => playStory(story.id)}
 			/>
 			<IconButton
-				icon="tool"
+				icon={<IconTool />}
 				label={t('common.test')}
 				onClick={() => testStory(story.id)}
 			/>

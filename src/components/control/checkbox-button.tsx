@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {IconSquare, IconSquareCheck} from '@tabler/icons';
 import {IconButton, IconButtonProps} from './icon-button';
 
 export interface CheckboxButtonProps
@@ -10,8 +11,6 @@ export interface CheckboxButtonProps
 	value: boolean;
 }
 
-// TODO: replace menu items with this
-
 export const CheckboxButton: React.FC<CheckboxButtonProps> = props => {
 	const {
 		checkedIcon,
@@ -22,8 +21,8 @@ export const CheckboxButton: React.FC<CheckboxButtonProps> = props => {
 		...otherProps
 	} = props;
 	const calculatedIcon = value
-		? checkedIcon ?? 'check-square'
-		: uncheckedIcon ?? 'square';
+		? checkedIcon ?? <IconSquareCheck />
+		: uncheckedIcon ?? <IconSquare />;
 
 	return (
 		<span role="checkbox" aria-checked={value}>

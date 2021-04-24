@@ -1,5 +1,7 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
+import {IconZoomIn} from '@tabler/icons';
+import {IconZoomOut} from '../../../components/image/icon';
 import {IconButton} from '../../../components/control/icon-button';
 import {
 	minZoom,
@@ -28,13 +30,13 @@ export const ZoomButtons: React.FC<ZoomButtonsProps> = ({story}) => {
 		<>
 			<IconButton
 				disabled={story.zoom >= maxZoom}
-				icon="zoom-in"
+				icon={<IconZoomIn />}
 				label={t('storyEdit.topBar.zoomIn')}
 				onClick={() => handleZoomChange(0.2)}
 			/>
 			<IconButton
 				disabled={story.zoom <= minZoom}
-				icon="zoom-out"
+				icon={<IconZoomOut />}
 				label={t('storyEdit.topBar.zoomOut')}
 				onClick={() => handleZoomChange(-0.2)}
 			/>

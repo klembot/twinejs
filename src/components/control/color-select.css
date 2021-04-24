@@ -73,7 +73,7 @@
 
 .color-select > label > .control > select {
 	-webkit-appearance: none;
-	background: var(--white) url('~feather-icons/dist/icons/chevron-down.svg');
+	background: var(--white) url('~@tabler/icons/icons/chevron-down.svg');
 	background-position: center right;
 	background-repeat: no-repeat;
 	border: none;

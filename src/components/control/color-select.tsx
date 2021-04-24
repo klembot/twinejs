@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import classNames from 'classnames';
-import {Icon} from '../image/icon/icon';
+import {IconCircle} from '@tabler/icons';
 import {colors, Color} from '../../util/color';
 import './color-select.css';
 
@@ -21,7 +21,7 @@ export const ColorSelect: React.FC<ColorSelectProps> = props => {
 				<span className="label">{label}</span>
 				<span className="control">
 					<span className={classNames('proxy', value)}>
-						<Icon icon="circle" />
+						<IconCircle />
 					</span>
 					<select
 						onChange={e => onChange(e.target.value as Color)}

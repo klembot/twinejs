@@ -1,11 +1,10 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import {Icon} from '../image/icon/icon';
 import './icon-button-link.css';
 
 export interface IconLinkProps {
 	href: string;
-	icon: string;
+	icon: React.ReactNode;
 	label: string;
 	variant?: 'create' | 'danger' | 'primary' | 'secondary';
 	target?: string;
@@ -17,7 +16,7 @@ export const IconLink: React.FC<IconLinkProps> = props => {
 
 	return (
 		<a href={href} className={className} target={target ?? '_blank'}>
-			<Icon icon={icon} />
+			<span className="icon">{icon}</span>
 			{label}
 		</a>
 	);

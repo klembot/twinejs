@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {useHistory} from 'react-router-dom';
+import {IconArrowLeft} from '@tabler/icons';
 import {CardGroup} from '../../components/container/card-group';
 import {MainContent} from '../../components/container/main-content';
 import {TopBar} from '../../components/container/top-bar';
@@ -45,7 +46,7 @@ export const StoryFormatListRoute: React.FC = () => {
 		<div className="story-format-list-route">
 			<TopBar>
 				<IconButton
-					icon="arrow-left"
+					icon={<IconArrowLeft />}
 					onClick={() => history.push('/')}
 					label={t('storyList.title')}
 					variant="primary"
@@ -63,12 +64,9 @@ export const StoryFormatListRoute: React.FC = () => {
 								onSelect={() => handleSelect(format)}
 								selected={
 									(format.name === prefs.storyFormat.name &&
-										format.version ===
-											prefs.storyFormat.version) ||
-									(format.name ===
-										prefs.proofingFormat.name &&
-										format.version ===
-											prefs.proofingFormat.version)
+										format.version === prefs.storyFormat.version) ||
+									(format.name === prefs.proofingFormat.name &&
+										format.version === prefs.proofingFormat.version)
 								}
 							/>
 						))}

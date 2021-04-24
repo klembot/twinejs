@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
+import {IconCheck, IconX} from '@tabler/icons';
 import {Card, CardFooter, CardBody, CardHeader} from '../container/card';
 import {ColorSelect} from '../control/color-select';
 import {IconButton} from '../control/icon-button';
@@ -58,12 +59,12 @@ export const TagModal: React.FC<TagModalProps> = props => {
 					</CardBody>
 					<CardFooter>
 						<IconButton
-							icon="x"
+							icon={<IconX />}
 							label={t('common.cancel')}
 							onClick={onCancel}
 						/>
 						<IconButton
-							icon="check"
+							icon={<IconCheck />}
 							label={t('common.save')}
 							onClick={onSubmit}
 							variant="primary"

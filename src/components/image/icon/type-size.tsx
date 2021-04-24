@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export const TypeSizeIcon: React.FC = () => (
+export const IconTypeSize: React.FC = () => (
 	<svg
 		width="24"
 		height="24"

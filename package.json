@@ -11,12 +11,12 @@
 	},
 	"dependencies": {
 		"@popperjs/core": "^2.9.1",
+		"@tabler/icons": "^1.40.2",
 		"classnames": "^2.2.6",
 		"codemirror": "^5.59.4",
 		"detect-it": "^4.0.1",
 		"electron-devtools-installer": "^3.1.1",
 		"element-closest": "^3.0.2",
-		"feather-icons": "^4.28.0",
 		"file-saver": "^2.0.5",
 		"flag-icon-css": "^3.5.0",
 		"focus-visible": "^5.2.0",

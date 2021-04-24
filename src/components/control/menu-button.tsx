@@ -1,7 +1,9 @@
 import * as React from 'react';
 import {usePopper} from 'react-popper';
+import {IconCheck} from '@tabler/icons';
 import {ButtonBar, ButtonBarSeparator} from '../container/button-bar';
 import {ButtonCard} from '../container/button-card';
+import {IconEmpty} from '../image/icon';
 import {IconButton, IconButtonProps} from './icon-button';
 import './menu-button.css';
 
@@ -65,7 +67,7 @@ export const MenuButton: React.FC<MenuButtonProps> = props => {
 								return (
 									<IconButton
 										disabled={item.disabled}
-										icon={item.checked ? 'check' : 'empty'}
+										icon={item.checked ? <IconCheck /> : <IconEmpty />}
 										key={index}
 										label={item.label}
 										onClick={item.onClick}

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import {useTranslation} from 'react-i18next';
+import {IconTagNub} from '../image/icon';
 import {MenuButton} from '../control/menu-button';
 import {Color} from '../../util/color';
 import './tag-button.css';
@@ -18,7 +19,7 @@ export const TagButton: React.FC<TagButtonProps> = props => {
 	return (
 		<span className={classNames('tag-button', `color-${props.color}`)}>
 			<MenuButton
-				icon="tag-nub"
+				icon={<IconTagNub />}
 				items={[
 					{
 						label: t('common.edit'),

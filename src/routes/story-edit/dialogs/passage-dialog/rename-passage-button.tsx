@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
+import {IconWriting} from '@tabler/icons';
 import {IconButton} from '../../../../components/control/icon-button';
 import {PromptModal} from '../../../../components/modal/prompt-modal';
 import {
@@ -29,7 +30,7 @@ export const RenamePassageButton: React.FC<RenamePassageButtonProps> = props => 
 	return (
 		<>
 			<IconButton
-				icon="edit-3"
+				icon={<IconWriting />}
 				label={t('common.rename')}
 				onClick={() => setRenameModalOpen(true)}
 			/>

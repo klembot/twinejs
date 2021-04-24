@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
+import {IconDots, IconEdit} from '@tabler/icons';
 import {CardFooter, CardBody, CardHeader, CardProps} from '../container/card';
 import {MenuButton} from '../control/menu-button';
 import {ImageCard} from '../container/image-card';
@@ -58,7 +59,7 @@ export const StoryCard: React.FC<StoryCardProps> = props => {
 				</CardBody>
 				<CardFooter>
 					<MenuButton
-						icon="more-horizontal"
+						icon={<IconDots />}
 						items={[
 							{
 								label: t('common.play'),
@@ -80,7 +81,7 @@ export const StoryCard: React.FC<StoryCardProps> = props => {
 						label={t('common.more')}
 					/>
 					<IconButton
-						icon="edit"
+						icon={<IconEdit />}
 						label={t('common.edit')}
 						onClick={onEdit}
 						variant="primary"

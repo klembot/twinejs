@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import classNames from 'classnames';
+import {IconReplace} from '@tabler/icons';
 import {
 	DialogCard,
 	DialogCardProps
@@ -119,7 +120,7 @@ export const StorySearchDialog: React.FC<StorySearchDialogProps> = props => {
 				<div className="search-results">
 					<IconButton
 						disabled={matches.length === 0}
-						icon="zap"
+						icon={<IconReplace />}
 						label={t('storySearch.replaceAll')}
 						onClick={handleReplace}
 						variant="danger"

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {useHistory} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
+import {IconDots, IconFileCode, IconFileImport, IconHelp} from '@tabler/icons';
 import {TopBar} from '../../../components/container/top-bar';
 import {IconButton} from '../../../components/control/icon-button';
 import {IconLink} from '../../../components/control/icon-link';
@@ -22,22 +23,22 @@ export const StoryListTopBar: React.FC = () => {
 			<SortByButton />
 			<ArchiveButton />
 			<IconButton
-				icon="upload"
+				icon={<IconFileImport />}
 				label={t('common.import')}
 				onClick={() => history.push('/import/stories')}
 			/>
 			<IconButton
-				icon="file-text"
+				icon={<IconFileCode />}
 				label={t('storyList.topBar.storyFormats')}
 				onClick={() => history.push('/story-formats')}
 			/>
 			<IconLink
 				href="https://twinery.org/2guide"
-				icon="help-circle"
+				icon={<IconHelp />}
 				label={t('storyList.topBar.help')}
 			/>
 			<MenuButton
-				icon="more-horizontal"
+				icon={<IconDots />}
 				items={[
 					{
 						label: t('storyList.topBar.language'),

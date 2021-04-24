@@ -1,12 +1,11 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import {Icon} from '../image/icon/icon';
 import './icon-button-link.css';
 
 export interface IconButtonProps {
 	buttonType?: 'button' | 'submit';
 	disabled?: boolean;
-	icon: string;
+	icon: React.ReactNode;
 	iconOnly?: boolean;
 	iconPosition?: 'start' | 'end';
 	label: string;
@@ -52,7 +51,7 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
 				onClick={handleOnClick}
 				ref={ref}
 			>
-				<Icon icon={icon} />
+				<span className="icon">{icon}</span>
 				{!iconOnly && props.label}
 			</button>
 		);

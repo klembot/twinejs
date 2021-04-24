@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
+import {IconPlus} from '@tabler/icons';
 import {ButtonBar} from '../../../../components/container/button-bar';
 import {IconButton} from '../../../../components/control/icon-button';
 import {TagModal} from '../../../../components/tag/tag-modal';
@@ -70,7 +71,7 @@ export const TagToolbar: React.FC<TagToolbarProps> = props => {
 		<>
 			<ButtonBar orientation="horizontal">
 				<IconButton
-					icon="plus"
+					icon={<IconPlus />}
 					label={t('common.tag')}
 					onClick={toggleNewModal}
 					variant="create"

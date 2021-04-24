@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
+import {IconCheck, IconX} from '@tabler/icons';
 import {Modal} from '../../../components/modal/modal';
 import {
 	Card,
@@ -89,10 +90,14 @@ export const SetStoryFormatModal: React.FC<SetStoryModalProps> = props => {
 						</FormatLoader>
 					</CardBody>
 					<CardFooter>
-						<IconButton icon="x" label={t('common.cancel')} onClick={onClose} />
+						<IconButton
+							icon={<IconX />}
+							label={t('common.cancel')}
+							onClick={onClose}
+						/>
 						<IconButton
 							buttonType="submit"
-							icon="check"
+							icon={<IconCheck />}
 							label={t('common.ok')}
 							onClick={handleSubmit}
 							variant="primary"

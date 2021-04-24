@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
+import {IconCheck, IconX} from '@tabler/icons';
 import {Card, CardFooter, CardBody, CardHeader} from '../container/card';
 import {IconButton, IconButtonProps} from '../control/icon-button';
 import {Modal, ModalProps} from './modal';
@@ -48,14 +49,14 @@ export const PromptModal: React.FC<PromptModalProps> = props => {
 					</CardBody>
 					<CardFooter>
 						<IconButton
-							icon="x"
+							icon={<IconX />}
 							label={t('common.cancel')}
 							onClick={onCancel}
 							{...cancelButtonProps}
 						/>
 						<IconButton
 							buttonType="submit"
-							icon="check"
+							icon={<IconCheck />}
 							label={t('common.ok')}
 							onClick={onSubmit}
 							variant="primary"
