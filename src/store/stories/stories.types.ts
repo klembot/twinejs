@@ -1,3 +1,4 @@
+import {Thunk} from 'react-hook-thunk-reducer';
 import {Color} from '../../util/color';
 
 /**
@@ -107,22 +108,76 @@ export interface Story {
 
 export type StoriesState = Story[];
 
-export type StoriesAction =
-	| {type: 'init'; state: Story[]}
-	| {type: 'repair'}
-	| {type: 'createStory'; props: Partial<Story>}
-	| {type: 'updateStory'; props: Partial<Story>; storyId: string}
-	| {type: 'deleteStory'; storyId: string}
-	| {type: 'createPassage'; props: Partial<Passage>; storyId: string}
-	| {
-			type: 'updatePassage';
-			passageId: string;
-			props: Partial<Passage>;
-			storyId: string;
-	  }
-	| {type: 'deletePassage'; passageId: string; storyId: string};
+// Action types.
 
-export type StoriesDispatch = React.Dispatch<StoriesAction>;
+export interface InitStoriesAction {
+	type: 'init';
+	state: Story[];
+}
+export interface RepairStoriesAction {
+	type: 'repair';
+}
+export interface CreateStoryAction {
+	type: 'createStory';
+	props: Partial<Story>;
+}
+export interface UpdateStoryAction {
+	type: 'updateStory';
+	props: Partial<Story>;
+	storyId: string;
+}
+export interface DeleteStoryAction {
+	type: 'deleteStory';
+	storyId: string;
+}
+export interface CreatePassageAction {
+	type: 'createPassage';
+	props: Partial<Passage>;
+	storyId: string;
+}
+export interface CreatePassagesAction {
+	type: 'createPassages';
+	props: Partial<Passage>[];
+	storyId: string;
+}
+export interface UpdatePassageAction {
+	type: 'updatePassage';
+	passageId: string;
+	props: Partial<Passage>;
+	storyId: string;
+}
+export interface UpdatePassagesAction {
+	type: 'updatePassages';
+	passageUpdates: Record<string, Partial<Passage>>;
+	storyId: string;
+}
+export interface DeletePassageAction {
+	type: 'deletePassage';
+	passageId: string;
+	storyId: string;
+}
+export interface DeletePassagesAction {
+	type: 'deletePassages';
+	passageIds: string[];
+	storyId: string;
+}
+
+export type StoriesAction =
+	| InitStoriesAction
+	| RepairStoriesAction
+	| CreateStoryAction
+	| UpdateStoryAction
+	| DeleteStoryAction
+	| CreatePassageAction
+	| CreatePassagesAction
+	| UpdatePassageAction
+	| UpdatePassagesAction
+	| DeletePassageAction
+	| DeletePassagesAction;
+
+export type StoriesDispatch = React.Dispatch<
+	StoriesAction | Thunk<StoriesState, StoriesAction>
+>;
 
 export interface StorySearchFlags {
 	includePassageNames?: boolean;
@@ -133,6 +188,6 @@ export interface StorySearchFlags {
 export type TagColors = Record<string, Exclude<Color, 'none'>>;
 
 export interface StoriesContextProps {
-	dispatch: React.Dispatch<StoriesAction>;
+	dispatch: StoriesDispatch;
 	stories: Story[];
 }

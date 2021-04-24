@@ -1,15 +1,16 @@
-import {StoriesDispatch, Story} from '../stories.types';
+import {Passage, Story, UpdatePassagesAction} from '../stories.types';
 
 /**
  * Moves passages by an offset, e.g. after dragging.
  */
 export function movePassages(
-	dispatch: StoriesDispatch,
 	story: Story,
 	passageIds: string[],
 	xChange: number,
 	yChange: number
-) {
+): UpdatePassagesAction {
+	const passageUpdates: Record<string, Partial<Passage>> = {};
+
 	passageIds.forEach(passageId => {
 		const passage = story.passages.find(p => p.id === passageId);
 
@@ -29,11 +30,8 @@ export function movePassages(
 			top = Math.round(top / 25) * 25;
 		}
 
-		dispatch({
-			type: 'updatePassage',
-			passageId,
-			storyId: story.id,
-			props: {left, top}
-		});
+		passageUpdates[passage.id] = {left, top};
 	});
+
+	return {type: 'updatePassages', passageUpdates, storyId: story.id};
 }

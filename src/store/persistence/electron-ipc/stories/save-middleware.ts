@@ -1,5 +1,6 @@
 import {TwineElectronWindow} from '../../../../electron/electron.types';
 import {
+	Passage,
 	StoriesAction,
 	StoriesState,
 	Story,
@@ -13,10 +14,15 @@ import {
 } from '../../../story-formats';
 import {getAppInfo} from '../../../../util/app-info';
 
-// Certain passage property changes can be ignored, because they will not actually
-// be saved to the filesystem.
-
-const ignoredPassageProps = ['selected'];
+/**
+ * Is a passage change persistable? e.g. is it nontrivial? This is different
+ * than what is persisted to local storage.
+ */
+function isPersistablePassageUpdate(props: Partial<Passage>) {
+	return Object.keys(props).some(
+		key => !['highlighted', 'selected'].includes(key)
+	);
+}
 
 function saveStory(story: Story, formats: StoryFormat[]) {
 	const {twineElectron} = window as TwineElectronWindow;
@@ -91,11 +97,7 @@ export function saveMiddleware(
 				twineElectron.ipcRenderer.once('story-renamed', () =>
 					saveStory(newStory, formatState)
 				);
-				twineElectron.ipcRenderer.send(
-					'rename-story',
-					oldStory,
-					newStory
-				);
+				twineElectron.ipcRenderer.send('rename-story', oldStory, newStory);
 			} else {
 				// An ordinary update.
 
@@ -104,15 +106,24 @@ export function saveMiddleware(
 			break;
 
 		case 'createPassage':
+		case 'createPassages':
 		case 'deletePassage':
+		case 'deletePassages':
 			saveStory(storyWithId(state, action.storyId), formatState);
 			break;
 
 		case 'updatePassage':
 			// Skip updates that wouldn't be saved.
+			if (isPersistablePassageUpdate(action.props)) {
+				saveStory(storyWithId(state, action.storyId), formatState);
+			}
+			break;
+
+		case 'updatePassages':
+			// Skip updates that wouldn't be saved.
 			if (
-				Object.keys(action.props).some(
-					prop => !ignoredPassageProps.includes(prop)
+				Object.keys(action.passageUpdates).some(passageId =>
+					isPersistablePassageUpdate(action.passageUpdates[passageId])
 				)
 			) {
 				saveStory(storyWithId(state, action.storyId), formatState);

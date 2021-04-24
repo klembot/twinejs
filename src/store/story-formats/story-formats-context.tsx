@@ -1,5 +1,6 @@
 import uuid from 'tiny-uuid';
 import * as React from 'react';
+import useThunkReducer from 'react-hook-thunk-reducer';
 import {usePersistence} from '../persistence/use-persistence';
 import {builtins} from './defaults';
 import {
@@ -34,8 +35,8 @@ export const StoryFormatsContextProvider: React.FC = props => {
 	const persistedReducer: React.Reducer<
 		StoryFormatsState,
 		StoryFormatsAction
-	> = React.useMemo(
-		() => (state, action) => {
+	> = React.useCallback(
+		(state, action) => {
 			const newState = reducer(state, action);
 
 			storyFormats.saveMiddleware(newState, action);
@@ -44,10 +45,7 @@ export const StoryFormatsContextProvider: React.FC = props => {
 		[storyFormats]
 	);
 
-	const [state, dispatch] = React.useReducer(
-		persistedReducer,
-		defaultBuiltins
-	);
+	const [state, dispatch] = useThunkReducer(persistedReducer, defaultBuiltins);
 
 	return (
 		<StoryFormatsContext.Provider

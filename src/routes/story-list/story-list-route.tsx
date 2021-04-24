@@ -18,15 +18,13 @@ export const StoryListRoute: React.FC = () => {
 	}
 
 	function handleRename(story: Story, name: string) {
-		updateStory(dispatch, stories, story, {name});
+		dispatch(updateStory(stories, story, {name}));
 	}
 
 	return (
 		<div className="story-list-route">
 			<StoryListTopBar />
-			<MainContent
-				title={t('storyList.titleCount', {count: stories.length})}
-			>
+			<MainContent title={t('storyList.titleCount', {count: stories.length})}>
 				{stories.length === 0 ? (
 					<p>{t('storyList.noStories')}</p>
 				) : (

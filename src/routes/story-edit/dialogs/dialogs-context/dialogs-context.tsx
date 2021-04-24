@@ -11,7 +11,7 @@ export const DialogsContext = React.createContext<DialogsContextProps>({
 	dialogs: []
 });
 
-DialogsContext.displayName = 'Editors';
+DialogsContext.displayName = 'Dialogs';
 
 export const useDialogsContext = () => React.useContext(DialogsContext);
 

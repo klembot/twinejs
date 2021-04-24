@@ -18,12 +18,20 @@ import {PassageMap} from '../../components/passage/passage-map/passage-map';
 import {PassageToolbar} from '../../components/passage/passage-toolbar';
 import {StoryEditTopBar} from './top-bar';
 import {useStoryLaunch} from '../../store/use-story-launch';
+import {
+	UndoableStoriesContextProvider,
+	useUndoableStoriesContext
+} from '../../store/undoable-stories';
 import './story-edit-route.css';
 
 export const InnerStoryEditRoute: React.FC = () => {
 	const {storyId} = useParams<{storyId: string}>();
 	const {dispatch: dialogsDispatch} = useDialogsContext();
-	const {dispatch: storiesDispatch, stories} = useStoriesContext();
+	const {dispatch: storiesDispatch} = useStoriesContext();
+	const {
+		dispatch: undoableStoriesDispatch,
+		stories
+	} = useUndoableStoriesContext();
 	const mainContent = React.useRef<HTMLDivElement>(null);
 	const {testStory} = useStoryLaunch();
 	const story = storyWithId(stories, storyId);
@@ -51,22 +59,23 @@ export const InnerStoryEditRoute: React.FC = () => {
 	}, [story.zoom]);
 
 	const handleDeselectPassage = React.useCallback(
-		(passage: Passage) => deselectPassage(storiesDispatch, story, passage),
+		(passage: Passage) => storiesDispatch(deselectPassage(story, passage)),
 		[storiesDispatch, story]
 	);
 
 	const handleDragPassages = React.useCallback(
 		(change: Point) =>
-			movePassages(
-				storiesDispatch,
-				story,
-				story.passages.reduce<string[]>(
-					(result, current) =>
-						current.selected ? [...result, current.id] : result,
-					[]
-				),
-				change.left,
-				change.top
+			storiesDispatch(
+				movePassages(
+					story,
+					story.passages.reduce<string[]>(
+						(result, current) =>
+							current.selected ? [...result, current.id] : result,
+						[]
+					),
+					change.left,
+					change.top
+				)
 			),
 		[storiesDispatch, story]
 	);
@@ -81,8 +90,13 @@ export const InnerStoryEditRoute: React.FC = () => {
 	);
 
 	const handleDeleteSelectedPassages = React.useCallback(() => {
-		deletePassages(storiesDispatch, story, selectedPassages);
-	}, [storiesDispatch, selectedPassages, story]);
+		undoableStoriesDispatch(
+			deletePassages(story, selectedPassages),
+			selectedPassages.length > 1
+				? 'undoChange.deletePassages'
+				: 'undoChange.deletePassage'
+		);
+	}, [undoableStoriesDispatch, story, selectedPassages]);
 
 	const handleEditSelectedPassage = React.useCallback(() => {
 		if (selectedPassages.length !== 1) {
@@ -109,7 +123,7 @@ export const InnerStoryEditRoute: React.FC = () => {
 
 	const handleSelectPassage = React.useCallback(
 		(passage: Passage, exclusive: boolean) =>
-			selectPassage(storiesDispatch, story, passage, exclusive),
+			storiesDispatch(selectPassage(story, passage, exclusive)),
 		[storiesDispatch, story]
 	);
 
@@ -124,17 +138,18 @@ export const InnerStoryEditRoute: React.FC = () => {
 			width: rect.width / story.zoom
 		};
 
-		selectPassagesInRect(
-			storiesDispatch,
-			story,
-			logicalRect,
-			additive
-				? story.passages.reduce<string[]>(
-						(result, passage) =>
-							passage.selected ? [...result, passage.id] : result,
-						[]
-				  )
-				: []
+		storiesDispatch(
+			selectPassagesInRect(
+				story,
+				logicalRect,
+				additive
+					? story.passages.reduce<string[]>(
+							(result, passage) =>
+								passage.selected ? [...result, passage.id] : result,
+							[]
+					  )
+					: []
+			)
 		);
 	}
 
@@ -172,10 +187,12 @@ export const InnerStoryEditRoute: React.FC = () => {
 };
 
 // This is a separate component so that the inner one can use
-// `useEditorsContext()` inside it.
+// `useEditorsContext()` and `useUndoableStoriesContext()` inside it.
 
 export const StoryEditRoute: React.FC = () => (
-	<DialogsContextProvider>
-		<InnerStoryEditRoute />
-	</DialogsContextProvider>
+	<UndoableStoriesContextProvider>
+		<DialogsContextProvider>
+			<InnerStoryEditRoute />
+		</DialogsContextProvider>
+	</UndoableStoriesContextProvider>
 );

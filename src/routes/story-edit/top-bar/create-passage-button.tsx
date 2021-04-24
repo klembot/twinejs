@@ -1,11 +1,8 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {IconButton} from '../../../components/control/icon-button';
-import {
-	createUntitledPassage,
-	Story,
-	useStoriesContext
-} from '../../../store/stories';
+import {createUntitledPassage, Story} from '../../../store/stories';
+import {useUndoableStoriesContext} from '../../../store/undoable-stories';
 import {Point} from '../../../util/geometry';
 
 export interface CreatePassageButtonProps {
@@ -15,10 +12,14 @@ export interface CreatePassageButtonProps {
 
 export const CreatePassageButton: React.FC<CreatePassageButtonProps> = props => {
 	const {getCenter, story} = props;
-	const {dispatch} = useStoriesContext();
+	const {dispatch} = useUndoableStoriesContext();
 	const handleClick = React.useCallback(() => {
 		const {left, top} = getCenter();
-		createUntitledPassage(dispatch, story, left, top);
+
+		dispatch(
+			createUntitledPassage(story, left, top),
+			'undoChange.createPassage'
+		);
 	}, [dispatch, getCenter, story]);
 	const {t} = useTranslation();
 

@@ -8,6 +8,7 @@ import {useStoryLaunch} from '../../../store/use-story-launch';
 import {Point} from '../../../util/geometry';
 import {CreatePassageButton} from './create-passage-button';
 import {MoreMenu} from './more-menu';
+import {UndoRedoButtons} from './undo-redo-buttons';
 import {ZoomButtons} from './zoom-buttons';
 
 export interface StoryEditTopBarProps {
@@ -41,6 +42,7 @@ export const StoryEditTopBar: React.FC<StoryEditTopBarProps> = props => {
 				label={t('common.test')}
 				onClick={() => testStory(story.id)}
 			/>
+			<UndoRedoButtons />
 			<MoreMenu story={story} />
 		</TopBar>
 	);

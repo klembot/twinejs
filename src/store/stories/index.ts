@@ -1,4 +1,4 @@
-export * from './actions';
+export * from './action-creators';
 export * from './defaults';
 export * from './getters';
 export * from './stories-context';

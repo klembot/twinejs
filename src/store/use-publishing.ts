@@ -49,10 +49,13 @@ export function usePublishing(): UsePublishingProps {
 					prefs.proofingFormat.name,
 					prefs.proofingFormat.version
 				);
-				const formatProperties = await loadFormatProperties(
-					storyFormatsDispatch,
-					format
+				const formatProperties = await loadFormatProperties(format)(
+					storyFormatsDispatch
 				);
+
+				if (!formatProperties) {
+					throw new Error(`Couldn't load story format properties`);
+				}
 
 				return publishStoryWithFormat(
 					story,
@@ -76,10 +79,13 @@ export function usePublishing(): UsePublishingProps {
 					story.storyFormat,
 					story.storyFormatVersion
 				);
-				const formatProperties = await loadFormatProperties(
-					storyFormatsDispatch,
-					format
+				const formatProperties = await loadFormatProperties(format)(
+					storyFormatsDispatch
 				);
+
+				if (!formatProperties) {
+					throw new Error(`Couldn't load story format properties`);
+				}
 
 				return publishStoryWithFormat(
 					story,

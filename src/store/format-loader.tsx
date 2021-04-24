@@ -43,7 +43,7 @@ export const FormatLoader: React.FC<FormatLoaderProps> = ({
 	}, [formats]);
 
 	React.useEffect(() => {
-		loadAllFormatProperties(dispatch, toLoad);
+		dispatch(loadAllFormatProperties(toLoad));
 	}, [dispatch, toLoad]);
 
 	const loadingFormat = formats.find(f => f.loadState === 'loading');

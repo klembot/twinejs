@@ -39,7 +39,7 @@ export const WelcomeRoute = () => {
 	}, [shown]);
 
 	const finish = () => {
-		setPref(dispatch, 'welcomeSeen', true);
+		dispatch(setPref('welcomeSeen', true));
 		history.push('/');
 	};
 
@@ -52,14 +52,8 @@ export const WelcomeRoute = () => {
 					<WelcomeCard
 						key={card.title}
 						image={card.image}
-						nextLabel={
-							card.nextLabel
-								? t(card.nextLabel)
-								: t('common.next')
-						}
-						onNext={
-							index === allCards.length - 1 ? finish : showNext
-						}
+						nextLabel={card.nextLabel ? t(card.nextLabel) : t('common.next')}
+						onNext={index === allCards.length - 1 ? finish : showNext}
 						onSkip={finish}
 						showSkip={index === 0}
 						title={t(card.title)}
