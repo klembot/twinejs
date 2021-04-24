@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
+import {IconPlus} from '@tabler/icons';
 import {IconButton} from '../../../components/control/icon-button';
 import {createUntitledPassage, Story} from '../../../store/stories';
 import {useUndoableStoriesContext} from '../../../store/undoable-stories';
@@ -25,7 +26,7 @@ export const CreatePassageButton: React.FC<CreatePassageButtonProps> = props => 
 
 	return (
 		<IconButton
-			icon="plus"
+			icon={<IconPlus />}
 			label={t('storyEdit.topBar.addPassage')}
 			onClick={handleClick}
 			variant="create"

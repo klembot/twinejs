@@ -10,7 +10,7 @@
 
 .text-select > label > select {
 	-webkit-appearance: none;
-	background: var(--white) url('~feather-icons/dist/icons/chevron-down.svg');
+	background: var(--white) url('~@tabler/icons/icons/chevron-down.svg');
 	background-position: center right;
 	background-repeat: no-repeat;
 	border: 1px solid var(--light-gray);

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
+import {IconPlus} from '@tabler/icons';
 import {PromptModal} from '../../../components/modal/prompt-modal';
 import {IconButton} from '../../../components/control/icon-button';
 import {useStoriesContext} from '../../../store/stories';
@@ -21,7 +22,7 @@ export const CreateStoryButton: React.FC = () => {
 	return (
 		<>
 			<IconButton
-				icon="plus"
+				icon={<IconPlus />}
 				label={t('storyList.topBar.createStory')}
 				onClick={() => setCreateModalOpen(open => !open)}
 				variant="create"

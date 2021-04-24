@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {useHistory} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
+import {IconArrowLeft, IconCode, IconHeart} from '@tabler/icons';
 import {
 	Card,
 	CardFooter,
@@ -26,7 +27,7 @@ export const AboutTwineRoute: React.FC = () => {
 		<div className="about-twine-route">
 			<TopBar>
 				<IconButton
-					icon="arrow-left"
+					icon={<IconArrowLeft />}
 					onClick={() => history.push('/')}
 					label={t('storyList.title')}
 					variant="primary"
@@ -46,12 +47,12 @@ export const AboutTwineRoute: React.FC = () => {
 							<CardFooter>
 								<IconLink
 									href="https://github.com/klembot/twinejs"
-									icon="code"
+									icon={<IconCode />}
 									label={t('aboutTwine.codeRepo')}
 								/>
 								<IconLink
 									href="https://twinery.org/donate"
-									icon="heart"
+									icon={<IconHeart />}
 									label={t('aboutTwine.donateToTwine')}
 									variant="primary"
 								/>

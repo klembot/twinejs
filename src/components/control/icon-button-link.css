@@ -17,6 +17,19 @@
 	transition: background 0.3s;
 }
 
+.icon-button .icon svg,
+.icon-link .icon svg {
+	height: 18px;
+	position: relative;
+	top: 2px; /* mysterious-- not sure why align-items doesn't get it */
+	width: 18px;
+}
+
+.icon-button:not(.icon-only) .icon svg,
+.icon-link:not(.icon-only) .icon svg {
+	margin-right: var(--control-inner-padding);
+}
+
 .icon-link {
 	text-decoration: none;
 }
@@ -90,15 +103,4 @@
 .icon-link.variant-danger:active:not(:disabled) {
 	background: var(--red);
 	color: var(--dark-red);
-}
-
-.icon-button:not(.icon-only) .icon-image,
-.icon-link:not(.icon-only) .icon-image {
-	margin-right: calc(var(--grid-size) / 2);
-}
-
-.icon-button .icon-image,
-.icon-link .icon-image {
-	position: relative;
-	top: 2px; /* mysterious-- not sure why align-items doesn't get it */
 }

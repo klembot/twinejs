@@ -1,9 +1,10 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {Icon} from '../../image/icon/icon';
+import {IconAlertTriangle} from '@tabler/icons';
 import {CardBody, CardHeader} from '../../container/card';
 import {ImageCard} from '../../container/image-card';
 import {IconButton} from '../../control/icon-button';
+import {IconLoading} from '../../image/icon';
 import {formatImageUrl, StoryFormat} from '../../../store/story-formats';
 import {StoryFormatCardActions} from './story-format-card-actions';
 import {StoryFormatCardDetails} from './story-format-card-details';
@@ -20,25 +21,18 @@ export interface StoryFormatCardProps {
 }
 
 export const StoryFormatCard: React.FC<StoryFormatCardProps> = props => {
-	const {
-		format,
-		onDelete,
-		onSelect,
-		selected,
-		selectIcon,
-		selectLabel
-	} = props;
+	const {format, onDelete, onSelect, selected, selectIcon, selectLabel} = props;
 	const {t} = useTranslation();
 
 	let image = <></>;
 
 	if (format.loadState === 'error') {
-		image = <Icon icon="alert-triangle" />;
+		image = <IconAlertTriangle />;
 	} else if (
 		format.loadState === 'unloaded' ||
 		format.loadState === 'loading'
 	) {
-		image = <Icon icon="loading-spinner" />;
+		image = <IconLoading />;
 	} else if (format.loadState === 'loaded' && format.properties.image) {
 		image = <img src={formatImageUrl(format)} alt="" />;
 	}

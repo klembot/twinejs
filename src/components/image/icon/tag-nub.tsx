@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export const EmptyIcon: React.FC = () => (
+export const IconTagNub: React.FC = () => (
 	<svg
 		viewBox="0 0 24 24"
 		width="24"
@@ -10,5 +10,14 @@ export const EmptyIcon: React.FC = () => (
 		fill="none"
 		strokeLinecap="round"
 		strokeLinejoin="round"
-	></svg>
+	>
+		<rect
+			fill="currentColor"
+			height="24"
+			width="8"
+			rx="4"
+			stroke="none"
+			x="8"
+		/>
+	</svg>
 );

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {useHistory} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
+import {IconArrowLeft} from '@tabler/icons';
 import {MainContent} from '../../components/container/main-content';
 import {TopBar} from '../../components/container/top-bar';
 import {FlagButton} from '../../components/control/flag-button';
@@ -22,7 +23,7 @@ export const LocaleSelectRoute: React.FC = () => {
 		<div className="locale-select-route">
 			<TopBar>
 				<IconButton
-					icon="arrow-left"
+					icon={<IconArrowLeft />}
 					onClick={() => history.push('/')}
 					label={t('storyList.title')}
 					variant="primary"

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
+import {IconLetterCase, IconTypography} from '@tabler/icons';
 import {MenuButton} from './menu-button';
 import {PromptModal} from '../modal/prompt-modal';
 
@@ -53,7 +54,7 @@ export const FontSelect: React.FC<FontSelectProps> = props => {
 		<>
 			<span className="font-select">
 				<MenuButton
-					icon="type"
+					icon={<IconTypography />}
 					items={[
 						{
 							checked: fontFamily === 'var(--font-monospaced)',
@@ -74,7 +75,7 @@ export const FontSelect: React.FC<FontSelectProps> = props => {
 					label={t('components.fontSelect.font')}
 				/>
 				<MenuButton
-					icon="type-size"
+					icon={<IconLetterCase />}
 					items={[
 						...scales.map(scale => ({
 							checked: fontScale === scale,

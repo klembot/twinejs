@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {Story} from '@storybook/react';
+import {IconCheck} from '@tabler/icons';
 import {Card, CardProps} from '../card';
 import {CardFooter} from '../card-footer';
 import {CardBody} from '../card-body';
@@ -58,7 +59,7 @@ const HeaderBodyFooterTemplate: Story<CardArgs> = props => {
 				<CardBody>Body</CardBody>
 				<CardFooter>
 					Text
-					<IconButton icon="check" label="OK" variant="primary" />
+					<IconButton icon={<IconCheck />} label="OK" variant="primary" />
 				</CardFooter>
 			</Card>
 		</div>

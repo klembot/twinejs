@@ -1,9 +1,4 @@
-.icon-image svg {
-	height: 18px;
-	width: 18px;
-}
-
-.icon-image.loading-spinner svg {
+.icon-loading svg {
 	stroke-dasharray: 32;
 	animation: 1.5s loading-spinner-spin linear infinite;
 }

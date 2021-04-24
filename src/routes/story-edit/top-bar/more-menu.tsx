@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {useHistory} from 'react-router-dom';
+import {IconDots} from '@tabler/icons';
 import {MenuButton} from '../../../components/control/menu-button';
 import {
 	selectAllPassages,
@@ -22,7 +22,6 @@ export interface MoreMenuProps {
 
 export const MoreMenu: React.FC<MoreMenuProps> = props => {
 	const {story} = props;
-	const history = useHistory();
 	const {dispatch: dialogsDispatch} = useDialogsContext();
 	const {dispatch: storiesDispatch, stories} = useStoriesContext();
 	const {proofStory} = useStoryLaunch();
@@ -38,7 +37,7 @@ export const MoreMenu: React.FC<MoreMenuProps> = props => {
 	return (
 		<>
 			<MenuButton
-				icon="more-horizontal"
+				icon={<IconDots />}
 				items={[
 					{
 						label: t('storyEdit.topBar.findAndReplace'),

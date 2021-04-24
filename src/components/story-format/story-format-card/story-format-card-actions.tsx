@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
+import {IconCheck, IconTrash} from '@tabler/icons';
 import {CardFooter} from '../../container/card/card-footer';
 import {IconButton} from '../../control/icon-button';
 import {StoryFormat} from '../../../store/story-formats';
@@ -25,14 +26,14 @@ export const StoryFormatCardActions: React.FC<StoryFormatCardActionsProps> = pro
 		<CardFooter>
 			{format.userAdded && (
 				<IconButton
-					icon="trash-2"
+					icon={<IconTrash />}
 					label={t('common.delete')}
 					variant="danger"
 				/>
 			)}
 			{!selected && format.loadState === 'loaded' && (
 				<IconButton
-					icon={selectIcon ?? 'check'}
+					icon={selectIcon ?? <IconCheck />}
 					label={
 						selectLabel ?? format.properties.proofing
 							? t('components.storyFormatCard.useProofingFormat')

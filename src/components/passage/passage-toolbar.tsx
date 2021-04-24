@@ -2,6 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 import {useTranslation} from 'react-i18next';
 import {usePopper} from 'react-popper';
+import {IconEdit, IconTool, IconTrash} from '@tabler/icons';
 import {ButtonBar} from '../container/button-bar';
 import {ButtonCard} from '../container/button-card';
 import {IconButton} from '../control/icon-button';
@@ -103,18 +104,18 @@ export const PassageToolbar: React.FC<PassageToolbarProps> = React.memo(
 					<ButtonCard floating>
 						<ButtonBar>
 							<IconButton
-								icon="trash-2"
+								icon={<IconTrash />}
 								label={t('common.delete')}
 								onClick={onDelete}
 								variant="danger"
 							/>
 							<IconButton
-								icon="edit"
+								icon={<IconEdit />}
 								label={t('common.edit')}
 								onClick={onEdit}
 							/>
 							<IconButton
-								icon="tool"
+								icon={<IconTool />}
 								label={t('common.test')}
 								onClick={onTest}
 							/>
