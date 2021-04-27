@@ -2,6 +2,7 @@ import {Thunk} from 'react-hook-thunk-reducer';
 import {
 	passageWithId,
 	passageWithName,
+	Passage,
 	StoriesAction,
 	StoriesState
 } from '../stories';
@@ -60,6 +61,46 @@ export function reverseAction(
 				type: 'createPassages',
 				props: action.passageIds.map(passageId =>
 					passageWithId(state, action.storyId, passageId)
+				),
+				storyId: action.storyId
+			};
+
+		case 'updatePassage':
+			const passage = passageWithId(state, action.storyId, action.passageId);
+			const props = Object.keys(action.props).reduce(
+				(result, propName) => ({
+					...result,
+					[propName]: passage[propName as keyof Passage]
+				}),
+				{} as Passage
+			);
+
+			return {
+				type: 'updatePassage',
+				props,
+				passageId: action.passageId,
+				storyId: action.storyId
+			};
+
+		case 'updatePassages':
+			return {
+				type: 'updatePassages',
+				passageUpdates: Object.keys(action.passageUpdates).reduce(
+					(result, passageId) => {
+						const passage = passageWithId(state, action.storyId, passageId);
+
+						return {
+							...result,
+							[passageId]: Object.keys(action.passageUpdates[passageId]).reduce(
+								(passageResult, propName) => ({
+									...passageResult,
+									[propName]: passage[propName as keyof Passage]
+								}),
+								{} as Passage
+							)
+						};
+					},
+					{} as Record<string, Partial<Passage>>
 				),
 				storyId: action.storyId
 			};

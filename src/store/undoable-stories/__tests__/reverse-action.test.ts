@@ -92,6 +92,72 @@ describe('reverseAction', () => {
 			}));
 	});
 
+	describe('when passed an updatePassage action', () => {
+		it('returns an updatePassage action reversing the change, for only the properties being updated', () => {
+			const oldLeft = story.passages[0].left;
+			const oldName = story.passages[0].name;
+
+			expect(
+				reverseAction(
+					{
+						type: 'updatePassage',
+						passageId: story.passages[0].id,
+						props: {left: story.passages[0].left + 100, name: 'new-name'},
+						storyId: story.id
+					},
+					[story]
+				)
+			).toEqual({
+				type: 'updatePassage',
+				passageId: story.passages[0].id,
+				props: {
+					left: oldLeft,
+					name: oldName
+				},
+				storyId: story.id
+			});
+		});
+	});
+
+	describe('when passed an updatePassages action', () => {
+		it('returns an updatePassages action reversing the change, for only the properties being updated', () => {
+			const oldP1Left = story.passages[0].left;
+			const oldP1Name = story.passages[0].name;
+			const oldP2Width = story.passages[1].width;
+
+			expect(
+				reverseAction(
+					{
+						type: 'updatePassages',
+						passageUpdates: {
+							[story.passages[0].id]: {
+								left: story.passages[0].left + 100,
+								name: 'new-name'
+							},
+							[story.passages[1].id]: {
+								width: story.passages[1].width + 100
+							}
+						},
+						storyId: story.id
+					},
+					[story]
+				)
+			).toEqual({
+				type: 'updatePassages',
+				passageUpdates: {
+					[story.passages[0].id]: {
+						left: oldP1Left,
+						name: oldP1Name
+					},
+					[story.passages[1].id]: {
+						width: oldP2Width
+					}
+				},
+				storyId: story.id
+			});
+		});
+	});
+
 	describe("when passed an action it doesn't know how to reverse", () => {
 		it('throws an error', () =>
 			expect(() =>
