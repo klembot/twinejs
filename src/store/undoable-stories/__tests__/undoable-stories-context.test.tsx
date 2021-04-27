@@ -16,13 +16,18 @@ jest.mock('../reducer');
 jest.mock('../reverse-action');
 
 interface WrapperProps {
+	dispatch?: jest.Mock;
 	storiesContext: Partial<StoriesContextProps>;
 }
 
-const wrapper: React.FC<WrapperProps> = ({children, storiesContext}) => (
+const wrapper: React.FC<WrapperProps> = ({
+	children,
+	dispatch = jest.fn(),
+	storiesContext
+}) => (
 	<StoriesContext.Provider
 		value={{
-			dispatch: jest.fn(),
+			dispatch,
 			stories: [],
 			...storiesContext
 		}}
@@ -109,11 +114,71 @@ describe('<UndoableStoriesContextProvider>', () => {
 		it.todo("doesn't exist if there isn't a change later than the current one");
 	});
 
-	describe('its undo function', () => {
-		it.todo('exists if there is a current change');
-		it.todo('dispatches the undo action of the current change');
-		it.todo('decreases the current change by 1');
-		it.todo("doesn't exist if there isn't a current change");
+	fdescribe('its undo function', () => {
+		const dispatch = jest.fn();
+		const stories = [fakeStory()];
+		const redo = {type: 'init', state: {}};
+		const undo = {type: 'init', state: {}};
+
+		beforeEach(() => {
+			reducerMock.mockImplementation(() => ({
+				currentChange: 0,
+				changes: [{redo, undo, description: 'mock-change-description'}]
+			}));
+		});
+
+		it('exists if there is a current change', () => {
+			const {result} = renderHook(() => useUndoableStoriesContext(), {
+				initialProps: {storiesContext: {dispatch, stories}},
+				wrapper
+			});
+
+			// This change doesn't matter-- the mock reducer supplies the state.
+
+			act(() =>
+				result.current.dispatch({type: 'init', state: []}, 'mock-description')
+			);
+			expect(result.current.undo).not.toBeUndefined();
+		});
+
+		it('dispatches the undo action of the current change', () => {
+			const {result} = renderHook(() => useUndoableStoriesContext(), {
+				initialProps: {storiesContext: {dispatch, stories}},
+				wrapper
+			});
+
+			// This change doesn't matter-- the mock reducer supplies the state.
+
+			act(() =>
+				result.current.dispatch({type: 'init', state: []}, 'mock-description')
+			);
+			dispatch.mockReset();
+			act(() => result.current.undo!());
+			expect(dispatch.mock.calls).toEqual([[undo]]);
+		});
+
+		// This needs some help-- running the undo in the mocks causes an error.
+
+		it.todo('dispatches an updateCurrent action to the undo reducer');
+
+		it("doesn't exist if there isn't a current change", () => {
+			reducerMock.mockImplementation(() => ({
+				currentChange: -1,
+				changes: []
+			}));
+
+			const {result} = renderHook(() => useUndoableStoriesContext(), {
+				initialProps: {storiesContext: {dispatch, stories}},
+				wrapper
+			});
+
+			// This change doesn't matter-- the mock reducer supplies the state.
+
+			act(() =>
+				result.current.dispatch({type: 'init', state: []}, 'mock-description')
+			);
+			expect(result.current.undo).toBeUndefined();
+		});
 	});
 
 	describe('its undoLabel property', () => {

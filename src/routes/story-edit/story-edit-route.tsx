@@ -11,8 +11,7 @@ import {
 	movePassages,
 	selectPassage,
 	selectPassagesInRect,
-	storyWithId,
-	useStoriesContext
+	storyWithId
 } from '../../store/stories';
 import {PassageMap} from '../../components/passage/passage-map/passage-map';
 import {PassageToolbar} from '../../components/passage/passage-toolbar';
@@ -27,7 +26,6 @@ import './story-edit-route.css';
 export const InnerStoryEditRoute: React.FC = () => {
 	const {storyId} = useParams<{storyId: string}>();
 	const {dispatch: dialogsDispatch} = useDialogsContext();
-	const {dispatch: storiesDispatch} = useStoriesContext();
 	const {
 		dispatch: undoableStoriesDispatch,
 		stories
@@ -59,13 +57,14 @@ export const InnerStoryEditRoute: React.FC = () => {
 	}, [story.zoom]);
 
 	const handleDeselectPassage = React.useCallback(
-		(passage: Passage) => storiesDispatch(deselectPassage(story, passage)),
-		[storiesDispatch, story]
+		(passage: Passage) =>
+			undoableStoriesDispatch(deselectPassage(story, passage)),
+		[story, undoableStoriesDispatch]
 	);
 
 	const handleDragPassages = React.useCallback(
 		(change: Point) =>
-			storiesDispatch(
+			undoableStoriesDispatch(
 				movePassages(
 					story,
 					story.passages.reduce<string[]>(
@@ -75,9 +74,12 @@ export const InnerStoryEditRoute: React.FC = () => {
 					),
 					change.left,
 					change.top
-				)
+				),
+				selectedPassages.length > 1
+					? 'undoChange.movePassages'
+					: 'undoChange.movePassages'
 			),
-		[storiesDispatch, story]
+		[selectedPassages.length, story, undoableStoriesDispatch]
 	);
 
 	const handleEditPassage = React.useCallback(
@@ -123,8 +125,8 @@ export const InnerStoryEditRoute: React.FC = () => {
 
 	const handleSelectPassage = React.useCallback(
 		(passage: Passage, exclusive: boolean) =>
-			storiesDispatch(selectPassage(story, passage, exclusive)),
-		[storiesDispatch, story]
+			undoableStoriesDispatch(selectPassage(story, passage, exclusive)),
+		[story, undoableStoriesDispatch]
 	);
 
 	function handleSelectRect(rect: Rect, additive: boolean) {
@@ -138,7 +140,7 @@ export const InnerStoryEditRoute: React.FC = () => {
 			width: rect.width / story.zoom
 		};
 
-		storiesDispatch(
+		undoableStoriesDispatch(
 			selectPassagesInRect(
 				story,
 				logicalRect,

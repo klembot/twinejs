@@ -196,7 +196,7 @@ describe('Undoable stories reducer', () => {
 			).toEqual(expect.objectContaining({currentChange: 0}));
 		});
 
-		it('does not allow currentChange to become less than 0', () => {
+		it('does not allow currentChange to become less than -1', () => {
 			expect(
 				reducer(
 					{
@@ -208,7 +208,20 @@ describe('Undoable stories reducer', () => {
 						change: -1
 					}
 				)
-			).toEqual(expect.objectContaining({currentChange: 0}));
+			).toEqual(expect.objectContaining({currentChange: -1}));
+
+			expect(
+				reducer(
+					{
+						changes: [fakeUndoableStoryChange(), fakeUndoableStoryChange()],
+						currentChange: -1
+					},
+					{
+						type: 'updateCurrent',
+						change: -1
+					}
+				)
+			).toEqual(expect.objectContaining({currentChange: -1}));
 		});
 
 		it('does not allow currentChange to become greater than the length of changes', () => {

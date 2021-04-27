@@ -45,7 +45,7 @@ export const reducer: React.Reducer<
 			return {
 				...state,
 				currentChange: Math.min(
-					Math.max(state.currentChange + action.change, 0),
+					Math.max(state.currentChange + action.change, -1),
 					state.changes.length - 1
 				)
 			};
