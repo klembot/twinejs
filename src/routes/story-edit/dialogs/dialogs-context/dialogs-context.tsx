@@ -1,8 +1,9 @@
 import * as React from 'react';
+import useThunkReducer, {Thunk} from 'react-hook-thunk-reducer';
 import {reducer, DialogsAction, DialogsState} from './reducer';
 
 export interface DialogsContextProps {
-	dispatch: React.Dispatch<DialogsAction>;
+	dispatch: React.Dispatch<DialogsAction | Thunk<DialogsState, DialogsAction>>;
 	dialogs: DialogsState;
 }
 
@@ -16,7 +17,7 @@ DialogsContext.displayName = 'Dialogs';
 export const useDialogsContext = () => React.useContext(DialogsContext);
 
 export const DialogsContextProvider: React.FC = props => {
-	const [dialogs, dispatch] = React.useReducer(reducer, []);
+	const [dialogs, dispatch] = useThunkReducer(reducer, []);
 
 	return (
 		<DialogsContext.Provider value={{dispatch, dialogs}}>
