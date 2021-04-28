@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
+import {IndentButtons, UndoRedoButtons} from '../../../components/codemirror';
+import {ButtonBar} from '../../../components/container/button-bar';
 import {
 	DialogCard,
 	DialogCardProps,
@@ -22,6 +24,7 @@ export interface StoryJavaScriptDialogProps
 
 export const StoryStylesheetDialog: React.FC<StoryJavaScriptDialogProps> = props => {
 	const {storyId, ...other} = props;
+	const [cmEditor, setCmEditor] = React.useState<CodeMirror.Editor>();
 	const {dispatch, stories} = useStoriesContext();
 	const {prefs} = usePrefsContext();
 	const story = storyWithId(stories, storyId);
@@ -35,6 +38,7 @@ export const StoryStylesheetDialog: React.FC<StoryJavaScriptDialogProps> = props
 		data: CodeMirror.EditorChange,
 		text: string
 	) => {
+		setCmEditor(editor);
 		dispatch(updateStory(stories, story, {stylesheet: text}));
 	};
 
@@ -42,8 +46,13 @@ export const StoryStylesheetDialog: React.FC<StoryJavaScriptDialogProps> = props
 		<div className={className}>
 			<DialogCard {...other} headerLabel={t('storyStylesheet.title')}>
 				<p>{t('storyStylesheet.explanation')}</p>
+				<ButtonBar>
+					<UndoRedoButtons editor={cmEditor} watch={story.script} />
+					<IndentButtons editor={cmEditor} />
+				</ButtonBar>
 				<DialogEditor>
 					<CodeArea
+						editorDidMount={setCmEditor}
 						fontFamily={prefs.javascriptEditorFontFamily}
 						fontScale={prefs.javascriptEditorFontScale}
 						onBeforeChange={handleChange}

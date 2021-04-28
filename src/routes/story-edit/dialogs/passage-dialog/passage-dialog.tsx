@@ -10,6 +10,7 @@ import {
 import {PassageText} from './passage-text';
 import {RenamePassageButton} from './rename-passage-button';
 import {TagToolbar} from './tag-toolbar';
+import {UndoRedoButtons} from '../../../../components/codemirror/undo-redo-buttons';
 import {
 	passageWithId,
 	storyWithId,
@@ -27,6 +28,7 @@ export interface PassageEditorCardProps
 
 export const PassageDialog: React.FC<PassageEditorCardProps> = props => {
 	const {passageId, storyId, ...other} = props;
+	const [cmEditor, setCmEditor] = React.useState<CodeMirror.Editor>();
 	const {dispatch, stories} = useStoriesContext();
 	const passage = passageWithId(stories, storyId, passageId);
 	const story = storyWithId(stories, storyId);
@@ -47,6 +49,7 @@ export const PassageDialog: React.FC<PassageEditorCardProps> = props => {
 		<div className={className}>
 			<DialogCard {...other} headerLabel={passage.name}>
 				<ButtonBar>
+					<UndoRedoButtons editor={cmEditor} watch={passage.text} />
 					<RenamePassageButton passage={passage} story={story} />
 					<CheckboxButton
 						disabled={isStart}
@@ -56,7 +59,11 @@ export const PassageDialog: React.FC<PassageEditorCardProps> = props => {
 					/>
 				</ButtonBar>
 				<TagToolbar passage={passage} story={story} />
-				<PassageText onChange={handlePassageTextChange} passage={passage} />
+				<PassageText
+					onChange={handlePassageTextChange}
+					onEditorChange={setCmEditor}
+					passage={passage}
+				/>
 			</DialogCard>
 		</div>
 	);
