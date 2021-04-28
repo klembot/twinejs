@@ -100,18 +100,18 @@ export const InnerStoryEditRoute: React.FC = () => {
 		);
 	}, [undoableStoriesDispatch, story, selectedPassages]);
 
-	const handleEditSelectedPassage = React.useCallback(() => {
-		if (selectedPassages.length !== 1) {
-			throw new Error(
-				`Asked to edit selected passage, but ${selectedPassages.length} are selected`
-			);
-		}
-
-		dialogsDispatch({
-			type: 'addDialog',
-			dialog: {type: 'passage', passageId: selectedPassages[0].id}
-		});
-	}, [dialogsDispatch, selectedPassages]);
+	const handleEditSelectedPassage = React.useCallback(
+		() =>
+			dialogsDispatch(dispatch =>
+				selectedPassages.forEach(passage =>
+					dispatch({
+						type: 'addDialog',
+						dialog: {type: 'passage', passageId: passage.id}
+					})
+				)
+			),
+		[dialogsDispatch, selectedPassages]
+	);
 
 	const handleTestSelectedPassage = React.useCallback(() => {
 		if (selectedPassages.length !== 1) {
