@@ -70,6 +70,10 @@
 				"percent": "{{percent}}%"
 			}
 		},
+		"indentButtons": {
+			"indent": "Indent",
+			"unindent": "Unindent"
+		},
 		"localStorageQuota": {
 			"measureAgain": "Measure space available again",
 			"percentAvailable": "{percent}% space available"
