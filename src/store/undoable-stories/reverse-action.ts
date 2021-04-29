@@ -52,6 +52,37 @@ export function reverseAction(
 				);
 			}
 
+		// TODO: crashes on a replace all that affects a passage name, unclear why
+
+		case 'createPassages':
+			if (action.props.some(prop => !prop.id && !prop.name)) {
+				throw new Error(
+					"Can't reverse a createPassages action where a prop set doesn't have either name or ID"
+				);
+			}
+
+			return (dispatch, getState) => {
+				action.props.forEach(props => {
+					if (props.id) {
+						dispatch({
+							type: 'deletePassage',
+							passageId: props.id,
+							storyId: action.storyId
+						});
+					} else if (props.name) {
+						// This is dependent on the fact that we will only undo this action
+						// immediately--see comment about the createPassage action.
+
+						dispatch({
+							type: 'deletePassage',
+							passageId: passageWithName(getState(), action.storyId, props.name)
+								.id,
+							storyId: action.storyId
+						});
+					}
+				});
+			};
+
 		case 'deletePassage':
 			return {
 				type: 'createPassage',
