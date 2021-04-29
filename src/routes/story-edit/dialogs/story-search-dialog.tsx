@@ -14,9 +14,9 @@ import {
 	passagesMatchingSearch,
 	replaceInStory,
 	storyWithId,
-	useStoriesContext,
 	StorySearchFlags
 } from '../../../store/stories';
+import {useUndoableStoriesContext} from '../../../store/undoable-stories';
 import './story-search-dialog.css';
 
 // See https://github.com/codemirror/CodeMirror/issues/5444
@@ -40,7 +40,7 @@ export const StorySearchDialog: React.FC<StorySearchDialogProps> = props => {
 	});
 	const [replace, setReplace] = React.useState('');
 	const [find, setFind] = React.useState('');
-	const {dispatch, stories} = useStoriesContext();
+	const {dispatch, stories} = useUndoableStoriesContext();
 	const {t} = useTranslation();
 
 	const story = storyWithId(stories, storyId);
@@ -73,7 +73,10 @@ export const StorySearchDialog: React.FC<StorySearchDialogProps> = props => {
 	}
 
 	function handleReplace() {
-		dispatch(replaceInStory(story, find, replace, flags));
+		dispatch(
+			replaceInStory(story, find, replace, flags),
+			'undoChange.replaceAllText'
+		);
 	}
 
 	function toggleFlag(name: keyof StorySearchFlags) {
