@@ -8,6 +8,9 @@ import {
 } from '../stories';
 import {StoriesActionOrThunk} from './undoable-stories.types';
 
+/**
+ * Returns an action or thunk to reverse a single action.
+ */
 export function reverseAction(
 	action: StoriesAction,
 	state: StoriesState
