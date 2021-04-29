@@ -5,28 +5,28 @@
 
 import * as React from 'react';
 import {reverseAction} from './reverse-action';
+import {reverseThunk} from './reverse-thunk';
 import {
 	StoryChange,
 	UndoableStoriesAction,
 	UndoableStoriesState
 } from './undoable-stories.types';
-import {StoriesAction} from '../stories';
 
 export const reducer: React.Reducer<
 	UndoableStoriesState,
 	UndoableStoriesAction
 > = (state, action) => {
+	console.log(action);
+
 	switch (action.type) {
 		case 'addChange':
 			const newChange: StoryChange = {
 				description: action.description,
 				redo: action.action,
 				undo:
-					typeof action === 'function'
-						? () => () => {
-								throw new Error('TODO implement reversing thunks');
-						  }
-						: reverseAction(action.action as StoriesAction, action.storiesState)
+					typeof action.action === 'function'
+						? reverseThunk(action.action, action.storiesState)
+						: reverseAction(action.action, action.storiesState)
 			};
 
 			// Slice off any changes after the current one.
