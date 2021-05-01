@@ -11,6 +11,7 @@
 
 import * as React from 'react';
 import {useScrollbarSize} from 'react-scrollbar-size';
+import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import {useDialogsContext} from './dialogs-context';
 import {PassageDialog} from './passage-dialog';
 import {StorySearchDialog} from './story-search-dialog';
@@ -23,61 +24,87 @@ export interface DialogsProps {
 	storyId: string;
 }
 
+const DialogTransition: React.FC = props => (
+	<CSSTransition classNames="pop" timeout={200} {...props}>
+		{props.children}
+	</CSSTransition>
+);
+
 export const Dialogs: React.FC<DialogsProps> = props => {
 	const {storyId} = props;
 	const {height, width} = useScrollbarSize();
 	const {dispatch, dialogs} = useDialogsContext();
 
-	if (dialogs.length === 0) {
-		return null;
-	}
-
-	const style = {
+	const style: React.CSSProperties = {
 		marginBottom: height,
 		marginRight: width
 	};
 
+	if (dialogs.length === 0) {
+		style.pointerEvents = 'none';
+	}
+
 	return (
 		<div className="dialogs" style={style}>
-			{dialogs.map((props, index) => {
-				const commonProps = {
-					storyId,
-					key: props.type,
-					onChangeCollapsed: (collapsed: boolean) =>
-						dispatch({type: 'setDialogCollapsed', collapsed, index}),
-					onClose: () => dispatch({type: 'removeDialog', index})
-				};
+			<TransitionGroup component={null}>
+				{dialogs.map((props, index) => {
+					const commonProps = {
+						storyId,
+						key: props.type,
+						onChangeCollapsed: (collapsed: boolean) =>
+							dispatch({type: 'setDialogCollapsed', collapsed, index}),
+						onClose: () => dispatch({type: 'removeDialog', index})
+					};
 
-				switch (props.type) {
-					case 'passage':
-						return (
-							<PassageDialog
-								{...props}
-								{...commonProps}
-								key={props.passageId}
-							/>
-						);
+					switch (props.type) {
+						case 'passage':
+							return (
+								<DialogTransition key={index}>
+									<PassageDialog
+										{...props}
+										{...commonProps}
+										key={props.passageId}
+									/>
+								</DialogTransition>
+							);
 
-					case 'storyJavaScript':
-						return <StoryJavaScriptDialog {...props} {...commonProps} />;
+						case 'storyJavaScript':
+							return (
+								<DialogTransition key={index}>
+									<StoryJavaScriptDialog {...props} {...commonProps} />
+								</DialogTransition>
+							);
 
-					case 'storySearch':
-						return <StorySearchDialog {...props} {...commonProps} />;
+						case 'storySearch':
+							return (
+								<DialogTransition key={index}>
+									<StorySearchDialog {...props} {...commonProps} />
+								</DialogTransition>
+							);
 
-					case 'storyStats':
-						return <StoryStatsDialog {...props} {...commonProps} />;
+						case 'storyStats':
+							return (
+								<DialogTransition key={index}>
+									<StoryStatsDialog {...props} {...commonProps} />
+								</DialogTransition>
+							);
 
-					case 'storyStylesheet':
-						return <StoryStylesheetDialog {...props} {...commonProps} />;
-				}
+						case 'storyStylesheet':
+							return (
+								<DialogTransition key={index}>
+									<StoryStylesheetDialog {...props} {...commonProps} />
+								</DialogTransition>
+							);
+					}
 
-				// Have to type this as any because TS knows we've exhausted all values
-				// in the switch above.
+					// Have to type this as any because TS knows we've exhausted all values
+					// in the switch above.
 
-				throw new Error(
-					`Don't know how to render dialog type "${(props as any).type}"`
-				);
-			})}
+					throw new Error(
+						`Don't know how to render dialog type "${(props as any).type}"`
+					);
+				})}
+			</TransitionGroup>
 		</div>
 	);
 };
