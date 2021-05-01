@@ -92,8 +92,9 @@
 		"wait-on": "^5.2.1"
 	},
 	"scripts": {
-		"analyze": "source-map-explorer 'dist/web/static/js/*.js'",
+		"analyze": "run-s build:web build:analyze",
 		"build": "run-s clean build:web build:electron",
+		"build:analyze": "source-map-explorer 'dist/web/static/js/*.js'",
 		"build:web": "BUILD_PATH=dist/web react-scripts build",
 		"postbuild:web": "cpy --cwd dist/web --parents . ../../electron-build/renderer",
 		"build:electron": "npm-run-all --parallel build:web build:electron-main --serial build:electron-bundle",
