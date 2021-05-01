@@ -1,3 +1,5 @@
+@import '../../styles/animations.css';
+
 .menu-button-menu .icon-button {
 	/* balancing the icon on the left */
 	padding-right: 32px;

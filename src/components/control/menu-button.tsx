@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {usePopper} from 'react-popper';
+import {CSSTransition} from 'react-transition-group';
 import {IconCheck} from '@tabler/icons';
 import {ButtonBar, ButtonBarSeparator} from '../container/button-bar';
 import {ButtonCard} from '../container/button-card';
@@ -50,7 +51,13 @@ export const MenuButton: React.FC<MenuButtonProps> = props => {
 				onClick={() => setOpen(open => !open)}
 				ref={setButtonEl}
 			/>
-			{open && (
+			<CSSTransition
+				classNames="fade-out"
+				in={open}
+				mountOnEnter
+				timeout={200}
+				unmountOnExit
+			>
 				<div
 					className="menu-button-menu"
 					ref={setMenuEl}
@@ -78,7 +85,7 @@ export const MenuButton: React.FC<MenuButtonProps> = props => {
 						</ButtonBar>
 					</ButtonCard>
 				</div>
-			)}
+			</CSSTransition>
 		</span>
 	);
 };

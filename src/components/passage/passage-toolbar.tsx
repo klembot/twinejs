@@ -105,16 +105,25 @@ export const PassageToolbar: React.FC<PassageToolbarProps> = React.memo(
 						<ButtonBar>
 							<IconButton
 								icon={<IconTrash />}
-								label={t('common.delete')}
+								label={
+									targets.length > 1
+										? t('common.deleteCount', {count: targets.length})
+										: t('common.delete')
+								}
 								onClick={onDelete}
 								variant="danger"
 							/>
 							<IconButton
 								icon={<IconEdit />}
-								label={t('common.edit')}
+								label={
+									targets.length > 1
+										? t('common.editCount', {count: targets.length})
+										: t('common.edit')
+								}
 								onClick={onEdit}
 							/>
 							<IconButton
+								disabled={targets.length > 1}
 								icon={<IconTool />}
 								label={t('common.test')}
 								onClick={onTest}

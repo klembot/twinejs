@@ -39,6 +39,7 @@
 		"react-router-dom": "^5.2.0",
 		"react-scripts": "4.0.3",
 		"react-scrollbar-size": "^3.2.0",
+		"react-transition-group": "^4.4.1",
 		"scroll": "^3.0.1",
 		"segseg": "^1.0.0",
 		"semver": "^7.3.4",
@@ -72,6 +73,7 @@
 		"@types/react-dom": "^16.9.0",
 		"@types/react-modal": "^3.12.0",
 		"@types/react-router-dom": "^5.1.7",
+		"@types/react-transition-group": "^4.4.1",
 		"@types/scroll": "^3.0.0",
 		"@types/semver": "^7.3.4",
 		"concurrently": "^6.0.0",
@@ -90,8 +92,9 @@
 		"wait-on": "^5.2.1"
 	},
 	"scripts": {
-		"analyze": "source-map-explorer 'dist/web/static/js/*.js'",
+		"analyze": "run-s build:web build:analyze",
 		"build": "run-s clean build:web build:electron",
+		"build:analyze": "source-map-explorer 'dist/web/static/js/*.js'",
 		"build:web": "BUILD_PATH=dist/web react-scripts build",
 		"postbuild:web": "cpy --cwd dist/web --parents . ../../electron-build/renderer",
 		"build:electron": "npm-run-all --parallel build:web build:electron-main --serial build:electron-bundle",
