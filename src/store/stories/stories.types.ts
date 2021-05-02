@@ -97,6 +97,10 @@ export interface Story {
 	 */
 	stylesheet: string;
 	/**
+	 * Tags applied to the story.
+	 */
+	tags: string[];
+	/**
 	 * Author-specified colors for passage tags.
 	 */
 	tagColors: TagColors;

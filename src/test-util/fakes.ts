@@ -137,6 +137,7 @@ export function fakeStory(passageCount: number = 1): Story {
 		storyFormat: lorem.words(Math.ceil(Math.random() * 3)), // At least 1
 		storyFormatVersion: system.semver(),
 		stylesheet: lorem.words(Math.round(Math.random() * 10)), // Might be 0
+		tags: [],
 		tagColors: {
 			[tags[0]]: 'red',
 			[tags[1]]: 'green',

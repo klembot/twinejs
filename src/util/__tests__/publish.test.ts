@@ -11,9 +11,7 @@ function toDOM(htmlSource: string, dive = true): Element {
 
 	if (dive) {
 		if (!container.firstChild) {
-			throw new Error(
-				"Can't dive into an element with no child elements"
-			);
+			throw new Error("Can't dive into an element with no child elements");
 		}
 
 		return container.firstChild as Element;
@@ -45,6 +43,7 @@ function checkStoryElAgainstData(el: Element, story: Story, appInfo: AppInfo) {
 	expect(el.getAttribute('ifid')).toBe(story.ifid);
 	expect(el.getAttribute('format')).toBe(story.storyFormat);
 	expect(el.getAttribute('format-version')).toBe(story.storyFormatVersion);
+	expect(el.getAttribute('tags')).toBe(story.tags.join(' '));
 	expect(el.getAttribute('zoom')).toBe(story.zoom.toString());
 
 	const styleEls = el.querySelectorAll('[type="text/twine-css"]');
@@ -79,9 +78,10 @@ let story: Story;
 beforeEach(() => {
 	appInfo = fakeAppInfo();
 	story = fakeStory(2);
+	story.tags = ['story-tags', 'that-are-<escaped>'];
 	Object.assign(story.passages[0], {
 		name: 'A Name Which Needs <Escaping>',
-		tags: ['tags', 'that are <escaped>'],
+		tags: ['tags', 'that-are-<escaped>'],
 		text: 'Body text which is <escaped>'
 	});
 	Object.assign(story.passages[1], {
@@ -179,11 +179,7 @@ describe('publishStoryWithFormat()', () => {
 		);
 
 		expect(result).toBe(escape(story.name));
-		result = publish.publishStoryWithFormat(
-			story,
-			'{{STORY_DATA}}',
-			appInfo
-		);
+		result = publish.publishStoryWithFormat(story, '{{STORY_DATA}}', appInfo);
 		expect(typeof result).toBe('string');
 		checkStoryElAgainstData(toDOM(result), story, appInfo);
 	});

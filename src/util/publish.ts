@@ -41,9 +41,7 @@ export function publishArchive(stories: Story[], appInfo: AppInfo) {
 		// Force publishing even if there is no start point set.
 
 		return (
-			output +
-			publishStory(story, appInfo, {startOptional: true}) +
-			'\n\n'
+			output + publishStory(story, appInfo, {startOptional: true}) + '\n\n'
 		);
 	}, '');
 }
@@ -117,11 +115,12 @@ export function publishStory(
 		`startnode="${startLocalId || ''}" ` +
 		`creator="${escape(appInfo.name)}" ` +
 		`creator-version="${escape(appInfo.version)}" ` +
-		`ifid="${escape(story.ifid)}" ` +
-		`zoom="${escape(story.zoom.toString())}" ` +
 		`format="${escape(story.storyFormat)}" ` +
 		`format-version="${escape(story.storyFormatVersion)}" ` +
-		`options="${escape(formatOptions)}" hidden>` +
+		`ifid="${escape(story.ifid)}" ` +
+		`options="${escape(formatOptions)}"` +
+		`tags="${escape(story.tags.join(' '))}" ` +
+		`zoom="${escape(story.zoom.toString())}" hidden>` +
 		`<style role="stylesheet" id="twine-user-stylesheet" ` +
 		`type="text/twine-css">` +
 		story.stylesheet +

@@ -82,6 +82,9 @@ function domToObject(storyEl: Element): ImportedStory {
 		stylesheet: query(storyEl, selectors.stylesheet)
 			.map(el => el.textContent)
 			.join('\n'),
+		tags: storyEl.getAttribute('tags')
+			? storyEl.getAttribute('tags')!.split(/\s+/)
+			: [],
 		zoom: parseFloat(storyEl.getAttribute('zoom') ?? '1'),
 		tagColors: query(storyEl, selectors.tagColors).reduce((result, el) => {
 			const tagName = el.getAttribute('name');
@@ -94,9 +97,7 @@ function domToObject(storyEl: Element): ImportedStory {
 		}, {}),
 		passages: query(storyEl, selectors.passageData).map(passageEl => {
 			const id = uuid();
-			const position = parseDimensions(
-				passageEl.getAttribute('position')
-			);
+			const position = parseDimensions(passageEl.getAttribute('position'));
 			const size = parseDimensions(passageEl.getAttribute('size'));
 
 			if (passageEl.getAttribute('pid') === startPassagePid) {
@@ -140,11 +141,7 @@ export function importStories(
 		// Merge in defaults. We can't use object spreads here because undefined
 		// values would override defaults.
 
-		const story: Story = defaults(
-			importedStory,
-			{id: uuid()},
-			storyDefaults()
-		);
+		const story: Story = defaults(importedStory, {id: uuid()}, storyDefaults());
 
 		// Override the last update as requested.
 
