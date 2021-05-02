@@ -29,6 +29,7 @@ export const storyDefaults = (): Omit<Story, 'id'> => ({
 	storyFormat: '',
 	storyFormatVersion: '',
 	stylesheet: '',
+	tags: [],
 	tagColors: {},
 	zoom: 1
 });

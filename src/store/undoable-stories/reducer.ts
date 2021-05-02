@@ -16,8 +16,6 @@ export const reducer: React.Reducer<
 	UndoableStoriesState,
 	UndoableStoriesAction
 > = (state, action) => {
-	console.log(action);
-
 	switch (action.type) {
 		case 'addChange':
 			const newChange: StoryChange = {

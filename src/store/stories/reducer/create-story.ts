@@ -26,6 +26,7 @@ export function createStory(state: StoriesState, storyProps: Partial<Story>) {
 		ifid: uuid().toUpperCase(),
 		lastUpdate: new Date(),
 		passages: [],
+		tags: [],
 		tagColors: {},
 		...storyProps
 	};
