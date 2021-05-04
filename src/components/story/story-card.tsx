@@ -1,7 +1,14 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {IconDots, IconEdit} from '@tabler/icons';
-import {CardFooter, CardBody, CardHeader, CardProps} from '../container/card';
+import {IconDots, IconEdit, IconPlus, IconPlayerPlay} from '@tabler/icons';
+import {
+	Card,
+	CardFooter,
+	CardBody,
+	CardHeader,
+	CardProps
+} from '../container/card';
+import {ButtonBar} from '../container/button-bar';
 import {MenuButton} from '../control/menu-button';
 import {ImageCard} from '../container/image-card';
 import {IconButton} from '../control/icon-button';
@@ -40,11 +47,8 @@ export const StoryCard: React.FC<StoryCardProps> = props => {
 
 	return (
 		<div className="story-card">
-			<ImageCard
-				image={<StoryPreview story={story} />}
-				tint={`hsla(${(hueString(story.name) + 45) % 360}, 90%, 40%, 0.025)`}
-				{...otherProps}
-			>
+			<Card {...otherProps}>
+				<StoryPreview story={story} />
 				<CardHeader>{story.name}</CardHeader>
 				<CardBody>
 					<p>
@@ -57,14 +61,27 @@ export const StoryCard: React.FC<StoryCardProps> = props => {
 						})}
 					</p>
 				</CardBody>
-				<CardFooter>
+				<ButtonBar></ButtonBar>
+				<ButtonBar>
+					<IconButton
+						icon={<IconEdit />}
+						label={t('common.edit')}
+						onClick={onEdit}
+						variant="primary"
+					/>
+					<IconButton
+						icon={<IconPlus />}
+						label={t('common.tag')}
+						onClick={onEdit}
+					/>
+					<IconButton
+						icon={<IconPlayerPlay />}
+						label={t('common.play')}
+						onClick={onPublish}
+					/>
 					<MenuButton
 						icon={<IconDots />}
 						items={[
-							{
-								label: t('common.play'),
-								onClick: onPlay
-							},
 							{
 								label: t('common.test'),
 								onClick: onTest
@@ -80,14 +97,8 @@ export const StoryCard: React.FC<StoryCardProps> = props => {
 						]}
 						label={t('common.more')}
 					/>
-					<IconButton
-						icon={<IconEdit />}
-						label={t('common.edit')}
-						onClick={onEdit}
-						variant="primary"
-					/>
-				</CardFooter>
-			</ImageCard>
+				</ButtonBar>
+			</Card>
 		</div>
 	);
 };

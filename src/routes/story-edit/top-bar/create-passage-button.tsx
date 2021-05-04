@@ -29,7 +29,6 @@ export const CreatePassageButton: React.FC<CreatePassageButtonProps> = props => 
 			icon={<IconPlus />}
 			label={t('storyEdit.topBar.addPassage')}
 			onClick={handleClick}
-			variant="create"
 		/>
 	);
 };

@@ -12,7 +12,7 @@ import {useStoryLaunch} from '../../store/use-story-launch';
 /**
  * How wide a story card should render onscreen as.
  */
-const cardWidth = '450px';
+const cardWidth = '350px';
 
 export interface StoryCardsProps {
 	onPublish: (story: Story) => void;
