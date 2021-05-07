@@ -1,20 +1,14 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {IconDots, IconEdit, IconPlus, IconPlayerPlay} from '@tabler/icons';
-import {
-	Card,
-	CardFooter,
-	CardBody,
-	CardHeader,
-	CardProps
-} from '../container/card';
+import {IconDots, IconEdit, IconPlayerPlay} from '@tabler/icons';
+import {Card, CardBody, CardHeader, CardProps} from '../container/card';
 import {ButtonBar} from '../container/button-bar';
 import {MenuButton} from '../control/menu-button';
-import {ImageCard} from '../container/image-card';
 import {IconButton} from '../control/icon-button';
+import {AddTagButton, TagButton} from '../tag';
 import {StoryPreview} from './story-preview';
 import {Story} from '../../store/stories';
-import {hueString} from '../../util/hue-string';
+import {Color} from '../../util/color';
 import './story-card.css';
 
 const dateFormatter = new Intl.DateTimeFormat([]);
@@ -22,12 +16,15 @@ const dateFormatter = new Intl.DateTimeFormat([]);
 export interface StoryCardProps extends CardProps {
 	// onDelete: () => void;
 	// onDuplicate: () => void;
+	onAddTag: (name: string, color: Color) => void;
+	onEditTag: (oldName: string, newName: string, newColor: Color) => void;
 	onEdit: () => void;
 	onPlay: () => void;
 	onPublish: () => void;
 	onRename: () => void;
 	onTest: () => void;
 	story: Story;
+	storyTagColors: Record<string, Color>;
 }
 
 // TODO: implement story delete
@@ -35,12 +32,15 @@ export interface StoryCardProps extends CardProps {
 
 export const StoryCard: React.FC<StoryCardProps> = props => {
 	const {
+		onAddTag,
 		onEdit,
+		onEditTag,
 		onPlay,
 		onPublish,
 		onRename,
 		onTest,
 		story,
+		storyTagColors,
 		...otherProps
 	} = props;
 	const {t} = useTranslation();
@@ -60,8 +60,22 @@ export const StoryCard: React.FC<StoryCardProps> = props => {
 							count: story.passages.length
 						})}
 					</p>
+					{story.tags && (
+						<div className="tags">
+							{story.tags.map(tag => (
+								<TagButton
+									color={storyTagColors[tag]}
+									key={tag}
+									name={tag}
+									onDelete={() => {}}
+									onEdit={(newName, newColor) =>
+										onEditTag(tag, newName, newColor)
+									}
+								/>
+							))}
+						</div>
+					)}
 				</CardBody>
-				<ButtonBar></ButtonBar>
 				<ButtonBar>
 					<IconButton
 						icon={<IconEdit />}
@@ -69,11 +83,7 @@ export const StoryCard: React.FC<StoryCardProps> = props => {
 						onClick={onEdit}
 						variant="primary"
 					/>
-					<IconButton
-						icon={<IconPlus />}
-						label={t('common.tag')}
-						onClick={onEdit}
-					/>
+					<AddTagButton onCreate={onAddTag} />
 					<IconButton
 						icon={<IconPlayerPlay />}
 						label={t('common.play')}

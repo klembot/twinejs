@@ -1,25 +1,76 @@
 @import '../../styles/colors.css';
+@import '../../styles/depth.css';
+@import '../../styles/metrics.css';
 
-.tag-button.color-red .menu-button .icon-button svg {
-	color: var(--red);
+.tag-button .menu-button > .icon-button {
+	background-color: var(--faint-gray);
+	border: none;
+	border-radius: var(--control-height);
+	box-shadow: var(--shadow-small);
+	height: var(--control-height);
+	font-size: 85%;
 }
 
-.tag-button.color-orange .menu-button .icon-button svg {
-	color: var(--orange);
+.tag-button .menu-button > .icon-button:hover {
+	background-color: var(--faint-gray);
 }
 
-.tag-button.color-yellow .menu-button .icon-button svg {
-	color: var(--yellow);
+.tag-button.color-red .menu-button > .icon-button {
+	background-color: var(--faint-red);
+	box-shadow: 0 1px 1px var(--light-red);
+	color: var(--dark-red);
 }
 
-.tag-button.color-green .menu-button .icon-button svg {
-	color: var(--green);
+.tag-button.color-red .menu-button > .icon-button:hover {
+	background-color: var(--light-red);
 }
 
-.tag-button.color-blue .menu-button .icon-button svg {
-	color: var(--blue);
+.tag-button.color-orange .menu-button > .icon-button {
+	background-color: var(--faint-orange);
+	box-shadow: 0 1px 1px var(--light-orange);
+	color: var(--dark-orange);
 }
 
-.tag-button.color-purple .menu-button .icon-button svg {
-	color: var(--purple);
+.tag-button.color-orange .menu-button > .icon-button:hover {
+	background-color: var(--light-orange);
+}
+
+.tag-button.color-yellow .menu-button > .icon-button {
+	background-color: var(--faint-yellow);
+	box-shadow: 0 1px 1px var(--light-yellow);
+	color: var(--dark-yellow);
+}
+
+.tag-button.color-yellow .menu-button > .icon-button:hover {
+	background-color: var(--light-yellow);
+}
+
+.tag-button.color-green .menu-button > .icon-button {
+	background-color: var(--faint-green);
+	box-shadow: 0 1px 1px var(--light-green);
+	color: var(--dark-green);
+}
+
+.tag-button.color-green .menu-button > .icon-button:hover {
+	background-color: var(--light-green);
+}
+
+.tag-button.color-blue .menu-button > .icon-button {
+	background-color: var(--faint-blue);
+	box-shadow: 0 1px 1px var(--light-blue);
+	color: var(--dark-blue);
+}
+
+.tag-button.color-blue .menu-button > .icon-button:hover {
+	background-color: var(--light-blue);
+}
+
+.tag-button.color-purple .menu-button > .icon-button {
+	background-color: var(--faint-purple);
+	box-shadow: 0 1px 1px var(--light-purple);
+	color: var(--dark-purple);
+}
+
+.tag-button.color-purple .menu-button > .icon-button:hover {
+	background-color: var(--light-purple);
 }

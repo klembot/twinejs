@@ -32,4 +32,6 @@ describe('Local storage load()', () => {
 		window.localStorage.setItem('twine-passages', passageIds.join(','));
 		expect(load()).toEqual(state);
 	});
+
+	it.todo('applies defaults if the persisted data is missing properties');
 });

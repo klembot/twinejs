@@ -23,8 +23,11 @@ export const StoryPreview: React.FC<StoryPreviewProps> = React.memo(props => {
 				{
 					key: passage.name,
 					size: passage.text.length,
-					x: passage.left,
-					y: passage.top
+
+					// Jitter the passages off a strict grid.
+
+					x: passage.left + 50 - (hueString(passage.name) % 100),
+					y: passage.top + 50 - (hueString(passage.name) % 100)
 				}
 			],
 			maxSize: Math.max(passage.text.length, result.maxSize)
