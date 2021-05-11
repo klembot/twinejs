@@ -6,11 +6,17 @@ import {TopBar} from '../../../components/container/top-bar';
 import {IconButton} from '../../../components/control/icon-button';
 import {IconLink} from '../../../components/control/icon-link';
 import {MenuButton} from '../../../components/control/menu-button';
+import {storyTags, Story} from '../../../store/stories';
 import {ArchiveButton} from './archive-button';
 import {CreateStoryButton} from './create-story-button';
+import {TagFilterButton} from './tag-filter-button';
 import {SortByButton} from './sort-by-button';
 
-export const StoryListTopBar: React.FC = () => {
+export interface StoryListTopBarProps {
+	stories: Story[];
+}
+
+export const StoryListTopBar: React.FC<StoryListTopBarProps> = props => {
 	const history = useHistory();
 	const {t} = useTranslation();
 
@@ -21,6 +27,7 @@ export const StoryListTopBar: React.FC = () => {
 		<TopBar>
 			<CreateStoryButton />
 			<SortByButton />
+			<TagFilterButton tags={storyTags(props.stories)} />
 			<ArchiveButton />
 			<IconButton
 				icon={<IconFileImport />}

@@ -118,6 +118,7 @@ export function fakePrefs(): PrefsState {
 			version: system.semver()
 		},
 		storyListSort: random.arrayElement(['date', 'name']),
+		storyListTagFilter: [],
 		storyTagColors: {[tags[0]]: 'red', [tags[1]]: 'green', [tags[2]]: 'blue'},
 		stylesheetEditorFontFamily: lorem.words(2),
 		stylesheetEditorFontScale: 1,

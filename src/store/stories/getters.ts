@@ -175,6 +175,15 @@ export function storyStats(story: Story) {
 	};
 }
 
+export function storyTags(stories: Story[]) {
+	return Array.from(
+		stories.reduce((result, story) => {
+			story.tags && story.tags.forEach(tag => result.add(tag));
+			return result;
+		}, new Set<string>())
+	).sort();
+}
+
 export function storyWithId(stories: Story[], storyId: string) {
 	const result = stories.find(s => s.id === storyId);
 
