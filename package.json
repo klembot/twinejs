@@ -69,7 +69,7 @@
 		"ejs": "^2.5.2",
 		"ejs-loader": "^0.3.1",
 		"ejs-webpack-loader": "^2.2.2",
-		"electron": "^3.0.7",
+		"electron": "^9.4.0",
 		"electron-builder": "^22.9.1",
 		"eslint": "^4.18.2",
 		"estraverse": "^4.2.0",
