@@ -23,6 +23,8 @@ module.exports = html => {
 	window.amdDefine = null;
 	window.app = null;
 	window.jQuery = null;
+	delete Map.prototype.toJSON;
+	delete Set.prototype.toJSON;
 
 	// rewrite the document
 
