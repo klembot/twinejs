@@ -5,14 +5,15 @@ import {
 	Story,
 	UpdatePassagesAction
 } from '../stories.types';
+import {isValidTagName} from '../../../util/tag';
 
-export function renameTag(
+export function renamePassageTag(
 	story: Story,
 	oldName: string,
 	newName: string
 ): Thunk<StoriesState, UpdatePassagesAction> {
-	if (newName.includes(' ')) {
-		throw new Error('Tag names may not contain spaces.');
+	if (!isValidTagName(newName)) {
+		throw new Error(`"${newName}" is not a valid tag name.`);
 	}
 
 	return dispatch => {

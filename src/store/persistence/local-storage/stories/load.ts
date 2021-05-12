@@ -16,9 +16,7 @@ export function load(): Story[] {
 	// passages to them as they are deserialized.
 
 	serializedStories.split(',').forEach(id => {
-		const serializedStory = window.localStorage.getItem(
-			`twine-stories-${id}`
-		);
+		const serializedStory = window.localStorage.getItem(`twine-stories-${id}`);
 
 		if (!serializedStory) {
 			console.warn(
@@ -31,22 +29,17 @@ export function load(): Story[] {
 			const story: Story = JSON.parse(serializedStory);
 
 			if (!story.id) {
-				console.warn(
-					'Story in local storage had no ID, skipping',
-					story
-				);
+				console.warn('Story in local storage had no ID, skipping', story);
 				return;
 			}
 
 			stories[story.id] = {
-				...storyDefaults,
+				...storyDefaults(),
 				...story,
 
 				// Coerce lastUpdate to a date.
 				lastUpdate: story.lastUpdate
-					? new Date(
-							Date.parse((story.lastUpdate as unknown) as string)
-					  )
+					? new Date(Date.parse((story.lastUpdate as unknown) as string))
 					: new Date(),
 
 				// Force the passages property to be an empty array -- we'll populate it
@@ -100,9 +93,7 @@ export function load(): Story[] {
 					...passage,
 
 					// Remove empty tags.
-					tags: passage.tags
-						? passage.tags.filter(t => t.trim() !== '')
-						: []
+					tags: passage.tags ? passage.tags.filter(t => t.trim() !== '') : []
 				});
 			} catch (e) {
 				console.warn(

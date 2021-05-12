@@ -1,24 +1,29 @@
+import classNames from 'classnames';
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import classNames from 'classnames';
+import {UndoRedoButtons} from '../../../../components/codemirror/undo-redo-buttons';
 import {ButtonBar} from '../../../../components/container/button-bar';
-import {CheckboxButton} from '../../../../components/control/checkbox-button';
 import {
 	DialogCard,
 	DialogCardProps
 } from '../../../../components/container/dialog-card';
-import {PassageText} from './passage-text';
-import {RenamePassageButton} from './rename-passage-button';
-import {TagToolbar} from './tag-toolbar';
-import {UndoRedoButtons} from '../../../../components/codemirror/undo-redo-buttons';
+import {CheckboxButton} from '../../../../components/control/checkbox-button';
+import {AddTagButton, TagButton} from '../../../../components/tag';
 import {
+	addPassageTag,
 	passageWithId,
+	removePassageTag,
+	renamePassageTag,
+	setTagColor,
 	storyWithId,
 	updatePassage,
-	updateStory,
-	useStoriesContext
+	updateStory
 } from '../../../../store/stories';
+import {useUndoableStoriesContext} from '../../../../store/undoable-stories';
+import {Color} from '../../../../util/color';
 import './passage-dialog.css';
+import {PassageText} from './passage-text';
+import {RenamePassageButton} from './rename-passage-button';
 
 export interface PassageEditorCardProps
 	extends Omit<DialogCardProps, 'headerLabel'> {
@@ -29,10 +34,26 @@ export interface PassageEditorCardProps
 export const PassageDialog: React.FC<PassageEditorCardProps> = props => {
 	const {passageId, storyId, ...other} = props;
 	const [cmEditor, setCmEditor] = React.useState<CodeMirror.Editor>();
-	const {dispatch, stories} = useStoriesContext();
+	const {dispatch, stories} = useUndoableStoriesContext();
 	const passage = passageWithId(stories, storyId, passageId);
 	const story = storyWithId(stories, storyId);
 	const {t} = useTranslation();
+
+	// TODO: make tag changes undoable
+
+	function handleAddTag(name: string, color: Color) {
+		dispatch(addPassageTag(story, passage, name));
+		dispatch(setTagColor(story, name, color));
+	}
+
+	function handleDeleteTag(name: string) {
+		dispatch(removePassageTag(story, passage, name));
+	}
+
+	function handleEditTag(oldName: string, newName: string, newColor: Color) {
+		dispatch(renamePassageTag(story, oldName, newName));
+		dispatch(setTagColor(story, newName, newColor));
+	}
 
 	function handlePassageTextChange(text: string) {
 		dispatch(updatePassage(story, passage!, {text}));
@@ -50,6 +71,7 @@ export const PassageDialog: React.FC<PassageEditorCardProps> = props => {
 			<DialogCard {...other} headerLabel={passage.name}>
 				<ButtonBar>
 					<UndoRedoButtons editor={cmEditor} watch={passage.text} />
+					<AddTagButton onCreate={handleAddTag} />
 					<RenamePassageButton passage={passage} story={story} />
 					<CheckboxButton
 						disabled={isStart}
@@ -58,7 +80,23 @@ export const PassageDialog: React.FC<PassageEditorCardProps> = props => {
 						value={isStart}
 					/>
 				</ButtonBar>
-				<TagToolbar passage={passage} story={story} />
+				{passage.tags.length > 0 && (
+					<div className="tags">
+						<ButtonBar>
+							{passage.tags.map(tag => (
+								<TagButton
+									color={story.tagColors[tag]}
+									key={tag}
+									name={tag}
+									onDelete={() => handleDeleteTag(tag)}
+									onEdit={(newName, newColor) =>
+										handleEditTag(tag, newName, newColor)
+									}
+								/>
+							))}
+						</ButtonBar>
+					</div>
+				)}
 				<PassageText
 					onChange={handlePassageTextChange}
 					onEditorChange={setCmEditor}

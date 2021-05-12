@@ -1,34 +1,93 @@
+import {Color} from '../../util/color';
+
 export type PrefsAction =
 	| {type: 'init'; state: Partial<PrefsState>}
 	| {
 			type: 'update';
 			name: keyof PrefsState;
-			value: boolean | number | string | {name: string; version: string};
+			value:
+				| boolean
+				| number
+				| string
+				| {name: string; version: string}
+				| Record<string, Color>;
 	  }
 	| {type: 'repair'};
 
 export interface PrefsState {
+	/**
+	 *
+	 */
 	appTheme: 'dark' | 'light';
+	/**
+	 * Has the donation prompt been shown?
+	 */
 	donateShown: boolean;
+	/**
+	 * Timestamp when the app was first run.
+	 */
 	firstRunTime: number;
+	/**
+	 * Font family for the story JS editor.
+	 */
 	javascriptEditorFontFamily: string;
+	/**
+	 * Font scale (1 being 100%) for the story JS editor.
+	 */
 	javascriptEditorFontScale: number;
+	/**
+	 * Last version number seen during an update check.
+	 */
 	lastUpdateSeen: string;
+	/**
+	 * Timestamp when the last update check occurred.
+	 */
 	lastUpdateCheckTime: number;
+	/**
+	 * User-set locale code.
+	 */
 	locale: string;
+	/**
+	 * Font family for the passage editor.
+	 */
 	passageEditorFontFamily: string;
+	/**
+	 * Font scale (1 being 100%) for the passage editor.
+	 */
 	passageEditorFontScale: number;
+	/**
+	 * Name and version of the selected proofing format.
+	 */
 	proofingFormat: {
 		name: string;
 		version: string;
 	};
+	/**
+	 * Name and version of the default story format.
+	 */
 	storyFormat: {
 		name: string;
 		version: string;
 	};
+	/**
+	 * How the story list should be sorted.
+	 */
 	storyListSort: 'date' | 'name';
+	/**
+	 * Colors for story tags.
+	 */
+	storyTagColors: Record<string, Color>;
+	/**
+	 * Font family for the story CSS editor.
+	 */
 	stylesheetEditorFontFamily: string;
+	/**
+	 * Font scale 91 being 100%) for the story CSS editor.
+	 */
 	stylesheetEditorFontScale: number;
+	/**
+	 * Has the user been shown the welcome route?
+	 */
 	welcomeSeen: boolean;
 }
 

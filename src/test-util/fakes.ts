@@ -93,6 +93,11 @@ export function fakePendingStoryFormat(
 }
 
 export function fakePrefs(): PrefsState {
+	// Ensure tag uniqueness.
+
+	const tag = lorem.word();
+	const tags = [`${tag}-1`, `${tag}-2`, `${tag}-3`];
+
 	return {
 		appTheme: random.arrayElement(['light', 'dark']),
 		donateShown: random.boolean(),
@@ -113,6 +118,7 @@ export function fakePrefs(): PrefsState {
 			version: system.semver()
 		},
 		storyListSort: random.arrayElement(['date', 'name']),
+		storyTagColors: {[tags[0]]: 'red', [tags[1]]: 'green', [tags[2]]: 'blue'},
 		stylesheetEditorFontFamily: lorem.words(2),
 		stylesheetEditorFontScale: 1,
 		welcomeSeen: random.boolean()

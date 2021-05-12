@@ -5,6 +5,7 @@ import {updateStory, useStoriesContext, Story} from '../../store/stories';
 import {usePublishing} from '../../store/use-publishing';
 import {StoryListTopBar} from './top-bar/top-bar';
 import {StoryCards} from './story-cards';
+import {UndoableStoriesContextProvider} from '../../store/undoable-stories';
 import {storyFilename} from '../../util/publish';
 import {saveHtml} from '../../util/save-html';
 
@@ -23,18 +24,16 @@ export const StoryListRoute: React.FC = () => {
 
 	return (
 		<div className="story-list-route">
-			<StoryListTopBar />
-			<MainContent title={t('storyList.titleCount', {count: stories.length})}>
-				{stories.length === 0 ? (
-					<p>{t('storyList.noStories')}</p>
-				) : (
-					<StoryCards
-						onPublish={handlePublish}
-						onRename={handleRename}
-						stories={stories}
-					/>
-				)}
-			</MainContent>
+			<UndoableStoriesContextProvider>
+				<StoryListTopBar />
+				<MainContent title={t('storyList.titleCount', {count: stories.length})}>
+					{stories.length === 0 ? (
+						<p>{t('storyList.noStories')}</p>
+					) : (
+						<StoryCards onPublish={handlePublish} onRename={handleRename} />
+					)}
+				</MainContent>
+			</UndoableStoriesContextProvider>
 		</div>
 	);
 };

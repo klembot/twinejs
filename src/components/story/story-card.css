@@ -1,7 +1,38 @@
-.story-card .image-card-image svg,
-.story-import-card .image-card-image svg {
-	height: 100%;
-	width: 100%;
+@import '../../styles/metrics.css';
+
+.story-card .card {
+	padding: 0;
+}
+
+.story-card .card-header,
+.story-card .card-body {
+	padding: var(--grid-size);
+}
+
+.story-card .card-body {
+	padding-bottom: 0;
+}
+
+.story-card .card-header {
+	min-height: calc(0.85 * var(--control-height)); /* Height of <tag-button> */
+	padding-top: 0;
+}
+
+.story-card svg.story-preview,
+.story-import-card svg.story-preview {
+	height: 230px;
+	margin: var(--grid-size);
+}
+
+.story-card .tags .tag-button {
+	display: inline-block;
+	margin-right: var(--grid-size);
+	margin-bottom: var(--grid-size);
+}
+
+.story-card .card-header,
+.story-import-card .card-header {
+	margin-top: var(--grid-size);
 }
 
 @media (prefers-color-scheme: dark) {

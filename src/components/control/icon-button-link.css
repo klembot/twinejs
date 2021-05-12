@@ -30,6 +30,17 @@
 	margin-right: var(--control-inner-padding);
 }
 
+.icon-button.icon-position-end,
+.icon-link.icon-position-end {
+	flex-direction: row-reverse;
+}
+
+.icon-button.icon-position-end:not(icon-only) .icon svg,
+.icon-link.icon-position-end:not(icon-only) .icon svg {
+	margin-left: var(--control-inner-padding);
+	margin-right: 0;
+}
+
 .icon-link {
 	text-decoration: none;
 }
