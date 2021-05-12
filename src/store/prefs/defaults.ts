@@ -25,6 +25,7 @@ export const defaults = (): PrefsState => ({
 		version: '3.2.1'
 	},
 	storyListSort: 'name',
+	storyListTagFilter: [],
 	storyTagColors: {},
 	stylesheetEditorFontFamily: 'var(--font-monospaced)',
 	stylesheetEditorFontScale: 1,

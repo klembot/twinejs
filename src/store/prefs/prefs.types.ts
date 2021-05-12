@@ -9,6 +9,7 @@ export type PrefsAction =
 				| boolean
 				| number
 				| string
+				| string[]
 				| {name: string; version: string}
 				| Record<string, Color>;
 	  }
@@ -73,6 +74,11 @@ export interface PrefsState {
 	 * How the story list should be sorted.
 	 */
 	storyListSort: 'date' | 'name';
+	/**
+	 * What tags the story list should show. This is additive, e.g. acts as
+	 * logical OR, and an empty array equates to showing all stories.
+	 */
+	storyListTagFilter: string[];
 	/**
 	 * Colors for story tags.
 	 */
