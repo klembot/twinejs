@@ -28,7 +28,7 @@
 	"dependencies": {
 		"blob-polyfill": "^1.0.20150320",
 		"browser-saveas": "^1.0.0",
-		"codemirror": "^5.5.0",
+		"codemirror": "^5.58.2",
 		"core-js": "^2.4.0",
 		"fastclick": "^1.0.6",
 		"font-awesome": "^4.3.0",
