@@ -2,22 +2,20 @@ import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import classNames from 'classnames';
 import {IconReplace} from '@tabler/icons';
-import {
-	DialogCard,
-	DialogCardProps
-} from '../../../components/container/dialog-card';
-import {CheckboxButton} from '../../../components/control/checkbox-button';
-import {CodeArea} from '../../../components/control/code-area';
-import {IconButton} from '../../../components/control/icon-button';
+import {DialogCard} from '../components/container/dialog-card';
+import {CheckboxButton} from '../components/control/checkbox-button';
+import {CodeArea} from '../components/control/code-area';
+import {IconButton} from '../components/control/icon-button';
 import {
 	highlightPassagesMatchingSearch,
 	passagesMatchingSearch,
 	replaceInStory,
 	storyWithId,
 	StorySearchFlags
-} from '../../../store/stories';
-import {useUndoableStoriesContext} from '../../../store/undoable-stories';
-import './story-search-dialog.css';
+} from '../store/stories';
+import {useUndoableStoriesContext} from '../store/undoable-stories';
+import {DialogComponentProps} from './dialogs.types';
+import './story-search.css';
 
 // See https://github.com/codemirror/CodeMirror/issues/5444
 
@@ -26,8 +24,7 @@ const ignoreTab: any = {
 	'Shift-Tab': false
 };
 
-export interface StorySearchDialogProps
-	extends Omit<DialogCardProps, 'headerLabel'> {
+export interface StorySearchDialogProps extends DialogComponentProps {
 	storyId: string;
 }
 

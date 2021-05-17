@@ -1,14 +1,14 @@
 import classNames from 'classnames';
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {UndoRedoButtons} from '../../../../components/codemirror/undo-redo-buttons';
-import {ButtonBar} from '../../../../components/container/button-bar';
+import {UndoRedoButtons} from '../../components/codemirror/undo-redo-buttons';
+import {ButtonBar} from '../../components/container/button-bar';
 import {
 	DialogCard,
 	DialogCardProps
-} from '../../../../components/container/dialog-card';
-import {CheckboxButton} from '../../../../components/control/checkbox-button';
-import {AddTagButton, TagButton} from '../../../../components/tag';
+} from '../../components/container/dialog-card';
+import {CheckboxButton} from '../../components/control/checkbox-button';
+import {AddTagButton, TagButton} from '../../components/tag';
 import {
 	addPassageTag,
 	passageWithId,
@@ -18,20 +18,20 @@ import {
 	storyWithId,
 	updatePassage,
 	updateStory
-} from '../../../../store/stories';
-import {useUndoableStoriesContext} from '../../../../store/undoable-stories';
-import {Color} from '../../../../util/color';
-import './passage-dialog.css';
+} from '../../store/stories';
+import {useUndoableStoriesContext} from '../../store/undoable-stories';
+import {Color} from '../../util/color';
 import {PassageText} from './passage-text';
 import {RenamePassageButton} from './rename-passage-button';
+import './passage-edit.css';
 
-export interface PassageEditorCardProps
+export interface PassageEditDialogProps
 	extends Omit<DialogCardProps, 'headerLabel'> {
 	passageId: string;
 	storyId: string;
 }
 
-export const PassageDialog: React.FC<PassageEditorCardProps> = props => {
+export const PassageEditDialog: React.FC<PassageEditDialogProps> = props => {
 	const {passageId, storyId, ...other} = props;
 	const [cmEditor, setCmEditor] = React.useState<CodeMirror.Editor>();
 	const {dispatch, stories} = useUndoableStoriesContext();

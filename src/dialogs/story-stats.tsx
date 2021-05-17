@@ -1,24 +1,17 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import {useTranslation} from 'react-i18next';
-import {
-	DialogCard,
-	DialogCardProps
-} from '../../../components/container/dialog-card';
-import {
-	storyStats,
-	storyWithId,
-	useStoriesContext
-} from '../../../store/stories';
-import './story-stats-dialog.css';
+import {DialogCard} from '../components/container/dialog-card';
+import {storyStats, storyWithId, useStoriesContext} from '../store/stories';
+import {DialogComponentProps} from './dialogs.types';
+import './story-stats.css';
 
 const dateFormatter = new Intl.DateTimeFormat([], {
 	dateStyle: 'full',
 	timeStyle: 'long'
 });
 
-export interface StoryStatsDialogProps
-	extends Omit<DialogCardProps, 'headerLabel'> {
+export interface StoryStatsDialogProps extends DialogComponentProps {
 	storyId: string;
 }
 

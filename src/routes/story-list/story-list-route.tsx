@@ -10,8 +10,9 @@ import {usePrefsContext} from '../../store/prefs';
 import {UndoableStoriesContextProvider} from '../../store/undoable-stories';
 import {storyFilename} from '../../util/publish';
 import {saveHtml} from '../../util/save-html';
+import {DialogsContextProvider} from '../../dialogs';
 
-export const StoryListRoute: React.FC = () => {
+export const InnerStoryListRoute: React.FC = () => {
 	const {dispatch, stories} = useStoriesContext();
 	const {prefs} = usePrefsContext();
 	const {publishStory} = usePublishing();
@@ -43,31 +44,37 @@ export const StoryListRoute: React.FC = () => {
 
 	return (
 		<div className="story-list-route">
-			<UndoableStoriesContextProvider>
-				<StoryListTopBar stories={stories} />
-				<MainContent
-					title={t(
-						prefs.storyListTagFilter.length > 0
-							? 'storyList.taggedTitleCount'
-							: 'storyList.titleCount',
-						{count: visibleStories.length}
+			<StoryListTopBar stories={stories} />
+			<MainContent
+				title={t(
+					prefs.storyListTagFilter.length > 0
+						? 'storyList.taggedTitleCount'
+						: 'storyList.titleCount',
+					{count: visibleStories.length}
+				)}
+			>
+				<div className="stories">
+					{stories.length === 0 ? (
+						<p>{t('storyList.noStories')}</p>
+					) : (
+						<>
+							<StoryCards
+								onPublish={handlePublish}
+								onRename={handleRename}
+								stories={visibleStories}
+							/>
+						</>
 					)}
-				>
-					<div className="stories">
-						{stories.length === 0 ? (
-							<p>{t('storyList.noStories')}</p>
-						) : (
-							<>
-								<StoryCards
-									onPublish={handlePublish}
-									onRename={handleRename}
-									stories={visibleStories}
-								/>
-							</>
-						)}
-					</div>
-				</MainContent>
-			</UndoableStoriesContextProvider>
+				</div>
+			</MainContent>
 		</div>
 	);
 };
+
+export const StoryListRoute: React.FC = () => (
+	<UndoableStoriesContextProvider>
+		<DialogsContextProvider>
+			<InnerStoryListRoute />
+		</DialogsContextProvider>
+	</UndoableStoriesContextProvider>
+);

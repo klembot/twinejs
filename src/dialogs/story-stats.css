@@ -1,4 +1,4 @@
-@import '../../../styles/metrics.css';
+@import '../styles/metrics.css';
 
 .story-stats-dialog .content {
 	padding: var(--grid-size);

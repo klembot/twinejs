@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {IconWriting} from '@tabler/icons';
-import {IconButton} from '../../../../components/control/icon-button';
-import {PromptModal} from '../../../../components/modal/prompt-modal';
-import {updatePassage, Passage, Story} from '../../../../store/stories';
-import {useUndoableStoriesContext} from '../../../../store/undoable-stories';
+import {IconButton} from '../../components/control/icon-button';
+import {PromptModal} from '../../components/modal/prompt-modal';
+import {updatePassage, Passage, Story} from '../../store/stories';
+import {useUndoableStoriesContext} from '../../store/undoable-stories';
 
 export interface RenamePassageButtonProps {
 	passage: Passage;

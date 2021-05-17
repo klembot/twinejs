@@ -1,21 +1,6 @@
 import * as React from 'react';
 import isEqual from 'lodash/isEqual';
-
-export type DialogType =
-	| {type: 'passage'; passageId: string}
-	| {type: 'storyJavaScript'}
-	| {type: 'storySearch'}
-	| {type: 'storyStats'}
-	| {type: 'storyStylesheet'};
-
-export type Dialog = DialogType & {collapsed: boolean};
-
-export type DialogsState = Dialog[];
-
-export type DialogsAction =
-	| {type: 'addDialog'; dialog: DialogType}
-	| {type: 'removeDialog'; index: number}
-	| {type: 'setDialogCollapsed'; collapsed: boolean; index: number};
+import {DialogsAction, DialogsState} from '../dialogs.types';
 
 export const reducer: React.Reducer<DialogsState, DialogsAction> = (
 	state,
@@ -30,8 +15,10 @@ export const reducer: React.Reducer<DialogsState, DialogsAction> = (
 			const editedState = state.map(stateDialog => {
 				if (
 					isEqual(stateDialog, {
-						...action.dialog,
-						collapsed: stateDialog.collapsed
+						// Ignore collapsed property for comparison
+						collapsed: stateDialog.collapsed,
+						component: action.component,
+						props: action.props
 					})
 				) {
 					exists = true;
@@ -45,16 +32,19 @@ export const reducer: React.Reducer<DialogsState, DialogsAction> = (
 				return editedState;
 			}
 
-			return [...state, {...action.dialog, collapsed: false}];
+			return [
+				...state,
+				{component: action.component, collapsed: false, props: action.props}
+			];
 
 		case 'removeDialog':
 			return state.filter((dialog, index) => index !== action.index);
 
 		case 'setDialogCollapsed':
-			return state.map((editor, index) =>
+			return state.map((dialog, index) =>
 				index === action.index
-					? {...editor, collapsed: action.collapsed}
-					: editor
+					? {...dialog, collapsed: action.collapsed}
+					: dialog
 			);
 	}
 };

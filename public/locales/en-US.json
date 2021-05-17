@@ -5,7 +5,7 @@
 		"codeRepo": "Source Code Repository",
 		"license": "This application is released under the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GPL v3 license</a>, but any work created with it may be released under any terms, including commercial ones.",
 		"localizationHeader": "Localizations",
-		"title": "Twine {{version}} (Build {{buildNumber}})",
+		"title": "About Twine {{version}}",
 		"twineDescription": "Twine is an open-source application for telling interactive, nonlinear stories."
 	},
 	"colors": {
@@ -215,6 +215,7 @@
 		"titleCount": "1 Story",
 		"titleCount_0": "No Stories",
 		"titleCount_plural": "{{count}} Stories",
+		"titleGeneric": "Stories",
 		"topBar": {
 			"about": "About Twine",
 			"archive": "Archive",

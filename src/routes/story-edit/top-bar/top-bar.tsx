@@ -27,7 +27,7 @@ export const StoryEditTopBar: React.FC<StoryEditTopBarProps> = props => {
 		<TopBar>
 			<IconButton
 				icon={<IconArrowLeft />}
-				label={t('storyList.title')}
+				label={t('storyList.titleGeneric')}
 				onClick={() => history.push('/')}
 				variant="primary"
 			/>

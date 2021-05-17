@@ -1,34 +1,19 @@
 import {getAppInfo} from '../app-info';
 
 describe('getAppInfo', () => {
-	let root: HTMLElement | null;
-
 	beforeAll(() => {
-		root = document.querySelector('html');
-
-		if (!root) {
-			throw new Error('Could not find <html> element');
-		}
-
-		root.dataset.appName = 'test-app-name';
-		root.dataset.version = '1.2.3';
-		root.dataset.buildNumber = '12345';
+		process.env.REACT_APP_NAME = 'mock-app-name';
+		process.env.REACT_APP_VERSION = '1.2.3';
 	});
 
 	afterAll(() => {
-		if (!root) {
-			throw new Error('Could not find <html> element');
-		}
-
-		root.dataset.appName = undefined;
-		root.dataset.version = undefined;
-		root.dataset.buildNumber = undefined;
+		delete process.env.REACT_APP_NAME;
+		delete process.env.REACT_APP_VERSION;
 	});
 
-	it('reads information from the <html> tag', () =>
+	it('reads information from the environment', () =>
 		expect(getAppInfo()).toEqual({
-			buildNumber: '12345',
-			name: 'test-app-name',
+			name: 'mock-app-name',
 			version: '1.2.3'
 		}));
 });

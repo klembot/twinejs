@@ -1,6 +1,10 @@
 import * as React from 'react';
 import {useParams} from 'react-router-dom';
-import {useDialogsContext, Dialogs, DialogsContextProvider} from './dialogs';
+import {
+	useDialogsContext,
+	DialogsContextProvider,
+	PassageEditDialog
+} from '../../dialogs';
 import {Point, Rect} from '../../util/geometry';
 import {MainContent} from '../../components/container/main-content';
 import {MarqueeSelection} from '../../components/marquee-selection';
@@ -86,9 +90,10 @@ export const InnerStoryEditRoute: React.FC = () => {
 		(passage: Passage) =>
 			dialogsDispatch({
 				type: 'addDialog',
-				dialog: {type: 'passage', passageId: passage.id}
+				component: PassageEditDialog,
+				props: {passageId: passage.id, storyId: story.id}
 			}),
-		[dialogsDispatch]
+		[dialogsDispatch, story.id]
 	);
 
 	const handleDeleteSelectedPassages = React.useCallback(() => {
@@ -106,11 +111,12 @@ export const InnerStoryEditRoute: React.FC = () => {
 				selectedPassages.forEach(passage =>
 					dispatch({
 						type: 'addDialog',
-						dialog: {type: 'passage', passageId: passage.id}
+						component: PassageEditDialog,
+						props: {passageId: passage.id, storyId: story.id}
 					})
 				)
 			),
-		[dialogsDispatch, selectedPassages]
+		[dialogsDispatch, selectedPassages, story.id]
 	);
 
 	const handleTestSelectedPassage = React.useCallback(() => {
@@ -183,7 +189,6 @@ export const InnerStoryEditRoute: React.FC = () => {
 					zoom={story.zoom}
 				/>
 			</MainContent>
-			<Dialogs storyId={storyId} />
 		</div>
 	);
 };
