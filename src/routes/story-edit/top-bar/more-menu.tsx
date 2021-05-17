@@ -12,7 +12,13 @@ import {usePublishing} from '../../../store/use-publishing';
 import {useStoryLaunch} from '../../../store/use-story-launch';
 import {storyFilename} from '../../../util/publish';
 import {saveHtml} from '../../../util/save-html';
-import {useDialogsContext} from '../dialogs';
+import {
+	StoryJavaScriptDialog,
+	StorySearchDialog,
+	StoryStatsDialog,
+	StoryStylesheetDialog,
+	useDialogsContext
+} from '../../../dialogs';
 import {RenameStoryModal} from './rename-story-modal';
 import {SetStoryFormatModal} from './set-story-format-modal';
 
@@ -44,7 +50,8 @@ export const MoreMenu: React.FC<MoreMenuProps> = props => {
 						onClick: () =>
 							dialogsDispatch({
 								type: 'addDialog',
-								dialog: {type: 'storySearch'}
+								component: StorySearchDialog,
+								props: {storyId: story.id}
 							})
 					},
 					{
@@ -69,7 +76,11 @@ export const MoreMenu: React.FC<MoreMenuProps> = props => {
 					{
 						label: t('storyEdit.topBar.storyStats'),
 						onClick: () =>
-							dialogsDispatch({type: 'addDialog', dialog: {type: 'storyStats'}})
+							dialogsDispatch({
+								type: 'addDialog',
+								component: StoryStatsDialog,
+								props: {storyId: story.id}
+							})
 					},
 					{
 						label: t('storyEdit.topBar.proofStory'),
@@ -90,7 +101,8 @@ export const MoreMenu: React.FC<MoreMenuProps> = props => {
 						onClick: () =>
 							dialogsDispatch({
 								type: 'addDialog',
-								dialog: {type: 'storyJavaScript'}
+								component: StoryJavaScriptDialog,
+								props: {storyId: story.id}
 							})
 					},
 					{
@@ -98,7 +110,8 @@ export const MoreMenu: React.FC<MoreMenuProps> = props => {
 						onClick: () =>
 							dialogsDispatch({
 								type: 'addDialog',
-								dialog: {type: 'storyStylesheet'}
+								component: StoryStylesheetDialog,
+								props: {storyId: story.id}
 							})
 					}
 				]}

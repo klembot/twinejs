@@ -1,8 +1,8 @@
 import * as React from 'react';
-import {DialogEditor} from '../../../../components/container/dialog-card';
-import {CodeArea} from '../../../../components/control/code-area';
-import {usePrefsContext} from '../../../../store/prefs';
-import {Passage} from '../../../../store/stories';
+import {DialogEditor} from '../../components/container/dialog-card';
+import {CodeArea} from '../../components/control/code-area';
+import {usePrefsContext} from '../../store/prefs';
+import {Passage} from '../../store/stories';
 
 export interface PassageTextProps {
 	onChange: (value: string) => void;

@@ -1,4 +1,4 @@
-@import '../../../styles/metrics.css';
+@import '../styles/metrics.css';
 
 .story-search-dialog .search-fields {
 	padding: var(--grid-size);

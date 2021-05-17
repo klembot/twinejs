@@ -1,28 +1,20 @@
 import classNames from 'classnames';
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {IndentButtons, UndoRedoButtons} from '../../../components/codemirror';
-import {ButtonBar} from '../../../components/container/button-bar';
-import {
-	DialogCard,
-	DialogCardProps,
-	DialogEditor
-} from '../../../components/container/dialog-card';
-import {CodeArea} from '../../../components/control/code-area';
-import {usePrefsContext} from '../../../store/prefs';
-import {
-	storyWithId,
-	updateStory,
-	useStoriesContext
-} from '../../../store/stories';
-import './story-javascript-dialog.css';
+import {IndentButtons, UndoRedoButtons} from '../components/codemirror';
+import {ButtonBar} from '../components/container/button-bar';
+import {DialogCard, DialogEditor} from '../components/container/dialog-card';
+import {CodeArea} from '../components/control/code-area';
+import {usePrefsContext} from '../store/prefs';
+import {storyWithId, updateStory, useStoriesContext} from '../store/stories';
+import {DialogComponentProps} from './dialogs.types';
+import './story-stylesheet.css';
 
-export interface StoryJavaScriptDialogProps
-	extends Omit<DialogCardProps, 'headerLabel'> {
+export interface StoryStylesheetDialogProps extends DialogComponentProps {
 	storyId: string;
 }
 
-export const StoryJavaScriptDialog: React.FC<StoryJavaScriptDialogProps> = props => {
+export const StoryStylesheetDialog: React.FC<StoryStylesheetDialogProps> = props => {
 	const {storyId, ...other} = props;
 	const [cmEditor, setCmEditor] = React.useState<CodeMirror.Editor>();
 	const {dispatch, stories} = useStoriesContext();
@@ -39,13 +31,13 @@ export const StoryJavaScriptDialog: React.FC<StoryJavaScriptDialogProps> = props
 		text: string
 	) => {
 		setCmEditor(editor);
-		dispatch(updateStory(stories, story, {script: text}));
+		dispatch(updateStory(stories, story, {stylesheet: text}));
 	};
 
 	return (
 		<div className={className}>
-			<DialogCard {...other} headerLabel={t('storyJavaScript.title')}>
-				<p>{t('storyJavaScript.explanation')}</p>
+			<DialogCard {...other} headerLabel={t('storyStylesheet.title')}>
+				<p>{t('storyStylesheet.explanation')}</p>
 				<ButtonBar>
 					<UndoRedoButtons editor={cmEditor} watch={story.script} />
 					<IndentButtons editor={cmEditor} />
@@ -56,8 +48,8 @@ export const StoryJavaScriptDialog: React.FC<StoryJavaScriptDialogProps> = props
 						fontFamily={prefs.javascriptEditorFontFamily}
 						fontScale={prefs.javascriptEditorFontScale}
 						onBeforeChange={handleChange}
-						options={{autofocus: true, mode: 'js'}}
-						value={story.script}
+						options={{autofocus: true, mode: 'css'}}
+						value={story.stylesheet}
 					/>
 				</DialogEditor>
 			</DialogCard>

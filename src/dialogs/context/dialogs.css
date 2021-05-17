@@ -1,5 +1,5 @@
-@import '../../../styles/animations.css';
-@import '../../../styles/metrics.css';
+@import '../../styles/animations.css';
+@import '../../styles/metrics.css';
 
 .dialogs {
 	display: flex;
