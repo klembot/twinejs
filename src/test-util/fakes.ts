@@ -9,7 +9,6 @@ export function fakeAppInfo(props?: Partial<AppInfo>): AppInfo {
 	return {
 		name: lorem.words(1),
 		version: system.semver(),
-		buildNumber: random.number().toString(),
 		...props
 	};
 }

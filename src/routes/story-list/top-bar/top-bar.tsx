@@ -6,6 +6,7 @@ import {TopBar} from '../../../components/container/top-bar';
 import {IconButton} from '../../../components/control/icon-button';
 import {IconLink} from '../../../components/control/icon-link';
 import {MenuButton} from '../../../components/control/menu-button';
+import {AboutTwineDialog, useDialogsContext} from '../../../dialogs';
 import {storyTags, Story} from '../../../store/stories';
 import {ArchiveButton} from './archive-button';
 import {CreateStoryButton} from './create-story-button';
@@ -17,6 +18,7 @@ export interface StoryListTopBarProps {
 }
 
 export const StoryListTopBar: React.FC<StoryListTopBarProps> = props => {
+	const {dispatch} = useDialogsContext();
 	const history = useHistory();
 	const {t} = useTranslation();
 
@@ -53,7 +55,8 @@ export const StoryListTopBar: React.FC<StoryListTopBarProps> = props => {
 					},
 					{
 						label: t('storyList.topBar.about'),
-						onClick: () => history.push('/about')
+						onClick: () =>
+							dispatch({type: 'addDialog', component: AboutTwineDialog})
 					},
 					{
 						label: t('storyList.topBar.reportBug'),
