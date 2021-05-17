@@ -40,6 +40,10 @@ export function deselectPassage(
 	story: Story,
 	passage: Passage
 ): Thunk<StoriesState, UpdatePassageAction> {
+	if (passage.story !== story.id) {
+		throw new Error('This passage does not belong to this story');
+	}
+
 	return dispatch => {
 		if (passage.selected) {
 			dispatch({
@@ -85,6 +89,10 @@ export function selectPassage(
 	passage: Passage,
 	exclusive: boolean
 ): Thunk<StoriesState, UpdatePassagesAction> {
+	if (passage.story !== story.id) {
+		throw new Error('This passage does not belong to this story');
+	}
+
 	return dispatch => {
 		const passageUpdates: Record<string, Partial<Passage>> = {};
 
@@ -124,7 +132,7 @@ export function selectPassagesInRect(
 			const selected = rectIntersects(rect, passage);
 
 			if (passage.selected !== selected) {
-				passageUpdates[passage.id] = {selected: true};
+				passageUpdates[passage.id] = {selected};
 			}
 		});
 
