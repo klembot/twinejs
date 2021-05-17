@@ -215,6 +215,7 @@
 		"titleCount": "1 Story",
 		"titleCount_0": "No Stories",
 		"titleCount_plural": "{{count}} Stories",
+		"titleGeneric": "Stories",
 		"topBar": {
 			"about": "About Twine",
 			"archive": "Archive",

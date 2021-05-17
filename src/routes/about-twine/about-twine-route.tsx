@@ -29,7 +29,7 @@ export const AboutTwineRoute: React.FC = () => {
 				<IconButton
 					icon={<IconArrowLeft />}
 					onClick={() => history.push('/')}
-					label={t('storyList.title')}
+					label={t('storyList.titleGeneric')}
 					variant="primary"
 				/>
 			</TopBar>
