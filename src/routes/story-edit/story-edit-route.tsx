@@ -135,31 +135,30 @@ export const InnerStoryEditRoute: React.FC = () => {
 		[story, undoableStoriesDispatch]
 	);
 
-	function handleSelectRect(rect: Rect, additive: boolean) {
-		// The rect we receive is in screen coordinates--we need to convert to
-		// logical ones.
+	const handleSelectRect = React.useCallback(
+		(rect: Rect, additive: boolean) => {
+			// The rect we receive is in screen coordinates--we need to convert to
+			// logical ones.
 
-		const logicalRect: Rect = {
-			height: rect.height / story.zoom,
-			left: rect.left / story.zoom,
-			top: rect.top / story.zoom,
-			width: rect.width / story.zoom
-		};
+			const logicalRect: Rect = {
+				height: rect.height / story.zoom,
+				left: rect.left / story.zoom,
+				top: rect.top / story.zoom,
+				width: rect.width / story.zoom
+			};
 
-		undoableStoriesDispatch(
-			selectPassagesInRect(
-				story,
-				logicalRect,
-				additive
-					? story.passages.reduce<string[]>(
-							(result, passage) =>
-								passage.selected ? [...result, passage.id] : result,
-							[]
-					  )
-					: []
-			)
-		);
-	}
+			// This should not be undoable.
+
+			undoableStoriesDispatch(
+				selectPassagesInRect(
+					story,
+					logicalRect,
+					additive ? selectedPassages.map(passage => passage.name) : []
+				)
+			);
+		},
+		[selectedPassages, story, undoableStoriesDispatch]
+	);
 
 	// TODO: space bar scrolling
 

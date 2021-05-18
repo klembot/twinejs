@@ -16,22 +16,84 @@ function relativeEventPosition(
 	};
 }
 
+type MarqueeState =
+	| {selecting: false}
+	| {selecting: true; additive: boolean; start: Point; current: Point};
+
+type MarqueeAction =
+	| {
+			type: 'startSelection';
+			start: Point;
+			additive: boolean;
+	  }
+	| {
+			type: 'changeSelection';
+			current: Point;
+	  }
+	| {type: 'endSelection'};
+
+function marqueeReducer(
+	state: MarqueeState,
+	action: MarqueeAction
+): MarqueeState {
+	// The side effect with onSelectRect is not best practice, but it avoids
+	// having to add a useEffect() in the component.
+
+	switch (action.type) {
+		case 'startSelection':
+			return {
+				selecting: true,
+				additive: action.additive,
+				start: action.start,
+				current: action.start
+			};
+
+		case 'changeSelection':
+			if (!state.selecting) {
+				console.warn(
+					'Marquee reducer received a changeSelection action, but it is not currently selecting; ignoring'
+				);
+				return state;
+			}
+			return {...state, current: action.current};
+
+		case 'endSelection':
+			return {selecting: false};
+	}
+}
+
 export interface MarqueeSelectionProps {
+	/**
+	 * Container DOM element to attach events to.
+	 */
 	container: React.RefObject<HTMLElement>;
+	/**
+	 * Ignores click events on any element matching this selector. This is so that
+	 * drags beginning on a passage card can be ignored.
+	 */
 	ignoreEventsOnSelector?: string;
+	/**
+	 * Callback for when selection occurs.
+	 */
 	onSelectRect: (rect: Rect, additive: boolean) => void;
 }
 
 export const MarqueeSelection: React.FC<MarqueeSelectionProps> = props => {
 	const {container, ignoreEventsOnSelector, onSelectRect} = props;
-	const [selecting, setSelecting] = React.useState(false);
-	const [additive, setAdditive] = React.useState(false);
-	const [start, setStart] = React.useState<Point>({left: 0, top: 0});
-	const [current, setCurrent] = React.useState<Point>({left: 0, top: 0});
+	const [state, dispatch] = React.useReducer(marqueeReducer, {
+		selecting: false
+	});
 
 	// Listener for the beginning of a selection.
 
 	React.useEffect(() => {
+		// This component only works in mouse-enabled environments. It would otherwise
+		// block the ability to scroll with a touch.
+
+		if (deviceType === 'touchOnly') {
+			return;
+		}
+
 		if (container.current) {
 			const currentContainer = container.current;
 			const handleMouseDown = (event: MouseEvent) => {
@@ -41,11 +103,11 @@ export const MarqueeSelection: React.FC<MarqueeSelectionProps> = props => {
 					}
 				}
 
-				setAdditive(event.shiftKey || event.ctrlKey);
-				setSelecting(true);
-				setStart(relativeEventPosition(event, currentContainer));
-				setCurrent(relativeEventPosition(event, currentContainer));
-				onSelectRect(rectFromPoints(start, current), additive);
+				const additive = event.shiftKey || event.ctrlKey;
+				const start = relativeEventPosition(event, currentContainer);
+
+				dispatch({type: 'startSelection', additive, start});
+				onSelectRect({...start, height: 0, width: 0}, additive);
 			};
 
 			currentContainer.addEventListener('mousedown', handleMouseDown);
@@ -53,51 +115,44 @@ export const MarqueeSelection: React.FC<MarqueeSelectionProps> = props => {
 			return () =>
 				currentContainer.removeEventListener('mousedown', handleMouseDown);
 		}
-	}, [
-		additive,
-		container,
-		current,
-		ignoreEventsOnSelector,
-		onSelectRect,
-		start
-	]);
+	}, [container, ignoreEventsOnSelector, onSelectRect]);
 
 	// Listeners while the selection is taking place.
 
 	React.useEffect(() => {
-		if (selecting) {
-			if (container.current) {
-				const currentContainer = container.current;
-				const handleMouseMove = (event: MouseEvent) => {
-					setCurrent(relativeEventPosition(event, currentContainer));
-					onSelectRect(rectFromPoints(start, current), additive);
-				};
-				const handleMouseUp = () => {
-					setSelecting(false);
-					cleanUp();
-				};
-				const cleanUp = () => {
-					window.removeEventListener('mousemove', handleMouseMove);
-					window.removeEventListener('mouseup', handleMouseUp);
-					document.body.classList.remove('marquee-selecting');
-				};
+		if (state.selecting && container.current) {
+			const currentContainer = container.current;
+			const handleMouseMove = (event: MouseEvent) => {
+				const current = relativeEventPosition(event, currentContainer);
 
-				window.addEventListener('mousemove', handleMouseMove);
-				window.addEventListener('mouseup', handleMouseUp);
-				document.body.classList.add('marquee-selecting');
-				return cleanUp;
-			}
+				dispatch({type: 'changeSelection', current});
+				onSelectRect(rectFromPoints(state.start, current), state.additive);
+			};
+			const handleMouseUp = () => {
+				dispatch({type: 'endSelection'});
+				cleanUp();
+			};
+			const cleanUp = () => {
+				window.removeEventListener('mousemove', handleMouseMove);
+				window.removeEventListener('mouseup', handleMouseUp);
+				document.body.classList.remove('marquee-selecting');
+			};
+
+			window.addEventListener('mousemove', handleMouseMove);
+			window.addEventListener('mouseup', handleMouseUp);
+			document.body.classList.add('marquee-selecting');
+			return cleanUp;
 		}
-	}, [additive, container, current, onSelectRect, selecting, start]);
+	}, [container, onSelectRect, state]);
 
-	// This component only works in mouse-enabled environments. It would otherwise
-	// block the ability to scroll with a touch.
-
-	if (!selecting || deviceType === 'touchOnly') {
+	if (!state.selecting || deviceType === 'touchOnly') {
 		return null;
 	}
 
 	return (
-		<div className="marquee-selection" style={rectFromPoints(start, current)} />
+		<div
+			className="marquee-selection"
+			style={rectFromPoints(state.start, state.current)}
+		/>
 	);
 };
