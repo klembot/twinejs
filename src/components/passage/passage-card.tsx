@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {DraggableCore, DraggableCoreProps} from 'react-draggable';
 import classNames from 'classnames';
-import {Card, CardBody, CardHeader} from '../container/card';
+import {Card, CardContent} from '../container/card';
 import {Passage, TagColors} from '../../store/stories';
 import {TagStripe} from '../tag/tag-stripe';
 import './passage-card.css';
@@ -85,11 +85,9 @@ export const PassageCard: React.FC<PassageCardProps> = React.memo(props => {
 				style={style}
 			>
 				<Card highlighted={passage.highlighted} selected={passage.selected}>
-					<CardHeader>
-						<TagStripe tagColors={tagColors} tags={passage.tags} />
-						{passage.name}
-					</CardHeader>
-					<CardBody>{excerpt}</CardBody>
+					<TagStripe tagColors={tagColors} tags={passage.tags} />
+					<h2>{passage.name}</h2>
+					<CardContent>{excerpt}</CardContent>
 				</Card>
 			</div>
 		</DraggableCore>

@@ -1,0 +1,13 @@
+@import '../../../styles/metrics.css';
+
+.card-content {
+	padding: var(--grid-size);
+}
+
+.card-content > :first-child {
+	margin-top: 0;
+}
+
+.card-content > :last-child {
+	margin-bottom: 0;
+}

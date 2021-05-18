@@ -2,9 +2,8 @@ import * as React from 'react';
 import {Story} from '@storybook/react';
 import {IconCheck} from '@tabler/icons';
 import {Card, CardProps} from '../card';
-import {CardFooter} from '../card-footer';
-import {CardBody} from '../card-body';
-import {CardHeader} from '../card-header';
+import {ButtonBar} from '../../button-bar';
+import {CardContent} from '../card-content';
 import {IconButton} from '../../../control/icon-button';
 
 const main = {
@@ -40,8 +39,8 @@ const HeaderAndBodyTemplate: Story<CardArgs> = props => {
 	return (
 		<div style={{height, width}}>
 			<Card {...other}>
-				<CardHeader>Header</CardHeader>
-				<CardBody>Body</CardBody>
+				<h2>Header</h2>
+				<CardContent>Body</CardContent>
 			</Card>
 		</div>
 	);
@@ -55,12 +54,11 @@ const HeaderBodyFooterTemplate: Story<CardArgs> = props => {
 	return (
 		<div style={{height, width}}>
 			<Card {...other}>
-				<CardHeader>Header</CardHeader>
-				<CardBody>Body</CardBody>
-				<CardFooter>
-					Text
+				<h2>Header</h2>
+				<CardContent>Body</CardContent>
+				<ButtonBar>
 					<IconButton icon={<IconCheck />} label="OK" variant="primary" />
-				</CardFooter>
+				</ButtonBar>
 			</Card>
 		</div>
 	);

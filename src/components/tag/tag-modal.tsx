@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {IconCheck, IconX} from '@tabler/icons';
-import {Card, CardFooter, CardBody, CardHeader} from '../container/card';
+import {ButtonBar} from '../container/button-bar';
+import {Card, CardContent} from '../container/card';
 import {ColorSelect} from '../control/color-select';
 import {IconButton} from '../control/icon-button';
 import {TextInput} from '../control/text-input';
@@ -40,8 +41,8 @@ export const TagModal: React.FC<TagModalProps> = props => {
 		<Modal {...otherProps}>
 			<div className="tag-modal">
 				<Card>
-					<CardHeader>{message}</CardHeader>
-					<CardBody>
+					<h2>{message}</h2>
+					<CardContent>
 						<p>{detail}</p>
 						<div className="controls">
 							<TextInput
@@ -56,8 +57,8 @@ export const TagModal: React.FC<TagModalProps> = props => {
 								value={color}
 							/>
 						</div>
-					</CardBody>
-					<CardFooter>
+					</CardContent>
+					<ButtonBar>
 						<IconButton
 							icon={<IconX />}
 							label={t('common.cancel')}
@@ -69,7 +70,7 @@ export const TagModal: React.FC<TagModalProps> = props => {
 							onClick={onSubmit}
 							variant="primary"
 						/>
-					</CardFooter>
+					</ButtonBar>
 				</Card>
 			</div>
 		</Modal>

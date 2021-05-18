@@ -2,8 +2,6 @@ import {IconDeviceFloppy, IconHelp, IconMoodSmile} from '@tabler/icons';
 import {IconTwine} from '../../components/image/icon';
 import {isElectronRenderer} from '../../util/is-electron';
 
-// TODO: fix icon appearance
-
 export const content = () => [
 	{
 		html: 'welcome.greeting',

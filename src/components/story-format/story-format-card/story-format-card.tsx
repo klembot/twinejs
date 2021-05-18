@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {IconAlertTriangle} from '@tabler/icons';
-import {CardBody, CardHeader} from '../../container/card';
+import {CardContent} from '../../container/card';
 import {ImageCard} from '../../container/image-card';
 import {IconButton} from '../../control/icon-button';
 import {IconLoading} from '../../image/icon';
@@ -40,15 +40,15 @@ export const StoryFormatCard: React.FC<StoryFormatCardProps> = props => {
 	return (
 		<div className="story-format-card">
 			<ImageCard image={image} selected={selected}>
-				<CardHeader>
+				<h2>
 					{t('components.storyFormatCard.name', {
 						name: format.name,
 						version: format.version
 					})}
-				</CardHeader>
-				<CardBody>
+				</h2>
+				<CardContent>
 					<StoryFormatCardDetails format={format} />
-				</CardBody>
+				</CardContent>
 				<StoryFormatCardActions
 					format={format}
 					onSelect={onSelect}

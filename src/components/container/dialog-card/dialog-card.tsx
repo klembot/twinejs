@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {IconChevronDown, IconChevronUp, IconX} from '@tabler/icons';
-import {Card, CardBody, CardHeader} from '../card';
+import {Card, CardContent} from '../card';
 import {IconButton} from '../../control/icon-button';
 import './dialog-card.css';
 
@@ -19,7 +19,7 @@ export const DialogCard: React.FC<DialogCardProps> = props => {
 	return (
 		<div className="dialog-card">
 			<Card floating>
-				<CardHeader>
+				<h2>
 					<div className="dialog-card-header">
 						<IconButton
 							icon={collapsed ? <IconChevronUp /> : <IconChevronDown />}
@@ -35,8 +35,8 @@ export const DialogCard: React.FC<DialogCardProps> = props => {
 							onClick={onClose}
 						/>
 					</div>
-				</CardHeader>
-				{!collapsed && <CardBody>{children}</CardBody>}
+				</h2>
+				{!collapsed && <CardContent>{children}</CardContent>}
 			</Card>
 		</div>
 	);

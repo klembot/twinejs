@@ -46,7 +46,7 @@ export const AboutTwineDialog: React.FC<DialogComponentProps> = props => {
 					</div>
 					<div className="credits">
 						<div className="code">
-							<h2>{t('aboutTwine.codeHeader')}</h2>
+							<h3>{t('aboutTwine.codeHeader')}</h3>
 							<ul>
 								{credits.code.map(c => (
 									<li key={c}>{c}</li>
@@ -54,7 +54,7 @@ export const AboutTwineDialog: React.FC<DialogComponentProps> = props => {
 							</ul>
 						</div>
 						<div className="localizations">
-							<h2>{t('aboutTwine.localizationHeader')}</h2>
+							<h3>{t('aboutTwine.localizationHeader')}</h3>
 							<ul>
 								{credits.localizations.map(c => (
 									<li key={c}>{c}</li>

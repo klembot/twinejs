@@ -4,17 +4,18 @@ export const IconTwine: React.FC = () => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		xmlnsXlink="http://www.w3.org/1999/xlink"
+		viewBox="0 0 1200 1200"
 		width="1200"
 		height="1200"
 	>
 		<defs>
 			<linearGradient id="b">
-				<stop offset="0" stop-color="#127aee" />
-				<stop offset="1" stop-color="#117aef" stop-opacity=".251" />
+				<stop offset="0" stopColor="#127aee" />
+				<stop offset="1" stopColor="#117aef" stopOpacity=".251" />
 			</linearGradient>
 			<linearGradient id="a">
-				<stop offset="0" stop-color="#10f05e" stop-opacity=".251" />
-				<stop offset="1" stop-color="#10f05e" />
+				<stop offset="0" stopColor="#10f05e" stopOpacity=".251" />
+				<stop offset="1" stopColor="#10f05e" />
 			</linearGradient>
 			<linearGradient
 				xlinkHref="#a"
