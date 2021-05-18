@@ -20,13 +20,11 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
 			disabled,
 			icon,
 			iconOnly,
-			iconPosition,
+			iconPosition = 'start',
 			onClick,
 			preventDefault,
-			variant
+			variant = 'secondary'
 		} = props;
-
-		// TODO: don't add classes for undefined position/variant
 
 		const className = classNames(
 			'icon-button',
