@@ -18,6 +18,24 @@
 	position: relative;
 }
 
+.color-select > label > .control::after {
+	background: url('~@tabler/icons/icons/chevron-down.svg');
+	background-position: center;
+	content: '';
+	opacity: 0.25; /* trying to make it match border */
+	position: absolute;
+	top: 0;
+	right: calc(var(--grid-size) / 2);
+	bottom: 0;
+	width: 20px;
+}
+
+@media (prefers-color-scheme: dark) {
+	.color-select > label > .control::after {
+		filter: invert();
+	}
+}
+
 .color-select > label > .control > .proxy {
 	align-items: center;
 	bottom: 0;
@@ -69,11 +87,9 @@
 	stroke: var(--purple);
 }
 
-/* TODO: fix appearance in dark mode */
-
 .color-select > label > .control > select {
 	-webkit-appearance: none;
-	background: var(--white) url('~@tabler/icons/icons/chevron-down.svg');
+	background-color: var(--white);
 	background-position: center right;
 	background-repeat: no-repeat;
 	border: none;

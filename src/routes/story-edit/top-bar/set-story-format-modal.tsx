@@ -19,6 +19,8 @@ import {
 	useStoryFormatsContext
 } from '../../../store/story-formats';
 
+// TODO make this a dialog, use <MenuButton>
+
 function tryToGetStoryFormat(story: Story, formats: StoryFormat[]) {
 	try {
 		return formatWithNameAndVersion(
