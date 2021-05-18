@@ -5,6 +5,8 @@ import {IconCircle} from '@tabler/icons';
 import {colors, Color} from '../../util/color';
 import './color-select.css';
 
+// TODO make this use <MenuButton>
+
 export interface ColorSelectProps {
 	label: string;
 	onChange: (value: Color) => void;
