@@ -20,11 +20,17 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - name: Check out source code
+        uses: actions/checkout@v2
+      - name: Set up Node
+        uses: actions/setup-node@v1
       - name: Install
         run: npm install
       - name: Test
-        run: npm run test
+        run: npm run test:coverage
       - name: Lint
         run: npm run lint
+      - name: Report test coverage
+        uses: romeovs/lcov-reporter-action@v0.2.16
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}

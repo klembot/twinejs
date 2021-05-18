@@ -107,7 +107,7 @@
 		"start:electron-prod": "NODE_ENV=development npm-run-all --serial clean --parallel build:web build:electron-main --serial start:electron-prod-boot",
 		"start:electron-prod-boot": "electron electron-build/main/src/electron/index.js",
 		"test": "react-scripts test",
-		"test:coverage": "react-scripts test --coverage --watchAll",
+		"test:coverage": "react-scripts test --coverage --collectCoverageFrom=\"src/**/*.{ts,tsx}\"",
 		"storybook": "start-storybook -p 6006 -s public",
 		"build-storybook": "build-storybook -s public"
 	},
