@@ -16,8 +16,6 @@ export const AboutTwineDialog: React.FC<DialogComponentProps> = props => {
 		collapsed: props.collapsed
 	});
 
-	// TODO: make this look nicer
-
 	return (
 		<div className={className}>
 			<DialogCard
