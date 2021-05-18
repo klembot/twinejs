@@ -2,12 +2,8 @@ import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {IconCheck, IconX} from '@tabler/icons';
 import {Modal} from '../../../components/modal/modal';
-import {
-	Card,
-	CardBody,
-	CardFooter,
-	CardHeader
-} from '../../../components/container/card';
+import {ButtonBar} from '../../../components/container/button-bar';
+import {Card, CardContent} from '../../../components/container/card';
 import {IconButton} from '../../../components/control/icon-button';
 import {TextSelect} from '../../../components/control/text-select';
 import {FormatLoader} from '../../../store/format-loader';
@@ -80,8 +76,8 @@ export const SetStoryFormatModal: React.FC<SetStoryModalProps> = props => {
 		<Modal isOpen={open}>
 			<div className="set-story-format-modal">
 				<Card>
-					<CardHeader>{t('storyEdit.topBar.setStoryFormatPrompt')}</CardHeader>
-					<CardBody>
+					<h2>{t('storyEdit.topBar.setStoryFormatPrompt')}</h2>
+					<CardContent>
 						<FormatLoader block>
 							<TextSelect
 								options={availableFormats.map(format => ({
@@ -92,8 +88,8 @@ export const SetStoryFormatModal: React.FC<SetStoryModalProps> = props => {
 								value={newFormat ? newFormat.id : ''}
 							/>
 						</FormatLoader>
-					</CardBody>
-					<CardFooter>
+					</CardContent>
+					<ButtonBar>
 						<IconButton
 							icon={<IconX />}
 							label={t('common.cancel')}
@@ -106,7 +102,7 @@ export const SetStoryFormatModal: React.FC<SetStoryModalProps> = props => {
 							onClick={handleSubmit}
 							variant="primary"
 						/>
-					</CardFooter>
+					</ButtonBar>
 				</Card>
 			</div>
 		</Modal>

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {IconArrowRight, IconArrowBarToRight} from '@tabler/icons';
-import {CardFooter, CardBody, CardHeader, CardProps} from '../container/card';
-import {ImageCard} from '../container/image-card';
+import {ButtonBar} from '../container/button-bar';
+import {Card, CardContent, CardProps} from '../container/card';
 import {IconButton} from '../control/icon-button';
 import './welcome-card.css';
 
@@ -30,10 +30,19 @@ export const WelcomeCard: React.FC<WelcomeCardProps> = props => {
 
 	return (
 		<div className="welcome-card">
-			<ImageCard image={image} {...otherProps}>
-				<CardHeader>{title}</CardHeader>
-				<CardBody>{children}</CardBody>
-				<CardFooter>
+			<Card {...otherProps}>
+				<div className="welcome-card-image">{image}</div>
+				<CardContent>
+					<h2>{title}</h2>
+					{children}
+				</CardContent>
+				<ButtonBar>
+					<IconButton
+						icon={<IconArrowRight />}
+						variant="primary"
+						onClick={onNext}
+						label={nextLabel}
+					/>
 					{showSkip && (
 						<IconButton
 							icon={<IconArrowBarToRight />}
@@ -41,14 +50,8 @@ export const WelcomeCard: React.FC<WelcomeCardProps> = props => {
 							onClick={onSkip}
 						/>
 					)}
-					<IconButton
-						icon={<IconArrowRight />}
-						variant="primary"
-						onClick={onNext}
-						label={nextLabel}
-					/>
-				</CardFooter>
-			</ImageCard>
+				</ButtonBar>
+			</Card>
 		</div>
 	);
 };

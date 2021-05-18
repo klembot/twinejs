@@ -10,7 +10,6 @@
 	flex-direction: column;
 	height: 100%;
 	overflow: hidden;
-	padding: var(--grid-size);
 	width: 100%;
 }
 
@@ -26,4 +25,12 @@
 .card.selected {
 	background: var(--light-blue);
 	box-shadow: var(--shadow-small), inset 0 0 0 1px var(--blue);
+}
+
+.card h2 {
+	font: bold 120% var(--font-system);
+}
+
+.card h3 {
+	font: bold 100% var(--font-system);
 }

@@ -10,16 +10,16 @@
 	padding: 0;
 }
 
-.dialog-card .card-header {
+.dialog-card h2 {
 	align-items: center;
 	display: flex;
 }
 
-.dialog-card .card-header .dialog-card-header {
+.dialog-card h2 .dialog-card-header {
 	flex-grow: 1;
 }
 
-.dialog-card .card-header .dialog-card-header .icon-button {
+.dialog-card h2 .dialog-card-header .icon-button {
 	font-weight: bold;
 	width: 100%;
 }

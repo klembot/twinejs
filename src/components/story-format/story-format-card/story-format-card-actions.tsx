@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {IconCheck, IconTrash} from '@tabler/icons';
-import {CardFooter} from '../../container/card/card-footer';
+import {ButtonBar} from '../../container/button-bar';
 import {IconButton} from '../../control/icon-button';
 import {StoryFormat} from '../../../store/story-formats';
 
@@ -23,7 +23,7 @@ export const StoryFormatCardActions: React.FC<StoryFormatCardActionsProps> = pro
 	}
 
 	return (
-		<CardFooter>
+		<ButtonBar>
 			{format.userAdded && (
 				<IconButton
 					icon={<IconTrash />}
@@ -43,6 +43,6 @@ export const StoryFormatCardActions: React.FC<StoryFormatCardActionsProps> = pro
 					variant="primary"
 				/>
 			)}
-		</CardFooter>
+		</ButtonBar>
 	);
 };

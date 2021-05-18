@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {CardFooter, CardBody, CardHeader, CardProps} from '../container/card';
+import {ButtonBar} from '../container/button-bar';
+import {CardContent, CardProps} from '../container/card';
 import {ImageCard} from '../container/image-card';
 import {CheckboxButton} from '../control/checkbox-button';
 import {StoryPreview} from './story-preview';
@@ -28,8 +29,8 @@ export const StoryImportCard: React.FC<StoryImportCardProps> = props => {
 				image={<StoryPreview story={story} />}
 				{...otherProps}
 			>
-				<CardHeader>{story.name}</CardHeader>
-				<CardBody>
+				<h2>{story.name}</h2>
+				<CardContent>
 					<p>
 						{t('components.storyCard.lastUpdated', {
 							date: dateFormatter.format(story.lastUpdate)
@@ -39,15 +40,15 @@ export const StoryImportCard: React.FC<StoryImportCardProps> = props => {
 							count: story.passages.length
 						})}
 					</p>
-				</CardBody>
-				<CardFooter>
+				</CardContent>
+				<ButtonBar>
 					<CheckboxButton
 						label={t('storyImport.importThisStory')}
 						onChange={() => onChangeSelect(!selected)}
 						value={selected}
 						variant="primary"
 					/>
-				</CardFooter>
+				</ButtonBar>
 			</ImageCard>
 		</div>
 	);

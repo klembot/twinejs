@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {IconDots, IconEdit, IconPlayerPlay} from '@tabler/icons';
-import {Card, CardBody, CardHeader, CardProps} from '../container/card';
+import {Card, CardContent, CardProps} from '../container/card';
 import {ButtonBar} from '../container/button-bar';
 import {MenuButton} from '../control/menu-button';
 import {IconButton} from '../control/icon-button';
@@ -49,8 +49,8 @@ export const StoryCard: React.FC<StoryCardProps> = props => {
 		<div className="story-card">
 			<Card {...otherProps}>
 				<StoryPreview story={story} />
-				<CardHeader>{story.name}</CardHeader>
-				<CardBody>
+				<CardContent>
+					<h2>{story.name}</h2>
 					<p>
 						{t('components.storyCard.lastUpdated', {
 							date: dateFormatter.format(story.lastUpdate)
@@ -75,7 +75,7 @@ export const StoryCard: React.FC<StoryCardProps> = props => {
 							))}
 						</div>
 					)}
-				</CardBody>
+				</CardContent>
 				<ButtonBar>
 					<IconButton
 						icon={<IconEdit />}

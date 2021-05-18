@@ -1,12 +1,38 @@
-.welcome-card .image-card-image {
-	align-items: flex-start;
-	display: flex;
-	justify-content: center;
-	margin-left: var(--grid-size);
-	margin-top: var(--grid-size);
+@import '../../styles/metrics.css';
+
+.welcome-card .card {
+	display: grid;
+	grid:
+		'image content'
+		'buttons buttons';
+	grid-template-columns: 200px 1fr;
 }
 
-.welcome-card .image-card-image img {
+.welcome-card .welcome-card-image {
+	align-self: center;
+	grid-area: image;
+}
+
+.welcome-card .welcome-card-image .icon-tabler {
+	stroke: var(--gray);
+	stroke-width: 1;
+}
+
+.welcome-card .card-content {
+	align-self: center;
+	grid-area: content;
+}
+
+.welcome-card .button-bar {
+	grid-area: buttons;
+}
+
+.welcome-card .card-content p:last-child {
+	/* Needed because we nest. */
+	margin-bottom: 0;
+}
+
+.welcome-card .welcome-card-image svg {
 	height: auto;
-	width: 100%;
+	width: 200px;
 }

@@ -12,7 +12,11 @@
 	padding: calc(var(--grid-size) / 2);
 }
 
-.passage-card .card-header {
+.passage-card .card-content {
+	padding: 0;
+}
+
+.passage-card h2 {
 	color: var(--black);
 	font-size: 100%;
 	font-weight: normal;

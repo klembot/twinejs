@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {IconCheck, IconX} from '@tabler/icons';
-import {Card, CardFooter, CardBody, CardHeader} from '../container/card';
+import {ButtonBar} from '../container/button-bar';
+import {Card, CardContent} from '../container/card';
 import {IconButton, IconButtonProps} from '../control/icon-button';
 import {Modal, ModalProps} from './modal';
 import './confirm-modal.css';
@@ -33,9 +34,9 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = props => {
 		<Modal {...otherProps}>
 			<div className="confirm-modal">
 				<Card>
-					<CardHeader>{message}</CardHeader>
-					<CardBody>{detail}</CardBody>
-					<CardFooter>
+					<h2>{message}</h2>
+					<CardContent>{detail}</CardContent>
+					<ButtonBar>
 						<IconButton
 							icon={<IconX />}
 							label={t('common.cancel')}
@@ -48,7 +49,7 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = props => {
 							onClick={onConfirm}
 							{...confirmButtonProps}
 						/>
-					</CardFooter>
+					</ButtonBar>
 				</Card>
 			</div>
 		</Modal>

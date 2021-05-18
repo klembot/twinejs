@@ -1,14 +1,12 @@
 import * as React from 'react';
-import {useHistory} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
+import {useHistory} from 'react-router-dom';
+import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import scroll from 'scroll';
-import {CardGroup} from '../../components/container/card-group';
 import {WelcomeCard} from '../../components/welcome/welcome-card';
 import {setPref, usePrefsContext} from '../../store/prefs';
 import {content} from './content';
 import './welcome-route.css';
-
-// TODO: images don't look good
 
 export const WelcomeRoute = () => {
 	const containerEl = React.useRef<HTMLDivElement>(null);
@@ -47,21 +45,26 @@ export const WelcomeRoute = () => {
 
 	return (
 		<div className="welcome-route" ref={containerEl}>
-			<CardGroup columns={1} maxWidth="45em">
-				{visibleCards.map((card, index) => (
-					<WelcomeCard
-						key={card.title}
-						image={card.image}
-						nextLabel={card.nextLabel ? t(card.nextLabel) : t('common.next')}
-						onNext={index === allCards.length - 1 ? finish : showNext}
-						onSkip={finish}
-						showSkip={index === 0}
-						title={t(card.title)}
-					>
-						<div dangerouslySetInnerHTML={{__html: t(card.html)}} />
-					</WelcomeCard>
-				))}
-			</CardGroup>
+			<div className="cards">
+				<TransitionGroup component={null}>
+					{visibleCards.map((card, index) => (
+						<CSSTransition classNames="pop" key={card.title} timeout={200}>
+							<WelcomeCard
+								image={card.image}
+								nextLabel={
+									card.nextLabel ? t(card.nextLabel) : t('common.next')
+								}
+								onNext={index === allCards.length - 1 ? finish : showNext}
+								onSkip={finish}
+								showSkip={index === 0}
+								title={t(card.title)}
+							>
+								<div dangerouslySetInnerHTML={{__html: t(card.html)}} />
+							</WelcomeCard>
+						</CSSTransition>
+					))}
+				</TransitionGroup>
+			</div>
 		</div>
 	);
 };
