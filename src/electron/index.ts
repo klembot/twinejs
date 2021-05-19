@@ -13,11 +13,9 @@ let mainWindow: BrowserWindow | null;
 async function createWindow() {
 	const screenSize = screen.getPrimaryDisplay().workAreaSize;
 
-	// TODO: choose better window dimensions
-
 	mainWindow = new BrowserWindow({
-		height: screenSize.height * 1,
-		width: screenSize.width * 1,
+		height: Math.round(screenSize.height * 0.9),
+		width: Math.round(screenSize.width * 0.9),
 		show: false,
 		webPreferences: {
 			// See preload.ts for why context isolation is disabled.
@@ -45,7 +43,10 @@ async function createWindow() {
 
 	mainWindow.once('ready-to-show', () => {
 		mainWindow!.show();
-		mainWindow!.webContents.openDevTools();
+
+		if (!app.isPackaged) {
+			mainWindow!.webContents.openDevTools();
+		}
 	});
 	mainWindow.on('closed', () => (mainWindow = null));
 	mainWindow.webContents.setWindowOpenHandler(({url}) => {
