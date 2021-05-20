@@ -1,5 +1,5 @@
 import {Thunk} from 'react-hook-thunk-reducer';
-import {Rect, rectIntersects} from '../../../util/geometry';
+import {Rect, rectsIntersect} from '../../../util/geometry';
 import {
 	Passage,
 	StoriesState,
@@ -129,7 +129,7 @@ export function selectPassagesInRect(
 				return;
 			}
 
-			const selected = rectIntersects(rect, passage);
+			const selected = rectsIntersect(rect, passage);
 
 			if (passage.selected !== selected) {
 				passageUpdates[passage.id] = {selected};
