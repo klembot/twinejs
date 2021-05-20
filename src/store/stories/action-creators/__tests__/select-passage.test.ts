@@ -7,7 +7,7 @@ import {
 } from '../select-passage';
 import {Story} from '../../stories.types';
 import {fakeStory} from '../../../../test-util/fakes';
-import {rectIntersects, Rect} from '../../../../util/geometry';
+import {rectsIntersect, Rect} from '../../../../util/geometry';
 
 jest.mock('../../../../util/geometry');
 
@@ -222,7 +222,7 @@ describe('selectPassagesInRect', () => {
 		story.passages[0].selected = false;
 		story.passages[1].selected = true;
 		story.passages[2].selected = false;
-		rectIntersectsMock = rectIntersects as jest.Mock;
+		rectIntersectsMock = rectsIntersect as jest.Mock;
 
 		// This takes a shortcut because we know that r2 will always be the passage,
 		// not the rectangle being compared.

@@ -1,5 +1,6 @@
 import {passageDefaults} from '../defaults';
 import {CreatePassageAction, Story} from '../stories.types';
+import {rectsIntersect} from '../../../util/geometry';
 
 /**
  * Creates a new, untitled passage centered at a point in the story. This
@@ -11,17 +12,24 @@ export function createUntitledPassage(
 	centerX: number,
 	centerY: number
 ): CreatePassageAction {
-	let passageName = passageDefaults.name;
+	if (!Number.isFinite(centerX) || !Number.isFinite(centerY)) {
+		throw new Error('Center must be a finite coordinate pair');
+	}
+
+	const defs = passageDefaults();
+	let passageName = defs.name;
 
 	// If a passage already exists with that name, add a number and keep
 	// incrementing until we get a unique one.
 
-	if (story.passages.some(p => p.name === passageName)) {
+	if (story.passages.some(passage => passage.name === passageName)) {
 		let suffix = 1;
 
 		while (
-			// eslint-disable-next-line no-loop-func
-			story.passages.some(p => p.name === passageName + ' ' + suffix)
+			story.passages.some(
+				// eslint-disable-next-line no-loop-func
+				passage => passage.name === passageName + ' ' + suffix
+			)
 		) {
 			suffix++;
 		}
@@ -29,17 +37,66 @@ export function createUntitledPassage(
 		passageName += ' ' + suffix;
 	}
 
-	// Center it at the position requested. TODO: move it so it doesn't overlap
-	// another passage.
+	// Center it at the position requested, but move it outward until no overlaps are found.
+
+	const gridSize = 25;
+	const bounds = {
+		height: defs.height,
+		left: Math.max(centerX - defs.width / 2, 0),
+		top: Math.max(centerY - defs.height / 2, 0),
+		width: defs.width
+	};
+
+	if (story.snapToGrid) {
+		bounds.left = Math.round(bounds.left / gridSize) * gridSize;
+		bounds.top = Math.round(bounds.top / gridSize) * gridSize;
+	}
+
+	const needsMoving = () =>
+		story.passages.some(passage => rectsIntersect(passage, bounds));
+
+	while (needsMoving()) {
+		// Try rightward.
+
+		bounds.left += bounds.width + gridSize;
+
+		if (!needsMoving()) {
+			break;
+		}
+
+		// Try downward.
+
+		bounds.left -= bounds.width + gridSize;
+		bounds.top += bounds.height + gridSize;
+
+		if (!needsMoving()) {
+			break;
+		}
+
+		// Try leftward.
+
+		if (bounds.left >= bounds.width + gridSize) {
+			bounds.left -= bounds.width + gridSize;
+
+			if (!needsMoving()) {
+				break;
+			}
+
+			bounds.left += bounds.width + gridSize;
+		}
+
+		// Move downward permanently and repeat.
+
+		bounds.top += bounds.height + gridSize;
+	}
 
 	return {
 		type: 'createPassage',
 		storyId: story.id,
 		props: {
+			...bounds,
 			story: story.id,
-			name: passageName,
-			left: centerX - passageDefaults().width / 2,
-			top: centerY - passageDefaults().height / 2
+			name: passageName
 		}
 	};
 }

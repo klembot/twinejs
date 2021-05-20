@@ -64,7 +64,7 @@ export function rectFromPoints(p1: Point, p2: Point): Rect {
  * Returns whether two rectangles intersect.
  * @see http://stackoverflow.com/questions/2752349/fast-rectangle-to-rectangle-intersection
  */
-export function rectIntersects(r1: Rect, r2: Rect) {
+export function rectsIntersect(r1: Rect, r2: Rect) {
 	return !(
 		r2.left > r1.left + r1.width ||
 		r2.left + r2.width < r1.left ||
@@ -187,64 +187,4 @@ export function boundingRect(rects: Rect[]) {
 	}
 
 	return result;
-}
-
-/**
- * Displaces a rectangle so that it does not intersect rectangle (with optional
- * spacing), moving it the least amount of distance along one axis possible.
- */
-export function displaceRect(movable: Rect, stationary: Rect, spacing = 0) {
-	const sLeft = stationary.left - spacing;
-	const sRight = sLeft + stationary.width + spacing * 2;
-	const sTop = stationary.top - spacing;
-	const sBottom = sTop + stationary.height + spacing * 2;
-	const mLeft = movable.left - spacing;
-	const mRight = mLeft + movable.width + spacing * 2;
-	const mTop = movable.top - spacing;
-	const mBottom = mTop + movable.height + spacing * 2;
-
-	// Calculate the amount of overlap along each axis.
-	// This is cribbed from
-	// http://frey.co.nz/old/2007/11/area-of-two-rectangles-algorithm/
-
-	const xOverlap = Math.min(sRight, mRight) - Math.max(sLeft, mLeft);
-	const yOverlap = Math.min(sBottom, mBottom) - Math.max(sTop, mTop);
-
-	// Decide whether moving left or right would resolve the overlap with
-	// the least motion.
-
-	let xChange = 0;
-	let yChange = 0;
-
-	if (xOverlap !== 0) {
-		const leftMove = mLeft - sLeft + movable.width + spacing * 2;
-		const rightMove = sRight - mLeft;
-
-		if (leftMove < rightMove) {
-			xChange = -leftMove;
-		} else {
-			xChange = rightMove;
-		}
-	}
-
-	// Same as above, but with vertical overlap.
-
-	if (yOverlap !== 0) {
-		const upMove = mTop - sTop + movable.height + spacing * 2;
-		const downMove = sBottom - mTop;
-
-		if (upMove < downMove) {
-			yChange = -upMove;
-		} else {
-			yChange = downMove;
-		}
-	}
-
-	// Choose the option that moves the rect the least.
-
-	if (Math.abs(xChange) > Math.abs(yChange)) {
-		movable.top += yChange;
-	} else {
-		movable.left += xChange;
-	}
 }
