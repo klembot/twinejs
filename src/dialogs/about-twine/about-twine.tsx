@@ -2,6 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 import {useTranslation} from 'react-i18next';
 import {IconCode, IconHeart} from '@tabler/icons';
+import {ButtonBar} from '../../components/container/button-bar';
 import {DialogCard} from '../../components/container/dialog-card';
 import {IconLink} from '../../components/control/icon-link';
 import {getAppInfo} from '../../util/app-info';
@@ -31,7 +32,7 @@ export const AboutTwineDialog: React.FC<DialogComponentProps> = props => {
 							__html: t('aboutTwine.license')
 						}}
 					/>
-					<div className="links">
+					<ButtonBar>
 						<IconLink
 							href="https://twinery.org/donate"
 							icon={<IconHeart />}
@@ -43,7 +44,7 @@ export const AboutTwineDialog: React.FC<DialogComponentProps> = props => {
 							icon={<IconCode />}
 							label={t('aboutTwine.codeRepo')}
 						/>
-					</div>
+					</ButtonBar>
 					<div className="credits">
 						<div className="code">
 							<h3>{t('aboutTwine.codeHeader')}</h3>

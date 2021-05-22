@@ -17,6 +17,14 @@ export function replaceInPassage(
 	flags: StorySearchFlags
 ): Thunk<StoriesState, StoriesAction> {
 	return (dispatch, getState) => {
+		if (searchFor === '') {
+			throw new Error("Can't replace an empty string");
+		}
+
+		if (passage.story !== story.id) {
+			throw new Error('Passage does not belong to story');
+		}
+
 		const {includePassageNames, matchCase, useRegexes} = flags;
 		const matcher = createRegExp(searchFor, {matchCase, useRegexes});
 		const props: Partial<Passage> = {};

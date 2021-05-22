@@ -2,7 +2,7 @@
 	"aboutTwine": {
 		"donateToTwine": "Help Twine Grow With A Donation",
 		"codeHeader": "Code",
-		"codeRepo": "Source Code Repository",
+		"codeRepo": "Visit Source Code Repository",
 		"license": "This application is released under the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GPL v3 license</a>, but any work created with it may be released under any terms, including commercial ones.",
 		"localizationHeader": "Localizations",
 		"title": "About Twine {{version}}",

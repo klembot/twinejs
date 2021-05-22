@@ -14,20 +14,33 @@ export function highlightPassagesMatchingSearch(
 	flags: StorySearchFlags
 ): Thunk<StoriesState, UpdatePassagesAction> {
 	return dispatch => {
-		const matchIds = passagesMatchingSearch(story.passages, search, flags).map(
-			passage => passage.id
-		);
 		let passageUpdates: Record<string, Partial<Passage>> = {};
 
-		story.passages.forEach(passage => {
-			const oldHighlighted = passage.highlighted;
-			const newHighlighted = matchIds.includes(passage.id);
+		if (search === '') {
+			// Remove all highlights.
+			passageUpdates = story.passages.reduce((result, passage) => {
+				if (passage.highlighted) {
+					return {...result, [passage.id]: {highlighted: false}};
+				}
 
-			if (newHighlighted !== oldHighlighted) {
-				passageUpdates[passage.id] = {highlighted: newHighlighted};
-			}
-		});
+				return result;
+			}, {});
+		} else {
+			const matchIds = passagesMatchingSearch(
+				story.passages,
+				search,
+				flags
+			).map(passage => passage.id);
 
+			story.passages.forEach(passage => {
+				const oldHighlighted = passage.highlighted;
+				const newHighlighted = matchIds.includes(passage.id);
+
+				if (newHighlighted !== oldHighlighted) {
+					passageUpdates[passage.id] = {highlighted: newHighlighted};
+				}
+			});
+		}
 		if (Object.keys(passageUpdates).length > 0) {
 			dispatch({
 				passageUpdates,
