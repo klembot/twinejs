@@ -1,7 +1,7 @@
-@import '../../styles/colors.css';
-@import '../../styles/depth.css';
-@import '../../styles/metrics.css';
-@import '../../styles/typography.css';
+@import '../../../styles/colors.css';
+@import '../../../styles/depth.css';
+@import '../../../styles/metrics.css';
+@import '../../../styles/typography.css';
 
 .code-area {
 	display: flex;

@@ -48,7 +48,7 @@ export const StoryJavaScriptDialog: React.FC<StoryJavaScriptDialogProps> = props
 						fontFamily={prefs.javascriptEditorFontFamily}
 						fontScale={prefs.javascriptEditorFontScale}
 						onBeforeChange={handleChange}
-						options={{autofocus: true, mode: 'js'}}
+						options={{autofocus: true, mode: 'javascript'}}
 						value={story.script}
 					/>
 				</DialogEditor>
