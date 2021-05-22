@@ -20,8 +20,6 @@ export function movePassages(
 			);
 		}
 
-		// TODO: clean up overlaps
-
 		let left = passage.left + xChange;
 		let top = passage.top + yChange;
 

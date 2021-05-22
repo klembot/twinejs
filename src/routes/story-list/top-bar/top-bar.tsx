@@ -22,9 +22,6 @@ export const StoryListTopBar: React.FC<StoryListTopBarProps> = props => {
 	const history = useHistory();
 	const {t} = useTranslation();
 
-	// TODO: implement import route
-	// TODO: implement story format list route
-
 	return (
 		<TopBar>
 			<CreateStoryButton />

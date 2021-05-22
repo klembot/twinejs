@@ -6,6 +6,10 @@
 	height: 100%;
 }
 
+.passage-edit-dialog .card-content {
+	padding: 0;
+}
+
 .passage-edit-dialog .tags {
 	padding: var(--grid-size);
 }

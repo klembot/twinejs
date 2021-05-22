@@ -36,7 +36,7 @@ export const DialogCard: React.FC<DialogCardProps> = props => {
 						/>
 					</div>
 				</h2>
-				{!collapsed && <CardContent>{children}</CardContent>}
+				{!collapsed && children}
 			</Card>
 		</div>
 	);

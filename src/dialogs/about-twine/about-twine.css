@@ -17,14 +17,9 @@
 	padding-top: var(--ui-gap);
 }
 
-.about-twine-dialog .credits h3 {
-	text-align: center;
-}
-
 .about-twine-dialog .credits ul {
 	list-style-type: none;
 	margin-top: 0;
 	margin-left: 0;
 	padding-left: 0;
-	text-align: center;
 }
