@@ -7,8 +7,7 @@ import 'codemirror/lib/codemirror.css';
 import 'codemirror/mode/css/css';
 import 'codemirror/mode/javascript/javascript';
 import './code-area.css';
-
-// TODO: rework syntax highlights
+import './codemirror-theme.css';
 
 export interface CodeAreaProps extends IControlledCodeMirror {
 	fontFamily?: string;
