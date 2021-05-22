@@ -6,6 +6,7 @@ import {
 	Story
 } from '../stories.types';
 import {passageDefaults} from '../defaults';
+import {rectsIntersect} from '../../../util/geometry';
 import {parseLinks} from '../../../util/parse-links';
 
 /**
@@ -34,9 +35,9 @@ export function createNewlyLinkedPassages(
 		}
 
 		const passageDefs = passageDefaults();
-		const passageGap = 50;
+		const passageGap = 25;
 
-		const top = passage.top + passage.height + passageGap;
+		let top = passage.top + passage.height + passageGap;
 		const newPassagesWidth =
 			toCreate.length * passageDefs.width + (toCreate.length - 1) * passageGap;
 
@@ -44,7 +45,40 @@ export function createNewlyLinkedPassages(
 
 		let left = passage.left + (passage.width - newPassagesWidth) / 2;
 
-		// TODO: prevent overlaps
+		// Move them to avoid overlaps.
+
+		const needsMoving = () =>
+			story.passages.some(passage =>
+				rectsIntersect(passage, {
+					left,
+					top,
+					height: passageDefs.height,
+					width: newPassagesWidth
+				})
+			);
+
+		while (needsMoving()) {
+			// Try rightward.
+
+			left += passageDefs.width + passageGap;
+
+			if (!needsMoving()) {
+				break;
+			}
+
+			// Try leftward.
+
+			left -= 2 * (passageDefs.width + passageGap);
+
+			if (!needsMoving()) {
+				break;
+			}
+
+			// Move downward and try again.
+
+			left += passageDefs.width + passageGap;
+			top += passageDefs.height + passageGap;
+		}
 
 		// Actually create them.
 
