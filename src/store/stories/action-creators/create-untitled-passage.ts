@@ -39,7 +39,7 @@ export function createUntitledPassage(
 
 	// Center it at the position requested, but move it outward until no overlaps are found.
 
-	const gridSize = 25;
+	const passageGap = 25;
 	const bounds = {
 		height: defs.height,
 		left: Math.max(centerX - defs.width / 2, 0),
@@ -48,8 +48,8 @@ export function createUntitledPassage(
 	};
 
 	if (story.snapToGrid) {
-		bounds.left = Math.round(bounds.left / gridSize) * gridSize;
-		bounds.top = Math.round(bounds.top / gridSize) * gridSize;
+		bounds.left = Math.round(bounds.left / passageGap) * passageGap;
+		bounds.top = Math.round(bounds.top / passageGap) * passageGap;
 	}
 
 	const needsMoving = () =>
@@ -58,7 +58,7 @@ export function createUntitledPassage(
 	while (needsMoving()) {
 		// Try rightward.
 
-		bounds.left += bounds.width + gridSize;
+		bounds.left += bounds.width + passageGap;
 
 		if (!needsMoving()) {
 			break;
@@ -66,8 +66,8 @@ export function createUntitledPassage(
 
 		// Try downward.
 
-		bounds.left -= bounds.width + gridSize;
-		bounds.top += bounds.height + gridSize;
+		bounds.left -= bounds.width + passageGap;
+		bounds.top += bounds.height + passageGap;
 
 		if (!needsMoving()) {
 			break;
@@ -75,19 +75,19 @@ export function createUntitledPassage(
 
 		// Try leftward.
 
-		if (bounds.left >= bounds.width + gridSize) {
-			bounds.left -= bounds.width + gridSize;
+		if (bounds.left >= bounds.width + passageGap) {
+			bounds.left -= bounds.width + passageGap;
 
 			if (!needsMoving()) {
 				break;
 			}
 
-			bounds.left += bounds.width + gridSize;
+			bounds.left += bounds.width + passageGap;
 		}
 
 		// Move downward permanently and repeat.
 
-		bounds.top += bounds.height + gridSize;
+		bounds.top += bounds.height + passageGap;
 	}
 
 	return {
