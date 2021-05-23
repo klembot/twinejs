@@ -51,6 +51,13 @@
 		"undoChange": "Undo {{change}}"
 	},
 	"components": {
+		"addTagButton": {
+			"modalHeader": "Add a Tag"
+		},
+		"editTagButton": {
+			"modalDetail": "This will also change this tag in any other passages it's applied to.",
+			"modalHeader": "Edit Tag"
+		},
 		"fontSelect": {
 			"customFamilyDetail": "Please enter the name of the font only. This changes only the font in Twine, not what font will be used in your story.",
 			"customSizeDetail": "Please enter a percentage only. This changes only the font in Twine, not what font will be used in your story.",
@@ -126,11 +133,6 @@
 		"sizeSmall": "Small",
 		"sizeTall": "Tall",
 		"sizeWide": "Wide",
-		"tagToolbar": {
-			"addTagHeader": "Add a Tag",
-			"editTagDetail": "This will also change this tag in any other passages it's applied to.",
-			"editTagHeader": "Edit Tag"
-		},
 		"testFromHere": "Test Story From Here"
 	},
 	"store": {

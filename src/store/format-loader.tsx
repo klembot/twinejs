@@ -52,7 +52,7 @@ export const FormatLoader: React.FC<FormatLoaderProps> = ({
 
 	if (block && loadPercent < 1) {
 		return (
-			<Meter percent={loadPercent}>
+			<Meter domId="story-format-loader" percent={loadPercent}>
 				{loadingFormat && (
 					<>
 						Loading {loadingFormat.name} {loadingFormat.version}
