@@ -50,9 +50,9 @@ export const TagButton: React.FC<TagButtonProps> = props => {
 			/>
 			<TagModal
 				color={editColor}
-				detail={t('passageEdit.tagToolbar.editTagDetail')}
+				detail={t('components.tagButton.modalDetail')}
 				isOpen={modalOpen}
-				message={t('passageEdit.tagToolbar.editTagHeader')}
+				message={t('components.tagButton.modalHeader')}
 				name={editName}
 				onChangeName={setEditName}
 				onChangeColor={setEditColor}

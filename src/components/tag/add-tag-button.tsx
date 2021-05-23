@@ -21,8 +21,6 @@ export const AddTagButton: React.FC<AddTagButtonProps> = props => {
 		setModalOpen(true);
 	}
 
-	// TODO: move localization strings
-
 	return (
 		<>
 			<IconButton
@@ -33,7 +31,7 @@ export const AddTagButton: React.FC<AddTagButtonProps> = props => {
 			<TagModal
 				color={newColor}
 				isOpen={modalOpen}
-				message={t('passageEdit.tagToolbar.addTagHeader')}
+				message={t('components.addTagButton.modalHeader')}
 				name={newName}
 				onChangeName={setNewName}
 				onChangeColor={setNewColor}
