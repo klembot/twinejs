@@ -10,7 +10,7 @@ describe('<CardGroup>', () => {
 	});
 
 	it('is accessible', async () => {
-		const {container} = render(<CardGroup>Children</CardGroup>);
+		const {container} = render(<CardGroup columns={1}>Children</CardGroup>);
 		expect(await axe(container)).toHaveNoViolations();
 	});
 });
