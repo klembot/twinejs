@@ -105,7 +105,7 @@
 			"license": "License: {{license}}",
 			"loadError": "This format could not be loaded ({{error}}).",
 			"name": "{{name}} {{version}}",
-			"useFormat": "Use As Story Format",
+			"useFormat": "Use As Default Story Format",
 			"useProofingFormat": "Use As Proofing Format"
 		}
 	},
@@ -177,14 +177,13 @@
 	},
 	"storyFormatList": {
 		"addFormat": "Add a New Format",
-		"loadingFormat": "Loading {name}...",
-		"outdatedStoryFormats": "Older Story Formats",
-		"outdatedStoryFormatExplanation": "Newer versions of these formats are installed, but these are available for use with older stories:",
-		"proofingFormatExplanation": "Proofing formats create a versions of stories tailored for editing and proofreading.",
-		"outdatedProofingFormats": "Older Proofing Formats",
-		"proofingFormats": "Proofing Formats",
-		"selectedProofingFormat": "This format will be used when proofing stories.",
-		"selectedStoryFormat": "This format will be used as default for new stories.",
+		"noneVisible": "No story formats match the criteria you've selected.",
+		"show": "Show...",
+		"title": {
+			"all": "All Story Formats",
+			"current": "Current Story Formats",
+			"user": "User-Added Story Formats"
+		},
 		"storyFormats": "Story Formats",
 		"storyFormatExplanation": "Story formats control the appearance and behavior of stories during play.",
 		"useAsDefault": "Use As Default",

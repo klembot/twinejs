@@ -1,14 +1,13 @@
 @import '../../../styles/metrics.css';
 
-.story-format-card .image-card-image {
-	align-items: flex-start;
-	display: flex;
-	justify-content: center;
-	margin-left: var(--grid-size);
-	margin-top: var(--grid-size);
+.story-format-card .card-content {
+	display: grid;
+	flex-grow: 1;
+	grid-gap: var(--grid-size);
+	grid-template-columns: 150px 1fr;
 }
 
-.story-format-card .image-card-image img {
+.story-format-card .story-format-image img {
 	height: auto;
 	width: 100%;
 }

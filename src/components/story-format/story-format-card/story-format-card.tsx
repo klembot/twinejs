@@ -1,12 +1,12 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {IconAlertTriangle} from '@tabler/icons';
-import {CardContent} from '../../container/card';
-import {ImageCard} from '../../container/image-card';
+import {IconAlertTriangle, IconTrash} from '@tabler/icons';
+import {ButtonBar} from '../../container/button-bar';
+import {CheckboxButton} from '../../control/checkbox-button';
+import {Card, CardContent} from '../../container/card';
 import {IconButton} from '../../control/icon-button';
 import {IconLoading} from '../../image/icon';
 import {formatImageUrl, StoryFormat} from '../../../store/story-formats';
-import {StoryFormatCardActions} from './story-format-card-actions';
 import {StoryFormatCardDetails} from './story-format-card-details';
 import './story-format-card.css';
 
@@ -15,13 +15,10 @@ export interface StoryFormatCardProps {
 	onDelete: () => void;
 	onSelect: () => void;
 	selected: boolean;
-	selectedText?: string;
-	selectIcon?: string;
-	selectLabel?: string;
 }
 
 export const StoryFormatCard: React.FC<StoryFormatCardProps> = props => {
-	const {format, onDelete, onSelect, selected, selectIcon, selectLabel} = props;
+	const {format, onDelete, onSelect, selected} = props;
 	const {t} = useTranslation();
 
 	let image = <></>;
@@ -39,22 +36,38 @@ export const StoryFormatCard: React.FC<StoryFormatCardProps> = props => {
 
 	return (
 		<div className="story-format-card">
-			<ImageCard image={image} selected={selected}>
-				<h2>
-					{t('components.storyFormatCard.name', {
-						name: format.name,
-						version: format.version
-					})}
-				</h2>
+			<Card selected={selected}>
 				<CardContent>
-					<StoryFormatCardDetails format={format} />
+					<div className="story-format-image">{image}</div>
+					<div className="story-format-description">
+						<h2>
+							{t('components.storyFormatCard.name', {
+								name: format.name,
+								version: format.version
+							})}
+						</h2>
+						<StoryFormatCardDetails format={format} />
+					</div>
 				</CardContent>
-				<StoryFormatCardActions
-					format={format}
-					onSelect={onSelect}
-					selected={selected}
-				/>
-			</ImageCard>
+				<ButtonBar>
+					{format.loadState === 'loaded' && (
+						<CheckboxButton
+							disabled={selected}
+							label={
+								format.properties?.proofing
+									? t('components.storyFormatCard.useProofingFormat')
+									: t('components.storyFormatCard.useFormat')
+							}
+							onChange={onSelect}
+							value={selected}
+							variant="primary"
+						/>
+					)}
+					{format.userAdded && (
+						<IconButton icon={<IconTrash />} label={t('common.delete')} />
+					)}
+				</ButtonBar>
+			</Card>
 		</div>
 	);
 };
