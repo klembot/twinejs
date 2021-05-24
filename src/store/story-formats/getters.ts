@@ -1,6 +1,34 @@
 import isAbsoluteUrl from 'is-absolute-url';
 import semverLt from 'semver/functions/lt';
 import {StoryFormat} from './story-formats.types';
+import {PrefsState} from '../prefs';
+
+export function filteredFormats(
+	formats: StoryFormat[],
+	filter: PrefsState['storyFormatListFilter']
+): StoryFormat[] {
+	switch (filter) {
+		case 'all':
+			return formats;
+
+		case 'current':
+			return Object.values(
+				formats.reduce<Record<string, StoryFormat>>((result, format) => {
+					if (
+						!result[format.name] ||
+						semverLt(result[format.name].version, format.version)
+					) {
+						return {...result, [format.name]: format};
+					}
+
+					return result;
+				}, {})
+			);
+
+		case 'user':
+			return formats.filter(format => format.userAdded);
+	}
+}
 
 export function formatImageUrl(format: StoryFormat) {
 	if (format.loadState !== 'loaded' || !format.properties.image) {

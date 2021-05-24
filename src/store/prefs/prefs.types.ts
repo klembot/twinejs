@@ -71,6 +71,11 @@ export interface PrefsState {
 		version: string;
 	};
 	/**
+	 * Which story formats to show in the list route. This does not affect story
+	 * formats shown when setting it on a story.
+	 */
+	storyFormatListFilter: 'current' | 'all' | 'user';
+	/**
 	 * How the story list should be sorted.
 	 */
 	storyListSort: 'date' | 'name';

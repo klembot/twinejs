@@ -1,4 +1,5 @@
 import {
+	filteredFormats,
 	formatImageUrl,
 	formatWithId,
 	formatWithNameAndVersion,
@@ -9,6 +10,45 @@ import {
 	fakeLoadedStoryFormat,
 	fakePendingStoryFormat
 } from '../../../test-util/fakes';
+
+describe('filteredFormats', () => {
+	it("returns all formats if the 'all' filter is passed", () => {
+		const format1 = fakeLoadedStoryFormat({userAdded: true});
+		const format2 = fakeLoadedStoryFormat({userAdded: false});
+
+		expect(filteredFormats([format1, format2], 'all')).toEqual([
+			format1,
+			format2
+		]);
+	});
+
+	it("returns all user-added formats if the 'user' filter is passed", () => {
+		const format1 = fakeLoadedStoryFormat({userAdded: true});
+		const format2 = fakeLoadedStoryFormat({userAdded: false});
+
+		expect(filteredFormats([format1, format2], 'user')).toEqual([format1]);
+	});
+
+	it("returns the latest version of each format if the 'current' filter is passed", () => {
+		const format1 = fakeLoadedStoryFormat({
+			name: 'mock-name-1',
+			version: '1.2.3'
+		});
+		const format2 = fakeLoadedStoryFormat({
+			name: 'mock-name-1',
+			version: '2.3.4'
+		});
+		const format3 = fakeLoadedStoryFormat({
+			name: 'mock-name-2',
+			version: '1.4.4'
+		});
+
+		expect(filteredFormats([format1, format2, format3], 'current')).toEqual([
+			format2,
+			format3
+		]);
+	});
+});
 
 describe('formatImageUrl', () => {
 	it('throws an error if the format is not loaded', () => {

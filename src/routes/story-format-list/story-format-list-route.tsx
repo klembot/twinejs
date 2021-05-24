@@ -1,28 +1,33 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {useHistory} from 'react-router-dom';
-import {IconArrowLeft} from '@tabler/icons';
+import {IconArrowLeft, IconFilter} from '@tabler/icons';
 import {CardGroup} from '../../components/container/card-group';
 import {MainContent} from '../../components/container/main-content';
+import {MenuButton} from '../../components/control/menu-button';
 import {TopBar} from '../../components/container/top-bar';
 import {IconButton} from '../../components/control/icon-button';
 import {StoryFormatCard} from '../../components/story-format/story-format-card/story-format-card';
 import {FormatLoader} from '../../store/format-loader';
-import {setPref, usePrefsContext} from '../../store/prefs';
+import {PrefsState, setPref, usePrefsContext} from '../../store/prefs';
 import {
+	filteredFormats,
 	sortFormats,
 	useStoryFormatsContext,
 	StoryFormat
 } from '../../store/story-formats';
 
 // TODO: add story format functionality
-// TODO: filter button (current, outdated, proofing, regular, user-added)
 
 export const StoryFormatListRoute: React.FC = () => {
 	const {formats} = useStoryFormatsContext();
 	const {dispatch, prefs} = usePrefsContext();
 	const history = useHistory();
 	const {t} = useTranslation();
+
+	function handleChangeFilter(value: PrefsState['storyFormatListFilter']) {
+		dispatch({type: 'update', name: 'storyFormatListFilter', value});
+	}
 
 	function handleSelect(format: StoryFormat) {
 		if (format.loadState !== 'loaded') {
@@ -46,6 +51,10 @@ export const StoryFormatListRoute: React.FC = () => {
 		}
 	}
 
+	const visibleFormats = sortFormats(
+		filteredFormats(formats, prefs.storyFormatListFilter)
+	);
+
 	return (
 		<div className="story-format-list-route">
 			<TopBar>
@@ -55,12 +64,40 @@ export const StoryFormatListRoute: React.FC = () => {
 					label={t('storyList.titleGeneric')}
 					variant="primary"
 				/>
+				<MenuButton
+					icon={<IconFilter />}
+					items={[
+						{
+							checked: prefs.storyFormatListFilter === 'current',
+							label: t('storyFormatList.title.current'),
+							onClick: () => handleChangeFilter('current')
+						},
+						{
+							checked: prefs.storyFormatListFilter === 'user',
+							label: t('storyFormatList.title.user'),
+							onClick: () => handleChangeFilter('user')
+						},
+						{
+							checked: prefs.storyFormatListFilter === 'all',
+							label: t('storyFormatList.title.all'),
+							onClick: () => handleChangeFilter('all')
+						}
+					]}
+					label={t('storyFormatList.show')}
+				/>
 			</TopBar>
 			<MainContent>
-				<h1>{t('storyFormatList.storyFormats')}</h1>
+				<h1>{t(`storyFormatList.title.${prefs.storyFormatListFilter}`)}</h1>
+				<p>
+					{t(
+						visibleFormats.length > 0
+							? 'storyFormatList.storyFormatExplanation'
+							: 'storyFormatList.noneVisible'
+					)}
+				</p>
 				<FormatLoader>
 					<CardGroup columnWidth="450px">
-						{sortFormats(formats).map(format => (
+						{visibleFormats.map(format => (
 							<StoryFormatCard
 								format={format}
 								key={format.id}

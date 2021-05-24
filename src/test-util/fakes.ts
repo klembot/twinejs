@@ -116,6 +116,7 @@ export function fakePrefs(): PrefsState {
 			name: lorem.words(2),
 			version: system.semver()
 		},
+		storyFormatListFilter: 'current',
 		storyListSort: random.arrayElement(['date', 'name']),
 		storyListTagFilter: [],
 		storyTagColors: {[tags[0]]: 'red', [tags[1]]: 'green', [tags[2]]: 'blue'},

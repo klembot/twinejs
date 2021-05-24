@@ -19,3 +19,9 @@
 	/* Used for dropdown menus and other things that hover over the UI. */
 	--shadow-large: 0 2px 8px var(--light-gray);
 }
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--shadow-large: 0 1px 0 0 var(--light-gray), 0 2px 4px var(--white);
+	}
+}
