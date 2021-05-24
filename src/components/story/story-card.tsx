@@ -14,7 +14,7 @@ import './story-card.css';
 const dateFormatter = new Intl.DateTimeFormat([]);
 
 export interface StoryCardProps extends CardProps {
-	// onDelete: () => void;
+	onDelete: () => void;
 	// onDuplicate: () => void;
 	onAddTag: (name: string, color: Color) => void;
 	onEditTag: (oldName: string, newName: string, newColor: Color) => void;
@@ -33,6 +33,7 @@ export interface StoryCardProps extends CardProps {
 export const StoryCard: React.FC<StoryCardProps> = props => {
 	const {
 		onAddTag,
+		onDelete,
 		onEdit,
 		onEditTag,
 		onPlay,
@@ -103,6 +104,10 @@ export const StoryCard: React.FC<StoryCardProps> = props => {
 							{
 								label: t('common.rename'),
 								onClick: onRename
+							},
+							{
+								label: t('common.delete'),
+								onClick: onDelete
 							}
 						]}
 						label={t('common.more')}

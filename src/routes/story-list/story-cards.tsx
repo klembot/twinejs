@@ -5,7 +5,12 @@ import {CardGroup} from '../../components/container/card-group';
 import {StoryCard} from '../../components/story/story-card';
 import {PromptModal} from '../../components/modal/prompt-modal';
 import {setPref, usePrefsContext} from '../../store/prefs';
-import {renameStoryTag, updateStory, Story} from '../../store/stories';
+import {
+	deleteStory,
+	renameStoryTag,
+	updateStory,
+	Story
+} from '../../store/stories';
 import {useUndoableStoriesContext} from '../../store/undoable-stories';
 import {useStoryLaunch} from '../../store/use-story-launch';
 import {Color} from '../../util/color';
@@ -44,7 +49,9 @@ export const StoryCards: React.FC<StoryCardsProps> = props => {
 		);
 	}
 
-	// TODO: add delete handler
+	function handleDelete(story: Story) {
+		storiesDispatch(deleteStory(story));
+	}
 
 	function handleEditTag(
 		story: Story,
@@ -74,6 +81,7 @@ export const StoryCards: React.FC<StoryCardsProps> = props => {
 					<StoryCard
 						key={story.id}
 						onAddTag={(name, color) => handleAddTag(story, name, color)}
+						onDelete={() => handleDelete(story)}
 						onEditTag={(oldName, newName, newColor) =>
 							handleEditTag(story, oldName, newName, newColor)
 						}
