@@ -1,4 +1,4 @@
-import {app} from 'electron';
+import {app, shell} from 'electron';
 import fs from 'fs-extra';
 import path from 'path';
 import {
@@ -111,13 +111,13 @@ export async function saveStory(
 }
 
 /**
- * Deletes a story from the file system. This returns a promise that resolves
+ * Deletes a story by moving it to the trash. This returns a promise that resolves
  * when finished.
  */
 export async function deleteStory(story: Story) {
 	try {
 		await unlockStoryDirectory();
-		await fs.unlink(path.join(storyDirectoryPath(), storyFileName(story.name)));
+		shell.trashItem(path.join(storyDirectoryPath(), storyFileName(story.name)));
 		await lockStoryDirectory();
 	} catch (e) {
 		console.warn(`Error while deleting story: ${e}`);
