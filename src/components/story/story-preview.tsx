@@ -53,7 +53,7 @@ export const StoryPreview: React.FC<StoryPreviewProps> = React.memo(props => {
 				cx="50"
 				cy="50"
 				r="50"
-				style={{fill: `hsla(${hues[0]}, 90%, 70%, 0.25})`}}
+				style={{fill: `hsla(${hues[0]}, 90%, 70%, 0.25)`}}
 			/>
 		) : (
 			sortedCircles.map((circle, index) => {

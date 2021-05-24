@@ -36,7 +36,7 @@ export const CreateStoryButton: React.FC = () => {
 				onChange={event => setNewStoryName(event.target.value)}
 				onSubmit={createNewStory}
 				submitButtonProps={{
-					icon: 'plus',
+					icon: <IconPlus />,
 					label: t('common.create'),
 					variant: 'create'
 				}}

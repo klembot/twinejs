@@ -10,6 +10,7 @@ import {
 } from '../../../stories';
 import {
 	deletePassageById,
+	deleteStory,
 	doUpdateTransaction,
 	savePassage,
 	saveStory
@@ -22,7 +23,7 @@ function isPersistablePassageUpdate(props: Partial<Passage>) {
 	return Object.keys(props).some(key => key !== 'highlighted');
 }
 
-// TODO: handle story delete, check electron side too
+let lastState: StoriesState;
 
 /**
  * A middleware function to save changes to local storage. This should be called
@@ -166,6 +167,30 @@ export function saveMiddleware(state: StoriesState, action: StoriesAction) {
 			});
 			break;
 
+		case 'deleteStory':
+			try {
+				// The story will be gone from state by the time we're called, so we
+				// need a cached copy.
+
+				story = storyWithId(lastState, action.storyId);
+			} catch (e) {
+				console.warn(
+					`Could not find story with ID "${action.storyId}", can't persist it`
+				);
+				return;
+			}
+
+			doUpdateTransaction(transaction => {
+				// We have to delete all passages, then the story itself.
+
+				story.passages.forEach(story =>
+					deletePassageById(transaction, passage.id)
+				);
+
+				deleteStory(transaction, story);
+			});
+			break;
+
 		case 'updatePassage':
 			if (isPersistablePassageUpdate(action.props)) {
 				try {
@@ -241,4 +266,6 @@ export function saveMiddleware(state: StoriesState, action: StoriesAction) {
 			});
 			break;
 	}
+
+	lastState = state;
 }
