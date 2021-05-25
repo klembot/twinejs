@@ -1,7 +1,4 @@
 import {app, BrowserWindow, screen, shell} from 'electron';
-import installExtension, {
-	REACT_DEVELOPER_TOOLS
-} from 'electron-devtools-installer';
 import path from 'path';
 import {hydrateGlobalData} from './hydrate-data';
 import {initIpc} from './ipc';
@@ -28,18 +25,9 @@ async function createWindow() {
 	mainWindow.loadURL(
 		// Path is relative to this file in the electron-build/ directory that's
 		// created during `npm run build:electron-main`.
-		app.isPackaged
-			? `file://${path.resolve(__dirname, '../../../renderer/index.html')}`
-			: 'http://localhost:3000'
+		// app.isPackaged
+		`file://${path.resolve(__dirname, '../../../renderer/index.html')}`
 	);
-
-	if (!app.isPackaged) {
-		try {
-			await installExtension(REACT_DEVELOPER_TOOLS);
-		} catch (e) {
-			console.warn(`Could not install React dev tools`, e);
-		}
-	}
 
 	mainWindow.once('ready-to-show', () => {
 		mainWindow!.show();

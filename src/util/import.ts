@@ -153,7 +153,7 @@ export function importStories(
 		// this for us.
 
 		story.passages = story.passages.map(passage =>
-			defaults(passage, passageDefaults())
+			defaults(passage, passageDefaults(), {story: story.id})
 		);
 
 		return story;
