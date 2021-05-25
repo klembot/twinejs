@@ -105,4 +105,14 @@ describe('importStories', () => {
 
 		expect(result[0].lastUpdate).toBe(forceDate);
 	});
+
+	it('links passages to their parent story', () => {
+		const result = importStories(testHtml);
+
+		expect(
+			result.every(story =>
+				story.passages.every(passage => passage.story === story.id)
+			)
+		).toBe(true);
+	});
 });
