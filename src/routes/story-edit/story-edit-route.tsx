@@ -136,7 +136,7 @@ export const InnerStoryEditRoute: React.FC = () => {
 	);
 
 	const handleSelectRect = React.useCallback(
-		(rect: Rect, additive: boolean) => {
+		(rect: Rect, exclusive: boolean) => {
 			// The rect we receive is in screen coordinates--we need to convert to
 			// logical ones.
 
@@ -153,7 +153,7 @@ export const InnerStoryEditRoute: React.FC = () => {
 				selectPassagesInRect(
 					story,
 					logicalRect,
-					additive ? selectedPassages.map(passage => passage.name) : []
+					exclusive ? [] : selectedPassages.map(passage => passage.id)
 				)
 			);
 		},

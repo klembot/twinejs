@@ -80,10 +80,10 @@ export const PassageToolbar: React.FC<PassageToolbarProps> = React.memo(
 			const center = rectCenter(boundingRect(targets));
 
 			targetRect = {
-				height: 0,
+				height: 1,
 				left: center.left * zoom,
 				top: center.top * zoom,
-				width: 0
+				width: 1
 			};
 		}
 
