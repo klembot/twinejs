@@ -56,8 +56,10 @@ export const PassageCard: React.FC<PassageCardProps> = React.memo(props => {
 			// wants to select only this passage.
 
 			if (event.shiftKey || event.ctrlKey) {
-				if (passage.selected && onDeselect) {
+				if (passage.selected) {
 					onDeselect(passage);
+				} else {
+					onSelect(passage, false);
 				}
 			} else if (!passage.selected) {
 				onSelect(passage, true);

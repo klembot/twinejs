@@ -18,13 +18,13 @@ function relativeEventPosition(
 
 type MarqueeState =
 	| {selecting: false}
-	| {selecting: true; additive: boolean; start: Point; current: Point};
+	| {selecting: true; exclusive: boolean; start: Point; current: Point};
 
 type MarqueeAction =
 	| {
 			type: 'startSelection';
 			start: Point;
-			additive: boolean;
+			exclusive: boolean;
 	  }
 	| {
 			type: 'changeSelection';
@@ -43,7 +43,7 @@ function marqueeReducer(
 		case 'startSelection':
 			return {
 				selecting: true,
-				additive: action.additive,
+				exclusive: action.exclusive,
 				start: action.start,
 				current: action.start
 			};
@@ -103,11 +103,11 @@ export const MarqueeSelection: React.FC<MarqueeSelectionProps> = props => {
 					}
 				}
 
-				const additive = event.shiftKey || event.ctrlKey;
+				const exclusive = !event.shiftKey && !event.ctrlKey;
 				const start = relativeEventPosition(event, currentContainer);
 
-				dispatch({type: 'startSelection', additive, start});
-				onSelectRect({...start, height: 0, width: 0}, additive);
+				dispatch({type: 'startSelection', exclusive, start});
+				onSelectRect({...start, height: 0, width: 0}, exclusive);
 			};
 
 			currentContainer.addEventListener('mousedown', handleMouseDown);
@@ -126,7 +126,7 @@ export const MarqueeSelection: React.FC<MarqueeSelectionProps> = props => {
 				const current = relativeEventPosition(event, currentContainer);
 
 				dispatch({type: 'changeSelection', current});
-				onSelectRect(rectFromPoints(state.start, current), state.additive);
+				onSelectRect(rectFromPoints(state.start, current), state.exclusive);
 			};
 			const handleMouseUp = () => {
 				dispatch({type: 'endSelection'});
