@@ -34,6 +34,10 @@ export const PassageToolbar: React.FC<PassageToolbarProps> = React.memo(
 			modifiers: [
 				{
 					name: 'flip'
+				},
+				{
+					name: 'offset',
+					options: {offset: [0, targets.length > 1 ? 0 : 10]}
 				}
 			]
 		});
