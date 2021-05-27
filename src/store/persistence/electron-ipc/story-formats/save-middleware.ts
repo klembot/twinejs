@@ -9,11 +9,15 @@ export function saveMiddleware(
 	state: StoryFormatsState,
 	action: StoryFormatsAction
 ) {
-	if (
+	const shouldSave =
 		action.type === 'create' ||
-		action.type === 'update' ||
-		action.type === 'delete'
-	) {
+		action.type === 'delete' ||
+		(action.type === 'update' &&
+			Object.keys(action.props).some(
+				key => !['loadError', 'loadState', 'properties'].includes(key)
+			));
+
+	if (shouldSave) {
 		saveJson(
 			'story-formats.json',
 			state.map(format => ({

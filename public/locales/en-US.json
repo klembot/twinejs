@@ -45,12 +45,20 @@
 		"remove": "Remove",
 		"save": "Save",
 		"skip": "Skip",
+		"storyFormat": "Story Format",
 		"tag": "Tag",
 		"test": "Test",
 		"undo": "Undo",
 		"undoChange": "Undo {{change}}"
 	},
 	"components": {
+		"addStoryFormatButton": {
+			"addPreview": "{{storyFormatName}} {{storyFormatVersion}} will be added.",
+			"alreadyAdded": "{{storyFormatName}} {{storyFormatVersion}} has already been added.",
+			"fetchError": "An error occurred while retrieving this format ({{errorMessage}}).",
+			"prompt": "To add a story format, enter its address below.",
+			"invalidUrl": "The address you've entered isn't a valid URL."
+		},
 		"addTagButton": {
 			"modalHeader": "Add a Tag"
 		},
@@ -103,7 +111,8 @@
 		"storyFormatCard": {
 			"author": "by {{author}}",
 			"license": "License: {{license}}",
-			"loadError": "This format could not be loaded ({{error}}).",
+			"loadingFormat": "Loading this story format...",
+			"loadError": "This story format could not be loaded ({{errorMessage}}).",
 			"name": "{{name}} {{version}}",
 			"useFormat": "Use As Default Story Format",
 			"useProofingFormat": "Use As Proofing Format"

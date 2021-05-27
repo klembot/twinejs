@@ -9,19 +9,19 @@ export function load(): StoryFormatsState {
 	}
 
 	serialized.split(',').forEach(id => {
+		console.log(`loading format ${id}`);
+
 		try {
 			const serializedFormat = window.localStorage.getItem(
 				`twine-storyformats-${id}`
 			);
 
 			if (!serializedFormat) {
-				console.warn(
-					`No story foramt stored at twine-storyformats-${id}`
-				);
+				console.warn(`No story format stored at twine-storyformats-${id}`);
 				return;
 			}
 
-			result.push(JSON.parse(serializedFormat));
+			result.push({...JSON.parse(serializedFormat), loadState: 'unloaded'});
 		} catch (e) {
 			console.warn(
 				`Story format ${id} had corrupt serialized value, skipping`,

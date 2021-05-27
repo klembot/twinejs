@@ -9,11 +9,21 @@ export function saveMiddleware(
 	state: StoryFormatsState,
 	action: StoryFormatsAction
 ) {
-	if (
-		action.type === 'create' ||
-		action.type === 'update' ||
-		action.type === 'delete'
-	) {
-		save(state);
+	switch (action.type) {
+		case 'create':
+		case 'delete':
+			save(state);
+			break;
+
+		case 'update':
+			// Is this a significant update?
+			if (
+				Object.keys(action.props).some(
+					key => !['loadError', 'loadState', 'properties'].includes(key)
+				)
+			) {
+				save(state);
+			}
+			break;
 	}
 }

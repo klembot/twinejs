@@ -11,18 +11,37 @@ export const StoryFormatCardDetails: React.FC<StoryFormatCardDetailsProps> = ({
 }) => {
 	const {t} = useTranslation();
 
-	if (format.loadState !== 'loaded') {
-		return <div className="story-format-card-details"></div>;
+	if (format.loadState === 'unloaded' || format.loadState === 'loading') {
+		return (
+			<div className="story-format-card-details">
+				<p>{t('components.storyFormatCard.loadingFormat')}</p>
+			</div>
+		);
+	}
+
+	if (format.loadState === 'error') {
+		return (
+			<div className="story-format-card-details">
+				<p>
+					{t('components.storyFormatCard.loadError', {
+						errorMessage: format.loadError.message
+					})}
+				</p>
+			</div>
+		);
 	}
 
 	return (
 		<div className="story-format-card-details">
 			{format.properties.author && (
-				<p className="story-format-card-author">
-					{t('components.storyFormatCard.author', {
-						author: format.properties.author
-					})}
-				</p>
+				<p
+					className="story-format-card-author"
+					dangerouslySetInnerHTML={{
+						__html: t('components.storyFormatCard.author', {
+							author: format.properties.author
+						})
+					}}
+				/>
 			)}
 			{format.properties.description && (
 				<div

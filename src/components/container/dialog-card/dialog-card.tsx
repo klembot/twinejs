@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {IconChevronDown, IconChevronUp, IconX} from '@tabler/icons';
-import {Card, CardContent} from '../card';
+import {Card} from '../card';
 import {IconButton} from '../../control/icon-button';
 import './dialog-card.css';
 

@@ -1,3 +1,5 @@
+import uuid from 'tiny-uuid';
+
 import {
 	StoryFormat,
 	StoryFormatsAction,
@@ -16,7 +18,7 @@ export const reducer: React.Reducer<StoryFormatsState, StoryFormatsAction> = (
 			throw new Error('Not implemented yet');
 
 		case 'create':
-			return [...state, action.props];
+			return [...state, {...action.props, id: uuid(), loadState: 'unloaded'}];
 
 		case 'delete':
 			return state.filter(f => f.id !== action.id);

@@ -2,10 +2,8 @@ import uuid from 'tiny-uuid';
 import {StoryFormatsState} from '../../../story-formats/story-formats.types';
 
 export function save(state: StoryFormatsState) {
-	/*
-	Delete existing formats in local storage, since we aren't bothering to
-	preserve ids.
-	*/
+	// Delete existing formats in local storage, since we aren't bothering to
+	// preserve ids.
 
 	const previouslySerialized = window.localStorage.getItem(
 		'twine-storyformats'
@@ -17,17 +15,17 @@ export function save(state: StoryFormatsState) {
 		});
 	}
 
-	/* Save new ones. */
+	// Save new ones.
 
 	let ids: string[] = [];
 
 	state.forEach(format => {
 		const id = uuid();
 
-		/*
-		We have to remove the `properties` property if it exists, as that
-		is dynamically added when loading.
-		*/
+		// We have to remove the `properties` property if it exists, as that is
+		// dynamically added when loading.
+
+		console.log('saving format', format);
 
 		ids.push(id);
 		window.localStorage.setItem(
