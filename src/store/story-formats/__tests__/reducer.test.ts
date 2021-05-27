@@ -14,7 +14,11 @@ describe('Story format reducer', () => {
 	it('adds a format with the create action', () =>
 		expect(reducer([format], {type: 'create', props: format2})).toEqual([
 			format,
-			format2
+			expect.objectContaining({
+				...format2,
+				id: expect.any(String),
+				loadState: 'unloaded'
+			})
 		]));
 
 	it('removes a format with the delete action', () =>

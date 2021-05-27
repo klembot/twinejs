@@ -2,9 +2,29 @@ import {Thunk} from 'react-hook-thunk-reducer';
 import {fetchStoryFormatProperties} from '../../util/fetch-story-format-properties';
 import {
 	StoryFormat,
+	StoryFormatProperties,
 	StoryFormatsAction,
 	StoryFormatsDispatch
 } from './story-formats.types';
+
+export function createFromProperties(
+	url: string,
+	properties: StoryFormatProperties
+): StoryFormatsAction {
+	if (!properties.name || !properties.version) {
+		throw new Error('Missing required properties for a new story format');
+	}
+
+	return {
+		type: 'create',
+		props: {
+			url,
+			name: properties.name,
+			userAdded: true,
+			version: properties.version
+		}
+	};
+}
 
 async function loadFormatThunk(
 	format: StoryFormat,

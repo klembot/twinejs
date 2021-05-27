@@ -1,4 +1,5 @@
 import {
+	createFromProperties,
 	loadAllFormatProperties,
 	loadFormatProperties
 } from '../action-creators';
@@ -12,6 +13,38 @@ import {
 } from '../../../test-util/fakes';
 
 jest.mock('../../../util/fetch-story-format-properties');
+
+describe('createFromProperties', () => {
+	it('returns a create action with the URL and properties specified', () => {
+		const fakeProps = fakeStoryFormatProperties();
+
+		expect(createFromProperties('mock-url', fakeProps)).toEqual({
+			type: 'create',
+			props: {
+				name: fakeProps.name,
+				url: 'mock-url',
+				userAdded: true,
+				version: fakeProps.version
+			}
+		});
+	});
+
+	it('throws an error if there is no name or version in the properties', () => {
+		const fakeProps = fakeStoryFormatProperties();
+		let missingName: any = {...fakeProps};
+		let missingVersion: any = {...fakeProps};
+		let missingBoth: any = {...fakeProps};
+
+		delete missingName.name;
+		delete missingVersion.version;
+		delete missingBoth.name;
+		delete missingBoth.version;
+
+		expect(() => createFromProperties('mock-url', missingName)).toThrow();
+		expect(() => createFromProperties('mock-url', missingVersion)).toThrow();
+		expect(() => createFromProperties('mock-url', missingBoth)).toThrow();
+	});
+});
 
 describe('loadAllFormatProperties', () => {
 	it.todo('loads all formats either in unloaded or error loadState');

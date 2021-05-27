@@ -7,26 +7,34 @@ import {MainContent} from '../../components/container/main-content';
 import {MenuButton} from '../../components/control/menu-button';
 import {TopBar} from '../../components/container/top-bar';
 import {IconButton} from '../../components/control/icon-button';
+import {AddStoryFormatButton} from '../../components/story-format/add-story-format-button';
 import {StoryFormatCard} from '../../components/story-format/story-format-card/story-format-card';
 import {FormatLoader} from '../../store/format-loader';
 import {PrefsState, setPref, usePrefsContext} from '../../store/prefs';
 import {
+	createFromProperties,
 	filteredFormats,
 	sortFormats,
 	useStoryFormatsContext,
-	StoryFormat
+	StoryFormat,
+	StoryFormatProperties
 } from '../../store/story-formats';
 
-// TODO: add story format functionality
-
 export const StoryFormatListRoute: React.FC = () => {
-	const {formats} = useStoryFormatsContext();
-	const {dispatch, prefs} = usePrefsContext();
+	const {dispatch: formatsDispatch, formats} = useStoryFormatsContext();
+	const {dispatch: prefsDispatch, prefs} = usePrefsContext();
 	const history = useHistory();
 	const {t} = useTranslation();
 
+	function handleAddFormat(
+		formatUrl: string,
+		properties: StoryFormatProperties
+	) {
+		formatsDispatch(createFromProperties(formatUrl, properties));
+	}
+
 	function handleChangeFilter(value: PrefsState['storyFormatListFilter']) {
-		dispatch({type: 'update', name: 'storyFormatListFilter', value});
+		prefsDispatch({type: 'update', name: 'storyFormatListFilter', value});
 	}
 
 	function handleSelect(format: StoryFormat) {
@@ -35,14 +43,14 @@ export const StoryFormatListRoute: React.FC = () => {
 		}
 
 		if (format.properties.proofing) {
-			dispatch(
+			prefsDispatch(
 				setPref('proofingFormat', {
 					name: format.name,
 					version: format.version
 				})
 			);
 		} else {
-			dispatch(
+			prefsDispatch(
 				setPref('storyFormat', {
 					name: format.name,
 					version: format.version
@@ -84,6 +92,10 @@ export const StoryFormatListRoute: React.FC = () => {
 						}
 					]}
 					label={t('storyFormatList.show')}
+				/>
+				<AddStoryFormatButton
+					existingFormats={formats}
+					onAddFormat={handleAddFormat}
 				/>
 			</TopBar>
 			<MainContent>

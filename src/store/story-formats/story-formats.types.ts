@@ -45,7 +45,10 @@ export type StoryFormatsState = StoryFormat[];
 export type StoryFormatsAction =
 	| {type: 'init'; state: StoryFormat[]}
 	| {type: 'repair'}
-	| {type: 'create'; props: StoryFormat}
+	| {
+			type: 'create';
+			props: Omit<StoryFormat, 'id' | 'loadState' | 'properties'>;
+	  }
 	| {type: 'delete'; id: string}
 	| {type: 'update'; id: string; props: Partial<StoryFormat>};
 
