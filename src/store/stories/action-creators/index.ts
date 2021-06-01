@@ -1,4 +1,5 @@
 export * from './create-newly-linked-passages';
+export * from './create-story';
 export * from './create-untitled-passage';
 export * from './delete-passage';
 export * from './delete-story';

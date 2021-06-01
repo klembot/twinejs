@@ -14,6 +14,20 @@ export function importStories(
 	toImport: Story[],
 	existingStories: Story[]
 ): Thunk<StoriesState, CreateStoryAction | UpdateStoryAction> {
+	toImport.forEach(importStory => {
+		if (
+			toImport.some(
+				otherStory =>
+					otherStory !== importStory &&
+					storyFilename(otherStory) === storyFilename(importStory)
+			)
+		) {
+			throw new Error(
+				`Stories to import cannot have the same name: "${importStory.name}"`
+			);
+		}
+	});
+
 	return dispatch => {
 		toImport.forEach(importStory => {
 			// Remove the temp ID that was assigned to the new story.

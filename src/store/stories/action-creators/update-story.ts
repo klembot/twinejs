@@ -1,4 +1,5 @@
 import {Story, UpdateStoryAction} from '../stories.types';
+import {storyFilename} from '../../../util/publish';
 
 /**
  * General update of a story.
@@ -10,7 +11,9 @@ export function updateStory(
 ): UpdateStoryAction {
 	if (
 		props.name &&
-		stories.filter(s => s.name === props.name).some(s => s.id !== story.id)
+		stories
+			.filter(s => storyFilename(s) === storyFilename({...s, ...props}))
+			.some(s => s.id !== story.id)
 	) {
 		throw new Error(`There is already a story named "${props.name}".`);
 	}

@@ -1,5 +1,6 @@
 import {Thunk} from 'react-hook-thunk-reducer';
 import {Color} from '../../../util/color';
+import {isValidTagName} from '../../../util/tag';
 import {StoriesState, Story, UpdateStoryAction} from '../stories.types';
 
 export function setTagColor(
@@ -7,6 +8,10 @@ export function setTagColor(
 	name: string,
 	color: Color
 ): Thunk<StoriesState, UpdateStoryAction> {
+	if (!isValidTagName(name)) {
+		throw new Error(`"${name}" is not a valid tag name.`);
+	}
+
 	return dispatch => {
 		// Special handling: if the color is set to none, just delete it.
 
