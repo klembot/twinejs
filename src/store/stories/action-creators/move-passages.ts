@@ -11,6 +11,10 @@ export function movePassages(
 ): UpdatePassagesAction {
 	const passageUpdates: Record<string, Partial<Passage>> = {};
 
+	if (!Number.isFinite(xChange) || !Number.isFinite(yChange)) {
+		throw new Error('Offset must be a finite number.');
+	}
+
 	passageIds.forEach(passageId => {
 		const passage = story.passages.find(p => p.id === passageId);
 
@@ -20,8 +24,8 @@ export function movePassages(
 			);
 		}
 
-		let left = passage.left + xChange;
-		let top = passage.top + yChange;
+		let left = Math.max(passage.left + xChange, 0);
+		let top = Math.max(passage.top + yChange, 0);
 
 		if (story.snapToGrid) {
 			left = Math.round(left / 25) * 25;
