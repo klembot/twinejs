@@ -88,7 +88,7 @@ export const StoryCard: React.FC<StoryCardProps> = props => {
 					<IconButton
 						icon={<IconPlayerPlay />}
 						label={t('common.play')}
-						onClick={onPublish}
+						onClick={onPlay}
 					/>
 					<MenuButton
 						icon={<IconDots />}

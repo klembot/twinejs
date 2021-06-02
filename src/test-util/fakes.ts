@@ -91,6 +91,20 @@ export function fakePendingStoryFormat(
 	};
 }
 
+export function fakeUnloadedStoryFormat(
+	props?: Partial<Omit<StoryFormat, 'loadError' | 'loadState'>>
+): StoryFormat {
+	return {
+		id: random.uuid(),
+		loadState: 'unloaded',
+		name: lorem.words(2),
+		url: internet.url(),
+		userAdded: false,
+		version: system.semver(),
+		...props
+	};
+}
+
 export function fakePrefs(): PrefsState {
 	// Ensure tag uniqueness.
 
