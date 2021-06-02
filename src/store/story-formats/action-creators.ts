@@ -62,7 +62,9 @@ async function loadFormatThunk(
 export function loadAllFormatProperties(
 	formats: StoryFormat[]
 ): Thunk<StoryFormat[], StoryFormatsAction> {
-	const toLoad = formats.filter(f => f.loadState !== 'loaded');
+	const toLoad = formats.filter(
+		f => f.loadState !== 'loaded' && f.loadState !== 'loading'
+	);
 
 	if (!toLoad) {
 		return () => {};
@@ -77,11 +79,12 @@ export function loadAllFormatProperties(
 
 /**
  * Loads a format's properties. If loading previously failed, this function will
- * try again.
+ * try again. This returns a thunk which in turns returns a promise resolving to
+ * the format properties, which can be useful if you need them immediately.
  */
 export function loadFormatProperties(format: StoryFormat) {
 	if (format.loadState === 'loaded') {
-		return () => {};
+		return () => format.properties;
 	}
 
 	return async (dispatch: StoryFormatsDispatch) =>

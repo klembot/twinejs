@@ -9,7 +9,8 @@ import {
 	fakeFailedStoryFormat,
 	fakeLoadedStoryFormat,
 	fakePendingStoryFormat,
-	fakeStoryFormatProperties
+	fakeStoryFormatProperties,
+	fakeUnloadedStoryFormat
 } from '../../../test-util/fakes';
 
 jest.mock('../../../util/fetch-story-format-properties');
@@ -47,13 +48,38 @@ describe('createFromProperties', () => {
 });
 
 describe('loadAllFormatProperties', () => {
-	it.todo('loads all formats either in unloaded or error loadState');
+	let dispatch: jest.Mock;
+	let formats: StoryFormat[];
 
-	it.todo('does nothing with formats that are loaded or are loading');
+	beforeEach(() => {
+		dispatch = jest.fn();
+		formats = [
+			fakeFailedStoryFormat(),
+			fakeLoadedStoryFormat(),
+			fakePendingStoryFormat(),
+			fakeUnloadedStoryFormat()
+		];
+	});
 
-	it.todo(
-		'returns a promise that resolves when all formats have loaded or failed'
-	);
+	it('loads all formats either in unloaded or error loadState', () => {
+		// This is testing it indirectly :(
+
+		loadAllFormatProperties(formats)(dispatch, () => formats);
+		expect(dispatch.mock.calls).toEqual([
+			[{type: 'update', id: formats[0].id, props: {loadState: 'loading'}}],
+			[{type: 'update', id: formats[3].id, props: {loadState: 'loading'}}]
+		]);
+	});
+
+	it('returns a promise that resolves when all formats have loaded or failed', async () => {
+		await loadAllFormatProperties(formats)(dispatch, () => formats);
+		expect(dispatch.mock.calls).toEqual([
+			[{type: 'update', id: formats[0].id, props: {loadState: 'loading'}}],
+			[{type: 'update', id: formats[3].id, props: {loadState: 'loading'}}],
+			[{type: 'update', id: formats[0].id, props: {loadState: 'loaded'}}],
+			[{type: 'update', id: formats[3].id, props: {loadState: 'loaded'}}]
+		]);
+	});
 });
 
 describe('loadFormatProperties', () => {
@@ -118,6 +144,9 @@ describe('loadFormatProperties', () => {
 				]
 			]);
 		});
+
+		it('returns the format properties', async () =>
+			expect(await loadFormatProperties(format)(dispatch)).toBe(properties));
 	});
 
 	describe('when fetching properties fails', () => {
@@ -147,9 +176,19 @@ describe('loadFormatProperties', () => {
 		});
 	});
 
-	it('does nothing if the format is already loaded', async () => {
-		format = fakeLoadedStoryFormat();
-		await loadFormatProperties(format)(dispatch);
-		expect(dispatch.mock.calls).toEqual([]);
+	describe('when the format is already loaded', () => {
+		beforeEach(() => (format = fakeLoadedStoryFormat()));
+
+		it('dispatches no actions', async () => {
+			await loadFormatProperties(format)(dispatch);
+			expect(dispatch.mock.calls).toEqual([]);
+		});
+
+		it('returns the previously loaded properties', async () => {
+			const loadedProps = (format as StoryFormat & {loadState: 'loaded'})
+				.properties;
+
+			expect(await loadFormatProperties(format)(dispatch)).toBe(loadedProps);
+		});
 	});
 });

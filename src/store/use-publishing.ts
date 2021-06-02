@@ -27,7 +27,6 @@ export interface UsePublishingProps {
  * `useStoryLaunch` instead--this is for doing the actual binding of the story
  * and story format.
  */
-
 export function usePublishing(): UsePublishingProps {
 	// As little logic as possible should live here--instead it should be in
 	// util/publish.ts.
