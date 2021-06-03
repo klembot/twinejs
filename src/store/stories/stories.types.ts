@@ -1,5 +1,6 @@
 import {Thunk} from 'react-hook-thunk-reducer';
 import {Color} from '../../util/color';
+import {StoryFormat} from '../story-formats';
 
 /**
  * A single passage in a story.
@@ -120,6 +121,8 @@ export interface InitStoriesAction {
 }
 export interface RepairStoriesAction {
 	type: 'repair';
+	allFormats: StoryFormat[];
+	defaultFormat: StoryFormat;
 }
 export interface CreateStoryAction {
 	type: 'createStory';
