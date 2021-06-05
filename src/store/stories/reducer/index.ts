@@ -3,8 +3,9 @@ import {createPassages} from './create-passages';
 import {createStory} from './create-story';
 import {deletePassage} from './delete-passage';
 import {deletePassages} from './delete-passages';
-import {initState} from './init';
 import {deleteStory} from './delete-story';
+import {initState} from './init';
+import {repairState} from './repair';
 import {updatePassage} from './update-passage';
 import {updatePassages} from './update-passages';
 import {updateStory} from './update-story';
@@ -36,6 +37,9 @@ export const reducer: React.Reducer<StoriesState, StoriesAction> = (
 		case 'init':
 			return initState(state, action.state);
 
+		case 'repair':
+			return repairState(state, action.allFormats, action.defaultFormat);
+
 		case 'updatePassage':
 			return updatePassage(
 				state,
@@ -51,7 +55,7 @@ export const reducer: React.Reducer<StoriesState, StoriesAction> = (
 			return updateStory(state, action.storyId, action.props);
 
 		default:
-			console.warn(`${action.type} not implemented yet`);
+			console.warn(`${(action as any).type} not implemented yet`);
 	}
 
 	return state;
