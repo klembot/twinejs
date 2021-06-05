@@ -65,6 +65,13 @@ export function saveMiddleware(
 	}
 
 	switch (action.type) {
+		case 'init':
+		case 'repair':
+			// We take no action here on a repair action. This is to prevent messing up a
+			// story's last modified date. If the user then edits the story, we'll save
+			// their change and the repair then.
+			break;
+
 		case 'createStory':
 			if (action.props.name) {
 				saveStory(storyWithName(state, action.props.name), formatState);
@@ -131,7 +138,11 @@ export function saveMiddleware(
 			break;
 
 		default:
-			console.warn('Not implemented yet');
+			console.warn(
+				`Story action ${
+					(action as any).type
+				} has no Electron persistence handler`
+			);
 	}
 
 	lastState = {...state};

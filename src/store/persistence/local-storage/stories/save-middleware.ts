@@ -34,6 +34,13 @@ export function saveMiddleware(state: StoriesState, action: StoriesAction) {
 	let story: Story;
 
 	switch (action.type) {
+		case 'init':
+		case 'repair':
+			// We take no action here on a repair action. This is to prevent messing up a
+			// story's last modified date. If the user then edits the story, we'll save
+			// their change and the repair then.
+			break;
+
 		case 'createPassage':
 			if (!action.props.name) {
 				console.warn(
@@ -265,6 +272,13 @@ export function saveMiddleware(state: StoriesState, action: StoriesAction) {
 				story.passages.forEach(passage => savePassage(transaction, passage));
 			});
 			break;
+
+		default:
+			console.warn(
+				`Story action ${
+					(action as any).type
+				} has no local storage persistence handler`
+			);
 	}
 
 	lastState = state;

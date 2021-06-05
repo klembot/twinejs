@@ -12,6 +12,7 @@ export function saveMiddleware(
 	const shouldSave =
 		action.type === 'create' ||
 		action.type === 'delete' ||
+		action.type === 'repair' ||
 		(action.type === 'update' &&
 			Object.keys(action.props).some(
 				key => !['loadError', 'loadState', 'properties'].includes(key)
