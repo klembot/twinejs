@@ -12,6 +12,7 @@ export function saveMiddleware(
 	switch (action.type) {
 		case 'create':
 		case 'delete':
+		case 'repair':
 			save(state);
 			break;
 

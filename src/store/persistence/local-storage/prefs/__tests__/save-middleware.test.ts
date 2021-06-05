@@ -13,15 +13,18 @@ describe('prefs local storage save middleware', () => {
 		prefs = fakePrefs();
 	});
 
-	it('calls save() on a state when a save action is received', () => {
+	it('calls save() on a state when an update action is received', () => {
 		saveMiddleware(prefs, {type: 'update', name: 'locale', value: 'en'});
+		expect(saveMock.mock.calls).toEqual([[prefs]]);
+	});
+
+	it('calls save() on a state when a repair action is received', () => {
+		saveMiddleware(prefs, {type: 'repair'});
 		expect(saveMock.mock.calls).toEqual([[prefs]]);
 	});
 
 	it('does not call save on any other action', () => {
 		saveMiddleware(prefs, {type: 'init', state: {}});
-		expect(saveMock).not.toHaveBeenCalled();
-		saveMiddleware(prefs, {type: 'repair'});
 		expect(saveMock).not.toHaveBeenCalled();
 	});
 });
