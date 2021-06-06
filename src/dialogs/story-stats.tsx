@@ -1,5 +1,4 @@
 import * as React from 'react';
-import classNames from 'classnames';
 import {useTranslation} from 'react-i18next';
 import {DialogCard} from '../components/container/dialog-card';
 import {storyStats, storyWithId, useStoriesContext} from '../store/stories';
@@ -21,11 +20,6 @@ export const StoryStatsDialog: React.FC<StoryStatsDialogProps> = props => {
 	const {stories} = useStoriesContext();
 
 	const story = storyWithId(stories, storyId);
-
-	const className = classNames('story-stats-dialog', 'fixed-size', {
-		collapsed: other.collapsed
-	});
-
 	let content: React.ReactNode = null;
 
 	// Only calculate stats if the dialog is expanded.
@@ -75,10 +69,13 @@ export const StoryStatsDialog: React.FC<StoryStatsDialogProps> = props => {
 	}
 
 	return (
-		<div className={className}>
-			<DialogCard {...other} headerLabel={t('storyStats.title')}>
-				<div className="content">{content}</div>
-			</DialogCard>
-		</div>
+		<DialogCard
+			{...other}
+			className="story-stats-dialog"
+			fixedSize
+			headerLabel={t('storyStats.title')}
+		>
+			<div className="content">{content}</div>
+		</DialogCard>
 	);
 };

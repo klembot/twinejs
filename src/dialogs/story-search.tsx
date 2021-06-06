@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import classNames from 'classnames';
 import {IconReplace} from '@tabler/icons';
 import {DialogCard} from '../components/container/dialog-card';
 import {CheckboxButton} from '../components/control/checkbox-button';
@@ -49,10 +48,6 @@ export const StorySearchDialog: React.FC<StorySearchDialogProps> = props => {
 		return () => dispatch(highlightPassagesMatchingSearch(story, '', {}));
 	}, [dispatch, find, flags, story]);
 
-	const className = classNames('story-search-dialog', 'fixed-size', {
-		collapsed: other.collapsed
-	});
-
 	function handleReplaceWithChange(
 		editor: CodeMirror.Editor,
 		data: CodeMirror.EditorChange,
@@ -81,58 +76,61 @@ export const StorySearchDialog: React.FC<StorySearchDialogProps> = props => {
 	}
 
 	return (
-		<div className={className}>
-			<DialogCard {...other} headerLabel={t('storySearch.title')}>
-				<div className="search-fields">
-					<CodeArea
-						label={t('storySearch.find')}
-						onBeforeChange={handleSearchForChange}
-						options={{
-							extraKeys: ignoreTab,
-							mode: 'text'
-						}}
-						value={find}
-					/>
-					<CodeArea
-						label={t('storySearch.replaceWith')}
-						onBeforeChange={handleReplaceWithChange}
-						options={{extraKeys: ignoreTab, mode: 'text'}}
-						value={replace}
-					/>
-				</div>
-				<div className="search-flags">
-					<CheckboxButton
-						label={t('storySearch.includePassageNames')}
-						onChange={() => toggleFlag('includePassageNames')}
-						value={flags.includePassageNames ?? false}
-					/>
-					<CheckboxButton
-						label={t('storySearch.matchCase')}
-						onChange={() => toggleFlag('matchCase')}
-						value={flags.matchCase ?? false}
-					/>
-					<CheckboxButton
-						label={t('storySearch.useRegexes')}
-						onChange={() => toggleFlag('useRegexes')}
-						value={flags.useRegexes ?? false}
-					/>
-				</div>
-				<div className="search-results">
-					<IconButton
-						disabled={matches.length === 0}
-						icon={<IconReplace />}
-						label={t('storySearch.replaceAll')}
-						onClick={handleReplace}
-						variant="danger"
-					/>
-					<span>
-						{find &&
-							(matches.length > 0
-								? t('storySearch.matchCount', {count: matches.length})
-								: t('storySearch.noMatches'))}
-					</span>
-				</div>
-			</DialogCard>
-		</div>
+		<DialogCard
+			{...other}
+			className="story-search-dialog"
+			fixedSize
+			headerLabel={t('storySearch.title')}
+		>
+			<div className="search-fields">
+				<CodeArea
+					label={t('storySearch.find')}
+					onBeforeChange={handleSearchForChange}
+					options={{
+						extraKeys: ignoreTab,
+						mode: 'text'
+					}}
+					value={find}
+				/>
+				<CodeArea
+					label={t('storySearch.replaceWith')}
+					onBeforeChange={handleReplaceWithChange}
+					options={{extraKeys: ignoreTab, mode: 'text'}}
+					value={replace}
+				/>
+			</div>
+			<div className="search-flags">
+				<CheckboxButton
+					label={t('storySearch.includePassageNames')}
+					onChange={() => toggleFlag('includePassageNames')}
+					value={flags.includePassageNames ?? false}
+				/>
+				<CheckboxButton
+					label={t('storySearch.matchCase')}
+					onChange={() => toggleFlag('matchCase')}
+					value={flags.matchCase ?? false}
+				/>
+				<CheckboxButton
+					label={t('storySearch.useRegexes')}
+					onChange={() => toggleFlag('useRegexes')}
+					value={flags.useRegexes ?? false}
+				/>
+			</div>
+			<div className="search-results">
+				<IconButton
+					disabled={matches.length === 0}
+					icon={<IconReplace />}
+					label={t('storySearch.replaceAll')}
+					onClick={handleReplace}
+					variant="danger"
+				/>
+				<span>
+					{find &&
+						(matches.length > 0
+							? t('storySearch.matchCount', {count: matches.length})
+							: t('storySearch.noMatches'))}
+				</span>
+			</div>
+		</DialogCard>
 	);
 };

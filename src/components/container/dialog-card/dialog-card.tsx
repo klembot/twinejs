@@ -1,4 +1,5 @@
 import * as React from 'react';
+import classNames from 'classnames';
 import {useTranslation} from 'react-i18next';
 import {IconChevronDown, IconChevronUp, IconX} from '@tabler/icons';
 import {Card} from '../card';
@@ -6,18 +7,33 @@ import {IconButton} from '../../control/icon-button';
 import './dialog-card.css';
 
 export interface DialogCardProps {
+	className?: string;
 	collapsed: boolean;
+	fixedSize?: boolean;
 	headerLabel: string;
 	onChangeCollapsed: (value: boolean) => void;
 	onClose: () => void;
 }
 
 export const DialogCard: React.FC<DialogCardProps> = props => {
-	const {children, collapsed, headerLabel, onChangeCollapsed, onClose} = props;
+	const {
+		children,
+		className,
+		collapsed,
+		fixedSize,
+		headerLabel,
+		onChangeCollapsed,
+		onClose
+	} = props;
 	const {t} = useTranslation();
 
+	const calcdClassName = classNames('dialog-card', className, {
+		collapsed,
+		'fixed-size': fixedSize
+	});
+
 	return (
-		<div className="dialog-card">
+		<div className={calcdClassName}>
 			<Card floating>
 				<h2>
 					<div className="dialog-card-header">
