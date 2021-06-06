@@ -7,6 +7,7 @@ import {PromptModal} from '../../components/modal/prompt-modal';
 import {setPref, usePrefsContext} from '../../store/prefs';
 import {
 	deleteStory,
+	duplicateStory,
 	renameStoryTag,
 	updateStory,
 	Story
@@ -53,6 +54,10 @@ export const StoryCards: React.FC<StoryCardsProps> = props => {
 		storiesDispatch(deleteStory(story));
 	}
 
+	function handleDuplicate(story: Story) {
+		storiesDispatch(duplicateStory(story, stories));
+	}
+
 	function handleEditTag(
 		story: Story,
 		oldName: string,
@@ -82,6 +87,7 @@ export const StoryCards: React.FC<StoryCardsProps> = props => {
 						key={story.id}
 						onAddTag={(name, color) => handleAddTag(story, name, color)}
 						onDelete={() => handleDelete(story)}
+						onDuplicate={() => handleDuplicate(story)}
 						onEditTag={(oldName, newName, newColor) =>
 							handleEditTag(story, oldName, newName, newColor)
 						}

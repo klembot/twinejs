@@ -1,6 +1,7 @@
 import {passageDefaults} from '../defaults';
 import {CreatePassageAction, Story} from '../stories.types';
 import {rectsIntersect} from '../../../util/geometry';
+import {unusedName} from '../../../util/unused-name';
 
 /**
  * Creates a new, untitled passage centered at a point in the story. This
@@ -17,25 +18,10 @@ export function createUntitledPassage(
 	}
 
 	const defs = passageDefaults();
-	let passageName = defs.name;
-
-	// If a passage already exists with that name, add a number and keep
-	// incrementing until we get a unique one.
-
-	if (story.passages.some(passage => passage.name === passageName)) {
-		let suffix = 1;
-
-		while (
-			story.passages.some(
-				// eslint-disable-next-line no-loop-func
-				passage => passage.name === passageName + ' ' + suffix
-			)
-		) {
-			suffix++;
-		}
-
-		passageName += ' ' + suffix;
-	}
+	const passageName = unusedName(
+		defs.name,
+		story.passages.map(passage => passage.name)
+	);
 
 	// Center it at the position requested, but move it outward until no overlaps are found.
 
