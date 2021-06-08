@@ -1,5 +1,4 @@
 import * as React from 'react';
-import classNames from 'classnames';
 import {useTranslation} from 'react-i18next';
 import {DialogCard} from '../components/container/dialog-card';
 import {storyStats, storyWithId, useStoriesContext} from '../store/stories';
@@ -21,11 +20,6 @@ export const StoryStatsDialog: React.FC<StoryStatsDialogProps> = props => {
 	const {stories} = useStoriesContext();
 
 	const story = storyWithId(stories, storyId);
-
-	const className = classNames('story-stats-dialog', 'fixed-size', {
-		collapsed: other.collapsed
-	});
-
 	let content: React.ReactNode = null;
 
 	// Only calculate stats if the dialog is expanded.
@@ -36,37 +30,37 @@ export const StoryStatsDialog: React.FC<StoryStatsDialogProps> = props => {
 		content = (
 			<>
 				<p>
-					{t('storyStats.lastUpdate', {
+					{t('dialogs.storyStats.lastUpdate', {
 						date: dateFormatter.format(story.lastUpdate)
 					})}
 				</p>
 				<p>
-					{t('storyStats.ifid', {ifid: story.ifid})}&nbsp;
+					{t('dialogs.storyStats.ifid', {ifid: story.ifid})}&nbsp;
 					<a href="https://ifdb.org/help-ifid" target="_blank" rel="noreferrer">
-						{t('storyStats.ifidExplanation')}
+						{t('dialogs.storyStats.ifidExplanation')}
 					</a>
 				</p>
 				<table className="counts">
 					<tbody>
 						<tr>
 							<td>{stats.characters}</td>
-							<td>{t('storyStats.characters')}</td>
+							<td>{t('dialogs.storyStats.characters')}</td>
 						</tr>
 						<tr>
 							<td>{stats.words}</td>
-							<td>{t('storyStats.words')}</td>
+							<td>{t('dialogs.storyStats.words')}</td>
 						</tr>
 						<tr>
 							<td>{stats.passages}</td>
-							<td>{t('storyStats.passages')}</td>
+							<td>{t('dialogs.storyStats.passages')}</td>
 						</tr>
 						<tr>
 							<td>{stats.links.length}</td>
-							<td>{t('storyStats.links')}</td>
+							<td>{t('dialogs.storyStats.links')}</td>
 						</tr>
 						<tr>
 							<td>{stats.brokenLinks.length}</td>
-							<td>{t('storyStats.brokenLinks')}</td>
+							<td>{t('dialogs.storyStats.brokenLinks')}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -75,10 +69,13 @@ export const StoryStatsDialog: React.FC<StoryStatsDialogProps> = props => {
 	}
 
 	return (
-		<div className={className}>
-			<DialogCard {...other} headerLabel={t('storyStats.title')}>
-				<div className="content">{content}</div>
-			</DialogCard>
-		</div>
+		<DialogCard
+			{...other}
+			className="story-stats-dialog"
+			fixedSize
+			headerLabel={t('dialogs.storyStats.title')}
+		>
+			<div className="content">{content}</div>
+		</DialogCard>
 	);
 };

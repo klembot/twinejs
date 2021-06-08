@@ -1,0 +1,17 @@
+@import '../styles/metrics.css';
+
+.app-prefs-dialog .card-content {
+	display: grid;
+	grid-gap: var(--grid-size);
+	grid-template-columns: 1fr 1fr;
+}
+
+.app-prefs-dialog p.font-explanation {
+	grid-column: 1 / span 2;
+	margin: 0;
+}
+
+.app-prefs-dialog .text-input,
+.app-prefs-dialog input[type='text'] {
+	width: 100%;
+}

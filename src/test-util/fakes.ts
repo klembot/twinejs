@@ -112,11 +112,11 @@ export function fakePrefs(): PrefsState {
 	const tags = [`${tag}-1`, `${tag}-2`, `${tag}-3`];
 
 	return {
-		appTheme: random.arrayElement(['light', 'dark']),
+		appTheme: random.arrayElement(['light', 'dark', 'system']),
+		codeEditorFontFamily: lorem.words(2),
+		codeEditorFontScale: 0.8 + random.number(0.5),
 		donateShown: random.boolean(),
 		firstRunTime: new Date().getTime(),
-		javascriptEditorFontFamily: lorem.words(2),
-		javascriptEditorFontScale: 0.8 + random.number(0.5),
 		lastUpdateSeen: '',
 		lastUpdateCheckTime: new Date().getTime(),
 		locale: random.locale(),
@@ -134,8 +134,6 @@ export function fakePrefs(): PrefsState {
 		storyListSort: random.arrayElement(['date', 'name']),
 		storyListTagFilter: [],
 		storyTagColors: {[tags[0]]: 'red', [tags[1]]: 'green', [tags[2]]: 'blue'},
-		stylesheetEditorFontFamily: lorem.words(2),
-		stylesheetEditorFontScale: 1,
 		welcomeSeen: random.boolean()
 	};
 }

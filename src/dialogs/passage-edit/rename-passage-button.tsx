@@ -34,10 +34,10 @@ export const RenamePassageButton: React.FC<RenamePassageButtonProps> = props => 
 				onClick={() => setRenameModalOpen(true)}
 			/>
 			<PromptModal
-				detail={t('passageEdit.renameDetail')}
+				detail={t('dialogs.passageEdit.renameDetail')}
 				domId="rename-passage-modal"
 				isOpen={renameModalOpen}
-				message={t('passageEdit.renameMessage')}
+				message={t('dialogs.passageEdit.renameMessage')}
 				onCancel={() => setRenameModalOpen(false)}
 				onChange={event => setNewName(event.target.value)}
 				onSubmit={renamePassage}

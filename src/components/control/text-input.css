@@ -9,7 +9,7 @@
 
 .text-input > label > input {
 	background: var(--white-translucent);
-	border: 1px solid var(--light-gray);
+	border: 1px solid var(--light-gray-translucent);
 	border-radius: var(--corner-round);
 	color: var(--dark-gray);
 	flex-grow: 1;

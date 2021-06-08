@@ -13,6 +13,7 @@ import {useStoryLaunch} from '../../../store/use-story-launch';
 import {storyFilename} from '../../../util/publish';
 import {saveHtml} from '../../../util/save-html';
 import {
+	AppPrefsDialog,
 	StoryJavaScriptDialog,
 	StorySearchDialog,
 	StoryStatsDialog,
@@ -112,6 +113,15 @@ export const MoreMenu: React.FC<MoreMenuProps> = props => {
 								type: 'addDialog',
 								component: StoryStylesheetDialog,
 								props: {storyId: story.id}
+							})
+					},
+					{separator: true},
+					{
+						label: t('common.preferences'),
+						onClick: () =>
+							dialogsDispatch({
+								type: 'addDialog',
+								component: AppPrefsDialog
 							})
 					}
 				]}

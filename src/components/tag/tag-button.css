@@ -4,20 +4,19 @@
 
 .tag-button .menu-button > .icon-button {
 	background-color: var(--faint-gray);
-	border: none;
+	border: 1px solid var(--light-gray);
 	border-radius: var(--control-height);
-	box-shadow: var(--shadow-small);
 	height: var(--control-height);
 	font-size: 85%;
 }
 
 .tag-button .menu-button > .icon-button:hover {
-	background-color: var(--faint-gray);
+	background-color: var(--light-gray);
 }
 
 .tag-button.color-red .menu-button > .icon-button {
 	background-color: var(--faint-red);
-	box-shadow: 0 1px 1px var(--light-red);
+	border: 1px solid var(--light-red);
 	color: var(--dark-red);
 }
 
@@ -27,7 +26,7 @@
 
 .tag-button.color-orange .menu-button > .icon-button {
 	background-color: var(--faint-orange);
-	box-shadow: 0 1px 1px var(--light-orange);
+	border: 1px solid var(--light-orange);
 	color: var(--dark-orange);
 }
 
@@ -37,7 +36,7 @@
 
 .tag-button.color-yellow .menu-button > .icon-button {
 	background-color: var(--faint-yellow);
-	box-shadow: 0 1px 1px var(--light-yellow);
+	border: 1px solid var(--light-yellow);
 	color: var(--dark-yellow);
 }
 
@@ -47,7 +46,7 @@
 
 .tag-button.color-green .menu-button > .icon-button {
 	background-color: var(--faint-green);
-	box-shadow: 0 1px 1px var(--light-green);
+	border: 1px solid var(--light-green);
 	color: var(--dark-green);
 }
 
@@ -57,7 +56,7 @@
 
 .tag-button.color-blue .menu-button > .icon-button {
 	background-color: var(--faint-blue);
-	box-shadow: 0 1px 1px var(--light-blue);
+	border: 1px solid var(--light-blue);
 	color: var(--dark-blue);
 }
 
@@ -67,7 +66,7 @@
 
 .tag-button.color-purple .menu-button > .icon-button {
 	background-color: var(--faint-purple);
-	box-shadow: 0 1px 1px var(--light-purple);
+	border: 1px solid var(--light-purple);
 	color: var(--dark-purple);
 }
 

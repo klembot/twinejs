@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {HashRouter, Route, Switch} from 'react-router-dom';
 import {usePrefsContext} from '../store/prefs';
-import {LocaleSelectRoute} from './locale-select';
 import {StoryFormatListRoute} from './story-format-list';
 import {StoryEditRoute} from './story-edit';
 import {StoryImportRoute} from './story-import';
@@ -28,9 +27,6 @@ export const Routes: React.FC = () => {
 					</Route>
 					<Route path="/import/stories">
 						<StoryImportRoute />
-					</Route>
-					<Route path="/locale">
-						<LocaleSelectRoute />
 					</Route>
 					<Route path="/story-formats">
 						<StoryFormatListRoute />

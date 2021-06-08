@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {IndentButtons, UndoRedoButtons} from '../components/codemirror';
@@ -22,9 +21,6 @@ export const StoryStylesheetDialog: React.FC<StoryStylesheetDialogProps> = props
 	const story = storyWithId(stories, storyId);
 	const {t} = useTranslation();
 
-	const className = classNames('story-javascript-dialog', {
-		collapsed: other.collapsed
-	});
 	const handleChange = (
 		editor: CodeMirror.Editor,
 		data: CodeMirror.EditorChange,
@@ -35,24 +31,26 @@ export const StoryStylesheetDialog: React.FC<StoryStylesheetDialogProps> = props
 	};
 
 	return (
-		<div className={className}>
-			<DialogCard {...other} headerLabel={t('storyStylesheet.title')}>
-				<p>{t('storyStylesheet.explanation')}</p>
-				<ButtonBar>
-					<UndoRedoButtons editor={cmEditor} watch={story.script} />
-					<IndentButtons editor={cmEditor} />
-				</ButtonBar>
-				<DialogEditor>
-					<CodeArea
-						editorDidMount={setCmEditor}
-						fontFamily={prefs.javascriptEditorFontFamily}
-						fontScale={prefs.javascriptEditorFontScale}
-						onBeforeChange={handleChange}
-						options={{autofocus: true, mode: 'css'}}
-						value={story.stylesheet}
-					/>
-				</DialogEditor>
-			</DialogCard>
-		</div>
+		<DialogCard
+			{...other}
+			className="story-javascript-dialog"
+			headerLabel={t('dialogs.storyStylesheet.title')}
+		>
+			<p>{t('dialogs.storyStylesheet.explanation')}</p>
+			<ButtonBar>
+				<UndoRedoButtons editor={cmEditor} watch={story.script} />
+				<IndentButtons editor={cmEditor} />
+			</ButtonBar>
+			<DialogEditor>
+				<CodeArea
+					editorDidMount={setCmEditor}
+					fontFamily={prefs.codeEditorFontFamily}
+					fontScale={prefs.codeEditorFontScale}
+					onBeforeChange={handleChange}
+					options={{autofocus: true, mode: 'css'}}
+					value={story.stylesheet}
+				/>
+			</DialogEditor>
+		</DialogCard>
 	);
 };

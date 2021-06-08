@@ -15,10 +15,3 @@
 	margin-right: var(--grid-size);
 	margin-bottom: var(--grid-size);
 }
-
-@media (prefers-color-scheme: dark) {
-	.story-card .image-card-image svg,
-	.story-import-card .image-card-image svg {
-		filter: invert() brightness(1.5);
-	}
-}

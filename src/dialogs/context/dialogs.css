@@ -14,15 +14,15 @@
 	width: 40em;
 }
 
-.dialogs > * {
+.dialogs .dialog-card {
 	flex: 1;
 }
 
-.dialogs > * + * {
+.dialogs .dialog-card + .dialog-card {
 	margin-top: var(--grid-size);
 }
 
-.dialogs > .collapsed,
-.dialogs > .fixed-size {
+.dialogs .dialog-card.collapsed,
+.dialogs .dialog-card.fixed-size {
 	flex: 0;
 }

@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {UndoRedoButtons} from '../../components/codemirror/undo-redo-buttons';
@@ -63,46 +62,47 @@ export const PassageEditDialog: React.FC<PassageEditDialogProps> = props => {
 		dispatch(updateStory(stories, story, {startPassage: passageId}));
 	}
 
-	const className = classNames('passage-dialog', {collapsed: other.collapsed});
 	const isStart = story.startPassage === passage.id;
 
 	return (
-		<div className={className}>
-			<DialogCard {...other} headerLabel={passage.name}>
-				<ButtonBar>
-					<UndoRedoButtons editor={cmEditor} watch={passage.text} />
-					<AddTagButton onCreate={handleAddTag} />
-					<RenamePassageButton passage={passage} story={story} />
-					<CheckboxButton
-						disabled={isStart}
-						label={t('passageEdit.setAsStart')}
-						onChange={handleSetAsStart}
-						value={isStart}
-					/>
-				</ButtonBar>
-				{passage.tags.length > 0 && (
-					<div className="tags">
-						<ButtonBar>
-							{passage.tags.map(tag => (
-								<TagButton
-									color={story.tagColors[tag]}
-									key={tag}
-									name={tag}
-									onDelete={() => handleDeleteTag(tag)}
-									onEdit={(newName, newColor) =>
-										handleEditTag(tag, newName, newColor)
-									}
-								/>
-							))}
-						</ButtonBar>
-					</div>
-				)}
-				<PassageText
-					onChange={handlePassageTextChange}
-					onEditorChange={setCmEditor}
-					passage={passage}
+		<DialogCard
+			{...other}
+			className="passage-edit-dialog"
+			headerLabel={passage.name}
+		>
+			<ButtonBar>
+				<UndoRedoButtons editor={cmEditor} watch={passage.text} />
+				<AddTagButton onCreate={handleAddTag} />
+				<RenamePassageButton passage={passage} story={story} />
+				<CheckboxButton
+					disabled={isStart}
+					label={t('dialogs.passageEdit.setAsStart')}
+					onChange={handleSetAsStart}
+					value={isStart}
 				/>
-			</DialogCard>
-		</div>
+			</ButtonBar>
+			{passage.tags.length > 0 && (
+				<div className="tags">
+					<ButtonBar>
+						{passage.tags.map(tag => (
+							<TagButton
+								color={story.tagColors[tag]}
+								key={tag}
+								name={tag}
+								onDelete={() => handleDeleteTag(tag)}
+								onEdit={(newName, newColor) =>
+									handleEditTag(tag, newName, newColor)
+								}
+							/>
+						))}
+					</ButtonBar>
+				</div>
+			)}
+			<PassageText
+				onChange={handlePassageTextChange}
+				onEditorChange={setCmEditor}
+				passage={passage}
+			/>
+		</DialogCard>
 	);
 };
