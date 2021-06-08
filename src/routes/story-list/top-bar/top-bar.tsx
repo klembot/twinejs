@@ -6,7 +6,11 @@ import {TopBar} from '../../../components/container/top-bar';
 import {IconButton} from '../../../components/control/icon-button';
 import {IconLink} from '../../../components/control/icon-link';
 import {MenuButton} from '../../../components/control/menu-button';
-import {AboutTwineDialog, useDialogsContext} from '../../../dialogs';
+import {
+	AboutTwineDialog,
+	AppPrefsDialog,
+	useDialogsContext
+} from '../../../dialogs';
 import {storyTags, Story} from '../../../store/stories';
 import {ArchiveButton} from './archive-button';
 import {CreateStoryButton} from './create-story-button';
@@ -47,8 +51,9 @@ export const StoryListTopBar: React.FC<StoryListTopBarProps> = props => {
 				icon={<IconDots />}
 				items={[
 					{
-						label: t('storyList.topBar.language'),
-						onClick: () => history.push('/locale')
+						label: t('common.preferences'),
+						onClick: () =>
+							dispatch({type: 'addDialog', component: AppPrefsDialog})
 					},
 					{
 						label: t('storyList.topBar.about'),

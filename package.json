@@ -17,7 +17,6 @@
 		"detect-it": "^4.0.1",
 		"element-closest": "^3.0.2",
 		"file-saver": "^2.0.5",
-		"flag-icon-css": "^3.5.0",
 		"focus-visible": "^5.2.0",
 		"i18next": "^19.9.2",
 		"i18next-http-backend": "^1.1.1",

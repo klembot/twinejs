@@ -1,4 +1,5 @@
 @import '../../styles/colors.css';
+@import '../../styles/depth.css';
 @import '../../styles/metrics.css';
 @import '../../styles/typography.css';
 
@@ -8,19 +9,23 @@
 	position: relative;
 }
 
+/* TODO: style this with ::after so that it can change appearance in dark theme */
+
 .text-select > label > select {
 	-webkit-appearance: none;
-	background: var(--white) url('~@tabler/icons/icons/chevron-down.svg');
-	background-position: center right;
+	background: var(--white-translucent)
+		url('~@tabler/icons/icons/chevron-down.svg');
+	background-position: calc(100% - var(--corner-round)) center;
 	background-repeat: no-repeat;
-	border: 1px solid var(--light-gray);
 	border-radius: var(--corner-round);
+	border: 1px solid var(--light-gray-translucent);
 	color: var(--dark-gray);
 	font: 100% var(--font-system);
 	height: var(--control-height);
 	margin-left: var(--grid-size);
 	padding: var(--grid-size) calc(var(--grid-size) + 16px) var(--grid-size)
 		var(--grid-size);
+	transition: background-color 0.3s;
 }
 
 .text-select.orientation-vertical > label {

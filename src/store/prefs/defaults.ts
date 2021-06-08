@@ -2,10 +2,10 @@ import {PrefsState} from './prefs.types';
 
 export const defaults = (): PrefsState => ({
 	appTheme: 'light',
+	codeEditorFontFamily: 'var(--font-monospaced)',
+	codeEditorFontScale: 1,
 	donateShown: false,
 	firstRunTime: new Date().getTime(),
-	javascriptEditorFontFamily: 'var(--font-monospaced)',
-	javascriptEditorFontScale: 1,
 	lastUpdateSeen: '',
 	lastUpdateCheckTime: new Date().getTime(),
 	locale:
@@ -28,7 +28,5 @@ export const defaults = (): PrefsState => ({
 	storyListSort: 'name',
 	storyListTagFilter: [],
 	storyTagColors: {},
-	stylesheetEditorFontFamily: 'var(--font-monospaced)',
-	stylesheetEditorFontScale: 1,
 	welcomeSeen: false
 });

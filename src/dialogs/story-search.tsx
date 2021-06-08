@@ -80,11 +80,11 @@ export const StorySearchDialog: React.FC<StorySearchDialogProps> = props => {
 			{...other}
 			className="story-search-dialog"
 			fixedSize
-			headerLabel={t('storySearch.title')}
+			headerLabel={t('dialogs.storySearch.title')}
 		>
 			<div className="search-fields">
 				<CodeArea
-					label={t('storySearch.find')}
+					label={t('dialogs.storySearch.find')}
 					onBeforeChange={handleSearchForChange}
 					options={{
 						extraKeys: ignoreTab,
@@ -93,7 +93,7 @@ export const StorySearchDialog: React.FC<StorySearchDialogProps> = props => {
 					value={find}
 				/>
 				<CodeArea
-					label={t('storySearch.replaceWith')}
+					label={t('dialogs.storySearch.replaceWith')}
 					onBeforeChange={handleReplaceWithChange}
 					options={{extraKeys: ignoreTab, mode: 'text'}}
 					value={replace}
@@ -101,17 +101,17 @@ export const StorySearchDialog: React.FC<StorySearchDialogProps> = props => {
 			</div>
 			<div className="search-flags">
 				<CheckboxButton
-					label={t('storySearch.includePassageNames')}
+					label={t('dialogs.storySearch.includePassageNames')}
 					onChange={() => toggleFlag('includePassageNames')}
 					value={flags.includePassageNames ?? false}
 				/>
 				<CheckboxButton
-					label={t('storySearch.matchCase')}
+					label={t('dialogs.storySearch.matchCase')}
 					onChange={() => toggleFlag('matchCase')}
 					value={flags.matchCase ?? false}
 				/>
 				<CheckboxButton
-					label={t('storySearch.useRegexes')}
+					label={t('dialogs.storySearch.useRegexes')}
 					onChange={() => toggleFlag('useRegexes')}
 					value={flags.useRegexes ?? false}
 				/>
@@ -120,15 +120,15 @@ export const StorySearchDialog: React.FC<StorySearchDialogProps> = props => {
 				<IconButton
 					disabled={matches.length === 0}
 					icon={<IconReplace />}
-					label={t('storySearch.replaceAll')}
+					label={t('dialogs.storySearch.replaceAll')}
 					onClick={handleReplace}
 					variant="danger"
 				/>
 				<span>
 					{find &&
 						(matches.length > 0
-							? t('storySearch.matchCount', {count: matches.length})
-							: t('storySearch.noMatches'))}
+							? t('dialogs.storySearch.matchCount', {count: matches.length})
+							: t('dialogs.storySearch.noMatches'))}
 				</span>
 			</div>
 		</DialogCard>

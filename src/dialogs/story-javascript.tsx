@@ -34,9 +34,9 @@ export const StoryJavaScriptDialog: React.FC<StoryJavaScriptDialogProps> = props
 		<DialogCard
 			{...other}
 			className="story-javascript-dialog"
-			headerLabel={t('storyJavaScript.title')}
+			headerLabel={t('dialogs.storyJavaScript.title')}
 		>
-			<p>{t('storyJavaScript.explanation')}</p>
+			<p>{t('dialogs.storyJavaScript.explanation')}</p>
 			<ButtonBar>
 				<UndoRedoButtons editor={cmEditor} watch={story.script} />
 				<IndentButtons editor={cmEditor} />
@@ -44,8 +44,8 @@ export const StoryJavaScriptDialog: React.FC<StoryJavaScriptDialogProps> = props
 			<DialogEditor>
 				<CodeArea
 					editorDidMount={setCmEditor}
-					fontFamily={prefs.javascriptEditorFontFamily}
-					fontScale={prefs.javascriptEditorFontScale}
+					fontFamily={prefs.codeEditorFontFamily}
+					fontScale={prefs.codeEditorFontScale}
 					onBeforeChange={handleChange}
 					options={{autofocus: true, mode: 'javascript'}}
 					value={story.script}

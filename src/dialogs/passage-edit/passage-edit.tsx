@@ -76,7 +76,7 @@ export const PassageEditDialog: React.FC<PassageEditDialogProps> = props => {
 				<RenamePassageButton passage={passage} story={story} />
 				<CheckboxButton
 					disabled={isStart}
-					label={t('passageEdit.setAsStart')}
+					label={t('dialogs.passageEdit.setAsStart')}
 					onChange={handleSetAsStart}
 					value={isStart}
 				/>

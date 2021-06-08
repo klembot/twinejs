@@ -19,7 +19,15 @@ export interface PrefsState {
 	/**
 	 *
 	 */
-	appTheme: 'dark' | 'light';
+	appTheme: 'dark' | 'light' | 'system';
+	/**
+	 * Font family for the story JS and stylesheet editor.
+	 */
+	codeEditorFontFamily: string;
+	/**
+	 * Font scale (1 being 100%) for the story JS and stylesheet editor.
+	 */
+	codeEditorFontScale: number;
 	/**
 	 * Has the donation prompt been shown?
 	 */
@@ -28,14 +36,6 @@ export interface PrefsState {
 	 * Timestamp when the app was first run.
 	 */
 	firstRunTime: number;
-	/**
-	 * Font family for the story JS editor.
-	 */
-	javascriptEditorFontFamily: string;
-	/**
-	 * Font scale (1 being 100%) for the story JS editor.
-	 */
-	javascriptEditorFontScale: number;
 	/**
 	 * Last version number seen during an update check.
 	 */
@@ -88,14 +88,6 @@ export interface PrefsState {
 	 * Colors for story tags.
 	 */
 	storyTagColors: Record<string, Color>;
-	/**
-	 * Font family for the story CSS editor.
-	 */
-	stylesheetEditorFontFamily: string;
-	/**
-	 * Font scale 91 being 100%) for the story CSS editor.
-	 */
-	stylesheetEditorFontScale: number;
 	/**
 	 * Has the user been shown the welcome route?
 	 */

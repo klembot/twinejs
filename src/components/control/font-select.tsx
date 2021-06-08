@@ -1,118 +1,135 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {IconLetterCase, IconTypography} from '@tabler/icons';
-import {MenuButton} from './menu-button';
-import {PromptModal} from '../modal/prompt-modal';
+import {TextInput} from './text-input';
+import {TextSelect} from './text-select';
+import './font-select.css';
 
 const families = ['var(--font-monospaced)', 'var(--font-system)'];
 const scales = [0.8, 0.9, 1, 1.25, 1.5, 2];
 
 export interface FontSelectProps {
+	familyLabel: string;
 	fontFamily: string;
 	fontScale: number;
 	onChangeFamily: (value: string) => void;
 	onChangeScale: (value: number) => void;
+	scaleLabel: string;
 }
 
 export const FontSelect: React.FC<FontSelectProps> = props => {
-	const {fontFamily, fontScale, onChangeFamily, onChangeScale} = props;
-	const [customFamily, setCustomFamily] = React.useState('');
-	const [familyModalOpen, setFamilyModalOpen] = React.useState(false);
-	const [customScale, setCustomScale] = React.useState('');
-	const [scaleModalOpen, setScaleModalOpen] = React.useState(false);
+	const {
+		familyLabel,
+		fontFamily,
+		fontScale,
+		onChangeFamily,
+		onChangeScale,
+		scaleLabel
+	} = props;
+	const [customScaleVisible, setCustomScaleVisible] = React.useState(
+		!scales.includes(fontScale)
+	);
+	const [customFamilyVisible, setCustomFamilyVisible] = React.useState(
+		!families.includes(fontFamily)
+	);
+	const [customFamily, setCustomFamily] = React.useState(fontFamily);
+	const [customScale, setCustomScale] = React.useState(
+		(fontScale * 100).toString()
+	);
 	const {t} = useTranslation();
 
-	// TODO: custom value validation
-
-	function toggleFamilyModal() {
-		if (!familyModalOpen) {
-			setCustomFamily(fontFamily.startsWith('var(') ? '' : fontFamily);
+	function handleFamilyChange(event: React.ChangeEvent<HTMLSelectElement>) {
+		if (event.target.value === 'custom') {
+			setCustomFamilyVisible(true);
+		} else {
+			setCustomFamilyVisible(false);
+			onChangeFamily(event.target.value);
 		}
-
-		setFamilyModalOpen(open => !open);
 	}
 
-	function handleFamilySubmit() {
-		onChangeFamily(customFamily);
-		toggleFamilyModal();
-	}
-
-	function toggleScaleModal() {
-		if (!scaleModalOpen) {
-			setCustomScale((fontScale * 100).toString());
+	function handleScaleChange(event: React.ChangeEvent<HTMLSelectElement>) {
+		if (event.target.value === 'custom') {
+			setCustomScaleVisible(true);
+		} else {
+			setCustomScaleVisible(false);
+			onChangeScale(parseFloat(event.target.value));
 		}
-
-		setScaleModalOpen(open => !open);
 	}
 
-	function handleScaleSubmit() {
-		onChangeScale(parseInt(customScale) / 100);
-		toggleScaleModal();
+	function handleCustomFamilyChange(
+		event: React.ChangeEvent<HTMLInputElement>
+	) {
+		setCustomFamily(event.target.value);
+
+		if (event.target.value.trim() !== '') {
+			onChangeFamily(event.target.value);
+		}
+	}
+
+	function handleCustomScaleChange(event: React.ChangeEvent<HTMLInputElement>) {
+		setCustomScale(event.target.value);
+
+		const value = parseInt(event.target.value);
+
+		if (Number.isFinite(value)) {
+			onChangeScale(value / 100);
+		}
 	}
 
 	return (
-		<>
-			<span className="font-select">
-				<MenuButton
-					icon={<IconTypography />}
-					items={[
-						{
-							checked: fontFamily === 'var(--font-monospaced)',
-							label: t('components.fontSelect.fonts.monospaced'),
-							onClick: () => onChangeFamily('var(--font-monospaced)')
-						},
-						{
-							checked: fontFamily === 'var(--font-system)',
-							label: t('components.fontSelect.fonts.system'),
-							onClick: () => onChangeFamily('var(--font-system)')
-						},
-						{
-							checked: !families.includes(fontFamily),
-							label: t('common.custom'),
-							onClick: toggleFamilyModal
-						}
-					]}
-					label={t('components.fontSelect.font')}
-				/>
-				<MenuButton
-					icon={<IconLetterCase />}
-					items={[
-						...scales.map(scale => ({
-							checked: fontScale === scale,
-							label: t('components.fontSelect.sizes.percent', {
-								percent: scale * 100
-							}),
-							onClick: () => onChangeScale(scale)
-						})),
-						{
-							checked: !scales.includes(fontScale),
-							label: t('common.custom'),
-							onClick: toggleScaleModal
-						}
-					]}
-					label={t('components.fontSelect.fontSize')}
-				/>
-			</span>
-			<PromptModal
-				detail={t('components.fontSelect.customFamilyDetail')}
-				domId="font-picker-custom-family"
-				isOpen={familyModalOpen}
-				message={t('components.fontSelect.customFamilyPrompt')}
-				onCancel={toggleFamilyModal}
-				onChange={e => setCustomFamily(e.target.value)}
-				onSubmit={handleFamilySubmit}
-				value={customFamily}
-			/>
-			<PromptModal
-				detail={t('components.fontSelect.customSizeDetail')}
-				domId="font-picker-custom-size"
-				isOpen={scaleModalOpen}
-				message={t('components.fontSelect.customSizePrompt')}
-				onCancel={toggleScaleModal}
-				onChange={e => setCustomScale(e.target.value)}
-				onSubmit={handleScaleSubmit}
-				value={customScale}
-			/>
-		</>
+		<div className="font-select">
+			<TextSelect
+				onChange={handleFamilyChange}
+				options={[
+					{
+						label: t('components.fontSelect.fonts.system'),
+						value: 'var(--font-system)'
+					},
+					{
+						label: t('components.fontSelect.fonts.monospaced'),
+						value: 'var(--font-monospaced)'
+					},
+					{
+						label: t('common.custom'),
+						value: 'custom'
+					}
+				]}
+				value={customFamilyVisible ? 'custom' : fontFamily}
+			>
+				{familyLabel}
+			</TextSelect>
+			{customFamilyVisible && (
+				<TextInput
+					onChange={handleCustomFamilyChange}
+					orientation="vertical"
+					value={customFamily}
+				>
+					{t('components.fontSelect.customFamilyDetail')}
+				</TextInput>
+			)}
+			<TextSelect
+				onChange={handleScaleChange}
+				options={[
+					...scales.map(scale => ({
+						label: t('components.fontSelect.percentage', {
+							percent: scale * 100
+						}),
+						value: scale.toString()
+					})),
+					{label: t('common.custom'), value: 'custom'}
+				]}
+				value={customScaleVisible ? 'custom' : fontScale.toString()}
+			>
+				{scaleLabel}
+			</TextSelect>
+			{customScaleVisible && (
+				<TextInput
+					onChange={handleCustomScaleChange}
+					orientation="vertical"
+					value={customScale}
+				>
+					{t('components.fontSelect.customScaleDetail')}
+				</TextInput>
+			)}
+		</div>
 	);
 };

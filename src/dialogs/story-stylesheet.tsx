@@ -34,9 +34,9 @@ export const StoryStylesheetDialog: React.FC<StoryStylesheetDialogProps> = props
 		<DialogCard
 			{...other}
 			className="story-javascript-dialog"
-			headerLabel={t('storyStylesheet.title')}
+			headerLabel={t('dialogs.storyStylesheet.title')}
 		>
-			<p>{t('storyStylesheet.explanation')}</p>
+			<p>{t('dialogs.storyStylesheet.explanation')}</p>
 			<ButtonBar>
 				<UndoRedoButtons editor={cmEditor} watch={story.script} />
 				<IndentButtons editor={cmEditor} />
@@ -44,8 +44,8 @@ export const StoryStylesheetDialog: React.FC<StoryStylesheetDialogProps> = props
 			<DialogEditor>
 				<CodeArea
 					editorDidMount={setCmEditor}
-					fontFamily={prefs.javascriptEditorFontFamily}
-					fontScale={prefs.javascriptEditorFontScale}
+					fontFamily={prefs.codeEditorFontFamily}
+					fontScale={prefs.codeEditorFontScale}
 					onBeforeChange={handleChange}
 					options={{autofocus: true, mode: 'css'}}
 					value={story.stylesheet}

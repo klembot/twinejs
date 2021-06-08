@@ -19,33 +19,33 @@ export const AboutTwineDialog: React.FC<DialogComponentProps> = props => {
 			{...props}
 			className="about-twine-dialog"
 			fixedSize
-			headerLabel={t('aboutTwine.title', {
+			headerLabel={t('dialogs.aboutTwine.title', {
 				version: info.version
 			})}
 		>
 			<div className="content">
-				<p>{t('aboutTwine.twineDescription')}</p>
+				<p>{t('dialogs.aboutTwine.twineDescription')}</p>
 				<p
 					dangerouslySetInnerHTML={{
-						__html: t('aboutTwine.license')
+						__html: t('dialogs.aboutTwine.license')
 					}}
 				/>
 				<ButtonBar>
 					<IconLink
 						href="https://twinery.org/donate"
 						icon={<IconHeart />}
-						label={t('aboutTwine.donateToTwine')}
+						label={t('dialogs.aboutTwine.donateToTwine')}
 						variant="primary"
 					/>
 					<IconLink
 						href="https://github.com/klembot/twinejs"
 						icon={<IconCode />}
-						label={t('aboutTwine.codeRepo')}
+						label={t('dialogs.aboutTwine.codeRepo')}
 					/>
 				</ButtonBar>
 				<div className="credits">
 					<div className="code">
-						<h3>{t('aboutTwine.codeHeader')}</h3>
+						<h3>{t('dialogs.aboutTwine.codeHeader')}</h3>
 						<ul>
 							{credits.code.map(c => (
 								<li key={c}>{c}</li>
@@ -53,7 +53,7 @@ export const AboutTwineDialog: React.FC<DialogComponentProps> = props => {
 						</ul>
 					</div>
 					<div className="localizations">
-						<h3>{t('aboutTwine.localizationHeader')}</h3>
+						<h3>{t('dialogs.aboutTwine.localizationHeader')}</h3>
 						<ul>
 							{credits.localizations.map(c => (
 								<li key={c}>{c}</li>
