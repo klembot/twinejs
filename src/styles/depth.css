@@ -9,6 +9,6 @@
 }
 
 [data-app-theme='dark'] {
-	--shadow-small: 0 0 1px var(--dark-gray);
-	--shadow-large: 0 0 1px var(--black), 0 0 10px 5px var(--white);
+	--shadow-small: 0 0 1px var(--gray);
+	--shadow-large: 0 0 1px var(--dark-gray), 0 0 10px 2px var(--white);
 }
