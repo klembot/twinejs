@@ -3,6 +3,7 @@ import {usePopper} from 'react-popper';
 import {CSSTransition} from 'react-transition-group';
 import {Card} from '../container/card';
 import {IconButton, IconButtonProps} from './icon-button';
+import './card-button.css';
 
 export interface CardButtonProps extends Omit<IconButtonProps, 'onClick'> {
 	onChangeOpen: (value: boolean) => void;

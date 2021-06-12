@@ -2,7 +2,7 @@ import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import sortBy from 'lodash/sortBy';
 import {MainContent} from '../../components/container/main-content';
-import {updateStory, useStoriesContext, Story} from '../../store/stories';
+import {useStoriesContext, Story} from '../../store/stories';
 import {usePublishing} from '../../store/use-publishing';
 import {StoryListTopBar} from './top-bar/top-bar';
 import {StoryCards} from './story-cards';
@@ -13,7 +13,7 @@ import {saveHtml} from '../../util/save-html';
 import {DialogsContextProvider} from '../../dialogs';
 
 export const InnerStoryListRoute: React.FC = () => {
-	const {dispatch, stories} = useStoriesContext();
+	const {stories} = useStoriesContext();
 	const {prefs} = usePrefsContext();
 	const {publishStory} = usePublishing();
 	const {t} = useTranslation();
@@ -38,10 +38,6 @@ export const InnerStoryListRoute: React.FC = () => {
 		saveHtml(await publishStory(story.id), storyFilename(story));
 	}
 
-	function handleRename(story: Story, name: string) {
-		dispatch(updateStory(stories, story, {name}));
-	}
-
 	return (
 		<div className="story-list-route">
 			<StoryListTopBar stories={stories} />
@@ -58,11 +54,7 @@ export const InnerStoryListRoute: React.FC = () => {
 						<p>{t('storyList.noStories')}</p>
 					) : (
 						<>
-							<StoryCards
-								onPublish={handlePublish}
-								onRename={handleRename}
-								stories={visibleStories}
-							/>
+							<StoryCards onPublish={handlePublish} stories={visibleStories} />
 						</>
 					)}
 				</div>
