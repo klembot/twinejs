@@ -1,5 +1,6 @@
 import * as React from 'react';
 import classNames from 'classnames';
+import {Helmet} from 'react-helmet';
 import './main-content.css';
 
 interface MainContentProps extends React.ComponentPropsWithoutRef<'div'> {
@@ -17,7 +18,14 @@ export const MainContent = React.forwardRef<HTMLDivElement, MainContentProps>(
 
 		return (
 			<div className={className} ref={ref}>
-				{title && <h1>{title}</h1>}
+				{title && (
+					<>
+						<Helmet>
+							<title>{title}</title>
+						</Helmet>
+						<h1>{title}</h1>
+					</>
+				)}
 				{children}
 			</div>
 		);

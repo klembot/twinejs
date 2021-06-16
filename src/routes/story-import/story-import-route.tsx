@@ -72,10 +72,7 @@ export const StoryImportRoute: React.FC = () => {
 				idsToImport={idsToImport}
 				stories={stories}
 			/>
-			<MainContent>
-				<h1>{t('storyImport.title')}</h1>
-				{content}
-			</MainContent>
+			<MainContent title={t('storyImport.title')}>{content}</MainContent>
 		</div>
 	);
 };

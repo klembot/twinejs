@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {Helmet} from 'react-helmet';
 import {useTranslation} from 'react-i18next';
 import {useHistory} from 'react-router-dom';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
@@ -45,6 +46,9 @@ export const WelcomeRoute = () => {
 
 	return (
 		<div className="welcome-route" ref={containerEl}>
+			<Helmet>
+				<title>{t('welcome.greetingTitle')}</title>
+			</Helmet>
 			<div className="cards">
 				<TransitionGroup component={null}>
 					{visibleCards.map((card, index) => (

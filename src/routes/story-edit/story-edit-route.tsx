@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {Helmet} from 'react-helmet';
 import {useParams} from 'react-router-dom';
 import {
 	useDialogsContext,
@@ -191,6 +192,9 @@ export const InnerStoryEditRoute: React.FC = () => {
 
 	return (
 		<div className="story-edit-route">
+			<Helmet>
+				<title>{story.name}</title>
+			</Helmet>
 			<StoryEditTopBar getCenter={getCenter} story={story} />
 			<MainContent padded={false} ref={mainContent}>
 				<MarqueeSelection
