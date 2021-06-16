@@ -145,5 +145,5 @@ export function saveMiddleware(
 			);
 	}
 
-	lastState = {...state};
+	lastState = [...state];
 }
