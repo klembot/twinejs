@@ -17,6 +17,13 @@ export const RenameStoryButton: React.FC<RenameStoryButtonProps> = props => {
 	const {t} = useTranslation();
 
 	function validate(name: string) {
+		if (name.trim() === '') {
+			return {
+				message: t('components.renameStoryButton.emptyName'),
+				valid: false
+			};
+		}
+
 		if (
 			existingStories.some(
 				s =>

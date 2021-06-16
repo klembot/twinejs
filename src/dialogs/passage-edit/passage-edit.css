@@ -6,7 +6,7 @@
 	height: 100%;
 }
 
-.passage-edit-dialog .card-content {
+.passage-edit-dialog > .card-content {
 	padding: 0;
 }
 

@@ -90,7 +90,12 @@
 			"replace": "Replace in Passage",
 			"showPassage": "Show Passage in Story"
 		},
+		"renamePassageButton": {
+			"emptyName": "Please enter a name.",
+			"nameAlreadyUsed": "Another passage in this story has this name."
+		},
 		"renameStoryButton": {
+			"emptyName": "Please enter a name.",
 			"nameAlreadyUsed": "Another story has this name."
 		},
 		"storyCard": {
