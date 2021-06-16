@@ -1,46 +1,29 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
+import {useHistory} from 'react-router-dom';
 import {IconPlus} from '@tabler/icons';
-import {PromptModal} from '../../../components/modal/prompt-modal';
 import {IconButton} from '../../../components/control/icon-button';
 import {usePrefsContext} from '../../../store/prefs';
-import {createStory, useStoriesContext} from '../../../store/stories';
+import {createUntitledStory, useStoriesContext} from '../../../store/stories';
 
 export const CreateStoryButton: React.FC = () => {
-	const [createModalOpen, setCreateModalOpen] = React.useState(false);
-	const [newStoryName, setNewStoryName] = React.useState('');
-	const {dispatch} = useStoriesContext();
+	const {dispatch, stories} = useStoriesContext();
+	const history = useHistory();
 	const {prefs} = usePrefsContext();
 	const {t} = useTranslation();
 
-	function createNewStory() {
-		dispatch(createStory({name: newStoryName}, prefs));
-		setCreateModalOpen(false);
+	function handleCreate() {
+		const id = createUntitledStory(stories, prefs)(dispatch, () => stories);
+
+		history.push(`/stories/${id}`);
 	}
 
 	return (
-		<>
-			<IconButton
-				icon={<IconPlus />}
-				label={t('storyList.topBar.createStory')}
-				onClick={() => setCreateModalOpen(open => !open)}
-				variant="create"
-			/>
-			<PromptModal
-				detail={t('storyList.topBar.createStoryPromptDetail')}
-				domId="create-story-modal"
-				isOpen={createModalOpen}
-				message={t('storyList.topBar.createStoryPromptMessage')}
-				onCancel={() => setCreateModalOpen(false)}
-				onChange={event => setNewStoryName(event.target.value)}
-				onSubmit={createNewStory}
-				submitButtonProps={{
-					icon: <IconPlus />,
-					label: t('common.create'),
-					variant: 'create'
-				}}
-				value={newStoryName}
-			/>
-		</>
+		<IconButton
+			icon={<IconPlus />}
+			label={t('storyList.topBar.createStory')}
+			onClick={handleCreate}
+			variant="create"
+		/>
 	);
 };

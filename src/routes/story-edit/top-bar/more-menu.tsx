@@ -5,7 +5,6 @@ import {MenuButton} from '../../../components/control/menu-button';
 import {
 	selectAllPassages,
 	Story,
-	updateStory,
 	useStoriesContext
 } from '../../../store/stories';
 import {usePublishing} from '../../../store/use-publishing';
@@ -20,8 +19,6 @@ import {
 	StoryStylesheetDialog,
 	useDialogsContext
 } from '../../../dialogs';
-import {RenameStoryModal} from './rename-story-modal';
-import {SetStoryFormatModal} from './set-story-format-modal';
 
 export interface MoreMenuProps {
 	story: Story;
@@ -30,11 +27,9 @@ export interface MoreMenuProps {
 export const MoreMenu: React.FC<MoreMenuProps> = props => {
 	const {story} = props;
 	const {dispatch: dialogsDispatch} = useDialogsContext();
-	const {dispatch: storiesDispatch, stories} = useStoriesContext();
+	const {dispatch: storiesDispatch} = useStoriesContext();
 	const {proofStory} = useStoryLaunch();
 	const {publishStory} = usePublishing();
-	const [renameModalOpen, setRenameModalOpen] = React.useState(false);
-	const [storyFormatModalOpen, setStoryFormatModalOpen] = React.useState(false);
 	const {t} = useTranslation();
 
 	async function handlePublishFile() {
@@ -42,82 +37,70 @@ export const MoreMenu: React.FC<MoreMenuProps> = props => {
 	}
 
 	return (
-		<>
-			<MenuButton
-				icon={<IconDots />}
-				items={[
-					{
-						label: t('storyEdit.topBar.findAndReplace'),
-						onClick: () =>
-							dialogsDispatch({
-								type: 'addDialog',
-								component: StorySearchDialog,
-								props: {storyId: story.id}
-							})
-					},
-					{
-						label: t('storyEdit.topBar.selectAllPassages'),
-						onClick: () => storiesDispatch(selectAllPassages(story))
-					},
-					{separator: true},
-					{
-						label: t('storyEdit.topBar.publishToFile'),
-						onClick: handlePublishFile
-					},
-					{
-						label: t('storyEdit.topBar.proofStory'),
-						onClick: () => proofStory(story.id)
-					},
-					{separator: true},
-					{
-						label: t('storyEdit.topBar.storyInfo'),
-						onClick: () =>
-							dialogsDispatch({
-								type: 'addDialog',
-								component: StoryInfoDialog,
-								props: {storyId: story.id}
-							})
-					},
-					{
-						label: t('storyEdit.topBar.editJavaScript'),
-						onClick: () =>
-							dialogsDispatch({
-								type: 'addDialog',
-								component: StoryJavaScriptDialog,
-								props: {storyId: story.id}
-							})
-					},
-					{
-						label: t('storyEdit.topBar.editStylesheet'),
-						onClick: () =>
-							dialogsDispatch({
-								type: 'addDialog',
-								component: StoryStylesheetDialog,
-								props: {storyId: story.id}
-							})
-					},
-					{separator: true},
-					{
-						label: t('common.preferences'),
-						onClick: () =>
-							dialogsDispatch({
-								type: 'addDialog',
-								component: AppPrefsDialog
-							})
-					}
-				]}
-				label={t('common.more')}
-			/>
-			<RenameStoryModal
-				onClose={() => setRenameModalOpen(false)}
-				open={renameModalOpen}
-				story={story}
-			/>
-			<SetStoryFormatModal
-				onClose={() => setStoryFormatModalOpen(false)}
-				open={storyFormatModalOpen}
-				story={story}
-			/>
-		</>
+		<MenuButton
+			icon={<IconDots />}
+			items={[
+				{
+					label: t('storyEdit.topBar.findAndReplace'),
+					onClick: () =>
+						dialogsDispatch({
+							type: 'addDialog',
+							component: StorySearchDialog,
+							props: {storyId: story.id}
+						})
+				},
+				{
+					label: t('storyEdit.topBar.selectAllPassages'),
+					onClick: () => storiesDispatch(selectAllPassages(story))
+				},
+				{separator: true},
+				{
+					label: t('storyEdit.topBar.publishToFile'),
+					onClick: handlePublishFile
+				},
+				{
+					label: t('storyEdit.topBar.proofStory'),
+					onClick: () => proofStory(story.id)
+				},
+				{separator: true},
+				{
+					label: t('storyEdit.topBar.storyInfo'),
+					onClick: () =>
+						dialogsDispatch({
+							type: 'addDialog',
+							component: StoryInfoDialog,
+							props: {storyId: story.id}
+						})
+				},
+				{
+					label: t('storyEdit.topBar.editJavaScript'),
+					onClick: () =>
+						dialogsDispatch({
+							type: 'addDialog',
+							component: StoryJavaScriptDialog,
+							props: {storyId: story.id}
+						})
+				},
+				{
+					label: t('storyEdit.topBar.editStylesheet'),
+					onClick: () =>
+						dialogsDispatch({
+							type: 'addDialog',
+							component: StoryStylesheetDialog,
+							props: {storyId: story.id}
+						})
+				},
+				{separator: true},
+				{
+					label: t('common.preferences'),
+					onClick: () =>
+						dialogsDispatch({
+							type: 'addDialog',
+							component: AppPrefsDialog
+						})
+				}
+			]}
+			label={t('common.more')}
+		/>
 	);
 };
