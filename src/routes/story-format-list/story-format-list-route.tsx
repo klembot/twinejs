@@ -98,8 +98,9 @@ export const StoryFormatListRoute: React.FC = () => {
 					onAddFormat={handleAddFormat}
 				/>
 			</TopBar>
-			<MainContent>
-				<h1>{t(`storyFormatList.title.${prefs.storyFormatListFilter}`)}</h1>
+			<MainContent
+				title={t(`storyFormatList.title.${prefs.storyFormatListFilter}`)}
+			>
 				<p>
 					{t(
 						visibleFormats.length > 0
