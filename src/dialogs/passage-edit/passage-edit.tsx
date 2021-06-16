@@ -21,7 +21,7 @@ import {
 import {useUndoableStoriesContext} from '../../store/undoable-stories';
 import {Color} from '../../util/color';
 import {PassageText} from './passage-text';
-import {RenamePassageButton} from './rename-passage-button';
+import {RenamePassageButton} from '../../components/passage/rename-passage-button';
 import './passage-edit.css';
 
 export interface PassageEditDialogProps
@@ -54,6 +54,10 @@ export const PassageEditDialog: React.FC<PassageEditDialogProps> = props => {
 		dispatch(setTagColor(story, newName, newColor));
 	}
 
+	function handleRename(name: string) {
+		dispatch(updatePassage(story, passage, {name}));
+	}
+
 	function handlePassageTextChange(text: string) {
 		dispatch(updatePassage(story, passage!, {text}));
 	}
@@ -73,7 +77,11 @@ export const PassageEditDialog: React.FC<PassageEditDialogProps> = props => {
 			<ButtonBar>
 				<UndoRedoButtons editor={cmEditor} watch={passage.text} />
 				<AddTagButton onCreate={handleAddTag} />
-				<RenamePassageButton passage={passage} story={story} />
+				<RenamePassageButton
+					onRename={handleRename}
+					passage={passage}
+					story={story}
+				/>
 				<CheckboxButton
 					disabled={isStart}
 					label={t('dialogs.passageEdit.setAsStart')}
