@@ -1,7 +1,0 @@
-.prompt-modal .text-input > label {
-	display: flex;
-}
-
-.prompt-modal .text-input input[type='text'] {
-	width: 100%;
-}

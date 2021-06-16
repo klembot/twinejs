@@ -9,6 +9,7 @@ import {Point, Rect} from '../../util/geometry';
 import {MainContent} from '../../components/container/main-content';
 import {MarqueeSelection} from '../../components/marquee-selection';
 import {
+	createUntitledPassage,
 	deletePassages,
 	deselectPassage,
 	Passage,
@@ -28,14 +29,15 @@ import {
 import './story-edit-route.css';
 
 export const InnerStoryEditRoute: React.FC = () => {
-	const {storyId} = useParams<{storyId: string}>();
+	const [inited, setInited] = React.useState(false);
 	const {dispatch: dialogsDispatch} = useDialogsContext();
+	const mainContent = React.useRef<HTMLDivElement>(null);
+	const {storyId} = useParams<{storyId: string}>();
+	const {testStory} = useStoryLaunch();
 	const {
 		dispatch: undoableStoriesDispatch,
 		stories
 	} = useUndoableStoriesContext();
-	const mainContent = React.useRef<HTMLDivElement>(null);
-	const {testStory} = useStoryLaunch();
 	const story = storyWithId(stories, storyId);
 
 	const selectedPassages = React.useMemo(
@@ -169,6 +171,23 @@ export const InnerStoryEditRoute: React.FC = () => {
 	);
 
 	// TODO: space bar scrolling
+
+	// If we have just mounted and the story has no passages, create one for the
+	// user (and skip undo history, since it was an automatic action).
+
+	React.useEffect(() => {
+		if (!inited) {
+			setInited(true);
+
+			if (story.passages.length === 0) {
+				const center = getCenter();
+
+				undoableStoriesDispatch(
+					createUntitledPassage(story, center.left, center.top)
+				);
+			}
+		}
+	}, [getCenter, inited, story, undoableStoriesDispatch]);
 
 	return (
 		<div className="story-edit-route">
