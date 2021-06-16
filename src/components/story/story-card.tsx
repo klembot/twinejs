@@ -1,10 +1,11 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {IconDots, IconEdit, IconPlayerPlay} from '@tabler/icons';
+import {IconDots, IconEdit} from '@tabler/icons';
 import {Card, CardContent, CardProps} from '../container/card';
 import {ButtonBar} from '../container/button-bar';
 import {MenuButton} from '../control/menu-button';
 import {IconButton} from '../control/icon-button';
+import {RenameStoryButton} from './rename-story-button';
 import {AddTagButton, TagButton} from '../tag';
 import {StoryPreview} from './story-preview';
 import {Story} from '../../store/stories';
@@ -14,6 +15,7 @@ import './story-card.css';
 const dateFormatter = new Intl.DateTimeFormat([]);
 
 export interface StoryCardProps extends CardProps {
+	allStories: Story[];
 	onDelete: () => void;
 	onDuplicate: () => void;
 	onAddTag: (name: string, color: Color) => void;
@@ -21,7 +23,7 @@ export interface StoryCardProps extends CardProps {
 	onEdit: () => void;
 	onPlay: () => void;
 	onPublish: () => void;
-	onRename: () => void;
+	onRename: (name: string) => void;
 	onTest: () => void;
 	story: Story;
 	storyTagColors: Record<string, Color>;
@@ -29,6 +31,7 @@ export interface StoryCardProps extends CardProps {
 
 export const StoryCard: React.FC<StoryCardProps> = props => {
 	const {
+		allStories,
 		onAddTag,
 		onDelete,
 		onDuplicate,
@@ -82,15 +85,19 @@ export const StoryCard: React.FC<StoryCardProps> = props => {
 						onClick={onEdit}
 						variant="primary"
 					/>
-					<AddTagButton onCreate={onAddTag} />
-					<IconButton
-						icon={<IconPlayerPlay />}
-						label={t('common.play')}
-						onClick={onPlay}
+					<RenameStoryButton
+						existingStories={allStories}
+						onRename={onRename}
+						story={story}
 					/>
+					<AddTagButton onCreate={onAddTag} />
 					<MenuButton
 						icon={<IconDots />}
 						items={[
+							{
+								label: t('common.play'),
+								onClick: onPlay
+							},
 							{
 								label: t('common.test'),
 								onClick: onTest
@@ -98,10 +105,6 @@ export const StoryCard: React.FC<StoryCardProps> = props => {
 							{
 								label: t('common.publishToFile'),
 								onClick: onPublish
-							},
-							{
-								label: t('common.rename'),
-								onClick: onRename
 							},
 							{
 								label: t('common.duplicate'),

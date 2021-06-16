@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import './text-select.css';
 
 export interface SelectOption {
+	disabled?: boolean;
 	label: string;
 	value: string;
 }
@@ -25,13 +26,19 @@ export const TextSelect: React.FC<TextSelectProps> = props => {
 		<span className={className}>
 			<label>
 				<span className="text-select-label">{children}</span>
-				<select onChange={onChange} value={value}>
-					{options.map(option => (
-						<option key={option.value} value={option.value}>
-							{option.label}
-						</option>
-					))}
-				</select>
+				<span className="text-select-control">
+					<select onChange={onChange} value={value}>
+						{options.map(option => (
+							<option
+								disabled={option.disabled}
+								key={option.value}
+								value={option.value}
+							>
+								{option.label}
+							</option>
+						))}
+					</select>
+				</span>
 			</label>
 		</span>
 	);

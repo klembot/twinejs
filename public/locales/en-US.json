@@ -33,7 +33,7 @@
 		"redo": "Redo",
 		"redoChange": "Redo {{change}}",
 		"rename": "Rename",
-		"renameStoryPrompt": "What should “{{name}}” be renamed to?",
+		"renamePrompt": "What should “{{name}}” be renamed to?",
 		"remove": "Remove",
 		"save": "Save",
 		"skip": "Skip",
@@ -90,6 +90,9 @@
 			"replace": "Replace in Passage",
 			"showPassage": "Show Passage in Story"
 		},
+		"renameStoryButton": {
+			"nameAlreadyUsed": "Another story has this name."
+		},
 		"storyCard": {
 			"lastUpdated": "Last edited on {{date}}",
 			"passageCount": "1 passage",
@@ -103,6 +106,10 @@
 			"name": "{{name}} {{version}}",
 			"useFormat": "Use As Default Story Format",
 			"useProofingFormat": "Use As Proofing Format"
+		},
+		"storyFormatSelect": {
+			"loadingCount": "Loading 1 Story Format...",
+			"loadingCount_plural": "Loading {{loadingCount}} Story Formats..."
 		}
 	},
 	"dialogs": {
@@ -142,6 +149,22 @@
 			"theme": "Theme",
 			"title": "Preferences"
 		},
+		"storyInfo": {
+			"setStoryFormat": "Set Story Format",
+			"storyFormatExplanation": "What's a story format?",
+			"snapToGrid": "Snap To Grid",
+			"stats": {
+				"brokenLinks": "Broken Links",
+				"characters": "Characters",
+				"title": "Story Statistics",
+				"ifid": "The IFID of this story is {{ifid}}.",
+				"ifidExplanation": "What's an IFID?",
+				"lastUpdate": "This story was last changed on {{date}}.",
+				"links": "Links",
+				"passages": "Passages",
+				"words": "Words"
+			}
+		},
 		"storyJavaScript": {
 			"title": "Story JavaScript",
 			"explanation": "Any JavaScript entered here will immediately run when your story is opened in a Web browser."
@@ -158,17 +181,6 @@
 			"replaceWith": "Replace With",
 			"useRegexes": "Use Regular Expressions"
 		},
-		"storyStats": {
-			"brokenLinks": "Broken Links",
-			"characters": "Characters",
-			"title": "Story Statistics",
-			"ifid": "The IFID of this story is {{ifid}}.",
-			"ifidExplanation": "(What's an IFID?)",
-			"lastUpdate": "This story was last changed on {{date}}.",
-			"links": "Links",
-			"passages": "Passages",
-			"words": "Words"
-		},
 		"storyStylesheet": {
 			"title": "Story Stylesheet",
 			"explanation": "Any CSS entered here will override the default appearance of your story."
@@ -182,9 +194,6 @@
 			"storySave": "An error occurred while saving a story."
 		},
 		"storiesDirectoryName": "Stories"
-	},
-	"localeSelect": {
-		"explanation": "Please choose which language you would like to use with Twine."
 	},
 	"store": {
 		"archiveFilename": "{{timestamp}} Twine Archive.html",
@@ -209,14 +218,9 @@
 			"loadingFormats": "Loading story formats...",
 			"proofStory": "View Proofing Copy",
 			"publishToFile": "Publish to File",
-			"quickFind": "Quick Find",
-			"renameStory": "Rename Story",
 			"selectAllPassages": "Select All Passages",
-			"setStoryFormat": "Set Story Format",
-			"setStoryFormatPrompt": "What story format should this story use?",
 			"showFindDialog": "Show Find/Replace Dialog",
-			"snapToGrid": "Snap to Grid",
-			"storyStats": "Story Statistics",
+			"storyInfo": "Story Information",
 			"zoomIn": "Zoom In",
 			"zoomOut": "Zoom Out"
 		}
@@ -230,8 +234,8 @@
 			"current": "Current Story Formats",
 			"user": "User-Added Story Formats"
 		},
-		"storyFormats": "Story Formats",
 		"storyFormatExplanation": "Story formats control the appearance and behavior of stories during play.",
+		"storyFormats": "Story Formats",
 		"useAsDefault": "Use As Default",
 		"useAsProofing": "Use as Proofing Format"
 	},

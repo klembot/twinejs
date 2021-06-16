@@ -5,6 +5,7 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-end;
+	pointer-events: none;
 	position: fixed;
 	bottom: var(--grid-size);
 	right: var(--grid-size);
@@ -16,6 +17,7 @@
 
 .dialogs .dialog-card {
 	flex: 1;
+	pointer-events: auto;
 }
 
 .dialogs .dialog-card + .dialog-card {

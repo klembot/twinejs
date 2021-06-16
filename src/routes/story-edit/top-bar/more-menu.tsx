@@ -16,7 +16,7 @@ import {
 	AppPrefsDialog,
 	StoryJavaScriptDialog,
 	StorySearchDialog,
-	StoryStatsDialog,
+	StoryInfoDialog,
 	StoryStylesheetDialog,
 	useDialogsContext
 } from '../../../dialogs';
@@ -59,29 +59,10 @@ export const MoreMenu: React.FC<MoreMenuProps> = props => {
 						label: t('storyEdit.topBar.selectAllPassages'),
 						onClick: () => storiesDispatch(selectAllPassages(story))
 					},
-					{
-						checked: story.snapToGrid,
-						label: t('storyEdit.topBar.snapToGrid'),
-						onClick: () =>
-							storiesDispatch(
-								updateStory(stories, story, {
-									snapToGrid: !story.snapToGrid
-								})
-							)
-					},
 					{separator: true},
 					{
 						label: t('storyEdit.topBar.publishToFile'),
 						onClick: handlePublishFile
-					},
-					{
-						label: t('storyEdit.topBar.storyStats'),
-						onClick: () =>
-							dialogsDispatch({
-								type: 'addDialog',
-								component: StoryStatsDialog,
-								props: {storyId: story.id}
-							})
 					},
 					{
 						label: t('storyEdit.topBar.proofStory'),
@@ -89,14 +70,14 @@ export const MoreMenu: React.FC<MoreMenuProps> = props => {
 					},
 					{separator: true},
 					{
-						label: t('storyEdit.topBar.renameStory'),
-						onClick: () => setRenameModalOpen(true)
+						label: t('storyEdit.topBar.storyInfo'),
+						onClick: () =>
+							dialogsDispatch({
+								type: 'addDialog',
+								component: StoryInfoDialog,
+								props: {storyId: story.id}
+							})
 					},
-					{
-						label: t('storyEdit.topBar.setStoryFormat'),
-						onClick: () => setStoryFormatModalOpen(true)
-					},
-					{separator: true},
 					{
 						label: t('storyEdit.topBar.editJavaScript'),
 						onClick: () =>

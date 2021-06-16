@@ -19,10 +19,6 @@ export const Dialogs: React.FC = () => {
 		marginRight: width
 	};
 
-	if (dialogs.length === 0) {
-		style.pointerEvents = 'none';
-	}
-
 	return (
 		<div className="dialogs" style={style}>
 			<TransitionGroup component={null}>

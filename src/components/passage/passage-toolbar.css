@@ -1,8 +1,6 @@
 @import '../../styles/metrics.css';
-@import '../../styles/depth.css';
 
 .passage-toolbar {
-	box-shadow: var(--shadow-large);
 	user-select: none;
 }
 

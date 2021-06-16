@@ -9,12 +9,13 @@
 	position: relative;
 }
 
-/* TODO: style this with ::after so that it can change appearance in dark theme */
+.text-select-control {
+	position: relative;
+}
 
-.text-select > label > select {
+.text-select-control select {
 	-webkit-appearance: none;
-	background: var(--white-translucent)
-		url('~@tabler/icons/icons/chevron-down.svg');
+	background-color: var(--white-translucent);
 	background-position: calc(100% - var(--corner-round)) center;
 	background-repeat: no-repeat;
 	border-radius: var(--corner-round);
@@ -26,6 +27,23 @@
 	padding: var(--grid-size) calc(var(--grid-size) + 16px) var(--grid-size)
 		var(--grid-size);
 	transition: background-color 0.3s;
+}
+
+.text-select-control::after {
+	background: url('~@tabler/icons/icons/chevron-down.svg');
+	background-position: center;
+	content: '';
+	opacity: 0.25; /* trying to make it match border */
+	content: '';
+	position: absolute;
+	top: 0;
+	right: calc(var(--grid-size) / 2);
+	bottom: 0;
+	width: 20px;
+}
+
+[data-app-theme='dark'] .text-select-control::after {
+	filter: invert();
 }
 
 .text-select.orientation-vertical > label {
