@@ -67,7 +67,14 @@ export const InnerStoryEditRoute: React.FC = () => {
 	);
 
 	const handleDragPassages = React.useCallback(
-		(change: Point) =>
+		(change: Point) => {
+			// Ignore tiny drags--they're probably caused by the user moving their
+			// mouse slightly during double-clicking.
+
+			if (Math.abs(change.left) < 1 && Math.abs(change.top) < 1) {
+				return;
+			}
+
 			undoableStoriesDispatch(
 				movePassages(
 					story,
@@ -82,7 +89,8 @@ export const InnerStoryEditRoute: React.FC = () => {
 				selectedPassages.length > 1
 					? 'undoChange.movePassages'
 					: 'undoChange.movePassages'
-			),
+			);
+		},
 		[selectedPassages.length, story, undoableStoriesDispatch]
 	);
 
