@@ -147,6 +147,15 @@ export function passagesMatchingSearch(
 	}, [] as Passage[]);
 }
 
+export function storyPassageTags(story: Story) {
+	return Array.from(
+		story.passages.reduce((result, passage) => {
+			passage.tags && passage.tags.forEach(tag => result.add(tag));
+			return result;
+		}, new Set<string>())
+	).sort();
+}
+
 export function storyStats(story: Story) {
 	const links = story.passages.reduce<string[]>(
 		(links, passage) => [

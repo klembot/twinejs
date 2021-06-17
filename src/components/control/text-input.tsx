@@ -20,8 +20,8 @@ export const TextInput: React.FC<TextInputProps> = props => {
 
 	return (
 		<span className={className}>
-			<label className="label">
-				{props.children}
+			<label>
+				<span className="text-input-label">{props.children}</span>
 				<input
 					onChange={props.onChange}
 					onInput={props.onInput}
