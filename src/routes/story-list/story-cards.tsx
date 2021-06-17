@@ -31,15 +31,21 @@ export const StoryCards: React.FC<StoryCardsProps> = props => {
 	const history = useHistory();
 	const {playStory, testStory} = useStoryLaunch();
 
-	function handleAddTag(story: Story, tagName: string, tagColor: Color) {
+	function handleAddTag(story: Story, tagName: string, tagColor?: Color) {
 		storiesDispatch(
 			updateStory(stories, story, {
 				tags: story.tags ? [...story.tags, tagName] : [tagName]
 			})
 		);
-		prefsDispatch(
-			setPref('storyTagColors', {...prefs.storyTagColors, [tagName]: tagColor})
-		);
+
+		if (tagColor) {
+			prefsDispatch(
+				setPref('storyTagColors', {
+					...prefs.storyTagColors,
+					[tagName]: tagColor
+				})
+			);
+		}
 	}
 
 	function handleDelete(story: Story) {

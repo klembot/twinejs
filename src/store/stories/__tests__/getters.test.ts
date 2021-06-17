@@ -2,6 +2,7 @@ import {
 	markPassageMatches,
 	passageWithId,
 	passageWithName,
+	storyPassageTags,
 	storyWithId,
 	storyWithName,
 	storyTags
@@ -97,6 +98,25 @@ describe('passageWithName', () => {
 		expect(() =>
 			passageWithName([story], story.id, story.passages[0].name + 'nonexistent')
 		).toThrow());
+});
+
+describe('storyPassageTags', () => {
+	it('returns a sorted array of unique tags across passages', () => {
+		const story = fakeStory(2);
+
+		story.passages[0].tags = ['c', 'a'];
+		story.passages[1].tags = ['a', 'b'];
+
+		expect(storyPassageTags(story)).toEqual(['a', 'b', 'c']);
+	});
+
+	it('ignores stories with no tags property', () => {
+		const story = fakeStory(2);
+
+		delete (story.passages[0] as any).tags;
+		story.passages[1].tags = ['a'];
+		expect(storyPassageTags(story)).toEqual(['a']);
+	});
 });
 
 describe('storyTags', () => {

@@ -8,7 +8,7 @@ import {IconButton} from '../control/icon-button';
 import {RenameStoryButton} from './rename-story-button';
 import {AddTagButton, TagButton} from '../tag';
 import {StoryPreview} from './story-preview';
-import {Story} from '../../store/stories';
+import {storyTags, Story} from '../../store/stories';
 import {Color} from '../../util/color';
 import './story-card.css';
 
@@ -18,7 +18,7 @@ export interface StoryCardProps extends CardProps {
 	allStories: Story[];
 	onDelete: () => void;
 	onDuplicate: () => void;
-	onAddTag: (name: string, color: Color) => void;
+	onAddTag: (name: string, color?: Color) => void;
 	onEditTag: (oldName: string, newName: string, newColor: Color) => void;
 	onEdit: () => void;
 	onPlay: () => void;
@@ -90,7 +90,11 @@ export const StoryCard: React.FC<StoryCardProps> = props => {
 						onRename={onRename}
 						story={story}
 					/>
-					<AddTagButton onCreate={onAddTag} />
+					<AddTagButton
+						assignedTags={story.tags}
+						existingTags={storyTags(allStories)}
+						onAdd={onAddTag}
+					/>
 					<MenuButton
 						icon={<IconDots />}
 						items={[

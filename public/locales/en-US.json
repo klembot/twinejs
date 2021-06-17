@@ -52,7 +52,12 @@
 			"invalidUrl": "The address you've entered isn't a valid URL."
 		},
 		"addTagButton": {
-			"modalHeader": "Add a Tag"
+			"alreadyAdded": "This tag name has already been added.",
+			"addLabel": "Add Tag",
+			"invalidName": "Please enter a valid tag name.",
+			"newTag": "New Tag",
+			"tagColorLabel": "Tag Color",
+			"tagNameLabel": "Tag Name"
 		},
 		"editTagButton": {
 			"modalDetail": "This will also change this tag in any other passages it's applied to.",

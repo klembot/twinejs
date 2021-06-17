@@ -14,6 +14,7 @@ import {
 	removePassageTag,
 	renamePassageTag,
 	setTagColor,
+	storyPassageTags,
 	storyWithId,
 	updatePassage,
 	updateStory
@@ -40,9 +41,12 @@ export const PassageEditDialog: React.FC<PassageEditDialogProps> = props => {
 
 	// TODO: make tag changes undoable
 
-	function handleAddTag(name: string, color: Color) {
+	function handleAddTag(name: string, color?: Color) {
 		dispatch(addPassageTag(story, passage, name));
-		dispatch(setTagColor(story, name, color));
+
+		if (color) {
+			dispatch(setTagColor(story, name, color));
+		}
 	}
 
 	function handleDeleteTag(name: string) {
@@ -76,7 +80,11 @@ export const PassageEditDialog: React.FC<PassageEditDialogProps> = props => {
 		>
 			<ButtonBar>
 				<UndoRedoButtons editor={cmEditor} watch={passage.text} />
-				<AddTagButton onCreate={handleAddTag} />
+				<AddTagButton
+					assignedTags={passage.tags}
+					existingTags={storyPassageTags(story)}
+					onAdd={handleAddTag}
+				/>
 				<RenamePassageButton
 					onRename={handleRename}
 					passage={passage}
