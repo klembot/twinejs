@@ -12,7 +12,6 @@ import {
 	addPassageTag,
 	passageWithId,
 	removePassageTag,
-	renamePassageTag,
 	setTagColor,
 	storyPassageTags,
 	storyWithId,
@@ -49,13 +48,16 @@ export const PassageEditDialog: React.FC<PassageEditDialogProps> = props => {
 		}
 	}
 
-	function handleDeleteTag(name: string) {
-		dispatch(removePassageTag(story, passage, name));
+	function handleChangeTagColor(name: string, color: Color) {
+		dispatch(
+			updateStory(stories, story, {
+				tagColors: {...story.tagColors, [name]: color}
+			})
+		);
 	}
 
-	function handleEditTag(oldName: string, newName: string, newColor: Color) {
-		dispatch(renamePassageTag(story, oldName, newName));
-		dispatch(setTagColor(story, newName, newColor));
+	function handleRemoveTag(name: string) {
+		dispatch(removePassageTag(story, passage, name), t('undoChange.removeTag'));
 	}
 
 	function handleRename(name: string) {
@@ -105,10 +107,8 @@ export const PassageEditDialog: React.FC<PassageEditDialogProps> = props => {
 								color={story.tagColors[tag]}
 								key={tag}
 								name={tag}
-								onDelete={() => handleDeleteTag(tag)}
-								onEdit={(newName, newColor) =>
-									handleEditTag(tag, newName, newColor)
-								}
+								onChangeColor={color => handleChangeTagColor(tag, color)}
+								onRemove={() => handleRemoveTag(tag)}
 							/>
 						))}
 					</ButtonBar>

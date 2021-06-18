@@ -132,6 +132,19 @@
 			"title": "About Twine {{version}}",
 			"twineDescription": "Twine is an open-source application for telling interactive, nonlinear stories."
 		},
+		"appPrefs": {
+			"codeEditorFont": "Code Editor Font",
+			"codeEditorFontScale": "Code Editor Font Size",
+			"fontExplanation": "Changing the font here only affects the Twine editor. It will not change the font a story uses when played.",
+			"language": "Language",
+			"passageEditorFont": "Passage Editor Font",
+			"passageEditorFontScale": "Passage Editor Font Size",
+			"themeLight": "Light",
+			"themeDark": "Dark",
+			"themeSystem": "System",
+			"theme": "Theme",
+			"title": "Preferences"
+		},
 		"passageEdit": {
 			"deletePassage": "Delete Passage",
 			"deleteDetail": "This cannot be undone.",
@@ -146,18 +159,9 @@
 			"sizeWide": "Wide",
 			"testFromHere": "Test Story From Here"
 		},
-		"appPrefs": {
-			"codeEditorFont": "Code Editor Font",
-			"codeEditorFontScale": "Code Editor Font Size",
-			"fontExplanation": "Changing the font here only affects the Twine editor. It will not change the font a story uses when played.",
-			"language": "Language",
-			"passageEditorFont": "Passage Editor Font",
-			"passageEditorFontScale": "Passage Editor Font Size",
-			"themeLight": "Light",
-			"themeDark": "Dark",
-			"themeSystem": "System",
-			"theme": "Theme",
-			"title": "Preferences"
+		"passageTags": {
+			"noTags": "No tags have been added to passages in this story.",
+			"title": "Passage Tags"
 		},
 		"storyInfo": {
 			"setStoryFormat": "Set Story Format",
@@ -194,6 +198,10 @@
 		"storyStylesheet": {
 			"title": "Story Stylesheet",
 			"explanation": "Any CSS entered here will override the default appearance of your story."
+		},
+		"storyTags": {
+			"noTags": "No tags have been added to your stories.",
+			"title": "Story Tags"
 		}
 	},
 	"electron": {
@@ -226,6 +234,7 @@
 			"editStylesheet": "Edit Story Stylesheet",
 			"findAndReplace": "Find and Replace",
 			"loadingFormats": "Loading story formats...",
+			"passageTags": "Edit Passage Tags",
 			"proofStory": "View Proofing Copy",
 			"publishToFile": "Publish to File",
 			"selectAllPassages": "Select All Passages",
@@ -293,17 +302,21 @@
 			"sortDateDescription": "Sort by last edited",
 			"sortName": "Name",
 			"sortTitleDescription": "Sort by story title",
+			"storyTags": "Edit Story Tags",
 			"storyFormats": "Formats",
 			"storyFormatsExplanation": "Work with story and proofing formats"
 		}
 	},
 	"undoChange": {
+		"changeTagColor": "Change Tag Color",
 		"createPassage": "Create Passage",
 		"deletePassage": "Delete Passage",
 		"deletePassages": "Delete Passages",
 		"movePassage": "Move Passage",
 		"movePassages": "Move Passages",
+		"removeTag": "Remove Tag",
 		"renamePassage": "Rename Passage",
+		"renameTag": "Rename Tag",
 		"replaceAllText": "Replace All"
 	},
 	"welcome": {

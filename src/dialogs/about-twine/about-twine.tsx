@@ -1,5 +1,4 @@
 import * as React from 'react';
-import classNames from 'classnames';
 import {useTranslation} from 'react-i18next';
 import {IconCode, IconHeart} from '@tabler/icons';
 import {ButtonBar} from '../../components/container/button-bar';

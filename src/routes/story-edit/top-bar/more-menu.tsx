@@ -13,6 +13,7 @@ import {storyFilename} from '../../../util/publish';
 import {saveHtml} from '../../../util/save-html';
 import {
 	AppPrefsDialog,
+	PassageTagsDialog,
 	StoryJavaScriptDialog,
 	StorySearchDialog,
 	StoryInfoDialog,
@@ -52,6 +53,15 @@ export const MoreMenu: React.FC<MoreMenuProps> = props => {
 				{
 					label: t('storyEdit.topBar.selectAllPassages'),
 					onClick: () => storiesDispatch(selectAllPassages(story))
+				},
+				{
+					label: t('storyEdit.topBar.passageTags'),
+					onClick: () =>
+						dialogsDispatch({
+							type: 'addDialog',
+							component: PassageTagsDialog,
+							props: {storyId: story.id}
+						})
 				},
 				{separator: true},
 				{

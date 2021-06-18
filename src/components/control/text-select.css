@@ -35,6 +35,7 @@
 	content: '';
 	opacity: 0.25; /* trying to make it match border */
 	content: '';
+	pointer-events: none;
 	position: absolute;
 	top: 0;
 	right: calc(var(--grid-size) / 2);

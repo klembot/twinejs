@@ -2,9 +2,11 @@ import {Thunk} from 'react-hook-thunk-reducer';
 import {
 	passageWithId,
 	passageWithName,
+	storyWithId,
 	Passage,
 	StoriesAction,
-	StoriesState
+	StoriesState,
+	Story
 } from '../stories';
 import {StoriesActionOrThunk} from './undoable-stories.types';
 
@@ -99,7 +101,7 @@ export function reverseAction(
 				storyId: action.storyId
 			};
 
-		case 'updatePassage':
+		case 'updatePassage': {
 			const passage = passageWithId(state, action.storyId, action.passageId);
 			const props = Object.keys(action.props).reduce(
 				(result, propName) => ({
@@ -115,6 +117,7 @@ export function reverseAction(
 				passageId: action.passageId,
 				storyId: action.storyId
 			};
+		}
 
 		case 'updatePassages':
 			return {
@@ -138,6 +141,23 @@ export function reverseAction(
 				),
 				storyId: action.storyId
 			};
+
+		case 'updateStory': {
+			const story = storyWithId(state, action.storyId);
+			const props = Object.keys(action.props).reduce(
+				(result, propName) => ({
+					...result,
+					[propName]: story[propName as keyof Story]
+				}),
+				{} as Story
+			);
+
+			return {
+				type: 'updateStory',
+				props,
+				storyId: action.storyId
+			};
+		}
 	}
 
 	throw new Error(`Don't know how to reverse action type "${action.type}"`);

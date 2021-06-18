@@ -9,6 +9,7 @@ import {MenuButton} from '../../../components/control/menu-button';
 import {
 	AboutTwineDialog,
 	AppPrefsDialog,
+	StoryTagsDialog,
 	useDialogsContext
 } from '../../../dialogs';
 import {storyTags, Story} from '../../../store/stories';
@@ -50,6 +51,11 @@ export const StoryListTopBar: React.FC<StoryListTopBarProps> = props => {
 			<MenuButton
 				icon={<IconDots />}
 				items={[
+					{
+						label: t('storyList.topBar.storyTags'),
+						onClick: () =>
+							dispatch({type: 'addDialog', component: StoryTagsDialog})
+					},
 					{
 						label: t('common.preferences'),
 						onClick: () =>

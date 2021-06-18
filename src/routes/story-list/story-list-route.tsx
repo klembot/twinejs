@@ -53,9 +53,7 @@ export const InnerStoryListRoute: React.FC = () => {
 					{stories.length === 0 ? (
 						<p>{t('storyList.noStories')}</p>
 					) : (
-						<>
-							<StoryCards onPublish={handlePublish} stories={visibleStories} />
-						</>
+						<StoryCards onPublish={handlePublish} stories={visibleStories} />
 					)}
 				</div>
 			</MainContent>
