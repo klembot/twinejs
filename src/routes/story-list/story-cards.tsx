@@ -17,7 +17,7 @@ import {Color} from '../../util/color';
 /**
  * How wide a story card should render onscreen as.
  */
-const cardWidth = '350px';
+const cardWidth = '360px';
 
 export interface StoryCardsProps {
 	onPublish: (story: Story) => void;
@@ -48,6 +48,15 @@ export const StoryCards: React.FC<StoryCardsProps> = props => {
 		}
 	}
 
+	function handleChangeTagColor(tagName: string, color: Color) {
+		prefsDispatch(
+			setPref('storyTagColors', {
+				...prefs.storyTagColors,
+				[tagName]: color
+			})
+		);
+	}
+
 	function handleDelete(story: Story) {
 		storiesDispatch(deleteStory(story));
 	}
@@ -56,15 +65,11 @@ export const StoryCards: React.FC<StoryCardsProps> = props => {
 		storiesDispatch(duplicateStory(story, stories));
 	}
 
-	function handleEditTag(
-		story: Story,
-		oldName: string,
-		newName: string,
-		newColor: Color
-	) {
-		storiesDispatch(renameStoryTag(stories, oldName, newName));
-		prefsDispatch(
-			setPref('storyTagColors', {...prefs.storyTagColors, [newName]: newColor})
+	function handleRemoveTag(story: Story, tagName: string) {
+		storiesDispatch(
+			updateStory(stories, story, {
+				tags: story.tags.filter(tag => tag !== tagName)
+			})
 		);
 	}
 
@@ -80,14 +85,13 @@ export const StoryCards: React.FC<StoryCardsProps> = props => {
 						allStories={stories}
 						key={story.id}
 						onAddTag={(name, color) => handleAddTag(story, name, color)}
+						onChangeTagColor={handleChangeTagColor}
 						onDelete={() => handleDelete(story)}
 						onDuplicate={() => handleDuplicate(story)}
-						onEditTag={(oldName, newName, newColor) =>
-							handleEditTag(story, oldName, newName, newColor)
-						}
 						onEdit={() => history.push(`/stories/${story.id}`)}
 						onPublish={() => onPublish(story)}
 						onPlay={() => playStory(story.id)}
+						onRemoveTag={name => handleRemoveTag(story, name)}
 						onRename={name => handleRename(story, name)}
 						onTest={() => testStory(story.id)}
 						story={story}

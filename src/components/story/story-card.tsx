@@ -19,7 +19,8 @@ export interface StoryCardProps extends CardProps {
 	onDelete: () => void;
 	onDuplicate: () => void;
 	onAddTag: (name: string, color?: Color) => void;
-	onEditTag: (oldName: string, newName: string, newColor: Color) => void;
+	onChangeTagColor: (name: string, color: Color) => void;
+	onRemoveTag: (name: string) => void;
 	onEdit: () => void;
 	onPlay: () => void;
 	onPublish: () => void;
@@ -33,12 +34,13 @@ export const StoryCard: React.FC<StoryCardProps> = props => {
 	const {
 		allStories,
 		onAddTag,
+		onChangeTagColor,
 		onDelete,
 		onDuplicate,
 		onEdit,
-		onEditTag,
 		onPlay,
 		onPublish,
+		onRemoveTag,
 		onRename,
 		onTest,
 		story,
@@ -69,10 +71,8 @@ export const StoryCard: React.FC<StoryCardProps> = props => {
 									color={storyTagColors[tag]}
 									key={tag}
 									name={tag}
-									onDelete={() => {}}
-									onEdit={(newName, newColor) =>
-										onEditTag(tag, newName, newColor)
-									}
+									onChangeColor={color => onChangeTagColor(tag, color)}
+									onRemove={() => onRemoveTag(tag)}
 								/>
 							))}
 						</div>

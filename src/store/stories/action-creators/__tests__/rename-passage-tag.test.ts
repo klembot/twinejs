@@ -15,17 +15,29 @@ describe('renamePassageTag', () => {
 		const dispatch = jest.fn();
 
 		renamePassageTag(story, 'a', 'z')(dispatch, () => [story]);
-		expect(dispatch.mock.calls).toEqual([
-			[
-				{
-					type: 'updatePassages',
-					passageUpdates: {
-						[story.passages[0].id]: {tags: ['z', 'b']},
-						[story.passages[1].id]: {tags: ['z', 'c']}
-					},
-					storyId: story.id
-				}
-			]
+		expect(dispatch.mock.calls[0]).toEqual([
+			{
+				type: 'updatePassages',
+				passageUpdates: {
+					[story.passages[0].id]: {tags: ['z', 'b']},
+					[story.passages[1].id]: {tags: ['z', 'c']}
+				},
+				storyId: story.id
+			}
+		]);
+	});
+
+	it('preserves the color set on the tag', () => {
+		const dispatch = jest.fn();
+
+		story.tagColors = {a: 'red'};
+		renamePassageTag(story, 'a', 'z')(dispatch, () => [story]);
+		expect(dispatch.mock.calls[1]).toEqual([
+			{
+				type: 'updateStory',
+				props: {tagColors: {z: 'red'}},
+				storyId: story.id
+			}
 		]);
 	});
 

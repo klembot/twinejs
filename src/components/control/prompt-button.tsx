@@ -56,7 +56,7 @@ export const PromptButton: React.FC<PromptButtonProps> = props => {
 			if (validate) {
 				setValidation(await validate(value));
 			} else {
-				setValidation(undefined);
+				setValidation({valid: true});
 			}
 		}
 

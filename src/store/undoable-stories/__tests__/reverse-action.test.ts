@@ -158,6 +158,31 @@ describe('reverseAction', () => {
 		});
 	});
 
+	describe('when passed an updateStory action', () => {
+		it('returns an updateStory action reversing the change, for only the properties being updated', () => {
+			const oldZoom = story.zoom;
+			const oldName = story.name;
+
+			expect(
+				reverseAction(
+					{
+						type: 'updateStory',
+						props: {name: 'new-name', zoom: story.zoom + 1},
+						storyId: story.id
+					},
+					[story]
+				)
+			).toEqual({
+				type: 'updateStory',
+				props: {
+					name: oldName,
+					zoom: oldZoom
+				},
+				storyId: story.id
+			});
+		});
+	});
+
 	describe("when passed an action it doesn't know how to reverse", () => {
 		it('throws an error', () =>
 			expect(() =>

@@ -3,33 +3,18 @@ import classNames from 'classnames';
 import {useTranslation} from 'react-i18next';
 import {IconChevronDown} from '@tabler/icons';
 import {MenuButton} from '../control/menu-button';
-import {TagModal} from './tag-modal';
-import {Color} from '../../util/color';
+import {colors, Color} from '../../util/color';
 import './tag-button.css';
 
 export interface TagButtonProps {
 	color?: Color;
 	name: string;
-	onDelete: () => void;
-	onEdit: (name: string, color: Color) => void;
+	onChangeColor: (color: Color) => void;
+	onRemove: () => void;
 }
 
 export const TagButton: React.FC<TagButtonProps> = props => {
-	const [editColor, setEditColor] = React.useState<Color>('none');
-	const [editName, setEditName] = React.useState(props.name);
-	const [modalOpen, setModalOpen] = React.useState(false);
 	const {t} = useTranslation();
-
-	function handleEdit() {
-		props.onEdit(editName, editColor);
-		setModalOpen(false);
-	}
-
-	function openModal() {
-		setEditName(props.name);
-		setEditColor(props.color ?? 'none');
-		setModalOpen(true);
-	}
 
 	return (
 		<span className={classNames('tag-button', `color-${props.color}`)}>
@@ -37,27 +22,20 @@ export const TagButton: React.FC<TagButtonProps> = props => {
 				icon={<IconChevronDown />}
 				iconPosition="end"
 				items={[
+					...colors.map(color => ({
+						checked: color === 'none' ? !props.color : color === props.color,
+						label: t(`colors.${color}`),
+						onClick: () => props.onChangeColor(color)
+					})),
 					{
-						label: t('common.edit'),
-						onClick: openModal
+						separator: true
 					},
 					{
-						label: t('common.delete'),
-						onClick: props.onDelete
+						label: t('common.remove'),
+						onClick: props.onRemove
 					}
 				]}
 				label={props.name}
-			/>
-			<TagModal
-				color={editColor}
-				detail={t('components.tagButton.modalDetail')}
-				isOpen={modalOpen}
-				message={t('components.tagButton.modalHeader')}
-				name={editName}
-				onChangeName={setEditName}
-				onChangeColor={setEditColor}
-				onCancel={() => setModalOpen(false)}
-				onSubmit={() => handleEdit()}
 			/>
 		</span>
 	);
