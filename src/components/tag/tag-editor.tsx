@@ -3,11 +3,12 @@ import {useTranslation} from 'react-i18next';
 import classNames from 'classnames';
 import {IconWriting} from '@tabler/icons';
 import {colors, Color} from '../../util/color';
-import {PromptButton} from '../control/prompt-button';
+import {PromptButton, PromptValidationResponse} from '../control/prompt-button';
 import {TextSelect} from '../control/text-select';
 import './tag-editor.css';
 
 export interface TagEditorProps {
+	allTags: string[];
 	color?: Color;
 	name: string;
 	onChangeColor: (color: Color) => void;
@@ -15,9 +16,17 @@ export interface TagEditorProps {
 }
 
 export const TagEditor: React.FC<TagEditorProps> = props => {
-	const {color, name, onChangeColor, onChangeName} = props;
+	const {allTags, color, name, onChangeColor, onChangeName} = props;
 	const [newName, setNewName] = React.useState(name);
 	const {t} = useTranslation();
+
+	function validate(value: string): PromptValidationResponse {
+		if (value !== name && allTags.includes(value)) {
+			return {message: t('components.tagEditor.alreadyExists'), valid: false};
+		}
+
+		return {valid: true};
+	}
 
 	return (
 		<div className="tag-editor">
@@ -27,10 +36,11 @@ export const TagEditor: React.FC<TagEditorProps> = props => {
 			<PromptButton
 				icon={<IconWriting />}
 				label={t('common.rename')}
-				onChange={e => setNewName(e.target.value)}
+				onChange={e => setNewName(e.target.value.replace(/\s/g, '-'))}
 				onSubmit={() => onChangeName(newName)}
 				prompt={t('common.renamePrompt', {name})}
 				value={newName}
+				validate={validate}
 			/>
 			<TextSelect
 				onChange={e => onChangeColor(e.target.value)}

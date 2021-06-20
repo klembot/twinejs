@@ -59,10 +59,6 @@
 			"tagColorLabel": "Tag Color",
 			"tagNameLabel": "Tag Name"
 		},
-		"editTagButton": {
-			"modalDetail": "This will also change this tag in any other passages it's applied to.",
-			"modalHeader": "Edit Tag"
-		},
 		"fontSelect": {
 			"customScaleDetail": "Please enter a percentage only.",
 			"customFamilyDetail": "Please enter the name of the font only.",
@@ -120,6 +116,9 @@
 		"storyFormatSelect": {
 			"loadingCount": "Loading 1 Story Format...",
 			"loadingCount_plural": "Loading {{loadingCount}} Story Formats..."
+		},
+		"tagEditor": {
+			"alreadyExists": "A tag with this name already exists."
 		}
 	},
 	"dialogs": {

@@ -39,6 +39,7 @@ export const StoryTagsDialog: React.FC<StoryTagsDialogProps> = props => {
 				{tags.length > 0 ? (
 					tags.map(tag => (
 						<TagEditor
+							allTags={tags}
 							color={prefs.storyTagColors[tag]}
 							key={tag}
 							name={tag}
