@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
+import {IconResize} from '@tabler/icons';
 import {UndoRedoButtons} from '../../components/codemirror/undo-redo-buttons';
 import {ButtonBar} from '../../components/container/button-bar';
 import {
@@ -7,6 +8,7 @@ import {
 	DialogCardProps
 } from '../../components/container/dialog-card';
 import {CheckboxButton} from '../../components/control/checkbox-button';
+import {MenuButton} from '../../components/control/menu-button';
 import {AddTagButton, TagButton} from '../../components/tag';
 import {
 	addPassageTag,
@@ -65,11 +67,15 @@ export const PassageEditDialog: React.FC<PassageEditDialogProps> = props => {
 	}
 
 	function handlePassageTextChange(text: string) {
-		dispatch(updatePassage(story, passage!, {text}));
+		dispatch(updatePassage(story, passage, {text}));
 	}
 
 	function handleSetAsStart() {
 		dispatch(updateStory(stories, story, {startPassage: passageId}));
+	}
+
+	function handleSetSize({height, width}: {height: number; width: number}) {
+		dispatch(updatePassage(story, passage, {height, width}));
 	}
 
 	const isStart = story.startPassage === passage.id;
@@ -86,6 +92,32 @@ export const PassageEditDialog: React.FC<PassageEditDialogProps> = props => {
 					assignedTags={passage.tags}
 					existingTags={storyPassageTags(story)}
 					onAdd={handleAddTag}
+				/>
+				<MenuButton
+					icon={<IconResize />}
+					items={[
+						{
+							checked: passage.height === 100 && passage.width === 100,
+							label: t('dialogs.passageEdit.sizeSmall'),
+							onClick: () => handleSetSize({height: 100, width: 100})
+						},
+						{
+							checked: passage.height === 200 && passage.width === 200,
+							label: t('dialogs.passageEdit.sizeLarge'),
+							onClick: () => handleSetSize({height: 200, width: 200})
+						},
+						{
+							checked: passage.height === 200 && passage.width === 100,
+							label: t('dialogs.passageEdit.sizeTall'),
+							onClick: () => handleSetSize({height: 200, width: 100})
+						},
+						{
+							checked: passage.height === 100 && passage.width === 200,
+							label: t('dialogs.passageEdit.sizeWide'),
+							onClick: () => handleSetSize({height: 100, width: 200})
+						}
+					]}
+					label={t('dialogs.passageEdit.size')}
 				/>
 				<RenamePassageButton
 					onRename={handleRename}
