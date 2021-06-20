@@ -50,6 +50,7 @@ export const PassageTagsDialog: React.FC<PassageTagsDialogProps> = props => {
 				{tags.length > 0 ? (
 					tags.map(tag => (
 						<TagEditor
+							allTags={tags}
 							color={story.tagColors[tag]}
 							key={tag}
 							name={tag}
