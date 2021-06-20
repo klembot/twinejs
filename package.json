@@ -18,6 +18,7 @@
 		"element-closest": "^3.0.2",
 		"file-saver": "^2.0.5",
 		"focus-visible": "^5.2.0",
+		"fs-extra": "^10.0.0",
 		"i18next": "^19.9.2",
 		"i18next-http-backend": "^1.1.1",
 		"is-absolute-url": "^3.0.3",
