@@ -29,19 +29,6 @@ export const AboutTwineDialog: React.FC<DialogComponentProps> = props => {
 						__html: t('dialogs.aboutTwine.license')
 					}}
 				/>
-				<ButtonBar>
-					<IconLink
-						href="https://twinery.org/donate"
-						icon={<IconHeart />}
-						label={t('dialogs.aboutTwine.donateToTwine')}
-						variant="primary"
-					/>
-					<IconLink
-						href="https://github.com/klembot/twinejs"
-						icon={<IconCode />}
-						label={t('dialogs.aboutTwine.codeRepo')}
-					/>
-				</ButtonBar>
 				<div className="credits">
 					<div className="code">
 						<h3>{t('dialogs.aboutTwine.codeHeader')}</h3>
@@ -60,6 +47,19 @@ export const AboutTwineDialog: React.FC<DialogComponentProps> = props => {
 						</ul>
 					</div>
 				</div>
+				<ButtonBar>
+					<IconLink
+						href="https://twinery.org/donate"
+						icon={<IconHeart />}
+						label={t('dialogs.aboutTwine.donateToTwine')}
+						variant="primary"
+					/>
+					<IconLink
+						href="https://github.com/klembot/twinejs"
+						icon={<IconCode />}
+						label={t('dialogs.aboutTwine.codeRepo')}
+					/>
+				</ButtonBar>
 			</div>
 		</DialogCard>
 	);

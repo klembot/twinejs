@@ -1,4 +1,5 @@
 export * from './about-twine';
+export * from './app-donation';
 export * from './app-prefs';
 export * from './context';
 export * from './context/dialogs';

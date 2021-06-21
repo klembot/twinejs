@@ -131,6 +131,13 @@
 			"title": "About Twine {{version}}",
 			"twineDescription": "Twine is an open-source application for telling interactive, nonlinear stories."
 		},
+		"appDonation": {
+			"donate": "Donate To Twine Development",
+			"onlyOnce": "(This message will only be shown to you once. If you'd like to donate to Twine development in the future, there's a link to do so in the About Twine dialog.)",
+			"supportMessage": "If you love Twine, please consider helping it grow with a donation. Twine is an open source project that will always be free to use—and with your help, Twine will continue to thrive.",
+			"noThanks": "No Thanks",
+			"title": "Support Twine Development"
+		},
 		"appPrefs": {
 			"codeEditorFont": "Code Editor Font",
 			"codeEditorFontScale": "Code Editor Font Size",
