@@ -1,21 +1,28 @@
+import sortBy from 'lodash/sortBy';
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import sortBy from 'lodash/sortBy';
 import {MainContent} from '../../components/container/main-content';
-import {useStoriesContext, Story} from '../../store/stories';
-import {usePublishing} from '../../store/use-publishing';
-import {StoryListTopBar} from './top-bar/top-bar';
-import {StoryCards} from './story-cards';
+import {
+	AppDonationDialog,
+	DialogsContextProvider,
+	useDialogsContext
+} from '../../dialogs';
 import {usePrefsContext} from '../../store/prefs';
+import {Story, useStoriesContext} from '../../store/stories';
 import {UndoableStoriesContextProvider} from '../../store/undoable-stories';
+import {useDonationCheck} from '../../store/use-donation-check';
+import {usePublishing} from '../../store/use-publishing';
 import {storyFilename} from '../../util/publish';
 import {saveHtml} from '../../util/save-html';
-import {DialogsContextProvider} from '../../dialogs';
+import {StoryCards} from './story-cards';
+import {StoryListTopBar} from './top-bar/top-bar';
 
 export const InnerStoryListRoute: React.FC = () => {
+	const {dispatch} = useDialogsContext();
 	const {stories} = useStoriesContext();
 	const {prefs} = usePrefsContext();
 	const {publishStory} = usePublishing();
+	const {shouldShowDonationPrompt} = useDonationCheck();
 	const {t} = useTranslation();
 
 	const visibleStories = React.useMemo(() => {
@@ -37,6 +44,12 @@ export const InnerStoryListRoute: React.FC = () => {
 	async function handlePublish(story: Story) {
 		saveHtml(await publishStory(story.id), storyFilename(story));
 	}
+
+	React.useEffect(() => {
+		if (shouldShowDonationPrompt()) {
+			dispatch({type: 'addDialog', component: AppDonationDialog});
+		}
+	}, [dispatch, shouldShowDonationPrompt]);
 
 	return (
 		<div className="story-list-route">
