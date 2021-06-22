@@ -15,6 +15,7 @@ import {usePublishing} from '../../store/use-publishing';
 import {storyFilename} from '../../util/publish';
 import {saveHtml} from '../../util/save-html';
 import {StoryCards} from './story-cards';
+import {SafariWarningCard} from '../../components/safari-warning';
 import {StoryListTopBar} from './top-bar/top-bar';
 
 export const InnerStoryListRoute: React.FC = () => {
@@ -62,6 +63,7 @@ export const InnerStoryListRoute: React.FC = () => {
 					{count: visibleStories.length}
 				)}
 			>
+				<SafariWarningCard />
 				<div className="stories">
 					{stories.length === 0 ? (
 						<p>{t('storyList.noStories')}</p>
