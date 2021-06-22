@@ -99,6 +99,13 @@
 			"emptyName": "Please enter a name.",
 			"nameAlreadyUsed": "Another story has this name."
 		},
+		"safariWarningCard": {
+			"archiveAndUseAnotherBrowser": "Please archive your stories and use another platform.",
+			"addToHomeScreen": "Add this site to your home screen to avoid this limitation.",
+			"howToAddToHomeScreen": "How Do I Add This To My Home Screen?",
+			"learnMore": "Learn More",
+			"message": "The browser you are using will delete all stories after seven days of not visiting this web site."
+		},
 		"storyCard": {
 			"lastUpdated": "Last edited on {{date}}",
 			"passageCount": "1 passage",
