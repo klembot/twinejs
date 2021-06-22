@@ -1,0 +1,5 @@
+line.start-connector {
+	fill: none;
+	stroke: var(--dark-green);
+	stroke-width: 2px;
+}

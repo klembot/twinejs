@@ -21,13 +21,23 @@ export const LinkMarkers: React.FC = () => (
 		</marker>
 		<marker
 			id="link-broken"
-			refX="6"
-			refY="6"
-			markerWidth="12"
-			markerHeight="12"
+			refX="7.5"
+			refY="7.5"
+			markerWidth="15"
+			markerHeight="15"
 		>
-			<line x1="9" y1="3" x2="3" y2="9"></line>
-			<line x1="3" y1="3" x2="9" y2="9"></line>
+			<circle cx="7.5" cy="7.5" r="7.5" />
+			<path d="M4.5 7.5h 6z" />
+		</marker>
+		<marker
+			id="link-start"
+			markerWidth="15"
+			markerHeight="15"
+			refX="7.5"
+			refY="7.5"
+		>
+			<circle cx="7.5" cy="7.5" r="7.5" />
+			<path d="M5 3.5v8l6.5 -4z" />
 		</marker>
 	</defs>
 );

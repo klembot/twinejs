@@ -5,8 +5,24 @@
 	stroke: none;
 }
 
-#link-broken line {
-	fill: var(--red);
+#link-broken circle {
+	fill: var(--dark-red);
+}
+
+#link-broken path {
+	stroke-linecap: round;
+	stroke-linejoin: round;
 	stroke-width: 2px;
-	stroke: var(--red);
+	stroke: var(--white);
+}
+
+#link-start circle {
+	fill: var(--dark-green);
+}
+
+#link-start path {
+	fill: none;
+	stroke: var(--white);
+	stroke-linecap: round;
+	stroke-linejoin: round;
 }

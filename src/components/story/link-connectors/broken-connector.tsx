@@ -1,13 +1,15 @@
 import * as React from 'react';
 import {Passage} from '../../../store/stories';
 import {Point} from '../../../util/geometry';
-import {arc} from '../../../util/svg';
 import './broken-connector.css';
 
 export interface BrokenConnectorProps {
 	offset: Point;
 	passage: Passage;
 }
+
+// Making this equal in length to <StartConnector>.
+const lineOffset = 25 * Math.sqrt(2);
 
 export const BrokenConnector: React.FC<BrokenConnectorProps> = props => {
 	const {offset, passage} = props;
@@ -18,30 +20,13 @@ export const BrokenConnector: React.FC<BrokenConnectorProps> = props => {
 		start.top += offset.top;
 	}
 
-	const path = React.useMemo(
-		() =>
-			arc({
-				start: {
-					left: start.left + passage.width,
-					top: start.top + passage.height / 2
-				},
-				end: {
-					left: start.left + passage.width * 1.5,
-					top: start.top + passage.height
-				},
-				radius: {
-					left: passage.width / 2,
-					top: passage.height / 2
-				},
-				sweep: true
-			}),
-		[passage.height, passage.width, start.left, start.top]
-	);
-
 	return (
-		<path
+		<line
 			className="broken-connector"
-			d={path}
+			x1={start.left + passage.width}
+			y1={start.top + passage.height}
+			x2={start.left + passage.width + lineOffset}
+			y2={start.top + passage.height + lineOffset}
 			style={{markerEnd: 'url(#link-broken)'}}
 		/>
 	);

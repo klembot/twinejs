@@ -12,6 +12,7 @@ export interface PassageMapProps {
 	onEdit: (passage: Passage) => void;
 	onSelect: (passage: Passage, exclusive: boolean) => void;
 	passages: Passage[];
+	startPassageId: string;
 	tagColors: Story['tagColors'];
 	zoom: number;
 }
@@ -71,6 +72,7 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 		onEdit,
 		onSelect,
 		passages,
+		startPassageId,
 		tagColors,
 		zoom
 	} = props;
@@ -145,6 +147,7 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 					top: (state.dragY - state.startY) / zoom
 				}}
 				passages={passages}
+				startPassageId={startPassageId}
 			/>
 			<PassageCardGroup
 				onDeselect={onDeselect}
