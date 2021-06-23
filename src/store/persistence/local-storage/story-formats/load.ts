@@ -9,15 +9,15 @@ export function load(): StoryFormatsState {
 	}
 
 	serialized.split(',').forEach(id => {
-		console.log(`loading format ${id}`);
-
 		try {
 			const serializedFormat = window.localStorage.getItem(
 				`twine-storyformats-${id}`
 			);
 
 			if (!serializedFormat) {
-				console.warn(`No story format stored at twine-storyformats-${id}`);
+				console.warn(
+					`No story format stored at twine-storyformats-${id}, skipping`
+				);
 				return;
 			}
 

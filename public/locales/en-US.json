@@ -228,6 +228,13 @@
 	},
 	"store": {
 		"archiveFilename": "{{timestamp}} Twine Archive.html",
+		"errors": {
+			"cantPersistPrefs": "Saving your preferences failed ({{error}}).",
+			"cantPersistStories": "Saving your stories failed ({{error}}).",
+			"cantPersistStoryFormats": "Saving your story formats failed ({{error}}).",
+			"electronRemediation": "Restarting this application may help.",
+			"webRemediation": "Reloading this page may help."
+		},
 		"passageDefaults": {
 			"name": "Untitled Passage",
 			"textClick": "Double-click this passage to edit it.",

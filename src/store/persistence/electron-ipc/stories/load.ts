@@ -5,11 +5,13 @@ import {importStories} from '../../../../util/import';
 export function load(): Story[] {
 	const {twineElectron} = window as TwineElectronWindow;
 
+	// TODO make this consistent across modules
+
 	if (!twineElectron) {
 		throw new Error('Electron bridge is not present on window.');
 	}
 
-	if (twineElectron?.hydrate.stories) {
+	if (twineElectron?.hydrate?.stories) {
 		return twineElectron?.hydrate.stories.reduce((result, file) => {
 			const story = importStories(file.htmlSource, file.mtime);
 

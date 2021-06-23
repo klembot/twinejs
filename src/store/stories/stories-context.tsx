@@ -8,6 +8,7 @@ import {
 	StoriesState
 } from './stories.types';
 import {useStoryFormatsContext} from '../story-formats';
+import {useStoreErrorReporter} from '../use-store-error-reporter';
 
 export const StoriesContext = React.createContext<StoriesContextProps>({
 	dispatch: () => {},
@@ -21,6 +22,7 @@ export const useStoriesContext = () => React.useContext(StoriesContext);
 export const StoriesContextProvider: React.FC = props => {
 	const {stories: storiesPersistence} = usePersistence();
 	const {formats} = useStoryFormatsContext();
+	const {reportError} = useStoreErrorReporter();
 	const persistedReducer: React.Reducer<
 		StoriesState,
 		StoriesAction
@@ -28,10 +30,15 @@ export const StoriesContextProvider: React.FC = props => {
 		() => (state, action) => {
 			const newState = reducer(state, action);
 
-			storiesPersistence.saveMiddleware(newState, action, formats);
+			try {
+				storiesPersistence.saveMiddleware(newState, action, formats);
+			} catch (error) {
+				reportError(error, 'store.errors.cantPersistStories');
+			}
+
 			return newState;
 		},
-		[formats, storiesPersistence]
+		[formats, reportError, storiesPersistence]
 	);
 	const [stories, dispatch] = useThunkReducer(persistedReducer, []);
 

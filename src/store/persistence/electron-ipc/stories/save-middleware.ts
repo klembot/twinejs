@@ -73,24 +73,23 @@ export function saveMiddleware(
 			break;
 
 		case 'createStory':
-			if (action.props.name) {
-				saveStory(storyWithName(state, action.props.name), formatState);
-			} else {
-				console.warn(
-					"Story was created but with no name specified, can't persist it",
-					action.props
-				);
+			if (!action.props.name) {
+				throw new Error('Passage was created but with no name specified');
 			}
+
+			saveStory(storyWithName(state, action.props.name), formatState);
 			break;
 
-		case 'deleteStory':
+		case 'deleteStory': {
 			// We have to look up the story in our saved last state to know what file
 			// to delete.
+
 			twineElectron.ipcRenderer.send(
 				'delete-story',
 				storyWithId(lastState, action.storyId)
 			);
 			break;
+		}
 
 		case 'updateStory':
 			if (action.props.name) {
@@ -100,6 +99,9 @@ export function saveMiddleware(
 
 				const oldStory = storyWithId(lastState, action.storyId);
 				const newStory = storyWithId(state, action.storyId);
+
+				// It's crucial that we only respond to this event once. Otherwise,
+				// multiple renames in one session will cause mayhem.
 
 				twineElectron.ipcRenderer.once('story-renamed', () =>
 					saveStory(newStory, formatState)
