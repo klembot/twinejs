@@ -26,7 +26,7 @@ async function createWindow() {
 		// Path is relative to this file in the electron-build/ directory that's
 		// created during `npm run build:electron-main`.
 		// app.isPackaged
-		`file://${path.resolve(__dirname, '../../../renderer/index.html')}`
+		`file://${path.resolve(__dirname, '../../../../renderer/index.html')}`
 	);
 
 	mainWindow.once('ready-to-show', () => {

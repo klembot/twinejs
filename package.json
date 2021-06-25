@@ -104,7 +104,7 @@
 		"lint": "eslint src",
 		"start": "react-scripts start",
 		"start:electron": "NODE_ENV=development npm-run-all --serial clean --parallel build:web build:electron-main --serial start:electron:boot",
-		"start:electron:boot": "electron electron-build/main/src/electron/index.js",
+		"start:electron:boot": "electron electron-build/main/src/electron/main-process/index.js",
 		"test": "react-scripts test",
 		"test:coverage": "react-scripts test --coverage",
 		"storybook": "start-storybook -p 6006 -s public",
@@ -139,5 +139,5 @@
 		]
 	},
 	"homepage": "./",
-	"main": "electron-build/electron/src/electron/index.js"
+	"main": "electron-build/electron/src/electron/main-process/index.js"
 }

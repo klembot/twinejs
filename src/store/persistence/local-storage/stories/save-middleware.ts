@@ -4,10 +4,10 @@ import {
 	passageWithName,
 	StoriesAction,
 	StoriesState,
-	Story,
 	storyWithId,
 	storyWithName
 } from '../../../stories';
+import {StoryFormatsState} from '../../../story-formats';
 import {
 	deletePassageById,
 	deleteStory,

@@ -2,7 +2,7 @@
 // use.
 import {IpcRenderer} from 'electron';
 import jsonp from 'jsonp';
-import {StoryFile} from './story-file';
+import {StoryFile} from '../main-process/story-file';
 
 export interface TwineElectronWindow extends Window {
 	twineElectron?: {

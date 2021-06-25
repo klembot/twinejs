@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {
 	publishArchive,
+	publishStory,
 	publishStoryWithFormat,
 	PublishOptions
 } from '../util/publish';
@@ -15,11 +16,12 @@ import {getAppInfo} from '../util/app-info';
 
 export interface UsePublishingProps {
 	proofStory: (storyId: string) => Promise<string>;
-	publishArchive: () => Promise<string>;
+	publishArchive: (storyIds?: string[]) => Promise<string>;
 	publishStory: (
 		storyId: string,
 		publishOptions?: PublishOptions
 	) => Promise<string>;
+	publishStoryData: (storyId: string) => string;
 }
 
 /**
@@ -94,6 +96,14 @@ export function usePublishing(): UsePublishingProps {
 				);
 			},
 			[formats, stories, storyFormatsDispatch]
+		),
+		publishStoryData: React.useCallback(
+			(storyId: string) => {
+				const story = storyWithId(stories, storyId);
+
+				return publishStory(story, getAppInfo(), {startOptional: true});
+			},
+			[stories]
 		)
 	};
 }

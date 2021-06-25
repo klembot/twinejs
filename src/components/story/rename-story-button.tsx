@@ -2,7 +2,7 @@ import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {IconWriting} from '@tabler/icons';
 import {PromptButton} from '../control/prompt-button';
-import {storyFilename} from '../../util/publish';
+import {storyFileName} from '../../electron/shared';
 import {Story} from '../../store/stories';
 
 export interface RenameStoryButtonProps {
@@ -28,7 +28,7 @@ export const RenameStoryButton: React.FC<RenameStoryButtonProps> = props => {
 			existingStories.some(
 				s =>
 					s.id !== story.id &&
-					storyFilename(s) === storyFilename({...story, name})
+					storyFileName(s) === storyFileName({...story, name})
 			)
 		) {
 			return {

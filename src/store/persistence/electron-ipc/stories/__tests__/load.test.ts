@@ -1,4 +1,4 @@
-import {TwineElectronWindow} from '../../../../../electron/electron.types';
+import {TwineElectronWindow} from '../../../../../electron/shared';
 import {load} from '../load';
 import {Story} from '../../../../stories/stories.types';
 import {fakeAppInfo, fakeStory} from '../../../../../test-util/fakes';

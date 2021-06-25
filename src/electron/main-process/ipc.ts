@@ -1,15 +1,15 @@
 import {dialog, ipcMain} from 'electron';
-import i18n from '../util/i18n';
+import {i18n} from './locales';
 import {saveJsonFile} from './json-file';
 import {openWithTempFile} from './open-with-temp-file';
-import {deleteStory, renameStory, saveStory} from './story-file';
+import {deleteStory, renameStory, saveStoryHtml} from './story-file';
 
 export function initIpc() {
 	ipcMain.on('open-with-temp-file', (event, data: string, suffix: string) =>
 		openWithTempFile(data, suffix)
 	);
 
-	ipcMain.on('save-json', (event, filename: string, data: string) => {
+	ipcMain.on('save-json', (event, filename: string, data: any) => {
 		saveJsonFile(filename, data);
 	});
 
@@ -23,16 +23,24 @@ export function initIpc() {
 		storyTask = storyTask.then(func, func);
 	}
 
-	ipcMain.on('save-story', (event, story, format, appInfo) =>
+	ipcMain.on('save-story-html', (event, story, storyHtml) => {
+		if (typeof storyHtml !== 'string') {
+			throw new Error('Asked to save non-string as story HTML');
+		}
+
+		if (storyHtml.trim() === '') {
+			throw new Error('Asked to save empty string as story HTML');
+		}
+
 		queueStoryTask(async () => {
 			try {
-				await saveStory(story, format, appInfo);
-				event.sender.send('story-saved', story, format, appInfo);
+				await saveStoryHtml(story, storyHtml);
+				event.sender.send('story-saved', story);
 			} catch (error) {
 				dialog.showErrorBox(i18n.t('electron.errors.storySave'), error.message);
 			}
-		})
-	);
+		});
+	});
 
 	ipcMain.on('delete-story', (event, story) =>
 		queueStoryTask(async () => {

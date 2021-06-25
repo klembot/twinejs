@@ -1,4 +1,4 @@
-import {TwineElectronWindow} from '../../../electron/electron.types';
+import {TwineElectronWindow} from '../../../electron/shared';
 
 export function saveJson(filename: string, data: any) {
 	const {twineElectron} = window as TwineElectronWindow;

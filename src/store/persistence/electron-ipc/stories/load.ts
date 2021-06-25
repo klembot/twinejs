@@ -1,4 +1,4 @@
-import {TwineElectronWindow} from '../../../../electron/electron.types';
+import {TwineElectronWindow} from '../../../../electron/shared';
 import {Story} from '../../../stories/stories.types';
 import {importStories} from '../../../../util/import';
 

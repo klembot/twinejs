@@ -1,5 +1,5 @@
 import {load} from '../load';
-import {TwineElectronWindow} from '../../../../../electron/electron.types';
+import {TwineElectronWindow} from '../../../../../electron/shared';
 import {fakePrefs} from '../../../../../test-util/fakes';
 
 describe('prefs Electron IPC load', () => {

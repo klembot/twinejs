@@ -1,2 +1,2 @@
 export * from './load';
-export * from './save-middleware';
+export {saveMiddleware} from './save-middleware';

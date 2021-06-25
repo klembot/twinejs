@@ -3,7 +3,7 @@ import {useTranslation} from 'react-i18next';
 import {useHistory} from 'react-router-dom';
 import {MainContent} from '../../components/container/main-content';
 import {importStories, useStoriesContext, Story} from '../../store/stories';
-import {storyFilename} from '../../util/publish';
+import {storyFileName} from '../../electron/shared';
 import {StoryImportList} from './story-import-list';
 import {StoryImportTopBar} from './top-bar';
 import {UploadFile} from './upload-file';
@@ -28,7 +28,7 @@ export const StoryImportRoute: React.FC = () => {
 				if (
 					existingStories.some(
 						existingStory =>
-							storyFilename(existingStory) === storyFilename(story)
+							storyFileName(existingStory) === storyFileName(story)
 					)
 				) {
 					return result;

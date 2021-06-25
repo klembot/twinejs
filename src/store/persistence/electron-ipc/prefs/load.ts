@@ -1,5 +1,5 @@
 import {PrefsState} from '../../../prefs';
-import {TwineElectronWindow} from '../../../../electron/electron.types';
+import {TwineElectronWindow} from '../../../../electron/shared';
 import {defaults} from '../../../prefs/defaults';
 
 export function load(): Partial<PrefsState> {

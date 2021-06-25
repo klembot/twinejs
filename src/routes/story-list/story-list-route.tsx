@@ -12,7 +12,7 @@ import {Story, useStoriesContext} from '../../store/stories';
 import {UndoableStoriesContextProvider} from '../../store/undoable-stories';
 import {useDonationCheck} from '../../store/use-donation-check';
 import {usePublishing} from '../../store/use-publishing';
-import {storyFilename} from '../../util/publish';
+import {storyFileName} from '../../electron/shared';
 import {saveHtml} from '../../util/save-html';
 import {StoryCards} from './story-cards';
 import {SafariWarningCard} from '../../components/safari-warning';
@@ -43,7 +43,7 @@ export const InnerStoryListRoute: React.FC = () => {
 	}, [prefs.storyListSort, prefs.storyListTagFilter, stories]);
 
 	async function handlePublish(story: Story) {
-		saveHtml(await publishStory(story.id), storyFilename(story));
+		saveHtml(await publishStory(story.id), storyFileName(story));
 	}
 
 	React.useEffect(() => {

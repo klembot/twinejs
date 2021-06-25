@@ -1,18 +1,13 @@
-import {TwineElectronWindow} from '../../../../electron/electron.types';
+import {TwineElectronWindow} from '../../../../electron/shared';
 import {
 	Passage,
 	StoriesAction,
 	StoriesState,
-	Story,
 	storyWithId,
 	storyWithName
 } from '../../../stories';
-import {
-	formatWithNameAndVersion,
-	StoryFormat,
-	StoryFormatsState
-} from '../../../story-formats';
-import {getAppInfo} from '../../../../util/app-info';
+import {StoryFormatsState} from '../../../story-formats';
+import {saveStory} from './save-story';
 
 /**
  * Is a passage change persistable? e.g. is it nontrivial? This is different
@@ -24,39 +19,22 @@ function isPersistablePassageUpdate(props: Partial<Passage>) {
 	);
 }
 
-function saveStory(story: Story, formats: StoryFormat[]) {
-	const {twineElectron} = window as TwineElectronWindow;
-
-	if (!twineElectron) {
-		throw new Error('Electron bridge is not present on window.');
-	}
-
-	let format: StoryFormat | null = null;
-
-	try {
-		format = formatWithNameAndVersion(
-			formats,
-			story.storyFormat,
-			story.storyFormatVersion
-		);
-	} catch (e) {
-		console.warn(
-			`Could not find format for story "${story.name}", wanted "${story.storyFormat}" version "${story.storyFormatVersion}". Saving unpublished.`
-		);
-	}
-
-	twineElectron.ipcRenderer.send('save-story', story, format, getAppInfo());
-}
-
 // When a story is deleted, we need to be able to look up information about it
 // from the last state.
 
 let lastState: StoriesState;
 
+/**
+ * A middleware function to save changes to disk. This should be called *after*
+ * the main reducer runs.
+ *
+ * This has an extra argument: functions to archive and publish a story. This is
+ * because the Electron app saves stories in published format.
+ */
 export function saveMiddleware(
 	state: StoriesState,
 	action: StoriesAction,
-	formatState: StoryFormatsState
+	formats: StoryFormatsState
 ) {
 	const {twineElectron} = window as TwineElectronWindow;
 
@@ -77,7 +55,7 @@ export function saveMiddleware(
 				throw new Error('Passage was created but with no name specified');
 			}
 
-			saveStory(storyWithName(state, action.props.name), formatState);
+			saveStory(storyWithName(state, action.props.name), formats);
 			break;
 
 		case 'deleteStory': {
@@ -104,13 +82,13 @@ export function saveMiddleware(
 				// multiple renames in one session will cause mayhem.
 
 				twineElectron.ipcRenderer.once('story-renamed', () =>
-					saveStory(newStory, formatState)
+					saveStory(newStory, formats)
 				);
 				twineElectron.ipcRenderer.send('rename-story', oldStory, newStory);
 			} else {
 				// An ordinary update.
 
-				saveStory(storyWithId(state, action.storyId), formatState);
+				saveStory(storyWithId(state, action.storyId), formats);
 			}
 			break;
 
@@ -118,13 +96,13 @@ export function saveMiddleware(
 		case 'createPassages':
 		case 'deletePassage':
 		case 'deletePassages':
-			saveStory(storyWithId(state, action.storyId), formatState);
+			saveStory(storyWithId(state, action.storyId), formats);
 			break;
 
 		case 'updatePassage':
 			// Skip updates that wouldn't be saved.
 			if (isPersistablePassageUpdate(action.props)) {
-				saveStory(storyWithId(state, action.storyId), formatState);
+				saveStory(storyWithId(state, action.storyId), formats);
 			}
 			break;
 
@@ -135,7 +113,7 @@ export function saveMiddleware(
 					isPersistablePassageUpdate(action.passageUpdates[passageId])
 				)
 			) {
-				saveStory(storyWithId(state, action.storyId), formatState);
+				saveStory(storyWithId(state, action.storyId), formats);
 			}
 			break;
 

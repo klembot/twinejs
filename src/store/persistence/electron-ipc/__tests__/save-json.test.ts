@@ -1,5 +1,5 @@
 import {saveJson} from '../save-json';
-import {TwineElectronWindow} from '../../../../electron/electron.types';
+import {TwineElectronWindow} from '../../../../electron/shared';
 
 describe('saveJson()', () => {
 	afterEach(() => delete (window as TwineElectronWindow).twineElectron);

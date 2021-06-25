@@ -1,5 +1,5 @@
 import {load} from '../load';
-import {TwineElectronWindow} from '../../../../../electron/electron.types';
+import {TwineElectronWindow} from '../../../../../electron/shared';
 import {fakeUnloadedStoryFormat} from '../../../../../test-util/fakes';
 
 describe('story formats Electron IPC load', () => {
