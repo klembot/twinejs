@@ -2,8 +2,8 @@
 // listens to the `save-json` IPC event.
 
 import {app} from 'electron';
-import fs from 'fs-extra';
-import path from 'path';
+import {readJson, writeJson} from 'fs-extra';
+import {join} from 'path';
 
 /**
  * Returns a promise resolving to the contents of a JSON file in the app data
@@ -11,12 +11,12 @@ import path from 'path';
  * including if the file does not exist.
  */
 export function loadJsonFile(filename: string) {
-	return fs.readJson(path.join(app.getPath('userData'), filename));
+	return readJson(join(app.getPath('userData'), filename));
 }
 
 /**
  * Saves an object to JSON in the app data folder. Returns a promise when done.
  */
 export function saveJsonFile(filename: string, data: any) {
-	return fs.writeJson(path.join(app.getPath('userData'), filename), data);
+	return writeJson(join(app.getPath('userData'), filename), data);
 }

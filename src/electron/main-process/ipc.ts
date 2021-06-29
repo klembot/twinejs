@@ -5,68 +5,54 @@ import {openWithTempFile} from './open-with-temp-file';
 import {deleteStory, renameStory, saveStoryHtml} from './story-file';
 
 export function initIpc() {
+	ipcMain.on('delete-story', async (event, story) => {
+		try {
+			await deleteStory(story);
+			event.sender.send('story-deleted', story);
+		} catch (error) {
+			dialog.showErrorBox(i18n.t('electron.errors.storyDelete'), error.message);
+			throw error;
+		}
+	});
+
 	ipcMain.on('open-with-temp-file', (event, data: string, suffix: string) =>
 		openWithTempFile(data, suffix)
 	);
 
-	ipcMain.on('save-json', (event, filename: string, data: any) => {
-		saveJsonFile(filename, data);
+	ipcMain.on('rename-story', async (event, oldStory, newStory) => {
+		try {
+			await renameStory(oldStory, newStory);
+			event.sender.send('story-renamed', oldStory, newStory);
+		} catch (error) {
+			dialog.showErrorBox(i18n.t('electron.errors.storyRename'), error.message);
+			throw error;
+		}
 	});
 
-	// We need to ensure that all story file operations happen serially, because
-	// they individually unlock and lock the story directory. Because file
-	// operations are all asynchronous, we have to enforce this by hand.
-
-	let storyTask = Promise.resolve();
-
-	function queueStoryTask(func: () => void) {
-		storyTask = storyTask.then(func, func);
-	}
-
-	ipcMain.on('save-story-html', (event, story, storyHtml) => {
-		if (typeof storyHtml !== 'string') {
-			throw new Error('Asked to save non-string as story HTML');
+	ipcMain.on('save-json', async (event, filename: string, data: any) => {
+		try {
+			await saveJsonFile(filename, data);
+		} catch (error) {
+			dialog.showErrorBox(i18n.t('electron.errors.jsonSave'), error.message);
+			throw error;
 		}
-
-		if (storyHtml.trim() === '') {
-			throw new Error('Asked to save empty string as story HTML');
-		}
-
-		queueStoryTask(async () => {
-			try {
-				await saveStoryHtml(story, storyHtml);
-				event.sender.send('story-saved', story);
-			} catch (error) {
-				dialog.showErrorBox(i18n.t('electron.errors.storySave'), error.message);
-			}
-		});
 	});
 
-	ipcMain.on('delete-story', (event, story) =>
-		queueStoryTask(async () => {
-			try {
-				await deleteStory(story);
-				event.sender.send('story-deleted', story);
-			} catch (error) {
-				dialog.showErrorBox(
-					i18n.t('electron.errors.storyDelete'),
-					error.message
-				);
+	ipcMain.on('save-story-html', async (event, story, storyHtml) => {
+		try {
+			if (typeof storyHtml !== 'string') {
+				throw new Error('Asked to save non-string as story HTML');
 			}
-		})
-	);
 
-	ipcMain.on('rename-story', (event, oldStory, newStory) =>
-		queueStoryTask(async () => {
-			try {
-				await renameStory(oldStory, newStory);
-				event.sender.send('story-renamed', oldStory, newStory);
-			} catch (error) {
-				dialog.showErrorBox(
-					i18n.t('electron.errors.storyRename'),
-					error.message
-				);
+			if (storyHtml.trim() === '') {
+				throw new Error('Asked to save empty string as story HTML');
 			}
-		})
-	);
+
+			await saveStoryHtml(story, storyHtml);
+			event.sender.send('story-html-saved', story);
+		} catch (error) {
+			dialog.showErrorBox(i18n.t('electron.errors.storySave'), error.message);
+			throw error;
+		}
+	});
 }

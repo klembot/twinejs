@@ -5,6 +5,10 @@ import {i18n} from './locales';
 export function initMenuBar() {
 	const template: MenuItemConstructorOptions[] = [
 		{
+			label: app.getName(),
+			submenu: [{role: 'about'}, {type: 'separator'}, {role: 'quit'}]
+		},
+		{
 			label: i18n.t('electron.menuBar.edit'),
 			submenu: [
 				{role: 'undo'},
@@ -47,20 +51,17 @@ export function initMenuBar() {
 	];
 
 	if (process.platform === 'darwin') {
-		template.unshift({
-			label: app.getName(),
-			submenu: [
-				{role: 'about'},
-				{type: 'separator'},
-				{role: 'services', submenu: []},
-				{type: 'separator'},
-				{role: 'hide'},
-				{role: 'hideOthers'},
-				{role: 'unhide'},
-				{type: 'separator'},
-				{role: 'quit'}
-			]
-		});
+		template[0].submenu = [
+			{role: 'about'},
+			{type: 'separator'},
+			{role: 'services', submenu: []},
+			{type: 'separator'},
+			{role: 'hide'},
+			{role: 'hideOthers'},
+			{role: 'unhide'},
+			{type: 'separator'},
+			{role: 'quit'}
+		];
 
 		(template[2].submenu as MenuItemConstructorOptions[]).push(
 			{type: 'separator'},
@@ -70,7 +71,7 @@ export function initMenuBar() {
 			}
 		);
 
-		template[4].submenu = [
+		template[3].submenu = [
 			{role: 'close'},
 			{role: 'minimize'},
 			{role: 'zoom'},
