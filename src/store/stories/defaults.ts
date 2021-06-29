@@ -1,5 +1,5 @@
 import {deviceType} from 'detect-it';
-import i18n from '../../util/i18n';
+import {i18n} from '../../util/i18n';
 import {Passage, Story} from './stories.types';
 
 export const passageDefaults = (): Omit<Passage, 'id' | 'story'> => ({

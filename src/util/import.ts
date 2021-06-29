@@ -30,10 +30,10 @@ const selectors = {
 };
 
 /**
- * Convenience function to convert a string value to an integer.
+ * Convenience function to convert a string value to an float.
  */
-function int(stringValue: string) {
-	return Math.floor(parseFloat(stringValue));
+function float(stringValue: string) {
+	return parseFloat(stringValue);
 }
 
 /**
@@ -106,10 +106,10 @@ function domToObject(storyEl: Element): ImportedStory {
 
 			return {
 				id,
-				left: position ? int(position[0]) : undefined,
-				top: position ? int(position[1]) : undefined,
-				width: size ? int(size[0]) : undefined,
-				height: size ? int(size[1]) : undefined,
+				left: position ? float(position[0]) : undefined,
+				top: position ? float(position[1]) : undefined,
+				width: size ? float(size[0]) : undefined,
+				height: size ? float(size[1]) : undefined,
 				tags: passageEl.getAttribute('tags')
 					? passageEl.getAttribute('tags')!.split(/\s+/)
 					: [],

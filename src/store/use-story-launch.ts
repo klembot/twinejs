@@ -1,6 +1,6 @@
 import {usePublishing} from './use-publishing';
 import {isElectronRenderer} from '../util/is-electron';
-import {TwineElectronWindow} from '../electron/electron.types';
+import {TwineElectronWindow} from '../electron/shared';
 
 export interface UseStoryLaunchProps {
 	playStory: (storyId: string) => Promise<void>;

@@ -2,7 +2,7 @@ import {app, shell} from 'electron';
 import fs from 'fs-extra';
 import klaw from 'klaw-sync';
 import nodePath from 'path';
-import i18n from '../util/i18n';
+import {i18n} from './locales';
 
 /**
  * Returns the full path of the user's story directory.
@@ -129,9 +129,7 @@ export async function backupStoryDirectory(maxBackups = 10) {
 	});
 
 	if (backups.length > maxBackups) {
-		console.log(
-			`There are ${backups.length} story library backups, pruning`
-		);
+		console.log(`There are ${backups.length} story library backups, pruning`);
 
 		const toDelete = backups.slice(0, backups.length - maxBackups);
 

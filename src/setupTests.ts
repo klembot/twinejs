@@ -4,7 +4,7 @@
 // learn more: https://github.com/testing-library/jest-dom
 import {toHaveNoViolations} from 'jest-axe';
 import '@testing-library/jest-dom';
-import i18n from './util/i18n';
+import {i18n} from './util/i18n';
 
 expect.extend(toHaveNoViolations);
 i18n.t = (value: string) => value;

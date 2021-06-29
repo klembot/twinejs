@@ -9,6 +9,7 @@ import {
 	StoryFormatsContextProps,
 	StoryFormatsState
 } from './story-formats.types';
+import {useStoreErrorReporter} from '../use-store-error-reporter';
 import {reducer} from './reducer';
 
 const defaultBuiltins: StoryFormat[] = builtins().map(f => ({
@@ -32,6 +33,7 @@ export const useStoryFormatsContext = () =>
 
 export const StoryFormatsContextProvider: React.FC = props => {
 	const {storyFormats} = usePersistence();
+	const {reportError} = useStoreErrorReporter();
 	const persistedReducer: React.Reducer<
 		StoryFormatsState,
 		StoryFormatsAction
@@ -39,10 +41,14 @@ export const StoryFormatsContextProvider: React.FC = props => {
 		(state, action) => {
 			const newState = reducer(state, action);
 
-			storyFormats.saveMiddleware(newState, action);
+			try {
+				storyFormats.saveMiddleware(newState, action);
+			} catch (error) {
+				reportError(error, 'store.errors.cantPersistStoryFormats');
+			}
 			return newState;
 		},
-		[storyFormats]
+		[reportError, storyFormats]
 	);
 
 	const [state, dispatch] = useThunkReducer(persistedReducer, defaultBuiltins);

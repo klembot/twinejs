@@ -1,11 +1,11 @@
 import uuid from 'tiny-uuid';
-import {TwineElectronWindow} from '../../../../electron/electron.types';
+import {TwineElectronWindow} from '../../../../electron/shared';
 import {StoryFormatsState} from '../../../story-formats/story-formats.types';
 
 export function load(): StoryFormatsState {
 	const {twineElectron} = window as TwineElectronWindow;
 
-	if (!twineElectron?.hydrate.storyFormats) {
+	if (!twineElectron?.hydrate?.storyFormats) {
 		return [];
 	}
 

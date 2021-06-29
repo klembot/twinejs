@@ -1,7 +1,7 @@
 import jsonp from 'jsonp';
 import {fetchStoryFormatProperties} from '../fetch-story-format-properties';
 import {isElectronRenderer} from '../is-electron';
-import {TwineElectronWindow} from '../../electron/electron.types';
+import {TwineElectronWindow} from '../../electron/shared';
 
 jest.mock('../is-electron');
 jest.mock('jsonp');
@@ -11,10 +11,7 @@ describe('fetchStoryFormatProperties', () => {
 		(isElectronRenderer as jest.Mock).mockReturnValue(false);
 		(jsonp as jest.Mock).mockImplementation(
 			(url: string, props: any, callback: any) => {
-				if (
-					url === '/mock-format-url' &&
-					props.name === 'storyFormat'
-				) {
+				if (url === '/mock-format-url' && props.name === 'storyFormat') {
 					callback(null, {mockJsonpResponse: true});
 				} else {
 					throw new Error(`Incorrect JSONP call: "${url}"`);
@@ -38,9 +35,9 @@ describe('fetchStoryFormatProperties', () => {
 			}
 		);
 
-		await expect(
-			fetchStoryFormatProperties('mock-format-url')
-		).rejects.toThrow(mockError);
+		await expect(fetchStoryFormatProperties('mock-format-url')).rejects.toThrow(
+			mockError
+		);
 	});
 
 	it('uses twineElectron.jsonp() in an Electron context', async () => {
@@ -75,9 +72,7 @@ describe('fetchStoryFormatProperties', () => {
 		jsonpMock.mockImplementationOnce(
 			(url: string, props: any, callback: any) => {
 				if (pending) {
-					throw new Error(
-						'Multiple simultaneous calls have occurred'
-					);
+					throw new Error('Multiple simultaneous calls have occurred');
 				}
 
 				callback(null, {});

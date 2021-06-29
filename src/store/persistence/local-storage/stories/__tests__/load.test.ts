@@ -1,7 +1,7 @@
 import {load} from '../load';
 import {fakeStory} from '../../../../../test-util/fakes';
 
-describe('Local storage load()', () => {
+describe('stories local storage load', () => {
 	beforeEach(() => window.localStorage.clear());
 	afterEach(() => window.localStorage.clear());
 

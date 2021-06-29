@@ -2,7 +2,7 @@ import {StoryFormatsAction, StoryFormatsState} from '../../../story-formats';
 import {saveJson} from '../save-json';
 
 /**
- * A middleware function to save changes to local storage. This should be called
+ * A middleware function to save changes to disk. This should be called
  * *after* the main reducer runs.
  */
 export function saveMiddleware(

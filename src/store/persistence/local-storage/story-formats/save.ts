@@ -25,8 +25,6 @@ export function save(state: StoryFormatsState) {
 		// We have to remove the `properties` property if it exists, as that is
 		// dynamically added when loading.
 
-		console.log('saving format', format);
-
 		ids.push(id);
 		window.localStorage.setItem(
 			`twine-storyformats-${id}`,

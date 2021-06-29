@@ -9,7 +9,7 @@ import {
 } from '../../../store/stories';
 import {usePublishing} from '../../../store/use-publishing';
 import {useStoryLaunch} from '../../../store/use-story-launch';
-import {storyFilename} from '../../../util/publish';
+import {storyFileName} from '../../../electron/shared';
 import {saveHtml} from '../../../util/save-html';
 import {
 	AppPrefsDialog,
@@ -34,7 +34,7 @@ export const MoreMenu: React.FC<MoreMenuProps> = props => {
 	const {t} = useTranslation();
 
 	async function handlePublishFile() {
-		saveHtml(await publishStory(story.id), storyFilename(story));
+		saveHtml(await publishStory(story.id), storyFileName(story));
 	}
 
 	return (

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {usePersistence} from '../persistence/use-persistence';
+import {useStoreErrorReporter} from '../use-store-error-reporter';
 import {defaults} from './defaults';
 import {PrefsAction, PrefsContextProps, PrefsState} from './prefs.types';
 import {reducer} from './reducer';
@@ -15,6 +16,7 @@ export const usePrefsContext = () => React.useContext(PrefsContext);
 
 export const PrefsContextProvider: React.FC = props => {
 	const {prefs} = usePersistence();
+	const {reportError} = useStoreErrorReporter();
 	const persistedReducer: React.Reducer<
 		PrefsState,
 		PrefsAction
@@ -22,10 +24,15 @@ export const PrefsContextProvider: React.FC = props => {
 		(state, action) => {
 			const newState = reducer(state, action);
 
-			prefs.saveMiddleware(newState, action);
+			try {
+				prefs.saveMiddleware(newState, action);
+			} catch (error) {
+				reportError(error, 'store.errors.cantPersistPrefs');
+			}
+
 			return newState;
 		},
-		[prefs]
+		[prefs, reportError]
 	);
 
 	const [state, dispatch] = React.useReducer(persistedReducer, defaults());

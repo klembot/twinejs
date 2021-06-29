@@ -4,7 +4,7 @@ describe('prefs local storage load', () => {
 	beforeEach(() => window.localStorage.clear());
 	afterAll(() => window.localStorage.clear());
 
-	test('restores preferences', () => {
+	it('restores preferences', () => {
 		window.localStorage.setItem('twine-prefs', 'mock-id,mock-id-2');
 		window.localStorage.setItem(
 			'twine-prefs-mock-id',

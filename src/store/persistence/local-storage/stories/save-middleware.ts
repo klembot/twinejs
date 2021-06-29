@@ -4,10 +4,10 @@ import {
 	passageWithName,
 	StoriesAction,
 	StoriesState,
-	Story,
 	storyWithId,
 	storyWithName
 } from '../../../stories';
+import {StoryFormatsState} from '../../../story-formats';
 import {
 	deletePassageById,
 	deleteStory,
@@ -30,9 +30,6 @@ let lastState: StoriesState;
  * *after* the main reducer runs.
  */
 export function saveMiddleware(state: StoriesState, action: StoriesAction) {
-	let passage: Passage;
-	let story: Story;
-
 	switch (action.type) {
 		case 'init':
 		case 'repair':
@@ -41,109 +38,56 @@ export function saveMiddleware(state: StoriesState, action: StoriesAction) {
 			// their change and the repair then.
 			break;
 
-		case 'createPassage':
+		case 'createPassage': {
 			if (!action.props.name) {
-				console.warn(
-					"Passage was created but with no name specified, can't persist it",
-					action.props
-				);
-				return;
+				throw new Error('Passage was created but with no name specified');
 			}
 
-			try {
-				story = storyWithId(state, action.storyId);
-			} catch (e) {
-				console.warn(
-					`Could not find story with ID "${action.storyId}", can't persist it`
-				);
-				return;
-			}
-
-			try {
-				passage = passageWithName(state, story.id, action.props.name);
-			} catch (e) {
-				console.warn(
-					`Could not find a passage with name "${action.props.name}" in story with ID "${story.id}", can't persist it`
-				);
-				return;
-			}
+			const story = storyWithId(state, action.storyId);
+			const passage = passageWithName(state, story.id, action.props.name);
 
 			doUpdateTransaction(transaction => {
 				saveStory(transaction, story);
 				savePassage(transaction, passage);
 			});
 			break;
+		}
 
-		case 'createPassages':
-			try {
-				story = storyWithId(state, action.storyId);
-			} catch (e) {
-				console.warn(
-					`Could not find story with ID "${action.storyId}", can't persist it`
-				);
-				return;
-			}
+		case 'createPassages': {
+			const story = storyWithId(state, action.storyId);
 
 			doUpdateTransaction(transaction => {
 				saveStory(transaction, story);
 				action.props.forEach(props => {
 					if (!props.name) {
-						console.warn(
-							"Passage was created but with no name specified, can't persist it",
-							action.props
-						);
-						return;
+						throw new Error('Passage was created but with no name specified');
 					}
 
-					try {
-						passage = passageWithName(state, story.id, props.name);
-					} catch (e) {
-						console.warn(
-							`Could not find a passage with name "${props.name}" in story with ID "${story.id}", can't persist it`
-						);
-						return;
-					}
-
-					savePassage(transaction, passage);
+					savePassage(
+						transaction,
+						passageWithName(state, story.id, props.name)
+					);
 				});
 			});
 			break;
+		}
 
 		case 'createStory':
 			if (!action.props.name) {
-				console.warn(
-					"Story was created but with no name specified, can't persist it",
-					action.props
-				);
-				return;
+				throw new Error('Story was created but with no name specified');
 			}
 
-			let newStory: Story;
-
-			try {
-				newStory = storyWithName(state, action.props.name);
-			} catch (e) {
-				console.warn(
-					`Could not find story with name "${action.props.name}", can't persist it`
-				);
-				return;
-			}
+			const story = storyWithName(state, action.props.name);
 
 			doUpdateTransaction(transaction => {
-				saveStory(transaction, newStory);
-				newStory.passages.forEach(passage => savePassage(transaction, passage));
+				saveStory(transaction, story);
+				story.passages.forEach(passage => savePassage(transaction, passage));
 			});
 			break;
 
-		case 'deletePassage':
-			try {
-				story = storyWithId(state, action.storyId);
-			} catch (e) {
-				console.warn(
-					`Could not find story with ID "${action.storyId}", can't persist it`
-				);
-				return;
-			}
+		case 'deletePassage': {
+			const story = storyWithId(state, action.storyId);
+
 			// We can't dig up the passage in question right now, because
 			// previousStories is only a shallow copy, and it's gone there at
 			// this point in time.
@@ -153,16 +97,10 @@ export function saveMiddleware(state: StoriesState, action: StoriesAction) {
 				deletePassageById(transaction, action.passageId);
 			});
 			break;
+		}
 
-		case 'deletePassages':
-			try {
-				story = storyWithId(state, action.storyId);
-			} catch (e) {
-				console.warn(
-					`Could not find story with ID "${action.storyId}", can't persist it`
-				);
-				return;
-			}
+		case 'deletePassages': {
+			const story = storyWithId(state, action.storyId);
 
 			// See above comment about passages.
 
@@ -173,50 +111,30 @@ export function saveMiddleware(state: StoriesState, action: StoriesAction) {
 				);
 			});
 			break;
+		}
 
-		case 'deleteStory':
-			try {
-				// The story will be gone from state by the time we're called, so we
-				// need a cached copy.
+		case 'deleteStory': {
+			// The story will be gone from state by the time we're called, so we
+			// need a cached copy.
 
-				story = storyWithId(lastState, action.storyId);
-			} catch (e) {
-				console.warn(
-					`Could not find story with ID "${action.storyId}", can't persist it`
-				);
-				return;
-			}
+			const story = storyWithId(lastState, action.storyId);
 
 			doUpdateTransaction(transaction => {
 				// We have to delete all passages, then the story itself.
 
-				story.passages.forEach(story =>
+				story.passages.forEach(passage =>
 					deletePassageById(transaction, passage.id)
 				);
 
 				deleteStory(transaction, story);
 			});
 			break;
+		}
 
 		case 'updatePassage':
 			if (isPersistablePassageUpdate(action.props)) {
-				try {
-					story = storyWithId(state, action.storyId);
-				} catch (e) {
-					console.warn(
-						`Could not find story with ID "${action.storyId}", can't persist it`
-					);
-					return;
-				}
-
-				try {
-					passage = passageWithId(state, action.storyId, action.passageId);
-				} catch (e) {
-					console.warn(
-						`Could not find a passage with ID "${action.passageId}" in story with ID "${story.id}", can't persist it`
-					);
-					return;
-				}
+				const story = storyWithId(state, action.storyId);
+				const passage = passageWithId(state, action.storyId, action.passageId);
 
 				doUpdateTransaction(transaction => {
 					saveStory(transaction, story);
@@ -226,15 +144,8 @@ export function saveMiddleware(state: StoriesState, action: StoriesAction) {
 			}
 			break;
 
-		case 'updatePassages':
-			try {
-				story = storyWithId(state, action.storyId);
-			} catch (e) {
-				console.warn(
-					`Could not find story with ID "${action.storyId}", can't persist it`
-				);
-				return;
-			}
+		case 'updatePassages': {
+			const story = storyWithId(state, action.storyId);
 
 			doUpdateTransaction(transaction => {
 				saveStory(transaction, story);
@@ -242,36 +153,25 @@ export function saveMiddleware(state: StoriesState, action: StoriesAction) {
 					.filter(passageId =>
 						isPersistablePassageUpdate(action.passageUpdates[passageId])
 					)
-					.forEach(passageId => {
-						try {
-							passage = passageWithId(state, action.storyId, passageId);
-						} catch (e) {
-							console.warn(
-								`Could not find a passage with ID "${passageId}" in story with ID "${story.id}", can't persist it`
-							);
-							return;
-						}
-
-						savePassage(transaction, passage);
-					});
+					.forEach(passageId =>
+						savePassage(
+							transaction,
+							passageWithId(state, action.storyId, passageId)
+						)
+					);
 			});
 			break;
+		}
 
-		case 'updateStory':
-			try {
-				story = storyWithId(state, action.storyId);
-			} catch (e) {
-				console.warn(
-					`Could not find story with ID "${action.storyId}", can't persist it`
-				);
-				return;
-			}
+		case 'updateStory': {
+			const story = storyWithId(state, action.storyId);
 
 			doUpdateTransaction(transaction => {
 				saveStory(transaction, story);
 				story.passages.forEach(passage => savePassage(transaction, passage));
 			});
 			break;
+		}
 
 		default:
 			console.warn(

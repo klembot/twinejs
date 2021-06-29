@@ -1,10 +1,11 @@
 import {app, Menu, shell, MenuItemConstructorOptions} from 'electron';
 import {revealStoryDirectory} from './story-directory';
+import {i18n} from './locales';
 
 export function initMenuBar() {
 	const template: MenuItemConstructorOptions[] = [
 		{
-			label: 'Edit',
+			label: i18n.t('electron.menuBar.edit'),
 			submenu: [
 				{role: 'undo'},
 				{role: 'redo'},
@@ -17,9 +18,12 @@ export function initMenuBar() {
 			]
 		},
 		{
-			label: 'View',
+			label: i18n.t('electron.menuBar.view'),
 			submenu: [
-				{label: 'Show Story Library', click: revealStoryDirectory},
+				{
+					label: i18n.t('electron.menuBar.showStoryLibrary'),
+					click: revealStoryDirectory
+				},
 				{type: 'separator'},
 				{role: 'resetZoom'},
 				{role: 'zoomIn'},
@@ -35,9 +39,8 @@ export function initMenuBar() {
 			role: 'help',
 			submenu: [
 				{
-					label: 'Twine Guide',
-					click: () =>
-						shell.openExternal('https://twinery.org/2guide')
+					label: i18n.t('electron.menuBar.twineHelp'),
+					click: () => shell.openExternal('https://twinery.org/2guide')
 				}
 			]
 		}
@@ -62,7 +65,7 @@ export function initMenuBar() {
 		(template[2].submenu as MenuItemConstructorOptions[]).push(
 			{type: 'separator'},
 			{
-				label: 'Speech',
+				label: i18n.t('electron.menuBar.speech'),
 				submenu: [{role: 'startSpeaking'}, {role: 'stopSpeaking'}]
 			}
 		);

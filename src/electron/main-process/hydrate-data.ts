@@ -1,9 +1,9 @@
-import {PrefsState} from '../store/prefs';
-import {StoryFormatsState} from '../store/story-formats';
+import {PrefsState} from '../../store/prefs/prefs.types';
+import {StoryFormatsState} from '../../store/story-formats/story-formats.types';
 import {loadJsonFile} from './json-file';
 import {createStoryDirectory, storyDirectoryPath} from './story-directory';
 import {loadStories, StoryFile} from './story-file';
-import i18n from '../util/i18n';
+import {i18n} from './locales';
 
 /**
  * Places data to be hydrated by the web context into a global variable, where

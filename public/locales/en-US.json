@@ -224,10 +224,24 @@
 			"storyRename": "An error occurred while renaming a story.",
 			"storySave": "An error occurred while saving a story."
 		},
+		"menuBar": {
+			"edit": "Edit",
+			"showStoryLibrary": "Show Story Library",
+			"speech": "Speech",
+			"twineHelp": "Twine Help",
+			"view": "View"
+		},
 		"storiesDirectoryName": "Stories"
 	},
 	"store": {
 		"archiveFilename": "{{timestamp}} Twine Archive.html",
+		"errors": {
+			"cantPersistPrefs": "Saving your preferences failed ({{error}}).",
+			"cantPersistStories": "Saving your stories failed ({{error}}).",
+			"cantPersistStoryFormats": "Saving your story formats failed ({{error}}).",
+			"electronRemediation": "Restarting this application may help.",
+			"webRemediation": "Reloading this page may help."
+		},
 		"passageDefaults": {
 			"name": "Untitled Passage",
 			"textClick": "Double-click this passage to edit it.",
