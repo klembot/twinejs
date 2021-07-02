@@ -1,13 +1,15 @@
-import {app, shell} from 'electron';
-import fs from 'fs-extra';
-import path from 'path';
-import {
-	lockStoryDirectory,
-	storyDirectoryPath,
-	unlockStoryDirectory
-} from './story-directory';
+import {app, dialog, shell} from 'electron';
+import {move, readdir, readFile, rename, stat, writeFile} from 'fs-extra';
+import {basename, join} from 'path';
+import {i18n} from './locales';
+import {storyDirectoryPath} from './story-directory';
 import {Story} from '../../store/stories/stories.types';
 import {storyFileName} from '../shared/story-filename';
+import {
+	stopTrackingFile,
+	fileWasTouched,
+	wasFileChangedExternally
+} from './track-file-changes';
 
 export interface StoryFile {
 	htmlSource: string;
@@ -21,18 +23,22 @@ export interface StoryFile {
 export async function loadStories() {
 	const storyPath = storyDirectoryPath();
 	const result: StoryFile[] = [];
-	const files = await fs.readdir(storyPath);
+	const files = await readdir(storyPath);
 
 	await Promise.all(
 		files
 			.filter(f => /\.html$/i.test(f))
 			.map(async f => {
-				const filePath = path.join(storyPath, f);
+				const filePath = join(storyPath, f);
+				const stats = await stat(filePath);
 
-				result.push({
-					mtime: (await fs.stat(filePath)).mtime,
-					htmlSource: await fs.readFile(filePath, 'utf8')
-				});
+				if (!stats.isDirectory()) {
+					result.push({
+						mtime: stats.mtime,
+						htmlSource: await readFile(filePath, 'utf8')
+					});
+					fileWasTouched(filePath);
+				}
 			})
 	);
 
@@ -47,19 +53,39 @@ export async function saveStoryHtml(story: Story, storyHtml: string) {
 	// We save to a temp file first, then overwrite the existing if that succeeds,
 	// so that if any step fails, the original file is left intact.
 
-	const savedFilePath = path.join(storyDirectoryPath(), storyFileName(story));
-	const tempFilePath = path.join(app.getPath('temp'), storyFileName(story));
+	const savedFilePath = join(storyDirectoryPath(), storyFileName(story));
+	const tempFilePath = join(app.getPath('temp'), storyFileName(story));
+
+	console.log(`Saving ${savedFilePath}`);
 
 	try {
-		await fs.writeFile(tempFilePath, storyHtml, 'utf8');
-		await unlockStoryDirectory();
-		await fs.move(tempFilePath, savedFilePath, {
+		if (await wasFileChangedExternally(savedFilePath)) {
+			const {response} = await dialog.showMessageBox({
+				buttons: [
+					i18n.t('electron.errors.storyFileChangedExternally.overwriteChoice'),
+					i18n.t('electron.errors.storyFileChangedExternally.relaunchChoice')
+				],
+				detail: i18n.t('electron.errors.storyFileChangedExternally.detail'),
+				message: i18n.t('electron.errors.storyFileChangedExternally.message', {
+					fileName: basename(savedFilePath)
+				}),
+				type: 'warning'
+			});
+
+			if (response === 1) {
+				app.relaunch();
+				app.quit();
+				return;
+			}
+		}
+
+		await writeFile(tempFilePath, storyHtml, 'utf8');
+		await move(tempFilePath, savedFilePath, {
 			overwrite: true
 		});
-		await lockStoryDirectory();
+		fileWasTouched(savedFilePath);
 	} catch (e) {
-		console.warn(`Error while saving story: ${e}`);
-		await lockStoryDirectory();
+		console.error(`Error while saving story: ${e}`);
 		throw e;
 	}
 }
@@ -70,12 +96,13 @@ export async function saveStoryHtml(story: Story, storyHtml: string) {
  */
 export async function deleteStory(story: Story) {
 	try {
-		await unlockStoryDirectory();
-		shell.trashItem(path.join(storyDirectoryPath(), storyFileName(story)));
-		await lockStoryDirectory();
+		const deletedFilePath = join(storyDirectoryPath(), storyFileName(story));
+
+		console.log(`Trashing ${deletedFilePath}`);
+		await shell.trashItem(deletedFilePath);
+		stopTrackingFile(deletedFilePath);
 	} catch (e) {
 		console.warn(`Error while deleting story: ${e}`);
-		await lockStoryDirectory();
 		throw e;
 	}
 }
@@ -86,15 +113,16 @@ export async function deleteStory(story: Story) {
  */
 export async function renameStory(oldStory: Story, newStory: Story) {
 	try {
-		await unlockStoryDirectory();
-		await fs.rename(
-			path.join(storyDirectoryPath(), storyFileName(oldStory)),
-			path.join(storyDirectoryPath(), storyFileName(newStory))
-		);
-		await lockStoryDirectory();
+		const storyPath = storyDirectoryPath();
+		const newStoryPath = join(storyPath, storyFileName(newStory));
+		const oldStoryPath = join(storyPath, storyFileName(oldStory));
+
+		console.log(`Renaming ${oldStoryPath} to ${newStoryPath}`);
+		await rename(oldStoryPath, newStoryPath);
+		stopTrackingFile(oldStoryPath);
+		fileWasTouched(newStoryPath);
 	} catch (e) {
 		console.warn(`Error while renaming story: ${e}`);
-		await lockStoryDirectory();
 		throw e;
 	}
 }

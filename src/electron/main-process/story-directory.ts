@@ -1,14 +1,13 @@
 import {app, shell} from 'electron';
-import fs from 'fs-extra';
-import klaw from 'klaw-sync';
-import nodePath from 'path';
+import {copy, mkdirp, readdir, remove, stat} from 'fs-extra';
+import {join} from 'path';
 import {i18n} from './locales';
 
 /**
  * Returns the full path of the user's story directory.
  */
 export function storyDirectoryPath() {
-	return nodePath.join(
+	return join(
 		app.getPath('documents'),
 		i18n.t('common.appName'),
 		i18n.t('electron.storiesDirectoryName')
@@ -21,68 +20,14 @@ export function storyDirectoryPath() {
  * done.
  */
 export async function createStoryDirectory() {
-	await fs.mkdirp(storyDirectoryPath());
-}
-
-/**
- * Locks the story directory, preventing user tampering (and confusing the app).
- */
-export async function lockStoryDirectory() {
-	const storyPath = storyDirectoryPath();
-
-	if (process.platform === 'win32') {
-		// On Windows, we must lock each file individually.
-		const files = await fs.readdir(storyPath);
-
-		// a-w, 0444
-		return Promise.allSettled(
-			files.map(f => fs.chmod(nodePath.join(storyPath, f), 292))
-		);
-	}
-
-	// Everywhere else, locking the directory is good enough.
-
-	const stats = await fs.stat(storyPath);
-
-	// u-w
-	await fs.chmod(storyPath, stats.mode ^ 128);
-}
-
-/**
- * Unlocks the story directory. This returns a promise that resolves when done.
- */
-export async function unlockStoryDirectory() {
-	const storyPath = storyDirectoryPath();
-
-	if (process.platform === 'win32') {
-		// On Windows, we must unlock each file individually.
-
-		const files = await fs.readdir(storyPath);
-
-		// a+w, 0444
-		return Promise.allSettled(
-			files.map(f => fs.chmod(nodePath.join(storyPath, f), 438))
-		);
-	}
-
-	// Everywhere else, locking the directory is good enough.
-
-	const stats = await fs.stat(storyPath);
-
-	// u-w
-	await fs.chmod(storyPath, stats.mode | 128);
+	return await mkdirp(storyDirectoryPath());
 }
 
 /**
  * Shows the story directory in the user's file browser.
  */
 export async function revealStoryDirectory() {
-	try {
-		shell.openPath(storyDirectoryPath());
-	} catch (e) {
-		console.warn(`failed to open ${storyDirectoryPath()}: ${e}`);
-		throw e;
-	}
+	return await shell.openPath(storyDirectoryPath());
 }
 
 /**
@@ -91,16 +36,16 @@ export async function revealStoryDirectory() {
 export async function backupStoryDirectory(maxBackups = 10) {
 	console.log('Backing up story library');
 
-	const backupPath = nodePath.join(
+	const backupPath = join(
 		app.getPath('documents'),
 		i18n.t('common.appName'),
 		i18n.t('electron.backupsDirectoryName')
 	);
 	const now = new Date();
 
-	await fs.copy(
+	await copy(
 		storyDirectoryPath(),
-		nodePath.join(
+		join(
 			backupPath,
 			`${now.getFullYear()}-${
 				now.getMonth() + 1
@@ -108,31 +53,34 @@ export async function backupStoryDirectory(maxBackups = 10) {
 		)
 	);
 
-	const backups = [
-		...klaw(backupPath, {
-			depthLimit: 0,
-			filter(file) {
-				return nodePath.basename(file.path)[0] !== '.';
-			},
-			nofile: true
-		})
-	].sort((a, b) => {
-		if (a.stats.mtimeMs < b.stats.mtimeMs) {
-			return -1;
-		}
+	const backupDirs = (await readdir(backupPath, {withFileTypes: true})).filter(
+		file => file.isDirectory() && file.name[0] !== '.'
+	);
 
-		if (a.stats.mtimeMs > b.stats.mtimeMs) {
-			return 1;
-		}
+	if (backupDirs.length > maxBackups) {
+		console.log(
+			`There are ${backupDirs.length} story library backups; pruning`
+		);
 
-		return 0;
-	});
+		const backups = await Promise.all(
+			backupDirs.map(async directory => {
+				const stats = await stat(directory.name);
 
-	if (backups.length > maxBackups) {
-		console.log(`There are ${backups.length} story library backups, pruning`);
+				return {stats, name: directory.name};
+			})
+		);
 
+		backups.sort((a, b) => {
+			console.log('sort', a, b, a.stats.mtimeMs - b.stats.mtimeMs);
+			return a.stats.mtimeMs - b.stats.mtimeMs;
+		});
+
+		console.log(backups);
 		const toDelete = backups.slice(0, backups.length - maxBackups);
+		console.log(toDelete);
 
-		await Promise.allSettled(toDelete.map(file => fs.remove(file.path)));
+		await Promise.allSettled(
+			toDelete.map(file => remove(join(backupPath, file.name)))
+		);
 	}
 }
