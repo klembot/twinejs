@@ -25,4 +25,9 @@ describe('story formats Electron IPC load', () => {
 		(electronWindow.twineElectron as any).hydrate.storyForamts = {} as any;
 		expect(load()).toEqual([]);
 	});
+
+	it("returns an empty array if window.twineEletron.hydrate.storyFormats isn't an array", () => {
+		electronWindow.twineElectron = {hydrate: {storyFormats: 'bad'}} as any;
+		expect(load()).toEqual([]);
+	});
 });

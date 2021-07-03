@@ -11,7 +11,10 @@ export function load(): Story[] {
 		throw new Error('Electron bridge is not present on window.');
 	}
 
-	if (twineElectron?.hydrate?.stories) {
+	if (
+		twineElectron?.hydrate?.stories &&
+		Array.isArray(twineElectron.hydrate.stories)
+	) {
 		return twineElectron?.hydrate.stories.reduce((result, file) => {
 			const story = importStories(file.htmlSource, file.mtime);
 

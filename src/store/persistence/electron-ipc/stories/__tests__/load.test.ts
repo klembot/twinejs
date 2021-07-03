@@ -86,4 +86,9 @@ describe('stories Electron IPC load', () => {
 		(electronWindow.twineElectron as any).hydrate.stories = [];
 		expect(load()).toEqual([]);
 	});
+
+	it("returns an empty array if window.twineElectron.hydrate.stories isn't an array", () => {
+		(electronWindow.twineElectron as any).hydrate.stories = 'bad';
+		expect(load()).toEqual([]);
+	});
 });

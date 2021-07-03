@@ -29,4 +29,9 @@ describe('prefs Electron IPC load', () => {
 		(electronWindow.twineElectron as any).hydrate.prefs = {} as any;
 		expect(load()).toEqual({});
 	});
+
+	it("returns an empty object if window.twineElectron.hydrate.prefs isn't an object", () => {
+		electronWindow.twineElectron = {hydrate: {prefs: 'bad'}} as any;
+		expect(load()).toEqual({});
+	});
 });
