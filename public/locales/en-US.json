@@ -242,6 +242,22 @@
 		},
 		"storiesDirectoryName": "Stories"
 	},
+	"routes": {
+		"welcome": {
+			"autosave": "<p>There's now a folder named Twine in your Documents folder. Inside that is a Stories folder, where all your work will be saved. Twine saves as you work, so you don't have to worry about remembering to save it yourself. You can always open the folder your stories are saved to by using the <strong>Show Library</strong> item in the <strong>Twine</strong> menu.</p><p>Because Twine is always saving your work, the files in your story library will be locked from editing while Twine is open.</p><p>If you'd like to open a Twine story file you received from someone else, you can import it into your library using the <strong>Import From File</strong> link in the story list.</p>",
+			"autosaveTitle": "Your work is automatically saved.",
+			"browserStorage": "<p>That means you don't need to create an account to use Twine 2, and everything you create isn't stored on a server somewhere else&mdash;it stays right in your browser.</p><p>Two <strong>very important</strong> things to remember, though. Since your work is saved only in your browser, if you clear its saved data, then you'll lose your work! Not good. Remember to use that <strong>Archive</strong> button often. You can also publish individual stories to files using the menu on each story in the story list. Both archive and story files can always be re-imported into Twine.</p><p>Secondly, <strong>anyone who can use this browser can see and make changes to your work.</strong> So if you've got a nosy kid brother, look into setting up a separate profile for yourself.</p>",
+			"browserStorageTitle": "Your work is only saved in your browser",
+			"done": "<p>Thanks for reading, and have fun with Twine.</p>",
+			"doneTitle": "That's it!",
+			"gotoStoryList": "Go to the Story List",
+			"greeting": "<p>Twine is an open-source tool for telling interactive, nonlinear stories. There are a few things you should know before you get started.</p>",
+			"greetingTitle": "Hi!",
+			"tellMeMore": "Tell Me More",
+			"help": "<p><strong>If you've never used Twine before, then welcome!</strong> The <a href=\"https://twinery.org/cookbook\">Twine Cookbook</a> is a great resource for learning how to use it. If you haven't used Twine before, it's a great place to start.</p>",
+			"helpTitle": "New here?"
+		}
+	},
 	"store": {
 		"archiveFilename": "{{timestamp}} Twine Archive.html",
 		"errors": {
@@ -354,19 +370,5 @@
 		"renamePassage": "Rename Passage",
 		"renameTag": "Rename Tag",
 		"replaceAllText": "Replace All"
-	},
-	"welcome": {
-		"autosave": "<p>There's now a folder named Twine in your Documents folder. Inside that is a Stories folder, where all your work will be saved. Twine saves as you work, so you don't have to worry about remembering to save it yourself. You can always open the folder your stories are saved to by using the <strong>Show Library</strong> item in the <strong>Twine</strong> menu.</p><p>Because Twine is always saving your work, the files in your story library will be locked from editing while Twine is open.</p><p>If you'd like to open a Twine story file you received from someone else, you can import it into your library using the <strong>Import From File</strong> link in the story list.</p>",
-		"autosaveTitle": "Your work is automatically saved.",
-		"browserStorage": "<p>That means you don't need to create an account to use Twine 2, and everything you create isn't stored on a server somewhere else&mdash;it stays right in your browser.</p><p>Two <strong>very important</strong> things to remember, though. Since your work is saved only in your browser, if you clear its saved data, then you'll lose your work! Not good. Remember to use that <strong>Archive</strong> button often. You can also publish individual stories to files using the menu on each story in the story list. Both archive and story files can always be re-imported into Twine.</p><p>Secondly, <strong>anyone who can use this browser can see and make changes to your work.</strong> So if you've got a nosy kid brother, look into setting up a separate profile for yourself.</p>",
-		"browserStorageTitle": "Your work is only saved in your browser",
-		"done": "<p>Thanks for reading, and have fun with Twine.</p>",
-		"doneTitle": "That's it!",
-		"gotoStoryList": "Go to the Story List",
-		"greeting": "<p>Twine is an open-source tool for telling interactive, nonlinear stories. There are a few things you should know before you get started.</p>",
-		"greetingTitle": "Hi!",
-		"tellMeMore": "Tell Me More",
-		"help": "<p><strong>If you've never used Twine before, then welcome!</strong> The <a href=\"https://twinery.org/cookbook\">Twine Cookbook</a> is a great resource for learning how to use it. If you haven't used Twine before, it's a great place to start.</p>",
-		"helpTitle": "New here?"
 	}
 }

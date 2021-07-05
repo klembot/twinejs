@@ -4,31 +4,31 @@ import {isElectronRenderer} from '../../util/is-electron';
 
 export const content = () => [
 	{
-		html: 'welcome.greeting',
+		html: 'routes.welcome.greeting',
 		image: <IconTwine />,
-		nextLabel: 'welcome.tellMeMore',
-		title: 'welcome.greetingTitle'
+		nextLabel: 'routes.welcome.tellMeMore',
+		title: 'routes.welcome.greetingTitle'
 	},
 	{
-		html: 'welcome.help',
+		html: 'routes.welcome.help',
 		image: <IconHelp />,
-		title: 'welcome.helpTitle'
+		title: 'routes.welcome.helpTitle'
 	},
 	isElectronRenderer()
 		? {
-				html: 'welcome.autosave',
+				html: 'routes.welcome.autosave',
 				image: <IconDeviceFloppy />,
-				title: 'welcome.autosaveTitle'
+				title: 'routes.welcome.autosaveTitle'
 		  }
 		: {
-				html: 'welcome.browserStorage',
+				html: 'routes.welcome.browserStorage',
 				image: <IconDeviceFloppy />,
-				title: 'welcome.browserStorageTitle'
+				title: 'routes.welcome.browserStorageTitle'
 		  },
 	{
-		html: 'welcome.done',
+		html: 'routes.welcome.done',
 		image: <IconMoodSmile />,
-		nextLabel: 'welcome.gotoStoryList',
-		title: 'welcome.doneTitle'
+		nextLabel: 'routes.welcome.gotoStoryList',
+		title: 'routes.welcome.doneTitle'
 	}
 ];
