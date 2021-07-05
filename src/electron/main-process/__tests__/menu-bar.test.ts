@@ -1,5 +1,5 @@
 import {initMenuBar} from '../menu-bar';
-import {Menu, MenuItemConstructorOptions, shell} from 'electron';
+import {BrowserWindow, Menu, MenuItemConstructorOptions, shell} from 'electron';
 import {revealStoryDirectory} from '../story-directory';
 
 jest.mock('electron');
@@ -15,12 +15,17 @@ function hasItemWithRole(menu: MenuItemConstructorOptions, roleName: string) {
 }
 
 describe('initMenuBar', () => {
+	let openDevToolsMock: jest.Mock;
 	let openExternalMock = shell.openExternal as jest.Mock;
 	let revealStoryDirectoryMock = revealStoryDirectory as jest.Mock;
 	let setApplicationMenuSpy: jest.SpyInstance;
 
 	beforeEach(() => {
 		setApplicationMenuSpy = jest.spyOn(Menu, 'setApplicationMenu');
+		openDevToolsMock = jest.fn();
+		(BrowserWindow.getFocusedWindow as jest.Mock).mockReturnValue({
+			webContents: {openDevTools: openDevToolsMock}
+		});
 	});
 
 	describe('on macOS', () => {
@@ -91,20 +96,37 @@ describe('initMenuBar', () => {
 			expect(hasItemWithRole(menu4, 'front')).toBe(true);
 		});
 
-		it('creates a Help menu with a Twine Help menu item', () => {
-			const menu5 = setApplicationMenuSpy.mock.calls[0][0][4];
+		describe('creates a Help menu', () => {
+			it('has a Twine Help menu item', () => {
+				const menu5 = setApplicationMenuSpy.mock.calls[0][0][4];
 
-			expect(menu5.role).toBe('help');
+				expect(menu5.role).toBe('help');
 
-			const item = menu5.submenu.find(
-				(item: any) => item.label === 'electron.menuBar.twineHelp'
-			);
+				const item = menu5.submenu.find(
+					(item: any) => item.label === 'electron.menuBar.twineHelp'
+				);
 
-			expect(item).not.toBeUndefined();
-			item.click();
-			expect(openExternalMock.mock.calls).toEqual([
-				['https://twinery.org/2guide']
-			]);
+				expect(item).not.toBeUndefined();
+				item.click();
+				expect(openExternalMock.mock.calls).toEqual([
+					['https://twinery.org/2guide']
+				]);
+			});
+
+			it('has a Show Debug Console menu item', () => {
+				const menu5 = setApplicationMenuSpy.mock.calls[0][0][4];
+				const item = menu5.submenu
+					.find(
+						(item: any) => item.label === 'electron.menuBar.troubleshooting'
+					)
+					.submenu.find(
+						(item: any) => item.label === 'electron.menuBar.showDevTools'
+					);
+
+				expect(item).not.toBeUndefined();
+				item.click();
+				expect(openDevToolsMock).toBeCalled();
+			});
 		});
 	});
 
@@ -172,20 +194,37 @@ describe('initMenuBar', () => {
 			expect(hasItemWithRole(menu4, 'close')).toBe(true);
 		});
 
-		it('creates a Help menu with a Twine Help menu item', () => {
-			const menu5 = setApplicationMenuSpy.mock.calls[0][0][4];
+		describe('creates a Help menu', () => {
+			it('has a Twine Help menu item', () => {
+				const menu5 = setApplicationMenuSpy.mock.calls[0][0][4];
 
-			expect(menu5.role).toBe('help');
+				expect(menu5.role).toBe('help');
 
-			const item = menu5.submenu.find(
-				(item: any) => item.label === 'electron.menuBar.twineHelp'
-			);
+				const item = menu5.submenu.find(
+					(item: any) => item.label === 'electron.menuBar.twineHelp'
+				);
 
-			expect(item).not.toBeUndefined();
-			item.click();
-			expect(openExternalMock.mock.calls).toEqual([
-				['https://twinery.org/2guide']
-			]);
+				expect(item).not.toBeUndefined();
+				item.click();
+				expect(openExternalMock.mock.calls).toEqual([
+					['https://twinery.org/2guide']
+				]);
+			});
+
+			it('has a Show Debug Console menu item', () => {
+				const menu5 = setApplicationMenuSpy.mock.calls[0][0][4];
+				const item = menu5.submenu
+					.find(
+						(item: any) => item.label === 'electron.menuBar.troubleshooting'
+					)
+					.submenu.find(
+						(item: any) => item.label === 'electron.menuBar.showDevTools'
+					);
+
+				expect(item).not.toBeUndefined();
+				item.click();
+				expect(openDevToolsMock).toBeCalled();
+			});
 		});
 	});
 });

@@ -233,8 +233,10 @@
 		},
 		"menuBar": {
 			"edit": "Edit",
+			"showDevTools": "Show Debug Console",
 			"showStoryLibrary": "Show Story Library",
 			"speech": "Speech",
+			"troubleshooting": "Troubleshooting",
 			"twineHelp": "Twine Help",
 			"view": "View"
 		},

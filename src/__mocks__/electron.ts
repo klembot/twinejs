@@ -9,6 +9,10 @@ export const app = {
 	relaunch: jest.fn()
 };
 
+export const BrowserWindow = {
+	getFocusedWindow: jest.fn()
+};
+
 export const dialog = {
 	showErrorBox: jest.fn(),
 	showMessageBox: jest.fn().mockResolvedValue({response: 0})
