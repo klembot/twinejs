@@ -14,7 +14,7 @@ export const ArchiveButton: React.FC = () => {
 	return (
 		<IconButton
 			icon={<IconPackage />}
-			label={t('storyList.topBar.archive')}
+			label={t('routes.storyList.topBar.archive')}
 			onClick={() =>
 				saveHtml(publishArchive(stories, getAppInfo()), archiveFilename())
 			}

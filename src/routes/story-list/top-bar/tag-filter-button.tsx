@@ -19,7 +19,7 @@ export const TagFilterButton: React.FC<TagFilterButtonProps> = props => {
 			items={[
 				{
 					checked: prefs.storyListTagFilter.length === 0,
-					label: t('storyList.topBar.showAllStories'),
+					label: t('routes.storyList.topBar.showAllStories'),
 					onClick: () =>
 						dispatch({type: 'update', name: 'storyListTagFilter', value: []})
 				},
@@ -37,7 +37,7 @@ export const TagFilterButton: React.FC<TagFilterButtonProps> = props => {
 						})
 				}))
 			]}
-			label={t('storyList.topBar.showTags')}
+			label={t('routes.storyList.topBar.showTags')}
 		/>
 	);
 };
