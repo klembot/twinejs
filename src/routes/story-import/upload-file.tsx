@@ -18,7 +18,7 @@ export const UploadFile: React.FC<UploadFileProps> = props => {
 
 	return (
 		<div className="upload-file">
-			<p>{t('storyImport.uploadPrompt')}</p>
+			<p>{t('routes.storyImport.uploadPrompt')}</p>
 			<FileInput accept=".html" onChange={handleChange} />
 		</div>
 	);

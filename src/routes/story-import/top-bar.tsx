@@ -46,25 +46,25 @@ export const StoryImportTopBar: React.FC<StoryImportTopBarProps> = props => {
 			<IconButton
 				disabled={!file}
 				icon={<IconFileUpload />}
-				label={t('storyImport.importDifferentFile')}
+				label={t('routes.storyImport.importDifferentFile')}
 				onClick={onClearFile}
 			/>
 			<IconButton
 				disabled={stories.length === 0}
 				icon={<IconChecks />}
-				label={t('storyImport.selectAll')}
+				label={t('routes.storyImport.selectAll')}
 				onClick={onSelectAll}
 			/>
 			<IconButton
 				disabled={stories.length === 0}
 				icon={<IconBan />}
-				label={t('storyImport.deselectAll')}
+				label={t('routes.storyImport.deselectAll')}
 				onClick={onDeselectAll}
 			/>
 			<IconButton
 				disabled={idsToImport.length === 0}
 				icon={<IconFileImport />}
-				label={t('storyImport.importSelected')}
+				label={t('routes.storyImport.importSelected')}
 				onClick={onImportSelected}
 			/>
 		</TopBar>
