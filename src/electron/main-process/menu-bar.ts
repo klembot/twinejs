@@ -1,6 +1,14 @@
-import {app, Menu, shell, MenuItemConstructorOptions} from 'electron';
+import {
+	app,
+	BrowserWindow,
+	Menu,
+	shell,
+	MenuItemConstructorOptions
+} from 'electron';
 import {revealStoryDirectory} from './story-directory';
 import {i18n} from './locales';
+
+// TODO: add dev tools menu item
 
 export function initMenuBar() {
 	const template: MenuItemConstructorOptions[] = [
@@ -45,6 +53,17 @@ export function initMenuBar() {
 				{
 					label: i18n.t('electron.menuBar.twineHelp'),
 					click: () => shell.openExternal('https://twinery.org/2guide')
+				},
+				{type: 'separator'},
+				{
+					label: i18n.t('electron.menuBar.troubleshooting'),
+					submenu: [
+						{
+							label: i18n.t('electron.menuBar.showDevTools'),
+							click: () =>
+								BrowserWindow.getFocusedWindow()?.webContents.openDevTools()
+						}
+					]
 				}
 			]
 		}
