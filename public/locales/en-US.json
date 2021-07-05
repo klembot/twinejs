@@ -243,6 +243,23 @@
 		"storiesDirectoryName": "Stories"
 	},
 	"routes": {
+		"storyEdit": {
+			"topBar": {
+				"addPassage": "Passage",
+				"editJavaScript": "Edit Story JavaScript",
+				"editStylesheet": "Edit Story Stylesheet",
+				"findAndReplace": "Find and Replace",
+				"loadingFormats": "Loading story formats...",
+				"passageTags": "Edit Passage Tags",
+				"proofStory": "View Proofing Copy",
+				"publishToFile": "Publish to File",
+				"selectAllPassages": "Select All Passages",
+				"showFindDialog": "Show Find/Replace Dialog",
+				"storyInfo": "Story Information",
+				"zoomIn": "Zoom In",
+				"zoomOut": "Zoom Out"
+			}
+		},
 		"welcome": {
 			"autosave": "<p>There's now a folder named Twine in your Documents folder. Inside that is a Stories folder, where all your work will be saved. Twine saves as you work, so you don't have to worry about remembering to save it yourself. You can always open the folder your stories are saved to by using the <strong>Show Library</strong> item in the <strong>Twine</strong> menu.</p><p>Because Twine is always saving your work, the files in your story library will be locked from editing while Twine is open.</p><p>If you'd like to open a Twine story file you received from someone else, you can import it into your library using the <strong>Import From File</strong> link in the story list.</p>",
 			"autosaveTitle": "Your work is automatically saved.",
@@ -277,23 +294,6 @@
 		},
 		"storyFormatDefaults": {
 			"name": "Untitled Story Format"
-		}
-	},
-	"storyEdit": {
-		"topBar": {
-			"addPassage": "Passage",
-			"editJavaScript": "Edit Story JavaScript",
-			"editStylesheet": "Edit Story Stylesheet",
-			"findAndReplace": "Find and Replace",
-			"loadingFormats": "Loading story formats...",
-			"passageTags": "Edit Passage Tags",
-			"proofStory": "View Proofing Copy",
-			"publishToFile": "Publish to File",
-			"selectAllPassages": "Select All Passages",
-			"showFindDialog": "Show Find/Replace Dialog",
-			"storyInfo": "Story Information",
-			"zoomIn": "Zoom In",
-			"zoomOut": "Zoom Out"
 		}
 	},
 	"storyFormatList": {
