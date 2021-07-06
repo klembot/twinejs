@@ -21,7 +21,7 @@ export const CreateStoryButton: React.FC = () => {
 	return (
 		<IconButton
 			icon={<IconPlus />}
-			label={t('storyList.topBar.createStory')}
+			label={t('routes.storyList.topBar.createStory')}
 			onClick={handleCreate}
 			variant="create"
 		/>

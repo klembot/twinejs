@@ -69,7 +69,7 @@ export const StoryFormatListRoute: React.FC = () => {
 				<IconButton
 					icon={<IconArrowLeft />}
 					onClick={() => history.push('/')}
-					label={t('storyList.titleGeneric')}
+					label={t('routes.storyList.titleGeneric')}
 					variant="primary"
 				/>
 				<MenuButton
@@ -77,21 +77,21 @@ export const StoryFormatListRoute: React.FC = () => {
 					items={[
 						{
 							checked: prefs.storyFormatListFilter === 'current',
-							label: t('storyFormatList.title.current'),
+							label: t('routes.storyFormatList.title.current'),
 							onClick: () => handleChangeFilter('current')
 						},
 						{
 							checked: prefs.storyFormatListFilter === 'user',
-							label: t('storyFormatList.title.user'),
+							label: t('routes.storyFormatList.title.user'),
 							onClick: () => handleChangeFilter('user')
 						},
 						{
 							checked: prefs.storyFormatListFilter === 'all',
-							label: t('storyFormatList.title.all'),
+							label: t('routes.storyFormatList.title.all'),
 							onClick: () => handleChangeFilter('all')
 						}
 					]}
-					label={t('storyFormatList.show')}
+					label={t('routes.storyFormatList.show')}
 				/>
 				<AddStoryFormatButton
 					existingFormats={formats}
@@ -99,13 +99,13 @@ export const StoryFormatListRoute: React.FC = () => {
 				/>
 			</TopBar>
 			<MainContent
-				title={t(`storyFormatList.title.${prefs.storyFormatListFilter}`)}
+				title={t(`routes.storyFormatList.title.${prefs.storyFormatListFilter}`)}
 			>
 				<p>
 					{t(
 						visibleFormats.length > 0
-							? 'storyFormatList.storyFormatExplanation'
-							: 'storyFormatList.noneVisible'
+							? 'routes.storyFormatList.storyFormatExplanation'
+							: 'routes.storyFormatList.noneVisible'
 					)}
 				</p>
 				<FormatLoader>

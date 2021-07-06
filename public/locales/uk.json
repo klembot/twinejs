@@ -1,0 +1,105 @@
+{
+	"colors": {},
+	"common": {
+		"add": "Додати",
+		"appName": "Twine",
+		"cancel": "Скасувати",
+		"delete": "Видалити",
+		"duplicate": "Дублювати",
+		"edit": "Редаґувати",
+		"ok": "OK",
+		"play": "Відтворити",
+		"rename": "Перейменувати",
+		"remove": "Усунути",
+		"skip": "Пропустити",
+		"storyFormat": "Формат розповіді",
+		"tag": "Мітка",
+		"test": "Тестувати",
+		"undo": "Відмінити"
+	},
+	"components": {
+		"addStoryFormatButton": {},
+		"addTagButton": {},
+		"fontSelect": {"fonts": {}},
+		"indentButtons": {},
+		"localStorageQuota": {},
+		"renamePassageButton": {"emptyName": "Будь ласка, введіть назву."},
+		"renameStoryButton": {"emptyName": "Будь ласка, введіть назву."},
+		"safariWarningCard": {},
+		"storyCard": {},
+		"storyFormatCard": {},
+		"storyFormatSelect": {},
+		"tagEditor": {}
+	},
+	"dialogs": {
+		"aboutTwine": {
+			"donateToTwine": "Ваш внесок допоможе Twine’ові розвиватися"
+		},
+		"appDonation": {"noThanks": "Ні, дякую"},
+		"appPrefs": {"language": "Мова"},
+		"passageEdit": {},
+		"passageTags": {},
+		"storyInfo": {"stats": {"title": "Статистика розповіді"}},
+		"storyJavaScript": {
+			"explanation": "Будь-який введений сюди JavaScript негайно розпочне діяти, як тільки Ваша розповідь буде відкрита у вебоглядачеві."
+		},
+		"storySearch": {"title": "Знайти й Замінити", "replaceWith": "Замінити"},
+		"storyStylesheet": {
+			"explanation": "Будь-які введені сюди CSS змінять вигляд-за-замовчуванням Вашої розповіді."
+		},
+		"storyTags": {}
+	},
+	"electron": {
+		"errors": {"storyFileChangedExternally": {}},
+		"menuBar": {"edit": "Редаґувати"},
+		"storiesDirectoryName": "Розповіді"
+	},
+	"routes": {
+		"storyEdit": {
+			"topBar": {
+				"addPassage": "Уривок",
+				"editJavaScript": "Редаґувати JavaScript розповіді",
+				"editStylesheet": "Редаґувати стильову таблицю розповіді",
+				"findAndReplace": "Знайти й Замінити",
+				"proofStory": "Дивитися Коректурну копію",
+				"publishToFile": "Опублікувати як файл"
+			}
+		},
+		"storyFormatList": {
+			"title": {},
+			"storyFormatExplanation": "Формати розповідей визначають їхній вигляд і поведінку під час відтворення."
+		},
+		"storyImport": {},
+		"storyList": {
+			"noStories": "Поки Twine не має жодних збережених розповідей. Аби розпочати, створіть нову розповідь чи зімпортуйте вже існуючу з файлу.",
+			"titleGeneric": "Розповіді",
+			"topBar": {
+				"about": "Про Twine",
+				"archive": "Архів",
+				"createStory": "Розповідь",
+				"help": "Допомога",
+				"sortName": "Назва",
+				"storyFormats": "Формати"
+			}
+		},
+		"welcome": {
+			"autosaveTitle": "Вашу роботу автоматично збережено.",
+			"doneTitle": "Ось і все!",
+			"gotoStoryList": "Перейти до Списку розповідей",
+			"greetingTitle": "Привіт!",
+			"tellMeMore": "Розкажіть мені більше",
+			"helpTitle": "Потрібна допомога?"
+		}
+	},
+	"store": {
+		"errors": {},
+		"passageDefaults": {
+			"name": "Уривок без назви",
+			"textClick": "Клацніть двічі на уривок для редаґування.",
+			"textTouch": "Натисність на цей уривок, а потім на олівець, аби почати редаґувати."
+		},
+		"storyDefaults": {"name": "Розповідь без назви"},
+		"storyFormatDefaults": {"name": "Формат розповіді без назви"}
+	},
+	"undoChange": {"replaceAllText": "Замінити все"}
+}

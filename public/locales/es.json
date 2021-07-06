@@ -1,72 +1,104 @@
 {
-	"aboutTwine": {
-		"donateToTwine": "Ayuda a Twine a crecer con una donación",
-		"codeHeader": "Programación",
-		"codeRepo": "",
-		"license": "",
-		"localizationHeader": "",
-		"title": "",
-		"twineDescription": ""
-	},
+	"colors": {},
 	"common": {
 		"add": "Añadir",
 		"appName": "Twine",
 		"cancel": "Cancelar",
-		"create": "",
 		"delete": "Eliminar",
 		"duplicate": "Duplicar",
 		"edit": "Editar",
 		"ok": "Aceptar",
 		"play": "Reproducir",
-		"publishToFile": "Publicar a archivo",
 		"rename": "Renombrar",
+		"remove": "Remover",
 		"skip": "Omitir",
-		"test": "Probar"
+		"storyFormat": "Formato de historia",
+		"tag": "Etiqueta",
+		"test": "Probar",
+		"undo": "Deshacer"
 	},
 	"components": {
-		"localStorageQuota": {"measureAgain": "", "percentAvailable": ""},
-		"passageItem": {"test": ""},
-		"storyFormatAdder": {
-			"explanation": "Para añadir un formato de historia, ingresa su dirección URL abajo."
+		"addStoryFormatButton": {
+			"prompt": "Para añadir un formato de historia, ingresa su dirección URL abajo."
 		},
-		"storyFormatItem": {"header": "", "license": ""}
+		"addTagButton": {},
+		"fontSelect": {"fonts": {}},
+		"indentButtons": {},
+		"localStorageQuota": {},
+		"renamePassageButton": {"emptyName": "Por favor ingresa un nombre."},
+		"renameStoryButton": {"emptyName": "Por favor ingresa un nombre."},
+		"safariWarningCard": {},
+		"storyCard": {},
+		"storyFormatCard": {},
+		"storyFormatSelect": {},
+		"tagEditor": {}
 	},
 	"dialogs": {
-		"findReplace": {
-			"dialogTitle": "Buscar y reemplazar",
-			"includePassageNames": "Incluir nombres de pasajes",
-			"matchCase": "Coincidir mayúsculas y minúsculas",
-			"replaceWith": "Reemplazar con",
-			"searchFor": "Buscar",
-			"useRegexes": ""
+		"aboutTwine": {
+			"donateToTwine": "Ayuda a Twine a crecer con una donación",
+			"codeHeader": "Programación"
 		},
-		"storyStats": {
-			"brokenLinks": "",
-			"characters": "",
-			"dialogTitle": "Estadísticas de la historia",
-			"ifid": "",
-			"ifidExplanation": "",
-			"lastUpdate": "",
-			"links": "",
-			"passages": "",
-			"words": ""
-		}
-	},
-	"editors": {
-		"passage": {"passageName": "Nombre del pasaje"},
+		"appDonation": {"noThanks": "No gracias"},
+		"appPrefs": {"language": "Idioma"},
+		"passageEdit": {},
+		"passageTags": {},
+		"storyInfo": {"stats": {"title": "Estadísticas de la historia"}},
 		"storyJavaScript": {
-			"dialogTitle": "",
-			"dialogExplanation": "Cualquier código JavaScript ingresado aquí se ejecutará inmediatamente cuando se abra tu historia en un navegador web."
+			"explanation": "Cualquier código JavaScript ingresado aquí se ejecutará inmediatamente cuando se abra tu historia en un navegador web."
+		},
+		"storySearch": {
+			"title": "Buscar y reemplazar",
+			"replaceWith": "Reemplazar con"
 		},
 		"storyStylesheet": {
-			"dialogTitle": "",
-			"dialogExplanation": "Cualquier código CSS ingresado aquí reemplazará la apariencia predeterminada de tu historia."
+			"explanation": "Cualquier código CSS ingresado aquí reemplazará la apariencia predeterminada de tu historia."
+		},
+		"storyTags": {}
+	},
+	"electron": {
+		"errors": {"storyFileChangedExternally": {}},
+		"menuBar": {"edit": "Editar"},
+		"storiesDirectoryName": "Historias"
+	},
+	"routes": {
+		"storyEdit": {
+			"topBar": {
+				"addPassage": "Pasaje",
+				"editJavaScript": "Editar JavaScript de la historia",
+				"editStylesheet": "Editar hoja de estilo de la historia",
+				"findAndReplace": "Buscar y reemplazar",
+				"proofStory": "Ver copia para corrección",
+				"publishToFile": "Publicar a archivo"
+			}
+		},
+		"storyFormatList": {
+			"title": {},
+			"storyFormatExplanation": "Los formatos de historia controlan la apariencia y comportamiento de las historias durante su reproducción."
+		},
+		"storyImport": {},
+		"storyList": {
+			"noStories": "No hay historias guardadas en Twine ahora mismo. Para empezar, puedes crear una historia nueva o bien importar una existente desde un archivo.",
+			"titleGeneric": "Historias",
+			"topBar": {
+				"about": "Acerca de Twine",
+				"archive": "Archivar",
+				"createStory": "Historia",
+				"help": "Ayuda",
+				"sortName": "Nombre",
+				"storyFormats": "Formatos"
+			}
+		},
+		"welcome": {
+			"autosaveTitle": "Tu trabajo se guardará automáticamente",
+			"doneTitle": "¡Eso es todo!",
+			"gotoStoryList": "Ir a la lista de historias",
+			"greetingTitle": "¡Hola!",
+			"tellMeMore": "Cuéntame más",
+			"helpTitle": "¿Nueva/o por aquí?"
 		}
 	},
-	"localeSelect": {
-		"explanation": "Por favor selecciona qué idioma te gustaría usar con Twine."
-	},
 	"store": {
+		"errors": {},
 		"passageDefaults": {
 			"name": "Pasaje sin título",
 			"textClick": "Haz doble clic sobre este pasaje para editarlo.",
@@ -75,68 +107,5 @@
 		"storyDefaults": {"name": "Historia sin título"},
 		"storyFormatDefaults": {"name": "Formato de historia sin título"}
 	},
-	"storyEdit": {
-		"storyMenu": {
-			"editJavaScript": "Editar JavaScript de la historia",
-			"editStylesheet": "Editar hoja de estilo de la historia",
-			"proofStory": "Ver copia para corrección",
-			"renameStory": "Renombrar historia",
-			"renameStoryPrompt": "",
-			"selectAllPassages": "",
-			"setStoryFormat": "Cambiar formato de historia",
-			"snapToGrid": "Ajustar a cuadrícula",
-			"storyStats": ""
-		},
-		"toolbar": {
-			"addPassage": "",
-			"quickFind": "Búsqueda rápida",
-			"showFindDialog": "",
-			"zoom": ""
-		}
-	},
-	"storyFormats": {
-		"addFormat": "Añadir nuevo formato",
-		"defaultStoryFormat": "",
-		"proofingFormatExplanation": "Los formatos para corrección crean versiones de las historias adaptadas para editar y corregir.",
-		"proofingFormats": "Formatos para corrección",
-		"selectedProofingFormat": "",
-		"storyFormats": "Formatos de historia",
-		"storyFormatExplanation": "Los formatos de historia controlan la apariencia y comportamiento de las historias durante su reproducción.",
-		"useAsDefault": "",
-		"useAsProofing": ""
-	},
-	"storyList": {
-		"noStories": "No hay historias guardadas en Twine ahora mismo. Para empezar, puedes crear una historia nueva o bien importar una existente desde un archivo.",
-		"title": "Historias",
-		"toolbar": {
-			"archive": "Archivar",
-			"archiveExplanation": "",
-			"createStory": "Historia",
-			"createStoryExplanation": "",
-			"createStoryPrompt": "",
-			"help": "Ayuda",
-			"helpDescription": "Buscar ayuda en línea",
-			"language": "Idioma",
-			"languageDescription": "Cambiar el idioma que usa Twine",
-			"importFromFile": "Importar desde archivo",
-			"importFromFileExplanation": "",
-			"reportBug": "Reportar un bug",
-			"storyFormats": "Formatos",
-			"storyFormatsExplanation": "Trabajar con formatos de historia y de corrección"
-		}
-	},
-	"welcome": {
-		"autosave": "",
-		"autosaveTitle": "Tu trabajo se guardará automáticamente",
-		"browserStorage": "",
-		"browserStorageTitle": "",
-		"done": "Gracias por leer, y diviértete con Twine.",
-		"doneTitle": "¡Eso es todo!",
-		"gotoStoryList": "Ir a la lista de historias",
-		"greeting": "Twine es una herramienta de código abierto para contar historias interactivas no lineales. Hay un par de cosas que deberías saber antes de empezar.",
-		"greetingTitle": "¡Hola!",
-		"tellMeMore": "Cuéntame más",
-		"versionDiffs": "",
-		"versionDiffsTitle": "¿Nueva/o por aquí?"
-	}
+	"undoChange": {"replaceAllText": "Reemplazar todo"}
 }

@@ -1,72 +1,101 @@
 {
-	"aboutTwine": {
-		"donateToTwine": "Помочь развитию Twine пожертвованием",
-		"codeHeader": "Код",
-		"codeRepo": "",
-		"license": "",
-		"localizationHeader": "",
-		"title": "",
-		"twineDescription": ""
-	},
+	"colors": {},
 	"common": {
 		"add": "Добавить",
 		"appName": "Twine",
 		"cancel": "Отмена",
-		"create": "",
 		"delete": "Удалить",
 		"duplicate": "Дублировать",
 		"edit": "Редактировать",
 		"ok": "ОК",
 		"play": "Запустить",
-		"publishToFile": "Опубликовать в файл",
 		"rename": "Переименовать",
+		"remove": "Удалить",
 		"skip": "Пропустить",
-		"test": "Тестировать"
+		"storyFormat": "Формат истории",
+		"tag": "Тег",
+		"test": "Тестировать",
+		"undo": "Откат"
 	},
 	"components": {
-		"localStorageQuota": {"measureAgain": "", "percentAvailable": ""},
-		"passageItem": {"test": ""},
-		"storyFormatAdder": {
-			"explanation": "Чтобы добавить формат, введите его URL ниже."
+		"addStoryFormatButton": {
+			"prompt": "Чтобы добавить формат, введите его URL ниже."
 		},
-		"storyFormatItem": {"header": "", "license": ""}
+		"addTagButton": {},
+		"fontSelect": {"fonts": {}},
+		"indentButtons": {},
+		"localStorageQuota": {},
+		"renamePassageButton": {"emptyName": "Пожалуйста, введите имя."},
+		"renameStoryButton": {"emptyName": "Пожалуйста, введите имя."},
+		"safariWarningCard": {},
+		"storyCard": {},
+		"storyFormatCard": {},
+		"storyFormatSelect": {},
+		"tagEditor": {}
 	},
 	"dialogs": {
-		"findReplace": {
-			"dialogTitle": "Найти и заменить",
-			"includePassageNames": "Включая имена параграфов",
-			"matchCase": "Учитывать регистр",
-			"replaceWith": "Заменить на",
-			"searchFor": "Искать",
-			"useRegexes": ""
+		"aboutTwine": {
+			"donateToTwine": "Помочь развитию Twine пожертвованием",
+			"codeHeader": "Код"
 		},
-		"storyStats": {
-			"brokenLinks": "",
-			"characters": "",
-			"dialogTitle": "Статистика истории",
-			"ifid": "",
-			"ifidExplanation": "",
-			"lastUpdate": "",
-			"links": "",
-			"passages": "",
-			"words": ""
-		}
-	},
-	"editors": {
-		"passage": {"passageName": "Название параграфа"},
+		"appDonation": {"noThanks": "Нет, спасибо"},
+		"appPrefs": {"language": "Язык"},
+		"passageEdit": {},
+		"passageTags": {},
+		"storyInfo": {"stats": {"title": "Статистика истории"}},
 		"storyJavaScript": {
-			"dialogTitle": "",
-			"dialogExplanation": "Любой JavaScript-код, введённый здесь, будет немедленно исполнен, как только история будет открыта в веб-браузере."
+			"explanation": "Любой JavaScript-код, введённый здесь, будет немедленно исполнен, как только история будет открыта в веб-браузере."
 		},
+		"storySearch": {"title": "Найти и заменить", "replaceWith": "Заменить на"},
 		"storyStylesheet": {
-			"dialogTitle": "",
-			"dialogExplanation": "Любой CSS, введённый тут, переопределит внешний вид по умолчанию для вашей истории."
-		}
+			"explanation": "Любой CSS, введённый тут, переопределит внешний вид по умолчанию для вашей истории."
+		},
+		"storyTags": {}
 	},
-	"localeSelect": {
-		"explanation": "Пожалуйста, выберите язык, который вы хотите использовать в Twine."
+	"electron": {
+		"errors": {"storyFileChangedExternally": {}},
+		"menuBar": {"edit": "Редактировать"},
+		"storiesDirectoryName": "Истории"
+	},
+	"routes": {
+		"storyEdit": {
+			"topBar": {
+				"addPassage": "Параграф",
+				"editJavaScript": "Редактировать JavaScript",
+				"editStylesheet": "Редактировать таблицу стилей",
+				"findAndReplace": "Найти и заменить",
+				"proofStory": "Получить копию для вычитки",
+				"publishToFile": "Опубликовать в файл"
+			}
+		},
+		"storyFormatList": {
+			"title": {},
+			"storyFormatExplanation": "Формат истории управляет внешним видом и поведением истории во время игры."
+		},
+		"storyImport": {},
+		"storyList": {
+			"noStories": "Сейчас у вас нет сохранённых историй в Twine. Для начала, вы можете создать новую историю или импортировать уже существующую из файла.",
+			"titleGeneric": "Истории",
+			"topBar": {
+				"about": "О Twine",
+				"archive": "Архив",
+				"createStory": "История",
+				"help": "Помощь",
+				"sortName": "Название",
+				"storyFormats": "Форматы"
+			}
+		},
+		"welcome": {
+			"autosaveTitle": "Ваша работа автоматически сохранена.",
+			"doneTitle": "Вот и всё!",
+			"gotoStoryList": "Перейти к списку историй",
+			"greetingTitle": "Привет!",
+			"tellMeMore": "Расскажите мне",
+			"helpTitle": "Вы новичок?"
+		}
 	},
 	"store": {
+		"errors": {},
 		"passageDefaults": {
 			"name": "Безымянный параграф",
 			"textClick": "Сделайте двойной щелчок мышью на этом параграфе, чтобы отредактировать его.",
@@ -75,68 +104,5 @@
 		"storyDefaults": {"name": "История без названия"},
 		"storyFormatDefaults": {"name": "Безымянный формат"}
 	},
-	"storyEdit": {
-		"storyMenu": {
-			"editJavaScript": "Редактировать JavaScript",
-			"editStylesheet": "Редактировать таблицу стилей",
-			"proofStory": "Получить копию для вычитки",
-			"renameStory": "Переименовать историю",
-			"renameStoryPrompt": "",
-			"selectAllPassages": "",
-			"setStoryFormat": "Сменить формат истории",
-			"snapToGrid": "Привязать к сетке",
-			"storyStats": ""
-		},
-		"toolbar": {
-			"addPassage": "",
-			"quickFind": "Быстрый поиск",
-			"showFindDialog": "",
-			"zoom": ""
-		}
-	},
-	"storyFormats": {
-		"addFormat": "Добавить новый формат",
-		"defaultStoryFormat": "",
-		"proofingFormatExplanation": "Формат для вычитки создаёт версию истории, скомпоноранную для редактирования и вычитки.",
-		"proofingFormats": "Форматы для вычитки",
-		"selectedProofingFormat": "",
-		"storyFormats": "Форматы историй",
-		"storyFormatExplanation": "Формат истории управляет внешним видом и поведением истории во время игры.",
-		"useAsDefault": "",
-		"useAsProofing": ""
-	},
-	"storyList": {
-		"noStories": "Сейчас у вас нет сохранённых историй в Twine. Для начала, вы можете создать новую историю или импортировать уже существующую из файла.",
-		"title": "Истории",
-		"toolbar": {
-			"archive": "Архив",
-			"archiveExplanation": "",
-			"createStory": "История",
-			"createStoryExplanation": "",
-			"createStoryPrompt": "",
-			"help": "Помощь",
-			"helpDescription": "Просмотреть онлайн-справку",
-			"language": "Язык",
-			"languageDescription": "Сменить язык, используемый Twine",
-			"importFromFile": "Импортировать из файла",
-			"importFromFileExplanation": "",
-			"reportBug": "Сообщить об ошибке",
-			"storyFormats": "Форматы",
-			"storyFormatsExplanation": "Работа с форматами историй и вычитки"
-		}
-	},
-	"welcome": {
-		"autosave": "",
-		"autosaveTitle": "Ваша работа автоматически сохранена.",
-		"browserStorage": "",
-		"browserStorageTitle": "",
-		"done": "Спасибо за внимание, развлекайтесь с Twine.",
-		"doneTitle": "Вот и всё!",
-		"gotoStoryList": "Перейти к списку историй",
-		"greeting": "Twine &mdash; это инструмент с открытым исходным кодом, предназанченный для создания и рассказывания интерактивных нелинейных историй. Есть несколько вещей, которые вам необходимо знать, прежде чем вы начнёте его использовать.",
-		"greetingTitle": "Привет!",
-		"tellMeMore": "Расскажите мне",
-		"versionDiffs": "",
-		"versionDiffsTitle": "Вы новичок?"
-	}
+	"undoChange": {"replaceAllText": "Заменить все"}
 }

@@ -14,16 +14,16 @@ export const SortByButton: React.FC = () => {
 			items={[
 				{
 					checked: prefs.storyListSort === 'date',
-					label: t('storyList.topBar.sortDate'),
+					label: t('routes.storyList.topBar.sortDate'),
 					onClick: () => dispatch(setPref('storyListSort', 'date'))
 				},
 				{
 					checked: prefs.storyListSort === 'name',
-					label: t('storyList.topBar.sortName'),
+					label: t('routes.storyList.topBar.sortName'),
 					onClick: () => dispatch(setPref('storyListSort', 'name'))
 				}
 			]}
-			label={t('storyList.topBar.sort')}
+			label={t('routes.storyList.topBar.sort')}
 		/>
 	);
 };

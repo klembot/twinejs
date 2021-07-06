@@ -1,0 +1,103 @@
+{
+	"colors": {},
+	"common": {
+		"add": "Dodaj",
+		"appName": "Twine",
+		"cancel": "Prekliči",
+		"delete": "Izbriši",
+		"duplicate": "Podvoji",
+		"edit": "Uredi",
+		"ok": "V redu",
+		"play": "Predvajaj",
+		"rename": "Preimenuj",
+		"remove": "Odstrani",
+		"skip": "Preskoči",
+		"storyFormat": "Format zgodbe",
+		"tag": "Oznaka",
+		"test": "Testiraj",
+		"undo": "Razveljavi"
+	},
+	"components": {
+		"addStoryFormatButton": {},
+		"addTagButton": {},
+		"fontSelect": {"fonts": {}},
+		"indentButtons": {},
+		"localStorageQuota": {},
+		"renamePassageButton": {"emptyName": "Prosim, vnesite ime."},
+		"renameStoryButton": {"emptyName": "Prosim, vnesite ime."},
+		"safariWarningCard": {},
+		"storyCard": {},
+		"storyFormatCard": {},
+		"storyFormatSelect": {},
+		"tagEditor": {}
+	},
+	"dialogs": {
+		"aboutTwine": {"donateToTwine": "Pomagajte pri razvoju z donacijo"},
+		"appDonation": {"noThanks": "Ne, hvala"},
+		"appPrefs": {"language": "Jezik"},
+		"passageEdit": {},
+		"passageTags": {},
+		"storyInfo": {"stats": {"title": "Statistika zgodbe"}},
+		"storyJavaScript": {
+			"explanation": "Kakršna koli JavaScrip koda, ki jo vnesete sem, se bo izvedla takoj, ko zgodbo odprete v spletnem brskalniku."
+		},
+		"storySearch": {"title": "Najdi in zamenjaj", "replaceWith": "Zamenjaj z"},
+		"storyStylesheet": {
+			"explanation": "Kakršni koli slogi CSS, ki jih vnesete sem, bodo spremenili privzeti videz vaše zgodbe."
+		},
+		"storyTags": {}
+	},
+	"electron": {
+		"errors": {"storyFileChangedExternally": {}},
+		"menuBar": {"edit": "Uredi"},
+		"storiesDirectoryName": "Zgodbe"
+	},
+	"routes": {
+		"storyEdit": {
+			"topBar": {
+				"addPassage": "Prehod",
+				"editJavaScript": "Urejaj JavaScript",
+				"editStylesheet": "Urejaj slogovno predlogo",
+				"findAndReplace": "Najdi in zamenjaj",
+				"proofStory": "Poglej korekturno kopijo",
+				"publishToFile": "Izdaj v datoteko"
+			}
+		},
+		"storyFormatList": {
+			"title": {},
+			"storyFormatExplanation": "Zgodbeni formati nadzorujejo videz in obnašanje zgodb med predvajanjem."
+		},
+		"storyImport": {},
+		"storyList": {
+			"noStories": "Trenutno v Twineu ni shranjenih nobenih zgodb. Lahko ali ustvarite novo zgodbo ali uvozite že obstoječo iz datoteke.",
+			"titleGeneric": "Zgodbe",
+			"topBar": {
+				"about": "O programu",
+				"archive": "Arhiv",
+				"createStory": "Zgodba",
+				"help": "Pomoč",
+				"sortName": "Ime",
+				"storyFormats": "Formati"
+			}
+		},
+		"welcome": {
+			"autosaveTitle": "Vaše delo je samodejno shranjeno.",
+			"doneTitle": "To je vse!",
+			"gotoStoryList": "Pojdi na seznam zgodb",
+			"greetingTitle": "Pozdravljeni!",
+			"tellMeMore": "Več o tem",
+			"helpTitle": "Še nimate izkušenj?"
+		}
+	},
+	"store": {
+		"errors": {},
+		"passageDefaults": {
+			"name": "Neimenovan prehod",
+			"textClick": "Dvakrat kliknite to sporočilo, da ga uredite.",
+			"textTouch": "Kliknite to sporočilo, potem pa še ikono s svinčnikom, da ga uredite."
+		},
+		"storyDefaults": {"name": "Neimenovana zgodba"},
+		"storyFormatDefaults": {"name": "Neimenovan zgodbeni format"}
+	},
+	"undoChange": {"replaceAllText": "Zamenjaj vse"}
+}

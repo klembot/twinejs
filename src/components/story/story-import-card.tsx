@@ -43,7 +43,7 @@ export const StoryImportCard: React.FC<StoryImportCardProps> = props => {
 				</CardContent>
 				<ButtonBar>
 					<CheckboxButton
-						label={t('storyImport.importThisStory')}
+						label={t('routes.storyImport.importThisStory')}
 						onChange={() => onChangeSelect(!selected)}
 						value={selected}
 						variant="primary"

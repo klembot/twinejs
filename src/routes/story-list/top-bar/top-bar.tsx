@@ -40,19 +40,19 @@ export const StoryListTopBar: React.FC<StoryListTopBarProps> = props => {
 			/>
 			<IconButton
 				icon={<IconFileCode />}
-				label={t('storyList.topBar.storyFormats')}
+				label={t('routes.storyList.topBar.storyFormats')}
 				onClick={() => history.push('/story-formats')}
 			/>
 			<IconLink
 				href="https://twinery.org/2guide"
 				icon={<IconHelp />}
-				label={t('storyList.topBar.help')}
+				label={t('routes.storyList.topBar.help')}
 			/>
 			<MenuButton
 				icon={<IconDots />}
 				items={[
 					{
-						label: t('storyList.topBar.storyTags'),
+						label: t('routes.storyList.topBar.storyTags'),
 						onClick: () =>
 							dispatch({type: 'addDialog', component: StoryTagsDialog})
 					},
@@ -62,12 +62,12 @@ export const StoryListTopBar: React.FC<StoryListTopBarProps> = props => {
 							dispatch({type: 'addDialog', component: AppPrefsDialog})
 					},
 					{
-						label: t('storyList.topBar.about'),
+						label: t('routes.storyList.topBar.about'),
 						onClick: () =>
 							dispatch({type: 'addDialog', component: AboutTwineDialog})
 					},
 					{
-						label: t('storyList.topBar.reportBug'),
+						label: t('routes.storyList.topBar.reportBug'),
 						onClick: () => window.open('https://twinery.org/2bugs', '_blank')
 					}
 				]}

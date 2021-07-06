@@ -42,7 +42,7 @@ export const MoreMenu: React.FC<MoreMenuProps> = props => {
 			icon={<IconDots />}
 			items={[
 				{
-					label: t('storyEdit.topBar.findAndReplace'),
+					label: t('routes.storyEdit.topBar.findAndReplace'),
 					onClick: () =>
 						dialogsDispatch({
 							type: 'addDialog',
@@ -51,11 +51,11 @@ export const MoreMenu: React.FC<MoreMenuProps> = props => {
 						})
 				},
 				{
-					label: t('storyEdit.topBar.selectAllPassages'),
+					label: t('routes.storyEdit.topBar.selectAllPassages'),
 					onClick: () => storiesDispatch(selectAllPassages(story))
 				},
 				{
-					label: t('storyEdit.topBar.passageTags'),
+					label: t('routes.storyEdit.topBar.passageTags'),
 					onClick: () =>
 						dialogsDispatch({
 							type: 'addDialog',
@@ -65,16 +65,16 @@ export const MoreMenu: React.FC<MoreMenuProps> = props => {
 				},
 				{separator: true},
 				{
-					label: t('storyEdit.topBar.publishToFile'),
+					label: t('routes.storyEdit.topBar.publishToFile'),
 					onClick: handlePublishFile
 				},
 				{
-					label: t('storyEdit.topBar.proofStory'),
+					label: t('routes.storyEdit.topBar.proofStory'),
 					onClick: () => proofStory(story.id)
 				},
 				{separator: true},
 				{
-					label: t('storyEdit.topBar.storyInfo'),
+					label: t('routes.storyEdit.topBar.storyInfo'),
 					onClick: () =>
 						dialogsDispatch({
 							type: 'addDialog',
@@ -83,7 +83,7 @@ export const MoreMenu: React.FC<MoreMenuProps> = props => {
 						})
 				},
 				{
-					label: t('storyEdit.topBar.editJavaScript'),
+					label: t('routes.storyEdit.topBar.editJavaScript'),
 					onClick: () =>
 						dialogsDispatch({
 							type: 'addDialog',
@@ -92,7 +92,7 @@ export const MoreMenu: React.FC<MoreMenuProps> = props => {
 						})
 				},
 				{
-					label: t('storyEdit.topBar.editStylesheet'),
+					label: t('routes.storyEdit.topBar.editStylesheet'),
 					onClick: () =>
 						dialogsDispatch({
 							type: 'addDialog',

@@ -30,14 +30,12 @@ export const StoryImportList: React.FC<StoryImportListProps> = props => {
 
 	return (
 		<div className="story-import-list">
-			<p>{t('storyImport.choosePrompt')}</p>
+			<p>{t('routes.storyImport.choosePrompt')}</p>
 			<CardGroup columnWidth={cardWidth}>
 				{stories.map(story => (
 					<StoryImportCard
 						key={story.name}
-						onChangeSelect={value =>
-							handleChangeSelect(story, value)
-						}
+						onChangeSelect={value => handleChangeSelect(story, value)}
 						selected={selectedIds.includes(story.id)}
 						story={story}
 					/>

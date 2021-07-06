@@ -31,13 +31,13 @@ export const ZoomButtons: React.FC<ZoomButtonsProps> = ({story}) => {
 			<IconButton
 				disabled={story.zoom >= maxZoom}
 				icon={<IconZoomIn />}
-				label={t('storyEdit.topBar.zoomIn')}
+				label={t('routes.storyEdit.topBar.zoomIn')}
 				onClick={() => handleZoomChange(0.2)}
 			/>
 			<IconButton
 				disabled={story.zoom <= minZoom}
 				icon={<IconZoomOut />}
-				label={t('storyEdit.topBar.zoomOut')}
+				label={t('routes.storyEdit.topBar.zoomOut')}
 				onClick={() => handleZoomChange(-0.2)}
 			/>
 		</>

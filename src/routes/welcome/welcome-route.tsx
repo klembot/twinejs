@@ -47,7 +47,7 @@ export const WelcomeRoute = () => {
 	return (
 		<div className="welcome-route" ref={containerEl}>
 			<Helmet>
-				<title>{t('welcome.greetingTitle')}</title>
+				<title>{t('routes.welcome.greetingTitle')}</title>
 			</Helmet>
 			<div className="cards">
 				<TransitionGroup component={null}>

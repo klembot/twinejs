@@ -58,15 +58,15 @@ export const InnerStoryListRoute: React.FC = () => {
 			<MainContent
 				title={t(
 					prefs.storyListTagFilter.length > 0
-						? 'storyList.taggedTitleCount'
-						: 'storyList.titleCount',
+						? 'routes.storyList.taggedTitleCount'
+						: 'routes.storyList.titleCount',
 					{count: visibleStories.length}
 				)}
 			>
 				<SafariWarningCard />
 				<div className="stories">
 					{stories.length === 0 ? (
-						<p>{t('storyList.noStories')}</p>
+						<p>{t('routes.storyList.noStories')}</p>
 					) : (
 						<StoryCards onPublish={handlePublish} stories={visibleStories} />
 					)}
