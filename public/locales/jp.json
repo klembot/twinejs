@@ -1,0 +1,76 @@
+{
+	"colors": {},
+	"common": {
+		"appName": "Twine",
+		"ok": "OK",
+		"play": "プレイ",
+		"test": "テスト"
+	},
+	"components": {
+		"addStoryFormatButton": {},
+		"addTagButton": {},
+		"fontSelect": {"fonts": {}},
+		"indentButtons": {},
+		"localStorageQuota": {},
+		"renamePassageButton": {},
+		"renameStoryButton": {},
+		"safariWarningCard": {},
+		"storyCard": {},
+		"storyFormatCard": {},
+		"storyFormatSelect": {},
+		"tagEditor": {}
+	},
+	"dialogs": {
+		"aboutTwine": {"donateToTwine": "Twineの成長を寄付で助ける"},
+		"appDonation": {"noThanks": "いいえ、結構です"},
+		"appPrefs": {"language": "言語"},
+		"passageEdit": {},
+		"passageTags": {},
+		"storyInfo": {"stats": {}},
+		"storyJavaScript": {},
+		"storySearch": {},
+		"storyStylesheet": {},
+		"storyTags": {}
+	},
+	"electron": {"errors": {"storyFileChangedExternally": {}}, "menuBar": {}},
+	"routes": {
+		"storyEdit": {
+			"topBar": {
+				"addPassage": "パッセージ",
+				"editJavaScript": "ストーリーJavaScriptを編集",
+				"editStylesheet": "ストーリースタイルシートを編集",
+				"proofStory": "校正コピーを表示",
+				"publishToFile": "ファイルに出力する"
+			}
+		},
+		"storyFormatList": {"title": {}},
+		"storyImport": {},
+		"storyList": {
+			"noStories": "現在、Twineに保存されているストーリーはありません。開始するには、新しいストーリーを作成するか、ファイルから既存のストーリーをインポートします。",
+			"topBar": {
+				"about": "Twineについて",
+				"archive": "アーカイブ",
+				"createStory": "ストーリー",
+				"help": "ヘルプ",
+				"sortName": "名前",
+				"storyFormats": "形式"
+			}
+		},
+		"welcome": {
+			"autosaveTitle": "あなたの作品は自動的に保存されました。",
+			"doneTitle": "まさにこれ！",
+			"gotoStoryList": "ストーリーリストに行く"
+		}
+	},
+	"store": {
+		"errors": {},
+		"passageDefaults": {
+			"name": "パッセージのタイトルなし",
+			"textClick": "パッセージをダブルクリックして編集します。",
+			"textTouch": "このパッセージをタップし、鉛筆アイコンをタップして編集します。"
+		},
+		"storyDefaults": {"name": "ストーリータイトルなし"},
+		"storyFormatDefaults": {"name": "ストーリー形式のタイトルなし"}
+	},
+	"undoChange": {}
+}
