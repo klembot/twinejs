@@ -1,5 +1,7 @@
 const pkg = require('./package.json');
 
+const isPreview = /alpha|beta|pre/.test(pkg.version);
+
 module.exports = {
 	directories: {
 		output: 'dist/electron'
@@ -14,7 +16,7 @@ module.exports = {
 	},
 	mac: {
 		artifactName: `twine-${pkg.version}-macos.dmg`,
-		icon: 'icons/app.icns',
+		icon: `icons/app-${isPreview ? 'preview' : 'release'}.png`,
 		target: 'dmg'
 	},
 	nsis: {
@@ -23,7 +25,7 @@ module.exports = {
 	},
 	win: {
 		artifactName: `twine-${pkg.version}-windows.exe`,
-		icon: 'icons/app.ico',
+		icon: `icons/app-${isPreview ? 'preview' : 'release'}.png`,
 		target: 'nsis'
 	}
 };
