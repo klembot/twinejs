@@ -93,7 +93,7 @@
 		"postbuild:web": "cpy --cwd dist/web --parents . ../../electron-build/renderer",
 		"build:electron": "npm-run-all --parallel build:web build:electron-main --serial build:electron-bundle",
 		"build:electron-main": "tsc --project tsconfig.electron.json",
-		"build:electron-bundle": "electron-builder --config electron-builder.config.js",
+		"build:electron-bundle": "electron-builder --config electron-builder.config.js --mac --windows --linux",
 		"clean": "rimraf dist electron-build",
 		"lint": "eslint src",
 		"start": "react-scripts start",
