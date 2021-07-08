@@ -1,5 +1,5 @@
 name: Feature Request
-description: Suggest a feature for Twine
+about: Suggest a feature for Twine
 label: [enhancement]
 body:
     - type: Markdown

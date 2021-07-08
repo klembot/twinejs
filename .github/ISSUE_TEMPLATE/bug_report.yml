@@ -1,5 +1,5 @@
 name: Bug Report
-description: Report a problem occurring in Twine
+about: Report a problem occurring in Twine
 label: [bug]
 body:
     - type: Markdown
