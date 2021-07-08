@@ -1,15 +1,24 @@
-**PRs are currently not being accepted on the develop branch as it is still a
-work-in-progress, and a lot of functionality needs to be restored. If you have a
-PR against current Twine, please open it against the `2.3-maintenance` branch.**
+# Contributing code
 
-# Contributing
+Sorry, the 2.4 branch is still not quite ready for code contributions yet! Stay
+tuned.
 
-Please [open a GitHub issue](https://github.com/klembot/twinejs/issues) if you
-have a feature you would like to add or a change you'd like to make to existing
-functionality, so we can come to agreement on the change itself before you spend
-time writing code. Bugfixes don't require discussion, though. We can hash things
-out in the comments of your pull request as needed.
+# Contributing localizations
 
-Pull requests adding code should be accompanied by [Jest unit
-tests](https://jestjs.io/) where possible. Your code should also pass the `npm
-run lint` task.
+Twine's localization strings are stored in [i18next] JSON format. There are a
+number of dedicated editors for this format, or you can just use a plain text
+editor.
+
+To add a new localization or edit an existing one:
+
+1. Clone the application source code using Git.
+2. Create a new branch for your work.
+3. Create or edit the appropriate file in `public/locales`. The file should be
+   named after the language code you are localizing for. (Check [the registry](lang-code-registry) to find the appropriate code).
+4. If you are creating a new localization, copy the existing `en-US.json` file
+   and replace the English strings there with localized ones in the new file.
+5. Commit your changes and create a pull request in GitHub. You should target
+   the `develop` branch with your pull request.
+
+[i18next]: https://www.i18next.com/
+[lang-code-registry]: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry
