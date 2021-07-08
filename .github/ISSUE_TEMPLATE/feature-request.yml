@@ -1,0 +1,44 @@
+name: Feature Request
+description: Suggest a feature for Twine
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        - Usually, new issues are reviewed around once a month. It may take longer.
+        - If work begins on your suggestion, it will be added to a project in this repository. You can track the status of its implementation there.
+  - type: textarea
+    id: problem-related
+    attributes:
+      label: Is your feature request related to a problem? Please describe.
+      description: A clear and concise description of what the problem is.
+      placeholder: e.g. "I'm frustrated when..."
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the solution you'd like.
+      description: A clear and concise description of what you want to happen.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Describe alternatives you've considered.
+      description: A clear and concise description of any alternative solutions or features you've considered.
+    validations:
+      required: true
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context on this suggestion.
+      description: Add any other context about the feature request here.
+  - type: checkboxes
+    attributes:
+      label: Presubmission checklist
+      options:
+        - label: I am interested in working on code that would implement this feature request. (This is not required to submit a suggestion.)
+          required: false
+        - label: I have done a search and believe that an issue does not already exist for this idea in the GitHub repository.
+          required: true
+        - label: I have read and agree to abide by this project's Code of Conduct.
+          required: true

@@ -1,0 +1,93 @@
+name: Bug Report
+description: Report a problem occurring in Twine
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Sorry to hear you are having problems with Twine!
+
+          - Issues in this repository are for tracking problems with the Twine application. "How do I?" type questions are better answered on community resources like the Intfiction.org forums, Reddit, or Discord.
+          - If you are having problems with your Twine story when it is being played, then you should report the problem with the story format you are using, not here.
+          - In order for your issue to be addressed, someone else will need to be able to cause the bug to occur on their own computer in a predictable fashion. Otherwise, it will be impossible to tell if it was actually fixed when it's worked on. Please be as detailed as you can in your description below.
+          - Usually, new issues are reviewed around once a month. It may take longer.
+          - If work begins on your bug report, it will be added to a project in this repository. You can track the status of its implementation there.
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug.
+      description: Please enter a clear and concise description of what the bug is.
+    validations:
+      required: true
+  - type: textarea
+    id: repro-steps
+    attributes:
+      label: 'Steps to reproduce:'
+      description: Please describe specific steps to follow that will demonstrate the problem. If your bug can't be reproduced by developers, it can't be fixed.
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: 'Expected behavior:'
+      description: A clear and concise description of what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context on this problem.
+      description: Add any other context about the bug report here.
+  - type: input
+    id: version
+    attributes:
+      label: Twine version number
+      placeholder: i.e. 2.3.4
+    validations:
+      required: true
+  - type: dropdown
+    id: web-or-desktop-app
+    attributes:
+      label: Does this problem occur with the web version of Twine or the desktop app?
+      options:
+        - Desktop app
+        - Web
+    validations:
+      required: true
+  - type: dropdown
+    id: operating-system
+    attributes:
+      label: What operating system does this problem occur on?
+      options:
+        - Android
+        - iOS
+        - Linux
+        - macOS
+        - Windows
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: browser
+    attributes:
+      label: If this problem is occurring with the web version of Twine, what browser does it occur on?
+      options:
+        - Brave
+        - Chrome/Chromium
+        - Edge
+        - Firefox
+        - Internet Explorer
+        - Opera
+        - Safari
+        - Vivaldi
+        - Other
+  - type: checkboxes
+    attributes:
+      label: Presubmission checklist
+      options:
+        - label: I am interested in working on code that would fix this bug. (This is not required to submit a bug report.)
+          required: false
+        - label: I have done a search and believe that an issue does not already exist for this bug in the GitHub repository.
+          required: true
+        - label: I have read and agree to abide by this project's Code of Conduct.
+          required: true
