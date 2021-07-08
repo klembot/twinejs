@@ -1,8 +1,8 @@
 name: Bug Report
-about: Report a problem occurring in Twine
-label: [bug]
+description: Report a problem occurring in Twine
+labels: [bug]
 body:
-    - type: Markdown
+    - type: markdown
       attributes:
           value: |
               Sorry to hear you are having problems with Twine!
@@ -67,7 +67,7 @@ body:
               - Other
       validations:
           required: true
-    - type: dropdwon
+    - type: dropdown
       id: browser
       attributes:
           label: If this problem is occurring with the web version of Twine, what browser does it occur on?
