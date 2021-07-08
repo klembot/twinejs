@@ -1,8 +1,8 @@
 name: Feature Request
-about: Suggest a feature for Twine
-label: [enhancement]
+description: Suggest a feature for Twine
+labels: [enhancement]
 body:
-    - type: Markdown
+    - type: markdown
       attributes:
           value: |
               - Usually, new issues are reviewed around once a month. It may take longer.
