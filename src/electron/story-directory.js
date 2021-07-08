@@ -95,6 +95,7 @@ const StoryDirectory = (module.exports = {
 
 	backup(maxBackups = 10) {
 		console.log('Backing up story library');
+		console.log('Story path : ' + StoryDirectory.path())
 
 		const backupPath = path.join(
 			app.getPath('documents'),

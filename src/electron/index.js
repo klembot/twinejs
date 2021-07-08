@@ -86,8 +86,7 @@ function addStockWindowListeners(win) {
 app.on('ready', () => {
 	let startupTask;
 
-	backupStoryDirectory()
-		.then(() => setInterval(backupStoryDirectory, 1000 * 60 * 20))
+	loadJson('prefs.json')
 		.then(() => loadJson('prefs.json'))
 		.then(data => (global.hydrate.prefs = data))
 		.catch(e => console.warn(e.message))
@@ -95,6 +94,8 @@ app.on('ready', () => {
 			startupTask = 'loading your locale preference';
 			return loadLocale(global.hydrate.prefs);
 		})
+		.then(() => backupStoryDirectory())
+		.then(() => setInterval(backupStoryDirectory, 1000 * 60 * 20))
 		.then(() => loadJson('story-formats.json'))
 		.then(data => (global.hydrate.storyFormats = data))
 		.catch(e => console.warn(e.message))
