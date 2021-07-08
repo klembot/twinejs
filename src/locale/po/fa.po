@@ -1,0 +1,749 @@
+# Farsi Translation
+msgid ""
+msgstr ""
+"Last-Translator: Marty <github:mhgolkar>\n"
+"PO-Revision-Date: 2020-08-14 14:19+0430\n"
+"Project-Id-Version: \n"
+"Language-Team: Persian\n"
+"Language: fa\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"MIME-Version: 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 20.04.3 with manual edits!\n"
+
+#: src/dialogs/about/index.html
+msgid "About Twine"
+msgstr "درباره‌ی تواین"
+
+#: src/dialogs/about/index.html
+msgid "Twine is an open-source tool for telling interactive, nonlinear stories."
+msgstr ""
+"تواین ابزاری رایگان و بازمتن برای داستانگویی واکنش‌گرا (اینتراکتیو) و غیرخطی"
+" است."
+
+#: src/dialogs/about/index.html
+msgid "This application is released under the \\x3ca href=\"http:\\/\\/www.gnu.org/licenses/gpl-3.0.html\">GPL v3\\x3c/a> license, but any work created with it may be released under any terms, including commercial ones."
+msgstr ""
+"این نرم‌افزار با مجوز \\x3ca href=\"http:\\/\\/www.gnu.org/licenses/gpl-3.0.ht"
+"ml\">GPL v3\\x3c/a> منتشر شده است، اما آثاری که با آن خلق می‌شوند می‌توانند"
+" شرایط نشر خودشان را داشته باشند."
+
+#: src/dialogs/about/index.html
+msgid "Help Twine Grow With A Donation"
+msgstr "با حمایت مالی به رشد تواین کمک کنید"
+
+#: src/dialogs/about/index.html
+msgid "Source Code Repository"
+msgstr "متن کد نرم‌افزار"
+
+#: src/dialogs/about/index.html
+msgid "Translations"
+msgstr "ترجمه‌ها"
+
+#: src/dialogs/about/index.html
+msgid "Libraries"
+msgstr "کتابخانه‌ها"
+
+#: src/dialogs/about/index.html
+msgid "Fonts"
+msgstr "فونت‌ها"
+
+#: src/dialogs/about/index.html
+msgid "Source Sans Pro and Source Code Pro were designed by Paul D. Hunt under the guidance of Robert Slimbach for \\x3ca href=\"http:\\/\\/adobe.com/\">Adobe\\x3c/a>\\x3cbr> Nunito was designed by \\x3ca href=\"http:\\/\\/code.newtypography.co.uk/\">Vernon Adams\\x3c/a>"
+msgstr ""
+"فونت‌های «سورس سنس پرو» و «سورس کد پرو» توسط «پاور دی هانت» با راهنمایی"
+" «رابرت اسلیمبچ» برای \\x3ca href=\"http:\\/\\/adobe.com/\">ادوبی\\x3c/a"
+">\\x3cbr> طراحی شده‌اند. فونت «نونیتو» توسط \\x3ca"
+" href=\"http:\\/\\/code.newtypography.co.uk/\">ورنون آدامز\\x3c/a> طراحی شده"
+" است."
+
+#: src/dialogs/about/index.html
+msgid "Icons"
+msgstr "نشان‌ها"
+
+#: src/dialogs/about/index.html
+msgid "Document designed by Rob Gill from the Noun Project"
+msgstr "متون مرجع توسط «راب گیل» از «نوئن پراجکت» طراحی شده است."
+
+#: src/dialogs/about/index.html
+msgid "Question designed by Henry Ryder from the Noun Project"
+msgstr "بخش پرسش‌ها توسط «هنری رایدر» از «نوئن پراجکت» طراحی شده است."
+
+#: src/dialogs/about/index.html
+msgid "Smile designed by jelio dimitrov from the Noun Project"
+msgstr "صورتک‌ها توسط «حلیو دیمیتروف» از «نوئن پراجکت» طراحی شده است."
+
+#: src/dialogs/app-donation/index.html
+msgid "If you love Twine as much as I do, please consider helping it grow with a donation. Twine is an open source project that will always be free to use &mdash; and with your help, Twine will continue to thrive."
+msgstr ""
+"اگر شما هم به اندازه‌ی ما تواین را دوست دارید، لطفاً حمایت مالی برای رشد آن"
+" را هم در نظر بگیرید. تواین یک پروه‌ی بازمتن و رایگان است و با کمک شما"
+" می‌تواند همیشه رایگان و رو به پیشرفت باقی بماند."
+
+#: src/dialogs/app-donation/index.html
+msgid "Chris Klimas, Twine creator"
+msgstr "کریس کلیمس، خالق تواین"
+
+#: src/dialogs/app-donation/index.html
+msgid "No Thanks"
+msgstr "نه، متشکرم"
+
+#: src/dialogs/app-donation/index.html
+msgid "Donate"
+msgstr "حمایت مالی"
+
+#: src/dialogs/app-donation/index.html
+msgid "This message will only be shown to you once.&lt;br&gt;If you'd like to donate to Twine development in the future, you can do so at &lt;a href=\\\"http:\\/\\/twinery.org/donate\\\" target=\\\"_blank\\\"&gt;http://twinery.org/donate&lt;/a&gt;."
+msgstr ""
+"این پیام فقط یک بار به شما نمایش داده می‌شود. در صورتی که در آینده تمایل به"
+" حمایت مالی از تواین داشتید، می‌توانید به آدرس &lt;a"
+" href=\\\"http:\\/\\/twinery.org/donate\\\""
+" target=\\\"_blank\\\"&gt;http://twinery.org/donate&lt;/a&gt; مراجعه کنید."
+
+#: src/dialogs/formats/index.html
+msgid "Story formats control the appearance and behavior of stories during play."
+msgstr "فرمت‌های داستان، شکل و ظاهر داستان شما را در زمان اجرا مشخص می‌کنند."
+
+#: src/dialogs/formats/index.html
+msgid "Use as Default"
+msgstr "فرمت پیشفرض"
+
+#: src/dialogs/formats/index.html
+msgid "Proofing formats create a versions of stories tailored for editing and proofreading."
+msgstr ""
+"فرمت‌های ویراستاری، نسخه‌ای از داستان شما را ایجاد می‌کند که برای ویرایش و"
+" بازخوانی مناسب باشد."
+
+#: src/dialogs/formats/index.html
+msgid "Use"
+msgstr "استفاده از"
+
+#: src/dialogs/formats/index.html
+#: src/story-list-view/list-toolbar/index.js:24
+msgid "Add"
+msgstr "افزودن"
+
+#: src/dialogs/formats/index.html
+#: src/dialogs/story-format/index.html
+msgid "Loading..."
+msgstr "بارگذاری..."
+
+#: src/dialogs/story-format/index.html
+msgid "Story Format"
+msgstr "فرمت داستان"
+
+#: src/dialogs/story-format/index.html
+msgid "A story format controls the appearance and behavior of your story during play."
+msgstr "فرمت داستان، شکل و ظاهر داستان شما را در زمان اجرا مشخص می‌کنند."
+
+#: src/dialogs/story-import/index.html
+#: src/story-list-view/list-toolbar/index.html
+msgid "Import From File"
+msgstr "وارد کردن با فایل"
+
+#: src/dialogs/story-import/index.html
+msgid "Import this file:"
+msgstr "این فایل را وارد کن:"
+
+#: src/dialogs/story-import/index.html
+#: src/dialogs/confirm/index.js:31
+#: src/dialogs/prompt/index.js:15
+msgid "Cancel"
+msgstr "بستن"
+
+#: src/dialogs/story-import/index.html
+msgid "Working..."
+msgstr "در حال کار..."
+
+#: src/dialogs/story-import/index.html
+msgid "Some stories you are importing already exist in your library. Please choose which to replace. Any other stories in your file will be imported as well."
+msgstr ""
+"بعضی از داستان‌هایی که دارید باز می‌کنید همین حالا هم در کتابخانه‌ی شما"
+" هستند. لطفاً آن‌هایی را که می‌خواهید جایگزین کنید انتخاب کنید. سایر"
+" داستان‌هایی که باز کرده‌اید هم وارد خواهند شد."
+
+#: src/dialogs/story-import/index.html
+msgid "Don't Import Any Stories"
+msgstr "داستانی را وارد نکن"
+
+#: src/dialogs/story-search/index.html
+msgid "Find and Replace"
+msgstr "جستجو و جایگزینی"
+
+#: src/dialogs/story-search/index.html
+msgid "Search For"
+msgstr "جستجو برای"
+
+#: src/dialogs/story-search/index.html
+msgid "Include passage names"
+msgstr "نام گزاره‌ها را هم در نظر بگیر"
+
+#: src/dialogs/story-search/index.html
+msgid "Match case"
+msgstr "حروف بزرگ و کوچک را هم در نظر بگیر"
+
+#: src/dialogs/story-search/index.html
+msgid "Regular expression"
+msgstr "با استفاده از RegExp"
+
+#: src/dialogs/story-search/index.html
+msgid "Replace With"
+msgstr "جایگزین کن با "
+
+#: src/dialogs/story-search/index.html
+msgid "Replace All"
+msgstr "همه را جایگزین کن"
+
+#: src/dialogs/story-search/index.html
+msgid "%d passage matches."
+msgid_plural "%d passages match."
+msgstr[0] "%d گزاره همسانی دارد."
+msgstr[1] ""
+
+#: src/dialogs/story-search/index.html
+msgid "Searching..."
+msgstr "جستجو..."
+
+#: src/dialogs/story-search/result.html
+msgid "%d match"
+msgid_plural "%d matches"
+msgstr[0] "%d همسان"
+msgstr[1] "%d همسان"
+
+#: src/dialogs/story-search/result.html
+msgid "Replace in Passage"
+msgstr "جایگزینی در گزاره"
+
+#: src/dialogs/story-stats/index.html
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+msgid "Story Statistics"
+msgstr "آمار داستان"
+
+#: src/editors/javascript/index.html
+msgid "JavaScript"
+msgstr "جاوا اسکریپت"
+
+#: src/editors/javascript/index.html
+msgid "Any JavaScript entered here will immediately run when your story is opened in a Web browser."
+msgstr ""
+"هر کد جاوا اسکریپتی (JS) که در اینجا وارد کنید، بلافاصله بعد از باز شدن"
+" داستان شما در مرورگر، اجرا خواهد شد."
+
+#: src/editors/passage/index.html
+msgid "A passage already exists with this name."
+msgstr "گزاره دیگری با این نام وجود دارد."
+
+#: src/editors/passage/tag-editor.html
+msgid "Tag"
+msgstr "تگ"
+
+#: src/editors/stylesheet/index.html
+msgid "Stylesheet"
+msgstr "استایل"
+
+#: src/editors/stylesheet/index.html
+msgid "Any CSS entered here will override the default appearance of your story."
+msgstr ""
+"هر استایل CSS که در اینجا وارد کنید، شکل و ظاهر پیشفرض داستان شما را تغییر"
+" خواهد داد."
+
+#: src/locale/view/index.html
+msgid "Please choose which language you would like to use with Twine."
+msgstr "لطفاً زبانی را که مایلید در تواین از آن استفاده کنید، انتخاب بفرمایید."
+
+#: src/nw/patches/welcome-view/replacement-template.html
+#: src/welcome/index.html
+msgid "Hi!"
+msgstr "درود!"
+
+#: src/nw/patches/welcome-view/replacement-template.html
+#: src/welcome/index.html
+msgid "Twine is an open-source tool for telling interactive, nonlinear stories. There are a few things you should know before you get started."
+msgstr ""
+"تواین ابزاری رایگان و بازمتن برای داستانگویی واکنش‌گرا (اینتراکتیو) و غیرخطی"
+" است. "
+"نکاتی وجود دارد که بهتر است پیش از آغاز به کار بدانید."
+
+#: src/nw/patches/welcome-view/replacement-template.html
+#: src/welcome/index.html
+msgid "Tell Me More"
+msgstr "بیشتر توضیح بده"
+
+#: src/nw/patches/welcome-view/replacement-template.html
+#: src/welcome/index.html
+msgid "Skip"
+msgstr "بی‌خیال"
+
+#: src/nw/patches/welcome-view/replacement-template.html
+#: src/welcome/index.html
+msgid "New here?"
+msgstr "کاربر جدید هستید؟"
+
+#: src/nw/patches/welcome-view/replacement-template.html
+msgid "&lt;strong&gt;If you've never used Twine before,&lt;/strong&gt; then welcome! The &lt;a href=\\\"http://twinery.org/2guide\\\" target=\\\"_blank\\\"&gt;Twine 2 Guide&lt;/a&gt; and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki at large were written for Twine 1, which is a little bit different than this version. But most of the concepts are the same."
+msgstr ""
+"&lt;strong&gt;اگر تا به حال از تواین استفاده نکرده‌اید&lt;/strong&gt; خوش"
+" آمدید!"
+" راهنمای &lt;a href=\\\"http://twinery.org/2guide\\\""
+" target=\\\"_blank\\\"&gt;تواین (نسخه ۲)&lt;/a&gt; و ویکی تواین"
+" محل‌های خوبی برای کسب اطلاعات در مورد این ابزار است. در نظر داشته باشید که"
+" بعضی مقالات موجود در ویکی ممکن است برای نسخه‌های قدیمی‌تر نوشته شده باشند؛"
+" با این حال مفاهیم اصلی یکسان هستند."
+
+#: src/nw/patches/welcome-view/replacement-template.html
+#: src/welcome/index.html
+msgid "&lt;strong&gt;If you have used Twine 1 before,&lt;/strong&gt; the guide also has details on what has changed in this version. Chief among them is a new default story format, Harlowe. But if you find you prefer the Twine 1 scripting syntax, try using SugarCube instead."
+msgstr ""
+"&lt;strong&gt;اگر پیشتر از نسخه‌ی یک تواین استفاده کرده‌اید&lt;/strong&gt;"
+" راهنما می‌تواند قسمت‌هایی را که در نسخه‌ی ۲ تغییر کرده‌اند برای شما روشن"
+" کند. مهمترین تغییر فرمت داستان جدید Harlowe است. البته اگر شکل و شمایل"
+" داستان‌های نسخه‌ی قبل را می‌پسندید، می‌توانید از SugarCube هم استفاده کنید."
+
+#: src/nw/patches/welcome-view/replacement-template.html
+#: src/nw/patches/welcome-view/replacement-template.html
+#: src/welcome/index.html
+#: src/welcome/index.html
+msgid "OK"
+msgstr "باشه"
+
+#: src/nw/patches/welcome-view/replacement-template.html
+msgid "Your work is automatically saved."
+msgstr "اثر شما به طور خودکار ذخیره شد."
+
+#: src/nw/patches/welcome-view/replacement-template.html
+msgid "There's now a folder named Twine in your Documents folder. Inside that is a Stories folder, where all your work will be saved. Twine saves as you work, so you don't have to worry about remembering to save it yourself. You can always open the folder your stories are saved to by using the &lt;b&gt;Show Library&lt;/b&gt; item in the &lt;b&gt;Twine&lt;/b&gt; menu."
+msgstr ""
+"در این نسخه فولدری به نام Twine در Documents پیش‌بینی شده است تا نرم‌افزار"
+" بتواند آثار شما را در آن ذخیره‌سازی کند. ذخیره‌سازی خودکار همزمان با کار شما"
+" انجام می‌شود پس زیاد نگران نباشید. شما همیشه می‌توانید فولدری را که آثارتان"
+" را در بر دارد، با استفاده از فرمان «نمایش کتابخانه» باز کنید."
+
+#: src/nw/patches/welcome-view/replacement-template.html
+msgid "Because Twine is always saving your work, the files in your story library will be locked from editing while Twine is open."
+msgstr ""
+"از آنجایی که تواین به طور مداوم فایل‌های داستان شما را ذخیره می‌کند، تا زمانی"
+" که این ابزار باز است نخواهید توانست آن‌ها را توسط نرم‌افزار دیگری ویرایش"
+" کنید."
+
+#: src/nw/patches/welcome-view/replacement-template.html
+#: src/welcome/index.html
+msgid "That's it!"
+msgstr "همین بود، تمام!"
+
+#: src/nw/patches/welcome-view/replacement-template.html
+#: src/welcome/index.html
+msgid "Thanks for reading, and have fun with Twine."
+msgstr "متشکر از توجه شما. از تواین لذت ببرید!"
+
+#: src/nw/patches/welcome-view/replacement-template.html
+#: src/welcome/index.html
+msgid "Go to the Story List"
+msgstr "برو به فهرست داستان‌ها"
+
+#: src/story-edit-view/story-toolbar/index.html
+msgid "Test"
+msgstr "آزمایش"
+
+#: src/story-edit-view/story-toolbar/index.html
+msgid "Play"
+msgstr "اجرا"
+
+#. L10n: Word in the sense of individual words in a sentence. This does not actually include the count, as it is used in a table.
+#: src/story-edit-view/story-toolbar/index.html
+#: src/dialogs/story-stats/index.js:86
+msgid "Passage"
+msgstr "گزاره"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+msgid "Edit Story JavaScript"
+msgstr "ویرایش کد جاوا اسکریپت"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+msgid "Edit Story Stylesheet"
+msgstr "ویرایش استایل"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+msgid "Change Story Format"
+msgstr "تغییر فرمت داستان"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+#: src/story-list-view/story-item/item-menu/index.html
+msgid "Rename Story"
+msgstr "تغییر نام داستان"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+msgid "Select All Passages"
+msgstr "انتخاب همه‌ی گزاره‌ها"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+msgid "Snap to Grid"
+msgstr "چسبیدن به گرید"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+msgid "View Proofing Copy"
+msgstr "نمایش نسخه‌ی ویراستاری"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.html
+#: src/story-list-view/story-item/item-menu/index.html
+msgid "Publish to File"
+msgstr "انتشار فایل"
+
+#: templates/storyeditview/toolbar.html:62
+msgid "Quick Find"
+msgstr "جستجو سریع"
+
+#: src/story-list-view/index.html
+msgid "Drop a story file to import"
+msgstr "فایل یک داستان را اینجا رها کنید تا وارد شود"
+
+#: src/story-list-view/index.html
+msgid "Sort By"
+msgstr "به ترتیب"
+
+#: src/story-list-view/index.html
+msgid "Edit Date"
+msgstr "تاریخ ویرایش"
+
+#: src/story-list-view/index.html
+msgid "Name"
+msgstr "نام"
+
+#: src/story-list-view/index.html
+msgid "There are no stories saved in Twine right now. To get started, you can either create a new story or import an existing one from a file."
+msgstr ""
+"داستانی در فهرست کارهای شما نیست. برای شروع می‌توانید داستان جدیدی بسازید یا"
+" اثری را که پیشتر آرشیو کرده‌اید از طریق فایل وارد کنید."
+
+#: src/story-list-view/list-toolbar/index.html
+#: src/nw/directories.js:69
+#: src/nw/menus.js:17
+#: src/nw/menus.js:39
+msgid "Twine"
+msgstr "تواین"
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "Story"
+msgstr "داستان"
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "Archive"
+msgstr "آرشیو"
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "Formats"
+msgstr "فرمت‌ها"
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "Language"
+msgstr "زبان"
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "Help"
+msgstr "راهنما"
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "version"
+msgstr "نسخه"
+
+#: src/story-list-view/list-toolbar/index.html
+msgid "Report a bug"
+msgstr "گزارش ایراد در ابزار"
+
+#: src/story-list-view/story-item/item-menu/index.html
+msgid "Play Story"
+msgstr "اجرای داستان"
+
+#: src/story-list-view/story-item/item-menu/index.html
+msgid "Test Story"
+msgstr "آزمایش داستان"
+
+#: src/story-list-view/story-item/item-menu/index.html
+msgid "Duplicate Story"
+msgstr "تکثیر داستان"
+
+#: src/story-list-view/story-item/item-menu/index.html
+msgid "Delete Story"
+msgstr "پاک کردن داستان"
+
+#: src/welcome/index.html
+msgid "&lt;strong&gt;If you've never used Twine before,&lt;/strong&gt; then welcome! The &lt;a href=\\\"http://twinery.org/2guide\\\" target=\\\"_blank\\\"&gt;Twine 2 Guide&lt;/a&gt; and the official wiki in general, are a great place to learn. Keep in mind that some articles on the wiki were written for Twine 1, which is a little bit different than this version. But most of the concepts are the same."
+msgstr ""
+"&lt;strong&gt;اگر تا به حال از تواین استفاده نکرده‌اید&lt;/strong&gt; خوش"
+" آمدید!"
+" راهنمای &lt;a href=\\\"http://twinery.org/2guide\\\""
+" target=\\\"_blank\\\"&gt;تواین (نسخه ۲)&lt;/a&gt; و ویکی تواین"
+" محل‌های خوبی برای کسب اطلاعات در مورد این ابزار است. در نظر داشته باشید که"
+" بعضی مقالات موجود در ویکی ممکن است برای نسخه‌های قدیمی‌تر نوشته شده باشند؛"
+" با این حال مفاهیم اصلی یکسان هستند."
+
+#: src/welcome/index.html
+msgid "Your work is saved only in your browser."
+msgstr "آثار شما تنها در مرورگرتان ذخیره می‌شود."
+
+#: src/welcome/index.html
+msgid "That means you don't need to create an account to use Twine 2, and everything you create isn't stored on a server somewhere else &mdash; it stays right in your browser."
+msgstr ""
+"شما برای استفاده از تواین نیازی به ثبت نام در جایی ندارید و تمام آثار شما فقط"
+" در مرورگر شما ذخیره می‌شوند."
+
+#: src/welcome/index.html
+msgid "Two &lt;b&gt;very important&lt;/b&gt; things to remember, though. Since your work is saved only in your browser, if you clear its saved data, then you'll lose your work! Not good. Remember to use that &lt;i class=\\\"fa fa-briefcase\\\"&gt;&lt;/i&gt;&nbsp;&lt;strong&gt;Archive&lt;/strong&gt; button often. You can also publish individual stories to files using the &lt;i class=\\\"fa fa-cog\\\"&gt;&lt;/i&gt; menu on each story in the story list. Both archive and story files can always be re-imported into Twine."
+msgstr ""
+"دو نکته‌ی بسیار مهم را به خاطر داشته باشید. اول این که چون آثار شما فقط در"
+" مرورگر شما ذخیره شده است، در صورتی که حافظه‌ی مرورگر را پاک کنید، تمام"
+" کارتان را از دست خواهیدداد. "
+"فراموش نکنید که به طور مرتب با استفاده از کلید &lt;i class=\\\"fa"
+" fa-briefcase\\\"&gt;&lt;/i&gt;&nbsp;&lt;strong&gt;آرشیو&lt;/strong&gt;"
+" آثارتان را ذخیره کنید. همینطور می‌توانید داستان‌ها را به صورت تکی با استفاده"
+" از &lt;i class=\\\"fa fa-cog\\\"&gt;&lt;/i&gt; منویی که در کنار هر عنوان هست"
+" ذخیره کنید. هر زمان که لازم بودید می‌توانید آرشیو یا داستان ذخیره شده را"
+" دوباره وارد کنید."
+
+#: src/welcome/index.html
+msgid "Secondly, &lt;b&gt;anyone who can use this browser can see and make changes to your work&lt;/b&gt;. So if you've got a nosy kid brother, look into setting up a separate profile for yourself."
+msgstr ""
+"ثانیاً هر کسی که به این مرورگر دسترسی داشته باشد، می‌تواند آثار شما را ببیند"
+" و حتی در آن‌ها تغییر ایجاد کند. پس اگر مزاحمی دور و برتان  دارید مطمئن شوید"
+" که از پروفایل مستقلی استفاده می‌کنید."
+
+#: src/data/actions.js:272
+msgid "a more recent version of the story format &ldquo;%s&rdquo; is already installed"
+msgstr "نسخه‌ی روزآمدتری از فرمت داستان %s پیشتر نصب شده است."
+
+#: src/data/publish.js:75
+msgid "There is no starting point set for this story."
+msgstr "سرآغازی برای این داستان انتخاب نشده است."
+
+#: src/data/publish.js:81
+msgid "The passage set as starting point for this story does not exist."
+msgstr "گزاره‌ای که به عنوان سرآغاز داستان برگزیده‌اید، وجود ندارد!"
+
+#: src/data/story-format.js:7
+msgid "Untitled Story Format"
+msgstr "فرمت داستان ناشناس"
+
+#: src/data/story.js:190
+msgid "Untitled Story"
+msgstr "داستان بی‌نام"
+
+#: src/data/story.js:207
+#: src/story-edit-view/index.js:218
+msgid "Untitled Passage"
+msgstr "گزاره بی‌نام"
+
+#: src/data/story.js:210
+msgid "Tap this passage, then the pencil icon to edit it."
+msgstr "برای ویرایش، روی این گزاره و سپس نشان مدادی اشاره کنید."
+
+#: src/data/story.js:243
+msgid "Double-click this passage to edit it."
+msgstr "برای ویرایش، دوبار روی این گزاره کلیک کنید."
+
+#. L10n: The <span> will have a version number, i.e. 2.0.6, interpolated into it.
+#: src/dialogs/app-update/index.js:40
+msgid "A new version of Twine, <span class=\"version\"></span>, has been released."
+msgstr "نسخه‌ی جدیدی از تواین، <span class=\"version\"></span>، منتشر شده است."
+
+#: src/dialogs/app-update/index.js:44
+msgid "Download"
+msgstr "دریافت"
+
+#. L10n: A polite rejection of a request, in the sense that the answer may change in the future.
+#: src/dialogs/app-update/index.js:51
+msgid "Not Right Now"
+msgstr "شاید وقتی دیگر"
+
+#. L10n: %1$s is the name of the story format; %2$s is
+#: src/dialogs/formats/index.js:63
+msgid "The story format &ldquo;%1$s&rdquo; could not be loaded (%2$s)."
+msgstr "فرمت داستان «%1$s» قابل بارگذاری نیست (%2$s)."
+
+#: src/dialogs/formats/index.js:105
+msgid "The story format at %1$s could not be added (%2$s)."
+msgstr "امکان وارد کردن فرمت داستان در %1$s وجود ندارد (%2$s)."
+
+#. L10n: %s is the name of an author.
+#: src/dialogs/formats/item.js:30
+msgid "by %s"
+msgstr "از %s"
+
+#: src/dialogs/formats/item.js:51
+msgid "Are you sure?"
+msgstr "اطمینان دارید؟"
+
+#: src/dialogs/formats/item.js:53
+msgid "Remove"
+msgstr "حذف"
+
+#: src/dialogs/story-import/index.js:56
+msgid "Don\\'t Replace Any Stories"
+msgstr "هیچ داستانی را جایگزین نکن."
+
+#: src/dialogs/story-import/index.js:59
+msgid "Replace %d Story"
+msgid_plural "Replace %d Stories"
+msgstr[0] "%d داستان را جایگزین کن"
+msgstr[1] "%d داستان را جایگزین کن"
+
+#. L10n: Character in the sense of individual letters in a word.  This does not actually include the count, as it is used in a table.
+#: src/dialogs/story-stats/index.js:40
+msgid "Character"
+msgid_plural "Characters"
+msgstr[0] "کاراکتر"
+msgstr[1] "کاراکتر"
+
+#. L10n: Word in the sense of individual words in a sentence.  This does not actually include the count, as it is used in a table.
+#: src/dialogs/story-stats/index.js:55
+msgid "Word"
+msgid_plural "Words"
+msgstr[0] "واژه"
+msgstr[1] "واژه"
+
+#. L10n: Links in the sense of hypertext links. This does not actually include the count, as it is used in a table.
+#: src/dialogs/story-stats/index.js:104
+msgid "Link"
+msgid_plural "Links"
+msgstr[0] "لینک"
+msgstr[1] "لینک"
+
+#. L10n: Links in the sense of hypertext links. This does not actually include the count, as it is used in a table.
+#: src/dialogs/story-stats/index.js:119
+msgid "Broken Link"
+msgid_plural "Broken Links"
+msgstr[0] "لینک شکسته"
+msgstr[1] "لینک شکسته"
+
+#: src/editors/passage/index.js:38
+msgid "Enter the body text of your passage here. To link to another passage, put two square brackets around its name, [[like this]]."
+msgstr ""
+"متن گزاره (قطعات داستان) را در این قسمت وارد کنید. برای پیوند زدن (لینک) به"
+" سایر گزاره‌ها می‌توانید از دو جفت براکت استفاده کنید. برای مثال [[گفتگو با"
+" هیولا]] یک لینک به گزاره‌ای با عنوان «گفتگو با هیولا » ایجادمی‌کند. همچنین"
+" می‌توانید از این فرم استفاده کنید: [[برای گفتگو آماده شو -> گفتگو با هیولا]]"
+
+#: src/editors/passage/index.js:182
+msgid "Editing \\u201c%s\\u201d"
+msgstr "ویرایش \\u201c%s\\u201d"
+
+#. L10n: %1$s is a filename; %2$s is the error message.
+#: src/file/save.js:71
+msgid "&ldquo;%1$s&rdquo; could not be saved (%2$s)."
+msgstr "امکان ذخیره‌ی «%1$s» وجود ندارد (%2$s)."
+
+#. L10n: This is the folder name on OS X, Linux, and recent versions of Windows that a user's documents are stored in, relative to the user's home directory. If you need to use a space in this name, then it should have two backslashes (\\) in front of it.
+#: src/nw/directories.js:37
+msgid "Documents"
+msgstr "اسناد"
+
+#. L10n: This is the folder name on Windows XP that a user's documents are stored in, relative to the user's home directory. This is used if a folder with the name given by the translation key '/Documents' does not exist. If you need to use a space in this name, then it should have two backslashes (\\) in front of it.
+#: src/nw/directories.js:51
+msgid "My\\\\ Documents"
+msgstr "اسناد من"
+
+#: src/nw/directories.js:70
+msgid "Stories"
+msgstr "داستان‌ها"
+
+#: src/nw/menus.js:27
+msgid "Toggle Fullscreen"
+msgstr "وضعیت تمام صفحه"
+
+#: src/nw/menus.js:44
+msgid "Quit"
+msgstr "خروج"
+
+#: src/nw/menus.js:61
+msgid "Edit"
+msgstr "ویرایش"
+
+#: src/nw/menus.js:66
+msgid "Undo"
+msgstr "غلطگیری"
+
+#: src/nw/menus.js:79
+msgid "Cut"
+msgstr "برش"
+
+#: src/nw/menus.js:88
+msgid "Copy"
+msgstr "کپی"
+
+#: src/nw/menus.js:97
+msgid "Paste"
+msgstr "الصاق"
+
+#: src/nw/menus.js:106
+#: src/story-edit-view/passage-item/index.js:334
+msgid "Delete"
+msgstr "حذف"
+
+#: src/nw/menus.js:118
+msgid "Show Library"
+msgstr "نمایش کتابخانه"
+
+#: src/story-edit-view/passage-item/index.js:319
+#: src/story-list-view/story-item/item-menu/index.js:78
+msgid "Are you sure you want to delete &ldquo;%s&rdquo;? This cannot be undone."
+msgstr "برای پاک کردن %s اطمینان دارید؟ این فرآیند قابل بازگشت نیست."
+
+#: src/story-edit-view/passage-item/index.js:326
+msgid "(Hold the Shift key when deleting to skip this message.)"
+msgstr ""
+"(اگر می‌خواهید این پیام را نبینید، هنگام پاک کردن کلید «شیفت» را هم بگیرید.)"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.js:46
+#: src/story-list-view/story-item/item-menu/index.js:100
+msgid "What should &ldquo;%s&rdquo; be renamed to?"
+msgstr "می‌خواهید نام «%s» را با چه چیزی عوض کنید؟"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.js:51
+#: src/story-list-view/story-item/item-menu/index.js:105
+msgid "Rename"
+msgstr "تغییر نام"
+
+#: src/story-edit-view/story-toolbar/story-menu/index.js:55
+#: src/story-list-view/story-item/item-menu/index.js:109
+#: src/story-list-view/story-item/item-menu/index.js:128
+msgid "Please enter a name."
+msgstr "لطفاً نامی را وارد کنید."
+
+#: src/story-list-view/index.js:79
+msgid "%d Story"
+msgid_plural "%d Stories"
+msgstr[0] "%d داستان"
+msgstr[1] "%d داستان"
+
+#: src/story-list-view/list-toolbar/index.js:21
+msgid "What should your story be named?<br>(You can change this later.)"
+msgstr ""
+"چه نامی روی داستانتان می‌گذارید؟ <br> (بعداً می‌توانید این نام را ویرایش"
+" کنید.)"
+
+#: src/story-list-view/list-toolbar/index.js:30
+msgid "A story with this name already exists."
+msgstr "داستان دیگری با این نام وجود دارد!"
+
+#: src/story-list-view/list-toolbar/index.js:62
+msgid "Twine Archive.html"
+msgstr ""
+
+#: src/story-list-view/story-item/item-menu/index.js:84
+msgid "Delete Forever"
+msgstr "حذف کامل"
+
+#: src/story-list-view/story-item/item-menu/index.js:122
+msgid "What should the duplicate be named?"
+msgstr "نام نسخه‌ی تکثیر شده چه باشد؟"
+
+#: src/story-list-view/story-item/item-menu/index.js:124
+msgid "Duplicate"
+msgstr "تکثیر"
+
+#: src/story-list-view/story-item/item-menu/index.js:126
+msgid "%s Copy"
+msgstr "%s کپی"
+
+#: src/ui/quota-gauge/index.js:24
+msgid "%d%% space available"
+msgstr "فضای موجود: %d%%"

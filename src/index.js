@@ -45,6 +45,11 @@ if (localeUrlMatch) {
 }
 
 if (typeof userLocale === 'string') {
+
+	/* Keep the locale in the DOM as an attribute of <HTML>, so localized styling will be easier */
+	/* It's specially useful in case of RTL languages such as Farsi, Persian, Arabic, Hebrew, etc. */
+	document.getElementsByTagName("html")[0].dataset.userLocale = userLocale;
+
 	/* Load the locale, then start the application. */
 
 	locale.loadViaAjax(userLocale.toLowerCase()).then(() => {
