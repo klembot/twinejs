@@ -1,0 +1,25 @@
+@import '../../styles/metrics.css';
+
+.about-twine-dialog p {
+	margin-left: var(--grid-size);
+	margin-right: var(--grid-size);
+}
+
+.about-twine-dialog .links .icon-link {
+	display: block;
+	text-align: center;
+}
+
+.about-twine-dialog .credits {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	padding: var(--grid-size);
+	padding-top: var(--ui-gap);
+}
+
+.about-twine-dialog .credits ul {
+	list-style-type: none;
+	margin-top: 0;
+	margin-left: 0;
+	padding-left: 0;
+}

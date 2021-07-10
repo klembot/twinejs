@@ -1,0 +1,10 @@
+@import '../../../styles/colors.css';
+@import '../../../styles/metrics.css';
+
+.button-bar {
+	display: flex;
+}
+
+.button-bar.orientation-vertical {
+	flex-direction: column;
+}

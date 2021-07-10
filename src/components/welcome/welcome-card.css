@@ -1,0 +1,38 @@
+@import '../../styles/metrics.css';
+
+.welcome-card .card {
+	display: grid;
+	grid:
+		'image content'
+		'buttons buttons';
+	grid-template-columns: 200px 1fr;
+}
+
+.welcome-card .welcome-card-image {
+	align-self: center;
+	grid-area: image;
+}
+
+.welcome-card .welcome-card-image .icon-tabler {
+	stroke: var(--gray);
+	stroke-width: 1;
+}
+
+.welcome-card .card-content {
+	align-self: center;
+	grid-area: content;
+}
+
+.welcome-card .button-bar {
+	grid-area: buttons;
+}
+
+.welcome-card .card-content p:last-child {
+	/* Needed because we nest. */
+	margin-bottom: 0;
+}
+
+.welcome-card .welcome-card-image svg {
+	height: auto;
+	width: 200px;
+}

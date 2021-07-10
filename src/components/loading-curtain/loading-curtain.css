@@ -1,0 +1,19 @@
+@import '../../styles/colors.css';
+
+.loading-curtain {
+	align-items: center;
+	background-color: var(--off-white);
+	color: var(--gray);
+	display: flex;
+	height: 100%;
+	justify-content: center;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+
+.loading-curtain .icon-image svg {
+	height: 50px;
+	width: 50px;
+}

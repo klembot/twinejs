@@ -1,0 +1,115 @@
+:root {
+	--black: black;
+	--off-white: hsl(0, 0%, 95%);
+	--white: hsl(0, 0%, 98%);
+	--white-translucent: hsla(0, 0%, 100%, 0.7);
+	--dark-gray-translucent: hsla(0, 0%, 0%, 0.7);
+	--dark-gray: hsl(0, 0%, 30%);
+	--gray: hsl(0, 0%, 60%);
+	--light-gray: hsl(0, 0%, 85%);
+	--light-gray-translucent: hsla(0, 0%, 60%, 0.25);
+	--faint-gray: hsl(0, 0%, 90%);
+	--dark-red: hsl(2, 90%, 40%);
+	--faint-red: hsla(2, 90%, 95%);
+	--red: hsl(2, 90%, 60%);
+	--light-red: hsl(2, 90%, 90%);
+	--light-red-translucent: hsla(2, 90%, 65%, 0.25);
+	--dark-orange: hsl(32, 90%, 40%);
+	--faint-orange: hsla(32, 90%, 95%);
+	--orange: hsl(32, 90%, 60%);
+	--light-orange: hsl(32, 90%, 90%);
+	--light-orange-translucent: hsl(32, 90%, 65%, 0.25);
+	--dark-yellow: hsl(62, 90%, 40%);
+	--faint-yellow: hsla(62, 90%, 95%);
+	--yellow: hsl(62, 90%, 60%);
+	--light-yellow: hsl(62, 90%, 90%);
+	--light-yellow-translucent: hsl(62, 90%, 65%, 0.25);
+	--dark-green: hsl(124, 90%, 40%);
+	--green: hsl(124, 90%, 60%);
+	--faint-green: hsl(124, 90%, 95%);
+	--light-green: hsl(124, 90%, 90%);
+	--light-green-translucent: hsl(124, 90%, 65%, 0.25);
+	--dark-blue: hsl(212, 90%, 40%);
+	--blue: hsl(212, 90%, 60%);
+	--faint-blue: hsl(212, 90%, 95%);
+	--light-blue: hsl(212, 90%, 90%);
+	--light-blue-translucent: hsla(212, 90%, 65%, 0.25);
+	--dark-purple: hsl(272, 90%, 40%);
+	--faint-purple: hsl(272, 90%, 95%);
+	--faint-purple-translucent: hsl(272, 90%, 85%, 0.25);
+	--purple: hsl(272, 90%, 60%);
+	--light-purple: hsl(272, 90%, 90%);
+	--light-purple-translucent: hsla(272, 90%, 65%, 0.25);
+
+	--graph-paper-bg: hsl(212, 90%, 96%);
+	--graph-paper-major-line: hsla(212, 90%, 60%, 0.25);
+	--graph-paper-minor-line: hsla(212, 90%, 60%, 0.125);
+}
+
+[data-app-theme='dark'] {
+	--black: white;
+	--off-white: hsl(0, 0%, 10%);
+	--white: hsl(0, 0%, 15%);
+	--white-translucent: hsla(0, 0%, 0%, 0.25);
+	--dark-gray-translucent: hsla(0, 0%, 0%, 0.7);
+	--dark-gray: hsl(0, 0%, 70%);
+	--gray: hsl(0, 0%, 40%);
+	--light-gray: hsl(0, 0%, 25%);
+	--light-gray-translucent: hsla(0, 0%, 60%, 0.25);
+	--faint-gray: hsl(0, 0%, 15%);
+
+	--dark-red: hsl(2, 90%, 70%);
+	--red: hsl(2, 90%, 40%);
+	--light-red: hsl(2, 90%, 15%);
+	--faint-red: hsl(2, 90%, 10%);
+
+	--dark-orange: hsl(32, 90%, 70%);
+	--orange: hsl(32, 90%, 40%);
+	--light-orange: hsl(32, 90%, 15%);
+	--faint-orange: hsl(32, 90%, 10%);
+
+	--dark-yellow: hsl(62, 90%, 70%);
+	--yellow: hsl(62, 90%, 40%);
+	--light-yellow: hsl(62, 90%, 15%);
+	--light-yellow-translucent: hsl(62, 90%, 60%, 0.25);
+	--faint-yellow: hsl(62, 90%, 10%);
+
+	--dark-green: hsl(124, 90%, 70%);
+	--green: hsl(124, 90%, 40%);
+	--light-green: hsl(124, 90%, 15%);
+	--light-green-translucent: hsl(62, 90%, 60%, 0.25);
+	--faint-green: hsl(124, 90%, 10%);
+
+	--dark-blue: hsl(212, 90%, 70%);
+	--blue: hsl(212, 90%, 40%);
+	--light-blue: hsl(212, 90%, 15%);
+	--light-blue-translucent: hsla(212, 90%, 60%, 0.25);
+	--faint-blue: hsl(212, 90%, 10%);
+
+	--dark-purple: hsl(272, 90%, 70%);
+	--purple: hsl(272, 90%, 40%);
+	--light-purple: hsl(272, 90%, 15%);
+	--light-purple-translucent: hsla(272, 90%, 60%, 0.25);
+	--faint-purple: hsl(272, 90%, 10%);
+
+	--graph-paper-bg: hsl(212, 90%, 10%);
+	--graph-paper-major-line: hsla(212, 90%, 60%, 0.125);
+	--graph-paper-minor-line: hsla(212, 90%, 60%, 0.0625);
+}
+
+body {
+	color: var(--dark-gray);
+}
+
+a {
+	color: var(--dark-blue);
+}
+
+a:visited {
+	color: var(--dark-purple);
+}
+
+mark {
+	background-color: var(--light-yellow-translucent);
+	color: var(--black);
+}

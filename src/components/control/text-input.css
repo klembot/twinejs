@@ -1,0 +1,34 @@
+@import '../../styles/colors.css';
+@import '../../styles/metrics.css';
+@import '../../styles/typography.css';
+
+.text-input > label {
+	align-items: center;
+	display: inline-flex;
+}
+
+.text-input > label > input {
+	background: var(--white-translucent);
+	border: 1px solid var(--light-gray-translucent);
+	border-radius: var(--corner-round);
+	color: var(--dark-gray);
+	flex-grow: 1;
+	font: 100% var(--font-system);
+	height: var(--control-height);
+	margin-left: var(--grid-size);
+	padding: var(--grid-size);
+}
+
+.text-input.orientation-vertical > label {
+	align-items: flex-start;
+	flex-direction: column;
+}
+
+.text-input.orientation-vertical > label > input {
+	margin-left: 0;
+	margin-top: var(--grid-size);
+}
+
+.text-input.type-search > label > input {
+	border-radius: calc(var(--control-height) / 2);
+}

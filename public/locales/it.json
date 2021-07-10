@@ -1,0 +1,106 @@
+{
+	"colors": {},
+	"common": {
+		"add": "Aggiungi",
+		"appName": "Twine",
+		"cancel": "Annulla",
+		"delete": "Elimina",
+		"duplicate": "Duplica",
+		"edit": "Modifica",
+		"ok": "OK",
+		"play": "Gioca",
+		"rename": "Rinomina",
+		"remove": "Rimuovi",
+		"skip": "Salta",
+		"storyFormat": "Formato Racconto",
+		"tag": "Etichetta",
+		"test": "Testa",
+		"undo": "Undo"
+	},
+	"components": {
+		"addStoryFormatButton": {},
+		"addTagButton": {},
+		"fontSelect": {"fonts": {}},
+		"indentButtons": {},
+		"localStorageQuota": {},
+		"renamePassageButton": {"emptyName": "Inserisci un nome."},
+		"renameStoryButton": {"emptyName": "Inserisci un nome."},
+		"safariWarningCard": {},
+		"storyCard": {},
+		"storyFormatCard": {},
+		"storyFormatSelect": {},
+		"tagEditor": {}
+	},
+	"dialogs": {
+		"aboutTwine": {"donateToTwine": "Aiuta Twine a crescere con una donazione"},
+		"appDonation": {"noThanks": "No Grazie"},
+		"appPrefs": {"language": "Lingua"},
+		"passageEdit": {},
+		"passageTags": {},
+		"storyInfo": {"stats": {"title": "Statistiche del Racconto"}},
+		"storyJavaScript": {
+			"explanation": "Qualsiasi codice JavaScript inserito qui verrà immediatamente eseguito quando il tuo Racconto verrà aperto in un Web browser."
+		},
+		"storySearch": {
+			"title": "Trova e sostituisci",
+			"replaceWith": "Sostituisci Con"
+		},
+		"storyStylesheet": {
+			"explanation": "Qualsiasi CSS inserito qui andrà a modificare l’aspetto del racconto."
+		},
+		"storyTags": {}
+	},
+	"electron": {
+		"errors": {"storyFileChangedExternally": {}},
+		"menuBar": {"edit": "Modifica"},
+		"storiesDirectoryName": "Racconti"
+	},
+	"routes": {
+		"storyEdit": {
+			"topBar": {
+				"addPassage": "Passaggio",
+				"editJavaScript": "Modifica il codice JavaScript del Racconto",
+				"editStylesheet": "Modifica i Fogli Stile del Racconto",
+				"findAndReplace": "Trova e sostituisci",
+				"proofStory": "Visualizza Copia di Test",
+				"publishToFile": "Pubblica come File"
+			}
+		},
+		"storyFormatList": {
+			"title": {},
+			"storyFormatExplanation": "I formati Racconto controllano l’aspetto ed il comportamento delle storie durante l’esecuzione."
+		},
+		"storyImport": {},
+		"storyList": {
+			"noStories": "Al momento non ci sono racconti salvati in Twine. Per cominciare, puoi creare un nuovo racconto oppure importarne uno da file.",
+			"titleGeneric": "Racconti",
+			"topBar": {
+				"about": "A Proposito di Twine",
+				"archive": "Archivia",
+				"createStory": "Racconto",
+				"help": "Aiuto",
+				"sortName": "Nome",
+				"storyFormats": "Formati"
+			}
+		},
+		"welcome": {
+			"autosaveTitle": "Il tuo lavoro viene salvato automaticamente.",
+			"doneTitle": "E’ tutto!",
+			"gotoStoryList": "Vai all’elenco delle Storie",
+			"greetingTitle": "Ciao!",
+			"tellMeMore": "Dimmi di più",
+			"helpTitle": "Sei nuovo?"
+		}
+	},
+	"store": {
+		"errors": {},
+		"passageDefaults": {
+			"name": "Passaggio senza titolo",
+			"textClick": "Clicca due colte questo passaggio per modificarlo.",
+			"textTouch": "Tappa questo passaggio, dopodiché l’icona della matita per modificarlo."
+		},
+		"storyDefaults": {"name": "Racconto senza titolo"},
+		"storyFormatDefaults": {"name": "Formato Racconto senza nome"}
+	},
+	"undoChange": {"replaceAllText": "Sostituisci Tutto"}
+}

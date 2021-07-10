@@ -1,0 +1,46 @@
+@import '../../styles/metrics.css';
+
+.image-card {
+	height: 100%;
+	width: 100%;
+}
+
+.image-card > .card {
+	display: grid;
+	grid-template-columns: 2fr 3fr;
+	padding: 0;
+	position: relative;
+}
+
+.image-card .image-card-image {
+	align-items: center;
+	display: flex;
+	height: 100%;
+	overflow: hidden;
+	padding: var(--grid-size);
+	position: relative;
+	z-index: 1;
+}
+
+.image-card .image-card-image img,
+.image-card-image svg {
+	max-height: 100%;
+	width: 100%;
+	object-fit: contain;
+}
+
+.image-card .image-card-content {
+	display: flex;
+	flex-direction: column;
+	padding: var(--grid-size);
+	position: relative;
+	z-index: 1;
+}
+
+.image-card .image-card-tint {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}

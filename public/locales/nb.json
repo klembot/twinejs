@@ -1,0 +1,103 @@
+{
+	"colors": {},
+	"common": {
+		"add": "Legg til",
+		"appName": "Twine",
+		"cancel": "Avbryt",
+		"delete": "Slett",
+		"duplicate": "Dupliser",
+		"edit": "Rediger",
+		"ok": "OK",
+		"play": "Spill av",
+		"rename": "Endre navn",
+		"remove": "Fjern",
+		"skip": "Hopp over",
+		"storyFormat": "Historieformat",
+		"tag": "Emneord",
+		"test": "Test",
+		"undo": "Angre"
+	},
+	"components": {
+		"addStoryFormatButton": {},
+		"addTagButton": {},
+		"fontSelect": {"fonts": {}},
+		"indentButtons": {},
+		"localStorageQuota": {},
+		"renamePassageButton": {"emptyName": "Vennligst skriv inn et navn."},
+		"renameStoryButton": {"emptyName": "Vennligst skriv inn et navn."},
+		"safariWarningCard": {},
+		"storyCard": {},
+		"storyFormatCard": {},
+		"storyFormatSelect": {},
+		"tagEditor": {}
+	},
+	"dialogs": {
+		"aboutTwine": {"donateToTwine": "Hjelp Twine ved å gi en donasjon"},
+		"appDonation": {"noThanks": "Nei takk"},
+		"appPrefs": {"language": "Språk"},
+		"passageEdit": {},
+		"passageTags": {},
+		"storyInfo": {"stats": {"title": "Historiestatistikk"}},
+		"storyJavaScript": {
+			"explanation": "Alle JavaScript som er lagt til her, vil umiddelbart kjøre når historien din åpnes i en nettleser."
+		},
+		"storySearch": {"title": "Finn og erstatt", "replaceWith": "Erstatt med"},
+		"storyStylesheet": {
+			"explanation": "All CSS-kode som er lagt til her, vil tilsidesette standardutseendet til historien din."
+		},
+		"storyTags": {}
+	},
+	"electron": {
+		"errors": {"storyFileChangedExternally": {}},
+		"menuBar": {"edit": "Rediger"},
+		"storiesDirectoryName": "Historier"
+	},
+	"routes": {
+		"storyEdit": {
+			"topBar": {
+				"addPassage": "Passasje",
+				"editJavaScript": "Rediger historie JavaScript",
+				"editStylesheet": "Rediger historiestilark",
+				"findAndReplace": "Finn og erstatt",
+				"proofStory": "Se korrekturkopien",
+				"publishToFile": "Publiser til fil"
+			}
+		},
+		"storyFormatList": {
+			"title": {},
+			"storyFormatExplanation": "Historieformater styrer fremstillingen og oppførselen til historier under spillet."
+		},
+		"storyImport": {},
+		"storyList": {
+			"noStories": "Det er ingen historier lagret i Twine akkurat nå. For å komme i gang kan du enten opprette en ny historie eller importere en eksisterende fra en fil.",
+			"titleGeneric": "Historier",
+			"topBar": {
+				"about": "Om Twine",
+				"archive": "Arkiv",
+				"createStory": "Historie",
+				"help": "Hjelp",
+				"sortName": "Navn",
+				"storyFormats": "Format"
+			}
+		},
+		"welcome": {
+			"autosaveTitle": "Arbeidet ditt lagres automatisk.",
+			"doneTitle": "Det var det!",
+			"gotoStoryList": "Gå til historielisten",
+			"greetingTitle": "Hei!",
+			"tellMeMore": "Fortell meg mer",
+			"helpTitle": "Ny her?"
+		}
+	},
+	"store": {
+		"errors": {},
+		"passageDefaults": {
+			"name": "Passasje uten navn",
+			"textClick": "Dobbeltklikk på denne passasjen for å redigere det.",
+			"textTouch": "Klikk på denne passasjen, og deretter blyantikonet for å redigere det."
+		},
+		"storyDefaults": {"name": "Historie uten navn"},
+		"storyFormatDefaults": {"name": "Historieformat uten navn"}
+	},
+	"undoChange": {"replaceAllText": "Erstatt alle"}
+}

@@ -1,0 +1,49 @@
+@import '../../../styles/colors.css';
+@import '../../../styles/depth.css';
+@import '../../../styles/metrics.css';
+@import '../../../styles/typography.css';
+
+.code-area {
+	display: flex;
+	flex-direction: column;
+}
+
+.code-area > label {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+}
+
+.code-area > label > .label {
+	display: block;
+	margin-bottom: var(--control-inner-padding);
+}
+
+.code-area .react-codemirror2 {
+	flex: 1;
+	position: relative;
+}
+
+.code-area .CodeMirror {
+	background: var(--white-translucent);
+	border-radius: var(--corner-round);
+	border: 1px solid var(--faint-gray);
+	color: var(--dark-gray);
+	font-family: inherit;
+	height: 100%;
+	left: 0;
+	padding: calc(var(--grid-size) / 2);
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+
+/* See https://codemirror.net/doc/manual.html#styling */
+
+.code-area .CodeMirror-cursor {
+	border-left: 2px solid var(--blue);
+}
+
+.code-area .CodeMirror-selected {
+	background: var(--light-blue-translucent);
+}

@@ -1,0 +1,111 @@
+{
+	"colors": {},
+	"common": {
+		"add": "Voeg toe",
+		"appName": "Twine",
+		"cancel": "Annuleren",
+		"delete": "Verwijderen",
+		"duplicate": "Dupliceer",
+		"edit": "Bewerken",
+		"ok": "Oke",
+		"play": "Speel",
+		"rename": "Hernoem",
+		"remove": "Verwijder",
+		"skip": "Overslaan",
+		"storyFormat": "Verhaal formaat",
+		"tag": "Label",
+		"test": "Test",
+		"undo": "Ongedaan maken"
+	},
+	"components": {
+		"addStoryFormatButton": {
+			"prompt": "Vul onder een adres in om een verhaal formaat toe te voegen."
+		},
+		"addTagButton": {},
+		"fontSelect": {"fonts": {}},
+		"indentButtons": {},
+		"localStorageQuota": {},
+		"renamePassageButton": {"emptyName": "Vul a.u.b. een naam in."},
+		"renameStoryButton": {"emptyName": "Vul a.u.b. een naam in."},
+		"safariWarningCard": {},
+		"storyCard": {},
+		"storyFormatCard": {},
+		"storyFormatSelect": {},
+		"tagEditor": {}
+	},
+	"dialogs": {
+		"aboutTwine": {
+			"donateToTwine": "Help Twine te groeien met een donatie",
+			"codeHeader": "Code"
+		},
+		"appDonation": {"noThanks": "Nee bedankt"},
+		"appPrefs": {"language": "Taal"},
+		"passageEdit": {},
+		"passageTags": {},
+		"storyInfo": {"stats": {"title": "Verhaal statistieken"}},
+		"storyJavaScript": {
+			"explanation": "JavaScript die u hier invoert zal gelijk uitgevoerd worden als uw verhaal in een Web browser wordt geopend"
+		},
+		"storySearch": {
+			"title": "Zoek en vervang",
+			"replaceWith": "Verplaatsen met"
+		},
+		"storyStylesheet": {
+			"explanation": "CSS die hier is ingevoerd zal het standaard uiterlijk van je verhaal overschrijven"
+		},
+		"storyTags": {}
+	},
+	"electron": {
+		"errors": {"storyFileChangedExternally": {}},
+		"menuBar": {"edit": "Bewerken"},
+		"storiesDirectoryName": "Verhalen"
+	},
+	"routes": {
+		"storyEdit": {
+			"topBar": {
+				"addPassage": "Passage",
+				"editJavaScript": "Pas verhaal JavaScript aan",
+				"editStylesheet": "Pas verhaal StyleSheet aan",
+				"findAndReplace": "Zoek en vervang",
+				"proofStory": "Kijk naar controle kopie",
+				"publishToFile": "Naar bestand publiceren"
+			}
+		},
+		"storyFormatList": {
+			"title": {},
+			"storyFormatExplanation": "Verhaal formaten passen het uiterlijk en gedrag van verhalen aan tijdens het spelen."
+		},
+		"storyImport": {},
+		"storyList": {
+			"noStories": "Er zijn geen opgeslagen verhalen in Twine op dit moment. Om te beginnen kun een nieuw verhaal maken",
+			"titleGeneric": "Verhalen",
+			"topBar": {
+				"about": "Over Twine",
+				"archive": "Archief",
+				"createStory": "Verhaal",
+				"help": "Help",
+				"sortName": "Naam",
+				"storyFormats": "Formaten"
+			}
+		},
+		"welcome": {
+			"autosaveTitle": "Je werk wordt automatisch opgeslagen.",
+			"doneTitle": "Dat is het!",
+			"gotoStoryList": "Ga naar de verhaal lijst",
+			"greetingTitle": "Hallo!",
+			"tellMeMore": "Vertel me meer",
+			"helpTitle": "Ben je hier nieuw?"
+		}
+	},
+	"store": {
+		"errors": {},
+		"passageDefaults": {
+			"name": "Naamloze passage",
+			"textClick": "Klik twee keer op deze passage om het aan te passen.",
+			"textTouch": "Druk op deze passage en dan het potlood icoon om het aan te passen."
+		},
+		"storyDefaults": {"name": "Naamloos verhaal"},
+		"storyFormatDefaults": {"name": "Naamloos Verhaal Formaat"}
+	},
+	"undoChange": {"replaceAllText": "Alles vervangen"}
+}

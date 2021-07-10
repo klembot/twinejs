@@ -1,0 +1,105 @@
+{
+	"colors": {},
+	"common": {
+		"add": "Tilføj",
+		"appName": "Twine",
+		"cancel": "Afbryd",
+		"delete": "Slet",
+		"duplicate": "Dublér",
+		"edit": "Redigér",
+		"ok": "Ok",
+		"play": "Spil",
+		"rename": "Omdøb",
+		"remove": "Fjern",
+		"skip": "Skip",
+		"storyFormat": "Historieformat",
+		"tag": "Mærkat",
+		"test": "Test",
+		"undo": "Fortryd"
+	},
+	"components": {
+		"addStoryFormatButton": {},
+		"addTagButton": {},
+		"fontSelect": {"fonts": {}},
+		"indentButtons": {},
+		"localStorageQuota": {},
+		"renamePassageButton": {"emptyName": "Indtast et navn."},
+		"renameStoryButton": {"emptyName": "Indtast et navn."},
+		"safariWarningCard": {},
+		"storyCard": {},
+		"storyFormatCard": {},
+		"storyFormatSelect": {},
+		"tagEditor": {}
+	},
+	"dialogs": {
+		"aboutTwine": {
+			"donateToTwine": "Hjælp Twine med at vokse ved at give en donation"
+		},
+		"appDonation": {"noThanks": "Nej tak"},
+		"appPrefs": {"language": "Sprog"},
+		"passageEdit": {},
+		"passageTags": {},
+		"storyInfo": {"stats": {"title": "Historiestatistikker"}},
+		"storyJavaScript": {
+			"explanation": "Javascript indtastet her vil blive kørt med det samme når din historie åbnes i en browser."
+		},
+		"storySearch": {"title": "Søg og erstat", "replaceWith": "Erstat med"},
+		"storyStylesheet": {
+			"explanation": "CSS indtastet her vil overskrive standardudseendet på din historie."
+		},
+		"storyTags": {}
+	},
+	"electron": {
+		"errors": {"storyFileChangedExternally": {}},
+		"menuBar": {"edit": "Redigér"},
+		"storiesDirectoryName": "Historier"
+	},
+	"routes": {
+		"storyEdit": {
+			"topBar": {
+				"addPassage": "Passage",
+				"editJavaScript": "Redigér historiens JavaScript",
+				"editStylesheet": "Redigér historiens Stylesheet",
+				"findAndReplace": "Søg og erstat",
+				"proofStory": "Vis korrekturkopi",
+				"publishToFile": "Udgiv som fil"
+			}
+		},
+		"storyFormatList": {
+			"title": {},
+			"storyFormatExplanation": "Historieformater styrer udseende og opførsel af historier når der spilles."
+		},
+		"storyImport": {},
+		"storyList": {
+			"noStories": "Der er ingen historier gemt i Twine lige nu. For at begynde kan du enten oprette en ny historie eller importere en eksisterende fra en fil.",
+			"titleGeneric": "Historier",
+			"topBar": {
+				"about": "Om Twine",
+				"archive": "Arkiv",
+				"createStory": "Historie",
+				"help": "Hjælp",
+				"sortName": "Navn",
+				"storyFormats": "Formater"
+			}
+		},
+		"welcome": {
+			"autosaveTitle": "Dit arbejde gemmes automatisk.",
+			"doneTitle": "Det var alt!",
+			"gotoStoryList": "Gå til historielisten",
+			"greetingTitle": "Hej!",
+			"tellMeMore": "Fortæl mig mere",
+			"helpTitle": "Er du ny her?"
+		}
+	},
+	"store": {
+		"errors": {},
+		"passageDefaults": {
+			"name": "Unavngiven passage",
+			"textClick": "Dobbeltklik på denne passage for at redigere den.",
+			"textTouch": "Tryk på denne passage og derefter på blyantikonet for at redigere den."
+		},
+		"storyDefaults": {"name": "Unavngiven historie"},
+		"storyFormatDefaults": {"name": "Unavngivet historieformat"}
+	},
+	"undoChange": {"replaceAllText": "Erstat alle"}
+}

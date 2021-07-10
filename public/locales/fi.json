@@ -1,0 +1,111 @@
+{
+	"colors": {},
+	"common": {
+		"add": "Lisää",
+		"appName": "Twine",
+		"cancel": "Peruuta",
+		"delete": "Poista",
+		"duplicate": "Kopioi",
+		"edit": "Muokkaa",
+		"ok": "OK",
+		"play": "Näytä",
+		"rename": "Nimeä uudelleen",
+		"remove": "Poista",
+		"skip": "Ohita",
+		"storyFormat": "Tarinan muotoilu",
+		"tag": "Tunniste",
+		"test": "Testaa",
+		"undo": "Kumoa"
+	},
+	"components": {
+		"addStoryFormatButton": {
+			"prompt": "Lisää tarinamuotoilu kirjoittamalla alle sen osoite."
+		},
+		"addTagButton": {},
+		"fontSelect": {"fonts": {}},
+		"indentButtons": {},
+		"localStorageQuota": {},
+		"renamePassageButton": {"emptyName": "Anna nimi."},
+		"renameStoryButton": {"emptyName": "Anna nimi."},
+		"safariWarningCard": {},
+		"storyCard": {},
+		"storyFormatCard": {},
+		"storyFormatSelect": {},
+		"tagEditor": {}
+	},
+	"dialogs": {
+		"aboutTwine": {
+			"donateToTwine": "Auta Twineä kasvamaan lahjoittamalla",
+			"codeHeader": "Koodi"
+		},
+		"appDonation": {"noThanks": "Ei kiitos"},
+		"appPrefs": {"language": "Kieli"},
+		"passageEdit": {},
+		"passageTags": {},
+		"storyInfo": {"stats": {"title": "Tarinan tilastotietoja"}},
+		"storyJavaScript": {
+			"explanation": "Tähän kirjoitettu JavaScript-koodi suoriteen heti, kun tarina avataan selaimeen."
+		},
+		"storySearch": {
+			"title": "Etsi ja Korvaa",
+			"replaceWith": "Korvaa tekstillä"
+		},
+		"storyStylesheet": {
+			"explanation": "Tähän kirjoitettu CSS-koodi määrittää tarinan ulkoasun."
+		},
+		"storyTags": {}
+	},
+	"electron": {
+		"errors": {"storyFileChangedExternally": {}},
+		"menuBar": {"edit": "Muokkaa"},
+		"storiesDirectoryName": "Tarinat"
+	},
+	"routes": {
+		"storyEdit": {
+			"topBar": {
+				"addPassage": "kappale",
+				"editJavaScript": "Muokkaa tarinan JavaScriptiä",
+				"editStylesheet": "Muokkaa tarinan tyyliohjeita",
+				"findAndReplace": "Etsi ja Korvaa",
+				"proofStory": "Näytä esikatselukopio",
+				"publishToFile": "Julkaise tiedostoon"
+			}
+		},
+		"storyFormatList": {
+			"title": {},
+			"storyFormatExplanation": "Tarinan muotoilut ohjaavat tarinan ulkoasua ja toimintaa tarinaa näytettäessä."
+		},
+		"storyImport": {},
+		"storyList": {
+			"noStories": "Twinessä ei ole tallennettuja tarinoita. Aloita luomalla uusi tarina tai tuo tarina tiedostosta.",
+			"titleGeneric": "Tarinat",
+			"topBar": {
+				"about": "Tietoja Twinestä",
+				"archive": "Arkisto",
+				"createStory": "Tarina",
+				"help": "Ohjeet",
+				"sortName": "Nimi",
+				"storyFormats": "Muotoilut"
+			}
+		},
+		"welcome": {
+			"autosaveTitle": "Työsi tallennetaan automaattisesti",
+			"doneTitle": "Siinä kaikki!",
+			"gotoStoryList": "Siirry tarinaluetteloon",
+			"greetingTitle": "Hei!",
+			"tellMeMore": "Kerro lisää",
+			"helpTitle": "Uusi täällä?"
+		}
+	},
+	"store": {
+		"errors": {},
+		"passageDefaults": {
+			"name": "Nimetön kappale",
+			"textClick": "Kaksoisnapsauta lukua muokataksesi sitä.",
+			"textTouch": "Napsauta tätä kappaletta ja sitten kynäkuvaketta muokataksesi sitä."
+		},
+		"storyDefaults": {"name": "Nimerön tarina"},
+		"storyFormatDefaults": {"name": "Nimetön tarinamuotoilu"}
+	},
+	"undoChange": {"replaceAllText": "Korvaa kaikki"}
+}

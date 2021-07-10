@@ -1,0 +1,30 @@
+@import '../../styles/animations.css';
+@import '../../styles/metrics.css';
+
+.dialogs {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	pointer-events: none;
+	position: fixed;
+	bottom: var(--grid-size);
+	right: var(--grid-size);
+	top: calc(
+		var(--control-height) + var(--grid-size)
+	); /* below <top-bar> height */
+	width: 40em;
+}
+
+.dialogs .dialog-card {
+	flex: 1;
+	pointer-events: auto;
+}
+
+.dialogs .dialog-card + .dialog-card {
+	margin-top: var(--grid-size);
+}
+
+.dialogs .dialog-card.collapsed,
+.dialogs .dialog-card.fixed-size {
+	flex: 0;
+}

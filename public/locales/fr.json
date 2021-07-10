@@ -1,0 +1,106 @@
+{
+	"colors": {},
+	"common": {
+		"add": "Ajouter",
+		"appName": "Twine",
+		"cancel": "Annuler",
+		"delete": "Supprimer",
+		"duplicate": "Dupliquer",
+		"edit": "Modifier",
+		"ok": "OK",
+		"play": "Lancer",
+		"rename": "Renommer",
+		"remove": "Supprimer",
+		"skip": "Passer",
+		"storyFormat": "Format d'Histoire",
+		"tag": "Balise",
+		"test": "Test",
+		"undo": "Annuler"
+	},
+	"components": {
+		"addStoryFormatButton": {},
+		"addTagButton": {},
+		"fontSelect": {"fonts": {}},
+		"indentButtons": {},
+		"localStorageQuota": {},
+		"renamePassageButton": {"emptyName": "Veuillez entrer un nom."},
+		"renameStoryButton": {"emptyName": "Veuillez entrer un nom."},
+		"safariWarningCard": {},
+		"storyCard": {},
+		"storyFormatCard": {},
+		"storyFormatSelect": {},
+		"tagEditor": {}
+	},
+	"dialogs": {
+		"aboutTwine": {"donateToTwine": "Aidez Twine à Grandir Grâce À Un Don"},
+		"appDonation": {"noThanks": "Non Merci"},
+		"appPrefs": {"language": "Langue"},
+		"passageEdit": {},
+		"passageTags": {},
+		"storyInfo": {"stats": {"title": "Statistiques de l'Histoire"}},
+		"storyJavaScript": {
+			"explanation": "Tout JavaScript ajouté ici sera lancé dès que votre histoire sera ouverte dans un navigateur Web."
+		},
+		"storySearch": {
+			"title": "Chercher et Remplacer",
+			"replaceWith": "Remplacer Par"
+		},
+		"storyStylesheet": {
+			"explanation": "Tout CSS ajouté ici remplacera l'apparence par défaut de votre histoire"
+		},
+		"storyTags": {}
+	},
+	"electron": {
+		"errors": {"storyFileChangedExternally": {}},
+		"menuBar": {"edit": "Modifier"},
+		"storiesDirectoryName": "Histoires"
+	},
+	"routes": {
+		"storyEdit": {
+			"topBar": {
+				"addPassage": "Passage",
+				"editJavaScript": "Modifier le JavaScript de l'Histoire",
+				"editStylesheet": "Modifier la Feuille de Style de l'Histoire",
+				"findAndReplace": "Chercher et Remplacer",
+				"proofStory": "Voir Épreuve de Correction",
+				"publishToFile": "Publier vers un Fichier"
+			}
+		},
+		"storyFormatList": {
+			"title": {},
+			"storyFormatExplanation": "Les formats d'histoire contrôlent l'apparence et le comportement des histoires durant la lecture."
+		},
+		"storyImport": {},
+		"storyList": {
+			"noStories": "Il n'y a aucune histoire sauvegardée dans Twine pour le moment. Pour commencer, vous pouvez soit créer une nouvelle histoire soit en importer une depuis un fichier.",
+			"titleGeneric": "Histoires",
+			"topBar": {
+				"about": "À propos de Twine",
+				"archive": "Archive",
+				"createStory": "Histoire",
+				"help": "Aide",
+				"sortName": "Nom",
+				"storyFormats": "Formats"
+			}
+		},
+		"welcome": {
+			"autosaveTitle": "Votre travail est sauvegardé automatiquement.",
+			"doneTitle": "C'est tout !",
+			"gotoStoryList": "Aller à la Liste des Histoires",
+			"greetingTitle": "Salut !",
+			"tellMeMore": "En Savoir Plus",
+			"helpTitle": "Nouveau venu ?"
+		}
+	},
+	"store": {
+		"errors": {},
+		"passageDefaults": {
+			"name": "Passage sans titre",
+			"textClick": "Double-cliquez sur ce passage pour le modifier.",
+			"textTouch": "Cliquez sur ce passage, puis sur l'icône du crayon pour le modifier."
+		},
+		"storyDefaults": {"name": "Histoire sans Titre."},
+		"storyFormatDefaults": {"name": "Format d'Histoire sans Titre."}
+	},
+	"undoChange": {"replaceAllText": "Remplacer Tout"}
+}

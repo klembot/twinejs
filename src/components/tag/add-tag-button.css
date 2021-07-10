@@ -1,0 +1,12 @@
+@import '../../styles/metrics.css';
+
+.add-tag-button .card-content {
+	display: grid;
+	grid-gap: var(--grid-size);
+}
+
+.add-tag-button .card-content .text-select-label,
+.add-tag-button .card-content .text-input-label {
+	display: inline-block;
+	width: 6em;
+}

@@ -1,0 +1,108 @@
+{
+	"colors": {},
+	"common": {
+		"add": "Tambah",
+		"appName": "Twine",
+		"cancel": "Batal",
+		"delete": "Padam",
+		"duplicate": "Salinan",
+		"edit": "Sunting",
+		"ok": "OK",
+		"play": "Main",
+		"rename": "Namakan Semula",
+		"remove": "Buang",
+		"skip": "Langkau",
+		"storyFormat": "Format Cerita",
+		"tag": "Tag",
+		"test": "Cuba",
+		"undo": "Undo"
+	},
+	"components": {
+		"addStoryFormatButton": {},
+		"addTagButton": {},
+		"fontSelect": {"fonts": {}},
+		"indentButtons": {},
+		"localStorageQuota": {},
+		"renamePassageButton": {"emptyName": "Sila masukkan nama."},
+		"renameStoryButton": {"emptyName": "Sila masukkan nama."},
+		"safariWarningCard": {},
+		"storyCard": {},
+		"storyFormatCard": {},
+		"storyFormatSelect": {},
+		"tagEditor": {}
+	},
+	"dialogs": {
+		"aboutTwine": {
+			"donateToTwine": "Tolong Twine Berkembang Melalui Sumbangan"
+		},
+		"appDonation": {"noThanks": "Tidak Mengapalah, Terima Kasih"},
+		"appPrefs": {"language": "Bahasa"},
+		"passageEdit": {},
+		"passageTags": {},
+		"storyInfo": {"stats": {"title": "Statistik Cerita"}},
+		"storyJavaScript": {
+			"explanation": "Sebarang JavaScript yang dimasukkan di sini akan berjalan dengan serta-merta apabila cerita anda dibuka dalam pelayar Web."
+		},
+		"storySearch": {
+			"title": "Cari dan Gantikan",
+			"replaceWith": "Ganti Dengan"
+		},
+		"storyStylesheet": {
+			"explanation": "Sebarang CSS yang dimasukkan di sini akan mengatasi penampilan lalai cerita anda."
+		},
+		"storyTags": {}
+	},
+	"electron": {
+		"errors": {"storyFileChangedExternally": {}},
+		"menuBar": {"edit": "Sunting"},
+		"storiesDirectoryName": "Cerita"
+	},
+	"routes": {
+		"storyEdit": {
+			"topBar": {
+				"addPassage": "Petikan",
+				"editJavaScript": "Sunting Cerita JavaScript",
+				"editStylesheet": "Sunting Cerita Stylesheet",
+				"findAndReplace": "Cari dan Gantikan",
+				"proofStory": "Lihat Salinan Proofing",
+				"publishToFile": "Terbit ke Fail"
+			}
+		},
+		"storyFormatList": {
+			"title": {},
+			"storyFormatExplanation": "Format cerita kawal penampilan dan tingkah laku cerita semasa tengah bermain."
+		},
+		"storyImport": {},
+		"storyList": {
+			"noStories": "Tiada apa-apa cerita disimpan di Twine pada masa sekarang. Untuk bermula, anda boleh sama ada cipta cerita baharu atau import yang sedia ada dari fail.",
+			"titleGeneric": "Cerita",
+			"topBar": {
+				"about": "Tentang Twine",
+				"archive": "Arkib",
+				"createStory": "Cerita",
+				"help": "Tolong",
+				"sortName": "Nama",
+				"storyFormats": "Format-Format"
+			}
+		},
+		"welcome": {
+			"autosaveTitle": "Kerja anda disimpan secara automatik.",
+			"doneTitle": "Itu sahaja!",
+			"gotoStoryList": "Pergi ke Senarai Cerita",
+			"greetingTitle": "Hai!",
+			"tellMeMore": "Beritahu Saya Lagi",
+			"helpTitle": "Baharu di sini?"
+		}
+	},
+	"store": {
+		"errors": {},
+		"passageDefaults": {
+			"name": "Petikan Tidak Bertajuk",
+			"textClick": "Klik dua kali untuk sunting petikan ini.",
+			"textTouch": "Tekan petikan ini, kemudian ikon pensel untuk suntingkannya."
+		},
+		"storyDefaults": {"name": "Cerita Tidak Bertajuk"},
+		"storyFormatDefaults": {"name": "Format Cerita Tidak Bertajuk"}
+	},
+	"undoChange": {"replaceAllText": "Ganti Semua"}
+}

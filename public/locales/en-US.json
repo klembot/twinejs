@@ -1,0 +1,336 @@
+{
+	"colors": {
+		"none": "No Color",
+		"red": "Red",
+		"orange": "Orange",
+		"yellow": "Yellow",
+		"green": "Green",
+		"blue": "Blue",
+		"purple": "Purple"
+	},
+	"common": {
+		"add": "Add",
+		"appName": "Twine",
+		"cancel": "Cancel",
+		"close": "Close",
+		"color": "Color",
+		"custom": "Custom",
+		"delete": "Delete",
+		"deleteCount": "Delete ({{count}})",
+		"duplicate": "Duplicate",
+		"edit": "Edit",
+		"editCount": "Edit ({{count}})",
+		"import": "Import",
+		"more": "More",
+		"next": "Next",
+		"ok": "OK",
+		"play": "Play",
+		"preferences": "Preferences",
+		"publishToFile": "Publish To File",
+		"redo": "Redo",
+		"redoChange": "Redo {{change}}",
+		"rename": "Rename",
+		"renamePrompt": "What should “{{name}}” be renamed to?",
+		"remove": "Remove",
+		"skip": "Skip",
+		"storyFormat": "Story Format",
+		"tag": "Tag",
+		"test": "Test",
+		"undo": "Undo",
+		"undoChange": "Undo {{change}}"
+	},
+	"components": {
+		"addStoryFormatButton": {
+			"addPreview": "{{storyFormatName}} {{storyFormatVersion}} will be added.",
+			"alreadyAdded": "{{storyFormatName}} {{storyFormatVersion}} has already been added.",
+			"fetchError": "An error occurred while retrieving this format ({{errorMessage}}).",
+			"prompt": "To add a story format, enter its address below.",
+			"invalidUrl": "The address you've entered isn't a valid URL."
+		},
+		"addTagButton": {
+			"alreadyAdded": "This tag name has already been added.",
+			"addLabel": "Add Tag",
+			"invalidName": "Please enter a valid tag name.",
+			"newTag": "New Tag",
+			"tagColorLabel": "Tag Color",
+			"tagNameLabel": "Tag Name"
+		},
+		"fontSelect": {
+			"customScaleDetail": "Please enter a percentage only.",
+			"customFamilyDetail": "Please enter the name of the font only.",
+			"familyEmpty": "Please enter a font name.",
+			"font": "Font",
+			"fonts": {
+				"monospaced": "Monospaced",
+				"serif": "Serif",
+				"system": "System"
+			},
+			"fontSize": "Font Size",
+			"percentage": "{{percent}}%",
+			"percentageIsntNumber": "Please enter a number.",
+			"percentageNotPositive": "Please enter a number greater than 0."
+		},
+		"indentButtons": {
+			"indent": "Indent",
+			"unindent": "Unindent"
+		},
+		"localStorageQuota": {
+			"measureAgain": "Measure space available again",
+			"percentAvailable": "{percent}% space available"
+		},
+		"renamePassageButton": {
+			"emptyName": "Please enter a name.",
+			"nameAlreadyUsed": "Another passage in this story has this name."
+		},
+		"renameStoryButton": {
+			"emptyName": "Please enter a name.",
+			"nameAlreadyUsed": "Another story has this name."
+		},
+		"safariWarningCard": {
+			"archiveAndUseAnotherBrowser": "Please archive your stories and use another platform.",
+			"addToHomeScreen": "Add this site to your home screen to avoid this limitation.",
+			"howToAddToHomeScreen": "How Do I Add This To My Home Screen?",
+			"learnMore": "Learn More",
+			"message": "The browser you are using will delete all stories after seven days of not visiting this web site."
+		},
+		"storyCard": {
+			"lastUpdated": "Last edited on {{date}}",
+			"passageCount": "1 passage",
+			"passageCount_plural": "{{count}} passages"
+		},
+		"storyFormatCard": {
+			"author": "by {{author}}",
+			"license": "License: {{license}}",
+			"loadingFormat": "Loading this story format...",
+			"loadError": "This story format could not be loaded ({{errorMessage}}).",
+			"name": "{{name}} {{version}}",
+			"useFormat": "Use As Default Story Format",
+			"useProofingFormat": "Use As Proofing Format"
+		},
+		"storyFormatSelect": {
+			"loadingCount": "Loading 1 Story Format...",
+			"loadingCount_plural": "Loading {{loadingCount}} Story Formats..."
+		},
+		"tagEditor": {
+			"alreadyExists": "A tag with this name already exists."
+		}
+	},
+	"dialogs": {
+		"aboutTwine": {
+			"donateToTwine": "Help Twine Grow With A Donation",
+			"codeHeader": "Code",
+			"codeRepo": "Visit Source Code Repository",
+			"license": "This application is released under the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GPL v3 license</a>, but any work created with it may be released under any terms, including commercial ones.",
+			"localizationHeader": "Localizations",
+			"title": "About Twine {{version}}",
+			"twineDescription": "Twine is an open-source application for telling interactive, nonlinear stories."
+		},
+		"appDonation": {
+			"donate": "Donate To Twine Development",
+			"onlyOnce": "(This message will only be shown to you once. If you'd like to donate to Twine development in the future, there's a link to do so in the About Twine dialog.)",
+			"supportMessage": "If you love Twine, please consider helping it grow with a donation. Twine is an open source project that will always be free to use—and with your help, Twine will continue to thrive.",
+			"noThanks": "No Thanks",
+			"title": "Support Twine Development"
+		},
+		"appPrefs": {
+			"codeEditorFont": "Code Editor Font",
+			"codeEditorFontScale": "Code Editor Font Size",
+			"fontExplanation": "Changing the font here only affects the Twine editor. It will not change the font a story uses when played.",
+			"language": "Language",
+			"passageEditorFont": "Passage Editor Font",
+			"passageEditorFontScale": "Passage Editor Font Size",
+			"themeLight": "Light",
+			"themeDark": "Dark",
+			"themeSystem": "System",
+			"theme": "Theme",
+			"title": "Preferences"
+		},
+		"passageEdit": {
+			"setAsStart": "Start Story Here",
+			"size": "Size",
+			"sizeLarge": "Large",
+			"sizeSmall": "Small",
+			"sizeTall": "Tall",
+			"sizeWide": "Wide"
+		},
+		"passageTags": {
+			"noTags": "No tags have been added to passages in this story.",
+			"title": "Passage Tags"
+		},
+		"storyInfo": {
+			"setStoryFormat": "Set Story Format",
+			"storyFormatExplanation": "What's a story format?",
+			"snapToGrid": "Snap To Grid",
+			"stats": {
+				"brokenLinks": "Broken Links",
+				"characters": "Characters",
+				"title": "Story Statistics",
+				"ifid": "The IFID of this story is {{ifid}}.",
+				"ifidExplanation": "What's an IFID?",
+				"lastUpdate": "This story was last changed on {{date}}.",
+				"links": "Links",
+				"passages": "Passages",
+				"words": "Words"
+			}
+		},
+		"storyJavaScript": {
+			"title": "Story JavaScript",
+			"explanation": "Any JavaScript entered here will immediately run when your story is opened in a Web browser."
+		},
+		"storySearch": {
+			"title": "Find and Replace",
+			"find": "Find",
+			"includePassageNames": "Include Passage Names",
+			"matchCase": "Match Case",
+			"matchCount": "{{count}} matching passage",
+			"matchCount_plural": "{{count}} matching passages",
+			"noMatches": "No matching passages",
+			"replaceAll": "Replace In All Passages",
+			"replaceWith": "Replace With",
+			"useRegexes": "Use Regular Expressions"
+		},
+		"storyStylesheet": {
+			"title": "Story Stylesheet",
+			"explanation": "Any CSS entered here will override the default appearance of your story."
+		},
+		"storyTags": {
+			"noTags": "No tags have been added to your stories.",
+			"title": "Story Tags"
+		}
+	},
+	"electron": {
+		"backupsDirectoryName": "Backups",
+		"errors": {
+			"jsonSave": "An error occurred while saving a settings file.",
+			"storyFileChangedExternally": {
+				"message": "The file “{{fileName}}” in your story library was changed outside of Twine.",
+				"detail": "Saving changes will overwrite this file. If you'd like to use this file instead of the version in Twine, Twine will relaunch and your work will be replaced with the file.",
+				"overwriteChoice": "Save Changes in Twine",
+				"relaunchChoice": "Use File and Relaunch"
+			},
+			"storyDelete": "An error occurred while deleting a story.",
+			"storyRename": "An error occurred while renaming a story.",
+			"storySave": "An error occurred while saving a story."
+		},
+		"menuBar": {
+			"edit": "Edit",
+			"showDevTools": "Show Debug Console",
+			"showStoryLibrary": "Show Story Library",
+			"speech": "Speech",
+			"troubleshooting": "Troubleshooting",
+			"twineHelp": "Twine Help",
+			"view": "View"
+		},
+		"storiesDirectoryName": "Stories"
+	},
+	"routes": {
+		"storyEdit": {
+			"topBar": {
+				"addPassage": "Passage",
+				"editJavaScript": "Edit Story JavaScript",
+				"editStylesheet": "Edit Story Stylesheet",
+				"findAndReplace": "Find and Replace",
+				"passageTags": "Edit Passage Tags",
+				"proofStory": "View Proofing Copy",
+				"publishToFile": "Publish to File",
+				"selectAllPassages": "Select All Passages",
+				"storyInfo": "Story Information",
+				"zoomIn": "Zoom In",
+				"zoomOut": "Zoom Out"
+			}
+		},
+		"storyFormatList": {
+			"noneVisible": "No story formats match the criteria you've selected.",
+			"show": "Show...",
+			"title": {
+				"all": "All Story Formats",
+				"current": "Current Story Formats",
+				"user": "User-Added Story Formats"
+			},
+			"storyFormatExplanation": "Story formats control the appearance and behavior of stories during play."
+		},
+		"storyImport": {
+			"choosePrompt": "Choose which stories to import from the file you uploaded:",
+			"deselectAll": "Deselect All",
+			"importDifferentFile": "Import a Different File",
+			"importSelected": "Import Selected Files",
+			"importThisStory": "Import This Story",
+			"noStoriesInFile": "There don't appear to be any Twine stories in the file you uploaded. Please choose another file.",
+			"selectAll": "Select All",
+			"title": "Import Stories",
+			"uploadPrompt": "To import stories into Twine, upload either an archive or published story file below.",
+			"willReplaceExisting": "A story with the same name in your library will be replaced."
+		},
+		"storyList": {
+			"noStories": "There are no stories saved in Twine right now. To get started, you can either create a new story or import an existing one from a file.",
+			"taggedTitleCount": "1 Tagged Story",
+			"taggedTitleCount_0": "No Tagged Stories",
+			"taggedTitleCount_plural": "{{count}} Tagged Stories",
+			"titleCount": "1 Story",
+			"titleCount_0": "No Stories",
+			"titleCount_plural": "{{count}} Stories",
+			"titleGeneric": "Stories",
+			"topBar": {
+				"about": "About Twine",
+				"archive": "Archive",
+				"createStory": "Story",
+				"showAllStories": "All Stories",
+				"showTags": "Show Tags...",
+				"help": "Help",
+				"reportBug": "Report a Bug",
+				"sort": "Sort By...",
+				"sortDate": "Date",
+				"sortName": "Name",
+				"storyTags": "Edit Story Tags",
+				"storyFormats": "Formats"
+			}
+		},
+		"welcome": {
+			"autosave": "<p>There's now a folder named Twine in your Documents folder. Inside that is a Stories folder, where all your work will be saved. Twine saves as you work, so you don't have to worry about remembering to save it yourself. You can always open the folder your stories are saved to by using the <strong>Show Library</strong> item in the <strong>Twine</strong> menu.</p><p>Because Twine is always saving your work, the files in your story library will be locked from editing while Twine is open.</p><p>If you'd like to open a Twine story file you received from someone else, you can import it into your library using the <strong>Import From File</strong> link in the story list.</p>",
+			"autosaveTitle": "Your work is automatically saved.",
+			"browserStorage": "<p>That means you don't need to create an account to use Twine 2, and everything you create isn't stored on a server somewhere else&mdash;it stays right in your browser.</p><p>Two <strong>very important</strong> things to remember, though. Since your work is saved only in your browser, if you clear its saved data, then you'll lose your work! Not good. Remember to use that <strong>Archive</strong> button often. You can also publish individual stories to files using the menu on each story in the story list. Both archive and story files can always be re-imported into Twine.</p><p>Secondly, <strong>anyone who can use this browser can see and make changes to your work.</strong> So if you've got a nosy kid brother, look into setting up a separate profile for yourself.</p>",
+			"browserStorageTitle": "Your work is only saved in your browser",
+			"done": "<p>Thanks for reading, and have fun with Twine.</p>",
+			"doneTitle": "That's it!",
+			"gotoStoryList": "Go to the Story List",
+			"greeting": "<p>Twine is an open-source tool for telling interactive, nonlinear stories. There are a few things you should know before you get started.</p>",
+			"greetingTitle": "Hi!",
+			"tellMeMore": "Tell Me More",
+			"help": "<p><strong>If you've never used Twine before, then welcome!</strong> The <a href=\"https://twinery.org/cookbook\">Twine Cookbook</a> is a great resource for learning how to use it. If you haven't used Twine before, it's a great place to start.</p>",
+			"helpTitle": "New here?"
+		}
+	},
+	"store": {
+		"archiveFilename": "{{timestamp}} Twine Archive.html",
+		"errors": {
+			"cantPersistPrefs": "Saving your preferences failed ({{error}}).",
+			"cantPersistStories": "Saving your stories failed ({{error}}).",
+			"cantPersistStoryFormats": "Saving your story formats failed ({{error}}).",
+			"electronRemediation": "Restarting this application may help.",
+			"webRemediation": "Reloading this page may help."
+		},
+		"passageDefaults": {
+			"name": "Untitled Passage",
+			"textClick": "Double-click this passage to edit it.",
+			"textTouch": "Tap this passage, then the pencil icon to edit it."
+		},
+		"storyDefaults": {
+			"name": "Untitled Story"
+		},
+		"storyFormatDefaults": {
+			"name": "Untitled Story Format"
+		}
+	},
+	"undoChange": {
+		"changeTagColor": "Change Tag Color",
+		"createPassage": "Create Passage",
+		"deletePassage": "Delete Passage",
+		"deletePassages": "Delete Passages",
+		"movePassage": "Move Passage",
+		"movePassages": "Move Passages",
+		"removeTag": "Remove Tag",
+		"renamePassage": "Rename Passage",
+		"renameTag": "Rename Tag",
+		"replaceAllText": "Replace All"
+	}
+}

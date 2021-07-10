@@ -1,0 +1,15 @@
+@import '../../styles/colors.css';
+@import '../../styles/metrics.css';
+
+.welcome-route {
+	background: var(--off-white);
+	min-height: 100vh;
+	padding: calc(4 * var(--grid-size));
+}
+
+.welcome-route .cards {
+	display: grid;
+	grid-gap: var(--grid-size);
+	margin: 0 auto;
+	max-width: 45em;
+}

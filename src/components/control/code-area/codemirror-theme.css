@@ -1,0 +1,97 @@
+/*
+The goal here is to align CM's default theme with our color palette.
+@see https://codemirror.net/lib/codemirror.css, DEFAULT THEME section
+*/
+
+@import '../../../styles/colors.css';
+
+.cm-s-default .cm-header {
+	color: var(--dark-blue);
+}
+.cm-s-default .cm-quote {
+	color: var(--dark-green);
+}
+.cm-negative {
+	color: var(--dark-red);
+}
+.cm-positive {
+	color: var(--dark-green);
+}
+.cm-header,
+.cm-strong {
+	font-weight: bold;
+}
+.cm-em {
+	font-style: italic;
+}
+.cm-link {
+	text-decoration: underline;
+}
+.cm-strikethrough {
+	text-decoration: line-through;
+}
+
+.cm-s-default .cm-keyword {
+	color: var(--dark-purple);
+}
+.cm-s-default .cm-atom {
+	color: var(--dark-blue);
+}
+.cm-s-default .cm-number {
+	color: var(--dark-green);
+}
+.cm-s-default .cm-def {
+	color: var(--dark-blue);
+}
+.cm-s-default .cm-variable,
+.cm-s-default .cm-punctuation,
+.cm-s-default .cm-property,
+.cm-s-default .cm-operator {
+}
+.cm-s-default .cm-variable-2 {
+	color: var(--dark-blue);
+}
+.cm-s-default .cm-variable-3,
+.cm-s-default .cm-type {
+	color: var(--dark-green);
+}
+.cm-s-default .cm-comment {
+	color: var(--dark-orange);
+}
+.cm-s-default .cm-string {
+	color: var(--dark-red);
+}
+.cm-s-default .cm-string-2 {
+	color: var(--dark-orange);
+}
+.cm-s-default .cm-meta {
+	color: var(--dark-gray);
+}
+.cm-s-default .cm-qualifier {
+	color: var(--dark-gray);
+}
+.cm-s-default .cm-builtin {
+	color: var(--dark-blue);
+}
+.cm-s-default .cm-bracket {
+	color: var(--dark-yellow);
+}
+.cm-s-default .cm-tag {
+	color: var(--dark-green);
+}
+.cm-s-default .cm-attribute {
+	color: var(--dark-blue);
+}
+.cm-s-default .cm-hr {
+	color: var(--dark-gray);
+}
+.cm-s-default .cm-link {
+	color: var(--dark-blue);
+}
+
+.cm-s-default .cm-error {
+	color: var(--red);
+}
+.cm-invalidchar {
+	color: var(--red);
+}

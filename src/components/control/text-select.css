@@ -1,0 +1,58 @@
+@import '../../styles/colors.css';
+@import '../../styles/depth.css';
+@import '../../styles/metrics.css';
+@import '../../styles/typography.css';
+
+.text-select > label {
+	align-items: center;
+	display: inline-flex;
+	position: relative;
+}
+
+.text-select-control {
+	position: relative;
+}
+
+.text-select-control select {
+	-webkit-appearance: none;
+	background-color: var(--white-translucent);
+	background-position: calc(100% - var(--corner-round)) center;
+	background-repeat: no-repeat;
+	border-radius: var(--corner-round);
+	border: 1px solid var(--light-gray-translucent);
+	color: var(--dark-gray);
+	font: 100% var(--font-system);
+	height: var(--control-height);
+	margin-left: var(--grid-size);
+	padding: var(--grid-size) calc(var(--grid-size) + 16px) var(--grid-size)
+		var(--grid-size);
+	transition: background-color 0.3s;
+}
+
+.text-select-control::after {
+	background: url('~@tabler/icons/icons/chevron-down.svg');
+	background-position: center;
+	content: '';
+	opacity: 0.25; /* trying to make it match border */
+	content: '';
+	pointer-events: none;
+	position: absolute;
+	top: 0;
+	right: calc(var(--grid-size) / 2);
+	bottom: 0;
+	width: 20px;
+}
+
+[data-app-theme='dark'] .text-select-control::after {
+	filter: invert();
+}
+
+.text-select.orientation-vertical > label {
+	align-items: flex-start;
+	flex-direction: column;
+}
+
+.text-select.orientation-vertical > label > select {
+	margin-left: 0;
+	margin-top: var(--grid-size);
+}

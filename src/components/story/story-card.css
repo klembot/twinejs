@@ -1,0 +1,17 @@
+@import '../../styles/metrics.css';
+
+.story-card .card-content {
+	flex-grow: 1;
+}
+
+.story-card svg.story-preview,
+.story-import-card svg.story-preview {
+	height: 230px;
+	margin: var(--grid-size);
+}
+
+.story-card .tags .tag-button {
+	display: inline-block;
+	margin-right: var(--grid-size);
+	margin-bottom: var(--grid-size);
+}

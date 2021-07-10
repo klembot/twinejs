@@ -1,0 +1,106 @@
+{
+	"colors": {},
+	"common": {
+		"add": "Přidat",
+		"appName": "Twine",
+		"cancel": "Storno",
+		"delete": "Smazat",
+		"duplicate": "Duplikovat",
+		"edit": "Upravit",
+		"ok": "OK",
+		"play": "Přehrát",
+		"rename": "Přejmenovat",
+		"remove": "Odstranit",
+		"skip": "Přeskočit",
+		"storyFormat": "Formát příběhu",
+		"tag": "Štítek",
+		"test": "Otestovat",
+		"undo": "Zpět"
+	},
+	"components": {
+		"addStoryFormatButton": {
+			"prompt": "Pro přidání formátu příběhu zadejte jeho internetovou adresu níže."
+		},
+		"addTagButton": {},
+		"fontSelect": {"fonts": {}},
+		"indentButtons": {},
+		"localStorageQuota": {},
+		"renamePassageButton": {"emptyName": "Zadejte jméno."},
+		"renameStoryButton": {"emptyName": "Zadejte jméno."},
+		"safariWarningCard": {},
+		"storyCard": {},
+		"storyFormatCard": {},
+		"storyFormatSelect": {},
+		"tagEditor": {}
+	},
+	"dialogs": {
+		"aboutTwine": {
+			"donateToTwine": "Pomozte Twine existovat z vašich dobrovolných příspěvků",
+			"codeHeader": "Kód"
+		},
+		"appDonation": {"noThanks": "Ne děkuji"},
+		"appPrefs": {"language": "Jazyk"},
+		"passageEdit": {},
+		"passageTags": {},
+		"storyInfo": {"stats": {"title": "Statistika příběhu"}},
+		"storyJavaScript": {},
+		"storySearch": {"title": "Najít a nahradit", "replaceWith": "Nahradit"},
+		"storyStylesheet": {
+			"explanation": "Jakýkoliv CSS skript zadaný zde přepíše výchozí vzhled vašeho příběhu."
+		},
+		"storyTags": {}
+	},
+	"electron": {
+		"errors": {"storyFileChangedExternally": {}},
+		"menuBar": {"edit": "Upravit"},
+		"storiesDirectoryName": "Příběhy"
+	},
+	"routes": {
+		"storyEdit": {
+			"topBar": {
+				"addPassage": "Místnost",
+				"editJavaScript": "Upravit JavaScript příběhu",
+				"editStylesheet": "Upravit styl příběhu",
+				"findAndReplace": "Najít a nahradit",
+				"proofStory": "Zobrazit kopii k revizi",
+				"publishToFile": "Zveřejnit do souboru"
+			}
+		},
+		"storyFormatList": {
+			"title": {},
+			"storyFormatExplanation": "Formát příběhu určuje vzhled a chování příběhů během hraní."
+		},
+		"storyImport": {},
+		"storyList": {
+			"noStories": "V Twine nejsou právě uloženy žádné příběhy. Abyste mohli začít, musíte vytvořit nový příběh nebo nějaký importovat ze souboru.",
+			"titleGeneric": "Příběhy",
+			"topBar": {
+				"about": "O Twine",
+				"archive": "Archiv",
+				"createStory": "Příběh",
+				"help": "Nápověda",
+				"sortName": "Název",
+				"storyFormats": "Formáty"
+			}
+		},
+		"welcome": {
+			"autosaveTitle": "Vaše práce je automaticky ukládána.",
+			"doneTitle": "A to je vše!",
+			"gotoStoryList": "Přejít na seznam příběhů",
+			"greetingTitle": "Vítejte!",
+			"tellMeMore": "Dozvědět se více",
+			"helpTitle": "Jste nováček?"
+		}
+	},
+	"store": {
+		"errors": {},
+		"passageDefaults": {
+			"name": "Nepojmenovaná místnost",
+			"textClick": "Pro úpravu místnosti na ní dvakrát klikněte.",
+			"textTouch": "Klikněte na místnost a poté můžete zahájit úpravy skrz ikonu tužky."
+		},
+		"storyDefaults": {"name": "Nepojmenovaný příběh"},
+		"storyFormatDefaults": {"name": "Nepojmenovaný formát příběhu"}
+	},
+	"undoChange": {"replaceAllText": "Nahradit vše"}
+}

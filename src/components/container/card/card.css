@@ -1,0 +1,36 @@
+@import '../../../styles/colors.css';
+@import '../../../styles/depth.css';
+@import '../../../styles/metrics.css';
+
+.card {
+	background: var(--white);
+	border-radius: var(--corner-round);
+	box-shadow: var(--shadow-small);
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	overflow: hidden;
+	width: 100%;
+}
+
+.card.floating {
+	box-shadow: var(--shadow-large);
+}
+
+.card.highlighted {
+	background: var(--light-yellow);
+	border-color: var(--yellow);
+}
+
+.card.selected {
+	background: var(--light-blue);
+	box-shadow: var(--shadow-small), inset 0 0 0 1px var(--blue);
+}
+
+.card h2 {
+	font: bold 120% var(--font-system);
+}
+
+.card h3 {
+	font: bold 100% var(--font-system);
+}

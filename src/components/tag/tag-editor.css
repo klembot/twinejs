@@ -1,0 +1,55 @@
+@import '../../styles/metrics.css';
+@import '../../styles/colors.css';
+
+.tag-editor {
+	display: grid;
+	grid-gap: var(--grid-size);
+	grid-template-columns: repeat(3, min-content);
+}
+
+.tag-editor .tag-name {
+	align-items: center;
+	background-color: var(--faint-gray);
+	border: 1px solid var(--light-gray);
+	border-radius: var(--control-height);
+	display: inline-flex;
+	height: var(--control-height);
+	padding: var(--grid-size);
+	white-space: nowrap;
+}
+
+.tag-editor .tag-name.color-red {
+	background-color: var(--faint-red);
+	border: 1px solid var(--light-red);
+	color: var(--dark-red);
+}
+
+.tag-editor .tag-name.color-orange {
+	background-color: var(--faint-orange);
+	border: 1px solid var(--light-orange);
+	color: var(--dark-orange);
+}
+
+.tag-editor .tag-name.color-yellow {
+	background-color: var(--faint-yellow);
+	border: 1px solid var(--light-yellow);
+	color: var(--dark-yellow);
+}
+
+.tag-editor .tag-name.color-green {
+	background-color: var(--faint-green);
+	border: 1px solid var(--light-green);
+	color: var(--dark-green);
+}
+
+.tag-editor .tag-name.color-blue {
+	background-color: var(--faint-blue);
+	border: 1px solid var(--light-blue);
+	color: var(--dark-blue);
+}
+
+.tag-editor .tag-name.color-purple {
+	background-color: var(--faint-purple);
+	border: 1px solid var(--light-purple);
+	color: var(--dark-purple);
+}

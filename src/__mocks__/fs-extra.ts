@@ -1,0 +1,11 @@
+export const copy = jest.fn();
+export const mkdirp = jest.fn();
+export const move = jest.fn();
+export const readFile = jest.fn().mockResolvedValue('');
+export const readdir = jest.fn().mockResolvedValue([]);
+export const readJson = jest.fn();
+export const remove = jest.fn();
+export const rename = jest.fn();
+export const stat = jest.fn();
+export const writeFile = jest.fn();
+export const writeJson = jest.fn();

@@ -1,0 +1,29 @@
+@import '../../styles/colors.css';
+@import '../../styles/metrics.css';
+
+.passage-card {
+	cursor: default;
+	font-size: 85%;
+	position: absolute;
+	user-select: none;
+}
+
+.passage-card .card {
+	padding: calc(var(--grid-size) / 2);
+}
+
+.passage-card .card-content {
+	padding: 0;
+}
+
+.passage-card h2 {
+	color: var(--black);
+	font-size: 100%;
+	font-weight: normal;
+}
+
+.passage-card .card-content {
+	color: var(--gray);
+	padding: 0;
+	overflow: ellipsis;
+}

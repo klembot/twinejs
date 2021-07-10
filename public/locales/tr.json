@@ -1,0 +1,111 @@
+{
+	"colors": {},
+	"common": {
+		"add": "Ekle",
+		"appName": "Twine",
+		"cancel": "İptal",
+		"delete": "Sil",
+		"duplicate": "Kopya Oluştur",
+		"edit": "Düzen",
+		"ok": "Tamam",
+		"play": "Oku",
+		"rename": "Yeniden Adlandır",
+		"remove": "Kaldır",
+		"skip": "Atla",
+		"storyFormat": "Öykü Biçimi",
+		"tag": "Etiket",
+		"test": "Dene",
+		"undo": "Geri Al"
+	},
+	"components": {
+		"addStoryFormatButton": {
+			"prompt": "Öykü biçimi eklemek için biçimin internet adresini aşağı girin."
+		},
+		"addTagButton": {},
+		"fontSelect": {"fonts": {}},
+		"indentButtons": {},
+		"localStorageQuota": {},
+		"renamePassageButton": {"emptyName": "Lütfen bir isim girin."},
+		"renameStoryButton": {"emptyName": "Lütfen bir isim girin."},
+		"safariWarningCard": {},
+		"storyCard": {},
+		"storyFormatCard": {},
+		"storyFormatSelect": {},
+		"tagEditor": {}
+	},
+	"dialogs": {
+		"aboutTwine": {
+			"donateToTwine": "Twine'ın Büyümesine Bağış Yaparak Katkıda Bulunun",
+			"codeHeader": "Kod Yazarları"
+		},
+		"appDonation": {"noThanks": "Hayır, Teşekkürler"},
+		"appPrefs": {"language": "Dil"},
+		"passageEdit": {},
+		"passageTags": {},
+		"storyInfo": {"stats": {"title": "Öykü İstatistikleri"}},
+		"storyJavaScript": {
+			"explanation": "Buraya girdiğiniz JavaScript kodu; öykü bir İnternet tarayıcısında açıldığında istisnasız çalıştırılacaktır."
+		},
+		"storySearch": {
+			"title": "Bul ve Değiştir",
+			"replaceWith": "Şununla Değiştir"
+		},
+		"storyStylesheet": {
+			"explanation": "Buraya girdiğiniz CSS kodu öykünün varsayılan görünümünü değiştirir."
+		},
+		"storyTags": {}
+	},
+	"electron": {
+		"errors": {"storyFileChangedExternally": {}},
+		"menuBar": {"edit": "Düzen"},
+		"storiesDirectoryName": "Öyküler"
+	},
+	"routes": {
+		"storyEdit": {
+			"topBar": {
+				"addPassage": "Bölüm",
+				"editJavaScript": "Öykünün JavaScript kodunu düzenle",
+				"editStylesheet": "Öykünün Stil Şablonunu Düzenle",
+				"findAndReplace": "Bul ve Değiştir",
+				"proofStory": "Yazım Denetleme Nüshasına Bak",
+				"publishToFile": "Dosyaya Yayımla"
+			}
+		},
+		"storyFormatList": {
+			"title": {},
+			"storyFormatExplanation": "Öykü biçimleri hikayenin okuma sırasında nasıl göründüğünü ve davrandığını belirler."
+		},
+		"storyImport": {},
+		"storyList": {
+			"noStories": "Şu an Twine'da kayıtlı hiçbir öykü yok. Başlamak için yeni bir öykü yaratın veya var olan bir öyküyü içe aktarın.",
+			"titleGeneric": "Öyküler",
+			"topBar": {
+				"about": "Twine Hakkında",
+				"archive": "Arşiv",
+				"createStory": "Öykü",
+				"help": "Yardım",
+				"sortName": "Ad",
+				"storyFormats": "Biçimler"
+			}
+		},
+		"welcome": {
+			"autosaveTitle": "Çalışmalarınız otomatik olarak kaydedilir.",
+			"doneTitle": "Tamamdır!",
+			"gotoStoryList": "Öykü listesine git",
+			"greetingTitle": "Merhaba!",
+			"tellMeMore": "Devam Et",
+			"helpTitle": "Yeni misiniz?"
+		}
+	},
+	"store": {
+		"errors": {},
+		"passageDefaults": {
+			"name": "Adsız Bölüm",
+			"textClick": "Bölümü düzenlemek için çift tıklayın.",
+			"textTouch": "Önce bu bölüme, sonra kaleme basarak bölümü düzenleyebilirsiniz."
+		},
+		"storyDefaults": {"name": "Adsız Öykü"},
+		"storyFormatDefaults": {"name": "Adsız Öykü Biçimi"}
+	},
+	"undoChange": {"replaceAllText": "Hepsini Değiştir"}
+}

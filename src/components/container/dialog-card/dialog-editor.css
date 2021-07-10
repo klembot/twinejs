@@ -1,0 +1,19 @@
+@import '../../../styles/metrics.css';
+
+.dialog-card .dialog-editor {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+}
+
+.dialog-card .dialog-editor .code-area {
+	flex: 1;
+}
+
+.dialog-card .dialog-editor .code-area .CodeMirror {
+	border-bottom: none;
+	border-left: none;
+	border-radius: 0;
+	border-right: none;
+	padding: var(--grid-size);
+}

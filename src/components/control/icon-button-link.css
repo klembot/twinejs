@@ -1,0 +1,117 @@
+@import '../../styles/colors.css';
+@import '../../styles/metrics.css';
+@import '../../styles/typography.css';
+
+.icon-button,
+.icon-link {
+	align-items: center;
+	background: none;
+	border: none;
+	border-radius: var(--corner-round);
+	display: inline-flex;
+	cursor: pointer;
+	font: 100% var(--font-system);
+	color: var(--dark-gray);
+	height: var(--control-height);
+	padding: var(--grid-size);
+	transition: background 0.3s;
+}
+
+.icon-button .icon svg,
+.icon-link .icon svg {
+	height: 18px;
+	position: relative;
+	top: 2px; /* mysterious-- not sure why align-items doesn't get it */
+	width: 18px;
+}
+
+.icon-button:not(.icon-only) .icon svg,
+.icon-link:not(.icon-only) .icon svg {
+	margin-right: var(--control-inner-padding);
+}
+
+.icon-button.icon-position-end,
+.icon-link.icon-position-end {
+	flex-direction: row-reverse;
+}
+
+.icon-button.icon-position-end:not(icon-only) .icon svg,
+.icon-link.icon-position-end:not(icon-only) .icon svg {
+	margin-left: var(--control-inner-padding);
+	margin-right: 0;
+}
+
+.icon-link {
+	text-decoration: none;
+}
+
+.icon-link:visited {
+	color: var(--dark-gray);
+}
+
+.icon-button:disabled,
+.icon-link:disabled {
+	cursor: auto;
+	opacity: 0.5;
+}
+
+.icon-button:hover:not(:disabled),
+.icon-link:hover:not(:disabled) {
+	background: var(--light-gray-translucent);
+}
+
+.icon-button:active:not(:disabled),
+.icon-link:active:not(:disabled) {
+	background: var(--gray);
+}
+
+.icon-button.variant-primary,
+.icon-link.variant-primary {
+	color: var(--dark-blue);
+}
+
+.icon-button.variant-primary:hover:not(:disabled),
+.icon-link.variant-primary:hover:not(:disabled) {
+	background: var(--light-blue-translucent);
+	color: var(--dark-blue);
+}
+
+.icon-button.variant-primary:active:not(:disabled),
+.icon-link.variant-primary:active:not(:disabled) {
+	background: var(--blue);
+	color: var(--dark-blue);
+}
+
+.icon-button.variant-create,
+.icon-link.variant-create {
+	color: var(--dark-green);
+}
+
+.icon-button.variant-create:hover:not(:disabled),
+.icon-link.variant-create:hover:not(:disabled) {
+	background: var(--light-green-translucent);
+	color: var(--dark-green);
+}
+
+.icon-button.variant-create:active:not(:disabled),
+.icon-link.variant-create:active:not(:disabled) {
+	background: var(--green);
+	color: var(--dark-green);
+}
+
+.icon-button.variant-danger,
+.icon-link.variant-danger {
+	color: var(--dark-red);
+}
+
+.icon-button.variant-danger:hover:not(:disabled),
+.icon-link.variant-danger:hover:not(:disabled) {
+	background: var(--light-red-translucent);
+	color: var(--dark-red);
+}
+
+.icon-button.variant-danger:active:not(:disabled),
+.icon-link.variant-danger:active:not(:disabled) {
+	background: var(--red);
+	color: var(--dark-red);
+}

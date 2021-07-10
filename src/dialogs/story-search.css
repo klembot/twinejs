@@ -1,0 +1,23 @@
+@import '../styles/metrics.css';
+
+.story-search-dialog .search-fields {
+	padding: var(--grid-size);
+	margin: 0;
+}
+
+.story-search-dialog .search-results {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	padding-right: var(--grid-size);
+}
+
+.story-search-dialog .search-fields {
+	display: grid;
+	grid-gap: var(--grid-size);
+	grid-template-columns: 1fr 1fr;
+}
+
+.story-search-dialog .search-fields .code-area {
+	height: 5em;
+}

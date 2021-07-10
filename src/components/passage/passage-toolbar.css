@@ -1,0 +1,19 @@
+@import '../../styles/metrics.css';
+
+.passage-toolbar {
+	user-select: none;
+}
+
+.passage-toolbar.multiple {
+	transform: translateY(-50%);
+}
+
+.dragging-passages .passage-toolbar,
+.marquee-selecting .passage-toolbar {
+	display: none;
+}
+
+.passage-toolbar-target {
+	pointer-events: none;
+	position: absolute;
+}

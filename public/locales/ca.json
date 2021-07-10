@@ -1,0 +1,117 @@
+{
+	"colors": {},
+	"common": {
+		"add": "Afegeix",
+		"appName": "Twine",
+		"cancel": "Cancel·la",
+		"delete": "Suprimeix",
+		"duplicate": "Duplica",
+		"ok": "D'acord",
+		"play": "Reprodueix",
+		"rename": "Canvia el nom",
+		"remove": "Suprimeix",
+		"skip": "Omet",
+		"storyFormat": "Format d'història",
+		"tag": "Etiqueta",
+		"test": "Prova"
+	},
+	"components": {
+		"addStoryFormatButton": {},
+		"addTagButton": {},
+		"fontSelect": {"fonts": {}},
+		"indentButtons": {},
+		"localStorageQuota": {},
+		"renamePassageButton": {"emptyName": "Introduïu un nom."},
+		"renameStoryButton": {"emptyName": "Introduïu un nom."},
+		"safariWarningCard": {},
+		"storyCard": {},
+		"storyFormatCard": {},
+		"storyFormatSelect": {},
+		"tagEditor": {}
+	},
+	"dialogs": {
+		"aboutTwine": {"donateToTwine": "Ajuda el Twine a créixer amb una donació"},
+		"appDonation": {"noThanks": "No, gràcies"},
+		"appPrefs": {"language": "Llengua"},
+		"passageEdit": {
+			"setAsStart": "Comenceu aquí la història",
+			"sizeLarge": "Gran",
+			"sizeSmall": "Petita",
+			"sizeTall": "Alta",
+			"sizeWide": "Ampla"
+		},
+		"passageTags": {},
+		"storyInfo": {"stats": {"title": "Estadístiques de la història"}},
+		"storyJavaScript": {
+			"explanation": "Qualsevol JavaScript introduït ací s'executarà immediatament quan s'obri la història al vostre navegador."
+		},
+		"storySearch": {
+			"title": "Cerca i reemplaça",
+			"replaceWith": "Reemplaça amb"
+		},
+		"storyStylesheet": {
+			"explanation": "Qualsevol CSS introduït ací substituirà l'aparença per defecte de la vostra història."
+		},
+		"storyTags": {}
+	},
+	"electron": {
+		"backupsDirectoryName": "Còpies de seguretat",
+		"errors": {
+			"storyFileChangedExternally": {},
+			"storyDelete": "S'ha produït un error en suprimir una història.",
+			"storyRename": "S'ha produït un error en canviar el nom d'una història.",
+			"storySave": "S'ha produït un error en desar una història."
+		},
+		"menuBar": {},
+		"storiesDirectoryName": "Històries"
+	},
+	"routes": {
+		"storyEdit": {
+			"topBar": {
+				"addPassage": "Passatge",
+				"editJavaScript": "Edita el JavaScript de la història",
+				"editStylesheet": "Edita el full d'estil de la història",
+				"findAndReplace": "Cerca i reemplaça",
+				"proofStory": "Visualitza la còpia de comprovació",
+				"publishToFile": "Publica a fitxer",
+				"selectAllPassages": "Selecciona tots els passatges"
+			}
+		},
+		"storyFormatList": {
+			"title": {},
+			"storyFormatExplanation": "Els formats d'història controlen l'aparença i comportament de les històries durant la reproducció."
+		},
+		"storyImport": {},
+		"storyList": {
+			"noStories": "No hi ha cap història desada al Twine ara mateix. Per començar, podeu crear una història nova i importar una existent des d'un fitxer.",
+			"titleGeneric": "Històries",
+			"topBar": {
+				"about": "Quant al Twine",
+				"archive": "Arxiva",
+				"createStory": "Història",
+				"help": "Ajuda",
+				"sortName": "Nom",
+				"storyFormats": "Formats"
+			}
+		},
+		"welcome": {
+			"autosaveTitle": "El teu treball es desa automàticament.",
+			"doneTitle": "Això és tot!",
+			"gotoStoryList": "Vés a la llista de històries",
+			"greetingTitle": "Hola!",
+			"tellMeMore": "Dis-me més",
+			"helpTitle": "Sou nou aquí?"
+		}
+	},
+	"store": {
+		"errors": {},
+		"passageDefaults": {
+			"name": "Passatge sense títol",
+			"textClick": "Feu doble clic sobre aquest passatge per editar-lo.",
+			"textTouch": "Toqueu aquest passatge, i després la icona del llapis per editar-lo."
+		},
+		"storyDefaults": {"name": "Història sense títol"},
+		"storyFormatDefaults": {"name": "Format d'història sense títol"}
+	},
+	"undoChange": {"replaceAllText": "Reemplaça-ho tot"}
+}

@@ -1,0 +1,13 @@
+@import '../../styles/depth.css';
+
+.button-card {
+	display: inline-block;
+}
+
+.button-card .card {
+	padding: 0;
+}
+
+.button-card .icon-button {
+	border-radius: 0;
+}

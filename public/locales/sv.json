@@ -1,0 +1,108 @@
+{
+	"colors": {},
+	"common": {
+		"add": "Lägg till",
+		"appName": "Twine",
+		"cancel": "Avbryt",
+		"delete": "Ta bort",
+		"duplicate": "Duplicera",
+		"edit": "Ändra",
+		"ok": "OK",
+		"play": "Spela",
+		"rename": "Ge nytt namn",
+		"remove": "Ta bort",
+		"skip": "Hoppa över",
+		"storyFormat": "Historieformat",
+		"tag": "Ettikett",
+		"test": "Testa",
+		"undo": "Ångra"
+	},
+	"components": {
+		"addStoryFormatButton": {
+			"prompt": "För att lägga till ett historieformat, skriv in dess adress nedan."
+		},
+		"addTagButton": {},
+		"fontSelect": {"fonts": {}},
+		"indentButtons": {},
+		"localStorageQuota": {},
+		"renamePassageButton": {"emptyName": "Var snäll och skriv ett namn."},
+		"renameStoryButton": {"emptyName": "Var snäll och skriv ett namn."},
+		"safariWarningCard": {},
+		"storyCard": {},
+		"storyFormatCard": {},
+		"storyFormatSelect": {},
+		"tagEditor": {}
+	},
+	"dialogs": {
+		"aboutTwine": {
+			"donateToTwine": "Hjälp Twine att växa med en donation",
+			"codeHeader": "Kod"
+		},
+		"appDonation": {"noThanks": "Nej tack"},
+		"appPrefs": {"language": "Språk"},
+		"passageEdit": {},
+		"passageTags": {},
+		"storyInfo": {"stats": {"title": "Statestik för historien"}},
+		"storyJavaScript": {
+			"explanation": "JavaScripts som skrivs in här kommer att köras omedelbart när din historia öppnas i en webläsare."
+		},
+		"storySearch": {"title": "Sök och ersätt", "replaceWith": "Ersätt med"},
+		"storyStylesheet": {
+			"explanation": "Om CSS-kod skrivs in här kommer den att gå före det övergipande utseendet för din historia."
+		},
+		"storyTags": {}
+	},
+	"electron": {
+		"errors": {"storyFileChangedExternally": {}},
+		"menuBar": {"edit": "Ändra"},
+		"storiesDirectoryName": "Historier"
+	},
+	"routes": {
+		"storyEdit": {
+			"topBar": {
+				"addPassage": "Passage",
+				"editJavaScript": "Ändra historiens JavaScript",
+				"editStylesheet": "Ändra historiens Stylesheet",
+				"findAndReplace": "Sök och ersätt",
+				"proofStory": "Granska korrekturläsningskopia",
+				"publishToFile": "Publicera till fil"
+			}
+		},
+		"storyFormatList": {
+			"title": {},
+			"storyFormatExplanation": "Historieformat kontrollerar utseendet och uppförandet hos historierna under spelet."
+		},
+		"storyImport": {},
+		"storyList": {
+			"noStories": "Det finns inga historier sparade i Twine just nu. För att komma igång kan du antingen skapa en ny historia eller importera en existerande från en fil.",
+			"titleGeneric": "Historier",
+			"topBar": {
+				"about": "Om Twine",
+				"archive": "Arkiv",
+				"createStory": "Historia",
+				"help": "Hjälp",
+				"sortName": "Namn",
+				"storyFormats": "Format"
+			}
+		},
+		"welcome": {
+			"autosaveTitle": "Ditt arbete sparas automatiskt.",
+			"doneTitle": "Det var det!",
+			"gotoStoryList": "Gå till historielistan",
+			"greetingTitle": "Hej!",
+			"tellMeMore": "Berätta mer",
+			"helpTitle": "Ny här?"
+		}
+	},
+	"store": {
+		"errors": {},
+		"passageDefaults": {
+			"name": "Passage utan namn",
+			"textClick": "Dubbelklicka på den här passagen för att ändra den.",
+			"textTouch": "Klicka på den här passagen och sen på penna-ikonen för att ändra den."
+		},
+		"storyDefaults": {"name": "Historia utan namn"},
+		"storyFormatDefaults": {"name": "Historieformat utan namn"}
+	},
+	"undoChange": {"replaceAllText": "Ersätt alla"}
+}

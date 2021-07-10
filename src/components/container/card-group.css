@@ -1,0 +1,19 @@
+@import '../../styles/metrics.css';
+
+.card-group {
+	display: grid;
+	grid-gap: var(--ui-gap);
+	grid-auto-rows: 1fr; /* https://stackoverflow.com/a/44490047 */
+	margin: var(--ui-gap) auto;
+}
+
+/*
+This is a bit hacky. The intent is to have cards that may be nested inside divs
+fill the grid cells.
+*/
+
+.card-group > *,
+.card-group .image-card,
+.card-group .card {
+	height: 100%;
+}
