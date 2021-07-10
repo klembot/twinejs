@@ -5,6 +5,8 @@ body:
   - type: markdown
     attributes:
       value: |
+        🛑 **Bug reports are not yet being accepted for Twine 2.4.**
+
         Sorry to hear you are having problems with Twine!
 
           - Issues in this repository are for tracking problems with the Twine application. "How do I?" type questions are better answered on community resources like the Intfiction.org forums, Reddit, or Discord.
