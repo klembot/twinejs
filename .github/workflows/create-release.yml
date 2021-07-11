@@ -2,8 +2,8 @@ name: Create draft release
 
 on:
   push:
-    branches:
-      - main
+    branches-ignore:
+      - '2.3-maintenance'
     tags:
       - '[0-9]+.[0-9]+.[0-9]+*'
 
@@ -28,7 +28,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           draft: true
-          fail_on_unmatched_files: true
           files: |
             dist/electron/twine-*.dmg
             dist/electron/twine-*.exe
