@@ -20,10 +20,8 @@ jobs:
         run: npm install
       - name: Test
         run: npm run test
-      # Disable the CI flag to allow warnings in the build.
-      # https://github.com/facebook/create-react-app/issues/3657
       - name: Build
-        run: CI=false npm run build
+        run: npm run build
       - name: Create draft release
         uses: softprops/action-gh-release@v1
         with:
