@@ -64,7 +64,11 @@ export const StoryFormatCard: React.FC<StoryFormatCardProps> = props => {
 						/>
 					)}
 					{format.userAdded && (
-						<IconButton icon={<IconTrash />} label={t('common.delete')} />
+						<IconButton
+							icon={<IconTrash />}
+							label={t('common.delete')}
+							onClick={onDelete}
+						/>
 					)}
 				</ButtonBar>
 			</Card>

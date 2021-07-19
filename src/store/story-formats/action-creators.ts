@@ -26,6 +26,10 @@ export function createFromProperties(
 	};
 }
 
+export function deleteFormat(format: StoryFormat): StoryFormatsAction {
+	return {type: 'delete', id: format.id};
+}
+
 async function loadFormatThunk(
 	format: StoryFormat,
 	dispatch: StoryFormatsDispatch

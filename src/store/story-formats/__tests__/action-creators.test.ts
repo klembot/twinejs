@@ -1,5 +1,6 @@
 import {
 	createFromProperties,
+	deleteFormat,
 	loadAllFormatProperties,
 	loadFormatProperties
 } from '../action-creators';
@@ -44,6 +45,14 @@ describe('createFromProperties', () => {
 		expect(() => createFromProperties('mock-url', missingName)).toThrow();
 		expect(() => createFromProperties('mock-url', missingVersion)).toThrow();
 		expect(() => createFromProperties('mock-url', missingBoth)).toThrow();
+	});
+});
+
+describe('deleteFormat', () => {
+	it('returns a delete action', () => {
+		const format = fakePendingStoryFormat();
+
+		expect(deleteFormat(format)).toEqual({type: 'delete', id: format.id});
 	});
 });
 

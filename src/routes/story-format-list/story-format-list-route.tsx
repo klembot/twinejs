@@ -17,7 +17,8 @@ import {
 	sortFormats,
 	useStoryFormatsContext,
 	StoryFormat,
-	StoryFormatProperties
+	StoryFormatProperties,
+	deleteFormat
 } from '../../store/story-formats';
 
 export const StoryFormatListRoute: React.FC = () => {
@@ -35,6 +36,10 @@ export const StoryFormatListRoute: React.FC = () => {
 
 	function handleChangeFilter(value: PrefsState['storyFormatListFilter']) {
 		prefsDispatch({type: 'update', name: 'storyFormatListFilter', value});
+	}
+
+	function handleDeleteFormat(format: StoryFormat) {
+		formatsDispatch(deleteFormat(format));
 	}
 
 	function handleSelect(format: StoryFormat) {
@@ -114,7 +119,7 @@ export const StoryFormatListRoute: React.FC = () => {
 							<StoryFormatCard
 								format={format}
 								key={format.id}
-								onDelete={() => {}}
+								onDelete={() => handleDeleteFormat(format)}
 								onSelect={() => handleSelect(format)}
 								selected={
 									(format.name === prefs.storyFormat.name &&
