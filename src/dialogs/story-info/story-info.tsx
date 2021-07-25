@@ -7,6 +7,7 @@ import {DialogCard} from '../../components/container/dialog-card';
 import {StoryFormatSelect} from '../../components/story-format/story-format-select';
 import {storyWithId, updateStory, useStoriesContext} from '../../store/stories';
 import {
+	formatWithId,
 	formatWithNameAndVersion,
 	useStoryFormatsContext
 } from '../../store/story-formats';
@@ -25,6 +26,17 @@ export const StoryInfoDialog: React.FC<StoryInfoDialogProps> = props => {
 	const {formats} = useStoryFormatsContext();
 	const story = storyWithId(stories, storyId);
 	const {t} = useTranslation();
+
+	function handleFormatChange(event: React.ChangeEvent<HTMLSelectElement>) {
+		const newFormat = formatWithId(formats, event.target.value);
+
+		dispatch(
+			updateStory(stories, story, {
+				storyFormat: newFormat.name,
+				storyFormatVersion: newFormat.version
+			})
+		);
+	}
 
 	return (
 		<DialogCard
@@ -51,6 +63,7 @@ export const StoryInfoDialog: React.FC<StoryInfoDialogProps> = props => {
 				<FormatLoader block={false} />
 				<StoryFormatSelect
 					formats={formats}
+					onChange={handleFormatChange}
 					selectedFormat={formatWithNameAndVersion(
 						formats,
 						story.storyFormat,
