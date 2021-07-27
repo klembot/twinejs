@@ -5,7 +5,7 @@ import {
 	loadFormatProperties
 } from '../action-creators';
 import {StoryFormat, StoryFormatProperties} from '../story-formats.types';
-import {fetchStoryFormatProperties} from '../../../util/fetch-story-format-properties';
+import {fetchStoryFormatProperties} from '../../../util/story-format/fetch-properties';
 import {
 	fakeFailedStoryFormat,
 	fakeLoadedStoryFormat,
@@ -14,7 +14,7 @@ import {
 	fakeUnloadedStoryFormat
 } from '../../../test-util/fakes';
 
-jest.mock('../../../util/fetch-story-format-properties');
+jest.mock('../../../util/story-format/fetch-properties');
 
 describe('createFromProperties', () => {
 	it('returns a create action with the URL and properties specified', () => {
@@ -156,6 +156,65 @@ describe('loadFormatProperties', () => {
 
 		it('returns the format properties', async () =>
 			expect(await loadFormatProperties(format)(dispatch)).toBe(properties));
+
+		describe.only('if the format properties contain a hydrate property', () => {
+			it('merges in properties set on this by the hydrate property', async () => {
+				properties.hydrate = 'this.hydrated = true';
+				await loadFormatProperties(format)(dispatch);
+				expect(dispatch.mock.calls).toEqual([
+					[{type: 'update', id: format.id, props: {loadState: 'loading'}}],
+					[
+						{
+							type: 'update',
+							id: format.id,
+							props: {
+								loadState: 'loaded',
+								properties: {...properties, hydrated: true}
+							}
+						}
+					]
+				]);
+			});
+
+			it('does not allow overwriting static properties in the format', async () => {
+				const origName = properties.name;
+
+				properties.hydrate = 'this.name = "failed"';
+				await loadFormatProperties(format)(dispatch);
+				expect(dispatch.mock.calls).toEqual([
+					[{type: 'update', id: format.id, props: {loadState: 'loading'}}],
+					[
+						{
+							type: 'update',
+							id: format.id,
+							props: {
+								loadState: 'loaded',
+								properties: {...properties, name: origName}
+							}
+						}
+					]
+				]);
+			});
+
+			it('does not throw an error and does not alter properties if the hydrate property throws', async () => {
+				jest.spyOn(console, 'error').mockReturnValue();
+				properties.hydrate = 'this.hydrated = true; throw new Error();';
+				await loadFormatProperties(format)(dispatch);
+				expect(dispatch.mock.calls).toEqual([
+					[{type: 'update', id: format.id, props: {loadState: 'loading'}}],
+					[
+						{
+							type: 'update',
+							id: format.id,
+							props: {
+								loadState: 'loaded',
+								properties
+							}
+						}
+					]
+				]);
+			});
+		});
 	});
 
 	describe('when fetching properties fails', () => {

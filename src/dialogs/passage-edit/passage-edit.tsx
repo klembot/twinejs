@@ -11,6 +11,10 @@ import {CheckboxButton} from '../../components/control/checkbox-button';
 import {MenuButton} from '../../components/control/menu-button';
 import {AddTagButton, TagButton} from '../../components/tag';
 import {
+	formatWithNameAndVersion,
+	useStoryFormatsContext
+} from '../../store/story-formats';
+import {
 	addPassageTag,
 	passageWithId,
 	removePassageTag,
@@ -36,8 +40,14 @@ export const PassageEditDialog: React.FC<PassageEditDialogProps> = props => {
 	const {passageId, storyId, ...other} = props;
 	const [cmEditor, setCmEditor] = React.useState<CodeMirror.Editor>();
 	const {dispatch, stories} = useUndoableStoriesContext();
+	const {formats} = useStoryFormatsContext();
 	const passage = passageWithId(stories, storyId, passageId);
 	const story = storyWithId(stories, storyId);
+	const storyFormat = formatWithNameAndVersion(
+		formats,
+		story.storyFormat,
+		story.storyFormatVersion
+	);
 	const {t} = useTranslation();
 
 	// TODO: make tag changes undoable
@@ -150,6 +160,7 @@ export const PassageEditDialog: React.FC<PassageEditDialogProps> = props => {
 				onChange={handlePassageTextChange}
 				onEditorChange={setCmEditor}
 				passage={passage}
+				storyFormat={storyFormat}
 			/>
 		</DialogCard>
 	);

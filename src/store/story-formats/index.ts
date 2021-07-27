@@ -3,3 +3,4 @@ export * from './defaults';
 export * from './getters';
 export * from './story-formats-context';
 export * from './story-formats.types';
+export * from './use-format-codemirror-mode';

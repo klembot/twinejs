@@ -1,3 +1,4 @@
+import {ModeFactory} from 'codemirror';
 import {Thunk} from 'react-hook-thunk-reducer';
 
 interface BaseStoryFormat {
@@ -31,6 +32,16 @@ export type StoryFormat =
 export interface StoryFormatProperties {
 	author?: string;
 	description?: string;
+	editorExtensions?: {
+		twine?: {
+			[semverSpec: string]: {
+				codeMirror?: {
+					mode?: ModeFactory<unknown>;
+				};
+			};
+		};
+	};
+	hydrate?: string;
 	image?: string;
 	license?: string;
 	name: string;
