@@ -1,5 +1,5 @@
 import {Thunk} from 'react-hook-thunk-reducer';
-import {fetchStoryFormatProperties} from '../../util/fetch-story-format-properties';
+import {fetchStoryFormatProperties} from '../../util/story-format/fetch-properties';
 import {
 	StoryFormat,
 	StoryFormatProperties,
@@ -41,7 +41,30 @@ async function loadFormatThunk(
 	});
 
 	try {
-		const properties = await fetchStoryFormatProperties(format.url);
+		let properties = await fetchStoryFormatProperties(format.url);
+
+		// If the format contains a `hydrate` property, try running it and merge in
+		// properties that function creates by modifiying what's bound to its
+		// `this`. This allows creation of properties that can't be serialized to
+		// JSON on the format. The hydrate function cannot override properties
+		// already present in the format properties, e.g. to change its source.
+
+		if (properties.hydrate) {
+			try {
+				const hydrateResult: Partial<StoryFormatProperties> = {};
+
+				// eslint-disable-next-line no-new-func
+				const hydrateFunc = new Function(properties.hydrate);
+
+				hydrateFunc.call(hydrateResult);
+				properties = {...hydrateResult, ...properties};
+			} catch (e) {
+				console.error(
+					`Format ${format.id} has a hydrate property but it threw an error when called`,
+					e
+				);
+			}
+		}
 
 		dispatch({
 			type: 'update',

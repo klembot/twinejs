@@ -1,9 +1,9 @@
 import jsonp from 'jsonp';
-import {fetchStoryFormatProperties} from '../fetch-story-format-properties';
-import {isElectronRenderer} from '../is-electron';
-import {TwineElectronWindow} from '../../electron/shared';
+import {fetchStoryFormatProperties} from '../fetch-properties';
+import {isElectronRenderer} from '../../is-electron';
+import {TwineElectronWindow} from '../../../electron/shared';
 
-jest.mock('../is-electron');
+jest.mock('../../is-electron');
 jest.mock('jsonp');
 
 describe('fetchStoryFormatProperties', () => {

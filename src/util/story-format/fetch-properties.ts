@@ -15,9 +15,9 @@
 //   for the same callback.
 
 import jsonp from 'jsonp';
-import {TwineElectronWindow} from '../electron/shared';
-import {StoryFormatProperties} from '../store/story-formats';
-import {isElectronRenderer} from './is-electron';
+import {TwineElectronWindow} from '../../electron/shared';
+import {StoryFormatProperties} from '../../store/story-formats';
+import {isElectronRenderer} from '../is-electron';
 
 let requestQueue = Promise.resolve();
 

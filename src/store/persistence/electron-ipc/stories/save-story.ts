@@ -6,7 +6,7 @@ import {
 	StoryFormatsState
 } from '../../../story-formats';
 import {getAppInfo} from '../../../../util/app-info';
-import {fetchStoryFormatProperties} from '../../../../util/fetch-story-format-properties';
+import {fetchStoryFormatProperties} from '../../../../util/story-format/fetch-properties';
 
 /**
  * Sends an IPC message to save a story to disk, ideally in published form.
