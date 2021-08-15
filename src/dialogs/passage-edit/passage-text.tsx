@@ -4,6 +4,7 @@ import {CodeArea} from '../../components/control/code-area';
 import {usePrefsContext} from '../../store/prefs';
 import {Passage} from '../../store/stories';
 import {StoryFormat, useFormatCodeMirrorMode} from '../../store/story-formats';
+import {StoryFormatToolbar} from './story-format-toolbar';
 
 export interface PassageTextProps {
 	onChange: (value: string) => void;
@@ -43,16 +44,19 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 	}
 
 	return (
-		<DialogEditor>
-			<CodeArea
-				editorDidMount={handleMount}
-				fontFamily={prefs.passageEditorFontFamily}
-				fontScale={prefs.passageEditorFontScale}
-				onBeforeChange={handleChange}
-				onChange={onEditorChange}
-				options={{mode, lineWrapping: true}}
-				value={passage.text}
-			/>
-		</DialogEditor>
+		<>
+			<StoryFormatToolbar editor={editor} storyFormat={storyFormat} />
+			<DialogEditor>
+				<CodeArea
+					editorDidMount={handleMount}
+					fontFamily={prefs.passageEditorFontFamily}
+					fontScale={prefs.passageEditorFontScale}
+					onBeforeChange={handleChange}
+					onChange={onEditorChange}
+					options={{mode, lineWrapping: true}}
+					value={passage.text}
+				/>
+			</DialogEditor>
+		</>
 	);
 };

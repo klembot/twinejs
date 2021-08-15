@@ -6,15 +6,10 @@ import {
 	loadFormatProperties,
 	useStoryFormatsContext
 } from '.';
-import {formatEditorExtensions} from '../../util/story-format/editor-extensions';
-import {StoryFormat} from './story-formats.types';
-
-/**
- * Returns a valid name of a CodeMirror mode for a story format.
- */
-function formatModeName(format: StoryFormat) {
-	return format.name.toLowerCase().replace(/\s/g, '-') + '-' + format.version;
-}
+import {
+	formatEditorExtensions,
+	namespaceForFormat
+} from '../../util/story-format';
 
 /**
  * Sets up a CodeMirror mode for a format, if the format has defined one via
@@ -38,10 +33,10 @@ export function useFormatCodeMirrorMode(
 
 			if (editorExtensions?.codeMirror?.mode) {
 				CodeMirror.defineMode(
-					formatModeName(format),
+					namespaceForFormat(format),
 					editorExtensions.codeMirror.mode
 				);
-				setModeName(formatModeName(format));
+				setModeName(namespaceForFormat(format));
 			}
 		}
 	}, [dispatch, format]);
