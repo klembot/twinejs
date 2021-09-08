@@ -72,43 +72,50 @@ export function passageWithName(
 	);
 }
 
-export function passageLinks(passages: Passage[]) {
+/**
+ * Returns connections between passages in a structure optimized for rendering.
+ * Connections are divided between draggable and fixed, depending on whether
+ * either of their passages are selected (and could be dragged by the user).
+ */
+export function passageConnections(
+	passages: Passage[],
+	connectionParser?: (text: string) => string[]
+) {
+	const parser = connectionParser ?? ((text: string) => parseLinks(text, true));
 	const passageMap = new Map(passages.map(p => [p.name, p]));
 	const result = {
 		draggable: {
-			brokenLinks: new Set<Passage>(),
-			links: new Map<Passage, Set<Passage>>(),
-			selfLinks: new Set<Passage>()
+			broken: new Set<Passage>(),
+			connections: new Map<Passage, Set<Passage>>(),
+			self: new Set<Passage>()
 		},
 		fixed: {
-			brokenLinks: new Set<Passage>(),
-			links: new Map<Passage, Set<Passage>>(),
-			selfLinks: new Set<Passage>()
+			broken: new Set<Passage>(),
+			connections: new Map<Passage, Set<Passage>>(),
+			self: new Set<Passage>()
 		}
 	};
 
 	passages.forEach(passage =>
-		parseLinks(passage.text).forEach(linkName => {
-			if (linkName === passage.name) {
-				(passage.selected ? result.draggable : result.fixed).selfLinks.add(
-					passage
-				);
+		parser(passage.text).forEach(targetName => {
+			if (targetName === passage.name) {
+				(passage.selected ? result.draggable : result.fixed).self.add(passage);
 			} else {
-				const linkPassage = passageMap.get(linkName);
+				const targetPassage = passageMap.get(targetName);
 
-				if (linkPassage) {
+				if (targetPassage) {
 					const target =
-						passage.selected || linkPassage.selected
+						passage.selected || targetPassage.selected
 							? result.draggable
 							: result.fixed;
 
-					if (target.links.has(passage)) {
-						target.links.get(passage)!.add(linkPassage);
+					if (target.connections.has(passage)) {
+						target.connections.get(passage)!.add(targetPassage);
 					} else {
-						target.links.set(passage, new Set([linkPassage]));
+						target.connections.set(passage, new Set([targetPassage]));
 					}
 				} else {
-					(passage.selected ? result.draggable : result.fixed).brokenLinks.add(
+					(passage.selected ? result.draggable : result.fixed).broken.add(
 						passage
 					);
 				}

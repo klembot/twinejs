@@ -2,15 +2,16 @@ import * as React from 'react';
 import {Passage} from '../../../store/stories';
 import {Point} from '../../../util/geometry';
 import {arc} from '../../../util/svg';
-import './self-connector.css';
+import './self-connection.css';
 
-export interface SelfConnectorProps {
+export interface SelfConnectionProps {
 	offset: Point;
 	passage: Passage;
+	variant: 'link' | 'reference';
 }
 
-export const SelfConnector: React.FC<SelfConnectorProps> = props => {
-	const {offset, passage} = props;
+export const SelfConnection: React.FC<SelfConnectionProps> = props => {
+	const {offset, passage, variant} = props;
 	const start: Point = {left: passage.left, top: passage.top};
 
 	if (passage.selected) {
@@ -46,7 +47,7 @@ export const SelfConnector: React.FC<SelfConnectorProps> = props => {
 
 	return (
 		<path
-			className="self-connector"
+			className={`self-connection variant-${variant}`}
 			d={path}
 			style={{markerEnd: 'url(#link-arrowhead)'}}
 		/>

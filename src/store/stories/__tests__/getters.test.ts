@@ -9,8 +9,9 @@ import {
 } from '../getters';
 import {Story} from '../stories.types';
 import {fakePassage, fakeStory} from '../../../test-util/fakes';
+import {passageConnections} from '..';
 
-describe('markPassageMatches', () => {
+describe('markPassageMatches()', () => {
 	it.each([
 		[
 			'AaBbCc',
@@ -58,7 +59,137 @@ describe('markPassageMatches', () => {
 	);
 });
 
-describe('passageWithId', () => {
+describe('passageConnections', () => {
+	it('places links between two unselected passages in the fixed property', () => {
+		const passages = [
+			fakePassage({name: 'a', selected: false, text: '[[b]]'}),
+			fakePassage({name: 'b', selected: false, text: ''})
+		];
+
+		expect(passageConnections(passages)).toEqual({
+			fixed: {
+				broken: new Set(),
+				connections: new Map([[passages[0], new Set([passages[1]])]]),
+				self: new Set()
+			},
+			draggable: {
+				broken: new Set(),
+				connections: new Map(),
+				self: new Set()
+			}
+		});
+	});
+
+	it('places links between a selected and an unselected passage in the draggable property', () => {
+		const passages = [
+			fakePassage({name: 'a', selected: true, text: '[[b]]'}),
+			fakePassage({name: 'b', selected: false, text: ''})
+		];
+
+		expect(passageConnections(passages)).toEqual({
+			fixed: {
+				broken: new Set(),
+				connections: new Map(),
+				self: new Set()
+			},
+			draggable: {
+				broken: new Set(),
+				connections: new Map([[passages[0], new Set([passages[1]])]]),
+				self: new Set()
+			}
+		});
+	});
+
+	it('places links between two selected passages in the draggable property', () => {
+		const passages = [
+			fakePassage({name: 'a', selected: true, text: '[[b]]'}),
+			fakePassage({name: 'b', selected: true, text: ''})
+		];
+
+		expect(passageConnections(passages)).toEqual({
+			fixed: {
+				broken: new Set(),
+				connections: new Map(),
+				self: new Set()
+			},
+			draggable: {
+				broken: new Set(),
+				connections: new Map([[passages[0], new Set([passages[1]])]]),
+				self: new Set()
+			}
+		});
+	});
+
+	it('places a self link of a selected passage in the draggable property', () => {
+		const passage = fakePassage({name: 'a', selected: true, text: '[[a]]'});
+
+		expect(passageConnections([passage])).toEqual({
+			fixed: {
+				broken: new Set(),
+				connections: new Map(),
+				self: new Set()
+			},
+			draggable: {
+				broken: new Set(),
+				connections: new Map(),
+				self: new Set([passage])
+			}
+		});
+	});
+
+	it('places a self link of an unselected passage in the fixed property', () => {
+		const passage = fakePassage({name: 'a', selected: false, text: '[[a]]'});
+
+		expect(passageConnections([passage])).toEqual({
+			fixed: {
+				broken: new Set(),
+				connections: new Map(),
+				self: new Set([passage])
+			},
+			draggable: {
+				broken: new Set(),
+				connections: new Map(),
+				self: new Set()
+			}
+		});
+	});
+
+	it('places a broken link of a selected passage in the draggable property', () => {
+		const passage = fakePassage({name: 'a', selected: true, text: '[[b]]'});
+
+		expect(passageConnections([passage])).toEqual({
+			fixed: {
+				broken: new Set(),
+				connections: new Map(),
+				self: new Set()
+			},
+			draggable: {
+				broken: new Set([passage]),
+				connections: new Map(),
+				self: new Set()
+			}
+		});
+	});
+
+	it('places a broken link of an unselected passage in the draggable property', () => {
+		const passage = fakePassage({name: 'a', selected: false, text: '[[b]]'});
+
+		expect(passageConnections([passage])).toEqual({
+			fixed: {
+				broken: new Set([passage]),
+				connections: new Map(),
+				self: new Set()
+			},
+			draggable: {
+				broken: new Set(),
+				connections: new Map(),
+				self: new Set()
+			}
+		});
+	});
+});
+
+describe('passageWithId()', () => {
 	let story: Story;
 
 	beforeEach(() => (story = fakeStory(3)));
@@ -79,7 +210,7 @@ describe('passageWithId', () => {
 		).toThrow());
 });
 
-describe('passageWithName', () => {
+describe('passageWithName()', () => {
 	let story: Story;
 
 	beforeEach(() => (story = fakeStory(3)));
@@ -100,7 +231,7 @@ describe('passageWithName', () => {
 		).toThrow());
 });
 
-describe('storyPassageTags', () => {
+describe('storyPassageTags()', () => {
 	it('returns a sorted array of unique tags across passages', () => {
 		const story = fakeStory(2);
 
@@ -119,7 +250,7 @@ describe('storyPassageTags', () => {
 	});
 });
 
-describe('storyTags', () => {
+describe('storyTags()', () => {
 	it('returns a sorted array of unique tags across stories', () => {
 		const stories = [fakeStory(), fakeStory()];
 
@@ -138,7 +269,7 @@ describe('storyTags', () => {
 	});
 });
 
-describe('storyWithId', () => {
+describe('storyWithId()', () => {
 	let story: Story;
 
 	beforeEach(() => (story = fakeStory()));
@@ -152,7 +283,7 @@ describe('storyWithId', () => {
 		expect(() => storyWithId([story], story.id + 'nonexistent')).toThrow());
 });
 
-describe('storyWithName', () => {
+describe('storyWithName()', () => {
 	let story: Story;
 
 	beforeEach(() => (story = fakeStory()));
