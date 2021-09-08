@@ -4,6 +4,7 @@ export const defaults = (): PrefsState => ({
 	appTheme: 'light',
 	codeEditorFontFamily: 'var(--font-monospaced)',
 	codeEditorFontScale: 1,
+	disabledStoryFormatEditorExtensions: [],
 	donateShown: false,
 	firstRunTime: new Date().getTime(),
 	lastUpdateSeen: '',

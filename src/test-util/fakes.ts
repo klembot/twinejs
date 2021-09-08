@@ -105,7 +105,7 @@ export function fakeUnloadedStoryFormat(
 	};
 }
 
-export function fakePrefs(): PrefsState {
+export function fakePrefs(overrides?: Partial<PrefsState>): PrefsState {
 	// Ensure tag uniqueness.
 
 	const tag = lorem.word();
@@ -115,6 +115,9 @@ export function fakePrefs(): PrefsState {
 		appTheme: random.arrayElement(['light', 'dark', 'system']),
 		codeEditorFontFamily: lorem.words(2),
 		codeEditorFontScale: 0.8 + random.number(0.5),
+		disabledStoryFormatEditorExtensions: [
+			{name: lorem.words(2), version: system.semver()}
+		],
 		donateShown: random.boolean(),
 		firstRunTime: new Date().getTime(),
 		lastUpdateSeen: '',
@@ -134,7 +137,8 @@ export function fakePrefs(): PrefsState {
 		storyListSort: random.arrayElement(['date', 'name']),
 		storyListTagFilter: [],
 		storyTagColors: {[tags[0]]: 'red', [tags[1]]: 'green', [tags[2]]: 'blue'},
-		welcomeSeen: random.boolean()
+		welcomeSeen: random.boolean(),
+		...overrides
 	};
 }
 

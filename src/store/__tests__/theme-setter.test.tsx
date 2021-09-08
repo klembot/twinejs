@@ -1,8 +1,8 @@
 import {ThemeSetter} from '../theme-setter';
 import {render} from '@testing-library/react';
-import {useComputedTheme} from '../use-computed-theme';
+import {useComputedTheme} from '../prefs/use-computed-theme';
 
-jest.mock('../use-computed-theme');
+jest.mock('../prefs/use-computed-theme');
 
 describe('<ThemeSetter>', () => {
 	const useComputedThemeMock = useComputedTheme as jest.Mock;

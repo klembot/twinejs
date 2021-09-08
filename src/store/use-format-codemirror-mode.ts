@@ -1,15 +1,13 @@
-import {version as twineVersion} from '../../../package.json';
+import {version as twineVersion} from '../../package.json';
 import CodeMirror from 'codemirror';
 import * as React from 'react';
 import {
 	formatWithNameAndVersion,
 	loadFormatProperties,
 	useStoryFormatsContext
-} from '.';
-import {
-	formatEditorExtensions,
-	namespaceForFormat
-} from '../../util/story-format';
+} from './story-formats';
+import {formatEditorExtensions, namespaceForFormat} from '../util/story-format';
+import {formatEditorExtensionsDisabled, usePrefsContext} from './prefs';
 
 /**
  * Sets up a CodeMirror mode for a format, if the format has defined one via
@@ -23,9 +21,19 @@ export function useFormatCodeMirrorMode(
 ) {
 	const {dispatch, formats} = useStoryFormatsContext();
 	const format = formatWithNameAndVersion(formats, formatName, formatVersion);
+	const {prefs} = usePrefsContext();
 	const [modeName, setModeName] = React.useState<string>();
+	const extensionsDisabled = formatEditorExtensionsDisabled(
+		prefs,
+		formatName,
+		formatVersion
+	);
 
 	React.useEffect(() => {
+		if (extensionsDisabled) {
+			return;
+		}
+
 		if (format.loadState === 'unloaded') {
 			dispatch(loadFormatProperties(format));
 		} else if (format.loadState === 'loaded') {
@@ -39,7 +47,7 @@ export function useFormatCodeMirrorMode(
 				setModeName(namespaceForFormat(format));
 			}
 		}
-	}, [dispatch, format]);
+	}, [dispatch, extensionsDisabled, format]);
 
 	return modeName;
 }

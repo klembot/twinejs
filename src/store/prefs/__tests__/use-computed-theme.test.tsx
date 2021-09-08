@@ -1,6 +1,6 @@
 import {renderHook} from '@testing-library/react-hooks';
-import {fakePrefs} from '../../test-util/fakes';
-import {PrefsContext, PrefsState} from '../prefs';
+import {fakePrefs} from '../../../test-util/fakes';
+import {PrefsContext, PrefsState} from '..';
 import {useComputedTheme} from '../use-computed-theme';
 
 describe('useComputedTheme()', () => {

@@ -104,6 +104,7 @@
 			"loadingFormat": "Loading this story format...",
 			"loadError": "This story format could not be loaded ({{errorMessage}}).",
 			"name": "{{name}} {{version}}",
+			"useEditorExtensions": "Use Editor Extensions",
 			"useFormat": "Use As Default Story Format",
 			"useProofingFormat": "Use As Proofing Format"
 		},

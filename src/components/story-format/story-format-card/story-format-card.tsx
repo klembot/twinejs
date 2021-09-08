@@ -11,14 +11,23 @@ import {StoryFormatCardDetails} from './story-format-card-details';
 import './story-format-card.css';
 
 export interface StoryFormatCardProps {
+	useEditorExtensions: boolean;
 	format: StoryFormat;
+	onChangeUseEditorExtensions: (value: boolean) => void;
 	onDelete: () => void;
 	onSelect: () => void;
 	selected: boolean;
 }
 
 export const StoryFormatCard: React.FC<StoryFormatCardProps> = props => {
-	const {format, onDelete, onSelect, selected} = props;
+	const {
+		useEditorExtensions: editorExtensionsAllowed,
+		format,
+		onChangeUseEditorExtensions: onChangeEditorExtensionsAllowed,
+		onDelete,
+		onSelect,
+		selected
+	} = props;
 	const {t} = useTranslation();
 
 	let image = <></>;
@@ -51,17 +60,26 @@ export const StoryFormatCard: React.FC<StoryFormatCardProps> = props => {
 				</CardContent>
 				<ButtonBar>
 					{format.loadState === 'loaded' && (
-						<CheckboxButton
-							disabled={selected}
-							label={
-								format.properties?.proofing
-									? t('components.storyFormatCard.useProofingFormat')
-									: t('components.storyFormatCard.useFormat')
-							}
-							onChange={onSelect}
-							value={selected}
-							variant="primary"
-						/>
+						<>
+							<CheckboxButton
+								disabled={selected}
+								label={
+									format.properties?.proofing
+										? t('components.storyFormatCard.useProofingFormat')
+										: t('components.storyFormatCard.useFormat')
+								}
+								onChange={onSelect}
+								value={selected}
+								variant="primary"
+							/>
+							{!format.properties?.proofing && (
+								<CheckboxButton
+									label={t('components.storyFormatCard.useEditorExtensions')}
+									onChange={onChangeEditorExtensionsAllowed}
+									value={editorExtensionsAllowed}
+								/>
+							)}
+						</>
 					)}
 					{format.userAdded && (
 						<IconButton
