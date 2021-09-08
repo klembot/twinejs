@@ -72,6 +72,9 @@ export interface StoryFormatProperties {
 					mode?: ModeFactory<unknown>;
 					toolbar?: StoryFormatToolbarFactory;
 				};
+				references?: {
+					parsePassageText?: (text: string) => string[];
+				};
 			};
 		};
 	};

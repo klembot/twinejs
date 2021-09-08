@@ -8,16 +8,17 @@ import {
 	Point
 } from '../../../util/geometry';
 import {Passage} from '../../../store/stories';
-import './passage-connector.css';
+import './passage-connection.css';
 
-export interface PassageConnectorProps {
+export interface PassageConnectionProps {
 	end: Passage;
 	offset: Point;
 	start: Passage;
+	variant: 'link' | 'reference';
 }
 
-export const PassageConnector: React.FC<PassageConnectorProps> = props => {
-	const {end, offset, start} = props;
+export const PassageConnection: React.FC<PassageConnectionProps> = props => {
+	const {end, offset, start, variant} = props;
 	const path = React.useMemo(() => {
 		// If either passage is selected, offset it. We need to take care not to
 		// overwrite the passage information.
@@ -48,11 +49,7 @@ export const PassageConnector: React.FC<PassageConnectorProps> = props => {
 
 		// Move both points to where they intersect with the edges of their passages.
 
-		startPoint = rectIntersectionWithLine(
-			offsetStart,
-			startPoint,
-			endPoint
-		);
+		startPoint = rectIntersectionWithLine(offsetStart, startPoint, endPoint);
 
 		if (!startPoint) {
 			return '';
@@ -79,10 +76,7 @@ export const PassageConnector: React.FC<PassageConnectorProps> = props => {
 
 		let sweep = startPoint.left < endPoint.left;
 
-		if (
-			startPoint.left === endPoint.left &&
-			startPoint.top < endPoint.top
-		) {
+		if (startPoint.left === endPoint.left && startPoint.top < endPoint.top) {
 			sweep = true;
 		}
 
@@ -103,7 +97,7 @@ export const PassageConnector: React.FC<PassageConnectorProps> = props => {
 	return (
 		<path
 			d={path}
-			className="passage-connector"
+			className={`passage-connection variant-${variant}`}
 			style={{markerEnd: 'url(#link-arrowhead)'}}
 		/>
 	);

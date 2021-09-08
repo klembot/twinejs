@@ -210,6 +210,8 @@ export const InnerStoryEditRoute: React.FC = () => {
 					zoom={story.zoom}
 				/>
 				<PassageMap
+					formatName={story.storyFormat}
+					formatVersion={story.storyFormatVersion}
 					onDeselect={handleDeselectPassage}
 					onDrag={handleDragPassages}
 					onEdit={handleEditPassage}
