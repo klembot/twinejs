@@ -1,12 +1,9 @@
 import * as React from 'react';
 import CodeMirror from 'codemirror';
 import {usePrefsContext} from '../../store/prefs';
-import {
-	StoryFormat,
-	StoryFormatToolbarItem,
-	useFormatCodeMirrorToolbar
-} from '../../store/story-formats';
-import {useComputedTheme} from '../../store/use-computed-theme';
+import {StoryFormat, StoryFormatToolbarItem} from '../../store/story-formats';
+import {useComputedTheme} from '../../store/prefs/use-computed-theme';
+import {useFormatCodeMirrorToolbar} from '../../store/use-format-codemirror-toolbar';
 import {ButtonBar} from '../../components/container/button-bar';
 import {IconButton} from '../../components/control/icon-button';
 import {MenuButton} from '../../components/control/menu-button';

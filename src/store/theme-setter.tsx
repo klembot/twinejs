@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useComputedTheme} from './use-computed-theme';
+import {useComputedTheme} from './prefs/use-computed-theme';
 
 export function ThemeSetter() {
 	const computedTheme = useComputedTheme();

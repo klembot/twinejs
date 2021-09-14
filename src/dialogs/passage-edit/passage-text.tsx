@@ -3,7 +3,8 @@ import {DialogEditor} from '../../components/container/dialog-card';
 import {CodeArea} from '../../components/control/code-area';
 import {usePrefsContext} from '../../store/prefs';
 import {Passage} from '../../store/stories';
-import {StoryFormat, useFormatCodeMirrorMode} from '../../store/story-formats';
+import {StoryFormat} from '../../store/story-formats';
+import {useFormatCodeMirrorMode} from '../../store/use-format-codemirror-mode';
 import {StoryFormatToolbar} from './story-format-toolbar';
 
 export interface PassageTextProps {

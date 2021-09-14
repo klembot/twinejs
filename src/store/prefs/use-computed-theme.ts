@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {usePrefsContext} from './prefs';
+import {usePrefsContext} from '.';
 
 export function useComputedTheme() {
 	// See https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia

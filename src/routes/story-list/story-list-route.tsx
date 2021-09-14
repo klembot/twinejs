@@ -10,7 +10,7 @@ import {
 import {usePrefsContext} from '../../store/prefs';
 import {Story, useStoriesContext} from '../../store/stories';
 import {UndoableStoriesContextProvider} from '../../store/undoable-stories';
-import {useDonationCheck} from '../../store/use-donation-check';
+import {useDonationCheck} from '../../store/prefs/use-donation-check';
 import {usePublishing} from '../../store/use-publishing';
 import {storyFileName} from '../../electron/shared';
 import {saveHtml} from '../../util/save-html';

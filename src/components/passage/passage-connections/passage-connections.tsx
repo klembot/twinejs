@@ -1,11 +1,10 @@
 import * as React from 'react';
 import {Passage, passageConnections} from '../../../store/stories';
-import {StoryFormat} from '../../../store/story-formats';
 import {Point} from '../../../util/geometry';
 import {PassageConnectionGroup} from './passage-connection-group';
 import {LinkMarkers} from './markers';
 import {StartConnection} from './start-connection';
-import {useFormatReferenceParser} from '../../../store/story-formats/use-format-reference-parser';
+import {useFormatReferenceParser} from '../../../store/use-format-reference-parser';
 
 export interface PassageConnectionsProps {
 	formatName: string;
