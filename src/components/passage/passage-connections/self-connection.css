@@ -1,8 +1,12 @@
 @import '../../../styles/colors.css';
 
-path.passage-connector {
+path.self-connection {
 	/* See note in markers.tsx about how to apply arrowheads. */
 	fill: none;
 	stroke: var(--gray);
 	stroke-width: 2px;
+}
+
+path.self-connection.variant-reference {
+	stroke-dasharray: 4px;
 }

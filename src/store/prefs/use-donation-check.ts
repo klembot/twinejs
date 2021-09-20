@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {usePrefsContext} from './prefs';
+import {usePrefsContext} from '.';
 
 /**
  * How long since the user began using Twine to show a donation prompt. It's set

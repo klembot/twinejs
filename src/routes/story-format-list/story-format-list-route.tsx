@@ -10,14 +10,20 @@ import {IconButton} from '../../components/control/icon-button';
 import {AddStoryFormatButton} from '../../components/story-format/add-story-format-button';
 import {StoryFormatCard} from '../../components/story-format/story-format-card/story-format-card';
 import {FormatLoader} from '../../store/format-loader';
-import {PrefsState, setPref, usePrefsContext} from '../../store/prefs';
+import {
+	PrefsState,
+	setPref,
+	formatEditorExtensionsDisabled,
+	usePrefsContext
+} from '../../store/prefs';
 import {
 	createFromProperties,
 	filteredFormats,
 	sortFormats,
 	useStoryFormatsContext,
 	StoryFormat,
-	StoryFormatProperties
+	StoryFormatProperties,
+	deleteFormat
 } from '../../store/story-formats';
 
 export const StoryFormatListRoute: React.FC = () => {
@@ -33,8 +39,38 @@ export const StoryFormatListRoute: React.FC = () => {
 		formatsDispatch(createFromProperties(formatUrl, properties));
 	}
 
+	function handleChangeUseEditorExtensions(
+		value: boolean,
+		format: StoryFormat
+	) {
+		// This logic is a little backwards--the user is setting whether to use the
+		// extensions but our preferences track disabled ones.
+
+		if (value) {
+			prefsDispatch(
+				setPref(
+					'disabledStoryFormatEditorExtensions',
+					prefs.disabledStoryFormatEditorExtensions.filter(
+						f => f.name !== format.name || f.version !== format.version
+					)
+				)
+			);
+		} else {
+			prefsDispatch(
+				setPref('disabledStoryFormatEditorExtensions', [
+					...prefs.disabledStoryFormatEditorExtensions,
+					{name: format.name, version: format.version}
+				])
+			);
+		}
+	}
+
 	function handleChangeFilter(value: PrefsState['storyFormatListFilter']) {
 		prefsDispatch({type: 'update', name: 'storyFormatListFilter', value});
+	}
+
+	function handleDeleteFormat(format: StoryFormat) {
+		formatsDispatch(deleteFormat(format));
 	}
 
 	function handleSelect(format: StoryFormat) {
@@ -109,12 +145,22 @@ export const StoryFormatListRoute: React.FC = () => {
 					)}
 				</p>
 				<FormatLoader>
-					<CardGroup columnWidth="450px">
+					<CardGroup columnWidth="550px">
 						{visibleFormats.map(format => (
 							<StoryFormatCard
+								useEditorExtensions={
+									!formatEditorExtensionsDisabled(
+										prefs,
+										format.name,
+										format.version
+									)
+								}
 								format={format}
 								key={format.id}
-								onDelete={() => {}}
+								onChangeUseEditorExtensions={value =>
+									handleChangeUseEditorExtensions(value, format)
+								}
+								onDelete={() => handleDeleteFormat(format)}
 								onSelect={() => handleSelect(format)}
 								selected={
 									(format.name === prefs.storyFormat.name &&

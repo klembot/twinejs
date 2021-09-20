@@ -4,7 +4,7 @@ import {IconPlus} from '@tabler/icons';
 import {PromptButton, PromptButtonValidator} from '../control/prompt-button';
 import {StoryFormat, StoryFormatProperties} from '../../store/story-formats';
 import './add-story-format-button.css';
-import {fetchStoryFormatProperties} from '../../util/fetch-story-format-properties';
+import {fetchStoryFormatProperties} from '../../util/story-format/fetch-properties';
 
 export interface AddStoryFormatButtonProps {
 	existingFormats: StoryFormat[];

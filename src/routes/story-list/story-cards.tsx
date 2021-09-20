@@ -6,7 +6,6 @@ import {setPref, usePrefsContext} from '../../store/prefs';
 import {
 	deleteStory,
 	duplicateStory,
-	renameStoryTag,
 	updateStory,
 	Story
 } from '../../store/stories';

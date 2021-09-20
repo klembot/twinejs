@@ -11,7 +11,7 @@ import {
 	publishStory,
 	publishStoryWithFormat
 } from '../../../../../util/publish';
-import * as fetchStoryFormatProperties from '../../../../../util/fetch-story-format-properties';
+import * as fetchStoryFormatProperties from '../../../../../util/story-format/fetch-properties';
 import {saveStory} from '../save-story';
 
 describe('saveStory()', () => {

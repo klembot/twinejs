@@ -11,6 +11,7 @@ export type PrefsAction =
 				| string
 				| string[]
 				| {name: string; version: string}
+				| {name: string; version: string}[]
 				| Record<string, Color>;
 	  }
 	| {type: 'repair'};
@@ -28,6 +29,13 @@ export interface PrefsState {
 	 * Font scale (1 being 100%) for the story JS and stylesheet editor.
 	 */
 	codeEditorFontScale: number;
+	/**
+	 * Story formats whose editor extensions should not be enabled.
+	 */
+	disabledStoryFormatEditorExtensions: {
+		name: string;
+		version: string;
+	}[];
 	/**
 	 * Has the donation prompt been shown?
 	 */

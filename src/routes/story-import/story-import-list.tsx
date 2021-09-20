@@ -2,7 +2,6 @@ import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {StoryImportCard} from '../../components/story/story-import-card';
 import {CardGroup} from '../../components/container/card-group';
-import {IconButton} from '../../components/control/icon-button';
 import {Story} from '../../store/stories';
 
 /**

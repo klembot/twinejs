@@ -1,3 +1,4 @@
+import {ModeFactory} from 'codemirror';
 import {Thunk} from 'react-hook-thunk-reducer';
 
 interface BaseStoryFormat {
@@ -21,6 +22,38 @@ export type StoryFormat =
 			properties: StoryFormatProperties;
 	  });
 
+export type StoryFormatToolbarButton = {
+	type: 'button';
+	command: string;
+	disabled?: boolean;
+	icon: string;
+	label: string;
+};
+
+export type StoryFormatToolbarMenuItem =
+	| Omit<StoryFormatToolbarButton, 'icon'>
+	| {type: 'separator'};
+
+export type StoryFormatToolbarItem =
+	| StoryFormatToolbarButton
+	| {
+			type: 'menu';
+			disabled: boolean;
+			icon: string;
+			items: StoryFormatToolbarMenuItem[];
+			label: string;
+	  };
+
+export interface StoryFormatToolbarFactoryEnvironment {
+	appTheme: 'dark' | 'light';
+	locale: string;
+}
+
+export type StoryFormatToolbarFactory = (
+	editor: CodeMirror.Editor,
+	environment: StoryFormatToolbarFactoryEnvironment
+) => StoryFormatToolbarItem[];
+
 /**
  * Properties available once a story format is loaded. Note that some there is
  * some overlap between this and StoryFormat--this is so that we know certain
@@ -31,6 +64,21 @@ export type StoryFormat =
 export interface StoryFormatProperties {
 	author?: string;
 	description?: string;
+	editorExtensions?: {
+		twine?: {
+			[semverSpec: string]: {
+				codeMirror?: {
+					commands?: Record<string, (editor: CodeMirror.Editor) => void>;
+					mode?: ModeFactory<unknown>;
+					toolbar?: StoryFormatToolbarFactory;
+				};
+				references?: {
+					parsePassageText?: (text: string) => string[];
+				};
+			};
+		};
+	};
+	hydrate?: string;
 	image?: string;
 	license?: string;
 	name: string;

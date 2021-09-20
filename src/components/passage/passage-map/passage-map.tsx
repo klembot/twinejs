@@ -1,12 +1,14 @@
 import * as React from 'react';
 import {DraggableData} from 'react-draggable';
-import {PassageCardGroup} from '../passage-card-group';
 import {Passage, Story} from '../../../store/stories';
-import {LinkConnectors} from '../../story/link-connectors';
 import {boundingRect, Point} from '../../../util/geometry';
+import {PassageConnections} from '../passage-connections';
+import {PassageCardGroup} from '../passage-card-group';
 import './passage-map.css';
 
 export interface PassageMapProps {
+	formatName: string;
+	formatVersion: string;
 	onDeselect: (passage: Passage) => void;
 	onDrag: (change: Point) => void;
 	onEdit: (passage: Passage) => void;
@@ -67,6 +69,8 @@ const extraSpace = 500;
 
 export const PassageMap: React.FC<PassageMapProps> = props => {
 	const {
+		formatName,
+		formatVersion,
 		onDeselect,
 		onDrag,
 		onEdit,
@@ -141,7 +145,9 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 
 	return (
 		<div className="passage-map" ref={container} style={style}>
-			<LinkConnectors
+			<PassageConnections
+				formatName={formatName}
+				formatVersion={formatVersion}
 				offset={{
 					left: (state.dragX - state.startX) / zoom,
 					top: (state.dragY - state.startY) / zoom

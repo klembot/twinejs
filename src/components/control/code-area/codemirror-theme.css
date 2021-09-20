@@ -25,7 +25,7 @@ The goal here is to align CM's default theme with our color palette.
 	font-style: italic;
 }
 .cm-link {
-	text-decoration: underline;
+	text-decoration: none;
 }
 .cm-strikethrough {
 	text-decoration: line-through;

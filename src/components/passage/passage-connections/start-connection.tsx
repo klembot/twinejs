@@ -1,14 +1,14 @@
 import * as React from 'react';
 import {Passage} from '../../../store/stories';
 import {Point} from '../../../util/geometry';
-import './start-connector.css';
+import './start-connection.css';
 
-export interface StartConnectorProps {
+export interface StartConnectionProps {
 	offset: Point;
 	passage: Passage;
 }
 
-export const StartConnector: React.FC<StartConnectorProps> = React.memo(
+export const StartConnection: React.FC<StartConnectionProps> = React.memo(
 	props => {
 		const {offset, passage} = props;
 		const start: Point = {left: passage.left, top: passage.top};
@@ -20,7 +20,7 @@ export const StartConnector: React.FC<StartConnectorProps> = React.memo(
 
 		return (
 			<line
-				className="start-connector"
+				className="start-connection"
 				x1={start.left - 50}
 				y1={start.top + passage.height / 2}
 				x2={start.left}
