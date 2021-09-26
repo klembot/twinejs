@@ -1,5 +1,13 @@
 import {app, dialog, shell} from 'electron';
-import {move, readdir, readFile, rename, stat, writeFile} from 'fs-extra';
+import {
+	mkdtemp,
+	move,
+	readdir,
+	readFile,
+	rename,
+	stat,
+	writeFile
+} from 'fs-extra';
 import {basename, join} from 'path';
 import {i18n} from './locales';
 import {storyDirectoryPath} from './story-directory';
@@ -54,11 +62,15 @@ export async function saveStoryHtml(story: Story, storyHtml: string) {
 	// so that if any step fails, the original file is left intact.
 
 	const savedFilePath = join(storyDirectoryPath(), storyFileName(story));
-	const tempFilePath = join(app.getPath('temp'), storyFileName(story));
 
 	console.log(`Saving ${savedFilePath}`);
 
 	try {
+		const tempFileDirectory = await mkdtemp(
+			join(app.getPath('temp'), `twine-${story.id}`)
+		);
+		const tempFilePath = join(tempFileDirectory, storyFileName(story));
+
 		if (await wasFileChangedExternally(savedFilePath)) {
 			const {response} = await dialog.showMessageBox({
 				buttons: [
@@ -84,8 +96,9 @@ export async function saveStoryHtml(story: Story, storyHtml: string) {
 			overwrite: true
 		});
 		fileWasTouched(savedFilePath);
+		console.log(`Successfully saved ${savedFilePath}`);
 	} catch (e) {
-		console.error(`Error while saving story: ${e}`);
+		console.error(`Error while saving ${savedFilePath}: ${e}`);
 		throw e;
 	}
 }

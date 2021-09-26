@@ -20,7 +20,7 @@ describe('updatePassage action creator', () => {
 	});
 
 	describe('The thunk it returns', () => {
-		it('calls dispatch with an updateStory action type', () => {
+		it('calls dispatch with an updatePassage action type', () => {
 			updatePassage(story, story.passages[0], {name: 'test name'})(
 				dispatch,
 				getState
@@ -30,6 +30,37 @@ describe('updatePassage action creator', () => {
 					{
 						passageId: story.passages[0].id,
 						props: {name: 'test name'},
+						storyId: story.id,
+						type: 'updatePassage'
+					}
+				]
+			]);
+		});
+
+		it('dispatches update actions to update links to the passage if its name changes', () => {
+			story = fakeStory(3);
+			story.passages[0].name = 'a';
+			story.passages[1].text = '[[a]]';
+			story.passages[2].text = 'unlinked';
+			updatePassage(
+				story,
+				story.passages[0],
+				{name: 'test name'},
+				{dontCreateNewlyLinkedPassages: true}
+			)(dispatch, getState);
+			expect(dispatchMock.mock.calls).toEqual([
+				[
+					{
+						passageId: story.passages[0].id,
+						props: {name: 'test name'},
+						storyId: story.id,
+						type: 'updatePassage'
+					}
+				],
+				[
+					{
+						passageId: story.passages[1].id,
+						props: {text: '[[test name]]'},
 						storyId: story.id,
 						type: 'updatePassage'
 					}

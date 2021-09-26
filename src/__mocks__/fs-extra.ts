@@ -1,4 +1,5 @@
 export const copy = jest.fn();
+export const mkdtemp = jest.fn();
 export const mkdirp = jest.fn();
 export const move = jest.fn();
 export const readFile = jest.fn().mockResolvedValue('');

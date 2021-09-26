@@ -73,7 +73,19 @@ export const PassageEditDialog: React.FC<PassageEditDialogProps> = props => {
 	}
 
 	function handleRename(name: string) {
-		dispatch(updatePassage(story, passage, {name}));
+		// Don't create newly linked passages here because the update action will
+		// try to recreate the passage as it's been renamed--it sees new links in
+		// existing passages, updates them, but does not see that the passage name
+		// has been updated since that hasn't happened yet.
+
+		dispatch(
+			updatePassage(
+				story,
+				passage,
+				{name},
+				{dontCreateNewlyLinkedPassages: true}
+			)
+		);
 	}
 
 	function handlePassageTextChange(text: string) {
