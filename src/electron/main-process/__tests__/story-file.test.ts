@@ -1,5 +1,13 @@
 import {app, dialog, shell} from 'electron';
-import {move, readdir, readFile, rename, stat, writeFile} from 'fs-extra';
+import {
+	mkdtemp,
+	move,
+	readdir,
+	readFile,
+	rename,
+	stat,
+	writeFile
+} from 'fs-extra';
 import {
 	deleteStory,
 	loadStories,
@@ -15,7 +23,6 @@ import {fakeStory} from '../../../test-util/fakes';
 import {Story} from '../../../store/stories';
 import {storyFileName} from '../../shared/story-filename';
 
-jest.mock('fs-extra');
 jest.mock('../track-file-changes');
 
 describe('deleteStory', () => {
@@ -268,6 +275,7 @@ describe('renameStory', () => {
 
 describe('saveStoryHtml()', () => {
 	const fileWasTouchedMock = fileWasTouched as jest.Mock;
+	const mkdtempMock = mkdtemp as jest.Mock;
 	const moveMock = move as jest.Mock;
 	const quitMock = app.quit as jest.Mock;
 	const relaunchMock = app.relaunch as jest.Mock;
@@ -279,6 +287,9 @@ describe('saveStoryHtml()', () => {
 	beforeEach(() => {
 		jest.spyOn(console, 'log').mockReturnValue();
 		jest.spyOn(console, 'error').mockReturnValue();
+		mkdtempMock.mockImplementation(
+			async (prefix: string) => `mkdtemp-mock-${prefix}`
+		);
 		story = fakeStory();
 	});
 
@@ -286,14 +297,18 @@ describe('saveStoryHtml()', () => {
 		await saveStoryHtml(story, 'story html');
 		expect(writeFileMock.mock.calls).toEqual([
 			[
-				`mock-electron-app-path-temp/${storyFileName(story)}`,
+				`mkdtemp-mock-mock-electron-app-path-temp/twine-${
+					story.id
+				}/${storyFileName(story)}`,
 				'story html',
 				'utf8'
 			]
 		]);
 		expect(moveMock.mock.calls).toEqual([
 			[
-				`mock-electron-app-path-temp/${storyFileName(story)}`,
+				`mkdtemp-mock-mock-electron-app-path-temp/twine-${
+					story.id
+				}/${storyFileName(story)}`,
 				`mock-electron-app-path-documents/common.appName/electron.storiesDirectoryName/${storyFileName(
 					story
 				)}`,

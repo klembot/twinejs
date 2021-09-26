@@ -32,8 +32,6 @@ export const PassageConnections: React.FC<PassageConnectionsProps> = props => {
 		referenceParser
 	]);
 
-	console.log(draggableReferences, fixedReferences);
-
 	const startPassage = React.useMemo(
 		() => passages.find(passage => passage.id === startPassageId),
 		[passages, startPassageId]

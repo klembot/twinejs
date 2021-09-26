@@ -18,7 +18,10 @@ describe('initIpc()', () => {
 	const saveJsonFileMock = saveJsonFile as jest.Mock;
 	const saveStoryHtmlMock = saveStoryHtml as jest.Mock;
 
-	beforeEach(initIpc);
+	beforeEach(() => {
+		saveStoryHtmlMock.mockResolvedValue(undefined);
+		initIpc();
+	});
 
 	describe('the listener it adds for delete-story events', () => {
 		let listener: any[];
@@ -97,14 +100,39 @@ describe('initIpc()', () => {
 		let story: Story;
 
 		beforeEach(() => {
+			jest.spyOn(console, 'log').mockReturnValue();
 			listener = onMock.mock.calls.find(call => call[0] === 'save-story-html');
 			story = fakeStory();
 		});
 
 		it('calls saveStoryHtml()', async () => {
 			expect(listener).not.toBeUndefined();
-			listener[1]({sender: {send: jest.fn()}}, story, 'test-story-html');
+			await listener[1]({sender: {send: jest.fn()}}, story, 'test-story-html');
 			expect(saveStoryHtmlMock).toBeCalledWith(story, 'test-story-html');
+		});
+
+		it('queues calls to saveStoryHtml() for the same story ID', async () => {
+			saveStoryHtmlMock.mockImplementation(() => new Promise(() => {}));
+			listener[1]({sender: {send: jest.fn()}}, story, 'test-story-html');
+			listener[1]({sender: {send: jest.fn()}}, story, 'test-story-html');
+			await Promise.resolve();
+			await Promise.resolve();
+			expect(saveStoryHtmlMock).toBeCalledTimes(1);
+		});
+
+		it("doesn't queue calls to saveStoryHtml() for the different story IDs", async () => {
+			const story1 = fakeStory();
+			const story2 = fakeStory();
+
+			story1.id = 'mock-id-1';
+			story2.id = 'mock-id-2';
+
+			saveStoryHtmlMock.mockImplementation(() => new Promise(() => {}));
+			listener[1]({sender: {send: jest.fn()}}, story1, 'test-story-html');
+			listener[1]({sender: {send: jest.fn()}}, story2, 'test-story-html');
+			await Promise.resolve();
+			await Promise.resolve();
+			expect(saveStoryHtmlMock).toBeCalledTimes(2);
 		});
 
 		it('sends back a story-html-saved event', async () => {

@@ -85,10 +85,12 @@ export function updatePassage(
 						'[[' + newNameEscaped + '$1$2]]'
 					);
 
-					updatePassage(story, relinkedPassage, {text: newText})(
-						dispatch,
-						getState
-					);
+					updatePassage(
+						story,
+						relinkedPassage,
+						{text: newText},
+						options
+					)(dispatch, getState);
 				}
 			});
 		}
