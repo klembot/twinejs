@@ -1,3 +1,4 @@
+import {debounce} from 'lodash';
 import * as React from 'react';
 import {DialogEditor} from '../../components/container/dialog-card';
 import {CodeArea} from '../../components/control/code-area';
@@ -16,10 +17,46 @@ export interface PassageTextProps {
 
 export const PassageText: React.FC<PassageTextProps> = props => {
 	const {onChange, onEditorChange, passage, storyFormat} = props;
+	const [changePending, setChangePending] = React.useState(false);
+	const [localText, setLocalText] = React.useState(passage.text);
 	const [editor, setEditor] = React.useState<CodeMirror.Editor>();
 	const {prefs} = usePrefsContext();
 	const mode =
 		useFormatCodeMirrorMode(storyFormat.name, storyFormat.version) ?? 'text';
+
+	// Effects to handle debouncing updates upward. The idea here is that the
+	// component maintains a local state so that the CodeMirror instance always is
+	// up-to-date with what the user has typed, but the global context may not be.
+	// This is because updating global context causes re-rendering in the story
+	// map, which can be time-intensive.
+
+	React.useEffect(() => {
+		// A change to passage text has occurred externally, e.g. through a find and
+		// replace. We ignore this if a change is pending so that users don't see
+		// things they've typed in disappear or be replaced.
+
+		if (!changePending && localText !== passage.text) {
+			setLocalText(passage.text);
+		}
+	}, [changePending, localText, passage.text]);
+
+	// The code below handles user changes in the text field. 750ms is an
+	// eyeballed number.
+
+	const debouncedOnChange = React.useMemo(
+		() =>
+			debounce((value: string) => {
+				onChange(value);
+				setChangePending(false);
+			}, 750),
+		[onChange]
+	);
+
+	React.useEffect(() => {
+		if (changePending && localText !== passage.text) {
+			debouncedOnChange(localText);
+		}
+	}, [changePending, debouncedOnChange, localText, passage.text]);
 
 	function handleMount(editor: CodeMirror.Editor) {
 		setEditor(editor);
@@ -41,7 +78,8 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 		text: string
 	) {
 		onEditorChange(editor);
-		onChange(text);
+		setChangePending(true);
+		setLocalText(text);
 	}
 
 	return (
@@ -55,7 +93,7 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 					onBeforeChange={handleChange}
 					onChange={onEditorChange}
 					options={{mode, lineWrapping: true}}
-					value={passage.text}
+					value={localText}
 				/>
 			</DialogEditor>
 		</>

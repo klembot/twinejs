@@ -50,6 +50,13 @@ export const PassageEditDialog: React.FC<PassageEditDialogProps> = props => {
 	);
 	const {t} = useTranslation();
 
+	const handlePassageTextChange = React.useCallback(
+		(text: string) => {
+			dispatch(updatePassage(story, passage, {text}));
+		},
+		[dispatch, passage, story]
+	);
+
 	// TODO: make tag changes undoable
 
 	function handleAddTag(name: string, color?: Color) {
@@ -86,10 +93,6 @@ export const PassageEditDialog: React.FC<PassageEditDialogProps> = props => {
 				{dontCreateNewlyLinkedPassages: true}
 			)
 		);
-	}
-
-	function handlePassageTextChange(text: string) {
-		dispatch(updatePassage(story, passage, {text}));
 	}
 
 	function handleSetAsStart() {
