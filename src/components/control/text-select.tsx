@@ -9,6 +9,7 @@ export interface SelectOption {
 }
 
 export interface TextSelectProps {
+	children: React.ReactNode;
 	onChange?: React.ChangeEventHandler<HTMLSelectElement>;
 	options: SelectOption[];
 	orientation?: 'horizontal' | 'vertical';
