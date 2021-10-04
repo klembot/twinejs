@@ -8,6 +8,7 @@ describe('<DialogCard>', () => {
 		return render(
 			<DialogCard
 				collapsed={false}
+				domId="mock-dialog-id"
 				headerLabel="mock-header-label"
 				onChangeCollapsed={jest.fn()}
 				onClose={jest.fn()}
