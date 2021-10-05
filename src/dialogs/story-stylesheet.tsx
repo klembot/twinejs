@@ -33,7 +33,7 @@ export const StoryStylesheetDialog: React.FC<StoryStylesheetDialogProps> = props
 	return (
 		<DialogCard
 			{...other}
-			className="story-javascript-dialog"
+			className="story-stylesheet-dialog"
 			headerLabel={t('dialogs.storyStylesheet.title')}
 		>
 			<p>{t('dialogs.storyStylesheet.explanation')}</p>

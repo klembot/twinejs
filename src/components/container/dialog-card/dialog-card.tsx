@@ -33,7 +33,7 @@ export const DialogCard: React.FC<DialogCardProps> = props => {
 	});
 
 	return (
-		<div className={calcdClassName}>
+		<div aria-label={headerLabel} role="dialog" className={calcdClassName}>
 			<Card floating>
 				<h2>
 					<div className="dialog-card-header">
