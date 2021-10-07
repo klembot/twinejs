@@ -226,8 +226,8 @@ const actions = (module.exports = {
 			},
 			{
 				name: 'SugarCube',
-				url: 'story-formats/sugarcube-2.34.1/format.js',
-				version: '2.34.1',
+				url: 'story-formats/sugarcube-2.35.0/format.js',
+				version: '2.35.0',
 				userAdded: false
 			}
 		];
