@@ -3,7 +3,8 @@ import classNames from 'classnames';
 import {Helmet} from 'react-helmet';
 import './main-content.css';
 
-interface MainContentProps extends React.ComponentPropsWithoutRef<'div'> {
+export interface MainContentProps
+	extends React.ComponentPropsWithoutRef<'div'> {
 	grabbable?: boolean;
 	padded?: boolean;
 	title?: string;
