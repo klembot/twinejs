@@ -36,7 +36,7 @@ export interface PassageEditDialogProps
 	storyId: string;
 }
 
-export const PassageEditDialog: React.FC<PassageEditDialogProps> = props => {
+export const InnerPassageEditDialog: React.FC<PassageEditDialogProps> = props => {
 	const {passageId, storyId, ...other} = props;
 	const [cmEditor, setCmEditor] = React.useState<CodeMirror.Editor>();
 	const {dispatch, stories} = useUndoableStoriesContext();
@@ -179,4 +179,20 @@ export const PassageEditDialog: React.FC<PassageEditDialogProps> = props => {
 			/>
 		</DialogCard>
 	);
+};
+
+export const PassageEditDialog: React.FC<PassageEditDialogProps> = props => {
+	// Check for the existence of the passage. If it doesn't (e.g. it was deleted
+	// after the dialog was opened), render nothing and call onClose.
+
+	const {stories} = useUndoableStoriesContext();
+
+	try {
+		passageWithId(stories, props.storyId, props.passageId);
+	} catch (err) {
+		props.onClose();
+		return null;
+	}
+
+	return <InnerPassageEditDialog {...props} />;
 };
