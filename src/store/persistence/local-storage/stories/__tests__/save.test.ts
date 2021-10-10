@@ -8,7 +8,7 @@ import {
 	StorageTransaction
 } from '../save';
 import {Story} from '../../../../stories/stories.types';
-import {fakeStory} from '../../../../../test-util/fakes';
+import {fakeStory} from '../../../../../test-util';
 
 describe('stories local storage save', () => {
 	let story: Story;

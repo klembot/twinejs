@@ -1,7 +1,7 @@
 import {saveMiddleware} from '../save-middleware';
 import {save} from '../save';
 import {PrefsState} from '../../../../prefs';
-import {fakePrefs} from '../../../../../test-util/fakes';
+import {fakePrefs} from '../../../../../test-util';
 
 jest.mock('../save');
 

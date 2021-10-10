@@ -1,6 +1,6 @@
 import {importStories} from '../import-stories';
 import {Story} from '../../stories.types';
-import {fakeStory} from '../../../../test-util/fakes';
+import {fakeStory} from '../../../../test-util';
 
 describe('importStories action creator', () => {
 	let dispatch: jest.Mock;

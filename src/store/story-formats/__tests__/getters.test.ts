@@ -9,7 +9,7 @@ import {
 	fakeFailedStoryFormat,
 	fakeLoadedStoryFormat,
 	fakePendingStoryFormat
-} from '../../../test-util/fakes';
+} from '../../../test-util';
 
 describe('filteredFormats', () => {
 	it("returns all formats if the 'all' filter is passed", () => {

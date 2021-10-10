@@ -1,5 +1,5 @@
 import {namespaceForFormat} from '../namespace';
-import {fakePendingStoryFormat} from '../../../test-util/fakes';
+import {fakePendingStoryFormat} from '../../../test-util';
 
 describe('namespaceForFormat()', () => {
 	it('removes whitespace from a format name', () => {

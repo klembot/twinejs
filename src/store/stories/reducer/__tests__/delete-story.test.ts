@@ -1,5 +1,5 @@
 import {deleteStory} from '../delete-story';
-import {fakeStory} from '../../../../test-util/fakes';
+import {fakeStory} from '../../../../test-util';
 
 describe('Story reducer deleteStory action handler', () => {
 	it('removes a story from state', () => {

@@ -1,6 +1,6 @@
 import {updateStory} from '../update-story';
 import {Story} from '../../stories.types';
-import {fakeStory} from '../../../../test-util/fakes';
+import {fakeStory} from '../../../../test-util';
 
 describe('updateStory action creator', () => {
 	let state: Story[];

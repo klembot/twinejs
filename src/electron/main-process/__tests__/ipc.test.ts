@@ -4,7 +4,7 @@ import {openWithTempFile} from '../open-with-temp-file';
 import {saveJsonFile} from '../json-file';
 import {deleteStory, renameStory, saveStoryHtml} from '../story-file';
 import {Story} from '../../../store/stories';
-import {fakeStory} from '../../../test-util/fakes';
+import {fakeStory} from '../../../test-util';
 
 jest.mock('../json-file');
 jest.mock('../open-with-temp-file');

@@ -1,5 +1,5 @@
 import {renamePassageTag} from '../rename-passage-tag';
-import {fakeStory} from '../../../../test-util/fakes';
+import {fakeStory} from '../../../../test-util';
 
 describe('renamePassageTag', () => {
 	let story = fakeStory(3);

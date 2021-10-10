@@ -1,6 +1,6 @@
 import {createUntitledPassage} from '../create-untitled-passage';
 import {Story} from '../../stories.types';
-import {fakeStory} from '../../../../test-util/fakes';
+import {fakeStory} from '../../../../test-util';
 import {passageDefaults} from '../../defaults';
 
 describe('createUntitledPassage', () => {

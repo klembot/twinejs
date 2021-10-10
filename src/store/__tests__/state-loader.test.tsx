@@ -4,7 +4,7 @@ import {usePrefsContext} from '../prefs';
 import {useStoriesContext} from '../stories';
 import {useStoryFormatsContext, StoryFormat} from '../story-formats';
 import {usePersistence} from '../persistence/use-persistence';
-import {fakeUnloadedStoryFormat} from '../../test-util/fakes';
+import {fakeUnloadedStoryFormat} from '../../test-util';
 
 jest.mock('../prefs/prefs-context');
 jest.mock('../stories/stories-context');

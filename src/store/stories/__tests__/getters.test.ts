@@ -8,7 +8,7 @@ import {
 	storyTags
 } from '../getters';
 import {Story} from '../stories.types';
-import {fakePassage, fakeStory} from '../../../test-util/fakes';
+import {fakePassage, fakeStory} from '../../../test-util';
 import {passageConnections} from '..';
 
 describe('markPassageMatches()', () => {

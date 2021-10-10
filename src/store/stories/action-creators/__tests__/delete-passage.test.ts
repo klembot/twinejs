@@ -1,5 +1,5 @@
 import {Story} from '../../stories.types';
-import {fakePassage, fakeStory} from '../../../../test-util/fakes';
+import {fakePassage, fakeStory} from '../../../../test-util';
 import {deletePassage} from '../delete-passage';
 
 describe('deletePassage action creator', () => {

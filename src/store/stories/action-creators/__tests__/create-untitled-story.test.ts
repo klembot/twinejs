@@ -2,7 +2,7 @@ import {createUntitledStory} from '../create-untitled-story';
 import {PrefsState} from '../../../prefs';
 import {storyDefaults} from '../../defaults';
 import {Story} from '../../stories.types';
-import {fakePrefs, fakeStory} from '../../../../test-util/fakes';
+import {fakePrefs, fakeStory} from '../../../../test-util';
 
 describe('createUntitledStory action creator', () => {
 	let dispatch: jest.Mock;

@@ -1,6 +1,6 @@
 import {Story, StoriesState, StoriesDispatch} from '../../stories.types';
 import {updatePassage} from '../update-passage';
-import {fakeStory} from '../../../../test-util/fakes';
+import {fakeStory} from '../../../../test-util';
 import {createNewlyLinkedPassages} from '../create-newly-linked-passages';
 
 jest.mock('../create-newly-linked-passages');

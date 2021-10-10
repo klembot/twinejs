@@ -7,7 +7,7 @@ import {
 	fakePendingStoryFormat,
 	fakePrefs,
 	fakeUnloadedStoryFormat
-} from '../../test-util/fakes';
+} from '../../test-util';
 import {usePrefsContext} from '../prefs';
 import {
 	loadFormatProperties,

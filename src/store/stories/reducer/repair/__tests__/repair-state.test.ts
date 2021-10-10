@@ -1,9 +1,6 @@
 import {repairState} from '../repair-state';
 import {Story} from '../../../stories.types';
-import {
-	fakeStory,
-	fakeUnloadedStoryFormat
-} from '../../../../../test-util/fakes';
+import {fakeStory, fakeUnloadedStoryFormat} from '../../../../../test-util';
 
 jest.mock('../repair-story', () => ({
 	repairStory: (story: Story) => ({story, mockRepaired: true})

@@ -1,5 +1,5 @@
 import {load} from '../load';
-import {fakeStory} from '../../../../../test-util/fakes';
+import {fakeStory} from '../../../../../test-util';
 
 describe('stories local storage load', () => {
 	beforeEach(() => window.localStorage.clear());
