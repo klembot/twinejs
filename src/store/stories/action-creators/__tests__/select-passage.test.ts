@@ -6,7 +6,7 @@ import {
 	selectPassagesInRect
 } from '../select-passage';
 import {Story} from '../../stories.types';
-import {fakeStory} from '../../../../test-util/fakes';
+import {fakeStory} from '../../../../test-util';
 import {rectsIntersect, Rect} from '../../../../util/geometry';
 
 jest.mock('../../../../util/geometry');

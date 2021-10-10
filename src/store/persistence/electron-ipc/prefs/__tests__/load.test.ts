@@ -1,6 +1,6 @@
 import {load} from '../load';
 import {TwineElectronWindow} from '../../../../../electron/shared';
-import {fakePrefs} from '../../../../../test-util/fakes';
+import {fakePrefs} from '../../../../../test-util';
 
 describe('prefs Electron IPC load', () => {
 	const electronWindow = window as TwineElectronWindow;

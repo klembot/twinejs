@@ -4,7 +4,7 @@ import {
 	fakeLoadedStoryFormat,
 	fakePendingStoryFormat,
 	fakeUnloadedStoryFormat
-} from '../../../test-util/fakes';
+} from '../../../test-util';
 
 describe('formatEditorExtensions()', () => {
 	it('returns undefined if the format is not loaded', () => {

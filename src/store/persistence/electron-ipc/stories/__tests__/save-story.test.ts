@@ -4,7 +4,7 @@ import {
 	fakeLoadedStoryFormat,
 	fakeStoryFormatProperties,
 	fakeStory
-} from '../../../../../test-util/fakes';
+} from '../../../../../test-util';
 import {TwineElectronWindow} from '../../../../../electron/shared';
 import {getAppInfo} from '../../../../../util/app-info';
 import {

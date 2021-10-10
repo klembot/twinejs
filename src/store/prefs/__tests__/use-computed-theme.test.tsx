@@ -1,5 +1,5 @@
 import {renderHook} from '@testing-library/react-hooks';
-import {fakePrefs} from '../../../test-util/fakes';
+import {fakePrefs} from '../../../test-util';
 import {PrefsContext, PrefsState} from '..';
 import {useComputedTheme} from '../use-computed-theme';
 

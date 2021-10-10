@@ -1,6 +1,6 @@
 import {highlightPassagesMatchingSearch} from '../highlight-passages';
 import {Story} from '../../stories.types';
-import {fakeStory} from '../../../../test-util/fakes';
+import {fakeStory} from '../../../../test-util';
 import {passagesMatchingSearch} from '../../getters';
 
 jest.mock('../../getters');

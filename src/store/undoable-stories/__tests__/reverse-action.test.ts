@@ -1,6 +1,6 @@
 import {Thunk} from 'react-hook-thunk-reducer';
 import {reverseAction} from '../reverse-action';
-import {fakePassage, fakeStory} from '../../../test-util/fakes';
+import {fakePassage, fakeStory} from '../../../test-util';
 import {StoriesAction, StoriesState} from '../../stories';
 import {reducer} from '../../stories/reducer';
 

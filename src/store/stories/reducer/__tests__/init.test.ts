@@ -1,5 +1,5 @@
 import {initState} from '../init';
-import {fakeStory} from '../../../../test-util/fakes';
+import {fakeStory} from '../../../../test-util';
 import {StoriesState} from '../../stories.types';
 
 describe('Story reducer initState action', () => {

@@ -1,5 +1,5 @@
 import {load} from '../load';
-import {fakeUnloadedStoryFormat} from '../../../../../test-util/fakes';
+import {fakeUnloadedStoryFormat} from '../../../../../test-util';
 
 describe('story formats local storage load', () => {
 	const formatData = [fakeUnloadedStoryFormat(), fakeUnloadedStoryFormat()].map(

@@ -7,7 +7,7 @@ import {
 	saveStory
 } from '../save';
 import {StoriesState} from '../../../../stories/stories.types';
-import {fakeStory} from '../../../../../test-util/fakes';
+import {fakeStory} from '../../../../../test-util';
 
 jest.mock('../save');
 

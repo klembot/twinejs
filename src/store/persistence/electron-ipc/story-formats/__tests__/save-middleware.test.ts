@@ -1,7 +1,7 @@
 import {saveMiddleware} from '../save-middleware';
 import {saveJson} from '../../save-json';
 import {StoryFormatsState} from '../../../../story-formats/story-formats.types';
-import {fakeUnloadedStoryFormat} from '../../../../../test-util/fakes';
+import {fakeUnloadedStoryFormat} from '../../../../../test-util';
 
 jest.mock('../../save-json');
 

@@ -1,6 +1,6 @@
 import {duplicateStory} from '../duplicate-story';
 import {Story} from '../../stories.types';
-import {fakeStory} from '../../../../test-util/fakes';
+import {fakeStory} from '../../../../test-util';
 
 describe('duplicateStory action creator', () => {
 	let story: Story;

@@ -1,7 +1,7 @@
 import {saveMiddleware} from '../save-middleware';
 import {StoryFormatsState} from '../../../../story-formats';
 import {StoriesAction, StoriesState} from '../../../../stories';
-import {fakeLoadedStoryFormat, fakeStory} from '../../../../../test-util/fakes';
+import {fakeLoadedStoryFormat, fakeStory} from '../../../../../test-util';
 import {TwineElectronWindow} from '../../../../../electron/shared';
 import {saveStory} from '../save-story';
 

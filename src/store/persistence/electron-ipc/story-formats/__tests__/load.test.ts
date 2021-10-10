@@ -1,6 +1,6 @@
 import {load} from '../load';
 import {TwineElectronWindow} from '../../../../../electron/shared';
-import {fakeUnloadedStoryFormat} from '../../../../../test-util/fakes';
+import {fakeUnloadedStoryFormat} from '../../../../../test-util';
 
 describe('story formats Electron IPC load', () => {
 	const electronWindow = window as TwineElectronWindow;

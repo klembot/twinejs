@@ -1,6 +1,6 @@
 import {setTagColor} from '../tag-color';
 import {Story} from '../../stories.types';
-import {fakeStory} from '../../../../test-util/fakes';
+import {fakeStory} from '../../../../test-util';
 
 describe('setTagColor action creator', () => {
 	let dispatch: jest.Mock;

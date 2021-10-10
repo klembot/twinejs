@@ -1,5 +1,5 @@
 import {updateStory} from '../update-story';
-import {fakeStory} from '../../../../test-util/fakes';
+import {fakeStory} from '../../../../test-util';
 
 describe('Story reducer updateStory action handler', () => {
 	it('changes an existing story', () => {

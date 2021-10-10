@@ -19,7 +19,7 @@ import {
 	stopTrackingFile,
 	wasFileChangedExternally
 } from '../track-file-changes';
-import {fakeStory} from '../../../test-util/fakes';
+import {fakeStory} from '../../../test-util';
 import {Story} from '../../../store/stories';
 import {storyFileName} from '../../shared/story-filename';
 
