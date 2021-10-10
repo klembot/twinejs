@@ -47,11 +47,13 @@ export const PassageToolbar: React.FC<PassageToolbarProps> = React.memo(
 		// passage drag is complete.
 
 		React.useEffect(() => {
+			let timer: number;
+
 			setForceInvisible(true);
 
 			const resetter = () => {
 				if (document.body.classList.contains('dragging-passages')) {
-					window.setTimeout(resetter, 25);
+					timer = window.setTimeout(resetter, 25);
 					return;
 				}
 
@@ -59,7 +61,23 @@ export const PassageToolbar: React.FC<PassageToolbarProps> = React.memo(
 			};
 
 			Promise.resolve().then(resetter);
+
+			return () => {
+				if (timer) {
+					window.clearTimeout(timer);
+				}
+			};
 		}, [targets]);
+
+		// Delay here mirrors the transition time on <PassageMap>.
+
+		React.useEffect(() => {
+			setForceInvisible(true);
+
+			const timer = window.setTimeout(() => setForceInvisible(false), 400);
+
+			return () => window.clearTimeout(timer);
+		}, [zoom]);
 
 		if (forceInvisible || targets.length === 0) {
 			return null;
