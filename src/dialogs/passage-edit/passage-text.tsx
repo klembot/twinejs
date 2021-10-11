@@ -40,23 +40,17 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 		}
 	}, [changePending, localText, passage.text]);
 
-	// The code below handles user changes in the text field. 750ms is an
-	// eyeballed number.
+	// The code below handles user changes in the text field. 1 second is a
+	// guesstimate.
 
 	const debouncedOnChange = React.useMemo(
 		() =>
 			debounce((value: string) => {
 				onChange(value);
 				setChangePending(false);
-			}, 750),
+			}, 1000),
 		[onChange]
 	);
-
-	React.useEffect(() => {
-		if (changePending && localText !== passage.text) {
-			debouncedOnChange(localText);
-		}
-	}, [changePending, debouncedOnChange, localText, passage.text]);
 
 	function handleMount(editor: CodeMirror.Editor) {
 		setEditor(editor);
@@ -79,6 +73,7 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 	) {
 		onEditorChange(editor);
 		setChangePending(true);
+		debouncedOnChange(text);
 		setLocalText(text);
 	}
 
