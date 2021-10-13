@@ -196,8 +196,8 @@ const actions = (module.exports = {
 			},
 			{
 				name: 'Harlowe',
-				url: 'story-formats/harlowe-3.2.2/format.js',
-				version: '3.2.2',
+				url: 'story-formats/harlowe-3.2.3/format.js',
+				version: '3.2.3',
 				userAdded: false
 			},
 			{
@@ -252,7 +252,7 @@ const actions = (module.exports = {
 		if (typeof store.state.pref.defaultFormat !== 'object') {
 			setPref(store, 'defaultFormat', {
 				name: 'Harlowe',
-				version: '3.2.2'
+				version: '3.2.3'
 			});
 		}
 
