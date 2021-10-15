@@ -15,8 +15,6 @@ describe('<PassageToolbar>', () => {
 	async function renderComponent(props?: Partial<PassageToolbarProps>) {
 		let result: RenderResult;
 
-		await act(async () => {
-			jest.useFakeTimers();
 			result = render(
 				<PassageToolbar
 					onDelete={jest.fn()}
@@ -27,10 +25,9 @@ describe('<PassageToolbar>', () => {
 					{...props}
 				/>
 			);
-			jest.runAllTimers();
-			jest.useRealTimers();
-		});
 
+			// Need this because of <PromptButton>
+			await act(async () => Promise.resolve());
 		return result!;
 	}
 

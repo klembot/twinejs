@@ -22,9 +22,7 @@ export function lineAngle(p1: Point, p2: Point) {
  * Returns the length of the line segment between two points.
  */
 export function lineDistance(p1: Point, p2: Point) {
-	return Math.sqrt(
-		Math.pow(p1.left - p2.left, 2) + Math.pow(p1.top - p2.top, 2)
-	);
+	return Math.hypot(p1.left - p2.left, p1.top - p2.top);
 }
 
 /**
