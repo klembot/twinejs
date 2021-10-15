@@ -11,6 +11,7 @@ import {StoryPreview} from './story-preview';
 import {storyTags, Story} from '../../store/stories';
 import {Color} from '../../util/color';
 import './story-card.css';
+import {hueString} from '../../util/hue-string';
 
 const dateFormatter = new Intl.DateTimeFormat([]);
 
@@ -49,21 +50,31 @@ export const StoryCard: React.FC<StoryCardProps> = props => {
 	} = props;
 	const {t} = useTranslation();
 
+	const previewStyle = {
+		backgroundColor: `hsla(${hueString(story.name)}, 90%, 75%, 0.2)`
+	};
+
 	return (
 		<div className="story-card">
 			<Card {...otherProps}>
-				<StoryPreview story={story} />
 				<CardContent>
-					<h2>{story.name}</h2>
-					<p>
-						{t('components.storyCard.lastUpdated', {
-							date: dateFormatter.format(story.lastUpdate)
-						})}
-						<br />
-						{t('components.storyCard.passageCount', {
-							count: story.passages.length
-						})}
-					</p>
+					<div className="story-card-summary">
+						<div className="story-card-summary-preview" style={previewStyle}>
+							<StoryPreview story={story} />
+						</div>
+						<div className="story-card-summary-text">
+							<h2>{story.name}</h2>
+							<p>
+								{t('components.storyCard.lastUpdated', {
+									date: dateFormatter.format(story.lastUpdate)
+								})}
+								<br />
+								{t('components.storyCard.passageCount', {
+									count: story.passages.length
+								})}
+							</p>
+						</div>
+					</div>
 					{story.tags && (
 						<div className="tags">
 							{story.tags.map(tag => (
