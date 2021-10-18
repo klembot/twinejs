@@ -33,9 +33,8 @@ export const CardButton: React.FC<CardButtonProps> = props => {
 
 		if (open) {
 			document.addEventListener('click', closer);
+			return () => document.removeEventListener('click', closer);
 		}
-
-		return () => document.removeEventListener('click', closer);
 	}, [cardEl, onChangeOpen, open, props]);
 
 	return (
