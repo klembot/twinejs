@@ -15,15 +15,15 @@ export class GlobalErrorBoundary extends React.Component<
 		this.state = {error: null};
 	}
 
-	static getDerivedStateFromError(error: Error) {
+	public static getDerivedStateFromError(error: Error) {
 		// Update state so the next render will show the fallback UI.
-		console.warn(error);
+		console.error(error);
 		return {error};
 	}
 
-	render() {
+	public render() {
 		if (this.state.error) {
-			return <p>An error occurred: {this.state.error}</p>;
+			return <p>An error occurred: {this.state.error.message}</p>;
 		}
 
 		return this.props.children;
