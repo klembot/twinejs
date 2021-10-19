@@ -12,6 +12,7 @@ export interface PassageCardGroupProps
 export const PassageCardGroup: React.FC<PassageCardGroupProps> = React.memo(
 	props => {
 		const {passages} = props;
+
 		return (
 			<TransitionGroup component={null}>
 				{passages.map(passage => (
