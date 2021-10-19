@@ -18,7 +18,8 @@ export interface PassageCardProps {
 	zoom: number;
 }
 
-const excerptLength = 100;
+// Needs to fill a large-sized passage card.
+const excerptLength = 400;
 
 export const PassageCard: React.FC<PassageCardProps> = React.memo(props => {
 	const {
