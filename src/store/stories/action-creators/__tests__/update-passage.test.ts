@@ -68,6 +68,97 @@ describe('updatePassage action creator', () => {
 			]);
 		});
 
+		it('handles passage name changes where the original name has regular expression characters correctly', () => {
+			story = fakeStory(3);
+			story.passages[0].name = '.*?\\1$1';
+			story.passages[1].text = '[[.*?\\1$1]]';
+			story.passages[2].text = 'unlinked';
+			updatePassage(
+				story,
+				story.passages[0],
+				{name: 'test name'},
+				{dontCreateNewlyLinkedPassages: true}
+			)(dispatch, getState);
+			expect(dispatchMock.mock.calls).toEqual([
+				[
+					{
+						passageId: story.passages[0].id,
+						props: {name: 'test name'},
+						storyId: story.id,
+						type: 'updatePassage'
+					}
+				],
+				[
+					{
+						passageId: story.passages[1].id,
+						props: {text: '[[test name]]'},
+						storyId: story.id,
+						type: 'updatePassage'
+					}
+				]
+			]);
+		});
+
+		it('handles passage name changes where the new name has regular expression characters correctly', () => {
+			story = fakeStory(3);
+			story.passages[0].name = 'a';
+			story.passages[1].text = '[[a]]';
+			updatePassage(
+				story,
+				story.passages[0],
+				{name: '.*?\\1$1'},
+				{dontCreateNewlyLinkedPassages: true}
+			)(dispatch, getState);
+			expect(dispatchMock.mock.calls).toEqual([
+				[
+					{
+						passageId: story.passages[0].id,
+						props: {name: '.*?\\1$1'},
+						storyId: story.id,
+						type: 'updatePassage'
+					}
+				],
+				[
+					{
+						passageId: story.passages[1].id,
+						props: {text: '[[.*?\\1$1]]'},
+						storyId: story.id,
+						type: 'updatePassage'
+					}
+				]
+			]);
+		});
+
+		it('handles passage name changes where both old and new name has regular expression characters correctly', () => {
+			story = fakeStory(3);
+			story.passages[0].name = 'old .*?\\1$1';
+			story.passages[1].text = '[[old .*?\\1$1]]';
+			updatePassage(
+				story,
+				story.passages[0],
+				{name: 'new .*?\\1$1'},
+				{dontCreateNewlyLinkedPassages: true}
+			)(dispatch, getState);
+			expect(dispatchMock.mock.calls).toEqual([
+				[
+					{
+						passageId: story.passages[0].id,
+						props: {name: 'new .*?\\1$1'},
+						storyId: story.id,
+						type: 'updatePassage'
+					}
+				],
+				[
+					{
+						passageId: story.passages[1].id,
+						props: {text: '[[new .*?\\1$1]]'},
+						storyId: story.id,
+						type: 'updatePassage'
+					}
+				]
+			]);
+		});
+
 		it("throws an error if the passage doesn't belong to the story", () =>
 			expect(() =>
 				updatePassage(
