@@ -12,7 +12,7 @@ module.exports = {
 	files: ['electron-build/**/*', 'node_modules/**/*'],
 	linux: {
 		artifactName: `twine-${pkg.version}-linux-\${arch}.zip`,
-		target: [{arch: ['ia32', 'x64'], target: 'zip'}]
+		target: [{arch: ['ia32', 'x64', 'arm64'], target: 'zip'}]
 	},
 	mac: {
 		artifactName: `twine-${pkg.version}-macos.dmg`,
