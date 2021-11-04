@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './markers.css';
+import './link-markers.css';
 
 /**
  * Arrowheads used on connectors. Arrowheads must be applied by an inline style.

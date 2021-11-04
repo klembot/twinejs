@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Passage, passageConnections} from '../../../store/stories';
 import {Point} from '../../../util/geometry';
 import {PassageConnectionGroup} from './passage-connection-group';
-import {LinkMarkers} from './markers';
+import {LinkMarkers} from './link-markers';
 import {StartConnection} from './start-connection';
 import {useFormatReferenceParser} from '../../../store/use-format-reference-parser';
 
