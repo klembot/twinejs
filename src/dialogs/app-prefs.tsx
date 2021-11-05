@@ -8,7 +8,9 @@ import {setPref, usePrefsContext} from '../store/prefs';
 import {locales} from '../util/locales';
 import './app-prefs.css';
 
-export const AppPrefsDialog: React.FC<DialogCardProps> = props => {
+export const AppPrefsDialog: React.FC<
+	Omit<DialogCardProps, 'headerLabel'>
+> = props => {
 	const {dispatch, prefs} = usePrefsContext();
 	const {t} = useTranslation();
 
