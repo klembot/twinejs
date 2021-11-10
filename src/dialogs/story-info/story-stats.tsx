@@ -8,11 +8,11 @@ const dateFormatter = new Intl.DateTimeFormat([], {
 	timeStyle: 'long'
 });
 
-export interface StoryStatsProps {
+export interface StoryStatsDialogProps {
 	story: Story;
 }
 
-export const StoryStats: React.FC<StoryStatsProps> = props => {
+export const StoryStatsDialog: React.FC<StoryStatsDialogProps> = props => {
 	const {story} = props;
 	const stats = storyStats(story);
 	const {t} = useTranslation();

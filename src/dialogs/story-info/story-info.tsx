@@ -14,7 +14,7 @@ import {
 import {FormatLoader} from '../../store/format-loader';
 import {DialogComponentProps} from '../dialogs.types';
 import {RenameStoryButton} from '../../components/story/rename-story-button';
-import {StoryStats} from './story-stats';
+import {StoryStatsDialog} from './story-stats';
 
 export interface StoryInfoDialogProps extends DialogComponentProps {
 	storyId: string;
@@ -81,7 +81,7 @@ export const StoryInfoDialog: React.FC<StoryInfoDialogProps> = props => {
 				</a>
 			</div>
 			<CardContent>
-				{!other.collapsed && <StoryStats story={story} />}
+				{!other.collapsed && <StoryStatsDialog story={story} />}
 			</CardContent>
 		</DialogCard>
 	);
