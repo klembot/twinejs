@@ -3,11 +3,11 @@ import {axe} from 'jest-axe';
 import * as React from 'react';
 import {fakeStory} from '../../../test-util';
 import {lorem} from 'faker';
-import {StoryStatsDialog, StoryStatsDialogProps} from '../story-stats';
+import {StoryInfoDialogStats, StoryInfoDialogStatsProps} from '../story-stats';
 
-describe('<StoryStatsDialog>', () => {
-	function renderComponent(props?: StoryStatsDialogProps) {
-		return render(<StoryStatsDialog story={fakeStory()} {...props} />);
+describe('<StoryInfoDialogStats>', () => {
+	function renderComponent(props?: StoryInfoDialogStatsProps) {
+		return render(<StoryInfoDialogStats story={fakeStory()} {...props} />);
 	}
 
 	it('shows a character count for the story', () => {

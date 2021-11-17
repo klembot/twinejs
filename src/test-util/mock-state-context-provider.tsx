@@ -10,7 +10,10 @@ import {
 import {fakeLoadedStoryFormat, fakePrefs, fakeStory} from './fakes';
 
 export interface MockStateContextProviderProps {
-	prefs?: Partial<PrefsContextProps>;
+	prefs?: {
+		dispatch?: PrefsContextProps['dispatch'];
+		prefs?: Partial<PrefsContextProps['prefs']>;
+	};
 	stories?: Partial<UndoableStoriesContextProps>;
 	storyFormats?: Partial<StoryFormatsContextProps>;
 }
