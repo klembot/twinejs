@@ -46,6 +46,8 @@ export const StoryJavaScriptDialog: React.FC<StoryJavaScriptDialogProps> = props
 					editorDidMount={setCmEditor}
 					fontFamily={prefs.codeEditorFontFamily}
 					fontScale={prefs.codeEditorFontScale}
+					label={t('dialogs.storyJavaScript.editorLabel')}
+					labelHidden
 					onBeforeChange={handleChange}
 					options={{autofocus: true, mode: 'javascript'}}
 					value={story.script}

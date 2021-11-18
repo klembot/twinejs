@@ -147,6 +147,7 @@
 			"title": "Preferences"
 		},
 		"passageEdit": {
+			"passageTextEditorLabel": "Passage Text",
 			"setAsStart": "Start Story Here",
 			"size": "Size",
 			"sizeLarge": "Large",
@@ -175,6 +176,7 @@
 			}
 		},
 		"storyJavaScript": {
+			"editorLabel": "Story JavaScript",
 			"title": "Story JavaScript",
 			"explanation": "Any JavaScript entered here will immediately run when your story is opened in a Web browser."
 		},
@@ -191,6 +193,7 @@
 			"useRegexes": "Use Regular Expressions"
 		},
 		"storyStylesheet": {
+			"editorLabel": "Story Stylesheet",
 			"title": "Story Stylesheet",
 			"explanation": "Any CSS entered here will override the default appearance of your story."
 		},

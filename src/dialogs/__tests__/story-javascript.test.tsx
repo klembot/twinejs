@@ -45,7 +45,9 @@ describe('<StoryJavaScriptDialog>', () => {
 
 		renderComponent({storyId: story.id}, {stories: [story]});
 
-		expect(screen.getByRole('textbox')).toHaveValue('mock-story-javascript');
+		expect(
+			screen.getByLabelText('dialogs.storyJavaScript.editorLabel')
+		).toHaveValue('mock-story-javascript');
 	});
 
 	it('dispatches changes to the story as edits are made', () => {
@@ -54,9 +56,12 @@ describe('<StoryJavaScriptDialog>', () => {
 
 		renderComponent({storyId: story.id}, {dispatch, stories: [story]});
 		expect(dispatch).not.toHaveBeenCalled();
-		fireEvent.change(screen.getByRole('textbox'), {
-			target: {value: 'mock-change'}
-		});
+		fireEvent.change(
+			screen.getByLabelText('dialogs.storyJavaScript.editorLabel'),
+			{
+				target: {value: 'mock-change'}
+			}
+		);
 		expect(dispatch.mock.calls).toEqual([
 			[{type: 'updateStory', storyId: story.id, props: {script: 'mock-change'}}]
 		]);

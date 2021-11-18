@@ -45,7 +45,9 @@ describe('<StoryStylesheetDialog>', () => {
 
 		renderComponent({storyId: story.id}, {stories: [story]});
 
-		expect(screen.getByRole('textbox')).toHaveValue('mock-story-stylesheet');
+		expect(
+			screen.getByLabelText('dialogs.storyStylesheet.editorLabel')
+		).toHaveValue('mock-story-stylesheet');
 	});
 
 	it('dispatches changes to the story as edits are made', () => {
@@ -54,9 +56,12 @@ describe('<StoryStylesheetDialog>', () => {
 
 		renderComponent({storyId: story.id}, {dispatch, stories: [story]});
 		expect(dispatch).not.toHaveBeenCalled();
-		fireEvent.change(screen.getByRole('textbox'), {
-			target: {value: 'mock-change'}
-		});
+		fireEvent.change(
+			screen.getByLabelText('dialogs.storyStylesheet.editorLabel'),
+			{
+				target: {value: 'mock-change'}
+			}
+		);
 		expect(dispatch.mock.calls).toEqual([
 			[
 				{

@@ -2,9 +2,7 @@ import {renderHook} from '@testing-library/react-hooks';
 import CodeMirror from 'codemirror';
 import {version as twineVersion} from '../../../package.json';
 import {
-	fakeFailedStoryFormat,
 	fakeLoadedStoryFormat,
-	fakePendingStoryFormat,
 	fakePrefs,
 	fakeUnloadedStoryFormat
 } from '../../test-util';
