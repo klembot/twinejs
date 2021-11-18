@@ -46,6 +46,8 @@ export const StoryStylesheetDialog: React.FC<StoryStylesheetDialogProps> = props
 					editorDidMount={setCmEditor}
 					fontFamily={prefs.codeEditorFontFamily}
 					fontScale={prefs.codeEditorFontScale}
+					label={t('dialogs.storyStylesheet.editorLabel')}
+					labelHidden
 					onBeforeChange={handleChange}
 					options={{autofocus: true, mode: 'css'}}
 					value={story.stylesheet}

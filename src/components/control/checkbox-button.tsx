@@ -25,7 +25,12 @@ export const CheckboxButton: React.FC<CheckboxButtonProps> = props => {
 		: uncheckedIcon ?? <IconSquare />;
 
 	return (
-		<span className="checkbox-button" role="checkbox" aria-checked={value}>
+		<span
+			aria-disabled={otherProps.disabled}
+			className="checkbox-button"
+			role="checkbox"
+			aria-checked={value}
+		>
 			<IconButton
 				icon={icon ?? calculatedIcon}
 				onClick={() => onChange(!value)}

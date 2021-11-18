@@ -1,5 +1,6 @@
 import {debounce} from 'lodash';
 import * as React from 'react';
+import {useTranslation} from 'react-i18next';
 import {DialogEditor} from '../../components/container/dialog-card';
 import {CodeArea} from '../../components/control/code-area';
 import {usePrefsContext} from '../../store/prefs';
@@ -23,6 +24,7 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 	const {prefs} = usePrefsContext();
 	const mode =
 		useFormatCodeMirrorMode(storyFormat.name, storyFormat.version) ?? 'text';
+	const {t} = useTranslation();
 
 	// Effects to handle debouncing updates upward. The idea here is that the
 	// component maintains a local state so that the CodeMirror instance always is
@@ -85,6 +87,8 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 					editorDidMount={handleMount}
 					fontFamily={prefs.passageEditorFontFamily}
 					fontScale={prefs.passageEditorFontScale}
+					label={t('dialogs.passageEdit.passageTextEditorLabel')}
+					labelHidden
 					onBeforeChange={handleChange}
 					onChange={onEditorChange}
 					options={{mode, lineWrapping: true}}

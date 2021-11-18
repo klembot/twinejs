@@ -1,7 +1,6 @@
 import {fireEvent, render, screen} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
-import {StoryFormat} from '../../../../store/story-formats';
 import {fakeLoadedStoryFormat} from '../../../../test-util';
 import {StoryFormatCard, StoryFormatCardProps} from '../story-format-card';
 

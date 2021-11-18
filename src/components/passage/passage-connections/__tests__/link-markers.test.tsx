@@ -1,4 +1,4 @@
-import {cleanup, render} from '@testing-library/react';
+import {render} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
 import {LinkMarkers} from '../link-markers';

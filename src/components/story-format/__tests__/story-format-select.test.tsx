@@ -4,8 +4,7 @@ import * as React from 'react';
 import {
 	fakeFailedStoryFormat,
 	fakeLoadedStoryFormat,
-	fakePendingStoryFormat,
-	fakeUnloadedStoryFormat
+	fakePendingStoryFormat
 } from '../../../test-util';
 import {
 	StoryFormatSelect,
