@@ -78,6 +78,7 @@
 		"electron": "^12.0.0",
 		"electron-builder": "^22.10.5",
 		"faker": "^5.4.0",
+		"history": "^5.1.0",
 		"jest-axe": "^4.1.0",
 		"jest-useragent-mock": "^0.1.1",
 		"npm-run-all": "^4.1.5",
