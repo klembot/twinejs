@@ -112,16 +112,19 @@ export const StoryFormatListRoute: React.FC = () => {
 					icon={<IconFilter />}
 					items={[
 						{
+							checkable: true,
 							checked: prefs.storyFormatListFilter === 'current',
 							label: t('routes.storyFormatList.title.current'),
 							onClick: () => handleChangeFilter('current')
 						},
 						{
+							checkable: true,
 							checked: prefs.storyFormatListFilter === 'user',
 							label: t('routes.storyFormatList.title.user'),
 							onClick: () => handleChangeFilter('user')
 						},
 						{
+							checkable: true,
 							checked: prefs.storyFormatListFilter === 'all',
 							label: t('routes.storyFormatList.title.all'),
 							onClick: () => handleChangeFilter('all')

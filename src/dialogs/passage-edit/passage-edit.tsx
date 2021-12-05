@@ -122,21 +122,25 @@ export const InnerPassageEditDialog: React.FC<PassageEditDialogProps> = props =>
 					icon={<IconResize />}
 					items={[
 						{
+							checkable: true,
 							checked: passage.height === 100 && passage.width === 100,
 							label: t('dialogs.passageEdit.sizeSmall'),
 							onClick: () => handleSetSize({height: 100, width: 100})
 						},
 						{
+							checkable: true,
 							checked: passage.height === 200 && passage.width === 200,
 							label: t('dialogs.passageEdit.sizeLarge'),
 							onClick: () => handleSetSize({height: 200, width: 200})
 						},
 						{
+							checkable: true,
 							checked: passage.height === 200 && passage.width === 100,
 							label: t('dialogs.passageEdit.sizeTall'),
 							onClick: () => handleSetSize({height: 200, width: 100})
 						},
 						{
+							checkable: true,
 							checked: passage.height === 100 && passage.width === 200,
 							label: t('dialogs.passageEdit.sizeWide'),
 							onClick: () => handleSetSize({height: 100, width: 200})

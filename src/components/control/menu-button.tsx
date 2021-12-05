@@ -1,21 +1,30 @@
 import * as React from 'react';
 import {usePopper} from 'react-popper';
 import {CSSTransition} from 'react-transition-group';
-import {IconCheck} from '@tabler/icons';
 import {ButtonBar, ButtonBarSeparator} from '../container/button-bar';
 import {ButtonCard} from '../container/button-card';
 import {IconEmpty} from '../image/icon';
 import {IconButton, IconButtonProps} from './icon-button';
 import './menu-button.css';
+import {CheckboxButton} from './checkbox-button';
+import {IconCheck} from '@tabler/icons';
 
-export interface LabeledMenuItem {
-	checked?: boolean;
+export interface UncheckableLabeledMenuItem {
 	disabled?: boolean;
 	label: string;
 	onClick: () => void;
 	separator?: undefined;
 	variant?: IconButtonProps['variant'];
 }
+
+export interface CheckableLabeledMenuItem extends UncheckableLabeledMenuItem {
+	checkable: true;
+	checked: boolean;
+}
+
+export type LabeledMenuItem =
+	| UncheckableLabeledMenuItem
+	| CheckableLabeledMenuItem;
 
 export interface MenuSeparator {
 	separator: true;
@@ -71,10 +80,20 @@ export const MenuButton: React.FC<MenuButtonProps> = props => {
 									return <ButtonBarSeparator key={index} />;
 								}
 
-								return (
+								return 'checkable' in item ? (
+									<CheckboxButton
+										checkedIcon={<IconCheck />}
+										disabled={item.disabled}
+										key={index}
+										label={item.label}
+										onChange={item.onClick}
+										uncheckedIcon={<IconEmpty />}
+										value={item.checked}
+									/>
+								) : (
 									<IconButton
 										disabled={item.disabled}
-										icon={item.checked ? <IconCheck /> : <IconEmpty />}
+										icon={<IconEmpty />}
 										key={index}
 										label={item.label}
 										onClick={item.onClick}
