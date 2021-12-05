@@ -4,10 +4,10 @@ import {IconButton, IconButtonProps} from './icon-button';
 
 export interface CheckboxButtonProps
 	extends Omit<IconButtonProps, 'icon' | 'onClick'> {
-	checkedIcon?: string;
-	icon?: string;
+	checkedIcon?: React.ReactNode;
+	icon?: React.ReactNode;
 	onChange: (value: boolean) => void;
-	uncheckedIcon?: string;
+	uncheckedIcon?: React.ReactNode;
 	value: boolean;
 }
 

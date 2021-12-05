@@ -2,8 +2,8 @@ import * as React from 'react';
 import {IconButton} from '../icon-button';
 import {ButtonBarSeparator} from '../../container/button-bar/button-bar-separator';
 import {MenuButtonProps} from '../menu-button';
-import {IconCheck} from '@tabler/icons';
 import {IconEmpty} from '../../image/icon';
+import {CheckboxButton} from '../checkbox-button';
 
 export const MenuButton: React.FC<MenuButtonProps> = ({items, label}) => {
 	return (
@@ -13,10 +13,19 @@ export const MenuButton: React.FC<MenuButtonProps> = ({items, label}) => {
 					return <ButtonBarSeparator key={index} />;
 				}
 
-				return (
+				return 'checkable' in item ? (
+					<CheckboxButton
+						disabled={item.disabled}
+						key={index}
+						label={item.label}
+						onChange={item.onClick}
+						uncheckedIcon={<IconEmpty />}
+						value={item.checked}
+					/>
+				) : (
 					<IconButton
 						disabled={item.disabled}
-						icon={item.checked ? <IconCheck /> : <IconEmpty />}
+						icon={<IconEmpty />}
 						key={index}
 						label={item.label}
 						onClick={item.onClick}

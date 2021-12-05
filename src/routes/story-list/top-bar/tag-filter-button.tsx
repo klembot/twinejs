@@ -18,6 +18,7 @@ export const TagFilterButton: React.FC<TagFilterButtonProps> = props => {
 			icon={<IconTag />}
 			items={[
 				{
+					checkable: true,
 					checked: prefs.storyListTagFilter.length === 0,
 					label: t('routes.storyList.topBar.showAllStories'),
 					onClick: () =>
@@ -25,6 +26,7 @@ export const TagFilterButton: React.FC<TagFilterButtonProps> = props => {
 				},
 				{separator: true},
 				...props.tags.map(tag => ({
+					checkable: true,
 					checked: prefs.storyListTagFilter.includes(tag),
 					label: tag,
 					onClick: () =>

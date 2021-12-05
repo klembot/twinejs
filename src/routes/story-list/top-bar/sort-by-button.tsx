@@ -13,11 +13,13 @@ export const SortByButton: React.FC = () => {
 			icon={<IconArrowsSort />}
 			items={[
 				{
+					checkable: true,
 					checked: prefs.storyListSort === 'date',
 					label: t('routes.storyList.topBar.sortDate'),
 					onClick: () => dispatch(setPref('storyListSort', 'date'))
 				},
 				{
+					checkable: true,
 					checked: prefs.storyListSort === 'name',
 					label: t('routes.storyList.topBar.sortName'),
 					onClick: () => dispatch(setPref('storyListSort', 'name'))
