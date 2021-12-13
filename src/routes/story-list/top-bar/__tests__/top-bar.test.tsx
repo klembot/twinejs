@@ -3,13 +3,8 @@ import {createMemoryHistory, MemoryHistory} from 'history';
 import {axe} from 'jest-axe';
 import * as React from 'react';
 import {Router} from 'react-router-dom';
-import {
-	AboutTwineDialog,
-	AppPrefsDialog,
-	DialogsContext,
-	DialogsContextProps,
-	StoryTagsDialog
-} from '../../../../dialogs';
+import {DialogsContextProps} from '../../../../dialogs';
+import {FakeStateProvider} from '../../../../test-util';
 import {StoryListTopBar, StoryListTopBarProps} from '../top-bar';
 
 jest.mock('../../../../components/control/menu-button');
@@ -26,11 +21,9 @@ describe('<StoryListTopBar>', () => {
 	) {
 		return render(
 			<Router history={history ?? createMemoryHistory()}>
-				<DialogsContext.Provider
-					value={{dialogs: [], dispatch: jest.fn(), ...dialogsContext}}
-				>
+				<FakeStateProvider>
 					<StoryListTopBar stories={[]} {...props} />
-				</DialogsContext.Provider>
+				</FakeStateProvider>
 			</Router>
 		);
 	}
@@ -79,36 +72,21 @@ describe('<StoryListTopBar>', () => {
 	});
 
 	it('displays a button to open a story tags dialog', () => {
-		const dispatch = jest.fn();
-
-		renderComponent({}, {dispatch});
-		expect(dispatch).not.toHaveBeenCalled();
+		renderComponent();
 		fireEvent.click(screen.getByText('routes.storyList.topBar.storyTags'));
-		expect(dispatch.mock.calls).toEqual([
-			[{type: 'addDialog', component: StoryTagsDialog}]
-		]);
+		expect(screen.getByText('dialogs.storyTags.title')).toBeInTheDocument();
 	});
 
 	it('displays a button to open an app prefs dialog', () => {
-		const dispatch = jest.fn();
-
-		renderComponent({}, {dispatch});
-		expect(dispatch).not.toHaveBeenCalled();
+		renderComponent();
 		fireEvent.click(screen.getByText('common.preferences'));
-		expect(dispatch.mock.calls).toEqual([
-			[{type: 'addDialog', component: AppPrefsDialog}]
-		]);
+		expect(screen.getByText('dialogs.appPrefs.title')).toBeInTheDocument();
 	});
 
 	it('displays a button to open an about dialog', () => {
-		const dispatch = jest.fn();
-
-		renderComponent({}, {dispatch});
-		expect(dispatch).not.toHaveBeenCalled();
+		renderComponent();
 		fireEvent.click(screen.getByText('routes.storyList.topBar.about'));
-		expect(dispatch.mock.calls).toEqual([
-			[{type: 'addDialog', component: AboutTwineDialog}]
-		]);
+		expect(screen.getByText('dialogs.aboutTwine.title')).toBeInTheDocument();
 	});
 
 	it('displays a button to report a bug', () => {

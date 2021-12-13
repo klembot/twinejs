@@ -1,8 +1,8 @@
 import {fireEvent, render, screen} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
-import {PrefsContext, PrefsContextProps} from '../../../../store/prefs';
-import {fakePrefs} from '../../../../test-util';
+import {PrefsState} from '../../../../store/prefs';
+import {PrefInspector, FakeStateProvider} from '../../../../test-util';
 import {TagFilterButton, TagFilterButtonProps} from '../tag-filter-button';
 
 jest.mock('../../../../components/control/menu-button');
@@ -10,14 +10,13 @@ jest.mock('../../../../components/control/menu-button');
 describe('<TagFilterButton>', () => {
 	function renderComponent(
 		props?: Partial<TagFilterButtonProps>,
-		context?: Partial<PrefsContextProps>
+		prefs?: Partial<PrefsState>
 	) {
 		return render(
-			<PrefsContext.Provider
-				value={{dispatch: jest.fn(), prefs: fakePrefs(), ...context}}
-			>
-				<TagFilterButton tags={[]} {...props} />{' '}
-			</PrefsContext.Provider>
+			<FakeStateProvider prefs={prefs}>
+				<TagFilterButton tags={[]} {...props} />
+				<PrefInspector name="storyListTagFilter" />
+			</FakeStateProvider>
 		);
 	}
 
@@ -34,7 +33,7 @@ describe('<TagFilterButton>', () => {
 	it('shows tags that are being filtered for as checked', () => {
 		renderComponent(
 			{tags: ['mock-tag-1', 'mock-tag-2']},
-			{prefs: fakePrefs({storyListTagFilter: ['mock-tag-2']})}
+			{storyListTagFilter: ['mock-tag-2']}
 		);
 		expect(
 			screen.getByRole('checkbox', {name: 'mock-tag-1'})
@@ -43,10 +42,7 @@ describe('<TagFilterButton>', () => {
 	});
 
 	it('shows the "Show All Stories" button as checked if no tags are filtered on', () => {
-		renderComponent(
-			{tags: ['mock-tag-1']},
-			{prefs: fakePrefs({storyListTagFilter: []})}
-		);
+		renderComponent({tags: ['mock-tag-1']}, {storyListTagFilter: []});
 		expect(
 			screen.getByRole('checkbox', {name: 'mock-tag-1'})
 		).not.toBeChecked();
@@ -57,64 +53,54 @@ describe('<TagFilterButton>', () => {
 		).toBeChecked();
 	});
 
-	it('dispatches an update when a tag is selected', () => {
-		const dispatch = jest.fn();
-		const prefs = fakePrefs({storyListTagFilter: ['existing-tag']});
-
-		renderComponent({tags: ['mock-tag-1']}, {dispatch, prefs});
-		expect(dispatch).not.toHaveBeenCalled();
+	it('adds a tag to the story list tag filter preference when selected', () => {
+		renderComponent(
+			{tags: ['mock-tag-1']},
+			{storyListTagFilter: ['existing-tag']}
+		);
 		fireEvent.click(screen.getByRole('button', {name: 'mock-tag-1'}));
-		expect(dispatch.mock.calls).toEqual([
-			[
-				{
-					type: 'update',
-					name: 'storyListTagFilter',
-					value: ['existing-tag', 'mock-tag-1']
-				}
-			]
-		]);
+		expect(
+			JSON.parse(
+				screen.getByTestId('pref-inspector-storyListTagFilter').textContent!
+			)
+		).toEqual(['existing-tag', 'mock-tag-1']);
 	});
 
-	it('dispatches an update when a tag is deselected', () => {
-		const dispatch = jest.fn();
-		const prefs = fakePrefs({storyListTagFilter: ['existing-tag']});
-
-		renderComponent({tags: ['existing-tag']}, {dispatch, prefs});
-		expect(dispatch).not.toHaveBeenCalled();
+	it('removes a tag from the story list tag filter preference when a tag is deselected', () => {
+		renderComponent(
+			{tags: ['existing-tag']},
+			{storyListTagFilter: ['existing-tag']}
+		);
 		fireEvent.click(screen.getByRole('button', {name: 'existing-tag'}));
-		expect(dispatch.mock.calls).toEqual([
-			[
-				{
-					type: 'update',
-					name: 'storyListTagFilter',
-					value: []
-				}
-			]
-		]);
+		expect(
+			JSON.parse(
+				screen.getByTestId('pref-inspector-storyListTagFilter').textContent!
+			)
+		).toEqual([]);
 	});
 
-	it('dispatches an update when the "Show All Stories" button is clicked', () => {
-		const dispatch = jest.fn();
-		const prefs = fakePrefs({
-			storyListTagFilter: ['existing-tag', 'existing-tag-2']
-		});
-
-		renderComponent({tags: ['existing-tag']}, {dispatch, prefs});
-		expect(dispatch).not.toHaveBeenCalled();
+	it('resets the story list tag filter preference when the "Show All Stories" button is clicked', () => {
+		renderComponent(
+			{tags: ['existing-tag']},
+			{
+				storyListTagFilter: ['existing-tag', 'existing-tag-2']
+			}
+		);
+		expect(
+			JSON.parse(
+				screen.getByTestId('pref-inspector-storyListTagFilter').textContent!
+			)
+		).toEqual(['existing-tag', 'existing-tag-2']);
 		fireEvent.click(
 			screen.getByRole('button', {
 				name: 'routes.storyList.topBar.showAllStories'
 			})
 		);
-		expect(dispatch.mock.calls).toEqual([
-			[
-				{
-					type: 'update',
-					name: 'storyListTagFilter',
-					value: []
-				}
-			]
-		]);
+		expect(
+			JSON.parse(
+				screen.getByTestId('pref-inspector-storyListTagFilter').textContent!
+			)
+		).toEqual([]);
 	});
 
 	it('is accessible', async () => {

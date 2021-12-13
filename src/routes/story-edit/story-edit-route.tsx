@@ -224,7 +224,7 @@ export const InnerStoryEditRoute: React.FC = () => {
 			</MainContent>
 		</div>
 	);
-};
+};;
 
 // This is a separate component so that the inner one can use
 // `useEditorsContext()` and `useUndoableStoriesContext()` inside it.
