@@ -4,22 +4,21 @@ import {axe} from 'jest-axe';
 import * as React from 'react';
 import {Helmet} from 'react-helmet';
 import {Router} from 'react-router-dom';
-import {PrefsContext, PrefsContextProps} from '../../../store/prefs';
-import {fakePrefs} from '../../../test-util';
+import {PrefsState} from '../../../store/prefs';
+import {PrefInspector, FakeStateProvider} from '../../../test-util';
 import {WelcomeRoute} from '../welcome-route';
 
 describe('<WelcomeRoute>', () => {
 	function renderComponent(
 		history?: MemoryHistory,
-		context?: Partial<PrefsContextProps>
+		prefs?: Partial<PrefsState>
 	) {
 		return render(
 			<Router history={history ?? createMemoryHistory()}>
-				<PrefsContext.Provider
-					value={{dispatch: jest.fn(), prefs: fakePrefs(), ...context}}
-				>
+				<FakeStateProvider prefs={prefs}>
 					<WelcomeRoute />
-				</PrefsContext.Provider>
+					<PrefInspector name="welcomeSeen" />
+				</FakeStateProvider>
 			</Router>
 		);
 	}
@@ -30,27 +29,22 @@ describe('<WelcomeRoute>', () => {
 	});
 
 	it('sends users to the / route and records that the route has been seen when the user skips the onboarding', () => {
-		const dispatch = jest.fn();
 		const history = createMemoryHistory({initialEntries: ['/somewhere-else']});
 
-		renderComponent(history, {dispatch});
-		expect(dispatch).not.toHaveBeenCalled();
+		renderComponent(history, {welcomeSeen: false});
 		expect(history.location.pathname).toBe('/somewhere-else');
 		fireEvent.click(screen.getByText('common.skip'));
 		expect(history.location.pathname).toBe('/');
-		expect(dispatch.mock.calls).toEqual([
-			[{type: 'update', name: 'welcomeSeen', value: true}]
-		]);
+		expect(screen.getByTestId('pref-inspector-welcomeSeen')).toHaveTextContent(
+			'true'
+		);
 	});
 
 	it('sends users to the / route and records that the route has been seen after clicking through all cards', () => {
-		const dispatch = jest.fn();
 		const history = createMemoryHistory({initialEntries: ['/somewhere-else']});
 
-		renderComponent(history, {dispatch});
-		expect(dispatch).not.toHaveBeenCalled();
+		renderComponent(history, {welcomeSeen: false});
 		expect(history.location.pathname).toBe('/somewhere-else');
-
 		fireEvent.click(screen.getByText('routes.welcome.tellMeMore'));
 
 		while (!screen.queryByText('routes.welcome.gotoStoryList')) {
@@ -61,9 +55,9 @@ describe('<WelcomeRoute>', () => {
 
 		fireEvent.click(screen.getByText('routes.welcome.gotoStoryList'));
 		expect(history.location.pathname).toBe('/');
-		expect(dispatch.mock.calls).toEqual([
-			[{type: 'update', name: 'welcomeSeen', value: true}]
-		]);
+		expect(screen.getByTestId('pref-inspector-welcomeSeen')).toHaveTextContent(
+			'true'
+		);
 	});
 
 	it('is accessible', async () => {

@@ -1,12 +1,8 @@
 import {fireEvent, render, screen} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
-import {
-	StoriesContext,
-	StoriesContextProps,
-	Story
-} from '../../../../store/stories';
-import {fakeStory} from '../../../../test-util';
+import {StoriesState, Story} from '../../../../store/stories';
+import {FakeStateProvider, fakeStory} from '../../../../test-util';
 import {getAppInfo} from '../../../../util/app-info';
 import {archiveFilename, publishArchive} from '../../../../util/publish';
 import {saveHtml} from '../../../../util/save-html';
@@ -22,13 +18,11 @@ describe('<ArchiveButton>', () => {
 	const publishArchiveMock = publishArchive as jest.Mock;
 	const saveHtmlMock = saveHtml as jest.Mock;
 
-	function renderComponent(context?: Partial<StoriesContextProps>) {
+	function renderComponent(stories?: StoriesState) {
 		return render(
-			<StoriesContext.Provider
-				value={{dispatch: jest.fn(), stories: [], ...context}}
-			>
+			<FakeStateProvider stories={stories}>
 				<ArchiveButton />
-			</StoriesContext.Provider>
+			</FakeStateProvider>
 		);
 	}
 
@@ -38,7 +32,7 @@ describe('<ArchiveButton>', () => {
 		archiveFilenameMock.mockReturnValue('mock-archive-filename.html');
 		getAppInfoMock.mockReturnValue({mockAppInfo: true});
 		publishArchiveMock.mockReturnValue({mockArchive: true});
-		renderComponent({stories});
+		renderComponent(stories);
 		expect(saveHtmlMock).not.toHaveBeenCalled();
 		fireEvent.click(screen.getByRole('button'));
 		expect(publishArchiveMock.mock.calls).toEqual([
