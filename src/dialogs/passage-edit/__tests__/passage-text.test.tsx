@@ -6,7 +6,9 @@ import {useFormatCodeMirrorMode} from '../../../store/use-format-codemirror-mode
 import {
 	fakeLoadedStoryFormat,
 	fakePassage,
-	fakePrefs
+	fakePrefs,
+	FakeStateProvider,
+	FakeStateProviderProps
 } from '../../../test-util';
 import {PassageText, PassageTextProps} from '../passage-text';
 
@@ -29,12 +31,10 @@ describe('<PassageText>', () => {
 
 	function renderComponent(
 		props?: Partial<PassageTextProps>,
-		prefsContext?: Partial<PrefsContextProps>
+		contexts?: FakeStateProviderProps
 	) {
 		return render(
-			<PrefsContext.Provider
-				value={{dispatch: jest.fn(), prefs: fakePrefs(), ...prefsContext}}
-			>
+			<FakeStateProvider {...contexts}>
 				<PassageText
 					onChange={jest.fn()}
 					onEditorChange={jest.fn()}
@@ -42,7 +42,7 @@ describe('<PassageText>', () => {
 					storyFormat={fakeLoadedStoryFormat()}
 					{...props}
 				/>
-			</PrefsContext.Provider>
+			</FakeStateProvider>
 		);
 	}
 
@@ -63,34 +63,32 @@ describe('<PassageText>', () => {
 	});
 
 	it('updates the passage text if it has been changed elsewhere', () => {
-		const dispatch = jest.fn();
 		const onChange = jest.fn();
 		const onEditorChange = jest.fn();
 		const passage = fakePassage({text: 'mock-text'});
-		const prefs = fakePrefs();
 		const storyFormat = fakeLoadedStoryFormat();
 
 		const {rerender} = render(
-			<PrefsContext.Provider value={{dispatch, prefs}}>
+			<FakeStateProvider>
 				<PassageText
 					onChange={onChange}
 					onEditorChange={onEditorChange}
 					passage={passage}
 					storyFormat={storyFormat}
 				/>
-			</PrefsContext.Provider>
+			</FakeStateProvider>
 		);
 
 		passage.text = 'mock-changed-text';
 		rerender(
-			<PrefsContext.Provider value={{dispatch, prefs}}>
+			<FakeStateProvider>
 				<PassageText
 					onChange={onChange}
 					onEditorChange={onEditorChange}
 					passage={passage}
 					storyFormat={storyFormat}
 				/>
-			</PrefsContext.Provider>
+			</FakeStateProvider>
 		);
 		expect(
 			screen.getByLabelText('dialogs.passageEdit.passageTextEditorLabel')
@@ -98,22 +96,20 @@ describe('<PassageText>', () => {
 	});
 
 	it('ignores a passage text change if a manual edit is pending', async () => {
-		const dispatch = jest.fn();
 		const onChange = jest.fn();
 		const onEditorChange = jest.fn();
 		const passage = fakePassage({text: 'mock-text'});
-		const prefs = fakePrefs();
 		const storyFormat = fakeLoadedStoryFormat();
 
 		const {rerender} = render(
-			<PrefsContext.Provider value={{dispatch, prefs}}>
+			<FakeStateProvider>
 				<PassageText
 					onChange={onChange}
 					onEditorChange={onEditorChange}
 					passage={passage}
 					storyFormat={storyFormat}
 				/>
-			</PrefsContext.Provider>
+			</FakeStateProvider>
 		);
 
 		fireEvent.change(
@@ -122,14 +118,14 @@ describe('<PassageText>', () => {
 		);
 		passage.text = 'mock-externally-changed-text';
 		rerender(
-			<PrefsContext.Provider value={{dispatch, prefs}}>
+			<FakeStateProvider>
 				<PassageText
 					onChange={onChange}
 					onEditorChange={onEditorChange}
 					passage={passage}
 					storyFormat={storyFormat}
 				/>
-			</PrefsContext.Provider>
+			</FakeStateProvider>
 		);
 		expect(
 			screen.getByLabelText('dialogs.passageEdit.passageTextEditorLabel')
@@ -176,6 +172,20 @@ describe('<PassageText>', () => {
 			'mock-font-family'
 		);
 		expect(screen.getByTestId('mock-code-area').dataset.fontScale).toBe('2');
+	});
+
+	it('blinks the cursor if that preference is not set', () => {
+		renderComponent({}, {prefs: {editorCursorBlinks: true}});
+		expect(
+			JSON.parse(screen.getByTestId('mock-code-area')!.dataset.options!)
+		).not.toEqual(expect.objectContaining({cursorBlinkRate: 0}));
+	});
+
+	it("doesn't blink the cursor if that preference is set", () => {
+		renderComponent({}, {prefs: {editorCursorBlinks: false}});
+		expect(
+			JSON.parse(screen.getByTestId('mock-code-area')!.dataset.options!)
+		).toEqual(expect.objectContaining({cursorBlinkRate: 0}));
 	});
 
 	it('updates the visible text immediately when the passage text is changed', async () => {

@@ -6,6 +6,7 @@ import {DialogCard, DialogEditor} from '../components/container/dialog-card';
 import {CodeArea} from '../components/control/code-area';
 import {usePrefsContext} from '../store/prefs';
 import {storyWithId, updateStory, useStoriesContext} from '../store/stories';
+import {codeMirrorOptionsFromPrefs} from '../util/codemirror-options';
 import {DialogComponentProps} from './dialogs.types';
 import './story-javascript.css';
 
@@ -49,7 +50,11 @@ export const StoryJavaScriptDialog: React.FC<StoryJavaScriptDialogProps> = props
 					label={t('dialogs.storyJavaScript.editorLabel')}
 					labelHidden
 					onBeforeChange={handleChange}
-					options={{autofocus: true, mode: 'javascript'}}
+					options={{
+						...codeMirrorOptionsFromPrefs(prefs),
+						autofocus: true,
+						mode: 'javascript'
+					}}
 					value={story.script}
 				/>
 			</DialogEditor>

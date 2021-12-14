@@ -6,6 +6,7 @@ import {DialogCard, DialogEditor} from '../components/container/dialog-card';
 import {CodeArea} from '../components/control/code-area';
 import {usePrefsContext} from '../store/prefs';
 import {storyWithId, updateStory, useStoriesContext} from '../store/stories';
+import {codeMirrorOptionsFromPrefs} from '../util/codemirror-options';
 import {DialogComponentProps} from './dialogs.types';
 import './story-stylesheet.css';
 
@@ -49,7 +50,11 @@ export const StoryStylesheetDialog: React.FC<StoryStylesheetDialogProps> = props
 					label={t('dialogs.storyStylesheet.editorLabel')}
 					labelHidden
 					onBeforeChange={handleChange}
-					options={{autofocus: true, mode: 'css'}}
+					options={{
+						...codeMirrorOptionsFromPrefs(prefs),
+						autofocus: true,
+						mode: 'css'
+					}}
 					value={story.stylesheet}
 				/>
 			</DialogEditor>
