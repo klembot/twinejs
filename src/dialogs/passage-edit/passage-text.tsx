@@ -7,6 +7,7 @@ import {usePrefsContext} from '../../store/prefs';
 import {Passage} from '../../store/stories';
 import {StoryFormat} from '../../store/story-formats';
 import {useFormatCodeMirrorMode} from '../../store/use-format-codemirror-mode';
+import {codeMirrorOptionsFromPrefs} from '../../util/codemirror-options';
 import {StoryFormatToolbar} from './story-format-toolbar';
 
 export interface PassageTextProps {
@@ -91,7 +92,11 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 					labelHidden
 					onBeforeChange={handleChange}
 					onChange={onEditorChange}
-					options={{mode, lineWrapping: true}}
+					options={{
+						...codeMirrorOptionsFromPrefs(prefs),
+						mode,
+						lineWrapping: true
+					}}
 					value={localText}
 				/>
 			</DialogEditor>

@@ -119,6 +119,7 @@ export function fakePrefs(overrides?: Partial<PrefsState>): PrefsState {
 			{name: lorem.words(2), version: system.semver()}
 		],
 		donateShown: random.boolean(),
+		editorCursorBlinks: random.boolean(),
 		firstRunTime: new Date().getTime(),
 		lastUpdateSeen: '',
 		lastUpdateCheckTime: new Date().getTime(),

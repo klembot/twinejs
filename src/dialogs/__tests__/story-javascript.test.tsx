@@ -1,40 +1,37 @@
 import {fireEvent, render, screen} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
-import {PrefsContext, PrefsContextProps} from '../../store/prefs';
-import {StoriesContext, StoriesContextProps} from '../../store/stories';
-import {fakePrefs, fakeStory} from '../../test-util';
+import {useStoriesContext} from '../../store/stories';
 import {
-	StoryJavaScriptDialog,
-	StoryJavaScriptDialogProps
-} from '../story-javascript';
+	FakeStateProvider,
+	FakeStateProviderProps,
+	fakeStory,
+	StoryInspector
+} from '../../test-util';
+import {StoryJavaScriptDialog} from '../story-javascript';
 
 jest.mock('../../components/control/code-area/code-area');
 
-describe('<StoryJavaScriptDialog>', () => {
-	function renderComponent(
-		props?: Partial<StoryJavaScriptDialogProps>,
-		storiesContext?: Partial<StoriesContextProps>,
-		prefsContext?: Partial<PrefsContextProps>
-	) {
-		const story = fakeStory();
+const TestStoryJavaScriptDialog = () => {
+	const {stories} = useStoriesContext();
 
+	return (
+		<StoryJavaScriptDialog
+			collapsed={false}
+			onChangeCollapsed={jest.fn()}
+			onClose={jest.fn()}
+			storyId={stories[0].id}
+		/>
+	);
+};
+
+describe('<StoryJavaScriptDialog>', () => {
+	function renderComponent(contexts?: FakeStateProviderProps) {
 		return render(
-			<PrefsContext.Provider
-				value={{dispatch: jest.fn(), prefs: fakePrefs(), ...prefsContext}}
-			>
-				<StoriesContext.Provider
-					value={{dispatch: jest.fn(), stories: [story], ...storiesContext}}
-				>
-					<StoryJavaScriptDialog
-						collapsed={false}
-						onChangeCollapsed={jest.fn()}
-						onClose={jest.fn()}
-						storyId={story.id}
-						{...props}
-					/>
-				</StoriesContext.Provider>
-			</PrefsContext.Provider>
+			<FakeStateProvider {...contexts}>
+				<TestStoryJavaScriptDialog />
+				<StoryInspector />
+			</FakeStateProvider>
 		);
 	}
 
@@ -43,43 +40,35 @@ describe('<StoryJavaScriptDialog>', () => {
 
 		story.script = 'mock-story-javascript';
 
-		renderComponent({storyId: story.id}, {stories: [story]});
+		renderComponent({stories: [story]});
 
 		expect(
 			screen.getByLabelText('dialogs.storyJavaScript.editorLabel')
 		).toHaveValue('mock-story-javascript');
 	});
 
-	it('dispatches changes to the story as edits are made', () => {
-		const dispatch = jest.fn();
-		const story = fakeStory();
-
-		renderComponent({storyId: story.id}, {dispatch, stories: [story]});
-		expect(dispatch).not.toHaveBeenCalled();
+	it("changes the story's JavaScript as edits are made", () => {
+		renderComponent();
 		fireEvent.change(
 			screen.getByLabelText('dialogs.storyJavaScript.editorLabel'),
 			{
 				target: {value: 'mock-change'}
 			}
 		);
-		expect(dispatch.mock.calls).toEqual([
-			[{type: 'updateStory', storyId: story.id, props: {script: 'mock-change'}}]
-		]);
+		expect(
+			screen.getByTestId('story-inspector-javascript-default')
+		).toHaveTextContent('mock-change');
 	});
 
 	it('uses the code editor font preferences', () => {
-		renderComponent(
-			{},
-			{},
-			{
-				prefs: {
-					codeEditorFontFamily: 'mock-font-family',
-					codeEditorFontScale: 2,
-					passageEditorFontFamily: 'incorrect-font-family',
-					passageEditorFontScale: 1.75
-				} as any
+		renderComponent({
+			prefs: {
+				codeEditorFontFamily: 'mock-font-family',
+				codeEditorFontScale: 2,
+				passageEditorFontFamily: 'incorrect-font-family',
+				passageEditorFontScale: 1.75
 			}
-		);
+		});
 
 		const editor = screen.getByTestId('mock-code-area');
 
@@ -91,7 +80,21 @@ describe('<StoryJavaScriptDialog>', () => {
 		renderComponent();
 		expect(
 			JSON.parse(screen.getByTestId('mock-code-area')!.dataset.options!)
-		).toEqual({autofocus: true, mode: 'javascript'});
+		).toEqual(expect.objectContaining({autofocus: true, mode: 'javascript'}));
+	});
+
+	it('blinks the cursor if that preference is not set', () => {
+		renderComponent({prefs: {editorCursorBlinks: true}});
+		expect(
+			JSON.parse(screen.getByTestId('mock-code-area')!.dataset.options!)
+		).not.toEqual(expect.objectContaining({cursorBlinkRate: 0}));
+	});
+
+	it("doesn't blink the cursor if that preference is set", () => {
+		renderComponent({prefs: {editorCursorBlinks: false}});
+		expect(
+			JSON.parse(screen.getByTestId('mock-code-area')!.dataset.options!)
+		).toEqual(expect.objectContaining({cursorBlinkRate: 0}));
 	});
 
 	it.todo('indents code with its indent buttons');

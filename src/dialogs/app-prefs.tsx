@@ -2,6 +2,7 @@ import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {CardContent} from '../components/container/card';
 import {DialogCard, DialogCardProps} from '../components/container/dialog-card';
+import {CheckboxButton} from '../components/control/checkbox-button';
 import {FontSelect} from '../components/control/font-select';
 import {TextSelect} from '../components/control/text-select';
 import {setPref, usePrefsContext} from '../store/prefs';
@@ -23,6 +24,16 @@ export const AppPrefsDialog: React.FC<
 		>
 			<CardContent>
 				<TextSelect
+					onChange={e => dispatch(setPref('locale', e.target.value))}
+					options={locales.map(locale => ({
+						label: locale.name,
+						value: locale.code
+					}))}
+					value={prefs.locale}
+				>
+					{t('dialogs.appPrefs.language')}
+				</TextSelect>
+				<TextSelect
 					onChange={e => dispatch(setPref('appTheme', e.target.value))}
 					options={[
 						{label: t('dialogs.appPrefs.themeSystem'), value: 'system'},
@@ -33,16 +44,11 @@ export const AppPrefsDialog: React.FC<
 				>
 					{t('dialogs.appPrefs.theme')}
 				</TextSelect>
-				<TextSelect
-					onChange={e => dispatch(setPref('locale', e.target.value))}
-					options={locales.map(locale => ({
-						label: locale.name,
-						value: locale.code
-					}))}
-					value={prefs.locale}
-				>
-					{t('dialogs.appPrefs.language')}
-				</TextSelect>
+				<CheckboxButton
+					label={t('dialogs.appPrefs.editorCursorBlinks')}
+					onChange={value => dispatch(setPref('editorCursorBlinks', value))}
+					value={prefs.editorCursorBlinks}
+				/>
 				<p className="font-explanation">
 					{t('dialogs.appPrefs.fontExplanation')}
 				</p>

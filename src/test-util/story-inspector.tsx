@@ -20,6 +20,12 @@ export const StoryInspector: React.FC<StoryInspectorProps> = ({id}) => {
 				data-story-format-version={story.storyFormatVersion}
 				data-zoom={story.zoom}
 			>
+				<div data-testid={`story-inspector-javascript-${id ?? 'default'}`}>
+					{story.script}
+				</div>
+				<div data-testid={`story-inspector-stylesheet-${id ?? 'default'}`}>
+					{story.stylesheet}
+				</div>
 				{story.passages.map(passage => (
 					<div
 						key={passage.id}
