@@ -2,14 +2,18 @@ import {act, fireEvent, render, screen, within} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
 import {fakeStory} from '../../../test-util';
+import {isElectronRenderer} from '../../../util/is-electron';
 import {StoryCard, StoryCardProps} from '../story-card';
 
 jest.mock('../../control/menu-button');
 jest.mock('../../tag/add-tag-button');
 jest.mock('../../tag/tag-button');
+jest.mock('../../../util/is-electron');
 jest.mock('../story-preview');
 
 describe('<StoryCard>', () => {
+	const isElectronRendererMock = isElectronRenderer as jest.Mock;
+
 	async function renderComponent(props?: Partial<StoryCardProps>) {
 		const story = fakeStory();
 		const result = render(
@@ -80,12 +84,47 @@ describe('<StoryCard>', () => {
 		).toBeInTheDocument();
 	});
 
-	it('calls the onDelete prop when the delete button is clicked', async () => {
+	it('shows an Electron-specific prompt when the delete button is clicked in an Electorn context', async () => {
+		isElectronRendererMock.mockReturnValue(true);
+		await renderComponent();
+		fireEvent.click(screen.getByText('common.delete'));
+		await act(() => Promise.resolve());
+		expect(
+			screen.getByText('components.storyCard.deleteStoryWarning.electron')
+		).toBeInTheDocument();
+		expect(
+			screen.queryByText('components.storyCard.deleteStoryWarning.web')
+		).not.toBeInTheDocument();
+	});
+
+	it('shows a web-specific prompt when the delete button is clicked in a web context', async () => {
+		isElectronRendererMock.mockReturnValue(false);
+		await renderComponent();
+		fireEvent.click(screen.getByText('common.delete'));
+		await act(() => Promise.resolve());
+		expect(
+			screen.queryByText('components.storyCard.deleteStoryWarning.electron')
+		).not.toBeInTheDocument();
+		expect(
+			screen.getByText('components.storyCard.deleteStoryWarning.web')
+		).toBeInTheDocument();
+	});
+
+	it('calls the onDelete prompt when delete confirmation button is clicked', async () => {
 		const onDelete = jest.fn();
 
 		await renderComponent({onDelete});
 		expect(onDelete).not.toHaveBeenCalled();
 		fireEvent.click(screen.getByText('common.delete'));
+		await act(() => Promise.resolve());
+
+		// Kind of hacky :( Trying to select the delete button in the prompt.
+
+		fireEvent.click(
+			screen
+				.queryAllByText('common.delete')
+				.find(el => el.classList.contains('variant-danger'))!
+		);
 		expect(onDelete).toHaveBeenCalledTimes(1);
 	});
 

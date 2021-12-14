@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {IconDots, IconEdit} from '@tabler/icons';
+import {IconDots, IconEdit, IconTrash} from '@tabler/icons';
 import {Card, CardContent, CardProps} from '../container/card';
 import {ButtonBar} from '../container/button-bar';
 import {MenuButton} from '../control/menu-button';
@@ -12,6 +12,8 @@ import {storyTags, Story} from '../../store/stories';
 import {Color} from '../../util/color';
 import './story-card.css';
 import {hueString} from '../../util/hue-string';
+import {ConfirmButton} from '../control/confirm-button';
+import {isElectronRenderer} from '../../util/is-electron';
 
 const dateFormatter = new Intl.DateTimeFormat([]);
 
@@ -106,6 +108,20 @@ export const StoryCard: React.FC<StoryCardProps> = props => {
 						existingTags={storyTags(allStories)}
 						onAdd={onAddTag}
 					/>
+					<ConfirmButton
+						confirmIcon={<IconTrash />}
+						confirmLabel={t('common.delete')}
+						confirmVariant="danger"
+						icon={<IconTrash />}
+						label={t('common.delete')}
+						onConfirm={onDelete}
+						prompt={t(
+							`components.storyCard.deleteStoryWarning.${
+								isElectronRenderer() ? 'electron' : 'web'
+							}`,
+							{storyName: story.name}
+						)}
+					/>
 					<MenuButton
 						icon={<IconDots />}
 						items={[
@@ -124,10 +140,6 @@ export const StoryCard: React.FC<StoryCardProps> = props => {
 							{
 								label: t('common.duplicate'),
 								onClick: onDuplicate
-							},
-							{
-								label: t('common.delete'),
-								onClick: onDelete
 							}
 						]}
 						label={t('common.more')}

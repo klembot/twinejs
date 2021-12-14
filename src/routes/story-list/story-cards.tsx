@@ -16,7 +16,7 @@ import {Color} from '../../util/color';
 /**
  * How wide a story card should render onscreen as.
  */
-const cardWidth = '360px';
+const cardWidth = '420px';
 
 export interface StoryCardsProps {
 	onPublish: (story: Story) => void;
