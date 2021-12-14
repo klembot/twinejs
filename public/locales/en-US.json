@@ -94,6 +94,10 @@
 			"message": "The browser you are using will delete all stories after seven days of not visiting this web site."
 		},
 		"storyCard": {
+			"deleteStoryWarning": {
+				"electron": "Are you sure you want to delete “{{storyName}}”? It will be moved to the trash.",
+				"web": "Are you sure you want to delete “{{storyName}}”? It will be deleted forever. This cannot be undone."
+			},
 			"lastUpdated": "Last edited on {{date}}",
 			"passageCount": "1 passage",
 			"passageCount_plural": "{{count}} passages"
