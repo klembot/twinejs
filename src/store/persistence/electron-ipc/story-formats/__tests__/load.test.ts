@@ -8,7 +8,10 @@ describe('story formats Electron IPC load', () => {
 	afterEach(() => delete electronWindow.twineElectron);
 
 	it('returns data stored in window.twineElectron.hydrate.storyFormats', () => {
-		const storyFormats = [fakeUnloadedStoryFormat(), fakeUnloadedStoryFormat()];
+		const storyFormats = [
+			fakeUnloadedStoryFormat({selected: false}),
+			fakeUnloadedStoryFormat({selected: false})
+		];
 
 		electronWindow.twineElectron = {hydrate: {storyFormats}} as any;
 		expect(load()).toEqual([

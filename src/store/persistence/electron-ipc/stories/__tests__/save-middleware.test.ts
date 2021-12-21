@@ -126,6 +126,33 @@ describe('stories Electron IPC save middleware', () => {
 		expect(saveStoryMock.mock.calls).toEqual([[storiesState[0], formatsState]]);
 	});
 
+	it('does nothing if a trivial updatePassage action is received', () => {
+		saveMiddleware(
+			storiesState,
+			{
+				type: 'updatePassage',
+				passageId: storiesState[0].passages[0].id,
+				props: {selected: true},
+				storyId: storiesState[0].id
+			},
+			formatsState
+		);
+		expect(saveStoryMock).not.toHaveBeenCalled();
+	});
+
+	it('does nothing if a trivial updateStory action is received', () => {
+		saveMiddleware(
+			storiesState,
+			{
+				type: 'updateStory',
+				props: {selected: true},
+				storyId: storiesState[0].id
+			},
+			formatsState
+		);
+		expect(saveStoryMock).not.toHaveBeenCalled();
+	});
+
 	describe('when a createStory action is received', () => {
 		it('throws an error if the story created has no name', () =>
 			expect(() =>

@@ -1,4 +1,5 @@
 import {Passage, Story, StoriesState} from '../stories.types';
+import {isPersistablePassageChange} from '../../persistence/persistable-changes';
 
 export function updatePassage(
 	state: StoriesState,
@@ -41,7 +42,10 @@ export function updatePassage(
 		};
 
 		if (updated) {
-			newStory.lastUpdate = new Date();
+			if (isPersistablePassageChange(passageProps)) {
+				newStory.lastUpdate = new Date();
+			}
+
 			return newStory;
 		}
 

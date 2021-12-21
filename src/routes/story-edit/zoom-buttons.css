@@ -1,0 +1,17 @@
+@import '../../styles/depth.css';
+@import '../../styles/metrics.css';
+
+.zoom-buttons {
+	position: fixed;
+	bottom: var(--grid-size);
+	left: var(--grid-size);
+}
+
+.zoom-buttons .button-card {
+	box-shadow: var(--shadow-large);	
+}
+
+.zoom-buttons .icon-button .icon {
+	height: 24px;
+	width: 24px;
+}

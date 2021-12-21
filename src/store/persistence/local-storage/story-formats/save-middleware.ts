@@ -1,4 +1,5 @@
 import {StoryFormatsAction, StoryFormatsState} from '../../../story-formats';
+import {isPersistableStoryFormatChange} from '../../persistable-changes';
 import {save} from './save';
 
 /**
@@ -18,11 +19,7 @@ export function saveMiddleware(
 
 		case 'update':
 			// Is this a significant update?
-			if (
-				Object.keys(action.props).some(
-					key => !['loadError', 'loadState', 'properties'].includes(key)
-				)
-			) {
+			if (isPersistableStoryFormatChange(action.props)) {
 				save(state);
 			}
 			break;

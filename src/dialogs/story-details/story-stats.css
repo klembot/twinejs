@@ -1,0 +1,33 @@
+@import '../../styles/metrics.css';
+
+.story-details-dialog .story-format {
+	align-items: center;
+	display: grid;
+	grid-gap: var(--grid-size);
+	grid-template-columns: auto 1fr;
+	margin: var(--grid-size) var(--grid-size) 0 var(--grid-size);
+}
+
+.story-stats {
+	align-items: start;
+	display: grid;
+	grid-gap: var(--grid-size);
+	grid-template-columns: 2fr 3fr;
+}
+
+.story-stats .counts td:first-child {
+	padding-right: 0.25em;
+	text-align: right;
+}
+
+.story-stats .update-and-ifid :first-child {
+	margin-top: 0;
+}
+
+.story-stats .update-and-ifid :last-child {
+	margin-bottom: 0;
+}
+
+.story-stats .counts td:first-child {
+	font-weight: bold;
+}

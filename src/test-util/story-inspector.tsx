@@ -16,8 +16,11 @@ export const StoryInspector: React.FC<StoryInspectorProps> = ({id}) => {
 				data-testid={`story-inspector-${id ?? 'default'}`}
 				data-id={story.id}
 				data-name={story.name}
+				data-snap-to-grid={story.snapToGrid}
+				data-start-passage={story.startPassage}
 				data-story-format={story.storyFormat}
 				data-story-format-version={story.storyFormatVersion}
+				data-tags={story.tags.join(' ')}
 				data-zoom={story.zoom}
 			>
 				<div data-testid={`story-inspector-javascript-${id ?? 'default'}`}>
@@ -29,6 +32,7 @@ export const StoryInspector: React.FC<StoryInspectorProps> = ({id}) => {
 				{story.passages.map(passage => (
 					<div
 						key={passage.id}
+						data-id={passage.id}
 						data-testid={`passage-${passage.id}`}
 						data-left={passage.left}
 						data-name={passage.name}

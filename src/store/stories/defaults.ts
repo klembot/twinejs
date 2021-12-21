@@ -24,6 +24,7 @@ export const storyDefaults = (): Omit<Story, 'id'> => ({
 	passages: [],
 	name: i18n.t('store.storyDefaults.name'),
 	script: '',
+	selected: false,
 	snapToGrid: true,
 	startPassage: '',
 	storyFormat: '',

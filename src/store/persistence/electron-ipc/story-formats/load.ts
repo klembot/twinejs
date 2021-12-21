@@ -16,6 +16,7 @@ export function load(): StoryFormatsState {
 		id: uuid(),
 		loadState: 'unloaded',
 		name: data.name,
+		selected: false,
 		version: data.version,
 		url: data.url,
 		userAdded: data.userAdded

@@ -1,81 +1,64 @@
-import {act, fireEvent, render, screen, within} from '@testing-library/react';
+import {fireEvent, render, screen, within} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
 import {fakeStory} from '../../../test-util';
-import {isElectronRenderer} from '../../../util/is-electron';
 import {StoryCard, StoryCardProps} from '../story-card';
 
-jest.mock('../../control/menu-button');
-jest.mock('../../tag/add-tag-button');
 jest.mock('../../tag/tag-button');
 jest.mock('../../../util/is-electron');
 jest.mock('../story-preview');
 
 describe('<StoryCard>', () => {
-	const isElectronRendererMock = isElectronRenderer as jest.Mock;
-
-	async function renderComponent(props?: Partial<StoryCardProps>) {
-		const story = fakeStory();
-		const result = render(
+	function renderComponent(props?: Partial<StoryCardProps>) {
+		return render(
 			<StoryCard
-				allStories={[story]}
-				onAddTag={jest.fn()}
 				onChangeTagColor={jest.fn()}
-				onDelete={jest.fn()}
-				onDuplicate={jest.fn()}
 				onEdit={jest.fn()}
-				onPlay={jest.fn()}
-				onPublish={jest.fn()}
 				onRemoveTag={jest.fn()}
-				onRename={jest.fn()}
-				onTest={jest.fn()}
-				story={story}
+				onSelect={jest.fn()}
+				story={fakeStory()}
 				storyTagColors={{}}
 				{...props}
 			/>
 		);
-
-		// Need this because of <PromptButton>
-		await act(() => Promise.resolve());
-		return result;
 	}
 
-	it('renders the story name', async () => {
+	it('renders the story name', () => {
 		const story = fakeStory();
 
-		await renderComponent({story, allStories: [story]});
+		renderComponent({story});
 		expect(screen.getByText(story.name)).toBeInTheDocument();
 	});
 
-	it('renders a preview of the story', async () => {
+	it('renders a preview of the story', () => {
 		const story = fakeStory();
 
-		await renderComponent({story, allStories: [story]});
+		renderComponent({story});
 		expect(
 			screen.getByTestId(`mock-story-preview-${story.name}`)
 		).toBeInTheDocument();
 	});
 
-	it('renders a count of passages in the story', async () => {
-		await renderComponent();
+	it('renders a count of passages in the story', () => {
+		renderComponent();
 		expect(
 			screen.getByText('components.storyCard.passageCount', {exact: false})
 		).toBeInTheDocument();
 	});
 
-	it("renders the story's last update", async () => {
-		await renderComponent();
+	it("renders the story's last update", () => {
+		renderComponent();
 		expect(
 			screen.getByText('components.storyCard.lastUpdated', {exact: false})
 		).toBeInTheDocument();
 	});
 
-	it('renders a tag button for every tag the story has', async () => {
+	it('renders a tag button for every tag the story has', () => {
 		const story = fakeStory();
 
 		story.tags = ['mock-tag-1', 'mock-tag-2'];
 
-		await renderComponent({story, allStories: [story]});
+		renderComponent({story});
 		expect(
 			screen.getByTestId('mock-tag-button-mock-tag-1')
 		).toBeInTheDocument();
@@ -84,112 +67,32 @@ describe('<StoryCard>', () => {
 		).toBeInTheDocument();
 	});
 
-	it('shows an Electron-specific prompt when the delete button is clicked in an Electorn context', async () => {
-		isElectronRendererMock.mockReturnValue(true);
-		await renderComponent();
-		fireEvent.click(screen.getByText('common.delete'));
-		await act(() => Promise.resolve());
-		expect(
-			screen.getByText('components.storyCard.deleteStoryWarning.electron')
-		).toBeInTheDocument();
-		expect(
-			screen.queryByText('components.storyCard.deleteStoryWarning.web')
-		).not.toBeInTheDocument();
+	it('calls the onSelect prop when the card is clicked', () => {
+		const story = fakeStory();
+		const onSelect = jest.fn();
+
+		renderComponent({story, onSelect});
+		expect(onSelect).not.toHaveBeenCalled();
+		fireEvent.click(screen.getByText(story.name));
+		expect(onSelect).toHaveBeenCalledTimes(1);
 	});
 
-	it('shows a web-specific prompt when the delete button is clicked in a web context', async () => {
-		isElectronRendererMock.mockReturnValue(false);
-		await renderComponent();
-		fireEvent.click(screen.getByText('common.delete'));
-		await act(() => Promise.resolve());
-		expect(
-			screen.queryByText('components.storyCard.deleteStoryWarning.electron')
-		).not.toBeInTheDocument();
-		expect(
-			screen.getByText('components.storyCard.deleteStoryWarning.web')
-		).toBeInTheDocument();
-	});
-
-	it('calls the onDelete prompt when delete confirmation button is clicked', async () => {
-		const onDelete = jest.fn();
-
-		await renderComponent({onDelete});
-		expect(onDelete).not.toHaveBeenCalled();
-		fireEvent.click(screen.getByText('common.delete'));
-		await act(() => Promise.resolve());
-
-		// Kind of hacky :( Trying to select the delete button in the prompt.
-
-		fireEvent.click(
-			screen
-				.queryAllByText('common.delete')
-				.find(el => el.classList.contains('variant-danger'))!
-		);
-		expect(onDelete).toHaveBeenCalledTimes(1);
-	});
-
-	it('calls the onDuplicate prop when the duplicate button is clicked', async () => {
-		const onDuplicate = jest.fn();
-
-		await renderComponent({onDuplicate});
-		expect(onDuplicate).not.toHaveBeenCalled();
-		fireEvent.click(screen.getByText('common.duplicate'));
-		expect(onDuplicate).toHaveBeenCalledTimes(1);
-	});
-
-	it('calls the onEdit prop when the edit button is clicked', async () => {
+	it('calls the onEdit prop when the card is double-clicked', () => {
+		const story = fakeStory();
 		const onEdit = jest.fn();
 
-		await renderComponent({onEdit});
+		renderComponent({story, onEdit});
 		expect(onEdit).not.toHaveBeenCalled();
-		fireEvent.click(screen.getByText('common.edit'));
+		fireEvent.dblClick(screen.getByText(story.name));
 		expect(onEdit).toHaveBeenCalledTimes(1);
 	});
 
-	it('calls the onPlay prop when the play button is clicked', async () => {
-		const onPlay = jest.fn();
-
-		await renderComponent({onPlay});
-		expect(onPlay).not.toHaveBeenCalled();
-		fireEvent.click(screen.getByText('common.play'));
-		expect(onPlay).toHaveBeenCalledTimes(1);
-	});
-
-	it('calls the onPublish prop when the publish button is clicked', async () => {
-		const onPublish = jest.fn();
-
-		await renderComponent({onPublish});
-		expect(onPublish).not.toHaveBeenCalled();
-		fireEvent.click(screen.getByText('common.publishToFile'));
-		expect(onPublish).toHaveBeenCalledTimes(1);
-	});
-
-	it('calls the onTest prop when the test button is clicked', async () => {
-		const onTest = jest.fn();
-
-		await renderComponent({onTest});
-		expect(onTest).not.toHaveBeenCalled();
-		fireEvent.click(screen.getByText('common.test'));
-		expect(onTest).toHaveBeenCalledTimes(1);
-	});
-
-	it('calls the onAddTag prop when a tag is added', async () => {
-		const onAddTag = jest.fn();
-
-		await renderComponent({onAddTag});
-		expect(onAddTag).not.toHaveBeenCalled();
-		fireEvent.click(
-			within(screen.getByTestId('mock-add-tag-button')).getByText('onAdd')
-		);
-		expect(onAddTag.mock.calls).toEqual([['mock-tag-name', 'mock-color']]);
-	});
-
-	it('calls the onChangeTagColor prop when a tag color is edited', async () => {
+	it('calls the onChangeTagColor prop when a tag color is edited', () => {
 		const onChangeTagColor = jest.fn();
 		const story = fakeStory();
 
 		story.tags = ['mock-tag'];
-		await renderComponent({onChangeTagColor, story, allStories: [story]});
+		renderComponent({onChangeTagColor, story});
 		expect(onChangeTagColor).not.toHaveBeenCalled();
 
 		const tagButton = within(screen.getByTestId('mock-tag-button-mock-tag'));
@@ -198,12 +101,12 @@ describe('<StoryCard>', () => {
 		expect(onChangeTagColor.mock.calls).toEqual([['mock-tag', 'mock-color']]);
 	});
 
-	it('calls the onRemoveTag prop when a tag is removed', async () => {
+	it('calls the onRemoveTag prop when a tag is removed', () => {
 		const onRemoveTag = jest.fn();
 		const story = fakeStory();
 
 		story.tags = ['mock-tag'];
-		await renderComponent({onRemoveTag, story, allStories: [story]});
+		renderComponent({onRemoveTag, story});
 		expect(onRemoveTag).not.toHaveBeenCalled();
 
 		const tagButton = within(screen.getByTestId('mock-tag-button-mock-tag'));
@@ -213,7 +116,7 @@ describe('<StoryCard>', () => {
 	});
 
 	it('is accessible', async () => {
-		const {container} = await renderComponent();
+		const {container} = renderComponent();
 
 		expect(await axe(container)).toHaveNoViolations();
 	});

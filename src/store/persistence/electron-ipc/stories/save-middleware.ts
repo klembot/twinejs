@@ -1,23 +1,16 @@
 import {TwineElectronWindow} from '../../../../electron/shared';
 import {
-	Passage,
 	StoriesAction,
 	StoriesState,
 	storyWithId,
 	storyWithName
 } from '../../../stories';
 import {StoryFormatsState} from '../../../story-formats';
+import {
+	isPersistablePassageChange,
+	isPersistableStoryChange
+} from '../../persistable-changes';
 import {saveStory} from './save-story';
-
-/**
- * Is a passage change persistable? e.g. is it nontrivial? This is different
- * than what is persisted to local storage.
- */
-function isPersistablePassageUpdate(props: Partial<Passage>) {
-	return Object.keys(props).some(
-		key => !['highlighted', 'selected'].includes(key)
-	);
-}
 
 // When a story is deleted, we need to be able to look up information about it
 // from the last state.
@@ -70,25 +63,27 @@ export function saveMiddleware(
 		}
 
 		case 'updateStory':
-			if (action.props.name) {
-				// The story has been renamed, and we need to process it
-				// specially. We rename the story file, then save it to catch
-				// any other changes.
+			if (isPersistableStoryChange(action.props)) {
+				if (action.props.name) {
+					// The story has been renamed, and we need to process it
+					// specially. We rename the story file, then save it to catch
+					// any other changes.
 
-				const oldStory = storyWithId(lastState, action.storyId);
-				const newStory = storyWithId(state, action.storyId);
+					const oldStory = storyWithId(lastState, action.storyId);
+					const newStory = storyWithId(state, action.storyId);
 
-				// It's crucial that we only respond to this event once. Otherwise,
-				// multiple renames in one session will cause mayhem.
+					// It's crucial that we only respond to this event once. Otherwise,
+					// multiple renames in one session will cause mayhem.
 
-				twineElectron.ipcRenderer.once('story-renamed', () =>
-					saveStory(newStory, formats)
-				);
-				twineElectron.ipcRenderer.send('rename-story', oldStory, newStory);
-			} else {
-				// An ordinary update.
+					twineElectron.ipcRenderer.once('story-renamed', () =>
+						saveStory(newStory, formats)
+					);
+					twineElectron.ipcRenderer.send('rename-story', oldStory, newStory);
+				} else {
+					// An ordinary update.
 
-				saveStory(storyWithId(state, action.storyId), formats);
+					saveStory(storyWithId(state, action.storyId), formats);
+				}
 			}
 			break;
 
@@ -101,7 +96,7 @@ export function saveMiddleware(
 
 		case 'updatePassage':
 			// Skip updates that wouldn't be saved.
-			if (isPersistablePassageUpdate(action.props)) {
+			if (isPersistablePassageChange(action.props)) {
 				saveStory(storyWithId(state, action.storyId), formats);
 			}
 			break;
@@ -110,7 +105,7 @@ export function saveMiddleware(
 			// Skip updates that wouldn't be saved.
 			if (
 				Object.keys(action.passageUpdates).some(passageId =>
-					isPersistablePassageUpdate(action.passageUpdates[passageId])
+					isPersistablePassageChange(action.passageUpdates[passageId])
 				)
 			) {
 				saveStory(storyWithId(state, action.storyId), formats);

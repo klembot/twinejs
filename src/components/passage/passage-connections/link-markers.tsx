@@ -33,11 +33,14 @@ export const LinkMarkers: React.FC = () => (
 			id="link-start"
 			markerWidth="15"
 			markerHeight="15"
-			refX="7.5"
-			refY="7.5"
+			refX="16"
+			refY="16"
+			viewBox="0 0 32 32"
 		>
-			<circle cx="7.5" cy="7.5" r="7.5" />
-			<path d="M5 3.5v8l6.5 -4z" />
+			<circle cx="16" cy="16" r="16" />
+			<path d="M8 17a8 8 0 0 1 7 7a6 6 0 0 0 3 -5a9 9 0 0 0 6 -8a3 3 0 0 0 -3 -3a9 9 0 0 0 -8 6a6 6 0 0 0 -5 3" />
+			<path d="M11 18a6 6 0 0 0 -3 6a6 6 0 0 0 6 -3" />
+			<circle className="fill-white" cx="19" cy="13" r="1" />
 		</marker>
 	</defs>
 );
