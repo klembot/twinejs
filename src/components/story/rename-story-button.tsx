@@ -4,17 +4,31 @@ import {IconWriting} from '@tabler/icons';
 import {PromptButton} from '../control/prompt-button';
 import {storyFileName} from '../../electron/shared';
 import {Story} from '../../store/stories';
+import {IconButton} from '../control/icon-button';
 
-export interface RenameStoryButtonProps {
+// This is here because it's used in two places--the story list and the story
+// info dialog.
+
+const DisabledRenameStoryButton: React.FC = () => {
+	const {t} = useTranslation();
+
+	return (
+		<IconButton disabled icon={<IconWriting />} label={t('common.rename')} />
+	);
+};
+
+interface EnabledRenameStoryButtonProps {
 	existingStories: Story[];
 	onRename: (value: string) => void;
 	story: Story;
 }
 
-export const RenameStoryButton: React.FC<RenameStoryButtonProps> = props => {
+const EnabledRenameStoryButton: React.FC<EnabledRenameStoryButtonProps> = props => {
 	const {existingStories, onRename, story} = props;
 	const [newName, setNewName] = React.useState(story.name);
 	const {t} = useTranslation();
+
+	React.useEffect(() => setNewName(story.name), [story]);
 
 	function validate(name: string) {
 		if (name.trim() === '') {
@@ -51,4 +65,19 @@ export const RenameStoryButton: React.FC<RenameStoryButtonProps> = props => {
 			value={newName}
 		/>
 	);
+};
+
+export interface RenameStoryButtonProps
+	extends Omit<EnabledRenameStoryButtonProps, 'story'> {
+	story?: Story;
+}
+
+export const RenameStoryButton: React.FC<RenameStoryButtonProps> = props => {
+	if (props.story) {
+		return (
+			<EnabledRenameStoryButton {...(props as EnabledRenameStoryButtonProps)} />
+		);
+	}
+
+	return <DisabledRenameStoryButton />;
 };

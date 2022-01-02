@@ -13,9 +13,8 @@ import {
 } from '../../../test-util';
 import {InnerStoryEditRoute} from '../story-edit-route';
 
-jest.mock('../top-bar/top-bar');
+jest.mock('../toolbar/story-edit-toolbar');
 jest.mock('../../../components/passage/passage-map/passage-map');
-jest.mock('../../../components/passage/passage-toolbar');
 
 const TestStoryEditRoute: React.FC = () => {
 	const {stories} = useStoriesContext();
@@ -73,19 +72,25 @@ describe('<StoryEditRoute>', () => {
 		expect(Helmet.peek().title).toBe(story.name);
 	});
 
-	it('displays the top bar', async () => {
+	it('displays the toolbar', async () => {
 		await renderComponent(fakeStory());
-		expect(screen.getByTestId('mock-story-edit-top-bar')).toBeInTheDocument();
-	});
-
-	it('displays a passage toolbar', async () => {
-		await renderComponent(fakeStory());
-		expect(screen.getByTestId('mock-passage-toolbar')).toBeInTheDocument();
+		expect(screen.getByTestId('mock-story-edit-toolbar')).toBeInTheDocument();
 	});
 
 	it('displays a passage map', async () => {
 		await renderComponent(fakeStory());
 		expect(screen.getByTestId('mock-passage-map')).toBeInTheDocument();
+	});
+
+	it('displays zoom buttons', async () => {
+		await renderComponent(fakeStory());
+
+		expect(
+			screen.getByLabelText('routes.storyEdit.zoomIn')
+		).toBeInTheDocument();
+		expect(
+			screen.getByLabelText('routes.storyEdit.zoomOut')
+		).toBeInTheDocument();
 	});
 
 	it('is accessible', async () => {

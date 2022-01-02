@@ -24,7 +24,7 @@ export function fakePassage(props?: Partial<Passage>): Passage {
 		height: 100,
 		tags: [],
 		name: lorem.words(Math.ceil(Math.random() * 10)), // At least 1
-		selected: Math.random() > 0.5,
+		selected: random.boolean(),
 		text: lorem.words(Math.round(Math.random() * 500)), // Might be 0
 		...props
 	};
@@ -36,6 +36,7 @@ export function fakeFailedStoryFormat(
 	return {
 		id: random.uuid(),
 		name: lorem.words(2),
+		selected: random.boolean(),
 		url: '',
 		userAdded: false,
 		version: system.semver(),
@@ -69,6 +70,7 @@ export function fakeLoadedStoryFormat(
 			...loadProps
 		},
 		name: formatName,
+		selected: random.boolean(),
 		url: formatUrl,
 		userAdded: false,
 		version: formatVersion,
@@ -84,6 +86,7 @@ export function fakePendingStoryFormat(
 		id: random.uuid(),
 		loadState: 'loading',
 		name: lorem.words(2),
+		selected: random.boolean(),
 		url: internet.url(),
 		userAdded: false,
 		version: system.semver(),
@@ -98,6 +101,7 @@ export function fakeUnloadedStoryFormat(
 		id: random.uuid(),
 		loadState: 'unloaded',
 		name: lorem.words(2),
+		selected: random.boolean(),
 		url: internet.url(),
 		userAdded: false,
 		version: system.semver(),
@@ -155,6 +159,7 @@ export function fakeStory(passageCount: number = 1): Story {
 		ifid: random.uuid().toUpperCase(),
 		name: lorem.words(Math.ceil(Math.random() * 10)), // At least 1
 		passages: [],
+		selected: random.boolean(),
 		script: lorem.words(Math.round(Math.random() * 100)), // Might be 0
 		snapToGrid: false,
 		startPassage: '-1',

@@ -7,6 +7,7 @@ describe('Story format reducer', () => {
 	const builtinFormats = builtins().map(format => ({
 		...format,
 		loadState: 'unloaded',
+		selected: false,
 		userAdded: false
 	}));
 	let format: StoryFormat;

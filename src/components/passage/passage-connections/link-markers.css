@@ -20,6 +20,10 @@
 	fill: var(--dark-green);
 }
 
+#link-start circle.fill-white {
+	fill: var(--white);
+}
+
 #link-start path {
 	fill: none;
 	stroke: var(--white);

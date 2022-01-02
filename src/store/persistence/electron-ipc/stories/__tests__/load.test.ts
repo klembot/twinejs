@@ -36,6 +36,7 @@ describe('stories Electron IPC load', () => {
 						story: expect.any(String)
 					}
 				],
+				selected: false,
 				// This is not preserved in publishing right now.
 				snapToGrid: expect.any(Boolean),
 				startPassage: expect.any(String)
@@ -71,6 +72,7 @@ describe('stories Electron IPC load', () => {
 						story: expect.any(String)
 					}
 				],
+				selected: false,
 				// This is not preserved in publishing right now.
 				snapToGrid: expect.any(Boolean),
 				startPassage: expect.any(String)

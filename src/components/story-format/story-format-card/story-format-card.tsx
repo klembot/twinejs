@@ -1,33 +1,22 @@
+import {IconAlertTriangle} from '@tabler/icons';
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {IconAlertTriangle, IconTrash} from '@tabler/icons';
-import {ButtonBar} from '../../container/button-bar';
-import {CheckboxButton} from '../../control/checkbox-button';
-import {Card, CardContent} from '../../container/card';
-import {IconButton} from '../../control/icon-button';
-import {IconLoading} from '../../image/icon';
 import {formatImageUrl, StoryFormat} from '../../../store/story-formats';
+import {Badge} from '../../badge/badge';
+import {Card, CardContent} from '../../container/card';
+import {IconLoading} from '../../image/icon';
 import {StoryFormatCardDetails} from './story-format-card-details';
 import './story-format-card.css';
 
 export interface StoryFormatCardProps {
-	useEditorExtensions: boolean;
+	defaultFormat: boolean;
+	editorExtensionsDisabled: boolean;
 	format: StoryFormat;
-	onChangeUseEditorExtensions: (value: boolean) => void;
-	onDelete: () => void;
 	onSelect: () => void;
-	selected: boolean;
 }
 
 export const StoryFormatCard: React.FC<StoryFormatCardProps> = props => {
-	const {
-		useEditorExtensions: editorExtensionsAllowed,
-		format,
-		onChangeUseEditorExtensions: onChangeEditorExtensionsAllowed,
-		onDelete,
-		onSelect,
-		selected
-	} = props;
+	const {defaultFormat, editorExtensionsDisabled, format, onSelect} = props;
 	const {t} = useTranslation();
 
 	let image = <></>;
@@ -44,8 +33,8 @@ export const StoryFormatCard: React.FC<StoryFormatCardProps> = props => {
 	}
 
 	return (
-		<div className="story-format-card">
-			<Card selected={selected}>
+		<div className="story-format-card" onClick={onSelect}>
+			<Card selected={format.selected}>
 				<CardContent>
 					<div className="story-format-image">{image}</div>
 					<div className="story-format-description">
@@ -57,38 +46,23 @@ export const StoryFormatCard: React.FC<StoryFormatCardProps> = props => {
 						</h2>
 						<StoryFormatCardDetails format={format} />
 					</div>
-				</CardContent>
-				<ButtonBar>
-					{format.loadState === 'loaded' && (
-						<>
-							<CheckboxButton
-								disabled={selected}
-								label={
-									format.properties?.proofing
-										? t('components.storyFormatCard.useProofingFormat')
-										: t('components.storyFormatCard.useFormat')
-								}
-								onChange={onSelect}
-								value={selected}
-								variant="primary"
+					<div className="story-format-badges">
+						{!format.userAdded && (
+							<Badge label={t('components.storyFormatCard.builtIn')} />
+						)}
+						{defaultFormat && (
+							<Badge label={t('components.storyFormatCard.defaultFormat')} />
+						)}
+						{editorExtensionsDisabled && (
+							<Badge
+								label={t('components.storyFormatCard.editorExtensionsDisabled')}
 							/>
-							{!format.properties?.proofing && (
-								<CheckboxButton
-									label={t('components.storyFormatCard.useEditorExtensions')}
-									onChange={onChangeEditorExtensionsAllowed}
-									value={editorExtensionsAllowed}
-								/>
-							)}
-						</>
-					)}
-					{format.userAdded && (
-						<IconButton
-							icon={<IconTrash />}
-							label={t('common.delete')}
-							onClick={onDelete}
-						/>
-					)}
-				</ButtonBar>
+						)}
+						{format.loadState === 'loaded' && format.properties.proofing && (
+							<Badge label={t('components.storyFormatCard.proofing')} />
+						)}
+					</div>
+				</CardContent>
 			</Card>
 		</div>
 	);

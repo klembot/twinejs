@@ -32,7 +32,8 @@ export function save(state: StoryFormatsState) {
 				...format,
 				loadError: undefined,
 				loadState: undefined,
-				properties: undefined
+				properties: undefined,
+				selected: undefined
 			})
 		);
 	});

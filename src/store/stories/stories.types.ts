@@ -78,6 +78,10 @@ export interface Story {
 	 */
 	script: string;
 	/**
+	 * Is the story currently selected by the user?
+	 */
+	selected: boolean;
+	/**
 	 * Should passages snap to a grid?
 	 */
 	snapToGrid: boolean;
@@ -119,50 +123,60 @@ export interface InitStoriesAction {
 	type: 'init';
 	state: Story[];
 }
+
 export interface RepairStoriesAction {
 	type: 'repair';
 	allFormats: StoryFormat[];
 	defaultFormat: StoryFormat;
 }
+
 export interface CreateStoryAction {
 	type: 'createStory';
 	props: Partial<Story>;
 }
+
 export interface UpdateStoryAction {
 	type: 'updateStory';
-	props: Partial<Story>;
+	props: Partial<Omit<Story, 'id'>>;
 	storyId: string;
 }
+
 export interface DeleteStoryAction {
 	type: 'deleteStory';
 	storyId: string;
 }
+
 export interface CreatePassageAction {
 	type: 'createPassage';
 	props: Partial<Passage>;
 	storyId: string;
 }
+
 export interface CreatePassagesAction {
 	type: 'createPassages';
 	props: Partial<Passage>[];
 	storyId: string;
 }
+
 export interface UpdatePassageAction {
 	type: 'updatePassage';
 	passageId: string;
 	props: Partial<Passage>;
 	storyId: string;
 }
+
 export interface UpdatePassagesAction {
 	type: 'updatePassages';
 	passageUpdates: Record<string, Partial<Passage>>;
 	storyId: string;
 }
+
 export interface DeletePassageAction {
 	type: 'deletePassage';
 	passageId: string;
 	storyId: string;
 }
+
 export interface DeletePassagesAction {
 	type: 'deletePassages';
 	passageIds: string[];

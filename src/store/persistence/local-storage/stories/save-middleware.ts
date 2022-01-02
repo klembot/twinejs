@@ -1,5 +1,4 @@
 import {
-	Passage,
 	passageWithId,
 	passageWithName,
 	StoriesAction,
@@ -7,6 +6,7 @@ import {
 	storyWithId,
 	storyWithName
 } from '../../../stories';
+import {isPersistablePassageChange} from '../../persistable-changes';
 import {
 	deletePassageById,
 	deleteStory,
@@ -14,13 +14,6 @@ import {
 	savePassage,
 	saveStory
 } from './save';
-
-/**
- * Is a passage change persistable? e.g. is it nontrivial?
- */
-function isPersistablePassageUpdate(props: Partial<Passage>) {
-	return Object.keys(props).some(key => key !== 'highlighted');
-}
 
 let lastState: StoriesState;
 
@@ -131,7 +124,7 @@ export function saveMiddleware(state: StoriesState, action: StoriesAction) {
 		}
 
 		case 'updatePassage':
-			if (isPersistablePassageUpdate(action.props)) {
+			if (isPersistablePassageChange(action.props)) {
 				const story = storyWithId(state, action.storyId);
 				const passage = passageWithId(state, action.storyId, action.passageId);
 
@@ -150,7 +143,7 @@ export function saveMiddleware(state: StoriesState, action: StoriesAction) {
 				saveStory(transaction, story);
 				Object.keys(action.passageUpdates)
 					.filter(passageId =>
-						isPersistablePassageUpdate(action.passageUpdates[passageId])
+						isPersistablePassageChange(action.passageUpdates[passageId])
 					)
 					.forEach(passageId =>
 						savePassage(

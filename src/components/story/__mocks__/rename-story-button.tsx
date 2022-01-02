@@ -6,6 +6,6 @@ export const RenameStoryButton: React.FC<RenameStoryButtonProps> = ({
 	story
 }) => (
 	<button onClick={() => onRename('mock-new-name')}>
-		mock-rename-story-button-{story.id}
+		mock-rename-story-button-{story?.id}
 	</button>
 );

@@ -3,14 +3,14 @@ import {axe} from 'jest-axe';
 import * as React from 'react';
 import {AppDonationDialog} from '../../../dialogs';
 import {useDonationCheck} from '../../../store/prefs/use-donation-check';
-import {fakeStory} from '../../../test-util';
 import {
-	MockContextProvider,
-	MockContextProviderProps
-} from '../../../test-util/MockContextProvider';
+	FakeStateProvider,
+	FakeStateProviderProps,
+	fakeStory
+} from '../../../test-util';
 import {InnerStoryListRoute} from '../story-list-route';
 
-jest.mock('../top-bar/top-bar');
+jest.mock('../toolbar/story-list-toolbar');
 jest.mock('../story-cards');
 jest.mock('../../../store/prefs/use-donation-check');
 jest.mock('../../../components/safari-warning/safari-warning-card');
@@ -24,19 +24,19 @@ describe('<StoryListRoute>', () => {
 		});
 	});
 
-	function renderComponent(contexts?: MockContextProviderProps) {
+	function renderComponent(contexts?: FakeStateProviderProps) {
 		// Using the inner component so we can mock contexts around it.
 
 		return render(
-			<MockContextProvider {...contexts}>
+			<FakeStateProvider {...contexts}>
 				<InnerStoryListRoute />
-			</MockContextProvider>
+			</FakeStateProvider>
 		);
 	}
 
-	it('displays the top bar', () => {
+	it('displays the toolbar', () => {
 		renderComponent();
-		expect(screen.getByTestId('mock-story-list-top-bar')).toBeInTheDocument();
+		expect(screen.getByTestId('mock-story-list-toolbar')).toBeInTheDocument();
 	});
 
 	it('displays a warning for Safari users', () => {
@@ -45,38 +45,32 @@ describe('<StoryListRoute>', () => {
 	});
 
 	it('displays story cards if there are stories in state', () => {
-		renderComponent({stories: {stories: [fakeStory()]}});
+		renderComponent({stories: [fakeStory()]});
 		expect(screen.getByTestId('mock-story-cards')).toBeInTheDocument();
 	});
 
 	it('displays a message if there are no stories in state', () => {
-		renderComponent({stories: {stories: []}});
+		renderComponent({stories: []});
 		expect(screen.queryByTestId('mock-story-cards')).not.toBeInTheDocument();
 		expect(screen.getByText('routes.storyList.noStories')).toBeInTheDocument();
 	});
 
 	it('displays a donation prompt if useDonationCheck() says it should be shown', () => {
-		const dispatch = jest.fn();
-
 		useDonationCheckMock.mockReturnValue({
 			shouldShowDonationPrompt: () => true
 		});
 
-		renderComponent({dialogs: {dispatch}});
-		expect(dispatch.mock.calls).toEqual([
-			[{type: 'addDialog', component: AppDonationDialog}]
-		]);
+		renderComponent();
+		expect(screen.getByText('dialogs.appDonation.title')).toBeInTheDocument();
 	});
 
 	it('does not display a donation prompt if useDonationCheck() says it should not be shown', () => {
-		const dispatch = jest.fn();
-
 		useDonationCheckMock.mockReturnValue({
 			shouldShowDonationPrompt: () => false
 		});
 
-		renderComponent({dialogs: {dispatch}});
-		expect(dispatch).not.toBeCalled();
+		renderComponent();
+		expect(screen.queryByText('dialogs.appDonation.title')).not.toBeInTheDocument();
 	});
 
 	it.todo('publishes a story when a story card asks to be published');

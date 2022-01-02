@@ -1,0 +1,14 @@
+@import '../../styles/colors.css';
+@import '../../styles/depth.css';
+@import '../../styles/metrics.css';
+
+.badge {
+	align-items: center;
+	background-color: var(--off-white);
+	box-shadow: 0 1px 1px var(--light-gray);
+	border-radius: var(--control-height);
+	display: inline-flex;
+	height: var(--control-height);
+	font-size: 85%;
+	padding: var(--control-inner-padding) calc(2 * var(--control-inner-padding));
+}
