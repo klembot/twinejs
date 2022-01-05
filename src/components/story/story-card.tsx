@@ -2,7 +2,6 @@ import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {Story} from '../../store/stories';
 import {Color} from '../../util/color';
-import {hueString} from '../../util/hue-string';
 import {Card, CardContent, CardProps} from '../container/card';
 import {TagButton} from '../tag';
 import './story-card.css';
@@ -31,16 +30,12 @@ export const StoryCard: React.FC<StoryCardProps> = props => {
 	} = props;
 	const {t} = useTranslation();
 
-	const previewStyle = {
-		backgroundColor: `hsla(${hueString(story.name)}, 90%, 75%, 0.2)`
-	};
-
 	return (
 		<div className="story-card" onClick={onSelect} onDoubleClick={onEdit}>
 			<Card {...otherProps} selected={story.selected}>
 				<CardContent>
 					<div className="story-card-summary">
-						<div className="story-card-summary-preview" style={previewStyle}>
+						<div className="story-card-summary-preview">
 							<StoryPreview story={story} />
 						</div>
 						<div className="story-card-summary-text">
