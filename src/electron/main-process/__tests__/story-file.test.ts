@@ -25,6 +25,13 @@ import {storyFileName} from '../../shared/story-filename';
 
 jest.mock('../track-file-changes');
 
+// See https://github.com/facebook/jest/issues/2157
+// This won't work in every case, so not putting it in test-utils.
+
+function resolveAllPromises() {
+	return new Promise(resolve => setImmediate(resolve));
+}
+
 describe('deleteStory', () => {
 	const stopTrackingFileMock = stopTrackingFile as jest.Mock;
 	const trashItemMock = shell.trashItem as jest.Mock;
@@ -63,6 +70,24 @@ describe('deleteStory', () => {
 
 		trashItemMock.mockRejectedValue(mockError);
 		await expect(deleteStory(story)).rejects.toBe(mockError);
+	});
+
+	it('does not resolve until all async file operations have completed', async () => {
+		let resolveTrashItem = () => {};
+		let done = jest.fn();
+
+		trashItemMock.mockReturnValue(
+			new Promise<void>(
+				resolve => (resolveTrashItem = resolve)
+			)
+		);
+
+		deleteStory(story).then(done);
+		await resolveAllPromises();
+		expect(done).not.toBeCalled();
+		resolveTrashItem();
+		await resolveAllPromises();
+		expect(done).toBeCalledTimes(1);
 	});
 });
 
@@ -217,6 +242,42 @@ describe('loadStories', () => {
 
 		await expect(loadStories()).rejects.toBe(mockError);
 	});
+
+	it('does not resolve until all async file operations have finished', async () => {
+		let resolveReaddir = () => {};
+		let resolveStat = () => {};
+		let resolveFileWasTouched = () => {};
+		let done = jest.fn();
+
+		readdirMock.mockReturnValue(
+			new Promise<string[]>(
+				resolve => (resolveReaddir = () => resolve(['test-story-1.html']))
+			)
+		);
+		statMock.mockReturnValue(
+			new Promise<any>(
+				resolve =>
+					(resolveStat = () =>
+						resolve({isDirectory: () => false, mtime: new Date('1/1/2000')}))
+			)
+		);
+		fileWasTouchedMock.mockReturnValue(
+			new Promise<void>(resolve => (resolveFileWasTouched = resolve))
+		);
+
+		loadStories().then(done);
+		await resolveAllPromises();
+		expect(done).not.toBeCalled();
+		resolveReaddir();
+		await resolveAllPromises();
+		expect(done).not.toBeCalled();
+		resolveStat();
+		await resolveAllPromises();
+		expect(done).not.toBeCalled();
+		resolveFileWasTouched();
+		await resolveAllPromises();
+		expect(done).toBeCalledTimes(1);
+	});
 });
 
 describe('renameStory', () => {
@@ -270,6 +331,29 @@ describe('renameStory', () => {
 
 		renameMock.mockRejectedValue(mockError);
 		await expect(renameStory(oldStory, newStory)).rejects.toBe(mockError);
+	});
+
+	it('does not resolve until all async file operations have finished', async () => {
+		let resolveRename = () => {};
+		let resolveFileWasTouched = () => {};
+		let done = jest.fn();
+
+		renameMock.mockReturnValue(
+			new Promise<void>(resolve => (resolveRename = resolve))
+		);
+		fileWasTouchedMock.mockReturnValue(
+			new Promise<void>(resolve => (resolveFileWasTouched = resolve))
+		);
+
+		renameStory(oldStory, newStory).then(done);
+		await resolveAllPromises();
+		expect(done).not.toBeCalled();
+		resolveRename();
+		await resolveAllPromises();
+		expect(done).not.toBeCalled();
+		resolveFileWasTouched();
+		await resolveAllPromises();
+		expect(done).toBeCalledTimes(1);
 	});
 });
 
@@ -326,6 +410,43 @@ describe('saveStoryHtml()', () => {
 				)}`
 			]
 		]);
+	});
+
+	it('does not resolve until all async file operations have finished', async () => {
+		let resolveMkdtemp = () => {};
+		let resolveWriteFile = () => {};
+		let resolveMove = () => {};
+		let resolveFileWasTouched = () => {};
+		let done = jest.fn();
+
+		mkdtempMock.mockReturnValue(
+			new Promise(resolve => (resolveMkdtemp = () => resolve('mock-temp-dir')))
+		);
+		writeFileMock.mockReturnValue(
+			new Promise<void>(resolve => (resolveWriteFile = resolve))
+		);
+		moveMock.mockReturnValue(
+			new Promise<void>(resolve => (resolveMove = resolve))
+		);
+		fileWasTouchedMock.mockReturnValue(
+			new Promise<void>(resolve => (resolveFileWasTouched = resolve))
+		);
+
+		saveStoryHtml(story, 'story html').then(done);
+		await resolveAllPromises();
+		expect(done).not.toBeCalled();
+		resolveMkdtemp();
+		await resolveAllPromises();
+		expect(done).not.toBeCalled();
+		resolveWriteFile();
+		await resolveAllPromises();
+		expect(done).not.toBeCalled();
+		resolveMove();
+		await resolveAllPromises();
+		expect(done).not.toBeCalled();
+		resolveFileWasTouched();
+		await resolveAllPromises();
+		expect(done).toBeCalledTimes(1);
 	});
 
 	it("doesn't show a dialog", async () => {
