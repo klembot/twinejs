@@ -45,7 +45,7 @@ export async function loadStories() {
 						mtime: stats.mtime,
 						htmlSource: await readFile(filePath, 'utf8')
 					});
-					fileWasTouched(filePath);
+					return fileWasTouched(filePath);
 				}
 			})
 	);
@@ -95,7 +95,7 @@ export async function saveStoryHtml(story: Story, storyHtml: string) {
 		await move(tempFilePath, savedFilePath, {
 			overwrite: true
 		});
-		fileWasTouched(savedFilePath);
+		await fileWasTouched(savedFilePath);
 		console.log(`Successfully saved ${savedFilePath}`);
 	} catch (e) {
 		console.error(`Error while saving ${savedFilePath}: ${e}`);
@@ -114,6 +114,7 @@ export async function deleteStory(story: Story) {
 		console.log(`Trashing ${deletedFilePath}`);
 		await shell.trashItem(deletedFilePath);
 		stopTrackingFile(deletedFilePath);
+		console.log(`Successfully trashed ${deletedFilePath}`);
 	} catch (e) {
 		console.warn(`Error while deleting story: ${e}`);
 		throw e;
@@ -133,7 +134,8 @@ export async function renameStory(oldStory: Story, newStory: Story) {
 		console.log(`Renaming ${oldStoryPath} to ${newStoryPath}`);
 		await rename(oldStoryPath, newStoryPath);
 		stopTrackingFile(oldStoryPath);
-		fileWasTouched(newStoryPath);
+		await fileWasTouched(newStoryPath);
+		console.log(`Successfully renamed ${oldStoryPath} to ${newStoryPath}`);
 	} catch (e) {
 		console.warn(`Error while renaming story: ${e}`);
 		throw e;
