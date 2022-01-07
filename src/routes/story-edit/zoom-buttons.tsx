@@ -12,6 +12,7 @@ import {
 } from '../../store/stories';
 import {ButtonCard} from '../../components/container/button-card';
 import './zoom-buttons.css';
+import {useScrollbarSize} from 'react-scrollbar-size';
 
 export interface ZoomButtonsProps {
 	story: Story;
@@ -20,6 +21,7 @@ export interface ZoomButtonsProps {
 export const ZoomButtons: React.FC<ZoomButtonsProps> = ({story}) => {
 	const {dispatch, stories} = useStoriesContext();
 	const {t} = useTranslation();
+	const {height} = useScrollbarSize();
 
 	const handleZoomChange = React.useCallback(
 		(change: number) => {
@@ -28,8 +30,12 @@ export const ZoomButtons: React.FC<ZoomButtonsProps> = ({story}) => {
 		[dispatch, stories, story]
 	);
 
+	const style: React.CSSProperties = {
+		marginBottom: height
+	};
+
 	return (
-		<div className="zoom-buttons">
+		<div className="zoom-buttons" style={style}>
 			<ButtonCard>
 				<IconButton
 					disabled={story.zoom >= maxZoom}
