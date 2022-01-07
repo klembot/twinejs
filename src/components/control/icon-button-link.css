@@ -15,6 +15,7 @@
 	height: var(--control-height);
 	padding: var(--grid-size);
 	transition: background 0.3s;
+	user-select: none;
 }
 
 .icon-button .icon svg,
