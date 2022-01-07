@@ -1,5 +1,9 @@
 @import '../../../styles/metrics.css';
 
+.story-format-card {
+	user-select: none;
+}
+
 .story-format-card .card-content {
 	display: grid;
 	flex-grow: 1;
