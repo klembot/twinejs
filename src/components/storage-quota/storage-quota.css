@@ -1,0 +1,7 @@
+@import '../../styles/metrics.css';
+
+.storage-quota {
+	align-items: center;
+	display: inline-flex;
+	height: var(--control-height);
+}

@@ -96,6 +96,9 @@
 			"learnMore": "Learn More",
 			"message": "The browser you are using will delete all stories after seven days of not visiting this web site."
 		},
+		"storageQuota": {
+			"freeSpace": "{{percent}}% space available"
+		},
 		"storyCard": {
 			"lastUpdated": "Last edited on {{date}}",
 			"passageCount": "1 passage",
