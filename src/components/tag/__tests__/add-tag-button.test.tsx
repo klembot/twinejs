@@ -15,6 +15,23 @@ describe('<AddTagButton>', () => {
 		);
 	}
 
+	it('disables the button if the disabled prop is set', () => {
+		renderComponent({disabled: true});
+		expect(screen.getByText('common.tag')).toBeDisabled();
+	});
+
+	it('uses the icon prop if set', () => {
+		renderComponent({icon: 'mock-icon'});
+		expect(screen.getByText('mock-icon')).toBeInTheDocument();
+	});
+
+	it('uses the label prop if set', () => {
+		renderComponent({label: 'mock-label'});
+		expect(
+			screen.getByRole('button', {name: 'mock-label'})
+		).toBeInTheDocument();
+	});
+
 	it('calls the onAdd prop when an existing tag is added', async () => {
 		const onAdd = jest.fn();
 
