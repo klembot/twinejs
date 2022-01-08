@@ -31,6 +31,11 @@ describe('<StoryActions>', () => {
 
 	it.todo('renames a story when the rename story button is used');
 
+	it('displays a button to tag stories', () => {
+		renderComponent();
+		expect(screen.getByText('common.tag')).toBeInTheDocument();
+	});
+
 	it('displays a button to duplicate stories', () => {
 		renderComponent();
 		expect(screen.getByText('common.duplicate')).toBeInTheDocument();

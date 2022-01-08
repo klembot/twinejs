@@ -6,6 +6,7 @@ import {CreateStoryButton} from './create-story-button';
 import {DeleteStoryButton} from './delete-story-button';
 import {DuplicateStoryButton} from './duplicate-story-button';
 import {EditStoryButton} from './edit-story-button';
+import {TagStoryButton} from './tag-story-button';
 
 export interface StoryActionsProps {
 	selectedStory?: Story;
@@ -19,6 +20,7 @@ export const StoryActions: React.FC<StoryActionsProps> = props => {
 		<ButtonBar>
 			<CreateStoryButton />
 			<EditStoryButton story={selectedStory} />
+			<TagStoryButton story={selectedStory} />
 			<RenameStoryButton
 				existingStories={stories}
 				onRename={name =>
