@@ -1,0 +1,54 @@
+@import '../../styles/colors.css';
+@import '../../styles/depth.css';
+@import '../../styles/metrics.css';
+
+.route-toolbar {
+	background: var(--white);
+	box-shadow: var(--shadow-large);
+	height: calc(2 * var(--control-height));
+	left: 0;
+	position: fixed;
+	right: 0;
+	top: 0;
+	user-select: none;
+	z-index: 1000;
+}
+
+.route-toolbar .route-toolbar-top {
+	background: linear-gradient(to top, var(--light-gray) 0, var(--light-gray) 1px, transparent 1px);
+	display: flex;
+	height: var(--control-height);
+}
+
+.route-toolbar .route-toolbar-pinned-controls {
+	display: flex;
+	justify-content: flex-end;
+	flex-grow: 1;
+}
+
+.route-toolbar .route-toolbar-tablist {
+	display: inline-flex;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.route-toolbar .route-toolbar-tab {
+	align-items: center;
+	color: var(--dark-gray);
+	cursor: pointer;
+	display: inline-flex;
+	font: 100% var(--font-system);
+	height: var(--control-height);
+	padding: var(--grid-size);
+	transition: background 0.3s;
+}
+
+.route-toolbar .route-toolbar-tab:hover {
+	background: var(--light-gray-translucent);
+}
+
+.route-toolbar .route-toolbar-tab.selected {
+	font-weight: bold;
+	background: linear-gradient(to top, var(--blue) 0, var(--blue) 2px, transparent 2px)
+}

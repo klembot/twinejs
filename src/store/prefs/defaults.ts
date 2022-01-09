@@ -6,6 +6,7 @@ export const defaults = (): PrefsState => ({
 	codeEditorFontScale: 1,
 	disabledStoryFormatEditorExtensions: [],
 	donateShown: false,
+	editorCursorBlinks: true,
 	firstRunTime: new Date().getTime(),
 	lastUpdateSeen: '',
 	lastUpdateCheckTime: new Date().getTime(),
@@ -23,7 +24,7 @@ export const defaults = (): PrefsState => ({
 	},
 	storyFormat: {
 		name: 'Harlowe',
-		version: '3.2.1'
+		version: '3.2.3'
 	},
 	storyFormatListFilter: 'current',
 	storyListSort: 'name',

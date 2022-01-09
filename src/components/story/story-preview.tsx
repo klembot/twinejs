@@ -1,6 +1,7 @@
 import * as React from 'react';
-import {hueString} from '../../util/hue-string';
 import {Story} from '../../store/stories';
+import {hueString} from '../../util/hue-string';
+import './story-preview.css';
 
 export interface StoryPreviewProps {
 	story: Story;
@@ -16,76 +17,68 @@ export const StoryPreview: React.FC<StoryPreviewProps> = React.memo(props => {
 	hues.push((hues[0] - 30) % 360);
 	hues.push((hues[0] + 60) % 360);
 
-	const {circles, maxSize} = story.passages.reduce(
-		(result, passage) => ({
-			circles: [
-				...result.circles,
-				{
-					key: passage.name,
-					size: passage.text.length,
-
-					// Jitter the passages off a strict grid.
-
-					x: passage.left + 50 - (hueString(passage.name) % 100),
-					y: passage.top + 50 - (hueString(passage.name) % 100)
-				}
-			],
-			maxSize: Math.max(passage.text.length, result.maxSize)
-		}),
-		{
-			circles: [] as {key: string; size: number; x: number; y: number}[],
-			maxSize: 0
-		}
-	);
-
-	// Sort such that longer text (e.g. larger circles) will be drawn last. This
-	// disrupts the story structure so it doesn't feel as schematic.
-
-	const sortedCircles = circles.sort((a, b) => a.size - b.size);
 	let minX = Number.POSITIVE_INFINITY;
 	let minY = Number.POSITIVE_INFINITY;
 	let maxX = Number.NEGATIVE_INFINITY;
 	let maxY = Number.NEGATIVE_INFINITY;
 
-	const svg =
-		circles.length < 2 ? (
-			<circle
-				cx="50"
-				cy="50"
-				r="50"
-				style={{fill: `hsla(${hues[0]}, 90%, 70%, 0.25)`}}
-			/>
-		) : (
-			sortedCircles.map((circle, index) => {
-				const lengthRatio = circle.size / maxSize;
-				const radius = 150 + 1000 * lengthRatio;
-				const alpha = 0.3 + 0.3 * (1 - lengthRatio);
+	const circles = story.passages.map(passage => ({
+		key: passage.name,
+		x: passage.left + passage.width / 2,
+		y: passage.top + passage.height / 2,
+		radius: Math.max(passage.width, passage.height)
+	}));
 
-				// Kind of gross to do side effects in a map(), but it saves an O(n).
+	const svg = circles
+		.reduce<[React.ReactNode[], React.ReactNode[]]>(
+			(result, circle, index) => {
+				// We reduce the circles to an array with two elements so that the
+				// larger, faded circles appear below the smaller, more solid ones.
 
-				minX = Math.min(minX, circle.x - radius);
-				minY = Math.min(minY, circle.y - radius);
-				maxX = Math.max(maxX, circle.x + radius);
-				maxY = Math.max(maxY, circle.y + radius);
+				const bgRadius = circle.radius + 200;
 
-				return (
+				// Kind of gross to do side effects in a reduce(), but it saves an O(n).
+
+				minX = Math.min(minX, circle.x - bgRadius);
+				minY = Math.min(minY, circle.y - bgRadius);
+				maxX = Math.max(maxX, circle.x + bgRadius);
+				maxY = Math.max(maxY, circle.y + bgRadius);
+
+				result[0].push(
 					<circle
 						cx={circle.x}
 						cy={circle.y}
-						key={circle.key}
-						r={radius}
+						key={`${circle.key}-bg`}
+						r={bgRadius}
 						style={{
-							fill: `hsla(${hues[index % hues.length]}, 80%, 60%, ${alpha})`
+							fill: `hsl(${hues[index % hues.length]}, 80%, 80%)`
 						}}
 					/>
 				);
-			})
-		);
 
-	const viewBox =
-		circles.length < 2
-			? '0 0 100 100'
-			: `${minX} ${minY} ${maxX - minX} ${maxY - minY}`;
+				result[1].push(
+					<circle
+						cx={circle.x}
+						cy={circle.y}
+						key={`${circle.key}-fg`}
+						r={circle.radius}
+						style={{
+							fill: `hsl(${hues[index % hues.length]}, 80%, 60%)`
+						}}
+					/>
+				);
+
+				return result;
+			},
+			[[], []]
+		)
+		.map((nodes, index) => (
+			<g className={`story-preview-${index === 0 ? 'bg' : 'fg'}`} key={index}>
+				{nodes}
+			</g>
+		));
+
+	const viewBox = `${minX} ${minY} ${maxX - minX} ${maxY - minY}`;
 
 	return (
 		<svg

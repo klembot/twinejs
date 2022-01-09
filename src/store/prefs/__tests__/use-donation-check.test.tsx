@@ -1,7 +1,7 @@
 import {renderHook} from '@testing-library/react-hooks';
 import {donationDelay, useDonationCheck} from '../use-donation-check';
 import {PrefsContext, PrefsState} from '..';
-import {fakePrefs} from '../../../test-util/fakes';
+import {fakePrefs} from '../../../test-util';
 
 describe('useDonationCheck', () => {
 	function renderWithPrefs(prefs: Partial<PrefsState>) {

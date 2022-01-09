@@ -50,7 +50,13 @@ export function updatePassage(
 
 		if (props.name) {
 			const oldNameEscaped = escapeRegExp(oldName);
-			const newNameEscaped = escapeRegExp(props.name);
+
+			// We only need to escape $ stuff in the new name, because it will be the
+			// second argument to replace(). This is a little mindbending, but the
+			// purpose of this is to replace $ with $$.
+
+			const newNameEscaped = props.name.replace(/\$/g, '$$$$');
+
 			const simpleLinkRegexp = new RegExp(
 				'\\[\\[' + oldNameEscaped + '(\\]\\[.*?)?\\]\\]',
 				'g'
@@ -85,10 +91,12 @@ export function updatePassage(
 						'[[' + newNameEscaped + '$1$2]]'
 					);
 
-					updatePassage(story, relinkedPassage, {text: newText})(
-						dispatch,
-						getState
-					);
+					updatePassage(
+						story,
+						relinkedPassage,
+						{text: newText},
+						options
+					)(dispatch, getState);
 				}
 			});
 		}

@@ -1,4 +1,4 @@
-import {fakeStory} from '../../../../test-util/fakes';
+import {fakeStory} from '../../../../test-util';
 import {StoriesDispatch, StoriesState, Story} from '../../stories.types';
 import {createNewlyLinkedPassages} from '../create-newly-linked-passages';
 

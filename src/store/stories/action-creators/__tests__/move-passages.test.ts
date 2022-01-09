@@ -1,6 +1,6 @@
 import {movePassages} from '../move-passages';
 import {Passage, Story} from '../../stories.types';
-import {fakeStory} from '../../../../test-util/fakes';
+import {fakeStory} from '../../../../test-util';
 
 describe('movePassages action creator', () => {
 	let passage0: Passage;

@@ -1,5 +1,5 @@
 import {storyFileName} from '../story-filename';
-import {fakeStory} from '../../../test-util/fakes';
+import {fakeStory} from '../../../test-util';
 import {Story} from '../../../store/stories';
 
 describe('storyFileName', () => {

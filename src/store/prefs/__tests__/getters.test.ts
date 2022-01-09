@@ -1,5 +1,5 @@
 import {formatEditorExtensionsDisabled} from '../getters';
-import {fakePrefs} from '../../../test-util/fakes';
+import {fakePrefs} from '../../../test-util';
 import {PrefsState} from '../prefs.types';
 
 describe('formatEditorExtensionsDisabled()', () => {

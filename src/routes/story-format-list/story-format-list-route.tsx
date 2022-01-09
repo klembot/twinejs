@@ -1,178 +1,91 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {useHistory} from 'react-router-dom';
-import {IconArrowLeft, IconFilter} from '@tabler/icons';
+import {ClickAwayListener} from '../../components/click-away-listener';
 import {CardGroup} from '../../components/container/card-group';
 import {MainContent} from '../../components/container/main-content';
-import {MenuButton} from '../../components/control/menu-button';
-import {TopBar} from '../../components/container/top-bar';
-import {IconButton} from '../../components/control/icon-button';
-import {AddStoryFormatButton} from '../../components/story-format/add-story-format-button';
 import {StoryFormatCard} from '../../components/story-format/story-format-card/story-format-card';
+import {DialogsContextProvider} from '../../dialogs';
 import {FormatLoader} from '../../store/format-loader';
+import {usePrefsContext} from '../../store/prefs';
 import {
-	PrefsState,
-	setPref,
-	formatEditorExtensionsDisabled,
-	usePrefsContext
-} from '../../store/prefs';
-import {
-	createFromProperties,
+	deselectAllFormats,
+	deselectFormat,
 	filteredFormats,
+	selectFormat,
 	sortFormats,
-	useStoryFormatsContext,
 	StoryFormat,
-	StoryFormatProperties,
-	deleteFormat
+	useStoryFormatsContext
 } from '../../store/story-formats';
+import {StoryFormatListToolbar} from './toolbar';
 
 export const StoryFormatListRoute: React.FC = () => {
 	const {dispatch: formatsDispatch, formats} = useStoryFormatsContext();
 	const {dispatch: prefsDispatch, prefs} = usePrefsContext();
-	const history = useHistory();
 	const {t} = useTranslation();
 
-	function handleAddFormat(
-		formatUrl: string,
-		properties: StoryFormatProperties
-	) {
-		formatsDispatch(createFromProperties(formatUrl, properties));
-	}
-
-	function handleChangeUseEditorExtensions(
-		value: boolean,
-		format: StoryFormat
-	) {
-		// This logic is a little backwards--the user is setting whether to use the
-		// extensions but our preferences track disabled ones.
-
-		if (value) {
-			prefsDispatch(
-				setPref(
-					'disabledStoryFormatEditorExtensions',
-					prefs.disabledStoryFormatEditorExtensions.filter(
-						f => f.name !== format.name || f.version !== format.version
-					)
-				)
-			);
-		} else {
-			prefsDispatch(
-				setPref('disabledStoryFormatEditorExtensions', [
-					...prefs.disabledStoryFormatEditorExtensions,
-					{name: format.name, version: format.version}
-				])
-			);
-		}
-	}
-
-	function handleChangeFilter(value: PrefsState['storyFormatListFilter']) {
-		prefsDispatch({type: 'update', name: 'storyFormatListFilter', value});
-	}
-
-	function handleDeleteFormat(format: StoryFormat) {
-		formatsDispatch(deleteFormat(format));
-	}
-
-	function handleSelect(format: StoryFormat) {
-		if (format.loadState !== 'loaded') {
-			throw new Error("Can't select an unloaded format");
-		}
-
-		if (format.properties.proofing) {
-			prefsDispatch(
-				setPref('proofingFormat', {
-					name: format.name,
-					version: format.version
-				})
-			);
-		} else {
-			prefsDispatch(
-				setPref('storyFormat', {
-					name: format.name,
-					version: format.version
-				})
-			);
-		}
-	}
+	const selectedFormats = formats.filter(format => format.selected);
 
 	const visibleFormats = sortFormats(
 		filteredFormats(formats, prefs.storyFormatListFilter)
 	);
 
+	// Any formats no longer visible should be deselected.
+
+	React.useEffect(() => {
+		for (const format of selectedFormats) {
+			if (format.selected && !visibleFormats.includes(format)) {
+				formatsDispatch(deselectFormat(format));
+			}
+		}
+	}, [prefsDispatch, selectedFormats, visibleFormats, formatsDispatch]);
+
+	function handleSelect(format: StoryFormat) {
+		formatsDispatch(selectFormat(format, true));
+	}
+
 	return (
 		<div className="story-format-list-route">
-			<TopBar>
-				<IconButton
-					icon={<IconArrowLeft />}
-					onClick={() => history.push('/')}
-					label={t('routes.storyList.titleGeneric')}
-					variant="primary"
-				/>
-				<MenuButton
-					icon={<IconFilter />}
-					items={[
-						{
-							checked: prefs.storyFormatListFilter === 'current',
-							label: t('routes.storyFormatList.title.current'),
-							onClick: () => handleChangeFilter('current')
-						},
-						{
-							checked: prefs.storyFormatListFilter === 'user',
-							label: t('routes.storyFormatList.title.user'),
-							onClick: () => handleChangeFilter('user')
-						},
-						{
-							checked: prefs.storyFormatListFilter === 'all',
-							label: t('routes.storyFormatList.title.all'),
-							onClick: () => handleChangeFilter('all')
-						}
-					]}
-					label={t('routes.storyFormatList.show')}
-				/>
-				<AddStoryFormatButton
-					existingFormats={formats}
-					onAddFormat={handleAddFormat}
-				/>
-			</TopBar>
-			<MainContent
-				title={t(`routes.storyFormatList.title.${prefs.storyFormatListFilter}`)}
-			>
-				<p>
-					{t(
-						visibleFormats.length > 0
-							? 'routes.storyFormatList.storyFormatExplanation'
-							: 'routes.storyFormatList.noneVisible'
-					)}
-				</p>
-				<FormatLoader>
-					<CardGroup columnWidth="550px">
-						{visibleFormats.map(format => (
-							<StoryFormatCard
-								useEditorExtensions={
-									!formatEditorExtensionsDisabled(
-										prefs,
-										format.name,
-										format.version
-									)
-								}
-								format={format}
-								key={format.id}
-								onChangeUseEditorExtensions={value =>
-									handleChangeUseEditorExtensions(value, format)
-								}
-								onDelete={() => handleDeleteFormat(format)}
-								onSelect={() => handleSelect(format)}
-								selected={
-									(format.name === prefs.storyFormat.name &&
-										format.version === prefs.storyFormat.version) ||
-									(format.name === prefs.proofingFormat.name &&
-										format.version === prefs.proofingFormat.version)
-								}
-							/>
-						))}
-					</CardGroup>
-				</FormatLoader>
-			</MainContent>
+			<DialogsContextProvider>
+				<StoryFormatListToolbar selectedFormats={selectedFormats} />
+				<ClickAwayListener
+					ignoreSelector=".story-format-card"
+					onClickAway={() => formatsDispatch(deselectAllFormats())}
+				>
+					<MainContent
+						title={t(
+							`routes.storyFormatList.title.${prefs.storyFormatListFilter}`
+						)}
+					>
+						<p>
+							{t(
+								visibleFormats.length > 0
+									? 'routes.storyFormatList.storyFormatExplanation'
+									: 'routes.storyFormatList.noneVisible'
+							)}
+						</p>
+						<FormatLoader>
+							<CardGroup columnWidth="450px">
+								{visibleFormats.map(format => (
+									<StoryFormatCard
+										defaultFormat={
+											format.name === prefs.storyFormat.name &&
+											format.version === prefs.storyFormat.version
+										}
+										editorExtensionsDisabled={prefs.disabledStoryFormatEditorExtensions.some(
+											disabledFormat =>
+												format.name === disabledFormat.name &&
+												format.version === disabledFormat.version
+										)}
+										format={format}
+										key={format.id}
+										onSelect={() => handleSelect(format)}
+									/>
+								))}
+							</CardGroup>
+						</FormatLoader>
+					</MainContent>
+				</ClickAwayListener>
+			</DialogsContextProvider>
 		</div>
 	);
 };

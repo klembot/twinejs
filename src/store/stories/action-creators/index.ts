@@ -11,6 +11,7 @@ export * from './move-passages';
 export * from './rename-passage-tag';
 export * from './rename-story-tag';
 export * from './select-passage';
+export * from './select-story';
 export * from './tag-color';
 export * from './tag-passage';
 export * from './update-passage';

@@ -1,5 +1,5 @@
 import {save} from '../save';
-import {fakeLoadedStoryFormat} from '../../../../../test-util/fakes';
+import {fakeLoadedStoryFormat} from '../../../../../test-util';
 
 describe('story formats local storage save', () => {
 	beforeEach(() => window.localStorage.clear());

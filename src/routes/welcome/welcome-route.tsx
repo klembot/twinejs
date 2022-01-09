@@ -9,7 +9,7 @@ import {setPref, usePrefsContext} from '../../store/prefs';
 import {content} from './content';
 import './welcome-route.css';
 
-export const WelcomeRoute = () => {
+export const WelcomeRoute: React.FC = () => {
 	const containerEl = React.useRef<HTMLDivElement>(null);
 	const {dispatch} = usePrefsContext();
 	const history = useHistory();
@@ -29,7 +29,7 @@ export const WelcomeRoute = () => {
 
 			if (lastCard) {
 				scroll.top(
-					document.documentElement || document.body,
+					document.documentElement ?? document.body,
 					(lastCard as HTMLElement).offsetTop,
 					{duration: 400}
 				);

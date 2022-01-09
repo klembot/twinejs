@@ -1,6 +1,6 @@
 import {repairPassage} from '../repair-passage';
 import {Passage, Story} from '../../../stories.types';
-import {fakeStory} from '../../../../../test-util/fakes';
+import {fakeStory} from '../../../../../test-util';
 
 describe('repairPassage', () => {
 	let passage: Passage;

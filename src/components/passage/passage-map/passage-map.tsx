@@ -65,8 +65,6 @@ function dragReducer(state: DragState, action: DragAction) {
 	}
 }
 
-const extraSpace = 500;
-
 export const PassageMap: React.FC<PassageMapProps> = props => {
 	const {
 		formatName,
@@ -93,8 +91,12 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 		const scaledWindowWidth = window.innerWidth / zoom;
 
 		return {
-			height: Math.max(passageBounds.height, scaledWindowHeight) + extraSpace,
-			width: Math.max(passageBounds.width, scaledWindowWidth) + extraSpace
+			height:
+				Math.max(passageBounds.height, scaledWindowHeight) +
+				window.innerHeight * 0.75,
+			width:
+				Math.max(passageBounds.width, scaledWindowWidth) +
+				window.innerWidth * 0.75
 		};
 	}, [passages, zoom]);
 

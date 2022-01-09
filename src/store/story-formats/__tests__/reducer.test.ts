@@ -1,12 +1,13 @@
 import {reducer} from '../reducer';
 import {builtins} from '../defaults';
 import {StoryFormat} from '../story-formats.types';
-import {fakeLoadedStoryFormat} from '../../../test-util/fakes';
+import {fakeLoadedStoryFormat} from '../../../test-util';
 
 describe('Story format reducer', () => {
 	const builtinFormats = builtins().map(format => ({
 		...format,
 		loadState: 'unloaded',
+		selected: false,
 		userAdded: false
 	}));
 	let format: StoryFormat;

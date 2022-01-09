@@ -48,7 +48,7 @@ export const StoryTagsDialog: React.FC<StoryTagsDialogProps> = props => {
 						/>
 					))
 				) : (
-					<p>{t('dialogs.passageTags.noTags')}</p>
+					<p>{t('dialogs.storyTags.noTags')}</p>
 				)}
 			</CardContent>
 		</DialogCard>

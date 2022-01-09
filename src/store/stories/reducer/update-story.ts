@@ -1,9 +1,10 @@
 import {Story, StoriesState} from '../stories.types';
+import {isPersistableStoryChange} from '../../persistence/persistable-changes';
 
 export function updateStory(
 	state: StoriesState,
 	storyId: string,
-	storyProps: Omit<Partial<Story>, 'id'>
+	storyProps: Partial<Omit<Story, 'id'>>
 ) {
 	if (
 		'name' in storyProps &&
@@ -22,7 +23,14 @@ export function updateStory(
 		}
 
 		updated = true;
-		return {...story, ...storyProps, lastUpdate: new Date()};
+
+		const updatedStory = {...story, ...storyProps};
+
+		if (isPersistableStoryChange(storyProps)) {
+			updatedStory.lastUpdate = new Date();
+		}
+
+		return updatedStory;
 	});
 
 	if (!updated) {

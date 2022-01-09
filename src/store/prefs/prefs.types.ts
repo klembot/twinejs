@@ -41,6 +41,11 @@ export interface PrefsState {
 	 */
 	donateShown: boolean;
 	/**
+	 * Whether the cursor should blink in editor fields (passages, story JS, story
+	 * stylesheet).
+	 */
+	editorCursorBlinks: boolean;
+	/**
 	 * Timestamp when the app was first run.
 	 */
 	firstRunTime: number;

@@ -1,7 +1,7 @@
 import {TwineElectronWindow} from '../../../../../electron/shared';
 import {load} from '../load';
 import {Story} from '../../../../stories/stories.types';
-import {fakeAppInfo, fakeStory} from '../../../../../test-util/fakes';
+import {fakeAppInfo, fakeStory} from '../../../../../test-util';
 import {publishStory} from '../../../../../util/publish';
 
 describe('stories Electron IPC load', () => {
@@ -36,6 +36,7 @@ describe('stories Electron IPC load', () => {
 						story: expect.any(String)
 					}
 				],
+				selected: false,
 				// This is not preserved in publishing right now.
 				snapToGrid: expect.any(Boolean),
 				startPassage: expect.any(String)
@@ -71,6 +72,7 @@ describe('stories Electron IPC load', () => {
 						story: expect.any(String)
 					}
 				],
+				selected: false,
 				// This is not preserved in publishing right now.
 				snapToGrid: expect.any(Boolean),
 				startPassage: expect.any(String)

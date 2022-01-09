@@ -1,7 +1,7 @@
 import {saveMiddleware} from '../save-middleware';
 import {save} from '../save';
 import {StoryFormatsState} from '../../../../story-formats/story-formats.types';
-import {fakeLoadedStoryFormat} from '../../../../../test-util/fakes';
+import {fakeLoadedStoryFormat} from '../../../../../test-util';
 
 jest.mock('../save');
 

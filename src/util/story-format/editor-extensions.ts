@@ -14,9 +14,6 @@ export function formatEditorExtensions(
 	}
 
 	if (!format.properties.editorExtensions?.twine) {
-		console.info(
-			`${format.name} ${format.version} has no Twine editor extensions`
-		);
 		return;
 	}
 

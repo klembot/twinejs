@@ -1,6 +1,6 @@
 import {replaceInPassage, replaceInStory} from '../find-replace';
 import {Passage, Story} from '../../stories.types';
-import {fakeStory} from '../../../../test-util/fakes';
+import {fakeStory} from '../../../../test-util';
 
 describe('replaceInPassage', () => {
 	let dispatch: jest.Mock;

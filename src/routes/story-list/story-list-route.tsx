@@ -2,29 +2,36 @@ import sortBy from 'lodash/sortBy';
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {MainContent} from '../../components/container/main-content';
+import {SafariWarningCard} from '../../components/safari-warning';
 import {
 	AppDonationDialog,
 	DialogsContextProvider,
 	useDialogsContext
 } from '../../dialogs';
 import {usePrefsContext} from '../../store/prefs';
-import {Story, useStoriesContext} from '../../store/stories';
-import {UndoableStoriesContextProvider} from '../../store/undoable-stories';
 import {useDonationCheck} from '../../store/prefs/use-donation-check';
-import {usePublishing} from '../../store/use-publishing';
-import {storyFileName} from '../../electron/shared';
-import {saveHtml} from '../../util/save-html';
+import {
+	deselectAllStories,
+	deselectStory,
+	selectStory,
+	useStoriesContext
+} from '../../store/stories';
+import {UndoableStoriesContextProvider} from '../../store/undoable-stories';
+import {StoryListToolbar} from './toolbar/story-list-toolbar';
 import {StoryCards} from './story-cards';
-import {SafariWarningCard} from '../../components/safari-warning';
-import {StoryListTopBar} from './top-bar/top-bar';
+import {ClickAwayListener} from '../../components/click-away-listener';
 
 export const InnerStoryListRoute: React.FC = () => {
-	const {dispatch} = useDialogsContext();
-	const {stories} = useStoriesContext();
+	const {dispatch: dialogsDispatch} = useDialogsContext();
+	const {dispatch: storiesDispatch, stories} = useStoriesContext();
 	const {prefs} = usePrefsContext();
-	const {publishStory} = usePublishing();
 	const {shouldShowDonationPrompt} = useDonationCheck();
 	const {t} = useTranslation();
+
+	const selectedStories = React.useMemo(
+		() => stories.filter(story => story.selected),
+		[stories]
+	);
 
 	const visibleStories = React.useMemo(() => {
 		const filteredStories =
@@ -42,36 +49,52 @@ export const InnerStoryListRoute: React.FC = () => {
 		}
 	}, [prefs.storyListSort, prefs.storyListTagFilter, stories]);
 
-	async function handlePublish(story: Story) {
-		saveHtml(await publishStory(story.id), storyFileName(story));
-	}
+	// Any stories no longer visible should be deselected.
+
+	React.useEffect(() => {
+		for (const story of selectedStories) {
+			if (story.selected && !visibleStories.includes(story)) {
+				storiesDispatch(deselectStory(story));
+			}
+		}
+	}, [selectedStories, stories, storiesDispatch, visibleStories]);
 
 	React.useEffect(() => {
 		if (shouldShowDonationPrompt()) {
-			dispatch({type: 'addDialog', component: AppDonationDialog});
+			dialogsDispatch({type: 'addDialog', component: AppDonationDialog});
 		}
-	}, [dispatch, shouldShowDonationPrompt]);
+	}, [dialogsDispatch, shouldShowDonationPrompt]);
 
 	return (
 		<div className="story-list-route">
-			<StoryListTopBar stories={stories} />
-			<MainContent
-				title={t(
-					prefs.storyListTagFilter.length > 0
-						? 'routes.storyList.taggedTitleCount'
-						: 'routes.storyList.titleCount',
-					{count: visibleStories.length}
-				)}
+			<StoryListToolbar selectedStories={selectedStories} />
+			<ClickAwayListener
+				ignoreSelector=".story-card"
+				onClickAway={() => storiesDispatch(deselectAllStories())}
 			>
-				<SafariWarningCard />
-				<div className="stories">
-					{stories.length === 0 ? (
-						<p>{t('routes.storyList.noStories')}</p>
-					) : (
-						<StoryCards onPublish={handlePublish} stories={visibleStories} />
+				<MainContent
+					title={t(
+						prefs.storyListTagFilter.length > 0
+							? 'routes.storyList.taggedTitleCount'
+							: 'routes.storyList.titleCount',
+						{count: visibleStories.length}
 					)}
-				</div>
-			</MainContent>
+				>
+					<SafariWarningCard />
+					<div className="stories">
+						{stories.length === 0 ? (
+							<p>{t('routes.storyList.noStories')}</p>
+						) : (
+							<StoryCards
+								onSelectStory={story =>
+									storiesDispatch(selectStory(story, true))
+								}
+								stories={visibleStories}
+							/>
+						)}
+					</div>
+				</MainContent>
+			</ClickAwayListener>
 		</div>
 	);
 };

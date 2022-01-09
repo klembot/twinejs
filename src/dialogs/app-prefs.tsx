@@ -2,13 +2,16 @@ import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {CardContent} from '../components/container/card';
 import {DialogCard, DialogCardProps} from '../components/container/dialog-card';
+import {CheckboxButton} from '../components/control/checkbox-button';
 import {FontSelect} from '../components/control/font-select';
 import {TextSelect} from '../components/control/text-select';
 import {setPref, usePrefsContext} from '../store/prefs';
 import {locales} from '../util/locales';
 import './app-prefs.css';
 
-export const AppPrefsDialog: React.FC<DialogCardProps> = props => {
+export const AppPrefsDialog: React.FC<
+	Omit<DialogCardProps, 'headerLabel'>
+> = props => {
 	const {dispatch, prefs} = usePrefsContext();
 	const {t} = useTranslation();
 
@@ -21,6 +24,16 @@ export const AppPrefsDialog: React.FC<DialogCardProps> = props => {
 		>
 			<CardContent>
 				<TextSelect
+					onChange={e => dispatch(setPref('locale', e.target.value))}
+					options={locales.map(locale => ({
+						label: locale.name,
+						value: locale.code
+					}))}
+					value={prefs.locale}
+				>
+					{t('dialogs.appPrefs.language')}
+				</TextSelect>
+				<TextSelect
 					onChange={e => dispatch(setPref('appTheme', e.target.value))}
 					options={[
 						{label: t('dialogs.appPrefs.themeSystem'), value: 'system'},
@@ -31,16 +44,11 @@ export const AppPrefsDialog: React.FC<DialogCardProps> = props => {
 				>
 					{t('dialogs.appPrefs.theme')}
 				</TextSelect>
-				<TextSelect
-					onChange={e => dispatch(setPref('locale', e.target.value))}
-					options={locales.map(locale => ({
-						label: locale.name,
-						value: locale.code
-					}))}
-					value={prefs.locale}
-				>
-					{t('dialogs.appPrefs.language')}
-				</TextSelect>
+				<CheckboxButton
+					label={t('dialogs.appPrefs.editorCursorBlinks')}
+					onChange={value => dispatch(setPref('editorCursorBlinks', value))}
+					value={prefs.editorCursorBlinks}
+				/>
 				<p className="font-explanation">
 					{t('dialogs.appPrefs.fontExplanation')}
 				</p>

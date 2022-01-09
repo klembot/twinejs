@@ -1,4 +1,5 @@
 import {StoryFormatsAction, StoryFormatsState} from '../../../story-formats';
+import {isPersistableStoryFormatChange} from '../../persistable-changes';
 import {saveJson} from '../save-json';
 
 /**
@@ -13,10 +14,7 @@ export function saveMiddleware(
 		action.type === 'create' ||
 		action.type === 'delete' ||
 		action.type === 'repair' ||
-		(action.type === 'update' &&
-			Object.keys(action.props).some(
-				key => !['loadError', 'loadState', 'properties'].includes(key)
-			));
+		(action.type === 'update' && isPersistableStoryFormatChange(action.props));
 
 	if (shouldSave) {
 		saveJson(
@@ -24,6 +22,7 @@ export function saveMiddleware(
 			state.map(format => ({
 				id: format.id,
 				name: format.name,
+				selected: undefined,
 				version: format.version,
 				url: format.url,
 				userAdded: format.userAdded

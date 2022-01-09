@@ -11,19 +11,25 @@
 	"common": {
 		"add": "Add",
 		"appName": "Twine",
+		"back": "Back",
+		"build": "Build",
 		"cancel": "Cancel",
 		"close": "Close",
 		"color": "Color",
 		"custom": "Custom",
 		"delete": "Delete",
 		"deleteCount": "Delete ({{count}})",
+		"details": "Details",
 		"duplicate": "Duplicate",
 		"edit": "Edit",
 		"editCount": "Edit ({{count}})",
+		"help": "Help",
 		"import": "Import",
 		"more": "More",
+		"new": "New",
 		"next": "Next",
 		"ok": "OK",
+		"passage": "Passage",
 		"play": "Play",
 		"preferences": "Preferences",
 		"publishToFile": "Publish To File",
@@ -32,21 +38,18 @@
 		"rename": "Rename",
 		"renamePrompt": "What should “{{name}}” be renamed to?",
 		"remove": "Remove",
+		"selectAll": "Select All",
 		"skip": "Skip",
+		"story": "Story",
 		"storyFormat": "Story Format",
 		"tag": "Tag",
 		"test": "Test",
+		"twine": "Twine",
 		"undo": "Undo",
-		"undoChange": "Undo {{change}}"
+		"undoChange": "Undo {{change}}",
+		"view": "View"
 	},
 	"components": {
-		"addStoryFormatButton": {
-			"addPreview": "{{storyFormatName}} {{storyFormatVersion}} will be added.",
-			"alreadyAdded": "{{storyFormatName}} {{storyFormatVersion}} has already been added.",
-			"fetchError": "An error occurred while retrieving this format ({{errorMessage}}).",
-			"prompt": "To add a story format, enter its address below.",
-			"invalidUrl": "The address you've entered isn't a valid URL."
-		},
 		"addTagButton": {
 			"alreadyAdded": "This tag name has already been added.",
 			"addLabel": "Add Tag",
@@ -93,6 +96,9 @@
 			"learnMore": "Learn More",
 			"message": "The browser you are using will delete all stories after seven days of not visiting this web site."
 		},
+		"storageQuota": {
+			"freeSpace": "{{percent}}% space available"
+		},
 		"storyCard": {
 			"lastUpdated": "Last edited on {{date}}",
 			"passageCount": "1 passage",
@@ -100,10 +106,14 @@
 		},
 		"storyFormatCard": {
 			"author": "by {{author}}",
+			"builtIn": "Built In",
+			"defaultFormat": "Default",
+			"editorExtensionsDisabled": "Editor Extensions Disabled",
 			"license": "License: {{license}}",
 			"loadingFormat": "Loading this story format...",
 			"loadError": "This story format could not be loaded ({{errorMessage}}).",
 			"name": "{{name}} {{version}}",
+			"proofing": "Proofing",
 			"useEditorExtensions": "Use Editor Extensions",
 			"useFormat": "Use As Default Story Format",
 			"useProofingFormat": "Use As Proofing Format"
@@ -136,6 +146,7 @@
 		"appPrefs": {
 			"codeEditorFont": "Code Editor Font",
 			"codeEditorFontScale": "Code Editor Font Size",
+			"editorCursorBlinks": "Blinking Cursor in Editors",
 			"fontExplanation": "Changing the font here only affects the Twine editor. It will not change the font a story uses when played.",
 			"language": "Language",
 			"passageEditorFont": "Passage Editor Font",
@@ -147,6 +158,7 @@
 			"title": "Preferences"
 		},
 		"passageEdit": {
+			"passageTextEditorLabel": "Passage Text",
 			"setAsStart": "Start Story Here",
 			"size": "Size",
 			"sizeLarge": "Large",
@@ -158,8 +170,18 @@
 			"noTags": "No tags have been added to passages in this story.",
 			"title": "Passage Tags"
 		},
-		"storyInfo": {
-			"setStoryFormat": "Set Story Format",
+		"storyImport": {
+			"deselectAll": "Deselect All",
+			"filePrompt": "To import stories into Twine, upload either an archive or published story file below.",
+			"importDifferentFile": "Import a Different File",
+			"importSelected": "Import Selected Files",
+			"importThisStory": "Import This Story",
+			"noStoriesInFile": "There don't appear to be any Twine stories in the file you uploaded. Please choose another file.",
+			"storiesPrompt": "Choose which stories to import:",
+			"title": "Import Stories",
+			"willReplaceExisting": "A story with the same name in your library will be replaced."
+		},
+		"storyDetails": {
 			"storyFormatExplanation": "What's a story format?",
 			"snapToGrid": "Snap To Grid",
 			"stats": {
@@ -175,8 +197,9 @@
 			}
 		},
 		"storyJavaScript": {
+			"editorLabel": "Story JavaScript",
 			"title": "Story JavaScript",
-			"explanation": "Any JavaScript entered here will immediately run when your story is opened in a Web browser."
+			"explanation": "JavaScript entered here will immediately run when your story is opened in a Web browser."
 		},
 		"storySearch": {
 			"title": "Find and Replace",
@@ -191,8 +214,9 @@
 			"useRegexes": "Use Regular Expressions"
 		},
 		"storyStylesheet": {
+			"editorLabel": "Story Stylesheet",
 			"title": "Story Stylesheet",
-			"explanation": "Any CSS entered here will override the default appearance of your story."
+			"explanation": "CSS entered here will override the default appearance of your story."
 		},
 		"storyTags": {
 			"noTags": "No tags have been added to your stories.",
@@ -226,19 +250,26 @@
 	},
 	"routes": {
 		"storyEdit": {
+			"toolbar": {
+				"findAndReplace": "Find and Replace",
+				"javaScript": "JavaScript",
+				"passageTags": "Passage Tags",
+				"snapToGrid": "Snap to Grid",
+				"startStoryHere": "Start Story Here",
+				"stylesheet": "Stylesheet",
+				"testFromHere": "Test From Here"
+			},
 			"topBar": {
-				"addPassage": "Passage",
 				"editJavaScript": "Edit Story JavaScript",
 				"editStylesheet": "Edit Story Stylesheet",
 				"findAndReplace": "Find and Replace",
 				"passageTags": "Edit Passage Tags",
 				"proofStory": "View Proofing Copy",
 				"publishToFile": "Publish to File",
-				"selectAllPassages": "Select All Passages",
-				"storyInfo": "Story Information",
-				"zoomIn": "Zoom In",
-				"zoomOut": "Zoom Out"
-			}
+				"selectAllPassages": "Select All Passages"
+			},
+			"zoomIn": "Zoom In",
+			"zoomOut": "Zoom Out"
 		},
 		"storyFormatList": {
 			"noneVisible": "No story formats match the criteria you've selected.",
@@ -248,21 +279,16 @@
 				"current": "Current Story Formats",
 				"user": "User-Added Story Formats"
 			},
+			"toolbar": {
+				"disableFormatExtensions": "Disable Editor Extensions",
+				"enableFormatExtensions": "Enable Editor Extensions",
+				"useAsDefaultFormat": "Use as Default Format",
+				"useAsProofingFormat": "Use to Proof Stories"
+			},
 			"storyFormatExplanation": "Story formats control the appearance and behavior of stories during play."
 		},
-		"storyImport": {
-			"choosePrompt": "Choose which stories to import from the file you uploaded:",
-			"deselectAll": "Deselect All",
-			"importDifferentFile": "Import a Different File",
-			"importSelected": "Import Selected Files",
-			"importThisStory": "Import This Story",
-			"noStoriesInFile": "There don't appear to be any Twine stories in the file you uploaded. Please choose another file.",
-			"selectAll": "Select All",
-			"title": "Import Stories",
-			"uploadPrompt": "To import stories into Twine, upload either an archive or published story file below.",
-			"willReplaceExisting": "A story with the same name in your library will be replaced."
-		},
 		"storyList": {
+			"library": "Library",
 			"noStories": "There are no stories saved in Twine right now. To get started, you can either create a new story or import an existing one from a file.",
 			"taggedTitleCount": "1 Tagged Story",
 			"taggedTitleCount_0": "No Tagged Stories",
@@ -271,19 +297,20 @@
 			"titleCount_0": "No Stories",
 			"titleCount_plural": "{{count}} Stories",
 			"titleGeneric": "Stories",
-			"topBar": {
-				"about": "About Twine",
+			"toolbar": {
 				"archive": "Archive",
-				"createStory": "Story",
-				"showAllStories": "All Stories",
-				"showTags": "Show Tags...",
-				"help": "Help",
-				"reportBug": "Report a Bug",
-				"sort": "Sort By...",
-				"sortDate": "Date",
-				"sortName": "Name",
-				"storyTags": "Edit Story Tags",
-				"storyFormats": "Formats"
+				"deleteStoryButton": {
+					"warning": {
+						"electron": "Are you sure you want to delete “{{storyName}}”? It will be moved to the trash.",
+						"web": "Are you sure you want to delete “{{storyName}}”? It will be deleted forever. This cannot be undone."
+					}
+				},
+				"showAllStories": "Show All Stories",
+				"showTags": "Show Tags",
+				"sort": "Sort By",
+				"sortByDate": "Last Updated",
+				"sortByName": "Name",
+				"storyTags": "Story Tags"
 			}
 		},
 		"welcome": {
@@ -299,6 +326,20 @@
 			"tellMeMore": "Tell Me More",
 			"help": "<p><strong>If you've never used Twine before, then welcome!</strong> The <a href=\"https://twinery.org/cookbook\">Twine Cookbook</a> is a great resource for learning how to use it. If you haven't used Twine before, it's a great place to start.</p>",
 			"helpTitle": "New here?"
+		}
+	},
+	"routeActions": {
+		"app": {
+			"aboutApp": "About Twine",
+			"preferences": "Preferences",
+			"reportBug": "Report a Bug",
+			"storyFormats": "Story Formats"
+		},
+		"build": {
+			"play": "Play",
+			"proof": "Proof",
+			"publishToFile": "Publish to File",
+			"test": "Test"
 		}
 	},
 	"store": {
@@ -324,12 +365,12 @@
 	},
 	"undoChange": {
 		"changeTagColor": "Change Tag Color",
-		"createPassage": "Create Passage",
+		"newPassage": "New Passage",
 		"deletePassage": "Delete Passage",
 		"deletePassages": "Delete Passages",
 		"movePassage": "Move Passage",
 		"movePassages": "Move Passages",
-		"removeTag": "Remove Tag",
+		"imortTag": "Remove Tag",
 		"renamePassage": "Rename Passage",
 		"renameTag": "Rename Tag",
 		"replaceAllText": "Replace All"

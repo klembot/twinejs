@@ -12,7 +12,7 @@ import {
 	fakePendingStoryFormat,
 	fakeStoryFormatProperties,
 	fakeUnloadedStoryFormat
-} from '../../../test-util/fakes';
+} from '../../../test-util';
 
 jest.mock('../../../util/story-format/fetch-properties');
 

@@ -25,7 +25,7 @@ module.exports = {
 	},
 	win: {
 		artifactName: `twine-${pkg.version}-windows.exe`,
-		icon: `icons/app-${isPreview ? 'preview' : 'release'}.png`,
+		icon: `icons/app-${isPreview ? 'preview' : 'release'}.ico`,
 		target: 'nsis'
 	}
 };

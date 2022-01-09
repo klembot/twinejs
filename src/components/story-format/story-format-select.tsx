@@ -12,6 +12,9 @@ export interface StoryFormatSelectProps
 export const StoryFormatSelect: React.FC<StoryFormatSelectProps> = props => {
 	const {formats, selectedFormat, ...other} = props;
 	const {t} = useTranslation();
+	const loadingFormats = formats.filter(
+		format => format.loadState === 'loading'
+	);
 	const visibleFormats = sortFormats(
 		formats.filter(
 			format => format.loadState === 'loaded' || format.id === selectedFormat.id
@@ -22,12 +25,13 @@ export const StoryFormatSelect: React.FC<StoryFormatSelectProps> = props => {
 		label: `${format.name} ${format.version}`,
 		value: format.id
 	}));
-	const loadingCount = formats.length - visibleFormats.length;
 
-	if (loadingCount !== 0) {
+	if (loadingFormats.length !== 0) {
 		options.push({
 			disabled: true,
-			label: t('components.storyFormatSelect.loadingCount', {loadingCount}),
+			label: t('components.storyFormatSelect.loadingCount', {
+				loadingCount: loadingFormats.length
+			}),
 			value: ''
 		});
 	}

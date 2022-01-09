@@ -8,11 +8,13 @@ import 'codemirror/mode/css/css';
 import 'codemirror/mode/javascript/javascript';
 import './code-area.css';
 import './codemirror-theme.css';
+import classnames from 'classnames';
 
 export interface CodeAreaProps extends IControlledCodeMirror {
 	fontFamily?: string;
 	fontScale?: number;
-	label?: string;
+	label: string;
+	labelHidden?: boolean;
 	value: string;
 }
 
@@ -32,14 +34,16 @@ export const CodeArea: React.FC<CodeAreaProps> = props => {
 
 	return (
 		<div className="code-area" style={style}>
-			{label ? (
-				<label>
-					<span className="label">{label}</span>
-					<CodeMirror {...otherProps} />
-				</label>
-			) : (
+			<label>
+				<span
+					className={classnames('label', {
+						'screen-reader-only': props.labelHidden
+					})}
+				>
+					{label}
+				</span>
 				<CodeMirror {...otherProps} />
-			)}
+			</label>
 		</div>
 	);
 };

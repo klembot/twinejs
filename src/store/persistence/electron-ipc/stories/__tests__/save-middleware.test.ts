@@ -1,7 +1,7 @@
 import {saveMiddleware} from '../save-middleware';
 import {StoryFormatsState} from '../../../../story-formats';
 import {StoriesAction, StoriesState} from '../../../../stories';
-import {fakeLoadedStoryFormat, fakeStory} from '../../../../../test-util/fakes';
+import {fakeLoadedStoryFormat, fakeStory} from '../../../../../test-util';
 import {TwineElectronWindow} from '../../../../../electron/shared';
 import {saveStory} from '../save-story';
 
@@ -124,6 +124,33 @@ describe('stories Electron IPC save middleware', () => {
 	])('calls saveStory() when a %s action is received', (_, action) => {
 		saveMiddleware(storiesState, action() as StoriesAction, formatsState);
 		expect(saveStoryMock.mock.calls).toEqual([[storiesState[0], formatsState]]);
+	});
+
+	it('does nothing if a trivial updatePassage action is received', () => {
+		saveMiddleware(
+			storiesState,
+			{
+				type: 'updatePassage',
+				passageId: storiesState[0].passages[0].id,
+				props: {selected: true},
+				storyId: storiesState[0].id
+			},
+			formatsState
+		);
+		expect(saveStoryMock).not.toHaveBeenCalled();
+	});
+
+	it('does nothing if a trivial updateStory action is received', () => {
+		saveMiddleware(
+			storiesState,
+			{
+				type: 'updateStory',
+				props: {selected: true},
+				storyId: storiesState[0].id
+			},
+			formatsState
+		);
+		expect(saveStoryMock).not.toHaveBeenCalled();
 	});
 
 	describe('when a createStory action is received', () => {

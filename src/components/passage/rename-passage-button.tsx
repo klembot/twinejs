@@ -3,14 +3,23 @@ import {useTranslation} from 'react-i18next';
 import {IconWriting} from '@tabler/icons';
 import {PromptButton} from '../control/prompt-button';
 import {Passage, Story} from '../../store/stories';
+import {IconButton} from '../control/icon-button';
 
-export interface RenamePassageButtonProps {
+const DisabledRenamePassageButton: React.FC = () => {
+	const {t} = useTranslation();
+
+	return (
+		<IconButton disabled icon={<IconWriting />} label={t('common.rename')} />
+	);
+};
+
+export interface EnabledRenamePassageButtonProps {
 	onRename: (value: string) => void;
 	passage: Passage;
 	story: Story;
 }
 
-export const RenamePassageButton: React.FC<RenamePassageButtonProps> = props => {
+export const EnabledRenamePassageButton: React.FC<EnabledRenamePassageButtonProps> = props => {
 	const {onRename, passage, story} = props;
 	const [newName, setNewName] = React.useState(passage.name);
 	const {t} = useTranslation();
@@ -44,4 +53,21 @@ export const RenamePassageButton: React.FC<RenamePassageButtonProps> = props => 
 			value={newName}
 		/>
 	);
+};
+
+export interface RenamePassageButtonProps
+	extends Omit<EnabledRenamePassageButtonProps, 'passage'> {
+	passage?: Passage;
+}
+
+export const RenamePassageButton: React.FC<RenamePassageButtonProps> = props => {
+	if (props.passage) {
+		return (
+			<EnabledRenamePassageButton
+				{...(props as EnabledRenamePassageButtonProps)}
+			/>
+		);
+	}
+
+	return <DisabledRenamePassageButton />;
 };

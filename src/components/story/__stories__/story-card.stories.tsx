@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Story} from '@storybook/react';
 import {StoryCard, StoryCardProps} from '../story-card';
-import {fakeStory} from '../../../test-util/fakes';
+import {fakeStory} from '../../../test-util';
 
 const main = {
 	component: StoryCard,

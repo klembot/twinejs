@@ -1,6 +1,6 @@
 import {addPassageTag, removePassageTag} from '../tag-passage';
 import {Passage, Story} from '../../stories.types';
-import {fakeStory} from '../../../../test-util/fakes';
+import {fakeStory} from '../../../../test-util';
 
 describe('addPassageTag', () => {
 	let passage: Passage;
