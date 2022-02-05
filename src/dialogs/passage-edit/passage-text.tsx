@@ -80,9 +80,32 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 		setLocalText(text);
 	}
 
+	function handleExecCommand(name: string) {
+		// A format toolbar command probably will affect the editor content. It
+		// appears that react-codemirror2 can't maintain the selection properly in
+		// all cases when this happens (particularly when using
+		// `replaceSelection('something', 'around')`), so we take a snapshot
+		// immediately after the command runs, let react-codemirror2 work, then
+		// reapply the selection ASAP.
+
+		if (!editor) {
+			throw new Error('No editor set');
+		}
+
+		editor.execCommand(name);
+
+		const selections = editor.listSelections();
+
+		Promise.resolve().then(() => editor.setSelections(selections));
+	}
+
 	return (
 		<>
-			<StoryFormatToolbar editor={editor} storyFormat={storyFormat} />
+			<StoryFormatToolbar
+				editor={editor}
+				onExecCommand={handleExecCommand}
+				storyFormat={storyFormat}
+			/>
 			<DialogEditor>
 				<CodeArea
 					editorDidMount={handleMount}

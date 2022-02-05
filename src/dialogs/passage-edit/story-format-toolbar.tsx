@@ -11,11 +11,12 @@ import './story-format-toolbar.css';
 
 export interface StoryFormatToolbarProps {
 	editor?: CodeMirror.Editor;
+	onExecCommand: (name: string) => void;
 	storyFormat: StoryFormat;
 }
 
 export const StoryFormatToolbar: React.FC<StoryFormatToolbarProps> = props => {
-	const {editor, storyFormat} = props;
+	const {editor, onExecCommand, storyFormat} = props;
 	const appTheme = useComputedTheme();
 	const {prefs} = usePrefsContext();
 	const toolbarFactory = useFormatCodeMirrorToolbar(
@@ -26,7 +27,7 @@ export const StoryFormatToolbar: React.FC<StoryFormatToolbarProps> = props => {
 		StoryFormatToolbarItem[]
 	>([]);
 
-	React.useEffect(() => {
+	const tryToSetToolbar = React.useCallback(() => {
 		if (toolbarFactory && editor) {
 			try {
 				setToolbarItems(
@@ -53,6 +54,21 @@ export const StoryFormatToolbar: React.FC<StoryFormatToolbarProps> = props => {
 		toolbarFactory
 	]);
 
+	React.useEffect(() => {
+		if (editor) {
+			// Run the toolbar factory initially.
+
+			tryToSetToolbar();
+
+			// React to both content changes and the selection and cursor moving,
+			// since the toolbar factory might want to do different things based on
+			// the cursor position or selection.
+
+			editor.on('cursorActivity', tryToSetToolbar);
+			return () => editor.off('cursorActivity', tryToSetToolbar);
+		}
+	}, [editor, tryToSetToolbar]);
+
 	return (
 		<div className="story-format-toolbar">
 			<ButtonBar>
@@ -65,7 +81,7 @@ export const StoryFormatToolbar: React.FC<StoryFormatToolbarProps> = props => {
 									icon={<img src={item.icon} alt="" />}
 									key={index}
 									label={item.label}
-									onClick={() => editor?.execCommand(item.command)}
+									onClick={() => onExecCommand(item.command)}
 								/>
 							);
 
@@ -84,7 +100,7 @@ export const StoryFormatToolbar: React.FC<StoryFormatToolbarProps> = props => {
 													type: 'button',
 													disabled: subitem.disabled,
 													label: subitem.label,
-													onClick: () => editor?.execCommand(subitem.command)
+													onClick: () => onExecCommand(subitem.command)
 												};
 											}
 

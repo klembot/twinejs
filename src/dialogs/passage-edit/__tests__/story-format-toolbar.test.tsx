@@ -28,7 +28,8 @@ describe('<StoryFormatToolbar>', () => {
 	function renderComponent(props?: Partial<StoryFormatToolbarProps>) {
 		return render(
 			<StoryFormatToolbar
-				editor={{execCommand: jest.fn()} as any}
+				editor={{off: jest.fn(), on: jest.fn()} as any}
+				onExecCommand={jest.fn()}
 				storyFormat={fakeLoadedStoryFormat()}
 				{...props}
 			/>
@@ -36,7 +37,7 @@ describe('<StoryFormatToolbar>', () => {
 	}
 
 	it('displays a button that runs a CodeMirror command for format toolbar buttons', () => {
-		const execCommand = jest.fn();
+		const onExecCommand = jest.fn();
 
 		useFormatToolbarMock.mockReturnValue(() => [
 			{
@@ -47,7 +48,7 @@ describe('<StoryFormatToolbar>', () => {
 			}
 		]);
 
-		renderComponent({editor: {execCommand} as any});
+		renderComponent({onExecCommand});
 
 		const button = screen.getByRole('button', {name: 'mock-label'});
 
@@ -55,13 +56,13 @@ describe('<StoryFormatToolbar>', () => {
 		expect(within(button).getByRole('img').getAttribute('src')).toBe(
 			'mock-icon-src'
 		);
-		expect(execCommand).not.toHaveBeenCalled();
+		expect(onExecCommand).not.toHaveBeenCalled();
 		fireEvent.click(button);
-		expect(execCommand.mock.calls).toEqual([['mock-command']]);
+		expect(onExecCommand.mock.calls).toEqual([['mock-command']]);
 	});
 
 	it('displays a menu button for format toolbar menus', () => {
-		const execCommand = jest.fn();
+		const onExecCommand = jest.fn();
 
 		useFormatToolbarMock.mockReturnValue(() => [
 			{
@@ -79,14 +80,14 @@ describe('<StoryFormatToolbar>', () => {
 			}
 		]);
 
-		renderComponent({editor: {execCommand} as any});
+		renderComponent({onExecCommand});
 
 		const button = screen.getByRole('button', {name: 'mock-button-label'});
 
 		expect(button).toBeInTheDocument();
-		expect(execCommand).not.toHaveBeenCalled();
+		expect(onExecCommand).not.toHaveBeenCalled();
 		fireEvent.click(button);
-		expect(execCommand.mock.calls).toEqual([['mock-command']]);
+		expect(onExecCommand.mock.calls).toEqual([['mock-command']]);
 	});
 
 	it('renders nothing if the editor prop is undefined', () => {
