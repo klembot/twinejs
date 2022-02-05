@@ -1,7 +1,6 @@
 import {fireEvent, render, screen, waitFor} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
-import {PrefsContext, PrefsContextProps} from '../../../store/prefs';
 import {useFormatCodeMirrorMode} from '../../../store/use-format-codemirror-mode';
 import {
 	fakeLoadedStoryFormat,
@@ -132,8 +131,10 @@ describe('<PassageText>', () => {
 		).toHaveValue('mock-manual-change');
 	});
 
-	// Need to mock <CodeArea /> with higher fidelity to do this.
+	// Need to mock <CodeArea /> with higher fidelity to do these.
 	it.todo('focuses the code area after a delay on mount');
+	it.todo('executes a command when the onExecCommand prop is called');
+	it.todo('retains the selection after the onExecCommand prop is called');
 
 	it('sets the format mode on the code area if one exists', () => {
 		useFormatCodeMirrorModeMock.mockReturnValue('mock-format-mode-name');
