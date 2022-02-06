@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {Helmet} from 'react-helmet';
 import {useParams} from 'react-router-dom';
 import {MainContent} from '../../components/container/main-content';
 import {MarqueeSelection} from '../../components/marquee-selection';
@@ -26,6 +25,7 @@ import {Point, Rect} from '../../util/geometry';
 import {StoryEditToolbar} from './toolbar';
 import './story-edit-route.css';
 import {ZoomButtons} from './zoom-buttons';
+import {DocumentTitle} from '../../components/document-title/document-title';
 
 export const InnerStoryEditRoute: React.FC = () => {
 	const [inited, setInited] = React.useState(false);
@@ -156,9 +156,7 @@ export const InnerStoryEditRoute: React.FC = () => {
 
 	return (
 		<div className="story-edit-route">
-			<Helmet>
-				<title>{story.name}</title>
-			</Helmet>
+			<DocumentTitle title={story.name} />
 			<StoryEditToolbar getCenter={getCenter} story={story} />
 			<MainContent padded={false} ref={mainContent}>
 				<MarqueeSelection
@@ -182,7 +180,7 @@ export const InnerStoryEditRoute: React.FC = () => {
 			</MainContent>
 		</div>
 	);
-};;
+};
 
 // This is a separate component so that the inner one can use
 // `useEditorsContext()` and `useUndoableStoriesContext()` inside it.
