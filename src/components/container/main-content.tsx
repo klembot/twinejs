@@ -1,6 +1,6 @@
-import * as React from 'react';
 import classNames from 'classnames';
-import {Helmet} from 'react-helmet';
+import * as React from 'react';
+import {DocumentTitle} from '../document-title/document-title';
 import './main-content.css';
 
 export interface MainContentProps
@@ -21,9 +21,7 @@ export const MainContent = React.forwardRef<HTMLDivElement, MainContentProps>(
 			<div className={className} ref={ref}>
 				{title && (
 					<>
-						<Helmet>
-							<title>{title}</title>
-						</Helmet>
+						<DocumentTitle title={title} />
 						<h1>{title}</h1>
 					</>
 				)}
