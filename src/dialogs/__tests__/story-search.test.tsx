@@ -1,4 +1,5 @@
 import {
+	act,
 	cleanup,
 	fireEvent,
 	render,
@@ -7,140 +8,160 @@ import {
 } from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
-import {replaceInStory} from '../../store/stories/action-creators/find-replace';
-import {highlightPassagesMatchingSearch} from '../../store/stories/action-creators/highlight-passages';
+import {useStoriesContext} from '../../store/stories';
 import {
-	UndoableStoriesContext,
-	UndoableStoriesContextProps
-} from '../../store/undoable-stories';
-import {fakeStory} from '../../test-util';
+	FakeStateProvider,
+	FakeStateProviderProps,
+	fakeStory,
+	StoryInspector
+} from '../../test-util';
 import {StorySearchDialog, StorySearchDialogProps} from '../story-search';
 
 jest.mock('../../components/control/code-area/code-area');
-jest.mock('../../store/stories/action-creators/find-replace');
-jest.mock('../../store/stories/action-creators/highlight-passages');
 
-describe('<StorySearchDialog>', () => {
-	const highlightPassagesMock = highlightPassagesMatchingSearch as jest.Mock;
-	const replaceInStoryMock = replaceInStory as jest.Mock;
+const TestStorySearchDialog = () => {
+	const [open, setOpen] = React.useState(true);
+	const {stories} = useStoriesContext();
 
-	function renderComponent(
-		props?: Partial<StorySearchDialogProps>,
-		context?: Partial<UndoableStoriesContextProps>
-	) {
-		const story = fakeStory();
-
-		return render(
-			<UndoableStoriesContext.Provider
-				value={{dispatch: jest.fn(), stories: [story], ...context}}
-			>
+	return (
+		<>
+			<button onClick={() => setOpen(false)}>close</button>
+			{open && (
 				<StorySearchDialog
 					collapsed={false}
 					onChangeCollapsed={jest.fn()}
 					onClose={jest.fn()}
-					storyId={story.id}
-					{...props}
+					storyId={stories[0].id}
 				/>
-			</UndoableStoriesContext.Provider>
+			)}
+		</>
+	);
+};
+
+describe('<StorySearchDialog>', () => {
+	function renderComponent(context?: Partial<FakeStateProviderProps>) {
+		return render(
+			<FakeStateProvider {...context}>
+				<StoryInspector />
+				<TestStorySearchDialog />
+			</FakeStateProvider>
 		);
 	}
 
-	it('dispatches a highlight action to highlight no passages when mounted', () => {
-		const dispatch = jest.fn();
-		const story = fakeStory();
+	// Needed because the dialog dispatches actions on unmount.
+	afterEach(async () => await act(() => Promise.resolve()));
 
-		highlightPassagesMock.mockImplementation((...args) => [...args]);
-		renderComponent({storyId: story.id}, {dispatch, stories: [story]});
-		expect(highlightPassagesMock.mock.calls).toEqual([
-			[
-				story,
-				'',
-				{includePassageNames: true, matchCase: false, useRegexes: false}
-			]
-		]);
-		expect(dispatch.mock.calls).toEqual([
-			[highlightPassagesMock.mock.calls[0]]
-		]);
+	it('removes highlighting from all passages when mounted', async () => {
+		const story = fakeStory(3);
+
+		story.passages[0].highlighted = true;
+		story.passages[1].highlighted = true;
+		story.passages[2].highlighted = true;
+		renderComponent({stories: [story]});
+		await waitFor(() =>
+			expect(
+				screen.getByTestId(`passage-${story.passages[0].id}`).dataset
+					.highlighted
+			).toBe('false')
+		);
+		expect(
+			screen.getByTestId(`passage-${story.passages[1].id}`).dataset.highlighted
+		).toBe('false');
+		expect(
+			screen.getByTestId(`passage-${story.passages[2].id}`).dataset.highlighted
+		).toBe('false');
 	});
 
-	it('dispatches a highlight action to highlight passages when the search field changes', () => {
-		const dispatch = jest.fn();
-		const story = fakeStory();
+	it('highlights matching passages when the search field changes', async () => {
+		const story = fakeStory(3);
 
-		highlightPassagesMock.mockImplementation((...args) => [...args]);
-		renderComponent({storyId: story.id}, {dispatch, stories: [story]});
-		highlightPassagesMock.mockClear();
-		dispatch.mockClear();
+		story.passages[0].highlighted = false;
+		story.passages[0].text = 'aaa';
+		story.passages[1].highlighted = true;
+		story.passages[1].text = 'bbb';
+		story.passages[2].highlighted = false;
+		story.passages[2].text = 'ccc';
+		renderComponent({stories: [story]});
 		fireEvent.change(screen.getByLabelText('dialogs.storySearch.find'), {
-			target: {value: 'mock-value'}
+			target: {value: 'aaa'}
 		});
-
-		// Even clearing the mock, dispatch is getting called twice--I think because
-		// the effect cleanup is firing.
-
-		expect(highlightPassagesMock).toBeCalledTimes(2);
-		expect(highlightPassagesMock.mock.calls[1]).toEqual([
-			story,
-			'mock-value',
-			{includePassageNames: true, matchCase: false, useRegexes: false}
-		]);
-		expect(dispatch).toBeCalledTimes(2);
-		expect(dispatch.mock.calls[1]).toEqual([
-			highlightPassagesMock.mock.calls[1]
-		]);
+		await waitFor(() =>
+			expect(
+				screen.getByTestId(`passage-${story.passages[0].id}`).dataset
+					.highlighted
+			).toBe('true')
+		);
+		expect(
+			screen.getByTestId(`passage-${story.passages[1].id}`).dataset.highlighted
+		).toBe('false');
+		expect(
+			screen.getByTestId(`passage-${story.passages[2].id}`).dataset.highlighted
+		).toBe('false');
 	});
 
-	it('incorporates the options chosen by the user when highlighting matches', () => {
-		const dispatch = jest.fn();
+	it('debounces highlighting matches', async () => {
+		const story = fakeStory(1);
+
+		story.passages[0].highlighted = false;
+		story.passages[0].text = 'aaa';
+		renderComponent({stories: [story]});
+		fireEvent.change(screen.getByLabelText('dialogs.storySearch.find'), {
+			target: {value: 'a'}
+		});
+		expect(
+			screen.getByTestId(`passage-${story.passages[0].id}`).dataset.highlighted
+		).toBe('false');
+		await waitFor(() =>
+			expect(
+				screen.getByTestId(`passage-${story.passages[0].id}`).dataset
+					.highlighted
+			).toBe('true')
+		);
+	});
+
+	it('incorporates the options chosen by the user when highlighting matches', async () => {
 		const story = fakeStory();
 
-		highlightPassagesMock.mockImplementation((...args) => [...args]);
-		renderComponent({storyId: story.id}, {dispatch, stories: [story]});
+		story.passages[0].highlighted = true;
+		story.passages[0].name = 'aBC';
+		story.passages[0].text = '';
+		renderComponent({stories: [story]});
 		fireEvent.click(
 			screen.getByText('dialogs.storySearch.includePassageNames')
 		);
 		fireEvent.click(screen.getByText('dialogs.storySearch.matchCase'));
 		fireEvent.click(screen.getByText('dialogs.storySearch.useRegexes'));
-		highlightPassagesMock.mockClear();
-		dispatch.mockClear();
 		fireEvent.change(screen.getByLabelText('dialogs.storySearch.find'), {
-			target: {value: 'mock-value'}
+			target: {value: 'aB.'}
 		});
-
-		// See note above about the multiple calls.
-
-		expect(highlightPassagesMock).toBeCalledTimes(2);
-		expect(highlightPassagesMock.mock.calls[1]).toEqual([
-			story,
-			'mock-value',
-			{includePassageNames: false, matchCase: true, useRegexes: true}
-		]);
-		expect(dispatch).toBeCalledTimes(2);
-		expect(dispatch.mock.calls[1]).toEqual([
-			highlightPassagesMock.mock.calls[1]
-		]);
+		await waitFor(() =>
+			expect(
+				screen.getByTestId(`passage-${story.passages[0].id}`).dataset
+					.highlighted
+			).toBe('false')
+		);
 	});
 
-	it('dispatches a highlight action to highlight no passages when unmounted', () => {
-		const dispatch = jest.fn();
+	it('dispatches a highlight action to highlight no passages when closed', async () => {
 		const story = fakeStory();
 
-		highlightPassagesMock.mockImplementation((...args) => [...args]);
-		renderComponent({storyId: story.id}, {dispatch, stories: [story]});
-		highlightPassagesMock.mockClear();
-		dispatch.mockClear();
-		cleanup();
-		expect(highlightPassagesMock.mock.calls).toEqual([[story, '', {}]]);
-		expect(dispatch.mock.calls).toEqual([
-			[highlightPassagesMock.mock.calls[0]]
-		]);
+		story.passages[0].highlighted = true;
+		renderComponent({stories: [story]});
+		fireEvent.click(screen.getByText('close'));
+
+		await waitFor(() =>
+			expect(
+				screen.getByTestId(`passage-${story.passages[0].id}`).dataset
+					.highlighted
+			).toBe('false')
+		);
 	});
 
 	it('shows the number of matching passages for the search', () => {
 		const story = fakeStory(1);
 
 		story.passages[0].text = 'aaa';
-		renderComponent({storyId: story.id}, {stories: [story]});
+		renderComponent({stories: [story]});
 		fireEvent.change(screen.getByLabelText('dialogs.storySearch.find'), {
 			target: {value: 'a'}
 		});
@@ -152,11 +173,12 @@ describe('<StorySearchDialog>', () => {
 		).not.toBeInTheDocument();
 	});
 
-	it.skip('shows a message if no passages match the search', async () => {
+	it('shows a message if no passages match the search', async () => {
 		const story = fakeStory(1);
 
-		story.passages[0].text = 'aaa';
-		renderComponent({storyId: story.id}, {stories: [story]});
+		story.passages[0].name = 'aaa';
+		story.passages[0].text = 'bbb';
+		renderComponent({stories: [story]});
 		fireEvent.change(screen.getByLabelText('dialogs.storySearch.find'), {
 			target: {value: 'e'}
 		});
@@ -170,13 +192,11 @@ describe('<StorySearchDialog>', () => {
 		).not.toBeInTheDocument();
 	});
 
-	it('dispatches a story action when the replace button is clicked', async () => {
-		const dispatch = jest.fn();
+	it('replaces text in passages when the replace button is clicked', async () => {
 		const story = fakeStory(1);
 
-		replaceInStoryMock.mockImplementation((...args) => [...args]);
 		story.passages[0].text = 'mock-find';
-		renderComponent({storyId: story.id}, {dispatch, stories: [story]});
+		renderComponent({stories: [story]});
 		fireEvent.click(
 			screen.getByText('dialogs.storySearch.includePassageNames')
 		);
@@ -188,31 +208,21 @@ describe('<StorySearchDialog>', () => {
 		fireEvent.change(screen.getByLabelText('dialogs.storySearch.replaceWith'), {
 			target: {value: 'mock-replace'}
 		});
-		dispatch.mockClear();
 
 		const replaceButton = screen.getByText('dialogs.storySearch.replaceAll');
 
 		expect(replaceButton).not.toBeDisabled();
-		expect(dispatch).not.toBeCalled();
 		fireEvent.click(replaceButton);
-		expect(replaceInStoryMock.mock.calls).toEqual([
-			[
-				story,
-				'mock-find',
-				'mock-replace',
-				{includePassageNames: false, matchCase: true, useRegexes: true}
-			]
-		]);
-		expect(dispatch.mock.calls).toEqual([
-			[replaceInStoryMock.mock.calls[0], 'undoChange.replaceAllText']
-		]);
+		expect(
+			screen.getByTestId(`passage-${story.passages[0].id}`)
+		).toHaveTextContent('mock-replace');
 	});
 
 	it('disables the replace button if there are no matches for the search', () => {
 		const story = fakeStory(1);
 
 		story.passages[0].text = 'aaa';
-		renderComponent({storyId: story.id}, {stories: [story]});
+		renderComponent({stories: [story]});
 		fireEvent.change(screen.getByLabelText('dialogs.storySearch.find'), {
 			target: {value: 'mock-find'}
 		});

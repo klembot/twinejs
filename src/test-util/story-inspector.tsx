@@ -32,6 +32,7 @@ export const StoryInspector: React.FC<StoryInspectorProps> = ({id}) => {
 				{story.passages.map(passage => (
 					<div
 						key={passage.id}
+						data-highlighted={passage.highlighted}
 						data-id={passage.id}
 						data-testid={`passage-${passage.id}`}
 						data-left={passage.left}
