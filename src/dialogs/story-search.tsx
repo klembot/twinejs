@@ -1,3 +1,4 @@
+import {debounce} from 'lodash';
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {IconReplace} from '@tabler/icons';
@@ -37,16 +38,21 @@ export const StorySearchDialog: React.FC<StorySearchDialogProps> = props => {
 	const [replace, setReplace] = React.useState('');
 	const [find, setFind] = React.useState('');
 	const {dispatch, stories} = useUndoableStoriesContext();
+	const debouncedDispatch = React.useMemo(
+		() => debounce(dispatch, 250),
+		[dispatch]
+	);
 	const {t} = useTranslation();
 
 	const story = storyWithId(stories, storyId);
 	const matches = passagesMatchingSearch(story.passages, find, flags);
 
 	React.useEffect(() => {
-		dispatch(highlightPassagesMatchingSearch(story, find, flags));
+		debouncedDispatch(highlightPassagesMatchingSearch(story, find, flags));
 
-		return () => dispatch(highlightPassagesMatchingSearch(story, '', {}));
-	}, [dispatch, find, flags, story]);
+		return () =>
+			debouncedDispatch(highlightPassagesMatchingSearch(story, '', {}));
+	}, [debouncedDispatch, find, flags, story]);
 
 	function handleReplaceWithChange(
 		editor: CodeMirror.Editor,
