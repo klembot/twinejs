@@ -118,7 +118,7 @@ export function publishStory(
 		`format="${escape(story.storyFormat)}" ` +
 		`format-version="${escape(story.storyFormatVersion)}" ` +
 		`ifid="${escape(story.ifid)}" ` +
-		`options="${escape(formatOptions)}"` +
+		`options="${escape(formatOptions)}" ` +
 		`tags="${escape(story.tags.join(' '))}" ` +
 		`zoom="${escape(story.zoom.toString())}" hidden>` +
 		`<style role="stylesheet" id="twine-user-stylesheet" ` +
