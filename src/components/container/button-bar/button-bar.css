@@ -3,6 +3,7 @@
 
 .button-bar {
 	display: flex;
+	flex-wrap: wrap;
 }
 
 .button-bar.orientation-vertical {
