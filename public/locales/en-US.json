@@ -280,6 +280,13 @@
 				"user": "User-Added Story Formats"
 			},
 			"toolbar": {
+				"addStoryFormatButton": {
+					"addPreview": "{storyFormatName} {storyFormatVersion} will be added.",
+					"alreadyAdded": "{storyFormatName} {storyFormatVersion} has already been added.",
+					"fetchError": "The story format at this address could not be retrieved ({errorMessage}).",
+					"invalidUrl": "Please enter a valid URL.",
+					"prompt": "To add a story format, enter its address below."
+				},
 				"disableFormatExtensions": "Disable Editor Extensions",
 				"enableFormatExtensions": "Enable Editor Extensions",
 				"useAsDefaultFormat": "Use as Default Format",
