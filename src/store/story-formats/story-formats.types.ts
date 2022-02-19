@@ -47,6 +47,7 @@ export type StoryFormatToolbarItem =
 
 export interface StoryFormatToolbarFactoryEnvironment {
 	appTheme: 'dark' | 'light';
+	foregroundColor: string;
 	locale: string;
 }
 

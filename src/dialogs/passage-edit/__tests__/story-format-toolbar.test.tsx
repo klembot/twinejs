@@ -1,7 +1,11 @@
 import {fireEvent, render, screen, within} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
-import {fakeLoadedStoryFormat} from '../../../test-util';
+import {
+	fakeLoadedStoryFormat,
+	FakeStateProvider,
+	FakeStateProviderProps
+} from '../../../test-util';
 import {
 	StoryFormatToolbar,
 	StoryFormatToolbarProps
@@ -25,16 +29,35 @@ describe('<StoryFormatToolbar>', () => {
 		]);
 	});
 
-	function renderComponent(props?: Partial<StoryFormatToolbarProps>) {
+	function renderComponent(
+		props?: Partial<StoryFormatToolbarProps>,
+		context?: FakeStateProviderProps
+	) {
 		return render(
-			<StoryFormatToolbar
-				editor={{off: jest.fn(), on: jest.fn()} as any}
-				onExecCommand={jest.fn()}
-				storyFormat={fakeLoadedStoryFormat()}
-				{...props}
-			/>
+			<FakeStateProvider {...context}>
+				<StoryFormatToolbar
+					editor={{off: jest.fn(), on: jest.fn()} as any}
+					onExecCommand={jest.fn()}
+					storyFormat={fakeLoadedStoryFormat()}
+					{...props}
+				/>
+			</FakeStateProvider>
 		);
 	}
+
+	it('passes the editor instance and environment to the format toolbar factory function', () => {
+		const factory = jest.fn(() => []);
+
+		useFormatToolbarMock.mockReturnValue(factory);
+		renderComponent({}, {prefs: {appTheme: 'dark', locale: 'mock-locale'}});
+		expect(factory.mock.calls).toEqual([
+			[
+				{on: expect.any(Function), off: expect.any(Function)},
+				// jsdom limitations on foregroundColor
+				{appTheme: 'dark', foregroundColor: '', locale: 'mock-locale'}
+			]
+		]);
+	});
 
 	it('displays a button that runs a CodeMirror command for format toolbar buttons', () => {
 		const onExecCommand = jest.fn();
