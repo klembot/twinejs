@@ -107,13 +107,14 @@
 		"storyFormatCard": {
 			"author": "by {{author}}",
 			"builtIn": "Built In",
-			"defaultFormat": "Default",
+			"defaultFormat": "Used as Default",
 			"editorExtensionsDisabled": "Editor Extensions Disabled",
 			"license": "License: {{license}}",
 			"loadingFormat": "Loading this story format...",
 			"loadError": "This story format could not be loaded ({{errorMessage}}).",
 			"name": "{{name}} {{version}}",
 			"proofing": "Proofing",
+			"proofingFormat": "Used for Proofing",
 			"useEditorExtensions": "Use Editor Extensions",
 			"useFormat": "Use As Default Story Format",
 			"useProofingFormat": "Use As Proofing Format"
