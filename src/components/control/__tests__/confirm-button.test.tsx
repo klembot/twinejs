@@ -47,7 +47,7 @@ describe('<ConfirmButton>', () => {
 		).not.toBeInTheDocument();
 	});
 
-	it('calls the onConfirm prop when the confirm button is clicked', async () => {
+	it('hides confirmation and cancel buttons and calls the onConfirm prop when the confirm button is clicked', async () => {
 		const onConfirm = jest.fn();
 
 		renderComponent({
@@ -59,6 +59,12 @@ describe('<ConfirmButton>', () => {
 		expect(onConfirm).not.toHaveBeenCalled();
 		fireEvent.click(screen.getByRole('button', {name: 'test-confirm'}));
 		expect(onConfirm).toBeCalledTimes(1);
+		expect(
+			screen.queryByRole('button', {name: 'test-cancel'})
+		).not.toBeInTheDocument();
+		expect(
+			screen.queryByRole('button', {name: 'test-confirm'})
+		).not.toBeInTheDocument();
 	});
 
 	it('is accessible', async () => {
