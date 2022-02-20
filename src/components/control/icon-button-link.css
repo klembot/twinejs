@@ -18,7 +18,9 @@
 	user-select: none;
 }
 
+.icon-button .icon img,
 .icon-button .icon svg,
+.icon-link .icon img,
 .icon-link .icon svg {
 	height: 18px;
 	position: relative;

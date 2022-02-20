@@ -84,6 +84,22 @@ describe('<StoryFormatToolbar>', () => {
 		expect(onExecCommand.mock.calls).toEqual([['mock-command']]);
 	});
 
+	it('displays icon-only buttons properly', () => {
+		useFormatToolbarMock.mockReturnValue(() => [
+			{
+				command: 'mock-command',
+				icon: 'mock-icon-src',
+				iconOnly: true,
+				label: 'mock-label',
+				type: 'button'
+			}
+		]);
+
+		renderComponent();
+		expect(screen.queryByText('mock-label')).not.toBeInTheDocument();
+		expect(screen.getByLabelText('mock-label')).toBeInTheDocument();
+	});
+
 	it('displays a menu button for format toolbar menus', () => {
 		const onExecCommand = jest.fn();
 
@@ -112,6 +128,9 @@ describe('<StoryFormatToolbar>', () => {
 		fireEvent.click(button);
 		expect(onExecCommand.mock.calls).toEqual([['mock-command']]);
 	});
+
+	// Needs a more accurate mock of <MenuButton>.
+	it.todo('displays icon-only menu buttons properly');
 
 	it('renders nothing if the editor prop is undefined', () => {
 		renderComponent({editor: undefined});

@@ -28,6 +28,7 @@ export type StoryFormatToolbarButton = {
 	command: string;
 	disabled?: boolean;
 	icon: string;
+	iconOnly?: boolean;
 	label: string;
 };
 
@@ -41,6 +42,7 @@ export type StoryFormatToolbarItem =
 			type: 'menu';
 			disabled: boolean;
 			icon: string;
+			iconOnly?: boolean;
 			items: StoryFormatToolbarMenuItem[];
 			label: string;
 	  };

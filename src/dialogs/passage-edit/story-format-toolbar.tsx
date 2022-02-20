@@ -83,6 +83,7 @@ export const StoryFormatToolbar: React.FC<StoryFormatToolbarProps> = props => {
 								<IconButton
 									disabled={item.disabled}
 									icon={<img src={item.icon} alt="" />}
+									iconOnly={item.iconOnly}
 									key={index}
 									label={item.label}
 									onClick={() => onExecCommand(item.command)}
@@ -94,6 +95,7 @@ export const StoryFormatToolbar: React.FC<StoryFormatToolbarProps> = props => {
 								<MenuButton
 									disabled={item.disabled}
 									icon={<img src={item.icon} alt="" />}
+									iconOnly={item.iconOnly}
 									items={item.items
 										.filter(subitem =>
 											['button', 'separator'].includes(subitem.type)

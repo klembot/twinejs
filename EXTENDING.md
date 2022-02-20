@@ -295,6 +295,7 @@ This displays a button which runs a CodeMirror command. Other properties:
 | `command`     | string  | yes                | The name of the CodeMirror command to run when                                                                         |
 | `disabled`    | boolean | no                 | If true, then the button is disabled. By default, buttons are enabled.                                                 |
 | `icon`        | string  | depends on context | Used as the `src` attribute for the <img> tag used in the button. Using a `data:` URL is recommended but not required. |
+| `iconOnly`    | boolean | no                 | Only shows the icon. **The label property is still required.** It is used for assistive technology.                    |
 | `label`       | string  | yes                | The label text to display. This cannot contain HTML.                                                                   |
 
 The `icon` property is required if this toolbar item is not inside a menu.
@@ -308,6 +309,7 @@ This displays a drop-down menu. Other properties:
 | ------------- | ------- | -------- | ---------------------------------------------------------------------------------------------------------------------- |
 | `disabled`    | boolean | no       | If true, then the button is disabled. By default, menus are enabled.                                                   |
 | `icon`        | string  | yes      | Used as the `src` attribute for the <img> tag used in the button. Using a `data:` URL is recommended but not required. |
+| `iconOnly`    | boolean | no       | Only shows the icon. **The label property is still required.** It is used for assistive technology.                    |
 | `items`       | array   | yes      | Items in this menu.                                                                                                    |
 | `label`       | string  | yes      | The label text to display. This cannot contain HTML.                                                                   |
 
