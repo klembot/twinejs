@@ -13,10 +13,17 @@ export interface StoryFormatCardProps {
 	editorExtensionsDisabled: boolean;
 	format: StoryFormat;
 	onSelect: () => void;
+	proofingFormat: boolean;
 }
 
 export const StoryFormatCard: React.FC<StoryFormatCardProps> = props => {
-	const {defaultFormat, editorExtensionsDisabled, format, onSelect} = props;
+	const {
+		defaultFormat,
+		editorExtensionsDisabled,
+		format,
+		onSelect,
+		proofingFormat
+	} = props;
 	const {t} = useTranslation();
 
 	let image = <></>;
@@ -60,6 +67,9 @@ export const StoryFormatCard: React.FC<StoryFormatCardProps> = props => {
 						)}
 						{format.loadState === 'loaded' && format.properties.proofing && (
 							<Badge label={t('components.storyFormatCard.proofing')} />
+						)}
+						{proofingFormat && (
+							<Badge label={t('components.storyFormatCard.proofingFormat')} />
 						)}
 					</div>
 				</CardContent>

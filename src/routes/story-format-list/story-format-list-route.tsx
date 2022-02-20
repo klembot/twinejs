@@ -79,6 +79,10 @@ export const StoryFormatListRoute: React.FC = () => {
 										format={format}
 										key={format.id}
 										onSelect={() => handleSelect(format)}
+										proofingFormat={
+											format.name === prefs.proofingFormat.name &&
+											format.version === prefs.proofingFormat.version
+										}
 									/>
 								))}
 							</CardGroup>
