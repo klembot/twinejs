@@ -12,8 +12,17 @@ export interface DeleteStoryButtonProps {
 export const DeleteStoryButton: React.FC<DeleteStoryButtonProps> = ({
 	story
 }) => {
+	// We need to store a local copy of the story name so that after it's deleted,
+	// the prompt doesn't change as it transitions out.
+	const [storyName, setStoryName] = React.useState(story?.name);
 	const {dispatch} = useStoriesContext();
 	const {t} = useTranslation();
+
+	React.useEffect(() => {
+		if (story?.name) {
+			setStoryName(story.name);
+		}
+	}, [story?.name]);
 
 	return (
 		<ConfirmButton
@@ -28,7 +37,7 @@ export const DeleteStoryButton: React.FC<DeleteStoryButtonProps> = ({
 				`routes.storyList.toolbar.deleteStoryButton.warning.${
 					isElectronRenderer() ? 'electron' : 'web'
 				}`,
-				{storyName: story?.name}
+				{storyName}
 			)}
 		/>
 	);

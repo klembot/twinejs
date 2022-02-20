@@ -32,6 +32,11 @@ export const ConfirmButton: React.FC<ConfirmButtonProps> = props => {
 	const [open, setOpen] = React.useState(false);
 	const {t} = useTranslation();
 
+	function handleConfirm() {
+		setOpen(false);
+		onConfirm();
+	}
+
 	return (
 		<span className="confirm-button">
 			<CardButton onChangeOpen={setOpen} open={open} {...other}>
@@ -40,7 +45,7 @@ export const ConfirmButton: React.FC<ConfirmButtonProps> = props => {
 					<IconButton
 						icon={confirmIcon ?? <IconCheck />}
 						label={confirmLabel ?? t('common.ok')}
-						onClick={onConfirm}
+						onClick={handleConfirm}
 						variant={confirmVariant ?? 'primary'}
 					/>
 					<IconButton

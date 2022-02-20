@@ -2,11 +2,7 @@ import {act, fireEvent, render, screen} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
 import {useStoriesContext} from '../../../../../store/stories';
-import {
-	FakeStateProvider,
-	fakeStory,
-	StoryInspector
-} from '../../../../../test-util';
+import {FakeStateProvider, StoryInspector} from '../../../../../test-util';
 import {isElectronRenderer} from '../../../../../util/is-electron';
 import {
 	DeleteStoryButton,
@@ -24,7 +20,7 @@ const TestDeleteStoryButton: React.FC<DeleteStoryButtonProps> = props => {
 describe('<DeleteStoryButton>', () => {
 	const isElectronRendererMock = isElectronRenderer as jest.Mock;
 
-	async function renderComponent(props?: Partial<DeleteStoryButtonProps>) {
+	async function renderComponent() {
 		const result = render(
 			<FakeStateProvider>
 				<TestDeleteStoryButton />
