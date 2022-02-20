@@ -17,6 +17,7 @@ export interface StoryFormatToolbarProps {
 
 export const StoryFormatToolbar: React.FC<StoryFormatToolbarProps> = props => {
 	const {editor, onExecCommand, storyFormat} = props;
+	const containerRef = React.useRef<HTMLDivElement>(null);
 	const appTheme = useComputedTheme();
 	const {prefs} = usePrefsContext();
 	const toolbarFactory = useFormatCodeMirrorToolbar(
@@ -28,11 +29,14 @@ export const StoryFormatToolbar: React.FC<StoryFormatToolbarProps> = props => {
 	>([]);
 
 	const tryToSetToolbar = React.useCallback(() => {
-		if (toolbarFactory && editor) {
+		if (toolbarFactory && containerRef.current && editor) {
 			try {
+				const style = window.getComputedStyle(containerRef.current);
+
 				setToolbarItems(
 					toolbarFactory(editor, {
 						appTheme,
+						foregroundColor: style.color,
 						locale: prefs.locale
 					})
 				);
@@ -70,7 +74,7 @@ export const StoryFormatToolbar: React.FC<StoryFormatToolbarProps> = props => {
 	}, [editor, tryToSetToolbar]);
 
 	return (
-		<div className="story-format-toolbar">
+		<div className="story-format-toolbar" ref={containerRef}>
 			<ButtonBar>
 				{toolbarItems.map((item, index) => {
 					switch (item.type) {

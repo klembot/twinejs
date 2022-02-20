@@ -37,7 +37,7 @@ These explain the basics of how Twine 2 story formats work.
 Story formats are encoded in JSONP format:
 
 ```javascript
-window.storyFormat({"name": "My Story Format", "version": "1.0.0", "source": "..."});
+window.storyFormat({name: 'My Story Format', version: '1.0.0', source: '...'});
 ```
 
 JSONP is itself a thin wrapper over JSON, which does not permit executable code
@@ -47,9 +47,9 @@ by JSON after being loaded. Below is an example of a simple `hydrate` property:
 
 ```javascript
 window.storyFormat({
-	"name": "My StoryFormat",
-	"version": "1.0.0",
-	"hydrate": "this.hydratedProperty = () => console.log('Hello Twine');"
+	name: 'My StoryFormat',
+	version: '1.0.0',
+	hydrate: "this.hydratedProperty = () => console.log('Hello Twine');"
 });
 ```
 
@@ -90,15 +90,15 @@ Twine changes, Twine's editor extensions are stored under a version specifier:
 
 ```javascript
 window.storyFormat({
-	"name": "My Story Format",
-	"version": "1.0.0",
-	"editorExtensions": {
-		"twine": {
-			"^2.4.0-alpha1": {
-				"anExtensionProperty": "red"
+	name: 'My Story Format',
+	version: '1.0.0',
+	editorExtensions: {
+		twine: {
+			'^2.4.0-alpha1': {
+				anExtensionProperty: 'red'
 			},
-			"^3.0.0": {
-				"anExtensionProperty": "blue"
+			'^3.0.0': {
+				anExtensionProperty: 'blue'
 			}
 		}
 	}
@@ -134,12 +134,12 @@ A mode is defined using a hydrated function:
 
 ```javascript
 window.storyFormat({
-	"name": "My Story Format",
-	"version": "1.0.0",
-	"editorExtensions": {
-		"twine": {
-			"^2.4.0-alpha1": {
-				"codeMirror": {
+	name: 'My Story Format',
+	version: '1.0.0',
+	editorExtensions: {
+		twine: {
+			'^2.4.0-alpha1': {
+				codeMirror: {
 					mode() {
 						return {
 							startState() {
@@ -195,12 +195,12 @@ A CodeMirror toolbar is specified through a hydrated function:
 
 ```javascript
 window.storyFormat({
-	"name": "My Story Format",
-	"version": "1.0.0",
-	"editorExtensions": {
-		"twine": {
-			"^2.4.0-alpha1": {
-				"codeMirror": {
+	name: 'My Story Format',
+	version: '1.0.0',
+	editorExtensions: {
+		twine: {
+			'^2.4.0-alpha1': {
+				codeMirror: {
 					toolbar(editor, environment) {
 						return [
 							{
@@ -257,6 +257,11 @@ The `toolbar` function receives two arguments from Twine:
     theme match the system theme, then this will reflect the current system
     theme. This property is provided so that the toolbar can vary its icons
     based on the app theme.
+  - `environment.foregroundColor` is a string value with a CSS color of the
+    toolbar's foreground color. This is the foreground color used for Twine's
+    built-in icons, and can be used to ensure the toolbar icons match that
+    color. Doing so is optional. (There is no `environment.backgroundColor`
+    property--just use `transparent`.)
   - `environment.locale` is a string value containing the user-set locale. If
     the user has chosen to have the Twine app use the system locale, this value
     will reflect that as well. This property is provided so that the toolbar can
@@ -419,13 +424,13 @@ Below is an example of a hydrated story format demonstrating all editor extensio
 
 ```javascript
 window.storyFormat({
-	"name": "My Story Format",
-	"version": "1.0.0",
-	"editorExtensions": {
-		"twine": {
-			"^2.4.0-alpha1": {
-				"codeMirror": {
-					"commands": {
+	name: 'My Story Format',
+	version: '1.0.0',
+	editorExtensions: {
+		twine: {
+			'^2.4.0-alpha1': {
+				codeMirror: {
+					commands: {
 						upperCase(editor) {
 							const doc = editor.getDoc();
 
@@ -454,7 +459,7 @@ window.storyFormat({
 						];
 					}
 				},
-				"references": {
+				references: {
 					parsePassageText(text) {
 						return text.match(/--.*?--/g);
 					}
