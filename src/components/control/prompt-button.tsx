@@ -61,7 +61,8 @@ export const PromptButton: React.FC<PromptButtonProps> = props => {
 		updateValidation();
 	}, [validate, value]);
 
-	function handleSubmit() {
+	function handleSubmit(event: React.FormEvent) {
+		event.preventDefault();
 		onSubmit(value);
 		setOpen(false);
 	}
@@ -74,26 +75,28 @@ export const PromptButton: React.FC<PromptButtonProps> = props => {
 				open={open}
 				{...other}
 			>
-				<CardContent>
-					<TextInput onChange={onChange} orientation="vertical" value={value}>
-						{prompt}
-					</TextInput>
-					{validation?.message && <p>{validation.message}</p>}
-				</CardContent>
-				<ButtonBar>
-					<IconButton
-						disabled={!validation?.valid}
-						icon={submitIcon ?? <IconCheck />}
-						label={submitLabel ?? t('common.ok')}
-						onClick={handleSubmit}
-						variant={submitVariant ?? 'primary'}
-					/>
-					<IconButton
-						icon={cancelIcon ?? <IconX />}
-						label={cancelLabel ?? t('common.cancel')}
-						onClick={() => setOpen(false)}
-					/>
-				</ButtonBar>
+				<form onSubmit={handleSubmit}>
+					<CardContent>
+						<TextInput onChange={onChange} orientation="vertical" value={value}>
+							{prompt}
+						</TextInput>
+						{validation?.message && <p>{validation.message}</p>}
+					</CardContent>
+					<ButtonBar>
+						<IconButton
+							buttonType="submit"
+							disabled={!validation?.valid}
+							icon={submitIcon ?? <IconCheck />}
+							label={submitLabel ?? t('common.ok')}
+							variant={submitVariant ?? 'primary'}
+						/>
+						<IconButton
+							icon={cancelIcon ?? <IconX />}
+							label={cancelLabel ?? t('common.cancel')}
+							onClick={() => setOpen(false)}
+						/>
+					</ButtonBar>
+				</form>
 			</CardButton>
 		</span>
 	);
