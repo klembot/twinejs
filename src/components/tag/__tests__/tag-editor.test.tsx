@@ -43,9 +43,12 @@ describe('<TagEditor>', () => {
 		await renderComponent({onChangeName});
 		expect(onChangeName).not.toHaveBeenCalled();
 		fireEvent.click(screen.getByText('common.rename'));
-		fireEvent.change(screen.getByLabelText('common.renamePrompt'), {
-			target: {value: 'new-name'}
-		});
+		fireEvent.change(
+			screen.getByRole('textbox', {name: 'common.renamePrompt'}),
+			{
+				target: {value: 'new-name'}
+			}
+		);
 		await act(async () => Promise.resolve()); // Wait for <PromptButton> to update
 		fireEvent.click(screen.getByText('common.ok'));
 		expect(onChangeName.mock.calls).toEqual([['new-name']]);
@@ -54,9 +57,12 @@ describe('<TagEditor>', () => {
 	it('does not allow renaming the tag to a pre-existing name', async () => {
 		await renderComponent({allTags: ['already-exists']});
 		fireEvent.click(screen.getByText('common.rename'));
-		fireEvent.change(screen.getByLabelText('common.renamePrompt'), {
-			target: {value: 'already-exists'}
-		});
+		fireEvent.change(
+			screen.getByRole('textbox', {name: 'common.renamePrompt'}),
+			{
+				target: {value: 'already-exists'}
+			}
+		);
 		await act(async () => Promise.resolve()); // Wait for <PromptButton> to update
 		expect(screen.getByText('common.ok')).toBeDisabled();
 	});

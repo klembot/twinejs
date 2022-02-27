@@ -4,15 +4,19 @@ import * as React from 'react';
 import {CardButton, CardButtonProps} from '../card-button';
 
 describe('<CardButton>', () => {
-	async function renderComponent(props?: Partial<CardButtonProps>) {
+	async function renderComponent(
+		props?: Partial<CardButtonProps>,
+		children?: React.ReactNode
+	) {
 		const result = render(
 			<CardButton
+				ariaLabel="mock-aria-label"
 				icon="mock-icon"
 				label="mock-label"
 				onChangeOpen={jest.fn()}
 				{...props}
 			>
-				mock-card-button-child
+				{children ?? <button>mock-card-button-child</button>}
 			</CardButton>
 		);
 
@@ -59,6 +63,18 @@ describe('<CardButton>', () => {
 		expect(onChangeOpen).not.toHaveBeenCalled();
 		fireEvent.click(document.body);
 		expect(onChangeOpen.mock.calls).toEqual([[false]]);
+	});
+
+	// This also works in isolation but not with other tests--unsure why.
+
+	it.skip('focuses the first text input in the card contents when open', async () => {
+		renderComponent(
+			{
+				open: true
+			},
+			<input data-testid="text-field" type="text" />
+		);
+		expect(screen.getByTestId('text-field')).toHaveFocus();
 	});
 
 	it('is accessible', async () => {

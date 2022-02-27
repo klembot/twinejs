@@ -17,7 +17,7 @@ export type PromptButtonValidator = (
 ) => PromptValidationResponse | Promise<PromptValidationResponse>;
 
 export interface PromptButtonProps
-	extends Omit<CardButtonProps, 'onChangeOpen' | 'open'> {
+	extends Omit<CardButtonProps, 'ariaLabel' | 'onChangeOpen' | 'open'> {
 	cancelIcon?: React.ReactNode;
 	cancelLabel?: string;
 	onChange: React.ChangeEventHandler<HTMLInputElement>;
@@ -45,10 +45,8 @@ export const PromptButton: React.FC<PromptButtonProps> = props => {
 		...other
 	} = props;
 	const [open, setOpen] = React.useState(false);
-	const [
-		validation,
-		setValidation
-	] = React.useState<PromptValidationResponse>();
+	const [validation, setValidation] =
+		React.useState<PromptValidationResponse>();
 	const {t} = useTranslation();
 
 	React.useEffect(() => {
@@ -70,7 +68,12 @@ export const PromptButton: React.FC<PromptButtonProps> = props => {
 
 	return (
 		<span className="prompt-button">
-			<CardButton onChangeOpen={setOpen} open={open} {...other}>
+			<CardButton
+				ariaLabel={prompt}
+				onChangeOpen={setOpen}
+				open={open}
+				{...other}
+			>
 				<CardContent>
 					<TextInput onChange={onChange} orientation="vertical" value={value}>
 						{prompt}
