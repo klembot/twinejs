@@ -362,7 +362,7 @@
 		"passageDefaults": {
 			"name": "Untitled Passage",
 			"textClick": "Double-click this passage to edit it.",
-			"textTouch": "Tap this passage, then the pencil icon to edit it."
+			"textTouch": "Tap this passage, then choose Edit from the Passage tab to edit it."
 		},
 		"storyDefaults": {
 			"name": "Untitled Story"
