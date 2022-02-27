@@ -37,6 +37,20 @@ describe('<DialogCard>', () => {
 		expect(onClose).toHaveBeenCalledTimes(1);
 	});
 
+	it('calls the onClose prop when the Escape key is pressed', () => {
+		const onClose = jest.fn();
+
+		renderComponent({onClose});
+		expect(onClose).not.toHaveBeenCalled();
+		fireEvent.keyDown(screen.getByTestId('dialog-card-children'), {
+			key: 'Escape',
+			code: 'Escape',
+			keyCode: 27,
+			charCode: 27
+		});
+		expect(onClose).toHaveBeenCalledTimes(1);
+	});
+
 	it('displays its children when expanded', () => {
 		renderComponent({collapsed: false});
 		expect(screen.getByTestId('dialog-card-children')).toBeInTheDocument();
