@@ -8,7 +8,7 @@ import {IconButton, IconButtonProps} from './icon-button';
 import './confirm-button.css';
 
 export interface ConfirmButtonProps
-	extends Omit<CardButtonProps, 'open' | 'onChangeOpen'> {
+	extends Omit<CardButtonProps, 'ariaLabel' | 'open' | 'onChangeOpen'> {
 	cancelIcon?: React.ReactNode;
 	cancelLabel?: string;
 	confirmIcon?: React.ReactNode;
@@ -39,7 +39,13 @@ export const ConfirmButton: React.FC<ConfirmButtonProps> = props => {
 
 	return (
 		<span className="confirm-button">
-			<CardButton onChangeOpen={setOpen} open={open} {...other}>
+			<CardButton
+				ariaLabel={prompt}
+				focusSelector="button:nth-child(2)"
+				onChangeOpen={setOpen}
+				open={open}
+				{...other}
+			>
 				<CardContent>{prompt}</CardContent>
 				<ButtonBar>
 					<IconButton

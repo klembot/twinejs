@@ -1,4 +1,11 @@
-import {act, fireEvent, render, screen, waitFor} from '@testing-library/react';
+import {
+	act,
+	fireEvent,
+	render,
+	screen,
+	waitFor,
+	within
+} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
 import {
@@ -14,10 +21,13 @@ import {AddStoryFormatButton} from '../add-story-format-button';
 jest.mock('../../../../../util/story-format');
 
 const getAddButton = () =>
-	screen.getByText('common.add', {selector: '.card-button-card button'});
+	within(document.querySelector('.card-button-card')!).getByRole('button', {
+		name: 'common.add'
+	});
 
 describe('<AddStoryFormatButton>', () => {
-	const fetchStoryFormatPropertiesMock = fetchStoryFormatProperties as jest.Mock;
+	const fetchStoryFormatPropertiesMock =
+		fetchStoryFormatProperties as jest.Mock;
 
 	beforeEach(() => {
 		fetchStoryFormatPropertiesMock.mockReturnValue(fakeStoryFormatProperties());
@@ -49,9 +59,9 @@ describe('<AddStoryFormatButton>', () => {
 			screen.queryByTestId('story-format-inspector-default')
 		).not.toBeInTheDocument();
 		fireEvent.change(
-			screen.getByLabelText(
-				'routes.storyFormatList.toolbar.addStoryFormatButton.prompt'
-			),
+			screen.getByRole('textbox', {
+				name: 'routes.storyFormatList.toolbar.addStoryFormatButton.prompt'
+			}),
 			{target: {value: 'http://mock-format-url'}}
 		);
 		await waitFor(() => Promise.resolve());
@@ -68,9 +78,9 @@ describe('<AddStoryFormatButton>', () => {
 	it('shows an error if an invalid URL is entered', async () => {
 		await renderComponent();
 		fireEvent.change(
-			screen.getByLabelText(
-				'routes.storyFormatList.toolbar.addStoryFormatButton.prompt'
-			),
+			screen.getByRole('textbox', {
+				name: 'routes.storyFormatList.toolbar.addStoryFormatButton.prompt'
+			}),
 			{target: {value: 'not a url'}}
 		);
 		await act(async () => Promise.resolve());
@@ -86,9 +96,9 @@ describe('<AddStoryFormatButton>', () => {
 		fetchStoryFormatPropertiesMock.mockRejectedValue(new Error());
 		await renderComponent();
 		fireEvent.change(
-			screen.getByLabelText(
-				'routes.storyFormatList.toolbar.addStoryFormatButton.prompt'
-			),
+			screen.getByRole('textbox', {
+				name: 'routes.storyFormatList.toolbar.addStoryFormatButton.prompt'
+			}),
 			{target: {value: 'http://mock-format-url'}}
 		);
 		await act(async () => Promise.resolve());
@@ -108,9 +118,9 @@ describe('<AddStoryFormatButton>', () => {
 		);
 		await renderComponent({storyFormats: [format]});
 		fireEvent.change(
-			screen.getByLabelText(
-				'routes.storyFormatList.toolbar.addStoryFormatButton.prompt'
-			),
+			screen.getByRole('textbox', {
+				name: 'routes.storyFormatList.toolbar.addStoryFormatButton.prompt'
+			}),
 			{target: {value: 'http://mock-format-url'}}
 		);
 		await act(async () => Promise.resolve());

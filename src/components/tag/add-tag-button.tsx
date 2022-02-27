@@ -82,6 +82,7 @@ export const AddTagButton: React.FC<AddTagButtonProps> = props => {
 	return (
 		<span className="add-tag-button">
 			<CardButton
+				ariaLabel={t('components.addTagButton.addLabel')}
 				disabled={disabled}
 				icon={icon ?? <IconPlus />}
 				label={label ?? t('common.tag')}

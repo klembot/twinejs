@@ -40,7 +40,7 @@ describe('<AddTagButton>', () => {
 		fireEvent.click(screen.getByText('common.tag'));
 		await act(() => Promise.resolve()); // Wait for <CardButton> to open
 		fireEvent.change(
-			screen.getByLabelText('components.addTagButton.addLabel'),
+			screen.getByRole('combobox', {name: 'components.addTagButton.addLabel'}),
 			{target: {value: 'existing-tag'}}
 		);
 		fireEvent.click(screen.getByText('common.add'));
@@ -54,7 +54,7 @@ describe('<AddTagButton>', () => {
 		expect(onAdd).not.toHaveBeenCalled();
 		fireEvent.click(screen.getByText('common.tag'));
 		fireEvent.change(
-			screen.getByLabelText('components.addTagButton.addLabel'),
+			screen.getByRole('combobox', {name: 'components.addTagButton.addLabel'}),
 			{target: {value: ''}}
 		);
 		fireEvent.change(
@@ -76,7 +76,7 @@ describe('<AddTagButton>', () => {
 		expect(onAdd).not.toHaveBeenCalled();
 		fireEvent.click(screen.getByText('common.tag'));
 		fireEvent.change(
-			screen.getByLabelText('components.addTagButton.addLabel'),
+			screen.getByRole('combobox', {name: 'components.addTagButton.addLabel'}),
 			{target: {value: ''}}
 		);
 		fireEvent.change(
@@ -98,7 +98,7 @@ describe('<AddTagButton>', () => {
 		expect(onAdd).not.toHaveBeenCalled();
 		fireEvent.click(screen.getByText('common.tag'));
 		fireEvent.change(
-			screen.getByLabelText('components.addTagButton.addLabel'),
+			screen.getByRole('combobox', {name: 'components.addTagButton.addLabel'}),
 			{target: {value: ''}}
 		);
 		fireEvent.change(
