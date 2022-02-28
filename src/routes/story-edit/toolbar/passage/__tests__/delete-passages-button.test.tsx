@@ -1,7 +1,7 @@
 import {fireEvent, render, screen, within} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
-import {useStoriesContext} from '../../../../../store/stories';
+import {Story, useStoriesContext} from '../../../../../store/stories';
 import {
 	FakeStateProvider,
 	FakeStateProviderProps,
@@ -19,11 +19,15 @@ const TestDeletePassagesButton: React.FC<
 	const {stories} = useStoriesContext();
 
 	return (
-		<DeletePassagesButton
-			passages={[stories[0].passages[0]]}
-			story={stories[0]}
-			{...props}
-		/>
+		<>
+			<DeletePassagesButton
+				passages={[stories[0].passages[0]]}
+				story={stories[0]}
+				{...props}
+			/>
+			<input aria-hidden type="text" />
+			<textarea aria-hidden></textarea>
+		</>
 	);
 };
 
@@ -60,6 +64,129 @@ describe('<DeletePassagesButton>', () => {
 
 		expect(passages.length).toBe(1);
 		expect(passages[0].dataset.id).toBe(story.passages[2].id);
+	});
+
+	describe('when a text input is not focused', () => {
+		let story: Story;
+
+		beforeEach(() => {
+			story = fakeStory(1);
+
+			renderComponent(
+				{story, passages: [story.passages[0]]},
+				{stories: [story]}
+			);
+		});
+
+		it('deletes passages when the Delete key is pressed', () => {
+			fireEvent.keyDown(document.body, {
+				key: 'Delete',
+				code: 'Delete',
+				keyCode: 46,
+				charCode: 46
+			});
+			expect(
+				within(screen.getByTestId('story-inspector-default')).queryAllByTestId(
+					/passage-/
+				).length
+			).toBe(0);
+		});
+
+		it('deletes passages when the Backspace key is pressed', () => {
+			fireEvent.keyDown(document.body, {
+				key: 'Backspace',
+				code: 'Backspace',
+				keyCode: 8,
+				charCode: 8
+			});
+			expect(
+				within(screen.getByTestId('story-inspector-default')).queryAllByTestId(
+					/passage-/
+				).length
+			).toBe(0);
+		});
+	});
+
+	describe('when a text field is focused', () => {
+		let story: Story;
+
+		beforeEach(() => {
+			story = fakeStory(1);
+
+			renderComponent(
+				{story, passages: [story.passages[0]]},
+				{stories: [story]}
+			);
+		});
+
+		it("doesn't delete passages when the Delete key is pressed", () => {
+			fireEvent.keyDown(document.querySelector('input[type="text"]')!, {
+				key: 'Delete',
+				code: 'Delete',
+				keyCode: 46,
+				charCode: 46
+			});
+			expect(
+				within(screen.getByTestId('story-inspector-default')).queryAllByTestId(
+					/passage-/
+				).length
+			).toBe(1);
+		});
+
+		it("doesn't delete passages when the Backspace key is pressed", () => {
+			fireEvent.keyDown(document.querySelector('input[type="text"]')!, {
+				key: 'Backspace',
+				code: 'Backspace',
+				keyCode: 8,
+				charCode: 8
+			});
+			expect(
+				within(screen.getByTestId('story-inspector-default')).queryAllByTestId(
+					/passage-/
+				).length
+			).toBe(1);
+		});
+	});
+
+	describe('when a text area is focused', () => {
+		let story: Story;
+
+		beforeEach(() => {
+			story = fakeStory(1);
+
+			renderComponent(
+				{story, passages: [story.passages[0]]},
+				{stories: [story]}
+			);
+		});
+
+		it("doesn't delete passages when the Delete key is pressed", () => {
+			fireEvent.keyDown(document.querySelector('textarea')!, {
+				key: 'Delete',
+				code: 'Delete',
+				keyCode: 46,
+				charCode: 46
+			});
+			expect(
+				within(screen.getByTestId('story-inspector-default')).queryAllByTestId(
+					/passage-/
+				).length
+			).toBe(1);
+		});
+
+		it("doesn't delete passages when the Backspace key is pressed", () => {
+			fireEvent.keyDown(document.querySelector('textarea')!, {
+				key: 'Backspace',
+				code: 'Backspace',
+				keyCode: 8,
+				charCode: 8
+			});
+			expect(
+				within(screen.getByTestId('story-inspector-default')).queryAllByTestId(
+					/passage-/
+				).length
+			).toBe(1);
+		});
 	});
 
 	it('is accessible', async () => {
