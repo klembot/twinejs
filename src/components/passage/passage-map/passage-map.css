@@ -1,34 +1,15 @@
 @import '../../../styles/colors.css';
 
 .passage-map {
+	background-color: var(--faint-blue);
+	background-image: url('graph-paper-light.svg');
+	background-size: 100px;
 	transform-origin: top left;
-	height: fit-content;
-	width: 100%;
-
-	background-color: var(--graph-paper-bg);
-	background-image: linear-gradient(
-			to right,
-			var(--graph-paper-major-line) 1px,
-			transparent 1px
-		),
-		linear-gradient(
-			to bottom,
-			var(--graph-paper-major-line) 1px,
-			transparent 1px
-		),
-		linear-gradient(
-			to right,
-			var(--graph-paper-minor-line) 1px,
-			transparent 1px
-		),
-		linear-gradient(
-			to bottom,
-			var(--graph-paper-minor-line) 1px,
-			transparent 1px
-		);
-	background-size: 100px 100px, 100px 100px, 25px 25px, 25px 25px;
-	transition: transform 0.4s;
 	will-change: transform;
+}
+
+[data-app-theme="dark"] .passage-map {
+	background-image: url('graph-paper-dark.svg');
 }
 
 .passage-map .passage-card {

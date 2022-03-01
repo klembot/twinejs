@@ -269,8 +269,11 @@
 				"publishToFile": "Publish to File",
 				"selectAllPassages": "Select All Passages"
 			},
-			"zoomIn": "Zoom In",
-			"zoomOut": "Zoom Out"
+			"zoomButtons": {
+				"storyStructure": "Show Story Structure Only",
+				"passageNames": "Show Passage Names Only",
+				"passageNamesAndExcerpts": "Show Passage Names and Excerpts"
+			}
 		},
 		"storyFormatList": {
 			"noneVisible": "No story formats match the criteria you've selected.",

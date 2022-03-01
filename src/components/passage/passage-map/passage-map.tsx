@@ -5,6 +5,7 @@ import {boundingRect, Point} from '../../../util/geometry';
 import {PassageConnections} from '../passage-connections';
 import {PassageCardGroup} from '../passage-card-group';
 import './passage-map.css';
+import classnames from 'classnames';
 
 export interface PassageMapProps {
 	formatName: string;
@@ -16,6 +17,7 @@ export interface PassageMapProps {
 	passages: Passage[];
 	startPassageId: string;
 	tagColors: Story['tagColors'];
+	visibleZoom: number;
 	zoom: number;
 }
 
@@ -30,7 +32,7 @@ interface DragState {
 type DragAction =
 	| {type: 'start'; x: number; y: number}
 	| {type: 'move'; x: number; y: number}
-	| {type: 'stop'; callback: (change: Point) => void; zoom: number};
+	| {type: 'stop'; callback: (change: Point) => void};
 
 function dragReducer(state: DragState, action: DragAction) {
 	switch (action.type) {
@@ -57,13 +59,15 @@ function dragReducer(state: DragState, action: DragAction) {
 
 			Promise.resolve().then(() =>
 				action.callback({
-					left: (state.dragX - state.startX) / action.zoom,
-					top: (state.dragY - state.startY) / action.zoom
+					left: state.dragX - state.startX,
+					top: state.dragY - state.startY
 				})
 			);
 			return {dragging: false, dragX: 0, dragY: 0, startX: 0, startY: 0};
 	}
 }
+
+const compactCardZoom = 0.6;
 
 export const PassageMap: React.FC<PassageMapProps> = props => {
 	const {
@@ -76,10 +80,14 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 		passages,
 		startPassageId,
 		tagColors,
+		visibleZoom,
 		zoom
 	} = props;
+	const [compactCards, setCompactCards] = React.useState(
+		visibleZoom <= compactCardZoom
+	);
 	const container = React.useRef<HTMLDivElement>(null);
-	const bounds = React.useMemo(() => {
+	const style = React.useMemo(() => {
 		// Need to inject a fake rect at the very top-left corner to anchor the
 		// bounds there.
 
@@ -87,26 +95,13 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 			...passages,
 			{top: 0, left: 0, width: 0, height: 0}
 		]);
-		const scaledWindowHeight = window.innerHeight / zoom;
-		const scaledWindowWidth = window.innerWidth / zoom;
 
 		return {
-			height:
-				Math.max(passageBounds.height, scaledWindowHeight) +
-				window.innerHeight * 0.75,
-			width:
-				Math.max(passageBounds.width, scaledWindowWidth) +
-				window.innerWidth * 0.75
+			height: `max(calc(${passageBounds.height}px + 50vh), calc(100vh / ${visibleZoom}))`,
+			width: `max(calc(${passageBounds.width}px + 50vh), calc(100vw / ${visibleZoom}))`,
+			transform: `scale(${visibleZoom})`
 		};
-	}, [passages, zoom]);
-
-	const style = React.useMemo(
-		() => ({
-			...bounds,
-			transform: `scale(${zoom})`
-		}),
-		[bounds, zoom]
-	);
+	}, [passages, visibleZoom]);
 
 	const [state, dispatch] = React.useReducer(dragReducer, {
 		dragging: false,
@@ -116,6 +111,18 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 		startY: 0
 	});
 
+	// Only update the compact card state when visibleZoom and zoom are the same.
+	// This avoids re-rendering the cards in the middle of a zoom transition
+	// (which causes jank).
+
+	React.useEffect(() => {
+		if (zoom === visibleZoom) {
+			setCompactCards(zoom <= compactCardZoom);
+		}
+	}, [visibleZoom, zoom]);
+
+	// Set CSS variables on the container for drag offsets.
+
 	React.useEffect(() => {
 		if (!container.current) {
 			return;
@@ -123,13 +130,13 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 
 		container.current.style.setProperty(
 			'--drag-offset-left',
-			`${(state.dragX - state.startX) / zoom}px`
+			`${(state.dragX - state.startX) / visibleZoom}px`
 		);
 		container.current.style.setProperty(
 			'--drag-offset-top',
-			`${(state.dragY - state.startY) / zoom}px`
+			`${(state.dragY - state.startY) / visibleZoom}px`
 		);
-	}, [state.dragX, state.dragY, state.startX, state.startY, zoom]);
+	}, [state.dragX, state.dragY, state.startX, state.startY, visibleZoom]);
 
 	const handleDragStart = React.useCallback((event, data: DraggableData) => {
 		document.body.classList.add('dragging-passages');
@@ -142,11 +149,17 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 	);
 	const handleDragStop = React.useCallback(() => {
 		document.body.classList.remove('dragging-passages');
-		dispatch({type: 'stop', callback: onDrag, zoom});
-	}, [onDrag, zoom]);
+		dispatch({type: 'stop', callback: onDrag});
+	}, [onDrag]);
 
 	return (
-		<div className="passage-map" ref={container} style={style}>
+		<div
+			className={classnames('passage-map', {
+				'compact-passage-cards': compactCards
+			})}
+			ref={container}
+			style={style}
+		>
 			<PassageConnections
 				formatName={formatName}
 				formatVersion={formatVersion}
@@ -166,7 +179,6 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 				onSelect={onSelect}
 				passages={passages}
 				tagColors={tagColors}
-				zoom={zoom}
 			/>
 		</div>
 	);

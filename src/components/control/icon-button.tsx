@@ -11,6 +11,8 @@ export interface IconButtonProps {
 	label: string;
 	onClick?: (e: React.MouseEvent) => void;
 	preventDefault?: boolean;
+	selectable?: boolean;
+	selected?: boolean;
 	variant?: 'create' | 'danger' | 'primary' | 'secondary';
 }
 
@@ -23,12 +25,15 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
 			iconPosition = 'start',
 			onClick,
 			preventDefault,
+			selectable = false,
+			selected = false,
 			variant = 'secondary'
 		} = props;
 
 		const className = classNames(
 			'icon-button',
 			`icon-position-${iconPosition}`,
+			{selected: selected},
 			`variant-${variant}`,
 			{'icon-only': iconOnly}
 		);
@@ -44,6 +49,7 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
 		return (
 			<button
 				aria-label={iconOnly ? props.label : undefined}
+				aria-pressed={selectable ? selected : undefined}
 				disabled={disabled}
 				className={className}
 				onClick={handleOnClick}

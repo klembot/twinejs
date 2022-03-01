@@ -15,7 +15,6 @@ export interface PassageCardProps {
 	onSelect: (passage: Passage, exclusive: boolean) => void;
 	passage: Passage;
 	tagColors: TagColors;
-	zoom: number;
 }
 
 // Needs to fill a large-sized passage card.
