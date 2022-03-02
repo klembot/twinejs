@@ -15,7 +15,7 @@ describe('story formats local storage load', () => {
 	beforeEach(() => window.localStorage.clear());
 	afterAll(() => window.localStorage.clear());
 
-	it('restores formats', () => {
+	it('restores formats', async () => {
 		window.localStorage.setItem('twine-storyformats', formatIds);
 		window.localStorage.setItem(
 			`twine-storyformats-${formatData[0].id}`,
@@ -26,7 +26,7 @@ describe('story formats local storage load', () => {
 			JSON.stringify(formatData[1])
 		);
 
-		expect(load()).toEqual([
+		expect(await load()).toEqual([
 			{...formatData[0], loadState: 'unloaded'},
 			{...formatData[1], loadState: 'unloaded'}
 		]);

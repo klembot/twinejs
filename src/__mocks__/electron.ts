@@ -19,6 +19,7 @@ export const dialog = {
 };
 
 export const ipcMain = {
+	handle: jest.fn(),
 	on: jest.fn()
 };
 
