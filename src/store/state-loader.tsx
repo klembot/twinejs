@@ -9,28 +9,37 @@ import {usePersistence} from './persistence/use-persistence';
 import {LoadingCurtain} from '../components/loading-curtain';
 
 export const StateLoader: React.FC = ({children}) => {
+	const [initing, setIniting] = React.useState(false);
 	const [inited, setInited] = React.useState(false);
 	const [repaired, setRepaired] = React.useState(false);
 	const {dispatch: prefsDispatch, prefs: prefsState} = usePrefsContext();
 	const {dispatch: storiesDispatch} = useStoriesContext();
-	const {
-		dispatch: formatsDispatch,
-		formats: formatsState
-	} = useStoryFormatsContext();
+	const {dispatch: formatsDispatch, formats: formatsState} =
+		useStoryFormatsContext();
 	const {prefs, stories, storyFormats} = usePersistence();
 
 	// Done in two steps so that the repair action can see the inited state.
 
 	React.useEffect(() => {
-		if (!inited) {
-			formatsDispatch({type: 'init', state: storyFormats.load()});
-			prefsDispatch({type: 'init', state: prefs.load()});
-			storiesDispatch({type: 'init', state: stories.load()});
-			setInited(true);
+		async function run() {
+			if (!initing) {
+				const formatsState = await storyFormats.load();
+				const prefsState = await prefs.load();
+				const storiesState = await stories.load();
+
+				formatsDispatch({type: 'init', state: formatsState});
+				prefsDispatch({type: 'init', state: prefsState});
+				storiesDispatch({type: 'init', state: storiesState});
+				setInited(true);
+			}
 		}
+
+		run();
+		setIniting(true);
 	}, [
 		formatsDispatch,
 		inited,
+		initing,
 		prefs,
 		prefsDispatch,
 		stories,
@@ -39,7 +48,7 @@ export const StateLoader: React.FC = ({children}) => {
 	]);
 
 	React.useEffect(() => {
-		if (!repaired) {
+		if (!repaired && inited) {
 			prefsDispatch({type: 'repair'});
 			formatsDispatch({type: 'repair'});
 			storiesDispatch({
@@ -56,6 +65,7 @@ export const StateLoader: React.FC = ({children}) => {
 	}, [
 		formatsDispatch,
 		formatsState,
+		inited,
 		prefsDispatch,
 		prefsState.storyFormat.name,
 		prefsState.storyFormat.version,

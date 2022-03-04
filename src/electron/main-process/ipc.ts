@@ -2,7 +2,14 @@ import {dialog, ipcMain} from 'electron';
 import {i18n} from './locales';
 import {saveJsonFile} from './json-file';
 import {openWithTempFile} from './open-with-temp-file';
-import {deleteStory, renameStory, saveStoryHtml} from './story-file';
+import {
+	deleteStory,
+	loadStories,
+	renameStory,
+	saveStoryHtml
+} from './story-file';
+import {loadStoryFormats} from './story-formats';
+import {loadPrefs} from './prefs';
 
 // It's possible for a second `save-story-html` message to be sent while one is
 // in-progress. This race condition can cause saving to fail, so saves on a
@@ -27,9 +34,36 @@ export function initIpc() {
 		}
 	});
 
+	// These use handle() so that they can return data to the renderer process.
+
+	ipcMain.handle('load-prefs', async () => {
+		try {
+			return await loadPrefs();
+		} catch (error) {
+			console.warn(`Could not load prefs, returning empty object: ${error}`);
+			return {};
+		}
+	});
+
+	ipcMain.handle('load-stories', loadStories);
+
+	ipcMain.handle('load-story-formats', async () => {
+		try {
+			return await loadStoryFormats();
+		} catch (error) {
+			console.warn(
+				`Could not load story formats, returning empty array: ${error}`
+			);
+			return [];
+		}
+	});
+
 	ipcMain.on('open-with-temp-file', (event, data: string, suffix: string) =>
 		openWithTempFile(data, suffix)
 	);
+
+	// This doesn't use handle() because state reducers in the renderer process
+	// can't be be asynchronous--we have to send a signal back.
 
 	ipcMain.on('rename-story', async (event, oldStory, newStory) => {
 		try {

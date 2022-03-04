@@ -1,17 +1,30 @@
 import {ipcMain} from 'electron';
 import {initIpc} from '../ipc';
+import {loadPrefs} from '../prefs';
 import {openWithTempFile} from '../open-with-temp-file';
 import {saveJsonFile} from '../json-file';
-import {deleteStory, renameStory, saveStoryHtml} from '../story-file';
+import {
+	deleteStory,
+	loadStories,
+	renameStory,
+	saveStoryHtml
+} from '../story-file';
 import {Story} from '../../../store/stories';
-import {fakeStory} from '../../../test-util';
+import {fakePendingStoryFormat, fakePrefs, fakeStory} from '../../../test-util';
+import {loadStoryFormats} from '../story-formats';
 
 jest.mock('../json-file');
+jest.mock('../prefs');
 jest.mock('../open-with-temp-file');
 jest.mock('../story-file');
+jest.mock('../story-formats');
 
 describe('initIpc()', () => {
 	const deleteStoryMock = deleteStory as jest.Mock;
+	const loadPrefsMock = loadPrefs as jest.Mock;
+	const handleMock = ipcMain.handle as jest.Mock;
+	const loadStoriesMock = loadStories as jest.Mock;
+	const loadStoryFormatsMock = loadStoryFormats as jest.Mock;
 	const onMock = ipcMain.on as jest.Mock;
 	const openWithTempFileMock = openWithTempFile as jest.Mock;
 	const renameStoryMock = renameStory as jest.Mock;
@@ -47,6 +60,91 @@ describe('initIpc()', () => {
 		});
 	});
 
+	describe('the handler it adds for load-prefs events', () => {
+		it('returns the value of loadPrefs() if it does not throw', async () => {
+			const prefs = fakePrefs();
+			loadPrefsMock.mockReturnValue(prefs);
+
+			let listener = handleMock.mock.calls.find(
+				call => call[0] === 'load-prefs'
+			);
+
+			expect(listener).not.toBeUndefined();
+			expect(await listener[1]()).toEqual(prefs);
+			expect(loadPrefsMock).toBeCalledTimes(1);
+		});
+
+		it('returns an empty object if loadPrefs() throws an error', async () => {
+			jest.spyOn(console, 'warn').mockReturnValue();
+			loadPrefsMock.mockImplementation(() => {
+				throw new Error();
+			});
+
+			let listener = handleMock.mock.calls.find(
+				call => call[0] === 'load-prefs'
+			);
+
+			expect(listener).not.toBeUndefined();
+			expect(await listener[1]()).toEqual({});
+		});
+	});
+
+	it('adds a handler for load-stories that calls loadStories()', async () => {
+		const stories = [fakeStory(), fakeStory()];
+
+		loadStoriesMock.mockReturnValue(stories);
+
+		let listener = handleMock.mock.calls.find(
+			call => call[0] === 'load-stories'
+		);
+
+		expect(await listener[1]()).toEqual(stories);
+		expect(loadStoriesMock).toBeCalledTimes(1);
+	});
+
+	describe('the handler it adds for load-story-formats events', () => {
+		it('returns the value of loadStoryFormats() if it does not throw', async () => {
+			const formats = [fakePendingStoryFormat(), fakePendingStoryFormat()];
+
+			loadStoryFormatsMock.mockReturnValue(formats);
+
+			let listener = handleMock.mock.calls.find(
+				call => call[0] === 'load-story-formats'
+			);
+
+			expect(listener).not.toBeUndefined();
+			expect(await listener[1]()).toEqual(formats);
+			expect(loadStoryFormatsMock).toBeCalledTimes(1);
+		});
+
+		it('returns an empty array if loadStoryFormats() throws an error', async () => {
+			jest.spyOn(console, 'warn').mockReturnValue();
+			loadStoryFormatsMock.mockImplementation(() => {
+				throw new Error();
+			});
+
+			let listener = handleMock.mock.calls.find(
+				call => call[0] === 'load-story-formats'
+			);
+
+			expect(listener).not.toBeUndefined();
+			expect(await listener[1]()).toEqual([]);
+		});
+	});
+
+	it('adds a listener for open-with-temp-files events that calls openWithTempFile()', async () => {
+		const listener = onMock.mock.calls.find(
+			call => call[0] === 'open-with-temp-file'
+		);
+
+		expect(listener).not.toBeUndefined();
+		listener[1]({}, 'test-file-contents', 'test-file-suffix');
+		expect(openWithTempFileMock).toBeCalledWith(
+			'test-file-contents',
+			'test-file-suffix'
+		);
+	});
+
 	describe('the listener it adds for rename-story events', () => {
 		let listener: any[];
 		let newStory: Story;
@@ -71,19 +169,6 @@ describe('initIpc()', () => {
 			await listener[1]({sender: {send}}, oldStory, newStory);
 			expect(send.mock.calls).toEqual([['story-renamed', oldStory, newStory]]);
 		});
-	});
-
-	it('adds a listener for open-with-temp-files events that calls openWithTempFile()', async () => {
-		const listener = onMock.mock.calls.find(
-			call => call[0] === 'open-with-temp-file'
-		);
-
-		expect(listener).not.toBeUndefined();
-		listener[1]({}, 'test-file-contents', 'test-file-suffix');
-		expect(openWithTempFileMock).toBeCalledWith(
-			'test-file-contents',
-			'test-file-suffix'
-		);
 	});
 
 	it('adds a listener for save-json events that calls openWithTempFile()', async () => {

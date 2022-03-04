@@ -1,6 +1,6 @@
 import {PrefsState} from '../../../prefs';
 
-export function load(): Partial<PrefsState> {
+export async function load(): Promise<Partial<PrefsState>> {
 	const serialized = window.localStorage.getItem('twine-prefs');
 	const result: Partial<PrefsState> = {};
 
@@ -10,9 +10,7 @@ export function load(): Partial<PrefsState> {
 
 	serialized.split(',').forEach(id => {
 		try {
-			const serializedPref = window.localStorage.getItem(
-				`twine-prefs-${id}`
-			);
+			const serializedPref = window.localStorage.getItem(`twine-prefs-${id}`);
 
 			if (!serializedPref) {
 				console.warn(`No preference stored at twine-prefs-${id}`);

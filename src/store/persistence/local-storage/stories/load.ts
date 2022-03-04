@@ -4,7 +4,7 @@ import {Passage, Story} from '../../../stories/stories.types';
 /**
  * Parses initial state from local storage.
  */
-export function load(): Story[] {
+export async function load(): Promise<Story[]> {
 	const stories: Record<string, Story> = {};
 	const serializedStories = window.localStorage.getItem('twine-stories');
 
@@ -39,7 +39,7 @@ export function load(): Story[] {
 
 				// Coerce lastUpdate to a date.
 				lastUpdate: story.lastUpdate
-					? new Date(Date.parse((story.lastUpdate as unknown) as string))
+					? new Date(Date.parse(story.lastUpdate as unknown as string))
 					: new Date(),
 
 				// Force the passages property to be an empty array -- we'll populate it

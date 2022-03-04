@@ -1,6 +1,6 @@
 import {StoryFormatsState} from '../../../story-formats/story-formats.types';
 
-export function load(): StoryFormatsState {
+export async function load(): Promise<StoryFormatsState> {
 	const result: StoryFormatsState = [];
 	const serialized = window.localStorage.getItem('twine-storyformats');
 

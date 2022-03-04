@@ -8,10 +8,6 @@
 // place a privileged jsonp function into renderer context.
 
 import jsonp from 'jsonp';
-import {ipcRenderer, remote} from 'electron';
+import {ipcRenderer} from 'electron';
 
-(window as any).twineElectron = {
-	hydrate: remote.getGlobal('hydrate'),
-	ipcRenderer,
-	jsonp
-};
+(window as any).twineElectron = {ipcRenderer, jsonp};

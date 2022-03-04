@@ -9,13 +9,8 @@ import {
 	fakeLoadedStoryFormat,
 	FakeStateProvider,
 	FakeStateProviderProps,
-	PrefInspector,
-	StoryFormatInspector
+	PrefInspector
 } from '../../../../../test-util';
-import {
-	RemoveStoryFormatButton,
-	RemoveStoryFormatButtonProps
-} from '../remove-story-format-button';
 import {
 	StoryFormatExtensionsButton,
 	StoryFormatExtensionsButtonProps

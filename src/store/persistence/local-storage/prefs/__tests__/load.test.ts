@@ -4,7 +4,7 @@ describe('prefs local storage load', () => {
 	beforeEach(() => window.localStorage.clear());
 	afterAll(() => window.localStorage.clear());
 
-	it('restores preferences', () => {
+	it('restores preferences', async () => {
 		window.localStorage.setItem('twine-prefs', 'mock-id,mock-id-2');
 		window.localStorage.setItem(
 			'twine-prefs-mock-id',
@@ -23,6 +23,6 @@ describe('prefs local storage load', () => {
 			})
 		);
 
-		expect(load()).toEqual({bar: 1, foo: true});
+		expect(await load()).toEqual({bar: 1, foo: true});
 	});
 });

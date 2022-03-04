@@ -1,9 +1,9 @@
 import {app, BrowserWindow, screen, shell} from 'electron';
 import path from 'path';
-import {hydrateGlobalData} from './hydrate-data';
 import {initIpc} from './ipc';
 import {initLocales} from './locales';
 import {initMenuBar} from './menu-bar';
+import {createStoryDirectory} from './story-directory';
 
 let mainWindow: BrowserWindow | null;
 
@@ -17,7 +17,6 @@ async function createWindow() {
 		webPreferences: {
 			// See preload.ts for why context isolation is disabled.
 			contextIsolation: false,
-			enableRemoteModule: true,
 			// Seems needed to prevent opening a window from blocking the UI. We force
 			// them to open outside the app anyway.
 			// See https://github.com/electron/electron/issues/29509
@@ -55,10 +54,10 @@ async function createWindow() {
 }
 
 app.on('ready', async () => {
-	initLocales();
+	await initLocales();
+	await createStoryDirectory();
 	initIpc();
 	initMenuBar();
-	await hydrateGlobalData();
 	createWindow();
 });
 

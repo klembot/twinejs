@@ -8,8 +8,6 @@ import {
 import {revealStoryDirectory} from './story-directory';
 import {i18n} from './locales';
 
-// TODO: add dev tools menu item
-
 export function initMenuBar() {
 	const template: MenuItemConstructorOptions[] = [
 		{
