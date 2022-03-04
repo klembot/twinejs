@@ -1,11 +1,4 @@
-import {
-	act,
-	cleanup,
-	fireEvent,
-	render,
-	screen,
-	waitFor
-} from '@testing-library/react';
+import {act, fireEvent, render, screen, waitFor} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
 import {useStoriesContext} from '../../store/stories';
@@ -15,7 +8,7 @@ import {
 	fakeStory,
 	StoryInspector
 } from '../../test-util';
-import {StorySearchDialog, StorySearchDialogProps} from '../story-search';
+import {StorySearchDialog} from '../story-search';
 
 jest.mock('../../components/control/code-area/code-area');
 

@@ -1,4 +1,4 @@
-import {fakePendingStoryFormat, fakePrefs} from '../../../test-util';
+import {fakePendingStoryFormat} from '../../../test-util';
 import {loadJsonFile} from '../json-file';
 import {loadStoryFormats} from '../story-formats';
 

@@ -1,9 +1,7 @@
 import {cleanup, fireEvent, render, screen} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
-import {PrefsContext, PrefsContextProps} from '../../store/prefs';
 import {
-	fakePrefs,
 	FakeStateProvider,
 	FakeStateProviderProps,
 	PrefInspector
