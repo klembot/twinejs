@@ -1,4 +1,4 @@
-import {ipcMain} from 'electron';
+import {app, ipcMain} from 'electron';
 import {initIpc} from '../ipc';
 import {loadPrefs} from '../prefs';
 import {openWithTempFile} from '../open-with-temp-file';
@@ -26,6 +26,7 @@ describe('initIpc()', () => {
 	const loadStoriesMock = loadStories as jest.Mock;
 	const loadStoryFormatsMock = loadStoryFormats as jest.Mock;
 	const onMock = ipcMain.on as jest.Mock;
+	const appOnMock = app.on as jest.Mock;
 	const openWithTempFileMock = openWithTempFile as jest.Mock;
 	const renameStoryMock = renameStory as jest.Mock;
 	const saveJsonFileMock = saveJsonFile as jest.Mock;
@@ -185,27 +186,37 @@ describe('initIpc()', () => {
 		let story: Story;
 
 		beforeEach(() => {
+			jest.useFakeTimers('modern');
 			jest.spyOn(console, 'log').mockReturnValue();
 			listener = onMock.mock.calls.find(call => call[0] === 'save-story-html');
 			story = fakeStory();
 		});
 
+		afterEach(() => {
+			jest.clearAllTimers();
+			jest.useRealTimers();
+		});
+
 		it('calls saveStoryHtml()', async () => {
 			expect(listener).not.toBeUndefined();
 			await listener[1]({sender: {send: jest.fn()}}, story, 'test-story-html');
+			jest.advanceTimersByTime(1000);
 			expect(saveStoryHtmlMock).toBeCalledWith(story, 'test-story-html');
 		});
 
-		it('queues calls to saveStoryHtml() for the same story ID', async () => {
+		it('debounces calls to saveStoryHtml() for the same story ID with both leading and trailing calls', async () => {
 			saveStoryHtmlMock.mockImplementation(() => new Promise(() => {}));
-			listener[1]({sender: {send: jest.fn()}}, story, 'test-story-html');
-			listener[1]({sender: {send: jest.fn()}}, story, 'test-story-html');
-			await Promise.resolve();
-			await Promise.resolve();
-			expect(saveStoryHtmlMock).toBeCalledTimes(1);
+			listener[1]({sender: {send: jest.fn()}}, story, 'test-story-html-1');
+			listener[1]({sender: {send: jest.fn()}}, story, 'test-story-html-2');
+			listener[1]({sender: {send: jest.fn()}}, story, 'test-story-html-3');
+			jest.advanceTimersByTime(1000);
+			expect(saveStoryHtmlMock.mock.calls).toEqual([
+				[story, 'test-story-html-1'],
+				[story, 'test-story-html-3']
+			]);
 		});
 
-		it("doesn't queue calls to saveStoryHtml() for the different story IDs", async () => {
+		it("doesn't debounce calls to saveStoryHtml() for different story IDs", async () => {
 			const story1 = fakeStory();
 			const story2 = fakeStory();
 
@@ -213,18 +224,45 @@ describe('initIpc()', () => {
 			story2.id = 'mock-id-2';
 
 			saveStoryHtmlMock.mockImplementation(() => new Promise(() => {}));
-			listener[1]({sender: {send: jest.fn()}}, story1, 'test-story-html');
-			listener[1]({sender: {send: jest.fn()}}, story2, 'test-story-html');
-			await Promise.resolve();
-			await Promise.resolve();
-			expect(saveStoryHtmlMock).toBeCalledTimes(2);
+			listener[1]({sender: {send: jest.fn()}}, story1, 'test-story-html-1');
+			listener[1]({sender: {send: jest.fn()}}, story2, 'test-story-html-2');
+			jest.advanceTimersByTime(1000);
+			expect(saveStoryHtmlMock.mock.calls).toEqual([
+				[story1, 'test-story-html-1'],
+				[story2, 'test-story-html-2']
+			]);
+		});
+
+		it('correctly debounces calls to saveStoryHtml() when multiple stories are saved at once', async () => {
+			const story1 = fakeStory();
+			const story2 = fakeStory();
+
+			story1.id = 'mock-id-1';
+			story2.id = 'mock-id-2';
+
+			saveStoryHtmlMock.mockImplementation(() => new Promise(() => {}));
+			listener[1]({sender: {send: jest.fn()}}, story1, 'test-story-html-1');
+			listener[1]({sender: {send: jest.fn()}}, story1, 'test-story-html-2');
+			listener[1]({sender: {send: jest.fn()}}, story2, 'test-story-html-3');
+			listener[1]({sender: {send: jest.fn()}}, story1, 'test-story-html-4');
+			listener[1]({sender: {send: jest.fn()}}, story2, 'test-story-html-5');
+			jest.advanceTimersByTime(1000);
+			expect(saveStoryHtmlMock.mock.calls).toEqual([
+				[story1, 'test-story-html-1'],
+				[story2, 'test-story-html-3'],
+				[story1, 'test-story-html-4'],
+				[story2, 'test-story-html-5']
+			]);
 		});
 
 		it('sends back a story-html-saved event', async () => {
 			const send = jest.fn();
 
+			saveStoryHtmlMock.mockReturnValue(undefined);
 			expect(listener).not.toBeUndefined();
-			await listener[1]({sender: {send}}, story, 'test-story-html');
+			listener[1]({sender: {send}}, story, 'test-story-html');
+			jest.advanceTimersByTime(1000);
+			await Promise.resolve();
 			expect(send.mock.calls).toEqual([['story-html-saved', story]]);
 		});
 
@@ -257,6 +295,75 @@ describe('initIpc()', () => {
 					Promise.resolve('some html')
 				)
 			).rejects.toBeInstanceOf(Error);
+			expect(saveStoryHtmlMock).not.toHaveBeenCalled();
+		});
+	});
+
+	describe('the handler it adds to the app will-quit event', () => {
+		let saveListeners: any[];
+		let quitListeners: any[];
+		let story: Story;
+		let story2: Story;
+
+		beforeEach(() => {
+			jest.useFakeTimers('modern');
+			jest.spyOn(console, 'log').mockReturnValue();
+			quitListeners = appOnMock.mock.calls.find(
+				call => call[0] === 'will-quit'
+			);
+			saveListeners = onMock.mock.calls.find(
+				call => call[0] === 'save-story-html'
+			);
+			story = fakeStory();
+			story2 = fakeStory();
+		});
+
+		afterEach(() => {
+			jest.clearAllTimers();
+			jest.useRealTimers();
+		});
+
+		it('flushes all pending debounced story saves', async () => {
+			saveListeners[1]({sender: {send: jest.fn()}}, story, 'test-story-html-1');
+			saveListeners[1]({sender: {send: jest.fn()}}, story, 'test-story-html-2');
+			saveListeners[1](
+				{sender: {send: jest.fn()}},
+				story2,
+				'test-story-html-3'
+			);
+
+			// Leading calls.
+
+			expect(saveStoryHtmlMock.mock.calls).toEqual([
+				[story, 'test-story-html-1'],
+				[story2, 'test-story-html-3']
+			]);
+			saveStoryHtmlMock.mockClear();
+			await quitListeners[1]();
+
+			// Trailing calls.
+
+			expect(saveStoryHtmlMock.mock.calls).toEqual([
+				[story, 'test-story-html-2']
+			]);
+		});
+
+		it('does nothing if there are no debounced story saves pending', async () => {
+			saveListeners[1]({sender: {send: jest.fn()}}, story, 'test-story-html-1');
+			saveListeners[1]({sender: {send: jest.fn()}}, story, 'test-story-html-2');
+			saveListeners[1](
+				{sender: {send: jest.fn()}},
+				story2,
+				'test-story-html-3'
+			);
+			jest.advanceTimersByTime(1000);
+			expect(saveStoryHtmlMock.mock.calls).toEqual([
+				[story, 'test-story-html-1'],
+				[story2, 'test-story-html-3'],
+				[story, 'test-story-html-2']
+			]);
+			saveStoryHtmlMock.mockClear();
+			await quitListeners[1]();
 			expect(saveStoryHtmlMock).not.toHaveBeenCalled();
 		});
 	});
