@@ -5,6 +5,7 @@ export const app = {
 	getPath(name: string) {
 		return `mock-electron-app-path-${name}`;
 	},
+	on: jest.fn(),
 	quit: jest.fn(),
 	relaunch: jest.fn()
 };

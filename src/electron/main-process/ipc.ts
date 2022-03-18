@@ -1,4 +1,5 @@
-import {dialog, ipcMain} from 'electron';
+import {app, dialog, ipcMain} from 'electron';
+import {debounce, DebouncedFunc} from 'lodash';
 import {i18n} from './locales';
 import {saveJsonFile} from './json-file';
 import {openWithTempFile} from './open-with-temp-file';
@@ -10,17 +11,24 @@ import {
 } from './story-file';
 import {loadStoryFormats} from './story-formats';
 import {loadPrefs} from './prefs';
-
-// It's possible for a second `save-story-html` message to be sent while one is
-// in-progress. This race condition can cause saving to fail, so saves on a
-// single story must be queued up. This uses the ID of the story object as key
-// so that multiple stories can be saved independently; because of this, IDs
-// must not change during an application session (but it's OK if they vary
-// between sessions).
-
-const saveStoryQueue: Record<string, Promise<void>> = {};
+import {Story} from '../../store/stories';
 
 export function initIpc() {
+	// We want to debounce story saves so we aren't constantly writing to disk.
+	// However, we need to have individual debounced functions per story so that
+	// saves on multiple stories in one interval aren't lost. So we maintain a set
+	// of debounced functions keyed by story ID.
+	//
+	// These still take an argument because the individual invocations will see a
+	// different story object each time.
+
+	const storySavers: Record<
+		string,
+		DebouncedFunc<
+			(event: any, story: Story, storyHtml: string) => Promise<void>
+		>
+	> = {};
+
 	ipcMain.on('delete-story', async (event, story) => {
 		try {
 			await deleteStory(story);
@@ -100,29 +108,51 @@ export function initIpc() {
 				throw new Error('Asked to save empty string as story HTML');
 			}
 
-			const savePromise = () =>
-				saveStoryHtml(story, storyHtml)
-					.then(() => event.sender.send('story-html-saved', story))
-					.catch(error =>
-						dialog.showErrorBox(
-							i18n.t('electron.errors.storySave'),
-							(error as Error).message
-						)
-					);
-
-			console.log(`Queuing save for story ID ${story.id}`);
-
-			if (!saveStoryQueue[story.id]) {
-				saveStoryQueue[story.id] = savePromise();
-			} else {
-				saveStoryQueue[story.id].then(savePromise);
+			if (!storySavers[story.id]) {
+				storySavers[story.id] = debounce(
+					async (
+						saverEvent: any,
+						saverStory: Story,
+						saverStoryHtml: string
+					) => {
+						try {
+							await saveStoryHtml(saverStory, saverStoryHtml);
+							saverEvent.sender.send('story-html-saved', saverStory);
+						} catch (error) {
+							dialog.showErrorBox(
+								i18n.t('electron.errors.storySave'),
+								(error as Error).message
+							);
+							throw error;
+						}
+					},
+					1000,
+					{leading: true, trailing: true}
+				);
 			}
+
+			storySavers[story.id](event, story, storyHtml);
 		} catch (error) {
 			dialog.showErrorBox(
 				i18n.t('electron.errors.storySave'),
 				(error as Error).message
 			);
 			throw error;
+		}
+	});
+
+	app.on('will-quit', async () => {
+		if (Object.keys(storySavers).length > 0) {
+			// Flush all pending story saves.
+
+			for (const storyId of Object.keys(storySavers)) {
+				console.log(`Flushing pending story saves for story ID ${storyId}`);
+				await storySavers[storyId].flush();
+			}
+
+			console.log('All pending story saves flushed successfully');
+		} else {
+			console.log('No pending story saves to flush');
 		}
 	});
 }
