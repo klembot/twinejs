@@ -76,7 +76,7 @@
 		"cpy-cli": "^3.1.1",
 		"cross-var": "^1.1.0",
 		"electron": "^17.1.0",
-		"electron-builder": "^22.14.13",
+		"electron-builder": "^23.0.2",
 		"faker": "^5.4.0",
 		"history": "^5.1.0",
 		"jest-axe": "^4.1.0",
