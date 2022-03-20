@@ -26,16 +26,15 @@ import {StoryEditToolbar} from './toolbar';
 import './story-edit-route.css';
 import {ZoomButtons} from './zoom-buttons';
 import {DocumentTitle} from '../../components/document-title/document-title';
+import {useZoomTransition} from './use-zoom-transition';
 
 export const InnerStoryEditRoute: React.FC = () => {
 	const [inited, setInited] = React.useState(false);
 	const {dispatch: dialogsDispatch} = useDialogsContext();
 	const mainContent = React.useRef<HTMLDivElement>(null);
 	const {storyId} = useParams<{storyId: string}>();
-	const {
-		dispatch: undoableStoriesDispatch,
-		stories
-	} = useUndoableStoriesContext();
+	const {dispatch: undoableStoriesDispatch, stories} =
+		useUndoableStoriesContext();
 	const story = storyWithId(stories, storyId);
 
 	const selectedPassages = React.useMemo(
@@ -83,8 +82,8 @@ export const InnerStoryEditRoute: React.FC = () => {
 							current.selected ? [...result, current.id] : result,
 						[]
 					),
-					change.left,
-					change.top
+					change.left / story.zoom,
+					change.top / story.zoom
 				),
 				selectedPassages.length > 1
 					? 'undoChange.movePassages'
@@ -154,6 +153,9 @@ export const InnerStoryEditRoute: React.FC = () => {
 		}
 	}, [getCenter, inited, story, undoableStoriesDispatch]);
 
+	// TODO: try setting story zoom *after* transition completes
+	const visibleZoom = useZoomTransition(story.zoom, mainContent.current);
+
 	return (
 		<div className="story-edit-route">
 			<DocumentTitle title={story.name} />
@@ -174,13 +176,14 @@ export const InnerStoryEditRoute: React.FC = () => {
 					passages={story.passages}
 					startPassageId={story.startPassage}
 					tagColors={story.tagColors}
+					visibleZoom={visibleZoom}
 					zoom={story.zoom}
 				/>
 				<ZoomButtons story={story} />
 			</MainContent>
 		</div>
 	);
-};
+};;
 
 // This is a separate component so that the inner one can use
 // `useEditorsContext()` and `useUndoableStoriesContext()` inside it.

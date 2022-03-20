@@ -40,10 +40,6 @@
 	--purple: hsl(272, 90%, 60%);
 	--light-purple: hsl(272, 90%, 90%);
 	--light-purple-translucent: hsla(272, 90%, 65%, 0.25);
-
-	--graph-paper-bg: hsl(212, 90%, 96%);
-	--graph-paper-major-line: hsla(212, 90%, 60%, 0.25);
-	--graph-paper-minor-line: hsla(212, 90%, 60%, 0.125);
 }
 
 [data-app-theme='dark'] {
@@ -91,10 +87,6 @@
 	--light-purple: hsl(272, 90%, 15%);
 	--light-purple-translucent: hsla(272, 90%, 60%, 0.25);
 	--faint-purple: hsl(272, 90%, 10%);
-
-	--graph-paper-bg: hsl(212, 90%, 10%);
-	--graph-paper-major-line: hsla(212, 90%, 60%, 0.125);
-	--graph-paper-minor-line: hsla(212, 90%, 60%, 0.0625);
 }
 
 body {

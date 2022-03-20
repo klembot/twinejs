@@ -27,3 +27,22 @@
 	padding: 0;
 	overflow: ellipsis;
 }
+
+.compact-passage-cards .passage-card h2 {
+	align-items: center;
+	display: flex;
+	flex-grow: 1;
+	font-size: 160%;
+	justify-content: center;
+	text-align: center;
+	word-break: break-word;
+}
+
+.compact-passage-cards .passage-card .card-content {
+	display: none;
+}
+
+.compact-passage-cards .passage-card .tag-stripe span {
+	border-radius: 4px;
+	height: 8px;
+}

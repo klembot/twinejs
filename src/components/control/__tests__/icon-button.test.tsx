@@ -52,6 +52,16 @@ describe('<IconButton>', () => {
 		expect(preventedEvent.defaultPrevented).toBe(true);
 	});
 
+	it('adds an aria-pressed attribute if the selectable prop is true, even if the button is not selected', () => {
+		renderComponent({selectable: true});
+		expect(screen.getByRole('button')).toHaveAttribute('aria-pressed', 'false');
+	});
+
+	it('adds an aria-pressed attribute if the selectable prop is true and the button is pressed', () => {
+		renderComponent({selectable: true, selected: true});
+		expect(screen.getByRole('button')).toHaveAttribute('aria-pressed', 'true');
+	});
+
 	it('is accessible', async () => {
 		const {container} = render(
 			<IconButton icon={<span data-testid="mock-icon" />} label="mock-label" />

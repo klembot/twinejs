@@ -86,10 +86,9 @@ describe('<StoryEditRoute>', () => {
 		await renderComponent(fakeStory());
 
 		expect(
-			screen.getByLabelText('routes.storyEdit.zoomIn')
-		).toBeInTheDocument();
-		expect(
-			screen.getByLabelText('routes.storyEdit.zoomOut')
+			screen.getByLabelText(
+				'routes.storyEdit.zoomButtons.passageNamesAndExcerpts'
+			)
 		).toBeInTheDocument();
 	});
 

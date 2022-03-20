@@ -1,15 +1,8 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {IconZoomIn} from '@tabler/icons';
-import {IconZoomOut} from '../../components/image/icon';
+import {IconGridDots, IconLayoutGrid, IconSquare} from '@tabler/icons';
 import {IconButton} from '../../components/control/icon-button';
-import {
-	minZoom,
-	maxZoom,
-	updateStory,
-	useStoriesContext,
-	Story
-} from '../../store/stories';
+import {updateStory, useStoriesContext, Story} from '../../store/stories';
 import {ButtonCard} from '../../components/container/button-card';
 import './zoom-buttons.css';
 import {useScrollbarSize} from 'react-scrollbar-size';
@@ -18,14 +11,14 @@ export interface ZoomButtonsProps {
 	story: Story;
 }
 
-export const ZoomButtons: React.FC<ZoomButtonsProps> = ({story}) => {
+export const ZoomButtons: React.FC<ZoomButtonsProps> = React.memo(({story}) => {
 	const {dispatch, stories} = useStoriesContext();
 	const {t} = useTranslation();
 	const {height} = useScrollbarSize();
 
 	const handleZoomChange = React.useCallback(
-		(change: number) => {
-			dispatch(updateStory(stories, story, {zoom: story.zoom + change}));
+		(zoom: number) => {
+			dispatch(updateStory(stories, story, {zoom}));
 		},
 		[dispatch, stories, story]
 	);
@@ -38,20 +31,30 @@ export const ZoomButtons: React.FC<ZoomButtonsProps> = ({story}) => {
 		<div className="zoom-buttons" style={style}>
 			<ButtonCard>
 				<IconButton
-					disabled={story.zoom >= maxZoom}
-					icon={<IconZoomIn />}
+					icon={<IconSquare />}
 					iconOnly
-					label={t('routes.storyEdit.zoomIn')}
-					onClick={() => handleZoomChange(0.2)}
+					label={t('routes.storyEdit.zoomButtons.passageNamesAndExcerpts')}
+					onClick={() => handleZoomChange(1)}
+					selectable
+					selected={story.zoom === 1}
 				/>
 				<IconButton
-					disabled={story.zoom <= minZoom}
-					icon={<IconZoomOut />}
+					icon={<IconLayoutGrid />}
 					iconOnly
-					label={t('routes.storyEdit.zoomOut')}
-					onClick={() => handleZoomChange(-0.2)}
+					label={t('routes.storyEdit.zoomButtons.passageNames')}
+					onClick={() => handleZoomChange(0.6)}
+					selectable
+					selected={story.zoom === 0.6}
+				/>
+				<IconButton
+					icon={<IconGridDots />}
+					iconOnly
+					label={t('routes.storyEdit.zoomButtons.storyStructure')}
+					onClick={() => handleZoomChange(0.3)}
+					selectable
+					selected={story.zoom === 0.3}
 				/>
 			</ButtonCard>
 		</div>
 	);
-};
+});

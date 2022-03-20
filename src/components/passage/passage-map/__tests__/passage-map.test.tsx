@@ -71,6 +71,25 @@ describe('<PassageMap>', () => {
 		expect(connections.dataset.offsetTop).toBe('10');
 	});
 
+	it('adds a compact-passage-cards class if the visible zoom level is equal to or below 0.6', () => {
+		renderComponent({visibleZoom: 0.6});
+		expect(
+			document
+				.querySelector('.passage-map')
+				?.classList.contains('compact-passage-cards')
+		).toBe(true);
+	});
+
+	it('does not add a compact-passage-cards class if the visible zoom level is above 0.6', () => {
+		renderComponent({visibleZoom: 0.61});
+		expect(
+			document
+				.querySelector('.passage-map')
+				?.classList.contains('compact-passage-cards')
+		).toBe(false);
+	});
+
+
 	it.todo('sets itself as larger than the passage cards it contains');
 
 	it('is accessible', async () => {

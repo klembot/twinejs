@@ -47,7 +47,7 @@ describe('<PassageCard>', () => {
 	it('positions the card based on the passage props', () => {
 		const passage = fakePassage({left: 200, top: 400});
 
-		renderComponent({passage, zoom: 1.5});
+		renderComponent({passage});
 
 		const style = window.getComputedStyle(
 			document.querySelector('.passage-card')!
