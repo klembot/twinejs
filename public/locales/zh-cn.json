@@ -78,32 +78,81 @@
             "emptyName": "请输入一个名字。"
         },
         "storyCard": {
-            "passageCount": "{{count}}个段落"
+            "passageCount": "{{count}}个段落",
+            "lastUpdated": "最后一次编辑位于 {{date}}",
+            "passageCount_plural": "{{count}} 个段落"
         },
         "indentButtons": {
             "indent": "缩进",
             "unindent": "无缩进"
         },
         "renameStoryButton": {
-            "emptyName": "请输入一个名字。"
+            "emptyName": "请输入一个名字。",
+            "nameAlreadyUsed": "此名称已被另一个故事使用。"
+        },
+        "safariWarningCard": {
+            "message": "如果您连续七天没有打开该网站，您正使用的浏览器就将删除所有故事。",
+            "archiveAndUseAnotherBrowser": "请保存故事并改用其他平台。",
+            "howToAddToHomeScreen": "我该如何把它添加到我的主界面？",
+            "addToHomeScreen": "你可以通过把该网站添加到主界面来避免限制。",
+            "learnMore": "了解更多"
+        },
+        "storyFormatSelect": {
+            "loadingCount_plural": "载入 {{loadingCount}} 个故事格式……",
+            "loadingCount": "载入 1 个故事格式……"
+        },
+        "storyFormatCard": {
+            "author": "来自 {{author}}",
+            "defaultFormat": "设为默认",
+            "license": "许可证：{{license}}",
+            "loadingFormat": "载入故事格式……",
+            "loadError": "故事格式加载失败（{{errorMessage}}）。",
+            "name": "{{name}} {{version}}",
+            "useFormat": "设为默认故事格式"
+        },
+        "tagEditor": {
+            "alreadyExists": "已存在同名标签。"
         }
     },
     "dialogs": {
         "aboutTwine": {
-            "donateToTwine": "通过捐赠帮助Twine开发"
+            "donateToTwine": "通过捐赠帮助Twine开发",
+            "license": "该程序依据<a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GPL v3 license</a>发布，但是该程序创作的作品可以使用任意许可证，甚至是商业化许可证。",
+            "codeHeader": "代码",
+            "codeRepo": "访问源代码仓库",
+            "localizationHeader": "本地化",
+            "title": "关于 Twine {{version}}",
+            "twineDescription": "Twine 是一个开源软件，用于讲述互动式非线性故事。"
         },
         "appDonation": {
-            "noThanks": "不，谢谢"
+            "noThanks": "不，谢谢",
+            "supportMessage": "喜爱 Twine 的话请用捐款帮助它做的更好。Twine 是一款开源免费软件，有你的帮助，Twine 将会继续努力下去。",
+            "donate": "捐赠给 Twine 开发",
+            "onlyOnce": "（该信息只显示一次。如果将来您希望向 Twine 开发捐献资金，在“关于 Twine”对话框中可以找到相关链接。）",
+            "title": "支持 Twine 开发"
         },
         "appPrefs": {
-            "language": "语言"
+            "language": "语言",
+            "codeEditorFont": "代码编辑器字体",
+            "codeEditorFontScale": "代码编辑器字体大小",
+            "editorCursorBlinks": "代码编辑器中的光标闪烁",
+            "fontExplanation": "此处的字体改变只影响 Twine 编辑器，游玩故事的字体不会发生改变。",
+            "passageEditorFont": "段落编辑器字体",
+            "passageEditorFontScale": "段落编辑器字体大小",
+            "themeLight": "亮",
+            "themeDark": "暗",
+            "themeSystem": "系统",
+            "theme": "主题",
+            "title": "偏好"
         },
         "passageEdit": {
             "setAsStart": "从这里开始故事",
             "sizeLarge": "大",
             "sizeSmall": "小",
             "sizeTall": "高",
-            "sizeWide": "宽"
+            "sizeWide": "宽",
+            "passageTextEditorLabel": "段落文本",
+            "size": "尺寸"
         },
         "storyJavaScript": {
             "explanation": "当您的故事在Web浏览器中打开时，此处输入的任何JavaScript都将立即运行。"
@@ -114,6 +163,13 @@
         },
         "storyStylesheet": {
             "explanation": "这里输入的任何CSS都会覆盖故事的默认外观。"
+        },
+        "passageTags": {
+            "noTags": "尚未向该故事中的段落添加标签。",
+            "title": "段落标签"
+        },
+        "storyImport": {
+            "deselectAll": "全不选"
         }
     },
     "undoChange": {
