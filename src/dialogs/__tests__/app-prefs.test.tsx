@@ -50,6 +50,13 @@ describe('<AppPrefsDialog>', () => {
 		);
 	});
 
+	it('uses the closest app locale possible', () => {
+		renderComponent({locale: 'en-US'});
+		expect(screen.getByLabelText('dialogs.appPrefs.language')).toHaveValue(
+			'en'
+		);
+	});
+
 	it('changes to the locale preference when the menu is changed', () => {
 		renderComponent({locale: 'ca'});
 		fireEvent.change(screen.getByLabelText('dialogs.appPrefs.language'), {

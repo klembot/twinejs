@@ -24,18 +24,25 @@ export const locales = [
 ];
 
 /**
- * Mappings of locale codes to flag codes, when they aren't the same.
- * @see https://flagicons.lipis.dev/
+ * Finds the closest match for a locale in app-supported locales, for example
+ * mapping `en-US` to `en`. If none are plausible, this returns `en` as a
+ * default.
  */
-export const flags = {
-	ca: 'catalonia', // Special case--see src/components/image/flag.css
-	cs: 'cz',
-	da: 'dk',
-	en: 'gb',
-	ms: 'my',
-	nb: 'no',
-	'pt-br': 'br',
-	'pt-pt': 'pt',
-	sv: 'se',
-	'zh-cn': 'cn'
-};
+export function closestAppLocale(code: string) {
+	// Exact match? 
+
+	if (locales.some(locale => locale.code === code)) {
+		return code;
+	}
+
+	if (code.includes('-')) {
+		const roughCode = code.replace(/-.+/, '');
+		const roughMatch = locales.find(locale => locale.code === roughCode || locale.code.replace(/-.+/, '') === roughCode);
+
+		if (roughMatch) {
+			return roughMatch.code;
+		}
+	}
+
+	return 'en';
+}
