@@ -6,7 +6,7 @@ import {CheckboxButton} from '../components/control/checkbox-button';
 import {FontSelect} from '../components/control/font-select';
 import {TextSelect} from '../components/control/text-select';
 import {setPref, usePrefsContext} from '../store/prefs';
-import {locales} from '../util/locales';
+import {closestAppLocale, locales} from '../util/locales';
 import './app-prefs.css';
 
 export const AppPrefsDialog: React.FC<
@@ -29,7 +29,7 @@ export const AppPrefsDialog: React.FC<
 						label: locale.name,
 						value: locale.code
 					}))}
-					value={prefs.locale}
+					value={closestAppLocale(prefs.locale)}
 				>
 					{t('dialogs.appPrefs.language')}
 				</TextSelect>
