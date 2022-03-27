@@ -8,6 +8,10 @@
 	user-select: none;
 }
 
+.passage-card .selectable-card {
+	height: 100%;
+}
+
 .passage-card .card {
 	padding: calc(var(--grid-size) / 2);
 }

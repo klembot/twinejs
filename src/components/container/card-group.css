@@ -14,6 +14,7 @@ fill the grid cells.
 
 .card-group > *,
 .card-group .image-card,
-.card-group .card {
+.card-group .card,
+.card-group .selectable-card {
 	height: 100%;
 }
