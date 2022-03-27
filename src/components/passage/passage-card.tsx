@@ -1,8 +1,9 @@
+import classNames from 'classnames';
 import * as React from 'react';
 import {DraggableCore, DraggableCoreProps} from 'react-draggable';
-import classNames from 'classnames';
-import {Card, CardContent} from '../container/card';
 import {Passage, TagColors} from '../../store/stories';
+import {CardContent} from '../container/card';
+import {SelectableCard} from '../container/card/selectable-card';
 import {TagStripe} from '../tag/tag-stripe';
 import './passage-card.css';
 
@@ -36,9 +37,10 @@ export const PassageCard: React.FC<PassageCardProps> = React.memo(props => {
 		[passage.selected]
 	);
 	const container = React.useRef<HTMLDivElement>(null);
-	const excerpt = React.useMemo(() => passage.text.substr(0, excerptLength), [
-		passage.text
-	]);
+	const excerpt = React.useMemo(
+		() => passage.text.substr(0, excerptLength),
+		[passage.text]
+	);
 	const style = React.useMemo(
 		() => ({
 			height: passage.height,
@@ -67,10 +69,16 @@ export const PassageCard: React.FC<PassageCardProps> = React.memo(props => {
 		},
 		[onDeselect, onSelect, passage]
 	);
-	const handleEdit = React.useCallback(() => onEdit(passage), [
-		onEdit,
-		passage
-	]);
+	const handleEdit = React.useCallback(
+		() => onEdit(passage),
+		[onEdit, passage]
+	);
+	const handleSelect = React.useCallback(
+		(value: boolean, exclusive: boolean) => {
+			onSelect(passage, exclusive);
+		},
+		[onSelect, passage]
+	);
 
 	return (
 		<DraggableCore
@@ -80,17 +88,18 @@ export const PassageCard: React.FC<PassageCardProps> = React.memo(props => {
 			onDrag={onDrag}
 			onStop={onDragStop}
 		>
-			<div
-				className={className}
-				onDoubleClick={handleEdit}
-				ref={container}
-				style={style}
-			>
-				<Card highlighted={passage.highlighted} selected={passage.selected}>
+			<div className={className} ref={container} style={style}>
+				<SelectableCard
+					highlighted={passage.highlighted}
+					label={passage.name}
+					onDoubleClick={handleEdit}
+					onSelect={handleSelect}
+					selected={passage.selected}
+				>
 					<TagStripe tagColors={tagColors} tags={passage.tags} />
 					<h2>{passage.name}</h2>
 					<CardContent>{excerpt}</CardContent>
-				</Card>
+				</SelectableCard>
 			</div>
 		</DraggableCore>
 	);

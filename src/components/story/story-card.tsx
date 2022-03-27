@@ -2,7 +2,8 @@ import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {Story} from '../../store/stories';
 import {Color} from '../../util/color';
-import {Card, CardContent, CardProps} from '../container/card';
+import {CardContent, CardProps} from '../container/card';
+import {SelectableCard} from '../container/card/selectable-card';
 import {TagButton} from '../tag';
 import './story-card.css';
 import {StoryPreview} from './story-preview';
@@ -31,8 +32,14 @@ export const StoryCard: React.FC<StoryCardProps> = props => {
 	const {t} = useTranslation();
 
 	return (
-		<div className="story-card" onClick={onSelect} onDoubleClick={onEdit}>
-			<Card {...otherProps} selected={story.selected}>
+		<div className="story-card">
+			<SelectableCard
+				{...otherProps}
+				label={story.name}
+				onDoubleClick={onEdit}
+				onSelect={onSelect}
+				selected={story.selected}
+			>
 				<CardContent>
 					<div className="story-card-summary">
 						<div className="story-card-summary-preview">
@@ -65,7 +72,7 @@ export const StoryCard: React.FC<StoryCardProps> = props => {
 						</div>
 					)}
 				</CardContent>
-			</Card>
+			</SelectableCard>
 		</div>
 	);
 };
