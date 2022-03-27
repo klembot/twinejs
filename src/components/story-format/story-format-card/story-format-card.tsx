@@ -3,7 +3,8 @@ import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {formatImageUrl, StoryFormat} from '../../../store/story-formats';
 import {Badge} from '../../badge/badge';
-import {Card, CardContent} from '../../container/card';
+import {CardContent} from '../../container/card';
+import {SelectableCard} from '../../container/card/selectable-card';
 import {IconLoading} from '../../image/icon';
 import {StoryFormatCardDetails} from './story-format-card-details';
 import './story-format-card.css';
@@ -40,8 +41,15 @@ export const StoryFormatCard: React.FC<StoryFormatCardProps> = props => {
 	}
 
 	return (
-		<div className="story-format-card" onClick={onSelect}>
-			<Card selected={format.selected}>
+		<div className="story-format-card">
+			<SelectableCard
+				label={t('components.storyFormatCard.name', {
+					name: format.name,
+					version: format.version
+				})}
+				onSelect={onSelect}
+				selected={format.selected}
+			>
 				<CardContent>
 					<div className="story-format-image">{image}</div>
 					<div className="story-format-description">
@@ -73,7 +81,7 @@ export const StoryFormatCard: React.FC<StoryFormatCardProps> = props => {
 						)}
 					</div>
 				</CardContent>
-			</Card>
+			</SelectableCard>
 		</div>
 	);
 };
