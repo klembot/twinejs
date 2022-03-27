@@ -9,6 +9,19 @@ import {
 	StorySearchFlags
 } from '../stories.types';
 
+/**
+ * Core logic for replacing text using flags.
+ */
+function replaceText(source: string, searchFor: string, replaceWith: string, flags: StorySearchFlags) {
+	const {matchCase, useRegexes} = flags;
+	const matcher = createRegExp(searchFor, {matchCase, useRegexes});
+	const replacer = useRegexes
+	? replaceWith
+	: escapeRegExpReplace(replaceWith);
+
+	return source.replace(matcher, replacer);
+}
+
 export function replaceInPassage(
 	story: Story,
 	passage: Passage,
@@ -25,21 +38,17 @@ export function replaceInPassage(
 			throw new Error('Passage does not belong to story');
 		}
 
-		const {includePassageNames, matchCase, useRegexes} = flags;
-		const matcher = createRegExp(searchFor, {matchCase, useRegexes});
+		const {includePassageNames} = flags;
 		const props: Partial<Passage> = {};
-		const replacer = useRegexes
-			? replaceWith
-			: escapeRegExpReplace(replaceWith);
 
-		const newText = passage.text.replace(matcher, replacer);
+		const newText = replaceText(passage.text, searchFor, replaceWith, flags);
 
 		if (newText !== passage.text) {
 			props.text = newText;
 		}
 
 		if (includePassageNames) {
-			const newName = passage.name.replace(matcher, replacer);
+			const newName = replaceText(passage.name, searchFor, replaceWith, flags);
 
 			if (newName !== passage.name) {
 				props.name = newName;
@@ -58,14 +67,44 @@ export function replaceInStory(
 	replaceWith: string,
 	flags: StorySearchFlags
 ): Thunk<StoriesState, StoriesAction> {
-	return (dispatch, getState) =>
-		story.passages.forEach(passage => {
-			replaceInPassage(
-				story,
-				passage,
-				searchFor,
-				replaceWith,
-				flags
-			)(dispatch, getState);
-		});
+	return (dispatch, getState) => {
+		if (searchFor === '') {
+			throw new Error("Can't replace an empty string");
+		}
+
+		if (flags.includePassageNames) {
+			// Do replaces in passage names first, so that if a replace will change
+			// both a link and a passage name, the updatePassage action will see that
+			// the passage exists when the link is changed, and not create a new
+			// passage that will conflict with the existing one.
+			
+			for (const passage of story.passages) {
+				const name = replaceText(passage.name, searchFor, replaceWith, flags);
+
+				if (name !== passage.name) {
+					updatePassage(story, passage, {name})(dispatch, getState);
+				}
+			}
+
+			for (const passage of story.passages) {
+				const text = replaceText(passage.text, searchFor, replaceWith, flags);
+
+				if (text !== passage.text) {
+					updatePassage(story, passage, {text})(dispatch, getState);
+				}
+			}
+		} else {
+			// We're only updating passage text, so we can do it the easy way.
+
+			for (const passage of story.passages) {
+				replaceInPassage(
+					story,
+					passage,
+					searchFor,
+					replaceWith,
+					flags
+				)(dispatch, getState);
+			}
+		}
+	};
 }
