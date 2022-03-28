@@ -16,7 +16,6 @@ describe('<PassageCardGroup>', () => {
 				passages={[fakePassage(), fakePassage()]}
 				onSelect={jest.fn()}
 				tagColors={{}}
-				zoom={1}
 				{...props}
 			/>
 		);
@@ -31,6 +30,30 @@ describe('<PassageCardGroup>', () => {
 		).toBeInTheDocument();
 	});
 
+	it('sorts the passages top to bottom, left to right', () => {
+		const passages = [fakePassage(), fakePassage(), fakePassage()];
+
+		passages[0].top = 0;
+		passages[0].left = 100;
+		passages[1].top = 0;
+		passages[1].left = 50;
+		passages[2].top = 10;
+		passages[2].left = 50;
+		renderComponent({passages});
+
+		const rendered = document.querySelectorAll<HTMLElement>('[data-testid]');
+
+		expect(rendered[0].dataset.testid).toBe(
+			`mock-passage-card-${passages[1].name}`
+		);
+		expect(rendered[1].dataset.testid).toBe(
+			`mock-passage-card-${passages[0].name}`
+		);
+		expect(rendered[2].dataset.testid).toBe(
+			`mock-passage-card-${passages[2].name}`
+		);
+	});
+	
 	it.todo('passes through drag-related props');
 
 	it('is accessible', async () => {
