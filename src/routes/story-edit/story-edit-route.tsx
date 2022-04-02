@@ -153,7 +153,6 @@ export const InnerStoryEditRoute: React.FC = () => {
 		}
 	}, [getCenter, inited, story, undoableStoriesDispatch]);
 
-	// TODO: try setting story zoom *after* transition completes
 	const visibleZoom = useZoomTransition(story.zoom, mainContent.current);
 
 	return (
