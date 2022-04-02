@@ -97,8 +97,8 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 		]);
 
 		return {
-			height: `max(calc(${passageBounds.height}px + 50vh), calc(100vh / ${visibleZoom}))`,
-			width: `max(calc(${passageBounds.width}px + 50vh), calc(100vw / ${visibleZoom}))`,
+			height: `max(calc(${passageBounds.height / visibleZoom}px + 50vh), calc(100vh / ${visibleZoom}))`,
+			width: `max(calc(${passageBounds.width / visibleZoom}px + 50vh), calc(100vw / ${visibleZoom}))`,
 			transform: `scale(${visibleZoom})`
 		};
 	}, [passages, visibleZoom]);
