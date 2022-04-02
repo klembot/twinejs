@@ -6,6 +6,7 @@ import {CardContent} from '../container/card';
 import {CardButton, CardButtonProps} from './card-button';
 import {IconButton, IconButtonProps} from './icon-button';
 import {TextInput} from './text-input';
+import FocusTrap from 'focus-trap-react';
 
 export interface PromptValidationResponse {
 	message?: string;
@@ -75,28 +76,34 @@ export const PromptButton: React.FC<PromptButtonProps> = props => {
 				open={open}
 				{...other}
 			>
-				<form onSubmit={handleSubmit}>
-					<CardContent>
-						<TextInput onChange={onChange} orientation="vertical" value={value}>
-							{prompt}
-						</TextInput>
-						{validation?.message && <p>{validation.message}</p>}
-					</CardContent>
-					<ButtonBar>
-						<IconButton
-							buttonType="submit"
-							disabled={!validation?.valid}
-							icon={submitIcon ?? <IconCheck />}
-							label={submitLabel ?? t('common.ok')}
-							variant={submitVariant ?? 'primary'}
-						/>
-						<IconButton
-							icon={cancelIcon ?? <IconX />}
-							label={cancelLabel ?? t('common.cancel')}
-							onClick={() => setOpen(false)}
-						/>
-					</ButtonBar>
-				</form>
+				<FocusTrap>
+					<form onSubmit={handleSubmit}>
+						<CardContent>
+							<TextInput
+								onChange={onChange}
+								orientation="vertical"
+								value={value}
+							>
+								{prompt}
+							</TextInput>
+							{validation?.message && <p>{validation.message}</p>}
+						</CardContent>
+						<ButtonBar>
+							<IconButton
+								buttonType="submit"
+								disabled={!validation?.valid}
+								icon={submitIcon ?? <IconCheck />}
+								label={submitLabel ?? t('common.ok')}
+								variant={submitVariant ?? 'primary'}
+							/>
+							<IconButton
+								icon={cancelIcon ?? <IconX />}
+								label={cancelLabel ?? t('common.cancel')}
+								onClick={() => setOpen(false)}
+							/>
+						</ButtonBar>
+					</form>
+				</FocusTrap>
 			</CardButton>
 		</span>
 	);

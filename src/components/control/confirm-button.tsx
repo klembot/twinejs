@@ -6,6 +6,7 @@ import {CardContent} from '../container/card';
 import {CardButton, CardButtonProps} from './card-button';
 import {IconButton, IconButtonProps} from './icon-button';
 import './confirm-button.css';
+import FocusTrap from 'focus-trap-react';
 
 export interface ConfirmButtonProps
 	extends Omit<CardButtonProps, 'ariaLabel' | 'open' | 'onChangeOpen'> {
@@ -46,20 +47,24 @@ export const ConfirmButton: React.FC<ConfirmButtonProps> = props => {
 				open={open}
 				{...other}
 			>
-				<CardContent>{prompt}</CardContent>
-				<ButtonBar>
-					<IconButton
-						icon={confirmIcon ?? <IconCheck />}
-						label={confirmLabel ?? t('common.ok')}
-						onClick={handleConfirm}
-						variant={confirmVariant ?? 'primary'}
-					/>
-					<IconButton
-						icon={cancelIcon ?? <IconX />}
-						label={cancelLabel ?? t('common.cancel')}
-						onClick={() => setOpen(false)}
-					/>
-				</ButtonBar>
+				<FocusTrap>
+					<div>
+						<CardContent>{prompt}</CardContent>
+						<ButtonBar>
+							<IconButton
+								icon={confirmIcon ?? <IconCheck />}
+								label={confirmLabel ?? t('common.ok')}
+								onClick={handleConfirm}
+								variant={confirmVariant ?? 'primary'}
+							/>
+							<IconButton
+								icon={cancelIcon ?? <IconX />}
+								label={cancelLabel ?? t('common.cancel')}
+								onClick={() => setOpen(false)}
+							/>
+						</ButtonBar>
+					</div>
+				</FocusTrap>
 			</CardButton>
 		</span>
 	);
