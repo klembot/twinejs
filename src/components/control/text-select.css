@@ -29,6 +29,11 @@
 	transition: background-color 0.3s;
 }
 
+.text-select-control select:focus-visible {
+	box-shadow: inset 0 0 0px 2px var(--blue);
+	outline: none;
+}
+
 .text-select-control::after {
 	background: url('~@tabler/icons/icons/chevron-down.svg');
 	background-position: center;

@@ -101,10 +101,6 @@ a:visited {
 	color: var(--dark-purple);
 }
 
-:focus {
-	outline: 2px solid var(--purple);
-}
-
 mark {
 	background-color: var(--light-yellow-translucent);
 	color: var(--black);
