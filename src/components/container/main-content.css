@@ -3,13 +3,8 @@
 
 .main-content {
 	background: var(--off-white);
-	overflow: auto;
-	position: fixed;
-	top: calc(2 * var(--control-height)); /* height of <top-bar> */
-	left: 0;
-	right: 0;
-	bottom: 0;
-	-webkit-overflow-scrolling: touch;
+	margin-top: calc(2 * var(--control-height)); /* height of <top-bar> */
+	min-height: calc(100vh - 2 * var(--control-height));
 }
 
 .main-content.padded {
