@@ -47,24 +47,22 @@ export const ConfirmButton: React.FC<ConfirmButtonProps> = props => {
 				open={open}
 				{...other}
 			>
-				<FocusTrap>
-					<div>
-						<CardContent>{prompt}</CardContent>
-						<ButtonBar>
-							<IconButton
-								icon={confirmIcon ?? <IconCheck />}
-								label={confirmLabel ?? t('common.ok')}
-								onClick={handleConfirm}
-								variant={confirmVariant ?? 'primary'}
-							/>
-							<IconButton
-								icon={cancelIcon ?? <IconX />}
-								label={cancelLabel ?? t('common.cancel')}
-								onClick={() => setOpen(false)}
-							/>
-						</ButtonBar>
-					</div>
-				</FocusTrap>
+				<div>
+					<CardContent>{prompt}</CardContent>
+					<ButtonBar>
+						<IconButton
+							icon={confirmIcon ?? <IconCheck />}
+							label={confirmLabel ?? t('common.ok')}
+							onClick={handleConfirm}
+							variant={confirmVariant ?? 'primary'}
+						/>
+						<IconButton
+							icon={cancelIcon ?? <IconX />}
+							label={cancelLabel ?? t('common.cancel')}
+							onClick={() => setOpen(false)}
+						/>
+					</ButtonBar>
+				</div>
 			</CardButton>
 		</span>
 	);
