@@ -16,6 +16,7 @@
 		"cancel": "Cancel",
 		"close": "Close",
 		"color": "Color",
+		"create": "Create",
 		"custom": "Custom",
 		"delete": "Delete",
 		"deleteCount": "Delete ({{count}})",
@@ -310,6 +311,11 @@
 			"titleGeneric": "Stories",
 			"toolbar": {
 				"archive": "Archive",
+				"createStoryButton": {
+					"prompt": "What should your story be named? You can change this later.",
+					"emptyName": "Please enter a name.",
+					"nameConflict": "Another story has this name."
+				},
 				"deleteStoryButton": {
 					"warning": {
 						"electron": "Are you sure you want to delete “{{storyName}}”? It will be moved to the trash.",
