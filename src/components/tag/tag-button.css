@@ -9,6 +9,10 @@
 	font-size: 85%;
 }
 
+.tag-button .menu-button > .icon-button:focus {
+	box-shadow: inset 0 0 0px 2px var(--blue), 0 1px 1px var(--light-gray);
+}
+
 .tag-button .menu-button > .icon-button:hover {
 	background-color: var(--light-gray);
 }
