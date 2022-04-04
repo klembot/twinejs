@@ -6,7 +6,6 @@ import {CardContent} from '../container/card';
 import {CardButton, CardButtonProps} from './card-button';
 import {IconButton, IconButtonProps} from './icon-button';
 import {TextInput} from './text-input';
-import FocusTrap from 'focus-trap-react';
 
 export interface PromptValidationResponse {
 	message?: string;
@@ -62,10 +61,21 @@ export const PromptButton: React.FC<PromptButtonProps> = props => {
 		updateValidation();
 	}, [validate, value]);
 
+	function handleCancel(event: React.MouseEvent) {
+		event.preventDefault();
+		setOpen(false);
+	}
+
 	function handleSubmit(event: React.FormEvent) {
 		event.preventDefault();
-		onSubmit(value);
-		setOpen(false);
+
+		// It's possible to submit with the Enter key and bypass us disabling the
+		// submit button, so we need to catch that here.
+
+		if (validation?.valid) {
+			onSubmit(value);
+			setOpen(false);
+		}
 	}
 
 	return (
@@ -92,9 +102,10 @@ export const PromptButton: React.FC<PromptButtonProps> = props => {
 							variant={submitVariant ?? 'primary'}
 						/>
 						<IconButton
+							buttonType="button"
 							icon={cancelIcon ?? <IconX />}
 							label={cancelLabel ?? t('common.cancel')}
-							onClick={() => setOpen(false)}
+							onClick={handleCancel}
 						/>
 					</ButtonBar>
 				</form>

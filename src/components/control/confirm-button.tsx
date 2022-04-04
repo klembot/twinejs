@@ -6,7 +6,6 @@ import {CardContent} from '../container/card';
 import {CardButton, CardButtonProps} from './card-button';
 import {IconButton, IconButtonProps} from './icon-button';
 import './confirm-button.css';
-import FocusTrap from 'focus-trap-react';
 
 export interface ConfirmButtonProps
 	extends Omit<CardButtonProps, 'ariaLabel' | 'open' | 'onChangeOpen'> {
