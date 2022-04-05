@@ -153,7 +153,7 @@ export const InnerStoryEditRoute: React.FC = () => {
 		}
 	}, [getCenter, inited, story, undoableStoriesDispatch]);
 
-	const visibleZoom = useZoomTransition(story.zoom, mainContent.current);
+	const visibleZoom = useZoomTransition(story.zoom, document.body);
 
 	return (
 		<div className="story-edit-route">
