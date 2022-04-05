@@ -161,28 +161,31 @@ export function boundingRect(rects: Rect[]) {
 		throw new Error("Can't calculate bounding rect for 0 rects");
 	}
 
-	const result = {...rects[0]};
+	let left = rects[0].left;
+	let right = rects[0].left + rects[0].width;
+	let top = rects[0].top;
+	let bottom = rects[0].top + rects[0].height;
 
 	for (let i = 1; i < rects.length; i++) {
-		const right = rects[i].left + rects[i].width;
-		const bottom = rects[i].top + rects[i].height;
+		const rectRight = rects[i].left + rects[i].width;
+		const rectBottom = rects[i].top + rects[i].height;
 
-		if (rects[i].left < result.left) {
-			result.left = rects[i].left;
+		if (rects[i].left < left) {
+			left = rects[i].left;
 		}
 
-		if (rects[i].top < result.top) {
-			result.top = rects[i].top;
+		if (rects[i].top < top) {
+			top = rects[i].top;
 		}
 
-		if (result.left + result.width < right) {
-			result.width = right - result.left;
+		if (rectRight > right) {
+			right = rectRight;
 		}
 
-		if (result.top + result.height < bottom) {
-			result.height = bottom - result.top;
+		if (rectBottom > bottom) {
+			bottom = rectBottom;
 		}
 	}
 
-	return result;
+	return {left, top, height: bottom - top, width: right - left};
 }

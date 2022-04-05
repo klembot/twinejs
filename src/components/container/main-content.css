@@ -3,8 +3,10 @@
 
 .main-content {
 	background: var(--off-white);
-	margin-top: calc(2 * var(--control-height)); /* height of <top-bar> */
 	min-height: calc(100vh - 2 * var(--control-height));
+	position: relative;
+	top: calc(2 * var(--control-height));
+	/* height of <top-bar> */
 }
 
 .main-content.padded {

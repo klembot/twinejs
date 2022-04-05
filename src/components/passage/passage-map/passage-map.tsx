@@ -87,21 +87,27 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 		visibleZoom <= compactCardZoom
 	);
 	const container = React.useRef<HTMLDivElement>(null);
-	const style = React.useMemo(() => {
+	const passageBounds = React.useMemo(() => {
 		// Need to inject a fake rect at the very top-left corner to anchor the
 		// bounds there.
 
-		const passageBounds = boundingRect([
-			...passages,
-			{top: 0, left: 0, width: 0, height: 0}
-		]);
+		return boundingRect([...passages, {top: 0, left: 0, width: 0, height: 0}]);
+	}, [passages]);
 
+	// This is a separate memo so that there's less work when visibleZoom changes
+	// during a zoom transition.
+
+	const style = React.useMemo(() => {
 		return {
-			height: `max(calc(${passageBounds.height / visibleZoom}px + 50vh), calc(100vh / ${visibleZoom}))`,
-			width: `max(calc(${passageBounds.width / visibleZoom}px + 50vh), calc(100vw / ${visibleZoom}))`,
+			height: `max(calc(${passageBounds.height}px + 50vh), ${
+				100 / visibleZoom
+			}vh)`,
+			width: `max(calc(${passageBounds.width}px + 50vw), ${
+				100 / visibleZoom
+			}vw)`,
 			transform: `scale(${visibleZoom})`
 		};
-	}, [passages, visibleZoom]);
+	}, [passageBounds.height, passageBounds.width, visibleZoom]);
 
 	const [state, dispatch] = React.useReducer(dragReducer, {
 		dragging: false,

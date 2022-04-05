@@ -206,6 +206,13 @@ describe('boundingRect()', () => {
 			])
 		).toEqual({left: -20, top: -20, height: 55, width: 55});
 
+		expect(
+			boundingRect([
+				{left: 10, top: 10, width: 200, height: 200},
+				{top: 0, left: 0, width: 0, height: 0}
+			])
+		).toEqual({left: 0, top: 0, height: 210, width: 210});
+
 		// Overlapping.
 		expect(
 			boundingRect([
