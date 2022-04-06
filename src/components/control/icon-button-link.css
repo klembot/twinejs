@@ -28,6 +28,8 @@
 	width: 18px;
 }
 
+.icon-button:not(.icon-only) .icon img,
+.icon-link:not(.icon-only) .icon img,
 .icon-button:not(.icon-only) .icon svg,
 .icon-link:not(.icon-only) .icon svg {
 	margin-right: var(--control-inner-padding);
@@ -38,6 +40,8 @@
 	flex-direction: row-reverse;
 }
 
+.icon-button.icon-position-end:not(icon-only) .icon img,
+.icon-link.icon-position-end:not(icon-only) .icon img,
 .icon-button.icon-position-end:not(icon-only) .icon svg,
 .icon-link.icon-position-end:not(icon-only) .icon svg {
 	margin-left: var(--control-inner-padding);
