@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.0"
+   width="1920"
+   height="1080"
+   id="svg2999"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="Flag_of_the_Czech_Republic.svg">
+  <metadata
+     id="metadata3011">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs3009" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="706"
+     id="namedview3007"
+     showgrid="false"
+     fit-margin-right="0"
+     width="1920px"
+     inkscape:zoom="0.35355339"
+     inkscape:cx="1532.3636"
+     inkscape:cy="528.99512"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2999" />
+  <rect
+     width="1920"
+     height="1080"
+     id="rect3001"
+     x="0"
+     y="-3.5971226e-014"
+     style="fill:#d7141a" />
+  <rect
+     width="1920"
+     height="540"
+     id="rect3003"
+     x="0"
+     y="-3.5971226e-014"
+     style="fill:#ffffff" />
+  <path
+     d="M 960,540 0,0 v 1080 z"
+     id="path3005"
+     inkscape:connector-curvature="0"
+     style="fill:#11457e" />
+</svg>
