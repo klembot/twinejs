@@ -4,9 +4,13 @@
 .main-content {
 	background: var(--off-white);
 	min-height: calc(100vh - 2 * var(--control-height));
-	position: relative;
+	overflow: auto;
+	position: fixed;
 	top: calc(2 * var(--control-height));
 	/* height of <top-bar> */
+	left: 0;
+	right: 0;
+	bottom: 0;
 }
 
 .main-content.padded {

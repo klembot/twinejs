@@ -13,12 +13,24 @@ export interface MainContentProps
 export const MainContent = React.forwardRef<HTMLDivElement, MainContentProps>(
 	(props, ref) => {
 		const {children, title} = props;
+		const containerRef = React.useRef<HTMLDivElement>(null);
 		const className = classNames('main-content', {
 			padded: props.padded ?? true
 		});
 
+		React.useImperativeHandle(
+			ref,
+			() => containerRef.current as HTMLDivElement
+		);
+
+		React.useEffect(() => {
+			if (containerRef.current) {
+				containerRef.current.focus();
+			}
+		}, []);
+
 		return (
-			<div className={className} ref={ref}>
+			<div className={className} ref={containerRef}>
 				{title && (
 					<>
 						<DocumentTitle title={title} />

@@ -99,12 +99,8 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 
 	const style = React.useMemo(() => {
 		return {
-			height: `max(calc(${passageBounds.height}px + 50vh), ${
-				100 / visibleZoom
-			}vh)`,
-			width: `max(calc(${passageBounds.width}px + 50vw), ${
-				100 / visibleZoom
-			}vw)`,
+			height: `calc(${passageBounds.height}px + 50vh)`,
+			width: `calc(${passageBounds.width}px + 50vw)`,
 			transform: `scale(${visibleZoom})`
 		};
 	}, [passageBounds.height, passageBounds.width, visibleZoom]);
