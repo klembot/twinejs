@@ -32,8 +32,19 @@ export const DialogCard: React.FC<DialogCardProps> = props => {
 		'fixed-size': fixedSize
 	});
 
+	function handleKeyDown(event: React.KeyboardEvent) {
+		if (event.key === 'Escape') {
+			onClose();
+		}
+	}
+
 	return (
-		<div className={calcdClassName}>
+		<div
+			aria-label={headerLabel}
+			role="dialog"
+			className={calcdClassName}
+			onKeyDown={handleKeyDown}
+		>
 			<Card floating>
 				<h2>
 					<div className="dialog-card-header">

@@ -3,7 +3,6 @@ import {HashRouter, Route, Switch} from 'react-router-dom';
 import {usePrefsContext} from '../store/prefs';
 import {StoryFormatListRoute} from './story-format-list';
 import {StoryEditRoute} from './story-edit';
-import {StoryImportRoute} from './story-import';
 import {StoryListRoute} from './story-list';
 import {StoryPlayRoute} from './story-play';
 import {StoryProofRoute} from './story-proof';
@@ -24,9 +23,6 @@ export const Routes: React.FC = () => {
 				<Switch>
 					<Route exact path="/">
 						<StoryListRoute />
-					</Route>
-					<Route path="/import/stories">
-						<StoryImportRoute />
 					</Route>
 					<Route path="/story-formats">
 						<StoryFormatListRoute />

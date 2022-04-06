@@ -1,0 +1,13 @@
+.story-chooser p {
+	margin-bottom: 0;
+}
+
+.story-chooser ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.story-chooser .replace-warning {
+	display: block;
+}

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {axe} from 'jest-axe';
-import {fireEvent, render, screen} from '@testing-library/react';
+import {createEvent, fireEvent, render, screen} from '@testing-library/react';
 import {IconButton, IconButtonProps} from '../icon-button';
 
 describe('<IconButton>', () => {
@@ -40,6 +40,26 @@ describe('<IconButton>', () => {
 		expect(onClick).not.toHaveBeenCalled();
 		fireEvent.click(screen.getByRole('button'));
 		expect(onClick).toHaveBeenCalledTimes(1);
+	});
+
+	it('prevents the default action from taking place if the preventDefault prop is true', () => {
+		renderComponent({preventDefault: true});
+
+		const button = screen.getByRole('button');
+		const preventedEvent = createEvent.click(button);
+
+		fireEvent(button, preventedEvent);
+		expect(preventedEvent.defaultPrevented).toBe(true);
+	});
+
+	it('adds an aria-pressed attribute if the selectable prop is true, even if the button is not selected', () => {
+		renderComponent({selectable: true});
+		expect(screen.getByRole('button')).toHaveAttribute('aria-pressed', 'false');
+	});
+
+	it('adds an aria-pressed attribute if the selectable prop is true and the button is pressed', () => {
+		renderComponent({selectable: true, selected: true});
+		expect(screen.getByRole('button')).toHaveAttribute('aria-pressed', 'true');
 	});
 
 	it('is accessible', async () => {

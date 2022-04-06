@@ -5,6 +5,7 @@ export const app = {
 	getPath(name: string) {
 		return `mock-electron-app-path-${name}`;
 	},
+	on: jest.fn(),
 	quit: jest.fn(),
 	relaunch: jest.fn()
 };
@@ -19,6 +20,7 @@ export const dialog = {
 };
 
 export const ipcMain = {
+	handle: jest.fn(),
 	on: jest.fn()
 };
 

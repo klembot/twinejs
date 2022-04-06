@@ -9,7 +9,7 @@ import {
 	fakeFailedStoryFormat,
 	fakeLoadedStoryFormat,
 	fakeUnloadedStoryFormat
-} from '../../test-util/fakes';
+} from '../../test-util';
 
 jest.mock('../story-formats/story-formats-context');
 jest.mock('../story-formats/action-creators');

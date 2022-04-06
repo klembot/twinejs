@@ -11,8 +11,8 @@ export const passageDefaults = (): Omit<Passage, 'id' | 'story'> => ({
 	tags: [],
 	text: i18n.t(
 		deviceType === 'touchOnly'
-			? 'store.passageDefaults.textClick'
-			: 'store.passageDefaults.textTouch'
+			? 'store.passageDefaults.textTouch'
+			: 'store.passageDefaults.textClick'
 	),
 	top: 0,
 	width: 100
@@ -24,6 +24,7 @@ export const storyDefaults = (): Omit<Story, 'id'> => ({
 	passages: [],
 	name: i18n.t('store.storyDefaults.name'),
 	script: '',
+	selected: false,
 	snapToGrid: true,
 	startPassage: '',
 	storyFormat: '',

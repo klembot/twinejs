@@ -1,5 +1,5 @@
 import {deleteStory} from '../delete-story';
-import {fakeStory} from '../../../../test-util/fakes';
+import {fakeStory} from '../../../../test-util';
 
 describe('deleteStory action creator', () => {
 	it('returns a deleteStory action', () => {

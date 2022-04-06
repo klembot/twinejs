@@ -1,0 +1,15 @@
+.story-preview-bg {
+	fill-opacity: 0.2;
+}
+
+.story-preview-fg {
+	fill-opacity: 0.8;
+}
+
+[data-app-theme="dark"] .story-preview-bg {
+	fill-opacity: 0.05;
+}
+
+[data-app-theme="dark"] .story-preview-fg {
+	fill-opacity: 0.5;
+}

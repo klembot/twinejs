@@ -1,6 +1,6 @@
 import {replaceInPassage, replaceInStory} from '../find-replace';
 import {Passage, Story} from '../../stories.types';
-import {fakeStory} from '../../../../test-util/fakes';
+import {fakeStory} from '../../../../test-util';
 
 describe('replaceInPassage', () => {
 	let dispatch: jest.Mock;
@@ -97,44 +97,44 @@ describe('replaceInStory', () => {
 	});
 
 	it.each([
-		['a', '*', {}, [{text: '**BbCc'}, {text: '**DdEe'}]],
+		['a', '*', {}, [[{text: '**BbCc'}], [{text: '**DdEe'}]]],
 		['no match', '*', {}, undefined],
 		['.', '*', {}, undefined],
 		['x', '*', {}, undefined],
-		['a', '*', {matchCase: true}, [{text: 'A*BbCc'}, {text: 'A*DdEe'}]],
+		['a', '*', {matchCase: true}, [[{text: 'A*BbCc'}], [{text: 'A*DdEe'}]]],
 		[
 			'a',
 			'*',
 			{includePassageNames: true},
 			[
-				{name: '**YyZz', text: '**BbCc'},
-				{name: '**WwXx', text: '**DdEe'}
+				[{name: '**YyZz'}, {text: '**BbCc'}],
+				[{name: '**WwXx'}, {text: '**DdEe'}]
 			]
 		],
-		['b', '*', {includePassageNames: true}, [{text: 'Aa**Cc'}]],
+		['b', '*', {includePassageNames: true}, [[{text: 'Aa**Cc'}]]],
 		[
 			'a',
 			'*',
 			{includePassageNames: true, matchCase: true},
 			[
-				{name: 'A*YyZz', text: 'A*BbCc'},
-				{name: 'A*WwXx', text: 'A*DdEe'}
+				[{name: 'A*YyZz'}, {text: 'A*BbCc'}],
+				[{name: 'A*WwXx'}, {text: 'A*DdEe'}]
 			]
 		],
-		['\\w', '*', {useRegexes: true}, [{text: '******'}, {text: '******'}]],
+		['\\w', '*', {useRegexes: true}, [[{text: '******'}], [{text: '******'}]]],
 		[
 			'a.',
 			'*',
 			{matchCase: true, useRegexes: true},
-			[{text: 'A*bCc'}, {text: 'A*dEe'}]
+			[[{text: 'A*bCc'}], [{text: 'A*dEe'}]]
 		],
 		[
 			'a.',
 			'*',
 			{includePassageNames: true, matchCase: true, useRegexes: true},
 			[
-				{name: 'A*yZz', text: 'A*bCc'},
-				{name: 'A*wXx', text: 'A*dEe'}
+				[{name: 'A*yZz'}, {text: 'A*bCc'}],
+				[{name: 'A*wXx'}, {text: 'A*dEe'}]
 			]
 		],
 		[
@@ -142,37 +142,82 @@ describe('replaceInStory', () => {
 			'*',
 			{includePassageNames: true, useRegexes: true},
 			[
-				{name: '*YyZz', text: '*BbCc'},
-				{name: '*WwXx', text: '*DdEe'}
+				[{name: '*YyZz'}, {text: '*BbCc'}],
+				[{name: '*WwXx'}, {text: '*DdEe'}]
 			]
 		]
 	])(
 		'when asked to replace "%s" with "%s" (flags %j), dispatches %j',
-		(search, replace, flags, props) => {
+		(search, replace, flags, passageChanges) => {
 			replaceInStory(story, search, replace, flags)(dispatch, () => [story]);
 
-			if (props) {
+			if (passageChanges) {
 				// Tests here are loose because passage text updates trigger other
 				// potential dispatches (e.g. to add newly-linked passages).
 
-				expect(dispatch).toHaveBeenCalledWith({
-					type: 'updatePassage',
-					passageId: story.passages[0].id,
-					props: props[0],
-					storyId: story.id
-				});
-
-				if (props.length > 1) {
+				for (const props of passageChanges[0]) {
 					expect(dispatch).toHaveBeenCalledWith({
+						props,
 						type: 'updatePassage',
-						passageId: story.passages[1].id,
-						props: props[1],
+						passageId: story.passages[0].id,
 						storyId: story.id
 					});
+				}
+
+				if (passageChanges.length > 1) {
+					for (const props of passageChanges[1]) {
+						expect(dispatch).toHaveBeenCalledWith({
+							props,
+							type: 'updatePassage',
+							passageId: story.passages[1].id,
+							storyId: story.id
+						});
+					}
 				}
 			} else {
 				expect(dispatch).not.toHaveBeenCalled();
 			}
 		}
 	);
+
+	it('replaces passage names before passage text', () => {
+		story = fakeStory(2);
+		story.passages[0].name = 'passage 1';
+		story.passages[0].text = '[[test->passage 2]]';
+		story.passages[1].name = 'passage 2';
+		story.passages[1].text = 'test';
+
+		replaceInStory(story, 'passage', 'X', {includePassageNames: true})(
+			dispatch,
+			() => [story]
+		);
+
+		// The order of calls matters here. There are some additional calls after
+		// this related to passage creation that don't matter to this test.
+
+		expect(dispatch.mock.calls[0]).toEqual([
+			{
+				type: 'updatePassage',
+				passageId: story.passages[0].id,
+				props: {name: 'X 1'},
+				storyId: story.id
+			}
+		]);
+		expect(dispatch.mock.calls[1]).toEqual([
+			{
+				type: 'updatePassage',
+				passageId: story.passages[1].id,
+				props: {name: 'X 2'},
+				storyId: story.id
+			}
+		]);
+		expect(dispatch.mock.calls[2]).toEqual([
+			{
+				type: 'updatePassage',
+				passageId: story.passages[0].id,
+				props: {text: '[[test->X 2]]'},
+				storyId: story.id
+			}
+		]);
+	});
 });

@@ -1,11 +1,11 @@
 import {load} from '../load';
-import {fakeStory} from '../../../../../test-util/fakes';
+import {fakeStory} from '../../../../../test-util';
 
 describe('stories local storage load', () => {
 	beforeEach(() => window.localStorage.clear());
 	afterEach(() => window.localStorage.clear());
 
-	it('returns an array of stories', () => {
+	it('resolves to an array of stories', async () => {
 		const state = [fakeStory(), fakeStory()];
 		const passageIds: string[] = [];
 
@@ -30,7 +30,7 @@ describe('stories local storage load', () => {
 		});
 
 		window.localStorage.setItem('twine-passages', passageIds.join(','));
-		expect(load()).toEqual(state);
+		expect(await load()).toEqual(state);
 	});
 
 	it.todo('applies defaults if the persisted data is missing properties');

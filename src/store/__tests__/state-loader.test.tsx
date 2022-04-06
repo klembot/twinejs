@@ -1,10 +1,10 @@
-import {render, screen} from '@testing-library/react';
+import {act, render, screen, waitFor} from '@testing-library/react';
 import {StateLoader} from '../state-loader';
 import {usePrefsContext} from '../prefs';
 import {useStoriesContext} from '../stories';
 import {useStoryFormatsContext, StoryFormat} from '../story-formats';
 import {usePersistence} from '../persistence/use-persistence';
-import {fakeUnloadedStoryFormat} from '../../test-util/fakes';
+import {fakeUnloadedStoryFormat} from '../../test-util';
 
 jest.mock('../prefs/prefs-context');
 jest.mock('../stories/stories-context');
@@ -41,14 +41,22 @@ describe('<StateLoader>', () => {
 			dispatch: storiesDispatchMock
 		});
 		(usePersistence as jest.Mock).mockReturnValue({
-			prefs: {load: () => ({mockPrefsState: true})},
-			stories: {load: () => ({mockStoriesState: true})},
-			storyFormats: {load: () => ({mockStoryFormatsState: true})}
+			prefs: {load: async () => ({mockPrefsState: true})},
+			stories: {load: async () => ({mockStoriesState: true})},
+			storyFormats: {load: async () => ({mockStoryFormatsState: true})}
 		});
 	});
 
-	it('dispatches init and repair actions once mounted', () => {
+	afterEach(async () => {
+		await act(() => Promise.resolve());
+	});
+
+	it('dispatches init and repair actions once mounted', async () => {
 		render(<StateLoader />);
+		await waitFor(() => expect(prefsDispatchMock).toBeCalled());
+
+		// Order of these actions is crucial. The init must come before the repair.
+
 		expect(prefsDispatchMock.mock.calls).toEqual([
 			[{type: 'init', state: {mockPrefsState: true}}],
 			[{type: 'repair'}]
@@ -63,14 +71,15 @@ describe('<StateLoader>', () => {
 		]);
 	});
 
-	// Unclear how to test the loading state--on initial render loading is
-	// complete.
-
-	it('renders children once loaded', () => {
+	it('renders children once loaded', async () => {
 		render(
 			<StateLoader>
 				<div data-testid="children" />
 			</StateLoader>
+		);
+		expect(screen.queryByTestId('children')).not.toBeInTheDocument();
+		await waitFor(() =>
+			expect(screen.getByTestId('children')).toBeInTheDocument()
 		);
 		expect(screen.getByTestId('children')).toBeInTheDocument();
 	});

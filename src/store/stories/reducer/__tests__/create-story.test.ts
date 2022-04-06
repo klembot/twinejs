@@ -1,5 +1,5 @@
 import {createStory} from '../create-story';
-import {fakeStory} from '../../../../test-util/fakes';
+import {fakeStory} from '../../../../test-util';
 
 describe('Story reducer createStory action handler', () => {
 	it('adds a story to state', () => {

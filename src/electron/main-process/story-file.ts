@@ -1,5 +1,13 @@
 import {app, dialog, shell} from 'electron';
-import {move, readdir, readFile, rename, stat, writeFile} from 'fs-extra';
+import {
+	mkdtemp,
+	move,
+	readdir,
+	readFile,
+	rename,
+	stat,
+	writeFile
+} from 'fs-extra';
 import {basename, join} from 'path';
 import {i18n} from './locales';
 import {storyDirectoryPath} from './story-directory';
@@ -37,7 +45,7 @@ export async function loadStories() {
 						mtime: stats.mtime,
 						htmlSource: await readFile(filePath, 'utf8')
 					});
-					fileWasTouched(filePath);
+					return fileWasTouched(filePath);
 				}
 			})
 	);
@@ -54,11 +62,15 @@ export async function saveStoryHtml(story: Story, storyHtml: string) {
 	// so that if any step fails, the original file is left intact.
 
 	const savedFilePath = join(storyDirectoryPath(), storyFileName(story));
-	const tempFilePath = join(app.getPath('temp'), storyFileName(story));
 
 	console.log(`Saving ${savedFilePath}`);
 
 	try {
+		const tempFileDirectory = await mkdtemp(
+			join(app.getPath('temp'), `twine-${story.id}`)
+		);
+		const tempFilePath = join(tempFileDirectory, storyFileName(story));
+
 		if (await wasFileChangedExternally(savedFilePath)) {
 			const {response} = await dialog.showMessageBox({
 				buttons: [
@@ -83,9 +95,10 @@ export async function saveStoryHtml(story: Story, storyHtml: string) {
 		await move(tempFilePath, savedFilePath, {
 			overwrite: true
 		});
-		fileWasTouched(savedFilePath);
+		await fileWasTouched(savedFilePath);
+		console.log(`Successfully saved ${savedFilePath}`);
 	} catch (e) {
-		console.error(`Error while saving story: ${e}`);
+		console.error(`Error while saving ${savedFilePath}: ${e}`);
 		throw e;
 	}
 }
@@ -101,6 +114,7 @@ export async function deleteStory(story: Story) {
 		console.log(`Trashing ${deletedFilePath}`);
 		await shell.trashItem(deletedFilePath);
 		stopTrackingFile(deletedFilePath);
+		console.log(`Successfully trashed ${deletedFilePath}`);
 	} catch (e) {
 		console.warn(`Error while deleting story: ${e}`);
 		throw e;
@@ -120,7 +134,8 @@ export async function renameStory(oldStory: Story, newStory: Story) {
 		console.log(`Renaming ${oldStoryPath} to ${newStoryPath}`);
 		await rename(oldStoryPath, newStoryPath);
 		stopTrackingFile(oldStoryPath);
-		fileWasTouched(newStoryPath);
+		await fileWasTouched(newStoryPath);
+		console.log(`Successfully renamed ${oldStoryPath} to ${newStoryPath}`);
 	} catch (e) {
 		console.warn(`Error while renaming story: ${e}`);
 		throw e;

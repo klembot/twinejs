@@ -1,13 +1,33 @@
 @import '../../styles/metrics.css';
 
+.story-card {
+	user-select: none;
+}
+
 .story-card .card-content {
 	flex-grow: 1;
 }
 
-.story-card svg.story-preview,
-.story-import-card svg.story-preview {
-	height: 230px;
-	margin: var(--grid-size);
+.story-card .story-card-summary {
+	display: grid;
+	grid-gap: var(--grid-size);
+	grid-template-columns: 150px 1fr;
+	height: 150px;
+	margin-bottom: var(--grid-size);
+}
+
+.story-card .story-card-summary svg.story-preview,
+.story-import-card .story-card-summary svg.story-preview {
+	height: 150px;
+	width: 150px;
+}
+
+.story-card .story-card-summary-text {
+	align-self: center;
+}
+
+.story-card .tags {
+	margin-bottom: calc(-1 * var(--grid-size));
 }
 
 .story-card .tags .tag-button {

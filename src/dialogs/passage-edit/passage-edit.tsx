@@ -36,7 +36,7 @@ export interface PassageEditDialogProps
 	storyId: string;
 }
 
-export const PassageEditDialog: React.FC<PassageEditDialogProps> = props => {
+export const InnerPassageEditDialog: React.FC<PassageEditDialogProps> = props => {
 	const {passageId, storyId, ...other} = props;
 	const [cmEditor, setCmEditor] = React.useState<CodeMirror.Editor>();
 	const {dispatch, stories} = useUndoableStoriesContext();
@@ -49,6 +49,13 @@ export const PassageEditDialog: React.FC<PassageEditDialogProps> = props => {
 		story.storyFormatVersion
 	);
 	const {t} = useTranslation();
+
+	const handlePassageTextChange = React.useCallback(
+		(text: string) => {
+			dispatch(updatePassage(story, passage, {text}));
+		},
+		[dispatch, passage, story]
+	);
 
 	// TODO: make tag changes undoable
 
@@ -73,11 +80,19 @@ export const PassageEditDialog: React.FC<PassageEditDialogProps> = props => {
 	}
 
 	function handleRename(name: string) {
-		dispatch(updatePassage(story, passage, {name}));
-	}
+		// Don't create newly linked passages here because the update action will
+		// try to recreate the passage as it's been renamed--it sees new links in
+		// existing passages, updates them, but does not see that the passage name
+		// has been updated since that hasn't happened yet.
 
-	function handlePassageTextChange(text: string) {
-		dispatch(updatePassage(story, passage, {text}));
+		dispatch(
+			updatePassage(
+				story,
+				passage,
+				{name},
+				{dontCreateNewlyLinkedPassages: true}
+			)
+		);
 	}
 
 	function handleSetAsStart() {
@@ -107,21 +122,25 @@ export const PassageEditDialog: React.FC<PassageEditDialogProps> = props => {
 					icon={<IconResize />}
 					items={[
 						{
+							checkable: true,
 							checked: passage.height === 100 && passage.width === 100,
 							label: t('dialogs.passageEdit.sizeSmall'),
 							onClick: () => handleSetSize({height: 100, width: 100})
 						},
 						{
+							checkable: true,
 							checked: passage.height === 200 && passage.width === 200,
 							label: t('dialogs.passageEdit.sizeLarge'),
 							onClick: () => handleSetSize({height: 200, width: 200})
 						},
 						{
+							checkable: true,
 							checked: passage.height === 200 && passage.width === 100,
 							label: t('dialogs.passageEdit.sizeTall'),
 							onClick: () => handleSetSize({height: 200, width: 100})
 						},
 						{
+							checkable: true,
 							checked: passage.height === 100 && passage.width === 200,
 							label: t('dialogs.passageEdit.sizeWide'),
 							onClick: () => handleSetSize({height: 100, width: 200})
@@ -164,4 +183,20 @@ export const PassageEditDialog: React.FC<PassageEditDialogProps> = props => {
 			/>
 		</DialogCard>
 	);
+};
+
+export const PassageEditDialog: React.FC<PassageEditDialogProps> = props => {
+	// Check for the existence of the passage. If it doesn't (e.g. it was deleted
+	// after the dialog was opened), render nothing and call onClose.
+
+	const {stories} = useUndoableStoriesContext();
+
+	try {
+		passageWithId(stories, props.storyId, props.passageId);
+	} catch (err) {
+		props.onClose();
+		return null;
+	}
+
+	return <InnerPassageEditDialog {...props} />;
 };

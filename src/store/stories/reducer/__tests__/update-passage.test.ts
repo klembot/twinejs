@@ -1,4 +1,4 @@
-import {fakePassage, fakeStory} from '../../../../test-util/fakes';
+import {fakePassage, fakeStory} from '../../../../test-util';
 import {Passage, Story} from '../../stories.types';
 import {updatePassage} from '../update-passage';
 
@@ -34,7 +34,7 @@ describe('Story reducer updatePassage action handler', () => {
 		expect(passage.name).toBe(oldPassageName);
 	});
 
-	it("changes the parent story's lastUpdate property", () => {
+	it("changes the parent story's lastUpdate property if the change is persistable", () => {
 		const oldDate = new Date('1/1/1980');
 
 		story.lastUpdate = oldDate;
@@ -44,6 +44,18 @@ describe('Story reducer updatePassage action handler', () => {
 		});
 		expect(result[0].lastUpdate.getTime()).toBeGreaterThan(oldDate.getTime());
 	});
+
+	it("doesn't change the parent story's lastUpdate property if the change isn't persistable", () => {
+		const oldDate = new Date('1/1/1980');
+
+		story.lastUpdate = oldDate;
+
+		const result = updatePassage([story], story.id, passage.id, {
+			selected: true
+		});
+		expect(result[0].lastUpdate).toBe(oldDate);
+	});
+
 
 	it('issues a warning and makes no changes if another passage has the name being updated to', () => {
 		story.passages.push(fakePassage());

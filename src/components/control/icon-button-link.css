@@ -15,9 +15,12 @@
 	height: var(--control-height);
 	padding: var(--grid-size);
 	transition: background 0.3s;
+	user-select: none;
 }
 
+.icon-button .icon img,
 .icon-button .icon svg,
+.icon-link .icon img,
 .icon-link .icon svg {
 	height: 18px;
 	position: relative;
@@ -25,6 +28,8 @@
 	width: 18px;
 }
 
+.icon-button:not(.icon-only) .icon img,
+.icon-link:not(.icon-only) .icon img,
 .icon-button:not(.icon-only) .icon svg,
 .icon-link:not(.icon-only) .icon svg {
 	margin-right: var(--control-inner-padding);
@@ -35,6 +40,8 @@
 	flex-direction: row-reverse;
 }
 
+.icon-button.icon-position-end:not(icon-only) .icon img,
+.icon-link.icon-position-end:not(icon-only) .icon img,
 .icon-button.icon-position-end:not(icon-only) .icon svg,
 .icon-link.icon-position-end:not(icon-only) .icon svg {
 	margin-left: var(--control-inner-padding);
@@ -53,6 +60,12 @@
 .icon-link:disabled {
 	cursor: auto;
 	opacity: 0.5;
+}
+
+.icon-button:focus-visible,
+.icon-link:focus-visible {
+	box-shadow: inset 0 0 0px 2px var(--blue);
+	outline: none;
 }
 
 .icon-button:hover:not(:disabled),
@@ -114,4 +127,9 @@
 .icon-link.variant-danger:active:not(:disabled) {
 	background: var(--red);
 	color: var(--dark-red);
+}
+
+.icon-button.selected, .icon-link.selected {
+	background: var(--faint-blue);
+	color: var(--dark-blue);
 }

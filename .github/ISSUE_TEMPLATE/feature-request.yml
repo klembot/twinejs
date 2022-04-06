@@ -5,7 +5,6 @@ body:
   - type: markdown
     attributes:
       value: |
-        🛑 **Feature requests are not yet being accepted for Twine 2.4.**
         - Usually, new issues are reviewed around once a month. It may take longer.
         - If work begins on your suggestion, it will be added to a project in this repository. You can track the status of its implementation there.
   - type: textarea

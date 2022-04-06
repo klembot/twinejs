@@ -17,9 +17,21 @@ export interface AddTagButtonProps {
 	 */
 	assignedTags: string[];
 	/**
+	 * Is the button disabled?
+	 */
+	disabled?: boolean;
+	/**
 	 * Other tags that have been assigned to this type of object.
 	 */
 	existingTags: string[];
+	/**
+	 * Icon for the button.
+	 */
+	icon?: React.ReactNode;
+	/**
+	 * Label for the button.
+	 */
+	label?: string;
 	/**
 	 * Called when the user chooses to add a tag. If they are adding a
 	 * pre-existing tag, it will only send a name.
@@ -28,7 +40,7 @@ export interface AddTagButtonProps {
 }
 
 export const AddTagButton: React.FC<AddTagButtonProps> = props => {
-	const {assignedTags, existingTags, onAdd} = props;
+	const {assignedTags, disabled, existingTags, icon, label, onAdd} = props;
 	const [creatingTag, setCreatingTag] = React.useState(true);
 	const [newColor, setNewColor] = React.useState<Color>('none');
 	const [newName, setNewName] = React.useState('');
@@ -70,8 +82,10 @@ export const AddTagButton: React.FC<AddTagButtonProps> = props => {
 	return (
 		<span className="add-tag-button">
 			<CardButton
-				icon={<IconPlus />}
-				label={t('common.tag')}
+				ariaLabel={t('components.addTagButton.addLabel')}
+				disabled={disabled}
+				icon={icon ?? <IconPlus />}
+				label={label ?? t('common.tag')}
 				onChangeOpen={setOpen}
 				open={open}
 			>

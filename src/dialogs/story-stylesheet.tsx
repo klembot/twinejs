@@ -6,6 +6,7 @@ import {DialogCard, DialogEditor} from '../components/container/dialog-card';
 import {CodeArea} from '../components/control/code-area';
 import {usePrefsContext} from '../store/prefs';
 import {storyWithId, updateStory, useStoriesContext} from '../store/stories';
+import {codeMirrorOptionsFromPrefs} from '../util/codemirror-options';
 import {DialogComponentProps} from './dialogs.types';
 import './story-stylesheet.css';
 
@@ -33,7 +34,7 @@ export const StoryStylesheetDialog: React.FC<StoryStylesheetDialogProps> = props
 	return (
 		<DialogCard
 			{...other}
-			className="story-javascript-dialog"
+			className="story-stylesheet-dialog"
 			headerLabel={t('dialogs.storyStylesheet.title')}
 		>
 			<p>{t('dialogs.storyStylesheet.explanation')}</p>
@@ -46,8 +47,14 @@ export const StoryStylesheetDialog: React.FC<StoryStylesheetDialogProps> = props
 					editorDidMount={setCmEditor}
 					fontFamily={prefs.codeEditorFontFamily}
 					fontScale={prefs.codeEditorFontScale}
+					label={t('dialogs.storyStylesheet.editorLabel')}
+					labelHidden
 					onBeforeChange={handleChange}
-					options={{autofocus: true, mode: 'css'}}
+					options={{
+						...codeMirrorOptionsFromPrefs(prefs),
+						autofocus: true,
+						mode: 'css'
+					}}
 					value={story.stylesheet}
 				/>
 			</DialogEditor>

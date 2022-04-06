@@ -1,34 +1,31 @@
 @import '../../../styles/colors.css';
 
 .passage-map {
-	transform-origin: top left;
-	height: fit-content;
-	width: 100%;
+	background-color: var(--faint-blue);
+	background-image: url('graph-paper-light.svg');
+	background-size: 100px;
+	
+	/*
+	These minimums are to guarantee that the passage map fills the viewport
+	when zooming in/out (remember that our height and width are _before_
+	the scale transform is applied). 333.33 is 100 / 0.3, the smallest zoom
+	setting. We can't change dimensions while a zoom transition is
+	occurring because it'll throw off our scroll position, which will cause
+	the zoom centering to get confused.
+	
+	Also, the user can move between zoom 1 and zoom 0.3 in one action, so
+	we can't limit the bounds to the immediately proximate zoom levels.
+	*/
 
-	background-color: var(--graph-paper-bg);
-	background-image: linear-gradient(
-			to right,
-			var(--graph-paper-major-line) 1px,
-			transparent 1px
-		),
-		linear-gradient(
-			to bottom,
-			var(--graph-paper-major-line) 1px,
-			transparent 1px
-		),
-		linear-gradient(
-			to right,
-			var(--graph-paper-minor-line) 1px,
-			transparent 1px
-		),
-		linear-gradient(
-			to bottom,
-			var(--graph-paper-minor-line) 1px,
-			transparent 1px
-		);
-	background-size: 100px 100px, 100px 100px, 25px 25px, 25px 25px;
-	transition: transform 0.4s;
+	min-height: calc(333.333vh - 2 * var(--control-height));
+	min-width: 333.333vw;
+
+	transform-origin: top left;
 	will-change: transform;
+}
+
+[data-app-theme="dark"] .passage-map {
+	background-image: url('graph-paper-dark.svg');
 }
 
 .passage-map .passage-card {

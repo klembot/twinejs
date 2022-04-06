@@ -4,10 +4,10 @@ import {IconButton, IconButtonProps} from './icon-button';
 
 export interface CheckboxButtonProps
 	extends Omit<IconButtonProps, 'icon' | 'onClick'> {
-	checkedIcon?: string;
-	icon?: string;
+	checkedIcon?: React.ReactNode;
+	icon?: React.ReactNode;
 	onChange: (value: boolean) => void;
-	uncheckedIcon?: string;
+	uncheckedIcon?: React.ReactNode;
 	value: boolean;
 }
 
@@ -25,7 +25,12 @@ export const CheckboxButton: React.FC<CheckboxButtonProps> = props => {
 		: uncheckedIcon ?? <IconSquare />;
 
 	return (
-		<span className="checkbox-button" role="checkbox" aria-checked={value}>
+		<span
+			aria-disabled={otherProps.disabled}
+			className="checkbox-button"
+			role="checkbox"
+			aria-checked={value}
+		>
 			<IconButton
 				icon={icon ?? calculatedIcon}
 				onClick={() => onChange(!value)}

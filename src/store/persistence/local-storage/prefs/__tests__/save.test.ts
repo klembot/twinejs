@@ -1,5 +1,5 @@
 import {save} from '../save';
-import {fakePrefs} from '../../../../../test-util/fakes';
+import {fakePrefs} from '../../../../../test-util';
 
 describe('prefs local storage save', () => {
 	beforeEach(() => window.localStorage.clear());

@@ -1,4 +1,4 @@
-import {fakePassage, fakeStory} from '../../../../test-util/fakes';
+import {fakePassage, fakeStory} from '../../../../test-util';
 import {createPassages} from '../create-passages';
 
 describe('Story reducer createPassages action handler', () => {

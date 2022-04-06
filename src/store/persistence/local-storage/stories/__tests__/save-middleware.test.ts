@@ -7,7 +7,7 @@ import {
 	saveStory
 } from '../save';
 import {StoriesState} from '../../../../stories/stories.types';
-import {fakeStory} from '../../../../../test-util/fakes';
+import {fakeStory} from '../../../../../test-util';
 
 jest.mock('../save');
 
@@ -284,6 +284,17 @@ describe('stories local storage save middleware', () => {
 			expect(saveStoryMock.mock.calls).toEqual([[transaction, state[0]]]);
 		});
 
+		it('does nothing if the change is trivial', () => {
+			saveMiddleware(state, {
+				type: 'updatePassage',
+				props: {selected: true},
+				passageId: state[0].passages[0].id,
+				storyId: state[0].id
+			});
+			expect(doUpdateTransactionMock).not.toHaveBeenCalled();
+			expect(savePassageMock).not.toHaveBeenCalled();
+		});
+
 		it("throws an error if the story belonging to the passage doesn't exist in state", () =>
 			expect(() =>
 				saveMiddleware(state, {
@@ -326,6 +337,20 @@ describe('stories local storage save middleware', () => {
 				[transaction, state[0].passages[1]]
 			]);
 			expect(saveStoryMock.mock.calls).toEqual([[transaction, state[0]]]);
+		});
+
+		it('does nothing if the change is trivial', () => {
+			saveMiddleware(state, {
+				type: 'updatePassages',
+				passageUpdates: {
+					[state[0].passages[0].id]: {selected: true}
+				},
+				storyId: state[0].id
+			});
+
+			// This will start a transaction, but that transaction should do nothing.
+
+			expect(savePassageMock).not.toHaveBeenCalled();
 		});
 
 		it("throws an error if the story belonging to the passages doesn't exist in state", () =>

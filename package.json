@@ -1,6 +1,6 @@
 {
 	"name": "Twine",
-	"version": "2.4.0-beta1",
+	"version": "2.4.0-beta3",
 	"description": "a GUI for creating nonlinear stories",
 	"author": "Chris Klimas <chris@twinery.org>",
 	"license": "GPL-3.0",
@@ -9,14 +9,20 @@
 		"type": "git",
 		"url": "https://github.com/klembot/twinejs"
 	},
+	"engines": {
+		"node": ">=14",
+		"npm": ">=8"
+	},
 	"dependencies": {
 		"@popperjs/core": "^2.9.1",
-		"@tabler/icons": "^1.40.2",
+		"@tabler/icons": "^1.48.0",
 		"classnames": "^2.2.6",
-		"codemirror": "^5.59.4",
+		"codemirror": "^5.65.1",
 		"detect-it": "^4.0.1",
+		"eases": "^1.0.8",
 		"element-closest": "^3.0.2",
 		"file-saver": "^2.0.5",
+		"focus-trap-react": "^8.9.2",
 		"focus-visible": "^5.2.0",
 		"fs-extra": "^10.0.0",
 		"i18next": "^19.9.2",
@@ -35,6 +41,7 @@
 		"react-popper": "^2.2.4",
 		"react-router-dom": "^5.2.0",
 		"react-scrollbar-size": "^3.2.0",
+		"react-tabs": "^3.2.3",
 		"react-transition-group": "^4.4.1",
 		"scroll": "^3.0.1",
 		"segseg": "^1.0.0",
@@ -43,18 +50,13 @@
 		"ua-parser-js": "^0.7.28"
 	},
 	"devDependencies": {
-		"@storybook/addon-actions": "^6.2.7",
-		"@storybook/addon-essentials": "^6.2.7",
-		"@storybook/addon-links": "^6.2.7",
-		"@storybook/node-logger": "^6.2.7",
-		"@storybook/preset-create-react-app": "^3.1.7",
-		"@storybook/react": "^6.2.7",
 		"@testing-library/jest-dom": "^5.11.4",
 		"@testing-library/react": "^11.1.0",
 		"@testing-library/react-hooks": "^5.1.1",
 		"@testing-library/user-event": "^12.1.10",
 		"@types/classnames": "^2.2.11",
 		"@types/codemirror": "0.0.108",
+		"@types/eases": "^1.0.2",
 		"@types/electron-devtools-installer": "^2.2.0",
 		"@types/element-closest": "^3.0.0",
 		"@types/faker": "^5.1.7",
@@ -68,6 +70,7 @@
 		"@types/react-dom": "^16.9.0",
 		"@types/react-helmet": "^6.1.1",
 		"@types/react-router-dom": "^5.1.7",
+		"@types/react-tabs": "^2.3.3",
 		"@types/react-transition-group": "^4.4.1",
 		"@types/scroll": "^3.0.0",
 		"@types/semver": "^7.3.4",
@@ -75,9 +78,10 @@
 		"cpy": "^8.1.2",
 		"cpy-cli": "^3.1.1",
 		"cross-var": "^1.1.0",
-		"electron": "^12.0.0",
-		"electron-builder": "^22.10.5",
+		"electron": "^17.1.0",
+		"electron-builder": "^23.0.2",
 		"faker": "^5.4.0",
+		"history": "^5.1.0",
 		"jest-axe": "^4.1.0",
 		"jest-useragent-mock": "^0.1.1",
 		"npm-run-all": "^4.1.5",
@@ -101,9 +105,7 @@
 		"start:electron": "NODE_ENV=development npm-run-all --serial clean --parallel build:web build:electron-main --serial start:electron:boot",
 		"start:electron:boot": "electron electron-build/main/src/electron/main-process/index.js",
 		"test": "react-scripts test",
-		"test:coverage": "react-scripts test --coverage",
-		"storybook": "start-storybook -p 6006 -s public",
-		"build-storybook": "build-storybook -s public"
+		"test:coverage": "react-scripts test --coverage"
 	},
 	"eslintConfig": {
 		"extends": [

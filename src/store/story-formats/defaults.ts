@@ -1,8 +1,8 @@
 export const builtins = () => [
 	{
 		name: 'Chapbook',
-		url: 'story-formats/chapbook-1.2.1/format.js',
-		version: '1.2.1'
+		url: 'story-formats/chapbook-1.2.2/format.js',
+		version: '1.2.2'
 	},
 	{
 		name: 'Harlowe',
@@ -16,8 +16,8 @@ export const builtins = () => [
 	},
 	{
 		name: 'Harlowe',
-		url: 'story-formats/harlowe-3.2.1/format.js',
-		version: '3.2.1'
+		url: 'story-formats/harlowe-3.2.3/format.js',
+		version: '3.2.3'
 	},
 	{
 		name: 'Paperthin',
@@ -42,7 +42,7 @@ export const builtins = () => [
 	},
 	{
 		name: 'SugarCube',
-		url: 'story-formats/sugarcube-2.34.1/format.js',
-		version: '2.34.1'
+		url: 'story-formats/sugarcube-2.36.1/format.js',
+		version: '2.36.1'
 	}
 ];

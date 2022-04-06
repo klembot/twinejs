@@ -17,7 +17,7 @@ export type PromptButtonValidator = (
 ) => PromptValidationResponse | Promise<PromptValidationResponse>;
 
 export interface PromptButtonProps
-	extends Omit<CardButtonProps, 'onChangeOpen' | 'open'> {
+	extends Omit<CardButtonProps, 'ariaLabel' | 'onChangeOpen' | 'open'> {
 	cancelIcon?: React.ReactNode;
 	cancelLabel?: string;
 	onChange: React.ChangeEventHandler<HTMLInputElement>;
@@ -45,10 +45,8 @@ export const PromptButton: React.FC<PromptButtonProps> = props => {
 		...other
 	} = props;
 	const [open, setOpen] = React.useState(false);
-	const [
-		validation,
-		setValidation
-	] = React.useState<PromptValidationResponse>();
+	const [validation, setValidation] =
+		React.useState<PromptValidationResponse>();
 	const {t} = useTranslation();
 
 	React.useEffect(() => {
@@ -63,34 +61,54 @@ export const PromptButton: React.FC<PromptButtonProps> = props => {
 		updateValidation();
 	}, [validate, value]);
 
-	function handleSubmit() {
-		onSubmit(value);
+	function handleCancel(event: React.MouseEvent) {
+		event.preventDefault();
 		setOpen(false);
+	}
+
+	function handleSubmit(event: React.FormEvent) {
+		event.preventDefault();
+
+		// It's possible to submit with the Enter key and bypass us disabling the
+		// submit button, so we need to catch that here.
+
+		if (validation?.valid) {
+			onSubmit(value);
+			setOpen(false);
+		}
 	}
 
 	return (
 		<span className="prompt-button">
-			<CardButton onChangeOpen={setOpen} open={open} {...other}>
-				<CardContent>
-					<TextInput onChange={onChange} orientation="vertical" value={value}>
-						{prompt}
-					</TextInput>
-					{validation?.message && <p>{validation.message}</p>}
-				</CardContent>
-				<ButtonBar>
-					<IconButton
-						disabled={!validation?.valid}
-						icon={submitIcon ?? <IconCheck />}
-						label={submitLabel ?? t('common.ok')}
-						onClick={handleSubmit}
-						variant={submitVariant ?? 'primary'}
-					/>
-					<IconButton
-						icon={cancelIcon ?? <IconX />}
-						label={cancelLabel ?? t('common.cancel')}
-						onClick={() => setOpen(false)}
-					/>
-				</ButtonBar>
+			<CardButton
+				ariaLabel={prompt}
+				onChangeOpen={setOpen}
+				open={open}
+				{...other}
+			>
+				<form onSubmit={handleSubmit}>
+					<CardContent>
+						<TextInput onChange={onChange} orientation="vertical" value={value}>
+							{prompt}
+						</TextInput>
+						{validation?.message && <p>{validation.message}</p>}
+					</CardContent>
+					<ButtonBar>
+						<IconButton
+							buttonType="submit"
+							disabled={!validation?.valid}
+							icon={submitIcon ?? <IconCheck />}
+							label={submitLabel ?? t('common.ok')}
+							variant={submitVariant ?? 'primary'}
+						/>
+						<IconButton
+							buttonType="button"
+							icon={cancelIcon ?? <IconX />}
+							label={cancelLabel ?? t('common.cancel')}
+							onClick={handleCancel}
+						/>
+					</ButtonBar>
+				</form>
 			</CardButton>
 		</span>
 	);

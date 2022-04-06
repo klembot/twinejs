@@ -1,5 +1,9 @@
 @import '../../../styles/metrics.css';
 
+.story-format-card {
+	user-select: none;
+}
+
 .story-format-card .card-content {
 	display: grid;
 	flex-grow: 1;
@@ -11,4 +15,15 @@
 .story-format-card .story-format-image svg {
 	height: auto;
 	width: 100%;
+}
+
+.story-format-card .story-format-badges {
+	grid-column-start: 1;
+	grid-column-end: 3;
+	margin-bottom: calc(-1 * var(--grid-size));
+}
+
+.story-format-card .story-format-badges .badge {
+	margin-right: var(--grid-size);
+	margin-bottom: var(--grid-size);
 }

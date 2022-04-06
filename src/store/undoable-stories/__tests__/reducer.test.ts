@@ -1,6 +1,6 @@
 import {CreatePassageAction} from '../../stories';
 import {reducer} from '../reducer';
-import {fakeStory, fakeUndoableStoryChange} from '../../../test-util/fakes';
+import {fakeStory, fakeUndoableStoryChange} from '../../../test-util';
 
 jest.mock('../reverse-action');
 

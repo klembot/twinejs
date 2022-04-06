@@ -5,6 +5,7 @@ interface BaseStoryFormat {
 	id: string;
 	loadState: 'unloaded' | 'loading' | 'loaded' | 'error';
 	name: string;
+	selected: boolean;
 	url: string;
 	userAdded: boolean;
 	version: string;
@@ -27,6 +28,7 @@ export type StoryFormatToolbarButton = {
 	command: string;
 	disabled?: boolean;
 	icon: string;
+	iconOnly?: boolean;
 	label: string;
 };
 
@@ -40,12 +42,14 @@ export type StoryFormatToolbarItem =
 			type: 'menu';
 			disabled: boolean;
 			icon: string;
+			iconOnly?: boolean;
 			items: StoryFormatToolbarMenuItem[];
 			label: string;
 	  };
 
 export interface StoryFormatToolbarFactoryEnvironment {
 	appTheme: 'dark' | 'light';
+	foregroundColor: string;
 	locale: string;
 }
 

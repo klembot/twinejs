@@ -1,44 +1,40 @@
 import * as React from 'react';
-import {Helmet} from 'react-helmet';
 import {useParams} from 'react-router-dom';
-import {
-	useDialogsContext,
-	DialogsContextProvider,
-	PassageEditDialog
-} from '../../dialogs';
-import {Point, Rect} from '../../util/geometry';
 import {MainContent} from '../../components/container/main-content';
 import {MarqueeSelection} from '../../components/marquee-selection';
+import {PassageMap} from '../../components/passage/passage-map/passage-map';
+import {
+	DialogsContextProvider,
+	PassageEditDialog,
+	useDialogsContext
+} from '../../dialogs';
 import {
 	createUntitledPassage,
-	deletePassages,
 	deselectPassage,
-	Passage,
 	movePassages,
+	Passage,
 	selectPassage,
 	selectPassagesInRect,
 	storyWithId
 } from '../../store/stories';
-import {PassageMap} from '../../components/passage/passage-map/passage-map';
-import {PassageToolbar} from '../../components/passage/passage-toolbar';
-import {StoryEditTopBar} from './top-bar';
-import {useStoryLaunch} from '../../store/use-story-launch';
 import {
 	UndoableStoriesContextProvider,
 	useUndoableStoriesContext
 } from '../../store/undoable-stories';
+import {Point, Rect} from '../../util/geometry';
+import {StoryEditToolbar} from './toolbar';
 import './story-edit-route.css';
+import {ZoomButtons} from './zoom-buttons';
+import {DocumentTitle} from '../../components/document-title/document-title';
+import {useZoomTransition} from './use-zoom-transition';
 
 export const InnerStoryEditRoute: React.FC = () => {
 	const [inited, setInited] = React.useState(false);
 	const {dispatch: dialogsDispatch} = useDialogsContext();
 	const mainContent = React.useRef<HTMLDivElement>(null);
 	const {storyId} = useParams<{storyId: string}>();
-	const {testStory} = useStoryLaunch();
-	const {
-		dispatch: undoableStoriesDispatch,
-		stories
-	} = useUndoableStoriesContext();
+	const {dispatch: undoableStoriesDispatch, stories} =
+		useUndoableStoriesContext();
 	const story = storyWithId(stories, storyId);
 
 	const selectedPassages = React.useMemo(
@@ -86,8 +82,8 @@ export const InnerStoryEditRoute: React.FC = () => {
 							current.selected ? [...result, current.id] : result,
 						[]
 					),
-					change.left,
-					change.top
+					change.left / story.zoom,
+					change.top / story.zoom
 				),
 				selectedPassages.length > 1
 					? 'undoChange.movePassages'
@@ -106,39 +102,6 @@ export const InnerStoryEditRoute: React.FC = () => {
 			}),
 		[dialogsDispatch, story.id]
 	);
-
-	const handleDeleteSelectedPassages = React.useCallback(() => {
-		undoableStoriesDispatch(
-			deletePassages(story, selectedPassages),
-			selectedPassages.length > 1
-				? 'undoChange.deletePassages'
-				: 'undoChange.deletePassage'
-		);
-	}, [undoableStoriesDispatch, story, selectedPassages]);
-
-	const handleEditSelectedPassage = React.useCallback(
-		() =>
-			dialogsDispatch(dispatch =>
-				selectedPassages.forEach(passage =>
-					dispatch({
-						type: 'addDialog',
-						component: PassageEditDialog,
-						props: {passageId: passage.id, storyId: story.id}
-					})
-				)
-			),
-		[dialogsDispatch, selectedPassages, story.id]
-	);
-
-	const handleTestSelectedPassage = React.useCallback(() => {
-		if (selectedPassages.length !== 1) {
-			throw new Error(
-				`Asked to test from selected passage, but {selectedPassages.length} are selected`
-			);
-		}
-
-		testStory(story.id, selectedPassages[0].id);
-	}, [selectedPassages, story.id, testStory]);
 
 	const handleSelectPassage = React.useCallback(
 		(passage: Passage, exclusive: boolean) =>
@@ -190,24 +153,17 @@ export const InnerStoryEditRoute: React.FC = () => {
 		}
 	}, [getCenter, inited, story, undoableStoriesDispatch]);
 
+	const visibleZoom = useZoomTransition(story.zoom, mainContent.current);
+
 	return (
 		<div className="story-edit-route">
-			<Helmet>
-				<title>{story.name}</title>
-			</Helmet>
-			<StoryEditTopBar getCenter={getCenter} story={story} />
+			<DocumentTitle title={story.name} />
+			<StoryEditToolbar getCenter={getCenter} story={story} />
 			<MainContent padded={false} ref={mainContent}>
 				<MarqueeSelection
 					container={mainContent}
 					ignoreEventsOnSelector=".passage-card, .passage-toolbar"
 					onSelectRect={handleSelectRect}
-				/>
-				<PassageToolbar
-					onDelete={handleDeleteSelectedPassages}
-					onEdit={handleEditSelectedPassage}
-					onTest={handleTestSelectedPassage}
-					targets={selectedPassages}
-					zoom={story.zoom}
 				/>
 				<PassageMap
 					formatName={story.storyFormat}
@@ -219,12 +175,14 @@ export const InnerStoryEditRoute: React.FC = () => {
 					passages={story.passages}
 					startPassageId={story.startPassage}
 					tagColors={story.tagColors}
+					visibleZoom={visibleZoom}
 					zoom={story.zoom}
 				/>
+				<ZoomButtons story={story} />
 			</MainContent>
 		</div>
 	);
-};
+};;
 
 // This is a separate component so that the inner one can use
 // `useEditorsContext()` and `useUndoableStoriesContext()` inside it.

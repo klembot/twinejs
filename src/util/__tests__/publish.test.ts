@@ -2,7 +2,7 @@ import escape from 'lodash/escape';
 import * as publish from '../publish';
 import {AppInfo} from '../app-info';
 import {Passage, Story} from '../../store/stories';
-import {fakeAppInfo, fakePassage, fakeStory} from '../../test-util/fakes';
+import {fakeAppInfo, fakePassage, fakeStory} from '../../test-util';
 
 function toDOM(htmlSource: string, dive = true): Element {
 	const container = document.createElement('div');

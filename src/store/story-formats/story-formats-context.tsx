@@ -16,6 +16,7 @@ const defaultBuiltins: StoryFormat[] = builtins().map(f => ({
 	...f,
 	id: uuid(),
 	loadState: 'unloaded',
+	selected: false,
 	userAdded: false
 }));
 

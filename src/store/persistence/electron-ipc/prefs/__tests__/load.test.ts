@@ -1,37 +1,54 @@
 import {load} from '../load';
 import {TwineElectronWindow} from '../../../../../electron/shared';
-import {fakePrefs} from '../../../../../test-util/fakes';
+import {fakePrefs} from '../../../../../test-util';
 
 describe('prefs Electron IPC load', () => {
 	const electronWindow = window as TwineElectronWindow;
 
+	function mockIpcInvoke(data: any) {
+		Object.assign(electronWindow, {
+			twineElectron: {
+				ipcRenderer: {
+					async invoke(eventName: string) {
+						if (eventName === 'load-prefs') {
+							return data;
+						}
+
+						throw new Error(
+							`Got unexpected invoke() call for event "${eventName}"`
+						);
+					}
+				}
+			}
+		});
+	}
+
 	afterEach(() => delete electronWindow.twineElectron);
 
-	it('returns data stored in window.twineElectron.hydrate.prefs', () => {
+	it('resolves to data from invoking a load-prefs IPC event', async () => {
 		const prefs = fakePrefs();
 
-		electronWindow.twineElectron = {hydrate: {prefs}} as any;
-		expect(load()).toEqual(prefs);
+		mockIpcInvoke(prefs);
+		expect(await load()).toEqual(prefs);
 	});
 
-	it('does not return any extraneous data in window.twineElectron.hydrate.prefs', () => {
+	it('does not return any extraneous data returned from the load-prefs IPC event', async () => {
 		const prefs = {...fakePrefs(), bad: true};
 
-		electronWindow.twineElectron = {hydrate: {prefs}} as any;
-		expect(load()).toEqual({...prefs, bad: undefined});
+		mockIpcInvoke(prefs);
+		expect(await load()).toEqual({...prefs, bad: undefined});
 	});
 
-	it("returns an empty object if window.twineEletron.hydrate.prefs doesn't exist", () => {
-		electronWindow.twineElectron = {} as any;
-		expect(load()).toEqual({});
-		(electronWindow.twineElectron as any).hydrate = {} as any;
-		expect(load()).toEqual({});
-		(electronWindow.twineElectron as any).hydrate.prefs = {} as any;
-		expect(load()).toEqual({});
-	});
-
-	it("returns an empty object if window.twineElectron.hydrate.prefs isn't an object", () => {
-		electronWindow.twineElectron = {hydrate: {prefs: 'bad'}} as any;
-		expect(load()).toEqual({});
+	it("resolves to an empty object if the load-prefs IPC event doesn't return an object", async () => {
+		mockIpcInvoke('bad');
+		expect(await load()).toEqual({});
+		mockIpcInvoke(0);
+		expect(await load()).toEqual({});
+		mockIpcInvoke(undefined);
+		expect(await load()).toEqual({});
+		mockIpcInvoke(null);
+		expect(await load()).toEqual({});
+		mockIpcInvoke([]);
+		expect(await load()).toEqual({});
 	});
 });

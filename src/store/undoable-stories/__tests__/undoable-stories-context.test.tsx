@@ -10,7 +10,7 @@ import {
 	StoriesContext,
 	StoriesContextProps
 } from '../../stories';
-import {fakeStory} from '../../../test-util/fakes';
+import {fakeStory} from '../../../test-util';
 
 jest.mock('../reducer');
 jest.mock('../reverse-action');

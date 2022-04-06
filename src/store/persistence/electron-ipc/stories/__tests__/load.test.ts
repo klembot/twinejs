@@ -1,28 +1,45 @@
 import {TwineElectronWindow} from '../../../../../electron/shared';
 import {load} from '../load';
 import {Story} from '../../../../stories/stories.types';
-import {fakeAppInfo, fakeStory} from '../../../../../test-util/fakes';
+import {fakeAppInfo, fakeStory} from '../../../../../test-util';
 import {publishStory} from '../../../../../util/publish';
 
 describe('stories Electron IPC load', () => {
 	const electronWindow = window as TwineElectronWindow;
 	let stories: Story[];
+	let storydata: any[];
+
+	function mockIpcInvoke(data: any) {
+		Object.assign(electronWindow, {
+			twineElectron: {
+				ipcRenderer: {
+					async invoke(eventName: string) {
+						if (eventName === 'load-stories') {
+							return data;
+						}
+
+						throw new Error(
+							`Got unexpected invoke() call for event "${eventName}"`
+						);
+					}
+				}
+			}
+		});
+	}
 
 	beforeEach(() => {
 		stories = [fakeStory(), fakeStory()];
-		electronWindow.twineElectron = {
-			hydrate: {
-				stories: stories.map(story => ({
-					htmlSource: publishStory(story, fakeAppInfo()),
-					mtime: new Date()
-				}))
-			}
-		} as any;
+		storydata = stories.map(story => ({
+			htmlSource: publishStory(story, fakeAppInfo()),
+			mtime: new Date()
+		}));
+
+		mockIpcInvoke(storydata);
 		jest.spyOn(console, 'warn').mockReturnValue();
 	});
 
-	it('loads stories from window.twineElectron.hydrate.stories', () =>
-		expect(load()).toEqual(
+	it('loads stories from invoking a load-stories IPC event', async () =>
+		expect(await load()).toEqual(
 			stories.map(story => ({
 				...story,
 				id: expect.any(String),
@@ -36,28 +53,29 @@ describe('stories Electron IPC load', () => {
 						story: expect.any(String)
 					}
 				],
+				selected: false,
 				// This is not preserved in publishing right now.
 				snapToGrid: expect.any(Boolean),
 				startPassage: expect.any(String)
 			}))
 		));
 
-	it('links stories and passage IDs', () =>
-		load().forEach(result => {
+	it('links stories and passage IDs', async () => {
+		for (const result of await load()) {
 			expect(result.startPassage).toBe(result.passages[0].id);
 			expect(result.passages[0].story).toBe(result.id);
-		}));
+		}
+	});
 
-	it("preserves stories' modification time", () =>
-		load().forEach((result, index) =>
-			expect(result.lastUpdate).toBe(
-				electronWindow.twineElectron!.hydrate.stories[index].mtime
-			)
-		));
+	it("preserves stories' modification time", async () => {
+		(await load()).forEach((result, index) =>
+			expect(result.lastUpdate).toBe(storydata[index].mtime)
+		);
+	});
 
-	it('skips stories that cannot be parsed', () => {
-		electronWindow.twineElectron!.hydrate.stories[0].htmlSource = 'bad';
-		expect(load()).toEqual([
+	it('skips stories that cannot be parsed', async () => {
+		storydata[0].htmlSource = 'bad';
+		expect(await load()).toEqual([
 			{
 				...stories[1],
 				id: expect.any(String),
@@ -71,6 +89,7 @@ describe('stories Electron IPC load', () => {
 						story: expect.any(String)
 					}
 				],
+				selected: false,
 				// This is not preserved in publishing right now.
 				snapToGrid: expect.any(Boolean),
 				startPassage: expect.any(String)
@@ -78,17 +97,16 @@ describe('stories Electron IPC load', () => {
 		]);
 	});
 
-	it("returns an empty array if window.twineElectron.hydrate.stories doesn't exist", () => {
-		electronWindow.twineElectron = {} as any;
-		expect(load()).toEqual([]);
-		(electronWindow.twineElectron as any).hydrate = {} as any;
-		expect(load()).toEqual([]);
-		(electronWindow.twineElectron as any).hydrate.stories = [];
-		expect(load()).toEqual([]);
-	});
-
-	it("returns an empty array if window.twineElectron.hydrate.stories isn't an array", () => {
-		(electronWindow.twineElectron as any).hydrate.stories = 'bad';
-		expect(load()).toEqual([]);
+	it("resolves to an empty array if the load-prefs IPC event doesn't return an array", async () => {
+		mockIpcInvoke('bad');
+		expect(await load()).toEqual([]);
+		mockIpcInvoke(0);
+		expect(await load()).toEqual([]);
+		mockIpcInvoke(undefined);
+		expect(await load()).toEqual([]);
+		mockIpcInvoke(null);
+		expect(await load()).toEqual([]);
+		mockIpcInvoke({});
+		expect(await load()).toEqual([]);
 	});
 });

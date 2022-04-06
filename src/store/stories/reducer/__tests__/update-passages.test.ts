@@ -1,4 +1,4 @@
-import {fakePassage, fakeStory} from '../../../../test-util/fakes';
+import {fakeStory} from '../../../../test-util';
 import {Passage, Story} from '../../stories.types';
 import {updatePassages} from '../update-passages';
 

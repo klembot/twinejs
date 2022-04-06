@@ -19,6 +19,11 @@
 	padding: var(--grid-size);
 }
 
+.text-input > label > input:focus {
+	box-shadow: inset 0 0 0px 2px var(--blue);
+	outline: none;
+}
+
 .text-input.orientation-vertical > label {
 	align-items: flex-start;
 	flex-direction: column;
