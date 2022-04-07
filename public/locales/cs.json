@@ -1,106 +1,395 @@
 {
-	"colors": {},
-	"common": {
-		"add": "Přidat",
-		"appName": "Twine",
-		"cancel": "Storno",
-		"delete": "Smazat",
-		"duplicate": "Duplikovat",
-		"edit": "Upravit",
-		"ok": "OK",
-		"play": "Přehrát",
-		"rename": "Přejmenovat",
-		"remove": "Odstranit",
-		"skip": "Přeskočit",
-		"storyFormat": "Formát příběhu",
-		"tag": "Štítek",
-		"test": "Otestovat",
-		"undo": "Zpět"
-	},
-	"components": {
-		"addStoryFormatButton": {
-			"prompt": "Pro přidání formátu příběhu zadejte jeho internetovou adresu níže."
-		},
-		"addTagButton": {},
-		"fontSelect": {"fonts": {}},
-		"indentButtons": {},
-		"localStorageQuota": {},
-		"renamePassageButton": {"emptyName": "Zadejte jméno."},
-		"renameStoryButton": {"emptyName": "Zadejte jméno."},
-		"safariWarningCard": {},
-		"storyCard": {},
-		"storyFormatCard": {},
-		"storyFormatSelect": {},
-		"tagEditor": {}
-	},
-	"dialogs": {
-		"aboutTwine": {
-			"donateToTwine": "Pomozte Twine existovat z vašich dobrovolných příspěvků",
-			"codeHeader": "Kód"
-		},
-		"appDonation": {"noThanks": "Ne děkuji"},
-		"appPrefs": {"language": "Jazyk"},
-		"passageEdit": {},
-		"passageTags": {},
-		"storyInfo": {"stats": {"title": "Statistika příběhu"}},
-		"storyJavaScript": {},
-		"storySearch": {"title": "Najít a nahradit", "replaceWith": "Nahradit"},
-		"storyStylesheet": {
-			"explanation": "Jakýkoliv CSS skript zadaný zde přepíše výchozí vzhled vašeho příběhu."
-		},
-		"storyTags": {}
-	},
-	"electron": {
-		"errors": {"storyFileChangedExternally": {}},
-		"menuBar": {"edit": "Upravit"},
-		"storiesDirectoryName": "Příběhy"
-	},
-	"routes": {
-		"storyEdit": {
-			"topBar": {
-				"addPassage": "Místnost",
-				"editJavaScript": "Upravit JavaScript příběhu",
-				"editStylesheet": "Upravit styl příběhu",
-				"findAndReplace": "Najít a nahradit",
-				"proofStory": "Zobrazit kopii k revizi",
-				"publishToFile": "Zveřejnit do souboru"
-			}
-		},
-		"storyFormatList": {
-			"title": {},
-			"storyFormatExplanation": "Formát příběhu určuje vzhled a chování příběhů během hraní."
-		},
-		"storyImport": {},
-		"storyList": {
-			"noStories": "V Twine nejsou právě uloženy žádné příběhy. Abyste mohli začít, musíte vytvořit nový příběh nebo nějaký importovat ze souboru.",
-			"titleGeneric": "Příběhy",
-			"topBar": {
-				"about": "O Twine",
-				"archive": "Archiv",
-				"createStory": "Příběh",
-				"help": "Nápověda",
-				"sortName": "Název",
-				"storyFormats": "Formáty"
-			}
-		},
-		"welcome": {
-			"autosaveTitle": "Vaše práce je automaticky ukládána.",
-			"doneTitle": "A to je vše!",
-			"gotoStoryList": "Přejít na seznam příběhů",
-			"greetingTitle": "Vítejte!",
-			"tellMeMore": "Dozvědět se více",
-			"helpTitle": "Jste nováček?"
-		}
-	},
-	"store": {
-		"errors": {},
-		"passageDefaults": {
-			"name": "Nepojmenovaná místnost",
-			"textClick": "Pro úpravu místnosti na ní dvakrát klikněte.",
-			"textTouch": "Klikněte na místnost a poté můžete zahájit úpravy skrz ikonu tužky."
-		},
-		"storyDefaults": {"name": "Nepojmenovaný příběh"},
-		"storyFormatDefaults": {"name": "Nepojmenovaný formát příběhu"}
-	},
-	"undoChange": {"replaceAllText": "Nahradit vše"}
+  "colors": {
+    "blue": "Modrá",
+    "green": "Zelená",
+    "none": "Žádná barva",
+    "orange": "Oranžová",
+    "purple": "Fialová",
+    "red": "Červená",
+    "yellow": "Žlutá"
+  },
+  "undoChange": {
+    "changeTagColor": "Změnit barvu značky",
+    "deletePassage": "Smazat průchod",
+    "deletePassages": "Smazat průchody",
+    "imortTag": "Odstranit značku",
+    "movePassage": "Přesunout průchod",
+    "movePassages": "Přesunout průchody",
+    "newPassage": "Nový průchod",
+    "renamePassage": "Přejmenovat průchod",
+    "renameTag": "Přejmenovat značku",
+    "replaceAllText": "Nahradit vše"
+  },
+  "store": {
+    "archiveFilename": "{{timestamp}} Twine Archive.html",
+    "errors": {
+      "cantPersistPrefs": "Chyba uložení nastavení ({{error}}).",
+      "cantPersistStories": "Chyba při uložebí příběhu ({{error}}).",
+      "cantPersistStoryFormats": "Chyba při ložení formátu příběhů ({{error}}).",
+      "electronRemediation": "Restart aplikace může pomoci.",
+      "webRemediation": "Znovunačtení stránky může pomoci."
+    },
+    "passageDefaults": {
+      "name": "Neojmenvaný průchod",
+      "textClick": "Pro úpravu průchodu proveďte dvojklik.",
+      "textTouch": "Klikněte na průchod a zvolte Upravit ze záložky Průchod pro úpravy"
+    },
+    "storyDefaults": {
+      "name": "Nepojmenovaný příběh"
+    },
+    "storyFormatDefaults": {
+      "name": "Nepojmenovaný formát příběhu"
+    }
+  },
+  "common": {
+    "add": "Přidat",
+    "appName": "Twine",
+    "back": "Zpět",
+    "build": "Sestavit",
+    "cancel": "Storno",
+    "close": "Zavřít",
+    "color": "Barva",
+    "custom": "Uživatelský",
+    "create": "Vytvořit",
+    "delete": "Smazat",
+    "deleteCount": "Smazat ({{count}})",
+    "details": "Podrobnosti",
+    "duplicate": "Duplikovat",
+    "edit": "Upravit",
+    "editCount": "Upravit ({{count}})",
+    "help": "Nápověda",
+    "import": "Importovat",
+    "more": "Více",
+    "new": "Nový",
+    "next": "Další",
+    "ok": "Ok",
+    "passage": "Průchod",
+    "play": "Hrát",
+    "preferences": "Volby",
+    "publishToFile": "Zveřejnit do souboru",
+    "redo": "Opakovat",
+    "redoChange": "Opakovat {{change}}",
+    "remove": "Odstranit",
+    "rename": "Přejmenovat",
+    "renamePrompt": "Jak přejmenovat “{{name}}”?",
+    "selectAll": "Vybrat vše",
+    "skip": "Přeskočit",
+    "story": "Příběh",
+    "storyFormat": "Formát příběhu",
+    "tag": "Značka",
+    "test": "Otestovat",
+    "twine": "Twine",
+    "undo": "Zpět",
+    "undoChange": "Zpět {{change}}",
+    "view": "Zobrazit"
+  },
+  "components": {
+    "addTagButton": {
+      "addLabel": "Přidat značku",
+      "alreadyAdded": "Značka tohoto jména již byl přidán.",
+      "invalidName": "Zadejte prosím platné jméno značky.",
+      "newTag": "Nová značka",
+      "tagColorLabel": "Barva značky",
+      "tagNameLabel": "Název značky"
+    },
+    "fontSelect": {
+      "customFamilyDetail": "Zadejte prosím jen název písma.",
+      "customScaleDetail": "Zadjte prosím jen hodnotu v procentech.",
+      "familyEmpty": "Prosím zadejte název písma.",
+      "font": "Písmo",
+      "fontSize": "Velikost písma",
+      "fonts": {
+        "monospaced": "Monospace",
+        "serif": "Serif",
+        "system": "Systémové"
+      },
+      "percentage": "{{percent}}%",
+      "percentageIsntNumber": "Zadjete prosím číslo.",
+      "percentageNotPositive": "Zadejte číslo větší než 0."
+    },
+    "indentButtons": {
+      "indent": "Odsazení",
+      "unindent": "Odřádkování"
+    },
+    "localStorageQuota": {
+      "measureAgain": "Znovu změřit dostupný prostor",
+      "percentAvailable": "{percent}% dostupného místa"
+    },
+    "renamePassageButton": {
+      "emptyName": "Zadejte jméno",
+      "nameAlreadyUsed": "Jiný průchod v příběhu již toto jméno má."
+    },
+    "renameStoryButton": {
+      "emptyName": "Zadejte jméno",
+      "nameAlreadyUsed": "Jiný příbeh již toto jméno má."
+    },
+    "safariWarningCard": {
+      "addToHomeScreen": "Chcete-li se tomuto omezení vyhnout, přidejte si tento web na domovskou obrazovku.",
+      "archiveAndUseAnotherBrowser": "Archivujte prosím své příběhy a použijte jinou platformu.",
+      "howToAddToHomeScreen": "Jak to přidám na domovskou obrazovku?",
+      "learnMore": "Zjistit více",
+      "message": "Prohlížeč, který používáte, odstraní všechny příběhy po sedmi dnech nenavštívení těchto webových stránek."
+    },
+    "storageQuota": {
+      "freeSpace": "{{percent}}% dostupného místa"
+    },
+    "storyCard": {
+      "lastUpdated": "Naposledy upraveno {{date}}",
+      "passageCount": "1 průchod",
+      "passageCount_plural": "Počet průchodů {{count}}"
+    },
+    "storyFormatCard": {
+      "author": "by {{author}}",
+      "builtIn": "Zabudováno",
+      "defaultFormat": "Použít jako výchozí",
+      "editorExtensionsDisabled": "Rozšíření editoru zakázána",
+      "license": "Licence: {{license}}",
+      "loadError": "Tento formát příběhu nemůže být nahrán ({{errorMessage}}).",
+      "loadingFormat": "Nahrávám formát příběhu...",
+      "name": "{{name}} {{version}}",
+      "proofing": "Ověřování",
+      "proofingFormat": "Použitý pro ověření",
+      "useEditorExtensions": "Použít rozšíření editoru",
+      "useFormat": "Použít jako výchozí formát příběhu",
+      "useProofingFormat": "Použít k ověřování"
+    },
+    "storyFormatSelect": {
+      "loadingCount": "Nahrávám 1 formát příběhu...",
+      "loadingCount_plural": "Nahrávaný počet formátů příběhů : {{loadingCount}}..."
+    },
+    "tagEditor": {
+      "alreadyExists": "Značka tohoto jména již existuje."
+    }
+  },
+  "dialogs": {
+    "aboutTwine": {
+      "codeHeader": "Kód",
+      "codeRepo": "Navštívit repozitář se zdrojovým kódem",
+      "donateToTwine": "Pomoci Twine k růstu příspěvkem",
+      "license": "Tato aplikace je uvolněna pod <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">licencí GPL v3</a>, ale jakékoli dílo vytvořené s její pomocí může být uvolněno za jakýchkoli podmínek, včetně komerčních.",
+      "localizationHeader": "Překlady",
+      "title": "O Twine {{version}}",
+      "twineDescription": "Twine je open-source aplikace pro vyprávění interaktivních nelineárních příběhů."
+    },
+    "appDonation": {
+      "donate": "Přispějte na vývoj Twine",
+      "noThanks": "Ne děkuji",
+      "onlyOnce": "(Tato zpráva se zobrazí pouze jednou. Pokud byste chtěli v budoucnu přispět na vývoj Twine, najdete odkaz v dialogovém okně O Twine.)",
+      "supportMessage": "Pokud máte Twine rádi, zvažte, zda mu nepomůžete růst darem. Twine je projekt s otevřeným zdrojovým kódem, který bude vždy zdarma - a s vaší pomocí bude Twine i nadále vzkvétat.",
+      "title": "Podpořte vývoj Twine"
+    },
+    "appPrefs": {
+      "codeEditorFont": "Písmo editoru kódu",
+      "codeEditorFontScale": "Velikost písma editoru kódu",
+      "editorCursorBlinks": "Blikající kurzor v editorech",
+      "fontExplanation": "Změna písma zde má vliv pouze na editor Twine. Nezmění písmo, které příběh používá při hraní.",
+      "language": "Jazyk",
+      "passageEditorFont": "Písmo editoru průchodu",
+      "passageEditorFontScale": "Velikost písma editoru průchodu",
+      "theme": "Téma",
+      "themeDark": "Tmavé",
+      "themeLight": "Světlé",
+      "themeSystem": "Systémové",
+      "title": "Volby"
+    },
+    "passageEdit": {
+      "passageTextEditorLabel": "Text průchodu",
+      "setAsStart": "Odstartovat příběh zde",
+      "size": "Velikost",
+      "sizeLarge": "Velká",
+      "sizeSmall": "Malá",
+      "sizeTall": "Vysoká",
+      "sizeWide": "Široká"
+    },
+    "passageTags": {
+      "noTags": "K pasážím v tomto příběhu nebyly přidány žádné značky.",
+      "title": "Značky průchodu"
+    },
+    "storyDetails": {
+      "snapToGrid": "Přichytit k mřížce",
+      "stats": {
+        "brokenLinks": "Nefunkční odkazy",
+        "characters": "Znaky",
+        "ifid": "IFID příběhu je {{ifid}}.",
+        "ifidExplanation": "Co je to IFID?",
+        "lastUpdate": "Příběh byl naposledy upraven {{date}}.",
+        "links": "Odkazy",
+        "passages": "Průchody",
+        "title": "Statistika příběhu",
+        "words": "Slova"
+      },
+      "storyFormatExplanation": "Co je to formát příběhu?"
+    },
+    "storyImport": {
+      "deselectAll": "Zrušit výběr všech",
+      "filePrompt": "Chcete-li do Twine importovat příběhy, nahrajte níže archivní nebo publikovaný soubor s příběhem.",
+      "importDifferentFile": "Importovat jiný soubor",
+      "importSelected": "Importovat vybrané soubory",
+      "importThisStory": "Importovat tento příběh",
+      "noStoriesInFile": "Zdá se, že v souboru, který jste nahráli, nejsou žádné příběhy Twine. Vyberte prosím jiný soubor.",
+      "storiesPrompt": "Vyberte, které příběhy chcete importovat:",
+      "title": "Importovat příběhy",
+      "willReplaceExisting": "A story with the same name in your library will be replaced."
+    },
+    "storyJavaScript": {
+      "editorLabel": "JavaScript příběhu",
+      "explanation": "Zde zadaný JavaScript se okamžitě spustí při otevření příběhu v interentovém prohlížeči.",
+      "title": "JavaScript příběhu"
+    },
+    "storySearch": {
+      "find": "Hledat",
+      "includePassageNames": "Včetně názvů průchodů",
+      "matchCase": "Rozlišovat malá/velká písmena",
+      "matchCount": "Nalezených průchodů : {{count}}",
+      "matchCount_plural": "Nalezených průchodů : {{count}}",
+      "noMatches": "Nenalezeny žádné průchody",
+      "replaceAll": "Nahradit ve všech průchodech",
+      "replaceWith": "Nahradit pomocí",
+      "title": "Najít a nahradit",
+      "useRegexes": "Použít regulární výrazy"
+    },
+    "storyStylesheet": {
+      "editorLabel": "Soubor stylů příběhu",
+      "explanation": "Zde zadané CSS přepíše výchozí vzhled vašeho příběhu.",
+      "title": "Soubor stylů příběhu"
+    },
+    "storyTags": {
+      "noTags": "K vašim příběhům nebyly přidány žádné značky.",
+      "title": "Značky příběhu"
+    }
+  },
+  "electron": {
+    "backupsDirectoryName": "Zálohy",
+    "errors": {
+      "jsonSave": "Při ukládání souboru nastavení došlo k chybě.",
+      "storyDelete": "Při mazání příběhu došlo k chybě.",
+      "storyRename": "Při přejmenování příběhu došlo k chybě.",
+      "storySave": "Při ukládání příběhu došlo k chybě.",
+      "storyFileChangedExternally": {
+        "detail": "Uložením změn se tento soubor přepíše. Pokud chcete použít tento soubor místo verze v Twine, Twine se znovu spustí a vaše práce bude nahrazena tímto souborem.",
+        "message": "Soubor \"{{fileName}}\" ve vaší knihovně příběhů byl změněn mimo Twine.",
+        "overwriteChoice": "Uložení změn v aplikaci Twine",
+        "relaunchChoice": "Použít soubor a znovu spustit"
+      }
+    },
+    "storiesDirectoryName": "Příběhy",
+    "menuBar": {
+      "edit": "Upravit",
+      "showDevTools": "Zobrazit ladící konzoli",
+      "showStoryLibrary": "Zobrazit knihovnu příběhu",
+      "speech": "Řeč",
+      "troubleshooting": "Řešení problémů",
+      "twineHelp": "Twine nápověda",
+      "view": "Zobrazit"
+    }
+  },
+  "routeActions": {
+    "app": {
+      "aboutApp": "O Twine",
+      "preferences": "Volby",
+      "reportBug": "Nahlásit chybu",
+      "storyFormats": "Formáty příběhu"
+    },
+    "build": {
+      "play": "Hrát",
+      "proof": "Ověřit",
+      "publishToFile": "Zveřejnit do souboru",
+      "test": "Otestovat"
+    }
+  },
+  "routes": {
+    "storyEdit": {
+      "toolbar": {
+        "findAndReplace": "Najít a nahradit",
+        "javaScript": "JavaScript",
+        "passageTags": "Značky průchodu",
+        "snapToGrid": "Přichycení k mřížce",
+        "startStoryHere": "Začít příběh zde",
+        "stylesheet": "Soubor stylů",
+        "testFromHere": "Otestovat z tohoto místa"
+      },
+      "topBar": {
+        "proofStory": "Zobrazit zkušební vezi",
+        "editJavaScript": "Upravit JavaScript příběhu",
+        "editStylesheet": "Upravit soubor stylu příběhu",
+        "findAndReplace": "Najít a nahradit",
+        "passageTags": "Upravit značky průchodu",
+        "publishToFile": "Zvěřejnit do souboru",
+        "selectAllPassages": "Vybrat všechny průchody"
+      },
+      "zoomButtons": {
+        "passageNames": "Zobrazit pouze názvy průchodů",
+        "passageNamesAndExcerpts": "Zobrazit názvy a úryvky průchodů",
+        "storyStructure": "Zobrazit pouze strukturu příběhu"
+      }
+    },
+    "storyFormatList": {
+      "toolbar": {
+        "addStoryFormatButton": {
+          "addPreview": "{storyFormatName} {storyFormatVersion} bude přidán.",
+          "alreadyAdded": "{storyFormatName} {storyFormatVersion} byl již přidán.",
+          "fetchError": "Formát příběhu na této adrese se nepodařilo načíst ({errorMessage}).",
+          "invalidUrl": "Zadejte prosím platný URL odkaz",
+          "prompt": "Chcete-li přidat formát příběhu, zadejte jeho adresu níže."
+        },
+        "disableFormatExtensions": "Zakázat rošíření editoru",
+        "useAsDefaultFormat": "Použít jako výchozí formát",
+        "enableFormatExtensions": "Povolit rozšíření editoru",
+        "useAsProofingFormat": "Použít pro ověření příběhu"
+      },
+      "noneVisible": "Vámi vybraným kritériím neodpovídají žádné formáty příběhů.",
+      "show": "Zobrazit...",
+      "storyFormatExplanation": "Formáty příběhů řídí vzhled a chování příběhů během hry.",
+      "title": {
+        "all": "Všechny formáty příběhu",
+        "current": "Aktuální formáty příběhů",
+        "user": "Uživatelsky přidané formáty příběhů"
+      }
+    },
+    "storyList": {
+      "library": "Knihovna",
+      "noStories": "V Twine nejsou nyní uloženy žádné příběhy. Chcete-li začít, můžete vytvořit nový příběh nebo importovat stávající ze souboru.",
+      "taggedTitleCount": "Jeden označkovaný příběh",
+      "taggedTitleCount_0": "Žádné označkované příběhy",
+      "titleCount": "1 příběh",
+      "taggedTitleCount_plural": "Počet označkovaných příběhů : {{count}}",
+      "titleCount_0": "Žádné příběhy",
+      "titleCount_plural": "Počet příběhů : {{count}}",
+      "titleGeneric": "Příběhy",
+      "toolbar": {
+        "archive": "Archiv",
+        "createStoryButton": {
+          "emptyName": "Zadejte název.",
+          "nameConflict": "Jiný příběh již tento název má.",
+          "prompt": "Jak by se měl váš příběh jmenovat? Můžete to později změnit."
+        },
+        "showAllStories": "Zobrazit všechny příběhy",
+        "showTags": "Zobrazit značky",
+        "sort": "Řadit",
+        "sortByDate": "Naposledy aktualizováno",
+        "sortByName": "Název",
+        "storyTags": "Značky příběhu",
+        "deleteStoryButton": {
+          "warning": {
+            "electron": "Jste si jisti, že chcete odstranit \"{{storyName}}\"? Bude přesunut do koše.",
+            "web": "Jste si jisti, že chcete odstranit \"{{storyName}}\"? Bude trvale vymazán a nelze jej obnovit."
+          }
+        }
+      }
+    },
+    "welcome": {
+      "autosave": "<p>Ve složce Dokumenty je nyní složka s názvem Twine. Uvnitř je složka Stories, kam se ukládá veškerá vaše práce. Twine ukládá v průběhu práce, takže se nemusíte starat o to, abyste si pamatovali, že máte ukládat sami. Složku, do které jsou vaše příběhy uloženy, můžete kdykoli otevřít pomocí položky <strong>Zobrazit knihovnu</strong> v nabídce <strong>Twine.</strong></p><p>Protože Twine vaši práci vždy ukládá, budou soubory v knihovně příběhů uzamčeny před úpravami, pokud je Twine otevřen.</p><p>Pokud chcete otevřít soubor s příběhem Twine, který jste obdrželi od někoho jiného, můžete jej importovat do své knihovny pomocí položky <strong>Importovat ze souboru</strong> v seznamu příběhů.</p>",
+      "autosaveTitle": "Vaše práce je automaticky ukládána.",
+      "browserStorage": "<p>To znamená, že si nemusíte vytvářet účet, abyste mohli používat Twine 2, a vše, co vytvoříte, není uloženo na jiném serveru - zůstává přímo ve vašem prohlížeči.</p><p>Nezapomeňte však na dvě <strong>velmi důležité</strong> věci. Protože se vaše práce ukládá pouze v prohlížeči, pokud vymažete jeho uložená data, o svou práci přijdete! To není dobré. Nezapomeňte často používat tlačítko <strong>Archiv</strong>. Jednotlivé příběhy můžete také publikovat do souborů pomocí nabídky u každého příběhu v seznamu příběhů. Archiv i soubory příběhů lze vždy znovu importovat do systému Twine.</p><p>Zadruhé, <strong>každý, kdo může používat tento prohlížeč, může vidět a provádět změny ve vaší práci.</strong> Takže pokud máte zvědavého mladšího bratra, podívejte se, zda si nemůžete založit samostatný profil.</p>",
+      "browserStorageTitle": "Vaše práce je uložena pouze v prohlížeči",
+      "done": "<p>Děkujeme za přečtení a užijte si práci s aplikací Twine.</p>",
+      "doneTitle": "To je vše!",
+      "gotoStoryList": "Přejít do seznamu příběhů",
+      "greeting": "<p>Twine je open-source nástroj pro vyprávění interaktivních nelineárních příběhů. Než začnete, měli byste vědět několik věcí.</p>",
+      "greetingTitle": "Vítejte!",
+      "helpTitle": "Jste nováček?",
+      "help": "<p><strong>Pokud jste nikdy nepoužívali Twine, vítejte!</strong> Příručka s názvem <a href=\"https://twinery.org/cookbook\">Twine Cookbook</a>je skvělým zdrojem informací o tom, jak jej používat. Pokud jste Twine ještě nepoužívali, je to skvělý začátek.</p>",
+      "tellMeMore": "Řekněte mi více"
+    }
+  }
 }
