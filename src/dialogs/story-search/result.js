@@ -52,7 +52,7 @@ module.exports = Vue.extend({
 					this.searchRegexp,
 					this.replaceWith
 				)
-				: undefined;
+				: this.match.passage.name;
 			const text = this.match.passage.text.replace(
 				this.searchRegexp,
 				this.replaceWith
