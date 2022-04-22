@@ -3,9 +3,13 @@ import {
 	Controlled as CodeMirror,
 	IControlledCodeMirror
 } from 'react-codemirror2';
+import 'codemirror/addon/dialog/dialog'; // for search
 import 'codemirror/addon/display/placeholder';
 import 'codemirror/addon/hint/show-hint';
 import 'codemirror/addon/hint/show-hint.css';
+import 'codemirror/addon/search/jump-to-line'; // for search
+import 'codemirror/addon/search/search'; // for search
+import 'codemorror/addon/search/searchcursor.js'; // for search
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/mode/css/css';
 import 'codemirror/mode/javascript/javascript';
