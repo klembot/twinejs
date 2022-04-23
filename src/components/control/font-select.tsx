@@ -40,6 +40,9 @@ export const FontSelect: React.FC<FontSelectProps> = props => {
 	function handleFamilyChange(event: React.ChangeEvent<HTMLSelectElement>) {
 		if (event.target.value === 'custom') {
 			setCustomFamilyVisible(true);
+			if (families.includes(customFamily)) {
+				setCustomFamily('');
+			}
 		} else {
 			setCustomFamilyVisible(false);
 			onChangeFamily(event.target.value);
