@@ -73,6 +73,14 @@ export const StoryFormatToolbar: React.FC<StoryFormatToolbarProps> = props => {
 		}
 	}, [editor, tryToSetToolbar]);
 
+	function execCommand(name: string) {
+		// Run the command, then update the toolbar after the current execution
+		// context finishes.
+
+		onExecCommand(name);
+		Promise.resolve().then(tryToSetToolbar);
+	}
+
 	return (
 		<div className="story-format-toolbar" ref={containerRef}>
 			<ButtonBar>
@@ -86,7 +94,7 @@ export const StoryFormatToolbar: React.FC<StoryFormatToolbarProps> = props => {
 									iconOnly={item.iconOnly}
 									key={index}
 									label={item.label}
-									onClick={() => onExecCommand(item.command)}
+									onClick={() => execCommand(item.command)}
 								/>
 							);
 
@@ -106,7 +114,7 @@ export const StoryFormatToolbar: React.FC<StoryFormatToolbarProps> = props => {
 													type: 'button',
 													disabled: subitem.disabled,
 													label: subitem.label,
-													onClick: () => onExecCommand(subitem.command)
+													onClick: () => execCommand(subitem.command)
 												};
 											}
 
