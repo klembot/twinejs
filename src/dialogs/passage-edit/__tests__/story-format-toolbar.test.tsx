@@ -1,4 +1,10 @@
-import {fireEvent, render, screen, within} from '@testing-library/react';
+import {
+	fireEvent,
+	render,
+	screen,
+	waitFor,
+	within
+} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
 import {
@@ -170,6 +176,13 @@ describe('<StoryFormatToolbar>', () => {
 		expect(
 			screen.getByRole('button', {name: 'mock-label'})
 		).toBeInTheDocument();
+	});
+
+	it('updates after running a command', async () => {
+		renderComponent();
+		useFormatToolbarMock.mockClear();
+		fireEvent.click(screen.getByRole('button'));
+		await waitFor(() => expect(useFormatToolbarMock).toBeCalledTimes(1));
 	});
 
 	it('is accessible', async () => {
