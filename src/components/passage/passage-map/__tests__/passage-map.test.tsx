@@ -23,6 +23,7 @@ describe('<PassageMap>', () => {
 				passages={passages}
 				startPassageId={passages[0].id}
 				tagColors={{}}
+				visibleZoom={1}
 				zoom={1}
 				{...props}
 			/>
@@ -89,8 +90,34 @@ describe('<PassageMap>', () => {
 		).toBe(false);
 	});
 
+	it('sets itself as larger than the passage cards it contains', () => {
+		const passages = [
+			fakePassage({top: 10, left: 20, width: 100, height: 200}),
+			fakePassage({top: 30, left: 40, width: 150, height: 250})
+		];
+		renderComponent({passages});
+		const containerStyle = (
+			document.querySelector('.passage-map') as HTMLElement
+		).style;
 
-	it.todo('sets itself as larger than the passage cards it contains');
+		expect(containerStyle.height).toBe('calc(280px + 50vh)');
+		expect(containerStyle.width).toBe('calc(190px + 50vw)');
+	});
+
+	it('does not call onSelect when a drag has just finished', () => {
+		const onSelect = jest.fn();
+		const passages = [fakePassage(), fakePassage()];
+
+		renderComponent({onSelect, passages, startPassageId: passages[0].id});
+		fireEvent.click(
+			within(
+				screen.getByTestId(
+					`mock-passage-card-group-${passages[0].name}-${passages[1].name}`
+				)
+			).getByText('simulate drag')
+		);
+		expect(onSelect).not.toBeCalled();
+	});
 
 	it('is accessible', async () => {
 		const {container} = renderComponent();
