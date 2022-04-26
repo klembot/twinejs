@@ -150,9 +150,28 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 		[]
 	);
 	const handleDragStop = React.useCallback(() => {
-		document.body.classList.remove('dragging-passages');
-		dispatch({type: 'stop', callback: onDrag});
+		// We use a timeout to delay this execution until after the click handler on
+		// <SelectableCard> runs and triggers handleSelect below, so that function
+		// can see that a drag has just finished (and should be ignored as part of
+		// the drag interaction).
+		//
+		// Promise.resolve() doesn't appear to give us the timing we need.
+
+		window.setTimeout(() => {
+			document.body.classList.remove('dragging-passages');
+			dispatch({type: 'stop', callback: onDrag});
+		}, 0);
 	}, [onDrag]);
+	const handleSelect = React.useCallback(
+		(passage: Passage, exclusive: boolean) => {
+			// See comments in handleDragStop above.
+
+			if (!state.dragging) {
+				onSelect(passage, exclusive);
+			}
+		},
+		[onSelect, state.dragging]
+	);
 
 	return (
 		<div
@@ -178,7 +197,7 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 				onDrag={handleDrag}
 				onDragStop={handleDragStop}
 				onEdit={onEdit}
-				onSelect={onSelect}
+				onSelect={handleSelect}
 				passages={passages}
 				tagColors={tagColors}
 			/>
