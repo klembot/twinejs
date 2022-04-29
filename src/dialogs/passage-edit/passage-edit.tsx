@@ -179,6 +179,7 @@ export const InnerPassageEditDialog: React.FC<PassageEditDialogProps> = props =>
 				onChange={handlePassageTextChange}
 				onEditorChange={setCmEditor}
 				passage={passage}
+				story={story}
 				storyFormat={storyFormat}
 			/>
 		</DialogCard>

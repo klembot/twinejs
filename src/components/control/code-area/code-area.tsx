@@ -3,12 +3,22 @@ import {
 	Controlled as CodeMirror,
 	IControlledCodeMirror
 } from 'react-codemirror2';
+import 'codemirror/addon/display/placeholder';
+import 'codemirror/addon/hint/show-hint';
+import 'codemirror/addon/hint/show-hint.css';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/mode/css/css';
 import 'codemirror/mode/javascript/javascript';
 import './code-area.css';
 import './codemirror-theme.css';
 import classnames from 'classnames';
+import {initPrefixTriggerGlobally} from '../../../codemirror/prefix-trigger';
+
+// Not ideal by far to do this init here, outside of a component, but we have to
+// set up CodeMirror before the first render. Otherwise, CodeMirror doesn't pick
+// up on options properly.
+
+initPrefixTriggerGlobally();
 
 export interface CodeAreaProps extends IControlledCodeMirror {
 	fontFamily?: string;

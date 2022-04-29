@@ -4,8 +4,9 @@ import {useTranslation} from 'react-i18next';
 import {DialogEditor} from '../../components/container/dialog-card';
 import {CodeArea} from '../../components/control/code-area';
 import {usePrefsContext} from '../../store/prefs';
-import {Passage} from '../../store/stories';
+import {Passage, Story} from '../../store/stories';
 import {StoryFormat} from '../../store/story-formats';
+import {useCodeMirrorPassageHints} from '../../store/use-codemirror-passage-hints';
 import {useFormatCodeMirrorMode} from '../../store/use-format-codemirror-mode';
 import {codeMirrorOptionsFromPrefs} from '../../util/codemirror-options';
 import {StoryFormatToolbar} from './story-format-toolbar';
@@ -14,15 +15,17 @@ export interface PassageTextProps {
 	onChange: (value: string) => void;
 	onEditorChange: (value: CodeMirror.Editor) => void;
 	passage: Passage;
+	story: Story;
 	storyFormat: StoryFormat;
 }
 
 export const PassageText: React.FC<PassageTextProps> = props => {
-	const {onChange, onEditorChange, passage, storyFormat} = props;
+	const {onChange, onEditorChange, passage, story, storyFormat} = props;
 	const [changePending, setChangePending] = React.useState(false);
 	const [localText, setLocalText] = React.useState(passage.text);
 	const [editor, setEditor] = React.useState<CodeMirror.Editor>();
 	const {prefs} = usePrefsContext();
+	const autocompletePassageNames = useCodeMirrorPassageHints(story);
 	const mode =
 		useFormatCodeMirrorMode(storyFormat.name, storyFormat.version) ?? 'text';
 	const {t} = useTranslation();
@@ -55,49 +58,72 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 		[onChange]
 	);
 
-	function handleMount(editor: CodeMirror.Editor) {
-		setEditor(editor);
-		onEditorChange(editor);
+	const handleMount = React.useCallback(
+		(editor: CodeMirror.Editor) => {
+			setEditor(editor);
+			onEditorChange(editor);
 
-		// The potential combination of loading a mode and the dialog entrance
-		// animation seems to mess up CodeMirror's cursor rendering. The delay below
-		// is intended to run after the animation completes.
+			// The potential combination of loading a mode and the dialog entrance
+			// animation seems to mess up CodeMirror's cursor rendering. The delay below
+			// is intended to run after the animation completes.
 
-		window.setTimeout(() => {
-			editor.focus();
-			editor.refresh();
-		}, 400);
-	}
+			window.setTimeout(() => {
+				editor.focus();
+				editor.refresh();
+			}, 400);
+		},
+		[onEditorChange]
+	);
 
-	function handleChange(
-		editor: CodeMirror.Editor,
-		data: CodeMirror.EditorChange,
-		text: string
-	) {
-		onEditorChange(editor);
-		setChangePending(true);
-		debouncedOnChange(text);
-		setLocalText(text);
-	}
+	const handleChange = React.useCallback(
+		(
+			editor: CodeMirror.Editor,
+			data: CodeMirror.EditorChange,
+			text: string
+		) => {
+			onEditorChange(editor);
+			setChangePending(true);
+			debouncedOnChange(text);
+			setLocalText(text);
+		},
+		[debouncedOnChange, onEditorChange]
+	);
 
-	function handleExecCommand(name: string) {
-		// A format toolbar command probably will affect the editor content. It
-		// appears that react-codemirror2 can't maintain the selection properly in
-		// all cases when this happens (particularly when using
-		// `replaceSelection('something', 'around')`), so we take a snapshot
-		// immediately after the command runs, let react-codemirror2 work, then
-		// reapply the selection ASAP.
+	const handleExecCommand = React.useCallback(
+		(name: string) => {
+			// A format toolbar command probably will affect the editor content. It
+			// appears that react-codemirror2 can't maintain the selection properly in
+			// all cases when this happens (particularly when using
+			// `replaceSelection('something', 'around')`), so we take a snapshot
+			// immediately after the command runs, let react-codemirror2 work, then
+			// reapply the selection ASAP.
 
-		if (!editor) {
-			throw new Error('No editor set');
-		}
+			if (!editor) {
+				throw new Error('No editor set');
+			}
 
-		editor.execCommand(name);
+			editor.execCommand(name);
 
-		const selections = editor.listSelections();
+			const selections = editor.listSelections();
 
-		Promise.resolve().then(() => editor.setSelections(selections));
-	}
+			Promise.resolve().then(() => editor.setSelections(selections));
+		},
+		[editor]
+	);
+
+	const options = React.useMemo(
+		() => ({
+			...codeMirrorOptionsFromPrefs(prefs),
+			mode,
+			lineWrapping: true,
+			placeholder: t('dialogs.passageEdit.passageTextPlaceholder'),
+			prefixTrigger: {
+				callback: autocompletePassageNames,
+				prefixes: ['[[', '->']
+			}
+		}),
+		[autocompletePassageNames, mode, prefs, t]
+	);
 
 	return (
 		<>
@@ -115,11 +141,7 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 					labelHidden
 					onBeforeChange={handleChange}
 					onChange={onEditorChange}
-					options={{
-						...codeMirrorOptionsFromPrefs(prefs),
-						mode,
-						lineWrapping: true
-					}}
+					options={options}
 					value={localText}
 				/>
 			</DialogEditor>
