@@ -161,6 +161,7 @@
 		},
 		"passageEdit": {
 			"passageTextEditorLabel": "Passage Text",
+			"passageTextPlaceholder": "Enter the body text of your passage here. To link to another passage, put two square brackets around its name, [[like this]].",
 			"setAsStart": "Start Story Here",
 			"size": "Size",
 			"sizeLarge": "Large",

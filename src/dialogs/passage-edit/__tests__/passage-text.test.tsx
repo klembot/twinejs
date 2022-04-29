@@ -1,6 +1,7 @@
 import {fireEvent, render, screen, waitFor} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
+import {useStoriesContext} from '../../../store/stories';
 import {useFormatCodeMirrorMode} from '../../../store/use-format-codemirror-mode';
 import {
 	fakeLoadedStoryFormat,
@@ -12,8 +13,24 @@ import {
 import {PassageText, PassageTextProps} from '../passage-text';
 
 jest.mock('../story-format-toolbar');
+jest.mock('../../../store/use-codemirror-passage-hints');
 jest.mock('../../../store/use-format-codemirror-mode');
 jest.mock('../../../components/control/code-area/code-area');
+
+const TestPassageText: React.FC<Partial<PassageTextProps>> = props => {
+	const {stories} = useStoriesContext();
+
+	return (
+		<PassageText
+			onChange={jest.fn()}
+			onEditorChange={jest.fn()}
+			passage={stories[0].passages[0]}
+			storyFormat={fakeLoadedStoryFormat()}
+			story={stories[0]}
+			{...props}
+		/>
+	);
+};
 
 describe('<PassageText>', () => {
 	const useFormatCodeMirrorModeMock = useFormatCodeMirrorMode as jest.Mock;
@@ -34,13 +51,7 @@ describe('<PassageText>', () => {
 	) {
 		return render(
 			<FakeStateProvider {...contexts}>
-				<PassageText
-					onChange={jest.fn()}
-					onEditorChange={jest.fn()}
-					passage={fakePassage()}
-					storyFormat={fakeLoadedStoryFormat()}
-					{...props}
-				/>
+				<TestPassageText {...props} />
 			</FakeStateProvider>
 		);
 	}
@@ -156,6 +167,17 @@ describe('<PassageText>', () => {
 		);
 
 		expect(options.mode).toBe('text');
+	});
+
+	it('sets up autocompletion of passage names in links', () => {
+		useFormatCodeMirrorModeMock.mockReturnValue(undefined);
+		renderComponent();
+
+		const options = JSON.parse(
+			screen.getByTestId('mock-code-area').dataset.options!
+		);
+
+		expect(options.prefixTrigger).not.toBeUndefined();
 	});
 
 	it('uses the passage editor font preferences', () => {
