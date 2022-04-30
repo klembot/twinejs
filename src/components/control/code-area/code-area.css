@@ -41,8 +41,8 @@
 /* See https://codemirror.net/doc/manual.html#styling */
 
 .code-area .CodeMirror-placeholder.CodeMirror-line-like {
-	border-radius: var(--corner-round);
 	color: var(--gray);
+	font-style: italic;
 }
 
 .code-area .CodeMirror-cursor {

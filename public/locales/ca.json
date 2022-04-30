@@ -21,6 +21,10 @@
 		"fontSelect": {"fonts": {}},
 		"indentButtons": {},
 		"localStorageQuota": {},
+		"passageCard": {
+			"placeholderClick": "Feu doble clic sobre aquest passatge per editar-lo.",
+			"placeholderTouch": "Toqueu aquest passatge, i després la icona del llapis per editar-lo."
+		},
 		"renamePassageButton": {"emptyName": "Introduïu un nom."},
 		"renameStoryButton": {"emptyName": "Introduïu un nom."},
 		"safariWarningCard": {},
@@ -106,9 +110,7 @@
 	"store": {
 		"errors": {},
 		"passageDefaults": {
-			"name": "Passatge sense títol",
-			"textClick": "Feu doble clic sobre aquest passatge per editar-lo.",
-			"textTouch": "Toqueu aquest passatge, i després la icona del llapis per editar-lo."
+			"name": "Passatge sense títol"
 		},
 		"storyDefaults": {"name": "Història sense títol"},
 		"storyFormatDefaults": {"name": "Format d'història sense títol"}

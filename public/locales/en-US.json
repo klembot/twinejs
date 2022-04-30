@@ -82,6 +82,10 @@
 			"measureAgain": "Measure space available again",
 			"percentAvailable": "{percent}% space available"
 		},
+		"passageCard": {
+			"placeholderClick": "Double-click this passage to edit it.",
+			"placeholderTouch": "Tap this passage, then choose Edit from the Passage tab to edit it."
+		},
 		"renamePassageButton": {
 			"emptyName": "Please enter a name.",
 			"nameAlreadyUsed": "Another passage in this story has this name."
@@ -370,9 +374,7 @@
 			"webRemediation": "Reloading this page may help."
 		},
 		"passageDefaults": {
-			"name": "Untitled Passage",
-			"textClick": "Double-click this passage to edit it.",
-			"textTouch": "Tap this passage, then choose Edit from the Passage tab to edit it."
+			"name": "Untitled Passage"
 		},
 		"storyDefaults": {
 			"name": "Untitled Story"

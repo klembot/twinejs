@@ -37,7 +37,6 @@ export const StoryJavaScriptDialog: React.FC<StoryJavaScriptDialogProps> = props
 			className="story-javascript-dialog"
 			headerLabel={t('dialogs.storyJavaScript.title')}
 		>
-			<p>{t('dialogs.storyJavaScript.explanation')}</p>
 			<ButtonBar>
 				<UndoRedoButtons editor={cmEditor} watch={story.script} />
 				<IndentButtons editor={cmEditor} />
@@ -53,7 +52,9 @@ export const StoryJavaScriptDialog: React.FC<StoryJavaScriptDialogProps> = props
 					options={{
 						...codeMirrorOptionsFromPrefs(prefs),
 						autofocus: true,
-						mode: 'javascript'
+						lineWrapping: true,
+						mode: 'javascript',
+						placeholder: t('dialogs.storyJavaScript.explanation')
 					}}
 					value={story.script}
 				/>

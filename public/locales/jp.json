@@ -12,6 +12,10 @@
 		"fontSelect": {"fonts": {}},
 		"indentButtons": {},
 		"localStorageQuota": {},
+		"passageCard": {
+			"placeholderClick": "パッセージをダブルクリックして編集します。",
+			"placeholderTouch": "このパッセージをタップし、鉛筆アイコンをタップして編集します。"
+		},
 		"renamePassageButton": {},
 		"renameStoryButton": {},
 		"safariWarningCard": {},
@@ -65,9 +69,7 @@
 	"store": {
 		"errors": {},
 		"passageDefaults": {
-			"name": "パッセージのタイトルなし",
-			"textClick": "パッセージをダブルクリックして編集します。",
-			"textTouch": "このパッセージをタップし、鉛筆アイコンをタップして編集します。"
+			"name": "パッセージのタイトルなし"
 		},
 		"storyDefaults": {"name": "ストーリータイトルなし"},
 		"storyFormatDefaults": {"name": "ストーリー形式のタイトルなし"}

@@ -1,4 +1,3 @@
-import {deviceType} from 'detect-it';
 import {i18n} from '../../util/i18n';
 import {Passage, Story} from './stories.types';
 
@@ -9,11 +8,7 @@ export const passageDefaults = (): Omit<Passage, 'id' | 'story'> => ({
 	name: i18n.t('store.passageDefaults.name'),
 	selected: false,
 	tags: [],
-	text: i18n.t(
-		deviceType === 'touchOnly'
-			? 'store.passageDefaults.textTouch'
-			: 'store.passageDefaults.textClick'
-	),
+	text: '',
 	top: 0,
 	width: 100
 });

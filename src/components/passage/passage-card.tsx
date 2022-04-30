@@ -1,6 +1,8 @@
 import classNames from 'classnames';
+import {deviceType} from 'detect-it';
 import * as React from 'react';
 import {DraggableCore, DraggableCoreProps} from 'react-draggable';
+import {useTranslation} from 'react-i18next';
 import {Passage, TagColors} from '../../store/stories';
 import {CardContent} from '../container/card';
 import {SelectableCard} from '../container/card/selectable-card';
@@ -32,15 +34,27 @@ export const PassageCard: React.FC<PassageCardProps> = React.memo(props => {
 		passage,
 		tagColors
 	} = props;
+	const {t} = useTranslation();
 	const className = React.useMemo(
 		() => classNames('passage-card', {selected: passage.selected}),
 		[passage.selected]
 	);
 	const container = React.useRef<HTMLDivElement>(null);
-	const excerpt = React.useMemo(
-		() => passage.text.substr(0, excerptLength),
-		[passage.text]
-	);
+	const excerpt = React.useMemo(() => {
+		if (passage.text.length > 0) {
+			return passage.text.substring(0, excerptLength);
+		}
+
+		return (
+			<span className="placeholder">
+				{t(
+					deviceType === 'touchOnly'
+						? 'components.passageCard.placeholderTouch'
+						: 'components.passageCard.placeholderClick'
+				)}
+			</span>
+		);
+	}, [passage.text, t]);
 	const style = React.useMemo(
 		() => ({
 			height: passage.height,
