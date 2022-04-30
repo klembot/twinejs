@@ -23,6 +23,10 @@
 		"fontSelect": {"fonts": {}},
 		"indentButtons": {},
 		"localStorageQuota": {},
+		"passageCard": {
+			"placeholderClick": "Clicca due colte questo passaggio per modificarlo",
+			"placeholderTouch": "Tappa questo passaggio, dopodiché l’icona della matita per modificarlo."
+		},
 		"renamePassageButton": {"emptyName": "Inserisci un nome."},
 		"renameStoryButton": {"emptyName": "Inserisci un nome."},
 		"safariWarningCard": {},
@@ -95,9 +99,7 @@
 	"store": {
 		"errors": {},
 		"passageDefaults": {
-			"name": "Passaggio senza titolo",
-			"textClick": "Clicca due colte questo passaggio per modificarlo.",
-			"textTouch": "Tappa questo passaggio, dopodiché l’icona della matita per modificarlo."
+			"name": "Passaggio senza titolo"
 		},
 		"storyDefaults": {"name": "Racconto senza titolo"},
 		"storyFormatDefaults": {"name": "Formato Racconto senza nome"}

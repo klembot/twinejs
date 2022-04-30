@@ -25,6 +25,10 @@
 		"fontSelect": {"fonts": {}},
 		"indentButtons": {},
 		"localStorageQuota": {},
+		"passageCard": {
+			"placeholderClick": "Сделайте двойной щелчок мышью на этом параграфе, чтобы отредактировать его.",
+			"placeholderTouch": "Коснитесь этого параграфа и нажмите иконку с карандашом, чтобы отредактировать его."
+		},
 		"renamePassageButton": {"emptyName": "Пожалуйста, введите имя."},
 		"renameStoryButton": {"emptyName": "Пожалуйста, введите имя."},
 		"safariWarningCard": {},
@@ -97,9 +101,7 @@
 	"store": {
 		"errors": {},
 		"passageDefaults": {
-			"name": "Безымянный параграф",
-			"textClick": "Сделайте двойной щелчок мышью на этом параграфе, чтобы отредактировать его.",
-			"textTouch": "Коснитесь этого параграфа и нажмите иконку с карандашом, чтобы отредактировать его."
+			"name": "Безымянный параграф"
 		},
 		"storyDefaults": {"name": "История без названия"},
 		"storyFormatDefaults": {"name": "Безымянный формат"}

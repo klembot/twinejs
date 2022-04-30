@@ -25,6 +25,10 @@
 		"fontSelect": {"fonts": {}},
 		"indentButtons": {},
 		"localStorageQuota": {},
+		"passageCard": {
+			"placeholderClick": "Kaksoisnapsauta lukua muokataksesi sitä.",
+			"placeholderTouch": "Napsauta tätä kappaletta ja sitten kynäkuvaketta muokataksesi sitä."
+		},
 		"renamePassageButton": {"emptyName": "Anna nimi."},
 		"renameStoryButton": {"emptyName": "Anna nimi."},
 		"safariWarningCard": {},
@@ -100,9 +104,7 @@
 	"store": {
 		"errors": {},
 		"passageDefaults": {
-			"name": "Nimetön kappale",
-			"textClick": "Kaksoisnapsauta lukua muokataksesi sitä.",
-			"textTouch": "Napsauta tätä kappaletta ja sitten kynäkuvaketta muokataksesi sitä."
+			"name": "Nimetön kappale"
 		},
 		"storyDefaults": {"name": "Nimerön tarina"},
 		"storyFormatDefaults": {"name": "Nimetön tarinamuotoilu"}

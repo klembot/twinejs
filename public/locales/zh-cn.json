@@ -1,389 +1,391 @@
 {
-    "colors": {
-        "none": "无颜色",
-        "red": "红色",
-        "orange": "橙色",
-        "yellow": "黄色",
-        "green": "绿色",
-        "blue": "蓝色",
-        "purple": "紫色"
-    },
-    "common": {
-        "back": "返回",
-        "build": "构建",
-        "close": "关闭",
-        "color": "颜色",
-        "custom": "自定义",
-        "details": "细节",
-        "editCount": "编辑（{{count}}）",
-        "deleteCount": "删除（{{count}}）",
-        "help": "帮助",
-        "import": "导入",
-        "more": "更多",
-        "new": "新建",
-        "next": "下一个",
-        "passage": "片段",
-        "preferences": "偏好设置",
-        "publishToFile": "发布到文件",
-        "redo": "恢复",
-        "redoChange": "恢复 {{change}}",
-        "renamePrompt": "您想要将“{{name}}”重命名为什么？",
-        "selectAll": "全选",
-        "story": "故事",
-        "twine": "Twine",
-        "undoChange": "撤销 {{change}}",
-        "view": "查看",
-        "add": "添加",
-        "appName": "Twine",
-        "cancel": "取消",
-        "delete": "删除",
-        "duplicate": "复制",
-        "edit": "编辑",
-        "ok": "好的",
-        "play": "运行",
-        "rename": "重命名",
-        "remove": "移除",
-        "skip": "跳过",
-        "storyFormat": "故事格式",
-        "tag": "标签",
-        "test": "测试",
-        "undo": "撤销"
-    },
-    "components": {
-        "addTagButton": {
-            "alreadyAdded": "已添加过该标签名称。",
-            "addLabel": "添加标签",
-            "invalidName": "请输入可用的标签名称。",
-            "newTag": "新建标签",
-            "tagColorLabel": "标签颜色",
-            "tagNameLabel": "标签名称"
-        },
-        "fontSelect": {
-            "customFamilyDetail": "请只输入字体名称。",
-            "customScaleDetail": "请只输入百分比数值。",
-            "familyEmpty": "请输入字体名称。",
-            "font": "字体",
-            "fonts": {
-                "monospaced": "固定宽度",
-                "serif": "衬线",
-                "system": "系统"
-            },
-            "fontSize": "字体大小",
-            "percentage": "{{percent}}%",
-            "percentageIsntNumber": "请输入数字。",
-            "percentageNotPositive": "请输入大于 0 的数字。"
-        },
-        "renamePassageButton": {
-            "nameAlreadyUsed": "此名称已被故事中的另一个片段使用。",
-            "emptyName": "请输入一个名字。"
-        },
-        "storyCard": {
-            "passageCount": "{{count}}个片段",
-            "lastUpdated": "最后一次编辑位于 {{date}}",
-            "passageCount_plural": "{{count}} 个片段"
-        },
-        "indentButtons": {
-            "indent": "缩进",
-            "unindent": "无缩进"
-        },
-        "renameStoryButton": {
-            "emptyName": "请输入一个名字。",
-            "nameAlreadyUsed": "此名称已被另一个故事使用。"
-        },
-        "safariWarningCard": {
-            "message": "如果您连续七天没有打开该网站，您正使用的浏览器就将删除所有故事。",
-            "archiveAndUseAnotherBrowser": "请保存故事并改用其他平台。",
-            "howToAddToHomeScreen": "我该如何把它添加到我的主界面？",
-            "addToHomeScreen": "你可以通过把该网站添加到主界面来避免限制。",
-            "learnMore": "了解更多"
-        },
-        "storyFormatSelect": {
-            "loadingCount_plural": "载入 {{loadingCount}} 个故事格式中……",
-            "loadingCount": "载入 1 个故事格式中……"
-        },
-        "storyFormatCard": {
-            "author": "来自 {{author}}",
-            "defaultFormat": "设为默认",
-            "license": "许可证：{{license}}",
-            "loadingFormat": "载入故事格式中……",
-            "loadError": "故事格式加载失败（{{errorMessage}}）。",
-            "name": "{{name}} {{version}}",
-            "useFormat": "设为默认故事格式",
-            "proofing": "校对",
-            "proofingFormat": "用于校对",
-            "useProofingFormat": "设为校对格式",
-            "editorExtensionsDisabled": "编辑器扩展被禁用",
-            "useEditorExtensions": "使用编辑器扩展",
-            "builtIn": "内置"
-        },
-        "tagEditor": {
-            "alreadyExists": "已存在同名标签。"
-        },
-        "localStorageQuota": {
-            "measureAgain": "再次检测可用空间",
-            "percentAvailable": "{percent}% 空间可用"
-        },
-        "storageQuota": {
-            "freeSpace": "{{percent}}% 空间可用"
-        }
-    },
-    "dialogs": {
-        "aboutTwine": {
-            "donateToTwine": "通过捐赠帮助 Twine 开发",
-            "license": "本应用程序是在 <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GPL v3 license</a> 许可证下发布的，以其创建的任何作品都可能以任何条款发布，包括商业应用程序。",
-            "codeHeader": "代码",
-            "codeRepo": "访问源代码库",
-            "localizationHeader": "本地化",
-            "title": "关于 Twine {{version}}",
-            "twineDescription": "Twine 是一个用于创作互动的非线性故事的开源工具。"
-        },
-        "appDonation": {
-            "noThanks": "不，谢谢",
-            "supportMessage": "如果你热爱 Twine，请考虑通过捐赠帮助它成长。Twine 是一个永远免费使用的开源项目，在你的帮助下，Twine 将继续蓬勃发展。",
-            "donate": "捐赠给 Twine 开发",
-            "onlyOnce": "（此消息只会显示给您一次。如果您希望将来捐赠给 Twine 开发，您可以在在“关于 Twine”对话框中可以找到相关链接。）",
-            "title": "支持 Twine 开发"
-        },
-        "appPrefs": {
-            "language": "语言",
-            "codeEditorFont": "代码编辑器字体",
-            "codeEditorFontScale": "代码编辑器字体大小",
-            "editorCursorBlinks": "代码编辑器中的光标闪烁",
-            "fontExplanation": "此处的字体改变只影响 Twine 编辑器，游玩故事的字体不会发生改变。",
-            "passageEditorFont": "片段编辑器字体",
-            "passageEditorFontScale": "片段编辑器字体大小",
-            "themeLight": "亮",
-            "themeDark": "暗",
-            "themeSystem": "跟随系统",
-            "theme": "主题",
-            "title": "偏好设置"
-        },
-        "passageEdit": {
-            "setAsStart": "从这里开始故事",
-            "sizeLarge": "大型",
-            "sizeSmall": "小型",
-            "sizeTall": "竖条",
-            "sizeWide": "横条",
-            "passageTextEditorLabel": "片段文本",
-            "size": "形状"
-        },
-        "storyJavaScript": {
-            "explanation": "当您的故事在Web浏览器中打开时，此处输入的任何JavaScript都将立即运行。",
-            "editorLabel": "故事 Javascript 脚本",
-            "title": "故事 Javascript 脚本"
-        },
-        "storySearch": {
-            "title": "查找替换",
-            "replaceWith": "替换为",
-            "includePassageNames": "包含名称",
-            "matchCase": "匹配大小写",
-            "matchCount": "{{count}} 个匹配片段",
-            "matchCount_plural": "{{count}} 个匹配片段",
-            "noMatches": "没有匹配片段",
-            "replaceAll": "替换所有片段中的项",
-            "useRegexes": "使用正则表达式",
-            "find": "查找"
-        },
-        "storyStylesheet": {
-            "explanation": "这里输入的任何CSS都会覆盖故事的默认外观。",
-            "editorLabel": "故事样式表",
-            "title": "故事样式表"
-        },
-        "passageTags": {
-            "noTags": "尚未向故事中的片段添加任何标签。",
-            "title": "片段标签"
-        },
-        "storyImport": {
-            "deselectAll": "全不选",
-            "storiesPrompt": "选择要导入的故事：",
-            "filePrompt": "要向 Twine 导入故事，请先在下方上传一个档案或已发布的故事文件。",
-            "importSelected": "导入选中文件",
-            "importDifferentFile": "导入其他文件",
-            "importThisStory": "导入该故事",
-            "noStoriesInFile": "您上传的文件中似乎没有 Twine 故事。请选择其他文件。",
-            "title": "导入故事",
-            "willReplaceExisting": "将会替换故事库中的同名故事。"
-        },
-        "storyDetails": {
-            "storyFormatExplanation": "故事格式是什么？",
-            "snapToGrid": "对齐到网格",
-            "stats": {
-                "title": "故事统计",
-                "brokenLinks": "断开连接",
-                "characters": "字符",
-                "ifid": "该故事的 IFID 是 {{ifid}}。",
-                "ifidExplanation": "什么是 IFID？",
-                "lastUpdate": "故事的最后一次变更是在 {{date}}。",
-                "links": "链接",
-                "passages": "片段",
-                "words": "字"
-            }
-        },
-        "storyTags": {
-            "noTags": "尚未向您的故事中添加任何标签。",
-            "title": "故事标签"
-        }
-    },
-    "undoChange": {
-        "replaceAllText": "替换所有",
-        "changeTagColor": "更改标签颜色",
-        "newPassage": "新建片段",
-        "deletePassage": "删除片段",
-        "deletePassages": "删除片段",
-        "movePassage": "移动片段",
-        "movePassages": "移动片段",
-        "imortTag": "移除标签",
-        "renamePassage": "重命名片段",
-        "renameTag": "重命名标签"
-    },
-    "electron": {
-        "menuBar": {
-            "edit": "编辑",
-            "twineHelp": "Twine 帮助",
-            "view": "查看",
-            "showDevTools": "打开 Debug 控制台",
-            "showStoryLibrary": "打开故事库",
-            "troubleshooting": "问题分析",
-            "speech": "台词"
-        },
-        "storiesDirectoryName": "故事",
-        "errors": {
-            "storyFileChangedExternally": {
-                "detail": "保存更改将会覆盖该文件。如果您想使用该文件而不是 Twine 内的版本， Twine 将会重启，您的作品中的内容会改为使用该文件。",
-                "message": "故事中的文件“{{fileName}}”在 Twine 外被修改。",
-                "overwriteChoice": "保存 Twine 的更改",
-                "relaunchChoice": "使用该文件并重启"
-            },
-            "jsonSave": "保存设定文件时发生错误。",
-            "storyDelete": "删除故事时发生错误。",
-            "storyRename": "重命名故事时发生错误。",
-            "storySave": "保存故事时发生错误。"
-        },
-        "backupsDirectoryName": "备份"
-    },
-    "routes": {
-        "storyEdit": {
-            "topBar": {
-                "editJavaScript": "编辑故事 Javascript 脚本",
-                "editStylesheet": "编辑故事样式表",
-                "findAndReplace": "查找替换",
-                "proofStory": "查看校对版本",
-                "publishToFile": "发布到文件",
-                "selectAllPassages": "选择所有片段",
-                "passageTags": "编辑片段标签"
-            },
-            "toolbar": {
-                "javaScript": "JavaScript",
-                "stylesheet": "样式表",
-                "snapToGrid": "对齐到网格",
-                "passageTags": "片段标签",
-                "findAndReplace": "查找替换",
-                "startStoryHere": "从这里开始故事",
-                "testFromHere": "从这里开始测试"
-            },
-            "zoomButtons": {
-                "storyStructure": "仅显示故事结构",
-                "passageNames": "仅显示片段名称",
-                "passageNamesAndExcerpts": "显示片段名称与摘要"
-            }
-        },
-        "storyFormatList": {
-            "storyFormatExplanation": "故事格式用于控制游戏过程中的故事外观和行为。",
-            "toolbar": {
-                "useAsProofingFormat": "用于校对故事",
-                "useAsDefaultFormat": "设为默认格式",
-                "addStoryFormatButton": {
-                    "addPreview": "将添加 {storyFormatName} {storyFormatVersion}。",
-                    "alreadyAdded": "已添加 {storyFormatName} {storyFormatVersion}。",
-                    "fetchError": "无法读取该位置的故事格式（{errorMessage}）。",
-                    "invalidUrl": "请输入有效的 URL。",
-                    "prompt": "要添加故事格式，请在下方输入地址。"
-                },
-                "disableFormatExtensions": "禁用编辑器扩展",
-                "enableFormatExtensions": "启用编辑器扩展"
-            },
-            "show": "显示……",
-            "noneVisible": "没有符合您筛选标准的故事格式。",
-            "title": {
-                "all": "全部故事格式",
-                "current": "当前故事格式",
-                "user": "用户添加的故事格式"
-            }
-        },
-        "storyList": {
-            "noStories": "在 Twine 中没有保存的故事。您可以创建一个新故事或从文件导入现有的故事。",
-            "titleGeneric": "故事",
-            "toolbar": {
-                "archive": "档案",
-                "sort": "排序方式",
-                "sortByDate": "日期",
-                "sortByName": "名称",
-                "deleteStoryButton": {
-                    "warning": {
-                        "electron": "您确定要删除“{{storyName}}”吗？它将会被移入回收站。",
-                        "web": "您确定要删除“{{storyName}}”吗？它将会被永久删除。该动作无法撤销。"
-                    }
-                },
-                "showAllStories": "显示所有故事",
-                "showTags": "显示标签",
-                "storyTags": "故事标签"
-            },
-            "titleCount_plural": "{{count}} 个故事",
-            "library": "库",
-            "taggedTitleCount_0": "不存在有标签的故事",
-            "taggedTitleCount": "1 个有标签的故事",
-            "taggedTitleCount_plural": "{{count}} 个有标签的故事",
-            "titleCount": "1 个故事",
-            "titleCount_0": "无故事"
-        },
-        "welcome": {
-            "autosaveTitle": "您的作品将自动保存。",
-            "doneTitle": "就是这样！",
-            "gotoStoryList": "返回故事列表",
-            "greetingTitle": "(｡･∀･)ﾉﾞ嗨！",
-            "tellMeMore": "告诉我更多",
-            "helpTitle": "新来的？",
-            "help": "<p><strong>如果你是第一次使用 Twine，那么欢迎你来使用 Twine！</strong>这个 <a href=\"https://twinery.org/cookbook\">Twine 指南书</a>可以很好地教你如何使用 Twine。你之前从未用过 Twine 的话，这是个不错的开始。</p>",
-            "autosave": "<p>您的 Documents 文件夹中现在有一个名为 Twine 的文件夹。 里面是一个故事文件夹，所有的作品都将被保存。 Twine 自动为你保存作品，所以你不必担心自己忘记保存。 您可以随时使用 <strong>Twine</strong> 上菜单的<strong>打开故事库</strong>项，来打开您的故事库文件夹。</p><p>由于 Twine 始终保存您的作品，因此在 Twine 打开时，故事库中的文件将被锁定而无法编辑。</p><p>如果您想打开从别人那里获得的故事，可以使用故事列表中的<strong>从文件导入</strong>链接来向故事库中导入文件。</p>",
-            "browserStorage": "<p>这意味着你不需要创建一个账号来使用 Twine 2，并且你创建的所有内容都不会被存储在其他地方的服务器上，它只保存在你的浏览器中。</p><p>不过，要记住两件<strong>非常重要</strong>的事情。 由于您的作品仅保存在您的浏览器中，因此如果您清除了保存的数据，那么您将失去作品！ 不好。 请记住经常使用<strong>存档</strong>按钮。 您还可以使用故事列表中每个故事的菜单将单个故事发布到文件。 档案和故事文件都可以重新导入到 Twine 中。</p><p>其次，<strong>任何可以使用此浏览器的人都可以查看并更改您的作品</strong>。所以，如果你家里有一位熊孩子角色，最好为自己做一个文件备份。</p>",
-            "greeting": "<p>Twine 是一个开源的工具，用于展示互动的非线性故事。 在开始之前，你应该了解一些事情。</p>",
-            "browserStorageTitle": "您的作品仅保存在浏览器中",
-            "done": "<p>感谢您的阅读，希望使用 Twine 愉快！</p>"
-        }
-    },
-    "store": {
-        "passageDefaults": {
-            "name": "未命名片段",
-            "textClick": "双击该段落进行编辑。",
-            "textTouch": "点击这个片段，然后点击铅笔图标进行编辑。"
-        },
-        "storyDefaults": {
-            "name": "未命名故事"
-        },
-        "storyFormatDefaults": {
-            "name": "未命名故事的格式"
-        },
-        "errors": {
-            "cantPersistPrefs": "保存偏好设置失败（{{error}}）。",
-            "cantPersistStories": "保存故事失败（{{error}}）。",
-            "cantPersistStoryFormats": "保存故事格式失败（{{error}}）。",
-            "electronRemediation": "重启应用可能会解决问题。",
-            "webRemediation": "重新载入该页面可能会解决问题。"
-        },
-        "archiveFilename": "{{timestamp}} Twine 档案.html"
-    },
-    "routeActions": {
-        "app": {
-            "aboutApp": "关于 Twine",
-            "preferences": "偏好",
-            "reportBug": "反馈 Bug",
-            "storyFormats": "故事格式"
-        },
-        "build": {
-            "proof": "校对",
-            "test": "测试",
-            "play": "运行",
-            "publishToFile": "发布到文件"
-        }
-    }
+	"colors": {
+		"none": "无颜色",
+		"red": "红色",
+		"orange": "橙色",
+		"yellow": "黄色",
+		"green": "绿色",
+		"blue": "蓝色",
+		"purple": "紫色"
+	},
+	"common": {
+		"back": "返回",
+		"build": "构建",
+		"close": "关闭",
+		"color": "颜色",
+		"custom": "自定义",
+		"details": "细节",
+		"editCount": "编辑（{{count}}）",
+		"deleteCount": "删除（{{count}}）",
+		"help": "帮助",
+		"import": "导入",
+		"more": "更多",
+		"new": "新建",
+		"next": "下一个",
+		"passage": "片段",
+		"preferences": "偏好设置",
+		"publishToFile": "发布到文件",
+		"redo": "恢复",
+		"redoChange": "恢复 {{change}}",
+		"renamePrompt": "您想要将“{{name}}”重命名为什么？",
+		"selectAll": "全选",
+		"story": "故事",
+		"twine": "Twine",
+		"undoChange": "撤销 {{change}}",
+		"view": "查看",
+		"add": "添加",
+		"appName": "Twine",
+		"cancel": "取消",
+		"delete": "删除",
+		"duplicate": "复制",
+		"edit": "编辑",
+		"ok": "好的",
+		"play": "运行",
+		"rename": "重命名",
+		"remove": "移除",
+		"skip": "跳过",
+		"storyFormat": "故事格式",
+		"tag": "标签",
+		"test": "测试",
+		"undo": "撤销"
+	},
+	"components": {
+		"addTagButton": {
+			"alreadyAdded": "已添加过该标签名称。",
+			"addLabel": "添加标签",
+			"invalidName": "请输入可用的标签名称。",
+			"newTag": "新建标签",
+			"tagColorLabel": "标签颜色",
+			"tagNameLabel": "标签名称"
+		},
+		"fontSelect": {
+			"customFamilyDetail": "请只输入字体名称。",
+			"customScaleDetail": "请只输入百分比数值。",
+			"familyEmpty": "请输入字体名称。",
+			"font": "字体",
+			"fonts": {
+				"monospaced": "固定宽度",
+				"serif": "衬线",
+				"system": "系统"
+			},
+			"fontSize": "字体大小",
+			"percentage": "{{percent}}%",
+			"percentageIsntNumber": "请输入数字。",
+			"percentageNotPositive": "请输入大于 0 的数字。"
+		},
+		"passageCard": {
+			"placeholderClick": "双击该段落进行编辑。",
+			"placeholderTouch": "点击这个片段，然后点击铅笔图标进行编辑。"
+		},
+		"renamePassageButton": {
+			"nameAlreadyUsed": "此名称已被故事中的另一个片段使用。",
+			"emptyName": "请输入一个名字。"
+		},
+		"storyCard": {
+			"passageCount": "{{count}}个片段",
+			"lastUpdated": "最后一次编辑位于 {{date}}",
+			"passageCount_plural": "{{count}} 个片段"
+		},
+		"indentButtons": {
+			"indent": "缩进",
+			"unindent": "无缩进"
+		},
+		"renameStoryButton": {
+			"emptyName": "请输入一个名字。",
+			"nameAlreadyUsed": "此名称已被另一个故事使用。"
+		},
+		"safariWarningCard": {
+			"message": "如果您连续七天没有打开该网站，您正使用的浏览器就将删除所有故事。",
+			"archiveAndUseAnotherBrowser": "请保存故事并改用其他平台。",
+			"howToAddToHomeScreen": "我该如何把它添加到我的主界面？",
+			"addToHomeScreen": "你可以通过把该网站添加到主界面来避免限制。",
+			"learnMore": "了解更多"
+		},
+		"storyFormatSelect": {
+			"loadingCount_plural": "载入 {{loadingCount}} 个故事格式中……",
+			"loadingCount": "载入 1 个故事格式中……"
+		},
+		"storyFormatCard": {
+			"author": "来自 {{author}}",
+			"defaultFormat": "设为默认",
+			"license": "许可证：{{license}}",
+			"loadingFormat": "载入故事格式中……",
+			"loadError": "故事格式加载失败（{{errorMessage}}）。",
+			"name": "{{name}} {{version}}",
+			"useFormat": "设为默认故事格式",
+			"proofing": "校对",
+			"proofingFormat": "用于校对",
+			"useProofingFormat": "设为校对格式",
+			"editorExtensionsDisabled": "编辑器扩展被禁用",
+			"useEditorExtensions": "使用编辑器扩展",
+			"builtIn": "内置"
+		},
+		"tagEditor": {
+			"alreadyExists": "已存在同名标签。"
+		},
+		"localStorageQuota": {
+			"measureAgain": "再次检测可用空间",
+			"percentAvailable": "{percent}% 空间可用"
+		},
+		"storageQuota": {
+			"freeSpace": "{{percent}}% 空间可用"
+		}
+	},
+	"dialogs": {
+		"aboutTwine": {
+			"donateToTwine": "通过捐赠帮助 Twine 开发",
+			"license": "本应用程序是在 <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GPL v3 license</a> 许可证下发布的，以其创建的任何作品都可能以任何条款发布，包括商业应用程序。",
+			"codeHeader": "代码",
+			"codeRepo": "访问源代码库",
+			"localizationHeader": "本地化",
+			"title": "关于 Twine {{version}}",
+			"twineDescription": "Twine 是一个用于创作互动的非线性故事的开源工具。"
+		},
+		"appDonation": {
+			"noThanks": "不，谢谢",
+			"supportMessage": "如果你热爱 Twine，请考虑通过捐赠帮助它成长。Twine 是一个永远免费使用的开源项目，在你的帮助下，Twine 将继续蓬勃发展。",
+			"donate": "捐赠给 Twine 开发",
+			"onlyOnce": "（此消息只会显示给您一次。如果您希望将来捐赠给 Twine 开发，您可以在在“关于 Twine”对话框中可以找到相关链接。）",
+			"title": "支持 Twine 开发"
+		},
+		"appPrefs": {
+			"language": "语言",
+			"codeEditorFont": "代码编辑器字体",
+			"codeEditorFontScale": "代码编辑器字体大小",
+			"editorCursorBlinks": "代码编辑器中的光标闪烁",
+			"fontExplanation": "此处的字体改变只影响 Twine 编辑器，游玩故事的字体不会发生改变。",
+			"passageEditorFont": "片段编辑器字体",
+			"passageEditorFontScale": "片段编辑器字体大小",
+			"themeLight": "亮",
+			"themeDark": "暗",
+			"themeSystem": "跟随系统",
+			"theme": "主题",
+			"title": "偏好设置"
+		},
+		"passageEdit": {
+			"setAsStart": "从这里开始故事",
+			"sizeLarge": "大型",
+			"sizeSmall": "小型",
+			"sizeTall": "竖条",
+			"sizeWide": "横条",
+			"passageTextEditorLabel": "片段文本",
+			"size": "形状"
+		},
+		"storyJavaScript": {
+			"explanation": "当您的故事在Web浏览器中打开时，此处输入的任何JavaScript都将立即运行。",
+			"editorLabel": "故事 Javascript 脚本",
+			"title": "故事 Javascript 脚本"
+		},
+		"storySearch": {
+			"title": "查找替换",
+			"replaceWith": "替换为",
+			"includePassageNames": "包含名称",
+			"matchCase": "匹配大小写",
+			"matchCount": "{{count}} 个匹配片段",
+			"matchCount_plural": "{{count}} 个匹配片段",
+			"noMatches": "没有匹配片段",
+			"replaceAll": "替换所有片段中的项",
+			"useRegexes": "使用正则表达式",
+			"find": "查找"
+		},
+		"storyStylesheet": {
+			"explanation": "这里输入的任何CSS都会覆盖故事的默认外观。",
+			"editorLabel": "故事样式表",
+			"title": "故事样式表"
+		},
+		"passageTags": {
+			"noTags": "尚未向故事中的片段添加任何标签。",
+			"title": "片段标签"
+		},
+		"storyImport": {
+			"deselectAll": "全不选",
+			"storiesPrompt": "选择要导入的故事：",
+			"filePrompt": "要向 Twine 导入故事，请先在下方上传一个档案或已发布的故事文件。",
+			"importSelected": "导入选中文件",
+			"importDifferentFile": "导入其他文件",
+			"importThisStory": "导入该故事",
+			"noStoriesInFile": "您上传的文件中似乎没有 Twine 故事。请选择其他文件。",
+			"title": "导入故事",
+			"willReplaceExisting": "将会替换故事库中的同名故事。"
+		},
+		"storyDetails": {
+			"storyFormatExplanation": "故事格式是什么？",
+			"snapToGrid": "对齐到网格",
+			"stats": {
+				"title": "故事统计",
+				"brokenLinks": "断开连接",
+				"characters": "字符",
+				"ifid": "该故事的 IFID 是 {{ifid}}。",
+				"ifidExplanation": "什么是 IFID？",
+				"lastUpdate": "故事的最后一次变更是在 {{date}}。",
+				"links": "链接",
+				"passages": "片段",
+				"words": "字"
+			}
+		},
+		"storyTags": {
+			"noTags": "尚未向您的故事中添加任何标签。",
+			"title": "故事标签"
+		}
+	},
+	"undoChange": {
+		"replaceAllText": "替换所有",
+		"changeTagColor": "更改标签颜色",
+		"newPassage": "新建片段",
+		"deletePassage": "删除片段",
+		"deletePassages": "删除片段",
+		"movePassage": "移动片段",
+		"movePassages": "移动片段",
+		"imortTag": "移除标签",
+		"renamePassage": "重命名片段",
+		"renameTag": "重命名标签"
+	},
+	"electron": {
+		"menuBar": {
+			"edit": "编辑",
+			"twineHelp": "Twine 帮助",
+			"view": "查看",
+			"showDevTools": "打开 Debug 控制台",
+			"showStoryLibrary": "打开故事库",
+			"troubleshooting": "问题分析",
+			"speech": "台词"
+		},
+		"storiesDirectoryName": "故事",
+		"errors": {
+			"storyFileChangedExternally": {
+				"detail": "保存更改将会覆盖该文件。如果您想使用该文件而不是 Twine 内的版本， Twine 将会重启，您的作品中的内容会改为使用该文件。",
+				"message": "故事中的文件“{{fileName}}”在 Twine 外被修改。",
+				"overwriteChoice": "保存 Twine 的更改",
+				"relaunchChoice": "使用该文件并重启"
+			},
+			"jsonSave": "保存设定文件时发生错误。",
+			"storyDelete": "删除故事时发生错误。",
+			"storyRename": "重命名故事时发生错误。",
+			"storySave": "保存故事时发生错误。"
+		},
+		"backupsDirectoryName": "备份"
+	},
+	"routes": {
+		"storyEdit": {
+			"topBar": {
+				"editJavaScript": "编辑故事 Javascript 脚本",
+				"editStylesheet": "编辑故事样式表",
+				"findAndReplace": "查找替换",
+				"proofStory": "查看校对版本",
+				"publishToFile": "发布到文件",
+				"selectAllPassages": "选择所有片段",
+				"passageTags": "编辑片段标签"
+			},
+			"toolbar": {
+				"javaScript": "JavaScript",
+				"stylesheet": "样式表",
+				"snapToGrid": "对齐到网格",
+				"passageTags": "片段标签",
+				"findAndReplace": "查找替换",
+				"startStoryHere": "从这里开始故事",
+				"testFromHere": "从这里开始测试"
+			},
+			"zoomButtons": {
+				"storyStructure": "仅显示故事结构",
+				"passageNames": "仅显示片段名称",
+				"passageNamesAndExcerpts": "显示片段名称与摘要"
+			}
+		},
+		"storyFormatList": {
+			"storyFormatExplanation": "故事格式用于控制游戏过程中的故事外观和行为。",
+			"toolbar": {
+				"useAsProofingFormat": "用于校对故事",
+				"useAsDefaultFormat": "设为默认格式",
+				"addStoryFormatButton": {
+					"addPreview": "将添加 {storyFormatName} {storyFormatVersion}。",
+					"alreadyAdded": "已添加 {storyFormatName} {storyFormatVersion}。",
+					"fetchError": "无法读取该位置的故事格式（{errorMessage}）。",
+					"invalidUrl": "请输入有效的 URL。",
+					"prompt": "要添加故事格式，请在下方输入地址。"
+				},
+				"disableFormatExtensions": "禁用编辑器扩展",
+				"enableFormatExtensions": "启用编辑器扩展"
+			},
+			"show": "显示……",
+			"noneVisible": "没有符合您筛选标准的故事格式。",
+			"title": {
+				"all": "全部故事格式",
+				"current": "当前故事格式",
+				"user": "用户添加的故事格式"
+			}
+		},
+		"storyList": {
+			"noStories": "在 Twine 中没有保存的故事。您可以创建一个新故事或从文件导入现有的故事。",
+			"titleGeneric": "故事",
+			"toolbar": {
+				"archive": "档案",
+				"sort": "排序方式",
+				"sortByDate": "日期",
+				"sortByName": "名称",
+				"deleteStoryButton": {
+					"warning": {
+						"electron": "您确定要删除“{{storyName}}”吗？它将会被移入回收站。",
+						"web": "您确定要删除“{{storyName}}”吗？它将会被永久删除。该动作无法撤销。"
+					}
+				},
+				"showAllStories": "显示所有故事",
+				"showTags": "显示标签",
+				"storyTags": "故事标签"
+			},
+			"titleCount_plural": "{{count}} 个故事",
+			"library": "库",
+			"taggedTitleCount_0": "不存在有标签的故事",
+			"taggedTitleCount": "1 个有标签的故事",
+			"taggedTitleCount_plural": "{{count}} 个有标签的故事",
+			"titleCount": "1 个故事",
+			"titleCount_0": "无故事"
+		},
+		"welcome": {
+			"autosaveTitle": "您的作品将自动保存。",
+			"doneTitle": "就是这样！",
+			"gotoStoryList": "返回故事列表",
+			"greetingTitle": "(｡･∀･)ﾉﾞ嗨！",
+			"tellMeMore": "告诉我更多",
+			"helpTitle": "新来的？",
+			"help": "<p><strong>如果你是第一次使用 Twine，那么欢迎你来使用 Twine！</strong>这个 <a href=\"https://twinery.org/cookbook\">Twine 指南书</a>可以很好地教你如何使用 Twine。你之前从未用过 Twine 的话，这是个不错的开始。</p>",
+			"autosave": "<p>您的 Documents 文件夹中现在有一个名为 Twine 的文件夹。 里面是一个故事文件夹，所有的作品都将被保存。 Twine 自动为你保存作品，所以你不必担心自己忘记保存。 您可以随时使用 <strong>Twine</strong> 上菜单的<strong>打开故事库</strong>项，来打开您的故事库文件夹。</p><p>由于 Twine 始终保存您的作品，因此在 Twine 打开时，故事库中的文件将被锁定而无法编辑。</p><p>如果您想打开从别人那里获得的故事，可以使用故事列表中的<strong>从文件导入</strong>链接来向故事库中导入文件。</p>",
+			"browserStorage": "<p>这意味着你不需要创建一个账号来使用 Twine 2，并且你创建的所有内容都不会被存储在其他地方的服务器上，它只保存在你的浏览器中。</p><p>不过，要记住两件<strong>非常重要</strong>的事情。 由于您的作品仅保存在您的浏览器中，因此如果您清除了保存的数据，那么您将失去作品！ 不好。 请记住经常使用<strong>存档</strong>按钮。 您还可以使用故事列表中每个故事的菜单将单个故事发布到文件。 档案和故事文件都可以重新导入到 Twine 中。</p><p>其次，<strong>任何可以使用此浏览器的人都可以查看并更改您的作品</strong>。所以，如果你家里有一位熊孩子角色，最好为自己做一个文件备份。</p>",
+			"greeting": "<p>Twine 是一个开源的工具，用于展示互动的非线性故事。 在开始之前，你应该了解一些事情。</p>",
+			"browserStorageTitle": "您的作品仅保存在浏览器中",
+			"done": "<p>感谢您的阅读，希望使用 Twine 愉快！</p>"
+		}
+	},
+	"store": {
+		"passageDefaults": {
+			"name": "未命名片段"
+		},
+		"storyDefaults": {
+			"name": "未命名故事"
+		},
+		"storyFormatDefaults": {
+			"name": "未命名故事的格式"
+		},
+		"errors": {
+			"cantPersistPrefs": "保存偏好设置失败（{{error}}）。",
+			"cantPersistStories": "保存故事失败（{{error}}）。",
+			"cantPersistStoryFormats": "保存故事格式失败（{{error}}）。",
+			"electronRemediation": "重启应用可能会解决问题。",
+			"webRemediation": "重新载入该页面可能会解决问题。"
+		},
+		"archiveFilename": "{{timestamp}} Twine 档案.html"
+	},
+	"routeActions": {
+		"app": {
+			"aboutApp": "关于 Twine",
+			"preferences": "偏好",
+			"reportBug": "反馈 Bug",
+			"storyFormats": "故事格式"
+		},
+		"build": {
+			"proof": "校对",
+			"test": "测试",
+			"play": "运行",
+			"publishToFile": "发布到文件"
+		}
+	}
 }

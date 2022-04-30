@@ -1,4 +1,5 @@
-import {fireEvent, render, screen} from '@testing-library/react';
+import {cleanup, fireEvent, render, screen} from '@testing-library/react';
+import * as detectIt from 'detect-it';
 import {axe} from 'jest-axe';
 import * as React from 'react';
 import {fakePassage} from '../../../test-util';
@@ -7,6 +8,12 @@ import {PassageCard, PassageCardProps} from '../passage-card';
 jest.mock('../../tag/tag-stripe');
 
 describe('<PassageCard>', () => {
+	const oldDeviceType = detectIt.deviceType;
+
+	afterAll(() => {
+		(detectIt as any).deviceType = oldDeviceType;
+	});
+
 	function renderComponent(props?: Partial<PassageCardProps>) {
 		return render(
 			<PassageCard
@@ -15,7 +22,6 @@ describe('<PassageCard>', () => {
 				onSelect={jest.fn()}
 				passage={fakePassage()}
 				tagColors={{}}
-				zoom={1}
 				{...props}
 			/>
 		);
@@ -33,6 +39,32 @@ describe('<PassageCard>', () => {
 
 		renderComponent({passage});
 		expect(screen.getByText(passage.text)).toBeInTheDocument();
+	});
+
+	describe('when passage text is empty', () => {
+		const passage = fakePassage({text: ''});
+
+		it('displays a touch-oriented placeholder message on a touch device', () => {
+			(detectIt as any).deviceType = 'touchOnly';
+			renderComponent({passage});
+			expect(
+				screen.getByText('components.passageCard.placeholderTouch')
+			).toBeInTheDocument();
+		});
+
+		it('displays mouse-oriented text on any other type of device', () => {
+			(detectIt as any).deviceType = 'mouseOnly';
+			renderComponent({passage});
+			expect(
+				screen.getByText('components.passageCard.placeholderClick')
+			).toBeInTheDocument();
+			(detectIt as any).deviceType = 'hybrid';
+			cleanup();
+			renderComponent({passage});
+			expect(
+				screen.getByText('components.passageCard.placeholderClick')
+			).toBeInTheDocument();
+		});
 	});
 
 	it('displays a <TagStripe> of passage tags', () => {

@@ -23,6 +23,10 @@
 		"fontSelect": {"fonts": {}},
 		"indentButtons": {},
 		"localStorageQuota": {},
+		"passageCard": {
+			"placeholderClick": "Double-cliquez sur ce passage pour le modifier.",
+			"placeholderTouch": "Cliquez sur ce passage, puis sur l'icône du crayon pour le modifier."
+		},
 		"renamePassageButton": {"emptyName": "Veuillez entrer un nom."},
 		"renameStoryButton": {"emptyName": "Veuillez entrer un nom."},
 		"safariWarningCard": {},
@@ -95,9 +99,7 @@
 	"store": {
 		"errors": {},
 		"passageDefaults": {
-			"name": "Passage sans titre",
-			"textClick": "Double-cliquez sur ce passage pour le modifier.",
-			"textTouch": "Cliquez sur ce passage, puis sur l'icône du crayon pour le modifier."
+			"name": "Passage sans titre"
 		},
 		"storyDefaults": {"name": "Histoire sans Titre."},
 		"storyFormatDefaults": {"name": "Format d'Histoire sans Titre."}

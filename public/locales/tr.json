@@ -25,6 +25,10 @@
 		"fontSelect": {"fonts": {}},
 		"indentButtons": {},
 		"localStorageQuota": {},
+		"passageCard": {
+			"placeholderClick": "Bölümü düzenlemek için çift tıklayın.",
+			"placeholderTouch": "Önce bu bölüme, sonra kaleme basarak bölümü düzenleyebilirsiniz."
+		},
 		"renamePassageButton": {"emptyName": "Lütfen bir isim girin."},
 		"renameStoryButton": {"emptyName": "Lütfen bir isim girin."},
 		"safariWarningCard": {},
@@ -100,9 +104,7 @@
 	"store": {
 		"errors": {},
 		"passageDefaults": {
-			"name": "Adsız Bölüm",
-			"textClick": "Bölümü düzenlemek için çift tıklayın.",
-			"textTouch": "Önce bu bölüme, sonra kaleme basarak bölümü düzenleyebilirsiniz."
+			"name": "Adsız Bölüm"
 		},
 		"storyDefaults": {"name": "Adsız Öykü"},
 		"storyFormatDefaults": {"name": "Adsız Öykü Biçimi"}

@@ -37,7 +37,6 @@ export const StoryStylesheetDialog: React.FC<StoryStylesheetDialogProps> = props
 			className="story-stylesheet-dialog"
 			headerLabel={t('dialogs.storyStylesheet.title')}
 		>
-			<p>{t('dialogs.storyStylesheet.explanation')}</p>
 			<ButtonBar>
 				<UndoRedoButtons editor={cmEditor} watch={story.script} />
 				<IndentButtons editor={cmEditor} />
@@ -53,7 +52,9 @@ export const StoryStylesheetDialog: React.FC<StoryStylesheetDialogProps> = props
 					options={{
 						...codeMirrorOptionsFromPrefs(prefs),
 						autofocus: true,
-						mode: 'css'
+						lineWrapping: true,
+						mode: 'css',
+						placeholder: t('dialogs.storyStylesheet.explanation')
 					}}
 					value={story.stylesheet}
 				/>
