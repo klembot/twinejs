@@ -1,4 +1,10 @@
-import {fireEvent, render, screen, within} from '@testing-library/react';
+import {
+	createEvent,
+	fireEvent,
+	render,
+	screen,
+	within
+} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
 import {fakePassage} from '../../../../test-util';
@@ -19,6 +25,7 @@ describe('<PassageMap>', () => {
 				onDeselect={jest.fn()}
 				onDrag={jest.fn()}
 				onEdit={jest.fn()}
+				onMiddleClick={jest.fn()}
 				onSelect={jest.fn()}
 				passages={passages}
 				startPassageId={passages[0].id}
@@ -117,6 +124,19 @@ describe('<PassageMap>', () => {
 			).getByText('simulate drag')
 		);
 		expect(onSelect).not.toBeCalled();
+	});
+
+	it('calls the onMiddleClick prop when the user middle-clicks the component', () => {
+		const passage = fakePassage({name: 'test'});
+		const onMiddleClick = jest.fn();
+
+		renderComponent({onMiddleClick, passages: [passage]});
+
+		const target = screen.getByTestId('mock-passage-connections-test');
+
+		expect(onMiddleClick).not.toBeCalled();
+		fireEvent(target, createEvent.mouseUp(target, {button: 1}));
+		expect(onMiddleClick.mock.calls).toEqual([[{top: 0, left: 0}]]);
 	});
 
 	it('is accessible', async () => {
