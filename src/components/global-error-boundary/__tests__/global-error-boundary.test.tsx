@@ -21,7 +21,7 @@ describe('<GlobalErrorBoundary>', () => {
 			</GlobalErrorBoundary>
 		);
 		expect(
-			screen.getByText('An error occurred', {exact: false})
+			screen.getByText('An unrecoverable error has occurred', {exact: false})
 		).toBeInTheDocument();
 	});
 });
