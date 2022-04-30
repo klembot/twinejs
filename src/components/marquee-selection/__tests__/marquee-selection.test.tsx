@@ -1,4 +1,4 @@
-import {fireEvent, render, screen} from '@testing-library/react';
+import {createEvent, fireEvent, render, screen} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
 import {MarqueeSelection, MarqueeSelectionProps} from '..';
@@ -142,6 +142,20 @@ describe('<MarqueeSelection>', () => {
 
 		fireEvent.touchStart(marqueeContainer);
 		fireEvent.touchMove(marqueeContainer);
+		expect(onSelectRect).not.toHaveBeenCalled();
+	});
+
+	it('does not react to non-left button events', () => {
+		const {marqueeContainer, onSelectRect} = renderComponent();
+
+		fireEvent(
+			marqueeContainer,
+			createEvent.mouseDown(marqueeContainer, {button: 1})
+		);
+		fireEvent(
+			marqueeContainer,
+			createEvent.mouseUp(marqueeContainer, {button: 1})
+		);
 		expect(onSelectRect).not.toHaveBeenCalled();
 	});
 

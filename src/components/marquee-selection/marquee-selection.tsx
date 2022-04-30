@@ -97,6 +97,10 @@ export const MarqueeSelection: React.FC<MarqueeSelectionProps> = props => {
 		if (container.current) {
 			const currentContainer = container.current;
 			const handleMouseDown = (event: MouseEvent) => {
+				if (event.button !== 0) {
+					return;
+				}
+
 				if (ignoreEventsOnSelector) {
 					if ((event.target as HTMLElement)?.closest(ignoreEventsOnSelector)) {
 						return;
