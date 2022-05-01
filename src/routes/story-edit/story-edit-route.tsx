@@ -27,6 +27,7 @@ import './story-edit-route.css';
 import {ZoomButtons} from './zoom-buttons';
 import {DocumentTitle} from '../../components/document-title/document-title';
 import {useZoomTransition} from './use-zoom-transition';
+import {useZoomShortcuts} from './use-zoom-shortcuts';
 
 export const InnerStoryEditRoute: React.FC = () => {
 	const [inited, setInited] = React.useState(false);
@@ -36,6 +37,7 @@ export const InnerStoryEditRoute: React.FC = () => {
 	const {dispatch: undoableStoriesDispatch, stories} =
 		useUndoableStoriesContext();
 	const story = storyWithId(stories, storyId);
+	useZoomShortcuts(story);
 
 	const selectedPassages = React.useMemo(
 		() => story.passages.filter(passage => passage.selected),

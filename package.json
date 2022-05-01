@@ -37,6 +37,7 @@
 		"react-draggable": "^4.4.3",
 		"react-helmet": "^6.1.0",
 		"react-hook-thunk-reducer": "^0.2.4",
+		"react-hotkeys-hook": "^3.4.4",
 		"react-i18next": "^11.8.9",
 		"react-popper": "^2.2.4",
 		"react-router-dom": "^5.2.0",
