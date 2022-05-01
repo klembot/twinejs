@@ -13,8 +13,10 @@ import {
 	StoryInspector
 } from '../../../test-util';
 import {InnerStoryEditRoute} from '../story-edit-route';
+import {useZoomShortcuts} from '../use-zoom-shortcuts';
 
 jest.mock('../toolbar/story-edit-toolbar');
+jest.mock('../use-zoom-shortcuts');
 jest.mock('../../../components/passage/passage-map/passage-map');
 
 const TestStoryEditRoute: React.FC = () => {
@@ -35,6 +37,8 @@ const TestStoryEditRoute: React.FC = () => {
 };
 
 describe('<StoryEditRoute>', () => {
+	const useZoomShortcutsMock = useZoomShortcuts as jest.Mock;
+
 	async function renderComponent(
 		story: Story,
 		contexts?: FakeStateProviderProps
@@ -112,6 +116,11 @@ describe('<StoryEditRoute>', () => {
 	it('creates a passage automatically if the story has none', async () => {
 		await renderComponent(fakeStory(0));
 		expect(screen.getAllByTestId(/^passage-/).length).toBe(1);
+	});
+
+	it('sets up zoom keyboard shortcuts', async () => {
+		await renderComponent(fakeStory());
+		expect(useZoomShortcutsMock).toBeCalled();
 	});
 
 	it('is accessible', async () => {

@@ -1,6 +1,7 @@
 import {IconTrash} from '@tabler/icons';
 import 'element-closest';
 import * as React from 'react';
+import {useHotkeys} from 'react-hotkeys-hook';
 import {useTranslation} from 'react-i18next';
 import {IconButton} from '../../../../components/control/icon-button';
 import {deletePassages, Passage, Story} from '../../../../store/stories';
@@ -30,22 +31,7 @@ export const DeletePassagesButton: React.FC<
 		);
 	}, [dispatch, passages, story]);
 
-	// Trigger on the delete or backspace key, but only if the user isn't editing
-	// text. (This also works if the user has a CodeMirror instance focused.)
-
-	React.useEffect(() => {
-		const listener = (event: KeyboardEvent) => {
-			if (
-				['Backspace', 'Delete'].includes(event.key) &&
-				!(event.target as HTMLElement)?.closest('input, textarea')
-			) {
-				handleClick();
-			}
-		};
-
-		document.addEventListener('keydown', listener);
-		return () => document.removeEventListener('keydown', listener);
-	}, [handleClick]);
+	useHotkeys('Backspace,Delete', handleClick, [handleClick]);
 
 	return (
 		<IconButton
