@@ -150,8 +150,6 @@ export const InnerStoryEditRoute: React.FC = () => {
 		[selectedPassages, story, undoableStoriesDispatch]
 	);
 
-	// TODO: space bar scrolling
-
 	// If we have just mounted and the story has no passages, create one for the
 	// user (and skip undo history, since it was an automatic action).
 
@@ -175,7 +173,7 @@ export const InnerStoryEditRoute: React.FC = () => {
 		<div className="story-edit-route">
 			<DocumentTitle title={story.name} />
 			<StoryEditToolbar getCenter={getCenter} story={story} />
-			<MainContent padded={false} ref={mainContent}>
+			<MainContent grabbable padded={false} ref={mainContent}>
 				<MarqueeSelection
 					container={mainContent}
 					ignoreEventsOnSelector=".passage-card, .passage-toolbar"
