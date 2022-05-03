@@ -251,7 +251,7 @@ describe('<PassageEditDialog>', () => {
 				[story, 'mock-tag-name', 'mock-color']
 			]);
 			expect(dispatch.mock.calls).toEqual([
-				[addPassageTagMock.mock.calls[0]],
+				[addPassageTagMock.mock.calls[0], 'undoChange.addTag'],
 				[setTagColorMock.mock.calls[0]]
 			]);
 		});

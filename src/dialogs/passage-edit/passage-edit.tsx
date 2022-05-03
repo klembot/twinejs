@@ -57,10 +57,17 @@ export const InnerPassageEditDialog: React.FC<PassageEditDialogProps> = props =>
 		[dispatch, passage, story]
 	);
 
-	// TODO: make tag changes undoable
-
 	function handleAddTag(name: string, color?: Color) {
-		dispatch(addPassageTag(story, passage, name));
+		// Kind of tricky. We make adding the tag to the passage undaoble, but not
+		// any color change associated with this. This is because we only set a
+		// color here when creating an entirely new tag. If the user is adding an
+		// existing tag, then we would only receive the name here, since it's
+		// currently impossible to add an existing tag and change its color
+		// simultaneously.
+		//
+		// If this changes, then this should change too.
+
+		dispatch(addPassageTag(story, passage, name), t('undoChange.addTag'));
 
 		if (color) {
 			dispatch(setTagColor(story, name, color));

@@ -384,6 +384,7 @@
 		}
 	},
 	"undoChange": {
+		"addTag": "Add Tag",
 		"changeTagColor": "Change Tag Color",
 		"newPassage": "New Passage",
 		"deletePassage": "Delete Passage",
@@ -392,6 +393,7 @@
 		"movePassages": "Move Passages",
 		"imortTag": "Remove Tag",
 		"renamePassage": "Rename Passage",
+		"removeTag": "Remove Tag",
 		"renameTag": "Rename Tag",
 		"replaceAllText": "Replace All"
 	}
