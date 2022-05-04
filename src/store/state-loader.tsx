@@ -1,8 +1,9 @@
 import * as React from 'react';
-import {usePrefsContext} from './prefs';
+import {defaults, usePrefsContext} from './prefs';
 import {useStoriesContext} from './stories';
 import {
 	formatWithNameAndVersion,
+	StoryFormat,
 	useStoryFormatsContext
 } from './story-formats';
 import {usePersistence} from './persistence/use-persistence';
@@ -51,15 +52,42 @@ export const StateLoader: React.FC = ({children}) => {
 		if (!repaired && inited) {
 			prefsDispatch({type: 'repair'});
 			formatsDispatch({type: 'repair'});
-			storiesDispatch({
-				type: 'repair',
-				allFormats: formatsState,
-				defaultFormat: formatWithNameAndVersion(
+
+			// We try to repair stories to the user's preferred format, but perhaps
+			// their prefs are out of date/corrupted. In that case, we use the default
+			// one.
+
+			let safeFormat: StoryFormat | undefined;
+
+			try {
+				safeFormat = formatWithNameAndVersion(
 					formatsState,
 					prefsState.storyFormat.name,
 					prefsState.storyFormat.version
-				)
-			});
+				);
+			} catch {
+				try {
+					safeFormat = formatWithNameAndVersion(
+						formatsState,
+						defaults().storyFormat.name,
+						defaults().storyFormat.version
+					);
+				} catch (error) {
+					console.error(
+						`Could not locate a safe story format, skipping story repair: ${
+							(error as Error).message
+						}`
+					);
+				}
+			}
+
+			if (safeFormat) {
+				storiesDispatch({
+					type: 'repair',
+					allFormats: formatsState,
+					defaultFormat: safeFormat
+				});
+			}
 			setRepaired(true);
 		}
 	}, [

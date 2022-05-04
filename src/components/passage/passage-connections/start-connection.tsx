@@ -30,3 +30,5 @@ export const StartConnection: React.FC<StartConnectionProps> = React.memo(
 		);
 	}
 );
+
+StartConnection.displayName = 'StartConnection';

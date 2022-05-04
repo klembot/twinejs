@@ -3,15 +3,10 @@
 
 .marquee-selection {
 	position: absolute;
-	border: 1px solid var(--dark-blue);
-	border-radius: 2px;
 	background: var(--light-blue-translucent);
-}
-
-body.marquee-selecting .drop {
-	display: none !important;
-}
-
-body.marquee-selecting * {
-	cursor: crosshair !important;
+	top: 0;
+	left: 0;
+	width: 100px;
+	height: 100px;
+	transform-origin: top left;
 }
