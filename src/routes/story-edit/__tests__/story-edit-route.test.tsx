@@ -104,7 +104,7 @@ describe('<StoryEditRoute>', () => {
 		story.zoom = 0.5;
 		await renderComponent(story);
 		expect(screen.getAllByTestId(/^passage-/).length).toBe(1);
-		fireEvent.click(screen.getByText('simulate middle click'));
+		fireEvent.click(screen.getByText('onMiddleClick'));
 
 		const passages = screen.getAllByTestId(/^passage-/);
 

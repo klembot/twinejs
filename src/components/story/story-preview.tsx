@@ -90,3 +90,5 @@ export const StoryPreview: React.FC<StoryPreviewProps> = React.memo(props => {
 		</svg>
 	);
 });
+
+StoryPreview.displayName = 'StoryPreview';

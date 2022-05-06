@@ -28,6 +28,7 @@ import {ZoomButtons} from './zoom-buttons';
 import {DocumentTitle} from '../../components/document-title/document-title';
 import {useZoomTransition} from './use-zoom-transition';
 import {useZoomShortcuts} from './use-zoom-shortcuts';
+import {MarqueeablePassageMap} from './marqueeable-passage-map';
 
 export const InnerStoryEditRoute: React.FC = () => {
 	const [inited, setInited] = React.useState(false);
@@ -129,21 +130,18 @@ export const InnerStoryEditRoute: React.FC = () => {
 		(rect: Rect, exclusive: boolean) => {
 			// The rect we receive is in screen coordinates--we need to convert to
 			// logical ones.
-
 			const logicalRect: Rect = {
 				height: rect.height / story.zoom,
 				left: rect.left / story.zoom,
 				top: rect.top / story.zoom,
 				width: rect.width / story.zoom
 			};
-
 			// This should not be undoable.
-
 			undoableStoriesDispatch(
 				selectPassagesInRect(
 					story,
 					logicalRect,
-					exclusive ? [] : selectedPassages.map(passage => passage.id)
+					exclusive ? selectedPassages.map(passage => passage.id) : []
 				)
 			);
 		},
@@ -174,12 +172,8 @@ export const InnerStoryEditRoute: React.FC = () => {
 			<DocumentTitle title={story.name} />
 			<StoryEditToolbar getCenter={getCenter} story={story} />
 			<MainContent grabbable padded={false} ref={mainContent}>
-				<MarqueeSelection
+				<MarqueeablePassageMap
 					container={mainContent}
-					ignoreEventsOnSelector=".passage-card, .passage-toolbar"
-					onSelectRect={handleSelectRect}
-				/>
-				<PassageMap
 					formatName={story.storyFormat}
 					formatVersion={story.storyFormatVersion}
 					onDeselect={handleDeselectPassage}
@@ -187,6 +181,7 @@ export const InnerStoryEditRoute: React.FC = () => {
 					onEdit={handleEditPassage}
 					onMiddleClick={handleMiddleClick}
 					onSelect={handleSelectPassage}
+					onSelectRect={handleSelectRect}
 					passages={story.passages}
 					startPassageId={story.startPassage}
 					tagColors={story.tagColors}

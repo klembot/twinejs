@@ -118,3 +118,5 @@ export const PassageCard: React.FC<PassageCardProps> = React.memo(props => {
 		</DraggableCore>
 	);
 });
+
+PassageCard.displayName = 'PassageCard';

@@ -1,6 +1,6 @@
 import {act, render, screen, waitFor} from '@testing-library/react';
 import {StateLoader} from '../state-loader';
-import {usePrefsContext} from '../prefs';
+import {defaults, usePrefsContext} from '../prefs';
 import {useStoriesContext} from '../stories';
 import {useStoryFormatsContext, StoryFormat} from '../story-formats';
 import {usePersistence} from '../persistence/use-persistence';
@@ -82,5 +82,58 @@ describe('<StateLoader>', () => {
 			expect(screen.getByTestId('children')).toBeInTheDocument()
 		);
 		expect(screen.getByTestId('children')).toBeInTheDocument();
+	});
+
+	it('falls back to the default story format if the user preference is for an nonexistent format', async () => {
+		const defaultFormatProps = defaults().storyFormat;
+		const defaultFormat = fakeUnloadedStoryFormat({
+			name: defaultFormatProps.name,
+			version: defaultFormatProps.version
+		});
+
+		(usePrefsContext as jest.Mock).mockReturnValue({
+			dispatch: prefsDispatchMock,
+			prefs: {
+				storyFormat: {
+					name: 'bad',
+					version: '1.0.0'
+				}
+			}
+		});
+		(useStoryFormatsContext as jest.Mock).mockReturnValue({
+			dispatch: formatsDispatchMock,
+			formats: [defaultFormat]
+		});
+
+		render(<StateLoader />);
+		await waitFor(() => expect(prefsDispatchMock).toBeCalled());
+		expect(storiesDispatchMock.mock.calls).toEqual([
+			[{type: 'init', state: {mockStoriesState: true}}],
+			[
+				{
+					type: 'repair',
+					allFormats: [defaultFormat],
+					defaultFormat: defaultFormat
+				}
+			]
+		]);
+	});
+
+	it("does not repair stories if even the default story format isn't available", async () => {
+		jest.spyOn(console, 'error').mockReturnValue();
+		(usePrefsContext as jest.Mock).mockReturnValue({
+			dispatch: prefsDispatchMock,
+			prefs: {
+				storyFormat: {
+					name: 'bad',
+					version: '1.0.0'
+				}
+			}
+		});
+		render(<StateLoader />);
+		await waitFor(() => expect(prefsDispatchMock).toBeCalled());
+		expect(storiesDispatchMock.mock.calls).toEqual([
+			[{type: 'init', state: {mockStoriesState: true}}]
+		]);
 	});
 });

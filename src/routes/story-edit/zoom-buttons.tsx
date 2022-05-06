@@ -58,3 +58,5 @@ export const ZoomButtons: React.FC<ZoomButtonsProps> = React.memo(({story}) => {
 		</div>
 	);
 });
+
+ZoomButtons.displayName = 'ZoomButtons';
