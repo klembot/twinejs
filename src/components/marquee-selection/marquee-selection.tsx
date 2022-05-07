@@ -103,7 +103,9 @@ export const MarqueeSelection: React.FC<MarqueeSelectionProps> = props => {
 	}, [container, ignoreEventsOnSelector]);
 
 	React.useEffect(() => {
-		// FIXME this triggers constantly if the callbacks aren't memoized
+		// This effect will trigger constantly if the on* callbacks aren't memoized
+		// outside the component.
+
 		if (start && current) {
 			if (dragging) {
 				onTemporarySelectRect(rectFromPoints(start, current), additive);
