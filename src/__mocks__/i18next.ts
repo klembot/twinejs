@@ -1,4 +1,12 @@
-const i18n = {
+interface MockI18n {
+	addResourceBundle: jest.Mock;
+	changeLanguage: jest.Mock;
+	createInstance: jest.Mock;
+	init: jest.Mock;
+	use: jest.Mock;
+}
+
+const i18n: MockI18n = {
 	addResourceBundle: jest.fn(() => i18n),
 	changeLanguage: jest.fn(() => i18n),
 	createInstance: jest.fn(() => i18n),
