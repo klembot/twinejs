@@ -1,4 +1,4 @@
-import {app, BrowserWindow, screen, shell} from 'electron';
+import {app, BrowserWindow, dialog, screen, shell} from 'electron';
 import path from 'path';
 import {initIpc} from './ipc';
 import {initLocales} from './locales';
@@ -54,11 +54,21 @@ async function createWindow() {
 }
 
 app.on('ready', async () => {
-	await initLocales();
-	await createStoryDirectory();
-	initIpc();
-	initMenuBar();
-	createWindow();
+	try {
+		await initLocales();
+		await createStoryDirectory();
+		initIpc();
+		initMenuBar();
+		createWindow();
+	} catch (error) {
+		// Not localized because that may be the cause of the error.
+
+		dialog.showErrorBox(
+			'An error occurred during startup.',
+			(error as Error).message
+		);
+		app.quit();
+	}
 });
 
 app.on('window-all-closed', () => app.quit());
