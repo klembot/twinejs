@@ -1,0 +1,33 @@
+:root {
+	/* display font, for titles */
+	--font-display: 'Nunito Light', sans-serif;
+
+	/* font for code fields and other programmer-oriented things */
+	--font-monospaced: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo,
+		Courier, monospace;
+
+	/* base UI font */
+	--font-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+		Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+}
+
+@font-face {
+	font-family: 'Nunito Light';
+	src: url('./fonts/nunito-light.woff2') format('woff2'),
+		url('./fonts/nunito-light.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+* {
+	-webkit-font-smoothing: auto;
+}
+
+.content, .sidebar {
+	font-family: var(--font-system);
+}
+
+.content h1, .content h2, .content h3 {
+	font-family: var(--font-display);
+	font-weight: normal;
+}
