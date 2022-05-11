@@ -1,4 +1,8 @@
-.fade-out-exit-active {
+.fade-in-out-enter-active {
+	animation: fade-in 0.2s;
+}
+
+.fade-in-out-exit-active, .fade-out-exit-active {
 	animation: reverse fade-in 0.2s;
 }
 

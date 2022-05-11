@@ -60,6 +60,7 @@ export const DialogCard: React.FC<DialogCardProps> = props => {
 							iconOnly
 							label={t('common.close')}
 							onClick={onClose}
+							tooltipPosition="left"
 						/>
 					</div>
 				</h2>

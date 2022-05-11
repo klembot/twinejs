@@ -37,6 +37,7 @@ export const ZoomButtons: React.FC<ZoomButtonsProps> = React.memo(({story}) => {
 					onClick={() => handleZoomChange(1)}
 					selectable
 					selected={story.zoom === 1}
+					tooltipPosition="right"
 				/>
 				<IconButton
 					icon={<IconLayoutGrid />}
@@ -45,6 +46,7 @@ export const ZoomButtons: React.FC<ZoomButtonsProps> = React.memo(({story}) => {
 					onClick={() => handleZoomChange(0.6)}
 					selectable
 					selected={story.zoom === 0.6}
+					tooltipPosition="right"
 				/>
 				<IconButton
 					icon={<IconGridDots />}
@@ -53,6 +55,7 @@ export const ZoomButtons: React.FC<ZoomButtonsProps> = React.memo(({story}) => {
 					onClick={() => handleZoomChange(0.3)}
 					selectable
 					selected={story.zoom === 0.3}
+					tooltipPosition="right"
 				/>
 			</ButtonCard>
 		</div>
