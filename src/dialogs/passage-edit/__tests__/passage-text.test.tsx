@@ -12,7 +12,6 @@ import {
 } from '../../../test-util';
 import {PassageText, PassageTextProps} from '../passage-text';
 
-jest.mock('../story-format-toolbar');
 jest.mock('../../../store/use-codemirror-passage-hints');
 jest.mock('../../../store/use-format-codemirror-mode');
 jest.mock('../../../components/control/code-area/code-area');
@@ -55,15 +54,6 @@ describe('<PassageText>', () => {
 			</FakeStateProvider>
 		);
 	}
-
-	it('displays the format toolbar', () => {
-		const storyFormat = fakeLoadedStoryFormat();
-
-		renderComponent({storyFormat});
-		expect(
-			screen.getByTestId(`mock-story-format-toolbar-${storyFormat.id}`)
-		).toBeInTheDocument();
-	});
 
 	it('displays the passage text', () => {
 		renderComponent({passage: fakePassage({text: 'mock-text'})});

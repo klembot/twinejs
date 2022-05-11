@@ -1,8 +1,6 @@
 import * as React from 'react';
 import {useParams} from 'react-router-dom';
 import {MainContent} from '../../components/container/main-content';
-import {MarqueeSelection} from '../../components/marquee-selection';
-import {PassageMap} from '../../components/passage/passage-map/passage-map';
 import {
 	DialogsContextProvider,
 	PassageEditDialog,
