@@ -27,6 +27,7 @@ import {fakeLoadedStoryFormat, fakeStory} from '../../../test-util';
 import {PassageEditDialog, PassageEditDialogProps} from '../passage-edit';
 
 jest.mock('../passage-text');
+jest.mock('../story-format-toolbar');
 jest.mock('../../../components/control/menu-button');
 jest.mock('../../../components/passage/rename-passage-button');
 jest.mock('../../../components/tag/add-tag-button');
@@ -398,27 +399,22 @@ describe('<PassageEditDialog>', () => {
 			}
 		);
 
-		// it("dispatches an action when the passage's size is changed", async () => {
-		// 	const dispatch = jest.fn();
-		// 	const story = fakeStory(2);
-		// 	const format = fakeLoadedStoryFormat({
-		// 		name: story.storyFormat,
-		// 		version: story.storyFormatVersion
-		// 	});
+		it('displays the format toolbar', () => {
+			const story = fakeStory(2);
+			const format = fakeLoadedStoryFormat({
+				name: story.storyFormat,
+				version: story.storyFormatVersion
+			});
 
-		// 	await renderComponent(
-		// 		{storyId: story.id, passageId: story.passages[0].id},
-		// 		{dispatch, stories: [story]},
-		// 		{formats: [format]}
-		// 	);
-		// 	expect(dispatch).not.toHaveBeenCalled();
-		// 	expect(updatePassageMock).not.toHaveBeenCalled();
-		// 	fireEvent.click(screen.getByText('dialogs.passageEdit.sizeLarge'));
-		// 	expect(updatePassageMock.mock.calls).toEqual([
-		// 		[story, story.passages[0], {height: 200, width: 200}]
-		// 	]);
-		// 	expect(dispatch.mock.calls).toEqual([[updatePassageMock.mock.calls[0]]]);
-		// });
+			renderComponent(
+				{storyId: story.id, passageId: story.passages[0].id},
+				{stories: [story]},
+				{formats: [format]}
+			);
+			expect(
+				screen.getByTestId(`mock-story-format-toolbar-${format.id}`)
+			).toBeInTheDocument();
+		});
 
 		it('is accessible', async () => {
 			const {container} = await renderComponent();

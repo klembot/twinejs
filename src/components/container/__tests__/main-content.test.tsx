@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {axe} from 'jest-axe';
-import {fireEvent, render, screen, waitFor} from '@testing-library/react';
+import {render, screen, waitFor} from '@testing-library/react';
 import {MainContent, MainContentProps} from '../main-content';
 
 describe('<MainContent>', () => {

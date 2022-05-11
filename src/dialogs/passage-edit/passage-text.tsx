@@ -9,7 +9,6 @@ import {StoryFormat} from '../../store/story-formats';
 import {useCodeMirrorPassageHints} from '../../store/use-codemirror-passage-hints';
 import {useFormatCodeMirrorMode} from '../../store/use-format-codemirror-mode';
 import {codeMirrorOptionsFromPrefs} from '../../util/codemirror-options';
-import {StoryFormatToolbar} from './story-format-toolbar';
 
 export interface PassageTextProps {
 	onChange: (value: string) => void;
@@ -23,7 +22,6 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 	const {onChange, onEditorChange, passage, story, storyFormat} = props;
 	const [changePending, setChangePending] = React.useState(false);
 	const [localText, setLocalText] = React.useState(passage.text);
-	const [editor, setEditor] = React.useState<CodeMirror.Editor>();
 	const {prefs} = usePrefsContext();
 	const autocompletePassageNames = useCodeMirrorPassageHints(story);
 	const mode =
@@ -60,7 +58,6 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 
 	const handleMount = React.useCallback(
 		(editor: CodeMirror.Editor) => {
-			setEditor(editor);
 			onEditorChange(editor);
 
 			// The potential combination of loading a mode and the dialog entrance
@@ -89,28 +86,6 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 		[debouncedOnChange, onEditorChange]
 	);
 
-	const handleExecCommand = React.useCallback(
-		(name: string) => {
-			// A format toolbar command probably will affect the editor content. It
-			// appears that react-codemirror2 can't maintain the selection properly in
-			// all cases when this happens (particularly when using
-			// `replaceSelection('something', 'around')`), so we take a snapshot
-			// immediately after the command runs, let react-codemirror2 work, then
-			// reapply the selection ASAP.
-
-			if (!editor) {
-				throw new Error('No editor set');
-			}
-
-			editor.execCommand(name);
-
-			const selections = editor.listSelections();
-
-			Promise.resolve().then(() => editor.setSelections(selections));
-		},
-		[editor]
-	);
-
 	const options = React.useMemo(
 		() => ({
 			...codeMirrorOptionsFromPrefs(prefs),
@@ -126,25 +101,18 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 	);
 
 	return (
-		<>
-			<StoryFormatToolbar
-				editor={editor}
-				onExecCommand={handleExecCommand}
-				storyFormat={storyFormat}
+		<DialogEditor>
+			<CodeArea
+				editorDidMount={handleMount}
+				fontFamily={prefs.passageEditorFontFamily}
+				fontScale={prefs.passageEditorFontScale}
+				label={t('dialogs.passageEdit.passageTextEditorLabel')}
+				labelHidden
+				onBeforeChange={handleChange}
+				onChange={onEditorChange}
+				options={options}
+				value={localText}
 			/>
-			<DialogEditor>
-				<CodeArea
-					editorDidMount={handleMount}
-					fontFamily={prefs.passageEditorFontFamily}
-					fontScale={prefs.passageEditorFontScale}
-					label={t('dialogs.passageEdit.passageTextEditorLabel')}
-					labelHidden
-					onBeforeChange={handleChange}
-					onChange={onEditorChange}
-					options={options}
-					value={localText}
-				/>
-			</DialogEditor>
-		</>
+		</DialogEditor>
 	);
 };

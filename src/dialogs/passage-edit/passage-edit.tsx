@@ -1,6 +1,6 @@
+import {IconResize} from '@tabler/icons';
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {IconResize} from '@tabler/icons';
 import {UndoRedoButtons} from '../../components/codemirror/undo-redo-buttons';
 import {ButtonBar} from '../../components/container/button-bar';
 import {
@@ -9,11 +9,8 @@ import {
 } from '../../components/container/dialog-card';
 import {CheckboxButton} from '../../components/control/checkbox-button';
 import {MenuButton} from '../../components/control/menu-button';
+import {RenamePassageButton} from '../../components/passage/rename-passage-button';
 import {AddTagButton, TagButton} from '../../components/tag';
-import {
-	formatWithNameAndVersion,
-	useStoryFormatsContext
-} from '../../store/story-formats';
 import {
 	addPassageTag,
 	passageWithId,
@@ -24,10 +21,14 @@ import {
 	updatePassage,
 	updateStory
 } from '../../store/stories';
+import {
+	formatWithNameAndVersion,
+	useStoryFormatsContext
+} from '../../store/story-formats';
 import {useUndoableStoriesContext} from '../../store/undoable-stories';
 import {Color} from '../../util/color';
 import {PassageText} from './passage-text';
-import {RenamePassageButton} from '../../components/passage/rename-passage-button';
+import {StoryFormatToolbar} from './story-format-toolbar';
 import './passage-edit.css';
 
 export interface PassageEditDialogProps
@@ -36,7 +37,9 @@ export interface PassageEditDialogProps
 	storyId: string;
 }
 
-export const InnerPassageEditDialog: React.FC<PassageEditDialogProps> = props => {
+export const InnerPassageEditDialog: React.FC<
+	PassageEditDialogProps
+> = props => {
 	const {passageId, storyId, ...other} = props;
 	const [cmEditor, setCmEditor] = React.useState<CodeMirror.Editor>();
 	const {dispatch, stories} = useUndoableStoriesContext();
@@ -110,6 +113,25 @@ export const InnerPassageEditDialog: React.FC<PassageEditDialogProps> = props =>
 		dispatch(updatePassage(story, passage, {height, width}));
 	}
 
+	function handleExecCommand(name: string) {
+		// A format toolbar command probably will affect the editor content. It
+		// appears that react-codemirror2 can't maintain the selection properly in
+		// all cases when this happens (particularly when using
+		// `replaceSelection('something', 'around')`), so we take a snapshot
+		// immediately after the command runs, let react-codemirror2 work, then
+		// reapply the selection ASAP.
+
+		if (!cmEditor) {
+			throw new Error('No editor set');
+		}
+
+		cmEditor.execCommand(name);
+
+		const selections = cmEditor.listSelections();
+
+		Promise.resolve().then(() => cmEditor.setSelections(selections));
+	}
+
 	const isStart = story.startPassage === passage.id;
 
 	return (
@@ -167,6 +189,11 @@ export const InnerPassageEditDialog: React.FC<PassageEditDialogProps> = props =>
 					value={isStart}
 				/>
 			</ButtonBar>
+			<StoryFormatToolbar
+				editor={cmEditor}
+				onExecCommand={handleExecCommand}
+				storyFormat={storyFormat}
+			/>
 			{passage.tags.length > 0 && (
 				<div className="tags">
 					<ButtonBar>
