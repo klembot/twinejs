@@ -12,7 +12,7 @@ import {InnerStoryListRoute} from '../story-list-route';
 jest.mock('../toolbar/story-list-toolbar');
 jest.mock('../story-cards');
 jest.mock('../../../store/prefs/use-donation-check');
-jest.mock('../../../components/safari-warning/safari-warning-card');
+jest.mock('../../../components/error/safari-warning-card');
 
 describe('<StoryListRoute>', () => {
 	const useDonationCheckMock = useDonationCheck as jest.Mock;

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {GlobalErrorBoundary} from './components/global-error-boundary';
+import {GlobalErrorBoundary} from './components/error';
 import {LoadingCurtain} from './components/loading-curtain/loading-curtain';
 import {LocaleSwitcher} from './store/locale-switcher';
 import {PrefsContextProvider} from './store/prefs';

@@ -11,9 +11,8 @@
 	color: white;
 }
 
-.global-error-boundary .fuuu {
-	font-size: 200%;
-	margin-bottom: 0;
+.global-error-boundary .error-message {
+	padding: 0;
 }
 
 .global-error-boundary a {

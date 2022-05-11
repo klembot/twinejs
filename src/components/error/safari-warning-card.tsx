@@ -1,10 +1,11 @@
+import {IconInfoCircle} from '@tabler/icons';
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
-import {IconAlertOctagon, IconInfoCircle} from '@tabler/icons';
 import UAParser from 'ua-parser-js';
 import {ButtonBar} from '../container/button-bar';
-import {IconLink} from '../control/icon-link';
 import {Card} from '../container/card';
+import {IconLink} from '../control/icon-link';
+import {ErrorMessage} from '../error';
 import './safari-warning-card.css';
 
 export interface SafariNavigator extends Navigator {
@@ -41,16 +42,13 @@ export const SafariWarningCard: React.FC = props => {
 	return (
 		<div className="safari-warning-card">
 			<Card>
-				<div className="side-icon">
-					<IconAlertOctagon />
-				</div>
-				<div className="message">
+				<ErrorMessage>
 					<p>{t('components.safariWarningCard.message')}</p>
 					{canAddToHomeScreen && (
 						<p>{t('components.safariWarningCard.addToHomeScreen')}</p>
 					)}
 					<p>{t('components.safariWarningCard.archiveAndUseAnotherBrowser')}</p>
-				</div>
+				</ErrorMessage>
 				<ButtonBar>
 					<IconLink
 						href="https://twinery.org/2ioslocalstorage"

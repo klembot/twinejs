@@ -164,6 +164,7 @@
 			"title": "Preferences"
 		},
 		"passageEdit": {
+			"editorCrashed": "Something went wrong with this editor. Try closing it and editing this passage again.",
 			"passageTextEditorLabel": "Passage Text",
 			"passageTextPlaceholder": "Enter the body text of your passage here. To link to another passage, put two square brackets around its name, [[like this]].",
 			"setAsStart": "Start Story Here",
