@@ -4,7 +4,7 @@
 }
 
 .tooltip-label {
-	background-color: var(--dark-gray-translucent);
+	background-color: var(--dark-gray);
 	border-radius: var(--corner-round);
 	color: var(--white);
 	font-size: 12px; /* Must be hardcoded in case it's on a header element */
@@ -13,7 +13,7 @@
 }
 
 .tooltip-arrow {
-	background: var(--dark-gray-translucent);
+	background: var(--dark-gray);
 	width: 10px;
 	height: 10px;
 }
