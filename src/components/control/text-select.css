@@ -15,9 +15,11 @@
 
 .text-select-control select {
 	-webkit-appearance: none;
-	background-color: var(--white-translucent);
-	background-position: calc(100% - var(--corner-round)) center;
-	background-repeat: no-repeat;
+	/*
+	Using a gradient here so that Firefox won't try to apply it to the dropdown
+	when it's opened. It will do this with a simple color.
+	*/
+	background: linear-gradient(to right, var(--white-translucent), var(--white-translucent));
 	border-radius: var(--corner-round);
 	border: 1px solid var(--light-gray-translucent);
 	color: var(--dark-gray);
@@ -27,6 +29,14 @@
 	padding: var(--grid-size) calc(var(--grid-size) + 16px) var(--grid-size)
 		var(--grid-size);
 	transition: background-color 0.3s;
+}
+
+.text-select-control select option {
+	/*
+	Needed for Firefox dark mode; otherwise it'll try to use var(--dark-gray) from
+	the select and make it unreadable.
+	*/
+	color: initial;
 }
 
 .text-select-control select:focus-visible {
