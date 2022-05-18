@@ -16,10 +16,18 @@ export interface PassageTextProps {
 	passage: Passage;
 	story: Story;
 	storyFormat: StoryFormat;
+	storyFormatExtensionsDisabled?: boolean;
 }
 
 export const PassageText: React.FC<PassageTextProps> = props => {
-	const {onChange, onEditorChange, passage, story, storyFormat} = props;
+	const {
+		onChange,
+		onEditorChange,
+		passage,
+		story,
+		storyFormat,
+		storyFormatExtensionsDisabled
+	} = props;
 	const [changePending, setChangePending] = React.useState(false);
 	const [localText, setLocalText] = React.useState(passage.text);
 	const {prefs} = usePrefsContext();
@@ -89,7 +97,7 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 	const options = React.useMemo(
 		() => ({
 			...codeMirrorOptionsFromPrefs(prefs),
-			mode,
+			mode: storyFormatExtensionsDisabled ? 'text' : mode,
 			lineWrapping: true,
 			placeholder: t('dialogs.passageEdit.passageTextPlaceholder'),
 			prefixTrigger: {
@@ -97,7 +105,7 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 				prefixes: ['[[', '->']
 			}
 		}),
-		[autocompletePassageNames, mode, prefs, t]
+		[autocompletePassageNames, mode, prefs, storyFormatExtensionsDisabled, t]
 	);
 
 	return (

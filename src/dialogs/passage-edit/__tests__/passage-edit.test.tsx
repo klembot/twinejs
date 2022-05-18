@@ -1,438 +1,218 @@
-import {
-	act,
-	cleanup,
-	fireEvent,
-	render,
-	screen,
-	within
-} from '@testing-library/react';
+import {fireEvent, render, screen, within} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
+import {useStoriesContext} from '../../../store/stories';
 import {
-	addPassageTag,
-	removePassageTag,
-	setTagColor,
-	updatePassage,
-	updateStory
-} from '../../../store/stories/action-creators';
-import {
-	StoryFormatsContext,
-	StoryFormatsContextProps
-} from '../../../store/story-formats';
-import {
-	UndoableStoriesContext,
-	UndoableStoriesContextProps
-} from '../../../store/undoable-stories';
-import {fakeLoadedStoryFormat, fakeStory} from '../../../test-util';
+	fakeLoadedStoryFormat,
+	FakeStateProvider,
+	FakeStateProviderProps,
+	fakeStory,
+	fakeUnloadedStoryFormat,
+	StoryInspector
+} from '../../../test-util';
 import {PassageEditDialog, PassageEditDialogProps} from '../passage-edit';
 
+jest.mock('../passage-toolbar');
 jest.mock('../passage-text');
 jest.mock('../story-format-toolbar');
-jest.mock('../../../components/control/menu-button');
-jest.mock('../../../components/passage/rename-passage-button');
-jest.mock('../../../components/tag/add-tag-button');
-jest.mock('../../../components/tag/tag-button');
-jest.mock('../../../store/stories/action-creators');
+jest.mock('../tag-toolbar');
+
+const TestPassageEditDialog: React.FC<
+	Partial<PassageEditDialogProps>
+> = props => {
+	const {stories} = useStoriesContext();
+
+	return (
+		<div data-testid="passage-edit-dialog">
+			<PassageEditDialog
+				collapsed={false}
+				onChangeCollapsed={jest.fn()}
+				onClose={jest.fn()}
+				passageId={stories[0].passages[0].id}
+				storyId={stories[0].id}
+				{...props}
+			/>
+		</div>
+	);
+};
 
 describe('<PassageEditDialog>', () => {
-	const addPassageTagMock = addPassageTag as jest.Mock;
-	const removePassageTagMock = removePassageTag as jest.Mock;
-	const setTagColorMock = setTagColor as jest.Mock;
-	const updatePassageMock = updatePassage as jest.Mock;
-	const updateStoryMock = updateStory as jest.Mock;
-
-	async function renderComponent(
-		props?: Partial<PassageEditDialogProps>,
-		storiesContext?: Partial<UndoableStoriesContextProps>,
-		formatsContext?: Partial<StoryFormatsContextProps>
+	function renderComponent(
+		context?: FakeStateProviderProps,
+		props?: Partial<PassageEditDialogProps>
 	) {
-		const story = fakeStory(1);
-		const format = fakeLoadedStoryFormat({
-			name: story.storyFormat,
-			version: story.storyFormatVersion
-		});
-		const result = render(
-			<StoryFormatsContext.Provider
-				value={{dispatch: jest.fn(), formats: [format], ...formatsContext}}
-			>
-				<UndoableStoriesContext.Provider
-					value={{dispatch: jest.fn(), stories: [story], ...storiesContext}}
-				>
-					<PassageEditDialog
-						collapsed={false}
-						onChangeCollapsed={jest.fn()}
-						onClose={jest.fn()}
-						passageId={story.passages[0].id}
-						storyId={story.id}
-						{...props}
-					/>
-				</UndoableStoriesContext.Provider>
-			</StoryFormatsContext.Provider>
-		);
+		const onClose = jest.fn();
 
-		// Need this because of <PromptButton>
-		await act(async () => Promise.resolve());
-		return result;
+		return {
+			onClose,
+			...render(
+				<FakeStateProvider {...context}>
+					<TestPassageEditDialog {...props} onClose={onClose} />
+					<StoryInspector />
+				</FakeStateProvider>
+			)
+		};
 	}
 
-	beforeEach(() => {
-		addPassageTagMock.mockImplementation((...args) => [...args]);
-		removePassageTagMock.mockImplementation((...args) => [...args]);
-		setTagColorMock.mockImplementation((...args) => [...args]);
-		updatePassageMock.mockImplementation((...args) => [...args]);
-		updateStoryMock.mockImplementation((...args) => [...args]);
-	});
-
 	describe('when the passage exists in state', () => {
-		it('uses the passage name as dialog name', async () => {
-			const story = fakeStory(1);
-			const format = fakeLoadedStoryFormat({
-				name: story.storyFormat,
-				version: story.storyFormatVersion
+		describe('when no errors have occurred', () => {
+			it('uses the passage name as dialog name', async () => {
+				const story = fakeStory(1);
+				const format = fakeUnloadedStoryFormat({
+					name: story.storyFormat,
+					version: story.storyFormatVersion
+				});
+
+				renderComponent({stories: [story], storyFormats: [format]});
+				expect(screen.getByRole('heading')).toHaveTextContent(
+					story.passages[0].name
+				);
 			});
 
-			await renderComponent(
-				{storyId: story.id, passageId: story.passages[0].id},
-				{stories: [story]},
-				{formats: [format]}
-			);
-			expect(screen.getByRole('heading')).toHaveTextContent(
-				story.passages[0].name
-			);
-		});
+			it('displays a passage text editor', async () => {
+				const story = fakeStory(1);
+				const format = fakeUnloadedStoryFormat({
+					name: story.storyFormat,
+					version: story.storyFormatVersion
+				});
 
-		it('displays a passage text editor', async () => {
-			const story = fakeStory(1);
-			const format = fakeLoadedStoryFormat({
-				name: story.storyFormat,
-				version: story.storyFormatVersion
-			});
-
-			await renderComponent(
-				{storyId: story.id, passageId: story.passages[0].id},
-				{stories: [story]},
-				{formats: [format]}
-			);
-			expect(
-				screen.getByTestId(`mock-passage-text-${story.passages[0].id}`)
-			).toBeInTheDocument();
-		});
-
-		it('dispatches an update action when the passage text is changed', async () => {
-			const dispatch = jest.fn();
-			const story = fakeStory(1);
-			const format = fakeLoadedStoryFormat({
-				name: story.storyFormat,
-				version: story.storyFormatVersion
-			});
-
-			await renderComponent(
-				{storyId: story.id, passageId: story.passages[0].id},
-				{dispatch, stories: [story]},
-				{formats: [format]}
-			);
-			expect(dispatch).not.toHaveBeenCalled();
-			expect(updatePassageMock).not.toHaveBeenCalled();
-			fireEvent.click(
-				within(
+				renderComponent({stories: [story], storyFormats: [format]});
+				expect(
 					screen.getByTestId(`mock-passage-text-${story.passages[0].id}`)
-				).getByText('onChange')
-			);
-			expect(updatePassageMock.mock.calls).toEqual([
-				[story, story.passages[0], {text: 'mock-changed-text'}]
-			]);
-			expect(dispatch.mock.calls).toEqual([[updatePassageMock.mock.calls[0]]]);
-		});
-
-		it('displays passage tags', async () => {
-			const story = fakeStory(1);
-			const format = fakeLoadedStoryFormat({
-				name: story.storyFormat,
-				version: story.storyFormatVersion
+				).toBeInTheDocument();
 			});
 
-			story.passages[0].tags = ['mock-tag', 'mock-tag2'];
-			await renderComponent(
-				{storyId: story.id, passageId: story.passages[0].id},
-				{stories: [story]},
-				{formats: [format]}
-			);
-			expect(
-				screen.getByTestId('mock-tag-button-mock-tag')
-			).toBeInTheDocument();
-			expect(
-				screen.getByTestId('mock-tag-button-mock-tag2')
-			).toBeInTheDocument();
-		});
+			it('updates the passage text when the user edits it', () => {
+				const story = fakeStory(1);
+				const format = fakeUnloadedStoryFormat({
+					name: story.storyFormat,
+					version: story.storyFormatVersion
+				});
 
-		it('dispatches an update action when a tag color is changed', async () => {
-			const dispatch = jest.fn();
-			const story = fakeStory(1);
-			const format = fakeLoadedStoryFormat({
-				name: story.storyFormat,
-				version: story.storyFormatVersion
+				renderComponent({stories: [story], storyFormats: [format]});
+				fireEvent.click(
+					within(
+						screen.getByTestId(`mock-passage-text-${story.passages[0].id}`)
+					).getByText('onChange')
+				);
+				expect(
+					screen.getByTestId(`passage-${story.passages[0].id}`)
+				).toHaveTextContent('mock-changed-text');
 			});
 
-			story.passages[0].tags = ['mock-tag'];
-			await renderComponent(
-				{storyId: story.id, passageId: story.passages[0].id},
-				{dispatch, stories: [story]},
-				{formats: [format]}
-			);
-			expect(dispatch).not.toHaveBeenCalled();
-			expect(updateStoryMock).not.toHaveBeenCalled();
-			fireEvent.click(
-				within(screen.getByTestId('mock-tag-button-mock-tag')).getByText(
-					'onChangeColor'
-				)
-			);
-			expect(updateStoryMock.mock.calls).toEqual([
-				[
-					[story],
-					story,
-					{tagColors: {'mock-tag': 'mock-color', ...story.tagColors}}
-				]
-			]);
-		});
-
-		it('dispatches an update action when a tag is removed', async () => {
-			const dispatch = jest.fn();
-			const story = fakeStory(1);
-			const format = fakeLoadedStoryFormat({
-				name: story.storyFormat,
-				version: story.storyFormatVersion
-			});
-
-			story.passages[0].tags = ['mock-tag'];
-			await renderComponent(
-				{storyId: story.id, passageId: story.passages[0].id},
-				{dispatch, stories: [story]},
-				{formats: [format]}
-			);
-			expect(dispatch).not.toHaveBeenCalled();
-			expect(removePassageTagMock).not.toHaveBeenCalled();
-			fireEvent.click(
-				within(screen.getByTestId('mock-tag-button-mock-tag')).getByText(
-					'onRemove'
-				)
-			);
-			expect(removePassageTagMock.mock.calls).toEqual([
-				[story, story.passages[0], 'mock-tag']
-			]);
-		});
-
-		it('displays a button to add tags to the passage', async () => {
-			await renderComponent();
-			expect(screen.getByTestId('mock-add-tag-button')).toBeInTheDocument();
-		});
-
-		it('dispatches actions when a tag is added', async () => {
-			const dispatch = jest.fn();
-			const story = fakeStory(1);
-			const format = fakeLoadedStoryFormat({
-				name: story.storyFormat,
-				version: story.storyFormatVersion
-			});
-
-			await renderComponent(
-				{storyId: story.id, passageId: story.passages[0].id},
-				{dispatch, stories: [story]},
-				{formats: [format]}
-			);
-			expect(dispatch).not.toHaveBeenCalled();
-			expect(addPassageTagMock).not.toHaveBeenCalled();
-			expect(setTagColorMock).not.toHaveBeenCalled();
-			fireEvent.click(
-				within(screen.getByTestId('mock-add-tag-button')).getByText('onAdd')
-			);
-			expect(addPassageTagMock.mock.calls).toEqual([
-				[story, story.passages[0], 'mock-tag-name']
-			]);
-			expect(setTagColorMock.mock.calls).toEqual([
-				[story, 'mock-tag-name', 'mock-color']
-			]);
-			expect(dispatch.mock.calls).toEqual([
-				[addPassageTagMock.mock.calls[0], 'undoChange.addTag'],
-				[setTagColorMock.mock.calls[0]]
-			]);
-		});
-
-		it('displays a button to rename the passage', async () => {
-			const story = fakeStory(1);
-			const format = fakeLoadedStoryFormat({
-				name: story.storyFormat,
-				version: story.storyFormatVersion
-			});
-
-			await renderComponent(
-				{storyId: story.id, passageId: story.passages[0].id},
-				{stories: [story]},
-				{formats: [format]}
-			);
-			expect(
-				screen.getByText(`mock-rename-passage-button-${story.passages[0].id}`)
-			).toBeInTheDocument();
-		});
-
-		it('dispatches an update action when the passage is renamed', async () => {
-			const dispatch = jest.fn();
-			const story = fakeStory(1);
-			const format = fakeLoadedStoryFormat({
-				name: story.storyFormat,
-				version: story.storyFormatVersion
-			});
-
-			await renderComponent(
-				{storyId: story.id, passageId: story.passages[0].id},
-				{dispatch, stories: [story]},
-				{formats: [format]}
-			);
-			expect(dispatch).not.toHaveBeenCalled();
-			expect(updatePassageMock).not.toHaveBeenCalled();
-			fireEvent.click(
-				screen.getByText(`mock-rename-passage-button-${story.passages[0].id}`)
-			);
-			expect(updatePassageMock.mock.calls).toEqual([
-				[
-					story,
-					story.passages[0],
-					{name: 'mock-new-passage-name'},
-					{dontCreateNewlyLinkedPassages: true}
-				]
-			]);
-			expect(dispatch.mock.calls).toEqual([[updatePassageMock.mock.calls[0]]]);
-		});
-
-		it('displays a checkbox button showing whether the passage is the start passage', async () => {
-			const story = fakeStory(2);
-			const format = fakeLoadedStoryFormat({
-				name: story.storyFormat,
-				version: story.storyFormatVersion
-			});
-
-			story.startPassage = story.passages[0].id;
-			await renderComponent(
-				{storyId: story.id, passageId: story.passages[0].id},
-				{stories: [story]},
-				{formats: [format]}
-			);
-
-			let startCheckbox = screen.getByRole('checkbox', {
-				name: 'dialogs.passageEdit.setAsStart'
-			});
-
-			expect(startCheckbox).toBeChecked();
-
-			// See https://github.com/testing-library/jest-dom/issues/144
-			expect(startCheckbox).toHaveAttribute('aria-disabled', 'true');
-			cleanup();
-			story.startPassage = story.passages[1].id;
-			await renderComponent(
-				{storyId: story.id, passageId: story.passages[0].id},
-				{stories: [story]},
-				{formats: [format]}
-			);
-			startCheckbox = screen.getByRole('checkbox', {
-				name: 'dialogs.passageEdit.setAsStart'
-			});
-			expect(startCheckbox).not.toBeChecked();
-			expect(startCheckbox).not.toHaveAttribute('aria-disabled', 'true');
-		});
-
-		it('dispatches an update action when the passage is selected as the start one', async () => {
-			const dispatch = jest.fn();
-			const story = fakeStory(2);
-			const format = fakeLoadedStoryFormat({
-				name: story.storyFormat,
-				version: story.storyFormatVersion
-			});
-
-			story.startPassage = story.passages[1].id;
-			await renderComponent(
-				{storyId: story.id, passageId: story.passages[0].id},
-				{dispatch, stories: [story]},
-				{formats: [format]}
-			);
-			expect(dispatch).not.toHaveBeenCalled();
-			expect(updateStoryMock).not.toHaveBeenCalled();
-			fireEvent.click(screen.getByText('dialogs.passageEdit.setAsStart'));
-			expect(updateStoryMock.mock.calls).toEqual([
-				[[story], story, {startPassage: story.passages[0].id}]
-			]);
-		});
-
-		// Need a higher-fidelity mock of <MenuButton> that includes checked state.
-
-		it.todo(
-			"displays a dropdown menu of sizes, with the passage's current one selected"
-		);
-
-		it.each([
-			['small', 'Small', {height: 100, width: 100}],
-			['large', 'Large', {height: 200, width: 200}],
-			['tall', 'Tall', {height: 200, width: 100}],
-			['wide', 'Wide', {height: 100, width: 200}]
-		])(
-			"dispatches an action when the passage's size is changed to %s",
-			async (_, label, passageProps) => {
-				const dispatch = jest.fn();
-				const story = fakeStory(2);
+			it('displays the format toolbar', () => {
+				const story = fakeStory(1);
 				const format = fakeLoadedStoryFormat({
 					name: story.storyFormat,
 					version: story.storyFormatVersion
 				});
 
-				await renderComponent(
-					{storyId: story.id, passageId: story.passages[0].id},
-					{dispatch, stories: [story]},
-					{formats: [format]}
-				);
-				expect(dispatch).not.toHaveBeenCalled();
-				expect(updatePassageMock).not.toHaveBeenCalled();
-				fireEvent.click(screen.getByText(`dialogs.passageEdit.size${label}`));
-				expect(updatePassageMock.mock.calls).toEqual([
-					[story, story.passages[0], passageProps]
-				]);
-				expect(dispatch.mock.calls).toEqual([
-					[updatePassageMock.mock.calls[0]]
-				]);
-			}
-		);
-
-		it('displays the format toolbar', () => {
-			const story = fakeStory(2);
-			const format = fakeLoadedStoryFormat({
-				name: story.storyFormat,
-				version: story.storyFormatVersion
+				renderComponent({stories: [story], storyFormats: [format]});
+				expect(
+					screen.getByTestId(`mock-story-format-toolbar-${format.id}`)
+				).toBeInTheDocument();
 			});
 
-			renderComponent(
-				{storyId: story.id, passageId: story.passages[0].id},
-				{stories: [story]},
-				{formats: [format]}
-			);
-			expect(
-				screen.getByTestId(`mock-story-format-toolbar-${format.id}`)
-			).toBeInTheDocument();
+			it('displays the tag toolbar', () => {
+				const story = fakeStory(1);
+				const format = fakeLoadedStoryFormat({
+					name: story.storyFormat,
+					version: story.storyFormatVersion
+				});
+
+				renderComponent({stories: [story], storyFormats: [format]});
+				expect(
+					screen.getByTestId(`mock-tag-toolbar-${story.passages[0].id}`)
+				).toBeInTheDocument();
+			});
+
+			it('does not disable story format extensions', () => {
+				const story = fakeStory(1);
+				const format = fakeLoadedStoryFormat({
+					name: story.storyFormat,
+					version: story.storyFormatVersion
+				});
+
+				renderComponent({stories: [story], storyFormats: [format]});
+				expect(
+					screen.getByTestId(`mock-passage-text-${story.passages[0].id}`)
+						.dataset.storyFormatExtensionsDisabled
+				).toBe('false');
+			});
+
+			it('is accessible', async () => {
+				const {container} = renderComponent();
+
+				expect(await axe(container)).toHaveNoViolations();
+			});
 		});
 
-		it('is accessible', async () => {
-			const {container} = await renderComponent();
+		describe('the first time an error occurs', () => {
+			it('disables story format extensions in the editor', () => {
+				jest.spyOn(console, 'error').mockReturnValue();
 
-			expect(await axe(container)).toHaveNoViolations();
+				const story = fakeStory(1);
+				const format = fakeLoadedStoryFormat({
+					name: story.storyFormat,
+					version: story.storyFormatVersion
+				});
+
+				renderComponent({stories: [story], storyFormats: [format]});
+				fireEvent.click(screen.getByText('throw error'));
+				expect(
+					screen.getByTestId(`mock-passage-text-${story.passages[0].id}`)
+						.dataset.storyFormatExtensionsDisabled
+				).toBe('true');
+			});
+		});
+
+		describe('when an error occurs twice', () => {
+			it('displays only an error message', () => {
+				jest.spyOn(console, 'error').mockReturnValue();
+
+				const story = fakeStory(1);
+				const format = fakeLoadedStoryFormat({
+					name: story.storyFormat,
+					version: story.storyFormatVersion
+				});
+
+				renderComponent({stories: [story], storyFormats: [format]});
+				fireEvent.click(screen.getByText('throw error'));
+				fireEvent.click(screen.getByText('throw error'));
+				expect(
+					screen.getByText('dialogs.passageEdit.editorCrashed')
+				).toBeInTheDocument();
+				expect(
+					screen.queryByTestId(`mock-passage-text-${story.passages[0].id}`)
+				).not.toBeInTheDocument();
+				expect(
+					screen.queryByTestId(`mock-passage-toolbar-${story.passages[0].id}`)
+				).not.toBeInTheDocument();
+				expect(
+					screen.queryByTestId(`mock-story-format-toolbar-${format.id}`)
+				).not.toBeInTheDocument();
+				expect(
+					screen.queryByTestId(`mock-tag-toolbar-${story.passages[0].id}`)
+				).not.toBeInTheDocument();
+			});
 		});
 	});
 
 	describe('when the passage does not exist in state', () => {
-		it('renders nothing', async () => {
-			await renderComponent({passageId: 'nonexistent'});
-			expect(document.body.textContent).toBe('');
+		it('renders nothing', () => {
+			const story = fakeStory(1);
+
+			renderComponent({stories: [story]}, {passageId: 'nonexistent'});
+			expect(screen.getByTestId('passage-edit-dialog')).toHaveTextContent('');
 		});
 
-		it('calls the onClose prop', async () => {
-			const onClose = jest.fn();
+		it('calls the onClose prop', () => {
+			const story = fakeStory(1);
+			const {onClose} = renderComponent(
+				{stories: [story]},
+				{passageId: 'nonexistent'}
+			);
 
-			await renderComponent({onClose, passageId: 'nonexistent'});
 			expect(onClose).toHaveBeenCalledTimes(1);
 		});
 	});

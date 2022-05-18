@@ -14,3 +14,8 @@
 .passage-edit-dialog .tags {
 	padding: var(--grid-size);
 }
+
+.passage-edit-dialog .fuuu {
+	font-size: 200%;
+	margin-bottom: 0;
+}

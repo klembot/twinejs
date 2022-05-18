@@ -2,7 +2,7 @@ import sortBy from 'lodash/sortBy';
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {MainContent} from '../../components/container/main-content';
-import {SafariWarningCard} from '../../components/safari-warning';
+import {SafariWarningCard} from '../../components/error';
 import {
 	AppDonationDialog,
 	DialogsContextProvider,
