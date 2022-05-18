@@ -8,7 +8,6 @@ describe('<DialogCard>', () => {
 		return render(
 			<DialogCard
 				collapsed={false}
-				domId="mock-dialog-id"
 				headerLabel="mock-header-label"
 				onChangeCollapsed={jest.fn()}
 				onClose={jest.fn()}
@@ -61,6 +60,30 @@ describe('<DialogCard>', () => {
 		expect(
 			screen.queryByTestId('dialog-card-children')
 		).not.toBeInTheDocument();
+	});
+
+	it('shows an error message if its children throw an error', () => {
+		jest.spyOn(console, 'error').mockReturnValue();
+
+		const BadComponent = () => {
+			throw new Error();
+		};
+
+		render(
+			<DialogCard
+				collapsed={false}
+				headerLabel="mock-header-label"
+				onChangeCollapsed={jest.fn()}
+				onClose={jest.fn()}
+			>
+				<BadComponent />
+			</DialogCard>
+		);
+		expect(screen.getByText('mock-header-label')).toBeInTheDocument();
+		expect(screen.getByLabelText('common.close')).toBeInTheDocument();
+		expect(
+			screen.getByText('components.dialogCard.contentsCrashed')
+		).toBeInTheDocument();
 	});
 
 	it('is accessible', async () => {

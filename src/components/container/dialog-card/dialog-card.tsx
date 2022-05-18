@@ -5,6 +5,8 @@ import {IconChevronDown, IconChevronUp, IconX} from '@tabler/icons';
 import {Card} from '../card';
 import {IconButton} from '../../control/icon-button';
 import './dialog-card.css';
+import useErrorBoundary from 'use-error-boundary';
+import {ErrorMessage} from '../../error';
 
 export interface DialogCardProps {
 	className?: string;
@@ -25,7 +27,14 @@ export const DialogCard: React.FC<DialogCardProps> = props => {
 		onChangeCollapsed,
 		onClose
 	} = props;
+	const {didCatch, ErrorBoundary, error} = useErrorBoundary();
 	const {t} = useTranslation();
+
+	React.useEffect(() => {
+		if (error) {
+			console.error(error);
+		}
+	}, [error]);
 
 	const calcdClassName = classNames('dialog-card', className, {
 		collapsed,
@@ -64,7 +73,13 @@ export const DialogCard: React.FC<DialogCardProps> = props => {
 						/>
 					</div>
 				</h2>
-				{!collapsed && children}
+				{didCatch ? (
+					<ErrorMessage>
+						{t('components.dialogCard.contentsCrashed')}
+					</ErrorMessage>
+				) : (
+					<ErrorBoundary>{!collapsed && children}</ErrorBoundary>
+				)}
 			</Card>
 		</div>
 	);
