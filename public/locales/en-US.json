@@ -59,6 +59,9 @@
 			"tagColorLabel": "Tag Color",
 			"tagNameLabel": "Tag Name"
 		},
+		"dialogCard": {
+			"contentsCrashed": "Something went wrong with this dialog. Try closing it and opening it again."
+		},
 		"fontSelect": {
 			"customScaleDetail": "Please enter a percentage only.",
 			"customFamilyDetail": "Please enter the name of the font only.",

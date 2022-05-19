@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
+import useErrorBoundary from 'use-error-boundary';
 import {
 	DialogCard,
 	DialogCardProps
@@ -11,7 +12,6 @@ import {
 	useStoryFormatsContext
 } from '../../store/story-formats';
 import {useUndoableStoriesContext} from '../../store/undoable-stories';
-import {PassageEditErrorBoundary} from './passage-edit-error-boundary';
 import './passage-edit.css';
 import {PassageText} from './passage-text';
 import {PassageToolbar} from './passage-toolbar';
@@ -32,6 +32,7 @@ export const InnerPassageEditDialog: React.FC<
 		React.useState(true);
 	const [editorCrashed, setEditorCrashed] = React.useState(false);
 	const [cmEditor, setCmEditor] = React.useState<CodeMirror.Editor>();
+	const {ErrorBoundary, error, reset: resetError} = useErrorBoundary();
 	const {dispatch, stories} = useUndoableStoriesContext();
 	const {formats} = useStoryFormatsContext();
 	const passage = passageWithId(stories, storyId, passageId);
@@ -42,6 +43,22 @@ export const InnerPassageEditDialog: React.FC<
 		story.storyFormatVersion
 	);
 	const {t} = useTranslation();
+
+	React.useEffect(() => {
+		if (error) {
+			if (storyFormatExtensionsEnabled) {
+				console.error(
+					'Passage editor crashed, trying without format extensions',
+					error
+				);
+				setStoryFormatExtensionsEnabled(false);
+			} else {
+				setEditorCrashed(true);
+			}
+
+			resetError();
+		}
+	}, [error, resetError, storyFormatExtensionsEnabled]);
 
 	const handlePassageTextChange = React.useCallback(
 		(text: string) => {
@@ -69,18 +86,6 @@ export const InnerPassageEditDialog: React.FC<
 		Promise.resolve().then(() => cmEditor.setSelections(selections));
 	}
 
-	function handleEditorError(error: Error) {
-		if (storyFormatExtensionsEnabled) {
-			console.error(
-				'Passage editor crashed, trying without format extensions',
-				error
-			);
-			setStoryFormatExtensionsEnabled(false);
-		} else {
-			setEditorCrashed(true);
-		}
-	}
-
 	return (
 		<DialogCard
 			{...other}
@@ -100,7 +105,7 @@ export const InnerPassageEditDialog: React.FC<
 						/>
 					)}
 					<TagToolbar passage={passage} story={story} />
-					<PassageEditErrorBoundary onError={handleEditorError}>
+					<ErrorBoundary>
 						<PassageText
 							onChange={handlePassageTextChange}
 							onEditorChange={setCmEditor}
@@ -109,7 +114,7 @@ export const InnerPassageEditDialog: React.FC<
 							storyFormat={storyFormat}
 							storyFormatExtensionsDisabled={!storyFormatExtensionsEnabled}
 						/>
-					</PassageEditErrorBoundary>
+					</ErrorBoundary>
 				</>
 			)}
 		</DialogCard>
