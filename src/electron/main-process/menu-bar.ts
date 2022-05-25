@@ -7,12 +7,21 @@ import {
 } from 'electron';
 import {revealStoryDirectory} from './story-directory';
 import {i18n} from './locales';
+import {checkForUpdate} from './check-for-update';
 
 export function initMenuBar() {
 	const template: MenuItemConstructorOptions[] = [
 		{
 			label: app.getName(),
-			submenu: [{role: 'about'}, {type: 'separator'}, {role: 'quit'}]
+			submenu: [
+				{role: 'about'},
+				{
+					label: i18n.t('electron.menuBar.checkForUpdates'),
+					click: checkForUpdate
+				},
+				{type: 'separator'},
+				{role: 'quit'}
+			]
 		},
 		{
 			label: i18n.t('electron.menuBar.edit'),
@@ -70,6 +79,10 @@ export function initMenuBar() {
 	if (process.platform === 'darwin') {
 		template[0].submenu = [
 			{role: 'about'},
+			{
+				label: i18n.t('electron.menuBar.checkForUpdates'),
+				click: checkForUpdate
+			},
 			{type: 'separator'},
 			{role: 'services', submenu: []},
 			{type: 'separator'},
