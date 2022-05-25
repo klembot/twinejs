@@ -237,18 +237,19 @@
 	"electron": {
 		"backupsDirectoryName": "Backups",
 		"errors": {
-			"jsonSave": "An error occurred while saving a settings file.",
+			"jsonSave": "Something went wrong while saving a settings file.",
 			"storyFileChangedExternally": {
 				"message": "The file “{{fileName}}” in your story library was changed outside of Twine.",
 				"detail": "Saving changes will overwrite this file. If you'd like to use this file instead of the version in Twine, Twine will relaunch and your work will be replaced with the file.",
 				"overwriteChoice": "Save Changes in Twine",
 				"relaunchChoice": "Use File and Relaunch"
 			},
-			"storyDelete": "An error occurred while deleting a story.",
-			"storyRename": "An error occurred while renaming a story.",
-			"storySave": "An error occurred while saving a story."
+			"storyDelete": "Something went wrong while deleting a story.",
+			"storyRename": "Something went wrong while renaming a story.",
+			"storySave": "Something went wrong while saving a story."
 		},
 		"menuBar": {
+			"checkForUpdates": "Check for Updates...",
 			"edit": "Edit",
 			"showDevTools": "Show Debug Console",
 			"showStoryLibrary": "Show Story Library",
@@ -257,7 +258,13 @@
 			"twineHelp": "Twine Help",
 			"view": "View"
 		},
-		"storiesDirectoryName": "Stories"
+		"storiesDirectoryName": "Stories",
+		"updateCheck": {
+			"download": "Download",
+			"error": "Something went wrong while checking for an updated version of Twine.",
+			"updateAvailable": "A newer version of Twine is available.",
+			"upToDate": "This is the newest version of Twine available."
+		}
 	},
 	"routes": {
 		"storyEdit": {
@@ -371,9 +378,9 @@
 	"store": {
 		"archiveFilename": "{{timestamp}} Twine Archive.html",
 		"errors": {
-			"cantPersistPrefs": "Saving your preferences failed ({{error}}).",
-			"cantPersistStories": "Saving your stories failed ({{error}}).",
-			"cantPersistStoryFormats": "Saving your story formats failed ({{error}}).",
+			"cantPersistPrefs": "Something went wrong while saving your preferences ({{error}}).",
+			"cantPersistStories": "Something went wrong while saving your stories ({{error}}).",
+			"cantPersistStoryFormats": "Something went wrong while saving your story formats ({{error}}).",
 			"electronRemediation": "Restarting this application may help.",
 			"webRemediation": "Reloading this page may help."
 		},
