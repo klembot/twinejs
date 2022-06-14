@@ -5,3 +5,4 @@ dist/*
 .idea
 electron-build/*
 coverage/*
+docs/en/book/*

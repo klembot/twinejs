@@ -20,6 +20,11 @@ repositories:
 
 Run `npm install` at the top level of the directory to install all goodies.
 
+Working with the documentation requires installing
+[mdbook](https://rust-lang.github.io/mdBook/), which is not a Node-based
+project. You can either install it directly from the project web site or use
+your operating system's package manager.
+
 ### BUILDING
 
 Run `npm start` to begin serving a development version of Twine locally. This

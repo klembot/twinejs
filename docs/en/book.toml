@@ -1,0 +1,3 @@
+[output.html]
+additional-css = ["custom.css"]
+copy-fonts = true
