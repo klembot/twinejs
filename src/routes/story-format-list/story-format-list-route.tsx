@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
+import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import {ClickAwayListener} from '../../components/click-away-listener';
 import {CardGroup} from '../../components/container/card-group';
 import {MainContent} from '../../components/container/main-content';
@@ -65,26 +66,33 @@ export const StoryFormatListRoute: React.FC = () => {
 						</p>
 						<FormatLoader>
 							<CardGroup columnWidth="450px">
-								{visibleFormats.map(format => (
-									<StoryFormatCard
-										defaultFormat={
-											format.name === prefs.storyFormat.name &&
-											format.version === prefs.storyFormat.version
-										}
-										editorExtensionsDisabled={prefs.disabledStoryFormatEditorExtensions.some(
-											disabledFormat =>
-												format.name === disabledFormat.name &&
-												format.version === disabledFormat.version
-										)}
-										format={format}
-										key={format.id}
-										onSelect={() => handleSelect(format)}
-										proofingFormat={
-											format.name === prefs.proofingFormat.name &&
-											format.version === prefs.proofingFormat.version
-										}
-									/>
-								))}
+								<TransitionGroup component={null}>
+									{visibleFormats.map(format => (
+										<CSSTransition
+											classNames="pop"
+											key={format.id}
+											timeout={200}
+										>
+											<StoryFormatCard
+												defaultFormat={
+													format.name === prefs.storyFormat.name &&
+													format.version === prefs.storyFormat.version
+												}
+												editorExtensionsDisabled={prefs.disabledStoryFormatEditorExtensions.some(
+													disabledFormat =>
+														format.name === disabledFormat.name &&
+														format.version === disabledFormat.version
+												)}
+												format={format}
+												onSelect={() => handleSelect(format)}
+												proofingFormat={
+													format.name === prefs.proofingFormat.name &&
+													format.version === prefs.proofingFormat.version
+												}
+											/>
+										</CSSTransition>
+									))}
+								</TransitionGroup>
 							</CardGroup>
 						</FormatLoader>
 					</MainContent>
