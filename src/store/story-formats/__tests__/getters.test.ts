@@ -3,6 +3,7 @@ import {
 	formatImageUrl,
 	formatWithId,
 	formatWithNameAndVersion,
+	newestFormatNamed,
 	sortFormats
 } from '../getters';
 import {
@@ -139,6 +140,32 @@ describe('formatWithNameAndVersion', () => {
 			formatWithId(formats, formats[0].id + 'nonexistent')
 		).toThrow();
 	});
+});
+
+describe('newestFormatWithName', () => {
+	it('returns the newest format in the arguments passed', () =>
+		expect(
+			newestFormatNamed(
+				[
+					fakePendingStoryFormat({name: 'mock-name', version: '1.0.0'}),
+					fakePendingStoryFormat({name: 'mock-name', version: '1.0.1'}),
+					fakePendingStoryFormat({name: 'other-name', version: '2.0.0'})
+				],
+				'mock-name'
+			)
+		).toEqual(expect.objectContaining({name: 'mock-name', version: '1.0.1'})));
+
+	it('returns undefined if no formats match the name passed', () =>
+		expect(
+			newestFormatNamed(
+				[
+					fakePendingStoryFormat({name: 'mock-name', version: '1.0.0'}),
+					fakePendingStoryFormat({name: 'mock-name', version: '1.0.1'}),
+					fakePendingStoryFormat({name: 'mock-name', version: '2.0.0'})
+				],
+				'other-name'
+			)
+		).toBeUndefined());
 });
 
 describe('sortFormats', () => {
