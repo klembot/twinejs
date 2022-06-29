@@ -50,7 +50,7 @@ export const StateLoader: React.FC = ({children}) => {
 
 	React.useEffect(() => {
 		if (!repaired && inited) {
-			prefsDispatch({type: 'repair'});
+			prefsDispatch({type: 'repair', allFormats: formatsState});
 			formatsDispatch({type: 'repair'});
 
 			// We try to repair stories to the user's preferred format, but perhaps

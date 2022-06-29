@@ -59,7 +59,7 @@ describe('<StateLoader>', () => {
 
 		expect(prefsDispatchMock.mock.calls).toEqual([
 			[{type: 'init', state: {mockPrefsState: true}}],
-			[{type: 'repair'}]
+			[{type: 'repair', allFormats: [defaultFormat]}]
 		]);
 		expect(storiesDispatchMock.mock.calls).toEqual([
 			[{type: 'init', state: {mockStoriesState: true}}],

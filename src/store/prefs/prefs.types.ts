@@ -1,4 +1,5 @@
 import {Color} from '../../util/color';
+import {StoryFormat} from '../story-formats';
 
 export type PrefsAction =
 	| {type: 'init'; state: Partial<PrefsState>}
@@ -14,7 +15,7 @@ export type PrefsAction =
 				| {name: string; version: string}[]
 				| Record<string, Color>;
 	  }
-	| {type: 'repair'};
+	| {type: 'repair'; allFormats: StoryFormat[]};
 
 export interface PrefsState {
 	/**

@@ -2,6 +2,7 @@ import isAbsoluteUrl from 'is-absolute-url';
 import semverLt from 'semver/functions/lt';
 import {StoryFormat} from './story-formats.types';
 import {PrefsState} from '../prefs';
+import {gt} from 'semver';
 
 export function filteredFormats(
 	formats: StoryFormat[],
@@ -66,6 +67,18 @@ export function formatWithNameAndVersion(
 	throw new Error(
 		`There is no story format with name "${name}" and version "${version}".`
 	);
+}
+
+export function newestFormatNamed(formats: StoryFormat[], name: string) {
+	return formats.reduce<StoryFormat | undefined>((result, format) => {
+		if (format.name !== name) {
+			return result;
+		}
+
+		if (!result || gt(format.version, result.version)) {
+			return format;
+		}
+	}, undefined);
 }
 
 export function sortFormats(formats: StoryFormat[]) {
