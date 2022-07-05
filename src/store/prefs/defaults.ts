@@ -1,7 +1,7 @@
 import {PrefsState} from './prefs.types';
 
 export const defaults = (): PrefsState => ({
-	appTheme: 'light',
+	appTheme: 'system',
 	codeEditorFontFamily: 'var(--font-monospaced)',
 	codeEditorFontScale: 1,
 	disabledStoryFormatEditorExtensions: [],
@@ -24,7 +24,7 @@ export const defaults = (): PrefsState => ({
 	},
 	storyFormat: {
 		name: 'Harlowe',
-		version: '3.2.3'
+		version: '3.3.0'
 	},
 	storyFormatListFilter: 'current',
 	storyListSort: 'name',

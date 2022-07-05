@@ -1,4 +1,4 @@
-import {act, render, screen} from '@testing-library/react';
+import {act, fireEvent, render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
 import {axe} from 'jest-axe';
 import * as React from 'react';
@@ -9,11 +9,14 @@ import {
 	fakeLoadedStoryFormat,
 	FakeStateProvider,
 	FakeStateProviderProps,
-	fakeStory
+	fakeStory,
+	StoryInspector
 } from '../../../test-util';
 import {InnerStoryEditRoute} from '../story-edit-route';
+import {useZoomShortcuts} from '../use-zoom-shortcuts';
 
 jest.mock('../toolbar/story-edit-toolbar');
+jest.mock('../use-zoom-shortcuts');
 jest.mock('../../../components/passage/passage-map/passage-map');
 
 const TestStoryEditRoute: React.FC = () => {
@@ -27,12 +30,15 @@ const TestStoryEditRoute: React.FC = () => {
 		>
 			<Route path="/stories/:storyId">
 				<InnerStoryEditRoute />
+				<StoryInspector />
 			</Route>
 		</Router>
 	);
 };
 
 describe('<StoryEditRoute>', () => {
+	const useZoomShortcutsMock = useZoomShortcuts as jest.Mock;
+
 	async function renderComponent(
 		story: Story,
 		contexts?: FakeStateProviderProps
@@ -90,6 +96,31 @@ describe('<StoryEditRoute>', () => {
 				'routes.storyEdit.zoomButtons.passageNamesAndExcerpts'
 			)
 		).toBeInTheDocument();
+	});
+
+	it('creates a passage if the passage map is middle-clicked', async () => {
+		const story = fakeStory(1);
+
+		story.zoom = 0.5;
+		await renderComponent(story);
+		expect(screen.getAllByTestId(/^passage-/).length).toBe(1);
+		fireEvent.click(screen.getByText('onMiddleClick'));
+
+		const passages = screen.getAllByTestId(/^passage-/);
+
+		expect(passages.length).toBe(2);
+		expect(passages[1].dataset.left).toBe('250');
+		expect(passages[1].dataset.top).toBe('550');
+	});
+
+	it('creates a passage automatically if the story has none', async () => {
+		await renderComponent(fakeStory(0));
+		expect(screen.getAllByTestId(/^passage-/).length).toBe(1);
+	});
+
+	it('sets up zoom keyboard shortcuts', async () => {
+		await renderComponent(fakeStory());
+		expect(useZoomShortcutsMock).toBeCalled();
 	});
 
 	it('is accessible', async () => {

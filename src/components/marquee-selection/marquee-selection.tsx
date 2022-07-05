@@ -1,66 +1,7 @@
 import * as React from 'react';
-import {deviceType} from 'detect-it';
 import 'element-closest';
 import {rectFromPoints, Point, Rect} from '../../util/geometry';
 import './marquee-selection.css';
-
-function relativeEventPosition(
-	event: MouseEvent,
-	container: HTMLElement
-): Point {
-	const containerRect = container.getBoundingClientRect();
-
-	return {
-		left: event.clientX - containerRect.left + container.scrollLeft,
-		top: event.clientY - containerRect.top + container.scrollTop
-	};
-}
-
-type MarqueeState =
-	| {selecting: false}
-	| {selecting: true; exclusive: boolean; start: Point; current: Point};
-
-type MarqueeAction =
-	| {
-			type: 'startSelection';
-			start: Point;
-			exclusive: boolean;
-	  }
-	| {
-			type: 'changeSelection';
-			current: Point;
-	  }
-	| {type: 'endSelection'};
-
-function marqueeReducer(
-	state: MarqueeState,
-	action: MarqueeAction
-): MarqueeState {
-	// The side effect with onSelectRect is not best practice, but it avoids
-	// having to add a useEffect() in the component.
-
-	switch (action.type) {
-		case 'startSelection':
-			return {
-				selecting: true,
-				exclusive: action.exclusive,
-				start: action.start,
-				current: action.start
-			};
-
-		case 'changeSelection':
-			if (!state.selecting) {
-				console.warn(
-					'Marquee reducer received a changeSelection action, but it is not currently selecting; ignoring'
-				);
-				return state;
-			}
-			return {...state, current: action.current};
-
-		case 'endSelection':
-			return {selecting: false};
-	}
-}
 
 export interface MarqueeSelectionProps {
 	/**
@@ -73,86 +14,131 @@ export interface MarqueeSelectionProps {
 	 */
 	ignoreEventsOnSelector?: string;
 	/**
-	 * Callback for when selection occurs.
+	 * Callback for when selection is finalized by the user letting go of the
+	 * mouse button.
 	 */
 	onSelectRect: (rect: Rect, additive: boolean) => void;
+	/**
+	 * Callback for when the user is altering the selection by dragging the mouse.
+	 */
+	onTemporarySelectRect: (rect: Rect, additive: boolean) => void;
 }
 
 export const MarqueeSelection: React.FC<MarqueeSelectionProps> = props => {
-	const {container, ignoreEventsOnSelector, onSelectRect} = props;
-	const [state, dispatch] = React.useReducer(marqueeReducer, {
-		selecting: false
-	});
+	const {
+		container,
+		ignoreEventsOnSelector,
+		onSelectRect,
+		onTemporarySelectRect
+	} = props;
+	const [additive, setAdditive] = React.useState(false);
+	const [dragging, setDragging] = React.useState(false);
+	const [start, setStart] = React.useState<Point>();
+	const [current, setCurrent] = React.useState<Point>();
 
-	// Listener for the beginning of a selection.
+	// There are two effects here to prevent unnecesary cleanup of event
+	// listeners. One listens to DOM events on the container, the other handles
+	// calling onSelectRect.
 
 	React.useEffect(() => {
-		// This component only works in mouse-enabled environments. It would otherwise
-		// block the ability to scroll with a touch.
+		const currentContainer = container.current;
+		let currentContainerRect: DOMRect;
 
-		if (deviceType === 'touchOnly') {
-			return;
+		function relativePointerPos(event: PointerEvent) {
+			return {
+				left:
+					event.clientX -
+					currentContainerRect.left +
+					currentContainer!.scrollLeft,
+				top:
+					event.clientY - currentContainerRect.top + currentContainer!.scrollTop
+			};
 		}
 
-		if (container.current) {
-			const currentContainer = container.current;
-			const handleMouseDown = (event: MouseEvent) => {
-				if (ignoreEventsOnSelector) {
-					if ((event.target as HTMLElement)?.closest(ignoreEventsOnSelector)) {
-						return;
-					}
-				}
+		function upListener(event: PointerEvent) {
+			if (currentContainer) {
+				currentContainer.releasePointerCapture(event.pointerId);
+				currentContainer.removeEventListener('pointermove', moveListener);
+				currentContainer.removeEventListener('pointerup', upListener);
+				setDragging(false);
+				// See the second effect for how callbacks are invoked.
+			}
+		}
 
-				const exclusive = !event.shiftKey && !event.ctrlKey;
-				const start = relativeEventPosition(event, currentContainer);
+		function moveListener(event: PointerEvent) {
+			setCurrent(relativePointerPos(event));
+		}
 
-				dispatch({type: 'startSelection', exclusive, start});
-				onSelectRect({...start, height: 0, width: 0}, exclusive);
-			};
+		function downListener(event: PointerEvent) {
+			if (
+				event.pointerType === 'touch' ||
+				event.button !== 0 ||
+				!currentContainer
+			) {
+				return;
+			}
 
-			currentContainer.addEventListener('mousedown', handleMouseDown);
+			if (
+				ignoreEventsOnSelector &&
+				(event.target as HTMLElement).closest(ignoreEventsOnSelector)
+			) {
+				return;
+			}
 
+			currentContainerRect = currentContainer.getBoundingClientRect();
+			currentContainer.setPointerCapture(event.pointerId);
+			currentContainer.addEventListener('pointermove', moveListener);
+			currentContainer.addEventListener('pointerup', upListener);
+			setAdditive(!!(event.shiftKey || event.ctrlKey));
+			setDragging(true);
+			setStart(relativePointerPos(event));
+			setCurrent(relativePointerPos(event));
+		}
+
+		if (currentContainer) {
+			currentContainer.addEventListener('pointerdown', downListener);
 			return () =>
-				currentContainer.removeEventListener('mousedown', handleMouseDown);
+				currentContainer.removeEventListener('pointerdown', downListener);
 		}
-	}, [container, ignoreEventsOnSelector, onSelectRect]);
-
-	// Listeners while the selection is taking place.
+	}, [container, ignoreEventsOnSelector]);
 
 	React.useEffect(() => {
-		if (state.selecting && container.current) {
-			const currentContainer = container.current;
-			const handleMouseMove = (event: MouseEvent) => {
-				const current = relativeEventPosition(event, currentContainer);
+		// This effect will trigger constantly if the on* callbacks aren't memoized
+		// outside the component.
 
-				dispatch({type: 'changeSelection', current});
-				onSelectRect(rectFromPoints(state.start, current), state.exclusive);
-			};
-			const handleMouseUp = () => {
-				dispatch({type: 'endSelection'});
-				cleanUp();
-			};
-			const cleanUp = () => {
-				window.removeEventListener('mousemove', handleMouseMove);
-				window.removeEventListener('mouseup', handleMouseUp);
-				document.body.classList.remove('marquee-selecting');
-			};
-
-			window.addEventListener('mousemove', handleMouseMove);
-			window.addEventListener('mouseup', handleMouseUp);
-			document.body.classList.add('marquee-selecting');
-			return cleanUp;
+		if (start && current) {
+			if (dragging) {
+				onTemporarySelectRect(rectFromPoints(start, current), additive);
+			} else {
+				onSelectRect(rectFromPoints(start, current), additive);
+				setStart(undefined);
+				setCurrent(undefined);
+			}
 		}
-	}, [container, onSelectRect, state]);
+	}, [additive, current, dragging, onSelectRect, onTemporarySelectRect, start]);
 
-	if (!state.selecting || deviceType === 'touchOnly') {
+	const style = React.useMemo(() => {
+		if (!start || !current) {
+			return {};
+		}
+
+		const rect = rectFromPoints(start, current);
+
+		// This relies on the static dimensions of the div being set at 100x100 in
+		// CSS. The point of this is to allow the browser to resize the marquee
+		// using GPU only (hopefully), which is more performant than setting bounds
+		// directly.
+
+		return {
+			transform: `translate(${rect.left}px, ${rect.top}px) scale(${
+				rect.width / 100
+			}, ${rect.height / 100})`
+		};
+	}, [current, start]);
+
+	if (!start || !current) {
 		return null;
 	}
 
-	return (
-		<div
-			className="marquee-selection"
-			style={rectFromPoints(state.start, state.current)}
-		/>
-	);
+	return <div className="marquee-selection" style={style} />;
 };

@@ -94,4 +94,11 @@ describe('<CreateStoryButton>', () => {
 		).toBeInTheDocument();
 		expect(screen.getByRole('button', {name: 'common.create'})).toBeDisabled();
 	});
+
+	it('is accessible', async () => {
+		const prefs = fakePrefs();
+		const {container} = await renderComponent({prefs, stories: []});
+
+		expect(await axe(container)).toHaveNoViolations();
+	});
 });

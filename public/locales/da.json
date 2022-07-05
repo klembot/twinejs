@@ -23,6 +23,10 @@
 		"fontSelect": {"fonts": {}},
 		"indentButtons": {},
 		"localStorageQuota": {},
+		"passageCard": {
+			"placeholderClick": "Dobbeltklik på denne passage for at redigere den.",
+			"placeholderTouch": "Tryk på denne passage og derefter på blyantikonet for at redigere den."
+		},
 		"renamePassageButton": {"emptyName": "Indtast et navn."},
 		"renameStoryButton": {"emptyName": "Indtast et navn."},
 		"safariWarningCard": {},
@@ -94,9 +98,7 @@
 	"store": {
 		"errors": {},
 		"passageDefaults": {
-			"name": "Unavngiven passage",
-			"textClick": "Dobbeltklik på denne passage for at redigere den.",
-			"textTouch": "Tryk på denne passage og derefter på blyantikonet for at redigere den."
+			"name": "Unavngiven passage"
 		},
 		"storyDefaults": {"name": "Unavngiven historie"},
 		"storyFormatDefaults": {"name": "Unavngivet historieformat"}

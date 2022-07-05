@@ -25,6 +25,10 @@
 		"fontSelect": {"fonts": {}},
 		"indentButtons": {},
 		"localStorageQuota": {},
+		"passageCard": {
+			"placeholderClick": "Pro úpravu místnosti na ní dvakrát klikněte.",
+			"placeholderTouch": "Klikněte na místnost a poté můžete zahájit úpravy skrz ikonu tužky."
+		},
 		"renamePassageButton": {"emptyName": "Zadejte jméno."},
 		"renameStoryButton": {"emptyName": "Zadejte jméno."},
 		"safariWarningCard": {},
@@ -95,9 +99,7 @@
 	"store": {
 		"errors": {},
 		"passageDefaults": {
-			"name": "Nepojmenovaná místnost",
-			"textClick": "Pro úpravu místnosti na ní dvakrát klikněte.",
-			"textTouch": "Klikněte na místnost a poté můžete zahájit úpravy skrz ikonu tužky."
+			"name": "Nepojmenovaná místnost"
 		},
 		"storyDefaults": {"name": "Nepojmenovaný příběh"},
 		"storyFormatDefaults": {"name": "Nepojmenovaný formát příběhu"}

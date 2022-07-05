@@ -1,8 +1,6 @@
 import * as React from 'react';
 import {useParams} from 'react-router-dom';
 import {MainContent} from '../../components/container/main-content';
-import {MarqueeSelection} from '../../components/marquee-selection';
-import {PassageMap} from '../../components/passage/passage-map/passage-map';
 import {
 	DialogsContextProvider,
 	PassageEditDialog,
@@ -27,6 +25,8 @@ import './story-edit-route.css';
 import {ZoomButtons} from './zoom-buttons';
 import {DocumentTitle} from '../../components/document-title/document-title';
 import {useZoomTransition} from './use-zoom-transition';
+import {useZoomShortcuts} from './use-zoom-shortcuts';
+import {MarqueeablePassageMap} from './marqueeable-passage-map';
 
 export const InnerStoryEditRoute: React.FC = () => {
 	const [inited, setInited] = React.useState(false);
@@ -36,6 +36,7 @@ export const InnerStoryEditRoute: React.FC = () => {
 	const {dispatch: undoableStoriesDispatch, stories} =
 		useUndoableStoriesContext();
 	const story = storyWithId(stories, storyId);
+	useZoomShortcuts(story);
 
 	const selectedPassages = React.useMemo(
 		() => story.passages.filter(passage => passage.selected),
@@ -58,6 +59,20 @@ export const InnerStoryEditRoute: React.FC = () => {
 				story.zoom
 		};
 	}, [story.zoom]);
+
+	const handleMiddleClick = React.useCallback(
+		(position: Point) => {
+			undoableStoriesDispatch(
+				createUntitledPassage(
+					story,
+					position.left / story.zoom,
+					position.top / story.zoom
+				),
+				'undoChange.newPassage'
+			);
+		},
+		[story, undoableStoriesDispatch]
+	);
 
 	const handleDeselectPassage = React.useCallback(
 		(passage: Passage) =>
@@ -113,28 +128,23 @@ export const InnerStoryEditRoute: React.FC = () => {
 		(rect: Rect, exclusive: boolean) => {
 			// The rect we receive is in screen coordinates--we need to convert to
 			// logical ones.
-
 			const logicalRect: Rect = {
 				height: rect.height / story.zoom,
 				left: rect.left / story.zoom,
 				top: rect.top / story.zoom,
 				width: rect.width / story.zoom
 			};
-
 			// This should not be undoable.
-
 			undoableStoriesDispatch(
 				selectPassagesInRect(
 					story,
 					logicalRect,
-					exclusive ? [] : selectedPassages.map(passage => passage.id)
+					exclusive ? selectedPassages.map(passage => passage.id) : []
 				)
 			);
 		},
 		[selectedPassages, story, undoableStoriesDispatch]
 	);
-
-	// TODO: space bar scrolling
 
 	// If we have just mounted and the story has no passages, create one for the
 	// user (and skip undo history, since it was an automatic action).
@@ -159,19 +169,17 @@ export const InnerStoryEditRoute: React.FC = () => {
 		<div className="story-edit-route">
 			<DocumentTitle title={story.name} />
 			<StoryEditToolbar getCenter={getCenter} story={story} />
-			<MainContent padded={false} ref={mainContent}>
-				<MarqueeSelection
+			<MainContent grabbable padded={false} ref={mainContent}>
+				<MarqueeablePassageMap
 					container={mainContent}
-					ignoreEventsOnSelector=".passage-card, .passage-toolbar"
-					onSelectRect={handleSelectRect}
-				/>
-				<PassageMap
 					formatName={story.storyFormat}
 					formatVersion={story.storyFormatVersion}
 					onDeselect={handleDeselectPassage}
 					onDrag={handleDragPassages}
 					onEdit={handleEditPassage}
+					onMiddleClick={handleMiddleClick}
 					onSelect={handleSelectPassage}
+					onSelectRect={handleSelectRect}
 					passages={story.passages}
 					startPassageId={story.startPassage}
 					tagColors={story.tagColors}

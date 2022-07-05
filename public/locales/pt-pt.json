@@ -40,81 +40,85 @@
     "undoChange": "Desfazer {{change}}"
   },
   "components": {
-    "addStoryFormatButton": {
-      "addPreview": "O {{storyFormatName}} {{storyFormatVersion}} vai ser adicionado.",
-      "alreadyAdded": "O {{storyFormatName}} {{storyFormatVersion}} já foi adicionado.",
-      "fetchError": "Ocorreu um erro ao transferir este formato ( {{errorMessage}} ).",
-      "invalidUrl": "O endereço que introduziste não é um URL válido.",
-      "prompt": "Para adicionares um formato de história, introduz o seu endereço em baixo."
-    },
-    "addTagButton": {
-      "addLabel": "Adicionar etiqueta",
-      "alreadyAdded": "Esta etiqueta já foi adicionada.",
-      "invalidName": "Por favor, introduz um nome válido para a etiqueta.",
-      "newTag": "Nova Etiqueta",
-      "tagColorLabel": "Cor da etiqueta",
-      "tagNameLabel": "Nome da etiqueta"
-    },
-    "fontSelect": {
-      "customFamilyDetail": "Por favor, introduz apenas o nome da fonte.",
-      "customScaleDetail": "Por favor, introduz apenas uma percentagem.",
-      "familyEmpty": "Por favor, introduz um nome de fonte.",
-      "font": "Fonte",
-      "fontSize": "Tamanho da Fonte",
-      "fonts": {
-        "monospaced": "Monoespaçado",
-        "serif": "Serifa",
-        "system": "Sistema"
-      },
-      "percentage": "{{percent}}%",
-      "percentageIsntNumber": "Por favor, introduz um número.",
-      "percentageNotPositive": "Introduz, por favor, um número maior do que 0."
-    },
-    "indentButtons": {
-      "indent": "Indentar",
-      "unindent": "Retirar indentação"
-    },
-    "localStorageQuota": {
-      "measureAgain": "Avaliar o espaço disponível novamente",
-      "percentAvailable": "{percent}% de espaço disponível"
-    },
-    "renamePassageButton": {
-      "emptyName": "Indica um nome, por favor.",
-      "nameAlreadyUsed": "A história já tem uma passagem com esse nome."
-    },
-    "renameStoryButton": {
-      "emptyName": "Indica um nome, por favor.",
-      "nameAlreadyUsed": "Já há uma história com esse nome."
-    },
-    "safariWarningCard": {
-      "addToHomeScreen": "Adiciona esta página ao teu ecrã inicial para evitares esta limitação.",
-      "archiveAndUseAnotherBrowser": "Arquiva as tuas histórias e usa outra plataforma, por favor.",
-      "howToAddToHomeScreen": "Como é que eu adiciono isto ao meu ecrã inicial?",
-      "learnMore": "Saber mais",
-      "message": "O navegador que estás a usar vai apagar todas as tuas histórias se passares sete dias sem visitar este site."
-    },
-    "storyCard": {
-      "lastUpdated": "Última edição em {{date}}",
-      "passageCount": "1 passagem",
-      "passageCount_plural": "{{count}} passagens"
-    },
-    "storyFormatCard": {
-      "author": "por {{author}}",
-      "license": "Licença: {{license}}",
-      "loadError": "Este formato de história não pôde ser carregado ( {{errorMessage}} ).",
-      "loadingFormat": "A carregar este formato de história...",
-      "name": "{{version}} {{name}}",
-      "useFormat": "Usar como formato de história por defeito",
-      "useProofingFormat": "Usar como formato de revisão"
-    },
-    "storyFormatSelect": {
-      "loadingCount": "A carregar 1 formato de história ...",
-      "loadingCount_plural": "A carregar {{loadingCount}} formatos de história..."
-    },
-    "tagEditor": {
-      "alreadyExists": "Já existe uma etiqueta com esse nome."
-    }
-  },
+		"addStoryFormatButton": {
+			"addPreview": "O {{storyFormatName}} {{storyFormatVersion}} vai ser adicionado.",
+			"alreadyAdded": "O {{storyFormatName}} {{storyFormatVersion}} já foi adicionado.",
+			"fetchError": "Ocorreu um erro ao transferir este formato ( {{errorMessage}} ).",
+			"invalidUrl": "O endereço que introduziste não é um URL válido.",
+			"prompt": "Para adicionares um formato de história, introduz o seu endereço em baixo."
+		},
+		"addTagButton": {
+			"addLabel": "Adicionar etiqueta",
+			"alreadyAdded": "Esta etiqueta já foi adicionada.",
+			"invalidName": "Por favor, introduz um nome válido para a etiqueta.",
+			"newTag": "Nova Etiqueta",
+			"tagColorLabel": "Cor da etiqueta",
+			"tagNameLabel": "Nome da etiqueta"
+		},
+		"fontSelect": {
+			"customFamilyDetail": "Por favor, introduz apenas o nome da fonte.",
+			"customScaleDetail": "Por favor, introduz apenas uma percentagem.",
+			"familyEmpty": "Por favor, introduz um nome de fonte.",
+			"font": "Fonte",
+			"fontSize": "Tamanho da Fonte",
+			"fonts": {
+				"monospaced": "Monoespaçado",
+				"serif": "Serifa",
+				"system": "Sistema"
+			},
+			"percentage": "{{percent}}%",
+			"percentageIsntNumber": "Por favor, introduz um número.",
+			"percentageNotPositive": "Introduz, por favor, um número maior do que 0."
+		},
+		"indentButtons": {
+			"indent": "Indentar",
+			"unindent": "Retirar indentação"
+		},
+		"localStorageQuota": {
+			"measureAgain": "Avaliar o espaço disponível novamente",
+			"percentAvailable": "{percent}% de espaço disponível"
+		},
+		"passageCard": {
+			"placeholderClick": "Faz duplo-clique nesta passagem para editá-la.",
+			"placeholderTouch": "Toca nesta passagem e, em seguida, no ícone do lápis para editá-la."
+		},
+		"renamePassageButton": {
+			"emptyName": "Indica um nome, por favor.",
+			"nameAlreadyUsed": "A história já tem uma passagem com esse nome."
+		},
+		"renameStoryButton": {
+			"emptyName": "Indica um nome, por favor.",
+			"nameAlreadyUsed": "Já há uma história com esse nome."
+		},
+		"safariWarningCard": {
+			"addToHomeScreen": "Adiciona esta página ao teu ecrã inicial para evitares esta limitação.",
+			"archiveAndUseAnotherBrowser": "Arquiva as tuas histórias e usa outra plataforma, por favor.",
+			"howToAddToHomeScreen": "Como é que eu adiciono isto ao meu ecrã inicial?",
+			"learnMore": "Saber mais",
+			"message": "O navegador que estás a usar vai apagar todas as tuas histórias se passares sete dias sem visitar este site."
+		},
+		"storyCard": {
+			"lastUpdated": "Última edição em {{date}}",
+			"passageCount": "1 passagem",
+			"passageCount_plural": "{{count}} passagens"
+		},
+		"storyFormatCard": {
+			"author": "por {{author}}",
+			"license": "Licença: {{license}}",
+			"loadError": "Este formato de história não pôde ser carregado ( {{errorMessage}} ).",
+			"loadingFormat": "A carregar este formato de história...",
+			"name": "{{version}} {{name}}",
+			"useFormat": "Usar como formato de história por defeito",
+			"useProofingFormat": "Usar como formato de revisão"
+		},
+		"storyFormatSelect": {
+			"loadingCount": "A carregar 1 formato de história ...",
+			"loadingCount_plural": "A carregar {{loadingCount}} formatos de história..."
+		},
+		"tagEditor": {
+			"alreadyExists": "Já existe uma etiqueta com esse nome."
+		}
+	},
   "dialogs": {
     "aboutTwine": {
       "codeHeader": "Código",
@@ -310,10 +314,8 @@
       "webRemediation": "Recarregar esta página poderá ajudar."
     },
     "passageDefaults": {
-      "name": "Passagem sem título",
-      "textClick": "Faz duplo-clique nesta passagem para editá-la.",
-      "textTouch": "Toca nesta passagem e, em seguida, no ícone do lápis para editá-la."
-    },
+			"name": "Passagem sem título"
+		},
     "storyDefaults": {
       "name": "História sem título"
     },

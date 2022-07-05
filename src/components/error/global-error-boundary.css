@@ -1,0 +1,27 @@
+.global-error-boundary {
+	align-items: center;
+	justify-content: center;
+	display: grid;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: black;
+	color: white;
+}
+
+.global-error-boundary .error-message {
+	padding: 0;
+}
+
+.global-error-boundary a {
+	color: blue;
+}
+
+.global-error-boundary pre {
+	border: 1px solid white;
+	max-height: 20em;
+	overflow: scroll;
+	padding: 10px;
+}

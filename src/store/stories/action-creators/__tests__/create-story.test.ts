@@ -1,6 +1,5 @@
 import {createStory} from '../create-story';
 import {PrefsState} from '../../../prefs';
-import {storyDefaults} from '../../defaults';
 import {Story} from '../../stories.types';
 import {fakePrefs, fakeStory} from '../../../../test-util';
 import {lorem} from 'faker';

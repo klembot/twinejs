@@ -23,6 +23,10 @@
 		"fontSelect": {"fonts": {}},
 		"indentButtons": {},
 		"localStorageQuota": {},
+		"passageCard": {
+			"placeholderClick": "Klik dua kali untuk sunting petikan ini.",
+			"placeholderTouch": "Tekan petikan ini, kemudian ikon pensel untuk suntingkannya."
+		},
 		"renamePassageButton": {"emptyName": "Sila masukkan nama."},
 		"renameStoryButton": {"emptyName": "Sila masukkan nama."},
 		"safariWarningCard": {},
@@ -97,9 +101,7 @@
 	"store": {
 		"errors": {},
 		"passageDefaults": {
-			"name": "Petikan Tidak Bertajuk",
-			"textClick": "Klik dua kali untuk sunting petikan ini.",
-			"textTouch": "Tekan petikan ini, kemudian ikon pensel untuk suntingkannya."
+			"name": "Petikan Tidak Bertajuk"
 		},
 		"storyDefaults": {"name": "Cerita Tidak Bertajuk"},
 		"storyFormatDefaults": {"name": "Format Cerita Tidak Bertajuk"}

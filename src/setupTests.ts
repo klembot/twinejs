@@ -21,3 +21,21 @@ beforeEach(
 		})))
 );
 afterEach(() => delete (window as any).matchMedia);
+
+// jsdom also doesn't implement pointer events properly.
+// see https://github.com/testing-library/dom-testing-library/issues/558
+
+(window as any).PointerEvent = class FakePointerEvent extends Event {
+	constructor(type: string, props: Record<string, unknown>) {
+		super(type, props);
+
+		for (const propName of ['button', 'clientX', 'clientY', 'pointerType', 'shiftKey']) {
+			if (props[propName] !== null) {
+				(this as any)[propName] = props[propName];
+			}
+		}
+	}
+}
+
+window.Element.prototype.releasePointerCapture = () => {};
+window.Element.prototype.setPointerCapture = () => {};

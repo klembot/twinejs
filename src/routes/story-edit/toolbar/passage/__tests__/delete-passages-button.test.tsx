@@ -66,6 +66,9 @@ describe('<DeletePassagesButton>', () => {
 		expect(passages[0].dataset.id).toBe(story.passages[2].id);
 	});
 
+	// To a degree, this is actually testing react-hotkeys-hook. But it makes
+	// sense to test this behavior since deleting passages is scary.
+
 	describe('when a text input is not focused', () => {
 		let story: Story;
 

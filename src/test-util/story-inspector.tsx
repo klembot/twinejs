@@ -21,6 +21,7 @@ export const StoryInspector: React.FC<StoryInspectorProps> = ({id}) => {
 				data-story-format={story.storyFormat}
 				data-story-format-version={story.storyFormatVersion}
 				data-tags={story.tags.join(' ')}
+				data-tag-colors={JSON.stringify(story.tagColors)}
 				data-zoom={story.zoom}
 			>
 				<div data-testid={`story-inspector-javascript-${id ?? 'default'}`}>
@@ -32,13 +33,16 @@ export const StoryInspector: React.FC<StoryInspectorProps> = ({id}) => {
 				{story.passages.map(passage => (
 					<div
 						key={passage.id}
+						data-height={passage.height}
 						data-highlighted={passage.highlighted}
 						data-id={passage.id}
 						data-testid={`passage-${passage.id}`}
 						data-left={passage.left}
 						data-name={passage.name}
 						data-selected={passage.selected}
+						data-tags={passage.tags.join(' ')}
 						data-top={passage.top}
+						data-width={passage.width}
 					>
 						{passage.text}
 					</div>

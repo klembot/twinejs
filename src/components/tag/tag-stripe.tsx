@@ -20,3 +20,5 @@ export const TagStripe: React.FC<TagStripeProps> = React.memo(props => {
 		</div>
 	);
 });
+
+TagStripe.displayName = 'TagStripe';

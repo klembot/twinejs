@@ -1,0 +1,39 @@
+.tooltip {
+	z-index: 3000;
+	pointer-events: none;
+}
+
+.tooltip-label {
+	background-color: var(--dark-gray);
+	border-radius: var(--corner-round);
+	color: var(--white);
+	font-size: 12px; /* Must be hardcoded in case it's on a header element */
+	font-weight: normal;
+	padding: var(--grid-size);
+}
+
+.tooltip-arrow {
+	background: var(--dark-gray);
+	width: 10px;
+	height: 10px;
+}
+
+.tooltip[data-popper-placement^='top'] > .tooltip-arrow {
+  bottom: -10px;
+	clip-path: polygon(50% 66%, 0 0, 100% 0);
+}
+
+.tooltip[data-popper-placement^='bottom'] > .tooltip-arrow {
+	clip-path: polygon(50% 33%, 100% 100%, 0 100%);
+  top: -10px;
+}
+
+.tooltip[data-popper-placement^='left'] > .tooltip-arrow {
+	clip-path: polygon(66% 50%, 0 100%, 0 0);
+  right: -10px;
+}
+
+.tooltip[data-popper-placement^='right'] > .tooltip-arrow {
+	clip-path: polygon(33% 50%, 100% 0, 100% 100%);
+  left: -10px;
+}

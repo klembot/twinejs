@@ -49,3 +49,5 @@ export const PassageConnectionGroup: React.FC<PassageConnectionGroupProps> = Rea
 		);
 	}
 );
+
+PassageConnectionGroup.displayName = 'PassageConnectionGroup';

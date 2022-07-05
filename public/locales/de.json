@@ -23,6 +23,10 @@
 		"fontSelect": {"fonts": {}},
 		"indentButtons": {},
 		"localStorageQuota": {},
+		"passageCard": {
+			"placeholderClick": "Doppelklicke auf diesen Abschnitt um ihn zu bearbeiten.",
+			"placeholderTouch": "Tippe auf den Abschnitt und danach auf das Stift-Symbol, um ihn zu bearbeiten."
+		},
 		"renamePassageButton": {"emptyName": "Bitte gebe einen Namen ein."},
 		"renameStoryButton": {"emptyName": "Bitte gebe einen Namen ein."},
 		"safariWarningCard": {},
@@ -95,9 +99,7 @@
 	"store": {
 		"errors": {},
 		"passageDefaults": {
-			"name": "Unbenannter Abschnitt",
-			"textClick": "Doppelklicke auf diesen Abschnitt um ihn zu bearbeiten.",
-			"textTouch": "Tippe auf den Abschnitt und danach auf das Stift-Symbol, um ihn zu bearbeiten."
+			"name": "Unbenannter Abschnitt"
 		},
 		"storyDefaults": {"name": "Unbenannte Geschichte"},
 		"storyFormatDefaults": {"name": "Unbenanntes Geschichtsformat"}

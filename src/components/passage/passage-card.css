@@ -20,6 +20,10 @@
 	padding: 0;
 }
 
+.passage-card .card-content .placeholder {
+	font-style: italic;
+}
+
 .passage-card h2 {
 	color: var(--black);
 	font-size: 100%;

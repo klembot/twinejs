@@ -38,3 +38,5 @@ export const PassageCardGroup: React.FC<PassageCardGroupProps> = React.memo(
 		);
 	}
 );
+
+PassageCardGroup.displayName = 'PassageCardGroup';

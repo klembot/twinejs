@@ -23,6 +23,10 @@
 		"fontSelect": {"fonts": {}},
 		"indentButtons": {},
 		"localStorageQuota": {},
+		"passageCard": {
+			"placeholderClick": "Dvakrat kliknite to sporočilo, da ga uredite.",
+			"placeholderTouch": "Kliknite to sporočilo, potem pa še ikono s svinčnikom, da ga uredite."
+		},
 		"renamePassageButton": {"emptyName": "Prosim, vnesite ime."},
 		"renameStoryButton": {"emptyName": "Prosim, vnesite ime."},
 		"safariWarningCard": {},
@@ -92,9 +96,7 @@
 	"store": {
 		"errors": {},
 		"passageDefaults": {
-			"name": "Neimenovan prehod",
-			"textClick": "Dvakrat kliknite to sporočilo, da ga uredite.",
-			"textTouch": "Kliknite to sporočilo, potem pa še ikono s svinčnikom, da ga uredite."
+			"name": "Neimenovan prehod"
 		},
 		"storyDefaults": {"name": "Neimenovana zgodba"},
 		"storyFormatDefaults": {"name": "Neimenovan zgodbeni format"}

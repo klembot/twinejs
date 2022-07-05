@@ -1,0 +1,30 @@
+@import '../../styles/colors.css';
+@import '../../styles/metrics.css';
+
+.error-message {
+	display: grid;
+	grid-gap: var(--grid-size);
+	grid-template-rows: 50px 1fr;
+	padding: var(--grid-size);
+	text-align: center;
+}
+
+.error-message .icon {
+	color: var(--dark-red);
+	justify-self: center;
+	width: 50px;
+	height: 50px;
+}
+
+.error-message .message {
+	align-self: center;
+	margin: 0;
+}
+
+.error-message .message > :first-child {
+	margin-top: 0;
+}
+
+.error-message .message > :last-child {
+	margin-bottom: 0;
+}

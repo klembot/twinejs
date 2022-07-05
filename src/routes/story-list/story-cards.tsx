@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {useHistory} from 'react-router-dom';
+import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import {CardGroup} from '../../components/container/card-group';
 import {StoryCard} from '../../components/story/story-card';
 import {setPref, usePrefsContext} from '../../store/prefs';
@@ -43,17 +44,20 @@ export const StoryCards: React.FC<StoryCardsProps> = props => {
 	return (
 		<>
 			<CardGroup columnWidth={cardWidth}>
-				{stories.map(story => (
-					<StoryCard
-						key={story.id}
-						onChangeTagColor={handleChangeTagColor}
-						onEdit={() => history.push(`/stories/${story.id}`)}
-						onRemoveTag={name => handleRemoveTag(story, name)}
-						onSelect={() => onSelectStory(story)}
-						story={story}
-						storyTagColors={prefs.storyTagColors}
-					/>
-				))}
+				<TransitionGroup component={null}>
+					{stories.map(story => (
+						<CSSTransition classNames="pop" key={story.id} timeout={200}>
+							<StoryCard
+								onChangeTagColor={handleChangeTagColor}
+								onEdit={() => history.push(`/stories/${story.id}`)}
+								onRemoveTag={name => handleRemoveTag(story, name)}
+								onSelect={() => onSelectStory(story)}
+								story={story}
+								storyTagColors={prefs.storyTagColors}
+							/>
+						</CSSTransition>
+					))}
+				</TransitionGroup>
 			</CardGroup>
 		</>
 	);

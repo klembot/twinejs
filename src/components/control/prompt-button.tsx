@@ -44,6 +44,7 @@ export const PromptButton: React.FC<PromptButtonProps> = props => {
 		value,
 		...other
 	} = props;
+	const mounted = React.useRef(true);
 	const [open, setOpen] = React.useState(false);
 	const [validation, setValidation] =
 		React.useState<PromptValidationResponse>();
@@ -52,14 +53,26 @@ export const PromptButton: React.FC<PromptButtonProps> = props => {
 	React.useEffect(() => {
 		async function updateValidation() {
 			if (validate) {
-				setValidation(await validate(value));
+				const validation = await validate(value);
+
+				if (mounted.current) {
+					setValidation(validation);
+				}
 			} else {
-				setValidation({valid: true});
+				if (mounted.current) {
+					setValidation({valid: true});
+				}
 			}
 		}
 
 		updateValidation();
 	}, [validate, value]);
+
+	React.useEffect(() => {
+		return () => {
+			mounted.current = false;
+		};
+	}, []);
 
 	function handleCancel(event: React.MouseEvent) {
 		event.preventDefault();

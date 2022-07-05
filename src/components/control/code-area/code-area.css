@@ -40,10 +40,33 @@
 
 /* See https://codemirror.net/doc/manual.html#styling */
 
+.code-area .CodeMirror-placeholder.CodeMirror-line-like {
+	color: var(--gray);
+	font-style: italic;
+}
+
 .code-area .CodeMirror-cursor {
 	border-left: 2px solid var(--blue);
 }
 
 .code-area .CodeMirror-selected {
 	background: var(--light-blue-translucent);
+}
+
+.CodeMirror-hints {
+	background: var(--off-white);
+	box-shadow: var(--shadow-large);
+	border: none;
+	font: 100% var(--font-ui);
+	padding: 0;
+}
+
+.CodeMirror-hint {
+	color: var(--dark-gray);
+	padding: var(--control-inner-padding);
+}
+
+li.CodeMirror-hint-active {
+	background: var(--light-blue);
+	color: var(--dark-gray);
 }

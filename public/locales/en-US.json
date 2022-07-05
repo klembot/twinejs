@@ -59,6 +59,9 @@
 			"tagColorLabel": "Tag Color",
 			"tagNameLabel": "Tag Name"
 		},
+		"dialogCard": {
+			"contentsCrashed": "Something went wrong with this dialog. Try closing it and opening it again."
+		},
 		"fontSelect": {
 			"customScaleDetail": "Please enter a percentage only.",
 			"customFamilyDetail": "Please enter the name of the font only.",
@@ -81,6 +84,10 @@
 		"localStorageQuota": {
 			"measureAgain": "Measure space available again",
 			"percentAvailable": "{percent}% space available"
+		},
+		"passageCard": {
+			"placeholderClick": "Double-click this passage to edit it.",
+			"placeholderTouch": "Tap this passage, then choose Edit from the Passage tab to edit it."
 		},
 		"renamePassageButton": {
 			"emptyName": "Please enter a name.",
@@ -160,7 +167,9 @@
 			"title": "Preferences"
 		},
 		"passageEdit": {
+			"editorCrashed": "Something went wrong with this editor. Try closing it and editing this passage again.",
 			"passageTextEditorLabel": "Passage Text",
+			"passageTextPlaceholder": "Enter the body text of your passage here. To link to another passage, put two square brackets around its name, [[like this]].",
 			"setAsStart": "Start Story Here",
 			"size": "Size",
 			"sizeLarge": "Large",
@@ -228,18 +237,19 @@
 	"electron": {
 		"backupsDirectoryName": "Backups",
 		"errors": {
-			"jsonSave": "An error occurred while saving a settings file.",
+			"jsonSave": "Something went wrong while saving a settings file.",
 			"storyFileChangedExternally": {
 				"message": "The file “{{fileName}}” in your story library was changed outside of Twine.",
 				"detail": "Saving changes will overwrite this file. If you'd like to use this file instead of the version in Twine, Twine will relaunch and your work will be replaced with the file.",
 				"overwriteChoice": "Save Changes in Twine",
 				"relaunchChoice": "Use File and Relaunch"
 			},
-			"storyDelete": "An error occurred while deleting a story.",
-			"storyRename": "An error occurred while renaming a story.",
-			"storySave": "An error occurred while saving a story."
+			"storyDelete": "Something went wrong while deleting a story.",
+			"storyRename": "Something went wrong while renaming a story.",
+			"storySave": "Something went wrong while saving a story."
 		},
 		"menuBar": {
+			"checkForUpdates": "Check for Updates...",
 			"edit": "Edit",
 			"showDevTools": "Show Debug Console",
 			"showStoryLibrary": "Show Story Library",
@@ -248,7 +258,13 @@
 			"twineHelp": "Twine Help",
 			"view": "View"
 		},
-		"storiesDirectoryName": "Stories"
+		"storiesDirectoryName": "Stories",
+		"updateCheck": {
+			"download": "Download",
+			"error": "Something went wrong while checking for an updated version of Twine.",
+			"updateAvailable": "A newer version of Twine is available.",
+			"upToDate": "This is the newest version of Twine available."
+		}
 	},
 	"routes": {
 		"storyEdit": {
@@ -286,8 +302,8 @@
 			},
 			"toolbar": {
 				"addStoryFormatButton": {
-					"addPreview": "{storyFormatName} {storyFormatVersion} will be added.",
-					"alreadyAdded": "{storyFormatName} {storyFormatVersion} has already been added.",
+					"addPreview": "{{storyFormatName}} {{storyFormatVersion}} will be added.",
+					"alreadyAdded": "{{storyFormatName}} {{storyFormatVersion}} has already been added.",
 					"fetchError": "The story format at this address could not be retrieved ({errorMessage}).",
 					"invalidUrl": "Please enter a valid URL.",
 					"prompt": "To add a story format, enter its address below."
@@ -362,16 +378,14 @@
 	"store": {
 		"archiveFilename": "{{timestamp}} Twine Archive.html",
 		"errors": {
-			"cantPersistPrefs": "Saving your preferences failed ({{error}}).",
-			"cantPersistStories": "Saving your stories failed ({{error}}).",
-			"cantPersistStoryFormats": "Saving your story formats failed ({{error}}).",
+			"cantPersistPrefs": "Something went wrong while saving your preferences ({{error}}).",
+			"cantPersistStories": "Something went wrong while saving your stories ({{error}}).",
+			"cantPersistStoryFormats": "Something went wrong while saving your story formats ({{error}}).",
 			"electronRemediation": "Restarting this application may help.",
 			"webRemediation": "Reloading this page may help."
 		},
 		"passageDefaults": {
-			"name": "Untitled Passage",
-			"textClick": "Double-click this passage to edit it.",
-			"textTouch": "Tap this passage, then choose Edit from the Passage tab to edit it."
+			"name": "Untitled Passage"
 		},
 		"storyDefaults": {
 			"name": "Untitled Story"
@@ -381,6 +395,7 @@
 		}
 	},
 	"undoChange": {
+		"addTag": "Add Tag",
 		"changeTagColor": "Change Tag Color",
 		"newPassage": "New Passage",
 		"deletePassage": "Delete Passage",
@@ -389,6 +404,7 @@
 		"movePassages": "Move Passages",
 		"imortTag": "Remove Tag",
 		"renamePassage": "Rename Passage",
+		"removeTag": "Remove Tag",
 		"renameTag": "Rename Tag",
 		"replaceAllText": "Replace All"
 	}

@@ -13,6 +13,7 @@ export interface PassageMapProps {
 	onDeselect: (passage: Passage) => void;
 	onDrag: (change: Point) => void;
 	onEdit: (passage: Passage) => void;
+	onMiddleClick: (position: Point) => void;
 	onSelect: (passage: Passage, exclusive: boolean) => void;
 	passages: Passage[];
 	startPassageId: string;
@@ -76,6 +77,7 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 		onDeselect,
 		onDrag,
 		onEdit,
+		onMiddleClick,
 		onSelect,
 		passages,
 		startPassageId,
@@ -150,15 +152,60 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 		[]
 	);
 	const handleDragStop = React.useCallback(() => {
-		document.body.classList.remove('dragging-passages');
-		dispatch({type: 'stop', callback: onDrag});
+		// We use a timeout to delay this execution until after the click handler on
+		// <SelectableCard> runs and triggers handleSelect below, so that function
+		// can see that a drag has just finished (and should be ignored as part of
+		// the drag interaction).
+		//
+		// Promise.resolve() doesn't appear to give us the timing we need.
+
+		window.setTimeout(() => {
+			document.body.classList.remove('dragging-passages');
+			dispatch({type: 'stop', callback: onDrag});
+		}, 0);
 	}, [onDrag]);
+	const handleSelect = React.useCallback(
+		(passage: Passage, exclusive: boolean) => {
+			// See comments in handleDragStop above.
+
+			if (!state.dragging) {
+				onSelect(passage, exclusive);
+			}
+		},
+		[onSelect, state.dragging]
+	);
+	const handleMouseUp = React.useCallback(
+		(event: React.MouseEvent) => {
+			// Listen for middle clicks outside of interactible elements. We can't use
+			// onClick for this because middle buttons don't seem to generate those
+			// events.
+
+			if (
+				!container.current ||
+				event.button !== 1 ||
+				(event.target as HTMLElement).closest('.passage-card')
+			) {
+				return;
+			}
+
+			// Adjust the click position for the container's position onscreen.
+
+			const containerRect = container.current.getBoundingClientRect();
+
+			onMiddleClick({
+				left: event.clientX - containerRect.left,
+				top: event.clientY - containerRect.top
+			});
+		},
+		[onMiddleClick]
+	);
 
 	return (
 		<div
 			className={classnames('passage-map', {
 				'compact-passage-cards': compactCards
 			})}
+			onMouseUp={handleMouseUp}
 			ref={container}
 			style={style}
 		>
@@ -178,7 +225,7 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 				onDrag={handleDrag}
 				onDragStop={handleDragStop}
 				onEdit={onEdit}
-				onSelect={onSelect}
+				onSelect={handleSelect}
 				passages={passages}
 				tagColors={tagColors}
 			/>

@@ -60,6 +60,16 @@ describe('<FontSelect>', () => {
 		).not.toBeInTheDocument();
 	});
 
+	it('displays a blank custom family field when changing from a builtin family to a custom one', () => {
+		renderComponent({fontFamily: 'var(--font-monospaced)'});
+		fireEvent.change(screen.getByLabelText('mock-family-label'), {
+			target: {value: 'custom'}
+		});
+		expect(
+			screen.getByLabelText('components.fontSelect.customFamilyDetail')
+		).toHaveValue('');
+	});
+
 	describe('when a custom font family is set', () => {
 		let onChangeFamily: jest.Mock;
 

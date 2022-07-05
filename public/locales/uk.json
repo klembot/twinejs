@@ -23,6 +23,10 @@
 		"fontSelect": {"fonts": {}},
 		"indentButtons": {},
 		"localStorageQuota": {},
+		"passageCard": {
+			"placeholderClick": "Клацніть двічі на уривок для редаґування.",
+			"placeholderTouch": "Натисність на цей уривок, а потім на олівець, аби почати редаґувати."
+		},
 		"renamePassageButton": {"emptyName": "Будь ласка, введіть назву."},
 		"renameStoryButton": {"emptyName": "Будь ласка, введіть назву."},
 		"safariWarningCard": {},
@@ -94,9 +98,7 @@
 	"store": {
 		"errors": {},
 		"passageDefaults": {
-			"name": "Уривок без назви",
-			"textClick": "Клацніть двічі на уривок для редаґування.",
-			"textTouch": "Натисність на цей уривок, а потім на олівець, аби почати редаґувати."
+			"name": "Уривок без назви"
 		},
 		"storyDefaults": {"name": "Розповідь без назви"},
 		"storyFormatDefaults": {"name": "Формат розповіді без назви"}
