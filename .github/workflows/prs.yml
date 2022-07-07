@@ -20,4 +20,4 @@ jobs:
       - name: Lint
         run: npm run lint
       - name: Test
-        run: npm run test:coverage
+        run: npm run test:coverage -- --maxWorkers=2

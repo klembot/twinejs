@@ -12,14 +12,20 @@ import {LoadingCurtain} from '../components/loading-curtain';
 export const StateLoader: React.FC = ({children}) => {
 	const [initing, setIniting] = React.useState(false);
 	const [inited, setInited] = React.useState(false);
-	const [repaired, setRepaired] = React.useState(false);
+	const [prefsRepaired, setPrefsRepaired] = React.useState(false);
+	const [formatsRepaired, setFormatsRepaired] = React.useState(false);
+	const [storiesRepaired, setStoriesRepaired] = React.useState(false);
 	const {dispatch: prefsDispatch, prefs: prefsState} = usePrefsContext();
 	const {dispatch: storiesDispatch} = useStoriesContext();
 	const {dispatch: formatsDispatch, formats: formatsState} =
 		useStoryFormatsContext();
 	const {prefs, stories, storyFormats} = usePersistence();
 
-	// Done in two steps so that the repair action can see the inited state.
+	// Done in steps so that the repair action can see the inited state, and then
+	// each repair action can see the results of the preceding ones.
+	//
+	// Repairs must go:
+	// formats -> prefs (so it can repair bad format preferences) -> stories
 
 	React.useEffect(() => {
 		async function run() {
@@ -49,10 +55,21 @@ export const StateLoader: React.FC = ({children}) => {
 	]);
 
 	React.useEffect(() => {
-		if (!repaired && inited) {
-			prefsDispatch({type: 'repair', allFormats: formatsState});
+		if (inited && !formatsRepaired) {
 			formatsDispatch({type: 'repair'});
+			setFormatsRepaired(true);
+		}
+	}, [formatsDispatch, formatsRepaired, inited]);
 
+	React.useEffect(() => {
+		if (inited && formatsRepaired && !prefsRepaired) {
+			prefsDispatch({type: 'repair', allFormats: formatsState});
+			setPrefsRepaired(true);
+		}
+	}, [formatsRepaired, formatsState, inited, prefsDispatch, prefsRepaired]);
+
+	React.useEffect(() => {
+		if (inited && formatsRepaired && prefsRepaired && !storiesRepaired) {
 			// We try to repair stories to the user's preferred format, but perhaps
 			// their prefs are out of date/corrupted. In that case, we use the default
 			// one.
@@ -88,19 +105,25 @@ export const StateLoader: React.FC = ({children}) => {
 					defaultFormat: safeFormat
 				});
 			}
-			setRepaired(true);
+			setStoriesRepaired(true);
 		}
 	}, [
 		formatsDispatch,
+		formatsRepaired,
 		formatsState,
 		inited,
 		prefsDispatch,
+		prefsRepaired,
 		prefsState.storyFormat.name,
 		prefsState.storyFormat.version,
-		repaired,
 		stories,
-		storiesDispatch
+		storiesDispatch,
+		storiesRepaired
 	]);
 
-	return inited && repaired ? <>{children}</> : <LoadingCurtain />;
+	return inited && formatsRepaired && prefsRepaired && storiesRepaired ? (
+		<>{children}</>
+	) : (
+		<LoadingCurtain />
+	);
 };
