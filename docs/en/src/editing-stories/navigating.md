@@ -14,6 +14,19 @@ In one corner of the Story Map, you'll see three buttons showing squares of
 different sizes. These let you zoom in and out of the map, showing different
 levels of detail in your passages.
 
+## Empty Passages
+
+An empty passage is one you haven't written any text in (usually). These show up
+in the Story Map as translucent cards with a dotted border. Twine automatically
+creates and deletes empty passages when you [edit links in
+passages](./editing-passages.md).
+
+## Tags
+
+If you have [assigned colors to passage tags](tagging.md), passages with those
+tags will have a small stripe of that color at their top. Tags that do not have
+colors assigned will not show a stripe.
+
 ## The Story Start
 
 The story's start passage is drawn in the map with a green rocket icon connected

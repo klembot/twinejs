@@ -2,11 +2,14 @@ import {Story, StoriesState, StoriesDispatch} from '../../stories.types';
 import {updatePassage} from '../update-passage';
 import {fakeStory} from '../../../../test-util';
 import {createNewlyLinkedPassages} from '../create-newly-linked-passages';
+import {deleteOrphanedPassages} from '../delete-orphaned-passages';
 
 jest.mock('../create-newly-linked-passages');
+jest.mock('../delete-orphaned-passages');
 
 describe('updatePassage action creator', () => {
 	const createNewlyLinkedPassagesMock = createNewlyLinkedPassages as jest.Mock;
+	const deleteOrphanedPassagesMock = deleteOrphanedPassages as jest.Mock;
 	let dispatch: StoriesDispatch;
 	let dispatchMock: jest.Mock;
 	let getState: () => StoriesState;
@@ -16,7 +19,7 @@ describe('updatePassage action creator', () => {
 		dispatch = jest.fn();
 		dispatchMock = dispatch as jest.Mock;
 		story = fakeStory(1);
-		getState = () => [story];
+		getState = jest.fn(() => [story]);
 	});
 
 	describe('The thunk it returns', () => {
@@ -46,7 +49,7 @@ describe('updatePassage action creator', () => {
 				story,
 				story.passages[0],
 				{name: 'test name'},
-				{dontCreateNewlyLinkedPassages: true}
+				{dontUpdateOthers: true}
 			)(dispatch, getState);
 			expect(dispatchMock.mock.calls).toEqual([
 				[
@@ -77,7 +80,7 @@ describe('updatePassage action creator', () => {
 				story,
 				story.passages[0],
 				{name: 'test name'},
-				{dontCreateNewlyLinkedPassages: true}
+				{dontUpdateOthers: true}
 			)(dispatch, getState);
 			expect(dispatchMock.mock.calls).toEqual([
 				[
@@ -107,7 +110,7 @@ describe('updatePassage action creator', () => {
 				story,
 				story.passages[0],
 				{name: '.*?\\1$1'},
-				{dontCreateNewlyLinkedPassages: true}
+				{dontUpdateOthers: true}
 			)(dispatch, getState);
 			expect(dispatchMock.mock.calls).toEqual([
 				[
@@ -137,7 +140,7 @@ describe('updatePassage action creator', () => {
 				story,
 				story.passages[0],
 				{name: 'new .*?\\1$1'},
-				{dontCreateNewlyLinkedPassages: true}
+				{dontUpdateOthers: true}
 			)(dispatch, getState);
 			expect(dispatchMock.mock.calls).toEqual([
 				[
@@ -178,13 +181,54 @@ describe('updatePassage action creator', () => {
 			).toThrow();
 		});
 
-		it('calls createNewlyLinkedPassages when text is changed', () => {
+		it('calls deleteOrphanedPassages when text is changed', () => {
 			const oldText = story.passages[0].text;
 
 			updatePassage(story, story.passages[0], {text: 'new text'})(
 				dispatch,
 				getState
 			);
+			expect(deleteOrphanedPassagesMock.mock.calls).toEqual([
+				[story, story.passages[0], 'new text', oldText]
+			]);
+		});
+
+		it("doesn't call deleteOrphanedPassages if text isn't being changed", () => {
+			updatePassage(story, story.passages[0], {name: 'new name'})(
+				dispatch,
+				getState
+			);
+			expect(deleteOrphanedPassagesMock).not.toBeCalled();
+		});
+
+		it("doesn't call deleteOrphanedPassages if the dontUpdateOthers option is true", () => {
+			updatePassage(
+				story,
+				story.passages[0],
+				{text: 'new text'},
+				{dontUpdateOthers: true}
+			)(dispatch, getState);
+			expect(deleteOrphanedPassagesMock).not.toBeCalled();
+		});
+
+		it('deletes orphans before creating new passages', () => {
+			updatePassage(story, story.passages[0], {text: 'new text'})(
+				dispatch,
+				getState
+			);
+			expect(
+				deleteOrphanedPassagesMock.mock.invocationCallOrder[0]
+			).toBeLessThan(createNewlyLinkedPassagesMock.mock.invocationCallOrder[0]);
+		});
+
+		it('calls createNewlyLinkedPassages with the most recent state when text is changed', () => {
+			const oldText = story.passages[0].text;
+
+			updatePassage(story, story.passages[0], {text: 'new text'})(
+				dispatch,
+				getState
+			);
+			expect(getState).toBeCalledTimes(1);
 			expect(createNewlyLinkedPassagesMock.mock.calls).toEqual([
 				[story, story.passages[0], 'new text', oldText]
 			]);
@@ -195,17 +239,17 @@ describe('updatePassage action creator', () => {
 				dispatch,
 				getState
 			);
-			expect(createNewlyLinkedPassagesMock.mock.calls).toEqual([]);
+			expect(createNewlyLinkedPassagesMock).not.toBeCalled();
 		});
 
-		it("doesn't call createNewlyLinkedPassages if the dontCreateNewlyLinkedPassages option is true", () => {
+		it("doesn't call createNewlyLinkedPassages if the dontUpdateOthers option is true", () => {
 			updatePassage(
 				story,
 				story.passages[0],
 				{text: 'new text'},
-				{dontCreateNewlyLinkedPassages: true}
+				{dontUpdateOthers: true}
 			)(dispatch, getState);
-			expect(createNewlyLinkedPassagesMock.mock.calls).toEqual([]);
+			expect(createNewlyLinkedPassagesMock).not.toBeCalled();
 		});
 	});
 });

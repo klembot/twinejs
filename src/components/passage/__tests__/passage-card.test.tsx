@@ -44,6 +44,11 @@ describe('<PassageCard>', () => {
 	describe('when passage text is empty', () => {
 		const passage = fakePassage({text: ''});
 
+		it("gives it an 'empty' CSS class", () => {
+			renderComponent({passage});
+			expect(document.querySelector('.passage-card.empty')).toBeInTheDocument();
+		});
+
 		it('displays a touch-oriented placeholder message on a touch device', () => {
 			(detectIt as any).deviceType = 'touchOnly';
 			renderComponent({passage});

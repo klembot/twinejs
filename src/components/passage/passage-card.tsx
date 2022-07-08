@@ -36,8 +36,12 @@ export const PassageCard: React.FC<PassageCardProps> = React.memo(props => {
 	} = props;
 	const {t} = useTranslation();
 	const className = React.useMemo(
-		() => classNames('passage-card', {selected: passage.selected}),
-		[passage.selected]
+		() =>
+			classNames('passage-card', {
+				empty: passage.text === '' && passage.tags.length === 0,
+				selected: passage.selected
+			}),
+		[passage.selected, passage.tags.length, passage.text]
 	);
 	const container = React.useRef<HTMLDivElement>(null);
 	const excerpt = React.useMemo(() => {
