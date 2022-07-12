@@ -56,4 +56,4 @@ In order to use Twine most effectively, you should spend some time reading the d
 - [Snowman](https://videlais.github.io/snowman/2/)
 - [SugarCube](http://www.motoslave.net/sugarcube/2/)
 
-You might also find the [Twine Cookbook](cookbook) useful to read. It contains example code and explanations for things Twine authors often want to do.
+You might also find the [Twine Cookbook](https://twinery.org/cookbook) useful to read. It contains example code and explanations for things Twine authors often want to do.
