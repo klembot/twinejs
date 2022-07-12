@@ -7,6 +7,7 @@
 	- [Getting Around in Twine](getting-started/getting-around.md)
 	- [Updating Twine](getting-started/updating.md)
 	- [Uninstalling Twine](getting-started/uninstalling.md)
+	- [Using an Older Version of Twine](getting-started/downgrading.md)
 - [Using the Story Library](story-library/index.md)
 	- [Viewing Stories](story-library/viewing.md)
 	- [Creating, Copying and Importing Stories](story-library/creating.md)
