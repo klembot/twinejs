@@ -83,10 +83,10 @@
 		},
 		"localStorageQuota": {
 			"measureAgain": "Speicherplatz nochmal ermitteln",
-			"percentAvailable": "{percent}% Speicherplatz verfügbar"
+			"percentAvailable": "{percent}% Speicherplatz frei"
 		},
 		"passageCard": {
-			"placeholderClick": "Doppelklick auf diesen Abschnitt um ihn zu bearbeiten.",
+			"placeholderClick": "Doppelklicke auf diesen Abschnitt um ihn zu bearbeiten.",
 			"placeholderTouch": "Tippe auf den Abschnitt, dann gehe auf Bearbeiten im Abschnittstab um ihn zu bearbeiten."
 		},
 		"renamePassageButton": {
@@ -105,7 +105,7 @@
 			"message": "Der Browser den du benutzt löscht alle Geschichten nach sieben Tagen an denen du diese Webseite nicht besuchst."
 		},
 		"storageQuota": {
-			"freeSpace": "{{percent}}% Speicherplatz verfügbar"
+			"freeSpace": "{{percent}}% Speicherplatz frei"
 		},
 		"storyCard": {
 			"lastUpdated": "Zuletzt bearbeitet am {{date}}",
@@ -117,7 +117,7 @@
 			"builtIn": "Erstellt am",
 			"defaultFormat": "Als Standard gesetzt",
 			"editorExtensionsDisabled": "Editor Erweiterungen Deaktiviert",
-			"license": "Lizent: {{license}}",
+			"license": "Lizenz: {{license}}",
 			"loadingFormat": "Lade diese Geschichtsformat...",
 			"loadError": "Dieses Geschichtsformat konnte nicht geladen werden ({{errorMessage}}).",
 			"name": "{{name}} {{version}}",
@@ -140,7 +140,7 @@
 			"donateToTwine": "Unterstütze Twine mit einer Spende",
 			"codeHeader": "Code",
 			"codeRepo": "Besuche Source Code Repository",
-			"license": "Dieses Programm wurde unter der <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GPL v3 Lizenz</a> veröffentlicht, jedoch darf jedes hiermit erstellte Werk unter frei gewählten Bedingungen veröffentlicht werden, auch kommerzielle.",
+			"license": "Diese Anwendung ist unter der <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GPL v3 Lizenz</a> veröffentlicht, aber ein Werk, das mit dieser Anwendung erstellt wurde, darf unter einer beliebigen auch kommerziellen Lizenz veröffentlicht werden.",
 			"localizationHeader": "Lokalisierungen",
 			"title": "Über Twine {{version}}",
 			"twineDescription": "Twine ist eine Open-Source Software um interaktive, nicht-lineare Geschichten zu erzählen."
@@ -148,7 +148,7 @@
 		"appDonation": {
 			"donate": "Spende Für Twine Entwicklung",
 			"onlyOnce": "(Diese Nachricht wird dir nur einmal angezeigt. Wenn du in der Zukunft für die Twine Entwicklung spenden möchtest, findest du einen Link im Über Twine Dialog.)",
-			"supportMessage": "Wenn du Twine magst, dann bitte denk darüber nach die Entwicklung mit einer Spende zu unterstützen. Twine ist ein Open-Source Projekt das immer frei benutzbar sein wird - und mit deiner Hilfe wird es weiter wachsen und gedeihen.",
+			"supportMessage": "Wenn dir Twine am Herzen liegt, dann bitte denk darüber nach die Entwicklung mit einer Spende zu unterstützen. Twine ist ein Open-Source-Projekt, das immer frei zur Verfügung stehen wird und mit deiner Hilfe weiter wachsen kann.",
 			"noThanks": "Nein danke",
 			"title": "Unterstütze die Twine Entwicklung"
 		},
@@ -217,8 +217,8 @@
 			"find": "Suche",
 			"includePassageNames": "Namen der Abschnitte durchsuchen",
 			"matchCase": "Groß-/Kleinschreibung beachten",
-			"matchCount": "{{count}} gefundenen Abschnitt",
-			"matchCount_plural": "{{count}} gefundenen Abschnitte",
+			"matchCount": "{{count}} Abschnitt stimmt überein",
+			"matchCount_plural": "{{count}} Abschnitte stimmen überein",
 			"noMatches": "Keine gefundenen Abschnitte",
 			"replaceAll": "Ersetze in allen Abschnitten",
 			"replaceWith": "Ersetzen mit",
@@ -335,7 +335,7 @@
 				"deleteStoryButton": {
 					"warning": {
 						"electron": "Bist du sicher das du “{{storyName}}” löschen willst? Es wird in den Papierkorb verschoben.",
-						"web": "Bist du sicher das du “{{storyName}}” löschen willst? Es wird für immer gelöscht. Dies kann nicht rückgängig gemacht werden."
+						"web": "Bist du sicher das du “{{storyName}}” löschen willst? Es wird unwiderruflich gelöscht. Dies kann nicht rückgängig gemacht werden."
 					}
 				},
 				"showAllStories": "Zeige alle Geschichten",
@@ -347,9 +347,9 @@
 			}
 		},
 		"welcome": {
-			"autosave": "<p>Es ist nun ein Ordner mit dem Namen Twine in deinem Dokumenten Ordner. Darin ist ein Geschichten Ordner, wo all deine Arbeit gespeichert wird. Twine speichert während du arbeitest, so dass du dir keine Sorgen darum machen musst daran zu denken selber zu speichern. Du kannst immer den Ordner, wo deine Geschichten gespeicher werden, öffnen wenn du die Option <strong>Zeige Bibliothek</strong> im <strong>Twine</strong> Menü.</p><p>Da Twine immer deine Arbeit speichert sind die Dateien in deiner Geschichtsbibliothek vor Änderungen gesperrt solange Twine offen ist.</p><p>Wenn du eine Twine Geschichts Datei die du von jemand anderen erhalten hast öffnen möchtest, kannst du diese mit Hilfe des <strong>Von Datei Importieren</strong> Links in der Übersicht Deiner Geschichten in deine Bibliothek importieren.</p>",
+			"autosave": "<p>Es gibt nun einen Twine-Ordner in deinem Dokumente-Ordner. Dieser enthält einen Geschichten-Ordner, indem all deine Arbeiten gespeichert werden. Twine speichert automatisch beim Schreiben der Geschichte, so dass du dir keine Sorgen darum machen musst daran zu denken manuell zu speichern. Du kannst den Ordner, wo deine Geschichten gespeichert werden, immer mit der Option <strong>Zeige Bibliothek</strong> im <strong>Twine</strong> Menü öffnen.</p><p>Da Twine deine Arbeit regelmäßig speichert, sind die Dateien in deiner Bibliothek vor Bearbeitung gesperrt, solange Twine geöffnet ist.</p><p>Wenn du eine Twine Geschichts-Datei die du von jemand anderen erhalten hast öffnen möchtest, kannst du diese mit Hilfe des <strong>Von Datei Importieren</strong> Links in der Übersicht Deiner Geschichten in deine Bibliothek importieren.</p>",
 			"autosaveTitle": "Deine Arbeit wird automatisch gespeichert.",
-			"browserStorage": "<p>Das bedeutet du brauchst keinen Account zu erstellen um Twine 2 zu benutzen, und alles was du erstellst ist nicht irgendwo auf einem Server gespeichert&mdash;alles bleibt in deinem Browser.</p><p>Zwei <strong>sehr wichtige</strong> Dinge du jedoch im Kopf behalten solltest. Da deine Arbeit nur in deinem Browser gespeichert wird, verlierst du auch deine Arbeit falls du die gespeicherte Daten deines Browser löschen solltest! Das wäre nicht gut. Deshalb denk daran den <strong>Archiv</strong> Button oft zu benutzen. Du kannst auch individuelle Geschichten in Dateien veröffentlichen wenn du das Menü auf jeder Geschichte in der Übersicht deiner Geschichten benutzt. Beide Archive und Geschichtsdateien können jederzeit in Twine zurück importiert werden.</p><p>Zweitens, <strong>jeder der diesen Browser benutzen kann, kann deine Arbeit sehen und ändern.</strong> Wenn du also einen nervenden kleinen Bruder hast, sieh zu das du ein seperates Profil für dich selbst erstellst.</p>",
+			"browserStorage": "<p>Das bedeutet, du benötigst keinen Account um Twine 2 zu verwenden. Alles was du erstellst wird nicht auf irgendeinem Server abgelegt&mdash;sondern verbleibt lokal in deinem Browser gespeichert.</p><p>Zwei <strong>sehr wichtige</strong> Dinge sind jedoch zu beachten! Da deine Arbeit nur in deinem Browser gespeichert wird, verlierst du auch deine Arbeit falls du die gespeicherte Daten deines Browser löschen solltest! Deshalb denk daran den <strong>Archiv</strong>-Button häufig zu verwenden. Du kannst einzelne Geschichten auch in Dateien veröffentlichen wenn du das jeweilige Menü in der Übersicht deiner Geschichten aufrufst. Sowohl das Archiv als auch die gesicherten Geschichten können jederzeit in Twine reimportiert werden.</p><p>Außerdem, <strong>jeder der diesen Browser verwendet, kann deine Arbeiten sehen und verändern.</strong> Wenn du also deinen Computer mit neugierigen Mitmenschen teilst, lege am besten ein eigenes, seperates Benutzerprofil für dich an.</p>",
 			"browserStorageTitle": "Deine Arbeit wird nur in deinem Browser gespeichert",
 			"done": "<p>Vielen Dank fürs lesen, und viel Spaß mit Twine.</p>",
 			"doneTitle": "Das ist alles!",
@@ -357,7 +357,7 @@
 			"greeting": "<p>Twine ist ein Open-Source Software zum erzählen interaktiver, nicht-linearer Geschichten. Es gibt ein paar Dinge die du wissen solltest bevor du anfängst.</p>",
 			"greetingTitle": "Hallo!",
 			"tellMeMore": "Mehr erfahren",
-			"help": "<p><strong>Falls du noch nie Twine vorher benutzt hast, Willkommen!</strong> Das <a href=\"https://twinery.org/cookbook\">Twine Cookbook</a> ist ein großartiges Hilfsmittel um zu lernen wie man das hier benutzt. Falls du Twine vorher noch nicht benutzt hast, ist das ein guter Ort um anzufangen.</p>",
+			"help": "<p><strong>Wenn du Twine noch nie benutzt hast, Herzlich Willkommen!</strong> Das <a href=\"https://twinery.org/cookbook\">Twine Cookbook</a> ist ein großartiges Hilfsmittel um zu lernen wie man Twine benutzt. Falls du Twine vorher noch nicht benutzt hast, ist das ein guter Ort für den Einstieg.</p>",
 			"helpTitle": "Neu hier?"
 		}
 	},
