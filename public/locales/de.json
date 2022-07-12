@@ -54,7 +54,7 @@
 		"addTagButton": {
 			"alreadyAdded": "Dieser Tag Name wurde schon hinzugefügt.",
 			"addLabel": "Tag hinzufügen",
-			"invalidName": "Bitte gebe einen gültigen Tag Name ein.",
+			"invalidName": "Bitte gib einen gültigen Tag Namen ein.",
 			"newTag": "Neuer Tag",
 			"tagColorLabel": "Tag Farbe",
 			"tagNameLabel": "Tag Name"
@@ -63,9 +63,9 @@
 			"contentsCrashed": "Es gab ein Problem mit diesem Dialog. Versuche ihn zu schließen und nochmal zu öffnen."
 		},
 		"fontSelect": {
-			"customScaleDetail": "Bitte gebe nur einen Prozentanteil ein.",
-			"customFamilyDetail": "Bitte gebe nur den Namen des Fonts ein.",
-			"familyEmpty": "Bitte gebe den Namen des Fonts ein.",
+			"customScaleDetail": "Bitte gib nur einen Prozentanteil ein.",
+			"customFamilyDetail": "Bitte gib nur den Namen des Fonts ein.",
+			"familyEmpty": "Bitte gib den Namen des Fonts ein.",
 			"font": "Font",
 			"fonts": {
 				"monospaced": "Festbreite",
@@ -74,8 +74,8 @@
 			},
 			"fontSize": "Font Größe",
 			"percentage": "{{percent}}%",
-			"percentageIsntNumber": "Bitte gebe eine Zahl ein.",
-			"percentageNotPositive": "Bitte gebe eine Zahl gößer als 0 ein."
+			"percentageIsntNumber": "Bitte gib eine Zahl ein.",
+			"percentageNotPositive": "Bitte gib eine Zahl gößer als 0 ein."
 		},
 		"indentButtons": {
 			"indent": "Einrücken",
@@ -90,11 +90,11 @@
 			"placeholderTouch": "Tippe auf den Abschnitt, dann gehe auf Bearbeiten im Abschnittstab um ihn zu bearbeiten."
 		},
 		"renamePassageButton": {
-			"emptyName": "Bitte gebe einen Namen ein.",
+			"emptyName": "Bitte gib einen Namen ein.",
 			"nameAlreadyUsed": "Ein anderer Abschnitt dieser Geschichte hat diesen Namen."
 		},
 		"renameStoryButton": {
-			"emptyName": "Bitte gebe einen Namen ein.",
+			"emptyName": "Bitte gib einen Namen ein.",
 			"nameAlreadyUsed": "Eine andere Geschichte hat diesen Namen."
 		},
 		"safariWarningCard": {
@@ -148,7 +148,7 @@
 		"appDonation": {
 			"donate": "Spende Für Twine Entwicklung",
 			"onlyOnce": "(Diese Nachricht wird dir nur einmal angezeigt. Wenn du in der Zukunft für die Twine Entwicklung spenden möchtest, findest du einen Link im Über Twine Dialog.)",
-			"supportMessage": "Wenn du Twine liebst, dann bitte denk darüber nach es mit einer Spende beim wachsen zu unterstützen. Twine ist ein Open-Source Projekt das immer frei benutzbar sein wird - und mit deiner Hilfe wird es weiter gedeihen.",
+			"supportMessage": "Wenn du Twine magst, dann bitte denk darüber nach die Entwicklung mit einer Spende zu unterstützen. Twine ist ein Open-Source Projekt das immer frei benutzbar sein wird - und mit deiner Hilfe wird es weiter wachsen und gedeihen.",
 			"noThanks": "Nein danke",
 			"title": "Unterstütze die Twine Entwicklung"
 		},
@@ -182,7 +182,7 @@
 			"title": "Abschnitt Tags"
 		},
 		"storyImport": {
-			"deselectAll": "Alle entmarkieren",
+			"deselectAll": "Alle Markierungen aufheben",
 			"filePrompt": "Um Geschichten nach Twine zu importieren, lade unten entweder ein Archiv oder eine Datei einer veröffentlichen Geschichte hoch.",
 			"importDifferentFile": "Importiere eine andere Datei",
 			"importSelected": "Importiere die ausgewählten Dateien",
@@ -251,7 +251,7 @@
 		"menuBar": {
 			"checkForUpdates": "Check for Updates...",
 			"edit": "Bearbeiten",
-			"showDevTools": "Zeige die Debug Konsole",
+			"showDevTools": "Öffne die Debug Konsole",
 			"showStoryLibrary": "Zeige die Geschichtsbibliothek",
 			"speech": "Speech",
 			"troubleshooting": "Fehlerbehebung",
@@ -329,7 +329,7 @@
 				"archive": "Archiv",
 				"createStoryButton": {
 					"prompt": "Wie soll deine Geschichte heißen? Du kannst das später ändern.",
-					"emptyName": "Bitte gebe einen Namen ein.",
+					"emptyName": "Bitte einen Namen eingeben.",
 					"nameConflict": "Eine andere Geschichte hat schon diesen Namen."
 				},
 				"deleteStoryButton": {
@@ -381,8 +381,8 @@
 			"cantPersistPrefs": "Etwas ging schief beim Speichern deiner Einstellungen ({{error}}).",
 			"cantPersistStories": "Etwas ging schief beim Speichern deiner Geschichten ({{error}}).",
 			"cantPersistStoryFormats": "Etwas ging schief beim Speichern deiner Geschichtsformate ({{error}}).",
-			"electronRemediation": "Diese Anwendung neu zu starten könnte helfen.",
-			"webRemediation": "Diese Seite neu zu laden könnte helfen."
+			"electronRemediation": "Es könnte helfen diese Anwendung neu zu starten.",
+			"webRemediation": "Es könnte helfen diese Seite neu zu laden."
 		},
 		"passageDefaults": {
 			"name": "Unbenannter Abschnitt"
