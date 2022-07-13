@@ -23,9 +23,9 @@ describe('backupStoryDirectory()', () => {
 		]);
 		statMock.mockImplementation((name: string) => {
 			switch (name) {
-				case 'mock-backup-1':
+				case 'mock-electron-app-path-documents/common.appName/electron.backupsDirectoryName/mock-backup-1':
 					return {mtimeMs: 1000};
-				case 'mock-backup-2':
+				case 'mock-electron-app-path-documents/common.appName/electron.backupsDirectoryName/mock-backup-2':
 					return {mtimeMs: 500};
 				default:
 					throw new Error(`Asked to stat unmocked file: ${name}`);
