@@ -10,9 +10,20 @@ export const app = {
 	relaunch: jest.fn()
 };
 
-export const BrowserWindow = {
-	getFocusedWindow: jest.fn()
-};
+export class BrowserWindow {
+	constructor() {
+		(this as any).webContents = {
+			on: jest.fn(),
+			setWindowOpenHandler: jest.fn()
+		};
+	}
+
+	loadURL() {}
+	on() {}
+	once() {}
+
+	static getFocusedWindow = jest.fn();
+}
 
 export const dialog = {
 	showErrorBox: jest.fn(),
@@ -22,6 +33,12 @@ export const dialog = {
 export const ipcMain = {
 	handle: jest.fn(),
 	on: jest.fn()
+};
+
+export const screen = {
+	getPrimaryDisplay() {
+		return {workAreaSize: {height: 480, width: 640}};
+	}
 };
 
 export const shell = {
