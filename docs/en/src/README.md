@@ -44,16 +44,16 @@ done with Twine--but you might be better-served using a different tool.
   [Inform](http://inform7.com) or [Bitsy](http://www.bitsy.org), for example,
   might be better fits for these.
 
-See [Limitations] for more details on some of the above and some possible ways
+See [Limitations](../limitations/index.md) for more details on some of the above and some possible ways
 to work around these issues.
 
 ## See Also...
 
-In order to use Twine most effectively, you should spend some time reading the documentation for the story format you're using. ([Wait, what's a story format?](whats-a-story-format)) 
+In order to use Twine most effectively, you should spend some time reading the documentation for the story format you're using. ([Wait, what's a story format?](getting-started/basic-concepts.html#story-formats)) 
 
 - [Chapbook](http://klembot.github.io/chapbook/guide/)
 - [Harlowe](https://twine2.neocities.org)
 - [Snowman](https://videlais.github.io/snowman/2/)
 - [SugarCube](http://www.motoslave.net/sugarcube/2/)
 
-You might also find the [Twine Cookbook](cookbook) useful to read. It contains example code and explanations for things Twine authors often want to do.
+You might also find the [Twine Cookbook](https://twinery.org/cookbook) useful to read. It contains example code and explanations for things Twine authors often want to do.

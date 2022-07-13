@@ -6,7 +6,7 @@ square brackets around text in a passage.
 
 - Writing `[[A passage]]` makes a link to a passage named "A passage".
 
-- Writing `[[A label->A passage]]`` also makes a link to a passage named "A
+- Writing `[[A label->A passage]]` also makes a link to a passage named "A
   passage", but the text that is displayed onscreen is "A label".
 
 - You can also reverse the arrow direction and write `[[A passage<-A label]]`,
