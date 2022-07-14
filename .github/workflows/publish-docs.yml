@@ -1,0 +1,27 @@
+name: Publish Docs
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  publish-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: peaceiris/actions-mdbook@v1
+        with:
+          mdbook-version: 'latest'
+      - name: Build docs
+        run: cd docs/en && mdbook build
+      - name: Upload to twinery.org
+        run: |
+          mkdir ~/.ssh
+          echo "$RSYNC_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H twinery.org > ~/.ssh/known_hosts
+
+          rsync --chmod=775 --delete --omit-dir-times --recursive --verbose docs/en/book/* githubactions@twinery.org:/var/www/html/reference/en
+        env:
+          RSYNC_PRIVATE_KEY: ${{ secrets.TWINERY_RSYNC_PRIVATE_KEY }}
