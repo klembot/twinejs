@@ -1,6 +1,7 @@
 const pkg = require('./package.json');
 
-const isPreview = /alpha|beta|pre/.test(pkg.version);
+const isPreview =
+	/alpha|beta|pre/.test(pkg.version) || process.env.FORCE_PREVIEW;
 
 module.exports = {
 	directories: {

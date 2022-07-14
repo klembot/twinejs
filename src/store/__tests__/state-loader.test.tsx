@@ -2,7 +2,11 @@ import {act, render, screen, waitFor} from '@testing-library/react';
 import {StateLoader} from '../state-loader';
 import {defaults, usePrefsContext} from '../prefs';
 import {useStoriesContext} from '../stories';
-import {useStoryFormatsContext, StoryFormat} from '../story-formats';
+import {
+	useStoryFormatsContext,
+	StoryFormat,
+	StoryFormatsAction
+} from '../story-formats';
 import {usePersistence} from '../persistence/use-persistence';
 import {fakeUnloadedStoryFormat} from '../../test-util';
 
@@ -53,9 +57,10 @@ describe('<StateLoader>', () => {
 
 	it('dispatches init and repair actions once mounted', async () => {
 		render(<StateLoader />);
-		await waitFor(() => expect(prefsDispatchMock).toBeCalled());
+		await waitFor(() => expect(storiesDispatchMock).toBeCalled());
 
 		// Order of these actions is crucial. The init must come before the repair.
+		// Order of store repairs is tested below.
 
 		expect(prefsDispatchMock.mock.calls).toEqual([
 			[{type: 'init', state: {mockPrefsState: true}}],
@@ -68,6 +73,90 @@ describe('<StateLoader>', () => {
 		expect(formatsDispatchMock.mock.calls).toEqual([
 			[{type: 'init', state: {mockStoryFormatsState: true}}],
 			[{type: 'repair'}]
+		]);
+	});
+
+	it('repairs story formats, then preferences, then stories', async () => {
+		render(<StateLoader />);
+		await waitFor(() => expect(storiesDispatchMock).toBeCalled());
+
+		// The second invocation will be the repair--tested above.
+
+		expect(formatsDispatchMock.mock.invocationCallOrder[1]).toBeLessThan(
+			prefsDispatchMock.mock.invocationCallOrder[1]
+		);
+		expect(prefsDispatchMock.mock.invocationCallOrder[1]).toBeLessThan(
+			storiesDispatchMock.mock.invocationCallOrder[1]
+		);
+	});
+
+	it('uses the repaired story format state when repairing preferences', async () => {
+		const repairedFormats = [
+			defaultFormat,
+			fakeUnloadedStoryFormat({name: 'repaired-story-format'})
+		];
+		let formatsRepaired = false;
+
+		(useStoryFormatsContext as jest.Mock).mockImplementation(() => ({
+			dispatch(action: StoryFormatsAction) {
+				if (action.type === 'repair') {
+					formatsRepaired = true;
+				}
+			},
+			formats: formatsRepaired ? repairedFormats : [defaultFormat]
+		}));
+
+		render(<StateLoader />);
+		await waitFor(() => expect(prefsDispatchMock).toBeCalled());
+		expect(prefsDispatchMock.mock.calls[1]).toEqual([
+			{type: 'repair', allFormats: repairedFormats}
+		]);
+	});
+
+	it('uses the repaired preferences and story format state when repairing stories', async () => {
+		const repairedDefaultFormat = fakeUnloadedStoryFormat();
+		const repairedFormats = [defaultFormat, repairedDefaultFormat];
+		let formatsRepaired = false;
+		const repairedPrefs = {
+			repaired: true,
+			storyFormat: {
+				name: repairedDefaultFormat.name,
+				version: repairedDefaultFormat.version
+			}
+		};
+		let prefsRepaired = false;
+
+		(usePrefsContext as jest.Mock).mockImplementation(() => ({
+			dispatch(action: StoryFormatsAction) {
+				if (action.type === 'repair') {
+					prefsRepaired = true;
+				}
+			},
+			prefs: prefsRepaired
+				? repairedPrefs
+				: {
+						storyFormat: {
+							name: defaultFormat.name,
+							version: defaultFormat.version
+						}
+				  }
+		}));
+		(useStoryFormatsContext as jest.Mock).mockImplementation(() => ({
+			dispatch(action: StoryFormatsAction) {
+				if (action.type === 'repair') {
+					formatsRepaired = true;
+				}
+			},
+			formats: formatsRepaired ? repairedFormats : [defaultFormat]
+		}));
+		render(<StateLoader />);
+		await waitFor(() => expect(storiesDispatchMock).toBeCalled());
+		expect(storiesDispatchMock.mock.calls[1]).toEqual([
+			{
+				type: 'repair',
+				allFormats: repairedFormats,
+				defaultFormat: repairedDefaultFormat
+			}
 		]);
 	});
 
@@ -136,4 +225,6 @@ describe('<StateLoader>', () => {
 			[{type: 'init', state: {mockStoriesState: true}}]
 		]);
 	});
+
+	it('uses the repaired story formats to repair preferences', () => {});
 });

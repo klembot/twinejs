@@ -78,6 +78,8 @@ export function newestFormatNamed(formats: StoryFormat[], name: string) {
 		if (!result || gt(format.version, result.version)) {
 			return format;
 		}
+
+		return result;
 	}, undefined);
 }
 
