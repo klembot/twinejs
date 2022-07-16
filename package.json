@@ -1,6 +1,6 @@
 {
 	"name": "Twine",
-	"version": "2.4.0",
+	"version": "2.4.1",
 	"description": "a GUI for creating nonlinear stories",
 	"author": "Chris Klimas <chris@twinery.org>",
 	"license": "GPL-3.0",
@@ -82,7 +82,7 @@
 		"cpy": "^8.1.2",
 		"cpy-cli": "^3.1.1",
 		"cross-var": "^1.1.0",
-		"electron": "^17.1.0",
+		"electron": "^17.4.10",
 		"electron-builder": "^23.0.2",
 		"faker": "^5.4.0",
 		"history": "^5.1.0",

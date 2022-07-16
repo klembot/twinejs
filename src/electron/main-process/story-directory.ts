@@ -42,16 +42,15 @@ export async function backupStoryDirectory(maxBackups = 10) {
 		i18n.t('electron.backupsDirectoryName')
 	);
 	const now = new Date();
-
-	await copy(
-		storyDirectoryPath(),
-		join(
-			backupPath,
-			`${now.getFullYear()}-${
-				now.getMonth() + 1
-			}-${now.getDate()} ${now.getHours()}-${now.getMinutes()}-${now.getSeconds()}-${now.getMilliseconds()}`
-		)
+	const backupDirectoryName = join(
+		backupPath,
+		`${now.getFullYear()}-${
+			now.getMonth() + 1
+		}-${now.getDate()} ${now.getHours()}-${now.getMinutes()}-${now.getSeconds()}-${now.getMilliseconds()}`
 	);
+
+	await copy(storyDirectoryPath(), backupDirectoryName);
+	console.log(`Backed up story library to ${backupDirectoryName}`);
 
 	const backupDirs = (await readdir(backupPath, {withFileTypes: true})).filter(
 		file => file.isDirectory() && file.name[0] !== '.'
@@ -64,23 +63,23 @@ export async function backupStoryDirectory(maxBackups = 10) {
 
 		const backups = await Promise.all(
 			backupDirs.map(async directory => {
-				const stats = await stat(directory.name);
+				const stats = await stat(join(backupPath, directory.name));
 
 				return {stats, name: directory.name};
 			})
 		);
 
-		backups.sort((a, b) => {
-			console.log('sort', a, b, a.stats.mtimeMs - b.stats.mtimeMs);
-			return a.stats.mtimeMs - b.stats.mtimeMs;
-		});
+		backups.sort((a, b) => a.stats.mtimeMs - b.stats.mtimeMs);
 
-		console.log(backups);
 		const toDelete = backups.slice(0, backups.length - maxBackups);
-		console.log(toDelete);
 
 		await Promise.allSettled(
-			toDelete.map(file => remove(join(backupPath, file.name)))
+			toDelete.map(file => {
+				const directoryName = join(backupPath, file.name);
+
+				console.log(`Deleting ${directoryName}`);
+				return remove(directoryName);
+			})
 		);
 	}
 }
