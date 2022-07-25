@@ -55,14 +55,7 @@ export const PassageToolbar: React.FC<PassageToolbarProps> = props => {
 		// existing passages, updates them, but does not see that the passage name
 		// has been updated since that hasn't happened yet.
 
-		dispatch(
-			updatePassage(
-				story,
-				passage,
-				{name},
-				{dontCreateNewlyLinkedPassages: true}
-			)
-		);
+		dispatch(updatePassage(story, passage, {name}, {dontUpdateOthers: true}));
 	}
 
 	function handleSetAsStart() {

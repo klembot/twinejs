@@ -1,10 +1,12 @@
 import escapeRegExp from 'lodash/escapeRegExp';
 import {Thunk} from 'react-hook-thunk-reducer';
+import {storyWithId} from '../getters';
 import {Passage, StoriesAction, StoriesState, Story} from '../stories.types';
 import {createNewlyLinkedPassages} from './create-newly-linked-passages';
+import {deleteOrphanedPassages} from './delete-orphaned-passages';
 
 export interface UpdatePassageOptions {
-	dontCreateNewlyLinkedPassages?: boolean;
+	dontUpdateOthers?: boolean;
 }
 
 /**
@@ -44,8 +46,22 @@ export function updatePassage(
 
 		// Side effects from changes.
 
-		if (!options.dontCreateNewlyLinkedPassages && props.text) {
-			dispatch(createNewlyLinkedPassages(story, passage, props.text, oldText));
+		if (!options.dontUpdateOthers && props.text) {
+			dispatch(deleteOrphanedPassages(story, passage, props.text, oldText));
+
+			// We need to get an up-to-date version of the story so placement of new
+			// passages is correct.
+			//
+			// still causes passage bounces sometimes :( this is because the placement
+			// algorithm works differently based on the number of passages it sees.
+			// will anyone care?? could there be a 'suggested positions'? how would we
+			// communicate back and forth?
+
+			const updatedStory = storyWithId(getState(), story.id);
+
+			dispatch(
+				createNewlyLinkedPassages(updatedStory, passage, props.text, oldText)
+			);
 		}
 
 		if (props.name) {
