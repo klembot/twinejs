@@ -20,6 +20,7 @@ describe('<AppPrefsDialog>', () => {
 				<PrefInspector name="appTheme" />
 				<PrefInspector name="codeEditorFontFamily" />
 				<PrefInspector name="codeEditorFontScale" />
+				<PrefInspector name="dialogWidth" />
 				<PrefInspector name="editorCursorBlinks" />
 				<PrefInspector name="locale" />
 				<PrefInspector name="passageEditorFontFamily" />
@@ -63,6 +64,33 @@ describe('<AppPrefsDialog>', () => {
 			target: {value: 'cs'}
 		});
 		expect(screen.getByTestId('pref-inspector-locale')).toHaveTextContent('cs');
+	});
+
+	it('displays the dialog width preference', () => {
+		renderComponent({dialogWidth: 600});
+		expect(screen.getByLabelText('dialogs.appPrefs.dialogWidth')).toHaveValue(
+			'600'
+		);
+		cleanup();
+		renderComponent({dialogWidth: 700});
+		expect(screen.getByLabelText('dialogs.appPrefs.dialogWidth')).toHaveValue(
+			'700'
+		);
+		cleanup();
+		renderComponent({dialogWidth: 800});
+		expect(screen.getByLabelText('dialogs.appPrefs.dialogWidth')).toHaveValue(
+			'800'
+		);
+	});
+
+	it('changes the dialog width preference when the menu is changed', () => {
+		renderComponent({dialogWidth: 700});
+		fireEvent.change(screen.getByLabelText('dialogs.appPrefs.dialogWidth'), {
+			target: {value: '600'}
+		});
+		expect(screen.getByTestId('pref-inspector-dialogWidth')).toHaveTextContent(
+			'600'
+		);
 	});
 
 	it('displays the editor cursor blink preference', () => {

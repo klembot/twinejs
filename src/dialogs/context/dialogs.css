@@ -5,6 +5,8 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-end;
+	max-width: calc(100% -  2 * var(--grid-size));
+	min-width: 600px;
 	pointer-events: none;
 	position: fixed;
 	bottom: var(--grid-size);
@@ -12,7 +14,6 @@
 	top: calc(
 		2 * var(--control-height) + var(--grid-size)
 	); /* below <top-bar> height */
-	width: 40em;
 }
 
 .dialogs .dialog-card {

@@ -18,6 +18,12 @@ uses the theme that matches your system's theme setting, if Twine can determine
 it. If Twine can't determine whether your system is using a dark or light theme,
 it will default to a light theme.
 
+## Changing Dialogs
+
+The _Dialog Width_ menu controls the width of dialogs. The placement of dialogs
+onscreen (e.g. switching them from the right side of the window) cannot be
+changed.
+
 ## Changing Edit Dialogs
 
 The _Blinking Cursor in Editors_ checkbox controls whether the cursor blinks in
