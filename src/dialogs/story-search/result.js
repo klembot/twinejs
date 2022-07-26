@@ -47,10 +47,6 @@ module.exports = Vue.extend({
 		},
 
 		replace() {
-			// this.searchRegexp = this.searchRegexp.replace("<", "&lt");
-			// this.searchRegexp = this.searchRegexp.replace(">", "&gt");
-			// this.replaceWith = this.replaceWith.replace("<", "&lt");
-			// this.replaceWith = this.replaceWith.replace(">", "&gt");			
 			const name = this.searchNames ?
 				this.match.passage.name.replace(
 					this.searchRegexp,
