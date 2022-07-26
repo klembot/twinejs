@@ -31,6 +31,8 @@ module.exports = Vue.extend({
 			}
 
 			let source = this.search;
+			// source = source.replaceAll("<", "&lt");
+			// source = source.replaceAll(">", "&gt");
 
 			/*
 			Escape regular expression characters in what the user typed unless
@@ -52,12 +54,26 @@ module.exports = Vue.extend({
 			this.working = true;
 
 			let result = this.story.passages.reduce((matches, passage) => {
+				// passage.text = passage.text.replaceAll("<", "&lt");
+				// passage.text = passage.text.replaceAll(">", "&gt");
 				let numMatches = 0;
 				let passageName = passage.name;
 				let passageText = passage.text;
+				passageText = passageText.replaceAll("<", "&lt;");
+				passageText = passageText.replaceAll('>', "&gt;");
+				passageName = passageName.replaceAll("<", "&lt;");
+				passageName = passageName.replaceAll('>', "&gt;");
 				let highlightedName = passageName;
 				let highlightedText = passageText;
+
+				this.search = this.search.replaceAll("<", "&lt;");
+				this.search = this.search.replaceAll(">", "&gt;");
 				let textMatches = passageText.match(this.searchRegexp);
+
+				let nameMatches = passageName.match(this.searchRegexp);
+				// console.log(this.search);
+				// this.search = "nick";
+				//console.log(this.searchRegexp); // changing what this.search is updates this.searchRegexp!
 
 				if (textMatches) {
 					numMatches += textMatches.length;
@@ -66,18 +82,25 @@ module.exports = Vue.extend({
 						'<span class="highlight">$1</span>'
 					);
 				}
-
-				if (this.searchNames) {
-					let nameMatches = passageName.match(this.searchRegexp);
-
-					if (nameMatches) {
-						numMatches += nameMatches.length;
-						highlightedName = passageName.replace(
-							this.searchRegexp,
-							'<span class="highlight">$1</span>'
-						);
-					}
+				if (nameMatches) {
+					numMatches += nameMatches.length;
+					highlightedName = passageName.replace(
+						this.searchRegexp,
+						'<span class="highlight">$1</span>'
+					);
 				}
+
+				// if (this.searchNames) {
+				// 	let nameMatches = passageName.match(this.searchRegexp);
+
+				// 	if (nameMatches) {
+				// 		numMatches += nameMatches.length;
+				// 		highlightedName = passageName.replace(
+				// 			this.searchRegexp,
+				// 			'<span class="highlight">$1</span>'
+				// 		);
+				// 	}
+				// }
 
 				if (numMatches > 0) {
 					matches.push({
@@ -87,6 +110,11 @@ module.exports = Vue.extend({
 						highlightedText
 					});
 				}
+				// this.searchRegexp = this.searchRegexp.replaceAll("&lt", "<");
+				// this.searchRegexp = this.searchRegexp.replaceAll("&gt", ">");
+				this.search = this.search.replaceAll("&lt;", "<");
+				this.search = this.search.replaceAll("&gt;", ">");
+				//console.log(this.searchRegexp);
 
 				return matches;
 			}, []);
