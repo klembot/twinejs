@@ -1,6 +1,8 @@
 import {render, screen} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
+import {PrefsState} from '../../../store/prefs';
+import {FakeStateProvider} from '../../../test-util';
 import {Dialogs} from '../dialogs';
 import {DialogsContext, DialogsContextProps} from '../dialogs-context';
 
@@ -14,13 +16,18 @@ const MockComponent: React.FC<{collapsed?: boolean}> = ({
 );
 
 describe('<Dialogs>', () => {
-	function renderComponent(context?: Partial<DialogsContextProps>) {
+	function renderComponent(
+		context?: Partial<DialogsContextProps>,
+		prefsContext?: Partial<PrefsState>
+	) {
 		return render(
-			<DialogsContext.Provider
-				value={{dialogs: [], dispatch: jest.fn(), ...context}}
-			>
-				<Dialogs />
-			</DialogsContext.Provider>
+			<FakeStateProvider prefs={prefsContext}>
+				<DialogsContext.Provider
+					value={{dialogs: [], dispatch: jest.fn(), ...context}}
+				>
+					<Dialogs />
+				</DialogsContext.Provider>
+			</FakeStateProvider>
 		);
 	}
 
@@ -56,6 +63,15 @@ describe('<Dialogs>', () => {
 		});
 
 		expect(screen.getByTestId('mock-component').dataset.collapsed).toBe('true');
+	});
+
+	it('renders at the width given by the dialogsWidth pref', () => {
+		const dialogWidth = Math.random() * 1000;
+
+		renderComponent(undefined, {dialogWidth});
+		expect(
+			document.querySelector<HTMLDivElement>('.dialogs')?.style.width
+		).toBe(`${dialogWidth}px`);
 	});
 
 	it('is accessible', async () => {

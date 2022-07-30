@@ -155,6 +155,12 @@
 		"appPrefs": {
 			"codeEditorFont": "Code Editor Font",
 			"codeEditorFontScale": "Code Editor Font Size",
+			"dialogWidth": "Dialog Width",
+			"dialogWidths": {
+				"default": "Default",
+				"wider": "Wider",
+				"widest": "Widest"
+			},
 			"editorCursorBlinks": "Blinking Cursor in Editors",
 			"fontExplanation": "Changing the font here only affects the Twine editor. It will not change the font a story uses when played.",
 			"language": "Language",

@@ -2,6 +2,7 @@ import * as React from 'react';
 import {useScrollbarSize} from 'react-scrollbar-size';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import {useDialogsContext} from '.';
+import {usePrefsContext} from '../../store/prefs';
 import './dialogs.css';
 
 const DialogTransition: React.FC = props => (
@@ -12,11 +13,13 @@ const DialogTransition: React.FC = props => (
 
 export const Dialogs: React.FC = () => {
 	const {height, width} = useScrollbarSize();
+	const {prefs} = usePrefsContext();
 	const {dispatch, dialogs} = useDialogsContext();
 
 	const style: React.CSSProperties = {
 		marginBottom: height,
-		marginRight: width
+		marginRight: width,
+		width: `${prefs.dialogWidth}px`
 	};
 
 	return (
