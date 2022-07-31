@@ -54,16 +54,24 @@ module.exports = Vue.extend({
 				let numMatches = 0;
 				let passageName = passage.name;
 				let passageText = passage.text;
-				passageText = passageText.replaceAll("<", "&lt;");
-				passageText = passageText.replaceAll('>', "&gt;");
-				passageName = passageName.replaceAll("<", "&lt;");
-				passageName = passageName.replaceAll('>', "&gt;");
+
+				/*
+				Replaces HTML tags with their respective unicodes to prevent
+				unwanted execution of HTML code.
+				*/
+				if (passageText.includes("&lt") || passageText.includes("&gt")) { // If user types &lt or &gt in their passage
+					passageName = passageName.replaceAll("&lt", "&amp;lt").replaceAll("&gt", "&amp;gt");
+					passageText = passageText.replaceAll("&lt", "&amp;lt").replaceAll("&gt", "&amp;gt");
+					this.search = this.search.replaceAll("&lt", "&amp;lt").replaceAll("&gt", "&amp;gt");
+				}
+				else { // If user types < or > in their passage
+					passageName = passageName.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+					passageText = passageText.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+					this.search = this.search.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+				}
 				let highlightedName = passageName;
 				let highlightedText = passageText;
-				this.search = this.search.replaceAll("<", "&lt;");
-				this.search = this.search.replaceAll(">", "&gt;");
 				let textMatches = passageText.match(this.searchRegexp);
-				let nameMatches = passageName.match(this.searchRegexp);
 
 				if (textMatches) {
 					numMatches += textMatches.length;
@@ -72,12 +80,17 @@ module.exports = Vue.extend({
 						'<span class="highlight">$1</span>'
 					);
 				}
-				if (nameMatches) {
-					numMatches += nameMatches.length;
-					highlightedName = passageName.replace(
-						this.searchRegexp,
-						'<span class="highlight">$1</span>'
-					);
+
+				if (this.searchNames) {
+					let nameMatches = passageName.match(this.searchRegexp);
+
+					if (nameMatches) {
+						numMatches += nameMatches.length;
+						highlightedName = passageName.replace(
+							this.searchRegexp,
+							'<span class="highlight">$1</span>'
+						);
+					}
 				}
 
 				if (numMatches > 0) {
@@ -88,8 +101,15 @@ module.exports = Vue.extend({
 						highlightedText
 					});
 				}
-				this.search = this.search.replaceAll("&lt;", "<");
-				this.search = this.search.replaceAll("&gt;", ">");
+				/*
+				Reverts this.search back to its original state.
+				*/
+				if (passage.text.includes("&lt") || passage.text.includes("&gt")) { // If user types &lt or &gt in their passage
+					this.search = this.search.replaceAll("&amp;lt", "&lt").replaceAll("&amp;gt", "&gt");
+				}
+				else { // If user types < or > in their passage
+					this.search = this.search.replaceAll("&lt;", "<").replaceAll("&gt;", ">");
+				}
 
 				return matches;
 			}, []);
