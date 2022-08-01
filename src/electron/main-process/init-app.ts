@@ -17,10 +17,6 @@ async function createWindow() {
 		webPreferences: {
 			// See preload.ts for why context isolation is disabled.
 			contextIsolation: false,
-			// Seems needed to prevent opening a window from blocking the UI. We force
-			// them to open outside the app anyway.
-			// See https://github.com/electron/electron/issues/29509
-			nativeWindowOpen: true,
 			nodeIntegration: false,
 			preload: path.resolve(__dirname, './preload.js')
 		}
