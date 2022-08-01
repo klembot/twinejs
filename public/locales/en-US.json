@@ -26,6 +26,7 @@
 		"editCount": "Edit ({{count}})",
 		"help": "Help",
 		"import": "Import",
+		"maximize": "Maximize",
 		"more": "More",
 		"new": "New",
 		"next": "Next",
@@ -48,6 +49,7 @@
 		"twine": "Twine",
 		"undo": "Undo",
 		"undoChange": "Undo {{change}}",
+		"unmaximize": "Restore Size",
 		"view": "View"
 	},
 	"components": {

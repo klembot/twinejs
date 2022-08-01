@@ -3,8 +3,23 @@ import {DialogCardProps} from '../components/container/dialog-card';
 export type DialogComponentProps = Omit<DialogCardProps, 'headerLabel'>;
 
 export interface Dialog {
+	/**
+	 * Is the dialog collapsed? (only showing its title bar)
+	 */
 	collapsed: boolean;
+	/**
+	 * Component to render.
+	 */
 	component: React.ComponentType<any>;
+	/**
+	 * Is the dialog maximized? Although only one dialog can be maximized at a
+	 * time, this is an attribute so that when a dialog is un-minimized, it goes
+	 * back to its previous position.
+	 */
+	maximized: boolean;
+	/**
+	 * Props to apply to the component.
+	 */
 	props?: Record<string, any>;
 }
 
@@ -17,4 +32,5 @@ export type DialogsAction =
 			props?: Record<string, any>;
 	  }
 	| {type: 'removeDialog'; index: number}
-	| {type: 'setDialogCollapsed'; collapsed: boolean; index: number};
+	| {type: 'setDialogCollapsed'; collapsed: boolean; index: number}
+	| {type: 'setDialogMaximized'; maximized: boolean; index: number};

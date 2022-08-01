@@ -27,6 +27,7 @@ const TestPassageEditDialog: React.FC<
 			<PassageEditDialog
 				collapsed={false}
 				onChangeCollapsed={jest.fn()}
+				onChangeMaximized={jest.fn()}
 				onClose={jest.fn()}
 				passageId={stories[0].passages[0].id}
 				storyId={stories[0].id}
@@ -80,6 +81,11 @@ describe('<PassageEditDialog>', () => {
 				expect(
 					screen.getByTestId(`mock-passage-text-${story.passages[0].id}`)
 				).toBeInTheDocument();
+			});
+
+			it('displays a dialog that can be maximized', () => {
+				renderComponent();
+				expect(screen.getByLabelText('common.maximize')).toBeInTheDocument();
 			});
 
 			it('updates the passage text when the user edits it', () => {
