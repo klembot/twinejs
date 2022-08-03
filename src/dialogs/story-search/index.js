@@ -57,14 +57,19 @@ module.exports = Vue.extend({
 
 				/*
 				Replaces HTML tags with their respective unicodes to prevent
-				unwanted execution of HTML code.
+				unwanted execution of HTML code. If unicode is present
+				escape the unicode. If both are present, both can't be escaped
+				so prioritize escaping HTML.
 				*/
-				if (passageText.includes("&lt") || passageText.includes("&gt")) { // If user types &lt or &gt in their passage
+				let hasUnicodeOnly = (passageText.includes("&lt") || passageText.includes("&gt"))
+				&& !(passageText.includes("<") || passageText.includes(">"));
+
+				if (hasUnicodeOnly) {
 					passageName = passageName.replaceAll("&lt", "&amp;lt").replaceAll("&gt", "&amp;gt");
 					passageText = passageText.replaceAll("&lt", "&amp;lt").replaceAll("&gt", "&amp;gt");
 					this.search = this.search.replaceAll("&lt", "&amp;lt").replaceAll("&gt", "&amp;gt");
 				}
-				else { // If user types < or > in their passage
+				else {
 					passageName = passageName.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
 					passageText = passageText.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
 					this.search = this.search.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
@@ -104,10 +109,10 @@ module.exports = Vue.extend({
 				/*
 				Reverts this.search back to its original state.
 				*/
-				if (passage.text.includes("&lt") || passage.text.includes("&gt")) { // If user types &lt or &gt in their passage
+				if (hasUnicodeOnly) {
 					this.search = this.search.replaceAll("&amp;lt", "&lt").replaceAll("&amp;gt", "&gt");
 				}
-				else { // If user types < or > in their passage
+				else {
 					this.search = this.search.replaceAll("&lt;", "<").replaceAll("&gt;", ">");
 				}
 
