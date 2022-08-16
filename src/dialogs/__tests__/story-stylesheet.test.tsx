@@ -35,6 +35,11 @@ describe('<StoryStylesheetDialog>', () => {
 		);
 	}
 
+	it('displays a dialog that can be maximized', () => {
+		renderComponent();
+		expect(screen.getByLabelText('common.maximize')).toBeInTheDocument();
+	});
+
 	it("displays the story's stylesheet", () => {
 		const story = fakeStory();
 

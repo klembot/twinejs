@@ -36,6 +36,7 @@ export const StoryJavaScriptDialog: React.FC<StoryJavaScriptDialogProps> = props
 			{...other}
 			className="story-javascript-dialog"
 			headerLabel={t('dialogs.storyJavaScript.title')}
+			maximizable
 		>
 			<ButtonBar>
 				<UndoRedoButtons editor={cmEditor} watch={story.script} />

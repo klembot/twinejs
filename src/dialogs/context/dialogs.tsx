@@ -16,26 +16,41 @@ export const Dialogs: React.FC = () => {
 	const {prefs} = usePrefsContext();
 	const {dispatch, dialogs} = useDialogsContext();
 
-	const style: React.CSSProperties = {
+	const hasUnmaximized = dialogs.some(dialog => !dialog.maximized);
+	const containerStyle: React.CSSProperties = {
+		paddingLeft: `calc(100% - (${prefs.dialogWidth}px + 2 * (var(--grid-size))))`,
 		marginBottom: height,
-		marginRight: width,
-		width: `${prefs.dialogWidth}px`
+		marginRight: width
+	};
+	const maximizedStyle: React.CSSProperties = {
+		marginRight: hasUnmaximized
+			? `calc(${prefs.dialogWidth}px + var(--grid-size))`
+			: 0
 	};
 
 	return (
-		<div className="dialogs" style={style}>
+		<div className="dialogs" style={containerStyle}>
 			<TransitionGroup component={null}>
 				{dialogs.map((dialog, index) => {
 					const managementProps = {
 						collapsed: dialog.collapsed,
+						maximized: dialog.maximized,
 						onChangeCollapsed: (collapsed: boolean) =>
 							dispatch({type: 'setDialogCollapsed', collapsed, index}),
+						onChangeMaximized: (maximized: boolean) =>
+							dispatch({type: 'setDialogMaximized', maximized, index}),
 						onClose: () => dispatch({type: 'removeDialog', index})
 					};
 
 					return (
 						<DialogTransition key={index}>
-							<dialog.component {...dialog.props} {...managementProps} />
+							{dialog.maximized ? (
+								<div className="maximized" style={maximizedStyle}>
+									<dialog.component {...dialog.props} {...managementProps} />
+								</div>
+							) : (
+								<dialog.component {...dialog.props} {...managementProps} />
+							)}
 						</DialogTransition>
 					);
 				})}

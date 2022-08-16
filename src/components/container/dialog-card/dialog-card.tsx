@@ -1,7 +1,13 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import {useTranslation} from 'react-i18next';
-import {IconChevronDown, IconChevronUp, IconX} from '@tabler/icons';
+import {
+	IconArrowsDiagonal,
+	IconArrowsDiagonalMinimize,
+	IconChevronDown,
+	IconChevronUp,
+	IconX
+} from '@tabler/icons';
 import {Card} from '../card';
 import {IconButton} from '../../control/icon-button';
 import './dialog-card.css';
@@ -13,7 +19,10 @@ export interface DialogCardProps {
 	collapsed: boolean;
 	fixedSize?: boolean;
 	headerLabel: string;
+	maximizable?: boolean;
+	maximized?: boolean;
 	onChangeCollapsed: (value: boolean) => void;
+	onChangeMaximized: (value: boolean) => void;
 	onClose: () => void;
 }
 
@@ -24,7 +33,10 @@ export const DialogCard: React.FC<DialogCardProps> = props => {
 		collapsed,
 		fixedSize,
 		headerLabel,
+		maximizable,
+		maximized,
 		onChangeCollapsed,
+		onChangeMaximized,
 		onClose
 	} = props;
 	const {didCatch, ErrorBoundary, error} = useErrorBoundary();
@@ -38,7 +50,8 @@ export const DialogCard: React.FC<DialogCardProps> = props => {
 
 	const calcdClassName = classNames('dialog-card', className, {
 		collapsed,
-		'fixed-size': fixedSize
+		'fixed-size': fixedSize,
+		maximized
 	});
 
 	function handleKeyDown(event: React.KeyboardEvent) {
@@ -64,12 +77,29 @@ export const DialogCard: React.FC<DialogCardProps> = props => {
 						/>
 					</div>
 					<div className="dialog-card-header-controls">
+						{maximizable && (
+							<IconButton
+								icon={
+									maximized ? (
+										<IconArrowsDiagonalMinimize />
+									) : (
+										<IconArrowsDiagonal />
+									)
+								}
+								iconOnly
+								label={
+									maximized ? t('common.unmaximize') : t('common.maximize')
+								}
+								onClick={() => onChangeMaximized(!maximized)}
+								tooltipPosition="bottom"
+							/>
+						)}
 						<IconButton
 							icon={<IconX />}
 							iconOnly
 							label={t('common.close')}
 							onClick={onClose}
-							tooltipPosition="left"
+							tooltipPosition="bottom"
 						/>
 					</div>
 				</h2>
