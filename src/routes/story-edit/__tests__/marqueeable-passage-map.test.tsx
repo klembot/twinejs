@@ -38,7 +38,6 @@ describe('<MarqueeablePassageMap>', () => {
 				onDeselect={jest.fn()}
 				onDrag={jest.fn()}
 				onEdit={jest.fn()}
-				onMiddleClick={jest.fn()}
 				onSelect={jest.fn()}
 				onSelectRect={jest.fn()}
 				passages={story.passages}
@@ -165,7 +164,6 @@ describe('<MarqueeablePassageMap>', () => {
 			onDeselect: jest.fn(),
 			onDrag: jest.fn(),
 			onEdit: jest.fn(),
-			onMiddleClick: jest.fn(),
 			onSelect: jest.fn()
 		};
 

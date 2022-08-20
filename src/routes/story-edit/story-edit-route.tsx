@@ -60,20 +60,6 @@ export const InnerStoryEditRoute: React.FC = () => {
 		};
 	}, [story.zoom]);
 
-	const handleMiddleClick = React.useCallback(
-		(position: Point) => {
-			undoableStoriesDispatch(
-				createUntitledPassage(
-					story,
-					position.left / story.zoom,
-					position.top / story.zoom
-				),
-				'undoChange.newPassage'
-			);
-		},
-		[story, undoableStoriesDispatch]
-	);
-
 	const handleDeselectPassage = React.useCallback(
 		(passage: Passage) =>
 			undoableStoriesDispatch(deselectPassage(story, passage)),
@@ -177,7 +163,6 @@ export const InnerStoryEditRoute: React.FC = () => {
 					onDeselect={handleDeselectPassage}
 					onDrag={handleDragPassages}
 					onEdit={handleEditPassage}
-					onMiddleClick={handleMiddleClick}
 					onSelect={handleSelectPassage}
 					onSelectRect={handleSelectRect}
 					passages={story.passages}

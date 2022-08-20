@@ -13,7 +13,6 @@ export interface PassageMapProps {
 	onDeselect: (passage: Passage) => void;
 	onDrag: (change: Point) => void;
 	onEdit: (passage: Passage) => void;
-	onMiddleClick: (position: Point) => void;
 	onSelect: (passage: Passage, exclusive: boolean) => void;
 	passages: Passage[];
 	startPassageId: string;
@@ -77,7 +76,6 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 		onDeselect,
 		onDrag,
 		onEdit,
-		onMiddleClick,
 		onSelect,
 		passages,
 		startPassageId,
@@ -174,38 +172,12 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 		},
 		[onSelect, state.dragging]
 	);
-	const handleMouseUp = React.useCallback(
-		(event: React.MouseEvent) => {
-			// Listen for middle clicks outside of interactible elements. We can't use
-			// onClick for this because middle buttons don't seem to generate those
-			// events.
-
-			if (
-				!container.current ||
-				event.button !== 1 ||
-				(event.target as HTMLElement).closest('.passage-card')
-			) {
-				return;
-			}
-
-			// Adjust the click position for the container's position onscreen.
-
-			const containerRect = container.current.getBoundingClientRect();
-
-			onMiddleClick({
-				left: event.clientX - containerRect.left,
-				top: event.clientY - containerRect.top
-			});
-		},
-		[onMiddleClick]
-	);
 
 	return (
 		<div
 			className={classnames('passage-map', {
 				'compact-passage-cards': compactCards
 			})}
-			onMouseUp={handleMouseUp}
 			ref={container}
 			style={style}
 		>
