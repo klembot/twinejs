@@ -1,3 +1,9 @@
+.story-chooser {
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+}
+
 .story-chooser p {
 	margin-bottom: 0;
 }
@@ -5,9 +11,15 @@
 .story-chooser ul {
 	list-style: none;
 	margin: 0;
+	min-height: 0;
+	overflow: auto;
 	padding: 0;
 }
 
 .story-chooser .replace-warning {
 	display: block;
+}
+
+.story-chooser .actions {
+	flex-shrink: 0;
 }
