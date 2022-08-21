@@ -54,12 +54,15 @@ export const StoryChooser: React.FC<StoryChooserProps> = props => {
 					</li>
 				))}
 			</ul>
-			<IconButton
-				disabled={selectedStories.length === 0}
-				icon={<IconFileImport />}
-				label={t('dialogs.storyImport.importSelected')}
-				onClick={() => onImport(selectedStories)}
-			/>
+			<div className="actions">
+				<IconButton
+					disabled={selectedStories.length === 0}
+					icon={<IconFileImport />}
+					label={t('dialogs.storyImport.importSelected')}
+					onClick={() => onImport(selectedStories)}
+					variant="primary"
+				/>
+			</div>
 		</div>
 	);
 };
