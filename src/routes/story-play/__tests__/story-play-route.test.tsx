@@ -35,4 +35,16 @@ describe('<StoryPlayRoute>', () => {
 		);
 		expect(publishStory.mock.calls).toEqual([['123']]);
 	});
+
+	it('shows an error message if publishing fails', async () => {
+		const publishStory = jest.fn(
+			jest.fn(() => Promise.reject(new Error('mock-error-message')))
+		);
+
+		usePublishingMock.mockReturnValue({publishStory});
+		renderComponent('/stories/123/play');
+		await waitFor(() =>
+			expect(document.body.textContent).toContain('mock-error-message')
+		);
+	});
 });
