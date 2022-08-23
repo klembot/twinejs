@@ -18,6 +18,13 @@ export const DeletePassagesButton: React.FC<
 	const {passages, story} = props;
 	const {dispatch} = useUndoableStoriesContext();
 	const {t} = useTranslation();
+	const disabled = React.useMemo(() => {
+		if (passages.length === 0) {
+			return true;
+		}
+
+		return passages.some(passage => story.startPassage === passage.id);
+	}, [passages, story.startPassage]);
 	const handleClick = React.useCallback(() => {
 		if (passages.length === 0) {
 			return;
@@ -35,10 +42,10 @@ export const DeletePassagesButton: React.FC<
 
 	return (
 		<IconButton
-			disabled={passages.length === 0}
+			disabled={disabled}
 			icon={<IconTrash />}
 			label={
-				passages.length > 1
+				!disabled && passages.length > 1
 					? t('common.deleteCount', {count: passages.length})
 					: t('common.delete')
 			}
