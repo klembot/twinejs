@@ -41,9 +41,17 @@ export function importStories(
 			);
 
 			// Do an update so that if something goes awry, we won't have deleted the
-			// story.
+			// story. We need to update passage props so that their parent story ID is
+			// set properly.
 
 			if (existingStory) {
+				if (props.passages) {
+					props.passages = props.passages.map(passage => ({
+						...passage,
+						story: existingStory.id
+					}));
+				}
+
 				dispatch({props, type: 'updateStory', storyId: existingStory.id});
 			} else {
 				dispatch({props, type: 'createStory'});
