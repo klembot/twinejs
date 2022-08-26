@@ -42,7 +42,7 @@ module.exports = {
 	},
 	win: {
 		artifactName: `Twine-${pkg.version}-Windows.exe`,
-		icon: `icons/app-${isPreview ? 'preview' : 'release'}.ico`,
+		icon: `icons/app-${isPreview ? 'preview' : 'release'}-no-padding.ico`,
 		target: {arch: ['x64'], target: 'nsis'}
 	}
 };
