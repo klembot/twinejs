@@ -1,42 +1,7 @@
-import escape from 'lodash/escape';
 import uniq from 'lodash/uniq';
 import {Passage, StorySearchFlags, Story} from './stories.types';
 import {createRegExp} from '../../util/regexp';
 import {parseLinks} from '../../util/parse-links';
-
-/**
- * Returns a passage name and text with matches for a search highlighted with
- * `<mark>` tags. The result should be displayed as HTML with no escaping.
- */
-export function markPassageMatches(
-	passage: Passage,
-	search: string,
-	flags: StorySearchFlags
-) {
-	const {includePassageNames, matchCase, useRegexes} = flags;
-	const matcher = createRegExp(search, {matchCase, useRegexes});
-	const highlight = (value: string) => `\ue000${value}\ue001`;
-	const markHighlights = (value: string) =>
-		value.replace(/\ue000/g, '<mark>').replace(/\ue001/g, '</mark>');
-
-	let nameHighlightedHtml = escape(passage.name);
-	let textHighlightedHtml = escape(passage.text);
-
-	if (includePassageNames) {
-		nameHighlightedHtml = markHighlights(
-			escape(passage.name.replace(matcher, highlight))
-		);
-	}
-
-	textHighlightedHtml = markHighlights(
-		escape(passage.text.replace(matcher, highlight))
-	);
-
-	return {
-		nameHighlightedHtml,
-		textHighlightedHtml
-	};
-}
 
 export function passageWithId(
 	stories: Story[],
@@ -140,7 +105,14 @@ export function passagesMatchingSearch(
 	}
 
 	const {includePassageNames, matchCase, useRegexes} = flags;
-	const matcher = createRegExp(search, {matchCase, useRegexes});
+	let matcher: RegExp;
+
+	try {
+		matcher = createRegExp(search, {matchCase, useRegexes});
+	} catch (error) {
+		// The regexp was malformed. Take no action.
+		return [];
+	}
 
 	return passages.reduce((result, passage) => {
 		if (
