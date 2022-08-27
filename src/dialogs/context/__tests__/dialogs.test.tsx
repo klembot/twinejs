@@ -1,26 +1,38 @@
 import {render, screen} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
+import {PrefsState} from '../../../store/prefs';
+import {FakeStateProvider} from '../../../test-util';
 import {Dialogs} from '../dialogs';
 import {DialogsContext, DialogsContextProps} from '../dialogs-context';
 
-const MockComponent: React.FC<{collapsed?: boolean}> = ({
+const MockComponent: React.FC<{collapsed?: boolean; maximized?: boolean}> = ({
 	children,
-	collapsed
+	collapsed,
+	maximized
 }) => (
-	<div data-testid="mock-component" data-collapsed={collapsed}>
+	<div
+		data-testid="mock-component"
+		data-collapsed={collapsed}
+		data-maximized={maximized}
+	>
 		{children}
 	</div>
 );
 
 describe('<Dialogs>', () => {
-	function renderComponent(context?: Partial<DialogsContextProps>) {
+	function renderComponent(
+		context?: Partial<DialogsContextProps>,
+		prefsContext?: Partial<PrefsState>
+	) {
 		return render(
-			<DialogsContext.Provider
-				value={{dialogs: [], dispatch: jest.fn(), ...context}}
-			>
-				<Dialogs />
-			</DialogsContext.Provider>
+			<FakeStateProvider prefs={prefsContext}>
+				<DialogsContext.Provider
+					value={{dialogs: [], dispatch: jest.fn(), ...context}}
+				>
+					<Dialogs />
+				</DialogsContext.Provider>
+			</FakeStateProvider>
 		);
 	}
 
@@ -30,11 +42,13 @@ describe('<Dialogs>', () => {
 				{
 					collapsed: false,
 					component: MockComponent,
+					maximized: false,
 					props: {children: 'mock child 1'}
 				},
 				{
 					collapsed: false,
 					component: MockComponent,
+					maximized: false,
 					props: {children: 'mock child 2'}
 				}
 			]
@@ -50,12 +64,41 @@ describe('<Dialogs>', () => {
 				{
 					collapsed: true,
 					component: MockComponent,
+					maximized: false,
 					props: {children: 'mock child 1'}
 				}
 			]
 		});
 
 		expect(screen.getByTestId('mock-component').dataset.collapsed).toBe('true');
+	});
+
+	it('sets the maximized prop on the dialog component', () => {
+		renderComponent({
+			dialogs: [
+				{
+					collapsed: true,
+					component: MockComponent,
+					maximized: true,
+					props: {children: 'mock child 1'}
+				}
+			]
+		});
+
+		expect(screen.getByTestId('mock-component').dataset.maximized).toBe('true');
+	});
+
+	// Using screen.debug() doesn't seem to show the padding-left style. Maybe a
+	// gap in jsdom?
+
+	it.skip('renders unmaximized dialogs at the width given by the dialogsWidth pref', () => {
+		const dialogWidth = Math.random() * 1000;
+
+		renderComponent(undefined, {dialogWidth});
+		screen.debug();
+		expect(
+			document.querySelector<HTMLDivElement>('.dialogs')?.style.paddingLeft
+		).toBe(`${dialogWidth}px`);
 	});
 
 	it('is accessible', async () => {

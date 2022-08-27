@@ -31,6 +31,10 @@ export interface PrefsState {
 	 */
 	codeEditorFontScale: number;
 	/**
+	 * Width of side dialogs in pixels.
+	 */
+	dialogWidth: number;
+	/**
 	 * Story formats whose editor extensions should not be enabled.
 	 */
 	disabledStoryFormatEditorExtensions: {

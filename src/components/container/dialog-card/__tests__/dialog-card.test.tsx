@@ -9,7 +9,10 @@ describe('<DialogCard>', () => {
 			<DialogCard
 				collapsed={false}
 				headerLabel="mock-header-label"
+				maximizable={true}
+				maximized={false}
 				onChangeCollapsed={jest.fn()}
+				onChangeMaximized={jest.fn()}
 				onClose={jest.fn()}
 				{...props}
 			>
@@ -18,13 +21,68 @@ describe('<DialogCard>', () => {
 		);
 	}
 
-	it('calls the onChangeCollapsed prop when the header button is clicked', () => {
+	it('calls the onChangeCollapsed prop when the header button is clicked when uncollapsed', () => {
 		const onChangeCollapsed = jest.fn();
 
 		renderComponent({onChangeCollapsed, headerLabel: 'test-label'});
 		expect(onChangeCollapsed).not.toHaveBeenCalled();
 		fireEvent.click(screen.getByText('test-label'));
-		expect(onChangeCollapsed).toHaveBeenCalledTimes(1);
+		expect(onChangeCollapsed.mock.calls).toEqual([[true]]);
+	});
+
+	it('calls the onChangeCollapsed prop when the header button is clicked when collapsed', () => {
+		const onChangeCollapsed = jest.fn();
+
+		renderComponent({
+			collapsed: true,
+			onChangeCollapsed,
+			headerLabel: 'test-label'
+		});
+		expect(onChangeCollapsed).not.toHaveBeenCalled();
+		fireEvent.click(screen.getByText('test-label'));
+		expect(onChangeCollapsed.mock.calls).toEqual([[false]]);
+	});
+
+	it('shows a maximize button when the maximized prop is true', () => {
+		renderComponent({maximizable: true});
+		expect(screen.getByLabelText('common.maximize')).toBeInTheDocument();
+	});
+
+	it('hides the maximize button when the maximized prop is false', () => {
+		renderComponent({maximizable: false});
+		expect(screen.queryByLabelText('common.maximize')).not.toBeInTheDocument();
+	});
+
+	it('adds a CSS class when maximized', () => {
+		renderComponent({maximized: true});
+		expect(
+			document.querySelector('.dialog-card')?.classList.contains('maximized')
+		).toBe(true);
+	});
+
+	it("doesn't add a CSS class when unmaximized", () => {
+		renderComponent({maximized: false});
+		expect(
+			document.querySelector('.dialog-card')?.classList.contains('maximized')
+		).toBe(false);
+	});
+
+	it('calls the onChangeMaximized prop with true when the maximize button is clicked', () => {
+		const onChangeMaximized = jest.fn();
+
+		renderComponent({onChangeMaximized});
+		expect(onChangeMaximized).not.toHaveBeenCalled();
+		fireEvent.click(screen.getByLabelText('common.maximize'));
+		expect(onChangeMaximized.mock.calls).toEqual([[true]]);
+	});
+
+	it('calls the onChangeMaximized prop with false when the unmaximize button is clicked', () => {
+		const onChangeMaximized = jest.fn();
+
+		renderComponent({maximized: true, onChangeMaximized});
+		expect(onChangeMaximized).not.toHaveBeenCalled();
+		fireEvent.click(screen.getByLabelText('common.unmaximize'));
+		expect(onChangeMaximized.mock.calls).toEqual([[false]]);
 	});
 
 	it('calls the onClose prop when the close button is clicked', () => {
@@ -74,6 +132,7 @@ describe('<DialogCard>', () => {
 				collapsed={false}
 				headerLabel="mock-header-label"
 				onChangeCollapsed={jest.fn()}
+				onChangeMaximized={jest.fn()}
 				onClose={jest.fn()}
 			>
 				<BadComponent />

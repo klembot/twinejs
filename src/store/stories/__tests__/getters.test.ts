@@ -1,65 +1,17 @@
 import {
-	markPassageMatches,
 	passageWithId,
 	passageWithName,
 	storyPassageTags,
 	storyWithId,
 	storyWithName,
-	storyTags
+	storyTags,
+	passagesMatchingSearch
 } from '../getters';
-import {Story} from '../stories.types';
+import {Passage, Story} from '../stories.types';
 import {fakePassage, fakeStory} from '../../../test-util';
 import {passageConnections} from '..';
 
-describe('markPassageMatches()', () => {
-	it.each([
-		[
-			'AaBbCc',
-			'b',
-			{},
-			{
-				nameHighlightedHtml: 'AaBbCc',
-				textHighlightedHtml: 'Aa<mark>B</mark><mark>b</mark>Cc'
-			}
-		],
-		[
-			'AaBbCc',
-			'b',
-			{includePassageNames: true},
-			{
-				nameHighlightedHtml: 'Aa<mark>B</mark><mark>b</mark>Cc',
-				textHighlightedHtml: 'Aa<mark>B</mark><mark>b</mark>Cc'
-			}
-		],
-		[
-			'AaBbCc',
-			'B',
-			{matchCase: true},
-			{
-				nameHighlightedHtml: 'AaBbCc',
-				textHighlightedHtml: 'Aa<mark>B</mark>bCc'
-			}
-		],
-		[
-			'AaBbCc',
-			'B',
-			{includePassageNames: true, matchCase: true},
-			{
-				nameHighlightedHtml: 'Aa<mark>B</mark>bCc',
-				textHighlightedHtml: 'Aa<mark>B</mark>bCc'
-			}
-		]
-	])(
-		'highlights "%s" searching for "%s" with flags %j as %j',
-		(text, search, flags, result) => {
-			const passage = fakePassage({name: text, text});
-
-			expect(markPassageMatches(passage, search, flags)).toEqual(result);
-		}
-	);
-});
-
-describe('passageConnections', () => {
+describe('passageConnections()', () => {
 	it('places links between two unselected passages in the fixed property', () => {
 		const passages = [
 			fakePassage({name: 'a', selected: false, text: '[[b]]'}),
@@ -229,6 +181,40 @@ describe('passageWithName()', () => {
 		expect(() =>
 			passageWithName([story], story.id, story.passages[0].name + 'nonexistent')
 		).toThrow());
+});
+
+describe('passagesMatchingSearch()', () => {
+	let passages: Passage[];
+
+	beforeEach(
+		() =>
+			(passages = [
+				fakePassage({name: 'A name', text: 'A text'}),
+				fakePassage({name: 'B name', text: 'B text'}),
+				fakePassage({name: 'C name', text: 'C text'})
+			])
+	);
+
+	it('returns passages matching a search', () => {
+		expect(passagesMatchingSearch(passages, 'a', {})).toEqual([passages[0]]);
+		expect(passagesMatchingSearch(passages, 'a.*', {useRegexes: true})).toEqual(
+			[passages[0]]
+		);
+		expect(
+			passagesMatchingSearch(passages, 'b text', {includePassageNames: true})
+		).toEqual([passages[1]]);
+		expect(
+			passagesMatchingSearch(passages, 'C text', {matchCase: true})
+		).toEqual([passages[2]]);
+	});
+
+	it('returns an empty array if no passages match the search', () =>
+		expect(passagesMatchingSearch(passages, 'd', {})).toEqual([]));
+
+	it('returns an empty array if the regexp flag is set but the search is an invalid regexp', () =>
+		expect(passagesMatchingSearch(passages, 'a(', {useRegexes: true})).toEqual(
+			[]
+		));
 });
 
 describe('storyPassageTags()', () => {

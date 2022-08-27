@@ -119,6 +119,7 @@ export function fakePrefs(overrides?: Partial<PrefsState>): PrefsState {
 		appTheme: random.arrayElement(['light', 'dark', 'system']),
 		codeEditorFontFamily: lorem.words(2),
 		codeEditorFontScale: 0.8 + random.number(0.5),
+		dialogWidth: random.number(600),
 		disabledStoryFormatEditorExtensions: [
 			{name: lorem.words(2), version: system.semver()}
 		],

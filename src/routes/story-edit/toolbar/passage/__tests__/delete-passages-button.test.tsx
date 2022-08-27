@@ -49,9 +49,18 @@ describe('<DeletePassagesButton>', () => {
 		expect(screen.getByText('common.delete')).toBeDisabled();
 	});
 
+	it('is disabled if any of the passages are the start passage', () => {
+		const story = fakeStory(2);
+
+		story.startPassage = story.passages[1].id;
+		renderComponent({story, passages: story.passages});
+		expect(screen.getByText('common.delete')).toBeDisabled();
+	});
+
 	it('deletes passages when clicked', () => {
 		const story = fakeStory(3);
 
+		story.startPassage = story.passages[2].id;
 		renderComponent(
 			{story, passages: [story.passages[0], story.passages[1]]},
 			{stories: [story]}

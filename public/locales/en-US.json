@@ -26,6 +26,7 @@
 		"editCount": "Edit ({{count}})",
 		"help": "Help",
 		"import": "Import",
+		"maximize": "Maximize",
 		"more": "More",
 		"new": "New",
 		"next": "Next",
@@ -48,6 +49,7 @@
 		"twine": "Twine",
 		"undo": "Undo",
 		"undoChange": "Undo {{change}}",
+		"unmaximize": "Restore Size",
 		"view": "View"
 	},
 	"components": {
@@ -155,6 +157,12 @@
 		"appPrefs": {
 			"codeEditorFont": "Code Editor Font",
 			"codeEditorFontScale": "Code Editor Font Size",
+			"dialogWidth": "Dialog Width",
+			"dialogWidths": {
+				"default": "Default",
+				"wider": "Wider",
+				"widest": "Widest"
+			},
 			"editorCursorBlinks": "Blinking Cursor in Editors",
 			"fontExplanation": "Changing the font here only affects the Twine editor. It will not change the font a story uses when played.",
 			"language": "Language",
@@ -304,7 +312,7 @@
 				"addStoryFormatButton": {
 					"addPreview": "{{storyFormatName}} {{storyFormatVersion}} will be added.",
 					"alreadyAdded": "{{storyFormatName}} {{storyFormatVersion}} has already been added.",
-					"fetchError": "The story format at this address could not be retrieved ({errorMessage}).",
+					"fetchError": "The story format at this address could not be retrieved ({{errorMessage}}).",
 					"invalidUrl": "Please enter a valid URL.",
 					"prompt": "To add a story format, enter its address below."
 				},

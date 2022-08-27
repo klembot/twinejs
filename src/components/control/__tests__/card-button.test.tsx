@@ -54,6 +54,18 @@ describe('<CardButton>', () => {
 		expect(onChangeOpen.mock.calls).toEqual([[false]]);
 	});
 
+	it('allows overriding click behavior with the onClick prop', async () => {
+		const onChangeOpen = jest.fn();
+		const onClick = jest.fn();
+
+		renderComponent({onChangeOpen, onClick});
+		expect(onChangeOpen).not.toHaveBeenCalled();
+		expect(onClick).not.toHaveBeenCalled();
+		fireEvent.click(screen.getByText('mock-label'));
+		expect(onClick).toBeCalledTimes(1);
+		expect(onChangeOpen).not.toHaveBeenCalled();
+	});
+
 	// This works in isolation but not with other tests--unsure why.
 
 	it.skip('calls onChangeOpen if the user clicks outside of the card while open', async () => {

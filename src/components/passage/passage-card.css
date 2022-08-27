@@ -36,6 +36,19 @@
 	overflow: ellipsis;
 }
 
+.passage-card.empty .card {
+	background: hsla(0, 100%, 100%, 0.33);
+	border: 1px dashed var(--gray);
+	box-shadow: none;
+	backdrop-filter: blur(1px);
+}
+
+.passage-card.empty.selected .card {
+	background: hsla(212, 90%, 60%, 0.1);
+	border: 1px dashed var(--blue);
+	box-shadow: none;
+}
+
 .compact-passage-cards .passage-card h2 {
 	align-items: center;
 	display: flex;
@@ -53,4 +66,12 @@
 .compact-passage-cards .passage-card .tag-stripe span {
 	border-radius: 4px;
 	height: 8px;
+}
+
+[data-app-theme='dark'] .passage-card.empty .card {
+	background: hsla(0, 100%, 100%, 0.1);
+}
+
+[data-app-theme='dark'] .passage-card.empty.selected .card {
+	background: hsla(212, 90%, 60%, 0.2);
 }

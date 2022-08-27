@@ -47,9 +47,16 @@ Certain actions in Twine will open dialog boxes along one side of the screen
 with more detail about a particular action. For example, editing a passage will
 open a dialog box with the passage text.
 
-Dialog boxes have an x button in their corner that closes the dialog. They also
-have a chevron (›) button on the opposite side that collapses the dialog so that
-only its title bar is visible.
+Dialog boxes have a few controls in their title bar:
 
-You can have as many dialogs open as you have room onscreen from. Right now, the
-order of dialogs can't be changed, nor can the size of dialogs onscreen.
+- An x button in their corner that closes the dialog.
+- A chevron (›) button on the opposite side that collapses the dialog so that
+  only its title bar is visible.
+- Some dialogs have a maximize button beside their close button which allows a
+  dialog to fill the available space. To restore a maximized dialog's original
+  size, use the maximize button again. Only one dialog can be maximized at a
+  time.
+
+You can have as many dialogs open as you have room onscreen for. Right now, the
+order of dialogs can't be changed, nor can their position onscreen be changed.
+The width of dialogs can be changed in [preferences](../preferences).

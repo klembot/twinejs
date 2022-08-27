@@ -1,5 +1,5 @@
 import {importStories} from '../import-stories';
-import {Story} from '../../stories.types';
+import {Passage, Story} from '../../stories.types';
 import {fakeStory} from '../../../../test-util';
 
 describe('importStories action creator', () => {
@@ -47,8 +47,32 @@ describe('importStories action creator', () => {
 			delete (toImport[1] as any).id;
 			importStories(toImport, state)(dispatch, () => state);
 			expect(dispatch.mock.calls).toEqual([
-				[{type: 'updateStory', storyId: state[0].id, props: toImport[0]}],
-				[{type: 'updateStory', storyId: state[1].id, props: toImport[1]}]
+				[
+					{
+						type: 'updateStory',
+						storyId: state[0].id,
+						props: {
+							...toImport[0],
+							passages: toImport[0].passages.map(passage => ({
+								...passage,
+								story: state[0].id
+							}))
+						}
+					}
+				],
+				[
+					{
+						type: 'updateStory',
+						storyId: state[1].id,
+						props: {
+							...toImport[1],
+							passages: toImport[1].passages.map(passage => ({
+								...passage,
+								story: state[1].id
+							}))
+						}
+					}
+				]
 			]);
 		});
 
@@ -56,6 +80,20 @@ describe('importStories action creator', () => {
 			importStories(toImport, state)(dispatch, () => state);
 			expect(dispatch.mock.calls[0][0].props.id).not.toBeDefined();
 			expect(dispatch.mock.calls[1][0].props.id).not.toBeDefined();
+		});
+
+		it('links passages to the existing story', () => {
+			importStories(toImport, state)(dispatch, () => state);
+			expect(
+				dispatch.mock.calls[0][0].props.passages.every(
+					(passage: Passage) => passage.story === state[0].id
+				)
+			).toBe(true);
+			expect(
+				dispatch.mock.calls[1][0].props.passages.every(
+					(passage: Passage) => passage.story === state[1].id
+				)
+			).toBe(true);
 		});
 	});
 
