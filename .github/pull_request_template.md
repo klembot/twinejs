@@ -1,13 +1,12 @@
-🛑 **Only PRs related to localization are being accepted for Twine 2.4 right now.** \
-🛑 **Only PRs that fix bugs will be accepted for Twine 2.3. No PRs that add new features or modify existing functionality will be accepted.**
-
 # Description
 
 Enter a short description of what this PR does.
 
-# Issues fixed
+# Issues Fixed
 
-Link any issues that this PR resolves.
+_If you are contributing a localization, you can skip this section._
+
+Link the issues that this PR resolves. Your PR must resolve at least one issue, and agreement must be reached in the issue on your implementation approach before opening this PR.
 
 # Credit
 
@@ -16,7 +15,7 @@ Please put an X in *one* of the squares below only.
 [ ] I would like to be credited in the application as: ______ \
 [ ] I would not like my name to appear in the application credits.
 
-# Presubmission checklist
+# Presubmission Checklist
 
 Put an X in the squares below to indicate you've done each step.
 
