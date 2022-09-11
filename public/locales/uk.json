@@ -1,107 +1,424 @@
 {
-	"colors": {},
+	"colors": {
+		"none": "Немає",
+		"red": "Червоний",
+		"orange": "Помаранчевий",
+		"yellow": "Жовтий",
+		"green": "Зелений",
+		"blue": "Синій",
+		"purple": "Фіолетовий"
+	},
 	"common": {
 		"add": "Додати",
 		"appName": "Twine",
+		"back": "Назад",
+		"build": "Запуск",
 		"cancel": "Скасувати",
+		"close": "Закрити",
+		"color": "Колір",
+		"create": "Створити",
+		"custom": "Custom",
 		"delete": "Видалити",
+		"deleteCount": "Видалити ({{count}})",
+		"details": "Деталі",
 		"duplicate": "Дублювати",
-		"edit": "Редаґувати",
+		"edit": "Редагувати",
+		"editCount": "Редагувати ({{count}})",
+		"help": "Допомога",
+		"import": "Імпорт",
+		"maximize": "На весь екран",
+		"more": "Більше",
+		"new": "Створити",
+		"next": "Далі",
 		"ok": "OK",
+		"passage": "Параграф",
 		"play": "Відтворити",
+		"preferences": "Налаштування",
+		"publishToFile": "Публікувати у файл",
+		"redo": "Повторити",
+		"redoChange": "Повторити {{change}}",
 		"rename": "Перейменувати",
-		"remove": "Усунути",
+		"renamePrompt": "Яка нова назва для “{{name}}”?",
+		"remove": "Видалити",
+		"selectAll": "Обрати всі",
 		"skip": "Пропустити",
-		"storyFormat": "Формат розповіді",
+		"story": "Оповідання",
+		"storyFormat": "Формат оповідання",
 		"tag": "Мітка",
-		"test": "Тестувати",
-		"undo": "Відмінити"
+		"test": "Тест",
+		"twine": "Twine",
+		"undo": "Скасувати",
+		"undoChange": "Скасувати {{change}}",
+		"unmaximize": "Відновити розмір",
+		"view": "Вигляд"
 	},
 	"components": {
-		"addStoryFormatButton": {},
-		"addTagButton": {},
-		"fontSelect": {"fonts": {}},
-		"indentButtons": {},
-		"localStorageQuota": {},
-		"passageCard": {
-			"placeholderClick": "Клацніть двічі на уривок для редаґування.",
-			"placeholderTouch": "Натисність на цей уривок, а потім на олівець, аби почати редаґувати."
+		"addTagButton": {
+			"alreadyAdded": "Така мітка вже існує.",
+			"addLabel": "Додати мітку",
+			"invalidName": "Введіть коректну назву мітки.",
+			"newTag": "Нова мітка",
+			"tagColorLabel": "Колір мітки",
+			"tagNameLabel": "Назва мітки"
 		},
-		"renamePassageButton": {"emptyName": "Будь ласка, введіть назву."},
-		"renameStoryButton": {"emptyName": "Будь ласка, введіть назву."},
-		"safariWarningCard": {},
-		"storyCard": {},
-		"storyFormatCard": {},
-		"storyFormatSelect": {},
-		"tagEditor": {}
+		"dialogCard": {
+			"contentsCrashed": "Щось пішло не так. Спробуйте закрити це діалогове вікно та відкрити його знову."
+		},
+		"fontSelect": {
+			"customScaleDetail": "Введіть тільки проценти.",
+			"customFamilyDetail": "Введіть тільки назву шрифту.",
+			"familyEmpty": "Введіть назву шрифту.",
+			"font": "Шрифт",
+			"fonts": {
+				"monospaced": "Моноширинний",
+				"serif": "Із засічками (serif)",
+				"system": "Системний"
+			},
+			"fontSize": "Розмір шрифту",
+			"percentage": "{{percent}}%",
+			"percentageIsntNumber": "Введіть число.",
+			"percentageNotPositive": "Введіть число більше за 0."
+		},
+		"indentButtons": {
+			"indent": "Збільшити відступ",
+			"unindent": "Зменшити відступ"
+		},
+		"localStorageQuota": {
+			"measureAgain": "Перевірити об'єм доступного місця",
+			"percentAvailable": "{percent}% місця доступно"
+		},
+		"passageCard": {
+			"placeholderClick": "Клацніть двічі цей параграф, щоб редагувати його.",
+			"placeholderTouch": "Натисніть на цей параграф, потім оберіть \"Редагувати\" з вкладки \"Параграфи\", щоб редагувати його."
+		},
+		"renamePassageButton": {
+			"emptyName": "Введіть назву.",
+			"nameAlreadyUsed": "Інший параграф в оповіданні вже має таку назву."
+		},
+		"renameStoryButton": {
+			"emptyName": "Введіть назву.",
+			"nameAlreadyUsed": "Інше оповідання вже має таку назву."
+		},
+		"safariWarningCard": {
+			"archiveAndUseAnotherBrowser": "Архівуйте ваші оповідання та використовуйте інший браузер.",
+			"addToHomeScreen": "Додайте цей сайт до вашого домашнього екрану, щоб зняти це обмеження.",
+			"howToAddToHomeScreen": "Як додати сайт на домашній екран?",
+			"learnMore": "Дізнатися більше",
+			"message": "Ваш браузер видалить всі ваші оповідання, якщо ви не відвідували цей сайт протягом семи днів."
+		},
+		"storageQuota": {
+			"freeSpace": "{{percent}}% місця доступно"
+		},
+		"storyCard": {
+			"lastUpdated": "Дата редагування: {{date}}",
+			"passageCount": "1 параграф",
+			"passageCount_1": "{{count}} параграфи",
+			"passageCount_2": "{{count}} параграфів"
+		},
+		"storyFormatCard": {
+			"author": "Автор: {{author}}",
+			"builtIn": "Вбудований",
+			"defaultFormat": "Використовується за замовчуванням",
+			"editorExtensionsDisabled": "Розширення редактора вимкнено",
+			"license": "Ліцензія: {{license}}",
+			"loadingFormat": "Завантаження формату оповідання...",
+			"loadError": "Цей формат оповідання не вийшло завантажити: ({{errorMessage}}).",
+			"name": "{{name}} {{version}}",
+			"proofing": "Вичитка",
+			"proofingFormat": "Використовується для вичитки",
+			"useEditorExtensions": "Використовувати розширення редактора",
+			"useFormat": "Використовувати як формат оповідання за замовчуванням",
+			"useProofingFormat": "Використовувати як формат для вичитки"
+		},
+		"storyFormatSelect": {
+			"loadingCount": "Завантажується формат оповідання...",
+			"loadingCount_1": "Завантажуються {{loadingCount}} формати оповідання...",
+			"loadingCount_2": "Завантажується {{loadingCount}} форматів оповідання..."
+		},
+		"tagEditor": {
+			"alreadyExists": "Мітка з такою назвою вже існує."
+		}
 	},
 	"dialogs": {
 		"aboutTwine": {
-			"donateToTwine": "Ваш внесок допоможе Twine’ові розвиватися"
+			"donateToTwine": "Допомогти розвитку Twine пожертвою",
+			"codeHeader": "Код",
+			"codeRepo": "Репозиторій вихідного коду",
+			"license": "Цей додаток випущено за ліцензією <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GPL v3</a>, проте будь-які роботи, створені за його допомогою, можуть бути випущені на будь-яких умовах, включаючи комерційні.",
+			"localizationHeader": "Локалізації",
+			"title": "Про Twine {{version}}",
+			"twineDescription": "Twine - це інструмент з відкритим кодом для створення інтерактивних нелінійних оповідань."
 		},
-		"appDonation": {"noThanks": "Ні, дякую"},
-		"appPrefs": {"language": "Мова"},
-		"passageEdit": {},
-		"passageTags": {},
-		"storyInfo": {"stats": {"title": "Статистика розповіді"}},
+		"appDonation": {
+			"donate": "Пожертвувати на розробку Twine",
+			"onlyOnce": "(Це повідомлення буде показано вам лише один раз. Якщо ви захочете пожертвувати на розробку Twine пізніше, перейдіть за посиланням у вікні “Про Twine”.)",
+			"supportMessage": "Якщо вам подобається Twine, можливо, ви захочете допомогти його розвитку пожертвою. Twine - це проект з відкритим кодом, який завжди буде безкоштовним, а з вашою допомогою Twine продовжить розвиватися.",
+			"noThanks": "Ні, дякую",
+			"title": "Підтримати розробку Twine"
+		},
+		"appPrefs": {
+			"codeEditorFont": "Шрифт редактора",
+			"codeEditorFontScale": "Розмір шрифту редактора",
+			"dialogWidth": "Ширина діалогу",
+			"dialogWidths": {
+				"default": "Стандартна",
+				"wider": "Ширша",
+				"widest": "Найширша"
+			},
+			"editorCursorBlinks": "Блимаючий курсор в редакторі",
+			"fontExplanation": "Ці шрифти використовуються лише в редакторі Twine. Вони не впливають на шрифт, який використовується під час відтворення оповідання.",
+			"language": "Мова",
+			"passageEditorFont": "Шрифт редактора параграфів",
+			"passageEditorFontScale": "Розмір шрифта редактора параграфів",
+			"themeLight": "Світла",
+			"themeDark": "Темна",
+			"themeSystem": "Системна",
+			"theme": "Тема оформлення",
+			"title": "Налаштування"
+		},
+		"passageEdit": {
+			"editorCrashed": "Щось не так з редактором. Спробуйте його закрити та відкрити знову.",
+			"passageTextEditorLabel": "Текст параграфа",
+			"passageTextPlaceholder": "Введіть текст параграфа тут. Щоб створити посилання на параграф, візьміть його назву у дві квадратні дужки, [[ось так]].",
+			"setAsStart": "Почати оповідання тут",
+			"size": "Розмір",
+			"sizeLarge": "Великий",
+			"sizeSmall": "Маленький",
+			"sizeTall": "Високий",
+			"sizeWide": "Широкий"
+		},
+		"passageTags": {
+			"noTags": "У параграфів в цьому оповіданні немає міток.",
+			"title": "Мітки параграфів"
+		},
+		"storyImport": {
+			"deselectAll": "Зняти виділення",
+			"filePrompt": "Ви можете імпортувати оповідання в Twine з файлу архіву або опублікованого оповідання.",
+			"importDifferentFile": "Імпортувати інший файл",
+			"importSelected": "Імпортувати обрані файли",
+			"importThisStory": "Імпортувати це оповідання",
+			"noStoriesInFile": "Цей файл не є оповіданням Twine. Оберіть інший файл.",
+			"storiesPrompt": "Оберіть оповідання для імпорту:",
+			"title": "Імпорт оповідань",
+			"willReplaceExisting": "Оповідання з такою ж назвою в вашій бібліотеці буде замінене."
+		},
+		"storyDetails": {
+			"storyFormatExplanation": "Що таке формат оповідання?",
+			"snapToGrid": "Прив'язка до сітки",
+			"stats": {
+				"brokenLinks": "зламаних посилань",
+				"characters": "символів",
+				"title": "Статистика оповідання",
+				"ifid": "IFID цього оповідання: {{ifid}}.",
+				"ifidExplanation": "Що таке IFID?",
+				"lastUpdate": "Дата та час останнього редагування: {{date}}.",
+				"links": "посилань",
+				"passages": "параграфів",
+				"words": "слів"
+			}
+		},
 		"storyJavaScript": {
-			"explanation": "Будь-який введений сюди JavaScript негайно розпочне діяти, як тільки Ваша розповідь буде відкрита у вебоглядачеві."
+			"editorLabel": "JavaScript-код оповідання",
+			"title": "JavaScript-код оповідання",
+			"explanation": "Цей код JavaScript буде негайно виконаний, коли це оповідання буде відкрито в браузері."
 		},
-		"storySearch": {"title": "Знайти й Замінити", "replaceWith": "Замінити"},
+		"storySearch": {
+			"title": "Знайти і замінити",
+			"find": "Знайти",
+			"includePassageNames": "Включати назви параграфів",
+			"matchCase": "Співпадіння за регістром",
+			"matchCount": "Знайдено {{count}} параграф",
+			"matchCount_1": "Знайдено {{count}} параграфи",
+			"matchCount_2": "Знайдено {{count}} параграфів",
+			"noMatches": "Немає підходящих параграфів",
+			"replaceAll": "Замінити у всіх параграфах",
+			"replaceWith": "Замінити на",
+			"useRegexes": "Використовувати регулярні вирази"
+		},
 		"storyStylesheet": {
-			"explanation": "Будь-які введені сюди CSS змінять вигляд-за-замовчуванням Вашої розповіді."
+			"editorLabel": "Таблиця стилів оповідання",
+			"title": "Таблиця стилів оповідання",
+			"explanation": "Стилі в цій CSS-таблиці перевизначають стилі оповідання за замовчуванням, змінюючи його вигляд."
 		},
-		"storyTags": {}
+		"storyTags": {
+			"noTags": "Немає оповідань з мітками.",
+			"title": "Мітки оповідань"
+		}
 	},
 	"electron": {
-		"errors": {"storyFileChangedExternally": {}},
-		"menuBar": {"edit": "Редаґувати"},
-		"storiesDirectoryName": "Розповіді"
+		"backupsDirectoryName": "Backups",
+		"errors": {
+			"jsonSave": "Щось пішло не так під час збереження файлу налаштувань.",
+			"storyFileChangedExternally": {
+				"message": "Файл “{{fileName}}” з вашої бібліотеки оповідань було змінено за межами Twine.",
+				"detail": "Збереження змін перезапише цей файл. Якщо ви хочете використовувати цей файл замість того, що є в Twine, Twine буде перезавантажено і ваші зміни будуть знищені.",
+				"overwriteChoice": "Зберегти зміни з Twine",
+				"relaunchChoice": "Завантажити файл та перезапустити"
+			},
+			"storyDelete": "Щось пішло не так під час видалення оповідання.",
+			"storyRename": "Щось пішло не так під час зміни назви оповідання.",
+			"storySave": "Щось пішло не так під час збереження оповідання."
+		},
+		"menuBar": {
+			"checkForUpdates": "Перевірити оновлення...",
+			"edit": "Редагувати",
+			"showDevTools": "Показати консоль відлагодження",
+			"showStoryLibrary": "Показати бібліотеку оповідань",
+			"speech": "Speech",
+			"troubleshooting": "Вирішення проблем",
+			"twineHelp": "Допомога по Twine",
+			"view": "Вигляд"
+		},
+		"storiesDirectoryName": "Оповідання",
+		"updateCheck": {
+			"download": "Завантажити",
+			"error": "Щось пішло не так під час перевірки оновлень Twine.",
+			"updateAvailable": "Доступна новіша версія Twine.",
+			"upToDate": "Це остання версія Twine."
+		}
 	},
 	"routes": {
 		"storyEdit": {
+			"toolbar": {
+				"findAndReplace": "Знайти та замінити",
+				"javaScript": "JavaScript",
+				"passageTags": "Мітки параграфів",
+				"snapToGrid": "Прив'язка до сітки",
+				"startStoryHere": "Почати оповідання тут",
+				"stylesheet": "Таблиця стилів",
+				"testFromHere": "Почати перевірку тут"
+			},
 			"topBar": {
-				"addPassage": "Уривок",
-				"editJavaScript": "Редаґувати JavaScript розповіді",
-				"editStylesheet": "Редаґувати стильову таблицю розповіді",
-				"findAndReplace": "Знайти й Замінити",
-				"proofStory": "Дивитися Коректурну копію",
-				"publishToFile": "Опублікувати як файл"
+				"editJavaScript": "Редагувати JavaScript оповідання",
+				"editStylesheet": "Редагувати таблицю стилів оповідання",
+				"findAndReplace": "Знайти та замінити",
+				"passageTags": "Редагувати мітки параграфів",
+				"proofStory": "Вичитка",
+				"publishToFile": "Публікувати у файл",
+				"selectAllPassages": "Виділити всі параграфи"
+			},
+			"zoomButtons": {
+				"storyStructure": "Показати лише структуру оповідання",
+				"passageNames": "Показати лише назви параграфів",
+				"passageNamesAndExcerpts": "Показати назви параграфів та уривки"
 			}
 		},
 		"storyFormatList": {
-			"title": {},
-			"storyFormatExplanation": "Формати розповідей визначають їхній вигляд і поведінку під час відтворення."
+			"noneVisible": "Немає форматів оповідання, що підходять під обрані вами критерії.",
+			"show": "Показати...",
+			"title": {
+				"all": "Всі формати оповідань",
+				"current": "Формати цього оповідання",
+				"user": "Формати, додані користувачами"
+			},
+			"toolbar": {
+				"addStoryFormatButton": {
+					"addPreview": "Буде додано формат {{storyFormatName}} {{storyFormatVersion}}.",
+					"alreadyAdded": "{{storyFormatName}} {{storyFormatVersion}} вже було додано.",
+					"fetchError": "Не вийшло завантажити формат оповідання за цією адресою ({{errorMessage}}).",
+					"invalidUrl": "Введіть коректний URL.",
+					"prompt": "Щоб додати формат оповідання, введіть його адресу."
+				},
+				"disableFormatExtensions": "Вимкнути розширення редактора",
+				"enableFormatExtensions": "Ввімкнути розширення редактора",
+				"useAsDefaultFormat": "Використовувати як формат за замовчуванням",
+				"useAsProofingFormat": "Використовувати для вичитки"
+			},
+			"storyFormatExplanation": "Формат оповідання контролює вигляд та поведінку оповідань під час відтворення."
 		},
-		"storyImport": {},
 		"storyList": {
-			"noStories": "Поки Twine не має жодних збережених розповідей. Аби розпочати, створіть нову розповідь чи зімпортуйте вже існуючу з файлу.",
-			"titleGeneric": "Розповіді",
-			"topBar": {
-				"about": "Про Twine",
+			"library": "Бібліотека",
+			"noStories": "Зараз в Twine немає оповідань. Ви можете створити нове оповідання або імпортувати вже існуюче з файлу.",
+			"taggedTitleCount": "1 оповідання з мітками",
+			"taggedTitleCount_0": "Немає оповідань з мітками",
+			"taggedTitleCount_1": "{{count}} оповідання з мітками",
+			"taggedTitleCount_2": "{{count}} оповідань з мітками",
+			"titleCount": "1 оповідання",
+			"titleCount_0": "Немає оповідань",
+			"titleCount_1": "{{count}} оповідання",
+			"titleCount_2": "{{count}} оповідань",
+			"titleGeneric": "Оповідання",
+			"toolbar": {
 				"archive": "Архів",
-				"createStory": "Розповідь",
-				"help": "Допомога",
-				"sortName": "Назва",
-				"storyFormats": "Формати"
+				"createStoryButton": {
+					"prompt": "Яка назва буде у вашого оповідання? Ви можете змінити її пізніше.",
+					"emptyName": "Введіть назву.",
+					"nameConflict": "Вже є оповідання з такою назвою."
+				},
+				"deleteStoryButton": {
+					"warning": {
+						"electron": "Ви впевнені, що хочете видалити “{{storyName}}”? Воно буде переміщено у корзину.",
+						"web": "Ви впевнені, що хочете видалити “{{storyName}}”? Воно буде видалено назавжди. Цю дію не можна буде скасувати."
+					}
+				},
+				"showAllStories": "Показати всі оповідання",
+				"showTags": "Показати мітки",
+				"sort": "Сортування",
+				"sortByDate": "Дата оновлення",
+				"sortByName": "Назва",
+				"storyTags": "Мітки"
 			}
 		},
 		"welcome": {
-			"autosaveTitle": "Вашу роботу автоматично збережено.",
-			"doneTitle": "Ось і все!",
-			"gotoStoryList": "Перейти до Списку розповідей",
+			"autosave": "<p>В папці ваших документів тепер є папка “Twine”. Всередині є папка “Stories”, де буде зберігатися вся ваша праця. Twine зберігає все автоматично під час роботи, тому вам не треба хвилюватися про це. Ви можете відкрити папку з вашими оповіданнями за допомогою пункту “<strong>Показати бібліотеку</strong>” в меню “<strong>Twine</strong>”.</p><p>Оскільки Twine постійно зберігає вашу працю, файли в вашій бібліотеці оповідань будуть заблоковані для редагування, поки Twine відкритий.</p><p>Якщо ви хочете відкрити файл оповідання Twine, який отримали від когось іншого, ви можете імпортувати його в вашу бібліотеку за допомогою функції “<strong>Імпорт</strong>” в переліку оповідань.</p>",
+			"autosaveTitle": "Ваша праця автоматично зберігається.",
+			"browserStorage": "<p>Вам не потрібно створювати обліковий запис, щоб використовувати Twine 2. Все, що ви створюєте, зберігається не на якомусь сервері, а залишається в вашому браузері.</p><p>Зверніть увагу на дві <strong>дуже важливі</strong> речі. По-перше, оскільки ваша робота зберігається лише в вашому браузері, ви втратите її, якщо видалите з браузеру збережені дані! Погано. Тому використовуйте функцію “<strong>Архів</strong>” частіше. Також ви можете публікувати окремі оповідання в файл, використовуючи меню в списку оповідань. Архіви та файлі оповідань завжди можна знову імпортувати в Twine.</p><p>По-друге, <strong>будь-який користувач цього браузеру може бачити та змінювати вашу роботу.</strong> Якщо у вас є допитливий молодший брат, краще створіть окремий профіль для себе.</p>",
+			"browserStorageTitle": "Ваша праця зберігається лише в вашому браузері",
+			"done": "<p>Дякуємо за читання. Гарно провести час з Twine!</p>",
+			"doneTitle": "Це все!",
+			"gotoStoryList": "Перейти до списку оповідань",
+			"greeting": "<p>Twine - це інструмент з відкритим кодом для створення інтерактивних нелінійних оповідань. Є декілька речей, які потрібно знати перед тим, як почати.</p>",
 			"greetingTitle": "Привіт!",
-			"tellMeMore": "Розкажіть мені більше",
-			"helpTitle": "Потрібна допомога?"
+			"tellMeMore": "Дізнатися більше",
+			"help": "<p><strong>Якщо ви не використовували Twine раніше, ласкаво просимо!</strong> <a href=\"https://twinery.org/cookbook\">Посібник Twine</a> (англійською) допоможе навчитися ним користуватися. Якщо ви не користувалися Twine раніше, радимо почати з нього.</p>",
+			"helpTitle": "Новенький?"
+		}
+	},
+	"routeActions": {
+		"app": {
+			"aboutApp": "Про Twine",
+			"preferences": "Налаштування",
+			"reportBug": "Сповістити про помилку",
+			"storyFormats": "Формати оповідання"
+		},
+		"build": {
+			"play": "Відтворити",
+			"proof": "Вичитати",
+			"publishToFile": "Публікувати у файл",
+			"test": "Тестувати"
 		}
 	},
 	"store": {
-		"errors": {},
-		"passageDefaults": {
-			"name": "Уривок без назви"
+		"archiveFilename": "{{timestamp}} Twine Archive.html",
+		"errors": {
+			"cantPersistPrefs": "Щось пішло не так під час збереження налаштувань ({{error}}).",
+			"cantPersistStories": "Щось пішло не так під час збереження оповідань ({{error}}).",
+			"cantPersistStoryFormats": "Щось пішло не так під час збереження форматів оповідання ({{error}}).",
+			"electronRemediation": "Перезапуск цього додатку може допомогти.",
+			"webRemediation": "Перезавантаження цієї сторінки може допомогти."
 		},
-		"storyDefaults": {"name": "Розповідь без назви"},
-		"storyFormatDefaults": {"name": "Формат розповіді без назви"}
+		"passageDefaults": {
+			"name": "Параграф без назви"
+		},
+		"storyDefaults": {
+			"name": "Оповідання без назви"
+		},
+		"storyFormatDefaults": {
+			"name": "Формат оповідання без назви"
+		}
 	},
-	"undoChange": {"replaceAllText": "Замінити все"}
+	"undoChange": {
+		"addTag": "додавання мітки",
+		"changeTagColor": "зміну кольору мітки",
+		"newPassage": "створення параграфа",
+		"deletePassage": "видалення параграфа",
+		"deletePassages": "видалення параграфів",
+		"movePassage": "переміщення параграфа",
+		"movePassages": "переміщення параграфів",
+		"imortTag": "видалення мітки",
+		"renamePassage": "перейменування параграфа",
+		"removeTag": "видалення мітки",
+		"renameTag": "перейменування мітки",
+		"replaceAllText": "заміну тексту"
+	}
 }
