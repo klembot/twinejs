@@ -12,6 +12,11 @@ export interface Dialog {
 	 */
 	component: React.ComponentType<any>;
 	/**
+	 * Is the dialog highlighted? This is used to call attention to one when the
+	 * user asks to re-open it.
+	 */
+	highlighted: boolean;
+	/**
 	 * Is the dialog maximized? Although only one dialog can be maximized at a
 	 * time, this is an attribute so that when a dialog is un-minimized, it goes
 	 * back to its previous position.
@@ -33,4 +38,5 @@ export type DialogsAction =
 	  }
 	| {type: 'removeDialog'; index: number}
 	| {type: 'setDialogCollapsed'; collapsed: boolean; index: number}
+	| {type: 'setDialogHighlighted'; highlighted: boolean; index: number}
 	| {type: 'setDialogMaximized'; maximized: boolean; index: number};

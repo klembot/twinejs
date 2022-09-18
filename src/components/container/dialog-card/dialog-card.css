@@ -1,9 +1,14 @@
+@import '../../../styles/animations.css';
 @import '../../../styles/typography.css';
 @import '../../../styles/metrics.css';
 
 .dialog-card {
 	height: 100%;
 	width: 100%;
+}
+
+.dialog-card.highlighted {
+	animation: 0.4s wiggle linear;
 }
 
 .dialog-card .card {

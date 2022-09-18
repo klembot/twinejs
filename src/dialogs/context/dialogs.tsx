@@ -34,9 +34,12 @@ export const Dialogs: React.FC = () => {
 				{dialogs.map((dialog, index) => {
 					const managementProps = {
 						collapsed: dialog.collapsed,
+						highlighted: dialog.highlighted,
 						maximized: dialog.maximized,
 						onChangeCollapsed: (collapsed: boolean) =>
 							dispatch({type: 'setDialogCollapsed', collapsed, index}),
+						onChangeHighlighted: (highlighted: boolean) =>
+							dispatch({type: 'setDialogHighlighted', highlighted, index}),
 						onChangeMaximized: (maximized: boolean) =>
 							dispatch({type: 'setDialogMaximized', maximized, index}),
 						onClose: () => dispatch({type: 'removeDialog', index})
