@@ -5,6 +5,7 @@ import {CardGroup} from '../../components/container/card-group';
 import {StoryCard} from '../../components/story/story-card';
 import {setPref, usePrefsContext} from '../../store/prefs';
 import {Story, updateStory} from '../../store/stories';
+import { repairStory } from '../../store/stories/reducer/repair/repair-story';
 import {useUndoableStoriesContext} from '../../store/undoable-stories';
 import {Color} from '../../util/color';
 
@@ -41,6 +42,12 @@ export const StoryCards: React.FC<StoryCardsProps> = props => {
 		);
 	}
 
+	function handleEdit(story:Story) {
+		
+		//repairStory(story, allStories, allFormats, defaultFormat);
+		return history.push(`/stories/${story.id}`);
+	}
+
 	return (
 		<>
 			<CardGroup columnWidth={cardWidth}>
@@ -49,7 +56,7 @@ export const StoryCards: React.FC<StoryCardsProps> = props => {
 						<CSSTransition classNames="pop" key={story.id} timeout={200}>
 							<StoryCard
 								onChangeTagColor={handleChangeTagColor}
-								onEdit={() => history.push(`/stories/${story.id}`)}
+								onEdit={()=>handleEdit(story)}
 								onRemoveTag={name => handleRemoveTag(story, name)}
 								onSelect={() => onSelectStory(story)}
 								story={story}
