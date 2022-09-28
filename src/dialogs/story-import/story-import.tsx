@@ -5,7 +5,12 @@ import {
 	DialogCard,
 	DialogCardProps
 } from '../../components/container/dialog-card';
+import {usePrefsContext} from '../../store/prefs';
 import {importStories, Story, useStoriesContext} from '../../store/stories';
+import {
+	formatWithNameAndVersion,
+	useStoryFormatsContext
+} from '../../store/story-formats';
 import {FileChooser} from './file-chooser';
 import {StoryChooser} from './story-chooser';
 import './story-import.css';
@@ -18,6 +23,13 @@ export const StoryImportDialog: React.FC<StoryImportDialogProps> = props => {
 	const {dispatch, stories: existingStories} = useStoriesContext();
 	const [file, setFile] = React.useState<File>();
 	const [stories, setStories] = React.useState<Story[]>([]);
+	const {prefs} = usePrefsContext();
+	const {formats} = useStoryFormatsContext();
+	const defaultFormat = formatWithNameAndVersion(
+		formats,
+		prefs.storyFormat.name,
+		prefs.storyFormat.version
+	);
 
 	function handleFileChange(file: File, stories: Story[]) {
 		setFile(file);
@@ -26,6 +38,11 @@ export const StoryImportDialog: React.FC<StoryImportDialogProps> = props => {
 
 	function handleImport(stories: Story[]) {
 		dispatch(importStories(stories, existingStories));
+		dispatch({
+			type: 'repair',
+			allFormats: formats,
+			defaultFormat: defaultFormat
+		});
 		onClose();
 	}
 
