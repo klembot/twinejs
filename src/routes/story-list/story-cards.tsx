@@ -5,7 +5,11 @@ import {CardGroup} from '../../components/container/card-group';
 import {StoryCard} from '../../components/story/story-card';
 import {setPref, usePrefsContext} from '../../store/prefs';
 import {Story, updateStory} from '../../store/stories';
-import { repairStory } from '../../store/stories/reducer/repair/repair-story';
+import {repairStory} from '../../store/stories/reducer/repair/repair-story';
+import {
+	formatWithNameAndVersion,
+	useStoryFormatsContext
+} from '../../store/story-formats';
 import {useUndoableStoriesContext} from '../../store/undoable-stories';
 import {Color} from '../../util/color';
 
@@ -23,6 +27,7 @@ export const StoryCards: React.FC<StoryCardsProps> = props => {
 	const {onSelectStory, stories} = props;
 	const {dispatch: prefsDispatch, prefs} = usePrefsContext();
 	const {dispatch: storiesDispatch} = useUndoableStoriesContext();
+	const {formats} = useStoryFormatsContext();
 	const history = useHistory();
 
 	function handleChangeTagColor(tagName: string, color: Color) {
@@ -42,9 +47,21 @@ export const StoryCards: React.FC<StoryCardsProps> = props => {
 		);
 	}
 
-	function handleEdit(story:Story) {
-		
-		//repairStory(story, allStories, allFormats, defaultFormat);
+	function handleEdit(story: Story) {
+		const defaultFormat = formatWithNameAndVersion(
+			formats,
+			prefs.storyFormat.name,
+			prefs.storyFormat.version
+		);
+
+		storiesDispatch(
+			updateStory(
+				stories,
+				story,
+				repairStory(story, stories, formats, defaultFormat)
+			)
+		);
+
 		return history.push(`/stories/${story.id}`);
 	}
 
@@ -56,7 +73,7 @@ export const StoryCards: React.FC<StoryCardsProps> = props => {
 						<CSSTransition classNames="pop" key={story.id} timeout={200}>
 							<StoryCard
 								onChangeTagColor={handleChangeTagColor}
-								onEdit={()=>handleEdit(story)}
+								onEdit={() => handleEdit(story)}
 								onRemoveTag={name => handleRemoveTag(story, name)}
 								onSelect={() => onSelectStory(story)}
 								story={story}
