@@ -27,6 +27,7 @@ const TestPassageEditDialog: React.FC<
 			<PassageEditDialog
 				collapsed={false}
 				onChangeCollapsed={jest.fn()}
+				onChangeHighlighted={jest.fn()}
 				onChangeMaximized={jest.fn()}
 				onClose={jest.fn()}
 				passageId={stories[0].passages[0].id}

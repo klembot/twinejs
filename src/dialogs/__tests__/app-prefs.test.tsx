@@ -15,6 +15,8 @@ describe('<AppPrefsDialog>', () => {
 				<AppPrefsDialog
 					collapsed={false}
 					onChangeCollapsed={jest.fn()}
+					onChangeHighlighted={jest.fn()}
+					onChangeMaximized={jest.fn()}
 					onClose={jest.fn()}
 				/>
 				<PrefInspector name="appTheme" />

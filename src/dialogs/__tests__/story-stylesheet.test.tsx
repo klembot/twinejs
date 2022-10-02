@@ -19,6 +19,8 @@ const TestStoryStylesheetDialog = () => {
 		<StoryStylesheetDialog
 			collapsed={false}
 			onChangeCollapsed={jest.fn()}
+			onChangeHighlighted={jest.fn()}
+			onChangeMaximized={jest.fn()}
 			onClose={jest.fn()}
 			storyId={stories[0].id}
 		/>
