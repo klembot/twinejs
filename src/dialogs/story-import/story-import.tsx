@@ -5,6 +5,7 @@ import {
 	DialogCard,
 	DialogCardProps
 } from '../../components/container/dialog-card';
+import {usePrefsContext} from '../../store/prefs';
 import {importStories, Story, useStoriesContext} from '../../store/stories';
 import {useRepair} from '../../store/use-repair';
 import {FileChooser} from './file-chooser';
