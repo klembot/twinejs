@@ -377,6 +377,7 @@
 			"storyFormats": "Story Formats"
 		},
 		"build": {
+			"exportAsTwee": "Export As Twee",
 			"play": "Play",
 			"proof": "Proof",
 			"publishToFile": "Publish to File",

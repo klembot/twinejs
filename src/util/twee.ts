@@ -1,3 +1,4 @@
+import {sortBy} from 'lodash';
 import {Passage, Story} from '../store/stories';
 
 /**
@@ -58,7 +59,9 @@ export function storyToTwee(story: Story) {
 		2
 	)}`;
 
-	return `${storyTitle}\n\n\n${storyData}\n\n\n${story.passages
+	return `${storyTitle}\n\n\n${storyData}\n\n\n${sortBy(story.passages, [
+		'name'
+	])
 		.map(passageToTwee)
 		.join('\n\n')}`;
 }

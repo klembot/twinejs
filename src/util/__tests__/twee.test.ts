@@ -117,14 +117,22 @@ describe('storyToTwee()', () => {
 		);
 	});
 
-	it('outputs converted passages with two newlines between them', () => {
-		story.passages = [fakePassage(), fakePassage(), fakePassage()];
+	it('outputs converted passages, sorted alphabetically, with two newlines between them', () => {
+		story.passages = [
+			fakePassage({name: 'a'}),
+			fakePassage({name: 'c'}),
+			fakePassage({name: 'b'})
+		];
 		story.startPassage = story.passages[1].id;
 		story.tagColors = {'tag-name': 'red'};
 
 		const correctStoryTitle = `:: StoryTitle\n${story.name}`;
 		const correctStoryData = `:: StoryData\n{\n  "ifid": "${story.ifid}",\n  "format": "${story.storyFormat}",\n  "format-version": "${story.storyFormatVersion}",\n  "start": "${story.passages[1].name}",\n  "tag-colors": {\n    "tag-name": "red"\n  },\n  "zoom": ${story.zoom}\n}`;
-		const correctPassages = story.passages.map(
+		const correctPassages = [
+			story.passages[0],
+			story.passages[2],
+			story.passages[1]
+		].map(
 			passage =>
 				`:: ${passage.name} {"position":"${passage.left},${passage.top}","size":"${passage.width},${passage.height}"}\n${passage.text}`
 		);
