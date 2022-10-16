@@ -1,9 +1,9 @@
-import {saveHtml} from '../save-html';
+import {saveHtml} from '../save-file';
 import {saveAs} from 'file-saver';
 
 jest.mock('file-saver');
 
-fdescribe('saveHtml', () => {
+describe('saveHtml()', () => {
 	const saveAsMock = saveAs as jest.Mock;
 
 	it('calls saveAs with an HTML blob', async () => {
