@@ -20,13 +20,13 @@ _Story_ top toolbar tab. Twine will create a copy for you with a unique name.
 
 ## Importing Stories
 
-Twine can import stories in progress, published stories, and exported archives.
-It cannot, however, import stories from Twine 1 or Twee source code.
+Twine can import stories in progress, published stories, exported archives, and
+Twee source code. It cannot, however, import stories from Twine 1.
 
 To import stories or archives, the process is the same:
 
 1. Choose _Import_ from the _Library_ top toolbar tab.
-2. In the dialog that appears, choose the HTML file corresponding to your story
+2. In the dialog that appears, choose the file corresponding to your story
    or archive. If the file you want to import is disabled in the file dialog,
    it's because it's in a format that can't be used by Twine.
 3. If the stories in the file you selected don't have the same name as any story
@@ -42,3 +42,15 @@ To import stories or archives, the process is the same:
 
 If you change your mind about importing midway through the process, close the
 dialog or choose a different file to restart the process.
+
+## Twee Import Limitations
+
+Twine will use the story and passage metadata present in Twee source code, such
+as passage position or story name. If this metadata is not present, Twine will
+try to substitute reasonable defaults, but it will not handle all cases
+perfectly. In particular:
+
+- If Twee source code does not include passage positions, Twine will place
+  passages in a grid pattern.
+- If a Twee file does not specify what story format and version it uses, Twine
+  will set it to [the default story format](../story-formats/default.html).

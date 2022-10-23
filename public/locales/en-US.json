@@ -191,7 +191,7 @@
 		},
 		"storyImport": {
 			"deselectAll": "Deselect All",
-			"filePrompt": "To import stories into Twine, upload either an archive or published story file below.",
+			"filePrompt": "To import stories into Twine, upload an archive, published story, or Twee source file below.",
 			"importDifferentFile": "Import a Different File",
 			"importSelected": "Import Selected Files",
 			"importThisStory": "Import This Story",

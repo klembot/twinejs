@@ -87,7 +87,7 @@ function domToObject(storyEl: Element): ImportedStory {
 			: [],
 		zoom: parseFloat(storyEl.getAttribute('zoom') ?? '1'),
 		tagColors: query(storyEl, selectors.tagColors).reduce((result, el) => {
-			const tagName = el.getAttribute('name');
+			const tagName: string | null = el.getAttribute('name');
 
 			if (typeof tagName !== 'string') {
 				return result;
