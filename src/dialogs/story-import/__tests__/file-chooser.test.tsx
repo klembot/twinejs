@@ -7,13 +7,13 @@ describe('FileChooser', () => {
 		return render(<FileChooser onChange={jest.fn()} {...props} />);
 	}
 
-	it('displays a file input that accepts only HTML files', () => {
+	it('displays a file input that accepts HTML and Twee files', () => {
 		renderComponent();
 
 		const input = screen.getByLabelText('dialogs.storyImport.filePrompt');
 
 		expect(input).toBeInTheDocument();
-		expect(input).toHaveAttribute('accept', '.html');
+		expect(input).toHaveAttribute('accept', '.html,.twee,.tw');
 	});
 
 	// Todo for the same reason this test is todo on FileInput under components.
