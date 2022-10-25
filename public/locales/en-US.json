@@ -91,6 +91,10 @@
 			"placeholderClick": "Double-click this passage to edit it.",
 			"placeholderTouch": "Tap this passage, then choose Edit from the Passage tab to edit it."
 		},
+		"passageFuzzyFinder": {
+			"noResults": "No matches.",
+			"prompt": "Search by passage name or text"
+		},
 		"renamePassageButton": {
 			"emptyName": "Please enter a name.",
 			"nameAlreadyUsed": "Another passage in this story has this name."
@@ -278,6 +282,7 @@
 		"storyEdit": {
 			"toolbar": {
 				"findAndReplace": "Find and Replace",
+				"goTo": "Go To",
 				"javaScript": "JavaScript",
 				"passageTags": "Passage Tags",
 				"snapToGrid": "Snap to Grid",
