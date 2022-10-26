@@ -1,13 +1,10 @@
 import * as React from 'react';
-import {defaults, usePrefsContext} from './prefs';
-import {useStoriesContext} from './stories';
-import {
-	formatWithNameAndVersion,
-	StoryFormat,
-	useStoryFormatsContext
-} from './story-formats';
-import {usePersistence} from './persistence/use-persistence';
 import {LoadingCurtain} from '../components/loading-curtain';
+import {usePersistence} from './persistence/use-persistence';
+import {usePrefsContext} from './prefs';
+import {useStoriesContext} from './stories';
+import {useStoryFormatsContext} from './story-formats';
+import {useStoriesRepair} from './use-stories-repair';
 
 export const StateLoader: React.FC = ({children}) => {
 	const [initing, setIniting] = React.useState(false);
@@ -19,6 +16,7 @@ export const StateLoader: React.FC = ({children}) => {
 	const {dispatch: storiesDispatch} = useStoriesContext();
 	const {dispatch: formatsDispatch, formats: formatsState} =
 		useStoryFormatsContext();
+	const repairStories = useStoriesRepair();
 	const {prefs, stories, storyFormats} = usePersistence();
 
 	// Done in steps so that the repair action can see the inited state, and then
@@ -70,41 +68,7 @@ export const StateLoader: React.FC = ({children}) => {
 
 	React.useEffect(() => {
 		if (inited && formatsRepaired && prefsRepaired && !storiesRepaired) {
-			// We try to repair stories to the user's preferred format, but perhaps
-			// their prefs are out of date/corrupted. In that case, we use the default
-			// one.
-
-			let safeFormat: StoryFormat | undefined;
-
-			try {
-				safeFormat = formatWithNameAndVersion(
-					formatsState,
-					prefsState.storyFormat.name,
-					prefsState.storyFormat.version
-				);
-			} catch {
-				try {
-					safeFormat = formatWithNameAndVersion(
-						formatsState,
-						defaults().storyFormat.name,
-						defaults().storyFormat.version
-					);
-				} catch (error) {
-					console.error(
-						`Could not locate a safe story format, skipping story repair: ${
-							(error as Error).message
-						}`
-					);
-				}
-			}
-
-			if (safeFormat) {
-				storiesDispatch({
-					type: 'repair',
-					allFormats: formatsState,
-					defaultFormat: safeFormat
-				});
-			}
+			repairStories();
 			setStoriesRepaired(true);
 		}
 	}, [
@@ -116,6 +80,7 @@ export const StateLoader: React.FC = ({children}) => {
 		prefsRepaired,
 		prefsState.storyFormat.name,
 		prefsState.storyFormat.version,
+		repairStories,
 		stories,
 		storiesDispatch,
 		storiesRepaired
