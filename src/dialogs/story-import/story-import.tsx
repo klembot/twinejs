@@ -7,6 +7,7 @@ import {
 } from '../../components/container/dialog-card';
 import {storyFileName} from '../../electron/shared';
 import {importStories, Story, useStoriesContext} from '../../store/stories';
+import {useStoriesRepair} from '../../store/use-stories-repair';
 import {FileChooser} from './file-chooser';
 import {StoryChooser} from './story-chooser';
 import './story-import.css';
@@ -16,12 +17,14 @@ export type StoryImportDialogProps = Omit<DialogCardProps, 'headerLabel'>;
 export const StoryImportDialog: React.FC<StoryImportDialogProps> = props => {
 	const {onClose} = props;
 	const {t} = useTranslation();
+	const repairStories = useStoriesRepair();
 	const {dispatch, stories: existingStories} = useStoriesContext();
 	const [file, setFile] = React.useState<File>();
 	const [stories, setStories] = React.useState<Story[]>([]);
 
 	function handleImport(stories: Story[]) {
 		dispatch(importStories(stories, existingStories));
+		repairStories();
 		onClose();
 	}
 

@@ -1,13 +1,19 @@
 import {fireEvent, render, screen, within} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import {Story} from '../../../store/stories';
+import {useStoriesRepair} from '../../../store/use-stories-repair';
 import {FakeStateProvider, fakeStory, StoryInspector} from '../../../test-util';
 import {StoryImportDialog, StoryImportDialogProps} from '../story-import';
 
+jest.mock('../../../store/use-stories-repair');
 jest.mock('../file-chooser');
 jest.mock('../story-chooser');
 
 describe('StoryImportDialog', () => {
+	const useStoriesRepairMock = useStoriesRepair as jest.Mock;
+
+	beforeEach(() => useStoriesRepairMock.mockReturnValue(jest.fn()));
+
 	function renderComponent(
 		props?: Partial<StoryImportDialogProps>,
 		stories?: Story[]
@@ -98,9 +104,12 @@ describe('StoryImportDialog', () => {
 
 	describe('when stories are selected', () => {
 		let onClose: jest.Mock;
+		let repairStories: jest.Mock;
 
 		beforeEach(() => {
 			onClose = jest.fn();
+			repairStories = jest.fn();
+			useStoriesRepairMock.mockReturnValue(repairStories);
 			renderComponent({onClose});
 			fireEvent.click(screen.getByText('onChange'));
 			fireEvent.click(screen.getByText('onImport'));
@@ -111,6 +120,8 @@ describe('StoryImportDialog', () => {
 				'data-name',
 				'mock-story'
 			));
+
+		it('repairs all stories', () => expect(repairStories).toBeCalledTimes(1));
 
 		it('closes', () => expect(onClose).toBeCalled());
 	});
