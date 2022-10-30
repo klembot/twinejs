@@ -1,4 +1,4 @@
-name: PRs
+name: ESLint
 
 on:
   push:
@@ -7,17 +7,15 @@ on:
     branches: [develop, main]
 
 jobs:
-  lint-and-test:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
           cache: npm
-          node-version: 14
+          node-version: 16
       - name: Install
-        run: npm install
-      - name: Lint
+        run: npm ci
+      - name: Link
         run: npm run lint
-      - name: Test
-        run: npm run test:coverage -- --maxWorkers=2

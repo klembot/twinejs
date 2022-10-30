@@ -51,11 +51,6 @@ export function updatePassage(
 
 			// We need to get an up-to-date version of the story so placement of new
 			// passages is correct.
-			//
-			// still causes passage bounces sometimes :( this is because the placement
-			// algorithm works differently based on the number of passages it sees.
-			// will anyone care?? could there be a 'suggested positions'? how would we
-			// communicate back and forth?
 
 			const updatedStory = storyWithId(getState(), story.id);
 
