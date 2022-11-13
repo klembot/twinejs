@@ -86,7 +86,7 @@ community have made.
   Twine. It offers a lightweight but versatile programming language. As the
   default, it also has a large community of authors who use it.
 
-- [**Snowman**](https://videlais.github.io/snowman/2/) is a minimal story format
+- [**Snowman**](https://videlais.github.io/snowman/) is a minimal story format
   designed for people who are familiar with web development technologies like
   CSS and JavaScript, and prioritize customization.
 
