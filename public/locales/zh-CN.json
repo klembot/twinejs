@@ -240,49 +240,43 @@
 			"editorLabel": "故事样式表",
 			"title": "故事样式表",
 			"explanation": "这里输入的任何CSS都会覆盖故事的默认外观。"
-
 		},
 		"storyTags": {
 			"noTags": "尚未向您的故事中添加任何标签。",
 			"title": "故事标签"
 		}
 	},
-	"undoChange": {
-		"replaceAllText": "替换所有",
-		"changeTagColor": "更改标签颜色",
-		"newPassage": "新建片段",
-		"deletePassage": "删除片段",
-		"deletePassages": "删除片段",
-		"movePassage": "移动片段",
-		"movePassages": "移动片段",
-		"imortTag": "移除标签",
-		"renamePassage": "重命名片段",
-		"renameTag": "重命名标签"
-	},
 	"electron": {
-		"menuBar": {
-			"edit": "编辑",
-			"twineHelp": "Twine 帮助",
-			"view": "查看",
-			"showDevTools": "打开 Debug 控制台",
-			"showStoryLibrary": "打开故事库",
-			"troubleshooting": "问题分析",
-			"speech": "台词"
-		},
-		"storiesDirectoryName": "故事",
+		"backupsDirectoryName": "备份",
 		"errors": {
+			"jsonSave": "保存设定文件时发生错误。",
 			"storyFileChangedExternally": {
-				"detail": "保存更改将会覆盖该文件。如果您想使用该文件而不是 Twine 内的版本， Twine 将会重启，您的作品中的内容会改为使用该文件。",
 				"message": "故事中的文件“{{fileName}}”在 Twine 外被修改。",
+				"detail": "保存更改将会覆盖该文件。如果您想使用该文件而不是 Twine 内的版本， Twine 将会重启，您的作品中的内容会改为使用该文件。",
 				"overwriteChoice": "保存 Twine 的更改",
 				"relaunchChoice": "使用该文件并重启"
 			},
-			"jsonSave": "保存设定文件时发生错误。",
 			"storyDelete": "删除故事时发生错误。",
 			"storyRename": "重命名故事时发生错误。",
 			"storySave": "保存故事时发生错误。"
 		},
-		"backupsDirectoryName": "备份"
+		"menuBar": {
+			"checkForUpdates": "检查更新……",
+			"edit": "编辑",
+			"showDevTools": "打开 Debug 控制台",
+			"showStoryLibrary": "打开故事库",
+			"speech": "台词",
+			"troubleshooting": "问题分析",
+			"twineHelp": "Twine 帮助",
+			"view": "查看",
+		},
+		"storiesDirectoryName": "故事",
+		"updateCheck": {
+			"download": "下载",
+			"error": "在检查Twine更新版本时遇到了错误。",
+			"updateAvailable": "较新版本的Twine现已可用。",
+			"upToDate": "已经是Twine可用的最新版本。"
+		}		
 	},
 	"routes": {
 		"storyEdit": {
@@ -374,6 +368,20 @@
 			"done": "<p>感谢您的阅读，希望使用 Twine 愉快！</p>"
 		}
 	},
+	"routeActions": {
+		"app": {
+			"aboutApp": "关于 Twine",
+			"preferences": "偏好",
+			"reportBug": "反馈 Bug",
+			"storyFormats": "故事格式"
+		},
+		"build": {
+			"proof": "校对",
+			"test": "测试",
+			"play": "运行",
+			"publishToFile": "发布到文件"
+		}
+	},
 	"store": {
 		"passageDefaults": {
 			"name": "未命名片段"
@@ -393,18 +401,16 @@
 		},
 		"archiveFilename": "{{timestamp}} Twine 档案.html"
 	},
-	"routeActions": {
-		"app": {
-			"aboutApp": "关于 Twine",
-			"preferences": "偏好",
-			"reportBug": "反馈 Bug",
-			"storyFormats": "故事格式"
-		},
-		"build": {
-			"proof": "校对",
-			"test": "测试",
-			"play": "运行",
-			"publishToFile": "发布到文件"
-		}
+	"undoChange": {
+		"replaceAllText": "替换所有",
+		"changeTagColor": "更改标签颜色",
+		"newPassage": "新建片段",
+		"deletePassage": "删除片段",
+		"deletePassages": "删除片段",
+		"movePassage": "移动片段",
+		"movePassages": "移动片段",
+		"imortTag": "移除标签",
+		"renamePassage": "重命名片段",
+		"renameTag": "重命名标签"
 	}
 }
