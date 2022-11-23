@@ -61,9 +61,12 @@
 			"tagColorLabel": "标签颜色",
 			"tagNameLabel": "标签名称"
 		},
+		"dialogCard": {
+			"contentsCrashed": "这一对话似乎遇到了错误。尝试关闭它并重新打开。"
+		},
 		"fontSelect": {
-			"customFamilyDetail": "请只输入字体名称。",
 			"customScaleDetail": "请只输入百分比数值。",
+			"customFamilyDetail": "请只输入字体名称。",
 			"familyEmpty": "请输入字体名称。",
 			"font": "字体",
 			"fonts": {
@@ -76,62 +79,66 @@
 			"percentageIsntNumber": "请输入数字。",
 			"percentageNotPositive": "请输入大于 0 的数字。"
 		},
+		"indentButtons": {
+			"indent": "缩进",
+			"unindent": "无缩进"
+		},
+		"localStorageQuota": {
+			"measureAgain": "再次检测可用空间",
+			"percentAvailable": "{percent}% 空间可用"
+		},
 		"passageCard": {
 			"placeholderClick": "双击该段落进行编辑。",
 			"placeholderTouch": "点击这个片段，然后点击铅笔图标进行编辑。"
 		},
+		"passageFuzzyFinder": {
+			"noResults": "No matches.",
+			"prompt": "Search by passage name or text"
+		},
 		"renamePassageButton": {
-			"nameAlreadyUsed": "此名称已被故事中的另一个片段使用。",
-			"emptyName": "请输入一个名字。"
-		},
-		"storyCard": {
-			"passageCount": "{{count}}个片段",
-			"lastUpdated": "最后一次编辑位于 {{date}}",
-			"passageCount_plural": "{{count}} 个片段"
-		},
-		"indentButtons": {
-			"indent": "缩进",
-			"unindent": "无缩进"
+			"emptyName": "请输入一个名字。",
+			"nameAlreadyUsed": "此名称已被故事中的另一个片段使用。"
 		},
 		"renameStoryButton": {
 			"emptyName": "请输入一个名字。",
 			"nameAlreadyUsed": "此名称已被另一个故事使用。"
 		},
 		"safariWarningCard": {
-			"message": "如果您连续七天没有打开该网站，您正使用的浏览器就将删除所有故事。",
 			"archiveAndUseAnotherBrowser": "请保存故事并改用其他平台。",
-			"howToAddToHomeScreen": "我该如何把它添加到我的主界面？",
 			"addToHomeScreen": "你可以通过把该网站添加到主界面来避免限制。",
-			"learnMore": "了解更多"
+			"howToAddToHomeScreen": "我该如何把它添加到我的主界面？",
+			"learnMore": "了解更多",
+			"message": "如果您连续七天没有打开该网站，您正使用的浏览器就将删除所有故事。"
 		},
-		"storyFormatSelect": {
-			"loadingCount_plural": "载入 {{loadingCount}} 个故事格式中……",
-			"loadingCount": "载入 1 个故事格式中……"
+		"storageQuota": {
+			"freeSpace": "{{percent}}% 空间可用"
+		},
+		"storyCard": {
+			"lastUpdated": "最后一次编辑位于 {{date}}",
+			"passageCount": "{{count}}个片段",
+			"passageCount_plural": "{{count}} 个片段"
 		},
 		"storyFormatCard": {
 			"author": "来自 {{author}}",
+			"builtIn": "内置",
 			"defaultFormat": "设为默认",
+			"editorExtensionsDisabled": "编辑器扩展被禁用",
 			"license": "许可证：{{license}}",
 			"loadingFormat": "载入故事格式中……",
 			"loadError": "故事格式加载失败（{{errorMessage}}）。",
 			"name": "{{name}} {{version}}",
-			"useFormat": "设为默认故事格式",
 			"proofing": "校对",
 			"proofingFormat": "用于校对",
-			"useProofingFormat": "设为校对格式",
-			"editorExtensionsDisabled": "编辑器扩展被禁用",
 			"useEditorExtensions": "使用编辑器扩展",
-			"builtIn": "内置"
+			"useFormat": "设为默认故事格式",
+			"useProofingFormat": "设为校对格式"
+		},
+		"storyFormatSelect": {
+			"loadingCount": "载入 1 个故事格式中……",
+			"loadingCount_plural": "载入 {{loadingCount}} 个故事格式中……"
 		},
 		"tagEditor": {
 			"alreadyExists": "已存在同名标签。"
-		},
-		"localStorageQuota": {
-			"measureAgain": "再次检测可用空间",
-			"percentAvailable": "{percent}% 空间可用"
-		},
-		"storageQuota": {
-			"freeSpace": "{{percent}}% 空间可用"
 		}
 	},
 	"dialogs": {
