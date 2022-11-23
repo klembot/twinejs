@@ -5,7 +5,8 @@ import {
 	storyWithId,
 	storyWithName,
 	storyTags,
-	passagesMatchingSearch
+	passagesMatchingSearch,
+	passagesMatchingFuzzySearch
 } from '../getters';
 import {Passage, Story} from '../stories.types';
 import {fakePassage, fakeStory} from '../../../test-util';
@@ -181,6 +182,44 @@ describe('passageWithName()', () => {
 		expect(() =>
 			passageWithName([story], story.id, story.passages[0].name + 'nonexistent')
 		).toThrow());
+});
+
+describe('passagesMatchingFuzzySearch', () => {
+	let passages: Passage[];
+
+	beforeEach(
+		() =>
+			(passages = [
+				fakePassage({name: 'A name', text: 'A text'}),
+				fakePassage({name: 'B name', text: 'B text'}),
+				fakePassage({name: 'C name', text: 'C text'}),
+				fakePassage({name: 'D name', text: 'D text'}),
+				fakePassage({name: 'bad', text: 'bad'}),
+				fakePassage({name: 'bad', text: 'bad'}),
+				fakePassage({name: 'bad', text: 'bad'}),
+				fakePassage({name: 'E name', text: 'E text'})
+			])
+	);
+
+	it('returns the top five results matching a search by default', () => {
+		expect(passagesMatchingFuzzySearch(passages, 'txet')).toEqual([
+			passages[0],
+			passages[1],
+			passages[2],
+			passages[3],
+			passages[7]
+		]);
+	});
+
+	it('limits search results to the count specified', () => {
+		expect(passagesMatchingFuzzySearch(passages, 'txet', 1)).toEqual([
+			passages[0]
+		]);
+	});
+
+	it('returns an empty array if no passages match', () => {
+		expect(passagesMatchingFuzzySearch(passages, 'nonexistent', 1)).toEqual([]);
+	});
 });
 
 describe('passagesMatchingSearch()', () => {

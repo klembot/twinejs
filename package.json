@@ -25,6 +25,7 @@
 		"focus-trap-react": "^8.9.2",
 		"focus-visible": "^5.2.0",
 		"fs-extra": "^10.0.0",
+		"fuse.js": "^6.6.2",
 		"i18next": "^19.9.2",
 		"i18next-http-backend": "^1.1.1",
 		"is-absolute-url": "^3.0.3",
