@@ -280,23 +280,24 @@
 	},
 	"routes": {
 		"storyEdit": {
+			"toolbar": {
+				"findAndReplace": "查找替换",
+				"goTo": "跳转到",
+				"javaScript": "JavaScript",
+				"passageTags": "片段标签",
+				"snapToGrid": "对齐到网格",
+				"startStoryHere": "从这里开始故事",
+				"stylesheet": "样式表",
+				"testFromHere": "从这里开始测试"
+			},
 			"topBar": {
 				"editJavaScript": "编辑故事 Javascript 脚本",
 				"editStylesheet": "编辑故事样式表",
 				"findAndReplace": "查找替换",
+				"passageTags": "编辑片段标签",
 				"proofStory": "查看校对版本",
 				"publishToFile": "发布到文件",
-				"selectAllPassages": "选择所有片段",
-				"passageTags": "编辑片段标签"
-			},
-			"toolbar": {
-				"javaScript": "JavaScript",
-				"stylesheet": "样式表",
-				"snapToGrid": "对齐到网格",
-				"passageTags": "片段标签",
-				"findAndReplace": "查找替换",
-				"startStoryHere": "从这里开始故事",
-				"testFromHere": "从这里开始测试"
+				"selectAllPassages": "选择所有片段"
 			},
 			"zoomButtons": {
 				"storyStructure": "仅显示故事结构",
@@ -305,10 +306,14 @@
 			}
 		},
 		"storyFormatList": {
-			"storyFormatExplanation": "故事格式用于控制游戏过程中的故事外观和行为。",
+			"noneVisible": "没有符合您筛选标准的故事格式。",
+			"show": "显示……",
+			"title": {
+				"all": "全部故事格式",
+				"current": "当前故事格式",
+				"user": "用户添加的故事格式"
+			},
 			"toolbar": {
-				"useAsProofingFormat": "用于校对故事",
-				"useAsDefaultFormat": "设为默认格式",
 				"addStoryFormatButton": {
 					"addPreview": "将添加 {{storyFormatName}} {{storyFormatVersion}}。",
 					"alreadyAdded": "已添加 {{storyFormatName}} {{storyFormatVersion}}。",
@@ -317,24 +322,29 @@
 					"prompt": "要添加故事格式，请在下方输入地址。"
 				},
 				"disableFormatExtensions": "禁用编辑器扩展",
-				"enableFormatExtensions": "启用编辑器扩展"
+				"enableFormatExtensions": "启用编辑器扩展",
+				"useAsDefaultFormat": "设为默认格式",
+				"useAsProofingFormat": "用于校对故事"
 			},
-			"show": "显示……",
-			"noneVisible": "没有符合您筛选标准的故事格式。",
-			"title": {
-				"all": "全部故事格式",
-				"current": "当前故事格式",
-				"user": "用户添加的故事格式"
-			}
+			"storyFormatExplanation": "故事格式用于控制游戏过程中的故事外观和行为。"
 		},
 		"storyList": {
+			"library": "库",
 			"noStories": "在 Twine 中没有保存的故事。您可以创建一个新故事或从文件导入现有的故事。",
+			"taggedTitleCount": "1 个有标签的故事",
+			"taggedTitleCount_0": "不存在有标签的故事",
+			"taggedTitleCount_plural": "{{count}} 个有标签的故事",
+			"titleCount": "1 个故事",
+			"titleCount_0": "无故事",
+			"titleCount_plural": "{{count}} 个故事",
 			"titleGeneric": "故事",
 			"toolbar": {
 				"archive": "档案",
-				"sort": "排序方式",
-				"sortByDate": "日期",
-				"sortByName": "名称",
+				"createStoryButton": {
+					"prompt": "您故事的名称是什么？您可以随后更改它。",
+					"emptyName": "请输入一个名称。",
+					"nameConflict": "其他故事已使用这一名称。"
+				},
 				"deleteStoryButton": {
 					"warning": {
 						"electron": "您确定要删除“{{storyName}}”吗？它将会被移入回收站。",
@@ -343,29 +353,25 @@
 				},
 				"showAllStories": "显示所有故事",
 				"showTags": "显示标签",
+				"sort": "排序方式",
+				"sortByDate": "日期",
+				"sortByName": "名称",
 				"storyTags": "故事标签"
-			},
-			"titleCount_plural": "{{count}} 个故事",
-			"library": "库",
-			"taggedTitleCount_0": "不存在有标签的故事",
-			"taggedTitleCount": "1 个有标签的故事",
-			"taggedTitleCount_plural": "{{count}} 个有标签的故事",
-			"titleCount": "1 个故事",
-			"titleCount_0": "无故事"
+			}
 		},
 		"welcome": {
+			"autosave": "<p>您的 Documents 文件夹中现在有一个名为 Twine 的文件夹。 里面是一个故事文件夹，所有的作品都将被保存。 Twine 自动为你保存作品，所以你不必担心自己忘记保存。 您可以随时使用 <strong>Twine</strong> 上菜单的<strong>打开故事库</strong>项，来打开您的故事库文件夹。</p><p>由于 Twine 始终保存您的作品，因此在 Twine 打开时，故事库中的文件将被锁定而无法编辑。</p><p>如果您想打开从别人那里获得的故事，可以使用故事列表中的<strong>从文件导入</strong>链接来向故事库中导入文件。</p>",
 			"autosaveTitle": "您的作品将自动保存。",
+			"browserStorage": "<p>这意味着你不需要创建一个账号来使用 Twine 2，并且你创建的所有内容都不会被存储在其他地方的服务器上，它只保存在你的浏览器中。</p><p>不过，要记住两件<strong>非常重要</strong>的事情。 由于您的作品仅保存在您的浏览器中，因此如果您清除了保存的数据，那么您将失去作品！ 不好。 请记住经常使用<strong>存档</strong>按钮。 您还可以使用故事列表中每个故事的菜单将单个故事发布到文件。 档案和故事文件都可以重新导入到 Twine 中。</p><p>其次，<strong>任何可以使用此浏览器的人都可以查看并更改您的作品</strong>。所以，如果你家里有一位熊孩子角色，最好为自己做一个文件备份。</p>",
+			"browserStorageTitle": "您的作品仅保存在浏览器中",
+			"done": "<p>感谢您的阅读，希望使用 Twine 愉快！</p>",
 			"doneTitle": "就是这样！",
 			"gotoStoryList": "返回故事列表",
+			"greeting": "<p>Twine 是一个开源的工具，用于展示互动的非线性故事。 在开始之前，你应该了解一些事情。</p>",
 			"greetingTitle": "(｡･∀･)ﾉﾞ嗨！",
 			"tellMeMore": "告诉我更多",
-			"helpTitle": "新来的？",
 			"help": "<p><strong>如果你是第一次使用 Twine，那么欢迎你来使用 Twine！</strong>这个 <a href=\"https://twinery.org/cookbook\">Twine 指南书</a>可以很好地教你如何使用 Twine。你之前从未用过 Twine 的话，这是个不错的开始。</p>",
-			"autosave": "<p>您的 Documents 文件夹中现在有一个名为 Twine 的文件夹。 里面是一个故事文件夹，所有的作品都将被保存。 Twine 自动为你保存作品，所以你不必担心自己忘记保存。 您可以随时使用 <strong>Twine</strong> 上菜单的<strong>打开故事库</strong>项，来打开您的故事库文件夹。</p><p>由于 Twine 始终保存您的作品，因此在 Twine 打开时，故事库中的文件将被锁定而无法编辑。</p><p>如果您想打开从别人那里获得的故事，可以使用故事列表中的<strong>从文件导入</strong>链接来向故事库中导入文件。</p>",
-			"browserStorage": "<p>这意味着你不需要创建一个账号来使用 Twine 2，并且你创建的所有内容都不会被存储在其他地方的服务器上，它只保存在你的浏览器中。</p><p>不过，要记住两件<strong>非常重要</strong>的事情。 由于您的作品仅保存在您的浏览器中，因此如果您清除了保存的数据，那么您将失去作品！ 不好。 请记住经常使用<strong>存档</strong>按钮。 您还可以使用故事列表中每个故事的菜单将单个故事发布到文件。 档案和故事文件都可以重新导入到 Twine 中。</p><p>其次，<strong>任何可以使用此浏览器的人都可以查看并更改您的作品</strong>。所以，如果你家里有一位熊孩子角色，最好为自己做一个文件备份。</p>",
-			"greeting": "<p>Twine 是一个开源的工具，用于展示互动的非线性故事。 在开始之前，你应该了解一些事情。</p>",
-			"browserStorageTitle": "您的作品仅保存在浏览器中",
-			"done": "<p>感谢您的阅读，希望使用 Twine 愉快！</p>"
+			"helpTitle": "新来的？"
 		}
 	},
 	"routeActions": {
