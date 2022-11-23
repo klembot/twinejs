@@ -382,13 +382,22 @@
 			"storyFormats": "故事格式"
 		},
 		"build": {
-			"proof": "校对",
-			"test": "测试",
+			"exportAsTwee": "导出为Twee",
 			"play": "运行",
-			"publishToFile": "发布到文件"
+			"proof": "校对",
+			"publishToFile": "发布到文件",
+			"test": "测试"
 		}
 	},
 	"store": {
+		"archiveFilename": "{{timestamp}} Twine 档案.html",
+		"errors": {
+			"cantPersistPrefs": "保存偏好设置失败（{{error}}）。",
+			"cantPersistStories": "保存故事失败（{{error}}）。",
+			"cantPersistStoryFormats": "保存故事格式失败（{{error}}）。",
+			"electronRemediation": "重启应用可能会解决问题。",
+			"webRemediation": "重新载入该页面可能会解决问题。"
+		},
 		"passageDefaults": {
 			"name": "未命名片段"
 		},
@@ -397,18 +406,10 @@
 		},
 		"storyFormatDefaults": {
 			"name": "未命名故事的格式"
-		},
-		"errors": {
-			"cantPersistPrefs": "保存偏好设置失败（{{error}}）。",
-			"cantPersistStories": "保存故事失败（{{error}}）。",
-			"cantPersistStoryFormats": "保存故事格式失败（{{error}}）。",
-			"electronRemediation": "重启应用可能会解决问题。",
-			"webRemediation": "重新载入该页面可能会解决问题。"
-		},
-		"archiveFilename": "{{timestamp}} Twine 档案.html"
+		}
 	},
 	"undoChange": {
-		"replaceAllText": "替换所有",
+		"addTag": "添加标签",
 		"changeTagColor": "更改标签颜色",
 		"newPassage": "新建片段",
 		"deletePassage": "删除片段",
@@ -417,6 +418,8 @@
 		"movePassages": "移动片段",
 		"imortTag": "移除标签",
 		"renamePassage": "重命名片段",
-		"renameTag": "重命名标签"
+		"removeTag": "移除标签",
+		"renameTag": "重命名标签",
+		"replaceAllText": "替换所有"
 	}
 }
