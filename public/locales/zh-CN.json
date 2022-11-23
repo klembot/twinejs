@@ -9,10 +9,14 @@
 		"purple": "紫色"
 	},
 	"common": {
+		"add": "添加",
+		"appName": "Twine",
 		"back": "返回",
 		"build": "构建",
+		"cancel": "取消",
 		"close": "关闭",
 		"color": "颜色",
+		"create": "创建",
 		"custom": "自定义",
 		"details": "细节",
 		"editCount": "编辑（{{count}}）",
