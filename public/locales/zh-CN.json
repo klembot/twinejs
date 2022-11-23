@@ -144,64 +144,50 @@
 	"dialogs": {
 		"aboutTwine": {
 			"donateToTwine": "通过捐赠帮助 Twine 开发",
-			"license": "本应用程序是在 <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GPL v3 license</a> 许可证下发布的，以其创建的任何作品都可能以任何条款发布，包括商业应用程序。",
 			"codeHeader": "代码",
 			"codeRepo": "访问源代码库",
+			"license": "本应用程序是在 <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GPL v3 license</a> 许可证下发布的，以其创建的任何作品都可能以任何条款发布，包括商业应用程序。",
 			"localizationHeader": "本地化",
 			"title": "关于 Twine {{version}}",
 			"twineDescription": "Twine 是一个用于创作互动的非线性故事的开源工具。"
 		},
 		"appDonation": {
-			"noThanks": "不，谢谢",
-			"supportMessage": "如果你热爱 Twine，请考虑通过捐赠帮助它成长。Twine 是一个永远免费使用的开源项目，在你的帮助下，Twine 将继续蓬勃发展。",
 			"donate": "捐赠给 Twine 开发",
 			"onlyOnce": "（此消息只会显示给您一次。如果您希望将来捐赠给 Twine 开发，您可以在在“关于 Twine”对话框中可以找到相关链接。）",
+			"supportMessage": "如果你热爱 Twine，请考虑通过捐赠帮助它成长。Twine 是一个永远免费使用的开源项目，在你的帮助下，Twine 将继续蓬勃发展。",
+			"noThanks": "不，谢谢",
 			"title": "支持 Twine 开发"
 		},
 		"appPrefs": {
-			"language": "语言",
 			"codeEditorFont": "代码编辑器字体",
 			"codeEditorFontScale": "代码编辑器字体大小",
+			"dialogWidth": "对话框宽度",
+			"dialogWidths": {
+				"default": "默认",
+				"wider": "较宽",
+				"widest": "最宽"
+			},
 			"editorCursorBlinks": "代码编辑器中的光标闪烁",
 			"fontExplanation": "此处的字体改变只影响 Twine 编辑器，游玩故事的字体不会发生改变。",
+			"language": "语言",
 			"passageEditorFont": "片段编辑器字体",
 			"passageEditorFontScale": "片段编辑器字体大小",
-			"themeLight": "亮",
-			"themeDark": "暗",
+			"themeLight": "亮色",
+			"themeDark": "暗色",
 			"themeSystem": "跟随系统",
 			"theme": "主题",
 			"title": "偏好设置"
 		},
 		"passageEdit": {
+			"editorCrashed": "编辑器遇到了一些错误。尝试关闭它并重新编辑这个片段。",
+			"passageTextEditorLabel": "片段文本",
+			"passageTextPlaceholder": "在这里输入您的片段的文本。要链接到其他片段需要在它名字前后加两个方括号，[[就像这样]]。",
 			"setAsStart": "从这里开始故事",
+			"size": "尺寸",
 			"sizeLarge": "大型",
 			"sizeSmall": "小型",
 			"sizeTall": "竖条",
-			"sizeWide": "横条",
-			"passageTextEditorLabel": "片段文本",
-			"size": "形状"
-		},
-		"storyJavaScript": {
-			"explanation": "当您的故事在Web浏览器中打开时，此处输入的任何JavaScript都将立即运行。",
-			"editorLabel": "故事 Javascript 脚本",
-			"title": "故事 Javascript 脚本"
-		},
-		"storySearch": {
-			"title": "查找替换",
-			"replaceWith": "替换为",
-			"includePassageNames": "包含名称",
-			"matchCase": "匹配大小写",
-			"matchCount": "{{count}} 个匹配片段",
-			"matchCount_plural": "{{count}} 个匹配片段",
-			"noMatches": "没有匹配片段",
-			"replaceAll": "替换所有片段中的项",
-			"useRegexes": "使用正则表达式",
-			"find": "查找"
-		},
-		"storyStylesheet": {
-			"explanation": "这里输入的任何CSS都会覆盖故事的默认外观。",
-			"editorLabel": "故事样式表",
-			"title": "故事样式表"
+			"sizeWide": "横条"
 		},
 		"passageTags": {
 			"noTags": "尚未向故事中的片段添加任何标签。",
@@ -209,12 +195,12 @@
 		},
 		"storyImport": {
 			"deselectAll": "全不选",
-			"storiesPrompt": "选择要导入的故事：",
 			"filePrompt": "要向 Twine 导入故事，请先在下方上传一个档案或已发布的故事文件。",
-			"importSelected": "导入选中文件",
 			"importDifferentFile": "导入其他文件",
+			"importSelected": "导入选中文件",
 			"importThisStory": "导入该故事",
 			"noStoriesInFile": "您上传的文件中似乎没有 Twine 故事。请选择其他文件。",
+			"storiesPrompt": "选择要导入的故事：",
 			"title": "导入故事",
 			"willReplaceExisting": "将会替换故事库中的同名故事。"
 		},
@@ -222,9 +208,9 @@
 			"storyFormatExplanation": "故事格式是什么？",
 			"snapToGrid": "对齐到网格",
 			"stats": {
-				"title": "故事统计",
-				"brokenLinks": "断开连接",
+				"brokenLinks": "断开的连接",
 				"characters": "字符",
+				"title": "故事统计",
 				"ifid": "该故事的 IFID 是 {{ifid}}。",
 				"ifidExplanation": "什么是 IFID？",
 				"lastUpdate": "故事的最后一次变更是在 {{date}}。",
@@ -232,6 +218,29 @@
 				"passages": "片段",
 				"words": "字"
 			}
+		},
+		"storyJavaScript": {
+			"editorLabel": "故事 Javascript 脚本",
+			"title": "故事 Javascript 脚本",
+			"explanation": "当您的故事在Web浏览器中打开时，此处输入的任何JavaScript都将立即运行。"
+		},
+		"storySearch": {
+			"title": "查找替换",
+			"find": "查找",
+			"includePassageNames": "包含名称",
+			"matchCase": "匹配大小写",
+			"matchCount": "{{count}} 个匹配片段",
+			"matchCount_plural": "{{count}} 个匹配片段",
+			"noMatches": "没有匹配片段",
+			"replaceAll": "替换所有片段中的项",
+			"replaceWith": "替换为",
+			"useRegexes": "使用正则表达式"
+		},
+		"storyStylesheet": {
+			"editorLabel": "故事样式表",
+			"title": "故事样式表",
+			"explanation": "这里输入的任何CSS都会覆盖故事的默认外观。"
+
 		},
 		"storyTags": {
 			"noTags": "尚未向您的故事中添加任何标签。",
