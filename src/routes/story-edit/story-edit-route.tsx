@@ -25,7 +25,7 @@ export const InnerStoryEditRoute: React.FC = () => {
 	const story = storyWithId(stories, storyId);
 	const [fuzzyFinderOpen, setFuzzyFinderOpen] = React.useState(false);
 	const mainContent = React.useRef<HTMLDivElement>(null);
-	const {getCenter, setCenter} = useViewCenter(story, mainContent.current);
+	const {getCenter, setCenter} = useViewCenter(story, mainContent);
 	const {
 		handleDeselectPassage,
 		handleDragPassages,
@@ -73,7 +73,7 @@ export const InnerStoryEditRoute: React.FC = () => {
 			</MainContent>
 		</div>
 	);
-};;
+};;;;
 
 // This is a separate component so that the inner one can use
 // `useDialogsContext()` and `useUndoableStoriesContext()` inside it.
