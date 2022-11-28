@@ -4,32 +4,39 @@ import {usePrefsContext} from '../../store/prefs';
 import {Story} from '../../store/stories';
 import {Point} from '../../util/geometry';
 
-export function useViewCenter(story: Story, domElement: HTMLElement | null) {
+export function useViewCenter(
+	story: Story,
+	elementRef: React.RefObject<HTMLElement>
+) {
 	const {dialogs} = useDialogsContext();
 	const {prefs} = usePrefsContext();
 
 	const getCenter = React.useCallback(() => {
-		if (!domElement) {
+		if (!elementRef.current) {
 			throw new Error(
 				'Asked for the center of an element, but it does not exist in the DOM yet'
 			);
 		}
 
 		return {
-			left: (domElement.scrollLeft + domElement.clientWidth / 2) / story.zoom,
-			top: (domElement.scrollTop + domElement.clientHeight / 2) / story.zoom
+			left:
+				(elementRef.current.scrollLeft + elementRef.current.clientWidth / 2) /
+				story.zoom,
+			top:
+				(elementRef.current.scrollTop + elementRef.current.clientHeight / 2) /
+				story.zoom
 		};
-	}, [domElement, story.zoom]);
+	}, [elementRef, story.zoom]);
 
 	const setCenter = React.useCallback(
 		({left, top}: Point) => {
-			if (!domElement) {
+			if (!elementRef.current) {
 				throw new Error(
 					'Asked to set the center of an element, but it does not exist in the DOM yet'
 				);
 			}
 
-			const {height, width} = domElement.getBoundingClientRect();
+			const {height, width} = elementRef.current.getBoundingClientRect();
 			const scroll = {
 				left: (left - width / story.zoom / 2) * story.zoom,
 				top: (top - height / story.zoom / 2) * story.zoom
@@ -39,9 +46,9 @@ export function useViewCenter(story: Story, domElement: HTMLElement | null) {
 				scroll.left += prefs.dialogWidth / 2;
 			}
 
-			domElement.scrollTo(scroll);
+			elementRef.current.scrollTo(scroll);
 		},
-		[dialogs.length, domElement, prefs.dialogWidth, story.zoom]
+		[dialogs.length, elementRef, prefs.dialogWidth, story.zoom]
 	);
 
 	return {getCenter, setCenter};
