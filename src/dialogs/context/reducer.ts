@@ -67,5 +67,11 @@ export const reducer: React.Reducer<DialogsState, DialogsAction> = (
 				...dialog,
 				maximized: index === action.index ? action.maximized : false
 			}));
+
+		case 'setDialogProps':
+			return state.map((dialog, index) => ({
+				...dialog,
+				props: index === action.index ? action.props : dialog.props
+			}));
 	}
 };

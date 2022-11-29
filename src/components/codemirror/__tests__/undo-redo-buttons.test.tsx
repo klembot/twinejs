@@ -42,6 +42,18 @@ describe('<UndoRedoButtons>', () => {
 		expect(editor.focus).toHaveBeenCalledTimes(1);
 	});
 
+	it('disables both buttons if the disabled prop is set', () => {
+		const editor = {
+			execCommand: jest.fn(),
+			focus: jest.fn(),
+			historySize: () => ({redo: 1, undo: 1})
+		};
+
+		renderComponent({editor: editor as any});
+		expect(screen.getByText('common.undo')).not.toBeDisabled();
+		expect(screen.getByText('common.redo')).not.toBeDisabled();
+	});
+
 	it('disables both buttons if the editor prop is not defined', () => {
 		renderComponent({editor: undefined});
 		expect(screen.getByText('common.undo')).toBeDisabled();

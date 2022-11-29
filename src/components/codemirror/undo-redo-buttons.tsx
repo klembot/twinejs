@@ -5,6 +5,10 @@ import {IconButton} from '../control/icon-button';
 
 export interface UndoRedoButtonsProps {
 	/**
+	 * Disables both buttons no matter the state of the editor.
+	 */
+	disabled?: boolean;
+	/**
 	 * CodeMirror instance to interact with.
 	 */
 	editor?: CodeMirror.Editor;
@@ -17,7 +21,7 @@ export interface UndoRedoButtonsProps {
 }
 
 export const UndoRedoButtons: React.FC<UndoRedoButtonsProps> = props => {
-	const {editor, watch} = props;
+	const {disabled, editor, watch} = props;
 	const {t} = useTranslation();
 	const [canRedo, setCanRedo] = React.useState(false);
 	const [canUndo, setCanUndo] = React.useState(false);
@@ -42,13 +46,13 @@ export const UndoRedoButtons: React.FC<UndoRedoButtonsProps> = props => {
 	return (
 		<>
 			<IconButton
-				disabled={!canUndo}
+				disabled={disabled || !canUndo}
 				icon={<IconArrowBack />}
 				label={t('common.undo')}
 				onClick={() => execCommand('undo')}
 			/>
 			<IconButton
-				disabled={!canRedo}
+				disabled={disabled || !canRedo}
 				icon={<IconArrowForward />}
 				label={t('common.redo')}
 				onClick={() => execCommand('redo')}

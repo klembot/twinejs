@@ -25,7 +25,7 @@ export interface DialogCardProps {
 	onChangeCollapsed: (value: boolean) => void;
 	onChangeHighlighted: (value: boolean) => void;
 	onChangeMaximized: (value: boolean) => void;
-	onClose: () => void;
+	onClose: (event?: React.KeyboardEvent | React.MouseEvent) => void;
 }
 
 export const DialogCard: React.FC<DialogCardProps> = props => {
@@ -69,7 +69,7 @@ export const DialogCard: React.FC<DialogCardProps> = props => {
 
 	function handleKeyDown(event: React.KeyboardEvent) {
 		if (event.key === 'Escape') {
-			onClose();
+			onClose(event);
 		}
 	}
 

@@ -439,4 +439,68 @@ describe('Dialog reducer', () => {
 				}
 			]));
 	});
+
+	describe('when a setDialogProps action is received', () => {
+		it('updates the dialog at the index specified', () =>
+			expect(
+				reducer(
+					[
+						{
+							collapsed: false,
+							component: mockComponent,
+							highlighted: false,
+							maximized: false,
+							props: {mockProp: true}
+						},
+						{
+							collapsed: false,
+							component: mockComponent,
+							highlighted: false,
+							maximized: false,
+							props: {mockProp: false}
+						}
+					],
+					{type: 'setDialogProps', index: 0, props: {newProps: true}}
+				)
+			).toEqual([
+				{
+					collapsed: false,
+					component: mockComponent,
+					highlighted: false,
+					maximized: false,
+					props: {newProps: true}
+				},
+				{
+					collapsed: false,
+					component: mockComponent,
+					highlighted: false,
+					maximized: false,
+					props: {mockProp: false}
+				}
+			]));
+
+		it('does nothing if an incorrect index is specified', () =>
+			expect(
+				reducer(
+					[
+						{
+							collapsed: false,
+							component: mockComponent,
+							highlighted: false,
+							maximized: false,
+							props: {mockProp: true}
+						}
+					],
+					{type: 'setDialogProps', index: 2, props: {newProps: true}}
+				)
+			).toEqual([
+				{
+					collapsed: false,
+					component: mockComponent,
+					highlighted: false,
+					maximized: false,
+					props: {mockProp: true}
+				}
+			]));
+	});
 });

@@ -29,7 +29,7 @@
 	bottom: var(--grid-size);
 }
 
-.dialogs .dialog-card {
+.dialogs .dialog-card, .dialogs .background-dialog-card {
 	flex: 1;
 	pointer-events: auto;
 }

@@ -35,6 +35,16 @@
 	}
 }
 
+@keyframes mini-pop-in {
+	from {
+		transform: scale(1.05);
+	}
+
+	to {
+		transform: scale(1);
+	}
+}
+
 @keyframes wiggle {
 	0% {
 		transform: rotate(0deg);

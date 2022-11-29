@@ -10,6 +10,7 @@ import {useFormatCodeMirrorMode} from '../../store/use-format-codemirror-mode';
 import {codeMirrorOptionsFromPrefs} from '../../util/codemirror-options';
 
 export interface PassageTextProps {
+	disabled?: boolean;
 	onChange: (value: string) => void;
 	onEditorChange: (value: CodeMirror.Editor) => void;
 	passage: Passage;
@@ -20,6 +21,7 @@ export interface PassageTextProps {
 
 export const PassageText: React.FC<PassageTextProps> = props => {
 	const {
+		disabled,
 		onChange,
 		onEditorChange,
 		passage,
@@ -139,9 +141,18 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 			prefixTrigger: {
 				callback: autocompletePassageNames,
 				prefixes: ['[[', '->']
-			}
+			},
+			// This value prevents the area from being focused.
+			readOnly: disabled ? 'nocursor' : false
 		}),
-		[autocompletePassageNames, mode, prefs, storyFormatExtensionsDisabled, t]
+		[
+			autocompletePassageNames,
+			disabled,
+			mode,
+			prefs,
+			storyFormatExtensionsDisabled,
+			t
+		]
 	);
 
 	return (

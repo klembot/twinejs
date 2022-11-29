@@ -57,11 +57,14 @@ export const EnabledRenamePassageButton: React.FC<EnabledRenamePassageButtonProp
 
 export interface RenamePassageButtonProps
 	extends Omit<EnabledRenamePassageButtonProps, 'passage'> {
+	disabled?: boolean;
 	passage?: Passage;
 }
 
-export const RenamePassageButton: React.FC<RenamePassageButtonProps> = props => {
-	if (props.passage) {
+export const RenamePassageButton: React.FC<
+	RenamePassageButtonProps
+> = props => {
+	if (!props.disabled && props.passage) {
 		return (
 			<EnabledRenamePassageButton
 				{...(props as EnabledRenamePassageButtonProps)}

@@ -110,6 +110,10 @@ test('Creates a simple story and plays it', async ({context, page}) => {
 	await page.getByLabel('Passage Text').type('Monsters!');
 	await waitForPassageChange();
 	await page.getByRole('button', {name: 'Close'}).click();
+
+	// Wait for the editor to close.
+
+	await expect(page.getByLabel('Passage Text')).not.toBeVisible();
 	await openPassageEditor(page, 'right');
 	await page.getByLabel('Passage Text').type('Puppies!');
 	await waitForPassageChange();

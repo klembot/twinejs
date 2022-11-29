@@ -1,0 +1,9 @@
+.passage-edit-contents {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.passage-edit-contents .tags {
+	padding: var(--grid-size);
+}
