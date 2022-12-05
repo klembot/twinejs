@@ -23,6 +23,19 @@ extensions](../story-formats/extensions.md).
 Twine automatically saves your changes to a passage after you stop typing for a
 moment.
 
+## Automatically-Created Links
+
+As you enter text in a passage, Twine will detect when you've added new links.
+If the destination passage doesn't already exist, it will create an empty
+passage for you. Deleting the link will delete this empty passage.
+
+Twine won't delete an empty passage while editing if any of the criteria below are true:
+
+- It is linked to from another passage
+- It has any tags
+- It has a different size than the default
+- It is the story start 
+
 ## Text Formatting, Code, Images, Sound, Video... Basically Everything Cool
 
 You should consult the documentation of the story format you are using for how

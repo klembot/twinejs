@@ -6,7 +6,7 @@ import {IconButton, IconButtonProps} from './icon-button';
 import './card-button.css';
 import FocusTrap from 'focus-trap-react';
 
-export interface CardButtonProps extends Omit<IconButtonProps, 'onClick'> {
+export interface CardButtonProps extends IconButtonProps {
 	/**
 	 * ARIA label for the card that opens.
 	 */
@@ -39,8 +39,8 @@ export const CardButton: React.FC<CardButtonProps> = props => {
 	return (
 		<span className="card-button">
 			<IconButton
-				{...other}
 				onClick={() => onChangeOpen(!open)}
+				{...other}
 				ref={setButtonEl}
 			/>
 			<CSSTransition

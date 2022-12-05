@@ -304,7 +304,7 @@
 				"addStoryFormatButton": {
 					"addPreview": "{{storyFormatName}} {{storyFormatVersion}} wird hinzugefügt.",
 					"alreadyAdded": "{{storyFormatName}} {{storyFormatVersion}} ist bereits vorhanden.",
-					"fetchError": "Das Geschichtsformat an dieser Adresse konnte nicht abgerufen werden ({errorMessage}).",
+					"fetchError": "Das Geschichtsformat an dieser Adresse konnte nicht abgerufen werden ({{errorMessage}}).",
 					"invalidUrl": "Bitte eine gültige URL eingeben.",
 					"prompt": "Um ein Geschichtsformat hinzuzufügen, gebe unten die Adresse ein."
 				},

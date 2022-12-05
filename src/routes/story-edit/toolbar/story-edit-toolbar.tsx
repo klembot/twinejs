@@ -10,11 +10,12 @@ import {UndoRedoButtons} from './undo-redo-buttons';
 
 export interface StoryEditToolbarProps {
 	getCenter: () => Point;
+	onOpenFuzzyFinder: () => void;
 	story: Story;
 }
 
 export const StoryEditToolbar: React.FC<StoryEditToolbarProps> = props => {
-	const {getCenter, story} = props;
+	const {getCenter, onOpenFuzzyFinder, story} = props;
 	const {t} = useTranslation();
 
 	return (
@@ -22,7 +23,11 @@ export const StoryEditToolbar: React.FC<StoryEditToolbarProps> = props => {
 			pinnedControls={<UndoRedoButtons />}
 			tabs={{
 				[t('common.passage')]: (
-					<PassageActions getCenter={getCenter} story={story} />
+					<PassageActions
+						getCenter={getCenter}
+						onOpenFuzzyFinder={onOpenFuzzyFinder}
+						story={story}
+					/>
 				),
 				[t('common.story')]: <StoryActions story={story} />,
 				[t('common.build')]: <BuildActions story={story} />,

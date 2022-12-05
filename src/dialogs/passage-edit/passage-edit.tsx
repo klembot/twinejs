@@ -91,6 +91,7 @@ export const InnerPassageEditDialog: React.FC<
 			{...other}
 			className="passage-edit-dialog"
 			headerLabel={passage.name}
+			maximizable
 		>
 			{editorCrashed ? (
 				<ErrorMessage>{t('dialogs.passageEdit.editorCrashed')}</ErrorMessage>

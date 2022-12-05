@@ -4,7 +4,7 @@ import {IconPackage} from '@tabler/icons';
 import {IconButton} from '../../../../components/control/icon-button';
 import {useStoriesContext} from '../../../../store/stories';
 import {archiveFilename, publishArchive} from '../../../../util/publish';
-import {saveHtml} from '../../../../util/save-html';
+import {saveHtml} from '../../../../util/save-file';
 import {getAppInfo} from '../../../../util/app-info';
 
 export const ArchiveButton: React.FC = () => {

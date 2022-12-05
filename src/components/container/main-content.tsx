@@ -44,15 +44,22 @@ export const MainContent = React.forwardRef<HTMLDivElement, MainContentProps>(
 				}
 			}
 
-			function upListener(event: PointerEvent) {
-				if (event.button !== 2 || !container) {
+			function stopGrab(event: PointerEvent) {
+				if (!container) {
 					return;
 				}
 
 				container.releasePointerCapture(event.pointerId);
+				container.removeEventListener('pointerleave', stopGrab);
 				container.removeEventListener('pointermove', moveListener);
 				container.style.cursor = '';
 				event.preventDefault();
+			}
+
+			function upListener(event: PointerEvent) {
+				if (event.button === 2) {
+					stopGrab(event);
+				}
 			}
 
 			function downListener(event: PointerEvent) {
@@ -61,6 +68,7 @@ export const MainContent = React.forwardRef<HTMLDivElement, MainContentProps>(
 				}
 
 				container.setPointerCapture(event.pointerId);
+				container.addEventListener('pointerleave', stopGrab);
 				container.addEventListener('pointermove', moveListener);
 				container.addEventListener('pointerup', upListener);
 				container.style.cursor = 'grabbing';

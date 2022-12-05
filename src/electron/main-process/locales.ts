@@ -12,14 +12,14 @@ import jp from '../../../public/locales/jp.json';
 import ms from '../../../public/locales/ms.json';
 import nb from '../../../public/locales/nb.json';
 import nl from '../../../public/locales/nl.json';
-import ptBr from '../../../public/locales/pt-br.json';
-import ptPt from '../../../public/locales/pt-pt.json';
+import ptBr from '../../../public/locales/pt-BR.json';
+import ptPt from '../../../public/locales/pt-PT.json';
 import ru from '../../../public/locales/ru.json';
 import sl from '../../../public/locales/sl.json';
 import sv from '../../../public/locales/sv.json';
 import tr from '../../../public/locales/tr.json';
 import uk from '../../../public/locales/uk.json';
-import zhCn from '../../../public/locales/zh-cn.json';
+import zhCn from '../../../public/locales/zh-CN.json';
 import {loadPrefs} from './prefs';
 
 export const i18n = i18next.createInstance();

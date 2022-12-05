@@ -9,6 +9,9 @@ body:
 
           - Issues in this repository are for tracking problems with the Twine application. "How do I?" type questions are better answered on community resources like the Intfiction.org forums, Reddit, or Discord.
           - If you are having problems with your Twine story when it is being played, then you should report the problem with the story format you are using, not here.
+            - For those using the **Harlowe** story format (the default format), reports should be filed at [its issue tracker](https://foss.heptapod.net/games/harlowe/-/issues). Guidelines for bug reports are listed [here](https://twine2.neocities.org/#introduction_report-bugs-and-suggest-features).
+            - For those using the **SugarCube** format, reports should be filed at [its issue tracker](https://github.com/tmedwards/sugarcube-2/issues).
+            - For those using the **Chapbook** format, reports should be filed at [its issue tracker](https://github.com/klembot/chapbook/issues).
           - In order for your issue to be addressed, someone else will need to be able to cause the bug to occur on their own computer in a predictable fashion. Otherwise, it will be impossible to tell if it was actually fixed when it's worked on. Please be as detailed as you can in your description below.
           - Usually, new issues are reviewed around once a month. It may take longer.
           - If work begins on your bug report, it will be added to a project in this repository. You can track the status of its implementation there.

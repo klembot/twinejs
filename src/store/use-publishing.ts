@@ -25,7 +25,7 @@ export interface UsePublishingProps {
 }
 
 /**
- * A React hook publish stories from context. You probably want to use
+ * A React hook to publish stories from context. You probably want to use
  * `useStoryLaunch` instead--this is for doing the actual binding of the story
  * and story format.
  */

@@ -1,3 +1,10 @@
+.story-import-dialog .card-content {
+	display: flex;
+	flex-direction: column;
+	max-height: 100%;
+	min-height: 0;
+}
+
 .story-import-dialog .card-content p:first-child {
 	margin-top: 0;
 }

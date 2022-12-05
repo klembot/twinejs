@@ -297,9 +297,9 @@
 				"useAsProofingFormat": "用于校对故事",
 				"useAsDefaultFormat": "设为默认格式",
 				"addStoryFormatButton": {
-					"addPreview": "将添加 {storyFormatName} {storyFormatVersion}。",
-					"alreadyAdded": "已添加 {storyFormatName} {storyFormatVersion}。",
-					"fetchError": "无法读取该位置的故事格式（{errorMessage}）。",
+					"addPreview": "将添加 {{storyFormatName}} {{storyFormatVersion}}。",
+					"alreadyAdded": "已添加 {{storyFormatName}} {{storyFormatVersion}}。",
+					"fetchError": "无法读取该位置的故事格式（{{errorMessage}}）。",
 					"invalidUrl": "请输入有效的 URL。",
 					"prompt": "要添加故事格式，请在下方输入地址。"
 				},

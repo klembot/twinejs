@@ -1,0 +1,54 @@
+@import '../../styles/colors.css';
+@import '../../styles/metrics.css';
+@import '../../styles/typography.css';
+
+.fuzzy-finder-result {
+	appearance: none;
+	align-items: center;
+	background: none;
+	border: none;
+	border-radius: var(--corner-round);
+	color: var(--dark-gray);
+	cursor: pointer;
+	display: flex;
+	flex-direction: row;
+	font: 100% var(--font-system);
+	gap: var(--grid-size);
+	padding: var(--grid-size);
+	transition: background 0.3s;
+	user-select: none;
+}
+
+.fuzzy-finder-result svg {
+	color: var(--dark-blue);
+	flex-shrink: 0;
+	height: 16px;
+	margin-right: calc(-0.5 * var(--grid-size));
+	visibility: hidden;
+	width: 16px;
+}
+
+.fuzzy-finder-result:hover {
+	background-color: var(--light-gray-translucent);
+}
+
+.fuzzy-finder-result .heading {
+	color: var(--black);
+	flex-shrink: 0;
+}
+
+.fuzzy-finder-result .detail {
+	color: var(--gray);
+	overflow: hidden;
+	text-align: left;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.fuzzy-finder-result.selected svg {
+	visibility: visible;
+}
+
+.fuzzy-finder-result.selected .heading {
+	color: var(--dark-blue);
+}

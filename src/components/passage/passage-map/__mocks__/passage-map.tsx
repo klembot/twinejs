@@ -22,9 +22,6 @@ export const PassageMap: React.FC<Partial<PassageMapProps>> = props => (
 		<button onClick={() => props.onDeselect!(fakePassage())}>onDeselect</button>
 		<button onClick={() => props.onDrag!({top: 15, left: 20})}>onDrag</button>
 		<button onClick={() => props.onEdit!(fakePassage())}>onEdit</button>
-		<button onClick={() => props.onMiddleClick!({left: 150, top: 300})}>
-			onMiddleClick
-		</button>
 		<button onClick={() => props.onSelect!(fakePassage(), true)}>
 			onSelect
 		</button>

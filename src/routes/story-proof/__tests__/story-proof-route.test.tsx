@@ -35,4 +35,16 @@ describe('<StoryProofRoute>', () => {
 		);
 		expect(proofStory.mock.calls).toEqual([['123']]);
 	});
+
+	it('shows an error message if publishing fails', async () => {
+		const proofStory = jest.fn(
+			jest.fn(() => Promise.reject(new Error('mock-error-message')))
+		);
+
+		usePublishingMock.mockReturnValue({proofStory});
+		renderComponent('/stories/123/proof');
+		await waitFor(() =>
+			expect(document.body.textContent).toContain('mock-error-message')
+		);
+	});
 });

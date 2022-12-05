@@ -11,19 +11,19 @@ import {Point} from '../../../../util/geometry';
 import {CreatePassageButton} from './create-passage-button';
 import {DeletePassagesButton} from './delete-passages-button';
 import {EditPassagesButton} from './edit-passages-buttons';
+import {GoToPassageButton} from './go-to-passage-button';
 import {SelectAllPassagesButton} from './select-all-passages-button';
 import {StartAtPassageButton} from './start-at-passage-button';
 import {TestPassageButton} from './test-passage-button';
 
 export interface PassageActionsProps {
 	getCenter: () => Point;
+	onOpenFuzzyFinder: () => void;
 	story: Story;
 }
 
-export const PassageActions: React.FC<PassageActionsProps> = ({
-	getCenter,
-	story
-}) => {
+export const PassageActions: React.FC<PassageActionsProps> = props => {
+	const {getCenter, onOpenFuzzyFinder, story} = props;
 	const {dispatch} = useStoriesContext();
 	const selectedPassages = React.useMemo(
 		() => story.passages.filter(passage => passage.selected),
@@ -44,14 +44,7 @@ export const PassageActions: React.FC<PassageActionsProps> = ({
 		// existing passages, updates them, but does not see that the passage name
 		// has been updated since that hasn't happened yet.
 
-		dispatch(
-			updatePassage(
-				story,
-				passage,
-				{name},
-				{dontCreateNewlyLinkedPassages: true}
-			)
-		);
+		dispatch(updatePassage(story, passage, {name}, {dontUpdateOthers: true}));
 	}
 
 	return (
@@ -66,6 +59,7 @@ export const PassageActions: React.FC<PassageActionsProps> = ({
 			<DeletePassagesButton passages={selectedPassages} story={story} />
 			<TestPassageButton passage={soloSelectedPassage} story={story} />
 			<StartAtPassageButton passage={soloSelectedPassage} story={story} />
+			<GoToPassageButton onOpenFuzzyFinder={onOpenFuzzyFinder} />
 			<SelectAllPassagesButton story={story} />
 		</ButtonBar>
 	);

@@ -55,4 +55,16 @@ describe('<StoryTestRoute>', () => {
 			['123', {formatOptions: 'debug', startId: '456'}]
 		]);
 	});
+
+	it('shows an error message if publishing fails', async () => {
+		const publishStory = jest.fn(
+			jest.fn(() => Promise.reject(new Error('mock-error-message')))
+		);
+
+		usePublishingMock.mockReturnValue({publishStory});
+		renderComponent('/stories/123/test/456');
+		await waitFor(() =>
+			expect(document.body.textContent).toContain('mock-error-message')
+		);
+	});
 });

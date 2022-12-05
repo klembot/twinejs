@@ -13,7 +13,6 @@ export interface PassageMapProps {
 	onDeselect: (passage: Passage) => void;
 	onDrag: (change: Point) => void;
 	onEdit: (passage: Passage) => void;
-	onMiddleClick: (position: Point) => void;
 	onSelect: (passage: Passage, exclusive: boolean) => void;
 	passages: Passage[];
 	startPassageId: string;
@@ -77,7 +76,6 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 		onDeselect,
 		onDrag,
 		onEdit,
-		onMiddleClick,
 		onSelect,
 		passages,
 		startPassageId,
@@ -97,12 +95,19 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 	}, [passages]);
 
 	// This is a separate memo so that there's less work when visibleZoom changes
-	// during a zoom transition.
+	// during a zoom transition. The max() expression ensures that dialogs will
+	// never overlap it--800px is the largest user-selectable dialog width (see
+	// dialogs/app-prefs.tsx), so we leave 200px padding around that. We hardcode
+	// it here instead of taking a prop mainly for simplicity's sake.
 
 	const style = React.useMemo(() => {
 		return {
-			height: `calc(${passageBounds.height}px + 50vh)`,
-			width: `calc(${passageBounds.width}px + 50vw)`,
+			height: `calc(${passageBounds.height}px + max(50vh, ${
+				1000 / visibleZoom
+			}px))`,
+			width: `calc(${passageBounds.width}px + max(50vw, ${
+				1000 / visibleZoom
+			}px))`,
 			transform: `scale(${visibleZoom})`
 		};
 	}, [passageBounds.height, passageBounds.width, visibleZoom]);
@@ -174,38 +179,12 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 		},
 		[onSelect, state.dragging]
 	);
-	const handleMouseUp = React.useCallback(
-		(event: React.MouseEvent) => {
-			// Listen for middle clicks outside of interactible elements. We can't use
-			// onClick for this because middle buttons don't seem to generate those
-			// events.
-
-			if (
-				!container.current ||
-				event.button !== 1 ||
-				(event.target as HTMLElement).closest('.passage-card')
-			) {
-				return;
-			}
-
-			// Adjust the click position for the container's position onscreen.
-
-			const containerRect = container.current.getBoundingClientRect();
-
-			onMiddleClick({
-				left: event.clientX - containerRect.left,
-				top: event.clientY - containerRect.top
-			});
-		},
-		[onMiddleClick]
-	);
 
 	return (
 		<div
 			className={classnames('passage-map', {
 				'compact-passage-cards': compactCards
 			})}
-			onMouseUp={handleMouseUp}
 			ref={container}
 			style={style}
 		>

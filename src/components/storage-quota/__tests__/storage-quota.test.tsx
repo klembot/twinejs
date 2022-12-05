@@ -1,4 +1,4 @@
-import {act, cleanup, render, screen, waitFor} from '@testing-library/react';
+import {cleanup, render, screen, waitFor} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
 import {isElectronRenderer} from '../../../util/is-electron';

@@ -36,6 +36,7 @@ export const StoryStylesheetDialog: React.FC<StoryStylesheetDialogProps> = props
 			{...other}
 			className="story-stylesheet-dialog"
 			headerLabel={t('dialogs.storyStylesheet.title')}
+			maximizable
 		>
 			<ButtonBar>
 				<UndoRedoButtons editor={cmEditor} watch={story.script} />

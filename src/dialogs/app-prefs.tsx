@@ -44,6 +44,19 @@ export const AppPrefsDialog: React.FC<
 				>
 					{t('dialogs.appPrefs.theme')}
 				</TextSelect>
+				<TextSelect
+					onChange={e =>
+						dispatch(setPref('dialogWidth', parseInt(e.target.value)))
+					}
+					options={[
+						{label: t('dialogs.appPrefs.dialogWidths.default'), value: '600'},
+						{label: t('dialogs.appPrefs.dialogWidths.wider'), value: '700'},
+						{label: t('dialogs.appPrefs.dialogWidths.widest'), value: '800'}
+					]}
+					value={prefs.dialogWidth.toString()}
+				>
+					{t('dialogs.appPrefs.dialogWidth')}
+				</TextSelect>
 				<CheckboxButton
 					label={t('dialogs.appPrefs.editorCursorBlinks')}
 					onChange={value => dispatch(setPref('editorCursorBlinks', value))}

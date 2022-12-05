@@ -26,6 +26,7 @@
 		"editCount": "Edit ({{count}})",
 		"help": "Help",
 		"import": "Import",
+		"maximize": "Maximize",
 		"more": "More",
 		"new": "New",
 		"next": "Next",
@@ -48,6 +49,7 @@
 		"twine": "Twine",
 		"undo": "Undo",
 		"undoChange": "Undo {{change}}",
+		"unmaximize": "Restore Size",
 		"view": "View"
 	},
 	"components": {
@@ -88,6 +90,10 @@
 		"passageCard": {
 			"placeholderClick": "Double-click this passage to edit it.",
 			"placeholderTouch": "Tap this passage, then choose Edit from the Passage tab to edit it."
+		},
+		"passageFuzzyFinder": {
+			"noResults": "No matches.",
+			"prompt": "Search by passage name or text"
 		},
 		"renamePassageButton": {
 			"emptyName": "Please enter a name.",
@@ -155,6 +161,12 @@
 		"appPrefs": {
 			"codeEditorFont": "Code Editor Font",
 			"codeEditorFontScale": "Code Editor Font Size",
+			"dialogWidth": "Dialog Width",
+			"dialogWidths": {
+				"default": "Default",
+				"wider": "Wider",
+				"widest": "Widest"
+			},
 			"editorCursorBlinks": "Blinking Cursor in Editors",
 			"fontExplanation": "Changing the font here only affects the Twine editor. It will not change the font a story uses when played.",
 			"language": "Language",
@@ -183,7 +195,7 @@
 		},
 		"storyImport": {
 			"deselectAll": "Deselect All",
-			"filePrompt": "To import stories into Twine, upload either an archive or published story file below.",
+			"filePrompt": "To import stories into Twine, upload an archive, published story, or Twee source file below.",
 			"importDifferentFile": "Import a Different File",
 			"importSelected": "Import Selected Files",
 			"importThisStory": "Import This Story",
@@ -270,6 +282,7 @@
 		"storyEdit": {
 			"toolbar": {
 				"findAndReplace": "Find and Replace",
+				"goTo": "Go To",
 				"javaScript": "JavaScript",
 				"passageTags": "Passage Tags",
 				"snapToGrid": "Snap to Grid",
@@ -304,7 +317,7 @@
 				"addStoryFormatButton": {
 					"addPreview": "{{storyFormatName}} {{storyFormatVersion}} will be added.",
 					"alreadyAdded": "{{storyFormatName}} {{storyFormatVersion}} has already been added.",
-					"fetchError": "The story format at this address could not be retrieved ({errorMessage}).",
+					"fetchError": "The story format at this address could not be retrieved ({{errorMessage}}).",
 					"invalidUrl": "Please enter a valid URL.",
 					"prompt": "To add a story format, enter its address below."
 				},
@@ -369,6 +382,7 @@
 			"storyFormats": "Story Formats"
 		},
 		"build": {
+			"exportAsTwee": "Export As Twee",
 			"play": "Play",
 			"proof": "Proof",
 			"publishToFile": "Publish to File",

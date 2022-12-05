@@ -1,4 +1,4 @@
-import {act, fireEvent, render, screen} from '@testing-library/react';
+import {act, render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
 import {axe} from 'jest-axe';
 import * as React from 'react';
@@ -96,26 +96,6 @@ describe('<StoryEditRoute>', () => {
 				'routes.storyEdit.zoomButtons.passageNamesAndExcerpts'
 			)
 		).toBeInTheDocument();
-	});
-
-	it('creates a passage if the passage map is middle-clicked', async () => {
-		const story = fakeStory(1);
-
-		story.zoom = 0.5;
-		await renderComponent(story);
-		expect(screen.getAllByTestId(/^passage-/).length).toBe(1);
-		fireEvent.click(screen.getByText('onMiddleClick'));
-
-		const passages = screen.getAllByTestId(/^passage-/);
-
-		expect(passages.length).toBe(2);
-		expect(passages[1].dataset.left).toBe('250');
-		expect(passages[1].dataset.top).toBe('550');
-	});
-
-	it('creates a passage automatically if the story has none', async () => {
-		await renderComponent(fakeStory(0));
-		expect(screen.getAllByTestId(/^passage-/).length).toBe(1);
 	});
 
 	it('sets up zoom keyboard shortcuts', async () => {

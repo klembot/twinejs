@@ -18,6 +18,7 @@ const TestPassageActions: React.FC<Partial<PassageActionsProps>> = props => {
 	return (
 		<PassageActions
 			getCenter={() => ({left: 0, top: 0})}
+			onOpenFuzzyFinder={jest.fn()}
 			story={stories[0]}
 			{...props}
 		/>
@@ -79,6 +80,13 @@ describe('<PassageActions>', () => {
 		await renderComponent();
 		expect(
 			screen.getByText('routes.storyEdit.toolbar.startStoryHere')
+		).toBeInTheDocument();
+	});
+
+	it('displays a go to passage button', async () => {
+		await renderComponent();
+		expect(
+			screen.getByText('routes.storyEdit.toolbar.goTo')
 		).toBeInTheDocument();
 	});
 

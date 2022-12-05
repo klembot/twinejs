@@ -19,6 +19,8 @@ const TestStoryJavaScriptDialog = () => {
 		<StoryJavaScriptDialog
 			collapsed={false}
 			onChangeCollapsed={jest.fn()}
+			onChangeHighlighted={jest.fn()}
+			onChangeMaximized={jest.fn()}
 			onClose={jest.fn()}
 			storyId={stories[0].id}
 		/>
@@ -34,6 +36,11 @@ describe('<StoryJavaScriptDialog>', () => {
 			</FakeStateProvider>
 		);
 	}
+
+	it('displays a dialog that can be maximized', () => {
+		renderComponent();
+		expect(screen.getByLabelText('common.maximize')).toBeInTheDocument();
+	});
 
 	it("displays the story's JavaScript", () => {
 		const story = fakeStory();

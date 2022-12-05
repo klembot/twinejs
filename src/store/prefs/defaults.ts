@@ -4,6 +4,7 @@ export const defaults = (): PrefsState => ({
 	appTheme: 'system',
 	codeEditorFontFamily: 'var(--font-monospaced)',
 	codeEditorFontScale: 1,
+	dialogWidth: 600,
 	disabledStoryFormatEditorExtensions: [],
 	donateShown: false,
 	editorCursorBlinks: true,
@@ -24,7 +25,7 @@ export const defaults = (): PrefsState => ({
 	},
 	storyFormat: {
 		name: 'Harlowe',
-		version: '3.3.1'
+		version: '3.3.3'
 	},
 	storyFormatListFilter: 'current',
 	storyListSort: 'name',
