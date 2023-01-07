@@ -1,0 +1,29 @@
+@import '../../../styles/animations.css';
+@import '../../../styles/metrics.css';
+
+.dialog-stack {
+	height: 100%;
+	position: relative;
+	width: 100%;
+}
+
+/* See comments in dialog-stack.tsx for why we have two containers. */
+
+.dialog-stack .dialog-transform-setter {
+	height: 100%;
+	transition: transform 0.2s;
+}
+
+.dialog-stack.no-transform-transitions .dialog-transform-setter {
+	transition: none;
+}
+
+.dialog-stack .dialog-height-setter {
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+
+.dialog-stack .dialog-height-setter.rising {
+	animation: 0.2s mini-pop-in;
+}

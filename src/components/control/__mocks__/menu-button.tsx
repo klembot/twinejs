@@ -5,9 +5,13 @@ import {MenuButtonProps} from '../menu-button';
 import {IconEmpty} from '../../image/icon';
 import {CheckboxButton} from '../checkbox-button';
 
-export const MenuButton: React.FC<MenuButtonProps> = ({items, label}) => {
+export const MenuButton: React.FC<MenuButtonProps> = ({
+	disabled,
+	items,
+	label
+}) => {
 	return (
-		<div data-testid={`mock-menu-button-${label}`}>
+		<div data-testid={`mock-menu-button-${label}`} data-disabled={disabled}>
 			{items.map((item, index) => {
 				if (item.separator) {
 					return <ButtonBarSeparator key={index} />;

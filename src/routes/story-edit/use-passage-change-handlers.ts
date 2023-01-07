@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {PassageEditDialog, useDialogsContext} from '../../dialogs';
+import {addPassageEditors, useDialogsContext} from '../../dialogs';
 import {
 	deselectPassage,
 	movePassages,
@@ -55,11 +55,7 @@ export function usePassageChangeHandlers(story: Story) {
 
 	const handleEditPassage = React.useCallback(
 		(passage: Passage) =>
-			dialogsDispatch({
-				type: 'addDialog',
-				component: PassageEditDialog,
-				props: {passageId: passage.id, storyId: story.id}
-			}),
+			dialogsDispatch(addPassageEditors(story.id, [passage.id])),
 		[dialogsDispatch, story.id]
 	);
 

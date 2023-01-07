@@ -8,22 +8,31 @@ import {
 	fakeStory,
 	StoryInspector
 } from '../../../test-util';
-import {TagToolbar} from '../tag-toolbar';
+import {TagToolbar, TagToolbarProps} from '../tag-toolbar';
 
 jest.mock('../../../components/tag/add-tag-button');
 jest.mock('../../../components/tag/tag-button');
 
-const TestTagToolbar: React.FC = () => {
+const TestTagToolbar: React.FC<Partial<TagToolbarProps>> = props => {
 	const {stories} = useStoriesContext();
 
-	return <TagToolbar passage={stories[0].passages[0]} story={stories[0]} />;
+	return (
+		<TagToolbar
+			passage={stories[0].passages[0]}
+			story={stories[0]}
+			{...props}
+		/>
+	);
 };
 
 describe('<TagToolbar>', () => {
-	function renderComponent(context?: Partial<FakeStateProviderProps>) {
+	function renderComponent(
+		props?: Partial<TagToolbarProps>,
+		context?: Partial<FakeStateProviderProps>
+	) {
 		return render(
 			<FakeStateProvider {...context}>
-				<TestTagToolbar />
+				<TestTagToolbar {...props} />
 				<StoryInspector />
 			</FakeStateProvider>
 		);
@@ -33,7 +42,7 @@ describe('<TagToolbar>', () => {
 		const story = fakeStory(1);
 
 		story.passages[0].tags = ['mock-tag', 'mock-tag2'];
-		renderComponent({stories: [story]});
+		renderComponent(undefined, {stories: [story]});
 		expect(screen.getByTestId('mock-tag-button-mock-tag')).toBeInTheDocument();
 		expect(screen.getByTestId('mock-tag-button-mock-tag2')).toBeInTheDocument();
 	});
@@ -43,7 +52,7 @@ describe('<TagToolbar>', () => {
 
 		story.passages[0].tags = ['mock-tag'];
 		story.tagColors = {'mock-tag': 'red'};
-		renderComponent({stories: [story]});
+		renderComponent(undefined, {stories: [story]});
 		fireEvent.click(
 			within(screen.getByTestId('mock-tag-button-mock-tag')).getByText(
 				'onChangeColor'
@@ -60,7 +69,7 @@ describe('<TagToolbar>', () => {
 		const story = fakeStory(1);
 
 		story.passages[0].tags = ['mock-tag'];
-		renderComponent({stories: [story]});
+		renderComponent(undefined, {stories: [story]});
 		expect(
 			screen.getByTestId(`passage-${story.passages[0].id}`).dataset.tags
 		).toBe('mock-tag');
@@ -72,6 +81,18 @@ describe('<TagToolbar>', () => {
 		expect(
 			screen.getByTestId(`passage-${story.passages[0].id}`).dataset.tags
 		).toBe('');
+	});
+
+	it('disables all buttons if the disabled prop is set', () => {
+		const story = fakeStory(1);
+
+		story.passages[0].tags = ['mock-tag'];
+		renderComponent({disabled: true}, {stories: [story]});
+		for (const button of screen.getAllByTestId('mock-tag-button', {
+			exact: false
+		})) {
+			expect(button.dataset.disabled).toBe('true');
+		}
 	});
 
 	it('is accessible', async () => {
