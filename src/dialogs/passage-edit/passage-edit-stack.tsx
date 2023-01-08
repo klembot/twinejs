@@ -30,11 +30,16 @@ const InnerPassageEditStack: React.FC<PassageEditStackProps> = props => {
 		passageId => passageWithId(stories, storyId, passageId).name
 	);
 
-	const collapsedStyle: React.CSSProperties = {
-		bottom: 0,
-		height: `calc(var(--control-height) * ${passageIds.length})`,
-		position: 'absolute'
-	};
+	const style: React.CSSProperties = {};
+
+	if (managementProps.collapsed) {
+		style.height = `calc(var(--control-height) * ${passageIds.length})`;
+
+		if (managementProps.maximized) {
+			style.bottom = 0;
+			style.position = 'absolute';
+		}
+	}
 
 	function handleClose(
 		passageId: string,
@@ -52,7 +57,7 @@ const InnerPassageEditStack: React.FC<PassageEditStackProps> = props => {
 			className={classNames('passage-edit-stack', {
 				collapsed: managementProps.collapsed
 			})}
-			style={managementProps.collapsed ? collapsedStyle : undefined}
+			style={style}
 		>
 			<DialogStack childKeys={passageIds}>
 				{passageIds.map((passageId, index) => {
