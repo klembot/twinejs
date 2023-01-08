@@ -20,6 +20,7 @@ export const locales = [
 	{code: 'ru', name: 'русский'},
 	{code: 'sv', name: 'Svenska'},
 	{code: 'tr', name: 'Türkçe'},
+	{code: 'uk', name: 'Українська'},
 	{code: 'zh-cn', name: '中文(简体)'}
 ];
 

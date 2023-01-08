@@ -1,6 +1,7 @@
 import {renderHook} from '@testing-library/react-hooks';
 import {random} from 'faker';
-import {DialogsContext, DialogsContextProvider} from '../../../dialogs';
+import * as React from 'react';
+import {DialogsContext} from '../../../dialogs';
 import {Story} from '../../../store/stories';
 import {FakeStateProvider, fakeStory} from '../../../test-util';
 import {useViewCenter} from '../use-view-center';
@@ -27,8 +28,10 @@ describe('useViewCenter', () => {
 	});
 
 	describe('the getCenter() function it returns', () => {
-		it('returns the center of a DOM element, adjusted for the story zoom', () => {
-			const {result} = renderHook(() => useViewCenter(story, el as any));
+		it('returns the center of a DOM element ref, adjusted for the story zoom', () => {
+			const {result} = renderHook(() =>
+				useViewCenter(story, {current: el as any})
+			);
 
 			expect(result.current.getCenter()).toEqual({
 				left: (el.scrollLeft + el.clientWidth / 2) / story.zoom,
@@ -36,16 +39,18 @@ describe('useViewCenter', () => {
 			});
 		});
 
-		it('throws an error if the DOM element passed is null', () => {
-			const {result} = renderHook(() => useViewCenter(story, null));
+		it('throws an error if the element ref is currently null', () => {
+			const {result} = renderHook(() => useViewCenter(story, {current: null}));
 
 			expect(result.current.getCenter).toThrow();
 		});
 	});
 
 	describe('the setCenter() function it returns', () => {
-		it('scrolls the element to center a position, adjusted for the story zoom', () => {
-			const {result} = renderHook(() => useViewCenter(story, el as any));
+		it('scrolls the element ref to center a position, adjusted for the story zoom', () => {
+			const {result} = renderHook(() =>
+				useViewCenter(story, {current: el as any})
+			);
 			const left = random.number();
 			const top = random.number();
 
@@ -62,27 +67,30 @@ describe('useViewCenter', () => {
 
 		it('adjusts the center if dialogs are open', () => {
 			const dialogWidth = random.number();
-			const {result} = renderHook(() => useViewCenter(story, el as any), {
-				wrapper: ({children}) => (
-					<FakeStateProvider prefs={{dialogWidth}}>
-						<DialogsContext.Provider
-							value={{
-								dispatch: jest.fn(),
-								dialogs: [
-									{
-										collapsed: false,
-										component: () => null,
-										highlighted: false,
-										maximized: false
-									}
-								]
-							}}
-						>
-							{children}
-						</DialogsContext.Provider>
-					</FakeStateProvider>
-				)
-			});
+			const {result} = renderHook(
+				() => useViewCenter(story, {current: el as any}),
+				{
+					wrapper: ({children}) => (
+						<FakeStateProvider prefs={{dialogWidth}}>
+							<DialogsContext.Provider
+								value={{
+									dispatch: jest.fn(),
+									dialogs: [
+										{
+											collapsed: false,
+											component: () => null,
+											highlighted: false,
+											maximized: false
+										}
+									]
+								}}
+							>
+								{children}
+							</DialogsContext.Provider>
+						</FakeStateProvider>
+					)
+				}
+			);
 			const left = random.number();
 			const top = random.number();
 
@@ -97,8 +105,8 @@ describe('useViewCenter', () => {
 			]);
 		});
 
-		it('throws an error if the element is null', () => {
-			const {result} = renderHook(() => useViewCenter(story, null));
+		it('throws an error if the element ref is currently null', () => {
+			const {result} = renderHook(() => useViewCenter(story, {current: null}));
 
 			expect(result.current.setCenter).toThrow();
 		});

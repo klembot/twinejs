@@ -10,13 +10,14 @@ import {MenuButton} from '../../components/control/menu-button';
 import './story-format-toolbar.css';
 
 export interface StoryFormatToolbarProps {
+	disabled?: boolean;
 	editor?: CodeMirror.Editor;
 	onExecCommand: (name: string) => void;
 	storyFormat: StoryFormat;
 }
 
 export const StoryFormatToolbar: React.FC<StoryFormatToolbarProps> = props => {
-	const {editor, onExecCommand, storyFormat} = props;
+	const {disabled, editor, onExecCommand, storyFormat} = props;
 	const containerRef = React.useRef<HTMLDivElement>(null);
 	const appTheme = useComputedTheme();
 	const {prefs} = usePrefsContext();
@@ -89,7 +90,7 @@ export const StoryFormatToolbar: React.FC<StoryFormatToolbarProps> = props => {
 						case 'button':
 							return (
 								<IconButton
-									disabled={item.disabled}
+									disabled={disabled || item.disabled}
 									icon={<img src={item.icon} alt="" />}
 									iconOnly={item.iconOnly}
 									key={index}
@@ -101,7 +102,7 @@ export const StoryFormatToolbar: React.FC<StoryFormatToolbarProps> = props => {
 						case 'menu': {
 							return (
 								<MenuButton
-									disabled={item.disabled}
+									disabled={disabled || item.disabled}
 									icon={<img src={item.icon} alt="" />}
 									iconOnly={item.iconOnly}
 									items={item.items

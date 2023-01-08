@@ -26,8 +26,13 @@
 	min-width: 0;
 }
 
+.dialog-card h2 .dialog-card-header-controls {
+	flex-shrink: 1;
+}
+
 .dialog-card h2 .dialog-card-header .icon-button {
-	display: block;
+	display: flex;
+	font-size: 1rem;
 	font-weight: bold;
 	overflow: hidden;
 	text-align: left;
@@ -35,6 +40,15 @@
 	white-space: nowrap;
 	max-width: 100%;
 	width: 100%;
+}
+
+.dialog-card.background h2 .dialog-card-header .icon-button {
+	font-size: 0.9rem;
+	font-weight: normal;
+}
+
+.dialog-card.background h2 .dialog-card-header .icon-button svg {
+	display: none;
 }
 
 .dialog-card .card-body {

@@ -1,1 +1,1 @@
-export * from './passage-edit';
+export * from './passage-edit-stack';

@@ -1,6 +1,9 @@
 import {DialogCardProps} from '../components/container/dialog-card';
 
-export type DialogComponentProps = Omit<DialogCardProps, 'headerLabel'>;
+export interface DialogComponentProps
+	extends Omit<DialogCardProps, 'headerLabel'> {
+	onChangeProps: (props: Record<string, any>) => void;
+}
 
 export interface Dialog {
 	/**
@@ -39,4 +42,5 @@ export type DialogsAction =
 	| {type: 'removeDialog'; index: number}
 	| {type: 'setDialogCollapsed'; collapsed: boolean; index: number}
 	| {type: 'setDialogHighlighted'; highlighted: boolean; index: number}
-	| {type: 'setDialogMaximized'; maximized: boolean; index: number};
+	| {type: 'setDialogMaximized'; maximized: boolean; index: number}
+	| {type: 'setDialogProps'; index: number; props: Record<string, any>};

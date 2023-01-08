@@ -10,9 +10,9 @@ text you enter will be rendered by the story format when your story is played.
 For instance, you might enter code into your passage to set variables or
 conditionally display some text.
 
-The font and size of the text can be customized in [Twine's preferences](../preferences).
-This doesn't change what the passage looks like when played; it just lets you
-make the text editor more comfortable to use.
+The font and size of the text can be customized in [Twine's
+preferences](../preferences). This doesn't change what the passage looks like
+when played; it just lets you make the text editor more comfortable to use.
 
 Story formats can extend Twine to add syntax formatting to the passage text
 editor. For example, links might appear in a blue color. You'll need to consult
@@ -23,13 +23,29 @@ extensions](../story-formats/extensions.md).
 Twine automatically saves your changes to a passage after you stop typing for a
 moment.
 
+## Editing Multiple Passages
+
+If you edit a passage while another is open for editing, the new edit dialog
+will appear on top of the existing one. Twine will keep up to five passage edit
+dialogs open below the most recent one. If you open more than that, Twine will
+close the oldest passage edit dialog for you.
+
+Click or tap a passage edit dialog in the background to bring it to the front,
+or select the close button in the dialog to close it.
+
+If you have more than three passage edit dialogs open, Twine will overlap the
+oldest to save screen space. Point or tap on the overlapped dialogs to reveal
+them, and move your mouse away or tap elsewhere to restore them to their
+previous state.
+
 ## Automatically-Created Links
 
 As you enter text in a passage, Twine will detect when you've added new links.
 If the destination passage doesn't already exist, it will create an empty
 passage for you. Deleting the link will delete this empty passage.
 
-Twine won't delete an empty passage while editing if any of the criteria below are true:
+Twine won't delete an empty passage while editing if any of the criteria below
+are true:
 
 - It is linked to from another passage
 - It has any tags

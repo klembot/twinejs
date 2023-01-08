@@ -3,7 +3,7 @@ import {Story, useStoriesContext} from '../../../store/stories';
 import {fakeStory, FakeStateProvider, StoryInspector} from '../../../test-util';
 import {usePassageChangeHandlers} from '../use-passage-change-handlers';
 
-jest.mock('../../../dialogs/passage-edit/passage-edit');
+jest.mock('../../../dialogs/passage-edit/passage-edit-stack');
 
 function TestComponent() {
 	const {stories} = useStoriesContext();
@@ -130,10 +130,12 @@ describe('usePassageChangeHandlers', () => {
 		renderHook(story);
 		fireEvent.click(screen.getByText('handleEditPassage'));
 
-		const editDialog = screen.getByTestId('mock-passage-edit-dialog');
+		const editDialog = screen.getByTestId('mock-passage-edit-stack');
 
 		expect(editDialog).toBeInTheDocument();
-		expect(editDialog.dataset.passageId).toBe(story.passages[0].id);
+		expect(editDialog.dataset.passageIds).toBe(
+			JSON.stringify([story.passages[0].id])
+		);
 	});
 
 	describe('The handleSelectPassage function it returns', () => {
