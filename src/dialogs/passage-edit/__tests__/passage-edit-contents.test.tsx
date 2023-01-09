@@ -10,25 +10,24 @@ import {
 	fakeUnloadedStoryFormat,
 	StoryInspector
 } from '../../../test-util';
-import {PassageEditDialog, PassageEditDialogProps} from '../passage-edit';
+import {
+	PassageEditContents,
+	PassageEditContentsProps
+} from '../passage-edit-contents';
 
 jest.mock('../passage-toolbar');
 jest.mock('../passage-text');
 jest.mock('../story-format-toolbar');
 jest.mock('../tag-toolbar');
 
-const TestPassageEditDialog: React.FC<
-	Partial<PassageEditDialogProps>
+const TestPassageEditContents: React.FC<
+	Partial<PassageEditContentsProps>
 > = props => {
 	const {stories} = useStoriesContext();
 
 	return (
-		<div data-testid="passage-edit-dialog">
-			<PassageEditDialog
-				collapsed={false}
-				onChangeCollapsed={jest.fn()}
-				onChangeMaximized={jest.fn()}
-				onClose={jest.fn()}
+		<div data-testid="passage-edit-contents">
+			<PassageEditContents
 				passageId={stories[0].passages[0].id}
 				storyId={stories[0].id}
 				{...props}
@@ -37,39 +36,21 @@ const TestPassageEditDialog: React.FC<
 	);
 };
 
-describe('<PassageEditDialog>', () => {
+describe('<PassageEditContents>', () => {
 	function renderComponent(
 		context?: FakeStateProviderProps,
-		props?: Partial<PassageEditDialogProps>
+		props?: Partial<PassageEditContentsProps>
 	) {
-		const onClose = jest.fn();
-
-		return {
-			onClose,
-			...render(
-				<FakeStateProvider {...context}>
-					<TestPassageEditDialog {...props} onClose={onClose} />
-					<StoryInspector />
-				</FakeStateProvider>
-			)
-		};
+		return render(
+			<FakeStateProvider {...context}>
+				<TestPassageEditContents {...props} />
+				<StoryInspector />
+			</FakeStateProvider>
+		);
 	}
 
 	describe('when the passage exists in state', () => {
 		describe('when no errors have occurred', () => {
-			it('uses the passage name as dialog name', async () => {
-				const story = fakeStory(1);
-				const format = fakeUnloadedStoryFormat({
-					name: story.storyFormat,
-					version: story.storyFormatVersion
-				});
-
-				renderComponent({stories: [story], storyFormats: [format]});
-				expect(screen.getByRole('heading')).toHaveTextContent(
-					story.passages[0].name
-				);
-			});
-
 			it('displays a passage text editor', async () => {
 				const story = fakeStory(1);
 				const format = fakeUnloadedStoryFormat({
@@ -81,11 +62,6 @@ describe('<PassageEditDialog>', () => {
 				expect(
 					screen.getByTestId(`mock-passage-text-${story.passages[0].id}`)
 				).toBeInTheDocument();
-			});
-
-			it('displays a dialog that can be maximized', () => {
-				renderComponent();
-				expect(screen.getByLabelText('common.maximize')).toBeInTheDocument();
 			});
 
 			it('updates the passage text when the user edits it', () => {
@@ -205,21 +181,15 @@ describe('<PassageEditDialog>', () => {
 	});
 
 	describe('when the passage does not exist in state', () => {
-		it('renders nothing', () => {
+		it('throws an error', () => {
+			const errorSpy = jest.spyOn(console, 'error').mockReturnValue();
+
 			const story = fakeStory(1);
 
-			renderComponent({stories: [story]}, {passageId: 'nonexistent'});
-			expect(screen.getByTestId('passage-edit-dialog')).toHaveTextContent('');
-		});
-
-		it('calls the onClose prop', () => {
-			const story = fakeStory(1);
-			const {onClose} = renderComponent(
-				{stories: [story]},
-				{passageId: 'nonexistent'}
-			);
-
-			expect(onClose).toHaveBeenCalledTimes(1);
+			expect(() =>
+				renderComponent({stories: [story]}, {passageId: 'nonexistent'})
+			).toThrow();
+			errorSpy.mockReset();
 		});
 	});
 });

@@ -8,6 +8,7 @@ import './tag-button.css';
 
 export interface TagButtonProps {
 	color?: Color;
+	disabled?: boolean;
 	name: string;
 	onChangeColor: (color: Color) => void;
 	onRemove: () => void;
@@ -19,6 +20,7 @@ export const TagButton: React.FC<TagButtonProps> = props => {
 	return (
 		<span className={classNames('tag-button', `color-${props.color}`)}>
 			<MenuButton
+				disabled={props.disabled}
 				icon={<IconChevronDown />}
 				iconPosition="end"
 				items={[

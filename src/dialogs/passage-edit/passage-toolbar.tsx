@@ -21,13 +21,14 @@ import {useUndoableStoriesContext} from '../../store/undoable-stories';
 import {Color} from '../../util/color';
 
 export interface PassageToolbarProps {
+	disabled?: boolean;
 	editor?: Editor;
 	passage: Passage;
 	story: Story;
 }
 
 export const PassageToolbar: React.FC<PassageToolbarProps> = props => {
-	const {editor, passage, story} = props;
+	const {disabled, editor, passage, story} = props;
 	const {dispatch, stories} = useUndoableStoriesContext();
 	const {t} = useTranslation();
 	const isStart = story.startPassage === passage.id;
@@ -68,13 +69,19 @@ export const PassageToolbar: React.FC<PassageToolbarProps> = props => {
 
 	return (
 		<ButtonBar>
-			<UndoRedoButtons editor={editor} watch={passage.text} />
+			<UndoRedoButtons
+				disabled={disabled}
+				editor={editor}
+				watch={passage.text}
+			/>
 			<AddTagButton
+				disabled={disabled}
 				assignedTags={passage.tags}
 				existingTags={storyPassageTags(story)}
 				onAdd={handleAddTag}
 			/>
 			<MenuButton
+				disabled={disabled}
 				icon={<IconResize />}
 				items={[
 					{
@@ -105,12 +112,13 @@ export const PassageToolbar: React.FC<PassageToolbarProps> = props => {
 				label={t('dialogs.passageEdit.size')}
 			/>
 			<RenamePassageButton
+				disabled={disabled}
 				onRename={handleRename}
 				passage={passage}
 				story={story}
 			/>
 			<CheckboxButton
-				disabled={isStart}
+				disabled={disabled || isStart}
 				label={t('dialogs.passageEdit.setAsStart')}
 				onChange={handleSetAsStart}
 				value={isStart}

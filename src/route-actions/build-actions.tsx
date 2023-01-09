@@ -1,5 +1,5 @@
 import {
-	IconEye,
+	IconEyeglass,
 	IconFileText,
 	IconPlayerPlay,
 	IconTool,
@@ -11,11 +11,13 @@ import {ButtonBar} from '../components/container/button-bar';
 import {CardContent} from '../components/container/card';
 import {CardButton} from '../components/control/card-button';
 import {IconButton} from '../components/control/icon-button';
+import {IconFileTwee} from '../components/image/icon';
 import {storyFileName} from '../electron/shared';
 import {Story} from '../store/stories';
 import {usePublishing} from '../store/use-publishing';
 import {useStoryLaunch} from '../store/use-story-launch';
-import {saveHtml} from '../util/save-html';
+import {saveHtml, saveTwee} from '../util/save-file';
+import {storyToTwee} from '../util/twee';
 
 export interface BuildActionsProps {
 	story?: Story;
@@ -93,6 +95,14 @@ export const BuildActions: React.FC<BuildActionsProps> = ({story}) => {
 		}
 	}
 
+	function handleExportAsTwee() {
+		if (!story) {
+			throw new Error('No story provided to export');
+		}
+
+		saveTwee(storyToTwee(story), storyFileName(story, '.twee'));
+	}
+
 	return (
 		<ButtonBar>
 			<CardButton
@@ -136,7 +146,7 @@ export const BuildActions: React.FC<BuildActionsProps> = ({story}) => {
 			<CardButton
 				ariaLabel={proofError?.message ?? ''}
 				disabled={!story}
-				icon={<IconEye />}
+				icon={<IconEyeglass />}
 				label={t('routeActions.build.proof')}
 				onChangeOpen={() => setProofError(undefined)}
 				onClick={handleProof}
@@ -171,6 +181,12 @@ export const BuildActions: React.FC<BuildActionsProps> = ({story}) => {
 					/>
 				</CardContent>
 			</CardButton>
+			<IconButton
+				disabled={!story}
+				icon={<IconFileTwee />}
+				label={t('routeActions.build.exportAsTwee')}
+				onClick={handleExportAsTwee}
+			/>
 		</ButtonBar>
 	);
 };

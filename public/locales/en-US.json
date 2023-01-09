@@ -91,6 +91,10 @@
 			"placeholderClick": "Double-click this passage to edit it.",
 			"placeholderTouch": "Tap this passage, then choose Edit from the Passage tab to edit it."
 		},
+		"passageFuzzyFinder": {
+			"noResults": "No matches.",
+			"prompt": "Search by passage name or text"
+		},
 		"renamePassageButton": {
 			"emptyName": "Please enter a name.",
 			"nameAlreadyUsed": "Another passage in this story has this name."
@@ -191,7 +195,7 @@
 		},
 		"storyImport": {
 			"deselectAll": "Deselect All",
-			"filePrompt": "To import stories into Twine, upload either an archive or published story file below.",
+			"filePrompt": "To import stories into Twine, upload an archive, published story, or Twee source file below.",
 			"importDifferentFile": "Import a Different File",
 			"importSelected": "Import Selected Files",
 			"importThisStory": "Import This Story",
@@ -278,6 +282,7 @@
 		"storyEdit": {
 			"toolbar": {
 				"findAndReplace": "Find and Replace",
+				"goTo": "Go To",
 				"javaScript": "JavaScript",
 				"passageTags": "Passage Tags",
 				"snapToGrid": "Snap to Grid",
@@ -377,6 +382,7 @@
 			"storyFormats": "Story Formats"
 		},
 		"build": {
+			"exportAsTwee": "Export As Twee",
 			"play": "Play",
 			"proof": "Proof",
 			"publishToFile": "Publish to File",

@@ -1,10 +1,6 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import useErrorBoundary from 'use-error-boundary';
-import {
-	DialogCard,
-	DialogCardProps
-} from '../../components/container/dialog-card';
 import {ErrorMessage} from '../../components/error';
 import {passageWithId, storyWithId, updatePassage} from '../../store/stories';
 import {
@@ -12,22 +8,22 @@ import {
 	useStoryFormatsContext
 } from '../../store/story-formats';
 import {useUndoableStoriesContext} from '../../store/undoable-stories';
-import './passage-edit.css';
 import {PassageText} from './passage-text';
 import {PassageToolbar} from './passage-toolbar';
 import {StoryFormatToolbar} from './story-format-toolbar';
 import {TagToolbar} from './tag-toolbar';
+import './passage-edit-contents.css';
 
-export interface PassageEditDialogProps
-	extends Omit<DialogCardProps, 'headerLabel'> {
+export interface PassageEditContentsProps {
+	disabled?: boolean;
 	passageId: string;
 	storyId: string;
 }
 
-export const InnerPassageEditDialog: React.FC<
-	PassageEditDialogProps
+export const PassageEditContents: React.FC<
+	PassageEditContentsProps
 > = props => {
-	const {passageId, storyId, ...other} = props;
+	const {disabled, passageId, storyId} = props;
 	const [storyFormatExtensionsEnabled, setStoryFormatExtensionsEnabled] =
 		React.useState(true);
 	const [editorCrashed, setEditorCrashed] = React.useState(false);
@@ -86,54 +82,40 @@ export const InnerPassageEditDialog: React.FC<
 		Promise.resolve().then(() => cmEditor.setSelections(selections));
 	}
 
-	return (
-		<DialogCard
-			{...other}
-			className="passage-edit-dialog"
-			headerLabel={passage.name}
-			maximizable
-		>
-			{editorCrashed ? (
-				<ErrorMessage>{t('dialogs.passageEdit.editorCrashed')}</ErrorMessage>
-			) : (
-				<>
-					<PassageToolbar editor={cmEditor} passage={passage} story={story} />
-					{storyFormatExtensionsEnabled && (
-						<StoryFormatToolbar
-							editor={cmEditor}
-							onExecCommand={handleExecCommand}
-							storyFormat={storyFormat}
-						/>
-					)}
-					<TagToolbar passage={passage} story={story} />
-					<ErrorBoundary>
-						<PassageText
-							onChange={handlePassageTextChange}
-							onEditorChange={setCmEditor}
-							passage={passage}
-							story={story}
-							storyFormat={storyFormat}
-							storyFormatExtensionsDisabled={!storyFormatExtensionsEnabled}
-						/>
-					</ErrorBoundary>
-				</>
-			)}
-		</DialogCard>
-	);
-};
-
-export const PassageEditDialog: React.FC<PassageEditDialogProps> = props => {
-	// Check for the existence of the passage. If it doesn't (e.g. it was deleted
-	// after the dialog was opened), render nothing and call onClose.
-
-	const {stories} = useUndoableStoriesContext();
-
-	try {
-		passageWithId(stories, props.storyId, props.passageId);
-	} catch (err) {
-		props.onClose();
-		return null;
+	if (editorCrashed) {
+		return (
+			<ErrorMessage>{t('dialogs.passageEdit.editorCrashed')}</ErrorMessage>
+		);
 	}
 
-	return <InnerPassageEditDialog {...props} />;
+	return (
+		<div className="passage-edit-contents" aria-hidden={disabled}>
+			<PassageToolbar
+				disabled={disabled}
+				editor={cmEditor}
+				passage={passage}
+				story={story}
+			/>
+			{storyFormatExtensionsEnabled && (
+				<StoryFormatToolbar
+					disabled={disabled}
+					editor={cmEditor}
+					onExecCommand={handleExecCommand}
+					storyFormat={storyFormat}
+				/>
+			)}
+			<TagToolbar disabled={disabled} passage={passage} story={story} />
+			<ErrorBoundary>
+				<PassageText
+					disabled={disabled}
+					onChange={handlePassageTextChange}
+					onEditorChange={setCmEditor}
+					passage={passage}
+					story={story}
+					storyFormat={storyFormat}
+					storyFormatExtensionsDisabled={!storyFormatExtensionsEnabled}
+				/>
+			</ErrorBoundary>
+		</div>
+	);
 };

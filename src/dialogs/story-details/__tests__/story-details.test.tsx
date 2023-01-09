@@ -39,6 +39,8 @@ describe('<StoryDetailsDialog>', () => {
 				<StoryDetailsDialog
 					collapsed={false}
 					onChangeCollapsed={jest.fn()}
+					onChangeHighlighted={jest.fn()}
+					onChangeMaximized={jest.fn()}
 					onClose={jest.fn()}
 					storyId={story.id}
 					{...props}

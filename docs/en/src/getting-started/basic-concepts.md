@@ -109,6 +109,16 @@ proofread your stories before you share it with a larger audience.
 Twine comes with one proofing format, called Paperthin, but others with more
 features exist in the Twine community.
 
+## Twee
+
+Twee is a plain-text format for Twine stories. Twee files are not playable by
+themselves, but are easier to edit and view in a text editor than the HTML files
+that Twine creates. The Twee format is [documented
+here](https://github.com/iftechfoundation/twine-specs/blob/master/twee-3-specification.md).
+
+You don't need to use Twee to build a story with Twine, but Twine can export
+stories to Twee format for use with other tools.
+
 [^start]: In Twine version 1, this passage had to be called "Start" (including
     the capital S). Current versions of Twine allow setting the start passage to
     any one in a story, regardless of name.

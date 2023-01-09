@@ -5,21 +5,21 @@ const isPreview =
 	/alpha|beta|pre/.test(pkg.version) || process.env.FORCE_PREVIEW;
 
 module.exports = {
-	afterSign(context) {
-		// This step is necessary to ad hoc sign the app. Otherwise, on Apple
-		// Silicon you get repeated prompts for file access.
-		//
-		// If/when we are able to sign the app for real, this must be removed.
-		//
-		// This was cribbed from https://github.com/alacritty/alacritty/issues/5840.
-
-		if (context.packager.platform.name === 'mac') {
-			console.log('Ad hoc signing Mac app...');
-			child_process.execSync(
-				'codesign --force --deep --sign - dist/electron/mac-universal/Twine.app'
-			);
-		}
-	},
+	// This step was necessary to ad hoc sign the app. Otherwise, on Apple Silicon
+	// you get repeated prompts for file access. This is commented out because we
+	// are able to sign the app thanks to the Interactive Fiction Technology
+	// Foundation, but originally figuring this problem out took forever, so the
+	// code below might be helpful to others making builds.
+	// The code below was cribbed from https://github.com/alacritty/alacritty/issues/5840.
+	//
+	// afterSign(context) {
+	// 	if (context.packager.platform.name === 'mac') {
+	// 		console.log('Ad hoc signing Mac app...');
+	// 		child_process.execSync(
+	// 			'codesign --force --deep --sign - dist/electron/mac-universal/Twine.app'
+	// 		);
+	// 	}
+	// },
 	directories: {
 		output: 'dist/electron'
 	},

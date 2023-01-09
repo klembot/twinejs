@@ -8,22 +8,23 @@ export const reducer: React.Reducer<DialogsState, DialogsAction> = (
 ) => {
 	switch (action.type) {
 		case 'addDialog':
-			// If the dialog has been previously added, expand it. Otherwise, add it
-			// to the end.
+			// If the dialog has been previously added, expand and/or highlight it.
+			// Otherwise, add it to the end.
 
 			let exists = false;
 			const editedState = state.map(stateDialog => {
 				if (
 					isEqual(stateDialog, {
-						// Ignore collapsed and maximized properties for comparison.
+						// Ignore collapsed, highlighted, and maximized properties for comparison.
 						collapsed: stateDialog.collapsed,
 						component: action.component,
+						highlighted: stateDialog.highlighted,
 						maximized: stateDialog.maximized,
 						props: action.props
 					})
 				) {
 					exists = true;
-					return {...stateDialog, collapsed: false};
+					return {...stateDialog, collapsed: false, highlighted: true};
 				}
 
 				return stateDialog;
@@ -38,6 +39,7 @@ export const reducer: React.Reducer<DialogsState, DialogsAction> = (
 				{
 					collapsed: false,
 					component: action.component,
+					highlighted: false,
 					maximized: false,
 					props: action.props
 				}
@@ -53,10 +55,23 @@ export const reducer: React.Reducer<DialogsState, DialogsAction> = (
 					: dialog
 			);
 
+		case 'setDialogHighlighted':
+			return state.map((dialog, index) =>
+				index === action.index
+					? {...dialog, highlighted: action.highlighted}
+					: dialog
+			);
+
 		case 'setDialogMaximized':
 			return state.map((dialog, index) => ({
 				...dialog,
 				maximized: index === action.index ? action.maximized : false
+			}));
+
+		case 'setDialogProps':
+			return state.map((dialog, index) => ({
+				...dialog,
+				props: index === action.index ? action.props : dialog.props
 			}));
 	}
 };

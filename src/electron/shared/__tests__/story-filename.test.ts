@@ -7,8 +7,11 @@ describe('storyFileName', () => {
 
 	beforeEach(() => (story = fakeStory()));
 
-	it('adds a .html file suffix', () =>
+	it('adds a .html file suffix by default', () =>
 		expect(storyFileName(story)).toBe(`${story.name}.html`));
+
+	it('uses the file suffix specified', () =>
+		expect(storyFileName(story, '.txt')).toBe(`${story.name}.txt`));
 
 	it('maintains the case of the story', () => {
 		expect(storyFileName({...story, name: story.name.toUpperCase()})).toBe(
