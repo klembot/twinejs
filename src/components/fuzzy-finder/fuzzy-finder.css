@@ -32,6 +32,10 @@
 	padding: 0;
 }
 
+.fuzzy-finder .results ol button {
+	width: 100%;
+}
+
 .fuzzy-finder .search + .results.has-results {
 	margin-top: calc(-1 * var(--control-inner-padding));
 } 
