@@ -29,7 +29,7 @@ export interface StorySearchDialogProps extends DialogComponentProps {
 }
 
 export const StorySearchDialog: React.FC<StorySearchDialogProps> = props => {
-	const {storyId, ...other} = props;
+	const {storyId, onClose, ...other} = props;
 	const [flags, setFlags] = React.useState<StorySearchFlags>({
 		includePassageNames: true,
 		matchCase: false,
@@ -37,22 +37,43 @@ export const StorySearchDialog: React.FC<StorySearchDialogProps> = props => {
 	});
 	const [replace, setReplace] = React.useState('');
 	const [find, setFind] = React.useState('');
-	const {dispatch, stories} = useUndoableStoriesContext();
-	const debouncedDispatch = React.useMemo(
-		() => debounce(dispatch, 250),
-		[dispatch]
+	const [debouncedFind, setDebouncedFind] = React.useState('');
+	const closingRef = React.useRef(false);
+	const updateDebouncedFind = React.useMemo(
+		() =>
+			debounce(
+				(value: string) => {
+					setDebouncedFind(value);
+				},
+				250,
+				{leading: false, trailing: true}
+			),
+		[]
 	);
+	const {dispatch, stories} = useUndoableStoriesContext();
 	const {t} = useTranslation();
-
 	const story = storyWithId(stories, storyId);
 	const matches = passagesMatchingSearch(story.passages, find, flags);
 
 	React.useEffect(() => {
-		debouncedDispatch(highlightPassagesMatchingSearch(story, find, flags));
+		// If we are in the process of closing, don't dispatch any highlight
+		// changes. We don't want to overwrite the dispatch that occurs in
+		// handleClose.
 
-		return () =>
-			debouncedDispatch(highlightPassagesMatchingSearch(story, '', {}));
-	}, [debouncedDispatch, find, flags, story]);
+		if (!closingRef.current) {
+			dispatch(highlightPassagesMatchingSearch(story, debouncedFind, flags));
+		}
+
+		// This doesn't return a cleanup function--cleanup occurs in handleClose
+		// instead. This is safe because we know this effect will only ever change
+		// highlight status of passages.
+	}, [debouncedFind, dispatch, flags, story]);
+
+	function handleClose() {
+		closingRef.current = true;
+		dispatch(highlightPassagesMatchingSearch(story, '', {}));
+		onClose();
+	}
 
 	function handleReplaceWithChange(
 		editor: CodeMirror.Editor,
@@ -68,6 +89,7 @@ export const StorySearchDialog: React.FC<StorySearchDialogProps> = props => {
 		text: string
 	) {
 		setFind(text);
+		updateDebouncedFind(text);
 	}
 
 	function handleReplace() {
@@ -87,6 +109,7 @@ export const StorySearchDialog: React.FC<StorySearchDialogProps> = props => {
 			className="story-search-dialog"
 			fixedSize
 			headerLabel={t('dialogs.storySearch.title')}
+			onClose={handleClose}
 		>
 			<div className="search-fields">
 				<CodeArea
