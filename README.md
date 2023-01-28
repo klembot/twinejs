@@ -37,11 +37,26 @@ you work, but if you want the app to read story files initially again, you will
 need to restart the process.
 
 To create a release, run `npm run build`. Finished files will be found under
-`dist/`. In order to build Windows apps on OS X or Linux, you will need to have
+`dist/`. In order to build Windows apps on macOS or Linux, you will need to have
 [Wine](https://www.winehq.org/) and [makensis](http://nsis.sourceforge.net/)
 installed. A file named `2.json` is created under `dist/` which contains
 information relevant to the autoupdater process, and is currently posted to
 https://twinery.org/latestversion/2.json.
+
+The build process looks for these environment variables when notarizing a macOS
+build:
+
+- `APPLE_APP_ID`: The app ID to use. The convention is `country.company.appname`.
+- `APPLE_ID`: User name of the Apple account to use for notarization.
+- `APPLE_ID_PASSWORD`: App-specific password for the Apple account to use for
+  notarization.
+
+If any of these environment variables are not set, the build process will skip
+notarizing. This means users will need to right-click the application and open
+it manually.
+
+You must have the full Xcode app installed to notarize the app, not just the
+Xcode command line tools.
 
 `npm test` will test the source code respectively.
 
