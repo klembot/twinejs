@@ -102,6 +102,18 @@ describe('passageFromTwee()', () => {
 		);
 	});
 
+	it('converts a passage with escaped leading spaces properly', () => {
+		expect(passageFromTwee(':: \\ leading space')).toEqual(
+			passageObject({name: ' leading space'})
+		);
+	});
+
+	it('converts a passage with trailing leading spaces properly', () => {
+		expect(passageFromTwee(':: trailing space\\ ')).toEqual(
+			passageObject({name: 'trailing space '})
+		);
+	});
+
 	it('converts a passage with escaped tags properly', () => {
 		const passage = fakePassage({tags: ['\\', '[]', '{}']});
 
