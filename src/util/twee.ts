@@ -50,10 +50,13 @@ export function passageToTwee(passage: Passage) {
 export function passageFromTwee(source: string): Omit<Passage, 'story'> {
 	const [headerLine, ...lines] = source.split(linebreakRegExp);
 
-	// The first line should be the header, with name, tags, and metadata.
-	// Roughly translating this regexp:
-	// ::, whitespace, name, whitespace, [tags]?, whitespace, {metadata}?, whitespace
-	const headerBits = /^::\s*(.*?)\s*(\[.*?\])?\s*(\{.*?\})?\s*$/.exec(
+	// The first line should be the header, with name, tags, and metadata. Name
+	// needs to capture a trailing `\ `. Repeated trailing spaces should get
+	// captured by the main group, since they include non-whitespace.
+	//
+	// Roughly translating this regexp: ::, whitespace, name, whitespace, [tags]?,
+	// whitespace, {metadata}?, whitespace
+	const headerBits = /^::\s*(.*?(?:\\\s)?)\s*(\[.*?\])?\s*(\{.*?\})?\s*$/.exec(
 		headerLine
 	);
 
@@ -72,7 +75,11 @@ export function passageFromTwee(source: string): Omit<Passage, 'story'> {
 	const passage: Omit<Passage, 'story'> = {
 		...passageDefaults(),
 		id: uuid(),
-		name: unescapeForTweeHeader(rawName.trim()),
+		name: unescapeForTweeHeader(
+			rawName
+				.replace(/^(\\\s)+/g, match => ' '.repeat(match.length / 2))
+				.replace(/(\\\s)+$/g, match => ' '.repeat(match.length / 2))
+		),
 		tags: [],
 		text: lines.map(unescapeForTweeText).join('\n').trim()
 	};
