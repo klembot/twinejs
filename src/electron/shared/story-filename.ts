@@ -6,6 +6,6 @@ import {Story} from '../../store/stories/stories.types';
  * (http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap03.html#tag_03_276)
  * with the addition of spaces, for legibility.
  */
-export function storyFileName(story: Story) {
-	return story.name.replace(/[^\w. -]/g, '_') + '.html';
+export function storyFileName(story: Story, extension = '.html') {
+	return story.name.replace(/[^\w. -]/g, '_') + extension;
 }

@@ -1,88 +1,362 @@
 {
-	"colors": {},
+	"colors": {
+		"none": "Renksiz",
+		"red": "Kırmızı",
+		"orange": "Turuncu",
+		"yellow": "Sarı",
+		"green": "Yeşil",
+		"blue": "Mavi",
+		"purple": "Mor"
+	},
 	"common": {
 		"add": "Ekle",
 		"appName": "Twine",
+		"back": "Geri",
+		"build": "İnşa Et",
 		"cancel": "İptal",
+		"close": "Kapat",
+		"color": "Renk",
+		"create": "Oluştur",
+		"custom": "Özel",
 		"delete": "Sil",
+		"deleteCount": "Sil ({{count}})",
+		"details": "Detaylar",
 		"duplicate": "Kopya Oluştur",
-		"edit": "Düzen",
+		"edit": "Düzenle",
+		"editCount": "Düzenle ({{count}})",
+		"help": "Yardım",
+		"import": "İçe Aktar",
+		"maximize": "Kapla",
+		"more": "Daha Fazla",
+		"new": "Yeni",
+		"next": "Sonraki",
 		"ok": "Tamam",
-		"play": "Oku",
+		"passage": "Bölüm",
+		"play": "Oynat",
+		"preferences": "Tercihler",
+		"publishToFile": "Dosyaya Yayımla",
+		"redo": "İleri Al",
+		"redoChange": "İleri Al ({{change}})",
 		"rename": "Yeniden Adlandır",
+		"renamePrompt": "“{{name}}“ nasıl yeniden adlandırılsın?",
 		"remove": "Kaldır",
+		"selectAll": "Hepsini Seç",
 		"skip": "Atla",
+		"story": "Öykü",
 		"storyFormat": "Öykü Biçimi",
 		"tag": "Etiket",
 		"test": "Dene",
-		"undo": "Geri Al"
+		"twine": "Twine",
+		"undo": "Geri Al",
+		"undoChange": "Geri Al ({{change}})",
+		"unmaximize": "Önceki Boyut",
+		"view": "Görünüm"
 	},
 	"components": {
 		"addStoryFormatButton": {
 			"prompt": "Öykü biçimi eklemek için biçimin internet adresini aşağı girin."
 		},
-		"addTagButton": {},
-		"fontSelect": {"fonts": {}},
-		"indentButtons": {},
-		"localStorageQuota": {},
+		"addTagButton": {
+			"alreadyAdded": "Bu etiket adı zaten daha önceden eklendi.",
+			"addLabel": "Etiket Ekle",
+			"invalidName": "Lütfen geçerli bir etiket adı girin.",
+			"newTag": "Yeni Etiket",
+			"tagColorLabel": "Etiket Rengi",
+			"tagNameLabel": "Etiket Adı"
+		},
+		"dialogCard": {
+			"contentsCrashed": "Bu iletişim kutusunda bir şeyler ters gitti. Lütfen kapatıp tekrar açmayı deneyin."
+		},
+		"fontSelect": {
+			"customScaleDetail": "Lütfen yalnızca yüzdelik değer girin.",
+			"customFamilyDetail": "Lütfen yalnızca yazı tipinin adını girin.",
+			"familyEmpty": "Lütfen bir yazı tipi adı girin.",
+			"font": "Yazı Tipi",
+			"fonts": {
+				"monospaced": "Eşit Aralık (Monospace)",
+				"serif": "Serifli",
+				"system": "Sistem"
+			},
+			"fontSize": "Yazı Boyutu",
+			"percentage": "%{{percent}}",
+			"percentageIsntNumber": "Lütfen bir sayı giriniz.",
+			"percentageNotPositive": "Lütfen sıfırdan büyük bir sayı giriniz."
+		},
+		"indentButtons": {
+			"indent": "Girintile",
+			"unindent": "Girintiyi Çıkar"
+		},
+		"localStorageQuota": {
+			"measureAgain": "Mevcut alanı tekrar ölçün",
+			"percentAvailable": "%{{percent}} yer mevcut"
+		},
 		"passageCard": {
 			"placeholderClick": "Bölümü düzenlemek için çift tıklayın.",
-			"placeholderTouch": "Önce bu bölüme, sonra kaleme basarak bölümü düzenleyebilirsiniz."
+			"placeholderTouch": "Önce bu bölümü seçerek, ardından Bölüm sekmesinden Düzenleye basarak bölümü düzenleyebilirsiniz."
 		},
-		"renamePassageButton": {"emptyName": "Lütfen bir isim girin."},
-		"renameStoryButton": {"emptyName": "Lütfen bir isim girin."},
-		"safariWarningCard": {},
-		"storyCard": {},
-		"storyFormatCard": {},
-		"storyFormatSelect": {},
-		"tagEditor": {}
+		"renamePassageButton": {
+			"emptyName": "Lütfen bir isim girin.",
+			"nameAlreadyUsed": "Bu ada başka bir bölüm sahip."
+		},
+		"renameStoryButton": {
+			"emptyName": "Lütfen bir isim girin.",
+			"nameAlreadyUsed": "Bu ada başka bir öykü sahip."
+		},
+		"safariWarningCard": {
+			"archiveAndUseAnotherBrowser": "Lütfen öykülerinizi arşivleyin ve başka bir platform kullanın.",
+			"addToHomeScreen": "Bu sınırlamayı aşmak için bu siteyi ana ekranınıza ekleyin.",
+			"howToAddToHomeScreen": "Ana Ekranıma Nasıl Eklerim?",
+			"learnMore": "Daha Fazla Öğren",
+			"message": "Kullandığınız tarayıcı siteyi yedi gün boyunca kullanmadığınız takdirde tüm öykülerinizi siler."
+		},
+		"storageQuota": {
+			"freeSpace": "%{{percent}} alan mevcut"
+		},
+		"storyCard": {
+			"lastUpdated": "En son {{date}} tarihinde düzenlendi",
+			"passageCount": "1 Bölüm",
+			"passageCount_plural": "{{count}} Bölüm"
+		},
+		"storyFormatCard": {
+			"author": "{{author}} tarafından",
+			"builtIn": "Dahili",
+			"defaultFormat": "Varsayılan biçim.",
+			"editorExtensionsDisabled": "Düzenleyici Eklentileri Kapalı",
+			"license": "Lisans: {{license}}",
+			"loadingFormat": "Bu öykü biçimi yükleniyor...",
+			"loadError": "Bu öykü biçimi yüklenemedi. ({{errorMessage}})",
+			"name": "{{name}} {{version}}",
+			"proofing": "İmla Düzeltme",
+			"proofingFormat": "İmla hatalarını düzeltmek için kullanılır.",
+			"useEditorExtensions": "Düzenleyici Eklentilerini Kullan",
+			"useFormat": "Varsayılan Öykü Biçimi Olarak Kullan",
+			"useProofingFormat": "İmla Düzeltme Biçimi Olarak Kullan"
+		},
+		"storyFormatSelect": {
+			"loadingCount": "1 Öykü Biçimi Yükleniyor...",
+			"loadingCount_plural": "{{loadingCount}} Öykü Biçimi Yükleniyor"
+		},
+		"tagEditor": {
+			"alreadyExists": "Bu isme sahip bir etiket zaten var."
+		}
 	},
 	"dialogs": {
 		"aboutTwine": {
 			"donateToTwine": "Twine'ın Büyümesine Bağış Yaparak Katkıda Bulunun",
-			"codeHeader": "Kod Yazarları"
+			"codeHeader": "Kod Yazarları",
+			"codeRepo": "Kaynak Deposunu Ziyaret Et",
+			"license": "Bu yazılım <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GPL v3 Lisansı</a> koşulları altında yayımlanmaktadır ancak bu yazılım kullanılarak oluşturulan herhangi bir eser ticari amaçlar da dahil olmak üzere herhangi bir koşulda yayımlanabilir.",
+			"localizationHeader": "Çeviriler",
+			"title": "Twine Hakkında {{version}}",
+			"twineDescription": "Twine, interaktif ve doğrusal olmayan öyküler oluşturmak için kullanılan bir açık kaynaklı yazılımdır."
 		},
-		"appDonation": {"noThanks": "Hayır, Teşekkürler"},
-		"appPrefs": {"language": "Dil"},
-		"passageEdit": {},
-		"passageTags": {},
-		"storyInfo": {"stats": {"title": "Öykü İstatistikleri"}},
+		"appDonation": {
+			"donate": "Twine'a Bağışta Bulunun",
+			"onlyOnce": "(Bu mesaj size yalnızca bir defa gösterilecektir. Eğer gelecekte Twine'ın geliştirilmesi için bağışta bulunmak isterseniz Twine Hakkında iletişim kutusunda ilgili bağlantı mevcuttur.)",
+			"supportMessage": "Eğer Twine'ı çok sevdiyseniz lütfen geliştirilmesi için bağışta bulunarak yardım edin. Twine daima bedava kalacak bir açık kaynak projesidir, ve sizin de desteğinizle daha iyi yerlere gelecektir.",
+			"noThanks": "Hayır, Teşekkürler",
+			"title": "Twine'ın Geliştirilmesine Katkıda Bulunun"
+		},
+		"appPrefs": {
+			"codeEditorFont": "Kod Düzenleyici Yazı Tipi",
+			"codeEditorFontScale": "Kod Düzenleyici Yazı Boyutu",
+			"dialogWidth": "İletişim Kutusu Eni",
+			"dialogWidths": {
+				"default": "Varsayılan",
+				"wider": "Daha Geniş",
+				"widest": "En Geniş"
+			},
+			"editorCursorBlinks": "Düzenleyicide Yanıp Sönen İmleç",
+			"fontExplanation": "Yazı tipini burada değiştirmek yalnızca Twine düzenleyicsini etkiler. Oynatılan öykünün yazı tipi değiştirilmez.",
+			"language": "Dil",
+			"passageEditorFont": "Bölüm Düzenleyici Yazı Tipi",
+			"passageEditorFontScale": "Bölüm Düzenleyici Yazı Boyutu",
+			"themeLight": "Açık",
+			"themeDark": "Koyu",
+			"themeSystem": "Sistem",
+			"theme": "Tema",
+			"title": "Tercihler"
+		},
+		"passageEdit": {
+			"editorCrashed": "Bu düzenleyicide bir şeyler ters gitti. Kapatıp yeniden açmayı deneyin.",
+			"passageTextEditorLabel": "Bölüm Metni",
+			"passageTextPlaceholder": "Bölümün metnini buraya yazın. Başka bir bölüme bağlantı oluşturmak için [[bunun gibi]] etrafına ikişer köşeli parantez koyun.",
+			"setAsStart": "Öyküyü Buradan Başlat",
+			"size": "Boyut",
+			"sizeLarge": "Büyük",
+			"sizeSmall": "Küçük",
+			"sizeTall": "Uzun",
+			"sizeWide": "Geniş"
+		},
+		"passageTags": {
+			"noTags": "Bu öyküde hiçbir bölüme bir etiket eklenmedi.",
+			"title": "Bölüm Etiketleri"
+		},
+		"storyImport": {
+			"deselectAll": "Seçimi Kaldır",
+			"fileImport": "Twine'a öykü aktarmak için arşivlenmiş ya da yayımlanmış bir öykü dosyasını aşağıdan yükleyin.",
+			"importDifferentFile": "Başka Bir Dosyayı İçe Aktar",
+			"importSelected": "Seçili Dosyaları İçe Aktar",
+			"importThisStory": "Bu Öyküyü İçe Aktar",
+			"noStoriesInFile": "Bu dosyada hiç Twine öyküsü yokmuş gibi görünüyor. Lütfen başka bir dosya seçin.",
+			"storiesPrompt": "Hangi öykülerin içe aktarılacağını seçin:",
+			"title": "Öykü İçe Aktar",
+			"willReplaceExisting": "Kitaplığınızdaki aynı isimli bir öykü yerine yenisi konacaktır."
+		},
+		"storyDetails": {
+			"storyFormatExplanation": "Öykü biçimi nedir?",
+			"snapToGrid": "Kılavuza Uydur",
+			"stats": {
+				"brokenLinks": "Kırık Bağlantı",
+				"characters": "Karakter",
+				"title": "Öykü İstatistikleri",
+				"ifid": "Bu öykünün IFID'i {{ifid}}",
+				"ifidExplanation": "IFID nedir?",
+				"lastUpdate": "Bu öykü en son {{date}} tarihinde düzenlendi.",
+				"links": "Bağlantı",
+				"passages": "Bölüm",
+				"words": "Sözcük"
+			}
+		},
+		"storyInfo": { "stats": {"title": "Öykü İstatistikleri"}},
 		"storyJavaScript": {
-			"explanation": "Buraya girdiğiniz JavaScript kodu; öykü bir İnternet tarayıcısında açıldığında istisnasız çalıştırılacaktır."
+			"editorLabel": "Öykü JavaScript'i",
+			"title": "Öykü JavaScript'i",
+			"explanation": "Buraya girdiğiniz JavaScript kodu; öykü bir İnternet tarayıcısında açıldığında anında çalıştırılacaktır."
 		},
 		"storySearch": {
 			"title": "Bul ve Değiştir",
-			"replaceWith": "Şununla Değiştir"
+			"find": "Bul",
+			"includePassageNames": "Bölüm Başlıklarını Dahil Et",
+			"matchCase": "Büyük Küçük Harf Eşleştir",
+			"matchCount": "{{count}} eşleşen bölüm",
+			"matchCount_plural": "{{count}} eşleşen bölüm",
+			"replaceAll": "Tüm Bölümlerde Değiştir",
+			"replaceWith": "Şununla Değiştir",
+			"useRegexes": "Düzenli İfade (RegEx) Kullan"
 		},
 		"storyStylesheet": {
+			"editorLabel": "Öykü Stil Şablonu",
+			"title": "Öykü Stil Şablonu",
 			"explanation": "Buraya girdiğiniz CSS kodu öykünün varsayılan görünümünü değiştirir."
 		},
-		"storyTags": {}
+		"storyTags": {
+			"noTags": "Öykülerinize hiçbir etiket eklenmedi.",
+			"title": "Öykü Etiketleri"
+		}
 	},
 	"electron": {
-		"errors": {"storyFileChangedExternally": {}},
-		"menuBar": {"edit": "Düzen"},
-		"storiesDirectoryName": "Öyküler"
+		"backupsDirectoryName": "Yedekler",
+		"errors": {
+			"jsonSave": "Ayarlar dosyasını kaydederken bir hata oluştu.",
+			"storyFileChangedExternally": {
+				"message": "Kitaplığınızdaki “{{fileName}}” isimli dosya Twine'ın dışında düzenlenmiş.",
+				"detail": "Değişikliklerinizi kaydetmek bu dosyanın üstüne yazar. Eğer Twine'a şuan yüklü olan sürümü değil, dosyadaki sürümü kullanmak isterseniz Twine yeniden başlayacak ve değişiklikleriniz dosyadakilerle değiştirilecektir.",
+				"overwriteChoice": "Twine'daki Değişiklikleri Kaydet.",
+				"relaunchChoice": "Dosyayı Kullan ve Yeniden Başlat"
+			},
+			"storyDelete": "Öykü silinirken bir şeyler ters gitti.",
+			"storyRename": "Öykü yeniden adlandırılırken bir hata oluştu.",
+			"storySave": "Öykü kaydedilirken bir hata oluştu."
+		},
+		"menuBar": {
+			"checkForUpdates": "Güncellemeleri Kontrol Et...",
+			"edit": "Düzen",
+			"showDevTools": "Hata Ayıklama Konsolunu Göster",
+			"showStoryLibrary": "Öykü Kitaplığını Göster",
+			"speech": "Konuşma",
+			"troubleshooting": "Hata Giderme",
+			"twineHelp": "Twine Yardımı",
+			"view": "Görünüm"
+		},
+		"storiesDirectoryName": "Öyküler",
+		"updateCheck": {
+			"download": "İndir",
+			"error": "Twine'ın güncellemeleri kontrol edilirken bir şeyler ters gitti.",
+			"updateAvailable": "Twine'ın yeni sürümü mevut.",
+			"upToDate": "Twine'ın mevcut olan en yeni sürümünü kullanmaktasınız."
+		}
 	},
 	"routes": {
 		"storyEdit": {
+			"toolbar": {
+				"findAndReplace": "Bul ve Değiştir",
+				"javaScript": "JavaScript",
+				"passageTags": "Bölüm Etiketleri",
+				"snapToGrid": "Kılavuza Uydur",
+				"startStoryHere": "Öyküye Buradan Başla",
+				"stylesheet": "Stil Şablonu",
+				"testFromHere": "Buradan Dene"
+			},
 			"topBar": {
 				"addPassage": "Bölüm",
 				"editJavaScript": "Öykünün JavaScript kodunu düzenle",
 				"editStylesheet": "Öykünün Stil Şablonunu Düzenle",
 				"findAndReplace": "Bul ve Değiştir",
+				"passageTags": "Bölüm Etiketlerini Düzenle",
 				"proofStory": "Yazım Denetleme Nüshasına Bak",
-				"publishToFile": "Dosyaya Yayımla"
+				"publishToFile": "Dosyaya Yayımla",
+				"selectAllPassages": "Tüm Bölümleri Seç"
+			},
+			"zoomButtons": {
+				"storyStructure": "Yalnızca Öykü Yapısını Göster",
+				"passageNames": "Yalnızca Bölüm Adlarını Göster",
+				"passageNamesAndExcerpts": "Bölüm Adlarını ve İçeriğin Kısımlarını Göster"
 			}
 		},
 		"storyFormatList": {
-			"title": {},
-			"storyFormatExplanation": "Öykü biçimleri hikayenin okuma sırasında nasıl göründüğünü ve davrandığını belirler."
+			"noneVisible": "Seçtiğiniz kriterlere uygun öykü biçimi bulunmamaktadır.",
+			"show": "Show...",
+			"title": {
+				"all": "Tüm Öylü Biçimleri",
+				"current": "Güncel Öykü Biçimleri",
+				"user": "Kendinizce Eklenen Öykü Biçimleri"
+			},
+			"toolbar": {
+				"addStoryFormatButton": {
+					"addPreview": "{{storyFormatName}} {{storyFormatVersion}} eklenecek.",
+					"alreadyAdded": "{{storyFormatName}} {{storyFormatVersion}} zaten ekli.",
+					"fetchError": "Bu adresteki öykü biçimi elde edilemedi. ({{errorMessage}})",
+					"invalidUrl": "Lütfen geçerli bir URL girin.",
+					"prompt": "Öykü biçimi eklemek için biçimin internet adresini aşağı girin."
+				},
+				"disableFormatExtensions": "Düzenleyici Eklentilerini Kapat",
+				"enableFormatExtensions": "Düzenleyici Eklentilerini Aç",
+				"useAsDefaultFormat": "Varsayılan Biçim Olarak Kullan",
+				"useAsProofingFormat": "Öykü İmlası için Kullan"
+			},
+			"storyFormatExplanation": "Öykü biçimleri öykünün okuma sırasında nasıl göründüğünü ve davrandığını belirler."
 		},
-		"storyImport": {},
 		"storyList": {
+			"library": "Kitaplık",
 			"noStories": "Şu an Twine'da kayıtlı hiçbir öykü yok. Başlamak için yeni bir öykü yaratın veya var olan bir öyküyü içe aktarın.",
+			"taggedTitleCount": "1 Öykü Etiketli",
+			"taggedTitleCount_0": "Hiç Öykü Etiketli Değil",
+			"taggedTitleCount_plural": "{{count}} Öykü Etiketli",
+			"titleCount": "1 Öykü",
+			"titleCount_0": "Hiç Öykü Yok",
+			"titleCount_plural": "{{count}} Öykü",
 			"titleGeneric": "Öyküler",
+			"toolbar": {
+				"archive": "Arşivle",
+				"createStoryButton": {
+					"prompt": "Öykünün adı ne olsun? Bu daha sonra değiştirilebilir.",
+					"emptyName": "Lütfen bir ad girin.",
+					"nameConflict": "Başka bir öykü zaten bu ada sahip."
+				},
+				"deleteStoryButton": {
+					"warning": {
+						"electron": "“{{storyName}}” isimli öyküyü silmek istediğinizden emin misiniz? Geri dönüşüm kutusuna taşınacaktır.",
+						"web": "“{{storyName}}” isimli öyküyü silmek istediğinizden emin misiniz? Sonsuza dek silinecektir. Bunu geri alamazsınız."
+					}
+				},
+				"showAllStories": "Tüm Öyküleri Göster",
+				"showTags": "Etiketleri Göster",
+				"sort": "Sırala",
+				"sortByDate": "Son Değiştirme Tarihi",
+				"sortByName": "Ad",
+				"storyTags": "Öykü Etiketleri"
+			},
 			"topBar": {
 				"about": "Twine Hakkında",
 				"archive": "Arşiv",
@@ -93,21 +367,61 @@
 			}
 		},
 		"welcome": {
+			"autosave": "<p>Artık belgelerim klasörünüzde Twine isimli bir klasör var. Onun içinde tüm çalışmalarınızın kaydedileceği \"Stories\" (Öyküler) klasörü bulunmaktadır. Twine çalışmalarınız kaydeder, yani kendinizin kaydetmeyi hatırlaması gerekmez. Öykülerinizin kaydedildiği klasörü açmak için <strong>Twine</strong> menüsündeki <strong>Kitaplığı Göster</strong> seçeneğini kullanabilirsiniz.</p><p>Twine öyküleriniz sürekli kaydettiği için Twine açıkken kitaplık klasörünüzdeki dosyalar kitlenecektir.</p><p>Eğer başkasından aldığınız bir Twine öyküsünü açmak istiyorsanız öykü listesindeki <strong>Dosyadan İçe Aktar</strong> bağlantısını kullanarak kendi kitaplığınıza aktarabilirsiniz.</p>",
 			"autosaveTitle": "Çalışmalarınız otomatik olarak kaydedilir.",
+			"browserStorage": "<p>Bu Twine 2'yi kullanmak için bir hesap oluşturmanıza gerek kalmadığı anlamına gelir ve oluşturduğunuz hiç bir şey uzaktaki bir sunucuda saklanmaz&emdash;yalnızca tarayıcınızda kalır.</p><p>Fakat iki <strong>çok önemli</strong> şeyi aklınızda bulundurmanız gerekmektedir. Verileriniz yalnızca tarayıcınızda saklandığından dolayı tarayıcının kayıtlı verilerini silerseniz tüm emeklerinizi boşa çıkarırsınız. Bu hiç iyi bir durum değil. <strong>Arşivle</strong> düğmesini sık sık kullanmayı unutmayın. Ayrıca, listedeki öykülerin menüsünü kullanarak onları teker teker yayımlayabilirsiniz. Hem arşiv hem de yayımlanmış öykü dosyaları Twine'a geri aktarılabilir.</p><p>İkinci olarak <strong>bu tarayıcıya erişimi olan herkes öykülerinizde değişiklikler yapabilir.</strong> Eğer işinize karışmayı seven küçük kardeşiniz varsa kendinize ayrı bir profil oluşturmayı araştırın.</p>",
+			"browserStorageTitle": "Çalışmalarınız yalnızca tarayıcıya kaydedilmektedir.",
+			"done": "<p>Okudunuz için teşekkür eder, Twine'ı kullanırken eğlenmenizi dileriz.</p>",
 			"doneTitle": "Tamamdır!",
 			"gotoStoryList": "Öykü listesine git",
+			"greeting": "<p>Twine, interaktif ve doğrusal olmayan öyküler oluşturmak için kullanılan bir açık kaynaklı yazılımdır. Başlamadan önce bilmeniz gerekn bazı şeyler vardır.</p>",
 			"greetingTitle": "Merhaba!",
 			"tellMeMore": "Devam Et",
+			"help": "<p><strong>Eğer daha önce Twine'ı kullanmadıysanız hoş geldiniz!</strong> <a>Twine Cookbok</a> nasıl kullanıldığını öğrenmek için iyi bir kaynaktır. Eğer Twine'ı daha önce kullanmadıysanız başlamak için harika bir yer.</p>",
 			"helpTitle": "Yeni misiniz?"
 		}
 	},
+	"routeActions": {
+		"app": {
+			"aboutApp": "Twine Hakkında",
+			"preferences": "Tercihler",
+			"reportBug": "Hata Bildir",
+			"storyFormats": "Öykü Biçimleri"
+		},
+		"build": {
+			"play": "Oynat",
+			"proof": "İmla Düzelt",
+			"publishToFile": "Dosyaya Yayımla",
+			"test": "Dene"
+		}
+	},
 	"store": {
-		"errors": {},
+		"archiveFilename": "{{timestamp}} Twine Arşivi.html",
+		"errors": {
+			"cantPersistPerfs": "Tercihlerinizi kaydederken bir şeyler ters gitti ({{error}}).",
+			"cantPersistStories": "Öyküleriniz kaydederken bir şeyler ters gitti ({{error}}).",
+			"cantPersistStoryFormats": "Öykü biçimleriniz kaydederken bir şeyler ters gitti ({{error}}).",
+			"electronRemediation": "Uygulamayı yeniden başlatmak yardımcı olabilir.",
+			"webRemediation": "Sayfayı yenilemek yardımcı olabilir."
+		},
 		"passageDefaults": {
 			"name": "Adsız Bölüm"
 		},
 		"storyDefaults": {"name": "Adsız Öykü"},
 		"storyFormatDefaults": {"name": "Adsız Öykü Biçimi"}
 	},
-	"undoChange": {"replaceAllText": "Hepsini Değiştir"}
+	"undoChange": {
+		"addTag": "Etiket Ekleme",
+		"changeTagColor": "Etiket Rengini Değiştirme",
+		"newPassage": "Yeni Bölüm",
+		"deletePassage": "Bölüm Silme",
+		"deletePassages": "Bölümleri Silme",
+		"movePassage": "Bölüm Taşıma",
+		"movePassages": "Bölümleri Taşıma",
+		"imortTag": "Etiket Kaldırma",
+		"renamePassage": "Bölüm Yeniden Adlandırma",
+		"removeTag": "Etiketi Kaldırma",
+		"renameTag": "Etiketi Yeniden Adlandırma",
+		"replaceAllText": "Hepsini Değiştirme"
+	}
 }

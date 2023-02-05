@@ -5,6 +5,7 @@ import {useDialogsContext} from '.';
 import {usePrefsContext} from '../../store/prefs';
 import './dialogs.css';
 
+// TODO move this to separate module to avoid circular dep
 const DialogTransition: React.FC = props => (
 	<CSSTransition classNames="pop" timeout={200} {...props}>
 		{props.children}
@@ -34,11 +35,16 @@ export const Dialogs: React.FC = () => {
 				{dialogs.map((dialog, index) => {
 					const managementProps = {
 						collapsed: dialog.collapsed,
+						highlighted: dialog.highlighted,
 						maximized: dialog.maximized,
 						onChangeCollapsed: (collapsed: boolean) =>
 							dispatch({type: 'setDialogCollapsed', collapsed, index}),
+						onChangeHighlighted: (highlighted: boolean) =>
+							dispatch({type: 'setDialogHighlighted', highlighted, index}),
 						onChangeMaximized: (maximized: boolean) =>
 							dispatch({type: 'setDialogMaximized', maximized, index}),
+						onChangeProps: (props: Record<string, any>) =>
+							dispatch({type: 'setDialogProps', index, props}),
 						onClose: () => dispatch({type: 'removeDialog', index})
 					};
 

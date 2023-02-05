@@ -18,11 +18,21 @@ export const StoryChooser: React.FC<StoryChooserProps> = props => {
 	const [selectedStories, setSelectedStories] = React.useState<Story[]>([]);
 	const {t} = useTranslation();
 
-	function willReplaceExisting(story: Story) {
-		return existingStories.some(
-			other => storyFileName(other) === storyFileName(story)
-		);
-	}
+	// Whenever either existing stories or stories to import changes, select all
+	// stories that do not conflict.
+
+	const willReplaceExisting = React.useCallback(
+		(story: Story) => {
+			return existingStories.some(
+				other => storyFileName(other) === storyFileName(story)
+			);
+		},
+		[existingStories]
+	);
+
+	React.useEffect(() => {
+		setSelectedStories(stories.filter(story => !willReplaceExisting(story)));
+	}, [stories, willReplaceExisting]);
 
 	function handleChange(story: Story, selected: boolean) {
 		if (selected) {
@@ -39,9 +49,8 @@ export const StoryChooser: React.FC<StoryChooserProps> = props => {
 			<p>{t('dialogs.storyImport.storiesPrompt')}</p>
 			<ul>
 				{stories.map(story => (
-					<li>
+					<li key={story.id}>
 						<CheckboxButton
-							key={story.id}
 							label={story.name}
 							onChange={selected => handleChange(story, selected)}
 							value={selectedStories.includes(story)}

@@ -32,14 +32,14 @@ export function highlightPassagesMatchingSearch(
 				flags
 			).map(passage => passage.id);
 
-			story.passages.forEach(passage => {
+			for (const passage of story.passages) {
 				const oldHighlighted = passage.highlighted;
 				const newHighlighted = matchIds.includes(passage.id);
 
 				if (newHighlighted !== oldHighlighted) {
 					passageUpdates[passage.id] = {highlighted: newHighlighted};
 				}
-			});
+			}
 		}
 		if (Object.keys(passageUpdates).length > 0) {
 			dispatch({

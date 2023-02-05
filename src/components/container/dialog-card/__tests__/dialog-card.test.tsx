@@ -53,6 +53,20 @@ describe('<DialogCard>', () => {
 		expect(screen.queryByLabelText('common.maximize')).not.toBeInTheDocument();
 	});
 
+	it('adds a CSS class when highlighted', () => {
+		renderComponent({highlighted: true});
+		expect(
+			document.querySelector('.dialog-card')?.classList.contains('highlighted')
+		).toBe(true);
+	});
+
+	it("doesn't add a CSS class when unhighlighted", () => {
+		renderComponent({highlighted: false});
+		expect(
+			document.querySelector('.dialog-card')?.classList.contains('highlighted')
+		).toBe(false);
+	});
+
 	it('adds a CSS class when maximized', () => {
 		renderComponent({maximized: true});
 		expect(

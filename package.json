@@ -1,6 +1,6 @@
 {
 	"name": "Twine",
-	"version": "2.5.1",
+	"version": "2.6.0",
 	"description": "a GUI for creating nonlinear stories",
 	"author": "Chris Klimas <chris@twinery.org>",
 	"license": "GPL-3.0",
@@ -25,6 +25,7 @@
 		"focus-trap-react": "^8.9.2",
 		"focus-visible": "^5.2.0",
 		"fs-extra": "^10.0.0",
+		"fuse.js": "^6.6.2",
 		"i18next": "^19.9.2",
 		"i18next-http-backend": "^1.1.1",
 		"is-absolute-url": "^3.0.3",
@@ -53,6 +54,8 @@
 		"use-error-boundary": "^2.0.6"
 	},
 	"devDependencies": {
+		"@electron/notarize": "^1.2.3",
+		"@playwright/test": "^1.27.1",
 		"@testing-library/jest-dom": "^5.11.4",
 		"@testing-library/react": "^11.1.0",
 		"@testing-library/react-hooks": "^5.1.1",
@@ -84,6 +87,7 @@
 		"cross-var": "^1.1.0",
 		"electron": "^18.3.6",
 		"electron-builder": "^23.3.3",
+		"electron-builder-notarize": "^1.5.0",
 		"faker": "^5.4.0",
 		"history": "^5.1.0",
 		"jest-axe": "^4.1.0",
@@ -105,6 +109,7 @@
 		"build:electron-main": "tsc --project tsconfig.electron.json",
 		"build:electron-bundle": "electron-builder --config electron-builder.config.js --mac --windows --linux --publish=never",
 		"clean": "rimraf dist electron-build",
+		"e2e": "playwright test",
 		"lint": "eslint src",
 		"start": "react-scripts start",
 		"start:docs": "cd docs/en && mdbook serve",

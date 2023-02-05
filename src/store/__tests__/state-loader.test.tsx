@@ -1,14 +1,15 @@
 import {act, render, screen, waitFor} from '@testing-library/react';
+import {fakeUnloadedStoryFormat} from '../../test-util';
+import {usePersistence} from '../persistence/use-persistence';
+import {usePrefsContext} from '../prefs';
 import {StateLoader} from '../state-loader';
-import {defaults, usePrefsContext} from '../prefs';
 import {useStoriesContext} from '../stories';
 import {
-	useStoryFormatsContext,
 	StoryFormat,
-	StoryFormatsAction
+	StoryFormatsAction,
+	useStoryFormatsContext
 } from '../story-formats';
-import {usePersistence} from '../persistence/use-persistence';
-import {fakeUnloadedStoryFormat} from '../../test-util';
+import * as useStoriesRepairModule from '../use-stories-repair';
 
 jest.mock('../prefs/prefs-context');
 jest.mock('../stories/stories-context');
@@ -88,6 +89,17 @@ describe('<StateLoader>', () => {
 		expect(prefsDispatchMock.mock.invocationCallOrder[1]).toBeLessThan(
 			storiesDispatchMock.mock.invocationCallOrder[1]
 		);
+	});
+
+	it('repairs stories using useStoriesRepair', async () => {
+		const repairStories = jest.fn();
+
+		jest
+			.spyOn(useStoriesRepairModule, 'useStoriesRepair')
+			.mockReturnValue(repairStories);
+		render(<StateLoader />);
+		await waitFor(() => expect(storiesDispatchMock).toBeCalled());
+		expect(repairStories).toBeCalledTimes(1);
 	});
 
 	it('uses the repaired story format state when repairing preferences', async () => {
@@ -172,59 +184,4 @@ describe('<StateLoader>', () => {
 		);
 		expect(screen.getByTestId('children')).toBeInTheDocument();
 	});
-
-	it('falls back to the default story format if the user preference is for an nonexistent format', async () => {
-		const defaultFormatProps = defaults().storyFormat;
-		const defaultFormat = fakeUnloadedStoryFormat({
-			name: defaultFormatProps.name,
-			version: defaultFormatProps.version
-		});
-
-		(usePrefsContext as jest.Mock).mockReturnValue({
-			dispatch: prefsDispatchMock,
-			prefs: {
-				storyFormat: {
-					name: 'bad',
-					version: '1.0.0'
-				}
-			}
-		});
-		(useStoryFormatsContext as jest.Mock).mockReturnValue({
-			dispatch: formatsDispatchMock,
-			formats: [defaultFormat]
-		});
-
-		render(<StateLoader />);
-		await waitFor(() => expect(prefsDispatchMock).toBeCalled());
-		expect(storiesDispatchMock.mock.calls).toEqual([
-			[{type: 'init', state: {mockStoriesState: true}}],
-			[
-				{
-					type: 'repair',
-					allFormats: [defaultFormat],
-					defaultFormat: defaultFormat
-				}
-			]
-		]);
-	});
-
-	it("does not repair stories if even the default story format isn't available", async () => {
-		jest.spyOn(console, 'error').mockReturnValue();
-		(usePrefsContext as jest.Mock).mockReturnValue({
-			dispatch: prefsDispatchMock,
-			prefs: {
-				storyFormat: {
-					name: 'bad',
-					version: '1.0.0'
-				}
-			}
-		});
-		render(<StateLoader />);
-		await waitFor(() => expect(prefsDispatchMock).toBeCalled());
-		expect(storiesDispatchMock.mock.calls).toEqual([
-			[{type: 'init', state: {mockStoriesState: true}}]
-		]);
-	});
-
-	it('uses the repaired story formats to repair preferences', () => {});
 });

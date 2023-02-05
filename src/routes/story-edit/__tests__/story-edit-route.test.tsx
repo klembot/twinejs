@@ -98,11 +98,6 @@ describe('<StoryEditRoute>', () => {
 		).toBeInTheDocument();
 	});
 
-	it('creates a passage automatically if the story has none', async () => {
-		await renderComponent(fakeStory(0));
-		expect(screen.getAllByTestId(/^passage-/).length).toBe(1);
-	});
-
 	it('sets up zoom keyboard shortcuts', async () => {
 		await renderComponent(fakeStory());
 		expect(useZoomShortcutsMock).toBeCalled();

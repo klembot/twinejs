@@ -26,6 +26,7 @@
 		"editCount": "Bearbeitung ({{count}})",
 		"help": "Hilfe",
 		"import": "Import",
+		"maximize": "Maximieren",
 		"more": "Mehr",
 		"new": "Neu",
 		"next": "Weiter",
@@ -48,6 +49,7 @@
 		"twine": "Twine",
 		"undo": "Rückgängig",
 		"undoChange": "Rückgang {{change}}",
+		"unmaximize": "Größe zurücksetzen",
 		"view": "Ansicht"
 	},
 	"components": {
@@ -86,8 +88,12 @@
 			"percentAvailable": "{percent}% Speicherplatz frei"
 		},
 		"passageCard": {
-			"placeholderClick": "Doppelklicke auf diesen Abschnitt um ihn zu bearbeiten.",
+			"placeholderClick": "Doppelklick auf diesen Abschnitt um ihn zu bearbeiten.",
 			"placeholderTouch": "Tippe auf den Abschnitt, dann gehe auf Bearbeiten im Abschnittstab um ihn zu bearbeiten."
+		},
+		"passageFuzzyFinder": {
+			"noResults": "Keine Treffer.",
+			"prompt": "Suche nach Abschnitts Name oder Text"
 		},
 		"renamePassageButton": {
 			"emptyName": "Bitte gib einen Namen ein.",
@@ -139,7 +145,7 @@
 		"aboutTwine": {
 			"donateToTwine": "Unterstütze Twine mit einer Spende",
 			"codeHeader": "Code",
-			"codeRepo": "Besuche Source Code Repository",
+			"codeRepo": "Besuche das Source Code Repository",
 			"license": "Diese Anwendung ist unter der <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GPL v3 Lizenz</a> veröffentlicht, aber ein Werk, das mit dieser Anwendung erstellt wurde, darf unter einer beliebigen auch kommerziellen Lizenz veröffentlicht werden.",
 			"localizationHeader": "Lokalisierungen",
 			"title": "Über Twine {{version}}",
@@ -155,8 +161,14 @@
 		"appPrefs": {
 			"codeEditorFont": "Code Editor Font",
 			"codeEditorFontScale": "Code Editor Font Größe",
+			"dialogWidth": "Dialog Breite",
+			"dialogWidths": {
+				"default": "Default",
+				"wider": "Breiter",
+				"widest": "Am Breitesten"
+			},
 			"editorCursorBlinks": "Blinkender Cursor in den Editoren",
-			"fontExplanation": "Den Font hier zu ändern betrifft nur den Twine Editor. Es wird nicht den Font den eine Geschichte beim spielen benutzt ändern.",
+			"fontExplanation": "Font Änderungen an dieser Stelle betreffen nur den Twine Editor. Es wird nicht der Font den eine Geschichte beim Spielen benutzt ändern.",
 			"language": "Sprache",
 			"passageEditorFont": "Abschnitts Editor Font",
 			"passageEditorFontScale": "Abschnitts Editor Font Größe",
@@ -183,7 +195,8 @@
 		},
 		"storyImport": {
 			"deselectAll": "Alle Markierungen aufheben",
-			"filePrompt": "Um Geschichten nach Twine zu importieren, lade unten entweder ein Archiv oder eine Datei einer veröffentlichen Geschichte hoch.",
+			"filePrompt": "Um Geschichten nach Twine zu importieren, lade unten entweder ein Archiv, eine Datei einer veröffentlichen Geschichte oder eine Twee Quelldatei hoch.",
+			"filePrompt": "To import stories into Twine, upload an archive, published story, or Twee source file below.",
 			"importDifferentFile": "Importiere eine andere Datei",
 			"importSelected": "Importiere die ausgewählten Dateien",
 			"importThisStory": "Importiere Diese Geschichte",
@@ -270,6 +283,7 @@
 		"storyEdit": {
 			"toolbar": {
 				"findAndReplace": "Suchen und Ersetzen",
+				"goTo": "Gehe Zu",
 				"javaScript": "JavaScript",
 				"passageTags": "Abschnitt Tags",
 				"snapToGrid": "Am Raster ausrichten",
@@ -369,6 +383,7 @@
 			"storyFormats": "Geschichtsformate"
 		},
 		"build": {
+			"exportAsTwee": "Exportiere als Twee",
 			"play": "Spiele",
 			"proof": "Korrektur",
 			"publishToFile": "Als Datei veröffentlichen",

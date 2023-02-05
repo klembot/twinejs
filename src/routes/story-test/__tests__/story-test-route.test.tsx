@@ -1,4 +1,4 @@
-import {render, screen, waitFor} from '@testing-library/react';
+import {render, waitFor} from '@testing-library/react';
 import {createHashHistory} from 'history';
 import * as React from 'react';
 import {HashRouter, Route} from 'react-router-dom';

@@ -1,0 +1,47 @@
+@import '../../styles/depth.css';
+@import '../../styles/metrics.css';
+
+.fuzzy-finder {
+	box-shadow: var(--shadow-large);
+	left: var(--grid-size);
+	position: fixed;
+	top: calc(2 * var(--control-height) + var(--grid-size)); /* below <top-bar> height */
+	z-index: 10;
+	width: 500px;
+}
+
+.fuzzy-finder .search {
+	align-items: center;
+	display: flex;
+	padding: var(--control-inner-padding) 0 var(--control-inner-padding) var(--grid-size);
+}
+
+.fuzzy-finder .search .text-input {
+	flex-grow: 1;
+}
+
+.fuzzy-finder .search .text-input label {
+	width: 100%;
+}
+
+.fuzzy-finder .results ol {
+	display: flex;
+	flex-direction: column;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.fuzzy-finder .results ol button {
+	width: 100%;
+}
+
+.fuzzy-finder .search + .results.has-results {
+	margin-top: calc(-1 * var(--control-inner-padding));
+} 
+
+
+.fuzzy-finder .no-results {
+	font-style: italic;
+	padding: 0 var(--grid-size) var(--grid-size) var(--grid-size);
+}

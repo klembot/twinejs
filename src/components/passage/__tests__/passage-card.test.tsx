@@ -3,12 +3,17 @@ import * as detectIt from 'detect-it';
 import {axe} from 'jest-axe';
 import * as React from 'react';
 import {fakePassage} from '../../../test-util';
+import {passageIsEmpty} from '../../../util/passage-is-empty';
 import {PassageCard, PassageCardProps} from '../passage-card';
 
 jest.mock('../../tag/tag-stripe');
+jest.mock('../../../util/passage-is-empty');
 
 describe('<PassageCard>', () => {
+	const passageIsEmptyMock = passageIsEmpty as jest.Mock;
 	const oldDeviceType = detectIt.deviceType;
+
+	beforeEach(() => passageIsEmptyMock.mockReturnValue(false));
 
 	afterAll(() => {
 		(detectIt as any).deviceType = oldDeviceType;
@@ -41,13 +46,22 @@ describe('<PassageCard>', () => {
 		expect(screen.getByText(passage.text)).toBeInTheDocument();
 	});
 
+	it("gives it an 'empty' CSS class if the passage is empty", () => {
+		passageIsEmptyMock.mockReturnValue(true);
+		renderComponent({passage: fakePassage()});
+		expect(document.querySelector('.passage-card.empty')).toBeInTheDocument();
+	});
+
+	it("doesn't give it an 'empty' CSS class if the passage is empty", () => {
+		passageIsEmptyMock.mockReturnValue(false);
+		renderComponent({passage: fakePassage()});
+		expect(
+			document.querySelector('.passage-card.empty')
+		).not.toBeInTheDocument();
+	});
+
 	describe('when passage text is empty', () => {
 		const passage = fakePassage({text: ''});
-
-		it("gives it an 'empty' CSS class", () => {
-			renderComponent({passage});
-			expect(document.querySelector('.passage-card.empty')).toBeInTheDocument();
-		});
 
 		it('displays a touch-oriented placeholder message on a touch device', () => {
 			(detectIt as any).deviceType = 'touchOnly';

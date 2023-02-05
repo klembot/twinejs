@@ -15,6 +15,7 @@ describe('Dialog reducer', () => {
 				{
 					collapsed: false,
 					component: mockComponent,
+					highlighted: false,
 					maximized: false,
 					props: {mockProp: true}
 				}
@@ -27,6 +28,7 @@ describe('Dialog reducer', () => {
 						{
 							collapsed: false,
 							component: mockComponent,
+							highlighted: false,
 							maximized: false,
 							props: {mockProp: true}
 						}
@@ -41,24 +43,27 @@ describe('Dialog reducer', () => {
 				{
 					collapsed: false,
 					component: mockComponent,
+					highlighted: false,
 					maximized: false,
 					props: {mockProp: true}
 				},
 				{
 					collapsed: false,
 					component: mockComponent,
+					highlighted: false,
 					maximized: false,
 					props: {mockProp: false}
 				}
 			]));
 
-		it('expands an existing, collapsed dialog if its component and props are identical', () =>
+		it('expands and highlights an existing, collapsed dialog if its component and props are identical', () =>
 			expect(
 				reducer(
 					[
 						{
 							collapsed: true,
 							component: mockComponent,
+							highlighted: false,
 							maximized: false,
 							props: {mockProp: true}
 						}
@@ -73,6 +78,7 @@ describe('Dialog reducer', () => {
 				{
 					collapsed: false,
 					component: mockComponent,
+					highlighted: true,
 					maximized: false,
 					props: {mockProp: true}
 				}
@@ -87,12 +93,14 @@ describe('Dialog reducer', () => {
 						{
 							collapsed: false,
 							component: mockComponent,
+							highlighted: false,
 							maximized: false,
 							props: {mockProp: true}
 						},
 						{
 							collapsed: false,
 							component: mockComponent,
+							highlighted: false,
 							maximized: false,
 							props: {mockProp: false}
 						}
@@ -103,6 +111,7 @@ describe('Dialog reducer', () => {
 				{
 					collapsed: false,
 					component: mockComponent,
+					highlighted: false,
 					maximized: false,
 					props: {mockProp: false}
 				}
@@ -113,12 +122,14 @@ describe('Dialog reducer', () => {
 						{
 							collapsed: false,
 							component: mockComponent,
+							highlighted: false,
 							maximized: false,
 							props: {mockProp: true}
 						},
 						{
 							collapsed: false,
 							component: mockComponent,
+							highlighted: false,
 							maximized: false,
 							props: {mockProp: false}
 						}
@@ -129,6 +140,7 @@ describe('Dialog reducer', () => {
 				{
 					collapsed: false,
 					component: mockComponent,
+					highlighted: false,
 					maximized: false,
 					props: {mockProp: true}
 				}
@@ -142,6 +154,7 @@ describe('Dialog reducer', () => {
 						{
 							collapsed: false,
 							component: mockComponent,
+							highlighted: false,
 							maximized: false,
 							props: {mockProp: true}
 						}
@@ -152,6 +165,7 @@ describe('Dialog reducer', () => {
 				{
 					collapsed: false,
 					component: mockComponent,
+					highlighted: false,
 					maximized: false,
 					props: {mockProp: true}
 				}
@@ -167,12 +181,14 @@ describe('Dialog reducer', () => {
 						{
 							collapsed: false,
 							component: mockComponent,
+							highlighted: false,
 							maximized: false,
 							props: {mockProp: true}
 						},
 						{
 							collapsed: false,
 							component: mockComponent,
+							highlighted: false,
 							maximized: false,
 							props: {mockProp: false}
 						}
@@ -183,12 +199,14 @@ describe('Dialog reducer', () => {
 				{
 					collapsed: true,
 					component: mockComponent,
+					highlighted: false,
 					maximized: false,
 					props: {mockProp: true}
 				},
 				{
 					collapsed: false,
 					component: mockComponent,
+					highlighted: false,
 					maximized: false,
 					props: {mockProp: false}
 				}
@@ -201,6 +219,7 @@ describe('Dialog reducer', () => {
 						{
 							collapsed: false,
 							component: mockComponent,
+							highlighted: false,
 							maximized: false,
 							props: {mockProp: true}
 						}
@@ -211,6 +230,71 @@ describe('Dialog reducer', () => {
 				{
 					collapsed: false,
 					component: mockComponent,
+					highlighted: false,
+					maximized: false,
+					props: {mockProp: true}
+				}
+			]));
+	});
+
+	describe('when a setDialogHighlighted action is received', () => {
+		it('updates the dialog at the index specified', () =>
+			expect(
+				reducer(
+					[
+						{
+							collapsed: false,
+							component: mockComponent,
+							highlighted: false,
+							maximized: false,
+							props: {mockProp: true}
+						},
+						{
+							collapsed: false,
+							component: mockComponent,
+							highlighted: false,
+							maximized: false,
+							props: {mockProp: false}
+						}
+					],
+					{type: 'setDialogHighlighted', highlighted: true, index: 0}
+				)
+			).toEqual([
+				{
+					collapsed: false,
+					component: mockComponent,
+					highlighted: true,
+					maximized: false,
+					props: {mockProp: true}
+				},
+				{
+					collapsed: false,
+					component: mockComponent,
+					highlighted: false,
+					maximized: false,
+					props: {mockProp: false}
+				}
+			]));
+
+		it('does nothing if an incorrect index is specified', () =>
+			expect(
+				reducer(
+					[
+						{
+							collapsed: false,
+							component: mockComponent,
+							highlighted: false,
+							maximized: false,
+							props: {mockProp: true}
+						}
+					],
+					{type: 'setDialogHighlighted', highlighted: true, index: 2}
+				)
+			).toEqual([
+				{
+					collapsed: false,
+					component: mockComponent,
+					highlighted: false,
 					maximized: false,
 					props: {mockProp: true}
 				}
@@ -225,12 +309,14 @@ describe('Dialog reducer', () => {
 						{
 							collapsed: false,
 							component: mockComponent,
+							highlighted: false,
 							maximized: false,
 							props: {mockProp: true}
 						},
 						{
 							collapsed: false,
 							component: mockComponent,
+							highlighted: false,
 							maximized: false,
 							props: {mockProp: false}
 						}
@@ -241,12 +327,14 @@ describe('Dialog reducer', () => {
 				{
 					collapsed: false,
 					component: mockComponent,
+					highlighted: false,
 					maximized: true,
 					props: {mockProp: true}
 				},
 				{
 					collapsed: false,
 					component: mockComponent,
+					highlighted: false,
 					maximized: false,
 					props: {mockProp: false}
 				}
@@ -257,12 +345,14 @@ describe('Dialog reducer', () => {
 						{
 							collapsed: false,
 							component: mockComponent,
+							highlighted: false,
 							maximized: true,
 							props: {mockProp: true}
 						},
 						{
 							collapsed: false,
 							component: mockComponent,
+							highlighted: false,
 							maximized: false,
 							props: {mockProp: false}
 						}
@@ -273,12 +363,14 @@ describe('Dialog reducer', () => {
 				{
 					collapsed: false,
 					component: mockComponent,
+					highlighted: false,
 					maximized: false,
 					props: {mockProp: true}
 				},
 				{
 					collapsed: false,
 					component: mockComponent,
+					highlighted: false,
 					maximized: false,
 					props: {mockProp: false}
 				}
@@ -292,12 +384,14 @@ describe('Dialog reducer', () => {
 						{
 							collapsed: false,
 							component: mockComponent,
+							highlighted: false,
 							maximized: false,
 							props: {mockProp: true}
 						},
 						{
 							collapsed: false,
 							component: mockComponent,
+							highlighted: false,
 							maximized: true,
 							props: {mockProp: false}
 						}
@@ -308,12 +402,14 @@ describe('Dialog reducer', () => {
 				{
 					collapsed: false,
 					component: mockComponent,
+					highlighted: false,
 					maximized: true,
 					props: {mockProp: true}
 				},
 				{
 					collapsed: false,
 					component: mockComponent,
+					highlighted: false,
 					maximized: false,
 					props: {mockProp: false}
 				}
@@ -326,6 +422,7 @@ describe('Dialog reducer', () => {
 						{
 							collapsed: false,
 							component: mockComponent,
+							highlighted: false,
 							maximized: false,
 							props: {mockProp: true}
 						}
@@ -336,6 +433,71 @@ describe('Dialog reducer', () => {
 				{
 					collapsed: false,
 					component: mockComponent,
+					highlighted: false,
+					maximized: false,
+					props: {mockProp: true}
+				}
+			]));
+	});
+
+	describe('when a setDialogProps action is received', () => {
+		it('updates the dialog at the index specified', () =>
+			expect(
+				reducer(
+					[
+						{
+							collapsed: false,
+							component: mockComponent,
+							highlighted: false,
+							maximized: false,
+							props: {mockProp: true}
+						},
+						{
+							collapsed: false,
+							component: mockComponent,
+							highlighted: false,
+							maximized: false,
+							props: {mockProp: false}
+						}
+					],
+					{type: 'setDialogProps', index: 0, props: {newProps: true}}
+				)
+			).toEqual([
+				{
+					collapsed: false,
+					component: mockComponent,
+					highlighted: false,
+					maximized: false,
+					props: {newProps: true}
+				},
+				{
+					collapsed: false,
+					component: mockComponent,
+					highlighted: false,
+					maximized: false,
+					props: {mockProp: false}
+				}
+			]));
+
+		it('does nothing if an incorrect index is specified', () =>
+			expect(
+				reducer(
+					[
+						{
+							collapsed: false,
+							component: mockComponent,
+							highlighted: false,
+							maximized: false,
+							props: {mockProp: true}
+						}
+					],
+					{type: 'setDialogProps', index: 2, props: {newProps: true}}
+				)
+			).toEqual([
+				{
+					collapsed: false,
+					component: mockComponent,
+					highlighted: false,
 					maximized: false,
 					props: {mockProp: true}
 				}

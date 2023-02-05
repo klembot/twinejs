@@ -1,3 +1,4 @@
+import Fuse from 'fuse.js';
 import uniq from 'lodash/uniq';
 import {Passage, StorySearchFlags, Story} from './stories.types';
 import {createRegExp} from '../../util/regexp';
@@ -89,6 +90,29 @@ export function passageConnections(
 	);
 
 	return result;
+}
+
+/**
+ * Returns a set of passages matching a fuzzy search crtieria.
+ */
+export function passagesMatchingFuzzySearch(
+	passages: Passage[],
+	search: string,
+	count = 5
+) {
+	if (search.trim() === '') {
+		return [];
+	}
+
+	const fuse = new Fuse(passages, {
+		ignoreLocation: true,
+		keys: [
+			{name: 'name', weight: 0.6},
+			{name: 'text', weight: 0.4}
+		]
+	});
+
+	return fuse.search(search, {limit: count}).map(({item}) => item);
 }
 
 /**

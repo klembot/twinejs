@@ -20,3 +20,14 @@ This file can be either opened directly in a web browser to play your story, or
 
 The other buttons under the _Build_ tab work the same as they do in the [Story
 Map Screen](../editing-stories).
+
+## Exporting a Story To Twee
+
+You can also export a story to [Twee
+format](../getting-started/basic-concepts.html#twee). Select it and choose
+_Export as Twee_ from the _Build_ top toolbar tab. You'll be asked where to save
+this file.
+
+Twine creates Twee files with a `.twee` file suffix. Your system may not know
+how to handle them by default, but they are openable in any plain text editor,
+like Notepad on Windows or TextEdit on macOS.

@@ -1,25 +1,60 @@
-const child_process = require('child_process');
+const {notarize} = require('@electron/notarize');
+const path = require('path');
 const pkg = require('./package.json');
 
 const isPreview =
 	/alpha|beta|pre/.test(pkg.version) || process.env.FORCE_PREVIEW;
 
 module.exports = {
-	afterSign(context) {
-		// This step is necessary to ad hoc sign the app. Otherwise, on Apple
-		// Silicon you get repeated prompts for file access.
-		//
-		// If/when we are able to sign the app for real, this must be removed.
-		//
-		// This was cribbed from https://github.com/alacritty/alacritty/issues/5840.
-
+	async afterSign(context) {
 		if (context.packager.platform.name === 'mac') {
-			console.log('Ad hoc signing Mac app...');
-			child_process.execSync(
-				'codesign --force --deep --sign - dist/electron/mac-universal/Twine.app'
-			);
+			if (!('APPLE_APP_ID' in process.env)) {
+				console.log(
+					'APPLE_APP_ID environment variable is not set, skipping notarization'
+				);
+				return;
+			}
+
+			if (!('APPLE_ID' in process.env)) {
+				console.log(
+					'APPLE_ID environment variable is not set, skipping notarization'
+				);
+				return;
+			}
+
+			if (!('APPLE_ID_PASSWORD' in process.env)) {
+				console.log(
+					'APPLE_ID_PASSWORD environment variable is not set, skipping notarization'
+				);
+				return;
+			}
+
+			console.log('Notarizing Mac app...');
+			await notarize({
+				appBundleId: process.env.APPLE_APP_ID,
+				appPath: path.join(context.appOutDir, `Twine.app`),
+				appleId: process.env.APPLE_ID,
+				appleIdPassword: process.env.APPLE_ID_PASSWORD
+			});
 		}
 	},
+
+	// This step was necessary to ad hoc sign the app. Otherwise, on Apple Silicon
+	// you get repeated prompts for file access. This is commented out because we
+	// are able to sign the app thanks to the Interactive Fiction Technology
+	// Foundation, but originally figuring this problem out took forever, so the
+	// code below might be helpful to others making builds.
+	// The code below was cribbed from https://github.com/alacritty/alacritty/issues/5840.
+	//
+	// afterSign(context) {
+	// 	if (context.packager.platform.name === 'mac') {
+	// 		console.log('Ad hoc signing Mac app...');
+	// 		child_process.execSync(
+	// 			'codesign --force --deep --sign - dist/electron/mac-universal/Twine.app'
+	// 		);
+	// 	}
+	// },
+	appId: 'org.twinery.twine',
 	directories: {
 		output: 'dist/electron'
 	},

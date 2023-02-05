@@ -23,6 +23,20 @@ describe('<TagButton>', () => {
 		expect(screen.getByTestId('mock-menu-button-tag-name')).toBeInTheDocument();
 	});
 
+	it('disables the button if the disabled prop is set', () => {
+		renderComponent({disabled: true, name: 'tag-name'});
+		expect(
+			screen.getByTestId('mock-menu-button-tag-name').dataset.disabled
+		).toBe('true');
+	});
+
+	it("enables the button if the disabled prop isn't set", () => {
+		renderComponent({name: 'tag-name'});
+		expect(
+			screen.getByTestId('mock-menu-button-tag-name').dataset.disabled
+		).toBeUndefined();
+	});
+
 	it('calls the onChangeColor prop when the color of the tag is changed', () => {
 		const onChangeColor = jest.fn();
 

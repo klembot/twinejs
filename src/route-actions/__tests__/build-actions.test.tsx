@@ -1,17 +1,21 @@
 import {fireEvent, render, screen, waitFor} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
+import {storyFileName} from '../../electron/shared';
 import {Story} from '../../store/stories';
 import {usePublishing} from '../../store/use-publishing';
 import {useStoryLaunch} from '../../store/use-story-launch';
 import {fakeStory} from '../../test-util';
+import {saveTwee} from '../../util/save-file';
+import {storyToTwee} from '../../util/twee';
 import {BuildActions, BuildActionsProps} from '../build-actions';
 
 jest.mock('../../store/use-publishing');
 jest.mock('../../store/use-story-launch');
-jest.mock('../../util/save-html');
+jest.mock('../../util/save-file');
 
 describe('<BuildActions>', () => {
+	const saveTweeMock = saveTwee as jest.Mock;
 	const usePublishingMock = usePublishing as jest.Mock;
 	const useStoryLaunchMock = useStoryLaunch as jest.Mock;
 
@@ -38,6 +42,11 @@ describe('<BuildActions>', () => {
 		it('disables the publish to story button', () =>
 			expect(
 				screen.getByText('routeActions.build.publishToFile')
+			).toBeDisabled());
+
+		it('disables the export to Twee button', () =>
+			expect(
+				screen.getByText('routeActions.build.exportAsTwee')
 			).toBeDisabled());
 	});
 
@@ -113,6 +122,14 @@ describe('<BuildActions>', () => {
 			await waitFor(() =>
 				expect(screen.getByText('mock-publish-error')).toBeInTheDocument()
 			);
+		});
+
+		it('displays a button to export the story as Twee', () => {
+			expect(saveTweeMock).not.toHaveBeenCalled();
+			fireEvent.click(screen.getByText('routeActions.build.exportAsTwee'));
+			expect(saveTweeMock.mock.calls).toEqual([
+				[storyToTwee(story), storyFileName(story, '.twee')]
+			]);
 		});
 	});
 

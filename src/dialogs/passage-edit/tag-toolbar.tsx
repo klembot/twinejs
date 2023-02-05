@@ -12,12 +12,13 @@ import {useUndoableStoriesContext} from '../../store/undoable-stories';
 import {Color} from '../../util/color';
 
 export interface TagToolbarProps {
+	disabled?: boolean;
 	passage: Passage;
 	story: Story;
 }
 
 export const TagToolbar: React.FC<TagToolbarProps> = props => {
-	const {passage, story} = props;
+	const {disabled, passage, story} = props;
 	const {dispatch, stories} = useUndoableStoriesContext();
 	const {t} = useTranslation();
 
@@ -43,6 +44,7 @@ export const TagToolbar: React.FC<TagToolbarProps> = props => {
 				{passage.tags.map(tag => (
 					<TagButton
 						color={story.tagColors[tag]}
+						disabled={disabled}
 						key={tag}
 						name={tag}
 						onChangeColor={color => handleChangeTagColor(tag, color)}

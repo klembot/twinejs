@@ -19,11 +19,13 @@ export interface DialogCardProps {
 	collapsed: boolean;
 	fixedSize?: boolean;
 	headerLabel: string;
+	highlighted?: boolean;
 	maximizable?: boolean;
 	maximized?: boolean;
 	onChangeCollapsed: (value: boolean) => void;
+	onChangeHighlighted: (value: boolean) => void;
 	onChangeMaximized: (value: boolean) => void;
-	onClose: () => void;
+	onClose: (event?: React.KeyboardEvent | React.MouseEvent) => void;
 }
 
 export const DialogCard: React.FC<DialogCardProps> = props => {
@@ -33,9 +35,11 @@ export const DialogCard: React.FC<DialogCardProps> = props => {
 		collapsed,
 		fixedSize,
 		headerLabel,
+		highlighted,
 		maximizable,
 		maximized,
 		onChangeCollapsed,
+		onChangeHighlighted,
 		onChangeMaximized,
 		onClose
 	} = props;
@@ -48,15 +52,24 @@ export const DialogCard: React.FC<DialogCardProps> = props => {
 		}
 	}, [error]);
 
+	React.useEffect(() => {
+		if (highlighted) {
+			const timeout = window.setTimeout(() => onChangeHighlighted(false), 400);
+
+			return () => window.clearTimeout(timeout);
+		}
+	}, [highlighted, onChangeHighlighted]);
+
 	const calcdClassName = classNames('dialog-card', className, {
 		collapsed,
+		highlighted,
 		'fixed-size': fixedSize,
 		maximized
 	});
 
 	function handleKeyDown(event: React.KeyboardEvent) {
 		if (event.key === 'Escape') {
-			onClose();
+			onClose(event);
 		}
 	}
 

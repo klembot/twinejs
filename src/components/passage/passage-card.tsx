@@ -3,10 +3,11 @@ import {deviceType} from 'detect-it';
 import * as React from 'react';
 import {DraggableCore, DraggableCoreProps} from 'react-draggable';
 import {useTranslation} from 'react-i18next';
-import {Passage, TagColors} from '../../store/stories';
 import {CardContent} from '../container/card';
 import {SelectableCard} from '../container/card/selectable-card';
+import {Passage, TagColors} from '../../store/stories';
 import {TagStripe} from '../tag/tag-stripe';
+import {passageIsEmpty} from '../../util/passage-is-empty';
 import './passage-card.css';
 
 export interface PassageCardProps {
@@ -38,10 +39,10 @@ export const PassageCard: React.FC<PassageCardProps> = React.memo(props => {
 	const className = React.useMemo(
 		() =>
 			classNames('passage-card', {
-				empty: passage.text === '' && passage.tags.length === 0,
+				empty: passageIsEmpty(passage),
 				selected: passage.selected
 			}),
-		[passage.selected, passage.tags.length, passage.text]
+		[passage]
 	);
 	const container = React.useRef<HTMLDivElement>(null);
 	const excerpt = React.useMemo(() => {

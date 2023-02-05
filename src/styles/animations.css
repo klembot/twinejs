@@ -34,3 +34,35 @@
 		transform: scale(1);
 	}
 }
+
+@keyframes mini-pop-in {
+	from {
+		transform: scale(1.05);
+	}
+
+	to {
+		transform: scale(1);
+	}
+}
+
+@keyframes wiggle {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	25% {
+		transform: rotate(-1deg);
+	}
+
+	50% {
+		transform: scale(1.025) rotate(1deg);
+	}
+
+	75% {
+		transform: rotate(-1deg);
+	}
+
+	100% {
+		transform: scale(1) rotate(0deg);
+	}
+}
