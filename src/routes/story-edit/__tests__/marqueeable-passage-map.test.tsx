@@ -50,7 +50,7 @@ describe('<MarqueeablePassageMap>', () => {
 		);
 	}
 
-	it('overrides the selected state of passages while the user is dragging', async () => {
+	it('overrides the selected state of passages while the user is dragging', () => {
 		const passages = [
 			fakePassage({
 				selected: false,
@@ -72,17 +72,15 @@ describe('<MarqueeablePassageMap>', () => {
 			screen.getByTestId(`mock-passage-${passages[1].id}`).dataset.selected
 		).toBe('false');
 		fireEvent.click(screen.getByText('onTemporarySelectRect'));
-		await waitFor(() =>
-			expect(
-				screen.getByTestId(`mock-passage-${passages[0].id}`).dataset.selected
-			).toBe('true')
-		);
+		expect(
+			screen.getByTestId(`mock-passage-${passages[0].id}`).dataset.selected
+		).toBe('true');
 		expect(
 			screen.getByTestId(`mock-passage-${passages[1].id}`).dataset.selected
 		).toBe('false');
 	});
 
-	it('overrides the selected state of passages while the user is dragging additively', async () => {
+	it('overrides the selected state of passages while the user is dragging additively', () => {
 		const passages = [
 			fakePassage({
 				height: 100,
@@ -108,11 +106,9 @@ describe('<MarqueeablePassageMap>', () => {
 			screen.getByTestId(`mock-passage-${passages[1].id}`).dataset.selected
 		).toBe('true');
 		fireEvent.click(screen.getByText('onTemporarySelectRect additive'));
-		await waitFor(() =>
-			expect(
-				screen.getByTestId(`mock-passage-${passages[0].id}`).dataset.selected
-			).toBe('true')
-		);
+		expect(
+			screen.getByTestId(`mock-passage-${passages[0].id}`).dataset.selected
+		).toBe('true');
 		expect(
 			screen.getByTestId(`mock-passage-${passages[1].id}`).dataset.selected
 		).toBe('true');
