@@ -1,113 +1,418 @@
 {
-	"colors": {},
+	"colors": {
+		"none": "Geen kleur",
+		"red": "Rood",
+		"orange": "Oranje",
+		"yellow": "Geel",
+		"green": "Groen",
+		"blue": "Blauw",
+		"purple": "Paars"
+	},
 	"common": {
-		"add": "Voeg toe",
+		"add": "Toevoegen",
 		"appName": "Twine",
+		"back": "Terug",
+		"build": "Bouwen",
 		"cancel": "Annuleren",
+		"close": "Sluiten",
+		"color": "Kleur",
+		"create": "Maken",
+		"custom": "Aangepast",
 		"delete": "Verwijderen",
-		"duplicate": "Dupliceer",
+		"deleteCount": "Verwijderen ({{count}})",
+		"details": "Details",
+		"duplicate": "Duplicaten",
 		"edit": "Bewerken",
+		"editCount": "Bewerken ({{count}})",
+		"help": "Help",
+		"import": "Importeren",
+		"maximize": "Maximaliseren",
+		"more": "Meer",
+		"new": "Nieuw",
+		"next": "Volgende",
 		"ok": "Oke",
-		"play": "Speel",
-		"rename": "Hernoem",
-		"remove": "Verwijder",
+		"passage": "Passage",
+		"play": "Spelen",
+		"preferences": "Voorkeuren",
+		"publishToFile": "Publiceren naar bestand",
+		"redo": "Opnieuw doen",
+		"redoChange": "Opnieuw doen {{change}}",
+		"rename": "Hernoemen",
+		"renamePrompt": "Wat moet “{{name}}” naar hernoemt worden?",
+		"remove": "Verwijderen",
+		"selectAll": "Selecteer Alles",
 		"skip": "Overslaan",
+		"story": "Verhaal",
 		"storyFormat": "Verhaal formaat",
 		"tag": "Label",
 		"test": "Test",
-		"undo": "Ongedaan maken"
+		"twine": "Twine",
+		"undo": "Ongedaan maken",
+		"undoChange": "Maak {{change}} ongedaan",
+		"unmaximize": "Herstel grote",
+		"view": "Bekijken"
 	},
 	"components": {
-		"addStoryFormatButton": {
-			"prompt": "Vul onder een adres in om een verhaal formaat toe te voegen."
+		"addTagButton": {
+			"alreadyAdded": "Dit label was al toegevoegd.",
+			"addLabel": "Voeg label toe",
+			"invalidName": "Vul een valide label naam in.",
+			"newTag": "Nieuw label",
+			"tagColorLabel": "Label kleur",
+			"tagNameLabel": "Label naam"
 		},
-		"addTagButton": {},
-		"fontSelect": {"fonts": {}},
-		"indentButtons": {},
-		"localStorageQuota": {},
+		"dialogCard": {
+			"contentsCrashed": "Er ging iets mis met dit dialoog. Probeer het te sluiten en opnieuw te openen."
+		},
+		"fontSelect": {
+			"customScaleDetail": "Vul alstublieft alleen een percentage in.",
+			"customFamilyDetail": "Vul alstublieft alleen de naam van het lettertype in.",
+			"familyEmpty": "Vul een lettertype in.",
+			"font": "Lettertype",
+			"fonts": {
+				"monospaced": "Monospaced",
+				"serif": "Serif",
+				"system": "System"
+			},
+			"fontSize": "Lettertype Grote",
+			"percentage": "{{percent}}%",
+			"percentageIsntNumber": "Vul alstublieft een nummer in.",
+			"percentageNotPositive": "Vul alstublieft een nummer groter dan 0 in."
+		},
+		"indentButtons": {
+			"indent": "Inspringen",
+			"unindent": "Niet inspringen"
+		},
+		"localStorageQuota": {
+			"measureAgain": "Meet opnieuw de opslag over",
+			"percentAvailable": "{percent}% opslag over"
+		},
 		"passageCard": {
-			"placeholderClick": "Klik twee keer op deze passage om het aan te passen.",
-			"placeholderTouch": "Druk op deze passage en dan het potlood icoon om het aan te passen."
+			"placeholderClick": "Klik dubbel op deze passage om deze te bewerken.",
+			"placeholderTouch": "Klik op deze passage, klik dan bewerken in het passage tabblad om hem te bewerken."
 		},
-		"renamePassageButton": {"emptyName": "Vul a.u.b. een naam in."},
-		"renameStoryButton": {"emptyName": "Vul a.u.b. een naam in."},
-		"safariWarningCard": {},
-		"storyCard": {},
-		"storyFormatCard": {},
-		"storyFormatSelect": {},
-		"tagEditor": {}
+		"renamePassageButton": {
+			"emptyName": "Vul alstublieft u naam in.",
+			"nameAlreadyUsed": "Een andere passage in dit verhaal heeft al deze naam."
+		},
+		"renameStoryButton": {
+			"emptyName": "Vul alstublieft u naam in.",
+			"nameAlreadyUsed": "Een ander verhaal heeft deze naam al."
+		},
+		"safariWarningCard": {
+			"archiveAndUseAnotherBrowser": "Archiveer alstublieft uw verhalen en gebruik een andere browser.",
+			"addToHomeScreen": "Voeg deze website toe aan uw thuisscherm om deze limitatie te voorkomen.",
+			"howToAddToHomeScreen": "How voeg ik deze website toe aan mijn thuisscherm?",
+			"learnMore": "Leer meer",
+			"message": "De browser die u nu gebruikt verwijderd alle verhalen na zeven dagen geen interactie."
+		},
+		"storageQuota": {
+			"freeSpace": "{{percent}}% opslag over"
+		},
+		"storyCard": {
+			"lastUpdated": "Voor het laatst bewerkt op {{date}}",
+			"passageCount": "1 passage",
+			"passageCount_plural": "{{count}} passages"
+		},
+		"storyFormatCard": {
+			"author": "door {{author}}",
+			"builtIn": "Ingebouwd",
+			"defaultFormat": "Gebruikt als standaard",
+			"editorExtensionsDisabled": "Editor-extensies uitgeschakeld",
+			"license": "Licentie: {{license}}",
+			"loadingFormat": "Laden van dit formaat...",
+			"loadError": "Dit formaat kon niet worden geladen ({{errorMessage}}).",
+			"name": "{{name}} {{version}}",
+			"proofing": "Proeflezen",
+			"proofingFormat": "Gebruikt voor proeflezen",
+			"useEditorExtensions": "Gebruik editor-extensies",
+			"useFormat": "Gebruik een standaard verhaal formaat",
+			"useProofingFormat": "Gebruik een proeflees formaat"
+		},
+		"storyFormatSelect": {
+			"loadingCount": "Laden van 1 verhaal formaat...",
+			"loadingCount_plural": "Laden van {{loadingCount}} verhaal formaten..."
+		},
+		"tagEditor": {
+			"alreadyExists": "Een label met deze naam bestaat al."
+		}
 	},
 	"dialogs": {
 		"aboutTwine": {
-			"donateToTwine": "Help Twine te groeien met een donatie",
-			"codeHeader": "Code"
+			"donateToTwine": "Help Twine Groeien Met Een Donatie",
+			"codeHeader": "Code",
+			"codeRepo": "Bezoek Broncode Repository",
+			"license": "Deze applicatie is uitgegeven onder de <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GPL v3 licentie</a>, maar alles gemaakt met deze applicatie mag onder eigen licentie worden uitgegeven, inclusief commerciële.",
+			"localizationHeader": "Lokalisaties",
+			"title": "Over Twine {{version}}",
+			"twineDescription": "Twine is een open-sourcetoepassing voor het vertellen van interactieve, niet-lineaire verhalen."
 		},
-		"appDonation": {"noThanks": "Nee bedankt"},
-		"appPrefs": {"language": "Taal"},
-		"passageEdit": {},
-		"passageTags": {},
-		"storyInfo": {"stats": {"title": "Verhaal statistieken"}},
+		"appDonation": {
+			"donate": "Doneer aan Twine Development",
+			"onlyOnce": "(Dit bericht wordt slechts één keer aan u getoond. Als u in de toekomst wilt doneren aan de ontwikkeling van Twine, vindt u een link om dit te doen in het dialoogvenster Over Twine.)",
+			"supportMessage": "Als je van Twine houdt, overweeg dan om het te helpen groeien met een donatie. Twine is een open source-project dat altijd gratis te gebruiken is en met jouw hulp zal Twine blijven floreren.",
+			"noThanks": "Nee Bedankt",
+			"title": "Steun Twine Development"
+		},
+		"appPrefs": {
+			"codeEditorFont": "Lettertype Voor Code-editor",
+			"codeEditorFontScale": "Lettertype Grote Voor Code-editor",
+			"dialogWidth": "Dialoog Breedte",
+			"dialogWidths": {
+				"default": "Standaard",
+				"wider": "Breder",
+				"widest": "Breedst"
+			},
+			"editorCursorBlinks": "Knipperende Cursor in Editors",
+			"fontExplanation": "Het wijzigen van het lettertype hier heeft alleen invloed op de Twine-editor. Het verandert niet het lettertype dat een verhaal gebruikt wanneer het wordt afgespeeld.",
+			"language": "Taal",
+			"passageEditorFont": "Lettertype Passage-editor",
+			"passageEditorFontScale": "Lettertype Grote Passage-editor",
+			"themeLight": "Licht",
+			"themeDark": "Donker",
+			"themeSystem": "System",
+			"theme": "Thema",
+			"title": "Voorkeuren"
+		},
+		"passageEdit": {
+			"editorCrashed": "Er is iets misgegaan met deze editor. Probeer het te sluiten en deze passage opnieuw te bewerken.",
+			"passageTextEditorLabel": "Passage Text",
+			"passageTextPlaceholder": "Voer hier de tekst van uw passage in. Zet twee brackets om de naam om naar een andere passage te linken, [[zoals dit bijvoorbeeld]].",
+			"setAsStart": "Begin Het Verhaal Hier",
+			"size": "Grote",
+			"sizeLarge": "Groot",
+			"sizeSmall": "Klein",
+			"sizeTall": "Hoog",
+			"sizeWide": "Breed"
+		},
+		"passageTags": {
+			"noTags": "Er zijn geen labels toegevoegd aan passages in dit verhaal.",
+			"title": "Passage Labels"
+		},
+		"storyImport": {
+			"deselectAll": "Deselecteer Alles",
+			"filePrompt": "Om verhalen in Twine te importeren, uploadt u hieronder een archief of een gepubliceerd verhaalbestand.",
+			"importDifferentFile": "Een ander bestand importeren",
+			"importSelected": "Geselecteerde bestanden importeren",
+			"importThisStory": "Importeer dit verhaal",
+			"noStoriesInFile": "Het lijkt erop dat er geen Twine-verhalen in het bestand staan dat u heeft geüpload. Kies een ander bestand.",
+			"storiesPrompt": "Kies welke verhalen je wilt importeren:",
+			"title": "Importeer Verhalen",
+			"willReplaceExisting": "Een verhaal met dezelfde naam in je bibliotheek wordt vervangen."
+		},
+		"storyDetails": {
+			"storyFormatExplanation": "Wat is een verhaalformaat?",
+			"snapToGrid": "Uitlijnen op raster",
+			"stats": {
+				"brokenLinks": "Gebroken Links",
+				"characters": "Karakters",
+				"title": "Verhaal Statistieken",
+				"ifid": "De IFID van dit verhaal is {{ifid}}.",
+				"ifidExplanation": "Wat is een IFID?",
+				"lastUpdate": "Dit verhaal was voor het laatst gewijzigd op {{date}}.",
+				"links": "Links",
+				"passages": "Passages",
+				"words": "Woorden"
+			}
+		},
 		"storyJavaScript": {
-			"explanation": "JavaScript die u hier invoert zal gelijk uitgevoerd worden als uw verhaal in een Web browser wordt geopend"
+			"editorLabel": "Verhaal JavaScript",
+			"title": "Verhaal JavaScript",
+			"explanation": "JavaScript dat hier wordt ingevoerd, wordt onmiddellijk uitgevoerd wanneer uw verhaal wordt geopend in een webbrowser."
 		},
 		"storySearch": {
-			"title": "Zoek en vervang",
-			"replaceWith": "Verplaatsen met"
+			"title": "Zoek en Vervang",
+			"find": "Zoek",
+			"includePassageNames": "Passagenamen opnemen",
+			"matchCase": "Match Case",
+			"matchCount": "{{count}} Bijpassende Passage",
+			"matchCount_plural": "{{count}} Bijpassende Passage",
+			"noMatches": "Geen Bijpassende Passage",
+			"replaceAll": "Vervang In Alle Passages",
+			"replaceWith": "Vervang Met",
+			"useRegexes": "Gebruik Regular Expressions"
 		},
 		"storyStylesheet": {
-			"explanation": "CSS die hier is ingevoerd zal het standaard uiterlijk van je verhaal overschrijven"
+			"editorLabel": "Verhaal Stylesheet",
+			"title": "Verhaal Stylesheet",
+			"explanation": "CSS die hier wordt ingevoerd, overschrijft de standaardweergave van uw verhaal."
 		},
-		"storyTags": {}
+		"storyTags": {
+			"noTags": "Er zijn geen labels toegevoegd aan je verhalen.",
+			"title": "Verhaal Labels"
+		}
 	},
 	"electron": {
-		"errors": {"storyFileChangedExternally": {}},
-		"menuBar": {"edit": "Bewerken"},
-		"storiesDirectoryName": "Verhalen"
+		"backupsDirectoryName": "Back-ups",
+		"errors": {
+			"jsonSave": "Er is iets misgegaan bij het opslaan van een instellingenbestand.",
+			"storyFileChangedExternally": {
+				"message": "Het bestand “{{fileName}}” in je verhalenbibliotheek is buiten Twine gewijzigd.",
+				"detail": "Als u wijzigingen opslaat, wordt dit bestand overschreven. Als u dit bestand wilt gebruiken in plaats van de versie in Twine, wordt Twine opnieuw gestart en wordt uw werk vervangen door het bestand.",
+				"overwriteChoice": "Sla Veranderingen Op In Twine",
+				"relaunchChoice": "Bestand Gebruiken en Opnieuw Starten"
+			},
+			"storyDelete": "Er is iets misgegaan bij het verwijderen van een verhaal.",
+			"storyRename": "Er is iets misgegaan bij het hernoemen van een verhaal.",
+			"storySave": "Er is iets misgegaan bij het opslaan van een verhaal."
+		},
+		"menuBar": {
+			"checkForUpdates": "Controleer op Updates...",
+			"edit": "Bewerk",
+			"showDevTools": "Foutopsporingsconsole weergeven",
+			"showStoryLibrary": "Verhalenbibliotheek weergeven",
+			"speech": "Spraak",
+			"troubleshooting": "Probleemoplossen",
+			"twineHelp": "Twine Help",
+			"view": "Bekijk"
+		},
+		"storiesDirectoryName": "Verhalen",
+		"updateCheck": {
+			"download": "Download",
+			"error": "Er is iets misgegaan tijdens het zoeken naar een bijgewerkte versie van Twine.",
+			"updateAvailable": "Er is een nieuwere versie van Twine beschikbaar.",
+			"upToDate": "Dit is de nieuwste versie van Twine die beschikbaar is."
+		}
 	},
 	"routes": {
 		"storyEdit": {
+			"toolbar": {
+				"findAndReplace": "Zoek en Vervang",
+				"javaScript": "JavaScript",
+				"passageTags": "Passage Labels",
+				"snapToGrid": "Uitlijnen op raster",
+				"startStoryHere": "Begin verhaal hier",
+				"stylesheet": "Stylesheet",
+				"testFromHere": "Test vanaf hier"
+			},
 			"topBar": {
-				"addPassage": "Passage",
-				"editJavaScript": "Pas verhaal JavaScript aan",
-				"editStylesheet": "Pas verhaal StyleSheet aan",
-				"findAndReplace": "Zoek en vervang",
-				"proofStory": "Kijk naar controle kopie",
-				"publishToFile": "Naar bestand publiceren"
+				"editJavaScript": "Bewerk de JavaScript van dit verhaal",
+				"editStylesheet": "Bewerk de Stylesheet van dit verhaal",
+				"findAndReplace": "Zoek en Vervang",
+				"passageTags": "Edit Passage Labels",
+				"proofStory": "Bekijk proeflees kopie",
+				"publishToFile": "Publiceer naar Bestand",
+				"selectAllPassages": "Selecteer Alle Passages"
+			},
+			"zoomButtons": {
+				"storyStructure": "Alleen verhaalstructuur weergeven",
+				"passageNames": "Alleen passagenamen weergeven",
+				"passageNamesAndExcerpts": "Passagenamen en fragmenten weergeven"
 			}
 		},
 		"storyFormatList": {
-			"title": {},
-			"storyFormatExplanation": "Verhaal formaten passen het uiterlijk en gedrag van verhalen aan tijdens het spelen."
+			"noneVisible": "Er zijn geen verhaalformaten die voldoen aan de criteria die je hebt geselecteerd.",
+			"show": "Laat zien...",
+			"title": {
+				"all": "Alle Verhaal Formaten",
+				"current": "Huidige Verhaal Formaten",
+				"user": "Door Gebruiker Toegevoegde Formaten"
+			},
+			"toolbar": {
+				"addStoryFormatButton": {
+					"addPreview": "{{storyFormatName}} {{storyFormatVersion}} wordt toegevoegd.",
+					"alreadyAdded": "{{storyFormatName}} {{storyFormatVersion}} is al toegevoegd.",
+					"fetchError": "Het verhaalformaat op dit adres kan niet worden opgehaald ({{errorMessage}}).",
+					"invalidUrl": "Voer een geldige URL in.",
+					"prompt": "Voer het adres hieronder in om een verhaalformaat toe te voegen."
+				},
+				"disableFormatExtensions": "Editor-extensies uitschakelen",
+				"enableFormatExtensions": "Editor-extensies inschakelen",
+				"useAsDefaultFormat": "Gebruiken als standaardformaat",
+				"useAsProofingFormat": "Gebruik om verhalen proef te lezen"
+			},
+			"storyFormatExplanation": "Verhaalformaten bepalen het uiterlijk en het gedrag van verhalen tijdens het spelen."
 		},
-		"storyImport": {},
 		"storyList": {
-			"noStories": "Er zijn geen opgeslagen verhalen in Twine op dit moment. Om te beginnen kun een nieuw verhaal maken",
+			"library": "Bibliotheek",
+			"noStories": "Er zijn momenteel geen verhalen opgeslagen in Twine. Om aan de slag te gaan, kunt u een nieuw verhaal maken of een bestaand verhaal uit een bestand importeren.",
+			"taggedTitleCount": "1 Getagd Verhaal",
+			"taggedTitleCount_0": "Geen Getagden Verhalen",
+			"taggedTitleCount_plural": "{{count}} Getagden Verhalen",
+			"titleCount": "1 Verhaal",
+			"titleCount_0": "Geen Verhalen",
+			"titleCount_plural": "{{count}} Verhalen",
 			"titleGeneric": "Verhalen",
-			"topBar": {
-				"about": "Over Twine",
+			"toolbar": {
 				"archive": "Archief",
-				"createStory": "Verhaal",
-				"help": "Help",
-				"sortName": "Naam",
-				"storyFormats": "Formaten"
+				"createStoryButton": {
+					"prompt": "Hoe moet uw verhaal heten? U kunt dit later wijzigen.",
+					"emptyName": "Vul asltublieft een naam in.",
+					"nameConflict": "Een ander verhaal heeft al deze naam."
+				},
+				"deleteStoryButton": {
+					"warning": {
+						"electron": "Weet u zeker dat u “{{storyName}}” wilt verwijderen ? Het wordt naar de prullenbak verplaatst.",
+						"web": "Weet u zeker dat u “{{storyName}}” wilt verwijderen ? Het wordt voor altijd verwijderd. Dit kan niet ongedaan gemaakt worden."
+					}
+				},
+				"showAllStories": "Toon Alle Verhalen",
+				"showTags": "Toon Labels",
+				"sort": "Sorteer Op",
+				"sortByDate": "Voor het laatst geupdate",
+				"sortByName": "Naam",
+				"storyTags": "Verhaal Labels"
 			}
 		},
 		"welcome": {
-			"autosaveTitle": "Je werk wordt automatisch opgeslagen.",
-			"doneTitle": "Dat is het!",
-			"gotoStoryList": "Ga naar de verhaal lijst",
-			"greetingTitle": "Hallo!",
-			"tellMeMore": "Vertel me meer",
-			"helpTitle": "Ben je hier nieuw?"
+			"autosave": "<p>Er is nu een map met de naam Twine in de map Documenten. Daarin bevindt zich een map Verhalen, waar al uw werk wordt opgeslagen. Twine slaat alles op terwijl u werkt, dus u hoeft niet zelf op te slaan. U kunt de map waarin uw verhalen zijn opgeslagen altijd openen door het item <strong>Bibliotheek weergeven</strong> te gebruiken in de map <strong>Twine</strong>.</p><p>Omdat Twine uw werk op de achtergrond opslaat, worden de bestanden in uw verhalenbibliotheek vergrendeld voor bewerking terwijl Twine gebruikt word.</p><p>Als u een Twine-verhaalbestand wilt openen dat u van iemand anders hebt ontvangen, kunt u het in uw bibliotheek importeren met behulp van de <strong>Importeren uit bestand</strong> link in de verhalenlijst.</p>",
+			"autosaveTitle": "Uw werk wordt automatisch opgeslagen.",
+			"browserStorage": "<p>Dit betekent dat u geen account hoeft aan te maken om Twine 2 te gebruiken, en alles wat u aanmaakt wordt niet ergens anders op een server opgeslagen&mdash; het blijft alleen in uw browser staan.</p><p>Twee <strong>zeer belangrijke</strong> dingen om te onthouden. Aangezien uw werk alleen in uw browser wordt opgeslagen, verliest u uw werk als u de browser gegevens wist! Niet erg handig. Vergeet niet om de knop <strong>Archief</strong> vaak te gebruiken. U kunt ook afzonderlijke verhalen naar een bestand publiceren met behulp van het menu dat in elk verhaal te vindin is. Zowel archief- als verhaalbestanden kunnen altijd opnieuw in Twine worden geïmporteerd.</p><p>Ten tweede kan <strong>iedereen die deze browser kan gebruiken, uw werk zien en wijzigingen aanbrengen.</strong> Dus als een kind heeft dat per ongeluk iets kan breken, kunt u overwegen om een eigen systeem profiel te maken.</p>",
+			"browserStorageTitle": "Uw werk wordt alleen in uw browser opgeslagen",
+			"done": "<p>Bedankt voor het lezen en veel plezier met Twine.</p>",
+			"doneTitle": "Dat was alles!",
+			"gotoStoryList": "Ga Naar Verhalen Lijst",
+			"greeting": "<p>Twine is een open-source tool voor het vertellen van interactieve, niet-lineaire verhalen. Er zijn een paar dingen die u moet weten voordat u aan de slag gaat.</p>",
+			"greetingTitle": "Hoi!",
+			"tellMeMore": "Vertel Mij Meer",
+			"help": "<p><strong>Als u Twine nog nooit eerder hebt gebruikt, welkom!</strong> Het <a href=\"https://twinery.org/cookbook\">Twine Cookbook</a> is een geweldig hulpmiddel om Twine te leren gebruiken. Als u Twine nog niet eerder hebt gebruikt, is dit een geweldige plek om te beginnen.</p>",
+			"helpTitle": "Nieuw hier?"
+		}
+	},
+	"routeActions": {
+		"app": {
+			"aboutApp": "Over Twine",
+			"preferences": "Voorkeuren",
+			"reportBug": "Rapporteer een fout",
+			"storyFormats": "Verhaal Formaten"
+		},
+		"build": {
+			"play": "Spelen",
+			"proof": "Proeflezen",
+			"publishToFile": "Publiceer naar Bestand",
+			"test": "Test"
 		}
 	},
 	"store": {
-		"errors": {},
+		"archiveFilename": "{{timestamp}} Twine Archive.html",
+		"errors": {
+			"cantPersistPrefs": "Er is iets misgegaan bij het opslaan van uw voorkeuren ({{error}}).",
+			"cantPersistStories": "Er is iets misgegaan bij het opslaan van uw verhalen ({{error}}).",
+			"cantPersistStoryFormats": "Er is iets misgegaan bij het opslaan van uw verhaalformaten ({{error}}).",
+			"electronRemediation": "Het kan helpen om deze applicatie opnieuw te starten.",
+			"webRemediation": "Deze pagina opnieuw laden kan helpen."
+		},
 		"passageDefaults": {
 			"name": "Naamloze passage"
 		},
-		"storyDefaults": {"name": "Naamloos verhaal"},
-		"storyFormatDefaults": {"name": "Naamloos Verhaal Formaat"}
+		"storyDefaults": {
+			"name": "Naamloos Verhaal"
+		},
+		"storyFormatDefaults": {
+			"name": "Naamloos Verhaal Formaat"
+		}
 	},
-	"undoChange": {"replaceAllText": "Alles vervangen"}
+	"undoChange": {
+		"addTag": "Voeg Label Toe",
+		"changeTagColor": "Verander Label Kleur",
+		"newPassage": "Nieuwe Passage",
+		"deletePassage": "Verwijder Passage",
+		"deletePassages": "Verwijder Passages",
+		"movePassage": "Verplaats Passage",
+		"movePassages": "Verplaats Passages",
+		"renamePassage": "Hernoem Passage",
+		"removeTag": "Verwijder Label",
+		"renameTag": "Hernoem Label",
+		"replaceAllText": "Vervang alles"
+	}
 }
