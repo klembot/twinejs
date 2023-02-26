@@ -1,11 +1,4 @@
-import {
-	act,
-	cleanup,
-	fireEvent,
-	render,
-	screen,
-	within
-} from '@testing-library/react';
+import {act, fireEvent, render, screen, within} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
 import {useStoriesContext} from '../../../store/stories';
@@ -69,40 +62,13 @@ describe('<PassageToolbar>', () => {
 		).toBe('mock-new-passage-name');
 	});
 
-	it('displays a checkbox button showing whether the passage is the start passage', async () => {
-		const story = fakeStory(2);
-
-		await renderComponent({stories: [story]});
-
-		let startCheckbox = screen.getByRole('checkbox', {
-			name: 'dialogs.passageEdit.setAsStart'
-		});
-
-		expect(startCheckbox).toBeChecked();
-		// See https://github.com/testing-library/jest-dom/issues/144
-		expect(startCheckbox).toHaveAttribute('aria-disabled', 'true');
-		cleanup();
-		story.startPassage = story.passages[1].id;
-		await renderComponent({stories: [story]});
-		startCheckbox = screen.getByRole('checkbox', {
-			name: 'dialogs.passageEdit.setAsStart'
-		});
-		expect(startCheckbox).not.toBeChecked();
-		expect(startCheckbox).not.toHaveAttribute('aria-disabled', 'true');
-	});
-
-	it('sets the passage as the start one if the user uses the checkbox button', async () => {
-		const story = fakeStory(2);
-
-		story.startPassage = story.passages[1].id;
-		await renderComponent({stories: [story]});
+	it('displays a button to test the story from this passage', () => {
+		renderComponent();
 		expect(
-			screen.getByTestId('story-inspector-default').dataset.startPassage
-		).toBe(story.passages[1].id);
-		fireEvent.click(screen.getByText('dialogs.passageEdit.setAsStart'));
-		expect(
-			screen.getByTestId('story-inspector-default').dataset.startPassage
-		).toBe(story.passages[0].id);
+			screen.getByRole('button', {
+				name: 'routes.storyEdit.toolbar.testFromHere'
+			})
+		).toBeVisible();
 	});
 
 	// Need a higher-fidelity mock of <MenuButton> that includes checked state.
