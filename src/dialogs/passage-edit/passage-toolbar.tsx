@@ -4,10 +4,10 @@ import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {UndoRedoButtons} from '../../components/codemirror';
 import {ButtonBar} from '../../components/container/button-bar';
-import {CheckboxButton} from '../../components/control/checkbox-button';
 import {MenuButton} from '../../components/control/menu-button';
 import {RenamePassageButton} from '../../components/passage/rename-passage-button';
 import {AddTagButton} from '../../components/tag';
+import { TestPassageButton } from '../../routes/story-edit/toolbar/passage/test-passage-button';
 import {
 	addPassageTag,
 	Passage,
@@ -15,7 +15,6 @@ import {
 	Story,
 	storyPassageTags,
 	updatePassage,
-	updateStory
 } from '../../store/stories';
 import {useUndoableStoriesContext} from '../../store/undoable-stories';
 import {Color} from '../../util/color';
@@ -29,9 +28,8 @@ export interface PassageToolbarProps {
 
 export const PassageToolbar: React.FC<PassageToolbarProps> = props => {
 	const {disabled, editor, passage, story} = props;
-	const {dispatch, stories} = useUndoableStoriesContext();
+	const {dispatch} = useUndoableStoriesContext();
 	const {t} = useTranslation();
-	const isStart = story.startPassage === passage.id;
 
 	function handleAddTag(name: string, color?: Color) {
 		// Kind of tricky. We make adding the tag to the passage undoable, but not
@@ -57,10 +55,6 @@ export const PassageToolbar: React.FC<PassageToolbarProps> = props => {
 		// has been updated since that hasn't happened yet.
 
 		dispatch(updatePassage(story, passage, {name}, {dontUpdateOthers: true}));
-	}
-
-	function handleSetAsStart() {
-		dispatch(updateStory(stories, story, {startPassage: passage.id}));
 	}
 
 	function handleSetSize({height, width}: {height: number; width: number}) {
@@ -117,12 +111,7 @@ export const PassageToolbar: React.FC<PassageToolbarProps> = props => {
 				passage={passage}
 				story={story}
 			/>
-			<CheckboxButton
-				disabled={disabled || isStart}
-				label={t('dialogs.passageEdit.setAsStart')}
-				onChange={handleSetAsStart}
-				value={isStart}
-			/>
+			<TestPassageButton passage={passage} story={story} />
 		</ButtonBar>
 	);
 };
