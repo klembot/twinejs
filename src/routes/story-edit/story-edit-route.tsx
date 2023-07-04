@@ -9,15 +9,14 @@ import {
 	useUndoableStoriesContext
 } from '../../store/undoable-stories';
 import {MarqueeablePassageMap} from './marqueeable-passage-map';
+import {PassageFuzzyFinder} from './passage-fuzzy-finder';
 import {StoryEditToolbar} from './toolbar';
 import {useInitialPassageCreation} from './use-initial-passage-creation';
 import {usePassageChangeHandlers} from './use-passage-change-handlers';
 import {useViewCenter} from './use-view-center';
 import {useZoomShortcuts} from './use-zoom-shortcuts';
 import {useZoomTransition} from './use-zoom-transition';
-import {ZoomButtons} from './zoom-buttons';
 import './story-edit-route.css';
-import {PassageFuzzyFinder} from './passage-fuzzy-finder';
 
 export const InnerStoryEditRoute: React.FC = () => {
 	const {storyId} = useParams<{storyId: string}>();
@@ -69,11 +68,10 @@ export const InnerStoryEditRoute: React.FC = () => {
 					setCenter={setCenter}
 					story={story}
 				/>
-				<ZoomButtons story={story} />
 			</MainContent>
 		</div>
 	);
-};;;;
+};
 
 // This is a separate component so that the inner one can use
 // `useDialogsContext()` and `useUndoableStoriesContext()` inside it.

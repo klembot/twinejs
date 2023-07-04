@@ -14,6 +14,7 @@ const TestStoryEditToolbar = () => {
 		<StoryEditToolbar
 			getCenter={() => ({left: 0, top: 0})}
 			story={stories[0]}
+			onOpenFuzzyFinder={jest.fn()}
 		/>
 	);
 };
@@ -50,6 +51,18 @@ describe('<StoryEditToolbar>', () => {
 	it('displays an app tab', async () => {
 		await renderComponent();
 		expect(screen.getByText('common.appName')).toBeInTheDocument();
+	});
+
+	it('displays undo/redo buttons', async () => {
+		await renderComponent();
+		expect(screen.getByText('common.undo')).toBeInTheDocument();
+	});
+
+	it('displays zoom buttons', async () => {
+		await renderComponent();
+		expect(
+			screen.getByText('routes.storyEdit.zoomButtons.legend')
+		).toBeInTheDocument();
 	});
 
 	it('is accessible', async () => {

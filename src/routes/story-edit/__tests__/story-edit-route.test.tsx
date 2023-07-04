@@ -88,16 +88,6 @@ describe('<StoryEditRoute>', () => {
 		expect(screen.getByTestId('mock-passage-map')).toBeInTheDocument();
 	});
 
-	it('displays zoom buttons', async () => {
-		await renderComponent(fakeStory());
-
-		expect(
-			screen.getByLabelText(
-				'routes.storyEdit.zoomButtons.passageNamesAndExcerpts'
-			)
-		).toBeInTheDocument();
-	});
-
 	it('sets up zoom keyboard shortcuts', async () => {
 		await renderComponent(fakeStory());
 		expect(useZoomShortcutsMock).toBeCalled();
