@@ -51,7 +51,10 @@ export function repairPassage(passage: Passage, parentStory: Story): Passage {
 	['left', 'top'].forEach(pos => {
 		const posKey = pos as keyof Passage;
 
-		if (passage[posKey] < 0) {
+		if (
+			typeof passage[posKey] === 'number' &&
+			(passage[posKey] as number) < 0
+		) {
 			logRepair(passage, posKey, 0, 'was negative');
 			(repairs[posKey] as Passage[typeof posKey]) = 0;
 		}
@@ -62,7 +65,10 @@ export function repairPassage(passage: Passage, parentStory: Story): Passage {
 	['height', 'width'].forEach(dim => {
 		const dimKey = dim as keyof Passage;
 
-		if (passage[dimKey] < 5) {
+		if (
+			typeof passage[dimKey] === 'number' &&
+			(passage[dimKey] as number) < 5
+		) {
 			logRepair(passage, dimKey, 0, 'was less than 5');
 			(repairs[dimKey] as Passage[typeof dimKey]) = 5;
 		}

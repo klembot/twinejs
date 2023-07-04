@@ -46,7 +46,9 @@ export async function saveStory(story: Story, formats: StoryFormatsState) {
 		}
 	} catch (error) {
 		console.warn(
-			`Could not save full story (${error.message}). Trying to save story data only.`
+			`Could not save full story (${
+				(error as Error).message
+			}). Trying to save story data only.`
 		);
 		twineElectron.ipcRenderer.send(
 			'save-story-html',
