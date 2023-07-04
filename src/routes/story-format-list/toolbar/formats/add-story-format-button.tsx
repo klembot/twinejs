@@ -86,7 +86,7 @@ export const AddStoryFormatButton: React.FC = () => {
 				message: t(
 					'routes.storyFormatList.toolbar.addStoryFormatButton.fetchError',
 					{
-						errorMessage: error.message
+						errorMessage: (error as Error).message
 					}
 				),
 				valid: false
