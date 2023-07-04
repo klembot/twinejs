@@ -1,0 +1,25 @@
+@import '../../../styles/depth.css';
+@import '../../../styles/metrics.css';
+
+.zoom-buttons {
+	align-items: center;
+	display: flex;
+	padding: 0 var(--grid-size);
+}
+
+.zoom-buttons .legend {
+	margin-right: var(--control-inner-padding);
+}
+
+.zoom-buttons .icon-button {
+	height: 34px;
+	width: 34px;
+	padding: 5px;
+}
+
+.zoom-buttons .icon-button .icon {
+	height: 24px;
+	width: 24px;
+	position: relative;
+	top: 0;
+}

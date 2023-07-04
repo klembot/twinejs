@@ -300,6 +300,7 @@
 				"selectAllPassages": "Select All Passages"
 			},
 			"zoomButtons": {
+				"legend": "Zoom",
 				"storyStructure": "Show Story Structure Only",
 				"passageNames": "Show Passage Names Only",
 				"passageNamesAndExcerpts": "Show Passage Names and Excerpts"
