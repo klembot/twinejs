@@ -75,6 +75,7 @@ describe('<PassageMap>', () => {
 		renderComponent({visibleZoom: 0.6});
 		expect(
 			document
+				// eslint-disable-next-line testing-library/no-node-access
 				.querySelector('.passage-map')
 				?.classList.contains('compact-passage-cards')
 		).toBe(true);
@@ -84,6 +85,7 @@ describe('<PassageMap>', () => {
 		renderComponent({visibleZoom: 0.61});
 		expect(
 			document
+				// eslint-disable-next-line testing-library/no-node-access
 				.querySelector('.passage-map')
 				?.classList.contains('compact-passage-cards')
 		).toBe(false);
@@ -98,9 +100,9 @@ describe('<PassageMap>', () => {
 			fakePassage({top: 30, left: 40, width: 150, height: 250})
 		];
 		renderComponent({passages});
-		const containerStyle = (
-			document.querySelector('.passage-map') as HTMLElement
-		).style;
+		const containerStyle =
+			// eslint-disable-next-line testing-library/no-node-access
+			(document.querySelector('.passage-map') as HTMLElement).style;
 
 		expect(containerStyle.height).toBe('calc(280px + 50vh)');
 		expect(containerStyle.width).toBe('calc(190px + 50vw)');

@@ -31,6 +31,7 @@ describe('<CodeArea>', () => {
 		renderComponent({fontFamily: 'my-custom-font', fontScale: 1.5});
 
 		const inputStyle = window.getComputedStyle(
+			// eslint-disable-next-line testing-library/no-node-access
 			document.querySelector('.code-area')!
 		);
 

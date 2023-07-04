@@ -50,11 +50,7 @@ describe('StoryChooser', () => {
 		expect(
 			screen.getByRole('button', {name: 'dialogs.storyImport.importSelected'})
 		).toBeDisabled();
-		fireEvent.click(
-			screen
-				.getByRole('checkbox', {name: stories[0].name})
-				.querySelector('button')!
-		);
+		fireEvent.click(screen.getByRole('checkbox', {name: stories[0].name}));
 		expect(
 			screen.getByRole('button', {name: 'dialogs.storyImport.importSelected'})
 		).not.toBeDisabled();
@@ -69,16 +65,8 @@ describe('StoryChooser', () => {
 			stories,
 			existingStories: [stories[0], stories[1]]
 		});
-		fireEvent.click(
-			screen
-				.getByRole('checkbox', {name: stories[1].name})
-				.querySelector('button')!
-		);
-		fireEvent.click(
-			screen
-				.getByRole('checkbox', {name: stories[2].name})
-				.querySelector('button')!
-		);
+		fireEvent.click(screen.getByRole('checkbox', {name: stories[1].name}));
+		fireEvent.click(screen.getByRole('checkbox', {name: stories[2].name}));
 		expect(onImport).not.toHaveBeenCalled();
 		fireEvent.click(
 			screen.getByRole('button', {name: 'dialogs.storyImport.importSelected'})

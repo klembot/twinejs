@@ -54,10 +54,13 @@ describe('replaceInPassage', () => {
 				flags
 			)(dispatch, () => [story]);
 
+			expect.assertions(1);
+
 			if (props) {
 				// Tests here are loose because passage text updates trigger other
 				// potential dispatches (e.g. to add newly-linked passages).
 
+				// eslint-disable-next-line jest/no-conditional-expect
 				expect(dispatch).toHaveBeenCalledWith({
 					props,
 					type: 'updatePassage',
@@ -65,6 +68,7 @@ describe('replaceInPassage', () => {
 					storyId: story.id
 				});
 			} else {
+				// eslint-disable-next-line jest/no-conditional-expect
 				expect(dispatch).not.toHaveBeenCalled();
 			}
 		}
@@ -156,6 +160,7 @@ describe('replaceInStory', () => {
 				// potential dispatches (e.g. to add newly-linked passages).
 
 				for (const props of passageChanges[0]) {
+					// eslint-disable-next-line jest/no-conditional-expect
 					expect(dispatch).toHaveBeenCalledWith({
 						props,
 						type: 'updatePassage',
@@ -166,6 +171,7 @@ describe('replaceInStory', () => {
 
 				if (passageChanges.length > 1) {
 					for (const props of passageChanges[1]) {
+						// eslint-disable-next-line jest/no-conditional-expect
 						expect(dispatch).toHaveBeenCalledWith({
 							props,
 							type: 'updatePassage',
@@ -175,6 +181,7 @@ describe('replaceInStory', () => {
 					}
 				}
 			} else {
+				// eslint-disable-next-line jest/no-conditional-expect
 				expect(dispatch).not.toHaveBeenCalled();
 			}
 		}

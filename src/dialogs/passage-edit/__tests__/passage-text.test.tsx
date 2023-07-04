@@ -227,6 +227,7 @@ describe('<PassageText>', () => {
 		fireEvent.change(editor, {target: {value: 'mock-change'}});
 		fireEvent.change(editor, {target: {value: 'mock-change2'}});
 		expect(onChange).not.toHaveBeenCalled();
+		jest.advanceTimersToNextTimer();
 		await waitFor(() => expect(onChange).toBeCalledTimes(1));
 		expect(onChange.mock.calls).toEqual([['mock-change2']]);
 	});

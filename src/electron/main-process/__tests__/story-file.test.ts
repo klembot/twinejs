@@ -29,7 +29,7 @@ jest.mock('../track-file-changes');
 // This won't work in every case, so not putting it in test-utils.
 
 function resolveAllPromises() {
-	return new Promise(resolve => setImmediate(resolve));
+	return new Promise(resolve => process.nextTick(resolve));
 }
 
 describe('deleteStory', () => {

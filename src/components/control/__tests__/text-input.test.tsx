@@ -6,7 +6,9 @@ import {TextInput, TextInputProps} from '../text-input';
 describe('<TextInput>', () => {
 	function renderComponent(props?: Partial<TextInputProps>) {
 		return render(
-			<TextInput onChange={jest.fn()} value="mock-value" {...props} />
+			<TextInput onChange={jest.fn()} value="mock-value" {...props}>
+				children
+			</TextInput>
 		);
 	}
 
@@ -67,6 +69,12 @@ describe('<TextInput>', () => {
 	it('is accessible', async () => {
 		const {container} = renderComponent();
 
-		expect(await axe(container)).toHaveNoViolations();
+		// Turn off contrast checks here because jsdom doesn't support computed
+		// style.
+		// See https://github.com/nickcolley/jest-axe/issues/147
+
+		expect(
+			await axe(container, {rules: {'color-contrast': {enabled: false}}})
+		).toHaveNoViolations();
 	});
 });

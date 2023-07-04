@@ -179,9 +179,6 @@ describe('<StateLoader>', () => {
 			</StateLoader>
 		);
 		expect(screen.queryByTestId('children')).not.toBeInTheDocument();
-		await waitFor(() =>
-			expect(screen.getByTestId('children')).toBeInTheDocument()
-		);
-		expect(screen.getByTestId('children')).toBeInTheDocument();
+		expect(await screen.findByTestId('children')).toBeInTheDocument();
 	});
 });

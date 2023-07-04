@@ -118,8 +118,8 @@ describe('<Dialogs>', () => {
 		const dialogWidth = Math.random() * 1000;
 
 		renderComponent(undefined, {dialogWidth});
-		screen.debug();
 		expect(
+			// eslint-disable-next-line testing-library/no-node-access
 			document.querySelector<HTMLDivElement>('.dialogs')?.style.paddingLeft
 		).toBe(`${dialogWidth}px`);
 	});

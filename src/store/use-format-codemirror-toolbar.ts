@@ -1,6 +1,5 @@
 import CodeMirror from 'codemirror';
 import * as React from 'react';
-import {version as twineVersion} from '../../package.json';
 import {formatEditorExtensions, namespaceForFormat} from '../util/story-format';
 import {formatEditorExtensionsDisabled, usePrefsContext} from './prefs';
 import {
@@ -30,10 +29,8 @@ export function useFormatCodeMirrorToolbar(
 ) {
 	const {dispatch, formats} = useStoryFormatsContext();
 	const [loaded, setLoaded] = React.useState<Record<string, boolean>>({});
-	const [
-		toolbarFunc,
-		setToolbarFunc
-	] = React.useState<StoryFormatToolbarFactory>();
+	const [toolbarFunc, setToolbarFunc] =
+		React.useState<StoryFormatToolbarFactory>();
 	const format = formatWithNameAndVersion(formats, formatName, formatVersion);
 	const {prefs} = usePrefsContext();
 	const extensionsDisabled = formatEditorExtensionsDisabled(
@@ -54,7 +51,10 @@ export function useFormatCodeMirrorToolbar(
 			!loaded[namespaceForFormat(format)]
 		) {
 			const namespace = namespaceForFormat(format);
-			const editorExtensions = formatEditorExtensions(format, twineVersion);
+			const editorExtensions = formatEditorExtensions(
+				format,
+				process.env.REACT_APP_VERSION ?? ''
+			);
 
 			if (editorExtensions?.codeMirror?.commands) {
 				for (const commandName in editorExtensions.codeMirror.commands) {
@@ -68,74 +68,74 @@ export function useFormatCodeMirrorToolbar(
 						// Using any here because the type is defined with factory
 						// commands only.
 
-						(CodeMirror.commands as any)[
-							namespacedCommand
-						] = editorExtensions.codeMirror!.commands![commandName];
+						(CodeMirror.commands as any)[namespacedCommand] =
+							editorExtensions.codeMirror!.commands![commandName];
 					}
 				}
 			}
 
 			if (editorExtensions?.codeMirror?.toolbar) {
 				setToolbarFunc(
-					() => (
-						editor: CodeMirror.Editor,
-						environment: StoryFormatToolbarFactoryEnvironment
-					) => {
-						// If somehow we lost our format's toolbar function, exit early.
+					() =>
+						(
+							editor: CodeMirror.Editor,
+							environment: StoryFormatToolbarFactoryEnvironment
+						) => {
+							// If somehow we lost our format's toolbar function, exit early.
 
-						if (!editorExtensions?.codeMirror?.toolbar) {
-							return [];
-						}
-
-						const items = editorExtensions.codeMirror.toolbar(
-							editor,
-							environment
-						);
-
-						// If we didn't get an array from the function, coerce it to an
-						// empty one.
-
-						if (!Array.isArray(items)) {
-							return [];
-						}
-
-						// Namespace command properties and filter out any types that aren't
-						// buttons or menus.
-
-						return items.reduce((result, item) => {
-							switch (item.type) {
-								case 'button':
-									return [
-										...result,
-										{...item, command: namespace + item.command}
-									];
-
-								case 'menu':
-									if (Array.isArray(item.items)) {
-										return [
-											...result,
-											{
-												...item,
-												items: item.items
-													.filter(subitem =>
-														['button', 'separator'].includes(subitem.type)
-													)
-													.map(subitem =>
-														subitem.type === 'separator'
-															? subitem
-															: {
-																	...subitem,
-																	command: namespace + subitem.command
-															  }
-													)
-											}
-										];
-									}
+							if (!editorExtensions?.codeMirror?.toolbar) {
+								return [];
 							}
 
-							return result;
-						}, [] as StoryFormatToolbarItem[]);
-					}
+							const items = editorExtensions.codeMirror.toolbar(
+								editor,
+								environment
+							);
+
+							// If we didn't get an array from the function, coerce it to an
+							// empty one.
+
+							if (!Array.isArray(items)) {
+								return [];
+							}
+
+							// Namespace command properties and filter out any types that aren't
+							// buttons or menus.
+
+							return items.reduce((result, item) => {
+								switch (item.type) {
+									case 'button':
+										return [
+											...result,
+											{...item, command: namespace + item.command}
+										];
+
+									case 'menu':
+										if (Array.isArray(item.items)) {
+											return [
+												...result,
+												{
+													...item,
+													items: item.items
+														.filter(subitem =>
+															['button', 'separator'].includes(subitem.type)
+														)
+														.map(subitem =>
+															subitem.type === 'separator'
+																? subitem
+																: {
+																		...subitem,
+																		command: namespace + subitem.command
+																  }
+														)
+												}
+											];
+										}
+								}
+
+								return result;
+							}, [] as StoryFormatToolbarItem[]);
+						}
 				);
 			}
 

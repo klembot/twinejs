@@ -23,13 +23,13 @@ describe('<TagFilterButton>', () => {
 		);
 	}
 
-	it('displays a button for every tag specified', () => {
+	it('displays a checkbox for every tag specified', () => {
 		renderComponent({tags: ['mock-tag-1', 'mock-tag-2']});
 		expect(
-			screen.getByRole('button', {name: 'mock-tag-1'})
+			screen.getByRole('checkbox', {name: 'mock-tag-1'})
 		).toBeInTheDocument();
 		expect(
-			screen.getByRole('button', {name: 'mock-tag-2'})
+			screen.getByRole('checkbox', {name: 'mock-tag-2'})
 		).toBeInTheDocument();
 	});
 
@@ -61,7 +61,7 @@ describe('<TagFilterButton>', () => {
 			{tags: ['mock-tag-1']},
 			{prefs: {storyListTagFilter: ['existing-tag']}}
 		);
-		fireEvent.click(screen.getByRole('button', {name: 'mock-tag-1'}));
+		fireEvent.click(screen.getByRole('checkbox', {name: 'mock-tag-1'}));
 		expect(
 			JSON.parse(
 				screen.getByTestId('pref-inspector-storyListTagFilter').textContent!
@@ -74,7 +74,7 @@ describe('<TagFilterButton>', () => {
 			{tags: ['existing-tag']},
 			{prefs: {storyListTagFilter: ['existing-tag']}}
 		);
-		fireEvent.click(screen.getByRole('button', {name: 'existing-tag'}));
+		fireEvent.click(screen.getByRole('checkbox', {name: 'existing-tag'}));
 		expect(
 			JSON.parse(
 				screen.getByTestId('pref-inspector-storyListTagFilter').textContent!
@@ -97,7 +97,7 @@ describe('<TagFilterButton>', () => {
 			)
 		).toEqual(['existing-tag', 'existing-tag-2']);
 		fireEvent.click(
-			screen.getByRole('button', {
+			screen.getByRole('checkbox', {
 				name: 'routes.storyList.toolbar.showAllStories'
 			})
 		);
