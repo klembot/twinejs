@@ -5,6 +5,7 @@
 import {toHaveNoViolations} from 'jest-axe';
 import {configure} from '@testing-library/dom';
 import '@testing-library/jest-dom';
+import 'jest-canvas-mock';
 import {i18n} from './util/i18n';
 
 configure({asyncUtilTimeout: 5000});

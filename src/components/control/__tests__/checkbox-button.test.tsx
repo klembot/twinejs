@@ -49,7 +49,7 @@ describe('<CheckboxButton>', () => {
 
 		renderComponent({onChange});
 		expect(onChange).toHaveBeenCalledTimes(0);
-		fireEvent.click(screen.getByRole('checkbox').querySelector('button')!);
+		fireEvent.click(screen.getByRole('checkbox'));
 		expect(onChange).toHaveBeenCalledTimes(1);
 	});
 

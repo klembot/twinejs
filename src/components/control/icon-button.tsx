@@ -4,6 +4,7 @@ import './icon-button-link.css';
 import {Tooltip, TooltipProps} from '../tooltip';
 
 export interface IconButtonProps {
+	ariaChecked?: boolean;
 	buttonType?: 'button' | 'submit';
 	disabled?: boolean;
 	icon: React.ReactNode;
@@ -12,6 +13,7 @@ export interface IconButtonProps {
 	label: string;
 	onClick?: (e: React.MouseEvent) => void;
 	preventDefault?: boolean;
+	role?: string;
 	selectable?: boolean;
 	selected?: boolean;
 	tooltipPosition?: TooltipProps['position'];
@@ -21,12 +23,14 @@ export interface IconButtonProps {
 export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
 	(props, ref) => {
 		const {
+			ariaChecked,
 			disabled,
 			icon,
 			iconOnly,
 			iconPosition = 'start',
 			onClick,
 			preventDefault,
+			role,
 			selectable = false,
 			selected = false,
 			tooltipPosition,
@@ -52,12 +56,14 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
 		return (
 			<>
 				<button
+					aria-checked={ariaChecked}
 					aria-label={iconOnly ? props.label : undefined}
 					aria-pressed={selectable ? selected : undefined}
 					disabled={disabled}
 					className={className}
 					onClick={handleOnClick}
 					ref={setButton}
+					role={role}
 				>
 					<span className="icon">{icon}</span>
 					{!iconOnly && props.label}

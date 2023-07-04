@@ -177,11 +177,9 @@ describe('<StorySearchDialog>', () => {
 		fireEvent.change(screen.getByLabelText('dialogs.storySearch.find'), {
 			target: {value: 'e'}
 		});
-		await waitFor(() =>
-			expect(
-				screen.queryByText('dialogs.storySearch.noMatches')
-			).toBeInTheDocument()
-		);
+		expect(
+			await screen.findByText('dialogs.storySearch.noMatches')
+		).toBeInTheDocument();
 		expect(
 			screen.queryByText('dialogs.storySearch.matchCount')
 		).not.toBeInTheDocument();

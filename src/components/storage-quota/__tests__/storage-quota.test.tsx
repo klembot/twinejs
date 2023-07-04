@@ -1,4 +1,4 @@
-import {cleanup, render, screen, waitFor} from '@testing-library/react';
+import {cleanup, render, screen} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
 import {isElectronRenderer} from '../../../util/is-electron';
@@ -44,11 +44,9 @@ describe('<StorageQuota>', () => {
 
 	it('displays the amount of free space available', async () => {
 		renderComponent();
-		await waitFor(() =>
-			expect(
-				screen.getByText('components.storageQuota.freeSpace')
-			).toBeInTheDocument()
-		);
+		expect(
+			await screen.findByText('components.storageQuota.freeSpace')
+		).toBeInTheDocument();
 	});
 
 	// Can't see the change because our translate prop only shows the string, not
@@ -58,11 +56,9 @@ describe('<StorageQuota>', () => {
 	it('is accessible', async () => {
 		const {container} = renderComponent();
 
-		await waitFor(() =>
-			expect(
-				screen.getByText('components.storageQuota.freeSpace')
-			).toBeInTheDocument()
-		);
+		expect(
+			await screen.findByText('components.storageQuota.freeSpace')
+		).toBeInTheDocument();
 		expect(await axe(container)).toHaveNoViolations();
 	});
 });

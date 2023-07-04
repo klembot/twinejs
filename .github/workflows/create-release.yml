@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           cache: npm
-          node-version: 14
+          node-version: 18
       - name: Install
         run: npm install
       - name: Test

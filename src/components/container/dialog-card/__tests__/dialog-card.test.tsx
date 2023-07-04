@@ -56,6 +56,7 @@ describe('<DialogCard>', () => {
 	it('adds a CSS class when highlighted', () => {
 		renderComponent({highlighted: true});
 		expect(
+			// eslint-disable-next-line testing-library/no-node-access
 			document.querySelector('.dialog-card')?.classList.contains('highlighted')
 		).toBe(true);
 	});
@@ -63,6 +64,7 @@ describe('<DialogCard>', () => {
 	it("doesn't add a CSS class when unhighlighted", () => {
 		renderComponent({highlighted: false});
 		expect(
+			// eslint-disable-next-line testing-library/no-node-access
 			document.querySelector('.dialog-card')?.classList.contains('highlighted')
 		).toBe(false);
 	});
@@ -70,6 +72,7 @@ describe('<DialogCard>', () => {
 	it('adds a CSS class when maximized', () => {
 		renderComponent({maximized: true});
 		expect(
+			// eslint-disable-next-line testing-library/no-node-access
 			document.querySelector('.dialog-card')?.classList.contains('maximized')
 		).toBe(true);
 	});
@@ -77,6 +80,7 @@ describe('<DialogCard>', () => {
 	it("doesn't add a CSS class when unmaximized", () => {
 		renderComponent({maximized: false});
 		expect(
+			// eslint-disable-next-line testing-library/no-node-access
 			document.querySelector('.dialog-card')?.classList.contains('maximized')
 		).toBe(false);
 	});

@@ -1,4 +1,4 @@
-import {fireEvent, render, screen, waitFor} from '@testing-library/react';
+import {fireEvent, render, screen} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
 import {storyFileName} from '../../electron/shared';
@@ -77,9 +77,7 @@ describe('<BuildActions>', () => {
 		it('displays the error if testing fails', async () => {
 			testStory.mockRejectedValue(new Error('mock-test-error'));
 			fireEvent.click(screen.getByText('routeActions.build.test'));
-			await waitFor(() =>
-				expect(screen.getByText('mock-test-error')).toBeInTheDocument()
-			);
+			expect(await screen.findByText('mock-test-error')).toBeInTheDocument();
 		});
 
 		it('displays a button to play the story', () => {
@@ -91,9 +89,7 @@ describe('<BuildActions>', () => {
 		it('displays the error if playing fails', async () => {
 			playStory.mockRejectedValue(new Error('mock-play-error'));
 			fireEvent.click(screen.getByText('routeActions.build.play'));
-			await waitFor(() =>
-				expect(screen.getByText('mock-play-error')).toBeInTheDocument()
-			);
+			expect(await screen.findByText('mock-play-error')).toBeInTheDocument();
 		});
 
 		it('displays a button to proof the story', () => {
@@ -105,9 +101,7 @@ describe('<BuildActions>', () => {
 		it('displays the error if proofing fails', async () => {
 			proofStory.mockRejectedValue(new Error('mock-proof-error'));
 			fireEvent.click(screen.getByText('routeActions.build.proof'));
-			await waitFor(() =>
-				expect(screen.getByText('mock-proof-error')).toBeInTheDocument()
-			);
+			expect(await screen.findByText('mock-proof-error')).toBeInTheDocument();
 		});
 
 		it('displays a button to publish the story to a file', () => {
@@ -119,9 +113,7 @@ describe('<BuildActions>', () => {
 		it('displays the error if publishing fails', async () => {
 			publishStory.mockRejectedValue(new Error('mock-publish-error'));
 			fireEvent.click(screen.getByText('routeActions.build.publishToFile'));
-			await waitFor(() =>
-				expect(screen.getByText('mock-publish-error')).toBeInTheDocument()
-			);
+			expect(await screen.findByText('mock-publish-error')).toBeInTheDocument();
 		});
 
 		it('displays a button to export the story as Twee', () => {
