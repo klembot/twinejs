@@ -20,6 +20,21 @@ describe('<BackgroundDialogCard>', () => {
 		);
 	}
 
+	it('displays the header label', () => {
+		renderComponent();
+		expect(
+			screen.getByRole('button', {name: 'mock-header-label'})
+		).toBeInTheDocument();
+	});
+
+	it('uses the header display label instead of label when provided', () => {
+		renderComponent({
+			headerDisplayLabel: <div data-testid="mock-header-display-label" />
+		});
+		expect(screen.getByTestId('mock-header-display-label')).toBeInTheDocument();
+		expect(screen.queryByText('mock-header-label')).not.toBeInTheDocument();
+	});
+
 	it('displays its children', () => {
 		renderComponent();
 		expect(

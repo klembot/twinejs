@@ -23,6 +23,18 @@ extensions](../story-formats/extensions.md).
 Twine automatically saves your changes to a passage after you stop typing for a
 moment.
 
+## Leading and Trailing Space in Passage Names
+
+If a passage has leading or trailing spaces in its name (like " Hello" or
+"Goodbye "), then Twine will show placeholder symbols in the passage edit dialog
+name that look like ␣. These symbols are shown so that you can distinguish
+between passages that have these spaces and those that don't. In other words,
+Twine treats a passage named "Hello" and one named "Hello " as two unrelated
+passages. (And usually, you will want to give your passages names that don't
+differ by just spaces.)
+
+These symbols are only visible in Twine, not when your story is played.
+
 ## Editing Multiple Passages
 
 If you edit a passage while another is open for editing, the new edit dialog
