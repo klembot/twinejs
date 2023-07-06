@@ -12,6 +12,7 @@ describe('<DialogCard>', () => {
 				maximizable={true}
 				maximized={false}
 				onChangeCollapsed={jest.fn()}
+				onChangeHighlighted={jest.fn()}
 				onChangeMaximized={jest.fn()}
 				onClose={jest.fn()}
 				{...props}
@@ -20,6 +21,21 @@ describe('<DialogCard>', () => {
 			</DialogCard>
 		);
 	}
+
+	it('displays the header label', () => {
+		renderComponent();
+		expect(
+			screen.getByRole('button', {name: 'mock-header-label'})
+		).toBeInTheDocument();
+	});
+
+	it('uses the header display label instead of label when provided', () => {
+		renderComponent({
+			headerDisplayLabel: <div data-testid="mock-header-display-label" />
+		});
+		expect(screen.getByTestId('mock-header-display-label')).toBeInTheDocument();
+		expect(screen.queryByText('mock-header-label')).not.toBeInTheDocument();
+	});
 
 	it('calls the onChangeCollapsed prop when the header button is clicked when uncollapsed', () => {
 		const onChangeCollapsed = jest.fn();
@@ -150,6 +166,7 @@ describe('<DialogCard>', () => {
 				collapsed={false}
 				headerLabel="mock-header-label"
 				onChangeCollapsed={jest.fn()}
+				onChangeHighlighted={jest.fn()}
 				onChangeMaximized={jest.fn()}
 				onClose={jest.fn()}
 			>

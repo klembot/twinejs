@@ -7,6 +7,11 @@ export interface IconButtonProps {
 	ariaChecked?: boolean;
 	buttonType?: 'button' | 'submit';
 	disabled?: boolean;
+	/**
+	 * Allows overridding the `label` prop as it's rendered onscreen, e.g. to
+	 * apply formatting to the label. If omitted, label is used as-is.
+	 */
+	displayLabel?: React.ReactNode;
 	icon: React.ReactNode;
 	iconOnly?: boolean;
 	iconPosition?: 'start' | 'end';
@@ -66,7 +71,7 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
 					role={role}
 				>
 					<span className="icon">{icon}</span>
-					{!iconOnly && props.label}
+					{!iconOnly && (props.displayLabel ?? props.label)}
 				</button>
 				{iconOnly && (
 					<Tooltip

@@ -11,6 +11,7 @@ import {DialogsContext, DialogsContextProps} from '../../context';
 import {PassageEditStack, PassageEditStackProps} from '../passage-edit-stack';
 
 jest.mock('../passage-edit-contents');
+jest.mock('../../../components/visible-whitespace/visible-whitespace');
 
 const TestPassageEditStack: React.FC<
 	Partial<PassageEditStackProps>
@@ -86,6 +87,21 @@ describe('<PassageEditStack>', () => {
 		expect(
 			screen.getByRole('heading', {name: story.passages[1].name})
 		).toBeInTheDocument();
+	});
+
+	it('makes whitespace visible in passage names in the dialog cards', () => {
+		const story = fakeStory(2);
+
+		renderComponent({stories: [story]});
+
+		const whitespace = screen.getAllByTestId('mock-visible-whitespace');
+
+		expect(whitespace).toHaveLength(2);
+
+		// Order is reversed here because of rendering order.
+
+		expect(whitespace[0]).toHaveTextContent(story.passages[1].name);
+		expect(whitespace[1]).toHaveTextContent(story.passages[0].name);
 	});
 
 	it('calls onChangeProps if any passages do not exist', () => {

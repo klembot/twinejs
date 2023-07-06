@@ -47,10 +47,6 @@
 	font-weight: normal;
 }
 
-.dialog-card.background h2 .dialog-card-header .icon-button svg {
-	display: none;
-}
-
 .dialog-card .card-body {
 	display: flex;
 	flex-direction: column;

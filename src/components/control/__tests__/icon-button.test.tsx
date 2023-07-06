@@ -24,6 +24,22 @@ describe('<IconButton>', () => {
 		expect(screen.getByText('mock-label')).toBeInTheDocument();
 	});
 
+	it('renders the displayLabel prop instead of the label prop if set', () => {
+		renderComponent({displayLabel: <div data-testid="mock-display-label" />});
+		expect(screen.getByTestId('mock-display-label')).toBeInTheDocument();
+		expect(screen.queryByText('mock-label')).not.toBeInTheDocument();
+	});
+
+	it('labels the button using the label prop when it is icon-only', () => {
+		renderComponent({
+			displayLabel: <div data-testid="mock-display-label" />,
+			iconOnly: true
+		});
+		expect(
+			screen.getByRole('button', {name: 'mock-label'})
+		).toBeInTheDocument();
+	});
+
 	it('disables the button if the disabled prop is set', async () => {
 		const {unmount} = renderComponent({disabled: true});
 
