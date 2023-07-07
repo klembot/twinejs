@@ -276,6 +276,9 @@
 			"error": "Something went wrong while checking for an updated version of Twine.",
 			"updateAvailable": "A newer version of Twine is available.",
 			"upToDate": "This is the newest version of Twine available."
+		},
+		"userCss": {
+			"filename": "user.css"
 		}
 	},
 	"routes": {

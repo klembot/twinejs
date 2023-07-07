@@ -4,6 +4,7 @@ import {initIpc} from './ipc';
 import {initLocales} from './locales';
 import {initMenuBar} from './menu-bar';
 import {backupStoryDirectory, createStoryDirectory} from './story-directory';
+import {getUserCss} from './user-css';
 
 let mainWindow: BrowserWindow | null;
 
@@ -28,7 +29,14 @@ async function createWindow() {
 		`file://${path.resolve(__dirname, '../../../../renderer/index.html')}`
 	);
 
-	mainWindow.once('ready-to-show', () => {
+	mainWindow.once('ready-to-show', async () => {
+		const userCss = await getUserCss();
+
+		if (userCss) {
+			console.log('Adding user CSS');
+			mainWindow!.webContents.insertCSS(userCss);
+		}
+
 		mainWindow!.show();
 
 		if (!app.isPackaged) {

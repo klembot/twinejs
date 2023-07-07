@@ -92,5 +92,7 @@ body:
           required: false
         - label: I have done a search and believe that an issue does not already exist for this bug in the GitHub repository.
           required: true
+        - label: If this problem is occurring with the app version of Twine, it still happens after I remove the `user.css` file from my Twine folder. (You would've added this file yourself. If you don't understand this question, you can safely check this box.)
+          required: true
         - label: I have read and agree to abide by this project's Code of Conduct.
           required: true
