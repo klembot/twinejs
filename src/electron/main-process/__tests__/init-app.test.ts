@@ -55,6 +55,7 @@ describe('initApp', () => {
 	});
 
 	it.todo('creates the main window');
+	it.todo('injects user CSS into the main window if available');
 
 	it('does not show an error dialog when everything loads', async () => {
 		await initApp();

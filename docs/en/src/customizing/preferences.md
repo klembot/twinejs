@@ -1,9 +1,9 @@
-# Customing Twine With Preferences
+# Setting Preferences
 
-To customize Twine, choose _Preferences_ from the _Twine_ top toolbar tab. This
-tab is available throughout Twine. A dialog will appear that lets you change
-settings. These changes will take effect as soon as you make them, and Twine
-will remember them between sessions.
+To customize Twine's preferences, choose _Preferences_ from the _Twine_ top
+toolbar tab. This tab is available throughout Twine. A dialog will appear that
+lets you change settings. These changes will take effect as soon as you make
+them, and Twine will remember them between sessions.
 
 ## Changing Twine's Language
 
