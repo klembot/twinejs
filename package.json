@@ -56,7 +56,7 @@
 	},
 	"devDependencies": {
 		"@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-		"@electron/notarize": "^1.2.3",
+		"@electron/notarize": "^2.1.0",
 		"@playwright/test": "^1.27.1",
 		"@testing-library/jest-dom": "^5.11.4",
 		"@testing-library/react": "^11.1.0",
@@ -89,7 +89,6 @@
 		"cross-var": "^1.1.0",
 		"electron": "^18.3.6",
 		"electron-builder": "^23.3.3",
-		"electron-builder-notarize": "^1.5.0",
 		"faker": "^5.4.0",
 		"history": "^5.1.0",
 		"jest-axe": "^4.1.0",

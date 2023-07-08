@@ -29,12 +29,20 @@ module.exports = {
 				return;
 			}
 
+			if (!('APPLE_TEAM_ID' in process.env)) {
+				console.log(
+					'APPLE_TEAM_ID environment variable is not set, skipping notarization'
+				);
+				return;
+			}
+
 			console.log('Notarizing Mac app...');
 			await notarize({
 				appBundleId: process.env.APPLE_APP_ID,
 				appPath: path.join(context.appOutDir, `Twine.app`),
 				appleId: process.env.APPLE_ID,
-				appleIdPassword: process.env.APPLE_ID_PASSWORD
+				appleIdPassword: process.env.APPLE_ID_PASSWORD,
+				teamId: process.env.APPLE_TEAM_ID
 			});
 		}
 	},
