@@ -21,6 +21,7 @@ import {AddStoryFormatButton} from '../add-story-format-button';
 jest.mock('../../../../../util/story-format');
 
 const getAddButton = () =>
+	// eslint-disable-next-line testing-library/no-node-access
 	within(document.querySelector('.card-button-card')!).getByRole('button', {
 		name: 'common.add'
 	});

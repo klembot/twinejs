@@ -21,6 +21,7 @@ describe('<SelfConnection>', () => {
 
 	it('renders a <path> element', () => {
 		renderComponent();
+		// eslint-disable-next-line testing-library/no-node-access
 		expect(document.body.querySelector('path')).toBeInTheDocument();
 	});
 

@@ -14,6 +14,7 @@ describe('<LinkMarkers>', () => {
 
 	it('renders a <defs> element', () => {
 		renderComponent();
+		// eslint-disable-next-line testing-library/no-node-access
 		expect(document.body.querySelector('defs')).toBeInTheDocument();
 	});
 

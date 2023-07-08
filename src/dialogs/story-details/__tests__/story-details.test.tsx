@@ -98,9 +98,7 @@ describe('<StoryDetailsDialog>', () => {
 			{storyId: story.id},
 			{stories: [story], storyFormats: [format]}
 		);
-		expect(
-			screen.getByText('dialogs.storyDetails.snapToGrid').parentNode
-		).toBeChecked();
+		expect(screen.getByText('dialogs.storyDetails.snapToGrid')).toBeChecked();
 		cleanup();
 		story.snapToGrid = false;
 		await renderComponent(
@@ -108,7 +106,7 @@ describe('<StoryDetailsDialog>', () => {
 			{stories: [story], storyFormats: [format]}
 		);
 		expect(
-			screen.getByText('dialogs.storyDetails.snapToGrid').parentNode
+			screen.getByText('dialogs.storyDetails.snapToGrid')
 		).not.toBeChecked();
 	});
 

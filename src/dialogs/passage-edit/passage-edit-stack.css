@@ -1,10 +1,16 @@
 .passage-edit-stack {
 	flex-grow: 1;
-	height: 100%;
 	width: 100%;
 }
 
 .passage-edit-stack.collapsed {
 	flex-grow: 0;
 	/* Height is calculated in the component. */
+}
+
+.passage-edit-stack .dialog-card-header .visible-whitespace svg {
+	color: var(--gray);
+	height: 1em;
+	width: 1em;
+	transform: translateY(0.65em);
 }

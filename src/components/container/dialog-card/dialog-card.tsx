@@ -19,6 +19,7 @@ export interface DialogCardProps {
 	collapsed: boolean;
 	fixedSize?: boolean;
 	headerLabel: string;
+	headerDisplayLabel?: React.ReactNode;
 	highlighted?: boolean;
 	maximizable?: boolean;
 	maximized?: boolean;
@@ -34,6 +35,7 @@ export const DialogCard: React.FC<DialogCardProps> = props => {
 		className,
 		collapsed,
 		fixedSize,
+		headerDisplayLabel,
 		headerLabel,
 		highlighted,
 		maximizable,
@@ -85,6 +87,7 @@ export const DialogCard: React.FC<DialogCardProps> = props => {
 					<div className="dialog-card-header">
 						<IconButton
 							icon={collapsed ? <IconChevronUp /> : <IconChevronDown />}
+							displayLabel={headerDisplayLabel}
 							label={headerLabel}
 							onClick={() => onChangeCollapsed(!collapsed)}
 						/>

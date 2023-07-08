@@ -1,13 +1,13 @@
 import {fireEvent, render, screen} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
-import {useStoriesContext} from '../../../store/stories';
+import {useStoriesContext} from '../../../../store/stories';
 import {
 	FakeStateProvider,
 	FakeStateProviderProps,
 	fakeStory,
 	StoryInspector
-} from '../../../test-util';
+} from '../../../../test-util';
 import {ZoomButtons} from '../zoom-buttons';
 
 const TestZoomButtons: React.FC = () => {

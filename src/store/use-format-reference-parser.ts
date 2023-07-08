@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {version as twineVersion} from '../../package.json';
 import {formatEditorExtensions} from '../util/story-format';
 import {
 	formatWithNameAndVersion,
@@ -17,9 +16,8 @@ export function useFormatReferenceParser(
 	const {prefs} = usePrefsContext();
 	const {dispatch, formats} = useStoryFormatsContext();
 	const format = formatWithNameAndVersion(formats, formatName, formatVersion);
-	const [editorExtensions, setEditorExtensions] = React.useState<
-		ReturnType<typeof formatEditorExtensions>
-	>();
+	const [editorExtensions, setEditorExtensions] =
+		React.useState<ReturnType<typeof formatEditorExtensions>>();
 	const extensionsDisabled = formatEditorExtensionsDisabled(
 		prefs,
 		formatName,
@@ -34,7 +32,9 @@ export function useFormatReferenceParser(
 		if (format.loadState === 'unloaded') {
 			dispatch(loadFormatProperties(format));
 		} else if (format.loadState === 'loaded') {
-			setEditorExtensions(formatEditorExtensions(format, twineVersion));
+			setEditorExtensions(
+				formatEditorExtensions(format, process.env.REACT_APP_VERSION ?? '')
+			);
 		}
 	}, [dispatch, extensionsDisabled, format]);
 

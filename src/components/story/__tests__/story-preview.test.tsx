@@ -11,11 +11,13 @@ describe('<StoryPreview>', () => {
 
 	it('renders SVG', () => {
 		renderComponent();
+		// eslint-disable-next-line testing-library/no-node-access
 		expect(document.body.querySelector('svg')).toBeInTheDocument();
 	});
 
 	it('renders SVG even if the story has no passages', () => {
 		renderComponent({story: fakeStory(0)});
+		// eslint-disable-next-line testing-library/no-node-access
 		expect(document.body.querySelector('svg')).toBeInTheDocument();
 	});
 

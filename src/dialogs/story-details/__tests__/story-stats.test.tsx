@@ -22,9 +22,11 @@ describe('<StoryDetailsDialogStats>', () => {
 		story.passages[1].text = text2;
 		renderComponent({story});
 
-		const row = screen.getByText('dialogs.storyDetails.stats.characters')
-			.parentNode;
+		const row =
+			// eslint-disable-next-line testing-library/no-node-access
+			screen.getByText('dialogs.storyDetails.stats.characters').parentNode;
 
+		// eslint-disable-next-line testing-library/no-node-access
 		expect(row!.querySelectorAll('td')[0].textContent).toBe(
 			(text.length + text2.length).toString()
 		);
@@ -39,8 +41,10 @@ describe('<StoryDetailsDialogStats>', () => {
 		story.passages[1].text = text2;
 		renderComponent({story});
 
+		// eslint-disable-next-line testing-library/no-node-access
 		const row = screen.getByText('dialogs.storyDetails.stats.words').parentNode;
 
+		// eslint-disable-next-line testing-library/no-node-access
 		expect(row!.querySelectorAll('td')[0].textContent).toBe('35');
 	});
 
@@ -50,9 +54,12 @@ describe('<StoryDetailsDialogStats>', () => {
 
 		renderComponent({story});
 
-		const row = screen.getByText('dialogs.storyDetails.stats.passages')
-			.parentNode;
+		const row = screen.getByText(
+			'dialogs.storyDetails.stats.passages'
+			// eslint-disable-next-line testing-library/no-node-access
+		).parentNode;
 
+		// eslint-disable-next-line testing-library/no-node-access
 		expect(row!.querySelectorAll('td')[0].textContent).toBe(
 			passageCount.toString()
 		);
@@ -67,8 +74,10 @@ describe('<StoryDetailsDialogStats>', () => {
 		story.passages[1].text = '[[a]] [[a]] [[a]]';
 		renderComponent({story});
 
+		// eslint-disable-next-line testing-library/no-node-access
 		const row = screen.getByText('dialogs.storyDetails.stats.links').parentNode;
 
+		// eslint-disable-next-line testing-library/no-node-access
 		expect(row!.querySelectorAll('td')[0].textContent).toBe('2');
 	});
 
@@ -81,9 +90,12 @@ describe('<StoryDetailsDialogStats>', () => {
 		story.passages[1].text = '[[a]] [[c]]';
 		renderComponent({story});
 
-		const row = screen.getByText('dialogs.storyDetails.stats.brokenLinks')
-			.parentNode;
+		// eslint-disable-next-line testing-library/no-node-access
+		const row =
+			// eslint-disable-next-line testing-library/no-node-access
+			screen.getByText('dialogs.storyDetails.stats.brokenLinks').parentNode;
 
+		// eslint-disable-next-line testing-library/no-node-access
 		expect(row!.querySelectorAll('td')[0].textContent).toBe('1');
 	});
 

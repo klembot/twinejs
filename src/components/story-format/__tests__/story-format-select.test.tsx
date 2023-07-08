@@ -32,7 +32,7 @@ describe('<StoryFormatSelect>', () => {
 
 		renderComponent({formats, selectedFormat: formats[0]});
 
-		const options = screen.getByRole('combobox').querySelectorAll('option');
+		const options = screen.getAllByRole('option');
 
 		expect(options.length).toBe(1);
 		expect(options[0].textContent).toBe(
@@ -45,7 +45,7 @@ describe('<StoryFormatSelect>', () => {
 
 		renderComponent({formats, selectedFormat: formats[0]});
 
-		const options = screen.getByRole('combobox').querySelectorAll('option');
+		const options = screen.getAllByRole('option');
 
 		expect(options.length).toBe(2);
 		expect(options[0].textContent).toBe(

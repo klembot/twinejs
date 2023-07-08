@@ -29,7 +29,7 @@ describe('<TextSelect>', () => {
 
 		expect(select).toBeInTheDocument();
 
-		const options = select.querySelectorAll('option');
+		const options = screen.getAllByRole('option');
 
 		expect(options.length).toBe(2);
 		expect(options[0].innerHTML).toBe('test-label-1');

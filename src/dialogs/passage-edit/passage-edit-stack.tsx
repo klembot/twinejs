@@ -14,6 +14,7 @@ import {
 import {DialogComponentProps} from '../dialogs.types';
 import {PassageEditContents} from './passage-edit-contents';
 import './passage-edit-stack.css';
+import {VisibleWhitespace} from '../../components/visible-whitespace';
 
 export interface PassageEditStackProps extends DialogComponentProps {
 	passageIds: string[];
@@ -65,6 +66,9 @@ const InnerPassageEditStack: React.FC<PassageEditStackProps> = props => {
 						return (
 							<BackgroundDialogCard
 								{...managementProps}
+								headerDisplayLabel={
+									<VisibleWhitespace value={passageNames[index]} />
+								}
 								headerLabel={passageNames[index]}
 								key={passageId}
 								onClose={event => handleClose(passageId, event)}
@@ -84,6 +88,9 @@ const InnerPassageEditStack: React.FC<PassageEditStackProps> = props => {
 					return (
 						<DialogCard
 							{...managementProps}
+							headerDisplayLabel={
+								<VisibleWhitespace value={passageNames[index]} />
+							}
 							headerLabel={passageNames[index]}
 							key={passageId}
 							maximizable

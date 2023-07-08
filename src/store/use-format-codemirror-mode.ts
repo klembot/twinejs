@@ -1,4 +1,3 @@
-import {version as twineVersion} from '../../package.json';
 import CodeMirror from 'codemirror';
 import * as React from 'react';
 import {
@@ -37,7 +36,10 @@ export function useFormatCodeMirrorMode(
 		if (format.loadState === 'unloaded') {
 			dispatch(loadFormatProperties(format));
 		} else if (format.loadState === 'loaded') {
-			const editorExtensions = formatEditorExtensions(format, twineVersion);
+			const editorExtensions = formatEditorExtensions(
+				format,
+				process.env.REACT_APP_VERSION ?? ''
+			);
 
 			if (editorExtensions?.codeMirror?.mode) {
 				CodeMirror.defineMode(
