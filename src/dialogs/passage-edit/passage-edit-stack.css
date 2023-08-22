@@ -3,6 +3,10 @@
 	width: 100%;
 }
 
+.maximized .passage-edit-stack {
+	height: 100%;
+}
+
 .passage-edit-stack.collapsed {
 	flex-grow: 0;
 	/* Height is calculated in the component. */
