@@ -89,7 +89,7 @@
 		},
 		"passageCard": {
 			"placeholderClick": "Faz duplo clique sobre esta passagem para editá-la.",
-			"placeholderTouch": "Toca nesta passagem, depois escolhe Editar no separador Passagem para editá-la."
+			"placeholderTouch": "Toca nesta passagem, depois escolhe «Editar» no separador «Passagem» para editá-la."
 		},
 		"passageFuzzyFinder": {
 			"noResults": "Sem correspondências.",
@@ -165,7 +165,7 @@
 			"dialogWidths": {
 				"default": "Padrão",
 				"wider": "Larga",
-				"widest": "Muito Larga"
+				"widest": "Mais Larga"
 			},			
 			"editorCursorBlinks": "O Cursor Pisca nos Editores",
 			"fontExplanation": "Alterar a fonte aqui, afeta apenas o editor do Twine. A fonte usada na história não será alterada.",
