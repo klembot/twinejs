@@ -27,7 +27,8 @@ export function useStoryLaunch(): UseStoryLaunchProps {
 				twineElectron.ipcRenderer.send(
 					'open-with-temp-file',
 					await publishStory(storyId),
-					'.html'
+					'.html',
+					true
 				);
 			},
 			proofStory: async storyId => {
@@ -44,7 +45,8 @@ export function useStoryLaunch(): UseStoryLaunchProps {
 						formatOptions: 'debug',
 						startId: startPassageId
 					}),
-					'.html'
+					'.html',
+					true
 				);
 			}
 		};
