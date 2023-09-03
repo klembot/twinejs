@@ -142,7 +142,8 @@ describe('initIpc()', () => {
 		listener[1]({}, 'test-file-contents', 'test-file-suffix');
 		expect(openWithTempFileMock).toBeCalledWith(
 			'test-file-contents',
-			'test-file-suffix'
+			'test-file-suffix',
+			expect.any(Boolean)
 		);
 	});
 
