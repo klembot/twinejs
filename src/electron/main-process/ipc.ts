@@ -66,8 +66,8 @@ export function initIpc() {
 		}
 	});
 
-	ipcMain.on('open-with-temp-file', (event, data: string, suffix: string) =>
-		openWithTempFile(data, suffix)
+	ipcMain.on('open-with-temp-file', (event, data: string, suffix: string, delete_next: boolean=false) =>
+		openWithTempFile(data, suffix, delete_next)
 	);
 
 	// This doesn't use handle() because state reducers in the renderer process
