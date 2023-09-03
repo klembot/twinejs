@@ -1,5 +1,5 @@
 import {app, shell} from 'electron';
-import { writeFile, remove } from 'fs-extra';
+import {writeFile, remove} from 'fs-extra';
 import path from 'path';
 import uuid from 'tiny-uuid';
 
@@ -14,7 +14,7 @@ function deleteTempFile(path: string|null, required_subroot: string) {
 	}
 }
 
-export async function openWithTempFile(data: string, suffix: string, delete_next: boolean = true) {
+export async function openWithTempFile(data: string, suffix: string, delete_next: boolean = false) {
 	const tempSubRoot: string = app.getPath('temp');
 	const tempPath: string = path.join(tempSubRoot, uuid() + suffix);
 
