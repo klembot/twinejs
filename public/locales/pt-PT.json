@@ -26,6 +26,7 @@
 		"editCount": "Editar ({{count}})",
 		"help": "Ajuda",
 		"import": "Importar",
+		"maximize": "Maximizar",
 		"more": "Mais",
 		"new": "Novo",
 		"next": "Seguinte",
@@ -48,6 +49,7 @@
 		"twine": "Twine",
 		"undo": "Anular",
 		"undoChange": "Anular {{change}}",
+		"unmaximize": "Restaurar Tamanho",
 		"view": "Ver"
 	},
 	"components": {
@@ -87,7 +89,11 @@
 		},
 		"passageCard": {
 			"placeholderClick": "Faz duplo clique sobre esta passagem para editá-la.",
-			"placeholderTouch": "Toca nesta passagem, depois escolhe Editar no Separador Passagem para editá-la."
+			"placeholderTouch": "Toca nesta passagem, depois escolhe «Editar» no separador «Passagem» para editá-la."
+		},
+		"passageFuzzyFinder": {
+			"noResults": "Sem correspondências.",
+			"prompt": "Procurar pelo título da passagem ou por um trecho de texto"
 		},
 		"renamePassageButton": {
 			"emptyName": "Introduz um título.",
@@ -155,6 +161,12 @@
 		"appPrefs": {
 			"codeEditorFont": "Fonte do Editor de Código",
 			"codeEditorFontScale": "Tamanho da Fonte do Editor de Código",
+			"dialogWidth": "Largura da Caixa de Texto",
+			"dialogWidths": {
+				"default": "Padrão",
+				"wider": "Larga",
+				"widest": "Mais Larga"
+			},			
 			"editorCursorBlinks": "O Cursor Pisca nos Editores",
 			"fontExplanation": "Alterar a fonte aqui, afeta apenas o editor do Twine. A fonte usada na história não será alterada.",
 			"language": "Língua",
@@ -183,7 +195,7 @@
 		},
 		"storyImport": {
 			"deselectAll": "Desmarcar Tudo",
-			"filePrompt": "Para importar histórias para o Twine, carrega, em baixo, um ficheiro de arquivo ou um ficheiro de uma história publicada.",
+			"filePrompt": "Para importar histórias para o Twine, carrega, em baixo, um ficheiro de arquivo, um ficheiro de uma história publicada ou um ficheiro no formato Twee.",
 			"importDifferentFile": "Importar um Ficheiro Diferente",
 			"importSelected": "Importar os Ficheiros Marcados",
 			"importThisStory": "Importar Esta História",
@@ -264,12 +276,16 @@
 			"error": "Alguma coisa correu mal ao tentarmos verificar se há uma nova versão do Twine.",
 			"updateAvailable": "Está disponível uma versão mais recente do Twine.",
 			"upToDate": "Estás a usar a versão mais recente do Twine."
+		},
+		"userCss": {
+			"filename": "user.css"
 		}
 	},
 	"routes": {
 		"storyEdit": {
 			"toolbar": {
 				"findAndReplace": "Encontrar e Substituir",
+				"goTo": "Ir Para",				
 				"javaScript": "JavaScript",
 				"passageTags": "Etiquetas das Passagens",
 				"snapToGrid": "Alinhar à Grelha",
@@ -287,6 +303,7 @@
 				"selectAllPassages": "Marcar Todas as Passagens"
 			},
 			"zoomButtons": {
+				"legend": "Ampliação",				
 				"storyStructure": "Mostrar apenas a Estrutura da História",
 				"passageNames": "Mostrar apenas os Títulos das Passagens",
 				"passageNamesAndExcerpts": "Mostrar os Títulos das Passagens e os Excertos"
@@ -304,7 +321,7 @@
 				"addStoryFormatButton": {
 					"addPreview": "O formato {{storyFormatName}} {{storyFormatVersion}} vai ser acrescentado.",
 					"alreadyAdded": "O formato {{storyFormatName}} {{storyFormatVersion}} já foi acrescentado. ",
-					"fetchError": "O formato de história no endereço apresentado não pôde ser descarregado:  ({errorMessage}).",
+					"fetchError": "O formato de história no endereço apresentado não pôde ser descarregado: ({{errorMessage}}).",
 					"invalidUrl": "Introduz um URL válido.",
 					"prompt": "Para acrescentares um formato de história, introduz o seu endereço em baixo."
 				},
@@ -369,6 +386,7 @@
 			"storyFormats": "Formatos de História"
 		},
 		"build": {
+			"exportAsTwee": "Exportar para o formato Twee",			
 			"play": "Jogar",
 			"proof": "Rever",
 			"publishToFile": "Publicar para Ficheiro",
