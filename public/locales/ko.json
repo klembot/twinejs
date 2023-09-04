@@ -1,0 +1,428 @@
+{
+	"colors": {
+		"none": "색깔 없음",
+		"red": "빨강",
+		"orange": "주황",
+		"yellow": "노랑",
+		"green": "초록",
+		"blue": "파랑",
+		"purple": "보라"
+	},
+	"common": {
+		"add": "추가",
+		"appName": "Twine",
+		"back": "뒤로",
+		"build": "빌드",
+		"cancel": "취소",
+		"close": "닫기",
+		"color": "색깔",
+		"create": "창작",
+		"custom": "커스텀",
+		"delete": "삭제",
+		"deleteCount": "삭제 ({{count}})",
+		"details": "세부 사항",
+		"duplicate": "복제",
+		"edit": "편집",
+		"editCount": "편집 ({{count}})",
+		"help": "도움말",
+		"import": "가져오기",
+		"maximize": "최대화",
+		"more": "더 보기",
+		"new": "새 스토리",
+		"next": "다음",
+		"ok": "좋아요",
+		"passage": "구절",
+		"play": "재생",
+		"preferences": "환경 설정",
+		"publishToFile": "파일로 출판",
+		"redo": "재실행",
+		"redoChange": "재실행 {{change}}",
+		"rename": "이름 바꾸기",
+		"renamePrompt": "“{{name}}”의 이름을 무엇으로 바꿔야 하나요?",
+		"remove": "제거",
+		"selectAll": "모두 선택",
+		"skip": "건너뛰기",
+		"story": "스토리",
+		"storyFormat": "스토리 형식",
+		"tag": "태그",
+		"test": "테스트",
+		"twine": "Twine",
+		"undo": "실행 취소",
+		"undoChange": "실행 취소 {{change}}",
+		"unmaximize": "크기 복원",
+		"view": "보기"
+	},
+	"components": {
+		"addTagButton": {
+			"alreadyAdded": "이 태그 이름은 이미 추가되었습니다.",
+			"addLabel": "태그 추가",
+			"invalidName": "유효한 태그 이름을 입력하세요.",
+			"newTag": "새 태그",
+			"tagColorLabel": "태그 색깔",
+			"tagNameLabel": "태그 이름"
+		},
+		"dialogCard": {
+			"contentsCrashed": "이 대화상자에 문제가 발생했습니다. 닫았다가 다시 열어보세요."
+		},
+		"fontSelect": {
+			"customScaleDetail": "백분율만 입력하세요.",
+			"customFamilyDetail": "글꼴 이름만 입력하세요.",
+			"familyEmpty": "글꼴 이름을 입력하세요.",
+			"font": "글꼴",
+			"fonts": {
+				"monospaced": "고정폭",
+				"serif": "바탕체",
+				"system": "시스템"
+			},
+			"fontSize": "글꼴 크기",
+			"percentage": "{{percent}}%",
+			"percentageIsntNumber": "숫자를 입력하세요.",
+			"percentageNotPositive": "0보다 큰 수를 입력하세요."
+		},
+		"indentButtons": {
+			"indent": "들여쓰기",
+			"unindent": "들여쓰기 안 함"
+		},
+		"localStorageQuota": {
+			"measureAgain": "사용 가능한 공간 다시 측정",
+			"percentAvailable": "{percent}% 공간 사용 가능"
+		},
+		"passageCard": {
+			"placeholderClick": "편집하려면 이 구절을 두 번 클릭하세요.",
+			"placeholderTouch": "이 구절을 누른 다음 구절 탭에서 편집을 선택하여 편집하세요."
+		},
+		"passageFuzzyFinder": {
+			"noResults": "일치하는 항목 없음",
+			"prompt": "구절 이름이나 텍스트로 검색"
+		},
+		"renamePassageButton": {
+			"emptyName": "이름을 입력하세요.",
+			"nameAlreadyUsed": "이 이름은 이 스토리의 다른 구절에 이미 쓰였습니다."
+		},
+		"renameStoryButton": {
+			"emptyName": "이름을 입력하세요.",
+			"nameAlreadyUsed": "이 이름은 다른 스토리에 이미 쓰였습니다."
+		},
+		"safariWarningCard": {
+			"archiveAndUseAnotherBrowser": "스토리를 보관하고 다른 플랫폼을 사용하세요.",
+			"addToHomeScreen": "이러한 제한을 피하려면 이 사이트를 홈 화면에 추가하세요.",
+			"howToAddToHomeScreen": "홈 화면에 어떻게 추가하나요?",
+			"learnMore": "더 알아보기",
+			"message": "지금 사용하고 있는 브라우저는 이 웹사이트를 방문하지 않은 지 7일이 지나면 모든 스토리를 삭제합니다."
+		},
+		"storageQuota": {
+			"freeSpace": "{{percent}}% 공간 사용 가능"
+		},
+		"storyCard": {
+			"lastUpdated": "마지막 편집 날짜: {{date}}",
+			"passageCount": "1개 구절",
+			"passageCount_plural": "{{count}}개 구절"
+		},
+		"storyFormatCard": {
+			"author": "제작자: {{author}}",
+			"builtIn": "기본 제공",
+			"defaultFormat": "기본값으로 사용",
+			"editorExtensionsDisabled": "편집기 확장 사용 안 함",
+			"license": "라이선스: {{license}}",
+			"loadingFormat": "이 스토리 형식을 로드하는 중...",
+			"loadError": "이 스토리 형식을 로드할 수 없습니다. ({{errorMessage}})",
+			"name": "{{name}} {{version}}",
+			"proofing": "교정",
+			"proofingFormat": "교정에 사용",
+			"useEditorExtensions": "편집기 확장 사용",
+			"useFormat": "기본 스토리 형식으로 사용",
+			"useProofingFormat": "교정 형식으로 사용"
+		},
+		"storyFormatSelect": {
+			"loadingCount": "1개의 스토리 형식 로드 중...",
+			"loadingCount_plural": "{{loadingCount}}개의 스토리 형식 로드 중..."
+		},
+		"tagEditor": {
+			"alreadyExists": "이 이름을 가진 태그가 이미 존재합니다."
+		}
+	},
+	"dialogs": {
+		"aboutTwine": {
+			"donateToTwine": "기부를 통해 Twine의 성장을 도와주세요",
+			"codeHeader": "코드",
+			"codeRepo": "소스 코드 저장소 방문",
+			"license": "이 애플리케이션은 <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GPL v3 라이선스</a>에 따라 출시되지만 이 애플리케이션으로 만든 모든 저작물은 상업적인 조건을 포함하여 어떤 조건으로든 공개될 수 있습니다.",
+			"localizationHeader": "현지화",
+			"title": "Twine {{version}} 정보",
+			"twineDescription": "Twine은 대화형 비선형 스토리를 전달하기 위한 오픈 소스 애플리케이션입니다."
+		},
+		"appDonation": {
+			"donate": "Twine 개발에 기부",
+			"onlyOnce": "(이 메시지는 한 번만 표시됩니다. 향후 Twine 개발에 기부하고 싶다면 Twine 정보 대화상자에 기부할 수 있는 링크가 있습니다.)",
+			"supportMessage": "Twine을 사랑하신다면 기부를 통해 프로젝트의 성장을 도와주세요. Twine은 언제나 무료로 사용할 수 있는 오픈 소스 프로젝트이며, 여러분의 도움으로 계속 발전해 나갈 수 있습니다.",
+			"noThanks": "사양하겠습니다",
+			"title": "Twine 개발 지원"
+		},
+		"appPrefs": {
+			"codeEditorFont": "코드 편집기 글꼴",
+			"codeEditorFontScale": "코드 편집기 글꼴 크기",
+			"dialogWidth": "대화상자 너비",
+			"dialogWidths": {
+				"default": "기본",
+				"wider": "더 넓게",
+				"widest": "가장 넓게"
+			},
+			"editorCursorBlinks": "편집기에서 커서 깜박임",
+			"fontExplanation": "여기에서 글꼴을 변경하면 Twine 편집기에만 영향을 미칩니다. 스토리를 재생할 때 사용하는 글꼴은 변경되지 않습니다.",
+			"language": "언어",
+			"passageEditorFont": "구절 편집기 글꼴",
+			"passageEditorFontScale": "구절 편집기 글꼴 크기",
+			"themeLight": "밝게",
+			"themeDark": "어둡게",
+			"themeSystem": "시스템",
+			"theme": "테마",
+			"title": "환경 설정"
+		},
+		"passageEdit": {
+			"editorCrashed": "편집기에 문제가 발생했습니다. 닫고 이 구절을 다시 편집해 보세요.",
+			"passageTextEditorLabel": "구절 텍스트",
+			"passageTextPlaceholder": "여기에 본문 텍스트를 입력하세요. 다른 구절로 연결하려면 [[이와 같이]] 이름을 두 개의 대괄호로 묶으세요.",
+			"setAsStart": "여기서 스토리 시작",
+			"size": "크기",
+			"sizeLarge": "크게",
+			"sizeSmall": "작게",
+			"sizeTall": "세로로 길게",
+			"sizeWide": "가로로 길게"
+		},
+		"passageTags": {
+			"noTags": "이 이야기의 구절에는 태그가 추가되지 않았습니다.",
+			"title": "구절 태그"
+		},
+		"storyImport": {
+			"deselectAll": "모두 선택 해제",
+			"filePrompt": "스토리를 Twine으로 가져오려면 보관, 출판된 스토리 또는 Twee 소스 파일을 아래에 업로드하세요.",
+			"importDifferentFile": "다른 파일 가져오기",
+			"importSelected": "선택한 파일 가져오기",
+			"importThisStory": "이 스토리 가져오기",
+			"noStoriesInFile": "업로드한 파일에는 Twine 스토리가 없는 것 같습니다. 다른 파일을 선택하세요.",
+			"storiesPrompt": "가져올 스토리 선택:",
+			"title": "스토리 가져오기",
+			"willReplaceExisting": "라이브러리에 있는 동일한 이름의 스토리가 대체됩니다."
+		},
+		"storyDetails": {
+			"storyFormatExplanation": "스토리 형식이 무엇인가요?",
+			"snapToGrid": "격자에 맞추기",
+			"stats": {
+				"brokenLinks": "깨진 링크",
+				"characters": "문자",
+				"title": "스토리 통계",
+				"ifid": "이 스토리의 IFID는 {{ifid}}입니다.",
+				"ifidExplanation": "IFID가 무엇인가요?",
+				"lastUpdate": "이 스토리는 {{date}}에 마지막으로 변경되었습니다.",
+				"links": "링크",
+				"passages": "구절",
+				"words": "단어"
+			}
+		},
+		"storyJavaScript": {
+			"editorLabel": "스토리 JavaScript",
+			"title": "스토리 JavaScript",
+			"explanation": "여기에 입력한 JavaScript는 스토리가 웹 브라우저에서 열리면 즉시 실행됩니다."
+		},
+		"storySearch": {
+			"title": "찾기 및 바꾸기",
+			"find": "찾기",
+			"includePassageNames": "구절 이름 포함",
+			"matchCase": "대소문자 구별",
+			"matchCount": "일치하는 구절 {{count}}개",
+			"matchCount_plural": "일치하는 구절 {{count}}개",
+			"noMatches": "일치하는 구절 없음",
+			"replaceAll": "모든 구절에서 바꾸기",
+			"replaceWith": "다음으로 바꾸기",
+			"useRegexes": "정규 표현식 사용"
+		},
+		"storyStylesheet": {
+			"editorLabel": "스토리 스타일 시트",
+			"title": "스토리 스타일 시트",
+			"explanation": "여기에 입력한 CSS는 스토리의 기본 모양을 재정의합니다."
+		},
+		"storyTags": {
+			"noTags": "스토리에 추가된 태그가 없습니다.",
+			"title": "스토리 태그"
+		}
+	},
+	"electron": {
+		"backupsDirectoryName": "백업",
+		"errors": {
+			"jsonSave": "설정 파일을 저장하는 중에 문제가 발생했습니다.",
+			"storyFileChangedExternally": {
+				"message": "스토리 라이브러리에 있는 “{{fileName}}” 파일이 Twine 외부에서 변경되었습니다.",
+				"detail": "변경 사항을 저장하면 이 파일을 덮어쓰게 됩니다. Twine의 버전 대신 이 파일을 사용하려는 경우, Twine이 다시 실행되고 작업 내용이 이 파일로 대체됩니다.",
+				"overwriteChoice": "Twine에 변경 사항 저장",
+				"relaunchChoice": "이 파일 사용 및 다시 실행"
+			},
+			"storyDelete": "스토리를 삭제하는 중에 문제가 발생했습니다.",
+			"storyRename": "스토리 이름을 변경하는 중에 문제가 발생했습니다.",
+			"storySave": "스토리를 저장하는 중에 문제가 발생했습니다."
+		},
+		"menuBar": {
+			"checkForUpdates": "업데이트 확인 중...",
+			"edit": "편집",
+			"showDevTools": "디버그 콘솔 표시",
+			"showStoryLibrary": "스토리 라이브러리 표시",
+			"speech": "스피치",
+			"troubleshooting": "문제 해결",
+			"twineHelp": "Twine 도움말",
+			"view": "보기"
+		},
+		"storiesDirectoryName": "스토리",
+		"updateCheck": {
+			"download": "다운로드",
+			"error": "Twine의 업데이트된 버전을 확인하는 중에 문제가 발생했습니다.",
+			"updateAvailable": "Twine의 최신 버전을 사용할 수 있습니다.",
+			"upToDate": "현재 사용 가능한 Twine의 최신 버전입니다."
+		},
+		"userCss": {
+			"filename": "user.css"
+		}
+	},
+	"routes": {
+		"storyEdit": {
+			"toolbar": {
+				"findAndReplace": "찾기 및 바꾸기",
+				"goTo": "찾기",
+				"javaScript": "JavaScript",
+				"passageTags": "구절 태그",
+				"snapToGrid": "격자에 맞추기",
+				"startStoryHere": "여기서 스토리 시작",
+				"stylesheet": "스타일 시트",
+				"testFromHere": "여기서 테스트"
+			},
+			"topBar": {
+				"editJavaScript": "스토리 JavaScript 편집",
+				"editStylesheet": "스토리 스타일 시트 편집",
+				"findAndReplace": "찾기 및 바꾸기",
+				"passageTags": "구절 태그 편집",
+				"proofStory": "교정 사본 보기",
+				"publishToFile": "파일로 출판",
+				"selectAllPassages": "모든 구절 선택"
+			},
+			"zoomButtons": {
+				"legend": "줌",
+				"storyStructure": "스토리 구조만 표시",
+				"passageNames": "구절 이름만 표시",
+				"passageNamesAndExcerpts": "구절 이름과 발췌문 표시"
+			}
+		},
+		"storyFormatList": {
+			"noneVisible": "선택한 조건에 맞는 스토리 형식이 없습니다.",
+			"show": "표시...",
+			"title": {
+				"all": "모든 스토리 형식",
+				"current": "현재 스토리 형식",
+				"user": "사용자 추가 스토리 형식"
+			},
+			"toolbar": {
+				"addStoryFormatButton": {
+					"addPreview": "{{storyFormatName}} {{storyFormatVersion}}이(가) 추가됩니다.",
+					"alreadyAdded": "{{storyFormatName}} {{storyFormatVersion}}이(가) 이미 추가되었습니다.",
+					"fetchError": "이 주소의 스토리 형식을 검색할 수 없습니다. ({{errorMessage}})",
+					"invalidUrl": "유효한 URL을 입력하세요.",
+					"prompt": "스토리 형식을 추가하려면 아래에 주소를 입력하세요."
+				},
+				"disableFormatExtensions": "편집기 확장 비활성화",
+				"enableFormatExtensions": "편집기 확장 활성화",
+				"useAsDefaultFormat": "기본 형식으로 사용",
+				"useAsProofingFormat": "스토리 교정에 사용"
+			},
+			"storyFormatExplanation": "스토리 형식은 플레이 중 스토리의 모양과 동작을 제어합니다."
+		},
+		"storyList": {
+			"library": "라이브러리",
+			"noStories": "현재 Twine에 저장된 스토리가 없습니다. 시작하려면 새 스토리를 만들거나 파일에서 기존 스토리를 가져올 수 있습니다.",
+			"taggedTitleCount": "태그가 지정된 스토리 1개",
+			"taggedTitleCount_0": "태그가 지정된 스토리 없음",
+			"taggedTitleCount_plural": "태그가 지정된 스토리 {{count}}개",
+			"titleCount": "스토리 1개",
+			"titleCount_0": "스토리 없음",
+			"titleCount_plural": "스토리 {{count}}개",
+			"titleGeneric": "스토리",
+			"toolbar": {
+				"archive": "보관",
+				"createStoryButton": {
+					"prompt": "스토리 이름은 무엇으로 정할까요? 나중에 변경할 수 있습니다.",
+					"emptyName": "이름을 입력하세요.",
+					"nameConflict": "이 이름은 다른 스토리에 이미 쓰였습니다."
+				},
+				"deleteStoryButton": {
+					"warning": {
+						"electron": "정말로 “{{storyName}}”을 삭제하시겠습니까? 휴지통으로 이동됩니다.",
+						"web": "정말로 “{{storyName}}”을 삭제하시겠습니까? 영구 삭제됩니다. 이 작업은 되돌릴 수 없습니다."
+					}
+				},
+				"showAllStories": "모든 스토리 표시",
+				"showTags": "태그 표시",
+				"sort": "정렬 기준",
+				"sortByDate": "마지막 업데이트",
+				"sortByName": "이름",
+				"storyTags": "스토리 태그"
+			}
+		},
+		"welcome": {
+			"autosave": "<p>이제 문서 폴더에는 Twine이라는 폴더가 있습니다. 그 안에는 모든 작업이 저장되는 스토리 폴더가 있습니다. Twine은 작업하면서 저장되므로 직접 저장해야 한다는 점을 걱정할 필요가 없습니다. <strong>Twine</strong> 메뉴의 <strong>스토리 라이브러리 표시</strong> 항목을 사용하여 스토리가 저장된 폴더를 언제든지 열 수 있습니다.</p><p>Twine은 항상 작업 내용을 저장하기 때문에 Twine이 열려 있는 동안 스토리 라이브러리의 파일은 편집되지 않도록 잠깁니다.</p><p>다른 사람에게서 받은 Twine 스토리 파일을 열고 싶다면 스토리 목록의 <strong>파일에서 가져오기</strong> 링크를 사용하여 라이브러리로 가져올 수 있습니다.</p>",
+			"autosaveTitle": "작업 내용은 자동으로 저장됩니다.",
+			"browserStorage": "<p>즉, Twine 2를 사용하기 위해 계정을 만들 필요가 없으며, 생성한 모든 것이 다른 서버에 저장되지 않고 브라우저에 그대로 남아 있습니다.</p><p>하지만 기억해야 할 두 가지 <strong>중요한</strong> 사항이 있습니다. 작업 내용은 브라우저에만 저장되므로 저장된 데이터를 지우면 작업 내용이 손실됩니다! 좋지 않죠. <strong>보관 버튼</strong>을 자주 사용해야 한다는 사실을 잊지 마세요. 스토리 목록의 각 스토리에 있는 메뉴를 사용하여 개별 스토리를 파일로 출판할 수도 있습니다. 보관 파일과 스토리 파일 모두 언제든지 Twine으로 다시 가져올 수 있습니다.</p><p>두 번째로, <strong>이 브라우저를 사용할 수 있는 사람은 누구나 작업을 보고 변경할 수 있습니다.</strong> 그러니 참견쟁이 동생이 있다면 별도의 프로필을 설정하는 것을 고려해 보세요./p>",
+			"browserStorageTitle": "작업 내용은 브라우저에만 저장됩니다.",
+			"done": "<p>읽어주셔서 감사드리며, Twine과 함께 즐거운 시간 보내세요.</p>",
+			"doneTitle": "이제 끝났습니다!!",
+			"gotoStoryList": "스토리 목록으로 이동",
+			"greeting": "<p>Twine은 대화형, 비선형 스토리를 전달하기 위한 오픈 소스 도구입니다. 시작하기 전에 알아야 할 몇 가지 사항이 있습니다.</p>",
+			"greetingTitle": "안녕하세요!",
+			"tellMeMore": "자세히 알아보기",
+			"help": "<p><strong>Twine을 처음 사용하신다면 환영합니다!</strong> <a href=\"https://twinery.org/cookbook\">Twine Cookbook</a>은 사용법을 배울 수 있는 훌륭한 자료입니다. Twine을 한 번도 사용해 보지 않으셨다면, 이 책부터 시작해 보세요.</p>",
+			"helpTitle": "처음 오셨나요?"
+		}
+	},
+	"routeActions": {
+		"app": {
+			"aboutApp": "Twine 정보",
+			"preferences": "환경 설정",
+			"reportBug": "버그 신고",
+			"storyFormats": "스토리 형식"
+		},
+		"build": {
+			"exportAsTwee": "Twee로 내보내기",
+			"play": "재생",
+			"proof": "교정",
+			"publishToFile": "파일로 출판",
+			"test": "테스트"
+		}
+	},
+	"store": {
+		"archiveFilename": "{{timestamp}} Twine 보관.html",
+		"errors": {
+			"cantPersistPrefs": "환경 설정을 저장하는 중에 문제가 발생했습니다. ({{error}})",
+			"cantPersistStories": "스토리를 저장하는 중에 문제가 발생했습니다. ({{error}})",
+			"cantPersistStoryFormats": "스토리 형식을 저장하는 중에 문제가 발생했습니다. ({{error}})",
+			"electronRemediation": "이 애플리케이션을 다시 시작하면 도움이 될 수 있습니다.",
+			"webRemediation": "이 페이지를 새로고침하면 도움이 될 수 있습니다."
+		},
+		"passageDefaults": {
+			"name": "제목 없는 구절"
+		},
+		"storyDefaults": {
+			"name": "제목 없는 스토리"
+		},
+		"storyFormatDefaults": {
+			"name": "제목 없는 스토리 형식"
+		}
+	},
+	"undoChange": {
+		"addTag": "태그 추가",
+		"changeTagColor": "태그 색깔 바꾸기",
+		"newPassage": "새 구절",
+		"deletePassage": "구절 삭제",
+		"deletePassages": "구절 삭제",
+		"movePassage": "구절 이동",
+		"movePassages": "구절 이동",
+		"renamePassage": "구절 이름 바꾸기",
+		"removeTag": "태그 제거",
+		"renameTag": "태그 이름 바꾸기",
+		"replaceAllText": "모두 바꾸기"
+	}
+}
