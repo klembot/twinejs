@@ -5,7 +5,7 @@ number of passages, amount of text, or number of links.
 
 If you're using browser Twine, you are limited by the amount of storage space
 your browser allows Twine. You can see the amount of space available as a
-percentage in the corner of the Story Library screen. 
+percentage in the corner of the Story Library screen.
 
 If you're using app Twine, you're limited by the amount of space on your
 computer, but you're very unlikely to be limited by this in practice.
@@ -18,4 +18,4 @@ more. As a result, it's hard to advise specific actions if you notice that Twine
 is sluggish with your story.
 
 One possibility, though, is to [split your story](./combining.md) into multiple
-stories. 
+stories.

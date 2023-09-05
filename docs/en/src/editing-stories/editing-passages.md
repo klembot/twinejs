@@ -62,7 +62,7 @@ are true:
 - It is linked to from another passage
 - It has any tags
 - It has a different size than the default
-- It is the story start 
+- It is the story start
 
 ## Text Formatting, Code, Images, Sound, Video... Basically Everything Cool
 
