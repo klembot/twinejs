@@ -31,6 +31,6 @@ Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_E
 has a good introduction to the topic.
 
 If you use regular expressions in your search, the _Replace_ field can also
-contain back-references. For example, if you enter `(.)and` in the _Find_ field
+contain backreferences. For example, if you enter `(.)and` in the _Find_ field
 and `$1---` in the _Replace_ field, the text `Sand band` will be replaced to
 `S--- b---`.
