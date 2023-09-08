@@ -2,10 +2,10 @@
 
 ## Browser Twine
 
-Browser Twine is updated whenver there's a new release, so there's no work for
+Browser Twine is updated when there's a new release, so there's no work for
 you to do to stay up-to-date. If you need to use an older version, go to
-https://twinery.org/[version number]. That is, to use 2.3.13, go to
-https://twinery.org/2.3.13. These different versions will use the same story
+`https://twinery.org/[version number]`. That is, to use 2.3.13, go to
+`https://twinery.org/2.3.13`. These different versions will use the same story
 library and preferences.
 
 Keep in mind, though, that earlier versions will have bugs the most recent

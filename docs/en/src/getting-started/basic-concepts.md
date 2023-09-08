@@ -76,7 +76,7 @@ for others.
 
 Twine includes four story formats when you download it, and it is possible to
 [add other story formats](../story-formats/adding.md) that people in the
-community have made. 
+community have made.
 
 - [**Chapbook**](https://klembot.github.io/chapbook/) is the youngest story
   format. It's designed to be easy to learn and to make many common tasks people

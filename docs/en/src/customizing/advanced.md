@@ -15,7 +15,7 @@ features.
 Here's a sample `user.css` that replaces the graph paper background of the story
 map with a plain gray color:
 
-```
+```css
 .passage-map {
   background: hsl(0, 0%, 75%) !important;
 }
