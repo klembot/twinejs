@@ -10,7 +10,7 @@ import {
 } from './story-file';
 import {loadStoryFormats} from './story-formats';
 import {loadPrefs} from './prefs';
-import {cleanScratchDirectory, openWithScratchFile} from './scratch-file';
+import {openWithScratchFile} from './scratch-file';
 import {Story} from '../../store/stories';
 
 export function initIpc() {

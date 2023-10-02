@@ -2,18 +2,40 @@ import {app, shell} from 'electron';
 import {mkdirp, readdir, remove, stat, writeFile} from 'fs-extra';
 import {join} from 'path';
 import {i18n} from './locales';
+import {getAppPref} from './app-prefs';
 
+/**
+ * Returns the path to the scratch directory. This can be overridden by the app
+ * pref `scratchFolderPath`.
+ */
 export function scratchDirectoryPath() {
-	return join(
-		app.getPath('documents'),
-		i18n.t('common.appName'),
-		i18n.t('electron.scratchDirectoryName')
-	);
+	const folderPref = getAppPref('scratchFolderPath');
+
+	return typeof folderPref === 'string'
+		? folderPref
+		: join(
+				app.getPath('documents'),
+				i18n.t('common.appName'),
+				i18n.t('electron.scratchDirectoryName')
+		  );
 }
 
+/**
+ * Deletes all files in the scratch directory older than either 3 days, or a
+ * number of minutes set in the `scratchFileCleanupAge` app preference.
+ */
 export async function cleanScratchDirectory() {
+	console.log('Cleaning scratch directory');
+
+	// Coerce the app pref to an integer. If it was set via CLI argument, it may
+	// come in as a string.
+	const agePref =
+		getAppPref('scratchFileCleanupAge') !== undefined
+			? parseInt((getAppPref('scratchFileCleanupAge') as object).toString())
+			: NaN;
+
 	// milliseconds -> seconds -> minutes -> hours -> days
-	const tooOld = 1000 * 60 * 60 * 24 * 3;
+	const tooOld = 1000 * 60 * (isFinite(agePref) ? agePref : 60 * 24 * 3);
 	const now = Date.now();
 	const scratchFiles = (
 		await readdir(scratchDirectoryPath(), {withFileTypes: true})

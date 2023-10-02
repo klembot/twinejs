@@ -1,8 +1,9 @@
 # Playing a Story
 
-Twine allows you to play a story . This can be helpful if you'd like someone to
-play your story on your own computer before publishing it, or to see exactly
-what people will see when playing your story once it's published.
+Twine allows you to play a story from the application. This can be helpful if
+you'd like someone to play your story on your own computer before publishing it,
+or to see exactly what people will see when playing your story once it's
+published.
 
 You can play a story from both the Story Library and Story Map screens.
 
