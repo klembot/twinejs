@@ -270,6 +270,7 @@
 			"twineHelp": "Twine Help",
 			"view": "View"
 		},
+		"scratchDirectoryName": "Scratch",
 		"storiesDirectoryName": "Stories",
 		"updateCheck": {
 			"download": "Download",

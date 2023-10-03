@@ -34,6 +34,7 @@
 	- [Proofing a Story](publishing/proofing.md)
 	- [Playing a Story](publishing/playing.md)
 	- [Publishing a Story](publishing/publishing.md)
+	- [The Scratch Folder](publishing/scratch-folder.md)
 - [Managing Story Formats](story-formats/index.md)
 	- [Viewing Story Formats](story-formats/viewing.md)
 	- [Changing the Default Story Format](story-formats/default.md)

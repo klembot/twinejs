@@ -25,26 +25,26 @@ export function useStoryLaunch(): UseStoryLaunchProps {
 		return {
 			playStory: async storyId => {
 				twineElectron.ipcRenderer.send(
-					'open-with-temp-file',
+					'open-with-scratch-file',
 					await publishStory(storyId),
-					'.html'
+					`play-${storyId}.html`
 				);
 			},
 			proofStory: async storyId => {
 				twineElectron.ipcRenderer.send(
-					'open-with-temp-file',
+					'open-with-scratch-file',
 					await proofStory(storyId),
-					'.html'
+					`proof-${storyId}.html`
 				);
 			},
 			testStory: async (storyId, startPassageId) => {
 				twineElectron.ipcRenderer.send(
-					'open-with-temp-file',
+					'open-with-scratch-file',
 					await publishStory(storyId, {
 						formatOptions: 'debug',
 						startId: startPassageId
 					}),
-					'.html'
+					`test-${storyId}.html`
 				);
 			}
 		};

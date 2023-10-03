@@ -2,7 +2,6 @@ import {app, dialog, ipcMain} from 'electron';
 import {debounce, DebouncedFunc} from 'lodash';
 import {i18n} from './locales';
 import {saveJsonFile} from './json-file';
-import {openWithTempFile} from './open-with-temp-file';
 import {
 	deleteStory,
 	loadStories,
@@ -11,6 +10,7 @@ import {
 } from './story-file';
 import {loadStoryFormats} from './story-formats';
 import {loadPrefs} from './prefs';
+import {openWithScratchFile} from './scratch-file';
 import {Story} from '../../store/stories';
 
 export function initIpc() {
@@ -66,8 +66,11 @@ export function initIpc() {
 		}
 	});
 
-	ipcMain.on('open-with-temp-file', (event, data: string, suffix: string) =>
-		openWithTempFile(data, suffix)
+	ipcMain.on(
+		'open-with-scratch-file',
+		(event, data: string, filename: string) => {
+			openWithScratchFile(data, filename);
+		}
 	);
 
 	// This doesn't use handle() because state reducers in the renderer process
