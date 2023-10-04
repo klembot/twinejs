@@ -9,9 +9,7 @@ export async function load(): Promise<StoryFormatsState> {
 		throw new Error('Electron bridge is not present on window.');
 	}
 
-	const storyFormats = await twineElectron?.ipcRenderer.invoke(
-		'load-story-formats'
-	);
+	const storyFormats = await twineElectron.loadStoryFormats();
 
 	if (!storyFormats || !Array.isArray(storyFormats)) {
 		return [];

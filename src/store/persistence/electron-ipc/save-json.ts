@@ -7,5 +7,5 @@ export function saveJson(filename: string, data: any) {
 		throw new Error('Electron bridge is not present on window.');
 	}
 
-	twineElectron.ipcRenderer.send('save-json', filename, data);
+	twineElectron.saveJson(filename, data);
 }

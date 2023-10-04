@@ -26,8 +26,7 @@ export async function saveStory(story: Story, formats: StoryFormatsState) {
 		);
 
 		if (format.loadState === 'loaded') {
-			twineElectron.ipcRenderer.send(
-				'save-story-html',
+			twineElectron.saveStoryHtml(
 				story,
 				publishStoryWithFormat(story, format.properties.source, getAppInfo(), {
 					startOptional: true
@@ -36,8 +35,7 @@ export async function saveStory(story: Story, formats: StoryFormatsState) {
 		} else {
 			const {source} = await fetchStoryFormatProperties(format.url);
 
-			twineElectron.ipcRenderer.send(
-				'save-story-html',
+			twineElectron.saveStoryHtml(
 				story,
 				publishStoryWithFormat(story, source, getAppInfo(), {
 					startOptional: true
@@ -50,8 +48,7 @@ export async function saveStory(story: Story, formats: StoryFormatsState) {
 				(error as Error).message
 			}). Trying to save story data only.`
 		);
-		twineElectron.ipcRenderer.send(
-			'save-story-html',
+		twineElectron.saveStoryHtml(
 			story,
 			publishStory(story, getAppInfo(), {startOptional: true})
 		);

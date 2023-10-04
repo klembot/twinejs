@@ -18,10 +18,8 @@ async function createWindow() {
 		width: Math.round(screenSize.width * 0.9),
 		show: false,
 		webPreferences: {
-			// See preload.ts for why context isolation is disabled.
-			contextIsolation: false,
-			nodeIntegration: false,
-			preload: path.resolve(__dirname, './preload.js')
+			preload: path.resolve(__dirname, './preload.js'),
+			sandbox: true
 		}
 	});
 	mainWindow.loadURL(

@@ -16,28 +16,25 @@ import {saveStory} from '../save-story';
 
 describe('saveStory()', () => {
 	let formatsState: StoryFormatsState;
-	let sendSpy: jest.SpyInstance;
+	let saveStoryHtml: jest.SpyInstance;
 	let story: Story;
 
 	beforeEach(() => {
 		formatsState = [fakeLoadedStoryFormat()];
-		sendSpy = jest.fn();
+		saveStoryHtml = jest.fn();
 		story = fakeStory();
 		story.storyFormat = formatsState[0].name;
 		story.storyFormatVersion = formatsState[0].version;
-		(window as any).twineElectron = {
-			ipcRenderer: {send: sendSpy}
-		};
+		(window as any).twineElectron = {saveStoryHtml};
 		jest.spyOn(console, 'warn').mockReturnValue();
 	});
 
 	afterEach(() => delete (window as TwineElectronWindow).twineElectron);
 
-	it('sends a save-story-html IPC message', async () => {
+	it('calls saveStoryHtml on the twineElectron global', async () => {
 		await saveStory(story, formatsState);
-		expect(sendSpy.mock.calls).toEqual([
+		expect(saveStoryHtml.mock.calls).toEqual([
 			[
-				'save-story-html',
 				story,
 				publishStoryWithFormat(
 					story,
@@ -58,9 +55,8 @@ describe('saveStory()', () => {
 		await saveStory(story, [
 			{...formatsState[0], loadState: 'unloaded', properties: undefined} as any
 		]);
-		expect(sendSpy.mock.calls).toEqual([
+		expect(saveStoryHtml.mock.calls).toEqual([
 			[
-				'save-story-html',
 				story,
 				publishStoryWithFormat(story, properties.source, getAppInfo(), {
 					startOptional: true
@@ -77,9 +73,8 @@ describe('saveStory()', () => {
 		await saveStory(story, [
 			{...formatsState[0], loadState: 'unloaded', properties: undefined} as any
 		]);
-		expect(sendSpy.mock.calls).toEqual([
+		expect(saveStoryHtml.mock.calls).toEqual([
 			[
-				'save-story-html',
 				story,
 				publishStory(story, getAppInfo(), {
 					startOptional: true

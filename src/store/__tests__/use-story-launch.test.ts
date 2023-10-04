@@ -61,29 +61,28 @@ describe('useStoryLaunch', () => {
 	});
 
 	describe('in an Electron context', () => {
-		let sendSpy: jest.SpyInstance;
+		let openWithScratchFile: jest.SpyInstance;
 
 		beforeEach(() => {
-			sendSpy = jest.fn();
+			openWithScratchFile = jest.fn();
 			isElectronRendererMock.mockReturnValue(true);
-			(window as any).twineElectron = {ipcRenderer: {send: sendSpy}};
+			(window as any).twineElectron = {openWithScratchFile};
 		});
 
-		it('makes an IPC call when playing a story', async () => {
+		it('calls openWithScratchFile() on the twineElectron global when playing a story', async () => {
 			const {result} = renderHook(() => useStoryLaunch());
 
-			expect(sendSpy).not.toBeCalled();
+			expect(openWithScratchFile).not.toBeCalled();
 			await result.current.playStory('mock-story-id');
-			expect(sendSpy.mock.calls).toEqual([
+			expect(openWithScratchFile.mock.calls).toEqual([
 				[
-					'open-with-scratch-file',
 					'mock-published-story-mock-story-id-undefined',
 					'play-mock-story-id.html'
 				]
 			]);
 		});
 
-		it('throws an error when playing a story if the IPC bridge is not present', () => {
+		it('throws an error when playing a story if the twineElectron global is not present', () => {
 			delete (window as any).twineElectron;
 
 			const {result} = renderHook(() => useStoryLaunch());
@@ -91,21 +90,17 @@ describe('useStoryLaunch', () => {
 			expect(() => result.current.playStory('mock-story-id')).toThrow();
 		});
 
-		it('makes an IPC call when proofing a story', async () => {
+		it('calls openWithScratchFile() on the twineElectron global when proofing a story', async () => {
 			const {result} = renderHook(() => useStoryLaunch());
 
-			expect(sendSpy).not.toBeCalled();
+			expect(openWithScratchFile).not.toBeCalled();
 			await result.current.proofStory('mock-story-id');
-			expect(sendSpy.mock.calls).toEqual([
-				[
-					'open-with-scratch-file',
-					'mock-proofed-story-mock-story-id',
-					'proof-mock-story-id.html'
-				]
+			expect(openWithScratchFile.mock.calls).toEqual([
+				['mock-proofed-story-mock-story-id', 'proof-mock-story-id.html']
 			]);
 		});
 
-		it('throws an error when proofing a story if the IPC bridge is not present', () => {
+		it('throws an error when proofing a story if the twineElectron global is not present', () => {
 			delete (window as any).twineElectron;
 
 			const {result} = renderHook(() => useStoryLaunch());
@@ -113,21 +108,20 @@ describe('useStoryLaunch', () => {
 			expect(() => result.current.proofStory('mock-story-id')).toThrow();
 		});
 
-		it('makes an IPC call when testing a story', async () => {
+		it('calls openWithScratchFile() on the twineElectron global when testing a story', async () => {
 			const {result} = renderHook(() => useStoryLaunch());
 
-			expect(sendSpy).not.toBeCalled();
+			expect(openWithScratchFile).not.toBeCalled();
 			await result.current.testStory('mock-story-id');
-			expect(sendSpy.mock.calls).toEqual([
+			expect(openWithScratchFile.mock.calls).toEqual([
 				[
-					'open-with-scratch-file',
 					'mock-published-story-mock-story-id-{"formatOptions":"debug"}',
 					'test-mock-story-id.html'
 				]
 			]);
 		});
 
-		it('throws an error when testing a story if the IPC bridge is not present', () => {
+		it('throws an error when testing a story if the twineElectron global is not present', () => {
 			delete (window as any).twineElectron;
 
 			const {result} = renderHook(() => useStoryLaunch());
