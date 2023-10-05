@@ -9,19 +9,11 @@ describe('stories Electron IPC load', () => {
 	let stories: Story[];
 	let storydata: any[];
 
-	function mockIpcInvoke(data: any) {
+	function mockLoadStories(data: any) {
 		Object.assign(electronWindow, {
 			twineElectron: {
-				ipcRenderer: {
-					async invoke(eventName: string) {
-						if (eventName === 'load-stories') {
-							return data;
-						}
-
-						throw new Error(
-							`Got unexpected invoke() call for event "${eventName}"`
-						);
-					}
+				loadStories: async function () {
+					return data;
 				}
 			}
 		});
@@ -34,11 +26,11 @@ describe('stories Electron IPC load', () => {
 			mtime: new Date()
 		}));
 
-		mockIpcInvoke(storydata);
+		mockLoadStories(storydata);
 		jest.spyOn(console, 'warn').mockReturnValue();
 	});
 
-	it('loads stories from invoking a load-stories IPC event', async () =>
+	it('loads stories by calling loadStories() on the twineElectron global', async () =>
 		expect(await load()).toEqual(
 			stories.map(story => ({
 				...story,
@@ -97,16 +89,16 @@ describe('stories Electron IPC load', () => {
 		]);
 	});
 
-	it("resolves to an empty array if the load-prefs IPC event doesn't return an array", async () => {
-		mockIpcInvoke('bad');
+	it("resolves to an empty array if loadStories doesn't return an array", async () => {
+		mockLoadStories('bad');
 		expect(await load()).toEqual([]);
-		mockIpcInvoke(0);
+		mockLoadStories(0);
 		expect(await load()).toEqual([]);
-		mockIpcInvoke(undefined);
+		mockLoadStories(undefined);
 		expect(await load()).toEqual([]);
-		mockIpcInvoke(null);
+		mockLoadStories(null);
 		expect(await load()).toEqual([]);
-		mockIpcInvoke({});
+		mockLoadStories({});
 		expect(await load()).toEqual([]);
 	});
 });

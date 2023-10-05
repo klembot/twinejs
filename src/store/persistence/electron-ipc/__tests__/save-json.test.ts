@@ -4,21 +4,19 @@ import {TwineElectronWindow} from '../../../../electron/shared';
 describe('saveJson()', () => {
 	afterEach(() => delete (window as TwineElectronWindow).twineElectron);
 
-	it('sends a save-json IPC event', () => {
-		const sendSpy = jest.fn();
+	it('calls saveJson on the twineElectron global', () => {
+		const saveJson = jest.fn();
 		const mockObject = {mock: true};
 
 		(window as any).twineElectron = {
-			ipcRenderer: {send: sendSpy}
+			saveJson
 		};
 
 		saveJson('test.json', mockObject);
-		expect(sendSpy.mock.calls).toEqual([
-			['save-json', 'test.json', mockObject]
-		]);
+		expect(saveJson.mock.calls).toEqual([['test.json', mockObject]]);
 	});
 
-	it('throws an error if the IPC emitter is not available', () => {
+	it('throws an error if twineElectron.saveJson is undefined', () => {
 		expect(() => saveJson('test.json', {})).toThrow();
 	});
 });

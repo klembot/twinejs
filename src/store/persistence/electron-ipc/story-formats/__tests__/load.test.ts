@@ -5,19 +5,11 @@ import {fakeUnloadedStoryFormat} from '../../../../../test-util';
 describe('story formats Electron IPC load', () => {
 	const electronWindow = window as TwineElectronWindow;
 
-	function mockIpcInvoke(data: any) {
+	function mockLoadStoryFormats(data: any) {
 		Object.assign(electronWindow, {
 			twineElectron: {
-				ipcRenderer: {
-					async invoke(eventName: string) {
-						if (eventName === 'load-story-formats') {
-							return data;
-						}
-
-						throw new Error(
-							`Got unexpected invoke() call for event "${eventName}"`
-						);
-					}
+				loadStoryFormats: async function () {
+					return data;
 				}
 			}
 		});
@@ -25,29 +17,29 @@ describe('story formats Electron IPC load', () => {
 
 	afterEach(() => delete electronWindow.twineElectron);
 
-	it('resolves to data from invoking a load-story-formats IPC event', async () => {
+	it('resolves to data from calling loadStoryFormats on the twineElectron global', async () => {
 		const storyFormats = [
 			fakeUnloadedStoryFormat({selected: false}),
 			fakeUnloadedStoryFormat({selected: false})
 		];
 
-		mockIpcInvoke(storyFormats);
+		mockLoadStoryFormats(storyFormats);
 		expect(await load()).toEqual([
 			{...storyFormats[0], id: expect.any(String)},
 			{...storyFormats[1], id: expect.any(String)}
 		]);
 	});
 
-	it("resolves to an empty array if the load-story-formats IPC event doesn't return an array", async () => {
-		mockIpcInvoke('bad');
+	it("resolves to an empty array if loadStoryFormats doesn't return an array", async () => {
+		mockLoadStoryFormats('bad');
 		expect(await load()).toEqual([]);
-		mockIpcInvoke(0);
+		mockLoadStoryFormats(0);
 		expect(await load()).toEqual([]);
-		mockIpcInvoke(undefined);
+		mockLoadStoryFormats(undefined);
 		expect(await load()).toEqual([]);
-		mockIpcInvoke(null);
+		mockLoadStoryFormats(null);
 		expect(await load()).toEqual([]);
-		mockIpcInvoke({});
+		mockLoadStoryFormats({});
 		expect(await load()).toEqual([]);
 	});
 });

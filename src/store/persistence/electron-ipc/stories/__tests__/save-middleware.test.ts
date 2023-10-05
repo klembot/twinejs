@@ -9,20 +9,24 @@ jest.mock('../save-story');
 
 describe('stories Electron IPC save middleware', () => {
 	const saveStoryMock = saveStory as jest.Mock;
+	let deleteStory: jest.SpyInstance;
 	let formatsState: StoryFormatsState;
-	let onceSpy: jest.SpyInstance;
-	let sendSpy: jest.SpyInstance;
+	let onceStoryRenamed: jest.SpyInstance;
+	let renameStory: jest.SpyInstance;
 	let storiesState: StoriesState;
 
 	beforeEach(() => {
 		formatsState = [fakeLoadedStoryFormat()];
-		onceSpy = jest.fn();
-		sendSpy = jest.fn();
+		onceStoryRenamed = jest.fn();
+		deleteStory = jest.fn();
+		renameStory = jest.fn();
 		storiesState = [fakeStory(2)];
 		storiesState[0].storyFormat = formatsState[0].name;
 		storiesState[0].storyFormatVersion = formatsState[0].version;
 		(window as any).twineElectron = {
-			ipcRenderer: {once: onceSpy, send: sendSpy}
+			deleteStory,
+			onceStoryRenamed,
+			renameStory
 		};
 		jest.spyOn(console, 'warn').mockReturnValue();
 
@@ -52,9 +56,10 @@ describe('stories Electron IPC save middleware', () => {
 		]
 	])('takes no action when a %s action is received', (_, action) => {
 		saveMiddleware(storiesState, action() as StoriesAction, formatsState);
+		expect(deleteStory).not.toHaveBeenCalled();
+		expect(onceStoryRenamed).not.toHaveBeenCalled();
+		expect(renameStory).not.toHaveBeenCalled();
 		expect(saveStoryMock).not.toHaveBeenCalled();
-		expect(onceSpy).not.toHaveBeenCalled();
-		expect(sendSpy).not.toHaveBeenCalled();
 	});
 
 	it.each([
@@ -180,7 +185,7 @@ describe('stories Electron IPC save middleware', () => {
 	});
 
 	describe('when a deleteStory action is received', () => {
-		it('sends a delete-story IPC message', () => {
+		it('calls deleteStory on the twineElectron global', () => {
 			saveMiddleware(
 				storiesState,
 				{
@@ -189,7 +194,7 @@ describe('stories Electron IPC save middleware', () => {
 				},
 				formatsState
 			);
-			expect(sendSpy.mock.calls).toEqual([['delete-story', storiesState[0]]]);
+			expect(deleteStory.mock.calls).toEqual([[storiesState[0]]]);
 		});
 
 		it("throws an error if the story doesn't exist in state", () =>
@@ -206,7 +211,7 @@ describe('stories Electron IPC save middleware', () => {
 	});
 
 	describe("when an updateStory action is received that changes a story's name", () => {
-		it('sends a rename-story IPC message', () => {
+		it('calls renameStory on the twineElectron global', () => {
 			const origName = storiesState[0].name;
 
 			storiesState[0] = {...storiesState[0], name: 'new-name'};
@@ -219,12 +224,12 @@ describe('stories Electron IPC save middleware', () => {
 				},
 				formatsState
 			);
-			expect(sendSpy.mock.calls).toEqual([
-				['rename-story', {...storiesState[0], name: origName}, storiesState[0]]
+			expect(renameStory.mock.calls).toEqual([
+				[{...storiesState[0], name: origName}, storiesState[0]]
 			]);
 		});
 
-		it('calls saveStory() when the main process sends a story-renamed message', () => {
+		it('calls saveStory() in a callback sent to onceStoryRenamed on the twineElectron global', () => {
 			saveMiddleware(
 				storiesState,
 				{
@@ -234,10 +239,9 @@ describe('stories Electron IPC save middleware', () => {
 				},
 				formatsState
 			);
-			expect(onceSpy).toHaveBeenCalledTimes(1);
-			expect(onceSpy.mock.calls[0][0]).toEqual('story-renamed');
+			expect(onceStoryRenamed).toHaveBeenCalledTimes(1);
 			saveStoryMock.mockReset();
-			onceSpy.mock.calls[0][1]();
+			onceStoryRenamed.mock.calls[0][0]();
 			expect(saveStoryMock.mock.calls).toEqual([
 				[storiesState[0], formatsState]
 			]);
@@ -246,6 +250,9 @@ describe('stories Electron IPC save middleware', () => {
 
 	it('does nothing if an unexpected action is received', () => {
 		saveMiddleware(storiesState, {type: '???'} as any, formatsState);
-		expect(sendSpy).not.toHaveBeenCalled();
+		expect(deleteStory).not.toHaveBeenCalled();
+		expect(onceStoryRenamed).not.toHaveBeenCalled();
+		expect(renameStory).not.toHaveBeenCalled();
+		expect(saveStoryMock).not.toHaveBeenCalled();
 	});
 });
