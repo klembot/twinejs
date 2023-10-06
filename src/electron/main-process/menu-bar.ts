@@ -8,6 +8,8 @@ import {
 import {revealStoryDirectory} from './story-directory';
 import {i18n} from './locales';
 import {checkForUpdate} from './check-for-update';
+import {toggleHardwareAcceleration} from './hardware-acceleration';
+import {getAppPref} from './app-prefs';
 
 export function initMenuBar() {
 	const template: MenuItemConstructorOptions[] = [
@@ -65,6 +67,12 @@ export function initMenuBar() {
 				{
 					label: i18n.t('electron.menuBar.troubleshooting'),
 					submenu: [
+						{
+							label: i18n.t('electron.menuBar.disableHardwareAcceleration'),
+							checked: !!getAppPref('disableHardwareAcceleration'),
+							click: toggleHardwareAcceleration,
+							type: 'checkbox'
+						},
 						{
 							label: i18n.t('electron.menuBar.showDevTools'),
 							click: () =>

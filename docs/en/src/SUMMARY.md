@@ -59,3 +59,4 @@
 	- [If Twine Won't Start](troubleshooting/wont-start.md)
 	- [If Twine Lost Your Story](troubleshooting/lost-story.md)
 	- [If Your Story Is Damaged](troubleshooting/damaged-story.md)
+	- [If You See Visual Glitches in Twine](troubleshooting/visual-glitches.md)

@@ -262,6 +262,7 @@
 		},
 		"menuBar": {
 			"checkForUpdates": "Check for Updates...",
+			"disableHardwareAcceleration": "Disable Hardware Acceleration",
 			"edit": "Edit",
 			"showDevTools": "Show Debug Console",
 			"showStoryLibrary": "Show Story Library",
@@ -269,6 +270,10 @@
 			"troubleshooting": "Troubleshooting",
 			"twineHelp": "Twine Help",
 			"view": "View"
+		},
+		"relaunchDialog": {
+			"defaultPrompt": "This change will take effect the next time Twine is launched.",
+			"relaunchNow": "Relaunch Now"
 		},
 		"scratchDirectoryName": "Scratch",
 		"storiesDirectoryName": "Stories",

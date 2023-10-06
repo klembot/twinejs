@@ -1,26 +1,37 @@
 import minimist from 'minimist';
-import {loadJsonFile, saveJsonFile} from './json-file';
+import {loadJsonFileSync, saveJsonFile} from './json-file';
 
 /**
  * Name of an app-specific preference. These should only be used for preferences
  * that are related to the app build, e.g. things like folder locations.
  */
-export type AppPrefName = 'scratchFolderPath' | 'scratchFileCleanupAge';
+export type AppPrefName =
+	| 'disableHardwareAcceleration'
+	| 'scratchFolderPath'
+	| 'scratchFileCleanupAge';
 
-const prefNames: AppPrefName[] = ['scratchFolderPath', 'scratchFileCleanupAge'];
+const prefNames: AppPrefName[] = [
+	'disableHardwareAcceleration',
+	'scratchFolderPath',
+	'scratchFileCleanupAge'
+];
 const prefs: Partial<Record<AppPrefName, unknown>> = {};
 let prefsLoaded = false;
 
 /**
  * Loads app-specific (e.g. not shared by the browser version) prefs. This
- * *must* be called before getAppPref or setAppPref.
+ * *must* be called before getAppPref or setAppPref. This function is
+ * synchronous because we need at least one app pref before Electron is ready,
+ * and there is no way to delay readiness.
+ *
+ * @see https://github.com/electron/electron/issues/21370
  */
-export async function loadAppPrefs() {
-	const argv = minimist(process.argv.slice(2));
+export function loadAppPrefs() {
+	const argv = minimist(process.argv.slice(1));
 	let appPrefFile: any = {};
 
 	try {
-		appPrefFile = await loadJsonFile('app-prefs.json');
+		appPrefFile = loadJsonFileSync('app-prefs.json');
 	} catch (error) {
 		console.warn("Couldn't read app prefs file; continuing", error);
 	}

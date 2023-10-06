@@ -22,7 +22,6 @@ describe('initApp', () => {
 	const backupStoryDirectoryMock = backupStoryDirectory as jest.Mock;
 	const cleanScratchDirectoryMock = cleanScratchDirectory as jest.Mock;
 	const createStoryDirectoryMock = createStoryDirectory as jest.Mock;
-	const loadAppPrefsMock = loadAppPrefs as jest.Mock;
 	const onMock = app.on as jest.Mock;
 	const quitMock = app.quit as jest.Mock;
 	const showErrorBoxMock = dialog.showErrorBox as jest.Mock;
@@ -65,11 +64,6 @@ describe('initApp', () => {
 	it('initializes IPC', async () => {
 		await initApp();
 		expect(initIpcMock).toBeCalledTimes(1);
-	});
-
-	it('loads app prefs', async () => {
-		await initApp();
-		expect(loadAppPrefsMock).toBeCalledTimes(1);
 	});
 
 	it('initializes the menu bar', async () => {
