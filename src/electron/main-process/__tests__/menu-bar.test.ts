@@ -1,8 +1,12 @@
 import {initMenuBar} from '../menu-bar';
 import {BrowserWindow, Menu, MenuItemConstructorOptions, shell} from 'electron';
 import {revealStoryDirectory} from '../story-directory';
+import {getAppPref} from '../app-prefs';
+import {toggleHardwareAcceleration} from '../hardware-acceleration';
 
 jest.mock('electron');
+jest.mock('../app-prefs');
+jest.mock('../hardware-acceleration');
 jest.mock('../story-directory');
 
 function hasItemWithRole(menu: MenuItemConstructorOptions, roleName: string) {
@@ -15,12 +19,22 @@ function hasItemWithRole(menu: MenuItemConstructorOptions, roleName: string) {
 }
 
 describe('initMenuBar', () => {
+	const getAppPrefMock = getAppPref as jest.Mock;
+	const toggleHardwareAccelerationMock =
+		toggleHardwareAcceleration as jest.Mock;
 	let openDevToolsMock: jest.Mock;
 	let openExternalMock = shell.openExternal as jest.Mock;
 	let revealStoryDirectoryMock = revealStoryDirectory as jest.Mock;
 	let setApplicationMenuSpy: jest.SpyInstance;
 
 	beforeEach(() => {
+		getAppPrefMock.mockImplementation((name: string) => {
+			if (name === 'disableHardwareAcceleration') {
+				return undefined;
+			}
+
+			throw new Error(`Asked for a unmocked app pref: ${name}`);
+		});
 		setApplicationMenuSpy = jest.spyOn(Menu, 'setApplicationMenu');
 		openDevToolsMock = jest.fn();
 		(BrowserWindow.getFocusedWindow as jest.Mock).mockReturnValue({
@@ -127,6 +141,64 @@ describe('initMenuBar', () => {
 				item.click();
 				expect(openDevToolsMock).toBeCalled();
 			});
+
+			describe('its Disable Hardware Acceleration menu item', () => {
+				it('calls toggleHardwareAcceleration when clicked', () => {
+					const menu5 = setApplicationMenuSpy.mock.calls[0][0][4];
+					const item = menu5.submenu
+						.find(
+							(item: any) => item.label === 'electron.menuBar.troubleshooting'
+						)
+						.submenu.find(
+							(item: any) =>
+								item.label === 'electron.menuBar.disableHardwareAcceleration'
+						);
+
+					expect(item).not.toBeUndefined();
+					item.click();
+					expect(toggleHardwareAccelerationMock).toBeCalledTimes(1);
+				});
+
+				it('is unchecked if the pref is falsy', () => {
+					const menu5 = setApplicationMenuSpy.mock.calls[0][0][4];
+					const item = menu5.submenu
+						.find(
+							(item: any) => item.label === 'electron.menuBar.troubleshooting'
+						)
+						.submenu.find(
+							(item: any) =>
+								item.label === 'electron.menuBar.disableHardwareAcceleration'
+						);
+
+					expect(item).not.toBeUndefined();
+					expect(item.checked).toBe(false);
+				});
+
+				it('is checked if the pref is truthy', () => {
+					getAppPrefMock.mockImplementation((name: string) => {
+						if (name === 'disableHardwareAcceleration') {
+							return 'true';
+						}
+
+						throw new Error(`Asked for a unmocked app pref: ${name}`);
+					});
+					setApplicationMenuSpy.mockClear();
+					initMenuBar();
+
+					const menu5 = setApplicationMenuSpy.mock.calls[0][0][4];
+					const item = menu5.submenu
+						.find(
+							(item: any) => item.label === 'electron.menuBar.troubleshooting'
+						)
+						.submenu.find(
+							(item: any) =>
+								item.label === 'electron.menuBar.disableHardwareAcceleration'
+						);
+
+					expect(item).not.toBeUndefined();
+					expect(item.checked).toBe(true);
+				});
+			});
 		});
 	});
 
@@ -224,6 +296,64 @@ describe('initMenuBar', () => {
 				expect(item).not.toBeUndefined();
 				item.click();
 				expect(openDevToolsMock).toBeCalled();
+			});
+
+			describe('its Disable Hardware Acceleration menu item', () => {
+				it('calls toggleHardwareAcceleration when clicked', () => {
+					const menu5 = setApplicationMenuSpy.mock.calls[0][0][4];
+					const item = menu5.submenu
+						.find(
+							(item: any) => item.label === 'electron.menuBar.troubleshooting'
+						)
+						.submenu.find(
+							(item: any) =>
+								item.label === 'electron.menuBar.disableHardwareAcceleration'
+						);
+
+					expect(item).not.toBeUndefined();
+					item.click();
+					expect(toggleHardwareAccelerationMock).toBeCalledTimes(1);
+				});
+
+				it('is unchecked if the pref is falsy', () => {
+					const menu5 = setApplicationMenuSpy.mock.calls[0][0][4];
+					const item = menu5.submenu
+						.find(
+							(item: any) => item.label === 'electron.menuBar.troubleshooting'
+						)
+						.submenu.find(
+							(item: any) =>
+								item.label === 'electron.menuBar.disableHardwareAcceleration'
+						);
+
+					expect(item).not.toBeUndefined();
+					expect(item.checked).toBe(false);
+				});
+
+				it('is checked if the pref is truthy', () => {
+					getAppPrefMock.mockImplementation((name: string) => {
+						if (name === 'disableHardwareAcceleration') {
+							return 'true';
+						}
+
+						throw new Error(`Asked for a unmocked app pref: ${name}`);
+					});
+					setApplicationMenuSpy.mockClear();
+					initMenuBar();
+
+					const menu5 = setApplicationMenuSpy.mock.calls[0][0][4];
+					const item = menu5.submenu
+						.find(
+							(item: any) => item.label === 'electron.menuBar.troubleshooting'
+						)
+						.submenu.find(
+							(item: any) =>
+								item.label === 'electron.menuBar.disableHardwareAcceleration'
+						);
+
+					expect(item).not.toBeUndefined();
+					expect(item.checked).toBe(true);
+				});
 			});
 		});
 	});

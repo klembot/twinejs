@@ -2,7 +2,7 @@
 // listens to the `save-json` IPC event.
 
 import {app} from 'electron';
-import {readJson, writeJson} from 'fs-extra';
+import {readJson, readJsonSync, writeJson} from 'fs-extra';
 import {join} from 'path';
 
 /**
@@ -12,6 +12,13 @@ import {join} from 'path';
  */
 export function loadJsonFile(filename: string) {
 	return readJson(join(app.getPath('userData'), filename));
+}
+
+/**
+ * Reads a JSON file in the app data folder synchronously.
+ */
+export function loadJsonFileSync(filename: string) {
+	return readJsonSync(join(app.getPath('userData'), filename));
 }
 
 /**
