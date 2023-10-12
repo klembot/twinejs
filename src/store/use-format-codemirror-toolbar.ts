@@ -53,7 +53,7 @@ export function useFormatCodeMirrorToolbar(
 			const namespace = namespaceForFormat(format);
 			const editorExtensions = formatEditorExtensions(
 				format,
-				process.env.REACT_APP_VERSION ?? ''
+				import.meta.env.APP_VERSION ?? ''
 			);
 
 			if (editorExtensions?.codeMirror?.commands) {

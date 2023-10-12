@@ -1,6 +1,6 @@
 import {storyFileName} from '../story-filename';
 import {fakeStory} from '../../../test-util';
-import {Story} from '../../../store/stories';
+import {Story} from '../../../store/stories/stories.types';
 
 describe('storyFileName', () => {
 	let story: Story;

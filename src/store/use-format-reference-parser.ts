@@ -33,7 +33,7 @@ export function useFormatReferenceParser(
 			dispatch(loadFormatProperties(format));
 		} else if (format.loadState === 'loaded') {
 			setEditorExtensions(
-				formatEditorExtensions(format, process.env.REACT_APP_VERSION ?? '')
+				formatEditorExtensions(format, import.meta.env.APP_VERSION ?? '')
 			);
 		}
 	}, [dispatch, extensionsDisabled, format]);

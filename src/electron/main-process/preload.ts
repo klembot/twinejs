@@ -10,8 +10,6 @@
 import {contextBridge, ipcRenderer} from 'electron';
 import {Story} from '../../store/stories/stories.types';
 
-// (window as any).twineElectron = {ipcRenderer, jsonp};
-
 contextBridge.exposeInMainWorld('twineElectron', {
 	deleteStory(story: Story) {
 		ipcRenderer.send('delete-story', story);

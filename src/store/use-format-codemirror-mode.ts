@@ -38,7 +38,7 @@ export function useFormatCodeMirrorMode(
 		} else if (format.loadState === 'loaded') {
 			const editorExtensions = formatEditorExtensions(
 				format,
-				process.env.REACT_APP_VERSION ?? ''
+				import.meta.env.APP_VERSION ?? ''
 			);
 
 			if (editorExtensions?.codeMirror?.mode) {

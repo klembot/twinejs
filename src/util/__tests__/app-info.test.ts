@@ -2,13 +2,13 @@ import {getAppInfo} from '../app-info';
 
 describe('getAppInfo', () => {
 	beforeAll(() => {
-		process.env.REACT_APP_NAME = 'mock-app-name';
-		process.env.REACT_APP_VERSION = '1.2.3';
+		import.meta.env.APP_NAME = 'mock-app-name';
+		import.meta.env.APP_VERSION = '1.2.3';
 	});
 
 	afterAll(() => {
-		delete process.env.REACT_APP_NAME;
-		delete process.env.REACT_APP_VERSION;
+		delete import.meta.env.APP_NAME;
+		delete import.meta.env.APP_VERSION;
 	});
 
 	it('reads information from the environment', () =>
