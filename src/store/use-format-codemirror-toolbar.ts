@@ -10,6 +10,7 @@ import {
 	StoryFormatToolbarItem,
 	useStoryFormatsContext
 } from './story-formats';
+import {getAppInfo} from '../util/app-info';
 
 /**
  * Manages working with a CodeMirror toolbar for a story format, which consists
@@ -53,7 +54,7 @@ export function useFormatCodeMirrorToolbar(
 			const namespace = namespaceForFormat(format);
 			const editorExtensions = formatEditorExtensions(
 				format,
-				process.env.REACT_APP_VERSION ?? ''
+				getAppInfo().version
 			);
 
 			if (editorExtensions?.codeMirror?.commands) {

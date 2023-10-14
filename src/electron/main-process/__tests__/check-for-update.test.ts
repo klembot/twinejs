@@ -107,7 +107,10 @@ describe('checkForUpdate()', () => {
 		it('shows an error dialog', async () => {
 			await checkForUpdate();
 			expect(showErrorBoxMock.mock.calls).toEqual([
-				['electron.updateCheck.error', 'Invalid Version: undefined']
+				[
+					'electron.updateCheck.error',
+					'Invalid version. Must be a string. Got type "undefined".'
+				]
 			]);
 		});
 	});

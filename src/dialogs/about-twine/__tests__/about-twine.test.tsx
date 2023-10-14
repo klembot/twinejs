@@ -11,6 +11,7 @@ describe('<AboutTwineDialog>', () => {
 				onChangeCollapsed={jest.fn()}
 				onChangeHighlighted={jest.fn()}
 				onChangeMaximized={jest.fn()}
+				onChangeProps={jest.fn()}
 				onClose={jest.fn()}
 			/>
 		);

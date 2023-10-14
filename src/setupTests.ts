@@ -1,17 +1,15 @@
-// jest-dom adds custom jest matchers for asserting on DOM nodes.
-// allows you to do things like:
-// expect(element).toHaveTextContent(/react/i)
-// learn more: https://github.com/testing-library/jest-dom
 import {toHaveNoViolations} from 'jest-axe';
 import {configure} from '@testing-library/dom';
 import '@testing-library/jest-dom';
 import 'jest-canvas-mock';
-import {i18n} from './util/i18n';
+
+// Always mock these files so that Jest doesn't see import.meta.
+
+jest.mock('./util/i18n');
 
 configure({asyncUtilTimeout: 5000});
 
 expect.extend(toHaveNoViolations);
-i18n.t = (value: string) => value;
 
 // jsdom doesn't implement window.matchMedia, but TS knows about it, so we
 // have to do some hacky stuff here.
@@ -33,13 +31,19 @@ afterEach(() => delete (window as any).matchMedia);
 	constructor(type: string, props: Record<string, unknown>) {
 		super(type, props);
 
-		for (const propName of ['button', 'clientX', 'clientY', 'pointerType', 'shiftKey']) {
+		for (const propName of [
+			'button',
+			'clientX',
+			'clientY',
+			'pointerType',
+			'shiftKey'
+		]) {
 			if (props[propName] !== null) {
 				(this as any)[propName] = props[propName];
 			}
 		}
 	}
-}
+};
 
 window.Element.prototype.releasePointerCapture = () => {};
 window.Element.prototype.setPointerCapture = () => {};

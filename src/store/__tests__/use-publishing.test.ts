@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import {usePublishing} from '../use-publishing';
+
 describe('usePublishing', () => {
 	describe('publishStory function', () => {
 		it.todo(

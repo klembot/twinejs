@@ -11,7 +11,7 @@ import {
 import {loadStoryFormats} from './story-formats';
 import {loadPrefs} from './prefs';
 import {openWithScratchFile} from './scratch-file';
-import {Story} from '../../store/stories';
+import {Story} from '../../store/stories/stories.types';
 
 export function initIpc() {
 	// We want to debounce story saves so we aren't constantly writing to disk.

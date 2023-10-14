@@ -5,7 +5,6 @@ import {initLocales} from '../locales';
 import {initMenuBar} from '../menu-bar';
 import {backupStoryDirectory, createStoryDirectory} from '../story-directory';
 import {cleanScratchDirectory} from '../scratch-file';
-import {loadAppPrefs} from '../app-prefs';
 
 jest.mock('electron');
 jest.mock('../app-prefs');
@@ -45,7 +44,7 @@ describe('initApp', () => {
 
 	it('initializes backing up the story directory every 20 minutes', async () => {
 		await initApp();
-		expect((global.setInterval as jest.Mock).mock.calls).toEqual([
+		expect((global.setInterval as unknown as jest.Mock).mock.calls).toEqual([
 			[backupStoryDirectory, 1000 * 60 * 20]
 		]);
 	});
