@@ -5,7 +5,6 @@ import {initLocales} from '../locales';
 import {initMenuBar} from '../menu-bar';
 import {backupStoryDirectory, createStoryDirectory} from '../story-directory';
 import {cleanScratchDirectory} from '../scratch-file';
-import {loadAppPrefs} from '../app-prefs';
 
 jest.mock('electron');
 jest.mock('../app-prefs');

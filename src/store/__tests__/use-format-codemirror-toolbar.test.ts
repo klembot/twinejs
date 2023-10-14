@@ -76,7 +76,7 @@ describe('useFormatCodeMirrorToolbar()', () => {
 				format.version = '1.2.3';
 				(format as any).properties.editorExtensions = {
 					twine: {
-						['2.0.0']: {
+						'2.0.0': {
 							codeMirror: {
 								commands: mockCommands,
 								toolbar: mockToolbarFunction

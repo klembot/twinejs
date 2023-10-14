@@ -19,7 +19,7 @@ export default defineConfig({
 	},
 	plugins: [
 		checker({
-			// e.g. use TypeScript check
+			eslint: {lintCommand: 'eslint src'},
 			typescript: true
 		}),
 		nodePolyfills(
