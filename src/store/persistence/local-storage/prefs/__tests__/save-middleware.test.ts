@@ -19,7 +19,7 @@ describe('prefs local storage save middleware', () => {
 	});
 
 	it('calls save() on a state when a repair action is received', () => {
-		saveMiddleware(prefs, {type: 'repair'});
+		saveMiddleware(prefs, {type: 'repair', allFormats: []});
 		expect(saveMock.mock.calls).toEqual([[prefs]]);
 	});
 

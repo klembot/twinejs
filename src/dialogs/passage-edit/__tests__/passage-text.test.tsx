@@ -8,7 +8,8 @@ import {
 	fakePassage,
 	fakePrefs,
 	FakeStateProvider,
-	FakeStateProviderProps
+	FakeStateProviderProps,
+	fakeStory
 } from '../../../test-util';
 import {PassageText, PassageTextProps} from '../passage-text';
 
@@ -74,6 +75,7 @@ describe('<PassageText>', () => {
 					onChange={onChange}
 					onEditorChange={onEditorChange}
 					passage={passage}
+					story={fakeStory()}
 					storyFormat={storyFormat}
 				/>
 			</FakeStateProvider>
@@ -86,6 +88,7 @@ describe('<PassageText>', () => {
 					onChange={onChange}
 					onEditorChange={onEditorChange}
 					passage={passage}
+					story={fakeStory()}
 					storyFormat={storyFormat}
 				/>
 			</FakeStateProvider>
@@ -107,6 +110,7 @@ describe('<PassageText>', () => {
 					onChange={onChange}
 					onEditorChange={onEditorChange}
 					passage={passage}
+					story={fakeStory()}
 					storyFormat={storyFormat}
 				/>
 			</FakeStateProvider>
@@ -123,6 +127,7 @@ describe('<PassageText>', () => {
 					onChange={onChange}
 					onEditorChange={onEditorChange}
 					passage={passage}
+					story={fakeStory()}
 					storyFormat={storyFormat}
 				/>
 			</FakeStateProvider>

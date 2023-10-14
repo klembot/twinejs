@@ -50,10 +50,10 @@ describe('fetchStoryFormatProperties', () => {
 			})
 		};
 		await fetchStoryFormatProperties('mock-format-url');
-		expect(electronWindow.twineElectron!.jsonp).not.toHaveBeenCalled();
+		expect((electronWindow.twineElectron as any).jsonp).not.toHaveBeenCalled();
 		(isElectronRenderer as jest.Mock).mockReturnValue(true);
 		await fetchStoryFormatProperties('mock-format-url');
-		expect(electronWindow.twineElectron!.jsonp).toHaveBeenCalled();
+		expect((electronWindow.twineElectron as any).jsonp).toHaveBeenCalled();
 	});
 
 	fit('only makes one request at a time', async () => {

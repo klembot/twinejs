@@ -15,8 +15,7 @@
 		"skipLibCheck": true,
 		"strict": true,
 		"target": "ESNext",
-		"types": ["vite/client"]
+		"types": ["jest", "vite/client"]
 	},
-	"exclude": ["**/*.test.*"],
 	"include": ["src"]
 }

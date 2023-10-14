@@ -1,6 +1,5 @@
 import {renderHook} from '@testing-library/react-hooks';
 import CodeMirror from 'codemirror';
-import {version as twineVersion} from '../../../package.json';
 import {
 	fakeFailedStoryFormat,
 	fakeLoadedStoryFormat,
@@ -20,6 +19,7 @@ jest.mock('codemirror');
 jest.mock('../prefs/prefs-context');
 jest.mock('../story-formats/story-formats-context');
 jest.mock('../story-formats/action-creators');
+jest.mock('../../util/app-info');
 
 describe('useFormatCodeMirrorMode()', () => {
 	const codeMirrorDefineModeMock = CodeMirror.defineMode as jest.Mock;
@@ -79,7 +79,7 @@ describe('useFormatCodeMirrorMode()', () => {
 					format.version = '1.2.3';
 					(format as any).properties.editorExtensions = {
 						twine: {
-							[twineVersion]: {
+							['2.0.0']: {
 								codeMirror: {
 									mode: mockMode
 								}

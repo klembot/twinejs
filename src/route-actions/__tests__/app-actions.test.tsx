@@ -55,7 +55,9 @@ describe('<AppActions>', () => {
 	});
 
 	it('displays a button that allows users to report bugs', () => {
-		const openSpy = jest.spyOn(window, 'open').mockReturnValue();
+		const openSpy = jest
+			.spyOn(window, 'open')
+			.mockReturnValue(undefined as any);
 
 		renderComponent();
 		expect(openSpy).not.toHaveBeenCalled();

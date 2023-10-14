@@ -19,7 +19,7 @@ describe('prefs Electron IPC save middleware', () => {
 	});
 
 	it('calls saveJson() on a state when a repair action is received', () => {
-		saveMiddleware(prefs, {type: 'repair'});
+		saveMiddleware(prefs, {type: 'repair', allFormats: []});
 		expect(saveJsonMock.mock.calls).toEqual([['prefs.json', prefs]]);
 	});
 

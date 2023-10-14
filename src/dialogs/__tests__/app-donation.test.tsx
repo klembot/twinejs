@@ -20,6 +20,7 @@ describe('<AppDonationDialog>', () => {
 					onChangeCollapsed={jest.fn()}
 					onChangeHighlighted={jest.fn()}
 					onChangeMaximized={jest.fn()}
+					onChangeProps={jest.fn()}
 					onClose={jest.fn()}
 					{...props}
 				/>

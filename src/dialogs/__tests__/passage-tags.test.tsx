@@ -35,6 +35,7 @@ describe('<PassageTagsDialog>', () => {
 					onChangeCollapsed={jest.fn()}
 					onChangeHighlighted={jest.fn()}
 					onChangeMaximized={jest.fn()}
+					onChangeProps={jest.fn()}
 					onClose={jest.fn()}
 					storyId={story.id}
 					{...props}

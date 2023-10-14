@@ -1,4 +1,3 @@
-import {version as twineVersion} from '../../../package.json';
 import {renderHook} from '@testing-library/react-hooks';
 import {useFormatReferenceParser} from '../use-format-reference-parser';
 import {
@@ -18,6 +17,7 @@ import {usePrefsContext} from '../prefs';
 jest.mock('../prefs/prefs-context');
 jest.mock('../story-formats/story-formats-context');
 jest.mock('../story-formats/action-creators');
+jest.mock('../../util/app-info');
 
 describe('useFormatReferenceParser()', () => {
 	const loadFormatPropertiesMock = loadFormatProperties as jest.Mock;
@@ -77,7 +77,7 @@ describe('useFormatReferenceParser()', () => {
 				format.version = '1.2.3';
 				(format as any).properties.editorExtensions = {
 					twine: {
-						[twineVersion]: {
+						['2.0.0']: {
 							references: {parsePassageText}
 						}
 					}

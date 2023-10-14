@@ -1,3 +1,5 @@
+import {usePublishing} from '../use-publishing';
+
 describe('usePublishing', () => {
 	describe('publishStory function', () => {
 		it.todo(

@@ -52,10 +52,6 @@ describe('<StateLoader>', () => {
 		});
 	});
 
-	afterEach(async () => {
-		await act(() => Promise.resolve());
-	});
-
 	it('dispatches init and repair actions once mounted', async () => {
 		render(<StateLoader />);
 		await waitFor(() => expect(storiesDispatchMock).toBeCalled());
@@ -93,13 +89,14 @@ describe('<StateLoader>', () => {
 
 	it('repairs stories using useStoriesRepair', async () => {
 		const repairStories = jest.fn();
-
-		jest
+		const repairSpy = jest
 			.spyOn(useStoriesRepairModule, 'useStoriesRepair')
 			.mockReturnValue(repairStories);
+
 		render(<StateLoader />);
 		await waitFor(() => expect(storiesDispatchMock).toBeCalled());
 		expect(repairStories).toBeCalledTimes(1);
+		repairSpy.mockRestore();
 	});
 
 	it('uses the repaired story format state when repairing preferences', async () => {

@@ -7,6 +7,7 @@ import {
 } from './story-formats';
 import {formatEditorExtensions, namespaceForFormat} from '../util/story-format';
 import {formatEditorExtensionsDisabled, usePrefsContext} from './prefs';
+import {getAppInfo} from '../util/app-info';
 
 /**
  * Sets up a CodeMirror mode for a format, if the format has defined one via
@@ -38,7 +39,7 @@ export function useFormatCodeMirrorMode(
 		} else if (format.loadState === 'loaded') {
 			const editorExtensions = formatEditorExtensions(
 				format,
-				import.meta.env.APP_VERSION ?? ''
+				getAppInfo().version
 			);
 
 			if (editorExtensions?.codeMirror?.mode) {
