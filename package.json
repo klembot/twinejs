@@ -87,6 +87,7 @@
 		"@types/semver": "^7.3.4",
 		"@types/ua-parser-js": "^0.7.36",
 		"@vitejs/plugin-react": "^4.1.0",
+		"browserslist-to-esbuild": "^1.2.0",
 		"cpy": "^8.1.2",
 		"cpy-cli": "^3.1.1",
 		"cross-var": "^1.1.0",
@@ -139,18 +140,6 @@
 			"testing-library/no-render-in-setup": 0,
 			"testing-library/render-result-naming-convention": 0
 		}
-	},
-	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
-		"development": [
-			"last 1 chrome version",
-			"last 1 firefox version",
-			"last 1 safari version"
-		]
 	},
 	"homepage": "./",
 	"main": "electron-build/electron/src/electron/main-process/index.js"

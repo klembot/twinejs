@@ -1,4 +1,5 @@
 import react from '@vitejs/plugin-react';
+import browserslistToEsbuild from 'browserslist-to-esbuild';
 import {defineConfig} from 'vite';
 import checker from 'vite-plugin-checker';
 import {nodePolyfills} from 'vite-plugin-node-polyfills';
@@ -7,7 +8,8 @@ import packageJson from './package.json';
 export default defineConfig({
 	base: './',
 	build: {
-		outDir: 'dist/web'
+		outDir: 'dist/web',
+		target: browserslistToEsbuild(['>0.2%', 'not dead', 'not op_mini all'])
 	},
 	define: {
 		// Make app name and version available to code.
