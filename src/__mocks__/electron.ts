@@ -28,6 +28,7 @@ export class BrowserWindow {
 
 export const dialog = {
 	showErrorBox: jest.fn(),
+	showOpenDialog: jest.fn().mockResolvedValue({canceled: true}),
 	showMessageBox: jest.fn().mockResolvedValue({response: 0})
 };
 

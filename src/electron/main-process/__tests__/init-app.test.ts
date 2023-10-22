@@ -3,7 +3,11 @@ import {initApp} from '../init-app';
 import {initIpc} from '../ipc';
 import {initLocales} from '../locales';
 import {initMenuBar} from '../menu-bar';
-import {backupStoryDirectory, createStoryDirectory} from '../story-directory';
+import {
+	backupStoryDirectory,
+	createStoryDirectory,
+	initStoryDirectory
+} from '../story-directory';
 import {cleanScratchDirectory} from '../scratch-file';
 
 jest.mock('electron');
@@ -18,6 +22,7 @@ describe('initApp', () => {
 	const initIpcMock = initIpc as jest.Mock;
 	const initLocalesMock = initLocales as jest.Mock;
 	const initMenuBarMock = initMenuBar as jest.Mock;
+	const initStoryDirectoryMock = initStoryDirectory as jest.Mock;
 	const backupStoryDirectoryMock = backupStoryDirectory as jest.Mock;
 	const cleanScratchDirectoryMock = cleanScratchDirectory as jest.Mock;
 	const createStoryDirectoryMock = createStoryDirectory as jest.Mock;
@@ -30,6 +35,11 @@ describe('initApp', () => {
 	it('initializes locales', async () => {
 		await initApp();
 		expect(initLocalesMock).toBeCalledTimes(1);
+	});
+
+	it('initializes the story directory', async () => {
+		await initApp();
+		expect(initStoryDirectoryMock).toBeCalledTimes(1);
 	});
 
 	it('creates the story directory', async () => {

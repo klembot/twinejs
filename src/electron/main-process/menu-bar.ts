@@ -5,7 +5,10 @@ import {
 	shell,
 	MenuItemConstructorOptions
 } from 'electron';
-import {revealStoryDirectory} from './story-directory';
+import {
+	chooseStoryDirectoryPath,
+	revealStoryDirectory
+} from './story-directory';
 import {i18n} from './locales';
 import {checkForUpdate} from './check-for-update';
 import {toggleHardwareAcceleration} from './hardware-acceleration';
@@ -20,6 +23,10 @@ export function initMenuBar() {
 				{
 					label: i18n.t('electron.menuBar.checkForUpdates'),
 					click: checkForUpdate
+				},
+				{
+					label: i18n.t('electron.menuBar.setStoryLibraryFolder'),
+					click: chooseStoryDirectoryPath
 				},
 				{type: 'separator'},
 				{role: 'quit'}
@@ -90,6 +97,10 @@ export function initMenuBar() {
 			{
 				label: i18n.t('electron.menuBar.checkForUpdates'),
 				click: checkForUpdate
+			},
+			{
+				label: i18n.t('electron.menuBar.setStoryLibraryFolder'),
+				click: chooseStoryDirectoryPath
 			},
 			{type: 'separator'},
 			{role: 'services', submenu: []},

@@ -8,12 +8,14 @@ import {loadJsonFileSync, saveJsonFile} from './json-file';
 export type AppPrefName =
 	| 'disableHardwareAcceleration'
 	| 'scratchFolderPath'
-	| 'scratchFileCleanupAge';
+	| 'scratchFileCleanupAge'
+	| 'storyLibraryFolderPath';
 
 const prefNames: AppPrefName[] = [
 	'disableHardwareAcceleration',
 	'scratchFolderPath',
-	'scratchFileCleanupAge'
+	'scratchFileCleanupAge',
+	'storyLibraryFolderPath'
 ];
 const prefs: Partial<Record<AppPrefName, unknown>> = {};
 let prefsLoaded = false;

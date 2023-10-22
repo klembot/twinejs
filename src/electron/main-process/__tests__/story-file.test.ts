@@ -23,6 +23,9 @@ import {fakeStory} from '../../../test-util';
 import {Story} from '../../../store/stories';
 import {storyFileName} from '../../shared/story-filename';
 
+jest.mock('../story-directory', () => ({
+	getStoryDirectoryPath: () => 'mock-story-directory'
+}));
 jest.mock('../track-file-changes');
 
 // See https://github.com/facebook/jest/issues/2157
@@ -46,22 +49,14 @@ describe('deleteStory', () => {
 	it('moves the story to the trash', async () => {
 		await deleteStory(story);
 		expect(trashItemMock.mock.calls).toEqual([
-			[
-				`mock-electron-app-path-documents/common.appName/electron.storiesDirectoryName/${storyFileName(
-					story
-				)}`
-			]
+			[`mock-story-directory/${storyFileName(story)}`]
 		]);
 	});
 
 	it('stops tracking the file for changes', async () => {
 		await deleteStory(story);
 		expect(stopTrackingFileMock.mock.calls).toEqual([
-			[
-				`mock-electron-app-path-documents/common.appName/electron.storiesDirectoryName/${storyFileName(
-					story
-				)}`
-			]
+			[`mock-story-directory/${storyFileName(story)}`]
 		]);
 	});
 
@@ -77,9 +72,7 @@ describe('deleteStory', () => {
 		let done = jest.fn();
 
 		trashItemMock.mockReturnValue(
-			new Promise<void>(
-				resolve => (resolveTrashItem = resolve)
-			)
+			new Promise<void>(resolve => (resolveTrashItem = resolve))
 		);
 
 		deleteStory(story).then(done);
@@ -101,10 +94,10 @@ describe('loadStories', () => {
 		readdirMock.mockResolvedValue(['test-story-1.html', 'test-story-2.html']);
 		readFileMock.mockImplementation((name: string) => {
 			switch (name) {
-				case 'mock-electron-app-path-documents/common.appName/electron.storiesDirectoryName/test-story-1.html':
+				case 'mock-story-directory/test-story-1.html':
 					return Promise.resolve('mock story 1 contents');
 
-				case 'mock-electron-app-path-documents/common.appName/electron.storiesDirectoryName/test-story-2.html':
+				case 'mock-story-directory/test-story-2.html':
 					return Promise.resolve('mock story 2 contents');
 
 				default:
@@ -113,13 +106,13 @@ describe('loadStories', () => {
 		});
 		statMock.mockImplementation((name: string) => {
 			switch (name) {
-				case 'mock-electron-app-path-documents/common.appName/electron.storiesDirectoryName/test-story-1.html':
+				case 'mock-story-directory/test-story-1.html':
 					return Promise.resolve({
 						isDirectory: () => false,
 						mtime: new Date('1/1/1990')
 					});
 
-				case 'mock-electron-app-path-documents/common.appName/electron.storiesDirectoryName/test-story-2.html':
+				case 'mock-story-directory/test-story-2.html':
 					return Promise.resolve({
 						isDirectory: () => false,
 						mtime: new Date('1/1/2000')
@@ -170,13 +163,13 @@ describe('loadStories', () => {
 	it('ignores directories', async () => {
 		statMock.mockImplementation((name: string) => {
 			switch (name) {
-				case 'mock-electron-app-path-documents/common.appName/electron.storiesDirectoryName/test-story-1.html':
+				case 'mock-story-directory/test-story-1.html':
 					return Promise.resolve({
 						isDirectory: () => false,
 						mtime: new Date('1/1/1990')
 					});
 
-				case 'mock-electron-app-path-documents/common.appName/electron.storiesDirectoryName/test-story-2.html':
+				case 'mock-story-directory/test-story-2.html':
 					return Promise.resolve({
 						isDirectory: () => true,
 						mtime: new Date('1/1/2000')
@@ -198,12 +191,8 @@ describe('loadStories', () => {
 	it('begins tracking all story files', async () => {
 		await loadStories();
 		expect(fileWasTouchedMock.mock.calls).toEqual([
-			[
-				'mock-electron-app-path-documents/common.appName/electron.storiesDirectoryName/test-story-1.html'
-			],
-			[
-				'mock-electron-app-path-documents/common.appName/electron.storiesDirectoryName/test-story-2.html'
-			]
+			['mock-story-directory/test-story-1.html'],
+			['mock-story-directory/test-story-2.html']
 		]);
 	});
 
@@ -215,12 +204,8 @@ describe('loadStories', () => {
 		]);
 		await loadStories();
 		expect(fileWasTouchedMock.mock.calls).toEqual([
-			[
-				'mock-electron-app-path-documents/common.appName/electron.storiesDirectoryName/test-story-1.html'
-			],
-			[
-				'mock-electron-app-path-documents/common.appName/electron.storiesDirectoryName/test-story-2.html'
-			]
+			['mock-story-directory/test-story-1.html'],
+			['mock-story-directory/test-story-2.html']
 		]);
 	});
 
@@ -229,10 +214,10 @@ describe('loadStories', () => {
 
 		readFileMock.mockImplementation((name: string) => {
 			switch (name) {
-				case 'mock-electron-app-path-documents/common.appName/electron.storiesDirectoryName/test-story-1.html':
+				case 'mock-story-directory/test-story-1.html':
 					return Promise.resolve('mock story 1 contents');
 
-				case 'mock-electron-app-path-documents/common.appName/electron.storiesDirectoryName/test-story-2.html':
+				case 'mock-story-directory/test-story-2.html':
 					return Promise.reject(mockError);
 
 				default:
@@ -302,8 +287,8 @@ describe('renameStory', () => {
 		await renameStory(oldStory, newStory);
 		expect(renameMock.mock.calls).toEqual([
 			[
-				`mock-electron-app-path-documents/common.appName/electron.storiesDirectoryName/${oldFileName}`,
-				`mock-electron-app-path-documents/common.appName/electron.storiesDirectoryName/${newFileName}`
+				`mock-story-directory/${oldFileName}`,
+				`mock-story-directory/${newFileName}`
 			]
 		]);
 	});
@@ -311,18 +296,14 @@ describe('renameStory', () => {
 	it('stops tracking the old filename', async () => {
 		await renameStory(oldStory, newStory);
 		expect(stopTrackingFileMock.mock.calls).toEqual([
-			[
-				`mock-electron-app-path-documents/common.appName/electron.storiesDirectoryName/${oldFileName}`
-			]
+			[`mock-story-directory/${oldFileName}`]
 		]);
 	});
 
 	it('tracks the new filename', async () => {
 		await renameStory(oldStory, newStory);
 		expect(fileWasTouchedMock.mock.calls).toEqual([
-			[
-				`mock-electron-app-path-documents/common.appName/electron.storiesDirectoryName/${newFileName}`
-			]
+			[`mock-story-directory/${newFileName}`]
 		]);
 	});
 
@@ -393,9 +374,7 @@ describe('saveStoryHtml()', () => {
 				`mkdtemp-mock-mock-electron-app-path-temp/twine-${
 					story.id
 				}/${storyFileName(story)}`,
-				`mock-electron-app-path-documents/common.appName/electron.storiesDirectoryName/${storyFileName(
-					story
-				)}`,
+				`mock-story-directory/${storyFileName(story)}`,
 				{overwrite: true}
 			]
 		]);
@@ -404,11 +383,7 @@ describe('saveStoryHtml()', () => {
 	it('tracks that the destination file has changed', async () => {
 		await saveStoryHtml(story, 'story html');
 		expect(fileWasTouchedMock.mock.calls).toEqual([
-			[
-				`mock-electron-app-path-documents/common.appName/electron.storiesDirectoryName/${storyFileName(
-					story
-				)}`
-			]
+			[`mock-story-directory/${storyFileName(story)}`]
 		]);
 	});
 

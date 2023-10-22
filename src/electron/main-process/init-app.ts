@@ -4,7 +4,11 @@ import {initIpc} from './ipc';
 import {initLocales} from './locales';
 import {initMenuBar} from './menu-bar';
 import {cleanScratchDirectory} from './scratch-file';
-import {backupStoryDirectory, createStoryDirectory} from './story-directory';
+import {
+	backupStoryDirectory,
+	createStoryDirectory,
+	initStoryDirectory
+} from './story-directory';
 import {getUserCss} from './user-css';
 
 let mainWindow: BrowserWindow | null;
@@ -59,6 +63,7 @@ async function createWindow() {
 export async function initApp() {
 	try {
 		await initLocales();
+		await initStoryDirectory();
 		await createStoryDirectory();
 		await backupStoryDirectory();
 		setInterval(backupStoryDirectory, 1000 * 60 * 20);

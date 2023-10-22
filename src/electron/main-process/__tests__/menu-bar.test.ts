@@ -1,6 +1,9 @@
 import {initMenuBar} from '../menu-bar';
 import {BrowserWindow, Menu, MenuItemConstructorOptions, shell} from 'electron';
-import {revealStoryDirectory} from '../story-directory';
+import {
+	chooseStoryDirectoryPath,
+	revealStoryDirectory
+} from '../story-directory';
 import {getAppPref} from '../app-prefs';
 import {toggleHardwareAcceleration} from '../hardware-acceleration';
 
@@ -19,6 +22,7 @@ function hasItemWithRole(menu: MenuItemConstructorOptions, roleName: string) {
 }
 
 describe('initMenuBar', () => {
+	const chooseStoryDirectoryPathMock = chooseStoryDirectoryPath as jest.Mock;
 	const getAppPrefMock = getAppPref as jest.Mock;
 	const toggleHardwareAccelerationMock =
 		toggleHardwareAcceleration as jest.Mock;
@@ -88,6 +92,16 @@ describe('initMenuBar', () => {
 			expect(hasItemWithRole(menu3, 'zoomIn')).toBe(true);
 			expect(hasItemWithRole(menu3, 'zoomOut')).toBe(true);
 			expect(hasItemWithRole(menu3, 'togglefullscreen')).toBe(true);
+		});
+
+		it('adds a Set Story Library Folder menu item to the application menu', () => {
+			const item = setApplicationMenuSpy.mock.calls[0][0][0].submenu.find(
+				(item: any) => item.label === 'electron.menuBar.setStoryLibraryFolder'
+			);
+
+			expect(item).not.toBeUndefined();
+			item.click();
+			expect(chooseStoryDirectoryPathMock).toBeCalledTimes(1);
 		});
 
 		it('adds a Show Story Library menu item to the View menu', () => {
@@ -218,7 +232,7 @@ describe('initMenuBar', () => {
 			Object.defineProperty(process, 'platform', {value: oldPlatform});
 		});
 
-		it('creates an application menu with a quit menu items', () => {
+		it('creates an application menu with a quit menu item', () => {
 			const menu1 = setApplicationMenuSpy.mock.calls[0][0][0];
 
 			expect(menu1.label).toBe('mock-electron-app-name');
@@ -246,6 +260,16 @@ describe('initMenuBar', () => {
 			expect(hasItemWithRole(menu3, 'zoomIn')).toBe(true);
 			expect(hasItemWithRole(menu3, 'zoomOut')).toBe(true);
 			expect(hasItemWithRole(menu3, 'togglefullscreen')).toBe(true);
+		});
+
+		it('adds a Set Story Library Folder menu item to the application menu', () => {
+			const item = setApplicationMenuSpy.mock.calls[0][0][0].submenu.find(
+				(item: any) => item.label === 'electron.menuBar.setStoryLibraryFolder'
+			);
+
+			expect(item).not.toBeUndefined();
+			item.click();
+			expect(chooseStoryDirectoryPathMock).toBeCalledTimes(1);
 		});
 
 		it('adds a Show Story Library menu item to the View menu', () => {
