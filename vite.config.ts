@@ -20,6 +20,9 @@ export default defineConfig({
 	plugins: [
 		checker({
 			eslint: {lintCommand: 'eslint src'},
+			overlay: {
+				initialIsOpen: false
+			},
 			typescript: true
 		}),
 		nodePolyfills(

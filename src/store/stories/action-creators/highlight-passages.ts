@@ -3,44 +3,25 @@ import {
 	Passage,
 	StoriesState,
 	Story,
-	StorySearchFlags,
 	UpdatePassagesAction
 } from '../stories.types';
-import {passagesMatchingSearch} from '../getters';
 
-export function highlightPassagesMatchingSearch(
+export function highlightPassages(
 	story: Story,
-	search: string,
-	flags: StorySearchFlags
+	passageIds: string[]
 ): Thunk<StoriesState, UpdatePassagesAction> {
 	return dispatch => {
 		let passageUpdates: Record<string, Partial<Passage>> = {};
 
-		if (search === '') {
-			// Remove all highlights.
-			passageUpdates = story.passages.reduce((result, passage) => {
-				if (passage.highlighted) {
-					return {...result, [passage.id]: {highlighted: false}};
-				}
+		for (const passage of story.passages) {
+			const oldHighlighted = passage.highlighted;
+			const newHighlighted = passageIds.includes(passage.id);
 
-				return result;
-			}, {});
-		} else {
-			const matchIds = passagesMatchingSearch(
-				story.passages,
-				search,
-				flags
-			).map(passage => passage.id);
-
-			for (const passage of story.passages) {
-				const oldHighlighted = passage.highlighted;
-				const newHighlighted = matchIds.includes(passage.id);
-
-				if (newHighlighted !== oldHighlighted) {
-					passageUpdates[passage.id] = {highlighted: newHighlighted};
-				}
+			if (newHighlighted !== oldHighlighted) {
+				passageUpdates[passage.id] = {highlighted: newHighlighted};
 			}
 		}
+
 		if (Object.keys(passageUpdates).length > 0) {
 			dispatch({
 				passageUpdates,
