@@ -2,3 +2,8 @@
 	background: var(--light-blue);
 	box-shadow: var(--shadow-small), inset 0 0 0 1px var(--blue);
 }
+
+.selectable-card.selected .card.highlighted {
+	background: var(--light-blue);
+	background: color-mix(in lch, var(--light-blue), var(--light-yellow));
+}

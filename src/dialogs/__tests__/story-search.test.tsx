@@ -8,11 +8,11 @@ import {
 	fakeStory,
 	StoryInspector
 } from '../../test-util';
-import {StorySearchDialog} from '../story-search';
+import {StorySearchDialog, StorySearchDialogProps} from '../story-search';
 
 jest.mock('../../components/control/code-area/code-area');
 
-const TestStorySearchDialog = () => {
+const TestStorySearchDialog = (props: Partial<StorySearchDialogProps>) => {
 	const [open, setOpen] = React.useState(true);
 	const {stories} = useStoriesContext();
 
@@ -28,6 +28,10 @@ const TestStorySearchDialog = () => {
 					onChangeProps={jest.fn()}
 					onClose={jest.fn()}
 					storyId={stories[0].id}
+					find={''}
+					flags={{}}
+					replace={''}
+					{...props}
 				/>
 			)}
 		</>
@@ -35,11 +39,14 @@ const TestStorySearchDialog = () => {
 };
 
 describe('<StorySearchDialog>', () => {
-	function renderComponent(context?: Partial<FakeStateProviderProps>) {
+	function renderComponent(
+		props?: Partial<StorySearchDialogProps>,
+		context?: Partial<FakeStateProviderProps>
+	) {
 		return render(
 			<FakeStateProvider {...context}>
 				<StoryInspector />
-				<TestStorySearchDialog />
+				<TestStorySearchDialog {...props} />
 			</FakeStateProvider>
 		);
 	}
@@ -47,13 +54,105 @@ describe('<StorySearchDialog>', () => {
 	// Needed because the dialog dispatches actions on unmount.
 	afterEach(async () => await act(() => Promise.resolve()));
 
+	describe.each([
+		['Find', 'dialogs.storySearch.find', 'find'],
+		['Replace', 'dialogs.storySearch.replaceWith', 'replace']
+	])('%s field', (name, label, propName) => {
+		it(`sets its value with the ${propName} prop`, () => {
+			renderComponent({[propName]: 'test-value'});
+			expect(screen.getByRole('textbox', {name: label})).toHaveValue(
+				'test-value'
+			);
+		});
+
+		it('updates props on itself when the field is changed', () => {
+			const onChangeProps = jest.fn();
+			const existing = {
+				find: 'existing-find',
+				flags: {includePassageNames: true},
+				replace: 'existing-replace'
+			};
+
+			renderComponent({onChangeProps, ...existing});
+			fireEvent.change(screen.getByRole('textbox', {name: label}), {
+				target: {value: 'test-change'}
+			});
+			expect(onChangeProps.mock.calls).toEqual([
+				[{...existing, [propName]: 'test-change'}]
+			]);
+		});
+	});
+
+	describe.each([
+		['Include Passage Names', 'includePassageNames'],
+		['Match Case', 'matchCase'],
+		['Use Regexes', 'useRegexes']
+	])('%s field', (name, label) => {
+		it(`is checked if the ${label} prop is true`, () => {
+			renderComponent({flags: {[label]: true}});
+			expect(
+				screen.getByRole('checkbox', {name: `dialogs.storySearch.${label}`})
+			).toBeChecked();
+		});
+
+		it(`is unchecked if the ${label} prop is false`, () => {
+			renderComponent({flags: {[label]: false}});
+			expect(
+				screen.getByRole('checkbox', {name: `dialogs.storySearch.${label}`})
+			).not.toBeChecked();
+		});
+
+		it('updates props on itself when checked', () => {
+			const onChangeProps = jest.fn();
+			const existing = {
+				find: 'existing-find',
+				flags: {
+					includePassageNames: true,
+					matchCase: true,
+					useRegexes: true,
+					[label]: false
+				},
+				replace: 'existing-replace'
+			};
+
+			renderComponent({onChangeProps, ...existing});
+			fireEvent.click(
+				screen.getByRole('checkbox', {name: `dialogs.storySearch.${label}`})
+			);
+			expect(onChangeProps.mock.calls).toEqual([
+				[{...existing, flags: {...existing.flags, [label]: true}}]
+			]);
+		});
+
+		it('updates props on itself when unchecked', () => {
+			const onChangeProps = jest.fn();
+			const existing = {
+				find: 'existing-find',
+				flags: {
+					includePassageNames: true,
+					matchCase: true,
+					useRegexes: true
+				},
+				replace: 'existing-replace'
+			};
+
+			renderComponent({onChangeProps, ...existing});
+			fireEvent.click(
+				screen.getByRole('checkbox', {name: `dialogs.storySearch.${label}`})
+			);
+			expect(onChangeProps.mock.calls).toEqual([
+				[{...existing, flags: {...existing.flags, [label]: false}}]
+			]);
+		});
+	});
+
 	it('removes highlighting from all passages when mounted', async () => {
 		const story = fakeStory(3);
 
 		story.passages[0].highlighted = true;
 		story.passages[1].highlighted = true;
 		story.passages[2].highlighted = true;
-		renderComponent({stories: [story]});
+		renderComponent({}, {stories: [story]});
 		await waitFor(() =>
 			expect(
 				screen.getByTestId(`passage-${story.passages[0].id}`).dataset
@@ -68,7 +167,7 @@ describe('<StorySearchDialog>', () => {
 		).toBe('false');
 	});
 
-	it('highlights matching passages when the search field changes', async () => {
+	it('highlights matching passages based on the find prop', async () => {
 		const story = fakeStory(3);
 
 		story.passages[0].highlighted = false;
@@ -77,10 +176,7 @@ describe('<StorySearchDialog>', () => {
 		story.passages[1].text = 'bbb';
 		story.passages[2].highlighted = false;
 		story.passages[2].text = 'ccc';
-		renderComponent({stories: [story]});
-		fireEvent.change(screen.getByLabelText('dialogs.storySearch.find'), {
-			target: {value: 'aaa'}
-		});
+		renderComponent({find: 'aaa'}, {stories: [story]});
 		await waitFor(() =>
 			expect(
 				screen.getByTestId(`passage-${story.passages[0].id}`).dataset
@@ -100,10 +196,7 @@ describe('<StorySearchDialog>', () => {
 
 		story.passages[0].highlighted = false;
 		story.passages[0].text = 'aaa';
-		renderComponent({stories: [story]});
-		fireEvent.change(screen.getByLabelText('dialogs.storySearch.find'), {
-			target: {value: 'a'}
-		});
+		renderComponent({find: 'a'}, {stories: [story]});
 		expect(
 			screen.getByTestId(`passage-${story.passages[0].id}`).dataset.highlighted
 		).toBe('false');
@@ -115,21 +208,19 @@ describe('<StorySearchDialog>', () => {
 		);
 	});
 
-	it('incorporates the options chosen by the user when highlighting matches', async () => {
+	it('incorporates the flags prop when highlighting matches', async () => {
 		const story = fakeStory();
 
 		story.passages[0].highlighted = true;
 		story.passages[0].name = 'aBC';
 		story.passages[0].text = '';
-		renderComponent({stories: [story]});
-		fireEvent.click(
-			screen.getByText('dialogs.storySearch.includePassageNames')
+		renderComponent(
+			{
+				find: 'aB.',
+				flags: {includePassageNames: false, matchCase: true, useRegexes: true}
+			},
+			{stories: [story]}
 		);
-		fireEvent.click(screen.getByText('dialogs.storySearch.matchCase'));
-		fireEvent.click(screen.getByText('dialogs.storySearch.useRegexes'));
-		fireEvent.change(screen.getByLabelText('dialogs.storySearch.find'), {
-			target: {value: 'aB.'}
-		});
 		await waitFor(() =>
 			expect(
 				screen.getByTestId(`passage-${story.passages[0].id}`).dataset
@@ -138,11 +229,11 @@ describe('<StorySearchDialog>', () => {
 		);
 	});
 
-	it('dispatches a highlight action to highlight no passages when closed', async () => {
+	it('removes all highlighting when closed', async () => {
 		const story = fakeStory();
 
 		story.passages[0].highlighted = true;
-		renderComponent({stories: [story]});
+		renderComponent({}, {stories: [story]});
 		fireEvent.click(screen.getByText('close'));
 
 		await waitFor(() =>
@@ -157,10 +248,7 @@ describe('<StorySearchDialog>', () => {
 		const story = fakeStory(1);
 
 		story.passages[0].text = 'aaa';
-		renderComponent({stories: [story]});
-		fireEvent.change(screen.getByLabelText('dialogs.storySearch.find'), {
-			target: {value: 'a'}
-		});
+		renderComponent({find: 'a'}, {stories: [story]});
 		expect(
 			screen.getByText('dialogs.storySearch.matchCount')
 		).toBeInTheDocument();
@@ -174,10 +262,7 @@ describe('<StorySearchDialog>', () => {
 
 		story.passages[0].name = 'aaa';
 		story.passages[0].text = 'bbb';
-		renderComponent({stories: [story]});
-		fireEvent.change(screen.getByLabelText('dialogs.storySearch.find'), {
-			target: {value: 'e'}
-		});
+		renderComponent({find: 'e'}, {stories: [story]});
 		expect(
 			await screen.findByText('dialogs.storySearch.noMatches')
 		).toBeInTheDocument();
@@ -190,18 +275,14 @@ describe('<StorySearchDialog>', () => {
 		const story = fakeStory(1);
 
 		story.passages[0].text = 'mock-find';
-		renderComponent({stories: [story]});
-		fireEvent.click(
-			screen.getByText('dialogs.storySearch.includePassageNames')
+		renderComponent(
+			{
+				find: 'mock-find',
+				flags: {includePassageNames: false, matchCase: true, useRegexes: true},
+				replace: 'mock-replace'
+			},
+			{stories: [story]}
 		);
-		fireEvent.click(screen.getByText('dialogs.storySearch.matchCase'));
-		fireEvent.click(screen.getByText('dialogs.storySearch.useRegexes'));
-		fireEvent.change(screen.getByLabelText('dialogs.storySearch.find'), {
-			target: {value: 'mock-find'}
-		});
-		fireEvent.change(screen.getByLabelText('dialogs.storySearch.replaceWith'), {
-			target: {value: 'mock-replace'}
-		});
 
 		const replaceButton = screen.getByText('dialogs.storySearch.replaceAll');
 
@@ -216,24 +297,15 @@ describe('<StorySearchDialog>', () => {
 		const story = fakeStory(1);
 
 		story.passages[0].text = 'aaa';
-		renderComponent({stories: [story]});
-		fireEvent.change(screen.getByLabelText('dialogs.storySearch.find'), {
-			target: {value: 'mock-find'}
-		});
-		fireEvent.change(screen.getByLabelText('dialogs.storySearch.replaceWith'), {
-			target: {value: 'mock-replace'}
-		});
+		renderComponent(
+			{find: 'mock-find', replace: 'mock-replace'},
+			{stories: [story]}
+		);
 		expect(screen.getByText('dialogs.storySearch.replaceAll')).toBeDisabled();
 	});
 
 	it('disables the replace button if the search is empty', () => {
-		renderComponent();
-		fireEvent.change(screen.getByLabelText('dialogs.storySearch.find'), {
-			target: {value: ''}
-		});
-		fireEvent.change(screen.getByLabelText('dialogs.storySearch.replaceWith'), {
-			target: {value: 'mock-replace'}
-		});
+		renderComponent({find: '', replace: 'mock-replace'});
 		expect(screen.getByText('dialogs.storySearch.replaceAll')).toBeDisabled();
 	});
 
