@@ -67,13 +67,15 @@ describe('<StorySearchDialog>', () => {
 
 		it('updates props on itself when the field is changed', () => {
 			const onChangeProps = jest.fn();
+			const story = fakeStory();
 			const existing = {
 				find: 'existing-find',
 				flags: {includePassageNames: true},
-				replace: 'existing-replace'
+				replace: 'existing-replace',
+				storyId: story.id
 			};
 
-			renderComponent({onChangeProps, ...existing});
+			renderComponent({onChangeProps, ...existing}, {stories: [story]});
 			fireEvent.change(screen.getByRole('textbox', {name: label}), {
 				target: {value: 'test-change'}
 			});
@@ -104,6 +106,7 @@ describe('<StorySearchDialog>', () => {
 
 		it('updates props on itself when checked', () => {
 			const onChangeProps = jest.fn();
+			const story = fakeStory();
 			const existing = {
 				find: 'existing-find',
 				flags: {
@@ -112,10 +115,11 @@ describe('<StorySearchDialog>', () => {
 					useRegexes: true,
 					[label]: false
 				},
-				replace: 'existing-replace'
+				replace: 'existing-replace',
+				storyId: story.id
 			};
 
-			renderComponent({onChangeProps, ...existing});
+			renderComponent({onChangeProps, ...existing}, {stories: [story]});
 			fireEvent.click(
 				screen.getByRole('checkbox', {name: `dialogs.storySearch.${label}`})
 			);
@@ -126,6 +130,7 @@ describe('<StorySearchDialog>', () => {
 
 		it('updates props on itself when unchecked', () => {
 			const onChangeProps = jest.fn();
+			const story = fakeStory();
 			const existing = {
 				find: 'existing-find',
 				flags: {
@@ -133,10 +138,11 @@ describe('<StorySearchDialog>', () => {
 					matchCase: true,
 					useRegexes: true
 				},
-				replace: 'existing-replace'
+				replace: 'existing-replace',
+				storyId: story.id
 			};
 
-			renderComponent({onChangeProps, ...existing});
+			renderComponent({onChangeProps, ...existing}, {stories: [story]});
 			fireEvent.click(
 				screen.getByRole('checkbox', {name: `dialogs.storySearch.${label}`})
 			);

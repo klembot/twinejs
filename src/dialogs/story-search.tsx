@@ -65,10 +65,11 @@ export const StorySearchDialog: React.FC<StorySearchDialogProps> = props => {
 	}, [debouncedDispatch, matches, story]);
 
 	function patchProps(props: Partial<StorySearchDialogProps>) {
-		// Only patch relevant props--not the management ones, nor will we ever need
-		// to change our story ID.
+		// Only patch relevant props--the management props will always be
+		// overwritten.
 
 		onChangeProps({
+			storyId,
 			find: props.find ?? find,
 			flags: props.flags ?? flags,
 			replace: props.replace ?? replace
