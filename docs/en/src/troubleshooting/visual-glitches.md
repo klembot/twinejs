@@ -11,6 +11,5 @@ Hardware Acceleration_. This item will be checked when hardware acceleration is
 disabled, but changing the setting will only take effect the next time you
 launch Twine.
 
-You can also disable hardware acceleration by launching Twine with the
-command-line switch
-<code>&#x2011;&#x2011;disableHardwareAcceleration=true</code>.
+You can also disable hardware acceleration with a [command-line
+switch](../customizing/command-line.md).

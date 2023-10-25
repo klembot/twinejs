@@ -126,13 +126,18 @@ export async function revealStoryDirectory() {
  * Creates a backup of the entire story directory.
  */
 export async function backupStoryDirectory(maxBackups = 10) {
-	console.log('Backing up story library');
+	const prefPath = getAppPref('backupFolderPath');
+	const backupPath =
+		typeof prefPath === 'string'
+			? prefPath
+			: join(
+					app.getPath('documents'),
+					i18n.t('common.appName'),
+					i18n.t('electron.backupsDirectoryName')
+			  );
 
-	const backupPath = join(
-		app.getPath('documents'),
-		i18n.t('common.appName'),
-		i18n.t('electron.backupsDirectoryName')
-	);
+	console.log(`Backing up story library to ${backupPath}`);
+	
 	const now = new Date();
 	const backupDirectoryName = join(
 		backupPath,

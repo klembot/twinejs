@@ -122,7 +122,7 @@
 		"postbuild:web": "cpy --cwd dist/web --parents . ../../electron-build/renderer; cd dist && cross-var zip -r twine-$npm_package_version-web.zip web && cd ..",
 		"build:electron": "npm-run-all --parallel build:web build:electron-main --serial build:electron-bundle",
 		"build:electron-main": "tsc --project tsconfig.electron.json",
-		"build:electron-bundle": "electron-builder --config electron-builder.config.js --mac --windows --linux --publish=never",
+		"build:electron-bundle": "electron-builder --config electron-builder.config.js --mac  --publish=never",
 		"clean": "rimraf dist electron-build",
 		"e2e": "playwright test",
 		"lint": "eslint src",

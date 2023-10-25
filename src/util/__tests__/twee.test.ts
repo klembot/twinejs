@@ -568,6 +568,7 @@ describe('storyToTwee()', () => {
 
 	it('creates a passage tagged "script" if the story has a script property', () => {
 		story.passages = [];
+		story.script = 'test-script';
 		story.stylesheet = '';
 
 		expect(storyToTwee(story)).toMatch(
@@ -577,6 +578,7 @@ describe('storyToTwee()', () => {
 
 	it('renames the script passage if a passage in the story conflicts with it', () => {
 		story.passages = [fakePassage({name: 'StoryScript'})];
+		story.script = 'test-script';
 		story.stylesheet = '';
 		expect(storyToTwee(story)).toMatch(
 			`:: StoryScript 1 [script]\n${story.script}`
@@ -586,6 +588,7 @@ describe('storyToTwee()', () => {
 	it('creates a passage tagged "style" if the story has a stylesheet property', () => {
 		story.passages = [];
 		story.script = '';
+		story.stylesheet = 'test-stylesheet';
 
 		expect(storyToTwee(story)).toMatch(
 			`:: StoryStylesheet [stylesheet]\n${story.stylesheet}`
@@ -595,6 +598,7 @@ describe('storyToTwee()', () => {
 	it('renames the style passage if a passage in the story conflicts with it', () => {
 		story.passages = [fakePassage({name: 'StoryStylesheet'})];
 		story.script = '';
+		story.stylesheet = 'test-stylesheet';
 		expect(storyToTwee(story)).toMatch(
 			`:: StoryStylesheet 1 [stylesheet]\n${story.stylesheet}`
 		);

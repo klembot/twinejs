@@ -20,7 +20,7 @@ const getAppPrefMock = getAppPref as jest.Mock;
 
 beforeEach(() => {
 	getAppPrefMock.mockImplementation((name: string) => {
-		if (name === 'storyLibraryFolderPath') {
+		if (['backupFolderPath', 'storyLibraryFolderPath'].includes(name)) {
 			return undefined;
 		}
 
@@ -42,8 +42,10 @@ describe('backupStoryDirectory()', () => {
 		statMock.mockImplementation((name: string) => {
 			switch (name) {
 				case 'mock-electron-app-path-documents/common.appName/electron.backupsDirectoryName/mock-backup-1':
+				case 'test-app-pref-backup-directory/mock-backup-1':
 					return {mtimeMs: 1000};
 				case 'mock-electron-app-path-documents/common.appName/electron.backupsDirectoryName/mock-backup-2':
+				case 'test-app-pref-backup-directory/mock-backup-2':
 					return {mtimeMs: 500};
 				default:
 					throw new Error(`Asked to stat unmocked file: ${name}`);
@@ -53,49 +55,62 @@ describe('backupStoryDirectory()', () => {
 		initStoryDirectory();
 	});
 
-	it('copies the story directory to the backups directory', async () => {
-		await backupStoryDirectory();
-		expect(copyMock.mock.calls).toEqual([
-			[
-				'mock-electron-app-path-documents/common.appName/electron.storiesDirectoryName',
-				expect.stringMatching(
-					/mock-electron-app-path-documents\/common.appName\/electron.backupsDirectoryName\/.+/
-				)
-			]
-		]);
-	});
+	describe.each([
+		[
+			"isn't set",
+			undefined,
+			'mock-electron-app-path-documents/common.appName/electron.backupsDirectoryName'
+		],
+		[
+			'is set',
+			'test-app-pref-backup-directory',
+			'test-app-pref-backup-directory'
+		]
+	])('When the backupFolderPath app pref %s', (_, appPref, path) => {
+		beforeEach(() => {
+			getAppPrefMock.mockImplementation((name: string) => {
+				if (name === 'backupFolderPath') {
+					return appPref;
+				}
 
-	it('uses unique names for backup directories', async () => {
-		await backupStoryDirectory();
-		await new Promise(resolve => window.setTimeout(resolve, 5));
-		await backupStoryDirectory();
-		expect(copyMock.mock.calls[0][1]).not.toBe(copyMock.mock.calls[1][1]);
-	});
+				throw new Error(`Asked for unmocked pref ${name}`);
+			});
+		});
 
-	it('prunes the oldest backups if the number of backups is above the limit', async () => {
-		await backupStoryDirectory(1);
-		expect(removeMock.mock.calls).toEqual([
-			[
-				'mock-electron-app-path-documents/common.appName/electron.backupsDirectoryName/mock-backup-2'
-			]
-		]);
-		removeMock.mockReset();
-		await backupStoryDirectory(0);
-		expect(removeMock.mock.calls).toEqual([
-			[
-				'mock-electron-app-path-documents/common.appName/electron.backupsDirectoryName/mock-backup-2'
-			],
-			[
-				'mock-electron-app-path-documents/common.appName/electron.backupsDirectoryName/mock-backup-1'
-			]
-		]);
-	});
+		it(`copies the story directory to ${path}`, async () => {
+			await backupStoryDirectory();
+			expect(copyMock.mock.calls).toEqual([
+				[
+					'mock-electron-app-path-documents/common.appName/electron.storiesDirectoryName',
+					expect.stringMatching(new RegExp(`${path}/.+`))
+				]
+			]);
+		});
 
-	it('does not prune any backups if the number of backups is below or at the limit', async () => {
-		await backupStoryDirectory(3);
-		expect(removeMock).not.toHaveBeenCalled();
-		await backupStoryDirectory(2);
-		expect(removeMock).not.toHaveBeenCalled();
+		it('uses unique names for backup directories', async () => {
+			await backupStoryDirectory();
+			await new Promise(resolve => window.setTimeout(resolve, 5));
+			await backupStoryDirectory();
+			expect(copyMock.mock.calls[0][1]).not.toBe(copyMock.mock.calls[1][1]);
+		});
+
+		it('prunes the oldest backups if the number of backups is above the limit', async () => {
+			await backupStoryDirectory(1);
+			expect(removeMock.mock.calls).toEqual([[`${path}/mock-backup-2`]]);
+			removeMock.mockReset();
+			await backupStoryDirectory(0);
+			expect(removeMock.mock.calls).toEqual([
+				[`${path}/mock-backup-2`],
+				[`${path}/mock-backup-1`]
+			]);
+		});
+
+		it('does not prune any backups if the number of backups is below or at the limit', async () => {
+			await backupStoryDirectory(3);
+			expect(removeMock).not.toHaveBeenCalled();
+			await backupStoryDirectory(2);
+			expect(removeMock).not.toHaveBeenCalled();
+		});
 	});
 });
 

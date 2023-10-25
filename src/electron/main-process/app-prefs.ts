@@ -6,12 +6,14 @@ import {loadJsonFileSync, saveJsonFile} from './json-file';
  * that are related to the app build, e.g. things like folder locations.
  */
 export type AppPrefName =
+	| 'backupFolderPath'
 	| 'disableHardwareAcceleration'
 	| 'scratchFolderPath'
 	| 'scratchFileCleanupAge'
 	| 'storyLibraryFolderPath';
 
 const prefNames: AppPrefName[] = [
+	'backupFolderPath',
 	'disableHardwareAcceleration',
 	'scratchFolderPath',
 	'scratchFileCleanupAge',

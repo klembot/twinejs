@@ -51,9 +51,45 @@ C:\Program Files\Twine\Twine.exe --switch --switch2
 Although some applications on Windows use `/` to start command-line switches,
 Twine doesn't. It uses `--`, the same as on other operating systems.
 
+## A Reminder About Spaces and Pathnames
+
+Many command line switches used by Twine set pathnames for folders. If a folder
+in the path you want to set contains a space, you must put quotation marks
+around the entire path, like so:
+
+<code>&#x2011;&#x2011;scratchFolderPath="C:\Users\Jane Doe\twine-scratch"</code>
+
+## Backup Folder Switches
+
+### <code>--backupFolderPath=_[path]_</code>
+
+Example: <code>&#x2011;&#x2011;backupFolderPath=/Users/janedoe/twine-backups/</code>
+
+This sets the full pathname of the backup folder to use. Twine will create this
+folder if it doesn't already exist. If Twine isn't able to do this, or isn't
+able to read the files in this folder, it will show an error message whenever it
+tries to save a backup of your story library.
+
+**Never set your backup folder to a folder that has files created by other
+applications in it.** Twine can't distinguish between backups it created and any
+other files, and **will delete them permanently** when they become too old.
+
+## Graphics Switches
+
+### <code>--disableHardwareAcceleration=_[true or false]_</code>
+
+Example: <code>&#x2011;&#x2011;disableHardwareAcceleration=true</code>
+
+This disables hardware accelerated graphics in Twine. This should only be needed
+if you experience visual glitches in Twine. Disabling hardware acceleration will
+likely make Twine less performant in general.
+
 ## Story Library Folder Switches
 
 ### <code>--storyLibraryFolderPath=_[path]_</code>
+
+Example:
+<code>&#x2011;&#x2011;storyLibraryFolderPath=/Users/janedoe/twine-stories/</code>
 
 This sets the full pathname of the story library. For example,
 <code>&#x2011;&#x2011;storyLibraryFolderPath=/Users/janedoe/twine-stories</code>.
@@ -71,20 +107,20 @@ it, you can use a different volume.
 
 ### <code>--scratchFolderPath=_[path]_</code>
 
-This sets the full pathname of the scratch folder to use. For example,
-<code>&#x2011;&#x2011;scratchFolderName=/tmp/twine</code> or
-<code>&#x2011;&#x2011;scratchFolderName=/Users/janedoe/twine-scratch</code>. If
-there are spaces in your pathname, make sure to put quotation marks around this
-value, e.g. <code>&#x2011;&#x2011;scratchFolderName="C:\Users\Jane
-Doe\twine-scratch"</code>. If this folder doesn't already exist, Twine will try
-to create it. If Twine is unable to create the folder at the path you've set, it
-will show an error message when you play, test, or proof a story.
+Example: <code>&#x2011;&#x2011;scratchFolderPath=/tmp/twine-scratch</code>
+
+This sets the full pathname of the scratch folder to use. If this folder doesn't
+already exist, Twine will try to create it. If Twine is unable to create the
+folder at the path you've set, it will show an error message when you play,
+test, or proof a story.
 
 **Never set your scratch folder to a folder that has files created by other
 applications in it.** Twine can't distinguish between files it created and any
 other files, and **will delete them permanently** when they become too old.
 
 ### <code>--scratchFileCleanupAge=_[number]_</code>
+
+Example: <code>&#x2011;&#x2011;scratchFileCleanupAge=60</code>
 
 This sets how old a file must be before Twine deletes it from the scratch
 folder, in minutes. Twine considers the last time the file was modified, not
