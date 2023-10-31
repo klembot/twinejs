@@ -120,6 +120,16 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 		startY: 0
 	});
 
+	// Separate from the state above, we need to track whether the user was
+	// recently dragging cards so that we maintain the correct card selection
+	// after a drag. The issue is that the card fires a select event immediately
+	// after a drag finishes, because it sees the mouseup event. We need to ignore
+	// this callback, but *only* immediately after a drag.
+	//
+	// We use a ref to avoid unnecessary re-renders.
+
+	const recentlyDragging = React.useRef(false);
+
 	// Only update the compact card state when visibleZoom and zoom are the same.
 	// This avoids re-rendering the cards in the middle of a zoom transition
 	// (which causes jank).
@@ -157,27 +167,31 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 		[]
 	);
 	const handleDragStop = React.useCallback(() => {
-		// We use a timeout to delay this execution until after the click handler on
-		// <SelectableCard> runs and triggers handleSelect below, so that function
-		// can see that a drag has just finished (and should be ignored as part of
-		// the drag interaction).
-		//
-		// Promise.resolve() doesn't appear to give us the timing we need.
+		document.body.classList.remove('dragging-passages');
+		dispatch({type: 'stop', callback: onDrag});
 
+		// A 0 timeout is enough to swallow the incoming onSelect callback that the
+		// card will send. Promise.resolve() doesn't appear to give us the timing we
+		// want.
+		//
+		// We can't defer the dispatch() call above because it can lead to colliding
+		// drags when users click rapidly on a passage. See
+		// https://github.com/klembot/twinejs/issues/1426
+
+		recentlyDragging.current = true;
 		window.setTimeout(() => {
-			document.body.classList.remove('dragging-passages');
-			dispatch({type: 'stop', callback: onDrag});
+			recentlyDragging.current = false;
 		}, 0);
 	}, [onDrag]);
 	const handleSelect = React.useCallback(
 		(passage: Passage, exclusive: boolean) => {
-			// See comments in handleDragStop above.
+			// See comments above about recentlyDragging.
 
-			if (!state.dragging) {
+			if (!recentlyDragging.current) {
 				onSelect(passage, exclusive);
 			}
 		},
-		[onSelect, state.dragging]
+		[onSelect]
 	);
 
 	return (
