@@ -87,6 +87,7 @@
 		"@types/semver": "^7.3.4",
 		"@types/ua-parser-js": "^0.7.36",
 		"@vitejs/plugin-react": "^4.1.0",
+		"@vitejs/plugin-react-swc": "^3.4.1",
 		"browserslist-to-esbuild": "^1.2.0",
 		"cpy": "^8.1.2",
 		"cpy-cli": "^3.1.1",
