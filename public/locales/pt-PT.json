@@ -256,13 +256,21 @@
 				"overwriteChoice": "Gravar as Alterações no Twine",
 				"relaunchChoice": "Usar o Ficheiro e Reiniciar"
 			},
+			"storyLibraryFolderAppPref": {
+				"detail": "O Twine tentou abrir a seguinte localização: {{path}}.",
+				"message": "Não foi possível abrir a pasta onde escolheste pôr a tua biblioteca de histórias.",
+				"useDefault": "Usar a pasta por defeito",
+				"quit": "Sair"
+			},
 			"storyDelete": "Alguma coisa correu mal ao apagarmos a história.",
 			"storyRename": "Alguma coisa correu mal ao alterarmos o título da história.",
 			"storySave": "Alguma coisa correu mal ao gravarmos a história."
 		},
 		"menuBar": {
 			"checkForUpdates": "Verificar se há atualizações...",
+			"disableHardwareAcceleration": "Desligar a aceleração de «hardware»",
 			"edit": "Editar",
+			"setStoryLibraryFolder": "Definir a pasta da biblioteca de histórias...",
 			"showDevTools": "Mostrar a Consola de Depuração",
 			"showStoryLibrary": "Mostrar a Biblioteca de Histórias",
 			"speech": "Fala",
@@ -270,6 +278,11 @@
 			"twineHelp": "Ajuda do Twine",
 			"view": "Ver"
 		},
+		"relaunchDialog": {
+			"defaultPrompt": "Esta alteração irá produzir efeitos a partir da próxima vez que iniciares o Twine.",
+			"relaunchNow": "Reiniciar agora"
+		},
+		"scratchDirectoryName": "Abandonados",
 		"storiesDirectoryName": "Histórias",
 		"updateCheck": {
 			"download": "Descarregar",
