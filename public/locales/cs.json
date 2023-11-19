@@ -8,7 +8,7 @@
 		"blue": "Modrá",
 		"purple": "Fialová"
 	},
-		"common": {
+	"common": {
 		"add": "Přidat",
 		"appName": "Twine",
 		"back": "Zpět",
@@ -246,7 +246,7 @@
 			"title": "Značky příbehů"
 		}
 	},
-		"electron": {
+	"electron": {
 		"backupsDirectoryName": "Zálohy",
 		"errors": {
 			"jsonSave": "Něco se během ukládání souboru nastavení pokazilo.",
