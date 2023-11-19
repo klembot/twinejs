@@ -12,7 +12,7 @@
 		"add": "Přidat",
 		"appName": "Twine",
 		"back": "Zpět",
-		"build": "Nástroje"
+		"build": "Nástroje",
 		"cancel": "Storno",
 		"close": "Zavřít",
 		"color": "Barva",
@@ -51,18 +51,6 @@
 		"undoChange": "Vrátit {{change}}",
 		"unmaximize": "Zmenšit",
 		"view": "Zobrazit"
-	},
-	"components": {
-		"addStoryFormatButton": {
-			"prompt": "Pro přidání formátu příběhu zadejte jeho internetovou adresu níže."
-	},
-	"dialogs": {
-		"storyInfo": {"stats": {"title": "Statistika příběhu"}},
-		"storyJavaScript": {},
-		"storySearch": {"title": "Najít a nahradit", "replaceWith": "Nahradit"},
-		"storyStylesheet": {
-			"explanation": "Jakýkoliv CSS skript zadaný zde přepíše výchozí vzhled vašeho příběhu."
-		},
 	},
 	"components": {
 		"addTagButton": {
@@ -139,7 +127,7 @@
 			"loadingFormat": "Načítání tohoto formátu příběhu...",
 			"loadError": "Tento formát příběhu se nepodařilo načíst ({{errorMessage}}).",
 			"name": "{{name}} {{version}}",
-			"proofing": "Korekturní",
+			"proofing": "Kontrolování",
 			"proofingFormat": "Použito pro korektury a testování",
 			"useEditorExtensions": "Použít rozšíření editoru",
 			"useFormat": "Použít jako defaultní formát příběhu",
@@ -257,11 +245,6 @@
 			"noTags": "K vašim příběhům nebyly zatím přidány žádné značky.",
 			"title": "Značky příbehů"
 		}
-	},
-	"electron": {
-		"errors": {"storyFileChangedExternally": {}},
-		"menuBar": {"edit": "Upravit"},
-		"storiesDirectoryName": "Příběhy"
 	},
 		"electron": {
 		"backupsDirectoryName": "Zálohy",
