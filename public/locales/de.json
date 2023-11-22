@@ -196,7 +196,6 @@
 		"storyImport": {
 			"deselectAll": "Alle Markierungen aufheben",
 			"filePrompt": "Um Geschichten nach Twine zu importieren, lade unten entweder ein Archiv, eine Datei einer veröffentlichen Geschichte oder eine Twee Quelldatei hoch.",
-			"filePrompt": "To import stories into Twine, upload an archive, published story, or Twee source file below.",
 			"importDifferentFile": "Importiere eine andere Datei",
 			"importSelected": "Importiere die ausgewählten Dateien",
 			"importThisStory": "Importiere Diese Geschichte",
@@ -257,13 +256,21 @@
 				"overwriteChoice": "Speicher Änderungen in Twine",
 				"relaunchChoice": "Benutze Datei und starte neu"
 			},
+			"storyLibraryFolderAppPref": {
+				"detail": "Twine versuchte {{path}} zu öffnen.",
+				"message": "Der Geschichsbibliotheksornder der gesetzt wurde konnte nicht geöffnet werden.",
+				"useDefault": "Benutze den Standard Ordner",
+				"quit": "Beenden"
+			},
 			"storyDelete": "Etwas ging schief beim Löschen einer Geschichte.",
 			"storyRename": "Etwas ging schief beim Umbenennen einer Geschichte.",
 			"storySave": "Etwas ging schief beim Speichern einer Geschichte."
 		},
 		"menuBar": {
-			"checkForUpdates": "Check for Updates...",
+			"checkForUpdates": "Auf Updates überprüfen...",
+			"disableHardwareAcceleration": "Hardwarebeschleunigung ausschalten",
 			"edit": "Bearbeiten",
+			"setStoryLibraryFolder": "Setze den Geschichsbibliotheksordner...",
 			"showDevTools": "Öffne die Debug Konsole",
 			"showStoryLibrary": "Zeige die Geschichtsbibliothek",
 			"speech": "Speech",
@@ -271,12 +278,20 @@
 			"twineHelp": "Twine Hilfe",
 			"view": "Ansicht"
 		},
+		"relaunchDialog": {
+			"defaultPrompt": "Die Änderungen werden aktiv wenn Twine das nächste mal gestartet wird.",
+			"relaunchNow": "Jetzt neustarten"
+		},
+		"scratchDirectoryName": "Scratch",
 		"storiesDirectoryName": "Geschichten",
 		"updateCheck": {
 			"download": "Download",
 			"error": "Etwas ging schief beim prüfen nach einer neueren Version von Twine.",
 			"updateAvailable": "Eine neuere Version von Twine ist verfügbar.",
 			"upToDate": "Dies ist die neueste Version von Twine die verfügbar ist."
+		}
+		"userCss": {
+			"filename": "user.css"
 		}
 	},
 	"routes": {
@@ -301,6 +316,7 @@
 				"selectAllPassages": "Wähle Alle Abschnitte Aus"
 			},
 			"zoomButtons": {
+				"legend": "Zoom",
 				"storyStructure": "Zeige Nur Die Struktur Der Geschichte",
 				"passageNames": "Zeige Nur Die Namen der Abschnitte",
 				"passageNamesAndExcerpts": "Zeige Abschnittsnamen und -ausschnitte"
