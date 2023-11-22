@@ -289,7 +289,7 @@
 			"error": "Etwas ging schief beim prüfen nach einer neueren Version von Twine.",
 			"updateAvailable": "Eine neuere Version von Twine ist verfügbar.",
 			"upToDate": "Dies ist die neueste Version von Twine die verfügbar ist."
-		}
+		},
 		"userCss": {
 			"filename": "user.css"
 		}
