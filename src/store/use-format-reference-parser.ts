@@ -6,6 +6,7 @@ import {
 	useStoryFormatsContext
 } from './story-formats';
 import {formatEditorExtensionsDisabled, usePrefsContext} from './prefs';
+import {getAppInfo} from '../util/app-info';
 
 const emptyFunc = () => [];
 
@@ -32,9 +33,7 @@ export function useFormatReferenceParser(
 		if (format.loadState === 'unloaded') {
 			dispatch(loadFormatProperties(format));
 		} else if (format.loadState === 'loaded') {
-			setEditorExtensions(
-				formatEditorExtensions(format, process.env.REACT_APP_VERSION ?? '')
-			);
+			setEditorExtensions(formatEditorExtensions(format, getAppInfo().version));
 		}
 	}, [dispatch, extensionsDisabled, format]);
 

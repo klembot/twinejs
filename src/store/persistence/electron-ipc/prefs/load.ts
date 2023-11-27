@@ -11,7 +11,7 @@ export async function load(): Promise<Partial<PrefsState>> {
 		throw new Error('Electron bridge is not present on window.');
 	}
 
-	const prefs = await twineElectron?.ipcRenderer.invoke('load-prefs');
+	const prefs = await twineElectron.loadPrefs();
 
 	if (prefs && typeof prefs === 'object') {
 		for (const key in prefs) {

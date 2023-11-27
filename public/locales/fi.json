@@ -106,7 +106,7 @@
 		"passageDefaults": {
 			"name": "Nimetön kappale"
 		},
-		"storyDefaults": {"name": "Nimerön tarina"},
+		"storyDefaults": {"name": "Nimetön tarina"},
 		"storyFormatDefaults": {"name": "Nimetön tarinamuotoilu"}
 	},
 	"undoChange": {"replaceAllText": "Korvaa kaikki"}

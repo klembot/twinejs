@@ -12,6 +12,7 @@ export const locales = [
 	{code: 'fi', name: 'Suomi'},
 	{code: 'fr', name: 'Français'},
 	{code: 'it', name: 'Italiano'},
+	{code: 'ko', name: '한국어'},
 	{code: 'ms', name: 'Bahasa Melayu'},
 	{code: 'nb', name: 'Norsk bokmål'},
 	{code: 'nl', name: 'Nederlands'},

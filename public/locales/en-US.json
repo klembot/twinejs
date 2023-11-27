@@ -256,13 +256,21 @@
 				"overwriteChoice": "Save Changes in Twine",
 				"relaunchChoice": "Use File and Relaunch"
 			},
+			"storyLibraryFolderAppPref": {
+				"detail": "Twine tried to open {{path}}.",
+				"message": "The story library folder you've set couldn't be opened.",
+				"useDefault": "Use Default Folder",
+				"quit": "Quit"
+			},
 			"storyDelete": "Something went wrong while deleting a story.",
 			"storyRename": "Something went wrong while renaming a story.",
 			"storySave": "Something went wrong while saving a story."
 		},
 		"menuBar": {
 			"checkForUpdates": "Check for Updates...",
+			"disableHardwareAcceleration": "Disable Hardware Acceleration",
 			"edit": "Edit",
+			"setStoryLibraryFolder": "Set Story Library Folder...",
 			"showDevTools": "Show Debug Console",
 			"showStoryLibrary": "Show Story Library",
 			"speech": "Speech",
@@ -270,6 +278,11 @@
 			"twineHelp": "Twine Help",
 			"view": "View"
 		},
+		"relaunchDialog": {
+			"defaultPrompt": "This change will take effect the next time Twine is launched.",
+			"relaunchNow": "Relaunch Now"
+		},
+		"scratchDirectoryName": "Scratch",
 		"storiesDirectoryName": "Stories",
 		"updateCheck": {
 			"download": "Download",

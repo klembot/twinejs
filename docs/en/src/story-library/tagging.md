@@ -8,7 +8,7 @@ A tag always has a name, but it can also have a color if you like from a set of
 predetermined ones. Tag colors are only used to help distinguish tags from each
 other visually. It's not possible to create custom tag colors, and a particular
 tag can only have one color. That is, if you put a red `my-tag` tag on a story,
-you can't make that tag be green on a different story.
+you can't make that tag be green on a different story[^story-tags].
 
 Another limitation of tags is that their names are not allowed to contain
 spaces. If you try to enter a space for a tag name, then Twine will convert it
@@ -45,3 +45,7 @@ Renaming a Tag section above.
 [^story-formats]: Story tags are available to story formats, so it's possible
     that one might change its behavior based on tags applied to stories. But
     this is discouraged so that authors can freely use tags as they like.
+
+[^story-tags]: Colors for story tags are a local personalization. They are not
+    included in builds or archive files to prevent accidentally overriding
+    colors and organization in another library.

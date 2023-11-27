@@ -23,7 +23,7 @@ text field.
 This will open a dialog with a search field. Enter either the name of a passage
 or some text it contains, and a list of matching passages will appear. Twine
 uses fuzzy matching, so you don't have to enter the passage name exactly, and it
-will find close matches if you make a typo. When deciding which pasages match
+will find close matches if you make a typo. When deciding which passages match
 what you've typed, it slightly prefers matches in a passage name to what's in
 passage text.
 

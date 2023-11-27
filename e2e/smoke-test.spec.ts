@@ -1,7 +1,7 @@
 import {test, expect, Page} from '@playwright/test';
 
 async function skipWelcome(page: Page) {
-	await page.goto('http://localhost:3000');
+	await page.goto('http://localhost:5173');
 	await page.getByRole('button', {name: 'Skip'}).click();
 	await page.reload();
 }
@@ -35,14 +35,14 @@ async function waitForPassageChange() {
 }
 
 test('Shows welcome screen on first run', async ({page}) => {
-	await page.goto('http://localhost:3000');
+	await page.goto('http://localhost:5173');
 	await expect(page).toHaveTitle('Hi!');
 });
 
 test("Doesn't show welcome screen after user finishes it", async ({page}) => {
 	await skipWelcome(page);
 	await expect(page).toHaveTitle('0 Stories');
-	await page.goto('http://localhost:3000');
+	await page.goto('http://localhost:5173');
 	await expect(page).toHaveTitle('0 Stories');
 	await page.reload();
 	await expect(page).toHaveTitle('0 Stories');
@@ -59,7 +59,7 @@ test('Can create a story', async ({page}) => {
 
 	// Go back to the story list and make sure the story is present there.
 
-	await page.goto('http://localhost:3000');
+	await page.goto('http://localhost:5173');
 	await expect(page).toHaveTitle('1 Story');
 	await expect(page.getByText('Create story test')).toBeVisible();
 	await page.reload();

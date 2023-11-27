@@ -7,7 +7,35 @@
 // crosses a context boundary, that global is in the wrong place. For now, we
 // place a privileged jsonp function into renderer context.
 
-import jsonp from 'jsonp';
-import {ipcRenderer} from 'electron';
+import {contextBridge, ipcRenderer} from 'electron';
+import {Story} from '../../store/stories/stories.types';
 
-(window as any).twineElectron = {ipcRenderer, jsonp};
+contextBridge.exposeInMainWorld('twineElectron', {
+	deleteStory(story: Story) {
+		ipcRenderer.send('delete-story', story);
+	},
+	loadPrefs() {
+		return ipcRenderer.invoke('load-prefs');
+	},
+	loadStories() {
+		return ipcRenderer.invoke('load-stories');
+	},
+	loadStoryFormats() {
+		return ipcRenderer.invoke('load-story-formats');
+	},
+	onceStoryRenamed(callback: () => {}): void {
+		ipcRenderer.once('story-renamed', callback);
+	},
+	openWithScratchFile(data: string, filename: string) {
+		ipcRenderer.send('open-with-scratch-file', data, filename);
+	},
+	renameStory(oldStory: Story, newStory: Story) {
+		ipcRenderer.send('rename-story', oldStory, newStory);
+	},
+	saveJson(filename: string, data: any) {
+		ipcRenderer.send('save-json', filename, data);
+	},
+	saveStoryHtml(story: Story, data: string) {
+		ipcRenderer.send('save-story-html', story, data);
+	}
+});

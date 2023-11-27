@@ -22,7 +22,16 @@ export const FindReplaceButton: React.FC<FindReplaceButtonProps> = props => {
 				dispatch({
 					type: 'addDialog',
 					component: StorySearchDialog,
-					props: {storyId: story.id}
+					props: {
+						find: '',
+						flags: {
+							includePassageNames: true,
+							matchCase: false,
+							useRegexes: false
+						},
+						replace: '',
+						storyId: story.id
+					}
 				})
 			}
 		/>

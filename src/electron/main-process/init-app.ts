@@ -3,7 +3,12 @@ import path from 'path';
 import {initIpc} from './ipc';
 import {initLocales} from './locales';
 import {initMenuBar} from './menu-bar';
-import {backupStoryDirectory, createStoryDirectory} from './story-directory';
+import {cleanScratchDirectory} from './scratch-file';
+import {
+	backupStoryDirectory,
+	createStoryDirectory,
+	initStoryDirectory
+} from './story-directory';
 import {getUserCss} from './user-css';
 
 let mainWindow: BrowserWindow | null;
@@ -16,10 +21,8 @@ async function createWindow() {
 		width: Math.round(screenSize.width * 0.9),
 		show: false,
 		webPreferences: {
-			// See preload.ts for why context isolation is disabled.
-			contextIsolation: false,
-			nodeIntegration: false,
-			preload: path.resolve(__dirname, './preload.js')
+			preload: path.resolve(__dirname, './preload.js'),
+			sandbox: true
 		}
 	});
 	mainWindow.loadURL(
@@ -60,11 +63,15 @@ async function createWindow() {
 export async function initApp() {
 	try {
 		await initLocales();
+		await initStoryDirectory();
 		await createStoryDirectory();
 		await backupStoryDirectory();
 		setInterval(backupStoryDirectory, 1000 * 60 * 20);
 		initIpc();
 		initMenuBar();
+		app.on('will-quit', async () => {
+			await cleanScratchDirectory();
+		});
 		createWindow();
 	} catch (error) {
 		// Not localized because that may be the cause of the error.

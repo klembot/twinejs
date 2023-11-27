@@ -42,8 +42,9 @@ _library_ for short.
 
 If you're using browser Twine, the library is stored invisibly in your browser's
 storage. However, if you're using app Twine, you'll find your library in a
-folder named Twine in your documents folder. Or use the _Show Story Library_
+folder named _Twine_ in your documents folder. Or use the _Show Story Library_
 menu item in the _View_ menu of Twine's main menu bar (not the top toolbar).
+[This location can be changed](../story-library/location.md).
 
 Your library belongs to just you, regardless of whether you're using app or
 browser Twine. You can't share it directly with other people, but you can
@@ -76,7 +77,7 @@ for others.
 
 Twine includes four story formats when you download it, and it is possible to
 [add other story formats](../story-formats/adding.md) that people in the
-community have made. 
+community have made.
 
 - [**Chapbook**](https://klembot.github.io/chapbook/) is the youngest story
   format. It's designed to be easy to learn and to make many common tasks people

@@ -1,6 +1,6 @@
 import {Thunk} from 'react-hook-thunk-reducer';
 import {Color} from '../../util/color';
-import {StoryFormat} from '../story-formats';
+import {StoryFormat} from '../story-formats/story-formats.types';
 
 /**
  * A single passage in a story.

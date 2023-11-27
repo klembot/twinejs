@@ -1,8 +1,8 @@
 import {app, ipcMain} from 'electron';
 import {initIpc} from '../ipc';
 import {loadPrefs} from '../prefs';
-import {openWithTempFile} from '../open-with-temp-file';
 import {saveJsonFile} from '../json-file';
+import {openWithScratchFile} from '../scratch-file';
 import {
 	deleteStory,
 	loadStories,
@@ -15,7 +15,7 @@ import {loadStoryFormats} from '../story-formats';
 
 jest.mock('../json-file');
 jest.mock('../prefs');
-jest.mock('../open-with-temp-file');
+jest.mock('../scratch-file');
 jest.mock('../story-file');
 jest.mock('../story-formats');
 
@@ -27,7 +27,7 @@ describe('initIpc()', () => {
 	const loadStoryFormatsMock = loadStoryFormats as jest.Mock;
 	const onMock = ipcMain.on as jest.Mock;
 	const appOnMock = app.on as jest.Mock;
-	const openWithTempFileMock = openWithTempFile as jest.Mock;
+	const openWithScratchFileMock = openWithScratchFile as jest.Mock;
 	const renameStoryMock = renameStory as jest.Mock;
 	const saveJsonFileMock = saveJsonFile as jest.Mock;
 	const saveStoryHtmlMock = saveStoryHtml as jest.Mock;
@@ -133,16 +133,16 @@ describe('initIpc()', () => {
 		});
 	});
 
-	it('adds a listener for open-with-temp-files events that calls openWithTempFile()', async () => {
+	it('adds a listener for open-with-scratch-file events that calls openWithScratchFile()', async () => {
 		const listener = onMock.mock.calls.find(
-			call => call[0] === 'open-with-temp-file'
+			call => call[0] === 'open-with-scratch-file'
 		);
 
 		expect(listener).not.toBeUndefined();
-		listener[1]({}, 'test-file-contents', 'test-file-suffix');
-		expect(openWithTempFileMock).toBeCalledWith(
+		listener[1]({}, 'test-file-contents', 'test-filename');
+		expect(openWithScratchFileMock).toBeCalledWith(
 			'test-file-contents',
-			'test-file-suffix'
+			'test-filename'
 		);
 	});
 

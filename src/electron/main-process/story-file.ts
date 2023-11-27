@@ -10,7 +10,7 @@ import {
 } from 'fs-extra';
 import {basename, join} from 'path';
 import {i18n} from './locales';
-import {storyDirectoryPath} from './story-directory';
+import {getStoryDirectoryPath} from './story-directory';
 import {Story} from '../../store/stories/stories.types';
 import {storyFileName} from '../shared/story-filename';
 import {
@@ -29,7 +29,7 @@ export interface StoryFile {
  * story directory. Each string corresponds to an individual story.
  */
 export async function loadStories() {
-	const storyPath = storyDirectoryPath();
+	const storyPath = getStoryDirectoryPath();
 	const result: StoryFile[] = [];
 	const files = await readdir(storyPath);
 
@@ -61,7 +61,7 @@ export async function saveStoryHtml(story: Story, storyHtml: string) {
 	// We save to a temp file first, then overwrite the existing if that succeeds,
 	// so that if any step fails, the original file is left intact.
 
-	const savedFilePath = join(storyDirectoryPath(), storyFileName(story));
+	const savedFilePath = join(getStoryDirectoryPath(), storyFileName(story));
 
 	console.log(`Saving ${savedFilePath}`);
 
@@ -109,7 +109,7 @@ export async function saveStoryHtml(story: Story, storyHtml: string) {
  */
 export async function deleteStory(story: Story) {
 	try {
-		const deletedFilePath = join(storyDirectoryPath(), storyFileName(story));
+		const deletedFilePath = join(getStoryDirectoryPath(), storyFileName(story));
 
 		console.log(`Trashing ${deletedFilePath}`);
 		await shell.trashItem(deletedFilePath);
@@ -127,7 +127,7 @@ export async function deleteStory(story: Story) {
  */
 export async function renameStory(oldStory: Story, newStory: Story) {
 	try {
-		const storyPath = storyDirectoryPath();
+		const storyPath = getStoryDirectoryPath();
 		const newStoryPath = join(storyPath, storyFileName(newStory));
 		const oldStoryPath = join(storyPath, storyFileName(oldStory));
 

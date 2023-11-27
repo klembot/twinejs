@@ -7,7 +7,7 @@ import {CheckboxButton} from '../components/control/checkbox-button';
 import {CodeArea} from '../components/control/code-area';
 import {IconButton} from '../components/control/icon-button';
 import {
-	highlightPassagesMatchingSearch,
+	highlightPassages,
 	passagesMatchingSearch,
 	replaceInStory,
 	storyWithId,
@@ -24,36 +24,31 @@ const ignoreTab: any = {
 	'Shift-Tab': false
 };
 
+// We put as much state as possible into props so that if the dialog switches
+// position and is re-rendered as a new component, nothing is lost.
+
 export interface StorySearchDialogProps extends DialogComponentProps {
+	find: string;
+	flags: StorySearchFlags;
+	replace: string;
 	storyId: string;
 }
 
 export const StorySearchDialog: React.FC<StorySearchDialogProps> = props => {
-	const {storyId, onClose, ...other} = props;
-	const [flags, setFlags] = React.useState<StorySearchFlags>({
-		includePassageNames: true,
-		matchCase: false,
-		useRegexes: false
-	});
-	const [replace, setReplace] = React.useState('');
-	const [find, setFind] = React.useState('');
-	const [debouncedFind, setDebouncedFind] = React.useState('');
+	const {find, flags, replace, storyId, onClose, onChangeProps, ...other} =
+		props;
 	const closingRef = React.useRef(false);
-	const updateDebouncedFind = React.useMemo(
-		() =>
-			debounce(
-				(value: string) => {
-					setDebouncedFind(value);
-				},
-				250,
-				{leading: false, trailing: true}
-			),
-		[]
-	);
 	const {dispatch, stories} = useUndoableStoriesContext();
 	const {t} = useTranslation();
 	const story = storyWithId(stories, storyId);
-	const matches = passagesMatchingSearch(story.passages, find, flags);
+	const matches = React.useMemo(
+		() => passagesMatchingSearch(story.passages, find, flags).map(({id}) => id),
+		[find, flags, story.passages]
+	);
+	const debouncedDispatch = React.useMemo(
+		() => debounce(dispatch, 250, {leading: false, trailing: true}),
+		[dispatch]
+	);
 
 	React.useEffect(() => {
 		// If we are in the process of closing, don't dispatch any highlight
@@ -61,17 +56,29 @@ export const StorySearchDialog: React.FC<StorySearchDialogProps> = props => {
 		// handleClose.
 
 		if (!closingRef.current) {
-			dispatch(highlightPassagesMatchingSearch(story, debouncedFind, flags));
+			debouncedDispatch(highlightPassages(story, matches));
 		}
 
 		// This doesn't return a cleanup function--cleanup occurs in handleClose
 		// instead. This is safe because we know this effect will only ever change
 		// highlight status of passages.
-	}, [debouncedFind, dispatch, flags, story]);
+	}, [debouncedDispatch, matches, story]);
+
+	function patchProps(props: Partial<StorySearchDialogProps>) {
+		// Only patch relevant props--the management props will always be
+		// overwritten.
+
+		onChangeProps({
+			storyId,
+			find: props.find ?? find,
+			flags: props.flags ?? flags,
+			replace: props.replace ?? replace
+		});
+	}
 
 	function handleClose() {
 		closingRef.current = true;
-		dispatch(highlightPassagesMatchingSearch(story, '', {}));
+		dispatch(highlightPassages(story, []));
 		onClose();
 	}
 
@@ -80,7 +87,7 @@ export const StorySearchDialog: React.FC<StorySearchDialogProps> = props => {
 		data: CodeMirror.EditorChange,
 		text: string
 	) {
-		setReplace(text);
+		patchProps({replace: text});
 	}
 
 	function handleSearchForChange(
@@ -88,8 +95,7 @@ export const StorySearchDialog: React.FC<StorySearchDialogProps> = props => {
 		data: CodeMirror.EditorChange,
 		text: string
 	) {
-		setFind(text);
-		updateDebouncedFind(text);
+		patchProps({find: text});
 	}
 
 	function handleReplace() {
@@ -100,7 +106,7 @@ export const StorySearchDialog: React.FC<StorySearchDialogProps> = props => {
 	}
 
 	function toggleFlag(name: keyof StorySearchFlags) {
-		setFlags(flags => ({...flags, [name]: !flags[name]}));
+		patchProps({flags: {...flags, [name]: !flags[name]}});
 	}
 
 	return (

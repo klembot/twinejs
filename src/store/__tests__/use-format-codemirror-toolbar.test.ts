@@ -1,6 +1,5 @@
 import {renderHook} from '@testing-library/react-hooks';
 import CodeMirror from 'codemirror';
-import {version as twineVersion} from '../../../package.json';
 import {
 	fakeLoadedStoryFormat,
 	fakePrefs,
@@ -18,6 +17,7 @@ jest.mock('codemirror');
 jest.mock('../prefs/prefs-context');
 jest.mock('../story-formats/story-formats-context');
 jest.mock('../story-formats/action-creators');
+jest.mock('../../util/app-info');
 jest.mock('../../util/story-format/namespace');
 
 describe('useFormatCodeMirrorToolbar()', () => {
@@ -76,7 +76,7 @@ describe('useFormatCodeMirrorToolbar()', () => {
 				format.version = '1.2.3';
 				(format as any).properties.editorExtensions = {
 					twine: {
-						[twineVersion]: {
+						'2.0.0': {
 							codeMirror: {
 								commands: mockCommands,
 								toolbar: mockToolbarFunction
@@ -125,8 +125,10 @@ describe('useFormatCodeMirrorToolbar()', () => {
 				});
 
 				it("namespaces command names in the toolbar function's return value", () => {
-					((format as any).properties.editorExtensions.twine[twineVersion]
-						.codeMirror.toolbar as jest.Mock).mockReturnValue([
+					(
+						(format as any).properties.editorExtensions.twine['2.0.0']
+							.codeMirror.toolbar as jest.Mock
+					).mockReturnValue([
 						{type: 'button', command: 'mockCommand'},
 						{type: 'menu', items: [{type: 'button', command: 'mockCommand2'}]}
 					]);
@@ -147,8 +149,10 @@ describe('useFormatCodeMirrorToolbar()', () => {
 				});
 
 				it('ignores submenus', () => {
-					((format as any).properties.editorExtensions.twine[twineVersion]
-						.codeMirror.toolbar as jest.Mock).mockReturnValue([
+					(
+						(format as any).properties.editorExtensions.twine['2.0.0']
+							.codeMirror.toolbar as jest.Mock
+					).mockReturnValue([
 						{
 							type: 'menu',
 							items: [
@@ -170,10 +174,10 @@ describe('useFormatCodeMirrorToolbar()', () => {
 				});
 
 				it('ignores separators outside of a menu', () => {
-					((format as any).properties.editorExtensions.twine[twineVersion]
-						.codeMirror.toolbar as jest.Mock).mockReturnValue([
-						{type: 'separator'}
-					]);
+					(
+						(format as any).properties.editorExtensions.twine['2.0.0']
+							.codeMirror.toolbar as jest.Mock
+					).mockReturnValue([{type: 'separator'}]);
 
 					const {result} = renderHook(() =>
 						useFormatCodeMirrorToolbar(format.name, format.version)

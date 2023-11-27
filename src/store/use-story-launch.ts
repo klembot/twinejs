@@ -22,29 +22,28 @@ export function useStoryLaunch(): UseStoryLaunchProps {
 			throw new Error('Electron bridge is not present on window.');
 		}
 
+		// These are async to match the type in the browser context.
+
 		return {
 			playStory: async storyId => {
-				twineElectron.ipcRenderer.send(
-					'open-with-temp-file',
+				twineElectron.openWithScratchFile(
 					await publishStory(storyId),
-					'.html'
+					`play-${storyId}.html`
 				);
 			},
 			proofStory: async storyId => {
-				twineElectron.ipcRenderer.send(
-					'open-with-temp-file',
+				twineElectron.openWithScratchFile(
 					await proofStory(storyId),
-					'.html'
+					`proof-${storyId}.html`
 				);
 			},
 			testStory: async (storyId, startPassageId) => {
-				twineElectron.ipcRenderer.send(
-					'open-with-temp-file',
+				twineElectron.openWithScratchFile(
 					await publishStory(storyId, {
 						formatOptions: 'debug',
 						startId: startPassageId
 					}),
-					'.html'
+					`test-${storyId}.html`
 				);
 			}
 		};
