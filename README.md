@@ -16,6 +16,13 @@ repositories:
 -   [Snowman](https://github.com/klembot/snowman)
 -   [SugarCube](https://github.com/tmedwards/sugarcube-2)
 
+#### BUILDS
+
+Binary packages for Twine are available on the
+[Releases](https://github.com/klembot/twinejs/releases) tab for Windows, MacOS
+and Linux. Community-created builds exist on other platforms, such as the Snap
+Store or Arch User Repository. As always, only install from sources you trust.
+
 ### INSTALL
 
 Run `npm install` at the top level of the directory to install all goodies.
