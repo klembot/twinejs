@@ -52,7 +52,7 @@
 		"segseg": "^1.0.0",
 		"semver": "^7.3.4",
 		"tiny-uuid": "^1.0.0",
-		"ua-parser-js": "^0.7.28",
+		"ua-parser-js": "^0.7.33",
 		"use-error-boundary": "^2.0.6"
 	},
 	"devDependencies": {
