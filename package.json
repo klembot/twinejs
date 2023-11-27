@@ -57,7 +57,7 @@
 	},
 	"devDependencies": {
 		"@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-		"@electron/notarize": "^1.2.3",
+		"@electron/notarize": "^2.1.0",
 		"@playwright/test": "^1.27.1",
 		"@testing-library/jest-dom": "^5.11.4",
 		"@testing-library/react": "^11.1.0",

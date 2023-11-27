@@ -50,6 +50,7 @@ build:
 - `APPLE_ID`: User name of the Apple account to use for notarization.
 - `APPLE_ID_PASSWORD`: App-specific password for the Apple account to use for
   notarization.
+- `APPLE_TEAM_ID`: ID of the Apple team account to use for notarization.
 
 If any of these environment variables are not set, the build process will skip
 notarizing. This means users will need to right-click the application and open
