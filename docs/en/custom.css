@@ -31,3 +31,8 @@
 	font-family: var(--font-display);
 	font-weight: normal;
 }
+
+.content hr {
+	margin-bottom: 48px;
+	margin-top: 48px;
+}
