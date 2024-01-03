@@ -9,16 +9,23 @@ export function duplicateStory(
 	story: Story,
 	stories: Story[]
 ): CreateStoryAction {
+	const id = uuid();
+	
 	return {
 		type: 'createStory',
 		props: {
 			...story,
-			id: uuid(),
+			id,
 			ifid: uuid(),
 			name: unusedName(
 				story.name,
 				stories.map(story => story.name)
-			)
+			),
+			passages: story.passages.map(passage => ({
+				...passage,
+				id: uuid(),
+				story: id
+			}))
 		}
 	};
 }
