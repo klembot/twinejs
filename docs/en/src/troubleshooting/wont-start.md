@@ -1,5 +1,7 @@
 # If Twine Won't Start
 
+This page only applies to app Twine.
+
 If Twine shows an error message when first starting and immediately quits, it's
 most likely because it is having trouble loading either your preferences or
 stories. Twine tries its best to repair problems it finds in saved files at
@@ -12,6 +14,44 @@ There are a few steps you can take that may fix this problem:
    Add them back in one-by-one, launching Twine each time. If Twine won't start
    when you add back a story, that story is the source of the problem.
 3. Reinstall Twine.
+
+## Getting More Detail on Startup Problems
+
+Twine logs information as it starts up and works that is not normally visible.
+If you're having problems, though, these logs might tell you more about the
+source of the problem. To see them, you'll need to start Twine from the command
+line. Once you've started Twine from the command line, you'll see Twine's logs
+in that window.
+
+### Linux
+
+How to do this depends on the distribution of Linux you use. In a desktop
+environment, you will need to start a terminal session. Gnome and KDE have apps
+(called "Gnome Terminal" and "Konsole") to do this.
+
+Once you've started a terminal session, you'll need to run Twine from wherever
+it was installed. Unfortunately, this varies by distribution as well.
+
+### MacOS
+
+Open your Applications folder, then the Utilities folder. Open Terminal in this
+folder, then type the following into the window that appears and press the Enter
+key:
+
+`/Applications/Twine.app/Contents/MacOS/Twine`
+
+### Windows
+
+Open the Start menu, then run the Command Prompt application. This will open a
+window. After it's opened, open the Start menu again and locate Twine, but
+right-click on it instead of opening the entry. Choose the _Open file location_
+option from the context menu. This will open a folder containing the Twine icon.
+Right-click this icon and choose _Copy as path_ from the context menu.
+
+Finally, go back to the Command Prompt window and right-click inside the window.
+This will paste the location of Twine into the window. If you've copied the path
+correctly, what you have pasted should end with `Twine.exe`. Don't edit what was
+pasted; only press the Enter key to launch Twine.
 
 ## Resetting Preferences in Browser Twine
 
