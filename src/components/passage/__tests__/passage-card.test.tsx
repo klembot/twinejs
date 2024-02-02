@@ -6,7 +6,7 @@ import {fakePassage} from '../../../test-util';
 import {passageIsEmpty} from '../../../util/passage-is-empty';
 import {PassageCard, PassageCardProps} from '../passage-card';
 
-jest.mock('../../tag/tag-stripe');
+jest.mock('../../tag/tag-stripe'); 
 jest.mock('../../../util/passage-is-empty');
 
 describe('<PassageCard>', () => {
@@ -31,6 +31,15 @@ describe('<PassageCard>', () => {
 			/>
 		);
 	}
+
+	it('should have a data-tag attribute with space-separated tags', () => {
+		const tags = ['mock-tag-1', 'mock-tag-2'];
+		const passage = fakePassage({tags});
+		renderComponent({passage});
+		
+		const passageElement = screen.getByTestId('passage-card');
+		expect(passageElement).toHaveAttribute('data-tag', tags.join(' '));
+	});
 
 	it('displays the passage name', () => {
 		const passage = fakePassage();
