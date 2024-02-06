@@ -107,7 +107,7 @@ export const PassageCard: React.FC<PassageCardProps> = React.memo(props => {
 			onDrag={onDrag}
 			onStop={onDragStop}
 		>
-			<div className={className} ref={container} style={style} data-tag={passage.tags.join(' ')} data-testid='passage-card'>
+			<div className={className} ref={container} style={style} data-passage-tag={passage.tags.join(' ')}>
 				<SelectableCard
 					highlighted={passage.highlighted}
 					label={passage.name}
