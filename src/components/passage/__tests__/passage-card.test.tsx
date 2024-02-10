@@ -40,7 +40,7 @@ describe('<PassageCard>', () => {
 
 		// eslint-disable-next-line testing-library/no-node-access
 		const passageElement=document.querySelector('.passage-card')
-		expect(passageElement).toHaveAttribute('data-passage-tag', tags.join(' '));
+		expect(passageElement).toHaveAttribute('data-passage-tags', tags.join(' '));
 	});
 
 	it('should include data-passage-tag with an empty string when passage has no tags', () => {
@@ -49,7 +49,7 @@ describe('<PassageCard>', () => {
 
 		// eslint-disable-next-line testing-library/no-node-access
 		const passageElement=document.querySelector('.passage-card')
-		expect(passageElement).toHaveAttribute('data-passage-tag', '');
+		expect(passageElement).toHaveAttribute('data-passage-tags', '');
 	});
 
 	it('displays the passage name', () => {
