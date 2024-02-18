@@ -10,7 +10,12 @@ You can publish a story from both the _Story Library_ and _Story Map_ screens.
   tab.
 
 Twine will then ask you to choose a file name and location to save your
-published file.
+published file. The file name you choose doesn't affect the name of your story
+in its published form. In other words, if you publish a story named "My Best
+Story" in your library to a file named `my-worst-story.html`, the story will
+still show its title as "My Best Story" in a web browser. If you'd like to
+change the name of your story in its published form, [rename
+it](../editing-stories/renaming.html) before publishing.
 
 Some versions of the Safari web browser may instead open a browser tab with an
 address that begins with `blob://`. If this happens, choose _Save As_ from
