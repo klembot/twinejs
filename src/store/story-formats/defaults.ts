@@ -16,8 +16,8 @@ export const builtins = () => [
 	},
 	{
 		name: 'Harlowe',
-		url: 'story-formats/harlowe-3.3.8/format.js',
-		version: '3.3.8'
+		url: 'story-formats/harlowe-3.3.9/format.js',
+		version: '3.3.9'
 	},
 	{
 		name: 'Paperthin',
