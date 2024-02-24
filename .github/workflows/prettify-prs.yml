@@ -1,4 +1,4 @@
-name: Continuous Integration
+name: Prettify PRs
 
 on:
   pull_request:
