@@ -25,7 +25,7 @@ export const defaults = (): PrefsState => ({
 	},
 	storyFormat: {
 		name: 'Harlowe',
-		version: '3.3.8'
+		version: '3.3.9'
 	},
 	storyFormatListFilter: 'current',
 	storyListSort: 'name',
