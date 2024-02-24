@@ -3,6 +3,7 @@ name: Prettify PRs
 on:
   pull_request:
     branches: [develop]
+  workflow_dispatch:
 
 jobs:
   prettier:
