@@ -1,4 +1,4 @@
-import {orderBy} from 'lodash-es';
+import orderBy from 'lodash/orderBy';
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {MainContent} from '../../components/container/main-content';

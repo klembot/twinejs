@@ -1,5 +1,5 @@
 import uuid from 'tiny-uuid';
-import {sortBy} from 'lodash';
+import sortBy from 'lodash/sortBy';
 import {Passage, passageDefaults, Story, storyDefaults} from '../store/stories';
 import {unusedName} from './unused-name';
 

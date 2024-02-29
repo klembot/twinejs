@@ -1,4 +1,4 @@
-import {debounce} from 'lodash';
+import debounce from 'lodash/debounce';
 import * as React from 'react';
 import {useHotkeys} from 'react-hotkeys-hook';
 import {useTranslation} from 'react-i18next';

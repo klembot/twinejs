@@ -1,4 +1,4 @@
-import {debounce} from 'lodash';
+import debounce from 'lodash/debounce';
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {IconReplace} from '@tabler/icons';
