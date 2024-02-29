@@ -1,5 +1,5 @@
 import * as React from 'react';
-import isEqual from 'lodash/isEqual';
+import {isEqual} from 'lodash-es';
 import {DialogsAction, DialogsState} from '../dialogs.types';
 
 export const reducer: React.Reducer<DialogsState, DialogsAction> = (

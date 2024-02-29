@@ -11,6 +11,6 @@ module.exports = {
 	roots: ['<rootDir>/src'],
 	setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
 	testEnvironment: 'jest-environment-jsdom',
-	// segseg is an ESM-only module.
-	transformIgnorePatterns: ['node_modules/(?!(segseg)/)']
+	// lodash and segseg are ESM-only modules.
+	transformIgnorePatterns: ['node_modules/(?!(lodash-es|segseg)/)']
 };
