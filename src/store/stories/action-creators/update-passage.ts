@@ -1,4 +1,4 @@
-import {escapeRegExp} from 'lodash-es';
+import escapeRegExp from 'lodash/escapeRegExp';
 import {Thunk} from 'react-hook-thunk-reducer';
 import {storyWithId} from '../getters';
 import {Passage, StoriesAction, StoriesState, Story} from '../stories.types';

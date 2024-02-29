@@ -3,7 +3,7 @@ Parses passage text for links. Optionally, it returns internal links only --
 e.g. those pointing to other passages in a story, not to an external web site.
 */
 
-import {uniq} from 'lodash-es';
+import uniq from 'lodash/uniq';
 
 // The top level regular expression to catch links -- i.e. [[link]].
 const extractLinkTags = (text: string) => text.match(/\[\[.*?\]\]/g) || [];

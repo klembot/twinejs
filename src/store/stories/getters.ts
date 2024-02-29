@@ -1,5 +1,5 @@
 import Fuse from 'fuse.js';
-import {uniq} from 'lodash-es';
+import uniq from 'lodash/uniq';
 import {Passage, StorySearchFlags, Story} from './stories.types';
 import {createRegExp} from '../../util/regexp';
 import {parseLinks} from '../../util/parse-links';

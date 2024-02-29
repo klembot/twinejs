@@ -5,7 +5,7 @@
 // affects startup time in the Twine desktop app. This module moves data from
 // the filesystem into local storage, and the app can't begin until it's done.
 
-import {defaults} from 'lodash-es';
+import defaults from 'lodash/defaults';
 import uuid from 'tiny-uuid';
 import {passageDefaults, storyDefaults, Passage, Story} from '../store/stories';
 

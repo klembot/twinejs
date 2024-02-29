@@ -1,4 +1,4 @@
-import {escape} from 'lodash-es';
+import escape from 'lodash/escape';
 import * as publish from '../publish';
 import {AppInfo} from '../app-info';
 import {Passage, Story} from '../../store/stories';
