@@ -159,6 +159,22 @@ export function storyPassageTags(story: Story) {
 	).sort();
 }
 
+export function passageTagFrequencies(story: Story) {
+	const tagPassageCounts: { [key: string]: number } = {};
+  
+	story.passages.forEach(passage => {
+		if (passage.tags) {
+			passage.tags.forEach(tag=>{
+				if (!tagPassageCounts[tag]) {
+					tagPassageCounts[tag] = 1; 
+			  	} else {
+					tagPassageCounts[tag] += 1; 
+			  	}
+		})};
+	});
+	return tagPassageCounts;
+  }
+  
 export function storyStats(story: Story) {
 	const links = story.passages.reduce<string[]>(
 		(links, passage) => [
@@ -194,6 +210,20 @@ export function storyTags(stories: Story[]) {
 			return result;
 		}, new Set<string>())
 	).sort();
+}
+
+export function storyTagFrequencies(stories: Story[]) {
+    const tagFrequencies: {[key: string]: number} = {};
+
+    stories.forEach(story => {
+        if (story.tags) {
+            story.tags.forEach(tag => {
+                tagFrequencies[tag] = (tagFrequencies[tag] || 0) + 1;
+            });
+        }
+    });
+
+    return tagFrequencies;
 }
 
 export function storyWithId(stories: Story[], storyId: string) {

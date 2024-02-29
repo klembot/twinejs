@@ -11,12 +11,13 @@ export interface TagEditorProps {
 	allTags: string[];
 	color?: Color;
 	name: string;
+	count: number;
 	onChangeColor: (color: Color) => void;
 	onChangeName: (name: string) => void;
 }
 
 export const TagEditor: React.FC<TagEditorProps> = props => {
-	const {allTags, color, name, onChangeColor, onChangeName} = props;
+	const {allTags, color, name, count, onChangeColor, onChangeName} = props;
 	const [newName, setNewName] = React.useState(name);
 	const {t} = useTranslation();
 
@@ -52,6 +53,7 @@ export const TagEditor: React.FC<TagEditorProps> = props => {
 			>
 				{t('common.color')}
 			</TextSelect>
+			<span className="tag-count">{`${count} ${count > 1 ? 'passages' : 'passage'}`}</span>
 		</div>
 	);
 };

@@ -4,7 +4,11 @@
 .tag-editor {
 	display: grid;
 	grid-gap: var(--grid-size);
-	grid-template-columns: repeat(3, min-content);
+	grid-template-columns: repeat(4, min-content);
+	align-items: center;
+}
+.tag-count{
+	white-space: nowrap;
 }
 
 .tag-editor .tag-name {

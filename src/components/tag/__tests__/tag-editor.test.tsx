@@ -7,10 +7,12 @@ import {TagEditor, TagEditorProps} from '../tag-editor';
 describe('<TagEditor>', () => {
 	async function renderComponent(props?: Partial<TagEditorProps>) {
 		const tagName = lorem.word();
+		const mockCount = 1;
 		const result = render(
 			<TagEditor
 				allTags={[tagName]}
 				name={tagName}
+				count={mockCount}
 				onChangeColor={jest.fn()}
 				onChangeName={jest.fn()}
 				{...props}
@@ -25,6 +27,13 @@ describe('<TagEditor>', () => {
 		await renderComponent({name: 'test name'});
 		expect(screen.getByText('test name')).toBeInTheDocument();
 	});
+	it('displays the frequency of the tag', async() => {
+		await renderComponent({ count: 1});
+		expect(screen.getByText('1 passage')).toBeInTheDocument();
+
+		await renderComponent({ count: 2});
+		expect(screen.getByText('2 passages')).toBeInTheDocument();
+	})
 
 	it('calls the onChangeColor prop when the color is changed', async () => {
 		const onChangeColor = jest.fn();
