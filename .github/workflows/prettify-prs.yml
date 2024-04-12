@@ -20,4 +20,5 @@ jobs:
       - name: Prettify code
         uses: creyD/prettier_action@v4.3
         with:
-          only_changed: True
+          commit_message: Prettify code
+          only_changed: true
