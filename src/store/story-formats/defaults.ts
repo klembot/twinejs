@@ -5,6 +5,11 @@ export const builtins = () => [
 		version: '1.2.3'
 	},
 	{
+		name: 'Chapbook',
+		url: 'story-formats/chapbook-2.1.0/format.js',
+		version: '2.1.0'
+	},
+	{
 		name: 'Harlowe',
 		url: 'story-formats/harlowe-1.2.4/format.js',
 		version: '1.2.4'
