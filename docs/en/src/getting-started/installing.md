@@ -36,6 +36,12 @@ site data."
 Keeping backups regularly is a must if you use browser Twine. See [Archiving and
 Exporting Stories](../story-library/exporting.md) for how to do this.
 
+Browser Twine can be installed as a progressive web application (PWA). For
+information on how to do this, please check your browser's documentation. Using
+Twine as a PWA means that it will be available even when you don't have an
+network connection, but you should still keep regular backups, as PWAs are still
+subject to having their data being erased when clearing browsing data.
+
 ### iOS Browsers
 
 **If you want to use Twine on iOS, you must [add it your Home
