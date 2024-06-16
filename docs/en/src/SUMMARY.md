@@ -63,6 +63,7 @@
   - [If Your Story Is Damaged](troubleshooting/damaged-story.md)
   - [If You See Visual Glitches in Twine](troubleshooting/visual-glitches.md)
 - [Release Notes](release-notes/index.md)
+  - [2.9 versions](release-notes/2-9.md)
   - [2.8 Versions](release-notes/2-8.md)
   - [2.7 Versions](release-notes/2-7.md)
   - [2.6 Versions](release-notes/2-6.md)

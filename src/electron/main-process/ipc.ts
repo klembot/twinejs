@@ -1,5 +1,6 @@
 import {app, dialog, ipcMain} from 'electron';
-import {debounce, DebouncedFunc} from 'lodash';
+import debounce from 'lodash/debounce';
+import type {DebouncedFunc} from 'lodash';
 import {i18n} from './locales';
 import {saveJsonFile} from './json-file';
 import {

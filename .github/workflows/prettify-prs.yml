@@ -1,0 +1,24 @@
+name: Prettify PRs
+
+on:
+  pull_request:
+    branches: [develop]
+  workflow_dispatch:
+
+jobs:
+  prettier:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: ${{ github.head_ref }}
+          # Make sure the value of GITHUB_TOKEN will not be persisted in repo's config
+          persist-credentials: false
+      - name: Prettify code
+        uses: creyD/prettier_action@v4.3
+        with:
+          commit_message: Prettify code
+          only_changed: true

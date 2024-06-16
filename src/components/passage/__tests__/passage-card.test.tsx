@@ -5,6 +5,7 @@ import * as React from 'react';
 import {fakePassage} from '../../../test-util';
 import {passageIsEmpty} from '../../../util/passage-is-empty';
 import {PassageCard, PassageCardProps} from '../passage-card';
+import {lorem} from 'faker';
 
 jest.mock('../../tag/tag-stripe');
 jest.mock('../../../util/passage-is-empty');
@@ -31,6 +32,25 @@ describe('<PassageCard>', () => {
 			/>
 		);
 	}
+
+	it('should include data-passage-tag attribute with space-separated tags', () => {
+		const tags = [lorem.slug(), lorem.slug()];
+		const passage = fakePassage({tags});
+		renderComponent({passage});
+
+		// eslint-disable-next-line testing-library/no-node-access
+		const passageElement=document.querySelector('.passage-card')
+		expect(passageElement).toHaveAttribute('data-passage-tags', tags.join(' '));
+	});
+
+	it('should include data-passage-tag with an empty string when passage has no tags', () => {
+		const passage = fakePassage({tags:[]});
+		renderComponent({passage});
+
+		// eslint-disable-next-line testing-library/no-node-access
+		const passageElement=document.querySelector('.passage-card')
+		expect(passageElement).toHaveAttribute('data-passage-tags', '');
+	});
 
 	it('displays the passage name', () => {
 		const passage = fakePassage();

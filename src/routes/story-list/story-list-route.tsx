@@ -1,4 +1,4 @@
-import sortBy from 'lodash/sortBy';
+import orderBy from 'lodash/orderBy';
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {MainContent} from '../../components/container/main-content';
@@ -43,9 +43,9 @@ export const InnerStoryListRoute: React.FC = () => {
 
 		switch (prefs.storyListSort) {
 			case 'date':
-				return sortBy(filteredStories, 'lastUpdated');
+				return orderBy(filteredStories, ['lastUpdate'], ['desc']);
 			case 'name':
-				return sortBy(filteredStories, 'name');
+				return orderBy(filteredStories, 'name');
 		}
 	}, [prefs.storyListSort, prefs.storyListTagFilter, stories]);
 

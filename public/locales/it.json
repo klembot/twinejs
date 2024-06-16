@@ -24,7 +24,7 @@
 		"indentButtons": {},
 		"localStorageQuota": {},
 		"passageCard": {
-			"placeholderClick": "Clicca due colte questo passaggio per modificarlo",
+			"placeholderClick": "Clicca due volte questo passaggio per modificarlo",
 			"placeholderTouch": "Tappa questo passaggio, dopodiché l’icona della matita per modificarlo."
 		},
 		"renamePassageButton": {"emptyName": "Inserisci un nome."},
