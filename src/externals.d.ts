@@ -1,7 +1,5 @@
 // Packages we use but don't have types.
 
-declare module 'focus-visible' {}
-
 declare module 'segseg' {
 	// See https://github.com/tmpvar/segseg/blob/master/index.js
 
