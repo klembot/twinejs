@@ -1,5 +1,4 @@
 import {IconTrash} from '@tabler/icons';
-import 'element-closest';
 import * as React from 'react';
 import {useHotkeys} from 'react-hotkeys-hook';
 import {useTranslation} from 'react-i18next';
