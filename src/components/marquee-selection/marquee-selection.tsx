@@ -1,5 +1,4 @@
 import * as React from 'react';
-import 'element-closest';
 import {rectFromPoints, Point, Rect} from '../../util/geometry';
 import './marquee-selection.css';
 

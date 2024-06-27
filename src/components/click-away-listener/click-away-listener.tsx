@@ -1,5 +1,4 @@
 import * as React from 'react';
-import 'element-closest';
 
 export interface ClickAwayListenerProps {
 	ignoreSelector?: string;
