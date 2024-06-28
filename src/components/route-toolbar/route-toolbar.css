@@ -44,6 +44,10 @@
 	transition: background 0.3s;
 }
 
+.route-toolbar .route-toolbar-tab:focus {
+	outline: none;
+}
+
 .route-toolbar .route-toolbar-tab:hover {
 	background: var(--light-gray-translucent);
 }
