@@ -1,5 +1,5 @@
+import {faker} from '@faker-js/faker';
 import {render, screen} from '@testing-library/react';
-import {lorem} from 'faker';
 import {axe} from 'jest-axe';
 import * as React from 'react';
 import {TagStripe, TagStripeProps} from '../tag-stripe';
@@ -7,7 +7,7 @@ import {TagStripe, TagStripeProps} from '../tag-stripe';
 describe('<TagStripe>', () => {
 	function renderComponent(props?: Partial<TagStripeProps>) {
 		return render(
-			<TagStripe tagColors={{}} tags={[lorem.word()]} {...props} />
+			<TagStripe tagColors={{}} tags={[faker.lorem.word()]} {...props} />
 		);
 	}
 

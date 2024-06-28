@@ -7,6 +7,11 @@ import 'jest-canvas-mock';
 
 jest.mock('./util/i18n');
 
+// Mock this component so that we don't get spurious errors around needing
+// focusable elements, because often we're mocking contents.
+
+jest.mock('focus-trap-react');
+
 configure({asyncUtilTimeout: 5000});
 
 expect.extend(toHaveNoViolations);

@@ -1,5 +1,5 @@
+import {faker} from '@faker-js/faker';
 import {fireEvent, render, screen} from '@testing-library/react';
-import {lorem} from 'faker';
 import {axe} from 'jest-axe';
 import * as React from 'react';
 import {WelcomeCard, WelcomeCardProps} from '../welcome-card';
@@ -8,11 +8,11 @@ describe('<WelcomeCard>', () => {
 	function renderComponent(props?: Partial<WelcomeCardProps>) {
 		return render(
 			<WelcomeCard
-				nextLabel={lorem.words(3)}
+				nextLabel={faker.lorem.words(3)}
 				onNext={jest.fn()}
 				onSkip={jest.fn()}
 				showSkip={false}
-				title={lorem.words(5)}
+				title={faker.lorem.words(5)}
 				{...props}
 			>
 				mock-children
