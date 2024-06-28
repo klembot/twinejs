@@ -1,5 +1,5 @@
+import {faker} from '@faker-js/faker';
 import {act, fireEvent, render, screen} from '@testing-library/react';
-import {lorem} from 'faker';
 import {createMemoryHistory, MemoryHistory} from 'history';
 import {axe} from 'jest-axe';
 import * as React from 'react';
@@ -37,7 +37,7 @@ describe('<CreateStoryButton>', () => {
 	it('creates a new story when a valid name is entered and the create button is clicked', async () => {
 		const history = createMemoryHistory();
 		const prefs = fakePrefs();
-		const name = lorem.words(3);
+		const name = faker.lorem.words(3);
 
 		await renderComponent({prefs, stories: []}, history);
 		fireEvent.change(

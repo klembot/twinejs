@@ -1,4 +1,4 @@
-import {random} from 'faker';
+import {faker} from '@faker-js/faker';
 import {Passage} from '../../store/stories';
 import {fakePassage} from '../../test-util';
 import {passageIsEmpty} from '../passage-is-empty';
@@ -12,13 +12,20 @@ describe('passageIsEmpty', () => {
 
 	it('returns false if the passage has any text', () => {
 		expect(passageIsEmpty({...passage, text: ' '})).toBe(false);
-		expect(passageIsEmpty({...passage, text: random.words(1)})).toBe(false);
+		expect(passageIsEmpty({...passage, text: faker.lorem.words(1)})).toBe(
+			false
+		);
 	});
 
 	it('returns false if the passage has any tags', () => {
-		expect(passageIsEmpty({...passage, tags: [random.words(1)]})).toBe(false);
+		expect(passageIsEmpty({...passage, tags: [faker.lorem.words(1)]})).toBe(
+			false
+		);
 		expect(
-			passageIsEmpty({...passage, tags: [random.words(1), random.words(1)]})
+			passageIsEmpty({
+				...passage,
+				tags: [faker.lorem.words(1), faker.lorem.words(1)]
+			})
 		).toBe(false);
 	});
 
@@ -37,7 +44,7 @@ describe('passageIsEmpty', () => {
 			passageIsEmpty({
 				...passage,
 				height: 100,
-				name: random.words(5),
+				name: faker.lorem.words(5),
 				width: 100,
 				tags: [],
 				text: ''

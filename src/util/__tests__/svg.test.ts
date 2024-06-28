@@ -1,14 +1,14 @@
+import {faker} from '@faker-js/faker';
 import {arc} from '../svg';
-import {random} from 'faker';
 
 describe('arc', () => {
 	it('returns an SVG arc descriptor', () => {
-		const end = {left: random.number(), top: random.number()};
-		const largeArc = random.boolean();
-		const radius = {left: random.number(), top: random.number()};
-		const rotation = random.number();
-		const start = {left: random.number(), top: random.number()};
-		const sweep = random.boolean();
+		const end = {left: faker.number.int(), top: faker.number.int()};
+		const largeArc = faker.datatype.boolean();
+		const radius = {left: faker.number.int(), top: faker.number.int()};
+		const rotation = faker.number.int();
+		const start = {left: faker.number.int(), top: faker.number.int()};
+		const sweep = faker.datatype.boolean();
 
 		expect(arc({end, largeArc, radius, rotation, start, sweep})).toBe(
 			'M' +

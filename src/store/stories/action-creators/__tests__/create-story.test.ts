@@ -1,8 +1,8 @@
+import {faker} from '@faker-js/faker';
 import {createStory} from '../create-story';
 import {PrefsState} from '../../../prefs';
 import {Story} from '../../stories.types';
 import {fakePrefs, fakeStory} from '../../../../test-util';
-import {lorem} from 'faker';
 
 describe('createStory action creator', () => {
 	let dispatch: jest.Mock;
@@ -12,7 +12,7 @@ describe('createStory action creator', () => {
 
 	beforeEach(() => {
 		dispatch = jest.fn();
-		name = lorem.words(3);
+		name = faker.lorem.words(3);
 		prefs = fakePrefs();
 		stories = [fakeStory()];
 	});

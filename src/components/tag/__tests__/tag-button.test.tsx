@@ -1,5 +1,5 @@
+import {faker} from '@faker-js/faker';
 import {fireEvent, render, screen} from '@testing-library/react';
-import {lorem} from 'faker';
 import {axe} from 'jest-axe';
 import * as React from 'react';
 import {TagButton, TagButtonProps} from '../tag-button';
@@ -10,7 +10,7 @@ describe('<TagButton>', () => {
 	function renderComponent(props?: Partial<TagButtonProps>) {
 		return render(
 			<TagButton
-				name={lorem.word()}
+				name={faker.lorem.word()}
 				onChangeColor={jest.fn()}
 				onRemove={jest.fn()}
 				{...props}
