@@ -1,5 +1,6 @@
 import {render} from '@testing-library/react';
 import {axe} from 'jest-axe';
+import * as React from 'react';
 import {VisibleWhitespace, VisibleWhitespaceProps} from '../visible-whitespace';
 
 describe('<VisibleWhitespace>', () => {
@@ -8,7 +9,6 @@ describe('<VisibleWhitespace>', () => {
 	}
 
 	it('renders SVG images for each leading and trailing space in the value prop', () => {
-		/* eslint-disable testing-library/no-node-access */
 		renderComponent({value: ' \tvalue\t '});
 
 		const span = document.querySelector('.visible-whitespace');
@@ -20,12 +20,10 @@ describe('<VisibleWhitespace>', () => {
 		expect(span!.childNodes[2].textContent).toBe('value');
 		expect(span!.childNodes[3].nodeName).toBe('svg');
 		expect(span!.childNodes[4].nodeName).toBe('svg');
-		/* eslint-enable testing-library/no-node-access */
 	});
 
 	it("doesn't render SVG images for whitespace inside the value", () => {
 		renderComponent({value: 'val \tue'});
-		// eslint-disable-next-line testing-library/no-node-access
 		expect(document.body.querySelector('svg')).toBeNull();
 		expect(document.body).toHaveTextContent('val ue');
 	});

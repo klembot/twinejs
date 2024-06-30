@@ -22,6 +22,7 @@ export interface PassageEditStackProps extends DialogComponentProps {
 }
 
 const InnerPassageEditStack: React.FC<PassageEditStackProps> = props => {
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const {onChangeProps, onClose, passageIds, storyId, ...managementProps} =
 		props;
 	const {dispatch} = useDialogsContext();

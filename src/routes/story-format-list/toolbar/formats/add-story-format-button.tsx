@@ -16,7 +16,9 @@ function isValidUrl(value: string) {
 	try {
 		new URL(value);
 		return true;
-	} catch (e) {}
+	} catch (e) {
+		/* empty */
+	}
 
 	return false;
 }
@@ -35,7 +37,7 @@ export const AddStoryFormatButton: React.FC = () => {
 		);
 	}
 
-	const validate: PromptButtonValidator = async (value: string) => {
+	const validate: PromptButtonValidator = async () => {
 		if (newFormatUrl.trim() === '') {
 			return {valid: false};
 		}

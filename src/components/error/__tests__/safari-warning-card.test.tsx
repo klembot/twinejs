@@ -1,4 +1,5 @@
 import {render} from '@testing-library/react';
+import * as React from 'react';
 import {SafariWarningCard} from '../safari-warning-card';
 
 describe('<SafariWarningCard>', () => {

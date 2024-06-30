@@ -17,7 +17,7 @@ export const reducer: React.Reducer<
 	UndoableStoriesAction
 > = (state, action) => {
 	switch (action.type) {
-		case 'addChange':
+		case 'addChange': {
 			const newChange: StoryChange = {
 				description: action.description,
 				redo: action.action,
@@ -38,6 +38,7 @@ export const reducer: React.Reducer<
 				changes: newChanges,
 				currentChange: newChanges.length - 1
 			};
+		}
 
 		case 'updateCurrent':
 			return {

@@ -17,7 +17,7 @@ export function save(state: StoryFormatsState) {
 
 	// Save new ones.
 
-	let ids: string[] = [];
+	const ids: string[] = [];
 
 	state.forEach(format => {
 		const id = uuid();

@@ -7,7 +7,7 @@ import {StoriesState, Story, UpdateStoryAction} from '../stories.types';
 export function deselectStory(
 	story: Story
 ): Thunk<StoriesState, UpdateStoryAction> {
-	return (dispatch, getState) => {
+	return dispatch => {
 		if (!story.selected) {
 			dispatch({
 				type: 'updateStory',

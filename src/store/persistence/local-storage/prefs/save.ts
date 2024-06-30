@@ -15,7 +15,7 @@ export function save(state: PrefsState) {
 
 	/* Save new ones. */
 
-	let ids: string[] = [];
+	const ids: string[] = [];
 
 	for (const name in state) {
 		const id = uuid();

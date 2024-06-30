@@ -19,7 +19,6 @@ describe('<StartConnection>', () => {
 
 	it('renders a <line> element', () => {
 		renderComponent();
-		// eslint-disable-next-line testing-library/no-node-access
 		expect(document.body.querySelector('line')).toBeInTheDocument();
 	});
 

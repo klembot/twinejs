@@ -12,7 +12,7 @@ export interface SafariNavigator extends Navigator {
 	standalone?: boolean;
 }
 
-export const SafariWarningCard: React.FC = props => {
+export const SafariWarningCard: React.FC = () => {
 	const {t} = useTranslation();
 	const browser = new UAParser().getBrowser();
 

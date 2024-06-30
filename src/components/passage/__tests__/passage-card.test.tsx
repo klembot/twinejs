@@ -38,7 +38,6 @@ describe('<PassageCard>', () => {
 		const passage = fakePassage({tags});
 		renderComponent({passage});
 
-		// eslint-disable-next-line testing-library/no-node-access
 		const passageElement = document.querySelector('.passage-card');
 		expect(passageElement).toHaveAttribute('data-passage-tags', tags.join(' '));
 	});
@@ -47,7 +46,6 @@ describe('<PassageCard>', () => {
 		const passage = fakePassage({tags: []});
 		renderComponent({passage});
 
-		// eslint-disable-next-line testing-library/no-node-access
 		const passageElement = document.querySelector('.passage-card');
 		expect(passageElement).toHaveAttribute('data-passage-tags', '');
 	});
@@ -69,7 +67,6 @@ describe('<PassageCard>', () => {
 	it("gives it an 'empty' CSS class if the passage is empty", () => {
 		passageIsEmptyMock.mockReturnValue(true);
 		renderComponent({passage: fakePassage()});
-		// eslint-disable-next-line testing-library/no-node-access
 		expect(document.querySelector('.passage-card.empty')).toBeInTheDocument();
 	});
 
@@ -77,7 +74,6 @@ describe('<PassageCard>', () => {
 		passageIsEmptyMock.mockReturnValue(false);
 		renderComponent({passage: fakePassage()});
 		expect(
-			// eslint-disable-next-line testing-library/no-node-access
 			document.querySelector('.passage-card.empty')
 		).not.toBeInTheDocument();
 	});
@@ -123,7 +119,6 @@ describe('<PassageCard>', () => {
 		renderComponent({passage});
 
 		const style = window.getComputedStyle(
-			// eslint-disable-next-line testing-library/no-node-access
 			document.querySelector('.passage-card')!
 		);
 

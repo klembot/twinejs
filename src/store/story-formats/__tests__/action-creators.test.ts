@@ -33,9 +33,9 @@ describe('createFromProperties', () => {
 
 	it('throws an error if there is no name or version in the properties', () => {
 		const fakeProps = fakeStoryFormatProperties();
-		let missingName: any = {...fakeProps};
-		let missingVersion: any = {...fakeProps};
-		let missingBoth: any = {...fakeProps};
+		const missingName: any = {...fakeProps};
+		const missingVersion: any = {...fakeProps};
+		const missingBoth: any = {...fakeProps};
 
 		delete missingName.name;
 		delete missingVersion.version;
@@ -92,7 +92,7 @@ describe('loadAllFormatProperties', () => {
 });
 
 describe('loadFormatProperties', () => {
-	let fetchPropertiesMock = fetchStoryFormatProperties as jest.Mock;
+	const fetchPropertiesMock = fetchStoryFormatProperties as jest.Mock;
 	let dispatch: jest.Mock;
 	let format: StoryFormat;
 
@@ -103,6 +103,7 @@ describe('loadFormatProperties', () => {
 	});
 
 	it('sets the format state to loading while properties are being fetched', () => {
+		// eslint-disable-next-line @typescript-eslint/no-empty-function
 		fetchPropertiesMock.mockImplementationOnce(() => new Promise(() => {}));
 		loadFormatProperties(format)(dispatch);
 		expect(dispatch.mock.calls).toEqual([

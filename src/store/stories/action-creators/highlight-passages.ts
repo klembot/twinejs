@@ -11,7 +11,7 @@ export function highlightPassages(
 	passageIds: string[]
 ): Thunk<StoriesState, UpdatePassagesAction> {
 	return dispatch => {
-		let passageUpdates: Record<string, Partial<Passage>> = {};
+		const passageUpdates: Record<string, Partial<Passage>> = {};
 
 		for (const passage of story.passages) {
 			const oldHighlighted = passage.highlighted;

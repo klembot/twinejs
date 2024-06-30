@@ -64,7 +64,7 @@ export function saveMiddleware(state: StoriesState, action: StoriesAction) {
 			break;
 		}
 
-		case 'createStory':
+		case 'createStory': {
 			if (!action.props.name) {
 				throw new Error('Story was created but with no name specified');
 			}
@@ -76,6 +76,7 @@ export function saveMiddleware(state: StoriesState, action: StoriesAction) {
 				story.passages.forEach(passage => savePassage(transaction, passage));
 			});
 			break;
+		}
 
 		case 'deletePassage': {
 			const story = storyWithId(state, action.storyId);

@@ -14,7 +14,7 @@ export const reducer: React.Reducer<StoryFormatsState, StoryFormatsAction> = (
 		case 'init':
 			return [...action.state];
 
-		case 'repair':
+		case 'repair': {
 			const builtinFormats = builtins();
 
 			// Filter out any outdated builtins.
@@ -59,6 +59,7 @@ export const reducer: React.Reducer<StoryFormatsState, StoryFormatsAction> = (
 				}
 			});
 			return result;
+		}
 
 		case 'create':
 			if (
