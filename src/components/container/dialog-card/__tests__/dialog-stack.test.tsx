@@ -11,9 +11,10 @@ describe('<DialogStack>', () => {
 	function renderComponent() {
 		return render(
 			<DialogStack
+				// eslint-disable-next-line react/no-children-prop
 				children={[
-					<TestChild testId="child1" />,
-					<TestChild testId="child2" />
+					<TestChild key="child1" testId="child1" />,
+					<TestChild key="child2" testId="child2" />
 				]}
 				childKeys={['child1', 'child2']}
 			/>

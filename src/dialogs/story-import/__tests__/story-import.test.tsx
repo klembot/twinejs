@@ -1,5 +1,6 @@
 import {fireEvent, render, screen, within} from '@testing-library/react';
 import {axe} from 'jest-axe';
+import * as React from 'react';
 import {Story} from '../../../store/stories';
 import {useStoriesRepair} from '../../../store/use-stories-repair';
 import {FakeStateProvider, fakeStory, StoryInspector} from '../../../test-util';

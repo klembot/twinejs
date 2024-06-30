@@ -80,7 +80,7 @@ export function rectIntersectionWithLine(
 	segmentStart: Point,
 	segmentEnd: Point
 ): Point | null {
-	let result: SegSegVector = [NaN, NaN];
+	const result: SegSegVector = [NaN, NaN];
 
 	// Left side.
 

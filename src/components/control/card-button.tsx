@@ -12,12 +12,6 @@ export interface CardButtonProps extends IconButtonProps {
 	 */
 	ariaLabel: string;
 	/**
-	 * CSS selector for the element inside the card that should be focused when it
-	 * is opened. Otherwise, the first text input or button in source order will
-	 * be focused.
-	 */
-	focusSelector?: string;
-	/**
 	 * Callback for when the open status of the card should change.
 	 */
 	onChangeOpen: (value: boolean) => void;
@@ -28,8 +22,7 @@ export interface CardButtonProps extends IconButtonProps {
 }
 
 export const CardButton: React.FC<CardButtonProps> = props => {
-	const {ariaLabel, children, focusSelector, onChangeOpen, open, ...other} =
-		props;
+	const {ariaLabel, children, onChangeOpen, open, ...other} = props;
 	const [buttonEl, setButtonEl] = React.useState<HTMLButtonElement | null>(
 		null
 	);

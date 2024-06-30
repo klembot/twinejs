@@ -29,6 +29,7 @@ describe('<MarqueeSelection>', () => {
 				ignoreEventsOnSelector="[data-testid='ignore-events']"
 				onSelectRect={onSelectRect}
 				onTemporarySelectRect={onTemporarySelectRect}
+				{...props}
 			/>
 		);
 		const marqueeContainer = screen.getByTestId('marquee-container');

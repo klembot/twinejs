@@ -23,7 +23,7 @@ contextBridge.exposeInMainWorld('twineElectron', {
 	loadStoryFormats() {
 		return ipcRenderer.invoke('load-story-formats');
 	},
-	onceStoryRenamed(callback: () => {}): void {
+	onceStoryRenamed(callback: () => void): void {
 		ipcRenderer.once('story-renamed', callback);
 	},
 	openWithScratchFile(data: string, filename: string) {

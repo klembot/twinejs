@@ -41,7 +41,6 @@ export const ConfirmButton: React.FC<ConfirmButtonProps> = props => {
 		<span className="confirm-button">
 			<CardButton
 				ariaLabel={prompt}
-				focusSelector="button:nth-child(2)"
 				onChangeOpen={setOpen}
 				open={open}
 				{...other}

@@ -11,6 +11,7 @@ import {ThemeSetter} from './store/theme-setter';
 import './styles/typography.css';
 
 export const App: React.FC = () => {
+	console.log('what');
 	return (
 		<GlobalErrorBoundary>
 			<PrefsContextProvider>

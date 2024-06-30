@@ -13,11 +13,11 @@ jest.mock('../save');
 
 describe('stories local storage save middleware', () => {
 	let state: StoriesState;
-	let deletePassageByIdMock = deletePassageById as jest.Mock;
-	let deleteStoryMock = deleteStory as jest.Mock;
-	let doUpdateTransactionMock = doUpdateTransaction as jest.Mock;
-	let savePassageMock = savePassage as jest.Mock;
-	let saveStoryMock = saveStory as jest.Mock;
+	const deletePassageByIdMock = deletePassageById as jest.Mock;
+	const deleteStoryMock = deleteStory as jest.Mock;
+	const doUpdateTransactionMock = doUpdateTransaction as jest.Mock;
+	const savePassageMock = savePassage as jest.Mock;
+	const saveStoryMock = saveStory as jest.Mock;
 	let warnSpy: jest.SpyInstance;
 
 	beforeEach(() => {

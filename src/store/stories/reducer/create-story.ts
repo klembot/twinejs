@@ -20,7 +20,7 @@ export function createStory(state: StoriesState, storyProps: Partial<Story>) {
 		return state;
 	}
 
-	let story: Story = {
+	const story: Story = {
 		id: uuid(),
 		...storyDefaults(),
 		ifid: uuid().toUpperCase(),

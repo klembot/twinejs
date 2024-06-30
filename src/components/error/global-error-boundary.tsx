@@ -12,7 +12,7 @@ export const GlobalErrorBoundary: React.FC = ({children}) => {
 		<div className="global-error-boundary">
 			<div>
 				<ErrorMessage>
-					<p>Something went wrong and Twine can't continue.</p>
+					<p>Something went wrong and Twine can’t continue.</p>
 					<p>Please try restarting Twine or reloading the page.</p>
 					<p>
 						If you see this message repeatedly, please{' '}

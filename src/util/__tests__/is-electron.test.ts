@@ -21,7 +21,7 @@ describe('isElectronRenderer', () => {
 });
 
 describe('isElectronMain', () => {
-	let prevElectronVersion = process.versions.electron;
+	const prevElectronVersion = process.versions.electron;
 
 	afterAll(() => ((process.versions.electron as any) = prevElectronVersion));
 

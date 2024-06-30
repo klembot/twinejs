@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {ThemeSetter} from '../theme-setter';
 import {render} from '@testing-library/react';
 import {useComputedTheme} from '../prefs/use-computed-theme';

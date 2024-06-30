@@ -1,4 +1,5 @@
 import {render, screen} from '@testing-library/react';
+import * as React from 'react';
 import {Story, useStoriesContext} from '../../../store/stories';
 import {fakeStory, FakeStateProvider, StoryInspector} from '../../../test-util';
 import {useInitialPassageCreation} from '../use-initial-passage-creation';

@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {
 	act,
 	fireEvent,
@@ -7,7 +8,6 @@ import {
 	within
 } from '@testing-library/react';
 import {axe} from 'jest-axe';
-import * as React from 'react';
 import {
 	fakeLoadedStoryFormat,
 	FakeStateProvider,
@@ -21,7 +21,6 @@ import {AddStoryFormatButton} from '../add-story-format-button';
 jest.mock('../../../../../util/story-format');
 
 const getAddButton = () =>
-	// eslint-disable-next-line testing-library/no-node-access
 	within(document.querySelector('.card-button-card')!).getByRole('button', {
 		name: 'common.add'
 	});

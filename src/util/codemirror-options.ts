@@ -9,7 +9,7 @@ export function codeMirrorOptionsFromPrefs(
 ): EditorConfiguration {
 	// Disable overstrike mode.
 
-	let result: EditorConfiguration = {
+	const result: EditorConfiguration = {
 		extraKeys: {
 			Insert() {}
 		}

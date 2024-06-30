@@ -14,4 +14,5 @@ export const isElectronRenderer = () =>
  * @see https://github.com/electron/electron/issues/2288#issuecomment-611231970
  */
 
+// eslint-disable-next-line no-prototype-builtins
 export const isElectronMain = () => process.versions.hasOwnProperty('electron');

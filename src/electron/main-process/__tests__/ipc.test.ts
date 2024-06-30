@@ -66,7 +66,7 @@ describe('initIpc()', () => {
 			const prefs = fakePrefs();
 			loadPrefsMock.mockReturnValue(prefs);
 
-			let listener = handleMock.mock.calls.find(
+			const listener = handleMock.mock.calls.find(
 				call => call[0] === 'load-prefs'
 			);
 
@@ -81,7 +81,7 @@ describe('initIpc()', () => {
 				throw new Error();
 			});
 
-			let listener = handleMock.mock.calls.find(
+			const listener = handleMock.mock.calls.find(
 				call => call[0] === 'load-prefs'
 			);
 
@@ -95,7 +95,7 @@ describe('initIpc()', () => {
 
 		loadStoriesMock.mockReturnValue(stories);
 
-		let listener = handleMock.mock.calls.find(
+		const listener = handleMock.mock.calls.find(
 			call => call[0] === 'load-stories'
 		);
 
@@ -109,7 +109,7 @@ describe('initIpc()', () => {
 
 			loadStoryFormatsMock.mockReturnValue(formats);
 
-			let listener = handleMock.mock.calls.find(
+			const listener = handleMock.mock.calls.find(
 				call => call[0] === 'load-story-formats'
 			);
 
@@ -124,7 +124,7 @@ describe('initIpc()', () => {
 				throw new Error();
 			});
 
-			let listener = handleMock.mock.calls.find(
+			const listener = handleMock.mock.calls.find(
 				call => call[0] === 'load-story-formats'
 			);
 

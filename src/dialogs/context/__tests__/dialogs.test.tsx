@@ -119,7 +119,6 @@ describe('<Dialogs>', () => {
 
 		renderComponent(undefined, {dialogWidth});
 		expect(
-			// eslint-disable-next-line testing-library/no-node-access
 			document.querySelector<HTMLDivElement>('.dialogs')?.style.paddingLeft
 		).toBe(`${dialogWidth}px`);
 	});

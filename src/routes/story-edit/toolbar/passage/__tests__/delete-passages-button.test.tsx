@@ -132,7 +132,6 @@ describe('<DeletePassagesButton>', () => {
 		});
 
 		it("doesn't delete passages when the Delete key is pressed", () => {
-			// eslint-disable-next-line testing-library/no-node-access
 			fireEvent.keyDown(document.querySelector('input[type="text"]')!, {
 				key: 'Delete',
 				code: 'Delete',
@@ -147,7 +146,6 @@ describe('<DeletePassagesButton>', () => {
 		});
 
 		it("doesn't delete passages when the Backspace key is pressed", () => {
-			// eslint-disable-next-line testing-library/no-node-access
 			fireEvent.keyDown(document.querySelector('input[type="text"]')!, {
 				key: 'Backspace',
 				code: 'Backspace',
@@ -175,7 +173,6 @@ describe('<DeletePassagesButton>', () => {
 		});
 
 		it("doesn't delete passages when the Delete key is pressed", () => {
-			// eslint-disable-next-line testing-library/no-node-access
 			fireEvent.keyDown(document.querySelector('textarea')!, {
 				key: 'Delete',
 				code: 'Delete',
@@ -190,7 +187,6 @@ describe('<DeletePassagesButton>', () => {
 		});
 
 		it("doesn't delete passages when the Backspace key is pressed", () => {
-			// eslint-disable-next-line testing-library/no-node-access
 			fireEvent.keyDown(document.querySelector('textarea')!, {
 				key: 'Backspace',
 				code: 'Backspace',
