@@ -1,4 +1,3 @@
-import uuid from 'tiny-uuid';
 import {builtins} from './defaults';
 import {
 	StoryFormat,
@@ -51,7 +50,7 @@ export const reducer: React.Reducer<StoryFormatsState, StoryFormatsAction> = (
 					);
 					result.push({
 						...builtinFormat,
-						id: uuid(),
+						id: window.crypto.randomUUID(),
 						loadState: 'unloaded',
 						selected: false,
 						userAdded: false
@@ -72,7 +71,10 @@ export const reducer: React.Reducer<StoryFormatsState, StoryFormatsAction> = (
 				return state;
 			}
 
-			return [...state, {...action.props, id: uuid(), loadState: 'unloaded'}];
+			return [
+				...state,
+				{...action.props, id: window.crypto.randomUUID(), loadState: 'unloaded'}
+			];
 
 		case 'delete':
 			return state.filter(f => f.id !== action.id);

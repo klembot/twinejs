@@ -1,4 +1,3 @@
-import uuid from 'tiny-uuid';
 import {passageDefaults} from '../defaults';
 import {Passage, Story, StoriesState} from '../stories.types';
 
@@ -35,7 +34,7 @@ export function createPassage(
 
 		const newPassage: Passage = {
 			...passageDefaults(),
-			id: uuid(),
+			id: window.crypto.randomUUID(),
 			...passageProps,
 			story: story.id
 		};

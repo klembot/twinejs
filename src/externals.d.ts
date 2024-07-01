@@ -13,7 +13,3 @@ declare module 'segseg' {
 		p4: SegSegVector
 	): boolean;
 }
-
-declare module 'tiny-uuid' {
-	export default function (): string;
-}
