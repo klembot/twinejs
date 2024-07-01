@@ -1,4 +1,3 @@
-import uuid from 'tiny-uuid';
 import {TwineElectronWindow} from '../../../../electron/shared';
 import {StoryFormatsState} from '../../../story-formats/story-formats.types';
 
@@ -16,7 +15,7 @@ export async function load(): Promise<StoryFormatsState> {
 	}
 
 	return storyFormats.map(data => ({
-		id: uuid(),
+		id: window.crypto.randomUUID(),
 		loadState: 'unloaded',
 		name: data.name,
 		selected: false,

@@ -1,4 +1,3 @@
-import uuid from 'tiny-uuid';
 import {PrefsState} from '../../../prefs';
 
 export function save(state: PrefsState) {
@@ -18,7 +17,7 @@ export function save(state: PrefsState) {
 	const ids: string[] = [];
 
 	for (const name in state) {
-		const id = uuid();
+		const id = window.crypto.randomUUID();
 
 		ids.push(id);
 		window.localStorage.setItem(
