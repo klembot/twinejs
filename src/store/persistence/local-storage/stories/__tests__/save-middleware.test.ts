@@ -400,6 +400,35 @@ describe('stories local storage save middleware', () => {
 			expect(saveStoryMock.mock.calls).toEqual([[transaction, state[0]]]);
 		});
 
+		it('deletes removed passages when the passages property is updated', () => {
+			const storyWithMultiplePassagesState = [fakeStory(2)];
+			const transaction = {passageIds: '', storyIds: ''};
+
+			// Need to run one action to set lastState.
+
+			saveMiddleware(storyWithMultiplePassagesState, {
+				type: 'init',
+				state: storyWithMultiplePassagesState
+			});
+			storyWithMultiplePassagesState[0].passages = [
+				storyWithMultiplePassagesState[0].passages[1]
+			];
+			saveMiddleware(storyWithMultiplePassagesState, {
+				type: 'updateStory',
+				props: {passages: [{...storyWithMultiplePassagesState[0].passages[1]}]},
+				storyId: storyWithMultiplePassagesState[0].id
+			});
+			expect(doUpdateTransactionMock).toHaveBeenCalledTimes(1);
+			doUpdateTransactionMock.mock.calls[0][0](transaction);
+			expect(saveStoryMock.mock.calls).toEqual([
+				[transaction, storyWithMultiplePassagesState[0]]
+			]);
+			expect(deletePassageByIdMock.mock.calls).toEqual([
+				[transaction, storyWithMultiplePassagesState[0].passages[0].id]
+			]);
+		});
+
+
 		it("throws an error if the story doesn't exist in state", () =>
 			expect(() =>
 				saveMiddleware(state, {
