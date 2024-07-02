@@ -12,5 +12,9 @@ module.exports = {
 	setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
 	testEnvironment: 'jest-environment-jsdom',
 	// segseg is a ESM-only module.
-	transformIgnorePatterns: ['node_modules/(?!segseg)']
+	transformIgnorePatterns: ['node_modules/(?!segseg)'],
+	watchPlugins: [
+		'jest-watch-typeahead/filename',
+		'jest-watch-typeahead/testname'
+	]
 };

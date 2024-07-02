@@ -50,7 +50,7 @@ export function saveMiddleware(state: StoriesState, action: StoriesAction) {
 
 			doUpdateTransaction(transaction => {
 				saveStory(transaction, story);
-				action.props.forEach(props => {
+				for (const props of action.props) {
 					if (!props.name) {
 						throw new Error('Passage was created but with no name specified');
 					}
@@ -59,7 +59,7 @@ export function saveMiddleware(state: StoriesState, action: StoriesAction) {
 						transaction,
 						passageWithName(state, story.id, props.name)
 					);
-				});
+				}
 			});
 			break;
 		}
@@ -73,7 +73,10 @@ export function saveMiddleware(state: StoriesState, action: StoriesAction) {
 
 			doUpdateTransaction(transaction => {
 				saveStory(transaction, story);
-				story.passages.forEach(passage => savePassage(transaction, passage));
+
+				for (const passage of story.passages) {
+					savePassage(transaction, passage);
+				}
 			});
 			break;
 		}
@@ -99,9 +102,10 @@ export function saveMiddleware(state: StoriesState, action: StoriesAction) {
 
 			doUpdateTransaction(transaction => {
 				saveStory(transaction, story);
-				action.passageIds.forEach(passageId =>
-					deletePassageById(transaction, passageId)
-				);
+
+				for (const passageId of action.passageIds) {
+					deletePassageById(transaction, passageId);
+				}
 			});
 			break;
 		}
@@ -115,9 +119,9 @@ export function saveMiddleware(state: StoriesState, action: StoriesAction) {
 			doUpdateTransaction(transaction => {
 				// We have to delete all passages, then the story itself.
 
-				story.passages.forEach(passage =>
-					deletePassageById(transaction, passage.id)
-				);
+				for (const passage of story.passages) {
+					deletePassageById(transaction, passage.id);
+				}
 
 				deleteStory(transaction, story);
 			});
@@ -142,16 +146,18 @@ export function saveMiddleware(state: StoriesState, action: StoriesAction) {
 
 			doUpdateTransaction(transaction => {
 				saveStory(transaction, story);
-				Object.keys(action.passageUpdates)
-					.filter(passageId =>
+
+				const passageIds = Object.keys(action.passageUpdates).filter(
+					passageId =>
 						isPersistablePassageChange(action.passageUpdates[passageId])
-					)
-					.forEach(passageId =>
-						savePassage(
-							transaction,
-							passageWithId(state, action.storyId, passageId)
-						)
+				);
+
+				for (const passageId of passageIds) {
+					savePassage(
+						transaction,
+						passageWithId(state, action.storyId, passageId)
 					);
+				}
 			});
 			break;
 		}
@@ -161,6 +167,20 @@ export function saveMiddleware(state: StoriesState, action: StoriesAction) {
 
 			doUpdateTransaction(transaction => {
 				saveStory(transaction, story);
+
+				// Special case: if the passages property is being set, we need to
+				// delete any passages there were in the story, but aren't anymore.
+
+				if (action.props.passages) {
+					const lastStory = storyWithId(lastState, action.storyId);
+
+					for (const passage of lastStory.passages) {
+						if (!action.props.passages.some(({id}) => id === passage.id)) {
+							deletePassageById(transaction, passage.id);
+						}
+					}
+				}
+
 				story.passages.forEach(passage => savePassage(transaction, passage));
 			});
 			break;
