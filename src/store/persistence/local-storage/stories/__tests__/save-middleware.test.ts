@@ -13,11 +13,11 @@ jest.mock('../save');
 
 describe('stories local storage save middleware', () => {
 	let state: StoriesState;
-	let deletePassageByIdMock = deletePassageById as jest.Mock;
-	let deleteStoryMock = deleteStory as jest.Mock;
-	let doUpdateTransactionMock = doUpdateTransaction as jest.Mock;
-	let savePassageMock = savePassage as jest.Mock;
-	let saveStoryMock = saveStory as jest.Mock;
+	const deletePassageByIdMock = deletePassageById as jest.Mock;
+	const deleteStoryMock = deleteStory as jest.Mock;
+	const doUpdateTransactionMock = doUpdateTransaction as jest.Mock;
+	const savePassageMock = savePassage as jest.Mock;
+	const saveStoryMock = saveStory as jest.Mock;
 	let warnSpy: jest.SpyInstance;
 
 	beforeEach(() => {
@@ -399,6 +399,35 @@ describe('stories local storage save middleware', () => {
 			]);
 			expect(saveStoryMock.mock.calls).toEqual([[transaction, state[0]]]);
 		});
+
+		it('deletes removed passages when the passages property is updated', () => {
+			const storyWithMultiplePassagesState = [fakeStory(2)];
+			const transaction = {passageIds: '', storyIds: ''};
+
+			// Need to run one action to set lastState.
+
+			saveMiddleware(storyWithMultiplePassagesState, {
+				type: 'init',
+				state: storyWithMultiplePassagesState
+			});
+			storyWithMultiplePassagesState[0].passages = [
+				storyWithMultiplePassagesState[0].passages[1]
+			];
+			saveMiddleware(storyWithMultiplePassagesState, {
+				type: 'updateStory',
+				props: {passages: [{...storyWithMultiplePassagesState[0].passages[1]}]},
+				storyId: storyWithMultiplePassagesState[0].id
+			});
+			expect(doUpdateTransactionMock).toHaveBeenCalledTimes(1);
+			doUpdateTransactionMock.mock.calls[0][0](transaction);
+			expect(saveStoryMock.mock.calls).toEqual([
+				[transaction, storyWithMultiplePassagesState[0]]
+			]);
+			expect(deletePassageByIdMock.mock.calls).toEqual([
+				[transaction, storyWithMultiplePassagesState[0].passages[0].id]
+			]);
+		});
+
 
 		it("throws an error if the story doesn't exist in state", () =>
 			expect(() =>

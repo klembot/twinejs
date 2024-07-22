@@ -1,11 +1,17 @@
 import {toHaveNoViolations} from 'jest-axe';
 import {configure} from '@testing-library/dom';
 import '@testing-library/jest-dom';
+import {faker} from '@faker-js/faker';
 import 'jest-canvas-mock';
 
 // Always mock these files so that Jest doesn't see import.meta.
 
 jest.mock('./util/i18n');
+
+// Mock this component so that we don't get spurious errors around needing
+// focusable elements, because often we're mocking contents.
+
+jest.mock('focus-trap-react');
 
 configure({asyncUtilTimeout: 5000});
 
@@ -44,6 +50,10 @@ afterEach(() => delete (window as any).matchMedia);
 		}
 	}
 };
+
+// ... and jsdom doesn't implement the crypto module, which we use to generate UUIDs.
+
+(window as any).crypto.randomUUID = () => faker.string.uuid();
 
 window.Element.prototype.releasePointerCapture = () => {};
 window.Element.prototype.setPointerCapture = () => {};

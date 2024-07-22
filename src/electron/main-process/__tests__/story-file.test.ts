@@ -69,7 +69,7 @@ describe('deleteStory', () => {
 
 	it('does not resolve until all async file operations have completed', async () => {
 		let resolveTrashItem = () => {};
-		let done = jest.fn();
+		const done = jest.fn();
 
 		trashItemMock.mockReturnValue(
 			new Promise<void>(resolve => (resolveTrashItem = resolve))
@@ -232,7 +232,7 @@ describe('loadStories', () => {
 		let resolveReaddir = () => {};
 		let resolveStat = () => {};
 		let resolveFileWasTouched = () => {};
-		let done = jest.fn();
+		const done = jest.fn();
 
 		readdirMock.mockReturnValue(
 			new Promise<string[]>(
@@ -317,7 +317,7 @@ describe('renameStory', () => {
 	it('does not resolve until all async file operations have finished', async () => {
 		let resolveRename = () => {};
 		let resolveFileWasTouched = () => {};
-		let done = jest.fn();
+		const done = jest.fn();
 
 		renameMock.mockReturnValue(
 			new Promise<void>(resolve => (resolveRename = resolve))
@@ -392,7 +392,7 @@ describe('saveStoryHtml()', () => {
 		let resolveWriteFile = () => {};
 		let resolveMove = () => {};
 		let resolveFileWasTouched = () => {};
-		let done = jest.fn();
+		const done = jest.fn();
 
 		mkdtempMock.mockReturnValue(
 			new Promise(resolve => (resolveMkdtemp = () => resolve('mock-temp-dir')))

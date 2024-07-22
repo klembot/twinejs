@@ -18,12 +18,16 @@ function isValidUrl(value: string) {
 	try {
 		new URL(value);
 		return true;
-	} catch (e) {}
+	} catch (e) {
+		/* empty */
+	}
 
 	return false;
 }
 
-export const AddStoryFormatButton: React.FC<AddStoryFormatButtonProps> = props => {
+export const AddStoryFormatButton: React.FC<
+	AddStoryFormatButtonProps
+> = props => {
 	const [newFormatUrl, setNewFormatUrl] = React.useState('');
 	const {t} = useTranslation();
 
@@ -35,11 +39,11 @@ export const AddStoryFormatButton: React.FC<AddStoryFormatButtonProps> = props =
 	}
 
 	const validate: PromptButtonValidator = async (value: string) => {
-		if (newFormatUrl.trim() === '') {
+		if (value.trim() === '') {
 			return {valid: false};
 		}
 
-		if (!isValidUrl(newFormatUrl)) {
+		if (!isValidUrl(value)) {
 			return {
 				message: t('components.addStoryFormatButton.invalidUrl'),
 				valid: false
@@ -47,7 +51,7 @@ export const AddStoryFormatButton: React.FC<AddStoryFormatButtonProps> = props =
 		}
 
 		try {
-			const properties = await fetchStoryFormatProperties(newFormatUrl);
+			const properties = await fetchStoryFormatProperties(value);
 
 			if (
 				props.existingFormats.some(

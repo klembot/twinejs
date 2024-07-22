@@ -1,4 +1,3 @@
-import uuid from 'tiny-uuid';
 import {passageDefaults, storyDefaults} from '../defaults';
 import {Story, StoriesState} from '../stories.types';
 
@@ -20,10 +19,10 @@ export function createStory(state: StoriesState, storyProps: Partial<Story>) {
 		return state;
 	}
 
-	let story: Story = {
-		id: uuid(),
+	const story: Story = {
+		id: window.crypto.randomUUID(),
 		...storyDefaults(),
-		ifid: uuid().toUpperCase(),
+		ifid: window.crypto.randomUUID().toUpperCase(),
 		lastUpdate: new Date(),
 		passages: [],
 		tags: [],

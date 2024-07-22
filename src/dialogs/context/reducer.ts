@@ -7,7 +7,7 @@ export const reducer: React.Reducer<DialogsState, DialogsAction> = (
 	action
 ) => {
 	switch (action.type) {
-		case 'addDialog':
+		case 'addDialog': {
 			// If the dialog has been previously added, expand and/or highlight it.
 			// Otherwise, add it to the end.
 
@@ -44,6 +44,7 @@ export const reducer: React.Reducer<DialogsState, DialogsAction> = (
 					props: action.props
 				}
 			];
+		}
 
 		case 'removeDialog':
 			return state.filter((dialog, index) => index !== action.index);

@@ -49,7 +49,7 @@ describe('initIpc()', () => {
 		it('calls deleteStory()', async () => {
 			expect(listener).not.toBeUndefined();
 			listener[1]({sender: {send: jest.fn()}}, story);
-			expect(deleteStoryMock).toBeCalledWith(story);
+			expect(deleteStoryMock).toHaveBeenCalledWith(story);
 		});
 
 		it('sends back a story-deleted event', async () => {
@@ -66,13 +66,13 @@ describe('initIpc()', () => {
 			const prefs = fakePrefs();
 			loadPrefsMock.mockReturnValue(prefs);
 
-			let listener = handleMock.mock.calls.find(
+			const listener = handleMock.mock.calls.find(
 				call => call[0] === 'load-prefs'
 			);
 
 			expect(listener).not.toBeUndefined();
 			expect(await listener[1]()).toEqual(prefs);
-			expect(loadPrefsMock).toBeCalledTimes(1);
+			expect(loadPrefsMock).toHaveBeenCalledTimes(1);
 		});
 
 		it('returns an empty object if loadPrefs() throws an error', async () => {
@@ -81,7 +81,7 @@ describe('initIpc()', () => {
 				throw new Error();
 			});
 
-			let listener = handleMock.mock.calls.find(
+			const listener = handleMock.mock.calls.find(
 				call => call[0] === 'load-prefs'
 			);
 
@@ -95,12 +95,12 @@ describe('initIpc()', () => {
 
 		loadStoriesMock.mockReturnValue(stories);
 
-		let listener = handleMock.mock.calls.find(
+		const listener = handleMock.mock.calls.find(
 			call => call[0] === 'load-stories'
 		);
 
 		expect(await listener[1]()).toEqual(stories);
-		expect(loadStoriesMock).toBeCalledTimes(1);
+		expect(loadStoriesMock).toHaveBeenCalledTimes(1);
 	});
 
 	describe('the handler it adds for load-story-formats events', () => {
@@ -109,13 +109,13 @@ describe('initIpc()', () => {
 
 			loadStoryFormatsMock.mockReturnValue(formats);
 
-			let listener = handleMock.mock.calls.find(
+			const listener = handleMock.mock.calls.find(
 				call => call[0] === 'load-story-formats'
 			);
 
 			expect(listener).not.toBeUndefined();
 			expect(await listener[1]()).toEqual(formats);
-			expect(loadStoryFormatsMock).toBeCalledTimes(1);
+			expect(loadStoryFormatsMock).toHaveBeenCalledTimes(1);
 		});
 
 		it('returns an empty array if loadStoryFormats() throws an error', async () => {
@@ -124,7 +124,7 @@ describe('initIpc()', () => {
 				throw new Error();
 			});
 
-			let listener = handleMock.mock.calls.find(
+			const listener = handleMock.mock.calls.find(
 				call => call[0] === 'load-story-formats'
 			);
 
@@ -140,7 +140,7 @@ describe('initIpc()', () => {
 
 		expect(listener).not.toBeUndefined();
 		listener[1]({}, 'test-file-contents', 'test-filename');
-		expect(openWithScratchFileMock).toBeCalledWith(
+		expect(openWithScratchFileMock).toHaveBeenCalledWith(
 			'test-file-contents',
 			'test-filename'
 		);
@@ -178,7 +178,7 @@ describe('initIpc()', () => {
 
 		expect(listener).not.toBeUndefined();
 		listener[1]({}, 'test-filename', testData);
-		expect(saveJsonFileMock).toBeCalledWith('test-filename', testData);
+		expect(saveJsonFileMock).toHaveBeenCalledWith('test-filename', testData);
 	});
 
 	describe('the listener it adds for save-story-html events', () => {
@@ -186,7 +186,7 @@ describe('initIpc()', () => {
 		let story: Story;
 
 		beforeEach(() => {
-			jest.useFakeTimers('modern');
+			jest.useFakeTimers();
 			jest.spyOn(console, 'log').mockReturnValue();
 			listener = onMock.mock.calls.find(call => call[0] === 'save-story-html');
 			story = fakeStory();
@@ -201,7 +201,7 @@ describe('initIpc()', () => {
 			expect(listener).not.toBeUndefined();
 			await listener[1]({sender: {send: jest.fn()}}, story, 'test-story-html');
 			jest.advanceTimersByTime(1000);
-			expect(saveStoryHtmlMock).toBeCalledWith(story, 'test-story-html');
+			expect(saveStoryHtmlMock).toHaveBeenCalledWith(story, 'test-story-html');
 		});
 
 		it('debounces calls to saveStoryHtml() for the same story ID with both leading and trailing calls', async () => {
@@ -306,7 +306,7 @@ describe('initIpc()', () => {
 		let story2: Story;
 
 		beforeEach(() => {
-			jest.useFakeTimers('modern');
+			jest.useFakeTimers();
 			jest.spyOn(console, 'log').mockReturnValue();
 			quitListeners = appOnMock.mock.calls.find(
 				call => call[0] === 'will-quit'

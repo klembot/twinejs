@@ -1,5 +1,6 @@
 import {render, screen} from '@testing-library/react';
 import {axe} from 'jest-axe';
+import * as React from 'react';
 import {FileChooser, FileChooserProps} from '../file-chooser';
 
 describe('FileChooser', () => {

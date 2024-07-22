@@ -1,5 +1,5 @@
+import {faker} from '@faker-js/faker';
 import {act, fireEvent, render, screen, waitFor} from '@testing-library/react';
-import {lorem} from 'faker';
 import {axe} from 'jest-axe';
 import * as React from 'react';
 import {PromptButton, PromptButtonProps} from '../prompt-button';
@@ -10,10 +10,10 @@ describe('<PromptButton>', () => {
 			<PromptButton
 				onChange={jest.fn()}
 				onSubmit={jest.fn()}
-				prompt={lorem.words(10)}
-				value={lorem.words(1)}
+				prompt={faker.lorem.words(10)}
+				value={faker.lorem.words(1)}
 				icon={<div data-testid="icon" />}
-				label={lorem.words(1)}
+				label={faker.lorem.words(1)}
 				{...props}
 			/>
 		);
@@ -80,12 +80,12 @@ describe('<PromptButton>', () => {
 		await act(() => Promise.resolve());
 		fireEvent.click(screen.getByRole('button', {name: 'test-cancel'}));
 		await act(() => Promise.resolve());
-		expect(onSubmit).not.toBeCalled();
+		expect(onSubmit).not.toHaveBeenCalled();
 	});
 
 	it('hides the prompt, field, submit and cancel buttons and calls the onSubmit prop when the submit button is clicked', async () => {
 		const onSubmit = jest.fn();
-		const value = lorem.words(3);
+		const value = faker.lorem.words(3);
 
 		renderComponent({
 			onSubmit,
@@ -121,7 +121,7 @@ describe('<PromptButton>', () => {
 		fireEvent.change(screen.getByRole('textbox', {name: 'test-prompt'}), {
 			target: {value: 'green'}
 		});
-		expect(onChange).toBeCalledTimes(1);
+		expect(onChange).toHaveBeenCalledTimes(1);
 	});
 
 	it('prevents submission if the validate prop blocks it', async () => {

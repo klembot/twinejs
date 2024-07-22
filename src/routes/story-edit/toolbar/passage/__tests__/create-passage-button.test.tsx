@@ -38,7 +38,6 @@ describe('<CreatePassageButton>', () => {
 
 		const passageDivs = screen
 			.getByTestId('story-inspector-default')
-			// eslint-disable-next-line testing-library/no-node-access
 			.querySelectorAll('div[data-testid^="passage"]');
 
 		expect(passageDivs.length).toBe(1);

@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {renderHook} from '@testing-library/react-hooks';
 import {fakePrefs} from '../../../test-util';
 import {PrefsContext, PrefsState} from '..';
@@ -19,7 +20,7 @@ describe('useComputedTheme()', () => {
 		});
 	}
 
-	let darkQueryMock = {addEventListener: jest.fn(), matches: true};
+	const darkQueryMock = {addEventListener: jest.fn(), matches: true};
 
 	// jsdom doesn't implement window.matchMedia, but TS knows about it, so we
 	// have to do some hacky stuff here.

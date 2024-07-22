@@ -1,0 +1,24 @@
+{
+	"extends": [
+		"eslint:recommended",
+		"plugin:react/recommended",
+		"plugin:@typescript-eslint/recommended",
+		"prettier"
+	],
+	"ignorePatterns": ["src/__mocks__/*"],
+	"parser": "@typescript-eslint/parser",
+	"plugins": ["@typescript-eslint", "jest", "testing-library"],
+	"root": true,
+	"rules": {
+		"@typescript-eslint/no-explicit-any": 0,
+		"react/display-name": 0,
+		"react/prop-types": 0,
+		"testing-library/no-render-in-setup": 0,
+		"testing-library/render-result-naming-convention": 0
+	},
+	"settings": {
+		"react": {
+			"version": "detect"
+		}
+	}
+}

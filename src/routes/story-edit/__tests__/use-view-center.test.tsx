@@ -1,5 +1,5 @@
+import {faker} from '@faker-js/faker';
 import {renderHook} from '@testing-library/react-hooks';
-import {random} from 'faker';
 import * as React from 'react';
 import {DialogsContext} from '../../../dialogs';
 import {Story} from '../../../store/stories';
@@ -13,17 +13,17 @@ describe('useViewCenter', () => {
 	beforeEach(() => {
 		story = fakeStory();
 		el = {
-			clientHeight: random.number(),
-			clientWidth: random.number(),
+			clientHeight: faker.number.int(),
+			clientWidth: faker.number.int(),
 			getBoundingClientRect: () => ({
 				height: 100,
 				left: 20,
 				top: 10,
 				width: 200
 			}),
-			scrollLeft: random.number(),
+			scrollLeft: faker.number.int(),
 			scrollTo: jest.fn(),
-			scrollTop: random.number()
+			scrollTop: faker.number.int()
 		};
 	});
 
@@ -51,8 +51,8 @@ describe('useViewCenter', () => {
 			const {result} = renderHook(() =>
 				useViewCenter(story, {current: el as any})
 			);
-			const left = random.number();
-			const top = random.number();
+			const left = faker.number.int();
+			const top = faker.number.int();
 
 			result.current.setCenter({left, top});
 			expect(el.scrollTo.mock.calls).toEqual([
@@ -66,7 +66,7 @@ describe('useViewCenter', () => {
 		});
 
 		it('adjusts the center if dialogs are open', () => {
-			const dialogWidth = random.number();
+			const dialogWidth = faker.number.int();
 			const {result} = renderHook(
 				() => useViewCenter(story, {current: el as any}),
 				{
@@ -91,8 +91,8 @@ describe('useViewCenter', () => {
 					)
 				}
 			);
-			const left = random.number();
-			const top = random.number();
+			const left = faker.number.int();
+			const top = faker.number.int();
 
 			result.current.setCenter({left, top});
 			expect(el.scrollTo.mock.calls).toEqual([

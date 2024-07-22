@@ -14,10 +14,10 @@ describe('prefs local storage save', () => {
 
 		expect(ids.length).toBe(Object.keys(prefs).length);
 
-		let saved: any = {};
+		const saved: any = {};
 
 		ids.forEach(id => {
-			let savedPref = window.localStorage.getItem(`twine-prefs-${id}`);
+			const savedPref = window.localStorage.getItem(`twine-prefs-${id}`);
 
 			expect(typeof savedPref).toBe('string');
 			const restored = JSON.parse(savedPref as string);

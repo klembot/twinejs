@@ -1,5 +1,4 @@
 import {satisfies} from 'semver';
-import uuid from 'tiny-uuid';
 import {Story} from '../../stories.types';
 import {storyDefaults} from '../../defaults';
 import {StoryFormat} from '../../../story-formats';
@@ -34,7 +33,7 @@ export function repairStory(
 	// Give the story an ID if it has none.
 
 	if (typeof story.id !== 'string' || story.id === '') {
-		const newId = uuid();
+		const newId = window.crypto.randomUUID();
 
 		logRepair(story, 'id', newId, 'was bad type or empty string');
 		repairs.id = newId;
@@ -43,7 +42,7 @@ export function repairStory(
 	// Give the story an IFID if it has none.
 
 	if (typeof story.ifid !== 'string' || story.id === '') {
-		const newIfid = uuid();
+		const newIfid = window.crypto.randomUUID();
 
 		logRepair(story, 'ifid', newIfid, 'was bad type or empty string');
 		repairs.ifid = newIfid;
@@ -145,7 +144,7 @@ export function repairStory(
 			return otherStory.id === story.id;
 		})
 	) {
-		const newId = uuid();
+		const newId = window.crypto.randomUUID();
 
 		logRepair(story, 'id', newId, "conflicted with another story's ID");
 		repairs.id = newId;

@@ -2,7 +2,7 @@ import {renameStoryTag} from '../rename-story-tag';
 import {fakeStory} from '../../../../test-util';
 
 describe('renamePassageTag', () => {
-	let stories = [fakeStory(), fakeStory(), fakeStory()];
+	const stories = [fakeStory(), fakeStory(), fakeStory()];
 
 	beforeEach(() => {
 		stories[0].tags = ['a', 'b'];

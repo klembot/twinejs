@@ -54,6 +54,6 @@ describe('wasFileChangedExternally()', () => {
 	});
 
 	it('tracks files separately', async () => {
-		statMock.mockImplementation((name: string) => {});
+		statMock.mockImplementation(() => {});
 	});
 });

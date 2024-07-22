@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {renderHook} from '@testing-library/react-hooks';
 import {donationDelay, useDonationCheck} from '../use-donation-check';
 import {PrefsContext, PrefsState} from '..';

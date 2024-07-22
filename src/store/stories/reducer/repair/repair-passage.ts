@@ -1,4 +1,3 @@
-import uuid from 'tiny-uuid';
 import {passageDefaults} from '../../defaults';
 import {Passage, Story} from '../../stories.types';
 
@@ -26,10 +25,10 @@ export function repairPassage(passage: Passage, parentStory: Story): Passage {
 	// Give the passage an ID if it has none.
 
 	if (typeof passage.id !== 'string' || passage.id === '') {
-		const newId = uuid();
+		const newId = window.crypto.randomUUID();
 
 		logRepair(passage, 'id', newId, 'was undefined or empty string');
-		repairs.id = uuid();
+		repairs.id = window.crypto.randomUUID();
 	}
 
 	// Apply default properties to the passage.
@@ -92,7 +91,7 @@ export function repairPassage(passage: Passage, parentStory: Story): Passage {
 			return otherPassage.id === passage.id;
 		})
 	) {
-		const newId = uuid();
+		const newId = window.crypto.randomUUID();
 
 		logRepair(
 			passage,

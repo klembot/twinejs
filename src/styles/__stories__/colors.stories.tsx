@@ -31,18 +31,18 @@ export const Specimen: React.FC = () => {
 
 	return (
 		<div>
-			{backgrounds.map((bg) => (
-				<div style={{background: bg, padding: 5}}>
-					{flatColors.map((color) => (
-						<ColorBlock color={color} />
+			{backgrounds.map(bg => (
+				<div key={bg} style={{background: bg, padding: 5}}>
+					{flatColors.map(color => (
+						<ColorBlock color={color} key={color} />
 					))}
-					{shadedColors.map((color) => (
-						<>
+					{shadedColors.map(color => (
+						<span key={color}>
 							<ColorBlock color={`light-${color}-translucent`} />
 							<ColorBlock color={`light-${color}`} />
 							<ColorBlock color={color} />
 							<ColorBlock color={`dark-${color}`} />
-						</>
+						</span>
 					))}
 				</div>
 			))}

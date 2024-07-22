@@ -41,7 +41,6 @@ describe('<PassageCardGroup>', () => {
 		passages[2].left = 50;
 		renderComponent({passages});
 
-		// eslint-disable-next-line testing-library/no-node-access
 		const rendered = document.querySelectorAll<HTMLElement>('[data-testid]');
 
 		expect(rendered[0].dataset.testid).toBe(

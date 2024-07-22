@@ -1,8 +1,8 @@
+import {faker} from '@faker-js/faker';
 import {render, screen} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
 import {fakeStory} from '../../../test-util';
-import {lorem} from 'faker';
 import {
 	StoryDetailsDialogStats,
 	StoryDetailsDialogStatsProps
@@ -15,18 +15,17 @@ describe('<StoryDetailsDialogStats>', () => {
 
 	it('shows a character count for the story', () => {
 		const story = fakeStory(2);
-		const text = lorem.words(50);
-		const text2 = lorem.words(50);
+		const text = faker.lorem.words(50);
+		const text2 = faker.lorem.words(50);
 
 		story.passages[0].text = text;
 		story.passages[1].text = text2;
 		renderComponent({story});
 
-		const row =
-			// eslint-disable-next-line testing-library/no-node-access
-			screen.getByText('dialogs.storyDetails.stats.characters').parentNode;
+		const row = screen.getByText(
+			'dialogs.storyDetails.stats.characters'
+		).parentNode;
 
-		// eslint-disable-next-line testing-library/no-node-access
 		expect(row!.querySelectorAll('td')[0].textContent).toBe(
 			(text.length + text2.length).toString()
 		);
@@ -34,17 +33,15 @@ describe('<StoryDetailsDialogStats>', () => {
 
 	it('shows a word count for the story', () => {
 		const story = fakeStory(2);
-		const text = lorem.words(10);
-		const text2 = lorem.words(25);
+		const text = faker.lorem.words(10);
+		const text2 = faker.lorem.words(25);
 
 		story.passages[0].text = text;
 		story.passages[1].text = text2;
 		renderComponent({story});
 
-		// eslint-disable-next-line testing-library/no-node-access
 		const row = screen.getByText('dialogs.storyDetails.stats.words').parentNode;
 
-		// eslint-disable-next-line testing-library/no-node-access
 		expect(row!.querySelectorAll('td')[0].textContent).toBe('35');
 	});
 
@@ -56,10 +53,8 @@ describe('<StoryDetailsDialogStats>', () => {
 
 		const row = screen.getByText(
 			'dialogs.storyDetails.stats.passages'
-			// eslint-disable-next-line testing-library/no-node-access
 		).parentNode;
 
-		// eslint-disable-next-line testing-library/no-node-access
 		expect(row!.querySelectorAll('td')[0].textContent).toBe(
 			passageCount.toString()
 		);
@@ -74,10 +69,8 @@ describe('<StoryDetailsDialogStats>', () => {
 		story.passages[1].text = '[[a]] [[a]] [[a]]';
 		renderComponent({story});
 
-		// eslint-disable-next-line testing-library/no-node-access
 		const row = screen.getByText('dialogs.storyDetails.stats.links').parentNode;
 
-		// eslint-disable-next-line testing-library/no-node-access
 		expect(row!.querySelectorAll('td')[0].textContent).toBe('2');
 	});
 
@@ -90,12 +83,10 @@ describe('<StoryDetailsDialogStats>', () => {
 		story.passages[1].text = '[[a]] [[c]]';
 		renderComponent({story});
 
-		// eslint-disable-next-line testing-library/no-node-access
-		const row =
-			// eslint-disable-next-line testing-library/no-node-access
-			screen.getByText('dialogs.storyDetails.stats.brokenLinks').parentNode;
+		const row = screen.getByText(
+			'dialogs.storyDetails.stats.brokenLinks'
+		).parentNode;
 
-		// eslint-disable-next-line testing-library/no-node-access
 		expect(row!.querySelectorAll('td')[0].textContent).toBe('1');
 	});
 

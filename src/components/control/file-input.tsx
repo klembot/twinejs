@@ -27,7 +27,7 @@ export const FileInput: React.FC<FileInputProps> = props => {
 		const file = changeEvent.target.files[0];
 		const reader = new FileReader();
 
-		reader.addEventListener('loadend', loadEvent => {
+		reader.addEventListener('loadend', () => {
 			if (reader.error) {
 				console.warn(reader.error);
 

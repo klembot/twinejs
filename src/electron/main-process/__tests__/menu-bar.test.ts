@@ -27,8 +27,8 @@ describe('initMenuBar', () => {
 	const toggleHardwareAccelerationMock =
 		toggleHardwareAcceleration as jest.Mock;
 	let openDevToolsMock: jest.Mock;
-	let openExternalMock = shell.openExternal as jest.Mock;
-	let revealStoryDirectoryMock = revealStoryDirectory as jest.Mock;
+	const openExternalMock = shell.openExternal as jest.Mock;
+	const revealStoryDirectoryMock = revealStoryDirectory as jest.Mock;
 	let setApplicationMenuSpy: jest.SpyInstance;
 
 	beforeEach(() => {

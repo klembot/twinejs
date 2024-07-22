@@ -10,12 +10,12 @@ export const reducer: React.Reducer<PrefsState, PrefsAction> = (
 		case 'init':
 			return {...state, ...action.state};
 
-		case 'repair':
+		case 'repair': {
 			const defs = defaults();
 
 			// Type check values.
 
-			let changes: Partial<PrefsState> = Object.entries(defs).reduce(
+			const changes: Partial<PrefsState> = Object.entries(defs).reduce(
 				(result, [key, value]) => {
 					const prefKey = key as keyof PrefsState;
 
@@ -93,6 +93,7 @@ export const reducer: React.Reducer<PrefsState, PrefsAction> = (
 			}
 
 			return {...state, ...changes};
+		}
 
 		case 'update': {
 			return {...state, [action.name]: action.value};

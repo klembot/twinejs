@@ -4,7 +4,7 @@ import {saveAs} from 'file-saver';
 jest.mock('file-saver');
 
 describe('saveHtml()', () => {
-	const saveAsMock = saveAs as jest.Mock;
+	const saveAsMock = jest.mocked(saveAs);
 
 	it('calls saveAs with an HTML blob', async () => {
 		saveHtml('test html', 'test filename.html');

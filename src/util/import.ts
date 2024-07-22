@@ -6,7 +6,6 @@
 // the filesystem into local storage, and the app can't begin until it's done.
 
 import defaults from 'lodash/defaults';
-import uuid from 'tiny-uuid';
 import {passageDefaults, storyDefaults, Passage, Story} from '../store/stories';
 
 /**
@@ -70,8 +69,8 @@ function domToObject(storyEl: Element): ImportedStory {
 	const startPassagePid = storyEl.getAttribute('startnode');
 	let startPassageId: string | undefined = undefined;
 	const story: ImportedStory = {
-		ifid: storyEl.getAttribute('ifid') ?? uuid(),
-		id: uuid(),
+		ifid: storyEl.getAttribute('ifid') ?? window.crypto.randomUUID(),
+		id: window.crypto.randomUUID(),
 		lastUpdate: undefined,
 		name: storyEl.getAttribute('name') ?? undefined,
 		storyFormat: storyEl.getAttribute('format') ?? undefined,
@@ -96,7 +95,7 @@ function domToObject(storyEl: Element): ImportedStory {
 			return {...result, [tagName]: el.getAttribute('color')};
 		}, {}),
 		passages: query(storyEl, selectors.passageData).map(passageEl => {
-			const id = uuid();
+			const id = window.crypto.randomUUID();
 			const position = parseDimensions(passageEl.getAttribute('position'));
 			const size = parseDimensions(passageEl.getAttribute('size'));
 
@@ -141,7 +140,11 @@ export function importStories(
 		// Merge in defaults. We can't use object spreads here because undefined
 		// values would override defaults.
 
-		const story: Story = defaults(importedStory, {id: uuid()}, storyDefaults());
+		const story: Story = defaults(
+			importedStory,
+			{id: window.crypto.randomUUID()},
+			storyDefaults()
+		);
 
 		// Override the last update as requested.
 

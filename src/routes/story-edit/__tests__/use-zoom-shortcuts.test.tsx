@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {cleanup, fireEvent, render, screen} from '@testing-library/react';
 import {Story, useStoriesContext} from '../../../store/stories';
 import {FakeStateProvider, fakeStory, StoryInspector} from '../../../test-util';

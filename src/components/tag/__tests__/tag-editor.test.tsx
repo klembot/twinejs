@@ -1,12 +1,12 @@
+import {faker} from '@faker-js/faker';
 import {act, fireEvent, render, screen} from '@testing-library/react';
-import {lorem} from 'faker';
 import {axe} from 'jest-axe';
 import * as React from 'react';
 import {TagEditor, TagEditorProps} from '../tag-editor';
 
 describe('<TagEditor>', () => {
 	async function renderComponent(props?: Partial<TagEditorProps>) {
-		const tagName = lorem.word();
+		const tagName = faker.lorem.word();
 		const result = render(
 			<TagEditor
 				allTags={[tagName]}
