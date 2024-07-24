@@ -47,7 +47,7 @@ export const builtins = () => [
 	},
 	{
 		name: 'SugarCube',
-		url: 'story-formats/sugarcube-2.37.1/format.js',
-		version: '2.37.1'
+		url: 'story-formats/sugarcube-2.37.2/format.js',
+		version: '2.37.2'
 	}
 ];
