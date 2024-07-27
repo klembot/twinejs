@@ -1,3 +1,4 @@
+import {v4 as uuid} from '@lukeed/uuid';
 import {builtins} from './defaults';
 import {
 	StoryFormat,
@@ -37,7 +38,7 @@ export const reducer: React.Reducer<StoryFormatsState, StoryFormatsAction> = (
 
 			// Add any builtins not present.
 
-			builtinFormats.forEach(builtinFormat => {
+			for (const builtinFormat of builtinFormats) {
 				if (
 					!result.some(
 						f =>
@@ -50,13 +51,14 @@ export const reducer: React.Reducer<StoryFormatsState, StoryFormatsAction> = (
 					);
 					result.push({
 						...builtinFormat,
-						id: window.crypto.randomUUID(),
+						id: uuid(),
 						loadState: 'unloaded',
 						selected: false,
 						userAdded: false
 					});
 				}
-			});
+			}
+
 			return result;
 		}
 
@@ -71,10 +73,7 @@ export const reducer: React.Reducer<StoryFormatsState, StoryFormatsAction> = (
 				return state;
 			}
 
-			return [
-				...state,
-				{...action.props, id: window.crypto.randomUUID(), loadState: 'unloaded'}
-			];
+			return [...state, {...action.props, id: uuid(), loadState: 'unloaded'}];
 
 		case 'delete':
 			return state.filter(f => f.id !== action.id);

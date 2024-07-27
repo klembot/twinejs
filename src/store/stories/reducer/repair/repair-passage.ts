@@ -1,3 +1,4 @@
+import {v4 as uuid} from '@lukeed/uuid';
 import {passageDefaults} from '../../defaults';
 import {Passage, Story} from '../../stories.types';
 
@@ -25,15 +26,16 @@ export function repairPassage(passage: Passage, parentStory: Story): Passage {
 	// Give the passage an ID if it has none.
 
 	if (typeof passage.id !== 'string' || passage.id === '') {
-		const newId = window.crypto.randomUUID();
+		const newId = uuid();
 
 		logRepair(passage, 'id', newId, 'was undefined or empty string');
-		repairs.id = window.crypto.randomUUID();
+		repairs.id = newId;
 	}
 
 	// Apply default properties to the passage.
 
-	Object.entries(passageDefs).forEach(([key, value]) => {
+	for (const key in passageDefs) {
+		const value = passageDefs[key as keyof typeof passageDefs];
 		const defKey = key as keyof typeof passageDefs;
 
 		if (
@@ -43,11 +45,11 @@ export function repairPassage(passage: Passage, parentStory: Story): Passage {
 			logRepair(passage, defKey, passageDefs[defKey]);
 			(repairs[defKey] as Passage[typeof defKey]) = passageDefs[defKey];
 		}
-	});
+	}
 
 	// Make passage coordinates 0 or greater.
 
-	['left', 'top'].forEach(pos => {
+	for (const pos of ['left', 'top']) {
 		const posKey = pos as keyof Passage;
 
 		if (
@@ -57,11 +59,11 @@ export function repairPassage(passage: Passage, parentStory: Story): Passage {
 			logRepair(passage, posKey, 0, 'was negative');
 			(repairs[posKey] as Passage[typeof posKey]) = 0;
 		}
-	});
+	}
 
 	// Make passage dimensions 5 or greater.
 
-	['height', 'width'].forEach(dim => {
+	for (const dim of ['height', 'width']) {
 		const dimKey = dim as keyof Passage;
 
 		if (
@@ -71,7 +73,7 @@ export function repairPassage(passage: Passage, parentStory: Story): Passage {
 			logRepair(passage, dimKey, 0, 'was less than 5');
 			(repairs[dimKey] as Passage[typeof dimKey]) = 5;
 		}
-	});
+	}
 
 	// Repair story property if it doesn't point to the parent story.
 
@@ -91,7 +93,7 @@ export function repairPassage(passage: Passage, parentStory: Story): Passage {
 			return otherPassage.id === passage.id;
 		})
 	) {
-		const newId = window.crypto.randomUUID();
+		const newId = uuid();
 
 		logRepair(
 			passage,
