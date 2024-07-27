@@ -1,3 +1,4 @@
+import {v4 as uuid} from '@lukeed/uuid';
 import sortBy from 'lodash/sortBy';
 import {Passage, passageDefaults, Story, storyDefaults} from '../store/stories';
 import {unusedName} from './unused-name';
@@ -73,7 +74,7 @@ export function passageFromTwee(source: string): Omit<Passage, 'story'> {
 
 	const passage: Omit<Passage, 'story'> = {
 		...passageDefaults(),
-		id: window.crypto.randomUUID(),
+		id: uuid(),
 		name: unescapeForTweeHeader(
 			rawName
 				.replace(/^(\\\s)+/g, match => ' '.repeat(match.length / 2))
@@ -134,12 +135,12 @@ export function passageFromTwee(source: string): Omit<Passage, 'story'> {
  * Converts a story from Twee source.
  */
 export function storyFromTwee(source: string) {
-	const id = window.crypto.randomUUID();
+	const id = uuid();
 
 	const story: Story = {
 		...storyDefaults(),
 		id,
-		ifid: window.crypto.randomUUID(),
+		ifid: uuid().toUpperCase(),
 		lastUpdate: new Date(),
 		passages: source
 			.split(/^::/m)

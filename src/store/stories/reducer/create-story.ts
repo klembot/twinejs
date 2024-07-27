@@ -1,3 +1,4 @@
+import {v4 as uuid} from '@lukeed/uuid';
 import {passageDefaults, storyDefaults} from '../defaults';
 import {Story, StoriesState} from '../stories.types';
 
@@ -20,9 +21,9 @@ export function createStory(state: StoriesState, storyProps: Partial<Story>) {
 	}
 
 	const story: Story = {
-		id: window.crypto.randomUUID(),
+		id: uuid(),
 		...storyDefaults(),
-		ifid: window.crypto.randomUUID().toUpperCase(),
+		ifid: uuid().toUpperCase(),
 		lastUpdate: new Date(),
 		passages: [],
 		tags: [],

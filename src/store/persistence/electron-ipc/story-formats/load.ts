@@ -1,3 +1,4 @@
+import {v4 as uuid} from '@lukeed/uuid';
 import {TwineElectronWindow} from '../../../../electron/shared';
 import {StoryFormatsState} from '../../../story-formats/story-formats.types';
 
@@ -15,7 +16,7 @@ export async function load(): Promise<StoryFormatsState> {
 	}
 
 	return storyFormats.map(data => ({
-		id: window.crypto.randomUUID(),
+		id: uuid(),
 		loadState: 'unloaded',
 		name: data.name,
 		selected: false,

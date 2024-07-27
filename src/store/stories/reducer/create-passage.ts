@@ -1,3 +1,4 @@
+import {v4 as uuid} from '@lukeed/uuid';
 import {passageDefaults} from '../defaults';
 import {Passage, Story, StoriesState} from '../stories.types';
 
@@ -34,7 +35,7 @@ export function createPassage(
 
 		const newPassage: Passage = {
 			...passageDefaults(),
-			id: window.crypto.randomUUID(),
+			id: uuid(),
 			...passageProps,
 			story: story.id
 		};
