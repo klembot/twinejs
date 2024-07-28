@@ -1,3 +1,4 @@
+import {v4 as uuid} from '@lukeed/uuid';
 import {satisfies} from 'semver';
 import {Story} from '../../stories.types';
 import {storyDefaults} from '../../defaults';
@@ -33,7 +34,7 @@ export function repairStory(
 	// Give the story an ID if it has none.
 
 	if (typeof story.id !== 'string' || story.id === '') {
-		const newId = window.crypto.randomUUID();
+		const newId = uuid();
 
 		logRepair(story, 'id', newId, 'was bad type or empty string');
 		repairs.id = newId;
@@ -42,7 +43,7 @@ export function repairStory(
 	// Give the story an IFID if it has none.
 
 	if (typeof story.ifid !== 'string' || story.id === '') {
-		const newIfid = window.crypto.randomUUID();
+		const newIfid = uuid();
 
 		logRepair(story, 'ifid', newIfid, 'was bad type or empty string');
 		repairs.ifid = newIfid;
@@ -50,8 +51,9 @@ export function repairStory(
 
 	// Apply default properties to the story.
 
-	Object.entries(storyDefs).forEach(([key, value]) => {
+	for (const key in storyDefs) {
 		const defKey = key as keyof typeof storyDefs;
+		const value = storyDefs[defKey];
 
 		if (
 			(typeof value === 'number' && !Number.isFinite(story[defKey])) ||
@@ -60,7 +62,7 @@ export function repairStory(
 			logRepair(story, defKey, storyDefs[defKey]);
 			(repairs[defKey] as Story[typeof defKey]) = storyDefs[defKey];
 		}
-	});
+	}
 
 	if (
 		typeof story.storyFormat !== 'string' ||
@@ -144,7 +146,7 @@ export function repairStory(
 			return otherStory.id === story.id;
 		})
 	) {
-		const newId = window.crypto.randomUUID();
+		const newId = uuid();
 
 		logRepair(story, 'id', newId, "conflicted with another story's ID");
 		repairs.id = newId;

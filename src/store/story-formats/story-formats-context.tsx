@@ -1,3 +1,4 @@
+import {v4 as uuid} from '@lukeed/uuid';
 import * as React from 'react';
 import useThunkReducer from 'react-hook-thunk-reducer';
 import {usePersistence} from '../persistence/use-persistence';
@@ -13,7 +14,7 @@ import {reducer} from './reducer';
 
 const defaultBuiltins: StoryFormat[] = builtins().map(f => ({
 	...f,
-	id: window.crypto.randomUUID(),
+	id: uuid(),
 	loadState: 'unloaded',
 	selected: false,
 	userAdded: false

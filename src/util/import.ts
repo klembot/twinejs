@@ -5,6 +5,7 @@
 // affects startup time in the Twine desktop app. This module moves data from
 // the filesystem into local storage, and the app can't begin until it's done.
 
+import {v4 as uuid} from '@lukeed/uuid';
 import defaults from 'lodash/defaults';
 import {passageDefaults, storyDefaults, Passage, Story} from '../store/stories';
 
@@ -69,8 +70,8 @@ function domToObject(storyEl: Element): ImportedStory {
 	const startPassagePid = storyEl.getAttribute('startnode');
 	let startPassageId: string | undefined = undefined;
 	const story: ImportedStory = {
-		ifid: storyEl.getAttribute('ifid') ?? window.crypto.randomUUID(),
-		id: window.crypto.randomUUID(),
+		ifid: storyEl.getAttribute('ifid') ?? uuid().toUpperCase(),
+		id: uuid(),
 		lastUpdate: undefined,
 		name: storyEl.getAttribute('name') ?? undefined,
 		storyFormat: storyEl.getAttribute('format') ?? undefined,
@@ -95,7 +96,7 @@ function domToObject(storyEl: Element): ImportedStory {
 			return {...result, [tagName]: el.getAttribute('color')};
 		}, {}),
 		passages: query(storyEl, selectors.passageData).map(passageEl => {
-			const id = window.crypto.randomUUID();
+			const id = uuid();
 			const position = parseDimensions(passageEl.getAttribute('position'));
 			const size = parseDimensions(passageEl.getAttribute('size'));
 
@@ -140,11 +141,7 @@ export function importStories(
 		// Merge in defaults. We can't use object spreads here because undefined
 		// values would override defaults.
 
-		const story: Story = defaults(
-			importedStory,
-			{id: window.crypto.randomUUID()},
-			storyDefaults()
-		);
+		const story: Story = defaults(importedStory, {id: uuid()}, storyDefaults());
 
 		// Override the last update as requested.
 

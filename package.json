@@ -1,6 +1,6 @@
 {
 	"name": "Twine",
-	"version": "2.9.1",
+	"version": "2.9.2",
 	"description": "a GUI for creating nonlinear stories",
 	"author": "Chris Klimas <chris@twinery.org>",
 	"license": "GPL-3.0",
@@ -14,6 +14,7 @@
 		"npm": ">=8"
 	},
 	"dependencies": {
+		"@lukeed/uuid": "^2.0.1",
 		"@popperjs/core": "^2.9.1",
 		"@tabler/icons": "^1.119.0",
 		"@testing-library/dom": "^9.3.1",

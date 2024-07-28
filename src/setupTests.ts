@@ -1,7 +1,6 @@
 import {toHaveNoViolations} from 'jest-axe';
 import {configure} from '@testing-library/dom';
 import '@testing-library/jest-dom';
-import {faker} from '@faker-js/faker';
 import 'jest-canvas-mock';
 
 // Always mock these files so that Jest doesn't see import.meta.
@@ -50,10 +49,6 @@ afterEach(() => delete (window as any).matchMedia);
 		}
 	}
 };
-
-// ... and jsdom doesn't implement the crypto module, which we use to generate UUIDs.
-
-(window as any).crypto.randomUUID = () => faker.string.uuid();
 
 window.Element.prototype.releasePointerCapture = () => {};
 window.Element.prototype.setPointerCapture = () => {};

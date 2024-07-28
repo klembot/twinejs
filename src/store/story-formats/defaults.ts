@@ -6,8 +6,8 @@ export const builtins = () => [
 	},
 	{
 		name: 'Chapbook',
-		url: 'story-formats/chapbook-2.1.0/format.js',
-		version: '2.1.0'
+		url: 'story-formats/chapbook-2.2.0/format.js',
+		version: '2.2.0'
 	},
 	{
 		name: 'Harlowe',
@@ -47,7 +47,7 @@ export const builtins = () => [
 	},
 	{
 		name: 'SugarCube',
-		url: 'story-formats/sugarcube-2.37.0/format.js',
-		version: '2.37.0'
+		url: 'story-formats/sugarcube-2.37.3/format.js',
+		version: '2.37.3'
 	}
 ];

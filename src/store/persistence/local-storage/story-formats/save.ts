@@ -1,3 +1,4 @@
+import {v4 as uuid} from '@lukeed/uuid';
 import {StoryFormatsState} from '../../../story-formats/story-formats.types';
 
 export function save(state: StoryFormatsState) {
@@ -17,8 +18,8 @@ export function save(state: StoryFormatsState) {
 
 	const ids: string[] = [];
 
-	state.forEach(format => {
-		const id = window.crypto.randomUUID();
+	for (const format of state) {
+		const id = uuid();
 
 		// We have to remove the `properties` property if it exists, as that is
 		// dynamically added when loading.
@@ -34,7 +35,7 @@ export function save(state: StoryFormatsState) {
 				selected: undefined
 			})
 		);
-	});
+	}
 
 	window.localStorage.setItem('twine-storyformats', ids.join(','));
 }

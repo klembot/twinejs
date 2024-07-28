@@ -11,6 +11,19 @@
 	margin: 0;
 }
 
+.app-prefs-dialog .text-select > label {
+	width: 100%;
+}
+
+.app-prefs-dialog .text-select .text-select-control {
+	display: flex;
+	flex-grow: 1;
+}
+
+.app-prefs-dialog .text-select select {
+	flex-grow: 1;
+}
+
 .app-prefs-dialog .text-input,
 .app-prefs-dialog input[type='text'] {
 	width: 100%;
