@@ -109,12 +109,6 @@ To add a new localization or edit an existing one:
 5. Commit your changes and create a pull request in GitHub. You should target
    the `develop` branch with your pull request.
 
-Once your PR has been accepted, please join the Twine internationalization
-listserv by sending an email to `twine-i18n-join@iftechfoundation.org`. This is
-a low-traffic listserv that will be used to notify people who have worked on
-localization on Twine when future versions require localization work, e.g. when
-new text is added to the application.
-
 [jest-axe]: https://www.npmjs.com/package/jest-axe
 [i18next]: https://www.i18next.com/
 [lang-code-registry]: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry
