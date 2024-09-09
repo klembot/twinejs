@@ -44,7 +44,7 @@
 		"react-hotkeys-hook": "^3.4.4",
 		"react-i18next": "^11.8.9",
 		"react-popper": "^2.2.4",
-		"react-router-dom": "^5.2.0",
+		"react-router-dom": "^6.26.2",
 		"react-scrollbar-size": "^3.2.0",
 		"react-tabs": "^4.3.0",
 		"react-transition-group": "^4.4.1",
