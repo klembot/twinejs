@@ -107,11 +107,10 @@
 			"passageCount": "1 passage",
 			"passageCount_plural": "{{count}} passages"
 		},
-		"storyFormatCard": {
+		"storyFormatItem": {
 			"author": "par {{author}}",
 			"builtIn": "Formatté En",
 			"defaultFormat": "Utilisé par Défaut",
-			"editorExtensionsDisabled": "Extensions de l'Éditeur désactivées",
 			"license": "License: {{license}}",
 			"loadingFormat": "Chargement du format de l'histoire...",
 			"loadError": "Ce format d'histoire n'a pas pu être chargé ({{errorMessage}}).",
@@ -182,10 +181,25 @@
 			"noTags": "Aucune balise n'a été ajoutée aux passages de cette histoire.",
 			"title": "Balises du passage"
 		},
+		"storyFormats": {
+			"addStoryFormatButton": {
+				"addPreview": "{{storyFormatName}} {{storyFormatVersion}} sera ajouté.",
+				"alreadyAdded": "{{storyFormatName}} {{storyFormatVersion}} a déjà été ajouté.",
+				"fetchError": "Le format d'histoire à cette adresse n'a pas pu être récupéré ({errorMessage}).",
+				"invalidUrl": "Veuillez entrer une URL valide.",
+				"prompt": "Pour ajouter un format d'histoire, entrez son adresse ci-dessous."
+			},
+			"filterButton": {
+				"all": "Tous les formats d'histoire",
+				"current": "Formats d'histoire actuels",
+				"user": "Formats d'histoire ajoutés par l'utilisateur"
+			},
+			"noneVisible": "Aucun des formats d'histoire ne correspond aux critères choisis."
+		},
 		"storyInfo": {
 			"stats": {
 				"title": "Statistiques de l'Histoire"
-				}
+			}
 		},
 		"storyJavaScript": {
 			"editorLabel": "JavaScript de l'histoire",
@@ -298,29 +312,6 @@
 				"passageNames": "Afficher les noms des passage uniquement",
 				"passageNamesAndExcerpts": "Afficher les noms des passages et leurs résumés"
 			}
-		},
-		"storyFormatList": {
-			"noneVisible": "Aucun des formats d'histoire ne correspond aux critères choisis.",
-			"show": "Afficher...",
-			"title": {
-				"all": "Tous les formats d'histoire",
-				"current": "Formats d'histoire actuels",
-				"user": "Formats d'histoire ajoutés par l'utilisateur"
-			},
-			"toolbar": {
-				"addStoryFormatButton": {
-					"addPreview": "{{storyFormatName}} {{storyFormatVersion}} sera ajouté.",
-					"alreadyAdded": "{{storyFormatName}} {{storyFormatVersion}} a déjà été ajouté.",
-					"fetchError": "Le format d'histoire à cette adresse n'a pas pu être récupéré ({errorMessage}).",
-					"invalidUrl": "Veuillez entrer une URL valide.",
-					"prompt": "Pour ajouter un format d'histoire, entrez son adresse ci-dessous."
-				},
-				"disableFormatExtensions": "Désactiver les extensions de l'éditeur",
-				"enableFormatExtensions": "Activer les extensions de l'éditeur",
-				"useAsDefaultFormat": "Utiliser en tant que format par défaut",
-				"useAsProofingFormat": "Utiliser pour vérifier les histoires"
-			},
-			"storyFormatExplanation": "Story formats control the appearance and behavior of stories during play."
 		},
 		"storyImport": {},
 		"storyList": {

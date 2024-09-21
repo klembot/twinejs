@@ -1,0 +1,52 @@
+@import '../../../styles/colors.css';
+@import '../../../styles/metrics.css';
+
+.story-format-item {
+	display: grid;
+	flex-grow: 1;
+	gap: var(--control-inner-padding);
+	grid-template: "name image"
+		"description image"
+		"actions image" / 1fr 100px;
+	padding: var(--grid-size) var(--grid-size) 0 var(--grid-size);
+}
+
+.story-format-item.highlighted {
+	background-color: var(--faint-blue);
+}
+
+.story-format-item .story-format-image {
+	align-self: center;
+	grid-area: image;
+}
+
+.story-format-item .story-format-image img,
+.story-format-item .story-format-image svg {
+	height: auto;
+	width: 100%;
+}
+
+.story-format-item .story-format-name {
+	align-items: center;
+	display: flex;
+	gap: var(--grid-size);
+	grid-area: name;
+}
+
+.story-format-item .story-format-description {
+	grid-area: description;
+}
+
+.story-format-item .story-format-details :first-child {
+	/* Cheat first line of details upward. */
+	margin-top: 0.5em;
+}
+
+.story-format-item .story-format-details :last-child {
+	margin-bottom: 0;
+}
+
+.story-format-item .actions {
+	grid-area: actions;
+	margin-left: calc(-1 * var(--grid-size))
+}

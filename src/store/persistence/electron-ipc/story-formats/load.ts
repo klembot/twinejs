@@ -19,7 +19,6 @@ export async function load(): Promise<StoryFormatsState> {
 		id: uuid(),
 		loadState: 'unloaded',
 		name: data.name,
-		selected: false,
 		version: data.version,
 		url: data.url,
 		userAdded: data.userAdded

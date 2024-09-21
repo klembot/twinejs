@@ -33,7 +33,7 @@
 		"renameStoryButton": {"emptyName": "Anna nimi."},
 		"safariWarningCard": {},
 		"storyCard": {},
-		"storyFormatCard": {},
+		"storyFormatItem": {},
 		"storyFormatSelect": {},
 		"tagEditor": {}
 	},
@@ -74,10 +74,6 @@
 				"proofStory": "Näytä esikatselukopio",
 				"publishToFile": "Julkaise tiedostoon"
 			}
-		},
-		"storyFormatList": {
-			"title": {},
-			"storyFormatExplanation": "Tarinan muotoilut ohjaavat tarinan ulkoasua ja toimintaa tarinaa näytettäessä."
 		},
 		"storyImport": {},
 		"storyList": {

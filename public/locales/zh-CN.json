@@ -118,11 +118,10 @@
 			"passageCount": "{{count}}个片段",
 			"passageCount_plural": "{{count}} 个片段"
 		},
-		"storyFormatCard": {
+		"storyFormatItem": {
 			"author": "来自 {{author}}",
 			"builtIn": "内置",
 			"defaultFormat": "设为默认",
-			"editorExtensionsDisabled": "编辑器扩展被禁用",
 			"license": "许可证：{{license}}",
 			"loadingFormat": "载入故事格式中……",
 			"loadError": "故事格式加载失败（{{errorMessage}}）。",
@@ -192,6 +191,21 @@
 		"passageTags": {
 			"noTags": "尚未向故事中的片段添加任何标签。",
 			"title": "片段标签"
+		},
+		"storyFormats": {
+			"addStoryFormatButton": {
+				"addPreview": "将添加 {{storyFormatName}} {{storyFormatVersion}}。",
+				"alreadyAdded": "已添加 {{storyFormatName}} {{storyFormatVersion}}。",
+				"fetchError": "无法读取该位置的故事格式（{{errorMessage}}）。",
+				"invalidUrl": "请输入有效的 URL。",
+				"prompt": "要添加故事格式，请在下方输入地址。"
+			},
+			"filterButton": {
+				"all": "全部故事格式",
+				"current": "当前故事格式",
+				"user": "用户添加的故事格式"
+			},
+			"noneVisible": "没有符合您筛选标准的故事格式。"
 		},
 		"storyImport": {
 			"deselectAll": "全不选",
@@ -304,29 +318,6 @@
 				"passageNames": "仅显示片段名称",
 				"passageNamesAndExcerpts": "显示片段名称与摘要"
 			}
-		},
-		"storyFormatList": {
-			"noneVisible": "没有符合您筛选标准的故事格式。",
-			"show": "显示……",
-			"title": {
-				"all": "全部故事格式",
-				"current": "当前故事格式",
-				"user": "用户添加的故事格式"
-			},
-			"toolbar": {
-				"addStoryFormatButton": {
-					"addPreview": "将添加 {{storyFormatName}} {{storyFormatVersion}}。",
-					"alreadyAdded": "已添加 {{storyFormatName}} {{storyFormatVersion}}。",
-					"fetchError": "无法读取该位置的故事格式（{{errorMessage}}）。",
-					"invalidUrl": "请输入有效的 URL。",
-					"prompt": "要添加故事格式，请在下方输入地址。"
-				},
-				"disableFormatExtensions": "禁用编辑器扩展",
-				"enableFormatExtensions": "启用编辑器扩展",
-				"useAsDefaultFormat": "设为默认格式",
-				"useAsProofingFormat": "用于校对故事"
-			},
-			"storyFormatExplanation": "故事格式用于控制游戏过程中的故事外观和行为。"
 		},
 		"storyList": {
 			"library": "库",

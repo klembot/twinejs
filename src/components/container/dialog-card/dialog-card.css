@@ -47,17 +47,7 @@
 	font-weight: normal;
 }
 
-.dialog-card .card-body {
-	display: flex;
-	flex-direction: column;
-	padding: 0;
-}
-
-.dialog-card .card-body h2 {
-	font: bold 100% var(--font-system);
-}
-
 .dialog-card .card-content {
-	min-height: 0;
+	flex: 1 1 content;
 	overflow: auto;
 }

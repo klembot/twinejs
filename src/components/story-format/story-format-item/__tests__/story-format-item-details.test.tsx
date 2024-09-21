@@ -9,35 +9,35 @@ import {
 	fakeUnloadedStoryFormat
 } from '../../../../test-util';
 import {
-	StoryFormatCardDetails,
-	StoryFormatCardDetailsProps
-} from '../story-format-card-details';
+	StoryFormatItemDetails,
+	StoryFormatItemDetailsProps
+} from '../story-format-item-details';
 
-describe('<StoryFormatCardDetails>', () => {
-	function renderComponent(props?: Partial<StoryFormatCardDetailsProps>) {
+describe('<StoryFormatItemDetails>', () => {
+	function renderComponent(props?: Partial<StoryFormatItemDetailsProps>) {
 		return render(
-			<StoryFormatCardDetails format={fakeLoadedStoryFormat()} {...props} />
+			<StoryFormatItemDetails format={fakeLoadedStoryFormat()} {...props} />
 		);
 	}
 
 	it('displays a loading message if the format is unloaded', () => {
 		renderComponent({format: fakeUnloadedStoryFormat()});
 		expect(
-			screen.getByText('components.storyFormatCard.loadingFormat')
+			screen.getByText('components.storyFormatItem.loadingFormat')
 		).toBeInTheDocument();
 	});
 
 	it('displays a loading message if the format is loading', () => {
 		renderComponent({format: fakePendingStoryFormat()});
 		expect(
-			screen.getByText('components.storyFormatCard.loadingFormat')
+			screen.getByText('components.storyFormatItem.loadingFormat')
 		).toBeInTheDocument();
 	});
 
 	it('displays an error message if the format failed to load', () => {
 		renderComponent({format: fakeFailedStoryFormat()});
 		expect(
-			screen.getByText('components.storyFormatCard.loadError')
+			screen.getByText('components.storyFormatItem.loadError')
 		).toBeInTheDocument();
 	});
 
@@ -51,7 +51,7 @@ describe('<StoryFormatCardDetails>', () => {
 
 		it('displays the format author', () =>
 			expect(
-				screen.getByText('components.storyFormatCard.author')
+				screen.getByText('components.storyFormatItem.author')
 			).toBeInTheDocument());
 
 		it('displays the format description', () =>
@@ -61,7 +61,7 @@ describe('<StoryFormatCardDetails>', () => {
 
 		it('displays the format license', () =>
 			expect(
-				screen.getByText('components.storyFormatCard.license')
+				screen.getByText('components.storyFormatItem.license')
 			).toBeInTheDocument());
 	});
 

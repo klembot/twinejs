@@ -38,20 +38,13 @@ describe('<AppActions>', () => {
 		expect(screen.getByText('dialogs.aboutTwine.title')).toBeInTheDocument();
 	});
 
-	it('displays a button that allows users to manage story formats', () => {
-		const history = createMemoryHistory();
-
-		renderComponent({}, history);
-		expect(history.location.pathname).toBe('/');
+	it('displays a button that shows the story formats dialog', () => {
+		renderComponent();
+		expect(
+			screen.queryByText('dialogs.storyFormats.title')
+		).not.toBeInTheDocument();
 		fireEvent.click(screen.getByText('routeActions.app.storyFormats'));
-		expect(history.location.pathname).toBe('/story-formats');
-	});
-
-	it('disables the story format button if the user is already on that route', () => {
-		const history = createMemoryHistory({initialEntries: ['/story-formats']});
-
-		renderComponent({}, history);
-		expect(screen.getByText('routeActions.app.storyFormats')).toBeDisabled();
+		expect(screen.getByText('dialogs.storyFormats.title')).toBeInTheDocument();
 	});
 
 	it('displays a button that allows users to report bugs', () => {

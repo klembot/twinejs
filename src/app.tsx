@@ -10,23 +10,20 @@ import {StateLoader} from './store/state-loader';
 import {ThemeSetter} from './store/theme-setter';
 import './styles/typography.css';
 
-export const App: React.FC = () => {
-	console.log('what');
-	return (
-		<GlobalErrorBoundary>
-			<PrefsContextProvider>
-				<LocaleSwitcher />
-				<ThemeSetter />
-				<StoryFormatsContextProvider>
-					<StoriesContextProvider>
-						<StateLoader>
-							<React.Suspense fallback={<LoadingCurtain />}>
-								<Routes />
-							</React.Suspense>
-						</StateLoader>
-					</StoriesContextProvider>
-				</StoryFormatsContextProvider>
-			</PrefsContextProvider>
-		</GlobalErrorBoundary>
-	);
-};
+export const App: React.FC = () => (
+	<GlobalErrorBoundary>
+		<PrefsContextProvider>
+			<LocaleSwitcher />
+			<ThemeSetter />
+			<StoryFormatsContextProvider>
+				<StoriesContextProvider>
+					<StateLoader>
+						<React.Suspense fallback={<LoadingCurtain />}>
+							<Routes />
+						</React.Suspense>
+					</StateLoader>
+				</StoriesContextProvider>
+			</StoryFormatsContextProvider>
+		</PrefsContextProvider>
+	</GlobalErrorBoundary>
+);
