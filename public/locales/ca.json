@@ -29,7 +29,7 @@
 		"renameStoryButton": {"emptyName": "Introduïu un nom."},
 		"safariWarningCard": {},
 		"storyCard": {},
-		"storyFormatCard": {},
+		"storyFormatItem": {},
 		"storyFormatSelect": {},
 		"tagEditor": {}
 	},
@@ -80,10 +80,6 @@
 				"publishToFile": "Publica a fitxer",
 				"selectAllPassages": "Selecciona tots els passatges"
 			}
-		},
-		"storyFormatList": {
-			"title": {},
-			"storyFormatExplanation": "Els formats d'història controlen l'aparença i comportament de les històries durant la reproducció."
 		},
 		"storyImport": {},
 		"storyList": {

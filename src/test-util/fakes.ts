@@ -36,7 +36,6 @@ export function fakeFailedStoryFormat(
 	return {
 		id: faker.string.uuid(),
 		name: faker.lorem.words(2),
-		selected: faker.datatype.boolean(),
 		url: '',
 		userAdded: false,
 		version: faker.system.semver(),
@@ -70,7 +69,6 @@ export function fakeLoadedStoryFormat(
 			...loadProps
 		},
 		name: formatName,
-		selected: faker.datatype.boolean(),
 		url: formatUrl,
 		userAdded: false,
 		version: formatVersion,
@@ -86,7 +84,6 @@ export function fakePendingStoryFormat(
 		id: faker.string.uuid(),
 		loadState: 'loading',
 		name: faker.lorem.words(2),
-		selected: faker.datatype.boolean(),
 		url: faker.internet.url(),
 		userAdded: false,
 		version: faker.system.semver(),
@@ -101,7 +98,6 @@ export function fakeUnloadedStoryFormat(
 		id: faker.string.uuid(),
 		loadState: 'unloaded',
 		name: faker.lorem.words(2),
-		selected: faker.datatype.boolean(),
 		url: faker.internet.url(),
 		userAdded: false,
 		version: faker.system.semver(),

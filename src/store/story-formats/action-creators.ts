@@ -1,5 +1,4 @@
 import {Thunk} from 'react-hook-thunk-reducer';
-import {StoryFormatsState} from '.';
 import {fetchStoryFormatProperties} from '../../util/story-format/fetch-properties';
 import {
 	StoryFormat,
@@ -24,7 +23,6 @@ export function createFromProperties(
 		props: {
 			url,
 			name: properties.name,
-			selected: false,
 			userAdded: true,
 			version: properties.version
 		}
@@ -36,26 +34,6 @@ export function createFromProperties(
  */
 export function deleteFormat(format: StoryFormat): StoryFormatsAction {
 	return {type: 'delete', id: format.id};
-}
-
-/**
- * Deselects all formats.
- */
-export function deselectAllFormats(): Thunk<StoryFormat[], StoryFormatsAction> {
-	return (dispatch, getFormats) => {
-		for (const format of getFormats()) {
-			if (format.selected) {
-				dispatch({type: 'update', id: format.id, props: {selected: false}});
-			}
-		}
-	};
-}
-
-/**
- * Deselects a single format.
- */
-export function deselectFormat(format: StoryFormat): StoryFormatsAction {
-	return {type: 'update', id: format.id, props: {selected: false}};
 }
 
 async function loadFormatThunk(
@@ -105,7 +83,7 @@ async function loadFormatThunk(
 		dispatch({
 			type: 'update',
 			id: format.id,
-			props: {loadError: (loadError as unknown) as Error, loadState: 'error'}
+			props: {loadError: loadError as unknown as Error, loadState: 'error'}
 		});
 	}
 }
@@ -144,34 +122,4 @@ export function loadFormatProperties(format: StoryFormat) {
 
 	return async (dispatch: StoryFormatsDispatch) =>
 		await loadFormatThunk(format, dispatch);
-}
-
-/**
- * Selects a single format.
- */
-export function selectFormat(
-	format: StoryFormat,
-	exclusive?: boolean
-): Thunk<StoryFormatsState, StoryFormatsAction> {
-	return (dispatch, getState) => {
-		if (!format.selected) {
-			dispatch({
-				type: 'update',
-				id: format.id,
-				props: {selected: true}
-			});
-		}
-
-		if (exclusive) {
-			for (const other of getState()) {
-				if (other.id !== format.id && other.selected) {
-					dispatch({
-						type: 'update',
-						id: other.id,
-						props: {selected: false}
-					});
-				}
-			}
-		}
-	};
 }

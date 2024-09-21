@@ -117,11 +117,10 @@
 			"passageCount": "1 Bölüm",
 			"passageCount_plural": "{{count}} Bölüm"
 		},
-		"storyFormatCard": {
+		"storyFormatItem": {
 			"author": "{{author}} tarafından",
 			"builtIn": "Dahili",
 			"defaultFormat": "Varsayılan biçim.",
-			"editorExtensionsDisabled": "Düzenleyici Eklentileri Kapalı",
 			"license": "Lisans: {{license}}",
 			"loadingFormat": "Bu öykü biçimi yükleniyor...",
 			"loadError": "Bu öykü biçimi yüklenemedi. ({{errorMessage}})",
@@ -218,7 +217,22 @@
 				"words": "Sözcük"
 			}
 		},
-		"storyInfo": { "stats": {"title": "Öykü İstatistikleri"}},
+		"storyFormats": {
+			"addStoryFormatButton": {
+				"addPreview": "{{storyFormatName}} {{storyFormatVersion}} eklenecek.",
+				"alreadyAdded": "{{storyFormatName}} {{storyFormatVersion}} zaten ekli.",
+				"fetchError": "Bu adresteki öykü biçimi elde edilemedi. ({{errorMessage}})",
+				"invalidUrl": "Lütfen geçerli bir URL girin.",
+				"prompt": "Öykü biçimi eklemek için biçimin internet adresini aşağı girin."
+			},
+			"filterButton": {
+				"all": "Tüm Öylü Biçimleri",
+				"current": "Güncel Öykü Biçimleri",
+				"user": "Kendinizce Eklenen Öykü Biçimleri"
+			},
+			"noneVisible": "Seçtiğiniz kriterlere uygun öykü biçimi bulunmamaktadır."
+		},
+		"storyInfo": {"stats": {"title": "Öykü İstatistikleri"}},
 		"storyJavaScript": {
 			"editorLabel": "Öykü JavaScript'i",
 			"title": "Öykü JavaScript'i",
@@ -303,29 +317,6 @@
 				"passageNames": "Yalnızca Bölüm Adlarını Göster",
 				"passageNamesAndExcerpts": "Bölüm Adlarını ve İçeriğin Kısımlarını Göster"
 			}
-		},
-		"storyFormatList": {
-			"noneVisible": "Seçtiğiniz kriterlere uygun öykü biçimi bulunmamaktadır.",
-			"show": "Show...",
-			"title": {
-				"all": "Tüm Öylü Biçimleri",
-				"current": "Güncel Öykü Biçimleri",
-				"user": "Kendinizce Eklenen Öykü Biçimleri"
-			},
-			"toolbar": {
-				"addStoryFormatButton": {
-					"addPreview": "{{storyFormatName}} {{storyFormatVersion}} eklenecek.",
-					"alreadyAdded": "{{storyFormatName}} {{storyFormatVersion}} zaten ekli.",
-					"fetchError": "Bu adresteki öykü biçimi elde edilemedi. ({{errorMessage}})",
-					"invalidUrl": "Lütfen geçerli bir URL girin.",
-					"prompt": "Öykü biçimi eklemek için biçimin internet adresini aşağı girin."
-				},
-				"disableFormatExtensions": "Düzenleyici Eklentilerini Kapat",
-				"enableFormatExtensions": "Düzenleyici Eklentilerini Aç",
-				"useAsDefaultFormat": "Varsayılan Biçim Olarak Kullan",
-				"useAsProofingFormat": "Öykü İmlası için Kullan"
-			},
-			"storyFormatExplanation": "Öykü biçimleri öykünün okuma sırasında nasıl göründüğünü ve davrandığını belirler."
 		},
 		"storyList": {
 			"library": "Kitaplık",

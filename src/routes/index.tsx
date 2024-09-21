@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {HashRouter, Route, Switch} from 'react-router-dom';
 import {usePrefsContext} from '../store/prefs';
-import {StoryFormatListRoute} from './story-format-list';
 import {StoryEditRoute} from './story-edit';
 import {StoryListRoute} from './story-list';
 import {StoryPlayRoute} from './story-play';
@@ -23,9 +22,6 @@ export const Routes: React.FC = () => {
 				<Switch>
 					<Route exact path="/">
 						<StoryListRoute />
-					</Route>
-					<Route path="/story-formats">
-						<StoryFormatListRoute />
 					</Route>
 					<Route path="/welcome">
 						<WelcomeRoute />

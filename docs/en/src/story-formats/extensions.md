@@ -8,10 +8,8 @@ Story formats can extend Twine by adding:
 - Syntax coloring in passage edit dialogs
 
 If these extensions are buggy or you just prefer not to use them, you can
-disable them. Select the story format card in the Story Format screen and choose
-_Disable Editor Extensions_ from the _Story Format_ top toolbar tab. To reverse
-this change, select the same card and choose _Enable Editor Extensions_ from the
-_Story Format_ top toolbar tab.
+disable them. To do this, uncheck the _Use Editor Extensions_ checkbox under the
+story format's name in the dialog. To reverse this change, check this checkbox.
 
 Disabling extensions disables all extensions for a format. You can't disable
 just the toolbar, for example, but not a format's references or syntax coloring.

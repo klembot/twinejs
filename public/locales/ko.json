@@ -118,11 +118,10 @@
 			"passageCount": "1개 구절",
 			"passageCount_plural": "{{count}}개 구절"
 		},
-		"storyFormatCard": {
+		"storyFormatItem": {
 			"author": "제작자: {{author}}",
 			"builtIn": "기본 제공",
 			"defaultFormat": "기본값으로 사용",
-			"editorExtensionsDisabled": "편집기 확장 사용 안 함",
 			"license": "라이선스: {{license}}",
 			"loadingFormat": "이 스토리 형식을 로드하는 중...",
 			"loadError": "이 스토리 형식을 로드할 수 없습니다. ({{errorMessage}})",
@@ -219,6 +218,21 @@
 				"words": "단어"
 			}
 		},
+		"storyFormats": {
+			"addStoryFormatButton": {
+				"addPreview": "{{storyFormatName}} {{storyFormatVersion}}이(가) 추가됩니다.",
+				"alreadyAdded": "{{storyFormatName}} {{storyFormatVersion}}이(가) 이미 추가되었습니다.",
+				"fetchError": "이 주소의 스토리 형식을 검색할 수 없습니다. ({{errorMessage}})",
+				"invalidUrl": "유효한 URL을 입력하세요.",
+				"prompt": "스토리 형식을 추가하려면 아래에 주소를 입력하세요."
+			},
+			"filterButton": {
+				"all": "모든 스토리 형식",
+				"current": "현재 스토리 형식",
+				"user": "사용자 추가 스토리 형식"
+			},
+			"noneVisible": "선택한 조건에 맞는 스토리 형식이 없습니다."
+		},
 		"storyJavaScript": {
 			"editorLabel": "스토리 JavaScript",
 			"title": "스토리 JavaScript",
@@ -308,29 +322,6 @@
 				"passageNames": "구절 이름만 표시",
 				"passageNamesAndExcerpts": "구절 이름과 발췌문 표시"
 			}
-		},
-		"storyFormatList": {
-			"noneVisible": "선택한 조건에 맞는 스토리 형식이 없습니다.",
-			"show": "표시...",
-			"title": {
-				"all": "모든 스토리 형식",
-				"current": "현재 스토리 형식",
-				"user": "사용자 추가 스토리 형식"
-			},
-			"toolbar": {
-				"addStoryFormatButton": {
-					"addPreview": "{{storyFormatName}} {{storyFormatVersion}}이(가) 추가됩니다.",
-					"alreadyAdded": "{{storyFormatName}} {{storyFormatVersion}}이(가) 이미 추가되었습니다.",
-					"fetchError": "이 주소의 스토리 형식을 검색할 수 없습니다. ({{errorMessage}})",
-					"invalidUrl": "유효한 URL을 입력하세요.",
-					"prompt": "스토리 형식을 추가하려면 아래에 주소를 입력하세요."
-				},
-				"disableFormatExtensions": "편집기 확장 비활성화",
-				"enableFormatExtensions": "편집기 확장 활성화",
-				"useAsDefaultFormat": "기본 형식으로 사용",
-				"useAsProofingFormat": "스토리 교정에 사용"
-			},
-			"storyFormatExplanation": "스토리 형식은 플레이 중 스토리의 모양과 동작을 제어합니다."
 		},
 		"storyList": {
 			"library": "라이브러리",

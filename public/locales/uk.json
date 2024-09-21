@@ -115,11 +115,10 @@
 			"passageCount_1": "{{count}} параграфи",
 			"passageCount_2": "{{count}} параграфів"
 		},
-		"storyFormatCard": {
+		"storyFormatItem": {
 			"author": "Автор: {{author}}",
 			"builtIn": "Вбудований",
 			"defaultFormat": "Використовується за замовчуванням",
-			"editorExtensionsDisabled": "Розширення редактора вимкнено",
 			"license": "Ліцензія: {{license}}",
 			"loadingFormat": "Завантаження формату оповідання...",
 			"loadError": "Цей формат оповідання не вийшло завантажити: ({{errorMessage}}).",
@@ -190,6 +189,21 @@
 		"passageTags": {
 			"noTags": "У параграфів в цьому оповіданні немає міток.",
 			"title": "Мітки параграфів"
+		},
+		"storyFormats": {
+			"addStoryFormatButton": {
+				"addPreview": "Буде додано формат {{storyFormatName}} {{storyFormatVersion}}.",
+				"alreadyAdded": "{{storyFormatName}} {{storyFormatVersion}} вже було додано.",
+				"fetchError": "Не вийшло завантажити формат оповідання за цією адресою ({{errorMessage}}).",
+				"invalidUrl": "Введіть коректний URL.",
+				"prompt": "Щоб додати формат оповідання, введіть його адресу."
+			},
+			"filterButton": {
+				"all": "Всі формати оповідань",
+				"current": "Формати цього оповідання",
+				"user": "Формати, додані користувачами"
+			},
+			"noneVisible": "Немає форматів оповідання, що підходять під обрані вами критерії."
 		},
 		"storyImport": {
 			"deselectAll": "Зняти виділення",
@@ -302,29 +316,6 @@
 				"passageNames": "Показати лише назви параграфів",
 				"passageNamesAndExcerpts": "Показати назви параграфів та уривки"
 			}
-		},
-		"storyFormatList": {
-			"noneVisible": "Немає форматів оповідання, що підходять під обрані вами критерії.",
-			"show": "Показати...",
-			"title": {
-				"all": "Всі формати оповідань",
-				"current": "Формати цього оповідання",
-				"user": "Формати, додані користувачами"
-			},
-			"toolbar": {
-				"addStoryFormatButton": {
-					"addPreview": "Буде додано формат {{storyFormatName}} {{storyFormatVersion}}.",
-					"alreadyAdded": "{{storyFormatName}} {{storyFormatVersion}} вже було додано.",
-					"fetchError": "Не вийшло завантажити формат оповідання за цією адресою ({{errorMessage}}).",
-					"invalidUrl": "Введіть коректний URL.",
-					"prompt": "Щоб додати формат оповідання, введіть його адресу."
-				},
-				"disableFormatExtensions": "Вимкнути розширення редактора",
-				"enableFormatExtensions": "Ввімкнути розширення редактора",
-				"useAsDefaultFormat": "Використовувати як формат за замовчуванням",
-				"useAsProofingFormat": "Використовувати для вичитки"
-			},
-			"storyFormatExplanation": "Формат оповідання контролює вигляд та поведінку оповідань під час відтворення."
 		},
 		"storyList": {
 			"library": "Бібліотека",

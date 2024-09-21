@@ -31,7 +31,7 @@
 		"renameStoryButton": {"emptyName": "Indtast et navn."},
 		"safariWarningCard": {},
 		"storyCard": {},
-		"storyFormatCard": {},
+		"storyFormatItem": {},
 		"storyFormatSelect": {},
 		"tagEditor": {}
 	},
@@ -68,10 +68,6 @@
 				"proofStory": "Vis korrekturkopi",
 				"publishToFile": "Udgiv som fil"
 			}
-		},
-		"storyFormatList": {
-			"title": {},
-			"storyFormatExplanation": "Historieformater styrer udseende og opførsel af historier når der spilles."
 		},
 		"storyImport": {},
 		"storyList": {

@@ -114,11 +114,10 @@
 			"passageCount": "1 passage",
 			"passageCount_plural": "{{count}} passages"
 		},
-		"storyFormatCard": {
+		"storyFormatItem": {
 			"author": "door {{author}}",
 			"builtIn": "Ingebouwd",
 			"defaultFormat": "Gebruikt als standaard",
-			"editorExtensionsDisabled": "Editor-extensies uitgeschakeld",
 			"license": "Licentie: {{license}}",
 			"loadingFormat": "Laden van dit formaat...",
 			"loadError": "Dit formaat kon niet worden geladen ({{errorMessage}}).",
@@ -188,6 +187,21 @@
 		"passageTags": {
 			"noTags": "Er zijn geen labels toegevoegd aan passages in dit verhaal.",
 			"title": "Passage Labels"
+		},
+		"storyFormats": {
+			"addStoryFormatButton": {
+				"addPreview": "{{storyFormatName}} {{storyFormatVersion}} wordt toegevoegd.",
+				"alreadyAdded": "{{storyFormatName}} {{storyFormatVersion}} is al toegevoegd.",
+				"fetchError": "Het verhaalformaat op dit adres kan niet worden opgehaald ({{errorMessage}}).",
+				"invalidUrl": "Voer een geldige URL in.",
+				"prompt": "Voer het adres hieronder in om een verhaalformaat toe te voegen."
+			},
+			"filterButton": {
+				"all": "Alle Verhaal Formaten",
+				"current": "Huidige Verhaal Formaten",
+				"user": "Door Gebruiker Toegevoegde Formaten"
+			},
+			"noneVisible": "Er zijn geen verhaalformaten die voldoen aan de criteria die je hebt geselecteerd."
 		},
 		"storyImport": {
 			"deselectAll": "Deselecteer Alles",
@@ -299,29 +313,6 @@
 				"passageNames": "Alleen passagenamen weergeven",
 				"passageNamesAndExcerpts": "Passagenamen en fragmenten weergeven"
 			}
-		},
-		"storyFormatList": {
-			"noneVisible": "Er zijn geen verhaalformaten die voldoen aan de criteria die je hebt geselecteerd.",
-			"show": "Laat zien...",
-			"title": {
-				"all": "Alle Verhaal Formaten",
-				"current": "Huidige Verhaal Formaten",
-				"user": "Door Gebruiker Toegevoegde Formaten"
-			},
-			"toolbar": {
-				"addStoryFormatButton": {
-					"addPreview": "{{storyFormatName}} {{storyFormatVersion}} wordt toegevoegd.",
-					"alreadyAdded": "{{storyFormatName}} {{storyFormatVersion}} is al toegevoegd.",
-					"fetchError": "Het verhaalformaat op dit adres kan niet worden opgehaald ({{errorMessage}}).",
-					"invalidUrl": "Voer een geldige URL in.",
-					"prompt": "Voer het adres hieronder in om een verhaalformaat toe te voegen."
-				},
-				"disableFormatExtensions": "Editor-extensies uitschakelen",
-				"enableFormatExtensions": "Editor-extensies inschakelen",
-				"useAsDefaultFormat": "Gebruiken als standaardformaat",
-				"useAsProofingFormat": "Gebruik om verhalen proef te lezen"
-			},
-			"storyFormatExplanation": "Verhaalformaten bepalen het uiterlijk en het gedrag van verhalen tijdens het spelen."
 		},
 		"storyList": {
 			"library": "Bibliotheek",

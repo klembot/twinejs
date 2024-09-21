@@ -31,7 +31,7 @@
 		"renameStoryButton": {"emptyName": "Sila masukkan nama."},
 		"safariWarningCard": {},
 		"storyCard": {},
-		"storyFormatCard": {},
+		"storyFormatItem": {},
 		"storyFormatSelect": {},
 		"tagEditor": {}
 	},
@@ -71,10 +71,6 @@
 				"proofStory": "Lihat Salinan Proofing",
 				"publishToFile": "Terbit ke Fail"
 			}
-		},
-		"storyFormatList": {
-			"title": {},
-			"storyFormatExplanation": "Format cerita kawal penampilan dan tingkah laku cerita semasa tengah bermain."
 		},
 		"storyImport": {},
 		"storyList": {

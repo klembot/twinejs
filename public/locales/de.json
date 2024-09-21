@@ -118,11 +118,10 @@
 			"passageCount": "1 Abschnitt",
 			"passageCount_plural": "{{count}} Abschnitte"
 		},
-		"storyFormatCard": {
+		"storyFormatItem": {
 			"author": "von {{author}}",
 			"builtIn": "Erstellt am",
 			"defaultFormat": "Als Standard gesetzt",
-			"editorExtensionsDisabled": "Editor Erweiterungen Deaktiviert",
 			"license": "Lizenz: {{license}}",
 			"loadingFormat": "Lade diese Geschichtsformat...",
 			"loadError": "Dieses Geschichtsformat konnte nicht geladen werden ({{errorMessage}}).",
@@ -218,6 +217,21 @@
 				"passages": "Abschnitte",
 				"words": "Wörter"
 			}
+		},
+		"storyFormats": {
+			"addStoryFormatButton": {
+				"addPreview": "{{storyFormatName}} {{storyFormatVersion}} wird hinzugefügt.",
+				"alreadyAdded": "{{storyFormatName}} {{storyFormatVersion}} ist bereits vorhanden.",
+				"fetchError": "Das Geschichtsformat an dieser Adresse konnte nicht abgerufen werden ({{errorMessage}}).",
+				"invalidUrl": "Bitte eine gültige URL eingeben.",
+				"prompt": "Um ein Geschichtsformat hinzuzufügen, gebe unten die Adresse ein."
+			},
+			"filterButton": {
+				"all": "Alle Geschichtsformate",
+				"current": "Momentane Geschichtsformate",
+				"user": "Vom Benutzer hinzugefügte Geschichtsformate"
+			},
+			"noneVisible": "Keine Geschichtsformate passen zu deinen Kriterien."
 		},
 		"storyJavaScript": {
 			"editorLabel": "JavaScript der Geschicht",
@@ -321,29 +335,6 @@
 				"passageNames": "Zeige Nur Die Namen der Abschnitte",
 				"passageNamesAndExcerpts": "Zeige Abschnittsnamen und -ausschnitte"
 			}
-		},
-		"storyFormatList": {
-			"noneVisible": "Keine Geschichtsformate passen zu deinen Kriterien.",
-			"show": "Anzeigen...",
-			"title": {
-				"all": "Alle Geschichtsformate",
-				"current": "Momentane Geschichtsformate",
-				"user": "Vom Benutzer hinzugefügte Geschichtsformate"
-			},
-			"toolbar": {
-				"addStoryFormatButton": {
-					"addPreview": "{{storyFormatName}} {{storyFormatVersion}} wird hinzugefügt.",
-					"alreadyAdded": "{{storyFormatName}} {{storyFormatVersion}} ist bereits vorhanden.",
-					"fetchError": "Das Geschichtsformat an dieser Adresse konnte nicht abgerufen werden ({{errorMessage}}).",
-					"invalidUrl": "Bitte eine gültige URL eingeben.",
-					"prompt": "Um ein Geschichtsformat hinzuzufügen, gebe unten die Adresse ein."
-				},
-				"disableFormatExtensions": "Deaktiviere Editor Erweiterungen",
-				"enableFormatExtensions": "Aktiviere Editor Erweiterungen",
-				"useAsDefaultFormat": "Benutze als Standardformat",
-				"useAsProofingFormat": "Benutze zur Korrektur von Geschichten"
-			},
-			"storyFormatExplanation": "Geschichtsformate bestimmen Aussehen und Verhalten Deiner Geschichten während des Spielens."
 		},
 		"storyList": {
 			"library": "Bibliothek",

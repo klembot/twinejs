@@ -53,7 +53,6 @@ export const reducer: React.Reducer<StoryFormatsState, StoryFormatsAction> = (
 						...builtinFormat,
 						id: uuid(),
 						loadState: 'unloaded',
-						selected: false,
 						userAdded: false
 					});
 				}

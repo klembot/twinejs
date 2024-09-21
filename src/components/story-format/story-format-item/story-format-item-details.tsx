@@ -2,28 +2,28 @@ import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {StoryFormat} from '../../../store/story-formats';
 
-export interface StoryFormatCardDetailsProps {
+export interface StoryFormatItemDetailsProps {
 	format: StoryFormat;
 }
 
-export const StoryFormatCardDetails: React.FC<StoryFormatCardDetailsProps> = ({
+export const StoryFormatItemDetails: React.FC<StoryFormatItemDetailsProps> = ({
 	format
 }) => {
 	const {t} = useTranslation();
 
 	if (format.loadState === 'unloaded' || format.loadState === 'loading') {
 		return (
-			<div className="story-format-card-details">
-				<p>{t('components.storyFormatCard.loadingFormat')}</p>
+			<div className="story-format-details">
+				<p>{t('components.storyFormatItem.loadingFormat')}</p>
 			</div>
 		);
 	}
 
 	if (format.loadState === 'error') {
 		return (
-			<div className="story-format-card-details">
+			<div className="story-format-details">
 				<p>
-					{t('components.storyFormatCard.loadError', {
+					{t('components.storyFormatItem.loadError', {
 						errorMessage: format.loadError.message
 					})}
 				</p>
@@ -32,12 +32,12 @@ export const StoryFormatCardDetails: React.FC<StoryFormatCardDetailsProps> = ({
 	}
 
 	return (
-		<div className="story-format-card-details">
+		<div className="story-format-details">
 			{format.properties.author && (
 				<p
-					className="story-format-card-author"
+					className="story-format-author"
 					dangerouslySetInnerHTML={{
-						__html: t('components.storyFormatCard.author', {
+						__html: t('components.storyFormatItem.author', {
 							author: format.properties.author
 						})
 					}}
@@ -45,15 +45,15 @@ export const StoryFormatCardDetails: React.FC<StoryFormatCardDetailsProps> = ({
 			)}
 			{format.properties.description && (
 				<div
-					className="story-format-card-description"
+					className="story-format-description"
 					dangerouslySetInnerHTML={{
 						__html: format.properties.description
 					}}
 				/>
 			)}
 			{format.properties.license && (
-				<p className="story-format-card-license">
-					{t('components.storyFormatCard.license', {
+				<p className="story-format-license">
+					{t('components.storyFormatItem.license', {
 						license: format.properties.license
 					})}
 				</p>
