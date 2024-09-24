@@ -10,7 +10,7 @@
 	flex: 1 1 0;
 }
 
-.story-formats-dialog .card-content > p {
+.story-formats-dialog .card-content > p:not(.validation-message) {
 	padding: var(--grid-size);
 }
 
