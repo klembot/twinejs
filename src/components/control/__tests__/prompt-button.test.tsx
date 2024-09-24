@@ -124,23 +124,42 @@ describe('<PromptButton>', () => {
 		expect(onChange).toHaveBeenCalledTimes(1);
 	});
 
-	it('prevents submission if the validate prop blocks it', async () => {
-		const onSubmit = jest.fn();
+	it.each(['change', 'submit'])(
+		'prevents submission if the validate prop blocks it when the validateOn prop is "%s"',
+		async validateOn => {
+			const onSubmit = jest.fn();
 
-		renderComponent({
-			onSubmit,
-			validate,
-			prompt: 'test-prompt',
-			submitLabel: 'test-submit',
-			value: 'bad'
-		});
-		fireEvent.click(screen.getByRole('button'));
-		await waitFor(() =>
-			expect(screen.getByRole('button', {name: 'test-submit'})).toBeDisabled()
-		);
-		fireEvent.submit(screen.getByRole('textbox', {name: 'test-prompt'}));
-		expect(onSubmit).not.toHaveBeenCalled();
-	});
+			renderComponent({
+				onSubmit,
+				validate,
+				validateOn: validateOn as 'change' | 'submit',
+				prompt: 'test-prompt',
+				submitLabel: 'test-submit',
+				value: 'bad'
+			});
+			fireEvent.click(screen.getByRole('button'));
+
+			if (validateOn === 'change') {
+				// The button won't disable itself right away if we're validating on submit.
+
+				await waitFor(() =>
+					expect(
+						screen.getByRole('button', {name: 'test-submit'})
+					).toBeDisabled()
+				);
+			}
+			fireEvent.submit(screen.getByRole('textbox', {name: 'test-prompt'}));
+
+			if (validateOn === 'submit') {
+				// ... but should now be disabled if we're validating on submit.
+
+				expect(
+					screen.getByRole('button', {name: 'test-submit'})
+				).toBeDisabled();
+			}
+			expect(onSubmit).not.toHaveBeenCalled();
+		}
+	);
 
 	it('is accessible', async () => {
 		const {container} = renderComponent();

@@ -97,6 +97,7 @@ export const AddStoryFormatButton: React.FC = () => {
 				submitLabel={t('common.add')}
 				submitVariant="create"
 				validate={validate}
+				validateOn="submit"
 				value={newFormatUrl}
 			/>
 		</span>

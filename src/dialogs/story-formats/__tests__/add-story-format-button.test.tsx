@@ -75,7 +75,7 @@ describe('<AddStoryFormatButton>', () => {
 		expect(formatInspector.dataset.version).toBe(format.version);
 	});
 
-	it('shows an error if an invalid URL is entered', async () => {
+	it('shows an error on submit if an invalid URL is entered', async () => {
 		await renderComponent();
 		fireEvent.change(
 			screen.getByRole('textbox', {
@@ -83,6 +83,7 @@ describe('<AddStoryFormatButton>', () => {
 			}),
 			{target: {value: 'not a url'}}
 		);
+		fireEvent.click(getAddButton());
 		await act(async () => Promise.resolve());
 		expect(
 			screen.getByText('dialogs.storyFormats.addStoryFormatButton.invalidUrl')
@@ -90,7 +91,7 @@ describe('<AddStoryFormatButton>', () => {
 		expect(getAddButton()).toBeDisabled();
 	});
 
-	it('shows an error if fetching story properties fails', async () => {
+	it('shows an error on submit if fetching story properties fails', async () => {
 		fetchStoryFormatPropertiesMock.mockRejectedValue(new Error());
 		await renderComponent();
 		fireEvent.change(
@@ -99,6 +100,7 @@ describe('<AddStoryFormatButton>', () => {
 			}),
 			{target: {value: 'http://mock-format-url'}}
 		);
+		fireEvent.click(getAddButton());
 		await act(async () => Promise.resolve());
 		expect(
 			screen.getByText('dialogs.storyFormats.addStoryFormatButton.fetchError')
@@ -106,7 +108,7 @@ describe('<AddStoryFormatButton>', () => {
 		expect(getAddButton()).toBeDisabled();
 	});
 
-	it('shows an error if the URL points to a format with the same name and version as a format that already exists', async () => {
+	it('shows an error on submit if the URL points to a format with the same name and version as a format that already exists', async () => {
 		const format = fakeLoadedStoryFormat();
 
 		fetchStoryFormatPropertiesMock.mockResolvedValue(
@@ -119,6 +121,7 @@ describe('<AddStoryFormatButton>', () => {
 			}),
 			{target: {value: 'http://mock-format-url'}}
 		);
+		fireEvent.click(getAddButton());
 		await act(async () => Promise.resolve());
 		expect(
 			screen.getByText('dialogs.storyFormats.addStoryFormatButton.alreadyAdded')
