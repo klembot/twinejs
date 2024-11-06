@@ -82,32 +82,6 @@ describe('<PassageEditContents>', () => {
 				).toHaveTextContent('mock-changed-text');
 			});
 
-			it('displays the format toolbar', () => {
-				const story = fakeStory(1);
-				const format = fakeLoadedStoryFormat({
-					name: story.storyFormat,
-					version: story.storyFormatVersion
-				});
-
-				renderComponent({stories: [story], storyFormats: [format]});
-				expect(
-					screen.getByTestId(`mock-story-format-toolbar-${format.id}`)
-				).toBeInTheDocument();
-			});
-
-			it('displays the tag toolbar', () => {
-				const story = fakeStory(1);
-				const format = fakeLoadedStoryFormat({
-					name: story.storyFormat,
-					version: story.storyFormatVersion
-				});
-
-				renderComponent({stories: [story], storyFormats: [format]});
-				expect(
-					screen.getByTestId(`mock-tag-toolbar-${story.passages[0].id}`)
-				).toBeInTheDocument();
-			});
-
 			it('does not disable story format extensions', () => {
 				const story = fakeStory(1);
 				const format = fakeLoadedStoryFormat({
@@ -120,6 +94,56 @@ describe('<PassageEditContents>', () => {
 					screen.getByTestId(`mock-passage-text-${story.passages[0].id}`)
 						.dataset.storyFormatExtensionsDisabled
 				).toBe('false');
+			});
+
+			it('displays the tag toolbar', () => {
+				const story = fakeStory(1);
+				const format = fakeLoadedStoryFormat({
+					name: story.storyFormat,
+					version: story.storyFormatVersion
+				});
+
+				renderComponent({
+					stories: [story],
+					storyFormats: [format]
+				});
+				expect(
+					screen.getByTestId(`mock-tag-toolbar-${story.passages[0].id}`)
+				).toBeInTheDocument();
+			});
+
+			it('displays the format toolbar when CodeMirror is enabled', () => {
+				const story = fakeStory(1);
+				const format = fakeLoadedStoryFormat({
+					name: story.storyFormat,
+					version: story.storyFormatVersion
+				});
+
+				renderComponent({
+					prefs: {useCodeMirror: true},
+					stories: [story],
+					storyFormats: [format]
+				});
+				expect(
+					screen.getByTestId(`mock-story-format-toolbar-${format.id}`)
+				).toBeInTheDocument();
+			});
+
+			it("doesn't display the format toolbar when CodeMirror is enabled", () => {
+				const story = fakeStory(1);
+				const format = fakeLoadedStoryFormat({
+					name: story.storyFormat,
+					version: story.storyFormatVersion
+				});
+
+				renderComponent({
+					prefs: {useCodeMirror: false},
+					stories: [story],
+					storyFormats: [format]
+				});
+				expect(
+					screen.queryByTestId(`mock-story-format-toolbar-${format.id}`)
+				).not.toBeInTheDocument();
 			});
 
 			it('is accessible', async () => {

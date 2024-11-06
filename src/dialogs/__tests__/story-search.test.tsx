@@ -315,6 +315,22 @@ describe('<StorySearchDialog>', () => {
 		expect(screen.getByText('dialogs.storySearch.replaceAll')).toBeDisabled();
 	});
 
+	it('uses CodeMirror on its code areas when CodeMirror is enabled', () => {
+		renderComponent({}, {prefs: {useCodeMirror: true}});
+
+		for (const area of screen.getAllByTestId('mock-code-area')) {
+			expect(area.dataset.useCodeMirror).toBe('true');
+		}
+	});
+
+	it('disables CodeMirror on its code areas when CodeMirror is disabled', () => {
+		renderComponent({}, {prefs: {useCodeMirror: false}});
+
+		for (const area of screen.getAllByTestId('mock-code-area')) {
+			expect(area.dataset.useCodeMirror).toBe('false');
+		}
+	});
+
 	it('is accessible', async () => {
 		const {container} = renderComponent();
 

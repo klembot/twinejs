@@ -27,6 +27,7 @@ describe('<AppPrefsDialog>', () => {
 				<PrefInspector name="locale" />
 				<PrefInspector name="passageEditorFontFamily" />
 				<PrefInspector name="passageEditorFontScale" />
+				<PrefInspector name="useCodeMirror" />
 			</FakeStateProvider>
 		);
 	}
@@ -196,6 +197,62 @@ describe('<AppPrefsDialog>', () => {
 		expect(
 			screen.getByTestId('pref-inspector-codeEditorFontScale')
 		).toHaveTextContent('1.25');
+	});
+
+	it('displays the CodeMirror preference', () => {
+		renderComponent({useCodeMirror: true});
+
+		expect(
+			screen.getByRole('checkbox', {
+				name: 'dialogs.appPrefs.useEnhancedEditors'
+			})
+		).toBeChecked();
+		cleanup();
+		renderComponent({useCodeMirror: false});
+		expect(
+			screen.getByRole('checkbox', {
+				name: 'dialogs.appPrefs.useEnhancedEditors'
+			})
+		).not.toBeChecked();
+	});
+
+	it('changes the CodeMirror preference and not the cursor preference when enabled', () => {
+		renderComponent({editorCursorBlinks: false, useCodeMirror: false});
+		expect(
+			screen.getByTestId('pref-inspector-useCodeMirror')
+		).toHaveTextContent('false');
+		fireEvent.click(
+			screen.getByRole('checkbox', {
+				name: 'dialogs.appPrefs.useEnhancedEditors'
+			})
+		);
+		expect(
+			screen.getByTestId('pref-inspector-editorCursorBlinks')
+		).toHaveTextContent('false');
+		expect(
+			screen.getByTestId('pref-inspector-useCodeMirror')
+		).toHaveTextContent('true');
+	});
+
+	it('changes the CodeMirror preference and the cursor preference when disabled', () => {
+		renderComponent({editorCursorBlinks: false, useCodeMirror: true});
+		expect(
+			screen.getByTestId('pref-inspector-editorCursorBlinks')
+		).toHaveTextContent('false');
+		expect(
+			screen.getByTestId('pref-inspector-useCodeMirror')
+		).toHaveTextContent('true');
+		fireEvent.click(
+			screen.getByRole('checkbox', {
+				name: 'dialogs.appPrefs.useEnhancedEditors'
+			})
+		);
+		expect(
+			screen.getByTestId('pref-inspector-editorCursorBlinks')
+		).toHaveTextContent('true');
+		expect(
+			screen.getByTestId('pref-inspector-useCodeMirror')
+		).toHaveTextContent('false');
 	});
 
 	it('is accessible', async () => {

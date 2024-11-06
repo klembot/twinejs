@@ -9,15 +9,23 @@ import {
 	StoryInspector
 } from '../../../test-util';
 import {PassageToolbar} from '../passage-toolbar';
+import {usePrefsContext} from '../../../store/prefs';
 
 jest.mock('../../../components/control/menu-button');
 jest.mock('../../../components/passage/rename-passage-button');
 jest.mock('../../../components/tag/add-tag-button');
 
 const TestPassageToolbar: React.FC = () => {
+	const {prefs} = usePrefsContext();
 	const {stories} = useStoriesContext();
 
-	return <PassageToolbar passage={stories[0].passages[0]} story={stories[0]} />;
+	return (
+		<PassageToolbar
+			passage={stories[0].passages[0]}
+			story={stories[0]}
+			useCodeMirror={prefs.useCodeMirror}
+		/>
+	);
 };
 
 describe('<PassageToolbar>', () => {
@@ -98,6 +106,26 @@ describe('<PassageToolbar>', () => {
 			expect(passage.dataset.width).toBe(passageProps.width.toString());
 		}
 	);
+
+	it('shows undo and redo buttons if CodeMirror is enabled in preferences', () => {
+		renderComponent({prefs: {useCodeMirror: true}});
+		expect(
+			screen.getByRole('button', {name: 'common.undo'})
+		).toBeInTheDocument();
+		expect(
+			screen.getByRole('button', {name: 'common.redo'})
+		).toBeInTheDocument();
+	});
+
+	it('hides undo and redo buttons if CodeMirror is disabled in preferences', () => {
+		renderComponent({prefs: {useCodeMirror: false}});
+		expect(
+			screen.queryByRole('button', {name: 'common.undo'})
+		).not.toBeInTheDocument();
+		expect(
+			screen.queryByRole('button', {name: 'common.redo'})
+		).not.toBeInTheDocument();
+	});
 
 	it('is accessible', async () => {
 		const {container} = await renderComponent();
