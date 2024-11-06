@@ -58,17 +58,8 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 		}
 	}, [localText, passage.text]);
 
-	const handleLocalChange = React.useCallback(
-		(
-			editor: CodeMirror.Editor,
-			data: CodeMirror.EditorChange,
-			text: string
-		) => {
-			// A local change has been made, e.g. the user has typed or pasted into
-			// the field. It's safe to immediately trigger a CodeMirror editor update.
-
-			onEditorChange(editor);
-
+	const handleLocalChangeText = React.useCallback(
+		(text: string) => {
 			// Set local state because the CodeMirror instance is controlled, and
 			// updates there should be immediate.
 
@@ -161,11 +152,13 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 				editorDidMount={handleMount}
 				fontFamily={prefs.passageEditorFontFamily}
 				fontScale={prefs.passageEditorFontScale}
+				id={`passage-dialog-passage-text-code-area-${passage.id}`}
 				label={t('dialogs.passageEdit.passageTextEditorLabel')}
 				labelHidden
-				onBeforeChange={handleLocalChange}
-				onChange={onEditorChange}
+				onChangeEditor={onEditorChange}
+				onChangeText={handleLocalChangeText}
 				options={options}
+				useCodeMirror={prefs.useCodeMirror}
 				value={localText}
 			/>
 		</DialogEditor>

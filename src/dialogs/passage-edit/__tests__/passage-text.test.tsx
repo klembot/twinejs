@@ -237,6 +237,20 @@ describe('<PassageText>', () => {
 		expect(onChange.mock.calls).toEqual([['mock-change2']]);
 	});
 
+	it('uses CodeMirror in the code area if enabled in preferences', () => {
+		renderComponent({}, {prefs: {useCodeMirror: true}});
+		expect(screen.getByTestId('mock-code-area')!.dataset.useCodeMirror).toBe(
+			'true'
+		);
+	});
+
+	it("doesn't use CodeMirror in the code area if disabled in preferences", () => {
+		renderComponent({}, {prefs: {useCodeMirror: false}});
+		expect(screen.getByTestId('mock-code-area')!.dataset.useCodeMirror).toBe(
+			'false'
+		);
+	});
+
 	it('is accessible', async () => {
 		jest.useRealTimers();
 

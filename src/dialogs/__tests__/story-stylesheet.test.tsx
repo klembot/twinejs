@@ -103,8 +103,62 @@ describe('<StoryStylesheetDialog>', () => {
 		).toEqual(expect.objectContaining({cursorBlinkRate: 0}));
 	});
 
-	it.todo('indents code with its indent buttons');
-	it.todo('undos and redos changes with the undo/redo buttons');
+	describe('When CodeMirror is enabled', () => {
+		it('uses CodeMirror on its code area', () => {
+			renderComponent({prefs: {useCodeMirror: true}});
+			expect(screen.getByTestId('mock-code-area')!.dataset.useCodeMirror).toBe(
+				'true'
+			);
+		});
+
+		it('shows undo, redo, and indent buttons', () => {
+			renderComponent({prefs: {useCodeMirror: true}});
+			expect(
+				screen.getByRole('button', {name: 'common.undo'})
+			).toBeInTheDocument();
+			expect(
+				screen.getByRole('button', {name: 'common.redo'})
+			).toBeInTheDocument();
+			expect(
+				screen.getByRole('button', {name: 'components.indentButtons.indent'})
+			).toBeInTheDocument();
+			expect(
+				screen.getByRole('button', {
+					name: 'components.indentButtons.unindent'
+				})
+			).toBeInTheDocument();
+		});
+
+		it.todo('indents code with its indent buttons');
+		it.todo('undos and redos changes with the undo/redo buttons');
+	});
+
+	describe('When CodeMirror is disabled', () => {
+		it("doesn't use CodeMirror on its code area", () => {
+			renderComponent({prefs: {useCodeMirror: false}});
+			expect(screen.getByTestId('mock-code-area')!.dataset.useCodeMirror).toBe(
+				'false'
+			);
+		});
+
+		it('hides undo, redo, and indent buttons', () => {
+			renderComponent({prefs: {useCodeMirror: false}});
+			expect(
+				screen.queryByRole('button', {name: 'common.undo'})
+			).not.toBeInTheDocument();
+			expect(
+				screen.queryByRole('button', {name: 'common.redo'})
+			).not.toBeInTheDocument();
+			expect(
+				screen.queryByRole('button', {name: 'components.indentButtons.indent'})
+			).not.toBeInTheDocument();
+			expect(
+				screen.queryByRole('button', {
+					name: 'components.indentButtons.unindent'
+				})
+			).not.toBeInTheDocument();
+		});
+	});
 
 	it('is accessible', async () => {
 		const {container} = renderComponent();

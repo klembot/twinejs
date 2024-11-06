@@ -22,12 +22,7 @@ export const StoryJavaScriptDialog: React.FC<StoryJavaScriptDialogProps> = props
 	const story = storyWithId(stories, storyId);
 	const {t} = useTranslation();
 
-	const handleChange = (
-		editor: CodeMirror.Editor,
-		data: CodeMirror.EditorChange,
-		text: string
-	) => {
-		setCmEditor(editor);
+	const handleChangeText = (text: string) => {
 		dispatch(updateStory(stories, story, {script: text}));
 	};
 
@@ -38,18 +33,22 @@ export const StoryJavaScriptDialog: React.FC<StoryJavaScriptDialogProps> = props
 			headerLabel={t('dialogs.storyJavaScript.title')}
 			maximizable
 		>
-			<ButtonBar>
-				<UndoRedoButtons editor={cmEditor} watch={story.script} />
-				<IndentButtons editor={cmEditor} />
-			</ButtonBar>
+			{prefs.useCodeMirror && (
+				<ButtonBar>
+					<UndoRedoButtons editor={cmEditor} watch={story.script} />
+					<IndentButtons editor={cmEditor} />
+				</ButtonBar>
+			)}
 			<DialogEditor>
 				<CodeArea
 					editorDidMount={setCmEditor}
 					fontFamily={prefs.codeEditorFontFamily}
 					fontScale={prefs.codeEditorFontScale}
+					id="story-javascript-dialog-code-area"
 					label={t('dialogs.storyJavaScript.editorLabel')}
 					labelHidden
-					onBeforeChange={handleChange}
+					onChangeEditor={setCmEditor}
+					onChangeText={handleChangeText}
 					options={{
 						...codeMirrorOptionsFromPrefs(prefs),
 						autofocus: true,
@@ -57,6 +56,7 @@ export const StoryJavaScriptDialog: React.FC<StoryJavaScriptDialogProps> = props
 						mode: 'javascript',
 						placeholder: t('dialogs.storyJavaScript.explanation')
 					}}
+					useCodeMirror={prefs.useCodeMirror}
 					value={story.script}
 				/>
 			</DialogEditor>

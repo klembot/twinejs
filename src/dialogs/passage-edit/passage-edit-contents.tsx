@@ -13,6 +13,7 @@ import {PassageToolbar} from './passage-toolbar';
 import {StoryFormatToolbar} from './story-format-toolbar';
 import {TagToolbar} from './tag-toolbar';
 import './passage-edit-contents.css';
+import {usePrefsContext} from '../../store/prefs';
 
 export interface PassageEditContentsProps {
 	disabled?: boolean;
@@ -29,6 +30,7 @@ export const PassageEditContents: React.FC<
 	const [editorCrashed, setEditorCrashed] = React.useState(false);
 	const [cmEditor, setCmEditor] = React.useState<CodeMirror.Editor>();
 	const {ErrorBoundary, error, reset: resetError} = useErrorBoundary();
+	const {prefs} = usePrefsContext();
 	const {dispatch, stories} = useUndoableStoriesContext();
 	const {formats} = useStoryFormatsContext();
 	const passage = passageWithId(stories, storyId, passageId);
@@ -95,8 +97,9 @@ export const PassageEditContents: React.FC<
 				editor={cmEditor}
 				passage={passage}
 				story={story}
+				useCodeMirror={prefs.useCodeMirror}
 			/>
-			{storyFormatExtensionsEnabled && (
+			{prefs.useCodeMirror && storyFormatExtensionsEnabled && (
 				<StoryFormatToolbar
 					disabled={disabled}
 					editor={cmEditor}

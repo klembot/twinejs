@@ -1,4 +1,4 @@
-import {render, screen} from '@testing-library/react';
+import {fireEvent, render, screen} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
 import {CodeArea, CodeAreaProps} from '../code-area';
@@ -9,41 +9,90 @@ describe('<CodeArea>', () => {
 	function renderComponent(props?: Partial<CodeAreaProps>) {
 		return render(
 			<CodeArea
+				id="mock-id"
 				label="mock-label"
-				onBeforeChange={jest.fn()}
+				onChangeEditor={jest.fn()}
+				onChangeText={jest.fn()}
 				value="mock-value"
 				{...props}
 			/>
 		);
 	}
 
-	it('renders the label prop', () => {
-		renderComponent({label: 'test label'});
-		expect(screen.getByLabelText('test label')).toBeInTheDocument();
+	describe('When CodeMirror is enabled', () => {
+		it('renders the label prop', () => {
+			renderComponent({label: 'test label'});
+			expect(screen.getByLabelText('test label')).toBeInTheDocument();
+		});
+
+		it('renders the value prop', () => {
+			renderComponent({value: 'test value'});
+			expect(screen.getByLabelText('mock-label')).toHaveValue('test value');
+		});
+
+		it('sets a style on the container based on the fontFamily and fontScale props', () => {
+			renderComponent({fontFamily: 'my-custom-font', fontScale: 1.5});
+
+			const inputStyle = window.getComputedStyle(
+				// eslint-disable-next-line testing-library/no-node-access
+				document.querySelector('.code-area')!
+			);
+
+			expect(inputStyle.getPropertyValue('font-family')).toBe('my-custom-font');
+			expect(inputStyle.getPropertyValue('font-size')).toBe('150%');
+		});
+
+		// Changes are handled by props on react-codemirror2 and not tested here.
+
+		it('is accessible', async () => {
+			const {container} = renderComponent();
+
+			expect(await axe(container)).toHaveNoViolations();
+		});
 	});
 
-	it('renders the value prop', () => {
-		renderComponent({value: 'test value'});
-		expect(screen.getByLabelText('mock-label')).toHaveValue('test value');
-	});
+	describe('When using a browser native textarea', () => {
+		it('renders the label prop', () => {
+			renderComponent({label: 'test label', useCodeMirror: false});
+			expect(screen.getByLabelText('test label')).toBeInTheDocument();
+		});
 
-	it('sets a style on the container based on the fontFamily and fontScale props', () => {
-		renderComponent({fontFamily: 'my-custom-font', fontScale: 1.5});
+		it('renders the value prop', () => {
+			renderComponent({value: 'test value', useCodeMirror: false});
+			expect(screen.getByLabelText('mock-label')).toHaveValue('test value');
+		});
 
-		const inputStyle = window.getComputedStyle(
-			// eslint-disable-next-line testing-library/no-node-access
-			document.querySelector('.code-area')!
-		);
+		it('sets a style on the container based on the fontFamily and fontScale props', () => {
+			renderComponent({
+				fontFamily: 'my-custom-font',
+				fontScale: 1.5,
+				useCodeMirror: false
+			});
 
-		expect(inputStyle.getPropertyValue('font-family')).toBe('my-custom-font');
-		expect(inputStyle.getPropertyValue('font-size')).toBe('150%');
-	});
+			const inputStyle = window.getComputedStyle(
+				// eslint-disable-next-line testing-library/no-node-access
+				document.querySelector('.code-area')!
+			);
 
-	// Changes are handled by props on react-codemirror2 and not tested here.
+			expect(inputStyle.getPropertyValue('font-family')).toBe('my-custom-font');
+			expect(inputStyle.getPropertyValue('font-size')).toBe('150%');
+		});
 
-	it('is accessible', async () => {
-		const {container} = renderComponent();
+		it('calls the onChangeText prop when the textarea is changed', () => {
+			const onChangeText = jest.fn();
 
-		expect(await axe(container)).toHaveNoViolations();
+			renderComponent({onChangeText, useCodeMirror: false});
+			expect(onChangeText).not.toHaveBeenCalled();
+			fireEvent.change(screen.getByLabelText('mock-label'), {
+				target: {value: 'change'}
+			});
+			expect(onChangeText.mock.calls).toEqual([['change']]);
+		});
+
+		it('is accessible', async () => {
+			const {container} = renderComponent({useCodeMirror: false});
+
+			expect(await axe(container)).toHaveNoViolations();
+		});
 	});
 });

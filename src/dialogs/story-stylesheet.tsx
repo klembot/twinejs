@@ -22,12 +22,7 @@ export const StoryStylesheetDialog: React.FC<StoryStylesheetDialogProps> = props
 	const story = storyWithId(stories, storyId);
 	const {t} = useTranslation();
 
-	const handleChange = (
-		editor: CodeMirror.Editor,
-		data: CodeMirror.EditorChange,
-		text: string
-	) => {
-		setCmEditor(editor);
+	const handleChangeText = (text: string) => {
 		dispatch(updateStory(stories, story, {stylesheet: text}));
 	};
 
@@ -38,18 +33,22 @@ export const StoryStylesheetDialog: React.FC<StoryStylesheetDialogProps> = props
 			headerLabel={t('dialogs.storyStylesheet.title')}
 			maximizable
 		>
-			<ButtonBar>
-				<UndoRedoButtons editor={cmEditor} watch={story.script} />
-				<IndentButtons editor={cmEditor} />
-			</ButtonBar>
+			{prefs.useCodeMirror && (
+				<ButtonBar>
+					<UndoRedoButtons editor={cmEditor} watch={story.script} />
+					<IndentButtons editor={cmEditor} />
+				</ButtonBar>
+			)}
 			<DialogEditor>
 				<CodeArea
 					editorDidMount={setCmEditor}
 					fontFamily={prefs.codeEditorFontFamily}
 					fontScale={prefs.codeEditorFontScale}
+					id="story-stylesheet-dialog-code-area"
 					label={t('dialogs.storyStylesheet.editorLabel')}
 					labelHidden
-					onBeforeChange={handleChange}
+					onChangeEditor={setCmEditor}
+					onChangeText={handleChangeText}
 					options={{
 						...codeMirrorOptionsFromPrefs(prefs),
 						autofocus: true,
@@ -57,6 +56,7 @@ export const StoryStylesheetDialog: React.FC<StoryStylesheetDialogProps> = props
 						mode: 'css',
 						placeholder: t('dialogs.storyStylesheet.explanation')
 					}}
+					useCodeMirror={prefs.useCodeMirror}
 					value={story.stylesheet}
 				/>
 			</DialogEditor>

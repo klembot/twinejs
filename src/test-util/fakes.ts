@@ -139,6 +139,9 @@ export function fakePrefs(overrides?: Partial<PrefsState>): PrefsState {
 		storyListSort: faker.helpers.arrayElement(['date', 'name']),
 		storyListTagFilter: [],
 		storyTagColors: {[tags[0]]: 'red', [tags[1]]: 'green', [tags[2]]: 'blue'},
+		// Changing this preference should be explicit in a test because it affects
+		// editorCursorBlinks in some contexts.
+		useCodeMirror: true,
 		welcomeSeen: faker.datatype.boolean(),
 		...overrides
 	};

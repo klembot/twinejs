@@ -16,6 +16,7 @@ import {
 import {useUndoableStoriesContext} from '../store/undoable-stories';
 import {DialogComponentProps} from './dialogs.types';
 import './story-search.css';
+import {usePrefsContext} from '../store/prefs';
 
 // See https://github.com/codemirror/CodeMirror/issues/5444
 
@@ -38,6 +39,7 @@ export const StorySearchDialog: React.FC<StorySearchDialogProps> = props => {
 	const {find, flags, replace, storyId, onClose, onChangeProps, ...other} =
 		props;
 	const closingRef = React.useRef(false);
+	const {prefs} = usePrefsContext();
 	const {dispatch, stories} = useUndoableStoriesContext();
 	const {t} = useTranslation();
 	const story = storyWithId(stories, storyId);
@@ -82,19 +84,11 @@ export const StorySearchDialog: React.FC<StorySearchDialogProps> = props => {
 		onClose();
 	}
 
-	function handleReplaceWithChange(
-		editor: CodeMirror.Editor,
-		data: CodeMirror.EditorChange,
-		text: string
-	) {
+	function handleReplaceWithChange(text: string) {
 		patchProps({replace: text});
 	}
 
-	function handleSearchForChange(
-		editor: CodeMirror.Editor,
-		data: CodeMirror.EditorChange,
-		text: string
-	) {
+	function handleSearchForChange(text: string) {
 		patchProps({find: text});
 	}
 
@@ -119,18 +113,22 @@ export const StorySearchDialog: React.FC<StorySearchDialogProps> = props => {
 		>
 			<div className="search-fields">
 				<CodeArea
+					id="story-search-dialog-find"
 					label={t('dialogs.storySearch.find')}
-					onBeforeChange={handleSearchForChange}
+					onChangeText={handleSearchForChange}
 					options={{
 						extraKeys: ignoreTab,
 						mode: 'text'
 					}}
+					useCodeMirror={prefs.useCodeMirror}
 					value={find}
 				/>
 				<CodeArea
+					id="story-search-dialog-replace-with"
 					label={t('dialogs.storySearch.replaceWith')}
-					onBeforeChange={handleReplaceWithChange}
+					onChangeText={handleReplaceWithChange}
 					options={{extraKeys: ignoreTab, mode: 'text'}}
+					useCodeMirror={prefs.useCodeMirror}
 					value={replace}
 				/>
 			</div>

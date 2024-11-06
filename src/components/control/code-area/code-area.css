@@ -9,12 +9,6 @@
 }
 
 .code-area > label {
-	display: flex;
-	flex: 1;
-	flex-direction: column;
-}
-
-.code-area > label > .label {
 	display: block;
 	margin-bottom: var(--control-inner-padding);
 }
@@ -24,7 +18,7 @@
 	position: relative;
 }
 
-.code-area .CodeMirror {
+.code-area .CodeMirror, .code-area textarea.visible {
 	background: var(--white-translucent);
 	border-radius: var(--corner-round);
 	border: 1px solid var(--faint-gray);
@@ -36,6 +30,13 @@
 	position: absolute;
 	top: 0;
 	width: 100%;
+}
+
+.code-area textarea.visible {
+	padding: var(--grid-size);
+	/* Undo absolute positiong above. */
+	position: static;
+	resize: none;
 }
 
 /* See https://codemirror.net/doc/manual.html#styling */
