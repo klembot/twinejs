@@ -33,6 +33,18 @@ stylesheet edit dialog](../editing-stories/js-and-css.md). This preference only
 controls the cursor in the large text fields of these dialogs. Twine uses your
 system setting for cursor blinking in one-line text fields.
 
+The _Use Enhanced Editors_ checkbox controls whether Twine uses an enhanced
+editor control in edit dialogs. Unfortunately, this control can cause problems
+for assistive technology like screen readers, so disabling this may help in that
+case. Disabling this has a few side effects:
+
+- The _Blinking Cursor in Editors_ checkbox will become disabled, and whether
+  the cursor blinks in editors will use use your system setting.
+- Some toolbar buttons in dialogs will be hidden, because they use functionality
+  present in the enhanced editor control.
+- Story format toolbars will not be shown in passage editing dialogs, because
+  they also use functionality in the enhanced editor control
+
 You can change the font and size used in passage edit dialogs and the stylesheet
 and JavaScript edit dialogs using the controls below the _Blinking Cursor in
 Editors_ checkbox. (The _Code Editor_ preferences apply to both the stylesheet
