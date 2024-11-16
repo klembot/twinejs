@@ -34,6 +34,7 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 	const autocompletePassageNames = useCodeMirrorPassageHints(story);
 	const mode =
 		useFormatCodeMirrorMode(storyFormat.name, storyFormat.version) ?? 'text';
+	const codeAreaContainerRef = React.useRef<HTMLDivElement>(null);
 	const {t} = useTranslation();
 
 	// These are refs so that changing them doesn't trigger a rerender, and more
@@ -123,6 +124,21 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 		[onEditorChange]
 	);
 
+	// Emulate the above behavior re: focus if we aren't using CodeMirror.
+
+	React.useEffect(() => {
+		if (!prefs.useCodeMirror && codeAreaContainerRef.current) {
+			const area = codeAreaContainerRef.current.querySelector('textarea');
+
+			if (!area) {
+				return;
+			}
+
+			area.focus();
+			area.setSelectionRange(area.value.length, area.value.length);
+		}
+	}, []);
+
 	const options = React.useMemo(
 		() => ({
 			...codeMirrorOptionsFromPrefs(prefs),
@@ -147,7 +163,7 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 	);
 
 	return (
-		<DialogEditor>
+		<DialogEditor ref={codeAreaContainerRef}>
 			<CodeArea
 				editorDidMount={handleMount}
 				fontFamily={prefs.passageEditorFontFamily}
