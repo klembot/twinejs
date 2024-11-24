@@ -4,12 +4,12 @@ import {IconPlus} from '@tabler/icons';
 import {
 	createFromProperties,
 	useStoryFormatsContext
-} from '../../../../store/story-formats';
+} from '../../store/story-formats';
 import {
 	PromptButton,
 	PromptButtonValidator
-} from '../../../../components/control/prompt-button';
-import {fetchStoryFormatProperties} from '../../../../util/story-format';
+} from '../../components/control/prompt-button';
+import {fetchStoryFormatProperties} from '../../util/story-format';
 import './add-story-format-button.css';
 
 function isValidUrl(value: string) {
@@ -44,9 +44,7 @@ export const AddStoryFormatButton: React.FC = () => {
 
 		if (!isValidUrl(newFormatUrl)) {
 			return {
-				message: t(
-					'routes.storyFormatList.toolbar.addStoryFormatButton.invalidUrl'
-				),
+				message: t('dialogs.storyFormats.addStoryFormatButton.invalidUrl'),
 				valid: false
 			};
 		}
@@ -62,35 +60,26 @@ export const AddStoryFormatButton: React.FC = () => {
 				)
 			) {
 				return {
-					message: t(
-						'routes.storyFormatList.toolbar.addStoryFormatButton.alreadyAdded',
-						{
-							storyFormatName: properties.name,
-							storyFormatVersion: properties.version
-						}
-					),
+					message: t('dialogs.storyFormats.addStoryFormatButton.alreadyAdded', {
+						storyFormatName: properties.name,
+						storyFormatVersion: properties.version
+					}),
 					valid: false
 				};
 			}
 
 			return {
-				message: t(
-					'routes.storyFormatList.toolbar.addStoryFormatButton.addPreview',
-					{
-						storyFormatName: properties.name,
-						storyFormatVersion: properties.version
-					}
-				),
+				message: t('dialogs.storyFormats.addStoryFormatButton.addPreview', {
+					storyFormatName: properties.name,
+					storyFormatVersion: properties.version
+				}),
 				valid: true
 			};
 		} catch (error) {
 			return {
-				message: t(
-					'routes.storyFormatList.toolbar.addStoryFormatButton.fetchError',
-					{
-						errorMessage: (error as Error).message
-					}
-				),
+				message: t('dialogs.storyFormats.addStoryFormatButton.fetchError', {
+					errorMessage: (error as Error).message
+				}),
 				valid: false
 			};
 		}
@@ -103,11 +92,12 @@ export const AddStoryFormatButton: React.FC = () => {
 				label={t('common.add')}
 				onChange={event => setNewFormatUrl(event.target.value)}
 				onSubmit={handleSubmit}
-				prompt={t('routes.storyFormatList.toolbar.addStoryFormatButton.prompt')}
+				prompt={t('dialogs.storyFormats.addStoryFormatButton.prompt')}
 				submitIcon={<IconPlus />}
 				submitLabel={t('common.add')}
 				submitVariant="create"
 				validate={validate}
+				validateOn="submit"
 				value={newFormatUrl}
 			/>
 		</span>

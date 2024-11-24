@@ -6,6 +6,7 @@ import {CardContent} from '../container/card';
 import {CardButton, CardButtonProps} from './card-button';
 import {IconButton, IconButtonProps} from './icon-button';
 import {TextInput} from './text-input';
+import './prompt-button.css';
 
 export interface PromptValidationResponse {
 	message?: string;
@@ -27,6 +28,7 @@ export interface PromptButtonProps
 	submitLabel?: string;
 	submitVariant?: IconButtonProps['variant'];
 	validate?: PromptButtonValidator;
+	validateOn?: 'change' | 'submit';
 	value: string;
 }
 
@@ -41,6 +43,7 @@ export const PromptButton: React.FC<PromptButtonProps> = props => {
 		submitLabel,
 		submitVariant,
 		validate,
+		validateOn = 'change',
 		value,
 		...other
 	} = props;
@@ -52,7 +55,7 @@ export const PromptButton: React.FC<PromptButtonProps> = props => {
 
 	React.useEffect(() => {
 		async function updateValidation() {
-			if (validate) {
+			if (validateOn === 'change' && validate) {
 				const validation = await validate(value);
 
 				if (mounted.current) {
@@ -79,8 +82,26 @@ export const PromptButton: React.FC<PromptButtonProps> = props => {
 		setOpen(false);
 	}
 
-	function handleSubmit(event: React.FormEvent) {
+	async function handleSubmit(event: React.FormEvent) {
 		event.preventDefault();
+
+		if (validateOn === 'submit' && validate) {
+			// Temporarily set us invalid so that the submit button is disabled while
+			// validation occurs, then run validation and update accordingly. If we
+			// fail validation here, then stop.
+
+			setValidation(value => ({...value, valid: false}));
+
+			const validation = await validate(value);
+
+			setValidation(validation);
+
+			if (!validation.valid) {
+				return;
+			}
+		} else {
+			setValidation({valid: true});
+		}
 
 		// It's possible to submit with the Enter key and bypass us disabling the
 		// submit button, so we need to catch that here.
@@ -104,7 +125,9 @@ export const PromptButton: React.FC<PromptButtonProps> = props => {
 						<TextInput onChange={onChange} orientation="vertical" value={value}>
 							{prompt}
 						</TextInput>
-						{validation?.message && <p>{validation.message}</p>}
+						{validation?.message && (
+							<p className="validation-message">{validation.message}</p>
+						)}
 					</CardContent>
 					<ButtonBar>
 						<IconButton

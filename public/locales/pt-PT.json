@@ -118,11 +118,10 @@
 			"passageCount": "1 passagem",
 			"passageCount_plural": "{{count}} passagens"
 		},
-		"storyFormatCard": {
+		"storyFormatItem": {
 			"author": "de {{author}}",
 			"builtIn": "Criado em",
 			"defaultFormat": "Usado por Defeito",
-			"editorExtensionsDisabled": "Extensões do Editor Desligadas",
 			"license": "Licença: {{license}}",
 			"loadingFormat": "A carregar o formato de história...",
 			"loadError": "O formato de história não pôde ser carregado. Deu este erro: ({{errorMessage}}).",
@@ -166,7 +165,7 @@
 				"default": "Padrão",
 				"wider": "Larga",
 				"widest": "Mais Larga"
-			},			
+			},
 			"editorCursorBlinks": "O Cursor Pisca nos Editores",
 			"fontExplanation": "Alterar a fonte aqui, afeta apenas o editor do Twine. A fonte usada na história não será alterada.",
 			"language": "Língua",
@@ -192,6 +191,21 @@
 		"passageTags": {
 			"noTags": "Ainda não foram adicionadas etiquetas a passagens nesta história.",
 			"title": "Etiquetas das Passagens"
+		},
+		"storyFormats": {
+			"addStoryFormatButton": {
+				"addPreview": "O formato {{storyFormatName}} {{storyFormatVersion}} vai ser acrescentado.",
+				"alreadyAdded": "O formato {{storyFormatName}} {{storyFormatVersion}} já foi acrescentado. ",
+				"fetchError": "O formato de história no endereço apresentado não pôde ser descarregado: ({{errorMessage}}).",
+				"invalidUrl": "Introduz um URL válido.",
+				"prompt": "Para acrescentares um formato de história, introduz o seu endereço em baixo."
+			},
+			"filterButton": {
+				"all": "Todos os Formatos de História",
+				"current": "Formatos de História Disponíveis",
+				"user": "Formatos de História Adicionados pelo Utilizador"
+			},
+			"noneVisible": "Não há formatos de história que correspondam aos critérios escolhidos."
 		},
 		"storyImport": {
 			"deselectAll": "Desmarcar Tudo",
@@ -298,7 +312,7 @@
 		"storyEdit": {
 			"toolbar": {
 				"findAndReplace": "Encontrar e Substituir",
-				"goTo": "Ir Para",				
+				"goTo": "Ir Para",
 				"javaScript": "JavaScript",
 				"passageTags": "Etiquetas das Passagens",
 				"snapToGrid": "Alinhar à Grelha",
@@ -316,34 +330,11 @@
 				"selectAllPassages": "Marcar Todas as Passagens"
 			},
 			"zoomButtons": {
-				"legend": "Ampliação",				
+				"legend": "Ampliação",
 				"storyStructure": "Mostrar apenas a Estrutura da História",
 				"passageNames": "Mostrar apenas os Títulos das Passagens",
 				"passageNamesAndExcerpts": "Mostrar os Títulos das Passagens e os Excertos"
 			}
-		},
-		"storyFormatList": {
-			"noneVisible": "Não há formatos de história que correspondam aos critérios escolhidos.",
-			"show": "Mostrar...",
-			"title": {
-				"all": "Todos os Formatos de História",
-				"current": "Formatos de História Disponíveis",
-				"user": "Formatos de História Adicionados pelo Utilizador"
-			},
-			"toolbar": {
-				"addStoryFormatButton": {
-					"addPreview": "O formato {{storyFormatName}} {{storyFormatVersion}} vai ser acrescentado.",
-					"alreadyAdded": "O formato {{storyFormatName}} {{storyFormatVersion}} já foi acrescentado. ",
-					"fetchError": "O formato de história no endereço apresentado não pôde ser descarregado: ({{errorMessage}}).",
-					"invalidUrl": "Introduz um URL válido.",
-					"prompt": "Para acrescentares um formato de história, introduz o seu endereço em baixo."
-				},
-				"disableFormatExtensions": "Desligar as Extensões do Editor",
-				"enableFormatExtensions": "Ligar as Extensões do Editor",
-				"useAsDefaultFormat": "Usar como Formato por Defeito",
-				"useAsProofingFormat": "Usar para a Revisão das Histórias"
-			},
-			"storyFormatExplanation": "Os formatos de história controlam o aspeto visual e o comportamento das histórias durante o jogo."
 		},
 		"storyList": {
 			"library": "Biblioteca",

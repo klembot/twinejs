@@ -6,7 +6,6 @@ import {PrefsContext, PrefsContextProps} from '../../store/prefs';
 import {fakePrefs} from '../../test-util';
 
 jest.mock('../story-edit/story-edit-route');
-jest.mock('../story-format-list/story-format-list-route');
 jest.mock('../story-list/story-list-route');
 jest.mock('../story-play/story-play-route');
 jest.mock('../story-proof/story-proof-route');
@@ -45,13 +44,6 @@ describe('<Routes>', () => {
 		it('renders the story edit route at /stories/:id', () => {
 			renderAtRoute('/stories/123');
 			expect(screen.getByTestId('mock-story-edit-route')).toBeInTheDocument();
-		});
-
-		it('renders the story format list route at /story-formats', () => {
-			renderAtRoute('/story-formats');
-			expect(
-				screen.getByTestId('mock-story-format-list-route')
-			).toBeInTheDocument();
 		});
 
 		it('renders the story list at /', () => {

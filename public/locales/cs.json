@@ -118,11 +118,10 @@
 			"passageCount": "1 pasáž",
 			"passageCount_plural": "{{count}} pasáží"
 		},
-		"storyFormatCard": {
+		"storyFormatItem": {
 			"author": "Autor: {{author}}",
 			"builtIn": "Vestavěné",
 			"defaultFormat": "Použito jako výchozí",
-			"editorExtensionsDisabled": "Rozšíření editoru vypnuta",
 			"license": "Licence: {{license}}",
 			"loadingFormat": "Načítání tohoto formátu příběhu...",
 			"loadError": "Tento formát příběhu se nepodařilo načíst ({{errorMessage}}).",
@@ -192,6 +191,16 @@
 		"passageTags": {
 			"noTags": "K pasážím v tomto příběhu nebyly zatím přidány žádné značky.",
 			"title": "Značky pasáží"
+		},
+		"storyFormats": {
+			"addStoryFormatButton": {
+				"addPreview": "{{storyFormatName}} {{storyFormatVersion}} bude přidán.",
+				"alreadyAdded": "{{storyFormatName}} {{storyFormatVersion}} už byl přidán.",
+				"fetchError": "Formát příběhu nemohl být ze zadaného URL získán ({{errorMessage}}).",
+				"invalidUrl": "Zadejte validní URL.",
+				"prompt": "K přidání nového formátu příběhu zadejte jeho URL adresu níže."
+			},
+			"noneVisible": "Žádné formáty příběhu se neshodují s žádnými kritérii, která jste vybrali."
 		},
 		"storyImport": {
 			"deselectAll": "Zrušit výběr",
@@ -321,29 +330,6 @@
 				"passageNames": "Zobrazit pouze pasáže příběhu",
 				"passageNamesAndExcerpts": "Zobrazi názvy pasáží a úryvky z nich"
 			}
-		},
-		"storyFormatList": {
-			"noneVisible": "Žádné formáty příběhu se neshodují s žádnými kritérii, která jste vybrali.",
-			"show": "Zobrazit...",
-			"title": {
-				"all": "Všechny formáty příběhu",
-				"current": "Současné formáty příbehu",
-				"user": "Uživatelské formáty příběhu"
-			},
-			"toolbar": {
-				"addStoryFormatButton": {
-					"addPreview": "{{storyFormatName}} {{storyFormatVersion}} bude přidán.",
-					"alreadyAdded": "{{storyFormatName}} {{storyFormatVersion}} už byl přidán.",
-					"fetchError": "Formát příběhu nemohl být ze zadaného URL získán ({{errorMessage}}).",
-					"invalidUrl": "Zadejte validní URL.",
-					"prompt": "K přidání nového formátu příběhu zadejte jeho URL adresu níže."
-				},
-				"disableFormatExtensions": "Vypnout rozšíření editoru",
-				"enableFormatExtensions": "Zapnout rozšíření editoru příběhu",
-				"useAsDefaultFormat": "Použít jako výchozí formát",
-				"useAsProofingFormat": "Použít ke korektuře příběhů"
-			},
-			"storyFormatExplanation": "Příběhové formáty ovlivňují vzhled a chování příběhů během jejich přehrávání."
 		},
 		"storyList": {
 			"library": "Knihovna",

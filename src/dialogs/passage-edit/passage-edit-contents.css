@@ -7,3 +7,14 @@
 .passage-edit-contents .tags {
 	padding: var(--grid-size);
 }
+
+/* Needed when CodeMirror is disabled. */
+
+.passage-edit-contents .dialog-editor textarea {
+	border-radius: 0;
+}
+
+.passage-edit-contents .dialog-editor textarea:focus {
+	box-shadow: inset 0 0 0px 2px var(--blue);
+	outline: none;
+}

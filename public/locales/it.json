@@ -31,7 +31,7 @@
 		"renameStoryButton": {"emptyName": "Inserisci un nome."},
 		"safariWarningCard": {},
 		"storyCard": {},
-		"storyFormatCard": {},
+		"storyFormatItem": {},
 		"storyFormatSelect": {},
 		"tagEditor": {}
 	},
@@ -69,10 +69,6 @@
 				"proofStory": "Visualizza Copia di Test",
 				"publishToFile": "Pubblica come File"
 			}
-		},
-		"storyFormatList": {
-			"title": {},
-			"storyFormatExplanation": "I formati Racconto controllano l’aspetto ed il comportamento delle storie durante l’esecuzione."
 		},
 		"storyImport": {},
 		"storyList": {

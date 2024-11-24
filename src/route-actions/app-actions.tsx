@@ -5,6 +5,7 @@ import {useHistory} from 'react-router-dom';
 import {ButtonBar} from '../components/container/button-bar';
 import {IconButton} from '../components/control/icon-button';
 import {AboutTwineDialog, AppPrefsDialog, useDialogsContext} from '../dialogs';
+import {StoryFormatsDialog} from '../dialogs/story-formats/story-formats';
 
 export const AppActions: React.FC = () => {
 	const {dispatch} = useDialogsContext();
@@ -22,7 +23,9 @@ export const AppActions: React.FC = () => {
 				disabled={history.location.pathname === '/story-formats'}
 				icon={<IconFileCode />}
 				label={t('routeActions.app.storyFormats')}
-				onClick={() => history.push('/story-formats')}
+				onClick={() =>
+					dispatch({type: 'addDialog', component: StoryFormatsDialog})
+				}
 			/>
 			<IconButton
 				icon={<IconAward />}

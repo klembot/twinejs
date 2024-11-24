@@ -7,14 +7,14 @@ import {ButtonBar} from '../../components/container/button-bar';
 import {MenuButton} from '../../components/control/menu-button';
 import {RenamePassageButton} from '../../components/passage/rename-passage-button';
 import {AddTagButton} from '../../components/tag';
-import { TestPassageButton } from '../../routes/story-edit/toolbar/passage/test-passage-button';
+import {TestPassageButton} from '../../routes/story-edit/toolbar/passage/test-passage-button';
 import {
 	addPassageTag,
 	Passage,
 	setTagColor,
 	Story,
 	storyPassageTags,
-	updatePassage,
+	updatePassage
 } from '../../store/stories';
 import {useUndoableStoriesContext} from '../../store/undoable-stories';
 import {Color} from '../../util/color';
@@ -24,10 +24,11 @@ export interface PassageToolbarProps {
 	editor?: Editor;
 	passage: Passage;
 	story: Story;
+	useCodeMirror: boolean;
 }
 
 export const PassageToolbar: React.FC<PassageToolbarProps> = props => {
-	const {disabled, editor, passage, story} = props;
+	const {disabled, editor, passage, story, useCodeMirror} = props;
 	const {dispatch} = useUndoableStoriesContext();
 	const {t} = useTranslation();
 
@@ -63,11 +64,13 @@ export const PassageToolbar: React.FC<PassageToolbarProps> = props => {
 
 	return (
 		<ButtonBar>
-			<UndoRedoButtons
-				disabled={disabled}
-				editor={editor}
-				watch={passage.text}
-			/>
+			{useCodeMirror && (
+				<UndoRedoButtons
+					disabled={disabled}
+					editor={editor}
+					watch={passage.text}
+				/>
+			)}
 			<AddTagButton
 				disabled={disabled}
 				assignedTags={passage.tags}

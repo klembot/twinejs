@@ -5,7 +5,6 @@ interface BaseStoryFormat {
 	id: string;
 	loadState: 'unloaded' | 'loading' | 'loaded' | 'error';
 	name: string;
-	selected: boolean;
 	url: string;
 	userAdded: boolean;
 	version: string;

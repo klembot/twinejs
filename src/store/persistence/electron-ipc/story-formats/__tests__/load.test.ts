@@ -18,10 +18,7 @@ describe('story formats Electron IPC load', () => {
 	afterEach(() => delete electronWindow.twineElectron);
 
 	it('resolves to data from calling loadStoryFormats on the twineElectron global', async () => {
-		const storyFormats = [
-			fakeUnloadedStoryFormat({selected: false}),
-			fakeUnloadedStoryFormat({selected: false})
-		];
+		const storyFormats = [fakeUnloadedStoryFormat(), fakeUnloadedStoryFormat()];
 
 		mockLoadStoryFormats(storyFormats);
 		expect(await load()).toEqual([

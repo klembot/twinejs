@@ -1,0 +1,19 @@
+@import '../../styles/colors.css';
+@import '../../styles/metrics.css';
+
+.story-formats-dialog > .card > .card-content {
+	padding: 0;
+}
+
+.story-formats-dialog .card-content {
+	/* We need flex basis to be 0 to force the content to scroll when there isn't enough vertical space. */
+	flex: 1 1 0;
+}
+
+.story-formats-dialog .card-content > p:not(.validation-message) {
+	padding: var(--grid-size);
+}
+
+.story-formats-dialog .story-format-item + .story-format-item {
+	border-top: 1px solid var(--light-gray);
+}

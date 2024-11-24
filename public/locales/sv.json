@@ -33,7 +33,7 @@
 		"renameStoryButton": {"emptyName": "Var snäll och skriv ett namn."},
 		"safariWarningCard": {},
 		"storyCard": {},
-		"storyFormatCard": {},
+		"storyFormatItem": {},
 		"storyFormatSelect": {},
 		"tagEditor": {}
 	},
@@ -71,10 +71,6 @@
 				"proofStory": "Granska korrekturläsningskopia",
 				"publishToFile": "Publicera till fil"
 			}
-		},
-		"storyFormatList": {
-			"title": {},
-			"storyFormatExplanation": "Historieformat kontrollerar utseendet och uppförandet hos historierna under spelet."
 		},
 		"storyImport": {},
 		"storyList": {

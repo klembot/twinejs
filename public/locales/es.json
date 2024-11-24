@@ -33,7 +33,7 @@
 		"renameStoryButton": {"emptyName": "Por favor ingresa un nombre."},
 		"safariWarningCard": {},
 		"storyCard": {},
-		"storyFormatCard": {},
+		"storyFormatItem": {},
 		"storyFormatSelect": {},
 		"tagEditor": {}
 	},
@@ -74,10 +74,6 @@
 				"proofStory": "Ver copia para corrección",
 				"publishToFile": "Publicar a archivo"
 			}
-		},
-		"storyFormatList": {
-			"title": {},
-			"storyFormatExplanation": "Los formatos de historia controlan la apariencia y comportamiento de las historias durante su reproducción."
 		},
 		"storyImport": {},
 		"storyList": {

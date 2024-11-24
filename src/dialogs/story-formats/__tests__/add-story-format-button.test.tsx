@@ -14,11 +14,11 @@ import {
 	FakeStateProviderProps,
 	fakeStoryFormatProperties,
 	StoryFormatInspector
-} from '../../../../../test-util';
-import {fetchStoryFormatProperties} from '../../../../../util/story-format';
+} from '../../../test-util';
+import {fetchStoryFormatProperties} from '../../../util/story-format';
 import {AddStoryFormatButton} from '../add-story-format-button';
 
-jest.mock('../../../../../util/story-format');
+jest.mock('../../../util/story-format');
 
 const getAddButton = () =>
 	within(document.querySelector('.card-button-card')!).getByRole('button', {
@@ -60,7 +60,7 @@ describe('<AddStoryFormatButton>', () => {
 		).not.toBeInTheDocument();
 		fireEvent.change(
 			screen.getByRole('textbox', {
-				name: 'routes.storyFormatList.toolbar.addStoryFormatButton.prompt'
+				name: 'dialogs.storyFormats.addStoryFormatButton.prompt'
 			}),
 			{target: {value: 'http://mock-format-url'}}
 		);
@@ -75,42 +75,40 @@ describe('<AddStoryFormatButton>', () => {
 		expect(formatInspector.dataset.version).toBe(format.version);
 	});
 
-	it('shows an error if an invalid URL is entered', async () => {
+	it('shows an error on submit if an invalid URL is entered', async () => {
 		await renderComponent();
 		fireEvent.change(
 			screen.getByRole('textbox', {
-				name: 'routes.storyFormatList.toolbar.addStoryFormatButton.prompt'
+				name: 'dialogs.storyFormats.addStoryFormatButton.prompt'
 			}),
 			{target: {value: 'not a url'}}
 		);
+		fireEvent.click(getAddButton());
 		await act(async () => Promise.resolve());
 		expect(
-			screen.getByText(
-				'routes.storyFormatList.toolbar.addStoryFormatButton.invalidUrl'
-			)
+			screen.getByText('dialogs.storyFormats.addStoryFormatButton.invalidUrl')
 		).toBeInTheDocument();
 		expect(getAddButton()).toBeDisabled();
 	});
 
-	it('shows an error if fetching story properties fails', async () => {
+	it('shows an error on submit if fetching story properties fails', async () => {
 		fetchStoryFormatPropertiesMock.mockRejectedValue(new Error());
 		await renderComponent();
 		fireEvent.change(
 			screen.getByRole('textbox', {
-				name: 'routes.storyFormatList.toolbar.addStoryFormatButton.prompt'
+				name: 'dialogs.storyFormats.addStoryFormatButton.prompt'
 			}),
 			{target: {value: 'http://mock-format-url'}}
 		);
+		fireEvent.click(getAddButton());
 		await act(async () => Promise.resolve());
 		expect(
-			screen.getByText(
-				'routes.storyFormatList.toolbar.addStoryFormatButton.fetchError'
-			)
+			screen.getByText('dialogs.storyFormats.addStoryFormatButton.fetchError')
 		).toBeInTheDocument();
 		expect(getAddButton()).toBeDisabled();
 	});
 
-	it('shows an error if the URL points to a format with the same name and version as a format that already exists', async () => {
+	it('shows an error on submit if the URL points to a format with the same name and version as a format that already exists', async () => {
 		const format = fakeLoadedStoryFormat();
 
 		fetchStoryFormatPropertiesMock.mockResolvedValue(
@@ -119,15 +117,14 @@ describe('<AddStoryFormatButton>', () => {
 		await renderComponent({storyFormats: [format]});
 		fireEvent.change(
 			screen.getByRole('textbox', {
-				name: 'routes.storyFormatList.toolbar.addStoryFormatButton.prompt'
+				name: 'dialogs.storyFormats.addStoryFormatButton.prompt'
 			}),
 			{target: {value: 'http://mock-format-url'}}
 		);
+		fireEvent.click(getAddButton());
 		await act(async () => Promise.resolve());
 		expect(
-			screen.getByText(
-				'routes.storyFormatList.toolbar.addStoryFormatButton.alreadyAdded'
-			)
+			screen.getByText('dialogs.storyFormats.addStoryFormatButton.alreadyAdded')
 		).toBeInTheDocument();
 		expect(getAddButton()).toBeDisabled();
 	});

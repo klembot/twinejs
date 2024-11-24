@@ -20,7 +20,7 @@
 		"renameStoryButton": {},
 		"safariWarningCard": {},
 		"storyCard": {},
-		"storyFormatCard": {},
+		"storyFormatItem": {},
 		"storyFormatSelect": {},
 		"tagEditor": {}
 	},
@@ -47,7 +47,6 @@
 				"publishToFile": "ファイルに出力する"
 			}
 		},
-		"storyFormatList": {"title": {}},
 		"storyImport": {},
 		"storyList": {
 			"noStories": "現在、Twineに保存されているストーリーはありません。開始するには、新しいストーリーを作成するか、ファイルから既存のストーリーをインポートします。",

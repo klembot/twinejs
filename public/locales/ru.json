@@ -33,7 +33,7 @@
 		"renameStoryButton": {"emptyName": "Пожалуйста, введите имя."},
 		"safariWarningCard": {},
 		"storyCard": {},
-		"storyFormatCard": {},
+		"storyFormatItem": {},
 		"storyFormatSelect": {},
 		"tagEditor": {}
 	},
@@ -71,10 +71,6 @@
 				"proofStory": "Получить копию для вычитки",
 				"publishToFile": "Опубликовать в файл"
 			}
-		},
-		"storyFormatList": {
-			"title": {},
-			"storyFormatExplanation": "Формат истории управляет внешним видом и поведением истории во время игры."
 		},
 		"storyImport": {},
 		"storyList": {

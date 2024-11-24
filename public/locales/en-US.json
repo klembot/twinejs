@@ -118,11 +118,10 @@
 			"passageCount": "1 passage",
 			"passageCount_plural": "{{count}} passages"
 		},
-		"storyFormatCard": {
+		"storyFormatItem": {
 			"author": "by {{author}}",
 			"builtIn": "Built In",
 			"defaultFormat": "Used as Default",
-			"editorExtensionsDisabled": "Editor Extensions Disabled",
 			"license": "License: {{license}}",
 			"loadingFormat": "Loading this story format...",
 			"loadError": "This story format could not be loaded ({{errorMessage}}).",
@@ -176,7 +175,8 @@
 			"themeDark": "Dark",
 			"themeSystem": "System",
 			"theme": "Theme",
-			"title": "Preferences"
+			"title": "Preferences",
+			"useEnhancedEditors": "Use Enhanced Editors"
 		},
 		"passageEdit": {
 			"editorCrashed": "Something went wrong with this editor. Try closing it and editing this passage again.",
@@ -192,6 +192,22 @@
 		"passageTags": {
 			"noTags": "No tags have been added to passages in this story.",
 			"title": "Passage Tags"
+		},
+		"storyFormats": {
+			"addStoryFormatButton": {
+				"addPreview": "{{storyFormatName}} {{storyFormatVersion}} will be added.",
+				"alreadyAdded": "{{storyFormatName}} {{storyFormatVersion}} has already been added.",
+				"fetchError": "The story format at this address could not be retrieved ({{errorMessage}}).",
+				"invalidUrl": "Please enter a valid URL.",
+				"prompt": "To add a story format, enter its address below."
+			},
+			"filterButton": {
+				"all": "All Story Formats",
+				"current": "Current Story Formats",
+				"user": "User-Added Story Formats"
+			},
+			"noneVisible": "No story formats match the criteria you've selected.",
+			"title": "Story Formats"
 		},
 		"storyImport": {
 			"deselectAll": "Deselect All",
@@ -321,29 +337,6 @@
 				"passageNames": "Show Passage Names Only",
 				"passageNamesAndExcerpts": "Show Passage Names and Excerpts"
 			}
-		},
-		"storyFormatList": {
-			"noneVisible": "No story formats match the criteria you've selected.",
-			"show": "Show...",
-			"title": {
-				"all": "All Story Formats",
-				"current": "Current Story Formats",
-				"user": "User-Added Story Formats"
-			},
-			"toolbar": {
-				"addStoryFormatButton": {
-					"addPreview": "{{storyFormatName}} {{storyFormatVersion}} will be added.",
-					"alreadyAdded": "{{storyFormatName}} {{storyFormatVersion}} has already been added.",
-					"fetchError": "The story format at this address could not be retrieved ({{errorMessage}}).",
-					"invalidUrl": "Please enter a valid URL.",
-					"prompt": "To add a story format, enter its address below."
-				},
-				"disableFormatExtensions": "Disable Editor Extensions",
-				"enableFormatExtensions": "Enable Editor Extensions",
-				"useAsDefaultFormat": "Use as Default Format",
-				"useAsProofingFormat": "Use to Proof Stories"
-			},
-			"storyFormatExplanation": "Story formats control the appearance and behavior of stories during play."
 		},
 		"storyList": {
 			"library": "Library",
