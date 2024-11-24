@@ -6,8 +6,8 @@ export const builtins = () => [
 	},
 	{
 		name: 'Chapbook',
-		url: 'story-formats/chapbook-2.2.0/format.js',
-		version: '2.2.0'
+		url: 'story-formats/chapbook-2.3.0/format.js',
+		version: '2.3.0'
 	},
 	{
 		name: 'Harlowe',
