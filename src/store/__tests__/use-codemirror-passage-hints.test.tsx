@@ -10,7 +10,11 @@ describe('useCodeMirrorPassageHints()', () => {
 			findWordAt: () => ({anchor: 0, head: 0}),
 			getCursor: jest.fn(),
 			getRange: () => 'a',
-			showHint: jest.fn()
+			showHint: jest.fn(),
+			getDoc: () => ({ getSearchCursor: () => ({
+				findPrevious: jest.fn(), 
+				from: () => ({ch: 0})
+			})})
 		};
 		const story = fakeStory(3);
 
@@ -32,7 +36,11 @@ describe('useCodeMirrorPassageHints()', () => {
 			findWordAt: () => ({anchor: 0, head: 0}),
 			getCursor: jest.fn(),
 			getRange: () => 'a',
-			showHint: jest.fn()
+			showHint: jest.fn(),
+			getDoc: () => ({ getSearchCursor: () => ({
+				findPrevious: jest.fn(), 
+				from: () => ({ch: 0})
+			})})
 		};
 		const story = fakeStory(3);
 

@@ -1,36 +1,25 @@
-import CodeMirror, {Editor, Handle} from 'codemirror';
+import CodeMirror, {Editor} from 'codemirror';
 import * as React from 'react';
 import {Story} from './stories';
-
-type HintExtraKeyHandler = (editor: Editor, hint: Handle) => void;
 
 export function useCodeMirrorPassageHints(story: Story) {
 	return React.useCallback(
 		(editor: Editor) => {
 			editor.showHint({
 				completeSingle: false,
-				extraKeys:
-					// Any of the characters below are an indication the user is finished
-					// typing a passage name in a link and the hint should close. We need
-					// to 'type' this character for the user since our handler consumes
-					// the event.
-					[']', '-', '|'].reduce<Record<string, HintExtraKeyHandler>>(
-						(result, character) => {
-							result[character] = (editor, hint) => {
-								const doc = editor.getDoc();
-
-								doc.replaceRange(character, doc.getCursor());
-								hint.close();
-							};
-
-							return result;
-						},
-						{}
-					),
+				closeCharacters: /\]/,
 				hint() {
-					const wordRange = editor.findWordAt(editor.getCursor());
+
+					const doc        = editor.getDoc();
+					const cursor     = editor.getCursor();
+					const wordRange  = editor.findWordAt(cursor);
+					const linkCursor = doc.getSearchCursor(/\[\[|->|\|/,cursor);
+					const linkMatch  = linkCursor.findPrevious();
+					const linkDelim  = Array.isArray(linkMatch) ? linkMatch[0] : '';
+					const linkStart  = linkCursor.from();
+					      linkStart.ch += linkDelim.length;
 					const word = editor
-						.getRange(wordRange.anchor, wordRange.head)
+						.getRange(linkStart, cursor)
 						.toLowerCase();
 
 					const comps = {
@@ -41,7 +30,7 @@ export function useCodeMirrorPassageHints(story: Story) {
 
 							return result;
 						}, []),
-						from: wordRange.anchor,
+						from: linkStart,
 						to: wordRange.head
 					};
 
