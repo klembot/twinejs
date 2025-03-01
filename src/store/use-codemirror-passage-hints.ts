@@ -9,29 +9,32 @@ export function useCodeMirrorPassageHints(story: Story) {
 				completeSingle: false,
 				closeCharacters: /\]/,
 				hint() {
+					// Get the current cursor position and line content.
 
-					const doc        = editor.getDoc();
-					const cursor     = editor.getCursor();
-					const wordRange  = editor.findWordAt(cursor);
-					const linkCursor = doc.getSearchCursor(/\[\[|->|\|/,cursor);
-					const linkMatch  = linkCursor.findPrevious();
-					const linkDelim  = Array.isArray(linkMatch) ? linkMatch[0] : '';
-					const linkStart  = linkCursor.from();
-					      linkStart.ch += linkDelim.length;
-					const word = editor
-						.getRange(linkStart, cursor)
-						.toLowerCase();
+					const cursor = editor.getCursor();
+					const line = editor.getLine(cursor.line);
+					const from = {...cursor};
+					const to = {...cursor};
 
+					// Expand the range to the first `[` before the cursor. lastIndexOf()
+					// will either give us -1, if there was no match, or the first
+					// bracket. In either case, we want to add one so that it either
+					// points to the start of the line, or the first character after the
+					// match. e.g. `[passage name` becomes `passage name`.
+
+					from.ch = line.lastIndexOf('[', from.ch) + 1;
+
+					const candidate = line.substring(from.ch, to.ch).toLowerCase();
 					const comps = {
+						from,
+						to,
 						list: story.passages.reduce<string[]>((result, passage) => {
-							if (passage.name.toLowerCase().includes(word)) {
+							if (passage.name.toLowerCase().includes(candidate)) {
 								return [...result, passage.name];
 							}
 
 							return result;
-						}, []),
-						from: linkStart,
-						to: wordRange.head
+						}, [])
 					};
 
 					CodeMirror.on(comps, 'pick', () => {

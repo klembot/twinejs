@@ -6,7 +6,6 @@ import {
 import 'codemirror/addon/display/placeholder';
 import 'codemirror/addon/hint/show-hint';
 import 'codemirror/addon/hint/show-hint.css';
-import 'codemirror/addon/search/searchcursor';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/mode/css/css';
 import 'codemirror/mode/javascript/javascript';
