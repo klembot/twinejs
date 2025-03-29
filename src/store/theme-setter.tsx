@@ -6,6 +6,11 @@ export function ThemeSetter() {
 
 	React.useEffect(() => {
 		document.body.dataset.appTheme = computedTheme;
+		if (computedTheme === "dark") {
+			document.documentElement.style.setProperty('color-scheme', 'dark');
+		} else {
+			document.documentElement.style.setProperty('color-scheme', 'light');
+		}
 	}, [computedTheme]);
 
 	return null;
