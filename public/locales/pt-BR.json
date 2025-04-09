@@ -20,6 +20,7 @@
     "custom": "Personalizado",
     "delete": "Excluir",
     "deleteCount": "Excluir ({{count}})",
+	"deselectAll": "Desmarcar Tudo",
     "details": "Detalhes",
     "duplicate": "Duplicar",
     "edit": "Editar",

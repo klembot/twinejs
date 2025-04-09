@@ -20,6 +20,7 @@
 		"custom": "Custom",
 		"delete": "Видалити",
 		"deleteCount": "Видалити ({{count}})",
+		"deselectAll": "Зняти виділення",
 		"details": "Деталі",
 		"duplicate": "Дублювати",
 		"edit": "Редагувати",

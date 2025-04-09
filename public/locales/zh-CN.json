@@ -20,6 +20,7 @@
 		"custom": "自定义",
 		"delete": "删除",
 		"deleteCount": "删除（{{count}}）",
+		"deselectAll": "全不选",
 		"details": "细节",
 		"duplicate": "复制",
 		"edit": "编辑",
