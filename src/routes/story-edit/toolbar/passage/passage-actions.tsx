@@ -13,6 +13,7 @@ import {DeletePassagesButton} from './delete-passages-button';
 import {EditPassagesButton} from './edit-passages-buttons';
 import {GoToPassageButton} from './go-to-passage-button';
 import {SelectAllPassagesButton} from './select-all-passages-button';
+import {DeselectAllPassagesButton} from './deselect-all-passages-button';
 import {StartAtPassageButton} from './start-at-passage-button';
 import {TestPassageButton} from './test-passage-button';
 
@@ -60,7 +61,11 @@ export const PassageActions: React.FC<PassageActionsProps> = props => {
 			<TestPassageButton passage={soloSelectedPassage} story={story} />
 			<StartAtPassageButton passage={soloSelectedPassage} story={story} />
 			<GoToPassageButton onOpenFuzzyFinder={onOpenFuzzyFinder} />
-			<SelectAllPassagesButton story={story} />
+			{story.passages.length == selectedPassages.length ? (
+				<DeselectAllPassagesButton story={story} />
+			) : (
+				<SelectAllPassagesButton story={story} />
+			)}
 		</ButtonBar>
 	);
 };
