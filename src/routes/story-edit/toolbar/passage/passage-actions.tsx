@@ -61,11 +61,11 @@ export const PassageActions: React.FC<PassageActionsProps> = props => {
 			<TestPassageButton passage={soloSelectedPassage} story={story} />
 			<StartAtPassageButton passage={soloSelectedPassage} story={story} />
 			<GoToPassageButton onOpenFuzzyFinder={onOpenFuzzyFinder} />
-			{story.passages.length == selectedPassages.length ? (
-				<DeselectAllPassagesButton story={story} />
-			) : (
-				<SelectAllPassagesButton story={story} />
-			)}
+			<SelectAllPassagesButton story={story} />
+			<DeselectAllPassagesButton
+				story={story}
+				selectedPassages={selectedPassages}
+			/>
 		</ButtonBar>
 	);
 };
