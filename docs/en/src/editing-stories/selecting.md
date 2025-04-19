@@ -13,7 +13,8 @@ or Control key while doing so to add passages to an existing selection.
 
 To select all passages, choose _Select All_ from the _Passage_ top toolbar tab.
 
-To deselect all passages, click in an empty part of the map.
+To deselect all passages, click in an empty part of the map or choose _Deselect
+All_ from the _Passage_ top toolbar tab.
 
 ## Moving Passages
 

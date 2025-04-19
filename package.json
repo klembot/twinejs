@@ -10,8 +10,8 @@
 		"url": "https://github.com/klembot/twinejs"
 	},
 	"engines": {
-		"node": ">=14",
-		"npm": ">=8"
+		"node": ">=20",
+		"npm": ">=10"
 	},
 	"dependencies": {
 		"@lukeed/uuid": "^2.0.1",
