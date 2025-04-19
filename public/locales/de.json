@@ -20,6 +20,7 @@
 		"custom": "Custom",
 		"delete": "Löschen",
 		"deleteCount": "Lösche ({{count}})",
+		"deselectAll": "Alle Markierungen aufheben",
 		"details": "Details",
 		"duplicate": "Duplizieren",
 		"edit": "Bearbeiten",

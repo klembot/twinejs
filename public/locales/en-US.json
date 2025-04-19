@@ -20,6 +20,7 @@
 		"custom": "Custom",
 		"delete": "Delete",
 		"deleteCount": "Delete ({{count}})",
+		"deselectAll": "Deselect All",
 		"details": "Details",
 		"duplicate": "Duplicate",
 		"edit": "Edit",

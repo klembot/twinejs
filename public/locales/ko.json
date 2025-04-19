@@ -20,6 +20,7 @@
 		"custom": "커스텀",
 		"delete": "삭제",
 		"deleteCount": "삭제 ({{count}})",
+		"deselectAll": "모두 선택 해제",
 		"details": "세부 사항",
 		"duplicate": "복제",
 		"edit": "편집",
