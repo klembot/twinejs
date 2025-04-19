@@ -1,106 +1,434 @@
 {
-	"colors": {},
+	"colors": {
+		"none": "Без цвета",
+		"red": "Красный",
+		"orange": "Оранжевый",
+		"yellow": "Жёлтый",
+		"green": "Зелёный",
+		"blue": "Синий",
+		"purple": "Розовый"
+	},
 	"common": {
 		"add": "Добавить",
 		"appName": "Twine",
+		"back": "Назад",
+		"build": "Сборка",
 		"cancel": "Отмена",
+		"close": "Закрыть",
+		"color": "Цвет",
+		"create": "Создать",
+		"custom": "Пользовательский",
 		"delete": "Удалить",
+		"deleteCount": "Удалить ({{count}})",
+		"details": "Подробности",
 		"duplicate": "Дублировать",
 		"edit": "Редактировать",
-		"ok": "ОК",
-		"play": "Запустить",
+		"editCount": "Редактировать ({{count}})",
+		"help": "Помощь",
+		"import": "Импорт",
+		"maximize": "Свернуть",
+		"more": "Ещё",
+		"new": "Новый",
+		"next": "Следующий",
+		"ok": "OK",
+		"passage": "Параграф",
+		"play": "Играть",
+		"preferences": "Настройки",
+		"publishToFile": "Опубликовать в файл",
+		"redo": "Повторить",
+		"redoChange": "Повторить {{change}}",
 		"rename": "Переименовать",
+		"renamePrompt": "Как переименовать «{{name}}»?",
 		"remove": "Удалить",
+		"selectAll": "Выбрать всё",
 		"skip": "Пропустить",
+		"story": "История",
 		"storyFormat": "Формат истории",
 		"tag": "Тег",
-		"test": "Тестировать",
-		"undo": "Откат"
+		"test": "Тест",
+		"twine": "Twine",
+		"undo": "Отменить",
+		"undoChange": "Отменить {{change}}",
+		"unmaximize": "Восстановить размер",
+		"view": "Вид"
 	},
 	"components": {
-		"addStoryFormatButton": {
-			"prompt": "Чтобы добавить формат, введите его URL ниже."
+		"addTagButton": {
+			"alreadyAdded": "Тег с таким именем уже добавлен.",
+			"addLabel": "Добавить тег",
+			"invalidName": "Пожалуйста, введите корректное имя для тега.",
+			"newTag": "Новый тег",
+			"tagColorLabel": "Цвет тега",
+			"tagNameLabel": "Имя тега"
 		},
-		"addTagButton": {},
-		"fontSelect": {"fonts": {}},
-		"indentButtons": {},
-		"localStorageQuota": {},
+		"dialogCard": {
+			"contentsCrashed": "Произошла ошибка в этом диалоге. Закройте его и откройте снова."
+		},
+		"fontSelect": {
+			"customScaleDetail": "Пожалуйста, введите значение в процентах.",
+			"customFamilyDetail": "Пожалуйста, введите только название шрифта.",
+			"familyEmpty": "Пожалуйста, введите название шрифта.",
+			"font": "Шрифт",
+			"fonts": {
+				"monospaced": "Моноширинный",
+				"serif": "С засечками",
+				"system": "Системный"
+			},
+			"fontSize": "Размер шрифта",
+			"percentage": "{{percent}}%",
+			"percentageIsntNumber": "Пожалуйста, введите число.",
+			"percentageNotPositive": "Пожалуйста, введите число больше 0."
+		},
+		"indentButtons": {
+			"indent": "Увеличить отступ",
+			"unindent": "Уменьшить отступ"
+		},
+		"localStorageQuota": {
+			"measureAgain": "Проверить доступное место",
+			"percentAvailable": "Доступно {{percent}}% места"
+		},
 		"passageCard": {
-			"placeholderClick": "Сделайте двойной щелчок мышью на этом параграфе, чтобы отредактировать его.",
-			"placeholderTouch": "Коснитесь этого параграфа и нажмите иконку с карандашом, чтобы отредактировать его."
+			"placeholderClick": "Дважды щёлкните по параграфу, чтобы его редактировать",
+			"placeholderTouch": "Нажмите на параграф, затем выберите «Редактировать» в разделе «Параграф» чтобы редактировать его."
 		},
-		"renamePassageButton": {"emptyName": "Пожалуйста, введите имя."},
-		"renameStoryButton": {"emptyName": "Пожалуйста, введите имя."},
-		"safariWarningCard": {},
-		"storyCard": {},
-		"storyFormatItem": {},
-		"storyFormatSelect": {},
-		"tagEditor": {}
+		"passageFuzzyFinder": {
+			"noResults": "Нет совпадений.",
+			"prompt": "Поиск по названию и тексту параграфа"
+		},
+		"renamePassageButton": {
+			"emptyName": "Пожалуйста, введите название.",
+			"nameAlreadyUsed": "В этой истории уже есть параграф с таким названием."
+		},
+		"renameStoryButton": {
+			"emptyName": "Пожалуйста, введите название.",
+			"nameAlreadyUsed": "Уже есть история с таким названием."
+		},
+		"safariWarningCard": {
+			"archiveAndUseAnotherBrowser": "Пожалуйста, заархивируйте свои истории и используйте другой браузер.",
+			"addToHomeScreen": "Добавьте этот сайт на главный экран, чтобы избежать ограничений.",
+			"howToAddToHomeScreen": "Как добавить на главный экран?",
+			"learnMore": "Узнать больше",
+			"message": "Ваш браузер удалит все истории через семь дней после последнего посещения этого сайта."
+		},
+		"storageQuota": {
+			"freeSpace": "{{percent}}% места доступно"
+		},
+		"storyCard": {
+			"lastUpdated": "Последние изменения: {{date}}",
+			"passageCount": "1 история",
+			"passageCount_plural": "Количество историй: {{count}}"
+		},
+		"storyFormatItem": {
+			"author": "Автор: {{author}}",
+			"builtIn": "Встроенный",
+			"defaultFormat": "Используется по-умолчанию",
+			"license": "Лицензия: {{license}}",
+			"loadingFormat": "Загрузка формата истории...",
+			"loadError": "Не удалось загрузить формат ({{errorMessage}}).",
+			"name": "{{name}} {{version}}",
+			"proofing": "Проверка",
+			"proofingFormat": "Используется для проверки",
+			"useEditorExtensions": "Использовать расширения редактора",
+			"useFormat": "Использовать как формат истории по умолчанию",
+			"useProofingFormat": "Использовать как формат проверки"
+		},
+		"storyFormatSelect": {
+			"loadingCount": "Загрузка 1 формата истории...",
+			"loadingCount_plural": "Загрузка {{loadingCount}} форматов истории..."
+		},
+		"tagEditor": {
+			"alreadyExists": "Тег с таким именем уже существует."
+		}
 	},
 	"dialogs": {
 		"aboutTwine": {
-			"donateToTwine": "Помочь развитию Twine пожертвованием",
-			"codeHeader": "Код"
+			"donateToTwine": "Поддержите развитие Twine",
+			"codeHeader": "Код",
+			"codeRepo": "Посетить репозиторий исходного кода",
+			"license": "Это приложение распространяется под <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GPL v3 license</a>, но созданные с его помощью работы могут распространяться на любых условиях, включая коммерческие.",
+			"localizationHeader": "Локализации",
+			"title": "О Twine {{version}}",
+			"twineDescription": "Twine — это приложение с открытым исходным кодом для создания интерактивных нелинейных историй."
 		},
-		"appDonation": {"noThanks": "Нет, спасибо"},
-		"appPrefs": {"language": "Язык"},
-		"passageEdit": {},
-		"passageTags": {},
-		"storyInfo": {"stats": {"title": "Статистика истории"}},
+		"appDonation": {
+			"donate": "Поддержите разработку Twine",
+			"onlyOnce": "(Это сообщение покажется только один раз. Если вы захотите поддержать Twine позже, ссылка для пожертвований есть в диалоге «О Twine».)",
+			"supportMessage": "Если вам нравится Twine, пожалуйста, поддержите его развитие. Это проект с открытым исходным кодом, который всегда будет бесплатным — ваша помощь поможет ему развиваться.",
+			"noThanks": "Нет, спасибо",
+			"title": "Поддержать разработку Twine"
+		},
+		"appPrefs": {
+			"codeEditorFont": "Шрифт редактора кода",
+			"codeEditorFontScale": "Размер шрифта редактора кода",
+			"dialogWidth": "Ширина диалогов",
+			"dialogWidths": {
+				"default": "По-умолчанию",
+				"wider": "Шире",
+				"widest": "Максимальная ширина"
+			},
+			"editorCursorBlinks": "Мигающий курсор в редакторах",
+			"fontExplanation": "CИзменение шрифта здесь влияет только на редактор Twine. Оно не изменит шрифт в опубликованной истории.",
+			"language": "Zpsr",
+			"passageEditorFont": "Шрифт редактора Параграфа",
+			"passageEditorFontScale": "Размер шрифта редактора Параграфа",
+			"themeLight": "Светлая",
+			"themeDark": "Тёмная",
+			"themeSystem": "Системная",
+			"theme": "Тема",
+			"title": "Настройки",
+			"useEnhancedEditors": "Использовать улучшенные редакторы"
+		},
+		"passageEdit": {
+			"editorCrashed": "Что-то пошло не так. Попробуйте закрыть и снова открыть Параграф.",
+			"passageTextEditorLabel": "Текст Параграфа",
+			"passageTextPlaceholder": "Введите текст параграфа здесь. Чтобы создать ссылку на другой пассаж, заключите его название в двойные квадратные скобки: [[пример]].",
+			"setAsStart": "Начать историю отсюда",
+			"size": "Размер",
+			"sizeLarge": "Большой",
+			"sizeSmall": "Маленький",
+			"sizeTall": "Высокий",
+			"sizeWide": "Широкий"
+		},
+		"passageTags": {
+			"noTags": "В этой истории нет тегов у Параграфов.",
+			"title": "Теги Пассажей"
+		},
+		"storyFormats": {
+			"addStoryFormatButton": {
+				"addPreview": "{{storyFormatName}} {{storyFormatVersion}} будет добавлен.",
+				"alreadyAdded": "{{storyFormatName}} {{storyFormatVersion}} уже добавлен.",
+				"fetchError": "Не удалось загрузить формат по этому адресу ({{errorMessage}}).",
+				"invalidUrl": "Пожалуйста, введите корректную URL.",
+				"prompt": "Для добавления формата введите его адрес ниж."
+			},
+			"filterButton": {
+				"all": "Все форматы истории",
+				"current": "Ткущие форматы истории",
+				"user": "Форматы истории, добавленные пользователем"
+			},
+			"noneVisible": "Нет форматов истории, соответствующих выбранным критериям.",
+			"title": "Форматы истории"
+		},
+		"storyImport": {
+			"deselectAll": "Снять выделение",
+			"filePrompt": "Для импорта историй загрузите архив, опубликованную историю или файл Twee.",
+			"importDifferentFile": "Импортировать другой файл",
+			"importSelected": "Импортировать выбранные файлы",
+			"importThisStory": "Импортировать эту историю",
+			"noStoriesInFile": "В загруженном файле нет историй Twine. Выберите другой файл.",
+			"storiesPrompt": "Выберите истории для импорта:",
+			"title": "Импортировать истории",
+			"willReplaceExisting": "История с таким же названием в вашей библиотеке будет заменена."
+		},
+		"storyDetails": {
+			"storyFormatExplanation": "Что такое формат истории?",
+			"snapToGrid": "Привязка к сетке",
+			"stats": {
+				"brokenLinks": "Неработающие ссылки",
+				"characters": "Символы",
+				"title": "Статистика истории",
+				"ifid": "IFID истории: {{ifid}}.",
+				"ifidExplanation": "Что такое IFID?",
+				"lastUpdate": "Последние изменения истории: {{date}}.",
+				"links": "Ссылки",
+				"passages": "Параграфы",
+				"words": "Слова"
+			}
+		},
 		"storyJavaScript": {
-			"explanation": "Любой JavaScript-код, введённый здесь, будет немедленно исполнен, как только история будет открыта в веб-браузере."
+			"editorLabel": "JavaScript истории",
+			"title": "JavaScript истории",
+			"explanation": "JavaScript добавленный тут будет выполнен сразу после открытия истории в браузере."
 		},
-		"storySearch": {"title": "Найти и заменить", "replaceWith": "Заменить на"},
+		"storySearch": {
+			"title": "Найти и заменить",
+			"find": "Заменить",
+			"includePassageNames": "Искать в названиях Параграфов",
+			"matchCase": "Учитывать регистр",
+			"matchCount": "Найдено {{count}} совпадение ",
+			"matchCount_plural": "Количество совпадений: {{count}}",
+			"noMatches": "Не найдено совпадающих Параграфов",
+			"replaceAll": "Заменить во всех параграфах",
+			"replaceWith": "Заменить на",
+			"useRegexes": "Использовать регулярные выражения"
+		},
 		"storyStylesheet": {
-			"explanation": "Любой CSS, введённый тут, переопределит внешний вид по умолчанию для вашей истории."
+			"editorLabel": "Таблица стилей истории",
+			"title": "Таблица стилей истории",
+			"explanation": "CSS, введённый здесь, переопределит стили по умолчанию."
 		},
-		"storyTags": {}
+		"storyTags": {
+			"noTags": "В историю не добавлено ни одного тега.",
+			"title": "Теги истории"
+		}
 	},
 	"electron": {
-		"errors": {"storyFileChangedExternally": {}},
-		"menuBar": {"edit": "Редактировать"},
-		"storiesDirectoryName": "Истории"
+		"backupsDirectoryName": "Резервные копии",
+		"errors": {
+			"jsonSave": "Ошибка сохранения файла настроек.",
+			"storyFileChangedExternally": {
+				"message": "Файл «{{fileName}}» был изменён вне Twine.",
+				"detail": "Сохранение перезапишет файл. Чтобы использовать внешнюю версию, Twine перезапустится, а текущая работа будет заменена.",
+				"overwriteChoice": "Сохранить изменения в Twine",
+				"relaunchChoice": "Использовать файл и перезапустить"
+			},
+			"storyLibraryFolderAppPref": {
+				"detail": "Twine пытался открыть {{path}}.",
+				"message": "Не удалось открыть папку с историями.",
+				"useDefault": "Использовать папку по умолчанию",
+				"quit": "Выход"
+			},
+			"storyDelete": "Ошибка удаления истории.",
+			"storyRename": "Ошибка переименования истории.",
+			"storySave": "Ошибка сохранения истории."
+		},
+		"menuBar": {
+			"checkForUpdates": "Проверить обновления...",
+			"disableHardwareAcceleration": "Отключить аппаратное ускорение",
+			"edit": "Редактировать",
+			"setStoryLibraryFolder": "Указать папку с историями...",
+			"showDevTools": "Открыть консоль разработчика",
+			"showStoryLibrary": "Открыть папку с историями",
+			"speech": "Речь",
+			"troubleshooting": "Устранение неполадок",
+			"twineHelp": "Справка Twine",
+			"view": "Вид"
+		},
+		"relaunchDialog": {
+			"defaultPrompt": "Изменения вступят в силу после перезапуска Twine.",
+			"relaunchNow": "Перезапустить сейчас"
+		},
+		"scratchDirectoryName": "Черновики",
+		"storiesDirectoryName": "Истории",
+		"updateCheck": {
+			"download": "Скачать",
+			"error": "Что-то пошло не так при проверке новых версий Twine.",
+			"updateAvailable": "Доступна новая версия Twine.",
+			"upToDate": "Установлена последняя версия Twine."
+		},
+		"userCss": {
+			"filename": "user.css"
+		}
 	},
 	"routes": {
 		"storyEdit": {
+			"toolbar": {
+				"findAndReplace": "Найди и заменить",
+				"goTo": "Перейти к",
+				"javaScript": "JavaScript",
+				"passageTags": "Теги Параграфов",
+				"snapToGrid": "Привязка к сетке",
+				"startStoryHere": "Начать историю отсюда",
+				"stylesheet": "Таблица стилей",
+				"testFromHere": "Начать проверку отсюда"
+			},
 			"topBar": {
-				"addPassage": "Параграф",
-				"editJavaScript": "Редактировать JavaScript",
-				"editStylesheet": "Редактировать таблицу стилей",
+				"editJavaScript": "Редактировать JavaScript истории",
+				"editStylesheet": "Редактировать таблицу стилей истории",
 				"findAndReplace": "Найти и заменить",
-				"proofStory": "Получить копию для вычитки",
-				"publishToFile": "Опубликовать в файл"
+				"passageTags": "Редактировать теги Параграфов",
+				"proofStory": "Посмотреть проверочную копию",
+				"publishToFile": "Опубликовать в файл",
+				"selectAllPassages": "Выбрать все Параграфы"
+			},
+			"zoomButtons": {
+				"legend": "Масштаб",
+				"storyStructure": "Показать только структуру истории",
+		        "passageNames": "Показать только названия Параграфов",
+		        "passageNamesAndExcerpts": "Показать названия и отрывки Параграфов"
 			}
 		},
-		"storyImport": {},
 		"storyList": {
-			"noStories": "Сейчас у вас нет сохранённых историй в Twine. Для начала, вы можете создать новую историю или импортировать уже существующую из файла.",
+			"library": "Библиотека",
+			"noStories": "В данный момент в Twine нет сохраненных историй. Для начала вы можете либо создать новую историю, либо импортировать существующую из файла.",
+			"taggedTitleCount": "1 Tagged Story",
+			"taggedTitleCount_0": "No Tagged Stories",
+			"taggedTitleCount_plural": "{{count}} Tagged Stories",
+			"titleCount": "1 история",
+			"titleCount_0": "Нет историй",
+			"titleCount_plural": "Количество историй: {{count}}",
 			"titleGeneric": "Истории",
-			"topBar": {
-				"about": "О Twine",
+			"toolbar": {
 				"archive": "Архив",
-				"createStory": "История",
-				"help": "Помощь",
-				"sortName": "Название",
-				"storyFormats": "Форматы"
+				"createStoryButton": {
+					"prompt": "Как вы назовёте историю? Название можно изменить позже",
+					"emptyName": "Пожалуйста, введите имя.",
+					"nameConflict": "Данное имя уже используется."
+				},
+				"deleteStoryButton": {
+					"warning": {
+						"electron": "Вы уверены, что хотите удалить “{{storyName}}”? История будет отправлена в Корзину.",
+						"web": "Вы уверены, что хотите удалить “{{storyName}}”? История будет удалена навсегда. Это действие необратимо."
+					}
+				},
+				"showAllStories": "Показать все истории",
+				"showTags": "Показать теги",
+				"sort": "Сортировать по",
+				"sortByDate": "Дате обновления",
+				"sortByName": "Имени",
+				"storyTags": "Тегам"
 			}
 		},
 		"welcome": {
-			"autosaveTitle": "Ваша работа автоматически сохранена.",
-			"doneTitle": "Вот и всё!",
-			"gotoStoryList": "Перейти к списку историй",
+			"autosave": "<p>Теперь в вашей папке «Документы» есть папка с именем Twine. Внутри нее находится папка «Истории», в которой будут сохранены все ваши работы. Twine сохраняет файлы по мере того, как вы работаете, поэтому вам не нужно беспокоиться о том, что вы не забудете сохранить их самостоятельно. Вы всегда можете открыть папку, в которую сохранены ваши истории, с помощью пункта <strong>Показать библиотеку</strong> в меню <strong>Twine</strong>.</p><p>Поскольку Twine всегда сохраняет ваши работы, файлы в вашей библиотеке историй будут недоступны для редактирования, пока Twine открыт.</p><p>Если вы хотите открыть файл Twine story, который вы получили от кого-то другого, вы можете импортировать его в свою библиотеку, используя ссылку <strong>Импорт из файла</strong> в списке историй.</p>",
+			"autosaveTitle": "Ваша работа сохраняется автоматически.",
+			"browserStorage": "Это означает, что вам не нужно создавать учетную запись, чтобы использовать Twine 2, и все, что вы создаете, не хранится где-то на сервере - оно остается прямо в вашем браузере.Однако следует помнить две очень важные вещи. Поскольку ваша работа сохраняется только в вашем браузере, если вы удалите сохраненные данные, вы потеряете свою работу! Не очень хорошо. Не забывайте почаще пользоваться кнопкой «Архивировать». Вы также можете публиковать отдельные истории в виде файлов, используя меню каждой истории в списке историй. Как архивные файлы, так и файлы историй всегда можно повторно импортировать в Twine.</p><p>Во-вторых, любой, кто может пользоваться этим браузером, может просматривать ваши работы и вносить в них изменения.</strong> Так что, если у вас есть любопытный младший брат, попробуйте создать для себя отдельный профиль.</p>",
+			"browserStorageTitle": "Ваша работа сохраняется только в браузере",
+			"done": "<p>Спасибо за прочтение, желаем приятного времяпрепровождения с Twine.</p>",
+			"doneTitle": "That's it!",
+			"gotoStoryList": "Перейти в список историй",
+			"greeting": "<p>Twine — приложение с открытым исходным кодом для создания интерактивных, нелинейных историй. Есть несколько вещей, которые вы должны знать, прежде чем приступать к работе.</p>",
 			"greetingTitle": "Привет!",
-			"tellMeMore": "Расскажите мне",
-			"helpTitle": "Вы новичок?"
+			"tellMeMore": "Tell Me More",
+			"help": "<p><strong>Если вы не использовали Twine ранее, добро пожаловать!</strong> <a href=\"https://twinery.org/cookbook\">Twine Cookbook</a> — прекрасный ресурс для обучения. Если вы раньше не пользовались шпагатом, то это отличное место для начала.</p>",
+			"helpTitle": "Вы тут впервые?"
 		}
-	},
-	"store": {
-		"errors": {},
-		"passageDefaults": {
-			"name": "Безымянный параграф"
 		},
-		"storyDefaults": {"name": "История без названия"},
-		"storyFormatDefaults": {"name": "Безымянный формат"}
-	},
-	"undoChange": {"replaceAllText": "Заменить все"}
-}
+		"routeActions": {
+			"app": {
+				"aboutApp": "О Twine",
+				"preferences": "Настройки",
+				"reportBug": "Сообщить об ошибке",
+				"storyFormats": "Форматы истории"
+			},
+			"build": {
+				"exportAsTwee": "Экспортировать как Twee",
+				"play": "Играть",
+				"proof": "Проверка",
+				"publishToFile": "Опубликовать в файл",
+				"test": "Тестировать"
+			}
+		},
+		"store": {
+			"archiveFilename": "{{timestamp}} Twine Archive.html",
+			"errors": {
+				"cantPersistPrefs": "Что-то пошло не так при сохранении ваших настроек: ({{error}}).",
+				"cantPersistStories": "Что-то пошло не так при сохранении ваших историй: ({{error}}).",
+				"cantPersistStoryFormats": "Что-то пошло не так при сохранении ваших форматов истории: ({{error}}).",
+				"electronRemediation": "Перезапуск приложения может помочь.",
+				"webRemediation": "Перезагрузка страницы может помочь."
+			},
+			"passageDefaults": {
+				"name": "Параграф без названия"
+			},
+			"storyDefaults": {
+				"name": "История без названия"
+			},
+			"storyFormatDefaults": {
+				"name": "Формат истории без названия"
+			}
+		},
+		"undoChange": {
+			"addTag": "Добавить тег",
+			"changeTagColor": "Изменить цвет тега",
+			"newPassage": "Новый Параграф",
+			"deletePassage": "Удалить Параграф",
+			"deletePassages": "Удалить Параграфы",
+			"movePassage": "Переместить Параграф",
+			"movePassages": "Переместить Параграфы",
+			"renamePassage": "Переименовать Параграф",
+			"removeTag": "Удалить тег",
+			"renameTag": "Переименовать тег",
+			"replaceAllText": "Заменить всё"
+		}
+	}
