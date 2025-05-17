@@ -33,7 +33,7 @@ describe('<StoryActions>', () => {
 
 	it('displays a button to tag stories', () => {
 		renderComponent();
-		expect(screen.getByText('common.tag')).toBeInTheDocument();
+		expect(screen.getByText('common.tags')).toBeInTheDocument();
 	});
 
 	it('displays a button to duplicate stories', () => {

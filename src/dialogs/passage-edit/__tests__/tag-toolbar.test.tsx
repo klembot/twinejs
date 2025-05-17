@@ -10,7 +10,6 @@ import {
 } from '../../../test-util';
 import {TagToolbar, TagToolbarProps} from '../tag-toolbar';
 
-jest.mock('../../../components/tag/add-tag-button');
 jest.mock('../../../components/tag/tag-button');
 
 const TestTagToolbar: React.FC<Partial<TagToolbarProps>> = props => {

@@ -1,13 +1,8 @@
-import {IconTag} from '@tabler/icons';
 import * as React from 'react';
-import {AddTagButton} from '../../../../components/tag';
 import {setPref, usePrefsContext} from '../../../../store/prefs';
-import {
-	Story,
-	storyTags,
-	updateStory,
-	useStoriesContext
-} from '../../../../store/stories';
+import {Story, updateStory, useStoriesContext} from '../../../../store/stories';
+import {TagCardButton} from '../../../../components/tag/tag-card-button';
+import {Color} from '../../../../util/color';
 
 export interface TagStoryButtonProps {
 	story?: Story;
@@ -18,34 +13,44 @@ export const TagStoryButton: React.FC<TagStoryButtonProps> = props => {
 	const {dispatch: prefsDispatch, prefs} = usePrefsContext();
 	const {dispatch: storiesDispatch, stories} = useStoriesContext();
 
-	function handleAddTag(tagName: string, tagColor?: string) {
+	function handleAddTag(name: string) {
 		if (!story) {
 			throw new Error('Story is unset');
 		}
 
 		storiesDispatch(
 			updateStory(stories, story, {
-				tags: story.tags ? [...story.tags, tagName] : [tagName]
+				tags: story.tags ? [...story.tags, name] : [name]
 			})
 		);
+	}
 
-		if (tagColor) {
-			prefsDispatch(
-				setPref('storyTagColors', {
-					...prefs.storyTagColors,
-					[tagName]: tagColor
-				})
-			);
+	function handleChangeTagColor(name: string, color: Color) {
+		prefsDispatch(
+			setPref('storyTagColors', {...prefs.storyTagColors, [name]: color})
+		);
+	}
+
+	function handleRemoveTag(name: string) {
+		if (!story) {
+			throw new Error('Story is unset');
 		}
+
+		storiesDispatch(
+			updateStory(stories, story, {
+				tags: story.tags.filter(tag => tag !== name)
+			})
+		);
 	}
 
 	return (
-		<AddTagButton
-			assignedTags={story?.tags ?? []}
+		<TagCardButton
 			disabled={!story}
-			existingTags={storyTags(stories)}
-			icon={<IconTag />}
 			onAdd={handleAddTag}
+			onChangeColor={handleChangeTagColor}
+			onRemove={handleRemoveTag}
+			tagColors={{}}
+			tags={story?.tags ?? []}
 		/>
 	);
 };

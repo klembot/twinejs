@@ -6,18 +6,18 @@ import {UndoRedoButtons} from '../../components/codemirror';
 import {ButtonBar} from '../../components/container/button-bar';
 import {MenuButton} from '../../components/control/menu-button';
 import {RenamePassageButton} from '../../components/passage/rename-passage-button';
-import {AddTagButton} from '../../components/tag';
 import {TestPassageButton} from '../../routes/story-edit/toolbar/passage/test-passage-button';
 import {
 	addPassageTag,
 	Passage,
+	removePassageTag,
 	setTagColor,
 	Story,
-	storyPassageTags,
 	updatePassage
 } from '../../store/stories';
 import {useUndoableStoriesContext} from '../../store/undoable-stories';
 import {Color} from '../../util/color';
+import {TagCardButton} from '../../components/tag/tag-card-button';
 
 export interface PassageToolbarProps {
 	disabled?: boolean;
@@ -32,21 +32,16 @@ export const PassageToolbar: React.FC<PassageToolbarProps> = props => {
 	const {dispatch} = useUndoableStoriesContext();
 	const {t} = useTranslation();
 
-	function handleAddTag(name: string, color?: Color) {
-		// Kind of tricky. We make adding the tag to the passage undoable, but not
-		// any color change associated with this. This is because we only set a
-		// color here when creating an entirely new tag. If the user is adding an
-		// existing tag, then we would only receive the name here, since it's
-		// currently impossible to add an existing tag and change its color
-		// simultaneously.
-		//
-		// If this changes, then this should change too.
-
+	function handleAddTag(name: string) {
 		dispatch(addPassageTag(story, passage, name), t('undoChange.addTag'));
+	}
 
-		if (color) {
-			dispatch(setTagColor(story, name, color));
-		}
+	function handleChangeTagColor(name: string, color: Color) {
+		dispatch(setTagColor(story, name, color));
+	}
+
+	function handleRemoveTag(name: string) {
+		dispatch(removePassageTag(story, passage, name), t('undoChange.removeTag'));
 	}
 
 	function handleRename(name: string) {
@@ -71,11 +66,12 @@ export const PassageToolbar: React.FC<PassageToolbarProps> = props => {
 					watch={passage.text}
 				/>
 			)}
-			<AddTagButton
-				disabled={disabled}
-				assignedTags={passage.tags}
-				existingTags={storyPassageTags(story)}
+			<TagCardButton
 				onAdd={handleAddTag}
+				onChangeColor={handleChangeTagColor}
+				onRemove={handleRemoveTag}
+				tagColors={story.tagColors}
+				tags={passage.tags}
 			/>
 			<MenuButton
 				disabled={disabled}
