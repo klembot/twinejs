@@ -13,6 +13,7 @@ import jp from '../../../public/locales/jp.json';
 import ms from '../../../public/locales/ms.json';
 import nb from '../../../public/locales/nb.json';
 import nl from '../../../public/locales/nl.json';
+import pl from '../../../public/locales/pl.json';
 import ptBr from '../../../public/locales/pt-BR.json';
 import ptPt from '../../../public/locales/pt-PT.json';
 import ru from '../../../public/locales/ru.json';
@@ -52,6 +53,7 @@ export async function initLocales() {
 	i18n.addResourceBundle('ms', 'translation', ms);
 	i18n.addResourceBundle('nb', 'translation', nb);
 	i18n.addResourceBundle('nl', 'translation', nl);
+	i18n.addResourceBundle('pl', 'translation', pl);
 	i18n.addResourceBundle('pt-br', 'translation', ptBr);
 	i18n.addResourceBundle('pt-BR', 'translation', ptBr);
 	i18n.addResourceBundle('pt-pt', 'translation', ptPt);
