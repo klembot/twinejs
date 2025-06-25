@@ -46,6 +46,7 @@
 		"story": "Story",
 		"storyFormat": "Story Format",
 		"tag": "Tag",
+		"tags": "Tags",
 		"test": "Test",
 		"twine": "Twine",
 		"undo": "Undo",
@@ -136,6 +137,13 @@
 		"storyFormatSelect": {
 			"loadingCount": "Loading 1 Story Format...",
 			"loadingCount_plural": "Loading {{loadingCount}} Story Formats..."
+		},
+		"tagCardButton": {
+			"alreadyAdded": "This tag name has already been added.",
+			"addLabel": "Add Tag",
+			"invalidName": "Please enter a valid tag name.",
+			"tagNameLabel": "Tag Name",
+			"tagsWithCount_plural": "Tags ({{count}})"
 		},
 		"tagEditor": {
 			"alreadyExists": "A tag with this name already exists."
