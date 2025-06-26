@@ -29,6 +29,23 @@ export const CardButton: React.FC<CardButtonProps> = props => {
 	const [cardEl, setCardEl] = React.useState<HTMLDivElement | null>(null);
 	const {styles, attributes} = usePopper(buttonEl, cardEl, {strategy: 'fixed'});
 
+	function filterEventsOutsideFocusTrap(event: MouseEvent | TouchEvent) {
+		const narrowedTarget = event.target as HTMLElement;
+
+		if (narrowedTarget === buttonEl || buttonEl?.contains(narrowedTarget)) {
+			// Special handling because if we allow the click to go through,
+			// onChangeOpen is called twice in a row--first by the deactivate handler
+			// on the focus trap and then by the click handler on the button. In this
+			// case, we block the deactivation and manually handle the click
+			// ourselves.
+
+			onChangeOpen(false);
+			return false;
+		}
+
+		return true;
+	}
+
 	return (
 		<span className="card-button">
 			<IconButton
@@ -45,7 +62,7 @@ export const CardButton: React.FC<CardButtonProps> = props => {
 			>
 				<FocusTrap
 					focusTrapOptions={{
-						clickOutsideDeactivates: true,
+						clickOutsideDeactivates: filterEventsOutsideFocusTrap,
 						onDeactivate: () => onChangeOpen(false)
 					}}
 				>
