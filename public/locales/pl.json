@@ -46,6 +46,7 @@
 		"story": "Opowieść",
 		"storyFormat": "Format opowieści",
 		"tag": "Tag",
+		"tags": "Tagi",
 		"test": "Testuj",
 		"twine": "Twine",
 		"undo": "Cofnij",
@@ -136,6 +137,13 @@
 		"storyFormatSelect": {
 			"loadingCount": "Wczytywanie 1 formatu opowieści...",
 			"loadingCount_plural": "Wczytywanie {{loadingCount}} formatów opowieści..."
+		},
+		"tagCardButton": {
+			"alreadyAdded": "Taka nazwa tagu została już dodana.",
+			"addLabel": "Dodaj tag",
+			"invalidName": "Wprowadź poprawną nazwę tagu.",
+			"tagNameLabel": "Nazwa tagu",
+			"tagsWithCount_plural": "Tagi ({{count}})"
 		},
 		"tagEditor": {
 			"alreadyExists": "Tag o takiej nazwie już istnieje."
