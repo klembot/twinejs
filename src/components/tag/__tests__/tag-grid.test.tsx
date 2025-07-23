@@ -2,12 +2,12 @@ import {faker} from '@faker-js/faker';
 import {render, screen} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
-import {TagStripe, TagStripeProps} from '../tag-stripe';
+import { TagGrid, TagGridProps } from '../tag-grid';
 
-describe('<TagStripe>', () => {
-	function renderComponent(props?: Partial<TagStripeProps>) {
+describe('<TagGrid>', () => {
+	function renderComponent(props?: Partial<TagGridProps>) {
 		return render(
-			<TagStripe tagColors={{}} tags={[faker.lorem.word()]} {...props} />
+			<TagGrid tagColors={{}} tags={[faker.lorem.word()]} {...props} />
 		);
 	}
 
