@@ -2,7 +2,7 @@
 
 ## Selecting Passages
 
-Click or tap a single passage cardto select it. You can select multiple passage
+Click or tap a single passage card to select it. You can select multiple passage
 cards by holding the Shift or Control key while selecting a particular passage.
 To deselect while keeping the rest of your selection intact, Shift- or
 Control-click it.
