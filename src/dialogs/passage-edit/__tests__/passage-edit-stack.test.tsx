@@ -11,6 +11,7 @@ import {DialogsContext, DialogsContextProps} from '../../context';
 import {PassageEditStack, PassageEditStackProps} from '../passage-edit-stack';
 
 jest.mock('../passage-edit-contents');
+jest.mock('../../../components/tag/tag-grid');
 jest.mock('../../../components/visible-whitespace/visible-whitespace');
 
 const TestPassageEditStack: React.FC<
@@ -87,6 +88,24 @@ describe('<PassageEditStack>', () => {
 		expect(
 			screen.getByRole('heading', {name: story.passages[1].name})
 		).toBeInTheDocument();
+	});
+
+	it('displays a tag grid for each passage', () => {
+		const story = fakeStory(2);
+
+		story.passages[0].tags = ['tag-1'];
+		story.passages[1].tags = ['tag-2', 'tag-3'];
+
+		renderComponent({stories: [story]});
+
+		const tagGrids = screen.getAllByTestId('mock-tag-grid');
+
+		expect(tagGrids).toHaveLength(2);
+
+		// Order is reversed here because of rendering order.
+
+		expect(tagGrids[0]).toHaveTextContent('tag-2 tag-3');
+		expect(tagGrids[1]).toHaveTextContent('tag-1');
 	});
 
 	it('makes whitespace visible in passage names in the dialog cards', () => {

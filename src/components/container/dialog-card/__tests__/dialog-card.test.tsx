@@ -24,9 +24,7 @@ describe('<DialogCard>', () => {
 
 	it('displays the header label', () => {
 		renderComponent();
-		expect(
-			screen.getByRole('button', {name: 'mock-header-label'})
-		).toBeInTheDocument();
+		expect(screen.getByText('mock-header-label')).toBeInTheDocument();
 	});
 
 	it('uses the header display label instead of label when provided', () => {
@@ -35,28 +33,6 @@ describe('<DialogCard>', () => {
 		});
 		expect(screen.getByTestId('mock-header-display-label')).toBeInTheDocument();
 		expect(screen.queryByText('mock-header-label')).not.toBeInTheDocument();
-	});
-
-	it('calls the onChangeCollapsed prop when the header button is clicked when uncollapsed', () => {
-		const onChangeCollapsed = jest.fn();
-
-		renderComponent({onChangeCollapsed, headerLabel: 'test-label'});
-		expect(onChangeCollapsed).not.toHaveBeenCalled();
-		fireEvent.click(screen.getByText('test-label'));
-		expect(onChangeCollapsed.mock.calls).toEqual([[true]]);
-	});
-
-	it('calls the onChangeCollapsed prop when the header button is clicked when collapsed', () => {
-		const onChangeCollapsed = jest.fn();
-
-		renderComponent({
-			collapsed: true,
-			onChangeCollapsed,
-			headerLabel: 'test-label'
-		});
-		expect(onChangeCollapsed).not.toHaveBeenCalled();
-		fireEvent.click(screen.getByText('test-label'));
-		expect(onChangeCollapsed.mock.calls).toEqual([[false]]);
 	});
 
 	it('shows a maximize button when the maximized prop is true', () => {
@@ -114,6 +90,25 @@ describe('<DialogCard>', () => {
 		fireEvent.click(screen.getByLabelText('common.unmaximize'));
 		expect(onChangeMaximized.mock.calls).toEqual([[false]]);
 	});
+
+	it('calls the onChangeCollapsed prop when the collapse button is clicked when uncollapsed', () => {
+		const onChangeCollapsed = jest.fn();
+
+		renderComponent({onChangeCollapsed});
+		expect(onChangeCollapsed).not.toHaveBeenCalled();
+		fireEvent.click(screen.getByLabelText('common.collapse'));
+		expect(onChangeCollapsed.mock.calls).toEqual([[true]]);
+	});
+
+	it('calls the onChangeCollapsed prop when the collpase button is clicked when collapsed', () => {
+		const onChangeCollapsed = jest.fn();
+
+		renderComponent({onChangeCollapsed, collapsed: true});
+		expect(onChangeCollapsed).not.toHaveBeenCalled();
+		fireEvent.click(screen.getByLabelText('common.expand'));
+		expect(onChangeCollapsed.mock.calls).toEqual([[false]]);
+	});
+
 
 	it('calls the onClose prop when the close button is clicked', () => {
 		const onClose = jest.fn();

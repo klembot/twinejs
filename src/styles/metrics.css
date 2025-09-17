@@ -12,6 +12,9 @@
 
 	/* Border radius for elements with round corners. */
 	--corner-round: 5px;
+
+	/* Border radius for larger round elements, like dialogs. */
+	--corner-round-large: 10px;
 }
 
 * {

@@ -5,7 +5,13 @@ import {
 	DialogCard
 } from '../../components/container/dialog-card';
 import {DialogStack} from '../../components/container/dialog-card/dialog-stack';
-import {passageWithId, useStoriesContext} from '../../store/stories';
+import {TagGrid} from '../../components/tag';
+import {VisibleWhitespace} from '../../components/visible-whitespace';
+import {
+	passageWithId,
+	storyWithId,
+	useStoriesContext
+} from '../../store/stories';
 import {
 	addPassageEditors,
 	removePassageEditors,
@@ -14,7 +20,6 @@ import {
 import {DialogComponentProps} from '../dialogs.types';
 import {PassageEditContents} from './passage-edit-contents';
 import './passage-edit-stack.css';
-import {VisibleWhitespace} from '../../components/visible-whitespace';
 
 export interface PassageEditStackProps extends DialogComponentProps {
 	passageIds: string[];
@@ -27,11 +32,12 @@ const InnerPassageEditStack: React.FC<PassageEditStackProps> = props => {
 		props;
 	const {dispatch} = useDialogsContext();
 	const {stories} = useStoriesContext();
+	const storyTagColors = storyWithId(stories, storyId).tagColors;
+	const passageInfo = passageIds.map(passageId => {
+		const passage = passageWithId(stories, storyId, passageId);
 
-	const passageNames = passageIds.map(
-		passageId => passageWithId(stories, storyId, passageId).name
-	);
-
+		return {name: passage.name, tags: passage.tags};
+	});
 	const style: React.CSSProperties = {};
 
 	if (managementProps.collapsed) {
@@ -68,9 +74,15 @@ const InnerPassageEditStack: React.FC<PassageEditStackProps> = props => {
 							<BackgroundDialogCard
 								{...managementProps}
 								headerDisplayLabel={
-									<VisibleWhitespace value={passageNames[index]} />
+									<>
+										<TagGrid
+											tags={passageInfo[index].tags}
+											tagColors={storyTagColors}
+										/>
+										<VisibleWhitespace value={passageInfo[index].name} />
+									</>
 								}
-								headerLabel={passageNames[index]}
+								headerLabel={passageInfo[index].name}
 								key={passageId}
 								onClose={event => handleClose(passageId, event)}
 								onRaise={() =>
@@ -90,9 +102,15 @@ const InnerPassageEditStack: React.FC<PassageEditStackProps> = props => {
 						<DialogCard
 							{...managementProps}
 							headerDisplayLabel={
-								<VisibleWhitespace value={passageNames[index]} />
+								<>
+									<TagGrid
+										tags={passageInfo[index].tags}
+										tagColors={storyTagColors}
+									/>
+									<VisibleWhitespace value={passageInfo[index].name} />
+								</>
 							}
-							headerLabel={passageNames[index]}
+							headerLabel={passageInfo[index].name}
 							key={passageId}
 							maximizable
 							onClose={event => handleClose(passageId, event)}

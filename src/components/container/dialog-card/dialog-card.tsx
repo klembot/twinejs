@@ -2,10 +2,10 @@ import * as React from 'react';
 import classNames from 'classnames';
 import {useTranslation} from 'react-i18next';
 import {
-	IconArrowsDiagonal,
-	IconArrowsDiagonalMinimize,
 	IconChevronDown,
 	IconChevronUp,
+	IconMaximize,
+	IconMinimize,
 	IconX
 } from '@tabler/icons';
 import {Card} from '../card';
@@ -85,23 +85,12 @@ export const DialogCard: React.FC<DialogCardProps> = props => {
 			<Card floating>
 				<h2>
 					<div className="dialog-card-header">
-						<IconButton
-							icon={collapsed ? <IconChevronUp /> : <IconChevronDown />}
-							displayLabel={headerDisplayLabel}
-							label={headerLabel}
-							onClick={() => onChangeCollapsed(!collapsed)}
-						/>
+						{headerDisplayLabel ?? headerLabel}
 					</div>
 					<div className="dialog-card-header-controls">
 						{maximizable && (
 							<IconButton
-								icon={
-									maximized ? (
-										<IconArrowsDiagonalMinimize />
-									) : (
-										<IconArrowsDiagonal />
-									)
-								}
+								icon={maximized ? <IconMinimize /> : <IconMaximize />}
 								iconOnly
 								label={
 									maximized ? t('common.unmaximize') : t('common.maximize')
@@ -110,6 +99,13 @@ export const DialogCard: React.FC<DialogCardProps> = props => {
 								tooltipPosition="bottom"
 							/>
 						)}
+						<IconButton
+							icon={collapsed ? <IconChevronUp /> : <IconChevronDown />}
+							iconOnly
+							label={collapsed ? t('common.expand') : t('common.collapse')}
+							onClick={() => onChangeCollapsed(!collapsed)}
+							tooltipPosition="bottom"
+						/>
 						<IconButton
 							icon={<IconX />}
 							iconOnly
