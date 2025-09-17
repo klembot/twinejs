@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {TagColors} from '../../store/stories';
 import './tag-grid.css';
+import classNames from 'classnames';
 
 export interface TagGridProps {
 	tagColors: TagColors;
@@ -25,7 +26,7 @@ export const TagGrid: React.FC<TagGridProps> = React.memo(props => {
 	}
 
 	return (
-		<div className="tag-grid">
+		<div className={classNames('tag-grid', {hidden: rows.length === 0})}>
 			{rows.map((row, index) => (
 				<span className="row" key={index}>
 					{row.map(tag => (

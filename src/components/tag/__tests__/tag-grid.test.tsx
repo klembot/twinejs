@@ -30,6 +30,20 @@ describe('<TagGrid>', () => {
 		expect(screen.getByTitle('tag-2')).toBeInTheDocument();
 	});
 
+	it('gives itself a hidden class if there are no tags to show', () => {
+		renderComponent({
+			tags: ['tag-1']
+		});
+		expect(document.querySelector('.tag-grid')).toHaveClass('hidden');
+	});
+
+	it("doesn't give itself a hidden class if there are no tags to show", () => {
+		renderComponent({
+			tagColors: {'tag-1': 'red'},
+			tags: ['tag-1']
+		});
+		expect(document.querySelector('.tag-grid')).not.toHaveClass('hidden');
+	});
 
 	it('is accessible', async () => {
 		const {container} = renderComponent();
