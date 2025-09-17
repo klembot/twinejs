@@ -6,6 +6,10 @@
 	gap: 2px;
 }
 
+.tag-grid.hidden {
+	display: none;
+}
+
 .tag-grid .row {
 	display: flex;
 	gap: 2px;
