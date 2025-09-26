@@ -1,92 +1,128 @@
+/*
+These colors are designed using oklch but are spec'd as rgb for compatibility.
+The blue and green hues match the hues used in the Twine logo.
+
+Hues:
+- red: 15
+- orange: 60
+- yellow: 105
+- green: 148
+- blue: 256
+- purple: 300
+
+Light mode shades (lightness, chroma):
+- dark: 0.45 0.11
+- dark translucent: 0.02 0, alpha 0.7
+- medium (color name as-is): 0.75 0.14
+- light: 0.9 0.04
+- light translucent: 0.66 0.15, alpha 0.1
+- faint: 0.95 0.02
+
+Dark mode shades (lightness, chroma):
+
+Note that names are reversed in meaning here, so that "dark" green is lighter than
+green.
+- dark: 0.75 0.14
+- medium (color name as-is): 0.6 0.14
+- light: 0.3 0.07
+- light translucent: 0.6 0.14, alpha 0.3
+- faint: 0.2 0.045
+*/
+
 :root {
-	--black: black;
-	--off-white: hsl(0, 0%, 95%);
-	--white: hsl(0, 0%, 98%);
-	--white-translucent: hsla(0, 0%, 100%, 0.7);
-	--dark-gray-translucent: hsla(0, 0%, 0%, 0.7);
-	--dark-gray: hsl(0, 0%, 30%);
-	--gray: hsl(0, 0%, 60%);
-	--light-gray: hsl(0, 0%, 85%);
-	--light-gray-translucent: hsla(0, 0%, 60%, 0.25);
-	--faint-gray: hsl(0, 0%, 90%);
-	--dark-red: hsl(2, 90%, 40%);
-	--faint-red: hsla(2, 90%, 95%);
-	--red: hsl(2, 90%, 60%);
-	--light-red: hsl(2, 90%, 90%);
-	--light-red-translucent: hsla(2, 90%, 65%, 0.25);
-	--dark-orange: hsl(32, 90%, 40%);
-	--faint-orange: hsla(32, 90%, 95%);
-	--orange: hsl(32, 90%, 60%);
-	--light-orange: hsl(32, 90%, 90%);
-	--light-orange-translucent: hsl(32, 90%, 65%, 0.25);
-	--dark-yellow: hsl(62, 90%, 40%);
-	--faint-yellow: hsla(62, 90%, 95%);
-	--yellow: hsl(62, 90%, 60%);
-	--light-yellow: hsl(62, 90%, 90%);
-	--light-yellow-translucent: hsl(62, 90%, 65%, 0.25);
-	--dark-green: hsl(124, 90%, 40%);
-	--green: hsl(124, 90%, 60%);
-	--faint-green: hsl(124, 90%, 95%);
-	--light-green: hsl(124, 90%, 90%);
-	--light-green-translucent: hsl(124, 90%, 65%, 0.25);
-	--dark-blue: hsl(212, 90%, 40%);
-	--blue: hsl(212, 90%, 60%);
-	--faint-blue: hsl(212, 90%, 95%);
-	--light-blue: hsl(212, 90%, 90%);
-	--light-blue-translucent: hsla(212, 90%, 65%, 0.25);
-	--dark-purple: hsl(272, 90%, 40%);
-	--faint-purple: hsl(272, 90%, 95%);
-	--faint-purple-translucent: hsl(272, 90%, 85%, 0.25);
-	--purple: hsl(272, 90%, 60%);
-	--light-purple: hsl(272, 90%, 90%);
-	--light-purple-translucent: hsla(272, 90%, 65%, 0.25);
+	--black: rgb(0, 0, 0); /* oklch(0 0 0) */
+	--off-white: rgb(242, 242, 242); /* oklch(0.96 0 0) */
+	--white: rgb(248, 248, 248); /* oklch(0.98 0 0) */
+	--white-translucent: rgba(255, 255, 255, 0.7); /* oklch(1 0 0 / 0.7) */
+	--dark-gray-translucent: rgba(0, 0, 0, 0.7); /* oklch(0 0 / 0.7) */
+	--dark-gray: rgb(85, 85, 85); /* oklch(0.45 0 0) */
+	--gray: rgb(174, 174, 174); /* oklch(0.75 0 0) */
+	--light-gray: rgb(222, 222, 222); /* oklch(0.9 0 0) */
+	--light-gray-translucent: rgba(146, 146, 146, 0.1); /* oklch(0.66 0 0 / 0.1) */
+	--faint-gray: rgb(238, 238, 238); /* oklch(0.95 0 0) */
+
+	--dark-red: rgb(135, 55, 65); /* oklch(0.45 0.11 15) */
+	--red: rgb(249, 134, 145); /* oklch(0.75 0.14 15) */
+	--light-red: rgb(248, 212, 213); /* oklch(0.9 0.04 15) */
+	--light-red-translucent: rgba(222, 102, 116, 0.1); /* oklch(0.66 0.15 15 / 0.1) */
+	--faint-red: rgb(252, 233, 234); /* oklch(0.95 0.02 15) */
+
+	--dark-orange: rgb(128, 67, 0); /* oklch(0.45 0.11 60) */
+	--orange: rgb(238, 151, 72); /* oklch(0.75 0.14 60) */
+	--light-orange: rgb(243, 216, 196); /* oklch(0.9 0.04 60) */
+	--light-orange-translucent: rgba(211, 120, 18, 0.1); /* oklch(0.66 0.15 60 / 0.1) */
+	--faint-orange: rgb(249, 236, 225); /* oklch(0.95 0.02 60) */
+
+	--dark-yellow: rgb(95, 87, 0); /* oklch(0.45 0.11 105) */
+	--yellow: rgb(187, 178, 55); /* oklch(0.75 0.14 105) */
+	--light-yellow: rgb(225, 224, 194); /* oklch(0.9 0.04 105) */
+	--light-yellow-translucent: rgba(161, 150, 0, 0.1); /* oklch(0.66 0.15 105 / 0.1) */
+	--faint-yellow: rgb(240, 240, 224); /* oklch(0.95 0.02 105) */
+
+	--dark-green: rgb(31, 101, 47); /* oklch(0.45 0.11 148) */
+	--green: rgb(106, 198, 122); /* oklch(0.75 0.14 148) */
+	--light-green: rgb(205, 230, 207); /* oklch(0.9 0.04 148) */
+	--light-green-translucent: rgba(68, 170, 90, 0.1); /* oklch(0.66 0.15 148 / 0.1) */
+	--faint-green: rgb(230, 242, 231); /* oklch(0.95 0.02 148) */
+
+	--dark-blue: rgb(39, 85, 145); /* oklch(0.45 0.11 256) */
+	--blue: rgb(112, 176, 255); /* oklch(0.75 0.14 256) */
+	--light-blue: rgb(212, 230, 255); /* oklch(0.92 0.04 256) */
+	--light-blue-translucent: rgba(79, 147, 236, 0.1); /* oklch(0.66 0.15 256 / 0.1) */
+	--faint-blue: rgb(230, 239, 252); /* oklch(0.95 0.02 256) */
+
+	--dark-purple: rgb(110, 81, 157); /* oklch(0.5 0.12 300) */
+	--purple: rgb(188, 152, 249); /* oklch(0.75 0.14 300) */
+	--light-purple: rgb(226, 217, 245); /* oklch(0.9 0.04 300) */
+	--light-purple-translucent: rgba(161, 122, 223, 0.1); /* oklch(0.66 0.15 300 / 0.1) */
+	--faint-purple: rgb(240, 236, 250); /* oklch(0.95 0.02 300) */
 }
 
 [data-app-theme='dark'] {
-	--black: white;
-	--off-white: hsl(0, 0%, 10%);
-	--white: hsl(0, 0%, 15%);
-	--white-translucent: hsla(0, 0%, 0%, 0.25);
-	--dark-gray-translucent: hsla(0, 0%, 0%, 0.7);
-	--dark-gray: hsl(0, 0%, 70%);
-	--gray: hsl(0, 0%, 40%);
-	--light-gray: hsl(0, 0%, 25%);
-	--light-gray-translucent: hsla(0, 0%, 60%, 0.25);
-	--faint-gray: hsl(0, 0%, 15%);
+	--black: rgb(248, 248, 248); /* oklch(0.98 0 0) */
+	--off-white: rgb(22, 22, 22); /* oklch(0.2 0 0) */
+	--white: rgb(34, 34, 34); /* oklch(0.25 0 0) */
+	--white-translucent: rgba(0, 0, 0, 0.7); /* oklch(0 0 0 / 0.7) */
+	--dark-gray-translucent: rgba(0, 0, 0, 0.7); /* oklch(0 0 0 / 0.7) */
+	--dark-gray: rgb(174, 174, 174); /* oklch(0.75 0 0) */
+	--gray: rgb(128, 128, 128); /* oklch(0.6 0 0) */
+	--light-gray: rgb(46, 46, 46); /* oklch(0.3 0 0) */
+	--light-gray-translucent: rgba(128, 128, 128, 0.3); /* oklch(0.6 0 0 / 0.3) */
+	--faint-gray: rgb(3, 3, 3); /* oklch(0.1 0 0) */
 
-	--dark-red: hsl(2, 90%, 70%);
-	--red: hsl(2, 90%, 40%);
-	--light-red: hsl(2, 90%, 15%);
-	--faint-red: hsl(2, 90%, 10%);
+	--dark-red: rgb(249, 134, 145); /* oklch(0.75 0.14 15) */
+	--red: rgb(197, 88, 101); /* oklch(0.6 0.14 15) */
+	--light-red: rgb(75, 29, 34); /* oklch(0.3 0.07 15) */
+	--faint-red: rgb(39, 12, 15); /* oklch(0.2 0.045 15); */
 
-	--dark-orange: hsl(32, 90%, 70%);
-	--orange: hsl(32, 90%, 40%);
-	--light-orange: hsl(32, 90%, 15%);
-	--faint-orange: hsl(32, 90%, 10%);
+	--dark-orange: rgb(238, 151, 72); /* oklch(0.75 0.14 60) */
+	--orange: rgb(187, 104, 2); /* oklch(0.6 0.14 60) */
+	--light-orange: rgb(71, 36, 0); /* oklch(0.3 0.07 60) */
+	--faint-orange: rgb(36, 16, 1); /* oklch(0.2 0.045 60) */
 
-	--dark-yellow: hsl(62, 90%, 70%);
-	--yellow: hsl(62, 90%, 40%);
-	--light-yellow: hsl(62, 90%, 15%);
-	--light-yellow-translucent: hsl(62, 90%, 60%, 0.25);
-	--faint-yellow: hsl(62, 90%, 10%);
+	--dark-yellow: rgb(187, 178, 55); /* oklch(0.75 0.14 105) */
+	--yellow: rgb(141, 131, 0); /* oklch(0.6 0.14 105) */
+	--light-yellow: rgb(51, 47, 0); /* oklch(0.3 0.07 105) */
+	--light-yellow-translucent: rgba(141, 131, 0, 0.3); /* oklch(0.6 0.14 105 / 0.3) */
+	--faint-yellow: rgb(25, 23, 0); /* oklch(0.2 0.045 105) */
 
-	--dark-green: hsl(124, 90%, 70%);
-	--green: hsl(124, 90%, 40%);
-	--light-green: hsl(124, 90%, 15%);
-	--light-green-translucent: hsl(62, 90%, 60%, 0.25);
-	--faint-green: hsl(124, 90%, 10%);
+	--dark-green: rgb(106, 198, 122); /* oklch(0.75 0.14 148) */
+	--green: rgb(56, 150, 77); /* oklch(0.6 0.14 148) */
+	--light-green: rgb(15, 55, 24); /* oklch(0.3 0.07 148) */
+	--light-green-translucent: rgba(56, 150, 77, 0.3); /* oklch(0.6 0.14 148 / 0.3) */
+	--faint-green: rgb(6, 27, 10); /* oklch(0.2 0.045 148) */
 
-	--dark-blue: hsl(212, 90%, 70%);
-	--blue: hsl(212, 90%, 40%);
-	--light-blue: hsl(212, 90%, 15%);
-	--light-blue-translucent: hsla(212, 90%, 60%, 0.25);
-	--faint-blue: hsl(212, 90%, 10%);
+	--dark-blue: rgb(112, 176, 255); /* oklch(0.75 0.14 256) */
+	--blue: rgb(67, 129, 210); /* oklch(0.6 0.14 256) */
+	--light-blue: rgb(20, 46, 80); /* oklch(0.3 0.07 256) */
+	--light-blue-translucent: rgba(67, 129, 210, 0.3); /* oklch(0.6 0.14 256 / 0.3) */
+	--faint-blue: rgb(7, 22, 42); /* oklch(0.2 0.045 256) */
 
-	--dark-purple: hsl(272, 90%, 70%);
-	--purple: hsl(272, 90%, 40%);
-	--light-purple: hsl(272, 90%, 15%);
-	--light-purple-translucent: hsla(272, 90%, 60%, 0.25);
-	--faint-purple: hsl(272, 90%, 10%);
+	--dark-purple: rgb(188, 152, 249); /* oklch(0.75 0.14 300) */
+	--purple: rgb(142, 106, 199); /* oklch(0.6 0.14 300) */
+	--light-purple: rgb(51, 36, 75); /* oklch(0.3 0.07 300) */
+	--light-purple-translucent: rgba(142, 106, 199, 0.3); /* oklch(0.6 0.14 300 / 0.3) */
+	--faint-purple: rgb(25, 17, 39); /* oklch(0.2 0.045 300) */
 }
 
 body {

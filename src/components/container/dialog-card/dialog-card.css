@@ -12,7 +12,7 @@
 }
 
 .dialog-card .card {
-	border-radius: var(--corner-round-large);
+	border-radius: var(--corner-round);
 	padding: 0;
 }
 
