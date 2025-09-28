@@ -13,6 +13,7 @@ import {
 	removePassageTag,
 	setTagColor,
 	Story,
+	storyPassageTags,
 	updatePassage
 } from '../../store/stories';
 import {useUndoableStoriesContext} from '../../store/undoable-stories';
@@ -31,6 +32,7 @@ export const PassageToolbar: React.FC<PassageToolbarProps> = props => {
 	const {disabled, editor, passage, story, useCodeMirror} = props;
 	const {dispatch} = useUndoableStoriesContext();
 	const {t} = useTranslation();
+	const passageTags = storyPassageTags(story);
 
 	function handleAddTag(name: string) {
 		dispatch(addPassageTag(story, passage, name), t('undoChange.addTag'));
@@ -67,6 +69,7 @@ export const PassageToolbar: React.FC<PassageToolbarProps> = props => {
 				/>
 			)}
 			<TagCardButton
+				allTags={passageTags}
 				onAdd={handleAddTag}
 				onChangeColor={handleChangeTagColor}
 				onRemove={handleRemoveTag}

@@ -1,6 +1,11 @@
 import * as React from 'react';
 import {setPref, usePrefsContext} from '../../../../store/prefs';
-import {Story, updateStory, useStoriesContext} from '../../../../store/stories';
+import {
+	Story,
+	storyTags,
+	updateStory,
+	useStoriesContext
+} from '../../../../store/stories';
 import {TagCardButton} from '../../../../components/tag/tag-card-button';
 import {Color} from '../../../../util/color';
 
@@ -12,6 +17,7 @@ export const TagStoryButton: React.FC<TagStoryButtonProps> = props => {
 	const {story} = props;
 	const {dispatch: prefsDispatch, prefs} = usePrefsContext();
 	const {dispatch: storiesDispatch, stories} = useStoriesContext();
+	const allStoryTags = storyTags(stories);
 
 	function handleAddTag(name: string) {
 		if (!story) {
@@ -45,6 +51,7 @@ export const TagStoryButton: React.FC<TagStoryButtonProps> = props => {
 
 	return (
 		<TagCardButton
+			allTags={allStoryTags}
 			disabled={!story}
 			onAdd={handleAddTag}
 			onChangeColor={handleChangeTagColor}
