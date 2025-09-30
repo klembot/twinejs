@@ -18,7 +18,6 @@ import {
 jest.mock('../passage-toolbar');
 jest.mock('../passage-text');
 jest.mock('../story-format-toolbar');
-jest.mock('../tag-toolbar');
 
 const TestPassageEditContents: React.FC<
 	Partial<PassageEditContentsProps>
