@@ -3,10 +3,13 @@ import * as React from 'react';
 import {TagCardButton, TagCardButtonProps} from '../tag-card-button';
 import {axe} from 'jest-axe';
 
+jest.mock('../../../components/control/autocomplete-text-input');
+
 describe('<TagCardButton>', () => {
 	function renderComponent(props?: Partial<TagCardButtonProps>) {
 		return render(
 			<TagCardButton
+				allTags={[]}
 				onAdd={jest.fn()}
 				onChangeColor={jest.fn()}
 				onRemove={jest.fn()}
@@ -46,6 +49,25 @@ describe('<TagCardButton>', () => {
 			expect(onAdd).not.toHaveBeenCalled();
 			fireEvent.click(screen.getByRole('button', {name: 'common.add'}));
 			expect(onAdd.mock.calls).toEqual([['new-tag']]);
+		});
+
+		it("sets autocompletions to all tags that haven't already been added", () => {
+			renderComponent({
+				allTags: ['one', 'two', 'three'],
+				tags: ['one', 'three']
+			});
+			fireEvent.click(
+				screen.getByRole('button', {
+					name: 'components.tagCardButton.tagsWithCount_plural'
+				})
+			);
+			expect(
+				(
+					screen
+						.getByText('components.tagCardButton.tagNameLabel')
+						.closest('[data-completions]') as HTMLElement
+				).dataset.completions
+			).toBe(JSON.stringify(['two']));
 		});
 
 		it('clears the text field after adding a tag', async () => {

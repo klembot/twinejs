@@ -42,9 +42,19 @@ describe('<PassageToolbar>', () => {
 		return result;
 	}
 
-	it('displays a button for passage tags', () => {
-		renderComponent();
-		expect(screen.getByTestId('mock-tag-card-button')).toBeVisible();
+	it('displays a button for passage tags, setting current tags and all tags correctly', () => {
+		const story = fakeStory(2);
+
+		story.passages[0].tags = ['one', 'two'];
+		story.passages[1].tags = ['three'];
+
+		renderComponent({stories: [story]});
+
+		const tagButton = screen.getByTestId('mock-tag-card-button');
+
+		expect(tagButton).toBeVisible();
+		expect(tagButton.dataset.allTags).toBe('one,three,two');
+		expect(tagButton.dataset.tags).toBe('one,two');
 	});
 
 	it('adds a tag to the passage when the tag button is used for that', () => {

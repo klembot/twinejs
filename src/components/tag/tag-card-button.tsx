@@ -3,7 +3,7 @@ import {useTranslation} from 'react-i18next';
 import {CardButton} from '../control/card-button';
 import {IconPlus, IconTag} from '@tabler/icons';
 import {CardContent} from '../container/card';
-import {TextInput} from '../control/text-input';
+import {AutocompleteTextInput} from '../control/autocomplete-text-input';
 import {IconButton} from '../control/icon-button';
 import {Color} from '../../util/color';
 import {TagButton} from './tag-button';
@@ -12,6 +12,7 @@ import './tag-card-button.css';
 
 export interface TagCardButtonProps {
 	disabled?: boolean;
+	allTags: string[];
 	onAdd: (value: string) => void;
 	onChangeColor: (value: string, color: Color) => void;
 	onRemove: (value: string) => void;
@@ -20,10 +21,15 @@ export interface TagCardButtonProps {
 }
 
 export const TagCardButton: React.FC<TagCardButtonProps> = props => {
-	const {disabled, onAdd, onChangeColor, onRemove, tagColors, tags} = props;
+	const {allTags, disabled, onAdd, onChangeColor, onRemove, tagColors, tags} =
+		props;
 	const [newTagName, setNewTagName] = React.useState('');
 	const [open, setOpen] = React.useState(false);
 	const {t} = useTranslation();
+	const tagCompletions = React.useMemo(
+		() => allTags.filter(tag => !tags.includes(tag)),
+		[allTags]
+	);
 	const label =
 		tags.length === 0
 			? t('common.tags')
@@ -78,9 +84,13 @@ export const TagCardButton: React.FC<TagCardButtonProps> = props => {
 			>
 				<CardContent>
 					<form onSubmit={handleSubmit}>
-						<TextInput onChange={handleNewTagNameChange} value={newTagName}>
+						<AutocompleteTextInput
+							completions={tagCompletions}
+							onChange={handleNewTagNameChange}
+							value={newTagName}
+						>
 							{t('components.tagCardButton.tagNameLabel')}
-						</TextInput>
+						</AutocompleteTextInput>
 						<IconButton
 							buttonType="submit"
 							disabled={!canAdd}

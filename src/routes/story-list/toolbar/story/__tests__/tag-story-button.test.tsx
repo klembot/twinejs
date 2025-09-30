@@ -38,6 +38,21 @@ describe('<TagStoryButton>', () => {
 		expect(screen.getByText('onAdd')).toBeDisabled();
 	});
 
+	it('sets current tags and all tags correctly', () => {
+		const story1 = fakeStory();
+		const story2 = fakeStory();
+
+		story1.tags = ['one', 'two'];
+		story2.tags = ['three'];
+		renderComponent({story: story1}, {stories: [story1, story2]});
+
+		const tagButton = screen.getByTestId('mock-tag-card-button');
+
+		expect(tagButton).toBeVisible();
+		expect(tagButton.dataset.allTags).toBe('one,three,two');
+		expect(tagButton.dataset.tags).toBe('one,two');
+	});
+
 	it('adds a tag to the story', () => {
 		renderComponent();
 		expect(screen.getByTestId('story-inspector-default').dataset.tags).toBe('');
