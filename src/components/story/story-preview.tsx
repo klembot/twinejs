@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Story} from '../../store/stories';
-import {hueString} from '../../util/hue-string';
+import {hueString} from '../../util/color';
 import './story-preview.css';
 
 export interface StoryPreviewProps {

@@ -10,6 +10,7 @@ import {
 	StoryInspector
 } from '../../../../../test-util';
 import {TagStoryButton, TagStoryButtonProps} from '../tag-story-button';
+import {colorString} from '../../../../../util/color';
 
 jest.mock('../../../../../components/tag/tag-card-button');
 
@@ -53,13 +54,46 @@ describe('<TagStoryButton>', () => {
 		expect(tagButton.dataset.tags).toBe('one,two');
 	});
 
-	it('adds a tag to the story', () => {
-		renderComponent();
-		expect(screen.getByTestId('story-inspector-default').dataset.tags).toBe('');
-		fireEvent.click(screen.getByText('onAdd'));
-		expect(screen.getByTestId('story-inspector-default').dataset.tags).toBe(
-			'mock-tag-name'
-		);
+	describe('When adding a tag to a story', () => {
+		it('sets a color preference if no other story has the same tag', () => {
+			renderComponent({}, {prefs: {storyTagColors: {}}});
+			expect(screen.getByTestId('story-inspector-default').dataset.tags).toBe(
+				''
+			);
+			fireEvent.click(screen.getByText('onAdd'));
+			expect(screen.getByTestId('story-inspector-default').dataset.tags).toBe(
+				'mock-tag-name'
+			);
+			expect(
+				screen.getByTestId('pref-inspector-storyTagColors')
+			).toHaveTextContent(
+				JSON.stringify({
+					'mock-tag-name': colorString('mock-tag-name')
+				})
+			);
+		});
+
+		it("doesn't set a color preference if another story has the same tag", () => {
+			const story = fakeStory();
+			const otherStory = fakeStory();
+
+			otherStory.tags = ['mock-tag-name'];
+
+			renderComponent(
+				{story},
+				{prefs: {storyTagColors: {}}, stories: [story, otherStory]}
+			);
+			expect(screen.getByTestId('story-inspector-default').dataset.tags).toBe(
+				''
+			);
+			fireEvent.click(screen.getByText('onAdd'));
+			expect(screen.getByTestId('story-inspector-default').dataset.tags).toBe(
+				'mock-tag-name'
+			);
+			expect(
+				screen.getByTestId('pref-inspector-storyTagColors')
+			).toHaveTextContent(JSON.stringify({}));
+		});
 	});
 
 	it('removes a tag from a story', () => {
