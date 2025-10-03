@@ -7,7 +7,7 @@ import {
 	useStoriesContext
 } from '../../../../store/stories';
 import {TagCardButton} from '../../../../components/tag/tag-card-button';
-import {Color} from '../../../../util/color';
+import {Color, colorString} from '../../../../util/color';
 
 export interface TagStoryButtonProps {
 	story?: Story;
@@ -22,6 +22,18 @@ export const TagStoryButton: React.FC<TagStoryButtonProps> = props => {
 	function handleAddTag(name: string) {
 		if (!story) {
 			throw new Error('Story is unset');
+		}
+
+		// If this is the first time we're assigning this tag to a story, set a
+		// color for it in preferences.
+
+		if (!storyTags(stories).includes(name)) {
+			prefsDispatch(
+				setPref('storyTagColors', {
+					...prefs.storyTagColors,
+					[name]: colorString(name)
+				})
+			);
 		}
 
 		storiesDispatch(
