@@ -10,6 +10,9 @@ other visually. It's not possible to create custom tag colors, and a particular
 tag can only have one color. That is, if you put a red `my-tag` tag on a story,
 you can't make that tag be green on a different story[^story-tags].
 
+Twine automatically assigns a color to a tag when you add it, but you can change
+it to whatever you like, or remove the color entirely.
+
 Another limitation of tags is that their names are not allowed to contain
 spaces. If you try to enter a space for a tag name, then Twine will convert it
 to a hyphen for you (i.e. `my tag` becomes `my-tag`).
@@ -22,8 +25,9 @@ screen](viewing.md) so that only stories with certain tags are visible.
 
 ## Adding a Tag
 
-Select a story, then choose _Tag_ from the _Story_ top toolbar tab. You can
-either use an existing tag or create a new one.
+Select a story, then choose _Tag_ from the _Story_ top toolbar tab. As you type,
+the text field in this dialog will autocomplete tags you've previously added to
+other stories in your library.
 
 ## Removing a Tag
 
