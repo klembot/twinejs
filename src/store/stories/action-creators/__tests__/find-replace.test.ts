@@ -1,6 +1,111 @@
-import {replaceInPassage, replaceInStory} from '../find-replace';
+import {
+	passageReplaceError,
+	replaceInPassage,
+	replaceInStory
+} from '../find-replace';
 import {Passage, Story} from '../../stories.types';
 import {fakeStory} from '../../../../test-util';
+
+describe('passageReplaceError', () => {
+	it('returns an error if the search criteria is an invalid regexp and that flag is enabled', () => {
+		const story = fakeStory();
+
+		expect(
+			passageReplaceError(story.passages, '(', '', {useRegexes: true})
+		).toEqual({error: 'invalidRegex'});
+	});
+
+	it('returns an error if a passage name would become an empty string using a plain replace', () => {
+		const story = fakeStory();
+
+		story.passages[0].name = 'a ';
+		expect(
+			passageReplaceError(story.passages, 'a', '', {
+				includePassageNames: true
+			})
+		).toEqual({passage: story.passages[0], error: 'emptyName'});
+	});
+
+	it('returns an error if a passage name would become an empty string using a regex', () => {
+		const story = fakeStory();
+
+		story.passages[0].name = 'ab';
+		expect(
+			passageReplaceError(story.passages, '.', '', {
+				includePassageNames: true,
+				useRegexes: true
+			})
+		).toEqual({passage: story.passages[0], error: 'emptyName'});
+	});
+
+	it('returns an error if two passage names would conflict using a plain replace', () => {
+		const story = fakeStory(2);
+
+		story.passages[0].name = 'a';
+		story.passages[1].name = 'a1';
+		expect(
+			passageReplaceError(story.passages, '1', '', {
+				includePassageNames: true
+			})
+		).toEqual({passage: story.passages[1], error: 'nameConflict'});
+	});
+
+	it('returns an error if two passage names would conflict using a regex', () => {
+		const story = fakeStory(2);
+
+		story.passages[0].name = 'a';
+		story.passages[1].name = 'a1';
+		expect(
+			passageReplaceError(story.passages, '\\d', '', {
+				includePassageNames: true,
+				useRegexes: true
+			})
+		).toEqual({passage: story.passages[1], error: 'nameConflict'});
+	});
+
+	it('returns an error if the search criteria is an invalid regexp but that flag is disabled', () => {
+		const story = fakeStory();
+
+		expect(
+			passageReplaceError(story.passages, '(', '', {useRegexes: false})
+		).toBeUndefined();
+	});
+
+	it("returns undefined if the replace won't cause a name conflict or empty passage name", () => {
+		const story = fakeStory(2);
+
+		story.passages[0].name = 'a';
+		story.passages[1].name = 'b';
+		expect(
+			passageReplaceError(story.passages, 'b', 'c', {
+				includePassageNames: true
+			})
+		).toBeUndefined();
+	});
+
+	it('returns undefined if passage names are not being replaced, even if otherwise there would be a conflict', () => {
+		const story = fakeStory(2);
+
+		story.passages[0].name = 'a';
+		story.passages[1].name = 'b1';
+		expect(
+			passageReplaceError(story.passages, 'b1', 'a', {
+				includePassageNames: false
+			})
+		).toBeUndefined();
+	});
+
+	it('returns undefined if passage names are not being replaced, even if it would cause passages to have an empty name', () => {
+		const story = fakeStory();
+
+		story.passages[0].name = 'a';
+		expect(
+			passageReplaceError(story.passages, 'a', '', {
+				includePassageNames: false
+			})
+		).toBeUndefined();
+	});
+});
 
 describe('replaceInPassage', () => {
 	let dispatch: jest.Mock;
