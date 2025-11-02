@@ -253,6 +253,11 @@
 		},
 		"storySearch": {
 			"title": "Find and Replace",
+			"error": {
+				"emptyName": "Replacing would cause “{{name}}” to have an empty name.",
+				"invalidRegex": "The text entered isn’t a valid regular expression.",
+				"nameConflict": "Replacing would cause “{{name}}” to have the same name as another passage."
+			},
 			"find": "Find",
 			"includePassageNames": "Include Passage Names",
 			"matchCase": "Match Case",

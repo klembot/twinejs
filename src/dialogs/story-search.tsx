@@ -1,22 +1,23 @@
-import debounce from 'lodash/debounce';
 import * as React from 'react';
-import {useTranslation} from 'react-i18next';
 import {IconReplace} from '@tabler/icons';
+import debounce from 'lodash/debounce';
+import {useTranslation} from 'react-i18next';
 import {DialogCard} from '../components/container/dialog-card';
 import {CheckboxButton} from '../components/control/checkbox-button';
 import {CodeArea} from '../components/control/code-area';
 import {IconButton} from '../components/control/icon-button';
+import {usePrefsContext} from '../store/prefs';
 import {
+	StorySearchFlags,
 	highlightPassages,
+	passageReplaceError,
 	passagesMatchingSearch,
 	replaceInStory,
-	storyWithId,
-	StorySearchFlags
+	storyWithId
 } from '../store/stories';
 import {useUndoableStoriesContext} from '../store/undoable-stories';
 import {DialogComponentProps} from './dialogs.types';
 import './story-search.css';
-import {usePrefsContext} from '../store/prefs';
 
 // See https://github.com/codemirror/CodeMirror/issues/5444
 
@@ -43,6 +44,19 @@ export const StorySearchDialog: React.FC<StorySearchDialogProps> = props => {
 	const {dispatch, stories} = useUndoableStoriesContext();
 	const {t} = useTranslation();
 	const story = storyWithId(stories, storyId);
+	const errorText = React.useMemo(() => {
+		const error = passageReplaceError(story.passages, find, replace, flags);
+
+		if (error) {
+			if ('passage' in error) {
+				return t(`dialogs.storySearch.error.${error.error}`, {
+					name: error.passage.name
+				});
+			}
+
+			return t(`dialogs.storySearch.error.${error.error}`);
+		}
+	}, [find, flags, replace, story.passages]);
 	const matches = React.useMemo(
 		() => passagesMatchingSearch(story.passages, find, flags).map(({id}) => id),
 		[find, flags, story.passages]
@@ -149,9 +163,10 @@ export const StorySearchDialog: React.FC<StorySearchDialogProps> = props => {
 					value={flags.useRegexes ?? false}
 				/>
 			</div>
+			{errorText && <p className="search-error">{errorText}</p>}
 			<div className="search-results">
 				<IconButton
-					disabled={matches.length === 0}
+					disabled={!!errorText || matches.length === 0}
 					icon={<IconReplace />}
 					label={t('dialogs.storySearch.replaceAll')}
 					onClick={handleReplace}

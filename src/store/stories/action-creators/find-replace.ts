@@ -22,6 +22,55 @@ function replaceText(source: string, searchFor: string, replaceWith: string, fla
 	return source.replace(matcher, replacer);
 }
 
+export type PassageReplaceError =
+	| {error: 'invalidRegex'}
+	| {error: 'emptyName' | 'nameConflict'; passage: Passage};
+
+/**
+ * Checks whether a find & replace can be done in a story, e.g. will not result
+ * in duplicate passage names or empty passage names. This stops at the first
+ * problem found.
+ */
+export function passageReplaceError(
+	passages: Passage[],
+	find: string,
+	replace: string,
+	flags: StorySearchFlags
+): PassageReplaceError | undefined {
+	// If we're replacing a regex, test that it's valid.
+
+	if (flags.useRegexes) {
+		try {
+			new RegExp(find);
+		} catch {
+			return {error: 'invalidRegex'};
+		}
+	}
+
+	// If we're not changing passage names, it's always safe if we've reached this
+	// point. Skip passage name checks because they're relatively expensive.
+
+	if (!flags.includePassageNames) {
+		return;
+	}
+
+	const newNames = new Set<string>();
+
+	for (const passage of passages) {
+		const newName = replaceText(passage.name, find, replace, flags);
+
+		if (newName.trim() === '') {
+			return {passage, error: 'emptyName'};
+		}
+
+		if (newNames.has(newName)) {
+			return {passage, error: 'nameConflict'};
+		}
+
+		newNames.add(newName);
+	}
+}
+
 export function replaceInPassage(
 	story: Story,
 	passage: Passage,
