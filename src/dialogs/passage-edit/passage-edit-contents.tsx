@@ -11,7 +11,6 @@ import {useUndoableStoriesContext} from '../../store/undoable-stories';
 import {PassageText} from './passage-text';
 import {PassageToolbar} from './passage-toolbar';
 import {StoryFormatToolbar} from './story-format-toolbar';
-import {TagToolbar} from './tag-toolbar';
 import './passage-edit-contents.css';
 import {usePrefsContext} from '../../store/prefs';
 
@@ -107,7 +106,6 @@ export const PassageEditContents: React.FC<
 					storyFormat={storyFormat}
 				/>
 			)}
-			<TagToolbar disabled={disabled} passage={passage} story={story} />
 			<ErrorBoundary>
 				<PassageText
 					disabled={disabled}

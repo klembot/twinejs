@@ -103,7 +103,7 @@ To add a new localization or edit an existing one:
 2. Create a new branch for your work.
 3. Create or edit the appropriate file in `public/locales`. The file should be
    named after the language code you are localizing for. (Check [the
-   registry](lang-code-registry) to find the appropriate code).
+   registry][lang-code-registry] to find the appropriate code).
 4. If you are creating a new localization, copy the existing `en-US.json` file
    and replace the English strings there with localized ones in the new file.
 5. Commit your changes and create a pull request in GitHub. You should target

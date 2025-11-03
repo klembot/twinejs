@@ -20,6 +20,7 @@
 		"custom": "Özel",
 		"delete": "Sil",
 		"deleteCount": "Sil ({{count}})",
+		"deselectAll": "Seçimi Kaldır",
 		"details": "Detaylar",
 		"duplicate": "Kopya Oluştur",
 		"edit": "Düzenle",

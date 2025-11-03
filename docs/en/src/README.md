@@ -36,7 +36,7 @@ done with Twine--but you might be better-served using a different tool.
 - **Online and multiplayer play.** There have been experiments with making Twine
   games that are playable by multiple people simultaneously, but doing so
   requires a good deal of programming knowledge. There have not been many modern
-  successors to the [MUD](https://en.wikipedia.org/wiki/MUD) model, but
+  successors to the [MUD](https://en.wikipedia.org/wiki/Multi-user_dungeon) model, but
   [Seltani](http://seltani.net) is one.
 
 - **Works that involve a world model, or that use interaction models other than

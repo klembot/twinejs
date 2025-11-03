@@ -1,0 +1,46 @@
+@import '../../styles/colors.css';
+
+.tag-grid {
+	display: inline-flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.tag-grid.hidden {
+	display: none;
+}
+
+.tag-grid .row {
+	display: flex;
+	gap: 2px;
+	flex-grow: 1;
+}
+
+.tag-grid .row > * {
+	flex-grow: 1;
+	border-radius: 25%;
+}
+
+.tag-grid .color-red {
+	background: var(--red);
+}
+
+.tag-grid .color-orange {
+	background: var(--orange);
+}
+
+.tag-grid .color-yellow {
+	background: var(--yellow);
+}
+
+.tag-grid .color-green {
+	background: var(--green);
+}
+
+.tag-grid .color-blue {
+	background: var(--blue);
+}
+
+.tag-grid .color-purple {
+	background: var(--purple);
+}

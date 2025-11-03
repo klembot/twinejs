@@ -12,6 +12,11 @@
 	/* Height is calculated in the component. */
 }
 
+.passage-edit-stack .dialog-card-header .tag-grid {
+	height: 16px;
+	width: 16px;
+}
+
 .passage-edit-stack .dialog-card-header .visible-whitespace svg {
 	color: var(--gray);
 	height: 1em;

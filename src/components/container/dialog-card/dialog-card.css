@@ -12,6 +12,7 @@
 }
 
 .dialog-card .card {
+	border-radius: var(--corner-round);
 	padding: 0;
 }
 
@@ -21,9 +22,13 @@
 }
 
 .dialog-card h2 .dialog-card-header {
+	align-items: center;
+	display: flex;
 	flex-shrink: 1;
 	flex-grow: 1;
+	gap: var(--control-inner-padding);
 	min-width: 0;
+	padding-left: var(--grid-size);
 }
 
 .dialog-card h2 .dialog-card-header-controls {
@@ -45,6 +50,13 @@
 .dialog-card.background h2 .dialog-card-header .icon-button {
 	font-size: 0.9rem;
 	font-weight: normal;
+	/* Push the button to be flush left with the header. */
+	margin-left: calc(-1 * var(--grid-size));
+	opacity: 0.75;
+}
+
+.dialog-card.background h2 .dialog-card-header .icon-button .tag-grid {
+	margin-right: var(--control-inner-padding);
 }
 
 .dialog-card .card-content {

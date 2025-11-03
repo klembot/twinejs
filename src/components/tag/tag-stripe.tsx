@@ -10,13 +10,15 @@ export interface TagStripeProps {
 export const TagStripe: React.FC<TagStripeProps> = React.memo(props => {
 	return (
 		<div className="tag-stripe">
-			{props.tags.map(tag => (
-				<span
-					className={`color-${props.tagColors[tag]}`}
-					key={tag}
-					title={tag}
-				/>
-			))}
+			{props.tags
+				.filter(tag => tag in props.tagColors)
+				.map(tag => (
+					<span
+						className={`color-${props.tagColors[tag]}`}
+						key={tag}
+						title={tag}
+					/>
+				))}
 		</div>
 	);
 });

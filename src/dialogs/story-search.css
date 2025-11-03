@@ -5,6 +5,10 @@
 	margin: 0;
 }
 
+.story-search-dialog .search-error {
+	padding: 0 var(--grid-size);
+}
+
 .story-search-dialog .search-results {
 	align-items: center;
 	display: flex;

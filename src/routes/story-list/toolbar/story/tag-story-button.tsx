@@ -1,6 +1,4 @@
-import {IconTag} from '@tabler/icons';
 import * as React from 'react';
-import {AddTagButton} from '../../../../components/tag';
 import {setPref, usePrefsContext} from '../../../../store/prefs';
 import {
 	Story,
@@ -8,6 +6,8 @@ import {
 	updateStory,
 	useStoriesContext
 } from '../../../../store/stories';
+import {TagCardButton} from '../../../../components/tag/tag-card-button';
+import {Color, colorString} from '../../../../util/color';
 
 export interface TagStoryButtonProps {
 	story?: Story;
@@ -17,35 +17,59 @@ export const TagStoryButton: React.FC<TagStoryButtonProps> = props => {
 	const {story} = props;
 	const {dispatch: prefsDispatch, prefs} = usePrefsContext();
 	const {dispatch: storiesDispatch, stories} = useStoriesContext();
+	const allStoryTags = storyTags(stories);
 
-	function handleAddTag(tagName: string, tagColor?: string) {
+	function handleAddTag(name: string) {
+		if (!story) {
+			throw new Error('Story is unset');
+		}
+
+		// If this is the first time we're assigning this tag to a story, set a
+		// color for it in preferences.
+
+		if (!storyTags(stories).includes(name)) {
+			prefsDispatch(
+				setPref('storyTagColors', {
+					...prefs.storyTagColors,
+					[name]: colorString(name)
+				})
+			);
+		}
+
+		storiesDispatch(
+			updateStory(stories, story, {
+				tags: story.tags ? [...story.tags, name] : [name]
+			})
+		);
+	}
+
+	function handleChangeTagColor(name: string, color: Color) {
+		prefsDispatch(
+			setPref('storyTagColors', {...prefs.storyTagColors, [name]: color})
+		);
+	}
+
+	function handleRemoveTag(name: string) {
 		if (!story) {
 			throw new Error('Story is unset');
 		}
 
 		storiesDispatch(
 			updateStory(stories, story, {
-				tags: story.tags ? [...story.tags, tagName] : [tagName]
+				tags: story.tags.filter(tag => tag !== name)
 			})
 		);
-
-		if (tagColor) {
-			prefsDispatch(
-				setPref('storyTagColors', {
-					...prefs.storyTagColors,
-					[tagName]: tagColor
-				})
-			);
-		}
 	}
 
 	return (
-		<AddTagButton
-			assignedTags={story?.tags ?? []}
+		<TagCardButton
+			allTags={allStoryTags}
 			disabled={!story}
-			existingTags={storyTags(stories)}
-			icon={<IconTag />}
 			onAdd={handleAddTag}
+			onChangeColor={handleChangeTagColor}
+			onRemove={handleRemoveTag}
+			tagColors={{}}
+			tags={story?.tags ?? []}
 		/>
 	);
 };

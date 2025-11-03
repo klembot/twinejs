@@ -277,6 +277,39 @@ describe('<StorySearchDialog>', () => {
 		).not.toBeInTheDocument();
 	});
 
+	it.each([
+		[
+			'an invalid regexp is entered in the search',
+			{find: '(', flags: {useRegexes: true}},
+			'invalidRegex'
+		],
+		[
+			'a passage name would become an empty string',
+			{find: 'abc', flags: {includePassageNames: true}, replace: ''},
+			'emptyName'
+		],
+		[
+			'a passage name would conflict with another',
+			{find: 'abc', flags: {includePassageNames: true}, replace: 'def'},
+			'nameConflict'
+		]
+	])(
+		'shows a message and disables the replace button if %s',
+		(_, props, errorText) => {
+			const story = fakeStory(2);
+
+			story.passages[0].name = 'abc';
+			story.passages[1].name = 'def';
+			renderComponent(props, {stories: [story]});
+			expect(
+				screen.getByText(`dialogs.storySearch.error.${errorText}`)
+			).toBeVisible();
+			expect(
+				screen.getByRole('button', {name: 'dialogs.storySearch.replaceAll'})
+			).toBeDisabled();
+		}
+	);
+
 	it('replaces text in passages when the replace button is clicked', async () => {
 		const story = fakeStory(1);
 

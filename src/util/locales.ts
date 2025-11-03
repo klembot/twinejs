@@ -16,6 +16,7 @@ export const locales = [
 	{code: 'ms', name: 'Bahasa Melayu'},
 	{code: 'nb', name: 'Norsk bokmål'},
 	{code: 'nl', name: 'Nederlands'},
+	{code: 'pl', name: 'Polski'},
 	{code: 'pt-br', name: 'Português Brasileiro'},
 	{code: 'pt-pt', name: 'Português'},
 	{code: 'ru', name: 'русский'},

@@ -1,4 +1,4 @@
-import {act, fireEvent, render, screen, within} from '@testing-library/react';
+import {act, fireEvent, render, screen} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
 import {useStoriesContext} from '../../../store/stories';
@@ -13,7 +13,7 @@ import {usePrefsContext} from '../../../store/prefs';
 
 jest.mock('../../../components/control/menu-button');
 jest.mock('../../../components/passage/rename-passage-button');
-jest.mock('../../../components/tag/add-tag-button');
+jest.mock('../../../components/tag/tag-card-button');
 
 const TestPassageToolbar: React.FC = () => {
 	const {prefs} = usePrefsContext();
@@ -42,20 +42,63 @@ describe('<PassageToolbar>', () => {
 		return result;
 	}
 
-	it('adds a tag to the passage if the user adds one', async () => {
+	it('displays a button for passage tags, setting current tags and all tags correctly', () => {
+		const story = fakeStory(2);
+
+		story.passages[0].tags = ['one', 'two'];
+		story.passages[1].tags = ['three'];
+
+		renderComponent({stories: [story]});
+
+		const tagButton = screen.getByTestId('mock-tag-card-button');
+
+		expect(tagButton).toBeVisible();
+		expect(tagButton.dataset.allTags).toBe('one,three,two');
+		expect(tagButton.dataset.tags).toBe('one,two');
+	});
+
+	it('adds a tag to the passage when the tag button is used for that', () => {
 		const story = fakeStory(1);
 
-		story.passages[0].tags = [];
-		await renderComponent({stories: [story]});
+		renderComponent({stories: [story]});
 		expect(
 			screen.getByTestId(`passage-${story.passages[0].id}`).dataset.tags
 		).toBe('');
-		fireEvent.click(
-			within(screen.getByTestId('mock-add-tag-button')).getByText('onAdd')
-		);
+		fireEvent.click(screen.getByText('onAdd'));
 		expect(
 			screen.getByTestId(`passage-${story.passages[0].id}`).dataset.tags
 		).toBe('mock-tag-name');
+	});
+
+	it('removes a tag from a passage when the tag button is used for that', () => {
+		const story = fakeStory(1);
+
+		story.passages[0].tags = ['mock-tag-name'];
+		renderComponent({stories: [story]});
+		expect(
+			screen.getByTestId(`passage-${story.passages[0].id}`).dataset.tags
+		).toBe('mock-tag-name');
+		fireEvent.click(screen.getByText('onRemove'));
+		expect(
+			screen.getByTestId(`passage-${story.passages[0].id}`).dataset.tags
+		).toBe('');
+	});
+
+	it('changes a passage tag color if the user uses the tag button for that', () => {
+		const story = fakeStory();
+		const tagColors = {'mock-tag-name': 'blue', unrelated: 'red'};
+
+		story.tagColors = tagColors;
+		renderComponent({stories: [story]});
+		expect(
+			screen.getByTestId('story-inspector-default').dataset.tagColors
+		).toBe(JSON.stringify(tagColors));
+		fireEvent.click(screen.getByText('onChangeColor'));
+		expect(
+			screen.getByTestId('story-inspector-default').dataset.tagColors
+		).toBe(
+			JSON.stringify({...tagColors, 'mock-tag-name': 'mock-changed-color'})
+		);
 	});
 
 	it('renames the passage if the user uses the rename button', async () => {

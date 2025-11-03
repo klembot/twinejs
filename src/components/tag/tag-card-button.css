@@ -1,0 +1,10 @@
+.tag-card-button .tags {
+	display: flex;
+	flex-wrap: wrap;
+	padding-top: var(--grid-size);
+}
+
+.tag-card-button .tags .tag-button {
+	margin-bottom: var(--grid-size);
+	margin-right: var(--grid-size);
+}

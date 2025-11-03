@@ -15,15 +15,18 @@
 		"build": "Build",
 		"cancel": "Cancel",
 		"close": "Close",
+		"collapse": "Collapse",
 		"color": "Color",
 		"create": "Create",
 		"custom": "Custom",
 		"delete": "Delete",
 		"deleteCount": "Delete ({{count}})",
+		"deselectAll": "Deselect All",
 		"details": "Details",
 		"duplicate": "Duplicate",
 		"edit": "Edit",
 		"editCount": "Edit ({{count}})",
+		"expand": "Expand",
 		"help": "Help",
 		"import": "Import",
 		"maximize": "Maximize",
@@ -45,6 +48,7 @@
 		"story": "Story",
 		"storyFormat": "Story Format",
 		"tag": "Tag",
+		"tags": "Tags",
 		"test": "Test",
 		"twine": "Twine",
 		"undo": "Undo",
@@ -135,6 +139,13 @@
 		"storyFormatSelect": {
 			"loadingCount": "Loading 1 Story Format...",
 			"loadingCount_plural": "Loading {{loadingCount}} Story Formats..."
+		},
+		"tagCardButton": {
+			"alreadyAdded": "This tag name has already been added.",
+			"addLabel": "Add Tag",
+			"invalidName": "Please enter a valid tag name.",
+			"tagNameLabel": "Tag Name",
+			"tagsWithCount_plural": "Tags ({{count}})"
 		},
 		"tagEditor": {
 			"alreadyExists": "A tag with this name already exists."
@@ -242,6 +253,11 @@
 		},
 		"storySearch": {
 			"title": "Find and Replace",
+			"error": {
+				"emptyName": "Replacing would cause “{{name}}” to have an empty name.",
+				"invalidRegex": "The text entered isn’t a valid regular expression.",
+				"nameConflict": "Replacing would cause “{{name}}” to have the same name as another passage."
+			},
 			"find": "Find",
 			"includePassageNames": "Include Passage Names",
 			"matchCase": "Match Case",

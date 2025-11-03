@@ -2,7 +2,7 @@
 
 ## Selecting Passages
 
-Click or tap a single passage cardto select it. You can select multiple passage
+Click or tap a single passage card to select it. You can select multiple passage
 cards by holding the Shift or Control key while selecting a particular passage.
 To deselect while keeping the rest of your selection intact, Shift- or
 Control-click it.
@@ -13,7 +13,8 @@ or Control key while doing so to add passages to an existing selection.
 
 To select all passages, choose _Select All_ from the _Passage_ top toolbar tab.
 
-To deselect all passages, click in an empty part of the map.
+To deselect all passages, click in an empty part of the map or choose _Deselect
+All_ from the _Passage_ top toolbar tab.
 
 ## Moving Passages
 

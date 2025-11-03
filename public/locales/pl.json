@@ -1,0 +1,445 @@
+{
+	"colors": {
+		"none": "Brak koloru",
+		"red": "Czerwony",
+		"orange": "Pomarańczowy",
+		"yellow": "Żółty",
+		"green": "Zielony",
+		"blue": "Niebieski",
+		"purple": "Fioletowy"
+	},
+	"common": {
+		"add": "Dodaj",
+		"appName": "Twine",
+		"back": "Wstecz",
+		"build": "Kompiluj",
+		"cancel": "Anuluj",
+		"close": "Zamknij",
+		"collapse": "Zwiń",
+		"color": "Kolor",
+		"create": "Utwórz",
+		"custom": "Własny",
+		"delete": "Usuń",
+		"deleteCount": "Usuń ({{count}})",
+		"deselectAll": "Odznacz wszystko",
+		"details": "Szczegóły",
+		"duplicate": "Duplikuj",
+		"edit": "Edytuj",
+		"editCount": "Edytuj ({{count}})",
+		"expand": "Rozwiń",
+		"help": "Pomoc",
+		"import": "Importuj",
+		"maximize": "Maksymalizuj",
+		"more": "Więcej",
+		"new": "Nowy",
+		"next": "Dalej",
+		"ok": "OK",
+		"passage": "Scena",
+		"play": "Odtwórz",
+		"preferences": "Ustawienia",
+		"publishToFile": "Eksportuj do pliku",
+		"redo": "Przywróć",
+		"redoChange": "Przywróć {{change}}",
+		"rename": "Zmień nazwę",
+		"renamePrompt": "Na jaką nazwę zmienić “{{name}}” ?",
+		"remove": "Usuń",
+		"selectAll": "Zaznacz wszystko",
+		"skip": "Pomiń",
+		"story": "Opowieść",
+		"storyFormat": "Format opowieści",
+		"tag": "Tag",
+		"tags": "Tagi",
+		"test": "Testuj",
+		"twine": "Twine",
+		"undo": "Cofnij",
+		"undoChange": "Cofnij {{change}}",
+		"unmaximize": "Przywróć rozmiar",
+		"view": "Podgląd"
+	},
+	"components": {
+		"addTagButton": {
+			"alreadyAdded": "Taka nazwa tagu została już dodana.",
+			"addLabel": "Dodaj tag",
+			"invalidName": "Wprowadź poprawną nazwę tagu.",
+			"newTag": "Nowy tag",
+			"tagColorLabel": "Kolor tagu",
+			"tagNameLabel": "Nazwa tagu"
+		},
+		"dialogCard": {
+			"contentsCrashed": "Wystąpił błąd w tym dialogu. Spróbuj go zamknąć i otworzyć ponownie."
+		},
+		"fontSelect": {
+			"customScaleDetail": "Wprowadź tylko wartość procentową.",
+			"customFamilyDetail": "Wprowadź tylko nazwę czcionki.",
+			"familyEmpty": "Podaj nazwę czcionki.",
+			"font": "Czcionka",
+			"fonts": {
+				"monospaced": "Monospace (stała szerokość)",
+				"serif": "Serif (szeryfowa)",
+				"system": "System (systemowa)"
+			},
+			"fontSize": "Rozmiar czcionki",
+			"percentage": "{{percent}}%",
+			"percentageIsntNumber": "Wprowadź liczbę.",
+			"percentageNotPositive": "Wprowadź liczbę większą niż 0."
+		},
+		"indentButtons": {
+			"indent": "Wcięcie",
+			"unindent": "Zmniejsz wcięcie"
+		},
+		"localStorageQuota": {
+			"measureAgain": "Sprawdź ponownie dostępną przestrzeń",
+			"percentAvailable": "{percent}% dostępnej przestrzeni"
+		},
+		"passageCard": {
+			"placeholderClick": "Kliknij dwukrotnie, aby edytować tę scenę.",
+			"placeholderTouch": "Dotknij tej sceny, a następnie wybierz opcję edytuj w zakładce sceny, aby edytować wybrany fragment."
+		},
+		"passageFuzzyFinder": {
+			"noResults": "Brak wyników.",
+			"prompt": "Szukaj według nazwy sceny lub tekstu"
+		},
+		"renamePassageButton": {
+			"emptyName": "Wprowadź nazwę.",
+			"nameAlreadyUsed": "Inna scena w tej opowieści ma już taką nazwę."
+		},
+		"renameStoryButton": {
+			"emptyName": "Wprowadź nazwę.",
+			"nameAlreadyUsed": "Inna opowieść ma już taką nazwę."
+		},
+		"safariWarningCard": {
+			"archiveAndUseAnotherBrowser": "Zarchiwizuj swoje opowieści i użyj innej przeglądarki.",
+			"addToHomeScreen": "Dodaj tę stronę do ekranu głównego, aby uniknąć ograniczeń.",
+			"howToAddToHomeScreen": "Jak dodać do ekranu głównego?",
+			"learnMore": "Dowiedz się więcej",
+			"message": "Twoja przeglądarka usunie wszystkie opowieści po 7 dniach nieodwiedzania tej strony."
+		},
+		"storageQuota": {
+			"freeSpace": "{{percent}}% dostępnej przestrzeni"
+		},
+		"storyCard": {
+			"lastUpdated": "Ostatnio edytowano: {{date}}",
+			"passageCount": "Ilość scen: 1",
+			"passageCount_plural": "Ilość scen: {{count}}"
+		},
+		"storyFormatItem": {
+			"author": "autor: {{author}}",
+			"builtIn": "utworzono",
+			"defaultFormat": "Używany domyślnie",
+			"license": "Licencja: {{license}}",
+			"loadingFormat": "Wczytywanie formatu opowieści...",
+			"loadError": "Nie można wczytać formatu opowieści ({{errorMessage}}).",
+			"name": "{{name}} {{version}}",
+			"proofing": "Próbka",
+			"proofingFormat": "Używany do próbki",
+			"useEditorExtensions": "Używaj rozszerzeń edytora",
+			"useFormat": "Użyj jako domyślny format opowieści",
+			"useProofingFormat": "Użyj jako format próbki"
+		},
+		"storyFormatSelect": {
+			"loadingCount": "Wczytywanie 1 formatu opowieści...",
+			"loadingCount_plural": "Wczytywanie {{loadingCount}} formatów opowieści..."
+		},
+		"tagCardButton": {
+			"alreadyAdded": "Taka nazwa tagu została już dodana.",
+			"addLabel": "Dodaj tag",
+			"invalidName": "Wprowadź poprawną nazwę tagu.",
+			"tagNameLabel": "Nazwa tagu",
+			"tagsWithCount_plural": "Tagi ({{count}})"
+		},
+		"tagEditor": {
+			"alreadyExists": "Tag o takiej nazwie już istnieje."
+		}
+	},
+	"dialogs": {
+		"aboutTwine": {
+			"donateToTwine": "Wesprzyj rozwój Twine darowizną",
+			"codeHeader": "Kod źródłowy",
+			"codeRepo": "Odwiedź repozytorium kodu",
+			"license": "Aplikacja jest dostępna na licencji <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GPL v3</a>, ale prace stworzone za jej pomocą mogą być publikowane na dowolnych zasadach, w tym komercyjnych.",
+			"localizationHeader": "Tłumaczenia",
+			"title": "O Twine {{version}}",
+			"twineDescription": "Twine to darmowe narzędzie do tworzenia interaktywnych, nieliniowych opowieści."
+		},
+		"appDonation": {
+			"donate": "Wesprzyj rozwój Twine",
+			"onlyOnce": "(Ta wiadomość pokaże się tylko raz. Jeśli chcesz wesprzeć Twine w przyszłości, znajdziesz link sekcji O Twine)",
+			"supportMessage": "Jeśli lubisz Twine, rozważ wsparcie rozwoju projektu. Twine to otwarte oprogramowanie, które zawsze będzie darmowe - a dzięki Twojemu wsparciu może stać się jeszcze lepsze.",
+			"noThanks": "Nie, dziękuję",
+			"title": "Wesprzyj Twine"
+		},
+		"appPrefs": {
+			"codeEditorFont": "Czcionka edytora kodu",
+			"codeEditorFontScale": "Rozmiar czcionki edytora kodu",
+			"dialogWidth": "Szerokość okien",
+			"dialogWidths": {
+				"default": "Domyślna",
+				"wider": "Szersza",
+				"widest": "Najszersza"
+			},
+			"editorCursorBlinks": "Migający kursor w edytorach",
+			"fontExplanation": "Zmiana czcionki dotyczy tylko edytora Twine, nie wpływa na wygląd opowieści podczas odtwarzania.",
+			"language": "Język",
+			"passageEditorFont": "Czcionka edytora scen",
+			"passageEditorFontScale": "Rozmiar czcionki edytora scen",
+			"themeLight": "Jasny",
+			"themeDark": "Ciemny",
+			"themeSystem": "Systemowy",
+			"theme": "Motyw",
+			"title": "Ustawienia",
+			"useEnhancedEditors": "Używaj rozszerzonych edytorów"
+		},
+		"passageEdit": {
+			"editorCrashed": "Wystąpił błąd w edytorze. Spróbuj zamknąć i ponownie otworzyć tę scenę.",
+			"passageTextEditorLabel": "Tekst sceny",
+			"passageTextPlaceholder": "Wpisz tutaj treść sceny. Aby dodać link do innej sceny, umieść jej nazwę w podwójnych nawiasach kwadratowych [[w ten sposób]].",
+			"setAsStart": "Rozpocznij opowieść tutaj",
+			"size": "Rozmiar",
+			"sizeLarge": "Duży",
+			"sizeSmall": "Mały",
+			"sizeTall": "Wysoki",
+			"sizeWide": "Szeroki"
+		},
+		"passageTags": {
+			"noTags": "Żadna scena w tej opowieści nie ma tagów.",
+			"title": "Tagi sceny"
+		},
+		"storyFormats": {
+			"addStoryFormatButton": {
+				"addPreview": "Zostanie dodany {{storyFormatName}} {{storyFormatVersion}}.",
+				"alreadyAdded": "Już zostało dodane {{storyFormatName}} {{storyFormatVersion}}.",
+				"fetchError": "Nie można pobrać formatu opowieści z tego adresu ({{errorMessage}}).",
+				"invalidUrl": "Wprowadź poprawny adres URL.",
+				"prompt": "Aby dodać format opowieści, wprowadź jego adres poniżej."
+			},
+			"filterButton": {
+				"all": "Wszystkie formaty",
+				"current": "Aktualne formaty",
+				"user": "Formaty dodane przez użytkownika"
+			},
+			"noneVisible": "Brak formatów pasujących do wybranych kryteriów.",
+			"title": "Formaty opowieści"
+		},
+		"storyImport": {
+			"deselectAll": "Odznacz wszystko",
+			"filePrompt": "Aby zaimportować opowieści do Twine, prześlij archiwum, opublikowaną opowieść lub plik źródłowy Twee.",
+			"importDifferentFile": "Importuj inny plik",
+			"importSelected": "Importuj wybrane pliki",
+			"importThisStory": "Importuj tę opowieść",
+			"noStoriesInFile": "Wybranym plik nie zawiera opowieści Twine. Wybierz inny plik.",
+			"storiesPrompt": "Wybierz opowieści do zaimportowania:",
+			"title": "Importuj opowieści",
+			"willReplaceExisting": "Opowieść o tej samej nazwie w Twojej bibliotece zostanie zastąpiona."
+		},
+		"storyDetails": {
+			"storyFormatExplanation": "Co to jest format opowieści?",
+			"snapToGrid": "Przyciąganie do siatki",
+			"stats": {
+				"brokenLinks": "Uszkodzone linki",
+				"characters": "Znaki",
+				"title": "Statystyki opowieści",
+				"ifid": "IFID tej opowieści to {{ifid}}.",
+				"ifidExplanation": "Co to jest IFID?",
+				"lastUpdate": "Ostatnia zmiana: {{date}}.",
+				"links": "Linki",
+				"passages": "Sceny",
+				"words": "Słowa"
+			}
+		},
+		"storyJavaScript": {
+			"editorLabel": "Opowieści JavaScript",
+			"title": "Opowieści JavaScript",
+			"explanation": "Kod JavaScript wprowadzony tutaj zostanie uruchomiony natychmiast po otwarciu opowieści w przeglądarce."
+		},
+		"storySearch": {
+			"title": "Znajdź i zamień",
+			"find": "Znajdź",
+			"includePassageNames": "Uwzględnij nazwy scen",
+			"matchCase": "Uwzględnij wielkość liter",
+			"matchCount": "Ilość pasujących scen: {{count}}",
+			"matchCount_plural": "Ilość pasujących scen: {{count}}",
+			"noMatches": "Brak pasujących scen",
+			"replaceAll": "Zamień we wszystkich scenach",
+			"replaceWith": "Zamień na",
+			"useRegexes": "Użyj wyrażeń regularnych"
+		},
+		"storyStylesheet": {
+			"editorLabel": "Arkusz stylów opowieści",
+			"title": "Arkusz stylów opowieści",
+			"explanation": "CSS wprowadzony tutaj zastąpi domyślny wygląd twojej opowieści."
+		},
+		"storyTags": {
+			"noTags": "Tagi nie zostały dodane do twojej opowieści.",
+			"title": "Tagi opowieści"
+		}
+	},
+	"electron": {
+		"backupsDirectoryName": "Kopie zapasowe",
+		"errors": {
+			"jsonSave": "Wystąpił błąd podczas zapisywania pliku ustawień.",
+			"storyFileChangedExternally": {
+				"message": "Plik “{{fileName}}” w Twojej bibliotece opowieści został zmieniony poza Twine.",
+				"detail": "Zapisanie zmian nadpisze ten plik. Jeśli chcesz użyć tej wersji pliku zamiast wersji z Twine, program zostanie uruchomiony ponownie, a Twoja praca zostanie zastąpiona zawartością pliku.",
+				"overwriteChoice": "Zapisz zmiany w Twine",
+				"relaunchChoice": "Użyj pliku i uruchom ponownie"
+			},
+			"storyLibraryFolderAppPref": {
+				"detail": "Twine próbował otworzyć {{path}}.",
+				"message": "Nie można otworzyć ustawionego folderu biblioteki opowieści.",
+				"useDefault": "Użyj domyślnego folderu",
+				"quit": "Zamknij"
+			},
+			"storyDelete": "Wystąpił błąd podczas usuwania opowieści.",
+			"storyRename": "Wystąpił błąd podczas zmiany nazwy opowieści.",
+			"storySave": "Wystąpił błąd podczas zapisywania opowieści."
+		},
+		"menuBar": {
+			"checkForUpdates": "Sprawdź aktualizacje...",
+			"disableHardwareAcceleration": "Wyłącz akcelerację sprzętową",
+			"edit": "Edytuj",
+			"setStoryLibraryFolder": "Ustaw folder biblioteki opowieści...",
+			"showDevTools": "Pokaż konsolę debugowania",
+			"showStoryLibrary": "Pokaż bibliotekę opowieści",
+			"speech": "Mowa",
+			"troubleshooting": "Rozwiązywanie problemów",
+			"twineHelp": "Pomoc Twine",
+			"view": "Widok"
+		},
+		"relaunchDialog": {
+			"defaultPrompt": "Zmiana zostanie zastosowana po ponownym uruchomieniu Twine.",
+			"relaunchNow": "Uruchom ponownie teraz"
+		},
+		"scratchDirectoryName": "Robocze",
+		"storiesDirectoryName": "Opowieści",
+		"updateCheck": {
+			"download": "Pobierz",
+			"error": "Wystąpił błąd podczas sprawdzania aktualizacji Twine.",
+			"updateAvailable": "Dostępna jest nowsza wersja programu Twine.",
+			"upToDate": "Masz najnowszą wersję Twine."
+		},
+		"userCss": {
+			"filename": "user.css"
+		}
+	},
+	"routes": {
+		"storyEdit": {
+			"toolbar": {
+				"findAndReplace": "Znajdź i zamień",
+				"goTo": "Przejdź do",
+				"javaScript": "JavaScript",
+				"passageTags": "Tagi scen",
+				"snapToGrid": "Przeciągnij do siatki",
+				"startStoryHere": "Rozpocznij opowieść tutaj",
+				"stylesheet": "Arkusz tylów",
+				"testFromHere": "Testuj od tego miejsca"
+			},
+			"topBar": {
+				"editJavaScript": "Edytuj JavaScript opowieści",
+				"editStylesheet": "Edytuj arkusz stylów opowieści",
+				"findAndReplace": "Znajdź i zamień",
+				"passageTags": "Edytuj tagi scen",
+				"proofStory": "Zobacz próbkę",
+				"publishToFile": "Eksportuj do pliku",
+				"selectAllPassages": "Zaznacz wszystkie sceny"
+			},
+			"zoomButtons": {
+				"legend": "Powiększenie",
+				"storyStructure": "Pokaż tylko strukturę opowieści",
+				"passageNames": "Pokaż tylko nazwy scen",
+				"passageNamesAndExcerpts": "Pokaż nazwy i fragmenty scen"
+			}
+		},
+		"storyList": {
+			"library": "Biblioteka",
+			"noStories": "Obecnie nie masz żadnych zapisanych opowieści. Aby rozpocząć, możesz stworzyć nową opowieść lub zaimportować istniejącą z pliku.",
+			"taggedTitleCount": "Oznaczona opowieści: 1 ",
+			"taggedTitleCount_0": "Brak oznaczonych opowieści",
+			"taggedTitleCount_plural": "Oznaczone opowieści: {{count}}",
+			"titleCount": "1 opowieść",
+			"titleCount_0": "Brak opowieści",
+			"titleCount_plural": "{{count}} opowieści",
+			"titleGeneric": "Opowieści",
+			"toolbar": {
+				"archive": "Archiwizacja",
+				"createStoryButton": {
+					"prompt": "Jaka ma być nazwa opowieści? Możesz ją później zmienić.",
+					"emptyName": "Wprowadź nazwę.",
+					"nameConflict": "Inna opowieść ma już tę nazwę."
+				},
+				"deleteStoryButton": {
+					"warning": {
+						"electron": "Czy na pewno chcesz usunąć “{{storyName}}”? Zostanie przeniesiona do kosza.",
+						"web": "Czy na pewno chcesz usunąć “{{storyName}}”? Plik zostanie trwale usunięty. Tej operacji nie można cofnąć."
+					}
+				},
+				"showAllStories": "Pokaż wszystkie opowieści",
+				"showTags": "Pokaż tagi",
+				"sort": "Sortuj według",
+				"sortByDate": "Ostatniej modyfikacji",
+				"sortByName": "Nazwy",
+				"storyTags": "Tagi opowieści"
+			}
+		},
+		"welcome": {
+			"autosave": "<p>W folderze Dokumenty został utworzony folder Twine. W tym folderze, będzie folder Stories, gdzie zapisane będą wszystkie twoje prace. Twine zapisuje zmiany automatycznie podczas pracy, więc nie musisz się martwić ręcznym zapisywaniem. Zawsze możesz otworzyć folder z opowieściami korzystając z opcji <strong>Pokaż bibliotekę</strong> w menu <strong>Twine</strong>.</p><p>Ponieważ Twine ciągle zapisuje zmiany, pliki w bibliotece będą zablokowane do edycji, gdy program jest otwarty.</p><p>Jeżeli chcesz otworzyć opowieść Twine otrzymaną od kogoś innego, możesz zaimportować ją do biblioteki używając opcji <strong>Importuj z pliku</strong> w liście opowieści.</p>",
+			"autosaveTitle": "Twoja praca jest zapisywana automatycznie.",
+			"browserStorage": "<p>Oznacza to, że nie potrzebujesz konta, aby używać Twine 2, i wszystko co tworzysz nie jest przechowywane na żadnym serwerze&mdash;a pozostaje w Twojej przeglądarce.</p><p>Dwie <strong>bardzo ważne</strong> rzeczy do zapamiętania. Ponieważ twoje prace są zapisywane tylko w przeglądarce, jeśli wyczyścisz jej dane, to stracisz swoją pracę! A to nie jest dobre. Pamiętaj, aby często używać przycisku <strong>Archiwizacja</strong>. Możesz też eksportować pojedyncze opowieści do plików używając menu przy każdej opowieści. Zarówno archiwa jak i pliki opowieści można zawsze ponownie zaimportować do Twine.</p><p>Po drugie, <strong>każdy kto ma dostęp do tej przeglądarki może zobaczyć i zmienić twoje prace.</strong> Zatem jeżeli masz wścibskie rodzeństwo, rozważ utworzenie osobnego profilu.</p>",
+			"browserStorageTitle": "Twoja praca jest zapisywana tylko w przeglądarce",
+			"done": "<p>Dziękujemy za przeczytanie, i baw się dobrze z Twine.</p>",
+			"doneTitle": "To tyle!",
+			"gotoStoryList": "Przejdź do listy opowieści",
+			"greeting": "<p>Twine to otwarto-żródłowe narzędzie do tworzenia interaktywnych, nieliniowych opowieściZanim zaczniesz, warto dowiedzieć się kilku rzeczy.</p>",
+			"greetingTitle": "Witaj!",
+			"tellMeMore": "Powiedz mi więcej",
+			"help": "<p><strong>Jeżeli używasz Twine po raz pierwszy - Witaj!</strong> <a href=\"https://twinery.org/cookbook\">Książka kucharska Twine</a> to świetne źródło informacji o programie. Jeżeli jesteś nowym użytkownikiem, to jest to doskonałe miejsce na start.</p>",
+			"helpTitle": "Pierwszy raz tutaj?"
+		}
+	},
+	"routeActions": {
+		"app": {
+			"aboutApp": "O Twine",
+			"preferences": "Ustawienia",
+			"reportBug": "Zgłoś błąd",
+			"storyFormats": "Format opowieści"
+		},
+		"build": {
+			"exportAsTwee": "Eksportuj jako Twee",
+			"play": "Odtwórz",
+			"proof": "Próbka",
+			"publishToFile": "Eksportuj do pliku",
+			"test": "Testuj"
+		}
+	},
+	"store": {
+		"archiveFilename": "{{timestamp}} Archiwum Twine.html",
+		"errors": {
+			"cantPersistPrefs": "Wystąpił błąd podczas zapisywania ustawień ({{error}}).",
+			"cantPersistStories": "Wystąpił błąd podczas zapisywania opowieści ({{error}}).",
+			"cantPersistStoryFormats": "Wystąpił błąd podczas zapisywania formatów opowieści ({{error}}).",
+			"electronRemediation": "Ponowne uruchomienie programu, może pomóc.",
+			"webRemediation": "Ponowne uruchomienie strony, może pomóc."
+		},
+		"passageDefaults": {
+			"name": "Nienazwana scena"
+		},
+		"storyDefaults": {
+			"name": "Nienazwana opowieść"
+		},
+		"storyFormatDefaults": {
+			"name": "Nienazwany format opowieści"
+		}
+	},
+	"undoChange": {
+		"addTag": "Dodaj tag",
+		"changeTagColor": "Zmień kolor tagu",
+		"newPassage": "Nowa scena",
+		"deletePassage": "Usuń scenę",
+		"deletePassages": "Usuń sceny",
+		"movePassage": "Przenieś scenę",
+		"movePassages": "Przenieś sceny",
+		"renamePassage": "Zmień nazwę sceny",
+		"removeTag": "Usuń tag",
+		"renameTag": "Zmień nazwę tagu",
+		"replaceAllText": "Zastąp wszystko"
+	}
+}

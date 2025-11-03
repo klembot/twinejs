@@ -87,15 +87,6 @@ other aspects of passage than its text.
 - _Start Story Here_ makes this passage the start passage for the story. If this
   button is disabled, it's because the passage is already the start passage.
 
-## The Tag Toolbar
-
-Below the passage toolbar, any tags associated with the the passage are
-displayed. Each one appears like a sticker. Selecting a tag lets you either
-remove it or change its color. Changing a tag color will change it for all
-passages with that tag.
-
-You can rename tags using the [Passage Tags dialog](tagging.md).
-
 ## Story Format Toolbars
 
 Story formats can extend Twine's passage edit dialog to include a toolbar with

@@ -18,7 +18,6 @@ import {
 jest.mock('../passage-toolbar');
 jest.mock('../passage-text');
 jest.mock('../story-format-toolbar');
-jest.mock('../tag-toolbar');
 
 const TestPassageEditContents: React.FC<
 	Partial<PassageEditContentsProps>
@@ -94,22 +93,6 @@ describe('<PassageEditContents>', () => {
 					screen.getByTestId(`mock-passage-text-${story.passages[0].id}`)
 						.dataset.storyFormatExtensionsDisabled
 				).toBe('false');
-			});
-
-			it('displays the tag toolbar', () => {
-				const story = fakeStory(1);
-				const format = fakeLoadedStoryFormat({
-					name: story.storyFormat,
-					version: story.storyFormatVersion
-				});
-
-				renderComponent({
-					stories: [story],
-					storyFormats: [format]
-				});
-				expect(
-					screen.getByTestId(`mock-tag-toolbar-${story.passages[0].id}`)
-				).toBeInTheDocument();
 			});
 
 			it('displays the format toolbar when CodeMirror is enabled', () => {
@@ -196,9 +179,6 @@ describe('<PassageEditContents>', () => {
 				).not.toBeInTheDocument();
 				expect(
 					screen.queryByTestId(`mock-story-format-toolbar-${format.id}`)
-				).not.toBeInTheDocument();
-				expect(
-					screen.queryByTestId(`mock-tag-toolbar-${story.passages[0].id}`)
 				).not.toBeInTheDocument();
 			});
 		});
