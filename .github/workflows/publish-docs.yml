@@ -20,8 +20,9 @@ jobs:
           mkdir ~/.ssh
           echo "$RSYNC_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H twinery.org > ~/.ssh/known_hosts
+          ssh-keyscan -H $RSYNC_HOSTNAME > ~/.ssh/known_hosts
 
-          rsync --chmod=775 --delete --omit-dir-times --recursive --verbose docs/en/book/* githubactions@twinery.org:/var/www/html/reference/en
+          rsync --chmod=775 --delete --omit-dir-times --recursive --verbose docs/en/book/* githubactions@$RSYNC_HOSTNAME:/var/www/html/reference/en
         env:
+          RSYNC_HOSTNAME: ${{ secrets.TWINERY_RSYNC_HOSTNAME }}
           RSYNC_PRIVATE_KEY: ${{ secrets.TWINERY_RSYNC_PRIVATE_KEY }}
