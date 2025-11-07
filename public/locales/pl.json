@@ -253,6 +253,11 @@
 		},
 		"storySearch": {
 			"title": "Znajdź i zamień",
+			"error": {
+				"emptyName": "Zastąpienie spowoduje, że “{{name}}” będzie miało pustą nazwę.",
+				"invalidRegex": "Wprowadzony tekst nie jest poprawnym wyrażeniem regularnym (wzorzec ma niepoprawny format).",
+				"nameConflict": "Zastąpienie spowoduje, że “{{name}}” będzie miało tę samą nazwę co inna scena."
+			},
 			"find": "Znajdź",
 			"includePassageNames": "Uwzględnij nazwy scen",
 			"matchCase": "Uwzględnij wielkość liter",
