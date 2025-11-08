@@ -31,13 +31,13 @@ export const builtins = () => [
 	},
 	{
 		name: 'Snowman',
-		url: 'story-formats/snowman-1.4.0/format.js',
-		version: '1.4.0'
+		url: 'story-formats/snowman-1.5.0/format.js',
+		version: '1.5.0'
 	},
 	{
 		name: 'Snowman',
-		url: 'story-formats/snowman-2.0.2/format.js',
-		version: '2.0.2',
+		url: 'story-formats/snowman-2.1.1/format.js',
+		version: '2.1.1',
 		userAdded: false
 	},
 	{
