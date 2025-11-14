@@ -7,7 +7,14 @@ export const AutocompleteTextInput: React.FC<AutocompleteTextInputProps> = ({
 	completions,
 	...rest
 }) => (
-	<TextInput {...rest}>
-		<span data-completions={JSON.stringify(completions)}>{children}</span>
-	</TextInput>
+	<>
+		<TextInput list="mock-datalist-id" {...rest}>
+			<span data-completions={JSON.stringify(completions)}>{children}</span>
+		</TextInput>
+		<datalist id="mock-datalist-id">
+			{completions.map(completion => (
+				<option key={completion} value={completion} />
+			))}
+		</datalist>
+	</>
 );
