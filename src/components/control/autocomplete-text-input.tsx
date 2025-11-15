@@ -54,6 +54,8 @@ export const AutocompleteTextInput = React.forwardRef<
 	return (
 		<>
 			<TextInput
+				// Disable browser autofill so only datalist options appear (no email/address suggestions)
+				autoComplete="off"
 				list={datalistId}
 				onInput={handleInput}
 				ref={ref}

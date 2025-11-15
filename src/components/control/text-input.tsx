@@ -3,6 +3,7 @@ import * as React from 'react';
 import './text-input.css';
 
 export interface TextInputProps {
+	autoComplete?: string;
 	children: React.ReactNode;
 	list?: string;
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -26,6 +27,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
 				<label>
 					<span className="text-input-label">{props.children}</span>
 					<input
+						autoComplete={props.autoComplete}
 						list={props.list}
 						onChange={props.onChange}
 						onInput={props.onInput}
