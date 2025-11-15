@@ -41,7 +41,7 @@ describe('<TagCardButton>', () => {
 			renderComponent({onAdd});
 			fireEvent.click(screen.getByRole('button', {name: 'common.tags'}));
 			fireEvent.change(
-				screen.getByRole('textbox', {
+				screen.getByRole('combobox', {
 					name: 'components.tagCardButton.tagNameLabel'
 				}),
 				{target: {value: 'new-tag'}}
@@ -74,14 +74,14 @@ describe('<TagCardButton>', () => {
 			renderComponent();
 			fireEvent.click(screen.getByRole('button', {name: 'common.tags'}));
 			fireEvent.change(
-				screen.getByRole('textbox', {
+				screen.getByRole('combobox', {
 					name: 'components.tagCardButton.tagNameLabel'
 				}),
 				{target: {value: 'new-tag'}}
 			);
 			fireEvent.click(screen.getByRole('button', {name: 'common.add'}));
 			expect(
-				screen.getByRole('textbox', {
+				screen.getByRole('combobox', {
 					name: 'components.tagCardButton.tagNameLabel'
 				})
 			).toHaveValue('');
@@ -91,7 +91,7 @@ describe('<TagCardButton>', () => {
 			renderComponent();
 			fireEvent.click(screen.getByRole('button', {name: 'common.tags'}));
 			fireEvent.change(
-				screen.getByRole('textbox', {
+				screen.getByRole('combobox', {
 					name: 'components.tagCardButton.tagNameLabel'
 				}),
 				{target: {value: 'new-tag'}}
@@ -99,7 +99,7 @@ describe('<TagCardButton>', () => {
 			fireEvent.click(screen.getByRole('button', {name: 'common.tags'}));
 			fireEvent.click(screen.getByRole('button', {name: 'common.tags'}));
 			expect(
-				screen.getByRole('textbox', {
+				screen.getByRole('combobox', {
 					name: 'components.tagCardButton.tagNameLabel'
 				})
 			).toHaveValue('');
@@ -113,7 +113,7 @@ describe('<TagCardButton>', () => {
 				})
 			);
 			fireEvent.change(
-				screen.getByRole('textbox', {
+				screen.getByRole('combobox', {
 					name: 'components.tagCardButton.tagNameLabel'
 				}),
 				{target: {value: 'test'}}
@@ -129,7 +129,7 @@ describe('<TagCardButton>', () => {
 				})
 			);
 			fireEvent.change(
-				screen.getByRole('textbox', {
+				screen.getByRole('combobox', {
 					name: 'components.tagCardButton.tagNameLabel'
 				}),
 				{target: {value: 'test'}}
@@ -138,7 +138,7 @@ describe('<TagCardButton>', () => {
 				screen.getByRole('button', {name: 'common.add'})
 			).not.toBeDisabled();
 			fireEvent.change(
-				screen.getByRole('textbox', {
+				screen.getByRole('combobox', {
 					name: 'components.tagCardButton.tagNameLabel'
 				}),
 				{target: {value: ''}}

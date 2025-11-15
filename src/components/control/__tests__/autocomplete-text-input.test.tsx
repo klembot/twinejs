@@ -6,10 +6,20 @@ import {
 	AutocompleteTextInputProps
 } from '../autocomplete-text-input';
 
-function AutocompleteTextInputDemo(props: Omit<AutocompleteTextInputProps, 'children' | 'onChange'>) {
+function AutocompleteTextInputDemo(
+	props: Omit<AutocompleteTextInputProps, 'children' | 'onChange'>
+) {
 	const [value, setValue] = React.useState(props.value);
 
-	return <AutocompleteTextInput onChange={event => setValue(event.target.value)} value={value} completions={props.completions}>children</AutocompleteTextInput>;
+	return (
+		<AutocompleteTextInput
+			completions={props.completions}
+			onChange={event => setValue(event.target.value)}
+			value={value}
+		>
+			children
+		</AutocompleteTextInput>
+	);
 }
 
 describe('<AutocompleteTextInput>', () => {
@@ -26,7 +36,7 @@ describe('<AutocompleteTextInput>', () => {
 	it('renders a text input with the value set', () => {
 		renderComponent({value: 'test-value'});
 
-		const field = screen.getByRole('textbox');
+		const field = screen.getByRole('combobox');
 
 		expect(field).toBeInTheDocument();
 		expect(field.getAttribute('value')).toBe('test-value');
@@ -35,7 +45,7 @@ describe('<AutocompleteTextInput>', () => {
 	it("allows typing in a value that doesn't match any completions", () => {
 		renderComponent({completions: ['test'], value: 'test-value'});
 
-		const field = screen.getByRole('textbox');
+		const field = screen.getByRole('combobox');
 
 		fireEvent.input(field, {
 			data: 'a',
@@ -57,7 +67,7 @@ describe('<AutocompleteTextInput>', () => {
 	it('autocompletes the first match when the input changes and the cursor is at the end', () => {
 		renderComponent({completions: ['test'], value: ''});
 
-		const field = screen.getByRole('textbox');
+		const field = screen.getByRole('combobox');
 
 		fireEvent.input(field, {
 			data: 't',
@@ -70,7 +80,7 @@ describe('<AutocompleteTextInput>', () => {
 	it('only autocompletes case-sensitive matches', () => {
 		renderComponent({completions: ['test'], value: ''});
 
-		const field = screen.getByRole('textbox');
+		const field = screen.getByRole('combobox');
 
 		fireEvent.input(field, {
 			data: 'T',
@@ -82,7 +92,7 @@ describe('<AutocompleteTextInput>', () => {
 	it("doesn't autocomplete if the cursor is not at the end of the field", () => {
 		renderComponent({completions: ['test'], value: 'ts'});
 
-		const field = screen.getByRole('textbox');
+		const field = screen.getByRole('combobox');
 
 		fireEvent.input(field, {
 			data: 'e',
@@ -94,13 +104,49 @@ describe('<AutocompleteTextInput>', () => {
 	it("doesn't autocomplete if there is text selected", () => {
 		renderComponent({completions: ['test'], value: 'te'});
 
-		const field = screen.getByRole('textbox');
+		const field = screen.getByRole('combobox');
 
 		fireEvent.input(field, {
 			data: 's',
 			target: {selectionStart: 0, selectionEnd: 1, value: 'tes'}
 		});
 		expect(field).toHaveValue('tes');
+	});
+
+	it('renders a datalist with autocomplete', () => {
+		renderComponent({completions: ['apple', 'banana', 'cherry']});
+
+		const datalist = document.querySelector('datalist');
+
+		expect(datalist).toBeInTheDocument();
+		expect(datalist?.querySelectorAll('option')).toHaveLength(3);
+
+		const options = Array.from(datalist?.querySelectorAll('option') || []);
+
+		expect(options[0].value).toBe('apple');
+		expect(options[1].value).toBe('banana');
+		expect(options[2].value).toBe('cherry');
+	});
+
+	it('connects the input to the datalist via list attribute', () => {
+		renderComponent({completions: ['test']});
+
+		const input = screen.getByRole('combobox');
+		const datalist = document.querySelector('datalist');
+		expect(datalist).toBeInTheDocument();
+
+		const listId = input.getAttribute('list');
+		expect(listId).toBeTruthy();
+		expect(datalist?.id).toBe(listId);
+	});
+
+	it('renders an empty datalist when no completions are provided', () => {
+		renderComponent({completions: []});
+
+		const datalist = document.querySelector('datalist');
+
+		expect(datalist).toBeInTheDocument();
+		expect(datalist?.querySelectorAll('option')).toHaveLength(0);
 	});
 
 	it('is accessible', async () => {

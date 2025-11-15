@@ -5,10 +5,17 @@ export interface AutocompleteTextInputProps extends TextInputProps {
 	completions: string[];
 }
 
+let uniqueIdCounter = 0;
+
 export const AutocompleteTextInput = React.forwardRef<
 	HTMLInputElement,
 	AutocompleteTextInputProps
 >((props, ref) => {
+	const datalistId = React.useMemo(
+		() => `autocomplete-datalist-${++uniqueIdCounter}`,
+		[]
+	);
+
 	function handleInput(event: React.FormEvent<HTMLInputElement>) {
 		const target = event.target as HTMLInputElement;
 
@@ -32,7 +39,8 @@ export const AutocompleteTextInput = React.forwardRef<
 		);
 
 		if (match) {
-			// Set the input value to the match and select the part the user didn't enter.
+			// Set the input value to the match and select the part the user
+			// didn't enter.
 
 			const originalValue = target.value;
 
@@ -43,5 +51,21 @@ export const AutocompleteTextInput = React.forwardRef<
 		props.onInput?.(event);
 	}
 
-	return <TextInput onInput={handleInput} ref={ref} {...props} />;
+	return (
+		<>
+			<TextInput
+				// Disable browser autofill so only datalist options appear (no email/address suggestions)
+				autoComplete="off"
+				list={datalistId}
+				onInput={handleInput}
+				ref={ref}
+				{...props}
+			/>
+			<datalist id={datalistId}>
+				{props.completions.map(completion => (
+					<option key={completion} value={completion} />
+				))}
+			</datalist>
+		</>
+	);
 });
