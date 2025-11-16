@@ -119,9 +119,9 @@ describe('<AutocompleteTextInput>', () => {
 		const datalist = document.querySelector('datalist');
 
 		expect(datalist).toBeInTheDocument();
-		expect(datalist?.querySelectorAll('option')).toHaveLength(3);
-
-		const options = Array.from(datalist?.querySelectorAll('option') || []);
+		const options = datalist.querySelectorAll('option');
+		
+		expect(options).toHaveLength(3);
 
 		expect(options[0].value).toBe('apple');
 		expect(options[1].value).toBe('banana');
