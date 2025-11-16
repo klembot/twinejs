@@ -135,9 +135,7 @@ describe('<AutocompleteTextInput>', () => {
 		const datalist = document.querySelector('datalist');
 		expect(datalist).toBeInTheDocument();
 
-		const listId = input.getAttribute('list');
-		expect(listId).toBeTruthy();
-		expect(datalist?.id).toBe(listId);
+		expect(datalist.id).toBe(input.getAttribute('list'));
 	});
 
 	it('renders an empty datalist when no completions are provided', () => {
