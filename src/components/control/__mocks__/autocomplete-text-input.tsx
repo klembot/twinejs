@@ -5,13 +5,14 @@ import {TextInput} from '../text-input';
 export const AutocompleteTextInput: React.FC<AutocompleteTextInputProps> = ({
 	children,
 	completions,
+	id,
 	...rest
 }) => (
 	<>
-		<TextInput list="mock-datalist-id" {...rest}>
+		<TextInput list={`${id}-datalist`} {...rest}>
 			<span data-completions={JSON.stringify(completions)}>{children}</span>
 		</TextInput>
-		<datalist id="mock-datalist-id">
+		<datalist id={`${id}-datalist`}>
 			{completions.map(completion => (
 				<option key={completion} value={completion} />
 			))}

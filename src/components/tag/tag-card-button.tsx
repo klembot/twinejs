@@ -86,6 +86,7 @@ export const TagCardButton: React.FC<TagCardButtonProps> = props => {
 					<form onSubmit={handleSubmit}>
 						<AutocompleteTextInput
 							completions={tagCompletions}
+							id="tag-input"
 							onChange={handleNewTagNameChange}
 							value={newTagName}
 						>

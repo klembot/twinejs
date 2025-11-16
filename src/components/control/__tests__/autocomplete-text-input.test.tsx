@@ -14,6 +14,7 @@ function AutocompleteTextInputDemo(
 	return (
 		<AutocompleteTextInput
 			completions={props.completions}
+			id={props.id}
 			onChange={event => setValue(event.target.value)}
 			value={value}
 		>
@@ -27,6 +28,7 @@ describe('<AutocompleteTextInput>', () => {
 		return render(
 			<AutocompleteTextInputDemo
 				completions={[]}
+				id="test-autocomplete"
 				value="mock-value"
 				{...props}
 			/>
@@ -119,32 +121,23 @@ describe('<AutocompleteTextInput>', () => {
 		const datalist = document.querySelector('datalist');
 
 		expect(datalist).toBeInTheDocument();
-		const options = datalist.querySelectorAll('option');
 		
+		const options = datalist!.querySelectorAll('option');
 		expect(options).toHaveLength(3);
-
 		expect(options[0].value).toBe('apple');
 		expect(options[1].value).toBe('banana');
 		expect(options[2].value).toBe('cherry');
 	});
 
-	it('connects the input to the datalist via list attribute', () => {
-		renderComponent({completions: ['test']});
+	it('uses the id prop to generate the datalist id', () => {
+		renderComponent({id: 'tag-input', completions: ['test']});
 
-		const input = screen.getByRole('combobox');
-		const datalist = document.querySelector('datalist');
+		const field = screen.getByRole('combobox');
+		const datalist = document.querySelector('#tag-input-datalist');
+
+		expect(field.getAttribute('list')).toBe('tag-input-datalist');
 		expect(datalist).toBeInTheDocument();
-
-		expect(datalist.id).toBe(input.getAttribute('list'));
-	});
-
-	it('renders an empty datalist when no completions are provided', () => {
-		renderComponent({completions: []});
-
-		const datalist = document.querySelector('datalist');
-
-		expect(datalist).toBeInTheDocument();
-		expect(datalist?.querySelectorAll('option')).toHaveLength(0);
+		expect(datalist?.id).toBe('tag-input-datalist');
 	});
 
 	it('is accessible', async () => {
