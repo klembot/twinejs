@@ -70,6 +70,7 @@ export const PassageToolbar: React.FC<PassageToolbarProps> = props => {
 			)}
 			<TagCardButton
 				allTags={passageTags}
+				id={`passage-tag-input-${passage.id}`}
 				onAdd={handleAddTag}
 				onChangeColor={handleChangeTagColor}
 				onRemove={handleRemoveTag}

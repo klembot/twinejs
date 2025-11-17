@@ -9,7 +9,7 @@ export const AutocompleteTextInput: React.FC<AutocompleteTextInputProps> = ({
 	...rest
 }) => (
 	<>
-		<TextInput list={`${id}-datalist`} {...rest}>
+		<TextInput id={id} list={`${id}-datalist`} {...rest}>
 			<span data-completions={JSON.stringify(completions)}>{children}</span>
 		</TextInput>
 		<datalist id={`${id}-datalist`}>

@@ -10,6 +10,7 @@ describe('<TagCardButton>', () => {
 		return render(
 			<TagCardButton
 				allTags={[]}
+				id="test-tag-input"
 				onAdd={jest.fn()}
 				onChangeColor={jest.fn()}
 				onRemove={jest.fn()}
@@ -144,6 +145,15 @@ describe('<TagCardButton>', () => {
 				{target: {value: ''}}
 			);
 			expect(screen.getByRole('button', {name: 'common.add'})).toBeDisabled();
+		});
+
+		it('passes the id prop to the autocomplete input', () => {
+			renderComponent({id: 'custom-test-id'});
+			fireEvent.click(screen.getByRole('button', {name: 'common.tags'}));
+			const input = screen.getByRole('combobox', {
+				name: 'components.tagCardButton.tagNameLabel'
+			});
+			expect(input).toHaveAttribute('id', 'custom-test-id');
 		});
 
 		describe('The tag list it shows', () => {
