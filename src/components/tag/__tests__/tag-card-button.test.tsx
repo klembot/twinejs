@@ -65,7 +65,6 @@ describe('<TagCardButton>', () => {
 				name: 'components.tagCardButton.tagNameLabel'
 			});
 
-			// Simulate selecting from datalist (value includes invisible separator)
 			fireEvent.input(input, {target: {value: 'existing-tag\u2063'}});
 
 			expect(onAdd).toHaveBeenCalledWith('existing-tag');
@@ -81,7 +80,6 @@ describe('<TagCardButton>', () => {
 			});
 			fireEvent.click(screen.getByRole('button', {name: 'common.tags'}));
 
-			// Simulate selecting empty/invalid tag from datalist
 			fireEvent.input(
 				screen.getByRole('combobox', {
 					name: 'components.tagCardButton.tagNameLabel'
@@ -106,7 +104,6 @@ describe('<TagCardButton>', () => {
 				})
 			);
 
-			// Simulate selecting duplicate tag from datalist
 			fireEvent.input(
 				screen.getByRole('combobox', {
 					name: 'components.tagCardButton.tagNameLabel'
