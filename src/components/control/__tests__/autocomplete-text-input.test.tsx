@@ -16,6 +16,7 @@ function AutocompleteTextInputDemo(
 			completions={props.completions}
 			id={props.id}
 			onChange={event => setValue(event.target.value)}
+			onSelect={props.onSelect}
 			value={value}
 		>
 			children
@@ -66,7 +67,7 @@ describe('<AutocompleteTextInput>', () => {
 		expect(field).toHaveValue('abc');
 	});
 
-	it('autocompletes the first match when the input changes and the cursor is at the end', () => {
+	it('autocompletes when there is exactly one match', () => {
 		renderComponent({completions: ['test'], value: ''});
 
 		const field = screen.getByRole('combobox');
@@ -79,7 +80,7 @@ describe('<AutocompleteTextInput>', () => {
 		// Selection doesn't seem to be set correctly in our test DOM.
 	});
 
-	it('only autocompletes case-sensitive matches', () => {
+	it('autocompletes with case-insensitive matching', () => {
 		renderComponent({completions: ['test'], value: ''});
 
 		const field = screen.getByRole('combobox');
@@ -88,7 +89,53 @@ describe('<AutocompleteTextInput>', () => {
 			data: 'T',
 			target: {selectionStart: 1, selectionEnd: 1, value: 'T'}
 		});
-		expect(field).toHaveValue('T');
+
+		expect(field).toHaveValue('test');
+	});
+
+	it("doesn't autocomplete when there are multiple matches", () => {
+		renderComponent({completions: ['test-1', 'test-2'], value: ''});
+
+		const field = screen.getByRole('combobox');
+
+		fireEvent.input(field, {
+			data: 't',
+			target: {selectionStart: 1, selectionEnd: 1, value: 't'}
+		});
+
+		expect(field).toHaveValue('t');
+	});
+
+	it('uses case-insensitive matching for multiple matches', () => {
+		renderComponent({completions: ['test-1', 'Test-1'], value: ''});
+
+		const field = screen.getByRole('combobox');
+
+		fireEvent.input(field, {
+			data: 't',
+			target: {selectionStart: 1, selectionEnd: 1, value: 't'}
+		});
+
+		expect(field).toHaveValue('t');
+	});
+
+	it('autocompletes when narrowing down from multiple to one match', () => {
+		renderComponent({completions: ['test-1', 'test-2'], value: ''});
+
+		const field = screen.getByRole('combobox');
+
+		fireEvent.input(field, {
+			data: 't',
+			target: {selectionStart: 1, selectionEnd: 1, value: 't'}
+		});
+		expect(field).toHaveValue('t');
+
+		// Type '1' - now only 'test-1' matches, should autocomplete
+		fireEvent.input(field, {
+			data: '1',
+			target: {selectionStart: 7, selectionEnd: 7, value: 'test-1'}
+		});
+		expect(field).toHaveValue('test-1');
 	});
 
 	it("doesn't autocomplete if the cursor is not at the end of the field", () => {
@@ -124,9 +171,9 @@ describe('<AutocompleteTextInput>', () => {
 		
 		const options = datalist!.querySelectorAll('option');
 		expect(options).toHaveLength(3);
-		expect(options[0].value).toBe('apple');
-		expect(options[1].value).toBe('banana');
-		expect(options[2].value).toBe('cherry');
+		expect(options[0].value).toBe('apple\u2063');
+		expect(options[1].value).toBe('banana\u2063');
+		expect(options[2].value).toBe('cherry\u2063');
 	});
 
 	it('uses the id prop to generate the datalist id', () => {
@@ -138,6 +185,46 @@ describe('<AutocompleteTextInput>', () => {
 		expect(field.getAttribute('list')).toBe('tag-input-datalist');
 		expect(datalist).toBeInTheDocument();
 		expect(datalist?.id).toBe('tag-input-datalist');
+	});
+
+	it('calls onSelect when a datalist option is selected', () => {
+		const onSelect = jest.fn();
+		renderComponent({
+			completions: ['apple', 'banana'],
+			onSelect,
+			value: ''
+		});
+
+		const field = screen.getByRole('combobox');
+
+		fireEvent.input(field, {
+			target: {
+				selectionStart: 5,
+				selectionEnd: 5,
+				value: 'apple\u2063'
+			}
+		});
+
+		expect(onSelect).toHaveBeenCalledWith('apple');
+		expect(field).toHaveValue('apple');
+	});
+
+	it('does not call onSelect when typing normally', () => {
+		const onSelect = jest.fn();
+		renderComponent({
+			completions: ['apple', 'banana'],
+			onSelect,
+			value: ''
+		});
+
+		const field = screen.getByRole('combobox');
+
+		fireEvent.input(field, {
+			data: 'a',
+			target: {selectionStart: 1, selectionEnd: 1, value: 'a'}
+		});
+
+		expect(onSelect).not.toHaveBeenCalled();
 	});
 
 	it('is accessible', async () => {

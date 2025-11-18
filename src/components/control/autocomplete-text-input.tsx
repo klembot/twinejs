@@ -4,6 +4,7 @@ import {TextInput, TextInputProps} from './text-input';
 export interface AutocompleteTextInputProps extends TextInputProps {
 	completions: string[];
 	id: string;
+	onSelect?: (value: string) => void;
 }
 
 export const AutocompleteTextInput = React.forwardRef<
@@ -14,6 +15,15 @@ export const AutocompleteTextInput = React.forwardRef<
 
 	function handleInput(event: React.FormEvent<HTMLInputElement>) {
 		const target = event.target as HTMLInputElement;
+
+		// Detect datalist selection via invisible separator (U+2063)
+		if (target.value.endsWith('\u2063')) {
+			const cleanValue = target.value.slice(0, -1);
+			target.value = cleanValue;
+			props.onSelect?.(cleanValue);
+			props.onInput?.(event);
+			return;
+		}
 
 		if (
 			target.value === '' ||
@@ -30,18 +40,20 @@ export const AutocompleteTextInput = React.forwardRef<
 			return;
 		}
 
-		const match = props.completions.find(completion =>
-			completion.startsWith(target.value)
+		// Only autocomplete when there's exactly one match to avoid
+		// conflicts with the datalist dropdown
+		const matches = props.completions.filter(completion =>
+			completion.toLowerCase().startsWith(target.value.toLowerCase())
 		);
 
-		if (match) {
+		if (matches.length === 1) {
 			// Set the input value to the match and select the part the user
 			// didn't enter.
 
 			const originalValue = target.value;
 
-			target.value = match;
-			target.setSelectionRange(originalValue.length, match.length);
+			target.value = matches[0];
+			target.setSelectionRange(originalValue.length, matches[0].length);
 		}
 
 		props.onInput?.(event);
@@ -57,7 +69,7 @@ export const AutocompleteTextInput = React.forwardRef<
 			/>
 			<datalist id={datalistId}>
 				{props.completions.map(completion => (
-					<option key={completion} value={completion} />
+					<option key={completion} value={completion + '\u2063'} />
 				))}
 			</datalist>
 		</>

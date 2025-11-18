@@ -52,6 +52,71 @@ describe('<TagCardButton>', () => {
 			expect(onAdd.mock.calls).toEqual([['new-tag']]);
 		});
 
+		it('auto-adds tag when selected from datalist', () => {
+			const onAdd = jest.fn();
+
+			renderComponent({
+				allTags: ['existing-tag'],
+				onAdd
+			});
+			fireEvent.click(screen.getByRole('button', {name: 'common.tags'}));
+
+			const input = screen.getByRole('combobox', {
+				name: 'components.tagCardButton.tagNameLabel'
+			});
+
+			// Simulate selecting from datalist (value includes invisible separator)
+			fireEvent.input(input, {target: {value: 'existing-tag\u2063'}});
+
+			expect(onAdd).toHaveBeenCalledWith('existing-tag');
+			expect(input).toHaveValue('');
+		});
+
+		it('does not auto-add invalid tag from datalist', () => {
+			const onAdd = jest.fn();
+
+			renderComponent({
+				allTags: [''],
+				onAdd
+			});
+			fireEvent.click(screen.getByRole('button', {name: 'common.tags'}));
+
+			// Simulate selecting empty/invalid tag from datalist
+			fireEvent.input(
+				screen.getByRole('combobox', {
+					name: 'components.tagCardButton.tagNameLabel'
+				}),
+				{target: {value: '\u2063'}}
+			);
+
+			expect(onAdd).not.toHaveBeenCalled();
+		});
+
+		it('does not auto-add duplicate tag from datalist', () => {
+			const onAdd = jest.fn();
+
+			renderComponent({
+				allTags: ['duplicate'],
+				onAdd,
+				tags: ['duplicate']
+			});
+			fireEvent.click(
+				screen.getByRole('button', {
+					name: 'components.tagCardButton.tagsWithCount_plural'
+				})
+			);
+
+			// Simulate selecting duplicate tag from datalist
+			fireEvent.input(
+				screen.getByRole('combobox', {
+					name: 'components.tagCardButton.tagNameLabel'
+				}),
+				{target: {value: 'duplicate\u2063'}}
+			);
+
+			expect(onAdd).not.toHaveBeenCalled();
+		});
+
 		it("sets autocompletions to all tags that haven't already been added", () => {
 			renderComponent({
 				allTags: ['one', 'two', 'three'],

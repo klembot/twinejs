@@ -26,10 +26,11 @@ export const TagCardButton: React.FC<TagCardButtonProps> = props => {
 		props;
 	const [newTagName, setNewTagName] = React.useState('');
 	const [open, setOpen] = React.useState(false);
+	const isSelectingRef = React.useRef(false);
 	const {t} = useTranslation();
 	const tagCompletions = React.useMemo(
 		() => allTags.filter(tag => !tags.includes(tag)),
-		[allTags]
+		[allTags, tags]
 	);
 	const label =
 		tags.length === 0
@@ -53,7 +54,23 @@ export const TagCardButton: React.FC<TagCardButtonProps> = props => {
 	}
 
 	function handleNewTagNameChange(event: React.ChangeEvent<HTMLInputElement>) {
-		setNewTagName(event.target.value.replace(/\s/g, '-'));
+		if (isSelectingRef.current) {
+			isSelectingRef.current = false;
+			return;
+		}
+		setNewTagName(event.target.value.replaceAll(' ', '-'));
+	}
+
+	function handleSelect(value: string) {
+		const normalizedValue = value.replaceAll(' ', '-');
+		const isValid = isValidTagName(normalizedValue);
+		const canAddTag = isValid && !tags.includes(normalizedValue);
+
+		if (canAddTag && normalizedValue.trim() !== '') {
+			isSelectingRef.current = true;
+			onAdd(normalizedValue);
+			setNewTagName('');
+		}
 	}
 
 	function handleSubmit(event: React.FormEvent) {
@@ -89,6 +106,7 @@ export const TagCardButton: React.FC<TagCardButtonProps> = props => {
 							completions={tagCompletions}
 							id={id}
 							onChange={handleNewTagNameChange}
+							onSelect={handleSelect}
 							value={newTagName}
 						>
 							{t('components.tagCardButton.tagNameLabel')}
