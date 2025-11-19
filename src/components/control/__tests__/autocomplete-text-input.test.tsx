@@ -16,7 +16,6 @@ function AutocompleteTextInputDemo(
 			completions={props.completions}
 			id={props.id}
 			onChange={event => setValue(event.target.value)}
-			onSelect={props.onSelect}
 			value={value}
 		>
 			children
@@ -77,7 +76,6 @@ describe('<AutocompleteTextInput>', () => {
 			target: {selectionStart: 1, selectionEnd: 1, value: 't'}
 		});
 		expect(field).toHaveValue('test');
-		// Selection doesn't seem to be set correctly in our test DOM.
 	});
 
 	it('autocompletes with case-insensitive matching', () => {
@@ -185,46 +183,6 @@ describe('<AutocompleteTextInput>', () => {
 		expect(field.getAttribute('list')).toBe('tag-input-datalist');
 		expect(datalist).toBeInTheDocument();
 		expect(datalist?.id).toBe('tag-input-datalist');
-	});
-
-	it('calls onSelect when a datalist option is selected', () => {
-		const onSelect = jest.fn();
-		renderComponent({
-			completions: ['apple', 'banana'],
-			onSelect,
-			value: ''
-		});
-
-		const field = screen.getByRole('combobox');
-
-		fireEvent.input(field, {
-			target: {
-				selectionStart: 5,
-				selectionEnd: 5,
-				value: 'apple\u2063'
-			}
-		});
-
-		expect(onSelect).toHaveBeenCalledWith('apple');
-		expect(field).toHaveValue('apple');
-	});
-
-	it('does not call onSelect when typing normally', () => {
-		const onSelect = jest.fn();
-		renderComponent({
-			completions: ['apple', 'banana'],
-			onSelect,
-			value: ''
-		});
-
-		const field = screen.getByRole('combobox');
-
-		fireEvent.input(field, {
-			data: 'a',
-			target: {selectionStart: 1, selectionEnd: 1, value: 'a'}
-		});
-
-		expect(onSelect).not.toHaveBeenCalled();
 	});
 
 	it('is accessible', async () => {

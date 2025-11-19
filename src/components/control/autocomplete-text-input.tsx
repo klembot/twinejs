@@ -1,10 +1,12 @@
 import * as React from 'react';
 import {TextInput, TextInputProps} from './text-input';
 
+// Invisible separator used to detect datalist selection
+export const DATALIST_SELECTION_MARKER = '\u2063';
+
 export interface AutocompleteTextInputProps extends TextInputProps {
 	completions: string[];
 	id: string;
-	onSelect?: (value: string) => void;
 }
 
 export const AutocompleteTextInput = React.forwardRef<
@@ -16,11 +18,7 @@ export const AutocompleteTextInput = React.forwardRef<
 	function handleInput(event: React.FormEvent<HTMLInputElement>) {
 		const target = event.target as HTMLInputElement;
 
-		// Detect datalist selection via invisible separator (U+2063)
-		if (target.value.endsWith('\u2063')) {
-			const cleanValue = target.value.slice(0, -1);
-			target.value = cleanValue;
-			props.onSelect?.(cleanValue);
+		if (target.value.endsWith(DATALIST_SELECTION_MARKER)) {
 			props.onInput?.(event);
 			return;
 		}
@@ -69,7 +67,10 @@ export const AutocompleteTextInput = React.forwardRef<
 			/>
 			<datalist id={datalistId}>
 				{props.completions.map(completion => (
-					<option key={completion} value={completion + '\u2063'} />
+					<option
+						key={completion}
+						value={completion + DATALIST_SELECTION_MARKER}
+					/>
 				))}
 			</datalist>
 		</>
