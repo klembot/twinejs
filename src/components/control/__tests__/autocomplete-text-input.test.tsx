@@ -6,10 +6,21 @@ import {
 	AutocompleteTextInputProps
 } from '../autocomplete-text-input';
 
-function AutocompleteTextInputDemo(props: Omit<AutocompleteTextInputProps, 'children' | 'onChange'>) {
+function AutocompleteTextInputDemo(
+	props: Omit<AutocompleteTextInputProps, 'children' | 'onChange'>
+) {
 	const [value, setValue] = React.useState(props.value);
 
-	return <AutocompleteTextInput onChange={event => setValue(event.target.value)} value={value} completions={props.completions}>children</AutocompleteTextInput>;
+	return (
+		<AutocompleteTextInput
+			completions={props.completions}
+			id={props.id}
+			onChange={event => setValue(event.target.value)}
+			value={value}
+		>
+			children
+		</AutocompleteTextInput>
+	);
 }
 
 describe('<AutocompleteTextInput>', () => {
@@ -17,6 +28,7 @@ describe('<AutocompleteTextInput>', () => {
 		return render(
 			<AutocompleteTextInputDemo
 				completions={[]}
+				id="test-autocomplete"
 				value="mock-value"
 				{...props}
 			/>
@@ -26,7 +38,7 @@ describe('<AutocompleteTextInput>', () => {
 	it('renders a text input with the value set', () => {
 		renderComponent({value: 'test-value'});
 
-		const field = screen.getByRole('textbox');
+		const field = screen.getByRole('combobox');
 
 		expect(field).toBeInTheDocument();
 		expect(field.getAttribute('value')).toBe('test-value');
@@ -35,7 +47,7 @@ describe('<AutocompleteTextInput>', () => {
 	it("allows typing in a value that doesn't match any completions", () => {
 		renderComponent({completions: ['test'], value: 'test-value'});
 
-		const field = screen.getByRole('textbox');
+		const field = screen.getByRole('combobox');
 
 		fireEvent.input(field, {
 			data: 'a',
@@ -54,35 +66,80 @@ describe('<AutocompleteTextInput>', () => {
 		expect(field).toHaveValue('abc');
 	});
 
-	it('autocompletes the first match when the input changes and the cursor is at the end', () => {
+	it('autocompletes when there is exactly one match', () => {
 		renderComponent({completions: ['test'], value: ''});
 
-		const field = screen.getByRole('textbox');
+		const field = screen.getByRole('combobox');
 
 		fireEvent.input(field, {
 			data: 't',
 			target: {selectionStart: 1, selectionEnd: 1, value: 't'}
 		});
 		expect(field).toHaveValue('test');
-		// Selection doesn't seem to be set correctly in our test DOM.
 	});
 
-	it('only autocompletes case-sensitive matches', () => {
+	it('autocompletes with case-insensitive matching', () => {
 		renderComponent({completions: ['test'], value: ''});
 
-		const field = screen.getByRole('textbox');
+		const field = screen.getByRole('combobox');
 
 		fireEvent.input(field, {
 			data: 'T',
 			target: {selectionStart: 1, selectionEnd: 1, value: 'T'}
 		});
-		expect(field).toHaveValue('T');
+
+		expect(field).toHaveValue('test');
+	});
+
+	it("doesn't autocomplete when there are multiple matches", () => {
+		renderComponent({completions: ['test-1', 'test-2'], value: ''});
+
+		const field = screen.getByRole('combobox');
+
+		fireEvent.input(field, {
+			data: 't',
+			target: {selectionStart: 1, selectionEnd: 1, value: 't'}
+		});
+
+		expect(field).toHaveValue('t');
+	});
+
+	it('uses case-insensitive matching for multiple matches', () => {
+		renderComponent({completions: ['test-1', 'Test-1'], value: ''});
+
+		const field = screen.getByRole('combobox');
+
+		fireEvent.input(field, {
+			data: 't',
+			target: {selectionStart: 1, selectionEnd: 1, value: 't'}
+		});
+
+		expect(field).toHaveValue('t');
+	});
+
+	it('autocompletes when narrowing down from multiple to one match', () => {
+		renderComponent({completions: ['test-1', 'test-2'], value: ''});
+
+		const field = screen.getByRole('combobox');
+
+		fireEvent.input(field, {
+			data: 't',
+			target: {selectionStart: 1, selectionEnd: 1, value: 't'}
+		});
+		expect(field).toHaveValue('t');
+
+		// Type '1' - now only 'test-1' matches, should autocomplete
+		fireEvent.input(field, {
+			data: '1',
+			target: {selectionStart: 7, selectionEnd: 7, value: 'test-1'}
+		});
+		expect(field).toHaveValue('test-1');
 	});
 
 	it("doesn't autocomplete if the cursor is not at the end of the field", () => {
 		renderComponent({completions: ['test'], value: 'ts'});
 
-		const field = screen.getByRole('textbox');
+		const field = screen.getByRole('combobox');
 
 		fireEvent.input(field, {
 			data: 'e',
@@ -94,13 +151,38 @@ describe('<AutocompleteTextInput>', () => {
 	it("doesn't autocomplete if there is text selected", () => {
 		renderComponent({completions: ['test'], value: 'te'});
 
-		const field = screen.getByRole('textbox');
+		const field = screen.getByRole('combobox');
 
 		fireEvent.input(field, {
 			data: 's',
 			target: {selectionStart: 0, selectionEnd: 1, value: 'tes'}
 		});
 		expect(field).toHaveValue('tes');
+	});
+
+	it('renders a datalist with autocomplete', () => {
+		renderComponent({completions: ['apple', 'banana', 'cherry']});
+
+		const datalist = document.querySelector('datalist');
+
+		expect(datalist).toBeInTheDocument();
+		
+		const options = datalist!.querySelectorAll('option');
+		expect(options).toHaveLength(3);
+		expect(options[0].value).toBe('apple\u2063');
+		expect(options[1].value).toBe('banana\u2063');
+		expect(options[2].value).toBe('cherry\u2063');
+	});
+
+	it('uses the id prop to generate the datalist id', () => {
+		renderComponent({id: 'tag-input', completions: ['test']});
+
+		const field = screen.getByRole('combobox');
+		const datalist = document.querySelector('#tag-input-datalist');
+
+		expect(field.getAttribute('list')).toBe('tag-input-datalist');
+		expect(datalist).toBeInTheDocument();
+		expect(datalist?.id).toBe('tag-input-datalist');
 	});
 
 	it('is accessible', async () => {

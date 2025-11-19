@@ -1,16 +1,27 @@
 import * as React from 'react';
 import {TextInput, TextInputProps} from './text-input';
 
+// Invisible separator used to detect datalist selection
+export const DATALIST_SELECTION_MARKER = '\u2063';
+
 export interface AutocompleteTextInputProps extends TextInputProps {
 	completions: string[];
+	id: string;
 }
 
 export const AutocompleteTextInput = React.forwardRef<
 	HTMLInputElement,
 	AutocompleteTextInputProps
 >((props, ref) => {
+	const datalistId = `${props.id}-datalist`;
+
 	function handleInput(event: React.FormEvent<HTMLInputElement>) {
 		const target = event.target as HTMLInputElement;
+
+		if (target.value.endsWith(DATALIST_SELECTION_MARKER)) {
+			props.onInput?.(event);
+			return;
+		}
 
 		if (
 			target.value === '' ||
@@ -27,21 +38,42 @@ export const AutocompleteTextInput = React.forwardRef<
 			return;
 		}
 
-		const match = props.completions.find(completion =>
-			completion.startsWith(target.value)
+		// Only autocomplete with exactly one match. Multiple matches would fill
+		// the input with the first match and prevent the datalist dropdown from
+		// showing all available options.
+		const matches = props.completions.filter(completion =>
+			completion.toLowerCase().startsWith(target.value.toLowerCase())
 		);
 
-		if (match) {
-			// Set the input value to the match and select the part the user didn't enter.
+		if (matches.length === 1) {
+			// Set the input value to the match and select the part the user
+			// didn't enter.
 
 			const originalValue = target.value;
 
-			target.value = match;
-			target.setSelectionRange(originalValue.length, match.length);
+			target.value = matches[0];
+			target.setSelectionRange(originalValue.length, matches[0].length);
 		}
 
 		props.onInput?.(event);
 	}
 
-	return <TextInput onInput={handleInput} ref={ref} {...props} />;
+	return (
+		<>
+			<TextInput
+				list={datalistId}
+				onInput={handleInput}
+				ref={ref}
+				{...props}
+			/>
+			<datalist id={datalistId}>
+				{props.completions.map(completion => (
+					<option
+						key={completion}
+						value={completion + DATALIST_SELECTION_MARKER}
+					/>
+				))}
+			</datalist>
+		</>
+	);
 });
