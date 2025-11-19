@@ -38,8 +38,9 @@ export const AutocompleteTextInput = React.forwardRef<
 			return;
 		}
 
-		// Only autocomplete when there's exactly one match to avoid
-		// conflicts with the datalist dropdown
+		// Only autocomplete with exactly one match. Multiple matches would fill
+		// the input with the first match and prevent the datalist dropdown from
+		// showing all available options.
 		const matches = props.completions.filter(completion =>
 			completion.toLowerCase().startsWith(target.value.toLowerCase())
 		);
