@@ -4,7 +4,8 @@
 		"appName": "Twine",
 		"ok": "OK",
 		"play": "プレイ",
-		"test": "テスト"
+		"test": "テスト",
+		"deletePrompt": "“{{name}}”を削除してもよろしいですか？"
 	},
 	"components": {
 		"addStoryFormatButton": {},

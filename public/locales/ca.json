@@ -21,6 +21,7 @@
 		"custom": "Personalitzat",
 		"delete": "Suprimeix",
 		"deleteCount": "Suprimeix ({{count}})",
+		"deletePrompt": "Esteu segur que voleu suprimir l'etiqueta “{{name}}”?",
 		"detalls": "Detalls",
 		"duplicate": "Duplica",
 		"edit": "Edita",

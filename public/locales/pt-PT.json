@@ -20,6 +20,7 @@
 		"custom": "Personalizar",
 		"delete": "Apagar",
 		"deleteCount": "Apagar ({{count}})",
+		"deletePrompt": "Tem a certeza de que pretende apagar “{{name}}”?",
 		"deselectAll": "Desmarcar Tudo",
 		"details": "Detalhes",
 		"duplicate": "Duplicar",

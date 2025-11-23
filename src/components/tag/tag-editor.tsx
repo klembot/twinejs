@@ -5,6 +5,8 @@ import {IconWriting} from '@tabler/icons';
 import {colors, Color} from '../../util/color';
 import {PromptButton, PromptValidationResponse} from '../control/prompt-button';
 import {TextSelect} from '../control/text-select';
+import {IconTrash} from '@tabler/icons';
+import {ConfirmPopover} from '../control/confirm-popover';
 import './tag-editor.css';
 
 export interface TagEditorProps {
@@ -13,11 +15,13 @@ export interface TagEditorProps {
 	name: string;
 	onChangeColor: (color: Color) => void;
 	onChangeName: (name: string) => void;
+	onDelete?: () => void;
 }
 
 export const TagEditor: React.FC<TagEditorProps> = props => {
 	const {allTags, color, name, onChangeColor, onChangeName} = props;
 	const [newName, setNewName] = React.useState(name);
+	const [showConfirm, setShowConfirm] = React.useState(false);
 	const {t} = useTranslation();
 
 	function validate(value: string): PromptValidationResponse {
@@ -52,6 +56,17 @@ export const TagEditor: React.FC<TagEditorProps> = props => {
 			>
 				{t('common.color')}
 			</TextSelect>
+						{props.onDelete && (
+				<ConfirmPopover
+					open={showConfirm}
+					onChangeOpen={setShowConfirm}
+					message={t('common.deletePrompt', {name}) + ' ' + t('components.tagEditor.deleteInfo')}
+					confirmLabel={t('common.delete')}
+					cancelLabel={t('common.cancel')}
+					confirmIcon={<IconTrash />}
+					onConfirm={() => props.onDelete!()}
+				/>
+			)}
 		</div>
 	);
 };

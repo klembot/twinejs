@@ -20,6 +20,7 @@
 		"custom": "Custom",
 		"delete": "Löschen",
 		"deleteCount": "Lösche ({{count}})",
+		"deletePrompt": "Bist du sicher, dass du die Markierung “{{name}}” löschen möchtest?",
 		"deselectAll": "Alle Markierungen aufheben",
 		"details": "Details",
 		"duplicate": "Duplizieren",

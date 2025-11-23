@@ -20,6 +20,7 @@
 		"custom": "Aangepast",
 		"delete": "Verwijderen",
 		"deleteCount": "Verwijderen ({{count}})",
+		"deletePrompt": "Weet je zeker dat je “{{name}}” wilt verwijderen?",
 		"deselectAll": "Deselecteer Alles",
 		"details": "Details",
 		"duplicate": "Duplicaten",

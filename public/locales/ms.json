@@ -5,6 +5,8 @@
 		"appName": "Twine",
 		"cancel": "Batal",
 		"delete": "Padam",
+		"deleteCount": "Padam ({{count}})",
+		"deletePrompt": "Adakah anda pasti mahu memadam “{{name}}”?",
 		"duplicate": "Salinan",
 		"edit": "Sunting",
 		"ok": "OK",

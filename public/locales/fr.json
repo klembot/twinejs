@@ -13,6 +13,7 @@
 		"appName": "Twine",
 		"cancel": "Annuler",
 		"delete": "Supprimer",
+		"deletePrompt": "Êtes-vous sûr de vouloir supprimer “{{name}}” ?",
 		"deselectAll": "Désélectionner tout",
 		"duplicate": "Dupliquer",
 		"edit": "Modifier",

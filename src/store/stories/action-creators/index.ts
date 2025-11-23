@@ -16,3 +16,4 @@ export * from './tag-color';
 export * from './tag-passage';
 export * from './update-passage';
 export * from './update-story';
+export * from './delete-story-tag';

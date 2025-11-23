@@ -5,6 +5,8 @@
 		"appName": "Twine",
 		"cancel": "Avbryt",
 		"delete": "Slett",
+		"deleteCount": "Slett ({{count}})",
+		"deletePrompt": "Er du sikker på at du vil slette “{{name}}”?",
 		"duplicate": "Dupliser",
 		"edit": "Rediger",
 		"ok": "OK",

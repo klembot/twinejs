@@ -20,6 +20,7 @@
 		"custom": "커스텀",
 		"delete": "삭제",
 		"deleteCount": "삭제 ({{count}})",
+		"deletePrompt": "“{{name}}”을(를) 삭제하시겠습니까?",
 		"deselectAll": "모두 선택 해제",
 		"details": "세부 사항",
 		"duplicate": "복제",

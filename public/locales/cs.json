@@ -20,6 +20,7 @@
 		"custom": "Vlastní",
 		"delete": "Smazat",
 		"deleteCount": "Smazat ({{count}})",
+		"deletePrompt": "Jste si jistí, že chcete smazat značku “{{name}}”?",
 		"deselectAll": "Zrušit výběr",
 		"details": "Podrobnosti",
 		"duplicate": "Duplikovat",

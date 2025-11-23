@@ -21,6 +21,7 @@
 		"custom": "Custom",
 		"delete": "Delete",
 		"deleteCount": "Delete ({{count}})",
+		"deletePrompt": "Are you sure you want to delete the tag “{{name}}”?",
 		"deselectAll": "Deselect All",
 		"details": "Details",
 		"duplicate": "Duplicate",
@@ -148,7 +149,8 @@
 			"tagsWithCount_plural": "Tags ({{count}})"
 		},
 		"tagEditor": {
-			"alreadyExists": "A tag with this name already exists."
+			"alreadyExists": "A tag with this name already exists.",
+			"deleteInfo": "The tag will be removed from every passage."
 		}
 	},
 	"dialogs": {

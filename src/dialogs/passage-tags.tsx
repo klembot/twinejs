@@ -7,7 +7,8 @@ import {
 	setTagColor,
 	storyWithId,
 	renamePassageTag,
-	storyPassageTags
+	storyPassageTags,
+	deleteStoryTag
 } from '../store/stories';
 import {useUndoableStoriesContext} from '../store/undoable-stories';
 import {Color} from '../util/color';
@@ -56,6 +57,9 @@ export const PassageTagsDialog: React.FC<PassageTagsDialogProps> = props => {
 							name={tag}
 							onChangeColor={color => handleChangeColor(tag, color)}
 							onChangeName={newName => handleChangeTagName(tag, newName)}
+							onDelete={() => {
+								dispatch(deleteStoryTag(story, tag));
+							}}
 						/>
 					))
 				) : (

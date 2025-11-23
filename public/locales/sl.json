@@ -5,6 +5,8 @@
 		"appName": "Twine",
 		"cancel": "Prekliči",
 		"delete": "Izbriši",
+		"deleteCount": "Izbriši ({{count}})",
+		"deletePrompt": "Ali ste prepričani, da želite izbrisati “{{name}}”?",
 		"duplicate": "Podvoji",
 		"edit": "Uredi",
 		"ok": "V redu",

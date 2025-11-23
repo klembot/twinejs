@@ -20,6 +20,7 @@
     "custom": "Personalizado",
     "delete": "Excluir",
     "deleteCount": "Excluir ({{count}})",
+    "deletePrompt": "Tem certeza de que deseja excluir “{{name}}”?",
 	"deselectAll": "Desmarcar Tudo",
     "details": "Detalhes",
     "duplicate": "Duplicar",

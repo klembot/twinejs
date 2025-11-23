@@ -5,6 +5,8 @@
 		"appName": "Twine",
 		"cancel": "Peruuta",
 		"delete": "Poista",
+		"deleteCount": "Poista ({{count}})",
+		"deletePrompt": "Oletko varma, että haluat poistaa “{{name}}”?",
 		"duplicate": "Kopioi",
 		"edit": "Muokkaa",
 		"ok": "OK",

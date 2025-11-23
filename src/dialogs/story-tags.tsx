@@ -3,7 +3,7 @@ import {useTranslation} from 'react-i18next';
 import {DialogCard} from '../components/container/dialog-card';
 import {CardContent} from '../components/container/card';
 import {DialogComponentProps} from './dialogs.types';
-import {renameStoryTag, storyTags} from '../store/stories';
+import {renameStoryTag, storyTags, deleteStoryTag} from '../store/stories';
 import {setPref, usePrefsContext} from '../store/prefs';
 import {useUndoableStoriesContext} from '../store/undoable-stories';
 import {Color} from '../util/color';
@@ -45,6 +45,12 @@ export const StoryTagsDialog: React.FC<StoryTagsDialogProps> = props => {
 							name={tag}
 							onChangeColor={color => handleChangeColor(tag, color)}
 							onChangeName={newName => handleChangeTagName(tag, newName)}
+							onDelete={() => {
+								const story = stories.find(s => s.tags.includes(tag));
+								if (story) {
+									storiesDispatch(deleteStoryTag(story, tag));
+								}
+							}}
 						/>
 					))
 				) : (

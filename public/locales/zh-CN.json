@@ -20,6 +20,7 @@
 		"custom": "自定义",
 		"delete": "删除",
 		"deleteCount": "删除（{{count}}）",
+		"deletePrompt": "您确定要删除“{{name}}”吗？",
 		"deselectAll": "全不选",
 		"details": "细节",
 		"duplicate": "复制",

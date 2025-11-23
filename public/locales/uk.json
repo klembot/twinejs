@@ -20,6 +20,7 @@
 		"custom": "Custom",
 		"delete": "Видалити",
 		"deleteCount": "Видалити ({{count}})",
+		"deletePrompt": "Ви впевнені, що хочете видалити “{{name}}”?",
 		"deselectAll": "Зняти виділення",
 		"details": "Деталі",
 		"duplicate": "Дублювати",

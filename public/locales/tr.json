@@ -20,6 +20,7 @@
 		"custom": "Özel",
 		"delete": "Sil",
 		"deleteCount": "Sil ({{count}})",
+		"deletePrompt": "“{{name}}” öğesini silmek istediğinizden emin misiniz?",
 		"deselectAll": "Seçimi Kaldır",
 		"details": "Detaylar",
 		"duplicate": "Kopya Oluştur",

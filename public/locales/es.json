@@ -5,6 +5,8 @@
 		"appName": "Twine",
 		"cancel": "Cancelar",
 		"delete": "Eliminar",
+		"deleteCount": "Eliminar ({{count}})",
+		"deletePrompt": "¿Estás seguro de que deseas eliminar “{{name}}”?",
 		"duplicate": "Duplicar",
 		"edit": "Editar",
 		"ok": "Aceptar",

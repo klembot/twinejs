@@ -21,6 +21,7 @@
 		"custom": "Własny",
 		"delete": "Usuń",
 		"deleteCount": "Usuń ({{count}})",
+		"deletePrompt": "Czy na pewno chcesz usunąć “{{name}}”?",
 		"deselectAll": "Odznacz wszystko",
 		"details": "Szczegóły",
 		"duplicate": "Duplikuj",

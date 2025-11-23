@@ -4,6 +4,8 @@
 		"add": "Tilføj",
 		"appName": "Twine",
 		"cancel": "Afbryd",
+		"deletePrompt": "Er du sikker på, at du vil slette “{{name}}”?",
+		"deleteCount": "Slet ({{count}})",
 		"delete": "Slet",
 		"duplicate": "Dublér",
 		"edit": "Redigér",

@@ -2,9 +2,9 @@
 @import '../../styles/colors.css';
 
 .tag-editor {
-	display: grid;
-	grid-gap: var(--grid-size);
-	grid-template-columns: repeat(3, min-content);
+	display: flex;
+	align-items: center;
+	gap: var(--grid-size);
 }
 
 .tag-editor .tag-name {
@@ -52,4 +52,16 @@
 	background-color: var(--faint-purple);
 	border: 1px solid var(--light-purple);
 	color: var(--dark-purple);
+}
+
+.tag-delete-confirm {
+	display: flex;
+	align-items: center;
+	gap: var(--grid-size);
+	margin-left: var(--grid-size);
+}
+
+.tag-delete-text {
+	color: var(--danger);
+	font-weight: bold;
 }
