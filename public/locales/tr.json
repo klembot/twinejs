@@ -138,7 +138,8 @@
 			"loadingCount_plural": "{{loadingCount}} Öykü Biçimi Yükleniyor"
 		},
 		"tagEditor": {
-			"alreadyExists": "Bu isme sahip bir etiket zaten var."
+			"alreadyExists": "Bu isme sahip bir etiket zaten var.",
+			"deleteInfo": "Bu etiket her bölümden kaldırılacaktır."
 		}
 	},
 	"dialogs": {

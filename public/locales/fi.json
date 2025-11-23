@@ -37,7 +37,9 @@
 		"storyCard": {},
 		"storyFormatItem": {},
 		"storyFormatSelect": {},
-		"tagEditor": {}
+		"tagEditor": {
+			"deleteInfo": "Tunniste poistetaan kaikista luvuista."
+		}
 	},
 	"dialogs": {
 		"aboutTwine": {

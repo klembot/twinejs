@@ -70,7 +70,9 @@
 		"storyCard": {},
 		"storyFormatItem": {},
 		"storyFormatSelect": {},
-		"tagEditor": {}
+		"tagEditor": {
+			"deleteInfo": "L'etiqueta s'eliminarà de cada passatge."
+		}
 	},
 	"dialogs": {
 		"aboutTwine": {"donateToTwine": "Ajuda el Twine a créixer amb una donació"},

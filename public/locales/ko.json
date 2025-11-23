@@ -139,7 +139,8 @@
 			"loadingCount_plural": "{{loadingCount}}개의 스토리 형식 로드 중..."
 		},
 		"tagEditor": {
-			"alreadyExists": "이 이름을 가진 태그가 이미 존재합니다."
+			"alreadyExists": "이 이름을 가진 태그가 이미 존재합니다.",
+			"deleteInfo": "이 태그는 모든 구절에서 제거됩니다."
 		}
 	},
 	"dialogs": {

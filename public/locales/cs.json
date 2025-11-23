@@ -139,7 +139,8 @@
 			"loadingCount_plural": "Načítání {{loadingCount}} formátů příběhu..."
 		},
 		"tagEditor": {
-			"alreadyExists": "Značka s tímto názvem už existuje."
+			"alreadyExists": "Značka s tímto názvem už existuje.",
+			"deleteInfo": "Značka bude odstraněna ze všech pasáží."
 		}
 	},
 	"dialogs": {

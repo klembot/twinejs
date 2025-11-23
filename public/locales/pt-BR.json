@@ -139,7 +139,8 @@
 			"loadingCount_plural": "Carregando {{loadingCount}} Formatos de História..."
 		},
 		"tagEditor": {
-			"alreadyExists": "Já existe uma etiqueta com esse nome."
+			"alreadyExists": "Já existe uma etiqueta com esse nome.",
+			"deleteInfo": "Esta etiqueta será removida de todas as passagens."
 		}
 	},
   "dialogs": {

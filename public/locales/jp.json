@@ -23,7 +23,9 @@
 		"storyCard": {},
 		"storyFormatItem": {},
 		"storyFormatSelect": {},
-		"tagEditor": {}
+		"tagEditor": {
+			"deleteInfo": "このタグはすべてのパッセージから削除されます。"
+		}
 	},
 	"dialogs": {
 		"aboutTwine": {"donateToTwine": "Twineの成長を寄付で助ける"},

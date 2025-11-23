@@ -139,7 +139,8 @@
 			"loadingCount_plural": "Loading {{loadingCount}} Formati della storia..."
 		},
 		"tagEditor": {
-			"alreadyExists": "Esiste già un tag con questo nome."
+			"alreadyExists": "Esiste già un tag con questo nome.",
+			"deleteInfo": "Il tag verrà rimosso da ogni passaggio."
 		}
 	},
 	"dialogs": {

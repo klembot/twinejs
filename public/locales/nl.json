@@ -135,7 +135,8 @@
 			"loadingCount_plural": "Laden van {{loadingCount}} verhaal formaten..."
 		},
 		"tagEditor": {
-			"alreadyExists": "Een label met deze naam bestaat al."
+			"alreadyExists": "Een label met deze naam bestaat al.",
+			"deleteInfo": "Het label wordt van elke passage verwijderd."
 		}
 	},
 	"dialogs": {

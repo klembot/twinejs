@@ -35,7 +35,9 @@
 		"storyCard": {},
 		"storyFormatItem": {},
 		"storyFormatSelect": {},
-		"tagEditor": {}
+		"tagEditor": {
+			"deleteInfo": "Ta oznaka bo odstranjena iz vseh sporočil."
+		}
 	},
 	"dialogs": {
 		"aboutTwine": {"donateToTwine": "Pomagajte pri razvoju z donacijo"},

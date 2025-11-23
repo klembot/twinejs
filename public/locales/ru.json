@@ -138,7 +138,8 @@
 			"loadingCount_plural": "Загрузка {{loadingCount}} форматов истории..."
 		},
 		"tagEditor": {
-			"alreadyExists": "Тег с таким именем уже существует."
+			"alreadyExists": "Тег с таким именем уже существует.",
+			"deleteInfo": "Этот тег будет удалён из каждого параграфа."
 		}
 	},
 	"dialogs": {

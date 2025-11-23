@@ -139,7 +139,8 @@
 			"loadingCount_plural": "载入 {{loadingCount}} 个故事格式中……"
 		},
 		"tagEditor": {
-			"alreadyExists": "已存在同名标签。"
+			"alreadyExists": "已存在同名标签。",
+			"deleteInfo": "该标签将从每个片段中移除。"
 		}
 	},
 	"dialogs": {

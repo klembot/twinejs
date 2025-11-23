@@ -149,7 +149,8 @@
 			"tagsWithCount_plural": "Tagi ({{count}})"
 		},
 		"tagEditor": {
-			"alreadyExists": "Tag o takiej nazwie już istnieje."
+			"alreadyExists": "Tag o takiej nazwie już istnieje.",
+			"deleteInfo": "Tag zostanie usunięty z każdej sceny."
 		}
 	},
 	"dialogs": {

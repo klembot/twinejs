@@ -37,7 +37,9 @@
 		"storyCard": {},
 		"storyFormatItem": {},
 		"storyFormatSelect": {},
-		"tagEditor": {}
+		"tagEditor": {
+			"deleteInfo": "La etiqueta se eliminará de cada pasaje."
+		}
 	},
 	"dialogs": {
 		"aboutTwine": {

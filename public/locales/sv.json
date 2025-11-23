@@ -37,7 +37,9 @@
 		"storyCard": {},
 		"storyFormatItem": {},
 		"storyFormatSelect": {},
-		"tagEditor": {}
+		"tagEditor": {
+			"deleteInfo": "Denna etikett kommer att tas bort från alla passager."
+		}
 	},
 	"dialogs": {
 		"aboutTwine": {

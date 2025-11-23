@@ -139,7 +139,8 @@
 			"loadingCount_plural": "Lade {{loadingCount}} Geschichtsformate..."
 		},
 		"tagEditor": {
-			"alreadyExists": "Ein Tag mit diesem Namen existiert bereits."
+			"alreadyExists": "Ein Tag mit diesem Namen existiert bereits.",
+			"deleteInfo": "Der Tag wird von allen Abschnitten entfernt."
 		}
 	},
 	"dialogs": {
