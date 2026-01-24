@@ -49,7 +49,8 @@
 			"noThanks": "Ne, hvala"
 		},
 		"appPrefs": {
-			"language": "Jezik"
+			"language": "Jezik",
+			"disableRightClickPan": "Onemogučiti premikanje z desnim klikom"
 		},
 		"passageEdit": {
 			"closeAll": "Zapri vse"

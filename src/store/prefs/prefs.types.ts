@@ -46,6 +46,10 @@ export interface PrefsState {
 	 */
 	donateShown: boolean;
 	/**
+	 * Disable right-click panning in the passage map.
+	 */
+	disableRightClickPan: boolean;
+	/**
 	 * Whether the cursor should blink in editor fields (passages, story JS, story
 	 * stylesheet).
 	 */

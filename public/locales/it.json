@@ -167,6 +167,7 @@
 				"wider": "Più largo",
 				"widest": "Il più ampio"
 			},
+			"disableRightClickPan": "Disabilita Scorrimento Clic Destro",
 			"editorCursorBlinks": "Cursore lampeggiante negli editor",
 			"fontExplanation": "Cambiare il font qui riguarda solo l'editor Twine. Non cambierà il font utilizzato da una storia quando viene riprodotta.",
 			"language": "Lingua",

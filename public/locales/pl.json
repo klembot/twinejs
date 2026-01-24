@@ -177,6 +177,7 @@
 				"wider": "Szersza",
 				"widest": "Najszersza"
 			},
+			"disableRightClickPan": "Wyłącz panoramowanie za pomocą prawego kliknięcia",
 			"editorCursorBlinks": "Migający kursor w edytorach",
 			"fontExplanation": "Zmiana czcionki dotyczy tylko edytora Twine, nie wpływa na wygląd opowieści podczas odtwarzania.",
 			"language": "Język",

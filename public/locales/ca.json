@@ -84,7 +84,8 @@
 			"noThanks": "No, gràcies"
 		},
 		"appPrefs": {
-			"language": "Llengua"
+			"language": "Llengua",
+			"disableRightClickPan": "Desactiva el desplaçament de clic dret"
 		},
 		"passageEdit": {
 			"closeAll": "Tanca tot",

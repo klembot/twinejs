@@ -156,6 +156,7 @@
 		"appPrefs": {
 			"codeEditorFont": "Police de l'éditeur de code",
 			"codeEditorFontScale": "Taille de la police de l'éditeur de code",
+			"disableRightClickPan": "Désactiver le déplacement au clic droit",
 			"editorCursorBlinks": "Curseur clignotant dans les éditeurs",
 			"fontExplanation": "Modifier la police d'écriture ici affectera uniquement l'éditeur Twine. Cela ne modifiera pas la police utilisée par une histoire lorsqu'elle est jouée.",
 			"language": "Langue",

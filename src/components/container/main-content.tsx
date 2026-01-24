@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import * as React from 'react';
+import {usePrefsContext} from '../../store/prefs';
 import {Point} from '../../util/geometry';
 import {DocumentTitle} from '../document-title/document-title';
 import './main-content.css';
@@ -14,6 +15,7 @@ export interface MainContentProps
 export const MainContent = React.forwardRef<HTMLDivElement, MainContentProps>(
 	(props, ref) => {
 		const {children, grabbable, title} = props;
+		const {prefs} = usePrefsContext();
 		const containerRef = React.useRef<HTMLDivElement>(null);
 		const className = classNames('main-content', {
 			padded: props.padded ?? true
@@ -84,15 +86,15 @@ export const MainContent = React.forwardRef<HTMLDivElement, MainContentProps>(
 				event.preventDefault();
 			}
 
-			if (grabbable && container) {
-				container.addEventListener('pointerdown', downListener);
-				container.addEventListener('contextmenu', ignoreContext);
-				return () => {
-					container.removeEventListener('pointerdown', downListener);
-					container.removeEventListener('contextmenu', ignoreContext);
-				};
-			}
-		}, [grabbable]);
+if (grabbable && container) {
+					!prefs.disableRightClickPan && container.addEventListener('pointerdown', downListener);
+					container.addEventListener('contextmenu', ignoreContext);
+					return () => {
+						!prefs.disableRightClickPan && container.removeEventListener('pointerdown', downListener);
+						container.removeEventListener('contextmenu', ignoreContext);
+					};
+				}
+			}, [grabbable, prefs.disableRightClickPan]);
 
 		return (
 			<div className={className} ref={containerRef}>

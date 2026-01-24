@@ -167,6 +167,7 @@
 				"wider": "Širší",
 				"widest": "Nejširší"
 			},
+			"disableRightClickPan": "Zakázat posouvání pravého kliknutí",
 			"editorCursorBlinks": "Blikající kurzor v editorech",
 			"fontExplanation": "Změna fontu zde ovnivní pouze uživatelské prostředí Twinu. Nezmění to font, který budou příběhy používat během přehrávání.",
 			"language": "Jazyk",

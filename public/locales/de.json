@@ -167,6 +167,7 @@
 				"wider": "Breiter",
 				"widest": "Am Breitesten"
 			},
+			"disableRightClickPan": "Rechtsklick-Panning deaktivieren",
 			"editorCursorBlinks": "Blinkender Cursor in den Editoren",
 			"fontExplanation": "Font Änderungen an dieser Stelle betreffen nur den Twine Editor. Es wird nicht der Font den eine Geschichte beim Spielen benutzt ändern.",
 			"language": "Sprache",

@@ -49,7 +49,8 @@
 			"noThanks": "Nej tak"
 		},
 		"appPrefs": {
-			"language": "Sprog"
+			"language": "Sprog",
+			"disableRightClickPan": "Deaktiver panorering med højre klik"
 		},
 		"passageEdit": {
 			"closeAll": "Luk alle"

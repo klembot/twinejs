@@ -167,6 +167,7 @@
 				"wider": "더 넓게",
 				"widest": "가장 넓게"
 			},
+			"disableRightClickPan": "오른쪽 클릭 패닝 비활성화",
 			"editorCursorBlinks": "편집기에서 커서 깜박임",
 			"fontExplanation": "여기에서 글꼴을 변경하면 Twine 편집기에만 영향을 미칩니다. 스토리를 재생할 때 사용하는 글꼴은 변경되지 않습니다.",
 			"language": "언어",

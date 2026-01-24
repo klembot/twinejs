@@ -177,6 +177,7 @@
 				"wider": "Wider",
 				"widest": "Widest"
 			},
+			"disableRightClickPan": "Disable Right-Click Panning",
 			"editorCursorBlinks": "Blinking Cursor in Editors",
 			"fontExplanation": "Changing the font here only affects the Twine editor. It will not change the font a story uses when played.",
 			"language": "Language",

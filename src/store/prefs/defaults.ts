@@ -7,6 +7,7 @@ export const defaults = (): PrefsState => ({
 	dialogWidth: 600,
 	disabledStoryFormatEditorExtensions: [],
 	donateShown: false,
+	disableRightClickPan: false,
 	editorCursorBlinks: true,
 	firstRunTime: new Date().getTime(),
 	lastUpdateSeen: '',

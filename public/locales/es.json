@@ -52,7 +52,8 @@
 			"noThanks": "No gracias"
 		},
 		"appPrefs": {
-			"language": "Idioma"
+			"language": "Idioma",
+			"disableRightClickPan": "Desactivar deplazamiento con clic derecho"
 		},
 		"passageEdit": {
 			"closeAll": "Cerrar todo"

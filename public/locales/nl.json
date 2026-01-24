@@ -163,6 +163,7 @@
 				"wider": "Breder",
 				"widest": "Breedst"
 			},
+			"disableRightClickPan": "Rechts-klikpanorering uitschakelen",
 			"editorCursorBlinks": "Knipperende Cursor in Editors",
 			"fontExplanation": "Het wijzigen van het lettertype hier heeft alleen invloed op de Twine-editor. Het verandert niet het lettertype dat een verhaal gebruikt wanneer het wordt afgespeeld.",
 			"language": "Taal",

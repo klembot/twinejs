@@ -167,6 +167,7 @@
 				"wider": "较宽",
 				"widest": "最宽"
 			},
+			"disableRightClickPan": "禁用右锫应润豬",
 			"editorCursorBlinks": "代码编辑器中的光标闪烁",
 			"fontExplanation": "此处的字体改变只影响 Twine 编辑器，游玩故事的字体不会发生改变。",
 			"language": "语言",

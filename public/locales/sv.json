@@ -52,7 +52,8 @@
 			"noThanks": "Nej tack"
 		},
 		"appPrefs": {
-			"language": "Språk"
+			"language": "Språk",
+			"disableRightClickPan": "Inaktivera högerkliksförflytt"
 		},
 		"passageEdit": {
 			"closeAll": "Stäng allt"

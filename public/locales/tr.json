@@ -166,6 +166,7 @@
 				"wider": "Daha Geniş",
 				"widest": "En Geniş"
 			},
+			"disableRightClickPan": "Sağ Tiklama Kaydırmasını Devre Dışı Bırak",
 			"editorCursorBlinks": "Düzenleyicide Yanıp Sönen İmleç",
 			"fontExplanation": "Yazı tipini burada değiştirmek yalnızca Twine düzenleyicsini etkiler. Oynatılan öykünün yazı tipi değiştirilmez.",
 			"language": "Dil",

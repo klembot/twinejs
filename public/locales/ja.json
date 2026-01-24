@@ -177,6 +177,7 @@
 				"wider": "広い",
 				"widest": "最も広い"
 			},
+			"disableRightClickPan": "右クリックパンを無効化",
 			"editorCursorBlinks": "エディターでカーソルを点滅させる",
 			"fontExplanation": "ここでのフォント変更はTwineエディターにのみ適用されます。再生時のストーリーのフォントは変わりません。",
 			"language": "言語",

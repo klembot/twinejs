@@ -119,6 +119,7 @@ export function fakePrefs(overrides?: Partial<PrefsState>): PrefsState {
 		disabledStoryFormatEditorExtensions: [
 			{name: faker.lorem.words(2), version: faker.system.semver()}
 		],
+		disableRightClickPan: faker.datatype.boolean(),
 		donateShown: faker.datatype.boolean(),
 		editorCursorBlinks: faker.datatype.boolean(),
 		firstRunTime: new Date().getTime(),

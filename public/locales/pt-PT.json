@@ -167,6 +167,7 @@
 				"wider": "Larga",
 				"widest": "Mais Larga"
 			},
+			"disableRightClickPan": "Desativar movimento com botão direito",
 			"editorCursorBlinks": "O Cursor Pisca nos Editores",
 			"fontExplanation": "Alterar a fonte aqui, afeta apenas o editor do Twine. A fonte usada na história não será alterada.",
 			"language": "Língua",
