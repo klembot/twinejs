@@ -179,6 +179,7 @@
 			"title": "Nastavení"
 		},
 		"passageEdit": {
+			"closeAll": "Zavřít všechny",
 			"editorCrashed": "Něco se s tímto editorem pokazilo. Zkuste ho zavřit a tuto pasáž znovu upravit.",
 			"passageTextEditorLabel": "Text pasáže",
 			"passageTextPlaceholder": "Zadejte sem text vaší pasáže. K vytvoření odkazu na jinou pasáž napište její název a obklopte ho [[dvěmi hranatými závorkami]].",

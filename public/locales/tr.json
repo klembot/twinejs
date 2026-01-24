@@ -178,6 +178,7 @@
 			"title": "Tercihler"
 		},
 		"passageEdit": {
+			"closeAll": "Hepsini Kapat",
 			"editorCrashed": "Bu düzenleyicide bir şeyler ters gitti. Kapatıp yeniden açmayı deneyin.",
 			"passageTextEditorLabel": "Bölüm Metni",
 			"passageTextPlaceholder": "Bölümün metnini buraya yazın. Başka bir bölüme bağlantı oluşturmak için [[bunun gibi]] etrafına ikişer köşeli parantez koyun.",
@@ -233,7 +234,11 @@
 			},
 			"noneVisible": "Seçtiğiniz kriterlere uygun öykü biçimi bulunmamaktadır."
 		},
-		"storyInfo": {"stats": {"title": "Öykü İstatistikleri"}},
+		"storyInfo": {
+			"stats": {
+				"title": "Öykü İstatistikleri"
+			}
+		},
 		"storyJavaScript": {
 			"editorLabel": "Öykü JavaScript'i",
 			"title": "Öykü JavaScript'i",
@@ -399,8 +404,12 @@
 		"passageDefaults": {
 			"name": "Adsız Bölüm"
 		},
-		"storyDefaults": {"name": "Adsız Öykü"},
-		"storyFormatDefaults": {"name": "Adsız Öykü Biçimi"}
+		"storyDefaults": {
+			"name": "Adsız Öykü"
+		},
+		"storyFormatDefaults": {
+			"name": "Adsız Öykü Biçimi"
+		}
 	},
 	"undoChange": {
 		"addTag": "Etiket Ekleme",

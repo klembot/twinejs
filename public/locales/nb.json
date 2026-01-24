@@ -20,15 +20,21 @@
 	"components": {
 		"addStoryFormatButton": {},
 		"addTagButton": {},
-		"fontSelect": {"fonts": {}},
+		"fontSelect": {
+			"fonts": {}
+		},
 		"indentButtons": {},
 		"localStorageQuota": {},
 		"passageCard": {
 			"placeholderClick": "Dobbeltklikk på denne passasjen for å redigere det.",
 			"placeholderTouch": "Klikk på denne passasjen, og deretter blyantikonet for å redigere det."
 		},
-		"renamePassageButton": {"emptyName": "Vennligst skriv inn et navn."},
-		"renameStoryButton": {"emptyName": "Vennligst skriv inn et navn."},
+		"renamePassageButton": {
+			"emptyName": "Vennligst skriv inn et navn."
+		},
+		"renameStoryButton": {
+			"emptyName": "Vennligst skriv inn et navn."
+		},
 		"safariWarningCard": {},
 		"storyCard": {},
 		"storyFormatItem": {},
@@ -36,24 +42,43 @@
 		"tagEditor": {}
 	},
 	"dialogs": {
-		"aboutTwine": {"donateToTwine": "Hjelp Twine ved å gi en donasjon"},
-		"appDonation": {"noThanks": "Nei takk"},
-		"appPrefs": {"language": "Språk"},
-		"passageEdit": {},
+		"aboutTwine": {
+			"donateToTwine": "Hjelp Twine ved å gi en donasjon"
+		},
+		"appDonation": {
+			"noThanks": "Nei takk"
+		},
+		"appPrefs": {
+			"language": "Språk"
+		},
+		"passageEdit": {
+			"closeAll": "Lukk alle"
+		},
 		"passageTags": {},
-		"storyInfo": {"stats": {"title": "Historiestatistikk"}},
+		"storyInfo": {
+			"stats": {
+				"title": "Historiestatistikk"
+			}
+		},
 		"storyJavaScript": {
 			"explanation": "Alle JavaScript som er lagt til her, vil umiddelbart kjøre når historien din åpnes i en nettleser."
 		},
-		"storySearch": {"title": "Finn og erstatt", "replaceWith": "Erstatt med"},
+		"storySearch": {
+			"title": "Finn og erstatt",
+			"replaceWith": "Erstatt med"
+		},
 		"storyStylesheet": {
 			"explanation": "All CSS-kode som er lagt til her, vil tilsidesette standardutseendet til historien din."
 		},
 		"storyTags": {}
 	},
 	"electron": {
-		"errors": {"storyFileChangedExternally": {}},
-		"menuBar": {"edit": "Rediger"},
+		"errors": {
+			"storyFileChangedExternally": {}
+		},
+		"menuBar": {
+			"edit": "Rediger"
+		},
 		"storiesDirectoryName": "Historier"
 	},
 	"routes": {
@@ -94,8 +119,14 @@
 		"passageDefaults": {
 			"name": "Passasje uten navn"
 		},
-		"storyDefaults": {"name": "Historie uten navn"},
-		"storyFormatDefaults": {"name": "Historieformat uten navn"}
+		"storyDefaults": {
+			"name": "Historie uten navn"
+		},
+		"storyFormatDefaults": {
+			"name": "Historieformat uten navn"
+		}
 	},
-	"undoChange": {"replaceAllText": "Erstatt alle"}
+	"undoChange": {
+		"replaceAllText": "Erstatt alle"
+	}
 }

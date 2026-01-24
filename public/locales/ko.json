@@ -179,6 +179,7 @@
 			"title": "환경 설정"
 		},
 		"passageEdit": {
+			"closeAll": "모두 닫기",
 			"editorCrashed": "편집기에 문제가 발생했습니다. 닫고 이 구절을 다시 편집해 보세요.",
 			"passageTextEditorLabel": "구절 텍스트",
 			"passageTextPlaceholder": "여기에 본문 텍스트를 입력하세요. 다른 구절로 연결하려면 [[이와 같이]] 이름을 두 개의 대괄호로 묶으세요.",

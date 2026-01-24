@@ -175,6 +175,7 @@
 			"title": "Voorkeuren"
 		},
 		"passageEdit": {
+			"closeAll": "Sluit alles",
 			"editorCrashed": "Er is iets misgegaan met deze editor. Probeer het te sluiten en deze passage opnieuw te bewerken.",
 			"passageTextEditorLabel": "Passage Text",
 			"passageTextPlaceholder": "Voer hier de tekst van uw passage in. Zet twee brackets om de naam om naar een andere passage te linken, [[zoals dit bijvoorbeeld]].",

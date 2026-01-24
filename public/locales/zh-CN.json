@@ -179,6 +179,7 @@
 			"title": "偏好设置"
 		},
 		"passageEdit": {
+			"closeAll": "关闭全部",
 			"editorCrashed": "编辑器遇到了一些错误。尝试关闭它并重新编辑这个片段。",
 			"passageTextEditorLabel": "片段文本",
 			"passageTextPlaceholder": "在这里输入您的片段的文本。要链接到其他片段需要在它名字前后加两个方括号，[[就像这样]]。",
@@ -291,7 +292,7 @@
 			"error": "在检查Twine更新版本时遇到了错误。",
 			"updateAvailable": "较新版本的Twine现已可用。",
 			"upToDate": "已经是Twine可用的最新版本。"
-		}		
+		}
 	},
 	"routes": {
 		"storyEdit": {

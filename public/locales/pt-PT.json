@@ -179,6 +179,7 @@
 			"title": "Preferências"
 		},
 		"passageEdit": {
+			"closeAll": "Fechar tudo",
 			"editorCrashed": "Alguma coisa esquisita aconteceu com o editor. Tenta fechá-lo e editar a passagem outra vez.",
 			"passageTextEditorLabel": "Texto da Passagem",
 			"passageTextPlaceholder": "Escreve o texto da passagem aqui. Para ligares a outra passagem, envolve uma letra, palavra ou expressão com dois colchetes, [[desta maneira]].",
@@ -391,7 +392,7 @@
 			"storyFormats": "Formatos de História"
 		},
 		"build": {
-			"exportAsTwee": "Exportar para o formato Twee",			
+			"exportAsTwee": "Exportar para o formato Twee",
 			"play": "Jogar",
 			"proof": "Rever",
 			"publishToFile": "Publicar para Ficheiro",

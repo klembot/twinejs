@@ -190,6 +190,7 @@
 			"useEnhancedEditors": "Używaj rozszerzonych edytorów"
 		},
 		"passageEdit": {
+			"closeAll": "Zamknij wszystko",
 			"editorCrashed": "Wystąpił błąd w edytorze. Spróbuj zamknąć i ponownie otworzyć tę scenę.",
 			"passageTextEditorLabel": "Tekst sceny",
 			"passageTextPlaceholder": "Wpisz tutaj treść sceny. Aby dodać link do innej sceny, umieść jej nazwę w podwójnych nawiasach kwadratowych [[w ten sposób]].",

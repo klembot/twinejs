@@ -179,6 +179,7 @@
 			"title": "Einstellungen"
 		},
 		"passageEdit": {
+			"closeAll": "Alle schließen",
 			"editorCrashed": "Etwas ist mit diesem Editor schief gelaufen. Versuche ihn zu schließen und editiere diesen Abschnitt nochmal.",
 			"passageTextEditorLabel": "Text des Abschnitts",
 			"passageTextPlaceholder": "Gebe den Text deines Abschnitts hier ein. Um einen anderen Abschnitt zu verlinken setze zwei eckige Klammern um dessen Namen, [[sowie hier]].",

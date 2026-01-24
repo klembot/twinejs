@@ -20,15 +20,21 @@
 	"components": {
 		"addStoryFormatButton": {},
 		"addTagButton": {},
-		"fontSelect": {"fonts": {}},
+		"fontSelect": {
+			"fonts": {}
+		},
 		"indentButtons": {},
 		"localStorageQuota": {},
 		"passageCard": {
 			"placeholderClick": "Dvakrat kliknite to sporočilo, da ga uredite.",
 			"placeholderTouch": "Kliknite to sporočilo, potem pa še ikono s svinčnikom, da ga uredite."
 		},
-		"renamePassageButton": {"emptyName": "Prosim, vnesite ime."},
-		"renameStoryButton": {"emptyName": "Prosim, vnesite ime."},
+		"renamePassageButton": {
+			"emptyName": "Prosim, vnesite ime."
+		},
+		"renameStoryButton": {
+			"emptyName": "Prosim, vnesite ime."
+		},
 		"safariWarningCard": {},
 		"storyCard": {},
 		"storyFormatItem": {},
@@ -36,24 +42,43 @@
 		"tagEditor": {}
 	},
 	"dialogs": {
-		"aboutTwine": {"donateToTwine": "Pomagajte pri razvoju z donacijo"},
-		"appDonation": {"noThanks": "Ne, hvala"},
-		"appPrefs": {"language": "Jezik"},
-		"passageEdit": {},
+		"aboutTwine": {
+			"donateToTwine": "Pomagajte pri razvoju z donacijo"
+		},
+		"appDonation": {
+			"noThanks": "Ne, hvala"
+		},
+		"appPrefs": {
+			"language": "Jezik"
+		},
+		"passageEdit": {
+			"closeAll": "Zapri vse"
+		},
 		"passageTags": {},
-		"storyInfo": {"stats": {"title": "Statistika zgodbe"}},
+		"storyInfo": {
+			"stats": {
+				"title": "Statistika zgodbe"
+			}
+		},
 		"storyJavaScript": {
 			"explanation": "Kakršna koli JavaScrip koda, ki jo vnesete sem, se bo izvedla takoj, ko zgodbo odprete v spletnem brskalniku."
 		},
-		"storySearch": {"title": "Najdi in zamenjaj", "replaceWith": "Zamenjaj z"},
+		"storySearch": {
+			"title": "Najdi in zamenjaj",
+			"replaceWith": "Zamenjaj z"
+		},
 		"storyStylesheet": {
 			"explanation": "Kakršni koli slogi CSS, ki jih vnesete sem, bodo spremenili privzeti videz vaše zgodbe."
 		},
 		"storyTags": {}
 	},
 	"electron": {
-		"errors": {"storyFileChangedExternally": {}},
-		"menuBar": {"edit": "Uredi"},
+		"errors": {
+			"storyFileChangedExternally": {}
+		},
+		"menuBar": {
+			"edit": "Uredi"
+		},
 		"storiesDirectoryName": "Zgodbe"
 	},
 	"routes": {
@@ -94,8 +119,14 @@
 		"passageDefaults": {
 			"name": "Neimenovan prehod"
 		},
-		"storyDefaults": {"name": "Neimenovana zgodba"},
-		"storyFormatDefaults": {"name": "Neimenovan zgodbeni format"}
+		"storyDefaults": {
+			"name": "Neimenovana zgodba"
+		},
+		"storyFormatDefaults": {
+			"name": "Neimenovan zgodbeni format"
+		}
 	},
-	"undoChange": {"replaceAllText": "Zamenjaj vse"}
+	"undoChange": {
+		"replaceAllText": "Zamenjaj vse"
+	}
 }

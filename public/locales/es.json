@@ -22,15 +22,21 @@
 			"prompt": "Para añadir un formato de historia, ingresa su dirección URL abajo."
 		},
 		"addTagButton": {},
-		"fontSelect": {"fonts": {}},
+		"fontSelect": {
+			"fonts": {}
+		},
 		"indentButtons": {},
 		"localStorageQuota": {},
 		"passageCard": {
 			"placeholderClick": "Haz doble clic sobre este pasaje para editarlo.",
 			"placeholderTouch": "Toca este pasaje, luego el ícono de lápiz para editarlo."
 		},
-		"renamePassageButton": {"emptyName": "Por favor ingresa un nombre."},
-		"renameStoryButton": {"emptyName": "Por favor ingresa un nombre."},
+		"renamePassageButton": {
+			"emptyName": "Por favor ingresa un nombre."
+		},
+		"renameStoryButton": {
+			"emptyName": "Por favor ingresa un nombre."
+		},
 		"safariWarningCard": {},
 		"storyCard": {},
 		"storyFormatItem": {},
@@ -42,11 +48,21 @@
 			"donateToTwine": "Ayuda a Twine a crecer con una donación",
 			"codeHeader": "Programación"
 		},
-		"appDonation": {"noThanks": "No gracias"},
-		"appPrefs": {"language": "Idioma"},
-		"passageEdit": {},
+		"appDonation": {
+			"noThanks": "No gracias"
+		},
+		"appPrefs": {
+			"language": "Idioma"
+		},
+		"passageEdit": {
+			"closeAll": "Cerrar todo"
+		},
 		"passageTags": {},
-		"storyInfo": {"stats": {"title": "Estadísticas de la historia"}},
+		"storyInfo": {
+			"stats": {
+				"title": "Estadísticas de la historia"
+			}
+		},
 		"storyJavaScript": {
 			"explanation": "Cualquier código JavaScript ingresado aquí se ejecutará inmediatamente cuando se abra tu historia en un navegador web."
 		},
@@ -60,8 +76,12 @@
 		"storyTags": {}
 	},
 	"electron": {
-		"errors": {"storyFileChangedExternally": {}},
-		"menuBar": {"edit": "Editar"},
+		"errors": {
+			"storyFileChangedExternally": {}
+		},
+		"menuBar": {
+			"edit": "Editar"
+		},
 		"storiesDirectoryName": "Historias"
 	},
 	"routes": {
@@ -102,8 +122,14 @@
 		"passageDefaults": {
 			"name": "Pasaje sin título"
 		},
-		"storyDefaults": {"name": "Historia sin título"},
-		"storyFormatDefaults": {"name": "Formato de historia sin título"}
+		"storyDefaults": {
+			"name": "Historia sin título"
+		},
+		"storyFormatDefaults": {
+			"name": "Formato de historia sin título"
+		}
 	},
-	"undoChange": {"replaceAllText": "Reemplazar todo"}
+	"undoChange": {
+		"replaceAllText": "Reemplazar todo"
+	}
 }

@@ -1,5 +1,5 @@
 {
-	"colors": {		
+	"colors": {
 		"none": "Aucune",
 		"red": "Rouge",
 		"orange": "Orange",
@@ -168,6 +168,7 @@
 			"title": "Préférences"
 		},
 		"passageEdit": {
+			"closeAll": "Fermer tout",
 			"editorCrashed": "Un problème est survenu avec cet éditeur. Essayez de le fermer et d'éditeur à nouveau ce passage.",
 			"passageTextEditorLabel": "Texte du Passage",
 			"passageTextPlaceholder": "Entrez le corps de votre passage ici. Pour faire un lien avec un autre passage, entourez son nom entre deux paires de crochets, [[comme ceci]].",
@@ -228,7 +229,6 @@
 			"noTags": "Aucune balise n'a été ajoutée à votre histoire.",
 			"title": "Balises de l'histoire"
 		},
-
 		"storyImport": {
 			"deselectAll": "Désélectionner tout",
 			"filePrompt": "Pour importer une histoire dans Twine, téléchargez une archive ou une histoire publiée.",

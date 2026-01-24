@@ -22,15 +22,21 @@
 			"prompt": "Lisää tarinamuotoilu kirjoittamalla alle sen osoite."
 		},
 		"addTagButton": {},
-		"fontSelect": {"fonts": {}},
+		"fontSelect": {
+			"fonts": {}
+		},
 		"indentButtons": {},
 		"localStorageQuota": {},
 		"passageCard": {
 			"placeholderClick": "Kaksoisnapsauta lukua muokataksesi sitä.",
 			"placeholderTouch": "Napsauta tätä kappaletta ja sitten kynäkuvaketta muokataksesi sitä."
 		},
-		"renamePassageButton": {"emptyName": "Anna nimi."},
-		"renameStoryButton": {"emptyName": "Anna nimi."},
+		"renamePassageButton": {
+			"emptyName": "Anna nimi."
+		},
+		"renameStoryButton": {
+			"emptyName": "Anna nimi."
+		},
 		"safariWarningCard": {},
 		"storyCard": {},
 		"storyFormatItem": {},
@@ -42,11 +48,21 @@
 			"donateToTwine": "Auta Twineä kasvamaan lahjoittamalla",
 			"codeHeader": "Koodi"
 		},
-		"appDonation": {"noThanks": "Ei kiitos"},
-		"appPrefs": {"language": "Kieli"},
-		"passageEdit": {},
+		"appDonation": {
+			"noThanks": "Ei kiitos"
+		},
+		"appPrefs": {
+			"language": "Kieli"
+		},
+		"passageEdit": {
+			"closeAll": "Sulje kaikki"
+		},
 		"passageTags": {},
-		"storyInfo": {"stats": {"title": "Tarinan tilastotietoja"}},
+		"storyInfo": {
+			"stats": {
+				"title": "Tarinan tilastotietoja"
+			}
+		},
 		"storyJavaScript": {
 			"explanation": "Tähän kirjoitettu JavaScript-koodi suoriteen heti, kun tarina avataan selaimeen."
 		},
@@ -60,8 +76,12 @@
 		"storyTags": {}
 	},
 	"electron": {
-		"errors": {"storyFileChangedExternally": {}},
-		"menuBar": {"edit": "Muokkaa"},
+		"errors": {
+			"storyFileChangedExternally": {}
+		},
+		"menuBar": {
+			"edit": "Muokkaa"
+		},
 		"storiesDirectoryName": "Tarinat"
 	},
 	"routes": {
@@ -102,8 +122,14 @@
 		"passageDefaults": {
 			"name": "Nimetön kappale"
 		},
-		"storyDefaults": {"name": "Nimetön tarina"},
-		"storyFormatDefaults": {"name": "Nimetön tarinamuotoilu"}
+		"storyDefaults": {
+			"name": "Nimetön tarina"
+		},
+		"storyFormatDefaults": {
+			"name": "Nimetön tarinamuotoilu"
+		}
 	},
-	"undoChange": {"replaceAllText": "Korvaa kaikki"}
+	"undoChange": {
+		"replaceAllText": "Korvaa kaikki"
+	}
 }

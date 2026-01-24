@@ -20,15 +20,21 @@
 	"components": {
 		"addStoryFormatButton": {},
 		"addTagButton": {},
-		"fontSelect": {"fonts": {}},
+		"fontSelect": {
+			"fonts": {}
+		},
 		"indentButtons": {},
 		"localStorageQuota": {},
 		"passageCard": {
 			"placeholderClick": "Dobbeltklik på denne passage for at redigere den.",
 			"placeholderTouch": "Tryk på denne passage og derefter på blyantikonet for at redigere den."
 		},
-		"renamePassageButton": {"emptyName": "Indtast et navn."},
-		"renameStoryButton": {"emptyName": "Indtast et navn."},
+		"renamePassageButton": {
+			"emptyName": "Indtast et navn."
+		},
+		"renameStoryButton": {
+			"emptyName": "Indtast et navn."
+		},
 		"safariWarningCard": {},
 		"storyCard": {},
 		"storyFormatItem": {},
@@ -39,23 +45,40 @@
 		"aboutTwine": {
 			"donateToTwine": "Hjælp Twine med at vokse ved at give en donation"
 		},
-		"appDonation": {"noThanks": "Nej tak"},
-		"appPrefs": {"language": "Sprog"},
-		"passageEdit": {},
+		"appDonation": {
+			"noThanks": "Nej tak"
+		},
+		"appPrefs": {
+			"language": "Sprog"
+		},
+		"passageEdit": {
+			"closeAll": "Luk alle"
+		},
 		"passageTags": {},
-		"storyInfo": {"stats": {"title": "Historiestatistikker"}},
+		"storyInfo": {
+			"stats": {
+				"title": "Historiestatistikker"
+			}
+		},
 		"storyJavaScript": {
 			"explanation": "Javascript indtastet her vil blive kørt med det samme når din historie åbnes i en browser."
 		},
-		"storySearch": {"title": "Søg og erstat", "replaceWith": "Erstat med"},
+		"storySearch": {
+			"title": "Søg og erstat",
+			"replaceWith": "Erstat med"
+		},
 		"storyStylesheet": {
 			"explanation": "CSS indtastet her vil overskrive standardudseendet på din historie."
 		},
 		"storyTags": {}
 	},
 	"electron": {
-		"errors": {"storyFileChangedExternally": {}},
-		"menuBar": {"edit": "Redigér"},
+		"errors": {
+			"storyFileChangedExternally": {}
+		},
+		"menuBar": {
+			"edit": "Redigér"
+		},
 		"storiesDirectoryName": "Historier"
 	},
 	"routes": {
@@ -96,8 +119,14 @@
 		"passageDefaults": {
 			"name": "Unavngiven passage"
 		},
-		"storyDefaults": {"name": "Unavngiven historie"},
-		"storyFormatDefaults": {"name": "Unavngivet historieformat"}
+		"storyDefaults": {
+			"name": "Unavngiven historie"
+		},
+		"storyFormatDefaults": {
+			"name": "Unavngivet historieformat"
+		}
 	},
-	"undoChange": {"replaceAllText": "Erstat alle"}
+	"undoChange": {
+		"replaceAllText": "Erstat alle"
+	}
 }

@@ -16,6 +16,7 @@ import {SelectAllPassagesButton} from './select-all-passages-button';
 import {DeselectAllPassagesButton} from './deselect-all-passages-button';
 import {StartAtPassageButton} from './start-at-passage-button';
 import {TestPassageButton} from './test-passage-button';
+import {CloseAllPassagesButton} from './close-all-passages-button';
 
 export interface PassageActionsProps {
 	getCenter: () => Point;
@@ -66,6 +67,7 @@ export const PassageActions: React.FC<PassageActionsProps> = props => {
 				story={story}
 				selectedPassages={selectedPassages}
 			/>
+			<CloseAllPassagesButton />
 		</ButtonBar>
 	);
 };

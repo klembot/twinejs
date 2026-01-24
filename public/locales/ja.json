@@ -190,6 +190,7 @@
 			"useEnhancedEditors": "拡張エディターを使用"
 		},
 		"passageEdit": {
+			"closeAll": "すべて閉じる",
 			"editorCrashed": "このエディターで問題が発生しました。閉じてからこのパッセージを編集し直してください。",
 			"passageTextEditorLabel": "パッセージ本文",
 			"passageTextPlaceholder": "ここにパッセージの本文を入力します。別のパッセージへリンクするには、名前を二重角括弧で囲みます（[[例]]）。",

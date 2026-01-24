@@ -22,15 +22,21 @@
 			"prompt": "För att lägga till ett historieformat, skriv in dess adress nedan."
 		},
 		"addTagButton": {},
-		"fontSelect": {"fonts": {}},
+		"fontSelect": {
+			"fonts": {}
+		},
 		"indentButtons": {},
 		"localStorageQuota": {},
 		"passageCard": {
 			"placeholderClick": "Dubbelklicka på den här passagen för att ändra den.",
 			"placeholderTouch": "Klicka på den här passagen och sen på penna-ikonen för att ändra den."
 		},
-		"renamePassageButton": {"emptyName": "Var snäll och skriv ett namn."},
-		"renameStoryButton": {"emptyName": "Var snäll och skriv ett namn."},
+		"renamePassageButton": {
+			"emptyName": "Var snäll och skriv ett namn."
+		},
+		"renameStoryButton": {
+			"emptyName": "Var snäll och skriv ett namn."
+		},
 		"safariWarningCard": {},
 		"storyCard": {},
 		"storyFormatItem": {},
@@ -42,23 +48,40 @@
 			"donateToTwine": "Hjälp Twine att växa med en donation",
 			"codeHeader": "Kod"
 		},
-		"appDonation": {"noThanks": "Nej tack"},
-		"appPrefs": {"language": "Språk"},
-		"passageEdit": {},
+		"appDonation": {
+			"noThanks": "Nej tack"
+		},
+		"appPrefs": {
+			"language": "Språk"
+		},
+		"passageEdit": {
+			"closeAll": "Stäng allt"
+		},
 		"passageTags": {},
-		"storyInfo": {"stats": {"title": "Statestik för historien"}},
+		"storyInfo": {
+			"stats": {
+				"title": "Statestik för historien"
+			}
+		},
 		"storyJavaScript": {
 			"explanation": "JavaScripts som skrivs in här kommer att köras omedelbart när din historia öppnas i en webläsare."
 		},
-		"storySearch": {"title": "Sök och ersätt", "replaceWith": "Ersätt med"},
+		"storySearch": {
+			"title": "Sök och ersätt",
+			"replaceWith": "Ersätt med"
+		},
 		"storyStylesheet": {
 			"explanation": "Om CSS-kod skrivs in här kommer den att gå före det övergipande utseendet för din historia."
 		},
 		"storyTags": {}
 	},
 	"electron": {
-		"errors": {"storyFileChangedExternally": {}},
-		"menuBar": {"edit": "Ändra"},
+		"errors": {
+			"storyFileChangedExternally": {}
+		},
+		"menuBar": {
+			"edit": "Ändra"
+		},
 		"storiesDirectoryName": "Historier"
 	},
 	"routes": {
@@ -99,8 +122,14 @@
 		"passageDefaults": {
 			"name": "Passage utan namn"
 		},
-		"storyDefaults": {"name": "Historia utan namn"},
-		"storyFormatDefaults": {"name": "Historieformat utan namn"}
+		"storyDefaults": {
+			"name": "Historia utan namn"
+		},
+		"storyFormatDefaults": {
+			"name": "Historieformat utan namn"
+		}
 	},
-	"undoChange": {"replaceAllText": "Ersätt alla"}
+	"undoChange": {
+		"replaceAllText": "Ersätt alla"
+	}
 }

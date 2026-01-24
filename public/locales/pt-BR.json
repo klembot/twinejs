@@ -1,59 +1,59 @@
 {
-  "colors": {
-    "none": "Sem Cor",
-    "red": "Vermelho",
-    "orange": "Laranja",
-    "yellow": "Amarelo",
-    "green": "Verde",
-    "blue": "Azul",
-    "purple": "Roxo"
-  },
-  "common": {
-    "add": "Adicionar",
-    "appName": "Twine",
-    "back": "Voltar",
-    "build": "Compilar",
-    "cancel": "Cancelar",
-    "close": "Fechar",
-    "color": "Cor",
-    "create": "Criar",
-    "custom": "Personalizado",
-    "delete": "Excluir",
-    "deleteCount": "Excluir ({{count}})",
-	"deselectAll": "Desmarcar Tudo",
-    "details": "Detalhes",
-    "duplicate": "Duplicar",
-    "edit": "Editar",
-    "editCount": "Editar ({{count}})",
-    "help": "Ajuda",
-    "import": "Importar",
-    "maximize": "Maximizar",
-    "more": "Mais",
-    "new": "Novo",
-    "next": "Seguinte",
-    "ok": "OK",
-    "passage": "Passagem",
-    "play": "Jogar",
-    "preferences": "Preferências",
-    "publishToFile": "Publicar para Arquivo",
-    "redo": "Refazer",
-    "redoChange": "Refazer {{change}}",
-    "rename": "Renomear",
-    "renamePrompt": "Qual será o novo nome da história “{{name}}”?",
-    "remove": "Remover",
-    "selectAll": "Selecionar Tudo",
-    "skip": "Pular",
-    "story": "História",
-    "storyFormat": "Formato da História",
-    "tag": "Etiqueta",
-    "test": "Testar",
-    "twine": "Twine",
-    "undo": "Desfazer",
-    "undoChange": "Desfazer {{change}}",
-    "unmaximize": "Restaurar Tamanho",
-    "view": "Exibir"
-  },
-  "components": {
+	"colors": {
+		"none": "Sem Cor",
+		"red": "Vermelho",
+		"orange": "Laranja",
+		"yellow": "Amarelo",
+		"green": "Verde",
+		"blue": "Azul",
+		"purple": "Roxo"
+	},
+	"common": {
+		"add": "Adicionar",
+		"appName": "Twine",
+		"back": "Voltar",
+		"build": "Compilar",
+		"cancel": "Cancelar",
+		"close": "Fechar",
+		"color": "Cor",
+		"create": "Criar",
+		"custom": "Personalizado",
+		"delete": "Excluir",
+		"deleteCount": "Excluir ({{count}})",
+		"deselectAll": "Desmarcar Tudo",
+		"details": "Detalhes",
+		"duplicate": "Duplicar",
+		"edit": "Editar",
+		"editCount": "Editar ({{count}})",
+		"help": "Ajuda",
+		"import": "Importar",
+		"maximize": "Maximizar",
+		"more": "Mais",
+		"new": "Novo",
+		"next": "Seguinte",
+		"ok": "OK",
+		"passage": "Passagem",
+		"play": "Jogar",
+		"preferences": "Preferências",
+		"publishToFile": "Publicar para Arquivo",
+		"redo": "Refazer",
+		"redoChange": "Refazer {{change}}",
+		"rename": "Renomear",
+		"renamePrompt": "Qual será o novo nome da história “{{name}}”?",
+		"remove": "Remover",
+		"selectAll": "Selecionar Tudo",
+		"skip": "Pular",
+		"story": "História",
+		"storyFormat": "Formato da História",
+		"tag": "Etiqueta",
+		"test": "Testar",
+		"twine": "Twine",
+		"undo": "Desfazer",
+		"undoChange": "Desfazer {{change}}",
+		"unmaximize": "Restaurar Tamanho",
+		"view": "Exibir"
+	},
+	"components": {
 		"addTagButton": {
 			"alreadyAdded": "Este nome de etiqueta já está sendo usado.",
 			"addLabel": "Adicionar etiqueta",
@@ -141,7 +141,7 @@
 			"alreadyExists": "Já existe uma etiqueta com esse nome."
 		}
 	},
-  "dialogs": {
+	"dialogs": {
 		"aboutTwine": {
 			"donateToTwine": "Ajude o Twine a Crescer com uma Doação",
 			"codeHeader": "Código",
@@ -179,6 +179,7 @@
 			"title": "Preferências"
 		},
 		"passageEdit": {
+			"closeAll": "Fechar tudo",
 			"editorCrashed": "Algo deu errado com o editor. Tente fechá-lo e editar a passagem novamente.",
 			"passageTextEditorLabel": "Texto da Passagem",
 			"passageTextPlaceholder": "Escreva o texto da passagem aqui. Para ligá-lo a outra passagem, coloque dois colchetes ao redor do nome, [[desta maneira]].",
@@ -261,55 +262,55 @@
 			"title": "Etiquetas de História"
 		}
 	},
-  "electron": {
-    "backupsDirectoryName": "Cópias de Segurança",
-    "errors": {
-      "jsonSave": "Algo deu errado ao salvar o arquivo de configurações.",
-      "storyFileChangedExternally": {
-        "message": "O arquivo “{{fileName}}” da sua biblioteca de histórias foi alterado fora do Twine.",
-        "detail": "Salvar as alterações irá sobrescrever este arquivo. Se quiser usar este arquivo em vez da versão que já está no Twine, o Twine será reiniciado e o seu trabalho será substituído pelo do ficheiro.",
-        "overwriteChoice": "Salvar as Alterações no Twine",
-        "relaunchChoice": "Usar o Arquivo e Reiniciar"
-      },
-      "storyLibraryFolderAppPref": {
-        "detail": "O Twine tentou abrir: {{path}}.",
-        "message": "Não foi possível abrir a pasta que você escolheu para a sua biblioteca de histórias.",
-        "useDefault": "Usar a Pasta Padrão",
-        "quit": "Sair"
-      },
-      "storyDelete": "Algo deu errado ao excluir a história.",
-      "storyRename": "Algo deu errado ao alterar o título da história.",
-      "storySave": "Algo deu errado ao salvar a história."
-    },
-    "menuBar": {
-      "checkForUpdates": "Verificar se há Atualizações...",
-      "disableHardwareAcceleration": "Desligar a Aceleração de Hardware",
-      "edit": "Editar",
-      "setStoryLibraryFolder": "Definir a Pasta da Biblioteca de Histórias...",
-      "showDevTools": "Mostrar o Console de Depuração",
-      "showStoryLibrary": "Mostrar a Biblioteca de Histórias",
-      "speech": "Fala",
-      "troubleshooting": "Resolução de Problemas",
-      "twineHelp": "Ajuda do Twine",
-      "view": "Exibir"
-    },
-    "relaunchDialog": {
-      "defaultPrompt": "Esta alteração produzirá efeitos da próxima vez que o Twine for inciado.",
-      "relaunchNow": "Reiniciar Agora"
-    },
-    "scratchDirectoryName": "Rejeitados",
-    "storiesDirectoryName": "Histórias",
-    "updateCheck": {
-      "download": "Baixar",
-      "error": "Algo deu errado ao verificar se há uma nova versão do Twine.",
-      "updateAvailable": "Há uma versão mais recente do Twine disponível.",
-      "upToDate": "Você está usando a versão mais recente do Twine."
-    },
-    "userCss": {
-      "filename": "user.css"
-    }
-  },
-  "routes": {
+	"electron": {
+		"backupsDirectoryName": "Cópias de Segurança",
+		"errors": {
+			"jsonSave": "Algo deu errado ao salvar o arquivo de configurações.",
+			"storyFileChangedExternally": {
+				"message": "O arquivo “{{fileName}}” da sua biblioteca de histórias foi alterado fora do Twine.",
+				"detail": "Salvar as alterações irá sobrescrever este arquivo. Se quiser usar este arquivo em vez da versão que já está no Twine, o Twine será reiniciado e o seu trabalho será substituído pelo do ficheiro.",
+				"overwriteChoice": "Salvar as Alterações no Twine",
+				"relaunchChoice": "Usar o Arquivo e Reiniciar"
+			},
+			"storyLibraryFolderAppPref": {
+				"detail": "O Twine tentou abrir: {{path}}.",
+				"message": "Não foi possível abrir a pasta que você escolheu para a sua biblioteca de histórias.",
+				"useDefault": "Usar a Pasta Padrão",
+				"quit": "Sair"
+			},
+			"storyDelete": "Algo deu errado ao excluir a história.",
+			"storyRename": "Algo deu errado ao alterar o título da história.",
+			"storySave": "Algo deu errado ao salvar a história."
+		},
+		"menuBar": {
+			"checkForUpdates": "Verificar se há Atualizações...",
+			"disableHardwareAcceleration": "Desligar a Aceleração de Hardware",
+			"edit": "Editar",
+			"setStoryLibraryFolder": "Definir a Pasta da Biblioteca de Histórias...",
+			"showDevTools": "Mostrar o Console de Depuração",
+			"showStoryLibrary": "Mostrar a Biblioteca de Histórias",
+			"speech": "Fala",
+			"troubleshooting": "Resolução de Problemas",
+			"twineHelp": "Ajuda do Twine",
+			"view": "Exibir"
+		},
+		"relaunchDialog": {
+			"defaultPrompt": "Esta alteração produzirá efeitos da próxima vez que o Twine for inciado.",
+			"relaunchNow": "Reiniciar Agora"
+		},
+		"scratchDirectoryName": "Rejeitados",
+		"storiesDirectoryName": "Histórias",
+		"updateCheck": {
+			"download": "Baixar",
+			"error": "Algo deu errado ao verificar se há uma nova versão do Twine.",
+			"updateAvailable": "Há uma versão mais recente do Twine disponível.",
+			"upToDate": "Você está usando a versão mais recente do Twine."
+		},
+		"userCss": {
+			"filename": "user.css"
+		}
+	},
+	"routes": {
 		"storyEdit": {
 			"toolbar": {
 				"findAndReplace": "Encontrar e Substituir",
@@ -383,51 +384,51 @@
 			"helpTitle": "É a sua primeira vez aqui?"
 		}
 	},
-  "routeActions": {
-    "app": {
-      "aboutApp": "Sobre o Twine",
-      "preferences": "Preferências",
-      "reportBug": "Reportar um Problema",
-      "storyFormats": "Formatos de História"
-    },
-    "build": {
-      "exportAsTwee": "Exportar como Twee",
-      "play": "Jogar",
-      "proof": "Revisar",
-      "publishToFile": "Publicar para Arquivo",
-      "test": "Testar"
-    }
-  },
-  "store": {
-    "archiveFilename": "{{timestamp}} Arquivo do Twine.html",
-    "errors": {
-      "cantPersistPrefs": "Algo deu errado ao salvar as suas preferências: ({{error}}).",
-      "cantPersistStories": "Algo deu errado ao salvar as suas histórias: ({{error}}).",
-      "cantPersistStoryFormats": "Algo deu errado ao salvar os seus formatos de história: ({{error}}).",
-      "electronRemediation": "Reiniciar esta aplicação poderá ajudar.",
-      "webRemediation": "Recarregar esta página poderá ajudar."
-    },
-    "passageDefaults": {
-      "name": "Passagem sem Título"
-    },
-    "storyDefaults": {
-      "name": "História sem Título"
-    },
-    "storyFormatDefaults": {
-      "name": "Formato de História sem Título"
-    }
-  },
-  "undoChange": {
-    "addTag": "Adicionar Etiqueta",
-    "changeTagColor": "Mudar a Cor da Etiqueta",
-    "newPassage": "Nova Passagem",
-    "deletePassage": "Excluir a Passagem",
-    "deletePassages": "Excluir as Passagens",
-    "movePassage": "Mover a Passagem",
-    "movePassages": "Mover as Passagens",
-    "renamePassage": "Mudar o Título da Passagem",
-    "removeTag": "Remover a Etiqueta",
-    "renameTag": "Renomear a Etiqueta",
-    "replaceAllText": "Substituir Tudo"
-  }
+	"routeActions": {
+		"app": {
+			"aboutApp": "Sobre o Twine",
+			"preferences": "Preferências",
+			"reportBug": "Reportar um Problema",
+			"storyFormats": "Formatos de História"
+		},
+		"build": {
+			"exportAsTwee": "Exportar como Twee",
+			"play": "Jogar",
+			"proof": "Revisar",
+			"publishToFile": "Publicar para Arquivo",
+			"test": "Testar"
+		}
+	},
+	"store": {
+		"archiveFilename": "{{timestamp}} Arquivo do Twine.html",
+		"errors": {
+			"cantPersistPrefs": "Algo deu errado ao salvar as suas preferências: ({{error}}).",
+			"cantPersistStories": "Algo deu errado ao salvar as suas histórias: ({{error}}).",
+			"cantPersistStoryFormats": "Algo deu errado ao salvar os seus formatos de história: ({{error}}).",
+			"electronRemediation": "Reiniciar esta aplicação poderá ajudar.",
+			"webRemediation": "Recarregar esta página poderá ajudar."
+		},
+		"passageDefaults": {
+			"name": "Passagem sem Título"
+		},
+		"storyDefaults": {
+			"name": "História sem Título"
+		},
+		"storyFormatDefaults": {
+			"name": "Formato de História sem Título"
+		}
+	},
+	"undoChange": {
+		"addTag": "Adicionar Etiqueta",
+		"changeTagColor": "Mudar a Cor da Etiqueta",
+		"newPassage": "Nova Passagem",
+		"deletePassage": "Excluir a Passagem",
+		"deletePassages": "Excluir as Passagens",
+		"movePassage": "Mover a Passagem",
+		"movePassages": "Mover as Passagens",
+		"renamePassage": "Mudar o Título da Passagem",
+		"removeTag": "Remover a Etiqueta",
+		"renameTag": "Renomear a Etiqueta",
+		"replaceAllText": "Substituir Tudo"
+	}
 }

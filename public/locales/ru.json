@@ -179,6 +179,7 @@
 			"useEnhancedEditors": "Использовать улучшенные редакторы"
 		},
 		"passageEdit": {
+			"closeAll": "Закрыть всё",
 			"editorCrashed": "Что-то пошло не так. Попробуйте закрыть и снова открыть Параграф.",
 			"passageTextEditorLabel": "Текст Параграфа",
 			"passageTextPlaceholder": "Введите текст параграфа здесь. Чтобы создать ссылку на другой пассаж, заключите его название в двойные квадратные скобки: [[пример]].",
@@ -334,8 +335,8 @@
 			"zoomButtons": {
 				"legend": "Масштаб",
 				"storyStructure": "Показать только структуру истории",
-		        "passageNames": "Показать только названия Параграфов",
-		        "passageNamesAndExcerpts": "Показать названия и отрывки Параграфов"
+				"passageNames": "Показать только названия Параграфов",
+				"passageNamesAndExcerpts": "Показать названия и отрывки Параграфов"
 			}
 		},
 		"storyList": {
@@ -383,52 +384,52 @@
 			"help": "<p><strong>Если вы не использовали Twine ранее, добро пожаловать!</strong> <a href=\"https://twinery.org/cookbook\">Twine Cookbook</a> — прекрасный ресурс для обучения. Если вы раньше не пользовались шпагатом, то это отличное место для начала.</p>",
 			"helpTitle": "Вы тут впервые?"
 		}
+	},
+	"routeActions": {
+		"app": {
+			"aboutApp": "О Twine",
+			"preferences": "Настройки",
+			"reportBug": "Сообщить об ошибке",
+			"storyFormats": "Форматы истории"
 		},
-		"routeActions": {
-			"app": {
-				"aboutApp": "О Twine",
-				"preferences": "Настройки",
-				"reportBug": "Сообщить об ошибке",
-				"storyFormats": "Форматы истории"
-			},
-			"build": {
-				"exportAsTwee": "Экспортировать как Twee",
-				"play": "Играть",
-				"proof": "Проверка",
-				"publishToFile": "Опубликовать в файл",
-				"test": "Тестировать"
-			}
-		},
-		"store": {
-			"archiveFilename": "{{timestamp}} Twine Archive.html",
-			"errors": {
-				"cantPersistPrefs": "Что-то пошло не так при сохранении ваших настроек: ({{error}}).",
-				"cantPersistStories": "Что-то пошло не так при сохранении ваших историй: ({{error}}).",
-				"cantPersistStoryFormats": "Что-то пошло не так при сохранении ваших форматов истории: ({{error}}).",
-				"electronRemediation": "Перезапуск приложения может помочь.",
-				"webRemediation": "Перезагрузка страницы может помочь."
-			},
-			"passageDefaults": {
-				"name": "Параграф без названия"
-			},
-			"storyDefaults": {
-				"name": "История без названия"
-			},
-			"storyFormatDefaults": {
-				"name": "Формат истории без названия"
-			}
-		},
-		"undoChange": {
-			"addTag": "Добавить тег",
-			"changeTagColor": "Изменить цвет тега",
-			"newPassage": "Новый Параграф",
-			"deletePassage": "Удалить Параграф",
-			"deletePassages": "Удалить Параграфы",
-			"movePassage": "Переместить Параграф",
-			"movePassages": "Переместить Параграфы",
-			"renamePassage": "Переименовать Параграф",
-			"removeTag": "Удалить тег",
-			"renameTag": "Переименовать тег",
-			"replaceAllText": "Заменить всё"
+		"build": {
+			"exportAsTwee": "Экспортировать как Twee",
+			"play": "Играть",
+			"proof": "Проверка",
+			"publishToFile": "Опубликовать в файл",
+			"test": "Тестировать"
 		}
+	},
+	"store": {
+		"archiveFilename": "{{timestamp}} Twine Archive.html",
+		"errors": {
+			"cantPersistPrefs": "Что-то пошло не так при сохранении ваших настроек: ({{error}}).",
+			"cantPersistStories": "Что-то пошло не так при сохранении ваших историй: ({{error}}).",
+			"cantPersistStoryFormats": "Что-то пошло не так при сохранении ваших форматов истории: ({{error}}).",
+			"electronRemediation": "Перезапуск приложения может помочь.",
+			"webRemediation": "Перезагрузка страницы может помочь."
+		},
+		"passageDefaults": {
+			"name": "Параграф без названия"
+		},
+		"storyDefaults": {
+			"name": "История без названия"
+		},
+		"storyFormatDefaults": {
+			"name": "Формат истории без названия"
+		}
+	},
+	"undoChange": {
+		"addTag": "Добавить тег",
+		"changeTagColor": "Изменить цвет тега",
+		"newPassage": "Новый Параграф",
+		"deletePassage": "Удалить Параграф",
+		"deletePassages": "Удалить Параграфы",
+		"movePassage": "Переместить Параграф",
+		"movePassages": "Переместить Параграфы",
+		"renamePassage": "Переименовать Параграф",
+		"removeTag": "Удалить тег",
+		"renameTag": "Переименовать тег",
+		"replaceAllText": "Заменить всё"
 	}
+}
