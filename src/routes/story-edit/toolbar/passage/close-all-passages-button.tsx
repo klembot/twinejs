@@ -8,7 +8,11 @@ import {
 	useDialogsContext
 } from '../../../../dialogs';
 
-export const CloseAllPassagesButton: React.FC = () => {
+export interface CloseAllPassagesButtonProps {
+	onClose?: () => void;
+}
+
+export const CloseAllPassagesButton: React.FC<CloseAllPassagesButtonProps> = ({onClose}) => {
 	const {dialogs, dispatch} = useDialogsContext();
 	const {t} = useTranslation();
 
@@ -23,17 +27,34 @@ export const CloseAllPassagesButton: React.FC = () => {
 	);
 
 	function handleClick() {
+		console.log('Closing all passages:', passageIds);
 		if (passageIds.length > 0) {
 			dispatch(removePassageEditors(passageIds));
 		}
+		onClose?.();
 	}
 
-	return (
-		<IconButton
-			disabled={passageIds.length === 0}
-			icon={<IconX />}
-			label={t('dialogs.passageEdit.closeAll')}
-			onClick={handleClick}
-		/>
-	);
+	function handlePointerDown(e: React.PointerEvent) {
+  // only left click
+  if (e.button !== 0) return;
+
+  e.preventDefault();
+  e.stopPropagation();
+  handleClick(); // your existing function
+}
+
+return (
+  <div
+    onPointerDown={handlePointerDown}
+    onMouseDown={(e) => e.stopPropagation()} // belt + braces
+    style={{ display: "inline-flex" }}
+  >
+    <IconButton
+      disabled={passageIds.length === 0}
+      icon={<IconX />}
+      label={t("dialogs.passageEdit.closeAll")}
+      onClick={handleClick} // keep it for toolbar usage
+    />
+  </div>
+);
 };

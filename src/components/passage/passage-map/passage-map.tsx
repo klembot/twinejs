@@ -4,6 +4,7 @@ import {Passage, Story} from '../../../store/stories';
 import {boundingRect, Point} from '../../../util/geometry';
 import {PassageConnections} from '../passage-connections';
 import {PassageCardGroup} from '../passage-card-group';
+import {PassageMapContextMenu, PassageMapContextMenuHandle} from './passage-map-context-menu';
 import './passage-map.css';
 import classnames from 'classnames';
 
@@ -69,7 +70,10 @@ function dragReducer(state: DragState, action: DragAction) {
 
 const compactCardZoom = 0.6;
 
-export const PassageMap: React.FC<PassageMapProps> = props => {
+export const PassageMap = React.forwardRef<
+	PassageMapContextMenuHandle,
+	PassageMapProps
+>((props, ref) => {
 	const {
 		formatName,
 		formatVersion,
@@ -129,6 +133,15 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 	// We use a ref to avoid unnecessary re-renders.
 
 	const recentlyDragging = React.useRef(false);
+
+	// Track right-click timing to distinguish between context menu (quick click)
+	// and panning (click and hold).
+	const contextMenuRef = React.useRef<PassageMapContextMenuHandle>(null);
+	const rightClickTimeRef = React.useRef<number>(0);
+	const rightClickStartRef = React.useRef<{x: number; y: number} | null>(null);
+	const rightClickDistanceRef = React.useRef<number>(0);
+	const MIN_PAN_HOLD_MS = 200;
+	const MIN_PAN_DISTANCE_PX = 5;
 
 	// Only update the compact card state when visibleZoom and zoom are the same.
 	// This avoids re-rendering the cards in the middle of a zoom transition
@@ -194,6 +207,45 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 		[onSelect]
 	);
 
+	const handleContainerContextMenu = React.useCallback(
+		(event: React.MouseEvent<HTMLDivElement>) => {
+			event.preventDefault();
+
+			const timeSinceDown = Date.now() - rightClickTimeRef.current;
+			const distanceMoved = rightClickDistanceRef.current;
+
+			// If held for less than MIN_PAN_HOLD_MS and didn't move much, show context menu
+			if (timeSinceDown < MIN_PAN_HOLD_MS && distanceMoved < MIN_PAN_DISTANCE_PX) {
+				contextMenuRef.current?.open(event.clientX, event.clientY);
+			}
+		},
+		[]
+	);
+
+	const handleContainerPointerDown = React.useCallback(
+		(event: React.PointerEvent<HTMLDivElement>) => {
+			if (event.button === 2) {
+				rightClickTimeRef.current = Date.now();
+				rightClickStartRef.current = {x: event.clientX, y: event.clientY};
+				rightClickDistanceRef.current = 0;
+			}
+		},
+		[]
+	);
+
+	const handleContainerPointerMove = React.useCallback(
+		(event: React.PointerEvent<HTMLDivElement>) => {
+			if (rightClickStartRef.current) {
+				const dx = event.clientX - rightClickStartRef.current.x;
+				const dy = event.clientY - rightClickStartRef.current.y;
+				rightClickDistanceRef.current = Math.sqrt(dx * dx + dy * dy);
+			}
+		},
+		[]
+	);
+
+	React.useImperativeHandle(ref, () => contextMenuRef.current!, []);
+
 	return (
 		<div
 			className={classnames('passage-map', {
@@ -201,6 +253,9 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 			})}
 			ref={container}
 			style={style}
+			onContextMenu={handleContainerContextMenu}
+			onPointerDown={handleContainerPointerDown}
+			onPointerMove={handleContainerPointerMove}
 		>
 			<PassageConnections
 				formatName={formatName}
@@ -222,6 +277,9 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 				passages={passages}
 				tagColors={tagColors}
 			/>
+			<PassageMapContextMenu ref={contextMenuRef} />
 		</div>
 	);
-};
+});
+
+PassageMap.displayName = 'PassageMap';
