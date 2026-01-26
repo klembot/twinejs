@@ -49,6 +49,7 @@
 			"noThanks": "Nei takk"
 		},
 		"appPrefs": {
+			"clickOffCardsToClose": "Klikk utenfor kort for å lukke",
 			"language": "Språk",
 			"disableRightClickPan": "Slå av høgreklikk-panorering"
 		},

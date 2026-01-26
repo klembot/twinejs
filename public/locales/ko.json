@@ -159,6 +159,7 @@
 			"title": "Twine 개발 지원"
 		},
 		"appPrefs": {
+			"clickOffCardsToClose": "카드 밖을 클릭하여 닫기",
 			"codeEditorFont": "코드 편집기 글꼴",
 			"codeEditorFontScale": "코드 편집기 글꼴 크기",
 			"dialogWidth": "대화상자 너비",

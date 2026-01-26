@@ -52,6 +52,7 @@
 			"noThanks": "Ei kiitos"
 		},
 		"appPrefs": {
+			"clickOffCardsToClose": "Sulje napsauttamalla korttien ulkopuolella",
 			"language": "Kieli",
 			"disableRightClickPan": "Poista oikeaklikkauspanerointi käytöstä"
 		},

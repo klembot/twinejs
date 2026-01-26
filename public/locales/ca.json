@@ -84,6 +84,7 @@
 			"noThanks": "No, gràcies"
 		},
 		"appPrefs": {
+			"clickOffCardsToClose": "Fes clic fora de les targetes per tancar",
 			"language": "Llengua",
 			"disableRightClickPan": "Desactiva el desplaçament de clic dret"
 		},

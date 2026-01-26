@@ -52,6 +52,7 @@
 			"noThanks": "Nej tack"
 		},
 		"appPrefs": {
+			"clickOffCardsToClose": "Klicka utanför kort för att stänga",
 			"language": "Språk",
 			"disableRightClickPan": "Inaktivera högerkliksförflytt"
 		},

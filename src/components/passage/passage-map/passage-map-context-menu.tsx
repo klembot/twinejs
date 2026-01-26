@@ -72,7 +72,7 @@ const PassageMapContextMenuContent = React.forwardRef<
 			classNames="fade-out"
 			in={isOpen}
 			mountOnEnter
-			timeout={200}
+			timeout={10}
 			unmountOnExit
 		>
 			<div

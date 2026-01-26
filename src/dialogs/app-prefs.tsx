@@ -83,6 +83,11 @@ export const AppPrefsDialog: React.FC<
 					onChange={value => dispatch(setPref('disableRightClickPan', value))}
 					value={prefs.disableRightClickPan}
 				/>
+				<CheckboxButton
+					label={t('dialogs.appPrefs.clickOffCardsToClose')}
+					onChange={value => dispatch(setPref('clickOffCardsToClose', value))}
+					value={prefs.clickOffCardsToClose}
+				/>
 				<p className="font-explanation">
 					{t('dialogs.appPrefs.fontExplanation')}
 				</p>

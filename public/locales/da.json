@@ -49,6 +49,7 @@
 			"noThanks": "Nej tak"
 		},
 		"appPrefs": {
+			"clickOffCardsToClose": "Klik uden for kort for at lukke",
 			"language": "Sprog",
 			"disableRightClickPan": "Deaktiver panorering med højre klik"
 		},

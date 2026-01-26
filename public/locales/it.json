@@ -159,6 +159,7 @@
 			"title": "Supporta lo sviluppo di Twine"
 		},
 		"appPrefs": {
+			"clickOffCardsToClose": "Fai clic fuori dalle schede per chiudere",
 			"codeEditorFont": "Carattere dell'editor del codice",
 			"codeEditorFontScale": "Dimensione del font dell'editor del codice",
 			"dialogWidth": "Larghezza del dialogo",

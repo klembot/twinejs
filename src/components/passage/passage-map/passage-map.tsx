@@ -2,6 +2,7 @@ import * as React from 'react';
 import {DraggableData} from 'react-draggable';
 import {Passage, Story} from '../../../store/stories';
 import {boundingRect, Point} from '../../../util/geometry';
+import {useCloseAllPassages} from '../../../routes/story-edit/use-close-all-passages';
 import {PassageConnections} from '../passage-connections';
 import {PassageCardGroup} from '../passage-card-group';
 import {PassageMapContextMenu, PassageMapContextMenuHandle} from './passage-map-context-menu';
@@ -9,6 +10,7 @@ import './passage-map.css';
 import classnames from 'classnames';
 
 export interface PassageMapProps {
+	clickOffCardsToClose?: boolean;
 	formatName: string;
 	formatVersion: string;
 	onDeselect: (passage: Passage) => void;
@@ -75,6 +77,7 @@ export const PassageMap = React.forwardRef<
 	PassageMapProps
 >((props, ref) => {
 	const {
+		clickOffCardsToClose,
 		formatName,
 		formatVersion,
 		onDeselect,
@@ -222,15 +225,25 @@ export const PassageMap = React.forwardRef<
 		[]
 	);
 
+	const {handleCloseAllPassages, canClose} = useCloseAllPassages();
+
 	const handleContainerPointerDown = React.useCallback(
 		(event: React.PointerEvent<HTMLDivElement>) => {
+			// Close all passages if clicking off cards is enabled
+			if (
+				clickOffCardsToClose &&
+				canClose
+			) {
+				handleCloseAllPassages();
+			}
+
 			if (event.button === 2) {
 				rightClickTimeRef.current = Date.now();
 				rightClickStartRef.current = {x: event.clientX, y: event.clientY};
 				rightClickDistanceRef.current = 0;
 			}
 		},
-		[]
+		[clickOffCardsToClose, canClose, handleCloseAllPassages]
 	);
 
 	const handleContainerPointerMove = React.useCallback(
@@ -244,6 +257,10 @@ export const PassageMap = React.forwardRef<
 		[]
 	);
 
+	const stopPropagation = React.useCallback((event: React.MouseEvent) => {
+		event.stopPropagation();
+	}, []);
+
 	React.useImperativeHandle(ref, () => contextMenuRef.current!, []);
 
 	return (
@@ -253,7 +270,7 @@ export const PassageMap = React.forwardRef<
 			})}
 			ref={container}
 			style={style}
-			onContextMenu={handleContainerContextMenu}
+			onPointerUp={handleContainerContextMenu}
 			onPointerDown={handleContainerPointerDown}
 			onPointerMove={handleContainerPointerMove}
 		>
@@ -267,16 +284,18 @@ export const PassageMap = React.forwardRef<
 				passages={passages}
 				startPassageId={startPassageId}
 			/>
-			<PassageCardGroup
-				onDeselect={onDeselect}
-				onDragStart={handleDragStart}
-				onDrag={handleDrag}
-				onDragStop={handleDragStop}
-				onEdit={onEdit}
-				onSelect={handleSelect}
-				passages={passages}
-				tagColors={tagColors}
-			/>
+			<div onPointerDown={stopPropagation}>
+				<PassageCardGroup
+					onDeselect={onDeselect}
+					onDragStart={handleDragStart}
+					onDrag={handleDrag}
+					onDragStop={handleDragStop}
+					onEdit={onEdit}
+					onSelect={handleSelect}
+					passages={passages}
+					tagColors={tagColors}
+				/>
+			</div>
 			<PassageMapContextMenu ref={contextMenuRef} />
 		</div>
 	);

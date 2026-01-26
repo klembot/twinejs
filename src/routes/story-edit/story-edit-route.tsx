@@ -4,6 +4,7 @@ import {MainContent} from '../../components/container/main-content';
 import {DocumentTitle} from '../../components/document-title/document-title';
 import {DialogsContextProvider} from '../../dialogs';
 import {storyWithId} from '../../store/stories';
+import {usePrefsContext} from '../../store/prefs';
 import {
 	UndoableStoriesContextProvider,
 	useUndoableStoriesContext
@@ -21,6 +22,7 @@ import './story-edit-route.css';
 export const InnerStoryEditRoute: React.FC = () => {
 	const {storyId} = useParams<{storyId: string}>();
 	const {stories} = useUndoableStoriesContext();
+	const {prefs} = usePrefsContext();
 	const story = storyWithId(stories, storyId);
 	const [fuzzyFinderOpen, setFuzzyFinderOpen] = React.useState(false);
 	const mainContent = React.useRef<HTMLDivElement>(null);
@@ -48,6 +50,7 @@ export const InnerStoryEditRoute: React.FC = () => {
 			<MainContent grabbable padded={false} ref={mainContent}>
 				<MarqueeablePassageMap
 					container={mainContent}
+					clickOffCardsToClose={prefs.clickOffCardsToClose}
 					formatName={story.storyFormat}
 					formatVersion={story.storyFormatVersion}
 					onDeselect={handleDeselectPassage}

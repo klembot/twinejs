@@ -49,6 +49,7 @@
 			"noThanks": "Ne, hvala"
 		},
 		"appPrefs": {
+			"clickOffCardsToClose": "Kliknite izven kartic za zapiranje",
 			"language": "Jezik",
 			"disableRightClickPan": "Onemogučiti premikanje z desnim klikom"
 		},

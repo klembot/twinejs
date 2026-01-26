@@ -169,6 +169,7 @@
 			"title": "Twine開発を支援"
 		},
 		"appPrefs": {
+			"clickOffCardsToClose": "カード外をクリックして閉じる",
 			"codeEditorFont": "コードエディターのフォント",
 			"codeEditorFontScale": "コードエディターのフォントサイズ",
 			"dialogWidth": "ダイアログの幅",

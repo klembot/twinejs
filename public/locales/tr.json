@@ -158,6 +158,7 @@
 			"title": "Twine'ın Geliştirilmesine Katkıda Bulunun"
 		},
 		"appPrefs": {
+			"clickOffCardsToClose": "Kapatmak için kartların dışına tıklayın",
 			"codeEditorFont": "Kod Düzenleyici Yazı Tipi",
 			"codeEditorFontScale": "Kod Düzenleyici Yazı Boyutu",
 			"dialogWidth": "İletişim Kutusu Eni",

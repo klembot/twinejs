@@ -158,6 +158,7 @@
 			"title": "Поддержать разработку Twine"
 		},
 		"appPrefs": {
+			"clickOffCardsToClose": "Щелкните вне карточек, чтобы закрыть",
 			"codeEditorFont": "Шрифт редактора кода",
 			"codeEditorFontScale": "Размер шрифта редактора кода",
 			"dialogWidth": "Ширина диалогов",

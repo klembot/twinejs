@@ -55,7 +55,6 @@ export const MainContent = React.forwardRef<HTMLDivElement, MainContentProps>(
 				container.removeEventListener('pointerleave', stopGrab);
 				container.removeEventListener('pointermove', moveListener);
 				container.style.cursor = '';
-				event.preventDefault();
 			}
 
 			function upListener(event: PointerEvent) {
@@ -69,7 +68,6 @@ export const MainContent = React.forwardRef<HTMLDivElement, MainContentProps>(
 					return;
 				}
 
-				container.setPointerCapture(event.pointerId);
 				container.addEventListener('pointerleave', stopGrab);
 				container.addEventListener('pointermove', moveListener);
 				container.addEventListener('pointerup', upListener);
@@ -79,14 +77,13 @@ export const MainContent = React.forwardRef<HTMLDivElement, MainContentProps>(
 					top: container.scrollTop
 				};
 				dragMouseStart = {left: event.clientX, top: event.clientY};
-				event.preventDefault();
 			}
 
 			function ignoreContext(event: Event) {
 				event.preventDefault();
 			}
 
-if (grabbable && container) {
+			if (grabbable && container) {
 					!prefs.disableRightClickPan && container.addEventListener('pointerdown', downListener);
 					container.addEventListener('contextmenu', ignoreContext);
 					return () => {

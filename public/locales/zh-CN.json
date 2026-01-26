@@ -159,6 +159,7 @@
 			"title": "支持 Twine 开发"
 		},
 		"appPrefs": {
+			"clickOffCardsToClose": "点击卡片外关闭",
 			"codeEditorFont": "代码编辑器字体",
 			"codeEditorFontScale": "代码编辑器字体大小",
 			"dialogWidth": "对话框宽度",

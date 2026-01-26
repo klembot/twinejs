@@ -115,6 +115,7 @@ export function fakePrefs(overrides?: Partial<PrefsState>): PrefsState {
 		appTheme: faker.helpers.arrayElement(['light', 'dark', 'system']),
 		codeEditorFontFamily: faker.lorem.words(2),
 		codeEditorFontScale: 0.8 + faker.number.int(0.5),
+		clickOffCardsToClose: faker.datatype.boolean(),
 		dialogWidth: faker.number.int(600),
 		disabledStoryFormatEditorExtensions: [
 			{name: faker.lorem.words(2), version: faker.system.semver()}

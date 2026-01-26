@@ -159,6 +159,7 @@
 			"title": "Apoiar o Desenvolvimento do Twine"
 		},
 		"appPrefs": {
+			"clickOffCardsToClose": "Clique fora dos cartões para fechar",
 			"codeEditorFont": "Fonte do Editor de Código",
 			"codeEditorFontScale": "Tamanho da Fonte do Editor de Código",
 			"dialogWidth": "Largura da Caixa de Texto",

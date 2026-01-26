@@ -49,6 +49,7 @@
 			"noThanks": "Tidak Mengapalah, Terima Kasih"
 		},
 		"appPrefs": {
+			"clickOffCardsToClose": "Klik di luar kad untuk menutup",
 			"language": "Bahasa",
 			"disableRightClickPan": "Matikan Pan Klik Kanan"
 		},

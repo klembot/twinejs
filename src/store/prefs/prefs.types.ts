@@ -42,6 +42,10 @@ export interface PrefsState {
 		version: string;
 	}[];
 	/**
+	 * Close all open passage editors when clicking off cards on the passage map.
+	 */
+	clickOffCardsToClose: boolean;
+	/**
 	 * Has the donation prompt been shown?
 	 */
 	donateShown: boolean;

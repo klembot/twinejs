@@ -169,6 +169,7 @@
 			"title": "Wesprzyj Twine"
 		},
 		"appPrefs": {
+			"clickOffCardsToClose": "Kliknij poza kartami, aby zamknąć",
 			"codeEditorFont": "Czcionka edytora kodu",
 			"codeEditorFontScale": "Rozmiar czcionki edytora kodu",
 			"dialogWidth": "Szerokość okien",

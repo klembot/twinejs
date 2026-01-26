@@ -52,6 +52,7 @@
 			"noThanks": "No gracias"
 		},
 		"appPrefs": {
+			"clickOffCardsToClose": "Hacer clic fuera de las tarjetas para cerrar",
 			"language": "Idioma",
 			"disableRightClickPan": "Desactivar deplazamiento con clic derecho"
 		},

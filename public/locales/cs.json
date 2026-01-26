@@ -159,6 +159,7 @@
 			"title": "Podpořit vývoj Twinu"
 		},
 		"appPrefs": {
+			"clickOffCardsToClose": "Kliknutím mimo karty zavřete",
 			"codeEditorFont": "Font editoru kódu",
 			"codeEditorFontScale": "Velikost fontu editoru kódu",
 			"dialogWidth": "Šířka dialogu",

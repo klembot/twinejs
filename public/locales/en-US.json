@@ -169,6 +169,7 @@
 			"title": "Support Twine Development"
 		},
 		"appPrefs": {
+			"clickOffCardsToClose": "Click Off Cards to Close",
 			"codeEditorFont": "Code Editor Font",
 			"codeEditorFontScale": "Code Editor Font Size",
 			"dialogWidth": "Dialog Width",

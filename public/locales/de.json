@@ -159,6 +159,7 @@
 			"title": "Unterstütze die Twine Entwicklung"
 		},
 		"appPrefs": {
+			"clickOffCardsToClose": "Außerhalb der Karten klicken zum Schließen",
 			"codeEditorFont": "Code Editor Font",
 			"codeEditorFontScale": "Code Editor Font Größe",
 			"dialogWidth": "Dialog Breite",
