@@ -5,7 +5,7 @@
 		"plugin:@typescript-eslint/recommended",
 		"prettier"
 	],
-	"ignorePatterns": ["src/__mocks__/*"],
+	"ignorePatterns": ["src/__mocks__/*", "**/*.css"],
 	"parser": "@typescript-eslint/parser",
 	"plugins": ["@typescript-eslint", "jest", "testing-library"],
 	"root": true,

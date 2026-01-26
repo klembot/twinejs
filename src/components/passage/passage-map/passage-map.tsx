@@ -231,6 +231,7 @@ export const PassageMap = React.forwardRef<
 		(event: React.PointerEvent<HTMLDivElement>) => {
 			// Close all passages if clicking off cards is enabled
 			if (
+				event.button === 0 &&
 				clickOffCardsToClose &&
 				canClose
 			) {
