@@ -54,6 +54,7 @@
 		"appPrefs": {
 			"clickOffCardsToClose": "Klicka utanför kort för att stänga",
 			"language": "Språk",
+			"passageRelativePosition": "Passage Editor Relative Position",
 			"disableRightClickPan": "Inaktivera högerkliksförflytt"
 		},
 		"passageEdit": {

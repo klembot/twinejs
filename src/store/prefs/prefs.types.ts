@@ -119,6 +119,11 @@ export interface PrefsState {
 	 */
 	useCodeMirror: boolean;
 	/**
+	 * Position passage edit dialogs next to the passage card instead of at the
+	 * screen edge.
+	 */
+	passageRelativePosition: boolean;
+	/**
 	 * Has the user been shown the welcome route?
 	 */
 	welcomeSeen: boolean;

@@ -86,6 +86,7 @@
 		"appPrefs": {
 			"clickOffCardsToClose": "Fes clic fora de les targetes per tancar",
 			"language": "Llengua",
+			"passageRelativePosition": "Passage Editor Relative Position",
 			"disableRightClickPan": "Desactiva el desplaçament de clic dret"
 		},
 		"passageEdit": {

@@ -184,6 +184,7 @@
 			"language": "Language",
 			"passageEditorFont": "Passage Editor Font",
 			"passageEditorFontScale": "Passage Editor Font Size",
+			"passageRelativePosition": "Passage Editor Relative Position",
 			"themeLight": "Light",
 			"themeDark": "Dark",
 			"themeSystem": "System",

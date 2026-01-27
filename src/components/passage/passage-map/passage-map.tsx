@@ -19,6 +19,7 @@ export interface PassageMapProps {
 	onSelect: (passage: Passage, exclusive: boolean) => void;
 	passages: Passage[];
 	startPassageId: string;
+	storyId?: string;
 	tagColors: Story['tagColors'];
 	visibleZoom: number;
 	zoom: number;
@@ -86,6 +87,7 @@ export const PassageMap = React.forwardRef<
 		onSelect,
 		passages,
 		startPassageId,
+		storyId,
 		tagColors,
 		visibleZoom,
 		zoom
@@ -294,6 +296,7 @@ export const PassageMap = React.forwardRef<
 					onEdit={onEdit}
 					onSelect={handleSelect}
 					passages={passages}
+					storyId={storyId}
 					tagColors={tagColors}
 				/>
 			</div>

@@ -173,6 +173,7 @@
 			"language": "Dil",
 			"passageEditorFont": "Bölüm Düzenleyici Yazı Tipi",
 			"passageEditorFontScale": "Bölüm Düzenleyici Yazı Boyutu",
+			"passageRelativePosition": "Passage Editor Relative Position",
 			"themeLight": "Açık",
 			"themeDark": "Koyu",
 			"themeSystem": "Sistem",

@@ -172,6 +172,7 @@
 			"language": "Мова",
 			"passageEditorFont": "Шрифт редактора параграфів",
 			"passageEditorFontScale": "Розмір шрифта редактора параграфів",
+			"passageRelativePosition": "Passage Editor Relative Position",
 			"themeLight": "Світла",
 			"themeDark": "Темна",
 			"themeSystem": "Системна",

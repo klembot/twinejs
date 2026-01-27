@@ -54,6 +54,7 @@
 		"appPrefs": {
 			"clickOffCardsToClose": "Hacer clic fuera de las tarjetas para cerrar",
 			"language": "Idioma",
+			"passageRelativePosition": "Passage Editor Relative Position",
 			"disableRightClickPan": "Desactivar deplazamiento con clic derecho"
 		},
 		"passageEdit": {

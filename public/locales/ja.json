@@ -184,6 +184,7 @@
 			"language": "言語",
 			"passageEditorFont": "パッセージエディターのフォント",
 			"passageEditorFontScale": "パッセージエディターのフォントサイズ",
+			"passageRelativePosition": "Passage Editor Relative Position",
 			"themeLight": "ライト",
 			"themeDark": "ダーク",
 			"themeSystem": "システム",

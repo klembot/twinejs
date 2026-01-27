@@ -1,0 +1,84 @@
+.passage-edit-inline {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	top: 0;
+	left: calc(100% + 8px);
+	width: 600px;
+	max-height: 80vh;
+	min-height: 600px;
+	background: var(--white);
+	border-radius: 4px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.passage-edit-inline.maximized {
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	max-height: none;
+	border-radius: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.passage-edit-inline.active {
+	z-index: 100;
+}
+
+.passage-edit-inline.dragging {
+	cursor: move;
+	user-select: none;
+}
+
+.passage-edit-inline-header {
+	cursor: move;
+}
+
+.passage-edit-inline-header {
+	display: flex;
+	justify-content: flex-end;
+	padding: 8px;
+	align-items: center;
+}
+
+.passage-edit-inline-header .dialog-card-header {
+	display: flex;
+	align-items: center;
+	font: bold 120% var(--font-system);
+	margin-right: auto;
+	color: var(--dark-gray);
+}
+
+.passage-edit-inline-header .tag-grid {
+	height: 16px;
+	width: 16px;
+	margin-right: 4px;
+}
+
+.passage-edit-inline-contents {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+}
+
+.passage-edit-inline-contents .passage-edit-contents {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	flex-grow: 1;
+}
+
+.passage-edit-inline-contents .dialog-editor {
+	align-self: stretch;
+	justify-self: stretch;
+	flex-grow: 1;
+	height: 300px;
+	display: flex;
+}
+
+.passage-edit-inline-contents .code-area {
+	flex-grow: 1;
+	overflow: auto;
+}

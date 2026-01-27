@@ -170,6 +170,7 @@
 			"language": "Taal",
 			"passageEditorFont": "Lettertype Passage-editor",
 			"passageEditorFontScale": "Lettertype Grote Passage-editor",
+			"passageRelativePosition": "Passage Editor Relative Position",
 			"themeLight": "Licht",
 			"themeDark": "Donker",
 			"themeSystem": "System",

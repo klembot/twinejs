@@ -174,6 +174,7 @@
 			"language": "语言",
 			"passageEditorFont": "片段编辑器字体",
 			"passageEditorFontScale": "片段编辑器字体大小",
+			"passageRelativePosition": "Passage Editor Relative Position",
 			"themeLight": "亮色",
 			"themeDark": "暗色",
 			"themeSystem": "跟随系统",

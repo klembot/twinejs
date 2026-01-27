@@ -8,6 +8,9 @@ import {SelectableCard} from '../container/card/selectable-card';
 import {Passage, TagColors} from '../../store/stories';
 import {TagStripe} from '../tag/tag-stripe';
 import {passageIsEmpty} from '../../util/passage-is-empty';
+import {usePrefsContext} from '../../store/prefs';
+import {useRelativePassageEditorsContext} from '../../store/relative-passage-editors';
+import {PassageEditInline} from './passage-edit-inline';
 import './passage-card.css';
 
 export interface PassageCardProps {
@@ -19,6 +22,7 @@ export interface PassageCardProps {
 	onSelect: (passage: Passage, exclusive: boolean) => void;
 	passage: Passage;
 	tagColors: TagColors;
+	storyId?: string;
 }
 
 // Needs to fill a large-sized passage card.
@@ -33,9 +37,16 @@ export const PassageCard: React.FC<PassageCardProps> = React.memo(props => {
 		onEdit,
 		onSelect,
 		passage,
+		storyId,
 		tagColors
 	} = props;
 	const {t} = useTranslation();
+	const {prefs} = usePrefsContext();
+	const {state} = useRelativePassageEditorsContext();
+	const isEditingRelative =
+		prefs.passageRelativePosition &&
+		storyId &&
+		state.editors.some(e => e.passageId === passage.id);
 	const className = React.useMemo(
 		() =>
 			classNames('passage-card', {
@@ -106,19 +117,25 @@ export const PassageCard: React.FC<PassageCardProps> = React.memo(props => {
 			onStart={onDragStart}
 			onDrag={onDrag}
 			onStop={onDragStop}
+			cancel=".passage-edit-inline"
 		>
 			<div className={className} ref={container} style={style} data-passage-tags={passage.tags.join(' ')}>
-				<SelectableCard
-					highlighted={passage.highlighted}
-					label={passage.name}
-					onDoubleClick={handleEdit}
-					onSelect={handleSelect}
-					selected={passage.selected}
-				>
-					<TagStripe tagColors={tagColors} tags={passage.tags} />
-					<h2>{passage.name}</h2>
-					<CardContent>{excerpt}</CardContent>
-				</SelectableCard>
+				<div className="passage-card-inner">
+					<SelectableCard
+						highlighted={passage.highlighted}
+						label={passage.name}
+						onDoubleClick={handleEdit}
+						onSelect={handleSelect}
+						selected={passage.selected}
+					>
+						<TagStripe tagColors={tagColors} tags={passage.tags} />
+						<h2>{passage.name}</h2>
+						<CardContent>{excerpt}</CardContent>
+					</SelectableCard>
+					{isEditingRelative && storyId && (
+						<PassageEditInline passageId={passage.id} storyId={storyId} />
+					)}
+				</div>
 			</div>
 		</DraggableCore>
 	);

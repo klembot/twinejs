@@ -3,7 +3,13 @@ import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {IconButton} from '../../../../components/control/icon-button';
 import {addPassageEditors, useDialogsContext} from '../../../../dialogs';
-import {Passage, Story} from '../../../../store/stories';
+import {usePrefsContext} from '../../../../store/prefs';
+import {
+	addRelativeEditor,
+	useRelativePassageEditorsContext
+} from '../../../../store/relative-passage-editors';
+import {deselectAllPassages, Passage, Story} from '../../../../store/stories';
+import {useUndoableStoriesContext} from '../../../../store/undoable-stories';
 
 export interface EditPassagesButtonProps {
 	passages: Passage[];
@@ -12,16 +18,26 @@ export interface EditPassagesButtonProps {
 
 export const EditPassagesButton: React.FC<EditPassagesButtonProps> = props => {
 	const {passages, story} = props;
-	const {dispatch} = useDialogsContext();
+	const {dispatch: dialogsDispatch} = useDialogsContext();
+	const {dispatch: relativeDispatch} = useRelativePassageEditorsContext();
+	const {dispatch: storiesDispatch} = useUndoableStoriesContext();
+	const {prefs} = usePrefsContext();
 	const {t} = useTranslation();
 
 	function handleClick() {
-		dispatch(
-			addPassageEditors(
-				story.id,
-				passages.map(({id}) => id)
-			)
-		);
+		if (prefs.passageRelativePosition) {
+			passages.forEach(passage => {
+				relativeDispatch(addRelativeEditor(passage.id, story.id));
+			});
+			storiesDispatch(deselectAllPassages(story));
+		} else {
+			dialogsDispatch(
+				addPassageEditors(
+					story.id,
+					passages.map(({id}) => id)
+				)
+			);
+		}
 	}
 
 	return (

@@ -9,6 +9,11 @@ import {
 	Story
 } from '../../store/stories';
 import {useUndoableStoriesContext} from '../../store/undoable-stories';
+import {
+	addRelativeEditor,
+	useRelativePassageEditorsContext
+} from '../../store/relative-passage-editors';
+import {usePrefsContext} from '../../store/prefs';
 import {Point, Rect} from '../../util/geometry';
 
 export function usePassageChangeHandlers(story: Story) {
@@ -18,6 +23,8 @@ export function usePassageChangeHandlers(story: Story) {
 	);
 	const {dispatch: undoableStoriesDispatch} = useUndoableStoriesContext();
 	const {dispatch: dialogsDispatch} = useDialogsContext();
+	const {dispatch: relativeEditorsDispatch} = useRelativePassageEditorsContext();
+	const {prefs} = usePrefsContext();
 
 	const handleDeselectPassage = React.useCallback(
 		(passage: Passage) =>
@@ -54,9 +61,14 @@ export function usePassageChangeHandlers(story: Story) {
 	);
 
 	const handleEditPassage = React.useCallback(
-		(passage: Passage) =>
-			dialogsDispatch(addPassageEditors(story.id, [passage.id])),
-		[dialogsDispatch, story.id]
+		(passage: Passage) => {
+			if (prefs.passageRelativePosition) {
+				relativeEditorsDispatch(addRelativeEditor(passage.id, story.id));
+			} else {
+				dialogsDispatch(addPassageEditors(story.id, [passage.id]));
+			}
+		},
+		[dialogsDispatch, relativeEditorsDispatch, prefs.passageRelativePosition, story.id]
 	);
 
 	const handleSelectPassage = React.useCallback(

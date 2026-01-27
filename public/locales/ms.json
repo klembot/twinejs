@@ -51,6 +51,7 @@
 		"appPrefs": {
 			"clickOffCardsToClose": "Klik di luar kad untuk menutup",
 			"language": "Bahasa",
+			"passageRelativePosition": "Passage Editor Relative Position",
 			"disableRightClickPan": "Matikan Pan Klik Kanan"
 		},
 		"passageEdit": {

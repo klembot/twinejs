@@ -54,6 +54,7 @@
 		"appPrefs": {
 			"clickOffCardsToClose": "Sulje napsauttamalla korttien ulkopuolella",
 			"language": "Kieli",
+			"passageRelativePosition": "Passage Editor Relative Position",
 			"disableRightClickPan": "Poista oikeaklikkauspanerointi käytöstä"
 		},
 		"passageEdit": {

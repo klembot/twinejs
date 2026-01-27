@@ -8,6 +8,13 @@
 	user-select: none;
 }
 
+.passage-card-inner {
+	/* display: flex;
+	align-items: flex-start; */
+	height: 100%;
+	position: relative;
+}
+
 .passage-card .selectable-card {
 	height: 100%;
 }

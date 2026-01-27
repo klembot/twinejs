@@ -51,6 +51,7 @@
 		"appPrefs": {
 			"clickOffCardsToClose": "Kliknite izven kartic za zapiranje",
 			"language": "Jezik",
+			"passageRelativePosition": "Passage Editor Relative Position",
 			"disableRightClickPan": "Onemogučiti premikanje z desnim klikom"
 		},
 		"passageEdit": {

@@ -51,6 +51,7 @@
 		"appPrefs": {
 			"clickOffCardsToClose": "Klikk utenfor kort for å lukke",
 			"language": "Språk",
+			"passageRelativePosition": "Passage Editor Relative Position",
 			"disableRightClickPan": "Slå av høgreklikk-panorering"
 		},
 		"passageEdit": {

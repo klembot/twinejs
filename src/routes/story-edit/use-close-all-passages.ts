@@ -4,9 +4,15 @@ import {
 	removePassageEditors,
 	useDialogsContext
 } from '../../dialogs';
+import {
+	closeAllRelativeEditors,
+	useRelativePassageEditorsContext
+} from '../../store/relative-passage-editors';
 
 export function useCloseAllPassages() {
-	const {dialogs, dispatch} = useDialogsContext();
+	const {dialogs, dispatch: dialogsDispatch} = useDialogsContext();
+	const {dispatch: relativeEditorsDispatch, state: relativeEditorsState} =
+		useRelativePassageEditorsContext();
 
 	const passageStack = React.useMemo(
 		() => dialogs.find(({component}) => component === PassageEditStack),
@@ -18,15 +24,21 @@ export function useCloseAllPassages() {
 		[passageStack]
 	);
 
+	const relativeEditorsCount = relativeEditorsState.editors.length;
+
 	const handleCloseAllPassages = React.useCallback(() => {
 		if (passageIds.length > 0) {
-			dispatch(removePassageEditors(passageIds));
+			dialogsDispatch(removePassageEditors(passageIds));
 		}
-	}, [dispatch, passageIds]);
+
+		if (relativeEditorsCount > 0) {
+			relativeEditorsDispatch(closeAllRelativeEditors());
+		}
+	}, [dialogsDispatch, relativeEditorsDispatch, passageIds, relativeEditorsCount]);
 
 	return {
 		handleCloseAllPassages,
 		passageIds,
-		canClose: passageIds.length > 0
+		canClose: passageIds.length > 0 || relativeEditorsCount > 0
 	};
 }

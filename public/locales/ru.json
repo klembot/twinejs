@@ -173,6 +173,7 @@
 			"language": "Zpsr",
 			"passageEditorFont": "Шрифт редактора Параграфа",
 			"passageEditorFontScale": "Размер шрифта редактора Параграфа",
+			"passageRelativePosition": "Passage Editor Relative Position",
 			"themeLight": "Светлая",
 			"themeDark": "Тёмная",
 			"themeSystem": "Системная",

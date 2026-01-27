@@ -88,6 +88,13 @@ export const AppPrefsDialog: React.FC<
 					onChange={value => dispatch(setPref('clickOffCardsToClose', value))}
 					value={prefs.clickOffCardsToClose}
 				/>
+				<CheckboxButton
+					label={t('dialogs.appPrefs.passageRelativePosition')}
+					onChange={value =>
+						dispatch(setPref('passageRelativePosition', value))
+					}
+					value={prefs.passageRelativePosition}
+				/>
 				<p className="font-explanation">
 					{t('dialogs.appPrefs.fontExplanation')}
 				</p>

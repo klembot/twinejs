@@ -3,6 +3,7 @@ import {useParams} from 'react-router-dom';
 import {MainContent} from '../../components/container/main-content';
 import {DocumentTitle} from '../../components/document-title/document-title';
 import {DialogsContextProvider} from '../../dialogs';
+import {RelativePassageEditorsContextProvider} from '../../store/relative-passage-editors';
 import {storyWithId} from '../../store/stories';
 import {usePrefsContext} from '../../store/prefs';
 import {
@@ -60,6 +61,7 @@ export const InnerStoryEditRoute: React.FC = () => {
 					onSelectRect={handleSelectRect}
 					passages={story.passages}
 					startPassageId={story.startPassage}
+					storyId={storyId}
 					tagColors={story.tagColors}
 					visibleZoom={visibleZoom}
 					zoom={story.zoom}
@@ -82,7 +84,9 @@ export const InnerStoryEditRoute: React.FC = () => {
 export const StoryEditRoute: React.FC = () => (
 	<UndoableStoriesContextProvider>
 		<DialogsContextProvider>
-			<InnerStoryEditRoute />
+			<RelativePassageEditorsContextProvider>
+				<InnerStoryEditRoute />
+			</RelativePassageEditorsContextProvider>
 		</DialogsContextProvider>
 	</UndoableStoriesContextProvider>
 );

@@ -30,8 +30,10 @@
 
 .passage-map .passage-card {
 	will-change: transform;
+	z-index: 2;
 }
 
 .passage-map .passage-card.selected {
 	transform: translate(var(--drag-offset-left), var(--drag-offset-top));
+	z-index: 10;
 }

@@ -163,6 +163,7 @@
 			"language": "Langue",
 			"passageEditorFont": "Police de l'éditeur de passage",
 			"passageEditorFontScale": "Taille de la police de l'éditeur de passage",
+			"passageRelativePosition": "Passage Editor Relative Position",
 			"themeLight": "Clair",
 			"themeDark": "Sombre",
 			"themeSystem": "Système",

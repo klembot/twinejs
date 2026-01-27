@@ -184,6 +184,7 @@
 			"language": "Język",
 			"passageEditorFont": "Czcionka edytora scen",
 			"passageEditorFontScale": "Rozmiar czcionki edytora scen",
+			"passageRelativePosition": "Passage Editor Relative Position",
 			"themeLight": "Jasny",
 			"themeDark": "Ciemny",
 			"themeSystem": "Systemowy",
