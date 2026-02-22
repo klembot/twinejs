@@ -1,0 +1,6 @@
+.confirm-popover-message {
+	margin-bottom: var(--grid-size);
+	color: var(--danger);
+	font-weight: bold;
+	max-width: 260px;
+}
