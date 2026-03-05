@@ -150,7 +150,7 @@
 		"tagEditor": {
 			"alreadyExists": "A tag with this name already exists.",
 			"deleteTag": "Delete \"{{name}}\"? The tag will be removed from every passage.",
-			"deleteTagGlobal": "Delete \"{{name}}\"? The tag will be removed from every passage in all stories."
+			"deleteTagGlobal": "Delete \"{{name}}\"? This will remove the tag from all stories"
 		}
 	},
 	"dialogs": {
