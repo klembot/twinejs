@@ -3,13 +3,15 @@ import * as React from 'react';
 
 export interface VisibleWhitespaceProps {
 	value: string;
+	title?: string;
+	onDoubleClick?: React.MouseEventHandler;
 }
 
 /**
  * Makes leading and trailing whitespace in a string visible.
  */
 export const VisibleWhitespace: React.FC<VisibleWhitespaceProps> = ({
-	value
+	value, onDoubleClick, title
 }) => {
 	const leadingMatch = /^\s*/.exec(value);
 	const leaders = leadingMatch ? leadingMatch[0].length : 0;
@@ -17,7 +19,11 @@ export const VisibleWhitespace: React.FC<VisibleWhitespaceProps> = ({
 	const trailers = trailingMatch ? trailingMatch[0].length : 0;
 
 	return (
-		<span className="visible-whitespace">
+		<span
+			className="visible-whitespace"
+			onDoubleClick={onDoubleClick}
+			title={title}
+		>
 			{[...Array(leaders)].map((_, index) => (
 				<IconSpace key={index} />
 			))}

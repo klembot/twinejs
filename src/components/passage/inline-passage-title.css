@@ -1,0 +1,44 @@
+.inline-passage-title-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.inline-passage-title-wrapper input.inline-passage-title {
+	background: var(--white);
+	border: 1px solid var(--blue);
+	border-radius: 2px;
+	font-size: 1rem;
+	font-weight: bold;
+	outline: none;
+	padding: 2px 4px;
+	width: 100%;
+}
+
+.inline-passage-title-wrapper input.has-error.inline-passage-title {
+	border-color: var(--red);
+}
+
+.inline-passage-title-wrapper .inline-passage-title-error {
+	background-color: var(--red);
+	border-radius: var(--corner-round);
+	color: black;
+	font-size: 13px;
+	font-weight: normal;
+	padding: var(--grid-size);
+	position: absolute;
+	top: calc(100% + 8px);
+	left: 0;
+	white-space: nowrap;
+	z-index: 3000;
+    user-select: none;
+}
+
+.inline-passage-title-wrapper .inline-passage-title-error-arrow {
+	background: var(--red);
+	width: 10px;
+	height: 10px;
+	position: absolute;
+	top: -10px;
+	left: 12px;
+	clip-path: polygon(50% 33%, 100% 100%, 0 100%);
+}

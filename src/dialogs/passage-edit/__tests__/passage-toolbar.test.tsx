@@ -12,7 +12,6 @@ import {PassageToolbar} from '../passage-toolbar';
 import {usePrefsContext} from '../../../store/prefs';
 
 jest.mock('../../../components/control/menu-button');
-jest.mock('../../../components/passage/rename-passage-button');
 jest.mock('../../../components/tag/tag-card-button');
 
 const TestPassageToolbar: React.FC = () => {
@@ -99,18 +98,6 @@ describe('<PassageToolbar>', () => {
 		).toBe(
 			JSON.stringify({...tagColors, 'mock-tag-name': 'mock-changed-color'})
 		);
-	});
-
-	it('renames the passage if the user uses the rename button', async () => {
-		const story = fakeStory(1);
-
-		await renderComponent({stories: [story]});
-		fireEvent.click(
-			screen.getByText(`mock-rename-passage-button-${story.passages[0].id}`)
-		);
-		expect(
-			screen.getByTestId(`passage-${story.passages[0].id}`).dataset.name
-		).toBe('mock-new-passage-name');
 	});
 
 	it('displays a button to test the story from this passage', () => {

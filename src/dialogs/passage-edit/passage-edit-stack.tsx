@@ -5,6 +5,7 @@ import {
 	DialogCard
 } from '../../components/container/dialog-card';
 import {DialogStack} from '../../components/container/dialog-card/dialog-stack';
+import {InlinePassageTitle} from '../../components/passage/inline-passage-title';
 import {TagGrid} from '../../components/tag';
 import {VisibleWhitespace} from '../../components/visible-whitespace';
 import {
@@ -32,7 +33,8 @@ const InnerPassageEditStack: React.FC<PassageEditStackProps> = props => {
 		props;
 	const {dispatch} = useDialogsContext();
 	const {stories} = useStoriesContext();
-	const storyTagColors = storyWithId(stories, storyId).tagColors;
+	const story = storyWithId(stories, storyId);
+	const storyTagColors = story.tagColors;
 	const passageInfo = passageIds.map(passageId => {
 		const passage = passageWithId(stories, storyId, passageId);
 
@@ -98,7 +100,9 @@ const InnerPassageEditStack: React.FC<PassageEditStackProps> = props => {
 						);
 					}
 
-					return (
+						const passage = passageWithId(stories, storyId, passageId);
+
+						return (
 						<DialogCard
 							{...managementProps}
 							headerDisplayLabel={
@@ -107,7 +111,11 @@ const InnerPassageEditStack: React.FC<PassageEditStackProps> = props => {
 										tags={passageInfo[index].tags}
 										tagColors={storyTagColors}
 									/>
-									<VisibleWhitespace value={passageInfo[index].name} />
+									<InlinePassageTitle
+										disabled={managementProps.collapsed}
+										passage={passage}
+										story={story}
+									/>
 								</>
 							}
 							headerLabel={passageInfo[index].name}
