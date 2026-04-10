@@ -13,8 +13,15 @@
 }
 
 .passage-edit-stack .dialog-card-header .tag-grid {
+	flex-shrink: 0;
 	height: 16px;
 	width: 16px;
+}
+
+.passage-edit-stack .dialog-card-header .visible-whitespace {
+	flex-shrink: 1;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .passage-edit-stack .dialog-card-header .visible-whitespace svg {

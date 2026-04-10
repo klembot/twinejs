@@ -17,6 +17,7 @@ export interface PassageMapProps {
 	passages: Passage[];
 	startPassageId: string;
 	tagColors: Story['tagColors'];
+	tagDisplay: 'color' | 'name';
 	visibleZoom: number;
 	zoom: number;
 }
@@ -80,6 +81,7 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 		passages,
 		startPassageId,
 		tagColors,
+		tagDisplay,
 		visibleZoom,
 		zoom
 	} = props;
@@ -221,6 +223,7 @@ export const PassageMap: React.FC<PassageMapProps> = props => {
 				onSelect={handleSelect}
 				passages={passages}
 				tagColors={tagColors}
+				tagDisplay={tagDisplay}
 			/>
 		</div>
 	);

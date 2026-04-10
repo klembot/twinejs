@@ -1,0 +1,450 @@
+{
+	"colors": {
+		"none": "色なし",
+		"red": "赤",
+		"orange": "オレンジ",
+		"yellow": "黄",
+		"green": "緑",
+		"blue": "青",
+		"purple": "紫"
+	},
+	"common": {
+		"add": "追加",
+		"appName": "Twine",
+		"back": "戻る",
+		"build": "ビルド",
+		"cancel": "キャンセル",
+		"close": "閉じる",
+		"collapse": "折りたたむ",
+		"color": "色",
+		"create": "作成",
+		"custom": "カスタム",
+		"delete": "削除",
+		"deleteCount": "削除（{{count}}）",
+		"deselectAll": "すべて解除",
+		"details": "詳細",
+		"duplicate": "複製",
+		"edit": "編集",
+		"editCount": "編集（{{count}}）",
+		"expand": "展開",
+		"help": "ヘルプ",
+		"import": "インポート",
+		"maximize": "最大化",
+		"more": "その他",
+		"new": "新規",
+		"next": "次へ",
+		"ok": "OK",
+		"passage": "パッセージ",
+		"play": "プレイ",
+		"preferences": "環境設定",
+		"publishToFile": "ファイルに出力",
+		"redo": "やり直し",
+		"redoChange": "{{change}}をやり直す",
+		"rename": "名前変更",
+		"renamePrompt": "「{{name}}」の新しい名前は？",
+		"remove": "取り除く",
+		"selectAll": "すべて選択",
+		"skip": "スキップ",
+		"story": "ストーリー",
+		"storyFormat": "ストーリー形式",
+		"tag": "タグ",
+		"tags": "タグ",
+		"test": "テスト",
+		"twine": "Twine",
+		"undo": "元に戻す",
+		"undoChange": "{{change}}を元に戻す",
+		"unmaximize": "元のサイズに戻す",
+		"view": "表示"
+	},
+	"components": {
+		"addTagButton": {
+			"alreadyAdded": "このタグ名はすでに追加されています。",
+			"addLabel": "タグを追加",
+			"invalidName": "有効なタグ名を入力してください。",
+			"newTag": "新しいタグ",
+			"tagColorLabel": "タグの色",
+			"tagNameLabel": "タグ名"
+		},
+		"dialogCard": {
+			"contentsCrashed": "このダイアログで問題が発生しました。閉じてから開き直してください。"
+		},
+		"fontSelect": {
+			"customScaleDetail": "パーセンテージのみ入力してください。",
+			"customFamilyDetail": "フォント名のみ入力してください。",
+			"familyEmpty": "フォント名を入力してください。",
+			"font": "フォント",
+			"fonts": {
+				"monospaced": "等幅",
+				"serif": "セリフ",
+				"system": "システム"
+			},
+			"fontSize": "フォントサイズ",
+			"percentage": "{{percent}}%",
+			"percentageIsntNumber": "数値を入力してください。",
+			"percentageNotPositive": "0より大きい数値を入力してください。"
+		},
+		"indentButtons": {
+			"indent": "インデント",
+			"unindent": "インデント解除"
+		},
+		"localStorageQuota": {
+			"measureAgain": "空き容量を再測定",
+			"percentAvailable": "空き容量 {percent}%"
+		},
+		"passageCard": {
+			"placeholderClick": "パッセージをダブルクリックして編集します。",
+			"placeholderTouch": "このパッセージをタップし、パッセージタブの「編集」を選んで編集します。"
+		},
+		"passageFuzzyFinder": {
+			"noResults": "一致する結果はありません。",
+			"prompt": "パッセージ名または本文で検索"
+		},
+		"renamePassageButton": {
+			"emptyName": "名前を入力してください。",
+			"nameAlreadyUsed": "このストーリーには同名のパッセージがすでにあります。"
+		},
+		"renameStoryButton": {
+			"emptyName": "名前を入力してください。",
+			"nameAlreadyUsed": "同名のストーリーがすでにあります。"
+		},
+		"safariWarningCard": {
+			"archiveAndUseAnotherBrowser": "ストーリーをアーカイブし、別のブラウザーを使用してください。",
+			"addToHomeScreen": "この制限を避けるため、このサイトをホーム画面に追加してください。",
+			"howToAddToHomeScreen": "ホーム画面に追加する方法は？",
+			"learnMore": "詳しく見る",
+			"message": "使用中のブラウザーでは、このサイトを7日間開かないとすべてのストーリーが削除されます。"
+		},
+		"storageQuota": {
+			"freeSpace": "空き容量 {{percent}}%"
+		},
+		"storyCard": {
+			"lastUpdated": "{{date}}に最終編集",
+			"passageCount": "パッセージ1件",
+			"passageCount_plural": "パッセージ{{count}}件"
+		},
+		"storyFormatItem": {
+			"author": "作者: {{author}}",
+			"builtIn": "内蔵",
+			"defaultFormat": "既定で使用",
+			"license": "ライセンス: {{license}}",
+			"loadingFormat": "このストーリー形式を読み込み中...",
+			"loadError": "このストーリー形式を読み込めませんでした（{{errorMessage}}）。",
+			"name": "{{name}} {{version}}",
+			"proofing": "校正",
+			"proofingFormat": "校正用として使用",
+			"useEditorExtensions": "エディター拡張を使用",
+			"useFormat": "既定のストーリー形式として使用",
+			"useProofingFormat": "校正用形式として使用"
+		},
+		"storyFormatSelect": {
+			"loadingCount": "ストーリー形式を1件読み込み中...",
+			"loadingCount_plural": "ストーリー形式を{{loadingCount}}件読み込み中..."
+		},
+		"tagCardButton": {
+			"alreadyAdded": "このタグ名はすでに追加されています。",
+			"addLabel": "タグを追加",
+			"invalidName": "有効なタグ名を入力してください。",
+			"tagNameLabel": "タグ名",
+			"tagsWithCount_plural": "タグ（{{count}}）"
+		},
+		"tagEditor": {
+			"alreadyExists": "同じ名前のタグがすでにあります。"
+		}
+	},
+	"dialogs": {
+		"aboutTwine": {
+			"donateToTwine": "Twineの成長を寄付で助ける",
+			"codeHeader": "コード",
+			"codeRepo": "ソースコードリポジトリを見る",
+			"license": "このアプリケーションは<a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GPL v3 ライセンス</a>で公開されていますが、これで作成した作品は商用を含む任意の条件で公開できます。",
+			"localizationHeader": "翻訳",
+			"title": "Twine {{version}} について",
+			"twineDescription": "Twineはインタラクティブで非線形の物語を作るためのオープンソースアプリケーションです。"
+		},
+		"appDonation": {
+			"donate": "Twine開発に寄付する",
+			"onlyOnce": "（このメッセージは一度だけ表示されます。今後Twine開発に寄付したい場合は「Twineについて」ダイアログにリンクがあります。）",
+			"supportMessage": "Twineを気に入っていただけたら、寄付で成長を支援してください。Twineは常に無料で使えるオープンソースプロジェクトで、あなたの支援で今後も発展し続けます。",
+			"noThanks": "いいえ、結構です",
+			"title": "Twine開発を支援"
+		},
+		"appPrefs": {
+			"codeEditorFont": "コードエディターのフォント",
+			"codeEditorFontScale": "コードエディターのフォントサイズ",
+			"dialogWidth": "ダイアログの幅",
+			"dialogWidths": {
+				"default": "既定",
+				"wider": "広い",
+				"widest": "最も広い"
+			},
+			"editorCursorBlinks": "エディターでカーソルを点滅させる",
+			"fontExplanation": "ここでのフォント変更はTwineエディターにのみ適用されます。再生時のストーリーのフォントは変わりません。",
+			"language": "言語",
+			"passageEditorFont": "パッセージエディターのフォント",
+			"passageEditorFontScale": "パッセージエディターのフォントサイズ",
+			"themeLight": "ライト",
+			"themeDark": "ダーク",
+			"themeSystem": "システム",
+			"theme": "テーマ",
+			"title": "環境設定",
+			"useEnhancedEditors": "拡張エディターを使用"
+		},
+		"passageEdit": {
+			"editorCrashed": "このエディターで問題が発生しました。閉じてからこのパッセージを編集し直してください。",
+			"passageTextEditorLabel": "パッセージ本文",
+			"passageTextPlaceholder": "ここにパッセージの本文を入力します。別のパッセージへリンクするには、名前を二重角括弧で囲みます（[[例]]）。",
+			"setAsStart": "ここを開始パッセージにする",
+			"size": "サイズ",
+			"sizeLarge": "大",
+			"sizeSmall": "小",
+			"sizeTall": "縦長",
+			"sizeWide": "横長"
+		},
+		"passageTags": {
+			"noTags": "このストーリーのパッセージにはタグが追加されていません。",
+			"title": "パッセージのタグ"
+		},
+		"storyFormats": {
+			"addStoryFormatButton": {
+				"addPreview": "{{storyFormatName}} {{storyFormatVersion}} を追加します。",
+				"alreadyAdded": "{{storyFormatName}} {{storyFormatVersion}} はすでに追加されています。",
+				"fetchError": "このアドレスのストーリー形式を取得できませんでした（{{errorMessage}}）。",
+				"invalidUrl": "有効なURLを入力してください。",
+				"prompt": "ストーリー形式を追加するには、下にアドレスを入力してください。"
+			},
+			"filterButton": {
+				"all": "すべてのストーリー形式",
+				"current": "現在のストーリー形式",
+				"user": "ユーザー追加のストーリー形式"
+			},
+			"noneVisible": "選択した条件に一致するストーリー形式はありません。",
+			"title": "ストーリー形式"
+		},
+		"storyImport": {
+			"deselectAll": "すべて解除",
+			"filePrompt": "Twineにストーリーをインポートするには、アーカイブ、公開済みストーリー、またはTweeソースファイルを下にアップロードしてください。",
+			"importDifferentFile": "別のファイルをインポート",
+			"importSelected": "選択したファイルをインポート",
+			"importThisStory": "このストーリーをインポート",
+			"noStoriesInFile": "アップロードしたファイルにTwineのストーリーが見つかりませんでした。別のファイルを選んでください。",
+			"storiesPrompt": "インポートするストーリーを選択:",
+			"title": "ストーリーをインポート",
+			"willReplaceExisting": "ライブラリに同名のストーリーがある場合は置き換えられます。"
+		},
+		"storyDetails": {
+			"storyFormatExplanation": "ストーリー形式とは？",
+			"snapToGrid": "グリッドに吸着",
+			"stats": {
+				"brokenLinks": "リンク切れ",
+				"characters": "文字数",
+				"title": "ストーリー統計",
+				"ifid": "このストーリーのIFIDは{{ifid}}です。",
+				"ifidExplanation": "IFIDとは？",
+				"lastUpdate": "このストーリーは{{date}}に最終更新されました。",
+				"links": "リンク",
+				"passages": "パッセージ数",
+				"words": "単語数"
+			}
+		},
+		"storyJavaScript": {
+			"editorLabel": "ストーリーJavaScript",
+			"title": "ストーリーJavaScript",
+			"explanation": "ここに入力したJavaScriptは、ストーリーをブラウザーで開いたときにすぐ実行されます。"
+		},
+		"storySearch": {
+			"title": "検索と置換",
+			"error": {
+				"emptyName": "置換により「{{name}}」の名前が空になります。",
+				"invalidRegex": "入力されたテキストは有効な正規表現ではありません。",
+				"nameConflict": "置換により「{{name}}」が別のパッセージと同名になります。"
+			},
+			"find": "検索",
+			"includePassageNames": "パッセージ名も含める",
+			"matchCase": "大文字小文字を区別",
+			"matchCount": "一致したパッセージ{{count}}件",
+			"matchCount_plural": "一致したパッセージ{{count}}件",
+			"noMatches": "一致するパッセージはありません",
+			"replaceAll": "すべてのパッセージで置換",
+			"replaceWith": "置換後",
+			"useRegexes": "正規表現を使用"
+		},
+		"storyStylesheet": {
+			"editorLabel": "ストーリースタイルシート",
+			"title": "ストーリースタイルシート",
+			"explanation": "ここに入力したCSSはストーリーの既定の外観を上書きします。"
+		},
+		"storyTags": {
+			"noTags": "ストーリーにタグが追加されていません。",
+			"title": "ストーリーのタグ"
+		}
+	},
+	"electron": {
+		"backupsDirectoryName": "バックアップ",
+		"errors": {
+			"jsonSave": "設定ファイルの保存中に問題が発生しました。",
+			"storyFileChangedExternally": {
+				"message": "ストーリーライブラリ内のファイル「{{fileName}}」がTwineの外部で変更されました。",
+				"detail": "変更を保存するとこのファイルが上書きされます。このファイルをTwine内の版の代わりに使用する場合、Twineが再起動され、作業内容はこのファイルで置き換えられます。",
+				"overwriteChoice": "Twineで変更を保存",
+				"relaunchChoice": "ファイルを使用して再起動"
+			},
+			"storyLibraryFolderAppPref": {
+				"detail": "Twineは{{path}}を開こうとしました。",
+				"message": "設定したストーリーライブラリフォルダーを開けませんでした。",
+				"useDefault": "既定のフォルダーを使用",
+				"quit": "終了"
+			},
+			"storyDelete": "ストーリーの削除中に問題が発生しました。",
+			"storyRename": "ストーリーの名前変更中に問題が発生しました。",
+			"storySave": "ストーリーの保存中に問題が発生しました。"
+		},
+		"menuBar": {
+			"checkForUpdates": "更新を確認...",
+			"disableHardwareAcceleration": "ハードウェアアクセラレーションを無効化",
+			"edit": "編集",
+			"setStoryLibraryFolder": "ストーリーライブラリフォルダーを設定...",
+			"showDevTools": "デバッグコンソールを表示",
+			"showStoryLibrary": "ストーリーライブラリを表示",
+			"speech": "読み上げ",
+			"troubleshooting": "トラブルシューティング",
+			"twineHelp": "Twineヘルプ",
+			"view": "表示"
+		},
+		"relaunchDialog": {
+			"defaultPrompt": "この変更は次回Twineを起動したときに有効になります。",
+			"relaunchNow": "今すぐ再起動"
+		},
+		"scratchDirectoryName": "スクラッチ",
+		"storiesDirectoryName": "ストーリー",
+		"updateCheck": {
+			"download": "ダウンロード",
+			"error": "Twineの更新確認中に問題が発生しました。",
+			"updateAvailable": "新しいバージョンのTwineが利用可能です。",
+			"upToDate": "これは最新のTwineです。"
+		},
+		"userCss": {
+			"filename": "user.css"
+		}
+	},
+	"routes": {
+		"storyEdit": {
+			"toolbar": {
+				"findAndReplace": "検索と置換",
+				"goTo": "移動",
+				"javaScript": "JavaScript",
+				"passageTags": "パッセージのタグ",
+				"snapToGrid": "グリッドに吸着",
+				"startStoryHere": "ここを開始パッセージにする",
+				"stylesheet": "スタイルシート",
+				"testFromHere": "ここからテスト"
+			},
+			"topBar": {
+				"editJavaScript": "ストーリーJavaScriptを編集",
+				"editStylesheet": "ストーリースタイルシートを編集",
+				"findAndReplace": "検索と置換",
+				"passageTags": "パッセージのタグを編集",
+				"proofStory": "校正コピーを表示",
+				"publishToFile": "ファイルに出力",
+				"selectAllPassages": "すべてのパッセージを選択"
+			},
+			"zoomButtons": {
+				"legend": "ズーム",
+				"storyStructure": "構造のみ表示",
+				"passageNames": "パッセージ名のみ表示",
+				"passageNamesAndExcerpts": "パッセージ名と抜粋を表示"
+			}
+		},
+		"storyList": {
+			"library": "ライブラリ",
+			"noStories": "現在、Twineに保存されているストーリーはありません。開始するには、新しいストーリーを作成するか、ファイルから既存のストーリーをインポートします。",
+			"taggedTitleCount": "タグ付きストーリー1件",
+			"taggedTitleCount_0": "タグ付きストーリーなし",
+			"taggedTitleCount_plural": "タグ付きストーリー{{count}}件",
+			"titleCount": "ストーリー1件",
+			"titleCount_0": "ストーリーなし",
+			"titleCount_plural": "ストーリー{{count}}件",
+			"titleGeneric": "ストーリー",
+			"toolbar": {
+				"archive": "アーカイブ",
+				"createStoryButton": {
+					"prompt": "ストーリーの名前を入力してください。後で変更できます。",
+					"emptyName": "名前を入力してください。",
+					"nameConflict": "同名のストーリーがすでにあります。"
+				},
+				"deleteStoryButton": {
+					"warning": {
+						"electron": "「{{storyName}}」を削除してもよいですか？ゴミ箱に移動されます。",
+						"web": "「{{storyName}}」を削除してもよいですか？完全に削除され、元に戻せません。"
+					}
+				},
+				"showAllStories": "すべてのストーリーを表示",
+				"showTags": "タグを表示",
+				"sort": "並び替え",
+				"sortByDate": "最終更新日",
+				"sortByName": "名前",
+				"storyTags": "ストーリーのタグ"
+			}
+		},
+		"welcome": {
+			"autosave": "<p>ドキュメントフォルダにTwineという名前のフォルダが作成されました。その中のストーリーフォルダに、あなたの作品が保存されます。Twineは作業中に自動保存するため、自分で保存する必要はありません。<strong>Twine</strong>メニューの<strong>ストーリーライブラリを表示</strong>を選ぶと、保存先フォルダをいつでも開けます。</p><p>Twineは常に保存しているため、Twineが起動している間はストーリーライブラリ内のファイルを編集できません。</p><p>他の人から受け取ったTwineストーリーファイルを開く場合は、ストーリー一覧の<strong>ファイルからインポート</strong>リンクを使ってライブラリに取り込めます。</p>",
+			"autosaveTitle": "あなたの作品は自動的に保存されます。",
+			"browserStorage": "<p>つまり、Twine 2を使うためにアカウントは不要で、作成したものはどこかのサーバーに保存されるのではなく、すべてブラウザー内に保存されます。</p><p>ただし、<strong>とても重要</strong>な注意点が2つあります。作品はブラウザーにだけ保存されるため、保存データを消去すると作品も失われます！よくありません。<strong>アーカイブ</strong>ボタンをこまめに使ってください。ストーリー一覧の各ストーリーのメニューから、個別にファイルへ出力することもできます。アーカイブファイルもストーリーファイルも、いつでもTwineに再インポートできます。</p><p>もう1つ、<strong>このブラウザーを使える人は誰でもあなたの作品を見たり変更したりできます。</strong> もし家族と共有しているなら、自分用の別プロフィールを作ることを検討してください。</p>",
+			"browserStorageTitle": "作品はブラウザーにのみ保存されます",
+			"done": "<p>読んでくれてありがとう。Twineを楽しんでください。</p>",
+			"doneTitle": "以上です！",
+			"gotoStoryList": "ストーリーリストへ移動",
+			"greeting": "<p>Twineはインタラクティブで非線形の物語を作るためのオープンソースツールです。始める前に知っておくべきことがいくつかあります。</p>",
+			"greetingTitle": "こんにちは！",
+			"tellMeMore": "もっと知りたい",
+			"help": "<p><strong>Twineを初めて使うなら、ようこそ！</strong> <a href=\"https://twinery.org/cookbook\">Twine Cookbook</a>は使い方を学ぶのに最適なリソースです。初めてなら、ここから始めるのがおすすめです。</p>",
+			"helpTitle": "はじめて？"
+		}
+	},
+	"routeActions": {
+		"app": {
+			"aboutApp": "Twineについて",
+			"preferences": "環境設定",
+			"reportBug": "不具合を報告",
+			"storyFormats": "ストーリー形式"
+		},
+		"build": {
+			"exportAsTwee": "Tweeとしてエクスポート",
+			"play": "プレイ",
+			"proof": "校正",
+			"publishToFile": "ファイルに出力",
+			"test": "テスト"
+		}
+	},
+	"store": {
+		"archiveFilename": "{{timestamp}} Twine Archive.html",
+		"errors": {
+			"cantPersistPrefs": "環境設定の保存中に問題が発生しました（{{error}}）。",
+			"cantPersistStories": "ストーリーの保存中に問題が発生しました（{{error}}）。",
+			"cantPersistStoryFormats": "ストーリー形式の保存中に問題が発生しました（{{error}}）。",
+			"electronRemediation": "このアプリを再起動すると解決する場合があります。",
+			"webRemediation": "このページを再読み込みすると解決する場合があります。"
+		},
+		"passageDefaults": {
+			"name": "無題のパッセージ"
+		},
+		"storyDefaults": {
+			"name": "無題のストーリー"
+		},
+		"storyFormatDefaults": {
+			"name": "無題のストーリー形式"
+		}
+	},
+	"undoChange": {
+		"addTag": "タグを追加",
+		"changeTagColor": "タグの色を変更",
+		"newPassage": "新しいパッセージ",
+		"deletePassage": "パッセージを削除",
+		"deletePassages": "パッセージを削除",
+		"movePassage": "パッセージを移動",
+		"movePassages": "パッセージを移動",
+		"renamePassage": "パッセージ名を変更",
+		"removeTag": "タグを取り除く",
+		"renameTag": "タグ名を変更",
+		"replaceAllText": "すべて置換"
+	}
+}

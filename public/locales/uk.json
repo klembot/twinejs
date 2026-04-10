@@ -15,6 +15,7 @@
 		"build": "Запуск",
 		"cancel": "Скасувати",
 		"close": "Закрити",
+		"collapse": "Згорнути",
 		"color": "Колір",
 		"create": "Створити",
 		"custom": "Custom",
@@ -25,6 +26,7 @@
 		"duplicate": "Дублювати",
 		"edit": "Редагувати",
 		"editCount": "Редагувати ({{count}})",
+		"expand": "Розгорнути",
 		"help": "Допомога",
 		"import": "Імпорт",
 		"maximize": "На весь екран",
@@ -46,6 +48,7 @@
 		"story": "Оповідання",
 		"storyFormat": "Формат оповідання",
 		"tag": "Мітка",
+		"tags": "Мітки",
 		"test": "Тест",
 		"twine": "Twine",
 		"undo": "Скасувати",
@@ -92,6 +95,10 @@
 			"placeholderClick": "Клацніть двічі цей параграф, щоб редагувати його.",
 			"placeholderTouch": "Натисніть на цей параграф, потім оберіть “Редагувати” з вкладки “Параграфи”, щоб редагувати його."
 		},
+		"passageFuzzyFinder": {
+			"noResults": "Немає збігів.",
+			"prompt": "Шукати в назві та тексті параграфу"
+		},
 		"renamePassageButton": {
 			"emptyName": "Введіть назву.",
 			"nameAlreadyUsed": "Інший параграф в оповіданні вже має таку назву."
@@ -135,6 +142,13 @@
 			"loadingCount_1": "Завантажуються {{loadingCount}} формати оповідання...",
 			"loadingCount_2": "Завантажується {{loadingCount}} форматів оповідання..."
 		},
+		"tagCardButton": {
+			"alreadyAdded": "Така мітка вже існує.",
+			"addLabel": "Додати мітку",
+			"invalidName": "Введіть коректну назву мітки.",
+			"tagNameLabel": "Назва мітки",
+			"tagsWithCount_plural": "Мітки ({{count}})"
+		},
 		"tagEditor": {
 			"alreadyExists": "Мітка з такою назвою вже існує."
 		}
@@ -174,7 +188,8 @@
 			"themeDark": "Темна",
 			"themeSystem": "Системна",
 			"theme": "Тема оформлення",
-			"title": "Налаштування"
+			"title": "Налаштування",
+			"useEnhancedEditors": "Розширений редактор"
 		},
 		"passageEdit": {
 			"editorCrashed": "Щось не так з редактором. Спробуйте його закрити та відкрити знову.",
@@ -204,11 +219,12 @@
 				"current": "Формати цього оповідання",
 				"user": "Формати, додані користувачами"
 			},
-			"noneVisible": "Немає форматів оповідання, що підходять під обрані вами критерії."
+			"noneVisible": "Немає форматів оповідання, що підходять під обрані вами критерії.",
+			"title": "Формати оповідань"
 		},
 		"storyImport": {
 			"deselectAll": "Зняти виділення",
-			"filePrompt": "Ви можете імпортувати оповідання в Twine з файлу архіву або опублікованого оповідання.",
+			"filePrompt": "Ви можете імпортувати оповідання в Twine з файлу архіву, опублікованого оповідання або файлу формату Twee.",
 			"importDifferentFile": "Імпортувати інший файл",
 			"importSelected": "Імпортувати обрані файли",
 			"importThisStory": "Імпортувати це оповідання",
@@ -239,6 +255,11 @@
 		},
 		"storySearch": {
 			"title": "Знайти і замінити",
+			"error": {
+				"emptyName": "Після заміни параграф “{{name}}” матиме порожнє ім'я.",
+				"invalidRegex": "Введений текст не є коректним регулярним виразом.",
+				"nameConflict": "Після заміни параграф “{{name}}” матиме таке ж ім'я, як і інший параграф."
+			},
 			"find": "Знайти",
 			"includePassageNames": "Включати назви параграфів",
 			"matchCase": "Співпадіння за регістром",
@@ -270,13 +291,21 @@
 				"overwriteChoice": "Зберегти зміни з Twine",
 				"relaunchChoice": "Завантажити файл та перезапустити"
 			},
+			"storyLibraryFolderAppPref": {
+				"detail": "Twine намагався відкрити папку {{path}}.",
+				"message": "Неможливо відкрити вказану папку бібліотеки оповідань.",
+				"useDefault": "Використовувати папку за замовчуванням",
+				"quit": "Вийти"
+			},
 			"storyDelete": "Щось пішло не так під час видалення оповідання.",
 			"storyRename": "Щось пішло не так під час зміни назви оповідання.",
 			"storySave": "Щось пішло не так під час збереження оповідання."
 		},
 		"menuBar": {
 			"checkForUpdates": "Перевірити оновлення...",
+			"disableHardwareAcceleration": "Вимкнуте апаратне прискорення",
 			"edit": "Редагувати",
+			"setStoryLibraryFolder": "Вказати папку бібліотеки оповідань...",
 			"showDevTools": "Показати консоль відлагодження",
 			"showStoryLibrary": "Показати бібліотеку оповідань",
 			"speech": "Speech",
@@ -284,18 +313,27 @@
 			"twineHelp": "Допомога по Twine",
 			"view": "Вигляд"
 		},
+		"relaunchDialog": {
+			"defaultPrompt": "Ця зміна набуде чинності при наступному запуску Twine.",
+			"relaunchNow": "Перезапустити"
+		},
+		"scratchDirectoryName": "Чернетки",
 		"storiesDirectoryName": "Оповідання",
 		"updateCheck": {
 			"download": "Завантажити",
 			"error": "Щось пішло не так під час перевірки оновлень Twine.",
 			"updateAvailable": "Доступна новіша версія Twine.",
 			"upToDate": "Це остання версія Twine."
+		},
+		"userCss": {
+			"filename": "user.css"
 		}
 	},
 	"routes": {
 		"storyEdit": {
 			"toolbar": {
 				"findAndReplace": "Знайти та замінити",
+				"goTo": "Перейти",
 				"javaScript": "JavaScript",
 				"passageTags": "Мітки параграфів",
 				"snapToGrid": "Прив'язка до сітки",
@@ -313,6 +351,7 @@
 				"selectAllPassages": "Виділити всі параграфи"
 			},
 			"zoomButtons": {
+				"legend": "Масштаб",
 				"storyStructure": "Показати лише структуру оповідання",
 				"passageNames": "Показати лише назви параграфів",
 				"passageNamesAndExcerpts": "Показати назви параграфів та уривки"
@@ -374,6 +413,7 @@
 			"storyFormats": "Формати оповідання"
 		},
 		"build": {
+			"exportAsTwee": "Експортувати у форматі Twee",
 			"play": "Відтворити",
 			"proof": "Вичитати",
 			"publishToFile": "Публікувати у файл",

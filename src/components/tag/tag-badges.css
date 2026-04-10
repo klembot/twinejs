@@ -1,0 +1,51 @@
+@import '../../styles/colors.css';
+@import '../../styles/metrics.css';
+
+.tag-badges {
+	align-content: flex-start;
+	align-items: flex-start;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 2px;
+}
+
+.tag-badges span {
+	background-color: var(--off-white);
+	border: 1px solid var(--light-gray);
+	border-radius: calc(var(--control-inner-padding) * 2);
+	display: inline-block;
+	max-width: 100%;
+	overflow: hidden;
+	padding: calc(var(--control-inner-padding) / 2);
+	text-overflow: ellipsis;
+}
+
+.tag-badges .color-red {
+	border-color: var(--light-red);
+	background: var(--faint-red);
+}
+
+.tag-badges .color-orange {
+	border-color: var(--light-orange);
+	background: var(--faint-orange);
+}
+
+.tag-badges .color-yellow {
+	border-color: var(--light-yellow);
+	background: var(--faint-yellow);
+}
+
+.tag-badges .color-green {
+	border-color: var(--light-green);
+	background: var(--faint-green);
+}
+
+.tag-badges .color-blue {
+	border-color: var(--light-blue);
+	background: var(--faint-blue);
+}
+
+.tag-badges .color-purple {
+	border-color: var(--light-purple);
+	background: var(--faint-purple);
+}

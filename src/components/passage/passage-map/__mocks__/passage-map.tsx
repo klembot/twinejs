@@ -7,6 +7,7 @@ export const PassageMap: React.FC<Partial<PassageMapProps>> = props => (
 		data-testid="mock-passage-map"
 		data-format-name={props.formatName}
 		data-format-version={props.formatVersion}
+		data-tag-display={props.tagDisplay}
 		data-visible-zoom={props.visibleZoom}
 		data-zoom={props.zoom}
 	>

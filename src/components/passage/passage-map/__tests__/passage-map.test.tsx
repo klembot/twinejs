@@ -23,6 +23,7 @@ describe('<PassageMap>', () => {
 				passages={passages}
 				startPassageId={passages[0].id}
 				tagColors={{}}
+				tagDisplay="color"
 				visibleZoom={1}
 				zoom={1}
 				{...props}

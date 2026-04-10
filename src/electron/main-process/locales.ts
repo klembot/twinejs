@@ -8,8 +8,8 @@ import es from '../../../public/locales/es.json';
 import fi from '../../../public/locales/fi.json';
 import fr from '../../../public/locales/fr.json';
 import it from '../../../public/locales/it.json';
+import ja from '../../../public/locales/ja.json';
 import ko from '../../../public/locales/ko.json';
-import jp from '../../../public/locales/jp.json';
 import ms from '../../../public/locales/ms.json';
 import nb from '../../../public/locales/nb.json';
 import nl from '../../../public/locales/nl.json';
@@ -48,7 +48,7 @@ export async function initLocales() {
 	i18n.addResourceBundle('fi', 'translation', fi);
 	i18n.addResourceBundle('fr', 'translation', fr);
 	i18n.addResourceBundle('it', 'translation', it);
-	i18n.addResourceBundle('jp', 'translation', jp);
+	i18n.addResourceBundle('ja', 'translation', ja);
 	i18n.addResourceBundle('ko', 'translation', ko);
 	i18n.addResourceBundle('ms', 'translation', ms);
 	i18n.addResourceBundle('nb', 'translation', nb);

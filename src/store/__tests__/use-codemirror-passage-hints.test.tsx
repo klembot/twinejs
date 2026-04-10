@@ -106,4 +106,24 @@ describe('useCodeMirrorPassageHints()', () => {
 			'ccc ddd'
 		]);
 	});
+
+	it.each([['->'], ['|']])('ignores characters between [[ and %s if present', (separator) => {
+		const fakeEditor = {
+			getCursor: jest.fn(() => ({from: 6, line: 0, to: 6})),
+			getLine: jest.fn(() => `aaa [[bb${separator}cc`),
+			showHint: jest.fn()
+		};
+		const story = fakeStory(3);
+
+		story.passages[0].name = 'aaa bbb';
+		story.passages[1].name = 'ccc ddd';
+		story.passages[2].name = 'eee fff';
+
+		const {result} = renderHook(() => useCodeMirrorPassageHints(story));
+
+		result.current(fakeEditor as any);
+		expect(fakeEditor.showHint.mock.calls[0][0].hint().list).toEqual([
+			'ccc ddd'
+		]);
+	});
 });

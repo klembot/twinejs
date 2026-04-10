@@ -36,6 +36,20 @@
 	overflow: ellipsis;
 }
 
+.passage-card .tag-badges {
+	bottom: calc(var(--grid-size) / 2);
+	flex-direction: row-reverse;
+	flex-wrap: wrap-reverse;
+	font-size: 90%;
+	/* Enough room that titles are visible, and no tag badge is cut off. */
+	height: calc(100% - 35px);
+	left: calc(var(--grid-size) / 2);
+	right: calc(var(--grid-size) / 2);
+	overflow: hidden;
+	position: absolute;
+	z-index: 1;
+}
+
 .passage-card.empty .card {
 	background: hsla(0, 100%, 100%, 0.33);
 	border: 1px dashed var(--gray);
@@ -57,6 +71,12 @@
 	justify-content: center;
 	text-align: center;
 	word-break: break-word;
+}
+
+.compact-passage-cards .passage-card.tag-display-name h2 {
+	align-items: flex-start;
+	justify-content: flex-start;
+	text-align: left;
 }
 
 .compact-passage-cards .passage-card .card-content {

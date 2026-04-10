@@ -182,6 +182,11 @@
 			"language": "Language",
 			"passageEditorFont": "Passage Editor Font",
 			"passageEditorFontScale": "Passage Editor Font Size",
+			"passageTagDisplay": "Show Passage Tags As",
+			"passageTagDisplays": {
+				"color": "Color",
+				"name": "Name"
+			},
 			"themeLight": "Light",
 			"themeDark": "Dark",
 			"themeSystem": "System",

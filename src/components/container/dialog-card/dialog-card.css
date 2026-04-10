@@ -18,7 +18,8 @@
 
 .dialog-card h2 {
 	align-items: center;
-	display: flex;
+	display: grid;
+	grid-template-columns: 1fr auto;
 }
 
 .dialog-card h2 .dialog-card-header {
@@ -29,10 +30,7 @@
 	gap: var(--control-inner-padding);
 	min-width: 0;
 	padding-left: var(--grid-size);
-}
-
-.dialog-card h2 .dialog-card-header-controls {
-	flex-shrink: 1;
+	white-space: nowrap;
 }
 
 .dialog-card h2 .dialog-card-header .icon-button {

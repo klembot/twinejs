@@ -127,6 +127,7 @@ export function fakePrefs(overrides?: Partial<PrefsState>): PrefsState {
 		locale: faker.location.countryCode(),
 		passageEditorFontFamily: faker.lorem.words(2),
 		passageEditorFontScale: 0.8 + faker.number.float(0.5),
+		passageTagDisplay: 'color',
 		proofingFormat: {
 			name: faker.lorem.words(2),
 			version: faker.system.semver()

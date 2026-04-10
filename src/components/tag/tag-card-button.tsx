@@ -4,6 +4,7 @@ import {CardButton} from '../control/card-button';
 import {IconPlus, IconTag} from '@tabler/icons';
 import {CardContent} from '../container/card';
 import {AutocompleteTextInput} from '../control/autocomplete-text-input';
+import type {AutocompleteMetadata} from '../control/autocomplete-text-input';
 import {IconButton} from '../control/icon-button';
 import {Color} from '../../util/color';
 import {TagButton} from './tag-button';
@@ -13,6 +14,7 @@ import './tag-card-button.css';
 export interface TagCardButtonProps {
 	disabled?: boolean;
 	allTags: string[];
+	id: string;
 	onAdd: (value: string) => void;
 	onChangeColor: (value: string, color: Color) => void;
 	onRemove: (value: string) => void;
@@ -21,14 +23,14 @@ export interface TagCardButtonProps {
 }
 
 export const TagCardButton: React.FC<TagCardButtonProps> = props => {
-	const {allTags, disabled, onAdd, onChangeColor, onRemove, tagColors, tags} =
+	const {allTags, disabled, id, onAdd, onChangeColor, onRemove, tagColors, tags} =
 		props;
 	const [newTagName, setNewTagName] = React.useState('');
 	const [open, setOpen] = React.useState(false);
 	const {t} = useTranslation();
 	const tagCompletions = React.useMemo(
 		() => allTags.filter(tag => !tags.includes(tag)),
-		[allTags]
+		[allTags, tags]
 	);
 	const label =
 		tags.length === 0
@@ -51,8 +53,19 @@ export const TagCardButton: React.FC<TagCardButtonProps> = props => {
 		}
 	}
 
-	function handleNewTagNameChange(event: React.ChangeEvent<HTMLInputElement>) {
-		setNewTagName(event.target.value.replace(/\s/g, '-'));
+	function handleNewTagNameChange(
+		event: React.ChangeEvent<HTMLInputElement>,
+		metadata: AutocompleteMetadata
+	) {
+		const value = event.target.value.replaceAll(' ', '-');
+
+		if (metadata.autocompleted) {
+			onAdd(value);
+			setNewTagName('');
+			return;
+		}
+
+		setNewTagName(value);
 	}
 
 	function handleSubmit(event: React.FormEvent) {
@@ -86,6 +99,7 @@ export const TagCardButton: React.FC<TagCardButtonProps> = props => {
 					<form onSubmit={handleSubmit}>
 						<AutocompleteTextInput
 							completions={tagCompletions}
+							id={id}
 							onChange={handleNewTagNameChange}
 							value={newTagName}
 						>

@@ -24,6 +24,23 @@ The _Dialog Width_ menu controls the width of dialogs. The placement of dialogs
 onscreen (e.g. switching them from the right side of the window) cannot be
 changed.
 
+## Changing Tag Display
+
+The _Show Passage Tags As_ menu controls how tags appear in the story map.
+
+- When the _Color_ option is active, passages with colored tags will have a
+  small stripe of that color at their top. Tags that do not have colors assigned
+  will not show a stripe.
+
+- When the _Name_ option is active, then passages will show all tags you've
+  assigned to them, regardless of whether you've given them a color. Twine will
+  show as many tags as possible on the passage without overlapping the name of
+  the passage. If there are too many for the space available, Twine won't show
+  all of them.
+
+This preference doesn't change anything about how tags are displayed in title
+bar of passage edit dialogs.
+
 ## Changing Edit Dialogs
 
 The _Blinking Cursor in Editors_ checkbox controls whether the cursor blinks in

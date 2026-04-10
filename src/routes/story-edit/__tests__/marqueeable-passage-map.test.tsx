@@ -43,6 +43,7 @@ describe('<MarqueeablePassageMap>', () => {
 				passages={story.passages}
 				startPassageId={story.passages[0].id}
 				tagColors={{}}
+				tagDisplay="color"
 				visibleZoom={story.zoom}
 				zoom={story.zoom}
 				{...props}
@@ -167,6 +168,7 @@ describe('<MarqueeablePassageMap>', () => {
 			...callbacks,
 			formatName: format.name,
 			formatVersion: format.version,
+			tagDisplay: 'name',
 			visibleZoom: 0.5,
 			zoom: 0.75
 		});
@@ -175,6 +177,7 @@ describe('<MarqueeablePassageMap>', () => {
 
 		expect(passageMap.dataset.formatName).toBe(format.name);
 		expect(passageMap.dataset.formatVersion).toBe(format.version);
+		expect(passageMap.dataset.tagDisplay).toBe('name');
 		expect(passageMap.dataset.visibleZoom).toBe('0.5');
 		expect(passageMap.dataset.zoom).toBe('0.75');
 

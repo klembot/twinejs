@@ -90,6 +90,30 @@ describe('Pref reducer', () => {
 			expect(Number.isFinite(result.firstRunTime)).toBe(true);
 		});
 
+		it.each(['color', 'name'])(
+			'leaves passageTagDisplay intact if it is \'%s\'',
+			value => {
+				const result = reducer({...defs, passageTagDisplay: value} as any, {
+					allFormats,
+					type: 'repair'
+				});
+
+				expect(result.passageTagDisplay).toBe(value);
+			}
+		);
+
+		it.each([[1], ['not an accepted value'], [false], [null]])(
+			"replaces passageTagDisplay with 'color' if it is '%s'",
+			value => {
+				const result = reducer({...defs, passageTagDisplay: value} as any, {
+					allFormats,
+					type: 'repair'
+				});
+
+				expect(result.passageTagDisplay).toBe('color');
+			}
+		);
+
 		describe("if there isn't a format for the proofing format preference", () => {
 			it('replaces it with the newest version available for that format name', () => {
 				const result = reducer(

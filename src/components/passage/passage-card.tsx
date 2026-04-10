@@ -9,6 +9,7 @@ import {Passage, TagColors} from '../../store/stories';
 import {TagStripe} from '../tag/tag-stripe';
 import {passageIsEmpty} from '../../util/passage-is-empty';
 import './passage-card.css';
+import { TagBadges } from '../tag/tag-badges';
 
 export interface PassageCardProps {
 	onEdit: (passage: Passage) => void;
@@ -19,6 +20,7 @@ export interface PassageCardProps {
 	onSelect: (passage: Passage, exclusive: boolean) => void;
 	passage: Passage;
 	tagColors: TagColors;
+	tagDisplay: 'color' | 'name';
 }
 
 // Needs to fill a large-sized passage card.
@@ -33,16 +35,18 @@ export const PassageCard: React.FC<PassageCardProps> = React.memo(props => {
 		onEdit,
 		onSelect,
 		passage,
-		tagColors
+		tagColors,
+		tagDisplay
 	} = props;
 	const {t} = useTranslation();
 	const className = React.useMemo(
 		() =>
 			classNames('passage-card', {
 				empty: passageIsEmpty(passage),
-				selected: passage.selected
+				selected: passage.selected,
+				[`tag-display-${tagDisplay}`]: true
 			}),
-		[passage]
+		[passage, tagDisplay]
 	);
 	const container = React.useRef<HTMLDivElement>(null);
 	const excerpt = React.useMemo(() => {
@@ -115,9 +119,10 @@ export const PassageCard: React.FC<PassageCardProps> = React.memo(props => {
 					onSelect={handleSelect}
 					selected={passage.selected}
 				>
-					<TagStripe tagColors={tagColors} tags={passage.tags} />
+					{tagDisplay === 'color' && <TagStripe tagColors={tagColors} tags={passage.tags} />}
 					<h2>{passage.name}</h2>
 					<CardContent>{excerpt}</CardContent>
+					{tagDisplay === 'name' && <TagBadges tagColors={tagColors} tags={passage.tags} />}
 				</SelectableCard>
 			</div>
 		</DraggableCore>

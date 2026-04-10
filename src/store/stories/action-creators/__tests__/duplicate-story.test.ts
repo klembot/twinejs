@@ -22,7 +22,9 @@ describe('duplicateStory action creator', () => {
 						id: expect.any(String),
 						story: expect.any(String)
 					})
-				)
+				),
+				// Tested below.
+				startPassage: expect.any(String)
 			})
 		}));
 
@@ -63,5 +65,23 @@ describe('duplicateStory action creator', () => {
 		for (let i = 0; i < story.passages.length; i++) {
 			expect(result.props.passages![i].id).not.toBe(story.passages[i].id);
 		}
+	});
+
+	it("sets the duplicate's start passage correctly", () => {
+		story = fakeStory(3);
+		story.startPassage = story.passages[2].id;
+
+		// It's OK if 0 or 1 have the same name, but we need to be sure that the
+		// third passage has a unique name.
+
+		expect(story.passages[2].name).not.toEqual(story.passages[0].name);
+		expect(story.passages[2].name).not.toEqual(story.passages[1].name);
+
+		const startPassageName = story.passages[2].name;
+		const result = duplicateStory(story, [story]);
+		const duplicatedStartPassage = result.props.passages?.find(({name}) => name === startPassageName);
+
+		expect(duplicatedStartPassage).not.toBeUndefined();
+		expect(result.props.startPassage).toBe(duplicatedStartPassage!.id);
 	});
 });

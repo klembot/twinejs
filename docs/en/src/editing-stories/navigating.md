@@ -42,9 +42,19 @@ passages](./editing-passages.md).
 
 ## Tags
 
-If you have [assigned colors to passage tags](tagging.md), passages with those
-tags will have a small stripe of that color at their top. Tags that do not have
-colors assigned will not show a stripe.
+Passages will show [tags you've assigned to them](tagging.md) in two different
+ways, depending on what [the preference you've
+selected](../customizing/preferences.html):
+
+- If you choose to show tags as colors (which is the default setting), then
+  passages with those tags will have a small stripe of that color at their top.
+  Tags that do not have colors assigned will not show a stripe.
+
+- If you choose to show tags as names, then passages will show all tags you've
+  assigned to them, regardless of whether you've given them a color. Twine will
+  show as many tags as possible on the passage without overlapping the name of
+  the passage. If there are too many for the space available, Twine won't show
+  all of them.
 
 ## The Story Start
 
@@ -72,8 +82,11 @@ dashed lines with arrows, rather than solid lines.
 References in the story map can be turned off by [disabling story format
 extensions](../story-formats/extensions.md).
 
-[^rocket]: The idea behind the icon is that it represents where the story 'lifts
+[^rocket]:
+    The idea behind the icon is that it represents where the story 'lifts
     off.'
-[^embedding]: Again, embedding passages is functionality that a story format
+
+[^embedding]:
+    Again, embedding passages is functionality that a story format
     provides, because it governs what happens when a story is played. It isn't
     something Twine does in and of itself.

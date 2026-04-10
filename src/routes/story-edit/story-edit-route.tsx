@@ -3,6 +3,7 @@ import {useParams} from 'react-router-dom';
 import {MainContent} from '../../components/container/main-content';
 import {DocumentTitle} from '../../components/document-title/document-title';
 import {DialogsContextProvider} from '../../dialogs';
+import { usePrefsContext } from '../../store/prefs';
 import {storyWithId} from '../../store/stories';
 import {
 	UndoableStoriesContextProvider,
@@ -20,6 +21,7 @@ import './story-edit-route.css';
 
 export const InnerStoryEditRoute: React.FC = () => {
 	const {storyId} = useParams<{storyId: string}>();
+	const {prefs} = usePrefsContext();
 	const {stories} = useUndoableStoriesContext();
 	const story = storyWithId(stories, storyId);
 	const [fuzzyFinderOpen, setFuzzyFinderOpen] = React.useState(false);
@@ -58,6 +60,7 @@ export const InnerStoryEditRoute: React.FC = () => {
 					passages={story.passages}
 					startPassageId={story.startPassage}
 					tagColors={story.tagColors}
+					tagDisplay={prefs.passageTagDisplay}
 					visibleZoom={visibleZoom}
 					zoom={story.zoom}
 				/>

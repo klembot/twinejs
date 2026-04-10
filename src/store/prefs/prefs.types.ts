@@ -19,7 +19,7 @@ export type PrefsAction =
 
 export interface PrefsState {
 	/**
-	 *
+	 * What theme to use for the application.
 	 */
 	appTheme: 'dark' | 'light' | 'system';
 	/**
@@ -74,6 +74,12 @@ export interface PrefsState {
 	 * Font scale (1 being 100%) for the passage editor.
 	 */
 	passageEditorFontScale: number;
+	/**
+	 * Whether to show just tag colors (thin colored stripes; ignore tags without
+	 * colors) or tag names (list all tags, even uncolored tags) of tags on passage
+	 * cards in the story map.
+	 */
+	passageTagDisplay: 'color' | 'name';
 	/**
 	 * Name and version of the selected proofing format.
 	 */

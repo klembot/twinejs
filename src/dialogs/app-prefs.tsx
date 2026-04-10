@@ -67,6 +67,14 @@ export const AppPrefsDialog: React.FC<
 				>
 					{t('dialogs.appPrefs.dialogWidth')}
 				</TextSelect>
+				<TextSelect
+					onChange={e => dispatch(setPref('passageTagDisplay', e.target.value))}
+					options={[
+						{label: t('dialogs.appPrefs.passageTagDisplays.color'), value: 'color'},
+						{label: t('dialogs.appPrefs.passageTagDisplays.name'), value: 'name'}
+					]}
+					value={prefs.passageTagDisplay}
+				>{t('dialogs.appPrefs.passageTagDisplay')}</TextSelect>
 				<CheckboxButton
 					disabled={!prefs.useCodeMirror}
 					label={t('dialogs.appPrefs.editorCursorBlinks')}

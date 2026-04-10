@@ -7,6 +7,7 @@ import {fakePassage} from '../../../test-util';
 import {passageIsEmpty} from '../../../util/passage-is-empty';
 import {PassageCard, PassageCardProps} from '../passage-card';
 
+jest.mock('../../tag/tag-badges');
 jest.mock('../../tag/tag-stripe');
 jest.mock('../../../util/passage-is-empty');
 
@@ -28,6 +29,7 @@ describe('<PassageCard>', () => {
 				onSelect={jest.fn()}
 				passage={fakePassage()}
 				tagColors={{}}
+				tagDisplay="color"
 				{...props}
 			/>
 		);
@@ -104,13 +106,38 @@ describe('<PassageCard>', () => {
 		});
 	});
 
-	it('displays a <TagStripe> of passage tags', () => {
-		const passage = fakePassage({tags: ['mock-tag-1', 'mock-tag-2']});
+	describe("When the tagDisplay prop is 'color'", () => {
+		it("displays a <TagStripe> of passage tags", () => {
+			const passage = fakePassage({tags: ['mock-tag-1', 'mock-tag-2']});
 
-		renderComponent({passage});
-		expect(screen.getByTestId('mock-tag-stripe')).toHaveTextContent(
-			'mock-tag-1 mock-tag-2'
-		);
+			renderComponent({passage});
+			expect(screen.getByTestId('mock-tag-stripe')).toHaveTextContent(
+				'mock-tag-1 mock-tag-2'
+			);
+		});
+
+		it("doesn't display <TagBadges>", () => {
+			const passage = fakePassage({tags: ['mock-tag-1', 'mock-tag-2']});
+
+			renderComponent({passage});
+			expect(screen.queryByTestId('mock-tag-badges')).not.toBeInTheDocument();
+		});
+	});
+
+	describe("When the tagDisplay prop is 'name'", () => {
+		it("displays <TagBadges> containing passage tags", () => {
+			const passage = fakePassage({tags: ['mock-tag-1', 'mock-tag-2']});
+
+			renderComponent({passage, tagDisplay: 'name'});
+			expect(screen.queryByTestId('mock-tag-stripe')).not.toBeInTheDocument();
+		});
+
+		it("doesn't display a <TagStripe>", () => {
+			const passage = fakePassage({tags: ['mock-tag-1', 'mock-tag-2']});
+
+			renderComponent({passage, tagDisplay: 'name'});
+			expect(screen.queryByTestId('mock-tag-stripe')).not.toBeInTheDocument();
+		});
 	});
 
 	it('positions the card based on the passage props', () => {

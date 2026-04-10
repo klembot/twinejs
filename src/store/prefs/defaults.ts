@@ -11,14 +11,14 @@ export const defaults = (): PrefsState => ({
 	firstRunTime: new Date().getTime(),
 	lastUpdateSeen: '',
 	lastUpdateCheckTime: new Date().getTime(),
-	locale:
-		(window.navigator as any).userLanguage ||
+	locale: (window.navigator as any).userLanguage ||
 		window.navigator.language ||
 		(window.navigator as any).browserLanguage ||
 		(window.navigator as any).systemLanguage ||
 		'en-us',
 	passageEditorFontFamily: 'var(--font-system)',
 	passageEditorFontScale: 1,
+	passageTagDisplay: 'color',
 	proofingFormat: {
 		name: 'Paperthin',
 		version: '1.0.0'
@@ -32,5 +32,5 @@ export const defaults = (): PrefsState => ({
 	storyListTagFilter: [],
 	storyTagColors: {},
 	useCodeMirror: true,
-	welcomeSeen: false
+	welcomeSeen: false,
 });

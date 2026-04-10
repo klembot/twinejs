@@ -65,6 +65,7 @@ export const TagStoryButton: React.FC<TagStoryButtonProps> = props => {
 		<TagCardButton
 			allTags={allStoryTags}
 			disabled={!story}
+			id={`story-tag-input-${story?.id ?? 'none'}`}
 			onAdd={handleAddTag}
 			onChangeColor={handleChangeTagColor}
 			onRemove={handleRemoveTag}

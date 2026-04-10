@@ -30,6 +30,19 @@ export const reducer: React.Reducer<PrefsState, PrefsAction> = (
 						return {...result, [prefKey]: value};
 					}
 
+					// If the passage tag display pref isn't a valid value, then replace it with the default.
+
+					if (
+						key === 'passageTagDisplay' &&
+						// cast here is OK; [1, 2].includes('a') is valid and returns false
+						!['color', 'name'].includes(state[prefKey] as string)
+					) {
+						console.info(
+							`Repairing preference "${key}" by setting it to ${value}, was ${state[prefKey]} (not a valid value)`
+						);
+						return {...result, [prefKey]: value};
+					}
+
 					return result;
 				},
 				{}
