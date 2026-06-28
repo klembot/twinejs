@@ -212,6 +212,30 @@ describe('Dialog reducer', () => {
 				}
 			]));
 
+		it('unmaximizes a dialog when collapsing it', () =>
+			expect(
+				reducer(
+					[
+						{
+							collapsed: false,
+							component: mockComponent,
+							highlighted: false,
+							maximized: true,
+							props: {mockProp: true}
+						}
+					],
+					{type: 'setDialogCollapsed', collapsed: true, index: 0}
+				)
+			).toEqual([
+				{
+					collapsed: true,
+					component: mockComponent,
+					highlighted: false,
+					maximized: false,
+					props: {mockProp: true}
+				}
+			]));
+
 		it('does nothing if an incorrect index is specified', () =>
 			expect(
 				reducer(
@@ -412,6 +436,30 @@ describe('Dialog reducer', () => {
 					highlighted: false,
 					maximized: false,
 					props: {mockProp: false}
+				}
+			]));
+
+		it('expands a dialog when maximizing it', () =>
+			expect(
+				reducer(
+					[
+						{
+							collapsed: true,
+							component: mockComponent,
+							highlighted: false,
+							maximized: false,
+							props: {mockProp: true}
+						}
+					],
+					{type: 'setDialogMaximized', maximized: true, index: 0}
+				)
+			).toEqual([
+				{
+					collapsed: false,
+					component: mockComponent,
+					highlighted: false,
+					maximized: true,
+					props: {mockProp: true}
 				}
 			]));
 
