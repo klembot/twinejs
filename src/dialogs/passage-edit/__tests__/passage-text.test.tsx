@@ -237,6 +237,30 @@ describe('<PassageText>', () => {
 		expect(onChange.mock.calls).toEqual([['mock-change2']]);
 	});
 
+	it.each([true, false])(
+		'flushes pending passage text changes on blur when useCodeMirror is %s',
+		useCodeMirror => {
+			const onChange = jest.fn();
+
+			renderComponent({onChange}, {prefs: {useCodeMirror}});
+
+			const editor = screen.getByLabelText(
+				'dialogs.passageEdit.passageTextEditorLabel'
+			);
+
+			fireEvent.change(editor, {target: {value: 'mock-blur-change'}});
+			expect(onChange).not.toHaveBeenCalled();
+
+			fireEvent.blur(editor);
+
+			expect(onChange).toHaveBeenCalledTimes(1);
+			expect(onChange).toHaveBeenCalledWith('mock-blur-change');
+
+			jest.advanceTimersByTime(1000);
+			expect(onChange).toHaveBeenCalledTimes(1);
+		}
+	);
+
 	it('uses CodeMirror in the code area if enabled in preferences', () => {
 		renderComponent({}, {prefs: {useCodeMirror: true}});
 		expect(screen.getByTestId('mock-code-area')!.dataset.useCodeMirror).toBe(
