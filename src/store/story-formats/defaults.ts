@@ -36,8 +36,8 @@ export const builtins = () => [
 	},
 	{
 		name: 'Snowman',
-		url: 'story-formats/snowman-2.1.1/format.js',
-		version: '2.1.1',
+		url: 'story-formats/snowman-2.1.3/format.js',
+		version: '2.1.3',
 		userAdded: false
 	},
 	{
