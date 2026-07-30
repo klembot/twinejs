@@ -38,13 +38,13 @@ list of matches.
 An empty passage is one you haven't written any text in (usually). These show up
 in the Story Map as translucent cards with a dotted border. Twine automatically
 creates and deletes empty passages when you [edit links in
-passages](./editing-passages.md).
+passages](editing-passages.md).
 
 ## Tags
 
 Passages will show [tags you've assigned to them](tagging.md) in two different
 ways, depending on what [the preference you've
-selected](../customizing/preferences.html):
+selected](../customizing/preferences.md):
 
 - If you choose to show tags as colors (which is the default setting), then
   passages with those tags will have a small stripe of that color at their top.
@@ -67,7 +67,7 @@ passage edit dialog.
 
 If there is a link in a passage that Twine can't find a passage for, it will
 instead show a red line ending in a 'no entry' symbol. [Edit the
-passage](editing.md) to correct the problem.
+passage](editing-passages.md) to correct the problem.
 
 ## References
 
