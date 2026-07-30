@@ -44,7 +44,7 @@ done with Twine--but you might be better-served using a different tool.
   [Inform](http://inform7.com) or [Bitsy](http://www.bitsy.org), for example,
   might be better fits for these.
 
-See [Limitations](../limitations/index.md) for more details on some of the above and some possible ways
+See [Limitations](../en/limitations/index.md) for more details on some of the above and some possible ways
 to work around these issues.
 
 ## See Also...
