@@ -59,4 +59,4 @@ Dialog boxes have a few controls in their title bar:
 
 You can have as many dialogs open as you have room onscreen for. Right now, the
 order of dialogs can't be changed, nor can their position onscreen be changed.
-The width of dialogs can be changed in [preferences](../preferences).
+The width of dialogs can be changed in [preferences](../customizing/preferences.md).
