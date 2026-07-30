@@ -32,7 +32,7 @@ resides. This opens this guide in your web browser.
 No matter where you are in Twine, there will be a tab at the end of the top
 toolbar labeled _Twine_. This tab contains actions related to Twine itself.
 
-- _Preferences_ opens the [Preferences dialog](../preferences), where you can
+- _Preferences_ opens the [Preferences dialog](../customizing/preferences.md), where you can
   customize how Twine works.
 - _Story Formats_ takes you to the [Story Formats](../story-formats) screen,
   where you can manage story formats installed in your version of Twine.
