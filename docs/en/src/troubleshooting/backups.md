@@ -25,6 +25,6 @@ You must keep backups yourself using the
 You may not be completely out of luck.
 
 In addition to automatic backups, app Twine creates files in the [scratch
-folder](../publishing/scratch.md). Files in this folder are created when you
+folder](../publishing/scratch-folder.md). Files in this folder are created when you
 play, test, or proof a story. You may be able to recover your work from files
 here.
