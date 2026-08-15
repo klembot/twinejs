@@ -8,6 +8,7 @@ export interface TextInputProps {
 	list?: string;
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	onInput?: (event: React.FormEvent<HTMLInputElement>) => void;
+	onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 	orientation?: 'horizontal' | 'vertical';
 	placeholder?: string;
 	type?: 'search' | 'text';
@@ -31,6 +32,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
 						list={props.list}
 						onChange={props.onChange}
 						onInput={props.onInput}
+						onKeyDown={props.onKeyDown}
 						placeholder={props.placeholder}
 						ref={ref}
 						type={props.type ?? 'text'}

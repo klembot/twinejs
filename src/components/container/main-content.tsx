@@ -13,10 +13,10 @@ export interface MainContentProps
 
 export const MainContent = React.forwardRef<HTMLDivElement, MainContentProps>(
 	(props, ref) => {
-		const {children, grabbable, title} = props;
+		const {children, grabbable, padded, title, ...otherProps} = props;
 		const containerRef = React.useRef<HTMLDivElement>(null);
 		const className = classNames('main-content', {
-			padded: props.padded ?? true
+			padded: padded ?? true
 		});
 
 		React.useImperativeHandle(
@@ -94,8 +94,16 @@ export const MainContent = React.forwardRef<HTMLDivElement, MainContentProps>(
 			}
 		}, [grabbable]);
 
+		// tabIndex makes the focus() call above work, which is what lets keyboard
+		// shortcuts see which part of the app the user is in.
+
 		return (
-			<div className={className} ref={containerRef}>
+			<div
+				tabIndex={-1}
+				{...otherProps}
+				className={className}
+				ref={containerRef}
+			>
 				{title && (
 					<>
 						<DocumentTitle title={title} />

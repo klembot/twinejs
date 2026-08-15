@@ -21,6 +21,7 @@ export const StoryActions: React.FC<StoryActionsProps> = props => {
 			<FindReplaceButton story={story} />
 			<RenameStoryButton
 				existingStories={stories}
+				hotkeyScope={null}
 				onRename={name => dispatch(updateStory(stories, story, {name}))}
 				story={story}
 			/>

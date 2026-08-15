@@ -5,6 +5,7 @@ import {ButtonBar} from '../container/button-bar';
 import {CardContent} from '../container/card';
 import {CardButton, CardButtonProps} from './card-button';
 import {IconButton, IconButtonProps} from './icon-button';
+import {useControlledOpen} from './use-controlled-open';
 import './confirm-button.css';
 
 export interface ConfirmButtonProps
@@ -14,7 +15,18 @@ export interface ConfirmButtonProps
 	confirmIcon?: React.ReactNode;
 	confirmLabel?: string;
 	confirmVariant?: IconButtonProps['variant'];
+	/**
+	 * Called when the confirmation opens or closes. Only needed if a parent
+	 * wants to control this--see `open`.
+	 */
+	onChangeOpen?: (value: boolean) => void;
 	onConfirm: () => void;
+	/**
+	 * Is the confirmation open? Leave undefined to let the button manage
+	 * itself. Setting it lets a parent open the confirmation programmatically,
+	 * e.g. from a keyboard shortcut.
+	 */
+	open?: boolean;
 	prompt: string;
 }
 
@@ -25,11 +37,13 @@ export const ConfirmButton: React.FC<ConfirmButtonProps> = props => {
 		confirmIcon,
 		confirmLabel,
 		confirmVariant,
+		onChangeOpen,
 		onConfirm,
+		open: controlledOpen,
 		prompt,
 		...other
 	} = props;
-	const [open, setOpen] = React.useState(false);
+	const [open, setOpen] = useControlledOpen(controlledOpen, onChangeOpen);
 	const {t} = useTranslation();
 
 	function handleConfirm() {

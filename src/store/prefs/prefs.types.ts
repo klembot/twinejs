@@ -13,7 +13,8 @@ export type PrefsAction =
 				| string[]
 				| {name: string; version: string}
 				| {name: string; version: string}[]
-				| Record<string, Color>;
+				| Record<string, Color>
+				| Record<string, string[]>;
 	  }
 	| {type: 'repair'; allFormats: StoryFormat[]};
 
@@ -54,6 +55,13 @@ export interface PrefsState {
 	 * Timestamp when the app was first run.
 	 */
 	firstRunTime: number;
+	/**
+	 * User overrides of default keyboard shortcuts, keyed by command ID. An
+	 * empty array means the user explicitly unbound the command; a missing key
+	 * means the default applies. Only differences from the defaults are stored,
+	 * so improved defaults reach users who haven't customized anything.
+	 */
+	hotkeyOverrides: Record<string, string[]>;
 	/**
 	 * Last version number seen during an update check.
 	 */

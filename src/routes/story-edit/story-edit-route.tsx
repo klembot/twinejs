@@ -47,7 +47,12 @@ export const InnerStoryEditRoute: React.FC = () => {
 				onOpenFuzzyFinder={() => setFuzzyFinderOpen(true)}
 				story={story}
 			/>
-			<MainContent grabbable padded={false} ref={mainContent}>
+			<MainContent
+				data-hotkey-scope="story-map"
+				grabbable
+				padded={false}
+				ref={mainContent}
+			>
 				<MarqueeablePassageMap
 					container={mainContent}
 					formatName={story.storyFormat}

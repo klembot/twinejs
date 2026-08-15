@@ -21,6 +21,59 @@ describe('Dialog reducer', () => {
 				}
 			]));
 
+		it('can add a dialog maximized', () =>
+			expect(
+				reducer([], {
+					type: 'addDialog',
+					component: mockComponent,
+					maximized: true
+				})
+			).toEqual([
+				{
+					collapsed: false,
+					component: mockComponent,
+					highlighted: false,
+					maximized: true,
+					props: undefined
+				}
+			]));
+
+		it('un-maximizes other dialogs when adding a maximized one', () =>
+			expect(
+				reducer(
+					[
+						{
+							collapsed: false,
+							component: mockComponent,
+							highlighted: false,
+							maximized: true,
+							props: {mockProp: true}
+						}
+					],
+					{
+						type: 'addDialog',
+						component: mockComponent,
+						maximized: true,
+						props: {mockProp: false}
+					}
+				)
+			).toEqual([
+				{
+					collapsed: false,
+					component: mockComponent,
+					highlighted: false,
+					maximized: false,
+					props: {mockProp: true}
+				},
+				{
+					collapsed: false,
+					component: mockComponent,
+					highlighted: false,
+					maximized: true,
+					props: {mockProp: false}
+				}
+			]));
+
 		it('adds a dialog if another component of its kind exists, but has different props', () =>
 			expect(
 				reducer(

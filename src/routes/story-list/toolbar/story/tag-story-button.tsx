@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useTranslation} from 'react-i18next';
 import {setPref, usePrefsContext} from '../../../../store/prefs';
 import {
 	Story,
@@ -7,6 +8,7 @@ import {
 	useStoriesContext
 } from '../../../../store/stories';
 import {TagCardButton} from '../../../../components/tag/tag-card-button';
+import {useCommand} from '../../../../hotkeys';
 import {Color, colorString} from '../../../../util/color';
 
 export interface TagStoryButtonProps {
@@ -18,6 +20,16 @@ export const TagStoryButton: React.FC<TagStoryButtonProps> = props => {
 	const {dispatch: prefsDispatch, prefs} = usePrefsContext();
 	const {dispatch: storiesDispatch, stories} = useStoriesContext();
 	const allStoryTags = storyTags(stories);
+	const [tagCardOpen, setTagCardOpen] = React.useState(false);
+	const {t} = useTranslation();
+
+	useCommand({
+		enabled: !!story,
+		id: 'story.tag',
+		label: t('hotkeys.commands.story.tag'),
+		run: () => setTagCardOpen(true),
+		scope: 'story-list'
+	});
 
 	function handleAddTag(name: string) {
 		if (!story) {
@@ -68,6 +80,8 @@ export const TagStoryButton: React.FC<TagStoryButtonProps> = props => {
 			id={`story-tag-input-${story?.id ?? 'none'}`}
 			onAdd={handleAddTag}
 			onChangeColor={handleChangeTagColor}
+			onChangeOpen={setTagCardOpen}
+			open={tagCardOpen}
 			onRemove={handleRemoveTag}
 			tagColors={{}}
 			tags={story?.tags ?? []}

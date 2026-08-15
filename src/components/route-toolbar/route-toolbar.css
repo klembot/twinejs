@@ -26,6 +26,14 @@
 	flex-grow: 1;
 }
 
+.route-toolbar .react-tabs__tab-panel {
+	display: none;
+}
+
+.route-toolbar .react-tabs__tab-panel--selected {
+	display: block;
+}
+
 .route-toolbar .route-toolbar-tablist {
 	display: inline-flex;
 	list-style: none;

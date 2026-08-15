@@ -1,0 +1,16 @@
+.key-chip {
+	display: inline-flex;
+	gap: calc(var(--grid-size) / 2);
+	white-space: nowrap;
+}
+
+.key-chip kbd {
+	background: var(--faint-gray);
+	border: 1px solid var(--light-gray);
+	border-radius: var(--corner-round);
+	box-shadow: var(--shadow-small);
+	font: 90% var(--font-system);
+	min-width: calc(var(--grid-size) * 2.4);
+	padding: 1px calc(var(--grid-size) / 2);
+	text-align: center;
+}

@@ -37,6 +37,10 @@ export type DialogsAction =
 	| {
 			type: 'addDialog';
 			component: React.ComponentType<any>;
+			/**
+			 * Should the dialog open maximized? Defaults to false.
+			 */
+			maximized?: boolean;
 			props?: Record<string, any>;
 	  }
 	| {type: 'removeDialog'; index: number}

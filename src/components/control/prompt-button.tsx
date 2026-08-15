@@ -6,6 +6,7 @@ import {CardContent} from '../container/card';
 import {CardButton, CardButtonProps} from './card-button';
 import {IconButton, IconButtonProps} from './icon-button';
 import {TextInput} from './text-input';
+import {useControlledOpen} from './use-controlled-open';
 import './prompt-button.css';
 
 export interface PromptValidationResponse {
@@ -21,6 +22,17 @@ export interface PromptButtonProps
 	extends Omit<CardButtonProps, 'ariaLabel' | 'onChangeOpen' | 'open'> {
 	cancelIcon?: React.ReactNode;
 	cancelLabel?: string;
+	/**
+	 * Called when the prompt opens or closes. Only needed if a parent wants to
+	 * control this--see `open`.
+	 */
+	onChangeOpen?: (value: boolean) => void;
+	/**
+	 * Is the prompt open? Leave this undefined to let the button manage itself,
+	 * which is what most callers want. Setting it lets a parent open the prompt
+	 * programmatically, e.g. from a keyboard shortcut.
+	 */
+	open?: boolean;
 	onChange: React.ChangeEventHandler<HTMLInputElement>;
 	onSubmit: (value: string) => void;
 	prompt: string;
@@ -37,7 +49,9 @@ export const PromptButton: React.FC<PromptButtonProps> = props => {
 		cancelIcon,
 		cancelLabel,
 		onChange,
+		onChangeOpen,
 		onSubmit,
+		open: controlledOpen,
 		prompt,
 		submitIcon,
 		submitLabel,
@@ -48,7 +62,7 @@ export const PromptButton: React.FC<PromptButtonProps> = props => {
 		...other
 	} = props;
 	const mounted = React.useRef(true);
-	const [open, setOpen] = React.useState(false);
+	const [open, setOpen] = useControlledOpen(controlledOpen, onChangeOpen);
 	const [validation, setValidation] =
 		React.useState<PromptValidationResponse>();
 	const {t} = useTranslation();

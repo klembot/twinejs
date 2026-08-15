@@ -1,8 +1,8 @@
 import {IconTrash} from '@tabler/icons';
 import * as React from 'react';
-import {useHotkeys} from 'react-hotkeys-hook';
 import {useTranslation} from 'react-i18next';
 import {IconButton} from '../../../../components/control/icon-button';
+import {useCommand} from '../../../../hotkeys';
 import {deletePassages, Passage, Story} from '../../../../store/stories';
 import {useUndoableStoriesContext} from '../../../../store/undoable-stories';
 
@@ -37,7 +37,13 @@ export const DeletePassagesButton: React.FC<
 		);
 	}, [dispatch, passages, story]);
 
-	useHotkeys('Backspace,Delete', handleClick, [handleClick]);
+	useCommand({
+		enabled: !disabled,
+		id: 'passage.delete',
+		label: t('hotkeys.commands.passage.delete'),
+		run: handleClick,
+		scope: 'story-map'
+	});
 
 	return (
 		<IconButton

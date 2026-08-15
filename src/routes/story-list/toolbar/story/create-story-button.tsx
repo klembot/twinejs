@@ -9,6 +9,7 @@ import {
 	useStoriesContext
 } from '../../../../store/stories';
 import {PromptButton} from '../../../../components/control/prompt-button';
+import {useCommand} from '../../../../hotkeys';
 import {unusedName} from '../../../../util/unused-name';
 
 export const CreateStoryButton: React.FC = () => {
@@ -20,8 +21,16 @@ export const CreateStoryButton: React.FC = () => {
 		)
 	);
 	const history = useHistory();
+	const [promptOpen, setPromptOpen] = React.useState(false);
 	const {prefs} = usePrefsContext();
 	const {t} = useTranslation();
+
+	useCommand({
+		id: 'story.create',
+		label: t('hotkeys.commands.story.create'),
+		run: () => setPromptOpen(true),
+		scope: 'story-list'
+	});
 
 	function validateName(value: string) {
 		if (value.trim() === '') {
@@ -55,6 +64,8 @@ export const CreateStoryButton: React.FC = () => {
 	return (
 		<PromptButton
 			icon={<IconPlus />}
+			onChangeOpen={setPromptOpen}
+			open={promptOpen}
 			label={t('common.new')}
 			submitLabel={t('common.create')}
 			submitVariant="create"

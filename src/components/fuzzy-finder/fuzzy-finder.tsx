@@ -1,16 +1,13 @@
 import {IconX} from '@tabler/icons';
 import classnames from 'classnames';
 import * as React from 'react';
-import {useHotkeys} from 'react-hotkeys-hook';
+import {useTranslation} from 'react-i18next';
 import {Card} from '../container/card';
 import {IconButton} from '../control/icon-button';
 import {TextInput} from '../control/text-input';
+import {useCommand} from '../../hotkeys';
 import {FuzzyFinderResult, FuzzyFinderResultProps} from './fuzzy-finder-result';
 import './fuzzy-finder.css';
-
-function elementIsFocused(element: HTMLElement | null): boolean {
-	return !!(element && document.activeElement === element);
-}
 
 export interface FuzzyFinderProps {
 	noResultsText: string;
@@ -35,48 +32,48 @@ export const FuzzyFinder: React.FC<FuzzyFinderProps> = props => {
 	const [selectedResult, setSelectedResult] = React.useState(0);
 	const containerRef = React.useRef<HTMLDivElement>(null);
 	const inputRef = React.useRef<HTMLInputElement>(null);
-	useHotkeys(
-		'escape',
-		onClose,
-		{
-			enableOnTags: ['INPUT'],
-			filter: () => elementIsFocused(inputRef.current)
-		},
-		[onClose]
-	);
-	useHotkeys(
-		'return',
-		() => onSelectResult(selectedResult),
-		{
-			enableOnTags: ['INPUT'],
-			filter: () => elementIsFocused(inputRef.current)
-		},
-		[onSelectResult, selectedResult]
-	);
-	useHotkeys(
-		'up',
-		() =>
+	const {t} = useTranslation();
+
+	// These all run while the search field has focus, which is why they set
+	// allowInInput. The finder's scope is set on the container below, so they
+	// can't fire anywhere else.
+
+	useCommand({
+		allowInInput: true,
+		id: 'finder.close',
+		label: t('hotkeys.commands.finder.close'),
+		run: onClose,
+		scope: 'fuzzy-finder'
+	});
+	useCommand({
+		allowInInput: true,
+		id: 'finder.select',
+		label: t('hotkeys.commands.finder.select'),
+		run: () => onSelectResult(selectedResult),
+		scope: 'fuzzy-finder'
+	});
+	useCommand({
+		allowInInput: true,
+		allowRepeat: true,
+		id: 'finder.previous',
+		label: t('hotkeys.commands.finder.previous'),
+		run: () =>
 			setSelectedResult(value =>
 				value === 0 ? results.length - 1 : value - 1
 			),
-		{
-			enableOnTags: ['INPUT'],
-			filter: () => elementIsFocused(inputRef.current)
-		},
-		[onSelectResult, selectedResult]
-	);
-	useHotkeys(
-		'down',
-		() =>
+		scope: 'fuzzy-finder'
+	});
+	useCommand({
+		allowInInput: true,
+		allowRepeat: true,
+		id: 'finder.next',
+		label: t('hotkeys.commands.finder.next'),
+		run: () =>
 			setSelectedResult(value =>
 				value === results.length - 1 ? 0 : value + 1
 			),
-		{
-			enableOnTags: ['INPUT'],
-			filter: () => elementIsFocused(inputRef.current)
-		},
-		[onSelectResult, selectedResult]
-	);
+		scope: 'fuzzy-finder'
+	});
 
 	React.useEffect(() => {
 		// Automatically focus the search input on mount.
@@ -95,7 +92,11 @@ export const FuzzyFinder: React.FC<FuzzyFinderProps> = props => {
 	}, []);
 
 	return (
-		<div className="fuzzy-finder" ref={containerRef}>
+		<div
+			className="fuzzy-finder"
+			data-hotkey-scope="fuzzy-finder"
+			ref={containerRef}
+		>
 			<Card>
 				<div className="search">
 					<TextInput

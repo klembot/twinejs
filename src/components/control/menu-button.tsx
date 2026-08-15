@@ -8,6 +8,7 @@ import {IconButton, IconButtonProps} from './icon-button';
 import './menu-button.css';
 import {CheckboxButton} from './checkbox-button';
 import {IconCheck} from '@tabler/icons';
+import {useControlledOpen} from './use-controlled-open';
 
 export interface UncheckableLabeledMenuItem {
 	disabled?: boolean;
@@ -32,15 +33,26 @@ export interface MenuSeparator {
 
 export interface MenuButtonProps extends Omit<IconButtonProps, 'onClick'> {
 	items: (LabeledMenuItem | MenuSeparator)[];
+	/**
+	 * Called when the menu opens or closes. Only needed if a parent wants to
+	 * control this--see `open`.
+	 */
+	onChangeOpen?: (value: boolean) => void;
+	/**
+	 * Is the menu open? Leave undefined to let the button manage itself.
+	 * Setting it lets a parent open the menu programmatically, e.g. from a
+	 * keyboard shortcut.
+	 */
+	open?: boolean;
 }
 
 export const MenuButton: React.FC<MenuButtonProps> = props => {
-	const {items, ...other} = props;
+	const {items, onChangeOpen, open: controlledOpen, ...other} = props;
 	const [buttonEl, setButtonEl] = React.useState<HTMLButtonElement | null>(
 		null
 	);
 	const [menuEl, setMenuEl] = React.useState<HTMLDivElement | null>(null);
-	const [open, setOpen] = React.useState(false);
+	const [open, setOpen] = useControlledOpen(controlledOpen, onChangeOpen);
 	const {styles, attributes} = usePopper(buttonEl, menuEl, {strategy: 'fixed'});
 
 	React.useEffect(() => {
@@ -57,7 +69,7 @@ export const MenuButton: React.FC<MenuButtonProps> = props => {
 		<span className="menu-button">
 			<IconButton
 				{...other}
-				onClick={() => setOpen(open => !open)}
+				onClick={() => setOpen(!open)}
 				ref={setButtonEl}
 			/>
 			<CSSTransition

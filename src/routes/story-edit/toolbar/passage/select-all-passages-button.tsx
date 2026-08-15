@@ -2,6 +2,7 @@ import {IconMarquee} from '@tabler/icons';
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {IconButton} from '../../../../components/control/icon-button';
+import {useCommand} from '../../../../hotkeys';
 import {
 	selectAllPassages,
 	Story,
@@ -16,12 +17,23 @@ export const SelectAllPassagesButton: React.FC<SelectAllPassagesButtonProps> = p
 	const {story} = props;
 	const {dispatch} = useStoriesContext();
 	const {t} = useTranslation();
+	const handleClick = React.useCallback(
+		() => dispatch(selectAllPassages(story)),
+		[dispatch, story]
+	);
+
+	useCommand({
+		id: 'passage.selectAll',
+		label: t('hotkeys.commands.passage.selectAll'),
+		run: handleClick,
+		scope: 'story-map'
+	});
 
 	return (
 		<IconButton
 			icon={<IconMarquee />}
 			label={t('common.selectAll')}
-			onClick={() => dispatch(selectAllPassages(story))}
+			onClick={handleClick}
 		/>
 	);
 };

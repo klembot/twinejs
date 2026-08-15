@@ -4,6 +4,7 @@ import {IconWriting} from '@tabler/icons';
 import {PromptButton} from '../control/prompt-button';
 import {Passage, Story} from '../../store/stories';
 import {IconButton} from '../control/icon-button';
+import {useCommand} from '../../hotkeys';
 
 const DisabledRenamePassageButton: React.FC = () => {
 	const {t} = useTranslation();
@@ -14,15 +15,33 @@ const DisabledRenamePassageButton: React.FC = () => {
 };
 
 export interface EnabledRenamePassageButtonProps {
+	/**
+	 * Scope the `passage.rename` command registers in. The story map toolbar
+	 * and the passage editor both show this button, and each should respond to
+	 * the shortcut when it has focus.
+	 */
+	hotkeyScope?: string | null;
 	onRename: (value: string) => void;
 	passage: Passage;
 	story: Story;
 }
 
 export const EnabledRenamePassageButton: React.FC<EnabledRenamePassageButtonProps> = props => {
-	const {onRename, passage, story} = props;
+	const {hotkeyScope = 'story-map', onRename, passage, story} = props;
 	const [newName, setNewName] = React.useState(passage.name);
+	const [open, setOpen] = React.useState(false);
 	const {t} = useTranslation();
+
+	// F2 produces no character, so this is safe to allow while the passage
+	// editor has focus.
+
+	useCommand({
+		allowInInput: true,
+		id: 'passage.rename',
+		label: t('common.rename'),
+		run: () => setOpen(true),
+		scope: hotkeyScope
+	});
 
 	function validate(name: string) {
 		if (name.trim() === '') {
@@ -46,6 +65,8 @@ export const EnabledRenamePassageButton: React.FC<EnabledRenamePassageButtonProp
 		<PromptButton
 			icon={<IconWriting />}
 			label={t('common.rename')}
+			onChangeOpen={setOpen}
+			open={open}
 			onChange={event => setNewName(event.target.value)}
 			onSubmit={onRename}
 			prompt={t('common.renamePrompt', {name: passage.name})}

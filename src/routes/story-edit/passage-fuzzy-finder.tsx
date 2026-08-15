@@ -1,6 +1,5 @@
 import debounce from 'lodash/debounce';
 import * as React from 'react';
-import {useHotkeys} from 'react-hotkeys-hook';
 import {useTranslation} from 'react-i18next';
 import {CSSTransition} from 'react-transition-group';
 import {FuzzyFinder} from '../../components/fuzzy-finder';
@@ -14,6 +13,10 @@ import {Point} from '../../util/geometry';
 
 export interface PassageFuzzyFinderProps {
 	onClose: () => void;
+	/**
+	 * Opens the finder. The story map toolbar's Go To button registers the
+	 * `passage.goTo` command with this, so there's no key handling here.
+	 */
 	onOpen: () => void;
 	open?: boolean;
 	setCenter: (value: Point) => void;
@@ -21,7 +24,7 @@ export interface PassageFuzzyFinderProps {
 }
 
 export const PassageFuzzyFinder: React.FC<PassageFuzzyFinderProps> = props => {
-	const {onClose, onOpen, open, setCenter, story} = props;
+	const {onClose, open, setCenter, story} = props;
 	const {dispatch} = useStoriesContext();
 	const [search, setSearch] = React.useState('');
 	const [debouncedSearch, setDebouncedSearch] = React.useState('');
@@ -48,7 +51,6 @@ export const PassageFuzzyFinder: React.FC<PassageFuzzyFinderProps> = props => {
 			})),
 		[matches]
 	);
-	useHotkeys('p', onOpen);
 	const {t} = useTranslation();
 
 	function handleChangeSearch(value: string) {

@@ -122,6 +122,7 @@ export function fakePrefs(overrides?: Partial<PrefsState>): PrefsState {
 		donateShown: faker.datatype.boolean(),
 		editorCursorBlinks: faker.datatype.boolean(),
 		firstRunTime: new Date().getTime(),
+		hotkeyOverrides: {},
 		lastUpdateSeen: '',
 		lastUpdateCheckTime: new Date().getTime(),
 		locale: faker.location.countryCode(),

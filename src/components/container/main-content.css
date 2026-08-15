@@ -13,6 +13,10 @@
 	bottom: 0;
 }
 
+.main-content:focus {
+	outline: none;
+}
+
 .main-content.padded {
 	padding: var(--ui-gap);
 }

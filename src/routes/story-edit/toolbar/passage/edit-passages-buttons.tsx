@@ -3,6 +3,7 @@ import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {IconButton} from '../../../../components/control/icon-button';
 import {addPassageEditors, useDialogsContext} from '../../../../dialogs';
+import {useCommand} from '../../../../hotkeys';
 import {Passage, Story} from '../../../../store/stories';
 
 export interface EditPassagesButtonProps {
@@ -23,6 +24,14 @@ export const EditPassagesButton: React.FC<EditPassagesButtonProps> = props => {
 			)
 		);
 	}
+
+	useCommand({
+		enabled: passages.length > 0,
+		id: 'passage.edit',
+		label: t('hotkeys.commands.passage.edit'),
+		run: handleClick,
+		scope: 'story-map'
+	});
 
 	return (
 		<IconButton

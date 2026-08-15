@@ -10,6 +10,7 @@ export function setPref(
 		| {name: string; version: string}
 		| {name: string; version: string}[]
 		| Record<string, Color>
+		| Record<string, string[]>
 ): PrefsAction {
 	return {type: 'update', name, value};
 }

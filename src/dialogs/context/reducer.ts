@@ -34,13 +34,18 @@ export const reducer: React.Reducer<DialogsState, DialogsAction> = (
 				return editedState;
 			}
 
+			// A dialog opening maximized un-maximizes any other, matching what
+			// 'setDialogMaximized' does--only one can be maximized at a time.
+
 			return [
-				...state,
+				...(action.maximized
+					? state.map(dialog => ({...dialog, maximized: false}))
+					: state),
 				{
 					collapsed: false,
 					component: action.component,
 					highlighted: false,
-					maximized: false,
+					maximized: action.maximized ?? false,
 					props: action.props
 				}
 			];

@@ -1,4 +1,10 @@
-import {fireEvent, render, screen, within} from '@testing-library/react';
+import {
+	cleanup,
+	fireEvent,
+	render,
+	screen,
+	within
+} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
 import {Story, useStoriesContext} from '../../../../../store/stories';
@@ -37,7 +43,7 @@ describe('<DeletePassagesButton>', () => {
 		contexts?: FakeStateProviderProps
 	) {
 		return render(
-			<FakeStateProvider {...contexts}>
+			<FakeStateProvider hotkeyScope="story-map" {...contexts}>
 				<TestDeletePassagesButton {...props} />
 				<StoryInspector />
 			</FakeStateProvider>
@@ -75,23 +81,27 @@ describe('<DeletePassagesButton>', () => {
 		expect(passages[0].dataset.id).toBe(story.passages[2].id);
 	});
 
-	// To a degree, this is actually testing react-hotkeys-hook. But it makes
-	// sense to test this behavior since deleting passages is scary.
+	// The key itself is set in src/hotkeys/default-keymap.ts. What's tested here
+	// is that the command runs in the story map and not while the user is
+	// typing, since deleting passages is scary.
 
 	describe('when a text input is not focused', () => {
 		let story: Story;
 
 		beforeEach(() => {
-			story = fakeStory(1);
+			// The second passage, because the first is the start passage and
+			// can't be deleted.
+
+			story = fakeStory(2);
 
 			renderComponent(
-				{story, passages: [story.passages[0]]},
+				{story, passages: [story.passages[1]]},
 				{stories: [story]}
 			);
 		});
 
 		it('deletes passages when the Delete key is pressed', () => {
-			fireEvent.keyDown(document.body, {
+			fireEvent.keyDown(document.activeElement!, {
 				key: 'Delete',
 				code: 'Delete',
 				keyCode: 46,
@@ -101,11 +111,11 @@ describe('<DeletePassagesButton>', () => {
 				within(screen.getByTestId('story-inspector-default')).queryAllByTestId(
 					/passage-/
 				).length
-			).toBe(0);
+			).toBe(1);
 		});
 
 		it('deletes passages when the Backspace key is pressed', () => {
-			fireEvent.keyDown(document.body, {
+			fireEvent.keyDown(document.activeElement!, {
 				key: 'Backspace',
 				code: 'Backspace',
 				keyCode: 8,
@@ -115,7 +125,27 @@ describe('<DeletePassagesButton>', () => {
 				within(screen.getByTestId('story-inspector-default')).queryAllByTestId(
 					/passage-/
 				).length
-			).toBe(0);
+			).toBe(1);
+		});
+
+		it("doesn't delete the start passage, which the button also refuses to delete", () => {
+			cleanup();
+			story = fakeStory(1);
+			renderComponent(
+				{story, passages: [story.passages[0]]},
+				{stories: [story]}
+			);
+			fireEvent.keyDown(document.activeElement!, {
+				key: 'Delete',
+				code: 'Delete',
+				keyCode: 46,
+				charCode: 46
+			});
+			expect(
+				within(screen.getByTestId('story-inspector-default')).queryAllByTestId(
+					/passage-/
+				).length
+			).toBe(1);
 		});
 	});
 

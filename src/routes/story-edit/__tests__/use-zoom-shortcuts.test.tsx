@@ -14,40 +14,34 @@ const TestZoomShortcuts: React.FC = () => {
 describe('useZoomShortcuts()', () => {
 	function renderComponent(story: Story) {
 		return render(
-			<FakeStateProvider stories={[story]}>
+			<FakeStateProvider hotkeyScope="story-map" stories={[story]}>
 				<TestZoomShortcuts />
 				<StoryInspector />
 			</FakeStateProvider>
 		);
 	}
 
-	describe('when the + key is pressed', () => {
-		it('increases the story zoom', async () => {
+	function pressKey(key: string) {
+		fireEvent.keyDown(document.activeElement!, {code: key, key});
+	}
+
+	function zoom() {
+		return screen.getByTestId('story-inspector-default').dataset.zoom;
+	}
+
+	describe('when the = key is pressed', () => {
+		it('increases the story zoom', () => {
 			const story = fakeStory();
 
 			story.zoom = 0.3;
 			renderComponent(story);
-			fireEvent.keyUp(document.body, {
-				key: '=',
-				code: '=',
-				keyCode: 187,
-				charCode: 187
-			});
-			expect(screen.getByTestId('story-inspector-default').dataset.zoom).toBe(
-				'0.6'
-			);
+			pressKey('=');
+			expect(zoom()).toBe('0.6');
 			cleanup();
 			story.zoom = 0.6;
 			renderComponent(story);
-			fireEvent.keyUp(document.body, {
-				key: '=',
-				code: '=',
-				keyCode: 187,
-				charCode: 187
-			});
-			expect(screen.getByTestId('story-inspector-default').dataset.zoom).toBe(
-				'1'
-			);
+			pressKey('=');
+			expect(zoom()).toBe('1');
 		});
 
 		it('does not increase the story zoom if it is 1', () => {
@@ -55,15 +49,8 @@ describe('useZoomShortcuts()', () => {
 
 			story.zoom = 1;
 			renderComponent(story);
-			fireEvent.keyUp(document.body, {
-				key: '=',
-				code: '=',
-				keyCode: 187,
-				charCode: 187
-			});
-			expect(screen.getByTestId('story-inspector-default').dataset.zoom).toBe(
-				'1'
-			);
+			pressKey('=');
+			expect(zoom()).toBe('1');
 		});
 	});
 
@@ -73,27 +60,13 @@ describe('useZoomShortcuts()', () => {
 
 			story.zoom = 1;
 			renderComponent(story);
-			fireEvent.keyUp(document.body, {
-				key: '-',
-				code: '-',
-				keyCode: 189,
-				charCode: 189
-			});
-			expect(screen.getByTestId('story-inspector-default').dataset.zoom).toBe(
-				'0.6'
-			);
+			pressKey('-');
+			expect(zoom()).toBe('0.6');
 			cleanup();
 			story.zoom = 0.6;
 			renderComponent(story);
-			fireEvent.keyUp(document.body, {
-				key: '-',
-				code: '-',
-				keyCode: 189,
-				charCode: 189
-			});
-			expect(screen.getByTestId('story-inspector-default').dataset.zoom).toBe(
-				'0.3'
-			);
+			pressKey('-');
+			expect(zoom()).toBe('0.3');
 		});
 
 		it('does not decrease the story zoom if it is 0.3', () => {
@@ -101,40 +74,47 @@ describe('useZoomShortcuts()', () => {
 
 			story.zoom = 0.3;
 			renderComponent(story);
-			fireEvent.keyUp(document.body, {
-				key: '-',
-				code: '-',
-				keyCode: 189,
-				charCode: 189
-			});
-			expect(screen.getByTestId('story-inspector-default').dataset.zoom).toBe(
-				'0.3'
-			);
+			pressKey('-');
+			expect(zoom()).toBe('0.3');
 		});
 	});
 
-	it('does not react to keydown events', () => {
+	describe('when the 0 key is pressed', () => {
+		it('resets the story zoom to 1', () => {
+			const story = fakeStory();
+
+			story.zoom = 0.3;
+			renderComponent(story);
+			pressKey('0');
+			expect(zoom()).toBe('1');
+		});
+	});
+
+	it('ignores auto-repeated keys, so that holding a key down zooms once', () => {
 		const story = fakeStory();
 
-		story.zoom = 0.6;
+		story.zoom = 1;
 		renderComponent(story);
-		fireEvent.keyDown(document.body, {
-			key: '-',
+		fireEvent.keyDown(document.activeElement!, {
 			code: '-',
-			keyCode: 189,
-			charCode: 189
+			key: '-',
+			repeat: true
 		});
-		expect(screen.getByTestId('story-inspector-default').dataset.zoom).toBe(
-			'0.6'
-		);
-		fireEvent.keyDown(document.body, {
-			key: '=',
-			code: '=',
-			keyCode: 187,
-			charCode: 187
-		});
-		expect(screen.getByTestId('story-inspector-default').dataset.zoom).toBe(
-			'0.6'
-		);
+		expect(zoom()).toBe('1');
+	});
+
+	it('does not zoom when a text field has focus', () => {
+		const story = fakeStory();
+
+		story.zoom = 1;
+		renderComponent(story);
+
+		const input = document.createElement('input');
+
+		document.body.appendChild(input);
+		input.focus();
+		fireEvent.keyDown(input, {code: '-', key: '-'});
+		expect(zoom()).toBe('1');
+		document.body.removeChild(input);
 	});
 });

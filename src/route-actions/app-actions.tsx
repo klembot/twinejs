@@ -4,20 +4,46 @@ import {useTranslation} from 'react-i18next';
 import {useHistory} from 'react-router-dom';
 import {ButtonBar} from '../components/container/button-bar';
 import {IconButton} from '../components/control/icon-button';
-import {AboutTwineDialog, AppPrefsDialog, useDialogsContext} from '../dialogs';
+import {
+	AboutTwineDialog,
+	AppPrefsDialog,
+	KeyboardShortcutsDialog,
+	useDialogsContext
+} from '../dialogs';
+import {useCommand} from '../hotkeys';
 import {StoryFormatsDialog} from '../dialogs/story-formats/story-formats';
 
 export const AppActions: React.FC = () => {
 	const {dispatch} = useDialogsContext();
 	const history = useHistory();
 	const {t} = useTranslation();
+	const handlePreferences = React.useCallback(
+		() => dispatch({type: 'addDialog', component: AppPrefsDialog}),
+		[dispatch]
+	);
+
+	useCommand({
+		id: 'app.preferences',
+		label: t('routeActions.app.preferences'),
+		run: handlePreferences
+	});
+	useCommand({
+		id: 'app.keyboardShortcuts',
+		label: t('dialogs.keyboardShortcuts.title'),
+		run: () =>
+			dispatch({
+				type: 'addDialog',
+				component: KeyboardShortcutsDialog,
+				maximized: true
+			})
+	});
 
 	return (
 		<ButtonBar>
 			<IconButton
 				icon={<IconSettings />}
 				label={t('routeActions.app.preferences')}
-				onClick={() => dispatch({type: 'addDialog', component: AppPrefsDialog})}
+				onClick={handlePreferences}
 			/>
 			<IconButton
 				disabled={history.location.pathname === '/story-formats'}

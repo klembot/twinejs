@@ -110,11 +110,12 @@ export const PassageToolbar: React.FC<PassageToolbarProps> = props => {
 			/>
 			<RenamePassageButton
 				disabled={disabled}
+				hotkeyScope="dialog"
 				onRename={handleRename}
 				passage={passage}
 				story={story}
 			/>
-			<TestPassageButton passage={passage} story={story} />
+			<TestPassageButton hotkeyScope={null} passage={passage} story={story} />
 		</ButtonBar>
 	);
 };

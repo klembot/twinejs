@@ -192,7 +192,8 @@
 			"themeSystem": "System",
 			"theme": "Theme",
 			"title": "Preferences",
-			"useEnhancedEditors": "Use Enhanced Editors"
+			"useEnhancedEditors": "Use Enhanced Editors",
+			"keyboardShortcuts": "Keyboard Shortcuts"
 		},
 		"passageEdit": {
 			"editorCrashed": "Something went wrong with this editor. Try closing it and editing this passage again.",
@@ -281,6 +282,62 @@
 		"storyTags": {
 			"noTags": "No tags have been added to your stories.",
 			"title": "Story Tags"
+		},
+		"keyboardShortcuts": {
+			"title": "Keyboard Shortcuts",
+			"search": "Search",
+			"searchPlaceholder": "Type to search shortcuts",
+			"recordPlaceholder": "Press keys to see what they do",
+			"recordKeys": "Record Keys",
+			"clearRecordedKey": "Clear Recorded Keys",
+			"columns": {
+				"command": "Command",
+				"binding": "Keybinding",
+				"scope": "Where It Works",
+				"source": "Source",
+				"actions": "Actions"
+			},
+			"source": {
+				"default": "Default",
+				"user": "Changed"
+			},
+			"filters": {
+				"modified": "Changed ({{count}})",
+				"unbound": "Unassigned ({{count}})",
+				"conflicts": "Conflicts ({{count}})"
+			},
+			"unbound": "Not assigned",
+			"noMatchingCommands": "No commands match what you searched for.",
+			"changeBinding": "Change Shortcut",
+			"addBinding": "Add Another Shortcut",
+			"removeBinding": "Remove Shortcut",
+			"resetBinding": "Reset to Default",
+			"resetAll": "Reset All",
+			"conflictWarning": "This key is assigned to more than one command here. Which one runs is not defined.",
+			"shadowed": "Overridden by {{scope}} when it has focus.",
+			"lockedByAppMenu": "Handled by the application menu on desktop, so it can’t be changed here.",
+			"capture": {
+				"prompt": "Press the keys you want to use for “{{command}}”.",
+				"waiting": "Waiting for a key…",
+				"save": "Save",
+				"add": "Add",
+				"scope": "Works in: {{scope}}",
+				"conflict": "Already assigned to “{{command}}” in {{scope}}. Both will be listed, and which one runs is not defined.",
+				"superReserved": "The Super/Windows key is usually reserved by your operating system, so this may never reach Twine."
+			},
+			"platform": {
+				"showing": "Showing keys for",
+				"automatic": "Automatic ({{platform}})",
+				"mac": "macOS",
+				"windows": "Windows",
+				"linux": "Linux",
+				"legend": {
+					"mac": "⌘ Command · ⌥ Option · ⌃ Control · ⇧ Shift",
+					"windows": "Ctrl · Alt · Shift (the Windows key is reserved by Windows)",
+					"linux": "Ctrl · Alt · Shift (the Super key is reserved by your desktop)"
+				},
+				"notThisPlatform": "These aren’t the keys this computer uses."
+			}
 		}
 	},
 	"electron": {
@@ -451,5 +508,73 @@
 		"removeTag": "Remove Tag",
 		"renameTag": "Rename Tag",
 		"replaceAllText": "Replace All"
+	},
+	"hotkeys": {
+		"commands": {
+			"app": {
+				"preferences": "Preferences",
+				"keyboardShortcuts": "Keyboard Shortcuts"
+			},
+			"story": {
+				"create": "New Story",
+				"edit": "Open Story",
+				"rename": "Rename Story",
+				"delete": "Delete Story",
+				"duplicate": "Duplicate Story",
+				"tag": "Tag Story",
+				"undo": "Undo",
+				"redo": "Redo",
+				"findReplace": "Find and Replace",
+				"details": "Story Details",
+				"passageTags": "Passage Tags",
+				"javascript": "Story JavaScript",
+				"stylesheet": "Story Stylesheet"
+			},
+			"library": {
+				"import": "Import Story",
+				"archive": "Archive Library",
+				"storyTags": "Story Tags"
+			},
+			"passage": {
+				"create": "New Passage",
+				"edit": "Edit Passage",
+				"rename": "Rename Passage",
+				"delete": "Delete Passage",
+				"test": "Test From Passage",
+				"startAt": "Start Story Here",
+				"goTo": "Go To Passage",
+				"selectAll": "Select All Passages",
+				"deselectAll": "Deselect All Passages"
+			},
+			"view": {
+				"zoomIn": "Zoom In",
+				"zoomOut": "Zoom Out",
+				"zoomReset": "Zoom to 100%"
+			},
+			"build": {
+				"play": "Play Story",
+				"test": "Test Story",
+				"proof": "View Proofing Copy",
+				"publishToFile": "Publish to File",
+				"exportAsTwee": "Export as Twee"
+			},
+			"finder": {
+				"select": "Choose Highlighted Result",
+				"previous": "Previous Result",
+				"next": "Next Result",
+				"close": "Close Search"
+			}
+		},
+		"scopes": {
+			"global": "Anywhere",
+			"story-list": "Story Library",
+			"story-map": "Story Map",
+			"story-card": "Selected Story",
+			"passage-card": "Selected Passage",
+			"dialog": "Dialogs",
+			"passage-editor": "Passage Text",
+			"fuzzy-finder": "Search Box",
+			"keybindings": "Keyboard Shortcuts"
+		}
 	}
 }

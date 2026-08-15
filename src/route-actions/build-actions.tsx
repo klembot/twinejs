@@ -11,6 +11,7 @@ import {ButtonBar} from '../components/container/button-bar';
 import {CardContent} from '../components/container/card';
 import {CardButton} from '../components/control/card-button';
 import {IconButton} from '../components/control/icon-button';
+import {useCommand} from '../hotkeys';
 import {IconFileTwee} from '../components/image/icon';
 import {storyFileName} from '../electron/shared';
 import {Story} from '../store/stories';
@@ -102,6 +103,47 @@ export const BuildActions: React.FC<BuildActionsProps> = ({story}) => {
 
 		saveTwee(storyToTwee(story), storyFileName(story, '.twee'));
 	}
+
+	// Commands are registered in the story map scope: these are all "do
+	// something with the story you're editing". They must run synchronously
+	// from the keypress, because playing or proofing opens a window--see
+	// use-story-launch.ts.
+
+	useCommand({
+		enabled: !!story,
+		id: 'build.test',
+		label: t('routeActions.build.test'),
+		run: handleTest,
+		scope: 'story-map'
+	});
+	useCommand({
+		enabled: !!story,
+		id: 'build.play',
+		label: t('routeActions.build.play'),
+		run: handlePlay,
+		scope: 'story-map'
+	});
+	useCommand({
+		enabled: !!story,
+		id: 'build.proof',
+		label: t('routeActions.build.proof'),
+		run: handleProof,
+		scope: 'story-map'
+	});
+	useCommand({
+		enabled: !!story,
+		id: 'build.publishToFile',
+		label: t('routeActions.build.publishToFile'),
+		run: handlePublishFile,
+		scope: 'story-map'
+	});
+	useCommand({
+		enabled: !!story,
+		id: 'build.exportAsTwee',
+		label: t('routeActions.build.exportAsTwee'),
+		run: handleExportAsTwee,
+		scope: 'story-map'
+	});
 
 	return (
 		<ButtonBar>

@@ -2,6 +2,7 @@ import {IconCopy} from '@tabler/icons';
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {IconButton} from '../../../../components/control/icon-button';
+import {useCommand} from '../../../../hotkeys';
 import {
 	duplicateStory,
 	Story,
@@ -25,6 +26,14 @@ export const DuplicateStoryButton: React.FC<DuplicateStoryButtonProps> = ({
 
 		dispatch(duplicateStory(story, stories));
 	}
+
+	useCommand({
+		enabled: !!story,
+		id: 'story.duplicate',
+		label: t('hotkeys.commands.story.duplicate'),
+		run: handleClick,
+		scope: 'story-list'
+	});
 
 	return (
 		<IconButton

@@ -73,6 +73,7 @@ export const InnerStoryListRoute: React.FC = () => {
 				onClickAway={() => storiesDispatch(deselectAllStories())}
 			>
 				<MainContent
+					data-hotkey-scope="story-list"
 					title={t(
 						prefs.storyListTagFilter.length > 0
 							? 'routes.storyList.taggedTitleCount'

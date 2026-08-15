@@ -2,6 +2,7 @@ import {IconTrash} from '@tabler/icons';
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {ConfirmButton} from '../../../../components/control/confirm-button';
+import {useCommand} from '../../../../hotkeys';
 import {deleteStory, Story, useStoriesContext} from '../../../../store/stories';
 import {isElectronRenderer} from '../../../../util/is-electron';
 
@@ -15,8 +16,17 @@ export const DeleteStoryButton: React.FC<DeleteStoryButtonProps> = ({
 	// We need to store a local copy of the story name so that after it's deleted,
 	// the prompt doesn't change as it transitions out.
 	const [storyName, setStoryName] = React.useState(story?.name);
+	const [confirmOpen, setConfirmOpen] = React.useState(false);
 	const {dispatch} = useStoriesContext();
 	const {t} = useTranslation();
+
+	useCommand({
+		enabled: !!story,
+		id: 'story.delete',
+		label: t('hotkeys.commands.story.delete'),
+		run: () => setConfirmOpen(true),
+		scope: 'story-list'
+	});
 
 	React.useEffect(() => {
 		if (story?.name) {
@@ -27,6 +37,8 @@ export const DeleteStoryButton: React.FC<DeleteStoryButtonProps> = ({
 	return (
 		<ConfirmButton
 			confirmIcon={<IconTrash />}
+			onChangeOpen={setConfirmOpen}
+			open={confirmOpen}
 			confirmLabel={t('common.delete')}
 			confirmVariant="danger"
 			disabled={!story}

@@ -9,6 +9,7 @@ export const defaults = (): PrefsState => ({
 	donateShown: false,
 	editorCursorBlinks: true,
 	firstRunTime: new Date().getTime(),
+	hotkeyOverrides: {},
 	lastUpdateSeen: '',
 	lastUpdateCheckTime: new Date().getTime(),
 	locale: (window.navigator as any).userLanguage ||

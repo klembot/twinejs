@@ -2,6 +2,7 @@ import * as React from 'react';
 import useThunkReducer from 'react-hook-thunk-reducer';
 import {fakeLoadedStoryFormat} from '.';
 import {DialogsContextProvider} from '../dialogs';
+import {HotkeysProvider} from '../hotkeys';
 import {PrefsContext, PrefsState} from '../store/prefs';
 import {reducer as prefsReducer} from '../store/prefs/reducer';
 import {StoriesContext, StoriesState} from '../store/stories';
@@ -12,6 +13,12 @@ import {UndoableStoriesContextProvider} from '../store/undoable-stories';
 import {fakePrefs, fakeStory} from './fakes';
 
 export interface FakeStateProviderProps {
+	/**
+	 * Wraps children in a focused element with this hotkey scope, so that
+	 * commands registered in it can be triggered. This mirrors what the app
+	 * does--<MainContent> focuses itself on mount.
+	 */
+	hotkeyScope?: string;
 	prefs?: Partial<PrefsState>;
 	stories?: StoriesState;
 	storyFormats?: StoryFormatsState;
@@ -46,10 +53,32 @@ export const FakeStateProvider: React.FC<FakeStateProviderProps> = props => {
 					value={{dispatch: storiesDispatch, stories: storiesState}}
 				>
 					<UndoableStoriesContextProvider>
-						<DialogsContextProvider>{props.children}</DialogsContextProvider>
+						<HotkeysProvider>
+							<DialogsContextProvider>
+								{props.hotkeyScope ? (
+									<HotkeyScope scope={props.hotkeyScope}>
+										{props.children}
+									</HotkeyScope>
+								) : (
+									props.children
+								)}
+							</DialogsContextProvider>
+						</HotkeysProvider>
 					</UndoableStoriesContextProvider>
 				</StoriesContext.Provider>
 			</StoryFormatsContext.Provider>
 		</PrefsContext.Provider>
+	);
+};
+
+const HotkeyScope: React.FC<{scope: string}> = props => {
+	const ref = React.useRef<HTMLDivElement>(null);
+
+	React.useEffect(() => ref.current?.focus(), []);
+
+	return (
+		<div data-hotkey-scope={props.scope} ref={ref} tabIndex={-1}>
+			{props.children}
+		</div>
 	);
 };

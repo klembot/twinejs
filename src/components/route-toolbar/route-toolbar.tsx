@@ -18,7 +18,10 @@ export const RouteToolbar: React.FC<RouteToolbarProps> = props => {
 
 	return (
 		<div className="route-toolbar">
-			<Tabs selectedTabClassName="selected">
+			{/* forceRenderTabPanel keeps every tab's buttons mounted, which is what
+			lets their keyboard shortcuts work no matter which tab is showing.
+			Unselected panels are hidden in CSS. */}
+			<Tabs forceRenderTabPanel selectedTabClassName="selected">
 				<div className="route-toolbar-top">
 					<BackButton />
 					<TabList className="route-toolbar-tablist">

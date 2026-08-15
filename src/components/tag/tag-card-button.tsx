@@ -9,6 +9,7 @@ import {IconButton} from '../control/icon-button';
 import {Color} from '../../util/color';
 import {TagButton} from './tag-button';
 import {isValidTagName} from '../../util/tag';
+import {useControlledOpen} from '../control/use-controlled-open';
 import './tag-card-button.css';
 
 export interface TagCardButtonProps {
@@ -16,6 +17,15 @@ export interface TagCardButtonProps {
 	allTags: string[];
 	id: string;
 	onAdd: (value: string) => void;
+	/**
+	 * Called when the tag card opens or closes. Only needed if a parent wants
+	 * to control this--see `open`.
+	 */
+	onChangeOpen?: (value: boolean) => void;
+	/**
+	 * Is the tag card open? Leave undefined to let the button manage itself.
+	 */
+	open?: boolean;
 	onChangeColor: (value: string, color: Color) => void;
 	onRemove: (value: string) => void;
 	tagColors: Record<string, Color>;
@@ -23,10 +33,20 @@ export interface TagCardButtonProps {
 }
 
 export const TagCardButton: React.FC<TagCardButtonProps> = props => {
-	const {allTags, disabled, id, onAdd, onChangeColor, onRemove, tagColors, tags} =
-		props;
+	const {
+		allTags,
+		disabled,
+		id,
+		onAdd,
+		onChangeColor,
+		onChangeOpen,
+		onRemove,
+		open: controlledOpen,
+		tagColors,
+		tags
+	} = props;
 	const [newTagName, setNewTagName] = React.useState('');
-	const [open, setOpen] = React.useState(false);
+	const [open, setOpen] = useControlledOpen(controlledOpen, onChangeOpen);
 	const {t} = useTranslation();
 	const tagCompletions = React.useMemo(
 		() => allTags.filter(tag => !tags.includes(tag)),

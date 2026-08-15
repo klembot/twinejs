@@ -80,6 +80,7 @@ export const DialogCard: React.FC<DialogCardProps> = props => {
 			aria-label={headerLabel}
 			role="dialog"
 			className={calcdClassName}
+			data-hotkey-scope="dialog"
 			onKeyDown={handleKeyDown}
 		>
 			<Card floating>

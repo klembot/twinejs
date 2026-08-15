@@ -1,0 +1,200 @@
+@import '../../styles/colors.css';
+@import '../../styles/metrics.css';
+
+.keyboard-shortcuts-dialog .shortcut-controls {
+	display: flex;
+	flex-direction: column;
+	gap: calc(var(--grid-size) / 2);
+	margin-bottom: var(--ui-gap);
+}
+
+.keyboard-shortcuts-dialog .shortcut-search {
+	align-items: center;
+	display: flex;
+	gap: var(--grid-size);
+}
+
+.keyboard-shortcuts-dialog .shortcut-search .text-input {
+	flex-grow: 1;
+}
+
+.keyboard-shortcuts-dialog .shortcut-search .text-input input {
+	width: 100%;
+}
+
+.keyboard-shortcuts-dialog .recorded-key {
+	align-items: center;
+	display: flex;
+	gap: calc(var(--grid-size) / 2);
+}
+
+.keyboard-shortcuts-dialog .platform-strip {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--grid-size);
+}
+
+.keyboard-shortcuts-dialog .platform-legend,
+.keyboard-shortcuts-dialog .platform-warning {
+	color: var(--dark-gray);
+	font-size: 90%;
+}
+
+.keyboard-shortcuts-dialog .platform-warning {
+	color: var(--dark-orange);
+}
+
+.keyboard-shortcuts-dialog .shortcut-table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.keyboard-shortcuts-dialog .shortcut-table th {
+	border-bottom: 1px solid var(--light-gray);
+	color: var(--dark-gray);
+	font-weight: normal;
+	padding: calc(var(--grid-size) / 2);
+	position: sticky;
+	text-align: left;
+	top: 0;
+	background: var(--white);
+	z-index: 1;
+}
+
+/* Row separators use --light-gray, not --faint-gray: in dark mode --faint-gray
+is nearly black and the line vanishes. */
+
+.keyboard-shortcuts-dialog .shortcut-table td {
+	border-bottom: 1px solid var(--light-gray);
+	padding: calc(var(--grid-size) / 2);
+	text-align: left;
+	vertical-align: middle;
+}
+
+/* Column widths keep the command label from being cramped and put the action
+buttons under their own header. */
+
+.keyboard-shortcuts-dialog .shortcut-table th:nth-child(1) {
+	width: 30%;
+}
+
+.keyboard-shortcuts-dialog .shortcut-table th:nth-child(2) {
+	width: 20%;
+}
+
+.keyboard-shortcuts-dialog .shortcut-table th:nth-child(3) {
+	width: 20%;
+}
+
+.keyboard-shortcuts-dialog .shortcut-table th:nth-child(4) {
+	width: 10%;
+}
+
+.keyboard-shortcuts-dialog .shortcut-table th:nth-child(5) {
+	text-align: right;
+}
+
+.keyboard-shortcuts-dialog .shortcut-row:hover {
+	background: var(--faint-gray);
+}
+
+.keyboard-shortcuts-dialog .shortcut-row.conflict .shortcut-command {
+	color: var(--dark-red);
+}
+
+.keyboard-shortcuts-dialog .shortcut-row.locked {
+	color: var(--gray);
+}
+
+.keyboard-shortcuts-dialog .shortcut-command svg {
+	height: 1em;
+	vertical-align: -0.15em;
+	width: 1em;
+}
+
+.keyboard-shortcuts-dialog .shortcut-label {
+	display: block;
+}
+
+.keyboard-shortcuts-dialog .shortcut-id {
+	color: var(--gray);
+	display: block;
+	font-family: var(--font-monospaced);
+	font-size: 80%;
+}
+
+/* The flex layout has to live on a wrapper inside the cell. Setting it on the
+<td> itself takes the cell out of table layout, so its bottom border no longer
+lines up with the rest of the row. */
+
+.keyboard-shortcuts-dialog .shortcut-binding-keys {
+	display: flex;
+	flex-wrap: wrap;
+	gap: calc(var(--grid-size) / 2);
+}
+
+.keyboard-shortcuts-dialog .unbound {
+	color: var(--gray);
+}
+
+.keyboard-shortcuts-dialog .shortcut-actions {
+	text-align: right;
+	white-space: nowrap;
+}
+
+.keyboard-shortcuts-dialog .no-shortcuts {
+	color: var(--dark-gray);
+}
+
+/* The capture overlay covers the dialog it belongs to, not the whole app--the
+rest of the app stays visible and usable behind it. */
+
+.keyboard-shortcuts-dialog .capture-overlay {
+	align-items: center;
+	background: var(--white-translucent);
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 10;
+}
+
+.keyboard-shortcuts-dialog .capture-overlay:focus {
+	outline: none;
+}
+
+.keyboard-shortcuts-dialog .capture-overlay .card {
+	max-width: 400px;
+}
+
+.keyboard-shortcuts-dialog .capture-key {
+	font-size: 130%;
+	text-align: center;
+}
+
+.keyboard-shortcuts-dialog .capture-waiting {
+	color: var(--gray);
+	font-size: 80%;
+}
+
+.keyboard-shortcuts-dialog .capture-conflict {
+	color: var(--dark-orange);
+}
+
+.keyboard-shortcuts-dialog .capture-scope {
+	color: var(--dark-gray);
+	font-size: 90%;
+}
+
+/* Two columns when the dialog isn't maximized--four don't fit in 600px. */
+
+.keyboard-shortcuts-dialog:not(.maximized) .shortcut-scope,
+.keyboard-shortcuts-dialog:not(.maximized) .shortcut-source,
+.keyboard-shortcuts-dialog:not(.maximized) .shortcut-table th:nth-child(3),
+.keyboard-shortcuts-dialog:not(.maximized) .shortcut-table th:nth-child(4) {
+	display: none;
+}

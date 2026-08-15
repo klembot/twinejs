@@ -20,6 +20,13 @@ describe('<RouteToolbar>', () => {
 		expect(screen.getByTestId('mock-back-button')).toBeInTheDocument();
 	});
 
+	// Every tab's content stays mounted, hidden with CSS, so that the keyboard
+	// shortcuts its buttons register keep working whichever tab is showing.
+
+	function panelFor(testId: string) {
+		return screen.getByTestId(testId).closest('.react-tabs__tab-panel');
+	}
+
 	it('displays tabs defined by the tabs prop', () => {
 		renderComponent({
 			tabs: {
@@ -29,10 +36,29 @@ describe('<RouteToolbar>', () => {
 		});
 
 		expect(screen.getAllByRole('tab').length).toBe(2);
-		expect(screen.getByTestId('mock-tab-content-1')).toBeInTheDocument();
-		expect(screen.queryByTestId('mock-tab-content-2')).not.toBeInTheDocument();
+		expect(panelFor('mock-tab-content-1')).toHaveClass(
+			'react-tabs__tab-panel--selected'
+		);
+		expect(panelFor('mock-tab-content-2')).not.toHaveClass(
+			'react-tabs__tab-panel--selected'
+		);
 		fireEvent.click(screen.getByText('mock-tab-2'));
-		expect(screen.queryByTestId('mock-tab-content-1')).not.toBeInTheDocument();
+		expect(panelFor('mock-tab-content-1')).not.toHaveClass(
+			'react-tabs__tab-panel--selected'
+		);
+		expect(panelFor('mock-tab-content-2')).toHaveClass(
+			'react-tabs__tab-panel--selected'
+		);
+	});
+
+	it('keeps unselected tab content mounted', () => {
+		renderComponent({
+			tabs: {
+				'mock-tab-1': <div data-testid="mock-tab-content-1" />,
+				'mock-tab-2': <div data-testid="mock-tab-content-2" />
+			}
+		});
+
 		expect(screen.getByTestId('mock-tab-content-2')).toBeInTheDocument();
 	});
 
