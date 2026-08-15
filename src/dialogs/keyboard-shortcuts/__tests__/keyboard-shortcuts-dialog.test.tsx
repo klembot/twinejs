@@ -73,6 +73,18 @@ describe('<KeyboardShortcutsDialog>', () => {
 	it('shows a user override and lets it be reset', () => {
 		renderComponent({hotkeyOverrides: {'passage.create': ['j']}});
 		expect(within(rowFor('passage.create')).getByText('J')).toBeInTheDocument();
+
+		// There is no Source column any more: a changed row is marked by the
+		// `overridden` class the highlight hangs off, plus offscreen text saying
+		// the same thing for screen readers.
+
+		expect(rowFor('passage.create')).toHaveClass('overridden');
+		expect(
+			within(rowFor('passage.create')).getByText(
+				'dialogs.keyboardShortcuts.source.user'
+			)
+		).toBeInTheDocument();
+		expect(rowFor('story.create')).not.toHaveClass('overridden');
 		fireEvent.click(
 			within(rowFor('passage.create')).getByLabelText(
 				'dialogs.keyboardShortcuts.resetBinding'

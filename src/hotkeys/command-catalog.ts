@@ -56,6 +56,7 @@ export const commandCatalog: CatalogEntry[] = [
 	{id: 'build.exportAsTwee', scope: 'story-map'},
 
 	{id: 'passage.rename', scope: 'dialog'},
+	{id: 'dialog.maximize', scope: 'dialog'},
 
 	{id: 'finder.select', scope: 'fuzzy-finder'},
 	{id: 'finder.previous', scope: 'fuzzy-finder'},

@@ -43,8 +43,9 @@ export const ShortcutTable: React.FC<ShortcutTableProps> = props => {
 				<tr>
 					<th>{t('dialogs.keyboardShortcuts.columns.command')}</th>
 					<th>{t('dialogs.keyboardShortcuts.columns.binding')}</th>
-					<th>{t('dialogs.keyboardShortcuts.columns.scope')}</th>
-					<th>{t('dialogs.keyboardShortcuts.columns.source')}</th>
+					<th className="shortcut-scope">
+						{t('dialogs.keyboardShortcuts.columns.scope')}
+					</th>
 					<th>
 						<span className="visually-hidden">
 							{t('dialogs.keyboardShortcuts.columns.actions')}
@@ -57,7 +58,8 @@ export const ShortcutTable: React.FC<ShortcutTableProps> = props => {
 					<tr
 						className={classNames('shortcut-row', {
 							conflict: row.conflict,
-							locked: row.locked
+							locked: row.locked,
+							overridden: row.overridden
 						})}
 						key={row.id}
 						onDoubleClick={() => !row.locked && onEdit(row)}
@@ -76,7 +78,16 @@ export const ShortcutTable: React.FC<ShortcutTableProps> = props => {
 							}
 						}}
 					>
-						<td className="shortcut-command">
+						{/* The changed marker is a colored bar drawn by CSS, so the
+						same fact has to reach anyone who can't see it as text. */}
+						<td
+							className="shortcut-command"
+							title={
+								row.overridden
+									? t('dialogs.keyboardShortcuts.source.user')
+									: undefined
+							}
+						>
 							{row.conflict && (
 								<IconAlertTriangle
 									aria-label={t('dialogs.keyboardShortcuts.conflictWarning')}
@@ -95,7 +106,20 @@ export const ShortcutTable: React.FC<ShortcutTableProps> = props => {
 								/>
 							)}
 							<span className="shortcut-label">{row.label}</span>
-							<span className="shortcut-id">{row.id}</span>
+							{row.overridden && (
+								<span className="screen-reader-only">
+									{t('dialogs.keyboardShortcuts.source.user')}
+								</span>
+							)}
+							{/* The scope repeats what the "Where It Works" column says.
+							Only one of the two is ever shown: the column disappears when
+							the dialog isn't maximized, and this line takes over. */}
+							<span className="shortcut-meta">
+								<span className="shortcut-id">{row.id}</span>
+								<span className="shortcut-command-scope">
+									{row.scopes.map(scopeName).join(', ')}
+								</span>
+							</span>
 						</td>
 						<td className="shortcut-binding">
 							<span className="shortcut-binding-keys">
@@ -116,13 +140,6 @@ export const ShortcutTable: React.FC<ShortcutTableProps> = props => {
 						</td>
 						<td className="shortcut-scope">
 							{row.scopes.map(scopeName).join(', ')}
-						</td>
-						<td className="shortcut-source">
-							{t(
-								row.overridden
-									? 'dialogs.keyboardShortcuts.source.user'
-									: 'dialogs.keyboardShortcuts.source.default'
-							)}
 						</td>
 						<td className="shortcut-actions">
 							<IconButton

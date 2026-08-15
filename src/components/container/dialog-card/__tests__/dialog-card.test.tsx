@@ -1,6 +1,7 @@
-import {fireEvent, render, screen} from '@testing-library/react';
+import {fireEvent, render, screen, within} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import * as React from 'react';
+import {FakeStateProvider} from '../../../../test-util';
 import {DialogCard, DialogCardProps} from '../dialog-card';
 
 describe('<DialogCard>', () => {
@@ -109,7 +110,6 @@ describe('<DialogCard>', () => {
 		expect(onChangeCollapsed.mock.calls).toEqual([[false]]);
 	});
 
-
 	it('calls the onClose prop when the close button is clicked', () => {
 		const onClose = jest.fn();
 
@@ -175,5 +175,104 @@ describe('<DialogCard>', () => {
 		const {container} = renderComponent();
 
 		expect(await axe(container)).toHaveNoViolations();
+	});
+
+	describe('the dialog.maximize command', () => {
+		function pressMaximizeKey(target: HTMLElement) {
+			target.focus();
+			fireEvent.keyDown(target, {altKey: true, code: 'Enter', key: 'Enter'});
+		}
+
+		function dialog(
+			props?: Partial<DialogCardProps>,
+			children?: React.ReactNode
+		) {
+			return (
+				<DialogCard
+					collapsed={false}
+					headerLabel="mock-header-label"
+					maximizable
+					maximized={false}
+					onChangeCollapsed={jest.fn()}
+					onChangeHighlighted={jest.fn()}
+					onChangeMaximized={jest.fn()}
+					onClose={jest.fn()}
+					{...props}
+				>
+					{children ?? (
+						<button type="button">{`${
+							props?.headerLabel ?? 'mock'
+						}-child`}</button>
+					)}
+				</DialogCard>
+			);
+		}
+
+		it('maximizes the dialog when the key is pressed inside it', () => {
+			const onChangeMaximized = jest.fn();
+
+			render(
+				<FakeStateProvider>{dialog({onChangeMaximized})}</FakeStateProvider>
+			);
+			pressMaximizeKey(screen.getByText('mock-child'));
+			expect(onChangeMaximized.mock.calls).toEqual([[true]]);
+		});
+
+		it('restores a maximized dialog when the key is pressed inside it', () => {
+			const onChangeMaximized = jest.fn();
+
+			render(
+				<FakeStateProvider>
+					{dialog({maximized: true, onChangeMaximized})}
+				</FakeStateProvider>
+			);
+			pressMaximizeKey(screen.getByText('mock-child'));
+			expect(onChangeMaximized.mock.calls).toEqual([[false]]);
+		});
+
+		it('does nothing when the dialog cannot be maximized', () => {
+			const onChangeMaximized = jest.fn();
+
+			render(
+				<FakeStateProvider>
+					{dialog({maximizable: false, onChangeMaximized})}
+				</FakeStateProvider>
+			);
+			pressMaximizeKey(screen.getByText('mock-child'));
+			expect(onChangeMaximized).not.toHaveBeenCalled();
+		});
+
+		it('only affects the dialog focus is inside of when several are open', () => {
+			const focusedOnChangeMaximized = jest.fn();
+			const otherOnChangeMaximized = jest.fn();
+
+			render(
+				<FakeStateProvider>
+					{dialog({
+						headerLabel: 'other',
+						onChangeMaximized: otherOnChangeMaximized
+					})}
+					{dialog({
+						headerLabel: 'focused',
+						onChangeMaximized: focusedOnChangeMaximized
+					})}
+				</FakeStateProvider>
+			);
+			pressMaximizeKey(screen.getByText('focused-child'));
+			expect(focusedOnChangeMaximized.mock.calls).toEqual([[true]]);
+			expect(otherOnChangeMaximized).not.toHaveBeenCalled();
+		});
+
+		it('runs while a text field inside the dialog has focus', () => {
+			const onChangeMaximized = jest.fn();
+
+			render(
+				<FakeStateProvider>
+					{dialog({onChangeMaximized}, <input type="text" />)}
+				</FakeStateProvider>
+			);
+			pressMaximizeKey(within(screen.getByRole('dialog')).getByRole('textbox'));
+			expect(onChangeMaximized.mock.calls).toEqual([[true]]);
+		});
 	});
 });

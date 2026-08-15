@@ -1,5 +1,11 @@
 import {resolveKeymap} from '../../../hotkeys';
-import {filterRows, parseSearch, shortcutRows} from '../shortcut-rows';
+import {
+	filterRows,
+	parseSearch,
+	ShortcutRow,
+	shortcutRows,
+	sortRows
+} from '../shortcut-rows';
 
 const scopeName = (scope: string) => `scope-${scope}`;
 
@@ -46,6 +52,13 @@ describe('shortcutRows()', () => {
 		expect(result.find(row => row.id === 'passage.goTo')!.conflict).toBe(false);
 	});
 
+	it('hands back rows already sorted for display', () => {
+		const {rows: result} = rows();
+
+		expect(result[0].scopes[0]).toBe('global');
+		expect(result).toEqual(sortRows(result));
+	});
+
 	it('locks rows the Electron menu takes over, and leaves them alone on web', () => {
 		expect(rows({}, true).rows.find(row => row.id === 'story.undo')!).toEqual(
 			expect.objectContaining({bindings: [], locked: true})
@@ -53,6 +66,84 @@ describe('shortcutRows()', () => {
 		expect(rows({}, false).rows.find(row => row.id === 'story.undo')!).toEqual(
 			expect.objectContaining({bindings: ['mod+z'], locked: false})
 		);
+	});
+});
+
+describe('sortRows()', () => {
+	function row(id: string, label: string, scopes: string[]): ShortcutRow {
+		return {
+			bindings: [],
+			conflict: false,
+			id,
+			label,
+			locked: false,
+			overridden: false,
+			scopes
+		};
+	}
+
+	it('groups by scope in the order scopes are declared, not alphabetically', () => {
+		// Alphabetically these scope keys run dialog, fuzzy-finder, global,
+		// story-map--which is exactly what must not happen.
+
+		const sorted = sortRows([
+			row('d', 'A', ['dialog']),
+			row('f', 'A', ['fuzzy-finder']),
+			row('g', 'A', ['global']),
+			row('m', 'A', ['story-map'])
+		]);
+
+		expect(sorted.map(entry => entry.id)).toEqual(['g', 'm', 'd', 'f']);
+	});
+
+	it('sorts by label A-Z within a scope', () => {
+		const sorted = sortRows([
+			row('c', 'Zebra', ['story-map']),
+			row('a', 'Apple', ['story-map']),
+			row('b', 'mango', ['story-map'])
+		]);
+
+		expect(sorted.map(entry => entry.label)).toEqual([
+			'Apple',
+			'mango',
+			'Zebra'
+		]);
+	});
+
+	it('compares labels with locale rules rather than code points', () => {
+		const sorted = sortRows([
+			row('z', 'Zebra', ['global']),
+			row('a', 'Ärger', ['global'])
+		]);
+
+		expect(sorted.map(entry => entry.id)).toEqual(['a', 'z']);
+	});
+
+	it('sorts a row working in several scopes by the first one it lists', () => {
+		const sorted = sortRows([
+			row('finder', 'A', ['fuzzy-finder']),
+			// Like passage.rename: story map first, dialogs second. It belongs
+			// with the story map, not with the dialogs.
+			row('rename', 'Z', ['story-map', 'dialog']),
+			row('dialog', 'A', ['dialog'])
+		]);
+
+		expect(sorted.map(entry => entry.id)).toEqual([
+			'rename',
+			'dialog',
+			'finder'
+		]);
+	});
+
+	it('puts unknown scopes last and leaves the input alone', () => {
+		const input = [
+			row('mystery', 'A', ['not-a-scope']),
+			row('known', 'Z', ['global'])
+		];
+		const sorted = sortRows(input);
+
+		expect(sorted.map(entry => entry.id)).toEqual(['known', 'mystery']);
+		expect(input.map(entry => entry.id)).toEqual(['mystery', 'known']);
 	});
 });
 
@@ -115,10 +206,10 @@ describe('filterRows()', () => {
 
 	it('filters by scope, by key or by display name', () => {
 		expect(ids({scope: 'fuzzy-finder'})).toEqual([
-			'finder.select',
-			'finder.previous',
+			'finder.close',
 			'finder.next',
-			'finder.close'
+			'finder.previous',
+			'finder.select'
 		]);
 		expect(ids({scope: 'scope-fuzzy-finder'})).toHaveLength(4);
 	});

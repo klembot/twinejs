@@ -8,7 +8,8 @@ import {
 	findShadows,
 	normalizeKeyString,
 	ResolvedKeymap,
-	Shadow
+	Shadow,
+	scopes
 } from '../../hotkeys';
 
 export interface ShortcutRow {
@@ -79,7 +80,35 @@ export function shortcutRows(
 		});
 	}
 
-	return {conflicts, rows: [...byId.values()], shadows};
+	return {conflicts, rows: sortRows([...byId.values()]), shadows};
+}
+
+/**
+ * Where a scope sits in the declared order, which runs outermost to innermost.
+ * Anything unknown sorts last instead of jumping to the top.
+ */
+function scopeOrder(scope?: string): number {
+	const index = scopes.indexOf(scope as (typeof scopes)[number]);
+
+	return index === -1 ? scopes.length : index;
+}
+
+/**
+ * Orders rows the way someone reading the list expects: grouped by where the
+ * command works, outermost scope first, then alphabetically by the name shown
+ * on screen. Rows working in more than one scope sort by the first one they
+ * list, which is the one the command was declared in. Returns a new array.
+ */
+export function sortRows(rows: ShortcutRow[]): ShortcutRow[] {
+	return [...rows].sort((a, b) => {
+		const byScope = scopeOrder(a.scopes[0]) - scopeOrder(b.scopes[0]);
+
+		if (byScope !== 0) {
+			return byScope;
+		}
+
+		return a.label.localeCompare(b.label);
+	});
 }
 
 export interface RowFilter {

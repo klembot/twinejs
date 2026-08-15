@@ -1,3 +1,4 @@
+@import '../../styles/accessibility.css';
 @import '../../styles/colors.css';
 @import '../../styles/metrics.css';
 
@@ -120,11 +121,24 @@ buttons under their own header. */
 }
 
 .keyboard-shortcuts-dialog .shortcut-table th:nth-child(4) {
-	width: 10%;
+	text-align: right;
 }
 
-.keyboard-shortcuts-dialog .shortcut-table th:nth-child(5) {
-	text-align: right;
+/* Rows the user has changed. The tint is deliberately faint so that a list
+where everything has been rebound doesn't turn into a wall of color; the bar
+down the left edge is what actually catches the eye. Both variables are
+redefined in dark mode, so this reads in either theme. The same fact is in the
+DOM as text for screen readers--see <ShortcutTable>. */
+
+.keyboard-shortcuts-dialog .shortcut-row.overridden {
+	background: var(--faint-blue);
+}
+
+/* An inset shadow rather than a border: a border would widen the cell and push
+the labels of changed rows out of line with the others. */
+
+.keyboard-shortcuts-dialog .shortcut-row.overridden .shortcut-command {
+	box-shadow: inset 3px 0 0 var(--dark-blue);
 }
 
 .keyboard-shortcuts-dialog .shortcut-row:hover {
@@ -149,11 +163,33 @@ buttons under their own header. */
 	display: block;
 }
 
+/* The second line of the command cell. The scope half of it only appears in
+the compact layout--see the bottom of this file. */
+
+.keyboard-shortcuts-dialog .shortcut-meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: calc(var(--grid-size) / 2);
+}
+
 .keyboard-shortcuts-dialog .shortcut-id {
 	color: var(--gray);
-	display: block;
 	font-family: var(--font-monospaced);
 	font-size: 80%;
+}
+
+.keyboard-shortcuts-dialog .shortcut-command-scope {
+	color: var(--dark-gray);
+	display: none;
+	font-size: 80%;
+}
+
+/* Without a separator the scope reads as a continuation of the command ID
+sitting next to it. */
+
+.keyboard-shortcuts-dialog .shortcut-command-scope::before {
+	color: var(--gray);
+	content: '\00b7\00a0';
 }
 
 /* The flex layout has to live on a wrapper inside the cell. Setting it on the
@@ -226,11 +262,35 @@ a prompt floating over one. */
 	font-size: 90%;
 }
 
-/* Two columns when the dialog isn't maximized--four don't fit in 600px. */
+/* Compact layout. An un-maximized dialog is only as wide as prefs.dialogWidth
+(600-800px), where three columns plus four action buttons don't fit. DialogCard
+puts `maximized` on the dialog root, so this is the whole switch. Nothing is
+dropped: "Where It Works" loses its column but moves onto the second line of
+the command cell, next to the command ID. */
 
-.keyboard-shortcuts-dialog:not(.maximized) .shortcut-scope,
-.keyboard-shortcuts-dialog:not(.maximized) .shortcut-source,
-.keyboard-shortcuts-dialog:not(.maximized) .shortcut-table th:nth-child(3),
-.keyboard-shortcuts-dialog:not(.maximized) .shortcut-table th:nth-child(4) {
+.keyboard-shortcuts-dialog:not(.maximized) .shortcut-scope {
 	display: none;
+}
+
+.keyboard-shortcuts-dialog:not(.maximized) .shortcut-command-scope {
+	display: inline;
+}
+
+/* The command cell carries two columns' worth of text now, so it needs the
+room the scope column gave up. */
+
+.keyboard-shortcuts-dialog:not(.maximized) .shortcut-table th:nth-child(1) {
+	width: 50%;
+}
+
+.keyboard-shortcuts-dialog:not(.maximized) .shortcut-table th:nth-child(2) {
+	width: 25%;
+}
+
+/* Four icon buttons in a 600px dialog: shed some of the padding, but not all
+of it--they still have to be separable targets. */
+
+.keyboard-shortcuts-dialog:not(.maximized) .shortcut-actions .icon-button {
+	padding-left: calc(var(--grid-size) / 3);
+	padding-right: calc(var(--grid-size) / 3);
 }

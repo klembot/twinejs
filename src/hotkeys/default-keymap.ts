@@ -30,6 +30,11 @@ export const defaultKeymap: Record<string, DefaultBinding> = {
 	'app.keyboardShortcuts': {bindings: []},
 	'app.preferences': {bindings: ['mod+,']},
 
+	// Dialogs. Dialogs are mostly text fields, so this has to be a chord that
+	// produces no character and that CodeMirror doesn't use.
+
+	'dialog.maximize': {bindings: ['alt+enter']},
+
 	// Story list.
 
 	'library.import': {bindings: ['mod+o']},

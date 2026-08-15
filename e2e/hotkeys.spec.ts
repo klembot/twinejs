@@ -165,7 +165,10 @@ test('changes a binding, and the new key works', async ({page}) => {
 	await page.keyboard.press('j');
 	await page.getByRole('button', {name: 'Save', exact: true}).click();
 	await expect(row.getByText('J', {exact: true})).toBeVisible();
-	await expect(row.getByText('Changed')).toBeVisible();
+
+	// There is no Source column any more--a changed row is highlighted instead.
+
+	await expect(row).toHaveClass(/overridden/);
 
 	// Close the dialog and try the new key.
 

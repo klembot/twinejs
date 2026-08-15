@@ -545,6 +545,9 @@
 				"selectAll": "Select All Passages",
 				"deselectAll": "Deselect All Passages"
 			},
+			"dialog": {
+				"maximize": "Maximize or Restore Dialog"
+			},
 			"view": {
 				"zoomIn": "Zoom In",
 				"zoomOut": "Zoom Out",
