@@ -113,7 +113,7 @@ export const KeyboardShortcutsDialog: React.FC<
 		>
 			{/* While focus is in here, no other command may fire--otherwise
 			looking up a shortcut would trigger it. */}
-			<div data-hotkey-scope={KEYBINDINGS_SCOPE}>
+			<div className="keybindings-scope" data-hotkey-scope={KEYBINDINGS_SCOPE}>
 				<CardContent>
 					<div className="shortcut-controls">
 						<ShortcutSearch
@@ -158,15 +158,18 @@ export const KeyboardShortcutsDialog: React.FC<
 							/>
 						</ButtonBar>
 					</div>
-					<ShortcutTable
-						onAdd={row => setEditing({adding: true, row})}
-						onEdit={row => setEditing({adding: false, row})}
-						onReset={row => setBinding(row.id, undefined)}
-						onUnbind={row => setBinding(row.id, [])}
-						platform={displayPlatform}
-						rows={visibleRows}
-						scopeName={scopeName}
-					/>
+					{/* The search and filters stay put; only the list scrolls. */}
+					<div className="shortcut-table-scroll">
+						<ShortcutTable
+							onAdd={row => setEditing({adding: true, row})}
+							onEdit={row => setEditing({adding: false, row})}
+							onReset={row => setBinding(row.id, undefined)}
+							onUnbind={row => setBinding(row.id, [])}
+							platform={displayPlatform}
+							rows={visibleRows}
+							scopeName={scopeName}
+						/>
+					</div>
 				</CardContent>
 				{editing && (
 					<CaptureOverlay

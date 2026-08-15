@@ -1,9 +1,41 @@
 @import '../../styles/colors.css';
 @import '../../styles/metrics.css';
 
+/* <Card> is a flex column with a fixed height, and .card-content is what
+scrolls inside it. The scope element this dialog needs sits between the two, so
+it has to pass that sizing through--otherwise the card just clips the list and
+nothing scrolls. min-height: 0 lets these shrink below their content, which is
+what allows a descendant to become the scrolling element. */
+
+.keyboard-shortcuts-dialog .keybindings-scope {
+	display: flex;
+	flex: 1 1 auto;
+	flex-direction: column;
+	min-height: 0;
+	/* Positions the capture overlay over this dialog and nothing else. */
+	position: relative;
+}
+
+.keyboard-shortcuts-dialog .card-content {
+	display: flex;
+	flex: 1 1 auto;
+	flex-direction: column;
+	min-height: 0;
+	overflow: hidden;
+}
+
+/* Only the list scrolls; the search field and filters stay put. */
+
+.keyboard-shortcuts-dialog .shortcut-table-scroll {
+	flex: 1 1 auto;
+	min-height: 0;
+	overflow: auto;
+}
+
 .keyboard-shortcuts-dialog .shortcut-controls {
 	display: flex;
 	flex-direction: column;
+	flex-shrink: 0;
 	gap: calc(var(--grid-size) / 2);
 	margin-bottom: var(--ui-gap);
 }
@@ -167,7 +199,11 @@ rest of the app stays visible and usable behind it. */
 	outline: none;
 }
 
+/* <Card> is full height by default, which is right inside a dialog but not for
+a prompt floating over one. */
+
 .keyboard-shortcuts-dialog .capture-overlay .card {
+	height: auto;
 	max-width: 400px;
 }
 
