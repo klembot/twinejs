@@ -36,6 +36,15 @@ export interface Command {
 	 */
 	allowRepeat?: boolean;
 	/**
+	 * Does this command belong to the window chrome rather than to the app's
+	 * content? Chrome commands still run inside regions that otherwise suppress
+	 * every command--the keyboard shortcuts list, where an ordinary command
+	 * must not fire while you are looking it up. Maximizing the dialog you are
+	 * reading is not the same kind of thing as triggering the shortcut you are
+	 * reading about.
+	 */
+	chrome?: boolean;
+	/**
 	 * Already-translated label, normally the same string as the button's.
 	 */
 	label: string;

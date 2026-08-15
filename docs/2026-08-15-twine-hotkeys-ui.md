@@ -537,6 +537,33 @@ chain `['global']` → nothing bound → F2 does nothing, which is right for "no
 letting it through a textarea can't eat typing. General rule: function keys and `mod+`/`alt+`
 chords may set `allowInInput`; bare letters never may.
 
+### 10.3a Window chrome is exempt from scope suppression
+
+The `keybindings` scope suppresses every command so that looking a shortcut up can't trigger
+it (§2). That rule is right for the app's own commands and wrong for the dialog's chrome:
+maximizing the window you are reading is not the same kind of action as the ones listed in
+it. `Command.chrome` opts a command out of the suppression:
+
+```ts
+useCommand({
+	chrome: true,          // still runs inside the shortcuts list
+	element: containerRef, // ...but only for the dialog that has focus
+	id: 'dialog.maximize',
+	...
+});
+```
+
+Only `dialog.maximize` sets it today. Note the pairing with `element`: chrome commands are
+registered by a component that exists once per dialog, so without instance scoping every
+open dialog would answer the key.
+
+One consequence worth knowing: toggling maximize changes the element structure around a
+dialog (`Dialogs` wraps maximized ones in an extra div), so React remounts it and focus is
+orphaned onto the body — where that dialog's shortcuts no longer resolve. `DialogCard`
+reclaims focus on mount when, and only when, focus was orphaned that way. Without it the
+maximize shortcut works exactly once, and clicking the maximize button silently costs you
+the dialog's keyboard access.
+
 ### 10.4 The blocker: rename has no programmatic opener
 
 Rename is a `PromptButton` popover whose open state is internal — it explicitly omits

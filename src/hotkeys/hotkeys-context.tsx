@@ -6,7 +6,12 @@ import {commandCatalog} from './command-catalog';
 import {findConflicts} from './conflicts';
 import {eventToKeyString, normalizeKeyString} from './key-string';
 import {resolveKeymap, ResolvedKeymap} from './resolve-keymap';
-import {GLOBAL_SCOPE, scopeChain} from './scope';
+import {
+	GLOBAL_SCOPE,
+	isTextEntry,
+	KEYBINDINGS_SCOPE,
+	scopeChain
+} from './scope';
 
 export interface HotkeysContextProps {
 	/**
@@ -46,26 +51,6 @@ export const HotkeysContext = React.createContext<HotkeysContextProps>({
 HotkeysContext.displayName = 'Hotkeys';
 
 export const useHotkeysContext = () => React.useContext(HotkeysContext);
-
-/**
- * Is the user typing into something? If so, only commands that opted into
- * running in inputs may fire--everything else falls through to the field.
- */
-function isTextEntry(element: Element | null): boolean {
-	if (!element) {
-		return false;
-	}
-
-	if (['INPUT', 'SELECT', 'TEXTAREA'].includes(element.tagName)) {
-		return true;
-	}
-
-	if ((element as HTMLElement).isContentEditable) {
-		return true;
-	}
-
-	return !!element.closest?.('.CodeMirror');
-}
 
 export const HotkeysProvider: React.FC = props => {
 	const {dispatch, prefs} = usePrefsContext();
@@ -141,11 +126,26 @@ export const HotkeysProvider: React.FC = props => {
 			const inTextEntry = isTextEntry(target);
 			const chain = scopeChain(target);
 
+			// Inside the keyboard shortcuts list, scopeChain() returns that scope
+			// alone so that looking a shortcut up can't trigger it. Window chrome
+			// is exempt: maximizing the dialog you're reading isn't the same kind
+			// of action as the ones being listed.
+
+			const suppressed = chain.length === 1 && chain[0] === KEYBINDINGS_SCOPE;
+
 			for (const scope of chain) {
 				for (const registration of registrations.current) {
 					const command = registration.current;
 
-					if (!command || (command.scope || GLOBAL_SCOPE) !== scope) {
+					if (!command) {
+						continue;
+					}
+
+					const inScope =
+						(command.scope || GLOBAL_SCOPE) === scope ||
+						(suppressed && command.chrome);
+
+					if (!inScope) {
 						continue;
 					}
 

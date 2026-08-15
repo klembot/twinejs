@@ -27,7 +27,7 @@ export interface DefaultBinding {
 export const defaultKeymap: Record<string, DefaultBinding> = {
 	// Global.
 
-	'app.keyboardShortcuts': {bindings: []},
+	'app.keyboardShortcuts': {bindings: ['mod+shift+?']},
 	'app.preferences': {bindings: ['mod+,']},
 
 	// Dialogs. Dialogs are mostly text fields, so this has to be a chord that

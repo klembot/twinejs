@@ -145,7 +145,7 @@ exists, no default binding.
 | ● | `?` | `app.shortcutsHelp` | Shortcut cheat sheet | not in inputs; `shift+/` |
 | ● | `mod+,` | `app.preferences` | Preferences | may be swallowed by Chrome/macOS |
 | ● | `Escape` | `dialog.close` | Close topmost dialog | already implemented in `dialog-card.tsx:71`; document, don't rebind |
-| ○ | — | `app.keyboardShortcuts` | Keyboard shortcuts editor | `mod+k mod+s` once chords land |
+| ● | `mod+shift+?` | `app.keyboardShortcuts` | Keyboard shortcuts editor | `?` already needs Shift, so this is Ctrl+Shift+/ on a US layout |
 | ○ | — | `app.storyFormats`, `app.about`, `app.reportBug` | | palette only |
 
 ### 3.2 Story list (`story-list`)
@@ -273,6 +273,12 @@ user-visible — worth a line in the release notes.
 
 `Escape` gains an ordering guarantee it doesn't have today: fuzzy finder → dialog →
 deselect-all, innermost scope first, first match wins and stops.
+
+It also gains a step: inside a dialog, the first `Escape` leaves a focused text field and
+puts focus on the dialog itself; the second closes the dialog. Before, there was no way to
+stop editing a passage without losing the editor, and no way to reach the dialog's own
+shortcuts from inside its text. This is handled by `DialogCard`, not by the registry, for
+the same reason closing always was: it is window behavior, not an app command.
 
 ---
 

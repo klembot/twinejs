@@ -183,6 +183,47 @@ describe('useCommand()', () => {
 		expect(run).toHaveBeenCalledTimes(1);
 	});
 
+	describe('inside the keyboard shortcuts scope', () => {
+		function renderInKeybindings(props: Partial<Command> & {run: () => void}) {
+			return render(
+				<FakeStateProvider hotkeyScope="story-map">
+					<div data-hotkey-scope="keybindings" tabIndex={-1} data-testid="kb">
+						<TestCommand {...props} />
+					</div>
+				</FakeStateProvider>
+			);
+		}
+
+		// Looking a shortcut up in the list must not trigger it.
+
+		it('suppresses ordinary commands', () => {
+			const run = jest.fn();
+
+			renderInKeybindings({run});
+
+			const scope = screen.getByTestId('kb');
+
+			scope.focus();
+			press('n', scope);
+			expect(run).not.toHaveBeenCalled();
+		});
+
+		// Window chrome is the exception: maximizing the dialog you are reading
+		// isn't the same kind of action as the ones being listed.
+
+		it('still runs chrome commands', () => {
+			const run = jest.fn();
+
+			renderInKeybindings({chrome: true, run});
+
+			const scope = screen.getByTestId('kb');
+
+			scope.focus();
+			press('n', scope);
+			expect(run).toHaveBeenCalledTimes(1);
+		});
+	});
+
 	it('stops registering when the component unmounts', () => {
 		const run = jest.fn();
 		const {rerender} = render(

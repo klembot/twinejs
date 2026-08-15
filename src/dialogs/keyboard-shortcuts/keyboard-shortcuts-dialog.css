@@ -105,12 +105,12 @@ is nearly black and the line vanishes. */
 	vertical-align: middle;
 }
 
-/* Column widths keep the command label from being cramped and put the action
-buttons under their own header. */
-
-.keyboard-shortcuts-dialog .shortcut-table th:nth-child(1) {
-	width: 30%;
-}
+/* Column widths. The action column is sized to its buttons: `width: 0` acts as
+a floor, not a cap, so an auto-layout table gives the column exactly the room
+the four buttons need and no more. The command column is deliberately left
+unsized so that it, and not the action column, absorbs the leftover width--that
+is what keeps the "Actions" header sitting over its buttons instead of drifting
+to the far edge of a column three times wider than its contents. */
 
 .keyboard-shortcuts-dialog .shortcut-table th:nth-child(2) {
 	width: 20%;
@@ -120,8 +120,12 @@ buttons under their own header. */
 	width: 20%;
 }
 
-.keyboard-shortcuts-dialog .shortcut-table th:nth-child(4) {
-	text-align: right;
+/* An icon button's own left padding is empty space, so the header is inset by
+that much again to sit over the first icon rather than over the cell edge. */
+
+.keyboard-shortcuts-dialog .shortcut-table th.shortcut-actions {
+	padding-left: calc(var(--grid-size) / 2 + var(--grid-size));
+	width: 0;
 }
 
 /* Rows the user has changed. The tint is deliberately faint so that a list
@@ -206,8 +210,10 @@ lines up with the rest of the row. */
 	color: var(--gray);
 }
 
+/* The buttons and the header both start at the left edge of the column, which
+is only as wide as the buttons themselves. */
+
 .keyboard-shortcuts-dialog .shortcut-actions {
-	text-align: right;
 	white-space: nowrap;
 }
 
@@ -276,12 +282,9 @@ the command cell, next to the command ID. */
 	display: inline;
 }
 
-/* The command cell carries two columns' worth of text now, so it needs the
-room the scope column gave up. */
-
-.keyboard-shortcuts-dialog:not(.maximized) .shortcut-table th:nth-child(1) {
-	width: 50%;
-}
+/* The command cell carries two columns' worth of text now, so the keybinding
+column gives up a little of the room the scope column left behind. The command
+column stays unsized and takes the rest. */
 
 .keyboard-shortcuts-dialog:not(.maximized) .shortcut-table th:nth-child(2) {
 	width: 25%;
@@ -293,4 +296,10 @@ of it--they still have to be separable targets. */
 .keyboard-shortcuts-dialog:not(.maximized) .shortcut-actions .icon-button {
 	padding-left: calc(var(--grid-size) / 3);
 	padding-right: calc(var(--grid-size) / 3);
+}
+
+/* ...and the header's inset has to shrink with them to stay over the icons. */
+
+.keyboard-shortcuts-dialog:not(.maximized) .shortcut-table th.shortcut-actions {
+	padding-left: calc(var(--grid-size) / 2 + var(--grid-size) / 3);
 }

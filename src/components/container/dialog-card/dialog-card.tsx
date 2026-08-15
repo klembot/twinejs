@@ -10,7 +10,7 @@ import {
 } from '@tabler/icons';
 import {Card} from '../card';
 import {IconButton} from '../../control/icon-button';
-import {useCommand} from '../../../hotkeys';
+import {isTextEntry, useCommand} from '../../../hotkeys';
 import './dialog-card.css';
 import useErrorBoundary from 'use-error-boundary';
 import {ErrorMessage} from '../../error';
@@ -56,6 +56,8 @@ export const DialogCard: React.FC<DialogCardProps> = props => {
 
 	useCommand({
 		allowInInput: true,
+		// Works inside the keyboard shortcuts list too--see Command.chrome.
+		chrome: true,
 		element: containerRef,
 		enabled: !!maximizable,
 		id: 'dialog.maximize',
@@ -63,6 +65,18 @@ export const DialogCard: React.FC<DialogCardProps> = props => {
 		run: () => onChangeMaximized(!maximized),
 		scope: 'dialog'
 	});
+
+	// Maximizing changes the element structure around this dialog (see
+	// <Dialogs>), so React remounts it and whatever had focus is destroyed,
+	// leaving focus on the body -- where this dialog's shortcuts no longer
+	// resolve. Take focus back, but only when it was orphaned like that: child
+	// effects run first, so a dialog that focuses its own field keeps it.
+
+	React.useEffect(() => {
+		if (document.activeElement === document.body) {
+			containerRef.current?.focus();
+		}
+	}, []);
 
 	React.useEffect(() => {
 		if (error) {
@@ -86,10 +100,35 @@ export const DialogCard: React.FC<DialogCardProps> = props => {
 	});
 
 	function handleKeyDown(event: React.KeyboardEvent) {
-		if (event.key === 'Escape') {
-			onClose(event);
+		if (event.key !== 'Escape') {
+			return;
 		}
+
+		// Escape steps out one level rather than always closing. If the user is
+		// typing, it leaves the field and puts focus on the dialog itself, which
+		// is also what makes this dialog's shortcuts reachable. Pressing it again
+		// closes, as it always did.
+
+		const focused = document.activeElement;
+
+		if (
+			isTextEntry(focused) &&
+			containerRef.current?.contains(focused) &&
+			focused !== containerRef.current
+		) {
+			(focused as HTMLElement).blur();
+			containerRef.current.focus();
+			event.stopPropagation();
+			return;
+		}
+
+		onClose(event);
 	}
+
+	// tabIndex on the container makes it focusable, so that Escape can move
+	// focus here out of a text field. Without it the focus() call above does
+	// nothing and focus falls to the body, where this dialog's shortcuts no
+	// longer resolve.
 
 	return (
 		<div
@@ -99,6 +138,7 @@ export const DialogCard: React.FC<DialogCardProps> = props => {
 			data-hotkey-scope="dialog"
 			onKeyDown={handleKeyDown}
 			ref={containerRef}
+			tabIndex={-1}
 		>
 			<Card floating>
 				<h2>

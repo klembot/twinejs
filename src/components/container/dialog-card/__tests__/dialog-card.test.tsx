@@ -23,6 +23,71 @@ describe('<DialogCard>', () => {
 		);
 	}
 
+	describe('the Escape key', () => {
+		function renderWithInput(onClose: () => void) {
+			return render(
+				<DialogCard
+					collapsed={false}
+					headerLabel="mock-header-label"
+					maximizable
+					maximized={false}
+					onChangeCollapsed={jest.fn()}
+					onChangeHighlighted={jest.fn()}
+					onChangeMaximized={jest.fn()}
+					onClose={onClose}
+				>
+					<input type="text" />
+				</DialogCard>
+			);
+		}
+
+		// Escape steps out one level: it leaves the field first, so that there is
+		// a way to stop editing without losing the whole dialog.
+
+		it('leaves a focused text field instead of closing', () => {
+			const onClose = jest.fn();
+
+			renderWithInput(onClose);
+
+			const input = screen.getByRole('textbox');
+
+			input.focus();
+			fireEvent.keyDown(input, {code: 'Escape', key: 'Escape'});
+			expect(onClose).not.toHaveBeenCalled();
+			expect(document.activeElement).not.toBe(input);
+			expect(screen.getByRole('dialog').contains(document.activeElement)).toBe(
+				true
+			);
+		});
+
+		it('closes once focus is out of the field', () => {
+			const onClose = jest.fn();
+
+			renderWithInput(onClose);
+
+			const input = screen.getByRole('textbox');
+
+			input.focus();
+			fireEvent.keyDown(input, {code: 'Escape', key: 'Escape'});
+			fireEvent.keyDown(document.activeElement!, {
+				code: 'Escape',
+				key: 'Escape'
+			});
+			expect(onClose).toHaveBeenCalledTimes(1);
+		});
+
+		it('closes immediately when nothing is being edited', () => {
+			const onClose = jest.fn();
+
+			renderComponent({onClose});
+			fireEvent.keyDown(screen.getByRole('dialog'), {
+				code: 'Escape',
+				key: 'Escape'
+			});
+			expect(onClose).toHaveBeenCalledTimes(1);
+		});
+	});
+
 	it('displays the header label', () => {
 		renderComponent();
 		expect(screen.getByText('mock-header-label')).toBeInTheDocument();

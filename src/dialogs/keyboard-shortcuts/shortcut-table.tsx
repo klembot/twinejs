@@ -46,10 +46,8 @@ export const ShortcutTable: React.FC<ShortcutTableProps> = props => {
 					<th className="shortcut-scope">
 						{t('dialogs.keyboardShortcuts.columns.scope')}
 					</th>
-					<th>
-						<span className="visually-hidden">
-							{t('dialogs.keyboardShortcuts.columns.actions')}
-						</span>
+					<th className="shortcut-actions">
+						{t('dialogs.keyboardShortcuts.columns.actions')}
 					</th>
 				</tr>
 			</thead>
