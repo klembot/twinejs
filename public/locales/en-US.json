@@ -192,8 +192,7 @@
 			"themeSystem": "System",
 			"theme": "Theme",
 			"title": "Preferences",
-			"useEnhancedEditors": "Use Enhanced Editors",
-			"keyboardShortcuts": "Keyboard Shortcuts"
+			"useEnhancedEditors": "Use Enhanced Editors"
 		},
 		"passageEdit": {
 			"editorCrashed": "Something went wrong with this editor. Try closing it and editing this passage again.",

@@ -1,4 +1,10 @@
-import {IconAward, IconBug, IconFileCode, IconSettings} from '@tabler/icons';
+import {
+	IconAward,
+	IconBug,
+	IconFileCode,
+	IconKeyboard,
+	IconSettings
+} from '@tabler/icons';
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import {useHistory} from 'react-router-dom';
@@ -27,15 +33,20 @@ export const AppActions: React.FC = () => {
 		label: t('routeActions.app.preferences'),
 		run: handlePreferences
 	});
-	useCommand({
-		id: 'app.keyboardShortcuts',
-		label: t('dialogs.keyboardShortcuts.title'),
-		run: () =>
+	const handleKeyboardShortcuts = React.useCallback(
+		() =>
 			dispatch({
 				type: 'addDialog',
 				component: KeyboardShortcutsDialog,
 				maximized: true
-			})
+			}),
+		[dispatch]
+	);
+
+	useCommand({
+		id: 'app.keyboardShortcuts',
+		label: t('dialogs.keyboardShortcuts.title'),
+		run: handleKeyboardShortcuts
 	});
 
 	return (
@@ -52,6 +63,11 @@ export const AppActions: React.FC = () => {
 				onClick={() =>
 					dispatch({type: 'addDialog', component: StoryFormatsDialog})
 				}
+			/>
+			<IconButton
+				icon={<IconKeyboard />}
+				label={t('dialogs.keyboardShortcuts.title')}
+				onClick={handleKeyboardShortcuts}
 			/>
 			<IconButton
 				icon={<IconAward />}

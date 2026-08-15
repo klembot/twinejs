@@ -33,7 +33,9 @@ async function focusStoryMap(page: Page) {
 test('creates a passage with the N key in the story map', async ({page}) => {
 	await createStory(page, 'Hotkey new passage');
 	await focusStoryMap(page);
-	await expect(page.getByRole('button', {name: 'Untitled Passage'})).toBeVisible();
+	await expect(
+		page.getByRole('button', {name: 'Untitled Passage'})
+	).toBeVisible();
 	await page.keyboard.press('n');
 	await expect(
 		page.getByRole('button', {name: 'Untitled Passage 1'})
@@ -89,12 +91,11 @@ test('does not fire shortcuts while the user is typing', async ({page}) => {
 	).not.toBeVisible();
 });
 
-test('opens the shortcuts dialog from preferences and lists commands', async ({
+test('opens the shortcuts dialog from the Twine tab and lists commands', async ({
 	page
 }) => {
 	await skipWelcome(page);
 	await page.getByRole('tab', {name: 'Twine'}).click();
-	await page.getByRole('button', {name: 'Preferences'}).click();
 	await page.getByRole('button', {name: 'Keyboard Shortcuts'}).click();
 
 	const dialog = page.getByRole('dialog', {name: 'Keyboard Shortcuts'});
@@ -124,14 +125,15 @@ test('searches the shortcuts dialog by text and by pressing keys', async ({
 }) => {
 	await skipWelcome(page);
 	await page.getByRole('tab', {name: 'Twine'}).click();
-	await page.getByRole('button', {name: 'Preferences'}).click();
 	await page.getByRole('button', {name: 'Keyboard Shortcuts'}).click();
 
 	const dialog = page.getByRole('dialog', {name: 'Keyboard Shortcuts'});
 
 	await dialog.getByLabel('Search').fill('rename');
 	await expect(dialog.getByText('passage.rename', {exact: true})).toBeVisible();
-	await expect(dialog.getByText('passage.create', {exact: true})).not.toBeVisible();
+	await expect(
+		dialog.getByText('passage.create', {exact: true})
+	).not.toBeVisible();
 	await dialog.getByLabel('Search').fill('');
 
 	// Record mode: pressing a key shows every command using it, in any scope.
@@ -154,7 +156,6 @@ test('searches the shortcuts dialog by text and by pressing keys', async ({
 test('changes a binding, and the new key works', async ({page}) => {
 	await createStory(page, 'Hotkey rebind');
 	await page.getByRole('tab', {name: 'Twine'}).click();
-	await page.getByRole('button', {name: 'Preferences'}).click();
 	await page.getByRole('button', {name: 'Keyboard Shortcuts'}).click();
 
 	const dialog = page.getByRole('dialog', {name: 'Keyboard Shortcuts'});
@@ -166,13 +167,9 @@ test('changes a binding, and the new key works', async ({page}) => {
 	await expect(row.getByText('J', {exact: true})).toBeVisible();
 	await expect(row.getByText('Changed')).toBeVisible();
 
-	// Close the dialogs and try the new key.
+	// Close the dialog and try the new key.
 
 	await dialog.getByRole('button', {name: 'Close'}).click();
-	await page
-		.getByRole('dialog', {name: 'Preferences'})
-		.getByRole('button', {name: 'Close'})
-		.click();
 	await focusStoryMap(page);
 	await page.keyboard.press('n');
 	await expect(
