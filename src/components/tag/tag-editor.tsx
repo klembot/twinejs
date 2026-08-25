@@ -1,10 +1,11 @@
 import * as React from 'react';
 import {useTranslation} from 'react-i18next';
 import classNames from 'classnames';
-import {IconWriting} from '@tabler/icons';
+import {IconWriting, IconTrash} from '@tabler/icons';
 import {colors, Color} from '../../util/color';
 import {PromptButton, PromptValidationResponse} from '../control/prompt-button';
 import {TextSelect} from '../control/text-select';
+import {ConfirmPopover} from '../control/confirm-popover';
 import './tag-editor.css';
 
 export interface TagEditorProps {
@@ -13,11 +14,14 @@ export interface TagEditorProps {
 	name: string;
 	onChangeColor: (color: Color) => void;
 	onChangeName: (name: string) => void;
+	onDelete?: () => void;
+	deleteMessageKey?: string;
 }
 
 export const TagEditor: React.FC<TagEditorProps> = props => {
 	const {allTags, color, name, onChangeColor, onChangeName} = props;
 	const [newName, setNewName] = React.useState(name);
+	const [showConfirm, setShowConfirm] = React.useState(false);
 	const {t} = useTranslation();
 
 	function validate(value: string): PromptValidationResponse {
@@ -52,6 +56,20 @@ export const TagEditor: React.FC<TagEditorProps> = props => {
 			>
 				{t('common.color')}
 			</TextSelect>
+			{props.onDelete && (
+				<ConfirmPopover
+					open={showConfirm}
+					onChangeOpen={setShowConfirm}
+					message={t(
+						props.deleteMessageKey || 'components.tagEditor.deleteTag',
+						{name}
+					)}
+					confirmLabel={t('common.delete')}
+					cancelLabel={t('common.cancel')}
+					confirmIcon={<IconTrash />}
+					onConfirm={() => props.onDelete!()}
+				/>
+			)}
 		</div>
 	);
 };

@@ -2,9 +2,9 @@
 @import '../../styles/colors.css';
 
 .tag-editor {
-	display: grid;
-	grid-gap: var(--grid-size);
-	grid-template-columns: repeat(3, min-content);
+	display: flex;
+	align-items: center;
+	gap: var(--grid-size);
 }
 
 .tag-editor .tag-name {
