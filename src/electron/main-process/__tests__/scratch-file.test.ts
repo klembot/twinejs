@@ -1,7 +1,7 @@
 import {mkdirp, readdir, remove, stat, writeFile} from 'fs-extra';
 import {
 	cleanScratchDirectory,
-	openWithScratchFile,
+	openHtmlWithScratchFile,
 	scratchDirectoryPath
 } from '../scratch-file';
 import {shell} from 'electron';
@@ -297,13 +297,13 @@ describe('cleanScratchDirectoryPath', () => {
 	});
 });
 
-describe('openWithScratchFile', () => {
+describe('openHtmlWithScratchFile', () => {
 	const mkdirpMock = mkdirp as jest.Mock;
 	const openMock = shell.openPath as jest.Mock;
 	const writeFileMock = writeFile as jest.Mock;
 
 	it("creates the scratch directory if it doesn't already exist", async () => {
-		await openWithScratchFile('mock-data', 'mock-filename');
+		await openHtmlWithScratchFile('mock-data', 'mock-filename.html');
 		expect(mkdirpMock.mock.calls).toEqual([[scratchDirectoryPath()]]);
 	});
 
@@ -312,15 +312,15 @@ describe('openWithScratchFile', () => {
 
 		mkdirpMock.mockRejectedValue(error);
 		await expect(() =>
-			openWithScratchFile('mock-data', 'mock-filename')
+			openHtmlWithScratchFile('mock-data', 'mock-filename.html')
 		).rejects.toBe(error);
 	});
 
 	it('resolves after writing a file in the scratch directory', async () => {
-		await openWithScratchFile('mock-data', 'mock-filename');
+		await openHtmlWithScratchFile('mock-data', 'mock-filename.html');
 		expect(writeFileMock.mock.calls).toEqual([
 			[
-				'mock-electron-app-path-documents/common.appName/electron.scratchDirectoryName/mock-filename',
+				'mock-electron-app-path-documents/common.appName/electron.scratchDirectoryName/mock-filename.html',
 				'mock-data',
 				'utf8'
 			]
@@ -328,8 +328,27 @@ describe('openWithScratchFile', () => {
 	});
 
 	it('opens the file once written to', async () => {
-		await openWithScratchFile('mock-data', 'mock-filename');
-		expect(openMock).toBeCalledTimes(1);
+		await openHtmlWithScratchFile('mock-data', 'mock-filename.html');
+		expect(openMock).toHaveBeenCalledTimes(1);
 		expect(openMock.mock.calls[0]).toEqual([writeFileMock.mock.calls[0][0]]);
 	});
+
+	it.each([['.htm'], ['.exe'], ['.EXE'], ['']])(
+		'throws an error if the filename extension is %p',
+		async extension => {
+			await expect(() =>
+				openHtmlWithScratchFile('mock-data', `mock-filename.${extension}`)
+			).rejects.toBeInstanceOf(Error);
+		}
+	);
+
+	it("doesn't allow subdirectories in the filename", async () =>
+		await expect(() =>
+			openHtmlWithScratchFile('mock-data', `subdir/mock-filename.html`)
+		).rejects.toBeInstanceOf(Error));
+
+	it("doesn't allow path traversal in the filename", async () =>
+		await expect(() =>
+			openHtmlWithScratchFile('mock-data', `../mock-filename.html`)
+		).rejects.toBeInstanceOf(Error));
 });
