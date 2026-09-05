@@ -61,20 +61,20 @@ describe('useStoryLaunch', () => {
 	});
 
 	describe('in an Electron context', () => {
-		let openWithScratchFile: jest.SpyInstance;
+		let openHtmlWithScratchFile: jest.SpyInstance;
 
 		beforeEach(() => {
-			openWithScratchFile = jest.fn();
+			openHtmlWithScratchFile = jest.fn();
 			isElectronRendererMock.mockReturnValue(true);
-			(window as any).twineElectron = {openWithScratchFile};
+			(window as any).twineElectron = {openHtmlWithScratchFile};
 		});
 
-		it('calls openWithScratchFile() on the twineElectron global when playing a story', async () => {
+		it('calls openHtmlWithScratchFile() on the twineElectron global when playing a story', async () => {
 			const {result} = renderHook(() => useStoryLaunch());
 
-			expect(openWithScratchFile).not.toBeCalled();
+			expect(openHtmlWithScratchFile).not.toHaveBeenCalled();
 			await result.current.playStory('mock-story-id');
-			expect(openWithScratchFile.mock.calls).toEqual([
+			expect(openHtmlWithScratchFile.mock.calls).toEqual([
 				[
 					'mock-published-story-mock-story-id-undefined',
 					'play-mock-story-id.html'
@@ -90,12 +90,12 @@ describe('useStoryLaunch', () => {
 			expect(() => result.current.playStory('mock-story-id')).toThrow();
 		});
 
-		it('calls openWithScratchFile() on the twineElectron global when proofing a story', async () => {
+		it('calls openHtmlWithScratchFile() on the twineElectron global when proofing a story', async () => {
 			const {result} = renderHook(() => useStoryLaunch());
 
-			expect(openWithScratchFile).not.toBeCalled();
+			expect(openHtmlWithScratchFile).not.toHaveBeenCalled();
 			await result.current.proofStory('mock-story-id');
-			expect(openWithScratchFile.mock.calls).toEqual([
+			expect(openHtmlWithScratchFile.mock.calls).toEqual([
 				['mock-proofed-story-mock-story-id', 'proof-mock-story-id.html']
 			]);
 		});
@@ -108,12 +108,12 @@ describe('useStoryLaunch', () => {
 			expect(() => result.current.proofStory('mock-story-id')).toThrow();
 		});
 
-		it('calls openWithScratchFile() on the twineElectron global when testing a story', async () => {
+		it('calls openHtmlWithScratchFile() on the twineElectron global when testing a story', async () => {
 			const {result} = renderHook(() => useStoryLaunch());
 
-			expect(openWithScratchFile).not.toBeCalled();
+			expect(openHtmlWithScratchFile).not.toHaveBeenCalled();
 			await result.current.testStory('mock-story-id');
-			expect(openWithScratchFile.mock.calls).toEqual([
+			expect(openHtmlWithScratchFile.mock.calls).toEqual([
 				[
 					'mock-published-story-mock-story-id-{"formatOptions":"debug"}',
 					'test-mock-story-id.html'

@@ -7,7 +7,7 @@ export interface TwineElectronWindow extends Window {
 		loadStories(): Promise<any>;
 		loadStoryFormats(): Promise<any>;
 		onceStoryRenamed(callback: () => void): void;
-		openWithScratchFile(data: string, filename: string): void;
+		openHtmlWithScratchFile(data: string, filename: string): void;
 		renameStory(oldStory: Story, newStory: Story): void;
 		saveStoryHtml(story: Story, data: string): void;
 		saveJson(filename: string, data: any): void;

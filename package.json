@@ -137,5 +137,8 @@
 		"test:coverage": "jest --coverage"
 	},
 	"homepage": "./",
-	"main": "electron-build/electron/src/electron/main-process/index.js"
+	"main": "electron-build/electron/src/electron/main-process/index.js",
+	"allowScripts": {
+		"electron@41.2.0": true
+	}
 }

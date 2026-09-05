@@ -1,6 +1,6 @@
 import {app, shell} from 'electron';
 import {mkdirp, readdir, remove, stat, writeFile} from 'fs-extra';
-import {join} from 'path';
+import {basename, extname, join} from 'path';
 import {i18n} from './locales';
 import {getAppPref} from './app-prefs';
 
@@ -54,7 +54,20 @@ export async function cleanScratchDirectory() {
 	);
 }
 
-export async function openWithScratchFile(data: string, filename: string) {
+/**
+ * Writes an HTML file to scratch, then opens it. Trying to write a filename
+ * with any other extension but `.html` will throw an exception for security
+ * reasons, as will trying to add any subdirectories in the filename.
+ */
+export async function openHtmlWithScratchFile(data: string, filename: string) {
+	if (basename(filename) !== filename) {
+		throw new Error('No subdirectories are allowed in the filename.');
+	}
+
+	if (extname(filename) !== '.html') {
+		throw new Error('Only .html files may be opened.');
+	}
+
 	const scratchPath = join(scratchDirectoryPath(), filename);
 
 	await mkdirp(scratchDirectoryPath());
