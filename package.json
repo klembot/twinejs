@@ -113,7 +113,6 @@
 		"vite-plugin-pwa": "^1.3.0"
 	},
 	"scripts": {
-		"analyze": "run-s build:web build:analyze",
 		"build": "run-s clean build:electron",
 		"build:docs": "cd docs/en && mdbook build",
 		"build:web": "tsc && vite build",
