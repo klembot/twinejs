@@ -77,10 +77,10 @@ describe('deleteStory', () => {
 
 		deleteStory(story).then(done);
 		await resolveAllPromises();
-		expect(done).not.toBeCalled();
+		expect(done).not.toHaveBeenCalled();
 		resolveTrashItem();
 		await resolveAllPromises();
-		expect(done).toBeCalledTimes(1);
+		expect(done).toHaveBeenCalledTimes(1);
 	});
 });
 
@@ -252,16 +252,16 @@ describe('loadStories', () => {
 
 		loadStories().then(done);
 		await resolveAllPromises();
-		expect(done).not.toBeCalled();
+		expect(done).not.toHaveBeenCalled();
 		resolveReaddir();
 		await resolveAllPromises();
-		expect(done).not.toBeCalled();
+		expect(done).not.toHaveBeenCalled();
 		resolveStat();
 		await resolveAllPromises();
-		expect(done).not.toBeCalled();
+		expect(done).not.toHaveBeenCalled();
 		resolveFileWasTouched();
 		await resolveAllPromises();
-		expect(done).toBeCalledTimes(1);
+		expect(done).toHaveBeenCalledTimes(1);
 	});
 });
 
@@ -328,13 +328,13 @@ describe('renameStory', () => {
 
 		renameStory(oldStory, newStory).then(done);
 		await resolveAllPromises();
-		expect(done).not.toBeCalled();
+		expect(done).not.toHaveBeenCalled();
 		resolveRename();
 		await resolveAllPromises();
-		expect(done).not.toBeCalled();
+		expect(done).not.toHaveBeenCalled();
 		resolveFileWasTouched();
 		await resolveAllPromises();
-		expect(done).toBeCalledTimes(1);
+		expect(done).toHaveBeenCalledTimes(1);
 	});
 });
 
@@ -409,19 +409,19 @@ describe('saveStoryHtml()', () => {
 
 		saveStoryHtml(story, 'story html').then(done);
 		await resolveAllPromises();
-		expect(done).not.toBeCalled();
+		expect(done).not.toHaveBeenCalled();
 		resolveMkdtemp();
 		await resolveAllPromises();
-		expect(done).not.toBeCalled();
+		expect(done).not.toHaveBeenCalled();
 		resolveWriteFile();
 		await resolveAllPromises();
-		expect(done).not.toBeCalled();
+		expect(done).not.toHaveBeenCalled();
 		resolveMove();
 		await resolveAllPromises();
-		expect(done).not.toBeCalled();
+		expect(done).not.toHaveBeenCalled();
 		resolveFileWasTouched();
 		await resolveAllPromises();
-		expect(done).toBeCalledTimes(1);
+		expect(done).toHaveBeenCalledTimes(1);
 	});
 
 	it("doesn't show a dialog", async () => {
@@ -434,7 +434,7 @@ describe('saveStoryHtml()', () => {
 
 		writeFileMock.mockRejectedValue(mockError);
 		await expect(saveStoryHtml(story, 'story html')).rejects.toBe(mockError);
-		expect(moveMock).not.toBeCalled();
+		expect(moveMock).not.toHaveBeenCalled();
 	});
 
 	it('rejects if replacing the destination file fails', async () => {

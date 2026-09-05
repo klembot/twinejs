@@ -65,7 +65,7 @@ describe('formatEditorExtensions()', () => {
 			}
 		};
 		expect((formatEditorExtensions(format, '2.4.0') as any).passed).toBe(true);
-		expect(warnSpy).not.toBeCalled();
+		expect(warnSpy).not.toHaveBeenCalled();
 	});
 
 	it('warns if more than one set of extensions matches the Twine version', () => {
@@ -82,6 +82,6 @@ describe('formatEditorExtensions()', () => {
 		expect((formatEditorExtensions(format, '2.4.0') as any).ambiguous).toBe(
 			true
 		);
-		expect(warnSpy).toBeCalledTimes(1);
+		expect(warnSpy).toHaveBeenCalledTimes(1);
 	});
 });

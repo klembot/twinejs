@@ -29,7 +29,7 @@ describe('initHardwareAcceleration', () => {
 		});
 
 		initHardwareAcceleration();
-		expect(disableHardwareAccelerationMock).toBeCalledTimes(1);
+		expect(disableHardwareAccelerationMock).toHaveBeenCalledTimes(1);
 	});
 
 	it("doesn't disable hardware acceleration if the app pref is falsy", () => {
@@ -42,7 +42,7 @@ describe('initHardwareAcceleration', () => {
 		});
 
 		initHardwareAcceleration();
-		expect(disableHardwareAccelerationMock).not.toBeCalled();
+		expect(disableHardwareAccelerationMock).not.toHaveBeenCalled();
 	});
 });
 
@@ -83,6 +83,6 @@ describe('toggleHardwareAcceleration', () => {
 
 	it('shows the relaunch dialog', () => {
 		toggleHardwareAcceleration();
-		expect(showRelaunchDialogMock).toBeCalledTimes(1);
+		expect(showRelaunchDialogMock).toHaveBeenCalledTimes(1);
 	});
 });

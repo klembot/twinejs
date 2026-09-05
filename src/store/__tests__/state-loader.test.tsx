@@ -55,7 +55,7 @@ describe('<StateLoader>', () => {
 
 	it('dispatches init and repair actions once mounted', async () => {
 		render(<StateLoader />);
-		await waitFor(() => expect(storiesDispatchMock).toBeCalled());
+		await waitFor(() => expect(storiesDispatchMock).toHaveBeenCalled());
 
 		// Order of these actions is crucial. The init must come before the repair.
 		// Order of store repairs is tested below.
@@ -76,7 +76,7 @@ describe('<StateLoader>', () => {
 
 	it('repairs story formats, then preferences, then stories', async () => {
 		render(<StateLoader />);
-		await waitFor(() => expect(storiesDispatchMock).toBeCalled());
+		await waitFor(() => expect(storiesDispatchMock).toHaveBeenCalled());
 
 		// The second invocation will be the repair--tested above.
 
@@ -95,8 +95,8 @@ describe('<StateLoader>', () => {
 			.mockReturnValue(repairStories);
 
 		render(<StateLoader />);
-		await waitFor(() => expect(storiesDispatchMock).toBeCalled());
-		expect(repairStories).toBeCalledTimes(1);
+		await waitFor(() => expect(storiesDispatchMock).toHaveBeenCalled());
+		expect(repairStories).toHaveBeenCalledTimes(1);
 		repairSpy.mockRestore();
 	});
 
@@ -117,7 +117,7 @@ describe('<StateLoader>', () => {
 		}));
 
 		render(<StateLoader />);
-		await waitFor(() => expect(prefsDispatchMock).toBeCalled());
+		await waitFor(() => expect(prefsDispatchMock).toHaveBeenCalled());
 		expect(prefsDispatchMock.mock.calls[1]).toEqual([
 			{type: 'repair', allFormats: repairedFormats}
 		]);
@@ -160,7 +160,7 @@ describe('<StateLoader>', () => {
 			formats: formatsRepaired ? repairedFormats : [defaultFormat]
 		}));
 		render(<StateLoader />);
-		await waitFor(() => expect(storiesDispatchMock).toBeCalled());
+		await waitFor(() => expect(storiesDispatchMock).toHaveBeenCalled());
 		expect(storiesDispatchMock.mock.calls[1]).toEqual([
 			{
 				type: 'repair',

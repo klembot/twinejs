@@ -60,7 +60,7 @@ describe('<UndoableStoriesContextProvider>', () => {
 
 			expect(result.current.stories).toBe(stories);
 			act(() => result.current.dispatch({type: 'init', state: []}));
-			expect(dispatch).toBeCalledTimes(1);
+			expect(dispatch).toHaveBeenCalledTimes(1);
 		});
 
 		it('sends an addChange action to the undoableStories reducer if a description is passed', () => {

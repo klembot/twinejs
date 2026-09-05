@@ -62,7 +62,7 @@ describe('<CardButton>', () => {
 		expect(onChangeOpen).not.toHaveBeenCalled();
 		expect(onClick).not.toHaveBeenCalled();
 		fireEvent.click(screen.getByText('mock-label'));
-		expect(onClick).toBeCalledTimes(1);
+		expect(onClick).toHaveBeenCalledTimes(1);
 		expect(onChangeOpen).not.toHaveBeenCalled();
 	});
 
