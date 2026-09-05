@@ -1,10 +1,10 @@
-import react from '@vitejs/plugin-react-swc';
+import react from '@vitejs/plugin-react';
 import browserslistToEsbuild from 'browserslist-to-esbuild';
 import {defineConfig} from 'vite';
 import checker from 'vite-plugin-checker';
 import {nodePolyfills} from 'vite-plugin-node-polyfills';
 import {VitePWA} from 'vite-plugin-pwa';
-import packageJson from './package.json';
+import packageJson from './package.json' with {type: 'json'};
 
 export default defineConfig({
 	base: './',
