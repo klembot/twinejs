@@ -49,14 +49,14 @@ describe('showRelaunchDialog', () => {
 	it('relaunches the app if the Relaunch Now button is chosen', async () => {
 		showMessageBoxMock.mockResolvedValue({response: 1});
 		await showRelaunchDialog('test-message');
-		expect(relaunchMock).toBeCalledTimes(1);
-		expect(quitMock).toBeCalledTimes(1);
+		expect(relaunchMock).toHaveBeenCalledTimes(1);
+		expect(quitMock).toHaveBeenCalledTimes(1);
 	});
 
 	it('does nothing if the OK button is chosen', async () => {
 		showMessageBoxMock.mockResolvedValue({response: 0});
 		await showRelaunchDialog('test-message');
-		expect(relaunchMock).not.toBeCalled();
-		expect(quitMock).not.toBeCalled();
+		expect(relaunchMock).not.toHaveBeenCalled();
+		expect(quitMock).not.toHaveBeenCalled();
 	});
 });

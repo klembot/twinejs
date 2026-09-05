@@ -37,7 +37,7 @@ describe('FuzzyFinder', () => {
 		const onChangeSearch = jest.fn();
 
 		renderComponent({onChangeSearch});
-		expect(onChangeSearch).not.toBeCalled();
+		expect(onChangeSearch).not.toHaveBeenCalled();
 		fireEvent.change(screen.getByRole('textbox'), {
 			target: {value: 'test-change'}
 		});
@@ -48,9 +48,9 @@ describe('FuzzyFinder', () => {
 		const onClose = jest.fn();
 
 		renderComponent({onClose});
-		expect(onClose).not.toBeCalled();
+		expect(onClose).not.toHaveBeenCalled();
 		fireEvent.click(screen.getByRole('button', {name: 'Close'}));
-		expect(onClose).toBeCalledTimes(1);
+		expect(onClose).toHaveBeenCalledTimes(1);
 	});
 
 	it('displays a result for every entry in the results prop', () => {
@@ -88,7 +88,7 @@ describe('FuzzyFinder', () => {
 			onSelectResult,
 			results: [{detail: 'test-detail-1', heading: 'test-heading-1'}]
 		});
-		expect(onSelectResult).not.toBeCalled();
+		expect(onSelectResult).not.toHaveBeenCalled();
 		fireEvent.click(screen.getByText('test-detail-1'));
 		expect(onSelectResult.mock.calls).toEqual([[0]]);
 	});

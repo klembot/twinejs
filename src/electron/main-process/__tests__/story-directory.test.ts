@@ -140,8 +140,8 @@ describe('chooseStoryDirectory()', () => {
 
 	it('does nothing if the user cancels out of the dialog', async () => {
 		await chooseStoryDirectoryPath();
-		expect(setAppPrefMock).not.toBeCalled();
-		expect(showRelaunchDialogMock).not.toBeCalled();
+		expect(setAppPrefMock).not.toHaveBeenCalled();
+		expect(showRelaunchDialogMock).not.toHaveBeenCalled();
 	});
 
 	describe('If the user chooses a directory', () => {
@@ -161,7 +161,7 @@ describe('chooseStoryDirectory()', () => {
 
 		it('shows the relaunch dialog', async () => {
 			await chooseStoryDirectoryPath();
-			expect(showRelaunchDialogMock).toBeCalledTimes(1);
+			expect(showRelaunchDialogMock).toHaveBeenCalledTimes(1);
 		});
 	});
 });
@@ -229,7 +229,7 @@ describe('initStoryDirectoryPath()', () => {
 			expect(getStoryDirectoryPath()).toBe(
 				'mock-story-library-folder-app-pref'
 			);
-			expect(mkdirpMock).toBeCalledTimes(1);
+			expect(mkdirpMock).toHaveBeenCalledTimes(1);
 		});
 
 		describe("When the app pref isn't readable nor can be created", () => {
@@ -263,7 +263,7 @@ describe('initStoryDirectoryPath()', () => {
 			it('quits if the user chooses that option', async () => {
 				showMessageBoxMock.mockResolvedValue({response: 1});
 				await initStoryDirectory();
-				expect(quitMock).toBeCalledTimes(1);
+				expect(quitMock).toHaveBeenCalledTimes(1);
 			});
 
 			it('continues and returns the default path if the user chooses that option', async () => {
@@ -272,7 +272,7 @@ describe('initStoryDirectoryPath()', () => {
 				expect(getStoryDirectoryPath()).toBe(
 					'mock-electron-app-path-documents/common.appName/electron.storiesDirectoryName'
 				);
-				expect(quitMock).not.toBeCalled();
+				expect(quitMock).not.toHaveBeenCalled();
 			});
 		});
 	});

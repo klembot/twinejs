@@ -60,7 +60,7 @@ describe('<TextSelect>', () => {
 		fireEvent.change(screen.getByRole('combobox'), {
 			target: {value: 'test-value-1'}
 		});
-		expect(onChange).toBeCalledTimes(1);
+		expect(onChange).toHaveBeenCalledTimes(1);
 	});
 
 	it('is accessible', async () => {

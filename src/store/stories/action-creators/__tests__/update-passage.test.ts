@@ -198,7 +198,7 @@ describe('updatePassage action creator', () => {
 				dispatch,
 				getState
 			);
-			expect(deleteOrphanedPassagesMock).not.toBeCalled();
+			expect(deleteOrphanedPassagesMock).not.toHaveBeenCalled();
 		});
 
 		it("doesn't call deleteOrphanedPassages if the dontUpdateOthers option is true", () => {
@@ -208,7 +208,7 @@ describe('updatePassage action creator', () => {
 				{text: 'new text'},
 				{dontUpdateOthers: true}
 			)(dispatch, getState);
-			expect(deleteOrphanedPassagesMock).not.toBeCalled();
+			expect(deleteOrphanedPassagesMock).not.toHaveBeenCalled();
 		});
 
 		it('deletes orphans before creating new passages', () => {
@@ -228,7 +228,7 @@ describe('updatePassage action creator', () => {
 				dispatch,
 				getState
 			);
-			expect(getState).toBeCalledTimes(1);
+			expect(getState).toHaveBeenCalledTimes(1);
 			expect(createNewlyLinkedPassagesMock.mock.calls).toEqual([
 				[story, story.passages[0], 'new text', oldText]
 			]);
@@ -239,7 +239,7 @@ describe('updatePassage action creator', () => {
 				dispatch,
 				getState
 			);
-			expect(createNewlyLinkedPassagesMock).not.toBeCalled();
+			expect(createNewlyLinkedPassagesMock).not.toHaveBeenCalled();
 		});
 
 		it("doesn't call createNewlyLinkedPassages if the dontUpdateOthers option is true", () => {
@@ -249,7 +249,7 @@ describe('updatePassage action creator', () => {
 				{text: 'new text'},
 				{dontUpdateOthers: true}
 			)(dispatch, getState);
-			expect(createNewlyLinkedPassagesMock).not.toBeCalled();
+			expect(createNewlyLinkedPassagesMock).not.toHaveBeenCalled();
 		});
 	});
 });

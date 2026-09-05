@@ -32,7 +32,7 @@ describe('useStoryLaunch', () => {
 		it('opens a new browser window when playing a story', () => {
 			const {result} = renderHook(() => useStoryLaunch());
 
-			expect(openSpy).not.toBeCalled();
+			expect(openSpy).not.toHaveBeenCalled();
 			result.current.playStory('mock-story-id');
 			expect(openSpy.mock.calls).toEqual([
 				['#/stories/mock-story-id/play', '_blank']
@@ -42,7 +42,7 @@ describe('useStoryLaunch', () => {
 		it('opens a new browser window when proofing a story', () => {
 			const {result} = renderHook(() => useStoryLaunch());
 
-			expect(openSpy).not.toBeCalled();
+			expect(openSpy).not.toHaveBeenCalled();
 			result.current.proofStory('mock-story-id');
 			expect(openSpy.mock.calls).toEqual([
 				['#/stories/mock-story-id/proof', '_blank']
@@ -52,7 +52,7 @@ describe('useStoryLaunch', () => {
 		it('opens a new browser window when testing a story', () => {
 			const {result} = renderHook(() => useStoryLaunch());
 
-			expect(openSpy).not.toBeCalled();
+			expect(openSpy).not.toHaveBeenCalled();
 			result.current.testStory('mock-story-id');
 			expect(openSpy.mock.calls).toEqual([
 				['#/stories/mock-story-id/test', '_blank']

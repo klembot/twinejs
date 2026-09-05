@@ -142,7 +142,7 @@ describe('<PassageEditStack>', () => {
 			passageIds: ['nonexistent1', 'nonexistent2']
 		});
 
-		expect(onClose).toBeCalledTimes(1);
+		expect(onClose).toHaveBeenCalledTimes(1);
 	});
 
 	describe('When a passage editor is closed', () => {
@@ -166,7 +166,7 @@ describe('<PassageEditStack>', () => {
 			const innerDispatch = jest.fn();
 
 			renderComponent({stories: [story]}, {dialogs, dispatch});
-			expect(dispatch).not.toBeCalled();
+			expect(dispatch).not.toHaveBeenCalled();
 			fireEvent.click(screen.getAllByLabelText('common.close')[0]);
 			dispatch.mock.calls[0][0](innerDispatch, () => dialogs);
 			expect(innerDispatch.mock.calls).toEqual([
@@ -184,11 +184,11 @@ describe('<PassageEditStack>', () => {
 			const story = fakeStory(2);
 			const {onClose} = renderComponent({stories: [story]});
 
-			expect(onClose).not.toBeCalled();
+			expect(onClose).not.toHaveBeenCalled();
 			fireEvent.click(screen.getAllByLabelText('common.close')[0], {
 				shiftKey: true
 			});
-			expect(onClose).toBeCalledTimes(1);
+			expect(onClose).toHaveBeenCalledTimes(1);
 		});
 
 		it('dispatches an action to close the stack if that was the last passage editor', () => {
@@ -206,7 +206,7 @@ describe('<PassageEditStack>', () => {
 			const innerDispatch = jest.fn();
 
 			renderComponent({stories: [story]}, {dialogs, dispatch});
-			expect(dispatch).not.toBeCalled();
+			expect(dispatch).not.toHaveBeenCalled();
 			fireEvent.click(screen.getByLabelText('common.close'));
 			dispatch.mock.calls[0][0](innerDispatch, () => dialogs);
 			expect(innerDispatch.mock.calls).toEqual([

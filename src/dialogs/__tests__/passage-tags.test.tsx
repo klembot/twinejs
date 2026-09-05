@@ -72,7 +72,7 @@ describe('<PassageTagsDialog>', () => {
 				'onChangeName'
 			)
 		);
-		expect(renamePassageTagMock).toBeCalledTimes(1);
+		expect(renamePassageTagMock).toHaveBeenCalledTimes(1);
 		expect(dispatch.mock.calls).toEqual([
 			[renamePassageTagMock.mock.calls[0], 'undoChange.renameTag']
 		]);
@@ -89,7 +89,7 @@ describe('<PassageTagsDialog>', () => {
 				'onChangeColor'
 			)
 		);
-		expect(setTagColorMock).toBeCalledTimes(1);
+		expect(setTagColorMock).toHaveBeenCalledTimes(1);
 		expect(dispatch.mock.calls).toEqual([
 			[setTagColorMock.mock.calls[0], 'undoChange.changeTagColor']
 		]);

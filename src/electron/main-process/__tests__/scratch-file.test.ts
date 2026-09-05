@@ -90,7 +90,7 @@ describe('cleanScratchDirectoryPath', () => {
 				}
 			});
 			await cleanScratchDirectory();
-			expect(removeMock).not.toBeCalled();
+			expect(removeMock).not.toHaveBeenCalled();
 		});
 
 		it("doesn't delete an old file that has a non-.html suffix", async () => {
@@ -102,7 +102,7 @@ describe('cleanScratchDirectoryPath', () => {
 				mtimeMs: Date.now() - 1000 * 60 * 60 * 24 * 10
 			}));
 			await cleanScratchDirectory();
-			expect(removeMock).not.toBeCalled();
+			expect(removeMock).not.toHaveBeenCalled();
 		});
 
 		it("doesn't delete an old directory", async () => {
@@ -113,7 +113,7 @@ describe('cleanScratchDirectoryPath', () => {
 				mtimeMs: Date.now() - 1001 * 60 * 60 * 24 * 10
 			}));
 			await cleanScratchDirectory();
-			expect(removeMock).not.toBeCalled();
+			expect(removeMock).not.toHaveBeenCalled();
 		});
 	});
 
@@ -180,7 +180,7 @@ describe('cleanScratchDirectoryPath', () => {
 				}
 			});
 			await cleanScratchDirectory();
-			expect(removeMock).not.toBeCalled();
+			expect(removeMock).not.toHaveBeenCalled();
 		});
 
 		it("doesn't delete an old file that has a non-.html suffix", async () => {
@@ -192,7 +192,7 @@ describe('cleanScratchDirectoryPath', () => {
 				mtimeMs: Date.now() - 1000 * 60 * 61
 			}));
 			await cleanScratchDirectory();
-			expect(removeMock).not.toBeCalled();
+			expect(removeMock).not.toHaveBeenCalled();
 		});
 
 		it("doesn't delete an old directory", async () => {
@@ -203,7 +203,7 @@ describe('cleanScratchDirectoryPath', () => {
 				mtimeMs: Date.now() - 1001 * 60 * 61
 			}));
 			await cleanScratchDirectory();
-			expect(removeMock).not.toBeCalled();
+			expect(removeMock).not.toHaveBeenCalled();
 		});
 	});
 
@@ -269,7 +269,7 @@ describe('cleanScratchDirectoryPath', () => {
 				}
 			});
 			await cleanScratchDirectory();
-			expect(removeMock).not.toBeCalled();
+			expect(removeMock).not.toHaveBeenCalled();
 		});
 
 		it("doesn't delete an old file that has a non-.html suffix", async () => {
@@ -281,7 +281,7 @@ describe('cleanScratchDirectoryPath', () => {
 				mtimeMs: Date.now() - 1000 * 60 * 60 * 24 * 10
 			}));
 			await cleanScratchDirectory();
-			expect(removeMock).not.toBeCalled();
+			expect(removeMock).not.toHaveBeenCalled();
 		});
 
 		it("doesn't delete an old directory", async () => {
@@ -292,7 +292,7 @@ describe('cleanScratchDirectoryPath', () => {
 				mtimeMs: Date.now() - 1001 * 60 * 60 * 24 * 10
 			}));
 			await cleanScratchDirectory();
-			expect(removeMock).not.toBeCalled();
+			expect(removeMock).not.toHaveBeenCalled();
 		});
 	});
 });

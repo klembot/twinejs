@@ -114,7 +114,7 @@ describe('Story reducer createPassage action handler', () => {
 				fakePassage({name: story.passages[0].name})
 			)
 		).toEqual([story]);
-		expect(warnSpy).toBeCalledTimes(1);
+		expect(warnSpy).toHaveBeenCalledTimes(1);
 	});
 
 	it('issues a warning and makes no changes if a passage with the same ID already exists in the story', () => {
@@ -126,7 +126,7 @@ describe('Story reducer createPassage action handler', () => {
 		expect(
 			createPassage([story], story.id, fakePassage({id: story.passages[0].id}))
 		).toEqual([story]);
-		expect(warnSpy).toBeCalledTimes(1);
+		expect(warnSpy).toHaveBeenCalledTimes(1);
 	});
 
 	it('issues a warning and makes no changes if there is no story with the ID specified in state', () => {
@@ -138,7 +138,7 @@ describe('Story reducer createPassage action handler', () => {
 		expect(createPassage([story], story.id + 'wrong', fakePassage())).toEqual([
 			story
 		]);
-		expect(warnSpy).toBeCalledTimes(1);
+		expect(warnSpy).toHaveBeenCalledTimes(1);
 	});
 
 	it("changes the parent story's lastUpdate property", () => {

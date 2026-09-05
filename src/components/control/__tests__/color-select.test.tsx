@@ -44,7 +44,7 @@ describe('<ColorSelect>', () => {
 		fireEvent.change(screen.getByRole('combobox'), {
 			target: {value: 'green'}
 		});
-		expect(onChange).toBeCalledTimes(1);
+		expect(onChange).toHaveBeenCalledTimes(1);
 	});
 
 	it('is accessible', async () => {

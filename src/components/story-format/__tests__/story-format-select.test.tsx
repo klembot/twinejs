@@ -73,7 +73,7 @@ describe('<StoryFormatSelect>', () => {
 		fireEvent.change(screen.getByRole('combobox'), {
 			target: {value: formats[1].id}
 		});
-		expect(onChange).toBeCalledTimes(1);
+		expect(onChange).toHaveBeenCalledTimes(1);
 	});
 
 	it('is accessible', async () => {

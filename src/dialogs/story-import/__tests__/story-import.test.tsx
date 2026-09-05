@@ -85,7 +85,7 @@ describe('StoryImportDialog', () => {
 				'mock-story'
 			));
 
-		it('closes', () => expect(onClose).toBeCalled());
+		it('closes', () => expect(onClose).toHaveBeenCalled());
 	});
 
 	describe('when a file is selected that has no stories', () => {
@@ -122,9 +122,9 @@ describe('StoryImportDialog', () => {
 				'mock-story'
 			));
 
-		it('repairs all stories', () => expect(repairStories).toBeCalledTimes(1));
+		it('repairs all stories', () => expect(repairStories).toHaveBeenCalledTimes(1));
 
-		it('closes', () => expect(onClose).toBeCalled());
+		it('closes', () => expect(onClose).toHaveBeenCalled());
 	});
 
 	it('is accessible', async () => {
