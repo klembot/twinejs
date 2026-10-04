@@ -1,13 +1,5 @@
 import {app, dialog, shell} from 'electron';
-import {
-	mkdtemp,
-	move,
-	readdir,
-	readFile,
-	rename,
-	stat,
-	writeFile
-} from 'fs-extra';
+import {move, readdir, readFile, rename, stat, writeFile} from 'fs-extra';
 import {
 	deleteStory,
 	loadStories,
@@ -340,7 +332,6 @@ describe('renameStory', () => {
 
 describe('saveStoryHtml()', () => {
 	const fileWasTouchedMock = fileWasTouched as jest.Mock;
-	const mkdtempMock = mkdtemp as jest.Mock;
 	const moveMock = move as jest.Mock;
 	const quitMock = app.quit as jest.Mock;
 	const relaunchMock = app.relaunch as jest.Mock;
@@ -352,28 +343,17 @@ describe('saveStoryHtml()', () => {
 	beforeEach(() => {
 		jest.spyOn(console, 'log').mockReturnValue();
 		jest.spyOn(console, 'error').mockReturnValue();
-		mkdtempMock.mockImplementation(
-			async (prefix: string) => `mkdtemp-mock-${prefix}`
-		);
 		story = fakeStory();
 	});
 
 	it('saves the HTML to a temp file, then replaces the destination with the temp file', async () => {
 		await saveStoryHtml(story, 'story html');
 		expect(writeFileMock.mock.calls).toEqual([
-			[
-				`mkdtemp-mock-mock-electron-app-path-temp/twine-${
-					story.id
-				}/${storyFileName(story)}`,
-				'story html',
-				'utf8'
-			]
+			[`mock-electron-app-path-temp/${story.id}.html`, 'story html', 'utf8']
 		]);
 		expect(moveMock.mock.calls).toEqual([
 			[
-				`mkdtemp-mock-mock-electron-app-path-temp/twine-${
-					story.id
-				}/${storyFileName(story)}`,
+				`mock-electron-app-path-temp/${story.id}.html`,
 				`mock-story-directory/${storyFileName(story)}`,
 				{overwrite: true}
 			]
@@ -388,15 +368,11 @@ describe('saveStoryHtml()', () => {
 	});
 
 	it('does not resolve until all async file operations have finished', async () => {
-		let resolveMkdtemp = () => {};
 		let resolveWriteFile = () => {};
 		let resolveMove = () => {};
 		let resolveFileWasTouched = () => {};
 		const done = jest.fn();
 
-		mkdtempMock.mockReturnValue(
-			new Promise(resolve => (resolveMkdtemp = () => resolve('mock-temp-dir')))
-		);
 		writeFileMock.mockReturnValue(
 			new Promise<void>(resolve => (resolveWriteFile = resolve))
 		);
@@ -408,9 +384,6 @@ describe('saveStoryHtml()', () => {
 		);
 
 		saveStoryHtml(story, 'story html').then(done);
-		await resolveAllPromises();
-		expect(done).not.toHaveBeenCalled();
-		resolveMkdtemp();
 		await resolveAllPromises();
 		expect(done).not.toHaveBeenCalled();
 		resolveWriteFile();
