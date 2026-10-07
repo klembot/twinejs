@@ -11,7 +11,7 @@ For instance, you might enter code into your passage to set variables or
 conditionally display some text.
 
 The font and size of the text can be customized in [Twine's
-preferences](../preferences). This doesn't change what the passage looks like
+preferences](../customizing/preferences.md). This doesn't change what the passage looks like
 when played; it just lets you make the text editor more comfortable to use.
 
 Story formats can extend Twine to add syntax formatting to the passage text
