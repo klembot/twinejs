@@ -119,7 +119,7 @@
 		},
 		"storyCard": {
 			"lastUpdated": "Ostatnio edytowano: {{date}}",
-			"passageCount": "Ilość scen: 1",
+			"passageCount": "Ilość scen: {{count}}",
 			"passageCount_plural": "Ilość scen: {{count}}"
 		},
 		"storyFormatItem": {
@@ -362,10 +362,10 @@
 		"storyList": {
 			"library": "Biblioteka",
 			"noStories": "Obecnie nie masz żadnych zapisanych opowieści. Aby rozpocząć, możesz stworzyć nową opowieść lub zaimportować istniejącą z pliku.",
-			"taggedTitleCount": "Oznaczona opowieści: 1 ",
+			"taggedTitleCount": "Oznaczona opowieści: {{count}}",
 			"taggedTitleCount_0": "Brak oznaczonych opowieści",
 			"taggedTitleCount_plural": "Oznaczone opowieści: {{count}}",
-			"titleCount": "1 opowieść",
+			"titleCount": "{{count}} opowieść",
 			"titleCount_0": "Brak opowieści",
 			"titleCount_plural": "{{count}} opowieści",
 			"titleGeneric": "Opowieści",

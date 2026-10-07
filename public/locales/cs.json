@@ -116,7 +116,7 @@
 		},
 		"storyCard": {
 			"lastUpdated": "Naposled editováno na {{date}}",
-			"passageCount": "1 pasáž",
+			"passageCount": "{{count}} pasáž",
 			"passageCount_plural": "{{count}} pasáží"
 		},
 		"storyFormatItem": {
@@ -335,10 +335,10 @@
 		"storyList": {
 			"library": "Knihovna",
 			"noStories": "Ve Twinu nejsou uložené žádné příběhy. Aby jste začali, můžete buď vytvořit nový příběh nebo ze souboru importovat již existující.",
-			"taggedTitleCount": "1 příběh se značkou",
+			"taggedTitleCount": "{{count}} příběh se značkou",
 			"taggedTitleCount_0": "Žádné příběhy se značkou",
 			"taggedTitleCount_plural": "{{count}} příbehů se značkou",
-			"titleCount": "1 příběh",
+			"titleCount": "{{count}} příběh",
 			"titleCount_0": "Žádné příběhy",
 			"titleCount_plural": "{{count}} příběhů",
 			"titleGeneric": "Příběhy",

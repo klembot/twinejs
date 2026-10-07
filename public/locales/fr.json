@@ -105,7 +105,7 @@
 		},
 		"storyCard": {
 			"lastUpdated": "Dernière modification le {{date}}",
-			"passageCount": "1 passage",
+			"passageCount": "{{count}} passage",
 			"passageCount_plural": "{{count}} passages"
 		},
 		"storyFormatItem": {
@@ -327,10 +327,10 @@
 				"sortName": "Nom",
 				"storyFormats": "Formats"
 			},
-			"taggedTitleCount": "1 Histoire balisée",
+			"taggedTitleCount": "{{count}} Histoire balisée",
 			"taggedTitleCount_0": "Aucune histoire balisée",
 			"taggedTitleCount_plural": "{{count}} histoires balisées",
-			"titleCount": "1 histoire",
+			"titleCount": "{{count}} histoire",
 			"titleCount_0": "Aucune histoire",
 			"titleCount_plural": "{{count}} histoires",
 			"toolbar": {

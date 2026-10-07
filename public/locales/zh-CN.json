@@ -323,10 +323,10 @@
 		"storyList": {
 			"library": "库",
 			"noStories": "在 Twine 中没有保存的故事。您可以创建一个新故事或从文件导入现有的故事。",
-			"taggedTitleCount": "1 个有标签的故事",
+			"taggedTitleCount": "{{count}} 个有标签的故事",
 			"taggedTitleCount_0": "不存在有标签的故事",
 			"taggedTitleCount_plural": "{{count}} 个有标签的故事",
-			"titleCount": "1 个故事",
+			"titleCount": "{{count}} 个故事",
 			"titleCount_0": "无故事",
 			"titleCount_plural": "{{count}} 个故事",
 			"titleGeneric": "故事",

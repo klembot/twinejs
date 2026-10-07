@@ -116,7 +116,7 @@
 		},
 		"storyCard": {
 			"lastUpdated": "마지막 편집 날짜: {{date}}",
-			"passageCount": "1개 구절",
+			"passageCount": "{{count}}개 구절",
 			"passageCount_plural": "{{count}}개 구절"
 		},
 		"storyFormatItem": {
@@ -327,10 +327,10 @@
 		"storyList": {
 			"library": "라이브러리",
 			"noStories": "현재 Twine에 저장된 스토리가 없습니다. 시작하려면 새 스토리를 만들거나 파일에서 기존 스토리를 가져올 수 있습니다.",
-			"taggedTitleCount": "태그가 지정된 스토리 1개",
+			"taggedTitleCount": "태그가 지정된 스토리 {{count}}개",
 			"taggedTitleCount_0": "태그가 지정된 스토리 없음",
 			"taggedTitleCount_plural": "태그가 지정된 스토리 {{count}}개",
-			"titleCount": "스토리 1개",
+			"titleCount": "스토리 {{count}}개",
 			"titleCount_0": "스토리 없음",
 			"titleCount_plural": "스토리 {{count}}개",
 			"titleGeneric": "스토리",
