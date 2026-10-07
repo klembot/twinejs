@@ -119,7 +119,7 @@
 		},
 		"storyCard": {
 			"lastUpdated": "{{date}}に最終編集",
-			"passageCount": "パッセージ1件",
+			"passageCount": "パッセージ{{count}}件",
 			"passageCount_plural": "パッセージ{{count}}件"
 		},
 		"storyFormatItem": {
@@ -357,10 +357,10 @@
 		"storyList": {
 			"library": "ライブラリ",
 			"noStories": "現在、Twineに保存されているストーリーはありません。開始するには、新しいストーリーを作成するか、ファイルから既存のストーリーをインポートします。",
-			"taggedTitleCount": "タグ付きストーリー1件",
+			"taggedTitleCount": "タグ付きストーリー{{count}}件",
 			"taggedTitleCount_0": "タグ付きストーリーなし",
 			"taggedTitleCount_plural": "タグ付きストーリー{{count}}件",
-			"titleCount": "ストーリー1件",
+			"titleCount": "ストーリー{{count}}件",
 			"titleCount_0": "ストーリーなし",
 			"titleCount_plural": "ストーリー{{count}}件",
 			"titleGeneric": "ストーリー",

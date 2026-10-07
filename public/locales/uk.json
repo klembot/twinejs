@@ -119,7 +119,7 @@
 		},
 		"storyCard": {
 			"lastUpdated": "Дата редагування: {{date}}",
-			"passageCount": "1 параграф",
+			"passageCount": "{{count}} параграф",
 			"passageCount_1": "{{count}} параграфи",
 			"passageCount_2": "{{count}} параграфів"
 		},
@@ -360,11 +360,11 @@
 		"storyList": {
 			"library": "Бібліотека",
 			"noStories": "Зараз в Twine немає оповідань. Ви можете створити нове оповідання або імпортувати вже існуюче з файлу.",
-			"taggedTitleCount": "1 оповідання з мітками",
+			"taggedTitleCount": "{{count}} оповідання з мітками",
 			"taggedTitleCount_0": "Немає оповідань з мітками",
 			"taggedTitleCount_1": "{{count}} оповідання з мітками",
 			"taggedTitleCount_2": "{{count}} оповідань з мітками",
-			"titleCount": "1 оповідання",
+			"titleCount": "{{count}} оповідання",
 			"titleCount_0": "Немає оповідань",
 			"titleCount_1": "{{count}} оповідання",
 			"titleCount_2": "{{count}} оповідань",
