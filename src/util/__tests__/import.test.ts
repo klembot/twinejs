@@ -12,6 +12,12 @@ const testHtml = `
 
 const bareTestHtml = '<tw-storydata name="Test" hidden></tw-storydata>';
 
+const maliciousImageHtml = `
+<tw-storydata name="Test" hidden>
+<img src="nonexistent" onerror="window.failed=true" />
+</tw-storydata>
+`;
+
 describe('importStories', () => {
 	it('creates a JavaScript object representation of HTML data', () => {
 		const result = importStories(testHtml);
@@ -81,6 +87,16 @@ describe('importStories', () => {
 
 	it.todo('handles malformed passage size attributes');
 	it.todo('handles malformed passage position attributes');
+
+	it("doesn't trigger onerror attributes of image tags in the HTML", () => {
+		// This is unfortunately not a very representative test because
+		// the DOM implementation used in tests doesn't trigger the problematic
+		// behavior that a real browser would, but is here for documentation.
+		// See https://github.com/klembot/twinejs/issues/1706
+
+		importStories(maliciousImageHtml);
+		expect((window as any).failed).toBeUndefined();
+	});
 
 	it('handles HTML data without expected attributes', () => {
 		const result = importStories(bareTestHtml);

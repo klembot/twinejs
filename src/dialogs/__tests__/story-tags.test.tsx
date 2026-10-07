@@ -79,7 +79,7 @@ describe('<StoryTagsDialog>', () => {
 				'onChangeName'
 			)
 		);
-		expect(renameStoryTagMock).toBeCalledTimes(1);
+		expect(renameStoryTagMock).toHaveBeenCalledTimes(1);
 		expect(dispatch.mock.calls).toEqual([[renameStoryTagMock.mock.calls[0]]]);
 	});
 

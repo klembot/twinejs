@@ -131,9 +131,7 @@ export function importStories(
 	html: string,
 	lastUpdateOverride?: Date
 ): Story[] {
-	const nodes = document.createElement('div');
-
-	nodes.innerHTML = html;
+	const nodes = new DOMParser().parseFromString(html, 'text/html').body;
 
 	return query(nodes, selectors.storyData).map(storyEl => {
 		const importedStory = domToObject(storyEl);

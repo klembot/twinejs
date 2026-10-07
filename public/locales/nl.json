@@ -112,7 +112,7 @@
 		},
 		"storyCard": {
 			"lastUpdated": "Voor het laatst bewerkt op {{date}}",
-			"passageCount": "1 passage",
+			"passageCount": "{{count}} passage",
 			"passageCount_plural": "{{count}} passages"
 		},
 		"storyFormatItem": {
@@ -318,10 +318,10 @@
 		"storyList": {
 			"library": "Bibliotheek",
 			"noStories": "Er zijn momenteel geen verhalen opgeslagen in Twine. Om aan de slag te gaan, kunt u een nieuw verhaal maken of een bestaand verhaal uit een bestand importeren.",
-			"taggedTitleCount": "1 Getagd Verhaal",
+			"taggedTitleCount": "{{count}} Getagd Verhaal",
 			"taggedTitleCount_0": "Geen Getagden Verhalen",
 			"taggedTitleCount_plural": "{{count}} Getagden Verhalen",
-			"titleCount": "1 Verhaal",
+			"titleCount": "{{count}} Verhaal",
 			"titleCount_0": "Geen Verhalen",
 			"titleCount_plural": "{{count}} Verhalen",
 			"titleGeneric": "Verhalen",

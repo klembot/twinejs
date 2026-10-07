@@ -26,6 +26,6 @@ describe('getUserCss', () => {
 		readFileMock.mockImplementation(() => Promise.reject(new Error()));
 
 		expect(await getUserCss()).toBeUndefined();
-		expect(warnSpy).toBeCalledTimes(1);
+		expect(warnSpy).toHaveBeenCalledTimes(1);
 	});
 });

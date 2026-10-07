@@ -76,7 +76,7 @@ describe('checkForUpdate()', () => {
 		it('takes no action if the user clicks Cancel', async () => {
 			showMessageBoxMock.mockResolvedValue({response: 1});
 			await checkForUpdate();
-			expect(openExternalMock).not.toBeCalled();
+			expect(openExternalMock).not.toHaveBeenCalled();
 		});
 	});
 

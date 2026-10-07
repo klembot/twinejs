@@ -115,7 +115,7 @@
 		},
 		"storyCard": {
 			"lastUpdated": "En son {{date}} tarihinde düzenlendi",
-			"passageCount": "1 Bölüm",
+			"passageCount": "{{count}} Bölüm",
 			"passageCount_plural": "{{count}} Bölüm"
 		},
 		"storyFormatItem": {
@@ -322,10 +322,10 @@
 		"storyList": {
 			"library": "Kitaplık",
 			"noStories": "Şu an Twine'da kayıtlı hiçbir öykü yok. Başlamak için yeni bir öykü yaratın veya var olan bir öyküyü içe aktarın.",
-			"taggedTitleCount": "1 Öykü Etiketli",
+			"taggedTitleCount": "{{count}} Öykü Etiketli",
 			"taggedTitleCount_0": "Hiç Öykü Etiketli Değil",
 			"taggedTitleCount_plural": "{{count}} Öykü Etiketli",
-			"titleCount": "1 Öykü",
+			"titleCount": "{{count}} Öykü",
 			"titleCount_0": "Hiç Öykü Yok",
 			"titleCount_plural": "{{count}} Öykü",
 			"titleGeneric": "Öyküler",

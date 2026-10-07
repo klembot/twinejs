@@ -53,7 +53,7 @@ describe('deleteOrphanedPassages', () => {
 			'',
 			story.passages[1].text
 		)(dispatch, getState);
-		expect(dispatchMock).not.toBeCalled();
+		expect(dispatchMock).not.toHaveBeenCalled();
 	});
 
 	it("does not delete a passage that isn't empty", () => {
@@ -64,7 +64,7 @@ describe('deleteOrphanedPassages', () => {
 			'',
 			story.passages[1].text
 		)(dispatch, getState);
-		expect(dispatchMock).not.toBeCalled();
+		expect(dispatchMock).not.toHaveBeenCalled();
 	});
 
 	it('does not delete a passage that is the story start', () => {
@@ -75,7 +75,7 @@ describe('deleteOrphanedPassages', () => {
 			'',
 			story.passages[1].text
 		)(dispatch, getState);
-		expect(dispatchMock).not.toBeCalled();
+		expect(dispatchMock).not.toHaveBeenCalled();
 	});
 
 	it('does not delete empty passages that have no relationship to the changed passage', () => {
@@ -86,7 +86,7 @@ describe('deleteOrphanedPassages', () => {
 			'',
 			story.passages[1].text
 		)(dispatch, getState);
-		expect(dispatchMock).not.toBeCalled();
+		expect(dispatchMock).not.toHaveBeenCalled();
 	});
 
 	it('dispatches no actions if no passages are orphaned', () => {
@@ -96,7 +96,7 @@ describe('deleteOrphanedPassages', () => {
 			`${story.passages[1].text} [[a new link]]`,
 			story.passages[1].text
 		)(dispatch, getState);
-		expect(dispatchMock).not.toBeCalled();
+		expect(dispatchMock).not.toHaveBeenCalled();
 	});
 
 	it("throws an error if given a passage that doesn't belong to the story", () =>

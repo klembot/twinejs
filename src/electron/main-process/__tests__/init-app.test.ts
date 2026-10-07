@@ -34,22 +34,22 @@ describe('initApp', () => {
 
 	it('initializes locales', async () => {
 		await initApp();
-		expect(initLocalesMock).toBeCalledTimes(1);
+		expect(initLocalesMock).toHaveBeenCalledTimes(1);
 	});
 
 	it('initializes the story directory', async () => {
 		await initApp();
-		expect(initStoryDirectoryMock).toBeCalledTimes(1);
+		expect(initStoryDirectoryMock).toHaveBeenCalledTimes(1);
 	});
 
 	it('creates the story directory', async () => {
 		await initApp();
-		expect(createStoryDirectoryMock).toBeCalledTimes(1);
+		expect(createStoryDirectoryMock).toHaveBeenCalledTimes(1);
 	});
 
 	it('backs up the story directory', async () => {
 		await initApp();
-		expect(backupStoryDirectoryMock).toBeCalledTimes(1);
+		expect(backupStoryDirectoryMock).toHaveBeenCalledTimes(1);
 	});
 
 	it('initializes backing up the story directory every 20 minutes', async () => {
@@ -65,19 +65,19 @@ describe('initApp', () => {
 		const onQuit = onMock.mock.calls.find(([event]) => event === 'will-quit');
 
 		expect(onQuit).not.toBeUndefined();
-		expect(cleanScratchDirectoryMock).not.toBeCalled();
+		expect(cleanScratchDirectoryMock).not.toHaveBeenCalled();
 		onQuit[1]();
-		expect(cleanScratchDirectoryMock).toBeCalledTimes(1);
+		expect(cleanScratchDirectoryMock).toHaveBeenCalledTimes(1);
 	});
 
 	it('initializes IPC', async () => {
 		await initApp();
-		expect(initIpcMock).toBeCalledTimes(1);
+		expect(initIpcMock).toHaveBeenCalledTimes(1);
 	});
 
 	it('initializes the menu bar', async () => {
 		await initApp();
-		expect(initMenuBarMock).toBeCalledTimes(1);
+		expect(initMenuBarMock).toHaveBeenCalledTimes(1);
 	});
 
 	it.todo('creates the main window');
@@ -85,13 +85,13 @@ describe('initApp', () => {
 
 	it('does not show an error dialog when everything loads', async () => {
 		await initApp();
-		expect(showErrorBoxMock).not.toBeCalled();
+		expect(showErrorBoxMock).not.toHaveBeenCalled();
 	});
 
 	it('displays an error dialog and quits if an error occurs', async () => {
 		initLocalesMock.mockRejectedValue(new Error());
 		await initApp();
-		expect(showErrorBoxMock).toBeCalledTimes(1);
-		expect(quitMock).toBeCalledTimes(1);
+		expect(showErrorBoxMock).toHaveBeenCalledTimes(1);
+		expect(quitMock).toHaveBeenCalledTimes(1);
 	});
 });

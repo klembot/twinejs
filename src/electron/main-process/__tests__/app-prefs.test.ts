@@ -96,7 +96,7 @@ describe('setAppPref', () => {
 
 	it('resolves after saving changes to the app prefs file', async () => {
 		loadAppPrefs();
-		expect(saveJsonFileMock).not.toBeCalled();
+		expect(saveJsonFileMock).not.toHaveBeenCalled();
 		await setAppPref('scratchFolderPath', 'mock-change');
 		expect(saveJsonFileMock.mock.calls).toEqual([
 			['app-prefs.json', {scratchFolderPath: 'mock-change'}]

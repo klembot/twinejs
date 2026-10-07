@@ -52,7 +52,7 @@ describe('<TagButton>', () => {
 		renderComponent({onRemove});
 		expect(onRemove).not.toHaveBeenCalled();
 		fireEvent.click(screen.getByText('common.remove'));
-		expect(onRemove).toBeCalledTimes(1);
+		expect(onRemove).toHaveBeenCalledTimes(1);
 	});
 
 	it('is accessible', async () => {

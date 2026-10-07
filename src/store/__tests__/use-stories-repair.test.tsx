@@ -112,7 +112,7 @@ describe('useStoriesRepair', () => {
 		const {result} = renderHook(() => useStoriesRepair(), {wrapper});
 
 		result.current();
-		expect(dispatch).not.toBeCalled();
+		expect(dispatch).not.toHaveBeenCalled();
 		oldError.mockRestore();
 	});
 });

@@ -115,7 +115,7 @@
 		},
 		"storyCard": {
 			"lastUpdated": "Последние изменения: {{date}}",
-			"passageCount": "1 история",
+			"passageCount": "{{count}} история",
 			"passageCount_plural": "Количество историй: {{count}}"
 		},
 		"storyFormatItem": {
@@ -341,10 +341,10 @@
 		"storyList": {
 			"library": "Библиотека",
 			"noStories": "В данный момент в Twine нет сохраненных историй. Для начала вы можете либо создать новую историю, либо импортировать существующую из файла.",
-			"taggedTitleCount": "1 Tagged Story",
+			"taggedTitleCount": "{{count}} Tagged Story",
 			"taggedTitleCount_0": "No Tagged Stories",
 			"taggedTitleCount_plural": "{{count}} Tagged Stories",
-			"titleCount": "1 история",
+			"titleCount": "{{count}} история",
 			"titleCount_0": "Нет историй",
 			"titleCount_plural": "Количество историй: {{count}}",
 			"titleGeneric": "Истории",

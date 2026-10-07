@@ -26,19 +26,19 @@ export function useStoryLaunch(): UseStoryLaunchProps {
 
 		return {
 			playStory: async storyId => {
-				twineElectron.openWithScratchFile(
+				twineElectron.openHtmlWithScratchFile(
 					await publishStory(storyId),
 					`play-${storyId}.html`
 				);
 			},
 			proofStory: async storyId => {
-				twineElectron.openWithScratchFile(
+				twineElectron.openHtmlWithScratchFile(
 					await proofStory(storyId),
 					`proof-${storyId}.html`
 				);
 			},
 			testStory: async (storyId, startPassageId) => {
-				twineElectron.openWithScratchFile(
+				twineElectron.openHtmlWithScratchFile(
 					await publishStory(storyId, {
 						formatOptions: 'debug',
 						startId: startPassageId

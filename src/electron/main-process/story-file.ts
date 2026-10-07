@@ -1,6 +1,5 @@
 import {app, dialog, shell} from 'electron';
 import {
-	mkdtemp,
 	move,
 	readdir,
 	readFile,
@@ -66,10 +65,7 @@ export async function saveStoryHtml(story: Story, storyHtml: string) {
 	console.log(`Saving ${savedFilePath}`);
 
 	try {
-		const tempFileDirectory = await mkdtemp(
-			join(app.getPath('temp'), `twine-${story.id}`)
-		);
-		const tempFilePath = join(tempFileDirectory, storyFileName(story));
+		const tempFilePath = join(app.getPath('temp'), `${story.id}.html`);
 
 		if (await wasFileChangedExternally(savedFilePath)) {
 			const {response} = await dialog.showMessageBox({

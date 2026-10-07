@@ -50,7 +50,7 @@ describe('<AppDonationDialog>', () => {
 		renderComponent({onClose});
 		expect(onClose).not.toHaveBeenCalled();
 		fireEvent.click(screen.getByText('dialogs.appDonation.noThanks'));
-		expect(onClose).toBeCalledTimes(1);
+		expect(onClose).toHaveBeenCalledTimes(1);
 	});
 
 	it('is accessible', async () => {

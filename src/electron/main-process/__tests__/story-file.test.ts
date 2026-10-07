@@ -1,13 +1,5 @@
 import {app, dialog, shell} from 'electron';
-import {
-	mkdtemp,
-	move,
-	readdir,
-	readFile,
-	rename,
-	stat,
-	writeFile
-} from 'fs-extra';
+import {move, readdir, readFile, rename, stat, writeFile} from 'fs-extra';
 import {
 	deleteStory,
 	loadStories,
@@ -77,10 +69,10 @@ describe('deleteStory', () => {
 
 		deleteStory(story).then(done);
 		await resolveAllPromises();
-		expect(done).not.toBeCalled();
+		expect(done).not.toHaveBeenCalled();
 		resolveTrashItem();
 		await resolveAllPromises();
-		expect(done).toBeCalledTimes(1);
+		expect(done).toHaveBeenCalledTimes(1);
 	});
 });
 
@@ -252,16 +244,16 @@ describe('loadStories', () => {
 
 		loadStories().then(done);
 		await resolveAllPromises();
-		expect(done).not.toBeCalled();
+		expect(done).not.toHaveBeenCalled();
 		resolveReaddir();
 		await resolveAllPromises();
-		expect(done).not.toBeCalled();
+		expect(done).not.toHaveBeenCalled();
 		resolveStat();
 		await resolveAllPromises();
-		expect(done).not.toBeCalled();
+		expect(done).not.toHaveBeenCalled();
 		resolveFileWasTouched();
 		await resolveAllPromises();
-		expect(done).toBeCalledTimes(1);
+		expect(done).toHaveBeenCalledTimes(1);
 	});
 });
 
@@ -328,19 +320,18 @@ describe('renameStory', () => {
 
 		renameStory(oldStory, newStory).then(done);
 		await resolveAllPromises();
-		expect(done).not.toBeCalled();
+		expect(done).not.toHaveBeenCalled();
 		resolveRename();
 		await resolveAllPromises();
-		expect(done).not.toBeCalled();
+		expect(done).not.toHaveBeenCalled();
 		resolveFileWasTouched();
 		await resolveAllPromises();
-		expect(done).toBeCalledTimes(1);
+		expect(done).toHaveBeenCalledTimes(1);
 	});
 });
 
 describe('saveStoryHtml()', () => {
 	const fileWasTouchedMock = fileWasTouched as jest.Mock;
-	const mkdtempMock = mkdtemp as jest.Mock;
 	const moveMock = move as jest.Mock;
 	const quitMock = app.quit as jest.Mock;
 	const relaunchMock = app.relaunch as jest.Mock;
@@ -352,28 +343,17 @@ describe('saveStoryHtml()', () => {
 	beforeEach(() => {
 		jest.spyOn(console, 'log').mockReturnValue();
 		jest.spyOn(console, 'error').mockReturnValue();
-		mkdtempMock.mockImplementation(
-			async (prefix: string) => `mkdtemp-mock-${prefix}`
-		);
 		story = fakeStory();
 	});
 
 	it('saves the HTML to a temp file, then replaces the destination with the temp file', async () => {
 		await saveStoryHtml(story, 'story html');
 		expect(writeFileMock.mock.calls).toEqual([
-			[
-				`mkdtemp-mock-mock-electron-app-path-temp/twine-${
-					story.id
-				}/${storyFileName(story)}`,
-				'story html',
-				'utf8'
-			]
+			[`mock-electron-app-path-temp/${story.id}.html`, 'story html', 'utf8']
 		]);
 		expect(moveMock.mock.calls).toEqual([
 			[
-				`mkdtemp-mock-mock-electron-app-path-temp/twine-${
-					story.id
-				}/${storyFileName(story)}`,
+				`mock-electron-app-path-temp/${story.id}.html`,
 				`mock-story-directory/${storyFileName(story)}`,
 				{overwrite: true}
 			]
@@ -388,15 +368,11 @@ describe('saveStoryHtml()', () => {
 	});
 
 	it('does not resolve until all async file operations have finished', async () => {
-		let resolveMkdtemp = () => {};
 		let resolveWriteFile = () => {};
 		let resolveMove = () => {};
 		let resolveFileWasTouched = () => {};
 		const done = jest.fn();
 
-		mkdtempMock.mockReturnValue(
-			new Promise(resolve => (resolveMkdtemp = () => resolve('mock-temp-dir')))
-		);
 		writeFileMock.mockReturnValue(
 			new Promise<void>(resolve => (resolveWriteFile = resolve))
 		);
@@ -409,19 +385,16 @@ describe('saveStoryHtml()', () => {
 
 		saveStoryHtml(story, 'story html').then(done);
 		await resolveAllPromises();
-		expect(done).not.toBeCalled();
-		resolveMkdtemp();
-		await resolveAllPromises();
-		expect(done).not.toBeCalled();
+		expect(done).not.toHaveBeenCalled();
 		resolveWriteFile();
 		await resolveAllPromises();
-		expect(done).not.toBeCalled();
+		expect(done).not.toHaveBeenCalled();
 		resolveMove();
 		await resolveAllPromises();
-		expect(done).not.toBeCalled();
+		expect(done).not.toHaveBeenCalled();
 		resolveFileWasTouched();
 		await resolveAllPromises();
-		expect(done).toBeCalledTimes(1);
+		expect(done).toHaveBeenCalledTimes(1);
 	});
 
 	it("doesn't show a dialog", async () => {
@@ -434,7 +407,7 @@ describe('saveStoryHtml()', () => {
 
 		writeFileMock.mockRejectedValue(mockError);
 		await expect(saveStoryHtml(story, 'story html')).rejects.toBe(mockError);
-		expect(moveMock).not.toBeCalled();
+		expect(moveMock).not.toHaveBeenCalled();
 	});
 
 	it('rejects if replacing the destination file fails', async () => {

@@ -34,7 +34,7 @@ describe('FuzzyFinderResult', () => {
 		renderComponent({onClick});
 		expect(onClick).not.toHaveBeenCalled();
 		fireEvent.click(screen.getByRole('button'));
-		expect(onClick).toBeCalledTimes(1);
+		expect(onClick).toHaveBeenCalledTimes(1);
 	});
 
 	it('is accessible', async () => {

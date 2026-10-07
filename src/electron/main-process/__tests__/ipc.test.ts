@@ -2,7 +2,7 @@ import {app, ipcMain} from 'electron';
 import {initIpc} from '../ipc';
 import {loadPrefs} from '../prefs';
 import {saveJsonFile} from '../json-file';
-import {openWithScratchFile} from '../scratch-file';
+import {openHtmlWithScratchFile} from '../scratch-file';
 import {
 	deleteStory,
 	loadStories,
@@ -27,7 +27,7 @@ describe('initIpc()', () => {
 	const loadStoryFormatsMock = loadStoryFormats as jest.Mock;
 	const onMock = ipcMain.on as jest.Mock;
 	const appOnMock = app.on as jest.Mock;
-	const openWithScratchFileMock = openWithScratchFile as jest.Mock;
+	const openWithScratchFileMock = openHtmlWithScratchFile as jest.Mock;
 	const renameStoryMock = renameStory as jest.Mock;
 	const saveJsonFileMock = saveJsonFile as jest.Mock;
 	const saveStoryHtmlMock = saveStoryHtml as jest.Mock;
@@ -133,9 +133,9 @@ describe('initIpc()', () => {
 		});
 	});
 
-	it('adds a listener for open-with-scratch-file events that calls openWithScratchFile()', async () => {
+	it('adds a listener for open-html-with-scratch-file events that calls openWithScratchFile()', async () => {
 		const listener = onMock.mock.calls.find(
-			call => call[0] === 'open-with-scratch-file'
+			call => call[0] === 'open-html-with-scratch-file'
 		);
 
 		expect(listener).not.toBeUndefined();

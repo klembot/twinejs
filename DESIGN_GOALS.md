@@ -103,7 +103,7 @@ Twine will be usable for years if not decades to come.
   browser Twine should have identical experiences regardless of which browser
   they use.
   - The major exception is Safari, which has imposed [restrictions on local
-    storage](safari-localstorage) which are admirable in their goal of
+    storage][safari-localstorage] which are admirable in their goal of
     protecting user privacy, but have dire implications for Twine users, who can
     easily lose all of their work if they aren't careful. If it becomes possible
     to use browser Twine in Safari safely, it would be worthwhile to make this happen.

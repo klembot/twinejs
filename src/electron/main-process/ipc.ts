@@ -11,7 +11,7 @@ import {
 } from './story-file';
 import {loadStoryFormats} from './story-formats';
 import {loadPrefs} from './prefs';
-import {openWithScratchFile} from './scratch-file';
+import {openHtmlWithScratchFile} from './scratch-file';
 import {Story} from '../../store/stories/stories.types';
 
 export function initIpc() {
@@ -68,9 +68,9 @@ export function initIpc() {
 	});
 
 	ipcMain.on(
-		'open-with-scratch-file',
+		'open-html-with-scratch-file',
 		(event, data: string, filename: string) => {
-			openWithScratchFile(data, filename);
+			openHtmlWithScratchFile(data, filename);
 		}
 	);
 

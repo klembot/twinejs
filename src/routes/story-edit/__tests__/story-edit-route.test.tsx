@@ -90,7 +90,7 @@ describe('<StoryEditRoute>', () => {
 
 	it('sets up zoom keyboard shortcuts', async () => {
 		await renderComponent(fakeStory());
-		expect(useZoomShortcutsMock).toBeCalled();
+		expect(useZoomShortcutsMock).toHaveBeenCalled();
 	});
 
 	it('is accessible', async () => {

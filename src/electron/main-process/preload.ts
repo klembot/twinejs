@@ -26,8 +26,8 @@ contextBridge.exposeInMainWorld('twineElectron', {
 	onceStoryRenamed(callback: () => void): void {
 		ipcRenderer.once('story-renamed', callback);
 	},
-	openWithScratchFile(data: string, filename: string) {
-		ipcRenderer.send('open-with-scratch-file', data, filename);
+	openHtmlWithScratchFile(data: string, filename: string) {
+		ipcRenderer.send('open-html-with-scratch-file', data, filename);
 	},
 	renameStory(oldStory: Story, newStory: Story) {
 		ipcRenderer.send('rename-story', oldStory, newStory);

@@ -52,7 +52,11 @@ export const reducer: React.Reducer<DialogsState, DialogsAction> = (
 		case 'setDialogCollapsed':
 			return state.map((dialog, index) =>
 				index === action.index
-					? {...dialog, collapsed: action.collapsed}
+					? {
+							...dialog,
+							collapsed: action.collapsed,
+							maximized: action.collapsed ? false : dialog.maximized
+					  }
 					: dialog
 			);
 
@@ -66,6 +70,10 @@ export const reducer: React.Reducer<DialogsState, DialogsAction> = (
 		case 'setDialogMaximized':
 			return state.map((dialog, index) => ({
 				...dialog,
+				collapsed:
+					index === action.index && action.maximized
+						? false
+						: dialog.collapsed,
 				maximized: index === action.index ? action.maximized : false
 			}));
 

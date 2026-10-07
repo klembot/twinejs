@@ -22,7 +22,12 @@ export const CodeArea: React.FC<CodeAreaProps> = props => {
 			data-use-code-mirror={props.useCodeMirror}
 		>
 			<label>
-				{props.label} <textarea onChange={handleOnChange} value={props.value} />
+				{props.label}
+				<textarea
+					onBlur={props.onBlur}
+					onChange={handleOnChange}
+					value={props.value}
+				/>
 			</label>
 		</div>
 	);

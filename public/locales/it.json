@@ -116,7 +116,7 @@
 		},
 		"storyCard": {
 			"lastUpdated": "Ultima modifica il {{date}}",
-			"passageCount": "1 passaggio",
+			"passageCount": "{{count}} passaggio",
 			"passageCount_plural": "{{count}} passagi"
 		},
 		"storyFormatItem": {
@@ -342,10 +342,10 @@
 		"storyList": {
 			"library": "Libreria",
 			"noStories": "Al momento non ci sono storie salvate in Twine. Per iniziare, puoi creare una nuova storia o importarne una esistente da un file.",
-			"taggedTitleCount": "1 storia taggata",
+			"taggedTitleCount": "{{count}} storia taggata",
 			"taggedTitleCount_0": "Nessuna storia taggata",
 			"taggedTitleCount_plural": "{{count}} Storie taggate",
-			"titleCount": "1 Storia",
+			"titleCount": "{{count}} Storia",
 			"titleCount_0": "Nessuna storia",
 			"titleCount_plural": "{{count}} Storie",
 			"titleGeneric": "Storie",

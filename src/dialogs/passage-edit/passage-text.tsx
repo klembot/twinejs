@@ -43,6 +43,22 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 	const onChangeText = React.useRef<string>();
 	const onChangeTimeout = React.useRef<number>();
 
+	const commitPendingChange = React.useCallback(() => {
+		onChangeTimeout.current = undefined;
+		onChange(onChangeText.current!);
+	}, [onChange]);
+
+	const scheduleCommit = React.useCallback(() => {
+		onChangeTimeout.current = window.setTimeout(commitPendingChange, 1000);
+	}, [commitPendingChange]);
+
+	const flushPendingChange = React.useCallback(() => {
+		if (onChangeTimeout.current) {
+			window.clearTimeout(onChangeTimeout.current);
+			commitPendingChange();
+		}
+	}, [commitPendingChange]);
+
 	// Effects to handle debouncing updates upward. The idea here is that the
 	// component maintains a local state so that the CodeMirror instance always is
 	// up-to-date with what the user has typed, but the global context may not be.
@@ -76,21 +92,9 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 			// effect.
 
 			onChangeText.current = text;
-
-			// Queue a call to onChange.
-
-			onChangeTimeout.current = window.setTimeout(() => {
-				// Important to reset this ref so that we don't try to cancel fired
-				// timeouts above.
-
-				onChangeTimeout.current = undefined;
-
-				// Finally call the onChange prop.
-
-				onChange(onChangeText.current!);
-			}, 1000);
+			scheduleCommit();
 		},
-		[onChange, onEditorChange]
+		[onEditorChange, scheduleCommit]
 	);
 
 	// If the onChange prop changes while an onChange call is pending, reset the
@@ -99,14 +103,9 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 	React.useEffect(() => {
 		if (onChangeTimeout.current) {
 			window.clearTimeout(onChangeTimeout.current);
-			onChangeTimeout.current = window.setTimeout(() => {
-				// This body must be the same as in the timeout in the previous effect.
-
-				onChangeTimeout.current = undefined;
-				onChange(onChangeText.current!);
-			}, 1000);
+			scheduleCommit();
 		}
-	}, [onChange]);
+	}, [scheduleCommit]);
 
 	const handleMount = React.useCallback(
 		(editor: CodeMirror.Editor) => {
@@ -171,6 +170,7 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 				id={`passage-dialog-passage-text-code-area-${passage.id}`}
 				label={t('dialogs.passageEdit.passageTextEditorLabel')}
 				labelHidden
+				onBlur={flushPendingChange}
 				onChangeEditor={onEditorChange}
 				onChangeText={handleLocalChangeText}
 				options={options}

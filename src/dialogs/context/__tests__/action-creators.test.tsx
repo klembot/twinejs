@@ -178,7 +178,7 @@ describe('removePassageEditors', () => {
 		const warnSpy = jest.spyOn(console, 'warn').mockReturnValue();
 
 		removePassageEditors(['test-passage-id'])(dispatch, () => []);
-		expect(dispatch).not.toBeCalled();
+		expect(dispatch).not.toHaveBeenCalled();
 		warnSpy.mockReset();
 	});
 });

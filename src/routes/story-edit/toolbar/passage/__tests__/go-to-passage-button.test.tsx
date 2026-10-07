@@ -17,11 +17,11 @@ describe('GoToPassageButton', () => {
 		const onOpenFuzzyFinder = jest.fn();
 
 		renderComponent({onOpenFuzzyFinder});
-		expect(onOpenFuzzyFinder).not.toBeCalled();
+		expect(onOpenFuzzyFinder).not.toHaveBeenCalled();
 		fireEvent.click(
 			screen.getByRole('button', {name: 'routes.storyEdit.toolbar.goTo'})
 		);
-		expect(onOpenFuzzyFinder).toBeCalledTimes(1);
+		expect(onOpenFuzzyFinder).toHaveBeenCalledTimes(1);
 	});
 
 	it('is accessible', async () => {

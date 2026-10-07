@@ -40,7 +40,7 @@ describe('<WelcomeCard>', () => {
 
 		expect(onNext).not.toHaveBeenCalled();
 		fireEvent.click(screen.getByText('test next button'));
-		expect(onNext).toBeCalledTimes(1);
+		expect(onNext).toHaveBeenCalledTimes(1);
 	});
 
 	it('displays a skip button that calls onSkip if the showSkip prop is true', () => {
@@ -49,7 +49,7 @@ describe('<WelcomeCard>', () => {
 		renderComponent({onSkip, showSkip: true});
 		expect(onSkip).not.toHaveBeenCalled();
 		fireEvent.click(screen.getByText('common.skip'));
-		expect(onSkip).toBeCalledTimes(1);
+		expect(onSkip).toHaveBeenCalledTimes(1);
 	});
 
 	it("doesn't display a skip button if the showSkip prop is false", () => {

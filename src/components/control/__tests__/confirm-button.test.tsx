@@ -58,7 +58,7 @@ describe('<ConfirmButton>', () => {
 		await act(() => Promise.resolve());
 		expect(onConfirm).not.toHaveBeenCalled();
 		fireEvent.click(screen.getByRole('button', {name: 'test-confirm'}));
-		expect(onConfirm).toBeCalledTimes(1);
+		expect(onConfirm).toHaveBeenCalledTimes(1);
 		expect(
 			screen.queryByRole('button', {name: 'test-cancel'})
 		).not.toBeInTheDocument();
