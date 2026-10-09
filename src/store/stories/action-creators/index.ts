@@ -3,6 +3,7 @@ export * from './create-story';
 export * from './create-untitled-passage';
 export * from './delete-passage';
 export * from './delete-story';
+export * from './delete-tag-from-all-stories';
 export * from './duplicate-story';
 export * from './find-replace';
 export * from './highlight-passages';

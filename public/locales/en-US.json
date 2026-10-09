@@ -148,7 +148,9 @@
 			"tagsWithCount_plural": "Tags ({{count}})"
 		},
 		"tagEditor": {
-			"alreadyExists": "A tag with this name already exists."
+			"alreadyExists": "A tag with this name already exists.",
+			"deleteTag": "Delete \"{{name}}\"? The tag will be removed from every passage.",
+			"deleteTagGlobal": "Delete \"{{name}}\"? This will remove the tag from all stories"
 		}
 	},
 	"dialogs": {
